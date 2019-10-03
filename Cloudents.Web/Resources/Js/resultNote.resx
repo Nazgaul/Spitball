@@ -137,7 +137,7 @@
     <comment>Duplicate</comment>
   </data>
   <data name="deleted_success" xml:space="preserve">
-    <value>Document deleted</value>
+    <value>File deleted</value>
   </data>
   <data name="download" xml:space="preserve">
     <value>Download</value>
@@ -161,10 +161,10 @@
     <value>Purchases</value>
   </data>
   <data name="university" xml:space="preserve">
-    <value>University: {1}</value>
+    <value>School: {1}</value>
   </data>
   <data name="unsufficient_fund" xml:space="preserve">
-    <value>You do not have sufficient points</value>
+    <value>You do not have sufficient points to purchase this product</value>
   </data>
   <data name="view" xml:space="preserve">
     <value>View</value>

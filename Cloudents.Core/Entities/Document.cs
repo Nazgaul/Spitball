@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Core.Enum;
 using static Cloudents.Core.Entities.ItemStatus;
 
 
@@ -18,7 +19,7 @@ namespace Cloudents.Core.Entities
         public Document(string name,
             University university,
             Course course, [NotNull] string type,
-            IEnumerable<Tag> tags, BaseUser user, string professor, decimal price)
+            IEnumerable<Tag> tags, BaseUser user, string professor, decimal price, DocumentType documentType)
         : this()
         {
             if (tags == null) throw new ArgumentNullException(nameof(tags));
@@ -40,6 +41,7 @@ namespace Cloudents.Core.Entities
                 MakePublic();
             }
             Status = status;
+            DocumentType = documentType;
         }
 
         protected Document()
@@ -168,11 +170,5 @@ namespace Cloudents.Core.Entities
 
         //This is only for video
         public virtual TimeSpan? Duration { get; set; }
-    }
-
-    public enum DocumentType
-    {
-        Document,
-        Video
     }
 }

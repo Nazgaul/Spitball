@@ -163,7 +163,7 @@
     <value>היומן שלי לא זמין כעת, צור איתי קשר בהודעה ונתאם מועד לשיעור פרטי.</value>
   </data>
   <data name="error_create_event" xml:space="preserve">
-    <value>תודה שבחרת בי! אני מלמד בשעה הזו, אולי תנסה לקבוע בזמן אחר?</value>
+    <value>ההזמנה נכשלה, נסה לרענן את הדף!</value>
   </data>
   <data name="header" xml:space="preserve">
     <value>מוזמנים לתאם איתי שיעור</value>

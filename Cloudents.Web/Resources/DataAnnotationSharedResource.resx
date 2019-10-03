@@ -148,7 +148,7 @@
     <comment>should not happen</comment>
   </data>
   <data name="NeedUniversity" xml:space="preserve">
-    <value>You need to choose university first</value>
+    <value>You need to choose school first</value>
   </data>
   <data name="PasswordNotMatch" xml:space="preserve">
     <value>Password should match</value>

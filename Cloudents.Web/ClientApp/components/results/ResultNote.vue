@@ -29,19 +29,18 @@
               </v-menu>
           </div>
         </div>
-
+        
         <v-flex grow class="top-row">
-
-          <div class="document-body-card">
-
-            <span v-if="isVideo && item.itemDuration" class="videoType">
-              <vidSVG class="vidSvg"/>
-              <span class="vidTime">{{item.itemDuration}}</span>
-            </span>
-
-            <v-progress-circular v-if="!item.preview" class="document-body-card-img" :style="isMobile? 'height:108px; width:100%;' : 'height:130px'"  indeterminate v-bind:size="164" width="2" color="#514f7d"/>
-            <img v-else class="document-body-card-img" :src="docPreviewImg(item.preview)" alt="">
-          </div>
+          <template>
+            <v-progress-circular v-show="!isPreviewReady" class="document-body-card-img" :style="isMobile? 'height:108px; width:100%;' : 'height:130px'"  indeterminate v-bind:size="164" width="2" color="#514f7d"/>
+            <div class="document-body-card">
+              <span v-show="(isVideo && item.itemDuration) && isPreviewReady" class="videoType">
+                <vidSVG class="vidSvg"/>
+                <span class="vidTime">{{item.itemDuration}}</span>
+              </span>
+              <img class="document-body-card-img" @load="isPreviewReady = true" :src="docPreviewImg" alt="">
+            </div>
+          </template>
 
           <div class="type-wrap">
             <v-flex grow class="data-row">
@@ -112,7 +111,7 @@
               v-line-clamp="1"
             >&nbsp;"{{item.title}}"</span>
           </div>
-          <div class="input-wrap d-flex row align-center justify-center">
+          <div class="input-wrap row align-center justify-center">
             <div :class="['price-wrap', isRtl ? 'reversed' : '']">
               <vue-numeric
                 :currency="currentCurrency"
@@ -165,8 +164,9 @@ export default {
   },
   data() {
     return {
+      isPreviewReady:false,
       isLiked: false,
-      isFirefox: global.isFirefox,
+      loading: false,
       currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
       actions: [
         {
@@ -276,6 +276,20 @@ export default {
     },
     isMobile(){
       return this.$vuetify.breakpoint.xs;
+    },
+    docPreviewImg(){
+      if(this.isMobile){
+        return utilitiesService.proccessImageURL(this.item.preview, 100, 106,'crop&anchorPosition=top');
+      } else{
+        return utilitiesService.proccessImageURL(this.item.preview, 164, 130,'crop&anchorPosition=top');
+      }
+    },
+    isPreview() {
+      debugger
+      if(this.item && this.item.preview && this.loading) {
+        return false;
+      }
+      return true;
     }
   },
   methods: {
@@ -292,13 +306,7 @@ export default {
       "removeItemFromList"
     ]),
     ...mapGetters(["accountUser"]),
-    docPreviewImg(imgUrl){
-      if(this.isMobile){
-        return utilitiesService.proccessImageURL(imgUrl, 100, 106,'crop&anchorPosition=top');
-      } else{
-        return utilitiesService.proccessImageURL(imgUrl, 164, 130,'crop&anchorPosition=top');
-      }
-    },
+
     cardOwner() {
       let userAccount = this.accountUser();
       if (userAccount && this.item.user) {
@@ -417,6 +425,9 @@ export default {
   },
   created() {
     this.isLiked = this.item.upvoted;
+      this.$nextTick(() => {
+        this.loading = true;
+      })
   },
 };
 </script>

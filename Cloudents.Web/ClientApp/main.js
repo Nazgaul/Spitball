@@ -194,7 +194,7 @@ Vue.filter('capitalize',
 //is rtl
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 //check if firefox for ellipsis, if yes use allipsis filter if false css multiline ellipsis
-global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+// global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 //is country Israel
 global.isIsrael = global.country.toLowerCase() === "il";
 //check if Edge (using to fix position sticky bugs)
@@ -211,7 +211,7 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
 Vue.filter('ellipsis',
     function (value, characters, detailedView) {
         value = value || '';
-        if (value.length <= characters || detailedView || !global.isFirefox) {
+        if (value.length <= characters || detailedView) {
             return value;
         } else {
             return value.substr(0, characters) + '...';

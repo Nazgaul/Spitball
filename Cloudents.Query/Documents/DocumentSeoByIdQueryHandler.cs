@@ -8,7 +8,7 @@ using Cloudents.Query.Query;
 using NHibernate;
 using NHibernate.Linq;
 
-namespace Cloudents.Query
+namespace Cloudents.Query.Documents
 {
     
     public class DocumentSeoByIdQueryHandler : IQueryHandler<DocumentSeoById, DocumentSeoDto>

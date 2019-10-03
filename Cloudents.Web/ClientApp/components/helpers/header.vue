@@ -7,9 +7,9 @@
                     <v-flex class="line top">
                         <v-layout row>
                             <v-toolbar-title>
-                                 <a @click="resetItems()" class="logo-link">
-                                     <logoComponent></logoComponent>
-                                </a> 
+                                <router-link @click.prevent="resetItems()" to="/" class="logo-link">
+                                    <logoComponent></logoComponent>
+                                </router-link>
                             </v-toolbar-title>
                             <v-toolbar-items>
                                 <search-input v-if="$vuetify.breakpoint.smAndUp && !hideSearch" :user-text="userText"

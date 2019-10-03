@@ -230,7 +230,7 @@ namespace Cloudents.Web.Api
             {
                 var utmSource = referer.ParseQueryString()["utm_source"];
                 var command = new RequestTutorCommand(model.Course,
-                    _stringLocalizer["RequestTutorChatMessage", model.Course],
+                    _stringLocalizer["RequestTutorChatMessage", model.Course, model.Text ?? string.Empty],
                     userId,
 
                     referer.AbsoluteUri,
@@ -368,9 +368,9 @@ namespace Cloudents.Web.Api
             [FromBody] TutorHoursRequest model,
             CancellationToken token)
         {
-           
+
             var userId = _userManager.GetLongUserId(User);
-            var command = new SetTutorHoursCommand(userId, model.TutorDailyHours.Select(s=> new SetTutorHoursCommand.TutorDailyHours(s.Day,s.From,s.To)));
+            var command = new SetTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new SetTutorHoursCommand.TutorDailyHours(s.Day, s.From, s.To)));
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

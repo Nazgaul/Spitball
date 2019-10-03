@@ -55,7 +55,6 @@ select ds.Id
 	,ds.Title
 	,ds.User_Id
 	,ds.User_Name
-	,ds.User_Score
 	,ds.User_Image
 	,ds.[Views]
 	,ds.Downloads

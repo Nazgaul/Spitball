@@ -3,12 +3,15 @@
         <div class="textarea">
             <div class="text-block">
                 <span class="error-message" v-if="error.errorClass" :error="errorTextArea">{{error.errorText}}</span>
-                <textarea rows="9" required
-                          @click.prevent="isNewBaller()"
-                          :class="[ isFirefox ? 'firefox-text-area' : '']"
-                          @input="updateValue($event.target.value)"
-                          :value="value" autofocus="isFocused"
-                          :placeholder="`extendedTextArea_type_your_${actionType}`" v-language:placeholder></textarea>
+                <textarea 
+                    rows="9" 
+                    required
+                    @click.prevent="isNewBaller()"
+                    @input="updateValue($event.target.value)"
+                    :value="value" autofocus="isFocused"
+                    :placeholder="setPlaceholder" 
+                    v-language:placeholder>
+                </textarea>
                 <div class="action-holder">
                     <ul class="actions_text files-actions" v-if="isAttachVisible">
                         <li>

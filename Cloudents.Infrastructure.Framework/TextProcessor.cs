@@ -14,7 +14,6 @@ namespace Cloudents.Infrastructure.Framework
     public class TextProcessor : IPreviewProvider
     {
 
-        public static readonly string[] Extensions = FormatDocumentExtensions.Text;
 
 
 

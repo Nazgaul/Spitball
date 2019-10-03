@@ -9,6 +9,7 @@ const state = {
     tutorList: [],
     btnLoading: false,
     showPurchaseConfirmation: false,
+    documentLoaded: false,
 };
 
 const getters = {
@@ -26,6 +27,7 @@ const getters = {
     },
     getBtnLoading: state => state.btnLoading,
     getPurchaseConfirmation: state => state.showPurchaseConfirmation,
+    getDocumentLoaded: state => state.documentLoaded,
 };
 
 const mutations = {
@@ -34,12 +36,14 @@ const mutations = {
         state.tutorList.length = 0;
         state.btnLoading = false;
         state.showPurchaseConfirmation = false;
+        state.documentLoaded = false;
     },
     setPurchaseConfirmation(state,val){
         state.showPurchaseConfirmation = val
     },
     setDocument(state, payload) {
-        state.document = payload;        
+        state.document = payload;    
+        state.documentLoaded = true;    
     },
     setTutorsList(state, payload) {
         state.tutorList = payload;
@@ -49,7 +53,7 @@ const mutations = {
     },
     setBtnLoading(state, payload) {
         state.btnLoading = payload
-    }
+    },
 };
 
 const actions = {
@@ -114,7 +118,8 @@ const actions = {
     },
     clearDocument({commit}){
         commit('resetState');
-    }
+    },
+    
 };
 
 export default {

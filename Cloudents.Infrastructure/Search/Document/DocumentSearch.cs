@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Query.Documents;
 
 namespace Cloudents.Infrastructure.Search.Document
 {
@@ -30,7 +31,7 @@ namespace Cloudents.Infrastructure.Search.Document
             var searchResult = await _client.SearchAsync(query, query.UserProfile, token);
             var documentResult = searchResult.result.ToList();
             var ids = documentResult.Select(s => s.Id);
-            var queryDb = new IdsDocumentsQuery<long>(ids);
+            var queryDb = new IdsDocumentsQuery(ids);
             var dbResult = await _queryBus.QueryAsync<IList<DocumentFeedDto>>(queryDb, token);
             var dic = dbResult.ToDictionary(x => x.Id);
 

@@ -17,27 +17,27 @@
             <v-flex sm4  class="btn-wrap text-xs-left" shrink>
                 <v-btn round class="light-btn elevation-0 ma-0" @click="openAskQuestion()">
                     <v-icon class="light-btn-icon  mr-2">sbf-message-icon-new</v-icon>
-                    <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-medium"
+                    <span v-show="$vuetify.breakpoint.smAndUp" class="body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_ask</span>
-                    <span v-show="$vuetify.breakpoint.xsOnly" class="text-capitalize body-2 font-weight-medium"
+                    <span v-show="$vuetify.breakpoint.xsOnly" class="body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_ask_mob</span>
                 </v-btn>
             </v-flex>
             <v-flex sm4  class="btn-wrap text-xs-center" shrink>
                 <v-btn round class="light-btn elevation-0 ma-0" @click="openUpload()">
                     <v-icon class="light-btn-icon  mr-2">sbf-upload-icon</v-icon>
-                    <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-medium"
+                    <span v-show="$vuetify.breakpoint.smAndUp" class="body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_upload</span>
-                    <span v-show="$vuetify.breakpoint.xsOnly" class="text-capitalize body-2 font-weight-medium"
+                    <span v-show="$vuetify.breakpoint.xsOnly" class="body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_upload_mob</span>
                 </v-btn>
             </v-flex>
             <v-flex sm4  class="btn-wrap text-xs-right" shrink>
                 <v-btn round class="light-btn elevation-0 ma-0" @click="openRequestTutor()">
                     <v-icon class="light-btn-icon  mr-2">sbf-person-icon</v-icon>
-                    <span v-show="$vuetify.breakpoint.smAndUp" class="text-capitalize body-2 font-weight-medium"
+                    <span v-show="$vuetify.breakpoint.smAndUp" class="body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_tutor</span>
-                    <span v-show="$vuetify.breakpoint.xsOnly" class="text-capitalize body-2 font-weight-medium"
+                    <span v-show="$vuetify.breakpoint.xsOnly" class="body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_tutor_mob</span>
                 </v-btn>
             </v-flex>
@@ -159,6 +159,7 @@
             margin-right: 14px;
         }
         .light-btn {
+            text-transform: none;
             border-radius: 16px;
             height: 32px;
             color: @color-white;

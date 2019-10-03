@@ -66,12 +66,8 @@
           <v-card class="price-change-wrap">
             <v-flex align-center justify-center class="relative-pos">
               <div class="title-wrap">
-                <span class="change-title" v-language:inner="'resultNote_change_for'"></span>
-                <span
-                  class="change-title"
-                  style="max-width: 150px;"
-                  v-line-clamp="1"
-                >&nbsp;"{{courseName}}"</span>
+                <span class="change-title pr-1" v-language:inner="'resultNote_change_for'"></span>
+                <span class="change-title" style="width:min-content;" v-line-clamp="1">&nbsp;"{{courseName}}"</span>
               </div>
               <div class="input-wrap d-flex row align-center justify-center">
                 <div :class="['price-wrap', isRtl ? 'reversed' : '']">
@@ -112,7 +108,7 @@
             </v-card-title>
             <v-card-actions class="card-actions">
               <div class="doc-details">
-                <div class="doc-type">
+                <div class="doc-type" v-if="!isVideo">
                   <v-icon class="doc-type-icon">sbf-document-note</v-icon>
                   <span class="doc-type-text">{{itemType}}</span>
                 </div>
@@ -138,18 +134,23 @@
       </div>
     </v-layout>
     <div class="document-wrap">
-      
-      <div style="margin: 0 auto;background:black;" class="text-xs-center main-header-wrapper" v-if="isVideo">
-        <sbVideoPlayer :height="videoHeight" 
-                       :width="videoWidth" 
-                       style="margin: 0 auto" 
-                       :isResponsive="true" 
-                       :src="document.preview.locator"
-                       :title="courseName"
-                       :poster="`${document.preview.poster}?width=${videoWidth}&height=${videoHeight}`"
-                       />
+      <div class="text-xs-center" v-if="!videoLoader">
+        <img :src="require('./doc-preview-animation.gif')" alt="Photo" :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}">
       </div>
-           
+      <div style="margin: 0 auto;background:black" class="text-xs-center main-header-wrapper" v-if="isVideo">
+        <sbVideoPlayer 
+            @videoEnded="showAfterVideo = true"
+            :id="`${document.details.id}`"
+            :height="videoHeight" 
+            :width="videoWidth" 
+            style="margin: 0 auto" 
+            :isResponsive="true" 
+            :src="document.preview.locator"
+            :title="courseName"
+            :poster="`${document.preview.poster}?width=${videoWidth}&height=${videoHeight}&mode=crop&anchorPosition=bottom`"
+        />
+      </div>
+      
       <div v-else>
         <div class="text-xs-center" v-for="(page, index) in docPreview" :key="index">
           <v-lazy-image 
@@ -157,24 +158,24 @@
             :style="`height:${imgHeight}px; width:${imgWidth}px`"
             class="document-wrap-content mb-4"
             :src="page"
-          :src-placeholder="isObserver(page)"
+            :src-placeholder="isObserver(page)"
             :alt="document.content"
           />
 
           <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" :courseName="courseType" />
         </div>
       </div>
-      <div
-        class="unlockBox headline hidden-sm-and-down"
+    <transition-group name="slide-x-transition">
+      <div :key="'12'"
+        :class="[{'unlockBoxAfterVideo':showAfterVideo && isPrice },'unlockBox','headline']"
         v-if="isShowPurchased || !accountUser"
-        @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)"
       >
         <div class="inner">
-          <p
-            class="text-xs-center"
-            v-language:inner="!accountUser? 'documentPage_unlock_document_unregister' :'documentPage_unlock_document'"
+          <p 
+            class="text-xs-center hidden-sm-and-down"
+            v-language:inner="unlockDocDictionary"
           ></p>
-          <div class="aside-top-btn align-center" v-if="!isLoading && accountUser">
+          <div class="aside-top-btn align-center" v-if="!isLoading && accountUser" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)">
             <span
               class="font-weight-bold text-xs-center disabled"
               v-if="isPrice"
@@ -198,12 +199,13 @@
           ></v-progress-circular>
         </div>
       </div>
+      </transition-group>
       <a
         class="btn-download justify-center elevation-5"
         :href="`${$route.path}/download`"
         target="_blank"
         @click="downloadDoc"
-        :class="{'mt-2': !isShowPurchased}"
+        :class="{'mt-2': !isShowPurchased, 'v-hidden': isShowVideo && !isVideo}"
         v-if="!isShowPurchased && !isLoading && !isSmAndDown && accountUser"
       >
         <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
@@ -212,7 +214,7 @@
           v-language:inner="'documentPage_download_btn'"
         ></span>
       </a>
-    </div>
+      </div>
   </div>
 </template>
 <script>
@@ -231,7 +233,7 @@ export default {
     reportItem,
     sbDialog,
     tutorResultCardCarousel,
-    sbVideoPlayer
+    sbVideoPlayer,
   },
   props: {
     document: {
@@ -240,8 +242,10 @@ export default {
   },
   data() {
     return {
+      showAfterVideo: false,
       imgHeight: 0,
       imgWidth: 0,
+      isMounted: false,
       showMenu: false,
       currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
       itemId: 0,
@@ -282,10 +286,18 @@ export default {
       "getBtnLoading",
       "accountUser",
       "getPurchaseConfirmation",
-      "getRouteStack"
+      "getRouteStack",
+      "getDocumentLoaded"
+
     ]),
-    isVideo(){
-      return this.document.documentType === 'Video' 
+    isShowVideo() {
+      if(this.document && this.document.documentType && this.isMounted) {
+        return true;
+      }
+      return false;
+    },
+    isVideo(){      
+        return this.document.documentType === 'Video' 
     },
     videoHeight(){
        return Math.floor((this.videoWidth/16)*9); 
@@ -389,6 +401,24 @@ export default {
         return true;
       }
       return false;
+    },
+    unlockDocDictionary() {
+      if(!this.accountUser) {
+        return 'documentPage_unlock_document_unregister'
+      } else {
+        return this.isVideo ? 'documentPage_unlock_video' : 'documentPage_unlock_document';
+      } 
+    }, 
+    videoLoader() {
+      if(this.getDocumentLoaded){
+        if(this.isVideo){
+          return !!(this.document && this.document.preview && this.document.preview.locator);
+        }else{
+          return true;
+        }
+      }else{
+        return false;
+      }
     }
   },
   methods: {
@@ -398,7 +428,7 @@ export default {
       "updateToasterParams",
       "setNewDocumentPrice",
       "updateLoginDialogState",
-      "downloadDocument"
+      "downloadDocument",
     ]),
     ...mapMutations(["UPDATE_SEARCH_LOADING"]),
     calculateWidthByScreenSize(){
@@ -539,6 +569,7 @@ export default {
   },
   mounted() {
     this.docWrap = document.querySelector(".document-wrap");
+    this.isMounted = true;
   },
 };
 </script>
@@ -619,6 +650,12 @@ export default {
     }
   .document-wrap {
     // position: relative;
+    .unlockBoxAfterVideo{
+      bottom: 500px !important;
+    }
+    .video_placeholder {
+      width: 100%;
+    }
     .unlockBox {
       position: fixed;
       left: 0;
@@ -627,20 +664,24 @@ export default {
       margin: auto;
       text-align: center;
       z-index: 5;
+      @media (max-width: @screen-xs) {
+        right: 0;
+        bottom: 0;
+      }
       .inner {
-          
         min-width: 450px;
         padding: 20px;
         box-shadow: 0 3px 55px -1px rgba(0, 0, 0, 0.2),
           0 5px 8px 0 rgba(0, 0, 0, 0.14), 0 1px 14px 0 rgba(0, 0, 0, 0.12) !important;
-        cursor: pointer;
         border-radius: 4px;
         background: #fff;
         display: inline-block;
+        @media (max-width: @screen-xs) {
+          width: 100%;
+          min-width: auto;
+          padding: 0;
+        }
       }
-
-      //width: 450px;
-
       p {
         padding: 0 0 30px 0;
         margin: 0;
@@ -671,8 +712,10 @@ export default {
         width: 60%;
         line-height: 20px;
         font-size: 15px;
+        cursor: pointer;
         @media (max-width: @screen-sm) {
           width: auto;
+          line-height: 32px;
         }
         span:first-child {
           flex-grow: 1;
@@ -696,6 +739,7 @@ export default {
       margin: 0 auto;
     }
     .btn-download {
+      visibility: hidden;
       position: fixed;
       bottom: 30px;
       left: 50%;
@@ -709,6 +753,9 @@ export default {
       }
       span {
         font-size: 26px;
+      }
+      &.v-hidden{
+        visibility: visible;
       }
     }
   }

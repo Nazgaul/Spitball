@@ -130,7 +130,6 @@ export default {
             this.$data.submitted = false;
             this.setQuestion(this.id).then(()=>{
                 if (updateViewer) {
-                    sendEventList.question.addViewr(this.questionData);
                     this.cahceQuestion = {...this.questionData}
                 }
             })
@@ -184,9 +183,6 @@ export default {
             this.showForm = (val && !this.questionData.answers.length);
             return val;
         },
-        removeViewer() {
-            sendEventList.question.removeViewer(this.cahceQuestion);
-        },
     },
     beforeDestroy(){
         // storeService.unregisterModule(this.$store, 'Question', Question);
@@ -195,11 +191,6 @@ export default {
         // storeService.registerModule(this.$store, 'Question', Question);
         storeService.lazyRegisterModule(this.$store, 'homeworkHelpStore', homeworkHelpStore);
         
-        global.addEventListener('beforeunload', () => {
-            if(!!this.removeViewer){
-                this.removeViewer();
-            }
-        });
         this.getData();
         this.$root.$on('closePopUp', (name) => {
             if (name === 'suggestions') {
@@ -210,9 +201,4 @@ export default {
         })
         
     },
-    destroyed() {
-        if (this.removeViewer) {
-            this.removeViewer();
-        }
-    }
 }

@@ -10,17 +10,21 @@ namespace Cloudents.Core
     [UsedImplicitly]
     public class UrlConst : IUrlBuilder
     {
-       // public const string GeneratePaymentLink = "generatePaymentLink";
         private readonly Uri _webSiteEndPoint;
+        private readonly Uri _functionEndPoint;
 
         public UrlConst(IConfigurationKeys configuration)
         {
-            var siteEndpoint = configuration.SiteEndPoint;
-            if (siteEndpoint.EndsWith("/"))
+            var siteEndPoints = configuration.SiteEndPoint;
+            if (siteEndPoints.SpitballSite != null)
             {
-                siteEndpoint = siteEndpoint.Remove(siteEndpoint.Length - 1);
+                _webSiteEndPoint = new Uri(siteEndPoints.SpitballSite.TrimEnd('/'));
             }
-            _webSiteEndPoint = new Uri(siteEndpoint);
+            if (siteEndPoints.FunctionSite != null)
+            {
+                _functionEndPoint = new Uri(siteEndPoints.FunctionSite.TrimEnd('/'));
+            }
+           
         }
 
         public string BuildWalletEndPoint(string token)
@@ -51,14 +55,6 @@ namespace Cloudents.Core
             builder.AddQuery(parameters);
             return builder.ToString();
         }
-
-        //public string BuildPayMeBuyerEndPoint(string token)
-        //{
-           
-        //    var builder = new UriBuilder(_webSiteEndPoint) { Path = GeneratePaymentLink };
-        //    builder.AddQuery(new { token });
-        //    return builder.ToString();
-        //}
 
         public Uri BuildChatEndpoint(string token, object parameters = null)
         {
@@ -93,34 +89,14 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        public string BuildRedirectUrl(string url, string host, int? location)
+
+        public const string ImageFunctionDocumentRoute = "image/document/{id}";
+        public string BuildDocumentThumbnailEndpoint(long id)
         {
-            if (host.Contains("spitball", StringComparison.OrdinalIgnoreCase))
-            {
-                return url;
-            }
-
-            if (url.Contains("spitball", StringComparison.OrdinalIgnoreCase))
-            {
-                return url;
-            }
-            var nvc = new NameValueCollection
-            {
-                ["url"] = url,
-                ["host"] = host,
-
-            };
-            if (location.HasValue)
-            {
-                nvc["location"] = location.ToString();
-            }
-
-            var uri = new UriBuilder(_webSiteEndPoint)
-            {
-                Path = "url"
-            };
-            uri.AddQuery(nvc);
-            return uri.ToString();
+            var path = ImageFunctionDocumentRoute.InjectSingleValue("id", id);
+            var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+            return builder.ToString();
         }
+       
     }
 }

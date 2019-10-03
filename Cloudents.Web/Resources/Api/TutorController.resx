@@ -127,6 +127,6 @@
     <value>This phone is associated with another account</value>
   </data>
   <data name="RequestTutorChatMessage" xml:space="preserve">
-    <value>Hi, I would like to schedule a tutoring session with. What information would you like me to send you to see if you can help me?</value>
+    <value>Hi. I would like to schedule a tutoring session with you on the subject {0}, {1}. What information would you like me to send you to see if you can help me?</value>
   </data>
 </root>

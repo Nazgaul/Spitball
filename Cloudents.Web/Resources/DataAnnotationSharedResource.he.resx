@@ -142,7 +142,7 @@
     <value>ראשית יש להקליד מדינה.</value>
   </data>
   <data name="NeedUniversity" xml:space="preserve">
-    <value>ראשית יש לבחור אוניברסיטה.</value>
+    <value>ראשית יש לבחור מוסד לימוד.</value>
   </data>
   <data name="PasswordNotMatch" xml:space="preserve">
     <value>סיסמה חייבת להיות תואמת</value>

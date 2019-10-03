@@ -143,7 +143,7 @@
     <value>Type:</value>
   </data>
   <data name="table_university" xml:space="preserve">
-    <value>University:</value>
+    <value>School:</value>
   </data>
   <data name="table_uploaded" xml:space="preserve">
     <value>Uploaded by:</value>
@@ -156,5 +156,8 @@
   </data>
   <data name="unlock_document_unregister" xml:space="preserve">
     <value>To unlock this document, please register</value>
+  </data>
+  <data name="unlock_video" xml:space="preserve">
+    <value>You are watching a 30 sec. preview.&lt;br&gt;Credit the uploader with points to unlock the full movie</value>
   </data>
 </root>

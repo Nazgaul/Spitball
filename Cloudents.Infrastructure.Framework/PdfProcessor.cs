@@ -95,7 +95,6 @@ namespace Cloudents.Infrastructure.Framework
 
         }
 
-        public static readonly string[] Extensions = FormatDocumentExtensions.Pdf;
 
         public void Dispose()
         {

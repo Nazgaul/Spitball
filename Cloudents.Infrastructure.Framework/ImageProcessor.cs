@@ -10,7 +10,6 @@ namespace Cloudents.Infrastructure.Framework
 {
     public class ImageProcessor : IPreviewProvider, IDisposable
     {
-        public static readonly string[] Extensions = FormatDocumentExtensions.Image;
 
 
 

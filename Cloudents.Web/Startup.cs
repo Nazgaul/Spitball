@@ -203,8 +203,9 @@ namespace Cloudents.Web
             }).AsSelf();
             services.AddSingleton<WebPackChunkName>();
 
-            var keys = new ConfigurationKeys(Configuration["Site"])
+            var keys = new ConfigurationKeys()
             {
+                SiteEndPoint = { SpitballSite = Configuration["Site"] ,FunctionSite = Configuration["functionCdnEndpoint"] },
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
                 Redis = Configuration["Redis"],
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
@@ -213,7 +214,6 @@ namespace Cloudents.Web
                     ),
                 Storage = Configuration["Storage"],
                 ServiceBus = Configuration["ServiceBus"],
-                PayPal = new PayPalCredentials(Configuration["PayPal:ClientId"], Configuration["PayPal:ClientSecret"], !HostingEnvironment.IsProduction())
             };
 
 
@@ -278,7 +278,6 @@ namespace Cloudents.Web
             if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 reWriterOptions.AddRedirectToHttpsPermanent();
-                reWriterOptions.Add(new RedirectToWww());
             }
 
             app.UseRewriter(reWriterOptions);

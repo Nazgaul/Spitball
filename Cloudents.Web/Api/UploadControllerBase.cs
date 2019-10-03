@@ -79,7 +79,7 @@ namespace Cloudents.Web.Api
         [NonAction]
         protected virtual IEnumerable<string> GetSupportedExtensions()
         {
-          return  FormatDocumentExtensions.GetFormats();
+          return FileTypesExtensions.GetFormats();
         }
 
 

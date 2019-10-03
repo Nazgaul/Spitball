@@ -118,28 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btn_create_university" xml:space="preserve">
-    <value>צור אוניברסיטה</value>
+    <value>צור מוסד לימוד</value>
   </data>
   <data name="cant_find" xml:space="preserve">
-    <value>לא מוצא את האוניברסיטה שלך?</value>
+    <value>לא מוצא את מוסד הלימוד שלך?</value>
   </data>
   <data name="choose_title" xml:space="preserve">
-    <value>בחר את האוניברסיטה שלך</value>
+    <value>בחר את מוסד הלימוד שלך</value>
   </data>
   <data name="create_new" xml:space="preserve">
     <value>צור חדש</value>
   </data>
   <data name="create_new_title" xml:space="preserve">
-    <value>צור אוניברסיטה חדשה</value>
+    <value>צור מוסד לימוד חדש</value>
   </data>
   <data name="create_uni_placeholder" xml:space="preserve">
-    <value>הקלד שם אוניברסיטה</value>
+    <value>הקלד שם מוסד לימוד</value>
   </data>
   <data name="find_similar" xml:space="preserve">
     <value>למצוא אוניברסיטאות בעלות שם זהה</value>
   </data>
   <data name="new_title" xml:space="preserve">
-    <value>לפני יצירת אוניברסיטה חדשה, נסה:</value>
+    <value>לפני יצירת מוסד לימוד חדש, נסה:</value>
   </data>
   <data name="not_student_btn" xml:space="preserve">
     <value>סיום</value>

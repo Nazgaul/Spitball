@@ -7,7 +7,7 @@ namespace Cloudents.Infrastructure.Data.Test
 {
     public class UniversityTests : InMemoryDatabaseTest
     {
-        [Fact]
+        [Fact(Skip = "For future use")]
         public void CanCorrectlyMapUniversity()
         {
             new PersistenceSpecification<University>(Session)

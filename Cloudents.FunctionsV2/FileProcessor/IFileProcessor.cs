@@ -7,6 +7,6 @@ namespace Cloudents.FunctionsV2.FileProcessor
 {
     public interface IFileProcessor
     {
-        Task ProcessFile(long id, CloudBlockBlob blob, ILogger log, CancellationToken token);
+        Task ProcessFileAsync(long id, CloudBlockBlob blob, ILogger log, CancellationToken token);
     }
 }

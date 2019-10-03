@@ -40,7 +40,8 @@ export default {
         this.clearDocument();
         storeService.unregisterModule(this.$store,'document');
     },
-    created() {     
+    created() {    
+         
         storeService.lazyRegisterModule(this.$store,'studyDocumentsStore',studyDocumentsStore); 
         storeService.registerModule(this.$store,'document', document);
         this.documentRequest(this.id)

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
@@ -20,13 +21,15 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
+        private readonly IUrlBuilder _urlBuilder;
 
 
-        public ProfileController(IQueryBus queryBus, UserManager<User> userManager, IDocumentDirectoryBlobProvider blobProvider)
+        public ProfileController(IQueryBus queryBus, UserManager<User> userManager, IDocumentDirectoryBlobProvider blobProvider, IUrlBuilder urlBuilder)
         {
             _queryBus = queryBus;
             _userManager = userManager;
             _blobProvider = blobProvider;
+            _urlBuilder = urlBuilder;
         }
 
         // GET
@@ -131,11 +134,7 @@ namespace Cloudents.Web.Api
             return retValTask.Result.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
-                var uri = _blobProvider.GetPreviewImageLink(s.Id, 0);
-                var effect = ImageProperties.BlurEffect.None;
-                var properties = new ImageProperties(uri, effect);
-                var url = Url.ImageUrl(properties);
-                s.Preview = url;
+                s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                 if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
                 {
                     s.Vote.Vote = p;
@@ -167,11 +166,7 @@ namespace Cloudents.Web.Api
             return retValTask.Result.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
-                var uri = _blobProvider.GetPreviewImageLink(s.Id, 0);
-                var effect = ImageProperties.BlurEffect.None;
-                var properties = new ImageProperties(uri, effect);
-                var url = Url.ImageUrl(properties);
-                s.Preview = url;
+                s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                 if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
                 {
                     s.Vote.Vote = p;

@@ -21,8 +21,6 @@ using Cloudents.Core.DTOs;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
-using Cloudents.Command.Command;
-using Cloudents.Command;
 using Microsoft.AspNetCore.DataProtection;
 using System.Net.Http;
 using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
@@ -142,7 +140,6 @@ namespace Cloudents.Web.Api
             [FromServices]IDataProtectionProvider dataProtectProvider,
             CancellationToken cancellationToken)
         {
-            var httpClient = clientFactory.CreateClient();
             var result = await service.LogInAsync(model.Token, cancellationToken);
             _logger.Info($"received google user {result}");
             if (result == null)
@@ -199,25 +196,28 @@ namespace Cloudents.Web.Api
                 {
                     if (!string.IsNullOrEmpty(result.Picture))
                     {
-                        var message = await httpClient.GetAsync(result.Picture, cancellationToken);
-                        using (var sr = await message.Content.ReadAsStreamAsync())
+                        using (var httpClient = clientFactory.CreateClient())
                         {
-                            var mimeType = message.Content.Headers.ContentType;
-                            try
+                            var message = await httpClient.GetAsync(result.Picture, cancellationToken);
+                            using (var sr = await message.Content.ReadAsStreamAsync())
                             {
-                                var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, sr,
-                                    mimeType.ToString(), cancellationToken);
-                                var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
-                                var url = Url.ImageUrl(imageProperties);
-                                var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
-                                user.UpdateUserImage(url, fileName);
-                            }
-                            catch (ArgumentException e)
-                            {
-                                logClient.TrackException(e, new Dictionary<string, string>()
+                                var mimeType = message.Content.Headers.ContentType;
+                                try
                                 {
-                                    ["FromGoogle"] = result.Picture
-                                });
+                                    var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, sr,
+                                        mimeType.ToString(), cancellationToken);
+                                    var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
+                                    var url = Url.ImageUrl(imageProperties);
+                                    var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+                                    user.UpdateUserImage(url, fileName);
+                                }
+                                catch (ArgumentException e)
+                                {
+                                    logClient.TrackException(e, new Dictionary<string, string>()
+                                    {
+                                        ["FromGoogle"] = result.Picture
+                                    });
+                                }
                             }
                         }
 

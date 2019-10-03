@@ -171,7 +171,7 @@ namespace Cloudents.FunctionsV2
             }
 
             var processor = factory.GetProcessor(originalBlob);
-            await processor.ProcessFile(long.Parse(id), originalBlob, log, token);
+            await processor.ProcessFileAsync(long.Parse(id), originalBlob, log, token);
             log.LogInformation("C# Blob trigger function Processed");
         }
 
@@ -192,17 +192,17 @@ namespace Cloudents.FunctionsV2
                 var id = long.Parse(RegEx.NumberExtractor.Match(assetName).Value);
                 if (label == MediaServices.JobLabelImage)
                 {
-                    await videoProvider.MoveImage(id, binder, token);
+                    await videoProvider.MoveImageAsync(id, binder, token);
                 }
 
                 if (label == MediaServices.JobLabelShortVideo)
                 {
-                    await videoProvider.CreateLocator(id, token);
+                    await videoProvider.CreateLocatorAsync(id, token);
                 }
 
                 if (label == MediaServices.JobLabelFullVideo)
                 {
-                    await videoProvider.UpdateDuration(id, binder, token);
+                    await videoProvider.UpdateDurationAsync(id, binder, token);
                 }
             }
             

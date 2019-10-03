@@ -117,63 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="alone_in_room" xml:space="preserve">
-    <value>Waiting for other party to join the room</value>
-  </data>
-  <data name="audio" xml:space="preserve">
-    <value>Audio</value>
-  </data>
-  <data name="become_tutor" xml:space="preserve">
-    <value>BECOME A TUTOR</value>
-  </data>
-  <data name="boxs_bottom_add" xml:space="preserve">
-    <value>To add files to the board, drag &amp;amp; drop here</value>
-  </data>
-  <data name="boxs_bottom_link" xml:space="preserve">
-    <value>browse your computer</value>
-  </data>
-  <data name="boxs_bottom_or" xml:space="preserve">
-    <value>or </value>
-  </data>
-  <data name="boxs_top" xml:space="preserve">
-    <value>Click anywhere to start drawing</value>
-  </data>
-  <data name="created" xml:space="preserve">
-    <value>Created on</value>
-  </data>
-  <data name="enter_room" xml:space="preserve">
-    <value>Get into room</value>
-  </data>
-<<<<<<< HEAD
-  <data name="error_with" xml:space="preserve">
-    <value>Error with</value>
-=======
-  <data name="equation_btn" xml:space="preserve">
-    <value>Add equation to the board</value>
->>>>>>> develop
-  </data>
-  <data name="help_others" xml:space="preserve">
-    <value>Help others with what you know best</value>
-  </data>
-  <data name="session_ended" xml:space="preserve">
-    <value>Session ended</value>
-  </data>
-  <data name="student_entered_room" xml:space="preserve">
-    <value>The student entered the room</value>
-  </data>
-  <data name="tutor_entered_room" xml:space="preserve">
-    <value>The tutor entered the room</value>
-  </data>
-  <data name="video" xml:space="preserve">
-    <value>Video</value>
-  </data>
-  <data name="video_&amp;_audio" xml:space="preserve">
-    <value>Video &amp; Audio</value>
-  </data>
-  <data name="waiting_for_student_toaster" xml:space="preserve">
-    <value>Waiting for student to join the session</value>
-  </data>
-  <data name="waiting_for_tutor_toaster" xml:space="preserve">
-    <value>Waiting for tutor to start session</value>
+  <data name="type_your_answer" xml:space="preserve">
+    <value>כתוב את תשובתך כאן...</value>
   </data>
 </root>

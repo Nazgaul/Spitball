@@ -78,7 +78,7 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getDialogState', 'getFilters', 'getVerticalData', 'accountUser', 'getShowQuestionToaster', 'getSchoolName']),
+        ...mapGetters(['isFirst', 'myCourses', 'getDialogState', 'getFilters', 'accountUser', 'getShowQuestionToaster', 'getSchoolName']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items: 'getSearchItems'}),
         showSelectUni() {
             let schoolName = this.getSchoolName;

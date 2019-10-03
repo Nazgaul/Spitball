@@ -63,25 +63,25 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
 
-            var dictionary = new Dictionary<string,bool>();
-            foreach (var x in result.Result)
-            {
-                var values = x.AsDictionary();
-                foreach (var value in values)
-                {
+            //var dictionary = new Dictionary<string,bool>();
+            //foreach (var x in result.Result)
+            //{
+            //    var values = x.AsDictionary();
+            //    foreach (var value in values)
+            //    {
                     
-                    if (value.Value == default)
-                    {
-                        dictionary.TryAdd(value.Key, true);
-                        //dictionary.Add(value.Key,true);
+            //        if (value.Value == default)
+            //        {
+            //            dictionary.TryAdd(value.Key, true);
+            //            //dictionary.Add(value.Key,true);
 
-                        //resultOfTest = true;
-                    }
-                }
-            }
+            //            //resultOfTest = true;
+            //        }
+            //    }
+            //}
 
-            var resultTests = dictionary.Where(w => w.Value).Select(s => s.Key).ToList();
-            resultTests.Should().BeEmpty();
+            //var resultTests = dictionary.Where(w => w.Value).Select(s => s.Key).ToList();
+            //resultTests.Should().BeEmpty();
 
 
 
@@ -134,7 +134,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task DocumentsQueryHandler_Ok()
         {
-            var query = new IdsDocumentsQuery<long>(new[] { 1L });
+            var query = new IdsDocumentsQuery(new[] { 1L });
             var _ = await fixture.QueryBus.QueryAsync(query, default);
 
         }
@@ -209,6 +209,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             query = new UserUnreadMessageQuery(result.First().Version);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
+
+        [Fact]
+        public async Task UserPurchaseDocumentByIdQuery_Ok()
+        {
+            var query = new UserPurchaseDocumentByIdQuery(638, 0);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+
+        }
+
 
     }
 }

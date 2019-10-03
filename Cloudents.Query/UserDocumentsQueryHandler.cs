@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Query
 {
@@ -30,14 +31,11 @@ namespace Cloudents.Query
                     {
                         Id = s.UserId,
                         Name = s.UserName,
-                        Score = s.UserScore,
                         Image = s.UserImage,
-                        IsTutor = s.IsTutor
                     },
                     DateTime = s.DateTime,
                     Course = s.Course,
                     Title = s.Title,
-                    //Source = "Cloudents",
                     Views = s.Views,
                     Downloads = s.Downloads,
                     University = s.University,
@@ -46,7 +44,10 @@ namespace Cloudents.Query
                     Vote = new VoteDto
                     {
                         Votes = s.Votes
-                    }
+                    },
+                    DocumentType = s.DocumentType ?? DocumentType.Document,
+                    Duration = s.Duration,
+                    Purchased = s.Purchased
 
                 }
                 )

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.DTOs
 {
@@ -13,6 +15,7 @@ namespace Cloudents.Core.DTOs
 
     public class DocumentFeedDto
     {
+        private TimeSpan? _duration;
         public long Id { get; set; }
         public string University { get; set; }
         public string Course { get; set; }
@@ -35,8 +38,21 @@ namespace Cloudents.Core.DTOs
         public int Purchased { get; set; }
 
         public DocumentType DocumentType{ get; set; }
-        public TimeSpan? Duration { get; set; }
 
+        public TimeSpan? Duration
+        {
+            get
+            {
+                if (_duration.HasValue)
+                {
+                    return _duration.Value.StripMilliseconds();
+                }
+
+                return _duration;
+
+            }
+            set => _duration = value;
+        }
     }
 
     public class DocumentUserDto
@@ -48,10 +64,7 @@ namespace Cloudents.Core.DTOs
         public string Name { get; set; }
         [EntityBind(nameof(ViewDocumentSearch.UserImage))]
         public string Image { get; set; }
-        [EntityBind(nameof(ViewDocumentSearch.UserScore))]
-        public int Score { get; set; }
-        [EntityBind(nameof(ViewDocumentSearch.IsTutor))]
-        public bool IsTutor { get; set; }
+       
     }
 
     public class VoteDto

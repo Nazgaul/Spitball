@@ -28,12 +28,7 @@ export const signlaREvents = {
                 questionActions[action.type](action.data);
             });
         },
-        addviewr: function(question){
-            store.dispatch("HomeworkHelp_addQuestionViewer", question);
-        },
-        removeviewer: function(question){
-            store.dispatch("HomeworkHelp_removeQuestionViewer", question);
-        },
+        
     },
     answer:{
         add: function(arrEventObj){

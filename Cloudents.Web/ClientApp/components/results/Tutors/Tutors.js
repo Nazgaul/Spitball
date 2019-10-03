@@ -88,7 +88,7 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getDialogState', 'getFilters', 'getVerticalData', 'accountUser', 'getSchoolName', 'getReflectChangeToPage', 'getSearchLoading']),
+        ...mapGetters(['isFirst', 'myCourses', 'getDialogState', 'getFilters', 'accountUser', 'getSchoolName', 'getReflectChangeToPage', 'getSearchLoading']),
         ...mapGetters({
             universityImage: 'getUniversityImage',
             university: 'getUniversity',

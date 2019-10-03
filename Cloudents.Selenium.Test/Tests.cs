@@ -21,8 +21,8 @@ namespace Cloudents.Selenium.Test
         public Tests(DatabaseFixture fixture)
         {
             this._fixture = fixture;
-            _driver.Manage().Window.Maximize();
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            //_driver.Manage().Window.Maximize();
+            //_driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             // _autoMock = AutoMock.GetLoose();
 
         }
@@ -74,7 +74,7 @@ namespace Cloudents.Selenium.Test
             using (var conn = _fixture.DapperRepository.OpenConnection())
             {
                 var tutorId = conn.QueryFirst<long>("select top 1 id from sb.tutor where state = 'Ok'");
-                yield return $"profile/{tutorId}";
+                yield return $"profile/{tutorId}/r";
                 var userId = conn.QueryFirst<long>("Select top 1 id from sb.[user] u where PhoneNumberConfirmed =1 and EmailConfirmed = 1  and not exists ( select id from sb.Tutor where id = u.id) ");
                 yield return $"profile/{userId}/xxx";
             }
@@ -95,7 +95,7 @@ namespace Cloudents.Selenium.Test
                     var langValue = htmlAttr.GetAttribute("lang");
                     langValue.Should().Be(culture.Split('-')[0], "on link {0}", url);
                     var body = _driver.FindElement(By.TagName("body"));
-                    body.ToString().Should().NotContain("###");
+                    body.Text.Should().NotContain("###");
                 }
             }
         }
@@ -109,10 +109,12 @@ namespace Cloudents.Selenium.Test
             _driver.Navigate().GoToUrl(url);
 
             var htmlAttr = _driver.FindElement(By.TagName("html"));
-            var v = _driver.Manage().Timeouts().PageLoad;
+            //var v = _driver.Manage().Timeouts().PageLoad;
             var langValue = htmlAttr.GetAttribute("lang");
             //langValue.Should().Be(culture.Split('-')[0], "on link {0}", url);
             var body = _driver.FindElement(By.TagName("body"));
+            var x = body.Text.ToString();
+
 
         }
 
@@ -122,7 +124,7 @@ namespace Cloudents.Selenium.Test
 
         //}
 
-        [Fact]
+        [Fact(Skip = "Not sure what need to be tested here")]
         public void SignTests()
         {
             var url = $"{SiteMainUrl.TrimEnd('/')}/register";

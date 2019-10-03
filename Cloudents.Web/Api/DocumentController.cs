@@ -35,8 +35,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac.Features.Indexed;
+using Cloudents.Core.Enum;
 using Cloudents.Web.Services;
-using Microsoft.ApplicationInsights;
 using Wangkanai.Detection;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
@@ -51,6 +51,7 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly IStringLocalizer<DocumentController> _localizer;
+        private readonly IUrlBuilder _urlBuilder;
 
         private static readonly Task<string> Task = System.Threading.Tasks.Task.FromResult<string>(null);
 
@@ -59,7 +60,7 @@ namespace Cloudents.Web.Api
             IDocumentDirectoryBlobProvider blobProvider,
             IStringLocalizer<DocumentController> localizer,
             ITempDataDictionaryFactory tempDataDictionaryFactory,
-            IStringLocalizer<UploadControllerBase> localizer2)
+            IStringLocalizer<UploadControllerBase> localizer2, IUrlBuilder urlBuilder)
         : base(blobProvider, tempDataDictionaryFactory, localizer2)
         {
             _queryBus = queryBus;
@@ -67,6 +68,7 @@ namespace Cloudents.Web.Api
             _userManager = userManager;
             _blobProvider = blobProvider;
             _localizer = localizer;
+            _urlBuilder = urlBuilder;
         }
 
         [HttpGet("{id}")]
@@ -76,7 +78,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<DocumentPreviewResponse>> GetAsync(long id,
             [FromServices] IQueueProvider queueProvider,
             [FromServices] ICrawlerResolver crawlerResolver,
-            [FromServices] IIndex<DocumentType,IDocumentGenerator> generatorIndex,
+            [FromServices] IIndex<DocumentType, IDocumentGenerator> generatorIndex,
             CancellationToken token)
         {
             long? userId = null;
@@ -100,12 +102,12 @@ namespace Cloudents.Web.Api
                 textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             }
 
-            var files = await generatorIndex[model.DocumentType].GeneratePreview(model,token);
-            await System.Threading.Tasks.Task.WhenAll(tQueue,  textTask);
+            var files = await generatorIndex[model.DocumentType].GeneratePreview(model, userId.GetValueOrDefault(-1), token);
+            await System.Threading.Tasks.Task.WhenAll(tQueue, textTask);
             return new DocumentPreviewResponse(model, files, textTask.Result);
         }
 
-        [HttpPost,Authorize]
+        [HttpPost, Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
@@ -149,17 +151,13 @@ namespace Cloudents.Web.Api
                 filter = request.Filter
             });
         }
-        
+
         private WebResponseWithFacet<DocumentFeedDto> GenerateResult(
             DocumentFeedWithFacetDto result, object nextPageParams)
         {
             var p = result.Result.Select(s =>
             {
-                var uri = _blobProvider.GetPreviewImageLink(s.Id, 0);
-                var effect = ImageProperties.BlurEffect.None;
-                var properties = new ImageProperties(uri, effect);
-                var url = Url.ImageUrl(properties);
-                s.Preview = url;
+                s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                 return s;
             }).ToList();
 
@@ -203,7 +201,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new DocumentCourseQuery(userId, request.Page, request.Course, request.Filter,profile.Country);
+            var query = new DocumentCourseQuery(userId, request.Page, request.Course, request.Filter, profile.Country);
             var result = await _queryBus.QueryAsync(query, token);
             return GenerateResult(result, new { page = ++request.Page, request.Course, request.Filter });
         }
@@ -236,7 +234,7 @@ namespace Cloudents.Web.Api
             }
 
             await System.Threading.Tasks.Task.WhenAll(resultTask, votesTask);
-            
+
             return GenerateResult(resultTask.Result, new
             {
                 page = ++request.Page,
@@ -410,7 +408,7 @@ namespace Cloudents.Web.Api
             }
             catch (InvalidOperationException)
             {
-                ModelState.AddModelError("error",_localizer["SomeOnePurchased"]);
+                ModelState.AddModelError("error", _localizer["SomeOnePurchased"]);
                 return BadRequest(ModelState);
             }
         }

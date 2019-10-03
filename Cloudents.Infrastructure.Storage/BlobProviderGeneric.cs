@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
+using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -270,17 +271,11 @@ namespace Cloudents.Infrastructure.Storage
 
     }
 
-    public class MoveBlob
-    {
-        public string ContainerName { get; set; }
-        public string FileName { get; set; }
-    }
-
-
     public static class BlockBlobExtensions
     {
-        public static Uri GetDownloadLink(this CloudBlockBlob blob, TimeSpan expirationTime)
+        public static Uri GetDownloadLink([NotNull] this CloudBlockBlob blob, TimeSpan expirationTime)
         {
+            if (blob == null) throw new ArgumentNullException(nameof(blob));
             var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
             {
                 SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),

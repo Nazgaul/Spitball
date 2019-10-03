@@ -90,8 +90,8 @@ function DocumentItemUser(objInit){
     this.id = objInit.id;
     this.image = objInit.image || '';
     this.name = objInit.name || '';
-    this.score = objInit.score || 0;
-    this.isTutor = objInit.isTutor || false;
+    this.score = objInit.score || 0; //TODO remove this
+    this.isTutor = objInit.isTutor || false; //TODO remove this
 }
 
 // only in feed
@@ -102,18 +102,18 @@ function DocumentItem(objInit) {
     this.downloads = objInit.downloads;
     this.purchased = objInit.purchased;
     this.snippet = objInit.snippet;
-    this.source = objInit.source;
+    this.source = objInit.source; // TODO: i dont return this
     this.title = objInit.title;
     this.university = objInit.university;
     this.url = objInit.url;
     this.user = objInit.user ? createDocumentItemUser(objInit.user) : '';
     this.views = objInit.views;
-    this.template = 'note';
+    this.template = 'note'; //TODO remove this
     this.price = objInit.price;
-    this.isPurchased = objInit.isPurchased;
+    this.isPurchased = objInit.isPurchased; //TODO: I never return this
     this.votes = !!objInit.vote ? objInit.vote.votes : null;
     this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
-    this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
+    this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null; //TODO obselete remove this
     this.preview = objInit.preview;
     this.documentType = objInit.documentType;
     this.itemDuration = objInit.duration;
@@ -195,8 +195,10 @@ function FilterChunk(objInit) {
     this.data = [];
     this.dictionaryData = {};
     objInit.data.forEach((filterItem) => {
-        this.data.push(new FilterItem(filterItem));
-        this.dictionaryData[filterItem.key] = filterItem.value;
+        if(filterItem.key !== null){
+            this.data.push(new FilterItem(filterItem));
+            this.dictionaryData[filterItem.key] = filterItem.value;
+        }
     });
 }
 

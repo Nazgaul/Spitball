@@ -20,12 +20,16 @@ export default {
         return {
             fullPreview: false,
             errorTextArea: {},
-            isFirefox: global.isFirefox,
             files: [],
             extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp', 'bmp'],
             componentUniqueId: `instance-${this._uid}`,
             uploadFileError: false
         };
+    },
+    computed: {
+        setPlaceholder() {
+            return `extendedTextArea_type_your_${this.actionType}`
+        }
     },
     methods: {
         updateValue: function (value) {

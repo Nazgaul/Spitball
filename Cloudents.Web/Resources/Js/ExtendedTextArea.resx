@@ -117,63 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="alone_in_room" xml:space="preserve">
-    <value>ממתין לצד השני שיכנס לחדר</value>
-  </data>
-  <data name="audio" xml:space="preserve">
-    <value>אודיו</value>
-  </data>
-  <data name="become_tutor" xml:space="preserve">
-    <value>הירשם כמורה פרטי</value>
-  </data>
-  <data name="boxs_bottom_add" xml:space="preserve">
-    <value>להוספת מסמכים ללוח, גרור ושחרר את הקבצים כאן</value>
-  </data>
-  <data name="boxs_bottom_link" xml:space="preserve">
-    <value>צרף מסמכים מהמחשב</value>
-  </data>
-  <data name="boxs_bottom_or" xml:space="preserve">
-    <value>או </value>
-  </data>
-  <data name="boxs_top" xml:space="preserve">
-    <value>הקלק בכל מקום להתחיל לכתוב</value>
-  </data>
-  <data name="created" xml:space="preserve">
-    <value>נוצר ב-</value>
-  </data>
-  <data name="enter_room" xml:space="preserve">
-    <value>היכנס לחדר</value>
-  </data>
-<<<<<<< HEAD
-  <data name="error_with" xml:space="preserve">
-    <value>Error with</value>
-=======
-  <data name="equation_btn" xml:space="preserve">
-    <value>הוסף משוואה ללוח</value>
->>>>>>> develop
-  </data>
-  <data name="help_others" xml:space="preserve">
-    <value>עזור לאחרים באמצעות הידע שלך</value>
-  </data>
-  <data name="session_ended" xml:space="preserve">
-    <value>השיעור הסתיים</value>
-  </data>
-  <data name="student_entered_room" xml:space="preserve">
-    <value>הסטודנט נכנס לחדר</value>
-  </data>
-  <data name="tutor_entered_room" xml:space="preserve">
-    <value>המורה הפרטי נכנס לחדר</value>
-  </data>
-  <data name="video" xml:space="preserve">
-    <value>וידאו</value>
-  </data>
-  <data name="video_&amp;_audio" xml:space="preserve">
-    <value>הוידאו והאודיו</value>
-  </data>
-  <data name="waiting_for_student_toaster" xml:space="preserve">
-    <value>ממתין לסטודנט שיצטרף לשיעור</value>
-  </data>
-  <data name="waiting_for_tutor_toaster" xml:space="preserve">
-    <value>ממתין למורה הפרטי שיתחיל את השיעור</value>
+  <data name="type_your_answer" xml:space="preserve">
+    <value>Type your answer here...</value>
   </data>
 </root>

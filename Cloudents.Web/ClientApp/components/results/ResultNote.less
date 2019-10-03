@@ -5,6 +5,15 @@
 @colorPrice: rgba(74, 74, 74, 0.87);
 .relative-pos {
   position: relative;
+  .input-wrap {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    bottom: -12px;
+    right: 0; 
+  }
 }
 
 
@@ -14,8 +23,6 @@
   padding: 12px 0 0 0;
   position: relative;
   .price-wrap {
-    position: absolute;
-    bottom: -12px;
     background: @color-white;
     display: flex;
     flex-direction: row;

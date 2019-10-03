@@ -154,7 +154,7 @@
     <value>טלפון</value>
   </data>
   <data name="request_error" xml:space="preserve">
-    <value>אופסס... משהו השתבש - נסה שוב</value>
+    <value>משהו השתבש - נסה שוב מאוחר יותר</value>
   </data>
   <data name="select_course_placeholder" xml:space="preserve">
     <value>עבור איזה קורס?</value>
@@ -190,7 +190,7 @@
     <value>במה אוכל לעזור לך?</value>
   </data>
   <data name="university" xml:space="preserve">
-    <value>אוניברסיטה</value>
+    <value>מוסד לימוד</value>
   </data>
   <data name="yaniv" xml:space="preserve">
     <value>יניב</value>

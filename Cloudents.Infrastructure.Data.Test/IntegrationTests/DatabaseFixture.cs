@@ -13,7 +13,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         private IContainer container { get; set; }
         public DatabaseFixture()
         {
-            var configuration = new ConfigurationKeys("SomeSite")
+            var configuration = new ConfigurationKeys()
             {
                 Db = new DbConnectionString(
                     "Server=tcp:sb-dev.database.windows.net,1433;Initial Catalog=ZboxNew_Develop;Persist Security Info=False;User ID=sb-dev;Password=Pa$$W0rd123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",

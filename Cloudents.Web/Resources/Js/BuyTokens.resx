@@ -166,7 +166,7 @@
     <value>Purchase {1} Points</value>
   </data>
   <data name="success_transaction" xml:space="preserve">
-    <value>Purchase Success!</value>
+    <value>Your purchase was processed successfuly</value>
   </data>
   <data name="upload" xml:space="preserve">
     <value>Upload</value>

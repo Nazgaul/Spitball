@@ -22,7 +22,6 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        public static readonly string[] Extensions = FormatDocumentExtensions.Word;
 
 
         private static string ExtractDocumentText(Document doc)

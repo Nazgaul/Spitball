@@ -78,6 +78,7 @@ const getters ={
     getCalendarsList: state => state.calendarsList,
     getSelectedCalendarList: state => state.selectedCalendarList,
     getIntervalFirst: state => state.intervalFirst,
+    getCalendarAvailabilityIsValid: state => (state.tutorDailyHours.length),
 }
 
 const actions ={

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="multiple_error_extension_title" xml:space="preserve">
-    <value>Oops! this file type is not supported</value>
+    <value>This file type is not supported</value>
   </data>
   <data name="multiple_error_upload_something_wrong" xml:space="preserve">
     <value>Something went wrong, please try again</value>

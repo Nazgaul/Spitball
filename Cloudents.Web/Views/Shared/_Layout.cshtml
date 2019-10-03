@@ -120,7 +120,6 @@
         window.version = '@VersionService.GetVersion()';
         window.publicPath = '@cdnEndPoint' + '/dist/';
         window.isAuth = @isAuth.ToString().ToLower();
-        window.paypalEnv = '@(Environment.IsProduction() ? "production" : "sandbox")';
         window.siteName = '@VersionService.GetSiteName()';
 
 

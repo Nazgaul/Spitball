@@ -77,7 +77,7 @@ namespace Cloudents.Web.Test.UnitTests
             balance.Should().BeGreaterThan(0);
         }
 
-        [Fact]
+        [Fact(Skip = "This is not good - what you want to accomplish")]
         public async Task PostAsync_Redeem()
         {
             await _client.LogInAsync();

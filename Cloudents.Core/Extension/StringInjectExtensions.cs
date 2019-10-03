@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Cloudents.FunctionsV2
+namespace Cloudents.Core.Extension
 {
     public static class StringInjectExtension
     {

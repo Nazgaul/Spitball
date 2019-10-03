@@ -148,7 +148,7 @@
     <value>האם אתה בטוח שברצונך לבטל תהליך העלאת המסמך?</value>
   </data>
   <data name="multiple_error_extension_title" xml:space="preserve">
-    <value>אופס! סוג קובץ לא נתמך</value>
+    <value>סוג קובץ הזה לא נתמך</value>
   </data>
   <data name="multiple_error_upload_single_file" xml:space="preserve">
     <value>קובץ זה לא יעלה לאתר</value>

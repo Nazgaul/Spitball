@@ -58,6 +58,7 @@
     import castIcon from "../images/cast.svg";
     import insightService from '../../../services/insightService';
     import store from '../../../store/index.js';
+    import { LanguageService } from "../../../services/language/languageService.js";
     export default {
         name: "shareScreenBtn",
         components: {castIcon},
@@ -135,7 +136,7 @@
                         }
                         if(error === "notBrowser") {
                             self.updateToasterParams({
-                                toasterText: "Browser not supported",
+                                toasterText: LanguageService.getValueByKey("studyRoom_not_browser"),
                                 showToaster: true,
                                 toasterType: "error-toaster" //c
                             });
@@ -146,7 +147,7 @@
                             return;
                         }
                         self.updateToasterParams({
-                                                     toasterText: "Error sharing screen",
+                                                     toasterText: LanguageService.getValueByKey("studyRoom_not_screen"),
                                                      showToaster: true,
                                                      toasterType: "error-toaster" //c
                                                  });

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using Cloudents.FunctionsV2.FileProcessor;
 using Cloudents.FunctionsV2.Services;
@@ -46,9 +47,9 @@ namespace Cloudents.FunctionsV2.Di
 
 
 
-            var keys = new ConfigurationKeys(
-                _configuration["SiteEndPoint"] ?? "https://www.spitball.co")
+            var keys = new ConfigurationKeys
             {
+                SiteEndPoint = { SpitballSite = _configuration["SiteEndPoint"] ?? "https://www.spitball.co" },
                 Db = new DbConnectionString(_configuration["ConnectionString"], _configuration["Redis"]),
                 Redis = _configuration["Redis"],
                 Search = new SearchServiceCredentials(
@@ -97,7 +98,11 @@ namespace Cloudents.FunctionsV2.Di
             builder.RegisterType<FileProcessorFactory>().AsImplementedInterfaces();
             builder.RegisterType<VideoProcessor>().AsSelf().As<IFileProcessor>()
                 .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
-                    FormatDocumentExtensions.Video));
+                    FileTypesExtension.Video.Extensions));
+
+            builder.RegisterType<AudioProcessor>().AsSelf().As<IFileProcessor>()
+                .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
+                    FileTypesExtension.Music.Extensions));
 
             builder.RegisterType<MediaServices>().SingleInstance().As<IVideoService>().WithParameter("isDevelop", keys.Search.IsDevelop);
 

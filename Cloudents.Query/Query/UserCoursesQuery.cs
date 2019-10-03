@@ -12,7 +12,8 @@ namespace Cloudents.Query.Query
         {
             UserId = userId;
         }
-        public long UserId { get; set; }
+
+        private long UserId { get; set; }
 
         internal sealed class UserCoursesQueryHandler : IQueryHandler<UserCoursesQuery, IEnumerable<CourseDto>>
         {
@@ -25,7 +26,7 @@ namespace Cloudents.Query.Query
 
             public async Task<IEnumerable<CourseDto>> GetAsync(UserCoursesQuery query, CancellationToken token)
             {
-
+                token.ThrowIfCancellationRequested();
                 //We use Students, IsPending and IsTeaching in "My Courses" when a user edit his courses list
                 const string sql = @"select CourseId as [Name], 
                         c.count as Students,

@@ -136,7 +136,7 @@
     <value>קורס: {1}</value>
   </data>
   <data name="deleted_success" xml:space="preserve">
-    <value>המסמך נמחק</value>
+    <value>הקובץ נמחק</value>
   </data>
   <data name="download" xml:space="preserve">
     <value>הורדה</value>
@@ -160,10 +160,10 @@
     <value>רכישות</value>
   </data>
   <data name="university" xml:space="preserve">
-    <value>אוניברסיטה: {1}</value>
+    <value>מוסד לימוד: {1}</value>
   </data>
   <data name="unsufficient_fund" xml:space="preserve">
-    <value>אין לך מספיק נקודות</value>
+    <value>אין לך מספיק נקודות לרכוש את המוצר</value>
   </data>
   <data name="view" xml:space="preserve">
     <value>צפייה</value>

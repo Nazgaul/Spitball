@@ -263,14 +263,6 @@ const actions = {
     HomeworkHelp_updateCounter({commit}, actionObj) {
         commit('HomeworkHelp_updateAnswersCounter', actionObj)
     },
-    HomeworkHelp_addQuestionViewer({commit}, notificationQuestionObject) {
-        let questionObj = notificationQuestionObject;
-        commit('HomeworkHelp_addViewer', questionObj);
-    },
-    HomeworkHelp_removeQuestionViewer({commit}, notificationQuestionObject) {
-        let questionObj = notificationQuestionObject;
-        commit('HomeworkHelp_removeViewer', questionObj);
-    },
     HomeworkHelp_questionVote({commit, dispatch}, data) {
         reputationService.voteQuestion(data.id, data.type).then(() => {
             commit('HomeworkHelp_questionVote', data);

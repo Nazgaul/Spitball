@@ -35,7 +35,7 @@ namespace Cloudents.Web.Services
                 }
             }
             
-            return _configuration["site"] ?? "spitball";
+            return _configuration["siteName"] ?? "spitball";
         }
     }
 }

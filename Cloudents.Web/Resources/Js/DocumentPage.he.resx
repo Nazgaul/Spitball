@@ -142,7 +142,7 @@
     <value>סוג:</value>
   </data>
   <data name="table_university" xml:space="preserve">
-    <value>אוניברסיטה:</value>
+    <value>מוסד לימוד:</value>
   </data>
   <data name="table_uploaded" xml:space="preserve">
     <value>הועלה על ידי:</value>
@@ -155,5 +155,8 @@
   </data>
   <data name="unlock_document_unregister" xml:space="preserve">
     <value>כדי לראות את המסמך המלא, הירשם בבקשה</value>
+  </data>
+  <data name="unlock_video" xml:space="preserve">
+    <value>זו צפייה מקדימה של 30 שניות,&lt;br&gt;לצפייה בסרטון המלא  העבר נקודות לבעלי הסרטון.</value>
   </data>
 </root>

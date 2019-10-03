@@ -10,11 +10,13 @@
   <ItemGroup>
     <None Remove="calendar.json" />
     <None Remove="Video\appsettings-dev.json" />
+    <None Remove="Video\appsettings.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Video\appsettings-dev.json" />
     <EmbeddedResource Include="Google\calendar.json" />
+    <EmbeddedResource Include="Video\appsettings.json" />
   </ItemGroup>
 
   <ItemGroup>

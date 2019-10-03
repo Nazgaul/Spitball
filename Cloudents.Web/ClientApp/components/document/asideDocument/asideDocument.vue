@@ -14,7 +14,7 @@
 
             <p class="caption font-weight-bold pt-2 text-xs-center hidden-sm-and-down" v-if="isShowPurchased" v-language:inner="'documentPage_credit_uploader'"></p>
 
-            <template v-if="$vuetify.breakpoint.smAndDown">
+            <template v-if="$vuetify.breakpoint.smAndDown && !isVideo">
                 <div class="aside-top-btn btn-lock" v-if="isShowPurchased && !isLoading" @click="accountUser? updatePurchaseConfirmation(true) : updateLoginDialogState(true)">
                     <span class="pa-4 font-weight-bold text-xs-center" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
                     <span class="white--text pa-4 font-weight-bold text-xs-center body-1" v-language:inner="'documentPage_unlock_btn'"></span>
@@ -104,7 +104,9 @@ export default {
     },
     computed: {
         ...mapGetters(['getBtnLoading', 'accountUser', 'getRouteStack']),
-
+        isVideo(){      
+            return this.document.documentType === 'Video' 
+        },
         getCourse() {
             if(this.document.details && this.document.details.course) {
                 return this.document.details.course;

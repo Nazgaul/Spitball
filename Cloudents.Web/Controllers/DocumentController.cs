@@ -139,11 +139,15 @@ namespace Cloudents.Web.Controllers
             await Task.WhenAll(tItem, tFiles);
 
             var item = tItem.Result;
+           
             if (item == null)
             {
                 return NotFound();
             }
-
+            if (item.DocumentType == DocumentType.Video)
+            {
+                return Unauthorized();
+            }
             if (!item.IsPurchased)
             {
                 return Unauthorized();

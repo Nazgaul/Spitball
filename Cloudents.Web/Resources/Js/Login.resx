@@ -139,7 +139,7 @@
     <value>Continue with registration</value>
   </data>
   <data name="email_sent" xml:space="preserve">
-    <value>Email sent</value>
+    <value>An email sent, check your email.</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Exit</value>

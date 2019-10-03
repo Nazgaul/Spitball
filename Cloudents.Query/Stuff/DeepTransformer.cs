@@ -80,7 +80,7 @@ namespace Cloudents.Query.Stuff
             var type = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
             if (type == typeof(TimeSpan)&& value is long l  )
             {
-                propertyInfo.SetValue(x, new TimeSpan(l).StripMilliseconds());
+                propertyInfo.SetValue(x, new TimeSpan(l));
                 return true;
             }
 

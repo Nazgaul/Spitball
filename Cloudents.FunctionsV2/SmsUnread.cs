@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Chat;

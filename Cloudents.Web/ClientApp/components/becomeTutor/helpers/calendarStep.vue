@@ -26,6 +26,7 @@
                     <span v-language:inner="'becomeTutor_btn_back'"/>
                 </v-btn>
                 <v-btn  color="#4452FC"
+                        :disabled="isBtn"
                         round
                         :loading='isLoading'
                         class="white-text elevation-0"
@@ -54,6 +55,18 @@
         },
         components:{calendarSelect,calendarHours},
         computed: {
+            ...mapGetters(['getCalendarAvailabilityIsValid']),
+            isBtn(){
+                if(this.isSelectHours){
+                    if(this.getCalendarAvailabilityIsValid){
+                        return false;
+                    } else{
+                        return true
+                    }
+                }else{
+                  return false;  
+                }
+            },
             isMobile() {
                 return this.$vuetify.breakpoint.smAndDown;
             },

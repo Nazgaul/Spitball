@@ -3,7 +3,6 @@
         <button class="back-button hidden-sm-and-up" @click="$router.go(-1)">
             <v-icon :class="{'rtl-icon': isRtl}" right>sbf-arrow-back</v-icon>
         </button>
-
         <v-layout  justify-start v-bind="xsColumn" class="bio-wrap" >
                 <v-flex xs12 sm9  >
                     <profile-bio :isMyProfile="isMyProfile"></profile-bio>
@@ -57,7 +56,7 @@
                             </div>
 
                             <div class="empty-state"
-                                 v-if="activeTab === 2 && !profileData.questions.length && !loadingContent">
+                                 v-if="activeTab === 2 && !questionDocuments.length && !loadingContent">
                                 <div class="text-block">
                                     <p v-html="emptyStateData.text"></p>
                                     <b>{{emptyStateData.boldText}}</b>
@@ -65,7 +64,7 @@
                                 <a class="ask-question" @click="emptyStateData.btnUrl()">{{emptyStateData.btnText}}</a>
                             </div>
                             <div class="empty-state"
-                                 v-else-if="activeTab === 3 && !profileData.answers.length && !loadingContent">
+                                 v-else-if="activeTab === 3 && !answerDocuments.length && !loadingContent">
                                 <div class="text-block">
                                     <p v-html="emptyStateData.text"></p>
                                     <b>{{emptyStateData.boldText}}</b>
@@ -75,7 +74,7 @@
                                 </router-link>
                             </div>
                             <div class="empty-state doc-empty-state"
-                                 v-if="activeTab === 4 && !profileData.documents.length && !loadingContent">
+                                 v-if="activeTab === 4 && !uploadedDocuments.length && !loadingContent">
                                 <div class="text-block">
                                     <p v-html="emptyStateData.text"></p>
                                     <b>{{emptyStateData.boldText}}</b>
@@ -98,7 +97,7 @@
                                 <!-- <router-link class="question-card-wrapper"
                                              :to="{name:'question',params:{id:questionData.id}}"
                                              v-for="(questionData,index) in profileData.questions" :key="index"> -->
-                                             <div class="mb-3"  v-for="(questionData,index) in profileData.questions" :key="index"     >
+                                             <div class="mb-3"  v-for="(questionData,index) in questionDocuments" :key="index"     >
                                     <question-card :cardData="questionData"
                                                                   ></question-card>
                                     </div>
@@ -108,7 +107,7 @@
                             <scroll-list v-if="activeTab === 3" :scrollFunc="loadAnswers" :isLoading="answers.isLoading"
                                          :isComplete="answers.isComplete">
                                 <div 
-                                             v-for="(answerData,index) in profileData.answers"
+                                             v-for="(answerData,index) in answerDocuments"
                                              :key="index" class="mb-3">
                                     <question-card :cardData="answerData"></question-card>
                                 </div>
@@ -116,7 +115,7 @@
                             <scroll-list v-if="activeTab === 4" :scrollFunc="loadDocuments" :isLoading="documents.isLoading"
                                          :isComplete="documents.isComplete">
                                 <div 
-                                             v-for="(document ,index) in profileData.documents"
+                                             v-for="(document ,index) in uploadedDocuments"
                                              :key="index" class="mb-3">
                                     <result-note :item="document" class="pa-3 "></result-note>
                                 </div>
@@ -125,7 +124,7 @@
                                          :isLoading="purchasedDocuments.isLoading"
                                          :isComplete="purchasedDocuments.isComplete">
                                 <div 
-                                             v-for="(document ,index) in profileData.purchasedDocuments"
+                                             v-for="(document ,index) in purchasedsDocuments"
                                              :key="index" class="mb-3">
                                     <result-note :item="document" class="pa-3 "></result-note>
                                 </div>

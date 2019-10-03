@@ -4,34 +4,20 @@ namespace Cloudents.Core
 {
     public class ConfigurationKeys : IConfigurationKeys
     {
-        public ConfigurationKeys(string siteEndPoint)
+        public ConfigurationKeys()
         {
-            SiteEndPoint = siteEndPoint;
-
+            SiteEndPoint = new SiteEndPoints();
+            
         }
-
-        //public static ConfigurationKeys WebSite(string sqlConnection, string redis, string searchServiceName,
-        //    string searchServiceKey, bool isProduction, string storage,
-        //    string serviceBus, string payPal)
+        //public ConfigurationKeys(string siteEndPoint)
         //{
-        //    return new ConfigurationKeys()
-        //    {
-        //        Db = new DbConnectionString(sqlConnection,redis),
-        //        Redis = redis,
-        //        Search = new SearchServiceCredentials(searchServiceName, searchServiceKey, isProduction),
-        //        Storage = storage,
-        //        ServiceBus = serviceBus,
-        //        PayPal = new PayPalCredentials()
-        //    };
+        //    SiteEndPoint = siteEndPoint;
 
         //}
-
-
 
         public DbConnectionString Db { get; set; }
         public string MailGunDb { get; set; }
         public SearchServiceCredentials Search { get; set; }
-        public PayPalCredentials PayPal { get; set; }
         public string Redis { get; set; }
         public string Storage { get; set; }
 
@@ -42,7 +28,7 @@ namespace Cloudents.Core
 
         public string BlockChainNetwork { get; set; }
 
-        public string SiteEndPoint { get; }
+        public SiteEndPoints SiteEndPoint { get; set; }
         public string ServiceBus { get; set; }
     }
 
@@ -61,20 +47,12 @@ namespace Cloudents.Core
         public bool IsDevelop { get; }
     }
 
-    public class PayPalCredentials
+    public class SiteEndPoints
     {
-        public string ClientId { get; }
-        public string ClientSecret { get; }
-        public bool IsDevelop { get; }
-
-
-        public PayPalCredentials( string clientId, string clientSecret, bool isDevelop)
-        {
-            ClientId = clientId;
-            ClientSecret = clientSecret;
-            IsDevelop = isDevelop;
-        }
+        public string SpitballSite { get; set; }
+        public string FunctionSite { get; set; }
     }
+  
 
     public class PayMeCredentials
     {
@@ -84,11 +62,11 @@ namespace Cloudents.Core
             SellerId = "MPL15546-31186SKB-53ES24ZG-WGVCBKO2";
             BuyerKey = "BUYER156-4564629H-GXBKSW7B-T3H2FF2F";
         }
-        public string EndPoint { get; set; }
+        public string EndPoint { get; private set; }
 
-        public string SellerId { get; set; }
+        public string SellerId { get; private set; }
 
-        public string BuyerKey { get; set; }
+        public string BuyerKey { get; private set; }
     }
 
     public class TwilioCredentials

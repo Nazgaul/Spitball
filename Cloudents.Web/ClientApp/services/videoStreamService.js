@@ -1,7 +1,7 @@
 import tutorService from "../components/tutor/tutorService";
 const extensionId = 'jaimgihanebafnbcpckdkilkeoomkpik'; // dev && prod
 import store from '../store/index.js';
-import walletService from "./walletService";
+import insightService from './insightService.js'
 
   function  createVideoSession() {
         const self = this;
@@ -77,6 +77,7 @@ import walletService from "./walletService";
             });
         }
         catch(err) {
+            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoStream_notBrowser', err);
             return Promise.reject("notBrowser");
         }
     }

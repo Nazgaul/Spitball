@@ -45,7 +45,7 @@
             }
         },
         computed: {
-            ...mapGetters(['getVerticalData', 'accountUser', 'showMobileFeed']),
+            ...mapGetters(['accountUser', 'showMobileFeed']),
             isMobile(){
                 return this.$vuetify.breakpoint.mdAndDown
             },

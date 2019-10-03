@@ -26,7 +26,7 @@ namespace Cloudents.Web.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public Task<object> GeneratePreview(DocumentDetailDto model, CancellationToken token)
+        public Task<object> GeneratePreview(DocumentDetailDto model, long userId, CancellationToken token)
         {
             var result = Enumerable.Range(0, model.Pages).Select(i =>
             {
@@ -59,49 +59,35 @@ namespace Cloudents.Web.Services
     public class VideoServiceGenerator : IDocumentGenerator
     {
         private readonly IVideoService _videoService;
-        private readonly IDocumentDirectoryBlobProvider _blobProvider;
-        private readonly LinkGenerator _linkGenerator;
-        private readonly IBinarySerializer _binarySerializer;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public VideoServiceGenerator(IVideoService videoService, IDocumentDirectoryBlobProvider blobProvider, LinkGenerator linkGenerator, IBinarySerializer binarySerializer, IHttpContextAccessor httpContextAccessor)
+        public VideoServiceGenerator(IVideoService videoService, IUrlBuilder urlBuilder)
         {
             _videoService = videoService;
-            _blobProvider = blobProvider;
-            _linkGenerator = linkGenerator;
-            _binarySerializer = binarySerializer;
-            _httpContextAccessor = httpContextAccessor;
+            _urlBuilder = urlBuilder;
         }
 
-        public async Task<object> GeneratePreview(DocumentDetailDto model, CancellationToken token)
+        public async Task<object> GeneratePreview(DocumentDetailDto model, long userId, CancellationToken token)
         {
             string locator;
             if (model.IsPurchased)
             {
-                locator = await _videoService.BuildUserStreamingLocatorAsync(model.Id, token);
+                locator = await _videoService.BuildUserStreamingLocatorAsync(model.Id, userId, token);
             }
             else
             {
                 locator = await _videoService.GetShortStreamingUrlAsync(model.Id, token);
             }
 
-            var uri = _blobProvider.GetPreviewImageLink(model.Id, 0);
-            var effect = ImageProperties.BlurEffect.None;
+            var uri = _urlBuilder.BuildDocumentThumbnailEndpoint(model.Id);
+          
 
-            var properties = new ImageProperties(uri, effect);
-            var hash = _binarySerializer.Serialize(properties);
-
-            var poster = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, "imageUrl", new
-            {
-                hash = Base64UrlTextEncoder.Encode(hash)
-            });
-
-            return new { locator, poster };
+            return new { locator, poster = uri };
         }
     }
 
     public interface IDocumentGenerator
     {
-        Task<object> GeneratePreview(DocumentDetailDto model, CancellationToken token);
+        Task<object> GeneratePreview(DocumentDetailDto model, long userId, CancellationToken token);
     }
 }

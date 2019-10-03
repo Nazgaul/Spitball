@@ -75,7 +75,6 @@ namespace Cloudents.Infrastructure.Framework
             await Task.WhenAll(t);
         }
 
-        public static readonly string[] Extensions = FormatDocumentExtensions.Tiff;
 
 
         public void Dispose()

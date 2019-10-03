@@ -266,7 +266,31 @@ export default {
             if(this.isTutorProfile && (this.isMyProfile || isTutorSharedCalendar)){
                 return true
             }
-        }
+        },
+        questionDocuments() {
+            if(this.profileData && this.profileData.questions) {
+                return this.profileData.questions;
+            }
+            return [];
+        },
+        answerDocuments() {
+            if(this.profileData && this.profileData.answers) {
+                return this.profileData.answers;
+            }
+            return [];
+        },
+        uploadedDocuments() {
+            if(this.profileData && this.profileData.documents) {
+                return this.profileData.documents;
+            }
+            return [];
+        },
+        purchasedsDocuments() {
+            if(this.profileData && this.profileData.purchasedDocuments) {
+                return this.profileData.purchasedDocuments;
+            }
+            return [];
+        },
     },
     watch: {
         '$route': function(val){

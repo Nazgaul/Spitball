@@ -127,8 +127,9 @@ namespace Cloudents.Admin2
                 var val = c.Resolve<IOptionsMonitor<PayMeCredentials>>();
                 return val.CurrentValue;
             }).AsSelf();
-            var keys = new ConfigurationKeys(Configuration["Site"])
+            var keys = new ConfigurationKeys()
             {
+                SiteEndPoint = { SpitballSite = Configuration["Site"] },
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
                        Configuration["AzureSearch:SearchServiceAdminApiKey"],

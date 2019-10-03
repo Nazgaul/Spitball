@@ -83,6 +83,7 @@ const getAllConversations = () => {
 }  
 
 const getChatById = (id) => {
+    if(!id) return Promise.reject();
     return connectivityModule.http.get(`Chat/conversation/${id}`);
 }
 

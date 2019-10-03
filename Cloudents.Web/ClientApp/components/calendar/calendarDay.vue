@@ -6,7 +6,7 @@
                 <v-select :class="['select-cal',{'dayOff':isDayOff}]"
                         v-model="selectedHourFrom" 
                         height="30" dense
-                        :append-icon="'sbf-arrow-down'" 
+                        :append-icon="'sbf-arrow-fill'" 
                         :items="hoursList" outline>
                     <template slot="selection" slot-scope="data">{{timeFormat(data.item)}}</template>
                     <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
@@ -16,7 +16,7 @@
 
                 <v-select v-if="!isDayOff" class="select-cal" height="30" dense tag="span"
                             v-model="selectedHourTo"
-                            :append-icon="'sbf-arrow-down'" 
+                            :append-icon="'sbf-arrow-fill'" 
                             :items="hoursToList" outline>
                     <template slot="selection" slot-scope="data">{{timeFormat(data.item)}}</template>
                     <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
@@ -35,7 +35,7 @@
                 <div :style="{'display':isMobile?'':'inline-block'}" :class="!showAdditional || isDayOff?'additionalHoursDisplay':''" > 
                         <v-select class="select-cal" height="30" dense
                                 v-model="selectedAdditionalHourFrom"
-                                :append-icon="'sbf-arrow-down'" 
+                                :append-icon="'sbf-arrow-fill'" 
                                 :items="hoursAdditionaFromList" outline>
                             <template slot="selection" slot-scope="data">{{timeFormat(data.item)}}</template>
                             <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
@@ -43,9 +43,9 @@
 
                         <span class="dividers" v-language:inner="'calendar_to'"/>
 
-                        <v-select :class="['select-cal',{'mt-3':isMobile}]" height="30" dense
+                        <v-select :class="['select-cal',{'mt-2':isMobile}]" height="30" dense
                                 v-model="selectedAdditionalHourTo"
-                                :append-icon="'sbf-arrow-down'" 
+                                :append-icon="'sbf-arrow-fill'" 
                                 :items="hoursAdditionaToList" outline>
                             <template slot="selection" slot-scope="data">{{timeFormat(data.item)}}</template>
                             <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
@@ -277,7 +277,13 @@ export default {
                             margin: 0;
                             .v-select__slot {
                                 .v-input__append-inner{
-                                    margin-top: 6px !important;
+                                    margin-top: 4px !important;
+                                    .v-input__icon{
+                                        i{
+                                            font-size: 6px;
+                                            color: #26262f;
+                                        }
+                                    }
                                 }
                             }
                         }

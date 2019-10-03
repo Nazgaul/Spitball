@@ -2,6 +2,7 @@ export default {
     data() {
         return {
             isReady:false,
+            myPlayer: ''
         }
     },
     props:{
@@ -49,44 +50,54 @@ export default {
         }
     },
     computed: {
-        posterPlaceHolder(){
-            // need to change it: img from RAM by size;
-            return `https://miro.medium.com/max/${this.width}/1*MPHVp5hi-uSwYYOwlXFuzw.png`
+        uniqueID(){
+            return `${this.id}_${Math.random().toString(36).substr(2, 9)}`
+        }
+    },
+    watch:{
+        src(newVal, oldVal){
+            console.log(newVal);
+            if(!!this.myPlayer){
+                let srcObj = {
+                    src: newVal,
+                    type: this.type
+                }
+                this.myPlayer.src([srcObj]);
+            }
         }
     },
     methods: {
         initVideoPlayer(){
-            // data-setup='{plugins: { "contentTitle": {"name": "Azure Medi Services Overview"}}}'...>
             let videoOptions = {
-                "fluid": true,
+                // "fluid": true,
                 "nativeControlsForTouch": false,
                 "logo":{"enabled":false},
-                "plugins": { 
-                    "titleOverlay": { 
-                        "name": this.title, 
-                        "horizontalPosition": "left", 
-                        "verticalPosition": "center" 
-                    } 
-                },
                 "techOrder": ["azureHtml5JS", "flashSS", "html5FairPlayHLS","silverlightSS", "html5"], 
-                // ...this.dataSetup,
-                controls:this.controls,
-                autoplay:this.autoplay,
-                width:this.width,
-                height:this.height
+                controls: this.controls,
+                autoplay: this.autoplay,
+                "poster": this.poster,
+                width: this.width,
+                height: this.height,
+                "language":global.lang,
+                // traceConfig: {
+                //     TraceTargets: [{ target: 'console' }],
+                //     maxLogLevel: 3
+                // },
             }
+            let uniqueID = this.uniqueID
             let srcObj = {src:this.src,type:this.type}
-            let myPlayer = amp(this.id,videoOptions);
-            myPlayer.src([srcObj]);
+            this.myPlayer = amp(uniqueID,videoOptions);
+            this.myPlayer.src([srcObj]);
+            this.myPlayer.addEventListener('ended',(e)=>{
+                this.$emit('videoEnded')
+            })
         }
     },
     beforeCreate() {
         let self = this
-        let ampUrl = '//amp.azure.net/libs/amp/2.1.5/azuremediaplayer.min.js'
+        let ampUrl = '//amp.azure.net/libs/amp/2.3.1/azuremediaplayer.min.js'
         this.$loadScript(ampUrl).then(()=>{
-            self.$loadScript('//azure-samples.github.io/media-services-javascript-azure-media-player-title-overlay-plugin/amp-titleOverlay.js').then(()=>{
-                self.initVideoPlayer()
-                })
+            self.initVideoPlayer()
         })
     },
 }

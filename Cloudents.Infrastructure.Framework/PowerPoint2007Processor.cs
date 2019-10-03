@@ -30,7 +30,6 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        public static readonly string[] Extensions = FormatDocumentExtensions.PowerPoint;
 
         private static string ExtractStringFromPpt(Presentation ppt)
         {

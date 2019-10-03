@@ -1,9 +1,9 @@
 <template>
       <video v-if="src"
-             :id="id" 
-             :poster="poster || posterPlaceHolder" 
-             :tabindex="tabindex" 
-              class="azuremediaplayer amp-default-skin amp-big-play-centered">
+             :id="uniqueID" 
+             :tabindex="tabindex"
+             :width="width" :height="height"
+              class="azuremediaplayer amp-flush-skin amp-big-play-centered">
     </video>
 </template>
 

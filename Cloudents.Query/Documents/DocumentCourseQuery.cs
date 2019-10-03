@@ -53,7 +53,6 @@ select ds.Id
 	,ds.Title
 	,ds.User_Id
 	,ds.User_Name
-	,ds.User_Score
 	,ds.User_Image
 	,ds.[Views]
 	,ds.Downloads
@@ -62,6 +61,8 @@ select ds.Id
 	,(select v.VoteType from sb.Vote v where v.DocumentId = ds.Id and v.UserId = cte.userid) as Vote_Vote
 	,ds.Price
     ,ds.Purchased
+,ds.DocumentType as documentType
+,ds.duration as Duration
 from sb.iv_DocumentSearch ds
 ,cte
 where ds.Course = :course
@@ -86,7 +87,7 @@ and (:typeFilterCount = 0 or d.Type in (:typefilter))";
                 sqlQuery.SetString("country", query.Country);
                 sqlQuery.SetInt32("typeFilterCount", query.Filter?.Length ?? 0);
                 sqlQuery.SetParameterList("typefilter", query.Filter ?? Enumerable.Repeat("x", 1));
-                sqlQuery.SetResultTransformer(new DeepTransformer<DocumentFeedDto>('_'));
+                sqlQuery.SetResultTransformer(new DeepTransformer<DocumentFeedDto>('_', new SbAliasToBeanResultTransformer<DocumentFeedDto>()) );
                 var future = sqlQuery.Future<DocumentFeedDto>();
 
 

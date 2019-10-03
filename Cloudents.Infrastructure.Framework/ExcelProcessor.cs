@@ -53,7 +53,6 @@ namespace Cloudents.Infrastructure.Framework
 
 
 
-        public static readonly string[] Extensions = FormatDocumentExtensions.Excel;
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {
