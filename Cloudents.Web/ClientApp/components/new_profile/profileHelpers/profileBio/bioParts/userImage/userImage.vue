@@ -118,7 +118,6 @@
             margin-bottom: 20px;
         }
         .user-balance {
-            font-family: @fontOpenSans;
             font-size: 20px;
             font-weight: bold;
             color: @color-white;
@@ -168,7 +167,6 @@
             border-radius: 0 0 4px 4px;
         }
         .reviews-quantity {
-            font-family: @fontOpenSans;
             font-size: 13px;
             line-height: 1.92;
             letter-spacing: -0.3px;

@@ -284,8 +284,7 @@
 
             }
         }
-        .drop-text {
-            font-family: @fontOpenSans;
+        .drop-text {  
             font-size: 18px;
             font-weight: 600;
             color: @global-purple;
@@ -309,17 +308,15 @@
                 }
 
             }
-            .browse-text {
-                font-family: @fontOpenSans;
+            .browse-text {       
                 font-size: 14px;
                 color: @colorBlackNew;
             }
             .btn-label {
-                color: @color-blue-new;
-                font-family: @fontOpenSans;
+                color: @color-blue-new;    
                 font-size: 14px;
                 @media (max-width: @screen-xs) {
-                    font-family: @fontFiraSans;
+                    
                     font-size: 16px;
                 }
 

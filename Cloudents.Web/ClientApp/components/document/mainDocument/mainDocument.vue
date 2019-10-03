@@ -776,7 +776,6 @@ export default {
       align-items: center;
     }
     .confirm-headline {
-      font-family: @fontFiraSans;
       font-size: 18px;
       line-height: 1.56;
       color: @color-blue-new;
@@ -823,11 +822,9 @@ export default {
           .doc-type-text {
             color: @color-blue-new;
             font-size: 13px;
-            font-family: @fontFiraSans;
           }
         }
         .doc-title {
-          font-family: @fontFiraSans;
           color: @textColor;
           text-align: center;
           font-size: 16px;
@@ -853,7 +850,6 @@ export default {
           }
           &.cancel {
             font-size: 14px;
-            font-family: @fontOpenSans;
             color: fade(@color-black, 72%);
           }
         }

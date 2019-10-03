@@ -236,7 +236,6 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-family: @fontOpenSans;
     font-size: 18px;
     font-weight: bold;
     letter-spacing: -0.4px;
@@ -250,7 +249,6 @@ export default {
     }
   }
   .tutor-price {
-    font-family: @fontOpenSans;
     font-weight: bold;
     font-size: 20px;
     flex-shrink: 0;

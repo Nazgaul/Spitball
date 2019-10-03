@@ -230,7 +230,6 @@
             z-index: 1;
             padding: 5px 18px;
             border-radius: 4px;
-            font-family: Open Sans, sans-serif;
             font-size: 13px;
             font-weight: 600;
             letter-spacing: -.4px;
@@ -324,8 +323,7 @@
             width: 100%;
             height: 48px;
             border-radius: 4px;
-            border: 1px solid @colorGreyNew;
-            font-family: @fontOpenSans;
+            border: 1px solid @colorGreyNew; 
             font-size: 14px;
             font-weight: 600;
             letter-spacing: -0.7px;
@@ -347,8 +345,7 @@
                 .v-input__slot {
                     box-shadow: none !important; //vuetify
                     border-radius: 4px; //vuetify
-                    border: 1px solid @colorGreyNew;
-                    font-family: @fontOpenSans;
+                    border: 1px solid @colorGreyNew;                 
                     font-size: 14px;
                     letter-spacing: -0.7px;
                     color: @textColor;

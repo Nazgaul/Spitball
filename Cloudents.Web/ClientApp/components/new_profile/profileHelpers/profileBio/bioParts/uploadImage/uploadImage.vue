@@ -55,7 +55,6 @@
             flex-direction: column;
         }
         .image-edit-text{
-            font-family: @fontOpenSans;
             font-size: 11px;
             color: @color-black;
         }

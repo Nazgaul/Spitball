@@ -206,7 +206,6 @@ export default {
       border-radius: unset;
     }
     .chat-header-text {
-      font-family: @fontOpenSans;
       font-size: 14px;
       color: #ffffff;
       word-break: break-all;

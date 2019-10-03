@@ -266,8 +266,7 @@
         .header {
             background-color: #f0f0f7;
             width: 100%;
-            color: @global-purple;
-            font-family: @fontOpenSans;
+            color: @global-purple;        
             font-size: 18px;
             font-weight: bold;
             letter-spacing: -0.5px;

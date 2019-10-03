@@ -127,7 +127,7 @@
                 }
                 .ask-text {
                     color: @color-blue-new;
-                    font-family: @fontFiraSans;
+                    
                     font-size: 18px;
                     font-weight: 600;
                     margin-bottom: 0;

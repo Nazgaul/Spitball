@@ -38,7 +38,7 @@
             font-size: 12px;
         }
         .edit-class {
-            font-family: @fontFiraSans;
+            
             font-size: 13px;
             letter-spacing: -0.3px;
             color: @colorBlackNew;
