@@ -44,12 +44,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="webpack.global.js">
-      <DependentUpon>webpack.config.js</DependentUpon>
-    </None>
-  </ItemGroup>
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist')">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

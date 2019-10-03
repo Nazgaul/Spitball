@@ -1,16 +1,13 @@
 ﻿const path = require("path");
 const webpack = require("webpack");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin-with-rtl");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
-//var t = require("./webpack.global.js");
-const merge = require('webpack-merge');
 const WebpackRTLPlugin = require("webpack-rtl-plugin");
 const bundleOutputDir = "./wwwroot/dist";
+const RemovePlugin = require('remove-files-webpack-plugin');
 
 const allModules = [
-    "babel-polyfill",
+    "@babel/polyfill",
     "vue",
     "vue-router",
     "vuex",
@@ -61,64 +58,110 @@ const allModules = [
     "vuetify/es5/components/VAutocomplete",
     "vuetify/es5/components/VSheet",
     "vuetify/es5/components/VCalendar"
-  
+
 ];
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
+    // const isDevBuild =  false;
+    const mode =  isDevBuild ? 'development':'production';
 
-    const sharedConfig = () => ({
-        stats: { modules: false },
-
+    const clientBundleConfig =
+    {
+        stats: { modules: false, children: false },
         module: {
             rules: [
-                { test: /\.css(\?|$)/, use: ExtractTextPlugin.extract({ use:"css-loader"  }) },
-                { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: "url-loader?limit=8192" },
                 {
-                    test: /\.styl$/,
-                    loader: ExtractTextPlugin.extract({ use: "css-loader!stylus-loader"  })
+                    test: /\.css(\?|$)/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        'css-loader'
+                    ]
                 },
                 {
-                    test: /\.less$/,
-                    //exclude: /ClientApp/,
-                    use: ExtractTextPlugin.extract({ use:  "css-loader!less-loader"  })
+                    test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/,
+                    use: [
+                        'url-loader?limit=8192'
+                    ]
                 },
                 {
-                    test: /\.scss$/,
-                    exclude: /ClientApp/,
-                    use: ExtractTextPlugin.extract({ use: "css-loader!sass-loader" })
+                    test: /\.styl(\?|$)/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        //{
+                        //    loader: "style-loader" // creates style nodes from JS strings
+                        //},
+                        {
+                            loader: "css-loader" // translates CSS into CommonJS
+                        },
+                        {
+                            loader: 'stylus-loader' // compiles Stylus to CSS
+                        }
+
+                    ]
+                },
+                {
+                    test: /\.less(\?|$)/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        //{
+                        //    //loader: 'style-loader', // creates style nodes from JS strings
+                        //  },
+                        {
+                            loader: 'css-loader', // translates CSS into CommonJS
+                        },
+                        {
+                            loader: 'less-loader', // compiles Less to CSS
+                        },
+                    ]
                 },
                 {
                     test: /\.font\.js/,
-                    loader: ExtractTextPlugin.extract({
-                        use: [
-                            "css-loader" ,
-                            "webfonts-loader"
-                        ]
-                    })
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        'css-loader',
+                        {
+                            loader: 'webfonts-loader',
+                            options: {
+                                publicPath: '/dist/'
+                            }
+                        }
+                    ]
                 }
+               
             ]
         },
+        devtool: false,
+        optimization: {
+            minimize: !isDevBuild
+
+        },
         plugins: [
-           
-            new ExtractTextPlugin({
-                filename: '[name].[contenthash].css'
+            new RemovePlugin({
+                before: {
+                    // parameters.
+                    include: ['./wwwroot/dist']
+                },
+                after: {
+                    // parameters.
+                }
+            }),
+            new MiniCssExtractPlugin({
+                filename: '[name].[contenthash].css',
             }),
 
             new WebpackRTLPlugin({
-                filename: '[name].[contenthash].rtl.css',
-                minify: false
             }),
-            //new PurifyCSSPlugin({
-            //    // Give paths to parse for rules. These should be absolute!
-            //    paths: glob.sync(path.join(__dirname, 'clientapp/**/*.vue')),
-            //    minimize: !isDevBuild,
-            //    purifyOptions: {
-            //        whitelist: ["*spitball*"]
+            
+            //new StatsWriterPlugin({
+            //    filename: "vendor.json",
+            //    transform: function (data, opts) {
+            //        return JSON.stringify(data.assetsByChunkName);
             //    }
             //}),
-            new webpack.DefinePlugin({
-                'process.env.NODE_ENV': isDevBuild ? '"development"' : '"production"'
+            new webpack.DllPlugin({
+                path: path.join(__dirname, "wwwroot", "dist", "[name]-manifest.json"),
+                name: "[name]"
             })
 
 
@@ -132,9 +175,16 @@ module.exports = (env) => {
                         reduceIdents: false
                     },
                     canPrint: true
+                }),
+                new webpack.SourceMapDevToolPlugin({
+                    filename: "[file].map", // Remove this line if you prefer inline source maps
+                    moduleFilenameTemplate:
+                        path.relative(bundleOutputDir,
+                            "[resourcePath]") // Point sourcemap entries to the original file locations on disk
                 })
 
-        ] : [
+
+            ] : [
                     new OptimizeCssAssetsPlugin({
                         //assetNameRegExp: /.css$/g,
                         cssProcessor: require("cssnano"),
@@ -144,45 +194,19 @@ module.exports = (env) => {
                         },
                         canPrint: true
                     })
-            ])
-    });
-    const clientBundleConfig = merge(sharedConfig(),
-        {
-            output: {
-                path: path.join(__dirname, "wwwroot", "dist"),
-                publicPath: "/dist/", 
-                filename: "[name].[chunkhash].js",
-                library: "[name]"
-            },
-           
-            entry: {
-                vendor: allModules
-            },
-            plugins: [
-                new StatsWriterPlugin({
-                    filename: "vendor.json",
-                    transform: function (data, opts) {
-                        return JSON.stringify(data.assetsByChunkName);
-                    }
-                }),
-                new webpack.DllPlugin({
-                    path: path.join(__dirname, "wwwroot", "dist", "[name]-manifest.json"),
-                    name: "[name]"
-                })
-            ].concat(isDevBuild ? [
-                new CleanWebpackPlugin(path.join(__dirname, "wwwroot", "dist")),
-                
-                new webpack.SourceMapDevToolPlugin({
-                    filename: "[file].map", // Remove this line if you prefer inline source maps
-                    moduleFilenameTemplate:
-                        path.relative(bundleOutputDir,
-                            "[resourcePath]") // Point sourcemap entries to the original file locations on disk
-                })
-            ] : [
-                    new webpack.optimize.UglifyJsPlugin()
-                ])
+                ]),
+        mode,
+        output: {
+            path: path.join(__dirname, "wwwroot", "dist"),
+            //publicPath: "/dist/vendor",
+            filename: "[name].[chunkhash].js",
+            library: "[name]"
+        },
 
-        });
+        entry: {
+            vendor: allModules
+        }
+    };
 
     return [clientBundleConfig];
 

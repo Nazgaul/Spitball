@@ -1,4 +1,5 @@
-import timeago from 'timeago.js';
+// import timeago from 'timeago.js';
+import { format, register } from 'timeago.js'
 
 function timeAgoFormat(time) {
     const hebrewLang = function (number, index) {
@@ -39,11 +40,10 @@ function timeAgoFormat(time) {
         ][index];
     };
     
-    timeago.register('he', hebrewLang);
-    timeago.register('en', englishLang);
-    let timeAgoRef = timeago();
+    register('he', hebrewLang);
+    register('en', englishLang);
     let locale = global.lang.toLowerCase() === 'he' ? 'he' : '';
-    return timeAgoRef.format(time, locale);    
+    return format(time, locale);    
 }
 
 export default {

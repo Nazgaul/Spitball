@@ -12,15 +12,16 @@
 @inject ConfigurationService VersionService
 
 @{
-    var p = Provider.GetTag("vendor");
-    var main = Provider.GetTag("main");
+    var p = Provider.GetVendorTag();
+    //var main = Provider.GetTag("main");
     var cdnEndPoint = Constants.GetCdnEndpoint(Configuration);
     var isAuth = User.Identity.IsAuthenticated;
+    var result = System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
 }
 <!DOCTYPE html>
 
 
-<html dir="@(System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr")" lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
+<html dir="@result" lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
 <head>
     <meta charset="utf-8">
     <meta name="mobile-web-app-capable" content="yes" />
@@ -30,22 +31,22 @@
     {
         <link href="https://fonts.googleapis.com/css?family=Fira+Sans|Open+Sans&display=swap" rel="stylesheet">
     }
-    <environment include="Development">
+    @*<environment include="Development">
         <link rel="stylesheet" href="~/dist/@p.GetCss()" />
         <link rel="stylesheet" href="~/dist/@main.GetCss()" />
-    </environment>
+    </environment>*@
 
-    <environment exclude="Development">
+    @*<environment exclude="Development">*@
         <link rel="stylesheet" href="@cdnEndPoint/dist/@p.GetCss()"
               asp-fallback-href="~/dist/@p.GetCss()"
               asp-fallback-test-class="cdn-only" asp-fallback-test-property="position" asp-append-version="true"
               asp-fallback-test-value="absolute" />
 
-        <link rel="stylesheet" href="@cdnEndPoint/dist/@main.GetCss()"
+        @*<link rel="stylesheet" href="@cdnEndPoint/dist/@main.GetCss()"
               asp-fallback-href="~/dist/@main.GetCss()"
               asp-fallback-test-class="cdn-only2" asp-fallback-test-property="position" asp-append-version="true"
-              asp-fallback-test-value="absolute" />
-    </environment>
+              asp-fallback-test-value="absolute" />*@
+    @*</environment>*@
     @await RenderSectionAsync("styleSection", required: false)
     <partial name="_HeaderTags" model="cdnEndPoint" />
 
@@ -118,7 +119,9 @@
 
     <script>
         window.version = '@VersionService.GetVersion()';
-        window.publicPath = '@cdnEndPoint' + '/dist/';
+
+
+        window.publicPath = '@cdnEndPoint' + '/dist/';// + '@result/';
         window.isAuth = @isAuth.ToString().ToLower();
         window.siteName = '@VersionService.GetSiteName()';
 

@@ -299,8 +299,11 @@ namespace Cloudents.Web
             {
                 OnPrepareResponse = ctx =>
                 {
-                    ctx.Context.Response.Headers.Add("Cache-Control", $"public,max-age={TimeConst.Year}");
-                    ctx.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                    if (!env.IsDevelopment())
+                    {
+                        ctx.Context.Response.Headers.Add("Cache-Control", $"public,max-age={TimeConst.Year}");
+                        ctx.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                    }
                 }
             });
 
