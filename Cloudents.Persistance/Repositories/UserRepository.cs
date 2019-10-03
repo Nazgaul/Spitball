@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
@@ -48,6 +50,13 @@ namespace Cloudents.Persistence.Repositories
                     .SingleOrDefaultAsync(token);
         }
 
+        public async Task<IEnumerable<User>> GetExpiredCreditCardsAsync(CancellationToken token)
+        {
+            return await Session.QueryOver<User>()
+                .Where(w => w.BuyerPayment.PaymentKeyExpiration < DateTime.UtcNow)
+                .ListAsync<User>(token);
+
+        }
 
         /*  public Task<decimal> UserBalanceAsync(long userId, CancellationToken token)
         {
@@ -59,7 +68,7 @@ namespace Cloudents.Persistence.Repositories
 
         //internal IQueryOver<Transaction, Transaction> UserBalanceByType(long userId, TransactionType type)
         //{
-   
+
         //    return
         //      Session.QueryOver<Transaction>()
         //          .Where(w => w.User.Id == userId)

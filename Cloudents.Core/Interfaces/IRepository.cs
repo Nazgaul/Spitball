@@ -32,6 +32,7 @@ namespace Cloudents.Core.Interfaces
     {
         Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
         Task<User> GetUserByEmailAsync(string userEmail, CancellationToken token);
+        Task<IEnumerable<User>> GetExpiredCreditCardsAsync(CancellationToken token);
     }
 
  
