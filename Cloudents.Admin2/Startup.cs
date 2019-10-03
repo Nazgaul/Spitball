@@ -107,8 +107,9 @@ namespace Cloudents.Admin2
 
             services.AddAuthorization(options =>
             {
-                //options.AddPolicy(Policy.IsraelUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IL"));
-                //options.AddPolicy(Policy.IndiaUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IN"));
+               // options.AddPolicy(Policy.IsraelUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IL"));
+               // options.AddPolicy(Policy.IndiaUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IN"));
+               // options.AddPolicy(Policy.GlobalUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "None"));
             });
 
             var assembliesOfProgram = new[]

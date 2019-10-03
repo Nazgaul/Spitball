@@ -68,9 +68,11 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery] UniversitiesRequest model
             , CancellationToken token)
         {
-            if (User.GetCountryClaim() == model.Country || string.IsNullOrEmpty(User.GetCountryClaim()))
+            
+            if (string.IsNullOrEmpty(User.GetCountryClaim()) ||
+                User.GetCountryClaim().Equals(model.Country, StringComparison.CurrentCultureIgnoreCase))
             {
-                var query = new AdminUniversitiesQuery(User.GetCountryClaim(), model.State.GetValueOrDefault(ItemState.Pending));
+                var query = new AdminUniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
                 var retVal = await _queryBus.QueryAsync(query, token);
                 return retVal;
             }
@@ -102,10 +104,8 @@ namespace Cloudents.Admin2.Api
         public async Task<UniversitySearchDto> GetAsync([FromQuery(Name = "university")]string university,
             CancellationToken token)
         {
-            //Only IL Need to think about it
-            //TODO: Make mis suitable from IN Users
             var result = await _universityProvider.SearchAsync(university, 0,
-                null, token);
+                User.GetCountryClaim(), token);
             return result;
         }
 

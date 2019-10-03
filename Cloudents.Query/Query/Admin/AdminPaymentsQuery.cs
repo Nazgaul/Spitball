@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminPaymentsQuery : IQuery<IEnumerable<PaymentDto>>
+    public class AdminPaymentsQuery : IQueryAdmin<IEnumerable<PaymentDto>>
     {
+        public AdminPaymentsQuery(string country)
+        {
+            Country = country;
+        }
+        public string Country { get; }
         internal sealed class AdminPaymentsQueryHandler : IQueryHandler<AdminPaymentsQuery, IEnumerable<PaymentDto>>
         {
             private readonly IDapperRepository _repository;
@@ -20,7 +25,7 @@ namespace Cloudents.Query.Query.Admin
             public async Task<IEnumerable<PaymentDto>> GetAsync(AdminPaymentsQuery query, CancellationToken token)
             {
                 //This query will not work in case there will be more then one student in a room.
-                const string sql = @"select srs.Id as StudyRoomSessionId,
+                string sql = @"select srs.Id as StudyRoomSessionId,
                     case when t.Price is null then tr.Price else t.Price end as Price,
                     case when tr.SellerKey is null then 1 else 0 end as cantPay,
 		                    tr.Id as TutorId, 
@@ -45,9 +50,13 @@ namespace Cloudents.Query.Query.Admin
                     where Receipt is null
                         and datediff(MINUTE, srs.Created, srs.Ended) > 10
 	                    and u.PaymentKey is not null";
+                if (!string.IsNullOrEmpty(query.Country))
+                {
+                    sql += @" and (u.Country = @Country or tu.Country = @Country)";
+                }
                 using (var conn = _repository.OpenConnection())
                 {
-                    return await conn.QueryAsync<PaymentDto>(sql);
+                    return await conn.QueryAsync<PaymentDto>(sql, new { query.Country });
 
                 }
             }

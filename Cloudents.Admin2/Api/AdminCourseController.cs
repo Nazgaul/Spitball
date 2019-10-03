@@ -93,8 +93,8 @@ namespace Cloudents.Admin2.Api
         public async Task<CoursesResponse> GetAsync([FromQuery(Name = "course")]string course,
             CancellationToken token)
         {
-            //TODO: fix the query to have only Admin and add country filter
-            var query = new CourseSearchWithTermQuery(0, course, 0);
+            var query = new AdminCourseSearchQuery(0, course, 0, User.GetCountryClaim());
+            //var query = new CourseSearchWithTermQuery(0, course, 0);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
             {
@@ -115,14 +115,14 @@ namespace Cloudents.Admin2.Api
             return retVal;
         }
 
-        [HttpGet("allCourses")]
-        [Authorize(/*Policy = Policy.IsraelUser*/)]
-        public async Task<IEnumerable<string>> GetAllCourses(CancellationToken token)
-        {
-            var query = new AdminAllCoursesEmptyQuery();
-            var retVal = await _queryBus.QueryAsync(query, token);
-            return retVal;
-        }
+        //[HttpGet("allCourses")]
+        //[Authorize(/*Policy = Policy.IsraelUser*/)]
+        //public async Task<IEnumerable<string>> GetAllCourses(CancellationToken token)
+        //{
+        //    var query = new AdminAllCoursesEmptyQuery();
+        //    var retVal = await _queryBus.QueryAsync(query, token);
+        //    return retVal;
+        //}
 
 
         [HttpPost("approve")]

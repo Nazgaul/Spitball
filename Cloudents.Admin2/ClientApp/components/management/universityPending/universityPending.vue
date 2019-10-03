@@ -124,7 +124,7 @@
                 editedIndex: -1,
                 radios: 'approve',
                 search: '',
-                countries: ["all","il", "us"],
+                countries: ["all","il", "in", "us"],
                 country: '',
                 states: ["Pending", "Ok"],
                 state: 'Pending',

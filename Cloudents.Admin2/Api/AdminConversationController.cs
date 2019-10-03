@@ -64,11 +64,13 @@ namespace Cloudents.Admin2.Api
 
         [HttpGet("{identifier}")]
         //[Authorize(Policy = Policy.IsraelUser)]
+        //[Authorize(Policy = Policy.GlobalUser)]
+
         //        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new []{ "*" })]
         public async Task<IEnumerable<ChatMessageDto>> Get(string identifier,
             CancellationToken token)
         {
-            var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(identifier, 0), token);
+            var result = await _queryBus.QueryAsync(new AdminChatConversationByIdQuery(identifier, 0, User.GetCountryClaim()), token);
             return result;
         }
 

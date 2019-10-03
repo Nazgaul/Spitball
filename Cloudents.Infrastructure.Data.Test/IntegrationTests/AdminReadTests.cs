@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Cloudents.Core.Enum;
+using Cloudents.Query.Admin;
 using Cloudents.Query.Query.Admin;
 using Xunit;
 
@@ -131,7 +132,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminPaymentsQuery_Ok()
         {
-            var q1 = new AdminPaymentsQuery();
+            var q1 = new AdminPaymentsQuery(string.Empty);
             var q2 = new AdminUserDetailsQuery("Hadar@cloudents.com", "IL");
             var q3 = new AdminUserDetailsQuery("0523556456", "IL");
             var t1 =  _fixture.QueryBus.QueryAsync(q1, default);
@@ -240,6 +241,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new AdminCashOutQuery("IL");
             await _fixture.QueryBus.QueryAsync(query, default);
         }
+        
+         [Fact]
+        public async Task AdminChatConversationByIdQuery_Ok()
+        {
+            var query = new AdminChatConversationByIdQuery("159489_160171", 0, null);
+            await _fixture.QueryBus.QueryAsync(query, default);
+        }
+
 
         [Fact]
         public async Task AdminAssignToQuery_Ok()

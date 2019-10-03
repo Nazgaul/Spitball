@@ -37,7 +37,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<PaymentDto>> GetPayments(CancellationToken token)
         {
-            var query = new AdminPaymentsQuery();
+            var query = new AdminPaymentsQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 
