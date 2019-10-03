@@ -35,20 +35,40 @@
         <div class="aside-top">
             <table class="pa-2 pb-2">
                 <tr v-if="isName">
-                    <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_uploaded'"></td>
-                    <td class=""><h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/profile', name: 'profile', params: {id: getUserId, name: getUploaderName} }">{{getUploaderName}}</router-link></h3></td>
+                    <td class="table_td">
+                        <div class="py-2 mr-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_uploaded'"></div>
+                        <h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/profile', name: 'profile', params: {id: getUserId, name: getUploaderName} }">{{getUploaderName}}</router-link></h3>
+                    </td>
+
+                    <!-- <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_uploaded'"></!-->
+                    <!-- <td class=""><h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/profile', name: 'profile', params: {id: getUserId, name: getUploaderName} }">{{getUploaderName}}</router-link></h3></td> -->
                 </tr>
                 <tr v-if="isCourse">
-                    <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_course'"></td>
-                    <td class=""><h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td>
+                    <td class="table_td">
+                        <div class="py-2 mr-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_course'"></div>
+                        <h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3>
+                    </td>
+
+                    <!-- <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_course'"></td>
+                    <td class=""><h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td> -->
                 </tr>
                 <tr v-if="isUniversity">
-                    <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_university'"></td>
-                    <td class=""><h3 class="body-1 text-truncate align-switch-r">{{getUniversity}}</h3></td>
+                    <td class="table_td">
+                        <div class="py-2 mr-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_university'"></div>
+                        <h3 class="body-1 text-truncate align-switch-r">{{getUniversity}}</h3>
+                    </td > 
+
+                    <!-- <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_university'"></td>
+                    <td class=""><h3 class="body-1 text-truncate align-switch-r">{{getUniversity}}</h3></td> -->
                 </tr>
                 <tr v-if="isType">
-                    <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_type'"></td>
-                    <td class=""><h3 class="body-1 text-truncate align-switch-r">{{getType}}</h3></td>
+                    <td class="table_td">
+                        <div class="py-2 mr-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_type'"></div>
+                        <h3 class="body-1 text-truncate align-switch-r">{{getType}}</h3>
+                    </td>
+
+                    <!-- <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_type'"></td>
+                    <td class=""><h3 class="body-1 text-truncate align-switch-r">{{getType}}</h3></td> -->
                 </tr>
             </table>
             <tutor-result-card-other :tutorData="ownTutor" :uploader="true"  v-if="isTutor && ownTutor" />
@@ -270,6 +290,11 @@ export default {
                 width: 100%;
                 td {
                     max-width: 0;
+                }
+                .table_td {
+                    div, h3 {
+                        display: inline-flex;
+                    }
                 }
                 td:first-child {
                     color: #42415c;
