@@ -37,15 +37,16 @@ namespace Cloudents.Query.Tutor
             //TODO: review query 
             public Task<IEnumerable<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
+                //TODO maybe we can fix this query
                 User userAlias = null;
-                ViewTutor viewTutorAlias = null;
+                ReadTutor viewTutorAlias = null;
                 Core.Entities.Tutor tutorAlias = null;
                 UserCourse userCourseAlias = null;
                 Course courseAlias = null;
 
 
-                var listOfQueries = new List<IQueryOver<ViewTutor, ViewTutor>>();
-                IQueryOver<ViewTutor, ViewTutor> futureCourse = _session.QueryOver(() => viewTutorAlias).Where(w => w.Id != query.UserId);
+                var listOfQueries = new List<IQueryOver<ReadTutor, ReadTutor>>();
+                IQueryOver<ReadTutor, ReadTutor> futureCourse = _session.QueryOver(() => viewTutorAlias).Where(w => w.Id != query.UserId);
 
                 listOfQueries.Add(futureCourse);
                 if (!string.IsNullOrEmpty(query.Country))
@@ -106,7 +107,7 @@ namespace Cloudents.Query.Tutor
                 return Task.FromResult(retVal);
             }
 
-            private static IFutureEnumerable<TutorCardDto> BuildSelectStatement(IQueryOver<ViewTutor, ViewTutor> futureCourse, int page)
+            private static IFutureEnumerable<TutorCardDto> BuildSelectStatement(IQueryOver<ReadTutor, ReadTutor> futureCourse, int page)
             {
                 TutorCardDto tutorCardDtoAlias = null;
 
@@ -115,15 +116,14 @@ namespace Cloudents.Query.Tutor
                             .Select(x => x.Name).WithAlias(() => tutorCardDtoAlias.Name)
                             .Select(x => x.Image).WithAlias(() => tutorCardDtoAlias.Image)
                             .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
-                            //.Select(x => x.CourseCount).WithAlias(() => tutorCardDtoAlias.CourseCount)
                             .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
                             .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
                             .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
-                            .Select(x => x.SumRate).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
+                            .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                             .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
                             .Select(x => x.University).WithAlias(() => tutorCardDtoAlias.University)
                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
-                    .OrderBy(o => o.SumRate).Desc
+                    .OrderBy(o => o.OverAllRating).Desc
                     .TransformUsing(Transformers.AliasToBean<TutorCardDto>())
                     .Take(20).Skip(page * 20).Future<TutorCardDto>();
             }

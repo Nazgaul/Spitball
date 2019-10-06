@@ -24,10 +24,11 @@ namespace Cloudents.Command.CommandHandler
             {
                 throw new ArgumentException("user is already a tutor");
             }
-            user.Tutor = new Tutor(message.Bio, user, message.Price);
-            user.Description = message.Description;
-            user.CanTeachAllCourses();
-            user.ChangeName(message.FirstName,message.LastName);
+            user.BecomeTutor(message.Bio,message.Price,message.Description,message.FirstName,message.LastName);
+            //user.Tutor = new Tutor(message.Bio, user, message.Price);
+            //user.Description = message.Description;
+            //user.CanTeachAllCourses();
+            //user.ChangeName(message.FirstName,message.LastName);
             await _userRepository.UpdateAsync(user, token);
         }
     }

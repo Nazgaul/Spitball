@@ -12,7 +12,7 @@ using NHibernate.UserTypes;
 
 namespace Cloudents.Persistence
 {
-    public class StringAggMapping : IUserType
+    public class IEnumerableJsonStringMapping : IUserType
     {
         bool IUserType.Equals(object x, object y)
         {

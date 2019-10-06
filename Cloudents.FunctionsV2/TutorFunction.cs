@@ -26,7 +26,7 @@ namespace Cloudents.FunctionsV2
             ILogger log,
             CancellationToken token)
         {
-            var query = new TutorSyncAzureSearchQuery(0, null);
+            var query = new TutorSyncAzureSearchQuery(0);
             if (await blob.ExistsAsync())
             {
                 var str = await blob.DownloadTextAsync();
@@ -34,7 +34,7 @@ namespace Cloudents.FunctionsV2
             }
 
 
-            var nextQuery = new TutorSyncAzureSearchQuery(query.Version, query.RowVersion);
+            var nextQuery = new TutorSyncAzureSearchQuery(query.Version);
 
             bool updateOccur;
             do
@@ -64,6 +64,7 @@ namespace Cloudents.FunctionsV2
                             .Distinct(StringComparer.OrdinalIgnoreCase).ToArray(),
                             ReviewCount = update.ReviewsCount,
                             Subjects = subjects.ToArray(),
+                            OverAllRating = update.OverAllRating,
                             Data = new TutorCardDto()
                             {
                                 UserId = update.UserId,
@@ -99,15 +100,15 @@ namespace Cloudents.FunctionsV2
                 }
 
                 query.Page++;
-                var versionElement = result.Update.OrderByDescending(o => o.VersionAsLong).FirstOrDefault();
-                if (versionElement != null)
-                {
-                    nextQuery.Version = Math.Max(nextQuery.Version, result.Version);
-                    nextQuery.RowVersion = versionElement.Version;
-                }
+                // var versionElement = result.Update.OrderByDescending(o => o.VersionAsLong).FirstOrDefault();
+                //if (versionElement != null)
+                //{
+                nextQuery.Version = Math.Max(nextQuery.Version, result.Version);
+                //nextQuery.RowVersion = versionElement.Version;
+                //}
 
                 await indexInstance.FlushAsync(token);
-              
+
             } while (updateOccur);
 
             if (query.Page > 0)

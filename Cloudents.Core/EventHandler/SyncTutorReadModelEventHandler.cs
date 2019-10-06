@@ -3,6 +3,7 @@ using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.EventHandler
 {
@@ -11,9 +12,11 @@ namespace Cloudents.Core.EventHandler
         IEventHandler<TutorAddReviewEvent>,
         IEventHandler<UpdateTutorSettingsEvent>,
         IEventHandler<CanTeachCourseEvent>,
+        IEventHandler<RemoveCourseEvent>,
         IEventHandler<SetUniversityEvent>,
         IEventHandler<UpdateImageEvent>,
         IEventHandler<EndSessionEvent>,
+
         IDisposable
     {
         private readonly IReadTutorRepository _repository;
@@ -42,7 +45,7 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(CanTeachCourseEvent eventMessage, CancellationToken token)
         {
-            await UpdateAsync(eventMessage.UserId, token);
+            await UpdateAsync(eventMessage.UserCourse.User.Id, token);
         }
 
         public async Task HandleAsync(SetUniversityEvent eventMessage, CancellationToken token)
@@ -62,22 +65,34 @@ namespace Cloudents.Core.EventHandler
 
         private async Task AddAsync(long userId, CancellationToken token)
         {
-            var tutor = await _repository.GetReadTutorAsync(userId, token);
-            await _repository.AddAsync(tutor, token);
-            await _unitOfWork.CommitAsync(CancellationToken.None);
+            await UpdateAsync(userId, _repository.AddAsync, token);
+        }
+
+        private async Task UpdateAsync(long tutorId, Func<ReadTutor,CancellationToken,Task> addOrUpdate, CancellationToken token)
+        {
+            var tutor = await _repository.GetReadTutorAsync(tutorId, token);
+            if (tutor is null)
+            {
+                return;
+                
+            }
+            await addOrUpdate(tutor,token);
+            await _unitOfWork.CommitAsync(token);
         }
 
         private async Task UpdateAsync(long userId, CancellationToken token)
         {
-            var tutor = await _repository.GetReadTutorAsync(userId, token);
-            await _repository.UpdateAsync(tutor, token);
-            await _unitOfWork.CommitAsync(CancellationToken.None);
+            await UpdateAsync(userId, _repository.UpdateAsync, token);
         }
 
         public void Dispose()
         {
-            _repository.Dispose();
             _unitOfWork.Dispose();
+        }
+
+        public async Task HandleAsync(RemoveCourseEvent eventMessage, CancellationToken token)
+        {
+            await UpdateAsync(eventMessage.UserId, token);
         }
     }
 }

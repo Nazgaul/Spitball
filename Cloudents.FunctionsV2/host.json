@@ -1,9 +1,8 @@
 {
-  "version": "2.0"
-  //"functions": [
-  //  "ImageFunction",
-  //  "ImageFunctionDocument"
-  //]
+  "version": "2.0",
+  "functions": [
+    "TutorFunction"
+  ]
 
     //"functions": [
     //  "EmailUpdateFunction",

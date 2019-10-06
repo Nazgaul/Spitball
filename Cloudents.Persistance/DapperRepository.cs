@@ -34,9 +34,6 @@ namespace Cloudents.Persistence
             return new SqlConnection(_connectionString);
         }
 
-      
-
-
 
         private class DapperCultureInfoTypeHandler : SqlMapper.TypeHandler<CultureInfo>
         {

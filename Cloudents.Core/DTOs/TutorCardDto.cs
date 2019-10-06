@@ -11,7 +11,7 @@ namespace Cloudents.Core.DTOs
        public IEnumerable<string> Subjects { get; set; }
        public decimal Price { get; set; }
        
-       public float? Rate { get; set; }
+       public double? Rate { get; set; }
        public int ReviewsCount { get; set; }
 
         public string Bio { get; set; }

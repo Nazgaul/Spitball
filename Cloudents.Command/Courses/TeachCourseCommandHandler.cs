@@ -17,9 +17,8 @@ namespace Cloudents.Command.Courses
         public async Task ExecuteAsync(TeachCourseCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            var course = user.UserCourses.First(w => w.Course.Id == message.Name);
-            //course.CanTeach = !course.CanTeach;
-            user.CanTeachCourse(course);
+            //var course = user.UserCourses.AsQueryable().Single(w => w.Course.Id == message.Name);
+            user.CanTeachCourse(message.Name);
             await _userRepository.UpdateAsync(user, token);
         }
     }

@@ -41,11 +41,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         //}
 
-        [Fact]
-        public async Task TutorSyncAzureSearchQuery_Ok()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        public async Task TutorSyncAzureSearchQuery_Ok(int version)
         {
-            var query = new TutorSyncAzureSearchQuery(0, new byte[] { 0 });
-            var query2 = new TutorSyncAzureSearchQuery(0x000000000295F0D6, new byte[] { 1 });
+            var query = new TutorSyncAzureSearchQuery(version);
+            var query2 = new TutorSyncAzureSearchQuery(version);
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
             _ = await fixture.QueryBus.QueryAsync(query2, default);

@@ -56,12 +56,6 @@ namespace Cloudents.Persistence.Maps
             });
             Map(z => z.PaymentExists).CustomType<PaymentStatus>();
             Map(z => z.Gender).CustomType<Gender>();
-            //HasManyToMany(x => x.Courses)
-            //    .ParentKeyColumn("UserId")
-            //    .ChildKeyColumn("CourseId")
-            //    .Cascade.SaveUpdate()
-            //    .ForeignKeyConstraintNames("User_Courses", "Courses_User")
-            //    .Table("UsersCourses").AsSet();
 
 
             HasMany(x => x.UserCourses).Access.CamelCaseField(Prefix.Underscore)

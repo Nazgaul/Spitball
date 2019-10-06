@@ -1,6 +1,4 @@
 ﻿using Autofac;
-using Cloudents.Command;
-using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Framework;
@@ -19,10 +17,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using Cloudents.Persistence;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Infrastructure.Video;
+using Cloudents.Persistence;
 using NHibernate;
 using NHibernate.Linq;
 using Cloudents.Query;
@@ -136,11 +134,15 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            await UpdateMethod();
+           // ResourcesMaintenance.DeleteUnusedSvg();
+           // var c = _container.Resolve<IReadTutorRepository>();
+           // await c.GetReadTutorAsync(638, default);
            // ResourcesMaintenance.DeleteUnusedSvg();
             //var q = new UserPurchaseDocumentByIdQuery(638, 0);
             //var z = await d.QueryAsync(q, default);
             //ResourcesMaintenance.DeleteUnusedResources();
-            //var t = new GuidCombGenerator();
+           //var t = new GuidCombGenerator();
 
             //var dictionary = new Dictionary<int, Guid>();
 
@@ -149,6 +151,10 @@ namespace ConsoleApp
 
             //var v = dictionary.OrderBy(d => d.Value);
 
+            //   var c = _container.Resolve<ICommandBus>();
+            //  var command = new SendChatTextMessageCommand("hi",638, 160105);
+            //   await c.DispatchAsync(command, default);
+            //await   c.UpdateNonDayOldConversationToActiveAsync(default);
 
 
             ////    var blobClient = bus.GetBlobClient();

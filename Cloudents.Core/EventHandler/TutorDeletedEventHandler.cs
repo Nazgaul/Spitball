@@ -26,7 +26,6 @@ namespace Cloudents.Core.EventHandler
 
         public void Dispose()
         {
-            _repository.Dispose();
             _unitOfWork.Dispose();
         }
     }

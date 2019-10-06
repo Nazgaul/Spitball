@@ -32,14 +32,6 @@ namespace Cloudents.Core.Entities
 
         }
 
-
-
-        public virtual void DeleteQuestionAndAnswers()
-        {
-            DeleteQuestion();
-            _answers.Clear();
-        }
-
         public virtual string PhoneNumber { get; set; }
 
         public virtual bool PhoneNumberConfirmed { get; set; }
@@ -65,13 +57,18 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual IReadOnlyCollection<UserCourse> UserCourses => _userCourses.ToList();
+        public virtual IEnumerable<UserCourse> UserCourses => _userCourses.ToList();
 
         public virtual void AssignCourses(IEnumerable<Course> courses)
         {
+            var isTutor = Tutor != null;
             foreach (var course in courses)
             {
-                var p = new UserCourse(this, course);
+                
+                var p = new UserCourse(this, course)
+                {
+                    CanTeach = isTutor
+                };
                 if (_userCourses.Add(p))
                 {
                     course.Count++;
@@ -86,22 +83,15 @@ namespace Cloudents.Core.Entities
             {
                 course.Count--;
             }
+            AddEvent(new RemoveCourseEvent(Id));
         }
 
-        public virtual void CanTeachAllCourses()
+        public virtual void CanTeachCourse(string courseName)
         {
-            foreach (var userCourse in _userCourses)
-            {
-                userCourse.CanTeach = true;
-            }
-            AddEvent(new CanTeachCourseEvent(Id));
-        }
-
-        public virtual void CanTeachCourse(UserCourse course)
-        {
-            var c = _userCourses.First(w => w.Course.Id == course.Course.Id);
-            c.CanTeach = !c.CanTeach;
-            AddEvent(new CanTeachCourseEvent(Id));
+            var course = _userCourses.AsQueryable().First(w => w.Course.Id == courseName);
+            course.CanTeach = !course.CanTeach;
+            LastOnline = DateTime.UtcNow; // this is for trigger the event
+            AddEvent(new CanTeachCourseEvent(course));
         }
 
         public virtual void SetUniversity(University university)
@@ -109,6 +99,17 @@ namespace Cloudents.Core.Entities
             University = university;
             University.UsersCount++;
             AddEvent(new SetUniversityEvent(Id));
+        }
+
+        public virtual void BecomeTutor(string bio, decimal price,string description, string firstName, string lastName )
+        {
+            Tutor = new Tutor(bio, this, price);
+            Description = description;
+            ChangeName(firstName, lastName);
+            foreach (var userCourse in _userCourses)
+            {
+                userCourse.CanTeach = true;
+            }
         }
 
         private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
@@ -220,11 +221,7 @@ namespace Cloudents.Core.Entities
             MakeTransaction(t);
         }
 
-        //public virtual void AwardMoney(AwardsTransaction award)
-        //{
-        //    var t = new AwardMoneyTransaction(award);
-        //    MakeTransaction(t);
-        //}
+      
 
         public virtual void CashOutMoney(/*decimal price*/)
         {

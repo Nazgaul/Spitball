@@ -34,6 +34,7 @@ namespace Cloudents.Query.Tutor
 
         internal sealed class TutorListByCourseQueryHandler : IQueryHandler<TutorListByCourseQuery, IEnumerable<TutorCardDto>>
         {
+
             private readonly IStatelessSession _session;
 
             public TutorListByCourseQueryHandler(QuerySession session)
@@ -43,6 +44,7 @@ namespace Cloudents.Query.Tutor
 
             public async Task<IEnumerable<TutorCardDto>> GetAsync(TutorListByCourseQuery query, CancellationToken token)
             {
+                //TODO maybe we can fix this query
                 Core.Entities.Tutor tutorAlias = null;
                 UserCourse userCourseAlias = null;
                 Course courseAlias = null;
@@ -67,7 +69,7 @@ namespace Cloudents.Query.Tutor
                     .Take(query.Count);
 
 
-                var futureCourse =  _session.QueryOver<ViewTutor>()
+                var futureCourse =  _session.QueryOver<ReadTutor>()
                      .WithSubquery.WhereProperty(w => w.Id).In(detachedQuery)
                      .Where(w => w.Id != query.UserId)
                    
@@ -81,17 +83,17 @@ namespace Cloudents.Query.Tutor
                              .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
                              .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
                              .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
-                             .Select(x => x.SumRate).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
+                             .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                              .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
                              .Select(x => x.University).WithAlias(() => tutorCardDtoAlias.University)
                              .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
                     
-                     .OrderBy(o => o.SumRate).Desc
+                     .OrderBy(o => o.OverAllRating).Desc
                      
                      .TransformUsing(Transformers.AliasToBean<TutorCardDto>())
                      .Take(query.Count).Future<TutorCardDto>();
 
-                var futureCourse2 = _session.QueryOver<ViewTutor>()
+                var futureCourse2 = _session.QueryOver<ReadTutor>()
                     .WithSubquery.WhereProperty(w => w.Id).In(detachedQuery2)
                     .Where(w => w.Id != query.UserId)
 
@@ -104,12 +106,12 @@ namespace Cloudents.Query.Tutor
                             .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
                             .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
                             .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
-                            .Select(x => x.SumRate).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
+                            .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                             .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
                             .Select(x => x.University).WithAlias(() => tutorCardDtoAlias.University)
                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
 
-                    .OrderBy(o => o.SumRate).Desc
+                    .OrderBy(o => o.OverAllRating).Desc
 
                     .TransformUsing(Transformers.AliasToBean<TutorCardDto>())
                     .Take(query.Count).Future<TutorCardDto>();
@@ -117,55 +119,6 @@ namespace Cloudents.Query.Tutor
                 var tutors2 = await futureCourse2.GetEnumerableAsync(token);
 
                 return tutors.Union(tutors2).Take(query.Count).Distinct(TutorCardDto.UserIdComparer).ToList();
-
-
-
-
-                //                const string sql = @"select *  from (select 2 as position, U.Id as UserId, U.Name, U.Image,
-                //(select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
-                //from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
-                //T.Price, 
-                //T.Bio,
-                //	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate,
-                //                            (select count(1) from sb.TutorReview where TutorId = T.Id) as ReviewsCount
-                //                        from sb.[user] U
-                //                        join sb.Tutor T
-                //	                        on U.Id = T.Id
-                //						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
-                //						and uc.CourseId = @CourseId
-                //                        and T.State = 'Ok'
-
-                //union all
-                //select 1 as position, U.Id as UserId, U.Name, U.Image, 
-                //(select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
-                //from sb.UsersCourses dt where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
-                //T.Price, 
-                //T.Bio,
-                //	                        (select avg(Rate) from sb.TutorReview where TutorId = T.Id) as Rate,
-                //                            (select count(1) from sb.TutorReview where TutorId = T.Id) as ReviewsCount
-                //                        from sb.[user] U
-                //                        join sb.Tutor T
-                //	                        on U.Id = T.Id
-                //						join sb.UsersCourses uc on u.Id = uc.UserId and uc.CanTeach = 1
-                //						join sb.Course c on uc.CourseId = c.Name
-                //						and c.SubjectId = (Select subjectId from sb.Course where Name = @CourseId)
-                //                        and T.State = 'Ok'
-                //) t
-                //where t.UserId <> @UserId
-                //order by position desc, Rate desc
-                //OFFSET 0 ROWS
-                //FETCH NEXT @Count ROWS ONLY;";
-                //                using (var conn = _dapperRepository.OpenConnection())
-                //                {
-                //                    var retVal = await conn.QueryAsync<TutorCardDto>(sql, new
-                //                    {
-                //                        query.CourseId,
-                //                        query.UserId,
-                //                        query.Count
-                //                    });
-
-                //                    return retVal.Distinct(TutorCardDto.UserIdComparer);
-                //                }
             }
         }
     }
