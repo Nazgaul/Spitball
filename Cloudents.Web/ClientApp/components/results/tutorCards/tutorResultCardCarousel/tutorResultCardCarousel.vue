@@ -152,7 +152,7 @@ export default {
           return reviews === 0 ? reviews.toString() : reviews;
         },
         onImageLoadError(event) {
-            event.target.src = "../../../images/placeholder-profile.png";
+            event.target.src = require("../../../images/placeholder-profile.png");
         },
         showStriked(price) {
             if(!this.getActivateTutorDiscounts) return false;

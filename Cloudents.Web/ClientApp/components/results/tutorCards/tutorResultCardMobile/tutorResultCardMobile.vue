@@ -103,7 +103,7 @@ export default {
       }
     },
     onImageLoadError(event) {
-      event.target.src = "../../../images/placeholder-profile.png";
+      event.target.src = require("../../../images/placeholder-profile.png");
     },
     reviewsPlaceHolder(reviews) {
       return reviews === 0 ? reviews.toString() : reviews
@@ -150,7 +150,7 @@ export default {
           "crop"
         );
       } else {
-        return "../../../images/placeholder-profile.png";
+        return require("../../../images/placeholder-profile.png");
       }
     },
     showStriked() {
