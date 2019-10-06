@@ -171,7 +171,23 @@
         justify-content: space-around;
 
       }
+      .v-icon{
 
+        &.share-icon {
+          cursor: pointer;
+          /*rtl:ignore*/
+          direction: ltr;
+          font-size: 16px;
+          color: white;
+          overflow: hidden;
+        }
+        &.referral-twitter-icon{
+          overflow: inherit;
+        }
+        &.referral-gmail-icon{
+          font-size: 14px;
+        }
+    }
       span {
         cursor: pointer;
         .share-icon {
@@ -195,6 +211,9 @@
         font-size: 11px;
         color: @color-white;
         margin-left: 8px;
+        &.referral-twitter{
+          margin-left:0;
+        }
 
       }
       .whatsup-share-btn {

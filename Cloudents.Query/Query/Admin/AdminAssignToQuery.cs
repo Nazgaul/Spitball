@@ -1,13 +1,8 @@
 ﻿using Cloudents.Core.Entities;
-using Cloudents.Query.Stuff;
-using Dapper;
 using NHibernate;
 using NHibernate.Linq;
-using NHibernate.SqlCommand;
-using NHibernate.Transform;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,15 +23,10 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IList<string>> GetAsync(AdminAssignToQuery query, CancellationToken token)
             {
-                AdminUser adminUser = null;
-                User user = null;
-                IList<string> res = null;
-
-                var r = _session.QueryOver(() => adminUser)
-                    .JoinEntityAlias(() => user, () => adminUser.Email == user.Email, JoinType.InnerJoin)
-                    .SelectList(l =>
-                    l.Select(() => user.Name).WithAlias(() => res));
-                return await r.ListAsync<string>();
+                return await _session.Query<AdminUser>()
+                    .Select(s => s.Email)
+                    .ToListAsync(token);
+               
 
             }
         }

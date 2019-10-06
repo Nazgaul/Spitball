@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CacheManager.Core;
 using Cloudents.Core.Interfaces;
+using StackExchange.Redis;
 
 namespace Cloudents.Infrastructure.Cache
 {
@@ -15,43 +16,51 @@ namespace Cloudents.Infrastructure.Cache
         public CacheProvider(IConfigurationKeys keys, ILogger logger)
         {
             _logger = logger;
-            
-            var multiplexer = StackExchange.Redis.ConnectionMultiplexer.Connect(keys.Redis);
 
-            multiplexer.ConnectionFailed += (sender, args) =>
+            try
             {
-                _distributedEnabled = false;
+                var multiplexer = ConnectionMultiplexer.Connect(keys.Redis);
 
-                //Console.WriteLine("Connection failed, disabling redis...");
-            };
+                multiplexer.ConnectionFailed += (sender, args) =>
+                {
+                    _distributedEnabled = false;
 
-            multiplexer.ConnectionRestored += (sender, args) =>
+                    //Console.WriteLine("Connection failed, disabling redis...");
+                };
+
+                multiplexer.ConnectionRestored += (sender, args) =>
+                {
+                    _distributedEnabled = true;
+
+                    //Console.WriteLine("Connection restored, redis is back...");
+                };
+
+                _cache = CacheFactory.Build(
+                    s => s
+                        .WithJsonSerializer()
+                        .WithDictionaryHandle()
+                        //.WithExpiration(ExpirationMode.Absolute, TimeSpan.FromSeconds(5))
+                        .And
+                        .WithRedisConfiguration("redis", multiplexer)
+                        .WithRedisCacheHandle("redis"));
+
+                _cache = CacheFactory.Build(settings =>
+                {
+                    var key = keys.Redis;
+                    settings
+                        .WithRedisConfiguration("redis", key)
+                        .WithJsonSerializer()
+                        .WithMaxRetries(1000)
+                        .WithRetryTimeout(100)
+                        .WithRedisBackplane("redis")
+                        .WithRedisCacheHandle("redis");
+                });
+            }
+            catch (Exception e)
             {
-                _distributedEnabled = true;
-
-                //Console.WriteLine("Connection restored, redis is back...");
-            };
-
-            _cache = CacheFactory.Build(
-                s => s
-                    .WithJsonSerializer()
-                    .WithDictionaryHandle()
-                    //.WithExpiration(ExpirationMode.Absolute, TimeSpan.FromSeconds(5))
-                    .And
-                    .WithRedisConfiguration("redis", multiplexer)
-                    .WithRedisCacheHandle("redis"));
-
-            _cache = CacheFactory.Build(settings =>
-            {
-                var key = keys.Redis;
-                settings
-                    .WithRedisConfiguration("redis", key)
-                    .WithJsonSerializer()
-                    .WithMaxRetries(1000)
-                    .WithRetryTimeout(100)
-                    .WithRedisBackplane("redis")
-                    .WithRedisCacheHandle("redis");
-            });
+                _logger.Exception(e);
+                
+            }
         }
 
         //public CacheProvider(ICacheManager<object> cache, ILogger logger)

@@ -310,7 +310,7 @@ export default {
             .chat-icon-btn{
               position: absolute;
               top: 0;
-              left: -10px;
+              left: 0px;
             }
             svg {
               width: 40px;

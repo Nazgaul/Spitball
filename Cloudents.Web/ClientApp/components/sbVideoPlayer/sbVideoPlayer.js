@@ -91,13 +91,26 @@ export default {
             this.myPlayer.addEventListener('ended',(e)=>{
                 this.$emit('videoEnded')
             })
+        },
+        loadStyle(){
+            return new Promise((resolve, reject) => {
+                if (document.querySelector('#amp-azure')) return resolve()
+                let linkTag = document.createElement('link')
+                linkTag.id = '#amp-azure'
+                linkTag.rel = 'stylesheet'
+                linkTag.href = `//amp.azure.net/libs/amp/2.3.1/skins/amp-flush/azuremediaplayer.min.css`
+                document.head.insertBefore(linkTag, document.head.firstChild)
+                return resolve()
+            })
         }
     },
     beforeCreate() {
         let self = this
         let ampUrl = '//amp.azure.net/libs/amp/2.3.1/azuremediaplayer.min.js'
         this.$loadScript(ampUrl).then(()=>{
-            self.initVideoPlayer()
+            self.loadStyle().then(()=>{
+                self.initVideoPlayer()
+            })
         })
     },
 }

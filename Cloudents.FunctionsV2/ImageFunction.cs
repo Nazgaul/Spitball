@@ -186,7 +186,7 @@ namespace Cloudents.FunctionsV2
                 //if (blob.Container.Name == StorageContainer.Chat.Name && )
                 if (val.DefaultThumbnail != FileTypesExtension.Image.DefaultThumbnail)
                 {
-                    var blobPath = $"spitball-user/DefaultThumbnail/{val}";
+                    var blobPath = $"spitball-user/DefaultThumbnail/{val.DefaultThumbnail}";
                     blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(blobPath, FileAccess.Read),
                         token);
                 }

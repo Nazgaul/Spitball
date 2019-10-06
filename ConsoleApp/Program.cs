@@ -96,7 +96,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Prod;
+            var env = EnvironmentSettings.Dev;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -136,7 +136,7 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            ResourcesMaintenance.DeleteUnusedSvg();
+           // ResourcesMaintenance.DeleteUnusedSvg();
             //var q = new UserPurchaseDocumentByIdQuery(638, 0);
             //var z = await d.QueryAsync(q, default);
             //ResourcesMaintenance.DeleteUnusedResources();
@@ -168,7 +168,7 @@ namespace ConsoleApp
             var queueClient = bus.GetQueueClient();
             using (var con = d.OpenConnection())
             {
-                var sql = "Select id from sb.document where documenttype = 'video' and state = 'Ok'";
+                var sql = "Select id from sb.document where documenttype = 'video' and id = 49726 and state = 'Ok'";
                 ids = await con.QueryAsync<long>(sql);
             }
 

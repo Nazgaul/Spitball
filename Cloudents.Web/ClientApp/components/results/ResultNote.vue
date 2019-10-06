@@ -73,8 +73,8 @@
             </span>
           </div>
             <span class="right">
-              <likeFilledSVG v-if="isLiked" @click.native.stop.prevent="upvoteDocument" class="likeSVG"/>
-              <likeSVG v-if="!isLiked"  @click.native.stop.prevent="upvoteDocument" class="likeSVG"/> 
+              <likeFilledSVG v-if="isLiked" @click.stop.prevent="upvoteDocument" class="likeSVG"/>
+              <likeSVG v-if="!isLiked" @click.stop.prevent="upvoteDocument" class="likeSVG"/> 
               <span v-if="item.votes>0">{{item.votes}}</span>
             </span>
             <v-spacer v-if="isMobile"></v-spacer>
@@ -404,6 +404,7 @@ export default {
       return true;
     },
     upvoteDocument(e) {
+      console.log(e);
       
       e.stopImmediatePropagation();
 

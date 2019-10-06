@@ -131,10 +131,9 @@ module.exports = (env) => {
                
             ]
         },
-        devtool: false,
+        devtool: isDevBuild ? 'inline-source-map' : false,
         optimization: {
             minimize: !isDevBuild
-
         },
         plugins: [
             new RemovePlugin({
@@ -167,15 +166,15 @@ module.exports = (env) => {
 
         ]
             .concat(isDevBuild ? [
-                new OptimizeCssAssetsPlugin({
-                    //assetNameRegExp: /.css$/g,
-                    cssProcessor: require("cssnano"),
-                    cssProcessorOptions: {
-                        discardComments: { removeAll: true },
-                        reduceIdents: false
-                    },
-                    canPrint: true
-                }),
+                //new OptimizeCssAssetsPlugin({
+                //    //assetNameRegExp: /.css$/g,
+                //    cssProcessor: require("cssnano"),
+                //    cssProcessorOptions: {
+                //        discardComments: { removeAll: true },
+                //        reduceIdents: false
+                //    },
+                //    canPrint: true
+                //}),
                 new webpack.SourceMapDevToolPlugin({
                     filename: "[file].map", // Remove this line if you prefer inline source maps
                     moduleFilenameTemplate:

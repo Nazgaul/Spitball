@@ -49,7 +49,7 @@
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
             
             <v-btn flat icon @click="changeSettingsDialogState(true)">
-              <settingIcon class="white-btn"></settingIcon>
+              <v-icon class="white-btn">sbf-settings</v-icon>
             </v-btn>
 
           </div>
@@ -219,7 +219,6 @@ import shareScreenBtn from "./tutorHelpers/shareScreenBtn.vue";
 import logoComponent from '../app/logo/logo.vue';
 import testIcon from "./images/eq-system.svg";
 import chatIcon from "../../font-icon/message-icon.svg";
-import settingIcon from "../../font-icon/settings.svg";
 import networkLevel from "./tutorHelpers/networkLevel.vue";
 import noSupportTop from "./images/not_supported_top.svg";
 import noSupportBottom from "./images/not_supported_bottom.svg";
@@ -257,7 +256,6 @@ export default {
     logoComponent,
     testIcon,
     chatIcon,
-    settingIcon,
     networkLevel,
     sbDialog,
     leaveReview,

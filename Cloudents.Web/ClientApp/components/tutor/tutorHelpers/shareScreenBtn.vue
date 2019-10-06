@@ -189,8 +189,7 @@
             /*color: #ffffff;*/
             .cast-icon {
                 fill: #2d2d2d;
-                height: 18px;
-                margin-right: 4px /*rtl:ignore*/;
+                margin-right: 4px;
             }
             &[disabled]{
                 color: lighten(#2d2d2d, 40%);

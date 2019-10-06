@@ -105,7 +105,7 @@ namespace Cloudents.Web.Services
 
 
             var webPackBundle = new WebPackBundle();
-            webPackBundle.Js = $"{files.FirstOrDefault(f => f.Name.EndsWith("js"))?.Name}";
+            webPackBundle.Js = $"{files.First(f => f.Name.EndsWith("js"))?.Name}";
             //webPackBundle.Css = files.FirstOrDefault(f => f.Name.EndsWith("css") && !f.Name.EndsWith("rtl.css"))?.Name; 
             //webPackBundle.RtlCss = files.FirstOrDefault(f => f.Name.EndsWith("rtl.css"))?.Name; ;
 

@@ -8,4 +8,3 @@
 </template>
 
 <script src="./sbVideoPlayer.js"/>
-<style src="./sbVideoPlayer.less"/>

@@ -26,23 +26,22 @@
 
             <v-layout align-center justify-center column class="mb-2">
                 <div class="share-icon-container">
-                <span @click="shareOnSocialMedia(socialMedias.facebook)" class="share-btn facebook-share-btn">
-                    <facebookShare class="referral-facebook-icon share-icon"></facebookShare>
-                    <span class="share-text" v-language:inner>referralDialog_share_facebook</span>
-                </span>
-
+                    <span @click="shareOnSocialMedia(socialMedias.facebook)" class="share-btn facebook-share-btn">
+                        <v-icon class="share-icon">sbf-facebook-share</v-icon>
+                        <span class="share-text" v-language:inner>referralDialog_share_facebook</span>
+                    </span>
                     <span @click="shareOnSocialMedia(socialMedias.twitter)" class="share-btn twitter-share-btn">
-                    <tweeter-share class="referral-twitter-icon share-icon"></tweeter-share>
-                            <span class="share-text" v-language:inner>referralDialog_share_tweeter</span>
-                </span>
+                        <v-icon class="share-icon referral-twitter-icon">sbf-tweeter-share</v-icon>
+                        <span class="share-text referral-twitter" v-language:inner>referralDialog_share_tweeter</span>
+                    </span>
                     <span @click="shareOnSocialMedia(socialMedias.gmail)" class="share-btn gmail-share-btn">
-                    <google-share class="referral-gmail-icon share-icon"></google-share>
-                            <span class="share-text" v-language:inner>referralDialog_share_google</span>
-                </span>
+                        <v-icon class="share-icon referral-gmail-icon">sbf-google-share</v-icon>
+                        <span class="share-text" v-language:inner>referralDialog_share_google</span>
+                    </span>
                     <span @click="shareOnSocialMedia(socialMedias.whatsApp)" class="share-btn whatsup-share-btn">
-                    <whatsup-share class="referral-whatsup-icon share-icon"></whatsup-share>
-                            <span class="share-text" v-language:inner>referralDialog_share_whatsup</span>
-                                   </span>
+                        <v-icon class="share-icon">sbf-whatsup-share</v-icon>
+                        <span class="share-text" v-language:inner>referralDialog_share_whatsup</span>
+                    </span>
                 </div>
                 <div class="input-container mb-3">
                     <div class="link-container">
@@ -90,7 +89,7 @@
         <v-layout row align-center class="ref-bottom-section px-3" v-show="!isUploadReferral">
             <v-flex xs1 >
                 <!-- <i class="bottom-five"> -->
-                    <spreadOutLoud  class="spread-out-loud-icon"></spreadOutLoud>
+                    <v-icon  class="spread-out-loud-icon">sbf-spread-loud</v-icon>
                 <!-- </i> -->
             </v-flex>
             <v-flex xs11 >
@@ -110,22 +109,9 @@
     import Base62 from "base62"
     import { LanguageService } from '../../../../services/language/languageService'
     import { getReferallMessages } from "./consts.js";
-    import facebookShare from '../../../../font-icon/facebook-share.svg';
-    import whatsupShare from '../../../../font-icon/whatsup-share.svg';
-    import googleShare from '../../../../font-icon/google-share.svg';
-    import tweeterShare from '../../../../font-icon/tweeter-share.svg';
-    import spreadOutLoud from '../../../../font-icon/spread-loud.svg'
 
     export default {
-        components: {
-            SbInput,
-            facebookShare,
-            whatsupShare,
-            googleShare,
-            tweeterShare,
-            spreadOutLoud
-
-        },
+        components: {SbInput},
         data() {
             return {
 

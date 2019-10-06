@@ -3,18 +3,15 @@ const webpack = require("webpack");
 const bundleOutputDir = "./wwwroot/dist";
 const MiniCssExtractPlugin = require("mini-css-extract-plugin-with-rtl");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const WebpackRTLPlugin = require("webpack-rtl-plugin");
+const webpackRtlPlugin = require("webpack-rtl-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (env) => {
     
     const isDevBuild =  !(env && env.prod);
-    // const isDevBuild =  false;
     const mode = isDevBuild ? 'development' : 'production';
-    // This is the "main" file which should include all other modules
-   
 
     return {
         stats: { children: false },
@@ -75,29 +72,14 @@ module.exports = (env) => {
                     loader: "babel-loader"
                 },
                 {
-                    //include: /ClientApp/
                     test: /\.vue$/,  loader: 'vue-loader',
-                    options: {
-                        loaders:
-                        {
-                            js: {
-                                use: {
-                                    loader: 'babel-loader'
-
-                                }
-                            },
-                            less: ['vue-style-loader', 'css-loader', 'less-loader'],
-                        }
-                    }
-
-                    
                 },
                 {
                     test: /\.css(\?|$)/,
                     use: 
                         isDevBuild ? ['vue-style-loader','rtl-css-loader']
                              :
-                            [MiniCssExtractPlugin.loader,'css-loader']
+                        [MiniCssExtractPlugin.loader,'css-loader']
                         //{
                         //    loader: MiniCssExtractPlugin.loader,
                         //    options: {
@@ -116,15 +98,54 @@ module.exports = (env) => {
                     use:
                         isDevBuild ? ['vue-style-loader', 'rtl-css-loader', 'less-loader']
                         :
-                        [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
-                  
-                },
+                        [
+                            {
+                                loader: MiniCssExtractPlugin.loader,
+                                options: {
+                                    publicPath: '/dist/'
+                                }
+                            },
+                            {
+                                loader:'css-loader'
+                            },
+                            {
+                                loader:'less-loader'
+                            }
+                        ]
+                }
             ]
         },
-        devtool: false,
+        devtool: isDevBuild ? 'inline-source-map' : false,
         optimization: {
-            minimize: !isDevBuild
-            },
+            minimize: !isDevBuild,
+            minimizer: [new TerserPlugin({
+
+
+            }), new OptimizeCssAssetsPlugin({
+                //assetNameRegExp: /.css$/g,
+                cssProcessor: require("cssnano"),
+                cssProcessorPluginOptions: {
+                    preset: ['default', {
+                        discardComments: {
+                            remove: function (comment) {
+                                return !comment.includes("rtl");
+                            },
+                            removeAll: true
+                        },
+                        reduceIdents: false
+                    }]
+
+                    //discardComments: {
+                    //    remove: function(comment) {
+                    //        return !comment.includes("rtl");
+                    //    },
+                    //    removeAll: true
+                    //},
+                    //reduceIdents: false
+                },
+                canPrint: true
+            })] 
+        },
         plugins: [
             new VueLoaderPlugin(),
             new webpack.DefinePlugin({
@@ -138,11 +159,11 @@ module.exports = (env) => {
             })
         ].concat(isDevBuild
             ? [
-                new BundleAnalyzerPlugin({
-                    analyzerMode: 'disabled',
-                    generateStatsFile: true,
-                    statsOptions: { source: false }
-                }),
+                //new BundleAnalyzerPlugin({
+                //    analyzerMode: 'disabled',
+                //    generateStatsFile: true,
+                //    statsOptions: { source: false }
+                //}),
                 new webpack.SourceMapDevToolPlugin({
                     filename: "[file].map", // Remove this line if you prefer inline source maps
                     moduleFilenameTemplate:
@@ -151,45 +172,17 @@ module.exports = (env) => {
                 })
             ]
             : [
-                new BundleAnalyzerPlugin({
-                    analyzerMode: 'disabled',
-                    generateStatsFile: true,
-                    statsOptions: { source: false }
-                }),
                 new MiniCssExtractPlugin({
                     filename: "site.[contenthash].css",
                     rtlEnabled: true,
                     ignoreOrder: true,
+                    
                     // allChunks: true
 
                 }),
-                new WebpackRTLPlugin({
-                    // filename: 'site.[contenthash].rtl.css',
-                    //minify: true
-                }),
-                new OptimizeCssAssetsPlugin({
-                    //assetNameRegExp: /.css$/g,
-                    cssProcessor: require("cssnano"),
-                    cssProcessorOptions: {
-                        discardComments: {
-                            remove: function (comment) {
-                                return !comment.includes("rtl");
-                            },
-                            removeAll: true
-                        },
-                        reduceIdents: false
-                    },
-                    canPrint: true
+                new webpackRtlPlugin({
+                    minify: false
                 })
-               
-                //new PurifyCSSPlugin({
-                //    // Give paths to parse for rules. These should be absolute!
-                //    paths: glob.sync(path.join(__dirname, 'clientapp/**/*.vue')),
-                //    minimize: true,
-                //    purifyOptions: {
-                //        whitelist: ["spitball-*"]
-                //    }
-                //})
             ]),
         mode: mode,
         entry: { main: ["@babel/polyfill", "./ClientApp/client.js"] },

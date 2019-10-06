@@ -7,7 +7,6 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
-using Cloudents.Query.Chat;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
 using System;
