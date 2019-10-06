@@ -17,21 +17,16 @@ namespace Cloudents.Core.Entities
     public class Document : Entity<long>, IAggregateRoot, ISoftDelete
     {
         public Document(string name,
-            University university,
-            Course course, [NotNull] string type,
-            IEnumerable<Tag> tags, BaseUser user, string professor, decimal price, DocumentType documentType)
+            Course course,
+            BaseUser user, decimal price, string description)
         : this()
         {
-            if (tags == null) throw new ArgumentNullException(nameof(tags));
             if (name == null) throw new ArgumentNullException(nameof(name));
             Name = name.Replace("+", "-");
-            University = university ?? throw new ArgumentNullException(nameof(university));
+            University = user.University ?? throw new ArgumentNullException(nameof(University));
             Course = course ?? throw new ArgumentNullException(nameof(course));
-            Type = type ?? throw new ArgumentNullException(nameof(type));
-            Tags = new HashSet<Tag>(tags);
             User = user;
             Views = 0;
-            Professor = professor;
 
             ChangePrice(price);
             //Price = price;
@@ -41,13 +36,13 @@ namespace Cloudents.Core.Entities
                 MakePublic();
             }
             Status = status;
-            DocumentType = documentType;
+            Description = description;
         }
+
 
         protected Document()
         {
             TimeStamp = new DomainTimeStamp();
-            Tags = new HashSet<Tag>();
         }
 
         // public virtual long Id { get; set; }
@@ -57,16 +52,14 @@ namespace Cloudents.Core.Entities
 
         public virtual Course Course { get; protected set; }
 
-        public virtual string Type { get; protected set; }
+        public virtual string Description { get; protected set; }
 
-        public virtual ISet<Tag> Tags { get; protected set; }
 
         public virtual DomainTimeStamp TimeStamp { get; protected set; }
 
         public virtual BaseUser User { get; protected set; }
 
 
-        public virtual string Professor { get; protected set; }
 
         public virtual int Views { get; protected set; }
         public virtual int Downloads { get; protected set; }
@@ -100,7 +93,7 @@ namespace Cloudents.Core.Entities
                 throw new NotFoundException();
             }
 
-           
+
 
             var vote = Votes.AsQueryable().FirstOrDefault(w => w.User == user);
             if (vote == null)
@@ -110,7 +103,7 @@ namespace Cloudents.Core.Entities
             }
             vote.VoteType = type;
             VoteCount = Votes.Sum(s => (int)s.VoteType);
-          
+
         }
 
         public virtual void MakePublic()

@@ -4,6 +4,8 @@ using Microsoft.Azure.Search;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Search.Entities
 {
@@ -29,7 +31,6 @@ namespace Cloudents.Search.Entities
                 Id = obj.ItemId.ToString(),
                 Name = obj.Name,
                 Type = obj.Type,
-                Tags = obj.TagsArray
             };
         }
 
@@ -58,7 +59,7 @@ namespace Cloudents.Search.Entities
         [IsSortable, IsFilterable]
         public DateTimeOffset? DateTime { get; set; }
         [IsFilterable, IsFacetable, JsonProperty(TypeFieldName)]
-        public string Type { get; set; }
+        public DocumentType Type { get; set; }
 
     }
 }

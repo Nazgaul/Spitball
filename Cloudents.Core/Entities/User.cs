@@ -29,7 +29,6 @@ namespace Cloudents.Core.Entities
         {
             UserLogins = new List<UserLogin>();
             Transactions = Transactions ?? new UserTransactions();
-            Tags = new HashSet<Tag>();
 
         }
 
@@ -116,7 +115,6 @@ namespace Cloudents.Core.Entities
 
         public virtual IReadOnlyCollection<StudyRoomUser> StudyRooms => _studyRooms.ToList();
 
-        public virtual ISet<Tag> Tags { get; protected set; }
 
         public virtual DateTime LastOnline { get; protected set; }
         public virtual bool Online { get; protected set; }

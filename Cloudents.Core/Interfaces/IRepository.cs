@@ -35,15 +35,6 @@ namespace Cloudents.Core.Interfaces
         Task<IEnumerable<User>> GetExpiredCreditCardsAsync(CancellationToken token);
     }
 
- 
-
-   
-
-    public interface ITagRepository : IRepository<Tag>
-    {
-        Task<Tag> GetOrAddAsync(string name, CancellationToken token);
-    }
-
     public interface IDocumentRepository : IRepository<Document>
     {
         Task UpdateNumberOfViews(long id, CancellationToken token);

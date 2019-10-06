@@ -222,4 +222,55 @@
   <data name="multiple_legal two_terms_conditions" xml:space="preserve">
     <value>terms and conditions</value>
   </data>
+  <data name="uf_mTitle" xml:space="preserve">
+    <value>Upload files</value>
+  </data>
+  <data name="uf_sDrop_btn_dropbox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="uf_sDrop_btn_local" xml:space="preserve">
+    <value>My computer</value>
+  </data>
+  <data name="uf_sDrop_drop" xml:space="preserve">
+    <value>Drop files here</value>
+  </data>
+  <data name="uf_sDrop_or" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="uf_sDrop_title" xml:space="preserve">
+    <value>Drop files to instantly upload them to spitball</value>
+  </data>
+  <data name="uf_sEdit_items_error" xml:space="preserve">
+    <value>In order to upload files please remove or replace file that is not supported</value>
+  </data>
+  <data name="uf_sEdit_terms_by" xml:space="preserve">
+    <value>By uploading this materials you agree to</value>
+  </data>
+  <data name="uf_sEdit_terms_link" xml:space="preserve">
+    <value>spitball’s terms and conditions</value>
+  </data>
+  <data name="uf_sEdit_top_btn" xml:space="preserve">
+    <value>Apply to all</value>
+  </data>
+  <data name="ufItem_error_btn" xml:space="preserve">
+    <value>Replace file</value>
+  </data>
+  <data name="ufItem_error_remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="uf_course_name" xml:space="preserve">
+    <value>Name of the course</value>
+  </data>
+  <data name="uf_desc" xml:space="preserve">
+    <value>Write a few words to describe the file</value>
+  </data>
+  <data name="uf_price" xml:space="preserve">
+    <value>Price (in Points)</value>
+  </data>
+  <data name="uf_sEdit_bottm_btn" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="uf_price_pts" xml:space="preserve">
+    <value>Pts</value>
+  </data>
 </root>

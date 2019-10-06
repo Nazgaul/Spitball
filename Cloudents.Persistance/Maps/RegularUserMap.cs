@@ -72,21 +72,6 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse();
-            //StudyRooms
-
-
-            HasManyToMany(x => x.Tags)
-                .ParentKeyColumn("UserId")
-                .ChildKeyColumn("TagId")
-                .ForeignKeyConstraintNames("User_Tags", "Tags_User")
-                .Table("UsersTags").AsSet();
-
-
-
-            /*HasMany(x => x.UserRoles)
-                .KeyColumn("UserId")
-                .Inverse()
-                .Cascade.AllDeleteOrphan();*/
             HasOne(x => x.Tutor)/*.LazyLoad(Laziness.NoProxy).Constrained()*/.Cascade.All();
             
         }

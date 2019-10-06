@@ -78,7 +78,6 @@ const actions = {
         commit('setIdTransaction', id);
     },
     signalR_ReleasePaymeStatus({getters,dispatch}){
-        debugger
         let isStudyRoom = getters.getStudyRoomData
         if(!!isStudyRoom){
             dispatch('releasePaymeStatus_studyRoom')

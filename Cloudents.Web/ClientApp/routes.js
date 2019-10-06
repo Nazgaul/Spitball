@@ -11,7 +11,7 @@ const schoolBlock = () => import('./components/schoolBlock/schoolBlock.vue');
 const verticalsTabs = () => import('./components/header/verticalsTabs.vue');
 import { staticRoutes } from "./components/satellite/satellite-routes";
 
-// const showItem = () => import("./components/preview/Item.vue");
+
 const document = () => import("./components/document/document.vue");
 const satelliteHeader = () => import("./components/satellite/header.vue");
 //const previewHeader = () => import("./components/helpers/header.vue");

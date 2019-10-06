@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs.SearchSync
@@ -14,11 +16,13 @@ namespace Cloudents.Core.DTOs.SearchSync
 
     public class QuestionSearchDto
     {
-
+        [EntityBind(nameof(Question.Id))]
         public long Id { get; set; } //key readonly
 
+        [EntityBind(nameof(Question.Updated))]
         public DateTime? DateTime { get; set; } //readonly
 
+        [EntityBind(nameof(Question.Text))]
         public string Text { get; set; } //search readonly
 
 
@@ -27,14 +31,6 @@ namespace Cloudents.Core.DTOs.SearchSync
             get
             {
                 var arr = new List<string>();
-                //if (Subject.HasValue)
-                //{
-                //    if (System.Enum.IsDefined(typeof(QuestionSubject), Subject.Value))
-                //    {
-                //        arr.AddRange(Subject.GetEnumLocalizationAllValues());
-                //    }
-                //}
-
                 if (!string.IsNullOrEmpty(Text))
                 {
                     arr.Add(Text);
@@ -50,17 +46,21 @@ namespace Cloudents.Core.DTOs.SearchSync
         } //search
 
 
+        [EntityBind(nameof(Question.University.Country),nameof(Question.User.Country))]
         public string Country { get; set; }
        
 
+        [EntityBind(nameof(Question.Language))]
         public string Language { get; set; }
 
+        [EntityBind(nameof(Question.Course.Id))]
         public string Course { get; set; }
 
 
         //public QuestionSubject? Subject { get; set; } // facetable readonly
+        [EntityBind(nameof(Question.CorrectAnswer),nameof(Question.Answers))]
         public QuestionFilter? State { get; set; }
+        [EntityBind(nameof(Question.University.Name))]
         public string UniversityName { get; set; }
-        public string[] Tags { get; set; }
     }
 }

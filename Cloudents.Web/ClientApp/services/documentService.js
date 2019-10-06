@@ -16,9 +16,7 @@ function DocumentItem(ObjInit) {
     this.user = !!ObjInit.user ? searchService.createTutorItem(ObjInit.user) : new documentUserItem(ObjInit);
     this.views = ObjInit.views || 0;
     this.pages = ObjInit.pages || 0;
-    this.docType = ObjInit.type || '';
     this.isPlaceholder = ObjInit.isPlaceholder || false;
-    this.professor = ObjInit.professor || '';
     this.price = ObjInit.price || 0;
     this.isPurchased = ObjInit.isPurchased || false;
     this.uploaderName = ObjInit.uploaderName;

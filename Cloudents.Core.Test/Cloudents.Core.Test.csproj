@@ -27,4 +27,10 @@
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
   </ItemGroup>
 
+ 
+
+  <ItemGroup>
+    <Folder Include="Entities\" />
+  </ItemGroup>
+
 </Project>

@@ -62,7 +62,7 @@
             <sb-dialog :showDialog="getDialogState"
                        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
                        :popUpType="'uploadDialog'"
-                       :maxWidth="'852'"
+                       :maxWidth="'716'"
                        :onclosefn="setUploadDialogState"
                        :activateOverlay="false"
                        :isPersistent="$vuetify.breakpoint.smAndUp"
@@ -113,7 +113,7 @@ import { mapGetters, mapActions } from "vuex";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
 import AddQuestion from "../question/askQuestion/askQuestion.vue";
-import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
+import uploadMultipleFiles from '../uploadFilesDialog/uploadMultipleFiles.vue';
 import {  GetDictionary,  LanguageService} from "../../services/language/languageService";
 import walletService from "../../services/walletService";
 import reportItem from "../results/helpers/reportItem/reportItem.vue";

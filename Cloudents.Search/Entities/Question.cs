@@ -22,10 +22,8 @@ namespace Cloudents.Search.Entities
 
             Language = dto.Language?.ToLowerInvariant();
             Course = dto.Course?.ToUpperInvariant();
-            //Subject = dto.Subject;
             State = dto.State;
             UniversityName = dto.UniversityName;
-            Tags = dto.Tags;
         }
 
         public Question(string id)
@@ -59,9 +57,6 @@ namespace Cloudents.Search.Entities
         public string Country { get; set; }
         [IsFilterable]
         public string Language { get; set; }
-
-        //[IsFilterable, IsFacetable]
-        //public QuestionSubject? Subject { get; set; } // facetable readonly
 
         [IsFilterable, IsFacetable]
         public QuestionFilter? State { get; set; }

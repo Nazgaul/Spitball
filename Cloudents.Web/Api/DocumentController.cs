@@ -121,8 +121,8 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(model.Name), "Invalid file name");
                 return BadRequest(ModelState);
             }
-            var command = new CreateDocumentCommand(model.BlobName, model.Name, model.Type ?? "Document",
-                model.Course, model.Tags, userId, model.Professor, model.Price);
+            var command = new CreateDocumentCommand(model.BlobName, model.Name, 
+                model.Course,  userId,  model.Price, model.Description);
             await _commandBus.DispatchAsync(command, token);
 
             var url = Url.RouteUrl("ShortDocumentLink", new

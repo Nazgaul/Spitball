@@ -61,15 +61,6 @@
                     <!-- <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_university'"></td>
                     <td class=""><h3 class="body-1 text-truncate align-switch-r">{{getUniversity}}</h3></td> -->
                 </tr>
-                <tr v-if="isType">
-                    <td class="table_td">
-                        <div class="py-2 mr-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_type'"></div>
-                        <h3 class="body-1 text-truncate align-switch-r">{{getType}}</h3>
-                    </td>
-
-                    <!-- <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_type'"></td>
-                    <td class=""><h3 class="body-1 text-truncate align-switch-r">{{getType}}</h3></td> -->
-                </tr>
             </table>
             <tutor-result-card-other :tutorData="ownTutor" :uploader="true"  v-if="isTutor && ownTutor" />
         </div>
@@ -137,11 +128,6 @@ export default {
                 return this.document.details.university;
             }
         },
-        getType() {
-            if(this.document.details && this.document.details.type) {
-                return this.document.details.type;
-            }
-        },
         getUploaderName() {
             if(this.document.details && this.document.details.user) {
                 return this.document.details.user.name;
@@ -158,9 +144,6 @@ export default {
             } else {
                 return false;
             }
-        },
-        isType() {
-            return this.document.details && this.document.details.type;
         },
         isUniversity() {
             return this.document.details && this.document.details.university;

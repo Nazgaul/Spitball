@@ -35,13 +35,6 @@ select q.Id as QuestionId,
                            q.State as State,
 c2.Name as Course,
 uni.Name as University,
-(select STRING_AGG(dt.TagId, ', ')	
-FROM (
-Select top 15 TagId from sb.DocumentsTags where DocumentId in (
-Select id from sb.Document where CourseName = q.CourseId)
-group by TagId
-order by count(*) desc) dt
-) AS Tags	
 From sb.[Question] q 
                            join sb.[User] u 
                            On u.Id = q.UserId
@@ -66,13 +59,6 @@ CROSS APPLY CHANGETABLE (VERSION sb.[Question], (Id), (Id)) AS c;";
 	    q.State as State,
 		C2.Name as Course,
 		uni.Name as University,
-(select STRING_AGG(dt.TagId, ', ')		
-				FROM (
-				Select top 15 TagId from sb.DocumentsTags where DocumentId in (
-Select id from sb.Document where CourseName = q.CourseId)
-group by TagId
-order by count(*) desc) dt
-				) AS Tags,
 	    c.* 
 From sb.[Question] q 
 right outer join CHANGETABLE (CHANGES sb.[question], @Version) AS c ON q.Id = c.id  
@@ -141,7 +127,6 @@ ROWS FETCH NEXT @PageSize ROWS ONLY";
                             Language = dbResult.Language ?? "en",
                             Text = dbResult.Text,
                             UniversityName = dbResult.University,
-                            Tags = dbResult.Tags?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
                         });
                     }
                 }
@@ -186,8 +171,7 @@ ROWS FETCH NEXT @PageSize ROWS ONLY";
 
             [Core.Attributes.EntityBind(nameof(Question.University.Name))]
             public string University { get; set; }
-            [Core.Attributes.EntityBind(nameof(Question.Course), nameof(Document.Tags), nameof(Tag.Name))]
-            public string Tags { get; set; }
+          
         }
     }
 }

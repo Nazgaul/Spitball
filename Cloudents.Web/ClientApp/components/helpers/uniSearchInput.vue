@@ -13,7 +13,6 @@
                 <v-list class="search-menu" v-show="showSuggestions && suggestList.length">
                     <v-subheader v-if="!msg.length || (focusedIndex >= 0 && !originalMsg.length)" v-language:inner>uniSearchinput_universities_near_you</v-subheader>
                     <template v-for="(item, index) in suggestList">
-                        <!--{{item.type}}-->
                         <v-list-tile class="suggestion" @click="selectos({item:item,index})"
                                      :class="{'list__tile--highlighted': index === focusedIndex}"
                                      :key="index">

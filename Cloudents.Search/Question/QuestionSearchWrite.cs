@@ -13,8 +13,6 @@ namespace Cloudents.Search.Question
     {
         public const string IndexName = "question2";
         internal const string TagsCountryParameter = "Country";
-        internal const string TagsTagsParameter = "Tag";
-        internal const string ScoringProfile = "ScoringProfile2";
 
 
         public QuestionSearchWrite(SearchService client, ILogger logger) : base(client, client.GetClient(IndexName), logger)
@@ -42,40 +40,6 @@ namespace Cloudents.Search.Question
                 {
                     new EdgeNGramTokenFilterV2("my_edgeNGram",2,20)
                 },
-                ScoringProfiles = new List<ScoringProfile>
-                {
-                    new ScoringProfile("ScoringProfile2")
-                    {
-                        TextWeights = new TextWeights(new Dictionary<string, double>
-                        {
-                            [nameof(Entities.Question.Text)] = 185,
-                            [nameof(Entities.Question.Prefix)] = 180,
-                        }),
-                        FunctionAggregation = ScoringFunctionAggregation.Sum,
-                        Functions = new List<ScoringFunction>
-                        {
-                            new FreshnessScoringFunction(nameof(Entities.Question.DateTime),169.68,TimeSpan.FromDays(7*3),ScoringFunctionInterpolation.Linear),
-                            new TagScoringFunction(nameof(Entities.Question.Country),1.01, new TagScoringParameters(TagsCountryParameter)),
-                            new TagScoringFunction(nameof(Entities.Question.Tags),170, new TagScoringParameters("Tag")),
-                        }
-                    },
-                    //new ScoringProfile(ScoringProfile)
-                    //{
-                    //    TextWeights = new TextWeights(new Dictionary<string, double>
-                    //    {
-                    //        [nameof(Entities.Question.Text)] = 185,
-                    //        [nameof(Entities.Question.Prefix)] = 180,
-                    //    }),
-                    //    FunctionAggregation = ScoringFunctionAggregation.Sum,
-                    //    Functions = new List<ScoringFunction>
-                    //    {
-                    //        new FreshnessScoringFunction(nameof(Entities.Question.DateTime),169.68,TimeSpan.FromDays(7*3),ScoringFunctionInterpolation.Linear),
-                    //        new TagScoringFunction(nameof(Entities.Question.Country),1.01, new TagScoringParameters(TagsCountryParameter)),
-                    //        new TagScoringFunction(nameof(Entities.Question.Course),170, new TagScoringParameters(TagsCourseParameter)),
-                    //        new TagScoringFunction(nameof(Entities.Question.UniversityName),120, new TagScoringParameters(TagsUniversityParameter)),
-                    //    }
-                    //}
-                },
             };
 
             index.Fields.Add(new Field("UserName", DataType.String));
@@ -94,6 +58,11 @@ namespace Cloudents.Search.Question
                 {
                     IsFilterable = true
                 });
+            index.Fields.Add(new Field("Tags", DataType.Collection(DataType.String))
+            {
+                IsFilterable = true,
+                IsSearchable = true
+            });
             return index;
         }
     }
