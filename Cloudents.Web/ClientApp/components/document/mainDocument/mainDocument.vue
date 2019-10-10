@@ -134,10 +134,18 @@
       </div>
     </v-layout>
     <div class="document-wrap">
+
       <div class="text-xs-center" v-if="!videoLoader">
-        <img :src="require('./doc-preview-animation.gif')" alt="Photo" :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}">
+                  <v-progress-circular
+            :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}"
+            width="3"
+            :size="videoHeight" 
+            indeterminate
+            color="#4452fc"
+          ></v-progress-circular>
       </div>
-      <div style="margin: 0 auto;background:black" class="text-xs-center main-header-wrapper" v-if="isVideo">
+      
+      <div style="margin: 0 auto;background:black" class="text-xs-center main-header-wrapper" v-if="isVideo && videoSrc">
         <sbVideoPlayer 
             @videoEnded="showAfterVideo = true"
             :id="`${document.details.id}`"
@@ -145,7 +153,7 @@
             :width="videoWidth" 
             style="margin: 0 auto" 
             :isResponsive="true" 
-            :src="document.preview.locator"
+            :src="videoSrc"
             :title="courseName"
             :poster="`${document.preview.poster}?width=${videoWidth}&height=${videoHeight}&mode=crop&anchorPosition=bottom`"
         />
@@ -290,6 +298,11 @@ export default {
       "getDocumentLoaded"
 
     ]),
+    videoSrc(){
+      if(this.document && this.document.preview && this.document.preview.locator){
+        return this.document.preview.locator
+      }
+    },
     isShowVideo() {
       if(this.document && this.document.documentType && this.isMounted) {
         return true;
@@ -350,6 +363,7 @@ export default {
       return this.calculateWidthByScreenSize()
     },
     docPreview() {
+      if(this.isVideo)return
       // TODO temporary calculated width container
       if (this.document.preview && this.docWrap) {
         this.imgWidth = this.calculateWidthByScreenSize()

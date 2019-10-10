@@ -105,12 +105,14 @@ export default {
         }
     },
     beforeCreate() {
-        let self = this;
-        let ampUrl = '//amp.azure.net/libs/amp/2.3.1/azuremediaplayer.min.js';
-        this.$loadScript(ampUrl).then(()=>{
-            self.loadStyle().then(()=>{
-                self.initVideoPlayer();
-            });
-        });
+        let self = this
+        let ampUrlScript = '//amp.azure.net/libs/amp/2.3.1/azuremediaplayer.min.js'
+        let ampUrlStyle = `//amp.azure.net/libs/amp/2.3.1/skins/amp-flush/azuremediaplayer.min.css`
+        let id = '#amp-azure'
+        this.$loadScript(ampUrlScript).then(()=>{
+            self.$loadStyle(ampUrlStyle,id).then(()=>{
+                self.initVideoPlayer()
+            })
+        })
     },
 }
