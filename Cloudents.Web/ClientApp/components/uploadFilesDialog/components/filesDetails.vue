@@ -1,8 +1,9 @@
 <template>
     <div class="uf-sEdit">
-        <v-layout row wrap justify-space-between class="uf-sEdit-top px-3">
+        <v-layout row wrap justify-space-between class="uf-sEdit-top pb-1 px-3">
             <v-flex xs12 sm6 :class="[{'pl-3':!isMobile}]">
                 <v-combobox 
+                    browser-autocomplete="abcd"
                     :placeholder="coursePlaceHolder"
                     class="text-truncate"
                     @keyup="searchCourses"
@@ -13,7 +14,11 @@
                     :rules="[rules.matchCourse]"/>
             </v-flex>
             <v-flex xs6 sm3 :class="[{'pl-3':!isMobile}]">
-                <v-text-field v-model="priceForAll" placeholder="Price"></v-text-field>
+                <v-text-field v-model="priceForAll" 
+                              :placeholder="emptyPricePlaceholder"
+                              :rules="[rules.integer,rules.maximum,rules.minimum]"
+                              type="number"
+                              :suffix="priceForAll? pricePts :''"/>
             </v-flex>
             <v-flex xs5 sm3 :class="[{'pl-3':!isMobile}]">
                 <v-btn @click="applyAll" class="uf-sEdit-top-btn" color="white" depressed round>
@@ -22,13 +27,15 @@
             </v-flex>
         </v-layout>
         <div :class="['uf-sEdit-items',isMobile?'py-3':'pt-3',isMobile? 'px-2': 'px-3']" class="">
-            <div v-if="isError" class="uf-sEdit-items-error my-2" v-language:inner="'upload_uf_sEdit_items_error'"/>
-            <transition-group name="slide-x-transition">
-                <div v-for="(fileItem, index) in fileItems" :key="fileItem.id">
-                    <file-card v-if="!fileItem.error" :fileItem="fileItem" :singleFileIndex="index"/>
-                    <file-card-error v-else :fileItem="fileItem" :singleFileIndex="index"/>                    
-                </div>
-            </transition-group>
+            <!-- <div v-if="isError" class="uf-sEdit-items-error mb-2" v-language:inner="'upload_uf_sEdit_items_error'"/> -->
+            <v-form ref="filesDetailsForm">
+                <transition-group name="slide-x-transition">
+                    <div v-for="(fileItem, index) in fileItems" :key="fileItem.id">
+                        <file-card v-if="!fileItem.error" :fileItem="fileItem" :singleFileIndex="index"/>
+                        <file-card-error v-else :fileItem="fileItem" :singleFileIndex="index"/>                    
+                    </div>
+                </transition-group>
+            </v-form>
         </div>
     </div>
 </template>
@@ -38,6 +45,8 @@ import debounce from "lodash/debounce";
 
 import {LanguageService} from '../../../services/language/languageService.js'
 import universityService from '../../../services/universityService.js';
+import { validationRules } from '../../../services/utilities/formValidationRules';
+
 
 import fileCard from './fileCard.vue';
 import fileCardError from './fileCardError.vue';
@@ -48,6 +57,8 @@ export default {
     data() {
         return {
             coursePlaceHolder: LanguageService.getValueByKey("upload_uf_course_name"),
+            emptyPricePlaceholder: LanguageService.getValueByKey("upload_uf_price"),
+            pricePts: LanguageService.getValueByKey("upload_uf_price_pts"),
             someVal: '',
             priceForAll: '',
             fileItems: this.getFileData(),
@@ -58,6 +69,9 @@ export default {
                         this.suggestsCourses.some(course=>course.text === this.courseForAll.text)
                         )) 
                     || LanguageService.getValueByKey("tutorRequest_invalid"),
+                integer: (value) => validationRules.integer(value),
+                maximum: (value) => validationRules.maxVal(value, 1000),
+                minimum: (value) => validationRules.minVal(value,0),
             },
             suggestsCourses:[]
         }
@@ -74,6 +88,16 @@ export default {
             default: {},
             required: false
         },
+        chackValidation:{
+            type:Boolean
+        }
+    },
+    watch: {
+        chackValidation(){
+            if(this.$refs.filesDetailsForm.validate()){
+                this.callBackmethods.send();
+            }
+        }
     },
     computed: {
         isMobile(){
@@ -116,8 +140,37 @@ export default {
     }
    .uf-sEdit-top{
        @media (max-width: @screen-xs) {
-           flex: 0;
+        //    flex: 0;
+        .flexSameSize()
        }
+        .v-text-field__suffix{
+            font-size: 14px;
+            font-weight: 600;
+            color: @global-purple; 
+        }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+        }
+        .v-messages__message {
+            line-height: 1.2;
+        }
+        .v-input__slot{
+            margin-bottom:6px;
+        }
+        input{
+            font-size: 14px;
+            font-weight: 600;
+            color: @global-purple; 
+            
+            .v-input__slot {
+                ::placeholder{
+                    font-size: 14px;
+                    color: #a1a3b0;
+                    font-weight:100;
+                }
+            }
+        }
         .v-btn{
             @media (max-width: @screen-xs) {
                 min-width: auto;
@@ -155,6 +208,7 @@ export default {
             line-height: 1.75;
             text-align: center;
             color: #d16061;
+            margin-top: -8px;
         }
     }
 }

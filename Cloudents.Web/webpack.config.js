@@ -115,10 +115,10 @@ module.exports = (env) => {
                 }
             ]
         },
-        devtool: isDevBuild ? 'inline-source-map' : false,
+        devtool: false,
         optimization: {
             minimize: !isDevBuild,
-            minimizer: [new TerserPlugin({
+            minimizer: !isDevBuild ? [new TerserPlugin({
 
 
             }), new OptimizeCssAssetsPlugin({
@@ -144,7 +144,7 @@ module.exports = (env) => {
                     //reduceIdents: false
                 },
                 canPrint: true
-            })] 
+            })] : []
         },
         plugins: [
             new VueLoaderPlugin(),

@@ -28,7 +28,7 @@ function createDocumentItem(ObjInit) {
 
 function createDocumentPreview(itemPreview){
     if (!itemPreview || itemPreview.length === 0) {
-        let location = `${global.location.origin}/images/doc-preview-empty.png`;
+        let location = require("../components/images/doc-preview-empty.png");
         itemPreview.push(location);
     }
 

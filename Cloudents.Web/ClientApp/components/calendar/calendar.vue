@@ -75,7 +75,7 @@
             </template>
             
             <template v-slot:interval="{date,time,past}">
-              <div :class="['my-event',past? 'without-time-past':'without-time', {'cursor-none': isSelfTutor}]">
+              <div :class="['my-event',past? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]">
                 <button @click="addEvent($event, date,time)" v-html="cellTime(date,time)"></button> 
               </div>
           </template>
@@ -262,6 +262,12 @@ export default {
 
         goPayment(){
           this.requestPaymentURL({ title: 'payme_title', name: this.tutorName });
+        },
+        isSelected(date,time){
+          if(date === this.selectedDate && time === this.selectedTime){
+            // debugger
+            return true;
+          }
         }
     },
     mounted() {
@@ -551,7 +557,10 @@ display: flex;
   }
 
 
-
+.selectedEvent{
+  background-color: @global-blue;
+  color: white !important;
+}
 .my-event {
     text-align: center;
     font-size: 12px;

@@ -31,7 +31,7 @@ namespace Cloudents.Persistence.Repositories
                     s.Bio,
                     UniversityName = s.User.University.Name,
                     s.Price,
-
+                    s.User.Country
                 }).ToFutureValue();
 
             var coursesFuture = Session.Query<UserCourse>()
@@ -44,17 +44,28 @@ namespace Cloudents.Persistence.Repositories
                     SubjectName = s.Course.Subject.Name
                 }).ToFuture();
 
-            var reviewsFutureValue = Session.Query<TutorReview>()
-                .Where(w => w.Tutor.Id == userId).GroupBy(g => g)
-                .Select(s => new { count = s.Count(), average = s.Average(x => x.Rate) })
-                .ToFutureValue();
+            //var reviewsFutureValue = Session.Query<TutorReview>()
+            //    .Where(w => w.Tutor.Id == userId).GroupBy(g => g)
+            //    .Select(s => new { count = s.Count(), average = s.Average(x => x.Rate) })
+            //    .ToFutureValue();
+            var query = from e in Session.Query<TutorReview>()
+                    where e.Tutor.Id == userId
+                        group e by 1 into grp
+                        select new 
+                        {
+                            Count = grp.Count(),
+                            //Average is doing issue - doing average in c# 
+                            Sum = grp.Sum(x => (float?)x.Rate)
+                        };
+            var reviewsFutureValue = query.ToFutureValue();
+
 
             var lessonsFutureValue = Session.Query<StudyRoomSession>()
-                .Fetch(f => f.StudyRoom)
-                .Where(w => w.StudyRoom.Tutor.Id == userId && w.Duration > TimeSpan.FromMinutes(10))
-                .GroupBy(g => g)
-                .Select(s => s.Count())
-                .ToFutureValue();
+.Fetch(f => f.StudyRoom)
+.Where(w => w.StudyRoom.Tutor.Id == userId && w.Duration > TimeSpan.FromMinutes(10))
+.GroupBy(g => 1)
+.Select(s => s.Count())
+.ToFutureValue();
 
 
             var tutor = await tutorFutureValue.GetValueAsync(token);
@@ -67,15 +78,27 @@ namespace Cloudents.Persistence.Repositories
             var reviews = await reviewsFutureValue.GetValueAsync(token);
             var lessons = await lessonsFutureValue.GetValueAsync(token);
 
-
+            var count = reviews?.Count ?? 0;
+            var average = 0f;
+            if (count > 0)
+            {
+                average = (reviews?.Sum ?? 0) / count;
+            }
 
             var readTutor = new ReadTutor(tutor.Id, tutor.Name, tutor.Image,
-                course.Select(s => s.SubjectName), course.Select(s => s.CourseName),
-                tutor.Price, reviews?.average, reviews?.count ?? 0, tutor.Bio, tutor.UniversityName, lessons);
-            //.SingleOrDefaultAsync(token);
+                course.Where(w => !string.IsNullOrEmpty(w.SubjectName)).Select(s => s.SubjectName).Distinct(),
+                course.Select(s => s.CourseName),
+                tutor.Price, average, count, tutor.Bio, tutor.UniversityName,
+                lessons, tutor.Country);
 
 
             return readTutor;
+        }
+
+        public class Reviews
+        {
+            public int Count { get; set; }
+            public float? Average { get; set; }
         }
     }
 }

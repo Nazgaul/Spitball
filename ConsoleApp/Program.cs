@@ -10,11 +10,14 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Storage;
@@ -132,8 +135,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await UpdateMethod();
-           // ResourcesMaintenance.DeleteUnusedSvg();
+            //await UpdateMethod();
+            var v = _container.Resolve<IIpToLocation>();
+            var x = await v.GetAsync(IPAddress.Parse("147.243.149.244"), default);
            // var c = _container.Resolve<IReadTutorRepository>();
            // await c.GetReadTutorAsync(638, default);
            // ResourcesMaintenance.DeleteUnusedSvg();
@@ -157,7 +161,6 @@ namespace ConsoleApp
 
             ////    var blobClient = bus.GetBlobClient();
 
-            await ResetVideo();
             ////
 
             //Console.WriteLine("done");
@@ -219,6 +222,20 @@ namespace ConsoleApp
 
             var c2 = _container.Resolve<TutorSearchWrite>();
             await c2.CreateOrUpdateAsync(default);
+
+            var session = _container.Resolve<ISession>();
+            foreach (var tutorId in session.Query<Tutor>().Where(w=>w.State == ItemState.Ok).Select(s=>s.Id).AsEnumerable())
+            {
+                var eventHandler = _container.Resolve<IEventHandler<SetUniversityEvent>>();
+                await eventHandler.HandleAsync(new SetUniversityEvent(tutorId), default);
+            }
+
+            var storageProvider = _container.Resolve<ICloudStorageProvider>();
+            var blobClient = storageProvider.GetBlobClient();
+            var container = blobClient.GetContainerReference("spitball");
+            var directory = container.GetDirectoryReference("AzureSearch");
+            var blob = directory.GetBlobReference("tutor-version.txt");
+            await blob.DeleteAsync();
 
 
             //var c3 = _container.Resolve<QuestionSearchWrite>();

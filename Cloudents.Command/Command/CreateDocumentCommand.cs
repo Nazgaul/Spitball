@@ -27,6 +27,5 @@ namespace Cloudents.Command.Command
         public decimal Price { get; }
         public string ModelDescription { get; }
 
-        public long Id { get; set; }
     }
 }

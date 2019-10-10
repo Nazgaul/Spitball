@@ -189,21 +189,22 @@
                     padding-bottom: 32px;
                 }
             }
-            p{
-                margin: 0;
-                font-size: 20px;
-                line-height: 1.5;
-                letter-spacing: -0.51px;
-                color: @global-purple;
-                padding: 0 150px;
-                padding-bottom: 16px;
-                text-align: center;
-                @media (max-width: @screen-xs) {
-                    padding: 0 0 20px;
+            //TODO: remove this because it caused an issue
+            // p{
+            //     margin: 0;
+            //     font-size: 20px;
+            //     line-height: 1.5;
+            //     letter-spacing: -0.51px;
+            //     color: @global-purple;
+            //     padding: 0 150px;
+            //     padding-bottom: 16px;
+            //     text-align: center;
+            //     @media (max-width: @screen-xs) {
+            //         padding: 0 0 20px;
 
-                }
+            //     }
 
-            }
+            // }
             .v-btn{
                 @media (max-width: @screen-xs) {
                   height: 46px;

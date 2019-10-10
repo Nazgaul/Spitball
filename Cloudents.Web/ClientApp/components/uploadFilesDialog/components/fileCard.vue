@@ -1,16 +1,17 @@
 <template>
     <v-card class="uf-sEdit-item mb-3">
         <v-icon v-if="!isLastItem" class="uf-sEdit-close" v-html="'sbf-close'" @click="deleteFile()"/>
-        <v-layout row wrap px-3>
+        <v-layout row wrap pb-1 px-3>
             <v-layout row wrap justify-space-between>   
-                <v-flex xs11 md7>
-                    <v-text-field :prepend-inner-icon="'sbf-attachment'" 
+                <v-flex xs12 md8 pr-4>
+                    <v-text-field style="direction: ltr;" :prepend-inner-icon="'sbf-attachment'" 
                                   v-model="item.name" 
                                   dir="ltr"
-                                  readonly/>
+                                  :rules="[rules.required]"/>
                 </v-flex>
                 <v-flex xs7 md4>
                     <v-combobox 
+                    browser-autocomplete="abcd"
                         :placeholder="itemCoursePlaceholder"
                         @keyup="searchCourses"
                         flat hide-no-data
@@ -21,7 +22,7 @@
                 </v-flex>
                 <v-flex hidden-md-and-up xs4> 
                     <v-text-field class="uf_price"
-                        :rules="[rules.integer]" 
+                        :rules="[rules.integer,rules.maximum,rules.minimum]"  
                          type="number" 
                          v-model="item.price" 
                          :placeholder="emptyPricePlaceholder"
@@ -30,20 +31,21 @@
                 </v-flex>
             </v-layout>
             <v-layout row wrap justify-space-between>
-                <v-flex xs12 md8 class="uf_desc">
+                <v-flex xs12 md10 :class="['uf_desc',{'pr-4':!isMobile}]">
                     <!-- <v-textarea rows="2" :resize="false" style="margin: 0;padding: 0;"
                         v-model="item.description" 
                         :placeholder="itemDescPlaceholder">>
 
                     </v-textarea> -->
                     <v-text-field 
+                        class="pt-1"
                         v-model="item.description" 
                         :placeholder="itemDescPlaceholder">
                     </v-text-field>
                 </v-flex>
-                <v-flex hidden-sm-and-down md3> 
-                    <v-text-field class="uf_price"
-                        :rules="[rules.integer]" 
+                <v-flex hidden-sm-and-down md2> 
+                    <v-text-field class="uf_price pt-1"
+                        :rules="[rules.integer,rules.maximum,rules.minimum]" 
                          type="number" 
                          v-model="item.price" 
                          :placeholder="emptyPricePlaceholder"
@@ -78,8 +80,9 @@ export default {
                 required: (value) => validationRules.required(value),
                 integer: (value) => validationRules.integer(value),
                 matchCourse:() => ((this.suggestsCourses.length && this.suggestsCourses.some(course=>course.text === this.selectedCourse)
-                        ) || this.isFromQuery) 
-                    || LanguageService.getValueByKey("tutorRequest_invalid"),
+                        ) || this.isFromQuery) || LanguageService.getValueByKey("tutorRequest_invalid"),
+                maximum: (value) => validationRules.maxVal(value, 1000),
+                minimum: (value) => validationRules.minVal(value,0),
             },
             isFromQuery: false,
         }
@@ -115,6 +118,9 @@ export default {
     },
     computed: {
         ...mapGetters(['getFileData']),
+        isMobile(){
+            return this.$vuetify.breakpoint.xsOnly;
+        },
         isLastItem(){
             let nonErrorItems = this.getFileData.filter(item=>(!item.error))
             return (nonErrorItems.length < 2)
@@ -131,7 +137,7 @@ export default {
                     this.item.course = val.text
                     this.selectedCourse = val.text
                 }else{
-                    this.item.course = val.text
+                    this.item.course = val.text || ''
                 }
             }
         }
@@ -169,6 +175,12 @@ export default {
             font-weight: 600;
             color: @global-purple; 
         }
+        .v-messages__message {
+            line-height: 1.2;
+        }
+        .v-input__slot{
+            margin-bottom:6px;
+        }
     }
     .uf-sEdit-close{
         position: absolute;
@@ -176,11 +188,13 @@ export default {
         top: 10px;
         z-index: 99;
         font-size: 12px;
+        color: #adadba;
         cursor: pointer;  
     }
     .v-input__slot {
         ::placeholder{
             font-size: 14px;
+            color: #a1a3b0;
         }
         input{
             font-size: 14px;

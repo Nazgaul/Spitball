@@ -139,9 +139,6 @@
     <value>Course:</value>
     <comment>Duplicate</comment>
   </data>
-  <data name="table_type" xml:space="preserve">
-    <value>Type:</value>
-  </data>
   <data name="table_university" xml:space="preserve">
     <value>School:</value>
   </data>

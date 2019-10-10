@@ -10,7 +10,7 @@ namespace ConsoleApp
     public static class ResourcesMaintenance
     {
         private static readonly Dictionary<string, string[]> _fileContentCache = new Dictionary<string, string[]>();
-        public static void DeleteUnusedResources()
+        private static void DeleteUnusedResources()
         {
             //TODO: :// we need to think about landing page and other instances of resources string interpolation!
             //TODO :// maybe some performance tweaks and thats it.
@@ -63,9 +63,8 @@ namespace ConsoleApp
                     }
                     if (string.IsNullOrEmpty(firstOccurrence))
                     {
-                        Console.WriteLine($"file path: {resourceFile}");
+                        Console.WriteLine($"file path: {resourceFile}, element name: {name}");
                         Console.WriteLine($"element name: {name}");
-                        Console.WriteLine("-----------------------");
 
                         var p = dataElement[i].ParentNode;
                         p.RemoveChild(dataElement[i]);
@@ -83,11 +82,16 @@ namespace ConsoleApp
             }
         }
 
-
-        public static void DeleteUnusedSvg()
+        public static void DeleteStuffFromJs()
+        {
+            DeleteUnusedSvg();
+            DeleteUnusedResources();
+        }
+        private static void DeleteUnusedSvg()
         {
             //TODO: :// we need to think about landing page and other instances of resources string interpolation!
             //TODO :// maybe some performance tweaks and thats it.
+            Console.WriteLine("Delete unused svg");
             Console.WriteLine(Directory.GetCurrentDirectory());
 
             var directoryName = Directory.GetCurrentDirectory();

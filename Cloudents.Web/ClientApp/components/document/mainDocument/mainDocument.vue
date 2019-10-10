@@ -42,7 +42,7 @@
               v-for="(item, i) in actions"
               :key="i"
             >
-              <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
+              <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -136,13 +136,7 @@
     <div class="document-wrap">
 
       <div class="text-xs-center" v-if="!videoLoader">
-                  <v-progress-circular
-            :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}"
-            width="3"
-            :size="videoHeight" 
-            indeterminate
-            color="#4452fc"
-          ></v-progress-circular>
+        <img :style="{'width': `${dynamicWidthAndHeight.width}px`, 'height': `${dynamicWidthAndHeight.height}px`}" :src="require('./doc-preview-animation.gif')" alt="Photo" :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}">
       </div>
       
       <div style="margin: 0 auto;background:black" class="text-xs-center main-header-wrapper" v-if="isVideo && videoSrc">
@@ -163,7 +157,7 @@
         <div class="text-xs-center" v-for="(page, index) in docPreview" :key="index">
           <v-lazy-image 
             v-if="page"
-            :style="`height:${imgHeight}px; width:${imgWidth}px`"
+            :style="`height:${dynamicWidthAndHeight.height}px; width:${dynamicWidthAndHeight.width}px`"
             class="document-wrap-content mb-4"
             :src="page"
             :src-placeholder="isObserver(page)"
@@ -251,8 +245,6 @@ export default {
   data() {
     return {
       showAfterVideo: false,
-      imgHeight: 0,
-      imgWidth: 0,
       isMounted: false,
       showMenu: false,
       currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
@@ -366,13 +358,14 @@ export default {
       if(this.isVideo)return
       // TODO temporary calculated width container
       if (this.document.preview && this.docWrap) {
-        this.imgWidth = this.calculateWidthByScreenSize()
-        this.imgHeight = this.imgWidth / 0.707;
+        if(this.document.preview[0].indexOf("base64") > -1){
+          return this.document.preview;
+        }
         let result = this.document.preview.map(preview => {
           return utillitiesService.proccessImageURL(
             preview,
-            this.imgWidth,
-            Math.ceil(this.imgHeight),
+            this.dynamicWidthAndHeight.width,
+            this.dynamicWidthAndHeight.height,
             "pad"
           );
         });
@@ -432,6 +425,12 @@ export default {
         }
       }else{
         return false;
+      }
+    },
+    dynamicWidthAndHeight(){
+      return {
+        width: this.calculateWidthByScreenSize(),
+        height: Math.ceil(this.calculateWidthByScreenSize() / 0.707)
       }
     }
   },
@@ -592,7 +591,7 @@ export default {
 
 .mainDocument-container {
   margin-bottom: 80px;
-  flex: 5;
+  // flex: 5;
   @media (max-width: @screen-sm) {
     order: 2;
   }

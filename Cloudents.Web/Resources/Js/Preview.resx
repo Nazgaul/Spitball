@@ -126,29 +126,7 @@
   <data name="cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="doc_placeholder_text" xml:space="preserve">
-    <value>Preview will be available soon</value>
-  </data>
   <data name="itemActions_buy" xml:space="preserve">
     <value>Unlock</value>
-  </data>
-  <data name="itemActions_download" xml:space="preserve">
-    <value>Download</value>
-  </data>
-  <data name="itemActions_title" xml:space="preserve">
-    <value>Print</value>
-  </data>
-  <data name="item_class" xml:space="preserve">
-    <value>Class</value>
-  </data>
-  <data name="item_prof" xml:space="preserve">
-    <value>Prof.</value>
-    <comment>Need Remove?</comment>
-  </data>
-  <data name="item_school" xml:space="preserve">
-    <value>School</value>
-  </data>
-  <data name="price_equals_to" xml:space="preserve">
-    <value>to unlock this document</value>
   </data>
 </root>

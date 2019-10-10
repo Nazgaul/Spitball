@@ -6,7 +6,7 @@ namespace Cloudents.Core.Entities
     public class ReadTutor : Entity<long>
     {
         public ReadTutor(long id, string name, string image, IEnumerable<string> allSubjects, IEnumerable<string> allCourses,
-            decimal price, double? rate, int rateCount, string bio, string university, int lessons)
+            decimal price, double? rate, int rateCount, string bio, string university, int lessons, string country)
         {
             Id = id;
             Name = name;
@@ -21,6 +21,7 @@ namespace Cloudents.Core.Entities
             Bio = bio;
             University = university;
             Lessons = lessons;
+            Country = country;
             OverAllRating = (rate.GetValueOrDefault() * RateCount + 48 + Lessons * rate.GetValueOrDefault()) 
                             / (RateCount + 12 + Lessons);
         }
@@ -44,5 +45,7 @@ namespace Cloudents.Core.Entities
         public virtual string University { get; protected set; }
         public virtual int Lessons { get; protected set; }
         public virtual double OverAllRating { get; protected set; }
+
+        public virtual string  Country { get; protected set; }
     }
 }

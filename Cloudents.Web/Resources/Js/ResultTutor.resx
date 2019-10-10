@@ -132,9 +132,6 @@
   <data name="no_reviews_mobile" xml:space="preserve">
     <value>Still collecting</value>
   </data>
-  <data name="contact_me" xml:space="preserve">
-    <value>Contact Me</value>
-  </data>
   <data name="btn_more_doc" xml:space="preserve">
     <value>More documents</value>
   </data>

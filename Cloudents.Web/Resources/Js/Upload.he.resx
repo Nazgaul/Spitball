@@ -120,106 +120,73 @@
   <data name="CreateOk" xml:space="preserve">
     <value>המסמך שלך עלה! תוכל לצפות בו בקרוב</value>
   </data>
-  <data name="CreatePending" xml:space="preserve">
-    <value>המסמך שלך זקוק לאישור, בבקשה אל תעלה שוב מסמך זה</value>
-  </data>
   <data name="files_file_upload" xml:space="preserve">
     <value>העלה קובץ</value>
-  </data>
-  <data name="multiple_bnt_apply" xml:space="preserve">
-    <value>החל</value>
-  </data>
-  <data name="multiple_btn_upload" xml:space="preserve">
-    <value>העלה</value>
-  </data>
-  <data name="multiple_btn_uploading" xml:space="preserve">
-    <value>מעלה</value>
-  </data>
-  <data name="multiple_confirm_btn_cancel" xml:space="preserve">
-    <value>התחרטתי</value>
-  </data>
-  <data name="multiple_confirm_btn_close" xml:space="preserve">
-    <value>בטל העלאה</value>
-  </data>
-  <data name="multiple_confirm_stop_title" xml:space="preserve">
-    <value>ביטול העלאת מסמך</value>
-  </data>
-  <data name="multiple_confirm_text" xml:space="preserve">
-    <value>האם אתה בטוח שברצונך לבטל תהליך העלאת המסמך?</value>
   </data>
   <data name="multiple_error_extension_title" xml:space="preserve">
     <value>סוג קובץ הזה לא נתמך</value>
   </data>
-  <data name="multiple_error_upload_single_file" xml:space="preserve">
-    <value>קובץ זה לא יעלה לאתר</value>
-  </data>
   <data name="multiple_error_upload_something_wrong" xml:space="preserve">
-    <value>קרתה תקלה, אנא נסה שנית</value>
+    <value>הקובץ אינו נתמך</value>
   </data>
   <data name="multiple_fileName_placeholder" xml:space="preserve">
     <value>שם קובץ</value>
   </data>
-  <data name="multiple_files_btn_desktop" xml:space="preserve">
-    <value>מהמחשב שלי</value>
-  </data>
-  <data name="multiple_files_btn_dropBox" xml:space="preserve">
-    <value>מדרופבוקס</value>
-  </data>
-  <data name="multiple_files_btn_phone" xml:space="preserve">
-    <value>הטלפון שלך</value>
-  </data>
-  <data name="multiple_files_dopHere" xml:space="preserve">
-    <value>גרור קבצים לכאן</value>
-  </data>
-  <data name="multiple_files_header_title" xml:space="preserve">
-    <value>העלאת קבצים</value>
-  </data>
-  <data name="multiple_files_referral_title" xml:space="preserve">
-    <value>תודה שהעלאת מסמכים שלך!</value>
-  </data>
-  <data name="multiple_files_type_default" xml:space="preserve">
-    <value>סוג המסמך</value>
-  </data>
-  <data name="multiple_help_and_make" xml:space="preserve">
-    <value>אתה על הגל, עכשיו עזור לחברים לספסל הלימודים (ותרוויח נקודות) על ידי שיתוף הקישור למסמך זה.</value>
-  </data>
-  <data name="multiple_keywords_optional" xml:space="preserve">
-    <value>מילות מפתח/זיהוי (לא חובה)</value>
-  </data>
-  <data name="multiple_label_icon_text" xml:space="preserve">
-    <value>מעלה לקורס</value>
-  </data>
-  <data name="multiple_legal one" xml:space="preserve">
-    <value>בהעלאת החומר אני מסכים ל-</value>
-  </data>
-  <data name="multiple_legal two_terms_conditions" xml:space="preserve">
-    <value>תנאי השירות של ספיטבול</value>
-  </data>
-  <data name="multiple_or_browse_label" xml:space="preserve">
-    <value>בחר קובץ</value>
-  </data>
-  <data name="multiple_or_browse_label_mobile" xml:space="preserve">
-    <value>בחר קובץ</value>
-  </data>
-  <data name="multiple_placeholder_doctype_all" xml:space="preserve">
-    <value>שנה סוג מסמך להכל</value>
-  </data>
-  <data name="multiple_placeholder_setAll" xml:space="preserve">
-    <value>שנה מחיר 0.00 להכל</value>
-  </data>
-  <data name="multiple_price_placeholder" xml:space="preserve">
-    <value>מחיר 0.00 נקודות</value>
-  </data>
-  <data name="multiple_professor_placeholder" xml:space="preserve">
-    <value>שם המרצה (לא חובה)</value>
-  </data>
-  <data name="multiple_selected_class_label" xml:space="preserve">
-    <value>קורס</value>
-  </data>
   <data name="multiple_select_course_placeholder" xml:space="preserve">
     <value>עבור איזה קורס?</value>
   </data>
-  <data name="multiple_select_filetype" xml:space="preserve">
-    <value>תייג מסמך</value>
+  <data name="ufItem_error_btn" xml:space="preserve">
+    <value>החליפו קובץ</value>
+  </data>
+  <data name="ufItem_error_remove" xml:space="preserve">
+    <value>הסרה</value>
+  </data>
+  <data name="uf_course_name" xml:space="preserve">
+    <value>שם הקורס</value>
+  </data>
+  <data name="uf_desc" xml:space="preserve">
+    <value>הוסיפו כמה מילים לתיאור הקובץ</value>
+  </data>
+  <data name="uf_mTitle" xml:space="preserve">
+    <value>העלאת קבצים</value>
+  </data>
+  <data name="uf_price" xml:space="preserve">
+    <value>מחיר בנקודות</value>
+  </data>
+  <data name="uf_price_pts" xml:space="preserve">
+    <value>נק'</value>
+  </data>
+  <data name="uf_sDrop_btn_dropbox" xml:space="preserve">
+    <value>דרופבוקס</value>
+  </data>
+  <data name="uf_sDrop_btn_local" xml:space="preserve">
+    <value>המחשב שלי</value>
+  </data>
+  <data name="uf_sDrop_btn_local_mobile" xml:space="preserve">
+    <value>הטלפון שלי</value>
+  </data>
+  <data name="uf_sDrop_drop" xml:space="preserve">
+    <value>יש לגרור קבצים לכאן</value>
+  </data>
+  <data name="uf_sDrop_or" xml:space="preserve">
+    <value>או</value>
+  </data>
+  <data name="uf_sDrop_title" xml:space="preserve">
+    <value>יש לגרור קבצים לכאן בכדי להעלות אותם לספיטבול</value>
+  </data>
+  <data name="uf_sEdit_bottm_btn" xml:space="preserve">
+    <value>העלאה</value>
+  </data>
+  <data name="uf_sEdit_items_error" xml:space="preserve">
+    <value>בכדי להעלות קבצים, אנא הסירו או החליפו קבצים שלא נתמכים</value>
+  </data>
+  <data name="uf_sEdit_terms_by" xml:space="preserve">
+    <value>בהעלאת החומר אתה מסכים ל</value>
+  </data>
+  <data name="uf_sEdit_terms_link" xml:space="preserve">
+    <value>תנאי השירות והפרטיות של ספיטבול</value>
+  </data>
+  <data name="uf_sEdit_top_btn" xml:space="preserve">
+    <value>החל על הכל</value>
   </data>
 </root>

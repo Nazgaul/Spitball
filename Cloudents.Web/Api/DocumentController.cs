@@ -125,11 +125,11 @@ namespace Cloudents.Web.Api
                 model.Course,  userId,  model.Price, model.Description);
             await _commandBus.DispatchAsync(command, token);
 
-            var url = Url.RouteUrl("ShortDocumentLink", new
-            {
-                base62 = new Base62(command.Id).ToString()
-            });
-            return new CreateDocumentResponse(url, score >= Privileges.Post);
+            //var url = Url.RouteUrl("ShortDocumentLink", new
+            //{
+            //    base62 = new Base62(command.Id).ToString()
+            //});
+            return new CreateDocumentResponse( score >= Privileges.Post);
         }
 
 

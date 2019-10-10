@@ -1,5 +1,5 @@
 <template>
-    <v-flex xs12>
+    <v-flex xs12>         
         <v-icon @click="closeUpload()" class="uf-close" v-html="'sbf-close'" />
         <v-card class="uf-main elevation-0">
             <v-stepper class="uf-mStepper elevation-0" v-model="currentStep" >
@@ -25,26 +25,24 @@
                             :curStep="1" 
                             :callBackmethods="callBackmethods">
                         </upload-files-start>
-
-                        <transition name="slide">
-                            <uploadStep_2 v-show="n===2" :curStep="2" :callBackmethods="callBackmethods"></uploadStep_2>
-                        </transition>
-
+                            <transition name="slide">
+                                <uploadStep_2 :chackValidation="chackValidation" v-show="n===2" :curStep="2" :callBackmethods="callBackmethods"></uploadStep_2>
+                            </transition>
                     </v-stepper-content>
                 </v-stepper-items>
             </v-stepper>
-        <div class="uf-sEdit-bottm pb-4 pt-2" v-if="currentStep == 2">
-            <v-btn :loading="loading" @click="sendDocumentData()" v-if="!isError && getIsValid" class="uf-sEdit-bottm-btn mb-2" depressed round color="#4452fc">
+        <div class="uf-sEdit-bottm pb-3 pt-3" v-if="currentStep == 2">
+            <v-btn :loading="loading" @click="send()" class="uf-sEdit-bottm-btn mb-2" depressed round color="#4452fc">
                 <span v-language:inner="'upload_uf_sEdit_bottm_btn'"/>
             </v-btn>             
             <span class="uf-sEdit-terms">
                 <span v-language:inner="'upload_uf_sEdit_terms_by'"/>
-                <router-link :to="{path:'terms'}" target="_blank">&nbsp;   
+                <router-link :to="{path:'terms'}" target="_blank">  
                     <span class="uf-sEdit-terms-link" v-language:inner="'upload_uf_sEdit_terms_link'"/>
                 </router-link>
             </span>
         </div>
-        </v-card>
+        </v-card>  
     </v-flex>
 </template>
 <script>
@@ -58,7 +56,8 @@ import { LanguageService } from "../../services/language/languageService";
 
 import uploadFilesStart from "./components/uploadMultipleFileStart.vue";
 import uploadStep_2 from "./components/filesDetails.vue";
-import fileCardError from './components/fileCardError.vue'
+import fileCardError from './components/fileCardError.vue';
+
 export default {
     components: {
         uploadFilesStart,
@@ -83,7 +82,9 @@ export default {
             nextStepCalled: false,
             loading: false,
             disableBtn: false,
-            isEdge : global.isEdge
+            isEdge : global.isEdge,
+            lock: false,
+            chackValidation: false
         }
     },
     computed: {
@@ -120,12 +121,6 @@ export default {
         showUploadDialog() {
             return this.getDialogState
         },
-        isLoaded() {
-            let result = this.getFileData.every((item) => {
-                return item.progress === 100
-            });
-            return result;
-        },
         isNameExists(){
             let result = this.getFileData.every((item) => {
                 return item.name && item.name.length > 0
@@ -159,7 +154,9 @@ export default {
             this.setCourse(this.courseSelected)
         },
         sendDocumentData() {
-            this.loading = true;
+            if(!this.lock){
+                this.lock = true;
+                this.loading = true;
             let docData = this.getFileData;
             let self = this;
             docData.forEach((fileObj) => {
@@ -182,8 +179,11 @@ export default {
                             self.loading = false;
                             fileObj.errorText = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
                             self.disableBtn = false;
+                        }).finally(()=>{
+                            this.lock = false;
                         });
-            })
+                })
+            }
         },
         closeUpload() {
             this.resetUploadData();
@@ -204,6 +204,9 @@ export default {
             if(stepNumber == 1){
                 this.resetUploadData();
             }
+        },
+        send(){
+            this.chackValidation = !this.chackValidation;
         }
     },
     created() {
@@ -250,7 +253,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
-        border-top: 1px solid #e2e2e4;
+        // border-top: 1px solid #e2e2e4;
 
         .v-btn{
             min-width: 150px;
@@ -322,7 +325,10 @@ export default {
 
             .uf-items {
             @media (max-width: @screen-xs) {
-                height: calc(~"100% - 54px");
+                height: calc(~"100% - 42px");
+                min-height: calc(~"100% - 42px");
+                max-height: calc(~"100% - 42px");
+                margin-top: -30px;
             }
                 .uf-mStepper-content {
                     .v-stepper__wrapper{

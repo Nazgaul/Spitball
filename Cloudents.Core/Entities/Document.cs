@@ -16,17 +16,17 @@ namespace Cloudents.Core.Entities
     public class Document : Entity<long>, IAggregateRoot, ISoftDelete
     {
         public Document(string name,
-            Course course,
-            BaseUser user, decimal price, string description)
-        : this()
+            Course course, 
+            BaseUser user, decimal price, DocumentType documentType, string description)
+      : this()
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
             Name = name.Replace("+", "-");
-            University = user.University ?? throw new ArgumentNullException(nameof(University));
+            University = user.University;// university ?? throw new ArgumentNullException(nameof(university));
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = user;
             Views = 0;
-
+            Description = description;
             ChangePrice(price);
             //Price = price;
             var status = Public;// GetInitState(user);
@@ -35,7 +35,7 @@ namespace Cloudents.Core.Entities
                 MakePublic();
             }
             Status = status;
-            Description = description;
+            DocumentType = documentType;
         }
 
 

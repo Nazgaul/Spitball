@@ -192,7 +192,11 @@ export default {
     @import "../../../styles/mixin.less";
 
     .aside-container {
-        flex: 1;
+        // flex: 1;
+        max-width: 320px;
+        @media(max-width: @screen-sm){
+            max-width: unset;
+        }
         .aside-top {
             border-radius: 4px;
             background-color: #ffffff;
