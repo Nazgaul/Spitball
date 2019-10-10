@@ -44,6 +44,17 @@
                 </template>
                 <span v-language:inner>tutor_tooltip_equation</span>
             </v-tooltip>
+            <!--iink Draw-->
+            <v-tooltip bottom>
+                <template v-slot:activator="{on}">
+                    <button  v-on="on"
+                             :class="{'active-tool': selectedOptionString === enumOptions.iink}"
+                             class="nav-action" @click="setOptionType($event, enumOptions.iink)">
+                        <v-icon>sbf-fx-icon</v-icon>
+                    </button>
+                </template>
+                <span v-language:inner>tutor_tooltip_iink</span>
+            </v-tooltip>
             <!--Color Picker-->
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
@@ -173,6 +184,7 @@ export default {
                 equation: 'equationDraw',
                 select: 'selectShape',
                 pan: 'panTool',
+                iink: 'iink'
             },
             predefinedColors:[
                 '#000000',
@@ -210,6 +222,9 @@ export default {
                 let mouseEvent = new MouseEvent("mousedown", {});
                 canvas.dispatchEvent(mouseEvent);
             } else if(selectedOption === 'equationDraw'){
+                let mouseEvent = new MouseEvent("mousedown", {});
+                canvas.dispatchEvent(mouseEvent);
+            } else if(selectedOption === 'iink'){
                 let mouseEvent = new MouseEvent("mousedown", {});
                 canvas.dispatchEvent(mouseEvent);
             } else{

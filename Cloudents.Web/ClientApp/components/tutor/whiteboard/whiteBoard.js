@@ -3,7 +3,8 @@ import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import canvasFinder from "./utils/canvasFinder";
-import equationMapper from "./innerComponents/equationMapper.vue"
+import equationMapper from "./innerComponents/equationMapper.vue";
+import iinkDrawer from "./innerComponents/iinkDrawer.vue";
 import tutorService from "../tutorService";
 import { LanguageService } from '../../../services/language/languageService';
 import imageDraw from './options/imageDraw';
@@ -16,7 +17,8 @@ export default {
     components: {
         equationMapper,
         pencilSVG,
-        uploadSVG
+        uploadSVG,
+        iinkDrawer
     },
     data() {
         return {
@@ -40,6 +42,7 @@ export default {
                 eraser: 'eraser',
                 text: 'textDraw',
                 equation: 'equationDraw',
+                iink: 'iink',
                 select: 'selectShape',
                 pan: 'panTool',
             },

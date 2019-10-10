@@ -289,4 +289,7 @@ Try connecting from a computer browser</value>
   <data name="browser_not" xml:space="preserve">
     <value>Browser not supported</value>
   </data>
+  <data name="tooltip_iink" xml:space="preserve">
+    <value>Equation Draw</value>
+  </data>
 </root>
