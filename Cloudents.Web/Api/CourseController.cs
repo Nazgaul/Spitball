@@ -50,32 +50,29 @@ namespace Cloudents.Web.Api
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet, AllowAnonymous]
-      
+
         public async Task<CoursesResponse> GetAsync(
            [FromQuery] CourseSearchRequest request,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            List<CourseDto> result = new List<CourseDto>();
-
+            IEnumerable<CourseDto> temp;
             if (!string.IsNullOrEmpty(request.Term))
             {
                 var query = new CourseSearchWithTermQuery(userId, request.Term, request.Page);
-                var temp = await _queryBus.QueryAsync(query, token);
-                result = temp.ToList();
+                temp = await _queryBus.QueryAsync(query, token);
             }
             else
             {
                 var query = new CourseSearchQuery(userId, request.Page);
-                var temp = await _queryBus.QueryAsync(query, token);
-                result = temp.ToList();
+                temp = await _queryBus.QueryAsync(query, token);
             }
             return new CoursesResponse
             {
-                Courses = result
+                Courses = temp
             };
         }
-       
+
 
         [HttpPost("set")]
         public async Task<IActionResult> SetCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)
@@ -126,7 +123,7 @@ namespace Cloudents.Web.Api
             }
             catch (InvalidOperationException)
             {
-                ModelState.AddModelError("x","Not such course");
+                ModelState.AddModelError("x", "Not such course");
                 return BadRequest();
             }
         }

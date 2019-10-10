@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Cloudents.Core.Enum;
-using Cloudents.Query.Admin;
 using Cloudents.Query.Query.Admin;
 using Xunit;
 

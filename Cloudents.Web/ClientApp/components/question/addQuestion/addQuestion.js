@@ -54,7 +54,7 @@ export default {
                     box_3: {
                         populated: false,
                         src: ''
-                    },
+                    }
                 },
                 componentUniqueId: `instance-${this._uid}`,
                 extensions: ['jpeg', 'jpe', 'jpg', 'gif', 'png', 'webp'],
@@ -276,9 +276,9 @@ export default {
             if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
                 // Create a blob field
                 newFile.blob = '';
-                let URL = window.URL || window.webkitURL;
-                if (URL && URL.createObjectURL) {
-                    newFile.blob = URL.createObjectURL(newFile.file);
+                let url = window.URL || window.webkitURL;
+                if (url && url.createObjectURL) {
+                    newFile.blob = url.createObjectURL(newFile.file);
                 }
             }
         }

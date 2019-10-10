@@ -2,7 +2,6 @@
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Query;
-using Cloudents.Query.Query;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -32,7 +31,7 @@ namespace Cloudents.Infrastructure.Search.Document
             var documentResult = searchResult.result.ToList();
             var ids = documentResult.Select(s => s.Id);
             var queryDb = new IdsDocumentsQuery(ids);
-            var dbResult = await _queryBus.QueryAsync<IList<DocumentFeedDto>>(queryDb, token);
+            var dbResult = await _queryBus.QueryAsync(queryDb, token);
             var dic = dbResult.ToDictionary(x => x.Id);
 
 

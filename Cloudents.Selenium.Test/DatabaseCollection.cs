@@ -1,6 +1,7 @@
-﻿using Xunit;
+﻿using Cloudents.Infrastructure.Data.Test.IntegrationTests;
+using Xunit;
 
-namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
+namespace Cloudents.Selenium.Test
 {
     [CollectionDefinition("Database collection")]
     public class DatabaseCollection : ICollectionFixture<DatabaseFixture>

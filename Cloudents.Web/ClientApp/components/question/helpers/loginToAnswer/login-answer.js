@@ -4,19 +4,19 @@ export default {
     props: {
     },
     data: function () {
-        return {}
+        return {};
     },
     computed: {
         ...mapGetters({
             loginDialogState: 'loginDialogState',
             profileData: 'getProfileData'
-        }),
+        })
     },
     methods: {
         ...mapActions(["updateLoginDialogState"]),
         //close dialog
         requestDialogClose() {
-            this.updateLoginDialogState(false)
+            this.updateLoginDialogState(false);
         },
         goToRegister(){
             this.requestDialogClose();
@@ -27,10 +27,10 @@ export default {
             this.requestDialogClose();
             this.$router.push({path: '/signin', query:{returnUrl : this.$route.path}});
 
-        },
+        }
     },
 
     beforeDestroy(){
-        this.updateLoginDialogState(false)
+        this.updateLoginDialogState(false);
     }
 }

@@ -18,16 +18,16 @@ export default {
             typeAnswer: false,
             isRtl: global.isRtl
 
-        }
+        };
     },
     beforeRouteLeave(to, from, next) {
         this.resetQuestion();
-        next()
+        next();
     },
     methods: {
         ...mapActions(["resetQuestion"]),
         requestDialogClose() {
-            this.$root.$emit('closePopUp', 'suggestions')
+            this.$root.$emit('closePopUp', 'suggestions');
         },
         answerMore(id) {
             this.$router.push({path: `/question/${id}`}) ;

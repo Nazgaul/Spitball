@@ -23,7 +23,7 @@ namespace Cloudents.Persistence
         {
             var notComplexTuple = new List<(string, object)>();
             var complexTuple = new List<(string,int)>();
-            int i = 0;
+            var i = 0;
             foreach (var alias in aliases)
             {
                 var property = typeof(TEntity).GetProperty(alias);
@@ -38,7 +38,6 @@ namespace Cloudents.Persistence
                 i++;
             }
            
-            var test = notComplexTuple.ToArray();
             var result = _baseTransformer.TransformTuple(notComplexTuple.Select(s => s.Item2).ToArray(), notComplexTuple.Select(s=>s.Item1).ToArray());
 
             foreach (var complex in complexTuple)
@@ -46,7 +45,7 @@ namespace Cloudents.Persistence
                 var val = tuple[complex.Item2];
                 var result2 = TransformStringToList(val?.ToString());
                 var propertyInfo = result.GetType().GetProperty(complex.Item1);
-                propertyInfo.SetValue(result, result2);
+                if (propertyInfo != null) propertyInfo.SetValue(result, result2);
             }
 
             return result;

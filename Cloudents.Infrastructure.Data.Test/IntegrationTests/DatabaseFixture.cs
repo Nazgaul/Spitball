@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
     public class DatabaseFixture : IDisposable
     {
-        private IContainer container { get; set; }
+        private IContainer Container { get; }
         public DatabaseFixture()
         {
             var configuration = new ConfigurationKeys()
@@ -26,24 +26,24 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.RegisterModule<ModuleDb>();
             builder.RegisterModule<ModuleCore>();
             builder.RegisterType<DapperRepository>().AsSelf();
-            container = builder.Build();
-            QueryBus = container.Resolve<IQueryBus>();
-            DapperRepository = container.Resolve<IDapperRepository>();
-            TutorRepository = container.Resolve<ITutorRepository>();
-            ReadTutorRepository = container.Resolve<IReadTutorRepository>();
+            Container = builder.Build();
+            QueryBus = Container.Resolve<IQueryBus>();
+            DapperRepository = Container.Resolve<IDapperRepository>();
+            TutorRepository = Container.Resolve<ITutorRepository>();
+            ReadTutorRepository = Container.Resolve<IReadTutorRepository>();
 
             // ... initialize data in the test database ...
         }
 
         public void Dispose()
         {
-            container.Dispose();
+            Container.Dispose();
             // ... clean up test data from the database ...
         }
 
-        public IQueryBus QueryBus { get; private set; }
+        public IQueryBus QueryBus { get; }
         public IDapperRepository DapperRepository { get; }
-        public ITutorRepository TutorRepository { get; private set; }
-        public IReadTutorRepository ReadTutorRepository { get; set; }
+        public ITutorRepository TutorRepository { get; }
+        public IReadTutorRepository ReadTutorRepository { get; }
     }
 }

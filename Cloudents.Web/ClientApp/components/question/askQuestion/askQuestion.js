@@ -181,23 +181,23 @@ export default {
                 if(!isSupported) {
                     return prevent();
                 }
-                if(newFile && newFile.size === 0) {
+                if(newFile.size === 0) {
                     return prevent();
                 }
             }
             if(newFile && (!oldFile || newFile.file !== oldFile.file)) {
                 // Create a blob field
                 newFile.blob = '';
-                let URL = window.URL || window.webkitURL;
-                if(URL && URL.createObjectURL) {
-                    newFile.blob = URL.createObjectURL(newFile.file);
+                let url = window.URL || window.webkitURL;
+                if(url && url.createObjectURL) {
+                    newFile.blob = url.createObjectURL(newFile.file);
                 }
             }
         }
     },
     created() {
         if(this.$route.query && this.$route.query.Course){
-            this.questionCourse = this.$route.query.Course
+            this.questionCourse = this.$route.query.Course;
         }
-    },
+    }
 };

@@ -4,18 +4,12 @@ using System.Data.Common;
 using System.Globalization;
 using NHibernate.Engine;
 using NHibernate.Dialect;
-using NHibernate.UserTypes;
 
 namespace Cloudents.Persistence
 {
     [Serializable]
     public class MinuteTimeSpanType : TimeSpanType
     {
-
-        public MinuteTimeSpanType()
-            : base()
-        {
-        }
 
         public override string Name
         {

@@ -4,7 +4,6 @@ using NHibernate;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Query.Documents
 {

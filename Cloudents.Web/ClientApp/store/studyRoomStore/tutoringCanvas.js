@@ -94,9 +94,9 @@ const mutations = {
     setTabName(state, {tabName,tabId}){
         state.canvasTabs.forEach(tab =>{
             if(tab.id === tabId){
-                tab.name = tabName
+                tab.name = tabName;
             }
-        })
+        });
     },
     setDragData(state, val) {
         let tab = val.tab.id;
@@ -120,13 +120,13 @@ const mutations = {
         state.pan.y = !!transform.y ? transform.y : state.pan.y;
     },
     setSelectedOptionString(state, val){
-        state.selectedOptionString = val
+        state.selectedOptionString = val;
     },
     setShapesSelected(state, shape){
-        state.shapesSelected = {...state.shapesSelected, [shape.id]:shape}
+        state.shapesSelected = {...state.shapesSelected, [shape.id]:shape};
     },
     clearShapesSelected(state){
-        state.shapesSelected = {}
+        state.shapesSelected = {};
     },
     changeSelectedTab(state, tab){
         //make sure drag data will return something with the new tab
@@ -143,7 +143,7 @@ const mutations = {
                 if(canvasTab.id === deletedTab.id){
                     tabIndex = index;
                 }
-            })
+            });
             state.canvasTabs.splice(tabIndex, 1);
         }
         return Promise.resolve(tabIndex);
@@ -155,25 +155,25 @@ const mutations = {
         state.showPickColorInterface = val;
     },
     setCanvasDataStore(state, val){
-        state.canvasDataStore = {...state.canvasDataStore, val}
+        state.canvasDataStore = {...state.canvasDataStore, val};
     },
     setUndoClicked(state){
-        state.undoClicked = !state.undoClicked
+        state.undoClicked = !state.undoClicked;
     },
     setAddImage(state, val){
         state.addImage = val;
     },
     setClearAllClicked(state){
-        state.clearAllClicked = !state.clearAllClicked
+        state.clearAllClicked = !state.clearAllClicked;
     },
     setTab(state,{tabId}){
-        state.tabIndicator = tabId
+        state.tabIndicator = tabId;
     },
     setImgLoader(state,val){
-        state.imgLoader = val
+        state.imgLoader = val;
     },
     setShowBoxHelper(state,val){
-        state.showBoxHelper = val
+        state.showBoxHelper = val;
     }
 };
 
@@ -182,8 +182,8 @@ const actions = {
         let dragData = {
             tab: val.tab,
             data: val.data
-        }
-        commit('setDragData', dragData)
+        };
+        commit('setDragData', dragData);
     },
     resetDragData({commit}, tab){
         commit('resetDragDataMutation', tab);
@@ -192,14 +192,14 @@ const actions = {
         commit('replaceDragDataMutation', val);
     },
     popDragData({state}, tab){
-        let tabToPop = !!tab ? tab : state.currentSelectedTab.id
+        let tabToPop = !!tab ? tab : state.currentSelectedTab.id;
         return Promise.resolve(state.dragData[tabToPop].pop());
     },
 
     uploadImage(context, data){
         return tutorService.uploadCanvasImage(data).then((response)=>{
             return response.data.link;
-        })
+        });
     },
     updateZoom({commit}, val){
         commit('setZoom', val);
@@ -208,7 +208,7 @@ const actions = {
         commit('setPan', transform);
     }, 
     setSelectedOptionString({commit}, val){
-        commit('setSelectedOptionString', val)
+        commit('setSelectedOptionString', val);
     },
     setShapesSelected({commit}, shape){
         commit('setShapesSelected', shape);
@@ -219,13 +219,13 @@ const actions = {
     changeSelectedTab({commit, state}, tab){
         let isExists = state.canvasTabs.filter((currentTab)=>{
             return currentTab.id === tab.id;
-        })
+        });
         if(isExists.length > 0){
             commit('changeSelectedTab', tab);
         }
     },
     removeCanvasTab({commit}, tab){
-        return commit('removeCanvasTab', tab)
+        return commit('removeCanvasTab', tab);
     },
     setCurrentOptionSelected({commit}, val){
         commit('setCurrentOptionSelected', val);
@@ -234,25 +234,25 @@ const actions = {
         commit('setShowPickColorInterface', val);
     }, 
     setCanvasDataStore({commit}, val){
-        commit('setCanvasDataStore', val)
+        commit('setCanvasDataStore', val);
     },
     setUndoClicked({commit}){
-        commit('setUndoClicked')
+        commit('setUndoClicked');
     },
     setAddImage({commit}, val){
-        commit('setAddImage', val)
+        commit('setAddImage', val);
     },
     setClearAllClicked({commit}){
-        commit('setClearAllClicked')
+        commit('setClearAllClicked');
     },
     updateTab({commit},updateTabObj){
-        commit('setTabName',updateTabObj)
+        commit('setTabName',updateTabObj);
     },
     updateImgLoader({commit},val){
-        commit('setImgLoader',val)
+        commit('setImgLoader',val);
     },
     updateShowBoxHelper({commit},val){
-        commit('setShowBoxHelper',val)
+        commit('setShowBoxHelper',val);
     }
 };
 export default {

@@ -102,7 +102,7 @@ namespace Cloudents.Web.Test.UnitTests
 
             var d = JObject.Parse(str);
 
-            var link = d["link"]?.Value<String>();
+            var link = d["link"]?.Value<string>();
 
             link.Should().NotBeNull();
         }

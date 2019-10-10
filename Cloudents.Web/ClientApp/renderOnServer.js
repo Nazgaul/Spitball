@@ -4,7 +4,7 @@ process.env.VUE_ENV = 'server';
 const fs = require('fs');
 const path = require('path');
 
-const filePath = path.join(__dirname, './dist/main-server.js')
+const filePath = path.join(__dirname, './dist/main-server.js');
 const code = fs.readFileSync(filePath, 'utf8');
 const bundleRenderer = require('vue-server-renderer').createBundleRenderer(code);
 

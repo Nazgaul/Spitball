@@ -7,7 +7,7 @@ const state = {
     tutorName: '',
     transactionId: null,
     dictionaryTitle: '',
-}
+};
 
 const mutations = {
     setTutorName(state, name) {
@@ -25,7 +25,7 @@ const mutations = {
      setDictionaryTitle(state, val) {
          state.dictionaryTitle = val;
      }
-}
+};
 
 const getters = {
     getTutorName: state => state.tutorName,
@@ -33,7 +33,7 @@ const getters = {
     getShowPaymeDialog: state => state.showPaymentDialog,
     getPaymentURL:state => state.paymentURL,
     getTransactionId: state => state.transactionId,
-}
+};
 
 const actions = {
     buyToken({commit, dispatch, getters}, points) {
@@ -45,10 +45,10 @@ const actions = {
                 toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
                 showToaster: true,
                 toasterTimeout: 5000
-            })
+            });
             dispatch('updatePaymentDialogState',false);
             global.localStorage.setItem("sb_transactionError", points);
-        })
+        });
     },
     requestPaymentURL({commit,dispatch, getters}, paymeObj ){
         dispatch('updateTutorName', paymeObj.name);
@@ -61,9 +61,9 @@ const actions = {
                 toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
                 showToaster: true,
                 toasterTimeout: 5000
-            })
+            });
             dispatch('updatePaymentDialogState',false);
-        })
+        });
     },
     updatePaymentDialogState({commit}, val){
         commit('setPaymentDialogState', val);
@@ -78,15 +78,15 @@ const actions = {
         commit('setIdTransaction', id);
     },
     signalR_ReleasePaymeStatus({getters,dispatch}){
-        let isStudyRoom = getters.getStudyRoomData
+        let isStudyRoom = getters.getStudyRoomData;
         if(!!isStudyRoom){
-            dispatch('releasePaymeStatus_studyRoom')
+            dispatch('releasePaymeStatus_studyRoom');
         } else{
-            dispatch('updatePaymentDialogState',false)
-            dispatch('updateNeedPayment',false)
+            dispatch('updatePaymentDialogState',false);
+            dispatch('updateNeedPayment',false);
         }
     }
-}
+};
 
 export default {
     state,

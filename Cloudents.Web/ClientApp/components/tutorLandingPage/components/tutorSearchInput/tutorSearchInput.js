@@ -40,8 +40,8 @@ export default {
             if(!!this.msg){
                 analyticsService.sb_unitedEvent("Tutor_Engagement", "Search", this.msg);
             }
-            let query = {...this.$route.query, term: this.msg}
-            this.$router.push({path: 'tutor-list', query})
+            let query = {...this.$route.query, term: this.msg};
+            this.$router.push({path: 'tutor-list', query});
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
@@ -60,7 +60,7 @@ export default {
         }, 250),
         closeSuggestions() {
             if(this.showSuggestions) {
-                this.focusedIndex = -1
+                this.focusedIndex = -1;
                 this.originalMsg = "";
                 this.showSuggestions = false;
             }
@@ -70,8 +70,8 @@ export default {
                 this.suggests = data;
             }).finally(()=>{
                 this.openSuggestions();
-            })
-            
+            });
+
         },
         selectors(item){
             this.search(item.text);
@@ -116,7 +116,7 @@ export default {
 
             if(direction > 0) {
                 if(this.suggests.length -1 === this.focusedIndex) {
-                    return
+                    return;
                 }
                 this.focusedIndex = this.focusedIndex + direction;
             }  else { 
@@ -133,7 +133,7 @@ export default {
             if(searchMenu){
                 this.focusOnSelectedElm(searchMenu, direction);
             } else {
-                return
+                return;
             }
             
             // Out of bounds - set index to be -1:

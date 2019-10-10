@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
@@ -20,15 +19,14 @@ namespace Cloudents.Web.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
-        private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly IUrlBuilder _urlBuilder;
 
 
-        public ProfileController(IQueryBus queryBus, UserManager<User> userManager, IDocumentDirectoryBlobProvider blobProvider, IUrlBuilder urlBuilder)
+        public ProfileController(IQueryBus queryBus, UserManager<User> userManager,
+             IUrlBuilder urlBuilder)
         {
             _queryBus = queryBus;
             _userManager = userManager;
-            _blobProvider = blobProvider;
             _urlBuilder = urlBuilder;
         }
 

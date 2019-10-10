@@ -2,7 +2,6 @@ using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Message.Email;
-using Cloudents.FunctionsV2;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Queue;

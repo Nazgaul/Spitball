@@ -3,30 +3,29 @@ import canvasFinder from '../utils/canvasFinder'
 import helper from '../utils/helper'
 import whiteBoardService from '../whiteBoardService'
 
-const OPTION_TYPE = 'equationDraw';
+const optionType = 'equationDraw';
 
 let localShape = createShape({
-    type: OPTION_TYPE,
+    type: optionType,
     points: [],
     id: null
 });
 
 const clearLocalShape = function(){
     localShape = createShape({
-        type: OPTION_TYPE,
+        type: optionType,
         points: [],
         id: null
     });
-}
+};
 
 const startingMousePosition = {
     x:null,
     y:null
-}
+};
 
 let imageCache = {};
 
-const yOffset = 12;
 
 let isWriting = false;
 let isEditing = false;
@@ -40,46 +39,46 @@ const init = function(){
     isEditing = false;
     startShapes = {};
     currentShapeEditing = null;
-}
+};
 
 const getImageDimensions = function(text, id){
-   return new Promise(function(resolve, reject){
+   return new Promise(function(resolve){
     MathJax.AuthorInit(`$$${text}$$`, (output)=>{
-        var DOMURL = window.URL || window.webkitURL || window;     
+        var domurl = window.URL || window.webkitURL || window;     
         let img = new Image();
         var svg = new Blob([output.svg], {type: 'image/svg+xml'});
-        var url = DOMURL.createObjectURL(svg);
+        var url = domurl.createObjectURL(svg);
         img.onload = function() {
             let imgObj = {
                 img,
                 text
-            }
-           imageCache[id] = imgObj;
+            };
+            imageCache[id] = imgObj;
            resolve({width: img.width, height:img.height}); 
-        }
+        };
         img.src = url;
     });
-   }) 
-}
+   });
+};
 
 
 const drawContext = function(svgText, textObj){
-    var DOMURL = window.URL || window.webkitURL || window;     
+    var domurl = window.URL || window.webkitURL || window;     
     let img = new Image();
     let self = this; 
     var svg = new Blob([svgText.svg], {type: 'image/svg+xml'});
-     var url = DOMURL.createObjectURL(svg);
+     var url = domurl.createObjectURL(svg);
      img.onload = function() {
         let imgObj = {
             img,
             text: textObj.text
-        }
+        };
         imageCache[textObj.id] = imgObj;
         self.context.drawImage(img, textObj.mouseX, textObj.mouseY, img.width, img.height);
-        DOMURL.revokeObjectURL(url);
-     }
+        domurl.revokeObjectURL(url);
+     };
      img.src = url;
-}
+};
 
 const draw = function(textObj){
     //determin the stroke color
@@ -95,16 +94,16 @@ const draw = function(textObj){
         });
     }
     
-}
+};
 const liveDraw = function(textObj){
     draw.bind(this, textObj)();
-}
+};
 
 const hideHelperObj = function(){
     currentId = null;
     isEditing = false;
     whiteBoardService.hideHelper();
-}
+};
 
 const setHelperObj = function(e, selectedHelper){
     let currentX = selectedHelper ? selectedHelper.mouseX + e.target.offsetLeft : e.clientX;
@@ -115,36 +114,36 @@ const setHelperObj = function(e, selectedHelper){
         color: this.color.hex,
         text: selectedHelper ? selectedHelper.text : '',
         id: currentId
-    }
+    };
     helper.setEquationShape(helperObj);
     helper.showHelper();
-}
+};
 
-const changeTextActionObj = function(id, oldShapePoint, newShapePoint){
+const ChangeTextActionObj = function(id, oldShapePoint, newShapePoint){
     this.id = id;
     this.oldText = oldShapePoint.text;
     this.newText = newShapePoint.text;
-}
+};
 
 const addGhostLocalShape = function(actionType, actionObj){
     let ghostLocalShape = createGhostShape({
-        type: OPTION_TYPE,
+        type: optionType,
         actionType: actionType, // changeText
         actionObj: actionObj
     });
     this.methods.addShape(ghostLocalShape);
     startShapes = {};
-}
+};
 
 const enterPressed = function(e){
     if(isWriting){
         mousedown.bind(this, e)();
     }
-}
+};
 
 const moveToSelectTool = function(){
     this.methods.selectDefaultTool();
-}
+};
 
 const mousedown = function(e){
     this.methods.hideColorPicker();
@@ -163,30 +162,30 @@ const mousedown = function(e){
                         width: dimensions.width,
                         height: dimensions.height,
                         color: this.color.hex,
-                        option: OPTION_TYPE,
+                        option: optionType,
                         eventName: 'start',
                         id: instancedId,
                         text: text.value
-                    })
+                    });
                     localShape.id = textObj.id;
                     localShape.points.push(textObj);
                     //draw
                     liveDraw.bind(this, textObj)();
                     this.methods.addShape(localShape, clearLocalShape);
                     whiteBoardService.redraw(this);
-                })
-                
+                });
+
             }else{
                 isEditing = false;
                 currentShapeEditing.points[0].text = text.value;
                 getImageDimensions(text.value, currentShapeEditing.id).then(dimensions=>{
                     currentShapeEditing.points[0].width = dimensions.width;
                     currentShapeEditing.points[0].height = dimensions.height;
-                    let textGhostObj = new changeTextActionObj(currentShapeEditing.id, startShapes.points[0], currentShapeEditing.points[0]);
+                    let textGhostObj = new ChangeTextActionObj(currentShapeEditing.id, startShapes.points[0], currentShapeEditing.points[0]);
                     addGhostLocalShape.bind(this, "changeText", textGhostObj)();
                     whiteBoardService.redraw(this);
                     moveToSelectTool.bind(this)();
-                })
+                });
             }
         }
         this.methods.addShape(null, clearLocalShape);
@@ -226,27 +225,26 @@ const mousedown = function(e){
         setTimeout(()=>{
             let textElm = document.getElementsByClassName(currentId)[0];
             textElm.focus();
-        })
+        });
     }
-}
-const mousemove = function(e){
-}
+};
+const mousemove = function(){
+};
 
-const defineEndPosition = function(e){
-}
-
+const defineEndPosition = function(){
+};
 
 
 const mouseup = function(e){
-    console.log('mouseUp')
-    console.log('mouseupmouseup')
-    defineEndPosition.bind(this, e)()
-}
+    console.log('mouseUp');
+    console.log('mouseupmouseup');
+    defineEndPosition.bind(this, e)();
+};
 
 const mouseleave = function(e){
-    console.log('mouseLeave')
-    defineEndPosition.bind(this, e)()
-}
+    console.log('mouseLeave');
+    defineEndPosition.bind(this, e)();
+};
 
 export default{
     mousedown,

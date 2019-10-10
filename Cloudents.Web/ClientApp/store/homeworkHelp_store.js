@@ -24,8 +24,8 @@ const mutations = {
         state.dataLoaded = data;
     },
     HomeworkHelp_UpdateItems(state, data) {
-        state.items.data = state.items.data.concat(data.data)
-        state.items.nextPage = data.nextPage
+        state.items.data = state.items.data.concat(data.data);
+        state.items.nextPage = data.nextPage;
     },
     HomeworkHelp_ResetQue(state) {
         //check if ask Tab was loaded at least once
@@ -58,7 +58,7 @@ const mutations = {
                 if (!!state.items.data && state.items.data.length > 0) {
                     state.items.data.unshift(itemToAdd);
                 }
-            })
+            });
             state.queItems = [];
         }
     },
@@ -88,8 +88,8 @@ const mutations = {
         }
     },
     HomeworkHelp_updateAnswersCounter(state, actionObj) {
-        let questionId = actionObj.questionId
-        let addAnswersCounter = actionObj.addCounter
+        let questionId = actionObj.questionId;
+        let addAnswersCounter = actionObj.addCounter;
         if (!!state.items && !!state.items.data && state.items.data.length > 0) {
             for (let questionIndex = 0; questionIndex < state.items.data.length; questionIndex++) {
                 let currentQuestion = state.items.data[questionIndex];
@@ -129,7 +129,7 @@ const mutations = {
         if (!!state.items && state.items.data && state.items.data.length) {
             state.items.data.forEach((question) => {
                 if (question.id === id) {
-                    reputationService.updateVoteCounter(question, type)
+                    reputationService.updateVoteCounter(question, type);
                 }
             });
         }
@@ -138,7 +138,7 @@ const mutations = {
 
 const getters = {
     newBallerDialog : (state) =>{
-       return state.newBallerDialogState
+       return state.newBallerDialogState;
     },
 
     HomeworkHelp_getItems: function (state, {getIsLoading, getSearchLoading}) {
@@ -151,7 +151,7 @@ const getters = {
         }
     },
     HomeworkHelp_getNextPageUrl: function (state) {
-        return state.items.nextPage
+        return state.items.nextPage;
     },
     HomeworkHelp_getShowQuestionToaster: function (state) {
         return !!state.queItems ? state.queItems.length > 0 : false;
@@ -163,7 +163,7 @@ const getters = {
 
 const actions = {
     updateNewBallerDialogState({commit}, val){
-        commit('changeNewBallerDialogState', val)
+        commit('changeNewBallerDialogState', val);
     },
     HomeworkHelp_nextPage(context, {url, vertical}) {
         return searchService.nextPage({url, vertical}).then((data) => {
@@ -173,7 +173,7 @@ const actions = {
     },
 
     HomeworkHelp_updateDataLoaded({commit}, data){
-        commit('HomeworkHelp_setDataLoaded', data)
+        commit('HomeworkHelp_setDataLoaded', data);
     },
     HomeworkHelp_fetchingData(context, {name, params, page, skipLoad}) {
         let paramsList = {...context.state.search, ...params, page};
@@ -189,7 +189,7 @@ const actions = {
         //can be removed only when question page willo be part of ask question page
         if ((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.getters.getSearchLoading) || skip) {
             if (haveQueItems) {
-                context.commit('HomeworkHelp_injectQuestion')
+                context.commit('HomeworkHelp_injectQuestion');
             }
 
             let filtersData = !!verticalItems.filters ? searchService.createFilters(verticalItems.filters) : null;
@@ -197,7 +197,7 @@ const actions = {
             context.dispatch('updateSort', sortData);
             context.dispatch('updateFilters', filtersData);
             context.dispatch('HomeworkHelp_updateDataLoaded', true);
-            return verticalItems
+            return verticalItems;
         } else {
             context.commit('HomeworkHelp_ResetQue');
             return getData();
@@ -210,7 +210,7 @@ const actions = {
                 that we have some vertical items in the system if not then we dont want to skip the load
             */
             if (!!verticalItems && !!verticalItems.data && verticalItems.data.length > 0) {
-                return skipLoad
+                return skipLoad;
             } else {
                 return false;
             }
@@ -230,7 +230,7 @@ const actions = {
                     return data;
                 }, (err) => {
                     return Promise.reject(err);
-                })
+                });
             });
         }
     },
@@ -246,7 +246,7 @@ const actions = {
         let questionToSend = {
             user,
             question: questionObj
-        }
+        };
         commit('HomeworkHelp_AddQuestion', questionToSend);
     },
     removeQuestionItemAction({commit}, notificationQuestionObject) {
@@ -261,7 +261,7 @@ const actions = {
         commit('HomeworkHelp_markQuestionAsCorrect', questionObj);
     },
     HomeworkHelp_updateCounter({commit}, actionObj) {
-        commit('HomeworkHelp_updateAnswersCounter', actionObj)
+        commit('HomeworkHelp_updateAnswersCounter', actionObj);
     },
     HomeworkHelp_questionVote({commit, dispatch}, data) {
         reputationService.voteQuestion(data.id, data.type).then(() => {
@@ -272,9 +272,9 @@ const actions = {
             let errorObj = {
                 toasterText: err.response.data.Id[0],
                 showToaster: true,
-            }
+            };
             dispatch('updateToasterParams', errorObj);
-        })
+        });
     },
     HomeworkHelp_reportQuestion({commit, dispatch}, data) {
         return reportService.reportQuestion(data).then(() => {
@@ -283,7 +283,7 @@ const actions = {
             };
             dispatch('removeQuestionItemAction', objToRemove);
             dispatch('removeItemFromProfile', objToRemove);
-        })
+        });
     },
     
     HomeworkHelp_reportAnswer({commit, dispatch}, data) {
@@ -295,9 +295,9 @@ const actions = {
                 dispatch('removeItemFromProfile', objToRemove);
             },
             (error) => {
-                console.log(error, 'error report answer')
+                console.log(error, 'error report answer');
             }
-        )
+        );
     }
 };
 

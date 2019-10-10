@@ -61,7 +61,7 @@ for (let i in nav) {
             'icon': item.icon,
            
            
-        }
+        };
         if(isRtl && isMobile){
             verticalsNavbar.unshift(navObj);
         }else{
@@ -73,7 +73,7 @@ for (let i in nav) {
         //emptyText: item.emptyState,
         filter: item.filter,
         sort: item.sort
-    }
+    };
 }
 
 

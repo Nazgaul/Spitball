@@ -57,7 +57,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var id = d["id"]?.Value<long?>();
             var name = d["name"]?.Value<string>();
-            var university = d["universityName"]?.Value<string>();
+            //var university = d["universityName"]?.Value<string>();
             var score = d["score"]?.Value<int?>();
 
             id.Should().BeGreaterThan(0);

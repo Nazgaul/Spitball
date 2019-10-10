@@ -27,7 +27,7 @@ export const signlaREvents = {
                 }
                 questionActions[action.type](action.data);
             });
-        },
+        }
         
     },
     answer:{
@@ -61,9 +61,9 @@ export const signlaREvents = {
     user:{
         update:function(arrEventObj){
             arrEventObj.forEach((user)=>{
-                if(typeof user.balance !== undefined){
+                
                     store.dispatch('signalR_SetBalance', user.balance);
-                }
+                
             });
 
         },

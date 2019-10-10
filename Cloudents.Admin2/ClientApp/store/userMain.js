@@ -93,7 +93,7 @@ const mutations = {
         state.filterVal = strVal;
     },
     setLockRequestCall(state, val) {
-        state.requestLock = val
+        state.requestLock = val;
     },
     setCurrentIdRequest(state, id) {
         state.currentIdRequest = id;
@@ -217,7 +217,7 @@ const actions = {
         ).finally(() => context.commit("setShowLoader", false));
     },
     getUserDocuments(context, idPageObj) {
-        let currentDocs
+        let currentDocs;
         context.commit("setShowLoader", true);
         return UserMainService.getUserDocuments(idPageObj.id, idPageObj.page).then((data) => {
                 if(data.length < context.state.MAX_ITEMS) {
@@ -294,7 +294,7 @@ const actions = {
         });
     },
     updateUserPhone({ commit, dispatch }, payload) {
-        return UserMainService.updateUserPhone(payload).then(res => {
+        return UserMainService.updateUserPhone(payload).then(() => {
             dispatch('getUserData', payload.userId);
         },
         () => {
@@ -306,7 +306,7 @@ const actions = {
             state.userInfo.payment.value = false;
         }).catch(ex => {
             return ex;
-        })
+        });
     }
 };
 export default {

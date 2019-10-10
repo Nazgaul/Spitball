@@ -155,6 +155,7 @@ module.exports = (env) => {
             }),
             new webpack.DllReferencePlugin({
                 context: __dirname,
+                // ReSharper disable once JsPathNotFound
                 manifest: require("./wwwroot/dist/vendor-manifest.json")
             })
         ].concat(isDevBuild
@@ -191,4 +192,4 @@ module.exports = (env) => {
         }
 
     };
-}
+};

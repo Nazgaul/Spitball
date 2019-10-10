@@ -13,7 +13,7 @@ export default {
             sort: '',
             filtersSelected: [],
             toolBarTitle: LanguageService.getValueByKey("mobileSortAndFilter_toolbarTitle")
-        }
+        };
     },
     props: {
         value: {type: Boolean},
@@ -25,7 +25,7 @@ export default {
     computed:{
         ...mapGetters(['getFilters', 'getSort']),
         filterList(){
-            return this.filterOptions.filterChunkList
+            return this.filterOptions.filterChunkList;
         }
     },
     watch: {
@@ -50,7 +50,7 @@ export default {
             this.sortOptions = this.getSort;
             if(!!this.sortOptions){
                 if(this.$route.query.sort){
-                    this.sort = this.$route.query.sort
+                    this.sort = this.$route.query.sort;
                 }else{
                     this.sort = this.sortOptions[0].key;
                 }
@@ -62,7 +62,7 @@ export default {
             this.filtersSelected = [];
             filters.forEach((filter)=>{
                 this.filtersSelected.push(`${filter.filterId}_${filter.name}_${filter.filterType}`);
-            })
+            });
         },
         applyFilters() {
             let query = {};
@@ -72,7 +72,7 @@ export default {
                 if(!query[currentFilter[2]]){
                     query[currentFilter[2]] = [];
                 }
-                query[currentFilter[2]].push(currentFilter[0])
+                query[currentFilter[2]].push(currentFilter[0]);
             });
             if (this.sort){
                 query.sort = this.sort;
@@ -104,7 +104,7 @@ export default {
         $_backAction() {
             this.sort = this.sortVal;
             this.initFilters(this.filterVal);
-            this.$emit('input', false)
+            this.$emit('input', false);
         }
     },
 

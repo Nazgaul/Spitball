@@ -84,7 +84,7 @@ export default {
 
         isHome() {
             return this.$route.name === 'home';
-        },
+        }
     },
     watch: {
         userText(val) {

@@ -206,7 +206,7 @@ export default {
             let nextPageUrl = this.StudyDocuments_getNextPageUrl();
             if (this.name !== this.pageData.vertical) {
                 this.scrollBehaviour.isLoading = false;
-                return
+                return;
             };
             this.StudyDocuments_nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
                 .then((res) => {

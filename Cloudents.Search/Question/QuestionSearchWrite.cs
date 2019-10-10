@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.Azure.Search.Models;
-using System;
 using System.Collections.Generic;
 using Cloudents.Search.Document;
 using Microsoft.Azure.Search;

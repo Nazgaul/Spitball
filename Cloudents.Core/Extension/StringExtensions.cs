@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web;
 
 namespace Cloudents.Core.Extension
 {
@@ -128,10 +127,10 @@ namespace Cloudents.Core.Extension
 //        }
 
 
-        private static string DecodeHtmlEntities(this string text)
-        {
-            return HttpUtility.HtmlDecode(text);
-        }
+        //private static string DecodeHtmlEntities(this string text)
+        //{
+        //    return HttpUtility.HtmlDecode(text);
+        //}
 
         //public static string StripAndDecode(this string text)
         //{

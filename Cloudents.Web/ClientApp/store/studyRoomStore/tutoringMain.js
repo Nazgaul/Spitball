@@ -34,7 +34,7 @@ const state = {
     settingsDialogState: false,
     activeNavIndicator: 'white-board',
     deviceValidationError:false,
-    DevicesObject: tutorService.createDevicesObj(),
+    DevicesObject: tutorService.createDevicesObj()
     
 };
 const getters = {
@@ -140,7 +140,7 @@ const mutations = {
         state.settingsDialogState = val;
     },
     setActiveNavIndicator(state,{activeNav}){
-        state.activeNavIndicator = activeNav
+        state.activeNavIndicator = activeNav;
     },
     setDeviceValidationError(state, val){
         state.deviceValidationError = val;

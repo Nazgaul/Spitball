@@ -40,16 +40,16 @@ namespace Cloudents.Web.Test.IntegrationTests
             name = "NewCourse1"
         };
 
-        private readonly object _upload = new
-        {
-            blobName = "My_Doc.docx",
-            name = "My Document",
-            type = "Document",
-            course = "Economics",
-            tags = new { },
-            professor = "Mr. Elad",
-            price = 0M
-        };
+        //private readonly object _upload = new
+        //{
+        //    blobName = "My_Doc.docx",
+        //    name = "My Document",
+        //    type = "Document",
+        //    course = "Economics",
+        //    tags = new { },
+        //    professor = "Mr. Elad",
+        //    price = 0M
+        //};
 
         private UriBuilder _uri = new UriBuilder()
         {

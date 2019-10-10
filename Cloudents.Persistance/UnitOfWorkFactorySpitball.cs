@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Cloudents.Core.Interfaces;
@@ -7,12 +6,9 @@ using Cloudents.Persistence.Maps;
 using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Cfg;
-using NHibernate.Dialect;
-using NHibernate.Engine;
 using NHibernate.Event;
 using NHibernate.Mapping;
 using NHibernate.Tool.hbm2ddl;
-using NHibernate.Util;
 using ForeignKey = FluentNHibernate.Conventions.Helpers.ForeignKey;
 
 namespace Cloudents.Persistence

@@ -13,7 +13,6 @@ using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using Cloudents.Query.Email;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;

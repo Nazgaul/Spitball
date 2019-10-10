@@ -4,8 +4,6 @@ using System.Linq;
 using Cloudents.Query.Documents;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Extension;
-using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudents.Query.Query;
 using Cloudents.Query.Tutor;
@@ -50,7 +48,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query2 = new TutorSyncAzureSearchQuery(version);
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
-            _ = await fixture.QueryBus.QueryAsync(query2, default);
+            await fixture.QueryBus.QueryAsync(query2, default);
 
 
         }
@@ -63,7 +61,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new DocumentAggregateQuery(userId, page, filter, country);
 
-            var result = await fixture.QueryBus.QueryAsync(query, default);
+            await fixture.QueryBus.QueryAsync(query, default);
 
             //var dictionary = new Dictionary<string,bool>();
             //foreach (var x in result.Result)
@@ -84,11 +82,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
             //var resultTests = dictionary.Where(w => w.Value).Select(s => s.Key).ToList();
             //resultTests.Should().BeEmpty();
-
-
-
-
-
         }
 
 
@@ -151,7 +144,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             };
             var query = new IdsQuestionsQuery<long>(ids);
 
-            var _ = await fixture.QueryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
 
@@ -216,7 +209,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserPurchaseDocumentByIdQuery_Ok()
         {
             var query = new UserPurchaseDocumentByIdQuery(638, 0);
-            var result = await fixture.QueryBus.QueryAsync(query, default);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
 
         }
 

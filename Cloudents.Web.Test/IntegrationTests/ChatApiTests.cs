@@ -28,18 +28,18 @@ namespace Cloudents.Web.Test.IntegrationTests
             otherUser = "159039"
         };
 
-        private readonly object _conv = new
-        {
-            userId = 0,
-            name = "string",
-            image = "string",
-            unread = 0,
-            online = true,
-            conversationId = "string",
-            dateTime = new DateTime(),
-            studyRoomId = "string",
-            lastMessage = "string"
-        };
+        //private readonly object _conv = new
+        //{
+        //    userId = 0,
+        //    name = "string",
+        //    image = "string",
+        //    unread = 0,
+        //    online = true,
+        //    conversationId = "string",
+        //    dateTime = new DateTime(),
+        //    studyRoomId = "string",
+        //    lastMessage = "string"
+        //};
 
 
 

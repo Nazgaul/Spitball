@@ -56,7 +56,7 @@ const stopAudioContext = function () {
             // analyser.disconnect();
 
         }, (error) => {
-            console.log('error stop audio context', error)
+            console.log('error stop audio context', error);
         });
     }
 

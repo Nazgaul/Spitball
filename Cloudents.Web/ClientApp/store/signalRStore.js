@@ -14,7 +14,7 @@ const mutations = {
 
 const actions = {
     setIsSignalRConnected({commit}, val){
-        commit('setIsSignalRConnected', val)
+        commit('setIsSignalRConnected', val);
     }
 };
 

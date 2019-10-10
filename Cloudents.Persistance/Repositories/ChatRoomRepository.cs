@@ -41,21 +41,16 @@ namespace Cloudents.Persistence.Repositories
         public async Task<ChatRoom> GetChatRoomAsync(string identifier, CancellationToken token)
         {
             return await Session.Query<ChatRoom>()
-                .Fetch(f=>f.Extra)
+                .Fetch(f => f.Extra)
                 .Where(t => t.Identifier == identifier).SingleOrDefaultAsync(token);
         }
 
         public async Task UpdateNonDayOldConversationToActiveAsync(CancellationToken token)
         {
-            var t = await Session.Query<ChatRoomAdmin>()
-                .Where(w=> (Session.Query<ChatRoom>()
-                    .Where(w2=>w2.UpdateTime > DateTime.UtcNow.AddDays(-1)).Select(s=>s.Id).Contains(w.Id)))
-                //.Fetch(f => f.ChatRoom)
-                //.Where(w => w.ChatRoom.UpdateTime > DateTime.UtcNow.AddDays(-1))
-            //    .ToListAsync();
-            // .UpdateBuilder()
-            //.Set(x => x.ChatRoom.UpdateTime, v => v.ChatRoom.UpdateTime)
-            .UpdateAsync(x => new { Status = ChatRoomStatus.New }, token);
+            await Session.Query<ChatRoomAdmin>()
+                .Where(w => (Session.Query<ChatRoom>()
+                .Where(w2 => w2.UpdateTime > DateTime.UtcNow.AddDays(-1)).Select(s => s.Id).Contains(w.Id)))
+                .UpdateAsync(x => new { Status = ChatRoomStatus.New }, token);
 
         }
 

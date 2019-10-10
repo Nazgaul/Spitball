@@ -1,13 +1,7 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using NHibernate;
-using NHibernate.Linq;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using NHibernate.Criterion;
 using Dapper;
 
 namespace Cloudents.Query.Query.Admin

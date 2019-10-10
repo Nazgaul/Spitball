@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Attributes;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
@@ -30,7 +28,7 @@ namespace Cloudents.Infrastructure.Search.Question
             var searchResult = await _questionSearch.SearchAsync(query, token);
             var ids = searchResult.result.ToList();
             var queryDb = new IdsQuestionsQuery<long>(ids);
-            var dbResult = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(queryDb, token);
+            var dbResult = await _queryBus.QueryAsync(queryDb, token);
             var dic = dbResult.ToDictionary(x => x.Id);
 
             var retVal = new QuestionWithFacetDto();// {Result = dbResult};

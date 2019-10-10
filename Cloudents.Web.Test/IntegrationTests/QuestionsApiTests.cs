@@ -44,7 +44,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var d = JObject.Parse(str);
 
-            var filters = d["filters"]?.Value<JArray>();
+            var filters = d["filters"]?.Value<JArray>() ?? throw new ArgumentNullException("d[\"filters\"]?.Value<JArray>()");
             var type = filters[0]["data"]?.Value<JArray>();
             //var subject = filters[1]["data"]?.Value<JArray>();
 

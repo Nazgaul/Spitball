@@ -2,7 +2,7 @@ import { connectivityModule } from "./connectivity.module";
 import { LanguageService } from './language/languageService';
 
 function createLastImageMsg() {
-    return `<img src="${require('../components/chat/images/photo-camera-small.png')}" /><span>${LanguageService.getValueByKey('chat_photo')}</span>`
+    return `<img src="${require('../components/chat/images/photo-camera-small.png')}" /><span>${LanguageService.getValueByKey('chat_photo')}</span>`;
 }
 
 function createConversationId(arrIds){
@@ -22,7 +22,7 @@ function Conversation(objInit){
 }
 
 function createConversation(objInit){
-    return new Conversation(objInit)
+    return new Conversation(objInit);
 }
 
 function TextMessage(objInit, id, fromSignalR){
@@ -63,9 +63,9 @@ function createActiveConversationObj(objInit){
 
 function createMessage(objInit, id, fromSignalR){
     if(objInit.type === 'text'){
-        return new TextMessage(objInit, id, fromSignalR)
+        return new TextMessage(objInit, id, fromSignalR);
     }else{
-        return new FileMessage(objInit, id, fromSignalR)
+        return new FileMessage(objInit, id, fromSignalR);
     }
 }
 
@@ -75,36 +75,36 @@ function serverMessageObj(objInit){
 }
 
 function createServerMessageObj(objInit){
-    return new serverMessageObj(objInit)
+    return new serverMessageObj(objInit);
 }
 
 const getAllConversations = () => {
     return connectivityModule.http.get(`Chat`);
-}  
+};
 
 const getChatById = (id) => {
     if(!id) return Promise.reject();
     return connectivityModule.http.get(`Chat/conversation/${id}`);
-}
+};
 
 const getMessageById = (id) => {
     return connectivityModule.http.get(`Chat/${id}`);
-}
+};
 
 const sendChatMessage = (messageObj) => {
     return connectivityModule.http.post(`Chat`, messageObj);
-}
+};
 
 const clearUnread = (otherUserId) => {
     let serverObj = {
         otherUserId:otherUserId
-    }
+    };
     return connectivityModule.http.post(`Chat/read`, serverObj);
-}
+};
 
 const uploadCapturedImage = (formData)=>{
     return connectivityModule.http.post(`Chat/uploadForm`, formData);
-}
+};
 
 export default {
     getAllConversations,

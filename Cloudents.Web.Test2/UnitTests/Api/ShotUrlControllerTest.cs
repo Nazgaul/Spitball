@@ -1,14 +1,13 @@
-﻿
+﻿using System;
+using System.Threading.Tasks;
 using Autofac.Extras.Moq;
 using Cloudents.Admin2.Api;
 using Cloudents.Admin2.Models;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace Cloudents.Web.Test.UnitTests.Api
+namespace Cloudents.Admin.Test.UnitTests.Api
 {
 
     public class ShotUrlControllerTest 

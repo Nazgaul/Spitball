@@ -1,4 +1,4 @@
-import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
+import fileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
 
 export default {
     props: {
@@ -14,7 +14,7 @@ export default {
         isAttachVisible: {type: Boolean, default: true, required: false}
     },
     components: {
-        FileUpload
+        FileUpload: fileUpload
     },
     data() {
         return {
@@ -28,7 +28,7 @@ export default {
     },
     computed: {
         setPlaceholder() {
-            return `extendedTextArea_type_your_${this.actionType}`
+            return `extendedTextArea_type_your_${this.actionType}`;
         }
     },
     methods: {
@@ -73,11 +73,9 @@ export default {
                             self.$emit('addFile', newFile.response.files);
                         }
 
-                    } else {
-                        // console.log('error, not uploaded')
                     }
                 }
-                if (newFile && newFile.response && newFile.response.status === 'success') {
+                if (newFile.response && newFile.response.status === 'success') {
                     //generated blob name from server after successful upload
                 }
             }
@@ -112,9 +110,9 @@ export default {
             if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
                 // Create a blob field
                 newFile.blob = '';
-                let URL = window.URL || window.webkitURL;
-                if (URL && URL.createObjectURL) {
-                    newFile.blob = URL.createObjectURL(newFile.file);
+                let url = window.URL || window.webkitURL;
+                if (url && url.createObjectURL) {
+                    newFile.blob = url.createObjectURL(newFile.file);
                 }
             }
         },

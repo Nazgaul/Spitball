@@ -1,8 +1,8 @@
 const createGuid = function(val){
-    return `xxxx-${val}-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx`.replace(/[x]/g, (placeholder)=>{
+    return `xxxx-${val}-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx`.replace(/[x]/g, ()=>{
         return (Math.random() * 9 | 0).toString();
-    })
-}
+    });
+};
 
 const pointsByOption = {
     liveDraw: DragObj,
@@ -13,7 +13,7 @@ const pointsByOption = {
     eraser: DragObj,
     textDraw: TextObj,
     equationDraw: EquationObj
-}
+};
 
 function DragObj(objInit){
     this.mouseX= objInit.mouseX;
@@ -92,11 +92,11 @@ function Shape(objInit){
     this.points = objInit.points.map((dragObj)=>{
         return new pointsByOption[dragObj.option](dragObj);
     });
-    this.path = objInit.path ? new Path(objInit.path) : new Path({})
+    this.path = objInit.path ? new Path(objInit.path) : new Path({});
     this.offset = {
         top: 0,
         left: 0
-    }
+    };
     this.isGhost = false;
     this.visible = typeof objInit.visible !== 'undefined' ?  objInit.visible : true;
 }
@@ -111,7 +111,7 @@ function GhostShape(objInit){
 }
 
 function createPointsByOption(dragObj){
-   return new pointsByOption[dragObj.option](dragObj)
+   return new pointsByOption[dragObj.option](dragObj);
 }
 
 function createShape(objInit){
@@ -119,7 +119,7 @@ function createShape(objInit){
 }
 
 function createGhostShape(objInit){
-    return new GhostShape(objInit)
+    return new GhostShape(objInit);
 }
 
 export{

@@ -3,7 +3,6 @@ using FluentNHibernate.Mapping;
 using NHibernate.Dialect;
 using NHibernate.Engine;
 using NHibernate.Mapping;
-using NHibernate.Type;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -41,10 +40,6 @@ namespace Cloudents.Persistence.Maps
 
     public class DocumentAggregate : AbstractAuxiliaryDatabaseObject
     {
-        public DocumentAggregate()
-        {
-            
-        }
         
         public override string SqlCreateString(Dialect dialect, IMapping p, string defaultCatalog, string defaultSchema)
         {

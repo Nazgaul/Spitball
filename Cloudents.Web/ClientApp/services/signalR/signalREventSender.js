@@ -6,7 +6,7 @@ export const signalRSender = {
         let mainConnection = getMainConnection();
         NotifyServer(mainConnection, message, data);
     }
-}
+};
 
 export const sendEventList = {
     // question:{
@@ -29,4 +29,4 @@ export const sendEventList = {
     //             signalRSender.send("Message", notificationObj);
     //         }
     // }
-}
+};

@@ -12,7 +12,7 @@ const analyticsService = {
                 });
             }
         } else {
-            console.error('united event does not have data required')
+            console.error('united event does not have data required');
         }
     },
 

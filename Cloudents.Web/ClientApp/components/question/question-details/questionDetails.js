@@ -44,7 +44,7 @@ export default {
     },
     beforeRouteLeave(to, from, next) {
         this.resetQuestion();
-        next()
+        next();
     },
     methods: {
         ...mapActions([
@@ -60,7 +60,7 @@ export default {
         ...mapGetters(["getQuestion"]),
         resetSearch(){
             this.updateSearchLoading(true);
-            this.$router.push({path:"/ask"})
+            this.$router.push({path:"/ask"});
         },
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
@@ -68,21 +68,21 @@ export default {
                     errorText: LanguageService.getValueByKey("questionDetails_error_minChar"),
                     errorClass: true
                 };
-                return
+                return;
             }
             if (!this.textAreaValue || this.textAreaValue.trim().length > 540) {
                 this.errorLength= {
                     errorText: LanguageService.getValueByKey("questionDetails_error_maxChar"),
                     errorClass: true
                 };
-                return
+                return;
             }
             this.updateLoading(true);
             var self = this;
             if(this.hasDuplicatiedAnswer(self.textAreaValue, self.questionData.answers)) {
                 console.log("duplicated answer detected");
                 this.errorDuplicatedAnswer = LanguageService.getValueByKey("questionDetails_error_duplicated");
-                return
+                return;
             }else{
                 this.errorDuplicatedAnswer = '';
             }
@@ -92,7 +92,7 @@ export default {
                 questionService.answerQuestion(self.id, self.textAreaValue, self.answerFiles)
                     .then(function (resp) {
                         //self.$ga.event("Submit_answer", "Homwork help");
-                        analyticsService.sb_unitedEvent("Submit_answer", "Homwork help")
+                        analyticsService.sb_unitedEvent("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
                         self.answerFiles = [];
                         self.updateLoading(false);
@@ -107,7 +107,7 @@ export default {
                         self.errorHasAnswer = error.response.data["Text"] ? error.response.data["Text"][0] : '';
                         self.submitForm(false);
                         self.updateLoading(true);
-                    })
+                    });
             }
         },
         hasDuplicatiedAnswer(currentText, answers){  
@@ -130,9 +130,9 @@ export default {
             this.$data.submitted = false;
             this.setQuestion(this.id).then(()=>{
                 if (updateViewer) {
-                    this.cahceQuestion = {...this.questionData}
+                    this.cahceQuestion = {...this.questionData};
                 }
-            })
+            });
         },
         openNewBaller(){
             if(this.accountUser ){
@@ -168,10 +168,10 @@ export default {
             return this.getQuestion();
         },
         errorTextArea(){
-                return this.errorLength
+                return this.errorLength;
         },
         cardOwner(){
-            return this.isCardOwner
+            return this.isCardOwner;
         },
         userNotAnswered() {
             this.isDeletedAnswer ? this.submitForm(false) : "";
@@ -198,7 +198,7 @@ export default {
             } else {
                 this.updateLoginDialogState(false);
             }
-        })
-        
+        });
+
     },
 }

@@ -2,9 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -21,32 +19,32 @@ namespace Cloudents.Web.Test.IntegrationTests
             Path = "api/Sms"
         };
 
-        private readonly object user = new
+        private readonly object _user = new
         {
             confirmPassword = "123456789",
             email = "elad+99@cloudents.com",
             password = "123456789"
         };
 
-        private readonly object sms = new
+        private readonly object _sms = new
         {
             number = "123456",
             fingerPrint = "string"
         };
 
-        private readonly object sign = new
-        {
-            email = "elad+99@cloudents.com",
-            password = "123456789",
-            confirmPassword = "123456789"
-        };
+        //private readonly object _sign = new
+        //{
+        //    email = "elad+99@cloudents.com",
+        //    password = "123456789",
+        //    confirmPassword = "123456789"
+        //};
 
-        private readonly object responseObject = new
+        private readonly object _responseObject = new
         {
             code = "972"
         };
 
-        private readonly object phone = new
+        private readonly object _phone = new
         {
             phoneNumber = "0542473699",
             countryCode = "972"
@@ -63,7 +61,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             _uri.Path = "api/login";
 
-            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(user));
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_user));
 
             _uri.Path = "api/sms/code";
 
@@ -91,7 +89,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var str = await response.Content.ReadAsStringAsync();
 
-            str.Should().Be(JsonConvert.SerializeObject(responseObject));
+            str.Should().Be(JsonConvert.SerializeObject(_responseObject));
 
             response.EnsureSuccessStatusCode();
         }
@@ -105,7 +103,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             
             _uri.Path = "api/sms";
 
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(phone));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_phone));
 
             response.EnsureSuccessStatusCode();
         }
@@ -115,7 +113,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             _uri.Path = "api/register";
 
-            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(user));
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_user));
 
             _uri.Path = "api/sms/resend";
 
@@ -129,11 +127,11 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             _uri.Path = "api/register";
 
-            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(user));
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_user));
 
             _uri.Path = "api/sms/verify";
 
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(sms));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_sms));
 
             response.StatusCode.Should().NotBe(HttpStatusCode.InternalServerError);
         }

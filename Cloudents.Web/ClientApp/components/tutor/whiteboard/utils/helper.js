@@ -5,23 +5,23 @@ const HelperObj = {
     style:{},
     cssClass: "",
     type: ""
-}
+};
 
 const resetHelperObj = function(){
     HelperObj.isActive = false;
     HelperObj.style = {};
     HelperObj.cssClass = "";
     HelperObj.type = "";
-}
+};
 
 const showHelper = function(){
     HelperObj.isActive = true;
-}
+};
 
 const hideHelper = function(){
     HelperObj.isActive = false;
     store.dispatch('clearShapesSelected');
-}
+};
 
 const setRectangleShape = function(helperObj){
     let correctedWidth = helperObj.width < 0 ? helperObj.width * -1 : helperObj.width;
@@ -37,7 +37,7 @@ const setRectangleShape = function(helperObj){
         stroke: `${helperObj.strokeStyle}`
     };
     HelperObj.cssClass = "rectangular-helper";
-}
+};
 
 
 const setLineShape = function(helperObj){
@@ -49,7 +49,7 @@ const setLineShape = function(helperObj){
         stroke: `${helperObj.strokeStyle}`
     };
     HelperObj.cssClass = "line-helper";
-}
+};
 
 const setEllipseShape = function(helperObj){
     let correctedRx = helperObj.rx < 0 ? helperObj.rx * -1 : helperObj.rx;
@@ -62,7 +62,7 @@ const setEllipseShape = function(helperObj){
         stroke: `${helperObj.strokeStyle}`
     };
     HelperObj.cssClass = "ellipse-helper";
-}
+};
 
 
 const setTextShape = function(helperObj){
@@ -73,7 +73,7 @@ const setTextShape = function(helperObj){
         color: `${helperObj.strokeStyle}`,
     };
     HelperObj.cssClass = `text-helper ${helperObj.id}`;
-}
+};
 
 const setEquationShape = function(helperObj){
     HelperObj.style = {
@@ -83,7 +83,7 @@ const setEquationShape = function(helperObj){
         color: `${helperObj.strokeStyle}`,
     };
     HelperObj.cssClass = `equation-helper ${helperObj.id}`;
-}
+};
 
 export default {
     showHelper,

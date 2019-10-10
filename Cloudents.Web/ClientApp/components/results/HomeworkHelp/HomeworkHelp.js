@@ -75,7 +75,7 @@ export default {
     },
     //When route has been updated(query,filter,vertical) 1-%%%
     beforeRouteUpdate(to, from, next) {
-        this.updatePageData(to, from, next)
+        this.updatePageData(to, from, next);
 
     },
 
@@ -89,7 +89,7 @@ export default {
         },
         //not interesting
         filterCondition() {
-            return this.filterSelection.length || (this.filterObject && this.page)
+            return this.filterSelection.length || (this.filterObject && this.page);
         },
         showQuestionToaster(){
             return this.HomeworkHelp_getShowQuestionToaster;
@@ -134,24 +134,24 @@ export default {
             }
         },
         currentSuggest() {
-            return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]
+            return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))];
         },
         currentNavData(){
             return verticalsNavbar.filter((navItem) => {
                 return navItem.id === this.name;
-            })[0]
+            })[0];
         },
         userText() {
-            return this.query.term
+            return this.query.term;
         },
         showSkelaton() {
-            return this.getSearchLoading || this.loading || this.isLoad
+            return this.getSearchLoading || this.loading || this.isLoad;
         }
     },
 
     watch: {
         getSchoolName(){
-            console.log("school name changed")
+            console.log("school name changed");
             if(this.getResultLockForSchoolNameChange()){
                 this.reloadContentOfPage();
             }
@@ -188,8 +188,8 @@ export default {
              if(this.accountUser == null){
                 this.updateLoginDialogState(true);
                 //user profile update
-                this.updateUserProfileData('profileHWH')
-            }else{
+                this.updateUserProfileData('profileHWH');
+             }else{
                 //ab test original do not delete
                  this.updateNewQuestionDialogState(true);
             }
@@ -207,7 +207,7 @@ export default {
                     }
                 }).catch(reason => {
                 this.scrollBehaviour.isComplete = true;
-            })
+            });
         },
         //   2-%%%
         updatePageData(to, from, next) {
@@ -310,7 +310,7 @@ export default {
                 params: {...this.query, ...this.params, term: this.userText},
                 skipLoad: this.$route.path.indexOf("question") > -1
             }).then((data) => {
-                this.updateData.call(this, {...data, vertical: this.name})
+                this.updateData.call(this, {...data, vertical: this.name});
             }).catch(reason => {
                 console.error(reason);
                 //when error from fetching data remove the loader

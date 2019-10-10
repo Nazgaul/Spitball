@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
@@ -12,7 +11,6 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        private UriBuilder _uri = new UriBuilder();
         
 
         public UnregFeedTests(SbWebApplicationFactory factory)
@@ -26,7 +24,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Theory]
         [InlineData("api/question")]
         [InlineData("api/question?page=1")]
-        public async Task GetAsync_Ask_OK(String url)
+        public async Task GetAsync_Ask_OK(string url)
         {
             var response = await _client.GetAsync(url);
 
