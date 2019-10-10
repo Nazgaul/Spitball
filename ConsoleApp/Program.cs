@@ -477,6 +477,9 @@ namespace ConsoleApp
             var query = new CalendarEventsQuery(161755L, new DateTime(2019, 9, 16, 17, 0, 0), new DateTime(2019, 9, 22, 17, 0, 0));
             var t = await queryBus.QueryAsync(query, default);
             //await PopulateUsersImageName();
+            //await commandBus.DispatchAsync(command2, default);
+            //var deleteCommand = new SessionReconnectedCommand(id);
+            //await commandBus.DispatchAsync(deleteCommand, default);
             //var repo = _container.Resolve<ITutorRepository>();
             //var test = await repo.GetTutorsByCourseAsync("organic chemistry כימיה אורגנית", 638, "IL", default);
             //ResourcesMaintenance.GetOrphanedResources();

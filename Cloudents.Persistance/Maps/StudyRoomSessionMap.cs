@@ -18,6 +18,9 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.DurationInMinutes).CustomType<MinuteTimeSpanType>();
             Map(x => x.SessionId).Not.Nullable();
             Map(x => x.Receipt);
+            HasMany(x => x.ParticipantDisconnections).Access.CamelCaseField(Prefix.Underscore)
+               .KeyColumn("SessionId")
+               .Inverse();
             Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
         }
     }

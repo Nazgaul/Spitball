@@ -152,7 +152,7 @@ namespace Cloudents.Web.Api
             var uri = new Uri(url);
             if (configuration.IsDevelopment())
             {
-                var uriBuilder = new UriBuilder(url) { Host = "3c814e9d.ngrok.io", Port = 443 };
+                var uriBuilder = new UriBuilder(url) { Host = "10bb4013.ngrok.io", Port = 443 };
                 uri = uriBuilder.Uri;
             }
 
@@ -183,6 +183,20 @@ namespace Cloudents.Web.Api
                 var command = new EndStudyRoomSessionTwilioCommand(id, request.RoomName);
                 await _commandBus.DispatchAsync(command, token);
             }
+           
+            if (request.StatusCallbackEvent.Equals("participant-disconnected", StringComparison.OrdinalIgnoreCase))
+            {
+                var command = new StudyRoomSessionParticipantDisconnectedCommand(id);
+               
+                await _commandBus.DispatchAsync(command, token);
+               
+            }
+            else if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
+            {
+                var command = new StudyRoomSessionParticipantReconnectedCommand(id);
+                await _commandBus.DispatchAsync(command, token);
+            }
+            
             return Ok();
         }
 
