@@ -27,8 +27,8 @@ namespace Cloudents.Command.StudyRooms
             }
 
             var sessionName = $"{message.StudyRoomId}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
-            var lastSession = room.Sessions.LastOrDefault();
-            if (lastSession != null && lastSession.Ended == null)
+            var lastSession = room.GetCurrentSession();
+            if (lastSession != null)
             {
                 var roomAvailable = await _videoProvider.GetRoomAvailableAsync(lastSession.SessionId);
                 if (roomAvailable)

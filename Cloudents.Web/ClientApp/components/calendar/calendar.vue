@@ -196,7 +196,7 @@ export default {
       }
     },
     methods: {
-        ...mapActions(['initCalendar','btnClicked','insertEvent','updateNeedPayment','requestPaymentURL']),
+        ...mapActions(['updateToasterParams','initCalendar','btnClicked','insertEvent','updateNeedPayment','requestPaymentURL']),
         format(day){
           let options = { weekday: this.isMobile? 'narrow':'short' };
           return new Date(day.date).toLocaleDateString(this.calendarLocale, options);

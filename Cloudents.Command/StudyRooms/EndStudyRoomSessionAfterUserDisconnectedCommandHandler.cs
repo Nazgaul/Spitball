@@ -26,7 +26,7 @@ namespace Cloudents.Command.StudyRooms
             {
                 var room = await _studyRoomRepository.LoadAsync(sessionParticipant.StudyRoomSession.StudyRoom.Id, token);
 
-                var session = room.Sessions.Last();
+                var session = room.GetCurrentSession();
                 session.EndSession();
             }
         }

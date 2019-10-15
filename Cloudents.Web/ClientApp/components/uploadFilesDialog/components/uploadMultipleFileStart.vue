@@ -78,8 +78,11 @@ export default {
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
+        isError(){
+            return this.getFileData.every(item=>item.error)
+        },
         errorFile(){
-            if(this.getFileData && this.getFileData.length === 1 && this.getFileData[0].error){
+            if(this.getFileData && this.getFileData.length && this.getFileData[0].error && this.isError){
                 this.uploadStarted = false;
                 return true;
             }else{

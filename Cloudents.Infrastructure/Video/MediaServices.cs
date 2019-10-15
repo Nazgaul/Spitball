@@ -348,20 +348,27 @@ namespace Cloudents.Infrastructure.Video
 
             var streamingEndpoint = await client.StreamingEndpoints.GetAsync(_config.ResourceGroup, _config.AccountName, "default", cancellationToken: token);
 
-            var paths = await client.StreamingLocators.ListPathsAsync(_config.ResourceGroup,
-                _config.AccountName, locatorName, token);
-            var path = paths.StreamingPaths.Single(w => w.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming);
-            if (path.Paths.Count > 0)
+            try
             {
-                var uriBuilder = new UriBuilder
+                var paths = await client.StreamingLocators.ListPathsAsync(_config.ResourceGroup,
+                    _config.AccountName, locatorName, token);
+                var path = paths.StreamingPaths.Single(w => w.StreamingProtocol == StreamingPolicyStreamingProtocol.SmoothStreaming);
+                if (path.Paths.Count > 0)
                 {
-                    Scheme = "https",
-                    Host = streamingEndpoint.HostName,
-                    Path = path.Paths[0]
-                };
-                return uriBuilder.ToString();
-            }
+                    var uriBuilder = new UriBuilder
+                    {
+                        Scheme = "https",
+                        Host = streamingEndpoint.HostName,
+                        Path = path.Paths[0]
+                    };
+                    return uriBuilder.ToString();
+                }
 
+            }
+            catch (ApiErrorException ex) when (ex.Response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return null;
+            }
             return null;
 
         }

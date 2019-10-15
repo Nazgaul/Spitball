@@ -166,29 +166,7 @@ namespace ConsoleApp
             //Console.WriteLine("done");
         }
 
-        private static async Task ResetVideo()
-        {
-            var bus = _container.Resolve<ICloudStorageProvider>();
-            var d = _container.Resolve<DapperRepository>();
-            IEnumerable<long> ids; // 49538
-            var mediaServices = _container.Resolve<MediaServices>();
-            var queueClient = bus.GetQueueClient();
-            using (var con = d.OpenConnection())
-            {
-                var sql = "Select id from sb.document where documenttype = 'video' and id = 49726 and state = 'Ok'";
-                ids = await con.QueryAsync<long>(sql);
-            }
-
-            foreach (var id in ids)
-            {
-                Console.WriteLine("Process id " + id);
-                await mediaServices.DeleteAssetAsync(id, AssetType.Thumbnail, CancellationToken.None);
-                await mediaServices.DeleteAssetAsync(id, AssetType.Short, CancellationToken.None);
-                await mediaServices.DeleteAssetAsync(id, AssetType.Long, CancellationToken.None);
-                var queue = queueClient.GetQueueReference("generate-blob-preview");
-                await queue.AddMessageAsync(new CloudQueueMessage(id.ToString()), null, TimeSpan.FromSeconds(30), null, null);
-            }
-        }
+       
 
         private static async Task ResetVideo()
         {

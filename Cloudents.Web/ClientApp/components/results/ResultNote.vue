@@ -43,7 +43,7 @@
           </template>
 
           <div class="type-wrap">
-            <v-flex grow class="data-row">
+            <v-flex grow class="data-row" v-if="isPreviewReady">
                <div class="content-wrap">
                 <span class="item-title text-truncate">{{item.title}}</span>
                 <span class="item-course text-truncate" v-html="$Ph('resultNote_course',[item.course])"/>

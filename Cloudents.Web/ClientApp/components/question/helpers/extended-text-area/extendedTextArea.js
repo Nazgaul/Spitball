@@ -4,7 +4,6 @@ export default {
     props: {
         value: {type: String},
         error: {},
-        actionType: {type: String, default: 'answer'},
         isFocused: false,
         uploadUrl: {type: String},
         openNewBaller: {
@@ -25,11 +24,6 @@ export default {
             componentUniqueId: `instance-${this._uid}`,
             uploadFileError: false
         };
-    },
-    computed: {
-        setPlaceholder() {
-            return `extendedTextArea_type_your_${this.actionType}`;
-        }
     },
     methods: {
         updateValue: function (value) {

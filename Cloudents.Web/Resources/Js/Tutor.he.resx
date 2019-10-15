@@ -249,6 +249,9 @@
   <data name="tooltip_eraser" xml:space="preserve">
     <value>מחק</value>
   </data>
+  <data name="tooltip_iink" xml:space="preserve">
+    <value>כתב יד</value>
+  </data>
   <data name="tooltip_line" xml:space="preserve">
     <value>קו</value>
   </data>

@@ -53,7 +53,7 @@ namespace Cloudents.FunctionsV2.Sync
                 needContinue = true;
                 await syncService.AddAsync(new AzureSearchSyncOutput
                 {
-                    Item = new Cloudents.Search.Entities.Document()
+                    Item = new Search.Entities.Document()
                     {
                         Id = document
                     },

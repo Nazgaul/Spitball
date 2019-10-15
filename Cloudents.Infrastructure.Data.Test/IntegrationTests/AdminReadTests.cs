@@ -82,10 +82,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task AdminPendingTutorsQuery_Ok()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("IL")]
+        public async Task AdminPendingTutorsQuery_Ok(string country)
         {
-            var query = new AdminPendingTutorsQuery("IL");
+            var query = new AdminPendingTutorsQuery(country);
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 

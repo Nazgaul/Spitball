@@ -21,7 +21,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(StudyRoomSessionParticipantReconnectedCommand message, CancellationToken token)
         {
             var studyRoom = await _studyRoomRepository.GetAsync(message.Id, token);
-            var studyRoomSession = studyRoom.Sessions.Last();
+            var studyRoomSession = studyRoom.GetCurrentSession();
             var sessionParticipant = studyRoomSession.ParticipantDisconnections.FirstOrDefault();
 
             if (sessionParticipant != null)

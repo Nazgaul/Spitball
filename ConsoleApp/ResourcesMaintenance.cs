@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace ConsoleApp
@@ -84,10 +85,46 @@ namespace ConsoleApp
 
         public static void DeleteStuffFromJs()
         {
-            DeleteUnusedSvg();
+            //RemoveComments();
+            DeleteUnusedFontSvg();
             DeleteUnusedResources();
         }
-        private static void DeleteUnusedSvg()
+
+
+        private static void RemoveComments()
+        {
+
+            var blocks = new Regex(@"\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$", RegexOptions.Multiline);
+            Console.WriteLine("Delete unused svg");
+            Console.WriteLine(Directory.GetCurrentDirectory());
+
+            var directoryName = Directory.GetCurrentDirectory();
+            //var s = Directory.GetParent(directoryName);
+            while (!Directory.GetFiles(directoryName, "*.sln").Any())
+            {
+                directoryName = Directory.GetParent(directoryName).ToString();
+            }
+
+
+            string[] jsFiles = Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp",
+                "*", SearchOption.AllDirectories);
+
+            foreach (string file in jsFiles)
+            {
+                if (!_fileContentCache.TryGetValue(file, out var lines))
+                {
+                    lines = File.ReadAllLines(file);
+                    _fileContentCache[file] = lines;
+                }
+
+                foreach (Match match in blocks.Matches(string.Join(Environment.NewLine,lines)))
+                {
+                    
+                }
+            }
+        }
+
+        private static void DeleteUnusedFontSvg()
         {
             //TODO: :// we need to think about landing page and other instances of resources string interpolation!
             //TODO :// maybe some performance tweaks and thats it.

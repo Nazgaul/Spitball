@@ -60,7 +60,7 @@ module.exports = (env) => {
                                 },
                                 mozjpeg: {
                                     progressive: true,
-                                    quality: 90
+                                    quality: 80
                                 }
                             }
                         }

@@ -96,7 +96,7 @@ export default {
             getDialogState: 'getDialogState',
         }),
         isError(){
-            return this.getFileData.some(item=>item.error)
+            return this.getFileData.every(item=>item.error)
         },
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
@@ -128,7 +128,7 @@ export default {
             return result;
         },
         errorFile(){
-            if(this.getFileData && this.getFileData.length === 1 && this.getFileData[0].error){
+            if(this.getFileData && this.getFileData.length && this.isError && this.getFileData[0].error){
                 return this.getFileData[0]
             }
         }

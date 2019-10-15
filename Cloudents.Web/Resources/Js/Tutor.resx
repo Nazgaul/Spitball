@@ -287,6 +287,6 @@ Try connecting from a computer browser</value>
     <value>Browser not supported</value>
   </data>
   <data name="tooltip_iink" xml:space="preserve">
-    <value>Equation Draw</value>
+    <value>Handwriting</value>
   </data>
 </root>

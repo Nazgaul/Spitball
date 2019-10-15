@@ -9,7 +9,7 @@
                     @click.prevent="isNewBaller()"
                     @input="updateValue($event.target.value)"
                     :value="value" autofocus="isFocused"
-                    :placeholder="setPlaceholder" 
+                    :placeholder="'extendedTextArea_type_your_answer'" 
                     v-language:placeholder>
                 </textarea>
                 <div class="action-holder">

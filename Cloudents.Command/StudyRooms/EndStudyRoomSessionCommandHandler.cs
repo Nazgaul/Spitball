@@ -23,10 +23,8 @@ namespace Cloudents.Command.StudyRooms
                 throw new ArgumentException();
             }
 
-            var session = room.Sessions.AsQueryable().Single(w => w.Ended == null);
+            var session = room.GetCurrentSession();
             session.EndSession();
-            //{
-            //}
 
         }
     }

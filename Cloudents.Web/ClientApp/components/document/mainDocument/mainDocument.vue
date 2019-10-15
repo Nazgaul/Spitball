@@ -134,9 +134,14 @@
       </div>
     </v-layout>
     <div class="document-wrap">
-
       <div class="text-xs-center" v-if="!videoLoader">
         <img :style="{'width': `${dynamicWidthAndHeight.width}px`, 'height': `${dynamicWidthAndHeight.height}px`}" :src="require('./doc-preview-animation.gif')" alt="Photo" :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}">
+        <!-- <v-progress-circular v-if="isVideo" :style="{'width': `${dynamicWidthAndHeight.width}px`}"
+            :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}"
+            width="3"
+            :size="videoHeight" 
+            indeterminate
+            color="#4452fc"/> -->
       </div>
       
       <div style="margin: 0 auto;background:black" class="text-xs-center main-header-wrapper" v-if="isVideo && videoSrc">
@@ -173,25 +178,13 @@
         v-if="isShowPurchased || !accountUser"
       >
         <div class="inner">
-          <p 
-            class="text-xs-center hidden-sm-and-down"
-            v-language:inner="unlockDocDictionary"
-          ></p>
+          <p class="text-xs-center hidden-sm-and-down" v-language:inner="unlockDocDictionary"/>
           <div class="aside-top-btn align-center" v-if="!isLoading && accountUser" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)">
-            <span
-              class="font-weight-bold text-xs-center disabled"
-              v-if="isPrice"
-            >{{docPrice | currencyLocalyFilter}}</span>
-            <span
-              class="white--text pa-3 font-weight-bold text-xs-center"
-              v-language:inner="'documentPage_unlock_btn'"
-            ></span>
+            <span class="font-weight-bold text-xs-center disabled" v-if="isPrice" >{{docPrice | currencyLocalyFilter}}</span>
+            <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"/>
           </div>
-          <div class="aside-top-btn-not align-center" v-if="!isLoading && !accountUser">
-            <span
-              class="white--text pa-3 font-weight-bold text-xs-center"
-              v-language:inner="'documentPage_unlock_btn'"
-            ></span>
+          <div class="aside-top-btn-not align-center" v-if="!isLoading && !accountUser" @click="updateLoginDialogState(true)">
+            <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"/>
           </div>
           <v-progress-circular
             class="unlock_progress"
@@ -701,6 +694,7 @@ export default {
         font-size: 19px;
       }
       .aside-top-btn-not {
+        cursor: pointer;
         display: flex;
         border: 1px solid #ccc;
         border-radius: 4px;
