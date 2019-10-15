@@ -31,7 +31,7 @@
                         :loading='isLoading'
                         class="white-text elevation-0"
                         @click="btnDoneNextFunc">
-                    <span v-language:inner="btnDoneNextLang"/>
+                    <span v-language:inner="'becomeTutor_btn_next'"/>
                 </v-btn>
             </v-layout>
         </template>
@@ -69,24 +69,10 @@
             },
             isMobile() {
                 return this.$vuetify.breakpoint.smAndDown;
-            },
-            btnDoneNextLang(){
-                if((!this.isSelectCalendar && !this.isSelectHours) || this.isSelectHours){
-                    return 'becomeTutor_btn_done'
-                } else if(this.isSelectCalendar && !this.isSelectHours){
-                    return 'becomeTutor_btn_next'
-                }
-            },
+            }
         },
         methods: {
-            ...mapActions(['updateTutorDialog',
-                            'gapiLoad',
-                            'gapiSignIn',
-                            'sendBecomeTutorData',
-                            'updateAccountUserToTutor',
-                            'updateToasterParams',
-                            'updateTeachingClasses',
-                            ]),
+            ...mapActions(['gapiLoad','gapiSignIn']),
             goToPreviousStep() {
                 this.$root.$emit('becomeTutorStep', 2);
             },
@@ -99,37 +85,11 @@
                     this.isLoadingCalendar = false;
                 })
             },
-            submit(){
-                let self = this
-                this.isLoadingCalendar = false;
-                this.isLoading = true;
-                this.sendBecomeTutorData().then(
-                    (resp) => {
-                        self.$root.$emit('becomeTutorStep', 4);
-                        self.updateAccountUserToTutor(true);
-                        self.updateToasterParams({
-                            toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
-                            showToaster: true,
-                            toasterTimeout: 5000
-                        });
-                        self.updateTeachingClasses();
-                    },(error) => {
-                        let isConflict = error.response.status === 409;
-                        if(isConflict) {
-                            self.updateToasterParams({
-                                toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
-                                showToaster: true,
-                                toasterTimeout: 5000
-                            });
-                            self.updateTutorDialog(false);
-                        }
-                    }).finally(() => {                      
-                        self.isLoading = false;
-                });
-            },
             btnDoneNextFunc(){
                 if((!this.isSelectCalendar && !this.isSelectHours) || this.isSelectHours){
-                    this.submit()
+                    this.$root.$emit('becomeTutorStep', 4);
+                    this.isLoading = false;
+                    this.isLoadingCalendar = false;
                 } else if(this.isSelectCalendar && !this.isSelectHours){
                     this.goSelectHour()
                 }

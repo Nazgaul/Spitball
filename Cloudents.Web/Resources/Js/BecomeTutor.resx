@@ -213,4 +213,20 @@ with your Spitball booking system</value>
     <value>Please indicate which of the following calendars to
 connect with your Spitball booking system</value>
   </data>
+  <data name="agree" xml:space="preserve">
+    <value>I agree to Spitball's Terms of Services</value>
+  </data>
+  <data name="code_of_conduct" xml:space="preserve">
+    <value>Tutor Code of Conduct
+Spitball has built a simple set of rules to ensure that tutors get paid in full, protect the privacy of tutors and students and to make our service fair for everyone. Please follow these rules when you use Spitball:
+As an independent tutor, you are not a Spitball employee, we are not able to verify your employment to other companies and you are responsible for filing your tax reports and VAT.
+Taxes and other fees will not be withheld from your payments since tutors listed on Spitball are independent.  
+Accepting payment directly from students is not allowed, and will prevent tutors from being successful on Spitball.
+All communication with your students must take place through Spitball’s messaging system. Do not exchange personal email addresses with your students.
+You determine your hourly rate during the registration process. Don’t worry, you rate can be adjusted even after creating the tutor profile. 
+Payment is made after each session is completed and we verified the details with you.
+The payment will be 89% of you rate for each session. Spitball will retain a 9% platform fee and PayMe charges a 2% transaction fee.
+A student must register a form of payment before you can give him your phone number or have a session with him. This policy ensures that you get paid for all lessons.
+Please note that tutors who violate these rules may be removed from Spitball’s marketplace.</value>
+  </data>
 </root>
