@@ -9,11 +9,9 @@ const pageHeader = () => import('./components/header/header.vue');
 
 const schoolBlock = () => import('./components/schoolBlock/schoolBlock.vue');
 const verticalsTabs = () => import('./components/header/verticalsTabs.vue');
-import { staticRoutes } from "./components/satellite/satellite-routes";
 
 
 const document = () => import("./components/document/document.vue");
-const satelliteHeader = () => import("./components/satellite/header.vue");
 //const previewHeader = () => import("./components/helpers/header.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const wallet = () => import("./components/wallet/wallet.vue");
@@ -398,22 +396,5 @@ let routes2 = [
     }
 ];
 
-for (let v in staticRoutes) {
-    let item = staticRoutes[v];
-    routes2.push({
-                     path: item.path || "/" + item.name,
-                     name: item.name,
-                     components: {
-                         header: satelliteHeader,
-                         default: item.import
-                     },
-                     meta: {
-                         static: true
-                     },
-                     props: {
-                         default: (route) => item.params ? item.params(route) : {}
-                     }
-                 });
-}
 
 export const routes = routes2;
