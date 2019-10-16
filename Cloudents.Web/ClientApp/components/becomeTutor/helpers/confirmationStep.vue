@@ -1,7 +1,10 @@
 <template>
     <div class="confirmation-step-wrap" :class="[!isMobile ? 'px-0' : '']">
         <v-layout column wrap align-center justify-center :class="[{'px-5':!isMobile},{'pt-4':!isMobile},'confirmation-step-wrap-cont']">
-            <p v-language:inner="'becomeTutor_code_of_conduct'" class="code-txt" />
+            <div :class="['code-txt',{'pr-5':!isMobile}]">
+                <p :class="['code-txt-title','mb-2']" v-language:inner="'becomeTutor_code_of_conduct_title'"/>
+                <p v-language:inner="'becomeTutor_code_of_conduct'"/>
+            </div>
             <v-checkbox :ripple="false" class="checkbox-confirmation-step"
                         :label="$Ph('becomeTutor_agree')"
                         v-model="isAgree" off-icon="sbf-check-box-un" 
@@ -89,10 +92,14 @@ export default {
             padding: 0 !important;
             overflow: visible;
             justify-content: space-between;
-            height: inherit
+            // height: inherit
         }
         .confirmation-step-wrap-cont{
             .code-txt{
+                .code-txt-title{
+                    font-size: 16px;
+                    font-weight: bold;
+                }
                 max-height: 250px;
                 overflow: auto;
                 white-space: pre-line;

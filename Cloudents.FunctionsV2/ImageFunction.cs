@@ -100,7 +100,8 @@ namespace Cloudents.FunctionsV2
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = UrlConst.ImageFunctionDocumentRoute)]
             HttpRequest req, long id,
             IBinder binder,
-            [Queue("generate-blob-preview")] IAsyncCollector<string> collectorSearch,
+            //collector search duplicate so i added some search 3 to solve this
+            [Queue("generate-blob-preview")] IAsyncCollector<string> collectorSearch3,
             Microsoft.Extensions.Logging.ILogger logger,
             [Blob("spitball-files/files/{id}/preview-0.jpg")]CloudBlockBlob blob,
             CancellationToken token)
@@ -127,7 +128,7 @@ namespace Cloudents.FunctionsV2
             catch (StorageException e)
             {
                 if (e.RequestInformation.HttpStatusCode != (int)HttpStatusCode.NotFound) throw;
-                var t1 = collectorSearch.AddAsync(id.ToString(), token);
+                var t1 = collectorSearch3.AddAsync(id.ToString(), token);
 
 
                 var directoryBlobs = await

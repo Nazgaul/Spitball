@@ -140,13 +140,15 @@ export default {
     }
    .uf-sEdit-top{
        @media (max-width: @screen-xs) {
-        //    flex: 0;
         .flexSameSize()
        }
         .v-text-field__suffix{
             font-size: 14px;
             font-weight: 600;
             color: @global-purple; 
+        }
+        input[type='number'] {
+            -moz-appearance:textfield;
         }
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { 

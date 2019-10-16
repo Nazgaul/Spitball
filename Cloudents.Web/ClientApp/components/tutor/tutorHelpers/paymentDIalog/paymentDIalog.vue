@@ -66,7 +66,7 @@ export default {
     }
     .payment-iframe{
         @media (max-width: @screen-xs) {
-            min-height: 100%;
+            height: 100%;
         }
         border: none;
         padding: 0 6px;

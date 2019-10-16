@@ -166,6 +166,10 @@ export default {
     border-radius: 4px;
     position: relative;
     .uf_price{
+        input[type='number'] {
+            -moz-appearance:textfield;
+        }
+
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { 
             -webkit-appearance: none; 

@@ -33,40 +33,26 @@
             ></v-progress-circular>
         </div>
         <div class="aside-top">
-            <table class="pa-2 pb-2">
-                <tr v-if="isName">
-                    <td class="table_td">
-                        <div class="py-2 mr-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_uploaded'"></div>
-                        <h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/profile', name: 'profile', params: {id: getUserId, name: getUploaderName} }">{{getUploaderName}}</router-link></h3>
-                    </td>
-
-                    <!-- <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_uploaded'"></!-->
-                    <!-- <td class=""><h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/profile', name: 'profile', params: {id: getUserId, name: getUploaderName} }">{{getUploaderName}}</router-link></h3></td> -->
-                </tr>
-                <tr v-if="isCourse">
-                    <td class="table_td">
-                        <div class="py-2 mr-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_course'"></div>
+            <div class="pa-2 pb-2">            
+                    <div class="table_td" v-if="isName">
+                        <div class="py-2 mr-2 font-weight-bold table_td_name" v-language:inner="'documentPage_table_uploaded'"></div>
+                        <h3 class="body-1 text-truncate align-switch-r table_td_name_h3"><router-link :to="{path: '/profile', name: 'profile', params: {id: getUserId, name: getUploaderName} }">{{getUploaderName}}</router-link></h3>
+                    </div>
+                    <div class="table_td" v-if="isCourse">
+                        <div class="py-2 mr-2 font-weight-bold table_td_course" v-language:inner="'documentPage_table_course'"></div>
                         <h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3>
-                    </td>
+                    </div>
 
-                    <!-- <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_course'"></td>
-                    <td class=""><h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3></td> -->
-                </tr>
-                <tr v-if="isUniversity">
-                    <td class="table_td">
-                        <div class="py-2 mr-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_university'"></div>
+                    <div class="table_td" v-if="isUniversity">
+                        <div class="py-2 mr-2 font-weight-bold table_td_uni" v-language:inner="'documentPage_table_university'"></div>
                         <h3 class="body-1 text-truncate align-switch-r">{{getUniversity}}</h3>
-                    </td > 
-
-                    <!-- <td class="py-2 font-weight-bold text-truncate" v-language:inner="'documentPage_table_university'"></td>
-                    <td class=""><h3 class="body-1 text-truncate align-switch-r">{{getUniversity}}</h3></td> -->
-                </tr>
-            </table>
+                    </div > 
+            </div>
             <tutor-result-card-other :tutorData="ownTutor" :uploader="true"  v-if="isTutor && ownTutor" />
         </div>
 
-        <aside-document-tutors :courseName="getCourse" v-if="!$vuetify.breakpoint.smAndDown && getCourse"/>
-        <v-flex class="footer-holder text-xs-center mb-5" v-if="!$vuetify.breakpoint.smAndDown && getCourse">
+        <aside-document-tutors :courseName="getCourse" :tutorList="tutorList" v-if="!$vuetify.breakpoint.smAndDown && getCourse"/>
+        <v-flex v-show="tutorList.length" class="footer-holder text-xs-center mb-5" v-if="!$vuetify.breakpoint.smAndDown && getCourse">
             <router-link :to="{name: 'tutors',query:{Course:getCourse}}" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
         </v-flex>
     </div>
@@ -114,7 +100,10 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(['getBtnLoading', 'accountUser', 'getRouteStack']),
+        ...mapGetters(['getBtnLoading', 'accountUser', 'getRouteStack','getTutorList']),
+        tutorList() {
+            return this.getTutorList;           
+        },
         isVideo(){      
             return this.document.documentType === 'Video' 
         },
@@ -273,38 +262,34 @@ export default {
                     z-index: 9999;
                 }
             }
-            table {
-                width: 100%;
-                td {
-                    max-width: 0;
-                }
                 .table_td {
-                    div, h3 {
-                        display: inline-flex;
-                    }
-                }
-                td:first-child {
-                    color: #42415c;
-                }
-                td {
+                    display: flex;
+                    align-items: center;
                     border-bottom: solid 1px rgba(67, 66, 93, 0.17);
+                    .table_td_name, .table_td_course, .table_td_uni {
+                        color: #42415c;
+                    }
+                    .table_td_name_h3 {
+                        width: calc(100% - 120px);
+
+                    }
                     h3 {
+                        width: calc(100% - 80px);
                         color: #5158af;
+                        font-weight: bold;
                         a {
                             color: #5158af;
                         }
-                        font-weight: bold;
                         @media(max-width: @screen-sm){
                             font-weight: normal;
                         }
                     }
+                    div:last-child {
+                        div {
+                            border-bottom: none;
+                        }
+                    } 
                 }
-                tr:last-child {
-                    td {
-                        border-bottom: none;
-                    }
-                } 
-            }
             .unlock_progress {
                 display: flex;
                 margin: 0 auto;
@@ -314,9 +299,6 @@ export default {
             a {
                 color: #4452fc;
             }
-        }
-        .align-switch-r {
-            text-align: right !important;
         }
     }
 </style>

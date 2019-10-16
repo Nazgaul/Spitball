@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cloudents.Core.Enum;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
@@ -20,11 +19,6 @@ namespace Cloudents.Web.Services
         public IEnumerable<string> GetUrls(int index)
         {
             yield return GetBaseUrl();
-            yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Static, new
-            {
-                id = "faq"
-            });
-
         }
 
         private string GetBaseUrl()

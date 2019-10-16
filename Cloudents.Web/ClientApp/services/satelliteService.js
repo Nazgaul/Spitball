@@ -61,13 +61,4 @@ export default {
         console.log(sattelites[name].url[language]);
         return sattelites[name].url[language];
     },
-    getFaq:() => {
-        return connectivityModule.http.get(`help${cacheControl}`);
-    },
-
-    getBlog:(id) => {
-        connectivityModule.get("blog?id=" + id).then((f)=> {
-            return f.data;
-        });
-    }
 }

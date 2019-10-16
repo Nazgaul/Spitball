@@ -37,9 +37,9 @@
             </v-btn>             
             <span class="uf-sEdit-terms">
                 <span v-language:inner="'upload_uf_sEdit_terms_by'"/>
-                <router-link :to="{path:'terms'}" target="_blank">  
+                <a :href="termsLink" target="_blank">  
                     <span class="uf-sEdit-terms-link" v-language:inner="'upload_uf_sEdit_terms_link'"/>
-                </router-link>
+                </a>
             </span>
         </div>
         </v-card>  
@@ -57,6 +57,8 @@ import { LanguageService } from "../../services/language/languageService";
 import uploadFilesStart from "./components/uploadMultipleFileStart.vue";
 import uploadStep_2 from "./components/filesDetails.vue";
 import fileCardError from './components/fileCardError.vue';
+
+import satelliteServie from "../../services/satelliteService";
 
 export default {
     components: {
@@ -84,7 +86,8 @@ export default {
             disableBtn: false,
             isEdge : global.isEdge,
             lock: false,
-            chackValidation: false
+            chackValidation: false,
+            termsLink: satelliteServie.getSatelliteUrlByName('terms')
         }
     },
     computed: {
