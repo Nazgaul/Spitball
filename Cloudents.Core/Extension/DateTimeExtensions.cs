@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 
 namespace Cloudents.Core.Extension
 {
@@ -16,6 +18,20 @@ namespace Cloudents.Core.Extension
         public static TimeSpan StripMilliseconds(this TimeSpan time)
         {
             return new TimeSpan(time.Days, time.Hours, time.Minutes, time.Seconds);
+        }
+    }
+
+    public static class CultureInfoExtensions
+    {
+        public static CultureInfo ChangeCultureBaseOnCountry(this CultureInfo cultureInfo, string country)
+        {
+           
+            if (country == null)
+            {
+                Debug.Assert(country == null, "this should not happen");
+                return cultureInfo;
+            }
+            return new CultureInfo($"{cultureInfo.ToString().Split('-')[0]}-{country}");
         }
     }
 }

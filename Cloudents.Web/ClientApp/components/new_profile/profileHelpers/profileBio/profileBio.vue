@@ -42,7 +42,7 @@
               </v-flex>
               <div class="tutor-price mr-3">
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
-                  ₪{{showStriked ? discountedPrice : tutorPrice}}
+                  {{showStriked ? discountedPrice : tutorPrice}}
                   <span class="tutor-price small-text">
                     /
                     <span v-language:inner>profile_points_hour</span>
@@ -57,10 +57,8 @@
               </div>
               <div v-if="showStriked && $vuetify.breakpoint.smAndUp" class="tutor-price strike-through mr-3">
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
-                  ₪{{tutorPrice}}
-                  <span class="tutor-price small-text">
-                    /
-                    <span v-language:inner>profile_points_hour</span>
+                 {{tutorPrice}}
+                  <span class="tutor-price small-text">/<span v-language:inner>profile_points_hour</span>
                   </span>
                 </span>
               </div>
@@ -75,7 +73,6 @@
             class="tutor-price text-xs-center"
             v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
           >
-            <span class="subheading">₪</span>
             <span class="tutor-price">
               {{showStriked ? discountedPrice : tutorPrice}}
               <span class="tutor-price small-text">
@@ -92,7 +89,6 @@
             class="tutor-price strike-through text-xs-center"
             v-if="$vuetify.breakpoint.xsOnly && isTutorProfile && showStriked"
           >
-            <span class="subheading">₪</span>
             <span class="tutor-price">
               {{tutorPrice}}
               <span class="tutor-price small-text">
@@ -166,7 +162,7 @@ export default {
         this.getProfile.user &&
         this.getProfile.user.tutorData
       ) {
-        return this.getProfile.user.tutorData.price.toFixed(0);
+        return this.getProfile.user.tutorData.price;
       }
       return 0;
     },

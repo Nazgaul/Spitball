@@ -76,8 +76,11 @@ namespace Cloudents.FunctionsV2
                                 University = update.University,
                                 Lessons = Math.Max(update.LessonsCount, update.ReviewsCount),
                                 Bio = update.Bio,
-                                Price = (int)update.Price,
+                                TutorPrice = (int)update.Price,
+                                TutorCountry = update.Country,
                                 Image = update.Image,
+                                NeedSerializer = true
+
                             }
                         },
                         Insert = true
@@ -100,13 +103,7 @@ namespace Cloudents.FunctionsV2
                 }
 
                 query.Page++;
-                // var versionElement = result.Update.OrderByDescending(o => o.VersionAsLong).FirstOrDefault();
-                //if (versionElement != null)
-                //{
                 nextQuery.Version = Math.Max(nextQuery.Version, result.Version);
-                //nextQuery.RowVersion = versionElement.Version;
-                //}
-
                 await indexInstance.FlushAsync(token);
 
             } while (updateOccur);

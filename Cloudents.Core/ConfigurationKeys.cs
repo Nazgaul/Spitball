@@ -104,6 +104,8 @@ namespace Cloudents.Core
         public string Db { get;  }
 
         public string Redis { get;  }
+
+        public bool NeedValidate { get; set; }
     }
 
     public class LocalStorageData

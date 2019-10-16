@@ -97,6 +97,7 @@ namespace Cloudents.Web
                 options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
                 options.SerializerSettings.Converters.Add(new RequestCultureConverter());
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+
             })
 
                 .AddMvcOptions(o =>
@@ -152,7 +153,7 @@ namespace Cloudents.Web
 
             services.AddDetectionCore().AddCrawler();
             services.AddSbIdentity();
-           
+
             services.ConfigureApplicationCookie(o =>
             {
                 o.Cookie.Name = "sb5";
@@ -205,8 +206,10 @@ namespace Cloudents.Web
 
             var keys = new ConfigurationKeys()
             {
-                SiteEndPoint = { SpitballSite = Configuration["Site"] ,FunctionSite = Configuration["functionCdnEndpoint"] },
-                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
+                SiteEndPoint = { SpitballSite = Configuration["Site"], FunctionSite = Configuration["functionCdnEndpoint"] },
+                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"),
+                    Configuration["Redis"])
+                { NeedValidate = true },
                 Redis = Configuration["Redis"],
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
                        Configuration["AzureSearch:SearchServiceAdminApiKey"],
@@ -292,7 +295,7 @@ namespace Cloudents.Web
                 // Formatting numbers, dates, etc.
                 o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList();// SupportedCultures;
                 // UI strings that we have localized.
-                o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
+                o.RequestCultureProviders.Insert(2, new AuthorizedUserCultureProvider());
 
             });
             app.UseStaticFiles(new StaticFileOptions

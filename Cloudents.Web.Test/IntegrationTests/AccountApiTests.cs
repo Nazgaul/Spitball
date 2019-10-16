@@ -35,7 +35,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
         [Fact]
         public async Task GetAsync_Unauthorized_401()
-        {            
+        {
             var response = await _client.GetAsync(_uri.Path);
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
@@ -45,7 +45,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         public async Task GetAsync_OK_200()
         {
             await _client.LogInAsync();
-            
+
             var response = await _client.GetAsync(_uri.Path);
 
             response.EnsureSuccessStatusCode();
@@ -100,16 +100,15 @@ namespace Cloudents.Web.Test.IntegrationTests
             var d = JObject.Parse(str);
 
             var tutor = d["tutor"]?.Value<JObject>() ?? throw new ArgumentNullException("d[\"tutor\"]?.Value<JObject>()");
-           
+
             var firstName = tutor["firstName"]?.Value<string>();
             var lastName = tutor["lastName"]?.Value<string>();
             var price = tutor["price"]?.Value<decimal>();
-              
 
-                firstName.Should().Be("Skyler");
-                lastName.Should().Be("White");
-                price.Should().Be(55M);
-            }
+
+            firstName.Should().Be("Skyler");
+            lastName.Should().Be("White");
+            price.Should().Be(55M);
         }
     }
 }

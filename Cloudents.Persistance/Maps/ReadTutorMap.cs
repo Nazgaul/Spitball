@@ -22,7 +22,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.University);
             Map(x => x.Lessons);
             Map(x => x.OverAllRating).Column("Rating");
-            Map(x => x.Country);
+            Map(x => x.Country).Length(2);
             Table("ReadTutor");
             DynamicUpdate();
            // SchemaAction.Update();

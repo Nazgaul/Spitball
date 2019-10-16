@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Query;
@@ -29,7 +30,13 @@ namespace Cloudents.Web.Services
             {
                 return null;
             }
-            return new ProviderCultureResult(new StringSegment(result.Language.Name));
+            var culture = $"{result.Language.ToString().Split('-')[0]}-{result.Country}";
+            httpContext.Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+
+            return new ProviderCultureResult(new StringSegment(culture));
         }
     }
 }

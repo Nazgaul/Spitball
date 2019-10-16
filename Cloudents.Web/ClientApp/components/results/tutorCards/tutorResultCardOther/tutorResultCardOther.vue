@@ -18,8 +18,8 @@
                 <v-layout row class="moreDetails" align-center>
                     <div column class="price-box column mr-2">
                         <template>
-                            <span v-if="showStriked" class="font-weight-bold"><span class="price-sign">&#8362;</span>{{discountedPrice}}</span>
-                            <span v-else class="font-weight-bold"><span class="price-sign">&#8362;</span>{{tutorData.price}}</span>
+                            <span v-if="showStriked" class="font-weight-bold">{{discountedPrice}}</span>
+                            <span v-else class="font-weight-bold">{{tutorData.price}}</span>
                         </template>
                         <div class="caption" v-language:inner="'resultTutor_hour'"></div>
                     </div>
@@ -303,9 +303,6 @@ export default {
             span {
                 font-family: Arial;
                 font-size: 22px;
-            }
-            .price-sign {
-                font-size: 16px;
             }
             .caption {
                 margin-top: 1px;

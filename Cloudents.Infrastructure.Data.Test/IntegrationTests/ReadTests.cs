@@ -65,7 +65,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new FeedAggregateQuery(userId, page, filter, country,course);
 
-            await fixture.QueryBus.QueryAsync(query, default);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
 
 
             result.OfType<QuestionFeedDto>().Should().Contain(c => c.UserId > 0);
@@ -185,11 +185,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             _.Should().HaveCountGreaterOrEqualTo(1);
         }
 
-        [Fact]
+        [Theory]
+        [InlineData(638)]
+        [InlineData(11)]
+        [InlineData(605)]
+        [InlineData(36)]
 
-        public async Task UserProfileQuery_Ok()
+        public async Task UserProfileQuery_Ok(long id)
         {
-            var query = new UserProfileQuery(638);
+            var query = new UserProfileQuery(id);
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }

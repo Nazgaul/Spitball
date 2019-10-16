@@ -1,16 +1,16 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
-using NHibernate;
-using NHibernate.Linq;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Query.Stuff;
+using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Linq;
 using NHibernate.SqlCommand;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Documents
 {
     public class DocumentById : IQuery<DocumentDetailDto>
     {
@@ -66,12 +66,13 @@ namespace Cloudents.Query.Query
                             .Select(Projections.Property(() => tutorAlias.Image).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Image)}"))
                             .Select(Projections.Property(() => tutorAlias.Courses).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Courses)}"))
                             .Select(Projections.Property(() => tutorAlias.Subjects).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Subjects)}"))
-                            .Select(Projections.Property(() => tutorAlias.Price).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Price)}"))
+                            .Select(Projections.Property(() => tutorAlias.Price).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.TutorPrice)}"))
                             .Select(Projections.Property(() => tutorAlias.Rate).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Rate)}"))
                             .Select(Projections.Property(() => tutorAlias.RateCount).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.ReviewsCount)}"))
                             .Select(Projections.Property(() => tutorAlias.Bio).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Bio)}"))
                             .Select(Projections.Property(() => tutorAlias.University).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.University)}"))
                             .Select(Projections.Property(() => tutorAlias.Lessons).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Lessons)}"))
+                            .Select(Projections.Property(() => tutorAlias.Country).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.TutorCountry)}"))
 
 
                     )

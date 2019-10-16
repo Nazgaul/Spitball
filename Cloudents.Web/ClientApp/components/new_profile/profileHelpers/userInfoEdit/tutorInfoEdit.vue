@@ -51,7 +51,7 @@
                                           :label="priceLabel"
                                           v-model="price"
                                           outline
-                                          prefix="₪"
+                                          :prefix="accountUser.currencySymbol"
                                           class="tutor-edit-pricing"
                                           type="number"
                                           :hide-details="$vuetify.breakpoint.xsOnly"
@@ -148,7 +148,7 @@
             },
         },
         computed: {
-            ...mapGetters(['getProfile']),
+            ...mapGetters(['getProfile','accountUser']),
             bio: {
                 get() {
                     return this.getProfile.about.bio;
@@ -167,7 +167,8 @@
             },
             price: {
                 get() {
-                    return +this.getProfile.user.tutorData.price.toFixed(0)
+                    let price = this.getProfile.user.tutorData.price
+                    return +price.slice(1,price.length)
                 },
                 set(newVal) {
                     this.editedPrice = +newVal

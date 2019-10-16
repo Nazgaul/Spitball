@@ -1,5 +1,5 @@
 const analyticsService = {
-
+    
     sb_unitedEvent: (category, action, label = '') => {
         if (category && action) {
             global.ga( 'send', 'event', `${category}`, `${action}`, `${label}`);
@@ -17,12 +17,15 @@ const analyticsService = {
     },
 
     sb_fireTimingAnalytic: (timingCategory, timingVar, timingValue, timingLabel) => {
-        // ga('send', 'timing', 'JS Dependencies', 'load', 3549);
-        global.ga('send', 'timing', timingCategory, timingVar, timingValue, timingLabel);
+        if(!!global.ga){
+            global.ga('send', 'timing', timingCategory, timingVar, timingValue, timingLabel);
+        }
     },
 
     sb_setUserId: (userId) => {
-        global.ga('set', 'userId', userId);
+        if(!!global.ga){
+            global.ga('set', 'userId', userId);
+        }
     }
 
 

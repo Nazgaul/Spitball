@@ -135,9 +135,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            ResourcesMaintenance.DeleteStuffFromJs();
             //await UpdateMethod();
-            var v = _container.Resolve<IIpToLocation>();
-            var x = await v.GetAsync(IPAddress.Parse("147.243.149.244"), default);
+           // var v = _container.Resolve<IIpToLocation>();
+           // var x = await v.GetAsync(IPAddress.Parse("147.243.149.244"), default);
            // var c = _container.Resolve<IReadTutorRepository>();
            // await c.GetReadTutorAsync(638, default);
            // ResourcesMaintenance.DeleteUnusedSvg();

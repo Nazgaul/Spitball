@@ -27,6 +27,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Autofac.Features.Indexed;
 using Cloudents.Core.Enum;
+using Cloudents.Query.Documents;
 using Cloudents.Web.Services;
 using Wangkanai.Detection;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Cloudents.Core;
 
 namespace ConsoleApp
 {
@@ -85,9 +86,56 @@ namespace ConsoleApp
 
         public static void DeleteStuffFromJs()
         {
+            //RemoveImages();
             //RemoveComments();
             DeleteUnusedFontSvg();
             DeleteUnusedResources();
+        }
+
+        private static void RemoveImages()
+        {
+            var directoryName = Directory.GetCurrentDirectory();
+            //var s = Directory.GetParent(directoryName);
+            while (!Directory.GetFiles(directoryName, "*.sln").Any())
+            {
+                directoryName = Directory.GetParent(directoryName).ToString();
+            }
+
+            var allFiles = Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp",
+                "*", SearchOption.AllDirectories);
+
+
+            var images = allFiles.Where(w =>
+                FileTypesExtension.Image.Extensions.Contains(Path.GetExtension(w), StringComparer.OrdinalIgnoreCase));
+
+            foreach (var imageFullPath in images)
+            {
+                var image = Path.GetFileName(imageFullPath);
+                string firstOccurrence = null;
+                foreach (string file in allFiles)
+                {
+                    if (!_fileContentCache.TryGetValue(file, out var lines))
+                    {
+                        lines = File.ReadAllLines(file);
+                        _fileContentCache[file] = lines;
+                    }
+                    firstOccurrence = lines.FirstOrDefault(l => l.Contains(image));
+                    if (!string.IsNullOrEmpty(firstOccurrence))
+                    {
+                        break;
+                    }
+
+                   
+
+                }
+
+                if (string.IsNullOrEmpty(firstOccurrence))
+                {
+                    Console.WriteLine($"Deleting image {imageFullPath}");
+                    File.Delete(imageFullPath);
+                }
+            }
+
         }
 
 
@@ -117,9 +165,9 @@ namespace ConsoleApp
                     _fileContentCache[file] = lines;
                 }
 
-                foreach (Match match in blocks.Matches(string.Join(Environment.NewLine,lines)))
+                foreach (Match match in blocks.Matches(string.Join(Environment.NewLine, lines)))
                 {
-                    
+
                 }
             }
         }

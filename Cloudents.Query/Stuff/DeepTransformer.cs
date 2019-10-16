@@ -133,11 +133,11 @@ namespace Cloudents.Query.Stuff
 
             for (var i = 0; i < list.Count; i++)
             {
-                var aliase = list[i];
+                var alias = list[i];
                 // Aliase with the '.' represents complex IPersistentEntity chain
-                if (aliase.Contains(_complexChar))
+                if (alias.Contains(_complexChar))
                 {
-                    complexAliases.Add(aliase);
+                    complexAliases.Add(alias);
                     propertyAliases[i] = null;
                 }
             }
@@ -216,7 +216,7 @@ namespace Cloudents.Query.Stuff
         // convert to DISTINCT list with populated Fields
         public IList TransformList(IList collection)
         {
-            return Transformers.AliasToBean<TEntity>().TransformList(collection);
+            return _baseTransformer.TransformList(collection);
         }
     }
 }

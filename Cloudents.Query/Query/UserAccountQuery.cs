@@ -30,6 +30,7 @@ namespace Cloudents.Query.Query
                 const string sql = @"select u.Id, U.Balance, u.Name, u.Image, u.Email, 
                           case when u.UniversityId2 is null then 0 else 1 end as UniversityExists,
                           u.Score, u.PhoneNumberHash,
+                u.Country,
                           t.State as IsTutor,
                             coalesce(
                                 iif(u.PaymentExists != 0 , 0, null),

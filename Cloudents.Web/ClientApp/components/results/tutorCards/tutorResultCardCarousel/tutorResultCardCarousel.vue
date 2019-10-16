@@ -28,10 +28,10 @@
                     </div>
                     <img v-show="isLoaded" class="user-image" @error="onImageLoadError" @load="loaded" :src="getImgUrl(tutor.image)" :alt="tutor.name">
                     <div>
-                        <div class="striked" v-if="showStriked(tutor.price)"> &#8362;{{tutor.price}}</div>
+                        <div class="striked" v-if="showStriked(tutor.price)">{{tutor.price}}</div>
                         <div>
-                            <span v-if="showStriked(tutor.price)" class="price font-weight-bold"><span class="price-sign">&#8362;</span>{{discountedPrice(tutor.price)}}</span>
-                            <span class="price font-weight-bold" v-else><span class="price-sign">&#8362;</span>{{tutor.price}}</span>
+                            <span v-if="showStriked(tutor.price)" class="price font-weight-bold">{{discountedPrice(tutor.price)}}</span>
+                            <span class="price font-weight-bold" v-else>{{tutor.price}}</span>
                             <div class="caption hour" v-language:inner="'resultTutor_hour'"></div>
                         </div>
                     </div>
@@ -310,9 +310,6 @@ export default {
                             .price {
                                 font-family: Arial;
                                 font-size: 22px;
-                                .price-sign {
-                                    font-size: 16px;
-                                }
                             }
                             .hour {
                                 align-items: end;
