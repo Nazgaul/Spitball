@@ -60,7 +60,7 @@ module.exports = (env) => {
                                 },
                                 mozjpeg: {
                                     progressive: true,
-                                    quality: 90
+                                    quality: 80
                                 }
                             }
                         }
@@ -115,10 +115,10 @@ module.exports = (env) => {
                 }
             ]
         },
-        devtool: isDevBuild ? 'inline-source-map' : false,
+        devtool: false,
         optimization: {
             minimize: !isDevBuild,
-            minimizer: [new TerserPlugin({
+            minimizer: !isDevBuild ? [new TerserPlugin({
 
 
             }), new OptimizeCssAssetsPlugin({
@@ -144,7 +144,7 @@ module.exports = (env) => {
                     //reduceIdents: false
                 },
                 canPrint: true
-            })] 
+            })] : []
         },
         plugins: [
             new VueLoaderPlugin(),
@@ -155,6 +155,7 @@ module.exports = (env) => {
             }),
             new webpack.DllReferencePlugin({
                 context: __dirname,
+                // ReSharper disable once JsPathNotFound
                 manifest: require("./wwwroot/dist/vendor-manifest.json")
             })
         ].concat(isDevBuild
@@ -191,4 +192,4 @@ module.exports = (env) => {
         }
 
     };
-}
+};

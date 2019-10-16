@@ -126,9 +126,6 @@
   <data name="btn_stop_sharing" xml:space="preserve">
     <value>Stop Sharing</value>
   </data>
-  <data name="btn_system_check" xml:space="preserve">
-    <value>System Check</value>
-  </data>
   <data name="chrome_ext_btn_cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -288,5 +285,8 @@ Try connecting from a computer browser</value>
   </data>
   <data name="browser_not" xml:space="preserve">
     <value>Browser not supported</value>
+  </data>
+  <data name="tooltip_iink" xml:space="preserve">
+    <value>Handwriting</value>
   </data>
 </root>

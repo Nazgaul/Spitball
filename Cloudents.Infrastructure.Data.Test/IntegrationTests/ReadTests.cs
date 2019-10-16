@@ -4,8 +4,6 @@ using System.Linq;
 using Cloudents.Query.Documents;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Extension;
-using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudents.Query.Query;
 using Cloudents.Query.Tutor;
@@ -50,28 +48,36 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query2 = new TutorSyncAzureSearchQuery(version);
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
-            _ = await fixture.QueryBus.QueryAsync(query2, default);
+            await fixture.QueryBus.QueryAsync(query2, default);
 
 
         }
 
         [Theory]
-        [InlineData(638, 0, null, "IL")]
-        [InlineData(638, 0, new[] { "x", "y" }, "IL")]
-        [InlineData(0, 0, new[] { "x", "y" }, "IL")]
-        public async Task DocumentAggregateQuery_Ok(long userId, int page, string[] filter, string country)
+        [InlineData(638, 0, null, "IL", null)]
+        [InlineData(638, 0, new[] { "x", "y" }, "IL", null)]
+        [InlineData(0, 0, new[] { "x", "y" }, "IL",null)]
+        [InlineData(0, 0, new[] { "x", "y" }, "IL", "economics")]
+        [InlineData(638, 0, new[] { "x", "y" }, "IL", "economics")]
+        [InlineData(638, 1, new[] { "x", "y" }, "IL", null)]
+        
+        public async Task DocumentAggregateQuery_Ok(long userId, int page, string[] filter, string country ,string course)
         {
-            var query = new DocumentAggregateQuery(userId, page, filter, country);
+            var query = new FeedAggregateQuery(userId, page, filter, country,course);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
 
+
+            result.OfType<QuestionFeedDto>().Should().Contain(c => c.UserId > 0);
+            result.OfType<QuestionFeedDto>().Should().Contain(c => c.CultureInfo != null);
+            //.All(a => a.UserId.Should().BeGreaterThan(0));
             //var dictionary = new Dictionary<string,bool>();
             //foreach (var x in result.Result)
             //{
             //    var values = x.AsDictionary();
             //    foreach (var value in values)
             //    {
-                    
+
             //        if (value.Value == default)
             //        {
             //            dictionary.TryAdd(value.Key, true);
@@ -84,30 +90,25 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
             //var resultTests = dictionary.Where(w => w.Value).Select(s => s.Key).ToList();
             //resultTests.Should().BeEmpty();
-
-
-
-
-
         }
 
 
-        [Fact]
-        public async Task DocumentCourseQuery_Ok()
-        {
-            var query = new DocumentCourseQuery(638, 0, "economics", null, "IL");
+        //[Fact]
+        //public async Task DocumentCourseQuery_Ok()
+        //{
+        //    var query = new DocumentCourseQuery(638, 0, "economics", null, "IL");
 
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
 
-        [Fact]
-        public async Task DocumentCourseQuery_Filter_Ok()
-        {
-            var query = new DocumentCourseQuery(638, 0, "economics", new[] { "x", "y" }, "IL");
+        //[Fact]
+        //public async Task DocumentCourseQuery_Filter_Ok()
+        //{
+        //    var query = new DocumentCourseQuery(638, 0, "economics", new[] { "x", "y" }, "IL");
 
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
 
         [Fact]
@@ -151,7 +152,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             };
             var query = new IdsQuestionsQuery<long>(ids);
 
-            var _ = await fixture.QueryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
 
@@ -184,11 +185,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             _.Should().HaveCountGreaterOrEqualTo(1);
         }
 
-        [Fact]
+        [Theory]
+        [InlineData(638)]
+        [InlineData(11)]
+        [InlineData(605)]
+        [InlineData(36)]
 
-        public async Task UserProfileQuery_Ok()
+        public async Task UserProfileQuery_Ok(long id)
         {
-            var query = new UserProfileQuery(638);
+            var query = new UserProfileQuery(id);
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
@@ -216,7 +221,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserPurchaseDocumentByIdQuery_Ok()
         {
             var query = new UserPurchaseDocumentByIdQuery(638, 0);
-            var result = await fixture.QueryBus.QueryAsync(query, default);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
 
         }
 

@@ -5,7 +5,7 @@
             <v-icon color="white" class="mr-2 attachClass" v-html="'sbf-attachment'"/>
                 <div class="ufItem-error-txt">
                     <span>{{item.name}}</span>
-                    <span>{{item.errorText}}</span>
+                    <span class="ufItem-error-txt-content">{{item.errorText}}</span>
                 </div>
         </v-flex>
         <v-flex xs12 sm3 :class="[{'pl-4':isMobile}]">
@@ -84,8 +84,8 @@ export default {
         color: white;
         border: 1px solid white !important;
         font-size: 14px;
-        font-weight: 600;
-        letter-spacing: -0.26px;
+        font-weight: 100;
+        letter-spacing: 0.5px;
     }
     .ufItem-error-span{
         font-size: 14px;
@@ -99,6 +99,11 @@ export default {
         .ufItem-error-txt{
             display: flex;
             flex-direction: column;
+            .ufItem-error-txt-content{
+                font-size: 12px;
+                line-height: 1.6;
+                font-weight: normal;
+            }
         }
         .v-icon{
             transform: rotate(90deg);

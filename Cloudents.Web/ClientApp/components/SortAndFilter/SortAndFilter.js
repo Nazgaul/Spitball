@@ -5,7 +5,7 @@ export default {
     data() {
         return {
             isEdgeRtl :global.isEdgeRtl
-        }
+        };
     },
     props: {
         sortVal: {},
@@ -18,7 +18,7 @@ export default {
         filterList() {
             let result = [];
             if(!!this.filterOptions){
-                result = this.filterOptions.filterChunkList
+                result = this.filterOptions.filterChunkList;
             }
             return result;
         },
@@ -26,7 +26,7 @@ export default {
             return this.getSort;
         },
         panelList(){
-            return [[true], [true]]
+            return [[true], [true]];
         } 
     },
     watch:{
@@ -34,9 +34,9 @@ export default {
             setTimeout(()=>{
                 let expandedElms = document.getElementsByClassName('v-expansion-panel__body');
                 Array.prototype.forEach.call(expandedElms, function(expandElm){
-                    expandElm.style.display = ""
-                })
-            }, 300)
+                    expandElm.style.display = "";
+                });
+            }, 300);
         }
     },
     methods: {
@@ -77,15 +77,15 @@ export default {
                 query[id] = query[id].filter(item => item !== val);
             }
             if (val === 'inPerson' && isChecked) {
-                query.sort = "price"
+                query.sort = "price";
             }
             if (id.toLowerCase() === 'course') {
-                this.setFilteredCourses(query.course)
+                this.setFilteredCourses(query.course);
             }
             this.$router.push({query});
         },
         isRadioChecked(singleSort, index){
-           return this.sortVal ? this.sortVal === singleSort.key : index===0
+           return this.sortVal ? this.sortVal === singleSort.key : index===0;
         },
 
     }

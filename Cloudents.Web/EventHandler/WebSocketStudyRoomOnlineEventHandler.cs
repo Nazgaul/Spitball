@@ -38,7 +38,7 @@ namespace Cloudents.Web.EventHandler
             });
             if (onlineCount == totalOnline)
             {
-                var session = studyRoom.Sessions.AsQueryable().Where(w => w.Ended == null).OrderByDescending(o => o.Id).FirstOrDefault();
+                var session = studyRoom.GetCurrentSession();//.AsQueryable().Where(w => w.Ended == null).OrderByDescending(o => o.Id).FirstOrDefault();
                 if (session != null)
                 {
                     var roomExists = await _videoProvider.GetRoomAvailableAsync(session.SessionId);

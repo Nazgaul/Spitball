@@ -12,11 +12,11 @@ using NHibernate.UserTypes;
 
 namespace Cloudents.Persistence
 {
-    public class IEnumerableJsonStringMapping : IUserType
+    public class EnumerableJsonStringMapping : IUserType
     {
         bool IUserType.Equals(object x, object y)
         {
-            if (object.ReferenceEquals(x, y))
+            if (ReferenceEquals(x, y))
                 return true;
 
             if (x == null || y == null)
@@ -85,7 +85,7 @@ namespace Cloudents.Persistence
             return value;
         }
 
-        public SqlType[] SqlTypes => new SqlType[] { new SqlType(DbType.String) };
+        public SqlType[] SqlTypes => new[] { new SqlType(DbType.String) };
         public Type ReturnedType => typeof(IEnumerable<string>);
         public bool IsMutable => false;
     }

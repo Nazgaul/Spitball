@@ -18,8 +18,8 @@ namespace Cloudents.Query.Query
     }
 
     public class UserVotesByCategoryQuery : 
-        IQuery<IEnumerable<UserVoteDocumentDto>>,
-        IQuery<IEnumerable<UserVoteQuestionDto>>
+        IQuery<IEnumerable<UserVoteDocumentDto>>
+       
 
     {
         public UserVotesByCategoryQuery(long userId)

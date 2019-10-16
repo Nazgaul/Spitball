@@ -48,10 +48,10 @@ namespace Cloudents.Core.Storage
         Task<string> DownloadTextAsync(string name, string directory, CancellationToken token);
     }
 
-    public interface IQuestionsDirectoryBlobProvider : IBlobProvider
-    {
+    //public interface IQuestionsDirectoryBlobProvider : IBlobProvider
+    //{
 
-    }
+    //}
 
     public interface IUserDirectoryBlobProvider : IBlobProvider
     {

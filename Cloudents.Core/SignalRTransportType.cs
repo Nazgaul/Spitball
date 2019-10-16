@@ -57,7 +57,7 @@ namespace Cloudents.Core
     public enum SignalREventAction
     {
         Logout,
-        MarkAsCorrect,
+        //MarkAsCorrect,
         Toaster,
         OnlineStatus,
         StartSession,

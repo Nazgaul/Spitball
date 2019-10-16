@@ -4,7 +4,7 @@ const state = {
     statesEnum: {
         feed: 'feed',
         earners: 'earners',
-        promotions: 'promotions',
+        promotions: 'promotions'
     }
 };
 const getters = {

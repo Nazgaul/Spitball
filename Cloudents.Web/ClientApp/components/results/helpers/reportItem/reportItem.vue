@@ -106,12 +106,12 @@
             },
         },
         methods: {
-            ...mapActions(['HomeworkHelp_reportQuestion', 'reportDocument', 'HomeworkHelp_reportAnswer', 'answerRemoved']),
+            ...mapActions(['Feeds_reportQuestion', 'reportDocument', 'Feeds_reportAnswer', 'answerRemoved']),
             callRelevantAction(type, data) {
                 let actions = {
-                    "ask": this.HomeworkHelp_reportQuestion,
+                    "feed": this.Feeds_reportQuestion,
                     "note": this.reportDocument,
-                    "answer": this.HomeworkHelp_reportAnswer
+                    "answer": this.Feeds_reportAnswer
                 };
                 return actions[type](data);
 

@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
+using Cloudents.Core;
 
 namespace ConsoleApp
 {
     public static class ResourcesMaintenance
     {
         private static readonly Dictionary<string, string[]> _fileContentCache = new Dictionary<string, string[]>();
-        public static void DeleteUnusedResources()
+        private static void DeleteUnusedResources()
         {
             //TODO: :// we need to think about landing page and other instances of resources string interpolation!
             //TODO :// maybe some performance tweaks and thats it.
@@ -63,9 +65,8 @@ namespace ConsoleApp
                     }
                     if (string.IsNullOrEmpty(firstOccurrence))
                     {
-                        Console.WriteLine($"file path: {resourceFile}");
+                        Console.WriteLine($"file path: {resourceFile}, element name: {name}");
                         Console.WriteLine($"element name: {name}");
-                        Console.WriteLine("-----------------------");
 
                         var p = dataElement[i].ParentNode;
                         p.RemoveChild(dataElement[i]);
@@ -83,11 +84,99 @@ namespace ConsoleApp
             }
         }
 
+        public static void DeleteStuffFromJs()
+        {
+            //RemoveImages();
+            //RemoveComments();
+            DeleteUnusedFontSvg();
+            DeleteUnusedResources();
+        }
 
-        public static void DeleteUnusedSvg()
+        private static void RemoveImages()
+        {
+            var directoryName = Directory.GetCurrentDirectory();
+            //var s = Directory.GetParent(directoryName);
+            while (!Directory.GetFiles(directoryName, "*.sln").Any())
+            {
+                directoryName = Directory.GetParent(directoryName).ToString();
+            }
+
+            var allFiles = Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp",
+                "*", SearchOption.AllDirectories);
+
+
+            var images = allFiles.Where(w =>
+                FileTypesExtension.Image.Extensions.Contains(Path.GetExtension(w), StringComparer.OrdinalIgnoreCase));
+
+            foreach (var imageFullPath in images)
+            {
+                var image = Path.GetFileName(imageFullPath);
+                string firstOccurrence = null;
+                foreach (string file in allFiles)
+                {
+                    if (!_fileContentCache.TryGetValue(file, out var lines))
+                    {
+                        lines = File.ReadAllLines(file);
+                        _fileContentCache[file] = lines;
+                    }
+                    firstOccurrence = lines.FirstOrDefault(l => l.Contains(image));
+                    if (!string.IsNullOrEmpty(firstOccurrence))
+                    {
+                        break;
+                    }
+
+                   
+
+                }
+
+                if (string.IsNullOrEmpty(firstOccurrence))
+                {
+                    Console.WriteLine($"Deleting image {imageFullPath}");
+                    File.Delete(imageFullPath);
+                }
+            }
+
+        }
+
+
+        private static void RemoveComments()
+        {
+
+            var blocks = new Regex(@"\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$", RegexOptions.Multiline);
+            Console.WriteLine("Delete unused svg");
+            Console.WriteLine(Directory.GetCurrentDirectory());
+
+            var directoryName = Directory.GetCurrentDirectory();
+            //var s = Directory.GetParent(directoryName);
+            while (!Directory.GetFiles(directoryName, "*.sln").Any())
+            {
+                directoryName = Directory.GetParent(directoryName).ToString();
+            }
+
+
+            string[] jsFiles = Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp",
+                "*", SearchOption.AllDirectories);
+
+            foreach (string file in jsFiles)
+            {
+                if (!_fileContentCache.TryGetValue(file, out var lines))
+                {
+                    lines = File.ReadAllLines(file);
+                    _fileContentCache[file] = lines;
+                }
+
+                foreach (Match match in blocks.Matches(string.Join(Environment.NewLine, lines)))
+                {
+
+                }
+            }
+        }
+
+        private static void DeleteUnusedFontSvg()
         {
             //TODO: :// we need to think about landing page and other instances of resources string interpolation!
             //TODO :// maybe some performance tweaks and thats it.
+            Console.WriteLine("Delete unused svg");
             Console.WriteLine(Directory.GetCurrentDirectory());
 
             var directoryName = Directory.GetCurrentDirectory();

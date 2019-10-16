@@ -45,8 +45,8 @@ namespace Cloudents.Query
             {
                 var retVal = await conn.QueryAsync<QuestionFeedDto, UserDto, VoteDto, QuestionFeedDto>(sql, (feedDto, userDto, voteDto) =>
              {
-                 feedDto.User = userDto;
-                 feedDto.Vote = voteDto;
+                 //feedDto.User = userDto;
+                 //feedDto.Vote = voteDto;
                  return feedDto;
              }, new { ids = query.QuestionIds }, splitOn: "Id,Votes");
 

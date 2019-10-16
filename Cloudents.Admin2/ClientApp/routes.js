@@ -1,7 +1,6 @@
 //import Home from './components/Home.vue';
 
 import question from './components/question/question.vue';
-import qMark from './components/question/questionComponents/mark/markQuestion.vue';
 import qDelete from './components/question/questionComponents/delete/deleteQuestion.vue';
 import qAdd from './components/question/questionComponents/add/addQuestion.vue';
 import qAddBulk from './components/question/questionComponents/addBulk/addBulkQuestions.vue';
@@ -137,11 +136,7 @@ export const routes = [
         children: [
           {
             path: '',
-            redirect: 'mark'
-          },
-          {
-            path: 'mark',
-            component: qMark
+            redirect: 'pendingQuestions'
           },
           {
             path:'delete',
@@ -169,7 +164,7 @@ export const routes = [
           },
           {
             path: '*',
-            redirect: 'mark'
+            redirect: 'pendingQuestions'
           }
         ]
     },

@@ -120,7 +120,22 @@
   <data name="bottom" xml:space="preserve">
     <value>אנחנו לא שומרים בשרתים שלנו פרטי כרטיס אשראי של לקוחות. כרטיס אשראי מוזן ישירות במערכת PayMe המתמחה בתחום, שם הם נשמרים. כאשר יסתיים השיעור, אנחנו מורים לחברת PayMe לחייב את כרטיס האשראי (בלי לדעת את פרטי הכרטיס).</value>
   </data>
+  <data name="content_txt_hands" xml:space="preserve">
+    <value>אם לא מרוצים מהשיעור, נתקו את השיעור תוך 10 דקות ולא תחוייבו</value>
+  </data>
+  <data name="content_txt_sheild" xml:space="preserve">
+    <value>המערכת מעבדת </value>
+  </data>
+  <data name="content_txt_time" xml:space="preserve">
+    <value>החיוב יבוצע רק בסיום השיעור </value>
+  </data>
   <data name="title" xml:space="preserve">
     <value>התשלום עבור שיעור פרטי עם המורה {1}  יבוצע לאחר השיעור, חשבונית תשלח לאימייל שבו נרשמת למערכת.</value>
+  </data>
+  <data name="top_desc" xml:space="preserve">
+    <value>התשלום למורה על פי המחיר הנקוב במערכת +  9% עמלת מערכת</value>
+  </data>
+  <data name="top_title" xml:space="preserve">
+    <value>נוחות, תשלום ללא מזומן</value>
   </data>
 </root>

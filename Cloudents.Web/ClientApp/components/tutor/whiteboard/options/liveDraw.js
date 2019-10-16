@@ -1,22 +1,22 @@
 import {createPointsByOption, createShape} from '../utils/factories'
 import canvasFinder from '../utils/canvasFinder';
 
-const OPTION_TYPE = 'liveDraw';
+const optionType = 'liveDraw';
 
 let localShape = createShape({
-    type: OPTION_TYPE,
+    type: optionType,
     points: []
 });
 
 const clearLocalShape = function(){
     localShape = createShape({
-        type: OPTION_TYPE,
+        type: optionType,
         points: []
     });
-}
+};
 const init = function(){
     
-}
+};
 const draw = function(dragObj){
     //determin the stroke color
     this.context.strokeStyle = dragObj.strokeStyle;
@@ -29,14 +29,14 @@ const draw = function(dragObj){
     }
     this.context.lineTo(dragObj.mouseX, dragObj.mouseY);
     this.metaData.previouseDrawingPosition = dragObj;
-}
+};
 const liveDraw = function(dragObj){
     this.context.beginPath();
     draw.bind(this, dragObj)();
     this.context.closePath();
     this.context.stroke();
     
-}
+};
 
 const mousedown = function(e){
     //Set Click Position
@@ -48,14 +48,14 @@ const mousedown = function(e){
         mouseY,
         isDragging: false,
         strokeStyle: this.color.hex,
-        option: OPTION_TYPE,
+        option: optionType,
         eventName: 'start'
-    })
+    });
 
     this.shouldPaint = true;
     localShape.points.push(dragObj);
     liveDraw.bind(this, dragObj)();
-}
+};
 const mousemove = function(e){
     if(this.shouldPaint){
         let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft - e.target.getBoundingClientRect().left, e.pageY - e.target.getBoundingClientRect().top);
@@ -64,30 +64,29 @@ const mousemove = function(e){
             mouseY,
             isDragging: true,
             strokeStyle: this.color.hex,
-            option: OPTION_TYPE,
+            option: optionType,
             eventName: 'move'
-        })
+        });
         localShape.points.push(dragObj);
         liveDraw.bind(this, dragObj)();
     }
-}
+};
 
-const defineEndPosition = function(e){
+const defineEndPosition = function(){
     if(this.shouldPaint){
         this.methods.addShape(localShape, clearLocalShape);
     }
     this.shouldPaint = false;
-}
-
+};
 
 
 const mouseup = function(e){
-    defineEndPosition.bind(this, e)()
-}
+    defineEndPosition.bind(this, e)();
+};
 
 const mouseleave = function(e){
-    defineEndPosition.bind(this, e)()
-}
+    defineEndPosition.bind(this, e)();
+};
 
 export default{
     mousedown,

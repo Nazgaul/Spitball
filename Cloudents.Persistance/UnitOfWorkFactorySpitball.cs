@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Cloudents.Core.Interfaces;
@@ -7,12 +6,9 @@ using Cloudents.Persistence.Maps;
 using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Cfg;
-using NHibernate.Dialect;
-using NHibernate.Engine;
 using NHibernate.Event;
 using NHibernate.Mapping;
 using NHibernate.Tool.hbm2ddl;
-using NHibernate.Util;
 using ForeignKey = FluentNHibernate.Conventions.Helpers.ForeignKey;
 
 namespace Cloudents.Persistence
@@ -33,13 +29,13 @@ namespace Cloudents.Persistence
 #if DEBUG
                         .ShowSql()
 #endif
-                ).ExposeConfiguration(BuildSchema);
+                ).ExposeConfiguration((x) => BuildSchema(x, connectionString.Db.NeedValidate));
 
             configuration.Mappings(m =>
             {
                 m.FluentMappings.AddFromAssemblyOf<UserMap>()
                     .Conventions.Add(ForeignKey.EndsWith("Id"));
-                
+
             });
 
 
@@ -64,23 +60,20 @@ namespace Cloudents.Persistence
             return session;
         }
 
-        //public ISessionFactory GetFactory()
-        //{
-        //    return _factory;
-        //}
+
 
         public IStatelessSession OpenStatelessSession()
         {
             return _factory.OpenStatelessSession();
         }
 
-        private void BuildSchema(Configuration config)
+        private void BuildSchema(Configuration config, bool needValidate)
         {
             SchemaMetadataUpdater.QuoteTableAndColumns(config, new SbDialect());
 #if DEBUG
             config.SetInterceptor(new LoggingInterceptor());
 #endif
-           // var eventPublisherListener = new PublishEventsListener(_publisher);
+            // var eventPublisherListener = new PublishEventsListener(_publisher);
             config.SetListener(ListenerType.PostCommitDelete, _publisher);
             config.SetListener(ListenerType.Delete, new SoftDeleteEventListener());
             config.SetListener(ListenerType.PostCommitInsert, _publisher);
@@ -114,7 +107,10 @@ namespace Cloudents.Persistence
             //config.SessionFactory().Caching.WithDefaultExpiration(TimeConst.Day);
             //config.Properties.Add("cache.default_expiration",$"{TimeConst.Day}");
             //config.Properties.Add("cache.use_sliding_expiration",bool.TrueString.ToLowerInvariant());
-            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
+            if (needValidate)
+            {
+                config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -52,6 +53,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         //public string User => TestUser.GetTestUser();
 
 
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local", Justification = "Json serializer")]
         private class TestUser
         {
             private TestUser()

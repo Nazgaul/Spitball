@@ -4,7 +4,6 @@ using Microsoft.Azure.Search;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 
 namespace Cloudents.Search.Entities

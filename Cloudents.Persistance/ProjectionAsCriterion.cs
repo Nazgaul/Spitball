@@ -23,7 +23,7 @@ namespace Cloudents.Persistence
 
             var sqlBuilder = new SqlStringBuilder(4 * columnNames.Length);
 
-            for (int i = 0; i < columnNames.Length; i++)
+            for (var i = 0; i < columnNames.Length; i++)
             {
                 if (i > 0)
                 {

@@ -27,7 +27,7 @@ module.exports = (env) => {
                                    
                                 }
                             },
-                                less: ['vue-style-loader', 'css-loader', 'less-loader'],
+                                less: ['vue-style-loader', 'css-loader', 'less-loader']
                             }
                     }
                 },

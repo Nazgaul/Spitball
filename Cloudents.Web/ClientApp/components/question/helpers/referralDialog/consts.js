@@ -19,7 +19,7 @@ function getReferallMessages(type, url) {
                 whatsAppText: LanguageService.getValueByKey("referralDialog_title_document") + " " + LanguageService.getValueByKey("referralDialog_get_document_text") + " " + encodeURIComponent(url),
             }
     };
-    return types[type]
+    return types[type];
 }
 
 export  {

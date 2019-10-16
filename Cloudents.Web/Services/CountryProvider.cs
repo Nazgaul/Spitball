@@ -44,10 +44,17 @@ namespace Cloudents.Web.Services
 
             if (cookieValue == null)
             {
+                try
+                {
 
-                var result = await _ipToLocation.GetAsync(_httpContext.HttpContext.Connection.GetIpAddress(),
-                    token);
-                cookieValue = result?.Address?.CountryCode;
+                    var result = await _ipToLocation.GetAsync(_httpContext.HttpContext.Connection.GetIpAddress(),
+                        token);
+                    cookieValue = result?.Address?.CountryCode;
+                }
+                catch (Exception e)
+                {
+                    _logger.Exception(e);
+                }
 
 
                 if (cookieValue == null)

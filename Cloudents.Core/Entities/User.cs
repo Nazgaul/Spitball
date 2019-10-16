@@ -36,15 +36,11 @@ namespace Cloudents.Core.Entities
 
         public virtual bool PhoneNumberConfirmed { get; set; }
         public virtual string PasswordHash { get; set; }
-        public virtual DateTimeOffset? LockoutEnd { get; set; }
+       
 
         public virtual int AccessFailedCount { get; set; }
 
-        public virtual bool LockoutEnabled { get; set; }
-
-        // public virtual bool TwoFactorEnabled { get; set; }
-
-        public virtual string LockoutReason { get; set; }
+       
 
         // ReSharper disable once CollectionNeverUpdated.Local Nhiberate
         private readonly IList<Answer> _answers = new List<Answer>();
@@ -118,13 +114,12 @@ namespace Cloudents.Core.Entities
 
 
         public virtual DateTime LastOnline { get; protected set; }
-        public virtual bool Online { get; protected set; }
+
+        public override bool Online { get; protected set; }
 
         public virtual UserTransactions Transactions { get; protected set; }
 
-        public virtual string FirstName { get; protected set; }
-        public virtual string LastName { get; protected set; }
-        public virtual string Description { get; set; }
+       
         public virtual Tutor Tutor { get; set; }
 
         public virtual BuyerPayment BuyerPayment { get; protected set; }
@@ -247,7 +242,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public override int Score { get; protected set; }  //=> Transactions.Score;
+        public override int Score { get; protected set; } 
         public override decimal Balance => Transactions.Balance;
 
 
@@ -257,43 +252,4 @@ namespace Cloudents.Core.Entities
             PaymentExists = PaymentStatus.None;
         }
     }
-
-
-    //public abstract class UserRole : IEquatable<UserRole>
-    //{
-    //    public UserRole(RegularUser user)
-    //    {
-    //        User = user;
-    //    }
-    //    protected UserRole()
-    //    {
-
-    //    }
-    //    public virtual Guid Id { get; set; }
-    //    public virtual RegularUser User { get; set; }
-
-    //    public abstract string Name { get; }
-
-    //    public virtual bool Equals(UserRole other)
-    //    {
-    //        if (ReferenceEquals(null, other)) return false;
-    //        if (ReferenceEquals(this, other)) return true;
-    //        return Equals(User, other.User);
-    //    }
-
-    //    public override bool Equals(object obj)
-    //    {
-    //        if (ReferenceEquals(null, obj)) return false;
-    //        if (ReferenceEquals(this, obj)) return true;
-    //        if (obj.GetType() != GetType()) return false;
-    //        return Equals((UserRole)obj);
-    //    }
-
-    //    public override int GetHashCode()
-    //    {
-    //        return (User != null ? User.GetHashCode() : 0);
-    //    }
-
-
-    //}
 }

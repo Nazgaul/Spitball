@@ -1,6 +1,4 @@
-﻿using Cloudents.Core.Enum;
-
-namespace Cloudents.Command.Command.Admin
+﻿namespace Cloudents.Command.Command.Admin
 {
     public class ChangeConversationAssignCommand : ICommand
     {

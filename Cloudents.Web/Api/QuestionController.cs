@@ -1,35 +1,23 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Item.Commands.FlagItem;
-using Cloudents.Command.Votes.Commands.AddVoteQuestion;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Query;
-using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Models;
-using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Models;
-using Cloudents.Web.Binders;
 using Microsoft.AspNetCore.Http;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
@@ -46,19 +34,14 @@ namespace Cloudents.Web.Api
 
         private readonly UserManager<User> _userManager;
         private readonly IStringLocalizer<QuestionController> _localizer;
-        private readonly IQuestionSearch _questionSearch;
-        private readonly IQuestionsDirectoryBlobProvider _blobProvider;
 
         public QuestionController(ICommandBus commandBus, UserManager<User> userManager,
-            IStringLocalizer<QuestionController> localizer, IQuestionSearch questionSearch,
-            IQuestionsDirectoryBlobProvider blobProvider
+            IStringLocalizer<QuestionController> localizer
            )
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _localizer = localizer;
-            _questionSearch = questionSearch;
-            _blobProvider = blobProvider;
         }
 
         [HttpPost]
@@ -77,7 +60,7 @@ namespace Cloudents.Web.Api
             try
             {
                 var command = new CreateQuestionCommand(model.Text,
-                    userId, model.Files, model.Course);
+                    userId, model.Course);
                 await _commandBus.DispatchAsync(command, token);
             }
             catch (DuplicateRowException)
@@ -110,15 +93,7 @@ namespace Cloudents.Web.Api
 
        
 
-        [HttpPut("correct")]
-        public async Task<IActionResult> MarkAsCorrectAsync([FromBody]MarkAsCorrectRequest model, CancellationToken token)
-        {
-            // var link = Url.Link("WalletRoute", null);
-            var command = new MarkAnswerAsCorrectCommand(model.AnswerId, _userManager.GetLongUserId(User));
-
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        
 
         [AllowAnonymous]
         [HttpGet("{id}")]
@@ -128,45 +103,45 @@ namespace Cloudents.Web.Api
             [FromServices] IQueryBus bus, CancellationToken token)
         {
             var retValTask = bus.QueryAsync(new QuestionDataByIdQuery(id), token);
-            var votesTask = Task.FromResult<Dictionary<Guid, VoteType>>(null);
+            //var votesTask = Task.FromResult<Dictionary<Guid, VoteType>>(null);
 
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = _userManager.GetLongUserId(User);
-                var queryTags = new UserVotesQuestionQuery(userId, id);
-                votesTask = bus.QueryAsync(queryTags, token)
-                    .ContinueWith(
-                        t2 =>
-                        {
-                            return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
-                        }, token);
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    var userId = _userManager.GetLongUserId(User);
+            //    var queryTags = new UserVotesQuestionQuery(userId, id);
+            //    votesTask = bus.QueryAsync(queryTags, token)
+            //        .ContinueWith(
+            //            t2 =>
+            //            {
+            //                return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
+            //            }, token);
 
-            }
+            //}
 
-            await Task.WhenAll(retValTask, votesTask);
+            await Task.WhenAll(retValTask);
             var retVal = retValTask.Result;
             if (retVal == null)
             {
                 return NotFound();
             }
 
-            if (votesTask.Result == null)
-            {
-                return retVal;
-            }
+            //if (votesTask.Result == null)
+            //{
+            //    return retVal;
+            //}
 
-            if (votesTask.Result.TryGetValue(default, out var p))
-            {
-                retVal.Vote.Vote = p;
-            }
+            //if (votesTask.Result.TryGetValue(default, out var p))
+            //{
+            //    retVal.Vote.Vote = p;
+            //}
 
-            foreach (var answer in retVal.Answers)
-            {
-                if (votesTask.Result.TryGetValue(answer.Id, out var p2))
-                {
-                    answer.Vote.Vote = p2;
-                }
-            }
+            //foreach (var answer in retVal.Answers)
+            //{
+            //    if (votesTask.Result.TryGetValue(answer.Id, out var p2))
+            //    {
+            //        answer.Vote.Vote = p2;
+            //    }
+            //}
 
             return retVal;
         }
@@ -188,103 +163,103 @@ namespace Cloudents.Web.Api
             }
         }
 
-        [AllowAnonymous, HttpGet(Name = "QuestionSearch")]
-        public async Task<ActionResult<WebResponseWithFacet<QuestionFeedDto>>> GetQuestionsAsync(
-            [FromQuery]QuestionsRequest model,
-            [ProfileModelBinder(ProfileServiceQuery.Country | ProfileServiceQuery.UniversityId)] UserProfile profile,
-            [FromServices] IQueryBus queryBus,
-           CancellationToken token)
-        {
-            var query = new QuestionsQuery(model.Term, model.Course, model.NeedUniversity, 
-                model.Filter?.Where(w => w.HasValue).Select(s => s.Value), profile.Country, profile.UniversityId)
-            {
-                Page = model.Page
-            };
+        //[AllowAnonymous, HttpGet(Name = "QuestionSearch")]
+        //public async Task<ActionResult<WebResponseWithFacet<QuestionFeedDto>>> GetQuestionsAsync(
+        //    [FromQuery]QuestionsRequest model,
+        //    [ProfileModelBinder(ProfileServiceQuery.Country | ProfileServiceQuery.UniversityId)] UserProfile profile,
+        //    [FromServices] IQueryBus queryBus,
+        //   CancellationToken token)
+        //{
+        //    var query = new QuestionsQuery(model.Term, model.Course, model.NeedUniversity, 
+        //        model.Filter?.Where(w => w.HasValue).Select(s => s.Value), profile.Country, profile.UniversityId)
+        //    {
+        //        Page = model.Page
+        //    };
 
 
 
-            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
+        //    var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
 
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = _userManager.GetLongUserId(User);
-                var queryTags = new UserVotesByCategoryQuery(userId);
-                votesTask = queryBus.QueryAsync<IEnumerable<UserVoteQuestionDto>>(queryTags, token)
-                    .ContinueWith(
-                        t2 =>
-                        {
-                            return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
-                        }, token);
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        var userId = _userManager.GetLongUserId(User);
+        //        var queryTags = new UserVotesByCategoryQuery(userId);
+        //        votesTask = queryBus.QueryAsync<IEnumerable<UserVoteQuestionDto>>(queryTags, token)
+        //            .ContinueWith(
+        //                t2 =>
+        //                {
+        //                    return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
+        //                }, token);
 
-            }
+        //    }
 
-            var taskResult = _questionSearch.SearchAsync(query, token);
-            await Task.WhenAll(votesTask, taskResult);
+        //    var taskResult = _questionSearch.SearchAsync(query, token);
+        //    await Task.WhenAll(votesTask, taskResult);
 
-            var result = taskResult.Result;
-            string nextPageLink = null;
-            if (result.Result.Count > 0)
-            {
-                nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
-            }
+        //    var result = taskResult.Result;
+        //    string nextPageLink = null;
+        //    if (result.Result.Count > 0)
+        //    {
+        //        nextPageLink = Url.NextPageLink("QuestionSearch", null, model);
+        //    }
 
-            return new WebResponseWithFacet<QuestionFeedDto>
-            {
-                Result = result.Result.Select(s =>
-                {
-                    if (s != null && (votesTask?.Result != null && votesTask.Result.TryGetValue(s.Id, out var param)))
-                    {
-                        s.Vote.Vote = param;
-                    }
+        //    return new WebResponseWithFacet<QuestionFeedDto>
+        //    {
+        //        Result = result.Result.Select(s =>
+        //        {
+        //            if (s != null && (votesTask?.Result != null && votesTask.Result.TryGetValue(s.Id, out var param)))
+        //            {
+        //                s.Vote.Vote = param;
+        //            }
 
-                    return s;
-                }),
-                Filters = new IFilters[]
-                {
-                    new Filters<string>(nameof(QuestionsRequest.Filter),_localizer["FilterTypeTitle"],
-                        result.FacetState.Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization()))),
+        //            return s;
+        //        }),
+        //        Filters = new IFilters[]
+        //        {
+        //            new Filters<string>(nameof(QuestionsRequest.Filter),_localizer["FilterTypeTitle"],
+        //                result.FacetState.Select(s=> new KeyValuePair<string, string>(s.ToString("G"),s.GetEnumLocalization()))),
                   
-                },
-                NextPageLink = nextPageLink
-            };
-        }
+        //        },
+        //        NextPageLink = nextPageLink
+        //    };
+        //}
 
 
-        [HttpPost("vote")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> VoteAsync(
-            [FromBody] AddVoteQuestionRequest model,
-            [FromServices] IStringLocalizer<SharedResource> resource,
-            CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            try
-            {
-                var command = new AddVoteQuestionCommand(userId, model.Id, model.VoteType);
+        //[HttpPost("vote")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> VoteAsync(
+        //    [FromBody] AddVoteQuestionRequest model,
+        //    [FromServices] IStringLocalizer<SharedResource> resource,
+        //    CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    try
+        //    {
+        //        var command = new AddVoteQuestionCommand(userId, model.Id, model.VoteType);
 
-                await _commandBus.DispatchAsync(command, token);
-                return Ok();
-            }
-            catch (NoEnoughScoreException)
-            {
-                string voteMessage = resource[$"{model.VoteType:G}VoteError"];
-                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), voteMessage);
-                return BadRequest(ModelState);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
-                return BadRequest(ModelState);
-            }
+        //        await _commandBus.DispatchAsync(command, token);
+        //        return Ok();
+        //    }
+        //    catch (NoEnoughScoreException)
+        //    {
+        //        string voteMessage = resource[$"{model.VoteType:G}VoteError"];
+        //        ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), voteMessage);
+        //        return BadRequest(ModelState);
+        //    }
+        //    catch (UnauthorizedAccessException)
+        //    {
+        //        ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
+        //        return BadRequest(ModelState);
+        //    }
 
-            catch (NotFoundException)
-            {
-                return NotFound();
-            }
-        }
+        //    catch (NotFoundException)
+        //    {
+        //        return NotFound();
+        //    }
+        //}
 
         [HttpPost("flag")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -306,40 +281,40 @@ namespace Cloudents.Web.Api
             }
         }
 
-        [HttpPost("ask"), Consumes("multipart/form-data")]
-        public async Task<UploadAskFileResponse> UploadFileAsync([Required]IFormFile file,
-        CancellationToken token)
-        {
-            string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
+        //[HttpPost("ask"), Consumes("multipart/form-data")]
+        //public async Task<UploadAskFileResponse> UploadFileAsync([Required]IFormFile file,
+        //CancellationToken token)
+        //{
+        //    string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
 
-            var userId = _userManager.GetUserId(User);
+        //    var userId = _userManager.GetUserId(User);
 
-            var fileNames = new List<string>();
-            //foreach (var formFile in files)
-            //{
-            if (!file.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
-            {
-                throw new ArgumentException("not an image");
-            }
+        //    var fileNames = new List<string>();
+        //    //foreach (var formFile in files)
+        //    //{
+        //    if (!file.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+        //    {
+        //        throw new ArgumentException("not an image");
+        //    }
 
-            var extension = Path.GetExtension(file.FileName);
+        //    var extension = Path.GetExtension(file.FileName);
 
-            if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
-            {
-                throw new ArgumentException("not an image");
-            }
+        //    if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
+        //    {
+        //        throw new ArgumentException("not an image");
+        //    }
 
-            using (var sr = file.OpenReadStream())
-            {
-                //Image.FromStream(sr);
-                var fileName = $"{userId}.{Guid.NewGuid()}.{file.FileName}";
-                await _blobProvider
-                    .UploadStreamAsync(fileName, sr, file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
+        //    using (var sr = file.OpenReadStream())
+        //    {
+        //        //Image.FromStream(sr);
+        //        var fileName = $"{userId}.{Guid.NewGuid()}.{file.FileName}";
+        //        await _blobProvider
+        //            .UploadStreamAsync(fileName, sr, file.ContentType, TimeSpan.FromSeconds(60 * 24), token);
 
-                fileNames.Add(fileName);
-            }
-            //}
-            return new UploadAskFileResponse(fileNames);
-        }
+        //        fileNames.Add(fileName);
+        //    }
+        //    //}
+        //    return new UploadAskFileResponse(fileNames);
+        //}
     }
 }

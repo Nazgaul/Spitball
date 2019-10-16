@@ -133,7 +133,7 @@
     <value>מימוש</value>
   </data>
   <data name="currency" xml:space="preserve">
-    <value>$</value>
+    <value>₪</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>תאריך</value>
@@ -160,7 +160,7 @@
     <value>סוג</value>
   </data>
   <data name="Value" xml:space="preserve">
-    <value>שווי ב-$</value>
+    <value>שווי ב-₪</value>
   </data>
   <data name="You_have" xml:space="preserve">
     <value>יש לך </value>

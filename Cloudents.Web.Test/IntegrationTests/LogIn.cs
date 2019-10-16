@@ -1,9 +1,7 @@
 ﻿using FluentAssertions;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -19,13 +17,13 @@ namespace Cloudents.Web.Test.IntegrationTests
             Path = "api/LogIn"
         };
 
-        private readonly object user = new
+        private readonly object _user = new
         {
             email = "elad13@cloudents.com",
             password = "123456789"
         };
 
-        private readonly object wrongUser = new
+        private readonly object _wrongUser = new
         {
             email = "elad13@cloudents.com",
             password = "abcdefgh"
@@ -41,7 +39,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsync_Login_OK()
         {
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(user));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_user));
 
             response.EnsureSuccessStatusCode();
         }
@@ -49,7 +47,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task PostAsync_Login_Fail()
         {
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(wrongUser));
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_wrongUser));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Cloudents.Core.Enum;
-using Cloudents.Query.Admin;
 using Cloudents.Query.Query.Admin;
 using Xunit;
 
@@ -76,17 +75,19 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //}
 
 
-        [Fact]
-        public async Task AdminPageQuery_QuestionWithoutCorrectAnswer_Ok()
-        {
-            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(0, "IL");
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task AdminPageQuery_QuestionWithoutCorrectAnswer_Ok()
+        //{
+        //    var query = new AdminQuestionWithoutCorrectAnswerPageQuery(0, "IL");
+        //    await _fixture.QueryBus.QueryAsync(query, default);
+        //}
 
-        [Fact]
-        public async Task AdminPendingTutorsQuery_Ok()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("IL")]
+        public async Task AdminPendingTutorsQuery_Ok(string country)
         {
-            var query = new AdminPendingTutorsQuery("IL");
+            var query = new AdminPendingTutorsQuery(country);
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 

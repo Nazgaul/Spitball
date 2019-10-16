@@ -1,5 +1,4 @@
 import {mapGetters, mapActions} from 'vuex';
-import walletService from '../../../services/walletService';
 import {LanguageService} from '../../../services/language/languageService';
 import analyticsService from '../../../services/analytics.service';
 
@@ -56,7 +55,6 @@ export default {
     },
 
     openPaymeDialog() {
-      let user = this.accountUser();
       let transactionId = this.transactionId;
       analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", transactionId);
         this.buyToken({points : transactionId});

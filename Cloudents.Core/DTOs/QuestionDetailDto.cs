@@ -18,13 +18,13 @@ namespace Cloudents.Core.DTOs
 
         public DateTime Create { get; set; }
 
-        public IEnumerable<Uri> Files { get; set; }
+       // public IEnumerable<Uri> Files { get; set; }
 
-        public Guid? CorrectAnswerId { get; set; }
+       // public Guid? CorrectAnswerId { get; set; }
 
         public bool IsRtl { get; set; }
 
-        public VoteDto Vote { get; set; }
+        //public VoteDto Vote { get; set; }
     }
 
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
@@ -33,14 +33,15 @@ namespace Cloudents.Core.DTOs
         public QuestionDetailAnswerDto() { }
 
 
-        public QuestionDetailAnswerDto(Guid id, string text, UserDto user, DateTime create, VoteDto vote,
+        public QuestionDetailAnswerDto(Guid id, string text, UserDto user,
+            DateTime create, 
             CultureInfo culture)
         {
             Id = id;
             Text = text;
             User = user;
             Create = create;
-            Vote = vote;
+           
             IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
         }
        
@@ -53,9 +54,9 @@ namespace Cloudents.Core.DTOs
         public UserDto User { get; set; }
         public DateTime Create { get; set; }
 
-        public IEnumerable<Uri> Files { get; set; }
+       // public IEnumerable<Uri> Files { get; set; }
 
-        public VoteDto Vote { get; set; }
+       // public VoteDto Vote { get; set; }
 
         public bool IsRtl { get; set; }
     }

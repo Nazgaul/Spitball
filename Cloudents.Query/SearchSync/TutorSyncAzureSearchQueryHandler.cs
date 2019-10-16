@@ -44,7 +44,7 @@ namespace Cloudents.Query.SearchSync
             public async Task<SearchWrapperDto<TutorSearchDto>> GetAsync(TutorSyncAzureSearchQuery query, CancellationToken token)
             {
                 const string firstQuery = @"Select 
-u.country ,
+t.country ,
 t.id as UserId,
 t.name,
 t.allCourses as Courses,
@@ -59,7 +59,6 @@ t.image,
 t.rating as OverAllRating,
 cTable.*
 from sb.ReadTutor  t
-join sb.[user] u on t.id = u.id
 CROSS APPLY CHANGETABLE(VERSION sb.readTutor, (Id), (t.Id)) AS cTable
 order by t.id
 offset @pageSize * @PageNumber rows
@@ -68,7 +67,7 @@ fetch next @pageSize Rows only";
 
                 const string secondQuery = @" 
 Select 
-u.country ,
+t.country ,
 t.id as UserId,
 t.name,
 t.allCourses as Courses,
@@ -83,7 +82,6 @@ t.image,
 t.rating as OverAllRating,
 cTable.* 
 from sb.ReadTutor  t
-join sb.[user] u on t.id = u.id
 right outer join CHANGETABLE (changes sb.[readTutor], @version) AS cTable ON t.Id = cTable.id
 order by t.id
 offset @pageSize * @PageNumber rows

@@ -263,6 +263,17 @@ Vue.filter('fullMonthDate', function (value) {
     return date.toLocaleDateString(languageDate, options);
 });
 
+Vue.prototype.$loadStyle = function(url,id){
+    return new Promise((resolve, reject) => {
+        if (document.querySelector(id)) return resolve()
+        let linkTag = document.createElement('link')
+        linkTag.id = id
+        linkTag.rel = 'stylesheet'
+        linkTag.href = url
+        document.head.insertBefore(linkTag, document.head.firstChild)
+        return resolve()
+    })
+}
 
 Vue.prototype.$Ph = function (key, placeholders) {
     let rawKey = LanguageService.getValueByKey(key);

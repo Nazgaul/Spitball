@@ -5,4 +5,10 @@
         Document,
         Video
     }
+
+    public enum FeedType
+    {
+        Document,
+        Question
+    }
 }

@@ -38,7 +38,7 @@ export default {
             visible: {
                 'local_player': true,
                 'remote_player': true
-            },
+            }
         };
     },
     props: {
@@ -60,10 +60,10 @@ export default {
             'activeRoom'
         ]),
         localVideoTrack(){
-            return this.getLocalVideoTrack
+            return this.getLocalVideoTrack;
         },
         localAudioTrack(){
-            return this.getLocalAudioTrack 
+            return this.getLocalAudioTrack;
         },
         isTutor() {
             return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
@@ -98,7 +98,7 @@ export default {
             }else{
                 insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoStream_localVideoFailed', '', null);
             }
-        },
+        }
     },
     methods: {
         ...mapActions([
@@ -108,15 +108,15 @@ export default {
             'toggleVideoTrack',
             'toggleAudioTrack',
             'setIsVideoActive',
-            'setIsAudioActive',
+            'setIsAudioActive'
         ]),
         toggleAudio(){
-            this.toggleAudioTrack()
+            this.toggleAudioTrack();
         },
         toggleVideo(){
-            this.toggleVideoTrack()
+            this.toggleVideoTrack();
         }
-    },
+    }
     
 };
 

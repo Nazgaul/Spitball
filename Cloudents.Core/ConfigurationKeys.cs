@@ -62,11 +62,12 @@ namespace Cloudents.Core
             SellerId = "MPL15546-31186SKB-53ES24ZG-WGVCBKO2";
             BuyerKey = "BUYER156-4564629H-GXBKSW7B-T3H2FF2F";
         }
-        public string EndPoint { get; private set; }
-
-        public string SellerId { get; private set; }
-
-        public string BuyerKey { get; private set; }
+        //Need not to be in private set
+        public string EndPoint { get;  set; }
+        //Need not to be in private set
+        public string SellerId { get;  set; }
+        //Need not to be in private set
+        public string BuyerKey { get;  set; }
     }
 
     public class TwilioCredentials
@@ -103,6 +104,8 @@ namespace Cloudents.Core
         public string Db { get;  }
 
         public string Redis { get;  }
+
+        public bool NeedValidate { get; set; }
     }
 
     public class LocalStorageData

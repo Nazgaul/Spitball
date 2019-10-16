@@ -6,7 +6,7 @@ namespace Cloudents.Web.Test.UnitTests
     public class SiteMapControllerTests //:IClassFixture<SbWebApplicationFactory>
     {
 
-        private readonly string sitemapLink = "https://dev.spitball.co/sitemap.xml";
+        private readonly string _sitemapLink = "https://dev.spitball.co/sitemap.xml";
 
     
 
@@ -15,7 +15,7 @@ namespace Cloudents.Web.Test.UnitTests
         {
             XmlDocument sm = new XmlDocument();
 
-            sm.Load(sitemapLink);
+            sm.Load(_sitemapLink);
             XmlElement root = sm.DocumentElement;
             XmlNodeList nodes = root.SelectNodes("sitemap");
             

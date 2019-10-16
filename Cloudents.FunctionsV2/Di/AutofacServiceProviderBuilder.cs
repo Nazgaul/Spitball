@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using Cloudents.FunctionsV2.FileProcessor;
 using Cloudents.FunctionsV2.Services;
@@ -86,9 +85,6 @@ namespace Cloudents.FunctionsV2.Di
 
             builder.RegisterType<Logger>().As<ILogger>();
 
-
-            builder.RegisterType<QuestionDbToSearchSync>()
-                .Keyed<IDbToSearchSync>(SyncType.Question).SingleInstance();
             builder.RegisterType<UniversityDbToSearchSync>()
                 .Keyed<IDbToSearchSync>(SyncType.University).SingleInstance();
             builder.RegisterType<DocumentDbToSearchSync>()

@@ -22,14 +22,14 @@ export const validationRules = {
         return value.trim().length >= 1 || LanguageService.getValueByKey("formErrors_required");
     },
     email: (value) =>{
-        let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        return regex.test(value) || LanguageService.getValueByKey("formErrors_email")
+        let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return regex.test(value) || LanguageService.getValueByKey("formErrors_email");
     },
     integer: (value) =>{
-        return Number.isInteger(+value) || LanguageService.getValueByKey("formErrors_integer")
+        return Number.isInteger(+value) || LanguageService.getValueByKey("formErrors_integer");
     },
     phone: (value) =>{
         let regex = /^\d{8,12}$/;
-        return regex.test(value) || LanguageService.getValueByKey("formErrors_phone")
+        return regex.test(value) || LanguageService.getValueByKey("formErrors_phone");
     }
 };

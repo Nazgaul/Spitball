@@ -217,8 +217,8 @@ const connectToRoom = function (token, options) {
                 store.dispatch('updateRemoteStatus', false);
                 if (store.getters['getStudyRoomData'].isTutor) {
                     store.dispatch('hideRoomToasterMessage');
-                    let studentName = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentName : ''
-                    let studentId = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentId : ''
+                    let studentName = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentName : '';
+                    let studentId = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentId : '';
                     analyticsService.sb_unitedEvent('study_room', 'session_started', `studentName: ${studentName} studentId: ${studentId}`);
                 }
             });
@@ -237,17 +237,17 @@ const connectToRoom = function (token, options) {
                         } else if (Data.type === 'clearCanvas') {
                             whiteBoardService.clearData(parsedData, Data.tab);
                         } else if(Data.type === 'codeEditor_lang'){
-                            store.commit('setLang',parsedData)
+                            store.commit('setLang',parsedData);
                         } else if (Data.type === 'updateTab'){
                             store.dispatch('updateTab', parsedData);
                         } else if(Data.type === 'updateTabById'){
-                            store.commit('setTab',parsedData)
+                            store.commit('setTab',parsedData);
                         } 
                         else if(Data.type === 'updateActiveNav'){
-                            store.commit('setActiveNavIndicator',parsedData)
+                            store.commit('setActiveNavIndicator',parsedData);
                         } 
                         else if(Data.type === 'codeEditor_code'){
-                            store.commit('setCode',parsedData)
+                            store.commit('setCode',parsedData);
                         }
                         
                     });
@@ -260,15 +260,15 @@ const connectToRoom = function (token, options) {
                         type: "video",
                         track,
                         container: previewContainer
-                    }
-                    store.commit('releaseFullVideoButton',true)
+                    };
+                    store.commit('releaseFullVideoButton',true);
                     store.dispatch('updateRemoteTrack', updateObj);
                 } else if (track.kind === 'audio') {
                     let updateObj = {
                         type: "audio",
                         track,
                         container: previewContainer
-                    }
+                    };
                     store.dispatch('updateRemoteTrack', updateObj);
                     // attachTracks([track], previewContainer);
                 }
@@ -278,7 +278,7 @@ const connectToRoom = function (token, options) {
             // When a Participant's Track is unsubscribed from, detach it from the DOM.
             store.getters['activeRoom'].on('trackUnsubscribed', function (track) {
                 if(track.kind === 'video'){
-                    store.commit('releaseFullVideoButton',false)
+                    store.commit('releaseFullVideoButton',false);
                 }
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioTrackUnsubscribed', track, null);
                 console.log(" removed track: " + track.kind);
@@ -314,8 +314,8 @@ const connectToRoom = function (token, options) {
 const getRoomInformation = function (roomId) {
     return connectivityModule.http.get(`StudyRoom/${roomId}`).then(({data})=>{
         data.roomId = roomId;
-        return new RoomProps(data)
-    })
+        return new RoomProps(data);
+    });
 };
 
 const enterRoom = function (roomId) {
@@ -356,7 +356,7 @@ function DevicesObject(){
     this.errors= {
         video: [],
         audio: []
-    }
+    };
 }
 
 function createDevicesObj(){
@@ -374,10 +374,10 @@ const validateUserMedia = async function(audioCheck, videoCheck) {
         let insightErrorObj={
             error: err,
             userId: this.userId
-        }
+        };
         insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_validationDialog_getUserMedia_VIDEO', insightErrorObj, null);
         console.error(err.name + ":VIDEO!!!!!!!!!!!!!!!! " + err.message, err);
-        devicesObj.errors.video.push(err.name)
+        devicesObj.errors.video.push(err.name);
     });
 
     await navigator.mediaDevices.getUserMedia({ audio: true }).then((y) => {
@@ -387,12 +387,12 @@ const validateUserMedia = async function(audioCheck, videoCheck) {
         let insightErrorObj={
             error: err,
             userId: this.userId
-        }
+        };
         insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_validationDialog_getUserMedia_AUDIO', insightErrorObj, null);
         console.error(err.name + ":AUDIO!!!!!!!!!!!!!!!! " + err.message, err);
-        devicesObj.errors.audio.push(err.name)
+        devicesObj.errors.audio.push(err.name);
     });
-}
+};
 
 export default {
     dataTrack,

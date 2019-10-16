@@ -4,7 +4,6 @@ using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
-using Cloudents.Query.Query;
 using Cloudents.Query.Query.Admin;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;

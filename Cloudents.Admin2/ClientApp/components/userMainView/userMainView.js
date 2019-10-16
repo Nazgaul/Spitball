@@ -256,7 +256,7 @@ export default {
                 this.$toaster.success(`Success: delete user payment`);
             }).catch(() => {
                 this.$toaster.error(`Error: delete user payment`);
-            })
+            });
         }
     },
     created() {

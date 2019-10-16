@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
@@ -12,7 +11,6 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        private UriBuilder _uri = new UriBuilder();
         
 
         public UnregFeedTests(SbWebApplicationFactory factory)
@@ -23,37 +21,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             });
         }
 
-        [Theory]
-        [InlineData("api/question")]
-        [InlineData("api/question?page=1")]
-        public async Task GetAsync_Ask_OK(String url)
-        {
-            var response = await _client.GetAsync(url);
-
-            var str = await response.Content.ReadAsStringAsync();
-
-            var d = JObject.Parse(str);
-
-            var result = d["result"]?.Value<JArray>();
-
-            result.Should().NotBeNull();
-        }
-
-        [Theory]
-        [InlineData("api/document")]
-        [InlineData("api/document?page=1")]
-        public async Task GetAsync_Note_OK(string url)
-        {
-            var response = await _client.GetAsync(url);
-
-            var str = await response.Content.ReadAsStringAsync();
-
-            var d = JObject.Parse(str);
-
-            var result = d["result"]?.Value<JArray>();
-
-            result.Should().NotBeNull();
-        }
+       
 
         [Theory]
         [InlineData("api/tutor/search")]

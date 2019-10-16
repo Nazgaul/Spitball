@@ -1,5 +1,6 @@
 ﻿using System;
 using Cloudents.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -43,7 +44,6 @@ namespace Cloudents.Core.Interfaces
 
     public interface IQuestionRepository : IRepository<Question>
     {
-        Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token);
         Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token);
     }
 

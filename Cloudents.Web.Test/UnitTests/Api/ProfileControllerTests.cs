@@ -16,8 +16,6 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Xunit;
 using Cloudents.Core.Storage;
 using System;
-using Cloudents.Core.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Cloudents.Web.Test.UnitTests.Api
 {

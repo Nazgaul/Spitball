@@ -4,16 +4,16 @@ import canvasFinder from '../utils/canvasFinder';
 import whiteBoardService from '../whiteBoardService'
 import selectShape from './selectShape';
 
-const OPTION_TYPE = 'eraser';
+const optionType = 'eraser';
 
 let localShape = createShape({
-    type: OPTION_TYPE,
+    type: optionType,
     points: []
 });
 
 const clearLocalShape = function(){
     localShape = createShape({
-        type: OPTION_TYPE,
+        type: optionType,
         points: []
     });
 };

@@ -42,7 +42,7 @@
               v-for="(item, i) in actions"
               :key="i"
             >
-              <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
+              <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -135,9 +135,16 @@
     </v-layout>
     <div class="document-wrap">
       <div class="text-xs-center" v-if="!videoLoader">
-        <img :src="require('./doc-preview-animation.gif')" alt="Photo" :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}">
+        <img :style="{'width': `${dynamicWidthAndHeight.width}px`, 'height': `${dynamicWidthAndHeight.height}px`}" :src="require('./doc-preview-animation.gif')" alt="Photo" :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}">
+        <!-- <v-progress-circular v-if="isVideo" :style="{'width': `${dynamicWidthAndHeight.width}px`}"
+            :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}"
+            width="3"
+            :size="videoHeight" 
+            indeterminate
+            color="#4452fc"/> -->
       </div>
-      <div style="margin: 0 auto;background:black" class="text-xs-center main-header-wrapper" v-if="isVideo">
+      
+      <div style="margin: 0 auto;background:black" class="text-xs-center main-header-wrapper" v-if="isVideo && videoSrc">
         <sbVideoPlayer 
             @videoEnded="showAfterVideo = true"
             :id="`${document.details.id}`"
@@ -145,7 +152,7 @@
             :width="videoWidth" 
             style="margin: 0 auto" 
             :isResponsive="true" 
-            :src="document.preview.locator"
+            :src="videoSrc"
             :title="courseName"
             :poster="`${document.preview.poster}?width=${videoWidth}&height=${videoHeight}&mode=crop&anchorPosition=bottom`"
         />
@@ -155,7 +162,7 @@
         <div class="text-xs-center" v-for="(page, index) in docPreview" :key="index">
           <v-lazy-image 
             v-if="page"
-            :style="`height:${imgHeight}px; width:${imgWidth}px`"
+            :style="`height:${dynamicWidthAndHeight.height}px; width:${dynamicWidthAndHeight.width}px`"
             class="document-wrap-content mb-4"
             :src="page"
             :src-placeholder="isObserver(page)"
@@ -171,25 +178,13 @@
         v-if="isShowPurchased || !accountUser"
       >
         <div class="inner">
-          <p 
-            class="text-xs-center hidden-sm-and-down"
-            v-language:inner="unlockDocDictionary"
-          ></p>
+          <p class="text-xs-center hidden-sm-and-down" v-language:inner="unlockDocDictionary"/>
           <div class="aside-top-btn align-center" v-if="!isLoading && accountUser" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)">
-            <span
-              class="font-weight-bold text-xs-center disabled"
-              v-if="isPrice"
-            >{{docPrice | currencyLocalyFilter}}</span>
-            <span
-              class="white--text pa-3 font-weight-bold text-xs-center"
-              v-language:inner="'documentPage_unlock_btn'"
-            ></span>
+            <span class="font-weight-bold text-xs-center disabled" v-if="isPrice" >{{docPrice | currencyLocalyFilter}}</span>
+            <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"/>
           </div>
-          <div class="aside-top-btn-not align-center" v-if="!isLoading && !accountUser">
-            <span
-              class="white--text pa-3 font-weight-bold text-xs-center"
-              v-language:inner="'documentPage_unlock_btn'"
-            ></span>
+          <div class="aside-top-btn-not align-center" v-if="!isLoading && !accountUser" @click="updateLoginDialogState(true)">
+            <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"/>
           </div>
           <v-progress-circular
             class="unlock_progress"
@@ -243,8 +238,6 @@ export default {
   data() {
     return {
       showAfterVideo: false,
-      imgHeight: 0,
-      imgWidth: 0,
       isMounted: false,
       showMenu: false,
       currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
@@ -290,6 +283,11 @@ export default {
       "getDocumentLoaded"
 
     ]),
+    videoSrc(){
+      if(this.document && this.document.preview && this.document.preview.locator){
+        return this.document.preview.locator
+      }
+    },
     isShowVideo() {
       if(this.document && this.document.documentType && this.isMounted) {
         return true;
@@ -350,15 +348,17 @@ export default {
       return this.calculateWidthByScreenSize()
     },
     docPreview() {
+      if(this.isVideo)return
       // TODO temporary calculated width container
       if (this.document.preview && this.docWrap) {
-        this.imgWidth = this.calculateWidthByScreenSize()
-        this.imgHeight = this.imgWidth / 0.707;
+        if(this.document.preview[0].indexOf("base64") > -1){
+          return this.document.preview;
+        }
         let result = this.document.preview.map(preview => {
           return utillitiesService.proccessImageURL(
             preview,
-            this.imgWidth,
-            Math.ceil(this.imgHeight),
+            this.dynamicWidthAndHeight.width,
+            this.dynamicWidthAndHeight.height,
             "pad"
           );
         });
@@ -418,6 +418,12 @@ export default {
         }
       }else{
         return false;
+      }
+    },
+    dynamicWidthAndHeight(){
+      return {
+        width: this.calculateWidthByScreenSize(),
+        height: Math.ceil(this.calculateWidthByScreenSize() / 0.707)
       }
     }
   },
@@ -578,7 +584,7 @@ export default {
 
 .mainDocument-container {
   margin-bottom: 80px;
-  flex: 5;
+  // flex: 5;
   @media (max-width: @screen-sm) {
     order: 2;
   }
@@ -688,6 +694,7 @@ export default {
         font-size: 19px;
       }
       .aside-top-btn-not {
+        cursor: pointer;
         display: flex;
         border: 1px solid #ccc;
         border-radius: 4px;

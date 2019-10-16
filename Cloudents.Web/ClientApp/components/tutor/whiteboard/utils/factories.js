@@ -1,8 +1,8 @@
 const createGuid = function(val){
-    return `xxxx-${val}-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx`.replace(/[x]/g, (placeholder)=>{
+    return `xxxx-${val}-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx`.replace(/[x]/g, ()=>{
         return (Math.random() * 9 | 0).toString();
-    })
-}
+    });
+};
 
 const pointsByOption = {
     liveDraw: DragObj,
@@ -12,8 +12,9 @@ const pointsByOption = {
     imageDraw: ImageObj,
     eraser: DragObj,
     textDraw: TextObj,
-    equationDraw: EquationObj
-}
+    equationDraw: EquationObj,
+    iink: IinkObj
+};
 
 function DragObj(objInit){
     this.mouseX= objInit.mouseX;
@@ -79,6 +80,19 @@ function EquationObj(objInit){
     this.isRect = true;
 }
 
+function IinkObj(objInit){
+    this.mouseX= objInit.mouseX;
+    this.mouseY= objInit.mouseY;
+    this.width= objInit.width;
+    this.height= objInit.height;
+    this.color= objInit.color;
+    this.option= objInit.option;
+    this.eventName= objInit.eventName;
+    this.id= objInit.id;
+    this.text= objInit.text;
+    this.isRect = true;
+}
+
 function Path(objInit){
     this.stroke = objInit.stroke || null;
     this.fill = objInit.fill || null;
@@ -92,11 +106,11 @@ function Shape(objInit){
     this.points = objInit.points.map((dragObj)=>{
         return new pointsByOption[dragObj.option](dragObj);
     });
-    this.path = objInit.path ? new Path(objInit.path) : new Path({})
+    this.path = objInit.path ? new Path(objInit.path) : new Path({});
     this.offset = {
         top: 0,
         left: 0
-    }
+    };
     this.isGhost = false;
     this.visible = typeof objInit.visible !== 'undefined' ?  objInit.visible : true;
 }
@@ -111,7 +125,7 @@ function GhostShape(objInit){
 }
 
 function createPointsByOption(dragObj){
-   return new pointsByOption[dragObj.option](dragObj)
+   return new pointsByOption[dragObj.option](dragObj);
 }
 
 function createShape(objInit){
@@ -119,7 +133,7 @@ function createShape(objInit){
 }
 
 function createGhostShape(objInit){
-    return new GhostShape(objInit)
+    return new GhostShape(objInit);
 }
 
 export{

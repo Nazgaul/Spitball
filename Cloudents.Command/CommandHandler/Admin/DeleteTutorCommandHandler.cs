@@ -20,16 +20,15 @@ namespace Cloudents.Command.CommandHandler.Admin
 
         public async Task ExecuteAsync(DeleteTutorCommand message, CancellationToken token)
         {
-            var tutorToRemove = _tutorRepository.LoadAsync(message.Id, token);
-            var googleToken = _googleTokenRepository.GetAsync(message.Id.ToString(), token);
-            await Task.WhenAll(tutorToRemove, googleToken);
+            var tutorToRemove = await _tutorRepository.LoadAsync(message.Id, token);
+            var googleToken = await _googleTokenRepository.GetAsync(message.Id.ToString(), token);
 
-            await _tutorRepository.DeleteAsync(tutorToRemove.Result, token);
-
-            if (googleToken.Result != null)
+            if (googleToken != null)
             {
-                await _googleTokenRepository.DeleteAsync(googleToken.Result, token);
+                await _googleTokenRepository.DeleteAsync(googleToken, token);
             }
+            await _tutorRepository.DeleteAsync(tutorToRemove, token);
+
         }
     }
 }

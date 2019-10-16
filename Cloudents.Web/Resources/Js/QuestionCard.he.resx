@@ -147,4 +147,10 @@
   <data name="Someone_answering" xml:space="preserve">
     <value>מישהו עונה עכשיו...</value>
   </data>
+  <data name="Answers" xml:space="preserve">
+    <value>{1} תשובות נוספות</value>
+  </data>
+  <data name="Answer_one" xml:space="preserve">
+    <value>{1} תשובה נוספת</value>
+  </data>
 </root>

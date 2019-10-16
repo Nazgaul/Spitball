@@ -1,5 +1,5 @@
 <template>
-    <v-layout column class="aside-bottom mb-4">
+    <v-layout column class="aside-bottom mb-4" v-show="tutorList.length">
         <div class="justify-space-between more-tutors">
             <div class="font-weight-bold mb-2" v-language:inner="'documentPage_more_tutors'"></div>
         </div>
@@ -18,6 +18,9 @@ export default {
         courseName:{
             type:String,
             required:true
+        },
+        tutorList:{
+            type: Array,
         }
     },
     components: {
@@ -25,12 +28,6 @@ export default {
     },
     methods:{
         ...mapActions(['getTutorListCourse']),
-    },
-    computed: {
-        ...mapGetters(['getTutorList']),
-        tutorList() {
-            return this.getTutorList;           
-        },
     },
     created() {
         if(this.$vuetify.breakpoint.mdAndUp) {

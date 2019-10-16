@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cloudents.Video
+namespace Cloudents.Infrastructure.Video
 {
     public class ConfigWrapper
     {

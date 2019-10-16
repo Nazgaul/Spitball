@@ -3,7 +3,6 @@ using FluentNHibernate.Mapping;
 using NHibernate.Dialect;
 using NHibernate.Engine;
 using NHibernate.Mapping;
-using NHibernate.Type;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -39,57 +38,53 @@ namespace Cloudents.Persistence.Maps
         }
     }
 
-    public class DocumentAggregate : AbstractAuxiliaryDatabaseObject
-    {
-        public DocumentAggregate()
-        {
-            
-        }
+//    public class DocumentAggregate : AbstractAuxiliaryDatabaseObject
+//    {
         
-        public override string SqlCreateString(Dialect dialect, IMapping p, string defaultCatalog, string defaultSchema)
-        {
-            return @"CREATE Or Alter VIEW [sb].[iv_DocumentSearch]
-WITH SCHEMABINDING  
-AS   
-    select 
-d.Id
-,un.Name as University
-,d.CourseName as Course
-,d.MetaContent as Snippet
-,d.Professor
-,d.Type
-,d.Name as Title
-,u.Id as User_Id
-,U.Name as User_Name
-,u.Score as User_Score
-,u.Image as User_Image
-,d.[Views]
-,d.Downloads
-,d.UpdateTime as [DateTime]
-,d.VoteCount as Vote_Votes
-,d.Price as Price
-,d.DocumentType as documentType
-,d.duration as Duration
-,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
-,un.Id as UniversityId
-,un.Country as Country,
-case when t.Id is null then cast(0 as bit) else cast(1 as bit) end as User_IsTutor
+//        public override string SqlCreateString(Dialect dialect, IMapping p, string defaultCatalog, string defaultSchema)
+//        {
+//            return @"CREATE Or Alter VIEW [sb].[iv_DocumentSearch]
+//WITH SCHEMABINDING  
+//AS   
+//    select 
+//d.Id
+//,un.Name as University
+//,d.CourseName as Course
+//,d.MetaContent as Snippet
+//,d.Professor
+//,d.Type
+//,d.Name as Title
+//,u.Id as User_Id
+//,U.Name as User_Name
+//,u.Score as User_Score
+//,u.Image as User_Image
+//,d.[Views]
+//,d.Downloads
+//,d.UpdateTime as [DateTime]
+//,d.VoteCount as Vote_Votes
+//,d.Price as Price
+//,d.DocumentType as documentType
+//,d.duration as Duration
+//,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
+//,un.Id as UniversityId
+//,un.Country as Country,
+//case when t.Id is null then cast(0 as bit) else cast(1 as bit) end as User_IsTutor
 
-from sb.Document d 
-join sb.[user] u on d.UserId = u.Id
-join sb.University un on un.Id = d.UniversityId
-left join sb.Tutor t
-	on t.Id = u.Id
-where d.State = 'Ok'
-GO";
-        }
+//from sb.Document d 
+//join sb.[user] u on d.UserId = u.Id
+//join sb.University un on un.Id = d.UniversityId
+//left join sb.Tutor t
+//	on t.Id = u.Id
+//where d.State = 'Ok'
+//GO";
+//        }
 
-        public override string SqlDropString(Dialect dialect, string defaultCatalog, string defaultSchema)
-        {
-            return null;
-            //throw new System.NotImplementedException();
-        }
-    }
+//        public override string SqlDropString(Dialect dialect, string defaultCatalog, string defaultSchema)
+//        {
+//            return null;
+//            //throw new System.NotImplementedException();
+//        }
+//    }
 }
 
 

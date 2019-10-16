@@ -34,14 +34,12 @@
 <script>
 import {mapActions} from "vuex"
 import UserAvatar from "../../helpers/UserAvatar/UserAvatar.vue";
-import UserRank from "../../helpers/UserRank/UserRank.vue";
 import userOnlineStatus from "../../helpers/userOnlineStatus/userOnlineStatus.vue";
 import utilitiesService from "../../../services/utilities/utilitiesService"
 import chatService from "../../../services/chatService"
 export default {
     components:{
         UserAvatar,
-        UserRank,
         userOnlineStatus
     },
     props:{

@@ -1,12 +1,9 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Storage;
 using Cloudents.Query.Query;
 using NHibernate;
 using NHibernate.Linq;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -19,15 +16,11 @@ namespace Cloudents.Query
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
     public class QuestionDetailQueryHandler : IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto>
     {
-        private readonly IQuestionsDirectoryBlobProvider _blobProvider;
         private readonly IStatelessSession _session;
 
-        public QuestionDetailQueryHandler(QuerySession session,
-            IQuestionsDirectoryBlobProvider blobProvider
-           )
+        public QuestionDetailQueryHandler(QuerySession session)
         {
             _session = session.StatelessSession;
-            _blobProvider = blobProvider;
         }
 
         private async Task<QuestionDetailDto> GetFromDbAsync(long id, CancellationToken token)
@@ -47,12 +40,9 @@ namespace Cloudents.Query
                     },
                     Id = s.Id,
                     Course = s.Course.Id,
-                    Vote = new VoteDto
-                    {
-                        Votes = s.VoteCount
-                    },
+                   
                     Text = s.Text,
-                    CorrectAnswerId = s.CorrectAnswer.Id,
+                    //CorrectAnswerId = s.CorrectAnswer.Id,
                     Create = s.Updated,
                     IsRtl = SetIsRtl(s.Language),
 
@@ -75,10 +65,10 @@ namespace Cloudents.Query
                     },
                     s.Created,
 
-                    new VoteDto
-                    {
-                        Votes = s.VoteCount
-                    },
+                    //new VoteDto
+                    //{
+                    //   // Votes = s.VoteCount
+                    //},
 
                     s.Language
 
@@ -93,8 +83,8 @@ namespace Cloudents.Query
             var answerResult = await answersFuture.GetEnumerableAsync(token);
 
 
-            dto.Answers = answerResult.OrderByDescending(x => x.Id == dto.CorrectAnswerId)
-                .ThenByDescending(x => x.Vote.Votes).ThenBy(x => x.Create);
+            dto.Answers = answerResult.OrderByDescending(x => x.Create);
+                
 
             return dto;
 
@@ -108,41 +98,18 @@ namespace Cloudents.Query
 
         public async Task<QuestionDetailDto> GetAsync(QuestionDataByIdQuery query, CancellationToken token)
         {
-            var dtoTask = GetFromDbAsync(query.Id, token);
-            var filesTask = _blobProvider.FilesInDirectoryAsync($"{query.Id}", token);
-            await Task.WhenAll(dtoTask, filesTask);
-            var files = filesTask.Result.Select(s => _blobProvider.GeneratePreviewLink(s, TimeSpan.FromMinutes(20)));
-            var dto = dtoTask.Result;
+            var dto = await GetFromDbAsync(query.Id, token);
 
             if (dto == null)
             {
                 return null;
             }
-            //TODO should not be here
-            var aggregateFiles = AggregateFiles(files);
-            dto.Files = aggregateFiles[null];
-            dto.Answers = dto.Answers.Select(s =>
-            {
-                s.Files = aggregateFiles[s.Id];
-                return s;
-            }).ToList();
+            dto.Answers = dto.Answers;
 
             return dto;
         }
 
-        private static ILookup<Guid?, Uri> AggregateFiles(IEnumerable<Uri> files)
-        {
-            var aggregateFiles = files.ToLookup<Uri, Guid?>(v =>
-            {
-                if (v.Segments.Length == 5)
-                {
-                    return null;
-                }
-
-                return Guid.Parse(v.Segments[5].Replace("/", string.Empty));
-            });
-            return aggregateFiles;
-        }
+       
     }
 
 

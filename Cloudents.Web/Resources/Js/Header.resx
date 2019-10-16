@@ -120,17 +120,14 @@
   <data name="login" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="placeholder_ask" xml:space="preserve">
-    <value>Search in questions...</value>
+  <data name="placeholder_feed" xml:space="preserve">
+    <value>Search in feeds...</value>
   </data>
   <data name="sbl" xml:space="preserve">
     <value>Pts</value>
   </data>
   <data name="sign_up" xml:space="preserve">
     <value>Sign Up</value>
-  </data>
-  <data name="placeholder_note" xml:space="preserve">
-    <value>Find study documents...</value>
   </data>
   <data name="placeholder_tutor" xml:space="preserve">
     <value>Find a tutor...</value>

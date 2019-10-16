@@ -35,9 +35,6 @@
                       class="edit-profile-action ml-2 "
                     >sbf-edit-icon</v-icon>
                   </div>
-                  <div class="d-flex align-start" v-if="$vuetify.breakpoint.smAndUp">
-                    <userRank v-if="!isTutorProfile" class="ml-2 mt-1" :score="userScore"></userRank>
-                  </div>
                 </div>
                 <h2
                   class="text-xs-center text-sm-left  user-university caption text-capitalize"
@@ -45,7 +42,7 @@
               </v-flex>
               <div class="tutor-price mr-3">
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
-                  ₪{{showStriked ? discountedPrice : tutorPrice}}
+                  {{showStriked ? discountedPrice : tutorPrice}}
                   <span class="tutor-price small-text">
                     /
                     <span v-language:inner>profile_points_hour</span>
@@ -60,10 +57,8 @@
               </div>
               <div v-if="showStriked && $vuetify.breakpoint.smAndUp" class="tutor-price strike-through mr-3">
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
-                  ₪{{tutorPrice}}
-                  <span class="tutor-price small-text">
-                    /
-                    <span v-language:inner>profile_points_hour</span>
+                 {{tutorPrice}}
+                  <span class="tutor-price small-text">/<span v-language:inner>profile_points_hour</span>
                   </span>
                 </span>
               </div>
@@ -78,7 +73,6 @@
             class="tutor-price text-xs-center"
             v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
           >
-            <span class="subheading">₪</span>
             <span class="tutor-price">
               {{showStriked ? discountedPrice : tutorPrice}}
               <span class="tutor-price small-text">
@@ -95,7 +89,6 @@
             class="tutor-price strike-through text-xs-center"
             v-if="$vuetify.breakpoint.xsOnly && isTutorProfile && showStriked"
           >
-            <span class="subheading">₪</span>
             <span class="tutor-price">
               {{tutorPrice}}
               <span class="tutor-price small-text">
@@ -130,7 +123,6 @@
 import { mapGetters, mapActions } from "vuex";
 import userImage from "./bioParts/userImage/userImage.vue";
 import userAboutMessage from "./bioParts/userAboutMessage.vue";
-import userRank from "../../../helpers/UserRank/UserRank.vue";
 import userInfoEdit from "../../profileHelpers/userInfoEdit/userInfoEdit.vue";
 import tutorInfoEdit from "../../profileHelpers/userInfoEdit/tutorInfoEdit.vue";
 import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
@@ -139,7 +131,6 @@ export default {
   components: {
     userImage,
     userAboutMessage,
-    userRank,
     userInfoEdit,
     tutorInfoEdit,
     sbDialog
@@ -171,7 +162,7 @@ export default {
         this.getProfile.user &&
         this.getProfile.user.tutorData
       ) {
-        return this.getProfile.user.tutorData.price.toFixed(0);
+        return this.getProfile.user.tutorData.price;
       }
       return 0;
     },

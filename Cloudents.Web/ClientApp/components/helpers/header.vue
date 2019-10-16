@@ -12,9 +12,12 @@
                                 </router-link>
                             </v-toolbar-title>
                             <v-toolbar-items>
-                                <search-input v-if="$vuetify.breakpoint.smAndUp && !hideSearch" :user-text="userText"
-                                              :placeholder="this.$options.placeholders[path]"
-                                              :submit-route="submitRoute"></search-input>
+                                <search-input 
+                                    v-if="$vuetify.breakpoint.smAndUp && !hideSearch" 
+                                    :user-text="userText"
+                                    :placeholder="placeholder"
+                                    :submit-route="submitRoute">
+                                </search-input>
                                 <v-spacer ></v-spacer>
                                 <div class="settings-wrapper d-flex align-center">
                                     <!--TODO HIDDEN FOR NOW-->
@@ -29,9 +32,13 @@
                                     </div>
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
-                                            <user-avatar slot="activator" @click.native="drawer = !drawer" size="32"
-                                                         :userImageUrl="userImageUrl" :user-name="accountUser.name"/>
-
+                                            <user-avatar 
+                                                slot="activator" 
+                                                @click.native="drawer = !drawer" 
+                                                size="32"
+                                                :userImageUrl="userImageUrl" 
+                                                :user-name="accountUser.name"
+                                            />
                                             <menu-list :isAuthUser="loggedIn" v-if=!$vuetify.breakpoint.xsOnly></menu-list>
                                         </v-menu>
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
@@ -55,7 +62,7 @@
                         </v-layout>
                     </v-flex>
                     <v-flex v-if="$vuetify.breakpoint.xsOnly && !hideSearch" class="line search-wrapper">
-                        <search-input :user-text="userText" :placeholder="this.$options.placeholders[path]"
+                        <search-input :user-text="userText" :placeholder="placeholder"
                                       :submit-route="submitRoute"></search-input>
                     </v-flex>
                     <slot name="extraHeader"></slot>
@@ -74,13 +81,19 @@
 </template>
 
 <script>
+    // Store
+    import {mapActions, mapGetters, mapMutations} from 'vuex';
+
+    // Consts
     import {notRegMenu} from '../settings/consts';
+
+    // Components
     import SearchInput from '../helpers/searchInput/searchInput.vue';
     import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
     import menuList from "./menu-list/menu-list.vue";
-    import {mapActions, mapGetters, mapMutations} from 'vuex';
     import logoComponent from '../app/logo/logo.vue';
 
+    // Services
     import {LanguageService } from "../../services/language/languageService";
     import analyticsService from "../../services/analytics.service";
 
@@ -90,12 +103,6 @@
             UserAvatar,
             menuList,
             logoComponent
-        },
-        placeholders: {
-            all: LanguageService.getValueByKey("header_Search"),
-            tutor: LanguageService.getValueByKey("header_placeholder_tutor"),
-            note: LanguageService.getValueByKey("header_placeholder_note"),
-            ask: LanguageService.getValueByKey("header_placeholder_ask"),
         },
         data() {
             return {
@@ -110,10 +117,10 @@
         props: {
             currentSelection: {
                 type: String,
-                default: 'all'
+                default: 'feed'
             },
             userText: {type: String},
-            submitRoute: {type: String, default: '/ask'},
+            submitRoute: {type: String, default: '/feed'},
             layoutClass: {}
         },
         computed: {
@@ -130,7 +137,6 @@
                     return `${this.accountUser.image}`
                 }
                 return ''
-
             },
             hasConversations(){
                 return Object.keys(this.getConversations).length > 0;
@@ -162,9 +168,11 @@
                 }
                 let filteredRoutes = ['editCourse', 'addCourse', 'document', 'about', 'faq', 'partners', 'reps', 'privacy', 'terms', 'contact', 'profile', 'wallet', 'addUniversity', 'studyRooms'];
                 return filteredRoutes.indexOf(this.$route.name) > -1;
-            }
-            //myMoney(){return this.accountUser.balance / 40}
-
+            },
+            placeholder() {
+                return LanguageService.getValueByKey(`header_placeholder_feed`);
+                // return LanguageService.getValueByKey(`header_placeholder_${this.currentSelection}`);
+                }
         },
         watch: {
             drawer(val){
@@ -181,25 +189,24 @@
                     this.path = val.name
                 }
             }
-
         },
         methods: {
             ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog','openChatInterface']),
                
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
             openNewQuestionDialog(){
-                    if(this.accountUser == null){
-                        this.updateLoginDialogState(true);
-                        //set user profile
-                        this.updateUserProfileData('profileHWH')
-                    }else{
-                        //ab test original do not delete
-                        let Obj = {
-                            status:true,
-                            from: 1
-                        };
-                        this.updateNewQuestionDialogState(Obj)
-                    }
+                if(this.accountUser == null){
+                    this.updateLoginDialogState(true);
+                    //set user profile
+                    this.updateUserProfileData('profileHWH')
+                }else{
+                    //ab test original do not delete
+                    let Obj = {
+                        status:true,
+                        from: 1
+                    };
+                    this.updateNewQuestionDialogState(Obj)
+                }
             },
             openChatWindow(){
                 this.openChatInterface();

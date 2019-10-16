@@ -45,10 +45,9 @@ namespace Cloudents.Persistence
         }
     }
 
-    public class MyLinqToHqlGeneratorsRegistry : DefaultLinqToHqlGeneratorsRegistry
+    public sealed class MyLinqToHqlGeneratorsRegistry : DefaultLinqToHqlGeneratorsRegistry
     {
         public MyLinqToHqlGeneratorsRegistry()
-            : base()
         {
             RegisterGenerator(NHibernate.Util.ReflectHelper.GetMethod(() => DialectExtensions.FullTextContains(null, null)),
                 new FullTextContainsGenerator());
@@ -67,7 +66,7 @@ namespace Cloudents.Persistence
             ReadOnlyCollection<System.Linq.Expressions.Expression> arguments,
             HqlTreeBuilder treeBuilder, IHqlExpressionVisitor visitor)
         {
-            HqlExpression[] args = new HqlExpression[2] {
+            var args = new[] {
                 visitor.Visit(arguments[0]).AsExpression(),
                 visitor.Visit(arguments[1]).AsExpression()
             };

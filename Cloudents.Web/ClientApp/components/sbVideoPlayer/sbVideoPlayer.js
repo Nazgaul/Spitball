@@ -3,7 +3,7 @@ export default {
         return {
             isReady:false,
             myPlayer: ''
-        }
+        };
     },
     props:{
         id:{
@@ -51,7 +51,7 @@ export default {
     },
     computed: {
         uniqueID(){
-            return `${this.id}_${Math.random().toString(36).substr(2, 9)}`
+            return `${this.id}_${Math.random().toString(36).substr(2, 9)}`;
         }
     },
     watch:{
@@ -61,7 +61,7 @@ export default {
                 let srcObj = {
                     src: newVal,
                     type: this.type
-                }
+                };
                 this.myPlayer.src([srcObj]);
             }
         }
@@ -83,32 +83,34 @@ export default {
                 //     TraceTargets: [{ target: 'console' }],
                 //     maxLogLevel: 3
                 // },
-            }
-            let uniqueID = this.uniqueID
-            let srcObj = {src:this.src,type:this.type}
+            };
+            let uniqueID = this.uniqueID;
+            let srcObj = {src:this.src,type:this.type};
             this.myPlayer = amp(uniqueID,videoOptions);
             this.myPlayer.src([srcObj]);
             this.myPlayer.addEventListener('ended',(e)=>{
-                this.$emit('videoEnded')
-            })
+                this.$emit('videoEnded');
+            });
         },
         loadStyle(){
             return new Promise((resolve, reject) => {
-                if (document.querySelector('#amp-azure')) return resolve()
-                let linkTag = document.createElement('link')
-                linkTag.id = '#amp-azure'
-                linkTag.rel = 'stylesheet'
-                linkTag.href = `//amp.azure.net/libs/amp/2.3.1/skins/amp-flush/azuremediaplayer.min.css`
-                document.head.insertBefore(linkTag, document.head.firstChild)
-                return resolve()
-            })
+                if (document.querySelector('#amp-azure')) return resolve();
+                let linkTag = document.createElement('link');
+                linkTag.id = '#amp-azure';
+                linkTag.rel = 'stylesheet';
+                linkTag.href = `//amp.azure.net/libs/amp/2.3.1/skins/amp-flush/azuremediaplayer.min.css`;
+                document.head.insertBefore(linkTag, document.head.firstChild);
+                return resolve();
+            });
         }
     },
     beforeCreate() {
         let self = this
-        let ampUrl = '//amp.azure.net/libs/amp/2.3.1/azuremediaplayer.min.js'
-        this.$loadScript(ampUrl).then(()=>{
-            self.loadStyle().then(()=>{
+        let ampUrlScript = '//amp.azure.net/libs/amp/2.3.1/azuremediaplayer.min.js'
+        let ampUrlStyle = `//amp.azure.net/libs/amp/2.3.1/skins/amp-flush/azuremediaplayer.min.css`
+        let id = '#amp-azure'
+        this.$loadScript(ampUrlScript).then(()=>{
+            self.$loadStyle(ampUrlStyle,id).then(()=>{
                 self.initVideoPlayer()
             })
         })

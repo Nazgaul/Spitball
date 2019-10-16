@@ -11,10 +11,10 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.Assigned();
             Map(x => x.Name);
             Map(x => x.Image);
-            Map(x => x.Subjects).CustomType<IEnumerableJsonStringMapping>();
-            Map(x => x.AllSubjects).CustomType<IEnumerableJsonStringMapping>().CustomSqlType("nvarchar(max)");
-            Map(x => x.Courses).CustomType<IEnumerableJsonStringMapping>();
-            Map(x => x.AllCourses).CustomType<IEnumerableJsonStringMapping>().CustomSqlType("nvarchar(max)");
+            Map(x => x.Subjects).CustomType<EnumerableJsonStringMapping>();
+            Map(x => x.AllSubjects).CustomType<EnumerableJsonStringMapping>().CustomSqlType("nvarchar(max)");
+            Map(x => x.Courses).CustomType<EnumerableJsonStringMapping>();
+            Map(x => x.AllCourses).CustomType<EnumerableJsonStringMapping>().CustomSqlType("nvarchar(max)");
             Map(x => x.Price);
             Map(x => x.Rate);
             Map(x => x.RateCount);
@@ -22,6 +22,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.University);
             Map(x => x.Lessons);
             Map(x => x.OverAllRating).Column("Rating");
+            Map(x => x.Country).Length(2);
             Table("ReadTutor");
             DynamicUpdate();
            // SchemaAction.Update();

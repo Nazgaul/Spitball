@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using FluentAssertions;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Azure.WebJobs;
 using Moq;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;

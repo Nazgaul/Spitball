@@ -7,16 +7,16 @@ import canvasFinder from '../utils/canvasFinder';
 import store from '../../../../store/index';
 import {LanguageService} from '../../../../services/language/languageService.js'
 
-const OPTION_TYPE = 'imageDraw';
+const optionType = 'imageDraw';
 
 let localShape = createShape({
-    type: OPTION_TYPE,
+    type: optionType,
     points: []
 });
 
 const clearLocalShape = function () {
     localShape = createShape({
-        type: OPTION_TYPE,
+        type: optionType,
         points: []
     });
 };
@@ -74,7 +74,7 @@ const handleImage = function (e,isDragged) {
         fileData = e.dataTransfer.files[0];
     }
 
-    if(!fileData) return 
+    if(!fileData) return;
     store.dispatch("updateShowBoxHelper", false);
     store.dispatch("updateImgLoader", true);
     formData.append("file", fileData);
@@ -85,7 +85,7 @@ const handleImage = function (e,isDragged) {
         // img.crossOrigin="anonymous";
         img.onload = function () {
             let imageSize = imgSizeFit(img.width, img.height, 600, 800);
-            imageXDefaultPosition = (window.innerWidth / 2) - (imageSize.width / 2)
+            imageXDefaultPosition = (window.innerWidth / 2) - (imageSize.width / 2);
             let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(whiteBoardService.getContext(), imageXDefaultPosition, imageYDefaultPosition);
             
             img.width = imageSize.width;
@@ -95,7 +95,7 @@ const handleImage = function (e,isDragged) {
                 mouseY,
                 width: img.width,
                 height: img.height,
-                option: OPTION_TYPE,
+                option: optionType,
                 eventName: 'start',
                 src: img.src
             });

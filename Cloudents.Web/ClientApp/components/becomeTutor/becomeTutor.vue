@@ -42,14 +42,15 @@
     import step_1 from './helpers/firstStep.vue';
     import step_2 from './helpers/secondStep.vue';
     import step_3 from './helpers/calendarStep.vue'
-    import step_4 from './helpers/finalStep.vue';
+    import step_4 from './helpers/confirmationStep.vue'
+    import step_5 from './helpers/finalStep.vue';
 
     export default {
         name: "becomeTutor",
-        components: {step_1, step_2, step_3,step_4},
+        components: {step_1, step_2, step_3,step_4,step_5},
         data() {
             return {
-                steps: 4,
+                steps: 5,
                 currentStep: 1,
             };
         },

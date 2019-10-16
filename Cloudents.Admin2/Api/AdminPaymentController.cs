@@ -45,15 +45,16 @@ namespace Cloudents.Admin2.Api
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> PayAsync([FromBody]PaymentRequest model,
-            //[FromServices] PayMeCredentials payMeCredentials,
+            [FromServices] PayMeCredentials payMeCredentials,
             [FromServices] TelemetryClient client,
             CancellationToken token)
         {
             try
             {
-                var command = new PaymentCommand(model.UserId, model.TutorId, model.StudentPay,
-                    model.StudyRoomSessionId);
+                var command = new PaymentCommand(model.UserId, model.TutorId, model.StudentPay, model.SpitballPay,
+                    model.StudyRoomSessionId, payMeCredentials.BuyerKey);
                 await _commandBus.DispatchAsync(command, token);
+
                 return Ok();
             }
             catch (HttpRequestException ex)

@@ -1,33 +1,29 @@
 // V14 do we still need this ?
-import ResultItem from '../ResultItem.vue'; //
-import ResultNote from "../ResultNote.vue";
-import { verticalsName, verticalsNavbar } from "../../../services/navigation/vertical-navigation/nav";
-import SuggestCard from '../suggestCard.vue'
-import emptyState from "../svg/no-match-icon.svg";
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
-import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue';
-import sortAndFilterMixin from '../../mixins/sortAndFilterMixin';
+// SERVICES
 import { LanguageService } from '../../../services/language/languageService'
-
-import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
 import analyticsService from '../../../services/analytics.service'
 
-
+import sortAndFilterMixin from '../../mixins/sortAndFilterMixin';
+import { verticalsName, verticalsNavbar } from "../../../services/navigation/vertical-navigation/nav";
+// COMPONENTS
+import emptyState from "../svg/no-match-icon.svg";
 import faqBlock from '../helpers/faq-block/faq-block.vue'
-
+import ResultItem from '../ResultItem.vue';
+import ResultNote from "../ResultNote.vue";
+import SuggestCard from '../suggestCard.vue'
+import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
+import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue';
+import setUniClass from '../helpers/setUniClassItem/setUniClass.vue'
 import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue'
 import uploadFilesBtn from "../helpers/uploadFilesBtn/uploadFilesBtn.vue"
 import schoolBlock from '../../schoolBlock/schoolBlock.vue'
 import resultFilter from '../helpers/resultFilter/resultFilter.vue'
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue'
 import requestBox from '../../requestActions/requestActions.vue'
-
-
 //store
 import storeService from '../../../services/store/storeService';
 import studyDocumentsStore from '../../../store/studyDocuments_store';
-
 //The vue functionality for result page
 export default {
     components: {
@@ -40,7 +36,6 @@ export default {
         loginToAnswer,
         uploadFilesBtn,
         askQuestionBtn,
-        
         setUniClass,
         schoolBlock,
         resultFilter,
@@ -206,7 +201,7 @@ export default {
             let nextPageUrl = this.StudyDocuments_getNextPageUrl();
             if (this.name !== this.pageData.vertical) {
                 this.scrollBehaviour.isLoading = false;
-                return
+                return;
             };
             this.StudyDocuments_nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
                 .then((res) => {

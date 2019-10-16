@@ -23,7 +23,7 @@ const mutations = {
     },
     [LUIS.UPDATE_CURRENT_VERTICAL](state, data) {
         state.currentVertical = data;
-        state.currentText = state[getLuisType(data)] ? state[getLuisType(data)].text : ""
+        state.currentText = state[getLuisType(data)] ? state[getLuisType(data)].text : "";
     },
     [LUIS.CLEAN_DATA](state) {
         for (const prop of Object.keys(state)) {
@@ -41,13 +41,13 @@ const getters = {
 const actions = {
     updateAITerm({commit, dispatch}, {vertical, data}) {
         commit(LUIS.UPDATE_TERM, {vertical, data});
-        dispatch('updateHistorySetVertical', {term: data.text, vertical})
+        dispatch('updateHistorySetVertical', {term: data.text, vertical});
     },
     setFilteredCourses({commit}, data) {
         commit(LUIS.UPDATE_FILTER_COURSES, data);
     },
     setCurrentVertical({commit}, data) {
-        commit(LUIS.UPDATE_CURRENT_VERTICAL, data)
+        commit(LUIS.UPDATE_CURRENT_VERTICAL, data);
     },
     cleanData({commit}) {
         commit(LUIS.CLEAN_DATA);

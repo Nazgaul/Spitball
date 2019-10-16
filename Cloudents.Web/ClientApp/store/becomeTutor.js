@@ -15,7 +15,7 @@ const state = {
 const getters = {
     becomeTutorData: state => state.becomeTutorObj,
     becomeTutorDialog: state => state.tutorDialog,
-}
+};
 const mutations = {
     changeDialogState(state, val) {
         state.tutorDialog = val;
@@ -34,9 +34,9 @@ const actions = {
     },
     sendBecomeTutorData({state,dispatch}) {
         return accountService.becomeTutor(state.becomeTutorObj).then((res=>{
-            dispatch('updateSelectedCalendarList')
-            dispatch('updateAvailabilityCalendar')
-            return Promise.resolve(res)
+            dispatch('updateSelectedCalendarList');
+            dispatch('updateAvailabilityCalendar');
+            return Promise.resolve(res);
         }));
     }
 };

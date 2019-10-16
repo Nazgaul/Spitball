@@ -18,14 +18,13 @@
                 <h3 v-language:inner>mobileSortAndFilter_sortBy</h3>
                 <div class="sort-switch">
                 <template v-for="(singleSort, index) in sortOptions">
-                <input type="radio" :id="`option${index}`" v-model="sort" :key="`option${index}`"
-                name="switch" :value="singleSort.key">
-                <label :for="`option${index}`" :key="index">{{singleSort.value}}</label>
+                    <input type="radio" :id="`option${index}`" v-model="sort" :key="`option${index}`"
+                    name="switch" :value="singleSort.key">
+                    <label :for="`option${index}`" :key="index">{{singleSort.value}}</label>
                 </template>
                 </div>
                 </template>
             </div>
-
             <div class="filter-wrap" :class="$vuetify.breakpoint.xsOnly ? 'px-4' : 'px-5'" v-if="filterList && filterList.length">
                 <!--<h3 class="" v-language:inner>mobileSortAndFilter_filterBy</h3>-->
                 <div class="filter-sections">
@@ -44,13 +43,12 @@
                         </v-layout>
                         <div class="filter-list">
                             <v-btn-toggle v-model="filtersSelected" multiple>
-                                <v-btn v-for="filterOption in singleFilter.data"
-                                       :key="(filterOption.key ? filterOption.key : '')"
+                                <v-btn v-for="(filterOption, index) in singleFilter.data"
+                                       :key="(filterOption.key ? filterOption.key : index)"
                                        :active="filterOption.value"
                                        :id="filterOption.key"
                                        :value="`${filterOption.key}_${filterOption.value}_${singleFilter.id}`">
                                     {{filterOption.value ? filterOption.value : '' | capitalize}}
-
                                 </v-btn>
                             </v-btn-toggle>
                             <slot :name="`${singleFilter.modelId}EmptyState`" v-if="singleFilter.data && singleFilter.data.length===0"></slot>

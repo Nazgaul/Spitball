@@ -30,14 +30,12 @@ namespace Cloudents.Web.Test.IntegrationTests
             _uri.Path = "api/tutor";
 
             var response = await _client.GetAsync(_uri.Path);
-
+            response.EnsureSuccessStatusCode();
             var str = await response.Content.ReadAsStringAsync();
 
             var d = JArray.Parse(str);
 
             var result = d[0]?.Value<JObject>();
-
-            response.EnsureSuccessStatusCode();
 
             result.Should().NotBeNull();
           

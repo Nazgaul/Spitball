@@ -1,7 +1,7 @@
 import studyRoomsService from '../services/studyRoomsService'
 
 const state = {
-    studyRooms:[],
+    studyRooms:[]
  };
  
  const getters = {
@@ -10,7 +10,7 @@ const state = {
  
  const mutations = {
      setStudyRooms(state, val) {
-         state.studyRooms = val
+         state.studyRooms = val;
      },
  };
  
@@ -21,12 +21,12 @@ const state = {
                 let userStatus = {
                     id: room.userId,
                     online: room.online
-                }
+                };
                 dispatch('setUserStatus', userStatus);
-            })
+            });
             commit('setStudyRooms', rooms);
-        })
-     },
+        });
+    },
      createStudyRoom({commit}, userId){
         return studyRoomsService.createRoom(userId);
      },

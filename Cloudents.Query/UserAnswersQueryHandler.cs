@@ -34,24 +34,24 @@ namespace Cloudents.Query
                 .Select(s=> new QuestionFeedDto()
                     {
                         CultureInfo = s.Question.Language,
-                        User = new UserDto
-                        {
-                            Id = s.Question.User.Id,
-                            Name = s.Question.User.Name,
-                            Score = s.Question.User.Score,
-                            Image = s.Question.User.Image
-                        },
+                        //User = new UserDto
+                        //{
+                        //    Id = s.Question.User.Id,
+                        //    Name = s.Question.User.Name,
+                        //    Score = s.Question.User.Score,
+                        //    Image = s.Question.User.Image
+                        //},
                         Id = s.Question.Id,
                         Course = s.Question.Course.Id,
                         Text = s.Question.Text,
                         DateTime = s.Question.Updated,
-                        Vote = new VoteDto()
-                        {
-                            Votes = s.Question.VoteCount
-                        },
+                        //Vote = new VoteDto()
+                        //{
+                        //    Votes = s.Question.VoteCount
+                        //},
                         Answers = s.Question.Answers.Where(w => w.Status.State == ItemState.Ok).Count(),
-                        HasCorrectAnswer = s.Question.CorrectAnswer.Id != null,
-                        Files = s.Question.Attachments
+                        //HasCorrectAnswer = s.Question.CorrectAnswer.Id != null,
+                       // Files = s.Question.Attachments
                         
                 }).Take(50).Skip(query.Page * 50).ToListAsync(token);
         }

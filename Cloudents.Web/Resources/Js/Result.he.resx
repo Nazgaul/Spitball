@@ -177,4 +177,7 @@
   <data name="no_result_found" xml:space="preserve">
     <value>לא נמצאו תוצאות</value>
   </data>
+  <data name="load_documents" xml:space="preserve">
+    <value>טען עוד</value>
+  </data>
 </root>

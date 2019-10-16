@@ -15,7 +15,7 @@ namespace Cloudents.Core.EventHandler
         IEventHandler<RemoveCourseEvent>,
         IEventHandler<SetUniversityEvent>,
         IEventHandler<UpdateImageEvent>,
-        IEventHandler<EndSessionEvent>,
+        IEventHandler<EndStudyRoomSessionEvent>,
 
         IDisposable
     {
@@ -58,9 +58,9 @@ namespace Cloudents.Core.EventHandler
             await UpdateAsync(eventMessage.UserId, token);
         }
 
-        public async Task HandleAsync(EndSessionEvent eventMessage, CancellationToken token)
+        public async Task HandleAsync(EndStudyRoomSessionEvent eventMessage, CancellationToken token)
         {
-            await UpdateAsync(eventMessage.UserId, token);
+            await UpdateAsync(eventMessage.Session.StudyRoom.Tutor.Id, token);
         }
 
         private async Task AddAsync(long userId, CancellationToken token)

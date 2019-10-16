@@ -1,10 +1,6 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
-using NHibernate.Dialect;
-using NHibernate.Engine;
-using NHibernate.Mapping;
-using NHibernate.Type;
 
 namespace Cloudents.Persistence.Maps
 {

@@ -27,6 +27,7 @@
                     <v-form v-model="validBecomeFirst" ref="becomeFormFirst">
                         <v-flex xs12 shrink class="mb-2">
                             <v-text-field
+                            autocomplete="abcd"
                             v-model="firstName"
                             :rules="[rules.required, rules.notSpaces, rules.minimumChars]"
                             class="become-tutor-edit-firstname"
@@ -105,7 +106,7 @@
                 rules: {
                     required: (value) => validationRules.required(value),
                     minimum: (value) => validationRules.minVal(value,50),
-                    maximum: (value) => validationRules.maxVal(value, 200),
+                    maximum: (value) => validationRules.maxVal(value, 1000),
                     minimumChars: (value) => validationRules.minimumChars(value, 2),
                     notSpaces: (value) => validationRules.notSpaces(value),
                     integer: (value) => validationRules.integer(value)

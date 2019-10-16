@@ -194,8 +194,8 @@ export default {
             if(!this.accountUser) {
                 this.updateLoginDialogState(true);
                 setTimeout(()=>{
-                    document.getElementById(`tab-${this.activeTab}`).lastChild.click()
-                },200)
+                    document.getElementById(`tab-${this.activeTab}`).lastChild.click();
+                },200);
             } else {
                 this.activeTab = 6;
             }
@@ -261,10 +261,10 @@ export default {
             }
         },
         showCalendar(){
-            if(!this.getProfile) return
+            if(!this.getProfile) return;
             let isTutorSharedCalendar = this.getProfile.user.calendarShared;
             if(this.isTutorProfile && (this.isMyProfile || isTutorSharedCalendar)){
-                return true
+                return true;
             }
         },
         questionDocuments() {
@@ -290,7 +290,7 @@ export default {
                 return this.profileData.purchasedDocuments;
             }
             return [];
-        },
+        }
     },
     watch: {
         '$route': function(val){
@@ -302,12 +302,12 @@ export default {
                 });
             }else{
                 this.updateToasterParams({
-                    showToaster: false,
+                    showToaster: false
                 }); 
             }
-            this.activeTab = 1
-            document.getElementById(`tab-${1}`).lastChild.click()
-            this.fetchData()
+            this.activeTab = 1;
+            document.getElementById(`tab-${1}`).lastChild.click();
+            this.fetchData();
         },
 
         activeTab() {
@@ -328,17 +328,17 @@ export default {
     },
     mounted() {
         if(this.$route.params && this.$route.params.tab){
-            let tabNumber = this.$route.params.tab
+            let tabNumber = this.$route.params.tab;
             setTimeout(()=>{
-                document.getElementById(`tab-${tabNumber}`).lastChild.click()
-            },200)
+                document.getElementById(`tab-${tabNumber}`).lastChild.click();
+            },200);
         }
         if((this.$route.query && this.$route.query.calendar)){
             setTimeout(()=>{
                 if(this.getProfile.user.calendarShared){
-                    document.getElementById(`tab-6`).lastChild.click()
+                    document.getElementById(`tab-6`).lastChild.click();
                 }
-            },200)
+            },200);
         }
         setTimeout(()=>{
             if((this.$route.params && this.$route.params.id) && 
@@ -350,7 +350,7 @@ export default {
                     toasterTimeout: 3600000
                 });
             }
-        },200)
-    },
+        },200);
+    }
 }
 

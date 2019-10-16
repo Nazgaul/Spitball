@@ -152,9 +152,6 @@
     <value>S</value>
     <comment>Shuffle cards</comment>
   </data>
-  <data name="shuffle" xml:space="preserve">
-    <value>Shuffle</value>
-  </data>
   <data name="Study" xml:space="preserve">
     <value>Study</value>
   </data>

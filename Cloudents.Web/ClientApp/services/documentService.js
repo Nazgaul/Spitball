@@ -2,8 +2,8 @@ import { connectivityModule } from "./connectivity.module"
 import searchService from './searchService'
 
 function documentUserItem(ObjInit){
-    this.name = ObjInit.uploaderName
-    this.userId = ObjInit.uploaderId
+    this.name = ObjInit.uploaderName;
+    this.userId = ObjInit.uploaderId;
     this.isTutor = false;
 }
 
@@ -23,12 +23,12 @@ function DocumentItem(ObjInit) {
 };
 
 function createDocumentItem(ObjInit) {
-    return new DocumentItem(ObjInit)
+    return new DocumentItem(ObjInit);
 }
 
 function createDocumentPreview(itemPreview){
     if (!itemPreview || itemPreview.length === 0) {
-        let location = `${global.location.origin}/images/doc-preview-empty.png`;
+        let location = require("../components/images/doc-preview-empty.png");
         itemPreview.push(location);
     }
 
@@ -41,7 +41,7 @@ function createDocumentContentType(itemPreview){
     return postfix[postfix.length - 1];
 }
 function createVideoPreview(objInit){
-    return new VideoPreview(objInit)
+    return new VideoPreview(objInit);
 }
 function VideoPreview(objInit){
     this.locator = objInit.locator;
@@ -56,7 +56,7 @@ function DocumentObject(objInit){
 }
 
 function createDocumentObj(ObjInit) {
-    return new DocumentObject(ObjInit)
+    return new DocumentObject(ObjInit);
 }
 
 function getDocument(id){

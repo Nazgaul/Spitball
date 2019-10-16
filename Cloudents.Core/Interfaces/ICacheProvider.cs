@@ -4,7 +4,7 @@
     {
         object Get(string key, string region);
 
-        T Get<T>(string key, string region);
+       // T Get<T>(string key, string region);
 
         /// <summary>
         /// Add element to cache

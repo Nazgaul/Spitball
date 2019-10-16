@@ -131,7 +131,7 @@ module.exports = (env) => {
                
             ]
         },
-        devtool: isDevBuild ? 'inline-source-map' : false,
+        devtool: false,
         optimization: {
             minimize: !isDevBuild
         },

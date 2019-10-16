@@ -13,7 +13,7 @@ namespace Cloudents.Persistence.Maps
             DynamicUpdate();
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.Text).Length(Answer.MaxLength);
-            Map(x => x.Attachments).Nullable();
+            //Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable();
             Map(x => x.Language).Length(10);
 
@@ -23,16 +23,16 @@ namespace Cloudents.Persistence.Maps
             Component(x => x.Status);
             //References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("AnswerFlagged_User");
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
-            HasMany(x => x.Transactions)
-                //.Cascade()
-                .LazyLoad()
-                .Inverse();
+            //HasMany(x => x.Transactions)
+            //    //.Cascade()
+            //    .LazyLoad()
+            //    .Inverse();
 
-            HasMany(x => x.Votes)
-                .Access.CamelCaseField(Prefix.Underscore)
-                .KeyColumns.Add("AnswerId")
-                .Inverse().Cascade.AllDeleteOrphan();
-            Map(x => x.VoteCount);
+            //HasMany(x => x.Votes)
+            //    .Access.CamelCaseField(Prefix.Underscore)
+            //    .KeyColumns.Add("AnswerId")
+            //    .Inverse().Cascade.AllDeleteOrphan();
+            //Map(x => x.VoteCount);
             SchemaAction.Validate();
             //DiscriminateSubClassesOnColumn("State");
         }

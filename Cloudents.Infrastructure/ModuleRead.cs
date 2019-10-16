@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Cloudents.Infrastructure.Interceptor;
-using Cloudents.Infrastructure.Search.Question;
 using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Interfaces;
@@ -17,9 +16,6 @@ namespace Cloudents.Infrastructure
         [SuppressMessage("Microsoft.Design", "RCS1163:Unused parameter")]
         protected override void Load(ContainerBuilder builder)
         {
-           
-           
-            builder.RegisterType<QuestionSearch>().As<IQuestionSearch>();
             builder.RegisterType<DocumentSearch>().As<IDocumentSearch>();
 
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()

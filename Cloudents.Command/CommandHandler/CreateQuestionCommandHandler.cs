@@ -2,10 +2,7 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using JetBrains.Annotations;
-using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,18 +13,16 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IRegularUserRepository _userRepository;
-        private readonly Lazy<IQuestionsDirectoryBlobProvider> _blobProvider;
         private readonly ITextAnalysis _textAnalysis;
         private readonly IRepository<Course> _courseRepository;
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
             IRegularUserRepository userRepository, ITextAnalysis textAnalysis,
-            Lazy<IQuestionsDirectoryBlobProvider> blobProvider, IRepository<Course> courseRepository)
+             IRepository<Course> courseRepository)
         {
             _questionRepository = questionRepository;
             _userRepository = userRepository;
             _textAnalysis = textAnalysis;
-            _blobProvider = blobProvider;
             _courseRepository = courseRepository;
         }
 
@@ -40,36 +35,18 @@ namespace Cloudents.Command.CommandHandler
                 throw new DuplicateRowException();
             }
 
-            //var currentBalance = await _transactionRepository.GetBalanceAsync(message.UserId, token);
-           
-            //if (currentBalance < message.Price)
-            //{
-            //    throw new InsufficientFundException();
-            //}
-
             var course = await _courseRepository.LoadAsync(message.Course, token);
             await _courseRepository.UpdateAsync(course, token);
-
-
 
             var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
 
             var question = new Question(
-                message.Text,  message.Files?.Count() ?? 0,
+                message.Text,  
                 user, textLanguage, course, user.University);
 
             await _userRepository.UpdateAsync(user, token);
 
-
             await _questionRepository.AddAsync(question, token);
-            var id = question.Id;
-
-            if (_blobProvider != null)
-            {
-                var l = message.Files?.Select(file => _blobProvider.Value.MoveAsync(file, $"{id}", token)) ??
-                        Enumerable.Empty<Task>();
-                await Task.WhenAll(l);
-            }
         }
     }
 }

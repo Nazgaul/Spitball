@@ -2,8 +2,6 @@
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests

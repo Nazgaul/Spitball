@@ -19,7 +19,7 @@ namespace Cloudents.Persistence
 
         bool IUserType.Equals(object x, object y)
         {
-            if (object.ReferenceEquals(x, y))
+            if (ReferenceEquals(x, y))
                 return true;
 
             if (x == null || y == null)
@@ -95,7 +95,7 @@ namespace Cloudents.Persistence
             return value;
         }
 
-        public SqlType[] SqlTypes => new SqlType[] { new SqlType(DbType.Int32) };
+        public SqlType[] SqlTypes => new[] { new SqlType(DbType.Int32) };
         public Type ReturnedType => typeof(int);
         public bool IsMutable => false;
     }

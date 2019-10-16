@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Cloudents.Web.Services;
+﻿using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api

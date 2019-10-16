@@ -1,7 +1,7 @@
 // import timeago from 'timeago.js';
 import { format, register } from 'timeago.js'
 
-function timeAgoFormat(time) {
+function timeAgoFormat(time) {   
     const hebrewLang = function (number, index) {
         return [
             ['זה עתה', 'עכשיו'],

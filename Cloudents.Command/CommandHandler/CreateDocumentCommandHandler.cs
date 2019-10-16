@@ -31,13 +31,13 @@ namespace Cloudents.Command.CommandHandler
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
             var course = await _courseRepository.LoadAsync(message.Course, token);
-            var document = new Document(Path.GetFileNameWithoutExtension(message.Name),
-                course, user, message.Price, message.ModelDescription);
+            var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(message.BlobName)];
+            var document = new Document(Path.GetFileNameWithoutExtension(message.Name), 
+                course,  user,  message.Price, extension.DocumentType,message.ModelDescription);
+     
             await _documentRepository.AddAsync(document, token);
             var id = document.Id;
             await _blobProvider.MoveAsync(message.BlobName, id.ToString(), token);
-
-            message.Id = id;
         }
     }
 }

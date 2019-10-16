@@ -58,6 +58,7 @@ namespace Cloudents.Infrastructure.Cache
             }
             catch (Exception e)
             {
+                _distributedEnabled = false;
                 _logger.Exception(e);
                 
             }
@@ -71,37 +72,35 @@ namespace Cloudents.Infrastructure.Cache
 
         public object Get(string key, string region)
         {
-            if (_distributedEnabled)
+            if (!_distributedEnabled) return null;
+            try
             {
-                try
+                return _cache.Get(key, region);
+            }
+            catch (Exception ex)
+            {
+                _logger.Exception(ex, new Dictionary<string, string>
                 {
-                    return _cache.Get(key, region);
-                }
-                catch (Exception ex)
-                {
-                    _logger.Exception(ex, new Dictionary<string, string>
-                    {
-                        ["Service"] = nameof(Cache),
-                        ["Key"] = key,
-                        ["Region"] = region
-                    });
-                    _cache.Remove(key, region);
-                    return null;
-                }
+                    ["Service"] = nameof(Cache),
+                    ["Key"] = key,
+                    ["Region"] = region
+                });
+                //_cache.Remove(key, region);
+                //return null;
             }
 
             return null;
         }
 
-        public T Get<T>(string key, string region)
-        {
-            if (_distributedEnabled)
-            {
-                return _cache.Get<T>(key, region);
-            }
+        //public T Get<T>(string key, string region)
+        //{
+        //    if (_distributedEnabled)
+        //    {
+        //        return _cache.Get<T>(key, region);
+        //    }
 
-            return default;
-        }
+        //    return default;
+        //}
 
         public bool Exists(string key, string region)
         {
@@ -114,16 +113,29 @@ namespace Cloudents.Infrastructure.Cache
         {
             if (_distributedEnabled)
             {
-                var obj = ConvertEnumerableToList(value);
-                if (obj == null)
+                try
                 {
-                    return;
-                }
+                    var obj = ConvertEnumerableToList(value);
+                    if (obj == null)
+                    {
+                        return;
+                    }
 
-                var cacheItem = new CacheItem<object>(key, region, obj,
-                    slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
-                    TimeSpan.FromSeconds(expire));
-                _cache.Put(cacheItem);
+                    var cacheItem = new CacheItem<object>(key, region, obj,
+                        slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
+                        TimeSpan.FromSeconds(expire));
+                    _cache.Put(cacheItem);
+                }
+                catch (Exception e)
+                {
+                    _logger.Exception(e, new Dictionary<string, string>
+                    {
+                        ["Service"] = nameof(Cache),
+                        ["Key"] = key,
+                        ["Region"] = region,
+                        ["Value"] = value.ToString()
+                    });
+                }
             }
 
             //return obj;

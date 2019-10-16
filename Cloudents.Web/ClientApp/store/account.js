@@ -23,7 +23,7 @@ function setIntercomSettings(data) {
         user_name = data.name;
         user_email = data.email;
         user_phoneNumber = data.phoneNumber;
-        is_tutor = data.isTutor? data.isTutor : false
+        is_tutor = data.isTutor? data.isTutor : false;
     }
     global.intercomSettings = {
         app_id,
@@ -490,7 +490,7 @@ const actions = {
             toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
             showToaster: true,
             toasterTimeout: 5000
-        })
+        });
     },
     profileVote({commit}, data) {
         commit('updateProfileVote', data);

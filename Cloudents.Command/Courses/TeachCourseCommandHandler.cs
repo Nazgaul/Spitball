@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

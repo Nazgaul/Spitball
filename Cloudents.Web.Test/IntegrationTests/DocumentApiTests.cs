@@ -77,10 +77,16 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("api/document")]
-        [InlineData("/api/document?page=1")]
-        public async Task GetAsync_OK(string url)
+        [InlineData("api/feed",false)]
+        [InlineData("/api/feed?page=1",false)]
+        [InlineData("api/feed", true)]
+        [InlineData("/api/feed?page=1", true)]
+        public async Task GetAsync_OK(string url, bool authUser)
         {
+            if (authUser)
+            {
+                await _client.LogInAsync();
+            }
             var response = await _client.GetAsync(url);
 
             var str = await response.Content.ReadAsStringAsync();
@@ -97,26 +103,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                 next.Should().Be(_uri.Path + "?page=2");
         }
 
-        [Fact]
-        public async Task GetAsync_Filters()
-        {
-            var response = await _client.GetAsync(_uri.Path);
-
-            var str = await response.Content.ReadAsStringAsync();
-
-            var d = JObject.Parse(str);
-
-            var filters = d["filters"]?.Value<JArray>();
-
-            if (filters != null)
-            {
-                var type = filters[0]["data"]?.Value<JArray>();
-
-                filters.Should().NotBeNull();
-
-                type.Should().HaveCountGreaterThan(3);
-            }
-        }
+       
 
         [Fact]
         public async Task PostAsync_Upload_Regular_FileName()

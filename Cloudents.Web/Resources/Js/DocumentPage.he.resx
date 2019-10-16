@@ -138,9 +138,6 @@
   <data name="table_course" xml:space="preserve">
     <value>קורס:</value>
   </data>
-  <data name="table_type" xml:space="preserve">
-    <value>סוג:</value>
-  </data>
   <data name="table_university" xml:space="preserve">
     <value>מוסד לימוד:</value>
   </data>

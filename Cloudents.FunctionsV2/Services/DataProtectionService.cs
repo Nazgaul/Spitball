@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.AspNetCore.DataProtection;
 
 namespace Cloudents.FunctionsV2.Services

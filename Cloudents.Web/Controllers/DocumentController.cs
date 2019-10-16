@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Query.Documents;
 using Cloudents.Web.Filters;
 
 namespace Cloudents.Web.Controllers

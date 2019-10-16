@@ -28,17 +28,17 @@ namespace Cloudents.Query
                 .Select(s => new QuestionFeedDto
                 {
                     Id = s.Id,
-                    User = new UserDto(s.User.Id, s.User.Name, s.User.Score, s.User.Image),
+                    //User = new UserDto(s.User.Id, s.User.Name, s.User.Score, s.User.Image),
                     Text = s.Text,
-                    Files = s.Attachments,
+                    //Files = s.Attachments,
                     Answers = s.Answers.Where(w => w.Status.State == ItemState.Ok).Count(),
                     DateTime = s.Updated,
-                    HasCorrectAnswer = s.CorrectAnswer.Id != null,
+                    //HasCorrectAnswer = s.CorrectAnswer.Id != null,
                     CultureInfo = s.Language,
-                    Vote = new VoteDto()
-                    {
-                        Votes = s.VoteCount
-                    },
+                    //Vote = new VoteDto()
+                    //{
+                    //    Votes = s.VoteCount
+                    //},
                     Course = s.Course.Id
                 })
                 .Take(50).Skip(query.Page * 50)

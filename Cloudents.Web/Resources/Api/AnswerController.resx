@@ -134,9 +134,6 @@
   <data name="QuestionNotExists" xml:space="preserve">
     <value>Question not exists</value>
   </data>
-  <data name="This question have correct answer" xml:space="preserve">
-    <value>This question have correct answer</value>
-  </data>
   <data name="VoteCantVote" xml:space="preserve">
     <value>You can not up-vote / down-vote your own answer</value>
   </data>
