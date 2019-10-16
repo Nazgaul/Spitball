@@ -110,7 +110,7 @@ namespace Cloudents.Persistence
             //config.SessionFactory().Caching.WithDefaultExpiration(TimeConst.Day);
             //config.Properties.Add("cache.default_expiration",$"{TimeConst.Day}");
             //config.Properties.Add("cache.use_sliding_expiration",bool.TrueString.ToLowerInvariant());
-            config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
+          //  config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
         }
     }
 }

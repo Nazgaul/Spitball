@@ -59,7 +59,7 @@ const getters = {
     isCardOwner: (state, {accountUser}) =>{
         if(!accountUser) return false;
         if(!state.question) return false;
-        return accountUser.id === state.question.user.id;
+        return accountUser.id === state.question.userId;
     }
 };
 const actions = {
@@ -84,7 +84,9 @@ const actions = {
         return questionService.getQuestion(id)
         .then((response) => {
             commit('updateQuestion', response);
-        });
+        }).catch(ex => {
+            console.log(ex);
+        })
     },
     updateQuestionSignalR({commit, state}, question){
         return;

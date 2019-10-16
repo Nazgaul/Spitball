@@ -48,7 +48,7 @@
             <sb-dialog :isPersistent="true"
                        :showDialog="newQuestionDialogSate"
                        :popUpType="'newQuestion'"
-                       :max-width="'640px'"
+                       :max-width="'510px'"
                        :content-class="'question-request-dialog'">
                 <Add-Question></Add-Question>
             </sb-dialog>

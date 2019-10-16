@@ -21,37 +21,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             });
         }
 
-        [Theory]
-        [InlineData("api/question")]
-        [InlineData("api/question?page=1")]
-        public async Task GetAsync_Ask_OK(string url)
-        {
-            var response = await _client.GetAsync(url);
-
-            var str = await response.Content.ReadAsStringAsync();
-
-            var d = JObject.Parse(str);
-
-            var result = d["result"]?.Value<JArray>();
-
-            result.Should().NotBeNull();
-        }
-
-        [Theory]
-        [InlineData("api/document")]
-        [InlineData("api/document?page=1")]
-        public async Task GetAsync_Note_OK(string url)
-        {
-            var response = await _client.GetAsync(url);
-
-            var str = await response.Content.ReadAsStringAsync();
-
-            var d = JObject.Parse(str);
-
-            var result = d["result"]?.Value<JArray>();
-
-            result.Should().NotBeNull();
-        }
+       
 
         [Theory]
         [InlineData("api/tutor/search")]

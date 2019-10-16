@@ -22,17 +22,15 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRepository<User> _userRepository;
         private readonly ITextAnalysis _textAnalysis;
 
-        private readonly IQuestionsDirectoryBlobProvider _blobProvider;
 
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
             IAnswerRepository answerRepository, IRepository<User> userRepository,
-            IQuestionsDirectoryBlobProvider blobProvider, ITextAnalysis textAnalysis)
+             ITextAnalysis textAnalysis)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _userRepository = userRepository;
-            _blobProvider = blobProvider;
             _textAnalysis = textAnalysis;
         }
 
@@ -49,11 +47,11 @@ namespace Cloudents.Command.CommandHandler
             {
                 throw new ArgumentException("question doesn't exits");
             }
-            if (question.CorrectAnswer != null)
-            {
-                throw new QuestionAlreadyAnsweredException();
+            //if (question.CorrectAnswer != null)
+            //{
+            //    throw new QuestionAlreadyAnsweredException();
 
-            }
+            //}
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
             if (user.Id == question.User.Id)
@@ -94,15 +92,8 @@ namespace Cloudents.Command.CommandHandler
             }
 
             var language = await _textAnalysis.DetectLanguageAsync(message.Text, token);
-            var newAnswer = question.AddAnswer(message.Text, message.Files?.Count() ?? 0, user, language);
+            var newAnswer = question.AddAnswer(message.Text, user, language);
             await _answerRepository.AddAsync(newAnswer, token);
-            
-            var id = newAnswer.Id;
-          
-
-            var l = message.Files?.Select(file => _blobProvider.MoveAsync(file, $"{question.Id}/answer/{id}", token)) ?? Enumerable.Empty<Task>();
-
-            await Task.WhenAll(l);
         }
     }
 }

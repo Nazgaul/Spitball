@@ -176,20 +176,20 @@ namespace Cloudents.Core.Entities
     /// <summary>
     /// Question Transaction - we keep this because of older transactions
     /// </summary>
-    public class QuestionTransaction : Transaction
-    {
+    //public class QuestionTransaction : Transaction
+    //{
       
 
-        public virtual Question Question { get;  set; }
-        public virtual Answer Answer { get; protected set; }
+    //    public virtual Question Question { get;  set; }
+    //    public virtual Answer Answer { get; protected set; }
 
-        protected QuestionTransaction()
-        {
+    //    protected QuestionTransaction()
+    //    {
 
-        }
+    //    }
 
 
-    }
+    //}
 
     public class ReferUserTransaction : Transaction
     {

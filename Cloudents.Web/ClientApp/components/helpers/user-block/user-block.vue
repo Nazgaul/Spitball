@@ -14,7 +14,6 @@
                 <slot></slot>
                 </span>
                         <span class="name" v-line-clamp="1">{{user.name}}</span>
-                        <user-rank style="margin: 15px auto;" :score="user.score"></user-rank>
                         <p class="last-msg" v-if="text">{{text}}</p>
                         <p class="university" v-if="user.universityName">{{user.universityName}}</p>
                     </div>

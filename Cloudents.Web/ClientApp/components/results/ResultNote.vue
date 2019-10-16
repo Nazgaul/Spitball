@@ -140,6 +140,9 @@
   </router-link>
 </template>
 <script>
+import studyDocumentsStore from '../../store/studyDocuments_store';
+import storeService from '../../services/store/storeService';
+
 import userAvatar from "../helpers/UserAvatar/UserAvatar.vue";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import reportItem from "./helpers/reportItem/reportItem.vue";
@@ -285,7 +288,6 @@ export default {
       }
     },
     isPreview() {
-      debugger
       if(this.item && this.item.preview && this.loading) {
         return false;
       }
@@ -407,7 +409,6 @@ export default {
       console.log(e);
       
       e.stopImmediatePropagation();
-
       if (this.isAuthUser()) {
         this.isLiked = true;
         let type = "up";
@@ -424,7 +425,11 @@ export default {
       }
     },
   },
+  beforeDestroy(){
+    // storeService.unregisterModule(this.$store, 'studyDocumentsStore');
+  },
   created() {
+    storeService.lazyRegisterModule(this.$store,'studyDocumentsStore',studyDocumentsStore); 
     this.isLiked = this.item.upvoted;
       this.$nextTick(() => {
         this.loading = true;

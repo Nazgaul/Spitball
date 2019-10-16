@@ -1,8 +1,7 @@
 import UserAvatar from "../UserAvatar/UserAvatar.vue";
-import userRank from "../UserRank/UserRank.vue";
 
 export default {
-    components: {UserAvatar, userRank},
+    components: {UserAvatar},
     props:{
         name:{String},
         user:{

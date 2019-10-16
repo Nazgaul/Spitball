@@ -35,9 +35,6 @@
                       class="edit-profile-action ml-2 "
                     >sbf-edit-icon</v-icon>
                   </div>
-                  <div class="d-flex align-start" v-if="$vuetify.breakpoint.smAndUp">
-                    <userRank v-if="!isTutorProfile" class="ml-2 mt-1" :score="userScore"></userRank>
-                  </div>
                 </div>
                 <h2
                   class="text-xs-center text-sm-left  user-university caption text-capitalize"
@@ -130,7 +127,6 @@
 import { mapGetters, mapActions } from "vuex";
 import userImage from "./bioParts/userImage/userImage.vue";
 import userAboutMessage from "./bioParts/userAboutMessage.vue";
-import userRank from "../../../helpers/UserRank/UserRank.vue";
 import userInfoEdit from "../../profileHelpers/userInfoEdit/userInfoEdit.vue";
 import tutorInfoEdit from "../../profileHelpers/userInfoEdit/tutorInfoEdit.vue";
 import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
@@ -139,7 +135,6 @@ export default {
   components: {
     userImage,
     userAboutMessage,
-    userRank,
     userInfoEdit,
     tutorInfoEdit,
     sbDialog

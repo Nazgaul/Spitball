@@ -41,7 +41,7 @@ export const signlaREvents = {
                     questionId: addedAnswerObj.questionId,
                     addCounter: true
                 };
-                store.dispatch('HomeworkHelp_updateCounter', actionObj);
+                store.dispatch('Feeds_updateCounter', actionObj);
             });
         },
         delete: function(arrEventObj){
@@ -54,7 +54,7 @@ export const signlaREvents = {
                     questionId: removedAnswerObj.questionId,
                     addCounter: false
                 };
-                 store.dispatch('HomeworkHelp_updateCounter', actionObj);
+                 store.dispatch('Feeds_updateCounter', actionObj);
             });
         }
     },

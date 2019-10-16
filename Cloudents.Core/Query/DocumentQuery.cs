@@ -8,9 +8,8 @@ namespace Cloudents.Core.Query
         public DocumentQuery(UserProfile userProfile,
             string term,
             string course,
-            bool filterByUniversity,
             IEnumerable<string> filters) :
-            base(userProfile, term, course, filterByUniversity)
+            base(userProfile, term, course)
         {
             Filters = filters;
         }
@@ -23,19 +22,15 @@ namespace Cloudents.Core.Query
     {
 
 
-        protected VerticalQuery(UserProfile userProfile, string term, string course, bool filterByUniversity)
+        protected VerticalQuery(UserProfile userProfile, string term, string course)
         {
             UserProfile = userProfile;
             Term = term;
             Course = course;
-            FilterByUniversity = filterByUniversity;
-
-            // Profile = profile;
         }
 
         public string Term { get; }
         public string Course { get; }
-        public bool FilterByUniversity { get; }
 
         public int Page { get; set; }
 

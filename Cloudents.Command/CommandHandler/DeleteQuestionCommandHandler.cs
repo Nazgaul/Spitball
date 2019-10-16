@@ -14,15 +14,13 @@ namespace Cloudents.Command.CommandHandler
     public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {
         private readonly IRepository<Question> _repository;
-        private readonly IRepository<Transaction> _transactionRepository;
         private readonly IRepository<User> _userRepository;
 
 
         public DeleteQuestionCommandHandler(IRepository<Question> repository,
-            IRepository<Transaction> transactionRepository, IRepository<User> userRepository)
+            IRepository<User> userRepository)
         {
             _repository = repository;
-            _transactionRepository = transactionRepository;
             _userRepository = userRepository;
         }
 
@@ -55,11 +53,11 @@ namespace Cloudents.Command.CommandHandler
                 throw new InvalidOperationException("cannot delete fictive user");
             }
 
-            foreach (var transaction in question.Transactions)
-            {
-                transaction.Question = null;
-                await _transactionRepository.UpdateAsync(transaction, token);
-            }
+            //foreach (var transaction in question.Transactions)
+            //{
+            //    transaction.Question = null;
+            //    await _transactionRepository.UpdateAsync(transaction, token);
+            //}
             
             await _userRepository.UpdateAsync(user, token);
             await _repository.DeleteAsync(question, token);

@@ -26,27 +26,27 @@ namespace Cloudents.Core.DTOs
         public decimal Tokens { get; set; }
     }
 
-    public class AnswerAcceptedEmailDto : EmailDto
-    {
-        [EntityBind(nameof(Question.Text))] private string _questionText;
-        [EntityBind(nameof(Answer.Text))] private string _answerText;
+    //public class AnswerAcceptedEmailDto : EmailDto
+    //{
+    //    [EntityBind(nameof(Question.Text))] private string _questionText;
+    //    [EntityBind(nameof(Answer.Text))] private string _answerText;
 
-        [EntityBind(nameof(Question.Id))] public long QuestionId { get; set; }
+    //    [EntityBind(nameof(Question.Id))] public long QuestionId { get; set; }
 
-        public string QuestionText
-        {
-            get => _questionText.Replace("\n", "<br>").Truncate(40, true);
-            set => _questionText = value;
-        }
+    //    public string QuestionText
+    //    {
+    //        get => _questionText.Replace("\n", "<br>").Truncate(40, true);
+    //        set => _questionText = value;
+    //    }
 
-        public string AnswerText
-        {
-            get => _answerText.Replace("\n", "<br>").Truncate(40, true);
-            set => _answerText = value;
-        }
+    //    public string AnswerText
+    //    {
+    //        get => _answerText.Replace("\n", "<br>").Truncate(40, true);
+    //        set => _answerText = value;
+    //    }
 
-        //public decimal Tokens { get; set; }
-    }
+    //    //public decimal Tokens { get; set; }
+    //}
 
     public class UpdateUserEmailDto
     {

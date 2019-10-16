@@ -3,7 +3,7 @@
         <v-icon v-if="!isLastItem" class="uf-sEdit-close" v-html="'sbf-close'" @click="deleteFile()"/>
         <v-layout row wrap pb-1 px-3>
             <v-layout row wrap justify-space-between>   
-                <v-flex xs12 md8 pr-4>
+                <v-flex xs11 md8 pr-4>
                     <v-text-field style="direction: ltr;" :prepend-inner-icon="'sbf-attachment'" 
                                   v-model="item.name" 
                                   dir="ltr"
@@ -31,7 +31,7 @@
                 </v-flex>
             </v-layout>
             <v-layout row wrap justify-space-between>
-                <v-flex xs12 md10 :class="['uf_desc',{'pr-4':!isMobile}]">
+                <v-flex xs12 md9 pr-4 class="uf_desc">
                     <!-- <v-textarea rows="2" :resize="false" style="margin: 0;padding: 0;"
                         v-model="item.description" 
                         :placeholder="itemDescPlaceholder">>

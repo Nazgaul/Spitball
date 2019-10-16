@@ -3,10 +3,10 @@ using Cloudents.Core.DTOs;
 
 namespace Cloudents.Web.Models
 {
-    public class CreateAnswerResponse
-    {
-        public IEnumerable<QuestionFeedDto> NextQuestions { get; set; }
-    }
+    //public class CreateAnswerResponse
+    //{
+    //    public IEnumerable<QuestionFeedDto> NextQuestions { get; set; }
+    //}
 
 
     //public class CoursesCreateResponse

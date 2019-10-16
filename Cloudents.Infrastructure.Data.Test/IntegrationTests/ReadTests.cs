@@ -54,22 +54,30 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(638, 0, null, "IL")]
-        [InlineData(638, 0, new[] { "x", "y" }, "IL")]
-        [InlineData(0, 0, new[] { "x", "y" }, "IL")]
-        public async Task DocumentAggregateQuery_Ok(long userId, int page, string[] filter, string country)
+        [InlineData(638, 0, null, "IL", null)]
+        [InlineData(638, 0, new[] { "x", "y" }, "IL", null)]
+        [InlineData(0, 0, new[] { "x", "y" }, "IL",null)]
+        [InlineData(0, 0, new[] { "x", "y" }, "IL", "economics")]
+        [InlineData(638, 0, new[] { "x", "y" }, "IL", "economics")]
+        [InlineData(638, 1, new[] { "x", "y" }, "IL", null)]
+        
+        public async Task DocumentAggregateQuery_Ok(long userId, int page, string[] filter, string country ,string course)
         {
-            var query = new DocumentAggregateQuery(userId, page, filter, country);
+            var query = new FeedAggregateQuery(userId, page, filter, country,course);
 
             await fixture.QueryBus.QueryAsync(query, default);
 
+
+            result.OfType<QuestionFeedDto>().Should().Contain(c => c.UserId > 0);
+            result.OfType<QuestionFeedDto>().Should().Contain(c => c.CultureInfo != null);
+            //.All(a => a.UserId.Should().BeGreaterThan(0));
             //var dictionary = new Dictionary<string,bool>();
             //foreach (var x in result.Result)
             //{
             //    var values = x.AsDictionary();
             //    foreach (var value in values)
             //    {
-                    
+
             //        if (value.Value == default)
             //        {
             //            dictionary.TryAdd(value.Key, true);
@@ -85,22 +93,22 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
-        [Fact]
-        public async Task DocumentCourseQuery_Ok()
-        {
-            var query = new DocumentCourseQuery(638, 0, "economics", null, "IL");
+        //[Fact]
+        //public async Task DocumentCourseQuery_Ok()
+        //{
+        //    var query = new DocumentCourseQuery(638, 0, "economics", null, "IL");
 
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
 
-        [Fact]
-        public async Task DocumentCourseQuery_Filter_Ok()
-        {
-            var query = new DocumentCourseQuery(638, 0, "economics", new[] { "x", "y" }, "IL");
+        //[Fact]
+        //public async Task DocumentCourseQuery_Filter_Ok()
+        //{
+        //    var query = new DocumentCourseQuery(638, 0, "economics", new[] { "x", "y" }, "IL");
 
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
 
         [Fact]

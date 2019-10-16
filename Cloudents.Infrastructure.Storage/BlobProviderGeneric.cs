@@ -15,7 +15,6 @@ using JetBrains.Annotations;
 namespace Cloudents.Infrastructure.Storage
 {
     public class BlobProviderContainer : IBlobProvider,
-        IQuestionsDirectoryBlobProvider,
         IChatDirectoryBlobProvider
     {
         protected readonly CloudBlobDirectory _blobDirectory;

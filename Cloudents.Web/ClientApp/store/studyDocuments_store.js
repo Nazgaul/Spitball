@@ -137,7 +137,7 @@ const actions = {
         commit('StudyDocuments_updateItems', data);
     },
     documentVote({commit, dispatch}, data) {
-        reputationService.voteDocument(data.id, data.type).then(() => {
+        reputationService.voteDocument(data.id, data.type).then(() => {            
             commit('StudyDocuments_updateDocumentVote', data);
             dispatch('profileVote', data);
         }, (err) => {

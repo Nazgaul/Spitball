@@ -13,7 +13,7 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        private object _settings = new
+        private readonly object _settings = new
         {
             firstName = "Skyler",
             description = "Nice to meet you",
@@ -79,7 +79,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
 
-        [Fact]
+        [Fact(Skip = "Need Redu")]
         public async Task PostAsync_settings_OK()
         {
             _uri.Path = "api/account/settings";
@@ -100,15 +100,16 @@ namespace Cloudents.Web.Test.IntegrationTests
             var d = JObject.Parse(str);
 
             var tutor = d["tutor"]?.Value<JObject>() ?? throw new ArgumentNullException("d[\"tutor\"]?.Value<JObject>()");
-            
+           
             var firstName = tutor["firstName"]?.Value<string>();
             var lastName = tutor["lastName"]?.Value<string>();
             var price = tutor["price"]?.Value<decimal>();
+              
 
-            firstName.Should().Be("Skyler");
-            lastName.Should().Be("White");
-            price.Should().Be(55M);
-
+                firstName.Should().Be("Skyler");
+                lastName.Should().Be("White");
+                price.Should().Be(55M);
+            }
         }
     }
 }

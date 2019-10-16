@@ -75,12 +75,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //}
 
 
-        [Fact]
-        public async Task AdminPageQuery_QuestionWithoutCorrectAnswer_Ok()
-        {
-            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(0, "IL");
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task AdminPageQuery_QuestionWithoutCorrectAnswer_Ok()
+        //{
+        //    var query = new AdminQuestionWithoutCorrectAnswerPageQuery(0, "IL");
+        //    await _fixture.QueryBus.QueryAsync(query, default);
+        //}
 
         [Theory]
         [InlineData(null)]

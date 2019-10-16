@@ -10,6 +10,9 @@ using NHibernate.Linq;
 
 namespace Cloudents.Query.Documents
 {
+    /// <summary>
+    /// This query is for search purposes
+    /// </summary>
     public class IdsDocumentsQuery : IQuery<IList<DocumentFeedDto>>
     {
         public IdsDocumentsQuery(IEnumerable<long> ids)

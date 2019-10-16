@@ -1,7 +1,7 @@
 import * as RouteTypes from "./routeTypes";
 
 //const resultContent = () => import('./components/results/Result.vue');
-const homeworkHelpComponent = () => import('./components/results/HomeworkHelp/HomeworkHelp.vue');
+const feeds = () => import('./components/results/feeds/Feeds.vue');
 const studyDocumentsComponent = () => import('./components/results/StudyDocuments/StudyDocuments.vue');
 const tutorsComponent = () => import('./components/results/Tutors/Tutors.vue');
 
@@ -76,8 +76,8 @@ const resultProps = {
     header: headerResultPageFn,
     verticals: verticalResultPageFn
 };
-const homeworkHelpPage = {
-    default: homeworkHelpComponent,
+const feedPage = {
+    default: feeds,
     header: pageHeader,
     schoolBlock: schoolBlock,
     verticals: verticalsTabs
@@ -126,9 +126,9 @@ let routes2 = [
     },
     
     {
-        path: "/" + RouteTypes.questionRoute,
-        name: "ask",
-        components: homeworkHelpPage,
+        path: "/" + RouteTypes.feedRoute,
+        name: "feed",
+        components: feedPage,
         props: resultProps,
         meta: {
             isAcademic: true,
@@ -149,26 +149,6 @@ let routes2 = [
         path: "/" + RouteTypes.tutorRoute,
         name: "tutors",
         components: tutorPage,
-        props: resultProps,
-        meta: {
-            isAcademic: true,
-            showMobileFooter: true,
-            analytics: {
-                pageviewTemplate(route) {
-                    return {
-                        title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
-                        path: route.path,
-                        location: window.location.href
-                    };
-                }
-            }
-        }
-    },
-
-    {
-        path: "/" + RouteTypes.notesRoute,
-        name: "note",
-        components: studyDocumentsPage,
         props: resultProps,
         meta: {
             isAcademic: true,
@@ -264,26 +244,6 @@ let routes2 = [
             requiresAuth: true
         }
     },
-
-    {
-        path: "/note/:courseName/:name/:id",
-        alias: ['/document/:courseName/:name/:id'],
-        name: "document",
-        components: {
-            default: document,
-            header: pageHeader
-        },
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            }),
-            header: () => ({
-                submitRoute: '/note',
-                currentSelection: "note"
-            })
-        }
-    },
-
     {
         path: "/studyroom/:id?",
         name: 'tutoring',
@@ -318,8 +278,8 @@ let routes2 = [
         name: "question",
         props: {
             header: {
-                submitRoute: '/ask',
-                currentSelection: "ask"
+                submitRoute: '/feed',
+                currentSelection: "feed"
             },
             default: (route) => ({
                 id: route.params.id
@@ -374,7 +334,7 @@ let routes2 = [
         },
         props: {
             header: () => ({
-                currentSelection: "ask"
+                currentSelection: "feed"
             })
         }
     },

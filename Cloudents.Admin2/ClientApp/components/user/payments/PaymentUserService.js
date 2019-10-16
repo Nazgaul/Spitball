@@ -54,7 +54,7 @@ const getPaymentRequests = function () {
 
 const approvePayment = function (item,spitballPay) {
     return connectivityModule.http.post(`${path}`, {
-       studentPay : item.subsidizing,
+       studentPay : item.price,
        spitballPay: spitballPay,
        userId: item.userId,
        tutorId: item.tutorId,

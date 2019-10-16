@@ -260,11 +260,12 @@ export default {
         }
         .tutorRequest-btn-back{
             color: @global-blue;
+            font-weight: 600;
             border: 1px solid @global-blue !important;
         }
         .tutorRequest-btn-next{
             color: white !important;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             letter-spacing: -0.3px;
         }

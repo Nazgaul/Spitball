@@ -4,9 +4,12 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
+using Cloudents.Query.Documents;
 using Dapper;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Persistence
@@ -22,8 +25,17 @@ namespace Cloudents.Persistence
 
         static DapperRepository()
         {
+            //var jsonObjectTypeHandler = new JsonObjectTypeHandler();
             SqlMapper.AddTypeHandler(new DapperCultureInfoTypeHandler());
-            SqlMapper.AddTypeHandler(typeof(IEnumerable<string>), new JsonObjectTypeHandler());
+            //used in tutor search query
+            SqlMapper.AddTypeHandler(typeof(IEnumerable<string>), new JsonArrayTypeHandler());
+            //SqlMapper.AddTypeHandler(typeof(FeedDto), new JsonObjectTypeHandler());
+
+           
+            //SqlMapper.AddTypeHandler(typeof(QuestionFeedDto), new JsonObjectTypeHandler());
+            //SqlMapper.AddTypeHandler(typeof(DocumentFeedDto), new JsonObjectTypeHandler());
+            
+            //SqlMapper.AddTypeHandler(typeof(FeedDto), new JsonObjectTypeHandler());
         }
        
 
@@ -53,7 +65,7 @@ namespace Cloudents.Persistence
         }
 
 
-        public class JsonObjectTypeHandler : SqlMapper.ITypeHandler
+        private class JsonArrayTypeHandler : SqlMapper.ITypeHandler
         {
             public void SetValue(IDbDataParameter parameter, object value)
             {
@@ -64,6 +76,19 @@ namespace Cloudents.Persistence
                 var jObject = JArray.Parse(value.ToString());
                 return jObject.Children().Select(s => (string)s.First).ToList();
                 // return JsonConvert.DeserializeObject(value.ToString(), destinationType);
+            }
+        }
+
+        private class JsonObjectTypeHandler : SqlMapper.ITypeHandler
+        {
+            public void SetValue(IDbDataParameter parameter, object value)
+            {
+                throw new NotImplementedException();
+            }
+
+            public object Parse(Type destinationType, object value)
+            {
+                return JsonConvert.DeserializeObject(value.ToString(), destinationType);
             }
         }
 

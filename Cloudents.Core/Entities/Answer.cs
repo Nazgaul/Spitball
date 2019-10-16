@@ -4,11 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Exceptions;
 using static Cloudents.Core.Entities.ItemStatus;
-using static Cloudents.Core.Entities.Vote;
 
 [assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 [assembly: InternalsVisibleTo("Cloudents.Persistence")]
@@ -24,7 +21,7 @@ namespace Cloudents.Core.Entities
         public const int MinLength = 15;
         public const int MaxLength = 550;
 
-        public Answer(Question question, string text, int attachments, User user, CultureInfo language)
+        public Answer(Question question, string text, User user, CultureInfo language)
             : this()
         {
             Question = question;
@@ -33,7 +30,6 @@ namespace Cloudents.Core.Entities
                 throw new ArgumentException();
             }
             Text = text;
-            Attachments = attachments;
             User = user;
             Created = DateTime.UtcNow;
             Language = language;
@@ -49,14 +45,13 @@ namespace Cloudents.Core.Entities
         public virtual Question Question { get; set; }
 
         public virtual string Text { get; set; }
-        public virtual int Attachments { get; set; }
         public virtual User User { get; set; }
 
         public virtual DateTime Created { get; set; }
 
-        protected internal virtual IList<Transaction> Transactions { get; set; }
+      //  protected internal virtual IList<Transaction> Transactions { get; set; }
 
-        public virtual IList<Transaction> TransactionsReadOnly => new ReadOnlyCollection<Transaction>(Transactions);
+        //public virtual IList<Transaction> TransactionsReadOnly => new ReadOnlyCollection<Transaction>(Transactions);
 
 
         public virtual ItemStatus Status { get; set; }
@@ -64,10 +59,10 @@ namespace Cloudents.Core.Entities
        
 
 
-       private readonly ICollection<Vote> _votes = new List<Vote>();
-       public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
+       //private readonly ICollection<Vote> _votes = new List<Vote>();
+       //public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
 
-        public virtual int VoteCount { get;  set; }
+       // public virtual int VoteCount { get;  set; }
 
         public virtual CultureInfo Language { get; protected set; }
        
@@ -76,11 +71,11 @@ namespace Cloudents.Core.Entities
         {
             if (Status.State != ItemState.Flagged) return;
 
-            if (Status.FlagReason?.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase) == true)
-            {
-                _votes.Clear();
-                VoteCount = 0;
-            }
+            //if (Status.FlagReason?.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase) == true)
+            //{
+            //    _votes.Clear();
+            //    VoteCount = 0;
+            //}
             Status = Public;
 
         }
@@ -93,40 +88,40 @@ namespace Cloudents.Core.Entities
             Status = Status.Flag(messageFlagReason, user);
         }
 
-        public virtual void Vote(VoteType type, User user)
-        {
-            if (Status != Public)
-            {
-                throw new NotFoundException();
-            }
-            if (User == user)
-            {
-                throw new UnauthorizedAccessException("you cannot vote you own answer");
-            }
+        //public virtual void Vote(VoteType type, User user)
+        //{
+        //    if (Status != Public)
+        //    {
+        //        throw new NotFoundException();
+        //    }
+        //    if (User == user)
+        //    {
+        //        throw new UnauthorizedAccessException("you cannot vote you own answer");
+        //    }
 
-            if (Question.Answers.Any(w => w.Status == Public && w.User == user))
-            {
-                throw new UnauthorizedAccessException("you cannot vote if you gave answer");
-            }
-            var vote = Votes.FirstOrDefault(w => w.User == user);
-            if (vote == null)
-            {
-                vote = new Vote(user, this, type);
-                _votes.Add(vote);
+        //    if (Question.Answers.Any(w => w.Status == Public && w.User == user))
+        //    {
+        //        throw new UnauthorizedAccessException("you cannot vote if you gave answer");
+        //    }
+        //    var vote = Votes.FirstOrDefault(w => w.User == user);
+        //    if (vote == null)
+        //    {
+        //        vote = new Vote(user, this, type);
+        //        _votes.Add(vote);
 
-            }
+        //    }
 
-            vote.VoteType = type;
-            VoteCount = Votes.Sum(s => (int) s.VoteType);
-            if (VoteCount < VoteCountToFlag)
-            {
-                Status = Status.Flag(TooManyVotesReason, user);
-            }
-        }
+        //    vote.VoteType = type;
+        //    VoteCount = Votes.Sum(s => (int) s.VoteType);
+        //    if (VoteCount < VoteCountToFlag)
+        //    {
+        //        Status = Status.Flag(TooManyVotesReason, user);
+        //    }
+        //}
 
         public virtual void Delete()
         {
-            _votes.Clear();
+            //_votes.Clear();
             Status = ItemStatus.Delete();
         }
 

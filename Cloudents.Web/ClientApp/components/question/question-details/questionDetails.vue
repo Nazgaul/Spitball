@@ -10,24 +10,22 @@
             </v-flex>
             <v-layout row>
                 <v-flex style="width:inherit;" class="question-data">
-                    <question-thread v-if="questionData" :questionData="questionData"
-                                     :cardOwner="cardOwner"
-                                     :showDialogSuggestQuestion="showDialogSuggestQuestion"
-                                     :hasCorrectAnswer="getCorrectAnswer">
-                        
-                        
-                        <div slot="currently-watching">
-                            <!-- <div class="viewers-container">{{questionData}} watching now</div> -->
-                        </div>
+                    <question-thread 
+                        v-if="questionData" 
+                        :questionData="questionData"
+                        :cardOwner="cardOwner"
+                        :showDialogSuggestQuestion="showDialogSuggestQuestion"
+                        :hasCorrectAnswer="getCorrectAnswer">
+                            <div slot="currently-watching"></div>
                     </question-thread>
                     <div v-if="enableAnswer" slot="answer-form" class="mb-3" style="width:inherit;">
                             <div style="position:relative;width:inherit;" v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one">
-                                <extended-text-area uploadUrl="/api/question/ask"
-                                                    v-model="textAreaValue"
-                                                    :error="errorTextArea"
-                                                    @addFile="addFile"
-                                                    :openNewBaller="openNewBaller"
-                                                    @removeFile="removeFile">
+                                <extended-text-area 
+                                    uploadUrl="/api/question/ask"
+                                    v-model="textAreaValue"
+                                    :error="errorTextArea"
+                                    @addFile="addFile"
+                                    @removeFile="removeFile">
                                 </extended-text-area>
                                 <div class="has-answer-error-wrapper">
                                     <span v-if="errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
@@ -71,12 +69,13 @@
                             </question-thread>
                             <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer" >
                                     <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
-                                        <extended-text-area uploadUrl="/api/question/ask"
-                                                            v-model="textAreaValue"
-                                                            :openNewBaller="openNewBaller"
-                                                            :error="errorTextArea"
-                                                            @addFile="addFile"
-                                                            @removeFile="removeFile"></extended-text-area>
+                                        <extended-text-area 
+                                            uploadUrl="/api/question/ask"
+                                            v-model="textAreaValue"
+                                            :error="errorTextArea"
+                                            @addFile="addFile"
+                                            @removeFile="removeFile">
+                                        </extended-text-area>
                                         <div class="has-answer-error-wrapper">
                                             <span v-if="errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
                                         </div>
@@ -99,20 +98,12 @@
                 <!--</v-tab-item>-->
             </v-tabs>
         </div>
-        <sb-dialog :showDialog="showDialogSuggestQuestion" :popUpType="'suggestions'" :content-class="'question-suggest'">
+        <!-- <sb-dialog :showDialog="showDialogSuggestQuestion" :popUpType="'suggestions'" :content-class="'question-suggest'">
                 <question-suggest-pop-up  :user="questionData.user" :cardList="cardList"></question-suggest-pop-up>
-        </sb-dialog>
+        </sb-dialog> -->
 
         <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'"  :content-class="'login-popup'">
                 <login-to-answer></login-to-answer>
-        </sb-dialog>
-
-        <sb-dialog :showDialog="newBallerDialog"
-                       :popUpType="'newBallerDialog'"
-                       :content-class="'new-baller'"
-                       :maxWidth="'700px'"
-                       :isPersistent="$vuetify.breakpoint.smAndUp">
-                <new-baller></new-baller>
         </sb-dialog>
 
     </div>

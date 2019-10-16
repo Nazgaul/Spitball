@@ -121,10 +121,7 @@
     <value>כניסה</value>
   </data>
   <data name="placeholder_ask" xml:space="preserve">
-    <value>חפש בשאלות...</value>
-  </data>
-  <data name="placeholder_note" xml:space="preserve">
-    <value>אתר מסמכי לימוד...</value>
+    <value>חפש בפיד...</value>
   </data>
   <data name="placeholder_tutor" xml:space="preserve">
     <value>אתר מורה פרטי...</value>

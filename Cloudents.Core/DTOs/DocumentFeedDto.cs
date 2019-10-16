@@ -7,16 +7,16 @@ using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.DTOs
 {
-    public class DocumentFeedWithFacetDto
-    {
-        public IEnumerable<DocumentFeedDto> Result { get; set; }
-        public IEnumerable<string> Facet { get; set; }
-    }
+    //public class DocumentFeedWithFacetDto
+    //{
+    //    public IEnumerable<DocumentFeedDto> Result { get; set; }
+    //    public IEnumerable<string> Facet { get; set; }
+    //}
 
-    public class DocumentFeedDto
+    public class DocumentFeedDto : FeedDto
     {
         private TimeSpan? _duration;
-        public long Id { get; set; }
+        public override FeedType Type => FeedType.Document;
         public string University { get; set; }
         public string Course { get; set; }
         public string Snippet { get; set; }
@@ -84,17 +84,17 @@ namespace Cloudents.Core.DTOs
      
     }
 
-    public class UserVoteQuestionDto : UserVoteDto<long>
-    {
+    //public class UserVoteQuestionDto : UserVoteDto<long>
+    //{
 
-    }
+    //}
 
-    public class UserVoteAnswerDto : UserVoteDto<Guid>
-    {
-        public UserVoteAnswerDto(Guid? id, VoteType vote)
-        {
-            Id = id ?? default;
-            Vote = vote;
-        }
-    }
+    //public class UserVoteAnswerDto : UserVoteDto<Guid>
+    //{
+    //    public UserVoteAnswerDto(Guid? id, VoteType vote)
+    //    {
+    //        Id = id ?? default;
+    //        Vote = vote;
+    //    }
+    //}
 }
