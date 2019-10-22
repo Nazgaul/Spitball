@@ -3,6 +3,7 @@
   "plugins": [
     "syntax-dynamic-import",
     "transform-object-rest-spread",
+    "@babel/plugin-transform-runtime",
     [
       "transform-imports",
       {
