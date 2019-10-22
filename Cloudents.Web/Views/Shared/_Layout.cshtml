@@ -69,22 +69,22 @@
 
         window.publicPath = '@cdnEndPoint' + '/dist/';// + '@result/';
         window.isAuth = @isAuth.ToString().ToLower();
-        window.siteName = '@VersionService.GetSiteName()';
+        window.siteName = '@VersionService.GetSiteName().ToString("G").ToLowerInvariant()';
 
 
     </script>
     @await Component.InvokeAsync("Country")
     @await RenderSectionAsync("scripts", required: false)
-    
-@try
-{
-    //@await Html.PartialAsync($"_{VersionService.GetSiteName()}Tags");
-    @await Html.PartialAsync("_SpitballTags");
-}
-catch (InvalidOperationException ex)
-{
 
-}
+    @try
+    {
+        @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}Tags");
+
+    }
+    catch (InvalidOperationException ex)
+    {
+        @await Html.PartialAsync("_SpitballTags");
+    }
 
 
 </body>

@@ -7,51 +7,7 @@ import reputationService from '../services/reputationService';
 import initSignalRService from '../services/signalR/signalrEventService';
 import insightService from '../services/insightService';
 import { LanguageService } from '../services/language/languageService';
-
-function setIntercomSettings(data) {
-    let app_id = "njmpgayv";
-    let hide_default_launcher = global.innerWidth < 600 ? true : intercomSettings.hide_default_launcher;
-    let user_id = null;
-    let user_name = null;
-    let user_email = null;
-    let user_phoneNumber = null;
-    let alignment = global.isRtl ? 'left' : 'right';
-    let is_tutor = null;
-
-    if(!!data) {
-        user_id = "Sb_" + data.id;
-        user_name = data.name;
-        user_email = data.email;
-        user_phoneNumber = data.phoneNumber;
-        is_tutor = data.isTutor? data.isTutor : false;
-    }
-    global.intercomSettings = {
-        app_id,
-        hide_default_launcher,
-        user_id,
-        name: user_name,
-        email: user_email,
-        phoneNumber: user_phoneNumber,
-        alignment: alignment,
-        language_override: global.lang,
-        is_tutor
-    };
-
-    global.Intercom('boot', {intercomSettings});
-}
-
-function removeIntercomeData() {
-    global.Intercom('shutdown');
-}
-
-function setIntercomeData(data) {
-    //do not set intercome setting for mobile because no intercome should be on mobile case 10850
-    // if(global.innerWidth > 600){
-    //     setIntercomSettings(data)
-    // }
-    setIntercomSettings(data);
-}
-
+import intercomeService from '../services/intercomService';
 
 const state = {
     login: false,
@@ -439,8 +395,7 @@ const actions = {
 
     },
     logout({state, commit}) {
-        removeIntercomeData();
-        setIntercomeData();
+        intercomeService.IntercomSettings.reset();
         commit("logout");
         global.location.replace("/logout");
 
@@ -455,7 +410,7 @@ const actions = {
         }
         if(global.isAuth) {
             accountService.getAccount().then((userAccount) => {
-                setIntercomeData(userAccount);
+                intercomeService.IntercomSettings.set(userAccount);
                 commit("changeLoginStatus", true);
                 commit("updateUser", userAccount);
                 dispatch("syncUniData");
@@ -464,13 +419,12 @@ const actions = {
                 insightService.authenticate.set(userAccount.id);
                 initSignalRService();
             }, err=>{
-                setIntercomeData();
+                intercomeService.bootIntercom();
                 isRequire ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
             });
         } else {
-            removeIntercomeData();
-            setIntercomeData();
+            intercomeService.IntercomSettings.reset();
         }
     },
     saveCurrentPathOnPageChange({commit}, {currentRoute}) {

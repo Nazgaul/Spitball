@@ -1,7 +1,9 @@
-﻿using Cloudents.Web.Api;
+﻿using System;
+using Cloudents.Web.Api;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Primitives;
 
 namespace Cloudents.Web.Services
 {
@@ -24,17 +26,35 @@ namespace Cloudents.Web.Services
             return _configuration["version"] ?? typeof(HomePageController).Assembly.GetName().Version.ToString(4);
         }
 
-        public string GetSiteName()
+        public Site GetSiteName()
         {
+            Site ParseToEnum(StringValues val)
+            {
+                if (Enum.TryParse(typeof(Site), val, true, out var site2))
+                {
+                    return (Site)site2;
+                }
+
+                return Site.Spitball;
+
+            }
+
             if (!_hostingEnvironment.IsProduction())
             {
                 if (_httpContextAccessor.HttpContext.Request.Query.TryGetValue("site", out var val))
                 {
-                    return val.ToString();
+                   return ParseToEnum(val);
+
                 }
             }
+            return ParseToEnum(_configuration["siteName"] ?? "spitball");
             
-            return _configuration["siteName"] ?? "spitball";
+        }
+
+        public enum Site
+        {
+            Spitball,
+            Frymo
         }
     }
 }

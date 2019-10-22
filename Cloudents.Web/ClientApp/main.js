@@ -22,6 +22,8 @@ import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
 import { VLazyImagePlugin } from "v-lazy-image";
 
+import intercomSettings from './services/intercomService';
+
 // import VueCodemirror from 'vue-codemirror'
 // import 'codemirror/lib/codemirror.css'
 // import 'code'
@@ -349,15 +351,15 @@ router.beforeEach((to, from, next) => {
     store.dispatch('sendQueryToAnalytic', to);
 
     if (global.innerWidth < 600) {
-        intercomSettings.hide_default_launcher = true;
+        intercomSettings.IntercomSettings.set({hideLauncher:true});
     }
     else {
-        intercomSettings.hide_default_launcher = false;
+        intercomSettings.IntercomSettings.set({hideLauncher:false});
     }
     //if tutoring disable intercom
     if (global.location.href.indexOf("studyroom") > -1) {
         console.log('studyroom disable intercom');
-        intercomSettings.hide_default_launcher = true;
+        intercomSettings.IntercomSettings.set({hideLauncher:true});
     }
     //case 10995
     if (global.appInsights) {
