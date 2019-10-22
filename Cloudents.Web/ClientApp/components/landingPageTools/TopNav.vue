@@ -120,7 +120,11 @@ export default {
         div{
           svg {
             vertical-align: -webkit-baseline-middle;
-            fill: #1B2441
+            fill: #1B2441;
+            &.frymo-logo{
+              fill: #378bd3;
+            }
+            
           }
         } 
       }
