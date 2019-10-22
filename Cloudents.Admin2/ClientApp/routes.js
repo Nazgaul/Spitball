@@ -35,6 +35,8 @@ import userDocuments from './components/userMainView/userDocuments/userDocuments
 import userPurchasedDocuments from './components/userMainView/userPurchasedDocuments/userPurchasedDocuments.vue';
 // import userConversations from './components/userMainView/userConversations/userConversations.vue';
 import userSessions from './components/userMainView/userSessions/userSessions.vue';
+import userSoldItems from './components/userMainView/userSoldItems/userSoldItems.vue';
+
 
 import management from './components/management/Management.vue';
 import coursesPending from './components/management/coursesPending/coursesPending.vue';
@@ -81,6 +83,11 @@ export const routes = [
                 name:'userPurchasedDocuments',
                 path:'userPurchasedDocuments',
                 component: userPurchasedDocuments
+            },
+            {
+                name:'userSoldItems',
+                path:'userSoldItems',
+                component: userSoldItems
             },
             {
               name:'userConversations',

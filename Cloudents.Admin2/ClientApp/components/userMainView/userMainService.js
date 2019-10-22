@@ -129,6 +129,25 @@ function createPurchasedDocItem(data) {
         return new PurchasedDocItem(item);
     });
 }
+function createSoldItems(data){
+    return data.map((item)=>{
+        return new SoldItem(item)
+    })
+}
+function SoldItem(objInit){
+    this.userName = objInit.userName;
+    this.itemName = objInit.itemName;
+    this.type = objInit.itemType;
+    this.course = objInit.itemCourse;
+    this.itemId = objInit.itemId;
+    this.price = objInit.txPrice || 0;
+    this.date = objInit.txCreated;
+    this.itemCreated = objInit.itemCreated;
+    this.itemState = objInit.itemState;
+    this.userBalance = objInit.userBalance;
+    this.userEmail = objInit.userEmail;
+    this.txId = objInit.txId;
+}
 
 function ConversationItem(objInit) {
     this.id = objInit.id;
@@ -211,6 +230,17 @@ export default {
         return connectivityModule.http.get(path)
             .then((resp) => {
                 return createPurchasedDocItem(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return error;
+            });
+    },
+    getSoldItems: (id, page) => {
+        let path = `AdminUser/sold?id=${id}&page=${page}`;
+        return connectivityModule.http.get(path)
+            .then((resp) => {
+                return createSoldItems(resp);
 
             }, (error) => {
                 console.log(error, 'error get 20 docs');

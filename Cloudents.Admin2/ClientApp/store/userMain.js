@@ -15,7 +15,8 @@ const state = {
     loader : false,
     MAX_ITEMS: 25,
     requestLock: false,
-    currentIdRequest: ''
+    currentIdRequest: '',
+    userSoldItems: []
 };
 const mutations = {
 
@@ -71,6 +72,9 @@ const mutations = {
     setUserPurchasedDocs(state, data) {
         state.userPurchasedDocs = data;
     },
+    setUserSoldItems(state,data){
+        state.userSoldItems = data
+    },
     setUserDocuments(state, data) {
         state.userDocuments = data;
     },
@@ -112,7 +116,8 @@ const getters = {
     userPurchasedDocuments: (state) => state.userPurchasedDocs,
     userConversations: (state) => state.userConversations,
     userSessions: (state) => state.userSessions,
-    getRequestLock: (state) => state.requestLock
+    getRequestLock: (state) => state.requestLock,
+    userSoldDocItems: (state) => state.userSoldItems
 };
 const actions = {
     updateFilterValue({commit}, val) {
@@ -215,6 +220,19 @@ const actions = {
                 console.log(error, 'error');
             }
         ).finally(() => context.commit("setShowLoader", false));
+    },
+    getUserSoldItems(context,idPageObj){
+        context.commit("setShowLoader", true);
+
+        return UserMainService.getSoldItems(idPageObj.id, idPageObj.page).then((data) => {
+            if (data && data.length !== 0) {
+                context.commit('setUserSoldItems', data);
+            }
+        },
+        (error) => {
+            console.log(error, 'error');
+        }
+    ).finally(() => context.commit("setShowLoader", false));
     },
     getUserDocuments(context, idPageObj) {
         let currentDocs;
