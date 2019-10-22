@@ -245,6 +245,24 @@ let routes2 = [
         }
     },
     {
+        path: "/note/:courseName/:name/:id",
+        alias: ['/document/:courseName/:name/:id'],
+        name: "document",
+        components: {
+            default: document,
+            header: pageHeader
+        },
+        props: {
+            default: (route) => ({
+                id: route.params.id
+            }),
+            header: () => ({
+                submitRoute: '/note',
+                currentSelection: "note"
+            })
+        }
+    },
+    {
         path: "/studyroom/:id?",
         name: 'tutoring',
         components: {

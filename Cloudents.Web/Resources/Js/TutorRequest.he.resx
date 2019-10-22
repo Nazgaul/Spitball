@@ -120,9 +120,6 @@
   <data name="back" xml:space="preserve">
     <value>חזרה</value>
   </data>
-  <data name="btn_attachment" xml:space="preserve">
-    <value>קובץ/תמונה</value>
-  </data>
   <data name="btn_close" xml:space="preserve">
     <value>סגירה</value>
   </data>
@@ -135,9 +132,6 @@
   <data name="invalid" xml:space="preserve">
     <value>הקורס לא קיים</value>
   </data>
-  <data name="label_add" xml:space="preserve">
-    <value>הוסף</value>
-  </data>
   <data name="more_tutors" xml:space="preserve">
     <value>אני רוצה לשמוע מעוד 2-3 מורים כמו {1}</value>
   </data>
@@ -146,9 +140,6 @@
   </data>
   <data name="next" xml:space="preserve">
     <value>הבא</value>
-  </data>
-  <data name="no_course" xml:space="preserve">
-    <value>הוסף קורסים</value>
   </data>
   <data name="phoneNumber" xml:space="preserve">
     <value>טלפון</value>

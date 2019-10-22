@@ -123,9 +123,6 @@
   <data name="nav_name_feed" xml:space="preserve">
     <value>פיד</value>
   </data>
-  <data name="nav_name_note" xml:space="preserve">
-    <value>חומרי לימוד</value>
-  </data>
   <data name="nav_name_tutor" xml:space="preserve">
     <value>מורים פרטיים</value>
   </data>

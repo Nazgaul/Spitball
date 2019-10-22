@@ -120,12 +120,6 @@
   <data name="footer_links_about" xml:space="preserve">
     <value>About Spitball</value>
   </data>
-  <data name="footer_links_ambassadors" xml:space="preserve">
-    <value>Ambassadors</value>
-  </data>
-  <data name="footer_links_blog" xml:space="preserve">
-    <value>Blog</value>
-  </data>
   <data name="footer_links_contact" xml:space="preserve">
     <value>Contact us</value>
   </data>
@@ -134,9 +128,6 @@
   </data>
   <data name="footer_links_feedback" xml:space="preserve">
     <value>Feedback</value>
-  </data>
-  <data name="footer_links_partners" xml:space="preserve">
-    <value>Partnerships</value>
   </data>
   <data name="footer_links_pr" xml:space="preserve">
     <value>Public Relations</value>

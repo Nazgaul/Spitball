@@ -1,7 +1,7 @@
 <template>
     <div :class="['mx-3','mb-3','uf-sDrop-container',{'uf-sDrop-container-active': isDraggin}]">
             <span v-if="isDraggin" class="uf-sDrop-drop" v-language:inner="'upload_uf_sDrop_drop'"/>
-            
+            <v-progress-circular v-show="!errorFile && uploadStarted" indeterminate :width="2" :size="24" color="primary"></v-progress-circular>
             <template v-if="!isDraggin && !isMobile">
                 <span class="uf-sDrop-title" v-language:inner="'upload_uf_sDrop_title'"/>
                 <span class="uf-sDrop-or" v-language:inner="'upload_uf_sDrop_or'"/>

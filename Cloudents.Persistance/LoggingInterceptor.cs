@@ -13,7 +13,5 @@ namespace Cloudents.Persistence
             Debug.WriteLine(sql, "nhibernate");
             return base.OnPrepareStatement(sql);
         }
-
-
     }
 }

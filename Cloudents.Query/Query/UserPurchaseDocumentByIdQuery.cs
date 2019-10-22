@@ -33,7 +33,9 @@ namespace Cloudents.Query.Query
             public async Task<IEnumerable<DocumentFeedDto>> GetAsync(UserPurchaseDocumentByIdQuery query, CancellationToken token)
             {
 
-                return await _session.Query<ViewDocumentSearch>()
+                return await _session.Query<Document>()
+                    .Fetch(f=>f.User)
+                    .ThenFetch(f=>f.University)
                     .Join(_session.Query<DocumentTransaction>(), l => l.Id, r => r.Document.Id, (search, transaction) =>
                           new
                           {
@@ -47,24 +49,24 @@ namespace Cloudents.Query.Query
                         Id = s.search.Id,
                         User = new DocumentUserDto
                         {
-                            Id = s.search.UserId,
-                            Name = s.search.UserName,
-                            Image = s.search.UserImage,
+                            Id = s.search.User.Id,
+                            Name = s.search.User.Name,
+                            Image = s.search.User.Image,
                         },
-                        DateTime = s.search.DateTime,
-                        Course = s.search.Course,
-                        Title = s.search.Title,
-                        Snippet = s.search.Snippet,
+                        DateTime = s.search.TimeStamp.UpdateTime,
+                        Course = s.search.Course.Id,
+                        Title = s.search.Name,
+                        Snippet = s.search.MetaContent,
                         Views = s.search.Views,
                         Downloads = s.search.Downloads,
-                        University = s.search.University,
+                        University = s.search.User.University.Name,
                         Price = s.search.Price,
-                        Purchased = s.search.Purchased,
+                        Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.search.Id && x.Action == TransactionActionType.SoldDocument),
                         DocumentType = s.search.DocumentType ?? DocumentType.Document,
                         Duration = s.search.Duration,
                         Vote = new VoteDto()
                         {
-                            Votes = s.search.Votes
+                            Votes = s.search.VoteCount
                         }
                     })
                     

@@ -29,7 +29,7 @@ namespace Cloudents.Core.EventHandler
                 DateTime = eventMessage.Document.TimeStamp.UpdateTime,
                 ItemId =  eventMessage.Document.Id,
                 Name = eventMessage.Document.Name,
-                Type = eventMessage.Document.DocumentType
+                Type = eventMessage.Document.DocumentType.GetValueOrDefault()
             };
             return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, true), token);
         }

@@ -58,8 +58,8 @@ function QuestionItem(objInit) {
     this.course = objInit.course || '';
     this.template = "ask";
     this.cultureInfo = objInit.cultureInfo || 'en';
-    this.isRtl = objInit.isRtl;  
-    this.userId = objInit.userId || null;    
+    this.isRtl = objInit.isRtl;
+    this.userId = objInit.userId || objInit.user.id;
     this.firstAnswer = objInit.firstAnswer ? createFirstAnswerItem(objInit.firstAnswer) : null;
     this.answers = objInit.answers !== undefined ? (typeof objInit.answers === "number" ? objInit.answers : objInit.answers.map(createAnswerItem)) : undefined;
     // if the question is younger then 1 minute then watching now will be 0
@@ -123,14 +123,14 @@ function DocumentItem(objInit) {
     this.views = objInit.views;
     this.template = 'note'; //TODO remove this
     this.price = objInit.price;
-    this.isPurchased = objInit.isPurchased; //TODO: I never return this
-    // this.votes = !!objInit.vote ? objInit.vote.votes : null;
-    // this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
-    // this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
+    this.isPurchased = objInit.isPurchased; //TODO: I never return this    
+    this.votes = !!objInit.vote ? objInit.vote.votes : null;
+    this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
+    this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;   
     this.preview = objInit.preview;
     this.type = objInit.type || 'Document';
     this.documentType = objInit.documentType;
-    this.itemDuration = objInit.duration;
+    this.itemDuration = objInit.duration;    
 }
 
 function createDocumentItem(objInit) {
@@ -149,14 +149,8 @@ let transferResultDocument = (data) => {
 };
 
 /* Tutor Card Result */
-let transferResultTutor = ({data}) => {  
-    if(!data.result) return { data: [] };
-    return {
-        sort: data.sort,
-        filters: data.filters,
-        data: data.result.map(createTutorItem),
-        nextPage: data.nextPageLink
-    };
+let transferResultTutor = (data) => {
+    return (!data) ? [] : createTutorItem(data);
 };
 
 const transferMap = {
@@ -165,9 +159,9 @@ const transferMap = {
     tutor: (res) => transferResultTutor(res)
 };
 
-let transferResult = ({data}) => {  
+let transferResult = ({data}) => {
     let documents = data.result.map((doc) => {
-        return transferMap[doc.type](doc);
+        return transferMap[doc.type || 'tutor'](doc);
     })
 
     return {
@@ -179,10 +173,7 @@ let transferResult = ({data}) => {
 }
 
 let transferNextPage = (res) => {
-    return transferResult(res);
-    
-    // let { data, nextPage } = transferMap[currentVertical](res);
-    // return { data, nextPage };
+    return transferResult(res);    
 };
 
 const transferAnswerItem = ({ data }) => {    
@@ -228,7 +219,7 @@ export default {
             return getFeeds(params).then(transferResult);
         },
         tutor(params) {          
-            return getTutor(params).then(transferResultTutor);
+            return getTutor(params).then(transferResult);
         },
         getTutors(params) {
             return getTutorsByCourse(params).then(transferAnswerItem);

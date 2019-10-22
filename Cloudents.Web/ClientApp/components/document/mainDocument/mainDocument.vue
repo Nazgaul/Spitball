@@ -372,7 +372,7 @@ export default {
       if (this.document) {
         // return this.document.details.template
       }
-      return "note";
+      return "feed";
     },
     documentPrice: {
       get() {
@@ -475,7 +475,7 @@ export default {
       if (routeStackLength > 1) {
         this.$router.back();
       } else {
-        this.$router.push({ path: "/note" });
+        this.$router.push({ path: "/feed" });
       }
     },
     showReportOptions() {

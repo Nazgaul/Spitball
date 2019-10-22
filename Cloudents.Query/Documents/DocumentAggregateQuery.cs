@@ -80,9 +80,9 @@ select 'd' as type
 , d.Name as Title
 , d.[Views]
 , d.Downloads
-, d.VoteCount as Vote_Votes
-, (select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as Vote_Vote
-,d.Purchased
+, d.VoteCount as 'Vote.Votes'
+, (select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as 'Vote.Vote'
+,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration,
 'Document' as documentType for json path) as JsonArray
 from sb.document d
@@ -171,9 +171,9 @@ select 'd' as type
 ,d.Name as Title
 ,d.[Views]
 ,d.Downloads
-,d.VoteCount as Vote_Votes
-,(select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as Vote_Vote
-,d.Purchased
+,d.VoteCount as  'Vote.Votes'
+,(select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as 'Vote.Vote'
+,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration,
 'Document' as documentType for json path) as JsonArray
 from sb.document d
@@ -271,14 +271,6 @@ FETCH NEXT 20 ROWS ONLY";
         }
     }
 
-    public class FeedDtoDb
-    {
-        public string Type { get; set; }
-        public string Course { get; set; }
-        public Guid UniversityId { get; set; }
-        public DateTime DateTime { get; set; }
-        public IEnumerable<FeedDto> JsonArray { get; set; }
-    }
 }
 
 

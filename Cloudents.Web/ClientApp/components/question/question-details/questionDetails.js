@@ -159,12 +159,6 @@ export default {
             this.isDeletedAnswer ? this.submitForm(false) : "";
             return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length || this.isDeletedAnswer);
         },
-        enableAnswer() {
-            let hasCorrectAnswer = !!this.questionData.correctAnswerId;
-            let val = !this.cardOwner && (!this.accountUser || this.userNotAnswered);
-            this.showForm = (val && !this.questionData.answers.length);
-            return val;
-        },
     },
     created() {               
         this.getData();

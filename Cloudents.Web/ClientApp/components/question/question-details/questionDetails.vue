@@ -18,7 +18,7 @@
                         :hasCorrectAnswer="getCorrectAnswer">
                             <div slot="currently-watching"></div>
                     </question-thread>
-                    <div v-if="enableAnswer" slot="answer-form" class="mb-3" style="width:inherit;">
+                    <div slot="answer-form" class="mb-3" style="width:inherit;">
                             <div style="position:relative;width:inherit;" v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one">
                                 <extended-text-area 
                                     uploadUrl="/api/question/ask"
@@ -67,7 +67,7 @@
                                              :hasCorrectAnswer="getCorrectAnswer">
                                 
                             </question-thread>
-                            <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer" >
+                            <div slot="answer-form" class="answer-form mb-3">
                                     <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
                                         <extended-text-area 
                                             uploadUrl="/api/question/ask"

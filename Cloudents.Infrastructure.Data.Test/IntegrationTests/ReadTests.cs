@@ -56,59 +56,34 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(638, 0, null, "IL", null)]
         [InlineData(638, 0, new[] { "x", "y" }, "IL", null)]
-        [InlineData(0, 0, new[] { "x", "y" }, "IL",null)]
+        [InlineData(0, 0, new[] { "x", "y" }, "IL", null)]
         [InlineData(0, 0, new[] { "x", "y" }, "IL", "economics")]
         [InlineData(638, 0, new[] { "x", "y" }, "IL", "economics")]
         [InlineData(638, 1, new[] { "x", "y" }, "IL", null)]
-        
-        public async Task DocumentAggregateQuery_Ok(long userId, int page, string[] filter, string country ,string course)
+
+        public async Task DocumentAggregateQuery_Ok(long userId, int page, string[] filter, string country, string course)
         {
-            var query = new FeedAggregateQuery(userId, page, filter, country,course);
+            var query = new FeedAggregateQuery(userId, page, filter, country, course);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
-
+            result.Should().NotBeNullOrEmpty();
 
             result.OfType<QuestionFeedDto>().Should().Contain(c => c.UserId > 0);
             result.OfType<QuestionFeedDto>().Should().Contain(c => c.CultureInfo != null);
-            //.All(a => a.UserId.Should().BeGreaterThan(0));
-            //var dictionary = new Dictionary<string,bool>();
-            //foreach (var x in result.Result)
-            //{
-            //    var values = x.AsDictionary();
-            //    foreach (var value in values)
-            //    {
 
-            //        if (value.Value == default)
-            //        {
-            //            dictionary.TryAdd(value.Key, true);
-            //            //dictionary.Add(value.Key,true);
+        }
 
-            //            //resultOfTest = true;
-            //        }
-            //    }
-            //}
+        [Theory]
+        [InlineData(50084, 638)]
+        public async Task DocumentById_Ok(long documentId, long? userId)
+        {
+            var query = new DocumentById(documentId, userId);
 
-            //var resultTests = dictionary.Where(w => w.Value).Select(s => s.Key).ToList();
-            //resultTests.Should().BeEmpty();
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNull();
         }
 
 
-        //[Fact]
-        //public async Task DocumentCourseQuery_Ok()
-        //{
-        //    var query = new DocumentCourseQuery(638, 0, "economics", null, "IL");
-
-        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
-        //}
-
-
-        //[Fact]
-        //public async Task DocumentCourseQuery_Filter_Ok()
-        //{
-        //    var query = new DocumentCourseQuery(638, 0, "economics", new[] { "x", "y" }, "IL");
-
-        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
-        //}
 
 
         [Fact]
@@ -134,26 +109,34 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, default);
         }
 
+
         [Fact]
-        public async Task DocumentsQueryHandler_Ok()
+        public async Task UserQuestionFeedDtoQueryHandler_Ok()
         {
-            var query = new IdsDocumentsQuery(new[] { 1L });
+            var query = new UserDataPagingByIdQuery(638, 0);
+            var _ = await fixture.QueryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, default);
+        }
+
+        [Fact]
+        public async Task UserAnswerFeedDtoQueryHandler_Ok()
+        {
+            var query = new UserAnswersByIdQuery(638, 0);
+            var _ = await fixture.QueryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, default);
+        }
+
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(50084)]
+        [InlineData(50050)]
+        public async Task DocumentsQueryHandler_Ok(long documentId)
+        {
+            var query = new IdsDocumentsQuery(new[] { documentId });
             var _ = await fixture.QueryBus.QueryAsync(query, default);
 
         }
 
 
-        [Fact]
-        public async Task QuestionsQueryHandler_Ok()
-        {
-            var ids = new[]
-            {
-                9077L,
-            };
-            var query = new IdsQuestionsQuery<long>(ids);
-
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
 
 
         [Fact]
@@ -190,12 +173,18 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(11)]
         [InlineData(605)]
         [InlineData(36)]
+        [InlineData(160105)]
+        [InlineData(150713)]
+        [InlineData(160446)]
+        [InlineData(161238)]
 
         public async Task UserProfileQuery_Ok(long id)
         {
             var query = new UserProfileQuery(id);
 
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+
+            result.Should().NotBeNull();
         }
 
         [Fact]

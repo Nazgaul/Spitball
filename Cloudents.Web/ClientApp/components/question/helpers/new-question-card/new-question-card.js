@@ -135,8 +135,8 @@ export default {
         },
         cardOwner() {
             let userAccount = this.accountUser;
-            if (userAccount && this.cardData.user) {
-                return userAccount.id === this.cardData.user.id; // will work once API call will also return userId
+            if (userAccount && this.cardData.userId) {
+                return userAccount.id === this.cardData.userId; // will work once API call will also return userId
             }
             return false;
         },
@@ -175,7 +175,7 @@ export default {
                 this.removeQuestionItemAction(objToDelete);
                 if (this.$route.name === 'question') {
                     //redirect only if question got deleted from the question page
-                    this.$router.push('/ask');
+                    this.$router.push('/');
                 }
                 //if profile refresh profile data
                 this.updateProfile(objToDelete);

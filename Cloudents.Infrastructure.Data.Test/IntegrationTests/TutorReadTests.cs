@@ -18,12 +18,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("xxx", 0, 5)]
-        [InlineData("Economics", 638, 5)]
+        [InlineData("xxx", 0, "IL", 5)]
+        [InlineData("Economics", 638, "IL", 5)]
+        [InlineData("Economics", 638, "IN", 5)]
+        [InlineData("xxx", 0, "IN", 5)]
 
-        public async Task TutorListByCourseQuery_Ok(string course, long userId, int count)
+        public async Task TutorListByCourseQuery_Ok(string course, long userId, string country, int count)
         {
-            var query = new TutorListByCourseQuery(course, userId, count);
+
+            var query = new TutorListByCourseQuery(course, userId, country, count);
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
 
 
@@ -31,8 +34,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
 
         [Theory]
-        [InlineData(0,"IL",0)]
-        [InlineData(638,null,0)]
+        [InlineData(0, "IL", 0)]
+        [InlineData(638, null, 0)]
 
         public async Task TutorListQuery_Ok(long userId, string country, int page)
         {
@@ -40,12 +43,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeEmpty();
 
-         
+
 
         }
 
-        
-  
+
+
     }
 
     [Collection("Database collection")]

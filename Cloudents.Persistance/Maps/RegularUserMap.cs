@@ -66,7 +66,9 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse();
-            HasOne(x => x.Tutor)/*.LazyLoad(Laziness.NoProxy).Constrained()*/.Cascade.All();
+
+            //We are using cascade all because we need to save the tutor in Become Tutot command handler
+            HasOne(x => x.Tutor).Cascade.All();
             
         }
     }

@@ -144,9 +144,6 @@
   <data name="Sold" xml:space="preserve">
     <value>תשובה התקבלה</value>
   </data>
-  <data name="Someone_answering" xml:space="preserve">
-    <value>מישהו עונה עכשיו...</value>
-  </data>
   <data name="Answers" xml:space="preserve">
     <value>{1} תשובות נוספות</value>
   </data>

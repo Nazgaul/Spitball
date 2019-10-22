@@ -120,9 +120,6 @@
   <data name="back" xml:space="preserve">
     <value>Back</value>
   </data>
-  <data name="btn_attachment" xml:space="preserve">
-    <value>Attachment</value>
-  </data>
   <data name="btn_close" xml:space="preserve">
     <value>Close</value>
   </data>
@@ -135,9 +132,6 @@
   <data name="invalid" xml:space="preserve">
     <value>Invalid course name</value>
   </data>
-  <data name="label_add" xml:space="preserve">
-    <value>Add</value>
-  </data>
   <data name="more_tutors" xml:space="preserve">
     <value>I would like to hear from 2-3 other Tutors like {1}</value>
   </data>
@@ -146,9 +140,6 @@
   </data>
   <data name="next" xml:space="preserve">
     <value>Next</value>
-  </data>
-  <data name="no_course" xml:space="preserve">
-    <value>Please add courses</value>
   </data>
   <data name="phoneNumber" xml:space="preserve">
     <value>Phone</value>

@@ -144,9 +144,6 @@
   <data name="Sold" xml:space="preserve">
     <value>Answer accepted</value>
   </data>
-  <data name="Someone_answering" xml:space="preserve">
-    <value>Someone is answering now…</value>
-  </data>
   <data name="Answers" xml:space="preserve">
     <value>{1} More answers</value>
   </data>

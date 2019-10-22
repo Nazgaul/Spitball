@@ -7,8 +7,8 @@
             <div class="request-box mb-0" :class="[$vuetify.breakpoint.xsOnly ? 'pt-3' : '']">
                 <request-box></request-box>
             </div>
-             <v-flex v-if="filterCondition" class="filter-container">
-                <result-filter></result-filter>
+             <v-flex v-if="filterCondition" class="filter-container mb-3">
+                <!-- <result-filter></result-filter>
                 <div class="filter-button-container">
                     <v-btn 
                         icon 
@@ -23,7 +23,7 @@
                             {{this.filterSelection.length}}
                         </div>
                     </v-btn>
-                </div>
+                </div> -->
             </v-flex>
             <v-snackbar class="question-toaster" @click="loadNewQuestions()" :top="true" :timeout="0" :value="showQuestionToaster">
                 <div class="text-wrap">
@@ -31,40 +31,37 @@
                 </div>
             </v-snackbar>
             <div class="results-section" :class="{'loading-skeleton mt-5': showSkelaton}">
-                <v-container v-if="items.length" class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-2' : 'pa-0'">
-                    <v-layout column>
-                        <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
-                            <v-layout row align-center justify-space-between>
-                                <img src="../img/emptyFilter.png" alt=""/>
-                                <p class="mb-0" v-language:inner>result_filter_not_applied</p>
-                            </v-layout>
-                            <button @click="showFilterNotApplied=false" v-language:inner>result_ok</button>
-                        </v-flex>
-                        <slot name="resultData" :items="items">
-                            <v-flex
-                                class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index"
-                                :class="(index > 6 ? 'order-xs6' : index > 2 ? 'order-xs3' : 'order-xs2')">
-                                <component 
-                                    :id="index == 1 ? 'tour_vote' : ''"
-                                    :is="`result-${item.template}`"
-                                    :item="item" :key="index"
-                                    :index="index"
-                                    class="cell">
-                                </component>
+     
+                <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
+                    <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-2' : 'pa-0'">
+                        <v-layout column>
+                            <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
+                                <v-layout row align-center justify-space-between>
+                                    <img src="../img/emptyFilter.png" alt=""/>
+                                    <p class="mb-0" v-language:inner>result_filter_not_applied</p>
+                                </v-layout>
+                                <button @click="showFilterNotApplied=false" v-language:inner>result_ok</button>
                             </v-flex>
-                            <v-flex class="suggestCard result-cell mb-3 xs-12 order-xs4">
-                                <suggest-card :name="currentSuggest" @click.native="openRequestTutor()"></suggest-card>   
-                            </v-flex>
-                        </slot>
-                    </v-layout>
-                </v-container>
+                            <slot name="resultData" :items="items">                                
+                                <v-flex class="result-cell mb-2" xs-12 v-for="(item,index) in items" :key="index"
+                                        :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
+                                    <component :id="index == 1 ? 'tour_vote' : ''"
+                                               :is="'result-'+item.template"
+                                               :item="item" :key="index"
+                                               :index="index"
+                                               class="cell"></component>
+                                </v-flex>
+                                <v-flex class="suggestCard result-cell mb-2 xs-12 order-xs4">
+                                    <suggest-card :name="currentSuggest" @click.native="openRequestTutor()"></suggest-card>   
+                                </v-flex>
+                            </slot>
+                        </v-layout>
+                    </v-container>
+                </scroll-list>
                 <div v-else>
                     <empty-state-card :userText="userText" :helpAction="goToAskQuestion"></empty-state-card>
                 </div>
             </div>
-            <v-btn flat block color="#43425D" class="results-loader-btn" @click="loadMoreData" :loading="btnLoading">
-                <span v-language:inner="'result_load_documents'"></span>
-            </v-btn>
         </div>
         <template slot="sideBar" v-if="filterCondition">
             <component 

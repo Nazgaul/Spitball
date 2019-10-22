@@ -49,6 +49,7 @@
     .profile-upload-wrap {
         display: flex;
         padding: 4px 4px;
+        letter-spacing: normal;
         cursor: pointer;
         label[for=profile-picture]{
             display: flex;

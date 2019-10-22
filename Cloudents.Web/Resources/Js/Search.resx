@@ -120,10 +120,4 @@
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
-  <data name="searchText_find" xml:space="preserve">
-    <value>Find study documents, textbooks, tutors, jobs, deals and more...</value>
-  </data>
-  <data name="searchText_find_short" xml:space="preserve">
-    <value>Study documents, textbooks, tutors...</value>
-  </data>
 </root>

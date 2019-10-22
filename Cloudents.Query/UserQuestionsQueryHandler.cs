@@ -21,25 +21,30 @@ namespace Cloudents.Query
         }
         public async Task<IEnumerable<QuestionFeedDto>> GetAsync(UserDataPagingByIdQuery query, CancellationToken token)
         {
-            return await _session.Query<Question>()
-                .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
+            return await _session.Query<ViewQuestionWithFirstAnswer>()
+                .Where(w => w.UserId == query.Id)
                 .OrderByDescending(o => o.Id)
 
                 .Select(s => new QuestionFeedDto
                 {
                     Id = s.Id,
-                    //User = new UserDto(s.User.Id, s.User.Name, s.User.Score, s.User.Image),
                     Text = s.Text,
-                    //Files = s.Attachments,
-                    Answers = s.Answers.Where(w => w.Status.State == ItemState.Ok).Count(),
-                    DateTime = s.Updated,
-                    //HasCorrectAnswer = s.CorrectAnswer.Id != null,
-                    CultureInfo = s.Language,
-                    //Vote = new VoteDto()
-                    //{
-                    //    Votes = s.VoteCount
-                    //},
-                    Course = s.Course.Id
+                    Answers = s.Answers,
+                    DateTime = s.DateTime,
+                    CultureInfo = s.CultureInfo,
+                    Course = s.Course,
+                    UserId = s.UserId,
+                    FirstAnswer = s.Answer.UserId == null ? null : new AnswerFeedDto()
+                    {
+                        Text = s.Answer.Text,
+                        DateTime = s.Answer.DateTime,
+                        User = new UserDto
+                        {
+                            Id = s.Answer.UserId.GetValueOrDefault(),
+                            Image = s.Answer.UserImage,
+                            Name = s.Answer.UserName
+                        }
+                    }
                 })
                 .Take(50).Skip(query.Page * 50)
                 .ToListAsync(token);

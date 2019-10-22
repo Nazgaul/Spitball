@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cloudents.Core.Event;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -21,6 +22,8 @@ namespace Cloudents.Core.Entities
          
         }
 
+       
+
         public virtual string Name { get; set; }
         //public virtual string NormalizedEmail { get; set; }
         public virtual string SecurityStamp { get; set; }
@@ -39,7 +42,22 @@ namespace Cloudents.Core.Entities
 
         public virtual bool? OldUser { get; set; }
 
-       
+        //public virtual int Score { get; protected set; }
+
+
+        /// <summary>
+        /// To be reused for (NHibernate) Linq generator
+        /// </summary>
+        //public static readonly Expression<Func<User, decimal>> CalculateBalanceExpression = x =>
+        //    x.Transactions.Count();
+
+        //private static readonly Func<User, decimal> CalculateBalance = CalculateBalanceExpression.Compile();
+
+        //public virtual decimal Fee
+        //{
+        //    get { return CalculateBalance(this); }
+        //}
+
 
       
 
@@ -59,22 +77,9 @@ namespace Cloudents.Core.Entities
         // ReSharper disable once UnusedAutoPropertyAccessor.Global Nhibernate
         public virtual bool Fictive { get; protected set; }
 
-        public abstract decimal Balance { get;  }
+        public abstract decimal Balance { get; }
 
         public abstract int Score { get; protected set; }
-        public abstract bool Online { get; protected set; }
-
-        public virtual string FirstName { get; protected set; }
-        public virtual string LastName { get; protected set; }
-        public virtual string Description { get; set; }
-
-
-        public virtual DateTimeOffset? LockoutEnd { get; set; }
-
-        public virtual bool LockoutEnabled { get; set; }
-
-        public virtual string LockoutReason { get; set; }
-
 
         public abstract void MakeTransaction(Transaction transaction);
 
@@ -87,11 +92,17 @@ namespace Cloudents.Core.Entities
             Language = lang;
         }
 
-        public virtual string Country { get; set; }
+        public virtual string Country { get; protected set; }
 
-        protected virtual void DeleteQuestion()
+        public virtual void ChangeCountry(string country)
         {
-            _questions.Clear();
+
+            if (Country?.Equals(country) == true)
+            {
+                return;
+            }
+            Country = country;
+            AddEvent(new ChangeCountryEvent(Id));
         }
 
         public virtual byte[] Version { get; protected set; }

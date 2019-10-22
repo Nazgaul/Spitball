@@ -41,7 +41,7 @@ const getters = {
 const actions = {
     Tutors_nextPage(context, { url, vertical }) {
         return searchService.nextPage({ url, vertical }).then((data) => {
-            context.dispatch('Tutors_updateData', data);
+            context.dispatch('Tutors_updateData', data);            
             return data;
         });
     },
@@ -83,7 +83,7 @@ const actions = {
     Tutors_setDataItems({ commit }, data) {
         commit('Tutors_setItems', data);
     },
-    Tutors_updateData({ commit }, data) {
+    Tutors_updateData({ commit }, data) {       
         commit('Tutors_updateItems', data);
     },
 

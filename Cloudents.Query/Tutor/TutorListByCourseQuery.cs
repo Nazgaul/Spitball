@@ -13,10 +13,11 @@ namespace Cloudents.Query.Tutor
 {
     public class TutorListByCourseQuery : IQuery<IEnumerable<TutorCardDto>>
     {
-        public TutorListByCourseQuery(string courseId, long userId, int count)
+        public TutorListByCourseQuery(string courseId, long userId, string country, int count)
         {
             CourseId = courseId;
             UserId = userId;
+            Country = country;
             Count = count;
         }
 
@@ -29,6 +30,8 @@ namespace Cloudents.Query.Tutor
         /// Eliminate the current user from the result
         /// </summary>
         private long UserId { get; }
+
+        private string Country { get; }
 
         private int Count { get; }
 
@@ -45,34 +48,34 @@ namespace Cloudents.Query.Tutor
             public async Task<IEnumerable<TutorCardDto>> GetAsync(TutorListByCourseQuery query, CancellationToken token)
             {
                 //TODO maybe we can fix this query
-                Core.Entities.Tutor tutorAlias = null;
+                Core.Entities.ReadTutor tutorAlias = null;
                 UserCourse userCourseAlias = null;
                 Course courseAlias = null;
                 TutorCardDto tutorCardDtoAlias = null;
-                var detachedQuery = QueryOver.Of(() => tutorAlias)
-                    .JoinEntityAlias(() => userCourseAlias, () => userCourseAlias.User.Id == tutorAlias.Id)
+                var relevantTutorByCourse = QueryOver.Of(() => tutorAlias)
+                    .JoinEntityAlias(() => userCourseAlias, 
+                        () => userCourseAlias.User.Id == tutorAlias.Id)
                     .Where(() => userCourseAlias.CanTeach)
-                    .And(() => tutorAlias.State == ItemState.Ok)
                     .And(() => userCourseAlias.Course.Id == query.CourseId)
                     .Select(s => s.Id)
                     .Take(query.Count);
 
 
-                var detachedQuery2 = QueryOver.Of(() => tutorAlias)
-                    .JoinEntityAlias(() => userCourseAlias, () => userCourseAlias.User.Id == tutorAlias.Id)
+                var relevantTutorBySubject = QueryOver.Of(() => tutorAlias)
+                    .JoinEntityAlias(() => userCourseAlias, 
+                        () => userCourseAlias.User.Id == tutorAlias.Id)
                     .JoinAlias(() => userCourseAlias.Course,() => courseAlias)
                     .Where(() => userCourseAlias.CanTeach)
-                    .And(() => tutorAlias.State == ItemState.Ok)
                     .WithSubquery.WhereProperty(() => courseAlias.Subject.Id).Eq(
-                        QueryOver.Of<Course>().Where(w=>w.Id == query.CourseId).Select(s=>s.Subject.Id))
+                        QueryOver.Of<Course>().Where(w=>w.Id == query.CourseId)
+                            .Select(s=>s.Subject.Id))
                     .Select(s => s.Id)
                     .Take(query.Count);
 
 
                 var futureCourse =  _session.QueryOver<ReadTutor>()
-                     .WithSubquery.WhereProperty(w => w.Id).In(detachedQuery)
+                     .WithSubquery.WhereProperty(w => w.Id).In(relevantTutorByCourse)
                      .Where(w => w.Id != query.UserId)
-                   
                      .SelectList(s =>
                          s.Select(x => x.Id).WithAlias(() => tutorCardDtoAlias.UserId)
                              
@@ -94,9 +97,9 @@ namespace Cloudents.Query.Tutor
                      .Take(query.Count).Future<TutorCardDto>();
 
                 var futureCourse2 = _session.QueryOver<ReadTutor>()
-                    .WithSubquery.WhereProperty(w => w.Id).In(detachedQuery2)
+                    .WithSubquery.WhereProperty(w => w.Id).In(relevantTutorBySubject)
                     .Where(w => w.Id != query.UserId)
-
+                    .And(w=>w.Country == query.Country)
                     .SelectList(s =>
                         s.Select(x => x.Id).WithAlias(() => tutorCardDtoAlias.UserId)
                             .Select(x => x.Name).WithAlias(() => tutorCardDtoAlias.Name)
@@ -118,7 +121,8 @@ namespace Cloudents.Query.Tutor
                 var tutors = await futureCourse.GetEnumerableAsync(token);
                 var tutors2 = await futureCourse2.GetEnumerableAsync(token);
 
-                return tutors.Union(tutors2).Take(query.Count).Distinct(TutorCardDto.UserIdComparer).ToList();
+                return tutors.Union(tutors2).Take(query.Count)
+                    .Distinct(TutorCardDto.UserIdComparer).ToList();
             }
         }
     }

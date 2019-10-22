@@ -48,7 +48,7 @@
                                 :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
                                 v-model="price"
                                 type="number"
-                                :label="placePrice"/>
+                                :label="$Ph('becomeTutor_placeholder_price', currencySymbol)"/>
 
                             <!-- <v-select
                                 v-model="gender"
@@ -95,7 +95,6 @@
             return {
                 placeFirstName: LanguageService.getValueByKey("becomeTutor_placeholder_first_name"),
                 placeLastName: LanguageService.getValueByKey("becomeTutor_placeholder_last_name"),
-                placePrice: LanguageService.getValueByKey("becomeTutor_placeholder_price"),
                 selectGender: LanguageService.getValueByKey("becomeTutor_placeholder_select_gender"),
                 firstName: '',
                 lastName: '',
@@ -132,7 +131,10 @@
             },
             isMobile(){
                 return this.$vuetify.breakpoint.xsOnly;
-            }
+            },
+            currencySymbol() {
+                return this.accountUser.currencySymbol
+            },
         },
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog', 'updateToasterParams']),

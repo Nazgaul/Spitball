@@ -25,27 +25,17 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(QuestionCreatedEvent eventMessage, CancellationToken token)
         {
-            //var score = 0;
-            //if (eventMessage.Question.User.Actual is User p)
-            //{
-            //    score = p.Transactions.Score;
-            //}
-            //var user = new UserDto(eventMessage.Question.User.Id, eventMessage.Question.User.Name,
-            //    score, eventMessage.Question.User.Image);
-
             var dto = new QuestionFeedDto
             {
                 CultureInfo = eventMessage.Question.Language,
-                //User = user,
+               
                 Id = eventMessage.Question.Id,
                 // ReSharper disable once ConstantConditionalAccessQualifier this is later stuff - we still have null courses
                 Course = eventMessage.Question.Course?.Id,
                 Text = eventMessage.Question.Text,
                 Answers = 0,
                 DateTime = DateTime.UtcNow,
-               // Files = eventMessage.Question.Attachments,
-               // HasCorrectAnswer = false,
-               // Vote = new VoteDto()
+                UserId = eventMessage.Question.User.Id
             };
 
             await _queueProvider.InsertMessageAsync(
@@ -120,18 +110,5 @@ namespace Cloudents.Core.EventHandler
             return _queueProvider.InsertMessageAsync(
                 new SignalRTransportType(SignalRType.Question, SignalRAction.Delete, dto), token);
         }
-
-
-        //public  Task HandleAsync(ChatMessageEvent eventMessage, CancellationToken token)
-        //{
-        //    //Need to support blob
-        //    var messages = eventMessage.ChatMessage;
-        //    var message = new SignalRTransportType(SignalRType.Chat,
-        //        SignalRAction.Add, new { messages = messages });
-
-        //   var result =  eventMessage.ChatMessage.ChatRoom.Users.Select(s =>
-        //       _queueProvider.InsertMessageAsync(message, s.User.Id, token));
-        //   return Task.WhenAll(result);
-        //}
     }
 }

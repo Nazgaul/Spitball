@@ -97,9 +97,8 @@
                                 <!-- <router-link class="question-card-wrapper"
                                              :to="{name:'question',params:{id:questionData.id}}"
                                              v-for="(questionData,index) in profileData.questions" :key="index"> -->
-                                             <div class="mb-3"  v-for="(questionData,index) in questionDocuments" :key="index"     >
-                                    <question-card :cardData="questionData"
-                                                                  ></question-card>
+                                             <div class="mb-3"  v-for="(questionData,index) in questionDocuments" :key="index">
+                                    <question-card :cardData="questionData"></question-card>
                                     </div>
 
                                 <!-- </router-link> -->

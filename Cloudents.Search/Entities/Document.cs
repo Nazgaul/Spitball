@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
+using Newtonsoft.Json.Converters;
 
 namespace Cloudents.Search.Entities
 {
@@ -58,6 +59,7 @@ namespace Cloudents.Search.Entities
         [IsSortable, IsFilterable]
         public DateTimeOffset? DateTime { get; set; }
         [IsFilterable, IsFacetable, JsonProperty(TypeFieldName)]
+        [JsonConverter(typeof(StringEnumConverter))]
         public DocumentType Type { get; set; }
 
     }

@@ -54,7 +54,7 @@ namespace ConsoleApp
                     {
                         SiteEndPoint = { SpitballSite = "https://dev.spitball.co" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
-                            ConfigurationManager.AppSettings["Redis"]),
+                            ConfigurationManager.AppSettings["Redis"], DbConnectionString.DataBaseIntegration.None),
                         MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                         Search = new SearchServiceCredentials(
 
@@ -71,7 +71,7 @@ namespace ConsoleApp
                     {
                         SiteEndPoint = { SpitballSite = "https://www.spitball.co" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
-                            ConfigurationManager.AppSettings["Redis"]),
+                            ConfigurationManager.AppSettings["Redis"], DbConnectionString.DataBaseIntegration.None),
                         MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                         Search = new SearchServiceCredentials(
 
@@ -135,17 +135,33 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            ResourcesMaintenance.DeleteStuffFromJs();
+            var cacheKeeper = _container.Resolve<IIpToLocation>();
+
+            var v = cacheKeeper.GetAsync(IPAddress.Parse("27.123.246.12"), default);
+            //while (true)
+            //{
+            //    var v = cacheKeeper.Get("key", "test");
+            //    var value = 0;
+            //    if (v != null)
+            //    {
+            //        value = (int) v;
+            //    }
+
+            //    Console.WriteLine(value);
+            //    value++;
+            //    cacheKeeper.Set("key","test",value,60,true);
+            //    Thread.Sleep(500);
+            //}
             //await UpdateMethod();
-           // var v = _container.Resolve<IIpToLocation>();
-           // var x = await v.GetAsync(IPAddress.Parse("147.243.149.244"), default);
-           // var c = _container.Resolve<IReadTutorRepository>();
-           // await c.GetReadTutorAsync(638, default);
-           // ResourcesMaintenance.DeleteUnusedSvg();
+            // var v = _container.Resolve<IIpToLocation>();
+            // var x = await v.GetAsync(IPAddress.Parse("147.243.149.244"), default);
+            // var c = _container.Resolve<IReadTutorRepository>();
+            // await c.GetReadTutorAsync(638, default);
+            // ResourcesMaintenance.DeleteUnusedSvg();
             //var q = new UserPurchaseDocumentByIdQuery(638, 0);
             //var z = await d.QueryAsync(q, default);
             //ResourcesMaintenance.DeleteUnusedResources();
-           //var t = new GuidCombGenerator();
+            //var t = new GuidCombGenerator();
 
             //var dictionary = new Dictionary<int, Guid>();
 
@@ -167,7 +183,7 @@ namespace ConsoleApp
             //Console.WriteLine("done");
         }
 
-       
+
 
         private static async Task ResetVideo()
         {
@@ -203,7 +219,7 @@ namespace ConsoleApp
             await c2.CreateOrUpdateAsync(default);
 
             var session = _container.Resolve<ISession>();
-            foreach (var tutorId in session.Query<Tutor>().Where(w=>w.State == ItemState.Ok).Select(s=>s.Id).AsEnumerable())
+            foreach (var tutorId in session.Query<Tutor>().Where(w => w.State == ItemState.Ok).Select(s => s.Id).AsEnumerable())
             {
                 var eventHandler = _container.Resolve<IEventHandler<SetUniversityEvent>>();
                 await eventHandler.HandleAsync(new SetUniversityEvent(tutorId), default);

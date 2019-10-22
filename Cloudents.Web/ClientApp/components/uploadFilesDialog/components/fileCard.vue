@@ -3,7 +3,7 @@
         <v-icon v-if="!isLastItem" class="uf-sEdit-close" v-html="'sbf-close'" @click="deleteFile()"/>
         <v-layout row wrap pb-1 px-3>
             <v-layout row wrap justify-space-between>   
-                <v-flex xs11 md8 pr-4>
+                <v-flex xs12 md8 pr-4>
                     <v-text-field style="direction: ltr;" :prepend-inner-icon="'sbf-attachment'" 
                                   v-model="item.name" 
                                   dir="ltr"
@@ -13,11 +13,10 @@
                     <v-combobox 
                     browser-autocomplete="abcd"
                         :placeholder="itemCoursePlaceholder"
-                        @keyup="searchCourses"
                         flat hide-no-data
                         :append-icon="''"
                         v-model="course"
-                        :items="suggestsCourses"
+                        :items="getSelectedClasses"
                         :rules="[rules.required,rules.matchCourse]"/>
                 </v-flex>
                 <v-flex hidden-md-and-up xs4> 
@@ -31,7 +30,7 @@
                 </v-flex>
             </v-layout>
             <v-layout row wrap justify-space-between>
-                <v-flex xs12 md9 pr-4 class="uf_desc">
+                <v-flex xs12 md10 :class="['uf_desc',{'pr-4':!isMobile}]">
                     <!-- <v-textarea rows="2" :resize="false" style="margin: 0;padding: 0;"
                         v-model="item.description" 
                         :placeholder="itemDescPlaceholder">>
@@ -69,7 +68,7 @@ export default {
     name: "fileCard",
     data() {
         return {
-            suggestsCourses: [],
+            // suggestsCourses: [],
             fileNamePlaceholder: LanguageService.getValueByKey("upload_multiple_fileName_placeholder"),
             emptyPricePlaceholder: LanguageService.getValueByKey("upload_uf_price"),
             itemDescPlaceholder: LanguageService.getValueByKey("upload_uf_desc"),
@@ -79,7 +78,7 @@ export default {
             rules: {
                 required: (value) => validationRules.required(value),
                 integer: (value) => validationRules.integer(value),
-                matchCourse:() => ((this.suggestsCourses.length && this.suggestsCourses.some(course=>course.text === this.selectedCourse)
+                matchCourse:() => ((this.getSelectedClasses.length && this.getSelectedClasses.some(course=>course.text === this.selectedCourse)
                         ) || this.isFromQuery) || LanguageService.getValueByKey("tutorRequest_invalid"),
                 maximum: (value) => validationRules.maxVal(value, 1000),
                 minimum: (value) => validationRules.minVal(value,0),
@@ -117,7 +116,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getFileData']),
+        ...mapGetters(['getFileData', 'getSelectedClasses']),
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
@@ -147,14 +146,14 @@ export default {
         deleteFile() {
             this.deleteFileByIndex(this.singleFileIndex)
         },
-        searchCourses: debounce(function(ev){
-            let term = ev.target.value.trim()
-            if(!!term){
-                universityService.getCourse({term, page:0}).then(data=>{
-                    this.suggestsCourses = data;
-                })
-            }
-        },300),
+        // searchCourses: debounce(function(ev){
+        //     let term = ev.target.value.trim()
+        //     if(!!term){
+        //         universityService.getCourse({term, page:0}).then(data=>{
+        //             this.suggestsCourses = data;
+        //         })
+        //     }
+        // },300),
     },
 }
 </script>

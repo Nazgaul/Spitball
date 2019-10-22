@@ -37,7 +37,7 @@
                             <span v-line-clamp:18="'1'">{{cardData.subject}}</span>
                         </div>
                     </v-layout>
-                    <div class="question-body-content-container mt-2 mb-3" :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`]">
+                    <div class="question-body-content-container mt-2 mb-3" :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`, {'question-ellipsis': $route.name === 'feed'}]">
                         <div class="question-text">{{cardData.text}}</div>
                     </div>
                     <div class="gallery" v-if="cardData.files && cardData.files.length">
@@ -93,7 +93,8 @@
 
             <div v-if="!hideAnswerInput" class="question-bottom-section">
                 <div class="question-input-container d-flex">
-                    <user-avatar class="avatar-area mr-2" :user-name="accountUser.name" :userImageUrl="accountUser.image" :user-id="accountUser.id"/>
+                    <user-avatar class="avatar-area mr-2" :user-name="accountUser.name" :userImageUrl="accountUser.image" :user-id="accountUser.id" v-if="accountUser" />
+                    <user-avatar class="avatar-area mr-2" :user-name="'JD'" :userImageUrl="''" :user-id="''" v-else />
                     <input class="question-input" placeholder="questionCard_Answer_placeholder" v-language:placeholder type="text">
                 </div>
             </div>
@@ -104,7 +105,7 @@
                 :maxWidth="'438px'"
                 :popUpType="'reportDialog'"
                 :content-class="`reportDialog ${isRtl? 'rtl': ''}` ">
-            <report-item :closeReport="closeReportDialog" :itemType="cardData.template" :itemId="itemId"></report-item>
+            <report-item :closeReport="closeReportDialog" :itemType="'feed'" :itemId="itemId"></report-item>
         </sb-dialog>
     </div>
 </template>

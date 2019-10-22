@@ -40,6 +40,13 @@ namespace Cloudents.Core.DTOs
         public bool Online { get; set; }
         public bool CalendarShared { get; set; }
         public UserTutorProfileDto Tutor { get; set; }
+
+        //If the user is a tutor and then delete then the first name and the last name stays
+        public bool ShouldSerializeTutor()
+        {
+            // don't serialize the Manager property if an employee is their own manager
+            return (Tutor?.TutorCountry != null);
+        }
     }
 
     public class UserTutorProfileDto
@@ -54,7 +61,7 @@ namespace Cloudents.Core.DTOs
        
         private decimal TutorPrice { get; set; }
        
-        private string TutorCountry { get; set; }
+        internal string TutorCountry { get; set; }
 
         public double Rate { get; set; }
         public int ReviewCount { get; set; }

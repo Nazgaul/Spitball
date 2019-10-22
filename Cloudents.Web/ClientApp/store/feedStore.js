@@ -35,10 +35,10 @@ const mutations = {
     Feeds_AddQuestion(state, questionObj) {
         if (!!state.items && !!state.items.data && state.items.data.length > 0) {
             if (!!questionObj.user) {
-                let author = questionObj.question.user;
+                let authorId = questionObj.question.userId;
                 let currentUser = questionObj.user;
                 let questionToAdd = questionObj.question;
-                if (currentUser.id === author.id) {
+                if (currentUser.id === authorId) {
                     state.items.data.unshift(questionToAdd);
                 } else {
                     state.queItems.unshift(questionToAdd);
@@ -50,6 +50,9 @@ const mutations = {
     },
     Feeds_removeQuestion(state, questionIndex) {
         state.items.data.splice(questionIndex, 1);
+    },
+    Feeds_removeDocItem(state, itemIndex) {
+        state.items.data.splice(itemIndex, 1);
     },
     Feeds_markQuestionAsCorrect(state, questionObj) {
         state.items.data[questionObj.questionIndex].hasCorrectAnswer = true;
@@ -124,12 +127,23 @@ const actions = {
         commit('Feeds_AddQuestion', questionToSend);
     },
     removeQuestionItemAction({commit, state}, notificationQuestionObject) {
-        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
+        // let questionObj = searchService.createQuestionItem(notificationQuestionObject);
         if (!!state.items && !!state.items.data && state.items.data.length > 0) {
             for (let questionIndex = 0; questionIndex < state.items.data.length; questionIndex++) {
                 let currentQuestion = state.items.data[questionIndex];
-                if (currentQuestion.id === questionObj.id) {
+                if (currentQuestion.id === notificationQuestionObject.id) {
                     commit('Feeds_removeQuestion', questionIndex);
+                }
+            }
+        }
+    },
+    removeDocItemAction({commit, state}, notificationDocItemObject) {
+        let documentToRemove = searchService.createDocumentItem(notificationDocItemObject);
+        if (!!state.items && !!state.items.data && state.items.data.length > 0) {
+            for (let documentIndex = 0; documentIndex < state.items.data.length; documentIndex++) {
+                let currentDocument = state.items.data[documentIndex];
+                if (currentDocument.id === documentToRemove.id) {
+                    commit('Feeds_removeDocItem',documentIndex)
                 }
             }
         }

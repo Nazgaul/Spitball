@@ -35,14 +35,6 @@ namespace Cloudents.Search.Tutor
                 Select = new[]
                 {
                     nameof(Entities.Tutor.Data),
-                    //nameof(Entities.Tutor.Id),
-                    //nameof(Entities.Tutor.Courses),
-                    //nameof(Entities.Tutor.Image),
-                    //nameof(Entities.Tutor.Price),
-                    ////nameof(Entities.Tutor.Rate),
-                    //Entities.Tutor.RateFieldName,
-                    //nameof(Entities.Tutor.ReviewCount),
-                    //nameof(Entities.Tutor.Bio),
                 },
                 HighlightFields = new[] { nameof(Entities.Tutor.Courses) },
                 HighlightPostTag = string.Empty,
@@ -54,7 +46,6 @@ namespace Cloudents.Search.Tutor
 
                 },
                 ScoringProfile = TutorSearchWrite.ScoringProfile,
-                //OrderBy = new List<string> { "search.score() desc", $"{Entities.Tutor.RateFieldName} desc" }
             };
             if (!string.IsNullOrEmpty(query.Country))
             {
@@ -69,22 +60,6 @@ namespace Cloudents.Search.Tutor
                   s.Document.Data.Courses = courses;
                   s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
                   return s.Document.Data;
-
-                //return new TutorCardDto
-                //{
-                //    Name = s.Document.Name,
-                //    UserId = Convert.ToInt64(s.Document.Id),
-                //    Courses = courses,
-
-                //    Image = s.Document.Image,
-                //    Price = (decimal)s.Document.Price,
-                //    Rate = (float)s.Document.Rate,
-                //    ReviewsCount = s.Document.ReviewCount,
-                //    Bio = s.Document.Bio,
-                //    CourseCount = s.Document.Courses.Length,
-                //    University = "Some university", // TODO
-                //    Lessons = 100 //TODO
-                //};
             });
 
         }

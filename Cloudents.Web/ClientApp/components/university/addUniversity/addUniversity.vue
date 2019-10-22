@@ -146,7 +146,7 @@
             },
             getOut() {
                 let classesSet = this.getSelectedClasses && this.getSelectedClasses.length > 0;
-                classesSet ? this.$router.push({name: 'note'}) : this.$router.push({name: 'editCourse'});
+                classesSet ? this.$router.push({name: 'feed'}) : this.$router.push({name: 'editCourse'});
             },
             loadUniversities(paramObj){
                 let self = this;

@@ -20,15 +20,6 @@
                                 <div class="answer-header-left-container">
                                     <span class="user-date" v-language:inner>questionCard_Answer</span>
                                     <span class="timeago ml-2" :datetime="cardData.dateTime||cardData.create">{{date}}</span>
-                                    <span v-if="typeAnswer" class="q-answer">
-                                        <button
-                                                class="accept-btn right"
-                                                @click="markAsCorrect"
-                                                v-if="showApproveButton && !flaggedAsCorrect && !hasAnswer">
-                                            <v-icon>sbf-check-circle</v-icon>
-                                        <span v-language:inner>questionCard_Accept</span>
-                                        </button>
-                                    </span>                                    
                                     <span class="choosen-answer right" v-if="flaggedAsCorrect">
                                         <v-icon>sbf-check-circle</v-icon>
                                     </span>

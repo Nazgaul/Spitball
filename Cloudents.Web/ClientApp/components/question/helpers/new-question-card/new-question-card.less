@@ -7,7 +7,7 @@
   width: 100%;
   //max-width: @cellWidth;
   padding: 12px;
-  padding-bottom: 0;
+  // padding-bottom: 0;
   // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
   background-color: #ffffff;
   margin: 0 auto;
@@ -140,7 +140,6 @@
         }
       }
       .question-body-content-container {
-        .giveMeEllipsis(3, 22);
         margin-top: 10px;
         opacity: 0.9;       
         line-height: 1.6;
@@ -154,6 +153,9 @@
         }
         &.align-switch-l {
           direction: ltr;
+        }
+        &.question-ellipsis {
+            .giveMeEllipsis(3, 22);
         }
       }
       .gallery {

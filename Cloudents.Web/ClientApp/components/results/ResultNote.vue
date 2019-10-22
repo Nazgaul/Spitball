@@ -91,7 +91,7 @@
       :popUpType="'reportDialog'"
       :content-class="`reportDialog ${isRtl? 'rtl': ''}` "
     >
-      <report-item :closeReport="closeReportDialog" :itemType="item.template" :itemId="itemId"></report-item>
+      <report-item :closeReport="closeReportDialog" :itemType="'feed'" :itemId="itemId"></report-item>
     </sb-dialog>
     <sb-dialog
       :showDialog="priceDialog"
@@ -305,7 +305,8 @@ export default {
       "removeItemFromProfile",
       "syncProfile",
       "documentVote",
-      "removeItemFromList"
+      "removeItemFromList",
+      "removeDocItemAction"
     ]),
     ...mapGetters(["accountUser"]),
 
@@ -379,6 +380,8 @@ export default {
           });
           this.removeItemFromList(id);
           this.updateProfile(id);
+          let objToDelete = {id: parseInt(id)};
+          this.removeDocItemAction(objToDelete)
         },
         error => {
           this.updateToasterParams({
@@ -406,8 +409,6 @@ export default {
       return true;
     },
     upvoteDocument(e) {
-      console.log(e);
-      
       e.stopImmediatePropagation();
       if (this.isAuthUser()) {
         this.isLiked = true;
@@ -415,7 +416,6 @@ export default {
         if (!!this.item.upvoted) {
           type = "none";
           this.isLiked = false;
-          
         }
         let data = {
           type,

@@ -58,11 +58,11 @@ namespace Cloudents.Core.DTOs
     public class DocumentUserDto
     {
 
-        [EntityBind(nameof(ViewDocumentSearch.UserId))]
+        [EntityBind(nameof(Document.User.Id))]
         public long Id { get; set; }
-        [EntityBind(nameof(ViewDocumentSearch.UserName))]
+        [EntityBind(nameof(Document.User.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(ViewDocumentSearch.UserImage))]
+        [EntityBind(nameof(Document.User.Image))]
         public string Image { get; set; }
        
     }

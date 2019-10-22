@@ -9,7 +9,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using JetBrains.Annotations;
 
 namespace Cloudents.Command.CommandHandler
@@ -47,17 +46,8 @@ namespace Cloudents.Command.CommandHandler
             {
                 throw new ArgumentException("question doesn't exits");
             }
-            //if (question.CorrectAnswer != null)
-            //{
-            //    throw new QuestionAlreadyAnsweredException();
-
-            //}
+           
             var user = await _userRepository.LoadAsync(message.UserId, token);
-
-            if (user.Id == question.User.Id)
-            {
-                throw new InvalidOperationException("user cannot answer himself");
-            }
 
             if (user.Transactions.Score < Privileges.Post)
             {

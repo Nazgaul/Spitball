@@ -37,23 +37,17 @@ export default {
     },
     data() {
         return {
+            MAX_ITEMS: 19,
             pageData: '',
-            selectedItem: null,
             filterObject: null,
             showFilters: false,
-            showPersonalizeField: true,
             showFilterNotApplied: false,
             isLoad: false,
-            showDialog: false,
-            placeholder:{
-                whereSchool: LanguageService.getValueByKey("result_where_school")
-            },
             scrollBehaviour:{
                 isLoading: false,
                 isComplete: false,
                 page: 1
             },
-            btnLoading: false
         };
     },
     //use basic sort and filter functionality( same for book details and result page)
@@ -176,14 +170,20 @@ export default {
                  this.updateNewQuestionDialogState(true);
             }
         },
-        loadMoreData(){
-            this.btnLoading = true;
+        scrollFunc(){
+            this.scrollBehaviour.isLoading = true;
             let nextPageUrl = this.Feeds_getNextPageUrl;
-            if(this.name !== this.pageData.vertical) return;
+            if(this.name !== this.pageData.vertical || this.pageData.data.length < this.MAX_ITEMS) return;            
             this.Feeds_nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
-                .finally(() => {
-                    this.btnLoading = false;
-                })
+                .then((res) => {
+                    if (res.data && res.data.length) {
+                        this.scrollBehaviour.isLoading = false;
+                    } else {
+                        this.scrollBehaviour.isComplete = true;
+                    }
+                }).catch(reason => {
+                this.scrollBehaviour.isComplete = true;
+            })
         },
         //   2-%%%
         updatePageData(to, from, next) {
@@ -192,6 +192,7 @@ export default {
         },
         //    3-%%%   fetching data and calling updateData func
         updateContentOfPage(to, from, next) {
+            this.scrollBehaviour.isComplete = true;
             const toName = to.path.slice(1);
             let params=  {...to.query, ...to.params, term: to.query.term};
             this.Feeds_fetchingData({name: toName, params}, true)
@@ -213,6 +214,9 @@ export default {
                 this.UPDATE_SEARCH_LOADING(false);
                 this.isLoad = false;
                 this.UPDATE_LOADING(false);
+                //scroll handler
+                this.scrollBehaviour.isLoading = false;
+                this.scrollBehaviour.isComplete = false;
             });
         },
         reloadContentOfPage(){
@@ -261,7 +265,7 @@ export default {
                 path: this.$route.path
             });
             this.updateRequestDialog(true);
-        }
+        },
     },
     created() {
         //register Feeds Store

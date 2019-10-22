@@ -95,17 +95,26 @@ namespace Cloudents.Core
 
     public class DbConnectionString
     {
-        public DbConnectionString(string db, string redis)
+        public DbConnectionString(string db, string redis, DataBaseIntegration dataBaseIntegration)
         {
             Db = db;
             Redis = redis;
+            Integration = dataBaseIntegration;
         }
 
         public string Db { get;  }
 
         public string Redis { get;  }
 
-        public bool NeedValidate { get; set; }
+        public DataBaseIntegration Integration { get; set; }
+
+
+        public enum DataBaseIntegration
+        {
+            None,
+            Validate,
+            Update
+        }
     }
 
     public class LocalStorageData

@@ -46,7 +46,7 @@ namespace Cloudents.Admin2
                 {
                     o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 })
-                
+
                 .AddCookie(x =>
                 {
                     x.Events.OnRedirectToLogin = context =>
@@ -58,10 +58,10 @@ namespace Cloudents.Admin2
                         }
                         else
                         {
-                            context.Response.Redirect("/account/LogIn"); 
+                            context.Response.Redirect("/account/LogIn");
                             return Task.CompletedTask;
                         }
-                      
+
                     };
                     x.Events.OnRedirectToAccessDenied = context =>
                     {
@@ -70,7 +70,7 @@ namespace Cloudents.Admin2
                     };
                 });
 
-          
+
 
             services.AddDataProtection(o =>
             {
@@ -82,11 +82,11 @@ namespace Cloudents.Admin2
             //services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddMvc(config =>
             {
-               
-                    var policy = new AuthorizationPolicyBuilder()
-                        .RequireAuthenticatedUser()
-                        .Build();
-                    config.Filters.Add(new AuthorizeFilter(policy));
+
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
             }).AddJsonOptions(options =>
                 {
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
@@ -107,9 +107,9 @@ namespace Cloudents.Admin2
 
             services.AddAuthorization(options =>
             {
-               // options.AddPolicy(Policy.IsraelUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IL"));
-               // options.AddPolicy(Policy.IndiaUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IN"));
-               // options.AddPolicy(Policy.GlobalUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "None"));
+                // options.AddPolicy(Policy.IsraelUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IL"));
+                // options.AddPolicy(Policy.IndiaUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IN"));
+                // options.AddPolicy(Policy.GlobalUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "None"));
             });
 
             var assembliesOfProgram = new[]
@@ -131,7 +131,7 @@ namespace Cloudents.Admin2
             var keys = new ConfigurationKeys()
             {
                 SiteEndPoint = { SpitballSite = Configuration["Site"] },
-                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
+                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"], DbConnectionString.DataBaseIntegration.Update),
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
                        Configuration["AzureSearch:SearchServiceAdminApiKey"],
                     !HostingEnvironment.IsProduction()
@@ -179,7 +179,7 @@ namespace Cloudents.Admin2
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-           
+
             app.UseCookiePolicy();
             app.UseAuthentication();
 

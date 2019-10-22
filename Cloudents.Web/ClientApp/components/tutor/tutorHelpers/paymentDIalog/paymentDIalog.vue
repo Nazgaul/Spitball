@@ -57,6 +57,7 @@ export default {
     position: relative;
     border-radius: 4px;
     background-color: #ffffff;
+    -webkit-overflow-scrolling: touch;
     .exit-btn{
         position: absolute;
         top: 16px;
@@ -129,8 +130,9 @@ export default {
     }
     .payme-popup-bottom{
         @media (max-width: @screen-xs) {
+            .flexSameSize();
             flex-direction: column-reverse;
-                align-items: start;
+            align-items: start;
         }
         display: flex;
         align-items: center;

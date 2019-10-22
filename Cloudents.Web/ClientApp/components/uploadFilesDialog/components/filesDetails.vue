@@ -6,11 +6,10 @@
                     browser-autocomplete="abcd"
                     :placeholder="coursePlaceHolder"
                     class="text-truncate"
-                    @keyup="searchCourses"
                     flat hide-no-data
                     :append-icon="''"
                     v-model="courseForAll"
-                    :items="suggestsCourses"
+                    :items="getSelectedClasses"
                     :rules="[rules.matchCourse]"/>
             </v-flex>
             <v-flex xs6 sm3 :class="[{'pl-3':!isMobile}]">
@@ -65,15 +64,15 @@ export default {
             courseForAll:'',
             rules: {
                 matchCourse:() => (
-                    (   this.suggestsCourses.length && 
-                        this.suggestsCourses.some(course=>course.text === this.courseForAll.text)
+                    (   this.getSelectedClasses.length && 
+                        this.getSelectedClasses.some(course=>course.text === this.courseForAll.text)
                         )) 
                     || LanguageService.getValueByKey("tutorRequest_invalid"),
                 integer: (value) => validationRules.integer(value),
                 maximum: (value) => validationRules.maxVal(value, 1000),
                 minimum: (value) => validationRules.minVal(value,0),
             },
-            suggestsCourses:[]
+            // suggestsCourses:[]
         }
     },
     props: {
@@ -100,6 +99,7 @@ export default {
         }
     },
     computed: {
+        ...mapGetters(['getSelectedClasses']),
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
@@ -118,14 +118,6 @@ export default {
                 this.setAllCourse(this.courseForAll)
             }
         },
-        searchCourses: debounce(function(ev){
-            let term = ev.target.value.trim()
-            if(!!term){
-                universityService.getCourse({term, page:0}).then(data=>{
-                    this.suggestsCourses = data;
-                })
-            }
-        },300),
     },
 }
 </script>

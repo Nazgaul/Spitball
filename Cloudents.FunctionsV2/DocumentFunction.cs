@@ -3,7 +3,6 @@ using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
-using Cloudents.FunctionsV2.Sync;
 using Cloudents.Search.Document;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -93,17 +92,6 @@ namespace Cloudents.FunctionsV2
                 //Text blob was not found - somehow 
                 //Do nothing
             }
-        }
-
-
-
-        [FunctionName("DocumentSearchSync")]
-        public static async Task RunQuestionSearchAsync([TimerTrigger("0 10,40 * * * *")]
-            TimerInfo timer,
-            [OrchestrationClient] DurableOrchestrationClient starter,
-            ILogger log)
-        {
-            await SyncFunc.StartSearchSync(starter, log, SyncType.Document);
         }
 
 

@@ -324,7 +324,7 @@ export default {
       font-weight: 600;
     }
     .calendar-header-time {
-      margin-bottom: 10px;
+      margin-bottom: 22px;
       border-top: 1px solid #ddd;
       border-bottom: 1px solid #ddd;
       display: flex;

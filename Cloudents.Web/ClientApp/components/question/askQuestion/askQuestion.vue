@@ -29,13 +29,12 @@
                         <legend v-language:inner="'addQuestion_class_placeholder'"/>
                         <v-combobox 
                             class="text-truncate pa-0"
-                            @keyup="searchCourses"
                             flat
                             hide-no-data
                             :append-icon="''"
-                            v-model="courseQuestion"
-                            :items="suggestsCourses"
-                            :rules="[rules.required, rules.matchCourse]">
+                            v-model="questionCourse"
+                            :items="getSelectedClasses"
+                            :rules="[rules.required]">
                         </v-combobox>
                     </fieldset>
                 </div>

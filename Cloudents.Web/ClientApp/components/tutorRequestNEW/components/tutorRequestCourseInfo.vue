@@ -8,9 +8,10 @@
                     v-model="description"
                     :rules="[rules.required, rules.maximumChars,rules.notSpaces]"/>
             </fieldset>
-            <fieldset class="fieldset-select px-2">
+            <fieldset  class="fieldset-select px-2">
                 <legend v-language:inner="'tutorRequest_select_course_placeholder'"/>
                 <v-combobox 
+                    v-if="!isLoggedIn"
                     class="text-truncate"
                     @keyup="searchCourses"
                     flat hide-no-data
@@ -18,7 +19,16 @@
                     v-model="tutorCourse"
                     :items="suggestsCourses"
                     :rules="[rules.required,rules.matchCourse]"/>
+                    <v-combobox 
+                    v-else
+                    class="text-truncate"
+                    flat hide-no-data
+                    :append-icon="''"
+                    v-model="tutorCourse"
+                    :items="getSelectedClasses"
+                    :rules="[rules.required,rules.matchLocalCourse]"/>
             </fieldset>
+            
 
             <v-checkbox v-if="isTutor" :ripple="false" class="checkbox-userinfo"
                         :label="$Ph('tutorRequest_more_tutors',this.getCurrTutor.name)" 
@@ -70,6 +80,11 @@ export default {
                         this.suggestsCourses.some(course=>course.text === this.tutorCourse.text)
                         ) || this.isFromMounted ) 
                     || LanguageService.getValueByKey("tutorRequest_invalid"),
+                matchLocalCourse:() => (
+                    (   this.getSelectedClasses.length && 
+                        this.getSelectedClasses.some(course=>course.text === this.tutorCourse.text)
+                        ) || this.isFromMounted ) 
+                    || LanguageService.getValueByKey("tutorRequest_invalid"),
                 matchTutorCourse:() => (this.currentTutorCourses.length && this.currentTutorCourses.some(course=>course.text === this.tutorCourse.text)) || LanguageService.getValueByKey("tutorRequest_invalid") 
             },
         }
@@ -78,6 +93,7 @@ export default {
         ...mapGetters(['getProfile',
                        'getCourseDescription',
                        'getSelectedCourse',
+                       'getSelectedClasses',
                        'accountUser',
                        'getCurrTutor',
                        'getTutorRequestAnalyticsOpenedFrom']),

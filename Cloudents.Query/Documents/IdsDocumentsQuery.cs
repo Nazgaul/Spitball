@@ -36,31 +36,33 @@ namespace Cloudents.Query.Documents
             {
                 var ids = query.DocumentIds.ToList();
 
-                var z = await _session.Query<ViewDocumentSearch>()
+                var z = await _session.Query<Document>()
+                    .Fetch(f=>f.User)
+                    .ThenFetch(f=>f.University)
                     .Where(w => ids.Contains(w.Id))
                     .Select(s => new DocumentFeedDto
                     {
                         Id = s.Id,
                         User = new DocumentUserDto
                         {
-                            Id = s.UserId,
-                            Name = s.UserName,
-                            Image = s.UserImage,
+                            Id = s.User.Id,
+                            Name = s.User.Name,
+                            Image = s.User.Image,
                         },
-                        DateTime = s.DateTime,
-                        Course = s.Course,
-                        Title = s.Title,
-                        Snippet = s.Snippet,
+                        DateTime = s.TimeStamp.UpdateTime,
+                        Course = s.Course.Id,
+                        Title = s.Name,
+                        Snippet = s.MetaContent,
                         Views = s.Views,
                         Downloads = s.Downloads,
-                        University = s.University,
+                        University = s.User.University.Name,
                         Price = s.Price,
-                        Purchased = s.Purchased,
+                        Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id ==s.Id && x.Action == TransactionActionType.SoldDocument),
                         DocumentType = s.DocumentType ?? DocumentType.Document,
                         Duration = s.Duration,
                         Vote = new VoteDto()
                         {
-                            Votes = s.Votes
+                            Votes = s.VoteCount
                         }
                     })
                     .ToListAsync(token);

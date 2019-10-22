@@ -17,7 +17,7 @@ import {mapMutations} from 'vuex'
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
             finish(){
                 this.UPDATE_SEARCH_LOADING(true);
-                this.$router.push({name: 'note'})
+                this.$router.push({name: 'feed'})
             }
         },
     }

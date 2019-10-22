@@ -136,11 +136,13 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpGet]
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] { "*" })]
-        public async Task<IEnumerable<TutorCardDto>> GetTutorsAsync([RequiredFromQuery] string course, int? count,
+        public async Task<IEnumerable<TutorCardDto>> GetTutorsAsync([RequiredFromQuery] string course,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            int? count,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListByCourseQuery(course, userId, count.GetValueOrDefault(10));
+            var query = new TutorListByCourseQuery(course, userId, profile.Country, count.GetValueOrDefault(10));
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }

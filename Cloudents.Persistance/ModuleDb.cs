@@ -3,6 +3,7 @@ using Autofac;
 using Cloudents.Core.Interfaces;
 using Cloudents.Persistence.Repositories;
 using Cloudents.Query;
+using NHibernate;
 using Module = Autofac.Module;
 
 namespace Cloudents.Persistence
@@ -18,14 +19,13 @@ namespace Cloudents.Persistence
 
             builder.RegisterType<PublishEventsListener>().AsSelf().SingleInstance();
 
-            builder.Register(c =>
-                {
-                    return c.Resolve<UnitOfWorkFactorySpitball>().OpenSession();
-                }).InstancePerLifetimeScope();
+            builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenSession()).InstancePerLifetimeScope();
 
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenStatelessSession())
                 .InstancePerLifetimeScope();
 
+
+            builder.RegisterType<LoggingInterceptor>().As<IInterceptor>();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerDependency();
             builder.RegisterGeneric(typeof(NHibernateRepository<>))

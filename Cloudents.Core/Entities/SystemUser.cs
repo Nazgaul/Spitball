@@ -3,7 +3,6 @@
     public class SystemUser : BaseUser
     {
         public override int Score { get; protected set; }
-        public override bool Online { get; protected set; }
 
         public override void MakeTransaction(Transaction transaction)
         {

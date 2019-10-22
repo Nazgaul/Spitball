@@ -24,9 +24,9 @@ const mutations = {
         state.items.nextPage = data.nextPage;
     },    
     
-    StudyDocuments_updateDocumentVote(state, {id, type}) {
-        if (!!state.items && state.items.data && state.items.data.length) {
-            state.items.data.forEach((document) => {
+    StudyDocuments_updateDocumentVote(state, {docs, id, type}) {
+        if (docs && docs.length) {
+            docs.forEach((document) => {                
                 if (document.id === id) {
                     reputationService.updateVoteCounter(document, type);
                 }
@@ -136,8 +136,11 @@ const actions = {
     StudyDocuments_updateData({commit}, data) {
         commit('StudyDocuments_updateItems', data);
     },
-    documentVote({commit, dispatch}, data) {
-        reputationService.voteDocument(data.id, data.type).then(() => {            
+    documentVote({commit, getters, dispatch}, data) {
+        reputationService.voteDocument(data.id, data.type).then(() => {
+            let docs = getters.Feeds_getItems;
+            data.docs = docs
+            
             commit('StudyDocuments_updateDocumentVote', data);
             dispatch('profileVote', data);
         }, (err) => {

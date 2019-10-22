@@ -49,7 +49,7 @@ namespace Cloudents.Web.Services
 
                     var result = await _ipToLocation.GetAsync(_httpContext.HttpContext.Connection.GetIpAddress(),
                         token);
-                    cookieValue = result?.Address?.CountryCode;
+                    cookieValue = result?.CountryCode;
                 }
                 catch (Exception e)
                 {

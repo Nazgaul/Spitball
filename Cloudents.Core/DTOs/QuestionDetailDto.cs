@@ -54,10 +54,6 @@ namespace Cloudents.Core.DTOs
         public UserDto User { get; set; }
         public DateTime Create { get; set; }
 
-       // public IEnumerable<Uri> Files { get; set; }
-
-       // public VoteDto Vote { get; set; }
-
         public bool IsRtl { get; set; }
     }
 }

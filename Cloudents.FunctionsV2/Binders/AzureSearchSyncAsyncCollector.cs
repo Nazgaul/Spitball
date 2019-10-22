@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Search;
+﻿using System;
+using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Microsoft.Azure.WebJobs;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Cloudents.FunctionsV2.Binders
 {
@@ -28,24 +30,34 @@ namespace Cloudents.FunctionsV2.Binders
 
         public async Task FlushAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (_messages.Count == 0)
+            try
             {
-                return;
-            }
-            var uploadAction = _messages.Where(w => w.Insert).Select(s => IndexAction.MergeOrUpload(s.Item));
-            var deleteAction = _messages.Where(w => !w.Insert).Select(s => IndexAction.Delete(s.Item));
+                if (_messages.Count == 0)
+                {
+                    return;
+                }
 
-            var batch = IndexBatch.New(uploadAction.Union(deleteAction));
+                var uploadAction = _messages.Where(w => w.Insert).Select(s => IndexAction.MergeOrUpload(s.Item));
+                var deleteAction = _messages.Where(w => !w.Insert).Select(s => IndexAction.Delete(s.Item));
 
-            
-            var result = await _indexClient.Documents.IndexAsync(batch, cancellationToken: cancellationToken);
-            _messages.Clear();
+                var batch = IndexBatch.New(uploadAction.Union(deleteAction));
+
+                var result = await _indexClient.Documents.IndexAsync(batch, cancellationToken: cancellationToken);
+                _messages.Clear();
 #if DEBUG
-            foreach (var errorResult in result.Results.Where(w => !w.Succeeded))
-            {
-                Debug.WriteLine($"Failed to process id {errorResult.Key} error {errorResult.ErrorMessage} on index {_indexClient.IndexName} ");
+                foreach (var errorResult in result.Results.Where(w => !w.Succeeded))
+                {
+                    Debug.WriteLine(
+                        $"Failed to process id {errorResult.Key} error {errorResult.ErrorMessage} on index {_indexClient.IndexName} ");
+                }
+
+#endif
             }
-#endif   
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw;
+            }
         }
     }
 }

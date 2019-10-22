@@ -120,11 +120,8 @@
   <data name="login" xml:space="preserve">
     <value>כניסה</value>
   </data>
-  <data name="placeholder_ask" xml:space="preserve">
-    <value>חפש בפיד...</value>
-  </data>
-  <data name="placeholder_tutor" xml:space="preserve">
-    <value>אתר מורה פרטי...</value>
+  <data name="placeholder_feed" xml:space="preserve">
+    <value>חיפוש</value>
   </data>
   <data name="sbl" xml:space="preserve">
     <value>נק'</value>

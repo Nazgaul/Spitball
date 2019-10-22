@@ -36,7 +36,7 @@ namespace Cloudents.Web.Identity
                 });
             }
 
-            user.Country = result.country;
+            user.ChangeCountry(result.country);
             return await SetPhoneNumberAsync(user, result.phoneNumber);
         }
     }

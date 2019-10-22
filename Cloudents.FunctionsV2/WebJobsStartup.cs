@@ -2,31 +2,41 @@
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Di;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
+using Microsoft.Azure.WebJobs.Extensions.SignalRService;
 using Microsoft.Azure.WebJobs.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
-[assembly: WebJobsStartup(typeof(WebJobsStartup.Startup))]
+[assembly: WebJobsStartup(typeof(Startup))]
 namespace Cloudents.FunctionsV2
 {
-    public class WebJobsStartup
+
+
+    public class Startup : IWebJobsStartup
     {
-        internal class Startup : IWebJobsStartup
+        public void Configure(IWebJobsBuilder builder)
         {
-            public void Configure(IWebJobsBuilder builder)
-            {
+            //builder.AddAzureStorage();
+            //builder.AddDurableTask();
+            //builder.AddSendGrid();
+            //builder.AddTwilioSms();
+            //builder.AddServiceBus();
+            //builder.AddTimers();
+            //builder.AddSignalR();
 
-                builder.AddExtension<AzureSearchSyncProvider>();
-                builder.AddExtension<TwilioExtensionConfigProvider>();
-                builder.AddDependencyInjection<AutofacServiceProviderBuilder>();
-            }
+            builder.AddExtension<AzureSearchSyncProvider>();
+            builder.AddExtension<TwilioExtensionConfigProvider>();
+            builder.AddDependencyInjection<AutofacServiceProviderBuilder>();
+        }
 
-            private void ConfigureServices(IServiceCollection services)
-            {
-                //services.AddTransient<ITransientGreeter, Greeter>();
-                //services.AddScoped<IScopedGreeter, Greeter>();
-                //services.AddSingleton<ISingletonGreeter, Greeter>();
-            }
+        private void ConfigureServices(IServiceCollection services)
+        {
+            //services.AddTransient<ITransientGreeter, Greeter>();
+            //services.AddScoped<IScopedGreeter, Greeter>();
+            //services.AddSingleton<ISingletonGreeter, Greeter>();
         }
     }
+
 }

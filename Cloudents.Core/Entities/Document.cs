@@ -158,7 +158,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public virtual DocumentType DocumentType { get; set; }
+        public virtual DocumentType? DocumentType { get; set; }
 
         //This is only for video
         public virtual TimeSpan? Duration { get; set; }

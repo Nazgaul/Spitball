@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Persistence.Maps;
 using FluentNHibernate.Cfg;
@@ -18,18 +19,19 @@ namespace Cloudents.Persistence
         private readonly PublishEventsListener _publisher;
         private readonly ISessionFactory _factory;
 
-        public UnitOfWorkFactorySpitball(PublishEventsListener publisher, IConfigurationKeys connectionString)
+        public UnitOfWorkFactorySpitball(PublishEventsListener publisher, 
+            IInterceptor interceptor,
+            IConfigurationKeys connectionString)
         {
             _publisher = publisher;
             var configuration = Fluently.Configure()
                 .Database(
                     FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.Db.Db)
                         .DefaultSchema("sb").Dialect<SbDialect>()
-
 #if DEBUG
                         .ShowSql()
 #endif
-                ).ExposeConfiguration((x) => BuildSchema(x, connectionString.Db.NeedValidate));
+                ).ExposeConfiguration((x) => BuildSchema(x, interceptor, connectionString.Db.Integration));
 
             configuration.Mappings(m =>
             {
@@ -67,11 +69,15 @@ namespace Cloudents.Persistence
             return _factory.OpenStatelessSession();
         }
 
-        private void BuildSchema(Configuration config, bool needValidate)
+        private void BuildSchema(Configuration config, IInterceptor interceptor,
+            DbConnectionString.DataBaseIntegration needValidate)
         {
             SchemaMetadataUpdater.QuoteTableAndColumns(config, new SbDialect());
 #if DEBUG
-            config.SetInterceptor(new LoggingInterceptor());
+            if (interceptor != null)
+            {
+                config.SetInterceptor(interceptor);
+            }
 #endif
             // var eventPublisherListener = new PublishEventsListener(_publisher);
             config.SetListener(ListenerType.PostCommitDelete, _publisher);
@@ -107,10 +113,21 @@ namespace Cloudents.Persistence
             //config.SessionFactory().Caching.WithDefaultExpiration(TimeConst.Day);
             //config.Properties.Add("cache.default_expiration",$"{TimeConst.Day}");
             //config.Properties.Add("cache.use_sliding_expiration",bool.TrueString.ToLowerInvariant());
-            if (needValidate)
+            switch (needValidate)
             {
-                config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
+                case DbConnectionString.DataBaseIntegration.None:
+                    break;
+                case DbConnectionString.DataBaseIntegration.Validate:
+                    config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Validate);
+                    break;
+                case DbConnectionString.DataBaseIntegration.Update:
+                    config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
+                    break;
+                default:
+                    break;
             }
         }
     }
+
+
 }

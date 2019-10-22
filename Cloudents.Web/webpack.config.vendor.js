@@ -2,7 +2,7 @@
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin-with-rtl");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const WebpackRTLPlugin = require("webpack-rtl-plugin");
+const webpackRtlPlugin = require("webpack-rtl-plugin");
 const bundleOutputDir = "./wwwroot/dist";
 const RemovePlugin = require('remove-files-webpack-plugin');
 
@@ -104,15 +104,12 @@ module.exports = (env) => {
                     test: /\.less(\?|$)/,
                     use: [
                         MiniCssExtractPlugin.loader,
-                        //{
-                        //    //loader: 'style-loader', // creates style nodes from JS strings
-                        //  },
                         {
-                            loader: 'css-loader', // translates CSS into CommonJS
+                            loader: 'css-loader' // translates CSS into CommonJS
                         },
                         {
-                            loader: 'less-loader', // compiles Less to CSS
-                        },
+                            loader: 'less-loader' // compiles Less to CSS
+                        }
                     ]
                 },
                 {
@@ -136,22 +133,13 @@ module.exports = (env) => {
             minimize: !isDevBuild
         },
         plugins: [
-            new RemovePlugin({
-                before: {
-                    // parameters.
-                    include: ['./wwwroot/dist']
-                },
-                after: {
-                    // parameters.
-                }
-            }),
+           
             new MiniCssExtractPlugin({
-                filename: '[name].[contenthash].css',
+                filename: '[name].[contenthash].css'
             }),
 
-            new WebpackRTLPlugin({
+            new webpackRtlPlugin({
             }),
-            
             //new StatsWriterPlugin({
             //    filename: "vendor.json",
             //    transform: function (data, opts) {
@@ -162,27 +150,23 @@ module.exports = (env) => {
                 path: path.join(__dirname, "wwwroot", "dist", "[name]-manifest.json"),
                 name: "[name]"
             })
-
-
         ]
             .concat(isDevBuild ? [
-                //new OptimizeCssAssetsPlugin({
-                //    //assetNameRegExp: /.css$/g,
-                //    cssProcessor: require("cssnano"),
-                //    cssProcessorOptions: {
-                //        discardComments: { removeAll: true },
-                //        reduceIdents: false
-                //    },
-                //    canPrint: true
-                //}),
+                new RemovePlugin({
+                    before: {
+                        // parameters.
+                        include: ['./wwwroot/dist']
+                    },
+                    after: {
+                        // parameters.
+                    }
+                }),
                 new webpack.SourceMapDevToolPlugin({
                     filename: "[file].map", // Remove this line if you prefer inline source maps
                     moduleFilenameTemplate:
                         path.relative(bundleOutputDir,
                             "[resourcePath]") // Point sourcemap entries to the original file locations on disk
                 })
-
-
             ] : [
                     new OptimizeCssAssetsPlugin({
                         //assetNameRegExp: /.css$/g,
