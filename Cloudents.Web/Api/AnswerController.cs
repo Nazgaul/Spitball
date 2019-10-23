@@ -59,11 +59,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(model.Text), _localizer["More then one answer"]);
                 return BadRequest(ModelState);
             }
-            //catch (QuestionAlreadyAnsweredException)
-            //{
-            //    ModelState.AddModelError(nameof(model.Text), _localizer["This question have correct answer"]);
-            //    return BadRequest(ModelState);
-            //}
+           
             catch (DuplicateRowException)
             {
                 ModelState.AddModelError(nameof(model.Text), _localizer["DuplicateAnswer"]);

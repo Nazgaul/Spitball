@@ -135,9 +135,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var cacheKeeper = _container.Resolve<IIpToLocation>();
+            ResourcesMaintenance.DeleteStuffFromJs();
+            //var cacheKeeper = _container.Resolve<IIpToLocation>();
 
-            var v = cacheKeeper.GetAsync(IPAddress.Parse("27.123.246.12"), default);
+            //var v = cacheKeeper.GetAsync(IPAddress.Parse("27.123.246.12"), default);
             //while (true)
             //{
             //    var v = cacheKeeper.Get("key", "test");

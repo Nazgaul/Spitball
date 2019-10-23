@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Search" xml:space="preserve">
-    <value>חיפוש</value>
+  <data name="uf_sDrop_title" xml:space="preserve">
+    <value>Drop files to instantly upload them to Frymo</value>
+  </data>
+  <data name="uf_sEdit_terms_link" xml:space="preserve">
+    <value>Frymo’s terms and conditions</value>
   </data>
 </root>

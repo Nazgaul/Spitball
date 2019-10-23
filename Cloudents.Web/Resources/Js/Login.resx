@@ -117,20 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="agree" xml:space="preserve">
-    <value>I agree to Spitball's</value>
-  </data>
-  <data name="and" xml:space="preserve">
-    <value>and</value>
-  </data>
   <data name="are_you_sure_you_want_to_exit" xml:space="preserve">
     <value>Are you sure you want to exit?</value>
-  </data>
-  <data name="Change" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="congrats" xml:space="preserve">
-    <value>CONGRATS!</value>
   </data>
   <data name="continue" xml:space="preserve">
     <value>Continue</value>
@@ -147,12 +135,6 @@
   <data name="exiting_information1" xml:space="preserve">
     <value>Exiting from this process will delete all your progress and information</value>
   </data>
-  <data name="login" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="or" xml:space="preserve">
-    <value>or</value>
-  </data>
   <data name="password_indication_strong" xml:space="preserve">
     <value>Strong</value>
   </data>
@@ -165,23 +147,8 @@
   <data name="please_agree" xml:space="preserve">
     <value>To register you must check the box above</value>
   </data>
-  <data name="privacy_policy" xml:space="preserve">
-    <value>Privacy Policy</value>
-  </data>
-  <data name="register" xml:space="preserve">
-    <value>Register</value>
-  </data>
-  <data name="sbl" xml:space="preserve">
-    <value>Pts</value>
-  </data>
-  <data name="sign_up" xml:space="preserve">
-    <value>Sign up</value>
-  </data>
   <data name="verification_code_sent_to_phone" xml:space="preserve">
     <value>A verification code was sent to your phone</value>
-  </data>
-  <data name="Your" xml:space="preserve">
-    <value>Your</value>
   </data>
   <data name="call_code" xml:space="preserve">
     <value>You wil get a call shortly</value>

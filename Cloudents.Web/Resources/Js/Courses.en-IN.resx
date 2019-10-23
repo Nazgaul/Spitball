@@ -117,13 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Ask" xml:space="preserve">
-    <value>שתף</value>
-  </data>
-  <data name="SBL" xml:space="preserve">
-    <value>נק'</value>
-  </data>
-  <data name="You_have" xml:space="preserve">
-    <value>יש לך</value>
+  <data name="out_of" xml:space="preserve">
+    <value>Out of Frymo</value>
   </data>
 </root>

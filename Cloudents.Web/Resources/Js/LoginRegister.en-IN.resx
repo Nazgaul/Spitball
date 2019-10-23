@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="policy" xml:space="preserve">
-    <value>This item might be subject to certain laws and school policies that restrict third-party use of materials prepared by educators. It is your sole responsibility to be aware of and to abide by any such laws or policies that may apply to you. You may access materials solely for your information and your non-commercial, personal use and as intended through the normal functionality of the site and service.</value>
+  <data name="emailconfirm_bottom" xml:space="preserve">
+    <value>You will be able to log in to Frymo only after email activation</value>
+  </data>
+  <data name="getstarted_terms_i_agree" xml:space="preserve">
+    <value>I agree to Frymo's</value>
+  </data>
+  <data name="getstarted_title" xml:space="preserve">
+    <value>Register now to Frymo</value>
   </data>
 </root>

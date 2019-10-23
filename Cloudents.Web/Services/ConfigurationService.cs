@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using Cloudents.Web.Api;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,14 +42,24 @@ namespace Cloudents.Web.Services
 
             if (!_hostingEnvironment.IsProduction())
             {
+                var referer = _httpContextAccessor.HttpContext.Request.Headers["referer"].ToString();
+                if (!string.IsNullOrEmpty(referer))
+                {
+                    var siteVal = new Uri(referer).ParseQueryString()["site"];
+                    if (siteVal != null)
+                    {
+                        return ParseToEnum(siteVal);
+                    }
+                }
                 if (_httpContextAccessor.HttpContext.Request.Query.TryGetValue("site", out var val))
                 {
-                   return ParseToEnum(val);
+                    return ParseToEnum(val);
+
 
                 }
             }
             return ParseToEnum(_configuration["siteName"] ?? "spitball");
-            
+
         }
 
         public enum Site

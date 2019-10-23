@@ -123,13 +123,7 @@
   <data name="placeholder_feed" xml:space="preserve">
     <value>Search</value>
   </data>
-  <data name="sbl" xml:space="preserve">
-    <value>Pts</value>
-  </data>
   <data name="sign_up" xml:space="preserve">
     <value>Sign Up</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Search</value>
   </data>
 </root>

@@ -78,6 +78,7 @@ namespace Cloudents.Web
             });
 
             services.AddMvc()
+                
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
                 {
                     o.DataAnnotationLocalizerProvider = (type, factory) =>
@@ -290,12 +291,15 @@ namespace Cloudents.Web
 
             app.UseRequestLocalization(o =>
             {
-
                 o.DefaultRequestCulture = new RequestCulture(Language.English);
-                // Formatting numbers, dates, etc.
                 o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList();// SupportedCultures;
-                // UI strings that we have localized.
-                o.RequestCultureProviders.Insert(2, new AuthorizedUserCultureProvider());
+
+                o.RequestCultureProviders.Clear();
+                o.RequestCultureProviders.Add(new FrymoCultureProvider());
+                o.RequestCultureProviders.Add(new QueryStringRequestCultureProvider());
+                o.RequestCultureProviders.Add(new CookieRequestCultureProvider());
+                o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
+                o.RequestCultureProviders.Add(new AcceptLanguageHeaderRequestCultureProvider());
 
             });
             app.UseStaticFiles(new StaticFileOptions

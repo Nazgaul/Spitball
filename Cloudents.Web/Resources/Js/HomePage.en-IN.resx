@@ -117,42 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="B" xml:space="preserve">
-    <value>B</value>
-    <comment>both</comment>
+  <data name="Testimonial1" xml:space="preserve">
+    <value>Love it all!!! Frymo's the best. It's the most helpful site out there.</value>
   </data>
-  <data name="Back" xml:space="preserve">
-    <value>Back</value>
-  </data>
-  <data name="Cards" xml:space="preserve">
-    <value>Cards</value>
-  </data>
-  <data name="F" xml:space="preserve">
-    <value>F</value>
-    <comment>Front</comment>
-  </data>
-  <data name="K" xml:space="preserve">
-    <value>K</value>
-    <comment>Back</comment>
-  </data>
-  <data name="next" xml:space="preserve">
-    <value>Next</value>
-  </data>
-  <data name="P" xml:space="preserve">
-    <value>P</value>
-    <comment>Pin</comment>
-  </data>
-  <data name="Pin" xml:space="preserve">
-    <value>Pin</value>
-  </data>
-  <data name="previous" xml:space="preserve">
-    <value>Previous</value>
-  </data>
-  <data name="S" xml:space="preserve">
-    <value>S</value>
-    <comment>Shuffle cards</comment>
-  </data>
-  <data name="Study" xml:space="preserve">
-    <value>Study</value>
+  <data name="Testimonial3" xml:space="preserve">
+    <value>I found myself looking for a new way to communicate and study with my classmates. Frymo. It's genius!</value>
   </data>
 </root>

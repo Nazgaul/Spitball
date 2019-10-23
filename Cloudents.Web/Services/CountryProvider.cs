@@ -15,16 +15,24 @@ namespace Cloudents.Web.Services
         private readonly IIpToLocation _ipToLocation;
         private readonly IHttpContextAccessor _httpContext;
         private readonly ILogger _logger;
+        private readonly ConfigurationService _configurationService;
 
-        public CountryProvider(IIpToLocation ipToLocation, IHttpContextAccessor httpContext, ILogger logger)
+        public CountryProvider(IIpToLocation ipToLocation, IHttpContextAccessor httpContext,
+            ILogger logger, ConfigurationService configurationService)
         {
             _ipToLocation = ipToLocation;
             _httpContext = httpContext;
             _logger = logger;
+            _configurationService = configurationService;
         }
 
         public async Task<string> GetUserCountryAsync(CancellationToken token)
         {
+            var site = _configurationService.GetSiteName();
+            if (site == ConfigurationService.Site.Frymo)
+            {
+                return "IN";
+            }
             var cookieValue = _httpContext.HttpContext.User.Claims.FirstOrDefault(f =>
                 string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
                     StringComparison.OrdinalIgnoreCase))?.Value;

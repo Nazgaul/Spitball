@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using Cloudents.Core;
+using Cloudents.Core.Extension;
 
 namespace ConsoleApp
 {
@@ -48,6 +49,7 @@ namespace ConsoleApp
                 for (int i = dataElement.Count - 1; i >= 0; i--)
                 {
                     var name = dataElement[i].Attributes["name"].Value;
+                    var resourceString = $"{Path.GetFileNameWithoutExtension(resourceFile).Split('.')[0]}_{name}";
                     string firstOccurrence = null;
                     foreach (string file in jsFiles)
                     {
@@ -57,7 +59,7 @@ namespace ConsoleApp
                             _fileContentCache[file] = lines;
                         }
                         //string[] lines = File.ReadAllLines(file); 
-                        firstOccurrence = lines.FirstOrDefault(l => l.Contains(name));
+                        firstOccurrence = lines.FirstOrDefault(l => l.Contains(resourceString, StringComparison.OrdinalIgnoreCase));
                         if (!string.IsNullOrEmpty(firstOccurrence))
                         {
                             break;
@@ -78,7 +80,7 @@ namespace ConsoleApp
                 {
                     var file = new FileInfo(resourceFile);
                     file.Delete();
-
+                    Console.WriteLine($"Deleting: {resourceFile}");
                     //Need to remove the file
                 }
             }
@@ -125,7 +127,7 @@ namespace ConsoleApp
                         break;
                     }
 
-                   
+
 
                 }
 

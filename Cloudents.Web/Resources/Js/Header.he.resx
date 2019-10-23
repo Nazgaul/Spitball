@@ -123,12 +123,6 @@
   <data name="placeholder_feed" xml:space="preserve">
     <value>חיפוש</value>
   </data>
-  <data name="sbl" xml:space="preserve">
-    <value>נק'</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>חפש</value>
-  </data>
   <data name="sign_up" xml:space="preserve">
     <value>הרשמה</value>
   </data>

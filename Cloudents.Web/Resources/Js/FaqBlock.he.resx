@@ -120,16 +120,4 @@
   <data name="add_question_btn" xml:space="preserve">
     <value>הוסף שאלה</value>
   </data>
-  <data name="ask" xml:space="preserve">
-    <value>שאל שאלה</value>
-  </data>
-  <data name="faq" xml:space="preserve">
-    <value>ספיטבול – שאלות נפוצות</value>
-  </data>
-  <data name="more" xml:space="preserve">
-    <value>הראה לי</value>
-  </data>
-  <data name="spitball" xml:space="preserve">
-    <value>ספיטבול</value>
-  </data>
 </root>

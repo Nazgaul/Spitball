@@ -177,7 +177,4 @@
   <data name="no_result_found" xml:space="preserve">
     <value>No Results Found</value>
   </data>
-  <data name="load_documents" xml:space="preserve">
-    <value>Load more</value>
-  </data>
 </root>

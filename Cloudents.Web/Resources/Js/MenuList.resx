@@ -135,9 +135,6 @@
   <data name="logout" xml:space="preserve">
     <value>Logout</value>
   </data>
-  <data name="messages" xml:space="preserve">
-    <value>Messages</value>
-  </data>
   <data name="my_profile" xml:space="preserve">
     <value>My Profile</value>
   </data>

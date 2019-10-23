@@ -148,9 +148,6 @@
   <data name="error_delete" xml:space="preserve">
     <value>Can't delete document, try again later</value>
   </data>
-  <data name="free" xml:space="preserve">
-    <value>Free</value>
-  </data>
   <data name="privet" xml:space="preserve">
     <value>Tutor {1}</value>
   </data>

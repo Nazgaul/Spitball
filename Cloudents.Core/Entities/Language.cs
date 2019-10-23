@@ -15,12 +15,16 @@ namespace Cloudents.Core.Entities
 
         public static readonly Language English = new Language(new CultureInfo("en"));
         public static readonly Language Hebrew = new Language(new CultureInfo("he"));
+        public static readonly Language EnglishIndia = new Language(new CultureInfo("en-IN"));
+        public static readonly Language EnglishIsrael = new Language(new CultureInfo("en-IL"));
 
 
         public static IEnumerable<Language> SystemSupportLanguage()
         {
-            yield return English;// new CultureInfo(English.Id);
-            yield return Hebrew;// new CultureInfo(Hebrew.Id);
+            yield return English;
+            yield return Hebrew;
+            yield return EnglishIndia;
+            yield return EnglishIsrael;
 
         }
 
@@ -36,24 +40,21 @@ namespace Cloudents.Core.Entities
             return $"{nameof(Info)}: {Info}";
         }
 
-        //public static implicit operator Language(string tb)
-        //{
-        //    if (SystemSupportLanguage()
-        //    {
-        //        return tb;
-        //    }
-
-        //    return English;
-        //}
+        
         public static implicit operator Language(CultureInfo info)
         {
-            var result = SystemSupportLanguage().FirstOrDefault(f => Equals(f.Info, info));
-            if (result != null)
-            {
-                return result;
-            }
+            return AssignLanguage(info);
+            //var result = SystemSupportLanguage().FirstOrDefault(f => Equals(f.Info, info));
+            //while (result == null)
+            //{
+            //    return Language(info.Parent);
+            //}
+            //if (result != null)
+            //{
+            //    return result;
+            //}
 
-            return English;
+            //return English;
         }
 
         public static implicit operator Language(string tb)
@@ -62,6 +63,32 @@ namespace Cloudents.Core.Entities
             if (result != null)
             {
                 return result;
+            }
+
+            return English;
+        }
+
+
+        private static Language AssignLanguage(CultureInfo info)
+        {
+            if (info == null)
+            {
+                return English;
+            }
+            while (true)
+            {
+                if (Equals(info, info.Parent))
+                {
+                    break;
+                }
+
+                var result = SystemSupportLanguage().FirstOrDefault(f => Equals(f.Info, info));
+                if (result == null)
+                {
+                   return AssignLanguage(info.Parent);
+                }
+                return result;
+                //info = info.Parent;
             }
 
             return English;

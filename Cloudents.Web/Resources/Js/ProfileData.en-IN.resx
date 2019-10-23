@@ -117,7 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Search" xml:space="preserve">
-    <value>Search</value>
+  <data name="generalProfile_modal_text" xml:space="preserve">
+    <value>You are only a couple clicks away from learning and earning with Frymo.</value>
+  </data>
+  <data name="generalProfile_register_stepSix_subheading" xml:space="preserve">
+    <value>You're ready to start Frymoing</value>
+  </data>
+  <data name="generalProfile_register_stepSix_text" xml:space="preserve">
+    <value>Answer other student’s homework questions and 
+Upload your study documents to earn Frymo 
+points. Use your points to access study resources 
+and get help with your own homework 
+questions, or redeem your points for GiftCards.</value>
+  </data>
+  <data name="HHP_modal_text" xml:space="preserve">
+    <value>You are only a couple clicks away from learning and earning with Frymo.</value>
+  </data>
+  <data name="makeMoneyProfile_modal_text" xml:space="preserve">
+    <value>You are only a couple clicks away from learning and earning with Frymo.</value>
+  </data>
+  <data name="makeMoneyProfile_register_stepSix_text" xml:space="preserve">
+    <value>We recommend reading through our quick
+walk-through to see how Frymo works. 
+A GIFT is waiting for you at the last screen!
+Also, make sure to add your school 
+and classes for the best possible experience!</value>
   </data>
 </root>

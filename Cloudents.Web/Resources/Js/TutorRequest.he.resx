@@ -171,17 +171,11 @@
   <data name="tell_tutor" xml:space="preserve">
     <value>איך {1} יכול ליצור איתך קשר?</value>
   </data>
-  <data name="title" xml:space="preserve">
-    <value>בקשה למורה פרטי</value>
-  </data>
   <data name="type" xml:space="preserve">
     <value>כאן מקלידים</value>
   </data>
   <data name="type_legend" xml:space="preserve">
     <value>במה אוכל לעזור לך?</value>
-  </data>
-  <data name="university" xml:space="preserve">
-    <value>מוסד לימוד</value>
   </data>
   <data name="yaniv" xml:space="preserve">
     <value>יניב</value>

@@ -117,10 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="pinned" xml:space="preserve">
-    <value>pinned</value>
-  </data>
-  <data name="progress" xml:space="preserve">
-    <value>progress</value>
+  <data name="footer_links_about" xml:space="preserve">
+    <value>About Frymo</value>
   </data>
 </root>

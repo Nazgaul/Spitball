@@ -173,14 +173,8 @@ You will be contacted shortly.</value>
   <data name="tell_tutor" xml:space="preserve">
     <value>Tell {1} how he can reach you</value>
   </data>
-  <data name="title" xml:space="preserve">
-    <value>Request a Tutor</value>
-  </data>
   <data name="type_legend" xml:space="preserve">
     <value>What can i help you with?</value>
-  </data>
-  <data name="university" xml:space="preserve">
-    <value>School</value>
   </data>
   <data name="yaniv" xml:space="preserve">
     <value>Yaniv</value>

@@ -117,37 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="B" xml:space="preserve">
-    <value>נ</value>
-  </data>
-  <data name="Back" xml:space="preserve">
-    <value>חזרה</value>
-  </data>
-  <data name="Cards" xml:space="preserve">
-    <value>קלפים</value>
-  </data>
-  <data name="F" xml:space="preserve">
-    <value>כ</value>
-  </data>
-  <data name="K" xml:space="preserve">
-    <value>ל</value>
-  </data>
-  <data name="next" xml:space="preserve">
-    <value>הבא</value>
-  </data>
-  <data name="P" xml:space="preserve">
-    <value>פ</value>
-  </data>
-  <data name="Pin" xml:space="preserve">
-    <value>נעץ</value>
-  </data>
-  <data name="previous" xml:space="preserve">
-    <value>הקודם</value>
-  </data>
-  <data name="S" xml:space="preserve">
-    <value>S</value>
-  </data>
-  <data name="Study" xml:space="preserve">
-    <value>לימוד</value>
+  <data name="supported_text" xml:space="preserve">
+    <value>Your’e using a web browser that isn’t fully supported by Frymo.
+              To get a better experience go to one of these sites and get the latest version of your preferred browser</value>
   </data>
 </root>

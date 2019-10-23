@@ -117,23 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="agree" xml:space="preserve">
-    <value>אני מסכים לאמור ב-</value>
-  </data>
-  <data name="and" xml:space="preserve">
-    <value>וכן</value>
-  </data>
   <data name="are_you_sure_you_want_to_exit" xml:space="preserve">
     <value>האם אתה בטוח שברצונך לצאת?</value>
   </data>
   <data name="call_code" xml:space="preserve">
     <value>תקבל שיחה בעוד רגע</value>
-  </data>
-  <data name="Change" xml:space="preserve">
-    <value>לשנות</value>
-  </data>
-  <data name="congrats" xml:space="preserve">
-    <value>כל הכבוד!</value>
   </data>
   <data name="continue" xml:space="preserve">
     <value>המשך</value>
@@ -153,12 +141,6 @@
   <data name="exiting_information1" xml:space="preserve">
     <value>יציאה מהתהליך תגרום למחיקת המידע הקיים ויהיה עליך להתחיל את התהליך מחדש</value>
   </data>
-  <data name="login" xml:space="preserve">
-    <value>כניסה</value>
-  </data>
-  <data name="or" xml:space="preserve">
-    <value>או</value>
-  </data>
   <data name="password_indication_strong" xml:space="preserve">
     <value>חזק</value>
   </data>
@@ -171,22 +153,7 @@
   <data name="please_agree" xml:space="preserve">
     <value>כדי להירשם עליך לאשר את תנאי השימוש באתר </value>
   </data>
-  <data name="privacy_policy" xml:space="preserve">
-    <value>מדיניות הפרטיות</value>
-  </data>
-  <data name="register" xml:space="preserve">
-    <value>הירשם</value>
-  </data>
-  <data name="sbl" xml:space="preserve">
-    <value>נק'</value>
-  </data>
-  <data name="sign_up" xml:space="preserve">
-    <value>הרשמה</value>
-  </data>
   <data name="verification_code_sent_to_phone" xml:space="preserve">
     <value>קוד אימות נשלח לטלפון</value>
-  </data>
-  <data name="Your" xml:space="preserve">
-    <value>שלך</value>
   </data>
 </root>

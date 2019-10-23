@@ -189,9 +189,6 @@
   <data name="reviews" xml:space="preserve">
     <value>Reviews</value>
   </data>
-  <data name="subjects" xml:space="preserve">
-    <value>Subjects</value>
-  </data>
   <data name="tutor_contact_btn" xml:space="preserve">
     <value>Contact me</value>
   </data>

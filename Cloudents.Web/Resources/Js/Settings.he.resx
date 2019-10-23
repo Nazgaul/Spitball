@@ -115,9 +115,6 @@
   <data name="my_courses" xml:space="preserve">
     <value>הקורסים שלי</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>הגדרות</value>
-  </data>
   <data name="university_choose" xml:space="preserve">
     <value>בחירת מוסד לימודים</value>
   </data>

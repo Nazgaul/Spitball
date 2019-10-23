@@ -3,9 +3,6 @@
         <a class="mb-5 ask-link">
             <div :class="['ask-wrap', isFloatingBtn ? 'floating-ask' : '']">
                 <div class="static-center">
-                    <!--<p v-show="$vuetify.breakpoint.smAndUp" :class="['ask-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>-->
-                    <!--faqBlock_ask-->
-                    <!--</p>-->
                     <button round
                             :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '', {'raised': raiseFloatingButtonPosition}]"
                             @click="goToAskQuestion()">

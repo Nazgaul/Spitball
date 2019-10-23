@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="policy" xml:space="preserve">
-    <value>ייתכן שפריט זה כפוף לחוקים שונים ולהנחיות מדיניות של המוסד הלימודי, שיש בהם כדי להגביל את השימוש של צדדי ג' בחומרים שהוכנו על ידי המחנכים. האחריות לעניין זה מוטלת באופן בלעדי עליך ומחובתך לקיים את החוקים או הנחיות המדיניות שייתכן כי חלים עליך. אתה רשאי לגשת לחומרים אך ורק לשימוש אישי – אינפורמטיבי ובלתי מסחרי, על פי הכוונה המיועדת, באמצעות הרכיבים הפונקציונליים הרגילים של האתר והשירות.</value>
+  <data name="spitball_result" xml:space="preserve">
+    <value>Results from Frymo</value>
   </data>
 </root>
