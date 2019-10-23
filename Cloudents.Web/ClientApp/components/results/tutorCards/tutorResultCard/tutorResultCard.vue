@@ -32,14 +32,14 @@
         <div class="user-rates">
             <div class=" price font-weight-bold mb-1">
               <template>
-                  <span v-if="showStriked" class="headline font-weight-bold">{{discountedPrice}}</span>
+                  <span v-if="tutorData.discountPrice" class="headline font-weight-bold">{{tutorData.discountPrice}}</span>
                   <span class="headline font-weight-bold" v-else>{{tutorData.price}}</span>
               </template>
               <span class="caption">
                 /<span v-language:inner="'resultTutor_hour'"></span>
-                <div v-if="!showStriked" class="price-default-height"></div>
+                <!-- <div v-if="showStriked" class="price-default-height"></div> -->
               </span>
-              <div class="striked" v-if="showStriked">{{tutorData.price}}</div>
+              <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price}}</div>
             </div>
 
             <template>

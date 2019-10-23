@@ -31,14 +31,22 @@ namespace Cloudents.Core.DTOs
 
     public class UserProfileDto
     {
+        [EntityBind(nameof(User.Id))]
         public long Id { get; set; }
+        [EntityBind(nameof(User.Name))]
         public string Name { get; set; }
+        [EntityBind(nameof(User.Image))]
         public string Image { get; set; }
+        [EntityBind(nameof(User.Score))]
         public int Score { get; set; }
         public string UniversityName { get; set; }
+        [EntityBind(nameof(User.Description))]
         public string Description { get; set; }
+        [EntityBind(nameof(User.Online))]
         public bool Online { get; set; }
+        [EntityBind(nameof(GoogleTokens))]
         public bool CalendarShared { get; set; }
+        [EntityBind(nameof(User.Tutor))]
         public UserTutorProfileDto Tutor { get; set; }
 
         //If the user is a tutor and then delete then the first name and the last name stays
@@ -51,21 +59,50 @@ namespace Cloudents.Core.DTOs
 
     public class UserTutorProfileDto
     {
+        private string _tutorCountry;
+        [NonSerialized] private CultureInfo _mergeCultureInfo;
 
-        public const string TutorPriceVariableName = nameof(TutorPrice);
-        public const string TutorCountryVariableName = nameof(TutorCountry);
+        //public const string TutorPriceVariableName = nameof(TutorPrice);
+        //public const string TutorCountryVariableName = nameof(TutorCountry);
 
-        public string Price => TutorPrice.ToString("C0", CultureInfo.CurrentUICulture.ChangeCultureBaseOnCountry(TutorCountry));
+        public string Price => TutorPrice.ToString("C0", _mergeCultureInfo);
 
 
        
+        [EntityBind(nameof(ReadTutor.Price))]
         private decimal TutorPrice { get; set; }
-       
-        internal string TutorCountry { get; set; }
 
+        [EntityBind(nameof(ReadTutor.Country))]
+        internal string TutorCountry
+        {
+            get => _tutorCountry;
+            set
+            {
+                _mergeCultureInfo = CultureInfo.CurrentUICulture.ChangeCultureBaseOnCountry(value);
+                _tutorCountry = value;
+            }
+        }
+
+        public string DiscountPrice
+        {
+            get
+            {
+                if (_tutorCountry.Equals("IN", StringComparison.OrdinalIgnoreCase))
+                {
+                    return 0.ToString("C0", _mergeCultureInfo);
+                }
+
+                return null;
+            }
+        }
+
+        [EntityBind(nameof(ReadTutor.Rate))]
         public double Rate { get; set; }
+        [EntityBind(nameof(ReadTutor.RateCount))]
         public int ReviewCount { get; set; }
+        [EntityBind(nameof(User.FirstName))]
         public string FirstName { get; set; }
+        [EntityBind(nameof(User.LastName))]
         public string LastName { get; set; }
     }
 

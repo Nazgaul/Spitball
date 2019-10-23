@@ -10,7 +10,7 @@
                 <h3 class="subheading font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
                 <template>
-                    <div class="striked" v-if="showStriked">₪{{tutorData.price}}</div>
+                    <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price}}</div>
                     <div v-else class="striked"></div>
                 </template>
                 
@@ -18,7 +18,7 @@
                 <v-layout row class="moreDetails" align-center>
                     <div column class="price-box column mr-2">
                         <template>
-                            <span v-if="showStriked" class="font-weight-bold">{{discountedPrice}}</span>
+                            <span v-if="tutorData.discountPrice" class="font-weight-bold">{{tutorData.discountPrice}}</span>
                             <span v-else class="font-weight-bold">{{tutorData.price}}</span>
                         </template>
                         <div class="caption" v-language:inner="'resultTutor_hour'"></div>

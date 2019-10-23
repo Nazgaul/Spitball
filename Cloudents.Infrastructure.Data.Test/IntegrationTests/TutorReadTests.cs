@@ -35,6 +35,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         [Theory]
         [InlineData(0, "IL", 0)]
+        [InlineData(0,"IN",0)]
         [InlineData(638, null, 0)]
 
         public async Task TutorListQuery_Ok(long userId, string country, int page)

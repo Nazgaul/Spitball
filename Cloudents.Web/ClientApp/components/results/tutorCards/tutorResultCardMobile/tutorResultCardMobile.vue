@@ -1,5 +1,5 @@
 <template>
-  <router-link class="tutor-result-card-mobile pa-2 ma-2 pr-4 justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+  <router-link class="tutor-result-card-mobile pa-2 ma-2 justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
       <div class="card-mobile-header mb-4">
         <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
               <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
@@ -35,16 +35,19 @@
 
       <div class="card-mobile-footer mt-2">
           <v-btn class="btn-chat white--text text-truncate my-0" round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
-                <iconChat class="chat-icon-btn"/>
-                <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
+                <iconChat class="chat-icon-btn" />
+                <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
           <div class="price ml-3 align-center" >
-              <div class="striked" v-if="showStriked">{{tutorData.price}}</div>
-              <template>
-                <span v-if="showStriked" class="title font-weight-bold">{{discountedPrice}}</span>
-                <span v-else class="title font-weight-bold">{{tutorData.price}}</span>
-              </template>
-              <span class="caption" v-language:inner="'resultTutor_hour'"></span>
+              <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price}}</div>
+              <div class="price_oneline">
+                <template>
+                    <span v-if="tutorData.discountPrice" class="title font-weight-bold">{{tutorData.discountPrice}}</span>
+                    <span v-else class="title font-weight-bold">{{tutorData.price}}</span>
+                    <span>/</span>
+                </template>
+                <span class="caption" v-language:inner="'resultTutor_hour'"></span>
+              </div>
           </div>
       </div>
 
@@ -250,31 +253,35 @@ export default {
     .card-mobile-footer {
         display: inherit;
         .btn-chat {
+          font-weight: 600;
           .v-btn__content{
             .chat-icon-btn{
               position: absolute;
               top: 0;
-              left: 10px;
+              left: 0;
             }
           }
           position: relative;
-          .widthMinMax(220px);
           text-transform: inherit;
           border-radius: 7.5px;
           div {
             div {
-              padding-left: 10px;
+              padding-left: 22px;
             }
           }
         }
         .price {
           align-self: flex-end;
-          display: grid;
+          flex: .5;
+          .price_oneline {
+            display: flex;
+            align-items: flex-end;
+          }
           .striked {
               max-width: max-content;
               position: relative;
               color: @colorBlackNew;
-              font-size: 14px;
+              font-size: 12px;
               font-weight: normal;
               &:after {
                   content: "";

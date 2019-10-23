@@ -80,7 +80,8 @@
                         </div>
                         <div class="user_answer">{{answers.text}}</div>
                     </div>
-                    <div v-if="answers" class="more-answers mt-3" v-html="$Ph(moreAnswersDictionary, answersCount)"></div>
+                    <div v-if="cardData.answers > 1" class="more-answers mt-3" v-html="$Ph(moreAnswersDictionary, answersCount -1)"></div>
+                    <div v-else class="more-answers mt-3"></div>
                 </div>
 
                 <div class="answers-info-container">

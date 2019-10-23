@@ -42,7 +42,7 @@
               </v-flex>
               <div class="tutor-price mr-3">
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
-                  {{showStriked ? discountedPrice : tutorPrice}}
+                  {{isDiscount ? isDiscount : tutorPrice}}
                   <span class="tutor-price small-text">
                     /
                     <span v-language:inner>profile_points_hour</span>
@@ -55,7 +55,7 @@
                   >sbf-edit-icon</v-icon>
                 </span>
               </div>
-              <div v-if="showStriked && $vuetify.breakpoint.smAndUp" class="tutor-price strike-through mr-3">
+              <div v-if="isDiscount && $vuetify.breakpoint.smAndUp" class="tutor-price strike-through mr-3">
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
                  {{tutorPrice}}
                   <span class="tutor-price small-text">/<span v-language:inner>profile_points_hour</span>
@@ -74,7 +74,7 @@
             v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
           >
             <span class="tutor-price">
-              {{showStriked ? discountedPrice : tutorPrice}}
+              {{isDiscount ? isDiscount : tutorPrice}}
               <span class="tutor-price small-text">
                 <span>/</span>
                 <span v-language:inner>profile_points_hour</span>
@@ -165,6 +165,9 @@ export default {
         return this.getProfile.user.tutorData.price;
       }
       return 0;
+    },
+    isDiscount() {
+      return this.getProfile && this.getProfile.user.tutorData.discountPrice ? this.getProfile.user.tutorData.discountPrice : null;
     },
     showStriked(){
       if(!this.getActivateTutorDiscounts) return false;
