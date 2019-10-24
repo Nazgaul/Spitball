@@ -26,15 +26,15 @@ namespace Cloudents.Admin2.Api
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
         private readonly IUniversitySearch _universityProvider;
-        private readonly IDapperRepository _dapperRepository;
+        //private readonly IDapperRepository _dapperRepository;
 
         public AdminUniversityController(IQueryBus queryBus, ICommandBus commandBus,
-            IUniversitySearch universityProvider, IDapperRepository dapperRepository)
+            IUniversitySearch universityProvider/*, IDapperRepository dapperRepository*/)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
             _universityProvider = universityProvider;
-            _dapperRepository = dapperRepository;
+            //_dapperRepository = dapperRepository;
         }
 
 
@@ -43,23 +43,23 @@ namespace Cloudents.Admin2.Api
         public async Task<IActionResult> MigrateUniversity([FromBody] MigrateUniversityRequest model,
             CancellationToken token)
         {
-            const string update = @"update sb.[user] set UniversityId2 = @NewUni where UniversityId2 = @OldUni;
-                                update sb.Document set UniversityId = @NewUni where UniversityId = @OldUni;
-                                update sb.Question set UniversityId = @NewUni where UniversityId = @OldUni;
-                                delete from sb.University where id =  @OldUni;";
+            //const string update = @"update sb.[user] set UniversityId2 = @NewUni where UniversityId2 = @OldUni;
+            //                    update sb.Document set UniversityId = @NewUni where UniversityId = @OldUni;
+            //                    update sb.Question set UniversityId = @NewUni where UniversityId = @OldUni;
+            //                    delete from sb.University where id =  @OldUni;";
 
 
-            using (var connection = _dapperRepository.OpenConnection())
-            {
-                await connection.ExecuteAsync(update, new
-                {
-                    NewUni = model.UniversityToKeep,
-                    OldUni = model.UniversityToRemove
-                });
-            }
+            //using (var connection = _dapperRepository.OpenConnection())
+            //{
+            //    await connection.ExecuteAsync(update, new
+            //    {
+            //        NewUni = model.UniversityToKeep,
+            //        OldUni = model.UniversityToRemove
+            //    });
+            //}
 
-            /*var command = new MigrateUniversityCommand(model.UniversityToKeep, model.UniversityToRemove);
-            await _commandBus.DispatchAsync(command, token);*/
+            var command = new MigrateUniversityCommand(model.UniversityToKeep, model.UniversityToRemove);
+            await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
@@ -121,23 +121,23 @@ namespace Cloudents.Admin2.Api
         //TODO: Fix this and make it work in proper CQRS architecture 
         [HttpDelete("{id}")]
         [Authorize(/*Roles = Roles.Admin*/)]
-        public async Task<IActionResult> ApproveCourse(Guid id,
+        public async Task<IActionResult> DeleteUiniversity(Guid id,
                 CancellationToken token)
         {
-            const string sql = @"update sb.[user] set UniversityId2 = null where UniversityId2 = @OldUni;
-                                delete from sb.University where id =  @OldUni;";
+            //const string sql = @"update sb.[user] set UniversityId2 = null where UniversityId2 = @OldUni;
+            //                    delete from sb.University where id =  @OldUni;";
 
-            using (var connection = _dapperRepository.OpenConnection())
-            {
-                await connection.ExecuteAsync(sql, new
-                {
-                    OldUni = id
-                });
-            }
-            //await _dapperRepository.WithConnectionAsync(async f => await f.ExecuteAsync(sql, new
+            //using (var connection = _dapperRepository.OpenConnection())
             //{
-            //    OldUni = id
-            //}), token);
+            //    await connection.ExecuteAsync(sql, new
+            //    {
+            //        OldUni = id
+            //    });
+            //}
+
+            var command = new DeleteUniversityCommand(id);
+            await _commandBus.DispatchAsync(command, token);
+
 
             return Ok();
         }

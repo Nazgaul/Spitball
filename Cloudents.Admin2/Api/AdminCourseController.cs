@@ -22,13 +22,11 @@ namespace Cloudents.Admin2.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly ICommandBus _commandBus;
-        private readonly IDapperRepository _dapperRepository;
 
-        public AdminCourseController(IQueryBus queryBus, ICommandBus commandBus, IDapperRepository dapperRepository)
+        public AdminCourseController(IQueryBus queryBus, ICommandBus commandBus)
         {
             _queryBus = queryBus;
             _commandBus = commandBus;
-            _dapperRepository = dapperRepository;
         }
 
         //[HttpGet("courses")]
@@ -44,39 +42,36 @@ namespace Cloudents.Admin2.Api
         public async Task<IActionResult> MigrateCourse([FromBody] MigrateCourseRequest model,
             CancellationToken token)
         {
-            const string update = @"
-                            update sb.Document
-                            set CourseName = @newId
-                            where CourseName = @oldId;
+            //const string update = @"
+            //                update sb.Document
+            //                set CourseName = @newId
+            //                where CourseName = @oldId;
 
-                            update sb.Question
-                            set CourseId = @newId
-                            where CourseId = @oldId;
+            //                update sb.Question
+            //                set CourseId = @newId
+            //                where CourseId = @oldId;
 
-                            update sb.UsersCourses 
-                            set CourseId = @newId
-                            where CourseId = @oldId
-                            and UserId not in (select UserId from sb.UsersCourses where CourseId = @newId);
+            //                update sb.UsersCourses 
+            //                set CourseId = @newId
+            //                where CourseId = @oldId
+            //                and UserId not in (select UserId from sb.UsersCourses where CourseId = @newId);
                             
-                            delete from sb.UsersCourses where CourseId = @oldId;
+            //                delete from sb.UsersCourses where CourseId = @oldId;
 
-                            delete from sb.Course where [Name] = @oldId;";
+            //                delete from sb.Course where [Name] = @oldId;";
 
 
-            using (var connection = _dapperRepository.OpenConnection())
-            {
-                await connection.ExecuteAsync(update, new
-                {
-                    newId = model.CourseToKeep,
-                    oldId = model.CourseToRemove
-                });
-            }
+            //using (var connection = _dapperRepository.OpenConnection())
+            //{
+            //    await connection.ExecuteAsync(update, new
+            //    {
+            //        newId = model.CourseToKeep,
+            //        oldId = model.CourseToRemove
+            //    });
+            //}
 
-            /*var command = new MigrateCourseCommand(model.CourseToKeep, model.CourseToRemove);
-            var deleteCommand = new DeleteCourseCommand(model.CourseToRemove);
+            var command = new MigrateCourseCommand(model.CourseToKeep, model.CourseToRemove);
             await _commandBus.DispatchAsync(command, token);
-            await _commandBus.DispatchAsync(deleteCommand, token);*/
-
             return Ok();
         }
 
@@ -139,34 +134,34 @@ namespace Cloudents.Admin2.Api
         public async Task<IActionResult> RenameCourse([FromBody] RenameCourseRequest model,
                 CancellationToken token)
         {
-            const string update = @"
-                            insert into sb.Course (Name, Count, State) 
-                            values(@newId, (select [Count] from sb.Course where Name = @oldId), 'Ok' );
+            //const string update = @"
+            //                insert into sb.Course (Name, Count, State) 
+            //                values(@newId, (select [Count] from sb.Course where Name = @oldId), 'Ok' );
 
-                            update sb.Document
-                            set CourseName = @newId
-                            where CourseName = @oldId;
+            //                update sb.Document
+            //                set CourseName = @newId
+            //                where CourseName = @oldId;
 
-                            update sb.Question
-                            set CourseId = @newId
-                            where CourseId = @oldId;
+            //                update sb.Question
+            //                set CourseId = @newId
+            //                where CourseId = @oldId;
 
-                            update sb.UsersCourses 
-                            set CourseId = @newId
-                            where CourseId = @oldId;
-                            delete from sb.Course where [Name] = @oldId;";
+            //                update sb.UsersCourses 
+            //                set CourseId = @newId
+            //                where CourseId = @oldId;
+            //                delete from sb.Course where [Name] = @oldId;";
 
 
-            using (var connection = _dapperRepository.OpenConnection())
-            {
-                await connection.ExecuteAsync(update, new
-                {
-                    newId = model.NewName,
-                    oldId = model.OldName
-                });
-            }
-            /*var command = new RenameCourseCommand(model.OldName, model.NewName);
-            await _commandBus.DispatchAsync(command, token);*/
+            //using (var connection = _dapperRepository.OpenConnection())
+            //{
+            //    await connection.ExecuteAsync(update, new
+            //    {
+            //        newId = model.NewName,
+            //        oldId = model.OldName
+            //    });
+            //}
+            var command = new RenameCourseCommand(model.OldName, model.NewName);
+            await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
