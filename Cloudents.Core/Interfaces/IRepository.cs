@@ -81,6 +81,18 @@ namespace Cloudents.Core.Interfaces
         Task<CourseSubject> GetCourseSubjectByName(string name, CancellationToken token);
     }
 
+    public interface ICourseRepository : IRepository<Course>
+    {
+        Task MigrateCourseAsync(string courseToKeepId, string courseToRemoveId, CancellationToken token);
+        Task RenameCourseAsync(string CourseName, string NewName, CancellationToken token);
+    }
+
+    public interface IUniversityRepository : IRepository<University>
+    {
+        Task MigrateUniversityAsync(Guid universityToRemove, Guid universityToKeep, CancellationToken token);
+        Task DeleteAsync(Guid universityId, CancellationToken token);
+    }
+
     public interface ILeadRepository : IRepository<Lead>
     {
         Task<bool> NeedToSendMoreTutorsAsync(long userId, CancellationToken token);
