@@ -1,11 +1,17 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Cloudents.Web.Services
+@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
+@inject ConfigurationService VersionService
+@{
+    var image = VersionService.GetSiteName() == ConfigurationService.Site.Frymo ? "frymo-logo" : "logo-spitball";
+    var location = $"~/Images/{image}.svg";
+}
 @section styleSection {
     <link rel="stylesheet" href="~/Content/ErrorPages/css/error.css">
 }
 <div class="error-page-404">
     <div class="header">
-        <a href="/"><img src="~/Images/logo-spitball.svg" alt="Page not found"></a>
+        <a href="/"><img src="@Url.Content(location)" alt="Page not found"></a>
     </div>
     <div class="error-content">
         <h2>
