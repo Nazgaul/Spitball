@@ -23,7 +23,8 @@ namespace Cloudents.Core.Entities
         public virtual TransactionType Type { get; protected set; }
         public virtual decimal Price { get; protected set; }
 
-        //public abstract int AwardScore { get; }
+       
+
 
     }
 
@@ -34,32 +35,10 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public CashOutTransaction() 
         {
-            //if (price < 1000)
-            //{
-            //    throw new ArgumentException();
-            //}
-            //if (price > 4000)
-            //{
-            //    throw new ArgumentException();
-            //}
-
-            //if (price % 1000 != 0)
-            //{
-            //    throw new ArgumentException();
-
-            //}
-            //price = -Math.Abs(price);
-
             Price = -1000;
             Action = TransactionActionType.CashOut;
             Type = TransactionType.Spent;
         }
-
-        //protected CashOutTransaction()
-        //{
-
-        //}
-
         public virtual void Approve()
         {
             Approved = true;
@@ -71,8 +50,6 @@ namespace Cloudents.Core.Entities
             Approved = false;
             DeclinedReason = reason;
         }
-
-        //public override int AwardScore => 0;
     }
 
     public class CommissionTransaction : Transaction
@@ -91,8 +68,6 @@ namespace Cloudents.Core.Entities
         {
 
         }
-
-        //public override int AwardScore => 0;
     }
 
     public class BuyPointsTransaction : Transaction
@@ -168,28 +143,7 @@ namespace Cloudents.Core.Entities
               //  _awardScore = awardScore
             };
         }
-
-       // private int _awardScore;
-       // public override int AwardScore => _awardScore;
     }
-
-    /// <summary>
-    /// Question Transaction - we keep this because of older transactions
-    /// </summary>
-    //public class QuestionTransaction : Transaction
-    //{
-      
-
-    //    public virtual Question Question { get;  set; }
-    //    public virtual Answer Answer { get; protected set; }
-
-    //    protected QuestionTransaction()
-    //    {
-
-    //    }
-
-
-    //}
 
     public class ReferUserTransaction : Transaction
     {
@@ -272,12 +226,6 @@ namespace Cloudents.Core.Entities
         }
         public TransactionActionType Action { get; }
         public decimal Price { get; }
-
-        //public static readonly AwardsTransaction FirstCourse = new AwardsTransaction(TransactionActionType.FirstCourse, 5);
-        //public static readonly AwardsTransaction University = new AwardsTransaction(TransactionActionType.Awarded, 5);
-
-        //public static readonly AwardsTransaction QuestionOwnerBonus = new AwardsTransaction(TransactionActionType.Awarded, 1);
-        //public static readonly AwardsTransaction QuestionAnswererBonus = new AwardsTransaction(TransactionActionType.Awarded, 10);
     }
 
 

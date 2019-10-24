@@ -6,15 +6,18 @@ namespace Cloudents.Core.DTOs
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global",Justification = "Dto - json")]
     public class BalanceDto
     {
-        public BalanceDto(TransactionType transaction, decimal points)
+        public BalanceDto(string transaction, decimal points, string value)
         {
-            Name = transaction;
-            Type = transaction.ToString("G");
+            //Name = transaction;
+            Type = transaction;
             Points = points;
+            Value = value;
         }
 
         public string Type { get; }
-        public TransactionType Name { get; }
+        //public TransactionType Name { get; }
         public decimal Points { get; }
+
+        public string Value { get; }
     }
 }

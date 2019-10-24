@@ -5,10 +5,6 @@ namespace Cloudents.Core.Enum
 {
     public enum TransactionType
     {
-        //None,
-        //[PublicValue]
-        //[ResourceDescription(typeof(EnumResources), "TransactionTypeAwarded")]
-        //Awarded,
         [ResourceDescription(typeof(EnumResources), "TransactionTypeEarned")]
         Earned,
         [ResourceDescription(typeof(EnumResources), "TransactionTypeStake")]

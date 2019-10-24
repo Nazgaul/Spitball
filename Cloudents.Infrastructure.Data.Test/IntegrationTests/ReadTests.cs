@@ -4,6 +4,7 @@ using System.Linq;
 using Cloudents.Query.Documents;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudents.Query.Query;
 using Cloudents.Query.Tutor;
@@ -219,6 +220,18 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new QuestionDataByIdQuery(10626);
             _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Theory]
+        [InlineData(638,"IL")]
+        [InlineData(1696, "IN")]
+        public async Task UserBalanceQuery_Ok(long id,string country)
+        {
+            
+            var query = new UserBalanceQuery(id);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+
+           
         }
     }
 }

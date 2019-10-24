@@ -50,7 +50,7 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<BalanceDto>> GetBalanceAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var retVal = await _queryBus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(userId), token);
+            var retVal = await _queryBus.QueryAsync(new UserBalanceQuery(userId), token);
 
             return retVal;
         }
