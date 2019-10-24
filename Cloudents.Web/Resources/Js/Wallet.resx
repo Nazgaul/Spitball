@@ -162,10 +162,19 @@
   <data name="Value" xml:space="preserve">
     <value>Value</value>
   </data>
-  <data name="Total" xml:space="preserve">
+  <data name="total" xml:space="preserve">
     <value>Total</value>
   </data>
   <data name="you_have_redeemable_sbl" xml:space="preserve">
     <value>to redeem</value>
+  </data>
+  <data name="earned" xml:space="preserve">
+    <value>Earned</value>
+  </data>
+  <data name="spent" xml:space="preserve">
+    <value>Spent</value>
+  </data>
+  <data name="stake" xml:space="preserve">
+    <value>Stake</value>
   </data>
 </root>
