@@ -66,7 +66,7 @@ namespace Cloudents.Web.Controllers
                 
             }
             ViewBag.title = _localizer[$"Title{localizerSuffix}", retVal.Name,retVal.UniversityName];
-            ViewBag.metaDescription = _localizer[$"Description{localizerSuffix}", retVal.Name, retVal.UniversityName];
+            ViewBag.metaDescription = _localizer["Description", retVal.Description];
             return View();
         }
     }
