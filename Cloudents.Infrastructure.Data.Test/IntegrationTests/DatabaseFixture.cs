@@ -17,7 +17,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             {
                 Db = new DbConnectionString(
                     "Server=tcp:sb-dev.database.windows.net,1433;Initial Catalog=ZboxNew_Develop;Persist Security Info=False;User ID=sb-dev;Password=Pa$$W0rd123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
-                    null)
+                     null, null)
                 {
                     NeedValidate = false
                 }

@@ -26,6 +26,7 @@ namespace Cloudents.Persistence
             builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenStatelessSession())
                 .InstancePerLifetimeScope();
 
+            
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerDependency();
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
@@ -36,9 +37,13 @@ namespace Cloudents.Persistence
                 .AsSelf()
                 .AsImplementedInterfaces().InstancePerDependency();
 
-            builder.RegisterType<QuerySession>().InstancePerDependency();
+            builder.RegisterType<QuerySession>()
+                .WithParameter("_statelessSession", builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenReadStatelessSession())
+               .InstancePerLifetimeScope()).InstancePerDependency();
 
-            builder.RegisterType<DapperRepository>().As<IDapperRepository>().AsSelf();
+            builder.RegisterType<DapperRepository>()
+                .WithParameter("_statelessSession", builder.Register(c => c.Resolve<UnitOfWorkFactorySpitball>().OpenReadStatelessSession())
+               .InstancePerLifetimeScope()).As<IDapperRepository>().AsSelf();
 
             base.Load(builder);
         }

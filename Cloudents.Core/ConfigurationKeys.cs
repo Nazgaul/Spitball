@@ -95,13 +95,15 @@ namespace Cloudents.Core
 
     public class DbConnectionString
     {
-        public DbConnectionString(string db, string redis)
+        public DbConnectionString(string db, string readDb, string redis)
         {
             Db = db;
             Redis = redis;
+            ReadDb = readDb;
         }
 
         public string Db { get;  }
+        public string ReadDb { get; }
 
         public string Redis { get;  }
 

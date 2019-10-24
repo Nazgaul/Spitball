@@ -20,7 +20,7 @@ namespace Cloudents.Persistence
 
         public DapperRepository(IConfigurationKeys  provider)
         {
-            _connectionString = provider.Db.Db;
+            _connectionString = provider.Db.ReadDb;
         }
 
         static DapperRepository()

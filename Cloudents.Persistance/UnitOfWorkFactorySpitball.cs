@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Cloudents.Core.Interfaces;
@@ -17,6 +18,7 @@ namespace Cloudents.Persistence
     {
         private readonly PublishEventsListener _publisher;
         private readonly ISessionFactory _factory;
+        private readonly ISessionFactory _readDbSessionFactory;
 
         public UnitOfWorkFactorySpitball(PublishEventsListener publisher, IConfigurationKeys connectionString)
         {
@@ -51,20 +53,53 @@ namespace Cloudents.Persistence
 
             _factory = configuration.BuildSessionFactory();
 
+            _readDbSessionFactory = Fluently
+                    .Configure()
+                    .Database(
+                    FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString.Db.ReadDb)
+                        .DefaultSchema("sb").Dialect<SbDialect>()
+
+#if DEBUG
+                        .ShowSql()
+#endif
+                ).ExposeConfiguration((x) => BuildSchema(x, connectionString.Db.NeedValidate))
+                    .Mappings(m =>
+                    {
+                        m.FluentMappings.AddFromAssemblyOf<UserMap>()
+                            .Conventions.Add(ForeignKey.EndsWith("Id"));
+
+                    }).BuildSessionFactory();
+
         }
 
         public ISession OpenSession()
         {
+           // var sessions = new List<ISession>();
             var session = _factory.OpenSession();
+            //var session = _factory.OpenSession();
+
+            //sessions.Add(_readDbSessionFactory.OpenSession());
+           
             session.FlushMode = FlushMode.Commit;
+            
             return session;
         }
+        
 
 
 
         public IStatelessSession OpenStatelessSession()
         {
-            return _factory.OpenStatelessSession();
+            //var sessions = new List<IStatelessSession>();
+            var session = _factory.OpenStatelessSession();
+            //sessions.Add(_readDbSessionFactory.OpenStatelessSession());
+            return session;
+        }
+
+        public IStatelessSession OpenReadStatelessSession()
+        {
+            var session = _readDbSessionFactory.OpenStatelessSession();
+            return session;
         }
 
         private void BuildSchema(Configuration config, bool needValidate)
