@@ -125,6 +125,8 @@ namespace Cloudents.Admin2.Api
                 CancellationToken token)
         {
             const string sql = @"update sb.[user] set UniversityId2 = null where UniversityId2 = @OldUni;
+                                update sb.Document set UniversityId = null where UniversityId = @OldUni;
+                                update sb.Question set UniversityId = null where UniversityId = @OldUni;
                                 delete from sb.University where id =  @OldUni;";
 
             using (var connection = _dapperRepository.OpenConnection())
