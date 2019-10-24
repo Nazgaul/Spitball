@@ -11,16 +11,14 @@ namespace Cloudents.Infrastructure.Cache
     {
         private ICacheManager<object> _distributedCache;
         private ICacheManager<object> _inMemory;
-        private readonly IConfigurationKeys _keys;
         private readonly ILogger _logger;
         private bool _distributedEnabled = true;
         readonly ConnectionMultiplexer _multiplexer;
 
-        private bool _failedInit = false;
+        private bool _failedInit;
 
         public CacheProvider(IConfigurationKeys keys, ILogger logger)
         {
-            _keys = keys;
             _logger = logger;
         
             _multiplexer = ConnectionMultiplexer.Connect(keys.Redis);
@@ -41,10 +39,10 @@ namespace Cloudents.Infrastructure.Cache
             _inMemory = CacheFactory.Build(
                 s => s
                     .WithDictionaryHandle());
-            TryReconnect(keys);
+            TryReconnect();
         }
 
-        private void TryReconnect(IConfigurationKeys keys)
+        private void TryReconnect()
         {
             //try
             //{
@@ -98,13 +96,13 @@ namespace Cloudents.Infrastructure.Cache
         //    _logger = logger;
         //}
 
-        private ICacheManager<object> cache
+        private ICacheManager<object> Cache
         {
             get
             {
                 if (_failedInit)
                 {
-                    TryReconnect(_keys);
+                    TryReconnect();
                 }
                 if (_distributedEnabled)
                 {
@@ -122,13 +120,13 @@ namespace Cloudents.Infrastructure.Cache
         {
             try
             {
-                return cache.Get(key, region);
+                return Cache.Get(key, region);
             }
             catch (Exception ex)
             {
                 _logger.Exception(ex, new Dictionary<string, string>
                 {
-                    ["Service"] = nameof(Cache),
+                    ["Service"] = nameof(Infrastructure.Cache),
                     ["Key"] = key,
                     ["Region"] = region
                 });
@@ -140,7 +138,7 @@ namespace Cloudents.Infrastructure.Cache
         public bool Exists(string key, string region)
         {
 
-            return cache.Exists(key, region);
+            return Cache.Exists(key, region);
 
         }
 
@@ -158,13 +156,13 @@ namespace Cloudents.Infrastructure.Cache
                 var cacheItem = new CacheItem<object>(key, region, obj,
                     slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
                     TimeSpan.FromSeconds(expire));
-                cache.Put(cacheItem);
+                Cache.Put(cacheItem);
             }
             catch (Exception e)
             {
                 _logger.Exception(e, new Dictionary<string, string>
                 {
-                    ["Service"] = nameof(Cache),
+                    ["Service"] = nameof(Infrastructure.Cache),
                     ["Key"] = key,
                     ["Region"] = region,
                     ["Value"] = value.ToString()
@@ -199,7 +197,7 @@ namespace Cloudents.Infrastructure.Cache
         {
             // if (_distributedEnabled)
             //{
-            cache.ClearRegion(region);
+            Cache.ClearRegion(region);
             //}
         }
 
@@ -207,7 +205,7 @@ namespace Cloudents.Infrastructure.Cache
         {
             // if (_distributedEnabled)
             // {
-            cache.Remove(key, region);
+            Cache.Remove(key, region);
             // }
         }
 

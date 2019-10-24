@@ -154,7 +154,7 @@
     <value>עזור לאחרים באמצעות הידע שלך</value>
   </data>
   <data name="not_browser" xml:space="preserve">
-    <value>דדפדפן זה אינו נתמך - השתמש בכרום או פיירפוקס</value>
+    <value>דפדפן זה אינו נתמך - השתמש בכרום או פיירפוקס</value>
   </data>
   <data name="not_screen" xml:space="preserve">
     <value>לא ניתן לשתף את המסך - אנא נסה מאוחר יותר</value>

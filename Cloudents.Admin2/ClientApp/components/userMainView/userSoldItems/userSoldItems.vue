@@ -5,7 +5,12 @@
     hide-actions
     class="elevation-1">
     <template slot="items" slot-scope="props">
-      <td v-for="(item, index) in props.item" :key="index">{{formatItem(item)}}</td>
+      <td v-for="(item, name) in props.item" :key="name">
+        <span v-if="name !== 'url'">
+          <a v-if="name === 'itemId'" :href="userSoldDocItems[props.index].url" v-html="item"/>
+          <span v-else>{{item}}</span>
+        </span>
+      </td>
     </template>
   </v-data-table>
 </template>
@@ -28,7 +33,9 @@ import { mapActions, mapGetters } from "vuex";
     computed: {
       ...mapGetters(["userSoldDocItems"]),
       itemHeaders(){
-        return Object.keys(this.userSoldDocItems[0]).map(item=>{
+        let titles = Object.keys(this.userSoldDocItems[0])
+        titles.splice(titles.indexOf('url'),1)
+        return titles.map(item=>{
           return {text:this.formatTitleName(item),value:item}
         })
       }
@@ -59,18 +66,6 @@ import { mapActions, mapGetters } from "vuex";
           self.scrollFunc.doingStuff = !isComplete;
           self.nextPage();
         });
-      },
-      formatItem(item){
-        if(typeof item === 'number' && item < 0){
-          return Math.abs(item)
-        }
-        let rgx = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
-        if(typeof item === 'string' && item.search(rgx) === 0){
-          let date = new Date(item)
-          return `${date.getUTCMonth() + 1}/${date.getUTCDate()}/${date.getUTCFullYear({})}`;
-        } else{
-          return item;
-        }
       }
     },
     created() {

@@ -1,14 +1,7 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.StudyRooms;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
-using Cloudents.Query;
 using Microsoft.Azure.WebJobs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

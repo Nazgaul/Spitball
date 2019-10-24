@@ -68,7 +68,6 @@ export default {
     name: "fileCard",
     data() {
         return {
-            // suggestsCourses: [],
             fileNamePlaceholder: LanguageService.getValueByKey("upload_multiple_fileName_placeholder"),
             emptyPricePlaceholder: LanguageService.getValueByKey("upload_uf_price"),
             itemDescPlaceholder: LanguageService.getValueByKey("upload_uf_desc"),
@@ -146,15 +145,15 @@ export default {
         deleteFile() {
             this.deleteFileByIndex(this.singleFileIndex)
         },
-        // searchCourses: debounce(function(ev){
-        //     let term = ev.target.value.trim()
-        //     if(!!term){
-        //         universityService.getCourse({term, page:0}).then(data=>{
-        //             this.suggestsCourses = data;
-        //         })
-        //     }
-        // },300),
     },
+    mounted() {
+        if((this.$route.query && this.$route.query.Course)){
+            let courseName = this.$route.query.Course;
+            this.course = this.getSelectedClasses.filter((course)=>{
+                return course.text === courseName;
+            })[0];
+        }
+    }
 }
 </script>
 

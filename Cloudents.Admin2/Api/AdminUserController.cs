@@ -17,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Admin2.Api
 {
@@ -28,15 +29,18 @@ namespace Cloudents.Admin2.Api
         private readonly IQueryBus _queryBus;
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly IQueueProvider _queueProvider;
+        private readonly IConfiguration _configuration;
 
 
         public AdminUserController(ICommandBus commandBus, IQueryBus queryBus,
-            IDocumentDirectoryBlobProvider blobProvider, IQueueProvider queueProvider)
+            IDocumentDirectoryBlobProvider blobProvider, IQueueProvider queueProvider,
+            IConfiguration configuration)
         {
             _commandBus = commandBus;
             _queryBus = queryBus;
             _blobProvider = blobProvider;
             _queueProvider = queueProvider;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -274,7 +278,12 @@ namespace Cloudents.Admin2.Api
         {
             var country = User.GetCountryClaim();
             var query = new AdminUserSoldDocsQuery(id, page, country);
-            return await _queryBus.QueryAsync(query, token);
+            var res = await _queryBus.QueryAsync(query, token);
+            foreach (var r in res)
+            {
+                r.Url = $"{_configuration["Site"]}document/{r.ItemCourse}/{r.ItemCreated.ToString("dd-M-yyyy")}/{r.ItemId}";
+            }
+            return res;
         }
 
         [HttpGet("documents")]

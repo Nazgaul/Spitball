@@ -178,7 +178,7 @@
     <value>כניסה עם גוגל - Gmail </value>
   </data>
   <data name="getstarted_btn_google_signup" xml:space="preserve">
-    <value>הרשמה עם ג'ימייל - Gmail</value>
+    <value>הרשמה עם גוגל - Gmail</value>
   </data>
   <data name="getstarted_or" xml:space="preserve">
     <value> או</value>
@@ -256,7 +256,7 @@
     <value>כניסה</value>
   </data>
   <data name="setpass_forgot" xml:space="preserve">
-    <value>שכחת את הסיסמא?</value>
+    <value>שכחת סיסמא?</value>
   </data>
   <data name="setpass_input_email" xml:space="preserve">
     <value>אימייל </value>

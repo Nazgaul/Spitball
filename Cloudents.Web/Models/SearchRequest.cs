@@ -1,6 +1,4 @@
-﻿using Cloudents.Web.Extensions;
-using Cloudents.Web.Framework;
-using Microsoft.AspNetCore.Mvc;
+﻿using Cloudents.Web.Framework;
 
 namespace Cloudents.Web.Models
 {

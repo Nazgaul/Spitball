@@ -142,7 +142,7 @@
     <value>העלה מסמכים שלך</value>
   </data>
   <data name="failed_transaction" xml:space="preserve">
-    <value>הטרנזקציה נכשלה, נסה לרענן את הדף!</value>
+    <value>הפעולה נכשלה, נסה לרענן את הדף!</value>
   </data>
   <data name="get_points" xml:space="preserve">
     <value>קבל נקודות</value>

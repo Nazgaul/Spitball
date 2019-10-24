@@ -4,12 +4,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Documents;
 using Dapper;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Persistence
@@ -79,18 +76,18 @@ namespace Cloudents.Persistence
             }
         }
 
-        private class JsonObjectTypeHandler : SqlMapper.ITypeHandler
-        {
-            public void SetValue(IDbDataParameter parameter, object value)
-            {
-                throw new NotImplementedException();
-            }
+        //private class JsonObjectTypeHandler : SqlMapper.ITypeHandler
+        //{
+        //    public void SetValue(IDbDataParameter parameter, object value)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            public object Parse(Type destinationType, object value)
-            {
-                return JsonConvert.DeserializeObject(value.ToString(), destinationType);
-            }
-        }
+        //    public object Parse(Type destinationType, object value)
+        //    {
+        //        return JsonConvert.DeserializeObject(value.ToString(), destinationType);
+        //    }
+        //}
 
 
     }

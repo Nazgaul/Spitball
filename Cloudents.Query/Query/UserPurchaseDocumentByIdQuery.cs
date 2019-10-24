@@ -56,7 +56,7 @@ namespace Cloudents.Query.Query
                         DateTime = s.search.TimeStamp.UpdateTime,
                         Course = s.search.Course.Id,
                         Title = s.search.Name,
-                        Snippet = s.search.MetaContent,
+                        Snippet = s.search.Description ?? s.search.MetaContent,
                         Views = s.search.Views,
                         Downloads = s.search.Downloads,
                         University = s.search.User.University.Name,

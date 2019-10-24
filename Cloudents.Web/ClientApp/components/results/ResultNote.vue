@@ -91,7 +91,7 @@
       :popUpType="'reportDialog'"
       :content-class="`reportDialog ${isRtl? 'rtl': ''}` "
     >
-      <report-item :closeReport="closeReportDialog" :itemType="'feed'" :itemId="itemId"></report-item>
+      <report-item :closeReport="closeReportDialog" :itemType="'note'" :itemId="itemId"></report-item>
     </sb-dialog>
     <sb-dialog
       :showDialog="priceDialog"
@@ -209,6 +209,13 @@ export default {
   },
 
   props: { item: { type: Object, required: true }, index: { Number } },
+  watch: {
+    priceDialog(val) {
+      if(!val) {
+        this.newPrice = this.item.price;        
+      }
+    }
+  },
   computed: {
     isVideo(){
       return (this.item.documentType === 'Video')

@@ -22,11 +22,15 @@ namespace Cloudents.Core.Entities
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
             Name = name.Replace("+", "-");
-            University = user.University;// university ?? throw new ArgumentNullException(nameof(university));
+            University = user.University;
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = user;
             Views = 0;
-            Description = description;
+            if (!string.IsNullOrEmpty(description))
+            {
+                Description = description;
+            }
+
             ChangePrice(price);
             //Price = price;
             var status = Public;// GetInitState(user);

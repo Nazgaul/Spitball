@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
@@ -76,6 +75,7 @@ namespace Cloudents.Query.Tutor
                 var futureCourse =  _session.QueryOver<ReadTutor>()
                      .WithSubquery.WhereProperty(w => w.Id).In(relevantTutorByCourse)
                      .Where(w => w.Id != query.UserId)
+                     .And(w => w.Country == query.Country)
                      .SelectList(s =>
                          s.Select(x => x.Id).WithAlias(() => tutorCardDtoAlias.UserId)
                              

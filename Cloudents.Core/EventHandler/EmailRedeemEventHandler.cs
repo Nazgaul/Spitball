@@ -8,24 +8,6 @@ using Cloudents.Core.Message.Email;
 
 namespace Cloudents.Core.EventHandler
 {
-
-    //public class EmailQuestionAcceptedEventHandler: IEventHandler<MarkAsCorrectEvent>
-    //{
-    //    private readonly IQueueProvider _serviceBusProvider;
-
-    //    public EmailQuestionAcceptedEventHandler(IQueueProvider serviceBusProvider)
-    //    {
-    //        _serviceBusProvider = serviceBusProvider;
-    //    }
-
-    //    public async Task HandleAsync(MarkAsCorrectEvent eventMessage, CancellationToken token)
-    //    {
-    //        var message = new AnswerAcceptedMessage(eventMessage.Answer.Question.Id);
-
-    //        await _serviceBusProvider.InsertMessageAsync(message, token);
-    //    }
-    //}
-
     public class EmailRedeemEventHandler : IEventHandler<TransactionEvent>
     {
         private readonly IQueueProvider _serviceBusProvider;
@@ -41,7 +23,8 @@ namespace Cloudents.Core.EventHandler
             if (redeemEventMessage.Transaction.Action == TransactionActionType.CashOut)
             {
                 await _serviceBusProvider.InsertMessageAsync(
-                    new SupportRedeemEmail(redeemEventMessage.Transaction.Price, redeemEventMessage.User.Id), token);
+                    new SupportRedeemEmail(redeemEventMessage.Transaction.Price,
+                        redeemEventMessage.User.Id), token);
             }
 
             if (redeemEventMessage.Transaction.Action == TransactionActionType.SoldDocument)

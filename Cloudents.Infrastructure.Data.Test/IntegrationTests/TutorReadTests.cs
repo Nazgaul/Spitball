@@ -1,4 +1,6 @@
-﻿using Cloudents.Query.Tutor;
+﻿using System;
+using System.Linq;
+using Cloudents.Query.Tutor;
 using FluentAssertions;
 using System.Threading.Tasks;
 using Xunit;
@@ -20,6 +22,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData("xxx", 0, "IL", 5)]
         [InlineData("Economics", 638, "IL", 5)]
+        [InlineData("Economics", 0, "IL", 100)]
         [InlineData("Economics", 638, "IN", 5)]
         [InlineData("xxx", 0, "IN", 5)]
 
@@ -27,9 +30,11 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
 
             var query = new TutorListByCourseQuery(course, userId, country, count);
-            var _ = await _fixture.QueryBus.QueryAsync(query, default);
-
-
+            var result = await _fixture.QueryBus.QueryAsync(query, default);
+            foreach (var tutorCardDto in result)
+            {
+                tutorCardDto.TutorCountry.Should().BeEquivalentTo(country);
+            }
         }
 
 
@@ -43,6 +48,11 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new TutorListQuery(userId, country, page);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeEmpty();
+            //cant do this check because userid give country null
+            //foreach (var tutorCardDto in result)
+            //{
+            //    tutorCardDto.TutorCountry.Should().BeEquivalentTo(country);
+            //}
 
 
 

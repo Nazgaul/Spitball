@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
-using Autofac;
 using Autofac.Extras.Moq;
 using Cloudents.Core;
-using Cloudents.Core.Interfaces;
 using Cloudents.Persistence;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests

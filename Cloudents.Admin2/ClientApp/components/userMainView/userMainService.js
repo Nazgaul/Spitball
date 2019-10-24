@@ -135,18 +135,23 @@ function createSoldItems(data){
     })
 }
 function SoldItem(objInit){
-    this.userName = objInit.userName;
-    this.itemName = objInit.itemName;
-    this.type = objInit.itemType;
-    this.course = objInit.itemCourse;
     this.itemId = objInit.itemId;
-    this.price = objInit.txPrice || 0;
-    this.date = objInit.txCreated;
-    this.itemCreated = objInit.itemCreated;
+    this.itemName = objInit.itemName;
+    this.purchasedUserName = objInit.purchasedUserName;
+    this.itemType = objInit.itemType;
+    this.itemCourse = objInit.itemCourse;
+    this.transactionPrice =  Math.abs(objInit.transactionPrice);
+    this.transactionTime = formatTime(objInit.transactionTime);
+    this.purchasedUserBalance = objInit.purchasedUserBalance;
+    this.purchasedUserEmail = objInit.purchasedUserEmail;
     this.itemState = objInit.itemState;
-    this.userBalance = objInit.userBalance;
-    this.userEmail = objInit.userEmail;
-    this.txId = objInit.txId;
+    this.itemCreated = formatTime(objInit.itemCreated);
+    this.url = objInit.url;
+}
+
+function formatTime(isoTime){
+    let date = new Date(isoTime)
+    return `${date.getUTCMonth() + 1}/${date.getUTCDate()}/${date.getUTCFullYear({})}`; 
 }
 
 function ConversationItem(objInit) {

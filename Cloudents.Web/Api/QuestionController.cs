@@ -103,20 +103,7 @@ namespace Cloudents.Web.Api
             [FromServices] IQueryBus bus, CancellationToken token)
         {
             var retValTask = bus.QueryAsync(new QuestionDataByIdQuery(id), token);
-            //var votesTask = Task.FromResult<Dictionary<Guid, VoteType>>(null);
-
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    var userId = _userManager.GetLongUserId(User);
-            //    var queryTags = new UserVotesQuestionQuery(userId, id);
-            //    votesTask = bus.QueryAsync(queryTags, token)
-            //        .ContinueWith(
-            //            t2 =>
-            //            {
-            //                return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
-            //            }, token);
-
-            //}
+           
 
             await Task.WhenAll(retValTask);
             var retVal = retValTask.Result;
@@ -125,23 +112,7 @@ namespace Cloudents.Web.Api
                 return NotFound();
             }
 
-            //if (votesTask.Result == null)
-            //{
-            //    return retVal;
-            //}
-
-            //if (votesTask.Result.TryGetValue(default, out var p))
-            //{
-            //    retVal.Vote.Vote = p;
-            //}
-
-            //foreach (var answer in retVal.Answers)
-            //{
-            //    if (votesTask.Result.TryGetValue(answer.Id, out var p2))
-            //    {
-            //        answer.Vote.Vote = p2;
-            //    }
-            //}
+          
 
             return retVal;
         }

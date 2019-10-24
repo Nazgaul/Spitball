@@ -7,12 +7,10 @@ namespace Cloudents.Core.DTOs.Admin
 {
     public class UserSoldItemsDto
     {
-        [EntityBind(nameof(Transaction.Id))]
-        public Guid TxId { get; set; }  
         [EntityBind(nameof(Transaction.Created))]
-        public DateTime TxCreated { get; set; }
+        public DateTime TransactionTime { get; set; }
         [EntityBind(nameof(Transaction.Price))]
-        public decimal TxPrice { get; set; }
+        public decimal TransactionPrice { get; set; }
         [EntityBind(nameof(Document.Id))]
         public long ItemId { get; set; }
         [EntityBind(nameof(Document.Name))]
@@ -26,10 +24,11 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(Document.DocumentType))]
         public DocumentType? ItemType { get; set; }
         [EntityBind(nameof(User.Name))]
-        public string UserName{ get; set; }
+        public string PurchasedUserName { get; set; }
         [EntityBind(nameof(User.Email))]
-        public string UserEmail { get; set; }
+        public string PurchasedUserEmail { get; set; }
         [EntityBind(nameof(User.Balance))]
-        public decimal UserBalance { get; set; }
+        public decimal PurchasedUserBalance { get; set; }
+        public string Url{ get; set; }
     }
 }

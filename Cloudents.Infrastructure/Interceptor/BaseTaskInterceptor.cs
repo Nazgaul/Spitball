@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Interceptor
                 if (typeof(Task).IsAssignableFrom(invocation.Method.ReturnType))
                 {
                     var x = InterceptAsync((dynamic)invocation.ReturnValue, invocation);
-                    ;
+                    
                     invocation.ReturnValue = x;// InterceptAsync((dynamic)invocation.ReturnValue, invocation);
                 }
             }

@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Extension;
-using System;
+﻿using System;
 
 namespace Cloudents.FunctionsV2.Services
 {

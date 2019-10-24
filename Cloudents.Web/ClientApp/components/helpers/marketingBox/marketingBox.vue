@@ -5,8 +5,8 @@
         </div>
         <v-card class="main-marketing-content transparent"
                 @click="promotionOpen()">
-            <img v-if="isIsrael" src="./images/heb_lessons.png" alt="Private lessons">
-            <img v-else src="./images/eng_lessons.png" alt="Private lessons">
+            <img v-if="isIsrael" src="./images/Banner_Sept_he.jpg" alt="Private lessons">
+            <img v-else src="./images/Banner_Sept_en.jpg" alt="Private lessons">
         </v-card>
     </div>
 </template>

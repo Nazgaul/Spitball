@@ -2,11 +2,8 @@
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Di;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.DurableTask;
-using Microsoft.Azure.WebJobs.Extensions.SignalRService;
 using Microsoft.Azure.WebJobs.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 [assembly: WebJobsStartup(typeof(Startup))]

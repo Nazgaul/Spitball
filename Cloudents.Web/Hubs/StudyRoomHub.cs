@@ -23,7 +23,7 @@ namespace Cloudents.Web.Hubs
             var httpContext = Context.GetHttpContext();
             var request = httpContext.Request;
             var cookieVal = request.Query[QueryStringName].ToString();
-            if (cookieVal == null)
+            if (string.IsNullOrEmpty(cookieVal))
             {
               return;
             }

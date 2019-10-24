@@ -13,18 +13,12 @@ namespace Cloudents.Core.DTOs
         public string Text { get; set; }
 
         public string Course { get; set; }
-        public UserDto User { get; set; }
+        public long UserId { get; set; }
         public IEnumerable<QuestionDetailAnswerDto> Answers { get; set; }
 
         public DateTime Create { get; set; }
 
-       // public IEnumerable<Uri> Files { get; set; }
-
-       // public Guid? CorrectAnswerId { get; set; }
-
         public bool IsRtl { get; set; }
-
-        //public VoteDto Vote { get; set; }
     }
 
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]

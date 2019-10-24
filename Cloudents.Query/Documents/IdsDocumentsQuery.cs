@@ -52,7 +52,7 @@ namespace Cloudents.Query.Documents
                         DateTime = s.TimeStamp.UpdateTime,
                         Course = s.Course.Id,
                         Title = s.Name,
-                        Snippet = s.MetaContent,
+                        Snippet = s.Description ?? s.MetaContent,
                         Views = s.Views,
                         Downloads = s.Downloads,
                         University = s.User.University.Name,

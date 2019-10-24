@@ -134,7 +134,7 @@ namespace Cloudents.Web.Api
             {
                 var userId = _userManager.GetLongUserId(User);
                 var queryTags = new UserVotesByCategoryQuery(userId);
-                votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteDocumentDto>>(queryTags, token)
+                votesTask = _queryBus.QueryAsync(queryTags, token)
                     .ContinueWith(
                     t2 =>
                     {
@@ -177,7 +177,7 @@ namespace Cloudents.Web.Api
             {
                 var userId = _userManager.GetLongUserId(User);
                 var queryTags = new UserVotesByCategoryQuery(userId);
-                votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteDocumentDto>>(queryTags, token)
+                votesTask = _queryBus.QueryAsync(queryTags, token)
                     .ContinueWith(
                         t2 =>
                         {

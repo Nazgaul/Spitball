@@ -95,10 +95,10 @@ namespace Cloudents.Persistence.Repositories
             return readTutor;
         }
 
-        public class Reviews
-        {
-            public int Count { get; set; }
-            public float? Average { get; set; }
-        }
+        //public class Reviews
+        //{
+        //    public int Count { get; set; }
+        //    public float? Average { get; set; }
+        //}
     }
 }

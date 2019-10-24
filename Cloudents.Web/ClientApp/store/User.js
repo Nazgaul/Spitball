@@ -149,7 +149,7 @@ const actions = {
     },
     updateSort({ commit }, data) {
         commit(USER.UPDATE_SORT, data);
-    },
+    }
 
 };
 export default {

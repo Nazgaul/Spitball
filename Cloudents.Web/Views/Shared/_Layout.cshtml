@@ -31,18 +31,28 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
     }
 
-        <link rel="stylesheet" href="@cdnEndPoint/dist/@p.GetCss()"
-              asp-fallback-href="~/dist/@p.GetCss()"
-              asp-fallback-test-class="cdn-only" asp-fallback-test-property="position" asp-append-version="true"
-              asp-fallback-test-value="absolute" />
+    <link rel="stylesheet" href="@cdnEndPoint/dist/@p.GetCss()"
+          asp-fallback-href="~/dist/@p.GetCss()"
+          asp-fallback-test-class="cdn-only" asp-fallback-test-property="position" asp-append-version="true"
+          asp-fallback-test-value="absolute" />
 
     @await RenderSectionAsync("styleSection", required: false)
-    <partial name="_HeaderTags" model="cdnEndPoint" />
+    
+
+    @try
+    {
+        @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}HeadTags",cdnEndPoint);
+
+    }
+    catch (InvalidOperationException ex)
+    {
+        @await Html.PartialAsync("_SpitballTags");
+    }
 
     @Html.Raw(JavaScriptSnippet.FullScript)
     @Html.Raw(ClickJackingTagHelper.FullScript)
-    
-   
+
+
 </head>
 <body lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
     <div>
@@ -78,7 +88,7 @@
 
     @try
     {
-        @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}Tags");
+        @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}Scripts");
 
     }
     catch (InvalidOperationException ex)

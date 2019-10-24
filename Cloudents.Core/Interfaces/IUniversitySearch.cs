@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Documents.Queries.GetDocumentsList;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using JetBrains.Annotations;

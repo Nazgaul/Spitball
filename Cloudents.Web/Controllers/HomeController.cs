@@ -37,8 +37,6 @@ namespace Cloudents.Web.Controllers
         [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true), SignInWithToken]
         [ApiNotFoundFilter]
         public IActionResult Index(
-            [FromServices] Lazy<ICrawlerResolver> crawlerResolver,
-            [FromHeader(Name = "User-Agent")] string userAgent,
             [FromQuery, CanBeNull] string referral,
             [FromQuery] string open
             )
@@ -46,21 +44,6 @@ namespace Cloudents.Web.Controllers
             if (!string.IsNullOrEmpty(referral))
             {
                 TempData[Referral] = referral;
-            }
-
-            try
-            {
-                if (crawlerResolver.Value.Crawler?.Type == CrawlerType.LinkedIn)
-                {
-                    ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.Exception(ex, new Dictionary<string, string>()
-                {
-                    ["userAgent"] = userAgent
-                });
             }
 
             if (_signInManager.IsSignedIn(User))

@@ -28,24 +28,24 @@ namespace Cloudents.Query
 
             var questionFuture = _session.Query<Question>()
                 .Where(w => w.Id == id && w.Status.State == ItemState.Ok)
-                .Fetch(f => f.User)
+                //.Fetch(f => f.User)
                 .Select(s => new QuestionDetailDto
                 {
-                    User = new UserDto
-                    {
-                        Id = s.User.Id,
-                        Name = s.User.Name,
-                        Image = s.User.Image,
-                        Score = s.User.Score
-                    },
+                    //User = new UserDto
+                    //{
+                    //    Id = s.User.Id,
+                    //    Name = s.User.Name,
+                    //    Image = s.User.Image,
+                    //    Score = s.User.Score
+                    //},
                     Id = s.Id,
                     Course = s.Course.Id,
-                   
+                    
                     Text = s.Text,
                     //CorrectAnswerId = s.CorrectAnswer.Id,
                     Create = s.Updated,
                     IsRtl = SetIsRtl(s.Language),
-
+                    UserId = s.User.Id
                 }
                
                 ).ToFutureValue();

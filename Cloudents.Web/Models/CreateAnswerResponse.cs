@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.DTOs;
-
-namespace Cloudents.Web.Models
+﻿namespace Cloudents.Web.Models
 {
     //public class CreateAnswerResponse
     //{

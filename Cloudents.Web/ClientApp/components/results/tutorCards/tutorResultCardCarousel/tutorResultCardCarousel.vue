@@ -3,8 +3,8 @@
             left: () => moveCarousel('left'),
             right: () => moveCarousel('right')
             }" class="tutor-carousel-slider-wrapper mb-4">
-        <h3 class="subtitle-1 mb-4" v-language:inner="'resultTutor_title'"/>
-        <div class="tutor-carousel-slider-container" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
+        <h3 class="subtitle-1 mb-4 text-xs-center" v-language:inner="'resultTutor_title'"/>
+        <div class="tutor-carousel-slider-container text-xs-center" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
             <router-link v-for="(tutor, index) in tutorList" :key="index" class="tutor-carousel-card" 
                 @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutor.userId, name: tutor.name}}">
                 <div>
@@ -264,10 +264,10 @@ export default {
                 .user-rank {
                     display: inline-flex;
                     // flex-direction: column;
-                    svg {
-                        width: 16px;
-                        height: 16px;
-                    }
+                    // svg {
+                    //     width: 16px;
+                    //     height: 16px;
+                    // }
                 }
                 .user-price {
                     display: flex;

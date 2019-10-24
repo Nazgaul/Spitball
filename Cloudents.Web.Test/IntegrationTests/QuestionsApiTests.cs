@@ -72,17 +72,19 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             var d = JObject.Parse(str);
 
-            var id = d["id"]?.Value<long?>();            
-            var user = d["user"]?.Value<JObject>();            
+            var id = d["id"]?.Value<long?>();
+            var text = d["text"].Value<string>();
+            var course = d["course"].Value<string>();
+            var userId = d["userId"]?.Value<long>();            
             var rtl = d["isRtl"]?.Value<bool?>();
-            //var vote = d["vote"]?.Value<JObject>();
 
             response.EnsureSuccessStatusCode();
 
-            id.Should().NotBeNull();
-            user.Should().NotBeNull();
-            rtl.Should().NotBeNull();
-           // vote.Should().NotBeNull();
+            id.Should().BeGreaterThan(0);
+            text.Should().NotBeNull();
+            course.Should().NotBeNull();
+            userId.Should().BeGreaterThan(0);
+            
         }
 
         [Fact]

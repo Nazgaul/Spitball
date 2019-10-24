@@ -95,7 +95,7 @@ namespace Cloudents.Core.Entities
             var newReview = new TutorReview(review, rate, user, this);
 
             _reviews.Add(newReview);
-            AddEvent(new TutorAddReviewEvent(Id));
+          
         }
 
         public virtual void AddTutorHours(DayOfWeek weekDay, TimeSpan from, TimeSpan to)

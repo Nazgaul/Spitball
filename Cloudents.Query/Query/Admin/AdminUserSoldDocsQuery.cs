@@ -61,18 +61,17 @@ namespace Cloudents.Query.Query.Admin
 
                 return await t.Where(w => w.User.Id != query.UserId)
                     .SelectList(s =>
-                        s.Select(x => x.Id).WithAlias(() => userSoldDto.TxId)
-                        .Select(x => x.Created).WithAlias(() => userSoldDto.TxCreated)
-                        .Select(x => x.Price).WithAlias(() => userSoldDto.TxPrice)
+                        s.Select(x => x.Created).WithAlias(() => userSoldDto.TransactionTime)
+                        .Select(x => x.Price).WithAlias(() => userSoldDto.TransactionPrice)
                         .Select(x => x.Document.Id).WithAlias(() => userSoldDto.ItemId)
                         .Select(x => documentAlias.Name).WithAlias(() => userSoldDto.ItemName)
                         .Select(x => documentAlias.TimeStamp.CreationTime).WithAlias(() => userSoldDto.ItemCreated)
                         .Select(x => documentAlias.Course.Id).WithAlias(() => userSoldDto.ItemCourse)
                         .Select(x => documentAlias.Status.State).WithAlias(() => userSoldDto.ItemState)
                         .Select(x => documentAlias.DocumentType).WithAlias(() => userSoldDto.ItemType)
-                        .Select(x => userAlias.Name).WithAlias(() => userSoldDto.UserName)
-                        .Select(x => userAlias.Email).WithAlias(() => userSoldDto.UserEmail)
-                        .Select(x => userAlias.Transactions.Balance).WithAlias(() => userSoldDto.UserBalance)
+                        .Select(x => userAlias.Name).WithAlias(() => userSoldDto.PurchasedUserName)
+                        .Select(x => userAlias.Email).WithAlias(() => userSoldDto.PurchasedUserEmail)
+                        .Select(x => userAlias.Transactions.Balance).WithAlias(() => userSoldDto.PurchasedUserBalance)
                         ).TransformUsing(Transformers.AliasToBean<UserSoldItemsDto>())
                         .Skip(query.Page * pageSize).Take(pageSize).ListAsync<UserSoldItemsDto>();
             }

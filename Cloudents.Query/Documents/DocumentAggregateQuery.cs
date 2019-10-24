@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Cloudents.Core.DTOs;
 using System.Linq;
 using System.Threading;
@@ -76,7 +75,7 @@ select 'd' as type
 , u.Name as 'User.Name'
 , u.Image as 'User.Image'
 , un.Id as UniversityId
-, d.MetaContent as Snippet
+, COALESCE(d.description,metaContent) as Snippet
 , d.Name as Title
 , d.[Views]
 , d.Downloads
@@ -167,7 +166,7 @@ select 'd' as type
 ,u.Name as 'User.Name'
 ,u.Image as 'User.Image'
 ,un.Id as UniversityId
-,d.MetaContent as Snippet
+,COALESCE(d.description,metaContent) as Snippet
 ,d.Name as Title
 ,d.[Views]
 ,d.Downloads

@@ -42,6 +42,11 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Post(ForgotPasswordRequest model, [FromHeader] CancellationToken token)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ModelState.AddModelError("ForgotPassword", "User is signed in");
+                return BadRequest();
+            }
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {

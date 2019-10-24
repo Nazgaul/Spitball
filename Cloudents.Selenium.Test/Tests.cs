@@ -3,10 +3,12 @@ using Dapper;
 using FluentAssertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using Xunit;
 
 namespace Cloudents.Selenium.Test
@@ -22,7 +24,7 @@ namespace Cloudents.Selenium.Test
         {
             this._fixture = fixture;
             //_driver.Manage().Window.Maximize();
-            //_driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             // _autoMock = AutoMock.GetLoose();
 
         }
@@ -46,18 +48,7 @@ namespace Cloudents.Selenium.Test
         "ask",
         "note",
         "tutor",
-        //"profile/159039",
-        //"profile/160468",
-        "studyroom",
-        "about",
-        "faq",
-        "partners",
-        "reps",
-        "privacy",
-        "terms",
-        "studentFaq",
-        "tutorFaq",
-        "contact"
+        "studyroom"
         //"wallet",
         //"university",
         //"courses"
@@ -100,8 +91,20 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-
         [Fact]
+        public void LogoTest()
+        {
+            var url = $"{SiteMainUrl.TrimEnd('/')}";
+            _driver.Navigate().GoToUrl(url);
+            var logo = _driver.FindElement(By.XPath("//*[@class='logo']"));
+
+            url = $"{SiteMainUrl.TrimEnd('/')}/?site=frymo";
+            _driver.Navigate().GoToUrl(url);
+            logo = _driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
+            
+        }
+
+        [Fact(Skip ="Need to finish this")]
         public void MissingResourceAsk()
         {
             var url = "https://dev.spitball.co/question/2208";
@@ -124,6 +127,28 @@ namespace Cloudents.Selenium.Test
 
         //}
 
+        [Fact]
+        public void FeedPagingTest()
+        {
+            var url = $"{SiteMainUrl.TrimEnd('/')}/feed";
+            _driver.Navigate().GoToUrl(url);
+            var body = _driver.FindElement(By.TagName("body"));
+            for(int i = 0; i < 10; i++)
+                body.SendKeys(Keys.PageDown);
+            Thread.Sleep(1000);
+            var feedCards = _driver.FindElements(By.XPath("//*[@class='d-block note-block cell']"));
+            feedCards.Count.Should().BeGreaterThan(14);
+
+            url = $"{SiteMainUrl.TrimEnd('/')}/tutor";
+            _driver.Navigate().GoToUrl(url);
+            body = _driver.FindElement(By.TagName("body"));
+            for (int i = 0; i < 10; i++)
+                body.SendKeys(Keys.PageDown);
+            Thread.Sleep(1000);
+            var tutorCards = _driver.FindElements(By.XPath("//*[@class='tutor-result-card-mobile pa-2 ma-2 justify-space-between mb-2']"));
+            tutorCards.Count.Should().BeGreaterThan(20);
+        }
+
         [Fact(Skip = "Not sure what need to be tested here")]
         public void SignTests()
         {
@@ -140,6 +165,23 @@ namespace Cloudents.Selenium.Test
             _driver.SwitchTo().Window(_driver.CurrentWindowHandle);
             //driver.Quit();
             emailButton.Click();
+        }
+
+        [Fact]
+        public void LoginTest()
+        {
+            var url = $"{SiteMainUrl.TrimEnd('/')}/Signin";
+            _driver.Navigate().GoToUrl(url);
+            var emailButton = _driver.FindElement(By.XPath("//*[@class='email v-btn v-btn--flat v-btn--large v-btn--round theme--light']"));
+            emailButton.Click();
+            var emailInput = _driver.FindElement(By.XPath("//*[@class='input-field errorTextStr']"));
+            emailInput.SendKeys("elad13@cloudents.com");
+            var loginButton = _driver.FindElement(By.XPath("//*[@class='white--text btn-login v-btn v-btn--large v-btn--round theme--light']"));
+            loginButton.Click();
+            var passwordInput = _driver.FindElement(By.XPath("//*[@class='mt-4 widther input-wrapper']//input"));
+            loginButton = _driver.FindElement(By.XPath("//*[@class='white--text btn-login v-btn v-btn--large v-btn--round theme--light']"));
+            passwordInput.SendKeys("123456789");
+            loginButton.Click();
         }
 
         public void Dispose()

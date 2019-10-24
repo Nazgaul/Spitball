@@ -6,7 +6,7 @@
                 :user-name="getCurrTutor.name"  
                 :userImageUrl="getCurrTutor.image"/>
 
-        <img v-else v-show="isLoaded" class="tutorRequest-img" @load="loaded" src="../images/yaniv.jpg" alt="../images/yaniv.jpg">
+        <img v-else v-show="isLoaded" class="tutorRequest-img" @load="loaded" :src="defaultImage" alt="../images/yaniv.jpg">
         <p v-if="!getCurrTutor" v-language:inner="'tutorRequest_send_msg_yaniv'"/>
         <p v-else v-html="$Ph(isMobile? 'tutorRequest_send_msg_tutor_mobile' :'tutorRequest_send_msg_tutor',this.getCurrTutor.name)" />
     </div>
@@ -29,13 +29,19 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getCurrTutor']),
+        ...mapGetters(['getCurrTutor', 'isFrymo']),
         
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
         isCurrentTutor(){
             return !! this.getCurrTutor
+        },
+        defaultImage() {
+            if(this.isFrymo) {
+                return require('../images/indiaGuy.jpeg');
+            }
+            return require('../images/yaniv.jpg');
         }
     },
 }

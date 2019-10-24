@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Xml;
 using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Storage;

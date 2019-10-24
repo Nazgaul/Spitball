@@ -23,7 +23,7 @@
                   </button>
 
               </template>
-              <a @click="changeLanguage()">
+              <a @click="changeLanguage()" v-if="!isFrymo">
                 {{currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''}}
               </a>
             </v-flex>
@@ -83,9 +83,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-        "accountUser"
-    ]),
+    ...mapGetters(['accountUser', 'isFrymo']),
+
     isMobileView() {
       return this.$vuetify.breakpoint.width < 1024;
     },

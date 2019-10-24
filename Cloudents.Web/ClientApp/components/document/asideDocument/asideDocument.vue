@@ -1,20 +1,20 @@
 <template>
     <div class="aside-container">
         
-        <div class="aside-top mb-3" :class="[$vuetify.breakpoint.smAndDown ? 'pa-2' : 'pa-3']">
-            <v-layout justify-space-between>
-                <v-icon @click="goToNote" color="#43425d">sbf-spitball</v-icon>
+       <!-- <div class="aside-top mb-3" :class="[$vuetify.breakpoint.smAndDown ? 'pa-2' : 'pa-3']"> -->
+            <v-layout justify-end>
+                <!-- <v-icon @click="goToNote" color="#43425d">sbf-spitball</v-icon> -->
                 <v-icon class="hidden-md-and-up subheading" @click="closeDocument">sbf-close</v-icon>
             </v-layout>
 
-            <p class="pt-3 font-weight-bold subheading" v-language:inner="'documentPage_student_learn'"></p>
-            <p class="body-1 get-online" v-language:inner="'documentPage_online_tutor'"></p>
+            <!-- <p class="pt-3 font-weight-bold subheading" v-language:inner="'documentPage_student_learn'"></p> -->
+            <!-- <p class="body-1 get-online" v-language:inner="'documentPage_online_tutor'"></p> -->
 
-            <my-courses class="d-block mx-auto hidden-sm-and-down"></my-courses>
+            <!-- <my-courses class="d-block mx-auto hidden-sm-and-down"></my-courses> -->
 
-            <p class="caption font-weight-bold pt-2 text-xs-center hidden-sm-and-down" v-if="isShowPurchased" v-language:inner="'documentPage_credit_uploader'"></p>
+            <!-- <p class="caption font-weight-bold pt-2 text-xs-center hidden-sm-and-down" v-if="isShowPurchased" v-language:inner="'documentPage_credit_uploader'"></p> -->
 
-            <template v-if="$vuetify.breakpoint.smAndDown && !isVideo">
+            <!-- <template v-if="$vuetify.breakpoint.smAndDown && !isVideo">
                 <div class="aside-top-btn btn-lock" v-if="isShowPurchased && !isLoading" @click="accountUser? updatePurchaseConfirmation(true) : updateLoginDialogState(true)">
                     <span class="pa-4 font-weight-bold text-xs-center" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
                     <span class="white--text pa-4 font-weight-bold text-xs-center body-1" v-language:inner="'documentPage_unlock_btn'"></span>
@@ -23,15 +23,15 @@
                     <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
                     <span class="white--text font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
                 </a>
-            </template>
+            </template> -->
 
-            <v-progress-circular
+            <!-- <v-progress-circular
                 class="unlock_progress"
                 v-if="isLoading && !isPurchased"
                 indeterminate
                 color="#4452fc"
-            ></v-progress-circular>
-        </div>
+            ></v-progress-circular> -->
+        <!-- </div>  -->
         <div class="aside-top">
             <div class="pa-2 pb-2">            
                     <div class="table_td" v-if="isName">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="table_td" v-if="isCourse">
                         <div class="py-2 mr-2 font-weight-bold table_td_course" v-language:inner="'documentPage_table_course'"></div>
-                        <h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/note', query: {Course: getCourse} }">{{getCourse}}</router-link></h3>
+                        <h3 class="body-1 text-truncate align-switch-r"><router-link :to="{path: '/feed', query: {Course: getCourse} }">{{getCourse}}</router-link></h3>
                     </div>
 
                     <div class="table_td" v-if="isUniversity">
@@ -62,11 +62,11 @@ import { mapActions, mapGetters } from 'vuex';
 import asideDocumentTutors from './asideDocumentTutors.vue';
 import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import tutorResultCardOther from '../../../components/results/tutorCards/tutorResultCardOther/tutorResultCardOther.vue';
-import myCourses from '../../../font-icon/my-courses-image.svg';
+// import myCourses from '../../../font-icon/my-courses-image.svg';
 
 export default {
     components: {
-        myCourses,
+        // myCourses,
         tutorResultCardMobile,
         tutorResultCardOther,
         asideDocumentTutors
@@ -92,11 +92,8 @@ export default {
             if(routeStackLength > 1){
                 this.$router.back();
             }else{
-                this.$router.push({path: '/note'})
+                this.$router.push({path: '/feed'})
             }
-        },
-        goToNote(){
-            this.$router.push({path: '/note'});
         },
     },
     computed: {

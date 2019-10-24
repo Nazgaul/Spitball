@@ -131,6 +131,7 @@ namespace Cloudents.Web.Api
         /// Return relevant tutors base on user course - on specific course tab - feed
         /// </summary>
         /// <param name="course">The course name</param>
+        /// <param name="profile"></param>
         /// <param name="count">Number of tutor result</param>
         /// <param name="token"></param>
         /// <returns></returns>

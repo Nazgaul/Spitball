@@ -41,7 +41,7 @@ namespace Cloudents.Query
                     Views = s.Views,
                     Downloads = s.Downloads,
                     University = s.User.University.Name,
-                    Snippet = s.MetaContent,
+                    Snippet = s.Description ?? s.MetaContent,
                     Price = s.Price,
                     Vote = new VoteDto
                     {

@@ -152,9 +152,9 @@
           <v-list-tile-title class="subheading" v-language:inner>menuList_my_study_rooms</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-
+      
       <v-list-tile
-        v-if="fromIL"
+        v-if="!isFrymo"
         v-for="singleLang in languageChoisesAval"
         :key="singleLang.name"
         @click="changeLanguage(singleLang.id)"
@@ -167,7 +167,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile @click="startIntercom">
+      <v-list-tile @click="startIntercom" v-if="!isFrymo">
         <v-list-tile-action>
           <v-icon>sbf-feedbackNew</v-icon>
         </v-list-tile-action>
@@ -279,7 +279,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["unreadMessages", "accountUser", "getSchoolName"]),
+    ...mapGetters(["unreadMessages", "accountUser", "getSchoolName", 'isFrymo']),
     isMobile() {
       return this.$vuetify.breakpoint.width < 1024;
     },

@@ -1,5 +1,5 @@
 ﻿
-namespace Cloudents.Command.Command
+namespace Cloudents.Command.Command.Admin
 {
     public class UpdatePhoneCommand : ICommand
     {

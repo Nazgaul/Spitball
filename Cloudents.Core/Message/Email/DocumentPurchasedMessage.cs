@@ -10,22 +10,6 @@ namespace Cloudents.Core.Message.Email
             TransactionId = transactionId;
         }
 
-
         public Guid TransactionId { get; private set; }
     }
-
-    //public class AnswerAcceptedMessage : ISystemQueueMessage
-    //{
-    //    public AnswerAcceptedMessage(long questionId)
-    //    {
-    //        QuestionId = questionId;
-    //    }
-
-
-    //    public long QuestionId { get; private set; }
-    //}
-
-
-   
-
 }

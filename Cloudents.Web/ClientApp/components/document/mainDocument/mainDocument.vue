@@ -110,7 +110,6 @@
               <div class="doc-details">
                 <div class="doc-type" v-if="!isVideo">
                   <v-icon class="doc-type-icon">sbf-document-note</v-icon>
-                  <span class="doc-type-text">{{itemType}}</span>
                 </div>
                 <div class="doc-title">
                   <div class="text-truncate">{{courseName}}</div>
@@ -144,19 +143,22 @@
             color="#4452fc"/> -->
       </div>
       
-      <div style="margin: 0 auto;background:black" class="text-xs-center main-header-wrapper" v-if="isVideo && videoSrc">
-        <sbVideoPlayer 
-            @videoEnded="showAfterVideo = true"
-            :id="`${document.details.id}`"
-            :height="videoHeight" 
-            :width="videoWidth" 
-            style="margin: 0 auto" 
-            :isResponsive="true" 
-            :src="videoSrc"
-            :title="courseName"
-            :poster="`${document.preview.poster}?width=${videoWidth}&height=${videoHeight}&mode=crop&anchorPosition=bottom`"
-        />
-      </div>
+      <template  v-if="isVideo && videoSrc">
+        <div style="margin: 0 auto;background:black" class="text-xs-center main-header-wrapper mb-4">
+          <sbVideoPlayer 
+              @videoEnded="showAfterVideo = true"
+              :id="`${document.details.id}`"
+              :height="videoHeight" 
+              :width="videoWidth" 
+              style="margin: 0 auto" 
+              :isResponsive="true" 
+              :src="videoSrc"
+              :title="courseName"
+              :poster="`${document.preview.poster}?width=${videoWidth}&height=${videoHeight}&mode=crop&anchorPosition=bottom`"
+          />
+        </div>
+        <tutor-result-card-carousel v-if="$vuetify.breakpoint.smAndDown" :courseName="courseType" />
+      </template>
       
       <div v-else>
         <div class="text-xs-center" v-for="(page, index) in docPreview" :key="index">
@@ -168,7 +170,6 @@
             :src-placeholder="isObserver(page)"
             :alt="document.content"
           />
-
           <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" :courseName="courseType" />
         </div>
       </div>
@@ -201,7 +202,7 @@
         target="_blank"
         @click="downloadDoc"
         :class="{'mt-2': !isShowPurchased, 'v-hidden': isShowVideo && !isVideo}"
-        v-if="!isShowPurchased && !isLoading && !isSmAndDown && accountUser"
+        v-if="!isShowPurchased && !isLoading && accountUser"
       >
         <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
         <span
@@ -764,6 +765,15 @@ export default {
       &.v-hidden{
         visibility: visible;
       }
+      @media (max-width: @screen-sm) {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        text-align: center;
+        border-radius: 0;
+        margin: 0;
+      }
     }
   }
 }
@@ -812,7 +822,7 @@ export default {
       }
       .doc-details {
         display: flex;
-        flex-direction: column;
+        // flex-direction: column;
         justify-content: center;
         align-items: center;
 
@@ -836,7 +846,10 @@ export default {
           text-align: center;
           font-size: 16px;
           font-weight: 600;
-          max-width: 400px;
+          // max-width: 400px;
+          div {
+            max-width: 200px;
+          }
         }
       }
       .purchase-actions {
