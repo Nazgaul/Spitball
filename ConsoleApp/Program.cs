@@ -29,6 +29,7 @@ using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Dapper;
 using Microsoft.WindowsAzure.Storage.Queue;
+using Cloudents.Query.Query;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -54,6 +55,7 @@ namespace ConsoleApp
                     {
                         SiteEndPoint = { SpitballSite = "https://dev.spitball.co" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
+                        ConfigurationManager.ConnectionStrings["ReadDb"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"]),
                         MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                         Search = new SearchServiceCredentials(
@@ -71,6 +73,7 @@ namespace ConsoleApp
                     {
                         SiteEndPoint = { SpitballSite = "https://www.spitball.co" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBoxProd"].ConnectionString,
+                        ConfigurationManager.ConnectionStrings["ReadDbProd"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"]),
                         MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                         Search = new SearchServiceCredentials(
@@ -492,10 +495,22 @@ namespace ConsoleApp
 
         private static async Task HadarMethod()
         {
-            var queryBus = _container.Resolve<IQueryBus>();
+            var _ = _container.Resolve<IUnitOfWork>();
+            //var dapper = _container.Resolve<DapperRepository>();
+            //using (var conn = dapper.OpenConnection())
+            //{
+            //    var t = await conn.QueryAsync("select * from sb.[User]");
 
-            var query = new CalendarEventsQuery(161755L, new DateTime(2019, 9, 16, 17, 0, 0), new DateTime(2019, 9, 22, 17, 0, 0));
-            var t = await queryBus.QueryAsync(query, default);
+            //}
+            //var queryBus = _container.Resolve<IQueryBus>();
+            //var query = new UserProfileAboutQuery(159039);
+            //var t = await queryBus.QueryAsync(query, default);
+            
+            // var repo = _container.Resolve<IRegularUserRepository>();
+            // var test = await repo.GetUserByEmailAsync("hadar@cloudents.com", default);
+
+            //var query = new CalendarEventsQuery(161755L, new DateTime(2019, 9, 16, 17, 0, 0), new DateTime(2019, 9, 22, 17, 0, 0));
+            //var t = await queryBus.QueryAsync(query, default);
             //await PopulateUsersImageName();
             //await commandBus.DispatchAsync(command2, default);
             //var deleteCommand = new SessionReconnectedCommand(id);
