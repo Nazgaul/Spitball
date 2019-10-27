@@ -4,6 +4,7 @@
       text-center
       wrap
     >
+    <div class="text-test white--text"> fdsw fsdkla nfjkasd fsd</div>
       <v-flex xs12>
         <v-img
           :src="require('../assets/logo.svg')"
@@ -140,3 +141,11 @@ export default {
   }),
 };
 </script>
+
+<style lang="css">
+.text-test {
+  width: 100%;
+  background: blue;
+  text-align: left;
+}
+</style>
