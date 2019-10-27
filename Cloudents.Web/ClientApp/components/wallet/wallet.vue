@@ -26,8 +26,7 @@
                             <template slot="items" slot-scope="props">
                                 <td class="text-xs-left">{{ props.item.name }}</td>
                                 <td class="text-xs-left">{{ props.item.points | currencyLocalyFilter}}</td>
-                                <td class="text-xs-left bold" :style="props.item.value < 0 ? `direction:ltr;` : ''">
-                                    <span v-language:inner>wallet_currency</span>{{ props.item.value | dollarVal }}</td>
+                                <td class="text-xs-left bold" :style="props.item.value < 0 ? `direction:ltr;` : ''">{{ props.item.value }}</td>
                             </template>
                         </v-data-table>
                     </v-flex>
