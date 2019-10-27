@@ -117,16 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="cookie_toaster_action" xml:space="preserve">
-    <value>הבנתי</value>
-  </data>
-  <data name="cookie_toaster_text" xml:space="preserve">
-    <value>אתר אינטרנט זה נעזר בקבצי "עוגיות" כדי להבטיח לך חוויה מיטבית</value>
-  </data>
-  <data name="currency_dynamic" xml:space="preserve">
-    <value>נק'</value>
-  </data>
-  <data name="payme_toaster_text" xml:space="preserve">
-    <value>לחץ כאן להכניס פרטי כרטיס אשראי</value>
+  <data name="email_support" xml:space="preserve">
+    <value>just</value>
   </data>
 </root>
