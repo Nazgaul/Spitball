@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
+using Cloudents.Query.Email;
 using Cloudents.Query.Query;
 using Cloudents.Query.Tutor;
 using FluentAssertions;
@@ -232,6 +233,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await fixture.QueryBus.QueryAsync(query, default);
 
            
+        }
+
+        [Fact]
+        public async Task GetUpdatesEmailUsersQuery_Ok()
+        {
+            var query = new GetUpdatesEmailUsersQuery(DateTime.UtcNow.AddDays(-1), 0);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+
         }
     }
 }
