@@ -1,20 +1,25 @@
 <template>
+  <div class="hd-cont">
   <v-layout
-    class="landing-headelien-headlineStatus-container"
+    class="landing-headelien-headlineStatus-container px-2"
     align-center
     justify-space-between
     row
     wrap
   >
-    <span v-language:inner="'landingPage_main_stats_sources'"></span>
+    <span><b>233,254</b> <span>Study resources</span></span>
+    <!-- <span v-language:inner="'landingPage_main_stats_sources'"></span> -->
     <v-flex class="landing-headelien-headlineStatus-stars">
       <span v-language:inner="'landingPage_main_stats_reviews_presents'"></span>
       <FindTutorStarsRating :stars="5"/>
       <span v-language:inner="'landingPage_main_stats_reviews'"></span>
     </v-flex>
-    <span v-language:inner="'landingPage_main_stats_courses'"></span>
-    <span v-language:inner="'landingPage_main_stats_tutors'"></span>
+    <span><b>1,450</b> <span>Teachers</span></span>
+    <!-- <span v-language:inner="'landingPage_main_stats_courses'"></span> -->
+    <span><b>255,345</b> <span>Students</span></span>
+    <!-- <span v-language:inner="'landingPage_main_stats_tutors'"></span> -->
   </v-layout>
+  </div>
 </template>
 
 <script>
@@ -29,46 +34,50 @@ export default {
 
 <style lang="less">
 @import "../../../../styles/mixin.less";
-
-.landing-headelien-headlineStatus-container {
-  height: 120px;
-  padding: 0 258px;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
-  background-color: #ffffff;
-  span {
-    font-size: 22px;
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.87);
-  }
-  .landing-headelien-headlineStatus-stars {
-    display: flex;
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: auto;
-
+.hd-cont{
+  width: 100%;
+  height: 62px;
+  background-color: rgba(0, 0, 0, 0.6); 
+  display: flex;
+  .landing-headelien-headlineStatus-container {
+      margin: 0 auto;
+      max-width: calc(100% - 644px);
+    span {
+      font-size: 18px;
+      font-weight: normal;
+      color: white;
+    }
+    .landing-headelien-headlineStatus-stars {
+      display: flex;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: auto;
+  
+      @media (max-width: @screen-sm) {
+  
+        span {
+          display: block;
+        }
+      }
+    }
+    @media (max-width: 1400px) {
+      padding: 0 150px;
+    }
+    @media (max-width: @screen-md) {
+      padding: 0 100px;
+    }
+    @media (max-width: @screen-mds) {
+      padding: 0 50px;
+    }
     @media (max-width: @screen-sm) {
-
+      padding: 0 25px;
+            justify-content: center;
       span {
-        display: block;
+        display: none;
+  
       }
     }
   }
-  @media (max-width: 1400px) {
-    padding: 0 150px;
-  }
-  @media (max-width: @screen-md) {
-    padding: 0 100px;
-  }
-  @media (max-width: @screen-mds) {
-    padding: 0 50px;
-  }
-  @media (max-width: @screen-sm) {
-    padding: 0 25px;
-          justify-content: center;
-    span {
-      display: none;
 
-    }
-  }
 }
 </style>
