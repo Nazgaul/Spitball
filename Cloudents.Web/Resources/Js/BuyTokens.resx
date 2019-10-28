@@ -132,9 +132,6 @@
   <data name="choose" xml:space="preserve">
     <value>Choose</value>
   </data>
-  <data name="currency" xml:space="preserve">
-    <value>$</value>
-  </data>
   <data name="earn_answer" xml:space="preserve">
     <value>Provide correct answers</value>
   </data>
@@ -166,10 +163,10 @@
     <value>Pts</value>
   </data>
   <data name="secure_payment" xml:space="preserve">
-    <value> Secure Payment with </value>
+    <value>Purchase {1} Points</value>
   </data>
   <data name="success_transaction" xml:space="preserve">
-    <value>Purchase Success!</value>
+    <value>Your purchase was processed successfully</value>
   </data>
   <data name="upload" xml:space="preserve">
     <value>Upload</value>

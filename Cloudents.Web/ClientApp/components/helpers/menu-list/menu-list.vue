@@ -152,9 +152,9 @@
           <v-list-tile-title class="subheading" v-language:inner>menuList_my_study_rooms</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-
+      
       <v-list-tile
-        v-if="fromIL"
+        v-if="!isFrymo"
         v-for="singleLang in languageChoisesAval"
         :key="singleLang.name"
         @click="changeLanguage(singleLang.id)"
@@ -167,7 +167,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile @click="startIntercom">
+      <v-list-tile @click="startIntercom" v-if="!isFrymo">
         <v-list-tile-action>
           <v-icon>sbf-feedbackNew</v-icon>
         </v-list-tile-action>
@@ -193,39 +193,13 @@
           <v-list-tile-title class="subheading" v-language:inner>menuList_referral_spitball</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile :to="{name:'about'}">
-        <v-list-tile-action>
-          <v-icon>sbf-about</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_about_spitball</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
 
-      <v-list-tile :to="{name:'faq'}">
+      <v-list-tile v-for="link in satelliteLinks" :key="link.title">
         <v-list-tile-action>
-          <v-icon>sbf-help</v-icon>
+          <v-icon>{{link.icon}}</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_help</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-
-      <v-list-tile :to="{name:'terms'}">
-        <v-list-tile-action>
-          <v-icon>sbf-terms</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_terms_of_service</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-
-      <v-list-tile :to="{name:'privacy'}">
-        <v-list-tile-action>
-          <v-icon>sbf-privacy</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_privacy_policy</v-list-tile-title>
+          <a :href="link.url" class="v-list__tile__title subheading">{{link.title}}</a>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
@@ -254,7 +228,8 @@ import userBlock from "../user-block/user-block.vue";
 import sbDialog from "../../wrappers/sb-dialog/sb-dialog.vue";
 import referralDialog from "../../question/helpers/referralDialog/referral-dialog.vue";
 import languagesLocales from "../../../services/language/localeLanguage";
-import { LanguageChange } from "../../../services/language/languageService";
+import { LanguageChange, LanguageService } from "../../../services/language/languageService";
+import satelliteService from '../../../services/satelliteService';
 import Base62 from "base62";
 
 export default {
@@ -267,7 +242,30 @@ export default {
       showReferral: false,
       languagesLocales,
       languageChoisesAval: [],
-      fromIL: global.country.toLowerCase() === "il"
+      fromIL: global.country.toLowerCase() === "il",
+      satelliteLinks:[
+        {
+             title: LanguageService.getValueByKey('menuList_about_spitball'), 
+             icon: 'sbf-about',
+             url: satelliteService.getSatelliteUrlByName('about')
+         },
+         {
+             title: LanguageService.getValueByKey('menuList_help'),
+             icon: 'sbf-help',
+             url: satelliteService.getSatelliteUrlByName('faq')
+         },
+         {
+             title: LanguageService.getValueByKey('menuList_terms_of_service'),
+             icon: 'sbf-terms',
+             url: satelliteService.getSatelliteUrlByName('terms') 
+         },
+         {
+             title: LanguageService.getValueByKey('menuList_privacy_policy'),
+             icon: 'sbf-privacy',
+             url: satelliteService.getSatelliteUrlByName('privacy') 
+         },
+                    
+      ]
     };
   },
   props: {
@@ -281,7 +279,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["unreadMessages", "accountUser", "getSchoolName"]),
+    ...mapGetters(["unreadMessages", "accountUser", "getSchoolName", 'isFrymo']),
     isMobile() {
       return this.$vuetify.breakpoint.width < 1024;
     },

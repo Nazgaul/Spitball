@@ -48,17 +48,10 @@
             <sb-dialog :isPersistent="true"
                        :showDialog="newQuestionDialogSate"
                        :popUpType="'newQuestion'"
-                       :max-width="'640px'"
+                       :max-width="'510px'"
                        :content-class="'question-request-dialog'">
                 <Add-Question></Add-Question>
             </sb-dialog>
-            <!-- <sb-dialog :isPersistent="true"
-                       :showDialog="getRequestTutorDialog"
-                       :popUpType="'tutorRequestDialog'"
-                       :max-width="'640px'"
-                       :content-class="'tutor-request-dialog'">
-                <tutor-request></tutor-request>
-            </sb-dialog> -->
               <sb-dialog :isPersistent="true"
                        :showDialog="getRequestTutorDialog"
                        :popUpType="'tutorRequestDialog'"
@@ -69,7 +62,7 @@
             <sb-dialog :showDialog="getDialogState"
                        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
                        :popUpType="'uploadDialog'"
-                       :maxWidth="'852'"
+                       :maxWidth="'716'"
                        :onclosefn="setUploadDialogState"
                        :activateOverlay="false"
                        :isPersistent="$vuetify.breakpoint.smAndUp"
@@ -88,16 +81,25 @@
                    :content-class="'become-tutor'">
             <become-tutor v-if="becomeTutorDialog"></become-tutor>
         </sb-dialog>
+        
+        <sb-dialog :showDialog="getShowBuyDialog"
+                    :popUpType="'buyTokens'"
+                    :content-class="'buy-tokens-popup'"
+                    :onclosefn="closeSblToken"
+                    maxWidth='840px'>
+            <buy-tokens popUpType="buyTokens"></buy-tokens>
+        </sb-dialog>
 
-            <sb-dialog :showDialog="getShowBuyDialog"
-                       :popUpType="'buyTokens'"
-                       :content-class="'buy-tokens-popup'"
-                       :onclosefn="closeSblToken"
-                       maxWidth='840px'>
-                <buy-tokens></buy-tokens>
-            </sb-dialog>
+        <sb-dialog
+          :isPersistent="true"
+          :showDialog="getShowPaymeDialog"
+          :popUpType="'payme'"
+          :content-class="'payme-popup'"
+          maxWidth='840px'>
+            <payment-dialog />
+        </sb-dialog>
 
-            <mobile-footer v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
+        <mobile-footer v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
                            :onStepChange="onFooterStepChange"></mobile-footer>
         </v-content>
         <v-snackbar absolute top :timeout="getToasterTimeout" :class="getShowToasterType" :value="getShowToaster">
@@ -111,7 +113,7 @@ import { mapGetters, mapActions } from "vuex";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
 import AddQuestion from "../question/askQuestion/askQuestion.vue";
-import uploadMultipleFiles from "../results/helpers/uploadMultipleFiles/uploadMultipleFiles.vue";
+import uploadMultipleFiles from '../uploadFilesDialog/uploadMultipleFiles.vue';
 import {  GetDictionary,  LanguageService} from "../../services/language/languageService";
 import walletService from "../../services/walletService";
 import reportItem from "../results/helpers/reportItem/reportItem.vue";
@@ -121,8 +123,8 @@ import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import chatComponent from "../chat/chat.vue";
 import becomeTutor from "../becomeTutor/becomeTutor.vue";
 import tutorList from "../helpers/tutorList/tutorList.vue";
-// import tutorRequest from '../tutorRequest/tutorRequest.vue';
 import tutorRequest from '../tutorRequestNEW/tutorRequest.vue';
+import paymentDialog from '../tutor/tutorHelpers/paymentDIalog/paymentDIalog.vue';
 
 export default {
   components: {
@@ -136,8 +138,9 @@ export default {
     uploadMultipleFiles,
     buyTokens,
     becomeTutor,
-        tutorList,
-        tutorRequest
+    tutorList,
+    tutorRequest,
+    paymentDialog
   },
   data() {
     return {
@@ -167,7 +170,9 @@ export default {
       "getShowBuyDialog",
       "getCurrentStep",
       "becomeTutorDialog",
-      "getRequestTutorDialog"
+      "getRequestTutorDialog",
+      "getShowPaymeDialog",
+
     ]),
     isMobile(){
       return this.$vuetify.breakpoint.smAndDown;
@@ -356,7 +361,7 @@ export default {
     if (failedTranscationId) {
       global.localStorage.removeItem("sb_transactionError");
       let transactionObjectError = {
-        id: failedTranscationId
+        points: failedTranscationId
       };
       this.tryBuyTokens(transactionObjectError);
     }

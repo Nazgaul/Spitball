@@ -14,38 +14,38 @@ const getters = {
 
 const mutations = {
     setThemeMode(state,val){
-        state.isDarkTheme = val
+        state.isDarkTheme = val;
     },
     setLang(state,lang){
-        state.currentLang = lang
+        state.currentLang = lang;
     },
     setCode(state,code){
-        state.code = code
+        state.code = code;
     }
 };
 
 const actions = {
     updateThemeMode({commit},val){
-        commit('setThemeMode',val)
+        commit('setThemeMode',val);
     },
     updateLang({getters,commit,dispatch},lang){
-        commit('setLang',lang)
+        commit('setLang',lang);
         if(getters['getCurrentRoomState'] === 'active'){
             let editorEvent = {
                 subject: 'codeEditor_lang',
                 val: lang
-            }
-            dispatch('sendEditorData', editorEvent)
+            };
+            dispatch('sendEditorData', editorEvent);
         }
     },
     updateCode({getters,commit, dispatch},code){
-        commit('setCode',code)
+        commit('setCode',code);
         if(getters['getCurrentRoomState'] === 'active'){
             let editorEvent = {
                 subject: 'codeEditor_code',
                 val: code
-            }
-            dispatch('sendEditorData', editorEvent)
+            };
+            dispatch('sendEditorData', editorEvent);
         }
     },
     sendEditorData(context, {subject, val}){

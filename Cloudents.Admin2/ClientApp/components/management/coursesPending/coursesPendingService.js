@@ -21,18 +21,25 @@ const getSubjects = function () {
     });
 };
 
-const getCourseList = function (language, state) {
-    return connectivityModule.http.get(`${path}newCourses?Language=${language}&State=${state}`).then((newCourseList) => {
-        let arrCourseList = [];
-        if (newCourseList.length > 0) {
-            newCourseList.forEach((ci) => {
-                arrCourseList.push(createCourseItem(ci));
-            });
-        }
-        return Promise.resolve(arrCourseList);
-    }, (err) => {
-        return Promise.reject(err);
-    });
+const getCourseList = function (language, state, filter) {
+    language = language === '' ? null : language;
+    let query = `?Language=${language}&State=${state}`;
+
+    if(filter){
+        query += `&Filter=${filter}`;
+    }
+        return connectivityModule.http.get(`${path}newCourses${query}`).then((newCourseList) => {
+            let arrCourseList = [];
+            if (newCourseList.length > 0) {
+                newCourseList.forEach((ci) => {
+                    arrCourseList.push(createCourseItem(ci));
+                });
+            }
+            return Promise.resolve(arrCourseList);
+        }, (err) => {
+            return Promise.reject(err);
+        });
+
 };
 
 const migrateCourses = function (newCourse, oldCourse) {

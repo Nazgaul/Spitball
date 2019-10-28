@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
-using Cloudents.Identity;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Http;
+using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Services
 {
@@ -15,18 +15,26 @@ namespace Cloudents.Web.Services
         private readonly IIpToLocation _ipToLocation;
         private readonly IHttpContextAccessor _httpContext;
         private readonly ILogger _logger;
+        private readonly ConfigurationService _configurationService;
 
-        public CountryProvider(IIpToLocation ipToLocation, IHttpContextAccessor httpContext, ILogger logger)
+        public CountryProvider(IIpToLocation ipToLocation, IHttpContextAccessor httpContext,
+            ILogger logger, ConfigurationService configurationService)
         {
             _ipToLocation = ipToLocation;
             _httpContext = httpContext;
             _logger = logger;
+            _configurationService = configurationService;
         }
 
         public async Task<string> GetUserCountryAsync(CancellationToken token)
         {
+            var site = _configurationService.GetSiteName();
+            if (site == ConfigurationService.Site.Frymo)
+            {
+                return "IN";
+            }
             var cookieValue = _httpContext.HttpContext.User.Claims.FirstOrDefault(f =>
-                string.Equals(f.Type, AppClaimsPrincipalFactory.Country.ToString(),
+                string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
                     StringComparison.OrdinalIgnoreCase))?.Value;
             if (cookieValue == null)
             {
@@ -44,10 +52,17 @@ namespace Cloudents.Web.Services
 
             if (cookieValue == null)
             {
+                try
+                {
 
-                var result = await _ipToLocation.GetAsync(_httpContext.HttpContext.Connection.GetIpAddress(),
-                    token);
-                cookieValue = result?.Address?.CountryCode;
+                    var result = await _ipToLocation.GetAsync(_httpContext.HttpContext.Connection.GetIpAddress(),
+                        token);
+                    cookieValue = result?.CountryCode;
+                }
+                catch (Exception e)
+                {
+                    _logger.Exception(e);
+                }
 
 
                 if (cookieValue == null)

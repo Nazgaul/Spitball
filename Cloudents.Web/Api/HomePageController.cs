@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+﻿using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Api
@@ -7,14 +7,20 @@ namespace Cloudents.Web.Api
     [Route("api/[controller]")]
     [ApiController]
     public class HomePageController : ControllerBase
-    { 
-      
+    {
+
+        private readonly ConfigurationService _versionService;
+
+        public HomePageController(ConfigurationService versionService)
+        {
+            _versionService = versionService;
+        }
 
         [HttpGet("version")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Version()
         {
-            return Ok(new { version = Assembly.GetExecutingAssembly().GetName().Version.ToString(4) });
+            return Ok(new { version = _versionService.GetVersion() });
         }
     }
 }

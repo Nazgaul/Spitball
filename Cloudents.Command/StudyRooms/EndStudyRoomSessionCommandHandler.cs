@@ -10,11 +10,9 @@ namespace Cloudents.Command.StudyRooms
     public class EndStudyRoomSessionCommandHandler : ICommandHandler<EndStudyRoomSessionCommand>
     {
         private readonly IRepository<StudyRoom> _studyRoomRepository;
-        private readonly IVideoProvider _videoProvider;
-        public EndStudyRoomSessionCommandHandler(IRepository<StudyRoom> studyRoomRepository, IVideoProvider videoProvider)
+        public EndStudyRoomSessionCommandHandler(IRepository<StudyRoom> studyRoomRepository)
         {
             _studyRoomRepository = studyRoomRepository;
-            _videoProvider = videoProvider;
         }
 
         public async Task ExecuteAsync(EndStudyRoomSessionCommand message, CancellationToken token)
@@ -25,11 +23,8 @@ namespace Cloudents.Command.StudyRooms
                 throw new ArgumentException();
             }
 
-            var session = room.Sessions.Last();
-            if (session.EndSession())
-            {
-                await _videoProvider.CloseRoomAsync(session.SessionId);
-            }
+            var session = room.GetCurrentSession();
+            session.EndSession();
 
         }
     }
@@ -48,7 +43,7 @@ namespace Cloudents.Command.StudyRooms
         {
             var room = await _studyRoomRepository.LoadAsync(message.StudyRoomId, token);
             var sessionEnded = room.Sessions.AsQueryable().FirstOrDefault(w => w.SessionId == message.StudyRoomSessionId);
-            
+
             sessionEnded?.EndSession();
 
         }

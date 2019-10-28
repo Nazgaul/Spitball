@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.Entities;
-using System;
 
 namespace Cloudents.Command.Command
 {

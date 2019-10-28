@@ -132,9 +132,6 @@
   <data name="QuestionNotExists" xml:space="preserve">
     <value>שאלה אינה קיימת</value>
   </data>
-  <data name="This question have correct answer" xml:space="preserve">
-    <value>לשאלה זו יש תשובה נכונה</value>
-  </data>
   <data name="VoteCantVote" xml:space="preserve">
     <value>לא ניתן להצביע בעד / נגד התשובה שלך</value>
   </data>

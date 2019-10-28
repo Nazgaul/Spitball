@@ -121,14 +121,14 @@
     <value>Google Chrome</value>
   </data>
   <data name="supported_firefox" xml:space="preserve">
-    <value>Mozilla Fierfox</value>
+    <value>Mozilla Firefox</value>
   </data>
   <data name="supported_safari" xml:space="preserve">
     <value>Safari</value>
   </data>
   <data name="supported_text" xml:space="preserve">
     <value>Your’e using a web browser that isn’t fully supported by Spitball.
-              To get a better experience go to one of these sites and get the latest version of your preffered browser</value>
+              To get a better experience go to one of these sites and get the latest version of your preferred browser</value>
   </data>
   <data name="unsupported_browser" xml:space="preserve">
     <value>Unsupported Browser</value>

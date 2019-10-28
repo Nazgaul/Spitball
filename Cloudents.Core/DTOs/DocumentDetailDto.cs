@@ -1,4 +1,5 @@
 ﻿using System;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
@@ -14,14 +15,12 @@ namespace Cloudents.Core.DTOs
 
         public string Course { get; set; }
 
-        public string Professor { get; set; }
 
         public TutorCardDto User { get; set; }
 
         public long UploaderId { get; set; }
         public string UploaderName { get; set; }
 
-        public string Type { get; set; }
 
         public int Pages { get; set; }
 
@@ -31,6 +30,7 @@ namespace Cloudents.Core.DTOs
 
         public bool IsPurchased { get; set; }
 
+        public DocumentType DocumentType { get; set; }
         
         //  public int PageCount { get; set; }
 

@@ -1,32 +1,24 @@
 ﻿const path = require("path");
 const webpack = require("webpack");
 const bundleOutputDir = "./wwwroot/dist";
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin-with-rtl");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const merge = require('webpack-merge');
-//const serverConfig = require("./webpack.config.server.js");
-var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
-//var t = require("./webpack.global.js");
-//const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
-//const CleanWebpackPlugin = require("clean-webpack-plugin");
-const WebpackRTLPlugin = require("webpack-rtl-plugin");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
+const webpackRtlPlugin = require("webpack-rtl-plugin");
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (env) => {
-    const isDevBuild = !(env && env.prod);
-    // This is the "main" file which should include all other modules
-    const sharedConfig = () => ({
-        // return [
-        // {
-        // entry: {
-        //     main: "./ClientApp/main.js"
+    
+    const isDevBuild =  !(env && env.prod);
+    const mode = isDevBuild ? 'development' : 'production';
 
-        // },
+    return {
         stats: { children: false },
         context: __dirname,
         module: {
-            loaders: [
+            
+            rules: [
                 {
                     test: /\.svg$/,
                     loader: "vue-svg-loader",
@@ -38,18 +30,17 @@ module.exports = (env) => {
                                 { removeComments: true },
                                 { removeTitle: true },
                                 { cleanupIDs: true },
-                                {convertPathData: false},
-                                {removeMetadata: true},
-                                {cleanupAttrs: false},
-                                {removeEditorsNSData: true},
-                                {removeEmptyAttrs: true },
-                                {convertTransform: false},
-                                {removeUnusedNS: true}
+                                { convertPathData: false },
+                                { removeMetadata: true },
+                                { cleanupAttrs: false },
+                                { removeEditorsNSData: true },
+                                { removeEmptyAttrs: true },
+                                { convertTransform: false },
+                                { removeUnusedNS: true }
 
                             ]
                         }
                     }
-
                 },
                 {
                     test: /\.(png|jpg|jpeg|gif)$/,
@@ -58,9 +49,6 @@ module.exports = (env) => {
                             loader: "url-loader",
                             options: {
                                 limit: 8192
-                                // useRelativePath: !isDevBuild,
-                                //publicPath: !isDevBuild ? 'cdnUrl' : '/dist/'
-
                             }
                         },
                         {
@@ -72,7 +60,7 @@ module.exports = (env) => {
                                 },
                                 mozjpeg: {
                                     progressive: true,
-                                    quality: 90
+                                    quality: 80
                                 }
                             }
                         }
@@ -80,88 +68,65 @@ module.exports = (env) => {
 
                 },
                 {
-                    test: /\.js$/,
+                    test: /\.m?js$/,
+                    exclude: /(node_modules)/,
                     loader: "babel-loader"
                 },
                 {
-                    test: /\.vue$/,
-                    loader: "vue-loader",
-                    options: {
-                        preserveWhitespace: isDevBuild ? true : false,
-                        loaders: {
-                            //css: isDevBuild
-                            //    ? "vue-style-loader!css-loader"
-                            //    : ExtractTextPlugin.extract({
-                            //        use: "css-loader?minimize",
-                            //        fallback: "vue-style-loader"
-                            //    }),
-                            //less: isDevBuild
-                            //    ? "vue-style-loader!css-loader!less-loader"
-                            //    : ExtractTextPlugin.extract({
-                            //        use: "css-loader?minimize!less-loader",
-                            //        fallback: "vue-style-loader"
-                            //    }),
-                            //scss: isDevBuild
-                            //    ? "vue-style-loader!css-loader!sass-loader"
-                            //    : ExtractTextPlugin.extract({
-                            //        use: "css-loader?minimize!sass-loader",
-                            //        fallback: "vue-style-loader"
-                            //    })
-
-                            //RTL support
-                            css: ExtractTextPlugin.extract({
-                                use: "css-loader",
-                                fallback: "vue-style-loader"
-                            }),
-                            less: ExtractTextPlugin.extract({
-                                use: "css-loader!less-loader",
-                                fallback: "vue-style-loader"
-                            }),
-                            scss: ExtractTextPlugin.extract({
-                                use: "css-loader!sass-loader",
-                                fallback: "vue-style-loader"
-                            })
-                        }
-                    }
+                    test: /\.vue$/,  loader: 'vue-loader',
                 },
                 {
-                    test: /\.css$/,
-                    use: isDevBuild
-                        ? ["style-loader", "css-loader"]
-                        : ExtractTextPlugin.extract({use: "css-loader"})
+                    test: /\.css(\?|$)/,
+                    use: 
+                        isDevBuild ? ['vue-style-loader','rtl-css-loader']
+                             :
+                        [MiniCssExtractPlugin.loader,'css-loader']
+                        //{
+                        //    loader: MiniCssExtractPlugin.loader,
+                        //    options: {
+                        //      // only enable hot in development
+                        //      hmr: isDevBuild,
+                        //      // if hmr does not work, this is a forceful method.
+                        //      reloadAll: true,
+                        //    },
+                        //  },
+                        //'style-loader', 'rtl-css-loader'
+                        //'css-loader'
+                    
+                },
+                {
+                    test: /\.less(\?|$)/,
+                    use:
+                        isDevBuild ? ['vue-style-loader', 'rtl-css-loader', 'less-loader']
+                        :
+                        [
+                            {
+                                loader: MiniCssExtractPlugin.loader,
+                                options: {
+                                    publicPath: '/dist/'
+                                }
+                            },
+                            {
+                                loader:'css-loader'
+                            },
+                            {
+                                loader:'less-loader'
+                            }
+                        ]
                 }
             ]
         },
-        plugins: [
-            new webpack.DefinePlugin({
-                'process.env': {
-                    NODE_ENV: JSON.stringify(isDevBuild ? "development" : "production")
-                }
-            })
-        ].concat(isDevBuild
-            ? [
-                new ExtractTextPlugin({
-                    filename: "site.[contenthash].css",
-                    allChunks: true
-                   
-                }),
-                new WebpackRTLPlugin({
-                    filename: 'site.[contenthash].rtl.css',
-                    minify: false
-                })
-            ]
-            : [
-                // Plugins that apply in production builds only
-               
-                new ExtractTextPlugin({filename: "site.[contenthash].css", allChunks: true}),
-                new WebpackRTLPlugin({
-                    filename: 'site.[contenthash].rtl.css',
-                    minify: false
-                }),
-                new OptimizeCssAssetsPlugin({
-                    //assetNameRegExp: /.css$/g,
-                    cssProcessor: require("cssnano"),
-                    cssProcessorOptions: {
+        devtool: false,
+        optimization: {
+            minimize: !isDevBuild,
+            minimizer: !isDevBuild ? [new TerserPlugin({
+
+
+            }), new OptimizeCssAssetsPlugin({
+                //assetNameRegExp: /.css$/g,
+                cssProcessor: require("cssnano"),
+                cssProcessorPluginOptions: {
+                    preset: ['default', {
                         discardComments: {
                             remove: function (comment) {
                                 return !comment.includes("rtl");
@@ -169,76 +134,63 @@ module.exports = (env) => {
                             removeAll: true
                         },
                         reduceIdents: false
-                    },
-                    canPrint: true
-                })
-                
-                //new PurifyCSSPlugin({
-                //    // Give paths to parse for rules. These should be absolute!
-                //    paths: glob.sync(path.join(__dirname, 'clientapp/**/*.vue')),
-                //    minimize: true,
-                //    purifyOptions: {
-                //        whitelist: ["spitball-*"]
-                //    }
-                //})
-            ])
-    });
+                    }]
 
-    const clientBundleConfig = merge(sharedConfig(), {
-        entry: { main: ["babel-polyfill", "./ClientApp/client.js"]},
-        output: {
-            path: path.join(__dirname, bundleOutputDir),
-            filename: isDevBuild ? "[name].js" : "[name].[chunkhash].js",
-            publicPath: "/dist/"
+                    //discardComments: {
+                    //    remove: function(comment) {
+                    //        return !comment.includes("rtl");
+                    //    },
+                    //    removeAll: true
+                    //},
+                    //reduceIdents: false
+                },
+                canPrint: true
+            })] : []
         },
         plugins: [
-            new StatsWriterPlugin({
-                filename: "main.json",
-                transform: function (data, opts) {
-                    return JSON.stringify(data.assetsByChunkName, null, 2);
+            new VueLoaderPlugin(),
+            new webpack.DefinePlugin({
+                'process.env': {
+                    NODE_ENV: JSON.stringify(isDevBuild ? 'development' : 'production')
                 }
             }),
             new webpack.DllReferencePlugin({
                 context: __dirname,
+                // ReSharper disable once JsPathNotFound
                 manifest: require("./wwwroot/dist/vendor-manifest.json")
-            }),
-            
+            })
         ].concat(isDevBuild
             ? [
-                // new BundleAnalyzerPlugin({
-                //     analyzerMode: 'disabled',
-                //     generateStatsFile: true,
-                //     statsOptions: { source: false }
-                // }),
                 new webpack.SourceMapDevToolPlugin({
                     filename: "[file].map", // Remove this line if you prefer inline source maps
                     moduleFilenameTemplate:
                         path.relative(bundleOutputDir,
                             "[resourcePath]") // Point sourcemap entries to the original file locations on disk
                 })
+            ]
+            : [
+             
+                new MiniCssExtractPlugin({
+                    filename: "site.[contenthash].css",
+                    rtlEnabled: true,
+                    ignoreOrder: true,
+                    
+                    // allChunks: true
 
-            ] :
-            [
-                new webpack.optimize.UglifyJsPlugin({
-                    compress: {
-                        warnings: false,
-                        drop_console: true
-                    }
+                }),
+                new webpackRtlPlugin({
+                    minify: false
                 })
-                //new webpack.optimize.UglifyJsPlugin({
-                //    compress: {
-                //     //   dead_code: true,
-                //        drop_debugger :true,
-                //        //warnings: false,
-                //        drop_console: true,
-                //        //pure_funcs: ['console.log','console.trace']
-                //    }
-                //}),
-            ])
+            ]),
+        mode: mode,
+        entry: { main: ["@babel/polyfill", "./ClientApp/client.js"] },
+       
+        
+        output: {
+            path: path.join(__dirname, bundleOutputDir),
+            publicPath: 'dist/',
+            filename: isDevBuild ? "[name].js" : "[name].[chunkhash].js",
+        }
 
-    });
-
-   
-
-    return [clientBundleConfig];
-}
+    };
+};

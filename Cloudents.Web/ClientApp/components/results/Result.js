@@ -78,7 +78,7 @@ export default {
 
     computed: {
         //get data from vuex getters
-        ...mapGetters(['isFirst', 'myCourses', 'getDialogState', 'getFilters', 'getVerticalData', 'accountUser', 'getShowQuestionToaster', 'getSchoolName']),
+        ...mapGetters(['isFirst', 'myCourses', 'getDialogState', 'getFilters', 'accountUser', 'getShowQuestionToaster', 'getSchoolName']),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items: 'getSearchItems'}),
         showSelectUni() {
             let schoolName = this.getSchoolName;
@@ -175,13 +175,12 @@ export default {
             'cleanData',
             'updateFilters',
             'updateLoginDialogState',
-            'updateUserProfileData',
             'updateNewQuestionDialogState',
             'updateDialogState',
             'nextPage'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "INJECT_QUESTION"]),
-        ...mapGetters(["getCurrentVertical", "getNextPageUrl", "getResultLockForSchoolNameChange"]),
+        ...mapGetters(["getNextPageUrl", "getResultLockForSchoolNameChange"]),
 
         loadNewQuestions() {
             this.INJECT_QUESTION();
@@ -190,8 +189,6 @@ export default {
         goToAskQuestion() {
             if (this.accountUser == null) {
                 this.updateLoginDialogState(true);
-                //user profile update
-                this.updateUserProfileData('profileHWH');
             } else {
                 //ab test original do not delete
                 this.updateNewQuestionDialogState(true);

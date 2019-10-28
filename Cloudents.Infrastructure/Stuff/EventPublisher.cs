@@ -25,17 +25,14 @@ namespace Cloudents.Infrastructure.Stuff
             var handlerCollectionType = typeof(IEnumerable<>).MakeGenericType(handlerType);
 
             
-            var tasks = new List<Task>();
             using (var child = _container.BeginLifetimeScope())
             {
                 if (child.Resolve(handlerCollectionType) is IEnumerable eventHandlers)
                     foreach (dynamic handler in eventHandlers)
                     {
-                        var t = handler.HandleAsync((dynamic) eventMessage, token);
-                        tasks.Add(t);
+                       await handler.HandleAsync((dynamic) eventMessage, token);
                     }
 
-                await Task.WhenAll(tasks);
             }
         }
     }

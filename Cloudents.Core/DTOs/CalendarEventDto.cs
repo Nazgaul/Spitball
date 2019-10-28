@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.DTOs
@@ -7,13 +8,13 @@ namespace Cloudents.Core.DTOs
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto")]
     public class CalendarEventDto
     {
-        public CalendarEventDto(DateTime @from, DateTime to)
+        public CalendarEventDto( IEnumerable<DateTime> busySlot)
         {
-            From = @from;
-            To = to;
+            BusySlot = busySlot;
         }
 
-        public DateTime From { get;  }
-        public DateTime To { get;  }
+
+        public IEnumerable<DateTime> BusySlot { get;  }
+
     }
 }

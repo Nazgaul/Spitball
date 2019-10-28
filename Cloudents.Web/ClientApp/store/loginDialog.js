@@ -1,6 +1,6 @@
 
 const state = {
-    loginDialogState: false,
+    loginDialogState: false
 };
 const mutations = {
     setLoginDialogState(state, data) {

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.IO;
+﻿using System.Collections.Concurrent;
+using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Web.Services
 {
@@ -20,50 +17,140 @@ namespace Cloudents.Web.Services
             _environment = environment;
         }
 
-        public WebPackBundle GetTag(string chunk)
+
+        public WebPackBundle GetVendorTag()
         {
-            if (!_environment.IsDevelopment() && _tags.TryGetValue(chunk, out var webPack))
+            if (!_environment.IsDevelopment() && _tags.TryGetValue("vendor", out var webPack))
             {
                 return webPack;
             }
-            var t = _provider.GetFileInfo($"wwwroot/dist/{chunk}.json");
-            if (!t.Exists)
+
+            var content = _provider.GetDirectoryContents("wwwroot/dist");
+
+            var files = content.Where(w => w.Name.StartsWith("vendor")).OrderByDescending(o => o.LastModified).ToList();
+
+
+            var webPackBundle = new WebPackBundle();
+            webPackBundle.Js = files.FirstOrDefault(f => f.Name.EndsWith("js"))?.Name;
+            webPackBundle.Css = files.FirstOrDefault(f => f.Name.EndsWith("css") && !f.Name.EndsWith("rtl.css"))?.Name;
+            webPackBundle.RtlCss = files.FirstOrDefault(f => f.Name.EndsWith("rtl.css"))?.Name;
+
+            _tags.AddOrUpdate("vendor", webPackBundle, (_, existingValue) => existingValue);
+            return webPackBundle;
+            //var t = _provider.GetFileInfo($"wwwroot/dist/{chunk}.json");
+            //if (!t.Exists)
+            //{
+            //    return new WebPackBundle();
+            //}
+            //using (var stream = t.CreateReadStream())
+            //{
+            //    using (var sr = new StreamReader(stream))
+            //    {
+            //        using (var reader = new JsonTextReader(sr))
+            //        {
+            //            var obj = JObject.Load(reader);
+
+            //            var webPackBundle = new WebPackBundle();
+            //            var chunk2 = obj[chunk];
+            //            if (chunk2.Type == JTokenType.Array)
+            //            {
+
+            //            }
+
+            //            foreach (var file in chunk2.Values<string>())
+            //            {
+            //                if (file.EndsWith("js", StringComparison.OrdinalIgnoreCase))
+            //                {
+            //                    webPackBundle.Js = file;
+            //                    continue;
+            //                }
+
+            //                if (file.EndsWith("rtl.css", StringComparison.OrdinalIgnoreCase))
+            //                {
+            //                    webPackBundle.RtlCss = file;
+            //                    continue;
+
+            //                }
+            //                if (file.EndsWith("css", StringComparison.OrdinalIgnoreCase))
+            //                {
+            //                    webPackBundle.Css = file;
+            //                }
+            //            }
+            //            _tags.AddOrUpdate(chunk, webPackBundle, (_, existingValue) => existingValue);
+            //            return webPackBundle;
+            //        }
+            //    }
+            //}
+        }
+
+
+        public WebPackBundle GetClientTag(bool isRtl)
+        {
+
+            const string chunk = "main";
+
+            if (!_environment.IsDevelopment() && _tags.TryGetValue($"{chunk}{isRtl}", out var webPack))
             {
-                return new WebPackBundle();
+                return webPack;
             }
-            using (var stream = t.CreateReadStream())
-            {
-                using (var sr = new StreamReader(stream))
-                {
-                    using (var reader = new JsonTextReader(sr))
-                    {
-                        var obj = JObject.Load(reader);
 
-                        var webPackBundle = new WebPackBundle();
-                        foreach (var file in obj[chunk].Values<string>())
-                        {
-                            if (file.EndsWith("js", StringComparison.OrdinalIgnoreCase))
-                            {
-                                webPackBundle.Js = file;
-                                continue;
-                            }
+            //var prefixDirectory = isRtl ? "rtl" : "ltr";
+            var content = _provider.GetDirectoryContents($"wwwroot/dist/");
 
-                            if (file.EndsWith("rtl.css", StringComparison.OrdinalIgnoreCase))
-                            {
-                                webPackBundle.RtlCss = file;
-                                continue;
+            var files = content.Where(w => w.Name.StartsWith(chunk)).OrderByDescending(o => o.LastModified).ToList();
 
-                            }
-                            if (file.EndsWith("css", StringComparison.OrdinalIgnoreCase))
-                            {
-                                webPackBundle.Css = file;
-                            }
-                        }
-                        _tags.AddOrUpdate(chunk, webPackBundle, (_, existingValue) => existingValue);
-                        return webPackBundle;
-                    }
-                }
-            }
+
+            var webPackBundle = new WebPackBundle();
+            webPackBundle.Js = $"{files.First(f => f.Name.EndsWith("js"))?.Name}";
+            //webPackBundle.Css = files.FirstOrDefault(f => f.Name.EndsWith("css") && !f.Name.EndsWith("rtl.css"))?.Name; 
+            //webPackBundle.RtlCss = files.FirstOrDefault(f => f.Name.EndsWith("rtl.css"))?.Name; ;
+
+            _tags.AddOrUpdate($"{chunk}{isRtl}", webPackBundle, (_, existingValue) => existingValue);
+            return webPackBundle;
+            //var t = _provider.GetFileInfo($"wwwroot/dist/{chunk}.json");
+            //if (!t.Exists)
+            //{
+            //    return new WebPackBundle();
+            //}
+            //using (var stream = t.CreateReadStream())
+            //{
+            //    using (var sr = new StreamReader(stream))
+            //    {
+            //        using (var reader = new JsonTextReader(sr))
+            //        {
+            //            var obj = JObject.Load(reader);
+
+            //            var webPackBundle = new WebPackBundle();
+            //            var chunk2 = obj[chunk];
+            //            if (chunk2.Type == JTokenType.Array)
+            //            {
+
+            //            }
+
+            //            foreach (var file in chunk2.Values<string>())
+            //            {
+            //                if (file.EndsWith("js", StringComparison.OrdinalIgnoreCase))
+            //                {
+            //                    webPackBundle.Js = file;
+            //                    continue;
+            //                }
+
+            //                if (file.EndsWith("rtl.css", StringComparison.OrdinalIgnoreCase))
+            //                {
+            //                    webPackBundle.RtlCss = file;
+            //                    continue;
+
+            //                }
+            //                if (file.EndsWith("css", StringComparison.OrdinalIgnoreCase))
+            //                {
+            //                    webPackBundle.Css = file;
+            //                }
+            //            }
+            //            _tags.AddOrUpdate(chunk, webPackBundle, (_, existingValue) => existingValue);
+            //            return webPackBundle;
+            //        }
+            //    }
+            //}
         }
     }
 

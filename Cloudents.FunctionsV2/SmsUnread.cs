@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
@@ -22,7 +23,7 @@ namespace Cloudents.FunctionsV2
     public static class SmsUnread
     {
         [FunctionName("SmsUnread")]
-        public static async Task SmsUnreadAsync([TimerTrigger("0 */10 5-18 * * *", RunOnStartup = true)]TimerInfo myTimer,
+        public static async Task SmsUnreadAsync([TimerTrigger("0 */10 5-18 * * *")]TimerInfo myTimer,
             [Blob("spitball/chat/unread.txt")]CloudBlockBlob blob,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
             [Inject] IQueryBus queryBus,

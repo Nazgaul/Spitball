@@ -10,18 +10,6 @@
             <div class="full-width-flex">
                 <div>
                     <user-block class="q-user-block" :cardData="cardData" :user="cardData.user"></user-block>
-                    <div class="answer-body-container">
-            <span class="answer-raputation upvote-arrow" @click.prevent="upvoteAnswer()">
-              <v-icon :class="{'voted': cardData.upvoted}">sbf-arrow-up</v-icon>
-            </span>
-                        <span
-                                class="answer-raputation answer-score"
-                                :dir="isRtl ? `ltr` : ''"
-                        >{{cardData.votes}}</span>
-                        <span class="answer-raputation downvote-arrow" @click.prevent="downvoteAnswer()">
-              <v-icon :class="{'voted': cardData.downvoted}">sbf-arrow-down</v-icon>
-            </span>
-                    </div>
                 </div>
 
                 <div class="full-width-flex" :class="{'column-direction': gallery && gallery.length}">
@@ -31,22 +19,10 @@
                             <div class="text">
                                 <div class="answer-header-left-container">
                                     <span class="user-date" v-language:inner>questionCard_Answer</span>
-                                    <user-rank
-                                            style="margin-top: 1px; margin-left: 12px; margin-right: 8px;"
-                                            :score="cardData.user.score"
-                                    ></user-rank>
-                                    <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span>
-                                    <span v-if="typeAnswer" class="q-answer">
-                    <button
-                            class="accept-btn right"
-                            @click="markAsCorrect"
-                            v-if="showApproveButton && !flaggedAsCorrect && !hasAnswer">
-                        <v-icon>sbf-check-circle</v-icon>
-                      <span v-language:inner>questionCard_Accept</span>
-                    </button>
-                  </span>                                    <span class="choosen-answer right" v-if="flaggedAsCorrect">
-                    <v-icon>sbf-check-circle</v-icon>
-                  </span>
+                                    <span class="timeago ml-2" :datetime="cardData.dateTime||cardData.create">{{date}}</span>
+                                    <span class="choosen-answer right" v-if="flaggedAsCorrect">
+                                        <v-icon>sbf-check-circle</v-icon>
+                                    </span>
                                 </div>
                                 <v-spacer></v-spacer>
                                 <div class="menu-area">

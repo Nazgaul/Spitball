@@ -145,7 +145,7 @@
     <value>Please let me know what kind of help you need and I’ll be happy to help you.</value>
   </data>
   <data name="file_error" xml:space="preserve">
-    <value>File is not supported</value>
+    <value>This file type is not supported</value>
   </data>
   <data name="photo" xml:space="preserve">
     <value>Photo</value>

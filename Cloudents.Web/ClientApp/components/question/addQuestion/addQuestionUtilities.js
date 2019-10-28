@@ -4,7 +4,7 @@ function errorObj(hasError,message){
 };
 
 function createErrorObj(hasError,message){
-    return new errorObj(hasError,message)
+    return new errorObj(hasError,message);
 }
 
 export default{

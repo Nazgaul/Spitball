@@ -15,7 +15,7 @@
                     <span v-language:inner="isSafari? 'tutor_browser_not':'tutor_start_to_share'"/>
                 </v-tooltip>
             </div>
-            <button class="outline-btn-share" v-else @click="stopSharing" :disabled="!localVideoTrack">
+            <button class="outline-btn-share" v-else @click="stopSharing" :disabled="!localVideoTrack && !activeRoom">
                 <span v-language:inner="'tutor_btn_stop_sharing'"></span>
             </button>
         </v-flex>
@@ -54,11 +54,11 @@
 
 <script>
     import { mapActions, mapGetters, mapState } from "vuex";
-    import { createLocalVideoTrack } from "twilio-video";
     import videoService from "../../../services/videoStreamService";
     import castIcon from "../images/cast.svg";
     import insightService from '../../../services/insightService';
     import store from '../../../store/index.js';
+    import { LanguageService } from "../../../services/language/languageService.js";
     export default {
         name: "shareScreenBtn",
         components: {castIcon},
@@ -74,8 +74,8 @@
             };
         },
         computed: {
-            ...mapState(['tutoringMain']),
-            ...mapGetters(["activeRoom", "accountUser", "getStudyRoomData", "getCurrentRoomState", "getLocalVideoTrack"]),
+            ...mapState(['tutoringMain', 'studyRoomTracks_store']),
+            ...mapGetters(["activeRoom", "accountUser", "getStudyRoomData", "getCurrentRoomState", "getLocalVideoTrack","activeRoom"]),
             localVideoTrack(){
                 return this.getLocalVideoTrack
             },
@@ -92,7 +92,7 @@
             }
         },
         methods: {
-            ...mapActions(["updateToasterParams"]),
+            ...mapActions(["updateToasterParams", 'changeVideoTrack', 'setIsVideoActive']),
             ...mapState(["Toaster"]),
             reloadPage() {
                 global.reloadPage();
@@ -107,6 +107,7 @@
                             this.accountUserID
                             }`
                     });
+                    this.setIsVideoActive(true);
                 }
             },
             unPublishTrackfromRoom(track) {
@@ -135,7 +136,7 @@
                         }
                         if(error === "notBrowser") {
                             self.updateToasterParams({
-                                toasterText: "Browser not supported",
+                                toasterText: LanguageService.getValueByKey("studyRoom_not_browser"),
                                 showToaster: true,
                                 toasterType: "error-toaster" //c
                             });
@@ -146,7 +147,7 @@
                             return;
                         }
                         self.updateToasterParams({
-                                                     toasterText: "Error sharing screen",
+                                                     toasterText: LanguageService.getValueByKey("studyRoom_not_screen"),
                                                      showToaster: true,
                                                      toasterType: "error-toaster" //c
                                                  });
@@ -157,23 +158,12 @@
                 );
             },
             stopSharing() {
-                let self = this;
-                self.unPublishTrackfromRoom(self.screenShareTrack);
-                //create new video track
-                createLocalVideoTrack()
-                    .then(
-                        videoTrack => {
-                            store.dispatch('setLocalVideoTrack', videoTrack);
-                            self.publishTrackToRoom(videoTrack);
-                        },
-                        error => {
-                            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_ShareScreenBtn_createLocalVideoTrack', error, null);
-                            console.error("error creating video track", error);
-                        }
-                    )
-                    .finally(() => {
-                        self.isSharing = false;
-                    });
+                if(this.screenShareTrack){
+                    this.screenShareTrack.stop();
+                }
+                let videoDeviceId = global.localStorage.getItem(this.studyRoomTracks_store.storageENUM.video);
+                this.changeVideoTrack(videoDeviceId);
+                this.isSharing = false;
             }
         },
         created() {
@@ -199,8 +189,7 @@
             /*color: #ffffff;*/
             .cast-icon {
                 fill: #2d2d2d;
-                height: 18px;
-                margin-right: 4px /*rtl:ignore*/;
+                margin-right: 4px;
             }
             &[disabled]{
                 color: lighten(#2d2d2d, 40%);

@@ -2,53 +2,11 @@ import accountService from "../services/accountService";
 import { debug } from "util";
 import { dollarCalculate } from "./constants";
 import analyticsService from '../services/analytics.service';
-import profileService from "../services/profile/profileService";
 import reputationService from '../services/reputationService';
 import initSignalRService from '../services/signalR/signalrEventService';
 import insightService from '../services/insightService';
-
-
-function setIntercomSettings(data) {
-    let app_id = "njmpgayv";
-    let hide_default_launcher = global.innerWidth < 600 ? true : intercomSettings.hide_default_launcher;
-    let user_id = null;
-    let user_name = null;
-    let user_email = null;
-    let user_phoneNumber = null;
-    let alignment = global.isRtl ? 'left' : 'right';
-
-    if(!!data) {
-        user_id = "Sb_" + data.id;
-        user_name = data.name;
-        user_email = data.email;
-        user_phoneNumber = data.phoneNumber;
-    }
-    global.intercomSettings = {
-        app_id,
-        hide_default_launcher,
-        user_id,
-        name: user_name,
-        email: user_email,
-        phoneNumber: user_phoneNumber,
-        alignment: alignment,
-        language_override: global.lang
-    };
-
-    global.Intercom('boot', {intercomSettings});
-}
-
-function removeIntercomeData() {
-    global.Intercom('shutdown');
-}
-
-function setIntercomeData(data) {
-    //do not set intercome setting for mobile because no intercome should be on mobile case 10850
-    // if(global.innerWidth > 600){
-    //     setIntercomSettings(data)
-    // }
-    setIntercomSettings(data);
-}
-
+import { LanguageService } from '../services/language/languageService';
+import intercomeService from '../services/intercomService';
 
 const state = {
     login: false,
@@ -56,7 +14,6 @@ const state = {
     unreadMessages: 0,
     fromPath: null,
     lastActiveRoute: null,
-    profileData: profileService.getProfileData('profileGeneral'),
     profile: null,
     usersReferred: 0,
     showEditDataDialog: false,
@@ -123,9 +80,6 @@ const mutations = {
     },
     setLastActiveRoute(state, val) {
         state.lastActiveRoute = val;
-    },
-    UPDATE_PROFILE_DATA(state, data) {
-        state.profileData = data;
     },
     updateProfileVote(state, {id, type}) {
         if(!!state.profile) {
@@ -227,7 +181,6 @@ const getters = {
         return state.user;
     },
     lastActiveRoute: state => state.lastActiveRoute,
-    getProfileData: state => state.profileData,
     getUniversity: state => {
         if(!!state.user && !!state.user.universityExists) {
             return true;
@@ -304,7 +257,6 @@ const actions = {
                 let p2 = accountService.getProfileAbout(id);
                 // return Promise.all([p1, p2]).then((vals) => {
                     return Promise.all([p2]).then((vals) => {
-                    console.log(vals);
                     let profileData = accountService.createProfileAbout(vals);
                     context.commit('setProfileAbout', profileData);
                 });
@@ -431,14 +383,8 @@ const actions = {
             return false;
         });
     },
-    updateUserProfileData(context, name) {
-        let currentProfile = profileService.getProfileData(name);
-        context.commit("UPDATE_PROFILE_DATA", currentProfile);
-
-    },
     logout({state, commit}) {
-        removeIntercomeData();
-        setIntercomeData();
+        intercomeService.IntercomSettings.reset();
         commit("logout");
         global.location.replace("/logout");
 
@@ -453,7 +399,7 @@ const actions = {
         }
         if(global.isAuth) {
             accountService.getAccount().then((userAccount) => {
-                setIntercomeData(userAccount);
+                intercomeService.IntercomSettings.set(userAccount);
                 commit("changeLoginStatus", true);
                 commit("updateUser", userAccount);
                 dispatch("syncUniData");
@@ -462,13 +408,12 @@ const actions = {
                 insightService.authenticate.set(userAccount.id);
                 initSignalRService();
             }, err=>{
-                setIntercomeData();
+                intercomeService.bootIntercom();
                 isRequire ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
             });
         } else {
-            removeIntercomeData();
-            setIntercomeData();
+            intercomeService.IntercomSettings.reset();
         }
     },
     saveCurrentPathOnPageChange({commit}, {currentRoute}) {
@@ -480,8 +425,15 @@ const actions = {
         //commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)});
     },
 
-    signalR_SetBalance({commit, state}, newBalance) {
+    signalR_SetBalance({commit, state, dispatch}, newBalance) {
         commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)});
+        dispatch('updatePaymentDialogState',false);
+        dispatch('updateShowBuyDialog', false);
+        dispatch('updateToasterParams', {
+            toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
+            showToaster: true,
+            toasterTimeout: 5000
+        });
     },
     profileVote({commit}, data) {
         commit('updateProfileVote', data);

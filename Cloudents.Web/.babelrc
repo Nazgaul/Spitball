@@ -1,8 +1,9 @@
 ﻿{
-  "presets": [ "env", "es2015" ],
+  "presets": [ "@babel/preset-env" ],
   "plugins": [
     "syntax-dynamic-import",
     "transform-object-rest-spread",
+    "@babel/plugin-transform-runtime",
     [
       "transform-imports",
       {

@@ -4,8 +4,8 @@
       <v-toolbar-title class="white--text">Send a message</v-toolbar-title>
     </v-toolbar>
 
-    <v-text-field v-model="studentId" label="Student Id" :class="{'px-4': isDialog}"></v-text-field>
-    <v-text-field v-model="tutorId" label="Tutor Id" :class="{'px-4': isDialog}">></v-text-field>
+    <v-text-field :rules="[rules.integer]" v-model="studentId" label="Student Id" :class="{'px-4': isDialog}"></v-text-field>
+    <v-text-field :rules="[rules.integer]" v-model="tutorId" label="Tutor Id" :class="{'px-4': isDialog}">></v-text-field>
     <v-text-field v-model="textMessage" label="text" :class="{'px-4': isDialog}">></v-text-field>
     <v-btn :disabled="disable" @click="submit()">Send</v-btn>
 
@@ -32,6 +32,12 @@ export default {
       snackbar: false,
       text: "",
       textMessage:"",
+      rules: {
+        integer: (value) =>{
+        return Number.isInteger(+value) || 'Numbers Only'
+    },
+      }
+      
     };
   },
   methods: {

@@ -6,13 +6,11 @@
 
 <script>
     import regularHeader from "../../header/header.vue"
-    import {mapGetters} from 'vuex'
     export default {
         components: {regularHeader},
         computed:{
-            ...mapGetters(['getCurrentVertical']),
             myTab(){
-                return this.getCurrentVertical || 'ask'
+                return 'ask'
             }
         }
     }

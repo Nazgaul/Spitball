@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -7,15 +8,18 @@ namespace Cloudents.Web.Models
         public string Code { get; set; }
     }
 
-    //public class SetCalendarRequest
-    //{
-    //    public string Calendar { get; set; }
-    //}
+    public class SetCalendarRequest
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+    }
 
     public class CalendarEventRequest
     {
-        public DateTime From { get; set; }
-        public DateTime To { get; set; }
+        [Required]
+        public DateTime? From { get; set; }
+        [Required]
+        public DateTime? To { get; set; }
 
         public long TutorId { get; set; }
     }

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Event;
@@ -30,8 +29,7 @@ namespace Cloudents.Core.EventHandler
                 DateTime = eventMessage.Document.TimeStamp.UpdateTime,
                 ItemId =  eventMessage.Document.Id,
                 Name = eventMessage.Document.Name,
-                TagsArray = eventMessage.Document.Tags.Select(s => s.Name.ToUpperInvariant()).ToArray(),
-                Type = eventMessage.Document.Type
+                Type = eventMessage.Document.DocumentType.GetValueOrDefault()
             };
             return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, true), token);
         }

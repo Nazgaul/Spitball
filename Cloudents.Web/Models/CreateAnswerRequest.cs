@@ -12,8 +12,8 @@ namespace Cloudents.Web.Models
         [StringLength(Answer.MaxLength,MinimumLength = Answer.MinLength,ErrorMessage = "StringLength")]
         public string Text { get; set; }
 
-        [MaxLength(4,ErrorMessage = "MaxLength")]
-        public string[] Files { get; set; }
+        //[MaxLength(4,ErrorMessage = "MaxLength")]
+        //public string[] Files { get; set; }
        
 
     }

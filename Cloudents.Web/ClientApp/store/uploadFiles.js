@@ -19,14 +19,9 @@ const mutations = {
             file.price = price;
         });
     },
-    updateDocTypeToAll(state, docType){
+    updateCourseToAll(state, course){
         state.fileData.forEach(file=>{
-            file.type = docType;
-        });
-    },
-    updateDocProfessorAll(state, prof){
-        state.fileData.forEach(file=>{
-            file.professor = prof;
+            file.course = course.text;
         });
     },
     updateFileByIndex(state, fileObj){
@@ -72,10 +67,11 @@ const mutations = {
 
 };
 const getters = {
-    getFileData: (state) => state.fileData,
+    getFileData: (state) => state.fileData.sort((a, b)=> b.error-a.error),
     getDialogState: (state) => state.showDialog,
     getCustomFileName: (state) => state.customFileName,
-    getReturnToUpload: (state) => state.returnToUpload
+    getReturnToUpload: (state) => state.returnToUpload,
+    getIsValid: (state) => state.fileData.some(file=>(file.course))
 };
 const actions = {
     deleteFileByIndex({commit}, index){
@@ -102,14 +98,6 @@ const actions = {
     stopUploadProgress({commit}, val) {
         commit('setUploadProgress', val);
     },
-    askQuestion({commit, dispatch}, val) {
-        //close upload
-        commit('setDialogUploadState', val);
-        //and open new question
-        setTimeout(() => {
-            dispatch('updateNewQuestionDialogState', true);
-        }, 300);
-    },
     updateDialogState({commit}, val) {
         commit('setDialogUploadState', val);
     },
@@ -119,11 +107,8 @@ const actions = {
     setAllPrice({commit}, price){
         commit('updatePriceToAll', price);
     },
-    setAllDocType({commit}, docType){
-        commit('updateDocTypeToAll', docType);
-    },
-    setAllProfessor({commit}, prof){
-        commit('updateDocProfessorAll', prof);
+    setAllCourse({commit}, course){
+        commit('updateCourseToAll', course);
     },
     setCourse({commit}, course){
         commit('updateCourse', course);

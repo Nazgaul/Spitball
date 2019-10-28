@@ -141,7 +141,7 @@ const mutations = {
         state.lock_selectedClass = val;
     },
     setSearchedCourse(state,val){
-        state.searchedCourse = val
+        state.searchedCourse = val;
     }
 };
 

@@ -127,6 +127,6 @@
     <value>מספר טלפון זה משוויך למשתמש אחר</value>
   </data>
   <data name="RequestTutorChatMessage" xml:space="preserve">
-    <value>היי, התלמיד רוצה לתאם איתך שיעור פרטי בנושא {0}. איזה חומר לשתף איתך על הנושא?</value>
+    <value>היי, אני רוצה לתאם איתך שיעור פרטי בנושא {0}, {1} .איזה חומר לשתף איתך?</value>
   </data>
 </root>

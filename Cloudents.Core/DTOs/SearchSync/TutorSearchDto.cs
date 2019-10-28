@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Cloudents.Core.Enum;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.DTOs.SearchSync
 {
@@ -20,17 +18,20 @@ namespace Cloudents.Core.DTOs.SearchSync
         }
 
         public int ReviewsCount { get; set; } 
-        public byte[] Version { get; set; } 
         public IEnumerable<string> Courses { get; set; } 
         public IEnumerable<string> Subjects { get; set; }
         public string Country { get; set; }
+        [SuppressMessage("ReSharper", "InconsistentNaming",Justification = "Database value")]
         public long SYS_CHANGE_VERSION { get; set; }
 
         public string University { get; set; }
         public int LessonsCount { get; set; }
         public long Id { get; set; }
+        [SuppressMessage("ReSharper", "InconsistentNaming",Justification = "Database value")] 
         public string SYS_CHANGE_OPERATION { get; set; }
-        public ItemState State { get; set; }
-        public long VersionAsLong => BitConverter.ToInt64(Version.Reverse().ToArray(), 0);
+
+        public double OverAllRating { get; set; }
+       // public ItemState State { get; set; }
+        //public long VersionAsLong => BitConverter.ToInt64(Version.Reverse().ToArray(), 0);
     }
 }

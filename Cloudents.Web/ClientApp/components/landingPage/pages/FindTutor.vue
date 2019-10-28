@@ -55,10 +55,10 @@ export default {
         let query = location.search;
         if(!!isLoggedIn){
           let forceReload = '';
-          if(from.path === `/ask` && from.fullPath === '/ask'){
+          if(from.path === `/feed` && from.fullPath === '/feed'){
             forceReload = '?reloaded='
           }
-          let nextRout = isLogoClicked ? `/ask${forceReload}` : `/ask${query}`;
+          let nextRout = isLogoClicked ? `/feed${forceReload}` : `/feed${query}`;
           next(nextRout);
         }else{
             next();

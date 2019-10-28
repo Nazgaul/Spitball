@@ -21,18 +21,18 @@ function createPaymentRequestItem(objInit) {
 }
 
 const subsidizingPrice = function(price) {
-    if (price < 55)
-    {
-        return price;
-    }
+    // if (price < 55)
+    // {
+    //     return price;
+    // }
 
-    var subsidizingPrice = price - 70;
-    if (subsidizingPrice < 55)
-    {
-        return 55;
-    }
+    // var subsidizingPrice = price - 70;
+    // if (subsidizingPrice < 55)
+    // {
+    //     return 55;
+    // }
 
-    return subsidizingPrice;
+    return price;
 }
 
 const path = 'AdminPayment/';
@@ -54,7 +54,7 @@ const getPaymentRequests = function () {
 
 const approvePayment = function (item,spitballPay) {
     return connectivityModule.http.post(`${path}`, {
-       studentPay : item.subsidizing,
+       studentPay : item.price,
        spitballPay: spitballPay,
        userId: item.userId,
        tutorId: item.tutorId,

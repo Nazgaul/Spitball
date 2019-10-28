@@ -121,7 +121,7 @@
     <value>Answer</value>
   </data>
   <data name="answer_not_found" xml:space="preserve">
-    <value>We didn’t find an answer to your question</value>
+    <value>We didn't find an answer to your question</value>
   </data>
   <data name="different_keywords" xml:space="preserve">
     <value>Try different keywords.</value>

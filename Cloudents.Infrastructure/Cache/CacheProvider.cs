@@ -3,55 +3,91 @@ using System.Collections;
 using System.Collections.Generic;
 using CacheManager.Core;
 using Cloudents.Core.Interfaces;
+using StackExchange.Redis;
 
 namespace Cloudents.Infrastructure.Cache
 {
-    public class CacheProvider : ICacheProvider
+    public sealed class CacheProvider : ICacheProvider, IDisposable
     {
-        private readonly ICacheManager<object> _cache;
+        private ICacheManager<object> _distributedCache;
+        private ICacheManager<object> _inMemory;
         private readonly ILogger _logger;
         private bool _distributedEnabled = true;
+        readonly ConnectionMultiplexer _multiplexer;
+
+        private bool _failedInit;
 
         public CacheProvider(IConfigurationKeys keys, ILogger logger)
         {
             _logger = logger;
-            
-            var multiplexer = StackExchange.Redis.ConnectionMultiplexer.Connect(keys.Redis);
+        
+            _multiplexer = ConnectionMultiplexer.Connect(keys.Redis);
 
-            multiplexer.ConnectionFailed += (sender, args) =>
+            _multiplexer.ConnectionFailed += (sender, args) =>
             {
                 _distributedEnabled = false;
 
                 //Console.WriteLine("Connection failed, disabling redis...");
             };
 
-            multiplexer.ConnectionRestored += (sender, args) =>
+            _multiplexer.ConnectionRestored += (sender, args) =>
             {
                 _distributedEnabled = true;
 
                 //Console.WriteLine("Connection restored, redis is back...");
             };
-
-            _cache = CacheFactory.Build(
+            _inMemory = CacheFactory.Build(
                 s => s
-                    .WithJsonSerializer()
-                    .WithDictionaryHandle()
-                    //.WithExpiration(ExpirationMode.Absolute, TimeSpan.FromSeconds(5))
-                    .And
-                    .WithRedisConfiguration("redis", multiplexer)
-                    .WithRedisCacheHandle("redis"));
+                    .WithDictionaryHandle());
+            TryReconnect();
+        }
 
-            _cache = CacheFactory.Build(settings =>
+        private void TryReconnect()
+        {
+            //try
+            //{
+            //sb-dev.redis.cache.windows.net:6380,password=SggEokcdmQnaS5RFkkl5js4nV0LLXjvXEypeEEFCAo8=,ssl=True,abortConnect=False
+            //sb-dev2.redis.cache.windows.net:6380,password=SggEokcdmQnaS5RFkkl5js4nV0LLXjvXEypeEEFCAo8=,ssl=True,abortConnect=False
+           
+            try
             {
-                var key = keys.Redis;
-                settings
-                    .WithRedisConfiguration("redis", key)
-                    .WithJsonSerializer()
-                    .WithMaxRetries(1000)
-                    .WithRetryTimeout(100)
-                    .WithRedisBackplane("redis")
-                    .WithRedisCacheHandle("redis");
-            });
+                _distributedCache = CacheFactory.Build(
+                    s => s
+                        .WithJsonSerializer()
+                        .WithDictionaryHandle()
+                        .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromSeconds(5))
+                        .And
+                        .WithRedisConfiguration("redis", _multiplexer)
+                        .WithRedisCacheHandle("redis"));
+                _failedInit = false;
+            }
+            catch (InvalidOperationException e)
+            {
+                _failedInit = true;
+                _distributedEnabled = false;
+                _logger.Exception(e);
+            }
+
+          
+            // .WithExpiration(ExpirationMode.Sliding, TimeSpan.FromSeconds(5)));
+
+            //_cache = CacheFactory.Build(settings =>
+            //{
+            //    var key = keys.Redis;
+            //    settings
+            //        .WithRedisConfiguration("redis", key)
+            //        .WithJsonSerializer()
+            //        .WithMaxRetries(1000)
+            //        .WithRetryTimeout(100)
+            //        .WithRedisBackplane("redis")
+            //        .WithRedisCacheHandle("redis");
+            //});
+            //}
+            //catch (Exception e)
+            //{
+            // _distributedEnabled = false;
+            //_logger.Exception(e);
+            //}
         }
 
         //public CacheProvider(ICacheManager<object> cache, ILogger logger)
@@ -60,50 +96,56 @@ namespace Cloudents.Infrastructure.Cache
         //    _logger = logger;
         //}
 
+        private ICacheManager<object> Cache
+        {
+            get
+            {
+                if (_failedInit)
+                {
+                    TryReconnect();
+                }
+                if (_distributedEnabled)
+                {
+                    Console.WriteLine("distributed");
+                    return _distributedCache;
+                }
+
+                Console.WriteLine("Memory");
+                return _inMemory;
+            }
+        }
+
+
         public object Get(string key, string region)
         {
-            if (_distributedEnabled)
+            try
             {
-                try
+                return Cache.Get(key, region);
+            }
+            catch (Exception ex)
+            {
+                _logger.Exception(ex, new Dictionary<string, string>
                 {
-                    return _cache.Get(key, region);
-                }
-                catch (Exception ex)
-                {
-                    _logger.Exception(ex, new Dictionary<string, string>
-                    {
-                        ["Service"] = nameof(Cache),
-                        ["Key"] = key,
-                        ["Region"] = region
-                    });
-                    _cache.Remove(key, region);
-                    return null;
-                }
+                    ["Service"] = nameof(Infrastructure.Cache),
+                    ["Key"] = key,
+                    ["Region"] = region
+                });
             }
 
             return null;
         }
 
-        public T Get<T>(string key, string region)
-        {
-            if (_distributedEnabled)
-            {
-                return _cache.Get<T>(key, region);
-            }
-
-            return default;
-        }
-
         public bool Exists(string key, string region)
         {
-            if (_distributedEnabled)
-                return _cache.Exists(key, region);
-            return false;
+
+            return Cache.Exists(key, region);
+
         }
 
         public void Set(string key, string region, object value, int expire, bool slideExpiration)
         {
-            if (_distributedEnabled)
+
+            try
             {
                 var obj = ConvertEnumerableToList(value);
                 if (obj == null)
@@ -114,8 +156,19 @@ namespace Cloudents.Infrastructure.Cache
                 var cacheItem = new CacheItem<object>(key, region, obj,
                     slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
                     TimeSpan.FromSeconds(expire));
-                _cache.Put(cacheItem);
+                Cache.Put(cacheItem);
             }
+            catch (Exception e)
+            {
+                _logger.Exception(e, new Dictionary<string, string>
+                {
+                    ["Service"] = nameof(Infrastructure.Cache),
+                    ["Key"] = key,
+                    ["Region"] = region,
+                    ["Value"] = value.ToString()
+                });
+            }
+
 
             //return obj;
         }
@@ -133,7 +186,7 @@ namespace Cloudents.Infrastructure.Cache
         //        var cacheItem = new CacheItem<T>(key, region, value,
         //            slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
         //            TimeSpan.FromSeconds(expire));
-                
+
         //        _cache.Put(cacheItem);
         //    }
 
@@ -142,18 +195,18 @@ namespace Cloudents.Infrastructure.Cache
 
         public void DeleteRegion(string region)
         {
-            if (_distributedEnabled)
-            {
-                _cache.ClearRegion(region);
-            }
+            // if (_distributedEnabled)
+            //{
+            Cache.ClearRegion(region);
+            //}
         }
 
         public void DeleteKey(string region, string key)
         {
-            if (_distributedEnabled)
-            {
-                _cache.Remove(key, region);
-            }
+            // if (_distributedEnabled)
+            // {
+            Cache.Remove(key, region);
+            // }
         }
 
         /// <summary>
@@ -183,6 +236,13 @@ namespace Cloudents.Infrastructure.Cache
                 return instance;
             }
             return val;
+        }
+
+        public void Dispose()
+        {
+            _distributedCache?.Dispose();
+            _inMemory?.Dispose();
+            _multiplexer?.Dispose();
         }
     }
 }

@@ -25,18 +25,15 @@
                       v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
                       class="face-icon mr-2"
                     >sbf-face-icon</v-icon>
-                    <h1 v-line-clamp:22="'1'"
-                      class="subheading font-weight-bold"
+                    <h1 
+                      class="subheading font-weight-bold lineClamp"
                       :style="[{wordBreak: 'break-all'},{maxWidth: $vuetify.breakpoint.xsOnly? '180px':'inherit'}]"
-                    >{{userName}}</h1>
+                    >{{userName}}sdfsdf sdfsdfsdf sdfs fsdf sdfsdf sdfkljsdklfjskdlfj skldjfkls djflksd jflkjsdlk fjsdklf</h1>
                     <v-icon
                       @click="openEditInfo()"
                       v-if="$vuetify.breakpoint.xsOnly && isMyProfile"
                       class="edit-profile-action ml-2 "
                     >sbf-edit-icon</v-icon>
-                  </div>
-                  <div class="d-flex align-start" v-if="$vuetify.breakpoint.smAndUp">
-                    <userRank v-if="!isTutorProfile" class="ml-2 mt-1" :score="userScore"></userRank>
                   </div>
                 </div>
                 <h2
@@ -45,7 +42,7 @@
               </v-flex>
               <div class="tutor-price mr-3">
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
-                  ₪{{showStriked ? discountedPrice : tutorPrice}}
+                  {{isDiscount ? isDiscount : tutorPrice}}
                   <span class="tutor-price small-text">
                     /
                     <span v-language:inner>profile_points_hour</span>
@@ -58,12 +55,10 @@
                   >sbf-edit-icon</v-icon>
                 </span>
               </div>
-              <div v-if="showStriked && $vuetify.breakpoint.smAndUp" class="tutor-price strike-through mr-3">
+              <div v-if="isDiscount && $vuetify.breakpoint.smAndUp" class="tutor-price strike-through mr-3">
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
-                  ₪{{tutorPrice}}
-                  <span class="tutor-price small-text">
-                    /
-                    <span v-language:inner>profile_points_hour</span>
+                 {{tutorPrice}}
+                  <span class="tutor-price small-text">/<span v-language:inner>profile_points_hour</span>
                   </span>
                 </span>
               </div>
@@ -78,9 +73,8 @@
             class="tutor-price text-xs-center"
             v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
           >
-            <span class="subheading">₪</span>
             <span class="tutor-price">
-              {{showStriked ? discountedPrice : tutorPrice}}
+              {{isDiscount ? isDiscount : tutorPrice}}
               <span class="tutor-price small-text">
                 <span>/</span>
                 <span v-language:inner>profile_points_hour</span>
@@ -95,7 +89,6 @@
             class="tutor-price strike-through text-xs-center"
             v-if="$vuetify.breakpoint.xsOnly && isTutorProfile && showStriked"
           >
-            <span class="subheading">₪</span>
             <span class="tutor-price">
               {{tutorPrice}}
               <span class="tutor-price small-text">
@@ -130,7 +123,6 @@
 import { mapGetters, mapActions } from "vuex";
 import userImage from "./bioParts/userImage/userImage.vue";
 import userAboutMessage from "./bioParts/userAboutMessage.vue";
-import userRank from "../../../helpers/UserRank/UserRank.vue";
 import userInfoEdit from "../../profileHelpers/userInfoEdit/userInfoEdit.vue";
 import tutorInfoEdit from "../../profileHelpers/userInfoEdit/tutorInfoEdit.vue";
 import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
@@ -139,7 +131,6 @@ export default {
   components: {
     userImage,
     userAboutMessage,
-    userRank,
     userInfoEdit,
     tutorInfoEdit,
     sbDialog
@@ -171,9 +162,12 @@ export default {
         this.getProfile.user &&
         this.getProfile.user.tutorData
       ) {
-        return this.getProfile.user.tutorData.price.toFixed(0);
+        return this.getProfile.user.tutorData.price;
       }
       return 0;
+    },
+    isDiscount() {
+      return this.getProfile && this.getProfile.user.tutorData.discountPrice ? this.getProfile.user.tutorData.discountPrice : null;
     },
     showStriked(){
       if(!this.getActivateTutorDiscounts) return false;
@@ -236,7 +230,6 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-family: @fontOpenSans;
     font-size: 18px;
     font-weight: bold;
     letter-spacing: -0.4px;
@@ -248,9 +241,11 @@ export default {
       font-size: 18px;
       color: @global-purple;
     }
+    .lineClamp{
+      .lineClamp()
+    }
   }
   .tutor-price {
-    font-family: @fontOpenSans;
     font-weight: bold;
     font-size: 20px;
     flex-shrink: 0;

@@ -45,6 +45,12 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<StudyRoomSession> Sessions => _sessions;
 
+
+        public virtual StudyRoomSession GetCurrentSession()
+        {
+            return Sessions.AsQueryable().SingleOrDefault(w => w.Ended == null);
+        }
+
         public virtual StudyRoomType? Type { get; protected set; }
 
         public virtual void AddSession(StudyRoomSession session)

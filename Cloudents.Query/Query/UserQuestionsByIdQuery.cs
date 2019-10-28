@@ -15,20 +15,6 @@ namespace Cloudents.Query.Query
         public int Page { get; }
     }
 
-    public class UserPurchaseDocumentByIdQuery : IQuery<IEnumerable<DocumentFeedDto>>
-    {
-        public UserPurchaseDocumentByIdQuery(long id, int page)
-        {
-            Id = id;
-            Page = page;
-        }
-
-        public long Id { get; }
-        public int Page { get; }
-    }
-
-   
-
 
     public class UserAnswersByIdQuery : UserDataPagingByIdQuery
     {

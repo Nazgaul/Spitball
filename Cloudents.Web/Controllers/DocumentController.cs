@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Query.Documents;
 using Cloudents.Web.Filters;
 
 namespace Cloudents.Web.Controllers
@@ -139,11 +140,15 @@ namespace Cloudents.Web.Controllers
             await Task.WhenAll(tItem, tFiles);
 
             var item = tItem.Result;
+           
             if (item == null)
             {
                 return NotFound();
             }
-
+            if (item.DocumentType == DocumentType.Video)
+            {
+                return Unauthorized();
+            }
             if (!item.IsPurchased)
             {
                 return Unauthorized();

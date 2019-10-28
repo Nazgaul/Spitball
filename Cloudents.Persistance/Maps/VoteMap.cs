@@ -19,12 +19,12 @@ namespace Cloudents.Persistence.Maps
             References(x => x.Document)
                 //.UniqueKey("uq_VotesUserDocument")
                 .Column("DocumentId").Nullable().ForeignKey("Votes_Document");
-            References(x => x.Answer)
-                //.UniqueKey("uq_VotesUserAnswer")
-                .Column("AnswerId").Nullable().ForeignKey("Votes_Answer");
-            References(x => x.Question)
-                //.UniqueKey("uq_VotesUserQuestion")
-                .Column("QuestionId").Nullable().ForeignKey("Votes_Question");
+            //References(x => x.Answer)
+            //    //.UniqueKey("uq_VotesUserAnswer")
+            //    .Column("AnswerId").Nullable().ForeignKey("Votes_Answer");
+            //References(x => x.Question)
+            //    //.UniqueKey("uq_VotesUserQuestion")
+            //    .Column("QuestionId").Nullable().ForeignKey("Votes_Question");
             Map(x => x.VoteType).CustomType<VoteType>().Not.Nullable();
             Component(x => x.TimeStamp);
 

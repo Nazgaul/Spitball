@@ -1,5 +1,5 @@
 <template>
-  <router-link class="tutor-result-card-mobile pa-2 ma-2 pr-4 justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+  <router-link class="tutor-result-card-mobile pa-2 ma-2 justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
       <div class="card-mobile-header mb-4">
         <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
               <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
@@ -11,7 +11,7 @@
               <template>
                   <div class="user-rate align-center" v-if="tutorData.reviews > 0">
                     <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="mr-2" />
-                    <span class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
+                    <span class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
                   </div>
                   <div class="user-rate align-center" v-else>
                     <star class="mr-2" />
@@ -35,16 +35,19 @@
 
       <div class="card-mobile-footer mt-2">
           <v-btn class="btn-chat white--text text-truncate my-0" round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
-                <iconChat class="chat-icon-btn"/>
-                <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
+                <iconChat class="chat-icon-btn" />
+                <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
-          <div class="price ml-4 align-center" >
-              <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
-              <template>
-                <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
-                <span v-else class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
-              </template>
-              <span class="caption" v-language:inner="'resultTutor_hour'"></span>
+          <div class="price ml-3 align-center" >
+              <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price}}</div>
+              <div class="price_oneline">
+                <template>
+                    <span v-if="tutorData.discountPrice" class="title font-weight-bold">{{tutorData.discountPrice}}</span>
+                    <span v-else class="title font-weight-bold">{{tutorData.price}}</span>
+                    <span>/</span>
+                </template>
+                <span class="caption" v-language:inner="'resultTutor_hour'"></span>
+              </div>
           </div>
       </div>
 
@@ -103,7 +106,7 @@ export default {
       }
     },
     onImageLoadError(event) {
-      event.target.src = "../../../images/placeholder-profile.png";
+      event.target.src = require("../../../images/placeholder-profile.png");
     },
     reviewsPlaceHolder(reviews) {
       return reviews === 0 ? reviews.toString() : reviews
@@ -150,7 +153,7 @@ export default {
           "crop"
         );
       } else {
-        return "../../../images/placeholder-profile.png";
+        return require("../../../images/placeholder-profile.png");
       }
     },
     showStriked() {
@@ -250,30 +253,35 @@ export default {
     .card-mobile-footer {
         display: inherit;
         .btn-chat {
+          font-weight: 600;
           .v-btn__content{
             .chat-icon-btn{
               position: absolute;
               top: 0;
-              left: 10px;
+              left: 0;
             }
           }
           position: relative;
-          .widthMinMax(220px);
           text-transform: inherit;
           border-radius: 7.5px;
           div {
             div {
-              padding-left: 10px;
+              padding-left: 22px;
             }
           }
         }
         .price {
           align-self: flex-end;
+          flex: .5;
+          .price_oneline {
+            display: flex;
+            align-items: flex-end;
+          }
           .striked {
               max-width: max-content;
               position: relative;
               color: @colorBlackNew;
-              font-size: 14px;
+              font-size: 12px;
               font-weight: normal;
               &:after {
                   content: "";

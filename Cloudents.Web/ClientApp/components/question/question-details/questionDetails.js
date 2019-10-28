@@ -1,26 +1,18 @@
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
-import questionService from "../../../services/questionService";
-import { mapGetters, mapMutations, mapActions } from 'vuex'
 import questionCard from "./../helpers/new-question-card/new-question-card.vue";
 import answerCard from "./../helpers/question-card/question-card.vue";
-import disableForm from "../../mixins/submitDisableMixin.js"
-import QuestionSuggestPopUp from "../../questionsSuggestPopUp/questionSuggestPopUp.vue";
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
-import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue'
-import { sendEventList } from '../../../services/signalR/signalREventSender'
-import { LanguageService } from "../../../services/language/languageService";
+import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue';
+import questionService from "../../../services/questionService";
+import disableForm from "../../mixins/submitDisableMixin.js";
 import analyticsService from '../../../services/analytics.service';
-import searchService from '../../../services/searchService'
-import newBaller from "../../helpers/newBaller/newBaller.vue";
-
-import homeworkHelpStore from '../../../store/homeworkHelp_store';
-import Question from "../../../store/question";
-import storeService from "../../../services/store/storeService";
+import { LanguageService } from "../../../services/language/languageService";
 
 export default {
     mixins: [disableForm],
-    components: {questionThread, questionCard, answerCard, extendedTextArea, QuestionSuggestPopUp, sbDialog, loginToAnswer, newBaller},
+    components: {questionThread, questionCard, answerCard, extendedTextArea, sbDialog, loginToAnswer},
     props: {
         id: {Number}, // got it from route
         questionId: {Number}
@@ -32,7 +24,6 @@ export default {
             errorDuplicatedAnswer:'',
             answerFiles: [],
             errorLength:{},
-            //questionData: null,
             cardList: [],
             showForm: false,
             showDialogSuggestQuestion: false,
@@ -44,7 +35,7 @@ export default {
     },
     beforeRouteLeave(to, from, next) {
         this.resetQuestion();
-        next()
+        next();
     },
     methods: {
         ...mapActions([
@@ -52,15 +43,13 @@ export default {
             "removeDeletedAnswer",
             "updateToasterParams",
             "updateLoginDialogState",
-            'updateUserProfileData',
             'setQuestion',
-            'updateNewBallerDialogState'
         ]),
         ...mapMutations({updateLoading: "UPDATE_LOADING", updateSearchLoading:'UPDATE_SEARCH_LOADING'}),
         ...mapGetters(["getQuestion"]),
         resetSearch(){
             this.updateSearchLoading(true);
-            this.$router.push({path:"/ask"})
+            this.$router.push({path:"/feed"});
         },
         submitAnswer() {
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
@@ -68,46 +57,40 @@ export default {
                     errorText: LanguageService.getValueByKey("questionDetails_error_minChar"),
                     errorClass: true
                 };
-                return
+                return;
             }
             if (!this.textAreaValue || this.textAreaValue.trim().length > 540) {
                 this.errorLength= {
                     errorText: LanguageService.getValueByKey("questionDetails_error_maxChar"),
                     errorClass: true
                 };
-                return
+                return;
             }
             this.updateLoading(true);
             var self = this;
             if(this.hasDuplicatiedAnswer(self.textAreaValue, self.questionData.answers)) {
                 console.log("duplicated answer detected");
                 this.errorDuplicatedAnswer = LanguageService.getValueByKey("questionDetails_error_duplicated");
-                return
+                return;
             }else{
                 this.errorDuplicatedAnswer = '';
             }
             if (self.submitForm()) {
                 this.removeDeletedAnswer();
                 self.textAreaValue = self.textAreaValue.trim();
-                questionService.answerQuestion(self.id, self.textAreaValue, self.answerFiles)
-                    .then(function (resp) {
-                        //self.$ga.event("Submit_answer", "Homwork help");
-                        analyticsService.sb_unitedEvent("Submit_answer", "Homwork help")
+
+                questionService.answerQuestion(self.id, self.textAreaValue)
+                    .then(function (resp) {                       
+                        analyticsService.sb_unitedEvent("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
-                        self.answerFiles = [];
                         self.updateLoading(false);
-                        if(!resp.data.nextQuestions){
-                            self.$data.submitted = false;
-                            return;
-                        };
-                        self.cardList = resp.data.nextQuestions.map(searchService.createQuestionItem);
                         //self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
-                        self.showDialogSuggestQuestion = true; // question suggest popup dialog
                     }, (error) => {
-                        self.errorHasAnswer = error.response.data["Text"] ? error.response.data["Text"][0] : '';
+                        console.log(error);
+                        // self.errorHasAnswer = error.response.data["Text"] ? error.response.data["Text"][0] : '';
                         self.submitForm(false);
                         self.updateLoading(true);
-                    })
+                    });
             }
         },
         hasDuplicatiedAnswer(currentText, answers){  
@@ -130,26 +113,15 @@ export default {
             this.$data.submitted = false;
             this.setQuestion(this.id).then(()=>{
                 if (updateViewer) {
-                    sendEventList.question.addViewr(this.questionData);
-                    this.cahceQuestion = {...this.questionData}
+                    this.cahceQuestion = {...this.questionData};
                 }
-            })
+            });
         },
-        openNewBaller(){
-            if(this.accountUser ){
-                let score = this.accountUser.score;
-                let supressed = global.localStorage.getItem("sb-newBaller-suppresed");
-                if(score < 150 && !supressed){
-                    this.updateNewBallerDialogState(true);
-                }
-            }
-        },
-        showAnswerField() {
+        showAnswerField() {            
             if (this.accountUser) {
                 this.showForm = true;
             }
             else {
-                this.updateUserProfileData('profileMakeMoney');
                 this.dialogType = '';
                 this.updateLoginDialogState(true);
             }
@@ -164,55 +136,31 @@ export default {
         '$route': 'getData'
     },
     computed: {
-        ...mapGetters(["accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState", "isCardOwner", "newBallerDialog",]),
+        ...mapGetters(["accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState", "isCardOwner"]),
         questionData(){
             return this.getQuestion();
         },
         errorTextArea(){
-                return this.errorLength
+                return this.errorLength;
         },
         cardOwner(){
-            return this.isCardOwner
+            return this.isCardOwner;
         },
         userNotAnswered() {
             this.isDeletedAnswer ? this.submitForm(false) : "";
             return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length || this.isDeletedAnswer);
         },
-        enableAnswer() {
-            let hasCorrectAnswer = !!this.questionData.correctAnswerId;
-            let val = !this.cardOwner && (!this.accountUser || this.userNotAnswered) && !hasCorrectAnswer;
-            this.showForm = (val && !this.questionData.answers.length);
-            return val;
-        },
-        removeViewer() {
-            sendEventList.question.removeViewer(this.cahceQuestion);
-        },
     },
-    beforeDestroy(){
-        // storeService.unregisterModule(this.$store, 'Question', Question);
-    },
-    created() {
-        // storeService.registerModule(this.$store, 'Question', Question);
-        storeService.lazyRegisterModule(this.$store, 'homeworkHelpStore', homeworkHelpStore);
-        
-        global.addEventListener('beforeunload', () => {
-            if(!!this.removeViewer){
-                this.removeViewer();
-            }
-        });
+    created() {               
         this.getData();
+        
         this.$root.$on('closePopUp', (name) => {
             if (name === 'suggestions') {
                 this.showDialogSuggestQuestion = false;
             } else {
                 this.updateLoginDialogState(false);
             }
-        })
-        
+        });
+
     },
-    destroyed() {
-        if (this.removeViewer) {
-            this.removeViewer();
-        }
-    }
 }

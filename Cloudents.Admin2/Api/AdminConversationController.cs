@@ -7,7 +7,6 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
-using Cloudents.Query.Chat;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -64,11 +63,13 @@ namespace Cloudents.Admin2.Api
 
         [HttpGet("{identifier}")]
         //[Authorize(Policy = Policy.IsraelUser)]
+        //[Authorize(Policy = Policy.GlobalUser)]
+
         //        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new []{ "*" })]
         public async Task<IEnumerable<ChatMessageDto>> Get(string identifier,
             CancellationToken token)
         {
-            var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(identifier, 0), token);
+            var result = await _queryBus.QueryAsync(new AdminChatConversationByIdQuery(identifier, 0, User.GetCountryClaim()), token);
             return result;
         }
 
@@ -122,12 +123,12 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("params")]
-        public object GetParams()
+        public async Task<object> GetParams(CancellationToken token)
         {
             return new 
             {
                 Status = Enumeration.GetAll<ChatRoomStatus>().GroupBy(x=>x.Group).ToDictionary(x=>x.Key,y=>y),// Enum.GetNames(typeof(ChatRoomStatus)).Select(s=> s.ToCamelCase()),
-                AssignTo = Enum.GetNames(typeof(ChatRoomAssign)).Select(s => s.ToCamelCase()),
+                AssignTo = await _queryBus.QueryAsync(new AdminAssignToQuery(), token),
                 WaitingFor = Enum.GetNames(typeof(WaitingFor)).Select(s => s.ToCamelCase())
             };
         }

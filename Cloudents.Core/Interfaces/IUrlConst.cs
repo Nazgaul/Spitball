@@ -18,6 +18,7 @@ namespace Cloudents.Core.Interfaces
 
         Uri BuildShortUrlEndpoint(string identifier);
         string BuildDocumentEndPoint(long id, object parameters = null);
+        string BuildDocumentThumbnailEndpoint(long id);
     }
 
 }

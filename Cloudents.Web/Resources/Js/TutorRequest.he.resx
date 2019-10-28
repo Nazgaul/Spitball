@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btn_attachment" xml:space="preserve">
-    <value>קובץ/תמונה</value>
+  <data name="back" xml:space="preserve">
+    <value>חזרה</value>
   </data>
   <data name="btn_close" xml:space="preserve">
     <value>סגירה</value>
   </data>
-  <data name="btn_submit" xml:space="preserve">
-    <value>שליחת בקשה</value>
+  <data name="cancel" xml:space="preserve">
+    <value>ביטול</value>
   </data>
   <data name="email" xml:space="preserve">
     <value>אימייל</value>
@@ -132,37 +132,52 @@
   <data name="invalid" xml:space="preserve">
     <value>הקורס לא קיים</value>
   </data>
-  <data name="label_add" xml:space="preserve">
-    <value>הוסף</value>
+  <data name="more_tutors" xml:space="preserve">
+    <value>אני רוצה לשמוע מעוד 2-3 מורים כמו {1}</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>שם מלא</value>
   </data>
-  <data name="no_course" xml:space="preserve">
-    <value>הוסף קורסים</value>
+  <data name="next" xml:space="preserve">
+    <value>הבא</value>
   </data>
   <data name="phoneNumber" xml:space="preserve">
     <value>טלפון</value>
   </data>
   <data name="request_error" xml:space="preserve">
-    <value>אופסס... משהו השתבש - נסה שוב</value>
-  </data>
-  <data name="request_received" xml:space="preserve">
-    <value>בקשתך לתרגול נקלטה בהצלחה, מתרגלים ייצרו איתך קשר בהקדם</value>
+    <value>משהו השתבש - נסה שוב מאוחר יותר</value>
   </data>
   <data name="select_course_placeholder" xml:space="preserve">
     <value>עבור איזה קורס?</value>
   </data>
-  <data name="title" xml:space="preserve">
-    <value>בקשה למורה פרטי</value>
+  <data name="send" xml:space="preserve">
+    <value>שליחה</value>
   </data>
-  <data name="title_tutor_list" xml:space="preserve">
-    <value>שלח הודעה ל</value>
+  <data name="send_msg_tutor" xml:space="preserve">
+    <value>שליחת הודעה ל {1}</value>
   </data>
-  <data name="topic_placeholder" xml:space="preserve">
-    <value>רציתי לבקש מורה פרטי בנושא...</value>
+  <data name="send_msg_tutor_mobile" xml:space="preserve">
+    <value>שליחת הודעה ל {1}</value>
   </data>
-  <data name="university" xml:space="preserve">
-    <value>אוניברסיטה</value>
+  <data name="send_msg_yaniv" xml:space="preserve">
+    <value>יניב מספיטבול יסייע לך למצוא מורה פרטי</value>
+  </data>
+  <data name="submit" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="success" xml:space="preserve">
+    <value>הודעתך נשלחה וייצרו איתך קשר בקרוב</value>
+  </data>
+  <data name="tell_tutor" xml:space="preserve">
+    <value>איך {1} יכול ליצור איתך קשר?</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value>כאן מקלידים</value>
+  </data>
+  <data name="type_legend" xml:space="preserve">
+    <value>במה אוכל לעזור לך?</value>
+  </data>
+  <data name="yaniv" xml:space="preserve">
+    <value>יניב</value>
   </data>
 </root>

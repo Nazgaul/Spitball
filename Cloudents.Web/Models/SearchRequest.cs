@@ -1,6 +1,4 @@
-﻿using Cloudents.Web.Extensions;
-using Cloudents.Web.Framework;
-using Microsoft.AspNetCore.Mvc;
+﻿using Cloudents.Web.Framework;
 
 namespace Cloudents.Web.Models
 {
@@ -22,8 +20,6 @@ namespace Cloudents.Web.Models
         [RequiredPropertyForQuery]
         public string Term { get; set; }
 
-        [FromQuery(Name = "Uni")]
-        public string University { get; set; }
     }
 
     public class DocumentRequestSearchCourse : DocumentRequestSearch
@@ -31,40 +27,31 @@ namespace Cloudents.Web.Models
         [RequiredPropertyForQuery]
         public string Course { get; set; }
     }
+    
 
-    //public class DocumentRequest : VerticalRequest
+    //public abstract class VerticalRequest : IPaging
     //{
-    //    public string[] Filter { get; set; }
+    //    /// <summary>
+    //    /// User courses id
+    //    /// </summary>
+    //    public string Course { get; set; }
+
+    //    [FromQuery(Name = "Uni")]
+    //    public string University { get; set; }
+
+    //    [IgnoreNextPageLink]
+    //    public bool NeedUniversity => !string.IsNullOrEmpty(University);
+    //    /// <inheritdoc />
+    //    /// <summary>
+    //    /// Page for paging
+    //    /// </summary>
+    //    public int Page { get; set; }
+
+    //    /// <summary>
+    //    /// The term of search
+    //    /// </summary>
+    //    public string Term { get; set; }
+
 
     //}
-
-    public abstract class VerticalRequest : IPaging
-    {
-        /// <summary>
-        /// User courses id
-        /// </summary>
-        public string Course { get; set; }
-
-        [FromQuery(Name = "Uni")]
-        public string University { get; set; }
-
-        [IgnoreNextPageLink]
-        public bool NeedUniversity => !string.IsNullOrEmpty(University);
-        /// <inheritdoc />
-        /// <summary>
-        /// Page for paging
-        /// </summary>
-        public int Page { get; set; }
-
-        /// <summary>
-        /// The term of search
-        /// </summary>
-        // [DisplayFormat(HtmlEncode = true)]
-        public string Term { get; set; }
-
-        ////[ProfileModelBinder(ProfileServiceQuery.University | ProfileServiceQuery.Country |
-        ////                    ProfileServiceQuery.Course )]
-        //[IgnoreNextPageLink]
-        //public UserProfile Profile { get; set; }
-    }
 }

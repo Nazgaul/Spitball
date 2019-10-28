@@ -17,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Admin2.Api
 {
@@ -28,15 +29,18 @@ namespace Cloudents.Admin2.Api
         private readonly IQueryBus _queryBus;
         private readonly IDocumentDirectoryBlobProvider _blobProvider;
         private readonly IQueueProvider _queueProvider;
+        private readonly IConfiguration _configuration;
 
 
         public AdminUserController(ICommandBus commandBus, IQueryBus queryBus,
-            IDocumentDirectoryBlobProvider blobProvider, IQueueProvider queueProvider)
+            IDocumentDirectoryBlobProvider blobProvider, IQueueProvider queueProvider,
+            IConfiguration configuration)
         {
             _commandBus = commandBus;
             _queryBus = queryBus;
             _blobProvider = blobProvider;
             _queueProvider = queueProvider;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -165,18 +169,17 @@ namespace Cloudents.Admin2.Api
             }
             return new UnSuspendUserResponse();
         }
-        
-        //TODO remove the command
-        //[HttpPost("country")]
-        //[ProducesResponseType(200)]
-        //[Authorize(/*Roles = Roles.Admin*/)]
-        //public async Task ChangeCountryAsync(ChangeCountryRequest model,
-        //    CancellationToken token)
-        //{
 
-        //    var command = new ChangeCountryCommand(model.Id, model.Country);
-        //    await _commandBus.DispatchAsync(command, token);
-        //}
+        [HttpPost("country")]
+        [ProducesResponseType(200)]
+        [Authorize(/*Roles = Roles.Admin*/)]
+        public async Task ChangeCountryAsync(ChangeCountryRequest model,
+            CancellationToken token)
+        {
+
+            var command = new ChangeCountryCommand(model.Id, model.Country);
+            await _commandBus.DispatchAsync(command, token);
+        }
 
 
 
@@ -268,6 +271,19 @@ namespace Cloudents.Admin2.Api
             var country = User.GetCountryClaim();
             var query = new AdminUserPurchasedDocsQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpGet("sold")]
+        public async Task<IEnumerable<UserSoldItemsDto>> GetUserSoldDocsDetails(long id, int page, CancellationToken token)
+        {
+            var country = User.GetCountryClaim();
+            var query = new AdminUserSoldDocsQuery(id, page, country);
+            var res = await _queryBus.QueryAsync(query, token);
+            foreach (var r in res)
+            {
+                r.Url = $"{_configuration["Site"]}document/{r.ItemCourse}/{r.ItemCreated.ToString("dd-M-yyyy")}/{r.ItemId}";
+            }
+            return res;
         }
 
         [HttpGet("documents")]

@@ -1,7 +1,7 @@
 <template>
         <v-layout class="calendar-section mt-3">
             <v-flex xs12>
-                <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"></v-progress-circular>
+                <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"/>
                 <v-card class="elevation-0 caltab" v-if="isReady">
                     <calendar v-if="getShowCalendar"/>
                     <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
@@ -63,6 +63,7 @@ export default {
 <style lang="less">
     @import '../../styles/mixin.less';
     .calendar-section {
+
         @media (max-width: @screen-xs) {
             box-shadow: none;
             border-radius: 4px;
@@ -76,7 +77,7 @@ export default {
     left: 38%;
   }
         .caltab{
-            padding: 22px;
+            padding: 40px 22px;
             @media (max-width: @screen-xs) {
                 padding: 10px;
                 margin-bottom: 40px;

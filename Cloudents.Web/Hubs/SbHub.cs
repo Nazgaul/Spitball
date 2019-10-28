@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cloudents.Core;
-using Cloudents.Identity;
 using Cloudents.Query;
 using Dapper;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
+using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Hubs
 {
@@ -92,7 +92,7 @@ namespace Cloudents.Web.Hubs
             //if (header.ToString().Contains("spi"))
 
             var country = Context.User.Claims.FirstOrDefault(f =>
-                string.Equals(f.Type, AppClaimsPrincipalFactory.Country.ToString(),
+                string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
                     StringComparison.OrdinalIgnoreCase))?.Value;
 
             Connections.Add(currentUserId, Context.ConnectionId);
@@ -122,7 +122,7 @@ namespace Cloudents.Web.Hubs
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             var country = Context.User.Claims.FirstOrDefault(f =>
-                string.Equals(f.Type, AppClaimsPrincipalFactory.Country.ToString(),
+                string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
                     StringComparison.OrdinalIgnoreCase))?.Value;
             if (country != null)
             {

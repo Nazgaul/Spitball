@@ -3,8 +3,8 @@
             left: () => moveCarousel('left'),
             right: () => moveCarousel('right')
             }" class="tutor-carousel-slider-wrapper mb-4">
-        <h3 class="subtitle-1 mb-4" v-language:inner="'resultTutor_title'"/>
-        <div class="tutor-carousel-slider-container" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
+        <h3 class="subtitle-1 mb-4 text-xs-center" v-language:inner="'resultTutor_title'"/>
+        <div class="tutor-carousel-slider-container text-xs-center" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
             <router-link v-for="(tutor, index) in tutorList" :key="index" class="tutor-carousel-card" 
                 @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutor.userId, name: tutor.name}}">
                 <div>
@@ -13,7 +13,7 @@
                 <template>
                     <div class="user-rank mt-1 mb-2 align-center" v-if="tutor.reviews > 0">
                         <user-rating :size="'16'" :rating="tutor.rating" :showRateNumber="false" />
-                        <div class="reviews caption ml-1" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"></div>
+                        <div class="reviews caption ml-1" v-html="$Ph(tutor.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"></div>
                     </div>
                     <div v-else class="user-rank mt-1 mb-2 align-center">
                         <star />
@@ -28,10 +28,10 @@
                     </div>
                     <img v-show="isLoaded" class="user-image" @error="onImageLoadError" @load="loaded" :src="getImgUrl(tutor.image)" :alt="tutor.name">
                     <div>
-                        <div class="striked" v-if="showStriked(tutor.price)"> &#8362;{{tutor.price}}</div>
+                        <div class="striked" v-if="showStriked(tutor.price)">{{tutor.price}}</div>
                         <div>
-                            <span v-if="showStriked(tutor.price)" class="price font-weight-bold"><span class="price-sign">&#8362;</span>{{discountedPrice(tutor.price)}}</span>
-                            <span class="price font-weight-bold" v-else><span class="price-sign">&#8362;</span>{{tutor.price}}</span>
+                            <span v-if="showStriked(tutor.price)" class="price font-weight-bold">{{discountedPrice(tutor.price)}}</span>
+                            <span class="price font-weight-bold" v-else>{{tutor.price}}</span>
                             <div class="caption hour" v-language:inner="'resultTutor_hour'"></div>
                         </div>
                     </div>
@@ -152,7 +152,7 @@ export default {
           return reviews === 0 ? reviews.toString() : reviews;
         },
         onImageLoadError(event) {
-            event.target.src = "../../../images/placeholder-profile.png";
+            event.target.src = require("../../../images/placeholder-profile.png");
         },
         showStriked(price) {
             if(!this.getActivateTutorDiscounts) return false;
@@ -264,10 +264,10 @@ export default {
                 .user-rank {
                     display: inline-flex;
                     // flex-direction: column;
-                    svg {
-                        width: 16px;
-                        height: 16px;
-                    }
+                    // svg {
+                    //     width: 16px;
+                    //     height: 16px;
+                    // }
                 }
                 .user-price {
                     display: flex;
@@ -310,9 +310,6 @@ export default {
                             .price {
                                 font-family: Arial;
                                 font-size: 22px;
-                                .price-sign {
-                                    font-size: 16px;
-                                }
                             }
                             .hour {
                                 align-items: end;

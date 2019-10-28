@@ -136,15 +136,45 @@
     <value>בקשתך נשלחה למורה. בדוק את האימייל שלך לעידכונים.</value>
   </data>
   <data name="add_event_thank" xml:space="preserve">
-    <value>תודה !</value>
+    <value>תודה!</value>
   </data>
   <data name="add_event_title" xml:space="preserve">
     <value>קבע שיעור פרטי עם {1}</value>
+  </data>
+  <data name="add_time" xml:space="preserve">
+    <value>הוספה</value>
+  </data>
+  <data name="add_time_mobile" xml:space="preserve">
+    <value>הוספה</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="calendar_hour_subtitle" xml:space="preserve">
+    <value>ניתן לציין מועדים ספציפיים בהם לא תהיו זמינים ביומן שלכם בגוגל</value>
+  </data>
+  <data name="calendar_hour_title" xml:space="preserve">
+    <value>ציינו את שעות העבודה הקבועות שלכם</value>
+  </data>
+  <data name="day_off" xml:space="preserve">
+    <value>זה היום החופשי שלי</value>
   </data>
   <data name="empty_state_student" xml:space="preserve">
     <value>היומן שלי לא זמין כעת, צור איתי קשר בהודעה ונתאם מועד לשיעור פרטי.</value>
   </data>
   <data name="error_create_event" xml:space="preserve">
-    <value>תודה שבחרת בי! אני מלמד בשעה הזו, אולי תנסה לקבוע בזמן אחר?</value>
+    <value>ההזמנה נכשלה, נסה לרענן את הדף!</value>
+  </data>
+  <data name="header" xml:space="preserve">
+    <value>מוזמנים לתאם איתי שיעור</value>
+  </data>
+  <data name="time" xml:space="preserve">
+    <value>השעות מוצגות לפי הזמן המקומי שלך</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>בחרו מועד לשיעור</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>עד</value>
   </data>
 </root>

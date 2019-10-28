@@ -7,72 +7,54 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.Storage;
 
 namespace Cloudents.Functions
 {
     public static class BlobMigration
     {
-        [FunctionName("BlobPreview")]
-        public static async Task Run([BlobTrigger("spitball-files/files/{id}/file-{guid}-{name}")]
-            CloudBlockBlob myBlob, string id, string name,
-            [Queue("generate-blob-preview")] IAsyncCollector<string> collector,
-            TraceWriter log,
-            CancellationToken token)
-        {
-            log.Info($"pushing to queue {id}");
-            await collector.AddAsync(id, token);
-        }
-
-
-
-        [FunctionName("BlobPreview-Queue")]
+       
+        [FunctionName("BlobPreviewGenerator")]
         public static async Task BlobPreviewQueueRun(
             //[QueueTrigger("generate-blob-preview", Connection = "LocalStorage")] string id,
             [QueueTrigger("generate-blob-preview")] string id,
             [Inject] IFactoryProcessor factory,
             [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
             [Queue("generate-search-preview")] IAsyncCollector<string> collectorSearch,
+            [Queue("generate-blob-preview-v2")] IAsyncCollector<string> collectorPreview2,
             TraceWriter log, CancellationToken token)
-
         {
             try
             {
                 log.Info($"receive preview for {id}");
                 var segment = await directory.ListBlobsSegmentedAsync(null, token);
-                var myBlob = (CloudBlockBlob)segment.Results.FirstOrDefault(f2 => f2.Uri.Segments.Last().StartsWith("file-"));
-                if (myBlob == null)
+                var originalBlob = (CloudBlockBlob)segment.Results.FirstOrDefault(f2 => f2.Uri.Segments.Last().StartsWith("file-"));
+                if (originalBlob == null)
                 {
                     return;
                 }
+                var f = factory.PreviewFactory(originalBlob.Name);
+                if (f == null)
+                {
+                    await collectorPreview2.AddAsync(id, token);
+                    log.Error($"did not process id:{id}");
+                    return;
+                }
 
-                //var leaseId = Guid.NewGuid().ToString();
-                //TimeSpan? leaseTime = TimeSpan.FromMinutes(10);
-                //await myBlob.AcquireLeaseAsync(leaseTime);
-                var name = myBlob.Name.Split('-').Last();
-
-                myBlob.FetchAttributes();
+                var lease = await originalBlob.AcquireLeaseAsync(TimeSpan.FromMinutes(1));
+                var accessCondition = AccessCondition.GenerateLeaseCondition(lease);
+                await originalBlob.FetchAttributesAsync(accessCondition, null, null, token);
                 const string cantProcess = "CantProcess2";
-                //const string timeProcess = "TimeProcess";
-                if (myBlob.Metadata.TryGetValue(cantProcess, out var s) && bool.TryParse(s, out var b) && b)
+                if (originalBlob.Metadata.TryGetValue(cantProcess, out var s) && bool.TryParse(s, out var b) && b)
                 {
                     log.Error($"aborting process CantProcess attribute - {id}");
                     return;
                 }
-
-                //if (myBlob.Metadata.TryGetValue(timeProcess, out var s1) &&
-                //    DateTime.TryParse(s1, CultureInfo.InvariantCulture,DateTimeStyles.None,out var b1) && b1 > DateTime.UtcNow.AddMinutes(-10))
-                //{
-                //    log.Error($"aborting process TimeProcess attribute - {id}");
-                //    return;
-                //}
-
-
-                const string contentType = "text/plain";
-
 
                 var document = segment.Results.Where(w => w.Uri.Segments.Last().StartsWith("preview-"))
                     .OrderBy(o => o.Uri, new OrderPreviewComparer());
@@ -90,20 +72,11 @@ namespace Cloudents.Functions
                 }
 
                 log.Info($"Going to process - {id}");
-             //   myBlob.Metadata[timeProcess] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-              //  await myBlob.SetMetadataAsync(token);
 
-
-                var f = factory.PreviewFactory(name);
-                if (f == null)
-                {
-                    log.Error($"did not process id:{id}");
-                    return;
-                }
 
                 using (var wait = new ManualResetEventSlim(false))
                 {
-                    var work = new Thread( async  () =>
+                    var work = new Thread(async () =>
                     {
                         var z = Path.Combine(Path.GetTempPath(), id);
                         Stream sr = null;
@@ -111,7 +84,7 @@ namespace Cloudents.Functions
                         {
                             f.Init(() =>
                             {
-                                myBlob.DownloadToFile(z, FileMode.Create,options:new BlobRequestOptions
+                                originalBlob.DownloadToFile(z, FileMode.Create, accessCondition,new BlobRequestOptions()
                                 {
                                     DisableContentMD5Validation = true
                                 });
@@ -135,7 +108,7 @@ namespace Cloudents.Functions
                                 log.Info($"Need to extract text and get page count for id:{id}");
                                 var (text, pagesCount) = f.ExtractMetaContent();
                                 var blob = directory.GetBlockBlobReference(blobTextName);
-                                blob.Properties.ContentType = contentType;
+                                blob.Properties.ContentType = "text/plain";
                                 text = StripUnwantedChars(text);
                                 blob.Metadata["PageCount"] = pagesCount.ToString();
                                 await blob.UploadTextAsync(text ?? string.Empty, token);
@@ -162,10 +135,10 @@ namespace Cloudents.Functions
                         }
                         catch (PreviewFailedException e)
                         {
-                            myBlob.Metadata[cantProcess] = true.ToString();
-                            myBlob.Metadata["ErrorProcess"] = e.Message;
+                            originalBlob.Metadata[cantProcess] = true.ToString();
+                            originalBlob.Metadata["ErrorProcess"] = e.Message;
 
-                            await myBlob.SetMetadataAsync(token);
+                            await originalBlob.SetMetadataAsync(token);
                             log.Error($"did not process id:{id}", e);
                             // ReSharper disable once AccessToDisposedClosure [InstantHandleAttribute]
                             wait.Set();
@@ -176,12 +149,11 @@ namespace Cloudents.Functions
                                 ex.Source.StartsWith("aspose",
                                     StringComparison.OrdinalIgnoreCase))
                             {
-                                myBlob.Metadata[cantProcess] = true.ToString();
-                                    
+                                originalBlob.Metadata[cantProcess] = true.ToString();
+
                             }
-                            myBlob.Metadata["ErrorProcess"] = ex.Message;
-                                
-                            await myBlob.SetMetadataAsync(token);
+                            originalBlob.Metadata["ErrorProcess"] = ex.Message;
+                            await originalBlob.SetMetadataAsync(accessCondition, null, null, token);
                             log.Error($"did not process id:{id}", ex);
                             // ReSharper disable once AccessToDisposedClosure [InstantHandleAttribute]
                             wait.Set();
@@ -203,19 +175,24 @@ namespace Cloudents.Functions
                         work.Abort();
                         if (!workHasBeenDone)
                         {
-                            myBlob.Metadata[cantProcess] = true.ToString();
-                            await myBlob.SetMetadataAsync(token);
+                            originalBlob.Metadata[cantProcess] = true.ToString();
+                            await originalBlob.SetMetadataAsync(token);
                         }
 
                         log.Error($"aborting process - {id}");
                     }
                 }
 
-                //await myBlob.ReleaseLeaseAsync(new AccessCondition()
-                //{
-                //    LeaseId = leaseId
-                //});
+                await originalBlob.ReleaseLeaseAsync(accessCondition, token);
 
+
+            }
+            catch (StorageException ex)
+            {
+                if (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.Conflict)
+                    log.Warning("another process is processing the file");
+                else
+                    log.Error($"did not process id:{id}", ex);
             }
             catch (Exception ex)
             {

@@ -26,8 +26,7 @@ namespace Cloudents.Admin2.Models
         [Required]
         public Guid University { get; set; }
 
-        [MaxLength(4)]
-        public string[] Files { get; set; }
+
     }
 
     public enum Country

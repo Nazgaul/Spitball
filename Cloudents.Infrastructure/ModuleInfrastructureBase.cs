@@ -24,10 +24,10 @@ namespace Cloudents.Infrastructure
                 .InterceptedBy(typeof(LogInterceptor));
 
 
-            builder.RegisterType<PayPalClient>().As<IPayPal>().SingleInstance();
             builder.RegisterType<PayMePaymentProvider>().As<IPayment>();
             builder.RegisterType<AzureTextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
             builder.RegisterType<BinarySerializer>().As<IBinarySerializer>();
+            builder.RegisterType<SbJsonSerializer>().As<IJsonSerializer>();
             builder.RegisterType<MailProvider>().As<IMailProvider>();
             builder.RegisterType<TwilioProvider>().AsSelf().As<ISmsProvider>().As<IVideoProvider>().SingleInstance();
 

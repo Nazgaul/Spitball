@@ -23,10 +23,9 @@ namespace Cloudents.Query.SearchSync
 	                            d.Name as Name,
 	                            d.CourseName as Course,
 	                            d.UniversityId as UniversityId,
-	                            d.Type as Type,
+	                            d.DocumentType as Type,
 	                            d.State as State,
 	                            d.UpdateTime as DateTime, 
-	                            (select STRING_AGG(dt.TagId, ', ') FROM sb.DocumentsTags dt where d.Id = dt.DocumentId) AS Tags,
 	                            u.Country as Country,
 								u.Name as UniversityName,
 	                            c.* 
@@ -53,11 +52,9 @@ select d.Id as ItemId,
                 d.Name as Name,	               
 				d.CourseName as Course,	               
 				d.UniversityId as UniversityId,	                  
-				d.Type as Type,						                 
+				d.DocumentType as Type,						                 
 				d.State as State,				
 				d.UpdateTime as DateTime, 	                   
-				(select STRING_AGG(dt.TagId, ', ')		
-				FROM sb.DocumentsTags dt where d.Id = dt.DocumentId) AS Tags	 ,
 				u.Country as Country,							
 				u.Name as UniversityName	     		
 				From sb.[Document] d  

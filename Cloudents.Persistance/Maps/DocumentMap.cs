@@ -15,13 +15,9 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Name).Length(150).Not.Nullable();
             References(x => x.University).Not.Nullable().Column("UniversityId").ForeignKey("Document_University");
            
-            Map(x => x.Type).Not.Nullable();
+           
 
-            HasManyToMany(x => x.Tags)
-                .ParentKeyColumn("DocumentId")
-                .ChildKeyColumn("TagId")
-                .ForeignKeyConstraintNames("Document_Tags", "Tags_Documents")
-                .Table("DocumentsTags").AsSet();
+         
 
             
             Component(x => x.TimeStamp);
@@ -30,9 +26,8 @@ namespace Cloudents.Persistence.Maps
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
             Map(x => x.Views).Not.Nullable();
             Map(x => x.Downloads).Not.Nullable();
-            Map(x => x.Professor).Nullable();
             Map(x => x.PageCount).Nullable();
-            //Map(x => x.Purchased).Not.Nullable();
+            Map(x => x.Description).Nullable();
             Map(x => x.MetaContent).Nullable();
             Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney"); 
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
@@ -49,9 +44,14 @@ namespace Cloudents.Persistence.Maps
                 .Inverse().Cascade.AllDeleteOrphan();
             Map(m => m.VoteCount);
 
-   
+
+            Map(x => x.DocumentType).Column("DocumentType");
+            Map(x => x.Duration);//.CustomType<TimeAsTimeSpanType>();
+
+
             Component(x => x.Status);
-            SchemaAction.Validate();
         }
     }
+
+    
 }

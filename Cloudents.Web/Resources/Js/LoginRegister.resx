@@ -173,10 +173,6 @@
     <value>Reset password</value>
     <comment>1</comment>
   </data>
-  <data name="forgot_input" xml:space="preserve">
-    <value>Enter your email</value>
-    <comment>1</comment>
-  </data>
   <data name="forgot_remember" xml:space="preserve">
     <value>I remember now</value>
   </data>

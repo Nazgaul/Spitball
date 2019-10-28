@@ -1,27 +1,16 @@
 @import "../../../styles/mixin.less";
 
-//detached select list
-//.request-select-list {
-//  @media (max-width: @screen-xs) {
-//    max-width: 10%;
-//  }
-//}
-
 .question-request-dialog {
   box-shadow: none;
   justify-content: center;
   background: @color-white;
-  width: 500px;
+  border-radius: 6px;
   @media (max-width: @screen-xs) {
     width: 100%;
     display: inline-block;
   }
   .pt-12{
     padding-top: 12px;
-  }
-  .header-icon {
-    font-size: 16px;
-    color: @lightBtnIconColor;
   }
   .add-question-container {
     display: flex;
@@ -32,18 +21,10 @@
       justify-content: unset;
     }
     .question-header {
-      background: @systemBackgroundColor;
-      border-bottom: 2px solid rgba(151, 151, 151, 0.32);
-      .back-button {
-        font-size: 12px;
-        outline: none;
-        i {
-          font-size: 10px;
-          color: rgba(0, 0, 0, 0.38);
-          outline: none;
-          display: flex;
-        }
-      }
+      font-size: 18px;
+      padding: 10px;
+      color: #43425d;
+      font-weight: 600;
     }
     .question-subject-class-container {
       width: 100%;
@@ -75,13 +56,6 @@
         }
       }
       .v-text-field {
-        &.v-input--is-focused {
-          .v-input__control {
-            .v-input__slot {
-              box-shadow: inset 0px 0px 0px 2px rgba(68, 82, 252, 0.54); //prevent clipping
-            }
-          }
-        }
         .v-input__control {
           .v-input__slot {
             min-height: unset;
@@ -93,7 +67,6 @@
             .v-select__slot {
               label {
                 top: unset;
-                font-family: @fontOpenSans;
                 font-size: 14px;
                 letter-spacing: -0.4px;
                 color: rgba(0, 0, 0, 0.87);
@@ -183,157 +156,79 @@
         padding-left: 12px;
       }
       .question-textarea {
-        font-family: @fontOpenSans;
-        font-size: 13px;
-        font-weight: 600;
-        color: rgba(0, 0, 0, 0.87);
-        letter-spacing: -0.4px;
-        text-align: left;
-        .v-label {
-          left: auto !important;
-          right: auto !important;
-        }
-        &.error--text{
-          .v-input__slot{
-            .v-text-field__slot{
-              .v-label {
-                //color: #ff5252 !important;
-              }
-            }
-          }
-        }
+        font-size: 16px;
+        color: #a1a3b0;
+          .v-input__control {
 
-      }
-      .v-textarea {
-        .v-input__control {
-          .v-input__slot {
+          .v-input__slot{
             box-shadow: none;
-            padding-right: 15px;
-            .scrollBarStyle(4px, #4e4e4e, none, none);
           }
           .v-text-field__details {
-            .v-messages__message{
-             line-height: normal !important; // vuetify
+            position: absolute;
+            bottom: -34px;
+            left: 0;
+            .v-messages__message {
+              line-height: normal;
             }
           }
         }
-      }
-    }
-    .middle-part{
-      position: relative;
-      width: 100%;
-      height: auto;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
-    .question-thumbnails-part {
-      display: none;
-      margin-right: 12px;
-      margin-bottom: 8px;
-      &.show-tumbnails {
-        display: flex;
-      }
-      .question-attachment-box {
-        width: 68px;
-        height: 62px;
-        border-radius: 4px;
-        border: 1px dashed gray;
-        margin-left: 8px;
-        position: relative;
-        @media (max-width: @screen-xs) {
-          width: 56px;
-          height: 48px;
-        }
-        .question-thumb-close-container {
-          display: none;
-          width: 16px;
-          height: 16px;
-          border-radius: 4px;
-          background-color: rgba(0, 0, 0, 0.52);
-          position: absolute;
-          right: 0;
-          z-index: 11;
-          cursor: pointer;
-          &.populated {
-            display: block
-          }
-          i {
-            color: #fff;
-            font-size: 8px;
-            margin: 0 auto;
-            top: 0;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-          }
-        }
-        .question-thumb-plus-container {
-          display: flex;
-          height: 100%;
-          i {
-            transform: rotate(45deg);
-            margin: 0 auto;
-            font-size: 12px;
-            color: rgba(0, 0, 0, 0.2);
-          }
-          .file-uploads {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-          }
-        }
-        .question-thumb-img-container {
-          img {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-          }
-        }
-      }
-    }
 
-    .question-textarea-lower-part {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-left: 4px;
-      margin-right: 4px;
-      border-top: solid 1px @Dividers;
-      .v-messages__message{
-        line-height: normal !important; // vuetify
-       }
+      }
+    }
+    .question-textarea-courses {
+      .question-fieldset {
+        height: 60px;
+        border-radius: 4px;
+        border: solid 1px #b8c0d1;
+        margin: 0 18px;
+        legend {
+          font-size: 12px;
+          padding: 0 6px;
+        }
+        .v-input__control {
+          ::before, ::after {
+            content: '';
+            border: none;
+          }
+          .v-messages__message {
+            margin: 6px 0;
+          }
+        }
+      }
     }
     .question-textarea-container {
-      display: flex;
-      flex-direction: column;
-      margin-top: 12px;
-      margin-left: 8px;
-      margin-right: 8px;
+      margin: 22px 18px 30px;
       background-color: #fff;
       border-radius: 4px;
-      box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
-      position: relative;
+      border: solid 1px #b8c0d1;
     }
     .question-add-button-container {
-      background-color: @systemBackgroundColor;
-      border-top: 2px solid rgba(151, 151, 151, 0.32);
-
+      &.question-mobile {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
       .question-add-button {
-        font-family: @fontOpenSans;
-        letter-spacing: -0.4px;
         color: rgba(255, 255, 255, 0.87);
         height: 40px;
-        border-radius: 23.5px;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.33);
+        border-radius: 24px;
         background-color: @global-blue;
         outline: none;
         text-transform: unset;
+        min-width: 140px;
+        font-size: 14px;
+        &.button_cancel {
+          background-color: #fff;
+          border: 1px solid @global-blue;
+          color: @global-blue;
+        }
+        .v-btn__content {
+          // padding: 0 26px;
+          @media (max-width: @screen-xss) {
+            // padding: 0 34px;
+          }
+        }
       }
     }
   }

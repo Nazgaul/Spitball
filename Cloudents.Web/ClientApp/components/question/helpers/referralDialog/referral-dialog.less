@@ -36,7 +36,7 @@
       }
     }
     .bottom-sub {
-      font-family: @fontFiraSans;
+      
       font-size: 16px;
       line-height: 1.69;
       letter-spacing: -0.2px;
@@ -59,7 +59,7 @@
       font-weight: normal;
       line-height: 1.32;
       letter-spacing: -0.3px;
-      font-family: @fontFiraSans;
+      
       font-size: 28px;
       color: fade(@color-white, 87%);
       @media (max-width: @screen-xs) {
@@ -70,7 +70,7 @@
       }
     }
     .ref-subtitle {
-      font-family: @fontFiraSans;
+      
       font-size: 28px;
       font-weight: bold;
       line-height: 1.32;
@@ -93,7 +93,6 @@
           box-shadow: none !important; //vuetify
           border-radius: 4px 0 0 4px; //vuetify
           border: 1px solid @colorGreyNew;
-          font-family: @fontOpenSans;
           font-size: 14px;
           letter-spacing: -0.7px;
           color: @textColor;
@@ -172,7 +171,23 @@
         justify-content: space-around;
 
       }
+      .v-icon{
 
+        &.share-icon {
+          cursor: pointer;
+          /*rtl:ignore*/
+          direction: ltr;
+          font-size: 16px;
+          color: white;
+          overflow: hidden;
+        }
+        &.referral-twitter-icon{
+          overflow: inherit;
+        }
+        &.referral-gmail-icon{
+          font-size: 14px;
+        }
+    }
       span {
         cursor: pointer;
         .share-icon {
@@ -196,6 +211,9 @@
         font-size: 11px;
         color: @color-white;
         margin-left: 8px;
+        &.referral-twitter{
+          margin-left:0;
+        }
 
       }
       .whatsup-share-btn {
@@ -218,7 +236,7 @@
       border-radius: 0 4px 4px 0;
       color: @color-white;
       .transition(all 0.2s ease-in-out);
-      font-family: @fontFiraSans;
+      
       font-size: 14px;
       font-weight: 500;
       text-transform: uppercase;
@@ -250,7 +268,7 @@
     padding-top: 8px;
     padding-bottom: 8px;
     .bottom-text {
-      font-family: @fontFiraSans;
+      
       font-size: 18px;
       line-height: 3;
       letter-spacing: -0.3px;

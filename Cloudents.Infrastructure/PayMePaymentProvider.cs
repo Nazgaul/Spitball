@@ -44,6 +44,13 @@ namespace Cloudents.Infrastructure
             return await GenerateSaleAsync(token, generateSale);
         }
 
+        public async Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token)
+        {
+            var generateSale = GenerateSale.BuyTokens(price,successRedirect,_credentials.SellerId);
+
+            return await GenerateSaleAsync(token, generateSale); 
+        }
+
         private async Task<GenerateSaleResponse> GenerateSaleAsync(CancellationToken token, GenerateSale generateSale)
         {
             var json = JsonConvert.SerializeObject(generateSale, new JsonSerializerSettings
@@ -84,13 +91,26 @@ namespace Cloudents.Infrastructure
                 {
                     SellerPaymeId = sellerId,
                     SalePrice = (int)(price * 100),
-                    BuyerKey = buyerId
+                    BuyerKey = buyerId,
+                    ProductName = "עבור שיעורים פרטיים בספיטבול"
                 };
             }
 
             private GenerateSale()
             {
 
+            }
+
+            public static GenerateSale BuyTokens(PointBundle price, string saleReturnUrl, string sellerId)
+            {
+                return new GenerateSale()
+                {
+                    CaptureBuyer = 0,
+                    SalePrice =  (price.Price * 100),
+                    SaleReturnUrl = saleReturnUrl,
+                    SellerPaymeId = sellerId,
+                    ProductName = "עבור קניית נקודות בספיטבול"
+                };
             }
 
             public static GenerateSale CreateBuyer(string saleCallbackUrl, string saleReturnUrl, string sellerId)
@@ -102,16 +122,19 @@ namespace Cloudents.Infrastructure
                     CaptureBuyer = 1,
                     SaleType = "token",
                     SaleReturnUrl = saleReturnUrl,
-                    SaleCallbackUrl = saleCallbackUrl
+                    SaleCallbackUrl = saleCallbackUrl,
+                    ProductName = "עבור שיעורים פרטיים בספיטבול"
 
                 };
             }
+
+         
 
             public string SellerPaymeId { get; private set; }
 
             public int SalePrice { get; private set; }
             public string Currency => "ILS";
-            public string ProductName => "עבור שיעורים פרטיים בספיטבול";
+            public string ProductName { get; private set; }
             public int? CaptureBuyer { get; private set; }
             public string SaleType { get; private set; }
             public string SaleCallbackUrl { get; private set; }
@@ -122,6 +145,8 @@ namespace Cloudents.Infrastructure
 
         }
     }
+
+   
 
     public static class StreamExtensions
     {

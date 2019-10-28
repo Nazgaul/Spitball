@@ -10,8 +10,11 @@ namespace Cloudents.Web.Models
         public long UserId { get; set; }
         //payme_signature
         //payme_sale_id
-        //payme_transaction_id
-        //price
+        [ModelBinder(Name = "payme_transaction_id")]
+        public string TransactionId { get; set; }
+        public int Price { get; set; }
+
+
         //currency
         //transaction_id
         //is_token_sale

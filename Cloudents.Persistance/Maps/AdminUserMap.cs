@@ -10,7 +10,7 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.Email).Not.Nullable().Unique();
             Map(x => x.Country).Nullable();
-            HasMany(x => x.Roles).AsSet();
+            //HasMany(x => x.Roles).AsSet();
 
             ReadOnly();
             
@@ -18,14 +18,14 @@ namespace Cloudents.Persistence.Maps
     }
 
 
-    public class AdminUserRolesMap : ClassMap<AdminUserRoles>
-    {
-        public AdminUserRolesMap()
-        {
-            Id(x => x.Id).GeneratedBy.GuidComb();
-            Map(x => x.Role).Not.Nullable();
+    //public class AdminUserRolesMap : ClassMap<AdminUserRoles>
+    //{
+    //    public AdminUserRolesMap()
+    //    {
+    //        Id(x => x.Id).GeneratedBy.GuidComb();
+    //        Map(x => x.Role).Not.Nullable();
 
-            ReadOnly();
-        }
-    }
+    //        ReadOnly();
+    //    }
+    //}
 }

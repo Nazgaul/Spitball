@@ -12,8 +12,8 @@ using Cloudents.Core.Extension;
 
 namespace Cloudents.Web.Api
 {
-    [Route("api/[controller]"), ApiController]
-    public class LocaleController : ControllerBase
+    [Route("api/[controller]")]
+    public class LocaleController : Controller
     {
         private static readonly ConcurrentDictionary<(CultureInfo, string), Dictionary<string, string>> CacheDictionary = new ConcurrentDictionary<(CultureInfo, string), Dictionary<string, string>>();
 

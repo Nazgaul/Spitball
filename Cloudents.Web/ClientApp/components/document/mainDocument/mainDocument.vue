@@ -42,7 +42,7 @@
               v-for="(item, i) in actions"
               :key="i"
             >
-              <v-list-tile-title @click="item.action()">{{ item.title }}</v-list-tile-title>
+              <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -66,12 +66,8 @@
           <v-card class="price-change-wrap">
             <v-flex align-center justify-center class="relative-pos">
               <div class="title-wrap">
-                <span class="change-title" v-language:inner="'resultNote_change_for'"></span>
-                <span
-                  class="change-title"
-                  style="max-width: 150px;"
-                  v-line-clamp="1"
-                >&nbsp;"{{courseName}}"</span>
+                <span class="change-title pr-1" v-language:inner="'resultNote_change_for'"></span>
+                <span class="change-title" style="width:min-content;">&nbsp;"{{courseName}}"</span>
               </div>
               <div class="input-wrap d-flex row align-center justify-center">
                 <div :class="['price-wrap', isRtl ? 'reversed' : '']">
@@ -112,12 +108,11 @@
             </v-card-title>
             <v-card-actions class="card-actions">
               <div class="doc-details">
-                <div class="doc-type">
+                <div class="doc-type" v-if="!isVideo">
                   <v-icon class="doc-type-icon">sbf-document-note</v-icon>
-                  <span class="doc-type-text">{{itemType}}</span>
                 </div>
                 <div class="doc-title">
-                  <span v-line-clamp:18="1">{{courseName ? courseName : ''}}</span>
+                  <div class="text-truncate">{{courseName}}</div>
                 </div>
               </div>
               <div class="purchase-actions">
@@ -138,43 +133,59 @@
       </div>
     </v-layout>
     <div class="document-wrap">
-      <div class="text-xs-center" v-for="(page, index) in docPreview" :key="index">
-        <v-lazy-image
-          :style="`height:${imgHeight}px; width:${imgWidth}px`"
-          class="document-wrap-content mb-4"
-          :src="page"
-          :src-placeholder="require('./doc-preview-animation.gif')"
-          v-if="page"
-          :alt="document.content"
-        />
-
-        <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" :courseName="courseType" />
+      <div class="text-xs-center" v-if="!videoLoader">
+        <img :style="{'width': `${dynamicWidthAndHeight.width}px`, 'height': `${dynamicWidthAndHeight.height}px`}" :src="require('./doc-preview-animation.gif')" alt="Photo" :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}">
+        <!-- <v-progress-circular v-if="isVideo" :style="{'width': `${dynamicWidthAndHeight.width}px`}"
+            :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}"
+            width="3"
+            :size="videoHeight" 
+            indeterminate
+            color="#4452fc"/> -->
       </div>
-      <div
-        class="unlockBox headline hidden-sm-and-down"
+      
+      <template  v-if="isVideo && videoSrc">
+        <div style="margin: 0 auto;background:black" class="text-xs-center main-header-wrapper mb-4">
+          <sbVideoPlayer 
+              @videoEnded="showAfterVideo = true"
+              :id="`${document.details.id}`"
+              :height="videoHeight" 
+              :width="videoWidth" 
+              style="margin: 0 auto" 
+              :isResponsive="true" 
+              :src="videoSrc"
+              :title="courseName"
+              :poster="`${document.preview.poster}?width=${videoWidth}&height=${videoHeight}&mode=crop&anchorPosition=bottom`"
+          />
+        </div>
+        <tutor-result-card-carousel v-if="$vuetify.breakpoint.smAndDown" :courseName="courseType" />
+      </template>
+      
+      <div v-else>
+        <div class="text-xs-center" v-for="(page, index) in docPreview" :key="index">
+          <v-lazy-image 
+            v-if="page"
+            :style="`height:${dynamicWidthAndHeight.height}px; width:${dynamicWidthAndHeight.width}px`"
+            class="document-wrap-content mb-4"
+            :src="page"
+            :src-placeholder="isObserver(page)"
+            :alt="document.content"
+          />
+          <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" :courseName="courseType" />
+        </div>
+      </div>
+    <transition-group name="slide-x-transition">
+      <div :key="'12'"
+        :class="[{'unlockBoxAfterVideo':showAfterVideo && isPrice },'unlockBox','headline']"
         v-if="isShowPurchased || !accountUser"
-        @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)"
       >
         <div class="inner">
-          <p
-            class="text-xs-center"
-            v-language:inner="!accountUser? 'documentPage_unlock_document_unregister' :'documentPage_unlock_document'"
-          ></p>
-          <div class="aside-top-btn align-center" v-if="!isLoading && accountUser">
-            <span
-              class="font-weight-bold text-xs-center disabled"
-              v-if="isPrice"
-            >{{docPrice | currencyLocalyFilter}}</span>
-            <span
-              class="white--text pa-3 font-weight-bold text-xs-center"
-              v-language:inner="'documentPage_unlock_btn'"
-            ></span>
+          <p class="text-xs-center hidden-sm-and-down" v-language:inner="unlockDocDictionary"/>
+          <div class="aside-top-btn align-center" v-if="!isLoading && accountUser" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)">
+            <span class="font-weight-bold text-xs-center disabled" v-if="isPrice" >{{docPrice | currencyLocalyFilter}}</span>
+            <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"/>
           </div>
-          <div class="aside-top-btn-not align-center" v-if="!isLoading && !accountUser">
-            <span
-              class="white--text pa-3 font-weight-bold text-xs-center"
-              v-language:inner="'documentPage_unlock_btn'"
-            ></span>
+          <div class="aside-top-btn-not align-center" v-if="!isLoading && !accountUser" @click="updateLoginDialogState(true)">
+            <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"/>
           </div>
           <v-progress-circular
             class="unlock_progress"
@@ -184,13 +195,14 @@
           ></v-progress-circular>
         </div>
       </div>
+      </transition-group>
       <a
         class="btn-download justify-center elevation-5"
         :href="`${$route.path}/download`"
         target="_blank"
         @click="downloadDoc"
-        :class="{'mt-2': !isShowPurchased}"
-        v-if="!isShowPurchased && !isLoading && !isSmAndDown && accountUser"
+        :class="{'mt-2': !isShowPurchased, 'v-hidden': isShowVideo && !isVideo}"
+        v-if="!isShowPurchased && !isLoading && accountUser"
       >
         <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
         <span
@@ -198,7 +210,7 @@
           v-language:inner="'documentPage_download_btn'"
         ></span>
       </a>
-    </div>
+      </div>
   </div>
 </template>
 <script>
@@ -209,13 +221,15 @@ import reportItem from "../../results/helpers/reportItem/reportItem.vue";
 import utillitiesService from "../../../services/utilities/utilitiesService";
 import documentService from "../../../services/documentService";
 import tutorResultCardCarousel from "../../../components/results/tutorCards/tutorResultCardCarousel/tutorResultCardCarousel.vue";
+import sbVideoPlayer from '../../sbVideoPlayer/sbVideoPlayer.vue';
 
 export default {
   name: "mainDocument",
   components: {
     reportItem,
     sbDialog,
-    tutorResultCardCarousel
+    tutorResultCardCarousel,
+    sbVideoPlayer,
   },
   props: {
     document: {
@@ -224,8 +238,8 @@ export default {
   },
   data() {
     return {
-      imgHeight: 0,
-      imgWidth: 0,
+      showAfterVideo: false,
+      isMounted: false,
       showMenu: false,
       currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
       itemId: 0,
@@ -266,8 +280,27 @@ export default {
       "getBtnLoading",
       "accountUser",
       "getPurchaseConfirmation",
-      "getRouteStack"
+      "getRouteStack",
+      "getDocumentLoaded"
+
     ]),
+    videoSrc(){
+      if(this.document && this.document.preview && this.document.preview.locator){
+        return this.document.preview.locator
+      }
+    },
+    isShowVideo() {
+      if(this.document && this.document.documentType && this.isMounted) {
+        return true;
+      }
+      return false;
+    },
+    isVideo(){      
+        return this.document.documentType === 'Video' 
+    },
+    videoHeight(){
+       return Math.floor((this.videoWidth/16)*9); 
+    },
     showPurchaseConfirmation() {
       return this.getPurchaseConfirmation;
     },
@@ -312,33 +345,21 @@ export default {
         return this.document.details.price.toFixed(2);
       }
     },
+    videoWidth(){
+      return this.calculateWidthByScreenSize()
+    },
     docPreview() {
+      if(this.isVideo)return
       // TODO temporary calculated width container
       if (this.document.preview && this.docWrap) {
-        if (this.$vuetify.breakpoint.xl) {
-          this.imgWidth = 960;
+        if(this.document.preview[0].indexOf("base64") > -1){
+          return this.document.preview;
         }
-        if (this.$vuetify.breakpoint.lg) {
-          this.imgWidth = 880;
-        }
-        if (this.$vuetify.breakpoint.md) {
-          this.imgWidth = 560;
-        }
-        if (this.$vuetify.breakpoint.sm) {
-          this.imgWidth = 730;
-        }
-        if (this.$vuetify.breakpoint.xs) {
-          this.imgWidth = 400;
-        }
-        if (this.$vuetify.breakpoint.width === 375) {
-          this.imgWidth = 375;
-        }
-        this.imgHeight = this.imgWidth / 0.707;
         let result = this.document.preview.map(preview => {
           return utillitiesService.proccessImageURL(
             preview,
-            this.imgWidth,
-            Math.ceil(this.imgHeight),
+            this.dynamicWidthAndHeight.width,
+            this.dynamicWidthAndHeight.height,
             "pad"
           );
         });
@@ -352,7 +373,7 @@ export default {
       if (this.document) {
         // return this.document.details.template
       }
-      return "note";
+      return "feed";
     },
     documentPrice: {
       get() {
@@ -381,6 +402,30 @@ export default {
         return true;
       }
       return false;
+    },
+    unlockDocDictionary() {
+      if(!this.accountUser) {
+        return 'documentPage_unlock_document_unregister'
+      } else {
+        return this.isVideo ? 'documentPage_unlock_video' : 'documentPage_unlock_document';
+      } 
+    }, 
+    videoLoader() {
+      if(this.getDocumentLoaded){
+        if(this.isVideo){
+          return !!(this.document && this.document.preview && this.document.preview.locator);
+        }else{
+          return true;
+        }
+      }else{
+        return false;
+      }
+    },
+    dynamicWidthAndHeight(){
+      return {
+        width: this.calculateWidthByScreenSize(),
+        height: Math.ceil(this.calculateWidthByScreenSize() / 0.707)
+      }
     }
   },
   methods: {
@@ -390,10 +435,31 @@ export default {
       "updateToasterParams",
       "setNewDocumentPrice",
       "updateLoginDialogState",
-      "downloadDocument"
+      "downloadDocument",
     ]),
     ...mapMutations(["UPDATE_SEARCH_LOADING"]),
-    
+    calculateWidthByScreenSize(){
+      let width = 0;
+      if (this.$vuetify.breakpoint.xl) {
+          width = 960;
+        }
+        if (this.$vuetify.breakpoint.lg) {
+          width = 880;
+        }
+        if (this.$vuetify.breakpoint.md) {
+          width = 560;
+        }
+        if (this.$vuetify.breakpoint.sm) {
+          width = 730;
+        }
+        if (this.$vuetify.breakpoint.xs) {
+          width = 400;
+        }
+        if (this.$vuetify.breakpoint.width === 375) {
+          width = 375;
+        }
+        return width;
+    },
     unlockDocument() {
       let item = {
         id: this.document.details.id,
@@ -410,7 +476,7 @@ export default {
       if (routeStackLength > 1) {
         this.$router.back();
       } else {
-        this.$router.push({ path: "/note" });
+        this.$router.push({ path: "/feed" });
       }
     },
     showReportOptions() {
@@ -499,12 +565,19 @@ export default {
         id: this.document.details.id
       };
       this.downloadDocument(item);
+    },
+    isObserver(page) {
+      if("IntersectionObserver" in window) {
+        return require('./doc-preview-animation.gif');
+      } else {
+        return page;
+      }
     }
   },
-  beforeDestroy() {},
   mounted() {
     this.docWrap = document.querySelector(".document-wrap");
-  }
+    this.isMounted = true;
+  },
 };
 </script>
 <style lang="less">
@@ -512,13 +585,14 @@ export default {
 
 .mainDocument-container {
   margin-bottom: 80px;
-  flex: 5;
+  // flex: 5;
   @media (max-width: @screen-sm) {
     order: 2;
   }
   .mainDocument-header {
     justify-content: center;
-    .main-header-wrapper {
+  }
+  .main-header-wrapper {
       display: flex;
       width: 100%;
       align-items: center;
@@ -581,9 +655,14 @@ export default {
         font-size: 14px;
       }
     }
-  }
   .document-wrap {
     // position: relative;
+    .unlockBoxAfterVideo{
+      bottom: 500px !important;
+    }
+    .video_placeholder {
+      width: 100%;
+    }
     .unlockBox {
       position: fixed;
       left: 0;
@@ -592,26 +671,31 @@ export default {
       margin: auto;
       text-align: center;
       z-index: 5;
+      @media (max-width: @screen-xs) {
+        right: 0;
+        bottom: 0;
+      }
       .inner {
-          
         min-width: 450px;
         padding: 20px;
         box-shadow: 0 3px 55px -1px rgba(0, 0, 0, 0.2),
           0 5px 8px 0 rgba(0, 0, 0, 0.14), 0 1px 14px 0 rgba(0, 0, 0, 0.12) !important;
-        cursor: pointer;
         border-radius: 4px;
         background: #fff;
         display: inline-block;
+        @media (max-width: @screen-xs) {
+          width: 100%;
+          min-width: auto;
+          padding: 0;
+        }
       }
-
-      //width: 450px;
-
       p {
         padding: 0 0 30px 0;
         margin: 0;
         font-size: 19px;
       }
       .aside-top-btn-not {
+        cursor: pointer;
         display: flex;
         border: 1px solid #ccc;
         border-radius: 4px;
@@ -636,8 +720,10 @@ export default {
         width: 60%;
         line-height: 20px;
         font-size: 15px;
+        cursor: pointer;
         @media (max-width: @screen-sm) {
           width: auto;
+          line-height: 32px;
         }
         span:first-child {
           flex-grow: 1;
@@ -661,6 +747,7 @@ export default {
       margin: 0 auto;
     }
     .btn-download {
+      visibility: hidden;
       position: fixed;
       bottom: 30px;
       left: 50%;
@@ -674,6 +761,18 @@ export default {
       }
       span {
         font-size: 26px;
+      }
+      &.v-hidden{
+        visibility: visible;
+      }
+      @media (max-width: @screen-sm) {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        text-align: center;
+        border-radius: 0;
+        margin: 0;
       }
     }
   }
@@ -694,7 +793,6 @@ export default {
       align-items: center;
     }
     .confirm-headline {
-      font-family: @fontFiraSans;
       font-size: 18px;
       line-height: 1.56;
       color: @color-blue-new;
@@ -724,7 +822,7 @@ export default {
       }
       .doc-details {
         display: flex;
-        flex-direction: column;
+        // flex-direction: column;
         justify-content: center;
         align-items: center;
 
@@ -741,15 +839,17 @@ export default {
           .doc-type-text {
             color: @color-blue-new;
             font-size: 13px;
-            font-family: @fontFiraSans;
           }
         }
         .doc-title {
-          font-family: @fontFiraSans;
           color: @textColor;
           text-align: center;
           font-size: 16px;
           font-weight: 600;
+          // max-width: 400px;
+          div {
+            max-width: 200px;
+          }
         }
       }
       .purchase-actions {
@@ -770,7 +870,6 @@ export default {
           }
           &.cancel {
             font-size: 14px;
-            font-family: @fontOpenSans;
             color: fade(@color-black, 72%);
           }
         }

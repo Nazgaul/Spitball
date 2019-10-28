@@ -1,12 +1,12 @@
-﻿namespace Cloudents.Admin2.Models
-{
-    public class UploadAskFileResponse
-    {
-        public UploadAskFileResponse(string file)
-        {
-            File = file;
-        }
+﻿//namespace Cloudents.Admin2.Models
+//{
+//    public class UploadAskFileResponse
+//    {
+//        public UploadAskFileResponse(string file)
+//        {
+//            File = file;
+//        }
 
-        public string File { get; set; }
-    }
-}
+//        public string File { get; set; }
+//    }
+//}

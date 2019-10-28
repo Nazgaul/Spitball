@@ -41,5 +41,7 @@ namespace Cloudents.Core.Extension
             builder.Query = string.Join("&", properties.ToArray());
             //return string.Join("&", properties.ToArray());
         }
+
+        //public string void BuildUrl(this UriBuilder builder, string )
     }
 }

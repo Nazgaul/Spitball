@@ -32,20 +32,20 @@
         <div class="user-rates">
             <div class=" price font-weight-bold mb-1">
               <template>
-                  <span v-if="showStriked" class="headline font-weight-bold">&#8362;{{discountedPrice}}</span>
-                  <span class="headline font-weight-bold" v-else>&#8362;{{tutorData.price}}</span>
+                  <span v-if="tutorData.discountPrice" class="headline font-weight-bold">{{tutorData.discountPrice}}</span>
+                  <span class="headline font-weight-bold" v-else>{{tutorData.price}}</span>
               </template>
               <span class="caption">
                 /<span v-language:inner="'resultTutor_hour'"></span>
-                <div v-if="!showStriked" class="price-default-height"></div>
+                <!-- <div v-if="showStriked" class="price-default-height"></div> -->
               </span>
-              <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
+              <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price}}</div>
             </div>
 
             <template>
               <div class="user-rank mt-3 mb-2 align-center" v-if="isReviews">
                 <user-rating :rating="tutorData.rating" :showRateNumber="false" />
-                <div class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
+                <div class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
               </div>
               <div v-else class="user-rank mt-3 mb-2 align-center">
                 <star/>
@@ -59,7 +59,7 @@
               
               <template>
                 <span class="font-weight-bold caption no-classes" v-language:inner="'resultTutor_no_hours_completed'" v-if="tutorData.lessons === 0"></span>
-                <span class="font-weight-bold caption no-classes" v-language:inner="'resultTutor_hours_completed'" v-else></span>    
+                <span class="font-weight-bold caption no-classes" v-language:inner="tutorData.lessons === 1 ? 'resultTutor_hour_completed' : 'resultTutor_hours_completed' " v-else></span>    
               </template>
             </div>                
 
@@ -310,7 +310,7 @@ export default {
             .chat-icon-btn{
               position: absolute;
               top: 0;
-              left: -10px;
+              left: 0px;
             }
             svg {
               width: 40px;

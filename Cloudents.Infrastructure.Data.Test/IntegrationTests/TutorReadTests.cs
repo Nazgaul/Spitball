@@ -1,4 +1,6 @@
-﻿using Cloudents.Query.Tutor;
+﻿using System;
+using System.Linq;
+using Cloudents.Query.Tutor;
 using FluentAssertions;
 using System.Threading.Tasks;
 using Xunit;
@@ -17,31 +19,47 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         }
 
-        [Fact]
-        public async Task TutorListByCourseQuery_Ok()
+        [Theory]
+        [InlineData("xxx", 0, "IL", 5)]
+        [InlineData("Economics", 638, "IL", 5)]
+        [InlineData("Economics", 0, "IL", 100)]
+        [InlineData("Economics", 638, "IN", 5)]
+        [InlineData("xxx", 0, "IN", 5)]
+
+        public async Task TutorListByCourseQuery_Ok(string course, long userId, string country, int count)
         {
-            var query = new TutorListByCourseQuery("xxx", 0, 5);
-            var _ = await _fixture.QueryBus.QueryAsync(query, default);
 
-
+            var query = new TutorListByCourseQuery(course, userId, country, count);
+            var result = await _fixture.QueryBus.QueryAsync(query, default);
+            foreach (var tutorCardDto in result)
+            {
+                tutorCardDto.TutorCountry.Should().BeEquivalentTo(country);
+            }
         }
 
 
-        [Fact]
-        public async Task TutorListQuery_Ok()
+        [Theory]
+        [InlineData(0, "IL", 0)]
+        [InlineData(0,"IN",0)]
+        [InlineData(638, null, 0)]
+
+        public async Task TutorListQuery_Ok(long userId, string country, int page)
         {
-            var query = new TutorListQuery(0, "IL",0);
+            var query = new TutorListQuery(userId, country, page);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeEmpty();
+            //cant do this check because userid give country null
+            //foreach (var tutorCardDto in result)
+            //{
+            //    tutorCardDto.TutorCountry.Should().BeEquivalentTo(country);
+            //}
 
-            var query2 = new TutorListQuery(638, null, 0);
-            result = await _fixture.QueryBus.QueryAsync(query2, default);
-            result.Should().NotBeEmpty();
+
 
         }
 
-        
-  
+
+
     }
 
     [Collection("Database collection")]

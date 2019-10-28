@@ -54,11 +54,11 @@ where t.State = 'Ok'
 
 
 
---update sb.Tutor.SubsidizedPrice
-begin tran
-update t
 
-set SubsidizedPrice = case when Price < 55 then Price
+--Populate DurationInMinutes
+update srs
+set srs.DurationInMinutes = srs.Duration / 600000000
+from sb.StudyRoomSession srs
 							when Price - 70 < 55 then 55
 							else Price - 70 end
 from sb.Tutor t

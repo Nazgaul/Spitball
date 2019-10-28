@@ -46,6 +46,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.FirstName);
             Map(x => x.LastName);
             Map(x => x.Description);
+            
             Component(x => x.BuyerPayment, y =>
             {
                 y.Map(z => z.PaymentKey);
@@ -54,12 +55,7 @@ namespace Cloudents.Persistence.Maps
 
             });
             Map(z => z.PaymentExists).CustomType<PaymentStatus>();
-            //HasManyToMany(x => x.Courses)
-            //    .ParentKeyColumn("UserId")
-            //    .ChildKeyColumn("CourseId")
-            //    .Cascade.SaveUpdate()
-            //    .ForeignKeyConstraintNames("User_Courses", "Courses_User")
-            //    .Table("UsersCourses").AsSet();
+            Map(z => z.Gender).CustomType<Gender>();
 
 
             HasMany(x => x.UserCourses).Access.CamelCaseField(Prefix.Underscore)
@@ -70,23 +66,10 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse();
-            //StudyRooms
 
-
-            HasManyToMany(x => x.Tags)
-                .ParentKeyColumn("UserId")
-                .ChildKeyColumn("TagId")
-                .ForeignKeyConstraintNames("User_Tags", "Tags_User")
-                .Table("UsersTags").AsSet();
-
-
-
-            /*HasMany(x => x.UserRoles)
-                .KeyColumn("UserId")
-                .Inverse()
-                .Cascade.AllDeleteOrphan();*/
-            HasOne(x => x.Tutor)/*.LazyLoad(Laziness.NoProxy).Constrained()*/.Cascade.All();
-
+            //We are using cascade all because we need to save the tutor in Become Tutot command handler
+            HasOne(x => x.Tutor).Cascade.All();
+            
         }
     }
 }

@@ -19,7 +19,7 @@
           <div class="logo-nav-wrap">
             <span class="logo-container">
               <a @click="resetItems()" class="logo-link">
-                <AppLogo></AppLogo>
+                <logoComponent></logoComponent>
               </a> 
             </span>
             <div
@@ -47,28 +47,10 @@
             </div> 
             
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
-
-            <v-menu bottom origin="center center" transition="scale-transition">
-              <template v-slot:activator="{ on }">
-                <v-btn flat icon v-on="on">
-                  <settingIcon class="white-btn"></settingIcon>
-                </v-btn>
-                <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
-              </template>
-
-              <v-list>
-                <v-list-tile @click="changeQualityDialogState(true)">
-                  <v-list-tile-action>
-                    <testIcon class="test-icon mr-1"></testIcon>
-                  </v-list-tile-action>
-                  <v-list-tile-content>
-                    <v-list-tile-title>
-                      <span v-language:inner>tutor_btn_system_check</span>
-                    </v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </v-list>
-            </v-menu>
+            
+            <v-btn flat icon @click="changeSettingsDialogState(true)">
+              <v-icon class="white-btn">sbf-settings</v-icon>
+            </v-btn>
 
           </div>
         </nav>
@@ -94,7 +76,7 @@
                 <span v-language:inner>tutor_option_videoChat</span>
               </v-btn>
               <v-btn
-                :disabled="!getIsRemote"
+                :disabled="!releaseFullVideoButton"
                 @click="selectViewOption(enumViewOptions.fullScreenVideo)"
                 class="control-btn text-capitalize elevation-0 cursor-pointer"
                 :input-value="activeViewOption == enumViewOptions.fullScreenVideo"
@@ -130,7 +112,7 @@
           </keep-alive>
         </transition>
       </v-flex>
-
+      
       <sb-dialog
         :showDialog="getBrowserSupportDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
@@ -143,14 +125,31 @@
           <browserSupport></browserSupport>
       </sb-dialog>
 
-      <v-dialog
-        v-model="showNotConnectedDevicesDialog"
-        content-class="quality-dialog"
-        :fullscreen="$vuetify.breakpoint.xsOnly"
-        persistent
+<sb-dialog
+        :showDialog="showDeviceValidationError"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'browserDialog'"
+        :maxWidth="'612.5'"
+        :onclosefn="closeBrowserSupportDialog"
+        :isPersistent="$vuetify.breakpoint.smAndUp"
+        :content-class="'browser-dialog-unsupport'"
       >
-        <quality-validation></quality-validation>
-      </v-dialog>
+          <deviceValidationError :deviceValidationObj="deviceValidationObj"></deviceValidationError>
+      </sb-dialog>
+    
+
+      <sb-dialog
+        :showDialog="getStudyRoomSettingsDialog"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'tutor-settings'"
+        :maxWidth="'800'"
+        :onclosefn="closeStudyRoomSettingsDialog"
+        :activateOverlay="false"
+        :content-class="'tutor-settings-dialog'"
+      >
+        <studyRoomSettingsDialog></studyRoomSettingsDialog>
+      </sb-dialog>
+
 
       <sb-dialog
         :showDialog="getReviewDialogState"
@@ -166,7 +165,7 @@
       </sb-dialog>
       <!--show only if not avaliable devices dialog is closed by user-->
       <sb-dialog
-        :showDialog="openStartSessionDialog && !qualityDialog"
+        :showDialog="openStartSessionDialog && !getStudyRoomSettingsDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'startSessionTutor'"
         :maxWidth="'356'"
@@ -192,7 +191,7 @@
       </sb-dialog>
       <!--show only if not avaliable devices dialog is closed by user-->
       <sb-dialog
-        :showDialog="getStudentStartDialog && !qualityDialog"
+        :showDialog="getStudentStartDialog && !getStudyRoomSettingsDialog"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'startSessionStudent'"
         :maxWidth="'356'"
@@ -203,12 +202,6 @@
       >
         <startSessionStudent :id="id"></startSessionStudent>
       </sb-dialog>
-      <v-dialog v-if="showPaymentDialog"
-        v-model="showPaymentDialog"
-        content-class="payme-popup"
-        :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
-        <paymentDialog></paymentDialog>
-      </v-dialog>
     </div>
   </v-layout>
 </template>
@@ -221,13 +214,11 @@ import whiteBoard from "./whiteboard/WhiteBoard.vue";
 import codeEditorTools from './codeEditor/codeEditorTools.vue';
 const codeEditor = () => import("./codeEditor/codeEditor.vue");
 
-import qualityValidation from "./tutorHelpers/qualityValidation/qualityValidation.vue";
 import sharedDocument from "./sharedDocument/sharedDocument.vue";
 import shareScreenBtn from "./tutorHelpers/shareScreenBtn.vue";
-import AppLogo from "../../../wwwroot/Images/logo-spitball.svg";
+import logoComponent from '../app/logo/logo.vue';
 import testIcon from "./images/eq-system.svg";
 import chatIcon from "../../font-icon/message-icon.svg";
-import settingIcon from "../../font-icon/settings.svg";
 import networkLevel from "./tutorHelpers/networkLevel.vue";
 import noSupportTop from "./images/not_supported_top.svg";
 import noSupportBottom from "./images/not_supported_bottom.svg";
@@ -243,6 +234,8 @@ import startEndSessionBtn from "./tutorHelpers/startEndSessionBtn/startEndSessio
 import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfirm.vue";
 import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
 import insightService from '../../services/insightService.js';
+import studyRoomSettingsDialog from "./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue";
+import deviceValidationError from './tutorHelpers/validationDialog/deviceValidationError.vue';
 import paymentDialog from './tutorHelpers/paymentDIalog/paymentDIalog.vue'
 import intercomSVG from './images/icon-1-2.svg'
 
@@ -260,11 +253,9 @@ export default {
     codeEditor,
     sharedDocument,
     shareScreenBtn,
-    AppLogo,
-    qualityValidation,
+    logoComponent,
     testIcon,
     chatIcon,
-    settingIcon,
     networkLevel,
     sbDialog,
     leaveReview,
@@ -276,6 +267,8 @@ export default {
     startEndSessionBtn,
     endSessionConfirm,
     browserSupport,
+    studyRoomSettingsDialog,
+    deviceValidationError,
     paymentDialog,
     codeEditorTools,
     intercomSVG
@@ -312,6 +305,7 @@ export default {
       },
       activeViewOption: "videoChat",
       userId: null,
+      deviceValidationObj: null,
     };
   },
 
@@ -321,7 +315,8 @@ export default {
   
   computed: {
     ...mapGetters([
-      "qualityDialog",
+      "getStudyRoomSettingsDialog",
+      // "qualityDialog",
       "localNetworkQuality",
       "isRoomCreated",
       "getZoom",
@@ -333,9 +328,10 @@ export default {
       "getEndDialog",
       "getBrowserSupportDialog",
       "accountUser",
+      "showDeviceValidationError",
       "getShowPaymentDialog",
       "getStudyRoomData",
-      "getIsRemote",
+      "releaseFullVideoButton",
       "getActiveNavIndicator"
     ]),
     activeItem() {
@@ -361,8 +357,10 @@ export default {
       return this.getBrowserSupportDialog;
     },
     showNotConnectedDevicesDialog(){
-        let browserSupported = this.isBrowserSupport();
-        return this.qualityDialog && browserSupported && !this.isMobile && !this.needPayment
+      // TODO SHOW SPECIFIC INFORMATION, WHICH DEVICE IS NOT CONNECTED AUDIO VIDEO EXC...
+      
+      // let browserSupported = this.isBrowserSupport();
+      // return this.qualityDialog && browserSupported && !this.isMobile
     },
     needPayment() {
       if(!this.isTutor){
@@ -386,7 +384,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      "updateTestDialogState",
+      "setStudyRoomSettingsDialog",
       "setActiveConversationObj",
       "getChatById",
       "lockChat",
@@ -401,10 +399,13 @@ export default {
       "updateEndDialog",
       "setBrowserSupportDialog",
       "setRoomId",
+      "setDeviceValidationError",
       "setVideoDevice",
       "setAudioDevice",
+      "initLocalMediaTracks",
       "UPDATE_SEARCH_LOADING"
     ]),
+    ...mapGetters(['getDevicesObj']),
     closeFullScreen(e){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
        this.selectViewOption(this.enumViewOptions.videoChat)
@@ -412,6 +413,9 @@ export default {
     },
     closeReviewDialog() {
       this.updateReviewDialog(false);
+    },
+    closeStudyRoomSettingsDialog(){
+      this.setStudyRoomSettingsDialog(false);
     },
     closeEndDialog() {
       this.updateEndDialog(false);
@@ -437,8 +441,9 @@ export default {
       // {{singleNav.value}}
       console.log(this.activeItem);
     },
-    changeQualityDialogState(val) {
-      this.updateTestDialogState(val);
+    changeSettingsDialogState(val) {
+      this.setStudyRoomSettingsDialog(val);
+      // this.updateTestDialogState(val);
     },
     selectViewOption(param) {
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_selectViewOption', {'roomId': this.id, 'userId': this.userId, 'viewOption': param}, null)
@@ -498,6 +503,15 @@ export default {
         return false;
       }
       return agent.match(/Firefox|Chrome|Safari/);
+    },
+     async validateMedia(){
+      await tutorService.validateUserMedia(true, true);
+      this.deviceValidationObj = this.getDevicesObj();
+      if(this.deviceValidationObj.errors.video.length > 0 || this.deviceValidationObj.errors.audio.length > 0){
+        this.setDeviceValidationError(true);
+      }else{
+        this.initLocalMediaTracks();
+      }
     },
     async initDevicesToStore(){
         let availableDevices = [];
@@ -578,6 +592,8 @@ export default {
       })
       return;
     }
+    
+    this.validateMedia();
     this.userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
     if(!!this.id){
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null)

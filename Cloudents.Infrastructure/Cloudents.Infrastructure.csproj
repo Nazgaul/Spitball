@@ -9,28 +9,34 @@
 
   <ItemGroup>
     <None Remove="calendar.json" />
+    <None Remove="Video\appsettings-dev.json" />
+    <None Remove="Video\appsettings.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Video\appsettings-dev.json" />
     <EmbeddedResource Include="Google\calendar.json" />
+    <EmbeddedResource Include="Video\appsettings.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.9.3" />
+    <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.5.0" />
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.2.0" />
     <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.2.0" />
-    <PackageReference Include="Dapper" Version="1.60.6" />
-    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.40.3.1692" />
-    <PackageReference Include="Google.Apis.Docs.v1" Version="1.40.3.1680" />
-    <PackageReference Include="Google.Apis.Drive.v3" Version="1.40.3.1683" />
+    <PackageReference Include="Dapper" Version="2.0.30" />
+    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.41.1.1732" />
+    <PackageReference Include="Google.Apis.Docs.v1" Version="1.41.1.1738" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.41.1.1729" />
     <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Language.TextAnalytics" Version="4.0.0" />
-    <PackageReference Include="PayPal" Version="2.0.0-rc2" />
+    <PackageReference Include="Nager.Country" Version="1.0.4" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
-    <PackageReference Include="Twilio" Version="5.31.4" />
+    <PackageReference Include="Twilio" Version="5.33.1" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
-    <PackageReference Include="PayPal" Version="2.0.0-rc2" />
+    <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.0" />
+    <PackageReference Include="Microsoft.Azure.Management.Media" Version="2.0.3" />
+    <PackageReference Include="Nito.AsyncEx.Coordination" Version="5.0.0" />
     <!--We have a problem with redis nuget packages.-->
     <!--<PackageReference Include="NHibernate.Caches.CoreDistributedCache.Redis" Version="5.5.1" />-->
     

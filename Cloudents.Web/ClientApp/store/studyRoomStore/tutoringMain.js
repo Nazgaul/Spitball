@@ -1,5 +1,7 @@
 import videoStreamService from '../../services/videoStreamService';
 import { LanguageService } from '../../services/language/languageService';
+import tutorService from '../../components/tutor/tutorService';
+
 
 const state = {
     isRoomFull: false,
@@ -15,8 +17,6 @@ const state = {
     isFirepadLoadedOnce: false,
     qualityDialogVisibility: false,
     browserSupportDialog: false,
-    notAllowedDevices: false,
-    notAvaliableDevices: false,
     studyRoomData: null,
     roomStateEnum: {
         pending: "pending",
@@ -31,7 +31,11 @@ const state = {
     studentStartDialog: false,
     tutorStartDialog: false,
     endDialog: false,
-    activeNavIndicator: 'white-board'
+    settingsDialogState: false,
+    activeNavIndicator: 'white-board',
+    deviceValidationError:false,
+    DevicesObject: tutorService.createDevicesObj()
+    
 };
 const getters = {
     getIsRoomFull: state => state.isRoomFull,
@@ -45,8 +49,6 @@ const getters = {
     roomLoading: state => state.isRoomLoading,
     firepadLoadedOnce: state => state.isFirepadLoadedOnce,
     qualityDialog: state => state.qualityDialogVisibility,
-    getNotAllowedDevices: state => state.notAllowedDevices,
-    getNotAvaliableDevices: state => state.notAvaliableDevices,
     getCurrentRoomState: state => state.currentRoomState,
     getStudyRoomData: state => state.studyRoomData,
     getJwtToken: state => state.jwtToken,
@@ -57,6 +59,9 @@ const getters = {
     getEndDialog: state => state.endDialog,
     getSessionEndClicked: state => state.sessionEndClicked,
     getBrowserSupportDialog: state => state.browserSupportDialog,
+    getStudyRoomSettingsDialog: state => state.settingsDialogState,
+    showDeviceValidationError: state => state.deviceValidationError,
+    getDevicesObj: state=> state.DevicesObject,
     getActiveNavIndicator: state => state.activeNavIndicator,
 };
 
@@ -73,17 +78,11 @@ const mutations = {
     updateSessionEndClicked(state, val) {
         state.sessionEndClicked = val;
     },
-    updateAllowedDevices(state, val) {
-        state.notAllowedDevices = val;
-    },
     setStudentStartDialog(state, val) {
         state.studentStartDialog = val;
     },
     setTutorStartDialog(state, val) {
         state.tutorStartDialog = val;
-    },
-    updateAvaliableDevices(state, val) {
-        state.notAvaliableDevices = val;
     },
     setStudyRoomProps(state, val) {
         state.studyRoomData = val;
@@ -137,8 +136,14 @@ const mutations = {
     setBrowserSupportDialog(state, val){
       state.browserSupportDialog = val;
     },
+    setStudyRoomSettingsDialog(state, val){
+        state.settingsDialogState = val;
+    },
     setActiveNavIndicator(state,{activeNav}){
-        state.activeNavIndicator = activeNav
+        state.activeNavIndicator = activeNav;
+    },
+    setDeviceValidationError(state, val){
+        state.deviceValidationError = val;
     }
 };
 
@@ -307,7 +312,7 @@ const actions = {
         if(isTutor) {
             dispatch("updateTutorStartDialog", true);
         }else{
-            dispatch("updatePaymentDialog", false);
+            dispatch("updatePaymentDialogState", false);
         }
     },
     setRoomId({commit}, val) {
@@ -316,6 +321,12 @@ const actions = {
     setBrowserSupportDialog({commit}, val){
       commit('setBrowserSupportDialog', val);
     },
+    setStudyRoomSettingsDialog({commit}, val){
+        commit('setStudyRoomSettingsDialog', val);
+    },
+    setDeviceValidationError({commit}, val){
+        commit('setDeviceValidationError', val);
+    }
 };
 export default {
     state,

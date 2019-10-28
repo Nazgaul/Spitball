@@ -126,9 +126,6 @@
   <data name="btn_stop_sharing" xml:space="preserve">
     <value>Stop Sharing</value>
   </data>
-  <data name="btn_system_check" xml:space="preserve">
-    <value>System Check</value>
-  </data>
   <data name="chrome_ext_btn_cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -172,9 +169,6 @@ Try connecting from a computer browser</value>
   <data name="option_videoFull" xml:space="preserve">
     <value>Full Video</value>
   </data>
-  <data name="quality_access_device" xml:space="preserve">
-    <value>Device Access</value>
-  </data>
   <data name="quality_allowed_looks_like" xml:space="preserve">
     <value>We were not able to access your camera and/or your microphone. It looks like one of your devices is in use by another application, or is disabled in your system settings.</value>
   </data>
@@ -190,47 +184,8 @@ Try connecting from a computer browser</value>
   <data name="quality_allowed_title" xml:space="preserve">
     <value>To communicate with the other participant, allow your web browser to access the camera and microphone.</value>
   </data>
-  <data name="quality_audio_test_in" xml:space="preserve">
-    <value>Audio Input Test</value>
-  </data>
-  <data name="quality_audio_test_out" xml:space="preserve">
-    <value>Audio Output Test</value>
-  </data>
-  <data name="quality_btn_continue" xml:space="preserve">
-    <value>Continue</value>
-  </data>
   <data name="quality_btn_done" xml:space="preserve">
     <value>Done</value>
-  </data>
-  <data name="quality_btn_got" xml:space="preserve">
-    <value>Got It</value>
-  </data>
-  <data name="quality_camera_placeholder" xml:space="preserve">
-    <value>Please select camera</value>
-  </data>
-  <data name="quality_input_title" xml:space="preserve">
-    <value>Audio Input Quality Test</value>
-  </data>
-  <data name="quality_out_title" xml:space="preserve">
-    <value>Audio Output quality test</value>
-  </data>
-  <data name="quality_permission" xml:space="preserve">
-    <value> Browser Permissions</value>
-  </data>
-  <data name="quality_title" xml:space="preserve">
-    <value>Camera &amp; Sound Test -</value>
-  </data>
-  <data name="quality_unable" xml:space="preserve">
-    <value>Unable to access camera or microphone</value>
-  </data>
-  <data name="quality_video_test_title" xml:space="preserve">
-    <value>Video Test</value>
-  </data>
-  <data name="quality_video_title" xml:space="preserve">
-    <value>Video quality test</value>
-  </data>
-  <data name="session_finished" xml:space="preserve">
-    <value>Finished the sesson?</value>
   </data>
   <data name="start_dialog_your_student" xml:space="preserve">
     <value>Your student</value>
@@ -239,7 +194,7 @@ Try connecting from a computer browser</value>
     <value>Your tutor</value>
   </data>
   <data name="start_to_share" xml:space="preserve">
-    <value>Avaliable while session is active</value>
+    <value>Available while session is active</value>
   </data>
   <data name="stream_btn_add_payment" xml:space="preserve">
     <value>Add payment details</value>
@@ -258,9 +213,6 @@ Try connecting from a computer browser</value>
   </data>
   <data name="stream_btn_waiting" xml:space="preserve">
     <value>Waiting for student</value>
-  </data>
-  <data name="stream_guest" xml:space="preserve">
-    <value>Guest</value>
   </data>
   <data name="tab" xml:space="preserve">
     <value>Tab</value>
@@ -299,10 +251,7 @@ Try connecting from a computer browser</value>
     <value>Upload Image</value>
   </data>
   <data name="end_session" xml:space="preserve">
-    <value>Finished the sesson?</value>
-  </data>
-  <data name="quality_mic_placeholder" xml:space="preserve">
-    <value>Please select microphone</value>
+    <value>Finished the session?</value>
   </data>
   <data name="tooltip_eraser" xml:space="preserve">
     <value>Eraser</value>
@@ -312,9 +261,6 @@ Try connecting from a computer browser</value>
   </data>
   <data name="tooltip_clearAll" xml:space="preserve">
     <value>Clear All</value>
-  </data>
-  <data name="btn_waiting_for_tutor" xml:space="preserve">
-    <value>Waiting for tutor</value>
   </data>
   <data name="tooltip_mic_mute" xml:space="preserve">
     <value>Mute</value>
@@ -339,5 +285,8 @@ Try connecting from a computer browser</value>
   </data>
   <data name="browser_not" xml:space="preserve">
     <value>Browser not supported</value>
+  </data>
+  <data name="tooltip_iink" xml:space="preserve">
+    <value>Handwriting</value>
   </data>
 </root>

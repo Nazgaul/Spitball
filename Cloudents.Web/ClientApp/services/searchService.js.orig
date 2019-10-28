@@ -1,0 +1,259 @@
+﻿import { connectivityModule } from "./connectivity.module"
+
+let currentVertical = 'item';
+
+const getFeeds = (params) => {
+    return connectivityModule.http.get("/feed", { params });
+};
+
+// const getQuestions = (params) => {
+//     return connectivityModule.http.get("/Question", { params });
+// };
+
+// const getDocument = (params) => {
+//     return connectivityModule.http.get("/Document", { params });
+// };
+
+const getTutor = (params) => {
+    return connectivityModule.http.get("tutor/search", { params });
+};
+
+const getNextPage = ({ url, vertical }) => {
+    currentVertical = vertical;
+    return connectivityModule.http.get(url, { baseURL: "" });
+};
+
+const getTutorsByCourse = (courseName) => {
+    let path = courseName ? `tutor?course=${encodeURIComponent(courseName)}` : 'tutor';
+    return connectivityModule.http.get(path);
+};
+
+function AnswerItem(objInit) {
+    this.id = objInit.id;
+    this.text = objInit.text;
+    this.create = objInit.create;
+    this.files = objInit.files;
+    this.user = objInit.user;
+    // this.isRtl = objInit.isRtl;
+    // this.votes = !!objInit.vote ? objInit.vote.votes : undefined;
+    // this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : undefined;
+    // this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : undefined;
+}
+
+function createAnswerItem(objInit) {
+    return new AnswerItem(objInit);
+}
+
+function QuestionItem(objInit) {
+    let oneMinute = 60000;
+    let oneHour = oneMinute * 60;
+    let threshhold = oneHour * 4;
+    this.id = objInit.id;
+    this.subject = objInit.subject;
+    this.text = objInit.text;
+    this.files = objInit.files;
+    this.answers = objInit.answers !== undefined ? (typeof objInit.answers === "number" ? objInit.answers : objInit.answers.map(createAnswerItem)) : undefined;
+    this.user = objInit.user;
+    this.dateTime = objInit.dateTime || objInit.create;
+    this.hasCorrectAnswer = objInit.hasCorrectAnswer;
+    this.correctAnswerId = objInit.correctAnswerId;
+    this.course = objInit.course;
+    this.template = "ask";
+    this.filesNum = this.files;
+    // this.isRtl = objInit.isRtl;
+    // this.votes = !!objInit.vote ? objInit.vote.votes : undefined;
+    // if the question is younger then 1 minute then watching now will be 0
+    //if question is older then threshold, watching now also gonna be 0 other wise random between 0 to 1
+    let questionOlderTheOneMinute = (new Date().getTime() - new Date(this.dateTime).getTime()) > oneMinute;
+    let questionYoungerThenThreshHold = (new Date().getTime() - new Date(this.dateTime).getTime()) < threshhold;
+    this.watchingNow = questionOlderTheOneMinute ? (questionYoungerThenThreshHold ? ((Math.random() * 2) | 0) : 0) : 0; //Todo get value from server
+}
+
+function createQuestionItem(objInit) {
+    return new QuestionItem(objInit);
+}
+
+function TutorItem(objInit) {
+    this.userId = objInit.userId;
+    this.name = objInit.name || '';
+    this.image = objInit.image;
+    this.courses = objInit.courses || [];
+    this.price = objInit.price || 0;
+    this.score = objInit.score || null;
+    this.rating =  objInit.rate ? Number(objInit.rate.toFixed(2)): null;
+    this.reviews = objInit.reviewsCount || 0;
+    this.template = 'tutor';
+    this.bio = objInit.bio || '';
+    this.university = objInit.university || '';
+    this.classes = objInit.classes || 0;
+    this.courseCount = objInit.courseCount || 0;
+    this.lessons = objInit.lessons || 0;
+    this.subjects = objInit.subjects || [];
+    this.isTutor = true;
+}
+
+function createTutorItem(objInit) {
+    return new TutorItem(objInit);
+}
+
+function DocumentItemUser(objInit){
+    this.id = objInit.id;
+    this.image = objInit.image || '';
+    this.name = objInit.name || '';
+    this.score = objInit.score || 0; //TODO remove this
+    this.isTutor = objInit.isTutor || false; //TODO remove this
+}
+
+function createDocumentItemUser(objInit) {
+    return new DocumentItemUser(objInit);
+}
+
+function DocumentItem(objInit) {
+    this.id = objInit.id || 1;
+    this.course = objInit.course;
+    this.dateTime = objInit.dateTime;
+    this.downloads = objInit.downloads;
+    this.purchased = objInit.purchased;
+    this.snippet = objInit.snippet;
+<<<<<<< HEAD
+    // this.source = objInit.source;
+=======
+    this.source = objInit.source; // TODO: i dont return this
+>>>>>>> b3094a23d638fa723570576c919a79a2f43fb421
+    this.title = objInit.title;
+    this.university = objInit.university;
+    this.url = objInit.url;
+    this.user = objInit.user ? createDocumentItemUser(objInit.user) : '';
+    this.views = objInit.views;
+    this.template = 'note'; //TODO remove this
+    this.price = objInit.price;
+<<<<<<< HEAD
+    this.isPurchased = objInit.isPurchased;
+    // this.votes = !!objInit.vote ? objInit.vote.votes : null;
+    // this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
+    // this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
+=======
+    this.isPurchased = objInit.isPurchased; //TODO: I never return this
+    this.votes = !!objInit.vote ? objInit.vote.votes : null;
+    this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
+    this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null; //TODO obselete remove this
+>>>>>>> b3094a23d638fa723570576c919a79a2f43fb421
+    this.preview = objInit.preview;
+    this.documentType = objInit.documentType;
+    this.itemDuration = objInit.duration;
+}
+
+function createDocumentItem(objInit) {
+    return new DocumentItem(objInit);
+}
+
+
+/* Question Card Result */
+let transferResultAsk = (data) => {   
+    if(!data.result) return { data: [] };
+    return {
+        data: data.result.map(createQuestionItem),
+        // data: data.result.map(res => new QuestionItem(res)),
+        sort: data.sort,
+        filters: data.filters,
+        nextPage: data.nextPageLink
+    };
+};
+
+/* Study Document Card Result */
+let transferResultNote = ({data}) => {
+    if(!data.result) return { data: [] };
+    return {
+        sort: data.sort,
+        filters: data.filters,
+        data: data.result.map(createDocumentItem),
+        nextPage: data.nextPageLink
+    };
+};
+
+/* Tutor Card Result */
+let transferResultTutor = ({data}) => {  
+    if(!data.result) return { data: [] };
+    return {
+        sort: data.sort,
+        filters: data.filters,
+        data: data.result.map(createTutorItem),
+        nextPage: data.nextPageLink
+    };
+};
+
+const transferMap = {
+    feed: (res) => transferResultAsk(res),
+    note: (res) => transferResultNote(res),
+    tutor: (res) => transferResultTutor(res)
+};
+
+let transferResult = ({data}) => {
+    let cardType = data.type || 'feed';
+    return transferMap[cardType](data);
+}
+
+let transferNextPage = (res) => {
+    let { data, nextPage } = transferMap[currentVertical](res);
+    return { data, nextPage };
+};
+
+const transferAnswerItem = ({ data }) => {    
+    return data.map(createTutorItem);
+};
+
+
+function FilterItem(objInit) {
+    this.key = objInit.key;
+    this.value = objInit.value;
+}
+
+function FilterChunk(objInit) {
+    this.id = objInit.id;
+    this.title = objInit.title;
+    this.data = [];
+    this.dictionaryData = {};
+    objInit.data.forEach((filterItem) => {
+        if(filterItem.key !== null){
+            this.data.push(new FilterItem(filterItem));
+            this.dictionaryData[filterItem.key] = filterItem.value;
+        }
+    });
+}
+
+function Filters(objInit) {
+    this.filterChunkList = [];
+    this.filterChunkDictionary = [];
+    objInit.forEach((filterChunk) => {
+        let createdFilterChunk = new FilterChunk(filterChunk);
+        this.filterChunkList.push(createdFilterChunk);
+        this.filterChunkDictionary[createdFilterChunk.id] = createdFilterChunk;
+    });
+}
+
+function createFilters (objInit) {
+    return new Filters(objInit);
+}
+
+export default {
+    activateFunction: {
+        feed(params) {
+            return getFeeds(params).then(transferResult);
+        },
+        tutor(params) {          
+            return getTutor(params).then(transferResultTutor);
+        },
+        getTutors(params) {
+            return getTutorsByCourse(params).then(transferAnswerItem);
+        }
+    },
+    nextPage: (params) => {
+        return getNextPage(params).then(transferNextPage);
+    },
+    getTutorsByCourse, 
+    createQuestionItem,
+    createAnswerItem,
+    createFilters,
+    createTutorItem,
+    createDocumentItem,
+}

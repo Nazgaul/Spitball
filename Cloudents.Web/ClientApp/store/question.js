@@ -5,7 +5,7 @@ import reputationService from '../services/reputationService'
 const state = {
     deletedAnswer: false,
     question: null,
-    cardOwner: false,
+    cardOwner: false
 };
 const mutations = {
     updateDeleted(state, data) {
@@ -36,20 +36,20 @@ const mutations = {
     updateAnswerVotes(state, {id, type}){
         state.question.answers.forEach((answer) => {
             if(answer.id === id){
-                reputationService.updateVoteCounter(answer, type)
+                reputationService.updateVoteCounter(answer, type);
             }
-        })
+        });
     },
     updateInnerQuestionVotes(state, {id, type}){
         if(!!state.question && state.question.id === id){
-            reputationService.updateVoteCounter(state.question, type)
+            reputationService.updateVoteCounter(state.question, type);
         }
     }
 };
 const getters = {
     getCorrectAnswer: (state) => {
         if(!!state.question){
-            return state.question.hasOwnProperty('correctAnswerId')
+            return state.question.hasOwnProperty('correctAnswerId');
         }else{
             return false;
         }
@@ -59,13 +59,13 @@ const getters = {
     isCardOwner: (state, {accountUser}) =>{
         if(!accountUser) return false;
         if(!state.question) return false;
-        return accountUser.id === state.question.user.id;
+        return accountUser.id === state.question.userId;
     }
 };
 const actions = {
     resetQuestion({commit}) {
         commit('updateDeleted', false);
-        commit('updateQuestion', null)
+        commit('updateQuestion', null);
     },
     removeDeletedAnswer({commit}) {
         commit('updateDeleted', false);
@@ -73,17 +73,19 @@ const actions = {
     deleteQuestion(context, id) {
         return questionService.deleteQuestion(id).then(()=>{
             if (id.type === 'Answer') {
-                context.commit('updateDeleted', true)
+                context.commit('updateDeleted', true);
             }
         });
     },
     correctAnswer(context, id) {
-        return questionService.markAsCorrectAnswer(id)
+        return questionService.markAsCorrectAnswer(id);
     },
     setQuestion({commit}, id){
         return questionService.getQuestion(id)
         .then((response) => {
             commit('updateQuestion', response);
+        }).catch(ex => {
+            console.log(ex);
         })
     },
     updateQuestionSignalR({commit, state}, question){
@@ -95,7 +97,7 @@ const actions = {
             //todo currently we are gonna get question by id.           
             questionService.getQuestion(question.id).then((res)=>{
                 commit('updateQuestion', res);
-            })
+            });
         }
     },
     updateQuestionItemCorrect({commit, state}, question){
@@ -128,7 +130,7 @@ const actions = {
                 showToaster: true,
             };
             dispatch('updateToasterParams', errorObj);
-        })
+        });
     },
     innerQuestionVote({commit}, data){
         commit('updateInnerQuestionVotes', data);

@@ -139,7 +139,7 @@
     <value>שמור שינויים</value>
   </data>
   <data name="calendar" xml:space="preserve">
-    <value>לוח שנה</value>
+    <value>יומן פגישות</value>
   </data>
   <data name="courses_can_help" xml:space="preserve">
     <value>קורסים שאני יכול לעזור לך איתם</value>
@@ -233,9 +233,6 @@
   </data>
   <data name="single_review" xml:space="preserve">
     <value>חוות דעת</value>
-  </data>
-  <data name="subjects" xml:space="preserve">
-    <value>נושאים</value>
   </data>
   <data name="tutor_contact_btn" xml:space="preserve">
     <value>צור איתי קשר</value>

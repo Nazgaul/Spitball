@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Storage;
+using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
@@ -19,14 +19,15 @@ namespace Cloudents.Web.Api
     {
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
-        private readonly IDocumentDirectoryBlobProvider _blobProvider;
+        private readonly IUrlBuilder _urlBuilder;
 
 
-        public ProfileController(IQueryBus queryBus, UserManager<User> userManager, IDocumentDirectoryBlobProvider blobProvider)
+        public ProfileController(IQueryBus queryBus, UserManager<User> userManager,
+             IUrlBuilder urlBuilder)
         {
             _queryBus = queryBus;
             _userManager = userManager;
-            _blobProvider = blobProvider;
+            _urlBuilder = urlBuilder;
         }
 
         // GET
@@ -61,39 +62,38 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
         {
             var query = new UserDataPagingByIdQuery(id, page);
-            var retValTask = _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            return await  _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
 
-            return await MergeFeedWithVotes(retValTask, token);
         }
 
-        private async Task<IEnumerable<QuestionFeedDto>> MergeFeedWithVotes(Task<IEnumerable<QuestionFeedDto>> retValTask, CancellationToken token)
-        {
-            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = _userManager.GetLongUserId(User);
-                var queryTags = new UserVotesByCategoryQuery(userId);
-                votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteQuestionDto>>(queryTags, token)
-                    .ContinueWith(
-                        t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
-            }
+        //private async Task<IEnumerable<QuestionFeedDto>> MergeFeedWithVotes(Task<IEnumerable<QuestionFeedDto>> retValTask, CancellationToken token)
+        //{
+        //    var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        var userId = _userManager.GetLongUserId(User);
+        //        var queryTags = new UserVotesByCategoryQuery(userId);
+        //        votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteQuestionDto>>(queryTags, token)
+        //            .ContinueWith(
+        //                t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
+        //    }
 
-            await Task.WhenAll(retValTask, votesTask);
-            if (votesTask.Result == null)
-            {
-                return retValTask.Result;
-            }
+        //    await Task.WhenAll(retValTask, votesTask);
+        //    if (votesTask.Result == null)
+        //    {
+        //        return retValTask.Result;
+        //    }
 
-            return retValTask.Result.Select(s =>
-            {
-                if (votesTask.Result.TryGetValue(s.Id, out var p))
-                {
-                    s.Vote.Vote = p;
-                }
+        //    return retValTask.Result.Select(s =>
+        //    {
+        //        if (votesTask.Result.TryGetValue(s.Id, out var p))
+        //        {
+        //            s.Vote.Vote = p;
+        //        }
 
-                return s;
-            });
-        }
+        //        return s;
+        //    });
+        //}
 
         // GET
         [HttpGet("{id:long}/answers")]
@@ -102,8 +102,7 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<QuestionFeedDto>> GetAnswersAsync(long id, int page, CancellationToken token)
         {
             var query = new UserAnswersByIdQuery(id, page);
-            var retValTask = _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
-            return await MergeFeedWithVotes(retValTask, token);
+            return await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
         }
 
         [HttpGet("{id:long}/documents")]
@@ -122,7 +121,7 @@ namespace Cloudents.Web.Api
             {
                 var userId = _userManager.GetLongUserId(User);
                 var queryTags = new UserVotesByCategoryQuery(userId);
-                votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteDocumentDto>>(queryTags, token)
+                votesTask = _queryBus.QueryAsync(queryTags, token)
                     .ContinueWith(
                         t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
             }
@@ -131,11 +130,7 @@ namespace Cloudents.Web.Api
             return retValTask.Result.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
-                var uri = _blobProvider.GetPreviewImageLink(s.Id, 0);
-                var effect = ImageProperties.BlurEffect.None;
-                var properties = new ImageProperties(uri, effect);
-                var url = Url.ImageUrl(properties);
-                s.Preview = url;
+                s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                 if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
                 {
                     s.Vote.Vote = p;
@@ -158,7 +153,7 @@ namespace Cloudents.Web.Api
             {
                 var userId = _userManager.GetLongUserId(User);
                 var queryTags = new UserVotesByCategoryQuery(userId);
-                votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteDocumentDto>>(queryTags, token)
+                votesTask = _queryBus.QueryAsync(queryTags, token)
                     .ContinueWith(
                         t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
             }
@@ -167,11 +162,7 @@ namespace Cloudents.Web.Api
             return retValTask.Result.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
-                var uri = _blobProvider.GetPreviewImageLink(s.Id, 0);
-                var effect = ImageProperties.BlurEffect.None;
-                var properties = new ImageProperties(uri, effect);
-                var url = Url.ImageUrl(properties);
-                s.Preview = url;
+                s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                 if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
                 {
                     s.Vote.Vote = p;

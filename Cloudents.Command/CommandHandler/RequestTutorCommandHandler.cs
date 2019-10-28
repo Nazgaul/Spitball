@@ -45,7 +45,6 @@ namespace Cloudents.Command.CommandHandler
                 }
                 tutor = await _tutorRepository.LoadAsync(message.TutorId.Value, token);
             }
-            var needToSendToMoreTutors = await _leadRepository.NeedToSendMoreTutorsAsync(message.UserId, token);
 
             var course = await _courseRepository.LoadAsync(message.Course, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
@@ -56,10 +55,15 @@ namespace Cloudents.Command.CommandHandler
             await _leadRepository.AddAsync(lead, token);
 
             var tutorsIds = new List<long>();
-            if (needToSendToMoreTutors && message.MoreTutors)
+            if (message.MoreTutors)
             {
-                var t = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId, user.Country, token);
-                tutorsIds.AddRange(t);
+                var needToSendToMoreTutors = await _leadRepository.NeedToSendMoreTutorsAsync(message.UserId, token);
+                if (needToSendToMoreTutors)
+                {
+                    var t = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId, user.Country,
+                        token);
+                    tutorsIds.AddRange(t);
+                }
             }
 
             if (tutor != null)

@@ -6,7 +6,7 @@
     justify-content: center;
     background: #FFF;
     width: 840px;
-    height: 588px;
+    // height: 588px;
     border-radius: 6px;
     @media (max-width: @screen-xs) {
         width: 100%;
@@ -52,7 +52,6 @@
                 font-stretch: normal;
                 line-height: normal;
                 letter-spacing: -0.41px;
-                font-family: @fontFiraSans;
                 color: #43425d;
                 @media (max-width: @screen-xs) {
                     font-size: 18px;
@@ -73,14 +72,12 @@
                 font-size: 16px;
                 letter-spacing: -0.17px;
                 color: #5158af;
-                font-family: @fontFiraSans;
                 font-weight: 600;
             }
             .buy-tokens-normal-text{
                 color:rgba(0, 0, 0, 0.54);
                 font-size:14px;
                 letter-spacing: -0.17px;
-                font-family: @fontFiraSans;
                 line-height: 21px;
             }
         }
@@ -92,7 +89,6 @@
                 padding:12px;
             }
             .buy-tokens-title-text{
-                font-family: @fontFiraSans;
                 font-size: 22px;
                 letter-spacing: -0.2px;
                 color: @lightBtnIconColor;
@@ -129,7 +125,6 @@
                         padding-top: 12px;
                         .buy-tokens-text-absolute{
                             position:absolute;
-                            font-family: @fontFiraSans;
                             top:5px;
                             right:5px;
                             font-size: 11px;
@@ -152,7 +147,6 @@
                     }
                     .buy-tokens-text-small{
                         font-size: 12px;
-                        font-family: @fontOpenSans;
                         letter-spacing: -0.1px;
                         text-align: center;
                         color: rgba(0, 0, 0, 0.54);
@@ -162,7 +156,6 @@
                         border-radius: 20px;
                         box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.61);
                         background-color: #ffffff;
-                        font-family: @fontOpenSans;
                         font-size: 16px;
                         letter-spacing: -0.2px;
                         color: @lightBtnIconColor;
@@ -196,7 +189,6 @@
             padding:12px;
         }
         .buy-tokens-title-text{
-            font-family: @fontFiraSans;
             font-size: 22px;
             letter-spacing: -0.2px;
             color: #000000;
@@ -204,8 +196,14 @@
                 font-size: 22px;
             }
         }
-        .paypalbtn{
-            padding-top: 20px;
+        .buymebtn {
+            margin-top: 12px;
+            .buyme-button {
+                text-transform: capitalize;
+                border-radius: 20px;
+                padding: 0 20px;
+                height: 40px;
+            }
         }
         .buy-tokens-price-container2{
             padding-top: 10px;

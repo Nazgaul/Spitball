@@ -16,6 +16,7 @@
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
     "AzureSignalRConnectionString": "Endpoint=https://spitball-dev.service.signalr.net;AccessKey=dLvXKNqY9g4zunBuSCQvo1xTz4EotBnDoA7YwwXY0gw=;Version=1.0;",
     "AzureWebJobsServiceBus": "Endpoint=sb://spitball-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CACOBTEeKVemCY7ScVBHYXBwDkClQcCKUW7QGq8dNfA=",
-    "Local": "UseDevelopmentStorage=true"
+    "Local": "UseDevelopmentStorage=true",
+    "EventHubConnectionAppSetting": "Endpoint=sb://spitball-dev2.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=EWBm3pK6ia4eBBPRz6tjduByCo+eiYsW8AHKnHLeu3Q="
   }
 }

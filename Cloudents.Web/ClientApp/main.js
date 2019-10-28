@@ -7,7 +7,6 @@ import { LanguageService } from './services/language/languageService';
 //import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
 // clip board copy text
 import VueClipboard from 'vue-clipboard2';
-import lineClamp from 'vue-line-clamp';
 import Scroll from "vuetify/es5/directives/scroll";
 import Touch from "vuetify/es5/directives/touch";
 import scrollComponent from './components/helpers/infinateScroll.vue';
@@ -21,6 +20,8 @@ import VueMathjax from 'vue-mathjax';
 import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
 import { VLazyImagePlugin } from "v-lazy-image";
+
+import intercomSettings from './services/intercomService';
 
 // import VueCodemirror from 'vue-codemirror'
 // import 'codemirror/lib/codemirror.css'
@@ -149,7 +150,7 @@ const router = new VueRouter({
 });
 
 Vue.use(VueClipboard);
-Vue.use(lineClamp, {});
+// Vue.use(lineClamp, {});
 Vue.use(VueNumeric);
 Vue.use(VLazyImagePlugin);
 Vue.use(VueAnalytics, {
@@ -194,7 +195,7 @@ Vue.filter('capitalize',
 //is rtl
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 //check if firefox for ellipsis, if yes use allipsis filter if false css multiline ellipsis
-global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+// global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 //is country Israel
 global.isIsrael = global.country.toLowerCase() === "il";
 //check if Edge (using to fix position sticky bugs)
@@ -211,7 +212,7 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
 Vue.filter('ellipsis',
     function (value, characters, detailedView) {
         value = value || '';
-        if (value.length <= characters || detailedView || !global.isFirefox) {
+        if (value.length <= characters || detailedView) {
             return value;
         } else {
             return value.substr(0, characters) + '...';
@@ -263,6 +264,17 @@ Vue.filter('fullMonthDate', function (value) {
     return date.toLocaleDateString(languageDate, options);
 });
 
+Vue.prototype.$loadStyle = function(url,id){
+    return new Promise((resolve, reject) => {
+        if (document.querySelector(id)) return resolve()
+        let linkTag = document.createElement('link')
+        linkTag.id = id
+        linkTag.rel = 'stylesheet'
+        linkTag.href = url
+        document.head.insertBefore(linkTag, document.head.firstChild)
+        return resolve()
+    })
+}
 
 Vue.prototype.$Ph = function (key, placeholders) {
     let rawKey = LanguageService.getValueByKey(key);
@@ -338,15 +350,15 @@ router.beforeEach((to, from, next) => {
     store.dispatch('sendQueryToAnalytic', to);
 
     if (global.innerWidth < 600) {
-        intercomSettings.hide_default_launcher = true;
+        intercomSettings.IntercomSettings.set({hideLauncher:true});
     }
     else {
-        intercomSettings.hide_default_launcher = false;
+        intercomSettings.IntercomSettings.set({hideLauncher:false});
     }
     //if tutoring disable intercom
     if (global.location.href.indexOf("studyroom") > -1) {
         console.log('studyroom disable intercom');
-        intercomSettings.hide_default_launcher = true;
+        intercomSettings.IntercomSettings.set({hideLauncher:true});
     }
     //case 10995
     if (global.appInsights) {

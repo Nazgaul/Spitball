@@ -20,7 +20,6 @@ namespace Cloudents.Web.Models
                     CultureInfo b = a;
                     return Culture.Culture.Equals(b);
                 })) 
-            //if (!Language.SystemSupportLanguage().Any(a => Equals(a, Culture.Culture)))
             {
                 var stringLocalizer = validationContext.GetService(typeof(IStringLocalizer<DataAnnotationSharedResource>)) as IStringLocalizer<DataAnnotationSharedResource>;
                 var errorMessage = "Invalid Culture";

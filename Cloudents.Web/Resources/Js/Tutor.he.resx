@@ -129,12 +129,6 @@
   <data name="btn_stop_sharing" xml:space="preserve">
     <value>הפסק שיתוף מסך</value>
   </data>
-  <data name="btn_system_check" xml:space="preserve">
-    <value>בדיקת מערכת</value>
-  </data>
-  <data name="btn_waiting_for_tutor" xml:space="preserve">
-    <value>ממתין למורה</value>
-  </data>
   <data name="chrome_ext_btn_cancel" xml:space="preserve">
     <value>ביטול</value>
   </data>
@@ -183,9 +177,6 @@
   <data name="option_videoFull" xml:space="preserve">
     <value>הצג וידיאו</value>
   </data>
-  <data name="quality_access_device" xml:space="preserve">
-    <value>גישה למערכת</value>
-  </data>
   <data name="quality_allowed_looks_like" xml:space="preserve">
     <value>לא הצלחנו לזהות מצלמה ו/או מיקרופון. ככל הנראה אחד מהמכשירים הנ״ל בשימוש על ידי תוכנה אחרת או מנותק בהגדרות המשתמש שלך.</value>
   </data>
@@ -201,50 +192,8 @@
   <data name="quality_allowed_title" xml:space="preserve">
     <value>כדי ליצור קשר עם משתתף נוסף, אפשר לדפדפן שלך לגשת למצלמה והמיקרופון.</value>
   </data>
-  <data name="quality_audio_test_in" xml:space="preserve">
-    <value>בדיקת מיקרופון</value>
-  </data>
-  <data name="quality_audio_test_out" xml:space="preserve">
-    <value>בדיקת רמקול</value>
-  </data>
-  <data name="quality_btn_continue" xml:space="preserve">
-    <value>המשך</value>
-  </data>
   <data name="quality_btn_done" xml:space="preserve">
     <value>סיום</value>
-  </data>
-  <data name="quality_btn_got" xml:space="preserve">
-    <value>הבנתי</value>
-  </data>
-  <data name="quality_camera_placeholder" xml:space="preserve">
-    <value>בחר בבקשה מצלמה</value>
-  </data>
-  <data name="quality_input_title" xml:space="preserve">
-    <value>בדיקת איכות הקול במיקרופון</value>
-  </data>
-  <data name="quality_mic_placeholder" xml:space="preserve">
-    <value>בבקשה בחר מיקרופון</value>
-  </data>
-  <data name="quality_out_title" xml:space="preserve">
-    <value>בדיקת איכות הקול ברמקול</value>
-  </data>
-  <data name="quality_permission" xml:space="preserve">
-    <value> הרשאות דפדפן</value>
-  </data>
-  <data name="quality_title" xml:space="preserve">
-    <value>בדיקת מצלמה וקול - </value>
-  </data>
-  <data name="quality_unable" xml:space="preserve">
-    <value>לא מזהה מצלמה או מיקרופון</value>
-  </data>
-  <data name="quality_video_test_title" xml:space="preserve">
-    <value>בדיקת וידיאו</value>
-  </data>
-  <data name="quality_video_title" xml:space="preserve">
-    <value>בדיקת איכות וידיאו</value>
-  </data>
-  <data name="session_finished" xml:space="preserve">
-    <value>סיימת את השיעור?</value>
   </data>
   <data name="start_dialog_your_student" xml:space="preserve">
     <value>הסטודנט שלך</value>
@@ -273,9 +222,6 @@
   <data name="stream_btn_waiting" xml:space="preserve">
     <value>ממתין לסטודנט</value>
   </data>
-  <data name="stream_guest" xml:space="preserve">
-    <value>אורח</value>
-  </data>
   <data name="tab" xml:space="preserve">
     <value>לשונית</value>
   </data>
@@ -302,6 +248,9 @@
   </data>
   <data name="tooltip_eraser" xml:space="preserve">
     <value>מחק</value>
+  </data>
+  <data name="tooltip_iink" xml:space="preserve">
+    <value>כתב יד</value>
   </data>
   <data name="tooltip_line" xml:space="preserve">
     <value>קו</value>

@@ -10,6 +10,7 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
+using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using Cloudents.Query.Email;
 using Microsoft.AspNetCore.WebUtilities;
@@ -24,12 +25,15 @@ namespace Cloudents.FunctionsV2
 {
     public static class EmailUpdateFunction
     {
+        public const string HebrewTemplateId = "d-6a6aead697824210b95c60ddd8d495c5";
+        public const string EnglishTemplateId = "d-535f822f33c341d78253b97b3e35e853";
+
         [FunctionName("EmailUpdateFunction")]
         public static async Task RunOrchestrator(
             [OrchestrationTrigger] DurableOrchestrationContext context,
             CancellationToken token)
         {
-            var timeSince = DateTime.UtcNow.AddDays(-10);
+            var timeSince = DateTime.UtcNow.AddDays(-1);
             bool needToContinue;
             var page = 0;
             do
@@ -76,10 +80,13 @@ namespace Cloudents.FunctionsV2
             [Inject] IUrlBuilder urlBuilder,
             [Inject] IBinarySerializer binarySerializer,
             [Inject] IDocumentDirectoryBlobProvider blobProvider,
+            [Inject] IDataProtectionService dataProtectService,
+            [Inject] IHostUriService hostUriService, 
             CancellationToken token)
         {
-
-            var uri = CommunicationFunction.GetHostUri();
+          
+            var code = dataProtectService.ProtectData(user.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(3));
+            var uri = hostUriService.GetHostUri();
 
             var questionNvc = new NameValueCollection()
             {
@@ -90,7 +97,10 @@ namespace Cloudents.FunctionsV2
 
             var q = new GetUpdatesEmailByUserQuery(user.UserId, user.Since);
             var result = (await queryBus.QueryAsync(q, token)).ToList();
+            if (result.Count == 0)
+            {
 
+            }
             var courses = result.GroupBy(g => g.Course).Take(3).Select(s =>
             {
                 var emailUpdates = s.Take(4).ToList();
@@ -112,23 +122,20 @@ namespace Cloudents.FunctionsV2
 
                         return new Document()
                         {
-                            Url = urlBuilder.BuildDocumentEndPoint(document.Id),
+                            Url = urlBuilder.BuildDocumentEndPoint(document.Id, new { token = code }),
                             Name = document.Name,
                             UserName = document.UserName,
                             DocumentPreview = uriBuilder.ToString(),
-                            UserImage = BuildUserImage(document.UserId,document.UserImage,document.UserName)
+                            UserImage = BuildUserImage(document.UserId,document.UserImage,document.UserName,hostUriService)
                         };
                     }),
-                    Questions = emailUpdates.OfType<QuestionUpdateEmailDto>().Select(question =>
+                    Questions = emailUpdates.OfType<QuestionUpdateEmailDto>().Select(question => new Question()
                     {
-                        return new Question()
-                        {
-                            QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId),
-                            QuestionText = question.QuestionText,
-                            UserImage = BuildUserImage(question.UserId, question.UserImage, question.UserName),
-                            UserName = question.UserName,
-                            AnswerText = question.AnswerText
-                        };
+                        QuestionUrl = urlBuilder.BuildQuestionEndPoint(question.QuestionId, new { token = code }),
+                        QuestionText = question.QuestionText,
+                        UserImage = BuildUserImage(question.UserId, question.UserImage, question.UserName, hostUriService),
+                        UserName = question.UserName,
+                        AnswerText = question.AnswerText
                     })
                 };
             });
@@ -144,7 +151,7 @@ namespace Cloudents.FunctionsV2
             {
                 Asm = new ASM { GroupId = UnsubscribeGroup.Update },
                 TemplateId = Equals(user.Language, Language.Hebrew.Info) 
-                    ? "d-6a6aead697824210b95c60ddd8d495c5" : "d-535f822f33c341d78253b97b3e35e853" 
+                    ? HebrewTemplateId : EnglishTemplateId 
             };
             templateData.To = user.ToEmailAddress;
             var personalization = new Personalization
@@ -168,15 +175,15 @@ namespace Cloudents.FunctionsV2
                     Enable = true
                 }
             };
-            message.AddTo("ram@cloudents.com");
+            message.AddTo(user.ToEmailAddress);
             await emailProvider.AddAsync(message, token);
             await emailProvider.FlushAsync(token);
         }
 
-        private static string BuildUserImage(long id, string image,string name)
+        private static string BuildUserImage(long id, string image,string name, IHostUriService hostUriService)
         {
            
-            var uri = CommunicationFunction.GetHostUri();
+            var uri = hostUriService.GetHostUri();
             var uriBuilderImage = new UriBuilder(uri)
             {
                 Path = $"api/image/user/{id}/{image ?? name}"
@@ -201,7 +208,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("EmailUpdateFunction_TimerStart")]
         public static async Task TimerStart(
-            [TimerTrigger("0 0 8 * * *", RunOnStartup = true)] TimerInfo myTimer,
+            [TimerTrigger("0 0 8 * * *")] TimerInfo myTimer,
             [OrchestrationClient]DurableOrchestrationClient starter,
             ILogger log)
         {
@@ -236,83 +243,84 @@ namespace Cloudents.FunctionsV2
 
 
 
-        internal class UpdateEmail
-        {
-            private int _questionCountUpdate;
-            private int _documentCountUpdate;
-
-            [JsonProperty("userName")]
-            public string UserName { get; set; }
-
-            [JsonProperty("numUpdates")]
-            public int TotalUpdates => QuestionCountUpdate.GetValueOrDefault() + DocumentCountUpdate.GetValueOrDefault();
-
-            [JsonProperty("oneUpdate")] public bool OneUpdate => TotalUpdates == 1;
-
-            [JsonProperty("xQuestions")]
-            public int? QuestionCountUpdate
-            {
-                get => _questionCountUpdate == 0 ? (int?)null : _questionCountUpdate ;
-                set => _questionCountUpdate = value.GetValueOrDefault();
-            }
-
-            [JsonProperty("oneQuestion")] public bool OneQuestion => QuestionCountUpdate == 1;
-
-            
-            [JsonProperty("xNewItems")]
-            public int? DocumentCountUpdate
-            {
-                get => _documentCountUpdate == 0 ? (int?)null : _documentCountUpdate;
-                set => _documentCountUpdate = value.GetValueOrDefault();
-            }
-
-            [JsonProperty("oneItem")] public bool OneItem => DocumentCountUpdate == 1;
-
-            [JsonProperty("to")]
-            public string To { get; set; }
-
-            [JsonProperty("courseUpdates")]
-            public IEnumerable<Course> Courses { get; set; }
-
-            [JsonProperty("direction")]
-            public string Direction { get; set; }
-
-            public UpdateEmail(string userName, string to, bool isRtl)
-            {
-                UserName = userName;
-                To = to;
-                Direction = isRtl ? "rtl" : "ltr";
-            }
-
-        }
-
-        internal class Course
-        {
-            [JsonProperty("courseName")]
-            public string Name { get; set; }
-            [JsonProperty("courseUrl")]
-            public string Url { get; set; }
-
-            [JsonProperty("questions")]
-
-            public IEnumerable<Question> Questions { get; set; }
-            [JsonProperty("documents")]
-
-            public IEnumerable<Document> Documents { get; set; }
-
-            [JsonProperty("extraUpdates")]
-            public bool NeedMore { get; set; }
-        }
+     
 
 
     }
+    public class UpdateEmail
+    {
+        private int _questionCountUpdate;
+        private int _documentCountUpdate;
 
-    internal abstract class Item
+        [JsonProperty("userName")]
+        public string UserName { get; set; }
+
+        [JsonProperty("numUpdates")]
+        public int TotalUpdates => QuestionCountUpdate.GetValueOrDefault() + DocumentCountUpdate.GetValueOrDefault();
+
+        [JsonProperty("oneUpdate")] public bool OneUpdate => TotalUpdates == 1;
+
+        [JsonProperty("xQuestions")]
+        public int? QuestionCountUpdate
+        {
+            get => _questionCountUpdate == 0 ? (int?)null : _questionCountUpdate;
+            set => _questionCountUpdate = value.GetValueOrDefault();
+        }
+
+        [JsonProperty("oneQuestion")] public bool OneQuestion => QuestionCountUpdate == 1;
+
+
+        [JsonProperty("xNewItems")]
+        public int? DocumentCountUpdate
+        {
+            get => _documentCountUpdate == 0 ? (int?)null : _documentCountUpdate;
+            set => _documentCountUpdate = value.GetValueOrDefault();
+        }
+
+        [JsonProperty("oneItem")] public bool OneItem => DocumentCountUpdate == 1;
+
+        [JsonProperty("to")]
+        public string To { get; set; }
+
+        [JsonProperty("courseUpdates")]
+        public IEnumerable<Course> Courses { get; set; }
+
+        [JsonProperty("direction")]
+        public string Direction { get; set; }
+
+        public UpdateEmail(string userName, string to, bool isRtl)
+        {
+            UserName = userName;
+            To = to;
+            Direction = isRtl ? "rtl" : "ltr";
+        }
+
+    }
+
+    public class Course
+    {
+        [JsonProperty("courseName")]
+        public string Name { get; set; }
+        [JsonProperty("courseUrl")]
+        public string Url { get; set; }
+
+        [JsonProperty("questions")]
+
+        public IEnumerable<Question> Questions { get; set; }
+        [JsonProperty("documents")]
+
+        public IEnumerable<Document> Documents { get; set; }
+
+        [JsonProperty("extraUpdates")]
+        public bool NeedMore { get; set; }
+    }
+
+    public abstract class Item
     {
 
     }
 
-    internal class Question : Item
+    public class Question : Item
     {
         [JsonProperty("questionUrl")]
         public string QuestionUrl { get; set; }
@@ -326,7 +334,7 @@ namespace Cloudents.FunctionsV2
         public string AnswerText { get; set; } //NEW
     }
 
-    internal class Document : Item
+    public class Document : Item
     {
         [JsonProperty("fileUrl")]
         public string Url { get; set; }

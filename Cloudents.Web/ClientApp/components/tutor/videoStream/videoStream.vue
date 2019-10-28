@@ -9,32 +9,37 @@
                         <div id="remoteTrack"></div>
 
                         <div class="local-video-holder">
-                            <div v-show="!isActive" class="localTrack-placeholder">
+                            <div v-show="!isVideoActive" class="localTrack-placeholder">
                                 <div class="placeholder-back">
                                     <videoCameraImageIgnore2 class="placeholder-svg" />
                                 </div>
                             </div>
-                            <div v-show="isActive" id="localTrack"></div>
+                            <div v-show="isVideoActive && isSharing" class="localTrack-placeholder share-screen">
+                                <div class="placeholder-back share-screen">
+                                    <castIcon class="placeholder-svg"></castIcon>
+                                </div>
+                            </div>
+                            <div v-show="isVideoActive" id="localTrack"></div>                            
                         </div>
                         <div class="control-panel">
                             <v-tooltip top>
                                 <template v-slot:activator="{ on }">
-                                    <button v-on="on" :class="['mic-image-btn',localAudioTrack? 'dynamicBackground-light': 'dynamicBackground-dark']" @click="toggleAudio">   
-                                        <microphoneImage v-if="localAudioTrack" class="mic-image-svg" />
-                                        <microphoneImageIgnore v-if="!localAudioTrack" class="mic-ignore" />           
+                                    <button v-on="on" :class="['mic-image-btn', localAudioTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light']" @click="toggleAudio">   
+                                        <microphoneImage v-if="isAudioActive" class="mic-image-svg" />
+                                        <microphoneImageIgnore v-if="!isAudioActive" class="mic-ignore" />           
                                     </button>
                                 </template>
-                                <span v-language:inner="localAudioTrack ? 'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute'"/>
+                                <span v-language:inner="isAudioActive ? 'tutor_tooltip_mic_mute':'tutor_tooltip_mic_unmute'"/>
                             </v-tooltip>
                             <v-tooltip top>
                                 <template v-slot:activator="{ on }">
                                     
-                                    <button v-on="on" :class="['video-image-btn',localVideoTrack? 'dynamicBackground-light': 'dynamicBackground-dark']" @click="toggleVideo">              
-                                        <videoCameraImage v-if="localVideoTrack" class="video-image-svg"/>
+                                    <button v-on="on" :class="['video-image-btn', localVideoTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light']" @click="toggleVideo">              
+                                        <videoCameraImage v-if="isVideoActive" class="video-image-svg"/>
                                         <videoCameraImageIgnore v-else class="cam-ignore"/>
                                     </button>
                                 </template>
-                                <span v-language:inner="localVideoTrack ? 'tutor_tooltip_video_pause':'tutor_tooltip_video_resume'"/>
+                                <span v-language:inner="isVideoActive ? 'tutor_tooltip_video_pause':'tutor_tooltip_video_resume'"/>
                             </v-tooltip>
                         </div>
                     </div>

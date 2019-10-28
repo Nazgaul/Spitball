@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
@@ -13,12 +14,14 @@ namespace Cloudents.Core.Entities
             {
                 Review = review;
             }
-
             Rate = rate;
             User = user;
             Tutor = tutor;
-            //Room = room;
             DateTime = DateTime.UtcNow;
+
+            //on tutor it will work but the commit will come after so the review count will fucked up
+            AddEvent(new TutorAddReviewEvent(tutor.Id));
+
         }
 
         protected TutorReview()

@@ -1,5 +1,5 @@
 import { mapActions, mapGetters, mapState } from 'vuex';
-import { createLocalTracks, createLocalVideoTrack, createLocalAudioTrack } from 'twilio-video';
+// import { createLocalTracks, createLocalVideoTrack, createLocalAudioTrack } from 'twilio-video';
 import timerIcon from '../images/timer.svg';
 import stopIcon from '../images/stop-icon.svg';
 import fullScreenIcon from '../images/fullscreen.svg';
@@ -10,18 +10,27 @@ import microphoneImageIgnore from '../images/mic-ignore.svg'
 import videoCameraImage from '../images/video-camera.svg'
 import videoCameraImageIgnore from '../images/camera-ignore.svg'
 import videoCameraImageIgnore2 from '../images/camera-ignore copy.svg'
+import castIcon from "../images/cast.svg";
 export default {
     name: "videoStream",
-    components: { videoCameraImageIgnore2,timerIcon, stopIcon, fullScreenIcon,microphoneImage,videoCameraImage,microphoneImageIgnore,videoCameraImageIgnore },
+    components: { 
+        videoCameraImageIgnore2,
+        timerIcon,
+        stopIcon, 
+        fullScreenIcon,
+        microphoneImage,
+        videoCameraImage,
+        microphoneImageIgnore,
+        videoCameraImageIgnore,
+        castIcon },
     data() {
         return {
-            isActive: false,
             videoEl: null,
+            isSharing: false,
             loading: false,
             loaded: false,
             data: {},
             isCopied: false,
-            localTrackAval: false,
             remoteTrack: '',
             screenShareTrack: null,
             identity: '',
@@ -29,8 +38,7 @@ export default {
             visible: {
                 'local_player': true,
                 'remote_player': true
-            },
-            noVideoConnected: false,
+            }
         };
     },
     props: {
@@ -46,13 +54,16 @@ export default {
             'accountUser',
             'getLocalVideoTrack',
             'getLocalAudioTrack',
-            'getLastActiveLocalVideoTrack'
+            'getLastActiveLocalVideoTrack',
+            'getIsVideoActive',
+            'getIsAudioActive',
+            'activeRoom'
         ]),
         localVideoTrack(){
-            return this.getLocalVideoTrack
+            return this.getLocalVideoTrack;
         },
         localAudioTrack(){
-            return this.getLocalAudioTrack
+            return this.getLocalAudioTrack;
         },
         isTutor() {
             return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
@@ -64,18 +75,30 @@ export default {
             if (this.accountUser && this.accountUser.id) {
                 return this.accountUser.id;
             }
+        },
+        isVideoActive(){
+            return this.getIsVideoActive;
+        },
+        isAudioActive(){
+            return this.getIsAudioActive;
         }
     },
     watch:{
-        // getLastActiveLocalVideoTrack(track){
-        //     if(track){
-        //         let t = createLocalVideoTrack(track).then(()=>{
-        //         this.videoEl = document.getElementById('localTrack');   
-        //         });
-                
-        //         // this.videoEl.appendChild(track.attach());
-        //     }
-        // }
+        localVideoTrack(videoTrack){
+            this.isSharing = false;
+            if(videoTrack){
+                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_VideoStream_localVideoCreated', videoTrack, null);
+                this.videoEl = document.getElementById('localTrack');
+                this.videoEl.innerHTML = "";
+                if(videoTrack.attach){
+                    this.videoEl.appendChild(videoTrack.attach());
+                }else{
+                    this.isSharing = true;
+                }                
+            }else{
+                insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoStream_localVideoFailed', '', null);
+            }
+        }
     },
     methods: {
         ...mapActions([
@@ -84,43 +107,16 @@ export default {
             'setSesionClickedOnce',
             'toggleVideoTrack',
             'toggleAudioTrack',
-            'setLocalVideoTrack',
+            'setIsVideoActive',
+            'setIsAudioActive'
         ]),
         toggleAudio(){
-            this.toggleAudioTrack()
+            this.toggleAudioTrack();
         },
         toggleVideo(){
-            if(this.noVideoConnected) return;
-            
-            if(this.localVideoTrack){
-                this.isActive = false;
-            } else {
-                this.isActive = true
-            }
-            this.toggleVideoTrack()
-        },
-        showLocalVideo(){
-            let self = this;
-            insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_VideoStream_showLocalVideo', null, null);
-            
-            createLocalVideoTrack({width: 100, height: 75}).then(track => {
-                self.isActive = true;
-                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_VideoStream_localVideoCreated', track, null);
-                if(!!track){
-                    self.videoEl = document.getElementById('localTrack');
-                    self.videoEl.appendChild(track.attach());
-                }
-            }, (err)=>{
-                this.noVideoConnected = true;
-                insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoStream_localVideoFailed', err, null);
-                console.error(err);
-            });
+            this.toggleVideoTrack();
         }
-    },
-    mounted() {
-        this.$nextTick(function () {
-            this.showLocalVideo()
-        });
-    },
+    }
+    
 };
 

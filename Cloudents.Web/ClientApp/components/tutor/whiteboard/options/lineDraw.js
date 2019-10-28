@@ -3,7 +3,7 @@ import helper from '../utils/helper'
 import canvasFinder from '../utils/canvasFinder'
 import whiteBoardService from '../whiteBoardService'
 
-const OPTION_TYPE = 'lineDraw';
+const optionType = 'lineDraw';
 
 const mouseState = {
     mouseX: null,
@@ -16,8 +16,8 @@ const startingMousePosition = {
 };
 
 let localShape = createShape({
-    type: OPTION_TYPE,
-    points: [],
+    type: optionType,
+    points: []
 });
 
 const init = function(){
@@ -26,8 +26,8 @@ const init = function(){
 
 const clearLocalShape = function(){
     localShape = createShape({
-        type: OPTION_TYPE,
-        points: [],
+        type: optionType,
+        points: []
     });
 };
 
@@ -60,7 +60,7 @@ const defineEndPosition = function(e){
             mouseY: mouseY,
             isDragging: true,
             strokeStyle: this.color.hex,
-            option: OPTION_TYPE,
+            option: optionType,
             eventName: 'end'
         });
         let previousDragObj = createPointsByOption({
@@ -68,7 +68,7 @@ const defineEndPosition = function(e){
             mouseY: mouseState.mouseY,
             isDragging: true,
             strokeStyle: this.color.hex,
-            option: OPTION_TYPE,
+            option: optionType,
             eventName: 'end'
         });
         localShape.points.push(dragObj);
@@ -95,7 +95,7 @@ const mousedown = function(e){
         mouseY: mouseState.mouseY,
         isDragging: false,
         strokeStyle: this.color.hex,
-        option: OPTION_TYPE,
+        option: optionType,
         eventName: 'start'
     });
 

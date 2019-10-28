@@ -2,7 +2,7 @@
     <div class="become-tutor-wrap d-flex" >
         <v-stepper v-model="currentStep" class="elevation-0 stepper" :class="{'back-image': isLastStep}">
             <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
-                <v-flex xs12 sm12  class="text-xs-center mt-1">
+                <v-flex xs12 sm12  class="text-xs-center">
                     <v-icon class="face-icon mr-2">sbf-face-icon</v-icon>
                     <span class="become-title" v-language:inner>becomeTutor_title_become</span>
                 </v-flex>
@@ -42,14 +42,15 @@
     import step_1 from './helpers/firstStep.vue';
     import step_2 from './helpers/secondStep.vue';
     import step_3 from './helpers/calendarStep.vue'
-    import step_4 from './helpers/finalStep.vue';
+    import step_4 from './helpers/confirmationStep.vue'
+    import step_5 from './helpers/finalStep.vue';
 
     export default {
         name: "becomeTutor",
-        components: {step_1, step_2, step_3,step_4},
+        components: {step_1, step_2, step_3,step_4,step_5},
         data() {
             return {
-                steps: 4,
+                steps: 5,
                 currentStep: 1,
             };
         },
@@ -86,6 +87,11 @@
         width: 100%;
         .stepper{
             overflow-y: auto;
+            @media(max-width: @screen-xs){
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
         }
         .theme--light.v-btn.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat):not(.v-btn--outline){
             background-color: rgba(68, 82, 252, 0.5)!important; //vuetify overwrite
@@ -133,7 +139,7 @@
             border-bottom: solid 1px #dddddd;
 
             @media(max-width: @screen-xs){
-                height: 54px;
+                max-height: 54px;
             }
         }
         .v-stepper__step{
@@ -150,9 +156,12 @@
 
         .v-stepper__items{
             @media(max-width: @screen-xs){
-                height: calc(~"100% - 150px");
+                height: 100%;
+                // height: calc(~"100% - 54px");
                 overflow: auto;
+                
                 .v-stepper__content{
+                    padding: 18px 16px 0px;
                     height: 100%;
                     .v-stepper__wrapper{
                        height: 100%;
@@ -200,12 +209,13 @@
         }
         .become-title {
             color: @global-purple;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
         }
         .face-icon {
             vertical-align: bottom;
             color: @global-purple;
+            font-size: 20px;
             
         }
         .v-btn__content{

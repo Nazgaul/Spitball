@@ -1,44 +1,39 @@
 <template>
-    <div class="tutorRequest-middle-courseInfo">
+    <div class="tutorRequest-middle-courseInfo" v-if="isReady">
     <v-form v-model="validRequestTutorForm" ref="tutorRequestForm" :class="{'tutorProfile':isTutor}">
             <fieldset class="fieldset-textArea mb-4 px-2 py-1">
                 <legend v-language:inner="'tutorRequest_type_legend'"/>
                   <v-textarea 
                     :rows="isMobile?6:3"
                     v-model="description"
-                    :placeholder="typeAreaPlaceholder"
-                    :rules="[rules.required, rules.maximumChars]"/>
+                    :rules="[rules.required, rules.maximumChars,rules.notSpaces]"/>
             </fieldset>
-            <fieldset class="fieldset-select px-2">
+            <fieldset  class="fieldset-select px-2">
                 <legend v-language:inner="'tutorRequest_select_course_placeholder'"/>
-
-                <!-- <v-combobox v-if="!!currentTutorCourses"
-                    flat hide-no-data
-                    :append-icon="'sbf-arrow-down'"
-                    v-model="tutorCourse"
-                    :placeholder="coursePlaceholder"
-                    :items="currentTutorCourses"
-                    :rules="[rules.required,rules.matchTutorCourse]"/> -->
-
                 <v-combobox 
+                    v-if="!isLoggedIn"
                     class="text-truncate"
                     @keyup="searchCourses"
                     flat hide-no-data
-                    :append-icon="'sbf-arrow-down'"
+                    :append-icon="''"
                     v-model="tutorCourse"
-                    :placeholder="coursePlaceholder"
                     :items="suggestsCourses"
                     :rules="[rules.required,rules.matchCourse]"/>
+                    <v-combobox 
+                    v-else
+                    class="text-truncate"
+                    flat hide-no-data
+                    :append-icon="''"
+                    v-model="tutorCourse"
+                    :items="getSelectedClasses"
+                    :rules="[rules.required,rules.matchLocalCourse]"/>
             </fieldset>
+            
 
-            <v-checkbox v-if="isTutor"  class="checkbox-userinfo"
+            <v-checkbox v-if="isTutor" :ripple="false" class="checkbox-userinfo"
                         :label="$Ph('tutorRequest_more_tutors',this.getCurrTutor.name)" 
                         v-model="moreTutors" off-icon="sbf-check-box-un" 
                         on-icon="sbf-check-box-done"/>
-            <!-- <div class="more-tutors-checkbox">
-                <input v-if="isTutor" class="checkBox-courseInfo" type="checkbox" name="checkBox" @click="moreTutors=!moreTutors" id="checkBox" v-model="moreTutors"/>
-                <label v-if="isTutor" for="checkBox" v-html="$Ph('tutorRequest_more_tutors',this.getCurrTutor.name)"/>
-            </div> -->
     </v-form>
         <div class="tutorRequest-bottom">
             <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed round>
@@ -59,12 +54,16 @@ import {LanguageService} from '../../../services/language/languageService.js'
 import {validationRules} from '../../../services/utilities/formValidationRules.js'
 import universityService from '../../../services/universityService.js'
 import debounce from "lodash/debounce";
+import analyticsService from '../../../services/analytics.service'
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'tutorRequestCourseInfo',
     data() {
         return {
+            isReady:false,
+            isFromMounted: false,
+            isFromQuery:false,
             moreTutors:true,
             isLoading:false,
             validRequestTutorForm: false,
@@ -74,21 +73,30 @@ export default {
             suggestsCourses: [],
             rules: {
                 maximumChars: (value) => validationRules.maximumChars(value, 255),
-                minimumChars: (value) => validationRules.minimumChars(value, 15),
+                notSpaces: (value) => validationRules.notSpaces(value),
                 required: (value) => validationRules.required(value),
-                matchCourse:() => (this.suggestsCourses.length && this.suggestsCourses.some(course=>course.text === this.tutorCourse.text)) || LanguageService.getValueByKey("tutorRequest_invalid"),
+                matchCourse:() => (
+                    (   this.suggestsCourses.length && 
+                        this.suggestsCourses.some(course=>course.text === this.tutorCourse.text)
+                        ) || this.isFromMounted ) 
+                    || LanguageService.getValueByKey("tutorRequest_invalid"),
+                matchLocalCourse:() => (
+                    (   this.getSelectedClasses.length && 
+                        this.getSelectedClasses.some(course=>course.text === this.tutorCourse.text)
+                        ) || this.isFromMounted ) 
+                    || LanguageService.getValueByKey("tutorRequest_invalid"),
                 matchTutorCourse:() => (this.currentTutorCourses.length && this.currentTutorCourses.some(course=>course.text === this.tutorCourse.text)) || LanguageService.getValueByKey("tutorRequest_invalid") 
             },
-            typeAreaPlaceholder: LanguageService.getValueByKey("tutorRequest_type"),
-            coursePlaceholder: this.isMobile? LanguageService.getValueByKey("tutorRequest_select_course_placeholder_mobile"):LanguageService.getValueByKey("tutorRequest_select_course_placeholder_new"), 
         }
     },
     computed: {
         ...mapGetters(['getProfile',
                        'getCourseDescription',
                        'getSelectedCourse',
+                       'getSelectedClasses',
                        'accountUser',
-                       'getCurrTutor']),
+                       'getCurrTutor',
+                       'getTutorRequestAnalyticsOpenedFrom']),
         isLoggedIn(){
             return !!this.accountUser
         },
@@ -117,14 +125,20 @@ export default {
             this.resetRequestTutor()
         },
         searchCourses: debounce(function(ev){
-            let term = ev.target.value.trim();
+            this.isFromMounted = false;
+            let term = this.isFromQuery ? ev : ev.target.value.trim()
             if(!term) {
                 this.tutorCourse = ''
+                this.suggestsCourses = []
                 return 
             }
             if(!!term){
                 universityService.getCourse({term, page:0}).then(data=>{
-                    this.suggestsCourses = data;    
+                    this.suggestsCourses = data;
+                    this.suggestsCourses.forEach(course=>{
+                        if(course.text === this.tutorCourse){
+                            this.tutorCourse = course
+                        }}) 
                 })
             }
         },300),
@@ -134,6 +148,14 @@ export default {
                 this.updateSelectedCourse(this.tutorCourse)
                 this.updateMoreTutors(this.moreTutors)
                 this.updateTutorReqStep('tutorRequestUserInfo')
+
+            let analyticsObject = {
+                userId: this.isLoggedIn ? this.accountUser.id : 'GUEST',
+                course: this.tutorCourse,
+                fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
+                fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
+            };
+                analyticsService.sb_unitedEvent('Request Tutor Next', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
             }
         },
         sumbit(){
@@ -143,6 +165,13 @@ export default {
                 if(this.getCurrTutor) {
                     tutorId = this.getCurrTutor.userId || this.getCurrTutor.id
                 }
+            let analyticsObject = {
+                userId: this.isLoggedIn ? this.accountUser.id : 'GUEST',
+                course: this.tutorCourse,
+                fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
+                fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
+            };
+
                 let serverObj = {
                     captcha: null,
                     text: this.description,
@@ -153,20 +182,33 @@ export default {
                     tutorId: tutorId
                 }                    
                 this.sendTutorRequest(serverObj).finally(()=>{
-                    this.isLoading = false
+                    this.isLoading = false;
+                    analyticsService.sb_unitedEvent('Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
                 })
             }
         }
     },
     mounted() {
-        if(this.$route.query && this.$route.query.Course){
-            this.tutorCourse = this.$route.query.Course
-        }
         if(this.getCourseDescription){
             this.description = this.getCourseDescription;
         }
-        if(this.getSelectedCourse){
-            this.tutorCourse = this.getSelectedCourse;
+        if((this.$route.query && this.$route.query.Course) || (!!this.getSelectedCourse && this.getSelectedCourse.text)){
+            let queryCourse;
+            if(this.$route.query && this.$route.query.Course){
+                queryCourse = this.$route.query.Course;
+            }
+            if(!!this.getSelectedCourse && this.getSelectedCourse.text){
+                this.tutorCourse = this.getSelectedCourse;
+                this.isFromMounted = true;
+                this.isReady = true;
+                return
+            }
+            this.tutorCourse = queryCourse
+            this.isFromQuery = true;
+            this.searchCourses(queryCourse)
+            this.isReady = true;
+        } else{
+            this.isReady = true
         }
     }
 }
@@ -224,6 +266,9 @@ export default {
         }
     .tutorRequest-bottom{
         .v-btn{
+            @media (max-width: @screen-xs) {
+              min-width: 120px;  
+            }
             min-width: 140px;
             height: 40px !important;
             padding: 0px 32px !important;
@@ -231,11 +276,12 @@ export default {
         }
         .tutorRequest-btn-back{
             color: @global-blue;
+            font-weight: 600;
             border: 1px solid @global-blue !important;
         }
         .tutorRequest-btn-next{
             color: white !important;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             letter-spacing: -0.3px;
         }
@@ -261,13 +307,30 @@ export default {
                 .v-input{
                     margin: 0;
                     padding: 0;
+                    .v-input__slot{
+                        @-moz-document url-prefix(){
+                            margin-bottom: 0;
+                            @media (max-width: @screen-xs) {
+                                margin-bottom: 8px;
+                            }
+                        }
+                    }
                 }
                 .v-text-field__details{
                     @media (max-width: @screen-xs) {
                         padding-top: 0;
                     }
                     padding-top: 10px;
+                    @-moz-document url-prefix(){
+                       padding-top: 0;
+                    }
                     font-weight: 600;
+                    height: -webkit-fill-available;
+                    .v-messages__message{
+                        @-moz-document url-prefix(){
+                            line-height: 1.5;
+                        }
+                    }
                 }
                 .v-text-field>.v-input__control>.v-input__slot:before {
                     border-style: none;
@@ -296,6 +359,10 @@ export default {
                 }
                 .v-text-field__details{
                     padding-top: 12px;
+                    height: -webkit-fill-available;
+                    @-moz-document url-prefix(){
+                        height: 100px;
+                    }
                 }
                 .v-text-field>.v-input__control>.v-input__slot:before {
                     border-style: none;

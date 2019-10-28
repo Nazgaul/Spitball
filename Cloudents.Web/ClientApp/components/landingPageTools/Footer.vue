@@ -3,7 +3,7 @@
         <v-layout row align-center justify-space-around class="footer-warp">
             <ul v-if="links" class="footer-wrap-list w-list-unstyled">
                 <li  v-for="(link, index) in links" :key="index">
-                    <router-link @click.native.prevent="footerLinksRoute(link.url)" :to="''" class="footer-link">{{link.title}}</router-link>
+                    <a :href="link.url" class="footer-link">{{link.title}}</a>
                 </li>
             </ul>
             <div class="footer-warp-divider mt-4"></div>
@@ -25,8 +25,9 @@
 </template>
 
 <script>
-import {LanguageService} from '../../services/language/languageService'
-import LOGO from './sp-logo.svg'
+import {LanguageService} from '../../services/language/languageService';
+import LOGO from './sp-logo.svg';
+import satelliteService from '../../services/satelliteService';
 
     export default {
         name: "Footer",
@@ -36,16 +37,30 @@ import LOGO from './sp-logo.svg'
         data(){
             return{
                 links:[
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_about'), url: 'about'},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_feedback'), url: 'feedback'},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_terms'), url: 'terms'},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_privacy'), url: 'privacy'},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_faq'), url: 'faq'},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_ambassadors'), url: 'reps'},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_blog'), url: 'blog'},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_contact'), url: 'contact'},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_partners'), url: 'partners'},
-                    {title: LanguageService.getValueByKey('tutorListLanding_footer_links_pr'), url: 'reps'},
+                    {
+                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_about'), 
+                        url: satelliteService.getSatelliteUrlByName('about')
+                    },
+                    {
+                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_feedback'),
+                        url: satelliteService.getSatelliteUrlByName('feedback')
+                    },
+                    {
+                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_terms'),
+                        url: satelliteService.getSatelliteUrlByName('terms')
+                    },
+                    {
+                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_privacy'),
+                        url: satelliteService.getSatelliteUrlByName('privacy')
+                    },
+                    {
+                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_faq'),
+                        url: satelliteService.getSatelliteUrlByName('faq')
+                    },
+                    {
+                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_contact'),
+                        url: satelliteService.getSatelliteUrlByName('contact')
+                    },
                 ]
             }
         },

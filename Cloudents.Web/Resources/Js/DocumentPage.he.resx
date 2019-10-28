@@ -132,26 +132,14 @@
   <data name="online_tutor" xml:space="preserve">
     <value>השג מורים פרטיים אונליין ואת כל חומרי הלימוד כדי להצליח</value>
   </data>
-  <data name="see_all" xml:space="preserve">
-    <value>צפה בהכל</value>
-  </data>
   <data name="student_learn" xml:space="preserve">
     <value>סטודנטים לומדים מסטודנטים</value>
-  </data>
-  <data name="student_uploaded" xml:space="preserve">
-    <value>הועלה על ידי הסטודנט</value>
-  </data>
-  <data name="student_views_documents" xml:space="preserve">
-    <value>צפה בכל המסמכים שהועלו</value>
   </data>
   <data name="table_course" xml:space="preserve">
     <value>קורס:</value>
   </data>
-  <data name="table_type" xml:space="preserve">
-    <value>סוג:</value>
-  </data>
   <data name="table_university" xml:space="preserve">
-    <value>אוניברסיטה:</value>
+    <value>מוסד לימוד:</value>
   </data>
   <data name="table_uploaded" xml:space="preserve">
     <value>הועלה על ידי:</value>
@@ -164,5 +152,8 @@
   </data>
   <data name="unlock_document_unregister" xml:space="preserve">
     <value>כדי לראות את המסמך המלא, הירשם בבקשה</value>
+  </data>
+  <data name="unlock_video" xml:space="preserve">
+    <value>זו צפייה מקדימה של 30 שניות,&lt;br&gt;לצפייה בסרטון המלא  העבר נקודות לבעלי הסרטון.</value>
   </data>
 </root>

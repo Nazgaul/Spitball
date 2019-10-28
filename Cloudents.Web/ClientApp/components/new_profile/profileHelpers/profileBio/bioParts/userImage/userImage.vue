@@ -48,7 +48,7 @@
         },
         methods:{
             onImageLoadError(event) {
-                event.target.src = '../../../../../images/placeholder-profile.png';
+                event.target.src = require("../../../../../images/placeholder-profile.png");
             }
         },
         computed: {
@@ -62,7 +62,7 @@
                         let url = utilitiesService.proccessImageURL(this.getProfile.user.image, 214,240);
                         return url;
                     } else {
-                        return '../../../../../images/placeholder-profile.png';
+                        return require("../../../../../images/placeholder-profile.png");
                     }
                 }
             },
@@ -118,7 +118,6 @@
             margin-bottom: 20px;
         }
         .user-balance {
-            font-family: @fontOpenSans;
             font-size: 20px;
             font-weight: bold;
             color: @color-white;
@@ -168,7 +167,6 @@
             border-radius: 0 0 4px 4px;
         }
         .reviews-quantity {
-            font-family: @fontOpenSans;
             font-size: 13px;
             line-height: 1.92;
             letter-spacing: -0.3px;

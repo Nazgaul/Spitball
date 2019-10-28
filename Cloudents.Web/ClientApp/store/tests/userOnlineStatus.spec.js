@@ -10,5 +10,5 @@ describe('STORE_userOnlineStatus_GETTER_getUserStatus', ()=>{
         };
         const state = {userStatus};
         expect(userOnlineStatus.getters.getUserStatus(state)).toEqual(result);
-    })
-})
+    });
+});

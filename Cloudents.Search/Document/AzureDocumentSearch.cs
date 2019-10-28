@@ -88,12 +88,6 @@ namespace Cloudents.Search.Document
                 filters.Add($"({filterStr})");
             }
 
-            if (query.FilterByUniversity)
-            {
-                var universityStr = $"{Entities.Document.UniversityIdFieldName} eq '{userProfile.UniversityId.GetValueOrDefault().ToString()}'";
-                filters.Add($"({universityStr})");
-            }
-
             if (query.Filters != null)
             {
                 var filterStr = string.Join(" or ", query.Filters.Select(s =>

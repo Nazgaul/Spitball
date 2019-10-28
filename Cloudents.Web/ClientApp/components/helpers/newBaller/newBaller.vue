@@ -100,7 +100,7 @@
             &.v-btn {
                 border-radius: 16px;
                 width: 40px;
-                font-family: @fontFiraSans;
+                
                 font-size: 16px;
                 color: fade(@color-white, 87%);
                 box-shadow: none;
@@ -115,15 +115,14 @@
         }
         .new-baller-title {
             //height: 54px;
-            font-family: @fontFiraSans;
+            
             font-size: 22px;
             font-weight: 600;
             line-height: 2.77;
             letter-spacing: -0.2px;
             color: fade(@color-white, 87%);
         }
-        .new-baller-sub-title {
-            font-family: @fontOpenSans;
+        .new-baller-sub-title {  
             font-size: 16px;
             font-weight: bold;
             line-height: 1.5;
@@ -131,8 +130,7 @@
             color: fade(@textColor, 90%);
         }
         .line-number {
-            height: 43px;
-            font-family: @fontOpenSans;
+            height: 43px;          
             font-size: 32px;
             color: @global-purple;
             @media(max-width: @screen-xs){
@@ -140,8 +138,7 @@
                 height: 30px;
             }
         }
-        .line-text {
-            font-family: @fontOpenSans;
+        .line-text {  
             font-size: 14px;
             line-height: 1.79;
             letter-spacing: -0.1px;
@@ -153,7 +150,6 @@
             .bottom-text {
                 max-width: 474px;
                 display: inline-block;
-                font-family: @fontOpenSans;
                 font-size: 13px;
                 font-weight: bold;
                 line-height: 1.38;

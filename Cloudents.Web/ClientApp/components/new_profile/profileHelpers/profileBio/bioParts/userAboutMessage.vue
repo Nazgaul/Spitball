@@ -60,7 +60,6 @@
             word-break: break-word;
         }
         .intro-name {
-            font-family: @fontOpenSans;
             font-size: 30px;
             font-weight: 600;
             color: @global-purple;
@@ -96,7 +95,6 @@
         }
 
         .bio-about-intro {
-            font-family: @fontOpenSans;
             font-size: 20px;
             font-style: italic;
             line-height: 1.36;

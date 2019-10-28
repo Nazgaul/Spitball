@@ -9,6 +9,7 @@ const state = {
     tutorList: [],
     btnLoading: false,
     showPurchaseConfirmation: false,
+    documentLoaded: false,
 };
 
 const getters = {
@@ -18,7 +19,7 @@ const getters = {
             let uploaderId = state.document.details.user.userId;
             let filteredTutorList = state.tutorList.filter((tutor)=>{
                 return tutor.userId !== uploaderId;
-            })
+            });
             return filteredTutorList;
         }else{
             return state.tutorList;
@@ -26,6 +27,7 @@ const getters = {
     },
     getBtnLoading: state => state.btnLoading,
     getPurchaseConfirmation: state => state.showPurchaseConfirmation,
+    getDocumentLoaded: state => state.documentLoaded,
 };
 
 const mutations = {
@@ -34,12 +36,14 @@ const mutations = {
         state.tutorList.length = 0;
         state.btnLoading = false;
         state.showPurchaseConfirmation = false;
+        state.documentLoaded = false;
     },
     setPurchaseConfirmation(state,val){
-        state.showPurchaseConfirmation = val
+        state.showPurchaseConfirmation = val;
     },
     setDocument(state, payload) {
-        state.document = payload;        
+        state.document = payload;    
+        state.documentLoaded = true;    
     },
     setTutorsList(state, payload) {
         state.tutorList = payload;
@@ -48,26 +52,26 @@ const mutations = {
         state.document.details.price = price;
     },
     setBtnLoading(state, payload) {
-        state.btnLoading = payload
-    }
+        state.btnLoading = payload;
+    },
 };
 
 const actions = {
     updatePurchaseConfirmation({commit},val){
-        commit('setPurchaseConfirmation',val)
+        commit('setPurchaseConfirmation',val);
     },
     documentRequest({commit}, id) {
         return documentService.getDocument(id).then((DocumentObj) => {
-            commit('setDocument', DocumentObj)
-            return true
+            commit('setDocument', DocumentObj);
+            return true;
         }, (err) => {
-            return err
-        })
+            return err;
+        });
     },
     downloadDocument({commit, getters, dispatch}, item) {
-        let user = getters.accountUser
-        
-        if(!user) return dispatch('updateLoginDialogState', true)
+        let user = getters.accountUser;
+
+        if(!user) return dispatch('updateLoginDialogState', true);
 
         let {id, course} = item;     
 
@@ -78,7 +82,7 @@ const actions = {
         let userBalance = 0;
         let id = item.id ? item.id : '';
         if(!!getters.accountUser && getters.accountUser.balance){
-            userBalance = getters.accountUser.balance
+            userBalance = getters.accountUser.balance;
         }
         
         if(userBalance >= item.price) {
@@ -92,8 +96,8 @@ const actions = {
             }).finally(() => {
                 setTimeout(() => {
                     commit('setBtnLoading', false);
-                }, 500)
-            })
+                }, 500);
+            });
         } else {
             commit('setBtnLoading', false);
             dispatch('updateToasterParams', {
@@ -104,8 +108,8 @@ const actions = {
     },
     getTutorListCourse({ commit, state }, courseName) {
         searchService.activateFunction.getTutors(courseName).then(res => {
-            commit('setTutorsList', res)
-        })
+            commit('setTutorsList', res);
+        });
     },
     setNewDocumentPrice({ commit }, price) {
         if(!!state.document && !!state.document.details){
@@ -114,7 +118,8 @@ const actions = {
     },
     clearDocument({commit}){
         commit('resetState');
-    }
+    },
+    
 };
 
 export default {

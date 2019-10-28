@@ -117,41 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="agree" xml:space="preserve">
-    <value>אני מסכים לאמור ב-</value>
-  </data>
-  <data name="already_have_account" xml:space="preserve">
-    <value>האם כבר יש לך חשבון?</value>
-  </data>
-  <data name="already_have_password" xml:space="preserve">
-    <value>יש לי כבר סיסמה</value>
-  </data>
-  <data name="and" xml:space="preserve">
-    <value>וכן</value>
-  </data>
-  <data name="an_activation_email_has_been_sent_to" xml:space="preserve">
-    <value>הודעת דוא"ל עם קוד הפעלה נשלחה אל</value>
-  </data>
   <data name="are_you_sure_you_want_to_exit" xml:space="preserve">
     <value>האם אתה בטוח שברצונך לצאת?</value>
   </data>
   <data name="call_code" xml:space="preserve">
     <value>תקבל שיחה בעוד רגע</value>
-  </data>
-  <data name="Change" xml:space="preserve">
-    <value>לשנות</value>
-  </data>
-  <data name="click_here_to_call" xml:space="preserve">
-    <value>התקשר אלי עם קוד</value>
-  </data>
-  <data name="click_here_to_send" xml:space="preserve">
-    <value>לחץ כאן כדי לשלוח שוב</value>
-  </data>
-  <data name="click_here_to_send_email" xml:space="preserve">
-    <value>לחץ כאן לשלוח שוב</value>
-  </data>
-  <data name="congrats" xml:space="preserve">
-    <value>כל הכבוד!</value>
   </data>
   <data name="continue" xml:space="preserve">
     <value>המשך</value>
@@ -159,59 +129,17 @@
   <data name="continue_registration" xml:space="preserve">
     <value>המשך בהרשמה</value>
   </data>
-  <data name="didnt_get_an_email" xml:space="preserve">
-    <value>לא קיבלת הודעת דוא"ל?</value>
-  </data>
   <data name="email_sent" xml:space="preserve">
     <value>נשלח דוא"ל</value>
   </data>
-  <data name="end_privacy_policy" xml:space="preserve">
-    <value> של ספיטבול</value>
-  </data>
-  <data name="error_min_chars" xml:space="preserve">
-    <value>סיסמה חייבת להכיל לפחות 8 תווים</value>
-  </data>
   <data name="error_not_matched" xml:space="preserve">
     <value>הסיסמאות צריכות להיות זהות</value>
-  </data>
-  <data name="error_phone" xml:space="preserve">
-    <value>אנא נסה שנית</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>יציאה</value>
   </data>
   <data name="exiting_information1" xml:space="preserve">
     <value>יציאה מהתהליך תגרום למחיקת המידע הקיים ויהיה עליך להתחיל את התהליך מחדש</value>
-  </data>
-  <data name="forgot_password_link" xml:space="preserve">
-    <value>שכחת סיסמה?</value>
-  </data>
-  <data name="happens_to_best" xml:space="preserve">
-    <value>אל תתבייש, זה קורה לטובים ביותר.</value>
-  </data>
-  <data name="lets_start" xml:space="preserve">
-    <value>בואו נתחיל</value>
-  </data>
-  <data name="login" xml:space="preserve">
-    <value>כניסה</value>
-  </data>
-  <data name="login_click_here_to_send" xml:space="preserve">
-    <value>לחץ כאן כדי לשלוח שוב.</value>
-  </data>
-  <data name="need_account_link" xml:space="preserve">
-    <value>הרשמה</value>
-  </data>
-  <data name="need_account_text" xml:space="preserve">
-    <value>עדיין אין לך חשבון?</value>
-  </data>
-  <data name="or" xml:space="preserve">
-    <value>או</value>
-  </data>
-  <data name="password_email_confirmed_resend_action" xml:space="preserve">
-    <value>לחץ כאן כדי לשלוח שוב</value>
-  </data>
-  <data name="password_email_confirmed_resend_text" xml:space="preserve">
-    <value>לא קיבלת דוא"ל? בדוק את תיקיית הספאם או </value>
   </data>
   <data name="password_indication_strong" xml:space="preserve">
     <value>חזק</value>
@@ -222,77 +150,10 @@
   <data name="password_indication_weak" xml:space="preserve">
     <value>חלש</value>
   </data>
-  <data name="placeholder_choose_password" xml:space="preserve">
-    <value>בחר סיסמה (השתמש בשמונה תווים או יותר)</value>
-  </data>
-  <data name="placeholder_confirm_password" xml:space="preserve">
-    <value>אשר סיסמה</value>
-  </data>
-  <data name="placeholder_email" xml:space="preserve">
-    <value>הזן כתובת דוא"ל</value>
-  </data>
-  <data name="placeholder_enter_confirmation_code" xml:space="preserve">
-    <value>הזן קוד אישור</value>
-  </data>
-  <data name="placeholder_enter_new_password" xml:space="preserve">
-    <value>הזן סיסמה חדשה</value>
-  </data>
-  <data name="placeholder_enter_password" xml:space="preserve">
-    <value>הזן סיסמה</value>
-  </data>
-  <data name="placeholder_enter_phone" xml:space="preserve">
-    <value>הזן מספר טלפון</value>
-  </data>
   <data name="please_agree" xml:space="preserve">
     <value>כדי להירשם עליך לאשר את תנאי השימוש באתר </value>
   </data>
-  <data name="privacy_policy" xml:space="preserve">
-    <value>מדיניות הפרטיות</value>
-  </data>
-  <data name="register" xml:space="preserve">
-    <value>הירשם</value>
-  </data>
-  <data name="remember_now" xml:space="preserve">
-    <value>אני זוכר כעת</value>
-  </data>
-  <data name="sbl" xml:space="preserve">
-    <value>נק'</value>
-  </data>
-  <data name="select_your_country_code" xml:space="preserve">
-    <value>בחר קוד מדינה</value>
-  </data>
-  <data name="signin_your_email" xml:space="preserve">
-    <value>התחבר באמצעות דוא"ל</value>
-  </data>
-  <data name="signup_your_email" xml:space="preserve">
-    <value>הירשם באמצעות דוא"ל</value>
-  </data>
-  <data name="sign_in" xml:space="preserve">
-    <value>כניסה</value>
-  </data>
-  <data name="sign_in_with_google" xml:space="preserve">
-    <value>היכנס באמצעות חשבון גוגל</value>
-  </data>
-  <data name="sign_up" xml:space="preserve">
-    <value>הרשמה</value>
-  </data>
-  <data name="sign_up_with_google" xml:space="preserve">
-    <value>הירשם באמצעות גוגל</value>
-  </data>
-  <data name="sure_exit_mobile" xml:space="preserve">
-    <value>האם אתה
-בטוח שברצונך &lt;b&gt;לצאת&lt;b&gt;?</value>
-  </data>
-  <data name="terms_of_services" xml:space="preserve">
-    <value>תנאי שירות</value>
-  </data>
-  <data name="until_activate_account" xml:space="preserve">
-    <value>תוכל להיכנס אל Spitball.co רק לאחר שתפעיל את חשבונך</value>
-  </data>
   <data name="verification_code_sent_to_phone" xml:space="preserve">
     <value>קוד אימות נשלח לטלפון</value>
-  </data>
-  <data name="Your" xml:space="preserve">
-    <value>שלך</value>
   </data>
 </root>

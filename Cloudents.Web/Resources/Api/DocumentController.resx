@@ -127,6 +127,6 @@
     <value>Type</value>
   </data>
   <data name="VoteCantVote" xml:space="preserve">
-    <value>You can not upvote your own document</value>
+    <value>You can not up-vote your own document</value>
   </data>
 </root>

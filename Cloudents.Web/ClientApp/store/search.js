@@ -53,31 +53,35 @@ const mutations = {
 const getters = {
     getIsLoading: state => state.loading,
     getSearchLoading: state => state.serachLoading,
-    getSearchItems: function (state, {getCurrentVertical}) {
-        if (getCurrentVertical === "") {
-            return [];
-        }
-        ;
-        if (state.loading || state.serachLoading) {
-            //return skeleton
-            return state.itemsSkeletonPerVertical[getCurrentVertical];
-        } else {
-            //return data
-            if(!!state.itemsPerVertical[getCurrentVertical]){
-            return state.itemsPerVertical[getCurrentVertical].data;
-            }
-        }
-    },
-    getNextPageUrl: function (state, {getCurrentVertical}) {
-        if(getCurrentVertical !== ""){
-            if(!!state.itemsPerVertical[getCurrentVertical]){
-                return state.itemsPerVertical[getCurrentVertical].nextPage;
-            }
-        }
-    },
-    getShowQuestionToaster: function (state, {getCurrentVertical}) {
-        return !!state.queItemsPerVertical[getCurrentVertical] ? state.queItemsPerVertical[getCurrentVertical].length > 0 : false;
-    }
+    // getSearchItems: function (state, {getCurrentVertical}) {
+    //     //deprecated
+    //     return [];
+    //     if (getCurrentVertical === "") {
+    //         return [];
+    //     }
+    //     ;
+    //     if (state.loading || state.serachLoading) {
+    //         //return skeleton
+    //         return state.itemsSkeletonPerVertical[getCurrentVertical];
+    //     } else {
+    //         //return data
+    //         if(!!state.itemsPerVertical[getCurrentVertical]){
+    //         return state.itemsPerVertical[getCurrentVertical].data;
+    //         }
+    //     }
+    // },
+    // getNextPageUrl: function (state, {getCurrentVertical}) {
+    //     //deprecated
+    //     if(getCurrentVertical !== ""){
+    //         if(!!state.itemsPerVertical[getCurrentVertical]){
+    //             return state.itemsPerVertical[getCurrentVertical].nextPage;
+    //         }
+    //     }
+    // },
+    // getShowQuestionToaster: function (state, {getCurrentVertical}) {
+    //     //deprecated
+    //     return !!state.queItemsPerVertical[getCurrentVertical] ? state.queItemsPerVertical[getCurrentVertical].length > 0 : false;
+    // }
 };
 
 const actions = {
@@ -96,96 +100,97 @@ const actions = {
         });
     },
 
-    fetchingData(context, {name, params, page, skipLoad}) {
-        //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
-        //let paramsList = {...context.state.search, ...params, university, page};
+    // fetchingData(context, {name, params, page, skipLoad}) {
+        //deprecated
+    //     //let university = context.rootGetters.getUniversity ? context.rootGetters.getUniversity : null;
+    //     //let paramsList = {...context.state.search, ...params, university, page};
 
-        let paramsList = {...context.state.search, ...params, page};
-        //update box terms
-        context.dispatch('updateAITerm', {vertical: name, data: {text: paramsList.term}});
-        //get location if needed
-        let VerticalName = context.getters.getCurrentVertical;
-        let verticalItems = context.state.itemsPerVertical[VerticalName];
-        let skip = determineSkip(VerticalName, verticalItems);
-        let haveQueItems = context.state.queItemsPerVertical[VerticalName].length;
-        //when entering a question and going back stay on the same position.
-        //can be removed only when question page willo be part of ask question page
-        if ((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skip) {
-            if (haveQueItems) {
-                context.commit(SEARCH.INJECT_QUESTION);
-            }
+    //     let paramsList = {...context.state.search, ...params, page};
+    //     //update box terms
+    //     // context.dispatch('updateAITerm', {vertical: name, data: {text: paramsList.term}});
+    //     //get location if needed
+    //     let VerticalName = context.getters.getCurrentVertical;
+    //     let verticalItems = context.state.itemsPerVertical[VerticalName];
+    //     let skip = determineSkip(VerticalName, verticalItems);
+    //     let haveQueItems = context.state.queItemsPerVertical[VerticalName].length;
+    //     //when entering a question and going back stay on the same position.
+    //     //can be removed only when question page willo be part of ask question page
+    //     if ((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !context.state.serachLoading) || skip) {
+    //         if (haveQueItems) {
+    //             context.commit(SEARCH.INJECT_QUESTION);
+    //         }
 
-            let filtersData = !!verticalItems.filters ? searchService.createFilters(verticalItems.filters) : null;
-            let sortData = !!verticalItems.sort ? verticalItems.sort : null;
-            context.dispatch('updateSort', sortData);
-            context.dispatch('updateFilters', filtersData);
+    //         let filtersData = !!verticalItems.filters ? searchService.createFilters(verticalItems.filters) : null;
+    //         let sortData = !!verticalItems.sort ? verticalItems.sort : null;
+    //         context.dispatch('updateSort', sortData);
+    //         context.dispatch('updateFilters', filtersData);
 
-            return verticalItems;
-        } else {
-            context.commit(SEARCH.RESETQUE);
-            return getData();
-        }
+    //         return verticalItems;
+    //     } else {
+    //         context.commit(SEARCH.RESETQUE);
+    //         return getData();
+    //     }
 
 
-        function determineSkip(verticalName, verticalItems) {
-            if (verticalName === 'ask') {
-                /*
-                    if comming from question page we need to make sure before we auto skip the loading
-                    that we have some vertical items in the system if not then we dont want to skip the load
-                */
-                if (!!verticalItems && !!verticalItems.data && verticalItems.data.length > 0) {
-                    return skipLoad;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
+    //     function determineSkip(verticalName, verticalItems) {
+    //         if (verticalName === 'ask') {
+    //             /*
+    //                 if comming from question page we need to make sure before we auto skip the loading
+    //                 that we have some vertical items in the system if not then we dont want to skip the load
+    //             */
+    //             if (!!verticalItems && !!verticalItems.data && verticalItems.data.length > 0) {
+    //                 return skipLoad;
+    //             } else {
+    //                 return false;
+    //             }
+    //         } else {
+    //             return false;
+    //         }
+    //     }
 
-        function getData() {
-            return new Promise((resolve) => {
-                if (LOCATION_VERTICALS.has(name) && !paramsList.location) {
-                    context.dispatch("updateLocation").then((location) => {
-                        paramsList.location = location;
-                        resolve();
-                    });
-                } else {
-                    resolve();
-                }
-            }).then(() => {
-                return searchService.activateFunction[name](paramsList).then((data) => {
-                    let verticalObj = {
-                        verticalName: name,
-                        verticalData: data
-                    };
-                    context.dispatch('setDataByVerticalType', verticalObj);
-                    let sortData = !!data.sort ? data.sort : null;
-                    context.dispatch('updateSort', sortData);
-                    let filtersData = !!data.filters ? searchService.createFilters(data.filters) : null;
-                    context.dispatch('updateFilters', filtersData);
-                    return data;
-                }, (err) => {
-                    return Promise.reject(err);
-                });
-            });
-        }
-    },
+    //     function getData() {
+    //         return new Promise((resolve) => {
+    //             if (LOCATION_VERTICALS.has(name) && !paramsList.location) {
+    //                 context.dispatch("updateLocation").then((location) => {
+    //                     paramsList.location = location;
+    //                     resolve();
+    //                 });
+    //             } else {
+    //                 resolve();
+    //             }
+    //         }).then(() => {
+    //             return searchService.activateFunction[name](paramsList).then((data) => {
+    //                 let verticalObj = {
+    //                     verticalName: name,
+    //                     verticalData: data
+    //                 };
+    //                 context.dispatch('setDataByVerticalType', verticalObj);
+    //                 let sortData = !!data.sort ? data.sort : null;
+    //                 context.dispatch('updateSort', sortData);
+    //                 let filtersData = !!data.filters ? searchService.createFilters(data.filters) : null;
+    //                 context.dispatch('updateFilters', filtersData);
+    //                 return data;
+    //             }, (err) => {
+    //                 return Promise.reject(err);
+    //             });
+    //         });
+    //     }
+    // },
     setDataByVerticalType({commit}, verticalObj) {
         commit(SEARCH.SET_ITEMS_BY_VERTICAL, verticalObj);
     },
     updateDataByVerticalType({commit}, verticalObj) {
         commit(SEARCH.UPDATE_ITEMS_BY_VERTICAL, verticalObj);
     },
-    addQuestionItemAction({commit, getters}, notificationQuestionObject) {
-        let user = getters.accountUser;
-        let questionObj = searchService.createQuestionItem(notificationQuestionObject);
-        let questionToSend = {
-            user,
-            question: questionObj
-        };
-        commit(SEARCH.ADD_QUESTION, questionToSend);
-    },
+    // addQuestionItemAction({commit, getters}, notificationQuestionObject) {
+    //     let user = getters.accountUser;
+    //     let questionObj = searchService.createQuestionItem(notificationQuestionObject);
+    //     let questionToSend = {
+    //         user,
+    //         question: questionObj
+    //     };
+    //     commit(SEARCH.ADD_QUESTION, questionToSend);
+    // },
     // updateCoursesFilters({commit, getters, dispatch}, arrCourses) {
     //     let VerticalName = getters.getCurrentVertical;
     //     if (VerticalName.toLowerCase() !== "note") return;

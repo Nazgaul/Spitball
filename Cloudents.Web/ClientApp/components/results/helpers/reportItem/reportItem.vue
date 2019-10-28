@@ -51,6 +51,9 @@
 <script>
     import { mapActions } from 'vuex';
     import { LanguageService } from "../../../../services/language/languageService";
+    
+    import storeService from "../../../../services/store/storeService";
+    import feedStore from '../../../../store/feedStore';
 
     export default {
         name: "reportItem",
@@ -106,12 +109,12 @@
             },
         },
         methods: {
-            ...mapActions(['HomeworkHelp_reportQuestion', 'reportDocument', 'HomeworkHelp_reportAnswer', 'answerRemoved']),
+            ...mapActions(['Feeds_reportQuestion', 'reportDocument', 'Feeds_reportAnswer', 'answerRemoved']),
             callRelevantAction(type, data) {
                 let actions = {
-                    "ask": this.HomeworkHelp_reportQuestion,
+                    "feed": this.Feeds_reportQuestion,
                     "note": this.reportDocument,
-                    "answer": this.HomeworkHelp_reportAnswer
+                    "answer": this.Feeds_reportAnswer
                 };
                 return actions[type](data);
 
@@ -143,7 +146,7 @@
                         self.answerRemoved(this.answerDelData);
                     }
                     self.closeReportPop()
-                    if(this.$route.name === 'document') this.$router.push('/note')
+                    if(this.$route.name === 'question') this.$router.push('/feed');
                 })
 
             },
@@ -151,6 +154,9 @@
                 this.closeReport();
             }
         },
+        created() {
+            storeService.lazyRegisterModule(this.$store, 'feeds', feedStore);
+        }
     }
 </script>
 

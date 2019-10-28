@@ -7,7 +7,6 @@ using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
-using Cloudents.Identity;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Cloudents.Web.Binders;
@@ -21,6 +20,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
@@ -29,6 +29,7 @@ using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 
 namespace Cloudents.Web.Api
 {
@@ -130,16 +131,19 @@ namespace Cloudents.Web.Api
         /// Return relevant tutors base on user course - on specific course tab - feed
         /// </summary>
         /// <param name="course">The course name</param>
+        /// <param name="profile"></param>
         /// <param name="count">Number of tutor result</param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Any, VaryByQueryKeys = new[] { "*" })]
-        public async Task<IEnumerable<TutorCardDto>> GetTutorsAsync([RequiredFromQuery] string course, int? count,
+        public async Task<IEnumerable<TutorCardDto>> GetTutorsAsync([RequiredFromQuery] string course,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            int? count,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListByCourseQuery(course, userId, count.GetValueOrDefault(10));
+            var query = new TutorListByCourseQuery(course, userId, profile.Country, count.GetValueOrDefault(10));
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
@@ -229,7 +233,7 @@ namespace Cloudents.Web.Api
             {
                 var utmSource = referer.ParseQueryString()["utm_source"];
                 var command = new RequestTutorCommand(model.Course,
-                    _stringLocalizer["RequestTutorChatMessage", model.Course],
+                    _stringLocalizer["RequestTutorChatMessage", model.Course, model.Text ?? string.Empty],
                     userId,
 
                     referer.AbsoluteUri,
@@ -273,29 +277,60 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpGet("calendar/events"), Authorize]
+        /// <summary>
+        /// Get user calendars from google
+        /// </summary>
+        /// <param name="calendarService"></param>
+        /// <param name="token"></param>
+        /// <returns>the names of google calendars</returns>
+        [HttpGet("calendar/list"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
+        public async Task<IEnumerable<CalendarDto>> GetTutorCalendarAsync(
+            [FromServices] ICalendarService calendarService,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var res = await calendarService.GetUserCalendarsAsync(userId, token);
+            return res;
+        }
+
+        [HttpPost("calendar/list"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> PostTutorCalendarAsync(
+            [FromBody] IEnumerable<SetCalendarRequest> model,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command =
+                new AddTutorCalendarsCommand(userId, model.Select(s => new AddTutorCalendarsCommand.Calendar(s.Id, s.Name)));
+            await _commandBus.DispatchAsync(command, token);
+            //var res = await calendarService.GetUserCalendarsAsync(userId, token);
+            return Ok();
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="model"></param>
-        /// <param name="calendarService"></param>
         /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpGet("calendar/events"),Authorize]
+        /// <returns>Return the busy date time</returns>
+        [HttpGet("calendar/events"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(555)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<IEnumerable<DateTime>>> GetTutorCalendarAsync(
             [FromQuery]CalendarEventRequest model,
-            [FromServices] ICalendarService calendarService,
             CancellationToken token)
         {
             try
             {
-                var res = await calendarService.ReadCalendarEventsAsync(model.TutorId, model.From, model.To, token);
-                return res.Item1.ToList();
+                var query = new CalendarEventsQuery(model.TutorId, model.From.GetValueOrDefault(DateTime.UtcNow), model.To.GetValueOrDefault(DateTime.UtcNow.AddMonths(1)));
+                var res = await _queryBus.QueryAsync(query, token);
+                return res.BusySlot.ToList();
             }
-            catch(NotFoundException)
+            catch (NotFoundException)
             {
                 return StatusCode(555, new { massege = "permission denied" });
             }
@@ -313,15 +348,34 @@ namespace Cloudents.Web.Api
             try
             {
                 var userId = _userManager.GetLongUserId(User);
-                var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From, model.To);
+
+                Debug.Assert(model.From != null, "model.From != null");
+                Debug.Assert(model.To != null, "model.To != null");
+
+                var command = new AddTutorCalendarEventCommand(userId, model.TutorId, model.From.Value, model.To.Value);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }
             catch (ArgumentException)
             {
-                ModelState.AddModelError("x","slot taken");
+                ModelState.AddModelError("x", "slot taken");
                 return BadRequest(ModelState);
             }
+        }
+
+        [HttpPost("calendar/hours"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> SetTutorHoursAsync(
+            [FromBody] TutorHoursRequest model,
+            CancellationToken token)
+        {
+
+            var userId = _userManager.GetLongUserId(User);
+            var command = new SetTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new SetTutorHoursCommand.TutorDailyHours(s.Day, s.From, s.To)));
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
         }
     }
 }

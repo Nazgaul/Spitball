@@ -2,10 +2,10 @@ import {createPointsByOption, createShape} from '../utils/factories'
 import helper from '../utils/helper'
 import canvasFinder from '../utils/canvasFinder'
 
-const OPTION_TYPE = 'drawRectangle';
+const optionType = 'drawRectangle';
 
 let localShape = createShape({
-    type: OPTION_TYPE,
+    type: optionType,
     points: [],
     path:{
         stroke: null,
@@ -15,31 +15,31 @@ let localShape = createShape({
 
 const clearLocalShape = function(){
     localShape = createShape({
-        type: OPTION_TYPE,
+        type: optionType,
         points: [],
         path:{
             stroke: null,
             fill: null
         }
     });
-}
+};
 
 const startingMousePosition = {
     x:null,
     y:null
-}
+};
 
 let rectPath2D = null; //Made for the hit detection
 
 
 const init = function(){
     
-}
+};
 
 const draw = function(dragObj, fromArray, previouseDrawingObj){
     //determin the stroke color
     this.context.strokeStyle = dragObj.strokeStyle;
-    let previousCustomDragObject = null;
+    let previousCustomDragObject ;
     if(fromArray){
         previousCustomDragObject = previouseDrawingObj ? previouseDrawingObj : dragObj;
     }else{
@@ -51,14 +51,14 @@ const draw = function(dragObj, fromArray, previouseDrawingObj){
     let height = dragObj.mouseY - startY;
     //draw
     rectPath2D.rect(startX, startY, width, height);
-}
+};
 const liveDraw = function(dragObj, fromArray, previouseDrawingObj){
     this.context.beginPath();
     rectPath2D = new Path2D();
     draw.bind(this, dragObj, fromArray, previouseDrawingObj)();
     this.context.closePath();
     this.context.stroke(rectPath2D);
-}
+};
 
 const mousedown = function(e){
     //Set Click Position
@@ -71,15 +71,15 @@ const mousedown = function(e){
         mouseY: mouseY,
         isDragging: false,
         strokeStyle: this.color.hex,
-        option: OPTION_TYPE,
+        option: optionType,
         eventName: 'start'
-    })
+    });
     this.metaData.previouseDrawingPosition = dragObj;
     this.shouldPaint = true;
     localShape.points.push(dragObj);
     liveDraw.bind(this, dragObj)();
     helper.showHelper();
-}
+};
 const mousemove = function(e){
     if(this.shouldPaint){
         
@@ -93,10 +93,10 @@ const mousemove = function(e){
             width: currentX - startingMousePosition.x ,
             height: currentY - startingMousePosition.y,
             strokeStyle: this.color.hex
-        }
-        helper.setRectangleShape(helperObj)
+        };
+        helper.setRectangleShape(helperObj);
     }
-}
+};
 
 const defineEndPosition = function(e){
     if(this.shouldPaint){
@@ -106,23 +106,23 @@ const defineEndPosition = function(e){
             mouseY: mouseY,
             isDragging: false,
             strokeStyle: this.color.hex,
-            option: OPTION_TYPE,
+            option: optionType,
             eventName: 'end'
-        })
+        });
         localShape.points.push(dragObj);
         liveDraw.bind(this, dragObj)();
         this.shouldPaint = false;
         localShape.path.stroke = rectPath2D;
         this.methods.addShape(localShape, clearLocalShape);
     }
-}
+};
 
 const mouseup = function(e){
-    defineEndPosition.bind(this, e)()
-}
+    defineEndPosition.bind(this, e)();
+};
 const mouseleave = function(e){
-    defineEndPosition.bind(this, e)()
-}
+    defineEndPosition.bind(this, e)();
+};
 export default{
     mousedown,
     mouseup,

@@ -74,10 +74,22 @@
                          :formula="`$$${helperStyle.text}$$`"
                          class="math-jax"></vue-mathjax>
                 <div style="align-self: flex-end;">
-                    <v-btn @click="finishEquation" class="white--text" round color="#3DC1B9" v-language:inner="'studyRoom_equation_btn'"/>
+                    <v-btn @click="finishEquation" class="white--text" round color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
                 </div>
             </div>
             
+        </div>
+        <div class="iink-helper-container"
+             :style="{'color': helperStyle.color, 'top':`${equationSizeY}px`, 'left':`${equationSizeX}px`}"
+             v-if="helperShow && selectedOptionString === enumOptions.iink">
+             <div>
+                 <iink-drawer :helperClass="helperClass" :helperObj="helperStyle"></iink-drawer>
+             </div>
+            <div class="equation-text-area" style="justify-content: space-between;">
+                <div style="align-self: flex-end;">
+                    <v-btn @click="finishEquation" class="white--text" round color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
+                </div>
+            </div>
         </div>
         </div>
         <div class="canvas-tabs">
@@ -270,6 +282,34 @@
                 /*flex-direction: column;*/
                 display: flex;
                 flex-direction: row;
+                .equation-text-area{
+                    display: flex;
+                    flex-direction: column;
+                    .equation-helper {
+                        border: 2px solid #c4c4ca;
+                        padding: 6px;
+                        outline: none;
+                        border-radius: 4px;
+                        font-family: "Open Sans", sans-serif;
+                        font-size: 14px;
+                        background: #fff;
+                    }
+                    .math-jax{
+                        margin-right: auto;
+                        margin-top: 10px;
+                        border: none;
+                    }
+                }
+            
+        }
+        .iink-helper-container {
+                position: fixed;
+                background: #fff;
+                padding: 10px;
+                border: 1px solid #e1e1ef;
+                border-radius: 4px;
+                flex-direction: column;
+                display: flex;
                 .equation-text-area{
                     display: flex;
                     flex-direction: column;

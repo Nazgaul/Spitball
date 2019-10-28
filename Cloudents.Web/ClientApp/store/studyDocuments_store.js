@@ -11,7 +11,7 @@ const state = {
 
 const mutations = {
     StudyDocuments_filterDocument(state, data) {
-        state.items.data = data
+        state.items.data = data;
     },
     StudyDocuments_setItems(state, data) {
         state.items = data;
@@ -21,14 +21,14 @@ const mutations = {
     },
     StudyDocuments_updateItems(state, data) {
         state.items.data = state.items.data.concat(data.data);
-        state.items.nextPage = data.nextPage
+        state.items.nextPage = data.nextPage;
     },    
     
-    StudyDocuments_updateDocumentVote(state, {id, type}) {
-        if (!!state.items && state.items.data && state.items.data.length) {
-            state.items.data.forEach((document) => {
+    StudyDocuments_updateDocumentVote(state, {docs, id, type}) {
+        if (docs && docs.length) {
+            docs.forEach((document) => {                
                 if (document.id === id) {
-                    reputationService.updateVoteCounter(document, type)
+                    reputationService.updateVoteCounter(document, type);
                 }
             });
         }
@@ -74,8 +74,8 @@ const getters = {
             return state.items.data;
         }
     },
-    StudyDocuments_getNextPageUrl: function (state, {getCurrentVertical}) {
-        return state.items.nextPage
+    StudyDocuments_getNextPageUrl: function (state) {
+        return state.items.nextPage;
     },
     StudyDocuments_isDataLoaded: function(state){
         return state.dataLoaded;
@@ -90,12 +90,12 @@ const actions = {
         });
     },
     StudyDocuments_updateDataLoaded({commit}, data){
-        commit('StudyDocuments_setDataLoaded', data)
+        commit('StudyDocuments_setDataLoaded', data);
     },
     StudyDocuments_fetchingData(context, {name, params, page}) {
         let paramsList = {...context.state.search, ...params, page};
         //update box terms
-        context.dispatch('updateAITerm', {vertical: name, data: {text: paramsList.term}});
+        // context.dispatch('updateAITerm', {vertical: name, data: {text: paramsList.term}});
         context.dispatch('StudyDocuments_updateDataLoaded', false);
         //get location if needed
         let verticalItems = context.state.items;
@@ -107,7 +107,7 @@ const actions = {
             context.dispatch('updateSort', sortData);
             context.dispatch('updateFilters', filtersData);
             context.dispatch('StudyDocuments_updateDataLoaded', true);
-            return verticalItems
+            return verticalItems;
         } else {
             return getData();
         }
@@ -126,7 +126,7 @@ const actions = {
                     return data;
                 }, (err) => {
                     return Promise.reject(err);
-                })
+                });
             });
         }
     },
@@ -136,17 +136,20 @@ const actions = {
     StudyDocuments_updateData({commit}, data) {
         commit('StudyDocuments_updateItems', data);
     },
-    documentVote({commit, dispatch}, data) {
+    documentVote({commit, getters, dispatch}, data) {
         reputationService.voteDocument(data.id, data.type).then(() => {
+            let docs = getters.Feeds_getItems;
+            data.docs = docs
+            
             commit('StudyDocuments_updateDocumentVote', data);
             dispatch('profileVote', data);
         }, (err) => {
             let errorObj = {
                 toasterText: err.response.data.Id[0],
                 showToaster: true,
-            }
+            };
             dispatch('updateToasterParams', errorObj);
-        })
+        });
     },
 
     removeDocumentItemAction({commit}, notificationQuestionObject) {
@@ -162,10 +165,10 @@ const actions = {
             };
             dispatch('removeDocumentItemAction', objToRemove);
             dispatch('removeItemFromProfile', objToRemove);
-        })
+        });
     },
     removeItemFromList({state, commit, dispatch}, itemId) {
-        let docToRemove = { id: itemId }
+        let docToRemove = { id: itemId };
         dispatch('removeDocumentItemAction', docToRemove);
     }
 };

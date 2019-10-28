@@ -79,13 +79,7 @@ namespace Cloudents.Web.Api
         [NonAction]
         protected virtual IEnumerable<string> GetSupportedExtensions()
         {
-          return  FormatDocumentExtensions.GetFormats();
-            //return new[]{ "doc",
-            //"docx", "xls",
-            //"xlsx", "PDF",
-            //"png", "jpg",
-            //"jpeg",
-            //"ppt", "pptx","tiff","tif","bmp" };
+          return FileTypesExtensions.GetFormats();
         }
 
 

@@ -117,36 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="footer_links_about" xml:space="preserve">
-    <value>אודות ספיטבול</value>
-  </data>
-  <data name="footer_links_ambassadors" xml:space="preserve">
-    <value>שגרירים</value>
-  </data>
-  <data name="footer_links_blog" xml:space="preserve">
-    <value>בלוג</value>
-  </data>
-  <data name="footer_links_contact" xml:space="preserve">
-    <value>צור קשר</value>
-  </data>
-  <data name="footer_links_faq" xml:space="preserve">
-    <value>שאלות נפוצות</value>
-  </data>
-  <data name="footer_links_feedback" xml:space="preserve">
-    <value>פידבק</value>
-  </data>
-  <data name="footer_links_partners" xml:space="preserve">
-    <value>שותפויות</value>
-  </data>
-  <data name="footer_links_pr" xml:space="preserve">
-    <value>יחסי ציבור</value>
-  </data>
-  <data name="footer_links_privacy" xml:space="preserve">
-    <value>מדיניות פרטיות</value>
-  </data>
-  <data name="footer_links_terms" xml:space="preserve">
-    <value>תנאי שימוש</value>
-  </data>
   <data name="main_btn" xml:space="preserve">
     <value>לשיעור פרטי רק מ- 55 ₪</value>
   </data>
@@ -221,11 +191,5 @@
   </data>
   <data name="subfooter_title" xml:space="preserve">
     <value>שיעור פרטי Online ב- 55 ₪ לשעה לזמן מוגבל</value>
-  </data>
-  <data name="topnav_btn_login" xml:space="preserve">
-    <value>התחברות</value>
-  </data>
-  <data name="topnav_btn_signup" xml:space="preserve">
-    <value>הרשמה</value>
   </data>
 </root>

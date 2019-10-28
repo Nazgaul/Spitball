@@ -3,7 +3,6 @@ using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
-using Cloudents.FunctionsV2.Sync;
 using Cloudents.Search.Document;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -12,9 +11,14 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using NHibernate;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.FunctionsV2.FileProcessor;
+using Cloudents.Infrastructure.Video;
 using JetBrains.Annotations;
+using Newtonsoft.Json.Linq;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -22,19 +26,6 @@ namespace Cloudents.FunctionsV2
 {
     public static class DocumentFunction
     {
-        [FunctionName("BlobFunction")]
-        public static async Task RunAsync(
-            [BlobTrigger("spitball-files/files/{id}/text.txt")]string text, long id,
-            [Queue("generate-search-preview")] IAsyncCollector<string> collector,
-            [AzureSearchSync(DocumentSearchWrite.IndexName)]  IAsyncCollector<AzureSearchSyncOutput> indexInstance,
-            CancellationToken token)
-        {
-            await collector.AddAsync(id.ToString(), token);
-            //await SyncBlobWithSearch(text, id, metadata, indexInstance, commandBus, token);
-        }
-
-
-
         [FunctionName("DocumentProcessFunction")]
         public static async Task DocumentProcessFunctionAsync(
             [QueueTrigger("generate-search-preview")] string id,
@@ -56,26 +47,27 @@ namespace Cloudents.FunctionsV2
                 await commandBus.DispatchAsync(command, token);
                 return;
             }
-            var text = await blob.DownloadTextAsync();
-            await blob.FetchAttributesAsync();
-            var metadata = blob.Metadata;
-
-            int? pageCount = null;
-            if (metadata.TryGetValue("PageCount", out var pageCountStr) &&
-                int.TryParse(pageCountStr, out var pageCount2))
-            {
-                pageCount = pageCount2;
-            }
-
             try
             {
+                var text = await blob.DownloadTextAsync();
+                await blob.FetchAttributesAsync();
+                var metadata = blob.Metadata;
+
+                int? pageCount = null;
+                if (metadata.TryGetValue("PageCount", out var pageCountStr) &&
+                    int.TryParse(pageCountStr, out var pageCount2))
+                {
+                    pageCount = pageCount2;
+                }
+
+
                 var snippet = text.Truncate(200, true);
-                var command = new UpdateDocumentMetaCommand(longId, pageCount, snippet);
+                var command = UpdateDocumentMetaCommand.Document(longId, pageCount, snippet);
                 await commandBus.DispatchAsync(command, token);
 
                 await indexInstance.AddAsync(new AzureSearchSyncOutput()
                 {
-                    Item = new Cloudents.Search.Entities.Document
+                    Item = new Search.Entities.Document
                     {
                         Id = id,
                         Content = text.Truncate(6000)
@@ -88,27 +80,29 @@ namespace Cloudents.FunctionsV2
             {
                 await indexInstance.AddAsync(new AzureSearchSyncOutput()
                 {
-                    Item = new Cloudents.Search.Entities.Document
+                    Item = new Search.Entities.Document
                     {
                         Id = id,
                     },
                     Insert = false
                 }, token);
             }
-        }
-
-        
-
-        [FunctionName("DocumentSearchSync")]
-        public static async Task RunQuestionSearchAsync([TimerTrigger("0 10,40 * * * *")]
-            TimerInfo timer,
-            [OrchestrationClient] DurableOrchestrationClient starter,
-            ILogger log)
-        {
-            await SyncFunc.StartSearchSync(starter, log, SyncType.Document);
+            catch (StorageException ex) when (ex.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
+            {
+                //Text blob was not found - somehow 
+                //Do nothing
+            }
         }
 
 
+        /// <summary>
+        /// Delete old files that never commit to the database
+        /// </summary>
+        /// <param name="timer"></param>
+        /// <param name="directory"></param>
+        /// <param name="log"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [FunctionName("DocumentDeleteOld")]
         [UsedImplicitly]
         public static async Task DeleteOldDocument([TimerTrigger("0 0 0 1 * *")] TimerInfo timer,
@@ -127,24 +121,17 @@ namespace Cloudents.FunctionsV2
                 blobToken = files.ContinuationToken;
                 foreach (var blob in files.Results)
                 {
-                    if (blob is CloudBlobDirectory)
+                    switch (blob)
                     {
-                        continue;
-                    }
-
-                    if (blob is CloudBlockBlob b)
-                    {
-                        if (b.Properties.Created > DateTime.UtcNow.AddDays(-7))
-                        {
+                        case CloudBlobDirectory _:
+                        case CloudBlockBlob b when b.Properties.Created > DateTime.UtcNow.AddDays(-7):
                             continue;
-                        }
-
-                        if (b.Uri.Segments.Length != 4)
-                        {
+                        case CloudBlockBlob b when b.Uri.Segments.Length != 4:
                             continue;
-                        }
-                        log.LogInformation($"Delete {b.Uri}");
-                        await b.DeleteAsync();
+                        case CloudBlockBlob b:
+                            log.LogInformation($"Delete {b.Uri}");
+                            await b.DeleteAsync();
+                            break;
                     }
 
                     // await blob.DeleteAsync();
@@ -152,5 +139,63 @@ namespace Cloudents.FunctionsV2
             } while (blobToken != null);
             log.LogInformation("Finish delete items");
         }
+
+
+        [FunctionName("BlobPreviewGenerator")]
+        public static async Task GeneratePreviewAsync(
+            [QueueTrigger("generate-blob-preview-v2")] string id,
+            [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
+            [Inject] IFileProcessorFactory factory,
+            ILogger log,
+            CancellationToken token)
+        {
+
+            log.LogInformation($"receive preview for {id}");
+            var segment = await directory.ListBlobsSegmentedAsync(null);
+            var originalBlob = (CloudBlockBlob)segment.Results.FirstOrDefault(f2 => f2.Uri.Segments.Last().StartsWith("file-"));
+            if (originalBlob == null)
+            {
+                return;
+            }
+
+            var processor = factory.GetProcessor(originalBlob);
+            await processor.ProcessFileAsync(long.Parse(id), originalBlob, log, token);
+            log.LogInformation("C# Blob trigger function Processed");
+        }
+
+
+        [FunctionName("media-service-event")]
+        public static async Task Run(
+            [QueueTrigger("media-service")] string message,
+            [Inject] VideoProcessor videoProvider,
+            IBinder binder,
+            CancellationToken token)
+        {
+
+            dynamic json = JToken.Parse(message);
+            foreach (var output in json.data.outputs)
+            {
+                string label = output.label;
+                string assetName = output.assetName;
+                var id = long.Parse(RegEx.NumberExtractor.Match(assetName).Value);
+                if (label == MediaServices.JobLabelImage)
+                {
+                    await videoProvider.MoveImageAsync(id, binder, token);
+                }
+
+                if (label == MediaServices.JobLabelShortVideo)
+                {
+                    await videoProvider.CreateLocatorAsync(id, token);
+                }
+
+                if (label == MediaServices.JobLabelFullVideo)
+                {
+                    await videoProvider.UpdateDurationAsync(id, binder, token);
+                }
+            }
+            
+        }
+
+
     }
 }

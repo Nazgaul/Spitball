@@ -1,6 +1,5 @@
 ﻿using Aspose.Cells;
 using Aspose.Cells.Rendering;
-using Cloudents.Core;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class ExcelProcessor : IPreviewProvider2
+    public class ExcelProcessor : IPreviewProvider
     {
         public ExcelProcessor()
 
@@ -53,7 +52,6 @@ namespace Cloudents.Infrastructure.Framework
 
 
 
-        public static readonly string[] Extensions = FormatDocumentExtensions.Excel;
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
         {

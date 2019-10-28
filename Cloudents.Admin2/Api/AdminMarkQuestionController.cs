@@ -1,18 +1,12 @@
 ﻿using Cloudents.Admin2.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Command;
-using Cloudents.Command.Command;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Query;
-using Cloudents.Query.Query;
-using Cloudents.Query.Query.Admin;
 using Cloudents.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
@@ -40,17 +34,17 @@ namespace Cloudents.Admin2.Api
         /// <returns></returns>
 
         [HttpGet]
-        public async Task<IEnumerable<QuestionWithoutCorrectAnswerDto>> Get(int page, CancellationToken token)
+        public IEnumerable<QuestionWithoutCorrectAnswerDto> Get(int page, CancellationToken token)
         {
-           
-            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(page, User.GetCountryClaim());
-            var result = await _queryBus.QueryAsync(query, token);
-          
-            return result.Select(res =>
-            {
-                res.Url = _urlBuilder.BuildQuestionEndPoint(res.Id);
-                return res;
-            });
+            return null;
+            //var query = new AdminQuestionWithoutCorrectAnswerPageQuery(page, User.GetCountryClaim());
+            //var result = await _queryBus.QueryAsync(query, token);
+
+            //return result.Select(res =>
+            //{
+            //    res.Url = _urlBuilder.BuildQuestionEndPoint(res.Id);
+            //    return res;
+            //});
         }
 
         /// <summary>
@@ -60,13 +54,16 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task Post([FromBody] MarkQuestionAsCorrectRequest model, CancellationToken token)
+        public IActionResult Post([FromBody] MarkQuestionAsCorrectRequest model, CancellationToken token)
         {
-            var query = new QuestionDataByIdQuery(model.QuestionId.Value);
-            var questionDto = await _queryBus.QueryAsync(query, token);
-            var command = new MarkAnswerAsCorrectCommand(model.AnswerId.Value, questionDto.User.Id);
+            return Ok();
+            //Debug.Assert(model.QuestionId != null, "model.QuestionId != null");
+            //Debug.Assert(model.AnswerId != null, "model.AnswerId != null");
+            //var query = new QuestionDataByIdQuery(model.QuestionId.Value);
+            //var questionDto = await _queryBus.QueryAsync(query, token);
+            //var command = new MarkAnswerAsCorrectCommand(model.AnswerId.Value, questionDto.User.Id);
 
-            await _commandBus.DispatchAsync(command, token);
+            //await _commandBus.DispatchAsync(command, token);
         }
 
 

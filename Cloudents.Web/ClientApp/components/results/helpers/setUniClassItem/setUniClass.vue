@@ -46,7 +46,6 @@ export default {
   flex-direction: column;
   max-width: @cellWidth;
   h1 {
-    font-family: @fontOpenSans;
     font-size: 22px;
     font-weight: 600;
     line-height: 1.64;

@@ -4,7 +4,6 @@ using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using Cloudents.Identity;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
@@ -33,6 +32,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Infrastructure.Video;
+using Cloudents.Web.Identity;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Http.Extensions;
 using WebMarkupMin.AspNetCore2;
@@ -63,6 +64,7 @@ namespace Cloudents.Web
             services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
             services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
 
+
             services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddDataProtection(o =>
             {
@@ -76,6 +78,7 @@ namespace Cloudents.Web
             });
 
             services.AddMvc()
+                
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
                 {
                     o.DataAnnotationLocalizerProvider = (type, factory) =>
@@ -95,6 +98,7 @@ namespace Cloudents.Web
                 options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
                 options.SerializerSettings.Converters.Add(new RequestCultureConverter());
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+
             })
 
                 .AddMvcOptions(o =>
@@ -128,7 +132,7 @@ namespace Cloudents.Web
                         return new BadRequestObjectResult(actionContext.ModelState);
                     };
                 });
-            if (HostingEnvironment.IsDevelopment())
+            if (HostingEnvironment.IsDevelopment() || HostingEnvironment.IsStaging())
             {
                 Swagger.Startup.SwaggerInitial(services);
             }
@@ -150,7 +154,7 @@ namespace Cloudents.Web
 
             services.AddDetectionCore().AddCrawler();
             services.AddSbIdentity();
-           
+
             services.ConfigureApplicationCookie(o =>
             {
                 o.Cookie.Name = "sb5";
@@ -173,6 +177,7 @@ namespace Cloudents.Web
             //services.AddScoped<IRoleStore<UserRole>, RoleStore>();
             services.AddScoped<ISmsSender, SmsSender>();
             services.AddScoped<ICountryProvider, CountryProvider>();
+            services.AddSingleton<ConfigurationService>();
             services.AddHttpClient();
             services.AddOptions();
             services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));
@@ -200,9 +205,12 @@ namespace Cloudents.Web
             }).AsSelf();
             services.AddSingleton<WebPackChunkName>();
 
-            var keys = new ConfigurationKeys(Configuration["Site"])
+            var keys = new ConfigurationKeys()
             {
-                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
+                SiteEndPoint = { SpitballSite = Configuration["Site"], FunctionSite = Configuration["functionCdnEndpoint"] },
+                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"),
+                    Configuration["Redis"],DbConnectionString.DataBaseIntegration.Update)
+               ,
                 Redis = Configuration["Redis"],
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
                        Configuration["AzureSearch:SearchServiceAdminApiKey"],
@@ -210,7 +218,6 @@ namespace Cloudents.Web
                     ),
                 Storage = Configuration["Storage"],
                 ServiceBus = Configuration["ServiceBus"],
-                PayPal = new PayPalCredentials(Configuration["PayPal:ClientId"], Configuration["PayPal:ClientSecret"], !HostingEnvironment.IsProduction())
             };
 
 
@@ -220,6 +227,10 @@ namespace Cloudents.Web
             containerBuilder.RegisterType<Logger>().As<ILogger>();
             containerBuilder.RegisterType<DataProtection>().As<IDataProtect>();
 
+
+            containerBuilder.RegisterType<MediaServices>().SingleInstance().As<IVideoService>().WithParameter("isDevelop", keys.Search.IsDevelop);
+
+
             containerBuilder.RegisterType<SeoDocumentBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Document);
             containerBuilder.RegisterType<SeoTutorBuilder>()
@@ -228,6 +239,13 @@ namespace Cloudents.Web
                 .Keyed<IBuildSeo>(SeoType.Static);
             containerBuilder.RegisterType<SeoQuestionBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Question);
+
+
+            containerBuilder.RegisterType<VideoServiceGenerator>()
+                .Keyed<IDocumentGenerator>(DocumentType.Video);
+            containerBuilder.RegisterType<DocumentPreviewGenerator>()
+                .Keyed<IDocumentGenerator>(DocumentType.Document);
+
             containerBuilder.Register(c =>
             {
                 var z = c.Resolve<IHttpClientFactory>();
@@ -264,7 +282,6 @@ namespace Cloudents.Web
             if (!env.IsDevelopment() && !env.IsEnvironment(IntegrationTestEnvironmentName))
             {
                 reWriterOptions.AddRedirectToHttpsPermanent();
-                reWriterOptions.Add(new RedirectToWww());
             }
 
             app.UseRewriter(reWriterOptions);
@@ -274,25 +291,31 @@ namespace Cloudents.Web
 
             app.UseRequestLocalization(o =>
             {
-
                 o.DefaultRequestCulture = new RequestCulture(Language.English);
-                // Formatting numbers, dates, etc.
                 o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList();// SupportedCultures;
-                // UI strings that we have localized.
+
+                o.RequestCultureProviders.Clear();
+                o.RequestCultureProviders.Add(new FrymoCultureProvider());
+                o.RequestCultureProviders.Add(new QueryStringRequestCultureProvider());
+                o.RequestCultureProviders.Add(new CookieRequestCultureProvider());
                 o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
+                o.RequestCultureProviders.Add(new AcceptLanguageHeaderRequestCultureProvider());
 
             });
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
                 {
-                    ctx.Context.Response.Headers.Add("Cache-Control", $"public,max-age={TimeConst.Year}");
-                    ctx.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                    if (!env.IsDevelopment())
+                    {
+                        ctx.Context.Response.Headers.Add("Cache-Control", $"public,max-age={TimeConst.Year}");
+                        ctx.Context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                    }
                 }
             });
 
             app.UseWebMarkupMin();
-            if (env.IsDevelopment() /*|| env.IsStaging()*/)
+            if (env.IsDevelopment() || env.IsStaging())
             {
                 app.UseSwagger();
                 // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.

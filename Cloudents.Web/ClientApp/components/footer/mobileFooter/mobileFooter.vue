@@ -76,6 +76,9 @@
             openChat(){
                 if (this.accountUser == null) {
                     this.updateLoginDialogState(true);
+                    setTimeout(()=>{ 
+                        this.changeFooterActiveTab(this.lastTab);
+                    }, 200)
                 }else{
                     this.openChatInterface();
                     setTimeout(()=>{
@@ -129,8 +132,6 @@
 
     .mob-footer-title {
         opacity: 0.9;
-        font-family: @fontOpenSans;
-        /*font-size: 9px;*/
         font-weight: 500;
         letter-spacing: -0.1px;
         text-align: center;

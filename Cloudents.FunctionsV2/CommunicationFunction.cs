@@ -18,9 +18,11 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.FunctionsV2.Services;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
 using Twilio.Types;
+using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2
@@ -139,7 +141,7 @@ namespace Cloudents.FunctionsV2
 
             var messageOptions = new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
             {
-                Body = /*"Your code to enter into Spitball is: " +*/ msg.Message
+                Body = msg.Message
             };
             if (msg.PhoneNumber.StartsWith("+972"))
             {
@@ -150,13 +152,15 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("FunctionPhoneServiceBus")]
         public static async Task CallServiceBusAsync(
+            
             [ServiceBusTrigger("communication", "call", Connection = "AzureWebJobsServiceBus")] SmsMessage msg,
-            [TwilioCall(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateCallOptions> options)
+            [TwilioCall(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateCallOptions> options,
+            [Inject] IHostUriService hostUriService)
         {
             var from = new PhoneNumber("+1 203-347-4577");
             var to = new PhoneNumber(msg.PhoneNumber);
 
-            var hostName2 = GetHostUri();
+            var hostName2 = hostUriService.GetHostUri();
 
             var uriBuilder = new UriBuilder(hostName2)
             {
@@ -175,22 +179,7 @@ namespace Cloudents.FunctionsV2
 
         }
 
-        public static Uri GetHostUri()
-        {
-            var hostName2 = Environment.ExpandEnvironmentVariables("%WEBSITE_HOSTNAME%");
-            //var hostName2 = string.Format("http://{0}.azurewebsites.net",
-            //    Environment.ExpandEnvironmentVariables("%WEBSITE_HOSTNAME%"));
-            if (hostName2.Contains("localhost", StringComparison.OrdinalIgnoreCase))
-            {
-                hostName2 = "spitball-function-dev2.azurewebsites.net";
-            }
-
-            var uri = new UriBuilder("https", hostName2.TrimEnd('/'));
-            return uri.Uri;
-
-
-            //return hostName2;
-        }
+       
 
         [FunctionName("TwilioMessage")]
         public static IActionResult RunTwilioResult(

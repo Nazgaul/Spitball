@@ -15,20 +15,20 @@ namespace Cloudents.Core.Entities
             VoteType = voteType;
         }
 
-        public Vote(User user, Answer answer, VoteType voteType) : this()
-        {
-            User = user;
-            Answer = answer;
-            Question = answer.Question;
-            VoteType = voteType;
-        }
+        //public Vote(User user, Answer answer, VoteType voteType) : this()
+        //{
+        //    User = user;
+        //    Answer = answer;
+        //    Question = answer.Question;
+        //    VoteType = voteType;
+        //}
 
-        public Vote(User user, Question question, VoteType voteType) : this()
-        {
-            User = user;
-            Question = question;
-            VoteType = voteType;
-        }
+        //public Vote(User user, Question question, VoteType voteType) : this()
+        //{
+        //    User = user;
+        //    Question = question;
+        //    VoteType = voteType;
+        //}
 
         protected Vote()
         {
@@ -38,8 +38,8 @@ namespace Cloudents.Core.Entities
         //public virtual Guid Id { get; set; }
         public virtual User User { get;protected set; }
         public virtual Document Document { get; protected set; }
-        public virtual Answer Answer { get; protected set; }
-        public virtual Question Question { get; protected set; }
+        //public virtual Answer Answer { get; protected set; }
+       // public virtual Question Question { get; protected set; }
         public virtual DomainTimeStamp TimeStamp { get; protected set; }
         public virtual VoteType VoteType { get;  set; }
     }

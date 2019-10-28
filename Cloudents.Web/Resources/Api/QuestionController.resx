@@ -133,6 +133,6 @@
     <value>You need to wait before asking a new question</value>
   </data>
   <data name="VoteCantVote" xml:space="preserve">
-    <value>You can not upvote / downvote your own question</value>
+    <value>You can not up-vote / down-vote your own question</value>
   </data>
 </root>

@@ -48,7 +48,7 @@ namespace Cloudents.Admin2.Api
                 return Conflict(); 
             }
 
-            string url = $"{_configuration["Site"]}/go/{model.Identifier}";
+            string url = $"{_configuration["Site"]}go/{model.Identifier}";
             return new ShortUrlDto(url, model.Destination, model.Expiration);
 
         }

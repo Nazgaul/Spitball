@@ -57,7 +57,7 @@ export default {
     needScroll: {}
   },
   computed: {
-    ...mapGetters(["userDocuments", "filterValue"]),
+    ...mapGetters(["userDocuments", "filterValue", 'getRequestLock']),
     filteredDocuments: function() {
          return  this.userDocuments.filter(f=> f.state === this.filterValue);
     }
@@ -82,10 +82,12 @@ export default {
       }
       let page = this.scrollFunc.page;
       this.scrollFunc.doingStuff = true;
-      self.getUserDocuments({ id, page }).then(isComplete => {
-        self.scrollFunc.doingStuff = !isComplete;
-        self.nextPage();
-      });
+      if(!this.getRequestLock) {
+        self.getUserDocuments({ id, page }).then(isComplete => {
+          self.scrollFunc.doingStuff = !isComplete;
+          self.nextPage();
+        });
+      }
     },
     openDialog(img) {
         console.log(img);

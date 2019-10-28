@@ -18,6 +18,12 @@ function UserInfo(objInit) {
         showButton: !objInit.phoneNumberConfirmed,
         buttonText: "verify Phone"
     };
+    this.payment = {
+        value: objInit.paymentExists,
+        label: 'Has Payment',
+        showButton: true,
+        buttonText: "delete"
+    };
     this.phoneNumberConfirmed = {value: objInit.phoneNumberConfirmed ? 'Yes' : 'No', label: "Phone Confirmed"};
     this.university = {value: objInit.university || '', label: 'University'};
     this.country = {value: objInit.country || '', label: 'Country'};
@@ -123,6 +129,30 @@ function createPurchasedDocItem(data) {
         return new PurchasedDocItem(item);
     });
 }
+function createSoldItems(data){
+    return data.map((item)=>{
+        return new SoldItem(item)
+    })
+}
+function SoldItem(objInit){
+    this.itemId = objInit.itemId;
+    this.itemName = objInit.itemName;
+    this.purchasedUserName = objInit.purchasedUserName;
+    this.itemType = objInit.itemType;
+    this.itemCourse = objInit.itemCourse;
+    this.transactionPrice =  Math.abs(objInit.transactionPrice);
+    this.transactionTime = formatTime(objInit.transactionTime);
+    this.purchasedUserBalance = objInit.purchasedUserBalance;
+    this.purchasedUserEmail = objInit.purchasedUserEmail;
+    this.itemState = objInit.itemState;
+    this.itemCreated = formatTime(objInit.itemCreated);
+    this.url = objInit.url;
+}
+
+function formatTime(isoTime){
+    let date = new Date(isoTime)
+    return `${date.getUTCMonth() + 1}/${date.getUTCDate()}/${date.getUTCFullYear({})}`; 
+}
 
 function ConversationItem(objInit) {
     this.id = objInit.id;
@@ -211,6 +241,17 @@ export default {
                 return error;
             });
     },
+    getSoldItems: (id, page) => {
+        let path = `AdminUser/sold?id=${id}&page=${page}`;
+        return connectivityModule.http.get(path)
+            .then((resp) => {
+                return createSoldItems(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return error;
+            });
+    },
     getUserConversations:(id) => {
         const path = `AdminConversation`;
         return connectivityModule.http.get(`${path}?id=${id}&page=0`).then((newConversationList) => {
@@ -258,5 +299,8 @@ export default {
     },
     removeTutor: (id) => {
         return connectivityModule.http.delete(`AdminTutor/${id}`);
+    },
+    deletePayment: (id) => {
+        return connectivityModule.http.delete(`AdminPayment/deletePayment?userId=${id}`);
     }
 }

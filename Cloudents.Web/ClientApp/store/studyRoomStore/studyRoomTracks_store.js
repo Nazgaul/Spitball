@@ -2,16 +2,16 @@ import { createLocalVideoTrack,createLocalAudioTrack } from "twilio-video";
 
 const _getLocalTrack = (getters,type) =>{
     if(getters['activeRoom'] && getters['activeRoom'].localParticipant) {
-        let localTracks = getters['activeRoom'].localParticipant[`${type}Tracks`].entries()
-            let currentTrack;
+        let localTracks = getters['activeRoom'].localParticipant[`${type}Tracks`].entries();
+        let currentTrack;
             for(let trackObj of localTracks){
                 if(trackObj){
-                    currentTrack = trackObj
+                    currentTrack = trackObj;
                 }
             }
-        return !!currentTrack ? currentTrack[1] : currentTrack
+        return !!currentTrack ? currentTrack[1] : currentTrack;
     }
-}
+};
 
 const state = {
     currentVideoTrack: null,
@@ -21,7 +21,13 @@ const state = {
     isRemote: false,
     lastActiveLocalVideoTrack: null,
     videoDevice: null,
-    audioDevice: null
+    audioDevice: null,
+    storageENUM:{
+        video:'sb-videoTrackId',
+        audio:'sb-audioTrackId'
+    },
+    isVideoActive: false,
+    isAudioActive: false
 };
 
 const getters = {
@@ -29,10 +35,10 @@ const getters = {
     getCurrentAudioTrack:state => state.currentAudioTrack,
     getLocalVideoTrack:state => state.localVideoTrack,
     getLocalAudioTrack:state => state.localAudioTrack,
-    getIsRemote:state => state.isRemote,
+    releaseFullVideoButton:state => state.isRemote,
     getLastActiveLocalVideoTrack: state => state.lastActiveLocalVideoTrack,
-    getVideoDevice:state => state.videoDevice,
-    getAudioDevice:state => state.audioDevice,
+    getIsVideoActive: state => state.isVideoActive,
+    getIsAudioActive: state => state.isAudioActive,
 };
 
 const mutations = {
@@ -43,62 +49,90 @@ const mutations = {
         state.currentAudioTrack = track;
     },
     setLocalVideoTrack(state, track){
-        state.localVideoTrack = track
+        state.localVideoTrack = track;
     },
     setLastActiveLocalVideoTrack(state, track){
-        state.lastActiveLocalVideoTrack = track
+        state.lastActiveLocalVideoTrack = track;
     },
     setLocalAudioTrack(state, track){
-        state.localAudioTrack = track
+        state.localAudioTrack = track;
     },
-    setIsRemote(state,val){
-        state.isRemote = val
+    releaseFullVideoButton(state,val){
+        state.isRemote = val;
     },
-    setVideoDevice(state,val){
-        state.videoDevice = val
+    setIsVideoActive(state, val){
+        state.isVideoActive  = val;
     },
-    setAudioDevice(state,val){
-        state.audioDevice = val
+    setIsAudioActive(state, val){
+        state.isAudioActive  = val;
     }
 };
 
 const actions = {
+    initLocalMediaTracks({state, dispatch}){
+        dispatch('setIsVideoActive', true);
+        dispatch('initLocalVideoTrack');
+        dispatch('setIsAudioActive', true);
+        dispatch('initLocalAudioTrack');
+    },
     setLocalVideoTrack({commit}, videoTrack){
         commit('setLocalVideoTrack',videoTrack);
         if(!!videoTrack){
             commit('setLastActiveLocalVideoTrack',videoTrack);
         }
     },
-    createLocalVideoTrack({getters,dispatch,state}, deviceId){
+    initLocalVideoTrack({getters,dispatch,state}){
+        let deviceId = global.localStorage.getItem(state.storageENUM.video);
         let mediaStreamTrack = state.lastActiveLocalVideoTrack;
         if(mediaStreamTrack){
-            dispatch('setLocalVideoTrack',mediaStreamTrack)
-            let options = {};
-            //TODO add track Information
-            // let options = {
-            //     name: `shareScreen_${this.isTutor ? "tutor" : "student"}_${
-            //         this.accountUserID
-            //         }`
-            // }
-            getters['activeRoom'].localParticipant.publishTrack(mediaStreamTrack, options);
+            //after changing the 
+            dispatch('setLocalVideoTrack',mediaStreamTrack);
+            getters['activeRoom'].localParticipant.publishTrack(mediaStreamTrack);
         }else{
-        createLocalVideoTrack({exact: deviceId}).then(videoTrack => {
-                getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
-                    dispatch('setLocalVideoTrack',videoTrack)
-                },err=>{
-                    dispatch('setLocalVideoTrack', null)
-                    console.log(err);
-                }
-            )
+            dispatch('createLocalVideoTrack_Store', deviceId);
         }
     },
-    
-    createLocalAudioTrack({getters,commit}){
-        createLocalAudioTrack().then(audioTrack => {
-            getters['activeRoom'].localParticipant.publishTrack(audioTrack.mediaStreamTrack);  
-            commit('setLocalAudioTrack',audioTrack)
+    createLocalVideoTrack_Store({getters, dispatch, state}, id){
+        let param = id ? {deviceId: {exact: id}} : {};
+        createLocalVideoTrack(param).then(videoTrack => {
+            if(getters['activeRoom'] && state.isVideoActive){
+                getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
             }
-        )
+                dispatch('setLocalVideoTrack',videoTrack);
+        },err=>{
+                createLocalVideoTrack().then(videoTrack => {
+                    if(getters['activeRoom'] && state.isVideoActive){
+                        getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
+                    }
+                        dispatch('setLocalVideoTrack',videoTrack);
+                },err=>{
+                        dispatch('setIsVideoActive', false);
+                        dispatch('setLocalVideoTrack', null);
+                });
+        });
+    },
+    initLocalAudioTrack({dispatch}){
+        let deviceId = global.localStorage.getItem(state.storageENUM.audio);
+        dispatch('createLocalAudioTrack_store', deviceId);
+    },
+    createLocalAudioTrack_store({getters, commit}, id){
+        let param = id ? {deviceId: {exact: id}} : {};
+        createLocalAudioTrack(param).then(audioTrack => {
+            if(getters['activeRoom'] && state.isAudioActive){
+                getters['activeRoom'].localParticipant.publishTrack(audioTrack.mediaStreamTrack);  
+            }
+            commit('setLocalAudioTrack',audioTrack);
+        },err=>{
+                createLocalAudioTrack().then(audioTrack => {
+                    if(getters['activeRoom'] && state.isAudioActive){
+                        getters['activeRoom'].localParticipant.publishTrack(audioTrack.mediaStreamTrack);  
+                    }
+                    commit('setLocalAudioTrack',audioTrack);
+                },err=>{
+                        dispatch('setIsAudioActive', false);
+                        commit('setLocalAudioTrack',null);
+                });
+        });
     },
     destroyLocalVideoTrack({getters,dispatch},track){
         if(track.isEnabled){
@@ -107,14 +141,14 @@ const actions = {
                     detachedElement.remove();
                 });
                 getters['activeRoom'].localParticipant.unpublishTrack(track.mediaStreamTrack);
-                dispatch('setLocalVideoTrack',null)
+                dispatch('setLocalVideoTrack',null);
             }
         } 
     },
     destroyLocalAudioTrack({getters,commit},track){
         if(track.isEnabled){
             getters['activeRoom'].localParticipant.unpublishTrack(track.mediaStreamTrack);
-            commit('setLocalAudioTrack',null)
+            commit('setLocalAudioTrack',null);
         } 
     },
     setCurrentVideoTrack({commit}, track){
@@ -152,32 +186,87 @@ const actions = {
             container.appendChild(track.attach());
         }
     },
-    toggleVideoTrack({getters,dispatch}){
-        if(!getters['activeRoom']) return
-        
-        let currentTrack = _getLocalTrack(getters,'video')
-        if(currentTrack){
-            dispatch('destroyLocalVideoTrack',currentTrack.track)
-        } else{
-            dispatch('createLocalVideoTrack')
-        }
-    },
-    toggleAudioTrack({getters,dispatch}){
-        if(!getters['activeRoom']) return 
-
-        let currentTrack = _getLocalTrack(getters,'audio')
-        if(currentTrack){
-            dispatch('destroyLocalAudioTrack',currentTrack.track)
-        } else{
-            dispatch('createLocalAudioTrack')   
+    toggleVideoTrack({getters,dispatch, state}){
+        if(!getters['activeRoom']){
+            if(state.isVideoActive){
+                dispatch('setIsVideoActive', false);
+            }else{
+                dispatch('setIsVideoActive', true);
+            }
+        }else{
+            let currentTrack = _getLocalTrack(getters,'video');
+            if(currentTrack){
+                dispatch('setIsVideoActive', false);
+                dispatch('destroyLocalVideoTrack',currentTrack.track);
+            } else{
+                dispatch('setIsVideoActive', true);
+                dispatch('initLocalVideoTrack');
+            }
         } 
     },
-    setVideoDevice({commit},val){
-        commit('setVideoDevice', val)
+    toggleAudioTrack({getters,dispatch, state}){
+        if(!getters['activeRoom']){
+            if(state.isAudioActive){
+                dispatch('setIsAudioActive', false);
+            }else{
+                dispatch('setIsAudioActive', true);
+            }
+        }else{
+            let currentTrack = _getLocalTrack(getters,'audio');
+            if(currentTrack){
+                dispatch('setIsAudioActive', false);
+                dispatch('destroyLocalAudioTrack',currentTrack.track);
+            } else{
+                dispatch('setIsAudioActive', true);
+                dispatch('initLocalAudioTrack');  
+            } 
+        } 
     },
-    setAudioDevice({commit},val){
-        commit('setAudioDevice', val)
-    }
+
+    changeVideoTrack({getters,dispatch}, newTrackId){
+        if(getters['activeRoom']){
+            let currentTrack = _getLocalTrack(getters,'video');
+            if(currentTrack){
+                //first Unpublish the current track
+                //dispatch('setIsVideoActive', false);
+                dispatch('destroyLocalVideoTrack',currentTrack.track);
+                //create and publish new track
+                //dispatch('setIsVideoActive', true);
+                dispatch('createLocalVideoTrack_Store', newTrackId);
+            }else{
+                //dispatch('setIsVideoActive', true);
+                dispatch('createLocalVideoTrack_Store', newTrackId);
+            }
+        }else{
+            //dispatch('setIsVideoActive', true);
+            dispatch('createLocalVideoTrack_Store', newTrackId);
+        }
+    },
+    changeAudioTrack({getters,dispatch}, newTrackId){
+        if(getters['activeRoom']){
+            let currentTrack = _getLocalTrack(getters,'audio');
+            if(currentTrack){
+                //first Unpublish the current track
+                // dispatch('setIsAudioActive', false);
+                dispatch('destroyLocalAudioTrack',currentTrack.track);
+                //create and publish new track
+                // dispatch('setIsAudioActive', true);
+                dispatch('createLocalAudioTrack_store', newTrackId);
+            }else{
+                // dispatch('setIsAudioActive', true);
+                dispatch('createLocalAudioTrack_store', newTrackId);
+            }
+        }else{
+            // dispatch('setIsAudioActive', true);
+            dispatch('createLocalAudioTrack_store', newTrackId);
+        }
+    },
+    setIsVideoActive({commit}, val){
+        commit('setIsVideoActive', val);
+    },
+    setIsAudioActive({commit}, val){
+        commit('setIsAudioActive', val);
+    },
 };
 
 export default {

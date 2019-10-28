@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -63,10 +62,10 @@ namespace Cloudents.Admin2.Controllers
 
                 new Claim(ClaimsPrincipalExtensions.ClaimCountry, result.Country ?? "None"),
             };
-            foreach (var resultRole in result.Roles ?? Enumerable.Empty<string>())
-            {
-                claims.Add(new Claim(ClaimTypes.Role, resultRole));
-            }
+            //foreach (var resultRole in result.Roles ?? Enumerable.Empty<string>())
+            //{
+            //    claims.Add(new Claim(ClaimTypes.Role, resultRole));
+            //}
 
             var claimsIdentity = new ClaimsIdentity(
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);

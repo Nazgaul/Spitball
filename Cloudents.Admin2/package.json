@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "browserslist": "^4.7.0",
+    "caniuse-lite": "^1.0.30000989",
     "vue": "^2.5.17",
     "vue-class-component": "^6.2.0",
     "vue-clipboard2": "^0.2.1",
@@ -24,7 +26,6 @@
     "@types/webpack-env": "^1.13.6",
     "ajv": "^6.5.4",
     "aspnet-webpack": "^3.0.0",
-    "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "8.0.4",
     "css-loader": "^1.0.0",
     "file-loader": "^2.0.0",

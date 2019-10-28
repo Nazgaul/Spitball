@@ -2,7 +2,7 @@ const EVENT_TYPES = {
     LOG: 'LOG',
     ERROR: 'ERROR',
     TRACK: 'TRACK',
-}
+};
 
 function createEventName(type, name){
     return `${type}_${name}`;
@@ -29,13 +29,13 @@ const track={
         */
         global.appInsights.trackEvent(eventName, properties, measurements);
     },
-}
+};
 const authenticate= {
     set: function(userId){
         
         global.appInsights.setAuthenticatedUserContext(userId.toString());
     }
-}
+};
 
 
 export default{

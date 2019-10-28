@@ -190,7 +190,7 @@
                     duration: item.duration,
                     subsidizing : item.subsidizing,
                     userId: item.userId,
-                    "price": item.totalPrice
+                   totalPrice: item.totalPrice
                 };
             },
             approve() {

@@ -118,14 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DownVoteError" xml:space="preserve">
-    <value>Oops you can't downvote yet, unlock downvoting from 250 Points</value>
+    <value>Oops you can't down-vote yet, unlock down-voting from 250 Points</value>
     <comment>TODO: Vote should be parameter</comment>
   </data>
   <data name="Spitball" xml:space="preserve">
     <value>Spitball2</value>
   </data>
   <data name="UpVoteError" xml:space="preserve">
-    <value>Oops you can't upvote yet, unlock upvoting from 200 Points</value>
+    <value>Oops you can't up-vote yet, unlock up-voting from 200 Points</value>
     <comment>TODO: Vote should be parameter</comment>
   </data>
 </root>

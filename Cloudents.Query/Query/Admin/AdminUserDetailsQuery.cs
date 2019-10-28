@@ -40,7 +40,8 @@ namespace Cloudents.Query.Query.Admin
 			U.EmailConfirmed,
             U.LastOnline,
             U.LockoutReason,
-t.state as TutorState
+t.state as TutorState,
+case when U.PaymentExists is null or U.PaymentExists = 0 then 0 else 1 end as PaymentExists
 			
                         from sb.[User] U
                         left join sb.University Un

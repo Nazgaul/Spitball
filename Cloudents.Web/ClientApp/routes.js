@@ -1,7 +1,7 @@
 import * as RouteTypes from "./routeTypes";
 
 //const resultContent = () => import('./components/results/Result.vue');
-const homeworkHelpComponent = () => import('./components/results/HomeworkHelp/HomeworkHelp.vue');
+const feeds = () => import('./components/results/feeds/Feeds.vue');
 const studyDocumentsComponent = () => import('./components/results/StudyDocuments/StudyDocuments.vue');
 const tutorsComponent = () => import('./components/results/Tutors/Tutors.vue');
 
@@ -9,11 +9,9 @@ const pageHeader = () => import('./components/header/header.vue');
 
 const schoolBlock = () => import('./components/schoolBlock/schoolBlock.vue');
 const verticalsTabs = () => import('./components/header/verticalsTabs.vue');
-import { staticRoutes } from "./components/satellite/satellite-routes";
 
-// const showItem = () => import("./components/preview/Item.vue");
+
 const document = () => import("./components/document/document.vue");
-const satelliteHeader = () => import("./components/satellite/header.vue");
 //const previewHeader = () => import("./components/helpers/header.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const wallet = () => import("./components/wallet/wallet.vue");
@@ -78,8 +76,8 @@ const resultProps = {
     header: headerResultPageFn,
     verticals: verticalResultPageFn
 };
-const homeworkHelpPage = {
-    default: homeworkHelpComponent,
+const feedPage = {
+    default: feeds,
     header: pageHeader,
     schoolBlock: schoolBlock,
     verticals: verticalsTabs
@@ -128,9 +126,9 @@ let routes2 = [
     },
     
     {
-        path: "/" + RouteTypes.questionRoute,
-        name: "ask",
-        components: homeworkHelpPage,
+        path: "/" + RouteTypes.feedRoute,
+        name: "feed",
+        components: feedPage,
         props: resultProps,
         meta: {
             isAcademic: true,
@@ -151,26 +149,6 @@ let routes2 = [
         path: "/" + RouteTypes.tutorRoute,
         name: "tutors",
         components: tutorPage,
-        props: resultProps,
-        meta: {
-            isAcademic: true,
-            showMobileFooter: true,
-            analytics: {
-                pageviewTemplate(route) {
-                    return {
-                        title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
-                        path: route.path,
-                        location: window.location.href
-                    };
-                }
-            }
-        }
-    },
-
-    {
-        path: "/" + RouteTypes.notesRoute,
-        name: "note",
-        components: studyDocumentsPage,
         props: resultProps,
         meta: {
             isAcademic: true,
@@ -266,7 +244,6 @@ let routes2 = [
             requiresAuth: true
         }
     },
-
     {
         path: "/note/:courseName/:name/:id",
         alias: ['/document/:courseName/:name/:id'],
@@ -285,7 +262,6 @@ let routes2 = [
             })
         }
     },
-
     {
         path: "/studyroom/:id?",
         name: 'tutoring',
@@ -320,8 +296,8 @@ let routes2 = [
         name: "question",
         props: {
             header: {
-                submitRoute: '/ask',
-                currentSelection: "ask"
+                submitRoute: '/feed',
+                currentSelection: "feed"
             },
             default: (route) => ({
                 id: route.params.id
@@ -376,7 +352,7 @@ let routes2 = [
         },
         props: {
             header: () => ({
-                currentSelection: "ask"
+                currentSelection: "feed"
             })
         }
     },
@@ -398,22 +374,5 @@ let routes2 = [
     }
 ];
 
-for (let v in staticRoutes) {
-    let item = staticRoutes[v];
-    routes2.push({
-                     path: item.path || "/" + item.name,
-                     name: item.name,
-                     components: {
-                         header: satelliteHeader,
-                         default: item.import
-                     },
-                     meta: {
-                         static: true
-                     },
-                     props: {
-                         default: (route) => item.params ? item.params(route) : {}
-                     }
-                 });
-}
 
 export const routes = routes2;

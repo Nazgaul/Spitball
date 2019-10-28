@@ -46,7 +46,7 @@ GetDictionary().then(() => {
                 const matchedComponents = component.router.getMatchedComponents();
                 // no matched routes, reject with 404
                 if (!matchedComponents.length) {
-                    window.location = "/error/notfound";
+                    window.location = "/error/notfound?client=true";
                 }
                 component.app.$mount("#app");
             });
@@ -56,3 +56,4 @@ GetDictionary().then(() => {
         }
     });
 });
+

@@ -29,7 +29,7 @@ namespace Cloudents.Web.Test.UnitTests
 
        
 
-        [Fact]
+        [Fact(Skip = "Obsolete")]
         public async Task GetAsync_StudyDoc()
         {
             var response = await _client.GetAsync(_uri.Path);
@@ -39,7 +39,7 @@ namespace Cloudents.Web.Test.UnitTests
             response.RequestMessage.RequestUri.Should().Be(_uri.Uri);
         }
 
-        [Fact]
+        [Fact(Skip ="Obsolete")]
         public async Task GetAsync_HW()
         {
             _uri.Path = "/ask";

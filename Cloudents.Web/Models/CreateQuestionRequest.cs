@@ -8,8 +8,6 @@ namespace Cloudents.Web.Models
         [StringLength(8000, MinimumLength = 15, ErrorMessage = "MinLength")]
         public string Text { get; set; }
 
-        [MaxLength(4, ErrorMessage = "MaxLength")]
-        public string[] Files { get; set; }
 
         [Required]
         public string Course { get; set; }

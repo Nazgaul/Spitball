@@ -124,7 +124,7 @@
     <value>שפה לא הולמת</value>
   </data>
   <data name="reason_plagiarism" xml:space="preserve">
-    <value>גניבה ספרותית</value>
+    <value>גנבה ספרותית</value>
   </data>
   <data name="reason_spam" xml:space="preserve">
     <value>ספאם</value>

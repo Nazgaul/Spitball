@@ -22,8 +22,17 @@ namespace Cloudents.Persistence
 
         static DapperRepository()
         {
+            //var jsonObjectTypeHandler = new JsonObjectTypeHandler();
             SqlMapper.AddTypeHandler(new DapperCultureInfoTypeHandler());
-            SqlMapper.AddTypeHandler(typeof(IEnumerable<string>), new JsonObjectTypeHandler());
+            //used in tutor search query
+            SqlMapper.AddTypeHandler(typeof(IEnumerable<string>), new JsonArrayTypeHandler());
+            //SqlMapper.AddTypeHandler(typeof(FeedDto), new JsonObjectTypeHandler());
+
+           
+            //SqlMapper.AddTypeHandler(typeof(QuestionFeedDto), new JsonObjectTypeHandler());
+            //SqlMapper.AddTypeHandler(typeof(DocumentFeedDto), new JsonObjectTypeHandler());
+            
+            //SqlMapper.AddTypeHandler(typeof(FeedDto), new JsonObjectTypeHandler());
         }
        
 
@@ -33,9 +42,6 @@ namespace Cloudents.Persistence
         {
             return new SqlConnection(_connectionString);
         }
-
-      
-
 
 
         private class DapperCultureInfoTypeHandler : SqlMapper.TypeHandler<CultureInfo>
@@ -56,7 +62,7 @@ namespace Cloudents.Persistence
         }
 
 
-        public class JsonObjectTypeHandler : SqlMapper.ITypeHandler
+        private class JsonArrayTypeHandler : SqlMapper.ITypeHandler
         {
             public void SetValue(IDbDataParameter parameter, object value)
             {
@@ -69,6 +75,19 @@ namespace Cloudents.Persistence
                 // return JsonConvert.DeserializeObject(value.ToString(), destinationType);
             }
         }
+
+        //private class JsonObjectTypeHandler : SqlMapper.ITypeHandler
+        //{
+        //    public void SetValue(IDbDataParameter parameter, object value)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+
+        //    public object Parse(Type destinationType, object value)
+        //    {
+        //        return JsonConvert.DeserializeObject(value.ToString(), destinationType);
+        //    }
+        //}
 
 
     }

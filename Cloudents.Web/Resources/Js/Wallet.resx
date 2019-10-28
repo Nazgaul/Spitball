@@ -124,7 +124,7 @@
     <value>Cash Out</value>
   </data>
   <data name="currency" xml:space="preserve">
-    <value>$</value>
+    <value>₪</value>
   </data>
   <data name="My_Wallet" xml:space="preserve">
     <value>My Wallet</value>

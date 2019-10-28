@@ -25,10 +25,10 @@ namespace Cloudents.Infrastructure.Storage
                 .Keyed<IBlobProvider>(StorageContainer.File);
 
             //.WithParameter("container", StorageContainer.Document)
-            builder.RegisterType<BlobProviderContainer>()
-                .As<IQuestionsDirectoryBlobProvider>()
-                .Keyed<IBlobProvider>(StorageContainer.QuestionsAndAnswers)
-                .WithParameter("container", StorageContainer.QuestionsAndAnswers);
+            //builder.RegisterType<BlobProviderContainer>()
+            //    .As<IQuestionsDirectoryBlobProvider>()
+            //    .Keyed<IBlobProvider>(StorageContainer.QuestionsAndAnswers)
+            //    .WithParameter("container", StorageContainer.QuestionsAndAnswers);
             builder.RegisterType<BlobProviderContainer>()
                 .As<IChatDirectoryBlobProvider>()
                 .Keyed<IBlobProvider>(StorageContainer.Chat)

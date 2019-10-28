@@ -87,7 +87,7 @@ export default {
         display: flex;
         align-items: center;
         .conversation-name{
-          max-width: 170px;
+          max-width: 160px;
           font-size: 14px;
           font-weight: bold;
           color: #43425d;

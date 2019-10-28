@@ -124,7 +124,7 @@
     <value>קורסים</value>
   </data>
   <data name="changeUniversity" xml:space="preserve">
-    <value>אוניברסיטה</value>
+    <value>מוסד לימוד</value>
   </data>
   <data name="feedback" xml:space="preserve">
     <value>משוב</value>
@@ -142,9 +142,6 @@
   </data>
   <data name="logout" xml:space="preserve">
     <value>התנתק מהמערכת</value>
-  </data>
-  <data name="messages" xml:space="preserve">
-    <value>הודעות</value>
   </data>
   <data name="my_profile" xml:space="preserve">
     <value>הפרופיל שלי</value>

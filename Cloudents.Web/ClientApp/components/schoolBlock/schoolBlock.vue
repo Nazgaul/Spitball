@@ -184,7 +184,7 @@ export default {
         delete newQueryObject.Course;
       }
       if(this.isOutsideNoteAsk()){
-          this.$router.push({name: 'note', query: newQueryObject });
+          this.$router.push({name: 'feed', query: newQueryObject });
       }else{
           this.$router.push({ query: newQueryObject });
       }

@@ -18,7 +18,7 @@ namespace Cloudents.Persistence.Maps
             References(x => x.Subject).Column("SubjectId").Nullable();
 
             HasMany(x => x.Users)
-                .KeyColumn("CourseId").ForeignKeyConstraintName("Courses_User").Inverse().AsSet();
+                .KeyColumn("CourseId").ForeignKeyConstraintName("Courses_User").Inverse().Cascade.AllDeleteOrphan().AsSet();
             DynamicUpdate();
             OptimisticLock.Version();
             Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();

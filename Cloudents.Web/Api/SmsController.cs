@@ -4,7 +4,6 @@ using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
-using Cloudents.Identity;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
@@ -20,6 +19,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 
 namespace Cloudents.Web.Api
 {

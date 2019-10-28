@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Event;
 
@@ -33,19 +34,22 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
 
-        public virtual bool EndSession()
+        private readonly IList<SessionParticipantDisconnect> _participantDisconnections = new List<SessionParticipantDisconnect>();
+
+        public virtual IEnumerable<SessionParticipantDisconnect> ParticipantDisconnections => _participantDisconnections;
+
+        public virtual void EndSession()
         {
             if (Ended.HasValue)
             {
-                return false;
+                return;
                 // throw new ArgumentException();
             }
             Ended = DateTime.UtcNow;
             Duration = Ended - Created;
             DurationInMinutes = Ended - Created;
             Price = (decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60 * StudyRoom.Tutor.SubsidizedPrice;
-            AddEvent(new EndSessionEvent(StudyRoom.Tutor.Id));
-            return true;
+            AddEvent(new EndStudyRoomSessionEvent(this));
         }
 
         public virtual void ReJoinStudyRoom()

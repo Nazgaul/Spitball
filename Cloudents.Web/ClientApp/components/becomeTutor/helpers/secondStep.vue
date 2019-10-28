@@ -1,6 +1,6 @@
 <template>
     <div class="become-second-wrap pl-4">
-        <v-layout row wrap>
+        <div>
             <v-form v-model="validBecomeSecond" ref="becomeFormSecond" class="become-second-form">
                 <v-flex xs12 class="mb-4 span-cont">
                     <span class="sharing-text" v-language:inner="'becomeTutor_sharing_step_2'"></span>
@@ -34,8 +34,8 @@
                     ></v-textarea>
                 </v-flex>
             </v-form>
-        </v-layout>
-        <v-layout class="mt-2 px-1 btns-second"
+        </div>
+        <div class="mt-2 px-1 btns-second"
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
             <v-btn @click="goToPreviousStep()" class="cancel-btn elevation-0" round outline flat>
                 <span v-language:inner>becomeTutor_btn_back</span>
@@ -48,7 +48,7 @@
                     @click="submitData()">
                 <span v-language:inner>becomeTutor_btn_next</span>
             </v-btn>
-        </v-layout>
+        </div>
     </div>
 </template>
 
@@ -108,11 +108,14 @@
             align-items: center;
             padding: 0 !important;
             height: 100%;
+            justify-content: space-between;
         }
         
         .btns-second{
+            display: flex;
             @media (max-width: @screen-xs) {
-                    align-items: flex-end;
+                padding: 10px;
+                align-items: flex-start;
                 }
             .v-btn {
                 @media (max-width: @screen-xs) {
@@ -127,7 +130,8 @@
         }
         .sb-text-area {
             textarea {
-                padding: 16px 0 8px;
+                padding: 10px 0 8px;
+                line-height: 22px;
             }
                     .v-messages__message {
                         line-height: normal;
@@ -141,13 +145,12 @@
         
         .v-input__slot{
             .v-text-field__slot label{
-                font-size: 18px;
+                font-size: 16px;
                 color: @global-purple;
             }
             textarea::placeholder{
                     font-size: 16px;
                     letter-spacing: -0.3px;
-                    color: #848bbc;
                 }
         }
         .span-cont{
@@ -155,8 +158,7 @@
                 text-align: center;
             }
             .sharing-text {
-                font-size: 18px;        
-                letter-spacing: -0.51px;
+                font-size: 16px;        
                 color: @global-purple;
                 @media (max-width: @screen-xs) {
                     font-size: 16px;

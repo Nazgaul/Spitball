@@ -1,11 +1,37 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
     public class ReadTutor : Entity<long>
     {
-        public ReadTutor()
-        { }
+        public ReadTutor(long id, string name, string image, IEnumerable<string> allSubjects, IEnumerable<string> allCourses,
+            decimal price, double? rate, int rateCount, string bio, string university, int lessons, string country, decimal? subsidizedPrice)
+        {
+            Id = id;
+            Name = name;
+            Image = image;
+            Subjects = allSubjects?.OrderBy(o => o).Take(3);
+            AllSubjects = allSubjects;
+            Courses = allCourses?.OrderBy(o => o).Take(3);
+            AllCourses = allCourses;
+            Price = price;
+            Rate = rate;
+            RateCount = rateCount;
+            Bio = bio;
+            University = university;
+            Lessons = lessons;
+            Country = country;
+            OverAllRating = (rate.GetValueOrDefault() * RateCount + 48 + Lessons * rate.GetValueOrDefault()) 
+                            / (RateCount + 12 + Lessons);
+            SubsidizedPrice = subsidizedPrice;
+        }
+
+        protected ReadTutor()
+        {
+            
+        }
+
 
         public virtual string Name { get; protected set; }
         public virtual string Image { get; protected set; }
@@ -19,9 +45,10 @@ namespace Cloudents.Core.Entities
         public virtual string Bio { get; protected set; }
         public virtual string University { get; protected set; }
         public virtual int Lessons { get; protected set; }
-        public virtual double Rating { get; protected set; }
+        public virtual double OverAllRating { get; protected set; }
 
-        public virtual decimal SubsidizedPrice{ get; protected set; }
+        public virtual string  Country { get; protected set; }
+        public virtual decimal? SubsidizedPrice{ get; protected set; }
         
     }
 }

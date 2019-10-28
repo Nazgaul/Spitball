@@ -2,8 +2,8 @@ import { connectivityModule } from "./connectivity.module"
 import searchService from './searchService'
 
 function documentUserItem(ObjInit){
-    this.name = ObjInit.uploaderName
-    this.userId = ObjInit.uploaderId
+    this.name = ObjInit.uploaderName;
+    this.userId = ObjInit.uploaderId;
     this.isTutor = false;
 }
 
@@ -16,21 +16,19 @@ function DocumentItem(ObjInit) {
     this.user = !!ObjInit.user ? searchService.createTutorItem(ObjInit.user) : new documentUserItem(ObjInit);
     this.views = ObjInit.views || 0;
     this.pages = ObjInit.pages || 0;
-    this.docType = ObjInit.type || '';
     this.isPlaceholder = ObjInit.isPlaceholder || false;
-    this.professor = ObjInit.professor || '';
     this.price = ObjInit.price || 0;
     this.isPurchased = ObjInit.isPurchased || false;
     this.uploaderName = ObjInit.uploaderName;
 };
 
 function createDocumentItem(ObjInit) {
-    return new DocumentItem(ObjInit)
+    return new DocumentItem(ObjInit);
 }
 
 function createDocumentPreview(itemPreview){
     if (!itemPreview || itemPreview.length === 0) {
-        let location = `${global.location.origin}/images/doc-preview-empty.png`;
+        let location = require("../components/images/doc-preview-empty.png");
         itemPreview.push(location);
     }
 
@@ -42,16 +40,23 @@ function createDocumentContentType(itemPreview){
     let postfix = arrPreview[0].split('?')[0].split('.');
     return postfix[postfix.length - 1];
 }
-
+function createVideoPreview(objInit){
+    return new VideoPreview(objInit);
+}
+function VideoPreview(objInit){
+    this.locator = objInit.locator;
+    this.poster = objInit.poster;
+}
 function DocumentObject(objInit){
     this.details = createDocumentItem(objInit.details);
-    this.preview = createDocumentPreview(objInit.preview);
+    this.preview = objInit.details.documentType === 'Video'? createVideoPreview(objInit.preview):createDocumentPreview(objInit.preview);
     this.content = objInit.content || '';
-    this.contentType = createDocumentContentType(objInit.preview);
+    this.contentType = objInit.details.documentType === 'Video'? '': createDocumentContentType(objInit.preview);
+    this.documentType = objInit.details.documentType || '';
 }
 
 function createDocumentObj(ObjInit) {
-    return new DocumentObject(ObjInit)
+    return new DocumentObject(ObjInit);
 }
 
 function getDocument(id){

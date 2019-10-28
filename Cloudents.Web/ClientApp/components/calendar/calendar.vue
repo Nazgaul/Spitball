@@ -1,14 +1,14 @@
 <template>
     <v-layout class="calendar-container">
-        <sb-dialog :isPersistent="true"
-                   :fullscreen="$vuetify.breakpoint.xsOnly"
-                   :content-class="'payme-popup'"
-                   :popUpType="'payme-popup'"
-                   :showDialog="showPaymentDialog"
-                   >
-          <paymentDialog/> 
-        </sb-dialog>
       <v-flex :class="{'sheet-loading':!isReady}">
+        <div class="calendar-header">
+            <h2 v-language:inner="'calendar_header'"></h2>
+            <h3 v-language:inner="'calendar_title'"></h3>
+            <div class="calendar-header-time">
+              <Schedule />
+              <div v-language:inner="'calendar_time'"></div>
+            </div>
+        </div>
         <div class="navigation-btns-calendar">
           <v-btn :disabled="isGoPrev" small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.prev()">
             <v-icon>sbf-arrow-left-carousel</v-icon>
@@ -75,7 +75,7 @@
             </template>
             
             <template v-slot:interval="{date,time,past}">
-              <div :class="['my-event',past? 'without-time-past':'without-time', {'cursor-none': isSelfTutor}]">
+              <div :class="['my-event',past? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]">
                 <button @click="addEvent($event, date,time)" v-html="cellTime(date,time)"></button> 
               </div>
           </template>
@@ -91,10 +91,12 @@ import { mapGetters, mapActions } from 'vuex';
 import paymentDialog from '../tutor/tutorHelpers/paymentDIalog/paymentDIalog.vue'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
 import {LanguageService} from '../../services/language/languageService.js'
+import Schedule from './images/schedule.svg'
 export default {
     components:{
       paymentDialog,
-      sbDialog
+      sbDialog,
+      Schedule
     },
     data() {
         return {
@@ -107,7 +109,7 @@ export default {
           selectedTime: '',
           today: new Date().toISOString().substr(0, 10),
           intervals:{
-            first: 8,
+            first: this.getIntervalFirst || 8,
             minutes: 60,
             count: 16,
             height:  36,
@@ -115,10 +117,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getCalendarType','getCalendarEvents','getProfile','accountUser','getShowPaymentDialog','getNeedPayment']),
-        showPaymentDialog(){
-          return this.getShowPaymentDialog
-        },
+        ...mapGetters(['getIntervalFirst','getCalendarType','getCalendarEvents','getProfile','accountUser','getNeedPayment']),
         tutorName(){
           return this.getProfile.user.tutorData.firstName.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
         },
@@ -158,7 +157,7 @@ export default {
       },
       isGoPrev(){
         let calendarMonth = Date.parse(new Date(this.today));
-
+        
         let dd = String(new Date().getDate()).padStart(2, '0');
         let mm = String(new Date().getMonth() + 1).padStart(2, '0');
         let yyyy = new Date().getFullYear()
@@ -168,9 +167,12 @@ export default {
 
       },
       isGoNext(){
+        let lastDate = Object.keys(this.eventsMap).map((key)=>key)
+        lastDate = lastDate[lastDate.length-1]
+        
         let calendarMonth = Date.parse(new Date(this.today));
-        let dd = String(new Date().getDate()).padStart(2, '0');
-        let mm = String(new Date().getMonth() + 3).padStart(2, '0');
+        let dd = String(new Date(lastDate).getDate()-7).padStart(2, '0');
+        let mm = String(new Date(lastDate).getMonth()+1).padStart(2, '0');
         let yyyy = new Date().getFullYear()
         let currentMonth = Date.parse(new Date(yyyy + '-' + mm + '-' + dd))
 
@@ -194,7 +196,7 @@ export default {
       }
     },
     methods: {
-        ...mapActions(['btnClicked','insertEvent','requestPaymentURL','updateNeedPayment','updateToasterParams']),
+        ...mapActions(['updateToasterParams','initCalendar','btnClicked','insertEvent','updateNeedPayment','requestPaymentURL']),
         format(day){
           let options = { weekday: this.isMobile? 'narrow':'short' };
           return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
@@ -257,8 +259,14 @@ export default {
           this.isEventSent = false;
           this.isLoading = false;
         },
+
         goPayment(){
-          this.requestPaymentURL()
+          this.requestPaymentURL({ title: 'payme_title', name: this.tutorName });
+        },
+        isSelected(date,time){
+          if(date === this.selectedDate && time === this.selectedTime){
+            return true;
+          }
         }
     },
     mounted() {
@@ -300,12 +308,39 @@ export default {
   .sheet-loading{
     opacity: 0.2;
   }
+  .calendar-header {
+    padding: 0 8px;
+    text-align: center;
+    h2 {
+      color: #4452fc;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+    h3 {
+      color: #43425d;
+      margin-bottom: 26px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .calendar-header-time {
+      margin-bottom: 22px;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px 0;
+      div {
+        margin-left: 8px
+      }
+    }
+  }
   .navigation-btns-calendar{
 
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 22px;
+    margin-bottom: 40px;
     .title-calendar{
 
       font-size: 20px;
@@ -521,7 +556,10 @@ display: flex;
   }
 
 
-
+.selectedEvent{
+  background-color: @global-blue;
+  color: white !important;
+}
 .my-event {
     text-align: center;
     font-size: 12px;

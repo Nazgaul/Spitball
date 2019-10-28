@@ -12,6 +12,9 @@ using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using Cloudents.FunctionsV2.FileProcessor;
+using Cloudents.FunctionsV2.Services;
+using Cloudents.Infrastructure.Video;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Cloudents.Core.Interfaces.ILogger;
 
@@ -43,10 +46,10 @@ namespace Cloudents.FunctionsV2.Di
 
 
 
-            var keys = new ConfigurationKeys(
-                _configuration["SiteEndPoint"] ?? "https://www.spitball.co")
+            var keys = new ConfigurationKeys
             {
-                Db = new DbConnectionString(_configuration["ConnectionString"], _configuration["Redis"]),
+                SiteEndPoint = { SpitballSite = _configuration["SiteEndPoint"] ?? "https://www.spitball.co" },
+                Db = new DbConnectionString(_configuration["ConnectionString"], _configuration["Redis"], DbConnectionString.DataBaseIntegration.None),
                 Redis = _configuration["Redis"],
                 Search = new SearchServiceCredentials(
                     _configuration["SearchServiceName"],
@@ -74,20 +77,30 @@ namespace Cloudents.FunctionsV2.Di
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Persistence"));
 
+            builder.RegisterType<HostUriService>().AsSelf().AsImplementedInterfaces();
+            builder.RegisterType<DataProtectionService>().As<IDataProtectionService>();
+
             builder.RegisterType<RestClient>().As<IRestClient>()
                 .SingleInstance();
 
             builder.RegisterType<Logger>().As<ILogger>();
 
-
-            builder.RegisterType<QuestionDbToSearchSync>()
-                .Keyed<IDbToSearchSync>(SyncType.Question).SingleInstance();
             builder.RegisterType<UniversityDbToSearchSync>()
                 .Keyed<IDbToSearchSync>(SyncType.University).SingleInstance();
             builder.RegisterType<DocumentDbToSearchSync>()
                 .Keyed<IDbToSearchSync>(SyncType.Document).SingleInstance();
 
 
+            builder.RegisterType<FileProcessorFactory>().AsImplementedInterfaces();
+            builder.RegisterType<VideoProcessor>().AsSelf().As<IFileProcessor>()
+                .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
+                    FileTypesExtension.Video.Extensions));
+
+            builder.RegisterType<AudioProcessor>().AsSelf().As<IFileProcessor>()
+                .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
+                    FileTypesExtension.Music.Extensions));
+
+            builder.RegisterType<MediaServices>().SingleInstance().As<IVideoService>().WithParameter("isDevelop", keys.Search.IsDevelop);
 
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())

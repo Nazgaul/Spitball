@@ -1,7 +1,6 @@
 //import Home from './components/Home.vue';
 
 import question from './components/question/question.vue';
-import qMark from './components/question/questionComponents/mark/markQuestion.vue';
 import qDelete from './components/question/questionComponents/delete/deleteQuestion.vue';
 import qAdd from './components/question/questionComponents/add/addQuestion.vue';
 import qAddBulk from './components/question/questionComponents/addBulk/addBulkQuestions.vue';
@@ -20,6 +19,7 @@ import uCashout from './components/user/cashout/cashoutUser.vue';
 import uSuspend from './components/user/suspend/suspendUser.vue';
 import activeUsers from './components/user/activeUsers/activeUsers.vue';
 import payments from './components/user/payments/paymentUser.vue';
+import changeCountry from './components/user/changeCountry/changeCountry.vue';
 
 import document from './components/document/document.vue';
 import approveDelete from './components/document/documentComponents/approveDelete/approveDelete.vue';
@@ -35,6 +35,8 @@ import userDocuments from './components/userMainView/userDocuments/userDocuments
 import userPurchasedDocuments from './components/userMainView/userPurchasedDocuments/userPurchasedDocuments.vue';
 // import userConversations from './components/userMainView/userConversations/userConversations.vue';
 import userSessions from './components/userMainView/userSessions/userSessions.vue';
+import userSoldItems from './components/userMainView/userSoldItems/userSoldItems.vue';
+
 
 import management from './components/management/Management.vue';
 import coursesPending from './components/management/coursesPending/coursesPending.vue';
@@ -49,6 +51,7 @@ import startConversations from './components/conversation/startconversation.vue'
 import tutors from './components/tutor/tutor.vue';
 import pendingTutors from './components/tutor/pendingTutors/pendingTutor.vue';
 import deleteTutors from './components/tutor/tutorDelete/tutorDelete.vue';
+import paymentSession from './components/tutor/paymentSession/paymentSession.vue';
 import studyRoom from './components/studyRoom/studyRoom.vue';
 import studyRoomSession from './components/studyRoom/studyRoomComponents/sessions/studyRoomsSessions.vue';
 
@@ -82,6 +85,11 @@ export const routes = [
                 component: userPurchasedDocuments
             },
             {
+                name:'userSoldItems',
+                path:'userSoldItems',
+                component: userSoldItems
+            },
+            {
               name:'userConversations',
               path:'userConversations',
               component: conversations
@@ -107,19 +115,22 @@ export const routes = [
         component: tutors,
         children: [
             {
-                path: '',
-                redirect: 'pendingTutors'
+              path: '',
+              redirect: 'pendingTutors'
             },
             {
-            path: 'pendingTutors',
-            component: pendingTutors
+              path: 'pendingTutors',
+              component: pendingTutors
             },
             {
               path: 'deleteTutors',
               component: deleteTutors
-              }
-            ]
-
+            },
+            {
+              path: 'paymentSession',
+              component: paymentSession
+            }
+        ]
     },
     {
         path: '/question',
@@ -132,11 +143,7 @@ export const routes = [
         children: [
           {
             path: '',
-            redirect: 'mark'
-          },
-          {
-            path: 'mark',
-            component: qMark
+            redirect: 'pendingQuestions'
           },
           {
             path:'delete',
@@ -164,7 +171,7 @@ export const routes = [
           },
           {
             path: '*',
-            redirect: 'mark'
+            redirect: 'pendingQuestions'
           }
         ]
     },
@@ -220,20 +227,25 @@ export const routes = [
             path:'suspend',
             component: uSuspend
           },
-            {
-                path:'active-users',
-                component: activeUsers
-            },
-            {
-                path: 'payments',
-                component: payments},
+          {
+            path:'active-users',
+            component: activeUsers
+          },
+          {
+            path: 'payments',
+            component: payments
+          },
+          {
+            path: 'change-country',
+            component: changeCountry
+          },
           {
             path: '*',
             redirect: 'token'
           }
         ]
-     },
-    {
+      },
+      {
         path: '/document',
         name: 'document',
         component: document,

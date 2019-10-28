@@ -1,7 +1,7 @@
 <template>
     <v-layout class="document-container">
         <main-document :document="getDocument"></main-document>
-        <v-divider vertical class="mx-3"></v-divider>
+        <v-divider vertical class="mx-4"></v-divider>
         <aside-document :document="getDocument"></aside-document>
     </v-layout>
 </template>
@@ -40,7 +40,8 @@ export default {
         this.clearDocument();
         storeService.unregisterModule(this.$store,'document');
     },
-    created() {     
+    created() {    
+         
         storeService.lazyRegisterModule(this.$store,'studyDocumentsStore',studyDocumentsStore); 
         storeService.registerModule(this.$store,'document', document);
         this.documentRequest(this.id)
@@ -53,6 +54,8 @@ export default {
 
     .document-container {
         padding: 40px 10px;
+        display: flex;
+        justify-content: center;
         @media (max-width: @screen-sm) {
             padding: 20px 10px;
             flex-direction: column;

@@ -6,7 +6,7 @@
 @inject IConfiguration Environment
 @inject IViewLocalizer Localizer
 @{
-    var main = Provider.GetTag("main");
+    var main = Provider.GetClientTag(System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft);
 }
 
 <div id="app" style="display: flex; justify-content: center; align-items: center; width: 100vw; height: 100vh;">
@@ -49,7 +49,6 @@
 
 
 @section scripts {
-    @*@await Component.InvokeAsync("Resource")*@
     <environment include="Development">
         <script src="~/dist/@main.Js"></script>
     </environment>
@@ -59,9 +58,4 @@
                 asp-fallback-test="window.mainCdn">
         </script>
     </environment>
-    @*@if (this.Context.Request.Path.Value.StartsWith("/studyroom", StringComparison.OrdinalIgnoreCase))
-    {
-        <partial name="_Inspectlet"/>
-    }*@
-    <partial name="_Inspectlet"/>
 }

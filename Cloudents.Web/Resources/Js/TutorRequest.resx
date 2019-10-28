@@ -120,14 +120,8 @@
   <data name="back" xml:space="preserve">
     <value>Back</value>
   </data>
-  <data name="btn_attachment" xml:space="preserve">
-    <value>Attachment</value>
-  </data>
   <data name="btn_close" xml:space="preserve">
     <value>Close</value>
-  </data>
-  <data name="btn_submit" xml:space="preserve">
-    <value>Submit Request</value>
   </data>
   <data name="cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -138,9 +132,6 @@
   <data name="invalid" xml:space="preserve">
     <value>Invalid course name</value>
   </data>
-  <data name="label_add" xml:space="preserve">
-    <value>Add</value>
-  </data>
   <data name="more_tutors" xml:space="preserve">
     <value>I would like to hear from 2-3 other Tutors like {1}</value>
   </data>
@@ -150,26 +141,14 @@
   <data name="next" xml:space="preserve">
     <value>Next</value>
   </data>
-  <data name="no_course" xml:space="preserve">
-    <value>Please add courses</value>
-  </data>
   <data name="phoneNumber" xml:space="preserve">
     <value>Phone</value>
   </data>
   <data name="request_error" xml:space="preserve">
-    <value>Opps .... something went wrong - please try again</value>
-  </data>
-  <data name="request_received" xml:space="preserve">
-    <value>We successfully received your request, tutors will contact you shortly</value>
+    <value>Something went wrong, please try again</value>
   </data>
   <data name="select_course_placeholder" xml:space="preserve">
     <value>In what course ?</value>
-  </data>
-  <data name="select_course_placeholder_mobile" xml:space="preserve">
-    <value>Please choose a course</value>
-  </data>
-  <data name="select_course_placeholder_new" xml:space="preserve">
-    <value>Please choose the course you need help with</value>
   </data>
   <data name="send" xml:space="preserve">
     <value>Send</value>
@@ -189,27 +168,15 @@
   </data>
   <data name="success" xml:space="preserve">
     <value>Your message has been sent.
-You will be contacted as very soon.</value>
+You will be contacted shortly.</value>
   </data>
   <data name="tell_tutor" xml:space="preserve">
     <value>Tell {1} how he can reach you</value>
   </data>
-  <data name="title" xml:space="preserve">
-    <value>Request a Tutor</value>
-  </data>
-  <data name="title_tutor_list" xml:space="preserve">
-    <value>Send a Message To</value>
-  </data>
-  <data name="topic_placeholder" xml:space="preserve">
-    <value>I need help with this topic...</value>
-  </data>
-  <data name="type" xml:space="preserve">
-    <value>Type here</value>
-  </data>
   <data name="type_legend" xml:space="preserve">
     <value>What can i help you with?</value>
   </data>
-  <data name="university" xml:space="preserve">
-    <value>University</value>
+  <data name="yaniv" xml:space="preserve">
+    <value>Yaniv</value>
   </data>
 </root>

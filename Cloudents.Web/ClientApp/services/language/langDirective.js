@@ -14,7 +14,7 @@ const swapKeyWithValue = function(el, binding){
         if(attr === INNER_HTML){
             let fixedKey = binding.value ? binding.value.trim() : el.innerHTML.trim();
             key = LanguageService.getValueByKey(fixedKey);
-            el.innerHTML = key
+            el.innerHTML = key;
         }else{
             //other will set the 
             keyValue = binding.value ? binding.value.trim() : el.getAttribute(attr);
@@ -22,7 +22,7 @@ const swapKeyWithValue = function(el, binding){
             el.setAttribute(attr, key);
         }
     });
-}
+};
 
 export const Language = {
     bind: function(el, binding){
@@ -35,4 +35,4 @@ export const Language = {
         }
         swapKeyWithValue(el, binding);
     }
-}
+};

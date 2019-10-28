@@ -20,10 +20,9 @@ using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using NHibernate;
-using System.Drawing;
-using Cloudents.Identity;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using System.Linq;
+using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Api
 {
@@ -148,18 +147,6 @@ namespace Cloudents.Web.Api
             [FromServices] UserManager<User> userManager,
             CancellationToken token)
         {
-            try
-            {
-                using (var _ = Image.FromStream(file.OpenReadStream()))
-                {
-
-                }
-            }
-            catch
-            {
-                ModelState.AddModelError("x", "unsupported format");
-                return BadRequest(ModelState);
-            }
             var userId = userManager.GetLongUserId(User);
             Uri uri;
             try

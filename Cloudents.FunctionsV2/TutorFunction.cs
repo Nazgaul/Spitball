@@ -19,14 +19,14 @@ namespace Cloudents.FunctionsV2
     public static class TutorFunction
     {
         [FunctionName("TutorFunction")]
-        public static async Task Run([TimerTrigger("0 */15 * * * *", RunOnStartup = true)]TimerInfo myTimer,
+        public static async Task Run([TimerTrigger("0 */15 * * * *")]TimerInfo myTimer,
             [Blob("spitball/AzureSearch/tutor-version.txt")] CloudBlockBlob blob,
             [AzureSearchSync(TutorSearchWrite.IndexName)] IAsyncCollector<AzureSearchSyncOutput> indexInstance,
             [Inject] IQueryBus queryBus,
             ILogger log,
             CancellationToken token)
         {
-            var query = new TutorSyncAzureSearchQuery(0, null);
+            var query = new TutorSyncAzureSearchQuery(0);
             if (await blob.ExistsAsync())
             {
                 var str = await blob.DownloadTextAsync();
@@ -34,7 +34,7 @@ namespace Cloudents.FunctionsV2
             }
 
 
-            var nextQuery = new TutorSyncAzureSearchQuery(query.Version, query.RowVersion);
+            var nextQuery = new TutorSyncAzureSearchQuery(query.Version);
 
             bool updateOccur;
             do
@@ -64,6 +64,7 @@ namespace Cloudents.FunctionsV2
                             .Distinct(StringComparer.OrdinalIgnoreCase).ToArray(),
                             ReviewCount = update.ReviewsCount,
                             Subjects = subjects.ToArray(),
+                            OverAllRating = update.OverAllRating,
                             Data = new TutorCardDto()
                             {
                                 UserId = update.UserId,
@@ -75,8 +76,11 @@ namespace Cloudents.FunctionsV2
                                 University = update.University,
                                 Lessons = Math.Max(update.LessonsCount, update.ReviewsCount),
                                 Bio = update.Bio,
-                                Price = (decimal)update.Price,
+                                TutorPrice = (int)update.Price,
+                                TutorCountry = update.Country,
                                 Image = update.Image,
+                                NeedSerializer = true
+
                             }
                         },
                         Insert = true
@@ -99,15 +103,9 @@ namespace Cloudents.FunctionsV2
                 }
 
                 query.Page++;
-                var versionElement = result.Update.OrderByDescending(o => o.VersionAsLong).FirstOrDefault();
-                if (versionElement != null)
-                {
-                    nextQuery.Version = Math.Max(nextQuery.Version, result.Version);
-                    nextQuery.RowVersion = versionElement.Version;
-                }
-
+                nextQuery.Version = Math.Max(nextQuery.Version, result.Version);
                 await indexInstance.FlushAsync(token);
-              
+
             } while (updateOccur);
 
             if (query.Page > 0)

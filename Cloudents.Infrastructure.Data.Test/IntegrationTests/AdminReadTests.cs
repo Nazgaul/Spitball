@@ -35,7 +35,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task AdminConversationsQuery_Ok()
         {
             var query1 = new AdminConversationsQuery(159039, 0, null, null, null,null);
-            var query2 = new AdminConversationsQuery(159039, 0, null, ChatRoomStatus.SessionScheduled, ChatRoomAssign.Unassigned,WaitingFor.All);
+            var query2 = new AdminConversationsQuery(159039, 0, null, ChatRoomStatus.SessionScheduled, "" ,WaitingFor.All);
 
             var task1 = _fixture.QueryBus.QueryAsync(query1, default);
             var task2 = _fixture.QueryBus.QueryAsync(query2, default);
@@ -75,17 +75,19 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         //}
 
 
-        [Fact]
-        public async Task AdminPageQuery_QuestionWithoutCorrectAnswer_Ok()
-        {
-            var query = new AdminQuestionWithoutCorrectAnswerPageQuery(0, "IL");
-            await _fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Fact]
+        //public async Task AdminPageQuery_QuestionWithoutCorrectAnswer_Ok()
+        //{
+        //    var query = new AdminQuestionWithoutCorrectAnswerPageQuery(0, "IL");
+        //    await _fixture.QueryBus.QueryAsync(query, default);
+        //}
 
-        [Fact]
-        public async Task AdminPendingTutorsQuery_Ok()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("IL")]
+        public async Task AdminPendingTutorsQuery_Ok(string country)
         {
-            var query = new AdminPendingTutorsQuery("IL");
+            var query = new AdminPendingTutorsQuery(country);
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -131,7 +133,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminPaymentsQuery_Ok()
         {
-            var q1 = new AdminPaymentsQuery();
+            var q1 = new AdminPaymentsQuery(string.Empty);
             var q2 = new AdminUserDetailsQuery("Hadar@cloudents.com", "IL");
             var q3 = new AdminUserDetailsQuery("0523556456", "IL");
             var t1 =  _fixture.QueryBus.QueryAsync(q1, default);
@@ -238,6 +240,21 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task AdminCashOutEmptyQuery_Ok()
         {
             var query = new AdminCashOutQuery("IL");
+            await _fixture.QueryBus.QueryAsync(query, default);
+        }
+        
+         [Fact]
+        public async Task AdminChatConversationByIdQuery_Ok()
+        {
+            var query = new AdminChatConversationByIdQuery("159489_160171", 0, null);
+            await _fixture.QueryBus.QueryAsync(query, default);
+        }
+
+
+        [Fact]
+        public async Task AdminAssignToQuery_Ok()
+        {
+            var query = new AdminAssignToQuery();
             await _fixture.QueryBus.QueryAsync(query, default);
         }
     }

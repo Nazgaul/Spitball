@@ -3,14 +3,11 @@
         <a class="mb-5 ask-link">
             <div :class="['ask-wrap', isFloatingBtn ? 'floating-ask' : '']">
                 <div class="static-center">
-                    <!--<p v-show="$vuetify.breakpoint.smAndUp" :class="['ask-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>-->
-                    <!--faqBlock_ask-->
-                    <!--</p>-->
                     <button round
                             :class="['ask-btn',  isFloatingBtn ? 'rounded-floating-button' : '', {'raised': raiseFloatingButtonPosition}]"
                             @click="goToAskQuestion()">
                         <v-icon class="sb-edit-icon">sbf-edit-icon</v-icon>
-                        <span class="btn-text" v-language:inner>faqBlock_add_question_btn</span>
+                        <!-- <span class="btn-text" v-language:inner>faqBlock_add_question_btn</span> -->
                     </button>
                 </div>
             </div>
@@ -55,13 +52,10 @@
             ...mapActions([
                               "updateLoginDialogState",
                               'updateNewQuestionDialogState',
-                              'updateUserProfileData'
                           ]),
             goToAskQuestion() {
                 if(this.accountUser == null) {
                     this.updateLoginDialogState(true);
-                    //set user profile
-                    this.updateUserProfileData('profileHWH');
                 } else {
                     //ab test original do not delete
                     this.updateNewQuestionDialogState(true);
@@ -127,7 +121,7 @@
                 }
                 .ask-text {
                     color: @color-blue-new;
-                    font-family: @fontFiraSans;
+                    
                     font-size: 18px;
                     font-weight: 600;
                     margin-bottom: 0;

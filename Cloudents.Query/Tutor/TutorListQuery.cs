@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
@@ -37,59 +36,51 @@ namespace Cloudents.Query.Tutor
             //TODO: review query 
             public Task<IEnumerable<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
-                User userAlias = null;
-                ViewTutor viewTutorAlias = null;
-                Core.Entities.Tutor tutorAlias = null;
+                //TODO maybe we can fix this query
+                ReadTutor viewTutorAlias = null;
                 UserCourse userCourseAlias = null;
                 Course courseAlias = null;
 
 
-                var listOfQueries = new List<IQueryOver<ViewTutor, ViewTutor>>();
-                IQueryOver<ViewTutor, ViewTutor> futureCourse = _session.QueryOver(() => viewTutorAlias).Where(w => w.Id != query.UserId);
+                var listOfQueries = new List<IQueryOver<ReadTutor, ReadTutor>>();
+                IQueryOver<ReadTutor, ReadTutor> futureCourse = _session.QueryOver(() => viewTutorAlias).Where(w => w.Id != query.UserId);
 
                 listOfQueries.Add(futureCourse);
                 if (!string.IsNullOrEmpty(query.Country))
                 {
-                    futureCourse.JoinEntityAlias(() => userAlias, () => viewTutorAlias.Id == userAlias.Id);
-                    futureCourse.Where(() => userAlias.Country == query.Country);
+                    futureCourse.Where(() => viewTutorAlias.Country == query.Country);
                 }
 
                 if (query.UserId > 0)
                 {
                     var withCountryOnlyDetachedQuery = futureCourse.Clone();
-                   
-                    //futureCourse.Where(w => w.Id != query.UserId);
 
-                    var detachedQuery = QueryOver.Of(() => tutorAlias)
-                        .JoinEntityAlias(() => userCourseAlias, () => userCourseAlias.User.Id == tutorAlias.Id)
+                    var detachedQuery = QueryOver.Of(() => viewTutorAlias)
+                        .JoinEntityAlias(() => userCourseAlias, () => userCourseAlias.User.Id == viewTutorAlias.Id)
                         .Where(() => userCourseAlias.CanTeach)
-                        .And(() => tutorAlias.State == ItemState.Ok)
-                     
 
-          
+
+
                         .WithSubquery.WhereProperty(() => userCourseAlias.Course.Id).In(
 
                             QueryOver.Of<UserCourse>()
                                 .Where(w => w.User.Id == query.UserId).Select(s => s.Course.Id)
-
                                 )
 
-                        
+
                         .Select(s => s.Id);
 
 
-                    var detachedQuery2 = QueryOver.Of(() => tutorAlias)
-                        .JoinEntityAlias(() => userCourseAlias, () => userCourseAlias.User.Id == tutorAlias.Id)
+                    var detachedQuery2 = QueryOver.Of(() => viewTutorAlias)
+                        .JoinEntityAlias(() => userCourseAlias, () => userCourseAlias.User.Id == viewTutorAlias.Id)
                         .JoinAlias(() => userCourseAlias.Course, () => courseAlias)
                         .Where(() => userCourseAlias.CanTeach)
-                        .And(() => tutorAlias.State == ItemState.Ok)
                         .WithSubquery.WhereProperty(() => courseAlias.Subject.Id).In(
                             QueryOver.Of<Course>()
                                 .JoinQueryOver(x => x.Users)
                                 .Where(w => w.User.Id == query.UserId).Select(s => s.Subject.Id))
                         .Select(s => s.Id);
-                    var futureCourse2 = futureCourse.Clone().WithSubquery.WhereProperty(w => w.Id).NotIn(detachedQuery)
-                        .WithSubquery.WhereProperty(w => w.Id).NotIn(detachedQuery2);
+                    var futureCourse2 = futureCourse.Clone().WithSubquery.WhereProperty(w => w.Id).NotIn(detachedQuery);
 
                     listOfQueries.Add(futureCourse2);
 
@@ -106,7 +97,7 @@ namespace Cloudents.Query.Tutor
                 return Task.FromResult(retVal);
             }
 
-            private static IFutureEnumerable<TutorCardDto> BuildSelectStatement(IQueryOver<ViewTutor, ViewTutor> futureCourse, int page)
+            private static IFutureEnumerable<TutorCardDto> BuildSelectStatement(IQueryOver<ReadTutor, ReadTutor> futureCourse, int page)
             {
                 TutorCardDto tutorCardDtoAlias = null;
 
@@ -115,15 +106,16 @@ namespace Cloudents.Query.Tutor
                             .Select(x => x.Name).WithAlias(() => tutorCardDtoAlias.Name)
                             .Select(x => x.Image).WithAlias(() => tutorCardDtoAlias.Image)
                             .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
-                            //.Select(x => x.CourseCount).WithAlias(() => tutorCardDtoAlias.CourseCount)
                             .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
-                            .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
+                            .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.TutorPrice)
                             .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
-                            .Select(x => x.SumRate).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
+                            .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                             .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
                             .Select(x => x.University).WithAlias(() => tutorCardDtoAlias.University)
-                            .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
-                    .OrderBy(o => o.SumRate).Desc
+                            .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons)
+                            .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.TutorCountry))
+
+                    .OrderBy(o => o.OverAllRating).Desc
                     .TransformUsing(Transformers.AliasToBean<TutorCardDto>())
                     .Take(20).Skip(page * 20).Future<TutorCardDto>();
             }

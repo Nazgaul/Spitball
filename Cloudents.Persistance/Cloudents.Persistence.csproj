@@ -8,11 +8,12 @@
   <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="2.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="NHibernate" Version="5.2.5" />
+    <PackageReference Include="NHibernate" Version="5.2.6" />
     <!--We have a problem with redis nuget packages.-->
     <PackageReference Include="NHibernate.Caches.CoreDistributedCache.Redis" Version="5.6.0" />
-    <PackageReference Include="Autofac" Version="4.9.3" />
+    <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="NHibernate.Envers" Version="5.2.3" />
+    <!--Do not upgrade this version - azure function wont work-->
     <PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
   </ItemGroup>
 

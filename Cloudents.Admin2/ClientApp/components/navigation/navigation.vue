@@ -39,10 +39,6 @@
                             title: 'Home',
                             path: '/home'
                         },
-                        // /*childrens: [
-                        //     {name: 'Management', link: '', icon: 'people_outline'},
-                        // ]
-
                     },
                     {
                         setting: {
@@ -50,7 +46,6 @@
                             path: '/question'
                         },
                         childrens: [
-                            { name: 'Mark as correct', link: '/question/mark', icon: 'people_outline' },
                             {
                                 name: 'Pending Questions',
                                 link: '/question/pendingQuestions',
@@ -85,6 +80,7 @@
                             { name: 'Cashout List', link: '/user/cashout', icon: 'attach_money' },
                             { name: 'Users who flagged', link: '/user/active-users', icon: '' },
                             { name: 'Sessions payments', link: '/user/payments', icon: '' },
+                            { name: 'Change country', link: '/user/change-country', icon: '' },
                             // {name: 'Suspend User', link: '/user/suspend', icon: 'block'},
                         ]
                     },
@@ -94,9 +90,7 @@
                             path: '/management'
                         },
                         childrens: [
-                            /*{ name: 'Course', link: '/management/courseMigration', icon: 'people_outline' },*/
                             { name: 'Pending Courses', link: '/management/coursesPending', icon: 'people_outline' },
-                            /*{ name: 'University', link: '/management/universityMigration', icon: 'people_outline' },*/
                             { name: 'Pending Universities', link: '/management/universityPending', icon: 'people_outline' },
                             { name: 'Short Url', link: '/management/shortUrl', icon: 'people_outline' }
                         ]
@@ -128,6 +122,7 @@
                         childrens: [
                             { name: 'Pending Tutors', link: '/tutor/pendingTutors', icon: '' },
                             { name: 'Delete Tutor', link: '/tutor/deleteTutors', icon: 'delete_outline' },
+                            { name: 'Payment Session', link: '/tutor/paymentSession', icon: '' },
                         ]
                     },
                     {

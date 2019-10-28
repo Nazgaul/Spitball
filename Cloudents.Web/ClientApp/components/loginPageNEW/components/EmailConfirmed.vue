@@ -27,7 +27,7 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
     name: 'EmailConfirmed',
     computed: {
-        ...mapGetters(['getEmail1','getProfileData']),
+        ...mapGetters(['getEmail1']),
         userEmail(){
             return this.getEmail1
         },

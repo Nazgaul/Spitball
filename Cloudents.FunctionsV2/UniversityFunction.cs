@@ -8,7 +8,7 @@ namespace Cloudents.FunctionsV2
     public static class UniversityFunction
     {
         [FunctionName("UniversitySearchSync")]
-        public static async Task RunQuestionSearchAsync([TimerTrigger("0 0,30 * * * *", RunOnStartup = true)] TimerInfo myTimer,
+        public static async Task RunQuestionSearchAsync([TimerTrigger("0 0,30 * * * *")] TimerInfo myTimer,
             [OrchestrationClient] DurableOrchestrationClient starter,
             ILogger log)
         {

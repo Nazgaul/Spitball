@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="already_submitted" xml:space="preserve">
-    <value>Your profile is pending approval, once approved students can approach you</value>
+    <value>Your profile is pending approval</value>
   </data>
   <data name="btn_add_courses_teach" xml:space="preserve">
     <value>Add courses to teach</value>
@@ -142,7 +142,8 @@
     <value>Connect your Calendar</value>
   </data>
   <data name="cal_step" xml:space="preserve">
-    <value>To show your availability, you must Connect your Google Calendar</value>
+    <value>To show your availability, you
+must Connect your Google Calendar</value>
   </data>
   <data name="label_bio" xml:space="preserve">
     <value>Bio</value>
@@ -169,7 +170,7 @@
     <value>Last Name</value>
   </data>
   <data name="placeholder_price" xml:space="preserve">
-    <value>Price per hour (₪)</value>
+    <value>Price per hour {1}</value>
   </data>
   <data name="sharing_step_2" xml:space="preserve">
     <value>Sharing Your information and background will get more response from students</value>
@@ -197,5 +198,37 @@
   </data>
   <data name="sharing_step_1" xml:space="preserve">
     <value>Sharing your information and you will get more response from students</value>
+  </data>
+  <data name="upload_error" xml:space="preserve">
+    <value>Upload image to continue</value>
+  </data>
+  <data name="connect_mobile" xml:space="preserve">
+    <value>Connect Now</value>
+  </data>
+  <data name="select_calendar_title" xml:space="preserve">
+    <value>Please indicate which of the following calendars to connect
+with your Spitball booking system</value>
+  </data>
+  <data name="select_calendar_title_mobile" xml:space="preserve">
+    <value>Please indicate which of the following calendars to
+connect with your Spitball booking system</value>
+  </data>
+  <data name="agree" xml:space="preserve">
+    <value>I agree to Spitball's Terms of Services</value>
+  </data>
+  <data name="code_of_conduct" xml:space="preserve">
+    <value>Spitball has built a simple set of rules to ensure that tutors get paid in full, protect the privacy of tutors and students and to make our service fair for everyone. Please follow these rules when you use Spitball:
+As an independent tutor, you are not a Spitball employee, we are not able to verify your employment to other companies and you are responsible for filing your tax reports and VAT.
+Taxes and other fees will not be withheld from your payments since tutors listed on Spitball are independent.  
+Accepting payment directly from students is not allowed, and will prevent tutors from being successful on Spitball.
+All communication with your students must take place through Spitball’s messaging system. Do not exchange personal email addresses with your students.
+You determine your hourly rate during the registration process. Don’t worry, you rate can be adjusted even after creating the tutor profile. 
+Payment is made after each session is completed and we verified the details with you.
+The payment will be 89% of you rate for each session. Spitball will retain a 9% platform fee and PayMe charges a 2% transaction fee.
+A student must register a form of payment before you can give him your phone number or have a session with him. This policy ensures that you get paid for all lessons.
+Please note that tutors who violate these rules may be removed from Spitball’s marketplace.</value>
+  </data>
+  <data name="code_of_conduct_title" xml:space="preserve">
+    <value>Tutor Code of Conduct</value>
   </data>
 </root>

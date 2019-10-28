@@ -17,14 +17,13 @@ using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Identity;
 using Cloudents.Core.DTOs;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
-using Cloudents.Command.Command;
-using Cloudents.Command;
-using Cloudents.Core.Exceptions;
+using Microsoft.AspNetCore.DataProtection;
+using System.Net.Http;
+using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 
 namespace Cloudents.Web.Api
 {
@@ -134,10 +133,11 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync([FromBody] GoogleTokenRequest model,
             [FromServices] IGoogleAuth service,
-            [FromServices] IRestClient client,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
-            [FromServices] ICommandBus commandBus,
+            [FromHeader(Name="user-agent")] string userAgent,
             [FromServices] TelemetryClient logClient,
+            [FromServices] IHttpClientFactory clientFactory,
+            [FromServices]IDataProtectionProvider dataProtectProvider,
             CancellationToken cancellationToken)
         {
             var result = await service.LogInAsync(model.Token, cancellationToken);
@@ -152,8 +152,22 @@ namespace Cloudents.Web.Api
             var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
             if (result2.Succeeded)
             {
+                // For india mobile - temp solution
+                if (string.Equals(userAgent, "Spitball-Android", StringComparison.OrdinalIgnoreCase))
+                {
+                    var user2 = await _userManager.FindByEmailAsync(result.Email);
+                    var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
+                    var code = dataProtector.Protect(user2.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+
+                    return Ok(new
+                    {
+                        code
+                    });
+                }
+
                 return new ReturnSignUserResponse(false);
             }
+           
             if (result2.IsLockedOut)
             {
                 logClient.TrackTrace("user is locked out");
@@ -162,7 +176,11 @@ namespace Cloudents.Web.Api
             }
 
             var user = await _userManager.FindByEmailAsync(result.Email);
-
+            if (result2.IsNotAllowed && user != null && await _userManager.IsLockedOutAsync(user))
+            {
+                ModelState.AddModelError("Google", _loginLocalizer["LockOut"]);
+                return BadRequest(ModelState);
+            }
             if (user == null)
             {
                 user = new User(result.Email,
@@ -178,23 +196,29 @@ namespace Cloudents.Web.Api
                 {
                     if (!string.IsNullOrEmpty(result.Picture))
                     {
-                        var (stream, _) = await client.DownloadStreamAsync(new Uri(result.Picture), cancellationToken);
-                        try
+                        using (var httpClient = clientFactory.CreateClient())
                         {
-                            var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, stream, token: cancellationToken);
-                            var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
-                            var url = Url.ImageUrl(imageProperties);
-                            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
-                            var command = new UpdateUserImageCommand(user.Id, url, fileName);
-                            await commandBus.DispatchAsync(command, cancellationToken);
-
-                        }
-                        catch (ArgumentException e)
-                        {
-                            logClient.TrackException(e,new Dictionary<string, string>()
+                            var message = await httpClient.GetAsync(result.Picture, cancellationToken);
+                            using (var sr = await message.Content.ReadAsStreamAsync())
                             {
-                                ["FromGoogle"] = result.Picture
-                            });
+                                var mimeType = message.Content.Headers.ContentType;
+                                try
+                                {
+                                    var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, sr,
+                                        mimeType.ToString(), cancellationToken);
+                                    var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
+                                    var url = Url.ImageUrl(imageProperties);
+                                    var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+                                    user.UpdateUserImage(url, fileName);
+                                }
+                                catch (ArgumentException e)
+                                {
+                                    logClient.TrackException(e, new Dictionary<string, string>()
+                                    {
+                                        ["FromGoogle"] = result.Picture
+                                    });
+                                }
+                            }
                         }
 
 

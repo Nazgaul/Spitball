@@ -38,6 +38,7 @@
                         });
                     }
                 })
+                document.querySelector('#profile-picture').value = ''
             }
         },
     }
@@ -48,13 +49,13 @@
     .profile-upload-wrap {
         display: flex;
         padding: 4px 4px;
+        letter-spacing: normal;
         cursor: pointer;
         label[for=profile-picture]{
             display: flex;
             flex-direction: column;
         }
         .image-edit-text{
-            font-family: @fontOpenSans;
             font-size: 11px;
             color: @color-black;
         }

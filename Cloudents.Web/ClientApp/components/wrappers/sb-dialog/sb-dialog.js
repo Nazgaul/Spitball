@@ -40,7 +40,7 @@ export default {
     data: function () {
         return {
             show: false
-        }
+        };
     },
     computed: {
         ...mapGetters({
@@ -49,7 +49,7 @@ export default {
         OverlayActive() {
             if (this.$vuetify.breakpoint.xs) {
                 if (this.activateOverlay) {
-                    return false
+                    return false;
                 } else {
                     return true;
                 }

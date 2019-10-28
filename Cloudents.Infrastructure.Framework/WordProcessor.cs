@@ -7,11 +7,10 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class WordProcessor : IPreviewProvider2
+    public class WordProcessor : IPreviewProvider
     {
         public WordProcessor()
         {
@@ -22,7 +21,6 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        public static readonly string[] Extensions = FormatDocumentExtensions.Word;
 
 
         private static string ExtractDocumentText(Document doc)

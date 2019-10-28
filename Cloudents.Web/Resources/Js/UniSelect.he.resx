@@ -117,21 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="create" xml:space="preserve">
-    <value>צור</value>
-  </data>
-  <data name="done" xml:space="preserve">
-    <value>סיים</value>
-  </data>
-  <data name="from" xml:space="preserve">
-    <value>ממוסד הלימודים</value>
-  </data>
-  <data name="keep_typing" xml:space="preserve">
-    <value>המשך להקליד אנו מחפשים בשבילך</value>
-  </data>
-  <data name="next" xml:space="preserve">
-    <value>הבא</value>
-  </data>
   <data name="pop_later" xml:space="preserve">
     <value>לא עכשיו</value>
   </data>
@@ -141,16 +126,10 @@
   <data name="pop_set_school" xml:space="preserve">
     <value>הגדר את מוסד הלימודים והקורסים שלך</value>
   </data>
-  <data name="select_class" xml:space="preserve">
-    <value>בחר קורס</value>
-  </data>
   <data name="select_school" xml:space="preserve">
     <value>בחר מוסד לימודים</value>
   </data>
   <data name="select_school_placeholder" xml:space="preserve">
     <value>בחר את מוסד הלימודים שלך</value>
-  </data>
-  <data name="show_all_schools" xml:space="preserve">
-    <value>הצג את כל מוסדות הלימודים</value>
   </data>
 </root>

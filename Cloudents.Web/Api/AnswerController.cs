@@ -10,12 +10,8 @@ using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Item.Commands.FlagItem;
-using Cloudents.Command.Votes.Commands.AddVoteAnswer;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
-using Cloudents.Query;
-using Cloudents.Query.Query;
-using Cloudents.Web.Resources;
 using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
@@ -42,27 +38,16 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<CreateAnswerResponse>> CreateAnswerAsync([FromBody]CreateAnswerRequest model,
-            [FromServices] IQueryBus queryBus,
+        public async Task<IActionResult> CreateAnswerAsync([FromBody]CreateAnswerRequest model,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             try
             {
-                var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId, model.Files);
-                var t1 = _commandBus.DispatchAsync(command, token);
+                var command = new CreateAnswerCommand(model.QuestionId, model.Text, userId);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
 
-                var query = new NextQuestionQuery(model.QuestionId, userId);
-                var t2 = queryBus.QueryAsync(query, token);
-
-                await Task.WhenAll(t1, t2);
-
-             
-
-                return new CreateAnswerResponse
-                {
-                    NextQuestions = t2.Result
-                };
             }
             catch (QuotaExceededException)
             {
@@ -74,11 +59,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(model.Text), _localizer["More then one answer"]);
                 return BadRequest(ModelState);
             }
-            catch (QuestionAlreadyAnsweredException)
-            {
-                ModelState.AddModelError(nameof(model.Text), _localizer["This question have correct answer"]);
-                return BadRequest(ModelState);
-            }
+           
             catch (DuplicateRowException)
             {
                 ModelState.AddModelError(nameof(model.Text), _localizer["DuplicateAnswer"]);
@@ -111,40 +92,40 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("vote")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<IActionResult> VoteAsync(
-            [FromBody] AddVoteAnswerRequest model,
-            [FromServices] IStringLocalizer<SharedResource> resource,
-            CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            try
-            {
-                var command = new AddVoteAnswerCommand(userId, model.Id, model.VoteType);
-                await _commandBus.DispatchAsync(command, token);
-                return Ok();
-            }
-            catch (NoEnoughScoreException)
-            {
-                string voteMessage = resource[$"{model.VoteType:G}VoteError"];
-                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), voteMessage);
-                return BadRequest(ModelState);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
-                return BadRequest(ModelState);
-            }
+        //[HttpPost("vote")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesDefaultResponseType]
+        //public async Task<IActionResult> VoteAsync(
+        //    [FromBody] AddVoteAnswerRequest model,
+        //    [FromServices] IStringLocalizer<SharedResource> resource,
+        //    CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    try
+        //    {
+        //        var command = new AddVoteAnswerCommand(userId, model.Id, model.VoteType);
+        //        await _commandBus.DispatchAsync(command, token);
+        //        return Ok();
+        //    }
+        //    catch (NoEnoughScoreException)
+        //    {
+        //        string voteMessage = resource[$"{model.VoteType:G}VoteError"];
+        //        ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), voteMessage);
+        //        return BadRequest(ModelState);
+        //    }
+        //    catch (UnauthorizedAccessException)
+        //    {
+        //        ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
+        //        return BadRequest(ModelState);
+        //    }
 
-            catch (NotFoundException)
-            {
-                return NotFound();
-            }
-        }
+        //    catch (NotFoundException)
+        //    {
+        //        return NotFound();
+        //    }
+        //}
 
         [HttpPost("flag")]
         [ProducesResponseType(StatusCodes.Status200OK)]

@@ -85,7 +85,9 @@ export default {
             'getDocuments',
             'resetProfileData',
             'getPurchasedDocuments',
-            'setProfileByActiveTab'
+            'setProfileByActiveTab',
+            'updateLoginDialogState',
+            'updateToasterParams'
         ]),
 
         changeActiveTab(tabId) {
@@ -187,6 +189,16 @@ export default {
                 () => {
                     this.purchasedDocuments.isComplete = true;
                 });
+        },
+        openCalendar() {
+            if(!this.accountUser) {
+                this.updateLoginDialogState(true);
+                setTimeout(()=>{
+                    document.getElementById(`tab-${this.activeTab}`).lastChild.click();
+                },200);
+            } else {
+                this.activeTab = 6;
+            }
         }
     },
     computed: {
@@ -249,18 +261,53 @@ export default {
             }
         },
         showCalendar(){
-            if(!this.getProfile) return
+            if(!this.getProfile) return;
             let isTutorSharedCalendar = this.getProfile.user.calendarShared;
             if(this.isTutorProfile && (this.isMyProfile || isTutorSharedCalendar)){
-                return true
+                return true;
             }
+        },
+        questionDocuments() {
+            if(this.profileData && this.profileData.questions) {
+                return this.profileData.questions;
+            }
+            return [];
+        },
+        answerDocuments() {
+            if(this.profileData && this.profileData.answers) {
+                return this.profileData.answers;
+            }
+            return [];
+        },
+        uploadedDocuments() {
+            if(this.profileData && this.profileData.documents) {
+                return this.profileData.documents;
+            }
+            return [];
+        },
+        purchasedsDocuments() {
+            if(this.profileData && this.profileData.purchasedDocuments) {
+                return this.profileData.purchasedDocuments;
+            }
+            return [];
         }
     },
     watch: {
         '$route': function(val){
-            this.activeTab = 1
-            document.getElementById(`tab-${1}`).lastChild.click()
-            this.fetchData()
+            if((val.params.id == this.accountUser.id) && this.accountUser.isTutorState === "pending"){
+                this.updateToasterParams({
+                    toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                    showToaster: true,
+                    toasterTimeout: 3600000
+                });
+            }else{
+                this.updateToasterParams({
+                    showToaster: false
+                }); 
+            }
+            this.activeTab = 1;
+            document.getElementById(`tab-${1}`).lastChild.click();
+            this.fetchData();
         },
 
         activeTab() {
@@ -269,19 +316,41 @@ export default {
     },
     //reset profile data to prevent glitch in profile loading
     beforeRouteLeave(to, from, next) {
+        this.updateToasterParams({
+            showToaster: false
+        });
         this.resetProfileData();
         next();
     },
+
     created() {
         this.fetchData();
     },
     mounted() {
         if(this.$route.params && this.$route.params.tab){
-            let tabNumber = this.$route.params.tab
+            let tabNumber = this.$route.params.tab;
             setTimeout(()=>{
-                document.getElementById(`tab-${tabNumber}`).lastChild.click()
-            },200)
+                document.getElementById(`tab-${tabNumber}`).lastChild.click();
+            },200);
         }
-    },
+        if((this.$route.query && this.$route.query.calendar)){
+            setTimeout(()=>{
+                if(this.getProfile.user.calendarShared){
+                    document.getElementById(`tab-6`).lastChild.click();
+                }
+            },200);
+        }
+        setTimeout(()=>{
+            if((this.$route.params && this.$route.params.id) && 
+               (this.$route.params.id == this.accountUser.id) && 
+               this.accountUser.isTutorState === "pending"){
+                this.updateToasterParams({
+                    toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                    showToaster: true,
+                    toasterTimeout: 3600000
+                });
+            }
+        },200);
+    }
 }
 

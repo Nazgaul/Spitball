@@ -16,7 +16,7 @@ const init = function(){
     // lastY = this.context.canvas.height/2;
     dragStart = false;
     scaleFactor = 1.1;    
-}
+};
 const draw = function(){
     let p1 = this.context.transformedPoint(0,0);
     let p2 = this.context.transformedPoint(this.context.canvas.width, this.context.canvas.height);
@@ -27,7 +27,7 @@ const draw = function(){
     this.context.clearRect(0,0,this.context.canvas.width, this.context.canvas.height);
     this.context.restore();
     whiteBoardService.redraw(this);
-}
+};
 
 
 const liveDraw = function(){};
@@ -40,7 +40,7 @@ const mousedown = function(e){
     mouseStartY = e.clientY;
     startScrollPositionTop = e.target.parentElement.scrollTop;
     startScrollPositionLeft = e.target.parentElement.scrollLeft;
-}
+};
 
 
 const mousemove = function(e){
@@ -55,11 +55,11 @@ const mousemove = function(e){
       let transform = {
           x: scrollableElm.scrollLeft*-1,
           y: scrollableElm.scrollTop*-1
-      }
+      };
       store.dispatch('updatePan', transform);
       draw.bind(this)();
     }
-}
+};
 
 
 const zoom = function(clicks){
@@ -90,7 +90,7 @@ const zoom = function(clicks){
     // let transform = this.context.getTransform();
     // store.dispatch('updateZoom', transform.a*100);
     // store.dispatch('updatePan', transform);
-}
+};
 
 // const mouseScroll = function(evt){
 //     let delta = evt.wheelDelta ? evt.wheelDelta/40 : evt.detail ? -evt.detail : 0;
@@ -108,13 +108,13 @@ const zoom = function(clicks){
 
 const defineEndPosition = function(e){
     dragStart = false;
-}
+};
 const mouseup = function(e){
-    defineEndPosition.bind(this, e)()
-}
+    defineEndPosition.bind(this, e)();
+};
 const mouseleave = function(e){
-    defineEndPosition.bind(this, e)()
-}
+    defineEndPosition.bind(this, e)();
+};
 
 export default{
     mousedown,

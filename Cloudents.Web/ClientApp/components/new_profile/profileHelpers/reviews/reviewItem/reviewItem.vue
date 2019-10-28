@@ -16,7 +16,6 @@
                                 :size="'16'"></userRating>
                     <div class="name-rank-wrap mt-2">
                         <span class="user-review-name mr-2 ">{{reviewData.name}}</span>
-                        <userRank :score="reviewData.score"></userRank>
                     </div>
                 </div>
             </div>
@@ -36,11 +35,10 @@
 
 <script>
     import userRating from '../../profileBio/bioParts/userRating.vue';
-    import userRank from '../../../../helpers/UserRank/UserRank.vue';
     import userAvatar from '../../../../helpers/UserAvatar/UserAvatar.vue';
     export default {
         name: "reviewItem",
-        components: { userRating, userRank, userAvatar },
+        components: { userRating, userAvatar },
         data() {
             return {
                 // rating: 3.5,

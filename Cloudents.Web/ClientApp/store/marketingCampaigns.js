@@ -13,10 +13,10 @@ const mutations = {
 const getters = {
     getCampaignName: (state) => state.campaignName,
     getCampaignData: (state) => {
-        return state.campaignData
+        return state.campaignData;
     },
     isCampaignOn: (state) => {
-        return state.campaignName !== "noCampaign"
+        return state.campaignName !== "noCampaign";
     }
 };
 const actions = {

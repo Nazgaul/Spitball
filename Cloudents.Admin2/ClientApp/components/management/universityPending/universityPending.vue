@@ -50,7 +50,7 @@
             </template>
         </v-data-table>
 
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog persistent v-model="dialog" max-width="500px">
             <v-card>
                 <v-card-title>
                     <span v-show="radios === 'merge'" class="headline">{{ editedItem.name }}</span>
@@ -124,7 +124,7 @@
                 editedIndex: -1,
                 radios: 'approve',
                 search: '',
-                countries: ["all","il", "us"],
+                countries: ["all","il", "in", "us"],
                 country: '',
                 states: ["Pending", "Ok"],
                 state: 'Pending',

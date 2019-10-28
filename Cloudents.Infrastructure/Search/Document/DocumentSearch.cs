@@ -2,11 +2,11 @@
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Query;
-using Cloudents.Query.Query;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Query.Documents;
 
 namespace Cloudents.Infrastructure.Search.Document
 {
@@ -23,15 +23,15 @@ namespace Cloudents.Infrastructure.Search.Document
             _queryBus = queryBus;
         }
 
-        public async Task<DocumentFeedWithFacetDto> SearchDocumentsAsync(DocumentQuery query,
+        public async Task<IEnumerable<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken token)
         {
 
             var searchResult = await _client.SearchAsync(query, query.UserProfile, token);
             var documentResult = searchResult.result.ToList();
             var ids = documentResult.Select(s => s.Id);
-            var queryDb = new IdsDocumentsQuery<long>(ids);
-            var dbResult = await _queryBus.QueryAsync<IList<DocumentFeedDto>>(queryDb, token);
+            var queryDb = new IdsDocumentsQuery(ids);
+            var dbResult = await _queryBus.QueryAsync(queryDb, token);
             var dic = dbResult.ToDictionary(x => x.Id);
 
 
@@ -47,34 +47,7 @@ namespace Cloudents.Infrastructure.Search.Document
 
             }
 
-            if (retVal.Count == 0)
-            {
-                //need to bring university Name , need to use sources
-                //if (!query.Filters?.Any() == true)
-                //{
-                //    //case 12148
-                //    var webQuery = BingSearchQuery.Document(query.Term, query.UserProfile.University?.ExtraName,
-                //        query.Course, query.Page);
-                //    var webResult = await
-                //        _documentSearch.SearchWithUniversityAndCoursesAsync(webQuery, token);
-                //    if (webResult.Result != null)
-                //    {
-                //        retVal.AddRange(webResult.Result.Where(w => w != null).Select(s2 => new DocumentFeedDto()
-                //        {
-                //            Snippet = s2.Snippet,
-                //            Title = s2.Title,
-                //            Url = s2.Url,
-                //            Source = s2.Source
-                //        }));
-                //    }
-                //}
-            }
-
-            return new DocumentFeedWithFacetDto
-            {
-                Result = retVal,
-                Facet = searchResult.facetSubject
-            };
+            return retVal;
         }
 
     }

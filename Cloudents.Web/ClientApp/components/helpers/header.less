@@ -62,13 +62,15 @@
       width: 260px;
       padding-left: 22px;
     }
-
     @media (max-width: 959px) {
       padding-left: 0;
 
       svg {
         width: 114px;
       }
+    }
+    div {
+      display: flex;
     }
 
     svg {
@@ -92,7 +94,7 @@
     flex-direction: column;
     justify-content: space-between;
     .setting-buysbl-button{
-      font-family: @fontFiraSans;
+      
       display: flex;
       align-items: center;
       padding: 0px 10px;
@@ -548,7 +550,7 @@
 }
 
 .v-snack__content {
-  width: 616px;
+  // width: 616px;
   height: 48px;
   background-color: @color-blue;
   font-size: 16px;
@@ -556,6 +558,7 @@
   letter-spacing: -0.4px;
   color: #ffffff;
   .text-wrap {
+    padding: 0 20px;
     width: 100%;
     text-align: center;
   }

@@ -1,5 +1,6 @@
 import analyticsService from '../services/analytics.service.js';
 import tutorService from '../services/tutorService.js'
+import {LanguageService} from '../services/language/languageService.js'
 
 const state = {
     requestDialog: false,
@@ -58,7 +59,7 @@ const mutations = {
 
 const actions = {
     updateCurrTutor({commit},tutorObj){ 
-        commit('setCurrTutor', tutorObj)
+        commit('setCurrTutor', tutorObj);
     },
     updateRequestDialog({commit, dispatch}, val){
         commit('setRequestDialog', val);
@@ -70,30 +71,30 @@ const actions = {
         commit('setTutorRequestAnalyticsOpenedFrom', val);
     },
     updateTutorReqStep({commit},stepName){
-        commit('setTutorReqStep',stepName)
+        commit('setTutorReqStep',stepName);
     },
     updateCourseDescription({commit},str){
-        commit('setCourseDescription',str)
+        commit('setCourseDescription',str);
     },
     updateSelectedCourse({commit},str){
-        commit('setSelectedCourse',str)
+        commit('setSelectedCourse',str);
     },
     resetRequestTutor({commit}){
-        commit('setRequestTutor')
+        commit('setRequestTutor');
     },
     sendTutorRequest({dispatch},serverObj){
-        dispatch('sendAnalyticEvent',false)
+        dispatch('sendAnalyticEvent',false);
         return tutorService.requestTutor(serverObj)
                 .then((response) =>{
-                    dispatch('updateTutorReqStep','tutorRequestSuccess')
+                    dispatch('updateTutorReqStep','tutorRequestSuccess');
                 }).catch((err)=>{
                     dispatch('updateToasterParams',{
                         toasterText: !!err.response.data.error ? err.response.data.error[0] : LanguageService.getValueByKey("tutorRequest_request_error"),
                         showToaster: true,
                         toasterType: 'error-toaster'
-                    })
-                    return Promise.reject()
-              })
+                    });
+                    return Promise.reject();
+                });
     },
     sendAnalyticEvent({state,getters},beforeSubmit){
         let analyticsObject = {
@@ -101,7 +102,7 @@ const actions = {
             course: state.tutorCourse,
             fromDialogPath: getters.getTutorRequestAnalyticsOpenedFrom.path,
             fromDialogComponent: getters.getTutorRequestAnalyticsOpenedFrom.component
-        }
+        };
         if(beforeSubmit){
             analyticsService.sb_unitedEvent('Request Tutor Dialog Opened', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
         }else{
@@ -109,7 +110,7 @@ const actions = {
         }
     },
     updateMoreTutors({commit},val){
-        commit('setMoreTutors',val)
+        commit('setMoreTutors',val);
     }
 
 };

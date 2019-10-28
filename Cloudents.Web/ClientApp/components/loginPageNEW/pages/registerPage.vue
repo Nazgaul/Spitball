@@ -3,7 +3,7 @@
         <button class="back-button">
             <v-icon right @click="updateDialog(true)">sbf-close</v-icon>
         </button>
-        <div class="leftSection">
+        <div class="leftSection" :class="{'reg_frymo': isFrymo}">
             <p v-language:inner="'loginRegister_main_txt'"></p>
         </div>
 
@@ -77,7 +77,7 @@ export default {
         resetPassword
         },
     computed: {
-        ...mapGetters(['getCurrentLoginStep',]),
+        ...mapGetters(['getCurrentLoginStep', 'isFrymo']),
         currentStep(){
             return this.getCurrentLoginStep
         },

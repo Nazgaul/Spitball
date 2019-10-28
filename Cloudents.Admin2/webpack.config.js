@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const bundleOutputDir = './wwwroot/dist';
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -28,7 +27,7 @@ module.exports = (env) => {
                                    
                                 }
                             },
-                                less: ['vue-style-loader', 'css-loader', 'less-loader'],
+                                less: ['vue-style-loader', 'css-loader', 'less-loader']
                             }
                     }
                 },
@@ -49,7 +48,6 @@ module.exports = (env) => {
         devtool: isDevBuild ? 'inline-source-map' : 'source-map',
         plugins: [
             new VueLoaderPlugin(),
-            new CheckerPlugin(),
             new webpack.DefinePlugin({
                 'process.env': {
                     NODE_ENV: JSON.stringify(isDevBuild ? 'development' : 'production')

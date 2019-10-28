@@ -160,7 +160,7 @@
     <value>Select my courses</value>
   </data>
   <data name="courses_empty_select_courses" xml:space="preserve">
-    <value>Selecting your courses will help  you get personilised study materials and tutors</value>
+    <value>Selecting your courses will help  you get personalized study materials and tutors</value>
   </data>
   <data name="courses_empty_state_title" xml:space="preserve">
     <value>My Courses</value>
@@ -188,9 +188,6 @@
   </data>
   <data name="reviews" xml:space="preserve">
     <value>Reviews</value>
-  </data>
-  <data name="subjects" xml:space="preserve">
-    <value>Subjects</value>
   </data>
   <data name="tutor_contact_btn" xml:space="preserve">
     <value>Contact me</value>

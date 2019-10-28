@@ -5,6 +5,8 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
+using NHibernate.Linq;
 
 namespace Cloudents.Persistence.Repositories
 {
@@ -17,85 +19,77 @@ namespace Cloudents.Persistence.Repositories
 
         public async Task<ReadTutor> GetReadTutorAsync(long userId, CancellationToken token)
         {
-            const string sql = @"
-Select top 1
-t.id as Id,
-u.name as Name,
-u.image as Image,
-	(select cs.Name as 'name' 
-	from sb.CourseSubject cs where cs.Id 
-	in (
-	select distinct top 3 c.SubjectId from sb.Course c where c.SubjectId <> 39 
-	and c.Name in (
-	select uc.courseId as Courses from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id )
-	) order by cs.Name for json PATH) as Subjects,
+            var tutorFutureValue = Session.Query<Tutor>()
+                .Fetch(f => f.User)
+                .ThenFetch(f => f.University)
+                .Where(w => w.Id == userId && w.State == ItemState.Ok)
+                .Select(s => new
+                {
+                    s.User.Id,
+                    s.User.Name,
+                    s.User.Image,
+                    s.Bio,
+                    UniversityName = s.User.University.Name,
+                    s.Price,
+                    s.SubsidizedPrice,
+                    s.User.Country
+                }).ToFutureValue();
 
-	(select cs.Name as 'name' 
-	from sb.CourseSubject cs where cs.Id 
-	in (
-	select c.SubjectId from sb.Course c where c.SubjectId <> 39 
-	and c.Name in (
-	select uc.courseId as Courses from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id )
-	) order by cs.Name for json PATH) as AllSubjects,
+            var coursesFuture = Session.Query<UserCourse>()
+                .Fetch(f => f.Course)
+                .ThenFetch(f => f.Subject)
+                .Where(w => w.CanTeach && w.User.Id == userId)
+                .Select(s => new
+                {
+                    CourseName = s.Course.Id,
+                    SubjectName = s.Course.Subject.Name
+                }).ToFuture();
 
-(Select distinct top 3 uc.courseid as 'name' 
-   from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id order by uc.courseId for json PATH) as Courses,
-(Select uc.courseId as 'name' 
-   from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id order by uc.courseId for json PATH) as AllCourses,
-t.Price,
-case when t.Price < 55 then t.Price
-	when t.Price - 70 < 55 then 55
-	else t.Price - 70 end as SubsidizedPrice,
-reviews.Rate ,
-reviews.sumCount as RateCount,
-t.bio as Bio,
-u2.Name as University,
-iif(sr.lessonsCount < reviews.sumCount, reviews.sumCount, sr.lessonsCount) as Lessons,
-((isnull(reviews.Rate, 0) * reviews.sumCount) + (isnull((select AVG(Rate) from sb.TutorReview), 0) * 12) + 
-(case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end * isnull(reviews.Rate, 0))) / 
-(reviews.sumCount + 12 + case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end)as Rating
---,(isnull(reviews.Rate, 0) * reviews.sumCount) + (isnull((select AVG(Rate) from sb.TutorReview),0) * 12)
-from sb.tutor t
-join sb.[user] u on t.id = u.id
-left join sb.University u2 on u.UniversityId2 = u2.Id
-cross apply (
-select Avg(tr.Rate) as Rate,count(*) as sumCount from sb.TutorReview tr where tr.TutorId = t.id 
-) as reviews
-cross apply (
-select count(*) as lessonsCount from sb.StudyRoomSession srs 
-join sb.StudyRoom sr on srs.StudyRoomId  = sr.id  and srs.Duration > 6000000000 and sr.TutorId = t.id
-) as sr 
-where t.State = 'Ok' and t.Id = :UserId";
-
-            var info = await Session.CreateSQLQuery(sql)
-                .SetParameter("UserId", userId).SetResultTransformer(new JsonArrayToEnumerableTransformer<ReadTutor>()).ListAsync<ReadTutor>(token);
+            var query = from e in Session.Query<TutorReview>()
+                        where e.Tutor.Id == userId
+                        group e by 1 into grp
+                        select new
+                        {
+                            Count = grp.Count(),
+                            //Average is doing issue - doing average in c# 
+                            Sum = grp.Sum(x => (float?)x.Rate)
+                        };
+            var reviewsFutureValue = query.ToFutureValue();
 
 
-            var res = info.First();
-            return res;
-        }
+            var lessonsFutureValue = Session.Query<StudyRoomSession>()
+.Fetch(f => f.StudyRoom)
+.Where(w => w.StudyRoom.Tutor.Id == userId && w.Duration > TimeSpan.FromMinutes(10))
+.GroupBy(g => 1)
+.Select(s => s.Count())
+.ToFutureValue();
 
 
-        public async Task UpdateReadTutorRating(CancellationToken token)
-        {
-            const string sql = @"update rt
-                            set Rating = (select ((isnull(reviews.Rate, 0) * reviews.sumCount) +  (isnull((select AVG(Rate) from sb.TutorReview), 0) * 12)  + 
-                            (case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end * isnull(reviews.Rate, 0))) / 
-                            (reviews.sumCount + 12 + case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end) as Rating
-				                            from sb.Tutor t 
-                                            cross apply (
-					                            select Avg(tr.Rate) as Rate,count(*) as sumCount from sb.TutorReview tr where tr.TutorId = t.id 
-					                            ) as reviews
-				                            cross apply (
-				                            select count(*) as lessonsCount from sb.StudyRoomSession srs 
-				                            join sb.StudyRoom sr on srs.StudyRoomId  = sr.id  and srs.Duration > 6000000000 and sr.TutorId = t.id
-				                            ) as sr 
-				                            where t.Id = rt.Id
-			                            )
-                            from sb.ReadTutor rt";
+            var tutor = await tutorFutureValue.GetValueAsync(token);
+            if (tutor is null)
+            {
+                return null;
+            }
 
-            await Session.CreateSQLQuery(sql).ExecuteUpdateAsync(token);
+            var course = (await coursesFuture.GetEnumerableAsync(token)).ToList();
+            var reviews = await reviewsFutureValue.GetValueAsync(token);
+            var lessons = await lessonsFutureValue.GetValueAsync(token);
 
+            var count = reviews?.Count ?? 0;
+            var average = 0f;
+            if (count > 0)
+            {
+                average = (reviews?.Sum ?? 0) / count;
+            }
+
+            var readTutor = new ReadTutor(tutor.Id, tutor.Name, tutor.Image,
+                course.Where(w => !string.IsNullOrEmpty(w.SubjectName)).Select(s => s.SubjectName).Distinct(),
+                course.Select(s => s.CourseName),
+                tutor.Price, average, count, tutor.Bio, tutor.UniversityName,
+                lessons, tutor.Country, tutor.SubsidizedPrice);
+
+
+            return readTutor;
         }
     }
 }

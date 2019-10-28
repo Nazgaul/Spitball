@@ -14,6 +14,7 @@ function AccountUser(objInit){
     this.image = objInit.image || '';
     this.online = objInit.online || false;
     this.needPayment = objInit.needPayment || false;
+    this.currencySymbol = objInit.currencySymbol
 }
 function createIsTutorState(str){
     if(str && str.toLowerCase() === 'ok'){
@@ -142,7 +143,7 @@ export default {
         return connectivityModule.http.get(`/Account/referrals`);
     },
     getProfileAbout:(id) => {
-        return connectivityModule.http.get(`Profile/${id}/about/`);
+        return connectivityModule.http.get(`Profile/${id}/about`);
     },
     getProfileQuestions:(id, page) => {
         let strPage = page ? `?page=${page}` : "";

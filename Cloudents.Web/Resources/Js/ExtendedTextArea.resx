@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="type_your_answer" xml:space="preserve">
-    <value>Type your answer...</value>
-  </data>
-  <data name="type_your_question" xml:space="preserve">
-    <value>Type your question...</value>
+    <value>Type your answer here...</value>
   </data>
 </root>

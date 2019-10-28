@@ -142,7 +142,7 @@
     <value>ראשית יש להקליד מדינה.</value>
   </data>
   <data name="NeedUniversity" xml:space="preserve">
-    <value>ראשית יש לבחור אוניברסיטה.</value>
+    <value>ראשית יש לבחור מוסד לימוד.</value>
   </data>
   <data name="PasswordNotMatch" xml:space="preserve">
     <value>סיסמה חייבת להיות תואמת</value>
@@ -158,8 +158,5 @@
   </data>
   <data name="StringLengthMax" xml:space="preserve">
     <value>שדה {0} חייב להיות מסוג מחרוזת באורך מרבי של {1}.</value>
-  </data>
-  <data name="TagCannotContain" xml:space="preserve">
-    <value>התגית אינה יכולה להכיל פסיקים או רווחים</value>
   </data>
 </root>

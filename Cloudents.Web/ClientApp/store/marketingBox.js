@@ -3,12 +3,12 @@ const state = {
 };
 
 const getters = {
-    getMobMarketingState:  state => state.mobileMarketingBoxState,
+    getMobMarketingState:  state => state.mobileMarketingBoxState
 };
 
 const mutations = {
     setMarketingMobileState(state, val) {
-        state.mobileMarketingBoxState = val
+        state.mobileMarketingBoxState = val;
     },
 };
 

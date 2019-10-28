@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 using Cloudents.Core.Storage;
+using Microsoft.WindowsAzure.Storage;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -16,6 +20,25 @@ namespace Cloudents.Infrastructure.Storage
             var destinationDirectory = _blobDirectory.GetDirectoryReference(id.ToString());
             var blob = destinationDirectory.GetBlobReference($"preview-{i}.jpg");
             return blob.Uri;
+        }
+
+        public async Task<string> DownloadTextAsync(string name, string directory, CancellationToken token)
+        {
+            try
+            {
+                var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
+                var blob = destinationDirectory.GetBlockBlobReference(name);
+
+                return await blob.DownloadTextAsync();
+            }
+            catch (StorageException e)
+            {
+                if (e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+                throw;
+            }
         }
 
     }

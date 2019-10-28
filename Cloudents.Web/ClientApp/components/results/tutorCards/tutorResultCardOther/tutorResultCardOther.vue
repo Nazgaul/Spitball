@@ -10,7 +10,7 @@
                 <h3 class="subheading font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
                 <template>
-                    <div class="striked" v-if="showStriked">₪{{tutorData.price}}</div>
+                    <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price}}</div>
                     <div v-else class="striked"></div>
                 </template>
                 
@@ -18,16 +18,16 @@
                 <v-layout row class="moreDetails" align-center>
                     <div column class="price-box column mr-2">
                         <template>
-                            <span v-if="showStriked" class="font-weight-bold"><span class="price-sign">&#8362;</span>{{discountedPrice}}</span>
-                            <span v-else class="font-weight-bold"><span class="price-sign">&#8362;</span>{{tutorData.price}}</span>
+                            <span v-if="tutorData.discountPrice" class="font-weight-bold">{{tutorData.discountPrice}}</span>
+                            <span v-else class="font-weight-bold">{{tutorData.price}}</span>
                         </template>
                         <div class="caption" v-language:inner="'resultTutor_hour'"></div>
                     </div>
 
                     <v-layout column align-center class="user-rates">
                         <div v-if="isReviews" :class="{'mr-5': !isReviews}">
-                            <userRating :size="'15'" class="rating-holder" :rating="tutorData.rating" :showRateNumber="false" />
-                            <div class="caption text-xs-center reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>        
+                            <userRating :size="'15'" class="rating-holder" :rating="tutorData.rating" :showRateNumber="false" color="#ffca54"/>
+                            <div class="caption text-xs-center reviews" v-html="$Ph(tutorData.reviews === 1 ? `resultTutor_review_one` : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>        
                         </div>
                         <div v-else class="no-reviews">
                             <star class="rating-holder" />
@@ -44,7 +44,7 @@
                         <!-- card-b -->
                         <v-layout column align-center class="ab-cardB user-classes" :class="{'user-classes-hidden': tutorData.lessons === 0}">
                             <div>{{tutorData.lessons}}</div>
-                            <div class="user-classes-text" v-language:inner="'resultTutor_classes'"></div>
+                            <div class="user-classes-text" v-language:inner="tutorData.lessons !== 1 ? 'resultTutor_classes' : 'resultTutor_class'"></div>
                         </v-layout>
                     </template>
 
@@ -135,7 +135,7 @@ export default {
                     "crop"
                     );
             } else {
-                return "../../../images/placeholder-profile.png";
+                return require("../../../images/placeholder-profile.png");
             }
         },
         showStriked() {
@@ -144,7 +144,12 @@ export default {
             return price > this.minimumPrice;
         },
         showFirstName() {
-            return this.tutorData.name.split(' ')[0];
+            let maxChar = 5;
+            let name = this.tutorData.name.split(' ')[0];
+            if(name.length > maxChar) {
+                return LanguageService.getValueByKey('resultTutor_message_me');
+            }
+            return name;
         },
         // ellipsizeTextBox() {
         //     let text = this.tutorData.bio;
@@ -170,7 +175,7 @@ export default {
             };
         },
         onImageLoadError(event) {
-            event.target.src = "../../../images/placeholder-profile.png";
+            event.target.src = require("../../../images/placeholder-profile.png");
         },
         reviewsPlaceHolder(reviewsOwner, reviews) {
             let review;
@@ -293,14 +298,11 @@ export default {
         color: @purple;
         margin-bottom: -2px;
         .price-box {
-            line-height: 15px;
+            line-height: 14px;
             font-size: 22px;
             span {
                 font-family: Arial;
                 font-size: 22px;
-            }
-            .price-sign {
-                font-size: 16px;
             }
             .caption {
                 margin-top: 1px;

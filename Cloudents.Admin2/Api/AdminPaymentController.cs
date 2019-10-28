@@ -37,7 +37,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<PaymentDto>> GetPayments(CancellationToken token)
         {
-            var query = new AdminPaymentsQuery();
+            var query = new AdminPaymentsQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -63,6 +63,16 @@ namespace Cloudents.Admin2.Api
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete("deletePayment")]
+        public async Task<IActionResult> DeletePaymentAsync(long userId,
+            CancellationToken token)
+        {
+            var command = new DeleteUserPaymentCommand(userId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
 
         [HttpDelete]
         public async Task<IActionResult> DeclinePay(Guid studyRoomSessionId, CancellationToken token)

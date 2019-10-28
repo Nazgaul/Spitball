@@ -28,6 +28,19 @@ namespace Cloudents.Web.Test.IntegrationTests
             otherUser = "159039"
         };
 
+        //private readonly object _conv = new
+        //{
+        //    userId = 0,
+        //    name = "string",
+        //    image = "string",
+        //    unread = 0,
+        //    online = true,
+        //    conversationId = "string",
+        //    dateTime = new DateTime(),
+        //    studyRoomId = "string",
+        //    lastMessage = "string"
+        //};
+
 
 
         public ChatApiTests(SbWebApplicationFactory factory)
@@ -133,6 +146,6 @@ namespace Cloudents.Web.Test.IntegrationTests
             response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(read));
 
             response.EnsureSuccessStatusCode();
-        }        
+        }
     }
 }

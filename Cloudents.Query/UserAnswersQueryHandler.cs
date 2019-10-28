@@ -23,36 +23,40 @@ namespace Cloudents.Query
         {
 
             var answerQuery = _session.Query<Answer>()
-                .Fetch(f => f.Question);
-
-            answerQuery.ThenFetch(f => f.User);
+                .Fetch(f => f.Question)
+                .Join(_session.Query<ViewQuestionWithFirstAnswer>(), l => l.Question.Id, r => r.Id, (answer, view) =>
+                    new
+                    {
+                        answer,
+                        view
+                    });
+                
 
             return await answerQuery
                 .Where(w =>
-                    w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.Question.Status.State == ItemState.Ok)
-                .OrderByDescending(o => o.Question.Id)
-                .Select(s=> new QuestionFeedDto()
+                    w.answer.User.Id == query.Id 
+                    && w.answer.Status.State == ItemState.Ok)
+                .OrderByDescending(o => o.view.Id)
+                .Select(s => new QuestionFeedDto
+                {
+                    Id = s.view.Id,
+                    Text = s.view.Text,
+                    Answers = s.view.Answers,
+                    DateTime = s.view.DateTime,
+                    CultureInfo = s.view.CultureInfo,
+                    Course = s.view.Course,
+                    UserId = s.view.UserId,
+                    FirstAnswer = new AnswerFeedDto()
                     {
-                        CultureInfo = s.Question.Language,
+                        Text = s.view.Answer.Text,
+                        DateTime = s.view.Answer.DateTime,
                         User = new UserDto
                         {
-                            Id = s.Question.User.Id,
-                            Name = s.Question.User.Name,
-                            Score = s.Question.User.Score,
-                            Image = s.Question.User.Image
-                        },
-                        Id = s.Question.Id,
-                        Course = s.Question.Course.Id,
-                        Text = s.Question.Text,
-                        DateTime = s.Question.Updated,
-                        Vote = new VoteDto()
-                        {
-                            Votes = s.Question.VoteCount
-                        },
-                        Answers = s.Question.Answers.Where(w => w.Status.State == ItemState.Ok).Count(),
-                        HasCorrectAnswer = s.Question.CorrectAnswer.Id != null,
-                        Files = s.Question.Attachments
-                        
+                            Id = s.view.Answer.UserId.GetValueOrDefault(),
+                            Image = s.view.Answer.UserImage,
+                            Name = s.view.Answer.UserName
+                        }
+                    }
                 }).Take(50).Skip(query.Page * 50).ToListAsync(token);
         }
     }

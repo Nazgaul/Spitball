@@ -3,7 +3,7 @@
         <v-layout align-center justify-center justify-space-between class="tutor-list-header" tag="header">
             <v-flex class="tutor-list-header-left">
                 <router-link class="tutor-list-header-logo ml-1" to="/">
-                    <LogoSvg></LogoSvg>
+                    <logoComponent></logoComponent>
                 </router-link>
                 <v-icon @click="handleMenuToggle()" class="tutor-list-header-left-menu hidden-md-and-up">sbf-menu</v-icon>
             </v-flex>
@@ -23,7 +23,7 @@
                   </button>
 
               </template>
-              <a @click="changeLanguage()">
+              <a @click="changeLanguage()" v-if="!isFrymo">
                 {{currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''}}
               </a>
             </v-flex>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import logoComponent from '../app/logo/logo.vue';
 import LogoSvg from "../../../wwwroot/Images/logo-spitball.svg";
 import languagesLocales from "../../services/language/localeLanguage";
 import { LanguageChange } from "../../services/language/languageService";
@@ -52,7 +53,8 @@ import { mapGetters } from 'vuex';
 export default {
   components: {
     LogoSvg,
-    menuList
+    menuList,
+    logoComponent
   },
   name: "TopNav",
   data() {
@@ -81,9 +83,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-        "accountUser"
-    ]),
+    ...mapGetters(['accountUser', 'isFrymo']),
+
     isMobileView() {
       return this.$vuetify.breakpoint.width < 1024;
     },
@@ -115,10 +116,16 @@ export default {
           justify-content: space-between
       }
       .tutor-list-header-logo {
-        svg {
-          vertical-align: -webkit-baseline-middle;
-          fill: #1B2441
-        }
+        div{
+          svg {
+            vertical-align: -webkit-baseline-middle;
+            fill: #1B2441;
+            &.frymo-logo{
+              fill: #378bd3;
+            }
+            
+          }
+        } 
       }
       .tutor-list-header-left-menu {
         color: #000;
@@ -157,6 +164,14 @@ export default {
         color: #13374D;
         font-weight: bold;
       }
+    }
+  }
+  .v-navigation-drawer {
+  z-index: 104;
+    &.hebrew-drawer{
+      // swap of right and left is going to be done by webpack RTL, so real vals are oposite
+      right: 0;
+      left: unset;
     }
   }
 }

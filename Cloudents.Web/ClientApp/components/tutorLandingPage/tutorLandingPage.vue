@@ -164,7 +164,7 @@ export default {
         position: relative;
         background-color: #1b2441;
         h1{
-            color: #3dc2ba;
+            color: #5158af;
             font-size: 35px;
             font-weight: bold;
             @media (max-width: @screen-xs) {

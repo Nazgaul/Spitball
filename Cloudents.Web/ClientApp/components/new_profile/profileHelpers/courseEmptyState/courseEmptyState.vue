@@ -59,7 +59,6 @@
             color: @global-purple;
         }
         .empty-text{
-            font-family: @fontOpenSans;
             font-size: 12px;
             color: @textColor;
         }

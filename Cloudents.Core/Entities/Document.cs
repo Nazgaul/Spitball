@@ -1,10 +1,10 @@
 ﻿using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
-using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Cloudents.Core.Enum;
 using static Cloudents.Core.Entities.ItemStatus;
 
 
@@ -16,21 +16,20 @@ namespace Cloudents.Core.Entities
     public class Document : Entity<long>, IAggregateRoot, ISoftDelete
     {
         public Document(string name,
-            University university,
-            Course course, [NotNull] string type,
-            IEnumerable<Tag> tags, BaseUser user, string professor, decimal price)
-        : this()
+            Course course, 
+            BaseUser user, decimal price, DocumentType documentType, string description)
+      : this()
         {
-            if (tags == null) throw new ArgumentNullException(nameof(tags));
             if (name == null) throw new ArgumentNullException(nameof(name));
             Name = name.Replace("+", "-");
-            University = university ?? throw new ArgumentNullException(nameof(university));
+            University = user.University;
             Course = course ?? throw new ArgumentNullException(nameof(course));
-            Type = type ?? throw new ArgumentNullException(nameof(type));
-            Tags = new HashSet<Tag>(tags);
             User = user;
             Views = 0;
-            Professor = professor;
+            if (!string.IsNullOrEmpty(description))
+            {
+                Description = description;
+            }
 
             ChangePrice(price);
             //Price = price;
@@ -40,35 +39,35 @@ namespace Cloudents.Core.Entities
                 MakePublic();
             }
             Status = status;
+            DocumentType = documentType;
         }
+
 
         protected Document()
         {
             TimeStamp = new DomainTimeStamp();
-            Tags = new HashSet<Tag>();
         }
 
         // public virtual long Id { get; set; }
-        public virtual string Name { get; set; }
+        public virtual string Name { get; protected set; }
 
-        public virtual University University { get; set; }
+        public virtual University University { get; protected set; }
 
-        public virtual Course Course { get; set; }
+        public virtual Course Course { get; protected set; }
 
-        public virtual string Type { get; protected set; }
+        public virtual string Description { get; protected set; }
 
-        public virtual ISet<Tag> Tags { get; protected set; }
 
         public virtual DomainTimeStamp TimeStamp { get; protected set; }
 
         public virtual BaseUser User { get; protected set; }
 
 
-        public virtual string Professor { get; protected set; }
 
         public virtual int Views { get; protected set; }
         public virtual int Downloads { get; protected set; }
-        //public virtual int Purchased { get; protected set; }
+
+        //this is only for document
         public virtual int? PageCount { get; set; }
         public virtual long? OldId { get; protected set; }
 
@@ -97,7 +96,7 @@ namespace Cloudents.Core.Entities
                 throw new NotFoundException();
             }
 
-           
+
 
             var vote = Votes.AsQueryable().FirstOrDefault(w => w.User == user);
             if (vote == null)
@@ -107,10 +106,7 @@ namespace Cloudents.Core.Entities
             }
             vote.VoteType = type;
             VoteCount = Votes.Sum(s => (int)s.VoteType);
-            //if (VoteCount < VoteCountToFlag)
-            //{
-            //    Status = Status.Flag(TooManyVotesReason, user);
-            //}
+
         }
 
         public virtual void MakePublic()
@@ -165,5 +161,10 @@ namespace Cloudents.Core.Entities
             TimeStamp.UpdateTime = DateTime.UtcNow;
 
         }
+
+        public virtual DocumentType? DocumentType { get; set; }
+
+        //This is only for video
+        public virtual TimeSpan? Duration { get; set; }
     }
 }

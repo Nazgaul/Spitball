@@ -132,27 +132,15 @@
   <data name="online_tutor" xml:space="preserve">
     <value>Get online tutoring and all the study  materials to master your studies</value>
   </data>
-  <data name="see_all" xml:space="preserve">
-    <value>See All</value>
-  </data>
   <data name="student_learn" xml:space="preserve">
     <value>Students learn from students</value>
-  </data>
-  <data name="student_uploaded" xml:space="preserve">
-    <value>Uploaded by a student</value>
-  </data>
-  <data name="student_views_documents" xml:space="preserve">
-    <value>View all uploaded documents</value>
   </data>
   <data name="table_course" xml:space="preserve">
     <value>Course:</value>
     <comment>Duplicate</comment>
   </data>
-  <data name="table_type" xml:space="preserve">
-    <value>Type:</value>
-  </data>
   <data name="table_university" xml:space="preserve">
-    <value>University:</value>
+    <value>School:</value>
   </data>
   <data name="table_uploaded" xml:space="preserve">
     <value>Uploaded by:</value>
@@ -165,5 +153,8 @@
   </data>
   <data name="unlock_document_unregister" xml:space="preserve">
     <value>To unlock this document, please register</value>
+  </data>
+  <data name="unlock_video" xml:space="preserve">
+    <value>You are watching a 30 sec. preview.&lt;br&gt;Credit the uploader with points to unlock the full movie</value>
   </data>
 </root>

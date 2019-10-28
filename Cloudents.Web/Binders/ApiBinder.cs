@@ -33,6 +33,13 @@ namespace Cloudents.Web.Binders
                 return new BinderTypeModelBinder(typeof(NullableEnumEntityBinder));
             }
 
+            if (context.Metadata.ModelType == typeof(DateTime) ||
+                context.Metadata.ModelType == typeof(DateTime?))
+            {
+                return new BinderTypeModelBinder(typeof(DateTimeModelBinder));
+
+            }
+
             //if (context.Metadata.ModelType == typeof(string))
             //{
             //this cause problem

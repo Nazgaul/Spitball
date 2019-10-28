@@ -36,10 +36,7 @@ namespace Cloudents.Web.Controllers
 
         [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true), SignInWithToken]
         [ApiNotFoundFilter]
-        //[Route("", Name = RootRoute)]
         public IActionResult Index(
-            [FromServices] Lazy<ICrawlerResolver> crawlerResolver,
-            [FromHeader(Name = "User-Agent")] string userAgent,
             [FromQuery, CanBeNull] string referral,
             [FromQuery] string open
             )
@@ -47,22 +44,6 @@ namespace Cloudents.Web.Controllers
             if (!string.IsNullOrEmpty(referral))
             {
                 TempData[Referral] = referral;
-            }
-
-            try
-            {
-                if (crawlerResolver.Value.Crawler?.Type == CrawlerType.LinkedIn)
-                {
-                    ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
-                }
-            }
-            catch (Exception ex)
-            {
-
-                _logger.Exception(ex, new Dictionary<string, string>()
-                {
-                    ["userAgent"] = userAgent
-                });
             }
 
             if (_signInManager.IsSignedIn(User))
@@ -122,8 +103,9 @@ namespace Cloudents.Web.Controllers
                 $"{configuration["functionCdnEndpoint"]}/api/image/{hash}{val}");
         }
 
-
-        [Route("PaymentProcessing", Name = "ReturnUrl")]
+        internal const string PaymeCallbackRouteName = "ReturnUrl";
+        internal const string PaymeCallbackRouteName2 = "ReturnUrl2";
+        [Route("PaymentProcessing", Name = PaymeCallbackRouteName)]
         public async Task<IActionResult> Processing( PaymeSuccessCallback model,
             [FromServices] ICommandBus commandBus,
             [FromServices] TelemetryClient logger,
@@ -143,11 +125,25 @@ namespace Cloudents.Web.Controllers
             return View("Processing", model);
         }
 
-        public IActionResult GoogleTest()
+
+        [Route("PaymentProcessing2", Name = PaymeCallbackRouteName2)]
+        public async Task<IActionResult> BuyTokensProcessing(PaymeSuccessCallback model,[FromQuery]int points,
+            [FromServices] ICommandBus commandBus,
+            [FromServices] TelemetryClient logger,
+            CancellationToken token)
         {
-            return View();
+            if (model.Status.Equals("success", StringComparison.OrdinalIgnoreCase))
+            {
+                var command = new TransferMoneyToPointsCommand(model.UserId, points, model.TransactionId);
+                await commandBus.DispatchAsync(command, token);
+            }
+            else
+            {
+                var values = Request.Form.ToDictionary(s => s.Key, x => x.Value.ToString());
+                values.Add("userId", model.UserId.ToString());
+                logger.TrackTrace("Credit Card Process Failed", values);
+            }
+            return View("Processing", model);
         }
-
-
     }
 }
