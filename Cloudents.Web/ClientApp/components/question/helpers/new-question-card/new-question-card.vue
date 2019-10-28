@@ -31,10 +31,10 @@
             <div class="question-body-container">
                 <div class="question-right-body-container">
                     <v-layout align-center justify-start class="question-body-header-container">
-                        <div class="question-subject" v-line-clamp:18="'1'">{{cardData.course}}</div>
+                        <div class="question-subject">{{cardData.course}}</div>
                         <div v-show="!!cardData.course && !!cardData.subject" class="question-course"> 
                             <span class="dot"></span>  
-                            <span v-line-clamp:18="'1'">{{cardData.subject}}</span>
+                            <span class="lineClamp">{{cardData.subject}}</span>
                         </div>
                     </v-layout>
                     <div class="question-body-content-container mt-2 mb-3" :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`, {'question-ellipsis': $route.name === 'feed'}]">
