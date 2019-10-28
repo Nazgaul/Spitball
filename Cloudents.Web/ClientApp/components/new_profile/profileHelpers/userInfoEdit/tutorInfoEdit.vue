@@ -24,7 +24,7 @@
                         </v-flex>
                     </v-layout>
                 </v-flex>
-                <v-flex xs12 sm4  :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
+                <v-flex xs12 sm4 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
                     <v-layout column>
                         <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 pl-2" grow>
                             <span class="subtitle" style="visibility: hidden">hidden</span>
@@ -40,21 +40,21 @@
                         </v-flex>
                     </v-layout>
                 </v-flex>
-                <v-flex xs12 sm4  :class="{'mt-4': $vuetify.breakpoint.xsOnly}">
+                <v-flex xs12 sm4 :class="{'mt-4': $vuetify.breakpoint.xsOnly}" v-if="!isFrymo">
                     <v-layout column>
                         <v-flex xs12 sm6  class="mb-2 pl-2">
                             <span class="subtitle" v-language:inner>profile_pricing</span>
                         </v-flex>
                         <v-flex>
                             <v-text-field 
-                                          :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
-                                          :label="priceLabel"
-                                          v-model="price"
-                                          outline
-                                          :prefix="accountUser.currencySymbol"
-                                          class="tutor-edit-pricing"
-                                          type="number"
-                                          :hide-details="$vuetify.breakpoint.xsOnly"
+                                        :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
+                                        :label="priceLabel"
+                                        v-model="price"
+                                        outline
+                                        :prefix="accountUser.currencySymbol"
+                                        class="tutor-edit-pricing"
+                                        type="number"
+                                        :hide-details="$vuetify.breakpoint.xsOnly"
                             ></v-text-field>
                         </v-flex>
                     </v-layout>
@@ -148,7 +148,7 @@
             },
         },
         computed: {
-            ...mapGetters(['getProfile','accountUser']),
+            ...mapGetters(['getProfile','accountUser', 'isFrymo']),
             bio: {
                 get() {
                     return this.getProfile.about.bio;

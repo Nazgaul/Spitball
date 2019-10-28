@@ -6,10 +6,10 @@ namespace Cloudents.Web.Binders
 {
     public class CountryModelBinder : IModelBinder
     {
-        private readonly ICountryProvider _ipToLocation;
+        private readonly ICountryService _ipToLocation;
 
 
-        public CountryModelBinder(ICountryProvider ipToLocation)
+        public CountryModelBinder(ICountryService ipToLocation)
         {
             _ipToLocation = ipToLocation;
         }

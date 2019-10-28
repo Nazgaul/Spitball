@@ -150,7 +150,7 @@
   <data name="Tokens" xml:space="preserve">
     <value>נקודות</value>
   </data>
-  <data name="Total" xml:space="preserve">
+  <data name="total" xml:space="preserve">
     <value>סך הכל</value>
   </data>
   <data name="Transaction" xml:space="preserve">
@@ -167,5 +167,14 @@
   </data>
   <data name="you_have_redeemable_sbl" xml:space="preserve">
     <value>שניתן לפדות אותן</value>
+  </data>
+  <data name="earned" xml:space="preserve">
+    <value>הכנסה</value>
+  </data>
+  <data name="spent" xml:space="preserve">
+    <value>הוצאה</value>
+  </data>
+  <data name="stake" xml:space="preserve">
+    <value>במשמורת</value>
   </data>
 </root>

@@ -16,10 +16,10 @@ namespace Cloudents.Web.Binders
     public class ProfileModelBinder : IModelBinder
     {
         private readonly IQueryBus _queryBus;
-        private readonly ICountryProvider _countryProvider;
+        private readonly ICountryService _countryProvider;
         private readonly UserManager<User> _userManager;
 
-        public ProfileModelBinder(IQueryBus queryBus, ICountryProvider countryProvider, UserManager<User> userManager)
+        public ProfileModelBinder(IQueryBus queryBus, ICountryService countryProvider, UserManager<User> userManager)
         {
             _queryBus = queryBus;
             _countryProvider = countryProvider;

@@ -42,7 +42,7 @@
                                 :placeholder="placeLastName" 
                                 :label="placeLastName"/>
                         </v-flex>
-                        <v-flex xs12 class="mt-2 first-selects">
+                        <v-flex xs12 class="mt-2 first-selects" v-if="!isFrymo">
                             <v-text-field 
                                 class="font-weight-bold price-input"
                                 :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
@@ -116,7 +116,7 @@
             };
         },
         computed: {
-            ...mapGetters(['becomeTutorData', 'accountUser']),
+            ...mapGetters(['becomeTutorData', 'accountUser', 'isFrymo']),
             btnDisabled() {
                 return false
                 // return !this.firstName || !this.lastName || !this.price || !this.imageExists;

@@ -10,14 +10,14 @@ using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFacto
 
 namespace Cloudents.Web.Services
 {
-    public class CountryProvider : ICountryProvider
+    public class CountryService : ICountryService
     {
         private readonly IIpToLocation _ipToLocation;
         private readonly IHttpContextAccessor _httpContext;
         private readonly ILogger _logger;
         private readonly ConfigurationService _configurationService;
 
-        public CountryProvider(IIpToLocation ipToLocation, IHttpContextAccessor httpContext,
+        public CountryService(IIpToLocation ipToLocation, IHttpContextAccessor httpContext,
             ILogger logger, ConfigurationService configurationService)
         {
             _ipToLocation = ipToLocation;
@@ -78,7 +78,9 @@ namespace Cloudents.Web.Services
 
     }
 
-    public interface ICountryProvider
+  
+
+    public interface ICountryService
     {
         Task<string> GetUserCountryAsync(CancellationToken token);
     }

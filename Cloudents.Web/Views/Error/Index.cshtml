@@ -1,11 +1,19 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Cloudents.Web.Services
+
 @inject IViewLocalizer Localizer
+@inject ConfigurationService VersionService
+@{
+    var image = VersionService.GetSiteName() == ConfigurationService.Site.Frymo ? "frymo-logo" : "logo-spitball";
+    var location = $"~/Images/{image}.svg";
+}
+
 @section styleSection {
     <link rel="stylesheet" href="~/Content/ErrorPages/css/error.css">
 }
 <div class="error-page-500">
     <div class="header">
-        <img src="~/Images/logo-spitball.svg" alt="Page not found">
+        <img src="@Url.Content(location)" alt="Page not found">
     </div>
     <div class="error-content">
 
@@ -16,10 +24,10 @@
             <h2>
                 <span class="num">@Localizer["Oops!"]</span>
                 <span class="text">@Localizer["Something went wrong"]</span>
-</h2>
+            </h2>
 
             <a href="/">@Localizer["Return To home page"]</a>
-</div>
+        </div>
     </div>
 </div>
 

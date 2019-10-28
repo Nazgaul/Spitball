@@ -30,7 +30,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<SbJsonSerializer>().As<IJsonSerializer>();
             builder.RegisterType<MailProvider>().As<IMailProvider>();
             builder.RegisterType<TwilioProvider>().AsSelf().As<ISmsProvider>().As<IVideoProvider>().SingleInstance();
-
+            builder.RegisterType<CountryProvider>().As<ICountryProvider>();
         }
     }
 }

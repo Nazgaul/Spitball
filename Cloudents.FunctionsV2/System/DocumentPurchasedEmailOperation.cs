@@ -17,7 +17,6 @@ using Cloudents.Core.Extension;
 
 namespace Cloudents.FunctionsV2.System
 {
-
     public class DocumentPurchasedEmailOperation : ISystemOperation<DocumentPurchasedMessage>
     {
         private readonly IQueryBus _queryBus;
@@ -65,8 +64,8 @@ namespace Cloudents.FunctionsV2.System
 
         }
 
-        public static async Task<EmailObjectDto> GetEmail(string @event, 
-            Language language,IQueryBus queryBus, CancellationToken token)
+        private static async Task<EmailObjectDto> GetEmail(string @event,
+            Language language, IQueryBus queryBus, CancellationToken token)
         {
 
             var query = new GetEmailByEventQuery(@event);
@@ -77,7 +76,7 @@ namespace Cloudents.FunctionsV2.System
                 return null;
             }
 
-            
+
             CultureInfo info = language;
             var emailObjects = template2.ToList();
             while (info != null)
@@ -95,12 +94,12 @@ namespace Cloudents.FunctionsV2.System
                 info = info.Parent;
             }
 
-            var z = (CultureInfo) Language.English;
+            var z = (CultureInfo)Language.English;
             var template = emailObjects.FirstOrDefault(f => f.CultureInfo.Equals(z));
             return template;
         }
 
-        public static async Task BuildEmail(string toAddress, Language language, IBinder binder,
+        private static async Task BuildEmail(string toAddress, Language language, IBinder binder,
             TemplateData templateData,
             string category,
             CancellationToken token)
@@ -142,9 +141,5 @@ namespace Cloudents.FunctionsV2.System
             message.AddTo(toAddress);
             await emailProvider.AddAsync(message, token);
         }
-
-
-
     }
-
 }

@@ -31,24 +31,11 @@ namespace Cloudents.Infrastructure.Storage
 
 
 
-        //private Task InsertQueueMessageAsync(string queue, object obj, CancellationToken token)
-        //{
-            
-        //     var queueClient = _queueClients.GetOrAdd(queue, x => new QueueClient(_connectionString, x));
-
-        //    var json = JsonConvert.SerializeObject(obj);
-
-        //    token.ThrowIfCancellationRequested();
-        //    return queueClient.SendAsync(new Message
-        //    {
-        //        Body = Encoding.UTF8.GetBytes(json),
-        //        ContentType = "application/json",
-        //    });
-        //}
 
         public Task InsertMessageAsync(SmsMessage message, CancellationToken token)
         {
-            var topicClient = _topicClients.GetOrAdd("communication", x => new TopicClient(_connectionString, x));
+            var topicClient = _topicClients.GetOrAdd("communication", 
+                x => new TopicClient(_connectionString, x));
 
             var json = JsonConvert.SerializeObject(message);
 

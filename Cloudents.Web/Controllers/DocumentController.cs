@@ -125,7 +125,7 @@ namespace Cloudents.Web.Controllers
             }
 
             ViewBag.title = _localizer["Title", model.CourseName, model.Name];
-            ViewBag.metaDescription = _localizer["Description",model.CourseName,model.UniversityName];
+            ViewBag.metaDescription = _localizer["Description",model.CourseName];
             return View();
         }
 

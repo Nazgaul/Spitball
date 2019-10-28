@@ -52,6 +52,7 @@ and q.Created > @Since
 ) t
 on u.UniversityId2 = t.UniversityId and t.CourseName  = uc.CourseId
 where u.EmailConfirmed = 1
+and u.country = 'IL'
 --Temp for now of emails
 and u.LastOnline > getUtcDate()-14
 order by id

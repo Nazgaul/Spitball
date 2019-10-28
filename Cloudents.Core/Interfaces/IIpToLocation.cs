@@ -11,4 +11,13 @@ namespace Cloudents.Core.Interfaces
         [ItemCanBeNull]
         Task<Location> GetAsync(IPAddress ipAddress, CancellationToken token);
     }
+
+    public interface ICountryProvider
+    {
+        string GetCallingCode(string countryCode);
+
+        decimal ConvertPointsToLocalCurrency(string countryCode, decimal points);
+        string ConvertPointsToLocalCurrencyWithSymbol(string countryCode, decimal points);
+        string ConvertToLocalCurrencyWithSymbol(string countryCode, decimal price);
+    }
 }

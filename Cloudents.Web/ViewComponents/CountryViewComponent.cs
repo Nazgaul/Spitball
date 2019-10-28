@@ -8,9 +8,9 @@ namespace Cloudents.Web.ViewComponents
     [ViewComponent(Name = "Country")]
     public class CountryViewComponent : ViewComponent
     {
-        private readonly ICountryProvider _countryProvider;
+        private readonly ICountryService _countryProvider;
 
-        public CountryViewComponent(ICountryProvider countryProvider)
+        public CountryViewComponent(ICountryService countryProvider)
         {
             _countryProvider = countryProvider;
         }
