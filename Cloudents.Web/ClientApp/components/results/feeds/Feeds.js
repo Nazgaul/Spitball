@@ -148,7 +148,6 @@ export default {
             'setFilteredCourses',
             'cleanData',
             'updateLoginDialogState',
-            'updateUserProfileData',
             'updateNewQuestionDialogState',
             'Feeds_nextPage',
             'analyticsService',
@@ -163,8 +162,6 @@ export default {
         goToAskQuestion(){
              if(this.accountUser == null){
                 this.updateLoginDialogState(true);
-                //user profile update
-                this.updateUserProfileData('profileHWH')
             }else{
                 //ab test original do not delete
                  this.updateNewQuestionDialogState(true);

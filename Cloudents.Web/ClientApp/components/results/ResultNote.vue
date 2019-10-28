@@ -51,7 +51,7 @@
               </div>
               <v-divider v-if="item.snippet" class="my-2"></v-divider>
               <div class="doc-snippet" v-if="item.snippet">
-                <span v-line-clamp="2">{{item.snippet}}</span>
+                <span class="doc-snippet-span">{{item.snippet}}</span>
               </div>
             </v-flex>
           </div>
@@ -108,7 +108,6 @@
             <span
               class="change-title"
               style="max-width: 150px;"
-              v-line-clamp="1"
             >&nbsp;"{{item.title}}"</span>
           </div>
           <div class="input-wrap row align-center justify-center">

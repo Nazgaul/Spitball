@@ -10,7 +10,7 @@
      <div class="tutor-carousel-slider-container" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
       <div v-for="(card, index) in cards" :key="index" class="tutor-carousel-card">
             <div class="tutor-carousel-card-top pb-4">
-              <p v-line-clamp:16="'3'">{{card.text}}</p>
+              <p>{{card.text}}</p>
               <img :src="getImgUrl(card.image)" v-show="card.image"/>
             </div>
             <div class="tutor-carousel-card-bottom">
@@ -183,6 +183,7 @@ export default {
               @media (max-width: @screen-sm) {
                 padding-right: 15px;
               }
+              .giveMeEllipsis(3,16)
             }
             img {
               border-radius: 50%;

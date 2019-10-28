@@ -13,7 +13,7 @@
                     <template v-else>{{name}}</template>
                 <slot></slot>
                 </span>
-                        <span class="name" v-line-clamp="1">{{user.name}}</span>
+                        <span class="name">{{user.name}}</span>
                         <p class="last-msg" v-if="text">{{text}}</p>
                         <p class="university" v-if="user.universityName">{{user.universityName}}</p>
                     </div>

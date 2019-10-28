@@ -76,7 +76,6 @@
             ...mapActions([
                               'updateNewQuestionDialogState',
                               'updateLoginDialogState',
-                              'updateUserProfileData',
                               'setReturnToUpload',
                               'updateDialogState',
                               'updateRequestDialog',
@@ -86,8 +85,6 @@
                 // analyticsService.sb_unitedEvent('Action Box', 'Request_T', `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
                 if(this.accountUser == null) {
                     this.updateLoginDialogState(true);
-                    //set user profile
-                    this.updateUserProfileData('profileHWH');
                 } else {
                     this.updateNewQuestionDialogState(true);
                 }

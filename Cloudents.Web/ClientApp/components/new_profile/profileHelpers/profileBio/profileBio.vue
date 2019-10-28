@@ -25,10 +25,10 @@
                       v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
                       class="face-icon mr-2"
                     >sbf-face-icon</v-icon>
-                    <h1 v-line-clamp:22="'1'"
-                      class="subheading font-weight-bold"
+                    <h1 
+                      class="subheading font-weight-bold lineClamp"
                       :style="[{wordBreak: 'break-all'},{maxWidth: $vuetify.breakpoint.xsOnly? '180px':'inherit'}]"
-                    >{{userName}}</h1>
+                    >{{userName}}sdfsdf sdfsdfsdf sdfs fsdf sdfsdf sdfkljsdklfjskdlfj skldjfkls djflksd jflkjsdlk fjsdklf</h1>
                     <v-icon
                       @click="openEditInfo()"
                       v-if="$vuetify.breakpoint.xsOnly && isMyProfile"
@@ -240,6 +240,9 @@ export default {
     .face-icon {
       font-size: 18px;
       color: @global-purple;
+    }
+    .lineClamp{
+      .lineClamp()
     }
   }
   .tutor-price {

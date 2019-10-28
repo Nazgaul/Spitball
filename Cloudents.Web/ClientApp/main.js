@@ -7,7 +7,6 @@ import { LanguageService } from './services/language/languageService';
 //import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
 // clip board copy text
 import VueClipboard from 'vue-clipboard2';
-import lineClamp from 'vue-line-clamp';
 import Scroll from "vuetify/es5/directives/scroll";
 import Touch from "vuetify/es5/directives/touch";
 import scrollComponent from './components/helpers/infinateScroll.vue';
@@ -151,7 +150,7 @@ const router = new VueRouter({
 });
 
 Vue.use(VueClipboard);
-Vue.use(lineClamp, {});
+// Vue.use(lineClamp, {});
 Vue.use(VueNumeric);
 Vue.use(VLazyImagePlugin);
 Vue.use(VueAnalytics, {

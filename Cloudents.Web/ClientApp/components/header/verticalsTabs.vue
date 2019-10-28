@@ -96,7 +96,7 @@
         },
         methods: {
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
-            ...mapActions(['updateLoginDialogState', 'updateUserProfileData', 'updateNewQuestionDialogState','toggleShowSchoolBlock']),
+            ...mapActions(['updateLoginDialogState', 'updateNewQuestionDialogState','toggleShowSchoolBlock']),
             setNavigationDrawerState(){
                  this.toggleShowSchoolBlock()
             },
