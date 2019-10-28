@@ -1,12 +1,12 @@
 <template>
     <div :class="{'pr-2 pl-2': isMobile, 'hide-header': hideHeader}">
-    <v-flex class="information-box" v-show="showInformationBlock">
+    <!-- <v-flex class="information-box" v-show="showInformationBlock">
         <div :class="{'information-box-mobile-wrap': isMobile}">
             <v-icon v-show="isMobile" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
             <span v-if="accountUser" class="information-box-text" :class="{'mobile': isMobile}">{{informationBlockText}}</span>
         </div>
-    </v-flex>    
-    <v-flex class="line verticals static-card-what-is-hw-question">
+    </v-flex> -->
+    <!-- <v-flex class="line verticals static-card-what-is-hw-question">
         <v-layout row >
             <v-tabs hide-slider :dir="this.$vuetify.breakpoint.xsOnly && isRtl ? `ltr` : ''" v-model="currentVertical" :value="currentVertical" :scrollable="true">
                     <v-tab v-for="tab in verticals" :ripple="false" :key="tab.id" :href="tab.id" :id="tab.id"
@@ -18,7 +18,7 @@
                     <v-tabs-slider :color="`color-${currentVertical}`"></v-tabs-slider>
             </v-tabs>
         </v-layout>
-    </v-flex>
+    </v-flex> -->
 
     </div>
 </template>

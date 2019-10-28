@@ -13,7 +13,7 @@ namespace Cloudents.Core.DTOs
         public string Text { get; set; }
 
         public string Course { get; set; }
-        public long UserId { get; set; }
+        public QuestionUserDto User { get; set; }
         public IEnumerable<QuestionDetailAnswerDto> Answers { get; set; }
 
         public DateTime Create { get; set; }

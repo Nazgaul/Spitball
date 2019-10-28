@@ -145,7 +145,11 @@
                         self.answerRemoved(this.answerDelData);
                     }
                     self.closeReportPop()
+<<<<<<< HEAD
+                    // if(this.$route.name === 'document') this.$router.push('/note')
+=======
                     if(this.$route.name === 'question') this.$router.push('/feed');
+>>>>>>> origin/develop
                 })
 
             },

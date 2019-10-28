@@ -9,6 +9,7 @@
     public enum FeedType
     {
         Document,
-        Question
+        Question,
+        Tutor
     }
 }

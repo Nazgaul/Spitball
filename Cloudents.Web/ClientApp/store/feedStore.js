@@ -7,12 +7,14 @@ const state = {
     items: {},
     itemsSkeleton: skeletonData.ask,
     dataLoaded: false,
+    tutors: [],
 }
 
 const getters = {
     Feeds_getItems: (state, {getIsLoading, getSearchLoading}) => {
         return (getIsLoading || getSearchLoading) ? state.itemsSkeleton : state.items.data
     },
+    Feeds_getTutors: (state) => state.tutors,
     Feeds_getNextPageUrl: (state) =>  state.items.nextPage,
     Feeds_getShowQuestionToaster: (state) => !!state.queItems ? state.queItems.length > 0 : false,
     Feeds_isDataLoaded: (state) => state.dataLoaded,
@@ -28,6 +30,9 @@ const mutations = {
     Feeds_UpdateItems(state, data) {
         state.items.data = state.items.data.concat(data.data);
         state.items.nextPage = data.nextPage;
+    },
+    Feeds_UpdateTutors(state, data) {
+        state.tutors = data;
     },
     Feeds_ResetQue(state) {
         state.queItems = [];
@@ -104,6 +109,7 @@ const actions = {
             commit('Feeds_ResetQue');
             let paramsList = {...state.search, ...params, page};
             return searchService.activateFunction[name](paramsList).then((data) => {
+                // dispatch('Feeds_getTutors');
                 update(data);
                 dispatch('Feeds_setDataItems', data);
                 return data;
@@ -119,6 +125,14 @@ const actions = {
             dispatch('Feeds_updateDataLoaded', true);
         }
     },
+    // Feeds_getTutors({ commit }, courseName) {
+    //     searchService.activateFunction.tutor().then(res => {
+    //         console.log(res);
+    //         commit('Feeds_UpdateTutors', res.data);
+    //     }).catch(ex => {
+    //         return [];
+    //     })
+    // },
     addQuestionItemAction({commit, getters}, notificationQuestionObject) {
         let questionToSend = {
             user: getters.accountUser,

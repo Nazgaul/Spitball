@@ -14,6 +14,8 @@ namespace Cloudents.Core.DTOs
 
     public class DocumentFeedDto : FeedDto
     {
+        [EntityBind(nameof(Document.Id))]
+        public long Id { get; set; }
         private TimeSpan? _duration;
         public override FeedType Type => FeedType.Document;
         public string University { get; set; }

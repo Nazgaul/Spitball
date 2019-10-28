@@ -23,7 +23,7 @@ namespace Cloudents.Infrastructure.Search.Document
             _queryBus = queryBus;
         }
 
-        public async Task<IEnumerable<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
+        public async Task<IEnumerable<FeedDto>> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken token)
         {
 

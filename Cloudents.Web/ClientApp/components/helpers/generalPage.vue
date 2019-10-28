@@ -1,19 +1,19 @@
 <template functional>
     <div style="height: 100%;">
         <!-- <slot name="soonComponent"></slot> -->
-        <slot name="verticalTabs"></slot>
+        <!-- <slot name="verticalTabs"></slot> -->
         <div class="p-result">
             <v-container fluid class="pa-0 wrap">
-                <v-layout row>
+                <v-layout row class="p-result-layout">
                     <v-flex class="first-grid hidden-xs-only left-side-bar">
                         <slot name="sideBar">
                         </slot>
                     </v-flex>
-                    <v-layout class="main-section" row>
+                    <v-layout class="main-section" row :class="{'justify-center': props.mdAndDown}">
                         <v-flex class="sec-result" :class="[props.name ==='tutor' ? 'tutor-result'  : '']">
                             <slot name="main"></slot>
                         </v-flex>
-                        <v-flex :class="['side-bar']" v-if="props.breakPointSideBar">
+                        <v-flex :class="['side-bar']" v-if="props.breakPointSideBar && props.name !== 'tutor'">
                             <slot name="rightSide"></slot>
                         </v-flex>
                     </v-layout>

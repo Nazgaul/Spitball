@@ -21,7 +21,7 @@ namespace Cloudents.Query
         public async Task<IEnumerable<QuestionFeedDto>> GetAsync(UserDataPagingByIdQuery query, CancellationToken token)
         {
             return await _session.Query<ViewQuestionWithFirstAnswer>()
-                .Where(w => w.UserId == query.Id)
+                .Where(w => w.User.Id == query.Id)
                 .OrderByDescending(o => o.Id)
 
                 .Select(s => new QuestionFeedDto
@@ -32,7 +32,13 @@ namespace Cloudents.Query
                     DateTime = s.DateTime,
                     CultureInfo = s.CultureInfo,
                     Course = s.Course,
-                    UserId = s.UserId,
+                    User = new QuestionUserDto()
+                    {
+                        Id = s.User.Id,
+                        Name = s.User.Name,
+                        Image = s.User.Image
+                    },
+                    //UserId = s.UserId,
                     FirstAnswer = s.Answer.UserId == null ? null : new AnswerFeedDto()
                     {
                         Text = s.Answer.Text,

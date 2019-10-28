@@ -28,14 +28,20 @@ namespace Cloudents.Core.EventHandler
             var dto = new QuestionFeedDto
             {
                 CultureInfo = eventMessage.Question.Language,
-               
+
                 Id = eventMessage.Question.Id,
                 // ReSharper disable once ConstantConditionalAccessQualifier this is later stuff - we still have null courses
                 Course = eventMessage.Question.Course?.Id,
                 Text = eventMessage.Question.Text,
                 Answers = 0,
                 DateTime = DateTime.UtcNow,
-                UserId = eventMessage.Question.User.Id
+                User = new QuestionUserDto()
+                {
+                    Id = eventMessage.Question.User.Id,
+                    Name = eventMessage.Question.User.Name,
+                    Image = eventMessage.Question.User.Image
+                }
+               // UserId = eventMessage.Question.User.Id
             };
 
             await _queueProvider.InsertMessageAsync(

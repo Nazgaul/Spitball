@@ -1,7 +1,5 @@
 ﻿import { connectivityModule } from "./connectivity.module"
 
-let currentVertical = 'item';
-
 const getFeeds = (params) => {
     return connectivityModule.http.get("/feed", { params });
 };
@@ -11,8 +9,6 @@ const getTutor = (params) => {
 };
 
 const getNextPage = ({ url, vertical }) => {
-    
-    currentVertical = vertical;
     return connectivityModule.http.get(url, { baseURL: "" });
 };
 
@@ -56,10 +52,12 @@ function QuestionItem(objInit) {
     this.type = objInit.type || 'Question';
     this.dateTime = objInit.dateTime || objInit.create;
     this.course = objInit.course || '';
-    this.template = "ask";
+    this.user = objInit.user || null;    
+    this.template = "result-ask";
     this.cultureInfo = objInit.cultureInfo || 'en';
     this.isRtl = objInit.isRtl;
     this.userId = objInit.userId || objInit.user.id;
+    this.user = objInit.user || null;    
     this.firstAnswer = objInit.firstAnswer ? createFirstAnswerItem(objInit.firstAnswer) : null;
     this.answers = objInit.answers !== undefined ? (typeof objInit.answers === "number" ? objInit.answers : objInit.answers.map(createAnswerItem)) : undefined;
     // if the question is younger then 1 minute then watching now will be 0
@@ -83,7 +81,7 @@ function TutorItem(objInit) {
     this.score = objInit.score || null;
     this.rating =  objInit.rate ? Number(objInit.rate.toFixed(2)): null;
     this.reviews = objInit.reviewsCount || 0;
-    this.template = 'tutor';
+    this.template = 'tutor-result-card';
     this.bio = objInit.bio || '';
     this.university = objInit.university || '';
     this.classes = objInit.classes || 0;
@@ -122,7 +120,7 @@ function DocumentItem(objInit) {
     this.url = objInit.url;
     this.user = objInit.user ? createDocumentItemUser(objInit.user) : '';
     this.views = objInit.views;
-    this.template = 'note'; //TODO remove this
+    this.template = 'result-note'; //TODO remove this
     this.price = objInit.price;
     this.isPurchased = objInit.isPurchased; //TODO: I never return this    
     this.votes = !!objInit.vote ? objInit.vote.votes : null;
@@ -152,12 +150,19 @@ let transferResultDocument = (data) => {
 /* Tutor Card Result */
 let transferResultTutor = (data) => {
     return (!data) ? [] : createTutorItem(data);
+    // if(!data.result) return { data: [] };
+    // return {
+    //     sort: data.sort,
+    //     filters: data.filters,
+    //     data: data.result.map(createTutorItem),
+    //     nextPage: data.nextPageLink
+    // };
 };
 
 const transferMap = {
     Question: (res) => transferResultQuestion(res),
     Document: (res) => transferResultDocument(res),
-    tutor: (res) => transferResultTutor(res)
+    Tutor: (res) => transferResultTutor(res)
 };
 
 let transferResult = ({data}) => {

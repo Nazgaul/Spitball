@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Cloudents.Core.Attributes;
+using Cloudents.Core.DTOs;
 
 namespace Cloudents.Core.Entities
 {
@@ -25,8 +26,8 @@ namespace Cloudents.Core.Entities
         public virtual CultureInfo CultureInfo { get; set; }
         [EntityBind(nameof(Question.Answers))]
         public virtual ViewQuestionAnswer Answer { get; set; }
-        [EntityBind(nameof(Question.User.Id))]
-        public virtual long UserId { get; set; }
+        [EntityBind(nameof(Question.User))]
+        public virtual UserDto User { get; set; }
     }
 
     public class ViewQuestionAnswer

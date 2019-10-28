@@ -13,7 +13,15 @@ namespace Cloudents.Persistence.Maps.Views
             Map(x => x.Answers);
             Map(x => x.DateTime);
             Map(x => x.CultureInfo);
-            Map(x => x.UserId);
+            //Map(x => x.UserId);
+            Component(x => x.User, z => 
+                { 
+                    z.Map(x => x.Id).Column("User_Id");
+                    z.Map(x => x.Name).Column("User_Name");
+                    z.Map(x => x.Score).Column("User_Score");
+                    z.Map(x => x.Image).Column("User_Image");
+                }
+            );
             Component(x => x.Answer, z =>
                 {
                     z.Map(x2 => x2.UserId).Column("Answer_UserId");

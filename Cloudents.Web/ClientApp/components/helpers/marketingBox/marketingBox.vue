@@ -55,7 +55,6 @@
                     component: 'marketingBox',
                     path: this.$route.path
                 });
-                this.$router.push({name: 'tutors'});
                 this.updateRequestDialog(true);
             }
         },

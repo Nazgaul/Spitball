@@ -15,7 +15,7 @@ import emptyStateCard from '../emptyStateCard/emptyStateCard.vue';
 import requestBox from '../../requestActions/requestActions.vue';
 import tutorResultCard from '../tutorCards/tutorResultCard/tutorResultCard.vue';
 import tutorResultCardMobile from '../tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
-import marketingBox from "../../helpers/marketingBox/marketingBox.vue";
+
 
 // SVG
 import emptyState from "../svg/no-match-icon.svg";
@@ -38,12 +38,11 @@ export default {
         emptyStateCard,
         requestBox,
         tutorResultCard,
-        tutorResultCardMobile,
-        marketingBox
+        tutorResultCardMobile
     },
     data() {
         return {
-            MAX_ITEMS: 20,
+            MAX_ITEMS: 19,
             pageData: '',
             filterObject: null,
             showFilters: false,
@@ -158,6 +157,7 @@ export default {
             'setFilteredCourses',
             'cleanData',
             'updateLoginDialogState',
+            'updateUserProfileData',
             'updateNewQuestionDialogState',
             'Feeds_nextPage',
             'analyticsService',
@@ -172,6 +172,8 @@ export default {
         goToAskQuestion(){
              if(this.accountUser == null){
                 this.updateLoginDialogState(true);
+                //user profile update
+                this.updateUserProfileData('profileHWH')
             }else{
                 //ab test original do not delete
                  this.updateNewQuestionDialogState(true);
@@ -180,7 +182,11 @@ export default {
         scrollFunc(){
             this.scrollBehaviour.isLoading = true;
             let nextPageUrl = this.Feeds_getNextPageUrl;
+<<<<<<< HEAD
             if(this.name !== this.pageData.vertical && this.pageData.data.length <= this.MAX_ITEMS) return;            
+=======
+            if(this.name !== this.pageData.vertical || this.pageData.data.length < this.MAX_ITEMS) return;            
+>>>>>>> origin/develop
             this.Feeds_nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
                 .then((res) => {
                     if (res.data && res.data.length) {
@@ -273,22 +279,11 @@ export default {
             });
             this.updateRequestDialog(true);
         },
-        setTemplate(template) {
-            if(template === 'tutor-result-card') {
-                if(this.$vuetify.breakpoint.xsOnly) {
-                    return 'tutor-result-card-mobile';
-                }
-            } else {
-                if(template === 'item') {
-                    return 'result-item';
-                }
-            }
-            return template;
-        }
     },
     created() {
         //register Feeds Store
         storeService.lazyRegisterModule(this.$store, 'feeds', feedStore);
+
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         

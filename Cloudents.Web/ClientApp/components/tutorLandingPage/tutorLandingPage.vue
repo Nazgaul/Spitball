@@ -239,7 +239,8 @@ export default {
         }
         .tutor-landing-card-container{
             margin: 0 auto;
-            // padding: 0 500px;
+            width: 100%;
+            max-width: 920px;
             @media (max-width: @screen-xs) {
                 margin: 0 8px;
                 padding: 0;

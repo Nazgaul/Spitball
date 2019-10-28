@@ -46,7 +46,7 @@ namespace Cloudents.Query.Documents
 
             public async Task<IEnumerable<FeedDto>> GetAsync(FeedAggregateQuery query, CancellationToken token)
             {
-
+                const int pageSize = 18;
                 const string sqlWithCourse = @"with cte as (
 select top 1 * from(select 1 as o, u2.Id as UniversityId, COALESCE(u2.country, u.country) as Country, u.id as userid
  from sb.[user] u
@@ -114,10 +114,14 @@ q.Language as CultureInfo
 ,x.Name as 'FirstAnswer.User.Name'
 ,x.Text as 'FirstAnswer.Text'
 ,x.Created as 'FirstAnswer.DateTime'
-,q.userid as UserId
+,u.Id as 'User.Id'
+,u.Name as 'User.Name'
+,u.Image as 'User.Image'
 ,'Question' as documentType for json path) JsonArray
 
 FROM sb.[Question] q
+join sb.[user] u
+	on q.UserId = u.Id
 join sb.University un on q.UniversityId = un.Id
 outer apply (
 select top 1 text, u.id, u.name, u.image, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
@@ -137,8 +141,8 @@ and q.State = 'Ok'
 order by
 case when R.UniversityId = cte.UniversityId then 3 else 0 end  +
 cast(1 as float)/ISNULL(nullif(DATEDIFF(minute, R.DateTime, GETUTCDATE()   ),0),1) desc
-OFFSET @page*20 ROWS
-FETCH NEXT 20 ROWS ONLY";
+OFFSET @page*@pageSize ROWS
+FETCH NEXT @pageSize ROWS ONLY";
                 const string sqlWithoutCourse = @"with cte as (
 select top 1 * from (select 1 as o, u2.Id as UniversityId, COALESCE(u2.country,u.country) as Country, u.id as userid
  from sb.[user] u
@@ -202,10 +206,14 @@ q.Language as CultureInfo
 ,x.Name as 'FirstAnswer.User.Name'
 ,x.Text as 'FirstAnswer.Text'
 ,x.Created as 'FirstAnswer.DateTime'
-,q.userid as UserId
+,u.Id as 'User.Id'
+,u.Name as 'User.Name'
+,u.Image as 'User.Image'
 ,'Question' as documentType for json path) JsonArray
 
 FROM sb.[Question] q
+join sb.[user] u
+	on q.UserId = u.Id
 join sb.University un on q.UniversityId = un.Id
 outer apply (
 select  top 1 text,u.id,u.name,u.image, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
@@ -225,8 +233,8 @@ order by
 case when R.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 4 else 0 end +
 case when R.UniversityId = cte.UniversityId then 3 else 0 end  +
 cast(1 as float)/ISNULL(nullif( DATEDIFF(minute, R.DateTime, GETUTCDATE()   ),0),1) desc
-OFFSET @page*20 ROWS
-FETCH NEXT 20 ROWS ONLY";
+OFFSET @page*@pageSize ROWS
+FETCH NEXT @pageSize ROWS ONLY";
 
 
                 var sql = query.Course == null ? sqlWithoutCourse : sqlWithCourse;
@@ -238,7 +246,8 @@ FETCH NEXT 20 ROWS ONLY";
                     query.Page,
                     query.UserId,
                     query.Country,
-                    query.Course
+                    query.Course,
+                    pageSize
 
                 }))
                 {

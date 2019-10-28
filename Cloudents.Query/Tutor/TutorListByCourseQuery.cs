@@ -12,12 +12,13 @@ namespace Cloudents.Query.Tutor
 {
     public class TutorListByCourseQuery : IQuery<IEnumerable<TutorCardDto>>
     {
-        public TutorListByCourseQuery(string courseId, long userId, string country, int count)
+        public TutorListByCourseQuery(string courseId, long userId, string country, int count, int page = 0)
         {
             CourseId = courseId;
             UserId = userId;
             Country = country;
             Count = count;
+            Page = page;
         }
 
 
@@ -33,6 +34,7 @@ namespace Cloudents.Query.Tutor
         private string Country { get; }
 
         private int Count { get; }
+        public int Page { get; set; }
 
         internal sealed class TutorListByCourseQueryHandler : IQueryHandler<TutorListByCourseQuery, IEnumerable<TutorCardDto>>
         {
@@ -121,7 +123,7 @@ namespace Cloudents.Query.Tutor
                 var tutors = await futureCourse.GetEnumerableAsync(token);
                 var tutors2 = await futureCourse2.GetEnumerableAsync(token);
 
-                return tutors.Union(tutors2).Take(query.Count)
+                return tutors.Union(tutors2).Skip(query.Page * query.Count).Take(query.Count)
                     .Distinct(TutorCardDto.UserIdComparer).ToList();
             }
         }
