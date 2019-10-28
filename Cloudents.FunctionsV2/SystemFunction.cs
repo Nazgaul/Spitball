@@ -30,8 +30,8 @@ namespace Cloudents.FunctionsV2
                 typeof(ISystemOperation<>).MakeGenericType(message.GetType());
             using (var child = lifetimeScope.BeginLifetimeScope())
             {
-                var binderTyped = new TypedParameter(typeof(IBinder), binder);
-                dynamic operation = child.Resolve(handlerType, binderTyped);
+                //var binderTyped = new TypedParameter(typeof(IBinder), binder);
+                dynamic operation = child.Resolve(handlerType);
                 await operation.DoOperationAsync((dynamic)message, binder, token);
             }
         }
