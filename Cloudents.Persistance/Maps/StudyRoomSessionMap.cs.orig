@@ -23,6 +23,7 @@ namespace Cloudents.Persistence.Maps
                .KeyColumn("SessionId")
                .Inverse();
             Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
+            SchemaAction.Update();
         }
     }
 }

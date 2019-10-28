@@ -48,8 +48,13 @@ namespace Cloudents.Core.Entities
             Ended = DateTime.UtcNow;
             Duration = Ended - Created;
             DurationInMinutes = Ended - Created;
+<<<<<<< HEAD
             Price = (decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60 * StudyRoom.Tutor.SubsidizedPrice;
+            AddEvent(new EndSessionEvent(StudyRoom.Tutor.Id));
+            return true;
+=======
             AddEvent(new EndStudyRoomSessionEvent(this));
+>>>>>>> origin/develop
         }
 
         public virtual void ReJoinStudyRoom()

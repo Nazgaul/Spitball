@@ -31,6 +31,7 @@ namespace Cloudents.Persistence.Repositories
                     s.Bio,
                     UniversityName = s.User.University.Name,
                     s.Price,
+                    s.SubsidizedPrice,
                     s.User.Country
                 }).ToFutureValue();
 
@@ -44,14 +45,10 @@ namespace Cloudents.Persistence.Repositories
                     SubjectName = s.Course.Subject.Name
                 }).ToFuture();
 
-            //var reviewsFutureValue = Session.Query<TutorReview>()
-            //    .Where(w => w.Tutor.Id == userId).GroupBy(g => g)
-            //    .Select(s => new { count = s.Count(), average = s.Average(x => x.Rate) })
-            //    .ToFutureValue();
             var query = from e in Session.Query<TutorReview>()
-                    where e.Tutor.Id == userId
+                        where e.Tutor.Id == userId
                         group e by 1 into grp
-                        select new 
+                        select new
                         {
                             Count = grp.Count(),
                             //Average is doing issue - doing average in c# 
@@ -89,16 +86,10 @@ namespace Cloudents.Persistence.Repositories
                 course.Where(w => !string.IsNullOrEmpty(w.SubjectName)).Select(s => s.SubjectName).Distinct(),
                 course.Select(s => s.CourseName),
                 tutor.Price, average, count, tutor.Bio, tutor.UniversityName,
-                lessons, tutor.Country);
+                lessons, tutor.Country, tutor.SubsidizedPrice);
 
 
             return readTutor;
         }
-
-        //public class Reviews
-        //{
-        //    public int Count { get; set; }
-        //    public float? Average { get; set; }
-        //}
     }
 }
