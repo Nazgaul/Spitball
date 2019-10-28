@@ -2,13 +2,15 @@ import userAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
 import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import reportItem from "../../../results/helpers/reportItem/reportItem.vue"
 import { LanguageService } from "../../../../services/language/languageService";
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex';
+import questionNote from './question-note.svg';
 
 export default {
     components: {
         sbDialog,
         reportItem,
         userAvatar,
+        questionNote,
     },
     data() {
         return {

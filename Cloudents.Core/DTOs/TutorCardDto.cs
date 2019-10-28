@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.DTOs
 {
-    public class TutorCardDto
+    public class TutorCardDto : FeedDto
     {
         public long UserId { get; set; }
         public string Name { get; set; }
@@ -15,7 +16,7 @@ namespace Cloudents.Core.DTOs
         public IEnumerable<string> Subjects { get; set; }
 
         public decimal TutorPrice { get; set; }
-
+        public override FeedType Type => FeedType.Tutor;
         public string TutorCountry
         {
             get => _tutorCountry;

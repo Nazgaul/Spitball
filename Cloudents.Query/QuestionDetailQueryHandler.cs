@@ -45,7 +45,12 @@ namespace Cloudents.Query
                     //CorrectAnswerId = s.CorrectAnswer.Id,
                     Create = s.Updated,
                     IsRtl = SetIsRtl(s.Language),
-                    UserId = s.User.Id
+                    User = new QuestionUserDto()
+                    { 
+                        Id = s.User.Id,
+                        Name = s.User.Name,
+                        Image = s.User.Image
+                    }
                 }
                
                 ).ToFutureValue();

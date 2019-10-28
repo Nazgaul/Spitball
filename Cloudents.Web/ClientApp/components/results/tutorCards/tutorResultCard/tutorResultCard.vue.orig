@@ -1,5 +1,5 @@
 <template>
-    <router-link class="tutor-result-card-desktop pa-3 row" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+    <router-link class="tutor-result-card-desktop pa-3 mb-3 row" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
 
         <v-flex row class="user-details">
             <user-avatar-rect 
@@ -10,7 +10,7 @@
               :width="148" 
               :height="182" />
             <div class="main-card justify-space-between">
-                <h3 class="font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+                <h3 class="title font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
                 <h4 class="mb-1 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
                 <div class="user-bio-wrapper">
                   <div class="user-bio mb-4">{{tutorData.bio}}</div>
@@ -21,7 +21,7 @@
                   <span class="text-truncate">{{subjects}}</span>
                 </div>
                 <div class="courses" v-if="isCourses">
-                  <span class="mr-2" v-language:inner="'resultTutor_courses'"></span>
+                  <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_courses'"></span>
                   <span class="text-truncate">{{courses}}</span> 
                 </div>
             </div>
@@ -30,39 +30,26 @@
         <v-divider vertical class="mx-3"></v-divider>
 
         <div class="user-rates">
-            <div class="price font-weight-bold mb-1">
-              <div class="user-rates-top">
-                <div class="striked" v-if="showStriked">{{tutorData.price}}</div>
-                <template>
-                    <!-- <span class="tutor-card-currency">&#8362;</span> -->
-                    <span v-if="showStriked" class="tutor-card-price font-weight-bold">{{discountedPrice}}</span>
-                    <span class="tutor-card-price font-weight-bold" v-else>{{tutorData.price}}</span>
-                </template>
-                <span class="caption">
-                  <span class="tutor-card-price-divider font-weight-bold">/</span>
-                  <span class="tutor-card-price-divider font-weight-bold" v-language:inner="'resultTutor_hour'"></span>
-                  <div v-if="!showStriked" class="price-default-height"></div>
-                </span>
-                <!-- <v-menu class="menu-area" lazy bottom left content-class="card-user-actions">
-                    <v-btn :depressed="true" @click.prevent slot="activator" icon>
-                    <v-icon>sbf-3-dot</v-icon>
-                    </v-btn>
-                    <v-list>
-                    <v-list-tile v-show="item.isVisible" class="report-list-item" :disabled="item.isDisabled" v-for="(item, i) in actions" :key="i">
-                        <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
-                    </v-list-tile>
-                    </v-list>
-                </v-menu> -->
-              </div>
+            <div class=" price font-weight-bold mb-1">
+              <template>
+                  <span v-if="tutorData.discountPrice" class="headline font-weight-bold">{{tutorData.discountPrice}}</span>
+                  <span class="headline font-weight-bold" v-else>{{tutorData.price}}</span>
+              </template>
+              <span class="caption">
+                /<span v-language:inner="'resultTutor_hour'"></span>
+                <!-- <div v-if="showStriked" class="price-default-height"></div> -->
+              </span>
+          
+              <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price}}</div>
             </div>
 
             <template>
-              <div class="user-rank align-center" v-if="isReviews">
-                <user-rating :rating="tutorData.rating" :showRateNumber="false" style="width: 20px;"/>
+              <div class="user-rank mt-3 mb-2 align-center" v-if="isReviews">
+                <user-rating :rating="tutorData.rating" :showRateNumber="false" />
                 <div class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
               </div>
-              <div v-else class="user-rank align-center">
-                <star class="user-rank-star"/>
+              <div v-else class="user-rank mt-3 mb-2 align-center">
+                <star/>
                 <span class="no-reviews font-weight-bold caption" v-language:inner="'resultTutor_no_reviews'"></span>
               </div>
             </template>
@@ -78,9 +65,9 @@
             </div>                
 
             <div class="send-btn">
-                <v-btn class="btn-chat white--text" depressed round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
-                  <iconChat class="chat-icon-btn" v-if="fromLandingPage" />
-                  <div class="" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
+                <v-btn class="btn-chat white--text" round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
+                  <iconChat class="chat-icon-btn" />
+                  <div class="font-weight-bold" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
                 </v-btn>
             </div>
         </div>
@@ -112,6 +99,7 @@ export default {
     return {
       minimumPrice: 55,
       discountAmount: 70,
+<<<<<<< HEAD
       isMounted: false,
       actions: [
         {
@@ -122,6 +110,9 @@ export default {
           icon: 'sbf-flag'
         }
       ],
+=======
+      isMounted: false
+>>>>>>> 07ac20fd8426e93eb4450fdfe63d942e22a4ceaf
     };
   },
   props: {
@@ -217,6 +208,7 @@ export default {
       }
       return false;
     },
+<<<<<<< HEAD
     isDisabled() {
       // let isOwner = this.cardOwner;
       // let account = this.accountUser;
@@ -232,6 +224,8 @@ export default {
       // }
       return false;
     },
+=======
+>>>>>>> 07ac20fd8426e93eb4450fdfe63d942e22a4ceaf
   },
   mounted(){
     this.isMounted = true;
@@ -246,7 +240,7 @@ export default {
 
   .tutor-result-card-desktop {
     .heightMinMax(214px);
-    border-radius: 8px;
+    border-radius: 4px;
     background: #fff;
     width: 100%;
     display: flex;
@@ -254,14 +248,13 @@ export default {
       color: @purple;
     }
     .user-details {
-      width: 0;
-      flex-grow: 5;
       display: flex;
+      .widthMinMax(600px);
       .main-card {
-        min-width: 0;
         h3{
           line-height: 1.1 !important;
         }
+        .widthMinMax(400px);
         display: flex;  
         flex-direction: column;
         .university-hidden {
@@ -272,6 +265,11 @@ export default {
           .user-bio {
             .giveMeEllipsis(3, 20px);
           }
+          // .read-more {
+          //   position: absolute;
+          //   bottom: 4px;
+          //   color: #4452fc;
+          // }
         }
         .study-area-hidden {
           visibility: hidden;
@@ -286,11 +284,13 @@ export default {
       flex-basis: auto;
     }
     .user-rates {
+      .widthMinMax(255px);
       display: flex;
       flex-direction: column;
       align-items: baseline;
       justify-content: space-between;
-      flex: 2;
+      flex: 1;
+      min-width: inherit;
       .striked {
         max-width: max-content;
         position: relative;
@@ -306,11 +306,11 @@ export default {
         }
       }
       .price {
+<<<<<<< HEAD
         width: 100%;
         display: flex;
         justify-content: flex-end;
         margin-top: -8px;
-        // padding-right: 26px;
         .user-rates-top {
           display: flex;
           align-items: baseline;
@@ -337,6 +337,8 @@ export default {
             }
           }
         }
+=======
+>>>>>>> 07ac20fd8426e93eb4450fdfe63d942e22a4ceaf
         .price-default-height {
           .heightMinMax(16px);
         }
@@ -349,7 +351,6 @@ export default {
         }
       }
       .user-rank {
-        margin-top: -12px;
         display: inline-flex;
         i{
           font-size: 20px !important;
@@ -361,21 +362,16 @@ export default {
           margin-left: 5px;
           color: #43425d;
         }
-        .user-rank-star {
-          width: 20px;
-        }
       }
       .send-btn {
         width: 100%;
         min-width: 100%;
         max-width: 0;
         .btn-chat {
-          font-weight: 600;
           position: relative;
           margin: 0 auto;
           text-transform: inherit;
           .v-btn__content {
-            margin-bottom: 4px;
             .chat-icon-btn{
               position: absolute;
               top: 0;

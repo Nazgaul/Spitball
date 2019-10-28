@@ -171,8 +171,8 @@ export default {
         this.updateFilter();
       }
     },
-    isOutsideNoteAsk(){
-        return this.$route.name !== 'ask' && this.$route.name !== 'note' && this.$route.name !== 'tutors'
+    isOutsideFeed(){
+        return this.$route.name !== 'feed';
     },
     updateFilter() {
       this.UPDATE_SEARCH_LOADING(true);
@@ -183,8 +183,8 @@ export default {
       if (this.selectedCourse === "") {
         delete newQueryObject.Course;
       }
-      if(this.isOutsideNoteAsk()){
-          this.$router.push({name: 'feed', query: newQueryObject });
+      if(this.isOutsideFeed()){
+          this.$router.push({path: '/feed', query: newQueryObject });
       }else{
           this.$router.push({ query: newQueryObject });
       }

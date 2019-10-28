@@ -12,17 +12,19 @@ namespace Cloudents.Query.Tutor
 {
     public class TutorListQuery : IQuery<IEnumerable<TutorCardDto>>
     {
-        public TutorListQuery(long userId, string country, int page)
+        public TutorListQuery(long userId, string country, int page, int pageSize = 20)
         {
             UserId = userId;
             Country = country;
             Page = page;
+            PageSize = pageSize;
         }
 
 
         private long UserId { get; }
         private string Country { get; }
         private int Page { get; }
+        public int PageSize { get; set; }
 
         internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, IEnumerable<TutorCardDto>>
         {
@@ -91,13 +93,13 @@ namespace Cloudents.Query.Tutor
                     listOfQueries.Add(withCountryOnlyDetachedQuery);
                 }
 
-                var futureResult = listOfQueries.Select(s => BuildSelectStatement(s, query.Page)).ToList();
+                var futureResult = listOfQueries.Select(s => BuildSelectStatement(s, query.Page, query.PageSize)).ToList();
 
-                IEnumerable<TutorCardDto> retVal = futureResult.Select(async s => await s.GetEnumerableAsync(token)).SelectMany(s => s.Result).Distinct(TutorCardDto.UserIdComparer).Take(20).ToList();
+                IEnumerable<TutorCardDto> retVal = futureResult.Select(async s => await s.GetEnumerableAsync(token)).SelectMany(s => s.Result).Distinct(TutorCardDto.UserIdComparer).Take(query.PageSize).ToList();
                 return Task.FromResult(retVal);
             }
 
-            private static IFutureEnumerable<TutorCardDto> BuildSelectStatement(IQueryOver<ReadTutor, ReadTutor> futureCourse, int page)
+            private static IFutureEnumerable<TutorCardDto> BuildSelectStatement(IQueryOver<ReadTutor, ReadTutor> futureCourse, int page, int pageSize)
             {
                 TutorCardDto tutorCardDtoAlias = null;
 
@@ -117,7 +119,7 @@ namespace Cloudents.Query.Tutor
 
                     .OrderBy(o => o.OverAllRating).Desc
                     .TransformUsing(Transformers.AliasToBean<TutorCardDto>())
-                    .Take(20).Skip(page * 20).Future<TutorCardDto>();
+                    .Take(pageSize).Skip(page * pageSize).Future<TutorCardDto>();
             }
         }
     }

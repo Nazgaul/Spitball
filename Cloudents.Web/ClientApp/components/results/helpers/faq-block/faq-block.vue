@@ -6,7 +6,7 @@
         <v-flex xs12 class="card-block">
             <marketing-box class="mb-3"></marketing-box>
             <!--<leaders-board ></leaders-board>-->
-            <tutorList></tutorList>
+            <!-- <tutorList></tutorList> -->
         </v-flex>
         <v-flex v-if="!!suggestList[name]" xs12 class="card-block mt-3">
         </v-flex>

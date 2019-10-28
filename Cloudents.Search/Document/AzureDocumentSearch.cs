@@ -98,7 +98,7 @@ namespace Cloudents.Search.Document
                 }
             }
 
-            const int pageSize = 20;
+            const int pageSize = 18;
             var searchParameter = new SearchParameters
             {
                 Filter = string.Join(" and ", filters),

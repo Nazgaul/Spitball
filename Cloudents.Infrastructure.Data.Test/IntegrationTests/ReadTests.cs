@@ -70,7 +70,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNullOrEmpty();
 
-            result.OfType<QuestionFeedDto>().Should().Contain(c => c.UserId > 0);
+            result.OfType<QuestionFeedDto>().Should().Contain(c => c.User.Id > 0);
             result.OfType<QuestionFeedDto>().Should().Contain(c => c.CultureInfo != null);
 
         }

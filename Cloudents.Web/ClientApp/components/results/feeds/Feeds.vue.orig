@@ -35,38 +35,44 @@
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                     <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-2' : 'pa-0'">
                         <v-layout column>
-                            <!-- <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
+                            <v-flex class="empty-filter-cell mb-2 elevation-1" order-xs1 v-if="showFilterNotApplied">
                                 <v-layout row align-center justify-space-between>
                                     <img src="../img/emptyFilter.png" alt=""/>
                                     <p class="mb-0" v-language:inner>result_filter_not_applied</p>
                                 </v-layout>
                                 <button @click="showFilterNotApplied=false" v-language:inner>result_ok</button>
-                            </v-flex> -->
+                            </v-flex>
                             <slot name="resultData" :items="items">                                
+<<<<<<< HEAD
                                 <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index"
-                                    :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
-                                        <component 
-                                            :id="index == 1 ? 'tour_vote' : ''"
-                                            :is="setTemplate(item.template)"
-                                            :item="item" 
-                                            :key="index"
-                                            :index="index"
-                                            :tutorData="item"
-                                            class="cell">
-                                        </component>
+=======
+                                <v-flex class="result-cell mb-2" xs-12 v-for="(item,index) in items" :key="index"
+>>>>>>> origin/develop
+                                        :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
+                                    <component :id="index == 1 ? 'tour_vote' : ''"
+                                               :is="'result-'+item.template"
+                                               :item="item" :key="index"
+                                               :index="index"
+                                               class="cell"></component>
                                 </v-flex>
+<<<<<<< HEAD
                                 <v-flex class="suggestCard result-cell mb-3 xs-12 order-xs4">
                                     <suggest-card :name="currentSuggest" @click.native="openRequestTutor()"></suggest-card>   
                                 </v-flex>
-                                <!-- <v-flex 
+                                <v-flex 
                                     v-for="(tutor, index) in getTutorList" 
                                     :key="tutor.id" 
                                     class="result-cell"
                                     :class="(index > 6 ? 'order-xs6' : index > 2 ? 'order-xs3' : 'order-xs2')"
                                     >
-                                    <tutor-result-card v-if="$vuetify.breakpoint.smAndUp" class="mb-3" :tutorData="tutor"></tutor-result-card>
-                                    <tutor-result-card-mobile v-else class="mb-3" :tutorData="tutor"/>
-                                </v-flex> -->
+                                    <tutor-result-card v-if="$vuetify.breakpoint.smAndUp" class="mb-3 " :tutorData="tutor"></tutor-result-card>
+                                    <tutor-result-card-mobile v-else class="mb-2 ma-0" :tutorData="tutor"/>
+                                </v-flex>
+=======
+                                <v-flex class="suggestCard result-cell mb-2 xs-12 order-xs4">
+                                    <suggest-card :name="currentSuggest" @click.native="openRequestTutor()"></suggest-card>   
+                                </v-flex>
+>>>>>>> origin/develop
                             </slot>
                         </v-layout>
                     </v-container>

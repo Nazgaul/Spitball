@@ -45,7 +45,13 @@ namespace Cloudents.Query
                     DateTime = s.view.DateTime,
                     CultureInfo = s.view.CultureInfo,
                     Course = s.view.Course,
-                    UserId = s.view.UserId,
+                    User = new QuestionUserDto()
+                    {
+                        Id = s.view.User.Id,
+                        Name = s.view.User.Name,
+                        Image = s.view.User.Image 
+                    },
+                   // UserId = s.view.UserId,
                     FirstAnswer = new AnswerFeedDto()
                     {
                         Text = s.view.Answer.Text,

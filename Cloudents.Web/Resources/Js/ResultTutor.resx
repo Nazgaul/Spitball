@@ -176,4 +176,7 @@
   <data name="hour_completed" xml:space="preserve">
     <value>Lesson completed</value>
   </data>
+  <data name="collecting_review" xml:space="preserve">
+    <value>Collecting reviews</value>
+  </data>
 </root>

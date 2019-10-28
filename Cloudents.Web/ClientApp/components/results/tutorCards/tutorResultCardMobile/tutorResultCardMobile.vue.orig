@@ -1,40 +1,44 @@
 <template>
-  <router-link class="tutor-result-card-mobile justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
-      <div class="card-mobile-header mb-2">
+<<<<<<< HEAD
+  <router-link class="tutor-result-card-mobile pa-2 pr-4 justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+=======
+  <router-link class="tutor-result-card-mobile pa-2 ma-2 justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+>>>>>>> origin/develop
+      <div class="card-mobile-header mb-4">
         <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
               <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
             </div>
           <img v-show="isLoaded" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
           <div>
-              <h3 class="text-truncate body-2 font-weight-bold" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+              <h3 class="text-truncate subheading font-weight-bold mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
               
-              <template>
-                <h4 class="text-truncate mb-1 font-weight-bold university" v-if="isUniversity">{{university}}</h4>
-                <h4 class="text-truncate mb-1 university" v-else></h4>
-              </template> 
-
               <template>
                   <div class="user-rate align-center" v-if="tutorData.reviews > 0">
                     <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="mr-2" />
                     <span class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
                   </div>
                   <div class="user-rate align-center" v-else>
-                    <star class="mr-1 icon-star" />
-                    <span class="reviews" v-html="$Ph(`resultTutor_collecting_review`, reviewsPlaceHolder(tutorData.reviews))"></span>
+                    <star class="mr-2" />
+                    <span class="reviews" v-html="$Ph(`resultTutor_no_reviews`, reviewsPlaceHolder(tutorData.reviews))"></span>
                   </div>
+              </template>
+
+              <template>
+                  <h4 class="text-truncate mb-1 font-weight-light university" v-if="isUniversity">{{university}}</h4>
+                  <h4 class="text-truncate mb-1 font-weight-light university" v-else></h4>
               </template>
               
               <div class="courses text-truncate">
-                  <div class="" v-language:inner="'resultTutor_courses'"></div>
-                  <div class="text-truncate">{{courses}}</div>
+                  <span class="font-weight-bold mr-1" v-language:inner="'resultTutor_courses'"></span>
+                  <span class="text-truncate">{{courses}}</span>
               </div>
           </div>
       </div>
 
       <div class="card-mobile-center" v-html="ellipsizeTextBox(tutorData.bio)">{{tutorData.bio}}</div>
 
-      <div class="card-mobile-footer">
-          <v-btn class="btn-chat white--text text-truncate my-0" depressed round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
+      <div class="card-mobile-footer mt-2">
+          <v-btn class="btn-chat white--text text-truncate my-0" round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
                 <iconChat class="chat-icon-btn" />
                 <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
@@ -203,7 +207,6 @@ export default {
 @purple: #43425d;
 
 .tutor-result-card-mobile {
-    padding: 12px;
     border-radius: 4px;
     background: #fff;
     display: flex;
@@ -225,29 +228,23 @@ export default {
         }
         .user-rate {
             display: inline-flex;
-            margin-top: 5px;
             .reviews {
                 font-size: 12px;
+                font-weight: bold;
                 letter-spacing: normal;
                 color: #43425d;
-            }
-            .icon-star {
-              width: 18px;
             }
         }
         .courses {
           .widthMinMax(200px);
-            font-size: 12px;
         }
         .university {
-          font-size: 12px;
           line-height: 30px;
           .heightMinMax(23px);
         }
     }
     .card-mobile-center {
-      margin-bottom: 12px;
-      line-height: 20px;
+      margin-bottom: 20px;
       .giveEllipsisUpdated(14px, 1.38, 2, 90px);
       // .heightMinMax(34px);
       .read-more {
@@ -266,9 +263,6 @@ export default {
               position: absolute;
               top: 0;
               left: 0;
-            }
-            :last-child {
-              margin-bottom: 2px;
             }
           }
           position: relative;

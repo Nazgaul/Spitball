@@ -8,7 +8,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IDocumentSearch
     {
-        Task<IEnumerable<DocumentFeedDto>> SearchDocumentsAsync(DocumentQuery query,
+        Task<IEnumerable<FeedDto>> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken cancelToken);
     }
   
