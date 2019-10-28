@@ -265,7 +265,6 @@ export default {
         },
         isSelected(date,time){
           if(date === this.selectedDate && time === this.selectedTime){
-            // debugger
             return true;
           }
         }

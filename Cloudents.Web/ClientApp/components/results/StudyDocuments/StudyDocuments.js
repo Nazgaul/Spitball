@@ -177,7 +177,6 @@ export default {
             'cleanData',
             'updateFilters',
             'updateLoginDialogState',
-            'updateUserProfileData',
             'updateNewQuestionDialogState',
             'updateDialogState',
             'StudyDocuments_nextPage',
@@ -189,8 +188,6 @@ export default {
         goToAskQuestion() {
             if (this.accountUser == null) {
                 this.updateLoginDialogState(true);
-                //user profile update
-                this.updateUserProfileData('profileHWH');
             } else {
                 //ab test original do not delete
                 this.updateNewQuestionDialogState(true);

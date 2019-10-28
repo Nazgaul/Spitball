@@ -9,7 +9,6 @@ export default {
     computed: {
         ...mapGetters({
             loginDialogState: 'loginDialogState',
-            profileData: 'getProfileData'
         })
     },
     methods: {

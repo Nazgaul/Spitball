@@ -6,15 +6,9 @@ import answerCard from "./../helpers/question-card/question-card.vue";
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
 import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue';
 import questionService from "../../../services/questionService";
-
 import disableForm from "../../mixins/submitDisableMixin.js";
-import { sendEventList } from '../../../services/signalR/signalREventSender';
 import analyticsService from '../../../services/analytics.service';
-import searchService from '../../../services/searchService';
 import { LanguageService } from "../../../services/language/languageService";
-import feedStore from '../../../store/feedStore';
-import Question from "../../../store/question";
-import storeService from "../../../services/store/storeService";
 
 export default {
     mixins: [disableForm],
@@ -30,7 +24,6 @@ export default {
             errorDuplicatedAnswer:'',
             answerFiles: [],
             errorLength:{},
-            //questionData: null,
             cardList: [],
             showForm: false,
             showDialogSuggestQuestion: false,
@@ -50,7 +43,6 @@ export default {
             "removeDeletedAnswer",
             "updateToasterParams",
             "updateLoginDialogState",
-            'updateUserProfileData',
             'setQuestion',
         ]),
         ...mapMutations({updateLoading: "UPDATE_LOADING", updateSearchLoading:'UPDATE_SEARCH_LOADING'}),
@@ -125,12 +117,11 @@ export default {
                 }
             });
         },
-        showAnswerField() {
+        showAnswerField() {            
             if (this.accountUser) {
                 this.showForm = true;
             }
             else {
-                this.updateUserProfileData('profileMakeMoney');
                 this.dialogType = '';
                 this.updateLoginDialogState(true);
             }

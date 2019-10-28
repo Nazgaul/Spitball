@@ -52,8 +52,7 @@
 
         },
         methods:{
-            ...mapActions(["updateLoginDialogState", 'updateUserProfileData',
-            ]),
+            ...mapActions(["updateLoginDialogState"]),
 
 
         },

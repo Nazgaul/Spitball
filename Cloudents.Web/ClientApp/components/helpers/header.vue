@@ -191,14 +191,12 @@
             }
         },
         methods: {
-            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateUserProfileData', 'updateShowBuyDialog','openChatInterface']),
+            ...mapActions(['updateToasterParams', 'updateNewQuestionDialogState', 'updateLoginDialogState', 'updateShowBuyDialog','openChatInterface']),
                
             ...mapMutations(['UPDATE_SEARCH_LOADING']),
             openNewQuestionDialog(){
                 if(this.accountUser == null){
                     this.updateLoginDialogState(true);
-                    //set user profile
-                    this.updateUserProfileData('profileHWH')
                 }else{
                     //ab test original do not delete
                     let Obj = {

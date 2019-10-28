@@ -52,13 +52,10 @@
             ...mapActions([
                               "updateLoginDialogState",
                               'updateNewQuestionDialogState',
-                              'updateUserProfileData'
                           ]),
             goToAskQuestion() {
                 if(this.accountUser == null) {
                     this.updateLoginDialogState(true);
-                    //set user profile
-                    this.updateUserProfileData('profileHWH');
                 } else {
                     //ab test original do not delete
                     this.updateNewQuestionDialogState(true);
