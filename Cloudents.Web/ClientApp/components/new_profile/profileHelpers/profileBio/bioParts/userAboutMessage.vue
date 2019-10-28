@@ -10,7 +10,7 @@
             </h4>
         </v-flex>
         <v-flex :class="[$vuetify.breakpoint.smAndUp ? 'pt-3' : 'pt-1']">
-            <span class="bio-about-intro ">{{userDescription}}</span>
+            <div class="bio-about-intro ">{{userDescription}}</div>
         </v-flex>
     </v-layout>
 </template>

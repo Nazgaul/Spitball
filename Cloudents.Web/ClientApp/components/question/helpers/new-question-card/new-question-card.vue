@@ -40,8 +40,8 @@
                             <span class="lineClamp">{{cardData.subject}}</span>
                         </div>
                     </v-layout> -->
-                    <div class="question-body-content-container mb-1" :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`, {'question-ellipsis': $route.name === 'feed'}]">
-                        <div class="question-text">{{cardData.text}}</div>
+                    <div class="question-body-content-container mt-2 mb-3" :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`, {'question-ellipsis': $route.name === 'feed'}]">
+                        <div class="question-text" dir="auto">{{cardData.text}}</div>
                     </div>
                     <div class="question-body-course-container" :class="[answers ? 'mb-3' : 'mb-0']">
                         <div class="mr-1" v-language:inner="'resultTutor_courses'"></div>
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="user_answer">{{answers.text}}</div>
+                        <div class="user_answer" dir="auto">{{answers.text}}</div>
                     </div>
                     <div v-if="cardData.answers > 1" class="more-answers" v-html="$Ph(moreAnswersDictionary, answersCount -1)"></div>
                     <div v-else class="mt-3"></div>
