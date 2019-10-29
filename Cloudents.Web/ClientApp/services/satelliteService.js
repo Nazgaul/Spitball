@@ -75,56 +75,64 @@ const sattelites = {
 const socialMedias = {
     medium:{
         icon:'sbf-social-medium-small',
-        hidden: isFrymo ? false : false, //change to true if you want it to be hidden
+        hidden: isFrymo, //change to true if you want it to be hidden
         url:{
             he:'https://medium.com/@spitballstudy',
-            en: isFrymo ? 'asd': 'https://medium.com/@spitballstudy'
+            en:'https://medium.com/@spitballstudy'
         }
 
         
     },
     linkedin:{
         icon:'sbf-social-linkedin',
-        hidden: isFrymo ? false : false, //change to true if you want it to be hidden
+        hidden: false, //change to true if you want it to be hidden
         url:{
             he: 'https://linkedin.com/company/spitball',
-            en: isFrymo ? 'asd': 'https://linkedin.com/company/spitball',
+            en: isFrymo ? 'https://www.linkedin.com/company/frymogo ': 'https://linkedin.com/company/spitball',
         }
        
     },
     facebook:{
         icon:'sbf-social-facebook',
-        hidden: isFrymo ? false : false, //change to true if you want it to be hidden
+        hidden:  false, //change to true if you want it to be hidden
         url:{
             he: 'https://www.facebook.com/spitballstudy/',
-            en: isFrymo ? 'asd': 'https://www.facebook.com/spitballstudy/',
+            en: isFrymo ? 'https://www.facebook.com/learnfrymo': 'https://www.facebook.com/spitballstudy/',
         }
        
     },
     youtube:{
         icon:'sbf-social-youtube',
-        hidden: isFrymo ? false : false, //change to true if you want it to be hidden
+        hidden: isFrymo , //change to true if you want it to be hidden
         url:{
             he: 'https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg/',
-        en: isFrymo ? 'asd': 'https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg/',
+            en: 'https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg/',
         }
         
     },
     telegram:{
         icon:'sbf-social-telegram',
-        hidden: isFrymo ? false : false, //change to true if you want it to be hidden
+        hidden: isFrymo , //change to true if you want it to be hidden
         url:{
             he: 'https://t.me/Spitball',
-        en: isFrymo ? 'asd': 'https://t.me/Spitball',
+            en: 'https://t.me/Spitball',
         }
         
     },
     twitter:{
         icon:'sbf-social_twitter',
-        hidden: isFrymo ? false : false, //change to true if you want it to be hidden
+        hidden: false , //change to true if you want it to be hidden
         url:{
             he: 'https://twitter.com/spitballstudy',
-            en: isFrymo ? 'asd': 'https://twitter.com/spitballstudy',
+            en: isFrymo ? 'https://twitter.com/frymo_official': 'https://twitter.com/spitballstudy',
+        }
+    }   ,
+    instegram:{
+        icon:'sbf-social_twitter',
+        hidden: !isFrymo , //change to true if you want it to be hidden
+        url:{
+            //he: 'https://twitter.com/spitballstudy',
+            en: 'https://www.instagram.com/frymo_official/' //isFrymo ? 'https://twitter.com/frymo_official': 'https://twitter.com/spitballstudy',
         }
     }   
 }
