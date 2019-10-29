@@ -81,7 +81,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         public async Task GetAsync_UserTabs_OK(string tab)
         {
             var response = await _client.GetAsync(_uri.Path + "/159039/" + tab);
-
+            response.EnsureSuccessStatusCode();
             var str = await response.Content.ReadAsStringAsync();
 
             JArray obj = JArray.Parse(str);
