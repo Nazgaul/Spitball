@@ -66,7 +66,7 @@ export default {
                 };
                 return;
             }
-            this.updateLoading(true);
+            // this.updateLoading(true);
             var self = this;
             if(this.hasDuplicatiedAnswer(self.textAreaValue, self.questionData.answers)) {
                 console.log("duplicated answer detected");
@@ -83,13 +83,13 @@ export default {
                     .then(function (resp) {                       
                         analyticsService.sb_unitedEvent("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
-                        self.updateLoading(false);
+                        // self.updateLoading(false);
                         //self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                     }, (error) => {
                         console.log(error);
                         // self.errorHasAnswer = error.response.data["Text"] ? error.response.data["Text"][0] : '';
                         self.submitForm(false);
-                        self.updateLoading(true);
+                        // self.updateLoading(true);
                     });
             }
         },
@@ -146,9 +146,8 @@ export default {
         cardOwner(){
             return this.isCardOwner;
         },
-        userNotAnswered() {
-            this.isDeletedAnswer ? this.submitForm(false) : "";
-            return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length || this.isDeletedAnswer);
+        userAnswered() {
+            return this.questionData.answers.length && this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length
         },
     },
     created() {               
