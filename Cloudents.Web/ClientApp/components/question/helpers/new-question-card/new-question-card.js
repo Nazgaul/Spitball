@@ -35,7 +35,8 @@ export default {
             maximumAnswersToDisplay: 3,
             isRtl: global.isRtl,
             showDialog: false,
-            selectedImage: ''
+            selectedImage: '',
+            isQuestionPage: false,
         };
     },
     props: {
@@ -197,5 +198,8 @@ export default {
         closeReportDialog() {
             this.showReportReasons = false;
         }
-    }
+    },
+    created() {
+        this.isQuestionPage = (this.$route.name === 'question')
+    },
 };

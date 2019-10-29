@@ -157,7 +157,6 @@
         .v-stepper__items{
             @media(max-width: @screen-xs){
                 height: 100%;
-                // height: calc(~"100% - 54px");
                 overflow: auto;
                 
                 .v-stepper__content{
