@@ -1,8 +1,8 @@
 <template>
   <router-link class="tutor-result-card-mobile justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
       <div class="card-mobile-header mb-2">
-          <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
-              <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
+          <div v-if="!isLoaded" class="mr-2 user-image-loader tutor-card-loader">
+              <v-progress-circular class="user-image-loader-circular" indeterminate v-bind:size="50"></v-progress-circular>
           </div>
           <img v-show="isLoaded" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
           <div class="card-mobile-header-content">
@@ -147,7 +147,7 @@ export default {
     ...mapGetters(['accountUser', 'getActivateTutorDiscounts']),
     userImageUrl() {
       if (this.tutorData.image) {
-        let size = [67, 87];
+        let size = [102, 108];
         return utilitiesService.proccessImageURL(
           this.tutorData.image,
           ...size,
@@ -171,7 +171,7 @@ export default {
     },
     courses() {
       if (this.tutorData.courses) {
-        return `${this.tutorData.courses}`
+        return `${this.tutorData.courses.join(', ')}`
       }
       return '';
     },
@@ -222,10 +222,13 @@ export default {
           justify-content: center;
           align-items: center;
         }
+        .user-image-loader {
+          .user-image-loader-circular {
+            width: 108px !important; // vuetify
+          }
+        }
         .user-image{
             border-radius: 4px;
-            width: 67px;
-            height: 95px;
         }
         .user-rate {
             display: inline-flex;

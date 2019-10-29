@@ -173,7 +173,7 @@ export default {
 
     courses() {
       if (this.tutorData.courses) {
-        return `${this.tutorData.courses}`
+        return `${this.tutorData.courses.join(', ')}`;
       }
       return '';
     },
@@ -197,7 +197,7 @@ export default {
       return this.tutorData.university;
     },
     subjects() {
-      return this.tutorData.subjects.toString();
+      return this.tutorData.subjects.join(', ');
     },
     showFirstName() {
       let maxChar = 5;
