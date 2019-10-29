@@ -136,7 +136,7 @@
     <value>Lessons</value>
   </data>
   <data name="courses" xml:space="preserve">
-    <value>Courses:</value>
+    <value>Course:</value>
     <comment>Duplicate</comment>
   </data>
   <data name="hours_completed" xml:space="preserve">

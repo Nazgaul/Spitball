@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="main_btn" xml:space="preserve">
-    <value>From 55 NIS for a private lesson</value>
+    <value>A private lesson</value>
   </data>
   <data name="main_stats_courses" xml:space="preserve">
     <value>9,575 courses</value>
@@ -181,9 +181,9 @@
     <value>Hundreds of thousands of excellent and up-to-date study resources at your disposal</value>
   </data>
   <data name="subfooter_btn" xml:space="preserve">
-    <value>A private lesson from 55 NIS</value>
+    <value>A private lesson</value>
   </data>
   <data name="subfooter_title" xml:space="preserve">
-    <value>A limited offer of only 55 NIS per private lesson</value>
+    <value>A limited offer for private lesson</value>
   </data>
 </root>

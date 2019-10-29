@@ -75,8 +75,9 @@ namespace Cloudents.Web.Test.IntegrationTests
             var id = d["id"]?.Value<long?>();
             var text = d["text"].Value<string>();
             var course = d["course"].Value<string>();
-            var userId = d["userId"]?.Value<long>();            
-            var rtl = d["isRtl"]?.Value<bool?>();
+            var user = d["user"]?.Value<JObject>();
+            var userId = user["id"].Value<long>();
+            var userName = user["name"].Value<string>();
 
             response.EnsureSuccessStatusCode();
 
@@ -84,6 +85,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             text.Should().NotBeNull();
             course.Should().NotBeNull();
             userId.Should().BeGreaterThan(0);
+            userName.Should().NotBeNull();
             
         }
 
