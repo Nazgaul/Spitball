@@ -1,6 +1,6 @@
 <template>
     <div class="question-container">
-        <router-link :to="{path:'/question/'+cardData.id}">
+        <router-link :to="{path:'/question/'+cardData.id}" :style="{'cursor':isQuestionPage?'auto':'pointer'}">
             <div class="question-header-container">
                 <div class="question-header-large-sagment">
                     <div class="rank-date-container">

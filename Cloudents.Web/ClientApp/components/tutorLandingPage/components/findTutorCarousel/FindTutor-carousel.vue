@@ -186,6 +186,7 @@ export default {
               .giveMeEllipsis(3,16)
             }
             img {
+              min-width: 82px;
               border-radius: 50%;
               @media (max-width: @screen-sm) {
                 width: 86px;
