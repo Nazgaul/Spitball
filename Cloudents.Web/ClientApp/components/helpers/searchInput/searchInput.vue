@@ -8,7 +8,6 @@
                 class="search-b" type="text" solo
                 :class="{'white-background': showSuggestions}"
                 @keyup.enter="search()" autocomplete="off"
-                @focus="openSuggestions"
                 name="q"
                 id="transcript"
                 v-model="msg"
