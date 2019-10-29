@@ -1,20 +1,15 @@
 <template>
   <router-link class="tutor-result-card-mobile justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
       <div class="card-mobile-header mb-2">
-        <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
+          <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
               <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
-            </div>
+          </div>
           <img v-show="isLoaded" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
-          <div>
+          <div class="card-mobile-header-content">
               <h3 class="text-truncate body-2 font-weight-bold" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
-              
-              <template>
-                <h4 class="text-truncate mb-1 font-weight-bold university" v-if="isUniversity">{{university}}</h4>
-                <h4 class="text-truncate mb-1 university" v-else></h4>
-              </template> 
 
               <template>
-                  <div class="user-rate align-center" v-if="tutorData.reviews > 0">
+                  <div class="user-rate mb-2 align-center" v-if="tutorData.reviews > 0">
                     <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="mr-2" />
                     <span class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
                   </div>
@@ -28,6 +23,12 @@
                   <div class="" v-language:inner="'resultTutor_courses'"></div>
                   <div class="text-truncate">{{courses}}</div>
               </div>
+
+              <template>
+                <h4 class="text-truncate mb-1 university font-weight-light" v-if="isUniversity" v-html="$Ph('resultNote_university',[university])"/>
+                <!-- <h4 class="text-truncate mb-1 font-weight-bold university" v-if="isUniversity">{{university}}</h4> -->
+                <h4 class="text-truncate mb-1 university" v-else></h4>
+              </template> 
           </div>
       </div>
 
@@ -213,6 +214,9 @@ export default {
     }
     .card-mobile-header {
         display: flex;
+        .card-mobile-header-content {
+          min-width: 0;
+        }
         .tutor-card-loader{
           display: flex;
           justify-content: center;
@@ -236,8 +240,11 @@ export default {
             }
         }
         .courses {
-          .widthMinMax(200px);
+          // .widthMinMax(200px);
             font-size: 12px;
+            div {
+              display: inline;
+            }
         }
         .university {
           font-size: 12px;
@@ -286,6 +293,7 @@ export default {
           .price_oneline {
             display: flex;
             align-items: flex-end;
+            color: #5158af;
           }
           .striked {
               max-width: max-content;
