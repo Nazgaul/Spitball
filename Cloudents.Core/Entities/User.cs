@@ -101,8 +101,9 @@ namespace Cloudents.Core.Entities
             AddEvent(new SetUniversityEvent(Id));
         }
 
-        public virtual void BecomeTutor(string bio, decimal price,string description, string firstName, string lastName )
+        public virtual void BecomeTutor(string bio, decimal? price,string description, string firstName, string lastName )
         {
+
             Tutor = new Tutor(bio, this, price);
             Description = description;
             ChangeName(firstName, lastName);

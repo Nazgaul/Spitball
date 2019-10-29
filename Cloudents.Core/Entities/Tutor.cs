@@ -12,13 +12,28 @@ namespace Cloudents.Core.Entities
     {
         public const int MaximumPrice = 214748;
         public const int MinimumPrice = 50;
-        public Tutor(string bio, User user, decimal price) : this()
+        public Tutor(string bio, User user, decimal? price) : this()
         {
-
             User = user;
-            UpdateSettings(bio, price);
             State = ItemState.Pending;
             Created = DateTime.UtcNow;
+            Bio = bio;
+
+            Country country = user.Country;
+            if (country == Country.India)
+            {
+                Price = new TutorPrice(100, 0);
+            }
+            else
+            {
+                if (price is null)
+                {
+                    throw new ArgumentException("Price is null");
+                }
+                Price = new TutorPrice(price.Value);
+            }
+
+            //SubsidizedPrice = subsidizedPrice;
 
 
         }
@@ -26,18 +41,32 @@ namespace Cloudents.Core.Entities
 
         protected Tutor()
         {
+            //Price = Price ?? new TutorPrice();
         }
         public virtual string Bio { get; protected set; }
-        public virtual decimal Price { get; protected set; }
+
         public virtual decimal? SubsidizedPrice { get; protected set; }
         public virtual User User { get; protected set; }
 
-        public virtual void UpdateSettings(string bio, decimal price)
+        public virtual TutorPrice Price { get; protected set; }
+
+        public virtual void UpdateSettings(string bio, decimal? price)
         {
             if (price < MinimumPrice || price > MaximumPrice) throw new ArgumentOutOfRangeException(nameof(price));
-            Price = price;
+            if (price.HasValue)
+            {
+
+                //Country c = User.Country;
+                Price = new TutorPrice(price.Value);
+                //Price = Price ?? new TutorPrice(price.Value);
+                //Price = price.Value;
+            }
+
+
             Bio = bio;
-          //  SubsidizedPrice = PriceAfterDiscount(price);
+
+
+            //  SubsidizedPrice = PriceAfterDiscount(price);
             AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 
@@ -56,26 +85,6 @@ namespace Cloudents.Core.Entities
         {
             AddEvent(new TutorDeletedEvent(Id));
         }
-
-
-        //public static decimal PriceAfterDiscount(decimal price)
-        //{
-        //    //var price2 = price - 70;
-
-        //    //Maybe we can do it with min max
-        //    if (price < 55)
-        //    {
-        //        return price;
-        //    }
-
-        //    var subsidizingPrice = price - 70;
-        //    if (subsidizingPrice < 55)
-        //    {
-        //        return 55;
-        //    }
-
-        //    return subsidizingPrice;
-        //}
 
         private readonly ICollection<TutorReview> _reviews = new List<TutorReview>();
 
@@ -98,7 +107,7 @@ namespace Cloudents.Core.Entities
             var newReview = new TutorReview(review, rate, user, this);
 
             _reviews.Add(newReview);
-          
+
         }
 
         public virtual void AddTutorHours(DayOfWeek weekDay, TimeSpan from, TimeSpan to)
@@ -120,6 +129,35 @@ namespace Cloudents.Core.Entities
         {
             var calendar = new TutorCalendar(id, name, this);
             _calendars.Add(calendar);
+        }
+    }
+
+    public class TutorPrice : ValueObject
+    {
+        public TutorPrice(decimal price)
+        {
+            Price = price;
+            SubsidizedPrice = null;
+        }
+        public TutorPrice(decimal price, decimal subsidizedPrice)
+        {
+            Price = price;
+            SubsidizedPrice = subsidizedPrice;
+        }
+
+        protected TutorPrice()
+        {
+            
+        }
+
+        public virtual decimal Price { get; protected set; }
+        public virtual decimal? SubsidizedPrice { get; protected set; }
+
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Price;
+            yield return SubsidizedPrice;
         }
     }
 

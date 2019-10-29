@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
@@ -58,20 +59,21 @@ namespace Cloudents.Query
                 var futureValueCountry = _statelessSession.Query<User>().Where(w => w.Id == query.Id).Select(s => s.Country).ToFutureValue();
 
 
-                var country = await futureValueCountry.GetValueAsync(token);
-
+                Country country = await futureValueCountry.GetValueAsync(token);
+                var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(country.Name);
 
                 var retVal = listOfQueries.Select(s =>
                {
                    var dbVal = s.Value.Value;
-                   var value = _countryProvider.ConvertPointsToLocalCurrencyWithSymbol(country, dbVal.GetValueOrDefault());
-                   return new BalanceDto(s.Key.ToString("G"), dbVal.GetValueOrDefault(), value);
+
+                   var currencyValue = (country.ConversationRate * dbVal.GetValueOrDefault()).ToString("C", culture);
+                   return new BalanceDto(s.Key.ToString("G"), dbVal.GetValueOrDefault(), currencyValue);
 
                }).ToList();
 
                 var totalBalance = retVal.Sum(x => x.Points);
-                var totalValue = _countryProvider.ConvertPointsToLocalCurrencyWithSymbol(country, totalBalance);
-                retVal.Add(new BalanceDto("Total", totalBalance, totalValue));
+                var totalCurrencyValue = (country.ConversationRate * totalBalance).ToString("C", culture);
+                retVal.Add(new BalanceDto("Total", totalBalance, totalCurrencyValue));
 
                 return retVal;
             }

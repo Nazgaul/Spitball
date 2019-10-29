@@ -91,35 +91,35 @@ namespace Cloudents.Infrastructure
             return country.CallingCodes.First();
         }
 
-        public decimal ConvertPointsToLocalCurrency(string countryCode, decimal points)
-        {
-            var country = Item.GetCountry(countryCode);
+        //public decimal ConvertPointsToLocalCurrency(string countryCode, decimal points)
+        //{
+        //    var country = Item.GetCountry(countryCode);
 
-            if (country.Alpha2Code == Alpha2Code.IN)
-            {
-                return points;
-            }
+        //    if (country.Alpha2Code == Alpha2Code.IN)
+        //    {
+        //        return points;
+        //    }
 
-            return points / 25;
-        }
+        //    return points / 25;
+        //}
 
-        public string ConvertPointsToLocalCurrencyWithSymbol(string countryCode, decimal points)
-        {
-            var country = Item.GetCountry(countryCode);
-            if (country.Alpha2Code == Alpha2Code.IN)
-            {
-                var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(Alpha2Code.IN.ToString());
-                return points.ToString("C", culture);
-            }
-            var culture2 = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(Alpha2Code.IL.ToString());
-            return (points / 25).ToString("C", culture2);
-        }
+        //public string ConvertPointsToLocalCurrencyWithSymbol(string countryCode, decimal points)
+        //{
+        //    var country = Item.GetCountry(countryCode);
+        //    if (country.Alpha2Code == Alpha2Code.IN)
+        //    {
+        //        var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(Alpha2Code.IN.ToString());
+        //        return points.ToString("C", culture);
+        //    }
+        //    var culture2 = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(Alpha2Code.IL.ToString());
+        //    return (points / 25).ToString("C", culture2);
+        //}
 
-        public string ConvertToLocalCurrencyWithSymbol(string countryCode, decimal price)
-        {
-            var country = Item.GetCountry(countryCode);
-            var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(country.Alpha2Code.ToString());
-            return price.ToString("C", culture);
-        }
+        //public string ConvertToLocalCurrencyWithSymbol(string countryCode, decimal price)
+        //{
+        //    var country = Item.GetCountry(countryCode);
+        //    var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(country.Alpha2Code.ToString());
+        //    return price.ToString("C", culture);
+        //}
     }
 }
