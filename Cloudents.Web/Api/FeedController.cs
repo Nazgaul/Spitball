@@ -74,7 +74,7 @@ namespace Cloudents.Web.Api
             List<FeedDto> res = new List<FeedDto>();
             for (int i = 1; i < 22 && (itemsFeed.Count > 0 || tutorsFeed.Count > 0); i++)
             {
-                if ((page == 0 && (i == 3 || i == 13 || i == 20)) || (page > 0 && i % 7 == 0) || itemsFeed.Count == 0)
+                if (((page == 0 && (i == 3 || i == 13 || i == 20)) || (page > 0 && i % 7 == 0) || itemsFeed.Count == 0) && tutorsFeed.Count > 0 )
                 {
                     res.Add(tutorsFeed.FirstOrDefault());
                     tutorsFeed.Remove(tutorsFeed.FirstOrDefault());
