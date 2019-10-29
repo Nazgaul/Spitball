@@ -119,14 +119,14 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            //var query = new FeedAggregateQuery(userId, request.Page,  request.Filter, profile.Country, request.Course);
-            //var tutorQuery = new TutorListByCourseQuery(request.Course, userId, profile.Country, 3, request.Page);
-            //var itemsTask = _queryBus.QueryAsync(query, token);
-            //var tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
-            //await Task.WhenAll(itemsTask, tutorsTask);
-            //var result = itemsTask.Result.Concat(tutorsTask.Result);
+            var query = new FeedAggregateQuery(userId, request.Page, request.Filter, profile.Country, request.Course);
+            var tutorQuery = new TutorListByCourseQuery(request.Course, userId, profile.Country, 3, request.Page);
+            var itemsTask = _queryBus.QueryAsync(query, token);
+            var tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
+            await Task.WhenAll(itemsTask, tutorsTask);
+           
             var result = _feedSort.SortFeed(itemsTask.Result.ToList(), tutorsTask.Result.ToList(), request.Page);
-            // var result = await _queryBus.QueryAsync(query, token);
+
             return GenerateResult(result, new { page = ++request.Page, request.Course, request.Filter });
         }
 
