@@ -102,7 +102,7 @@
             <div v-if="!hideAnswerInput" class="question-bottom-section" :class="[{'mx-5': !$vuetify.breakpoint.xsOnly}, answersCount > 1 ? 'mt-0' : 'mt-4']">
                 <div class="question-input-container d-flex">
                     <user-avatar class="avatar-area mr-2" :user-name="accountUser.name" :userImageUrl="accountUser.image" :user-id="accountUser.id" v-if="accountUser" />
-                    <user-avatar class="avatar-area mr-2" :user-name="'JD'" :userImageUrl="''" :user-id="''" v-else />
+                    <user-avatar class="avatar-area mr-2" :user-name="'JD'" :userImageUrl="''" v-else />
                     <input class="question-input" placeholder="questionCard_Answer_placeholder" v-language:placeholder type="text">
                     <questionNote class="question-input-icon"/>
                 </div>
