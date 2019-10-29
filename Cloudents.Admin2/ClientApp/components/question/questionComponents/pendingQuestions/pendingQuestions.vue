@@ -86,7 +86,7 @@
     }
 
     .question-text-title {
-        white-space: pre-line;
+        //white-space: pre-line;
         cursor: default;
     }
 
