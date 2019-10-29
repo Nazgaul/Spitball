@@ -8,6 +8,7 @@
                         <div class="uf-uploading-text">
                             <span class="uf-bold" v-language:inner="'upload_uf-uploading'"></span>
                             <span v-language:inner="'upload_uf-take-time'"></span>
+                            <span>{{progress}}%</span>
                         </div>
                         <v-progress-linear color="success" v-model="progress"></v-progress-linear>
                     </div>
