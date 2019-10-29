@@ -21,7 +21,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Price).CustomSqlType("smallMoney").Nullable();
             HasMany(x => x.ParticipantDisconnections).Access.CamelCaseField(Prefix.Underscore)
                .KeyColumn("SessionId")
-               .Inverse();
+               .Inverse().Cascade.AllDeleteOrphan();
             Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
         }
     }
