@@ -1,43 +1,60 @@
 <template>
     <div :class="['mx-3','mb-3','uf-sDrop-container',{'uf-sDrop-container-active': isDraggin}]">
             <span v-if="isDraggin" class="uf-sDrop-drop" v-language:inner="'upload_uf_sDrop_drop'"/>
-            <v-progress-circular v-show="!errorFile && uploadStarted" indeterminate :width="2" :size="24" color="primary"></v-progress-circular>
-            <template v-if="!isDraggin && !isMobile">
-                <span class="uf-sDrop-title" v-language:inner="'upload_uf_sDrop_title'"/>
-                <span class="uf-sDrop-or" v-language:inner="'upload_uf_sDrop_or'"/>
-            </template> 
+            <!-- <v-progress-circular v-show="!errorFile && uploadStarted" indeterminate :width="2" :size="24" color="primary"></v-progress-circular> -->
+            
+            <template v-if="!errorFile && uploadStarted">
+                    <div class="uf-uploading-container">
+                        <div class="uf-uploading-text">
+                            <span class="uf-bold" v-language:inner="'upload_uf-uploading'"></span>
+                            <span v-language:inner="'upload_uf-take-time'"></span>
+                        </div>
+                        <v-progress-linear color="success" v-model="progress"></v-progress-linear>
+                    </div>
+            </template>
+            <div class="uf-upload-screen-container" v-show="!uploadStarted">
+                <template v-if="!isDraggin && !isMobile">
+                    <span class="uf-sDrop-title" v-language:inner="'upload_uf_sDrop_title'"/>
+                    <span class="uf-sDrop-or" v-language:inner="'upload_uf_sDrop_or'"/>
+                </template> 
 
-            <div class="uf-sDrop-btns">   
-                <template v-if="!isDraggin">
-                    <v-btn :class="['uf-sDrop-btn',{'mr-2':!isMobile},{'mt-4':isMobile}]" color="white" depressed round @click="DbFilesList()" :disabled="!dbReady">
-                        <v-icon v-html="'sbf-upload-dropbox'"/>
-                        <span v-language:inner="'upload_uf_sDrop_btn_dropbox'"/>
-                    </v-btn>
-                </template>
+                <div class="uf-sDrop-btns">   
+                    <template v-if="!isDraggin">
+                        <v-btn :class="['uf-sDrop-btn',{'mr-2':!isMobile},{'mt-4':isMobile}]" color="white" depressed round @click="DbFilesList()" :disabled="!dbReady">
+                            <v-icon v-html="'sbf-upload-dropbox'"/>
+                            <span v-language:inner="'upload_uf_sDrop_btn_dropbox'"/>
+                        </v-btn>
+                    </template>
 
-                <file-upload
-                    style="top: unset;"
-                    id="upload-input"
-                    class="file-upload-cmp"
-                    ref="upload"
-                    :drop="true"
-                    v-model="files"
-                    :post-action="uploadUrl"
-                    chunk-enabled
-                    :multiple="true"
-                    @input-file="inputFile"
-                    :chunk="{
-                        action: uploadUrl,
-                        minSize: 1,
-                        maxRetries: 5,}">
-                </file-upload>
-                <template v-if="!isDraggin">
-                    <v-btn class="uf-sDrop-btn" color="white" depressed round>
-                        <v-icon v-html="isMobile?'sbf-phone':'sbf-pc'"/>
-                        <span v-language:inner="isMobile?'upload_uf_sDrop_btn_local_mobile':'upload_uf_sDrop_btn_local'"/>
-                    </v-btn>
-                </template>
+                    <file-upload
+                        style="top: unset;"
+                        id="upload-input"
+                        class="file-upload-cmp"
+                        ref="upload"
+                        :drop="true"
+                        v-model="files"
+                        :post-action="uploadUrl"
+                        chunk-enabled
+                        :multiple="true"
+                        @input-file="inputFile"
+                        
+                        :chunk="{
+                            action: uploadUrl,
+                            minSize: 1,
+                            maxRetries: 5,
+                            handler: customUploadHandlerClass,
+                            progress: progressHandler
+                            }">
+                    </file-upload>
+                    <template v-if="!isDraggin">
+                        <v-btn class="uf-sDrop-btn" color="white" depressed round>
+                            <v-icon v-html="isMobile?'sbf-phone':'sbf-pc'"/>
+                            <span v-language:inner="isMobile?'upload_uf_sDrop_btn_local_mobile':'upload_uf_sDrop_btn_local'"/>
+                        </v-btn>
+                    </template>
+                </div>
             </div>
+            
     </div>
 </template>
 
@@ -49,6 +66,7 @@ import analyticsService from '../../../services/analytics.service';
 import { LanguageService } from "../../../services/language/languageService";
 
 import FileUpload from 'vue-upload-component/src';
+import customChunkHandler from './customChunkHandler.js'
 
 export default {
     name: "upload-step-1",
@@ -71,6 +89,9 @@ export default {
             errorText: '',
             nextStepCalled: false,
             uploadStarted: false,
+            progress: 0,
+            customUploadHandlerClass: customChunkHandler
+            
         }
     },
     computed: {
@@ -147,6 +168,14 @@ export default {
             };
             global.Dropbox.choose(options);
         },
+        progressHandler(progress){
+            this.progress = progress;
+            console.log(progress);
+            if(progress >= 100){
+                this.goToNextStep()
+            }
+            
+        },
         // regular upload methods
         inputFile(newFile, oldFile) {
             this.uploadStarted = true;
@@ -154,6 +183,7 @@ export default {
             if (newFile && !oldFile) {
                 this.addFile(newFile, oldFile)
             }
+            
             // Upload progress
             if (newFile && newFile.progress) {
                 if (newFile.progress === 100) {
@@ -264,6 +294,27 @@ export default {
     &.uf-sDrop-container-active{
         border: dashed 2px @global-blue;
     }
+    .uf-uploading-container{
+        .uf-uploading-text{
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .uf-bold{
+                font-weight: bold;
+                font-size:18px;
+            }
+        }
+        .v-progress-linear{
+            margin: 10px 0;
+            border-radius: 4px;
+            width: 350px;
+            @media (max-width: @screen-xs) {
+                width: 250px;
+            }
+        }
+    }
+    
     .file-upload-cmp-area{
         position: absolute;
         width: 100%;
@@ -277,6 +328,10 @@ export default {
         line-height: 1.17;
         color: #848bbc;
     }
+    .uf-upload-screen-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     .uf-sDrop-title{
         font-size: 20px;
         font-weight: 600;
@@ -356,6 +411,8 @@ export default {
             font-weight: 600;
             letter-spacing: -0.26px;
         }
+    }
+    
     }
     .redgg{
         width:150px;
