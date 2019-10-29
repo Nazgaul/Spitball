@@ -57,7 +57,7 @@
             .v-list__tile__sub-title {
                 &.answer-subtitle {
                     color: rgba(0, 0, 0, .87);
-                    white-space: pre-line;
+                    //white-space: pre-line;
                     padding: 8px;
                 }
             }
