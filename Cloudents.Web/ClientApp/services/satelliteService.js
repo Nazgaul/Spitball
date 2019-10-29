@@ -9,12 +9,24 @@ function websitePrefix(){
     return `${isFrymo ? 'frymo.com':'spitball.co'}`
 }
 
+function urlForEnglishUsers(type){
+    let urlByType = {
+        about: `https://help.${websitePrefix()}/en/about-us`,
+        feedback: `https://help.${websitePrefix()}/en/article/how-to-contact-us`,
+        terms: isFrymo ? `https://help.${websitePrefix()}/en/article/terms` : `https://help.${websitePrefix()}/en/article/terms-of-service`,
+        privacy: isFrymo ? `https://help.${websitePrefix()}/en/policies` : `https://help.${websitePrefix()}/en/article/privacy-policy`,
+        faq: isFrymo ? `https://help.${websitePrefix()}/en/faqs` : `https://help.${websitePrefix()}/en/faq`,
+        contact: `https://help.${websitePrefix()}/en/article/how-to-contact-us`,
+    }
+    return urlByType[type];
+}
+
 const sattelites = {
     about:{
         title: LanguageService.getValueByKey('tutorListLanding_footer_links_about'), 
         icon: 'sbf-about',
         url:{
-            en:`https://help.${websitePrefix()}/en/about-us`,
+            en: urlForEnglishUsers('about'),
             he:"https://help.spitball.co/he/article/%D7%94%D7%9B%D7%9C-%D7%A2%D7%9C%D7%99%D7%A0%D7%95"
         } 
     },
@@ -22,7 +34,7 @@ const sattelites = {
         title: LanguageService.getValueByKey('tutorListLanding_footer_links_feedback'),
         
         url:{
-            en:`https://help.${websitePrefix()}/en/article/how-to-contact-us`,
+            en: urlForEnglishUsers('feedback'),
             he:"https://help.spitball.co/he/contact"
         } 
     },
@@ -30,7 +42,7 @@ const sattelites = {
         title: LanguageService.getValueByKey('tutorListLanding_footer_links_terms'),
         icon: 'sbf-terms',
         url:{
-            en:`https://help.${websitePrefix()}/en/article/terms-of-service`,
+            en: urlForEnglishUsers('terms'),
             he:"https://help.spitball.co/en/article/terms-of-service"
         } 
     },
@@ -38,7 +50,7 @@ const sattelites = {
         title: LanguageService.getValueByKey('tutorListLanding_footer_links_privacy'),
         icon: 'sbf-privacy',
         url:{
-            en:`https://help.${websitePrefix()}/en/article/privacy-policy`,
+            en: urlForEnglishUsers('privacy'),
             he:"https://help.spitball.co/en/article/privacy-policy"
         } 
     },
@@ -46,14 +58,14 @@ const sattelites = {
         title: LanguageService.getValueByKey('tutorListLanding_footer_links_faq'),
         icon: 'sbf-help',
          url:{
-            en:`https://help.${websitePrefix()}/en/faq`,
+            en: urlForEnglishUsers('faq'),
             he:"https://help.spitball.co/he/%D7%A9%D7%90%D7%9C%D7%95%D7%AA-%D7%A0%D7%A4%D7%95%D7%A6%D7%95%D7%AA"
         } 
     },
     contact:{
         title: LanguageService.getValueByKey('tutorListLanding_footer_links_contact'),
          url:{
-            en:`https://help.${websitePrefix()}/en/article/how-to-contact-us`,
+            en: urlForEnglishUsers('contact'),
             he:"https://help.spitball.co/he/contact"
         } 
     },

@@ -31,6 +31,7 @@ export default {
             build: null,
             isEdgeRtl : global.isEdgeRtl,
             cahceQuestion: {},
+            submitLoader: false,
         };
     },
     beforeRouteLeave(to, from, next) {
@@ -52,6 +53,7 @@ export default {
             this.$router.push({path:"/feed"});
         },
         submitAnswer() {
+            
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
                 this.errorLength= {
                     errorText: LanguageService.getValueByKey("questionDetails_error_minChar"),
@@ -66,7 +68,7 @@ export default {
                 };
                 return;
             }
-            this.updateLoading(true);
+            // this.updateLoading(true);
             var self = this;
             if(this.hasDuplicatiedAnswer(self.textAreaValue, self.questionData.answers)) {
                 console.log("duplicated answer detected");
@@ -78,18 +80,20 @@ export default {
             if (self.submitForm()) {
                 this.removeDeletedAnswer();
                 self.textAreaValue = self.textAreaValue.trim();
-
+                this.submitLoader = true;
                 questionService.answerQuestion(self.id, self.textAreaValue)
                     .then(function (resp) {                       
                         analyticsService.sb_unitedEvent("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
-                        self.updateLoading(false);
+                        // self.updateLoading(false);
                         //self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                     }, (error) => {
                         console.log(error);
                         // self.errorHasAnswer = error.response.data["Text"] ? error.response.data["Text"][0] : '';
                         self.submitForm(false);
-                        self.updateLoading(true);
+                        // self.updateLoading(true);
+                    }).finally(()=>{
+                        this.submitLoader = false;
                     });
             }
         },
@@ -146,9 +150,8 @@ export default {
         cardOwner(){
             return this.isCardOwner;
         },
-        userNotAnswered() {
-            this.isDeletedAnswer ? this.submitForm(false) : "";
-            return !this.questionData.answers.length || (!this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length || this.isDeletedAnswer);
+        userAnswered() {
+            return this.questionData.answers.length && this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length
         },
     },
     created() {               

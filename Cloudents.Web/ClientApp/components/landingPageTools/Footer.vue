@@ -8,8 +8,8 @@
             </ul>
             <div class="footer-warp-divider mt-4"></div>
             <div class="footer-contact-box">
-                <div>
-                    <LOGO></LOGO>
+                <div class="tutor-list-footer-logo">
+                    <logoComponent></logoComponent>
                 </div>
                 <div class="footer-contact-box-icons">
                     <a href="https://medium.com/@spitballstudy" target="_blank"><v-icon>sbf-social-medium-small</v-icon></a>
@@ -28,11 +28,12 @@
 import {LanguageService} from '../../services/language/languageService';
 import LOGO from './sp-logo.svg';
 import satelliteService from '../../services/satelliteService';
+import logoComponent from '../app/logo/logo.vue';
 
     export default {
         name: "Footer",
         components: {
-            LOGO,
+            logoComponent,
         },
         data(){
             return{
@@ -149,6 +150,18 @@ import satelliteService from '../../services/satelliteService';
         }
     }
   }
+  .tutor-list-footer-logo {
+        div{
+          svg {
+            vertical-align: -webkit-baseline-middle;
+            fill: #FFF;
+            &.frymo-logo{
+              fill: #FFF;
+            }
+            
+          }
+        } 
+      }
 }
 
 </style>
