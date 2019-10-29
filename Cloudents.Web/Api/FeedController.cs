@@ -62,7 +62,6 @@ namespace Cloudents.Web.Api
             var tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
             await Task.WhenAll(itemsTask, tutorsTask);
             var result = SortFeed(itemsTask.Result.ToList(), tutorsTask.Result.ToList(), request.Page);
-            //var result = itemsTask.Result.Concat(tutorsTask.Result);
             return GenerateResult(result, new
             {
                 page = ++page,
@@ -88,15 +87,10 @@ namespace Cloudents.Web.Api
             }
             return res;
         }
+
         private WebResponseWithFacet<FeedDto> GenerateResult(
             IEnumerable<FeedDto> result, object nextPageParams)
         {
-            //string nextPageLink = null;
-            //if (p.Count > 0)
-            //{
-            //    nextPageLink = Url.RouteUrl("Documents", nextPageParams);
-            //}
-
             var filters = new List<IFilters>();
             
                 var filter = new Filters<string>(nameof(DocumentRequestAggregate.Filter),
