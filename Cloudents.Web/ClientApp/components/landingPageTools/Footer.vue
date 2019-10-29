@@ -11,8 +11,9 @@
                 <div class="tutor-list-footer-logo">
                     <logoComponent></logoComponent>
                 </div>
+                
                 <div class="footer-contact-box-icons">
-                    <a v-for="(sm, index) in socialMedias" :key="index" :href="sm.url" target="_blank"><v-icon>{{sm.icon}}</v-icon></a>
+                    <a v-for="(sm, index) in socialMedias" :key="index" :href="sm.url" target="_blank" v-html="sm.svg"></a>
                 </div>
             </div>
         </v-layout>
@@ -137,12 +138,11 @@ import logoComponent from '../app/logo/logo.vue';
             text-align: center;
         }
         .footer-contact-box-icons {
-            i{
+            a {
                 margin: 0 10px;
                 color: #FFF;
                 cursor: pointer;
             }
-            
         }
     }
   }
