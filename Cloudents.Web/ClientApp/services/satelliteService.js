@@ -5,6 +5,8 @@ import store from '../store/index';
 let cacheControl = `?v=${global.version}&l=${global.lang}`;
 const isFrymo = store.getters['isFrymo'];
 
+
+
 function websitePrefix(){
     return `${isFrymo ? 'frymo.com':'spitball.co'}`
 }
@@ -70,6 +72,69 @@ const sattelites = {
         } 
     },
 }
+const socialMedias = {
+    medium:{
+        icon:'sbf-social-medium-small',
+        hidden: isFrymo ? false : false, //change to true if you want it to be hidden
+        url:{
+            he:'https://medium.com/@spitballstudy',
+            en: isFrymo ? 'asd': 'https://medium.com/@spitballstudy'
+        }
+
+        
+    },
+    linkedin:{
+        icon:'sbf-social-linkedin',
+        hidden: isFrymo ? false : false, //change to true if you want it to be hidden
+        url:{
+            he: 'https://linkedin.com/company/spitball',
+            en: isFrymo ? 'asd': 'https://linkedin.com/company/spitball',
+        }
+       
+    },
+    facebook:{
+        icon:'sbf-social-facebook',
+        hidden: isFrymo ? false : false, //change to true if you want it to be hidden
+        url:{
+            he: 'https://www.facebook.com/spitballstudy/',
+            en: isFrymo ? 'asd': 'https://www.facebook.com/spitballstudy/',
+        }
+       
+    },
+    youtube:{
+        icon:'sbf-social-youtube',
+        hidden: isFrymo ? false : false, //change to true if you want it to be hidden
+        url:{
+            he: 'https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg/',
+        en: isFrymo ? 'asd': 'https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg/',
+        }
+        
+    },
+    telegram:{
+        icon:'sbf-social-telegram',
+        hidden: isFrymo ? false : false, //change to true if you want it to be hidden
+        url:{
+            he: 'https://t.me/Spitball',
+        en: isFrymo ? 'asd': 'https://t.me/Spitball',
+        }
+        
+    },
+    twitter:{
+        icon:'sbf-social_twitter',
+        hidden: isFrymo ? false : false, //change to true if you want it to be hidden
+        url:{
+            he: 'https://twitter.com/spitballstudy',
+            en: isFrymo ? 'asd': 'https://twitter.com/spitballstudy',
+        }
+    }   
+}
+
+function socialMediaObj(prop){
+    let language = !!lang ? lang : global.lang
+    this.icon = socialMedias[prop].icon,
+    this.url = socialMedias[prop].url[language]
+}
+
 export default {
     getSatelliteUrlByName(name, lang){
         let language = !!lang ? lang : global.lang
@@ -87,4 +152,14 @@ export default {
         }
         
     },
+
+    getSocialMedias(){
+        let result = [];
+        Object.keys(socialMedias).forEach((prop)=>{
+            if(!socialMedias[prop].hidden){
+                result.push(new socialMediaObj(prop));
+            }
+        })
+        return result;     
+    }
 }

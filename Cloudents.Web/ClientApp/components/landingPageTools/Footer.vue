@@ -12,12 +12,7 @@
                     <logoComponent></logoComponent>
                 </div>
                 <div class="footer-contact-box-icons">
-                    <a href="https://medium.com/@spitballstudy" target="_blank"><v-icon>sbf-social-medium-small</v-icon></a>
-                    <a href="https://linkedin.com/company/spitball" target="_blank"><v-icon>sbf-social-linkedin</v-icon></a>
-                    <a href="https://www.facebook.com/spitballstudy/" target="_blank"><v-icon>sbf-social-facebook</v-icon></a>
-                    <a href="https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg/" target="_blank"><v-icon>sbf-social-youtube</v-icon></a>
-                    <a href="https://t.me/Spitball" target="_blank"><v-icon>sbf-social-telegram</v-icon></a>
-                    <a href="https://twitter.com/spitballstudy" target="_blank"><v-icon>sbf-social_twitter</v-icon></a>
+                    <a v-for="(sm, index) in socialMedias" :key="index" :href="sm.url" target="_blank"><v-icon>{{sm.icon}}</v-icon></a>
                 </div>
             </div>
         </v-layout>
@@ -37,6 +32,7 @@ import logoComponent from '../app/logo/logo.vue';
         },
         data(){
             return{
+                socialMedias: satelliteService.getSocialMedias(),
                 links:[
                     {
                         title: LanguageService.getValueByKey('tutorListLanding_footer_links_about'), 
