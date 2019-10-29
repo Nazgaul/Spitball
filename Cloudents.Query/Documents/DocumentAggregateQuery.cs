@@ -82,8 +82,8 @@ select 'd' as type
 , d.VoteCount as 'Vote.Votes'
 , (select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as 'Vote.Vote'
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
-,d.duration as Duration,
-'Document' as documentType for json path) as JsonArray
+,d.duration as Duration
+,d.DocumentType as documentType for json path) as JsonArray
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId
@@ -131,7 +131,7 @@ where a.QuestionId = q.Id and state = 'Ok' order by a.created
 ,cte
 
 where
-    q.Updated > GETUTCDATE() - 182
+    q.Updated > GetUtcDATE() - 182
 and un.country = cte.country
 and q.courseId = @course
 
@@ -140,7 +140,7 @@ and q.State = 'Ok'
   cte
 order by
 case when R.UniversityId = cte.UniversityId then 3 else 0 end  +
-cast(1 as float)/ISNULL(nullif(DATEDIFF(minute, R.DateTime, GETUTCDATE()   ),0),1) desc
+cast(1 as float)/ISNULL(nullif(DATEDiff(minute, R.DateTime, GetUtcDATE()   ),0),1) desc
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
                 const string sqlWithoutCourse = @"with cte as (
@@ -177,8 +177,8 @@ select 'd' as type
 ,d.VoteCount as  'Vote.Votes'
 ,(select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as 'Vote.Vote'
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
-,d.duration as Duration,
-'Document' as documentType for json path) as JsonArray
+,d.duration as Duration
+,d.DocumentType as documentType for json path) as JsonArray
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId
