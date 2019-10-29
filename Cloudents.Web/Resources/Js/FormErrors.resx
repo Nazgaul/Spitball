@@ -136,7 +136,7 @@
     <value>Max value is</value>
   </data>
   <data name="min_chars" xml:space="preserve">
-    <value>Minimum length is</value>
+    <value>Minimum number of characters is</value>
   </data>
   <data name="phone" xml:space="preserve">
     <value>Phone Number must be valid</value>

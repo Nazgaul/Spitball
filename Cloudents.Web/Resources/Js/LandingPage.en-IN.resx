@@ -117,52 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="courses" xml:space="preserve">
-    <value>9,575 Courses</value>
+  <data name="main_btn" xml:space="preserve">
+    <value>Get private lesson</value>
   </data>
-  <data name="footer_links_about" xml:space="preserve">
-    <value>About Spitball</value>
+  <data name="main_title" xml:space="preserve">
+    <value>Study smarter, with the best study tools and tutors</value>
+    <comment>Study smarter, with the best study tools and tutors</comment>
   </data>
-  <data name="footer_links_contact" xml:space="preserve">
-    <value>Contact us</value>
+  <data name="subfooter_btn" xml:space="preserve">
+    <value>Get private lesson</value>
   </data>
-  <data name="footer_links_faq" xml:space="preserve">
-    <value>FAQ</value>
-  </data>
-  <data name="footer_links_feedback" xml:space="preserve">
-    <value>Feedback</value>
-  </data>
-  <data name="footer_links_pr" xml:space="preserve">
-    <value>Public Relationships</value>
-  </data>
-  <data name="footer_links_privacy" xml:space="preserve">
-    <value>Privacy Policy</value>
-  </data>
-  <data name="footer_links_terms" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
-  </data>
-  <data name="header_find_tutors" xml:space="preserve">
-    <value>Find tutors who have experience teaching your course online</value>
-  </data>
-  <data name="header_get_lesson" xml:space="preserve">
-    <value>Get private lessons  starting from ₪55</value>
-  </data>
-  <data name="rates" xml:space="preserve">
-    <value>95%</value>
-  </data>
-  <data name="reviews" xml:space="preserve">
-    <value>reviews</value>
-  </data>
-  <data name="search_placeholder" xml:space="preserve">
-    <value>Enter a course to find relevant tutors</value>
-  </data>
-  <data name="topnav_btn_login" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="topnav_btn_signup" xml:space="preserve">
-    <value>Sign Up</value>
-  </data>
-  <data name="tutors" xml:space="preserve">
-    <value>827 Tutors</value>
+  <data name="subfooter_title" xml:space="preserve">
+    <value>A limited offer for private lesson</value>
   </data>
 </root>

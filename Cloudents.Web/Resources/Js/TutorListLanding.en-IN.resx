@@ -120,4 +120,7 @@
   <data name="footer_links_about" xml:space="preserve">
     <value>About Frymo</value>
   </data>
+  <data name="header_get_lesson" xml:space="preserve">
+    <value>Get private lessons</value>
+  </data>
 </root>

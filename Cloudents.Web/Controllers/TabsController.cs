@@ -11,6 +11,8 @@ namespace Cloudents.Web.Controllers
         [Route("book")]
         [Route("job")]
         [Route("flashcard")]
+        [Route("tutor")]
+        [Route("ask")]
         public IActionResult Index()
         {
             return Redirect("/");

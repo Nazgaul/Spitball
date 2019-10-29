@@ -15,11 +15,6 @@ namespace Cloudents.Web.Test.UnitTests
 
         private readonly System.Net.Http.HttpClient _client;
 
-        private readonly UriBuilder _uri = new UriBuilder()
-        {
-            Path = "api/wallet"
-        };
-
         private readonly string[] _types = { "Earned", "Stake", "Spent" };
         
 
@@ -35,7 +30,7 @@ namespace Cloudents.Web.Test.UnitTests
         {   
             await _client.LogInAsync();
 
-            var response = await _client.GetAsync(_uri.Path + "/balance");
+            var response = await _client.GetAsync("api/wallet/balance");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -44,12 +39,12 @@ namespace Cloudents.Web.Test.UnitTests
             for (int i = 0; i < 3; i++)
             {
                 var type = d[i]["type"]?.Value<string>();
-                var name = d[i]["name"]?.Value<string>();
                 var points = d[i]["points"]?.Value<decimal?>();
+                var value = d[i]["value"]?.Value<string>();
 
                 type.Should().Be(_types[i]);
-                name.Should().Be(_types[i]);
                 points.Should().NotBeNull();
+                value.Should().NotBeNull();
             }            
         }
 
@@ -58,7 +53,7 @@ namespace Cloudents.Web.Test.UnitTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.GetAsync(_uri.Path + "/transaction");
+            var response = await _client.GetAsync("api/wallet/transaction");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -82,7 +77,7 @@ namespace Cloudents.Web.Test.UnitTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync(_uri.Path + "/redeem", new StringContent("{amount:1000}", Encoding.UTF8, "application/json"));
+            var response = await _client.PostAsync("api/wallet/redeem", new StringContent("{amount:1000}", Encoding.UTF8, "application/json"));
 
             response.EnsureSuccessStatusCode();
         }
@@ -92,9 +87,7 @@ namespace Cloudents.Web.Test.UnitTests
         {
             await _client.LogInAsync();
 
-            _uri.Path = "api/wallet/getpaymentlink";
-
-            var response = await _client.GetAsync(_uri.Path);
+            var response = await _client.GetAsync("api/wallet/getpaymentlink");
 
             response.EnsureSuccessStatusCode();
 

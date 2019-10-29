@@ -5,8 +5,7 @@
         </div>
         <v-card class="main-marketing-content transparent"
                 @click="promotionOpen()">
-            <img v-if="isIsrael" src="./images/Banner_Sept_he.jpg" alt="Private lessons">
-            <img v-else src="./images/Banner_Sept_en.jpg" alt="Private lessons">
+            <img :src="imgBySiteType" alt="Private lessons">
         </v-card>
     </div>
 </template>
@@ -23,13 +22,17 @@
             }
         },
         computed: {
-            ...mapGetters(['accountUser']),
-            isIsrael() {
-                return global.lang.toLowerCase() === 'he'
-            },
+            ...mapGetters(['accountUser', 'isFrymo']),
             isLogedIn() {
                 return (this.accountUser != null)
             },
+            imgBySiteType(){
+                if(global.lang.toLowerCase() === 'he'){
+                    return require('./images/Banner_Sept_he.jpg');
+                }else{
+                    return this.isFrymo ? require('./images/Frymo_Promotion.jpg') : require('./images/Banner_Sept_en.jpg');
+                }
+            }
         },
         methods: {
             ...mapActions(['changemobileMarketingBoxState', 'updateRequestDialog', 'setTutorRequestAnalyticsOpenedFrom']),

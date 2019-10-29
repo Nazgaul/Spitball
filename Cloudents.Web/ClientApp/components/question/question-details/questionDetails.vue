@@ -18,7 +18,7 @@
                         :hasCorrectAnswer="getCorrectAnswer">
                             <div slot="currently-watching"></div>
                     </question-thread>
-                    <div slot="answer-form" class="mb-3" style="width:inherit;">
+                    <div slot="answer-form" class="mb-3" style="width:inherit;" v-if="!cardOwner && !userAnswered">
                             <div style="position:relative;width:inherit;" v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one">
                                 <extended-text-area 
                                     uploadUrl="/api/question/ask"
@@ -33,7 +33,7 @@
                                 </div>
                                 <v-btn block color="primary"
                                        @click="submitAnswer()"
-                                       :disabled="submitted"
+                                       :loading="submitLoader"
                                        class="add_answer"><span v-language:inner>questionDetails_Add_answer</span> 
                                 </v-btn>
                             </div>
@@ -67,8 +67,8 @@
                                              :hasCorrectAnswer="getCorrectAnswer">
                                 
                             </question-thread>
-                            <div slot="answer-form" class="answer-form mb-3">
-                                    <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
+                            <div slot="answer-form" class="answer-form mb-3" v-if="!cardOwner && !userAnswered">
+                                    <div v-if="(accountUser && !questionData.answers.length) || (questionData.answers.length && showForm)">
                                         <extended-text-area 
                                             uploadUrl="/api/question/ask"
                                             v-model="textAreaValue"
@@ -80,7 +80,7 @@
                                             <span v-if="errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
                                         </div>
                                         <v-btn color="primary" @click="submitAnswer()"
-                                               :disabled="submitted"
+                                               :loading="submitLoader"
                                                class="add_answer"><span  v-language:inner>questionDetails_Add_answer</span> 
                                         </v-btn>
                                     </div>

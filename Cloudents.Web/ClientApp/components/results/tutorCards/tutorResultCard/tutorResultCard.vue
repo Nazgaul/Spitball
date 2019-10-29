@@ -17,7 +17,7 @@
                   <!-- <div class="read-more" v-show="isOverflow" v-language:inner="'resultTutor_read_more'"></div> -->
                 </div>
                 <div class="study-area mb-2" :class="{'study-area-hidden': !isSubjects}">
-                  <span class="font-weight-bold mr-2" v-language:inner="'resultTutor_study-area'"></span>
+                  <span class="mr-1" v-language:inner="'resultTutor_study-area'"></span>
                   <span class="text-truncate">{{subjects}}</span>
                 </div>
                 <div class="courses" v-if="isCourses">
@@ -58,7 +58,7 @@
 
             <template>
               <div class="user-rank align-center" v-if="isReviews">
-                <user-rating :rating="tutorData.rating" :showRateNumber="false" style="width: 20px;"/>
+                <user-rating :rating="tutorData.rating" :showRateNumber="false"/>
                 <div class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></div>
               </div>
               <div v-else class="user-rank align-center">
@@ -173,7 +173,7 @@ export default {
 
     courses() {
       if (this.tutorData.courses) {
-        return `${this.tutorData.courses}`
+        return `${this.tutorData.courses.join(', ')}`;
       }
       return '';
     },
@@ -197,7 +197,7 @@ export default {
       return this.tutorData.university;
     },
     subjects() {
-      return this.tutorData.subjects.toString();
+      return this.tutorData.subjects.join(', ');
     },
     showFirstName() {
       let maxChar = 5;
@@ -314,6 +314,7 @@ export default {
         .user-rates-top {
           display: flex;
           align-items: baseline;
+          margin-right: 10px;
           .tutor-card-currency {
             font-size: 16px;
             color:#5158af;
@@ -375,7 +376,6 @@ export default {
           margin: 0 auto;
           text-transform: inherit;
           .v-btn__content {
-            margin-bottom: 4px;
             .chat-icon-btn{
               position: absolute;
               top: 0;

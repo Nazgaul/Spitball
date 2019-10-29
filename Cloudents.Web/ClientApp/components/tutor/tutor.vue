@@ -332,7 +332,8 @@ export default {
       "getShowPaymentDialog",
       "getStudyRoomData",
       "releaseFullVideoButton",
-      "getActiveNavIndicator"
+      "getActiveNavIndicator",
+      "isFrymo"
     ]),
     activeItem() {
       return this.activeNavItem;
@@ -562,8 +563,13 @@ export default {
       }
     },
     showIntercom(){
-      global.Intercom('show')
-      intercomSettings.hide_default_launcher = false;
+      if(this.isFrymo){
+        window.open('mailto: support@frymo.com', '_blank');
+      }else{
+        global.Intercom('show')
+        intercomSettings.hide_default_launcher = false;
+      }
+      
     }
   },
   mounted() {

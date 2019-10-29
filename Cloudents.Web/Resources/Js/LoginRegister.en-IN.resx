@@ -126,4 +126,8 @@
   <data name="getstarted_title" xml:space="preserve">
     <value>Register now to Frymo</value>
   </data>
+  <data name="main_txt" xml:space="preserve">
+    <value>Study smarter, with the best study tools and tutors</value>
+    <comment>1</comment>
+  </data>
 </root>
