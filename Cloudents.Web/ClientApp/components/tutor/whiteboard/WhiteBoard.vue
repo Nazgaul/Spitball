@@ -204,8 +204,8 @@
             left: 42.5%;
             .top-helper{
                 border-radius: 6px;
-                box-shadow: 0px 4px 13px 0 rgba(0, 0, 0, 0.35);
-                background: white;
+                // box-shadow: 0px 4px 13px 0 rgba(0, 0, 0, 0.35);
+                // background: white;
                 width: 280px;
                 height: 112px;
                 display: flex;
@@ -234,8 +234,8 @@
             left: 38%;
             .bottom-helper{
                 border-radius: 6px;
-                box-shadow: 0px 4px 13px 0 rgba(0, 0, 0, 0.35);
-                background: white;
+                // box-shadow: 0px 4px 13px 0 rgba(0, 0, 0, 0.35);
+                // background: white;
                 width: 448px;
                 height: 180px;
                 display: flex;
