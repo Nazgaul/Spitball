@@ -33,7 +33,7 @@
                                 </div>
                                 <v-btn block color="primary"
                                        @click="submitAnswer()"
-                                       :disabled="submitted"
+                                       :loading="submitLoader"
                                        class="add_answer"><span v-language:inner>questionDetails_Add_answer</span> 
                                 </v-btn>
                             </div>
@@ -80,7 +80,7 @@
                                             <span v-if="errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
                                         </div>
                                         <v-btn color="primary" @click="submitAnswer()"
-                                               :disabled="submitted"
+                                               :loading="submitLoader"
                                                class="add_answer"><span  v-language:inner>questionDetails_Add_answer</span> 
                                         </v-btn>
                                     </div>

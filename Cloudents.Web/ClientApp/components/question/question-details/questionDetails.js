@@ -31,6 +31,7 @@ export default {
             build: null,
             isEdgeRtl : global.isEdgeRtl,
             cahceQuestion: {},
+            submitLoader: false,
         };
     },
     beforeRouteLeave(to, from, next) {
@@ -52,6 +53,7 @@ export default {
             this.$router.push({path:"/feed"});
         },
         submitAnswer() {
+            
             if (!this.textAreaValue || this.textAreaValue.trim().length < 15) {
                 this.errorLength= {
                     errorText: LanguageService.getValueByKey("questionDetails_error_minChar"),
@@ -78,7 +80,7 @@ export default {
             if (self.submitForm()) {
                 this.removeDeletedAnswer();
                 self.textAreaValue = self.textAreaValue.trim();
-
+                this.submitLoader = true;
                 questionService.answerQuestion(self.id, self.textAreaValue)
                     .then(function (resp) {                       
                         analyticsService.sb_unitedEvent("Submit_answer", "Homwork help");
@@ -90,6 +92,8 @@ export default {
                         // self.errorHasAnswer = error.response.data["Text"] ? error.response.data["Text"][0] : '';
                         self.submitForm(false);
                         // self.updateLoading(true);
+                    }).finally(()=>{
+                        this.submitLoader = false;
                     });
             }
         },
