@@ -357,7 +357,10 @@
             font-size: 12px;
           }
           .doc-snippet-span{
-            .giveMeEllipsis(2, 20);
+            .giveMeEllipsis(2, 22);
+            @media (max-width: @screen-xs) {
+              .giveMeEllipsis(2, 16);
+            }
           }
       }
       .content-wrap {
