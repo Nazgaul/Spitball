@@ -19,17 +19,16 @@ namespace Cloudents.Infrastructure
             {
                 return itemsFeed;
             }
-            List<FeedDto> res = new List<FeedDto>();
-
+           
             var tutorlocationPageZero = new[] { 2, 12, 19 };
             var tutorlocationPage = new[] { 6, 13, 20 };
 
-            var x = new[] { tutorlocationPageZero, tutorlocationPage };
+            var locations = new[] { tutorlocationPageZero, tutorlocationPage };
 
-            var v = x.ElementAtOrDefault(page) ?? tutorlocationPage;
+            var pageLocations = locations.ElementAtOrDefault(page) ?? tutorlocationPage;
             
 
-            foreach (var item in v)
+            foreach (var item in pageLocations)
             {
                 var tutor = tutorsFeed.FirstOrDefault();
                 if (tutor is null)
