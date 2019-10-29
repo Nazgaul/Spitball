@@ -45,16 +45,15 @@ namespace Cloudents.Core.Entities
         }
         public virtual string Bio { get; protected set; }
 
-        public virtual decimal? SubsidizedPrice { get; protected set; }
         public virtual User User { get; protected set; }
 
         public virtual TutorPrice Price { get; protected set; }
 
         public virtual void UpdateSettings(string bio, decimal? price)
         {
-            if (price < MinimumPrice || price > MaximumPrice) throw new ArgumentOutOfRangeException(nameof(price));
             if (price.HasValue)
             {
+                if (price < MinimumPrice || price > MaximumPrice) throw new ArgumentOutOfRangeException(nameof(price));
 
                 //Country c = User.Country;
                 Price = new TutorPrice(price.Value);
