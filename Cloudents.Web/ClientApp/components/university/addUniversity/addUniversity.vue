@@ -124,6 +124,8 @@
                 },
                 set: function (newValue) {
                     this.universityModel = newValue;
+                    this.setSchoolName(newValue)
+                    this.updateSchoolName(newValue)
                 }
             }
         },
@@ -135,7 +137,7 @@
                               "updateSchoolName",
                               "changeUniCreateDialogState"
                           ]),
-            ...mapMutations(['UPDATE_SEARCH_LOADING']),
+            ...mapMutations(['UPDATE_SEARCH_LOADING','setSchoolName']),
             clearData(search, university) {
                 search = '';
                 university = undefined;

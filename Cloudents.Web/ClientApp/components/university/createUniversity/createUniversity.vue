@@ -11,7 +11,7 @@
         <v-layout shrink align-center justify-center class="px-4 mt-4 mb-1">
             <v-flex xs12   class="text-xs-center">
                 <v-form  ref="uniForm"  v-model="validUniForm">
-                <v-text-field v-model="universityName"
+                <v-text-field v-model="university"
                               class="uni-input"
                               outline
                               prepend-inner-icon=""
@@ -66,7 +66,15 @@
             };
         },
         computed: {
-            ...mapGetters(['getSelectedClasses'])
+            ...mapGetters(['getSelectedClasses','getSchoolName']),
+            university: {
+                get(){
+                    return this.universityName || this.getSchoolName
+                },
+                set(newValue) {
+                    this.universityName = newValue;
+                }
+            }
         },
         methods: {
             ...mapActions(['createUniversity', 'changeUniCreateDialogState', 'updateUniVerification']),
@@ -78,7 +86,7 @@
                     //create new uni add action in store needed
                     self.createUniversity(university).then((success)=>{
                         self.changeUniCreateDialogState(false);
-                        classesSet ?  self.$router.push({name: 'note'})  : self.$router.push({name: 'editCourse'});
+                        classesSet ?  self.$router.push({name: 'feed'})  : self.$router.push({name: 'editCourse'});
                     }, (error)=>{
                         console.log('error create university', error)
                     }).finally(()=>{
@@ -90,6 +98,11 @@
             closeDialog(){
                 this.changeUniCreateDialogState(false);
                 this.updateUniVerification(false);
+            }
+        },
+        mounted() {
+            if(this.getSchoolName){
+                this.universityName = this.getSchoolName
             }
         },
     };
@@ -151,6 +164,9 @@
                     font-weight: 600;
                     font-size: 16px;
                 }
+            }
+            .v-messages__message{
+                line-height: 1.4;
             }
         }
     }

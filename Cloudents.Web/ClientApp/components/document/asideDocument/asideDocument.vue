@@ -52,6 +52,7 @@
         </div>
 
         <aside-document-tutors :courseName="getCourse" :tutorList="tutorList" v-if="!$vuetify.breakpoint.smAndDown && getCourse"/>
+        
         <v-flex v-show="tutorList.length" class="footer-holder text-xs-center mb-5" v-if="!$vuetify.breakpoint.smAndDown && getCourse">
             <router-link :to="{name: 'tutors',query:{Course:getCourse}}" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
         </v-flex>
@@ -178,7 +179,7 @@ export default {
     @import "../../../styles/mixin.less";
 
     .aside-container {
-        // flex: 1;
+        flex: 1;
         max-width: 320px;
         @media(max-width: @screen-sm){
             max-width: unset;
