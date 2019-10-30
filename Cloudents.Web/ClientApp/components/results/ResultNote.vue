@@ -91,7 +91,7 @@
       :popUpType="'reportDialog'"
       :content-class="`reportDialog ${isRtl? 'rtl': ''}` "
     >
-      <report-item :closeReport="closeReportDialog" :itemType="'feed'" :itemId="itemId"></report-item>
+      <report-item :closeReport="closeReportDialog" :itemType="'Document'" :itemId="itemId"></report-item>
     </sb-dialog>
     <sb-dialog
       :showDialog="priceDialog"

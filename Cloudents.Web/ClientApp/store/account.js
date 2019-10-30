@@ -141,6 +141,7 @@ const mutations = {
             state.profile.user.tutorData.firstName = `${newData.name}`;
             state.profile.user.tutorData.lastName = newData.lastName;
             state.profile.user.description = newData.description;
+            state.profile.user.tutorData.numPrice = newData.numPrice;
             state.profile.user.tutorData.price = newData.price;
         } else {
             state.profile.user.name = newData.name;

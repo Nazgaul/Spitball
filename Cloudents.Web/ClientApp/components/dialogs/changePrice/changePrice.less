@@ -1,0 +1,83 @@
+@placeholderGrey: rgba(74, 74, 74, 0.25);
+@colorPrice: rgba(74, 74, 74, 0.87);
+//price-change dialog
+.price-change-wrap {
+    padding: 12px 0 0 0;
+    position: relative;
+    .price-wrap {
+      background: @color-white;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      max-width: 164px;
+      min-width: 164px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, .25);
+      justify-content: center;
+      &.reversed {
+        flex-direction: row-reverse;
+      }
+      &:focus-within {
+        .glowingBorderFocused();
+      }
+      .sb-input-upload-price {
+        max-width: 76px;
+        height: 44px;
+        order: 1;
+        outline: none;
+        .input-field {
+          .placeholder-color(@placeholderGrey, 1);
+          font-size: 16px;
+          color: @colorPrice;
+          text-align: center;
+          height: 100%;
+          width: 100%;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+  
+  
+    .title-wrap {
+      padding-top: 16px;
+      padding-bottom: 48px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      .change-title {
+        font-size: 16px;
+        letter-spacing: -0.4px;
+        color: @textColor;
+        .lineClamp()
+      }
+    }
+    .change-price-actions {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 0 16px 0;
+      background: #f7f7f7;
+      .change-price {
+        .sb-rounded-btn();
+        padding: 8px 20px 8px 20px;
+        font-size: 14px;
+        font-weight: 400;
+      }
+      .cancel {
+        border-radius: 16px;
+        border: 1px solid #979797;
+        color: @colorBlackNew;
+        display: flex;
+        align-items: center;
+        padding: 6px 22px 6px 22px;
+        outline: none;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.4px;
+      }
+    }
+  }

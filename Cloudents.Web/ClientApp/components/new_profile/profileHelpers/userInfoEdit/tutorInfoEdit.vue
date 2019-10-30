@@ -167,11 +167,11 @@
             },
             price: {
                 get() {
-                    let price = this.getProfile.user.tutorData.price
-                    return +price.slice(1,price.length)
+                    let price = this.getProfile.user.tutorData.numPrice; 
+                    return price;
                 },
                 set(newVal) {
-                    this.editedPrice = +newVal
+                    this.editedPrice = newVal;
                 }
             },
             lastName: {
@@ -201,13 +201,15 @@
                     let editsData = {
                         name: this.editedFirstName || this.firstName,
                         lastName: this.editedLastName || this.lastName,
-                        price: this.editedPrice || this.price,
+                        numPrice: this.editedPrice || this.price,
                         bio: this.editedBio,
                         description: this.editedDescription
                     };
                     this.btnLoading = true;
+                    let self = this
                     accountService.saveTutorInfo(editsData)
-                                  .then((success) => {
+                                  .then((res) => {
+                                      editsData.price = res.data.newPrice;
                                       //update profile store
                                       this.updateEditedProfile(editsData);
                                       this.btnLoading = false;

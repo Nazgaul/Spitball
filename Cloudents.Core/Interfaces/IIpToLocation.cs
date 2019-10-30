@@ -16,8 +16,8 @@ namespace Cloudents.Core.Interfaces
     {
         string GetCallingCode(string countryCode);
 
-        decimal ConvertPointsToLocalCurrency(string countryCode, decimal points);
-        string ConvertPointsToLocalCurrencyWithSymbol(string countryCode, decimal points);
-        string ConvertToLocalCurrencyWithSymbol(string countryCode, decimal price);
+        //decimal ConvertPointsToLocalCurrency(string countryCode, decimal points);
+        //string ConvertPointsToLocalCurrencyWithSymbol(string countryCode, decimal points);
+       // string ConvertToLocalCurrencyWithSymbol(string countryCode, decimal price);
     }
 }

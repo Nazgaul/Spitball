@@ -65,12 +65,12 @@ namespace Cloudents.Core.DTOs
         //public const string TutorPriceVariableName = nameof(TutorPrice);
         //public const string TutorCountryVariableName = nameof(TutorCountry);
 
-        public string Price => TutorPrice.ToString("C0", _mergeCultureInfo);
+        public string Price => NumericPrice.ToString("C0", _mergeCultureInfo);
 
 
        
         [EntityBind(nameof(ReadTutor.Price))]
-        private decimal TutorPrice { get; set; }
+        public decimal NumericPrice { get; set; }
 
         [EntityBind(nameof(ReadTutor.Country))]
         internal string TutorCountry

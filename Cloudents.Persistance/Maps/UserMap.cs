@@ -34,7 +34,7 @@ namespace Cloudents.Persistence.Maps
             References(x => x.University).Column("UniversityId2").ForeignKey("User_University2").Nullable();
             Map(x => x.Language).Column("Language").CustomType<CultureInfo>().Nullable();
 
-            HasMany(x => x.Questions).Access.CamelCaseField(Prefix.Underscore)
+            HasMany(x => x.Questions).Access.CamelCaseField(Prefix.Underscore).KeyColumn("UserId")
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
             Map(x => x.Score).ReadOnly();
@@ -42,7 +42,7 @@ namespace Cloudents.Persistence.Maps
 
             DynamicUpdate();
             OptimisticLock.Version();
-            Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
+            Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
             DiscriminateSubClassesOnColumn("Fictive");
             /*
              * CREATE UNIQUE NONCLUSTERED INDEX idx_phoneNumber_notnull

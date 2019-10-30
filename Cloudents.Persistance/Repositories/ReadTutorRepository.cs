@@ -30,8 +30,8 @@ namespace Cloudents.Persistence.Repositories
                     s.User.Image,
                     s.Bio,
                     UniversityName = s.User.University.Name,
-                    s.Price,
-                    s.SubsidizedPrice,
+                    s.Price.Price,
+                    s.Price.SubsidizedPrice,
                     s.User.Country
                 }).ToFutureValue();
 

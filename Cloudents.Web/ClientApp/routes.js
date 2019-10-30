@@ -245,8 +245,8 @@ let routes2 = [
         }
     },
     {
-        path: "/note/:courseName/:name/:id",
-        alias: ['/document/:courseName/:name/:id'],
+        path: "/document/:courseName/:name/:id",
+        // alias: ['/document/:courseName/:name/:id'],
         name: "document",
         components: {
             default: document,

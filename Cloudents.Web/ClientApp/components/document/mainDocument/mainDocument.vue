@@ -52,7 +52,7 @@
           :popUpType="'reportDialog'"
           :content-class="`reportDialog ${isRtl? 'rtl': ''}` "
         >
-          <report-item :closeReport="closeReportDialog" :itemType="itemType" :itemId="itemId"></report-item>
+          <report-item :closeReport="closeReportDialog" :itemType="'Document'" :itemId="itemId"></report-item>
         </sb-dialog>
         <sb-dialog
           :showDialog="priceDialog"
@@ -67,7 +67,7 @@
             <v-flex align-center justify-center class="relative-pos">
               <div class="title-wrap">
                 <span class="change-title pr-1" v-language:inner="'resultNote_change_for'"></span>
-                <span class="change-title" style="width:min-content;">&nbsp;"{{courseName}}"</span>
+                <span class="change-title">&nbsp;"{{courseName}}"</span>
               </div>
               <div class="input-wrap d-flex row align-center justify-center">
                 <div :class="['price-wrap', isRtl ? 'reversed' : '']">
@@ -369,12 +369,6 @@ export default {
     isSmAndDown() {
       return this.$vuetify.breakpoint.smAndDown;
     },
-    itemType() {
-      if (this.document) {
-        // return this.document.details.template
-      }
-      return "feed";
-    },
     documentPrice: {
       get() {
         if (this.newPrice !== null) {
@@ -582,6 +576,7 @@ export default {
 </script>
 <style lang="less">
 @import "../../../styles/mixin.less";
+@import "../../dialogs/changePrice/changePrice.less";
 
 .mainDocument-container {
   margin-bottom: 80px;

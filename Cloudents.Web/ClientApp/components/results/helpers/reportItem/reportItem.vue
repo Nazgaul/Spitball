@@ -112,8 +112,8 @@
             ...mapActions(['Feeds_reportQuestion', 'reportDocument', 'Feeds_reportAnswer', 'answerRemoved']),
             callRelevantAction(type, data) {
                 let actions = {
-                    "feed": this.Feeds_reportQuestion,
-                    "note": this.reportDocument,
+                    "Question": this.Feeds_reportQuestion,
+                    "Document": this.reportDocument,
                     "answer": this.Feeds_reportAnswer
                 };
                 return actions[type](data);
@@ -136,16 +136,16 @@
                 data = {
                     "id": this.itemId,
                     "flagReason": reasonToSend
-                };
+                };                
                 let self = this;
-                this.callRelevantAction(this.itemType, data).then(() => {
+                this.callRelevantAction(this.itemType, data).then(() => {                    
                     //in case answer is flaged
-                    if (this.itemType === "answer") {
+                    if (self.itemType === "answer") {
                         //after successfull flag remove answer from client side
                         self.answerRemoved(this.answerDelData);
                     }
                     self.closeReportPop()
-                    if(this.$route.name === 'question') this.$router.push('/feed');
+                    self.$router.push('/feed');
                 })
 
             },

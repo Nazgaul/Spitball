@@ -18,9 +18,7 @@ export default {
   name: "subfooterSection",
   methods:{
         goToTutorPage(){
-            this.$router.push({
-                path:"/tutor",
-            })
+            this.$router.push({name:"tutorLandingPage"})
         }
     }
 };

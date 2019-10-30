@@ -167,7 +167,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile @click="startIntercom" v-if="!isFrymo">
+      <v-list-tile @click="startIntercom">
         <v-list-tile-action>
           <v-icon>sbf-feedbackNew</v-icon>
         </v-list-tile-action>
@@ -326,7 +326,12 @@ export default {
       );
     },
     startIntercom() {
-      Intercom("showNewMessage");
+      if(this.isFrymo){
+        window.open('mailto: support@frymo.com', '_blank');
+      }else{
+        Intercom("showNewMessage");
+      }
+      
     },
     openReferralDialog() {
       setTimeout(() => {

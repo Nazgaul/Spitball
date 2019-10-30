@@ -42,7 +42,7 @@ cast ((select count(*) from sb.GoogleTokens gt where u.Id = gt.Id) as bit) as Ca
 t.rate as Tutor_Rate,
 t.rateCount as Tutor_ReviewCount,
 u.FirstName as Tutor_FirstName ,u.LastName as Tutor_LastName,
-t.price as Tutor_TutorPrice, 
+t.price as Tutor_NumericPrice, 
 t.country as Tutor_TutorCountry
 
 from sb.[user] u 

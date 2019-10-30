@@ -163,7 +163,9 @@ const actions = {
             let objToRemove = {
                 id: data.id
             };
-            dispatch('removeDocumentItemAction', objToRemove);
+            
+            // dispatch('removeDocumentItemAction', objToRemove);
+            dispatch('removeDocItemAction', objToRemove);
             dispatch('removeItemFromProfile', objToRemove);
         });
     },

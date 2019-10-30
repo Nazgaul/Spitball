@@ -27,10 +27,12 @@ function createIsTutorState(str){
 }
  function TutorData(objInit) {
      this.price= objInit.price || 0;
+     this.numPrice = objInit.numericPrice;
      this.rate = objInit.rate || 0;
      this.reviewCount = objInit.reviewCount || 0;
      this.firstName = objInit.firstName || '';
      this.lastName = objInit.lastName  || '';
+     this.discountPrice = objInit.discountPrice;
  }
 
  function createTutorData(objInit) {
@@ -167,7 +169,7 @@ export default {
             description: data.description,
             lastName: data.lastName,
             bio: data.bio,
-            price: data.price
+            price: data.numPrice
         };
         return connectivityModule.http.post("/Account/settings", serverFormat);
     },

@@ -17,7 +17,7 @@ namespace Cloudents.Web.Models
         public string Bio { get; set; }
 
         [Range(Tutor.MinimumPrice, Tutor.MaximumPrice)]
-        public decimal? Price { get; set; }
+        public int? Price { get; set; }
     }
 
 

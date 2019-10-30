@@ -28,7 +28,7 @@
                     <h1 
                       class="subheading font-weight-bold lineClamp"
                       :style="[{wordBreak: 'break-all'},{maxWidth: $vuetify.breakpoint.xsOnly? '180px':'inherit'}]"
-                    >{{userName}}sdfsdf sdfsdfsdf sdfs fsdf sdfsdf sdfkljsdklfjskdlfj skldjfkls djflksd jflkjsdlk fjsdklf</h1>
+                    >{{userName}}</h1>
                     <v-icon
                       @click="openEditInfo()"
                       v-if="$vuetify.breakpoint.xsOnly && isMyProfile"

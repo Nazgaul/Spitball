@@ -22,6 +22,7 @@ namespace Cloudents.Core.Entities
             University = university;
             Lessons = lessons;
             Country = country;
+            //case 115
             OverAllRating = (rate.GetValueOrDefault() * RateCount + 48 + Lessons * rate.GetValueOrDefault()) 
                             / (RateCount + 12 + Lessons);
             SubsidizedPrice = subsidizedPrice;

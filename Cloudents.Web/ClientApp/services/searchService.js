@@ -34,9 +34,6 @@ function AnswerItem(objInit) {
     this.files = objInit.files;
     this.user = objInit.user;
     this.isRtl = objInit.isRtl;
-    // this.votes = !!objInit.vote ? objInit.vote.votes : undefined;
-    // this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : undefined;
-    // this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : undefined;
 }
 
 function createAnswerItem(objInit) {
@@ -44,9 +41,6 @@ function createAnswerItem(objInit) {
 }
 
 function QuestionItem(objInit) {
-    let oneMinute = 60000;
-    let oneHour = oneMinute * 60;
-    let threshhold = oneHour * 4;
     this.id = objInit.id || null;
     this.text = objInit.text || '';
     this.type = objInit.type || 'Question';
@@ -54,17 +48,11 @@ function QuestionItem(objInit) {
     this.course = objInit.course || '';
     this.user = objInit.user || null;    
     this.template = "result-ask";
-    this.cultureInfo = objInit.cultureInfo || 'en';
     this.isRtl = objInit.isRtl;
     this.userId = objInit.userId || objInit.user.id;
     this.user = objInit.user || null;    
     this.firstAnswer = objInit.firstAnswer ? createFirstAnswerItem(objInit.firstAnswer) : null;
     this.answers = objInit.answers !== undefined ? (typeof objInit.answers === "number" ? objInit.answers : objInit.answers.map(createAnswerItem)) : undefined;
-    // if the question is younger then 1 minute then watching now will be 0
-    //if question is older then threshold, watching now also gonna be 0 other wise random between 0 to 1
-    let questionOlderTheOneMinute = (new Date().getTime() - new Date(this.dateTime).getTime()) > oneMinute;
-    let questionYoungerThenThreshHold = (new Date().getTime() - new Date(this.dateTime).getTime()) < threshhold;
-    this.watchingNow = questionOlderTheOneMinute ? (questionYoungerThenThreshHold ? ((Math.random() * 2) | 0) : 0) : 0; //Todo get value from server
 }
 
 function createQuestionItem(objInit) {
@@ -108,28 +96,26 @@ function createDocumentItemUser(objInit) {
 }
 
 function DocumentItem(objInit) {
-    this.id = objInit.id || 1;
-    this.course = objInit.course;
-    this.dateTime = objInit.dateTime;
-    this.downloads = objInit.downloads;
-    this.purchased = objInit.purchased;
+    this.id = objInit.id || null; 
+    this.course = objInit.course; 
+    this.dateTime = objInit.dateTime; 
+    this.downloads = objInit.downloads; 
+    this.purchased = objInit.purchased; 
     this.snippet = objInit.snippet;
-    // this.source = objInit.source;
     this.title = objInit.title;
     this.university = objInit.university;
     this.url = objInit.url;
     this.user = objInit.user ? createDocumentItemUser(objInit.user) : '';
     this.views = objInit.views;
-    this.template = 'result-note'; //TODO remove this
+    this.template = 'result-note';
     this.price = objInit.price;
-    this.isPurchased = objInit.isPurchased; //TODO: I never return this    
     this.votes = !!objInit.vote ? objInit.vote.votes : null;
     this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
-    this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;   
+    this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
     this.preview = objInit.preview;
     this.type = objInit.type || 'Document';
     this.documentType = objInit.documentType;
-    this.itemDuration = objInit.duration;    
+    this.itemDuration = objInit.duration;
 }
 
 function createDocumentItem(objInit) {
@@ -150,13 +136,6 @@ let transferResultDocument = (data) => {
 /* Tutor Card Result */
 let transferResultTutor = (data) => {
     return (!data) ? [] : createTutorItem(data);
-    // if(!data.result) return { data: [] };
-    // return {
-    //     sort: data.sort,
-    //     filters: data.filters,
-    //     data: data.result.map(createTutorItem),
-    //     nextPage: data.nextPageLink
-    // };
 };
 
 const transferMap = {

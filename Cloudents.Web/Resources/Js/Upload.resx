@@ -189,4 +189,10 @@
   <data name="uf_sDrop_btn_local_mobile" xml:space="preserve">
     <value>My Phone</value>
   </data>
+  <data name="uf-take-time" xml:space="preserve">
+    <value>it may take a few minutes</value>
+  </data>
+  <data name="uf-uploading" xml:space="preserve">
+    <value>Uploading file(s). Please wait</value>
+  </data>
 </root>
