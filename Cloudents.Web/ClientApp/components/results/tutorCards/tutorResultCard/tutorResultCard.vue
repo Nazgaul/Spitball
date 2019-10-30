@@ -260,7 +260,7 @@ export default {
       .main-card {
         min-width: 0;
         h3{
-          line-height: 1.1 !important;
+          // line-height: 1.1 !important;
         }
         display: flex;  
         flex-direction: column;
