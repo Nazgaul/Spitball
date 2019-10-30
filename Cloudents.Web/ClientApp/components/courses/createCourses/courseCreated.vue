@@ -72,7 +72,7 @@
                 this.closeDialog();
             },
             copyClassLink() {
-                let url = `${global.location.origin}/note/?Course=${this.courseName}`;
+                let url = `${global.location.origin}/feed/?Course=${this.courseName}`;
                 let self = this;
                 self.$copyText(url).then((e) => {
                     self.isCopied = true;
