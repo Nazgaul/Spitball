@@ -190,9 +190,9 @@
     <value>My Phone</value>
   </data>
   <data name="uf-take-time" xml:space="preserve">
-    <value>it might take some time</value>
+    <value>it may take a few minutes</value>
   </data>
   <data name="uf-uploading" xml:space="preserve">
-    <value>Uploading file please w8!</value>
+    <value>Uploading file(s). Please wait</value>
   </data>
 </root>
