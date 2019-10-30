@@ -16,7 +16,9 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.CreationTime);
             Map(x => x.UtmSource);
             Map(x => x.Status);
-            
+            HasMany(x => x.ChatRoomsAdmin).Access.CamelCaseField(Prefix.Underscore)
+                .Cascade.AllDeleteOrphan().Inverse().AsSet();
+
         }
     }
 }
