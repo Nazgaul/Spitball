@@ -186,7 +186,8 @@ export default {
         return this.$vuetify.breakpoint.xsOnly;
       },
       isNeedPayment(){
-        return this.getNeedPayment
+        let price = this.getProfile.user.tutorData.price.slice(1, this.getProfile.user.tutorData.price.length);        
+        return this.getNeedPayment && Number(price) > 0;
       },
       isSelfTutor() {
         if((!!this.getProfile && !!this.accountUser) && this.getProfile.user.id == this.accountUser.id) {

@@ -52,7 +52,7 @@
           :popUpType="'reportDialog'"
           :content-class="`reportDialog ${isRtl? 'rtl': ''}` "
         >
-          <report-item :closeReport="closeReportDialog" :itemType="itemType" :itemId="itemId"></report-item>
+          <report-item :closeReport="closeReportDialog" :itemType="'Document'" :itemId="itemId"></report-item>
         </sb-dialog>
         <sb-dialog
           :showDialog="priceDialog"
@@ -368,12 +368,6 @@ export default {
     },
     isSmAndDown() {
       return this.$vuetify.breakpoint.smAndDown;
-    },
-    itemType() {
-      if (this.document) {
-        // return this.document.details.template
-      }
-      return "feed";
     },
     documentPrice: {
       get() {
