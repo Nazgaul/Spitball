@@ -98,13 +98,12 @@ namespace Cloudents.Search.Document
                 }
             }
 
-            const int pageSize = 18;
             var searchParameter = new SearchParameters
             {
                 Filter = string.Join(" and ", filters),
                 Select = new[] { nameof(Entities.Document.Id) },
-                Top = pageSize,
-                Skip = query.Page * pageSize,
+                Top = query.PageSize,
+                Skip = query.Page * query.PageSize,
                 OrderBy = new List<string> { "search.score() desc", $"{nameof(Entities.Document.DateTime)} desc" },
                 ScoringProfile = DocumentSearchWrite.ScoringProfile,
                 ScoringParameters = new[]

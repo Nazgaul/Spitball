@@ -10,13 +10,14 @@ namespace Cloudents.Query.Documents
 {
     public class FeedAggregateQuery : IQuery<IEnumerable<FeedDto>>
     {
-        public FeedAggregateQuery(long userId, int page, string[] filter, string country, string course)
+        public FeedAggregateQuery(long userId, int page, string[] filter, string country, string course, int pageSize)
         {
             Page = page;
             UserId = userId;
             Filter = filter;
             Country = country;
             Course = course;
+            PageSize = pageSize;
         }
 
         private int Page { get; }
@@ -27,7 +28,7 @@ namespace Cloudents.Query.Documents
         private string Country { get; }
 
         private string Course { get; }
-
+        public int PageSize { get;}
 
         internal sealed class DocumentAggregateQueryHandler : IQueryHandler<FeedAggregateQuery, IEnumerable<FeedDto>>
         {
@@ -46,7 +47,6 @@ namespace Cloudents.Query.Documents
 
             public async Task<IEnumerable<FeedDto>> GetAsync(FeedAggregateQuery query, CancellationToken token)
             {
-                const int pageSize = 18;
                 const string sqlWithCourse = @"with cte as (
 select top 1 * from(select 1 as o, u2.Id as UniversityId, COALESCE(u2.country, u.country) as Country, u.id as userid
  from sb.[user] u
@@ -247,7 +247,7 @@ FETCH NEXT @pageSize ROWS ONLY";
                     query.UserId,
                     query.Country,
                     query.Course,
-                    pageSize
+                    query.PageSize
 
                 }))
                 {
