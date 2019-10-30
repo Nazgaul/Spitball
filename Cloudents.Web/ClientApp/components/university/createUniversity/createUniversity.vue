@@ -152,6 +152,9 @@
                     font-size: 16px;
                 }
             }
+            .v-messages__message{
+                line-height: 1.4;
+            }
         }
     }
 </style>
