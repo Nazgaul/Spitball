@@ -78,7 +78,7 @@
                     //create new uni add action in store needed
                     self.createUniversity(university).then((success)=>{
                         self.changeUniCreateDialogState(false);
-                        classesSet ?  self.$router.push({name: 'note'})  : self.$router.push({name: 'editCourse'});
+                        classesSet ?  self.$router.push({name: 'feed'})  : self.$router.push({name: 'editCourse'});
                     }, (error)=>{
                         console.log('error create university', error)
                     }).finally(()=>{
