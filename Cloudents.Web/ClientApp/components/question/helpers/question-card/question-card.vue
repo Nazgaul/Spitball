@@ -31,15 +31,15 @@
                                             <v-icon>sbf-3-dot</v-icon>
                                         </v-btn>
                                         <v-list>
-                                            <v-list-tile
+                                            <v-list-item
                                                     v-show="item.isVisible"
                                                     :disabled="item.isDisabled()"
                                                     v-for="(item, i) in actions"
                                                     :key="i"
                                             >
-                                                <v-list-tile-title @click="item.action()">{{ item.title }}
-                                                </v-list-tile-title>
-                                            </v-list-tile>
+                                                <v-list-item-title @click="item.action()">{{ item.title }}
+                                                </v-list-item-title>
+                                            </v-list-item>
                                         </v-list>
                                     </v-menu>
                                 </div>

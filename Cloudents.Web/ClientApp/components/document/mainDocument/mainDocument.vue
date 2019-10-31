@@ -36,14 +36,14 @@
             <v-icon class="verticalMenu">sbf-3-dot</v-icon>
           </v-btn>
           <v-list>
-            <v-list-tile
+            <v-list-item
               v-show="item.isVisible(item.visible)"
               :disabled="item.isDisabled()"
               v-for="(item, i) in actions"
               :key="i"
             >
-              <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
-            </v-list-tile>
+              <v-list-item-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-item-title>
+            </v-list-item>
           </v-list>
         </v-menu>
         <sb-dialog
@@ -222,6 +222,8 @@ import utillitiesService from "../../../services/utilities/utilitiesService";
 import documentService from "../../../services/documentService";
 import tutorResultCardCarousel from "../../../components/results/tutorCards/tutorResultCardCarousel/tutorResultCardCarousel.vue";
 import sbVideoPlayer from '../../sbVideoPlayer/sbVideoPlayer.vue';
+import { VList } from 'vuetify/lib'
+
 
 export default {
   name: "mainDocument",
@@ -230,6 +232,7 @@ export default {
     sbDialog,
     tutorResultCardCarousel,
     sbVideoPlayer,
+    VList
   },
   props: {
     document: {

@@ -6,6 +6,7 @@ const webpackRtlPlugin = require("webpack-rtl-plugin");
 const bundleOutputDir = "./wwwroot/dist";
 const RemovePlugin = require('remove-files-webpack-plugin');
 
+
 const allModules = [
     // "@babel/polyfill",
     // "vue",
@@ -133,7 +134,6 @@ module.exports = (env) => {
             minimize: !isDevBuild
         },
         plugins: [
-           
             new MiniCssExtractPlugin({
                 filename: '[name].[contenthash].css'
             }),

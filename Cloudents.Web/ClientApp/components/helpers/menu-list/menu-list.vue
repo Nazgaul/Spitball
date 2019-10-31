@@ -32,53 +32,53 @@
         </template>
       </user-block>
       <!-- start language swith-->
-      <v-list-tile
+      <v-list-item
         :to="{ name: 'tutoring'}"
         target="_blank"
       >
-        <v-list-tile-action>
+        <v-list-item-action>
           <v-icon>sbf-studyroom-icon</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_my_study_rooms</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="subheading" v-language:inner>menuList_my_study_rooms</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item
         v-for="singleLang in languageChoisesAval"
         :key="singleLang.name"
         @click="changeLanguage(singleLang.id)"
       >
-        <v-list-tile-action>
+        <v-list-item-action>
           <v-icon>{{singleLang.icon}}</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading">{{singleLang.title}}</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="subheading">{{singleLang.title}}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <!-- end language swith-->
       <template v-for="(item) in notRegMenu">
         <template v-if="item.name && item.name !== 'feedback'">
-          <router-link tag="v-list-tile" :to="{name : item.name}">
-            <v-list-tile-action>
+          <router-link tag="v-list-item" :to="{name : item.name}">
+            <v-list-item-action>
               <v-icon>{{item.icon}}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title class="subheading">{{item.title}}</v-list-tile-title>
-            </v-list-tile-content>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title class="subheading">{{item.title}}</v-list-item-title>
+            </v-list-item-content>
           </router-link>
         </template>
         <!--if theres is click handler as in feedback/ check settings/const.js -->
-        <v-list-tile
+        <v-list-item
           v-else-if="item.name === 'feedback' && accountUser"
           @click="() => item.click ? item.click() : ''"
         >
-          <v-list-tile-action>
+          <v-list-item-action>
             <v-icon>{{item.icon}}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title class="subheading">{{item.title}}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title class="subheading">{{item.title}}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </template>
     </v-list>
     <!--mobile side menu open template-->
@@ -90,118 +90,118 @@
         v-if="isMobile"
       ></user-block>
       <!--!!!this wont generate link in dom!!!-->
-      <!--<router-link tag="v-list-tile" :to="{name:'wallet'}">-->
+      <!--<router-link tag="v-list-item" :to="{name:'wallet'}">-->
       <!--!!!!Use this instead, v-list tile with :to !!!!!-->
-      <v-list-tile :to="{name:'wallet'}">
-        <v-list-tile-action>
+      <v-list-item :to="{name:'wallet'}">
+        <v-list-item-action>
           <v-icon>sbf-wallet</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_my_wallet</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile :to="{name:'profile',params:{id:accountUser.id,name:accountUser.name}}">
-        <v-list-tile-action>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="subheading" v-language:inner>menuList_my_wallet</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item :to="{name:'profile',params:{id:accountUser.id,name:accountUser.name}}">
+        <v-list-item-action>
           <v-icon>sbf-user</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_my_profile</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="subheading" v-language:inner>menuList_my_profile</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item
         @click.native.prevent="openPersonalizeUniversity()"
         :to="{name: 'addUniversity'}"
       >
-        <v-list-tile-action>
+        <v-list-item-action>
           <v-icon>sbf-university</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_changeUniversity</v-list-tile-title>
-        </v-list-tile-content>
-        <v-list-tile-action>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="subheading" v-language:inner>menuList_changeUniversity</v-list-item-title>
+        </v-list-item-content>
+        <v-list-item-action>
           <span class="edit-text">
             <v-icon class="edit-after-icon">sbf-edit-icon</v-icon>
           </span>
-        </v-list-tile-action>
-      </v-list-tile>
-      <v-list-tile
+        </v-list-item-action>
+      </v-list-item>
+      <v-list-item
         @click.native.prevent="openPersonalizeCourse()"
         :to="{name: 'editCourse'}">
-        <v-list-tile-action>
+        <v-list-item-action>
           <v-icon>sbf-classes</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_changeCourse</v-list-tile-title>
-        </v-list-tile-content>
-        <v-list-tile-action>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="subheading" v-language:inner>menuList_changeCourse</v-list-item-title>
+        </v-list-item-content>
+        <v-list-item-action>
           <span class="edit-text">
             <v-icon class="edit-after-icon">sbf-edit-icon</v-icon>
           </span>
-        </v-list-tile-action>
-      </v-list-tile>
+        </v-list-item-action>
+      </v-list-item>
 
      
-      <v-list-tile
+      <v-list-item
         :to="{ name: 'tutoring'}"
         target="_blank"
       >
-        <v-list-tile-action>
+        <v-list-item-action>
           <v-icon>sbf-studyroom-icon</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_my_study_rooms</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="subheading" v-language:inner>menuList_my_study_rooms</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       
-      <v-list-tile
+      <v-list-item
         v-if="!isFrymo"
         v-for="singleLang in languageChoisesAval"
         :key="singleLang.name"
         @click="changeLanguage(singleLang.id)"
       >
-        <v-list-tile-action>
+        <v-list-item-action>
           <v-icon>{{singleLang.icon}}</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading">{{singleLang.title}}</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="subheading">{{singleLang.title}}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-      <v-list-tile @click="startIntercom">
-        <v-list-tile-action>
+      <v-list-item @click="startIntercom">
+        <v-list-item-action>
           <v-icon>sbf-feedbackNew</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_feedback</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="subheading" v-language:inner>menuList_feedback</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-      <v-list-tile @click="logout">
-        <v-list-tile-action>
+      <v-list-item @click="logout">
+        <v-list-item-action>
           <v-icon>sbf-logout</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_logout</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="subheading" v-language:inner>menuList_logout</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-divider class="my-3"></v-divider>
-      <v-list-tile @click="openReferralDialog">
-        <v-list-tile-action>
+      <v-list-item @click="openReferralDialog">
+        <v-list-item-action>
           <v-icon>sbf-user</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_referral_spitball</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title class="subheading" v-language:inner>menuList_referral_spitball</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-      <v-list-tile v-for="link in satelliteLinks" :key="link.title">
-        <v-list-tile-action>
+      <v-list-item v-for="link in satelliteLinks" :key="link.title">
+        <v-list-item-action>
           <v-icon>{{link.icon}}</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
+        </v-list-item-action>
+        <v-list-item-content>
           <a :href="link.url" class="v-list__tile__title subheading">{{link.title}}</a>
-        </v-list-tile-content>
-      </v-list-tile>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
 
     <sb-dialog
@@ -312,7 +312,7 @@ export default {
       "updateCurrentStep"
     ]),
     currentTemplate(val) {
-      return val ? "router-link" : "v-list-tile";
+      return val ? "router-link" : "v-list-item";
     },
     changeLanguage(id) {
       LanguageChange.setUserLanguage(id).then(

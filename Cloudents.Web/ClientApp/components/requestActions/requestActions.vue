@@ -15,7 +15,7 @@
         </v-layout>
         <v-layout align-space-between class="pt-3 pb-3 buttons-layout text-xs-center" justify-space-between>
             <v-flex sm4 class="btn-wrap" shrink>
-                <v-btn round class="light-btn elevation-0 ma-0" @click="openAskQuestion()">
+                <v-btn rounded class="light-btn elevation-0 ma-0" @click="openAskQuestion()">
                     <v-icon class="light-btn-icon  mr-2">sbf-message-icon-new</v-icon>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_ask</span>
@@ -24,7 +24,7 @@
                 </v-btn>
             </v-flex>
             <v-flex sm4 class="btn-wrap" shrink>
-                <v-btn round class="light-btn elevation-0 ma-0" @click="openUpload()">
+                <v-btn rounded class="light-btn elevation-0 ma-0" @click="openUpload()">
                     <v-icon class="light-btn-icon  mr-2">sbf-upload-icon</v-icon>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_upload</span>
@@ -33,7 +33,7 @@
                 </v-btn>
             </v-flex>
             <v-flex sm4 class="btn-wrap" shrink>
-                <v-btn round class="light-btn elevation-0 ma-0" @click="openRequestTutor()">
+                <v-btn rounded class="light-btn elevation-0 ma-0" @click="openRequestTutor()">
                     <v-icon class="light-btn-icon  mr-2">sbf-person-icon</v-icon>
                     <span v-show="$vuetify.breakpoint.smAndUp" class="body-2 font-weight-medium"
                           v-language:inner>requestActions_btn_tutor</span>

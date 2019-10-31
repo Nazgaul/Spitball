@@ -1,34 +1,34 @@
 <template>
     <div>
-        <v-bottom-nav
+        <v-bottom-navigation
                 height="48px"
-                :active.sync="activeBtn"
-                :value="true"
+                
+                :value="activeBtn"
                 fixed
                 color="#f5f5f5"
                 :app="$vuetify.breakpoint.xsOnly && getMobileFooterState()"
                 class="notransition mob-footer-navigation"
         >
-            <v-btn flat color="teal" value="feed" @click="changeActiveTab(tabs.feed)">
+            <v-btn text color="teal" value="feed" @click="changeActiveTab(tabs.feed)">
                 <span class="mob-footer-title" v-language:inner>mobileFooter_action_feed</span>
                 <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.feed">sbf-icon-feed</v-icon>
                 <v-icon class="mob-footer-icon" v-else>sbf-icon-feed-selected</v-icon>
 
             </v-btn>
-            <v-btn flat color="teal" value="earners"  @click="changeActiveTab(tabs.earners)">
+            <v-btn text color="teal" value="earners"  @click="changeActiveTab(tabs.earners)">
                 <span class="mob-footer-title" v-language:inner>mobileFooter_action_earners</span>
                 <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.earners">sbf-graduation</v-icon>
                 <v-icon class="mob-footer-icon" color="#4452FC" v-else>sbf-graduation</v-icon>
             </v-btn>
 
             <!-- <v-btn flat color="teal" value="promotions"  @click="changeActiveTab(tabs.promotions)"> -->
-            <v-btn flat color="teal" value="promotions"  @click="openChat()">
+            <v-btn text color="teal" value="promotions"  @click="openChat()">
                 <span class="mob-footer-title" v-language:inner>mobileFooter_action_promotion</span>
                 <v-icon class="mob-footer-icon" v-if="activeBtn !== tabs.promotions">sbf-message-icon</v-icon>
                 <!-- <v-icon class="mob-footer-icon" v-else>sbf-icon-promotions-selected</v-icon> -->
                 <span class="unread-circle" v-show="totalUnread > 0">{{totalUnread}}</span>
             </v-btn>
-        </v-bottom-nav>
+        </v-bottom-navigation>
     </div>
 </template>
 <script>

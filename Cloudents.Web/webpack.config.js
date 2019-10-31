@@ -7,6 +7,8 @@ const webpackRtlPlugin = require("webpack-rtl-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin = require('terser-webpack-plugin');
+const RemovePlugin = require('remove-files-webpack-plugin');
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = (env) => {
     
@@ -95,6 +97,26 @@ module.exports = (env) => {
                     
                 },
                 {
+                    test: /\.s[ac]ss$/i,
+                    use:
+                        isDevBuild ? ['vue-style-loader', 'rtl-css-loader', 'sass-loader']
+                        :
+                        [
+                            {
+                                loader: MiniCssExtractPlugin.loader,
+                                options: {
+                                    publicPath: '/dist/'
+                                }
+                            },
+                            {
+                                loader:'css-loader'
+                            },
+                            {
+                                loader:'sass-loader'
+                            }
+                        ]
+                },
+                {
                     test: /\.less(\?|$)/,
                     use:
                         isDevBuild ? ['vue-style-loader', 'rtl-css-loader', 'less-loader']
@@ -113,6 +135,19 @@ module.exports = (env) => {
                                 loader:'less-loader'
                             }
                         ]
+                },
+                {
+                    test: /\.font\.js/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        'css-loader',
+                        {
+                            loader: 'webfonts-loader',
+                            options: {
+                                publicPath: '/dist/'
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -148,17 +183,29 @@ module.exports = (env) => {
             })] : []
         },
         plugins: [
+            new RemovePlugin({
+                before: {
+                    // parameters.
+                    include: ['./wwwroot/dist']
+                },
+                after: {
+                    // parameters.
+                }
+            }),
+            
             new VueLoaderPlugin(),
             new webpack.DefinePlugin({
                 'process.env': {
                     NODE_ENV: JSON.stringify(isDevBuild ? 'development' : 'production')
                 }
             }),
-            new webpack.DllReferencePlugin({
-                context: __dirname,
-                // ReSharper disable once JsPathNotFound
-                manifest: require("./wwwroot/dist/vendor-manifest.json")
-            })
+            new VuetifyLoaderPlugin(),
+            // new webpack.DllReferencePlugin({
+            //     context: __dirname,
+            //     // ReSharper disable once JsPathNotFound
+            //     manifest: require("./wwwroot/dist/vendor-manifest.json")
+            // }),
+            
         ].concat(isDevBuild
             ? [
                 new webpack.SourceMapDevToolPlugin({

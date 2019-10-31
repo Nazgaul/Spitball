@@ -11,9 +11,9 @@
                 :append-icon="'sbf-arrow-down'"
                 item-value="callingCode">
             <template slot="selection" slot-scope="data">
-                <v-list-tile-content>
-                    <v-list-tile-title>{{getCode(data.item)}}</v-list-tile-title>
-                </v-list-tile-content>
+                <v-list-item-content>
+                    <v-list-item-title>{{getCode(data.item)}}</v-list-item-title>
+                </v-list-item-content>
             </template>
             <template slot="item" slot-scope="data">
                 {{getCode(data.item)}}

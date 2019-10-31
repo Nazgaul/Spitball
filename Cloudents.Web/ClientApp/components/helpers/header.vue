@@ -1,7 +1,7 @@
 <template>
     <div :class="{'hide-header': hideHeader}">
         <!--TODO check if worsk well-->
-        <v-toolbar :app="!isMobile" :fixed="!isMobile" class="header" clipped-left clipped-right>
+        <v-app-bar :app="!isMobile" :fixed="!isMobile" class="header" clipped-left clipped-right>
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
                 <div class="main">
                     <v-flex class="line top">
@@ -33,7 +33,7 @@
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
                                             <user-avatar 
-                                                slot="activator" 
+                                                slot="activator"
                                                 @click.native="drawer = !drawer" 
                                                 size="32"
                                                 :userImageUrl="userImageUrl" 
@@ -69,7 +69,7 @@
                 </div>
                 
             </v-layout>            
-        </v-toolbar>
+        </v-app-bar>
 
         <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
                              fixed app v-if="$vuetify.breakpoint.xsOnly"

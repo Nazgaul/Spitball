@@ -1,4 +1,5 @@
 import Vue from "vue";
+import vuetify from './plugins/vuetify';
 import App from "./components/app/app.vue";
 import { sync } from 'vuex-router-sync';
 import store from "./store";
@@ -7,8 +8,8 @@ import { LanguageService } from './services/language/languageService';
 //import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
 // clip board copy text
 import VueClipboard from 'vue-clipboard2';
-import Scroll from "vuetify/es5/directives/scroll";
-import Touch from "vuetify/es5/directives/touch";
+// import Scroll from "vuetify/es5/directives/scroll";
+// import Touch from "vuetify/es5/directives/touch";
 import scrollComponent from './components/helpers/infinateScroll.vue';
 import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
@@ -33,103 +34,103 @@ Vue.use(VueFlicking);
 // Vue.use(VueCodemirror);
 
 
-import {
-    VApp,
-    VAvatar,
-    VBottomNav,
-    VBtn,
-    VBtnToggle,
-    VCard,
-    VCarousel,
-    VCheckbox,
-    VChip,
-    VCombobox,
-    VDataTable,
-    VDialog,
-    VDivider,
-    VExpansionPanel,
-    VGrid,
-    VIcon,
-    VList,
-    VMenu,
-    VNavigationDrawer,
-    VPagination,
-    VProgressCircular,
-    VProgressLinear,
-    VSelect,
-    VSnackbar,
-    VStepper,
-    VSubheader,
-    VSwitch,
-    VTabs,
-    VTextarea,
-    VTextField,
-    VToolbar,
-    VTooltip,
-    VRating,
-    VForm,
-    VAutocomplete,
-    VSheet,
-    VCalendar,
-    Vuetify
-} from "vuetify";
+// import {
+//     VApp,
+//     VAvatar,
+//     VBottomNav,
+//     VBtn,
+//     VBtnToggle,
+//     VCard,
+//     VCarousel,
+//     VCheckbox,
+//     VChip,
+//     VCombobox,
+//     VDataTable,
+//     VDialog,
+//     VDivider,
+//     VExpansionPanel,
+//     VGrid,
+//     VIcon,
+//     VList,
+//     VMenu,
+//     VNavigationDrawer,
+//     VPagination,
+//     VProgressCircular,
+//     VProgressLinear,
+//     VSelect,
+//     VSnackbar,
+//     VStepper,
+//     VSubheader,
+//     VSwitch,
+//     VTabs,
+//     VTextarea,
+//     VTextField,
+//     VToolbar,
+//     VTooltip,
+//     VRating,
+//     VForm,
+//     VAutocomplete,
+//     VSheet,
+//     VCalendar,
+//     Vuetify
+// } from "vuetify";
 import * as route from "./routes";
 
 
 
 //NOTE: put changes in here in webpack vendor as well
-const vuetifyComponents = {
-    VApp,
-    VGrid,
-    VChip,
-    VToolbar,
-    VList,
-    VExpansionPanel,
-    VCard,
-    VCarousel,
-    VProgressCircular,
-    VProgressLinear,
-    VSubheader,
-    VDivider,
-    VDialog,
-    VTextField,
-    VSelect,
-    VBtn,
-    VBtnToggle,
-    VTooltip,
-    VMenu,
-    VSwitch,
-    VTabs,
-    VIcon,
-    VSnackbar,
-    VNavigationDrawer,
-    VAvatar,
-    VPagination,
-    VDataTable,
-    VStepper,
-    VCombobox,
-    VCheckbox,
-    VBottomNav,
-    VTextarea,
-    VRating,
-    VForm,
-    VAutocomplete,
-    VSheet,
-    VCalendar
-};
+// const vuetifyComponents = {
+//     VApp,
+//     VGrid,
+//     VChip,
+//     VToolbar,
+//     VList,
+//     VExpansionPanel,
+//     VCard,
+//     VCarousel,
+//     VProgressCircular,
+//     VProgressLinear,
+//     VSubheader,
+//     VDivider,
+//     VDialog,
+//     VTextField,
+//     VSelect,
+//     VBtn,
+//     VBtnToggle,
+//     VTooltip,
+//     VMenu,
+//     VSwitch,
+//     VTabs,
+//     VIcon,
+//     VSnackbar,
+//     VNavigationDrawer,
+//     VAvatar,
+//     VPagination,
+//     VDataTable,
+//     VStepper,
+//     VCombobox,
+//     VCheckbox,
+//     VBottomNav,
+//     VTextarea,
+//     VRating,
+//     VForm,
+//     VAutocomplete,
+//     VSheet,
+//     VCalendar
+// };
 
 
 Vue.use(VueMathjax);
 Vue.use(VueRouter);
 Vue.use(LoadScript);
 
-Vue.use(Vuetify, {
-    directives: {
-        Scroll,
-        Touch
-    },
-    components: vuetifyComponents
-});
+// Vue.use(Vuetify, {
+//     directives: {
+//         Scroll,
+//         Touch
+//     },
+//     components: vuetifyComponents
+// });
 
 Vue.component("scroll-list", scrollComponent);
 Vue.component("general-page", GeneralPage);
@@ -373,9 +374,9 @@ router.beforeEach((to, from, next) => {
 const app = new Vue({
     //el: "#app",
     router: router,
-    render: h => h(App),
     store,
-
+    vuetify,
+    render: h => h(App),
 });
 
 function checkUserStatus(to, next) {

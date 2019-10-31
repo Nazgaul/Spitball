@@ -48,9 +48,9 @@
                     <v-icon>sbf-3-dot</v-icon>
                     </v-btn>
                     <v-list>
-                    <v-list-tile v-show="item.isVisible" class="report-list-item" :disabled="item.isDisabled" v-for="(item, i) in actions" :key="i">
-                        <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
-                    </v-list-tile>
+                    <v-list-item v-show="item.isVisible" class="report-list-item" :disabled="item.isDisabled" v-for="(item, i) in actions" :key="i">
+                        <v-list-item-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-item-title>
+                    </v-list-item>
                     </v-list>
                 </v-menu> -->
               </div>
@@ -78,7 +78,7 @@
             </div>                
 
             <div class="send-btn">
-                <v-btn class="btn-chat white--text" depressed round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
+                <v-btn class="btn-chat white--text" depressed rounded block color="#4452fc" @click.prevent="sendMessage(tutorData)">
                   <iconChat class="chat-icon-btn" v-if="fromLandingPage" />
                   <div class="" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
                 </v-btn>

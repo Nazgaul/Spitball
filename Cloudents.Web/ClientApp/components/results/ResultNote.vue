@@ -17,14 +17,14 @@
                 <span v-language:inner>app_currency_dynamic</span>
             </div>
             
-              <v-menu class="menu-area" lazy bottom left content-class="card-user-actions" v-model="showMenu">
+              <v-menu class="menu-area" bottom left content-class="card-user-actions" v-model="showMenu">
                 <v-btn :depressed="true" @click.native.stop.prevent="showReportOptions()" slot="activator" icon>
                   <v-icon>sbf-3-dot</v-icon>
                 </v-btn>
                 <v-list>
-                  <v-list-tile v-show="item.isVisible(item.visible)" :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
-                    <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
-                  </v-list-tile>
+                  <v-list-item v-show="item.isVisible(item.visible)" :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
+                    <v-list-item-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-item-title>
+                  </v-list-item>
                 </v-list>
               </v-menu>
           </div>

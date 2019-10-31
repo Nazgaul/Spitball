@@ -5,31 +5,31 @@
       <v-navigation-drawer permanent class="study-room-settings-nav">
         <v-toolbar flat>
           <v-list>
-            <v-list-tile>
-              <v-list-tile-title class="study-room-settings-nav-title">
+            <v-list-item>
+              <v-list-item-title class="study-room-settings-nav-title">
                 <span v-language:inner='"studyRoomSettings_title"'></span>
-              </v-list-tile-title>
-            </v-list-tile>
+              </v-list-item-title>
+            </v-list-item>
           </v-list>
         </v-toolbar>
 
         <v-divider></v-divider>
 
         <v-list dense class="pt-0">
-          <v-list-tile
+          <v-list-item
             v-for="item in items"
             :key="item.title"
             @click="currenctComponent = item.componentName"
             :class="{'tileActive': currenctComponent === item.componentName}"
           >
-            <v-list-tile-action>
+            <v-list-item-action>
               <component :is="item.icon"></component>
-            </v-list-tile-action>
+            </v-list-item-action>
 
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
       </v-navigation-drawer>
       <v-container class="study-room-settings-body">
