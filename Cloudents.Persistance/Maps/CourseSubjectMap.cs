@@ -13,7 +13,7 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.Name).Not.Nullable().Unique().Length(150);
             DynamicUpdate();
             OptimisticLock.Version();
-            Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
+            Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
             ReadOnly();
         }
     }

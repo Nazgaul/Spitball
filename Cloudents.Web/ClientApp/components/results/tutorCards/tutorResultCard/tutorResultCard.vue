@@ -32,10 +32,10 @@
         <div class="user-rates">
             <div class="price font-weight-bold mb-1">
               <div class="user-rates-top">
-                <div class="striked" v-if="showStriked">{{tutorData.price}}</div>
+                <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price}}</div>
                 <template>
                     <!-- <span class="tutor-card-currency">&#8362;</span> -->
-                    <span v-if="showStriked" class="tutor-card-price font-weight-bold">{{discountedPrice}}</span>
+                    <span v-if="tutorData.discountPrice" class="tutor-card-price font-weight-bold">{{tutorData.discountPrice}}</span>
                     <span class="tutor-card-price font-weight-bold" v-else>{{tutorData.price}}</span>
                 </template>
                 <span class="caption">
@@ -260,7 +260,7 @@ export default {
       .main-card {
         min-width: 0;
         h3{
-          line-height: 1.1 !important;
+          // line-height: 1.1 !important;
         }
         display: flex;  
         flex-direction: column;

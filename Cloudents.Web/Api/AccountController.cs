@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
@@ -22,6 +23,10 @@ using Cloudents.Core.Storage;
 using NHibernate;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using System.Linq;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Models;
+using Cloudents.Web.Binders;
+using Cloudents.Web.Services;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Api
@@ -173,14 +178,20 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("settings")]
-        public async Task<IActionResult> ChangeSettingsAsync([FromBody]UpdateSettingsRequest model,
+        public async Task<IActionResult> ChangeSettingsAsync(
+            [FromBody]UpdateSettingsRequest model,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName,
                 model.Description, model.Bio, model.Price);
             await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(profile.Country);
+            return Ok(new
+            {
+                newPrice = model.Price?.ToString("C0", culture)
+            });
         }
 
         [HttpPost("BecomeTutor")]
@@ -189,18 +200,29 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(Status409Conflict)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> BecomeTutorAsync(
-            [FromBody]UpdateSettingsRequest model, CancellationToken token)
+            [FromBody]UpdateSettingsRequest model, 
+            [FromServices] ConfigurationService configurationService,
+            CancellationToken token)
         {
             try
             {
-                if (model.Price == null)
+                
+                if (configurationService.GetSiteName() == ConfigurationService.Site.Frymo)
                 {
-                    return BadRequest();
+                    model.Price = null;
                 }
+                else
+                {
+                    if (model.Price == null)
+                    {
+                        return BadRequest();
+                    }
+                }
+
 
                 var userId = _userManager.GetLongUserId(User);
                 var command = new BecomeTutorCommand(userId, model.FirstName, model.LastName,
-                    model.Description, model.Bio, model.Price.GetValueOrDefault());
+                    model.Description, model.Bio, model.Price);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
             }

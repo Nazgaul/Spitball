@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Enum;
 using JetBrains.Annotations;
@@ -47,5 +48,8 @@ namespace Cloudents.Core.Entities
                 throw new ArgumentOutOfRangeException(nameof(status), status, null);
             }
         }
+
+        private readonly ISet<ChatRoomAdmin> _chatRoomsAdmin = new HashSet<ChatRoomAdmin>();
+        public virtual IEnumerable<ChatRoomAdmin> ChatRoomsAdmin => _chatRoomsAdmin;
     }
 }

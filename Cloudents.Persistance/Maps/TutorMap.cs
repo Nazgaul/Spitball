@@ -16,8 +16,12 @@ namespace Cloudents.Persistence.Maps
             //Id(x => x.UserId).GeneratedBy.Assigned();
             HasOne(x => x.User).Constrained().Cascade.None();
             Map(x => x.Bio).Length(1000);
-            Map(x => x.Price).CustomSqlType("smallMoney");
-            Map(x => x.SubsidizedPrice).CustomSqlType("smallMoney");
+            Component(x => x.Price, y2 =>
+            {
+                y2.Map(z => z.Price).CustomSqlType("smallMoney");
+                y2.Map(z => z.SubsidizedPrice).CustomSqlType("smallMoney");
+            });
+
 
             Map(x => x.SellerKey);
             HasMany(x => x.Reviews).Access.CamelCaseField(Prefix.Underscore).Cascade.AllDeleteOrphan().Inverse();
@@ -37,8 +41,8 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.ManualBoost).LazyLoad().Nullable();
             DynamicUpdate();
             OptimisticLock.Version();
-            Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
-           
+            Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
+
         }
 
         public class TutorCalendarMap : ClassMap<TutorCalendar>

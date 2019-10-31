@@ -135,6 +135,12 @@
   <data name="multiple_select_course_placeholder" xml:space="preserve">
     <value>עבור איזה קורס?</value>
   </data>
+  <data name="uf-take-time" xml:space="preserve">
+    <value>זה יכול לקחת קצת זמן</value>
+  </data>
+  <data name="uf-uploading" xml:space="preserve">
+    <value>אנא המתינו בזמן שהקבצים מועלים לאתר</value>
+  </data>
   <data name="ufItem_error_btn" xml:space="preserve">
     <value>החליפו קובץ</value>
   </data>

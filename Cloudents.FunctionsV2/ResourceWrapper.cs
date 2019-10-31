@@ -40,20 +40,27 @@ namespace Cloudents.FunctionsV2
             foreach (var file in assemblyFiles.Distinct())
             {
 
-                var asm = Assembly.LoadFrom(file);
-                var loadedAssembly = asm.GetName().Name;
-                var currentAssembly = typeof(App).Assembly.GetName().Name;
-                if (loadedAssembly.StartsWith(currentAssembly))
+                try
                 {
-                    var v = file.Split('\\').FirstOrDefault(w => regEx.IsMatch(w) && w.Split('-')[0].Length == 2);
+                    var asm = Assembly.LoadFrom(file);
+                    var loadedAssembly = asm.GetName().Name;
+                    var currentAssembly = typeof(App).Assembly.GetName().Name;
+                    if (loadedAssembly.StartsWith(currentAssembly))
+                    {
+                        var v = file.Split('\\').FirstOrDefault(w => regEx.IsMatch(w) && w.Split('-')[0].Length == 2);
 
-                    var manifestResource = asm.GetManifestResourceNames();
+                        var manifestResource = asm.GetManifestResourceNames();
 
-                    var x = new ResourceSet(asm.GetManifestResourceStream(manifestResource.First()));
+                        var x = new ResourceSet(asm.GetManifestResourceStream(manifestResource.First()));
 
-                    // _tags.AddOrUpdate("vendor", webPackBundle, (_, existingValue) => existingValue);
-                    ResourceSets.AddOrUpdate(new CultureInfo(v),x, (_,x3) => x3);
-                    //ResourceSets.Add(new CultureInfo(v), x);
+                        // _tags.AddOrUpdate("vendor", webPackBundle, (_, existingValue) => existingValue);
+                        ResourceSets.AddOrUpdate(new CultureInfo(v),x, (_,x3) => x3);
+                        //ResourceSets.Add(new CultureInfo(v), x);
+                    }
+                }
+                catch (FileLoadException e)
+                {
+                   //Happen in unit test.
                 }
 
                 // var x = new ResourceManager(assmebly);

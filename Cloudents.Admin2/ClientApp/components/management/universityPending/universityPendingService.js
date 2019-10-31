@@ -4,6 +4,7 @@
 function UniversityItem(objInit) {
     this.id = objInit.id;
     this.name = objInit.name;
+    this.canBeDeleted = objInit.canBeDeleted;
 }
 function createUniversityItem(objInit) {
     return new UniversityItem(objInit);

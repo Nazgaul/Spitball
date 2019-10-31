@@ -144,7 +144,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['accountUser', 'getActivateTutorDiscounts']),
+    ...mapGetters(['accountUser']),
     userImageUrl() {
       if (this.tutorData.image) {
         let size = [102, 108];
@@ -156,11 +156,6 @@ export default {
       } else {
         return require("../../../images/placeholder-profile.png");
       }
-    },
-    showStriked() {
-      if(!this.getActivateTutorDiscounts) return false;
-      let price = this.tutorData.price;
-      return price > this.minimumPrice;
     },
     discountedPrice() {
       let price = this.tutorData.price;

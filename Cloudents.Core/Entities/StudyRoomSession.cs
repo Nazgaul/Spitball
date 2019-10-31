@@ -5,10 +5,10 @@ using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
-    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor",Justification = "Nhibernate")]
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class StudyRoomSession : Entity<Guid>
     {
-        public StudyRoomSession(StudyRoom studyRoom,string sessionId)
+        public StudyRoomSession(StudyRoom studyRoom, string sessionId)
         {
             StudyRoom = studyRoom;
             Created = DateTime.UtcNow;
@@ -24,6 +24,8 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Created { get; protected set; }
         public virtual DateTime? Ended { get; protected set; }
         public virtual TimeSpan? Duration { get; protected set; }
+
+        //TODO remove this
         public virtual TimeSpan? DurationInMinutes { get; protected set; }
 
         public virtual int RejoinCount { get; protected set; }
@@ -43,12 +45,11 @@ namespace Cloudents.Core.Entities
             if (Ended.HasValue)
             {
                 return;
-                // throw new ArgumentException();
             }
             Ended = DateTime.UtcNow;
             Duration = Ended - Created;
             DurationInMinutes = Ended - Created;
-            Price = (decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60 * StudyRoom.Tutor.SubsidizedPrice;
+            Price = (decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60 * StudyRoom.Tutor.Price.SubsidizedPrice;
             AddEvent(new EndStudyRoomSessionEvent(this));
         }
 

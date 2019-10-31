@@ -23,9 +23,8 @@
                         </template>
                         <div class="caption" v-language:inner="'resultTutor_hour'"></div>
                     </div>
-
                     <v-layout column align-center class="user-rates">
-                        <div v-if="!isReviews" :class="{'mr-4': !isReviews}">
+                        <div v-if="isReviews" :class="{'mr-4': !isReviews}">
                             <userRating :size="'15'" class="rating-holder" :rating="tutorData.rating" :showRateNumber="false" color="#ffca54"/>
                             <div class="caption text-xs-center reviews" v-html="$Ph(tutorData.reviews === 1 ? `resultTutor_review_one` : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>        
                         </div>

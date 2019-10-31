@@ -11,6 +11,7 @@
                 <div class="tutor-list-footer-logo">
                     <logoComponent></logoComponent>
                 </div>
+                
                 <div class="footer-contact-box-icons">
                     <a v-for="(sm, index) in socialMedias" :key="index" :href="sm.url" target="_blank"><v-icon>{{sm.icon}}</v-icon></a>
                 </div>
@@ -137,15 +138,26 @@ import logoComponent from '../app/logo/logo.vue';
             text-align: center;
         }
         .footer-contact-box-icons {
-            i{
+            a {
                 margin: 0 10px;
                 color: #FFF;
                 cursor: pointer;
             }
-            
         }
     }
   }
+  .tutor-list-footer-logo {
+        div{
+          svg {
+            vertical-align: -webkit-baseline-middle;
+            fill: #FFF;
+            &.frymo-logo{
+              fill: #FFF;
+            }
+            
+          }
+        } 
+      }
   .tutor-list-footer-logo {
         div{
           svg {
