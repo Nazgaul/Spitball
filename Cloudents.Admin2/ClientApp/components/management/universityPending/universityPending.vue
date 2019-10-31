@@ -61,8 +61,11 @@
                         <v-layout wrap>
                             <v-flex xs12>
                                 <v-radio-group v-model="radios">
+                                    
                                     <v-radio label="Rename" value="rename"></v-radio>
-                                    <v-radio label="Delete" value="delete"></v-radio>
+                                    <v-radio :label="!editedItem.canBeDeleted ? 'Can\'t delete please try marge first' : 'Delete'" value="delete" :disabled="!editedItem.canBeDeleted">
+                                        
+                                    </v-radio>
                                     <v-radio label="Approve" value="approve"></v-radio>
                                     <v-radio label="Merge" value="merge"></v-radio>
                                 </v-radio-group>
