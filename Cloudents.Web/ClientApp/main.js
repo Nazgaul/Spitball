@@ -24,6 +24,7 @@ import { VLazyImagePlugin } from "v-lazy-image";
 
 import intercomSettings from './services/intercomService';
 import VueFlicking from "@egjs/vue-flicking";
+import '../ClientApp/myFont.font.js';
 Vue.use(VueFlicking);
 
 // import VueCodemirror from 'vue-codemirror'

@@ -70,8 +70,21 @@ module.exports = (env) => {
 
                 },
                 {
+                    test: /\.font\.js/,
+                    use: [
+                        // MiniCssExtractPlugin.loader,
+                        'css-loader',
+                        {
+                            loader: 'webfonts-loader',
+                            options: {
+                                publicPath: '/dist/'
+                            }
+                        }
+                    ]
+                },
+                {
                     test: /\.m?js$/,
-                    exclude: /(node_modules)/,
+                    exclude: /(node_modules|\.font\.js)/,
                     loader: "babel-loader"
                 },
                 {
@@ -136,19 +149,7 @@ module.exports = (env) => {
                             }
                         ]
                 },
-                {
-                    test: /\.font\.js/,
-                    use: [
-                        MiniCssExtractPlugin.loader,
-                        'css-loader',
-                        {
-                            loader: 'webfonts-loader',
-                            options: {
-                                publicPath: '/dist/'
-                            }
-                        }
-                    ]
-                }
+                
             ]
         },
         devtool: false,
