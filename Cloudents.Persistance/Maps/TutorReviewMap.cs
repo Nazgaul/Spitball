@@ -19,7 +19,7 @@ namespace Cloudents.Persistence.Maps
 
             DynamicUpdate();
             OptimisticLock.Version();
-            Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
+            Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
 
         }
     }

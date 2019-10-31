@@ -39,7 +39,7 @@ namespace Cloudents.Persistence.Maps
                 .ForeignKey("fChatUserUser");
             DynamicUpdate();
             OptimisticLock.Version();
-            Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
+            Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
         }
     }
 
