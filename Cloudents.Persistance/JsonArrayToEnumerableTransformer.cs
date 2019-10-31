@@ -69,5 +69,29 @@ namespace Cloudents.Persistence
             return Transformers.AliasToBean<TEntity>().TransformList(collection);
         }
 
+
+        public bool Equals(JsonArrayToEnumerableTransformer<TEntity> other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return Equals(other._baseTransformer, _baseTransformer);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as JsonArrayToEnumerableTransformer<TEntity>);
+        }
+
+        public override int GetHashCode()
+        {
+            return _baseTransformer.GetHashCode();           
+        }
+
     }
 }

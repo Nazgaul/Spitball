@@ -218,5 +218,29 @@ namespace Cloudents.Query.Stuff
         {
             return _baseTransformer.TransformList(collection);
         }
+
+
+        public bool Equals(DeepTransformer<TEntity> other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return Equals(other._complexChar, _complexChar) && Equals(other._baseTransformer, _baseTransformer);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as DeepTransformer<TEntity>);
+        }
+
+        public override int GetHashCode()
+        {
+            return _complexChar.GetHashCode()*23 ^ _baseTransformer.GetHashCode()*73;
+        }
     }
 }
