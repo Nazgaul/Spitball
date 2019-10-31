@@ -102,6 +102,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Country = country;
+            University = null;
             AddEvent(new ChangeCountryEvent(Id));
         }
 
