@@ -1,6 +1,6 @@
 <template>
-<div class="sbCarousel" style="width:100%">
-    <template v-if="arrows">
+<div class="sbCarousel" style="width:100%;height:100%">
+    <template v-if="isArrows">
         <v-btn v-show="!isFirstItemVisible" 
                :ripple="false" 
                class="sbCarousel_btn sbCarousel-prevBtn" 
@@ -13,22 +13,24 @@
             <v-icon v-html="'sbf-arrow-right-carousel'"/>
             </v-btn>
     </template>
+                <!-- :plugins="plugins" -->
     
-    <flicking   :ref="name"
-                :options="{ 
-                    hanger: 0,
-                    anchor: 0,
-                    gap: 36, 
-                    circular: infinite, 
-                    moveType: 'freeScroll',
-                    bound: !infinite
-                }"
+    <flicking   :class="uniqueID"
+                :ref="uniqueID"
+                :options="optionsObj"
                 @move="handleMove"
                 @select="select"
                 @visibleChange="visibleChange"
+                @hold-start="holdStart"
+                @hold-end="holdEnd"
               >
     <slot></slot>
     </flicking>
+    <!-- <div class="pagination flicking-pagination">
+        <div class="flicking-pagination-item selected"></div>
+        <div class="flicking-pagination-item"></div>
+        <div class="flicking-pagination-item"></div>
+    </div> -->
 </div>
 </template>
 
@@ -36,6 +38,7 @@
 
 <style lang="less">
 @import "../../styles/mixin.less";
+// @import './cs.css';
 .sbCarousel{
     position: relative;
     .sbCarousel_btn{

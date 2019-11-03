@@ -27,6 +27,7 @@ import routeStore from './routeStore';
 import calendarStore from './calendarStore'
 import gapiStore from './gapiStore';
 import paymetStore from './paymetStore.js'
+import homePage_store from './homePage_store.js'
 
 
 Vue.use(Vuex);
@@ -66,7 +67,8 @@ const store = new Vuex.Store({
         routeStore,
         calendarStore,
         gapiStore,
-        paymetStore
+        paymetStore,
+        homePage_store
     }
 });
 

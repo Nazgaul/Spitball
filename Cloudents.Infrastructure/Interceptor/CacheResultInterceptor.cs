@@ -85,7 +85,7 @@ namespace Cloudents.Infrastructure.Interceptor
             return sb.ToString();
         }
 
-        internal static string GetCacheKey(Type targetType,string methodName,object[] arguments)
+        public static string GetCacheKey(Type targetType,string methodName,object[] arguments)
         {
 #if DEBUG
             const string prefix = "Debug";

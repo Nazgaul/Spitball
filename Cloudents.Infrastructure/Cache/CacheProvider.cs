@@ -135,6 +135,25 @@ namespace Cloudents.Infrastructure.Cache
             return null;
         }
 
+        public T Get<T>(string key, string region)
+        {
+            try
+            {
+                return Cache.Get<T>(key, region);
+            }
+            catch (Exception ex)
+            {
+                _logger.Exception(ex, new Dictionary<string, string>
+                {
+                    ["Service"] = nameof(Infrastructure.Cache),
+                    ["Key"] = key,
+                    ["Region"] = region
+                });
+            }
+
+            return default;
+        }
+
         public bool Exists(string key, string region)
         {
 

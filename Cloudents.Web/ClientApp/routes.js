@@ -35,9 +35,7 @@ const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.v
 const tutorLandingPage=()=> import("./components/tutorLandingPage/tutorLandingPage.vue");
 
 const landingPage = () => import('./components/landingPage/landingPage.vue');
-const findTutor = () => import('./components/landingPage/pages/FindTutor.vue');
-// import HowItWorks from "./components/landingPage/pages/HowItWorks.vue";
-// import BecomeTutor from "./components/landingPage/pages/BecomeTutor.vue";
+const homePage = () => import('./components/landingPage/pages/homePage.vue');
 const registerPage = () => import('./components/loginPageNEW/pages/registerPage.vue');
 
 
@@ -112,7 +110,7 @@ let routes2 = [
         children:[
             {
                 path: '',
-                component: findTutor
+                component: homePage
             },
             {
                 path: "/tutor-list",

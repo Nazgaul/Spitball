@@ -278,6 +278,16 @@ Vue.prototype.$loadStyle = function(url,id){
     })
 }
 
+Vue.prototype.$proccessImageUrl = function(url, width, height, mode){
+    let usedMode = mode ? mode : 'crop';
+    if(url){
+        let returnedUrl = `${url}?&width=${width}&height=${height}&mode=${usedMode}`;
+        return returnedUrl;
+    }else{
+        return '';
+    }
+  };
+
 Vue.prototype.$Ph = function (key, placeholders) {
     let rawKey = LanguageService.getValueByKey(key);
     //if no placeholders return the Key without the replace

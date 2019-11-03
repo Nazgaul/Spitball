@@ -414,3 +414,23 @@
   }
 
 }
+
+// maor responsive:
+@sbScreen-desktop: 1904px;
+@sbScreen-smallDesktop: 1264px;
+@sbScreen-tablet: 960px;
+@sbScreen-mobile: 600px;
+@sbScreen-smallMobile: 360px;
+
+.responsiveLandingPage(@maxWidth,@paddings){
+  margin: 0 auto;
+  max-width: @maxWidth;
+  width: ~"calc(100% - @{paddings})";
+}
+.textMixing(@fontSize,@color: inherit,@fontWeight:normal,@lineHeight:normal,@letterSpacing:normal){
+  font-size: @fontSize;
+  color: @color;
+  font-weight: @fontWeight;
+  line-height: @lineHeight;
+  letter-spacing: @letterSpacing;
+}

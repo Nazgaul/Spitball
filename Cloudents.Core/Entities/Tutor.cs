@@ -122,7 +122,7 @@ namespace Cloudents.Core.Entities
 
         private readonly ISet<TutorHours> _tutorHours = new HashSet<TutorHours>();
         public virtual IEnumerable<TutorHours> TutorHours => _tutorHours;
-
+        public virtual bool IsShownHomePage { get; protected set; }
 
         public virtual void AddCalendar(string id, string name)
         {
@@ -151,6 +151,7 @@ namespace Cloudents.Core.Entities
 
         public virtual decimal Price { get; protected set; }
         public virtual decimal? SubsidizedPrice { get; protected set; }
+        
 
 
         protected override IEnumerable<object> GetEqualityComponents()

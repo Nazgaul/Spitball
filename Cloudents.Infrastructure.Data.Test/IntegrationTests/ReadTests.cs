@@ -7,6 +7,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudents.Query.Email;
+using Cloudents.Query.HomePage;
 using Cloudents.Query.Query;
 using Cloudents.Query.Tutor;
 using FluentAssertions;
@@ -243,5 +244,34 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await fixture.QueryBus.QueryAsync(query, default);
 
         }
+
+        [Theory]
+        [InlineData("IL")]
+        [InlineData("IN")]
+        public async Task TopTutorsQuery_Ok(string country)
+        {
+            var query = new TopTutorsQuery(country,12);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+
+        [Theory]
+        [InlineData("IL")]
+        [InlineData("IN")]
+        public async Task TopDocumentsQuery_Ok(string country)
+        {
+            var query = new TopDocumentsQuery(country, 5);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task StatsQuery_Ok()
+        {
+            var query = new StatsQuery();
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+
+
     }
 }

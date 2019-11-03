@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Stuff
             builder.RegisterType<CommandBus>().As<ICommandBus>();
 
 
-            builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
+           // builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
             builder.RegisterType<QueryBus>().As<IQueryBus>();
 
             builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();
@@ -28,6 +28,15 @@ namespace Cloudents.Infrastructure.Stuff
                 .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)))
                 .Select(i => new KeyedService("handler", i)));
 
+
+            builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly).As(o => o.GetInterfaces()
+                .Where(i => i.IsClosedTypeOf(typeof(IQueryHandler<,>)))
+                .Select(i => new KeyedService("handler", i)));
+
+            builder.RegisterGenericDecorator(
+                typeof(CacheQueryHandlerDecorator<,>),
+                typeof(IQueryHandler<,>),
+                fromKey: "handler");
 
             builder.RegisterGenericDecorator(
                 typeof(CommitUnitOfWorkCommandHandlerDecorator<>),

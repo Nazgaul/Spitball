@@ -22,7 +22,8 @@ namespace Cloudents.Core.Extension
             return someObject;
         }
 
-        public static IDictionary<string, string> AsDictionary(this object source, BindingFlags bindingAttr = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
+        public static IDictionary<string, string> AsDictionary(this object source,
+            BindingFlags bindingAttr = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
         {
             return source.GetType().GetProperties(bindingAttr).ToDictionary
             (
@@ -33,4 +34,11 @@ namespace Cloudents.Core.Extension
         }
     }
 
+    public static class IDictionaryExtensions
+    {
+        public static string ToContentString<T, U>(this IDictionary<T, U> source)
+        {
+            return "{" + string.Join(",", source.Select(kv => kv.Key + "=" + kv.Value)) + "}";
+        }
+    }
 }
