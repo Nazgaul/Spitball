@@ -66,7 +66,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         public async Task DocumentAggregateQuery_Ok(long userId, int page, string[] filter, string country, string course)
         {
-            var query = new FeedAggregateQuery(userId, page, filter, country, course);
+            var query = new FeedAggregateQuery(userId, page, filter, country, course, 18);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNullOrEmpty();

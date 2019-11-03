@@ -10,6 +10,7 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query;
+using Cloudents.Core.Query.Feed;
 using Cloudents.Query;
 using Cloudents.Query.Documents;
 using Cloudents.Query.Query;
@@ -34,11 +35,11 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IUrlBuilder _urlBuilder;
-        private readonly IFeedSort _feedSort;
+        private readonly IFeedService _feedSort;
 
 
         public FeedController(IQueryBus queryBus, UserManager<User> userManager, 
-             IStringLocalizer<DocumentController> localizer, IUrlBuilder urlBuilder, IFeedSort feedSort)
+             IStringLocalizer<DocumentController> localizer, IUrlBuilder urlBuilder, IFeedService feedSort)
         {
             _queryBus = queryBus;
             _userManager = userManager;
@@ -58,12 +59,7 @@ namespace Cloudents.Web.Api
 
             _userManager.TryGetLongUserId(User, out var userId);
 
-            var query = new FeedAggregateQuery(userId, page, request.Filter, profile.Country,null);
-            var tutorQuery = new TutorListQuery(userId, profile.Country, page, 3);
-            var itemsTask = _queryBus.QueryAsync(query, token);
-            var tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
-            await Task.WhenAll(itemsTask, tutorsTask);
-            var result = _feedSort.SortFeed(itemsTask.Result.ToList(), tutorsTask.Result.ToList(), request.Page);
+            var result = await _feedSort.GetFeedAsync(new GetFeedQuery(userId, page, request.Filter, profile.Country, null), token);
             return GenerateResult(result, new
             {
                 page = ++page,
@@ -113,13 +109,8 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new FeedAggregateQuery(userId, request.Page, request.Filter, profile.Country, request.Course);
-            var tutorQuery = new TutorListByCourseQuery(request.Course, userId, profile.Country, 3, request.Page);
-            var itemsTask = _queryBus.QueryAsync(query, token);
-            var tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
-            await Task.WhenAll(itemsTask, tutorsTask);
            
-            var result = _feedSort.SortFeed(itemsTask.Result.ToList(), tutorsTask.Result.ToList(), request.Page);
+            var result = await _feedSort.GetFeedAsync(new GetFeedQuery(userId, request.Page, request.Filter, profile.Country, request.Course), token);
 
             return GenerateResult(result, new { page = ++request.Page, request.Course, request.Filter });
         }
@@ -130,41 +121,12 @@ namespace Cloudents.Web.Api
         public async Task<WebResponseWithFacet<FeedDto>> SearchInCourseAsync(
             [RequiredFromQuery]  DocumentRequestSearchCourse request,
             [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country)] UserProfile profile,
-            [FromServices] IDocumentSearch searchProvider,
-            [FromServices] ITutorSearch tutorSearch,
             CancellationToken token)
         {
-
-      
-            var term = $"{request.Term} {request.Course}".Trim();
-
-            var query = new DocumentQuery(profile, request.Term, request.Course,  request.Filter?.Where(w => !string.IsNullOrEmpty(w)))
-            {
-                Page = request.Page,
-            };
-
-            /**/
-            var tutorQuery = new TutorListTabSearchQuery(term, profile.Country, request.Page, 3);
-            var tutorTask = tutorSearch.SearchAsync(tutorQuery, token);
-            var resultTask = searchProvider.SearchDocumentsAsync(query, token);
-            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = _userManager.GetLongUserId(User);
-                var queryTags = new UserVotesByCategoryQuery(userId);
-                votesTask = _queryBus.QueryAsync(queryTags, token)
-                    .ContinueWith(
-                    t2 =>
-                    {
-                        return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
-                    }, token);
-
-            }
-
-            await Task.WhenAll(resultTask, votesTask, tutorTask);
-            var result = _feedSort.SortFeed(resultTask.Result.ToList(), tutorTask.Result.ToList(), request.Page);
-            return GenerateResult(result, new
+            var resultTask = _feedSort.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, request.Course), token);
+            await Task.WhenAll(resultTask);
+            
+            return GenerateResult(resultTask.Result, new
             {
                 page = ++request.Page,
                 request.Course,
@@ -180,41 +142,12 @@ namespace Cloudents.Web.Api
           [RequiredFromQuery]  DocumentRequestSearch request,
 
             [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
-            [FromServices] IDocumentSearch searchProvider,
-            [FromServices] ITutorSearch tutorSearch,
             CancellationToken token)
         {
-            var term = request.Term.Trim();
+            var resultTask = _feedSort.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, null), token);
 
-            //Task<IEnumerable<TutorCardDto>> tutorTask = null;
-            var query = new DocumentQuery(profile, request.Term, null,
-                 request.Filter?.Where(w => !string.IsNullOrEmpty(w)))
-            {
-                Page = request.Page,
-            };
-
-            var tutorQuery = new TutorListTabSearchQuery(term, profile.Country, request.Page, 3);
-            var tutorTask = tutorSearch.SearchAsync(tutorQuery, token);
-
-            var resultTask = searchProvider.SearchDocumentsAsync(query, token);
-            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = _userManager.GetLongUserId(User);
-                var queryTags = new UserVotesByCategoryQuery(userId);
-                votesTask = _queryBus.QueryAsync(queryTags, token)
-                    .ContinueWith(
-                        t2 =>
-                        {
-                            return t2.Result.ToDictionary(x => x.Id, s => s.Vote);
-                        }, token);
-
-            }
-
-            await Task.WhenAll(resultTask, votesTask, tutorTask);
-            var result = _feedSort.SortFeed(resultTask.Result.ToList(), tutorTask.Result.ToList(), request.Page);
-            return GenerateResult(result, new
+            await Task.WhenAll(resultTask);
+            return GenerateResult(resultTask.Result, new
             {
                 page = ++request.Page,
                 request.Term,

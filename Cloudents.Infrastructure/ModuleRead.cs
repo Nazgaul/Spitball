@@ -17,7 +17,7 @@ namespace Cloudents.Infrastructure
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<DocumentSearch>().As<IDocumentSearch>();
-            builder.RegisterType<FeedSort>().As<IFeedSort>();
+            builder.RegisterType<FeedService>().As<IFeedService>();
 
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
