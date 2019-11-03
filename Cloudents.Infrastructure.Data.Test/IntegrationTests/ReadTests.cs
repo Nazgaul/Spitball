@@ -86,6 +86,10 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNullOrEmpty();
             result.Should().OnlyContain(c => c.DocumentType == DocumentType.Document);
+            if (!string.IsNullOrEmpty(course))
+            {
+                result.Should().OnlyContain(c => c.Course == course);
+            }
         }
         [Theory]
         [InlineData(0, 638, FeedType.Video, "IL", null, 20)]
@@ -96,6 +100,10 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNullOrEmpty();
             result.Should().OnlyContain(c => c.DocumentType == DocumentType.Video);
+            if (!string.IsNullOrEmpty(course))
+            {
+                result.Should().OnlyContain(c => c.Course == course);
+            }
         }
 
         [Theory]
@@ -107,6 +115,10 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNullOrEmpty();
             result.Should().OnlyContain(c => c.Type == FeedType.Question);
+            if (!string.IsNullOrEmpty(course))
+            {
+                result.Should().OnlyContain(c => c.Course == course);
+            }
         }
 
         [Theory]
