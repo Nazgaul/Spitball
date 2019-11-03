@@ -12,6 +12,8 @@ using Cloudents.Query.Tutor;
 using FluentAssertions;
 using Xunit;
 using Cloudents.Query.SearchSync;
+using Cloudents.Core.Enum;
+using Cloudents.Query.Questions;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -73,6 +75,38 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             result.OfType<QuestionFeedDto>().Should().Contain(c => c.User.Id > 0);
             result.OfType<QuestionFeedDto>().Should().Contain(c => c.CultureInfo != null);
 
+        }
+
+        [Theory]
+        [InlineData(0, 638, FeedType.Document, "IL", null, 20)]
+        [InlineData(0, 638, FeedType.Document, "IL", "Economics", 20)]
+        public async Task DocumentFeedWithFliterQuery_Document_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
+        {
+            var query = new DocumentFeedWithFliterQuery(page, userId, filter, country, course, pageSize);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNullOrEmpty();
+            result.Should().OnlyContain(c => c.DocumentType == DocumentType.Document);
+        }
+        [Theory]
+        [InlineData(0, 638, FeedType.Video, "IL", null, 20)]
+        [InlineData(0, 638, FeedType.Video, "IL", "Economics", 20)]
+        public async Task DocumentFeedWithFliterQuery_Video_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
+        {
+            var query = new DocumentFeedWithFliterQuery(page, userId, filter, country, course, pageSize);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNullOrEmpty();
+            result.Should().OnlyContain(c => c.DocumentType == DocumentType.Video);
+        }
+
+        [Theory]
+        [InlineData(0, 638, "IL", null, 20)]
+        [InlineData(0, 638, "IL", "Economics", 20)]
+        public async Task QuestionFeedWithFliterQuery_Ok(int page, long userId, string country, string course, int pageSize)
+        {
+            var query = new QuestionFeedWithFliterQuery(page, userId, country, course, pageSize);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNullOrEmpty();
+            result.Should().OnlyContain(c => c.Type == FeedType.Question);
         }
 
         [Theory]

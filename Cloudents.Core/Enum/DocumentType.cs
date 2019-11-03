@@ -10,6 +10,7 @@
     {
         Document,
         Question,
-        Tutor
+        Tutor,
+        Video
     }
 }

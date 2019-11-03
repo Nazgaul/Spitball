@@ -1,11 +1,12 @@
-﻿using Cloudents.Web.Framework;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Web.Framework;
 
 namespace Cloudents.Web.Models
 {
     public class DocumentRequestAggregate : IPaging
     {
         public int Page { get; set; }
-        public string[] Filter { get; set; }
+        public FeedType? Filter { get; set; }
     }
 
 
