@@ -187,6 +187,7 @@ where
     d.UpdateTime > GETUTCDATE() - 182
 and un.country = cte.country
 and d.State = 'Ok'
+and (d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
 
 union all
 
@@ -227,10 +228,10 @@ where
 and un.country = cte.country
 
 and q.State = 'Ok'
+and (q.CourseId in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
   ) R,
   cte
 order by
-case when R.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 4 else 0 end +
 case when R.UniversityId = cte.UniversityId then 3 else 0 end  +
 cast(1 as float)/ISNULL(nullif( DATEDIFF(minute, R.DateTime, GETUTCDATE()   ),0),1) desc
 OFFSET @page*@pageSize ROWS
