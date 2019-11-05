@@ -7,7 +7,7 @@
         {
         }
         public virtual string Name { get; set; }
-        public virtual string EnglishName { get; set; }
+        //public virtual string EnglishName { get; set; }
 
         public virtual byte[] Version { get; protected set; }
     }

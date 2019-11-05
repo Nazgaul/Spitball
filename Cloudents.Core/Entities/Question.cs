@@ -99,41 +99,10 @@ namespace Cloudents.Core.Entities
            
         }
 
-        //public virtual void Vote(VoteType type, User user)
-        //{
-        //    if (Status != Public)
-        //    {
-        //        throw new NotFoundException();
-        //    }
-        //    if (User == user)
-        //    {
-        //        throw new UnauthorizedAccessException("you cannot vote you own question");
-        //    }
-        //    var vote = Votes.FirstOrDefault(w => w.User == user && w.Answer == null);
-        //    if (vote == null)
-        //    {
-        //        vote = new Vote(user, this, type);
-        //        _votes.Add(vote);
-
-        //    }
-
-        //    vote.VoteType = type;
-        //    VoteCount = Votes.Where(w => w.Answer == null).Sum(s => (int)s.VoteType);
-        //    if (VoteCount < VoteCountToFlag)
-        //    {
-        //        Status = Status.Flag(TooManyVotesReason, user);
-        //    }
-        //}
+        
 
         [NotNull]
         public virtual CultureInfo Language { get; protected set; }
-
-        //private readonly IList<Vote> _votes = new List<Vote>();
-
-       // public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
-
-       // public virtual int VoteCount { get; protected set; }
-
 
         public virtual void MakePublic()
         {

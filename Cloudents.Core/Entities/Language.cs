@@ -92,8 +92,11 @@ namespace Cloudents.Core.Entities
         public RegionInfo RegionInfo { get; }
         public decimal ConversationRate { get; }
 
-        
-       
+        public override string ToString()
+        {
+            return RegionInfo.TwoLetterISORegionName;
+        }
+
 
         private Country(string info, decimal conversationRate, int id) : base(id, info)
         {

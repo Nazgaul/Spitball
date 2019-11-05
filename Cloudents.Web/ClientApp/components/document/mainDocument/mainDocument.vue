@@ -466,8 +466,11 @@ export default {
     },
     closeDocument() {
       this.UPDATE_SEARCH_LOADING(true);
+      let regRoute = 'registration';
       let routeStackLength = this.getRouteStack.length;
-      if (routeStackLength > 1) {
+      let beforeLastRoute = this.getRouteStack[routeStackLength-2];
+      
+      if (routeStackLength > 1 && beforeLastRoute && beforeLastRoute !== regRoute) {
         this.$router.back();
       } else {
         this.$router.push({ path: "/feed" });

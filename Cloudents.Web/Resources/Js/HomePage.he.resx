@@ -117,6 +117,57 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="banner_content_access" xml:space="preserve">
+    <value>גישה למאות אלפי חומרי לימוד אונליין בקורסים ספציפיים</value>
+  </data>
+  <data name="banner_content_choose" xml:space="preserve">
+    <value>בחר קורסים אונליין ללימוד בזמנך הפנוי</value>
+  </data>
+  <data name="banner_content_find" xml:space="preserve">
+    <value>בחר מורים פרטיים שיעזרו לך להגיע לשלב הבא</value>
+  </data>
+  <data name="banner_title" xml:space="preserve">
+    <value>עומדים לרשותך מגוון כלי לימוד כדי שתצליח בכל זמן ובכל מקום</value>
+  </data>
+  <data name="btn_earn" xml:space="preserve">
+    <value>למד בספיטבול</value>
+  </data>
+  <data name="cs_title" xml:space="preserve">
+    <value>קטגוריות פופולאריות </value>
+  </data>
+  <data name="earn_subtitle" xml:space="preserve">
+    <value>גישה לכל הכלים על מנת ליצור ולמכור תוכן לימודי אונליין.</value>
+  </data>
+  <data name="earn_title" xml:space="preserve">
+    <value>להרוויח מללמד מה שאתם יודעים הכי טוב</value>
+  </data>
+  <data name="hd_search" xml:space="preserve">
+    <value>חיפוש</value>
+  </data>
+  <data name="hd_search_ph" xml:space="preserve">
+    <value>נסו "מורה למתמטיקה"</value>
+  </data>
+  <data name="hd_stats_docs" xml:space="preserve">
+    <value>מסמכי לימוד</value>
+  </data>
+  <data name="hd_stats_students" xml:space="preserve">
+    <value>סטודנטים</value>
+  </data>
+  <data name="hd_stats_tutors" xml:space="preserve">
+    <value>מורים</value>
+  </data>
+  <data name="hd_subtitle" xml:space="preserve">
+    <value>גישה לכל חומרי הלימוד, דברו עם מורים מומחים וצפייה בשיעורים מקוונים</value>
+  </data>
+  <data name="hd_title" xml:space="preserve">
+    <value>להצטיין במבחנים בעזרת מיטב הסיכומים ושיעורים פרטיים אונליין</value>
+  </data>
+  <data name="hd_title_mobile" xml:space="preserve">
+    <value>שפרו את הציונים שלכם</value>
+  </data>
+  <data name="is_title" xml:space="preserve">
+    <value>נצפים כרגע</value>
+  </data>
   <data name="Testimonial1" xml:space="preserve">
     <value>אוהבים את הכל!!! אין על ספיטבול, האתר הכי עוזר שיש.</value>
   </data>
@@ -143,5 +194,17 @@
   </data>
   <data name="Testimonial3Title" xml:space="preserve">
     <value>האוניברסיטה הפתוחה</value>
+  </data>
+  <data name="tss_subtitle" xml:space="preserve">
+    <value>המלצות של תלמידים</value>
+  </data>
+  <data name="tss_title" xml:space="preserve">
+    <value>מה התלמידים שלנו אומרים</value>
+  </data>
+  <data name="ts_subtitle" xml:space="preserve">
+    <value>מצאו את המורים הטובים ביותר ודברו איתם חינם</value>
+  </data>
+  <data name="ts_title" xml:space="preserve">
+    <value>מורים פופולאריים</value>
   </data>
 </root>

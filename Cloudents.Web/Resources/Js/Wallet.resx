@@ -164,17 +164,21 @@
   </data>
   <data name="total" xml:space="preserve">
     <value>Total</value>
+    <comment>dynamic</comment>
   </data>
   <data name="you_have_redeemable_sbl" xml:space="preserve">
     <value>to redeem</value>
   </data>
   <data name="earned" xml:space="preserve">
     <value>Earned</value>
+    <comment>dynamic</comment>
   </data>
   <data name="spent" xml:space="preserve">
     <value>Spent</value>
+    <comment>dynamic</comment>
   </data>
   <data name="stake" xml:space="preserve">
     <value>Stake</value>
+    <comment>dynamic</comment>
   </data>
 </root>

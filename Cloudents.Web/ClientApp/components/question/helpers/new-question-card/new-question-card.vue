@@ -1,10 +1,10 @@
 <template>
     <div class="question-container">
-        <router-link :to="{path:'/question/'+cardData.id}" :style="{'cursor':isQuestionPage?'auto':'pointer'}">
+        <router-link draggable="false" :to="{path:'/question/'+cardData.id}" :style="{'cursor':isQuestionPage?'auto':'pointer'}">
             <div class="question-header-container">
                 <div class="question-header-large-sagment">
                     <div class="rank-date-container">
-                        <user-avatar class="mr-1" size="34" :userImageUrl="cardData.user.image" :user-name="cardData.user.name" :user-id="cardData.user.userId"/>
+                        <user-avatar class="mr-1" size="34" :userImageUrl="cardData.user.image" :user-name="cardData.user.name" :user-id="cardData.user.id"/>
                         <div class="user-question">
                             <div class="user-question-name text-truncate">{{cardData.user.name}}</div>
                             <div class="user-question-date">{{uploadDate}}</div>

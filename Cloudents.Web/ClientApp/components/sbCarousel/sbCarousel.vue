@@ -13,8 +13,6 @@
             <v-icon v-html="'sbf-arrow-right-carousel'"/>
             </v-btn>
     </template>
-                <!-- :plugins="plugins" -->
-    
     <flicking   :class="uniqueID"
                 :ref="uniqueID"
                 :options="optionsObj"
@@ -23,7 +21,7 @@
                 @visibleChange="visibleChange"
                 @hold-start="holdStart"
                 @hold-end="holdEnd"
-              >
+                :dir="isRtl ? 'rtl' : 'ltr'">
     <slot></slot>
     </flicking>
     <!-- <div class="pagination flicking-pagination">
@@ -39,6 +37,7 @@
 <style lang="less">
 @import "../../styles/mixin.less";
 // @import './cs.css';
+/*rtl:begin:ignore*/
 .sbCarousel{
     position: relative;
     .sbCarousel_btn{
@@ -47,7 +46,7 @@
         width: 50px !important;
         position: absolute;
         top: calc(~"50% - 25px");
-        z-index: 10000000;
+        z-index: 11;
         &:before {
             background-color: transparent !important;
             transition: none !important;
@@ -61,6 +60,7 @@
     }
 }
 
+/*rtl:end:ignore*/
 
 
 

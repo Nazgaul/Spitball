@@ -152,6 +152,7 @@
   </data>
   <data name="total" xml:space="preserve">
     <value>סך הכל</value>
+    <comment>dynamic</comment>
   </data>
   <data name="Transaction" xml:space="preserve">
     <value>עסקאות</value>
@@ -170,11 +171,14 @@
   </data>
   <data name="earned" xml:space="preserve">
     <value>הכנסה</value>
+    <comment>dynamic</comment>
   </data>
   <data name="spent" xml:space="preserve">
     <value>הוצאה</value>
+    <comment>dynamic</comment>
   </data>
   <data name="stake" xml:space="preserve">
     <value>במשמורת</value>
+    <comment>dynamic</comment>
   </data>
 </root>

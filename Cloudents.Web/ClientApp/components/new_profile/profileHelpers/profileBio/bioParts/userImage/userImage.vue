@@ -1,18 +1,22 @@
 <template>
     <div class="user-image-wrap">
-        <div v-if="!profileImage || getProfileImageLoading" class="loader-wrap align-center justify-center">
-            <v-progress-circular indeterminate v-bind:size="50" color="#514f7d"/>
-        </div>
-        <img v-else class="user-picture" style="height: 240px; width: 214px;"
-             :src="profileImage" @error="onImageLoadError" :alt="userName" :title="userName"/>
-        <div class="bottom-section" v-if="isTutorProfile && profileImage">
+        <user-avatar-rect
+            :userName="userName"
+            :userImageUrl="profileImage"
+            class="mr-3"
+            :userId="userId"
+            :width="214"
+            :height="240"
+            :fontSize="36"
+            :borderRadius="4"
+        />
+        <div class="bottom-section" v-if="isTutorProfile">
             <user-rating :size="'20'" :rating="tutorRank" :readonly="true" class="px-4 line-height-1"></user-rating>
             <span class="reviews-quantity">
-                    <span>{{reviewCount}}</span>
-                    <span v-if="reviewCount > 1" class="ml-1" v-language:inner>profile_reviews</span>
-                    <span v-else class="ml-1" v-language:inner>profile_single_review</span>
-
-                    </span>
+                <span>{{reviewCount}}</span>
+                <span v-if="reviewCount > 1" class="ml-1" v-language:inner>profile_reviews</span>
+                <span v-else class="ml-1" v-language:inner>profile_single_review</span>
+            </span>
         </div>
         <!-- <div class="bottom-section" v-else>
                     <span class="user-balance py-2">{{profUserBal | currencyLocalyFilter}}</span>
@@ -27,19 +31,17 @@
 
 <script>
     import { mapGetters } from 'vuex';
+
+    import utilitiesService from '../../../../../../services/utilities/utilitiesService';
+
     import userRating from '../userRating.vue';
     import uploadImage from '../uploadImage/uploadImage.vue';
     import userOnlineStatus from '../../../../../helpers/userOnlineStatus/userOnlineStatus.vue';
-    import utilitiesService from '../../../../../../services/utilities/utilitiesService';
+    import userAvatarRect from '../../../../../helpers/UserAvatar/UserAvatarRect.vue';
 
     export default {
-        components: {userRating, uploadImage, userOnlineStatus},
+        components: {userRating, uploadImage, userOnlineStatus, userAvatarRect},
         name: "userImage",
-        data() {
-            return {
-                hover: false,
-            }
-        },
         props: {
             isMyProfile: {
                 type: Boolean,
@@ -59,11 +61,10 @@
             profileImage() {
                 if(this.getProfile){
                     if (this.getProfile && this.getProfile.user && this.getProfile.user.image && this.getProfile.user.image.length > 1) {
-                        let url = utilitiesService.proccessImageURL(this.getProfile.user.image, 214,240);
-                        return url;
-                    } else {
-                        return require("../../../../../images/placeholder-profile.png");
-                    }
+                        // let url = utilitiesService.proccessImageURL(this.getProfile.user.image, 214,240);
+                        return this.getProfile.user.image;
+                    } 
+                    return '';
                 }
             },
             reviewCount(){

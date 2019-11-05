@@ -14,11 +14,6 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.Name).Length(150).Not.Nullable();
             References(x => x.University).Not.Nullable().Column("UniversityId").ForeignKey("Document_University");
-           
-           
-
-         
-
             
             Component(x => x.TimeStamp);
            

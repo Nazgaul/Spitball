@@ -117,11 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="choose_now" xml:space="preserve">
-    <value>הוסף עכשיו</value>
+  <data name="hour" xml:space="preserve">
+    <value>שעה</value>
   </data>
-  <data name="find_relevant" xml:space="preserve">
-    <value>מצא מסמכי לימוד רלוונטיים עבורך!
-הוסף את מוסד הלימודים והקורסים שלך</value>
+  <data name="tutor_btn" xml:space="preserve">
+    <value>יצירת קשר עם</value>
   </data>
 </root>

@@ -1,7 +1,12 @@
 <template>
     <router-link event @click.native.prevent="goToProfile" :to="{name: 'profile', params: {id: tutor.userId, name:tutor.name}}" class="tutorCarouselCard">
         <div class="tutorCarousel-top">
-        <img draggable="false" class="tutorCarouselImg" :src="$proccessImageUrl(tutor.image,240,152)" alt />
+        <userAvatarRect draggable="false"
+              :userName="tutor.name" 
+              :userImageUrl="tutor.image" 
+              class="tutorCarouselImg" 
+              :width="240" 
+              :height="152"></userAvatarRect>
         <div class="ts-content">
             <h1 class="tutor-name text-truncate">{{tutor.name}}</h1>
             <h2 class="tutor-university text-truncate">{{tutor.university}}</h2>
@@ -12,7 +17,7 @@
         <div>
             <v-btn depressed color="#4c59ff" class="tutor-btn">
             <span class="text-truncate">
-                <span v-language:inner="'homePage_tutor_btn'" /> {{tutor.name}}
+                <span v-language:inner="'tutorCardCarousel_tutor_btn'" /> {{tutor.name}}
             </span>
             </v-btn>
         </div>
@@ -22,7 +27,7 @@
                 <div class="user-rate-ts" v-if="tutor.reviews > 0">
                 <userRating :rating="tutor.rating" :showRateNumber="false" :size="'14'" />
                 <span
-                    class="reviews-ts"
+                    class="reviews-ts ml-1"
                     v-html="$Ph(tutor.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"
                 ></span>
                 </div>
@@ -30,7 +35,7 @@
             </div>
             <div class="ts-price">
             <span class="price-mark">{{tutor.price}}</span>/
-            <span v-language:inner="'homePage_ts_hour'" />
+            <span v-language:inner="'tutorCardCarousel_hour'" />
             </div>
         </div>
         </div>
@@ -39,9 +44,10 @@
 
 <script>
 import userRating from "../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
+import userAvatarRect from '../helpers/UserAvatar/UserAvatarRect.vue';
 import star from "../results/tutorCards/stars-copy.svg";
 export default {
-    components:{userRating,star},
+    components:{userRating,star,userAvatarRect},
     props:{
         tutor:{
             type:Object,
@@ -78,6 +84,7 @@ export default {
 <style lang="less">
 @import '../../styles/mixin.less';
 .tutorCarouselCard {
+    overflow: hidden;
     width: 242px;
     height: 340px;
     background: white;
@@ -89,8 +96,8 @@ export default {
     justify-content: space-between;
     .tutorCarousel-top {
     .tutorCarouselImg {
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
+        // border-top-left-radius: 8px;
+        // border-top-right-radius: 8px;
     }
     .ts-content {
         padding: 4px 8px 0 8px;

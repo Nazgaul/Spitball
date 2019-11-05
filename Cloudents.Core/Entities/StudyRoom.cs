@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
+using JetBrains.Annotations;
 
 [assembly:InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
@@ -46,6 +47,7 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<StudyRoomSession> Sessions => _sessions;
 
 
+        [CanBeNull]
         public virtual StudyRoomSession GetCurrentSession()
         {
             return Sessions.AsQueryable().SingleOrDefault(w => w.Ended == null);

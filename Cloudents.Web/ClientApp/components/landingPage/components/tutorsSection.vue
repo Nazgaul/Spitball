@@ -3,7 +3,7 @@
     <h1 class="ts-title" v-language:inner="'homePage_ts_title'" />
     <h2 class="ts-subtitle" v-language:inner="'homePage_ts_subtitle'" />
     <div class="tutorsCarousel">
-      <sbCarousel @select="enterTutorCard" v-if="tutorList.length" :arrows="!$vuetify.breakpoint.xsOnly">
+      <sbCarousel :slideStep="5" @select="enterTutorCard" v-if="tutorList.length" :arrows="!$vuetify.breakpoint.xsOnly">
         <tutorCard :fromCarousel="true" v-for="(tutor, index) in tutorList" :tutor="tutor" :key="index"/>
       </sbCarousel>
     </div>
@@ -25,7 +25,12 @@ export default {
   methods: {
     ...mapActions(["updateHPTutors"]),
     enterTutorCard(vueElm){
-      vueElm.enterProfilePage();
+      if(vueElm.enterProfilePage){
+        vueElm.enterProfilePage();
+      }else{
+        vueElm.$parent.enterProfilePage();
+      }
+      
     }
   },
   created() {
@@ -40,7 +45,7 @@ export default {
 .tutorsSections {
   .responsiveLandingPage(1354px, 80px);
   @media (max-width: @screen-xs) {
-    width: calc(~"100% - 20px");
+    width: calc(~"100% - 22px");
     margin-bottom: 50px;
   }
   margin-bottom: 80px;
@@ -58,7 +63,7 @@ export default {
   }
   .ts-subtitle {
     @media (max-width: @screen-xs) {
-      margin: 6px 0;
+      margin: 8px 0 14px 0;
       font-size: 14px;
     }
     margin: 10px 0;

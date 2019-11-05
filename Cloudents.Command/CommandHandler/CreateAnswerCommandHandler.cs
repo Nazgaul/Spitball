@@ -58,28 +58,24 @@ namespace Cloudents.Command.CommandHandler
                     throw new QuotaExceededException();
                 }
             }
-            var answers = question.Answers;
-            if (answers.Any(a => a.User.Id == user.Id && a.Status.State != ItemState.Deleted))
-            {
-                throw new MoreThenOneAnswerException();
-            }
-            //TODO:
+            //var answers = question.Answers;
+           
             //we can check if we can create sql query to check answer with regular expression
             //and we can create sql to check if its not the same user
-            var regex = new Regex(@"[,`~'<>?!@#$%^&*.;_=+()\s]", RegexOptions.Compiled);
-            var nakedString = Regex.Replace(message.Text, regex.ToString(), "");
-            foreach (var answer in answers.Where(w =>
-                w.Status.State == ItemState.Ok
+            //var regex = new Regex(@"[,`~'<>?!@#$%^&*.;_=+()\s]", RegexOptions.Compiled);
+            //var nakedString = Regex.Replace(message.Text, regex.ToString(), "");
+            //foreach (var answer in answers.Where(w =>
+            //    w.Status.State == ItemState.Ok
 
-            ))
-            {
-                var check = Regex.Replace(answer.Text, regex.ToString(), "");
-                if (nakedString == check)
-                {
-                    throw new DuplicateRowException("Duplicate answer");
-                }
+            //))
+            //{
+            //    var check = Regex.Replace(answer.Text, regex.ToString(), "");
+            //    if (nakedString == check)
+            //    {
+            //        throw new DuplicateRowException("Duplicate answer");
+            //    }
 
-            }
+            //}
 
             var language = await _textAnalysis.DetectLanguageAsync(message.Text, token);
             var newAnswer = question.AddAnswer(message.Text, user, language);

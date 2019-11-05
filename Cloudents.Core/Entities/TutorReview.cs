@@ -40,5 +40,8 @@ namespace Cloudents.Core.Entities
         //public virtual StudyRoom Room { get; protected set; }
 
         public virtual byte[] Version { get; protected set; }
+
+        public virtual bool IsShownHomePage { get; protected set; }
+
     }
 }

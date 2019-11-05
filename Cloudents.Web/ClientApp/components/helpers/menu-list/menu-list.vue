@@ -290,12 +290,8 @@ export default {
       return !!this.accountUser;
     },
     userReferralLink() {
-      return (
-        "http://www.spitball.co/" +
-        "?referral=" +
-        Base62.encode(this.accountUser.id) +
-        "&promo=referral"
-      );
+      let site = this.isFrymo ? 'frymo.com' : 'spitball.co';
+      return `http://www.${site}/?referral=${Base62.encode(this.accountUser.id)}&promo=referral`;
     }
   },
   watch: {

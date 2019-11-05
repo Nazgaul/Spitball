@@ -15,7 +15,7 @@ namespace Cloudents.Query.HomePage
 
     public class TopDocumentsQuery : IQuery<IEnumerable<DocumentFeedDto>>
     {
-        private string Country { get; }
+        private Country Country { get; }
         private int Count { get; }
 
         public TopDocumentsQuery(string country, int count)
@@ -37,11 +37,10 @@ namespace Cloudents.Query.HomePage
             {
                 IQueryable<Document> sessionQuery = _session.Query<Document>().Fetch(f => f.University);
 
-                if (string.IsNullOrEmpty(query.Country))
-                {
-                    sessionQuery = sessionQuery.Where(w => w.University.Country == query.Country);
-                }
-                return await sessionQuery.Where(w => w.IsShownHomePage == true).Select(s => new DocumentFeedDto()
+
+                sessionQuery = sessionQuery.Where(w => w.University.Country == query.Country.ToString());
+
+                return await sessionQuery.Where(w => w.IsShownHomePage).Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
                     DocumentType = s.DocumentType ?? DocumentType.Document,

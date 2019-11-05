@@ -43,7 +43,6 @@ export default {
     },
     data() {
         return {
-            MAX_ITEMS: 20,
             pageData: '',
             filterObject: null,
             showFilters: false,
@@ -73,27 +72,14 @@ export default {
 
     computed: {
         ...mapGetters([
-            'isFirst',
-            'myCourses', 
-            'getDialogState', 
             'getFilters', 
-            'getVerticalData', 
             'accountUser', 
             'Feeds_getShowQuestionToaster', 
-            'getSchoolName', 
-            'getReflectChangeToPage', 
             'getSearchLoading',
             'Feeds_getNextPageUrl',
-            'Feeds_getTutors',
-            // 'getResultLockForSchoolNameChange',
-            // 'getResultLockForClassesChange'
         ]),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'Feeds_getItems'}),
 
-        showSelectUni(){
-            let schoolName = this.getSchoolName;
-            return schoolName.length === 0;
-        },
         filterCondition() {
             return this.filterSelection.length || (this.filterObject && this.page)
         },
@@ -147,9 +133,6 @@ export default {
         },
         showSkelaton() {
             return this.getSearchLoading || this.loading || this.isLoad
-        },
-        getTutorList() {
-            return this.Feeds_getTutors;
         }
     },
     methods: {
@@ -180,7 +163,9 @@ export default {
         scrollFunc(){
             this.scrollBehaviour.isLoading = true;
             let nextPageUrl = this.Feeds_getNextPageUrl;
-            if(this.name !== this.pageData.vertical && this.pageData.data.length <= this.MAX_ITEMS) return;            
+
+            if(!nextPageUrl) return this.scrollBehaviour.isLoading = false;
+
             this.Feeds_nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
                 .then((res) => {
                     if (res.data && res.data.length) {

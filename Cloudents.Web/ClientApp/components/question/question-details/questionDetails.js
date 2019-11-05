@@ -151,7 +151,10 @@ export default {
             return this.isCardOwner;
         },
         userAnswered() {
-            return this.questionData.answers.length && this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length
+            if(this.accountUser) {
+                return this.questionData.answers.length && this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length
+            }
+            return null;
         },
     },
     created() {               

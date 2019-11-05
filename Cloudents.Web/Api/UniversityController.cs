@@ -1,4 +1,5 @@
-﻿using Cloudents.Command;
+﻿using System.Diagnostics.CodeAnalysis;
+using Cloudents.Command;
 using Cloudents.Command.Universities;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
@@ -69,10 +70,11 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("set")]
+        [SuppressMessage("ReSharper", "PossibleInvalidOperationException", Justification = "Asp.net core validation will fix that")]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new UserJoinUniversityCommand(userId, model.Id);
+            var command = new UserJoinUniversityCommand(userId, model.Id.Value);
             await _commandBus.DispatchAsync(command, token);
             var user = await _userManager.GetUserAsync(User);
             await _signInManager.RefreshSignInAsync(user);

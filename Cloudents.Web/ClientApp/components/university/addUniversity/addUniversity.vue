@@ -97,6 +97,7 @@
         },
         watch: {
             search: debounce(function () {
+                
                 let searchVal = '';
                 if(!!this.search) {
                     searchVal = this.search.trim();
@@ -125,7 +126,6 @@
                 set: function (newValue) {
                     this.universityModel = newValue;
                     this.setSchoolName(newValue)
-                    this.updateSchoolName(newValue)
                 }
             }
         },

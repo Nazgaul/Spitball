@@ -35,7 +35,7 @@ namespace ConsoleApp
 {
     internal static class Program
     {
-        private static IContainer _container;
+        public static IContainer _container;
 
         public enum EnvironmentSettings
         {
@@ -94,7 +94,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -134,53 +134,53 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            ResourcesMaintenance.DeleteStuffFromJs();
-            //var cacheKeeper = _container.Resolve<IIpToLocation>();
+            await GoogleSheetsReader.Read();
+//            var dapper = _container.Resolve<IDapperRepository>();
+//            using (var openConnection = dapper.OpenConnection())
+//            {
+//                var courseNames = await openConnection.QueryAsync<string>(
+//                    @"Select distinct top 2000  uc.courseid from sb.userscourses uc join sb.[user] u on uc.userid = u.id
+//                where u.country = 'IN'");
 
-            //var v = cacheKeeper.GetAsync(IPAddress.Parse("27.123.246.12"), default);
-            //while (true)
-            //{
-            //    var v = cacheKeeper.Get("key", "test");
-            //    var value = 0;
-            //    if (v != null)
-            //    {
-            //        value = (int) v;
-            //    }
+//                //if (courseName == null)
+//                //{
+//                //    break;
 
-            //    Console.WriteLine(value);
-            //    value++;
-            //    cacheKeeper.Set("key","test",value,60,true);
-            //    Thread.Sleep(500);
-            //}
-            //await UpdateMethod();
-            // var v = _container.Resolve<IIpToLocation>();
-            // var x = await v.GetAsync(IPAddress.Parse("147.243.149.244"), default);
-            // var c = _container.Resolve<IReadTutorRepository>();
-            // await c.GetReadTutorAsync(638, default);
-            // ResourcesMaintenance.DeleteUnusedSvg();
-            //var q = new UserPurchaseDocumentByIdQuery(638, 0);
-            //var z = await d.QueryAsync(q, default);
-            //ResourcesMaintenance.DeleteUnusedResources();
-            //var t = new GuidCombGenerator();
+//                //}
+//                foreach (var courseName in courseNames)
+//                {
+//                    var country = await openConnection.QueryAsync<string>(@"Select distinct u.country from sb.document d
+//join sb.university u on d.universityid = u.id
 
-            //var dictionary = new Dictionary<int, Guid>();
+//where coursename = @courseName
+//union
+//Select distinct u.country from sb.question d
+//join sb.university u on d.universityid = u.id
 
-            //for (int i = 0; i < 5; i++)
-            //    dictionary.Add(i, (Guid)t.Generate(null, null));
+//where courseid = @courseName
+//", new { courseName = courseName });
 
-            //var v = dictionary.OrderBy(d => d.Value);
-
-            //   var c = _container.Resolve<ICommandBus>();
-            //  var command = new SendChatTextMessageCommand("hi",638, 160105);
-            //   await c.DispatchAsync(command, default);
-            //await   c.UpdateNonDayOldConversationToActiveAsync(default);
+//                    if (!country.Any(a => a.Equals("IN", StringComparison.OrdinalIgnoreCase)))
+//                    {
+//                        var i = await openConnection.ExecuteAsync(
+//                             @"delete from sb.userscourses where courseid = @courseName and userid in (
+//                        select id from sb.[user] where country = 'IN')", new { courseName = courseName });
+//                        Console.WriteLine($"Remove assosiation {courseName} number {i}");
+//                    }
+//                    else
+//                    {
+//                        Console.WriteLine($"not Remove assosiation {courseName}");
+//                    }
+//                    //else
+//                    //{
+//                    //    list.Add(courseName);
+//                    //}
+//                }
 
 
-            ////    var blobClient = bus.GetBlobClient();
 
-            ////
-
-            //Console.WriteLine("done");
+//            }
+           
         }
 
 

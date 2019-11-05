@@ -147,13 +147,9 @@ export default {
             let isOwner = this.cardOwner();
             if (!isOwner) {
                 return true;
+            } else{
+                return false
             }
-            if (typeof this.cardData.answers !== 'number') {
-                return this.cardData.answers.length !== 0;
-            }
-            return this.cardData.answers !== 0;
-
-
         },
         showBigImage(src) {
             this.showDialog = true;

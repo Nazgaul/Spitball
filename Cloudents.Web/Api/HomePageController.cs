@@ -39,14 +39,7 @@ namespace Cloudents.Web.Api
             return Ok(new { version = _versionService.GetVersion() });
         }
 
-        //[HttpGet("subjects")]
-        //public async Task<IEnumerable<string>> GetTopSubjects([FromQuery]string language, CancellationToken token)
-        //{
-        //    var query = new TopSubjectsQuery(language);
-        //    var retValTask = await _queryBus.QueryAsync(query, token);
-        //    return retValTask;
 
-        //}
 
         /// <summary>
         /// Get tutor for home page
@@ -56,6 +49,7 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("tutors")]
+        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Day, VaryByQueryKeys = new[] { "count" })]
         public async Task<IEnumerable<TutorCardDto>> GetTopTutorsAsync(int count,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
@@ -65,8 +59,28 @@ namespace Cloudents.Web.Api
             return retValTask;
         }
 
+
+        /// <summary>
+        /// Get tutor reviews for home page
+        /// </summary>
+        /// <param name="count">The amount of tutors</param>
+        /// <param name="profile">Ignore</param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpGet("reviews")]
+        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Day, VaryByQueryKeys = new []{"count"})]
+
+        public async Task<IEnumerable<ReviewDto>> GetReviewsAsync(int count,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            CancellationToken token)
+        {
+            var query = new ReviewsQuery(profile.Country, count);
+            var retValTask = await _queryBus.QueryAsync(query, token);
+            return retValTask;
+        }
+
         [HttpGet]
-        [ResponseCache(Duration =  TimeConst.Day,Location = ResponseCacheLocation.Any)]
+        [ResponseCache(Duration = TimeConst.Day, Location = ResponseCacheLocation.Any)]
         public async Task<StatsDto> GetStatsAsync(CancellationToken token)
         {
             var query = new StatsQuery();
@@ -84,6 +98,8 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("documents")]
+        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Day, VaryByQueryKeys = new[] { "count" })]
+
         public async Task<IEnumerable<DocumentFeedDto>> GetTopDocumentsAsync(int count,
             [FromServices] IUrlBuilder urlBuilder,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,

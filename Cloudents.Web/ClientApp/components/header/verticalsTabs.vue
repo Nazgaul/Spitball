@@ -72,10 +72,10 @@
                     if(!!this.$route.query && !!this.$route.query.Course){
                         return this.$route.query.Course
                     }else{
-                        return LanguageService.getValueByKey("schoolBlock_information_box_latest");
+                        return LanguageService.getValueByKey("schoolBlock_all_courses");
                     }
                 }else{
-                    return LanguageService.getValueByKey("schoolBlock_information_box_latest");
+                    return LanguageService.getValueByKey("schoolBlock_all_courses");
                 }
             },
             hideHeader(){

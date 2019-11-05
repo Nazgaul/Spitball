@@ -1,7 +1,7 @@
 <template>
         <v-layout align-center justify-center class="rating-container">
             <v-flex shrink :class="{'mr-2': $vuetify.breakpoint.smAndUp}">
-                <v-rating :class="{'rtl-rating': isRtl}"
+                <v-rating :class="['ratingCmp',{'rtl-rating': isRtl}]"
                         v-model="dynamicRating"
                         :color="starColor"
                         :background-color="starColor"
@@ -85,6 +85,9 @@
 
 <style lang="less">
     .rating-container{
+        .ratingCmp{
+            display: flex;
+        }
         .rtl-rating{
             .sbf-star-rating-half{
                 -moz-transform: scaleX(-1)/*rtl:ignore*/;

@@ -43,14 +43,19 @@ export default {
             isArrows: true,
             isDragging: false,
             optionsObj:{
+                zIndex: 10,
                 hanger: 0,
                 anchor: 0,
                 gap: this.gap, 
                 circular: this.infinite, 
                 moveType: 'freeScroll',
                 bound: !this.infinite,
-                overflow: this.overflow
+                overflow: this.overflow,
+                duration:750,
+                adaptive:true,
             },
+            isRtl: global.isRtl,
+            stepMove:null,
         }
     },
     watch: {
@@ -79,7 +84,7 @@ export default {
             let itemsCount = carouselEl.getPanelCount()
             let currentItemIndex = carouselEl.getIndex()
             if(currentItemIndex < itemsCount){
-                carouselEl.moveTo(currentItemIndex+this.slideStep)
+                carouselEl.moveTo(currentItemIndex+this.stepMove)
             }
         },
         prev(){
@@ -87,7 +92,7 @@ export default {
             let itemsCount = carouselEl.getPanelCount()
             let currentItemIndex = carouselEl.getIndex()
             if(currentItemIndex < itemsCount && currentItemIndex > 0 ){
-                carouselEl.moveTo(currentItemIndex-this.slideStep)
+                carouselEl.moveTo(currentItemIndex-this.stepMove)
             }
         },
         onCentered(){
@@ -129,8 +134,10 @@ export default {
         }
     },
     mounted() {
-        let el = document.querySelector(`.${this.uniqueID}`)
-        
+        this.stepMove = this.$refs[this.uniqueID].getVisiblePanels().length;
+        let visiblesItems = this.$refs[this.uniqueID].getVisiblePanels()
+        this.isLastItemVisible = visiblesItems.some(item=>item.nextSibling === null)
+        this.isFirstItemVisible = visiblesItems.some(item=>item.prevSibling === null);
         if(!!this.$slots && this.$slots.default){
             this.$slots.default.forEach((slot)=>{
                 slot.elm.draggable = false;

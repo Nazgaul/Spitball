@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models
 {
@@ -16,6 +17,7 @@ namespace Cloudents.Web.Models
 
     public class AssignUniversityRequest
     {
-        public Guid Id { get; set; }
+        [Required]
+        public Guid? Id { get; set; }
     }
 }

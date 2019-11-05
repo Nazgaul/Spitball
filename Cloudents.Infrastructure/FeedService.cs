@@ -21,7 +21,7 @@ namespace Cloudents.Infrastructure
         private readonly ITutorSearch _tutorSearch;
         private readonly IDocumentSearch _searchProvider;
         private const int _tutorPageSize = 3;
-        private const int _itemPageSize = 183;
+        private const int _itemPageSize = 18;
 
         public FeedService(IQueryBus queryBus, ITutorSearch tutorSearch, IDocumentSearch searchProvider)
         {

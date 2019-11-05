@@ -28,9 +28,29 @@ function getHomePageStats(){
         return createHomePageStats(res.data)
     })
 }
+function getHomePageReviews(count = 3){
+    let params = {count}
+    return connectivityModule.http.get(`HomePage/reviews`,{params}).then(res=>{
+        return res.data.map(review=>{
+            return createHomePageReviews(review)
+        })
+    })
+}
 function createHomePageStats(objInit){
     return new HomePageStats(objInit)
 }
+function createHomePageReviews(objInit){
+    return new HomePageReview(objInit)
+}
+function HomePageReview(objInit){
+    this.text = objInit.text;
+    this.userName = objInit.userName;
+    this.tutorImage = objInit.tutorImage;
+    this.tutorName = objInit.tutorName;
+    this.tutorId = objInit.tutorId;
+    this.tutorReviews = objInit.tutorReviews;
+}
+
 function HomePageStats(objInit){
     this.documents = objInit.documents;
     this.tutors = objInit.tutors;
@@ -41,7 +61,8 @@ export default {
     getHomePageTutors,
     getHomePageItems,
     getHomePageSubjects,
-    getHomePageStats
+    getHomePageStats,
+    getHomePageReviews
 }
 
 

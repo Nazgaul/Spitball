@@ -65,7 +65,10 @@
 
     export default {
         name: "chatUploadFile",
-        components: { FileUpload, chatImage, photoCamera },
+        components: { 
+            FileUpload, 
+            chatImage, 
+            photoCamera },
         props: {
             typing: {
                 type: Boolean,

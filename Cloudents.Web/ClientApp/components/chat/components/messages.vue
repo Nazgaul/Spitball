@@ -100,7 +100,7 @@ export default {
             return this.messages &&  this.messages.length > 0;
         },
         isRoomTutor(){
-            return this.isTutor && this.messages &&  this.messages.length > 0 && this.messages[0].userId !== this.accountUser.id;
+            return this.isTutor && this.messages &&  this.messages.length > 0 && this.messages[0].userId !== this.accountUser.id && !this.messages[0].isDummy;
         },
         typing() {
             return !!this.messageText;

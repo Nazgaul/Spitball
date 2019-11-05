@@ -8,7 +8,7 @@
       wrap
     >
       <template v-if="stats.documents">
-        <span>
+        <span class="hidden-sm-and-down">
           <b>{{(stats.documents).toLocaleString('en')}}</b>
           <span v-language:inner="'homePage_hd_stats_docs'" />
         </span>
@@ -80,7 +80,7 @@ export default {
       flex-shrink: 0;
       flex-basis: auto;
       .landing-headelien-headlineStatus-startsrating {
-        padding: 0 20px 0 9px;
+        padding: 0 8px 0 8px;
         .star {
           width: 21px;
           height: 21px;

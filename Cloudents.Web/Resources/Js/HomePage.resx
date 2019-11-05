@@ -150,20 +150,8 @@
   <data name="hd_title" xml:space="preserve">
     <value>Improve your grades with help throughout your studies</value>
   </data>
-  <data name="is_course" xml:space="preserve">
-    <value>Course:</value>
-  </data>
-  <data name="is_pts" xml:space="preserve">
-    <value>Pts</value>
-  </data>
-  <data name="is_purchases" xml:space="preserve">
-    <value>Purchases</value>
-  </data>
   <data name="is_title" xml:space="preserve">
     <value>Students are Viewing</value>
-  </data>
-  <data name="is_university" xml:space="preserve">
-    <value>University:</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
     <value>Love it all!!! Spitball's the best. It's the most helpful site out there.</value>
@@ -198,46 +186,11 @@
   <data name="tss_title" xml:space="preserve">
     <value>What our students say</value>
   </data>
-  <data name="ts_a_tname" xml:space="preserve">
-    <value>מורה פרטי אריאל פיינזילברג</value>
-  </data>
-  <data name="ts_a_txt" xml:space="preserve">
-    <value>מצליח להעביר את החומר בצורה מדוייקת ועניינית כולל תרגול של שלבי פיתרון . מסביר בדרך שאפשר להבין וסובלני מאוד. לא יפסיק להסביר עד שתגיד שהבנת
-ב100 אחוזים.</value>
-  </data>
-  <data name="ts_a_uname" xml:space="preserve">
-    <value>בת אל</value>
-  </data>
-  <data name="ts_b_tname" xml:space="preserve">
-    <value>מורה פרטי שלומי לוי</value>
-  </data>
-  <data name="ts_b_txt" xml:space="preserve">
-    <value>היה מעולה!
-איזה כיף זה בלי לצאת מהבית בלי לחשוד ללכת לבתים של מורים שהכרת באינטרנט. מומלץ בחום</value>
-  </data>
-  <data name="ts_b_uname" xml:space="preserve">
-    <value>מורן ג</value>
-  </data>
-  <data name="ts_c_tname" xml:space="preserve">
-    <value>מורה פרטי טל שהם</value>
-  </data>
-  <data name="ts_c_txt" xml:space="preserve">
-    <value>בהחלט השגתי את ואפילו יותר את הציון שרציתי ציון 86 תודה לכם על עזרתכם הרבה במיוחד שהמלצת לי על טל ממש מעולה.</value>
-  </data>
-  <data name="ts_c_uname" xml:space="preserve">
-    <value>סיגלית ש</value>
-  </data>
-  <data name="ts_hour" xml:space="preserve">
-    <value>hour</value>
-  </data>
   <data name="ts_subtitle" xml:space="preserve">
-    <value>Find the perfect  tutor and chat free of charge</value>
+    <value>Find the perfect tutor and chat free of charge</value>
   </data>
   <data name="ts_title" xml:space="preserve">
     <value>Popular Tutors</value>
-  </data>
-  <data name="tutor_btn" xml:space="preserve">
-    <value>Contact</value>
   </data>
   <data name="hd_search_ph" xml:space="preserve">
     <value>Try “Math teacher”</value>

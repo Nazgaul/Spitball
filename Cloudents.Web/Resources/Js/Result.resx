@@ -117,32 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="answer" xml:space="preserve">
-    <value>Answer</value>
-  </data>
-  <data name="answer_not_found" xml:space="preserve">
-    <value>We didn't find an answer to your question</value>
-  </data>
   <data name="different_keywords" xml:space="preserve">
     <value>Try different keywords.</value>
   </data>
   <data name="fewer_keywords" xml:space="preserve">
     <value>Shorten your query.</value>
   </data>
-  <data name="filter_not_applied" xml:space="preserve">
-    <value>Filter was not applied, because it will give you no results.</value>
-  </data>
   <data name="general_keywords" xml:space="preserve">
     <value>Look for something broader.</value>
   </data>
   <data name="new_questions" xml:space="preserve">
     <value>New questions</value>
-  </data>
-  <data name="ok" xml:space="preserve">
-    <value>Ok</value>
-  </data>
-  <data name="record_not_match" xml:space="preserve">
-    <value>did not match any records.</value>
   </data>
   <data name="spelling" xml:space="preserve">
     <value>Check your spelling.</value>
@@ -158,12 +143,6 @@
   </data>
   <data name="suggestions_tutor" xml:space="preserve">
     <value>Still need help? Connect with a tutor and make sure you ace your class.</value>
-  </data>
-  <data name="where_school" xml:space="preserve">
-    <value>My courses</value>
-  </data>
-  <data name="your_search" xml:space="preserve">
-    <value>Your search</value>
   </data>
   <data name="get_help" xml:space="preserve">
     <value>Get Help</value>

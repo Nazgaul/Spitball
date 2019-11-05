@@ -272,6 +272,17 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
+        [Theory]
+        [InlineData("IL")]
+        [InlineData("IN")]
+        public async Task ReviewsQuery_Ok(string country)
+        {
+            var query = new ReviewsQuery(country, 5);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        
+
 
     }
 }

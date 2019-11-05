@@ -6,9 +6,9 @@
         <v-flex>
             <tutor-result-card-other v-for="(singleTutor, index) in tutorList" :tutorData="singleTutor" :key="index" />
         </v-flex>
-        <v-flex>
+        <!-- <v-flex>
             <router-link to="/tutor" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
-        </v-flex>
+        </v-flex> -->
     </v-layout>
 </template>
 <script>

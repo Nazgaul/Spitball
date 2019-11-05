@@ -117,58 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="banner_content_access" xml:space="preserve">
+    <value>Notes, solutions and documents</value>
+    <comment>Notes, solutions and documents</comment>
+  </data>
+  <data name="banner_content_choose" xml:space="preserve">
+    <value>Convenient schedules to suit your times</value>
+    <comment>Convenient schedules to suit your times</comment>
+  </data>
+  <data name="banner_content_find" xml:space="preserve">
+    <value>Talk to Experts and teachers</value>
+    <comment>Talk to Experts and teachers</comment>
+  </data>
+  <data name="banner_title" xml:space="preserve">
+    <value>Study Smarter &amp; from anywhere</value>
+    <comment>Study Smarter &amp; from anywhere</comment>
+  </data>
+  <data name="btn_earn" xml:space="preserve">
+    <value>Apply For teaching on Frymo</value>
+    <comment>Apply For teaching on Frymo</comment>
+  </data>
+  <data name="earn_subtitle" xml:space="preserve">
+    <value>Join Frymo community, Frymo Edu-Tools to teach thousands of students online!</value>
+    <comment>Join Frymo community, Frymo Edu-Tools to teach thousands of students online!</comment>
+  </data>
+  <data name="earn_title" xml:space="preserve">
+    <value>Inviting Teachers</value>
+    <comment>Inviting Teachers</comment>
+  </data>
+  <data name="hd_subtitle" xml:space="preserve">
+    <value>Get better at studies! Access teachers and experts online to help you with difficulties, preparations, homework and more!</value>
+    <comment>Get better at studies! Access teachers and experts online to help you with difficulties, preparations, homework and more!</comment>
+  </data>
+  <data name="hd_title" xml:space="preserve">
+    <value>Study smarter, go digital with Frymo</value>
+    <comment>Study smarter, go digital with Frymo</comment>
+  </data>
   <data name="Testimonial1" xml:space="preserve">
     <value>Love it all!!! Frymo's the best. It's the most helpful site out there.</value>
   </data>
   <data name="Testimonial3" xml:space="preserve">
     <value>I found myself looking for a new way to communicate and study with my classmates. Frymo. It's genius!</value>
   </data>
-  <data name="hd_title" xml:space="preserve">
-    <value>Study smarter, go digital with Frymo</value>
-    <comment>Study smarter, go digital with Frymo</comment>
-  </data>
-  <data name="hd_subtitle" xml:space="preserve">
-    <value>Get better at studies! Access teachers and experts online to help you with difficulties, preparations, homework and more!</value>
-    <comment>Get better at studies! Access teachers and experts online to help you with difficulties, preparations, homework and more!</comment>
-  </data>
-  <data name="banner_title" xml:space="preserve">
-    <value>Study Smarter &amp; from anywhere</value>
-    <comment>Study Smarter &amp; from anywhere</comment>
-  </data>
-  <data name="banner_content_access" xml:space="preserve">
-    <value>Notes, solutions and documents</value>
-    <comment>Notes, solutions and documents</comment>
-  </data>
-  <data name="banner_content_find" xml:space="preserve">
-    <value>Talk to Experts and teachers</value>
-    <comment>Talk to Experts and teachers</comment>
-  </data>
-  <data name="banner_content_choose" xml:space="preserve">
-    <value>Convenient schedules to suit your times</value>
-    <comment>Convenient schedules to suit your times</comment>
-  </data>
-  <data name="ts_title" xml:space="preserve">
-    <value>Popular teachers</value>
-    <comment>Popular teachers</comment>
+  <data name="tss_title" xml:space="preserve">
+    <value>Testimonial from Students</value>
+    <comment>Testimonial from Students</comment>
   </data>
   <data name="ts_subtitle" xml:space="preserve">
     <value>Select &amp; connect with teachers</value>
     <comment>Select &amp; connect with teachers</comment>
   </data>
-  <data name="btn_earn" xml:space="preserve">
-    <value>Apply For teaching on Frymo</value>
-    <comment>Apply For teaching on Frymo</comment>
-  </data>
-  <data name="earn_title" xml:space="preserve">
-    <value>Inviting Teachers</value>
-    <comment>Inviting Teachers</comment>
-  </data>
-  <data name="earn_subtitle" xml:space="preserve">
-    <value>Join Frymo community, Frymo Edu-Tools to teach thousands of students online!</value>
-    <comment>Join Frymo community, Frymo Edu-Tools to teach thousands of students online!</comment>
-  </data>
-  <data name="tss_title" xml:space="preserve">
-    <value>Testimonial from Students</value>
-    <comment>Testimonial from Students</comment>
+  <data name="ts_title" xml:space="preserve">
+    <value>Popular teachers</value>
+    <comment>Popular teachers</comment>
   </data>
 </root>

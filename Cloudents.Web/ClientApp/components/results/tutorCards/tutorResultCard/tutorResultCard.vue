@@ -14,14 +14,13 @@
                 <h4 class="mb-1 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
                 <div class="user-bio-wrapper">
                   <div class="user-bio mb-4">{{tutorData.bio}}</div>
-                  <!-- <div class="read-more" v-show="isOverflow" v-language:inner="'resultTutor_read_more'"></div> -->
                 </div>
                 <div class="study-area mb-2" :class="{'study-area-hidden': !isSubjects}">
-                  <span class="mr-1" v-language:inner="'resultTutor_study-area'"></span>
+                  <span class="mr-1 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
                   <span class="text-truncate">{{subjects}}</span>
                 </div>
                 <div class="courses" v-if="isCourses">
-                  <span class="mr-2" v-language:inner="'resultTutor_courses'"></span>
+                  <span class="mr-2 font-weight-bold" v-language:inner="'resultTutor_courses'"></span>
                   <span class="text-truncate">{{courses}}</span> 
                 </div>
             </div>
@@ -32,9 +31,8 @@
         <div class="user-rates">
             <div class="price font-weight-bold mb-1">
               <div class="user-rates-top">
-                <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price}}</div>
+                <div class="striked mr-2" v-if="tutorData.discountPrice">{{tutorData.price}}</div>
                 <template>
-                    <!-- <span class="tutor-card-currency">&#8362;</span> -->
                     <span v-if="tutorData.discountPrice" class="tutor-card-price font-weight-bold">{{tutorData.discountPrice}}</span>
                     <span class="tutor-card-price font-weight-bold" v-else>{{tutorData.price}}</span>
                 </template>
@@ -43,16 +41,6 @@
                   <span class="tutor-card-price-divider font-weight-bold" v-language:inner="'resultTutor_hour'"></span>
                   <div v-if="!showStriked" class="price-default-height"></div>
                 </span>
-                <!-- <v-menu class="menu-area" lazy bottom left content-class="card-user-actions">
-                    <v-btn :depressed="true" @click.prevent slot="activator" icon>
-                    <v-icon>sbf-3-dot</v-icon>
-                    </v-btn>
-                    <v-list>
-                    <v-list-tile v-show="item.isVisible" class="report-list-item" :disabled="item.isDisabled" v-for="(item, i) in actions" :key="i">
-                        <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
-                    </v-list-tile>
-                    </v-list>
-                </v-menu> -->
               </div>
             </div>
 
@@ -259,9 +247,6 @@ export default {
       display: flex;
       .main-card {
         min-width: 0;
-        h3{
-          // line-height: 1.1 !important;
-        }
         display: flex;  
         flex-direction: column;
         .university-hidden {

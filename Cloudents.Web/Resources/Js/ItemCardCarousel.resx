@@ -117,11 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="choose_now" xml:space="preserve">
-    <value>Add Now</value>
+  <data name="course" xml:space="preserve">
+    <value>Course:</value>
   </data>
-  <data name="find_relevant" xml:space="preserve">
-    <value>Find Study Documents relevant to you!
-      Personalize results to your School and Classes</value>
+  <data name="pts" xml:space="preserve">
+    <value>Pts</value>
+  </data>
+  <data name="purchases" xml:space="preserve">
+    <value>Purchases</value>
+  </data>
+  <data name="university" xml:space="preserve">
+    <value>University:</value>
   </data>
 </root>

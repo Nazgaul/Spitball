@@ -22,6 +22,10 @@ namespace Cloudents.Command.CommandHandler
         {
             var studyRoom = await _studyRoomRepository.GetAsync(message.Id, token);
             var studyRoomSession = studyRoom.GetCurrentSession();
+            if (studyRoomSession is null)
+            {
+                return;
+            }
             var sessionParticipant = studyRoomSession.ParticipantDisconnections.FirstOrDefault();
 
             if (sessionParticipant != null)

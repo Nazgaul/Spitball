@@ -13,7 +13,7 @@
                 </div>
                 
                 <div class="footer-contact-box-icons">
-                    <a v-for="(sm, index) in socialMedias" :key="index" :href="sm.url" target="_blank"><v-icon>{{sm.icon}}</v-icon></a>
+                    <a  v-for="(sm, index) in socialMedias" :key="index" :href="sm.url" target="_blank"><v-icon>{{sm.icon}}</v-icon></a>
                 </div>
             </div>
         </v-layout>
@@ -80,10 +80,10 @@ import logoComponent from '../app/logo/logo.vue';
 @import "../../styles/mixin.less";
 .footer {
   height: 400px;
-  background-color: #1b2441;
+  background-color: #202431;
   color: #fff;
   @media (max-width: @screen-sm) {
-      padding: 80px 0;
+      padding: 20px 0;
       height: auto;
   }
  .footer-warp {
@@ -142,6 +142,9 @@ import logoComponent from '../app/logo/logo.vue';
                 margin: 0 10px;
                 color: #FFF;
                 cursor: pointer;
+                i{
+                    color: white;
+                }
             }
         }
     }

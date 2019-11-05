@@ -6,7 +6,8 @@ const state = {
     tutorsList:[],
     itemsList:[],
     subjectsList:[],
-    stats:{}
+    stats:{},
+    reviews:[]
 }
 
 const getters = {
@@ -14,6 +15,7 @@ const getters = {
     getHPItems: state => state.itemsList,
     getHPSubjects: state => state.subjectsList,
     getHPStats: state => state.stats,
+    getHPReviews: state => state.reviews,
 }
 
 const mutations = {
@@ -28,6 +30,9 @@ const mutations = {
     },
     setHPStats(state,stats){
         state.stats = stats
+    },
+    setHPReviews(state,reviews){
+        state.reviews = reviews
     },
 }
 
@@ -50,6 +55,11 @@ const actions = {
     updateHPStats({commit}){
         homePageService.getHomePageStats().then(res=>{
             commit('setHPStats',res)
+        })
+    },
+    updateHPReviews({commit}){
+        homePageService.getHomePageReviews().then(res=>{
+            commit('setHPReviews',res)
         })
     }
 }

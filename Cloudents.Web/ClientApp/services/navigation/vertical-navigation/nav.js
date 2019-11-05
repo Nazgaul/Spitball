@@ -9,18 +9,7 @@ const nav = {
             name: LanguageService.getValueByKey("navigation_nav_name_feed"),
             icon: "sbf-ask-q", //BLITZ TODO do we need this.....
         }
-    },
-    tutor: {
-        data:{
-            id: routes.tutorRoute,
-            name: LanguageService.getValueByKey("navigation_nav_name_tutor"),
-            needLocation: true,
-            filter: [],
-            sort: [],
-            icon: "sbf-tutor",//BLITZ TODO do we need this.....
-        }
-    },
-
+    }
 };
 
 export let names = [];

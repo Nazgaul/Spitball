@@ -44,7 +44,7 @@ namespace Cloudents.Command.CommandHandler
                 message.Text,  
                 user, textLanguage, course, user.University);
 
-            await _userRepository.UpdateAsync(user, token);
+            //await _userRepository.UpdateAsync(user, token);
 
             await _questionRepository.AddAsync(question, token);
         }

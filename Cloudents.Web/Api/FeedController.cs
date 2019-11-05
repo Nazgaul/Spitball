@@ -9,12 +9,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Cloudents.Core.Query;
 using Cloudents.Core.Query.Feed;
-using Cloudents.Query;
-using Cloudents.Query.Documents;
-using Cloudents.Query.Query;
-using Cloudents.Query.Tutor;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
@@ -31,21 +26,20 @@ namespace Cloudents.Web.Api
     [ApiController]
     public class FeedController : ControllerBase
     {
-        private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IUrlBuilder _urlBuilder;
-        private readonly IFeedService _feedSort;
+        private readonly IFeedService _feedService;
 
 
-        public FeedController(IQueryBus queryBus, UserManager<User> userManager, 
-             IStringLocalizer<DocumentController> localizer, IUrlBuilder urlBuilder, IFeedService feedSort)
+        public FeedController( UserManager<User> userManager, 
+             IStringLocalizer<DocumentController> localizer, IUrlBuilder urlBuilder,
+             IFeedService feedService)
         {
-            _queryBus = queryBus;
             _userManager = userManager;
             _localizer = localizer;
             _urlBuilder = urlBuilder;
-            _feedSort = feedSort;
+            _feedService = feedService;
         }
 
 
@@ -59,7 +53,7 @@ namespace Cloudents.Web.Api
 
             _userManager.TryGetLongUserId(User, out var userId);
 
-            var result = await _feedSort.GetFeedAsync(new GetFeedQuery(userId, page, request.Filter, profile.Country, null), token);
+            var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, page, request.Filter, profile.Country, null), token);
             return GenerateResult(result, new
             {
                 page = ++page,
@@ -110,7 +104,7 @@ namespace Cloudents.Web.Api
         {
             _userManager.TryGetLongUserId(User, out var userId);
            
-            var result = await _feedSort.GetFeedAsync(new GetFeedQuery(userId, request.Page, request.Filter, profile.Country, request.Course), token);
+            var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, request.Page, request.Filter, profile.Country, request.Course), token);
 
             return GenerateResult(result, new { page = ++request.Page, request.Course, request.Filter });
         }
@@ -123,7 +117,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            var resultTask = _feedSort.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, request.Course), token);
+            var resultTask = _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, request.Course), token);
             await Task.WhenAll(resultTask);
             
             return GenerateResult(resultTask.Result, new
@@ -144,7 +138,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
             CancellationToken token)
         {
-            var resultTask = _feedSort.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, null), token);
+            var resultTask = _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, null), token);
 
             await Task.WhenAll(resultTask);
             return GenerateResult(resultTask.Result, new

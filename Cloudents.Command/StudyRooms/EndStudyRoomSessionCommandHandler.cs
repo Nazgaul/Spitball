@@ -24,7 +24,7 @@ namespace Cloudents.Command.StudyRooms
             }
 
             var session = room.GetCurrentSession();
-            session.EndSession();
+            session?.EndSession();
 
         }
     }

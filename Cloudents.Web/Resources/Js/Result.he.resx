@@ -117,20 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="answer" xml:space="preserve">
-    <value>ענה עכשיו</value>
-  </data>
-  <data name="answer_not_found" xml:space="preserve">
-    <value>לא מצאנו תשובה על השאלה שלך</value>
-  </data>
   <data name="different_keywords" xml:space="preserve">
     <value>נסה מילות מפתח אחרות.</value>
   </data>
   <data name="fewer_keywords" xml:space="preserve">
     <value>נסה פחות מילות מפתח.</value>
-  </data>
-  <data name="filter_not_applied" xml:space="preserve">
-    <value>לא החלנו סינון משום שסינון יניב אפס תוצאות.</value>
   </data>
   <data name="general_keywords" xml:space="preserve">
     <value>נסה מילות מפתח כלליות יותר.</value>
@@ -143,12 +134,6 @@
   </data>
   <data name="no_result_found_for" xml:space="preserve">
     <value>לא נמצאו תוצאות עבור</value>
-  </data>
-  <data name="ok" xml:space="preserve">
-    <value>אישור</value>
-  </data>
-  <data name="record_not_match" xml:space="preserve">
-    <value>לא תאם אף רשומה.</value>
   </data>
   <data name="spelling" xml:space="preserve">
     <value>בדוק איות.</value>
@@ -167,12 +152,6 @@
   </data>
   <data name="suggestions_tutor" xml:space="preserve">
     <value>עדיין זקוק לעזרה? צור קשר עם מורה פרטי כדי להבטיח שתצליח בשיעור.</value>
-  </data>
-  <data name="where_school" xml:space="preserve">
-    <value>איפה אתה לומד?</value>
-  </data>
-  <data name="your_search" xml:space="preserve">
-    <value>החיפוש שלך</value>
   </data>
   <data name="no_result_found" xml:space="preserve">
     <value>לא נמצאו תוצאות</value>

@@ -17,7 +17,7 @@ namespace Cloudents.Query.HomePage
             Count = count;
         }
 
-        private string Country { get; }
+        private Country Country { get; }
         private int Count { get; }
 
         internal sealed class TopTutorsQueryHandler : IQueryHandler<TopTutorsQuery, IEnumerable<TutorCardDto>>
@@ -29,8 +29,8 @@ namespace Cloudents.Query.HomePage
                 _session = session.StatelessSession;
             }
 
-           // [Cache(TimeConst.Day, "homePage-tutors", false)]
-           //We cant put cache due to serialize issue
+            // [Cache(TimeConst.Day, "homePage-tutors", false)]
+            //We cant put cache due to serialize issue
             public async Task<IEnumerable<TutorCardDto>> GetAsync(TopTutorsQuery query, CancellationToken token)
             {
                 //ReadTutor tutor = null;
@@ -44,14 +44,10 @@ namespace Cloudents.Query.HomePage
                                 readTutor,
                                 tutor
                             });
+                linqQuery = linqQuery.Where(w => w.readTutor.Country == query.Country.ToString());
 
-                //.OrderByDescending(o => o.OverAllRating);
-                if (!string.IsNullOrEmpty(query.Country))
-                {
-                    linqQuery = linqQuery.Where(w => w.readTutor.Country == query.Country);
-                }
-
-                return await linqQuery.Where(w => w.tutor.IsShownHomePage == true).OrderByDescending(o => o.readTutor.OverAllRating).Select(s => new TutorCardDto()
+                return await linqQuery.Where(w => w.tutor.IsShownHomePage)
+                    .OrderByDescending(o => o.readTutor.OverAllRating).Select(s => new TutorCardDto()
                 {
                     UserId = s.readTutor.Id,
                     TutorCountry = s.readTutor.Country,

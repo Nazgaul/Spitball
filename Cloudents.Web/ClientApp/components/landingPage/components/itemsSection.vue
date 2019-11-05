@@ -39,8 +39,9 @@ export default {
 .itemsSection{
     .responsiveLandingPage(1354px,80px);
     @media (max-width: @screen-xs) {
-        width: calc(~"100% - 20px");
-        margin-bottom: 20px;
+        width: calc(~"100% - 22px");
+      margin-bottom: 26px;
+        
     }
     margin-bottom: 80px;
     .is-title{
@@ -54,7 +55,7 @@ export default {
         font-style: normal;
         line-height: normal;
         letter-spacing: normal;
-        margin-bottom: 20px;
+        margin-bottom: 26px;
         color: #43425d;
     }
     .itemsCarousel{

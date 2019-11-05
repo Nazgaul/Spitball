@@ -48,7 +48,6 @@ const store = new Vuex.Store({
         // homeLanding,
         // homeworkHelpStore,
         // studyDocumentsStore,
-        // tutorsStore,
         marketingBox,
         //leaderBoard,
         mobileFooter,

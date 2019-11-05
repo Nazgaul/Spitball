@@ -12,10 +12,10 @@
                     <h3 class="body-2 font-weight-bold tutor-name-restriction">{{tutor.name}}</h3>
                 <template>
                     <div class="user-rank mt-1 mb-2 align-center" v-if="tutor.reviews > 0">
-                        <user-rating :size="'16'" :rating="tutor.rating" :showRateNumber="false" />
+                        <user-rating class="d-block" :size="'16'" :rating="tutor.rating" :showRateNumber="false" />
                         <div class="reviews caption ml-1" v-html="$Ph(tutor.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"></div>
                     </div>
-                    <div v-else class="user-rank mt-1 mb-2 align-center">
+                    <div v-else class="user-rank user-no-reviews mt-1 mb-2 align-center">
                         <star />
                         <span class="no-reviews font-weight-bold caption ml-1" v-language:inner="'resultTutor_no_reviews_mobile'"></span>
                     </div>
@@ -242,7 +242,7 @@ export default {
     .tutor-carousel-slider-wrapper {
         width: 100%;
         overflow: hidden;
-        height:315px;
+        // height:315px;
         h3 {
             color: @purple;
         }
@@ -262,12 +262,13 @@ export default {
                     overflow: hidden;
                 }
                 .user-rank {
-                    display: inline-flex;
-                    // flex-direction: column;
-                    // svg {
-                    //     width: 16px;
-                    //     height: 16px;
-                    // }
+                    &.user-no-reviews {
+                        display: flex;
+                        justify-content: center;
+                    }
+                    svg {
+                        width: 20px;
+                    }
                 }
                 .user-price {
                     display: flex;

@@ -69,7 +69,7 @@
                                          <bdi>
                                     <span>{{calculatedEarnedPoints ? `${calculatedEarnedPoints.toLocaleString(undefined,
                                         { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` || '0.00' : '0.00'}}
-                                        <span v-language:inner>app_currency_dynamic</span>
+                                        <span v-language:inner>{{currentCurrency}}</span>
                                         </span>
                                               </bdi>
                                     <span v-language:inner>wallet_you_have_redeemable_sbl</span>

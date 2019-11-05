@@ -1,11 +1,8 @@
 <template>
     <div class="search-input">
-        <span class="search-back-arrow" @click="goBackFromSearch()" v-show="isSearchActive">
-            <v-icon :class="{'rtl': isRtl}">sbf-arrow-right</v-icon>
-        </span>
         <div class="search-b-wrapper">
             <v-text-field 
-                class="search-b" type="text" solo
+                class="search-b" type="search" solo
                 :class="{'white-background': showSuggestions}"
                 @keyup.enter="search()" autocomplete="off"
                 name="q"
@@ -83,14 +80,6 @@ export default {
         ]
     }),
     computed: {
-        isSearchActive() {
-            if(this.$vuetify.breakpoint.xsOnly) {
-                return !!this.$route.query && !!this.$route.query.term;
-            } else {
-                return false;
-            }
-
-        },
         suggestList() {
             let dynamicSuggest;
             if(this.courseSelected()) {

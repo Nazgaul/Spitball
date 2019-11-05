@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Xml.Linq;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
 
@@ -31,10 +35,49 @@ namespace ConsoleApp
             string[] jsFiles = Directory.GetFiles($@"{directoryName}\Cloudents.Web\ClientApp",
                 "*", SearchOption.AllDirectories);
 
-            //var dic = new Dictionary<string,string[]>();
             for (int j = resourceFiles.Length - 1; j >= 0; j--)
             {
                 var resourceFile = resourceFiles[j];
+
+                var v = Path.GetFileNameWithoutExtension(resourceFile).Contains('.');
+
+                //ResXResourceReader rr = new ResXResourceReader(resourceFile);
+                //rr.UseResXDataNodes = true;
+
+                //IDictionaryEnumerator dict = rr.GetEnumerator();
+                //while (dict.MoveNext())
+                //{
+                //    ResXDataNode node = (ResXDataNode)dict.Value;
+                //    Console.WriteLine(string.Format("{0} {1} {2}",node.Name,node.GetValue((ITypeResolutionService)null),node.Comment));
+
+
+                //    var resourceString = $"{Path.GetFileNameWithoutExtension(resourceFile).Split('.')[0]}_{node.Name}";
+                //    var occurrence = false;
+                //    foreach (string file in jsFiles)
+                //    {
+                //        if (!_fileContentCache.TryGetValue(file, out var lines))
+                //        {
+                //            lines = File.ReadAllLines(file);
+                //            _fileContentCache[file] = lines;
+                //        }
+                //        //string[] lines = File.ReadAllLines(file); 
+                //        occurrence = lines.Any(l => l.Contains(resourceString, StringComparison.OrdinalIgnoreCase));
+                //        if (occurrence)
+                //        {
+                //            break;
+                //        }
+                //    }
+
+                //    if (!occurrence)
+                //    {
+                //        Console.WriteLine($"file path: {resourceFile}, element name: {node.Name}");
+
+                //        var p = dataElement[i].ParentNode;
+                //        p.RemoveChild(dataElement[i]);
+                //    }
+
+                //}
+
                 string content;
                 using (StreamReader streamReader = new StreamReader(resourceFile, Encoding.UTF8))
                 {
@@ -45,12 +88,33 @@ namespace ConsoleApp
                 XmlNodeList dataElement = xmlDoc.GetElementsByTagName("data");
 
 
+
                 //foreach (XmlNode element in dataElement)
                 for (int i = dataElement.Count - 1; i >= 0; i--)
                 {
+                    var element = dataElement[i];
+                    var occurrence = false;
+                    foreach (var elementChildNode in element.ChildNodes)
+                    {
+                        if (elementChildNode is XmlElement p)
+                        {
+                            if (p.InnerText == "dynamic")
+                            {
+                                occurrence = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (occurrence)
+                    {
+                        break;
+                    }
+
                     var name = dataElement[i].Attributes["name"].Value;
+
                     var resourceString = $"{Path.GetFileNameWithoutExtension(resourceFile).Split('.')[0]}_{name}";
-                    string firstOccurrence = null;
+
                     foreach (string file in jsFiles)
                     {
                         if (!_fileContentCache.TryGetValue(file, out var lines))
@@ -59,16 +123,15 @@ namespace ConsoleApp
                             _fileContentCache[file] = lines;
                         }
                         //string[] lines = File.ReadAllLines(file); 
-                        firstOccurrence = lines.FirstOrDefault(l => l.Contains(resourceString, StringComparison.OrdinalIgnoreCase));
-                        if (!string.IsNullOrEmpty(firstOccurrence))
+                        occurrence = lines.Any(l => l.Contains(resourceString, StringComparison.OrdinalIgnoreCase));
+                        if (occurrence)
                         {
                             break;
                         }
                     }
-                    if (string.IsNullOrEmpty(firstOccurrence))
+                    if (!occurrence)
                     {
                         Console.WriteLine($"file path: {resourceFile}, element name: {name}");
-                        Console.WriteLine($"element name: {name}");
 
                         var p = dataElement[i].ParentNode;
                         p.RemoveChild(dataElement[i]);
@@ -90,8 +153,9 @@ namespace ConsoleApp
         {
             //RemoveImages();
             //RemoveComments();
-            DeleteUnusedFontSvg();
             DeleteUnusedResources();
+
+            DeleteUnusedFontSvg();
         }
 
         private static void RemoveImages()
@@ -209,7 +273,6 @@ namespace ConsoleApp
                     //string[] lines = File.ReadAllLines(file); 
                     if (lines.Any(l => l.Contains($"sbf-{Path.GetFileNameWithoutExtension(svgFileInfo.Name)}")))
                     {
-                        Console.WriteLine($"{svgFileInfo.Name} was found");
                         exists = true;
                         break;
 

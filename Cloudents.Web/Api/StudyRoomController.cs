@@ -47,17 +47,21 @@ namespace Cloudents.Web.Api
         /// Create study room between tutor and student for many sessions - happens in chat
         /// </summary>
         /// <param name="model"></param>
+        /// <param name="client">Ignore</param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> CreateStudyRoomAsync(CreateStudyRoomRequest model, CancellationToken token)
+        public async Task<IActionResult> CreateStudyRoomAsync(CreateStudyRoomRequest model,
+            [FromServices] TelemetryClient client,
+            CancellationToken token)
         {
+            var tutorId = _userManager.GetLongUserId(User);
+
             try
             {
-                var tutorId = _userManager.GetLongUserId(User);
                 var command = new CreateStudyRoomCommand(tutorId, model.UserId);
                 await _commandBus.DispatchAsync(command, token);
                 return Ok();
@@ -65,6 +69,15 @@ namespace Cloudents.Web.Api
             catch (DuplicateRowException)
             {
                 return BadRequest("Already active study room");
+            }
+            catch (InvalidOperationException e)
+            {
+                client.TrackException(e,new Dictionary<string, string>()
+                {
+                    ["UserId"] = model.UserId.ToString(),
+                    ["tutorId"] = tutorId.ToString()
+                });
+                return BadRequest();
             }
         }
 

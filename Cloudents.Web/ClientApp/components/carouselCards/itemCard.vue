@@ -4,19 +4,19 @@
     <div class="item-cont pa-2">
         <h1 class="item-title text-truncate">{{item.title}}</h1>
         <div class="item-course text-truncate">
-            <b v-language:inner="'homePage_is_course'"/> {{item.course}}</div>
+            <b v-language:inner="'itemCardCarousel_course'"/> {{item.course}}</div>
         <div class="item-university text-truncate">
-            <b v-language:inner="'homePage_is_university'"/> {{item.university}}</div>
+            <b v-language:inner="'itemCardCarousel_university'"/> {{item.university}}</div>
         <div class="item-user">
-            <user-avatar :size="'34'" :user-name="item.user.name" :user-id="item.user.id" :userImageUrl="item.user.image"/> 
+            <UserAvatar :size="'34'" :user-name="item.user.name" :user-id="item.user.id" :userImageUrl="item.user.image"/> 
             <div class="ml-2 user-info">
                 <div class="text-truncate" >{{item.user.name}}</div>
                 <div>{{$options.filters.fullMonthDate(item.dateTime)}}</div>
             </div>
         </div>
         <div class="itemCard-bottom">
-            <span class="item-purchases">{{item.purchased}} <span v-language:inner="'homePage_is_purchases'"/> </span>
-            <span class="item-pts">{{item.price}} <span v-language:inner="'homePage_is_pts'"/></span>
+            <span class="item-purchases">{{item.purchased}} <span v-language:inner="'itemCardCarousel_purchases'"/> </span>
+            <span class="item-pts">{{item.price}} <span v-language:inner="'itemCardCarousel_pts'"/></span>
         </div>
     </div>
     </router-link>
