@@ -33,7 +33,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             foreach (var tutorCardDto in result)
             {
-                tutorCardDto.TutorCountry.Should().BeEquivalentTo(country);
+                tutorCardDto.Country.Should().BeEquivalentTo(country);
             }
         }
 

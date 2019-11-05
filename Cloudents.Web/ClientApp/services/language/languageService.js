@@ -79,5 +79,5 @@ export{
     LanguageService,
     LanguageChange,
     GetDictionary,
-    GetVersion
+    GetVersion,
 }

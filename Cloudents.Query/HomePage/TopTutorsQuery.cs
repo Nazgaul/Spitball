@@ -50,10 +50,10 @@ namespace Cloudents.Query.HomePage
                     .OrderByDescending(o => o.readTutor.OverAllRating).Select(s => new TutorCardDto()
                 {
                     UserId = s.readTutor.Id,
-                    TutorCountry = s.readTutor.Country,
+                    Country = s.readTutor.Country,
                     Name = s.readTutor.Name,
                     Image = s.readTutor.Image,
-                    TutorPrice = s.readTutor.Price,
+                    Price = s.readTutor.Price,
                     Rate = s.readTutor.Rate,
                     Bio = s.readTutor.Bio,
                     Courses = s.readTutor.Courses,

@@ -59,37 +59,40 @@ namespace Cloudents.Core.DTOs
 
     public class UserTutorProfileDto
     {
-        private string _tutorCountry;
-        [NonSerialized] private CultureInfo _mergeCultureInfo;
+        //private string _tutorCountry;
+        //  [NonSerialized] private CultureInfo _mergeCultureInfo;
 
         //public const string TutorPriceVariableName = nameof(TutorPrice);
         //public const string TutorCountryVariableName = nameof(TutorCountry);
 
-        public string Price => NumericPrice.ToString("C0", _mergeCultureInfo);
+        public decimal Price { get; set; }
 
 
-       
-        [EntityBind(nameof(ReadTutor.Price))]
-        public decimal NumericPrice { get; set; }
+        public string Currency => new RegionInfo(TutorCountry).ISOCurrencySymbol;
+
+
+        //[EntityBind(nameof(ReadTutor.Price))]
+        //public decimal NumericPrice { get; set; }
 
         [EntityBind(nameof(ReadTutor.Country))]
-        internal string TutorCountry
-        {
-            get => _tutorCountry;
-            set
-            {
-                _mergeCultureInfo = CultureInfo.CurrentUICulture.ChangeCultureBaseOnCountry(value);
-                _tutorCountry = value;
-            }
-        }
+        internal string TutorCountry { get; set; }
 
-        public string DiscountPrice
+        //{
+        //    get => _tutorCountry;
+        //    set
+        //    {
+        //       // _mergeCultureInfo = CultureInfo.CurrentUICulture.ChangeCultureBaseOnCountry(value);
+        //        _tutorCountry = value;
+        //    }
+        //}
+
+        public decimal? DiscountPrice
         {
             get
             {
-                if (_tutorCountry.Equals("IN", StringComparison.OrdinalIgnoreCase))
+                if (TutorCountry.Equals("IN", StringComparison.OrdinalIgnoreCase))
                 {
-                    return 0.ToString("C0", _mergeCultureInfo);
+                    return 0;//.ToString("C0", _mergeCultureInfo);
                 }
 
                 return null;
@@ -130,10 +133,10 @@ namespace Cloudents.Core.DTOs
         public int Score { get; set; }
         public ItemState? IsTutor { get; set; }
 
-        [EntityBind(nameof(User.PaymentExists),nameof(User.Country))]
+        [EntityBind(nameof(User.PaymentExists), nameof(User.Country))]
         public bool NeedPayment { get; set; }
 
-        private string  Country { get; set; }
+        private string Country { get; set; }
         public string CurrencySymbol
         {
             get

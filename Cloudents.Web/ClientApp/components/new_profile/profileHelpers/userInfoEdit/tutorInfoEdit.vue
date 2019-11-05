@@ -167,8 +167,7 @@
             },
             price: {
                 get() {
-                    let price = this.getProfile.user.tutorData.numPrice; 
-                    return price;
+                    return this.getProfile.user.tutorData.price;
                 },
                 set(newVal) {
                     this.editedPrice = newVal;
@@ -201,25 +200,24 @@
                     let editsData = {
                         name: this.editedFirstName || this.firstName,
                         lastName: this.editedLastName || this.lastName,
-                        numPrice: this.editedPrice || this.price,
+                        price: this.editedPrice || this.price,
                         bio: this.editedBio,
                         description: this.editedDescription
                     };
                     this.btnLoading = true;
                     let self = this
                     accountService.saveTutorInfo(editsData)
-                                  .then((res) => {
-                                      editsData.price = res.data.newPrice;
-                                      //update profile store
-                                      this.updateEditedProfile(editsData);
-                                      this.btnLoading = false;
-                                      this.closeDialog();
-                                      this.updateEditDialog(false)
-                                  }, (error) => {
-                                      console.log('Error', error);
-                                      this.btnLoading = false;
-                                      //TODO : error callback
-                                  });
+                        .then((res) => {
+                            //update profile store
+                            this.updateEditedProfile(editsData);
+                            this.btnLoading = false;
+                            this.closeDialog();
+                            this.updateEditDialog(false)
+                        }, (error) => {
+                            console.log('Error', error);
+                            this.btnLoading = false;
+                            //TODO : error callback
+                        });
                 }
             },
             closeDialog() {

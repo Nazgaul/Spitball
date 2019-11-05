@@ -66,14 +66,14 @@ function TutorItem(objInit) {
     this.courses = objInit.courses || [];
     this.price = objInit.price || 0;
     this.discountPrice = objInit.discountPrice;
-    this.score = objInit.score || null;
+    this.country = objInit.country;
+    this.currency = objInit.currency;
     this.rating =  objInit.rate ? Number(objInit.rate.toFixed(2)): null;
     this.reviews = objInit.reviewsCount || 0;
     this.template = 'tutor-result-card';
     this.bio = objInit.bio || '';
     this.university = objInit.university || '';
     this.classes = objInit.classes || 0;
-    this.courseCount = objInit.courseCount || 0;
     this.lessons = objInit.lessons || 0;
     this.subjects = objInit.subjects || [];
     this.isTutor = true;
@@ -87,7 +87,6 @@ function DocumentItemUser(objInit){
     this.id = objInit.id;
     this.image = objInit.image || '';
     this.name = objInit.name || '';
-    this.score = objInit.score || 0; //TODO remove this
     this.isTutor = objInit.isTutor || false; //TODO remove this
 }
 

@@ -31,7 +31,7 @@
               </div>
 
               <template>
-                <h4 class="text-truncate mb-1 university font-weight-light" v-if="isUniversity" v-html="$Ph('resultNote_university',[tutorData.university])"/>
+                <h4 class="text-truncate mb-1 university font-weight-light" v-if="isUniversity" v-html="$Ph('resultNote_university',[university])"/>
                 <h4 class="text-truncate mb-1 university" v-else></h4>
               </template> 
           </div>
@@ -45,11 +45,11 @@
                 <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
           <div class="price ml-3 align-center" >
-              <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price}}</div>
+              <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
               <div class="price_oneline">
                 <template>
-                    <span v-if="tutorData.discountPrice" class="title font-weight-bold">{{tutorData.discountPrice}}</span>
-                    <span v-else class="title font-weight-bold">{{tutorData.price}}</span>
+                    <span v-if="tutorData.discountPrice" class="title font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
+                    <span v-else class="title font-weight-bold">{{tutorData.price | currencyFormat(tutorData.currency)}}</span>
                     <span>/</span>
                 </template>
                 <span class="caption" v-language:inner="'resultTutor_hour'"></span>
@@ -68,7 +68,7 @@ import chatService from '../../../../services/chatService';
 import analyticsService from "../../../../services/analytics.service";
 
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
-import UserAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue'
+import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 
 import iconChat from '../tutorResultCardOther/icon-chat.svg';
 import star from '../stars-copy.svg';
@@ -77,23 +77,19 @@ export default {
   name: "tutorCard",
   components: {
     userRating,
-    UserAvatarRect,
+    userAvatarRect,
     iconChat,
     star
   },
   props: {
     tutorData: {},
-    isInTutorList: {
-      type: Boolean,
-      default: false
-    },
     fromLandingPage: {
       type: Boolean,
       default: false
     }
   },
   methods: {
-    ...mapActions(["updateRequestDialog",'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom','openChatInterface','setActiveConversationObj']),
+    ...mapActions(["updateRequestDialog", 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'openChatInterface', 'setActiveConversationObj']),
 
     tutorCardClicked() {
       if(this.fromLandingPage){
@@ -197,7 +193,7 @@ export default {
     }
     .card-mobile-center {
       margin-bottom: 12px;
-      .giveMeEllipsis(2,20px);
+      .giveMeEllipsis(2, 20px);
     }
     .card-mobile-footer {
         display: inherit;

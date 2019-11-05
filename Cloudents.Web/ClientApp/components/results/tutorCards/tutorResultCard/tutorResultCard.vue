@@ -6,9 +6,10 @@
               :userName="tutorData.name" 
               :userImageUrl="tutorData.image" 
               class="mr-3 user-avatar-rect" 
-              :userId="tutorData.userId" 
+              :userId="tutorData.userId"
               :width="148" 
-              :height="182" />
+              :height="182" 
+            />
             <div class="main-card justify-space-between">
                 <h3 class="font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
                 <h4 class="mb-1 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
@@ -31,15 +32,15 @@
         <div class="user-rates">
             <div class="price font-weight-bold mb-1">
               <div class="user-rates-top">
-                <div class="striked mr-2" v-if="tutorData.discountPrice">{{tutorData.price}}</div>
+                <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
                 <template>
-                    <span v-if="tutorData.discountPrice" class="tutor-card-price font-weight-bold">{{tutorData.discountPrice}}</span>
-                    <span class="tutor-card-price font-weight-bold" v-else>{{tutorData.price}}</span>
+                    <span v-if="tutorData.discountPrice" class="tutor-card-price font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
+                    <span class="tutor-card-price font-weight-bold" v-else>{{tutorData.price | currencyFormat(tutorData.currency)}}</span>
                 </template>
                 <span class="caption">
                   <span class="tutor-card-price-divider font-weight-bold">/</span>
                   <span class="tutor-card-price-divider font-weight-bold" v-language:inner="'resultTutor_hour'"></span>
-                  <div v-if="!showStriked" class="price-default-height"></div>
+                  <div v-if="!tutorData.discountPrice" class="price-default-height"></div>
                 </span>
               </div>
             </div>
@@ -77,15 +78,18 @@
 </template>
 
 <script>
-import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
+import { mapActions, mapGetters } from "vuex";
+
 import analyticsService from "../../../../services/analytics.service";
 import chatService from '../../../../services/chatService';
-import { mapActions, mapGetters } from "vuex";
 import { LanguageService } from "../../../../services/language/languageService.js";
-import clock from './clock.svg';
-import iconChat from '../tutorResultCardOther/icon-chat.svg';
-import star from '../stars-copy.svg';
+
+import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
+
+import iconChat from '../tutorResultCardOther/icon-chat.svg';
+import clock from './clock.svg';
+import star from '../stars-copy.svg';
 
 export default {
   name: "tutorResultCard",
@@ -96,22 +100,6 @@ export default {
     iconChat,
     userAvatarRect
   },
-  data() {
-    return {
-      minimumPrice: 55,
-      discountAmount: 70,
-      isMounted: false,
-      actions: [
-        {
-          title: LanguageService.getValueByKey("questionCard_Report"),
-          action: this.reportItem,
-          isDisabled: !this.isDisabled,
-          isVisible: true,
-          icon: 'sbf-flag'
-        }
-      ],
-    };
-  },
   props: {
     tutorData: {},
     fromLandingPage: {
@@ -120,7 +108,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateRequestDialog",'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom','openChatInterface','setActiveConversationObj']),
+    ...mapActions(['updateRequestDialog', 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'openChatInterface', 'setActiveConversationObj']),
 
     tutorCardClicked(e) {
       if(this.fromLandingPage){
@@ -157,7 +145,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['accountUser', 'getActivateTutorDiscounts']),
+    ...mapGetters(['accountUser']),
 
     courses() {
       if (this.tutorData.courses) {
@@ -170,16 +158,6 @@ export default {
     },
     isCourses() {
       return this.tutorData && this.tutorData.courses.length > 0 ? true : false;
-    },
-    showStriked() {
-      if(!this.getActivateTutorDiscounts) return false;
-      let price = this.tutorData.price;
-      return price > this.minimumPrice;
-    },
-    discountedPrice() {
-      let price = this.tutorData.price;
-      let discountedAmount = price - this.discountAmount;
-      return discountedAmount >  this.minimumPrice ? discountedAmount.toFixed(0) : this.minimumPrice.toFixed(0);
     },
     university() {
       return this.tutorData.university;
@@ -198,32 +176,7 @@ export default {
     isReviews() {
       return this.tutorData.reviews > 0 ? true : false;
     },
-    isOverflow() {
-      if(this.isMounted){
-        let currentDiv = this.$el.querySelector('.user-bio')
-        return currentDiv.scrollHeight > currentDiv.clientHeight || currentDiv.scrollWidth > currentDiv.clientWidth;
-      }
-      return false;
-    },
-    isDisabled() {
-      // let isOwner = this.cardOwner;
-      // let account = this.accountUser;
-      // if (isOwner || !account ) {
-      //     return true;
-      // }
-      return false;
-    },
-    cardOwner() {
-      // let userAccount = this.accountUser;
-      // if (userAccount && this.cardData.userId) {
-      //     return userAccount.id === this.cardData.userId; // will work once API call will also return userId
-      // }
-      return false;
-    },
   },
-  mounted(){
-    this.isMounted = true;
-  }
 };
 </script>
 

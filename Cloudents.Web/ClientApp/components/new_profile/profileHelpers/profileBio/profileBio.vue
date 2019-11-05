@@ -42,7 +42,7 @@
               </v-flex>
               <div class="tutor-price mr-3">
                 <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
-                  {{isDiscount ? isDiscount : tutorPrice}}
+                  {{isDiscount ? isDiscount : tutorPrice | currencyFormat(getProfile.user.tutorData.currency)}}
                   <span class="tutor-price small-text">
                     /
                     <span v-language:inner>profile_points_hour</span>

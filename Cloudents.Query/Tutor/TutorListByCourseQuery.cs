@@ -85,12 +85,12 @@ namespace Cloudents.Query.Tutor
                              .Select(x => x.Image).WithAlias(() => tutorCardDtoAlias.Image)
                              .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
                              .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
-                             .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.TutorPrice)
+                             .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
                              .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
                              .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                              .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
                              .Select(x => x.University).WithAlias(() => tutorCardDtoAlias.University)
-                             .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.TutorCountry)
+                             .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.Country)
                              .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
                     
                      .OrderBy(o => o.OverAllRating).Desc
@@ -108,11 +108,11 @@ namespace Cloudents.Query.Tutor
                             .Select(x => x.Image).WithAlias(() => tutorCardDtoAlias.Image)
                             .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
                             .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
-                            .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.TutorPrice)
+                            .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
                             .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
                             .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                             .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
-                            .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.TutorCountry)
+                            .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.Country)
                             .Select(x => x.University).WithAlias(() => tutorCardDtoAlias.University)
                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
 

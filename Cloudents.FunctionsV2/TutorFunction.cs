@@ -76,8 +76,8 @@ namespace Cloudents.FunctionsV2
                                 University = update.University,
                                 Lessons = Math.Max(update.LessonsCount, update.ReviewsCount),
                                 Bio = update.Bio,
-                                TutorPrice = (int)update.Price,
-                                TutorCountry = update.Country,
+                                Price = update.Price,
+                                Country = update.Country,
                                 Image = update.Image,
                                 NeedSerializer = true
 

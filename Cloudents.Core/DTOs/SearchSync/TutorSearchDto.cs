@@ -9,7 +9,7 @@ namespace Cloudents.Core.DTOs.SearchSync
         public string Name { get; set; } 
         public string Bio { get; set; } 
         public string Image { get; set; } 
-        public double Price { get; set; } 
+        public decimal Price { get; set; } 
         public double Rate { get; set; }
 
         public override string ToString()

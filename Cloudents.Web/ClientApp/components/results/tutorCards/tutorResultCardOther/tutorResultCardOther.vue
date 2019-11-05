@@ -2,15 +2,20 @@
     <router-link class="tutor-result-card-other pa-2 mb-3 row wrap justify-space-between overflow-hidden ab-default-card" 
     @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
         <div class="mb-3 top-card justify-space-between">
-            <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
-              <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
-            </div>
-            <img v-show="isLoaded" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
+            <user-avatar-rect 
+              :userName="tutorData.name" 
+              :userImageUrl="tutorData.image" 
+              class="mr-2 user-image" 
+              :userId="tutorData.userId"
+              :width="64" 
+              :height="78"
+              :borderRadius="4"
+            />
             <div class="top-card-wrap">
                 <h3 class="subheading font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
                 <template>
-                    <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price}}</div>
+                    <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
                     <div v-else class="striked"></div>
                 </template>
                 
@@ -18,8 +23,8 @@
                 <v-layout row class="moreDetails" align-center>
                     <div column class="price-box column mr-2">
                         <template>
-                            <span v-if="tutorData.discountPrice" class="font-weight-bold">{{tutorData.discountPrice}}</span>
-                            <span v-else class="font-weight-bold">{{tutorData.price}}</span>
+                            <span v-if="tutorData.discountPrice" class="font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
+                            <span v-else class="font-weight-bold">{{tutorData.price | currencyFormat(tutorData.currency)}}</span>
                         </template>
                         <div class="caption" v-language:inner="'resultTutor_hour'"></div>
                     </div>
@@ -76,18 +81,23 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex';
+
 import analyticsService from '../../../../services/analytics.service';
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import { LanguageService } from "../../../../services/language/languageService.js";
+
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
+import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
+
 import iconChat from './icon-chat.svg';
 import chatService from '../../../../services/chatService';
-import {mapActions, mapGetters} from 'vuex';
 import star from '../stars-copy.svg';
 
 export default {
     components: {
         userRating,
+        userAvatarRect,
         iconChat,
         star
     },
@@ -97,50 +107,16 @@ export default {
             type: Boolean
         }
     },
-    data() {
-        return {
-            isLoaded: false,
-            minimumPrice: 55,
-            discountAmount: 70
-        }
-    },
     computed: {
         ...mapGetters(['accountUser', 'getActivateTutorDiscounts']),
+
         isTutor() {
-            if(this.isTutorData) {
+            if(this.tutorData) {
                 return this.tutorData.isTutor;
             }
         },
-        isTutorData() {
-            return this.tutorData ? true : false;
-        },
-        isUserImage() {
-            return this.isTutorData && this.tutorData.image ? true : false;
-        },
         isReviews() {
             return this.tutorData.reviewsCount > 0 || this.tutorData.reviews > 0 ? true : false
-        },
-        discountedPrice() {
-            let price = this.tutorData.price;
-            let discountedAmount = price - this.discountAmount;
-            return discountedAmount > this.minimumPrice ? discountedAmount.toFixed(0) : this.minimumPrice;
-        },
-        userImageUrl() {
-            if (this.tutorData.image) {
-                    let size = [64, 78];
-                    return utilitiesService.proccessImageURL(
-                    this.tutorData.image,
-                    ...size,
-                    "crop"
-                    );
-            } else {
-                return require("../../../images/placeholder-profile.png");
-            }
-        },
-        showStriked() {
-            if(!this.getActivateTutorDiscounts) return false;
-            let price = this.tutorData.price;
-            return price > this.minimumPrice;
         },
         showFirstName() {
             let maxChar = 5;
@@ -150,31 +126,16 @@ export default {
             }
             return name;
         },
-        // ellipsizeTextBox() {
-        //     let text = this.tutorData.bio;
-        //     let maxChars = 105;
-        //     let showBlock = text.length > maxChars;
-        //     let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
-        //     let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
-        //     let readMore = showBlock ? `<span class="read-more" style="${showBlock ? 'display: contents' : ''}">${LanguageService.getValueByKey('resultTutor_read_more')}</span>` : '';
-        //     return `${newText} ${readMore} ${hideText}`;
-        // }
     },
     methods: {
-        ...mapGetters(['getProfile']),
-        ...mapActions(['setActiveConversationObj', 'openChatInterface','updateRequestDialog','updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom']),
-        loaded() {
-          this.isLoaded = true;
-        },
+        ...mapActions(['setActiveConversationObj', 'openChatInterface', 'updateRequestDialog', 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom']),
+
         tutorCardClicked() {
             if(this.fromLandingPage){
                 analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
             } else {
                 analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
             };
-        },
-        onImageLoadError(event) {
-            event.target.src = require("../../../images/placeholder-profile.png");
         },
         reviewsPlaceHolder(reviewsOwner, reviews) {
             let review;
@@ -264,14 +225,12 @@ export default {
         width: 64px;
         height: auto;
     }
-
     .tutor-name {
         color: @purple;
         max-width: 200px; // for eplipsis purpose
         margin-bottom: 6px;
             .flexSameSize();
     }
-
     .striked {
         max-width: max-content;
         position: relative;
@@ -290,7 +249,6 @@ export default {
             z-index: 1;
         }
     }
-
     .moreDetails {
         display: flex;
         align-items: flex-end;
@@ -349,11 +307,7 @@ export default {
         font-size: 13px;
         display: block;
         color: @purple;
-        .giveMeEllipsis(2,18px);
-        .read-more {
-            position: absolute;
-            color: #4452fc;
-        }
+        .giveMeEllipsis(2, 18px);
     }
     .btn-footer {
         justify-content: space-evenly;
@@ -364,18 +318,10 @@ export default {
                 color: @purple;
                 text-transform: inherit;
                 margin-left: 0;
-                // .widthMinMax(200px);
                 &.tutor-btn {
                     font-weight: 600;
-                    // .widthMinMax(132px);
                 }
             }
-            &.no-uploader {
-                button {
-                    // .widthMinMax(170px);
-                }
-            }
-
         }
         .more-documents {
             button {
@@ -384,7 +330,6 @@ export default {
                 line-height: 0;
                 text-transform: inherit;
                 margin: 6px 0;
-                // .widthMinMax(120px);
             }
         }
     }
