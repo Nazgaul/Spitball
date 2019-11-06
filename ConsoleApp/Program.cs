@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
+using Cloudents.Core.Query.Feed;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Storage;
@@ -135,6 +136,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
+            var feed = _container.Resolve<IFeedService>();
+            var result = await feed.GetFeedAsync(new GetFeedQuery(638, 0, null, "IL", "בסיסי נתונים"), default);
+
             await GoogleSheetsReader.Read();
 //            var dapper = _container.Resolve<IDapperRepository>();
 //            using (var openConnection = dapper.OpenConnection())

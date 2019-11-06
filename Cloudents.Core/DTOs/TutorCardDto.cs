@@ -21,13 +21,13 @@ namespace Cloudents.Core.DTOs
 
         //[NonSerialized] private CultureInfo _mergeCultureInfo;
 
-        [NonSerialized] 
+        [NonSerialized]
         public bool NeedSerializer;
 
         //private string _tutorCountry;
 
 
-        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")] 
+        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
         public decimal Price { get; set; }
 
         public string Currency => new RegionInfo(Country).ISOCurrencySymbol;
@@ -36,7 +36,7 @@ namespace Cloudents.Core.DTOs
         {
             get
             {
-                if (Country.Equals("IN", StringComparison.OrdinalIgnoreCase))
+                if (Country?.Equals("IN", StringComparison.OrdinalIgnoreCase) == true)
                 {
                     return 0;
                 }

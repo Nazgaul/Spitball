@@ -59,6 +59,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(638, 0, null, "IL", null)]
         [InlineData(638, 0, new[] { "x", "y" }, "IL", null)]
+        [InlineData(638, 0, new[] { "בסיסי נתונים" }, "IL", null)]
         [InlineData(0, 0, new[] { "x", "y" }, "IL", null)]
         [InlineData(0, 0, new[] { "x", "y" }, "IL", "economics")]
         [InlineData(638, 0, new[] { "x", "y" }, "IL", "economics")]

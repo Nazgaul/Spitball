@@ -89,10 +89,10 @@ join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId
 ,cte
 where
-    d.UpdateTime > GETUTCDATE() - 182
+   
 
 
-and un.country = cte.country
+ un.country = cte.country
 and d.State = 'Ok'
 and d.courseName = @course
 
@@ -131,8 +131,8 @@ where a.QuestionId = q.Id and state = 'Ok' order by a.created
 ,cte
 
 where
-    q.Updated > GetUtcDATE() - 182
-and un.country = cte.country
+   
+ un.country = cte.country
 and q.courseId = @course
 
 and q.State = 'Ok'
