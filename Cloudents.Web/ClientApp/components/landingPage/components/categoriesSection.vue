@@ -4,7 +4,7 @@
     <div class="categories-top">
       <sbCarousel :slideStep="1" :arrows="$vuetify.breakpoint.smAndDown" v-if="!isMobile">
         <router-link
-          :to="{ path: '/feed', query: {term: card.name}}"
+          :to="{ path: '/feed', query: {term: card.name}}" @click.native.prevent="update(card.name)"
           v-for="(card, index) in categoriesCardsCarousel"
           :key="index"
           class="categories-card"
@@ -61,6 +61,7 @@ import pplSVG from "../images/ppl.svg";
 import vidSVG from "../images/vid.svg";
 import sbCarousel from "../../sbCarousel/sbCarousel.vue";
 import { LanguageService } from "../../../services/language/languageService.js";
+import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -70,8 +71,13 @@ export default {
     sbCarousel
   },
   methods: {
+    ...mapMutations(['UPDATE_SEARCH_LOADING']),
     getImg(path) {
       return require(`${path}`);
+    },
+    update(name){
+      this.UPDATE_SEARCH_LOADING(true)
+      this.$router.push({ path: '/feed', query: {term: name}})
     }
   },
   computed: {

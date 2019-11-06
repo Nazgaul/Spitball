@@ -193,7 +193,7 @@ export default {
     }
     .card-mobile-center {
       margin-bottom: 12px;
-      .giveMeEllipsis(2, 20px);
+      .giveMeEllipsis(2,20px);
     }
     .card-mobile-footer {
         display: inherit;

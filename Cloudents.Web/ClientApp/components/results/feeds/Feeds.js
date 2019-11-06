@@ -277,7 +277,7 @@ export default {
         //If query have courses save those courses
         if (this.query.course) this.setFilteredCourses(this.query.course);
         
-        this.UPDATE_LOADING(true);
+        this.UPDATE_SEARCH_LOADING(true)
         //fetch data with the params
         this.Feeds_fetchingData({
             name: this.name,
@@ -287,7 +287,7 @@ export default {
             this.updateData.call(this, {...data, vertical: this.name})
         }).catch(reason => {
             console.error(reason);
-            this.UPDATE_LOADING(false);
+            this.UPDATE_SEARCH_LOADING(false);
         });
     },
 

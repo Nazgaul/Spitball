@@ -25,7 +25,11 @@ export default {
     methods: {
         ...mapActions(['updateHPItems']),
         enterItemCard(vueElm){
-        vueElm.enterItemPage();
+            if(vueElm.enterItemPage){
+                vueElm.enterItemPage();
+            }else{
+                vueElm.$parent.enterItemPage();
+            }
         }
     },
     created() {
@@ -33,7 +37,6 @@ export default {
     },
 }
 </script>
-
 <style lang="less">
 @import "../../../styles/mixin.less";
 .itemsSection{
