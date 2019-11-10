@@ -197,18 +197,18 @@ namespace Cloudents.Web.Api
                 await _commandBus.DispatchAsync(command, token);
             }
            
-            if (request.StatusCallbackEvent.Equals("participant-disconnected", StringComparison.OrdinalIgnoreCase))
-            {
-                var command = new StudyRoomSessionParticipantDisconnectedCommand(id);
+            //if (request.StatusCallbackEvent.Equals("participant-disconnected", StringComparison.OrdinalIgnoreCase))
+            //{
+            //    var command = new StudyRoomSessionParticipantDisconnectedCommand(id);
                
-                await _commandBus.DispatchAsync(command, token);
+            //    await _commandBus.DispatchAsync(command, token);
                
-            }
-            else if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
-            {
-                var command = new StudyRoomSessionParticipantReconnectedCommand(id);
-                await _commandBus.DispatchAsync(command, token);
-            }
+            //}
+            //else if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
+            //{
+            //    var command = new StudyRoomSessionParticipantReconnectedCommand(id);
+            //    await _commandBus.DispatchAsync(command, token);
+            //}
             
             return Ok();
         }

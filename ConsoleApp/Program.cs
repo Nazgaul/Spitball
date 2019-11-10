@@ -15,6 +15,8 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Command;
+using Cloudents.Command.Courses;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
@@ -136,58 +138,108 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var feed = _container.Resolve<IFeedService>();
-            var result = await feed.GetFeedAsync(new GetFeedQuery(638, 0, null, "IL", "בסיסי נתונים"), default);
+            var client = Cognetive.Authenticate();
 
-            await GoogleSheetsReader.Read();
-//            var dapper = _container.Resolve<IDapperRepository>();
-//            using (var openConnection = dapper.OpenConnection())
-//            {
-//                var courseNames = await openConnection.QueryAsync<string>(
-//                    @"Select distinct top 2000  uc.courseid from sb.userscourses uc join sb.[user] u on uc.userid = u.id
-//                where u.country = 'IN'");
-
-//                //if (courseName == null)
-//                //{
-//                //    break;
-
-//                //}
-//                foreach (var courseName in courseNames)
-//                {
-//                    var country = await openConnection.QueryAsync<string>(@"Select distinct u.country from sb.document d
-//join sb.university u on d.universityid = u.id
-
-//where coursename = @courseName
-//union
-//Select distinct u.country from sb.question d
-//join sb.university u on d.universityid = u.id
-
-//where courseid = @courseName
-//", new { courseName = courseName });
-
-//                    if (!country.Any(a => a.Equals("IN", StringComparison.OrdinalIgnoreCase)))
-//                    {
-//                        var i = await openConnection.ExecuteAsync(
-//                             @"delete from sb.userscourses where courseid = @courseName and userid in (
-//                        select id from sb.[user] where country = 'IN')", new { courseName = courseName });
-//                        Console.WriteLine($"Remove assosiation {courseName} number {i}");
-//                    }
-//                    else
-//                    {
-//                        Console.WriteLine($"not Remove assosiation {courseName}");
-//                    }
-//                    //else
-//                    //{
-//                    //    list.Add(courseName);
-//                    //}
-//                }
+            var session = _container.Resolve<IStatelessSession>();
+            var storage = _container.Resolve<ICloudStorageProvider>();
+            var blobProvider = storage.GetBlobClient();
 
 
+            var users = await session.Query<Tutor>().Fetch(f => f.User).Where(w => w.IsShownHomePage)
+                 .Select(s => new
+                 {
+                     s.User.ImageName,
+                     s.User.Id,
+                     s.User.Image
+                 }).ToListAsync();
 
-//            }
-           
+            foreach (var user in users)
+            {
+                Console.WriteLine($"/api{user.Image}");
+                //if (user.ImageName is null)
+                //{
+                //    continue;
+                //}
+                
+                //var blobUrl =
+                //    $"https://zboxstorage.blob.core.windows.net/spitball-user/profile/{user.Id}/{user.ImageName}";
+                //var result = await Cognetive.DetectFaceExtract(client, blobUrl);
+                //if (result is null)
+                //{
+                //    continue;
+                //}
+                //var blob = blobProvider.GetBlobReferenceFromServer(new Uri(blobUrl));
+
+                //blob.Metadata["face"] = $"{result.Left + (result.Width / 2)},{result.Top + result.Height / 2}";
+
+                //await blob.SetMetadataAsync();
+            }
+
+
+            //var feed = _container.Resolve<IFeedService>();
+            //var result = await feed.GetFeedAsync(new GetFeedQuery(638, 0, null, "IL", "בסיסי נתונים"), default);
+
+            //await GoogleSheetsReader.Read();
+            //            var dapper = _container.Resolve<IDapperRepository>();
+            //            using (var openConnection = dapper.OpenConnection())
+            //            {
+            //                var courseNames = await openConnection.QueryAsync<string>(
+            //                    @"Select distinct top 2000  uc.courseid from sb.userscourses uc join sb.[user] u on uc.userid = u.id
+            //                where u.country = 'IN'");
+
+            //                //if (courseName == null)
+            //                //{
+            //                //    break;
+
+            //                //}
+            //                foreach (var courseName in courseNames)
+            //                {
+            //                    var country = await openConnection.QueryAsync<string>(@"Select distinct u.country from sb.document d
+            //join sb.university u on d.universityid = u.id
+
+            //where coursename = @courseName
+            //union
+            //Select distinct u.country from sb.question d
+            //join sb.university u on d.universityid = u.id
+
+            //where courseid = @courseName
+            //", new { courseName = courseName });
+
+            //                    if (!country.Any(a => a.Equals("IN", StringComparison.OrdinalIgnoreCase)))
+            //                    {
+            //                        var i = await openConnection.ExecuteAsync(
+            //                             @"delete from sb.userscourses where courseid = @courseName and userid in (
+            //                        select id from sb.[user] where country = 'IN')", new { courseName = courseName });
+            //                        Console.WriteLine($"Remove assosiation {courseName} number {i}");
+            //                    }
+            //                    else
+            //                    {
+            //                        Console.WriteLine($"not Remove assosiation {courseName}");
+            //                    }
+            //                    //else
+            //                    //{
+            //                    //    list.Add(courseName);
+            //                    //}
+            //                }
         }
+        private static async Task ResyncTutorRead()
+        {
+            var session = _container.Resolve<IStatelessSession>();
+            var bus = _container.Resolve<ICommandBus>();
+            var eventHandler = _container.Resolve<IEventPublisher>();
 
+            var x = await session.CreateSQLQuery(@"
+Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
+
+
+            foreach (dynamic z in x)
+            {
+                var e = new SetUniversityEvent(z);
+                await eventHandler.PublishAsync(e, default);
+                //var command = new TeachCourseCommand(z[0], z[1]);
+                //await bus.DispatchAsync(command, default);
+            }
+        }
 
 
         private static async Task ResetVideo()
