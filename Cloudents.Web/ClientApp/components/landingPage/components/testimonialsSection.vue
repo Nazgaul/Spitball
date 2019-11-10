@@ -23,9 +23,6 @@ export default {
         ...mapGetters(['getHPReviews']),
         reviewsList(){
             return this.getHPReviews;
-        },
-        isMobile(){
-            return this.$vuetify.breakpoint.xsOnly;
         }
     },
     methods: {
