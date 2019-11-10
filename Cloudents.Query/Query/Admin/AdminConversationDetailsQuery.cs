@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminConversationDetailsQuery: IQueryAdmin<IEnumerable<ConversationDetailsDto>>
+    public class AdminConversationDetailsQuery : IQueryAdmin<IEnumerable<ConversationDetailsDto>>
     {
         public AdminConversationDetailsQuery(string id, string country)
         {
@@ -44,7 +44,7 @@ join sb.[User] u
 where cr.identifier = @Id
 )
 select * from cte";
-                if(!string.IsNullOrEmpty(query.Country))
+                if (!string.IsNullOrEmpty(query.Country))
                 {
                     sql += @" where Student = 1 and @Country = (select Country from cte where Student = 0) or Student = 0 
                                 and Country = @Country";

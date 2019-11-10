@@ -1,21 +1,21 @@
-﻿using System;
+﻿using Cloudents.Core.Storage;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Storage;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Cloudents.Web.Controllers
 {
-    [Route("[controller]"),ApiExplorerSettings(IgnoreApi = true)]
+    [Route("[controller]"), ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
     public class ChatController : Controller
     {
         // GET
-       
-        [Route("download/{chatRoomId:guid}/{chatId:guid}",Name = "ChatDownload")]
-        public async Task<IActionResult> Download(Guid chatRoomId,Guid chatId, [FromServices] IChatDirectoryBlobProvider blobProvider,
+
+        [Route("download/{chatRoomId:guid}/{chatId:guid}", Name = "ChatDownload")]
+        public async Task<IActionResult> Download(Guid chatRoomId, Guid chatId, [FromServices] IChatDirectoryBlobProvider blobProvider,
             CancellationToken token)
         {
             var files = await blobProvider.FilesInDirectoryAsync("file-", $"{chatRoomId}/{chatId}", token);

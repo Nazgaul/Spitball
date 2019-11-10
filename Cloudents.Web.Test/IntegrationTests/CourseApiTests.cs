@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using Cloudents.Core.Extension;
 using FluentAssertions;
-using System.Threading.Tasks;
-using Cloudents.Core.Extension;
-using Xunit;
+using System;
+using System.Collections.Specialized;
 using System.Net;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -12,7 +12,7 @@ namespace Cloudents.Web.Test.IntegrationTests
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class CourseApiTests //: IClassFixture<SbWebApplicationFactory>
     {
-        
+
         private readonly System.Net.Http.HttpClient _client;
 
         private readonly object _credentials = new
@@ -67,15 +67,15 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Theory]
         [InlineData("api/course/search?term=his")]
         public async Task Get_SomeCourse_ReturnResult(string url)
-        {               
+        {
             await _client.LogInAsync();
-            
+
             var response = await _client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
         }
 
-        [Fact]
+        [Fact(Skip = "Wrong place of test")]
         public async Task Ask_Course_Without_Uni()
         {
             await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));

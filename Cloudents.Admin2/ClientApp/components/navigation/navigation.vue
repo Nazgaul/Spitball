@@ -3,14 +3,13 @@
     <v-icon @click="drawer = !drawer" medium class="pl-3 pt-2 hidden-lg-and-up">menu</v-icon>
     <v-navigation-drawer app value="true" class="drawer" v-model="drawer">
         <v-list>
-            <div v-for="(singleNav, i) in nav">
+            <div v-for="(singleNav, i) in nav" :key="i">
                 <v-list-group no-action value="">
-                    <v-list-tile slot="activator" :to="singleNav.setting.path" @click="">
+                    <v-list-tile slot="activator" :to="singleNav.setting.path">
                         <v-list-tile-title>{{singleNav.setting.title}}</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile v-for="child in singleNav.childrens"
                                 :key="`child-link-${child.name}`"
-                                @click=""
                                 :to="child.link">
                         <v-list-tile-title v-text="child.name">{{child}}</v-list-tile-title>
                         <v-list-tile-action>
@@ -130,7 +129,16 @@
                             title: 'Leads',
                             path: '/leads',
                         },
-                    }
+                    },
+                    {
+                        setting: {
+                            title: 'Coupon',
+                            path: '/coupon',
+                        },
+                        childrens: [
+                            { name: 'Create', link: '/coupon', icon: 'ticket-percent' },
+                        ]
+                    },
                 ]
             }
         },

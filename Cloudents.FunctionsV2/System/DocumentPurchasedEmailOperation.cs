@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Query;
@@ -13,7 +14,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.FunctionsV2.System
 {

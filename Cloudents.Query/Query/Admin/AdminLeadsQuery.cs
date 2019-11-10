@@ -2,18 +2,18 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;
+using NHibernate.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using NHibernate.Linq;
 
 namespace Cloudents.Query.Query.Admin
 {
     //TODO: think about make this suitable for IN.
-    public class AdminLeadsQuery: IQueryAdmin<IEnumerable<LeadDto>>
+    public class AdminLeadsQuery : IQueryAdmin<IEnumerable<LeadDto>>
     {
-        public ItemState? Status { get; }
+        private ItemState? Status { get; }
         public string Country { get; }
         public AdminLeadsQuery(ItemState? status, string country)
         {
@@ -40,19 +40,19 @@ namespace Cloudents.Query.Query.Admin
                 {
                     leads = leads.Where(w => w.User.Country == query.Country);
                 }
-                    
-                     return await leads.Select(s => new LeadDto
-                     {
-                         Id = s.Id,
-                         Name = s.User.Name,
-                         Email = s.User.Email,
-                         Phone = s.User.PhoneNumber,
-                         Text = s.Text,
-                         Course = s.Course.Id,
-                         University = s.User.University.Name,
-                         Referer = s.UtmSource,
-                         Status = s.Status
-                     }).ToListAsync(token);
+
+                return await leads.Select(s => new LeadDto
+                {
+                    Id = s.Id,
+                    Name = s.User.Name,
+                    Email = s.User.Email,
+                    Phone = s.User.PhoneNumber,
+                    Text = s.Text,
+                    Course = s.Course.Id,
+                    University = s.User.University.Name,
+                    Referer = s.UtmSource,
+                    Status = s.Status
+                }).ToListAsync(token);
 
                 //                const string sql = @"select l.Id, l.Name, Email, Phone, Text, CourseId as Course, u.Name as University, UtmSource as Referer, l.Status
                 //from sb.Lead l

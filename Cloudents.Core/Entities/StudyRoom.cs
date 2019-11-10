@@ -1,22 +1,22 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using JetBrains.Annotations;
 
-[assembly:InternalsVisibleTo("Cloudents.Persistence")]
+[assembly: InternalsVisibleTo("Cloudents.Persistence")]
 namespace Cloudents.Core.Entities
 {
-    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor",Justification = "Nhibernate")]
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class StudyRoom : Entity<Guid>, IAggregateRoot
     {
         public StudyRoom(Tutor tutor, User user, string onlineDocumentUrl)
         {
-            
-            _users = new[] { new StudyRoomUser(tutor.User,this),  new StudyRoomUser(user,this) };
+
+            _users = new[] { new StudyRoomUser(tutor.User, this), new StudyRoomUser(user, this) };
             Tutor = tutor;
             Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
             DateTime = DateTime.UtcNow;
@@ -27,7 +27,7 @@ namespace Cloudents.Core.Entities
 
         protected StudyRoom()
         {
-            
+
         }
 
         public virtual Tutor Tutor { get; protected set; }
@@ -64,8 +64,8 @@ namespace Cloudents.Core.Entities
         {
             var studyRoomUser = Users.Single(f => f.User.Id == userId);
             studyRoomUser.ChangeOnlineState(isOnline);
-            
+
         }
-        
+
     }
 }

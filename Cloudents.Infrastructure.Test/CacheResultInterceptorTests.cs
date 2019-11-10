@@ -56,7 +56,7 @@
 //        //    var result2 = type.InvokeStatic("BuildArgument", BindingFlags.Static | BindingFlags.NonPublic, new object[] { bookRequest2 });
 
 
-            
+
 //        //    result1.Should().Be(result2);
 //        //    //Assert.NotEqual(result1, result2);
 //        //}

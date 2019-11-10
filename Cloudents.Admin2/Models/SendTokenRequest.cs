@@ -2,7 +2,7 @@
 
 namespace Cloudents.Admin2.Models
 {
-    public class SendTokenRequest 
+    public class SendTokenRequest
     {
         /// <summary>
         /// User id
@@ -15,6 +15,6 @@ namespace Cloudents.Admin2.Models
         [Required]
         public decimal Tokens { get; set; }
 
-       
+
     }
 }

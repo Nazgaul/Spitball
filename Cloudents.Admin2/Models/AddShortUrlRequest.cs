@@ -12,16 +12,4 @@ namespace Cloudents.Admin2.Models
         public string Identifier { get; set; }
         public DateTime? Expiration { get; set; }
     }
-
-    //public static class Roles
-    //{
-    // //   public const string Admin = "Admin";
-    //}
-
-    public static class Policy
-    {
-        public const string IsraelUser = "IsraelUser";
-        public const string IndiaUser = "IndiaUser";
-        public const string GlobalUser = "";
-    }
 }

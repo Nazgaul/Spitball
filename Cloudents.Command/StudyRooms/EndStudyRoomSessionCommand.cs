@@ -4,7 +4,7 @@ namespace Cloudents.Command.StudyRooms
 {
     public class EndStudyRoomSessionCommand : ICommand
     {
-        public EndStudyRoomSessionCommand(Guid studyRoomId,  long userId)
+        public EndStudyRoomSessionCommand(Guid studyRoomId, long userId)
         {
             StudyRoomId = studyRoomId;
             UserId = userId;

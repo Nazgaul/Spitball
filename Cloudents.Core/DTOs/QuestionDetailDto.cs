@@ -28,19 +28,19 @@ namespace Cloudents.Core.DTOs
 
 
         public QuestionDetailAnswerDto(Guid id, string text, UserDto user,
-            DateTime create, 
+            DateTime create,
             CultureInfo culture)
         {
             Id = id;
             Text = text;
             User = user;
             Create = create;
-           
+
             IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
         }
-       
 
-       
+
+
         public Guid Id { get; set; }
 
         public string Text { get; set; }

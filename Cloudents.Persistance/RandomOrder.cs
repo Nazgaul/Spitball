@@ -6,7 +6,7 @@ namespace Cloudents.Persistence
 {
     public class RandomOrder : Order
     {
-        public RandomOrder() :base (string.Empty,true)
+        public RandomOrder() : base(string.Empty, true)
         {
 
         }

@@ -12,10 +12,10 @@ namespace Cloudents.Command.Command
             BuyerCardMask = buyerCardMask;
         }
 
-        public long UserId { get;  }
-        public string Token { get;  }
+        public long UserId { get; }
+        public string Token { get; }
 
-        public DateTime Expiration { get;  }
+        public DateTime Expiration { get; }
         public string BuyerCardMask { get; }
     }
 
@@ -39,6 +39,6 @@ namespace Cloudents.Command.Command
             UserId = userId;
         }
 
-        public long UserId { get;  }
+        public long UserId { get; }
     }
 }

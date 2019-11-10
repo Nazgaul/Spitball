@@ -1,21 +1,21 @@
-﻿using System.Linq;
-using Cloudents.Core.DTOs;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Tutor
 {
-    public class UserEmailInfoQuery: IQuery<UserEmailInfoDto>
+    public class UserEmailInfoQuery : IQuery<UserEmailInfoDto>
     {
         public UserEmailInfoQuery(long userId)
         {
             UserId = userId;
         }
 
-        private long UserId { get;  }
+        private long UserId { get; }
 
         internal sealed class UserEmailInfoQueryHandler : IQueryHandler<UserEmailInfoQuery, UserEmailInfoDto>
         {
@@ -34,7 +34,7 @@ namespace Cloudents.Query.Tutor
                         Email = s.Email,
                         PhoneNumber = s.PhoneNumber
                     }).SingleOrDefaultAsync(token);
-             
+
             }
         }
     }

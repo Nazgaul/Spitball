@@ -1,6 +1,6 @@
 ﻿namespace Cloudents.Core.Query.Payment
 {
-   
+
 
 
     public class GenerateSaleResponse
@@ -19,5 +19,5 @@
     }
 
 
-   
+
 }

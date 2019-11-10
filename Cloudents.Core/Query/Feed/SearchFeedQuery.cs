@@ -1,7 +1,4 @@
 ﻿using Cloudents.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cloudents.Core.Query.Feed
 {

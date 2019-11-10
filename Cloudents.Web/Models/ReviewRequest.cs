@@ -12,6 +12,6 @@ namespace Cloudents.Web.Models
         [Range(0.5, 5)]
         [Required(ErrorMessage = "Required")]
         public float Rate { get; set; }
-       
+
     }
 }

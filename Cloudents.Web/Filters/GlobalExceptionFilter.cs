@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cloudents.Web.Filters
 {
@@ -42,12 +42,12 @@ namespace Cloudents.Web.Filters
                 }
             }
             var telemetry = new TelemetryClient();
-            telemetry.TrackException(context.Exception,new Dictionary<string, string>()
+            telemetry.TrackException(context.Exception, new Dictionary<string, string>()
             {
                 ["body"] = body
             });
         }
 
-        
+
     }
 }

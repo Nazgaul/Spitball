@@ -4,18 +4,18 @@ using Cloudents.Command.Universities;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Exceptions;
-using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -88,7 +88,7 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<IActionResult> CreateUniversityAsync([FromBody] CreateUniversityRequest model, CancellationToken token)
         {
-            
+
             var userId = _userManager.GetLongUserId(User);
             try
             {

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Cloudents.Core.Entities;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Message.Email
 {
@@ -17,7 +17,7 @@ namespace Cloudents.Core.Message.Email
 
         public override string Campaign => "Question Deleted";
 
-        public override UnsubscribeGroup UnsubscribeGroup =>UnsubscribeGroup.Update;
+        public override UnsubscribeGroup UnsubscribeGroup => UnsubscribeGroup.Update;
 
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
@@ -25,5 +25,5 @@ namespace Cloudents.Core.Message.Email
             {Language.English , "43ec6c46-0478-45f8-ac13-a83c83a4076d" }
         };
     }
-   
+
 }

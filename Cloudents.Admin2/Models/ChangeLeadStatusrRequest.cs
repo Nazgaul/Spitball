@@ -10,6 +10,6 @@ namespace Cloudents.Admin2.Models
         [Required]
         public ItemState State { get; set; }
         [Required]
-        public Guid LeadId{ get; set; }
+        public Guid LeadId { get; set; }
     }
 }

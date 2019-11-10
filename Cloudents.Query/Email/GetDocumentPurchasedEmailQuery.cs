@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.DTOs;
+using Dapper;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Dapper;
 
 namespace Cloudents.Query.Email
 {

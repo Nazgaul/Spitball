@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
 {
-    public class AdminUserMap :ClassMap<AdminUser>
+    public class AdminUserMap : ClassMap<AdminUser>
     {
         public AdminUserMap()
         {
@@ -13,7 +13,7 @@ namespace Cloudents.Persistence.Maps
             //HasMany(x => x.Roles).AsSet();
 
             ReadOnly();
-            
+
         }
     }
 

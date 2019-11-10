@@ -40,19 +40,19 @@ namespace Cloudents.Query
                     //},
                     Id = s.Id,
                     Course = s.Course.Id,
-                    
+
                     Text = s.Text,
                     //CorrectAnswerId = s.CorrectAnswer.Id,
                     Create = s.Updated,
                     IsRtl = SetIsRtl(s.Language),
                     User = new QuestionUserDto()
-                    { 
+                    {
                         Id = s.User.Id,
                         Name = s.User.Name,
                         Image = s.User.Image
                     }
                 }
-               
+
                 ).ToFutureValue();
             var answersFuture = _session.Query<Answer>()
                 .Where(w => w.Question.Id == id && w.Status.State == ItemState.Ok)
@@ -89,7 +89,7 @@ namespace Cloudents.Query
 
 
             dto.Answers = answerResult.OrderByDescending(x => x.Create);
-                
+
 
             return dto;
 
@@ -114,7 +114,7 @@ namespace Cloudents.Query
             return dto;
         }
 
-       
+
     }
 
 

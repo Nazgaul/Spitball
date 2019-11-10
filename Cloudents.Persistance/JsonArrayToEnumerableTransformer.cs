@@ -22,7 +22,7 @@ namespace Cloudents.Persistence
         public object TransformTuple(object[] tuple, string[] aliases)
         {
             var notComplexTuple = new List<(string, object)>();
-            var complexTuple = new List<(string,int)>();
+            var complexTuple = new List<(string, int)>();
             var i = 0;
             foreach (var alias in aliases)
             {
@@ -37,8 +37,8 @@ namespace Cloudents.Persistence
                 }
                 i++;
             }
-           
-            var result = _baseTransformer.TransformTuple(notComplexTuple.Select(s => s.Item2).ToArray(), notComplexTuple.Select(s=>s.Item1).ToArray());
+
+            var result = _baseTransformer.TransformTuple(notComplexTuple.Select(s => s.Item2).ToArray(), notComplexTuple.Select(s => s.Item1).ToArray());
 
             foreach (var complex in complexTuple)
             {
@@ -57,13 +57,13 @@ namespace Cloudents.Persistence
             {
                 return null;
             }
-            
+
             var jObject = JArray.Parse(value);
             return jObject.Children().Select(s => (string)s.First).ToList();
         }
 
 
-        
+
         public IList TransformList(IList collection)
         {
             return Transformers.AliasToBean<TEntity>().TransformList(collection);
@@ -90,7 +90,7 @@ namespace Cloudents.Persistence
 
         public override int GetHashCode()
         {
-            return _baseTransformer.GetHashCode();           
+            return _baseTransformer.GetHashCode();
         }
 
     }

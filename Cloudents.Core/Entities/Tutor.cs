@@ -1,9 +1,9 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities
 {
@@ -146,12 +146,12 @@ namespace Cloudents.Core.Entities
 
         protected TutorPrice()
         {
-            
+
         }
 
         public virtual decimal Price { get; protected set; }
         public virtual decimal? SubsidizedPrice { get; protected set; }
-        
+
 
 
         protected override IEnumerable<object> GetEqualityComponents()

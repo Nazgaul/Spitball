@@ -6,16 +6,16 @@ using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Admin2.Api
 {
@@ -125,9 +125,9 @@ namespace Cloudents.Admin2.Api
         [HttpGet("params")]
         public async Task<object> GetParams(CancellationToken token)
         {
-            return new 
+            return new
             {
-                Status = Enumeration.GetAll<ChatRoomStatus>().GroupBy(x=>x.Group).ToDictionary(x=>x.Key,y=>y),// Enum.GetNames(typeof(ChatRoomStatus)).Select(s=> s.ToCamelCase()),
+                Status = Enumeration.GetAll<ChatRoomStatus>().GroupBy(x => x.Group).ToDictionary(x => x.Key, y => y),// Enum.GetNames(typeof(ChatRoomStatus)).Select(s=> s.ToCamelCase()),
                 AssignTo = await _queryBus.QueryAsync(new AdminAssignToQuery(), token),
                 WaitingFor = Enum.GetNames(typeof(WaitingFor)).Select(s => s.ToCamelCase())
             };

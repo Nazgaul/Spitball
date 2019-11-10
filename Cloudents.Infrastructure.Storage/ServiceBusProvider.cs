@@ -24,8 +24,8 @@ namespace Cloudents.Infrastructure.Storage
         public ServiceBusProvider(IConfigurationKeys keys)
         {
             _connectionString = keys.ServiceBus;
-            
-            
+
+
 
         }
 
@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Storage
 
         public Task InsertMessageAsync(SmsMessage message, CancellationToken token)
         {
-            var topicClient = _topicClients.GetOrAdd("communication", 
+            var topicClient = _topicClients.GetOrAdd("communication",
                 x => new TopicClient(_connectionString, x));
 
             var json = JsonConvert.SerializeObject(message);

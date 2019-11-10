@@ -196,20 +196,20 @@ namespace Cloudents.Web.Api
                 var command = new EndStudyRoomSessionTwilioCommand(id, request.RoomName);
                 await _commandBus.DispatchAsync(command, token);
             }
-           
+
             //if (request.StatusCallbackEvent.Equals("participant-disconnected", StringComparison.OrdinalIgnoreCase))
             //{
             //    var command = new StudyRoomSessionParticipantDisconnectedCommand(id);
-               
+
             //    await _commandBus.DispatchAsync(command, token);
-               
+
             //}
             //else if (request.StatusCallbackEvent.Equals("participant-connected", StringComparison.OrdinalIgnoreCase))
             //{
             //    var command = new StudyRoomSessionParticipantReconnectedCommand(id);
             //    await _commandBus.DispatchAsync(command, token);
             //}
-            
+
             return Ok();
         }
 
@@ -261,7 +261,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        
+
 
         //[HttpPost("Money")]
         //public async Task<IActionResult> PayMeCallbackAsync([FromServices] IPayment payment,

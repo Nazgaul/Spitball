@@ -1,7 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using NHibernate;
+﻿using NHibernate;
 using NHibernate.SqlCommand;
+using System;
+using System.Diagnostics;
 
 namespace Cloudents.Persistence
 {

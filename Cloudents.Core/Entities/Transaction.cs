@@ -23,7 +23,7 @@ namespace Cloudents.Core.Entities
         public virtual TransactionType Type { get; protected set; }
         public virtual decimal Price { get; protected set; }
 
-       
+
 
 
     }
@@ -33,7 +33,7 @@ namespace Cloudents.Core.Entities
         public virtual bool? Approved { get; set; }
         public virtual string DeclinedReason { get; set; }
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public CashOutTransaction() 
+        public CashOutTransaction()
         {
             Price = -1000;
             Action = TransactionActionType.CashOut;
@@ -95,16 +95,16 @@ namespace Cloudents.Core.Entities
     public class AwardMoneyTransaction : Transaction
     {
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public AwardMoneyTransaction(decimal price) 
+        public AwardMoneyTransaction(decimal price)
         {
             //if (price < 0)
             //{
             //    throw new ArgumentException("you need to award user");
             //}
 
-           Price = price;
-           Action = TransactionActionType.None;
-           Type = TransactionType.Earned;
+            Price = price;
+            Action = TransactionActionType.None;
+            Type = TransactionType.Earned;
         }
 
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
@@ -130,7 +130,7 @@ namespace Cloudents.Core.Entities
         public static AwardMoneyTransaction FinishRegistration(User user)
         {
             var initBalance = 0;
-           //var awardScore = 0;
+            //var awardScore = 0;
             if (Tier1Users.Contains(user.Country))
             {
                 initBalance = 150;
@@ -140,7 +140,7 @@ namespace Cloudents.Core.Entities
             return new AwardMoneyTransaction(initBalance)
             {
                 Action = TransactionActionType.SignUp,
-              //  _awardScore = awardScore
+                //  _awardScore = awardScore
             };
         }
     }
@@ -165,9 +165,9 @@ namespace Cloudents.Core.Entities
     public class ReferUserTransaction : Transaction
     {
         public virtual User InvitedUser { get; protected set; }
-      
+
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-        public ReferUserTransaction(User invitedUser) 
+        public ReferUserTransaction(User invitedUser)
         {
             InvitedUser = invitedUser;
             Action = TransactionActionType.ReferringUser;
@@ -180,7 +180,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-       // public override int AwardScore => 0;
+        // public override int AwardScore => 0;
     }
 
     public class DocumentTransaction : Transaction
@@ -217,7 +217,7 @@ namespace Cloudents.Core.Entities
                 Action = TransactionActionType.SoldDocument,
                 Price = document.Price,
                 Type = TransactionType.Earned,
-               // _awardScore = 1
+                // _awardScore = 1
 
             };
         }

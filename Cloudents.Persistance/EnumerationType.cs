@@ -1,11 +1,11 @@
-﻿using System;
-using System.Data;
-using System.Data.Common;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using NHibernate;
 using NHibernate.Engine;
 using NHibernate.SqlTypes;
 using NHibernate.UserTypes;
+using System;
+using System.Data;
+using System.Data.Common;
 
 namespace Cloudents.Persistence
 {
@@ -41,7 +41,7 @@ namespace Cloudents.Persistence
             if (names.Length == 0)
                 throw new ArgumentException("Expecting at least one column");
 
-            var id = (int?)NHibernateUtil.Int32.NullSafeGet(rs, names[0],session);
+            var id = (int?)NHibernateUtil.Int32.NullSafeGet(rs, names[0], session);
 
             if (id.HasValue)
             {

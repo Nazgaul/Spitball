@@ -1,15 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command.Command;
+﻿using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -36,7 +36,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)
         {
             var question = await _questionRepository.GetAsync(message.QuestionId, token);
-           
+
             if (question == null)
             {
                 throw new ArgumentException("question doesn't exits");
@@ -46,7 +46,7 @@ namespace Cloudents.Command.CommandHandler
             {
                 throw new ArgumentException("question doesn't exits");
             }
-           
+
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
             if (user.Transactions.Score < Privileges.Post)

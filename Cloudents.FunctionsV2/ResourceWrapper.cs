@@ -45,12 +45,12 @@ namespace Cloudents.FunctionsV2
                         var manifestResource = asm.GetManifestResourceNames();
 
                         var x = new ResourceSet(asm.GetManifestResourceStream(manifestResource.First()));
-                        ResourceSets.AddOrUpdate(new CultureInfo(v),x, (_,x3) => x3);
+                        ResourceSets.AddOrUpdate(new CultureInfo(v), x, (_, x3) => x3);
                     }
                 }
                 catch (FileLoadException e)
                 {
-                   //Happen in unit test.
+                    //Happen in unit test.
                 }
             }
         }

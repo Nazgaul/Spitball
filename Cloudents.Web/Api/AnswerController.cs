@@ -1,18 +1,18 @@
-﻿using Cloudents.Web.Extensions;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Command.Item.Commands.FlagItem;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Command.Item.Commands.FlagItem;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Exceptions;
-using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -59,7 +59,7 @@ namespace Cloudents.Web.Api
             //    ModelState.AddModelError(nameof(model.Text), _localizer["More then one answer"]);
             //    return BadRequest(ModelState);
             //}
-           
+
             //catch (DuplicateRowException)
             //{
             //    ModelState.AddModelError(nameof(model.Text), _localizer["DuplicateAnswer"]);

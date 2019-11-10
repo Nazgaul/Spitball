@@ -7,6 +7,6 @@ namespace Cloudents.Command.Command.Admin
         {
             Id = id;
         }
-        public long Id { get;  }
+        public long Id { get; }
     }
 }

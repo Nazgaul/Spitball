@@ -1,16 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
     public class UpdateSettingsRequest
     {
         [Required]
-        [StringLength(255,MinimumLength = 2, ErrorMessage = "StringLength")]
+        [StringLength(255, MinimumLength = 2, ErrorMessage = "StringLength")]
         public string FirstName { get; set; }
-        [StringLength(255,MinimumLength = 2, ErrorMessage = "StringLength")]
+        [StringLength(255, MinimumLength = 2, ErrorMessage = "StringLength")]
         public string LastName { get; set; }
-        [StringLength(255,MinimumLength = 15, ErrorMessage = "StringLength")]
+        [StringLength(255, MinimumLength = 15, ErrorMessage = "StringLength")]
         public string Description { get; set; }
 
         [StringLength(1000, MinimumLength = 15, ErrorMessage = "StringLength")]
@@ -21,5 +21,5 @@ namespace Cloudents.Web.Models
     }
 
 
-   
+
 }

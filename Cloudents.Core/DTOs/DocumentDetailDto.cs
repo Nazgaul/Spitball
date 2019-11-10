@@ -1,5 +1,5 @@
-﻿using System;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
+using System;
 
 namespace Cloudents.Core.DTOs
 {
@@ -31,7 +31,7 @@ namespace Cloudents.Core.DTOs
         public bool IsPurchased { get; set; }
 
         public DocumentType DocumentType { get; set; }
-        
+
         //  public int PageCount { get; set; }
 
     }

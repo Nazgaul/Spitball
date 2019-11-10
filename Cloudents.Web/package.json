@@ -14,7 +14,9 @@
     "server": "node node_modules/webpack/bin/webpack.js --config webpack.config.server.js",
     "debug": "node-nightly --inspect node_modules/webpack/bin/webpack.js",
     "bundle-report": "webpack-bundle-analyzer --port 4200 wwwroot/dist/stats.json",
-    "all": "npm i && npm run vendor && npm run client && dotnet build && dotnet run"
+    "build": "npm run vendor && npm run client",
+    "start": "dotnet build && dotnet run",
+    "all": "npm run build && npm run start"
   },
   "devDependencies": {
     "@babel/core": "7.6.0",

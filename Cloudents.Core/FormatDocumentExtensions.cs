@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Core
 {
@@ -41,7 +41,7 @@ namespace Cloudents.Core
             new[] { ".rtf", ".docx", ".doc", ".odt" }, DocumentType.Document);
 
         public static FileTypesExtension Video = new FileTypesExtension("Icons_720_video.png",
-            new[] {".flv", ".mxf", ".gxf", ".ts", ".ps", ".3gp", ".3gpp", ".mpg", ".wmv", ".asf", ".avi", ".mp4", 
+            new[] {".flv", ".mxf", ".gxf", ".ts", ".ps", ".3gp", ".3gpp", ".mpg", ".wmv", ".asf", ".avi", ".mp4",
                 ".m4v",  ".ismv", ".dvr-ms", ".mkv", ".mov" }, DocumentType.Video);
 
         public static FileTypesExtension Music = new FileTypesExtension("Icons_720_sound.png",
@@ -73,7 +73,7 @@ namespace Cloudents.Core
                 {
                     extension = child,
                     thumbnail = parent
-                }).ToDictionary(x => x.extension, z => z.thumbnail,StringComparer.OrdinalIgnoreCase);
+                }).ToDictionary(x => x.extension, z => z.thumbnail, StringComparer.OrdinalIgnoreCase);
         }
 
     }

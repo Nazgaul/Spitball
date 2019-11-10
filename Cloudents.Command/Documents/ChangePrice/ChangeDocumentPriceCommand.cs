@@ -12,6 +12,6 @@
         public long DocumentId { get; }
         public long UserId { get; }
         public decimal Price { get; }
-    
+
     }
 }

@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Cloudents.Query.Documents;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
+using Cloudents.Query.Documents;
 using Cloudents.Query.Email;
 using Cloudents.Query.HomePage;
 using Cloudents.Query.Query;
+using Cloudents.Query.SearchSync;
 using Cloudents.Query.Tutor;
 using FluentAssertions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
-using Cloudents.Query.SearchSync;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -189,7 +189,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await fixture.QueryBus.QueryAsync(query, default);
 
             result.Should().NotBeNull();
-            
+
         }
 
         [Fact]
@@ -227,15 +227,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(638,"IL")]
+        [InlineData(638, "IL")]
         [InlineData(1696, "IN")]
-        public async Task UserBalanceQuery_Ok(long id,string country)
+        public async Task UserBalanceQuery_Ok(long id, string country)
         {
-            
+
             var query = new UserBalanceQuery(id);
             var result = await fixture.QueryBus.QueryAsync(query, default);
 
-           
+
         }
 
         [Fact]
@@ -251,7 +251,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData("IN")]
         public async Task TopTutorsQuery_Ok(string country)
         {
-            var query = new TopTutorsQuery(country,12);
+            var query = new TopTutorsQuery(country, 12);
             _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 

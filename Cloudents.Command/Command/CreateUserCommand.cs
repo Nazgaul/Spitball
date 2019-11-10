@@ -11,7 +11,7 @@ namespace Cloudents.Command.Command
             User = user;
         }
 
-        public CreateUserCommand(User user,  string course) : this(user)
+        public CreateUserCommand(User user, string course) : this(user)
         {
             Course = course;
         }

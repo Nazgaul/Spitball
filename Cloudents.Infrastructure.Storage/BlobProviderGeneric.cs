@@ -1,4 +1,7 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using Cloudents.Core.Extension;
+using Cloudents.Core.Storage;
+using JetBrains.Annotations;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
@@ -8,9 +11,6 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Storage;
-using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -235,7 +235,7 @@ namespace Cloudents.Infrastructure.Storage
             return result.Results.Select(s => s.Uri);
         }
 
-       public Uri GeneratePreviewLink(Uri blobUrl, TimeSpan expirationTime)
+        public Uri GeneratePreviewLink(Uri blobUrl, TimeSpan expirationTime)
         {
             var blob = GetBlob(blobUrl);
             var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy

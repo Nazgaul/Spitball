@@ -1,7 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Core.Query.Feed;
 using Cloudents.Query;
@@ -40,14 +38,14 @@ namespace Cloudents.Infrastructure
             {
                 return itemsFeed;
             }
-           
+
             var tutorlocationPageZero = new[] { 2, 12, 19 };
             var tutorlocationPage = new[] { 6, 13, 20 };
 
             var locations = new[] { tutorlocationPageZero, tutorlocationPage };
 
             var pageLocations = locations.ElementAtOrDefault(page) ?? tutorlocationPage;
-            
+
 
             foreach (var item in pageLocations)
             {
@@ -113,7 +111,7 @@ namespace Cloudents.Infrastructure
             var tutorQuery = new TutorListTabSearchQuery(query.Term, query.Country, query.Page, _tutorPageSize);
             var tutorTask = _tutorSearch.SearchAsync(tutorQuery, token);
             var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
-          
+
 
             await Task.WhenAll(resultTask, tutorTask);
             var result = SortFeed(resultTask.Result?.ToList(), tutorTask.Result?.ToList(), query.Page);

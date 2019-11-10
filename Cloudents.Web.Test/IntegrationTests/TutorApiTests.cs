@@ -38,7 +38,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             var result = d[0]?.Value<JObject>();
 
             result.Should().NotBeNull();
-          
+
         }
 
         [Fact]
@@ -83,13 +83,13 @@ namespace Cloudents.Web.Test.IntegrationTests
             await _client.LogInAsync();
 
             var response = await _client.GetAsync(_uri.Path + "/search?term=fsdfds");
-            
+
             var str = await response.Content.ReadAsStringAsync();
-            
+
             var d = JObject.Parse(str);
-            
+
             var result = d["result"]?.Value<JArray>();
-            
+
             result.Should().BeEmpty();
         }
     }

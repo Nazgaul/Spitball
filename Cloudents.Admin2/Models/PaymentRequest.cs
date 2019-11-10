@@ -19,7 +19,7 @@ namespace Cloudents.Admin2.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            var list = new [] {StudentPay, SpitballPay};
+            var list = new[] { StudentPay, SpitballPay };
 
             foreach (var @decimal in list)
             {

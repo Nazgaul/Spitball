@@ -3,7 +3,6 @@ using Dapper;
 using FluentAssertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -101,10 +100,10 @@ namespace Cloudents.Selenium.Test
             url = $"{SiteMainUrl.TrimEnd('/')}/?site=frymo";
             _driver.Navigate().GoToUrl(url);
             logo = _driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
-            
+
         }
 
-        [Fact(Skip ="Need to finish this")]
+        [Fact(Skip = "Need to finish this")]
         public void MissingResourceAsk()
         {
             var url = "https://dev.spitball.co/question/2208";
@@ -133,7 +132,7 @@ namespace Cloudents.Selenium.Test
             var url = $"{SiteMainUrl.TrimEnd('/')}/feed";
             _driver.Navigate().GoToUrl(url);
             var body = _driver.FindElement(By.TagName("body"));
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
                 body.SendKeys(Keys.PageDown);
             Thread.Sleep(1000);
             var feedCards = _driver.FindElements(By.XPath("//*[@class='d-block note-block cell']"));

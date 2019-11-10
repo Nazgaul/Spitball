@@ -1,5 +1,6 @@
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.Di;
@@ -9,7 +10,9 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -23,9 +26,6 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
-using Microsoft.WindowsAzure.Storage;
-using SixLabors.Fonts;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using Path = System.IO.Path;
 

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Cloudents.Core.Interfaces;
+using System;
 using System.Collections.Generic;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core
 {
@@ -38,13 +38,13 @@ namespace Cloudents.Core
             Info($"{name} metric value {value}");
         }
 
-//        public void Exception(string info, Exception ex)
-//        {
-//            if (ex == null) throw new ArgumentNullException(nameof(ex));
-//#if DEBUG
-//            System.Diagnostics.Debug.WriteLine($"{info} \n {ex}");
-//#endif
-//            System.Diagnostics.Trace.TraceError($"{info} \n {ex} ");
-//        }
+        //        public void Exception(string info, Exception ex)
+        //        {
+        //            if (ex == null) throw new ArgumentNullException(nameof(ex));
+        //#if DEBUG
+        //            System.Diagnostics.Debug.WriteLine($"{info} \n {ex}");
+        //#endif
+        //            System.Diagnostics.Trace.TraceError($"{info} \n {ex} ");
+        //        }
     }
 }

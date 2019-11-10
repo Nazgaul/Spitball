@@ -27,9 +27,9 @@
 //            public async Task<IEnumerable<string>> GetAsync(TopSubjectsQuery query, CancellationToken token)
 //            {
 //                var res = _session.Query<CourseSubject>();
-            
+
 //                return await res.Select(s => !string.IsNullOrEmpty(query.UserLanguage) && query.UserLanguage.Equals(Language.Hebrew.Info.Name) ? s.Name : s.EnglishName).Take(5).ToListAsync(token);
-             
+
 //            }
 //        }
 //    }

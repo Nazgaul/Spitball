@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Cloudents.Core.Interfaces;
+using Cloudents.Query;
+using Dapper;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
-using Cloudents.Core.Interfaces;
-using Cloudents.Query;
-using Dapper;
-using Newtonsoft.Json.Linq;
 
 namespace Cloudents.Persistence
 {
@@ -15,7 +15,7 @@ namespace Cloudents.Persistence
     {
         private readonly string _connectionString;
 
-        public DapperRepository(IConfigurationKeys  provider)
+        public DapperRepository(IConfigurationKeys provider)
         {
             _connectionString = provider.Db.Db;
         }
@@ -28,15 +28,15 @@ namespace Cloudents.Persistence
             SqlMapper.AddTypeHandler(typeof(IEnumerable<string>), new JsonArrayTypeHandler());
             //SqlMapper.AddTypeHandler(typeof(FeedDto), new JsonObjectTypeHandler());
 
-           
+
             //SqlMapper.AddTypeHandler(typeof(QuestionFeedDto), new JsonObjectTypeHandler());
             //SqlMapper.AddTypeHandler(typeof(DocumentFeedDto), new JsonObjectTypeHandler());
-            
+
             //SqlMapper.AddTypeHandler(typeof(FeedDto), new JsonObjectTypeHandler());
         }
-       
 
-       
+
+
 
         public IDbConnection OpenConnection()
         {
@@ -92,5 +92,5 @@ namespace Cloudents.Persistence
 
     }
 
-    
+
 }

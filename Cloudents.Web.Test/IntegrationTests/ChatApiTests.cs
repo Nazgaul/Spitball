@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using Xunit;
-using FluentAssertions;
-using System.Net;
-using System;
+﻿using FluentAssertions;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Net;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -103,7 +103,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             await _client.LogInAsync();
 
             var response = await _client.PostAsync(_uri.Path + "/read", HttpClient.CreateJsonString(_user));
-           
+
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
         }

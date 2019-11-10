@@ -1,13 +1,13 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
-using System;
 using Cloudents.Core.Enum;
+using System;
 
 namespace Cloudents.Core.DTOs.Admin
 {
     public class UserDetailsDto
     {
-        
+
         [EntityBind(nameof(User.Id))]
         public long Id { get; set; }
         [EntityBind(nameof(User.Name))]
@@ -24,7 +24,7 @@ namespace Cloudents.Core.DTOs.Admin
         public int Score { get; set; }
         //[EntityBind(nameof(RegularUser.FraudScore))]
         //public int FraudScore { get; set; }
-       
+
         public int ReferredCount { get; set; }
         [EntityBind(nameof(User.Balance))]
         public decimal Balance { get; set; }
@@ -35,7 +35,7 @@ namespace Cloudents.Core.DTOs.Admin
         public bool EmailConfirmed { get; set; }
         [EntityBind(nameof(User.LastOnline))]
         public DateTime? LastOnline { get; set; }
-        public ItemState? TutorState{ get; set; }
+        public ItemState? TutorState { get; set; }
         [EntityBind(nameof(User.LockoutReason))]
         public string LockoutReason { get; set; }
         public bool PaymentExists { get; set; }

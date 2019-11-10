@@ -14,7 +14,7 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(Document.Id))]
         public long ItemId { get; set; }
         [EntityBind(nameof(Document.Name))]
-        public string ItemName{ get; set; }
+        public string ItemName { get; set; }
         [EntityBind(nameof(Document.TimeStamp.CreationTime))]
         public DateTime ItemCreated { get; set; }
         [EntityBind(nameof(Document.Course))]
@@ -29,6 +29,6 @@ namespace Cloudents.Core.DTOs.Admin
         public string PurchasedUserEmail { get; set; }
         [EntityBind(nameof(User.Balance))]
         public decimal PurchasedUserBalance { get; set; }
-        public string Url{ get; set; }
+        public string Url { get; set; }
     }
 }

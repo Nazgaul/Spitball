@@ -66,7 +66,7 @@
 //                        Action = row[2].ToString(),
 //                        NewId = row[3].ToString()
 //                    };
-                   
+
 //                    res.Add(obj);
 //                }
 //                return res;
@@ -105,7 +105,7 @@
 //                ApplicationName = _applicationName,
 //            });
 
-           
+
 //            String spreadsheetId2 = "1O23NzfssFjz2lKLxY4HBQBP6O_B0U0n42jLx6hrRQXY";
 //            String range2 = $"Sheet8!C{rowNumber}";  // update cell F5 
 //            ValueRange valueRange = new ValueRange();
@@ -258,7 +258,7 @@
 //            });
 
 
-                                    
+
 //            String spreadsheetId2 = "1gU9m_InQWRkw4ZkFTPq_LnTemEBPGiBUho0cv80l-D4";
 //            String range2 = $"Courses!A{rowNumber}:B";  // update cell F5 
 //            ValueRange valueRange = new ValueRange();

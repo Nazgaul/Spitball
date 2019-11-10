@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Azure.Search;
+using System;
 using System.Collections.Concurrent;
-using Microsoft.Azure.Search;
 
 namespace Cloudents.Search
 {
@@ -11,15 +11,15 @@ namespace Cloudents.Search
         //Maintaining a Dictionary of Index Clients is better performant
         private readonly ConcurrentDictionary<string, ISearchIndexClient> _indexClients;
 
-        public SearchService(string key,string name, bool isDevelop)
+        public SearchService(string key, string name, bool isDevelop)
         {
-            
+
             _isDevelop = isDevelop;
             Client = new SearchServiceClient(name, new SearchCredentials(key));
             _indexClients = new ConcurrentDictionary<string, ISearchIndexClient>();
         }
 
-       
+
 
         /// <summary>
         /// Obtains a new IndexClient and avoids Socket Exhaustion by reusing previous clients.

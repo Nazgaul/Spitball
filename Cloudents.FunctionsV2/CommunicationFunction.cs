@@ -3,6 +3,7 @@ using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.Binders;
+using Cloudents.FunctionsV2.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -18,7 +19,6 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.FunctionsV2.Services;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
 using Twilio.Types;
@@ -53,7 +53,7 @@ namespace Cloudents.FunctionsV2
 
             log.LogInformation("finish sending email");
         }
-      
+
 
         private static async Task ProcessEmail(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
             BaseEmail topicMessage, CancellationToken token)
@@ -152,7 +152,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("FunctionPhoneServiceBus")]
         public static async Task CallServiceBusAsync(
-            
+
             [ServiceBusTrigger("communication", "call", Connection = "AzureWebJobsServiceBus")] SmsMessage msg,
             [TwilioCall(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateCallOptions> options,
             [Inject] IHostUriService hostUriService)
@@ -179,7 +179,7 @@ namespace Cloudents.FunctionsV2
 
         }
 
-       
+
 
         [FunctionName("TwilioMessage")]
         public static IActionResult RunTwilioResult(

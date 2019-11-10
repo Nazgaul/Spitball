@@ -1,8 +1,8 @@
-﻿using System.Linq;
+﻿using Cloudents.Core.DTOs.SearchSync;
+using Dapper;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs.SearchSync;
-using Dapper;
 
 namespace Cloudents.Query.SearchSync
 {
@@ -23,10 +23,10 @@ namespace Cloudents.Query.SearchSync
 
 
         // ReSharper disable once MemberCanBePrivate.Global Need for serialization
-       // public byte[] RowVersion { get;  set; }
+        // public byte[] RowVersion { get;  set; }
 
         // ReSharper disable once MemberCanBePrivate.Global Need for serialization
-        public long Version { get;  set; }
+        public long Version { get; set; }
 
         // ReSharper disable once MemberCanBePrivate.Global Need for serialization
         public int Page { get; set; }
@@ -88,7 +88,7 @@ offset @pageSize * @PageNumber rows
 fetch next @pageSize Rows only";
 
 
-              
+
 
                 using (var conn = _dapperRepository.OpenConnection())
                 {
@@ -97,7 +97,7 @@ fetch next @pageSize Rows only";
                          new
                          {
                              query.Version,
-                            // RowVersion =  query.RowVersion ?? new[] { Convert.ToByte(0) },
+                             // RowVersion =  query.RowVersion ?? new[] { Convert.ToByte(0) },
                              PageNumber = query.Page,
                              PageSize
                          })).ToList();
@@ -109,7 +109,7 @@ fetch next @pageSize Rows only";
                     {
                         Update = lookUp[false],
                         Delete = lookUp[true].Select(s => s.Id.ToString()),
-                        Version = result.Count > 0 ? result.Max(x=>x.SYS_CHANGE_VERSION) : 0
+                        Version = result.Count > 0 ? result.Max(x => x.SYS_CHANGE_VERSION) : 0
 
                     };
                 }

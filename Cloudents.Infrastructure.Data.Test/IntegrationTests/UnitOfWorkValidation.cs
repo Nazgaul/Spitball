@@ -1,7 +1,7 @@
-﻿using System;
-using Autofac.Extras.Moq;
+﻿using Autofac.Extras.Moq;
 using Cloudents.Core;
 using Cloudents.Persistence;
+using System;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests

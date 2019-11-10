@@ -1,8 +1,8 @@
 ﻿
+using Cloudents.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Web.Models
 {

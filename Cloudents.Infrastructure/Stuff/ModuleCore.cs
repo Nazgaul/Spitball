@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Autofac;
+﻿using Autofac;
 using Autofac.Core;
 using Cloudents.Command;
 using Cloudents.Command.CommandHandler;
@@ -7,6 +6,7 @@ using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using JetBrains.Annotations;
+using System.Linq;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure.Stuff
@@ -19,7 +19,7 @@ namespace Cloudents.Infrastructure.Stuff
             builder.RegisterType<CommandBus>().As<ICommandBus>();
 
 
-           // builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
+            // builder.RegisterAssemblyTypes(typeof(IQueryHandler<,>).Assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
             builder.RegisterType<QueryBus>().As<IQueryBus>();
 
             builder.RegisterType<UrlConst>().As<IUrlBuilder>().SingleInstance();

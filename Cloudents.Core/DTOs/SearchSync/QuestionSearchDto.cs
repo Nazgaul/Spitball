@@ -3,7 +3,7 @@
 namespace Cloudents.Core.DTOs.SearchSync
 {
 
-    public class SearchWrapperDto <T>
+    public class SearchWrapperDto<T>
     {
         public IEnumerable<T> Update { get; set; }
         public IEnumerable<string> Delete { get; set; }
@@ -49,7 +49,7 @@ namespace Cloudents.Core.DTOs.SearchSync
 
 
     //    public string Country { get; set; }
-       
+
 
     //    public string Language { get; set; }
 

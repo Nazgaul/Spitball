@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using CacheManager.Core;
+﻿using CacheManager.Core;
 using Cloudents.Core.Interfaces;
 using StackExchange.Redis;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Cloudents.Infrastructure.Cache
 {
@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Cache
         public CacheProvider(IConfigurationKeys keys, ILogger logger)
         {
             _logger = logger;
-        
+
             _multiplexer = ConnectionMultiplexer.Connect(keys.Redis);
 
             _multiplexer.ConnectionFailed += (sender, args) =>
@@ -48,7 +48,7 @@ namespace Cloudents.Infrastructure.Cache
             //{
             //sb-dev.redis.cache.windows.net:6380,password=SggEokcdmQnaS5RFkkl5js4nV0LLXjvXEypeEEFCAo8=,ssl=True,abortConnect=False
             //sb-dev2.redis.cache.windows.net:6380,password=SggEokcdmQnaS5RFkkl5js4nV0LLXjvXEypeEEFCAo8=,ssl=True,abortConnect=False
-           
+
             try
             {
                 _distributedCache = CacheFactory.Build(
@@ -68,7 +68,7 @@ namespace Cloudents.Infrastructure.Cache
                 _logger.Exception(e);
             }
 
-          
+
             // .WithExpiration(ExpirationMode.Sliding, TimeSpan.FromSeconds(5)));
 
             //_cache = CacheFactory.Build(settings =>

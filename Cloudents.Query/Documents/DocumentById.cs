@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Query.Stuff;
@@ -9,6 +6,9 @@ using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Linq;
 using NHibernate.SqlCommand;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Documents
 {
@@ -60,7 +60,7 @@ namespace Cloudents.Query.Documents
                             .Select(() => documentAlias.Course.Id).WithAlias(() => dtoAlias.Course)
                             .Select(() => documentAlias.User.Id).WithAlias(() => dtoAlias.UploaderId)
                             .Select(() => userAlias.Name).WithAlias(() => dtoAlias.UploaderName)
-                            .Select(()=> documentAlias.DocumentType).WithAlias(() => dtoAlias.DocumentType)
+                            .Select(() => documentAlias.DocumentType).WithAlias(() => dtoAlias.DocumentType)
                             .Select(Projections.Property(() => tutorAlias.Id).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.UserId)}"))
                             .Select(Projections.Property(() => tutorAlias.Name).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Name)}"))
                             .Select(Projections.Property(() => tutorAlias.Image).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Image)}"))
@@ -79,7 +79,7 @@ namespace Cloudents.Query.Documents
                     .TransformUsing(new DeepTransformer<DocumentDetailDto>())
                     .FutureValue<DocumentDetailDto>();
 
-                    
+
                 if (!query.UserId.HasValue)
                 {
                     return await futureValue.GetValueAsync(token);

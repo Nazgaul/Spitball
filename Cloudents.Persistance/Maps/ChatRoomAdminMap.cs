@@ -9,7 +9,7 @@ namespace Cloudents.Persistence.Maps
         public ChatRoomAdminMap()
         {
             Id(x => x.Id).GeneratedBy.Foreign("ChatRoom");
-            Map(x => x.Status).Column("Status2").CustomType< EnumerationType<ChatRoomStatus>>();
+            Map(x => x.Status).Column("Status2").CustomType<EnumerationType<ChatRoomStatus>>();
             Map(x => x.AssignTo).Length(255);
 
             HasOne(x => x.ChatRoom).Constrained().Cascade.None();

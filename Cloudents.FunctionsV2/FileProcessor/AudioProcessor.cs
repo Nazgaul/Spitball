@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.Interfaces;
+using Microsoft.WindowsAzure.Storage.Blob;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Microsoft.WindowsAzure.Storage.Blob;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2.FileProcessor

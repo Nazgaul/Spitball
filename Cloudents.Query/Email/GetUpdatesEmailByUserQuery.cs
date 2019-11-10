@@ -44,7 +44,7 @@ namespace Cloudents.Query.Email
                     .Where(w => w.Status.State == ItemState.Ok)
                     .Select(s => s.Text)
                     .Take(1);
-                    
+
 
                 var queryUniversity = QueryOver.Of<User>().Where(w => w.Id == query.UserId)
                     .Select(s => s.University.Id);
@@ -54,7 +54,7 @@ namespace Cloudents.Query.Email
                      .Where(x => x.Created > query.Since)
                      .And(x => x.Status.State == ItemState.Ok)
                      .WithSubquery.WhereProperty(x => x.Course.Id).In(queryCourse)
-                     .WithSubquery.WhereProperty(x=>x.University.Id).Eq(queryUniversity)
+                     .WithSubquery.WhereProperty(x => x.University.Id).Eq(queryUniversity)
                      .And(x => x.User.Id != query.UserId)
 
 

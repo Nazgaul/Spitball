@@ -58,7 +58,7 @@ namespace Cloudents.Command.CommandHandler
             //    transaction.Question = null;
             //    await _transactionRepository.UpdateAsync(transaction, token);
             //}
-            
+
             await _userRepository.UpdateAsync(user, token);
             await _repository.DeleteAsync(question, token);
 

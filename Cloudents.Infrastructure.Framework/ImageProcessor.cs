@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Aspose.Imaging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Aspose.Imaging;
 
 namespace Cloudents.Infrastructure.Framework
 {

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Cloudents.Core.Interfaces;
+using Cloudents.Web.Extensions;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Cloudents.Web.Extensions;
-using Microsoft.AspNetCore.Http;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Services
@@ -78,7 +78,7 @@ namespace Cloudents.Web.Services
 
     }
 
-  
+
 
     public interface ICountryService
     {

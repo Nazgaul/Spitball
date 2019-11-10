@@ -4,7 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Cloudents.Web.Identity
 {
-    public static class SpitballIdentityExtensions {
+    public static class SpitballIdentityExtensions
+    {
 
         public const int PasswordRequiredLength = 8;
         public static void AddSbIdentity(this IServiceCollection services)

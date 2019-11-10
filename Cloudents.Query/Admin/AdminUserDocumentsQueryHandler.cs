@@ -1,12 +1,12 @@
 ﻿using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Entities;
 using Cloudents.Query.Query.Admin;
+using NHibernate;
+using NHibernate.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using NHibernate;
-using NHibernate.Linq;
 
 namespace Cloudents.Query.Admin
 {

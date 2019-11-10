@@ -23,7 +23,7 @@ namespace Cloudents.Search.Tutor
 
         public async Task<Entities.Tutor> GetByIdAsync(long id)
         {
-           return await _client.Documents.GetAsync<Entities.Tutor>(id.ToString());
+            return await _client.Documents.GetAsync<Entities.Tutor>(id.ToString());
         }
         public async Task<IEnumerable<TutorCardDto>> SearchAsync(TutorListTabSearchQuery query, CancellationToken token)
         {
@@ -60,7 +60,7 @@ namespace Cloudents.Search.Tutor
                   s.Document.Data.Courses = courses;
                   s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
                   return s.Document.Data;
-            });
+              });
 
         }
     }

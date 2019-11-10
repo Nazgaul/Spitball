@@ -1,7 +1,7 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -39,7 +39,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
-     
+
 
 
     }

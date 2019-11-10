@@ -48,7 +48,7 @@ namespace Cloudents.Infrastructure
 
 
             var b = new LanguageBatchInput(texts.Where(w => !string.IsNullOrEmpty(w.Value))
-                .Select(s => new LanguageInput(id:s.Key.ToString(), text: s.Value.Truncate(4000)))
+                .Select(s => new LanguageInput(id: s.Key.ToString(), text: s.Value.Truncate(4000)))
                 .ToList());
             if (b.Documents.Count == 0)
             {

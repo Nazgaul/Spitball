@@ -1,5 +1,4 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Models;
 using Cloudents.Core.Query.Feed;
 using System.Collections.Generic;
 using System.Threading;

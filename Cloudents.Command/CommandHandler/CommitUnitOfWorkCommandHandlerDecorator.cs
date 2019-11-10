@@ -1,6 +1,6 @@
-﻿using System.Threading;
+﻿using Cloudents.Core.Interfaces;
+using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler
 {

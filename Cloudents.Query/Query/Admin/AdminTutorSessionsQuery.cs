@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminTutorSessionsQuery: IQueryAdmin<IEnumerable<SessionBillDto>>
+    public class AdminTutorSessionsQuery : IQueryAdmin<IEnumerable<SessionBillDto>>
     {
         public AdminTutorSessionsQuery(long tutorId, string country)
         {
@@ -47,7 +47,7 @@ namespace Cloudents.Query.Query.Admin
                     return await connection.QueryAsync<SessionBillDto>(sql, new { query.TutorId, query.Country });
                 }
             }
-               
+
         }
     }
 }

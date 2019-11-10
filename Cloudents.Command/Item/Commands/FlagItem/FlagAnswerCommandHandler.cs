@@ -1,11 +1,11 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.Item.Commands.FlagItem
 {
-    public class FlagAnswerCommandHandler :  ICommandHandler<FlagAnswerCommand>
+    public class FlagAnswerCommandHandler : ICommandHandler<FlagAnswerCommand>
     {
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Answer> _answerRepository;
@@ -21,8 +21,8 @@ namespace Cloudents.Command.Item.Commands.FlagItem
         {
             var answer = await _answerRepository.LoadAsync(message.Id, token);
             User user = await _userRepository.LoadAsync(message.UserId, token);
-           
-           
+
+
             answer.Flag(message.FlagReason, user);
             await _answerRepository.UpdateAsync(answer, token);
         }

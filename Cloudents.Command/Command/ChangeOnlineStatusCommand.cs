@@ -8,7 +8,7 @@
             Status = status;
         }
 
-        public long UserId { get;  }
-        public bool Status { get;  }
+        public long UserId { get; }
+        public bool Status { get; }
     }
 }

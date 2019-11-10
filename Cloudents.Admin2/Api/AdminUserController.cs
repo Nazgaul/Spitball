@@ -5,19 +5,19 @@ using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Exceptions;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Admin2.Api
 {
@@ -50,7 +50,7 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost("sendTokens")]
-        [Authorize(/*Roles = Roles.Admin*/)]
+        [Authorize]
         public async Task<IActionResult> Post(SendTokenRequest model, CancellationToken token)
         {
             var command = new DistributeTokensCommand(model.UserId, model.Tokens);
@@ -60,7 +60,7 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpPost("cashOut/approve")]
-        [Authorize(/*Roles = Roles.Admin*/)]
+        [Authorize]
         public async Task<IActionResult> ApprovePost(ApproveCashOutRequest model, CancellationToken token)
         {
             var command = new ApproveCashOutCommand(model.TransactionId);
@@ -69,7 +69,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("cashOut/decline")]
-        [Authorize(/*Roles = Roles.Admin*/)]
+        [Authorize]
         public async Task<IActionResult> DeclinePost(DeclineCashOutRequest model, CancellationToken token)
         {
             var command = new DeclineCashOutCommand(model.TransactionId, model.Reason);
@@ -83,7 +83,7 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("cashOut")]
-        [Authorize(/*Roles = Roles.Admin*/)]
+        [Authorize]
         public async Task<IEnumerable<CashOutDto>> Get(CancellationToken token)
         {
             var query = new AdminCashOutQuery(User.GetCountryClaim());
@@ -100,7 +100,7 @@ namespace Cloudents.Admin2.Api
         /// <response code="200">The User email</response>
         /// <returns>the user email to show on the ui</returns>
         [HttpPost("suspend")]
-        [Authorize(/*Roles = Roles.Admin*/)]
+        [Authorize]
         [ProducesResponseType(200)]
 
         public async Task<SuspendUserResponse> SuspendUserAsync(SuspendUserRequest model,
@@ -157,7 +157,7 @@ namespace Cloudents.Admin2.Api
         /// <returns>the user email to show on the ui</returns>
         [HttpPost("unSuspend")]
         [ProducesResponseType(200)]
-        [Authorize(/*Roles = Roles.Admin*/)]
+        [Authorize]
         public async Task<UnSuspendUserResponse> UnSuspendUserAsync(UnSuspendUserRequest model,
             CancellationToken token)
         {
@@ -172,7 +172,7 @@ namespace Cloudents.Admin2.Api
 
         [HttpPost("country")]
         [ProducesResponseType(200)]
-        [Authorize(/*Roles = Roles.Admin*/)]
+        [Authorize]
         public async Task ChangeCountryAsync(ChangeCountryRequest model,
             CancellationToken token)
         {
@@ -186,7 +186,7 @@ namespace Cloudents.Admin2.Api
         [HttpPost("verify")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        [Authorize(/*Roles = Roles.Admin*/)]
+        [Authorize]
         public async Task<IActionResult> VerifySmsAsync(PhoneConfirmRequest model,
             CancellationToken token)
         {
@@ -211,7 +211,7 @@ namespace Cloudents.Admin2.Api
 
         }
 
-        
+
 
 
         [HttpGet("info")]
@@ -238,7 +238,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<UserQuestionsDto>> GetUserQuestionsDetails(long id, int page, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            AdminUserQuestionsQuery query = new AdminUserQuestionsQuery(id, page, country);
+            var query = new AdminUserQuestionsQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -246,7 +246,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<UserAnswersDto>> GetUserAnswersDetails(long id, int page, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            AdminUserAnswersQuery query = new AdminUserAnswersQuery(id, page, country);
+            var query = new AdminUserAnswersQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
 

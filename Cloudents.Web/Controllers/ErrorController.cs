@@ -1,7 +1,7 @@
-﻿using System;
-using System.Net;
-using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net;
 
 namespace Cloudents.Web.Controllers
 {

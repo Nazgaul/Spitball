@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Cloudents.Query.Tutor;
+﻿using Cloudents.Query.Tutor;
 using FluentAssertions;
 using System.Threading.Tasks;
 using Xunit;
@@ -40,7 +38,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         [Theory]
         [InlineData(0, "IL", 0)]
-        [InlineData(0,"IN",0)]
+        [InlineData(0, "IN", 0)]
         [InlineData(638, null, 0)]
 
         public async Task TutorListQuery_Ok(long userId, string country, int page)

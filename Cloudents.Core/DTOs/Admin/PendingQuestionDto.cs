@@ -30,7 +30,7 @@ namespace Cloudents.Core.DTOs.Admin
             Id = id;
         }
 
-        public long Id { get;  }
+        public long Id { get; }
     }
 
     //public class PendingAnswerDto

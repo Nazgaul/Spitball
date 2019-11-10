@@ -12,9 +12,9 @@ namespace Cloudents.Command.Command
             To = to.ToUniversalTime();
         }
 
-        public long UserId { get;  }
-        public long TutorId { get;  }
-        public DateTime From { get;  }
-        public DateTime To { get;  }
+        public long UserId { get; }
+        public long TutorId { get; }
+        public DateTime From { get; }
+        public DateTime To { get; }
     }
 }

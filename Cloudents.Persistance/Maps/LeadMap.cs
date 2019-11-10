@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
 {
-    public class LeadMap :ClassMap<Lead>
+    public class LeadMap : ClassMap<Lead>
     {
         public LeadMap()
         {

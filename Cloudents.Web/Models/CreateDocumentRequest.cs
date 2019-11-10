@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Web.Extensions;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Cloudents.Web.Extensions;
 
 namespace Cloudents.Web.Models
 {

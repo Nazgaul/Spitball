@@ -1,4 +1,5 @@
-﻿using Cloudents.Command;
+﻿using Autofac.Features.Indexed;
+using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Documents.ChangePrice;
 using Cloudents.Command.Documents.Delete;
@@ -7,14 +8,17 @@ using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteDocument;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
+using Cloudents.Query.Documents;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Cloudents.Web.Resources;
+using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -24,10 +28,6 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac.Features.Indexed;
-using Cloudents.Core.Enum;
-using Cloudents.Query.Documents;
-using Cloudents.Web.Services;
 using Wangkanai.Detection;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
@@ -110,20 +110,20 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(model.Name), "Invalid file name");
                 return BadRequest(ModelState);
             }
-            var command = new CreateDocumentCommand(model.BlobName, model.Name, 
-                model.Course,  userId,  model.Price, model.Description);
+            var command = new CreateDocumentCommand(model.BlobName, model.Name,
+                model.Course, userId, model.Price, model.Description);
             await _commandBus.DispatchAsync(command, token);
 
             //var url = Url.RouteUrl("ShortDocumentLink", new
             //{
             //    base62 = new Base62(command.Id).ToString()
             //});
-            return new CreateDocumentResponse( score >= Privileges.Post);
+            return new CreateDocumentResponse(score >= Privileges.Post);
         }
 
 
-              
-      
+
+
 
         [HttpPost("vote"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]

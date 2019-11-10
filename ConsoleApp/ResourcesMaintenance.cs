@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Cloudents.Core;
+using Cloudents.Core.Extension;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -9,8 +11,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
-using Cloudents.Core;
-using Cloudents.Core.Extension;
 
 namespace ConsoleApp
 {

@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.Interfaces;
+using Dapper;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Dapper;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Documents
 {
@@ -28,7 +28,7 @@ namespace Cloudents.Query.Documents
         private string Country { get; }
 
         private string Course { get; }
-        public int PageSize { get;}
+        public int PageSize { get; }
 
         internal sealed class DocumentAggregateQueryHandler : IQueryHandler<FeedAggregateQuery, IEnumerable<FeedDto>>
         {

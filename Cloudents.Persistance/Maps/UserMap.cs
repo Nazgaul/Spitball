@@ -1,6 +1,6 @@
-﻿using System.Globalization;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
+using System.Globalization;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -12,23 +12,23 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.Email)/*.Not.Nullable()*/.Unique();
             Map(e => e.Name).Not.Nullable();
             Map(e => e.EmailConfirmed);
-            
+
             //Map(e => e.NormalizedName);
             //Map(e => e.NormalizedEmail);
             Map(e => e.SecurityStamp);
             Map(e => e.Image).Length(5000).Nullable();
             Map(e => e.ImageName).Length(5000).Nullable();
             Map(e => e.AuthenticatorKey);
-           // Map(e => e.Culture);
+            // Map(e => e.Culture);
 
-           
+
 
             Map(e => e.Country).Nullable().Length(2);
 
             Map(e => e.Created).Insert().Not.Update();
             Map(e => e.Fictive).ReadOnly();
 
-          
+
             Map(e => e.OldUser).Nullable();
 
             References(x => x.University).Column("UniversityId2").ForeignKey("User_University2").Nullable();

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Google.Apis.Json;
 using Google.Apis.Util.Store;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Google
 {
@@ -35,8 +35,8 @@ namespace Cloudents.Infrastructure.Google
 
             entity.Value = serialized;
             await _googleTokenRepository.UpdateAsync(entity, CancellationToken.None);
-            
-          
+
+
             await _unitOfWork.CommitAsync(CancellationToken.None);
         }
 
@@ -53,7 +53,7 @@ namespace Cloudents.Infrastructure.Google
                 await _googleTokenRepository.DeleteAsync(entity, CancellationToken.None);
                 await _unitOfWork.CommitAsync(CancellationToken.None);
             }
-            
+
         }
 
         public async Task<T> GetAsync<T>(string key)

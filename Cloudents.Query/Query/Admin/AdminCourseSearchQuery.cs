@@ -17,7 +17,7 @@ namespace Cloudents.Query.Query.Admin
             }
 
             Page = page;
-            Country = country; 
+            Country = country;
         }
 
         private long UserId { get; }
@@ -31,7 +31,7 @@ namespace Cloudents.Query.Query.Admin
         {
             private readonly IDapperRepository _dapperRepository;
 
-            public AdminCourseSearchQueryHandler (IDapperRepository dapperRepository)
+            public AdminCourseSearchQueryHandler(IDapperRepository dapperRepository)
             {
                 _dapperRepository = dapperRepository;
             }

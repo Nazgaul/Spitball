@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.Message.Email
 {
@@ -29,7 +29,7 @@ namespace Cloudents.Core.Message.Email
         }
 
         public override string Campaign => "You got an answer";
-        public override UnsubscribeGroup UnsubscribeGroup =>UnsubscribeGroup.Update;
+        public override UnsubscribeGroup UnsubscribeGroup => UnsubscribeGroup.Update;
 
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {

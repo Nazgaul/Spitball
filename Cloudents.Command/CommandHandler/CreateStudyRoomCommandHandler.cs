@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command.Command;
+﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {

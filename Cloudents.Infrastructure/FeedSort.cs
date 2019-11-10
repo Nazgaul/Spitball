@@ -19,14 +19,14 @@ namespace Cloudents.Infrastructure
             {
                 return itemsFeed;
             }
-           
+
             var tutorlocationPageZero = new[] { 2, 12, 19 };
             var tutorlocationPage = new[] { 6, 13, 20 };
 
             var locations = new[] { tutorlocationPageZero, tutorlocationPage };
 
             var pageLocations = locations.ElementAtOrDefault(page) ?? tutorlocationPage;
-            
+
 
             foreach (var item in pageLocations)
             {

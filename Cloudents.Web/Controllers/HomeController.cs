@@ -1,23 +1,21 @@
-﻿using Cloudents.Core;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
+using Cloudents.Web.Models;
 using JetBrains.Annotations;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Web.Models;
-using Microsoft.ApplicationInsights;
-using Wangkanai.Detection;
 
 namespace Cloudents.Web.Controllers
 {
@@ -106,7 +104,7 @@ namespace Cloudents.Web.Controllers
         internal const string PaymeCallbackRouteName = "ReturnUrl";
         internal const string PaymeCallbackRouteName2 = "ReturnUrl2";
         [Route("PaymentProcessing", Name = PaymeCallbackRouteName)]
-        public async Task<IActionResult> Processing( PaymeSuccessCallback model,
+        public async Task<IActionResult> Processing(PaymeSuccessCallback model,
             [FromServices] ICommandBus commandBus,
             [FromServices] TelemetryClient logger,
             CancellationToken token)
@@ -119,7 +117,7 @@ namespace Cloudents.Web.Controllers
             else
             {
                 var values = Request.Form.ToDictionary(s => s.Key, x => x.Value.ToString());
-                values.Add("userId",model.UserId.ToString());
+                values.Add("userId", model.UserId.ToString());
                 logger.TrackTrace("Credit Card Process Failed", values);
             }
             return View("Processing", model);
@@ -127,7 +125,7 @@ namespace Cloudents.Web.Controllers
 
 
         [Route("PaymentProcessing2", Name = PaymeCallbackRouteName2)]
-        public async Task<IActionResult> BuyTokensProcessing(PaymeSuccessCallback model,[FromQuery]int points,
+        public async Task<IActionResult> BuyTokensProcessing(PaymeSuccessCallback model, [FromQuery]int points,
             [FromServices] ICommandBus commandBus,
             [FromServices] TelemetryClient logger,
             CancellationToken token)

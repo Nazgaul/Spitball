@@ -1,6 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Persistence.Maps
 {

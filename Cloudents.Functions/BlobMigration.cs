@@ -2,6 +2,7 @@
 using Cloudents.Infrastructure.Framework;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage;
 
 namespace Cloudents.Functions
 {
     public static class BlobMigration
     {
-       
+
         [FunctionName("BlobPreviewGenerator")]
         public static async Task BlobPreviewQueueRun(
             //[QueueTrigger("generate-blob-preview", Connection = "LocalStorage")] string id,
@@ -84,7 +84,7 @@ namespace Cloudents.Functions
                         {
                             f.Init(() =>
                             {
-                                originalBlob.DownloadToFile(z, FileMode.Create, accessCondition,new BlobRequestOptions()
+                                originalBlob.DownloadToFile(z, FileMode.Create, accessCondition, new BlobRequestOptions()
                                 {
                                     DisableContentMD5Validation = true
                                 });

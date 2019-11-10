@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Cloudents.Core.Message.System;
+using System;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Message.System;
 
 namespace Cloudents.Core.Message.Email
 {
@@ -11,7 +11,7 @@ namespace Cloudents.Core.Message.Email
             TransactionId = transactionId;
         }
 
-        [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")] 
+        [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
         public Guid TransactionId { get; private set; }
     }
 }

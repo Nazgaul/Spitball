@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Autofac.Features.Metadata;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Autofac.Features.Metadata;
 
 namespace Cloudents.Infrastructure.Framework
 {

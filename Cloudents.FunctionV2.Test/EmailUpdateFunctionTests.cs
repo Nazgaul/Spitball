@@ -1,14 +1,14 @@
-﻿using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using FluentAssertions;
 using Moq;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.FunctionsV2.Test
@@ -96,7 +96,7 @@ namespace Cloudents.FunctionsV2.Test
             };
 
             var json = JsonConvert.SerializeObject(user);
-            var user2 = JsonConvert.DeserializeObject< UpdateUserEmailDto>(json);
+            var user2 = JsonConvert.DeserializeObject<UpdateUserEmailDto>(json);
 
             user2.Should().BeEquivalentTo(user);
         }

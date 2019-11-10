@@ -8,7 +8,7 @@ namespace Cloudents.Command.Command.Admin
             UserId = userId;
             NewPhone = newPhone;
         }
-        public long UserId{ get; }
+        public long UserId { get; }
         public string NewPhone { get; }
     }
 }

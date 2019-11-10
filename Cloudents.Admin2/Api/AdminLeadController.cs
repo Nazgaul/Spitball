@@ -6,11 +6,11 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Admin2.Api
 {

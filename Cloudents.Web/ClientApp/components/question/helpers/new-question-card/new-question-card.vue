@@ -40,7 +40,7 @@
                             <span class="lineClamp">{{cardData.subject}}</span>
                         </div>
                     </v-layout> -->
-                    <div class="question-body-content-container mt-2 mb-1" :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`, {'question-ellipsis': $route.name === 'feed'}]">
+                    <div class="question-body-content-container mt-2 mb-1" :class="{'question-ellipsis': $route.name === 'feed'}">
                         <div class="question-text">{{cardData.text}}</div>
                     </div>
                     <div class="question-body-course-container" :class="[answers ? 'mb-3' : 'mb-0']">

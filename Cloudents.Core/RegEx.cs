@@ -10,7 +10,7 @@ namespace Cloudents.Core
             new Regex("[\x0590-\x05ff\x0600-\x06ff]", RegexOptions.Compiled);
 
 
-            
-         public static readonly Regex NumberExtractor = new Regex(@"\d+", RegexOptions.Compiled);
+
+        public static readonly Regex NumberExtractor = new Regex(@"\d+", RegexOptions.Compiled);
     }
 }

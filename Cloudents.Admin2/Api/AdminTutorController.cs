@@ -2,14 +2,14 @@
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Extension;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
@@ -20,7 +20,7 @@ namespace Cloudents.Admin2.Api
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
-       
+
 
         public AdminTutorController(ICommandBus commandBus, IQueryBus queryBus)
         {
@@ -45,7 +45,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpDelete("{id}")]
-        [Authorize(/*Roles = Roles.Admin*/)]
+        [Authorize]
         public async Task<IActionResult> DeleteTutor(long id,
                 CancellationToken token)
         {

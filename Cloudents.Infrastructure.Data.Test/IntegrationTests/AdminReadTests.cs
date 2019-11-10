@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
 using Cloudents.Query.Query.Admin;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -34,8 +34,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminConversationsQuery_Ok()
         {
-            var query1 = new AdminConversationsQuery(159039, 0, null, null, null,null);
-            var query2 = new AdminConversationsQuery(159039, 0, null, ChatRoomStatus.SessionScheduled, "" ,WaitingFor.All);
+            var query1 = new AdminConversationsQuery(159039, 0, null, null, null, null);
+            var query2 = new AdminConversationsQuery(159039, 0, null, ChatRoomStatus.SessionScheduled, "", WaitingFor.All);
 
             var task1 = _fixture.QueryBus.QueryAsync(query1, default);
             var task2 = _fixture.QueryBus.QueryAsync(query2, default);
@@ -50,7 +50,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         //TODO: check all AdminEmptyQuery handlers
-     
+
 
         //[Fact]
         //public async Task AdminLanguageQuery_Courses_Ok()
@@ -136,9 +136,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var q1 = new AdminPaymentsQuery(string.Empty);
             var q2 = new AdminUserDetailsQuery("Hadar@cloudents.com", "IL");
             var q3 = new AdminUserDetailsQuery("0523556456", "IL");
-            var t1 =  _fixture.QueryBus.QueryAsync(q1, default);
-            var t2 =  _fixture.QueryBus.QueryAsync(q2, default);
-            var t3 =  _fixture.QueryBus.QueryAsync(q3, default);
+            var t1 = _fixture.QueryBus.QueryAsync(q1, default);
+            var t2 = _fixture.QueryBus.QueryAsync(q2, default);
+            var t3 = _fixture.QueryBus.QueryAsync(q3, default);
             await Task.WhenAll(t1, t2, t3);
         }
 
@@ -242,8 +242,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new AdminCashOutQuery("IL");
             await _fixture.QueryBus.QueryAsync(query, default);
         }
-        
-         [Fact]
+
+        [Fact]
         public async Task AdminChatConversationByIdQuery_Ok()
         {
             var query = new AdminChatConversationByIdQuery("159489_160171", 0, null);

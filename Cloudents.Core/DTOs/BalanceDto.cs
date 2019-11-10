@@ -2,7 +2,7 @@
 
 namespace Cloudents.Core.DTOs
 {
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global",Justification = "Dto - json")]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Dto - json")]
     public class BalanceDto
     {
         public BalanceDto(string transaction, decimal points, decimal value, string symbol)

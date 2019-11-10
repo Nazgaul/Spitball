@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cloudents.Web.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Services;
 
 namespace Cloudents.Web.ViewComponents
 {

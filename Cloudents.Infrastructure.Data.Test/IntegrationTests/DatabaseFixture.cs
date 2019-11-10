@@ -1,10 +1,10 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Stuff;
 using Cloudents.Persistence;
 using Cloudents.Query;
+using System;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -17,7 +17,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             {
                 Db = new DbConnectionString(
                     "Server=tcp:sb-dev.database.windows.net,1433;Initial Catalog=ZboxNew_Develop;Persist Security Info=False;User ID=sb-dev;Password=Pa$$W0rd123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
-                    null,DbConnectionString.DataBaseIntegration.None)
+                    null, DbConnectionString.DataBaseIntegration.None)
 
             };
             var builder = new ContainerBuilder();
@@ -27,7 +27,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.RegisterModule<ModuleDb>();
             builder.RegisterModule<ModuleCore>();
             builder.RegisterModule<ModuleInfrastructureBase>();
-           // builder.RegisterModule<ModuleCache>();
+            // builder.RegisterModule<ModuleCache>();
 
             builder.RegisterType<DapperRepository>().AsSelf();
             Container = builder.Build();

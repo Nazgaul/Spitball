@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Tutor
 {
-    public class AboutTutorQuery: IQuery<IEnumerable<AboutTutorDto>>
+    public class AboutTutorQuery : IQuery<IEnumerable<AboutTutorDto>>
     {
         internal sealed class TutorListByCourseQueryHandler : IQueryHandler<AboutTutorQuery, IEnumerable<AboutTutorDto>>
         {

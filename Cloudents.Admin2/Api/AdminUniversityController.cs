@@ -1,20 +1,20 @@
-﻿using Cloudents.Command;
+﻿using Cloudents.Admin2.Models;
+using Cloudents.Command;
+using Cloudents.Command.Command.Admin;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 using Cloudents.Query;
+using Cloudents.Query.Query.Admin;
+using Dapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs.Admin;
 using System.Threading;
-using Cloudents.Query.Query.Admin;
-using Cloudents.Admin2.Models;
-using Cloudents.Command.Command.Admin;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Interfaces;
-using Dapper;
-using Cloudents.Core.Enum;
-using Microsoft.AspNetCore.Authorization;
-using Cloudents.Core.Extension;
+using System.Threading.Tasks;
 
 namespace Cloudents.Admin2.Api
 {
@@ -68,7 +68,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingUniversitiesDto>> GetNewUniversities([FromQuery] UniversitiesRequest model
             , CancellationToken token)
         {
-            
+
             if (string.IsNullOrEmpty(User.GetCountryClaim()) ||
                 User.GetCountryClaim().Equals(model.Country, StringComparison.CurrentCultureIgnoreCase))
             {
@@ -83,7 +83,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("allUniversities")]
-        [Authorize(/*Policy = IsraelUser*/)]
+        [Authorize]
         public async Task<IEnumerable<AllUniversitiesDto>> GetAllUniversities(CancellationToken token)
         {
             var query = new AdminAllUniversitiesQuery(User.GetCountryClaim());
@@ -100,7 +100,7 @@ namespace Cloudents.Admin2.Api
         /// <returns>list of universities</returns>
         [Route("search")]
         [HttpGet]
-        [Authorize(/*Policy = IsraelUser*/)]
+        [Authorize]
         public async Task<UniversitySearchDto> GetAsync([FromQuery(Name = "university")]string university,
             CancellationToken token)
         {
@@ -120,7 +120,7 @@ namespace Cloudents.Admin2.Api
 
         //TODO: Fix this and make it work in proper CQRS architecture 
         [HttpDelete("{id}")]
-        [Authorize(/*Roles = Roles.Admin*/)]
+        [Authorize]
         public async Task<IActionResult> ApproveCourse(Guid id,
                 CancellationToken token)
         {

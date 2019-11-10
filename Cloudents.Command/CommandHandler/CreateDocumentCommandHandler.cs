@@ -1,11 +1,11 @@
-﻿using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command.Command;
+﻿using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -32,9 +32,9 @@ namespace Cloudents.Command.CommandHandler
             var user = await _userRepository.LoadAsync(message.UserId, token);
             var course = await _courseRepository.LoadAsync(message.Course, token);
             var extension = FileTypesExtensions.FileExtensionsMapping[Path.GetExtension(message.BlobName)];
-            var document = new Document(Path.GetFileNameWithoutExtension(message.Name), 
-                course,  user,  message.Price, extension.DocumentType,message.ModelDescription);
-     
+            var document = new Document(Path.GetFileNameWithoutExtension(message.Name),
+                course, user, message.Price, extension.DocumentType, message.ModelDescription);
+
             await _documentRepository.AddAsync(document, token);
             var id = document.Id;
             await _blobProvider.MoveAsync(message.BlobName, id.ToString(), token);

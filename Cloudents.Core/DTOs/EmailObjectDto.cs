@@ -17,7 +17,7 @@ namespace Cloudents.Core.DTOs
 
         public CultureInfo CultureInfo { get; set; }
 
-        public IList<EmailBlockDto> Blocks { get;private set; }
+        public IList<EmailBlockDto> Blocks { get; private set; }
     }
 
     public class RedeemEmailDto

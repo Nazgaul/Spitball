@@ -1,12 +1,12 @@
 ﻿using Cloudents.Command.Command.Admin;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
-    public class RenameUniversityCommandHandler: ICommandHandler<RenameUniversityCommand>
+    public class RenameUniversityCommandHandler : ICommandHandler<RenameUniversityCommand>
     {
         private readonly IRepository<University> _universityRepository;
         public RenameUniversityCommandHandler(IRepository<University> universityRepository)

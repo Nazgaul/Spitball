@@ -1,13 +1,11 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.HomePage
 {

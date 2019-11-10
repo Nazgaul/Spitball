@@ -1,7 +1,7 @@
-﻿using System.Collections.Concurrent;
-using Microsoft.Azure.Search;
+﻿using Microsoft.Azure.Search;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host.Config;
+using System.Collections.Concurrent;
 
 namespace Cloudents.FunctionsV2.Binders
 {

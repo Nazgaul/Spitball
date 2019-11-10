@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
 
 namespace Cloudents.Core.Entities
 {
@@ -117,7 +116,7 @@ namespace Cloudents.Core.Entities
         public static Country Israel = new Country("IL", 1 / 25M, 1);
         public static Country India = new Country("IN", 1, 2);
 
-        
+
         //    public static Country Palestine = new Country("PS", CountryGroup.Israel);
 
         //    public static Country Afghanistan = new Country("AF", CountryGroup.Tier3);

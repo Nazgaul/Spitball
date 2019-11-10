@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.ApplicationInsights.Channel;
+﻿using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
+using System;
 using System.IO;
 
 namespace Cloudents.Web.Services
@@ -47,7 +47,7 @@ namespace Cloudents.Web.Services
             }
             catch (ObjectDisposedException)
             {
-               //Do nothing
+                //Do nothing
             }
         }
     }

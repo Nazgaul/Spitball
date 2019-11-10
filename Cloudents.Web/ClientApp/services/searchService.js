@@ -33,7 +33,6 @@ function AnswerItem(objInit) {
     this.create = objInit.create;
     this.files = objInit.files;
     this.user = objInit.user;
-    this.isRtl = objInit.isRtl;
 }
 
 function createAnswerItem(objInit) {
@@ -48,7 +47,6 @@ function QuestionItem(objInit) {
     this.course = objInit.course || '';
     this.user = objInit.user || null;    
     this.template = "result-ask";
-    this.isRtl = objInit.isRtl;
     this.userId = objInit.userId || objInit.user.id;
     this.user = objInit.user || null;    
     this.firstAnswer = objInit.firstAnswer ? createFirstAnswerItem(objInit.firstAnswer) : null;
@@ -145,7 +143,7 @@ const transferMap = {
 
 let transferResult = ({data}) => {
     let documents = data.result.map((doc) => {
-        return transferMap[doc.type || 'tutor'](doc);
+        return transferMap[doc.type](doc);
     })
 
     return {

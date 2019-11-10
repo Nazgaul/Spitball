@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Hubs
 {
@@ -25,12 +25,12 @@ namespace Cloudents.Web.Hubs
             var cookieVal = request.Query[QueryStringName].ToString();
             if (string.IsNullOrEmpty(cookieVal))
             {
-              return;
+                return;
             }
-            
+
             var roomId = Guid.Parse(cookieVal);
             var userId = long.Parse(Context.UserIdentifier);
-            
+
             var command = new ChangeStudyRoomOnlineStatusCommand(userId, true, roomId);
             await Groups.AddToGroupAsync(Context.ConnectionId, cookieVal);
             await _commandBus.DispatchAsync(command, default);

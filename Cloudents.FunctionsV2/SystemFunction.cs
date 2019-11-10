@@ -1,12 +1,12 @@
 using Autofac;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.System;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Message.System;
-using Cloudents.Core.Storage;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2

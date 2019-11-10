@@ -51,8 +51,8 @@ namespace Cloudents.Query.Admin
                     {
                         flags = query.MinFlags,
                         PageNumber = query.Page,
-                    PageSize,
-                    query.Country
+                        PageSize,
+                        query.Country
                     })
                     )
                 {

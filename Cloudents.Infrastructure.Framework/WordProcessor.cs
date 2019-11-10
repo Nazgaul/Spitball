@@ -62,7 +62,7 @@ namespace Cloudents.Infrastructure.Framework
                     Scale = 1.2F,
                     PageCount = 1,
                 };
-                
+
                 var word = _word.Value;
                 var diff = Enumerable.Range(0, word.PageCount);
                 diff = diff.Except(previewDelta);

@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
@@ -18,6 +12,12 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -57,7 +57,7 @@ namespace Cloudents.FunctionsV2
             } while (needToContinue);
         }
 
-        
+
 
         [FunctionName("EmailUpdateFunction_UserQuery")]
         public static async Task<IEnumerable<UpdateUserEmailDto>> GetUserQuery(
@@ -81,10 +81,10 @@ namespace Cloudents.FunctionsV2
             [Inject] IBinarySerializer binarySerializer,
             [Inject] IDocumentDirectoryBlobProvider blobProvider,
             [Inject] IDataProtectionService dataProtectService,
-            [Inject] IHostUriService hostUriService, 
+            [Inject] IHostUriService hostUriService,
             CancellationToken token)
         {
-          
+
             var code = dataProtectService.ProtectData(user.UserId.ToString(), DateTimeOffset.UtcNow.AddDays(3));
             var uri = hostUriService.GetHostUri();
 
@@ -126,7 +126,7 @@ namespace Cloudents.FunctionsV2
                             Name = document.Name,
                             UserName = document.UserName,
                             DocumentPreview = uriBuilder.ToString(),
-                            UserImage = BuildUserImage(document.UserId,document.UserImage,document.UserName,hostUriService)
+                            UserImage = BuildUserImage(document.UserId, document.UserImage, document.UserName, hostUriService)
                         };
                     }),
                     Questions = emailUpdates.OfType<QuestionUpdateEmailDto>().Select(question => new Question()
@@ -150,8 +150,8 @@ namespace Cloudents.FunctionsV2
             var message = new SendGridMessage
             {
                 Asm = new ASM { GroupId = UnsubscribeGroup.Update },
-                TemplateId = Equals(user.Language, Language.Hebrew.Info) 
-                    ? HebrewTemplateId : EnglishTemplateId 
+                TemplateId = Equals(user.Language, Language.Hebrew.Info)
+                    ? HebrewTemplateId : EnglishTemplateId
             };
             templateData.To = user.ToEmailAddress;
             var personalization = new Personalization
@@ -180,9 +180,9 @@ namespace Cloudents.FunctionsV2
             await emailProvider.FlushAsync(token);
         }
 
-        private static string BuildUserImage(long id, string image,string name, IHostUriService hostUriService)
+        private static string BuildUserImage(long id, string image, string name, IHostUriService hostUriService)
         {
-           
+
             var uri = hostUriService.GetHostUri();
             var uriBuilderImage = new UriBuilder(uri)
             {
@@ -220,7 +220,7 @@ namespace Cloudents.FunctionsV2
                 return;
             }
 
-            var types = new[] {OrchestrationRuntimeStatus.Running, OrchestrationRuntimeStatus.Pending};
+            var types = new[] { OrchestrationRuntimeStatus.Running, OrchestrationRuntimeStatus.Pending };
             if (types.Contains(existingInstance.RuntimeStatus))
             {
                 if (existingInstance.LastUpdatedTime < DateTime.UtcNow.AddHours(-6))
@@ -234,16 +234,16 @@ namespace Cloudents.FunctionsV2
                 }
             }
 
-           
+
             await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
         }
 
 
-       
 
 
 
-     
+
+
 
 
     }

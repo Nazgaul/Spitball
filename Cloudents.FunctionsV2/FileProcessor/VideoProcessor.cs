@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
@@ -13,6 +7,12 @@ using Cloudents.Infrastructure.Video;
 using Microsoft.Azure.WebJobs;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Xml;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2.FileProcessor
@@ -64,7 +64,7 @@ namespace Cloudents.FunctionsV2.FileProcessor
                             $"{StorageContainer.File.Name}/{StorageContainer.File.RelativePath}/{id}/preview-0.jpg"),
                         token);
 
-                    
+
                     await destinationBlob.StartCopyAsync(url);
 
                     while (destinationBlob.CopyState.Status != CopyStatus.Success)

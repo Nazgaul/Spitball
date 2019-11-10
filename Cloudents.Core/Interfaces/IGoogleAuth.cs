@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
 {

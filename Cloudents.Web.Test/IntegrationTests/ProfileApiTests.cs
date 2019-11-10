@@ -50,7 +50,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         public async Task GetAsync_OK(string url)
         {
             var response = await _client.GetAsync(url);
-            
+
             var str = await response.Content.ReadAsStringAsync();
 
             var d = JObject.Parse(str);

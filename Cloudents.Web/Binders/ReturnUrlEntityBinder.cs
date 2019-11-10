@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Cloudents.Web.Models;
+﻿using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Primitives;
+using System;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Binders
 {
@@ -19,7 +19,7 @@ namespace Cloudents.Web.Binders
     }
 
 
-    public abstract class RefererHeaderModelBinder : IModelBinder 
+    public abstract class RefererHeaderModelBinder : IModelBinder
     {
         private readonly string _key;
 

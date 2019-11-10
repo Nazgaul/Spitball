@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Autofac;
+using JetBrains.Annotations;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
-using JetBrains.Annotations;
 
 namespace Cloudents.Query
 {

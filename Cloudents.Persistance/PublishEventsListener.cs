@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using NHibernate.Event;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
-using NHibernate.Event;
 
 namespace Cloudents.Persistence
 {
@@ -26,7 +26,7 @@ namespace Cloudents.Persistence
             await PublishEvents(@event.Entity, cancellationToken);
         }
 
-       
+
 
         public void OnPostDelete(PostDeleteEvent @event)
         {
@@ -64,7 +64,7 @@ namespace Cloudents.Persistence
 
         public void OnPostUpdateCollection(PostCollectionUpdateEvent @event)
         {
-            var t =  PublishEvents(@event.AffectedOwnerOrNull, CancellationToken.None);
+            var t = PublishEvents(@event.AffectedOwnerOrNull, CancellationToken.None);
             Task.WaitAll(t);
         }
 

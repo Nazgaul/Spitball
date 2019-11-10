@@ -1,9 +1,9 @@
-﻿using System;
-using System.Globalization;
-using Cloudents.Core.Attributes;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
+using System;
+using System.Globalization;
 
 namespace Cloudents.Core.DTOs
 {
@@ -53,7 +53,7 @@ namespace Cloudents.Core.DTOs
         public bool ShouldSerializeTutor()
         {
             // don't serialize the Manager property if an employee is their own manager
-            return (Tutor?.TutorCountry != null);
+            return Tutor?.TutorCountry != null;
         }
     }
 

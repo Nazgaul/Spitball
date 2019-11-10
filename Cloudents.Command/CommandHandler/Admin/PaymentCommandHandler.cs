@@ -1,7 +1,7 @@
-﻿using System;
-using Cloudents.Command.Command.Admin;
+﻿using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,6 +13,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         private readonly IRepository<StudyRoomSession> _studyRoomSessionRepository;
         private readonly ITutorRepository _tutorRepository;
         private readonly IRegularUserRepository _userRepository;
+        
         public PaymentCommandHandler(IPayment payment,
             IRepository<StudyRoomSession> studyRoomSessionRepository, ITutorRepository tutorRepository, IRegularUserRepository userRepository)
         {
@@ -41,13 +42,14 @@ namespace Cloudents.Command.CommandHandler.Admin
                 await _payment.TransferPaymentAsync(tutor.SellerKey,
                     message.SpitballBuyerKey, message.SpitballPay, token);
             }
-
+           
             session.SetReceipt(receipt);
+            user.UseCoupon(tutor);
             await _studyRoomSessionRepository.UpdateAsync(session, token);
         }
     }
 
-    public class DeclinePaymentCommandHandler: ICommandHandler<DeclinePaymentCommand>
+    public class DeclinePaymentCommandHandler : ICommandHandler<DeclinePaymentCommand>
     {
         private readonly IRepository<StudyRoomSession> _studyRoomSessionRepository;
 

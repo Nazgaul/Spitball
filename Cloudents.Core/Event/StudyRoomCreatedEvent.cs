@@ -10,7 +10,7 @@ namespace Cloudents.Core.Event
             StudyRoom = studyRoom;
         }
 
-        public StudyRoom StudyRoom { get;  }
+        public StudyRoom StudyRoom { get; }
 
     }
 }

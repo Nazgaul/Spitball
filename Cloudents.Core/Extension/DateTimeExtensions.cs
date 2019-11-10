@@ -9,7 +9,7 @@ namespace Cloudents.Core.Extension
     {
         public static IEnumerable<DateTime> EachHour(DateTime from, DateTime to)
         {
-            for (var day = from;  day < to; day = day.AddHours(1))
+            for (var day = from; day < to; day = day.AddHours(1))
             {
                 yield return day;
             }
@@ -25,7 +25,7 @@ namespace Cloudents.Core.Extension
     {
         public static CultureInfo ChangeCultureBaseOnCountry(this CultureInfo cultureInfo, string country)
         {
-           
+
             if (country == null)
             {
                 Debug.Assert(country == null, "this should not happen");

@@ -1,10 +1,10 @@
-﻿using NHibernate.Transform;
+﻿using Cloudents.Core.Extension;
+using NHibernate.Transform;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Query.Stuff
 {
@@ -16,13 +16,13 @@ namespace Cloudents.Query.Stuff
         public SbAliasToBeanResultTransformer()
         {
             _resultClass = typeof(T);
-            
+
         }
 
         public object TransformTuple(object[] tuple, string[] aliases)
         {
             var retVal = Activator.CreateInstance(_resultClass);
-           
+
             for (int i = 0; i < aliases.Length; i++)
             {
                 SetValues(aliases[i], tuple[i], retVal);
@@ -37,7 +37,7 @@ namespace Cloudents.Query.Stuff
         }
 
 
-        private  void SetValues(string alias, object value, object x)
+        private void SetValues(string alias, object value, object x)
         {
             //if (!dic.TryGetValue(propertyInfo.Name, out var value)) return;
 
@@ -78,7 +78,7 @@ namespace Cloudents.Query.Stuff
         private static bool HandleTicksTimeSpan(object value, object x, PropertyInfo propertyInfo)
         {
             var type = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
-            if (type == typeof(TimeSpan)&& value is long l  )
+            if (type == typeof(TimeSpan) && value is long l)
             {
                 propertyInfo.SetValue(x, new TimeSpan(l));
                 return true;
@@ -112,7 +112,7 @@ namespace Cloudents.Query.Stuff
     {
         private readonly char _complexChar;
         private readonly IResultTransformer _baseTransformer;
-        public DeepTransformer(char complexChar = '.') :this(complexChar, Transformers.AliasToBean<TEntity>())
+        public DeepTransformer(char complexChar = '.') : this(complexChar, Transformers.AliasToBean<TEntity>())
         {
 
         }
@@ -240,7 +240,7 @@ namespace Cloudents.Query.Stuff
 
         public override int GetHashCode()
         {
-            return _complexChar.GetHashCode()*23 ^ _baseTransformer.GetHashCode()*73;
+            return _complexChar.GetHashCode() * 23 ^ _baseTransformer.GetHashCode() * 73;
         }
     }
 }

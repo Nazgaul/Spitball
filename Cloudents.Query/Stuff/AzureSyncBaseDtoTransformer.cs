@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Cloudents.Core.DTOs.SearchSync;
+using NHibernate.Transform;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using Cloudents.Core.DTOs.SearchSync;
-using NHibernate.Transform;
 
 namespace Cloudents.Query.Stuff
 {

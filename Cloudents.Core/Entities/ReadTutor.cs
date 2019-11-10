@@ -23,14 +23,14 @@ namespace Cloudents.Core.Entities
             Lessons = lessons;
             Country = country;
             //case 115
-            OverAllRating = (rate.GetValueOrDefault() * RateCount + 48 + Lessons * rate.GetValueOrDefault()) 
+            OverAllRating = (rate.GetValueOrDefault() * RateCount + 48 + Lessons * rate.GetValueOrDefault())
                             / (RateCount + 12 + Lessons);
             SubsidizedPrice = subsidizedPrice;
         }
 
         protected ReadTutor()
         {
-            
+
         }
 
 
@@ -48,8 +48,8 @@ namespace Cloudents.Core.Entities
         public virtual int Lessons { get; protected set; }
         public virtual double OverAllRating { get; protected set; }
 
-        public virtual string  Country { get; protected set; }
-        public virtual decimal? SubsidizedPrice{ get; protected set; }
-        
+        public virtual string Country { get; protected set; }
+        public virtual decimal? SubsidizedPrice { get; protected set; }
+
     }
 }

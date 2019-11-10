@@ -19,8 +19,8 @@
                 <td>{{ props.item.duration }}</td>
                
                 <td>{{ props.item.price }}</td>
-                <td>{{ props.item.totalPrice }}</td>
-                 <td>{{ props.item.subsidizing }}</td>
+                <td>{{ props.item.totalPrice.toFixed(2) }}</td>
+                 <!-- <td>{{ props.item.subsidizing }}</td> -->
                 <td >
                     <span  @click="editItem(props.item)">
                         <v-icon small
@@ -37,53 +37,47 @@
         </v-data-table>
 
 
-        <v-dialog v-model="dialog" max-width="800px">
+        <v-dialog v-model="dialog" max-width="800px" v-if="sessionPayment" persistent>
             <v-card>
+                {{sessionPayment}}
                 <v-card-text>
                     <v-container grid-list-md>
-                        <v-alert v-model="editedItem.tutorPayme" type="error" class="mb-4"> This payment can't be processed because seller is not on payme</v-alert>
+                        <v-alert v-model="sessionPayment.cantPay" type="error" class="mb-4"> This payment can't be processed because seller is not on payme</v-alert>
                         <v-layout wrap>
-                             <v-flex xs12>
-                                 User Name:  <b>{{editedItem.userName}}</b>
-                            </v-flex>
-                           
-                            <v-flex xs12>
-                                Tutor Name:  <b>{{editedItem.tutorName}}</b>
-                            </v-flex>
-                            <v-flex xs12 v-if="editedItem.tutorPayme">
-                                Tutor Id:  <b>{{editedItem.tutorId}}</b>
+                            <v-flex xs6>
+                                <v-flex>User Name:  <b>{{sessionPayment.userName}}</b></v-flex>
+                                <v-flex>Tutor Name:  <b>{{sessionPayment.tutorName}}</b></v-flex>
+                                <v-flex v-if="sessionPayment.cantPay">Tutor Id:  <b>{{sessionPayment.tutorId}}</b></v-flex>
                             </v-flex>
 
-                               <v-flex xs12>
-                               
-                                 <v-text-field label=" Tutor Price per hour:" v-model="editedItem.tutorPrice"></v-text-field>
-                                  
+                            <v-flex xs6 class="mb-4">
+                                <v-flex>Coupon Code: {{sessionPayment.couponCode}}</v-flex>
+                                <v-flex>Coupon Type: {{sessionPayment.couponType}}</v-flex>
+                                <v-flex>Coupon Value: {{sessionPayment.couponValue}}</v-flex>
                             </v-flex>
-                            <br>
-                            <br>
-                             <br>
-                              <br>
+
+                            <v-flex xs12 sm4>
+                               <v-text-field label="Tutor Price per hour" v-model="sessionPayment.tutorPricePerHour"></v-text-field>   
+                            </v-flex>
+                            <v-flex xs12 sm4>
+                               <v-text-field label="Student Coupon" v-model="sessionPayment.studentPayPerHour"></v-text-field>   
+                            </v-flex>
+                            <v-flex xs12 sm4>
+                               <v-text-field label="Spitball Coupon" v-model="sessionPayment.spitballPayPerHour"></v-text-field>   
+                            </v-flex>
                             
-                            
-                           <v-flex xs3>
-                               <v-text-field label="Duration in minutes" v-model="editedItem.duration"></v-text-field>
-                           </v-flex>
-                           <v-flex xs3>
-                               <v-text-field readonly="" label="Session Total Price" v-model="editedItem.price"></v-text-field>
-                           </v-flex>
-                           <v-flex xs3>
-                               <v-text-field label="Student Pay" v-model="editedItem.subsidizing"></v-text-field>
-                           </v-flex>
-                           <v-flex xs3>
-                               <v-text-field readonly="" label="Spitball Pay" v-model="spitballPay"></v-text-field>
-                           </v-flex>
-                           <!-- <v-flex xs4>
-                               <v-text-field readonly="" label="Session Price After discount" v-model="editedItem.subsidizing"></v-text-field>
-                           </v-flex> -->
-                           
-                          
-                            
-                            
+                            <v-flex xs12 sm3>
+                                <v-text-field label="Duration in minutes" v-model="sessionPayment.duration"></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm3>
+                                <v-text-field label="Student Pay" v-model="studentPayPerHour"></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm3>
+                                <v-text-field label="Spitball Pay" v-model="spitballPayPerHour"></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm3>
+                                <v-text-field readonly="" label="Session Total Price" v-model="totalPrice"></v-text-field>
+                            </v-flex>
                         </v-layout>
                     </v-container>
                 </v-card-text>
@@ -104,153 +98,156 @@
 </template>
 
 <script>
-    import { getPaymentRequests, approvePayment,subsidizingPrice,declinePayment } from './PaymentUserService'
+import { getPaymentRequests, getUserSessionPayment, approvePayment , subsidizingPrice, declinePayment } from './PaymentUserService';
 
-    export default {
-       
-        computed: {
-    durationX() {
-      return this.editedItem.duration;
-    },
-    tutorPriceX() {
-        return this.editedItem.tutorPrice;
-    },
-    spitballPay() {
-        return (this.editedItem.price-this.editedItem.subsidizing).toFixed(2)
-    }
-  },
-  watch: {
-    durationX() {
-    this.editedItem.price = (this.editedItem.tutorPrice*this.editedItem.duration/60).toFixed(2);
-    this.editedItem.subsidizing = (subsidizingPrice(this.editedItem.tutorPrice)*this.editedItem.duration/60).toFixed(2);
-      
-    },
-    tutorPriceX() {
-         this.editedItem.price = (this.editedItem.tutorPrice*this.editedItem.duration/60).toFixed(2);
-    this.editedItem.subsidizing = (subsidizingPrice(this.editedItem.tutorPrice)*this.editedItem.duration/60).toFixed(2);
-    }
-  },
-        data() {
-            return {
-                editedIndex: -1,
-                defaultRows: { rowsPerPage: 25 },
-                dialog: false,
-                showLoading: true,
-                showNoResult: false,
-                paymentRequestsList: [],
-                editedItem: { },
-                headers: [{ text: 'Tutor Id', value: 'tutorId' },
-                    { text: 'Tutor Name', value: 'tutorName' },
-                    { text: 'User Id', value: 'userId' },
-                    { text: 'User Name', value: 'userName' },
-                    { text: 'Date', value: 'created' },
-                    { text: 'Duration (min)', value: 'duration' },
-                    { text: 'Tutor Price', value: 'price' },
-                    { text: 'Lessons Price', value: 'totalPrice' },
-                    { text: 'Price After Subsidizing', value: 'subsidizing' },
-
-                    { text: 'Approve', value: '' }
-                ]
-            }
+export default {
+    computed: {
+        durationX() {
+            return this.editedItem.duration;
         },
-        methods: {
-            customSort(items, index, isDesc) {
-                items.sort((a, b) => {
-                    if (index === "created") {
-                        if (!isDesc) {
-                            a = new Date(a.created);
-                            b = new Date(b.created);
-                            return a>b ? -1 : a<b ? 1 : 0;
-                        } else {
-                            a = new Date(a.created);
-                            b = new Date(b.created);
-                            return a>b ? 1 : a<b ? -1 : 0;
-                        }
-                    } else {
+        tutorPriceX() {
+            return this.editedItem.tutorPrice;
+        },
+        studentPayPerHour(){
+            let session = this.sessionPayment;
+            if(session.studentPayPerHour) {
+                return ((session.studentPayPerHour * session.duration) / 60).toFixed(2);
+            }
+            return 0;
+        },
+        spitballPayPerHour(){
+            let session = this.sessionPayment;
+            if(session.spitballPayPerHour) {
+                return ((session.spitballPayPerHour * session.duration) / 60).toFixed(2);
+            }
+            return 0;
+        },
+        totalPrice() {
+            let session = this.sessionPayment;
+            return Number(this.spitballPayPerHour) + Number(this.studentPayPerHour);
+        }
+    },
+    watch: {
+        durationX() {
+            this.editedItem.price = (this.editedItem.tutorPrice*this.editedItem.duration/60).toFixed(2);
+            this.editedItem.subsidizing = (subsidizingPrice(this.editedItem.tutorPrice)*this.editedItem.duration/60).toFixed(2);
+        },
+        tutorPriceX() {
+            this.editedItem.price = (this.editedItem.tutorPrice*this.editedItem.duration/60).toFixed(2);
+            this.editedItem.subsidizing = (subsidizingPrice(this.editedItem.tutorPrice)*this.editedItem.duration/60).toFixed(2);
+        }
+    },
+    data() {
+        return {
+            sessionPayment: null,
+            editedIndex: -1,
+            defaultRows: { rowsPerPage: 25 },
+            dialog: false,
+            showLoading: true,
+            showNoResult: false,
+            paymentRequestsList: [],
+            editedItem: { },
+            headers: [
+                { text: 'Tutor Id', value: 'tutorId' },
+                { text: 'Tutor Name', value: 'tutorName' },
+                { text: 'User Id', value: 'userId' },
+                { text: 'User Name', value: 'userName' },
+                { text: 'Date', value: 'created' },
+                { text: 'Duration (min)', value: 'duration' },
+                { text: 'Tutor Price', value: 'price' },
+                { text: 'Lessons Price', value: 'totalPrice' },
+                // { text: 'Price After Subsidizing', value: 'subsidizing' },
+                { text: 'Approve', value: '' }
+            ]
+        }
+    },
+    methods: {
+        customSort(items, index, isDesc) {
+            items.sort((a, b) => {
+                if (index === "created") {
                     if (!isDesc) {
-                        return a[index] < b[index] ? -1 : 1;
+                        a = new Date(a.created);
+                        b = new Date(b.created);
+                        return a>b ? -1 : a<b ? 1 : 0;
                     } else {
-                        return b[index] < a[index] ? -1 : 1;
+                        a = new Date(a.created);
+                        b = new Date(b.created);
+                        return a>b ? 1 : a<b ? -1 : 0;
                     }
-                    }
-            });
-            return items;
-            },
-            editItem(item) {
-                this.editedIndex = this.paymentRequestsList.indexOf(item);
-                console.log(item);
-                this.dialog = true;
-                this.editedItem = {
-                    "studyRoomSessionId": item.studyRoomSessionId,
-                    "userName": item.userName,
-                    "tutorName": item.tutorName,
-                    tutorId: item.tutorId,
-                    tutorPayme: item.tutorPayme,
-                    tutorPrice: item.price,
-                    duration: item.duration,
-                    subsidizing : item.subsidizing,
-                    userId: item.userId,
-                   totalPrice: item.totalPrice
-                };
-            },
-            approve() {
-                var itemToSubmit = this.editedItem;
-                const index = this.editedIndex;
-                const item = this.paymentRequestsList[index];
-                approvePayment(itemToSubmit, this.spitballPay).then((resp) => {
-
-                    this.$toaster.success(`User ${item.userName} pay to Tutor ${item.tutorName}`);
-                    this.paymentRequestsList.splice(index, 1);
-                    this.dialog = false;
-                    this.editedItem = {};
-                    this.editedIndex = -1;
-                },
-                    (error) => {
-                        debugger;
-                        this.$toaster.error(`Error can't approve the payment ${error.response.data}`);
-                    }
-                )
-            },
-            decline() {
-                 var itemToSubmit = this.editedItem;
-                const index = this.editedIndex;
-                const item = this.paymentRequestsList[index];
-                var result = confirm("Are you sure?");
-                if (result) {
-                    declinePayment(itemToSubmit).then((resp) => {
-
-                    this.$toaster.success(`Payment removed`);
-                    this.paymentRequestsList.splice(index, 1);
-                    this.dialog = false;
-                    this.editedItem = {};
-                    this.editedIndex = -1;
-                },
-                    (error) => {
-                        this.$toaster.error(`Error can't approve the payment`);
-                    }
-                )
-                 
+                } else {
+                if (!isDesc) {
+                    return a[index] < b[index] ? -1 : 1;
+                } else {
+                    return b[index] < a[index] ? -1 : 1;
                 }
-            },
-            close() {
+                }
+        });
+        return items;
+        },
+        editItem(item) {
+            this.dialog = true;
+            let id = item.studyRoomSessionId;
+            getUserSessionPayment(id).then(session => {
+                this.sessionPayment = session;
+            })
+        },
+        approve() {
+            var itemToSubmit = this.editedItem;
+            const index = this.editedIndex;
+            const item = this.paymentRequestsList[index];
+            approvePayment(itemToSubmit, this.spitballPay).then((resp) => {
+
+                this.$toaster.success(`User ${item.userName} pay to Tutor ${item.tutorName}`);
+                this.paymentRequestsList.splice(index, 1);
                 this.dialog = false;
                 this.editedItem = {};
                 this.editedIndex = -1;
+            },
+                (error) => {
+                    this.$toaster.error(`Error can't approve the payment ${error.response.data}`);
+                }
+            )
+        },
+        decline() {
+                var itemToSubmit = this.editedItem;
+            const index = this.editedIndex;
+            const item = this.paymentRequestsList[index];
+            var result = confirm("Are you sure?");
+            if (result) {
+                declinePayment(itemToSubmit).then((resp) => {
+
+                this.$toaster.success(`Payment removed`);
+                this.paymentRequestsList.splice(index, 1);
+                this.dialog = false;
+                this.editedItem = {};
+                this.editedIndex = -1;
+            },
+                (error) => {
+                    this.$toaster.error(`Error can't approve the payment`);
+                }
+            )
+                
             }
         },
-        created() {
-            getPaymentRequests().then((list) => {
-                if (list.length === 0) {
-                    this.showNoResult = true;
-                } else {
-                    this.paymentRequestsList = list;
-                }
-                this.showLoading = false;
-            }, (err) => {
-                console.log(err)
-            })
+        close() {
+            this.dialog = false;
+            this.editedItem = {};
+            this.editedIndex = -1;
         }
+    },
+    created() {
+        getPaymentRequests().then((list) => {
+            if (list.length === 0) {
+                this.showNoResult = true;
+            } else {
+                this.paymentRequestsList = list;
+            }
+            this.showLoading = false;
+        }, (err) => {
+            console.log(err)
+        })
     }
+}
 </script>
 
 

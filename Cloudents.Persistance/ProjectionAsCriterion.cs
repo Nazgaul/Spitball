@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NHibernate;
+﻿using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Engine;
 using NHibernate.SqlCommand;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cloudents.Persistence
 {

@@ -37,7 +37,7 @@ namespace Cloudents.Infrastructure.Test
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync(itemsFeed);
 
             var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object);
-            
+
             var res = (await feedService.GetFeedAsync(new Core.Query.Feed.GetFeedQuery(162107, 0, null, "IL", null), default)).ToList();
 
             res[2].GetType().Should().Be(typeof(TutorCardDto));
@@ -59,7 +59,7 @@ namespace Cloudents.Infrastructure.Test
         [Fact]
         public async Task GetFeedAsync_Second_Page_Ok()
         {
-          
+
             IList<FeedDto> itemsFeed = Enumerable.Range(0, 18).Select(s => new DocumentFeedDto()).ToList<FeedDto>();
             IList<TutorCardDto> tutorsFeed = Enumerable.Range(0, 3).Select(s => new TutorCardDto()).ToList();
 
@@ -133,7 +133,7 @@ namespace Cloudents.Infrastructure.Test
         [Fact]
         public async Task GetFeedAsync_First_Page_1_Tutor_Ok()
         {
-          
+
             IList<FeedDto> itemsFeed = Enumerable.Range(0, 18).Select(s => new DocumentFeedDto()).ToList<FeedDto>();
             IList<TutorCardDto> tutorsFeed = Enumerable.Range(0, 1).Select(s => new TutorCardDto()).ToList();
 

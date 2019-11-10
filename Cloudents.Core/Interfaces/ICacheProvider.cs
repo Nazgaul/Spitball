@@ -19,6 +19,6 @@
         bool Exists(string key, string region);
 
         void DeleteRegion(string region);
-        void DeleteKey(string region,string key);
+        void DeleteKey(string region, string key);
     }
 }

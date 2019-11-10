@@ -94,13 +94,13 @@ namespace Cloudents.Web.Test.IntegrationTests
             response.EnsureSuccessStatusCode();
         }
 
-        [Fact(Skip ="Can not run this test more than once, need to delete phone from database first")]
+        [Fact(Skip = "Can not run this test more than once, need to delete phone from database first")]
         public async Task Post_Send_Sms_Code()
         {
             /*_uri.Path = "api/register";
 
             var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(user));*/
-            
+
             _uri.Path = "api/sms";
 
             var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_phone));

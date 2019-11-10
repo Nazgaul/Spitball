@@ -1,10 +1,23 @@
 ﻿using Autofac;
 using Cloudents.Core;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Framework;
+using Cloudents.Infrastructure.Storage;
+using Cloudents.Infrastructure.Video;
+using Cloudents.Persistence;
+using Cloudents.Query;
+using Cloudents.Query.Tutor;
 using Cloudents.Search.Tutor;
+using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Queue;
+using NHibernate;
+using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,21 +30,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Courses;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
 using Cloudents.Core.Query.Feed;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using Cloudents.Core.Storage;
-using Cloudents.Infrastructure.Storage;
-using Cloudents.Infrastructure.Video;
-using Cloudents.Persistence;
-using NHibernate;
-using NHibernate.Linq;
-using Cloudents.Query;
-using Cloudents.Query.Tutor;
-using Dapper;
-using Microsoft.WindowsAzure.Storage.Queue;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 

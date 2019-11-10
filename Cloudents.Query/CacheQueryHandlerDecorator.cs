@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Cloudents.Core.Attributes;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using System;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query
 {
-    public class CacheQueryHandlerDecorator<TQuery, TQueryResult> : 
+    public class CacheQueryHandlerDecorator<TQuery, TQueryResult> :
         IQueryHandler<TQuery, TQueryResult> where TQuery : IQuery<TQueryResult>
     {
         private readonly IQueryHandler<TQuery, TQueryResult> _decoratee;
@@ -23,7 +23,7 @@ namespace Cloudents.Query
         public CacheQueryHandlerDecorator(IQueryHandler<TQuery, TQueryResult> decoratee)
         {
             _decoratee = decoratee;
-           // _cacheProvider = cacheProvider;
+            // _cacheProvider = cacheProvider;
         }
 
         public async Task<TQueryResult> GetAsync(TQuery query, CancellationToken token)
@@ -39,7 +39,7 @@ namespace Cloudents.Query
                 return await _decoratee.GetAsync(query, token);
             }
 
-            var cacheKey = $"{query.GetType().Name}_{query.AsDictionary(BindingFlags.DeclaredOnly | BindingFlags.Public |BindingFlags.NonPublic | BindingFlags.Instance).ToContentString()}";
+            var cacheKey = $"{query.GetType().Name}_{query.AsDictionary(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).ToContentString()}";
             //var cacheKey = CacheResultInterceptor.GetCacheKey(_decoratee.GetType(), "GetAsync", new object[] { query });
 
             var result = _cacheProvider.Value.Get<TQueryResult>(cacheKey, attr.Region);
@@ -52,7 +52,7 @@ namespace Cloudents.Query
 
             result = await _decoratee.GetAsync(query, token);
 
-            _cacheProvider.Value.Set(cacheKey,attr.Region,result,attr.Duration,attr.Slide);
+            _cacheProvider.Value.Set(cacheKey, attr.Region, result, attr.Duration, attr.Slide);
             return result;
 
 

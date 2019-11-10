@@ -23,7 +23,7 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(StudyRoomSessionParticipantDisconnectedCommand message, CancellationToken token)
         {
             var studyRoom = await _studyRoomRepository.LoadAsync(message.RoomId, token);
-           
+
             var studyRoomSession = studyRoom.GetCurrentSession();
             if (studyRoomSession == null)
             {
@@ -38,7 +38,7 @@ namespace Cloudents.Command.CommandHandler
                 var sessionDisconnect = new SessionParticipantDisconnect(studyRoomSession);
                 await _sessionDisconnectRepository.AddAsync(sessionDisconnect, token);
             }
-           
+
         }
     }
 }

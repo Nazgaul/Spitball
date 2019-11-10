@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.Azure.Search;
+﻿using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Microsoft.Azure.WebJobs;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;

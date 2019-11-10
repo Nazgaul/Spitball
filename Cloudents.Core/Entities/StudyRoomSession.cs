@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Cloudents.Core.Event;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {

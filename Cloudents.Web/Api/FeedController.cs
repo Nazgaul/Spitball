@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
@@ -17,6 +12,11 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -60,21 +60,21 @@ namespace Cloudents.Web.Api
                 filter = request.Filter
             });
         }
-       
-        
+
+
 
         private WebResponseWithFacet<FeedDto> GenerateResult(
             IEnumerable<FeedDto> result, object nextPageParams)
         {
             var filters = new List<IFilters>();
-            
-                var filter = new Filters<string>(nameof(DocumentRequestAggregate.Filter),
-                    _localizer["TypeFilterTitle"],
-                    EnumExtension.GetValues<FeedType>().Select(s =>
-                        new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())));
-                filters.Add(filter);
 
-              
+            var filter = new Filters<string>(nameof(DocumentRequestAggregate.Filter),
+                _localizer["TypeFilterTitle"],
+                EnumExtension.GetValues<FeedType>().Select(s =>
+                    new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())));
+            filters.Add(filter);
+
+
 
             return new WebResponseWithFacet<FeedDto>
             {
@@ -88,7 +88,7 @@ namespace Cloudents.Web.Api
                     }
                     //TODO add question
 
-                    
+
                     return s;
                 }),
                 Filters = filters,
@@ -103,7 +103,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-           
+
             var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, request.Page, request.Filter, profile.Country, request.Course), token);
 
             return GenerateResult(result, new { page = ++request.Page, request.Course, request.Filter });
@@ -119,7 +119,7 @@ namespace Cloudents.Web.Api
         {
             var resultTask = _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, request.Course), token);
             await Task.WhenAll(resultTask);
-            
+
             return GenerateResult(resultTask.Result, new
             {
                 page = ++request.Page,

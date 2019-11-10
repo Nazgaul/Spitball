@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Persistence.Maps;
 using FluentNHibernate.Cfg;
@@ -10,6 +7,9 @@ using NHibernate.Cfg;
 using NHibernate.Event;
 using NHibernate.Mapping;
 using NHibernate.Tool.hbm2ddl;
+using System;
+using System.Linq;
+using System.Reflection;
 using ForeignKey = FluentNHibernate.Conventions.Helpers.ForeignKey;
 
 namespace Cloudents.Persistence
@@ -19,7 +19,7 @@ namespace Cloudents.Persistence
         private readonly PublishEventsListener _publisher;
         private readonly ISessionFactory _factory;
 
-        public UnitOfWorkFactorySpitball(PublishEventsListener publisher, 
+        public UnitOfWorkFactorySpitball(PublishEventsListener publisher,
             IInterceptor interceptor,
             IConfigurationKeys connectionString)
         {

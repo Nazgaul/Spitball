@@ -4,7 +4,7 @@ using FluentNHibernate.Mapping;
 
 namespace Cloudents.Persistence.Maps
 {
-    public class ViewConversationMap :ClassMap<ViewConversation>
+    public class ViewConversationMap : ClassMap<ViewConversation>
     {
         public ViewConversationMap()
         {

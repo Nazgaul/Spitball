@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Message.Email
 {

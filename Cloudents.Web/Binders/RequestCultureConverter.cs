@@ -1,12 +1,12 @@
-﻿using System;
-using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Localization;
 using Newtonsoft.Json;
+using System;
 
 namespace Cloudents.Web.Binders
 {
-    public class RequestCultureConverter: JsonConverter<RequestCulture>
+    public class RequestCultureConverter : JsonConverter<RequestCulture>
     {
-       
+
         public override void WriteJson(JsonWriter writer, RequestCulture value, JsonSerializer serializer)
         {
             throw new NotImplementedException();

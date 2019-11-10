@@ -15,8 +15,8 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        public  string PaymentKey { get; set; }
-        public  DateTime PaymentKeyExpiration { get; set; }
+        public string PaymentKey { get; set; }
+        public DateTime PaymentKeyExpiration { get; set; }
 
         public string CreditCardMask { get; set; }
 

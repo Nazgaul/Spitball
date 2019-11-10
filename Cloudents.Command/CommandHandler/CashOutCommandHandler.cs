@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Cloudents.Command.Command;
+using Cloudents.Core.Interfaces;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command.Command;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -31,7 +31,7 @@ namespace Cloudents.Command.CommandHandler
             var user = await _userRepository.LoadAsync(message.UserId, token);
             user.CashOutMoney(/*message.Amount*/);
             await _userRepository.UpdateAsync(user, token);
-            
+
         }
     }
 }

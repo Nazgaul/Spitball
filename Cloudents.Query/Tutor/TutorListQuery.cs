@@ -1,12 +1,12 @@
 ﻿using Cloudents.Core.DTOs;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Tutor
 {

@@ -2,11 +2,11 @@
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Query;
+using Cloudents.Query.Documents;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Query.Documents;
 
 namespace Cloudents.Infrastructure.Search.Document
 {

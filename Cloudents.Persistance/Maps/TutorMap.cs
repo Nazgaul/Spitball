@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Persistence.Maps
 {

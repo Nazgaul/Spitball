@@ -17,12 +17,12 @@ namespace Cloudents.Core.Entities
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Nhibernate proxy")]
         protected BaseUser()
         {
-            
-           
-         
+
+
+
         }
 
-       
+
 
         public virtual string Name { get; set; }
         //public virtual string NormalizedEmail { get; set; }
@@ -33,7 +33,7 @@ namespace Cloudents.Core.Entities
         public virtual string ImageName { get; protected set; }
 
         //TODO: should fictive user need to have university
-        public virtual University University { get; protected  set; }
+        public virtual University University { get; protected set; }
 
 
         public virtual bool TwoFactorEnabled { get; set; }
@@ -59,14 +59,14 @@ namespace Cloudents.Core.Entities
         //}
 
 
-      
+
 
         // ReSharper disable once CollectionNeverUpdated.Local Nhibernate
         private readonly IList<Question> _questions = new List<Question>();
         public virtual IReadOnlyList<Question> Questions => _questions.ToList();
 
 
-      
+
 
 
         public virtual DateTime Created { get; protected set; }
@@ -85,7 +85,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual CultureInfo Language { get;protected set; }
+        public virtual CultureInfo Language { get; protected set; }
 
         public virtual void ChangeLanguage(Language lang)
         {

@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs.SearchSync;
+﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.Query;
 using Cloudents.Query.Query.Sync;
 using Cloudents.Search.Document;
 using Microsoft.Azure.WebJobs;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.FunctionsV2.Sync
 {
     public class DocumentDbToSearchSync : IDbToSearchSync
     {
-       // private readonly ISearchServiceWrite<Document> _questionServiceWrite;
+        // private readonly ISearchServiceWrite<Document> _questionServiceWrite;
         private readonly IQueryBus _bus;
 
-        public DocumentDbToSearchSync( IQueryBus bus)
+        public DocumentDbToSearchSync(IQueryBus bus)
         {
             _bus = bus;
         }
@@ -26,7 +26,7 @@ namespace Cloudents.FunctionsV2.Sync
         //    return _questionServiceWrite.CreateOrUpdateAsync(token);
         //}
 
-        public async Task<SyncResponse> DoSyncAsync(SyncAzureQuery query,IBinder binder, CancellationToken token)
+        public async Task<SyncResponse> DoSyncAsync(SyncAzureQuery query, IBinder binder, CancellationToken token)
         {
             var (update, delete, version) =
                 await _bus.QueryAsync<(IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>(query, token);

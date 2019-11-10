@@ -1,6 +1,6 @@
-﻿using System;
-using Cloudents.Core.Attributes;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
+using System;
 using System.Globalization;
 
 namespace Cloudents.Core.DTOs

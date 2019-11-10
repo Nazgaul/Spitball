@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.Courses
 {
@@ -21,7 +21,7 @@ namespace Cloudents.Command.Courses
             var course = new Course(message.Name);
             await _courseRepository.AddAsync(course, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            user.AssignCourses(new []{course});
+            user.AssignCourses(new[] { course });
         }
     }
 }

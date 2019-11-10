@@ -2,12 +2,16 @@
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Query;
+using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,10 +22,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
-using Cloudents.Web.Controllers;
-using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -66,7 +66,7 @@ namespace Cloudents.Web.Api
             return retVal;
         }
 
-        
+
 
 
         [HttpPost("redeem")]
@@ -94,7 +94,7 @@ namespace Cloudents.Web.Api
         #region PayMe
 
         [HttpPost("BuyTokens")]
-        public async Task<SaleResponse> BuyTokensAsync(BuyPointsRequest model,CancellationToken token)
+        public async Task<SaleResponse> BuyTokensAsync(BuyPointsRequest model, CancellationToken token)
         {
 
             var user = await _userManager.GetUserAsync(User);
@@ -104,7 +104,7 @@ namespace Cloudents.Web.Api
                 points = model.Points
             }, "https");
 
-            var result = await _payment.Value.BuyTokens(PointBundle.Parse(model.Points), urlReturn,token);
+            var result = await _payment.Value.BuyTokens(PointBundle.Parse(model.Points), urlReturn, token);
             var saleUrl = new UriBuilder(result.SaleUrl);
             saleUrl.AddQuery(new NameValueCollection()
             {
@@ -205,8 +205,8 @@ namespace Cloudents.Web.Api
             }
         }
 
-      
-       
+
+
 
         #endregion
     }

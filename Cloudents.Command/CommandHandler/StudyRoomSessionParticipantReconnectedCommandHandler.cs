@@ -11,7 +11,7 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IRepository<SessionParticipantDisconnect> _sessionDisconnectRepository;
         private readonly IRepository<StudyRoom> _studyRoomRepository;
-        public StudyRoomSessionParticipantReconnectedCommandHandler(IRepository<SessionParticipantDisconnect> sessionDisconnectRepository, 
+        public StudyRoomSessionParticipantReconnectedCommandHandler(IRepository<SessionParticipantDisconnect> sessionDisconnectRepository,
             IRepository<StudyRoom> studyRoomRepository)
         {
             _sessionDisconnectRepository = sessionDisconnectRepository;

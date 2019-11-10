@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Web.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NHibernate;
 using NHibernate.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cloudents.Web.Services
 {
@@ -30,7 +30,7 @@ namespace Cloudents.Web.Services
             var t = _session.Query<Tutor>()
                 .Fetch(f => f.User)
                 .Where(w => (!w.User.LockoutEnd.HasValue || DateTime.UtcNow >= w.User.LockoutEnd.Value))
-                .Where(w=>w.State == ItemState.Ok)
+                .Where(w => w.State == ItemState.Ok)
                 .Take(SiteMapController.PageSize)
                 .Skip(SiteMapController.PageSize * index)
                 .Select(s => new { s.Id, s.User.Name });

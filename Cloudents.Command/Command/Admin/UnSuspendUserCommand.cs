@@ -8,6 +8,6 @@
         }
 
         public long Id { get; }
-            
+
     }
 }

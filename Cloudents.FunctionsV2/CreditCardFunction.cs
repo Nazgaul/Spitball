@@ -1,8 +1,8 @@
 ﻿using Cloudents.Command;
+using Cloudents.Command.Command;
 using Microsoft.Azure.WebJobs;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command.Command;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2

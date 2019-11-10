@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using System.Collections.Generic;
 
 namespace Cloudents.Query.Query
 {
     public class UserDataByIdQuery : IQuery<User>,
         //IQuery<IEnumerable<BalanceDto>>,
-        IQuery<IEnumerable<TransactionDto>> 
-       
+        IQuery<IEnumerable<TransactionDto>>
+
     {
         public UserDataByIdQuery(long id)
         {
@@ -17,11 +17,11 @@ namespace Cloudents.Query.Query
         public long Id { get; }
     }
 
-    
 
-    public class UserVotesByCategoryQuery : 
+
+    public class UserVotesByCategoryQuery :
         IQuery<IEnumerable<UserVoteDocumentDto>>
-       
+
 
     {
         public UserVotesByCategoryQuery(long userId)
@@ -29,6 +29,6 @@ namespace Cloudents.Query.Query
             UserId = userId;
         }
 
-        public long UserId { get;}
+        public long UserId { get; }
     }
 }

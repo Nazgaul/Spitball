@@ -9,6 +9,6 @@ namespace Cloudents.Web.Models
             Link = link;
         }
 
-        public Uri Link { get;  }
+        public Uri Link { get; }
     }
 }

@@ -16,7 +16,7 @@
 //            for (var i = 0; i < aliases.Length; i++)
 //            {
 //                dic.Add(aliases[i], tuple[i]);
-                
+
 //            }
 
 //            var x = new T { Data = new TU() };
