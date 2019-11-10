@@ -25,11 +25,12 @@
             <div class="rank">
             <template>
                 <div class="user-rate-ts" v-if="tutor.reviews > 0">
-                <userRating :rating="tutor.rating" :showRateNumber="false" :size="'14'" />
-                <span
-                    class="reviews-ts ml-1"
-                    v-html="$Ph(tutor.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"
-                ></span>
+                    <userRating :rating="tutor.rating" :showRateNumber="false" :size="'14'" />
+                    <span class="reviews-ts ml-1" v-html="$Ph(tutor.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"/>
+                </div>
+                <div class="user-rate-ts align-center" v-else>
+                    <star class="mr-1 icon-star" />
+                    <span class="reviews-ts" v-html="$Ph(`resultTutor_collecting_review`, reviewsPlaceHolder(tutor.reviews))"/>
                 </div>
             </template>
             </div>
@@ -45,7 +46,7 @@
 <script>
 import userRating from "../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import userAvatarRect from '../helpers/UserAvatar/UserAvatarRect.vue';
-import star from "../results/tutorCards/stars-copy.svg";
+import star from "./image/stars-copy.svg";
 export default {
     components:{userRating,star,userAvatarRect},
     props:{
@@ -155,6 +156,10 @@ export default {
             font-size: 12px;
             letter-spacing: normal;
             color: #43425d;
+            }
+            .icon-star {
+              width: 14px;
+              align-self: center;
             }
         }
         }

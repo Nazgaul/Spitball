@@ -94,7 +94,7 @@ export default {
     },
     },
     methods: {
-        ...mapActions(['updateRequestDialog','updateTutorReqStep','sendTutorRequest']),
+        ...mapActions(['updateTutorReqStep','sendTutorRequest']),
         goBack() {
             this.updateTutorReqStep('tutorRequestCourseInfo')
         },

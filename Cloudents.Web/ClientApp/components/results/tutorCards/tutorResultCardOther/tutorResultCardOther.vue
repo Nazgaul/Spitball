@@ -108,7 +108,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['accountUser', 'getActivateTutorDiscounts']),
+        ...mapGetters(['accountUser']),
 
         isTutor() {
             if(this.tutorData) {

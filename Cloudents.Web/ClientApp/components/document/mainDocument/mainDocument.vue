@@ -157,7 +157,14 @@
               :poster="`${document.preview.poster}?width=${videoWidth}&height=${videoHeight}&mode=crop&anchorPosition=bottom`"
           />
         </div>
-        <tutor-result-card-carousel v-if="$vuetify.breakpoint.smAndDown" :courseName="courseType" />
+          <div class="docPreviewCarousel mb-4" v-if="$vuetify.breakpoint.smAndDown && getTutorList.length">
+            <h3 class="subtitle-1 mb-4 text-xs-center" v-language:inner="'resultTutor_title'"/>
+            <sbCarousel class="carouselDocPreview" @select="enterTutorCard" 
+                        :arrows="false"
+                        :gap="20">
+              <tutorCardCarousel :fromCarousel="true" v-for="(tutor, index) in getTutorList" :tutor="tutor" :key="index"/>
+            </sbCarousel>
+          </div>
       </template>
       
       <div v-else>
@@ -170,7 +177,14 @@
             :src-placeholder="isObserver(page)"
             :alt="document.content"
           />
-          <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" :courseName="courseType" />
+          <div class="docPreviewCarousel mb-4" v-if="$vuetify.breakpoint.smAndDown && getTutorList.length">
+            <h3 class="subtitle-1 mb-4" v-language:inner="'resultTutor_title'"/>
+            <sbCarousel class="carouselDocPreview" @select="enterTutorCard" 
+                        :arrows="false"
+                        :gap="20">
+              <tutorCardCarousel :fromCarousel="true" v-for="(tutor, index) in getTutorList" :tutor="tutor" :key="index"/>
+            </sbCarousel>
+          </div>
         </div>
       </div>
     <transition-group name="slide-x-transition">
@@ -220,15 +234,17 @@ import sbDialog from "../../wrappers/sb-dialog/sb-dialog.vue";
 import reportItem from "../../results/helpers/reportItem/reportItem.vue";
 import utillitiesService from "../../../services/utilities/utilitiesService";
 import documentService from "../../../services/documentService";
-import tutorResultCardCarousel from "../../../components/results/tutorCards/tutorResultCardCarousel/tutorResultCardCarousel.vue";
 import sbVideoPlayer from '../../sbVideoPlayer/sbVideoPlayer.vue';
+import sbCarousel from '../../sbCarousel/sbCarousel.vue';
+import tutorCardCarousel from '../../carouselCards/tutorCard.vue'
 
 export default {
   name: "mainDocument",
   components: {
+    sbCarousel,
+    tutorCardCarousel,
     reportItem,
     sbDialog,
-    tutorResultCardCarousel,
     sbVideoPlayer,
   },
   props: {
@@ -281,8 +297,8 @@ export default {
       "accountUser",
       "getPurchaseConfirmation",
       "getRouteStack",
-      "getDocumentLoaded"
-
+      "getDocumentLoaded",
+      "getTutorList"
     ]),
     videoSrc(){
       if(this.document && this.document.preview && this.document.preview.locator){
@@ -430,8 +446,16 @@ export default {
       "setNewDocumentPrice",
       "updateLoginDialogState",
       "downloadDocument",
+      "getTutorListCourse"
     ]),
     ...mapMutations(["UPDATE_SEARCH_LOADING"]),
+        enterTutorCard(vueElm){
+      if(vueElm.enterProfilePage){
+        vueElm.enterProfilePage();
+      }else{
+        vueElm.$parent.enterProfilePage();
+      }
+    },
     calculateWidthByScreenSize(){
       let width = 0;
       if (this.$vuetify.breakpoint.xl) {
@@ -575,6 +599,11 @@ export default {
     this.docWrap = document.querySelector(".document-wrap");
     this.isMounted = true;
   },
+  created() {
+    if(this.$vuetify.breakpoint.smAndDown) {
+        this.getTutorListCourse(this.courseType);
+    }
+  },
 };
 </script>
 <style lang="less">
@@ -668,7 +697,7 @@ export default {
       bottom: 30px;
       margin: auto;
       text-align: center;
-      z-index: 5;
+      z-index: 12;
       @media (max-width: @screen-xs) {
         right: 0;
         bottom: 0;
@@ -733,6 +762,12 @@ export default {
         }
       }
     }
+    .docPreviewCarousel{
+      width: 100%;
+      .carouselDocPreview{
+        text-align: initial;
+      }
+    }
     .document-wrap-content {
       @media (max-width: @screen-sm) {
         width: 100%;
@@ -752,7 +787,7 @@ export default {
       padding: 14px 72px;
       border-radius: 5.5px;
                 background-color: @global-blue;
-      z-index: 9;
+      z-index: 12;
       margin-left: -340px;
       i {
         font-size: 32px;
