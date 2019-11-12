@@ -53,7 +53,7 @@ namespace Cloudents.Web.Api
 
             }
 
-            agent = agent.Substring(0, Math.Min(agent.Length, 255));
+            agent = agent?.Substring(0, Math.Min(agent.Length, 255));
             var command = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress(), model.FingerPrint, agent);
             var t1 = _commandBus.DispatchAsync(command, token);
             var t2 = _signInManager.CheckPasswordSignInAsync(user, model.Password, true);

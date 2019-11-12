@@ -12,10 +12,10 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        private readonly UriBuilder _uri = new UriBuilder()
-        {
-            Path = "api/chat"
-        };
+        //private readonly UriBuilder _uri = new UriBuilder()
+        //{
+        //    Path = "api/chat"
+        //};
 
         private readonly object _msg = new
         {
@@ -43,10 +43,33 @@ namespace Cloudents.Web.Test.IntegrationTests
 
 
 
+
         public ChatApiTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
-            _client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
+            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
+        }
+
+
+        [Theory]
+        [InlineData("api/chat")]
+       
+        public async Task ChatApiTestGet_NotLogIn_Unauthorized(string api)
+        {
+            var response = await _client.GetAsync(api);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Theory]
+        [InlineData("api/chat")]
+        
+        public async Task ChatApiTestGet_LogIn_Ok(string api)
+        {
+            await _client.LogInAsync();
+            var response = await _client.GetAsync(api);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
 
         [Fact]
@@ -54,7 +77,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.GetAsync(_uri.Path);
+            var response = await _client.GetAsync("api/chat");
 
             response.EnsureSuccessStatusCode();
         }
@@ -64,9 +87,8 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            _uri.Path = "api/chat/159039";
 
-            var response = await _client.GetAsync(_uri.Path);
+            var response = await _client.GetAsync("api/chat/159039");
 
             response.EnsureSuccessStatusCode();
         }
@@ -76,7 +98,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_msg));
+            var response = await _client.PostAsync("api/chat", HttpClient.CreateJsonString(_msg));
 
             response.EnsureSuccessStatusCode();
         }
@@ -86,7 +108,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.GetAsync(_uri.Path + "/1");
+            var response = await _client.GetAsync("api/chat/1");
 
             var str = await response.Content.ReadAsStringAsync();
 
@@ -102,7 +124,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync(_uri.Path + "/read", HttpClient.CreateJsonString(_user));
+            var response = await _client.PostAsync("api/chat/read", HttpClient.CreateJsonString(_user));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
@@ -113,7 +135,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         {
             await _client.LogInAsync();
 
-            _uri.Path = "api/chat";
+            //_uri.Path = "api/chat";
 
             object msg = new
             {
@@ -133,17 +155,17 @@ namespace Cloudents.Web.Test.IntegrationTests
             };
 
 
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(msg));
+            var response = await _client.PostAsync("api/chat", HttpClient.CreateJsonString(msg));
 
             response.EnsureSuccessStatusCode();
 
-            _uri.Path = "api/login";
+            //_uri.Path = "api/login";
 
-            response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(otherUser));
+            response = await _client.PostAsync("api/login", HttpClient.CreateJsonString(otherUser));
             response.EnsureSuccessStatusCode();
-            _uri.Path = "api/chat/read";
+           // _uri.Path = "api/chat/read";
 
-            response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(read));
+            response = await _client.PostAsync("api/chat/read", HttpClient.CreateJsonString(read));
 
             response.EnsureSuccessStatusCode();
         }

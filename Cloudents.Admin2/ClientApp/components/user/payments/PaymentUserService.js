@@ -41,14 +41,8 @@ const getPaymentRequests = function () {
 };
 
 
-const approvePayment = function (item,spitballPay) {
-    return connectivityModule.http.post(`${path}`, {
-       studentPay : item.price,
-       spitballPay: spitballPay,
-       userId: item.userId,
-       tutorId: item.tutorId,
-       StudyRoomSessionId: item.studyRoomSessionId
-    });
+const approvePayment = function (item) {
+    return connectivityModule.http.post(`${path}`, item);
 };
 
 const declinePayment = function (item) {

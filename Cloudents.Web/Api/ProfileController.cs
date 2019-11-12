@@ -37,7 +37,8 @@ namespace Cloudents.Web.Api
 
         public async Task<ActionResult<UserProfileDto>> GetAsync(long id, CancellationToken token)
         {
-            var query = new UserProfileQuery(id);
+            _userManager.TryGetLongUserId(User,out var userId);
+            var query = new UserProfileQuery(id, userId);
             var retVal = await _queryBus.QueryAsync(query, token);
             if (retVal == null)
             {

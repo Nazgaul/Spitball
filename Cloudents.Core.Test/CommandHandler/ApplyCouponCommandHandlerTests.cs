@@ -23,7 +23,7 @@ namespace Cloudents.Core.Test.CommandHandler
         [Fact]
         public async Task ExecuteAsync_InvalidCoupon_Error()
         {
-            const string someCoupon = "xxx";
+            const string someCoupon = "xxxxxx";
             _mock.Mock<ICouponRepository>().Setup(s => s.GetCouponAsync(someCoupon, default)).ReturnsAsync((Coupon)null);
 
             var command = new ApplyCouponCommand(someCoupon, 0, 0);
@@ -38,17 +38,19 @@ namespace Cloudents.Core.Test.CommandHandler
         {
             //var couponMock = new Mock<Coupon>();
 
-            var coupon = new Coupon("vvv", CouponType.Flat,
+            var coupon = new Coupon("vvvvvv", CouponType.Flat,
                 null, 10, 1, 1, DateTime.UtcNow.AddYears(-1),
                 null, null);
 
+            var user = new User("someUser", Language.English);
 
-            var userMoq = new Mock<User>();
+
+            // var userMoq = new Mock<User>();
             var tutorMoq = new Mock<Tutor>();
             tutorMoq.Setup(s => s.Price.Price).Returns(555);
             //couponMock.Setup(x => x.Expiration).Returns(DateTime.UtcNow.AddDays(-1));
-            const string someCoupon = "xxx";
-            _mock.Mock<IRegularUserRepository>().Setup(s => s.LoadAsync(1L, default)).ReturnsAsync(userMoq.Object);
+            const string someCoupon = "xxxxxx";
+            _mock.Mock<IRegularUserRepository>().Setup(s => s.LoadAsync(1L, default)).ReturnsAsync(user);
             _mock.Mock<ITutorRepository>().Setup(s => s.LoadAsync(2L, default)).ReturnsAsync(tutorMoq.Object);
 
             _mock.Mock<ICouponRepository>().Setup(s => s.GetCouponAsync(someCoupon, default)).ReturnsAsync(coupon);
@@ -69,7 +71,7 @@ namespace Cloudents.Core.Test.CommandHandler
 
             tutorMoq.Setup(s => s.Price.Price).Returns(555);
             couponMock.Setup(x => x.Tutor).Returns(belongTutorMoq.Object);
-            const string someCoupon = "xxx";
+            const string someCoupon = "xxxxxx";
 
             _mock.Mock<IRegularUserRepository>().Setup(s => s.LoadAsync(1L, default)).ReturnsAsync(userMoq.Object);
             _mock.Mock<ITutorRepository>().Setup(s => s.LoadAsync(2L, default)).ReturnsAsync(tutorMoq.Object);
@@ -86,16 +88,22 @@ namespace Cloudents.Core.Test.CommandHandler
         public async Task ExecuteAsync_FlatCalculation_Ok(decimal price, decimal discount, decimal total)
         {
 
-            const string someCoupon = "xxx";
+            const string someCoupon = "xxxxxx";
 
             long tutorId = 1, userId = 2;
-            var userMoq = new Mock<User>();
+            //var userMoq = new Mock<User>();
+            var user = new User("SomeEmail", Language.English);
+            typeof(User).GetProperty("Id").SetValue(user, userId);
             var tutorMoq = new Mock<Tutor>();
+
+            // userMoq.Setup(s => s.Id).Returns(userId);
             tutorMoq.Setup(s => s.Price.Price).Returns(price);
+            tutorMoq.Setup(s => s.Id).Returns(tutorId);
+
             var coupon = new Coupon(someCoupon, CouponType.Flat, null, discount, null, 1, null, null, null);
             _mock.Mock<ICouponRepository>().Setup(s => s.GetCouponAsync(someCoupon, default)).ReturnsAsync(coupon);
             _mock.Mock<ITutorRepository>().Setup(s => s.LoadAsync(tutorId, default)).ReturnsAsync(tutorMoq.Object);
-            _mock.Mock<IRegularUserRepository>().Setup(s => s.LoadAsync(userId, default)).ReturnsAsync(userMoq.Object);
+            _mock.Mock<IRegularUserRepository>().Setup(s => s.LoadAsync(userId, default)).ReturnsAsync(user);
             var command = new ApplyCouponCommand(someCoupon, userId, tutorId);
             var instance = _mock.Create<ApplyCouponCommandHandler>();
             await instance.ExecuteAsync(command, default);
@@ -110,16 +118,23 @@ namespace Cloudents.Core.Test.CommandHandler
         public async Task ExecuteAsync_PercentageCalculation_Ok(decimal price, decimal discount, decimal total)
         {
 
-            const string someCoupon = "xxx";
+            const string someCoupon = "xxxxxx";
 
             long tutorId = 1, userId = 2;
-            var userMoq = new Mock<User>();
+            //var userMoq = new Mock<User>();
+            var user = new User("SomeEmail", Language.English);
+            typeof(User).GetProperty("Id").SetValue(user, userId);
+
             var tutorMoq = new Mock<Tutor>();
+           // userMoq.Setup(s => s.Id).Returns(userId);
             tutorMoq.Setup(s => s.Price.Price).Returns(price);
+            tutorMoq.Setup(s => s.Id).Returns(tutorId);
+
             var coupon = new Coupon(someCoupon, CouponType.Percentage, null, discount, null, 1, null, null, null);
+
             _mock.Mock<ICouponRepository>().Setup(s => s.GetCouponAsync(someCoupon, default)).ReturnsAsync(coupon);
             _mock.Mock<ITutorRepository>().Setup(s => s.LoadAsync(tutorId, default)).ReturnsAsync(tutorMoq.Object);
-            _mock.Mock<IRegularUserRepository>().Setup(s => s.LoadAsync(userId, default)).ReturnsAsync(userMoq.Object);
+            _mock.Mock<IRegularUserRepository>().Setup(s => s.LoadAsync(userId, default)).ReturnsAsync(user);
             var command = new ApplyCouponCommand(someCoupon, userId, tutorId);
             var instance = _mock.Create<ApplyCouponCommandHandler>();
             await instance.ExecuteAsync(command, default);

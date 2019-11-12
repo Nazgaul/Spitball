@@ -1,6 +1,6 @@
-﻿using Cloudents.Core.DTOs.Admin;
+﻿using System;
+using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
 using System.Collections.Generic;
@@ -13,11 +13,9 @@ namespace Cloudents.Query.Query.Admin
     //TODO: think about make this suitable for IN.
     public class AdminLeadsQuery : IQueryAdmin<IEnumerable<LeadDto>>
     {
-        private ItemState? Status { get; }
         public string Country { get; }
-        public AdminLeadsQuery(ItemState? status, string country)
+        public AdminLeadsQuery(string country)
         {
-            Status = status;
             Country = country;
         }
 
@@ -33,9 +31,20 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<LeadDto>> GetAsync(AdminLeadsQuery query, CancellationToken token)
             {
-                var leads = _session.Query<Lead>()
+                //User userAlias = null;
+                //Lead leadAlias = null;
+                
+
+                //_session.QueryOver<Lead>(() => leadAlias)
+                //    .JoinAlias(f => f.User, () => userAlias)
+                //    .JoinEntityAlias(() => userCourseAlias, () => leadAlias.Id == viewTutorAlias.Id)
+
+                //    .JoinQueryOver(x=>x.Id,)
+
+                IQueryable<Lead> leads = _session.Query<Lead>()
                     .Fetch(f => f.User)
-                    .Where(w => w.Status == null || w.Status == query.Status);
+                    .Where(w=> !_session.Query<ChatRoomAdmin>().Any(w2=>w2.Lead.Id == w.Id));
+
                 if (!string.IsNullOrEmpty(query.Country))
                 {
                     leads = leads.Where(w => w.User.Country == query.Country);
@@ -50,9 +59,10 @@ namespace Cloudents.Query.Query.Admin
                     Text = s.Text,
                     Course = s.Course.Id,
                     University = s.User.University.Name,
-                    Referer = s.UtmSource,
-                    Status = s.Status
-                }).ToListAsync(token);
+                    DateTime = s.CreationTime 
+                    //Referer = s.UtmSource,
+                    //Status = s.Status
+                }).OrderByDescending(o=>o.Id).ToListAsync(token);
 
                 //                const string sql = @"select l.Id, l.Name, Email, Phone, Text, CourseId as Course, u.Name as University, UtmSource as Referer, l.Status
                 //from sb.Lead l

@@ -42,6 +42,7 @@
                                 <span><b>{{infoItem.label}}:</b></span>
                                 <v-btn small color='warning' @click="openNameDialog(userInfo.name.value)" v-if="infoItem.label == 'User Name'">Edit</v-btn>
                                 <v-btn small color='warning' @click="openPhoneDialog(userInfo.phoneNumber.value)" v-if="infoItem.label == 'Phone Number'">Edit</v-btn>
+                                <v-btn small color='warning' @click="openTutorPriceDialog(userInfo.tutorPrice.value)" v-if="infoItem.label == 'Tutor Price'" class="white--text">Edit</v-btn>
                                 <v-btn small color='red' class="white--text" @click="removePayment(userInfo.id.value)" v-if="infoItem.label == 'Has Payment' && infoItem.value">Delete</v-btn>
                                 <v-btn small color='red' class="white--text" @click="deleteTutor()" v-if="infoItem.label == 'Tutor State' && infoItem.value === 'ok'">Delete</v-btn>
                                 <span>{{infoItem.value}}</span>
@@ -181,6 +182,31 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" flat @click="dialogs.phone = false">Close</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogs.price" persistent max-width="600px" lazy v-if="dialogs.price">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Edit price</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container grid-list-md>
+                        <v-layout wrap>
+                            <v-flex xs12 sm12 md12>
+                                <v-text-field
+                                    v-model="newPrice"
+                                    label="Tutor Price"
+                                    :placeholder="currentPrice"
+                                ></v-text-field>
+                                <v-btn @click="editPrice()">Send</v-btn>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click="dialogs.price = false">Close</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>

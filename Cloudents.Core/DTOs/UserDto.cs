@@ -59,45 +59,25 @@ namespace Cloudents.Core.DTOs
 
     public class UserTutorProfileDto
     {
-        //private string _tutorCountry;
-        //  [NonSerialized] private CultureInfo _mergeCultureInfo;
-
-        //public const string TutorPriceVariableName = nameof(TutorPrice);
-        //public const string TutorCountryVariableName = nameof(TutorCountry);
-
         public decimal Price { get; set; }
 
-
         public string Currency => new RegionInfo(TutorCountry).ISOCurrencySymbol;
-
-
-        //[EntityBind(nameof(ReadTutor.Price))]
-        //public decimal NumericPrice { get; set; }
 
         [EntityBind(nameof(ReadTutor.Country))]
         internal string TutorCountry { get; set; }
 
+        public decimal? DiscountPrice { get; set; }
         //{
-        //    get => _tutorCountry;
-        //    set
+        //    get
         //    {
-        //       // _mergeCultureInfo = CultureInfo.CurrentUICulture.ChangeCultureBaseOnCountry(value);
-        //        _tutorCountry = value;
+        //        if (TutorCountry.Equals("IN", StringComparison.OrdinalIgnoreCase))
+        //        {
+        //            return 0;//.ToString("C0", _mergeCultureInfo);
+        //        }
+
+        //        return null;
         //    }
         //}
-
-        public decimal? DiscountPrice
-        {
-            get
-            {
-                if (TutorCountry.Equals("IN", StringComparison.OrdinalIgnoreCase))
-                {
-                    return 0;//.ToString("C0", _mergeCultureInfo);
-                }
-
-                return null;
-            }
-        }
 
         [EntityBind(nameof(ReadTutor.Rate))]
         public double Rate { get; set; }
@@ -107,6 +87,12 @@ namespace Cloudents.Core.DTOs
         public string FirstName { get; set; }
         [EntityBind(nameof(User.LastName))]
         public string LastName { get; set; }
+
+        public bool HasCoupon { get; set; }
+
+        public decimal? CouponValue { get; set; }
+        public CouponType? CouponType { get; set; }
+
     }
 
     public class UserAccountDto

@@ -20,10 +20,8 @@ namespace Cloudents.Core.DTOs.Admin
         public string University { get; set; }
         [EntityBind(nameof(User.Country))]
         public string Country { get; set; }
-        [EntityBind(nameof(User.Score))]
-        public int Score { get; set; }
-        //[EntityBind(nameof(RegularUser.FraudScore))]
-        //public int FraudScore { get; set; }
+      
+     
 
         public int ReferredCount { get; set; }
         [EntityBind(nameof(User.Balance))]
@@ -39,5 +37,7 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(User.LockoutReason))]
         public string LockoutReason { get; set; }
         public bool PaymentExists { get; set; }
+
+        public decimal? TutorPrice { get; set; }
     }
 }

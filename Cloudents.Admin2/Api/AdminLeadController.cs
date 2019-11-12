@@ -29,18 +29,11 @@ namespace Cloudents.Admin2.Api
         }
         [HttpGet]
         //[Authorize(Policy = Policy.IsraelUser)]
-        public async Task<IEnumerable<LeadDto>> LeadAsync([FromQuery] ItemState? status, CancellationToken token)
+        public async Task<IEnumerable<LeadDto>> LeadAsync(CancellationToken token)
         {
-            var query = new AdminLeadsQuery(status, User.GetCountryClaim());
+            var query = new AdminLeadsQuery( User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
-        [HttpPost("status")]
-        public async Task<IActionResult> ChangeStatusAsync([FromBody] ChangeLeadStatusrRequest model, CancellationToken token)
-        {
-            var command = new ChangeLeadStatusCommand(model.LeadId, model.State);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-
-        }
+        
     }
 }

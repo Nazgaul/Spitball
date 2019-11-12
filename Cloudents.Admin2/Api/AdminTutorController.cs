@@ -36,7 +36,7 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost("approve")]
-        public async Task<IActionResult> ApproveTutor([FromBody] ApproveTutorRequest model,
+        public async Task<IActionResult> ApproveTutorAsync([FromBody] ApproveTutorRequest model,
         CancellationToken token)
         {
             var command = new ApproveTutorCommand(model.Id);
@@ -46,10 +46,18 @@ namespace Cloudents.Admin2.Api
 
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> DeleteTutor(long id,
+        public async Task<IActionResult> DeleteTutorAsync(long id,
                 CancellationToken token)
         {
             var command = new DeleteTutorCommand(id);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("Price")]
+        public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
+        {
+            var command = new ChangeTutorPriceCommand(model.TutorId, model.Price);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

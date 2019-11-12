@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using Cloudents.Core.Entities;
 using Moq;
 using Xunit;
@@ -8,6 +9,14 @@ namespace Cloudents.Core.Test.Entities
 {
     public class CouponTests
     {
+        [Theory]
+        [InlineData("a")]
+        [InlineData("aaaaaaaaaaaaaaaaa")]
+        public void InitCoupon_CodeNotInRange_RaiseException(string code)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Coupon(code, CouponType.Flat, null, 50, null, 1, null, null, null));
+
+        }
         [Fact]
         public void InitCoupon_NoCode_RaiseException()
         {
@@ -32,45 +41,51 @@ namespace Cloudents.Core.Test.Entities
             Assert.Throws<ArgumentOutOfRangeException>(() => new Coupon("SomeCode", CouponType.Percentage, null, 5, -1, 1, null, null, null));
         }
 
-
         [Fact]
-        public void ApplyCoupon_ExpiredCoupon_RaiseException()
+        public void CanApplyCoupon_ExpiredCoupon_RaiseException()
         {
             var coupon = new Coupon("SomeCode", CouponType.Percentage, null, 5, null, 1, null, null,
                 null);
 
             typeof(Coupon).GetProperty("Expiration").SetValue(coupon, DateTime.UtcNow.AddDays(-1));
 
-            var userMoq = new Mock<User>();
-            var tutorMoq = new Mock<Tutor>();
-
-            //couponMoq.Setup(x => x.Expiration).Returns(DateTime.UtcNow.AddDays(-1));
-            Assert.Throws<ArgumentException>(() => coupon.ApplyCoupon(userMoq.Object, tutorMoq.Object));
+            Assert.Throws<ArgumentException>(() => coupon.CanApplyCoupon());
         }
 
         [Fact]
-        public void ApplyCoupon_AmountExceed_RaiseException()
+        public void InitCoupon_Valid_Ok()
         {
-            var v = 10;
-            var coupon = new Coupon("SomeCode", CouponType.Percentage, null, 5, v, 1, null, null,
+            var coupon = new Coupon("SomeCode", CouponType.Percentage, null, 5, null, 1, null, null,
+                null);
+
+            
+        }
+
+        [Fact]
+        public void CanApplyCoupon_AmountExceed_RaiseException()
+        {
+            var amountOfUserOfCoupon = 10;
+            var coupon = new Coupon("SomeCode", CouponType.Percentage, null, 5, amountOfUserOfCoupon, 1, null, null,
                 null);
 
 
-            var tutorMoq = new Mock<Tutor>();
-            var userMoq = new Mock<User>();
-            var users = Enumerable.Range(0, v).Select(s =>
-            {
-                userMoq.Setup(s => s.Id).Returns(s);
-                return userMoq;
-            });
-            foreach (var user in users)
-            {
-                coupon.ApplyCoupon(user.Object, tutorMoq.Object);
-            }
-            userMoq.Setup(s => s.Id).Returns(12);
 
-            Assert.Throws<OverflowException>(() => coupon.ApplyCoupon(userMoq.Object, tutorMoq.Object));
+            var usedCoupon = Enumerable.Range(0, amountOfUserOfCoupon).Select(s =>
+            {
+                var x = new Mock<UserCoupon>();
+                return x.Object;
+            }).ToHashSet();
+
+
+
+            typeof(Coupon).GetField("_userCoupon", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(coupon, usedCoupon);
+            
+            
+
+            Assert.Throws<OverflowException>(() => coupon.CanApplyCoupon());
 
         }
+
+        
     }
 }

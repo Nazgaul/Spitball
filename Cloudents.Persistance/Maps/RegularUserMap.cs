@@ -58,12 +58,12 @@ namespace Cloudents.Persistence.Maps
             Map(z => z.Gender).CustomType<Gender>();
 
 
-            HasMany(x => x.UserCourses)/*.Access.CamelCaseField(Prefix.Underscore)*/
+            HasMany(x => x.UserCourses).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse().AsSet();
 
 
-            HasMany(x => x.UserCoupon)/*.Access.CamelCaseField(Prefix.Underscore)*/
+            HasMany(x => x.UserCoupon).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse().AsSet();
 

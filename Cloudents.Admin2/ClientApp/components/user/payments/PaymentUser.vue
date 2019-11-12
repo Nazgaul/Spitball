@@ -39,7 +39,6 @@
 
         <v-dialog v-model="dialog" max-width="800px" v-if="sessionPayment" persistent>
             <v-card>
-                {{sessionPayment}}
                 <v-card-text>
                     <v-container grid-list-md>
                         <v-alert v-model="sessionPayment.cantPay" type="error" class="mb-4"> This payment can't be processed because seller is not on payme</v-alert>
@@ -49,34 +48,35 @@
                                 <v-flex>Tutor Name:  <b>{{sessionPayment.tutorName}}</b></v-flex>
                                 <v-flex v-if="sessionPayment.cantPay">Tutor Id:  <b>{{sessionPayment.tutorId}}</b></v-flex>
                             </v-flex>
-
                             <v-flex xs6 class="mb-4">
-                                <v-flex>Coupon Code: {{sessionPayment.couponCode}}</v-flex>
-                                <v-flex>Coupon Type: {{sessionPayment.couponType}}</v-flex>
-                                <v-flex>Coupon Value: {{sessionPayment.couponValue}}</v-flex>
+                                <template v-if="sessionPayment.couponCode">
+                                    <v-flex>Coupon Code: {{sessionPayment.couponCode}}</v-flex>
+                                    <v-flex>Coupon Type: {{sessionPayment.couponType}}</v-flex>
+                                    <v-flex>Coupon Value: {{sessionPayment.couponValue}}</v-flex>
+                                </template>
                             </v-flex>
 
                             <v-flex xs12 sm4>
-                               <v-text-field label="Tutor Price per hour" v-model="sessionPayment.tutorPricePerHour"></v-text-field>   
+                               <v-text-field label="Tutor Price Per Hour" v-model="sessionPayment.tutorPricePerHour"></v-text-field>   
                             </v-flex>
                             <v-flex xs12 sm4>
-                               <v-text-field label="Student Coupon" v-model="sessionPayment.studentPayPerHour"></v-text-field>   
+                               <v-text-field label="Student Price Per Hour (depend on coupon)" v-model="sessionPayment.studentPayPerHour"></v-text-field>   
                             </v-flex>
                             <v-flex xs12 sm4>
-                               <v-text-field label="Spitball Coupon" v-model="sessionPayment.spitballPayPerHour"></v-text-field>   
+                               <v-text-field label="Spitball Price Per Hour (depend on coupon)" v-model="sessionPayment.spitballPayPerHour"></v-text-field>   
                             </v-flex>
                             
                             <v-flex xs12 sm3>
-                                <v-text-field label="Duration in minutes" v-model="sessionPayment.duration"></v-text-field>
+                                <v-text-field label="Duration in Minutes" v-model="sessionPayment.duration"></v-text-field>
                             </v-flex>
                             <v-flex xs12 sm3>
-                                <v-text-field label="Student Pay" v-model="studentPayPerHour"></v-text-field>
+                                <v-text-field label="Student Pay Total" v-model="studentPayPerHour" readonly></v-text-field>
                             </v-flex>
                             <v-flex xs12 sm3>
-                                <v-text-field label="Spitball Pay" v-model="spitballPayPerHour"></v-text-field>
+                                <v-text-field label="Spitball Pay Total" v-model="spitballPayPerHour" readonly></v-text-field>
                             </v-flex>
                             <v-flex xs12 sm3>
-                                <v-text-field readonly="" label="Session Total Price" v-model="totalPrice"></v-text-field>
+                                <v-text-field label="Session Total Price" v-model="totalPrice" readonly></v-text-field>
                             </v-flex>
                         </v-layout>
                     </v-container>
@@ -187,18 +187,26 @@ export default {
         editItem(item) {
             this.dialog = true;
             let id = item.studyRoomSessionId;
+            this.editedIndex = this.paymentRequestsList.indexOf(item);
             getUserSessionPayment(id).then(session => {
                 this.sessionPayment = session;
             })
         },
         approve() {
-            var itemToSubmit = this.editedItem;
-            const index = this.editedIndex;
-            const item = this.paymentRequestsList[index];
-            approvePayment(itemToSubmit, this.spitballPay).then((resp) => {
+            let item = this.sessionPayment;
+            
+            let itemObj = {
+                studentPay : Number(this.studentPayPerHour),
+                spitballPay: Number(this.spitballPayPerHour),
+                userId: item.userId,
+                tutorId: item.tutorId,
+                StudyRoomSessionId: item.studyRoomSessionId
+            }
+
+            approvePayment(itemObj).then((resp) => {
 
                 this.$toaster.success(`User ${item.userName} pay to Tutor ${item.tutorName}`);
-                this.paymentRequestsList.splice(index, 1);
+                this.paymentRequestsList.splice(this.editedIndex, 1);
                 this.dialog = false;
                 this.editedItem = {};
                 this.editedIndex = -1;

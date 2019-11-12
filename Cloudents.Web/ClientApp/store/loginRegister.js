@@ -2,7 +2,6 @@
 import {router} from '../main.js';
 import codesJson from '../components/loginPageNEW/helpers/CountryCallingCodes';
 const isIl = global.country.toLowerCase() === 'il';
-// const defaultSubmitRoute = isIl ? {path: '/note'} : {path: '/ask'};
 const defaultSubmitRoute = {path: '/feed'};
 
 const Fingerprint2 = require('fingerprintjs2');
@@ -176,7 +175,8 @@ const actions = {
                 } else {
                     _analytics(['Login', 'Start Google']);
                     global.isAuth = true;
-                    router.push({path: `${defaultSubmitRoute.path}`});
+                    let lastRoute = router.history.current.query.returnUrl;
+                    router.push({path: `${lastRoute}`});
                 }
                 return Promise.reject(error);
                 }, (error) => {

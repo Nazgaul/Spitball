@@ -17,7 +17,7 @@
         <div>
             <v-btn depressed color="#4c59ff" class="tutor-btn">
             <span class="text-truncate">
-                <span v-language:inner="'tutorCardCarousel_tutor_btn'" /> {{tutor.name}}
+                <span v-language:inner="'tutorCardCarousel_tutor_btn'" class="mr-1"></span>{{showFirstName(tutor.name)}}
             </span>
             </v-btn>
         </div>
@@ -76,7 +76,15 @@ export default {
                 name: 'profile',
                 params: {id: this.tutor.userId, name: this.tutor.name}
             })
-        }
+        },
+        showFirstName() {
+            let maxChar = 5;
+            let name = this.tutor.name.split(' ')[0];
+            if(name.length > maxChar) {
+                return LanguageService.getValueByKey('resultTutor_message_me');
+            }
+            return name;
+        },
     },
 
 }
@@ -132,8 +140,9 @@ export default {
     }
     }
     .tutorCarousel-bottom {
-    padding: 0 8px 8px 8px;
+        padding: 0 8px 8px 8px;
     .tutor-btn {
+        width: 100%;
         border-radius: 8px;
         color: white;
         font-size: 14px;

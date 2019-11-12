@@ -44,8 +44,7 @@ namespace Cloudents.Selenium.Test
         "tutor-list",
         "register",
         "signin",
-        "ask",
-        "note",
+        "feed",
         "tutor",
         "studyroom"
         //"wallet",
@@ -126,26 +125,33 @@ namespace Cloudents.Selenium.Test
 
         //}
 
-        [Fact]
-        public void FeedPagingTest()
+        [Theory]
+        [InlineData("feed", "//*[@class='d-block note-block cell']")]
+       //[InlineData("tutor", "//*[@class='tutor-result-card-mobile pa-2 ma-2 justify-space-between mb-2']")]
+        public void FeedPagingTest(string relativePath, string css)
         {
-            var url = $"{SiteMainUrl.TrimEnd('/')}/feed";
+            var url = $"{SiteMainUrl.TrimEnd('/')}/{relativePath}";
             _driver.Navigate().GoToUrl(url);
             var body = _driver.FindElement(By.TagName("body"));
-            for (int i = 0; i < 10; i++)
-                body.SendKeys(Keys.PageDown);
-            Thread.Sleep(1000);
-            var feedCards = _driver.FindElements(By.XPath("//*[@class='d-block note-block cell']"));
-            feedCards.Count.Should().BeGreaterThan(14);
 
-            url = $"{SiteMainUrl.TrimEnd('/')}/tutor";
-            _driver.Navigate().GoToUrl(url);
-            body = _driver.FindElement(By.TagName("body"));
+
+            var amountOfCards = _driver.FindElements(By.XPath(css)).Count;
+
             for (int i = 0; i < 10; i++)
                 body.SendKeys(Keys.PageDown);
             Thread.Sleep(1000);
-            var tutorCards = _driver.FindElements(By.XPath("//*[@class='tutor-result-card-mobile pa-2 ma-2 justify-space-between mb-2']"));
-            tutorCards.Count.Should().BeGreaterThan(20);
+            var amountOfCardsAfterPaging = _driver.FindElements(By.XPath(css)).Count;
+            amountOfCardsAfterPaging.Should().BeGreaterThan(amountOfCards);
+            //feedCards.Count.Should().BeGreaterThan(14);
+
+            //url = $"{SiteMainUrl.TrimEnd('/')}/tutor";
+            //_driver.Navigate().GoToUrl(url);
+            //body = _driver.FindElement(By.TagName("body"));
+            //for (int i = 0; i < 10; i++)
+            //    body.SendKeys(Keys.PageDown);
+            //Thread.Sleep(1000);
+            //var tutorCards = _driver.FindElements(By.XPath("//*[@class='tutor-result-card-mobile pa-2 ma-2 justify-space-between mb-2']"));
+            //tutorCards.Count.Should().BeGreaterThan(20);
         }
 
         [Fact(Skip = "Not sure what need to be tested here")]

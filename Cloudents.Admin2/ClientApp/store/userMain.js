@@ -319,6 +319,13 @@ const actions = {
             return false;
         });
     },
+    updateTutorPrice({commit}, priceObj) {
+        return UserMainService.updateTutorPrice(priceObj).then((res) => {
+             state.userInfo.tutorPrice.value = priceObj.price;
+        }).catch(ex => {
+            return ex;
+        });
+    },
     deletePayment({commit, dispatch, state}, id) {
         return UserMainService.deletePayment(id).then(() => {
             state.userInfo.payment.value = false;

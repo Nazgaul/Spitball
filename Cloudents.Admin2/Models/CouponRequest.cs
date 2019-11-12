@@ -47,7 +47,7 @@ namespace Cloudents.Admin2.Models
         /// <summary>
         /// Code of the coupon - e.g Friends10
         /// </summary>
-        [Required]
+        [Required, StringLength(Coupon.MaxLength, MinimumLength = Coupon.MinimumLength)]
         public string Code { get; set; }
 
         /// <summary>

@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="category2_name_1" xml:space="preserve">
-    <value>כימיה כללית</value>
+    <value>פיזיקה</value>
     <comment>dynamic</comment>
   </data>
   <data name="category2_name_2" xml:space="preserve">
-    <value>מתמטיקה</value>
+    <value>אנגלית</value>
     <comment>dynamic</comment>
   </data>
   <data name="category2_name_3" xml:space="preserve">
@@ -142,11 +142,11 @@
     <comment>dynamic</comment>
   </data>
   <data name="category_name_2" xml:space="preserve">
-    <value>מבוא לפסיכולוגיה</value>
+    <value>מחשבים</value>
     <comment>dynamic</comment>
   </data>
   <data name="category_name_3" xml:space="preserve">
-    <value>אנגלית</value>
+    <value>מתמטיקה</value>
     <comment>dynamic</comment>
   </data>
   <data name="category_name_4" xml:space="preserve">

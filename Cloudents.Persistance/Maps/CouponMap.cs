@@ -33,6 +33,7 @@ namespace Cloudents.Persistence.Maps
             References(x => x.Coupon).Not.Nullable();
             References(x => x.Tutor).Not.Nullable();
             Map(x => x.UsedAmount);
+            Map(x => x.CreatedTime);
         }
     }
 }

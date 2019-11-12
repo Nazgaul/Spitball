@@ -53,13 +53,17 @@ namespace Cloudents.Core.Entities
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
 
         //protected internal virtual ISet<UserCourse> UserCourses { get; protected set; }
-        // private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
 
 
 
-        protected internal virtual ISet<UserCourse> UserCourses { get; set; }
+        //private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
+        private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
 
-        protected internal virtual ISet<UserCoupon> UserCoupon { get; set; }
+        public virtual IEnumerable<UserCourse> UserCourses => _userCourses.ToList();
+
+
+        private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();
+        public virtual IEnumerable<UserCoupon> UserCoupon => _userCoupon;
 
         public virtual void AssignCourses(IEnumerable<Course> courses)
         {
@@ -71,7 +75,7 @@ namespace Cloudents.Core.Entities
                 {
                     CanTeach = isTutor
                 };
-                if (UserCourses.Add(p))
+                if (_userCourses.Add(p))
                 {
                     course.Count++;
                 }
@@ -80,18 +84,50 @@ namespace Cloudents.Core.Entities
 
         public virtual void UseCoupon(Tutor tutor)
         {
-            var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor == tutor && w.UsedAmount < w.Coupon.AmountOfUsePerUser);
-            if (userCoupon is null)
+            var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.UsedAmount < w.Coupon.AmountOfUsePerUser);
+            if (userCoupon is null) // we do not check before if user have coupon on that user
             {
                 return;
             }
             userCoupon.UsedAmount++;
         }
 
+        public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
+        {
+            if (coupon.CanApplyCoupon())
+            {
+                var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.UsedAmount < w.Coupon.AmountOfUsePerUser);
+                if (userCoupon != null)
+                {
+                    throw new DuplicateRowException();
+                }
+                var p = new UserCoupon(this, coupon, tutor);
+                if (!_userCoupon.Add(p))
+                {
+                    throw new DuplicateRowException();
+                }
+                //{
+                //    _userCoupon.Remove(p);
+                //    _userCoupon.Add(p);
+                //}
+
+            }
+            //if (coupon.Expiration.GetValueOrDefault(DateTime.MaxValue) < DateTime.UtcNow)
+            //{
+            //    throw new ArgumentException("invalid coupon");
+            //}
+
+            //if (AmountOfUsers.HasValue && AmountOfUsers.Value <= _userCoupon.Count)
+            //{
+            //    throw new OverflowException();
+            //}
+            
+        }
+
         public virtual void RemoveCourse(Course course)
         {
             var p = new UserCourse(this, course);
-            if (UserCourses.Remove(p))
+            if (_userCourses.Remove(p))
             {
                 course.Count--;
             }

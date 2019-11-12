@@ -22,77 +22,100 @@ namespace Cloudents.Web.Test.IntegrationTests
             price = 55
         };
 
-        private readonly UriBuilder _uri = new UriBuilder()
-        {
-            Path = "api/account"
-        };
+        //private readonly UriBuilder _uri = new UriBuilder()
+        //{
+        //    Path = "api/account"
+        //};
 
         public AccountApiTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
-            _client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
+            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
-        [Fact]
-        public async Task GetAsync_Unauthorized_401()
+        [Theory]
+        [InlineData("api/account")]
+        [InlineData("api/account/courses")]
+        [InlineData("api/account/university")]
+        [InlineData("api/account/referrals")]
+        public async Task AccountApiTestGet_NotLogIn_Unauthorized(string api)
         {
-            var response = await _client.GetAsync(_uri.Path);
+            var response = await _client.GetAsync(api);
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
 
-        [Fact]
-        public async Task GetAsync_OK_200()
+        [Theory]
+        [InlineData("api/account")]
+        [InlineData("api/account/courses")]
+        [InlineData("api/account/university")]
+        [InlineData("api/account/referrals")]
+        public async Task AccountApiTestGet_LogIn_Ok(string api)
         {
             await _client.LogInAsync();
-
-            var response = await _client.GetAsync(_uri.Path);
-
+            var response = await _client.GetAsync(api);
             response.EnsureSuccessStatusCode();
+            //response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
 
-        [Fact]
-        public async Task GetAsync_courses_OK()
-        {
-            _uri.Path = "api/account/courses";
+        //[Fact]
+        //public async Task GetAsync_Unauthorized_401()
+        //{
+        //    var response = await _client.GetAsync("api/account");
 
-            await _client.LogInAsync();
+        //    response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        //}
 
-            var response = await _client.GetAsync(_uri.Path);
+        //[Fact]
+        //public async Task GetAsync_OK_200()
+        //{
+        //    await _client.LogInAsync();
 
-            var str = await response.Content.ReadAsStringAsync();
+        //    var response = await _client.GetAsync("api/account");
 
-            var d = JArray.Parse(str);
+        //    response.EnsureSuccessStatusCode();
+        //}
 
-            response.EnsureSuccessStatusCode();
+        //[Fact]
+        //public async Task GetAsync_courses_OK()
+        //{
+        //   // _uri.Path = "api/account/courses";
 
-            d.Should().NotBeNull();
-        }
+        //    await _client.LogInAsync();
 
-        [Fact]
-        public async Task GetAsync_courses_Unauthorized()
-        {
-            _uri.Path = "api/account/courses";
+        //    var response = await _client.GetAsync("api/account/courses");
+        //    response.EnsureSuccessStatusCode();
+        //    //var str = await response.Content.ReadAsStringAsync();
 
-            var response = await _client.GetAsync(_uri.Path);
+        //    //var d = JArray.Parse(str);
 
-            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
-        }
+        //    //response.EnsureSuccessStatusCode();
+
+        //    //d.Should().NotBeNull();
+        //}
+
+        //[Fact]
+        //public async Task GetAsync_courses_Unauthorized()
+        //{
+        //   // _uri.Path = "api/account/courses";
+        //    var response = await _client.GetAsync("api/account/courses");
+        //    response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        //}
 
         [Fact(Skip = "Need Redu")]
         public async Task PostAsync_settings_OK()
         {
-            _uri.Path = "api/account/settings";
+           //_uri.Path = "api/account/settings";
 
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_settings));
+            var response = await _client.PostAsync("api/account/settings", HttpClient.CreateJsonString(_settings));
 
             response.EnsureSuccessStatusCode();
 
-            _uri.Path = "api/profile/159489";
+           // _uri.Path = "api/profile/159489";
 
-            response = await _client.GetAsync(_uri.Path);
+            response = await _client.GetAsync("api/profile/159489");
             response.EnsureSuccessStatusCode();
 
             var str = await response.Content.ReadAsStringAsync();

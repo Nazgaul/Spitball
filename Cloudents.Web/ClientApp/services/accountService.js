@@ -34,6 +34,7 @@ function createIsTutorState(str){
      this.firstName = objInit.firstName || '';
      this.lastName = objInit.lastName  || '';
      this.discountPrice = objInit.discountPrice;
+     this.hasCoupon = objInit.hasCoupon;
  }
 
  function createTutorData(objInit) {

@@ -26,6 +26,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Exceptions;
 using FluentNHibernate.Utils;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
@@ -249,7 +250,7 @@ namespace Cloudents.Web.Api
                 var userId = _userManager.GetLongUserId(User);
                 var command = new ApplyCouponCommand(model.Coupon, userId, model.TutorId);
                 await _commandBus.DispatchAsync(command, token);
-                return Ok( new
+                return Ok(new
                 {
                     Price = command.newPrice
                 });
@@ -257,6 +258,11 @@ namespace Cloudents.Web.Api
             catch (ArgumentException)
             {
                 return BadRequest("Invalid Coupon");
+            }
+            catch (DuplicateRowException)
+            {
+                return BadRequest("This coupon already in use");
+
             }
         }
 

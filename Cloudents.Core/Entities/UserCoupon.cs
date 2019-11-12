@@ -13,6 +13,7 @@ namespace Cloudents.Core.Entities
             User = user;
             Coupon = coupon;
             Tutor = tutor;
+            CreatedTime = DateTime.UtcNow;
         }
 
         protected UserCoupon()
@@ -29,9 +30,13 @@ namespace Cloudents.Core.Entities
 
         public virtual int UsedAmount { get; set; }
 
+        public virtual DateTime CreatedTime { get; set; }
+
         protected bool Equals(UserCoupon other)
         {
-            return Equals(User.Id, other.User.Id) && Equals(Tutor.Id, other.Tutor.Id);
+            return Equals(User.Id, other.User.Id) 
+                   && Equals(Tutor.Id, other.Tutor.Id) 
+                   && Equals(Coupon.Id,other.Coupon.Id);
         }
 
         public override bool Equals(object obj)
@@ -46,7 +51,9 @@ namespace Cloudents.Core.Entities
         {
             unchecked
             {
-                return ((User != null ? User.Id.GetHashCode() : 0) * 397) ^ (Tutor != null ? Tutor.Id.GetHashCode() : 0);
+               return  ((User != null ? User.Id.GetHashCode() : 0) * 397) ^
+                       (Tutor != null ? Tutor.Id.GetHashCode() : 0) ^
+                       ((Coupon != null ? Coupon.Id.GetHashCode() : 0) * 11);
             }
         }
 

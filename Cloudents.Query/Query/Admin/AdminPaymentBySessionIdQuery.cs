@@ -37,10 +37,11 @@ namespace Cloudents.Query.Query.Admin
 		                    u.Name as UserName,
 		                    srs.Created,
 							datediff(MINUTE, srs.Created, srs.Ended) as Duration,
-							c.code as CouponCode,
-							c.couponType,
-							c.Value as CouponValue,
-                            c.tutorId as CouponTutor
+							
+							x.CouponCode as CouponCode,
+							x.couponType,
+							x.CouponValue as CouponValue,
+                            x.CouponTutor as CouponTutor
 							
                     from [sb].[StudyRoomSession] srs
                     join sb.StudyRoom sr
@@ -53,8 +54,15 @@ namespace Cloudents.Query.Query.Admin
 	                    on srs.StudyRoomId = sru.StudyRoomId and sru.userId != tr.Id
                     join sb.[user] u
 	                    on u.id = sru.UserId
-					left join sb.userCoupon uc on u.id = uc.userid and t.id = uc.tutorId
-					left join sb.coupon c on uc.couponId = c.id and uc.UsedAmount < c.AmountOfUsePerUser
+					outer apply (
+					Select c.code as CouponCode,
+							c.couponType,
+							c.Value as CouponValue,
+                            c.tutorId as CouponTutor
+							from  sb.userCoupon uc 
+							join sb.coupon c on uc.couponId = c.id and uc.UsedAmount < c.AmountOfUsePerUser
+								 where u.id = uc.userid and t.id = uc.tutorId
+					) x
                     join sb.[User] tu
 	                    on tr.Id = tu.Id
                     where srs.id = @id";

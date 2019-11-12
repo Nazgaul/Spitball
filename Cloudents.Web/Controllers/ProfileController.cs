@@ -28,7 +28,8 @@ namespace Cloudents.Web.Controllers
         [Route("profile/{id:long}")]
         public async Task<IActionResult> OldIndex(long id, CancellationToken token)
         {
-            var query = new UserProfileQuery(id);
+            //not really need it in here
+            var query = new UserProfileQuery(id, 0);
             var retVal = await _queryBus.QueryAsync(query, token);
 
             if (retVal == null)
@@ -48,7 +49,7 @@ namespace Cloudents.Web.Controllers
         [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true), SignInWithToken]
         public async Task<IActionResult> Index(long id, string name, CancellationToken token)
         {
-            var query = new UserProfileQuery(id);
+            var query = new UserProfileQuery(id,0);
             var retVal = await _queryBus.QueryAsync(query, token);
             if (retVal == null)
             {

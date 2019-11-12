@@ -38,36 +38,33 @@
                 </div>
                 <h2 class="text-xs-center text-sm-left user-university caption text-capitalize">{{university}}</h2>
               </v-flex>
-              <div class="tutor-price mr-3" style="display: flex">
-                <span class="tutor-price mr-2" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
-                  {{isDiscount ? isDiscount : tutorPrice | currencyFormat(getProfile.user.tutorData.currency)}}
-                  <span class="tutor-price small-text">/ <span v-language:inner>profile_points_hour</span>
-                  </span>
-                </span>
-                <div v-if="isDiscount && $vuetify.breakpoint.smAndUp">
-                  <div class="tutor-price strike-through mr-3">
-                    <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
-                      {{tutorPrice | currencyFormat(getProfile.user.tutorData.currency)}}
-                      <span class="tutor-price small-text">/<span v-language:inner>profile_points_hour</span></span>
+              <div class="tutor-price tutor-price-header mr-3">
+                <div class="tutor-price-header-wrap">
+                  <span class="tutor-price mx-2" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
+                    {{isDiscount && tutorPrice !== 0  ? tutorDiscountPrice : tutorPrice | currencyFormat(getProfile.user.tutorData.currency)}}
+                    <span class="tutor-price small-text">/ <span v-language:inner>profile_points_hour</span>
                     </span>
+                  </span>
+                  <div v-if="isDiscount && $vuetify.breakpoint.smAndUp">
+                    <div class="tutor-price strike-through mr-3">
+                      <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
+                        {{tutorPrice ? tutorPrice : tutorDiscountPrice | currencyFormat(getProfile.user.tutorData.currency)}}
+                        <span class="tutor-price small-text">/<span v-language:inner>profile_points_hour</span></span>
+                      </span>
+                    </div>
                   </div>
+                  <span class="mt-0 ml-2" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
+                    <v-icon
+                      @click="openEditInfo()"
+                      class="edit-profile-action subheading"
+                    >sbf-edit-icon</v-icon>
+                  </span>
                 </div>
-                <span class="mt-0 ml-2" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
-                  <v-icon
-                    @click="openEditInfo()"
-                    class="edit-profile-action subheading"
-                  >sbf-edit-icon</v-icon>
-                </span>
+                <template class="hidden-sm-and-down">
+                  <button class="profile-coupon_apply hidden-sm-and-down body-2" :class="{'d-block': !$vuetify.breakpoint.xsOnly}" @click="openCoupon" flat v-language:inner="'coupon_apply_coupon'" v-if="isTutorProfile && !isMyProfile && !hasCoupon"></button>
+                </template>
               </div>
             </v-layout>
-            <div class="profile-coupon" v-if="isTutorProfile">
-                <button class="profile-coupon_apply d-block" @click="openCoupon" flat v-language:inner="'coupon_apply_coupon'" v-if="!couponState"></button>
-                <div class="text-xs-right" v-else>
-                  <input type="text" v-model="coupon" :placeholder="couponPlaceholder" class="profile-coupon_input">
-                  <button class="profile-coupon_btn white--text" @click="applyCoupon">Apply</button>
-                  <div class="profile-coupon_error" v-language:inner="'coupon_apply_error'" v-if="getCouponError"></div>
-                </div>
-            </div>
             <div class="mt-5" v-if="$vuetify.breakpoint.smAndUp">
               <userAboutMessage></userAboutMessage>
             </div>
@@ -78,13 +75,24 @@
             class="tutor-price text-xs-center"
             v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
           >
-            <span class="tutor-price">
-              {{isDiscount ? isDiscount : tutorPrice}}
-              <span class="tutor-price small-text">
-                <span>/</span>
-                <span v-language:inner>profile_points_hour</span>
+            <div class="tutor-price-mobile">
+              <span class="tutor-price">
+                {{isDiscount && tutorPrice !== 0 ? tutorDiscountPrice : tutorPrice | currencyFormat(getProfile.user.tutorData.currency)}}
+                <span class="tutor-price small-text">
+                  <span>/</span>
+                  <span v-language:inner>profile_points_hour</span>
+                </span>
               </span>
-            </span>
+              <div class="tutor-price strike-through mr-3" v-if="isDiscount">
+                <span class="tutor-price">
+                  {{tutorPrice ? tutorPrice : tutorDiscountPrice | currencyFormat(getProfile.user.tutorData.currency)}}
+                  <span class="tutor-price small-text">/<span v-language:inner>profile_points_hour</span></span>
+                </span>
+              </div>
+            </div>
+            <template class="hidden-sm-and-up">  
+              <button class="profile-coupon_apply d-block body-2 mt-2" :class="{'profile-coupon_apply__mobile': $vuetify.breakpoint.xsOnly}" @click="openCoupon" flat v-language:inner="'coupon_apply_coupon_btn'" v-if="isTutorProfile && !isMyProfile && !hasCoupon"></button>
+            </template>
             <span
               class="divider mt-4"
               style="height: 2px; width: 44px; background-color: rgba(67, 66, 93, 0.2); margin: 0 auto; display: block"
@@ -121,6 +129,37 @@
       <tutorInfoEdit v-if="isTutorProfile" :closeCallback="closeEditDialog"></tutorInfoEdit>
       <userInfoEdit v-else :closeCallback="closeEditDialog"></userInfoEdit>
     </sb-dialog>
+    <sb-dialog
+      :onclosefn="closeCouponDialog"
+      :activateOverlay="false"
+      :showDialog="getCouponDialog"
+      :maxWidth="'300px'"
+      :popUpType="'coupon'"
+      :content-class="'coupon-dialog'"
+      :isPersistent="true"
+    >
+        <v-card class="pb-3" :class="{'d-block': $vuetify.breakpoint.xsOnly}">
+            <v-layout class="header pa-3 mb-2">
+                <v-flex class="text-xs-center coupon-dialog-header">
+                    <span v-language:inner="'coupon_title'"></span>
+                    <v-icon @click="closeCouponDialog" class="coupon-close" v-html="'sbf-close'" />
+                </v-flex>
+            </v-layout>
+            <v-layout class="px-3" column>
+                <v-flex class="mb-2 pl-2">
+                    <div class="coupon coupon__dialog" v-if="isTutorProfile && !isMyProfile">
+                      <div class="text-xs-right ">
+                        <div class="coupon__dialog--flex">
+                          <input type="text" v-model="coupon" :placeholder="couponPlaceholder" class="profile-coupon_input">
+                          <button class="profile-coupon_btn white--text" @click="applyCoupon" v-language:inner="'coupon_apply_btn'"></button>
+                        </div>
+                        <div class="profile-coupon_error" v-language:inner="'coupon_apply_error'" v-if="getCouponError"></div>
+                        </div>
+                    </div>
+                </v-flex>
+            </v-layout>
+        </v-card>
+    </sb-dialog>
   </v-layout>
 </template>
 
@@ -136,6 +175,8 @@ import userInfoEdit from "../../profileHelpers/userInfoEdit/userInfoEdit.vue";
 import tutorInfoEdit from "../../profileHelpers/userInfoEdit/tutorInfoEdit.vue";
 import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import { LanguageService } from '../../../../services/language/languageService';
+
+import sbClose from '../../../../font-icon/close.svg';
 export default {
   name: "profileBio",
   components: {
@@ -143,12 +184,12 @@ export default {
     userAboutMessage,
     userInfoEdit,
     tutorInfoEdit,
-    sbDialog
+    sbDialog,
+    sbClose
   },
   data() {
     return {
-      couponState: false,
-      coupon: null,
+      coupon: '',
       discountAmount:70,
       minimumPrice:55
     };
@@ -160,7 +201,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getProfile", "isTutorProfile", "getShowEditDataDialog", "getActivateTutorDiscounts", 'getCouponError']),
+    ...mapGetters(["getProfile", "isTutorProfile", "getShowEditDataDialog", "getActivateTutorDiscounts", 'getCouponError', 'getCouponDialog']),
     xsColumn() {
       const xsColumn = {};
       if (this.$vuetify.breakpoint.xsOnly) {
@@ -178,8 +219,14 @@ export default {
       }
       return 0;
     },
-    isDiscount() {
+    tutorDiscountPrice() {
       return this.getProfile && this.getProfile.user.tutorData.discountPrice ? this.getProfile.user.tutorData.discountPrice : null;
+    },
+    hasCoupon() {
+      return this.getProfile && this.getProfile.user.tutorData.hasCoupon ? this.getProfile.user.tutorData.hasCoupon : false;
+    },
+    isDiscount() {
+      return this.getProfile && (this.getProfile.user.tutorData.discountPrice || this.getProfile.user.tutorData.discountPrice === 0) ? true : false;
     },
     showStriked(){
       if(!this.getActivateTutorDiscounts) return false;
@@ -221,21 +268,26 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateEditDialog', 'updateCoupon']),
+    ...mapActions(['updateEditDialog', 'updateCoupon', 'updateCouponDialog']),
     openEditInfo() {
       this.updateEditDialog(true);
     },
     closeEditDialog() {
         this.updateEditDialog(false);
     },
+    closeCouponDialog() {
+        this.updateCouponDialog(false);
+    },
     openCoupon() {
-      this.couponState = true;
+      this.updateCouponDialog(true)
     },
     applyCoupon() {
       if(this.isTutorProfile) {
         let tutorId = this.getProfile.user.id;
         let coupon = this.coupon;
-        this.updateCoupon({coupon, tutorId});
+        this.updateCoupon({coupon, tutorId}).finally(() => {
+          this.coupon = ''
+        })
       }
     }
   },
@@ -257,6 +309,25 @@ export default {
   .profile-bio-card {
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.18);
     border-radius: 4px;
+
+    .name-price-wrap {
+      .tutor-price-header {
+        display: flex;
+        flex-direction: column;
+        .tutor-price-header-wrap {
+          display: flex;
+        }
+        .profile-coupon_apply  {
+          margin: 0 0 0 auto;
+        }
+      }
+    }
+  }
+  .profile-coupon_apply {
+    color: #4c59ff;
+    &__mobile {
+      margin: 0 auto;
+    }
   }
   .user-name {
     display: flex;
@@ -280,9 +351,6 @@ export default {
   .profile-coupon {
     display: flex;
     justify-content: flex-end;
-    .profile-coupon_apply {
-      color: #4c59ff;
-    }
     .profile-coupon_input {
       outline: none;
       border-radius: 6px 0 0 6px;
@@ -300,7 +368,7 @@ export default {
       outline: none;
     }
     .profile-coupon_error {
-      width: 180px;
+      width: 200px;
       margin: 4px 0 0 auto;
       text-align: left;
       font-size: 11px;
@@ -320,9 +388,6 @@ export default {
     }
     &.strike-through{
       position: relative;
-      // position: absolute;
-      // top: 50px; 
-      // right: 15px;
         @media (max-width: @screen-xs) {
           top: 20px;
           right: 0px;
@@ -372,5 +437,72 @@ export default {
     color: @textColor;
   }
 }
+.tutor-price-mobile {
+  display: flex;
+  justify-content: center;
+  .tutor-price {
+    margin-right: 4px;
+    &.strike-through {
+      margin: 0 !important;
+      top: 0;
+    &:after {
+      top: 64%;
+    }
+    }
+  }
+}
+
+}
+.coupon-dialog {
+  border-radius: 6px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  .coupon-dialog-header {
+    font-weight: 600;
+    font-size: 16px;
+    color: #43425d;
+    .coupon-close {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 12px;
+      fill: #adadba;
+      cursor: pointer;
+    }
+  }
+  .coupon {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    &__dialog {
+      &--flex {
+        display: flex;
+      }
+      .profile-coupon_input {
+    outline: none;
+    border-radius: 6px 0 0 6px;
+    width: 146px;
+    border: 1px solid #bbb;
+    padding: 5px 2px 7px 8px; 
+    margin-right: -5px;
+  }
+  .profile-coupon_btn {
+    border-radius: 0 6px 6px 0;
+    background-color: #4c59ff;
+    font-size: 12px;
+    padding: 8px 12px;
+    font-weight: 600;
+    outline: none;
+  }
+  .profile-coupon_error {
+    width: 200px;
+    margin: 4px 0 0 auto;
+    text-align: left;
+    font-size: 11px;
+    color: #ff5252;
+  }
+    }
+  }
 }
 </style>

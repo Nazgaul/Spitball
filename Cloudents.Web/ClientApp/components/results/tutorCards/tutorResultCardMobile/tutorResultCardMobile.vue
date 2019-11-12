@@ -29,9 +29,8 @@
                   <div class="" v-language:inner="'resultTutor_courses'"></div>
                   <div class="text-truncate">{{courses}}</div>
               </div>
-
               <template>
-                <h4 class="text-truncate mb-1 university font-weight-light" v-if="isUniversity" v-html="$Ph('resultNote_university',[university])"/>
+                <h4 class="text-truncate mb-1 university font-weight-light" v-if="isUniversity" v-html="$Ph('resultNote_university',[tutorData.university])"/>
                 <h4 class="text-truncate mb-1 university" v-else></h4>
               </template> 
           </div>

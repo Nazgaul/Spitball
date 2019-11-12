@@ -1,4 +1,5 @@
-﻿using Cloudents.Command;
+﻿using System;
+using Cloudents.Command;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Core.Exceptions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,48 +25,34 @@ namespace Cloudents.Admin2.Api
             _commandBus = commandBus;
         }
 
-        // GET: api/<controller>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET api/<controller>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+     
 
         // POST api/<controller>
         [HttpPost]
-        public async Task Post([FromBody]CouponRequest model, CancellationToken token)
+        public async Task<IActionResult> Post([FromBody]CouponRequest model, CancellationToken token)
         {
-            var command = new CreateCouponCommand(model.Code,
-                model.CouponType,
-                model.TutorId,
-                model.Value,
-                model.Expiration,
-                model.Description,
-                model.Owner,
-                model.Amount,
-                model.UsePerUser.GetValueOrDefault(1)
-            );
-            await _commandBus.DispatchAsync(command, token);
-            //return Ok();
+            try
+            {
+                var command = new CreateCouponCommand(model.Code,
+                    model.CouponType,
+                    model.TutorId,
+                    model.Value,
+                    model.Expiration,
+                    model.Description,
+                    model.Owner,
+                    null,
+                    //model.Amount,
+                    1
+                );
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch (DuplicateRowException e)
+            {
+                return BadRequest("This coupon already exists");
+            }
+            return Ok();
         }
 
-        // PUT api/<controller>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE api/<controller>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+     
     }
 }

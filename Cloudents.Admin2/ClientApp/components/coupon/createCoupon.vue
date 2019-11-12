@@ -12,6 +12,7 @@
                     v-model="couponType"
                     :items="items"
                     label="Discount type"
+                    @change="changeCouponDiscountType"
                 ></v-select>
             </v-flex>
             <v-flex xs6 class="createCoupon_row">
@@ -20,10 +21,10 @@
                     label="Value"
                 ></v-text-field>
             </v-flex>
-            <v-flex xs6 class="createCoupon_row">
+            <!-- <v-flex xs6 class="createCoupon_row">
                 <v-text-field
                     v-model="amount"
-                    label="Amount"
+                    label="Amount of users"
                 ></v-text-field>
             </v-flex>
             <v-flex xs6 class="createCoupon_row">
@@ -31,8 +32,8 @@
                     v-model="amountPerUser"
                     label="Amount coupon per user"
                 ></v-text-field>
-            </v-flex>
-            <v-flex xs12 class="createCoupon_row">
+            </v-flex> -->
+            <!-- <v-flex xs12 class="createCoupon_row">
                 <v-menu
                     ref="menu"
                     v-model="menu"
@@ -53,7 +54,7 @@
                     <v-btn flat color="primary" @click="$refs.menu.save(expiration)">OK</v-btn>
                     </v-date-picker>
                 </v-menu>
-            </v-flex>
+            </v-flex> -->
             <v-btn @click="createCoupon" flat class="couponBtn primary">
                 Submit
             </v-btn>
@@ -71,12 +72,12 @@ export default {
             items: ['flat', 'percentage'],
             menu: false,
             date: null,
-            couponType: null,
-            amount: null,
-            amountPerUser: null,
+            couponType: 'flat',
             value: null,
             code: null,
             expiration: null,
+            // amount: null,
+            // amountPerUser: null,
         }
     },
     methods: {
@@ -84,17 +85,22 @@ export default {
             let couponObj = {
                 couponType: this.couponType,
                 code: this.code,
-                amount: this.amount,
-                usePerUser: this.amountPerUser,
+                amount: null,
+                usePerUser: 1,
                 value: this.value,
                 expiration: this.expiration
             }
             couponService.createNewCoupon(couponObj).then(res => {
                 this.$toaster.success(`Created new coupon`);
-            }).catch(ex => {
-                this.$toaster.error(`Error occurred, try again later`);
+            }).catch(res => {
+                let ex = res.response.data;
+                ex = ex ||`Error occurred, try again later`;
+                this.$toaster.error(ex);
             })
         },
+        changeCouponDiscountType(item) {
+            this.couponType = item
+        }
     }
 }
 </script>

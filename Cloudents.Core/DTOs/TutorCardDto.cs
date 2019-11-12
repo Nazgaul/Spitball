@@ -19,12 +19,10 @@ namespace Cloudents.Core.DTOs
         public override FeedType Type => FeedType.Tutor;
         public string Country { get; set; }
 
-        //[NonSerialized] private CultureInfo _mergeCultureInfo;
 
         [NonSerialized]
         public bool NeedSerializer;
 
-        //private string _tutorCountry;
 
 
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
@@ -44,12 +42,7 @@ namespace Cloudents.Core.DTOs
                 return null;
             }
         }
-
-        //[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Used by json.net")]
-        //public bool ShouldSerializeTutorPrice()
-        //{
-        //    return NeedSerializer;
-        //}
+       
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Used by json.net")]
         public bool ShouldSerializeTutorCountry()
         {

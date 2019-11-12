@@ -80,7 +80,6 @@ namespace Cloudents.FunctionsV2
                                 Country = update.Country,
                                 Image = update.Image,
                                 NeedSerializer = true
-
                             }
                         },
                         Insert = true
@@ -90,6 +89,7 @@ namespace Cloudents.FunctionsV2
 
                 foreach (var delete in result.Delete)
                 {
+                    log.LogInformation($"delete tutor id {delete}");
                     updateOccur = true;
                     await indexInstance.AddAsync(new AzureSearchSyncOutput()
                     {

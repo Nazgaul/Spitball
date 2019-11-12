@@ -308,6 +308,16 @@ export default {
         width: 100%;
         min-width: 100%;
         max-width: 0;
+        .btn-chat {
+          font-weight: 600;
+          position: relative;
+          margin: 0 auto;
+          .chat-icon-btn {
+            text-transform: inherit;
+            position: absolute;
+            left: 0;
+          }
+        }
       }
     }
   }

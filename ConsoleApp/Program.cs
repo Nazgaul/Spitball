@@ -29,6 +29,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Command.Command;
 using Cloudents.Command.Courses;
 using Cloudents.Core.Query.Feed;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
@@ -98,7 +99,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Prod;
+            var env = EnvironmentSettings.Dev;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -138,89 +139,12 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var client = Cognetive.Authenticate();
+            //var bus = _container.Resolve<ICommandBus>();
+            //var command = new ApplyCouponCommand("precentage", 638, 160171);
+            //await bus.DispatchAsync(command, default);
 
-            var session = _container.Resolve<IStatelessSession>();
-            var storage = _container.Resolve<ICloudStorageProvider>();
-            var blobProvider = storage.GetBlobClient();
-
-
-            var users = await session.Query<Tutor>().Fetch(f => f.User).Where(w => w.IsShownHomePage)
-                 .Select(s => new
-                 {
-                     s.User.ImageName,
-                     s.User.Id,
-                     s.User.Image
-                 }).ToListAsync();
-
-            foreach (var user in users)
-            {
-                Console.WriteLine($"/api{user.Image}");
-                //if (user.ImageName is null)
-                //{
-                //    continue;
-                //}
-                
-                //var blobUrl =
-                //    $"https://zboxstorage.blob.core.windows.net/spitball-user/profile/{user.Id}/{user.ImageName}";
-                //var result = await Cognetive.DetectFaceExtract(client, blobUrl);
-                //if (result is null)
-                //{
-                //    continue;
-                //}
-                //var blob = blobProvider.GetBlobReferenceFromServer(new Uri(blobUrl));
-
-                //blob.Metadata["face"] = $"{result.Left + (result.Width / 2)},{result.Top + result.Height / 2}";
-
-                //await blob.SetMetadataAsync();
-            }
-
-
-            //var feed = _container.Resolve<IFeedService>();
-            //var result = await feed.GetFeedAsync(new GetFeedQuery(638, 0, null, "IL", "בסיסי נתונים"), default);
-
-            //await GoogleSheetsReader.Read();
-            //            var dapper = _container.Resolve<IDapperRepository>();
-            //            using (var openConnection = dapper.OpenConnection())
-            //            {
-            //                var courseNames = await openConnection.QueryAsync<string>(
-            //                    @"Select distinct top 2000  uc.courseid from sb.userscourses uc join sb.[user] u on uc.userid = u.id
-            //                where u.country = 'IN'");
-
-            //                //if (courseName == null)
-            //                //{
-            //                //    break;
-
-            //                //}
-            //                foreach (var courseName in courseNames)
-            //                {
-            //                    var country = await openConnection.QueryAsync<string>(@"Select distinct u.country from sb.document d
-            //join sb.university u on d.universityid = u.id
-
-            //where coursename = @courseName
-            //union
-            //Select distinct u.country from sb.question d
-            //join sb.university u on d.universityid = u.id
-
-            //where courseid = @courseName
-            //", new { courseName = courseName });
-
-            //                    if (!country.Any(a => a.Equals("IN", StringComparison.OrdinalIgnoreCase)))
-            //                    {
-            //                        var i = await openConnection.ExecuteAsync(
-            //                             @"delete from sb.userscourses where courseid = @courseName and userid in (
-            //                        select id from sb.[user] where country = 'IN')", new { courseName = courseName });
-            //                        Console.WriteLine($"Remove assosiation {courseName} number {i}");
-            //                    }
-            //                    else
-            //                    {
-            //                        Console.WriteLine($"not Remove assosiation {courseName}");
-            //                    }
-            //                    //else
-            //                    //{
-            //                    //    list.Add(courseName);
-            //                    //}
-            //                }
+            //var v = command.newPrice;
+            await ResyncTutorRead();
         }
         private static async Task ResyncTutorRead()
         {

@@ -3,11 +3,9 @@
         <div class="earnImg">
             <div class="earn-title" v-language:inner="'homePage_earn_title'"/>
             <div class="earn-subtitle" v-language:inner="'homePage_earn_subtitle'"/>
-            <a href="https://help.spitball.co/en/article/making-your-profile">
-                <v-btn depressed class="btn-earn" round color="#4c59ff">
-                    <span v-language:inner="'homePage_btn_earn'"/>
-                </v-btn>
-            </a>
+            <v-btn tag="a" href="https://help.spitball.co/en/article/making-your-profile" depressed class="btn-earn" round color="#4c59ff">
+                <span v-language:inner="'homePage_btn_earn'"/>
+            </v-btn>
         </div>
     </div>
 </template>
@@ -53,7 +51,7 @@ export default {
             margin-bottom: 12px;
         }
         .earn-subtitle{
-            padding: 0 20px;
+            padding: 0 60px;
             max-width: 714px;
             font-size: 18px;
             font-weight: normal;
@@ -62,6 +60,7 @@ export default {
             margin-bottom: 30px;
             @media (max-width: @screen-xs) {
                 margin-bottom: 10px;
+                padding: 0 20px;
             }
         }
         .btn-earn{

@@ -12,6 +12,7 @@ namespace Cloudents.Web.Controllers
         [Route("job")]
         [Route("flashcard")]
         [Route("tutor")]
+        [Route("note")]
         [Route("ask")]
         public IActionResult Index()
         {

@@ -36,7 +36,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new ArgumentException("invalid coupon");
             }
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            coupon.ApplyCoupon(user, tutor);
+            user.ApplyCoupon(coupon, tutor);
 
 
             var tutorPrice = tutor.Price.Price;

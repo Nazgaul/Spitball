@@ -1,6 +1,9 @@
-﻿using Cloudents.Core.Enum;
+﻿using System;
+using System.Linq;
+using Cloudents.Core.Enum;
 using Cloudents.Query.Query.Admin;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -40,13 +43,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var task1 = _fixture.QueryBus.QueryAsync(query1, default);
             var task2 = _fixture.QueryBus.QueryAsync(query2, default);
             await Task.WhenAll(task1, task2);
-        }
-
-        [Fact]
-        public async Task AdminCoursesQuery_Ok()
-        {
-            var query = new AdminConversationDetailsQuery("638_159039", null);
-            await _fixture.QueryBus.QueryAsync(query, default);
         }
 
         //TODO: check all AdminEmptyQuery handlers
@@ -130,16 +126,26 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task AdminPaymentsQuery_Ok()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("IN")]
+        public async Task AdminPaymentsQuery_Ok(string country)
         {
-            var q1 = new AdminPaymentsQuery(string.Empty);
-            var q2 = new AdminUserDetailsQuery("Hadar@cloudents.com", "IL");
-            var q3 = new AdminUserDetailsQuery("0523556456", "IL");
-            var t1 = _fixture.QueryBus.QueryAsync(q1, default);
-            var t2 = _fixture.QueryBus.QueryAsync(q2, default);
-            var t3 = _fixture.QueryBus.QueryAsync(q3, default);
-            await Task.WhenAll(t1, t2, t3);
+            var q1 = new AdminPaymentsQuery(country);
+            var t1 = await _fixture.QueryBus.QueryAsync(q1, default);
+        }
+
+        [Theory]
+        [InlineData("Hadar@cloudents.com","IL")]
+        [InlineData("0523556456", "IL")]
+        [InlineData("0523556456", null)]
+        [InlineData("638", "IN")]
+        [InlineData("638", "IL")]
+        [InlineData("638", null)]
+        public async Task AdminUserDetailsQuery_Ok(string email, string country)
+        {
+            var q2 = new AdminUserDetailsQuery(email, country);
+            await _fixture.QueryBus.QueryAsync(q2, default);
         }
 
         [Fact]
@@ -257,5 +263,51 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new AdminAssignToQuery();
             await _fixture.QueryBus.QueryAsync(query, default);
         }
+
+        [Theory]
+        [InlineData((string)null)]
+        [InlineData("IN")]
+        public async Task AdminLeadsQuery_Ok(string country)
+        {
+            var query = new AdminLeadsQuery(country);
+            _ = await _fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Theory]
+        [InlineData(null, ItemState.Ok, null, null)]
+        [InlineData(null, ItemState.Pending, null, null)]
+        [InlineData("he", ItemState.Ok, null, null)]
+        [InlineData("en", ItemState.Pending, null, null)]
+        [InlineData(null, ItemState.Ok, "IL", null)]
+        [InlineData(null, ItemState.Pending, "IL", null)]
+        [InlineData("he", ItemState.Ok, "IL", null)]
+        [InlineData("en", ItemState.Pending, "IL", null)]
+        [InlineData(null, ItemState.Ok, null, "V")]
+        [InlineData(null, ItemState.Pending, null, "V")]
+        [InlineData("he", ItemState.Ok, null, "V")]
+        [InlineData("en", ItemState.Pending, null, "V")]
+        [InlineData(null, ItemState.Ok, "IL", "V")]
+        [InlineData(null, ItemState.Pending, "IL", "V")]
+        [InlineData("he", ItemState.Ok, "IL", "V")]
+        [InlineData("en", ItemState.Pending, "IL", "V")]
+
+        public async Task AdminCoursesQuery_Ok(string language, ItemState state, string country, string filter)
+        {
+            var query = new AdminCoursesQuery(language, state, country, filter);
+            var result = await _fixture.QueryBus.QueryAsync(query, default);
+
+
+            //check distinct
+            var v = from c in result
+                group c by c.Name
+                into grp
+                where grp.Count() > 1
+                select grp.Key;
+            v.Should().BeEmpty();
+
+
+        }
+
+       
     }
 }

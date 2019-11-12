@@ -37,19 +37,10 @@ namespace Cloudents.Core.Entities
 
         public virtual string UtmSource { get; protected set; }
 
-        public virtual DateTime CreationTime { get; set; }
+        public virtual DateTime? CreationTime { get; set; }
+  
 
-        public virtual ItemState? Status { get; protected set; }
-        public virtual void ChangeState(ItemState status)
-        {
-            Status = status;
-            if (Status == ItemState.Pending)
-            {
-                throw new ArgumentOutOfRangeException(nameof(status), status, null);
-            }
-        }
-
-        private readonly ISet<ChatRoomAdmin> _chatRoomsAdmin = new HashSet<ChatRoomAdmin>();
-        public virtual IEnumerable<ChatRoomAdmin> ChatRoomsAdmin => _chatRoomsAdmin;
+        //private readonly ISet<ChatRoomAdmin> _chatRoomsAdmin = new HashSet<ChatRoomAdmin>();
+        protected internal virtual ISet<ChatRoomAdmin> ChatRoomsAdmin { get; set; }
     }
 }

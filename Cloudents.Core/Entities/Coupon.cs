@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cloudents.Core.Extension;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities
@@ -13,6 +14,7 @@ namespace Cloudents.Core.Entities
 
     public class Coupon
     {
+        public const int MinimumLength = 5, MaxLength = 12;
         public Coupon([NotNull] string code, CouponType couponType, Tutor tutor, decimal value,
             int? amountOfUsers, int amountOfUsePerUser, DateTime? expiration, string description, string owner)
         {
@@ -23,8 +25,16 @@ namespace Cloudents.Core.Entities
                 throw new ArgumentException("value cannot be more than 100");
             }
 
+            if (code is null)
+            {
+                throw new ArgumentNullException(nameof(code));
+            }
+            if (!code.Length.IsBetween(MinimumLength, MaxLength))
+            {
+                throw new ArgumentOutOfRangeException(nameof(code));
+            }
 
-            Code = code ?? throw new ArgumentNullException(nameof(code));
+            Code = code;
 
             CouponType = couponType;
             Tutor = tutor;
@@ -66,7 +76,8 @@ namespace Cloudents.Core.Entities
         private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();
         public virtual IEnumerable<UserCoupon> UserCoupon => _userCoupon;
 
-        public virtual void ApplyCoupon(User user, Tutor tutor)
+
+        public virtual bool CanApplyCoupon()
         {
             if (Expiration.GetValueOrDefault(DateTime.MaxValue) < DateTime.UtcNow)
             {
@@ -77,9 +88,27 @@ namespace Cloudents.Core.Entities
             {
                 throw new OverflowException();
             }
-            var p = new UserCoupon(user, this, tutor);
-            _userCoupon.Add(p);
+
+            return true;
         }
+
+        //public virtual void ApplyCoupon(User user, Tutor tutor)
+        //{
+        //    if (Expiration.GetValueOrDefault(DateTime.MaxValue) < DateTime.UtcNow)
+        //    {
+        //        throw new ArgumentException("invalid coupon");
+        //    }
+
+        //    if (AmountOfUsers.HasValue && AmountOfUsers.Value <= _userCoupon.Count)
+        //    {
+        //        throw new OverflowException();
+        //    }
+        //    var p = new UserCoupon(user, this, tutor);
+        //    if (!_userCoupon.Add(p))
+        //    {
+        //        throw new ArgumentException("user already applied coupon");
+        //    }
+        //}
 
 
         public static decimal CalculatePrice(CouponType type, decimal price, decimal couponValue)

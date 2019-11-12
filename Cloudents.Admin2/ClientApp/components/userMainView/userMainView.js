@@ -49,14 +49,17 @@ export default {
             ],
             dialogs: {
                 name: false,
-                phone: false
+                phone: false,
+                price: false
             },
             currentFirstName: '',
             currentLastName: '',
+            currentPhone: '',
+            currentPrice: '',
             newFirstName: '',
             newLastName: '',
-            currentPhone: '',
             newPhone: '',
+            newPrice: '',
             suspendDialog: false,
             userComponentsShow: false,
             activeUserComponent: '',
@@ -112,6 +115,7 @@ export default {
             "removeTutor",
             "updateUserPhone",
             "updateUserName",
+            "updateTutorPrice",
             "deletePayment"
         ]),
        
@@ -217,6 +221,10 @@ export default {
             this.dialogs.phone = true;
             this.currentPhone = phone;
         },
+        openTutorPriceDialog(price) {           
+            this.dialogs.price = true;
+            this.currentPrice = price.toString();
+        },
         editName() {
             let nameObj = {
                 firstName: this.newFirstName,
@@ -250,6 +258,23 @@ export default {
                 this.newPhone = '';
                 this.dialogs.phone = false;
             });
+        },
+        editPrice() {
+            if(!this.userIdentifier) return;
+
+            let priceObj = {
+                price: parseInt(this.newPrice),
+                tutorId: this.userIdentifier
+            }
+            this.updateTutorPrice(priceObj).then(() => {
+                this.$toaster.success(`SUCCESS: update tutor price`);
+            }).catch(() => {
+                this.$toaster.error(`Error: update tutor price`);
+            })
+            .finally(() => {
+                this.dialogs.price = false;
+                this.newPrice = '';
+            });            
         },
         removePayment(id) {
             this.deletePayment(id).then(() => {
