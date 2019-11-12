@@ -10,7 +10,7 @@
                         <div class="line-terms">
 
             <v-checkbox @click="checkBoxConfirm" :ripple="false" class="checkbox-userinfo" 
-                        v-model="isTermsAgree" off-icon="sbf-check-box-un" 
+                        v-model="isTermsAgree" off-icon="sbf-check-box-un" sel="check"
                         on-icon="sbf-check-box-done" name="checkBox" id="checkBox"/>
                             <label for="checkBox">
                                 <span>
@@ -26,6 +26,7 @@
                     <v-btn @click="goWithGoogle()" 
                         :loading="googleLoading" 
                         large round
+                        sel="gmail"
                         class="google elevation-5 btn-login">
                         <img src="../images/G icon@2x.png">
                         <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
@@ -36,6 +37,7 @@
 
                 <v-btn @click="goWithEmail()" 
                     large flat round 
+                    sel="email"
                     class="email">
                     <img src="../images/np_email@2x.png">
                     <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_email_signup':'loginRegister_getstarted_btn_email_signin'"/>

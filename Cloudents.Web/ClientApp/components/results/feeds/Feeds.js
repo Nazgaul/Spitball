@@ -278,6 +278,7 @@ export default {
         if (this.query.course) this.setFilteredCourses(this.query.course);
         
         this.UPDATE_SEARCH_LOADING(true)
+
         //fetch data with the params
         this.Feeds_fetchingData({
             name: this.name,

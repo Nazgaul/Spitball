@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="itemCard-bottom">
-            <span class="item-purchases">{{item.purchased}} <span v-language:inner="'itemCardCarousel_purchases'"/> </span>
+            <span class="item-purchases">{{item.views}} <span v-language:inner="item.views > 1?'itemCardCarousel_views':'itemCardCarousel_view'"/> </span>
             <span class="item-pts">{{item.price}} <span v-language:inner="'itemCardCarousel_pts'"/></span>
         </div>
     </div>

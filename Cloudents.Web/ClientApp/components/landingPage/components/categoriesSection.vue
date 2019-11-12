@@ -4,7 +4,7 @@
     <div class="categories-top">
       <sbCarousel :slideStep="1" :arrows="$vuetify.breakpoint.smAndDown" v-if="!isMobile">
         <router-link
-          :to="{ path: '/feed', query: {term: card.name}}" @click.native.prevent="update(card.name)"
+          :to="{ path: '/feed', query: {term: card.name}}" event @click.native.prevent="update(card.name)"
           v-for="(card, index) in categoriesCardsCarousel"
           :key="index"
           class="categories-card"
@@ -15,7 +15,8 @@
         </router-link>
       </sbCarousel>
       <div v-else class="categories-chips">
-        <router-link v-for="(card, index) in categoriesCardsCarousel" 
+        <router-link v-for="(card, index) in categoriesCardsCarousel"
+                    event @click.native.prevent="update(card.name)" 
                     :key="index" 
                     :to="{ path: '/feed', query: {term: card.name}}" 
                     class="chip-title">{{card.name}}

@@ -33,20 +33,10 @@
       </user-block>
       <!-- start language swith-->
       <v-list-tile
-        :to="{ name: 'tutoring'}"
-        target="_blank"
-      >
-        <v-list-tile-action>
-          <v-icon>sbf-studyroom-icon</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title class="subheading" v-language:inner>menuList_my_study_rooms</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile
         v-for="singleLang in languageChoisesAval"
         :key="singleLang.name"
         @click="changeLanguage(singleLang.id)"
+        sel="menu_row"
       >
         <v-list-tile-action>
           <v-icon>{{singleLang.icon}}</v-icon>
@@ -58,7 +48,7 @@
       <!-- end language swith-->
       <template v-for="(item) in notRegMenu">
         <template v-if="item.name && item.name !== 'feedback'">
-          <router-link tag="v-list-tile" :to="{name : item.name}">
+          <router-link tag="v-list-tile" :to="{name : item.name}" sel="menu_row">
             <v-list-tile-action>
               <v-icon>{{item.icon}}</v-icon>
             </v-list-tile-action>
@@ -92,7 +82,7 @@
       <!--!!!this wont generate link in dom!!!-->
       <!--<router-link tag="v-list-tile" :to="{name:'wallet'}">-->
       <!--!!!!Use this instead, v-list tile with :to !!!!!-->
-      <v-list-tile :to="{name:'wallet'}">
+      <v-list-tile :to="{name:'wallet'}" sel="menu_row">
         <v-list-tile-action>
           <v-icon>sbf-wallet</v-icon>
         </v-list-tile-action>
@@ -100,7 +90,7 @@
           <v-list-tile-title class="subheading" v-language:inner>menuList_my_wallet</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile :to="{name:'profile',params:{id:accountUser.id,name:accountUser.name}}">
+      <v-list-tile :to="{name:'profile',params:{id:accountUser.id,name:accountUser.name}}" sel="menu_row">
         <v-list-tile-action>
           <v-icon>sbf-user</v-icon>
         </v-list-tile-action>
@@ -110,6 +100,7 @@
       </v-list-tile>
       <v-list-tile
         @click.native.prevent="openPersonalizeUniversity()"
+        sel="menu_row"
         :to="{name: 'addUniversity'}"
       >
         <v-list-tile-action>
@@ -125,6 +116,7 @@
         </v-list-tile-action>
       </v-list-tile>
       <v-list-tile
+        sel="menu_row"
         @click.native.prevent="openPersonalizeCourse()"
         :to="{name: 'editCourse'}">
         <v-list-tile-action>
@@ -144,6 +136,7 @@
       <v-list-tile
         :to="{ name: 'tutoring'}"
         target="_blank"
+        sel="menu_row"
       >
         <v-list-tile-action>
           <v-icon>sbf-studyroom-icon</v-icon>
@@ -157,6 +150,7 @@
         v-if="!isFrymo"
         v-for="singleLang in languageChoisesAval"
         :key="singleLang.name"
+        sel="menu_row"
         @click="changeLanguage(singleLang.id)"
       >
         <v-list-tile-action>
@@ -167,7 +161,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile @click="startIntercom">
+      <v-list-tile @click="startIntercom" sel="menu_row">
         <v-list-tile-action>
           <v-icon>sbf-feedbackNew</v-icon>
         </v-list-tile-action>
@@ -176,7 +170,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile @click="logout">
+      <v-list-tile @click="logout" sel="menu_row">
         <v-list-tile-action>
           <v-icon>sbf-logout</v-icon>
         </v-list-tile-action>
@@ -185,7 +179,7 @@
         </v-list-tile-content>
       </v-list-tile>
       <v-divider class="my-3"></v-divider>
-      <v-list-tile @click="openReferralDialog">
+      <v-list-tile @click="openReferralDialog" sel="menu_row">
         <v-list-tile-action>
           <v-icon>sbf-user</v-icon>
         </v-list-tile-action>
@@ -194,7 +188,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile v-for="link in satelliteLinks" :key="link.title">
+      <v-list-tile v-for="link in satelliteLinks" :key="link.title" sel="menu_row">
         <v-list-tile-action>
           <v-icon>{{link.icon}}</v-icon>
         </v-list-tile-action>

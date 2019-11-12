@@ -23,7 +23,7 @@
                   </button>
 
               </template>
-              <a @click="changeLanguage()" v-if="!isFrymo">
+              <a @click="changeLanguage()" v-if="!isFrymo" sel="language">
                 {{currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''}}
               </a>
             </v-flex>

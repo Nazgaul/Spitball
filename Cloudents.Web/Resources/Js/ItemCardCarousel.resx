@@ -129,4 +129,10 @@
   <data name="university" xml:space="preserve">
     <value>University:</value>
   </data>
+  <data name="view" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="views" xml:space="preserve">
+    <value>Views</value>
+  </data>
 </root>

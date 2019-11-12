@@ -8,21 +8,22 @@
               class="mr-3 user-avatar-rect" 
               :userId="tutorData.userId"
               :width="148" 
-              :height="182" 
+              :height="182"
+              :borderRadius="4"
             />
-            <div class="main-card justify-space-between">
-                <h3 class="font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
-                <h4 class="mb-1 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
-                <div class="user-bio-wrapper">
-                  <div class="user-bio mb-4">{{tutorData.bio}}</div>
+            <div class="main-card">
+                <h3 class="font-weight-bold text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+                <h4 class="mb-3 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
+                <div class="user-bio-wrapper mb-3">
+                  <div class="user-bio">{{tutorData.bio}}</div>
                 </div>
-                <div class="study-area mb-2" :class="{'study-area-hidden': !isSubjects}">
+                <div class="study-area mb-2 text-truncate" :class="{'study-area-hidden': !isSubjects}">
                   <span class="mr-1 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
-                  <span class="text-truncate">{{subjects}}</span>
+                  <span class="">{{subjects}}</span>
                 </div>
-                <div class="courses" v-if="isCourses">
+                <div class="courses text-truncate" v-if="isCourses">
                   <span class="mr-2 font-weight-bold" v-language:inner="'resultTutor_courses'"></span>
-                  <span class="text-truncate">{{courses}}</span> 
+                  <span class="">{{courses}}</span> 
                 </div>
             </div>
         </v-flex>
@@ -30,9 +31,9 @@
         <v-divider vertical class="mx-3"></v-divider>
 
         <div class="user-rates">
-            <div class="price font-weight-bold mb-1">
+            <div class="price font-weight-bold">
               <div class="user-rates-top">
-                <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
+                <div class="striked mr-2" v-if="tutorData.discountPrice">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
                 <template>
                     <span v-if="tutorData.discountPrice" class="tutor-card-price font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
                     <span class="tutor-card-price font-weight-bold" v-else>{{tutorData.price | currencyFormat(tutorData.currency)}}</span>
@@ -40,7 +41,6 @@
                 <span class="caption">
                   <span class="tutor-card-price-divider font-weight-bold">/</span>
                   <span class="tutor-card-price-divider font-weight-bold" v-language:inner="'resultTutor_hour'"></span>
-                  <div v-if="!tutorData.discountPrice" class="price-default-height"></div>
                 </span>
               </div>
             </div>
@@ -56,7 +56,7 @@
               </div>
             </template>
             
-            <div class="classes-hours align-center mb-4 mt-1">
+            <div class="classes-hours align-center">
               <clock />
               <span class="font-weight-bold caption ml-2" v-if="tutorData.lessons > 0">{{tutorData.lessons}}</span>
               
@@ -199,14 +199,15 @@ export default {
       flex-grow: 5;
       display: flex;
       .main-card {
-        min-width: 0;
-        display: flex;  
+        display: flex;
         flex-direction: column;
+        min-width: 0;
         .university-hidden {
           visibility: hidden;
         }
         .user-bio-wrapper {
           position: relative;
+          min-height: 60px;
           .user-bio {
             .giveMeEllipsis(3, 20px);
           }
@@ -215,8 +216,7 @@ export default {
           visibility: hidden;
         }
         .courses {
-          display: flex;
-          white-space: nowrap;
+          margin-top: 10px;
         }
       }
     }
@@ -224,10 +224,12 @@ export default {
       flex-basis: auto;
     }
     .user-rates {
-      display: flex;
-      flex-direction: column;
-      align-items: baseline;
-      justify-content: space-between;
+      display: grid;
+      grid-gap: 28px;
+      // display: flex;
+      // flex-direction: column;
+      // align-items: baseline;
+      // justify-content: space-between;
       flex: 2;
       .striked {
         max-width: max-content;
@@ -244,15 +246,15 @@ export default {
         }
       }
       .price {
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-        margin-top: -8px;
-        // padding-right: 26px;
+        justify-self: end;
+        // width: 100%;
+        // display: flex;
+        // justify-content: flex-end;
+        // margin-top: -8px;
         .user-rates-top {
-          display: flex;
+          // display: flex;
           align-items: baseline;
-          margin-right: 10px;
+          // margin-right: 10px;
           .tutor-card-currency {
             font-size: 16px;
             color:#5158af;
@@ -288,7 +290,7 @@ export default {
         }
       }
       .user-rank {
-        margin-top: -12px;
+        // margin-top: -12px;
         display: inline-flex;
         i{
           font-size: 20px !important;

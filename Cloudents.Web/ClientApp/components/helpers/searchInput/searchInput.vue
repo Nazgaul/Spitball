@@ -10,7 +10,6 @@
                 v-model="msg"
                 :placeholder="placeholder"
                 prepend-icon="sbf-search"
-                clearable
                 :clear-icon="'sbf-close'"
                 :hide-on-scroll="isHome ? hideOnScroll : false">
             </v-text-field>

@@ -31,8 +31,8 @@
                                         <span class="header-wallet-text">{{balance | currencyLocalyFilter}}</span>                                        
                                     </div>
                                     <div class="header-rocket" v-if="loggedIn">
-                                        <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
-                                            <user-avatar 
+                                        <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'" sel="menu">
+                                            <user-avatar
                                                 slot="activator" 
                                                 @click.native="drawer = !drawer" 
                                                 size="32"
@@ -48,7 +48,7 @@
                                     <router-link rel="nofollow" v-if="!loggedIn" class="header-login" :to="{ path: '/register', query:{returnUrl : $route.path}  }" v-language:inner>header_sign_up</router-link>
                                     <router-link rel="nofollow" v-if="!loggedIn" class="header-login" :to="{ path: '/signin', query:{returnUrl : $route.path} }" v-language:inner>header_login</router-link>
 
-                                    <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'" class="gamburger"
+                                    <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'" class="gamburger" sel="menu"
                                             v-if="!loggedIn">
                                         <v-btn :ripple="false" icon slot="activator" @click.native="drawer = !drawer">
                                             <v-icon>sbf-menu</v-icon>
