@@ -63,7 +63,13 @@ function UserInfo(objInit) {
         value: objInit.tutorState ? objInit.tutorState : 'Not a tutor',
         label: 'Tutor State'
     };
-    
+    this.calendarExists = {
+        value: objInit.calendarExists,
+        label: 'Has Calendar',
+         showButton: true,
+         buttonText: "delete"
+
+    }
 }
 
 function createUserInfoItem(data) {
@@ -301,6 +307,9 @@ export default {
     },
     removeTutor: (id) => {
         return connectivityModule.http.delete(`AdminTutor/${id}`);
+    },
+    removeCalender: (id) => {
+        return connectivityModule.http.delete(`AdminUser/calendar/?id=${id}`);
     },
     deletePayment: (id) => {
         return connectivityModule.http.delete(`AdminPayment/deletePayment?userId=${id}`);

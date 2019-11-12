@@ -115,8 +115,9 @@ export default {
             "removeTutor",
             "updateUserPhone",
             "updateUserName",
+            "deletePayment",
             "updateTutorPrice",
-            "deletePayment"
+            "removeCalender"
         ]),
        
         resetUserData() {
@@ -180,6 +181,17 @@ export default {
             },
             () => {
                 self.$toaster.error(`ERROR: failed to delete tutor ${id}`);
+            });
+        },
+        deleteCalender(){
+            var self = this;
+            var id = self.$route.params.userId;
+            self.removeCalender(id)
+            .then(() => {
+                self.$toaster.success(`calender been deleted ${id}`);
+            },
+            () => {
+                self.$toaster.error(`ERROR: failed to delete calender ${id}`);
             });
         },
 

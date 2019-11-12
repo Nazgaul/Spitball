@@ -357,5 +357,13 @@ namespace Cloudents.Admin2.Api
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+        [HttpDelete("calendar")]
+        public async Task<IActionResult> DeleteGoogleToken([FromQuery(Name = "id")] long userId, CancellationToken token)
+        {
+            var command = new DeleteGoogleTokenCommand(userId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
     }
 }

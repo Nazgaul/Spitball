@@ -45,6 +45,7 @@
                                 <v-btn small color='warning' @click="openTutorPriceDialog(userInfo.tutorPrice.value)" v-if="infoItem.label == 'Tutor Price'" class="white--text">Edit</v-btn>
                                 <v-btn small color='red' class="white--text" @click="removePayment(userInfo.id.value)" v-if="infoItem.label == 'Has Payment' && infoItem.value">Delete</v-btn>
                                 <v-btn small color='red' class="white--text" @click="deleteTutor()" v-if="infoItem.label == 'Tutor State' && infoItem.value === 'ok'">Delete</v-btn>
+                                <v-btn small color='red' class="white--text" @click="deleteCalender()" v-if="infoItem.label == 'Has Calendar' && infoItem.value === true">Delete</v-btn>
                                 <span>{{infoItem.value}}</span>
                             </v-layout>
                         </v-list-tile>
