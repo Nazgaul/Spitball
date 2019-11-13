@@ -91,7 +91,11 @@
               </div>
             </div>
             <template class="hidden-sm-and-up">  
+<<<<<<< HEAD
+              <button class="profile-coupon_apply d-block body-2 mt-2" :class="{'profile-coupon_apply__mobile': $vuetify.breakpoint.xsOnly}" @click="openCoupon" flat v-language:inner="'coupon_apply_coupon'" v-if="isTutorProfile && !isMyProfile && !hasCoupon"></button>
+=======
               <button class="profile-coupon_apply d-block body-2 mt-2" :class="{'profile-coupon_apply__mobile': $vuetify.breakpoint.xsOnly}" @click="openCoupon" flat v-language:inner="'coupon_apply_coupon_btn'" v-if="isTutorProfile && !isMyProfile && !hasCoupon"></button>
+>>>>>>> origin/develop
             </template>
             <span
               class="divider mt-4"
@@ -201,7 +205,11 @@ export default {
     }
   },
   computed: {
+<<<<<<< HEAD
     ...mapGetters(["accountUser", "getProfile", "isTutorProfile", "getShowEditDataDialog", "getActivateTutorDiscounts", 'getCouponError', 'getCouponDialog']),
+=======
+    ...mapGetters(["getProfile", "isTutorProfile", "getShowEditDataDialog", "getActivateTutorDiscounts", 'getCouponError', 'getCouponDialog']),
+>>>>>>> origin/develop
     xsColumn() {
       const xsColumn = {};
       if (this.$vuetify.breakpoint.xsOnly) {
@@ -268,7 +276,11 @@ export default {
     }
   },
   methods: {
+<<<<<<< HEAD
     ...mapActions(['updateEditDialog', 'updateCoupon', 'updateCouponDialog', 'updateLoginDialogState']),
+=======
+    ...mapActions(['updateEditDialog', 'updateCoupon', 'updateCouponDialog']),
+>>>>>>> origin/develop
     openEditInfo() {
       this.updateEditDialog(true);
     },
@@ -279,10 +291,13 @@ export default {
         this.updateCouponDialog(false);
     },
     openCoupon() {
+<<<<<<< HEAD
       if(this.accountUser == null) {
         this.updateLoginDialogState(true);
         return;
       } 
+=======
+>>>>>>> origin/develop
       this.updateCouponDialog(true)
     },
     applyCoupon() {

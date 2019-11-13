@@ -17,7 +17,11 @@
         <div>
             <v-btn depressed color="#4c59ff" class="tutor-btn">
             <span class="text-truncate">
+<<<<<<< HEAD
                 <span v-language:inner="'tutorCardCarousel_tutor_btn'" class="mr-1"></span>{{showFirstName}}
+=======
+                <span v-language:inner="'tutorCardCarousel_tutor_btn'" class="mr-1"></span>{{showFirstName(tutor.name)}}
+>>>>>>> origin/develop
             </span>
             </v-btn>
         </div>
@@ -90,6 +94,8 @@ export default {
                 params: {id: this.tutor.userId, name: this.tutor.name}
             })
         },
+<<<<<<< HEAD
+=======
         showFirstName() {
             let maxChar = 5;
             let name = this.tutor.name.split(' ')[0];
@@ -98,6 +104,7 @@ export default {
             }
             return name;
         },
+>>>>>>> origin/develop
     },
 }
 </script>

@@ -57,7 +57,11 @@ namespace Cloudents.Query.Query.Admin
                     Country = s.Country,
                     ReferredCount = _session.Query<ReferUserTransaction>().Count(w => w.User.Id == s.Id),
                     Balance = s.Transactions.Balance,
+<<<<<<< HEAD
                     IsActive = s.LockoutEnd == null || s.LockoutEnd < DateTime.UtcNow,
+=======
+                    IsActive = s.LockoutEnd < DateTime.UtcNow,
+>>>>>>> origin/develop
                     WasSuspended = s.LockoutEnd != null,
                     Joined = _session.Query<AwardMoneyTransaction>()
                         .Where(w => w.Action == TransactionActionType.SignUp).Select(s2 => s2.Created).FirstOrDefault()
