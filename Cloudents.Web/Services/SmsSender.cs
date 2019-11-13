@@ -22,7 +22,7 @@ namespace Cloudents.Web.Services
 
         private async Task SendSmsAsync(string phoneNumber, string code, SmsMessage.MessageType type, CancellationToken token)
         {
-            var message = new SmsMessage(phoneNumber, $"Your code to enter into Spitball is: {code}", type);
+            var message = new SmsMessage(phoneNumber,  code, type);
             await _serviceBusProvider.InsertMessageAsync(message, token);
         }
 

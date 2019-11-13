@@ -264,6 +264,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
+
         [Theory]
         [InlineData((string)null)]
         [InlineData("IN")]
