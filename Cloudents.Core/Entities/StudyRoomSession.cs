@@ -49,7 +49,7 @@ namespace Cloudents.Core.Entities
             Ended = DateTime.UtcNow;
             Duration = Ended - Created;
             DurationInMinutes = Ended - Created;
-            Price = (decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60 * StudyRoom.Tutor.Price.SubsidizedPrice;
+            Price = (decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60 * StudyRoom.Tutor.Price.SubsidizedPrice ?? StudyRoom.Tutor.Price.Price;
             AddEvent(new EndStudyRoomSessionEvent(this));
         }
 
