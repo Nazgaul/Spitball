@@ -2,6 +2,7 @@
 using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
+using NHibernate;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -18,8 +19,8 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Bio).Length(1000);
             Component(x => x.Price, y2 =>
             {
-                y2.Map(z => z.Price).CustomSqlType("smallMoney");
-                y2.Map(z => z.SubsidizedPrice).CustomSqlType("smallMoney");
+                y2.Map(z => z.Price).CustomType(nameof(NHibernateUtil.Currency));
+                y2.Map(z => z.SubsidizedPrice).CustomType(nameof(NHibernateUtil.Currency));
             });
 
 

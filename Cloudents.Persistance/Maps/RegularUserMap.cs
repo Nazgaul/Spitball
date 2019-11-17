@@ -2,6 +2,7 @@
 using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
+using NHibernate;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -31,7 +32,7 @@ namespace Cloudents.Persistence.Maps
             Component(x => x.Transactions, y =>
             {
                 y.Map(x => x.Score);
-                y.Map(x => x.Balance).CustomSqlType("smallmoney");
+                y.Map(x => x.Balance).CustomType(nameof(NHibernateUtil.Currency));
                 y.HasMany(x => x.Transactions).KeyColumn("User_id")
                     .Inverse()
                     .Cascade.AllDeleteOrphan().ForeignKeyConstraintName("Transaction_User").AsBag();

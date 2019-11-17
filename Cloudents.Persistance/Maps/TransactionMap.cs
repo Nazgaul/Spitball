@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
+using NHibernate;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Persistence.Maps
@@ -16,7 +17,7 @@ namespace Cloudents.Persistence.Maps
 
             Map(z => z.Action).Not.Nullable();
             Map(z => z.Type).Not.Nullable();
-            Map(z => z.Price).Not.Nullable().CustomSqlType("smallmoney");
+            Map(z => z.Price).Not.Nullable().CustomType(nameof(NHibernateUtil.Currency));
 
             DiscriminateSubClassesOnColumn("TransactionType");
             SchemaAction.Validate();

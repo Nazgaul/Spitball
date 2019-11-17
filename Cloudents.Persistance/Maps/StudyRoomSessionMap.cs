@@ -1,6 +1,7 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
+using NHibernate;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -18,7 +19,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.DurationInMinutes).CustomType<MinuteTimeSpanType>();
             Map(x => x.SessionId).Not.Nullable();
             Map(x => x.Receipt);
-            Map(x => x.Price).CustomSqlType("smallMoney").Nullable();
+            Map(x => x.Price).CustomType(nameof(NHibernateUtil.Currency)).Nullable();
             HasMany(x => x.ParticipantDisconnections).Access.CamelCaseField(Prefix.Underscore)
                .KeyColumn("SessionId")
                .Inverse().Cascade.AllDeleteOrphan();
