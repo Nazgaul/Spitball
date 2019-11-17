@@ -309,6 +309,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         }
 
-       
+        [Theory]
+        [InlineData("2f13c946-8a0c-43c1-a7fb-ab080084fea1")]
+        public async Task AdminPaymentBySessionIdQuery_Ok(string sessionId)
+        {
+            var query = new AdminPaymentBySessionIdQuery(Guid.Parse(sessionId));
+            var result = await _fixture.QueryBus.QueryAsync(query, default);
+        }
+
+
+
     }
 }

@@ -17,7 +17,7 @@
         <div>
             <v-btn depressed color="#4c59ff" class="tutor-btn">
             <span class="text-truncate">
-                <span v-language:inner="'tutorCardCarousel_tutor_btn'" class="mr-1"></span>{{showFirstName}}
+                <span v-html="$Ph('resultTutor_send_button', showFirstName)" class="mr-1"></span>
             </span>
             </v-btn>
         </div>
@@ -35,7 +35,7 @@
             </template>
             </div>
             <div class="ts-price">
-            <span class="price-mark">{{tutor.price}}</span>/
+            <span class="price-mark">{{tutor.price | currencyFormat(tutor.currency)}}</span>/
             <span v-language:inner="'tutorCardCarousel_hour'" />
             </div>
         </div>
@@ -89,14 +89,6 @@ export default {
                 name: 'profile',
                 params: {id: this.tutor.userId, name: this.tutor.name}
             })
-        },
-        showFirstName() {
-            let maxChar = 5;
-            let name = this.tutor.name.split(' ')[0];
-            if(name.length > maxChar) {
-                return LanguageService.getValueByKey('resultTutor_message_me');
-            }
-            return name;
         },
     },
 }

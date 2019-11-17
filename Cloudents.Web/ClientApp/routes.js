@@ -6,7 +6,6 @@ const pageHeader = () => import('./components/header/header.vue');
 const schoolBlock = () => import('./components/schoolBlock/schoolBlock.vue');
 const verticalsTabs = () => import('./components/header/verticalsTabs.vue');
 
-
 const document = () => import("./components/document/document.vue");
 //const previewHeader = () => import("./components/helpers/header.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");

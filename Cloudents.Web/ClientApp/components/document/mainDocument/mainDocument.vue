@@ -1,21 +1,20 @@
 <template>
   <div class="mainDocument-container">
-    <v-layout row class="mainDocument-header" :class="[isSmAndDown ? 'pt-3' : 'pb-2']" align-center>
+    <h2 class="courseName font-weight-bold text-truncate pt-1 hidden-sm-and-up">{{courseName}}</h2>
+    <v-layout row class="mainDocument-header pt-1 pb-2" align-center>
       <div class="main-header-wrapper">
         <v-icon
           class="grey--text"
           :class="['arrow-back','hidden-sm-and-down',isRtl? 'arrow-back-rtl': '']"
           @click="closeDocument"
         >sbf-arrow-back-chat</v-icon>
-        <h2
-          class="courseName font-weight-bold text-truncate"
-          :class="[isSmAndDown ? 'pr-5' : 'pl-3']"
-        >{{courseName}}</h2>
-        <v-spacer></v-spacer>
-        <span class="grey-text views" :class="[isSmAndDown ? 'pr-3' : 'pr-5']">
+        <h2 class="courseName font-weight-bold text-truncate ml-3 hidden-sm-and-down">{{courseName}}</h2>
+        <v-spacer class="hidden-sm-and-down"></v-spacer>
+        <span v-if="docViews" class="grey-text" :class="[isSmAndDown ? 'pr-3' : 'pr-5']">
           {{docViews}}
-          <v-icon class="pl-2 doc-views" small>sbf-views</v-icon>
+          <span class="" v-language:inner="docViews > 1 ? 'resultNote_views' : 'resultNote_view'"/> 
         </span>
+        <v-spacer class="hidden-sm-and-up"></v-spacer>
         <span class="grey-text date" :class="{'pl-3': isSmAndDown}">{{documentDate}}</span>
 
         <v-menu
@@ -177,7 +176,7 @@
             :src-placeholder="isObserver(page)"
             :alt="document.content"
           />
-          <div class="docPreviewCarousel mb-4" v-if="$vuetify.breakpoint.smAndDown && getTutorList.length">
+          <div class="docPreviewCarousel mb-4" v-if="$vuetify.breakpoint.smAndDown && getTutorList.length && index === 0">
             <h3 class="subtitle-1 mb-4" v-language:inner="'resultTutor_title'"/>
             <sbCarousel class="carouselDocPreview" @select="enterTutorCard" 
                         :arrows="false"
@@ -489,7 +488,6 @@ export default {
       }
     },
     closeDocument() {
-      this.UPDATE_SEARCH_LOADING(true);
       let regRoute = 'registration';
       let routeStackLength = this.getRouteStack.length;
       let beforeLastRoute = this.getRouteStack[routeStackLength-2];
@@ -616,6 +614,14 @@ export default {
   @media (max-width: @screen-sm) {
     order: 2;
   }
+  .courseName {
+        font-size: 18px;
+        color: @global-purple;
+        line-height: initial !important;
+        @media (max-width: 1450px) {
+        font-size: 16px;
+        }
+    }
   .mainDocument-header {
     justify-content: center;
   }
@@ -640,25 +646,7 @@ export default {
         margin-bottom: 2px;
         font-size: 13px !important;
       }
-      .courseName {
-        font-size: 18px;
-                    color: @global-purple;
-        line-height: initial !important;
-        max-width: 0;
-        min-width: 60%;
-        @media (max-width: @screen-xs) {
-          max-width: 200px;
-          min-width: unset;
-        }
-        @media (max-width: @screen-xss) {
-          max-width: 160px;
-          min-width: unset;
-        }
-        @media (max-width: 320px) {
-          max-width: 110px;
-          min-width: unset;
-        }
-      }
+      
       .arrow-back {
         font-size: 24px;
         margin-top: 3px;
@@ -667,7 +655,7 @@ export default {
         transform: scaleX(-1);
       }
       .grey-text {
-        opacity: 0.6;
+        color: #a0a0a0;
       }
       .verticalMenu {
         font-size: 16px;

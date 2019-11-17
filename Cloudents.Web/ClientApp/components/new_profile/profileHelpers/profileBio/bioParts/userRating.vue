@@ -1,6 +1,6 @@
 <template>
         <v-layout align-center justify-center class="rating-container">
-            <v-flex shrink :class="{'mr-2': $vuetify.breakpoint.smAndUp}">
+            <v-flex shrink :class="{'mr-1': $vuetify.breakpoint.smAndUp}">
                 <v-rating :class="['ratingCmp',{'rtl-rating': isRtl}]"
                         v-model="dynamicRating"
                         :color="starColor"

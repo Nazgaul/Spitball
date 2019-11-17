@@ -124,6 +124,6 @@
     <value>support@spitball.co</value>
   </data>
   <data name="sms_text" xml:space="preserve">
-    <value>your code to enter into Spitball is: {0}</value>
+    <value>Your code to enter into Spitball is: {0}</value>
   </data>
 </root>

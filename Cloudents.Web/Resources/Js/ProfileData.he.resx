@@ -118,10 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="generalProfile_modal_heading" xml:space="preserve">
-    <value>כדי להמשיך, הירשם או
- התחבר למערכת.</value>
+    <value>כדי להמשיך, התחברו למערכת או
+הירשמו חינם</value>
   </data>
   <data name="generalProfile_modal_text" xml:space="preserve">
-    <value>אתה במרחק של כמה הקלקות מעזרה מידית בשיעורי הבית וצבירת נקודות.</value>
+    <value>קבלו גישה לאלפי חומרי לימוד איכותיים ומורים 
+מקצועיים מסביב לשעון</value>
   </data>
 </root>

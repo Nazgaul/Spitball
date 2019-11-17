@@ -92,5 +92,5 @@ Vue.filter('commasFilter', function (value) {
 });
 
 Vue.filter('currencyFormat', function(number, currency) {
-    return new Intl.NumberFormat(global.country, { style: 'currency', currency: currency, minimumFractionDigits: 0  }).format(number);
+    return new Intl.NumberFormat(`${global.lang}-${global.country}`, { style: 'currency', currency: currency, minimumFractionDigits: 0  }).format(number);
 })

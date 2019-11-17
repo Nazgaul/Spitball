@@ -28,7 +28,7 @@ namespace Cloudents.Query.Query.Admin
             public async Task<PaymentDetailDto> GetAsync(AdminPaymentBySessionIdQuery query, CancellationToken token)
             {
                 //This query will not work in case there will be more then one student in a room.
-                string sql = @"select srs.Id as StudyRoomSessionId,
+                const string sql = @"select srs.Id as StudyRoomSessionId,
                     case when t.Price is null then tr.Price else t.Price end as TutorPricePerHour,
                     case when tr.SellerKey is null then 1 else 0 end as cantPay,
 		                    tr.Id as TutorId, 
@@ -61,7 +61,7 @@ namespace Cloudents.Query.Query.Admin
                             c.tutorId as CouponTutor
 							from  sb.userCoupon uc 
 							join sb.coupon c on uc.couponId = c.id and uc.UsedAmount < c.AmountOfUsePerUser
-								 where u.id = uc.userid and t.id = uc.tutorId
+								 where u.id = uc.userid and tr.id = uc.tutorId
 					) x
                     join sb.[User] tu
 	                    on tr.Id = tu.Id

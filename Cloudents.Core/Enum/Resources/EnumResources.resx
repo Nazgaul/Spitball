@@ -121,7 +121,7 @@
     <value>Answer correct</value>
   </data>
   <data name="ActionTypeAwarded" xml:space="preserve">
-    <value>Awarded</value>
+    <value></value>
   </data>
   <data name="ActionTypeBuy" xml:space="preserve">
     <value>Buy</value>

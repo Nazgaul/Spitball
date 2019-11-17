@@ -129,4 +129,7 @@
   <data name="university" xml:space="preserve">
     <value>מוסד לימוד:</value>
   </data>
+  <data name="views" xml:space="preserve">
+    <value>צפיות</value>
+  </data>
 </root>

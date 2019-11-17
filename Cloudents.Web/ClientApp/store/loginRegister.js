@@ -175,7 +175,7 @@ const actions = {
                 } else {
                     _analytics(['Login', 'Start Google']);
                     global.isAuth = true;
-                    let lastRoute = router.history.current.query.returnUrl;
+                    let lastRoute = router.history.current.query.returnUrl || 'feed';
                     router.push({path: `${lastRoute}`});
                 }
                 return Promise.reject(error);

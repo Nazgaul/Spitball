@@ -60,7 +60,7 @@ namespace Cloudents.Query.Query.Admin
                     IsActive = s.LockoutEnd == null || s.LockoutEnd < DateTime.UtcNow,
                     WasSuspended = s.LockoutEnd != null,
                     Joined = _session.Query<AwardMoneyTransaction>()
-                        .Where(w => w.Action == TransactionActionType.SignUp).Select(s2 => s2.Created).FirstOrDefault()
+                        .Where(w => w.Action == TransactionActionType.SignUp && w.User.Id == s.Id).Select(s2 => s2.Created).FirstOrDefault()
                         ,
                     PhoneNumberConfirmed = s.PhoneNumberConfirmed,
                     EmailConfirmed = s.EmailConfirmed,
@@ -68,7 +68,8 @@ namespace Cloudents.Query.Query.Admin
                     LockoutReason = s.LockoutReason,
                     TutorState = s.Tutor.State,
                     PaymentExists = s.PaymentExists == PaymentStatus.Done,
-                    TutorPrice = s.Tutor.Price.SubsidizedPrice ?? s.Tutor.Price.Price
+                    TutorPrice = s.Tutor.Price.SubsidizedPrice ?? s.Tutor.Price.Price,
+                    CalendarExists = _session.Query<GoogleTokens>().Any(w => w.Id == s.Id.ToString())
                 }).SingleOrDefaultAsync(token);
                 //                string sql = @"select U.Id, U.Name, Email, PhoneNumberHash as PhoneNumber, Un.Name as University, U.Country, U.Score, 
                 //		(select count(1) from sb.[Transaction] T where  U.Id = T.[User_id] and T.[Action] = 'ReferringUser')  as ReferredCount,

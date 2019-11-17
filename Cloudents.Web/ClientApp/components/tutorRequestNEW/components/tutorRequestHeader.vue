@@ -7,8 +7,8 @@
                 :userImageUrl="getCurrTutor.image"/>
 
         <img v-else v-show="isLoaded" class="tutorRequest-img" @load="loaded" :src="defaultImage" alt="../images/yaniv.jpg">
-        <p v-if="!getCurrTutor" v-language:inner="'tutorRequest_send_msg_yaniv'"/>
-        <p v-else v-html="$Ph(isMobile? 'tutorRequest_send_msg_tutor_mobile' :'tutorRequest_send_msg_tutor',this.getCurrTutor.name)" />
+        <p class="text-xs-center" v-if="!getCurrTutor" v-language:inner="'tutorRequest_send_msg_yaniv'"/>
+        <p class="text-xs-center" v-else v-html="$Ph(isMobile? 'tutorRequest_send_msg_tutor_mobile' :'tutorRequest_send_msg_tutor',this.getCurrTutor.name)" />
     </div>
 </template>
 
@@ -53,6 +53,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100%;
         .tutorRequest-img{
             border-radius: 50%;
             width: 66px;
@@ -67,12 +68,13 @@ export default {
             font-size: 20px;
             font-weight: 600;
             color: @global-purple;
+            width: 100%;
             @media (max-width: @screen-xs) {
                 margin-top: 18px;
                 text-align: center;
                 line-height: 1.5;
                 letter-spacing: -0.38px;
-                padding: 0 40px;
+                padding: 0 20px;
                 white-space: pre-line;
             }
         }

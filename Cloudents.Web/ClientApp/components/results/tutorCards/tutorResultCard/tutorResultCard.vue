@@ -199,11 +199,10 @@ export default {
       flex-grow: 5;
       display: flex;
       .main-card {
-        display: flex;
-        flex-direction: column;
         min-width: 0;
         .university-hidden {
           visibility: hidden;
+          min-height: 16px;
         }
         .user-bio-wrapper {
           position: relative;
@@ -290,8 +289,7 @@ export default {
         }
       }
       .user-rank {
-        // margin-top: -12px;
-        display: inline-flex;
+        display: -webkit-box;
         i{
           font-size: 20px !important;
         }
@@ -314,6 +312,7 @@ export default {
           font-weight: 600;
           position: relative;
           margin: 0 auto;
+          text-transform: initial;
           .chat-icon-btn {
             text-transform: inherit;
             position: absolute;

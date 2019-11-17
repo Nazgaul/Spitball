@@ -91,7 +91,7 @@
               </div>
             </div>
             <template class="hidden-sm-and-up">  
-              <button class="profile-coupon_apply d-block body-2 mt-2" :class="{'profile-coupon_apply__mobile': $vuetify.breakpoint.xsOnly}" @click="openCoupon" flat v-language:inner="'coupon_apply_coupon_btn'" v-if="isTutorProfile && !isMyProfile && !hasCoupon"></button>
+              <button class="profile-coupon_apply d-block body-2 mt-2" :class="{'profile-coupon_apply__mobile': $vuetify.breakpoint.xsOnly}" @click="openCoupon" flat v-language:inner="'coupon_apply_coupon'" v-if="isTutorProfile && !isMyProfile && !hasCoupon"></button>
             </template>
             <span
               class="divider mt-4"
@@ -133,25 +133,25 @@
       :onclosefn="closeCouponDialog"
       :activateOverlay="false"
       :showDialog="getCouponDialog"
-      :maxWidth="'300px'"
+      :maxWidth="'410px'"
       :popUpType="'coupon'"
       :content-class="'coupon-dialog'"
       :isPersistent="true"
     >
-        <v-card class="pb-3" :class="{'d-block': $vuetify.breakpoint.xsOnly}">
-            <v-layout class="header pa-3 mb-2">
-                <v-flex class="text-xs-center coupon-dialog-header">
+        <v-card class="pb-3 coupon-dialog-card" :class="{'d-block': $vuetify.breakpoint.xsOnly}">
+            <v-layout class="header py-4">
+                <v-flex class="text-xs-center coupon-dialog-header" :class="{'mt-5': $vuetify.breakpoint.xsOnly}">
                     <span v-language:inner="'coupon_title'"></span>
                     <v-icon @click="closeCouponDialog" class="coupon-close" v-html="'sbf-close'" />
                 </v-flex>
             </v-layout>
             <v-layout class="px-3" column>
-                <v-flex class="mb-2 pl-2">
+                <v-flex class="mb-2">
                     <div class="coupon coupon__dialog" v-if="isTutorProfile && !isMyProfile">
                       <div class="text-xs-right ">
                         <div class="coupon__dialog--flex">
                           <input type="text" v-model="coupon" :placeholder="couponPlaceholder" class="profile-coupon_input">
-                          <button class="profile-coupon_btn white--text" @click="applyCoupon" v-language:inner="'coupon_apply_btn'"></button>
+                          <button class="profile-coupon_btn white--text" :disabled="disableApplyBtn" @click="applyCoupon" v-language:inner="'coupon_apply_btn'"></button>
                         </div>
                         <div class="profile-coupon_error" v-language:inner="'coupon_apply_error'" v-if="getCouponError"></div>
                         </div>
@@ -189,6 +189,7 @@ export default {
   },
   data() {
     return {
+      disableApplyBtn: false,
       coupon: '',
       discountAmount:70,
       minimumPrice:55
@@ -287,10 +288,12 @@ export default {
     },
     applyCoupon() {
       if(this.isTutorProfile) {
+        this.disableApplyBtn = true;
         let tutorId = this.getProfile.user.id;
         let coupon = this.coupon;
         this.updateCoupon({coupon, tutorId}).finally(() => {
           this.coupon = ''
+          this.disableApplyBtn = false;
         })
       }
     }
@@ -320,9 +323,6 @@ export default {
         flex-direction: column;
         .tutor-price-header-wrap {
           display: flex;
-        }
-        .profile-coupon_apply  {
-          margin: 0 0 0 auto;
         }
       }
     }
@@ -366,7 +366,7 @@ export default {
     .profile-coupon_btn {
       border-radius: 0 6px 6px 0;
       background-color: #4c59ff;
-      font-size: 12px;
+      font-size: 14px;
       padding: 8px;
       font-weight: 600;
       outline: none;
@@ -464,7 +464,7 @@ export default {
   flex-direction: column;
   .coupon-dialog-header {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
     color: #43425d;
     .coupon-close {
       position: absolute;
@@ -486,22 +486,22 @@ export default {
       .profile-coupon_input {
     outline: none;
     border-radius: 6px 0 0 6px;
-    width: 146px;
+    width: 200px;
     border: 1px solid #bbb;
-    padding: 5px 2px 7px 8px; 
+    padding: 10px 2px 11px 8px; 
     margin-right: -5px;
   }
   .profile-coupon_btn {
     border-radius: 0 6px 6px 0;
     background-color: #4c59ff;
     font-size: 12px;
-    padding: 8px 12px;
+    padding: 8px 20px;
     font-weight: 600;
     outline: none;
   }
   .profile-coupon_error {
-    width: 200px;
-    margin: 4px 0 0 auto;
+    width: 236px;
+    margin-top: 4px;
     text-align: left;
     font-size: 11px;
     color: #ff5252;

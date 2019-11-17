@@ -145,6 +145,12 @@ const router = new VueRouter({
                 resolve({selector: to.hash});
             }
             if (savedPosition) {
+                //firefox fix
+                if(global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+                    setTimeout(()=>{
+                        global.scrollTo(savedPosition.x,savedPosition.y);
+                    });
+                }
                 resolve({x: savedPosition.x, y: savedPosition.y});
             } else {
                 resolve({x: 0, y: 0});

@@ -124,6 +124,6 @@
     <value>support@frymo.com</value>
   </data>
   <data name="sms_text" xml:space="preserve">
-    <value>your code to enter into Frymo is: {0}</value>
+    <value>Your code to enter into Frymo is: {0}</value>
   </data>
 </root>

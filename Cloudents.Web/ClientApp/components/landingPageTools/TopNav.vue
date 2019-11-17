@@ -105,7 +105,7 @@ export default {
 @import "../../styles/mixin.less";
 .tutor-list {
   background: #fff;
-  padding: 4px 10px;
+  padding: 10px;
   .tutor-list-header {
     max-width: 1500px; 
     margin: 0 auto;
@@ -119,7 +119,7 @@ export default {
         div{
           svg {
             vertical-align: -webkit-baseline-middle;
-            fill: #1B2441;
+            fill: #43425d;
             &.frymo-logo{
               fill: #378bd3;
             }
@@ -140,20 +140,21 @@ export default {
 
       button {
         text-align: center;
-        border-radius: 4px;
+        border-radius: 6px;
         font-size: 14px;
+        font-weight: 600;
         outline: none;
         &.tutor-list-header-right-signup {
-        padding: 8px;
+        padding: 7px 14px;
         margin: 8px;
-        background-color: #13374d;
+        background-color: #4c59ff;
         color: rgba(255, 255, 255, 0.87);
       }
       &.tutor-list-header-right-login {
-        padding: 8px;
+        padding: 7px 20px;
         margin: 5px;
-        border: solid 1px #13374d;
-        color: #13374d;
+        border: solid 1px #43425d;
+        color: #43425d;
         background-color: transparent;
       }
       }
@@ -161,7 +162,7 @@ export default {
       a {
         text-decoration: none;
         font-size: 16px;
-        color: #13374D;
+        color: #43425d;
         font-weight: bold;
       }
     }

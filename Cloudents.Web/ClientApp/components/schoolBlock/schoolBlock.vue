@@ -5,7 +5,7 @@
                          :value="getShowSchoolBlock"
                          @input="updateDrawerValue"
                          :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
-      <router-link :to="{name:'studyRooms'}" @click.native.prevent="openStudyRooms()">
+      <router-link event :to="{name:'studyRooms'}" @click.native.prevent="openStudyRooms()">
         <v-list>
           <v-list-tile class="group-header search-university-title pl-1"
                       :class="{'active': inStudyRoomLobby}">
@@ -23,7 +23,7 @@
           </v-list-tile-action>
           <v-list-tile-title @click="accountUser ? selectCourse(null, true) : openPersonalizeCourse()"
                              v-text="accountUser ? dictionary.allCourses : dictionary.addcourses"></v-list-tile-title>
-          <router-link :to="{name: 'editCourse'}" @click.native.prevent="openPersonalizeCourse()">
+          <router-link event :to="{name: 'editCourse'}" @click.native.prevent="openPersonalizeCourse()">
             <v-list-tile-action class="edit-course px-3">
               <v-icon>sbf-close</v-icon>
             </v-list-tile-action>

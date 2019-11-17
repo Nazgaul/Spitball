@@ -124,7 +124,7 @@ export default {
       padding-bottom: 0;
       font-size: 20px;
     }
-
+    margin-bottom: 26px;
     font-size: 24px;
     font-weight: bold;
     font-stretch: normal;

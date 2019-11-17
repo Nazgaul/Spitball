@@ -27,7 +27,7 @@ namespace Cloudents.Core.Test.Entities
 
             var tutorMoq = new Mock<Tutor>();
             user.ApplyCoupon(couponMoq1.Object, tutorMoq.Object);
-            user.ApplyCoupon(couponMoq2.Object, tutorMoq.Object);
+            Assert.Throws<DuplicateRowException>(() => user.ApplyCoupon(couponMoq2.Object, tutorMoq.Object));
 
             user.UserCoupon.Should().HaveCount(1);
         }
@@ -93,7 +93,7 @@ namespace Cloudents.Core.Test.Entities
             Assert.Throws<DuplicateRowException>(() => user.ApplyCoupon(couponMoq2.Object, tutorMoq.Object));
 
 
-           // user.UserCoupon.Should().HaveCount(1);
+            // user.UserCoupon.Should().HaveCount(1);
             //user.UserCoupon.Single().Coupon.Code.Should().BeEquivalentTo(couponCode);
         }
 

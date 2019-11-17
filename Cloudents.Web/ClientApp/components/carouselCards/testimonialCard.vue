@@ -4,14 +4,14 @@
         <div class="testimonialCard-top">
             <img class="quote-card" src="./image/quote.png" alt="">
             <p class="testimonialCard-txt">{{item.text}}</p>
-            <h1 class="t-name">{{item.userName}}</h1>
+            <h1 class="t-name text-truncate">{{item.userName}}</h1>
         </div>
         <div class="tutorInfoT">
             <UserAvatar class="tutorImg-t" :size="'54'" 
                 :user-name="item.tutorName" 
                 :user-id="item.tutorId" 
                 :userImageUrl="item.tutorImage"/>
-            <div class="tutorName-t">{{item.tutorName}}</div>
+            <div class="tutorName-t text-truncate">{{item.tutorName}}</div>
             <template>
                 <div class="user-rate-testimonialCard mt-1" v-if="item.tutorReviews > 0" >
                 <userRating :rating="item.tutorReviews" :showRateNumber="false" :size="'14'" />
@@ -75,6 +75,7 @@ export default {
             margin-top: 24px;
         }
         .testimonialCard-txt{
+            width: 100%;
             .giveEllipsisUpdated(16px, 1.75, 5, 140px);
             margin: 0;
             padding: 0;
@@ -90,6 +91,8 @@ export default {
         }
 
         .t-name{
+            width: 100%;
+            text-align: center;
             font-size: 16px;
             font-weight: normal;
             font-stretch: normal;
@@ -108,6 +111,8 @@ export default {
             margin-bottom: 12px;
         }
         .tutorName-t{
+            width: 100%;
+            text-align: center;
             font-size: 16px;
             font-weight: normal;
             font-stretch: normal;

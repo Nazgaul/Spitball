@@ -144,10 +144,10 @@
   <data name="not_student_btn" xml:space="preserve">
     <value>Done</value>
   </data>
-  <data name="university_uni_error" xml:space="preserve">
-    <value>error creating university</value>
+  <data name="uni_error" xml:space="preserve">
+    <value>Error creating university</value>
   </data>
-  <data name="university_uni_success" xml:space="preserve">
-    <value>success creating university</value>
+  <data name="uni_success" xml:space="preserve">
+    <value>Success creating university</value>
   </data>
 </root>

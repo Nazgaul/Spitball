@@ -70,10 +70,10 @@
                                 <v-text-field label="Duration in Minutes" v-model="sessionPayment.duration"></v-text-field>
                             </v-flex>
                             <v-flex xs12 sm3>
-                                <v-text-field label="Student Pay Total" v-model="studentPayPerHour" readonly></v-text-field>
+                                <v-text-field label="Student Pay Total" v-model="studentPayPerHour"></v-text-field>
                             </v-flex>
                             <v-flex xs12 sm3>
-                                <v-text-field label="Spitball Pay Total" v-model="spitballPayPerHour" readonly></v-text-field>
+                                <v-text-field label="Spitball Pay Total" v-model="spitballPayPerHour"></v-text-field>
                             </v-flex>
                             <v-flex xs12 sm3>
                                 <v-text-field label="Session Total Price" v-model="totalPrice" readonly></v-text-field>
@@ -108,19 +108,29 @@ export default {
         tutorPriceX() {
             return this.editedItem.tutorPrice;
         },
-        studentPayPerHour(){
-            let session = this.sessionPayment;
-            if(session.studentPayPerHour) {
-                return ((session.studentPayPerHour * session.duration) / 60).toFixed(2);
+        studentPayPerHour: {
+            get() {
+                let session = this.sessionPayment;
+                if(session.studentPayPerHour) {
+                    return ((session.studentPayPerHour * session.duration) / 60).toFixed(2);
+                }
+                return 0;
+            },
+            set(val) {
+                this.sessionPayment.studentPayPerHour = (( val / this.sessionPayment.duration) * 60).toFixed(2);
             }
-            return 0;
         },
-        spitballPayPerHour(){
-            let session = this.sessionPayment;
-            if(session.spitballPayPerHour) {
-                return ((session.spitballPayPerHour * session.duration) / 60).toFixed(2);
+        spitballPayPerHour: {
+            get() {
+                let session = this.sessionPayment;
+                if(session.spitballPayPerHour) {
+                    return ((session.spitballPayPerHour * session.duration) / 60).toFixed(2);
+                }
+                return 0;
+            },
+            set(val) {
+                this.sessionPayment.spitballPayPerHour = (( val / this.sessionPayment.duration) * 60).toFixed(2);
             }
-            return 0;
         },
         totalPrice() {
             let session = this.sessionPayment;
@@ -194,7 +204,6 @@ export default {
         },
         approve() {
             let item = this.sessionPayment;
-            
             let itemObj = {
                 studentPay : Number(this.studentPayPerHour),
                 spitballPay: Number(this.spitballPayPerHour),

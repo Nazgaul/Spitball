@@ -131,7 +131,7 @@
     <value>The coupon code entered is not valid. Perhaps you used the wrong coupon code?</value>
   </data>
   <data name="placeholder" xml:space="preserve">
-    <value>Enter Coupon</value>
+    <value>Enter Coupon Code</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>Claim your discount</value>

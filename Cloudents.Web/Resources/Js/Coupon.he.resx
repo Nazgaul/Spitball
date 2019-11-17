@@ -127,10 +127,10 @@
     <value>מימוש</value>
   </data>
   <data name="apply_error" xml:space="preserve">
-    <value>הקופון שהוזן אינו תקין. יתכן והזנת קוד קופון שגוי?</value>
+    <value>קוד הקופון אינו תקין. יתכן והזנת קוד קופון שגוי?</value>
   </data>
   <data name="placeholder" xml:space="preserve">
-    <value>הכנס קופון</value>
+    <value>הכניסו קוד קופון</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>ממש את הקופון שלך</value>
