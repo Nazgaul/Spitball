@@ -1,12 +1,12 @@
 ﻿using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using NHibernate;
+using NHibernate.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
-using Cloudents.Core.Enum;
-using NHibernate.Linq;
 
 namespace Cloudents.Query.Query.Admin
 {
@@ -37,14 +37,14 @@ namespace Cloudents.Query.Query.Admin
                 {
                     questions = questions.Where(w => w.User.Country == query.Country);
                 }
-                    
-                    return await questions.Select(s => new FlaggedQuestionDto
-                    {
-                        Id = s.Id,
-                        Reason = s.Status.FlagReason,
-                        Text = s.Text,
-                        FlaggedUserEmail = s.Status.FlaggedUser.Email
-                    }).OrderBy(o => o.Id).ToListAsync(token);
+
+                return await questions.Select(s => new FlaggedQuestionDto
+                {
+                    Id = s.Id,
+                    Reason = s.Status.FlagReason,
+                    Text = s.Text,
+                    FlaggedUserEmail = s.Status.FlaggedUser.Email
+                }).OrderBy(o => o.Id).ToListAsync(token);
             }
         }
     }

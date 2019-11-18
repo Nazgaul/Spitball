@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Hubs;
 using Microsoft.AspNetCore.SignalR;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.EventHandler
 {

@@ -1,5 +1,4 @@
 <template>
-    
     <v-container class="tutor-landing-page-container">
         <v-layout :class="`${isMobile ? 'pt-2 pb-5' : 'pt-1 pb-3'}`" px-4 class="tutor-landing-page-header" align-center justify-center column>
             <v-flex pt-4 pb-3>
@@ -32,8 +31,12 @@
             <span class="hidden-xs-only" v-language:inner="'tutorListLanding_courses'"></span>
             <span v-language:inner="'tutorListLanding_tutors'"></span>
         </v-layout>
-        <v-layout class="tutor-landing-card-bottom">
-            <findTutorCarousel></findTutorCarousel>
+        <v-layout class="tutor-landing-card-bottom" v-if="getHPReviews.length">
+            <div class="testimonialCarousel-tutorList" :style="{'pointer-events':$vuetify.breakpoint.smAndDown?'':'none'}">
+                <sbCarousel :slideStep="1" :overflow="true" :arrows="!isMobile">
+                    <testimonialCard v-for="(item, index) in getHPReviews" :item="item" :key="index"/>
+                </sbCarousel>
+            </div>
         </v-layout>
         <Footer></Footer>
     </v-container>
@@ -45,19 +48,22 @@ import tutorResultCardMobile from '../results/tutorCards/tutorResultCardMobile/t
 import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue';
 import tutorLandingPageService from './tutorLandingPageService';
 import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
-import findTutorCarousel from './components/findTutorCarousel/FindTutor-carousel.vue'
 import SuggestCard from '../results/suggestCard.vue'
 import analyticsService from '../../services/analytics.service.js'
 
-import { mapActions } from 'vuex'
+import sbCarousel from '../sbCarousel/sbCarousel.vue';
+import testimonialCard from '../carouselCards/testimonialCard.vue'
+
+import { mapActions,mapGetters } from 'vuex'
 export default {
     components:{
         tutorResultCard,
         tutorResultCardMobile,
         tutorSearchComponent,
         emptyStateCard,
-        findTutorCarousel,
-        SuggestCard
+        SuggestCard,
+        sbCarousel,
+        testimonialCard
     },
     data(){
         return {
@@ -76,6 +82,7 @@ export default {
         }
     },
     computed:{
+        ...mapGetters(['getHPReviews']),
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
@@ -99,7 +106,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['setTutorRequestAnalyticsOpenedFrom','updateRequestDialog']),
+        ...mapActions(['setTutorRequestAnalyticsOpenedFrom','updateRequestDialog','updateHPReviews']),
         updateList(){
             this.showEmptyState = false;
             tutorLandingPageService.getTutorList(this.query).then(data=>{
@@ -137,7 +144,7 @@ export default {
     created(){
         this.query.term = !!this.$route.query && !!this.$route.query.term ? this.$route.query.term : '';
         this.updateList();
-        
+        this.updateHPReviews()
     },
     beforeMount(){
         if (window) {
@@ -261,6 +268,7 @@ export default {
         }
     }
     .tutor-landing-card-bottom {
+        overflow: -webkit-paged-y;
         height: 528px;
         padding: 0 385px;
         display: flex;
@@ -275,12 +283,17 @@ export default {
             height: auto;
         }
         @media (max-width: @screen-sm) {
-            padding: 0 50px;
+            padding: 0 30px;
             height: auto;
         }
         @media (max-width: @screen-xs) {
             padding: 0 20px;
             height: auto;
+        }
+        .testimonialCarousel-tutorList{
+            .responsiveLandingPage(928px,20px);
+            width: 100%;
+            padding: 40px 0;
         }
     }
 }

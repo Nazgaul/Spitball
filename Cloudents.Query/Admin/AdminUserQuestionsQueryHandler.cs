@@ -1,12 +1,12 @@
 ﻿using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Entities;
 using Cloudents.Query.Query.Admin;
+using NHibernate;
+using NHibernate.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using NHibernate;
-using NHibernate.Linq;
 
 namespace Cloudents.Query.Admin
 {
@@ -23,18 +23,18 @@ namespace Cloudents.Query.Admin
         public async Task<IEnumerable<UserQuestionsDto>> GetAsync(AdminUserQuestionsQuery query, CancellationToken token)
         {
 
-          return  await _session.Query<Question>()
-                .Where(w => w.User.Id == query.UserId)
-                .Where(w => w.User.Country == query.Country || string.IsNullOrEmpty(query.Country))
-                .Take(PageSize).Skip(PageSize * query.Page)
-                .Select(s => new UserQuestionsDto
-                {
-                    Id = s.Id,
-                    Text = s.Text,
-                    State = s.Status.State,
-                    Created = s.Created
-                }).ToListAsync(token);
-          
+            return await _session.Query<Question>()
+                  .Where(w => w.User.Id == query.UserId)
+                  .Where(w => w.User.Country == query.Country || string.IsNullOrEmpty(query.Country))
+                  .Take(PageSize).Skip(PageSize * query.Page)
+                  .Select(s => new UserQuestionsDto
+                  {
+                      Id = s.Id,
+                      Text = s.Text,
+                      State = s.Status.State,
+                      Created = s.Created
+                  }).ToListAsync(token);
+
         }
     }
 }

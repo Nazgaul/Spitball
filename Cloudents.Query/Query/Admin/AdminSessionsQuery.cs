@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminSessionsQuery: IQueryAdmin<IEnumerable<SessionDto>>
+    public class AdminSessionsQuery : IQueryAdmin<IEnumerable<SessionDto>>
     {
         public AdminSessionsQuery(long userId, string country)
         {
             UserId = userId;
             Country = country;
         }
-        private long UserId { get;  }
+        private long UserId { get; }
         public string Country { get; }
 
         internal sealed class AdminSessionsQueryHandler : IQueryHandler<AdminSessionsQuery, IEnumerable<SessionDto>>
@@ -51,7 +51,7 @@ namespace Cloudents.Query.Query.Admin
                                     order by cast(S.created as date) desc;";
                 using (var connection = _dapper.OpenConnection())
                 {
-                    var res = await connection.QueryAsync<SessionDto>(sql, new { query.UserId, query.Country});
+                    var res = await connection.QueryAsync<SessionDto>(sql, new { query.UserId, query.Country });
                     return res;
                 }
             }

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Cloudents.Core.DTOs.SearchSync;
+using NHibernate.Transform;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using Cloudents.Core.DTOs.SearchSync;
-using NHibernate.Transform;
 
 namespace Cloudents.Query.Stuff
 {
@@ -16,7 +16,7 @@ namespace Cloudents.Query.Stuff
             for (var i = 0; i < aliases.Length; i++)
             {
                 dic.Add(aliases[i], tuple[i]);
-                
+
             }
 
             var x = new T { Data = new TU() };
@@ -61,7 +61,7 @@ namespace Cloudents.Query.Stuff
             propertyInfo.SetValue(x, y);
         }
 
-        private static bool HandleEnum(PropertyInfo propertyInfo,Type property, object x, object value)
+        private static bool HandleEnum(PropertyInfo propertyInfo, Type property, object x, object value)
         {
             if (value is string str)
             {
@@ -83,6 +83,29 @@ namespace Cloudents.Query.Stuff
         public IList TransformList(IList collection)
         {
             return collection;
+        }
+
+        public bool Equals(AzureSyncBaseDtoTransformer<T, TU> other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return base.Equals(other);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as AzureSyncBaseDtoTransformer<T, TU>);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

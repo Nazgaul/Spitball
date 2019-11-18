@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query
 {
@@ -29,7 +29,7 @@ namespace Cloudents.Query
             {
                 return await _session.Query<UserLocation>()
                     .Fetch(f => f.User)
-                    .Where(w => w.Ip == query.Ip).Select(s => s.Country )
+                    .Where(w => w.Ip == query.Ip).Select(s => s.Country)
                     .FirstOrDefaultAsync(token);
             }
         }

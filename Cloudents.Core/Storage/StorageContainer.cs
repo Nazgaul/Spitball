@@ -6,7 +6,7 @@ namespace Cloudents.Core.Storage
     [Serializable]
     public sealed class StorageContainer : IEquatable<StorageContainer>
     {
-        private StorageContainer(string name,string relativePath)
+        private StorageContainer(string name, string relativePath)
         {
             Name = name.ToLowerInvariant();
             RelativePath = relativePath;
@@ -16,9 +16,9 @@ namespace Cloudents.Core.Storage
         public string RelativePath { get; }
 
         //public static readonly StorageContainer QuestionsAndAnswers = new StorageContainer("spitball-files","question");
-        public static readonly StorageContainer Chat = new StorageContainer("spitball-user","chat");
-        public static readonly StorageContainer File = new StorageContainer("spitball-files","files");
-        public static readonly StorageContainer User = new StorageContainer("spitball-user","profile");
+        public static readonly StorageContainer Chat = new StorageContainer("spitball-user", "chat");
+        public static readonly StorageContainer File = new StorageContainer("spitball-files", "files");
+        public static readonly StorageContainer User = new StorageContainer("spitball-user", "profile");
 
         public bool Equals(StorageContainer other)
         {

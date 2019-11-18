@@ -1,9 +1,9 @@
-﻿using System;
-using System.Globalization;
-using Cloudents.Core.Attributes;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
+using System;
+using System.Globalization;
 
 namespace Cloudents.Core.DTOs
 {
@@ -53,48 +53,31 @@ namespace Cloudents.Core.DTOs
         public bool ShouldSerializeTutor()
         {
             // don't serialize the Manager property if an employee is their own manager
-            return (Tutor?.TutorCountry != null);
+            return Tutor?.TutorCountry != null;
         }
     }
 
     public class UserTutorProfileDto
     {
-        private string _tutorCountry;
-        [NonSerialized] private CultureInfo _mergeCultureInfo;
+        public decimal Price { get; set; }
 
-        //public const string TutorPriceVariableName = nameof(TutorPrice);
-        //public const string TutorCountryVariableName = nameof(TutorCountry);
-
-        public string Price => NumericPrice.ToString("C0", _mergeCultureInfo);
-
-
-       
-        [EntityBind(nameof(ReadTutor.Price))]
-        public decimal NumericPrice { get; set; }
+        public string Currency => new RegionInfo(TutorCountry).ISOCurrencySymbol;
 
         [EntityBind(nameof(ReadTutor.Country))]
-        internal string TutorCountry
-        {
-            get => _tutorCountry;
-            set
-            {
-                _mergeCultureInfo = CultureInfo.CurrentUICulture.ChangeCultureBaseOnCountry(value);
-                _tutorCountry = value;
-            }
-        }
+        internal string TutorCountry { get; set; }
 
-        public string DiscountPrice
-        {
-            get
-            {
-                if (_tutorCountry.Equals("IN", StringComparison.OrdinalIgnoreCase))
-                {
-                    return 0.ToString("C0", _mergeCultureInfo);
-                }
+        public decimal? DiscountPrice { get; set; }
+        //{
+        //    get
+        //    {
+        //        if (TutorCountry.Equals("IN", StringComparison.OrdinalIgnoreCase))
+        //        {
+        //            return 0;//.ToString("C0", _mergeCultureInfo);
+        //        }
 
-                return null;
-            }
-        }
+        //        return null;
+        //    }
+        //}
 
         [EntityBind(nameof(ReadTutor.Rate))]
         public double Rate { get; set; }
@@ -104,6 +87,12 @@ namespace Cloudents.Core.DTOs
         public string FirstName { get; set; }
         [EntityBind(nameof(User.LastName))]
         public string LastName { get; set; }
+
+        public bool HasCoupon { get; set; }
+
+        public decimal? CouponValue { get; set; }
+        public CouponType? CouponType { get; set; }
+
     }
 
     public class UserAccountDto
@@ -130,10 +119,10 @@ namespace Cloudents.Core.DTOs
         public int Score { get; set; }
         public ItemState? IsTutor { get; set; }
 
-        [EntityBind(nameof(User.PaymentExists),nameof(User.Country))]
+        [EntityBind(nameof(User.PaymentExists), nameof(User.Country))]
         public bool NeedPayment { get; set; }
 
-        private string  Country { get; set; }
+        private string Country { get; set; }
         public string CurrencySymbol
         {
             get

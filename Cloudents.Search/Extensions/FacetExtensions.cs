@@ -22,7 +22,7 @@ namespace Cloudents.Search.Extensions
 
     }
 
-    public static class TagScoringParameter 
+    public static class TagScoringParameter
     {
         public static ScoringParameter GenerateTagScoringParameter(string name, IEnumerable<string> input)
         {
@@ -43,7 +43,7 @@ namespace Cloudents.Search.Extensions
         {
             if (input == null)
             {
-                return GenerateTagScoringParameter(name, (IEnumerable<string>) null);
+                return GenerateTagScoringParameter(name, (IEnumerable<string>)null);
             }
             return GenerateTagScoringParameter(name, new[] { input });
         }

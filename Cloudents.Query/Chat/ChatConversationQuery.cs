@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Dapper;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Chat
 {
@@ -14,7 +14,7 @@ namespace Cloudents.Query.Chat
         }
 
         private string Id { get; }
-        private long UserId { get;  }
+        private long UserId { get; }
 
 
         internal sealed class

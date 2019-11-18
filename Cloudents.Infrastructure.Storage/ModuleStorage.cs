@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure.Storage
                 .As<IUserDirectoryBlobProvider>()
                 .Keyed<IBlobProvider>(StorageContainer.User);
 
-                //.WithParameter("container", StorageContainer.User);
+            //.WithParameter("container", StorageContainer.User);
 
             //builder.RegisterType<BlobProviderContainer>()
             //    .As<IRequestTutorDirectoryBlobProvider>()

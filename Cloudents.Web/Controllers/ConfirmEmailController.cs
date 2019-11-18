@@ -1,11 +1,11 @@
-﻿using Cloudents.Web.Models;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
 using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 
 namespace Cloudents.Web.Controllers
@@ -59,7 +59,7 @@ namespace Cloudents.Web.Controllers
                 _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}, User: {user}");
                 return RedirectToRoute(RegisterController.RegisterRouteName, new { step = NextStep.ExpiredStep });
             }
-          
+
             TempData[HomeController.Referral] = model.Referral;
 
             return await GoToStep(user, NextStep.EnterPhone, true, model.ReturnUrl);

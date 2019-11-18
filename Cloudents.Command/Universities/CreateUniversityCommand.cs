@@ -12,6 +12,6 @@
         public long UserId { get; }
         public string UniversityName { get; }
 
-        public string Country { get;  }
+        public string Country { get; }
     }
 }

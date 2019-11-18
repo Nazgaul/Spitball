@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Tutor
 {
@@ -54,7 +54,7 @@ namespace Cloudents.Query.Tutor
                 Course courseAlias = null;
                 TutorCardDto tutorCardDtoAlias = null;
                 var relevantTutorByCourse = QueryOver.Of(() => tutorAlias)
-                    .JoinEntityAlias(() => userCourseAlias, 
+                    .JoinEntityAlias(() => userCourseAlias,
                         () => userCourseAlias.User.Id == tutorAlias.Id)
                     .Where(() => userCourseAlias.CanTeach)
                     .And(() => userCourseAlias.Course.Id == query.CourseId)
@@ -63,56 +63,56 @@ namespace Cloudents.Query.Tutor
 
 
                 var relevantTutorBySubject = QueryOver.Of(() => tutorAlias)
-                    .JoinEntityAlias(() => userCourseAlias, 
+                    .JoinEntityAlias(() => userCourseAlias,
                         () => userCourseAlias.User.Id == tutorAlias.Id)
-                    .JoinAlias(() => userCourseAlias.Course,() => courseAlias)
+                    .JoinAlias(() => userCourseAlias.Course, () => courseAlias)
                     .Where(() => userCourseAlias.CanTeach)
                     .WithSubquery.WhereProperty(() => courseAlias.Subject.Id).Eq(
-                        QueryOver.Of<Course>().Where(w=>w.Id == query.CourseId)
-                            .Select(s=>s.Subject.Id))
+                        QueryOver.Of<Course>().Where(w => w.Id == query.CourseId)
+                            .Select(s => s.Subject.Id))
                     .Select(s => s.Id)
                     .Take(query.Count);
 
 
-                var futureCourse =  _session.QueryOver<ReadTutor>()
+                var futureCourse = _session.QueryOver<ReadTutor>()
                      .WithSubquery.WhereProperty(w => w.Id).In(relevantTutorByCourse)
                      .Where(w => w.Id != query.UserId)
                      .And(w => w.Country == query.Country)
                      .SelectList(s =>
                          s.Select(x => x.Id).WithAlias(() => tutorCardDtoAlias.UserId)
-                             
+
                              .Select(x => x.Name).WithAlias(() => tutorCardDtoAlias.Name)
                              .Select(x => x.Image).WithAlias(() => tutorCardDtoAlias.Image)
                              .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
                              .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
-                             .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.TutorPrice)
+                             .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
                              .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
                              .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                              .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
                              .Select(x => x.University).WithAlias(() => tutorCardDtoAlias.University)
-                             .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.TutorCountry)
+                             .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.Country)
                              .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
-                    
+
                      .OrderBy(o => o.OverAllRating).Desc
-                     
+
                      .TransformUsing(Transformers.AliasToBean<TutorCardDto>())
                      .Take(query.Count).Future<TutorCardDto>();
 
                 var futureCourse2 = _session.QueryOver<ReadTutor>()
                     .WithSubquery.WhereProperty(w => w.Id).In(relevantTutorBySubject)
                     .Where(w => w.Id != query.UserId)
-                    .And(w=>w.Country == query.Country)
+                    .And(w => w.Country == query.Country)
                     .SelectList(s =>
                         s.Select(x => x.Id).WithAlias(() => tutorCardDtoAlias.UserId)
                             .Select(x => x.Name).WithAlias(() => tutorCardDtoAlias.Name)
                             .Select(x => x.Image).WithAlias(() => tutorCardDtoAlias.Image)
                             .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
                             .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
-                            .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.TutorPrice)
+                            .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
                             .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
                             .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                             .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
-                            .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.TutorCountry)
+                            .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.Country)
                             .Select(x => x.University).WithAlias(() => tutorCardDtoAlias.University)
                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
 

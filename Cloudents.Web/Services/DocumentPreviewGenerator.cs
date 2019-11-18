@@ -1,12 +1,12 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Services
 {
@@ -79,7 +79,7 @@ namespace Cloudents.Web.Services
             }
 
             var uri = _urlBuilder.BuildDocumentThumbnailEndpoint(model.Id);
-          
+
 
             return new { locator, poster = uri };
         }

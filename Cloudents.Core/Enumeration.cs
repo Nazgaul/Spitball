@@ -9,7 +9,7 @@ namespace Cloudents.Core
     {
         public string Name { get; }
 
-        public int Id { get;  }
+        public int Id { get; }
 
         protected Enumeration(int id, string name)
         {

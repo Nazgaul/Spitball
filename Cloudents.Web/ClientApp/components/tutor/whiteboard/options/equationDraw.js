@@ -25,7 +25,7 @@ const startingMousePosition = {
 };
 
 let imageCache = {};
-
+const sizeProportion = 2;
 
 let isWriting = false;
 let isEditing = false;
@@ -74,7 +74,7 @@ const drawContext = function(svgText, textObj){
             text: textObj.text
         };
         imageCache[textObj.id] = imgObj;
-        self.context.drawImage(img, textObj.mouseX, textObj.mouseY, img.width, img.height);
+        self.context.drawImage(img, textObj.mouseX, textObj.mouseY, img.width*sizeProportion, img.height*sizeProportion);
         domurl.revokeObjectURL(url);
      };
      img.src = url;
@@ -87,7 +87,7 @@ const draw = function(textObj){
     let img = imageCache[textObj.id];
     //create svg with the MathJax object out from the text value
     if(!!img && img.text === textObj.text){
-        this.context.drawImage(img.img, textObj.mouseX, textObj.mouseY, img.img.width, img.img.height);
+        this.context.drawImage(img.img, textObj.mouseX, textObj.mouseY, img.img.width*sizeProportion, img.img.height*sizeProportion);
     }else{
         MathJax.AuthorInit(`$$${textObj.text}$$`, (output)=>{  
             drawContext.bind(this, output, textObj)();
@@ -159,8 +159,8 @@ const mousedown = function(e){
                     let textObj = createPointsByOption({
                         mouseX: (window.innerWidth / 2) - (meassureText.width / 2),
                         mouseY: window.innerHeight / 3.5,
-                        width: dimensions.width,
-                        height: dimensions.height,
+                        width: dimensions.width*sizeProportion,
+                        height: dimensions.height*sizeProportion,
                         color: this.color.hex,
                         option: optionType,
                         eventName: 'start',

@@ -36,12 +36,12 @@ namespace Cloudents.Core.Entities
         }
 
         //public virtual Guid Id { get; set; }
-        public virtual User User { get;protected set; }
+        public virtual User User { get; protected set; }
         public virtual Document Document { get; protected set; }
         //public virtual Answer Answer { get; protected set; }
-       // public virtual Question Question { get; protected set; }
+        // public virtual Question Question { get; protected set; }
         public virtual DomainTimeStamp TimeStamp { get; protected set; }
-        public virtual VoteType VoteType { get;  set; }
+        public virtual VoteType VoteType { get; set; }
     }
 
     public enum VoteType : int

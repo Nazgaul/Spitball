@@ -22,15 +22,8 @@ namespace Cloudents.Command.CommandHandler.Admin
             {
                 chatRoom.Extra = new ChatRoomAdmin(chatRoom);
             }
-
-            //if (message.Status == ChatRoomStatus.Unassigned)
-            //{
-            //    chatRoom.Extra.Status = null;
-            //}
-            //else
-            //{
             chatRoom.Extra.Status = message.Status;
-            //}
+           
 
             await _repository.UpdateAsync(chatRoom, token);
         }

@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Castle.DynamicProxy;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.Interfaces;
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Castle.DynamicProxy;
-using Cloudents.Core.Attributes;
-using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Interceptor
 {
@@ -85,7 +85,7 @@ namespace Cloudents.Infrastructure.Interceptor
             return sb.ToString();
         }
 
-        internal static string GetCacheKey(Type targetType,string methodName,object[] arguments)
+        public static string GetCacheKey(Type targetType, string methodName, object[] arguments)
         {
 #if DEBUG
             const string prefix = "Debug";
@@ -135,7 +135,7 @@ namespace Cloudents.Infrastructure.Interceptor
                     {
                         invocation.ReturnValue =
                             convertMethod.Invoke(null,
-                                new[] {data}); //Call the convert method and return the generic Task, e.g. Task<int>
+                                new[] { data }); //Call the convert method and return the generic Task, e.g. Task<int>
                     }
                     catch (ArgumentException ex)
                     {

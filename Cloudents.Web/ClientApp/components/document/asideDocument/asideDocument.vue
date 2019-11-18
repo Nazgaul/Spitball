@@ -53,9 +53,9 @@
 
         <aside-document-tutors :courseName="getCourse" :tutorList="tutorList" v-if="!$vuetify.breakpoint.smAndDown && getCourse"/>
         
-        <v-flex v-show="tutorList.length" class="footer-holder text-xs-center mb-5" v-if="!$vuetify.breakpoint.smAndDown && getCourse">
+        <!-- <v-flex v-show="tutorList.length" class="footer-holder text-xs-center mb-5" v-if="!$vuetify.breakpoint.smAndDown && getCourse">
             <router-link :to="{name: 'tutors',query:{Course:getCourse}}" class="subheading font-weight-bold tutors-footer" v-language:inner="'documentPage_full_list'"></router-link>
-        </v-flex>
+        </v-flex> -->
     </div>
 </template>
 <script>
@@ -63,11 +63,9 @@ import { mapActions, mapGetters } from 'vuex';
 import asideDocumentTutors from './asideDocumentTutors.vue';
 import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import tutorResultCardOther from '../../../components/results/tutorCards/tutorResultCardOther/tutorResultCardOther.vue';
-// import myCourses from '../../../font-icon/my-courses-image.svg';
 
 export default {
     components: {
-        // myCourses,
         tutorResultCardMobile,
         tutorResultCardOther,
         asideDocumentTutors
@@ -181,6 +179,7 @@ export default {
     .aside-container {
         flex: 1;
         max-width: 320px;
+        z-index: 6;
         @media(max-width: @screen-sm){
             max-width: unset;
         }

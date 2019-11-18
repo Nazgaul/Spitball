@@ -1,8 +1,8 @@
-﻿using System;
-using Cloudents.Core.Attributes;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
+using System;
 
 namespace Cloudents.Core.DTOs
 {
@@ -32,13 +32,13 @@ namespace Cloudents.Core.DTOs
 
         public DateTime? DateTime { get; set; }
 
-         public VoteDto Vote { get; set; }
+        public VoteDto Vote { get; set; }
 
         public decimal? Price { get; set; }
         public string Preview { get; set; }
         public int Purchased { get; set; }
 
-        public DocumentType DocumentType{ get; set; }
+        public DocumentType DocumentType { get; set; }
 
         public TimeSpan? Duration
         {
@@ -65,7 +65,7 @@ namespace Cloudents.Core.DTOs
         public string Name { get; set; }
         [EntityBind(nameof(Document.User.Image))]
         public string Image { get; set; }
-       
+
     }
 
     public class VoteDto
@@ -82,7 +82,7 @@ namespace Cloudents.Core.DTOs
 
     public class UserVoteDocumentDto : UserVoteDto<long>
     {
-     
+
     }
 
     //public class UserVoteQuestionDto : UserVoteDto<long>

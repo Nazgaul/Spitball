@@ -1,10 +1,10 @@
-﻿using Cloudents.Core.Event;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Cloudents.Core.Enum;
 using static Cloudents.Core.Entities.ItemStatus;
 
 
@@ -16,7 +16,7 @@ namespace Cloudents.Core.Entities
     public class Document : Entity<long>, IAggregateRoot, ISoftDelete
     {
         public Document(string name,
-            Course course, 
+            Course course,
             BaseUser user, decimal price, DocumentType documentType, string description)
       : this()
         {
@@ -166,5 +166,6 @@ namespace Cloudents.Core.Entities
 
         //This is only for video
         public virtual TimeSpan? Duration { get; set; }
+        public virtual bool IsShownHomePage { get; protected set; }
     }
 }

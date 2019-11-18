@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Cloudents.Core.Storage;
+using Microsoft.WindowsAzure.Storage;
+using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Storage;
-using Microsoft.WindowsAzure.Storage;
 
 namespace Cloudents.Infrastructure.Storage
 {
     public class FilesBlobProvider : BlobProviderContainer, IDocumentDirectoryBlobProvider
     {
-       
+
 
         public FilesBlobProvider(ICloudStorageProvider storageProvider) : base(storageProvider, StorageContainer.File)
         {

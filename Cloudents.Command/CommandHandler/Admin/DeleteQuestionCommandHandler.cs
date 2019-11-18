@@ -1,9 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command.Command.Admin;
+﻿using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
@@ -32,7 +32,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             //    t.MakeTransaction(QuestionTransaction.Deleted(question));
             //    await _userRepository.UpdateAsync(t, token);
             //}
-            
+
             await _questionRepository.DeleteAsync(question, token);
         }
     }

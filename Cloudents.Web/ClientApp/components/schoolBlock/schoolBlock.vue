@@ -5,16 +5,17 @@
                          :value="getShowSchoolBlock"
                          @input="updateDrawerValue"
                          :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
-      <v-list>
-        <v-list-tile class="group-header search-university-title pl-1"
-                     @click.native.prevent="openStudyRooms()"
-                     :class="{'active': inStudyRoomLobby}">
-          <v-list-tile-action>
-            <v-icon>sbf-studyroom-icon</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title v-text="dictionary.myStudyRooms" class="pl-1"></v-list-tile-title>
-        </v-list-tile>
-      </v-list>
+      <router-link event :to="{name:'studyRooms'}" @click.native.prevent="openStudyRooms()">
+        <v-list>
+          <v-list-tile class="group-header search-university-title pl-1"
+                      :class="{'active': inStudyRoomLobby}">
+            <v-list-tile-action>
+              <v-icon>sbf-studyroom-icon</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title v-text="dictionary.myStudyRooms" class="pl-1"></v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </router-link>
       <v-list class="class-list">
         <v-list-tile class="group-header cursor-pointer" :class="{'active': !selectedCourse && !inStudyRoomLobby}">
           <v-list-tile-action class="ml-1 mr-1">
@@ -22,9 +23,12 @@
           </v-list-tile-action>
           <v-list-tile-title @click="accountUser ? selectCourse(null, true) : openPersonalizeCourse()"
                              v-text="accountUser ? dictionary.allCourses : dictionary.addcourses"></v-list-tile-title>
-          <v-list-tile-action class="edit-course px-3" @click="openPersonalizeCourse()">
-            <v-icon>sbf-close</v-icon>
-          </v-list-tile-action>
+          <router-link event :to="{name: 'editCourse'}" @click.native.prevent="openPersonalizeCourse()">
+            <v-list-tile-action class="edit-course px-3">
+              <v-icon>sbf-close</v-icon>
+            </v-list-tile-action>
+          </router-link>
+
         </v-list-tile>
         <v-list-tile
           class="group-items"

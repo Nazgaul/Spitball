@@ -50,6 +50,7 @@ const getters = {
                         name: state.activeConversationObj.name,
                         text: `${LanguageService.getValueByKey('chat_emptyState_message1')} ${state.activeConversationObj.name}`,
                         type: "text",
+                        isDummy: true,
                         userId: state.activeConversationObj.userId
                     }, state.activeConversationObj.conversationId);
                     state.emptyState.push(messageObject);
@@ -59,6 +60,7 @@ const getters = {
                         name: state.activeConversationObj.name,
                         text: `${LanguageService.getValueByKey('chat_emptyState_message2')}`,
                         type: "text",
+                        isDummy: true,
                         userId: state.activeConversationObj.userId
                     }, state.activeConversationObj.conversationId);
                     state.emptyState.push(messageObject);

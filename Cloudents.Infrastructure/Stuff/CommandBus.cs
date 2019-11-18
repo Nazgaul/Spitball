@@ -1,8 +1,8 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using Cloudents.Command;
 using JetBrains.Annotations;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Stuff
 {
@@ -20,7 +20,7 @@ namespace Cloudents.Infrastructure.Stuff
         {
             using (var child = _container.BeginLifetimeScope())
             {
-               // var unitOfWork = child.Resolve<IUnitOfWork>();
+                // var unitOfWork = child.Resolve<IUnitOfWork>();
                 var obj = child.Resolve<ICommandHandler<TCommand>>();
                 await obj.ExecuteAsync(command, token);
                 //await unitOfWork.CommitAsync(token);

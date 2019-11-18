@@ -40,7 +40,7 @@ namespace Cloudents.Infrastructure.Framework
         {
             var t = _doc.Value;
             var txt = ExtractPdfText(t);
-            return (txt , t.Pages.Count);
+            return (txt, t.Pages.Count);
         }
 
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
@@ -102,6 +102,6 @@ namespace Cloudents.Infrastructure.Framework
                 _doc?.Value?.Dispose();
             }
         }
-       
+
     }
 }

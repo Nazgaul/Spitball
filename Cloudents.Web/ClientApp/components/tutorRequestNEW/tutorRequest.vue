@@ -52,7 +52,6 @@ export default {
 @import '../../styles/mixin.less';
     .tutorRequest-container{
         width: 510px;
-        height: 440px;
         background-color: #ffffff;
         border-radius: 6px;
         box-shadow: 0 13px 21px 0 rgba(0, 0, 0, 0.51);
@@ -60,6 +59,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
+        overflow: hidden;
             @media (max-width: @screen-xs) {
                 width: 100%;
                 height: 100%;

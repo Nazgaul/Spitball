@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.DTOs.SearchSync;
+﻿using Cloudents.Core.DTOs.SearchSync;
+using System.Collections.Generic;
 
 namespace Cloudents.Query.Query.Sync
 {
@@ -15,7 +15,7 @@ namespace Cloudents.Query.Query.Sync
 
         public static SyncAzureQuery Empty()
         {
-            return new SyncAzureQuery(0,0);
+            return new SyncAzureQuery(0, 0);
         }
 
         public long Version { get; }

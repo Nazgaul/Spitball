@@ -1,7 +1,7 @@
-using System.Threading.Tasks;
 using Cloudents.FunctionsV2.Sync;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Cloudents.FunctionsV2
 {

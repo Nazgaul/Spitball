@@ -1,5 +1,5 @@
-﻿using System;
-using Cloudents.Query.Query.Sync;
+﻿using Cloudents.Query.Query.Sync;
+using System;
 
 namespace Cloudents.FunctionsV2.Sync
 {
@@ -52,7 +52,7 @@ namespace Cloudents.FunctionsV2.Sync
         }
     }
 
-    
+
 
     public enum SyncType
     {

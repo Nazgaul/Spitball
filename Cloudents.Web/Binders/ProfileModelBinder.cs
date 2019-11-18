@@ -1,14 +1,14 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Models;
 using Cloudents.Query;
+using Cloudents.Query.Query;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Cloudents.Query.Query;
-using Cloudents.Web.Extensions;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Binders

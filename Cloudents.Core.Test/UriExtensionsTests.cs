@@ -1,5 +1,5 @@
-﻿using System;
-using Cloudents.Core.Extension;
+﻿using Cloudents.Core.Extension;
+using System;
 using Xunit;
 
 namespace Cloudents.Core.Test

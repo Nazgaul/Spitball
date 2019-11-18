@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Message.Email;
 using Cloudents.FunctionsV2.System;
 using Cloudents.Query;
 using Cloudents.Query.Email;
 using FluentAssertions;
 using Microsoft.Azure.WebJobs;
-using Microsoft.WindowsAzure.Storage;
 using Moq;
 using SendGrid.Helpers.Mail;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.FunctionsV2.Test

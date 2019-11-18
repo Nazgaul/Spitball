@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Documents
 {
@@ -20,7 +20,7 @@ namespace Cloudents.Query.Documents
             DocumentIds = ids;
         }
 
-        private IEnumerable<long> DocumentIds { get;  }
+        private IEnumerable<long> DocumentIds { get; }
 
 
         internal sealed class DocumentsQueryHandler : IQueryHandler<IdsDocumentsQuery, IList<DocumentFeedDto>>
@@ -37,8 +37,8 @@ namespace Cloudents.Query.Documents
                 var ids = query.DocumentIds.ToList();
 
                 var z = await _session.Query<Document>()
-                    .Fetch(f=>f.User)
-                    .ThenFetch(f=>f.University)
+                    .Fetch(f => f.User)
+                    .ThenFetch(f => f.University)
                     .Where(w => ids.Contains(w.Id))
                     .Select(s => new DocumentFeedDto
                     {
@@ -57,7 +57,7 @@ namespace Cloudents.Query.Documents
                         Downloads = s.Downloads,
                         University = s.User.University.Name,
                         Price = s.Price,
-                        Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id ==s.Id && x.Action == TransactionActionType.SoldDocument),
+                        Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument),
                         DocumentType = s.DocumentType ?? DocumentType.Document,
                         Duration = s.Duration,
                         Vote = new VoteDto()

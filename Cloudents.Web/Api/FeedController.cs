@@ -1,20 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
-using Cloudents.Core.Query;
 using Cloudents.Core.Query.Feed;
-using Cloudents.Query;
-using Cloudents.Query.Documents;
-using Cloudents.Query.Query;
-using Cloudents.Query.Tutor;
+using Cloudents.Core.Query.Feed;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
@@ -22,6 +13,11 @@ using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,21 +27,20 @@ namespace Cloudents.Web.Api
     [ApiController]
     public class FeedController : ControllerBase
     {
-        private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IUrlBuilder _urlBuilder;
         private readonly IFeedService _feedSort;
 
 
-        public FeedController(IQueryBus queryBus, UserManager<User> userManager, 
-             IStringLocalizer<DocumentController> localizer, IUrlBuilder urlBuilder, IFeedService feedSort)
+        public FeedController( UserManager<User> userManager, 
+             IStringLocalizer<DocumentController> localizer, IUrlBuilder urlBuilder,
+             IFeedService feedService)
         {
-            _queryBus = queryBus;
             _userManager = userManager;
             _localizer = localizer;
             _urlBuilder = urlBuilder;
-            _feedSort = feedSort;
+            _feedService = feedService;
         }
 
 
@@ -66,21 +61,21 @@ namespace Cloudents.Web.Api
                 filter = request.Filter
             });
         }
-       
-        
+
+
 
         private WebResponseWithFacet<FeedDto> GenerateResult(
             IEnumerable<FeedDto> result, object nextPageParams)
         {
             var filters = new List<IFilters>();
-            
-                var filter = new Filters<string>(nameof(DocumentRequestAggregate.Filter),
-                    _localizer["TypeFilterTitle"],
-                    EnumExtension.GetValues<FeedType>().Select(s =>
-                        new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())));
-                filters.Add(filter);
 
-              
+            var filter = new Filters<string>(nameof(DocumentRequestAggregate.Filter),
+                _localizer["TypeFilterTitle"],
+                EnumExtension.GetValues<FeedType>().Select(s =>
+                    new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())));
+            filters.Add(filter);
+
+
 
             return new WebResponseWithFacet<FeedDto>
             {
@@ -94,7 +89,7 @@ namespace Cloudents.Web.Api
                     }
                     //TODO add question
 
-                    
+
                     return s;
                 }),
                 Filters = filters,
@@ -109,7 +104,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-           
+
             var result = await _feedSort.GetFeedAsync(new GetFeedQuery(userId, request.Page, request.Filter, profile.Country, request.Course), token);
 
             return GenerateResult(result, new { page = ++request.Page, request.Course, request.Filter });

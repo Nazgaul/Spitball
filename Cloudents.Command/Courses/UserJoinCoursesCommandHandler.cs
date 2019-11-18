@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.Courses
 {
@@ -30,7 +30,7 @@ namespace Cloudents.Command.Courses
                 var course = await _courseRepository.LoadAsync(s, token);
                 courses.Add(course);
             }
-           
+
             user.AssignCourses(courses);
             await _userRepository.UpdateAsync(user, token);
         }

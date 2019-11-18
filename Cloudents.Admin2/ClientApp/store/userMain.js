@@ -60,6 +60,10 @@ const mutations = {
         //state.userInfo.isTutor = val;
         state.userInfo.isTutor.value = val;
     },
+    updateCalenderSate()
+    {
+        state.userInfo.calendarExists.value = !state.userInfo.calendarExists.value
+    },
     setUserInfo(state, data) {
         state.userInfo = data;
     },
@@ -160,6 +164,12 @@ const actions = {
         return UserMainService.removeTutor(id)
         .then(() => {
             context.commit('updateTutorSate', 'Not a tutor');
+        });
+    },
+    removeCalender(context, id) {
+        return UserMainService.removeCalender(id)
+        .then(() => {
+            context.commit('updateCalenderSate');
         });
     },
 
@@ -317,6 +327,13 @@ const actions = {
         },
         () => {
             return false;
+        });
+    },
+    updateTutorPrice({commit}, priceObj) {
+        return UserMainService.updateTutorPrice(priceObj).then((res) => {
+             state.userInfo.tutorPrice.value = priceObj.price;
+        }).catch(ex => {
+            return ex;
         });
     },
     deletePayment({commit, dispatch, state}, id) {

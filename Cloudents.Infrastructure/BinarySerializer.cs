@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using Newtonsoft.Json;
 using ProtoBuf;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Cloudents.Infrastructure
 {
@@ -57,7 +57,7 @@ namespace Cloudents.Infrastructure
             foreach (Enum value in Enum.GetValues(typeof(JsonConverterTypes)))
                 if (types.HasFlag(value))
                 {
-                    var type = (JsonConverterTypes) value;
+                    var type = (JsonConverterTypes)value;
                     switch (type)
                     {
                         case JsonConverterTypes.None:
@@ -78,7 +78,7 @@ namespace Cloudents.Infrastructure
 
     public class TimespanConverter : JsonConverter<TimeSpan?>
     {
-       
+
         public override void WriteJson(JsonWriter writer, TimeSpan? value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
@@ -91,7 +91,7 @@ namespace Cloudents.Infrastructure
             {
                 return null;
             }
-            var ticks = (long) reader.Value;
+            var ticks = (long)reader.Value;
             return new TimeSpan(ticks);
         }
     }

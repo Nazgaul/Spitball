@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminUniversitiesQuery: IQueryAdmin<IList<PendingUniversitiesDto>>
+    public class AdminUniversitiesQuery : IQueryAdmin<IList<PendingUniversitiesDto>>
     {
         public AdminUniversitiesQuery(string country, ItemState state)
         {

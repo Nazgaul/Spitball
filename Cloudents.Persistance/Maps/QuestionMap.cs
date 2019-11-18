@@ -33,7 +33,7 @@ namespace Cloudents.Persistence.Maps
             //    //.Cascade.()
             //    .LazyLoad()
             //    .Inverse();
-            
+
             //HasMany(x => x.Votes).Access.CamelCaseField(Prefix.Underscore)
             //    .KeyColumns.Add("QuestionId")
             //    .Cascade.AllDeleteOrphan();

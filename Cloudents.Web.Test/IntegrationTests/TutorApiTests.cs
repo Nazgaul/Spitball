@@ -1,8 +1,4 @@
-﻿using FluentAssertions;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -13,10 +9,10 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        private UriBuilder _uri = new UriBuilder()
-        {
-            Path = "api/tutor"
-        };
+        //private UriBuilder _uri = new UriBuilder()
+        //{
+        //    Path = "api/tutor"
+        //};
 
 
         public TutorApiTests(SbWebApplicationFactory factory)
@@ -24,73 +20,94 @@ namespace Cloudents.Web.Test.IntegrationTests
             _client = factory.CreateClient();
         }
 
-        [Fact]
-        public async Task GetAsync_ReturnResult_OK()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public async Task GetAsync_ReturnResult_OK(bool logIn)
         {
-            _uri.Path = "api/tutor";
-
-            var response = await _client.GetAsync(_uri.Path);
+            if (logIn)
+            {
+                await _client.LogInAsync();
+            }
+            var response = await _client.GetAsync("api/tutor");
             response.EnsureSuccessStatusCode();
-            var str = await response.Content.ReadAsStringAsync();
-
-            var d = JArray.Parse(str);
-
-            var result = d[0]?.Value<JObject>();
-
-            result.Should().NotBeNull();
-          
         }
 
-        [Fact]
-        public async Task GetAsync_Search_Without_Results()
+
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public async Task GetAsyncWithCourse_ReturnResult_OK(bool logIn)
         {
-            _uri.Path = "api/tutor/search?term=gfc";
-
-            var response = await _client.GetAsync(_uri.Path);
-
-            var str = await response.Content.ReadAsStringAsync();
-
-            str.Should().BeEmpty();
+            if (logIn)
+            {
+                await _client.LogInAsync();
+            }
+            var response = await _client.GetAsync("api/tutor?course=Economics");
+            response.EnsureSuccessStatusCode();
         }
 
-        [Fact]
-        public async Task Get_OK_Result()
+        [Theory]
+        [InlineData("gfc",false)]
+        [InlineData("Economics", false)]
+        [InlineData("Math", false)]
+        [InlineData("", false)]
+        [InlineData("gfc", true)]
+        [InlineData("Economics", true)]
+        [InlineData("Math", true)]
+        [InlineData("", true)]
+        public async Task GetAsync_Search_Without_Results(string term, bool logIn)
         {
-            var response = await _client.GetAsync(_uri.Path);
 
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            if (logIn)
+            {
+                await _client.LogInAsync();
+            }
+            var response = await _client.GetAsync($"api/tutor/search?term={term}");
+            response.EnsureSuccessStatusCode();
+            //var str = await response.Content.ReadAsStringAsync();
+
+            //str.Should().BeEmpty();
         }
 
-        [Fact(Skip = "We did a hole markup change to tutor")]
-        public async Task Post_Create_Room()
-        {
-            var response = await _client.PostAsync("api/tutoring/create", null);
+        //[Fact]
+        //public async Task Get_OK_Result()
+        //{
+        //    var response = await _client.GetAsync(_uri.Path);
 
-            var str = await response.Content.ReadAsStringAsync();
+        //    response.StatusCode.Should().Be(HttpStatusCode.OK);
+        //}
 
-            var d = JObject.Parse(str);
+        //[Fact(Skip = "We did a hole markup change to tutor")]
+        //public async Task Post_Create_Room()
+        //{
+        //    var response = await _client.PostAsync("api/tutoring/create", null);
 
-            var result = d["name"]?.Value<string>();
+        //    var str = await response.Content.ReadAsStringAsync();
 
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        //    var d = JObject.Parse(str);
 
-            result.Should().NotBeNull();
-        }
+        //    var result = d["name"]?.Value<string>();
 
-        [Fact]
-        public async Task Get_NonExist_Tutor()
-        {
-            await _client.LogInAsync();
+        //    response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var response = await _client.GetAsync(_uri.Path + "/search?term=fsdfds");
-            
-            var str = await response.Content.ReadAsStringAsync();
-            
-            var d = JObject.Parse(str);
-            
-            var result = d["result"]?.Value<JArray>();
-            
-            result.Should().BeEmpty();
-        }
+        //    result.Should().NotBeNull();
+        //}
+
+        //[Fact]
+        //public async Task Get_NonExist_Tutor()
+        //{
+        //    await _client.LogInAsync();
+
+        //    var response = await _client.GetAsync(_uri.Path + "/search?term=fsdfds");
+
+        //    var str = await response.Content.ReadAsStringAsync();
+
+        //    var d = JObject.Parse(str);
+
+        //    var result = d["result"]?.Value<JArray>();
+
+        //    result.Should().BeEmpty();
+        //}
     }
 }

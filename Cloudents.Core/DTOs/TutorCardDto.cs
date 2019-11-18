@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.DTOs
 {
@@ -15,47 +15,34 @@ namespace Cloudents.Core.DTOs
         public IEnumerable<string> Courses { get; set; }
         public IEnumerable<string> Subjects { get; set; }
 
-        public decimal TutorPrice { get; set; }
+        //public decimal TutorPrice { get; set; }
         public override FeedType Type => FeedType.Tutor;
-        public string TutorCountry
-        {
-            get => _tutorCountry;
-            set
-            {
-                _mergeCultureInfo = CultureInfo.CurrentUICulture.ChangeCultureBaseOnCountry(value);
-                _tutorCountry = value;
-            }
-        }
+        public string Country { get; set; }
 
-        [NonSerialized] private CultureInfo _mergeCultureInfo;
 
-        [NonSerialized] 
+        [NonSerialized]
         public bool NeedSerializer;
 
-        private string _tutorCountry;
 
 
-        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")] 
-        public string Price => TutorPrice.ToString("C0", _mergeCultureInfo);
+        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Json return")]
+        public decimal Price { get; set; }
 
-        public string DiscountPrice
+        public string Currency => new RegionInfo(Country).ISOCurrencySymbol;
+
+        public decimal? DiscountPrice
         {
             get
             {
-                if (_tutorCountry.Equals("IN", StringComparison.OrdinalIgnoreCase))
+                if (Country?.Equals("IN", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    return 0.ToString("C0", _mergeCultureInfo);
+                    return 0;
                 }
 
                 return null;
             }
         }
-
-        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Used by json.net")]
-        public bool ShouldSerializeTutorPrice()
-        {
-            return NeedSerializer;
-        }
+       
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Used by json.net")]
         public bool ShouldSerializeTutorCountry()
         {

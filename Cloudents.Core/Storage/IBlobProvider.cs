@@ -21,7 +21,7 @@ namespace Cloudents.Core.Storage
         Task CommitBlockListAsync(string blobName, string mimeType, string originalFileName, IList<int> indexes, CancellationToken token);
 
 
-        
+
 
 
         Uri GetBlobUrl(string blobName, bool cdn = false);
@@ -64,5 +64,5 @@ namespace Cloudents.Core.Storage
 
     }
 
-    
+
 }

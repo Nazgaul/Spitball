@@ -10,7 +10,7 @@ namespace Cloudents.Command.Command
             QuestionId = questionId;
             Text = text;
             UserId = userId;
-           
+
         }
 
         public long QuestionId { get; }
@@ -22,5 +22,5 @@ namespace Cloudents.Command.Command
         //public IEnumerable<string> Files { get; }
 
     }
-   
+
 }

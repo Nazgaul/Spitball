@@ -55,13 +55,13 @@
 //                courseMoq.Setup(s => s.Name).Returns(courseName);
 
 
-               
+
 //                sessionMock.Setup(x => x.Query<Course>())
 //                    .Returns(new EnumerableQuery<Course>(new [] {courseMoq.Object}));
 
-                
 
-                
+
+
 
 //                sessionMock.Setup(x => x.GetAsync<Course>(courseId, default)).ReturnsAsync(courseMoq.Object);
 

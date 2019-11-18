@@ -1,10 +1,10 @@
-﻿using System.Net;
-using FluentAssertions;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Net;
 using System.Threading.Tasks;
 using Xunit;
-using Microsoft.AspNetCore.Mvc.Testing;
-using System;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -86,7 +86,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             course.Should().NotBeNull();
             userId.Should().BeGreaterThan(0);
             userName.Should().NotBeNull();
-            
+
         }
 
         [Fact]
@@ -97,13 +97,13 @@ namespace Cloudents.Web.Test.IntegrationTests
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
-        [Fact]
+        [Fact(Skip = "Need to delete the question before trying to create new one")]
         public async Task PostAsync_New_OK()
         {
             await _client.LogInAsync();
-            
+
             var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_question));
-            
+
             response.EnsureSuccessStatusCode();
         }
     }

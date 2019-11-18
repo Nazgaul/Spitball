@@ -46,9 +46,9 @@ namespace Cloudents.Infrastructure
 
         public async Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token)
         {
-            var generateSale = GenerateSale.BuyTokens(price,successRedirect,_credentials.SellerId);
+            var generateSale = GenerateSale.BuyTokens(price, successRedirect, _credentials.SellerId);
 
-            return await GenerateSaleAsync(token, generateSale); 
+            return await GenerateSaleAsync(token, generateSale);
         }
 
         private async Task<GenerateSaleResponse> GenerateSaleAsync(CancellationToken token, GenerateSale generateSale)
@@ -106,7 +106,7 @@ namespace Cloudents.Infrastructure
                 return new GenerateSale()
                 {
                     CaptureBuyer = 0,
-                    SalePrice =  (price.Price * 100),
+                    SalePrice = (price.Price * 100),
                     SaleReturnUrl = saleReturnUrl,
                     SellerPaymeId = sellerId,
                     ProductName = "עבור קניית נקודות בספיטבול"
@@ -128,7 +128,7 @@ namespace Cloudents.Infrastructure
                 };
             }
 
-         
+
 
             public string SellerPaymeId { get; private set; }
 
@@ -146,7 +146,7 @@ namespace Cloudents.Infrastructure
         }
     }
 
-   
+
 
     public static class StreamExtensions
     {

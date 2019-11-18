@@ -11,7 +11,7 @@ namespace Cloudents.Core.Event
             User = user;
         }
 
-        public Transaction Transaction { get;  }
+        public Transaction Transaction { get; }
         public User User { get; }
     }
 }

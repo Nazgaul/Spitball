@@ -1,11 +1,11 @@
-﻿using System.Net;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
+using System.Net;
 
 namespace Cloudents.Command.Command
 {
     public class AddUserLocationCommand : ICommand
     {
-        public AddUserLocationCommand(User user, string country, IPAddress ip, 
+        public AddUserLocationCommand(User user, string country, IPAddress ip,
             string fingerPrint, string userAgent)
         {
             User = user;

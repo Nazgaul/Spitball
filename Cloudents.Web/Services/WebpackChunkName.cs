@@ -1,7 +1,7 @@
-﻿using System.Collections.Concurrent;
-using System.Linq;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
+using System.Collections.Concurrent;
+using System.Linq;
 
 namespace Cloudents.Web.Services
 {

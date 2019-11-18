@@ -35,11 +35,11 @@ namespace Cloudents.Query.Query.Admin
                 }
 
                 var res = suspendDto.Select(s => new SuspendedUsersDto
-                    {
-                        UserId = s.Id,
-                        UserEmail = s.Email,
-                        LockoutEnd = s.LockoutEnd
-                    });
+                {
+                    UserId = s.Id,
+                    UserEmail = s.Email,
+                    LockoutEnd = s.LockoutEnd
+                });
                 return await res.ToListAsync(cancellationToken: token);
             }
         }

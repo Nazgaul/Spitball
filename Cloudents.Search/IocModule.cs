@@ -20,10 +20,10 @@ namespace Cloudents.Search
             builder.RegisterType<UniversitySearchWrite>().AsSelf();
             builder.RegisterType<DocumentSearchWrite>().AsSelf();
             builder.RegisterType<TutorSearchWrite>().AsSelf();
-           
 
 
-            builder.Register(c=>
+
+            builder.Register(c =>
             {
                 var configuration = c.Resolve<IConfigurationKeys>().Search;
                 return new SearchService(configuration.Key, configuration.Name, configuration.IsDevelop);

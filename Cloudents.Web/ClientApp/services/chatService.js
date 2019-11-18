@@ -35,6 +35,7 @@ function TextMessage(objInit, id, fromSignalR){
     this.image = objInit.image;
     this.fromSignalR = fromSignalR || false;
     this.unreadMessage = objInit.unreadMessage || objInit.unread;
+    this.isDummy = objInit.isDummy || false;
 }
 function FileMessage(objInit, id, fromSignalR){
     this.userId= objInit.userId;

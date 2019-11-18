@@ -3,18 +3,18 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(/*Roles = Roles.Admin*/)]
+    [Authorize]
     public class AdminShortUrlController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
@@ -27,13 +27,13 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpPost("url")]
-        public async Task<ActionResult<ShortUrlDto>> AddShortUrlAsync([FromBody] AddShortUrlRequest model, 
+        public async Task<ActionResult<ShortUrlDto>> AddShortUrlAsync([FromBody] AddShortUrlRequest model,
              CancellationToken token)
         {
-           
-            var destinationTest = Uri.TryCreate(model.Destination, UriKind.Absolute, out Uri _);
 
-            if(!destinationTest && !model.Destination.StartsWith("/") && !model.Destination.StartsWith("www"))
+            var destinationTest = Uri.TryCreate(model.Destination, UriKind.Absolute, out var _);
+
+            if (!destinationTest && !model.Destination.StartsWith("/") && !model.Destination.StartsWith("www"))
             {
                 model.Destination = $"/{model.Destination}";
             }
@@ -45,10 +45,10 @@ namespace Cloudents.Admin2.Api
             }
             catch (DuplicateRowException)
             {
-                return Conflict(); 
+                return Conflict();
             }
 
-            string url = $"{_configuration["Site"]}go/{model.Identifier}";
+            var url = $"{_configuration["Site"]}go/{model.Identifier}";
             return new ShortUrlDto(url, model.Destination, model.Expiration);
 
         }

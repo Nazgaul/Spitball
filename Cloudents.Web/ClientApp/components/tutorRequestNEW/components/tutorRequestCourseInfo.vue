@@ -35,7 +35,7 @@
                         v-model="moreTutors" off-icon="sbf-check-box-un" 
                         on-icon="sbf-check-box-done"/>
     </v-form>
-        <div class="tutorRequest-bottom">
+        <div class="tutorRequest-bottom" :class="{'mt-4': !getCurrTutor}">
             <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed round>
             <span v-language:inner="'tutorRequest_cancel'"/>
             </v-btn>
@@ -237,14 +237,23 @@ export default {
             }
 
             .checkbox-userinfo{
-                .v-input__slot{
-                display: flex;
-                align-items: unset;
-                    .v-icon{
-                        color: @global-blue !important;
-                    }
-                    .v-messages{
-                        display: none;
+                .v-input__control {
+                    width: 100%;
+                    .v-input__slot{
+                    display: flex;
+                    align-items: unset;
+                        .v-icon{
+                            color: @global-blue !important;
+                        }
+                        .v-messages{
+                            display: none;
+                        }
+                        .v-label {
+                            display: block;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
                     }
                 }
             }

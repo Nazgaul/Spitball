@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Hubs;
 using Microsoft.AspNetCore.SignalR;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.EventHandler
 {
@@ -32,8 +32,8 @@ namespace Cloudents.Web.EventHandler
                 var t = _studyRoomHubContext.Clients.Group(roomId.ToString()).SendAsync(SbHub.MethodName, message, token);
                 list.Add(t);
             }
-            
-            var t1 =  _hubContext.Clients.User(eventMessage.User.Id.ToString())
+
+            var t1 = _hubContext.Clients.User(eventMessage.User.Id.ToString())
                 .SendAsync(SbHub.MethodName, message, token);
             list.Add(t1);
             await Task.WhenAll(list);

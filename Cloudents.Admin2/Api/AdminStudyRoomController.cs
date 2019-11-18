@@ -1,19 +1,19 @@
 ﻿using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Extension;
 using Cloudents.Query;
+using Cloudents.Query.Query.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Query.Query.Admin;
-using Microsoft.AspNetCore.Authorization;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class AdminStudyRoomController: ControllerBase
+    public class AdminStudyRoomController : ControllerBase
     {
         private readonly IQueryBus _queryBus;
 

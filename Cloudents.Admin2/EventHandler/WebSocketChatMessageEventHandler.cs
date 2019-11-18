@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Admin2.EventHandler
 {
@@ -37,7 +37,7 @@ namespace Cloudents.Admin2.EventHandler
                         message = BuildChatMessage(chatTextMessage)
                     });
 
-                List<long> users = BuildUserList(chatTextMessage);
+                var users = BuildUserList(chatTextMessage);
                 foreach (var user in users)
                 {
                     await _queueProvider.InsertMessageAsync(message, user, token);
@@ -49,9 +49,9 @@ namespace Cloudents.Admin2.EventHandler
         private List<long> BuildUserList(ChatTextMessage chatMessage)
         {
             return chatMessage.ChatRoom.Users.Where(w => w.User.Id != chatMessage.User.Id).Select(s => s.User.Id).ToList();
-            
+
         }
-       
+
         private ChatMessageDto BuildChatMessage(ChatTextMessage chatMessage)
         {
             return new ChatTextMessageDto
@@ -65,6 +65,6 @@ namespace Cloudents.Admin2.EventHandler
         }
 
 
-        
+
     }
 }

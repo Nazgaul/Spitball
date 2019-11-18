@@ -41,10 +41,10 @@ namespace Cloudents.Command.CommandHandler
             var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
 
             var question = new Question(
-                message.Text,  
+                message.Text,
                 user, textLanguage, course, user.University);
 
-            await _userRepository.UpdateAsync(user, token);
+            //await _userRepository.UpdateAsync(user, token);
 
             await _questionRepository.AddAsync(question, token);
         }

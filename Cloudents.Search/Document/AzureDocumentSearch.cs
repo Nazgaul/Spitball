@@ -82,6 +82,7 @@ namespace Cloudents.Search.Document
             SearchAsync(DocumentQuery query, UserProfile userProfile, CancellationToken token)
         {
             var filters = new List<string>();
+            filters.Add($"{nameof(Entities.Document.Country)} eq '{userProfile.Country}'");
             if (query.Course != null)
             {
                 var filterStr = $"{Entities.Document.CourseNameField} eq '{query.Course.ToUpperInvariant().Replace("'", "''")}'";
@@ -110,7 +111,7 @@ namespace Cloudents.Search.Document
                              {
                                  TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsUniversityParameter,userProfile.UniversityId?.ToString()),
                                  TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCourseParameter,userProfile.Courses),
-                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCountryParameter,userProfile.Country)
+                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCountryParameter,(string)null)
                 },
                 Facets = new[]
                 {

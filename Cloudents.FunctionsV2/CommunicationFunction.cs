@@ -3,6 +3,7 @@ using Cloudents.Core.Message;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.Binders;
+using Cloudents.FunctionsV2.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -16,9 +17,9 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.FunctionsV2.Services;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
 using Twilio.Types;
@@ -53,7 +54,7 @@ namespace Cloudents.FunctionsV2
 
             log.LogInformation("finish sending email");
         }
-      
+
 
         private static async Task ProcessEmail(IAsyncCollector<SendGridMessage> emailProvider, ILogger log,
             BaseEmail topicMessage, CancellationToken token)
@@ -121,7 +122,8 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("FunctionSmsServiceBus")]
         public static async Task SmsServiceBusAsync(
-              [ServiceBusTrigger("communication", "sms", Connection = "AzureWebJobsServiceBus")] SmsMessage msg,
+              [ServiceBusTrigger("communication", "sms", Connection = "AzureWebJobsServiceBus")]
+              SmsMessage msg,
               [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
               ILogger log,
               CancellationToken token
@@ -139,9 +141,10 @@ namespace Cloudents.FunctionsV2
                 return;
             }
 
+            CultureInfo.DefaultThreadCurrentUICulture = msg.CultureInfo;
             var messageOptions = new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
             {
-                Body = msg.Message
+                Body = string.Format(ResourceWrapper.GetString("sms_text"), msg.Message)
             };
             if (msg.PhoneNumber.StartsWith("+972"))
             {
@@ -152,8 +155,9 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("FunctionPhoneServiceBus")]
         public static async Task CallServiceBusAsync(
-            
-            [ServiceBusTrigger("communication", "call", Connection = "AzureWebJobsServiceBus")] SmsMessage msg,
+
+            [ServiceBusTrigger("communication", "call", Connection = "AzureWebJobsServiceBus")]
+            SmsMessage msg,
             [TwilioCall(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateCallOptions> options,
             [Inject] IHostUriService hostUriService)
         {
@@ -168,7 +172,8 @@ namespace Cloudents.FunctionsV2
             };
             uriBuilder.AddQuery(new NameValueCollection()
             {
-                ["code"] = msg.Message
+                ["code"] = msg.Message,
+                ["culture"] = msg.CultureInfo.ToString()
             });
             var call = new CreateCallOptions(to, from)
             {
@@ -179,7 +184,7 @@ namespace Cloudents.FunctionsV2
 
         }
 
-       
+
 
         [FunctionName("TwilioMessage")]
         public static IActionResult RunTwilioResult(
@@ -187,8 +192,13 @@ namespace Cloudents.FunctionsV2
             HttpRequest req, ILogger log)
         {
             string name = req.Query["code"];
+            string culture = req.Query["culture"];
+
+            //var culture = CultureInfo.CurrentUICulture.ChangeCultureBaseOnCountry(result.Country);
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(culture);
             var twiml = new VoiceResponse();
-            twiml.Say($"Your code to spitball is, {string.Join(". ", name.ToCharArray())}", loop: 3, voice: "alice");
+            var sentence = string.Format(ResourceWrapper.GetString("call_text"), string.Join(". ", name.ToCharArray()));
+            twiml.Say(sentence, loop: 3, voice: "alice");
             return new ContentResult()
             {
                 Content = twiml.ToString(),

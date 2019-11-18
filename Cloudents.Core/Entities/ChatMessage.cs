@@ -11,7 +11,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-       
+
 
         protected ChatMessage(User user, ChatRoom room)
         {

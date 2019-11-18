@@ -28,7 +28,7 @@ namespace Cloudents.Web.Models
         [RequiredPropertyForQuery]
         public string Course { get; set; }
     }
-    
+
 
     //public abstract class VerticalRequest : IPaging
     //{

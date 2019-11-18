@@ -1,10 +1,7 @@
 @import "../../../../styles/mixin.less";
 
 div.login-popup {
-  //* {
-  //  border: 1px solid green;
-  //}
-  max-width: 700px;
+  border-radius: 6px;
   font-size: 16px;
   @media (max-width: @screen-xs) {
 
@@ -12,40 +9,36 @@ div.login-popup {
   .close-btn {
     position: absolute;
     right: 16px;
-    top: 16px;
+    top: 6px;
     outline: none;
 
     .v-icon {
-      font-size: 16px;
-      color: @color-main-purple;
+      font-size: 12px;
     }
   }
   .dialog-wrapp {
     height: 100%;
-    padding: 48px 48px 48px 48px;
+    padding: 20px;
     position: relative;
     @media (max-width: @screen-xs) {
-      padding: 56px 24px 48px 24px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      // justify-content: space-between;
     }
       .wrap-text{
-        //width: 416px;
-        margin-bottom: 58px;
+        margin-bottom: 26px;
         text-align: center;
         h2{
-          font-size: 40px;
-          font-weight: 300;
+          font-size: 32px;
+          font-weight: 600;
           font-style: normal;
           font-stretch: normal;
           line-height: 42px;
           letter-spacing: -0.3px;
-          color: @color-main-purple;
+          color: #43425d;
           @media(max-width: @screen-xs){
-            font-size: 48px;
-            font-weight: 300;
-            line-height: 50px;
+            font-size: 26px;
+            font-weight: 600;
             letter-spacing: -0.5px;
           }
         }
@@ -54,63 +47,63 @@ div.login-popup {
           margin: 0 auto;
         }
         .dialog-body-text{
-          margin-top: 22px;
-          //width: 323px;
-          font-size: 24px;
+          white-space: pre-line;
+          margin-top: 20px;
+          font-size: 18px;
           font-weight: 500;
-          line-height: 1.2;
+          line-height: 1.78;
           letter-spacing: -0.3px;
-          color: #aeaeae;
+          color: #43425d;
           text-align: center;
           @media(max-width: @screen-xs){
-            font-size: 24px;
+            font-size: 16px;
           }
         }
         @media(max-width: @screen-xs){
           margin-top: 10%;
           margin-left: auto;
           margin-right: auto;
-          //width: 368px;;
+          margin-bottom: 16px;
+          padding: 0;
+
         }
       }
       .btn-container{
         display: flex;
         justify-content: center;
-        @media (max-width: @screen-xs) {
-          justify-content: space-around;
-        }
         .login-btns {
-          height: 32px;
-          width: 104px;
-          margin-right: 10px;
+          font-weight: 600;
+          height: 42px;
           border-radius: 26.5px;
-          border: solid 1px @color-main-purple;
-          font-size: 16px!important;
+          border: solid 1px #4c59ff;
+          font-size: 14px;
           outline: none;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: @color-main-purple;
+          color: #4c59ff;
           letter-spacing: -0.5px;
           padding: 0 20px;
-          min-width: 104px;
+          min-width: 180px;
 
           &:first-child {
-            background: @color-main-purple;
+            background: #4c59ff;
             color: @color-white;
             margin-right: 24px;
             .transition (all .2s ease-in-out);
-            &:hover {
-              background-color: lighten(@color-main-purple, 10%);
-            }
+            // &:hover {
+            //   background-color: lighten(@color-main-purple, 10%);
+            // }
           }
           &:last-child{
             .transition (all .2s ease-in-out);
-            &:hover {
-              background-color: darken(@color-white, 10%);
-            }
+            // &:hover {
+            //   background-color: darken(@color-white, 10%);
+            // }
           }
-
+          @media (max-width: @screen-xs) {
+            min-width: 140px;
+          }
         }
       }
   }

@@ -1,17 +1,15 @@
-﻿using System;
+﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using NHibernate;
+using NHibernate.Linq;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
-using NHibernate;
-using NHibernate.Linq;
 
 namespace Cloudents.Query
 {
@@ -32,11 +30,9 @@ namespace Cloudents.Query
         {
 
             private readonly IStatelessSession _statelessSession;
-            private readonly ICountryProvider _countryProvider;
 
-            public UserBalanceDetailQueryHandler(QuerySession session, ICountryProvider countryProvider)
+            public UserBalanceDetailQueryHandler(QuerySession session)
             {
-                _countryProvider = countryProvider;
                 _statelessSession = session.StatelessSession;
             }
 
@@ -60,20 +56,19 @@ namespace Cloudents.Query
 
 
                 Country country = await futureValueCountry.GetValueAsync(token);
-                var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(country.Name);
 
                 var retVal = listOfQueries.Select(s =>
-               {
+                {
                    var dbVal = s.Value.Value;
 
-                   var currencyValue = (country.ConversationRate * dbVal.GetValueOrDefault()).ToString("C", culture);
-                   return new BalanceDto(s.Key.ToString("G"), dbVal.GetValueOrDefault(), currencyValue);
+                   var currencyValue = (country.ConversationRate * dbVal.GetValueOrDefault());
+                   return new BalanceDto(s.Key.ToString("G"), dbVal.GetValueOrDefault(), currencyValue, country.RegionInfo.ISOCurrencySymbol);
 
-               }).ToList();
+                }).ToList();
 
                 var totalBalance = retVal.Sum(x => x.Points);
-                var totalCurrencyValue = (country.ConversationRate * totalBalance).ToString("C", culture);
-                retVal.Add(new BalanceDto("Total", totalBalance, totalCurrencyValue));
+                var totalCurrencyValue = (country.ConversationRate * totalBalance);
+                retVal.Add(new BalanceDto("Total", totalBalance, totalCurrencyValue, country.RegionInfo.ISOCurrencySymbol));
 
                 return retVal;
             }

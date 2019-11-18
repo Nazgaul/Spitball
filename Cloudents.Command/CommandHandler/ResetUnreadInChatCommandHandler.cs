@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Cloudents.Command.Command;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command.Command;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -14,7 +14,7 @@ namespace Cloudents.Command.CommandHandler
 
         private readonly IRepository<ChatUser> _chatUserRepository;
 
-        public ResetUnreadInChatCommandHandler(IChatRoomRepository chatRoomRepository, 
+        public ResetUnreadInChatCommandHandler(IChatRoomRepository chatRoomRepository,
             IRepository<ChatUser> chatUserRepository)
         {
             _chatRoomRepository = chatRoomRepository;
@@ -35,6 +35,6 @@ namespace Cloudents.Command.CommandHandler
             user.ResetUnread();
             await _chatUserRepository.UpdateAsync(user, token);
         }
-       
+
     }
 }

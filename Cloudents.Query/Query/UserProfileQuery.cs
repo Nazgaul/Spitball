@@ -1,20 +1,28 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System;
 using Cloudents.Core.DTOs;
 using Cloudents.Query.Stuff;
 using NHibernate;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Entities;
+using NHibernate.Transform;
+using NHibernate.Type;
 
 namespace Cloudents.Query.Query
 {
     public class UserProfileQuery : IQuery<UserProfileDto>
     {
-        public UserProfileQuery(long id)
+        //TODO split to two queries
+        public UserProfileQuery(long id, long userId)
         {
             Id = id;
+            UserId = userId;
         }
 
         private long Id { get; }
+        private long UserId { get; }
+
 
 
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Ioc inject")]
@@ -41,73 +49,79 @@ u.online,
 cast ((select count(*) from sb.GoogleTokens gt where u.Id = gt.Id) as bit) as CalendarShared,
 t.rate as Tutor_Rate,
 t.rateCount as Tutor_ReviewCount,
-u.FirstName as Tutor_FirstName ,u.LastName as Tutor_LastName,
-t.price as Tutor_NumericPrice, 
+u.FirstName as Tutor_FirstName ,
+u.LastName as Tutor_LastName,
+t.price as Tutor_Price, 
+t.SubsidizedPrice as Tutor_DiscountPrice,
 t.country as Tutor_TutorCountry
-
 from sb.[user] u 
 left join sb.[University] u2 on u.UniversityId2 = u2.Id
 left join sb.readTutor t 
 	on U.Id = t.Id 
 
-where u.id = :Id
+
+where u.id = :profileId
 and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())";
 
+
+                var couponSql = @"Select c.value as Value,
+c.CouponType as Type
+from sb.UserCoupon uc
+join sb.coupon c on uc.couponId = c.id and uc.UsedAmount < c.AmountOfUsePerUser
+where userid = :userid
+and uc.tutorid =  :profileId";
+
                 var sqlQuery = _session.CreateSQLQuery(sql);
-                sqlQuery.SetInt64("Id", query.Id);
+                sqlQuery.SetInt64("profileId", query.Id);
+                //sqlQuery.SetInt64("userid", query.UserId);
                 sqlQuery.SetResultTransformer(new DeepTransformer<UserProfileDto>('_'));
-                var result = await sqlQuery.UniqueResultAsync<UserProfileDto>(token);
+                var profileValue = sqlQuery.FutureValue<UserProfileDto>();
 
+
+
+                var couponSqlQuery = _session.CreateSQLQuery(couponSql);
+                couponSqlQuery.SetInt64("profileId", query.Id);
+                couponSqlQuery.SetInt64("userid", query.UserId);
+                // couponSqlQuery.AddScalar("Type", NHibernateUtil.Enum(typeof(CouponType)));
+                couponSqlQuery.SetResultTransformer(Transformers.AliasToBean<CouponDto>());
+                var couponValue = couponSqlQuery.FutureValue<CouponDto>();
+
+
+                var result = await profileValue.GetValueAsync(token);
+
+                var couponResult = couponValue.Value;
+
+
+
+                if (result is null)
+                {
+                    return null;
+                }
+
+                if (result.Tutor != null && couponResult != null)
+                {
+                    result.Tutor.CouponType = couponResult.TypeEnum;
+                    result.Tutor.CouponValue = couponResult.Value;
+                }
+
+                if (result.Tutor?.CouponValue.HasValue == true && result.Tutor?.CouponType.HasValue == true)
+                {
+                    result.Tutor.HasCoupon = true;
+                    result.Tutor.DiscountPrice = Coupon.CalculatePrice(result.Tutor.CouponType.Value, result.Tutor.Price,
+                        result.Tutor.CouponValue.Value);
+                }
                 return result;
-
-                //BaseUser userAlias = null;
-                //ReadTutor readTutorAlias = null;
-                //University universityAlias = null;
-                //UserProfileDto userPoProfileDtoAlias = null;
-
-                //var googleExistsSubQuery = QueryOver.Of<GoogleTokens>().Where(w => w.Id == query.Id.ToString())
-                //    .ToRowCountQuery();
-                    
-
-                //return await _session.QueryOver(() => userAlias)
-                //    .JoinAlias(x => x.University, () => universityAlias)
-                    
-                //    .JoinEntityAlias(() => readTutorAlias, () => userAlias.Id == readTutorAlias.Id, JoinType.LeftOuterJoin)
-                //    .Where(w => w.Id == query.Id)
-                //    //.And(() => userAlias.LockoutEnd < DateTime.UtcNow)
-                //    .SelectList(s2 =>
-                //    {
-                //        s2.Select(s => s.Id).WithAlias(() => userPoProfileDtoAlias.Id);
-                //        s2.Select(s => s.Image).WithAlias(() => userPoProfileDtoAlias.Image);
-                //        s2.Select(s => s.Name).WithAlias(() => userPoProfileDtoAlias.Name);
-                //        s2.Select(() => universityAlias.Name).WithAlias(() => userPoProfileDtoAlias.UniversityName);
-                //        s2.Select(s => s.Score).WithAlias(() => userPoProfileDtoAlias.Score);
-                //        //s2.Select(() => userAlias.Description).WithAlias(() => userPoProfileDtoAlias.Description);
-                //        //s2.Select(() => userAlias.Online).WithAlias(() => userPoProfileDtoAlias.Online);
-                //        s2.Select(Projections.Conditional(
-                //                Restrictions.Ge(Projections.SubQuery(googleExistsSubQuery), 0),
-                //                Projections.Constant(true), Projections.Constant(false)))
-                //            .WithAlias(() => userPoProfileDtoAlias.CalendarShared);
-                //        s2.Select(Projections.Property(() => readTutorAlias.Rate)
-                //            .As($"{nameof(userPoProfileDtoAlias.Tutor)}.{nameof(UserTutorProfileDto.Rate)}"));
-                //        s2.Select(Projections.Property(() => readTutorAlias.RateCount).As(
-                //            $"{nameof(userPoProfileDtoAlias.Tutor)}.{nameof(UserTutorProfileDto.ReviewCount)}"));
-                //        //s2.Select(Projections.Property(() => userAlias.FirstName).As(
-                //        //    $"{nameof(userPoProfileDtoAlias.Tutor)}.{nameof(UserTutorProfileDto.FirstName)}"));
-                //        //s2.Select(Projections.Property(() => userAlias.LastName)
-                //        //    .As($"{nameof(userPoProfileDtoAlias.Tutor)}.{nameof(UserTutorProfileDto.LastName)}"));
-
-                //        s2.Select(Projections.Property(() => readTutorAlias.Price).As(
-                //            $"{nameof(userPoProfileDtoAlias.Tutor)}.{UserTutorProfileDto.TutorPriceVariableName}"));
-
-                //        s2.Select(Projections.Property(() => readTutorAlias.Country).As(
-                //            $"{nameof(userPoProfileDtoAlias.Tutor)}.{UserTutorProfileDto.TutorCountryVariableName}"));
-
-                //        return s2;
-                //    })
-                //    .TransformUsing(new DeepTransformer<UserProfileDto>())
-                //    .SingleOrDefaultAsync<UserProfileDto>(token);
             }
         }
+
+        public class CouponDto
+        {
+            public string Type { get; set; }
+
+            public CouponType TypeEnum => (CouponType)Enum.Parse(typeof(CouponType), Type, true);
+
+            public decimal Value { get; set; }
+        }
+
     }
 }

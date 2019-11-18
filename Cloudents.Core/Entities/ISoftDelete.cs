@@ -5,5 +5,5 @@
         void Delete();
     }
 
-   
+
 }

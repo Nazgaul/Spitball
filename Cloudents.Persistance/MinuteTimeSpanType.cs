@@ -1,9 +1,9 @@
-﻿using NHibernate.Type;
+﻿using NHibernate.Dialect;
+using NHibernate.Engine;
+using NHibernate.Type;
 using System;
 using System.Data.Common;
 using System.Globalization;
-using NHibernate.Engine;
-using NHibernate.Dialect;
 
 namespace Cloudents.Persistence
 {
@@ -26,7 +26,7 @@ namespace Cloudents.Persistence
         {
             try
             {
-                
+
                 return TimeSpan.FromMinutes(Convert.ToInt64(rs[index]));
             }
             catch (Exception ex)

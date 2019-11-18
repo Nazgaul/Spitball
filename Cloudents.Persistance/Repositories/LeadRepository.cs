@@ -26,7 +26,7 @@ namespace Cloudents.Persistence.Repositories
             ChatRoomAdmin chatRoomAdminAlias = null;
             Lead leadAlias = null;
             var futureChatCount = Session.QueryOver(() => leadAlias)
-                .JoinEntityAlias(()=> chatRoomAdminAlias,() => leadAlias.Id == chatRoomAdminAlias.Lead.Id)
+                .JoinEntityAlias(() => chatRoomAdminAlias, () => leadAlias.Id == chatRoomAdminAlias.Lead.Id)
                 .Where(w => w.User.Id == userId)
                 .Where(w => w.CreationTime > dateTime)
                 .ToRowCountQuery()

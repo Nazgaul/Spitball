@@ -1,11 +1,11 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using JetBrains.Annotations;
 using static Cloudents.Core.Entities.ItemStatus;
 
 //[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
@@ -17,9 +17,9 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Question : Entity<long>, IAggregateRoot, ISoftDelete
     {
-        public Question(string text,  
+        public Question(string text,
             User user,
-             CultureInfo language,  [NotNull] Course course,  University university)
+             CultureInfo language, [NotNull] Course course, University university)
         : this()
         {
             Text = text?.Trim();
@@ -35,7 +35,7 @@ namespace Cloudents.Core.Entities
 
             Status = status;
             Course = course ?? throw new ArgumentException();
-            University = university ;
+            University = university;
             Language = language ?? new CultureInfo("en");
         }
 
@@ -85,9 +85,9 @@ namespace Cloudents.Core.Entities
         //public virtual IList<QuestionTransaction> Transactions { get; protected set; }
 
 
-        public virtual Answer AddAnswer(string text,  User user, CultureInfo language)
+        public virtual Answer AddAnswer(string text, User user, CultureInfo language)
         {
-            var answer = new Answer(this, text,  user, language);
+            var answer = new Answer(this, text, user, language);
             _answers.Add(answer);
             AddEvent(new AnswerCreatedEvent(answer));
             return answer;
@@ -96,44 +96,13 @@ namespace Cloudents.Core.Entities
         public virtual void RemoveAnswer(Answer answer)
         {
             _answers.Remove(answer);
-           
+
         }
 
-        //public virtual void Vote(VoteType type, User user)
-        //{
-        //    if (Status != Public)
-        //    {
-        //        throw new NotFoundException();
-        //    }
-        //    if (User == user)
-        //    {
-        //        throw new UnauthorizedAccessException("you cannot vote you own question");
-        //    }
-        //    var vote = Votes.FirstOrDefault(w => w.User == user && w.Answer == null);
-        //    if (vote == null)
-        //    {
-        //        vote = new Vote(user, this, type);
-        //        _votes.Add(vote);
-
-        //    }
-
-        //    vote.VoteType = type;
-        //    VoteCount = Votes.Where(w => w.Answer == null).Sum(s => (int)s.VoteType);
-        //    if (VoteCount < VoteCountToFlag)
-        //    {
-        //        Status = Status.Flag(TooManyVotesReason, user);
-        //    }
-        //}
+        
 
         [NotNull]
         public virtual CultureInfo Language { get; protected set; }
-
-        //private readonly IList<Vote> _votes = new List<Vote>();
-
-       // public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
-
-       // public virtual int VoteCount { get; protected set; }
-
 
         public virtual void MakePublic()
         {
@@ -148,7 +117,7 @@ namespace Cloudents.Core.Entities
         public virtual void DeleteQuestionAdmin()
         {
             Delete();
-          
+
             AddEvent(new QuestionDeletedAdminEvent(this));
         }
 
@@ -159,7 +128,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-       
+
 
 
 

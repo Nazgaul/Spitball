@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Web.Hubs;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.SignalR;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.ApplicationInsights;
 
 namespace Cloudents.Web.EventHandler
 {
@@ -31,14 +31,14 @@ namespace Cloudents.Web.EventHandler
 
             var onlineCount = studyRoom.Users.Count(f => f.Online);
             var totalOnline = 2; // //studyRoom.Users.Count;
-            _telemetryClient.TrackEvent($"Users in room {studyRoom.Id}",metrics: new Dictionary<string, double>()
+            _telemetryClient.TrackEvent($"Users in room {studyRoom.Id}", metrics: new Dictionary<string, double>()
             {
                 ["onlineCount"] = onlineCount,
                 ["totalOnline"] = totalOnline
             });
             if (onlineCount == totalOnline)
             {
-                var session = studyRoom.GetCurrentSession();//.AsQueryable().Where(w => w.Ended == null).OrderByDescending(o => o.Id).FirstOrDefault();
+                var session = studyRoom.GetCurrentSession();
                 if (session != null)
                 {
                     var roomExists = await _videoProvider.GetRoomAvailableAsync(session.SessionId);

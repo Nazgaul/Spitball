@@ -7,7 +7,7 @@ namespace Cloudents.Command.StudyRooms
         public EndStudyRoomSessionAfterUserDisconnectedCommand(Guid sessionParticipantDisconnectId)
         {
             SessionParticipantDisconnectId = sessionParticipantDisconnectId;
-           
+
         }
         public Guid SessionParticipantDisconnectId { get; }
     }

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -9,13 +9,13 @@ namespace Cloudents.Web.Test.IntegrationTests
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class UrlControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
-       // private readonly SbWebApplicationFactory _factory;
+        // private readonly SbWebApplicationFactory _factory;
         private readonly System.Net.Http.HttpClient _client;
 
 
         public UrlControllerTests(SbWebApplicationFactory factory)
         {
-           // _factory = factory;
+            // _factory = factory;
             _client = factory.CreateClient(new WebApplicationFactoryClientOptions()
             {
                 AllowAutoRedirect = false
@@ -23,7 +23,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             _client.DefaultRequestHeaders.Referrer = new Uri("https://www.spitball.co/note");
         }
 
-        [Fact(Skip ="Not relevant anymore")]
+        [Fact(Skip = "Not relevant anymore")]
         public async Task GetAsync_NoQueryString_RedirectHomePage()
         {
             var response = await _client.GetAsync("/url");
@@ -69,7 +69,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                 "/url?url=https:%2F%2Fwww.google.com&host=google&location=23";
 
             //await Client.GetAsync(url);
-            
+
             await Assert.ThrowsAsync<ArgumentException>(() => _client.GetAsync(url));
         }
 

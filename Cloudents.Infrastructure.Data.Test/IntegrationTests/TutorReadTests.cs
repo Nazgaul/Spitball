@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Cloudents.Query.Tutor;
+﻿using Cloudents.Query.Tutor;
 using FluentAssertions;
 using System.Threading.Tasks;
 using Xunit;
@@ -33,14 +31,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             foreach (var tutorCardDto in result)
             {
-                tutorCardDto.TutorCountry.Should().BeEquivalentTo(country);
+                tutorCardDto.Country.Should().BeEquivalentTo(country);
             }
         }
 
 
         [Theory]
         [InlineData(0, "IL", 0)]
-        [InlineData(0,"IN",0)]
+        [InlineData(0, "IN", 0)]
         [InlineData(638, null, 0)]
 
         public async Task TutorListQuery_Ok(long userId, string country, int page)
@@ -57,6 +55,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
 
         }
+
+
 
 
 

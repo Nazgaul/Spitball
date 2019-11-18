@@ -1,5 +1,6 @@
 import { connectivityModule } from "./connectivity.module";
 import searchService from "../services/searchService.js";
+
 function AccountUser(objInit){
     this.balance= objInit.balance;
     this.email= objInit.email;
@@ -26,13 +27,14 @@ function createIsTutorState(str){
     }
 }
  function TutorData(objInit) {
-     this.price= objInit.price || 0;
-     this.numPrice = objInit.numericPrice;
+     this.price = objInit.price || 0;
+     this.currency = objInit.currency;
      this.rate = objInit.rate || 0;
      this.reviewCount = objInit.reviewCount || 0;
      this.firstName = objInit.firstName || '';
      this.lastName = objInit.lastName  || '';
      this.discountPrice = objInit.discountPrice;
+     this.hasCoupon = objInit.hasCoupon;
  }
 
  function createTutorData(objInit) {
@@ -169,7 +171,7 @@ export default {
             description: data.description,
             lastName: data.lastName,
             bio: data.bio,
-            price: data.numPrice
+            price: data.price
         };
         return connectivityModule.http.post("/Account/settings", serverFormat);
     },

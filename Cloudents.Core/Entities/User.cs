@@ -1,10 +1,10 @@
-﻿using Cloudents.Core.Event;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
+using Cloudents.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Exceptions;
 
 namespace Cloudents.Core.Entities
 {
@@ -20,9 +20,9 @@ namespace Cloudents.Core.Entities
             Created = DateTime.UtcNow;
         }
 
-        public User(string email,  Language language) : this(email,null,null,language)
+        public User(string email, Language language) : this(email, null, null, language)
         {
-          
+
         }
 
         protected User()
@@ -47,24 +47,30 @@ namespace Cloudents.Core.Entities
         public virtual string LockoutReason { get; set; }
 
         // ReSharper disable once CollectionNeverUpdated.Local Nhiberate
-        private readonly IList<Answer> _answers = new List<Answer>();
+        //private readonly IList<Answer> _answers = new List<Answer>();
 
-        public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
+        protected internal virtual ICollection<Answer> Answers { get; set; }
         protected internal virtual IList<UserLogin> UserLogins { get; protected set; }
 
         //protected internal virtual ISet<UserCourse> UserCourses { get; protected set; }
+
+
+
+        //private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
         private readonly ISet<UserCourse> _userCourses = new HashSet<UserCourse>();
 
-
-
         public virtual IEnumerable<UserCourse> UserCourses => _userCourses.ToList();
+
+
+        private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();
+        public virtual IEnumerable<UserCoupon> UserCoupon => _userCoupon;
 
         public virtual void AssignCourses(IEnumerable<Course> courses)
         {
             var isTutor = Tutor != null;
             foreach (var course in courses)
             {
-                
+
                 var p = new UserCourse(this, course)
                 {
                     CanTeach = isTutor
@@ -76,9 +82,51 @@ namespace Cloudents.Core.Entities
             }
         }
 
+        public virtual void UseCoupon(Tutor tutor)
+        {
+            var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.UsedAmount < w.Coupon.AmountOfUsePerUser);
+            if (userCoupon is null) // we do not check before if user have coupon on that user
+            {
+                return;
+            }
+            userCoupon.UsedAmount++;
+        }
+
+        public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
+        {
+            if (coupon.CanApplyCoupon())
+            {
+                var userCoupon = UserCoupon.SingleOrDefault(w => w.Tutor.Id == tutor.Id && w.UsedAmount < w.Coupon.AmountOfUsePerUser);
+                if (userCoupon != null)
+                {
+                    throw new DuplicateRowException();
+                }
+                var p = new UserCoupon(this, coupon, tutor);
+                if (!_userCoupon.Add(p))
+                {
+                    throw new DuplicateRowException();
+                }
+                //{
+                //    _userCoupon.Remove(p);
+                //    _userCoupon.Add(p);
+                //}
+
+            }
+            //if (coupon.Expiration.GetValueOrDefault(DateTime.MaxValue) < DateTime.UtcNow)
+            //{
+            //    throw new ArgumentException("invalid coupon");
+            //}
+
+            //if (AmountOfUsers.HasValue && AmountOfUsers.Value <= _userCoupon.Count)
+            //{
+            //    throw new OverflowException();
+            //}
+            
+        }
+
         public virtual void RemoveCourse(Course course)
         {
-            var p = new UserCourse(this,course);
+            var p = new UserCourse(this, course);
             if (_userCourses.Remove(p))
             {
                 course.Count--;
@@ -88,7 +136,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void CanTeachCourse(string courseName)
         {
-            var course = _userCourses.AsQueryable().First(w => w.Course.Id == courseName);
+            var course = UserCourses.AsQueryable().First(w => w.Course.Id == courseName);
             course.CanTeach = !course.CanTeach;
             LastOnline = DateTime.UtcNow; // this is for trigger the event
             AddEvent(new CanTeachCourseEvent(course));
@@ -101,13 +149,13 @@ namespace Cloudents.Core.Entities
             AddEvent(new SetUniversityEvent(Id));
         }
 
-        public virtual void BecomeTutor(string bio, decimal? price,string description, string firstName, string lastName )
+        public virtual void BecomeTutor(string bio, decimal? price, string description, string firstName, string lastName)
         {
 
             Tutor = new Tutor(bio, this, price);
             Description = description;
             ChangeName(firstName, lastName);
-            foreach (var userCourse in _userCourses)
+            foreach (var userCourse in UserCourses)
             {
                 userCourse.CanTeach = true;
             }
@@ -115,10 +163,10 @@ namespace Cloudents.Core.Entities
 
         private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
 
-        public virtual IReadOnlyCollection<StudyRoomUser> StudyRooms => _studyRooms.ToList();
+        public virtual IEnumerable<StudyRoomUser> StudyRooms => _studyRooms;
 
 
-        public virtual DateTime LastOnline { get; protected set; }
+        public virtual DateTime? LastOnline { get; protected set; }
         public virtual bool Online { get; protected set; }
 
         public virtual UserTransactions Transactions { get; protected set; }
@@ -144,8 +192,8 @@ namespace Cloudents.Core.Entities
             PaymentExists = PaymentStatus.Done;
             BuyerPayment = new BuyerPayment(token, expiration, buyerCardMask);
         }
-      
-        
+
+
 
         public virtual void ChangeOnlineStatus(bool isOnline)
         {
@@ -167,7 +215,7 @@ namespace Cloudents.Core.Entities
         {
             FirstName = firstName;
             LastName = lastName;
-           
+
             Name = $"{FirstName} {LastName}".Trim();
             if (string.IsNullOrWhiteSpace(Name))
             {
@@ -182,7 +230,7 @@ namespace Cloudents.Core.Entities
             AddEvent(new UserSuspendEvent(this));
         }
 
-        public virtual bool IsSuspended()
+        protected virtual bool IsSuspended()
         {
             if (LockoutEnd.HasValue && LockoutEnd.Value > DateTimeOffset.UtcNow)
             {
@@ -228,7 +276,7 @@ namespace Cloudents.Core.Entities
             MakeTransaction(t);
         }
 
-      
+
 
         public virtual void CashOutMoney(/*decimal price*/)
         {
@@ -263,44 +311,10 @@ namespace Cloudents.Core.Entities
             BuyerPayment = null;
             PaymentExists = PaymentStatus.None;
         }
+
+
     }
 
 
-    //public abstract class UserRole : IEquatable<UserRole>
-    //{
-    //    public UserRole(RegularUser user)
-    //    {
-    //        User = user;
-    //    }
-    //    protected UserRole()
-    //    {
 
-    //    }
-    //    public virtual Guid Id { get; set; }
-    //    public virtual RegularUser User { get; set; }
-
-    //    public abstract string Name { get; }
-
-    //    public virtual bool Equals(UserRole other)
-    //    {
-    //        if (ReferenceEquals(null, other)) return false;
-    //        if (ReferenceEquals(this, other)) return true;
-    //        return Equals(User, other.User);
-    //    }
-
-    //    public override bool Equals(object obj)
-    //    {
-    //        if (ReferenceEquals(null, obj)) return false;
-    //        if (ReferenceEquals(this, obj)) return true;
-    //        if (obj.GetType() != GetType()) return false;
-    //        return Equals((UserRole)obj);
-    //    }
-
-    //    public override int GetHashCode()
-    //    {
-    //        return (User != null ? User.GetHashCode() : 0);
-    //    }
-
-
-    //}
 }

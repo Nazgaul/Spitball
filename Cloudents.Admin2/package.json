@@ -6,7 +6,10 @@
     "client-prod": "node node_modules/webpack/bin/webpack.js --env.prod",
     "client": "node node_modules/webpack/bin/webpack.js",
     "vendor": "node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js",
-    "vendor-prod": "node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod"
+    "vendor-prod": "node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod",
+    "build": "npm run vendor && npm run client",
+    "start": "dotnet build && dotnet run",
+    "all": "npm run build && npm run start"
   },
   "dependencies": {
     "axios": "^0.18.0",

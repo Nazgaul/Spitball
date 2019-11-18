@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="call_text" xml:space="preserve">
+    <value>your code to enter into Spitball is: {0}</value>
+  </data>
   <data name="email_support" xml:space="preserve">
-    <value>just</value>
+    <value>support@spitball.co</value>
+  </data>
+  <data name="sms_text" xml:space="preserve">
+    <value>הקוד שלך לספיטבול הוא: {0}</value>
   </data>
 </root>

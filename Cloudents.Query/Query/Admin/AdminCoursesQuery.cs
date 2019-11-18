@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminCoursesQuery : 
+    public class AdminCoursesQuery :
             IQueryAdmin<IList<PendingCoursesDto>>
     {
         public AdminCoursesQuery(string language, ItemState state, string country, string filter)
@@ -18,10 +18,10 @@ namespace Cloudents.Query.Query.Admin
             Country = country;
             Filter = filter;
         }
-        public string Language { get;  }
+        public string Language { get; }
         public ItemState State { get; }
         public string Country { get; }
-        public string Filter { get; set; }
+        public string Filter { get;  }
     }
 
     internal class AdminPendingCoursesQueryHandler : IQueryHandler<AdminCoursesQuery, IList<PendingCoursesDto>>
@@ -38,7 +38,7 @@ namespace Cloudents.Query.Query.Admin
         public async Task<IList<PendingCoursesDto>> GetAsync(AdminCoursesQuery query, CancellationToken token)
         {
             var sql = @"Select @Term = case when @Term is null then '""""' else '""*' + @Term + '*""' end 
-                    select top 100 c.Name
+                    select distinct top 100 c.Name
                     from sb.Course c
                         join sb.UsersCourses uc
                         on c.Name = uc.CourseId
@@ -68,7 +68,7 @@ namespace Cloudents.Query.Query.Admin
             using (var connection = _dapper.OpenConnection())
             {
                 var res = await connection.QueryAsync<PendingCoursesDto>(
-                    sql, 
+                    sql,
                     new { State = query.State.ToString(), query.Country, Term = query.Filter }
                     );
                 return res.AsList();

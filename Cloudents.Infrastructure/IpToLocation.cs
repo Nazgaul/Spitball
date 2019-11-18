@@ -1,18 +1,15 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Attributes;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Query;
 using JetBrains.Annotations;
-using Nager.Country;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 using ICountryProvider = Cloudents.Core.Interfaces.ICountryProvider;
 
 namespace Cloudents.Infrastructure

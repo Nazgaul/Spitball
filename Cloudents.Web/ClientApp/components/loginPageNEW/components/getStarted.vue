@@ -10,14 +10,14 @@
                         <div class="line-terms">
 
             <v-checkbox @click="checkBoxConfirm" :ripple="false" class="checkbox-userinfo" 
-                        v-model="isTermsAgree" off-icon="sbf-check-box-un" 
+                        v-model="isTermsAgree" off-icon="sbf-check-box-un" sel="check"
                         on-icon="sbf-check-box-done" name="checkBox" id="checkBox"/>
                             <label for="checkBox">
                                 <span>
                                     <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
-                                    <span class="terms padding-helper" @click.prevent="redirectTo('terms')" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
+                                    <a :href="isFrymo? 'https://help.frymo.com/en/article/terms': 'https://help.spitball.co/en/article/terms-of-service'" class="terms padding-helper" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
                                     <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_and'"/>
-                                    <span class="terms" @click.prevent="redirectTo('privacy')" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
+                                    <a :href="isFrymo? 'https://help.frymo.com/en/policies':'https://help.spitball.co/en/article/privacy-policy'" class="terms" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
                                 </span>
                             </label>
                         </div>
@@ -26,6 +26,7 @@
                     <v-btn @click="goWithGoogle()" 
                         :loading="googleLoading" 
                         large round
+                        sel="gmail"
                         class="google elevation-5 btn-login">
                         <img src="../images/G icon@2x.png">
                         <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
@@ -36,6 +37,7 @@
 
                 <v-btn @click="goWithEmail()" 
                     large flat round 
+                    sel="email"
                     class="email">
                     <img src="../images/np_email@2x.png">
                     <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_email_signup':'loginRegister_getstarted_btn_email_signin'"/>
@@ -46,7 +48,11 @@
         <div class="getStarted-bottom">
             <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_signin_text':'loginRegister_getstarted_signup_text'"/>
              &nbsp;
-            <span class="link" @click="redirectTo(isRegisterPath? 'signin':'register')" v-language:inner="isRegisterPath? 'loginRegister_getstarted_signin_link':'loginRegister_getstarted_signup_link'"/>
+            <router-link 
+            to="" 
+            class="link" 
+            @click.native="redirectTo(isRegisterPath? 'signin':'register')" 
+            v-language:inner="isRegisterPath? 'loginRegister_getstarted_signin_link':'loginRegister_getstarted_signup_link'"/>
         </div>
         
     </v-layout>
@@ -98,7 +104,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getErrorMessages']),
+        ...mapGetters(['getErrorMessages','isFrymo']),
         isError(){
             return !this.isTermsAgree && this.showError
         },
@@ -206,7 +212,7 @@ export default {
                     letter-spacing: -0.34px;
                     line-height: 1.23;
                     font-weight: initial;
-                    &.terms{
+                    .terms{
                     cursor: pointer;
                     color: @global-blue; 
                     letter-spacing: -0.28px;
@@ -276,15 +282,15 @@ export default {
         display: flex;
         justify-content: center;
         .responsive-property(margin-top, 48px, null, 0px);
-        span {
-            .responsive-property(font-size, 16px, null, 14px);
-            letter-spacing: -0.42px;
-            color: @color-login-text-subtitle;
-            &.link{                
+        .responsive-property(font-size, 16px, null, 14px);
+            .link{      
                 cursor: pointer;
                 letter-spacing: -0.37px;
-                color: @global-blue;
+                color: @global-blue !important;
             }
+        span {
+            letter-spacing: -0.42px;
+            color: @color-login-text-subtitle;
         }
     }
  

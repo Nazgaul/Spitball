@@ -6,7 +6,8 @@
         Video
     }
 
-    public enum FeedType
+
+    public enum FeedType 
     {
         Document,
         Question,

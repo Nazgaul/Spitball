@@ -4,6 +4,7 @@ import { LanguageService } from "./language/languageService";
 
 function BalanceDetails(objInit){
     this.points = objInit.points;
+    this.symbol = objInit.symbol;
     this.type = objInit.type;
     this.value = objInit.value;
     this.name = LanguageService.getValueByKey(`wallet_${objInit.type.toLowerCase()}`);

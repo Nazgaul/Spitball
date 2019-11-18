@@ -1,7 +1,7 @@
-﻿using System;
-using Cloudents.Core.DTOs.SearchSync;
+﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Query.Stuff;
 using FluentAssertions;
+using System;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Test.Database

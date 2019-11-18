@@ -10,6 +10,6 @@ namespace Cloudents.Command.Command.Admin
             Reason = reason;
         }
         public Guid TransactionId { get; }
-        public string Reason { get;  }
+        public string Reason { get; }
     }
 }

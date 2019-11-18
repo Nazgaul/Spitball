@@ -6,7 +6,7 @@ namespace Cloudents.Command.Command
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Automapper")]
     public class CreateQuestionCommand : ICommand
     {
-        public CreateQuestionCommand( string text, long userId,
+        public CreateQuestionCommand(string text, long userId,
              string course)
         {
             Text = text;

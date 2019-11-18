@@ -77,20 +77,27 @@
             }
         },
         methods: {
-            ...mapActions(['createUniversity', 'changeUniCreateDialogState', 'updateUniVerification']),
+            ...mapActions(['createUniversity', 'changeUniCreateDialogState', 'updateUniVerification', 'updateToasterParams']),
             createNewUniversite() {
                 if (this.$refs.uniForm.validate()) {
                     let self = this;
                     let university = self.universityName;
                     let classesSet =  self.getSelectedClasses && self.getSelectedClasses.length > 0;
+                    let toasterText;
                     //create new uni add action in store needed
+
                     self.createUniversity(university).then((success)=>{
                         self.changeUniCreateDialogState(false);
                         classesSet ?  self.$router.push({name: 'feed'})  : self.$router.push({name: 'editCourse'});
+                        toasterText = LanguageService.getValueByKey("university_uni_success");
                     }, (error)=>{
-                        console.log('error create university', error)
-                    }).finally(()=>{
-                        console.log('done creation')
+                        toasterText = LanguageService.getValueByKey("university_uni_error");
+                    }).finally(() => {
+                        self.updateToasterParams({
+                            showToaster: true,
+                            toasterText,
+                            toasterTimeout: 5000
+                        });
                     })
                 }
 

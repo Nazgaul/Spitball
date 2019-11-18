@@ -11,12 +11,12 @@ namespace Cloudents.Web.Models
             Preview = preview;
         }
 
-        public DocumentDetailDto Details { get;  }
-        public object Preview { get;  }
+        public DocumentDetailDto Details { get; }
+        public object Preview { get; }
 
         public string Content { get; }
     }
 
 
-   
+
 }

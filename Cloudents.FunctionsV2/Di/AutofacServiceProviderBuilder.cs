@@ -2,9 +2,12 @@
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
+using Cloudents.FunctionsV2.FileProcessor;
+using Cloudents.FunctionsV2.Services;
 using Cloudents.FunctionsV2.Sync;
 using Cloudents.FunctionsV2.System;
 using Cloudents.Infrastructure;
+using Cloudents.Infrastructure.Video;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,9 +15,6 @@ using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Diagnostics;
 using System.Reflection;
-using Cloudents.FunctionsV2.FileProcessor;
-using Cloudents.FunctionsV2.Services;
-using Cloudents.Infrastructure.Video;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Cloudents.Core.Interfaces.ILogger;
 

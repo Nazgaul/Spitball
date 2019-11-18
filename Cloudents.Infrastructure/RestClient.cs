@@ -164,11 +164,11 @@ namespace Cloudents.Infrastructure
                         ["obj"] = JsonConvert.SerializeObject(obj),
                         ["headers"] = JsonConvert.SerializeObject(headers)
                     }
-                    
+
                 };
                 throw v;
             }
-           
+
             //response.EnsureSuccessStatusCode();
             using (var s = await response.Content.ReadAsStreamAsync())
             using (var sr = new StreamReader(s))
@@ -182,7 +182,7 @@ namespace Cloudents.Infrastructure
             }
         }
 
-        
+
 
         //[Log]
         //public async Task<bool> PutJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)

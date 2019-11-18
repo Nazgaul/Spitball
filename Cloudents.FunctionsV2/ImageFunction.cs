@@ -1,5 +1,6 @@
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.Di;
@@ -9,7 +10,9 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -23,9 +26,6 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
-using Microsoft.WindowsAzure.Storage;
-using SixLabors.Fonts;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using Path = System.IO.Path;
 
@@ -61,6 +61,8 @@ namespace Cloudents.FunctionsV2
             {
                 try
                 {
+
+                    await GetCenterCordsFromBlob(blob, mutation);
                     using (var sr = await blob.OpenReadAsync())
                     {
                         var image = ProcessImage(sr, mutation);
@@ -199,6 +201,7 @@ namespace Cloudents.FunctionsV2
 
                 using (var sr = await blob.OpenReadAsync())
                 {
+                    await GetCenterCordsFromBlob(blob, mutation);
                     var image = ProcessImage(sr, mutation);
                     return new ImageResult(image, TimeSpan.FromDays(365));
                 }
@@ -233,16 +236,59 @@ namespace Cloudents.FunctionsV2
             }
         }
 
+
+        private static async Task GetCenterCordsFromBlob(CloudBlob blob, ImageMutation mutation)
+        {
+            await blob.FetchAttributesAsync();
+            if (blob.Metadata.TryGetValue("face", out var faceStr))
+
+            {
+                var arr = faceStr.Split(',').Select(s =>
+                    new { valid = int.TryParse(s, out var v), result = v })
+                    .Where(w => w.valid)
+                    .ToArray();
+
+                if (arr.Length != 2)
+                {
+                    return;
+                }
+                mutation.CenterCords = new float[] { arr[0].result, arr[1].result };
+            }
+
+
+
+
+            //if (blob.Metadata.TryGetValue("face-top", out var faceTopStr) &&
+            //    int.TryParse(faceTopStr, out var faceTop))
+            //{
+            //    centerPoint.Y = faceTop;
+            //}
+
+            //if (!centerPoint.IsEmpty)
+            //{
+            //    mutation.CenterCords = new float[] { centerPoint.X, centerPoint.Y };
+            //}
+        }
+
         private static Image ProcessImage(Stream input, ImageMutation mutation)
         {
             var image = Image.Load<Rgba32>(input);
             image.Mutate(x => x.AutoOrient());
-            image.Mutate(x => x.Resize(new ResizeOptions()
+
+            image.Mutate(x =>
             {
-                Mode = mutation.Mode,
-                Size = new Size(mutation.Width, mutation.Height),
-                Position = mutation.Position
-            }));
+                var v = new ResizeOptions()
+                {
+                    Mode = mutation.Mode,
+                    Size = new Size(mutation.Width, mutation.Height),
+                    Position = mutation.Position,
+
+                };
+                if (mutation.CenterCords?.Length == 2)
+                    v.CenterCoordinates = new[]
+                        {mutation.CenterCords[0] / image.Width, mutation.CenterCords[1] / image.Height};
+                x.Resize(v);
+            });
 
             image.Mutate(x => x.BackgroundColor(Rgba32.White));
             switch (mutation.BlurEffect)
@@ -261,7 +307,6 @@ namespace Cloudents.FunctionsV2
             }
 
             return image;
-
 
         }
 
@@ -350,26 +395,22 @@ namespace Cloudents.FunctionsV2
                 height = 50;
             }
 
-            return new ImageMutation(width, height, mode, position);
+            //var centerCords = query["center"].ToArray()?.Select(s => float.Parse(s));
+
+            return new ImageMutation(width, height, mode, position/*, centerCords?.ToArray()*/);
         }
 
-        private ImageMutation(int width, int height, ResizeMode mode, AnchorPositionMode position)
+        private ImageMutation(int width, int height, ResizeMode mode, AnchorPositionMode position/*, float[] centerCords*/)
         {
             Width = width;
             Height = height;
             Mode = mode;
             Position = position;
+            //CenterCords = centerCords ?? Array.Empty<float>();
+
         }
 
-        //public ImageMutation(int width, int height, ResizeMode mode, ImageProperties.BlurEffect blurEffect, AnchorPositionMode position)
-        //{
-        //    Width = width;
-        //    Height = height;
-        //    Mode = mode;
-        //    BlurEffect = blurEffect;
-        //    Position = position;
-        //}
-
+        public float[] CenterCords { get; set; } = Array.Empty<float>();
         public int Width { get; }
         public int Height { get; }
 

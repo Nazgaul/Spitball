@@ -12,10 +12,17 @@ namespace Cloudents.Web.Controllers
         [Route("job")]
         [Route("flashcard")]
         [Route("tutor")]
+        [Route("note")]
         [Route("ask")]
         public IActionResult Index()
         {
-            return Redirect("/");
+            string val = Request.QueryString.ToUriComponent();
+            if (!val.StartsWith("?"))
+            {
+                val = $"?{val}";
+            }
+            return Redirect(
+                $"/{val}");
         }
     }
 }

@@ -22,7 +22,7 @@
 //        //[TestMethod]
 //        //public async Task ExecuteAsync_UserLockedOut_Ok()
 //        //{
-          
+
 //        //    var command = new UpdateUserBalanceCommand(new [] { userId });
 //        //    using (var mock = AutoMock.GetLoose())
 //        //    {

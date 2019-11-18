@@ -1,24 +1,24 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
+using Cloudents.FunctionsV2.FileProcessor;
+using Cloudents.Infrastructure.Video;
 using Cloudents.Search.Document;
+using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Newtonsoft.Json.Linq;
 using NHibernate;
 using System;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.FunctionsV2.FileProcessor;
-using Cloudents.Infrastructure.Video;
-using JetBrains.Annotations;
-using Newtonsoft.Json.Linq;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -193,7 +193,7 @@ namespace Cloudents.FunctionsV2
                     await videoProvider.UpdateDurationAsync(id, binder, token);
                 }
             }
-            
+
         }
 
 

@@ -31,9 +31,6 @@ const getters = {
     getAllSteps: state => state.stepsEnum,
     getCurrentStep: state => state.currentStep,
     getUniversityPopStorage: state => state.universityPopStorage,
-    getResultLockForSchoolNameChange: state => state.resultLockForSchoolNameChange,
-    getResultLockForClassesChange: state => state.resultLockForClassesChange,
-    getReflectChangeToPage: state => state.reflectChangeToPage,
     getShowSchoolBlock: state => state.showSchoolBlock,
     createDialogVisibility: state => state.createDialog,
     creationVerified: state => state.creationVerified,
@@ -187,7 +184,7 @@ const actions = {
     },
 
     createUniversity({commit, dispatch}, uniTocreate) {
-        universityService.createUni(uniTocreate).then((uni) => {
+        return universityService.createUni(uniTocreate).then((uni) => {
             commit('setSchoolName', uni);
         });
     },

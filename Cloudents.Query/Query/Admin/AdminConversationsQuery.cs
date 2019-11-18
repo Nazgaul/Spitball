@@ -17,7 +17,7 @@ namespace Cloudents.Query.Query.Admin
         private ChatRoomStatus Status { get; }
         private string AssignTo { get; }
         private WaitingFor? ConversationStatus { get; }
-        
+
 
         public AdminConversationsQuery(long userId, int page, string country, ChatRoomStatus status, string assignTo, WaitingFor? conversationStatus)
         {
@@ -91,7 +91,7 @@ namespace Cloudents.Query.Query.Admin
                         p = p.Where(w => v.Contains(w.Status) || w.Status == null);
                     }
                 }
-              
+
 
                 switch (query.ConversationStatus)
                 {

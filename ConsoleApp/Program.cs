@@ -1,33 +1,38 @@
 ﻿using Autofac;
 using Cloudents.Core;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Framework;
+using Cloudents.Infrastructure.Storage;
+using Cloudents.Infrastructure.Video;
+using Cloudents.Persistence;
+using Cloudents.Query;
+using Cloudents.Query.Tutor;
 using Cloudents.Search.Tutor;
+using Dapper;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Queue;
+using NHibernate;
+using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
-using Cloudents.Core.Event;
+using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Command.Courses;
+using Cloudents.Core.Query.Feed;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using Cloudents.Core.Storage;
-using Cloudents.Infrastructure.Storage;
-using Cloudents.Infrastructure.Video;
-using Cloudents.Persistence;
-using NHibernate;
-using NHibernate.Linq;
-using Cloudents.Query;
-using Cloudents.Query.Tutor;
-using Dapper;
-using Microsoft.WindowsAzure.Storage.Queue;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -35,7 +40,7 @@ namespace ConsoleApp
 {
     internal static class Program
     {
-        private static IContainer _container;
+        public static IContainer _container;
 
         public enum EnvironmentSettings
         {
@@ -134,55 +139,31 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            ResourcesMaintenance.DeleteStuffFromJs();
-            //var cacheKeeper = _container.Resolve<IIpToLocation>();
+            //var bus = _container.Resolve<ICommandBus>();
+            //var command = new ApplyCouponCommand("precentage", 638, 160171);
+            //await bus.DispatchAsync(command, default);
 
-            //var v = cacheKeeper.GetAsync(IPAddress.Parse("27.123.246.12"), default);
-            //while (true)
-            //{
-            //    var v = cacheKeeper.Get("key", "test");
-            //    var value = 0;
-            //    if (v != null)
-            //    {
-            //        value = (int) v;
-            //    }
-
-            //    Console.WriteLine(value);
-            //    value++;
-            //    cacheKeeper.Set("key","test",value,60,true);
-            //    Thread.Sleep(500);
-            //}
-            //await UpdateMethod();
-            // var v = _container.Resolve<IIpToLocation>();
-            // var x = await v.GetAsync(IPAddress.Parse("147.243.149.244"), default);
-            // var c = _container.Resolve<IReadTutorRepository>();
-            // await c.GetReadTutorAsync(638, default);
-            // ResourcesMaintenance.DeleteUnusedSvg();
-            //var q = new UserPurchaseDocumentByIdQuery(638, 0);
-            //var z = await d.QueryAsync(q, default);
-            //ResourcesMaintenance.DeleteUnusedResources();
-            //var t = new GuidCombGenerator();
-
-            //var dictionary = new Dictionary<int, Guid>();
-
-            //for (int i = 0; i < 5; i++)
-            //    dictionary.Add(i, (Guid)t.Generate(null, null));
-
-            //var v = dictionary.OrderBy(d => d.Value);
-
-            //   var c = _container.Resolve<ICommandBus>();
-            //  var command = new SendChatTextMessageCommand("hi",638, 160105);
-            //   await c.DispatchAsync(command, default);
-            //await   c.UpdateNonDayOldConversationToActiveAsync(default);
-
-
-            ////    var blobClient = bus.GetBlobClient();
-
-            ////
-
-            //Console.WriteLine("done");
+            //var v = command.newPrice;
+            await ResyncTutorRead();
         }
+        private static async Task ResyncTutorRead()
+        {
+            var session = _container.Resolve<IStatelessSession>();
+            var bus = _container.Resolve<ICommandBus>();
+            var eventHandler = _container.Resolve<IEventPublisher>();
 
+            var x = await session.CreateSQLQuery(@"
+Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
+
+
+            foreach (dynamic z in x)
+            {
+                var e = new SetUniversityEvent(z);
+                await eventHandler.PublishAsync(e, default);
+                //var command = new TeachCourseCommand(z[0], z[1]);
+                //await bus.DispatchAsync(command, default);
+            }
+        }
 
 
         private static async Task ResetVideo()

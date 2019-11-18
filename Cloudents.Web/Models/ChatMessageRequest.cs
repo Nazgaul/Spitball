@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Cloudents.Web.Binders;
+﻿using Cloudents.Web.Binders;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {

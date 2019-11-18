@@ -1,22 +1,22 @@
-﻿using System;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Courses;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Exceptions;
-using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
-using Cloudents.Core.DTOs;
 
 namespace Cloudents.Web.Api
 {

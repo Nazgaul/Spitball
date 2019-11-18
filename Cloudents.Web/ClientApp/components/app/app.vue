@@ -34,6 +34,7 @@
         :showDialog="loginDialogState"
         :popUpType="'loginPop'"
         :content-class="'login-popup'"
+        :max-width="'550px'"
       >
         <login-to-answer></login-to-answer>
       </sb-dialog>

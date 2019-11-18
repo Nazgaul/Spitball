@@ -4,7 +4,7 @@
     {
         object Get(string key, string region);
 
-       // T Get<T>(string key, string region);
+        T Get<T>(string key, string region);
 
         /// <summary>
         /// Add element to cache
@@ -19,6 +19,6 @@
         bool Exists(string key, string region);
 
         void DeleteRegion(string region);
-        void DeleteKey(string region,string key);
+        void DeleteKey(string region, string key);
     }
 }

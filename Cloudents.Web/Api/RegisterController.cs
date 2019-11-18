@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities;
+﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
@@ -8,21 +9,20 @@ using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using JetBrains.Annotations;
+using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Net.Http;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Http;
-using System.Linq;
-using Microsoft.AspNetCore.DataProtection;
-using System.Net.Http;
 using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 
 namespace Cloudents.Web.Api
@@ -95,7 +95,7 @@ namespace Cloudents.Web.Api
             [CanBeNull] ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
-           
+
             if (user.PhoneNumberConfirmed)
             {
                 if (isExternal)
@@ -134,7 +134,7 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync([FromBody] GoogleTokenRequest model,
             [FromServices] IGoogleAuth service,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
-            [FromHeader(Name="user-agent")] string userAgent,
+            [FromHeader(Name = "user-agent")] string userAgent,
             [FromServices] TelemetryClient logClient,
             [FromServices] IHttpClientFactory clientFactory,
             [FromServices]IDataProtectionProvider dataProtectProvider,
@@ -167,7 +167,7 @@ namespace Cloudents.Web.Api
 
                 return new ReturnSignUserResponse(false);
             }
-           
+
             if (result2.IsLockedOut)
             {
                 logClient.TrackTrace("user is locked out");
@@ -236,7 +236,7 @@ namespace Cloudents.Web.Api
                 user.EmailConfirmed = true;
                 await _userManager.UpdateAsync(user);
             }
-            
+
             await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
             return await MakeDecision(user, true, null, cancellationToken);
         }

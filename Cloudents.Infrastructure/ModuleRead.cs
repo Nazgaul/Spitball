@@ -1,11 +1,11 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
-using Cloudents.Infrastructure.Interceptor;
-using JetBrains.Annotations;
-using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure.Google;
+using Cloudents.Infrastructure.Interceptor;
 using Cloudents.Infrastructure.Search.Document;
+using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
 using Module = Autofac.Module;
 
 namespace Cloudents.Infrastructure

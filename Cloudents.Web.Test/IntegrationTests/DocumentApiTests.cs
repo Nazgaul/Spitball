@@ -1,10 +1,10 @@
-﻿using Xunit;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Net;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -77,8 +77,8 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData("api/feed",false)]
-        [InlineData("/api/feed?page=1",false)]
+        [InlineData("api/feed", false)]
+        [InlineData("/api/feed?page=1", false)]
         [InlineData("api/feed", true)]
         [InlineData("/api/feed?page=1", true)]
         public async Task GetAsync_OK(string url, bool authUser)
@@ -92,7 +92,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             var str = await response.Content.ReadAsStringAsync();
 
             var d = JObject.Parse(str);
-            
+
             var result = d["result"]?.Value<JArray>();
 
             var next = d["nextPageLink"]?.Value<string>();
@@ -103,7 +103,7 @@ namespace Cloudents.Web.Test.IntegrationTests
                 next.Should().Be(_uri.Path + "?page=2");
         }
 
-       
+
 
         [Fact]
         public async Task PostAsync_Upload_Regular_FileName()

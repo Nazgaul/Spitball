@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Dapper;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query
 {
@@ -46,8 +46,8 @@ namespace Cloudents.Query.Query
 
                 using (var conn = _dapperRepository.OpenConnection())
                 {
-                    return await conn.QuerySingleOrDefaultAsync<UserAccountDto>(sql, new {id = query.Id});
-                    
+                    return await conn.QuerySingleOrDefaultAsync<UserAccountDto>(sql, new { id = query.Id });
+
                 }
             }
         }

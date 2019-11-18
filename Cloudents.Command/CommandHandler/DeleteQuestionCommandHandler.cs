@@ -43,10 +43,10 @@ namespace Cloudents.Command.CommandHandler
                 throw new InvalidOperationException("user is not the one who wrote the question");
             }
 
-            if (question.Answers.Count(w => w.Status.State == ItemState.Ok) > 0)
-            {
-                throw new InvalidOperationException("cannot delete question with answers");
-            }
+            //if (question.Answers.Count(w => w.Status.State == ItemState.Ok) > 0)
+            //{
+            //    throw new InvalidOperationException("cannot delete question with answers");
+            //}
 
             if (!(question.User.Actual is User user))
             {
@@ -58,7 +58,7 @@ namespace Cloudents.Command.CommandHandler
             //    transaction.Question = null;
             //    await _transactionRepository.UpdateAsync(transaction, token);
             //}
-            
+
             await _userRepository.UpdateAsync(user, token);
             await _repository.DeleteAsync(question, token);
 

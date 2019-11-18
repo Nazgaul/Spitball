@@ -1,6 +1,3 @@
-using System.Globalization;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core.Message.Email;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -8,6 +5,9 @@ using Microsoft.WindowsAzure.Storage.Queue;
 using Moq;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
+using System.Globalization;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.FunctionsV2.Test

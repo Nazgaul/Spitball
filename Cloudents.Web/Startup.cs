@@ -4,17 +4,21 @@ using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Video;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
+using Cloudents.Web.Identity;
 using Cloudents.Web.Middleware;
 using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
 using JetBrains.Annotations;
+using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,10 +36,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Infrastructure.Video;
-using Cloudents.Web.Identity;
-using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Http.Extensions;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -78,7 +78,7 @@ namespace Cloudents.Web
             });
 
             services.AddMvc()
-                
+
                 .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
                 {
                     o.DataAnnotationLocalizerProvider = (type, factory) =>
@@ -209,7 +209,7 @@ namespace Cloudents.Web
             {
                 SiteEndPoint = { SpitballSite = Configuration["Site"], FunctionSite = Configuration["functionCdnEndpoint"] },
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"),
-                    Configuration["Redis"],DbConnectionString.DataBaseIntegration.Update)
+                    Configuration["Redis"], DbConnectionString.DataBaseIntegration.Update)
                ,
                 Redis = Configuration["Redis"],
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],

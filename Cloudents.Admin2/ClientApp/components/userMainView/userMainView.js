@@ -49,14 +49,17 @@ export default {
             ],
             dialogs: {
                 name: false,
-                phone: false
+                phone: false,
+                price: false
             },
             currentFirstName: '',
             currentLastName: '',
+            currentPhone: '',
+            currentPrice: '',
             newFirstName: '',
             newLastName: '',
-            currentPhone: '',
             newPhone: '',
+            newPrice: '',
             suspendDialog: false,
             userComponentsShow: false,
             activeUserComponent: '',
@@ -112,7 +115,9 @@ export default {
             "removeTutor",
             "updateUserPhone",
             "updateUserName",
-            "deletePayment"
+            "deletePayment",
+            "updateTutorPrice",
+            "removeCalender"
         ]),
        
         resetUserData() {
@@ -178,6 +183,17 @@ export default {
                 self.$toaster.error(`ERROR: failed to delete tutor ${id}`);
             });
         },
+        deleteCalender(){
+            var self = this;
+            var id = self.$route.params.userId;
+            self.removeCalender(id)
+            .then(() => {
+                self.$toaster.success(`calender been deleted ${id}`);
+            },
+            () => {
+                self.$toaster.error(`ERROR: failed to delete calender ${id}`);
+            });
+        },
 
         //keep here cause there is an option to release from within this component
         releaseUser() {
@@ -217,6 +233,10 @@ export default {
             this.dialogs.phone = true;
             this.currentPhone = phone;
         },
+        openTutorPriceDialog(price) {           
+            this.dialogs.price = true;
+            this.currentPrice = price.toString();
+        },
         editName() {
             let nameObj = {
                 firstName: this.newFirstName,
@@ -250,6 +270,23 @@ export default {
                 this.newPhone = '';
                 this.dialogs.phone = false;
             });
+        },
+        editPrice() {
+            if(!this.userIdentifier) return;
+
+            let priceObj = {
+                price: parseInt(this.newPrice),
+                tutorId: this.userIdentifier
+            }
+            this.updateTutorPrice(priceObj).then(() => {
+                this.$toaster.success(`SUCCESS: update tutor price`);
+            }).catch(() => {
+                this.$toaster.error(`Error: update tutor price`);
+            })
+            .finally(() => {
+                this.dialogs.price = false;
+                this.newPrice = '';
+            });            
         },
         removePayment(id) {
             this.deletePayment(id).then(() => {

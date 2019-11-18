@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.FunctionsV2.FileProcessor
 {

@@ -1,6 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -33,10 +33,9 @@ namespace Cloudents.Persistence.Maps
             //    .KeyColumns.Add("AnswerId")
             //    .Inverse().Cascade.AllDeleteOrphan();
             //Map(x => x.VoteCount);
-            SchemaAction.Validate();
             //DiscriminateSubClassesOnColumn("State");
         }
 
-        
+
     }
 }

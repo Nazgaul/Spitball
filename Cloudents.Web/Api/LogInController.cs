@@ -5,15 +5,15 @@ using Cloudents.Core.Entities;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
-using Microsoft.AspNetCore.Http;
 using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Cloudents.Web.Api
 {
@@ -52,8 +52,8 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
 
             }
-           
-            agent = agent.Substring(0, Math.Min(agent.Length, 255));
+
+            agent = agent?.Substring(0, Math.Min(agent.Length, 255));
             var command = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress(), model.FingerPrint, agent);
             var t1 = _commandBus.DispatchAsync(command, token);
             var t2 = _signInManager.CheckPasswordSignInAsync(user, model.Password, true);

@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query
 {
@@ -35,15 +35,15 @@ namespace Cloudents.Query.Query
                     .Where(w => w.OldId == query.OldId && w.Status.State == ItemState.Ok)
 
                     .Select(s => new DocumentSeoDto
-                        {
-                            Id = s.Id,
-                            Name = s.Name,
-                            //Country = s.University.Country,
-                            //MetaContent = s.MetaContent,
-                            CourseName = s.Course.Id,
-                            //UniversityName = s.University.Name
-                        }
-                        // (s.Name, s.Course.Name, s.University.Country, s.University.Name, s.Id)
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        //Country = s.University.Country,
+                        //MetaContent = s.MetaContent,
+                        CourseName = s.Course.Id,
+                        //UniversityName = s.University.Name
+                    }
+                    // (s.Name, s.Course.Name, s.University.Country, s.University.Name, s.Id)
                     ).SingleOrDefaultAsync(token);
             }
         }

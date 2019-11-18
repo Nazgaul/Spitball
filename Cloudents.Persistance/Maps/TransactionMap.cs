@@ -1,6 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -69,18 +69,18 @@ namespace Cloudents.Persistence.Maps
         }
     }
 
-    //public class QuestionTransactionMap : SubclassMap<QuestionTransaction>
-    //{
-    //    public QuestionTransactionMap()
-    //    {
-    //        DiscriminatorValue("Question");
-    //        References(x => x.Question)
-    //            .Column("QuestionId")
-    //            .ForeignKey("Transaction_Question").Nullable();
-    //        References(x => x.Answer).Column("AnswerId").ForeignKey("Transaction_Answer").Nullable();
+    public class QuestionTransactionMap : SubclassMap<QuestionTransaction>
+    {
+        public QuestionTransactionMap()
+        {
+            DiscriminatorValue("Question");
+            References(x => x.Question)
+                .Column("QuestionId")
+                .ForeignKey("Transaction_Question").Nullable();
+            References(x => x.Answer).Column("AnswerId").ForeignKey("Transaction_Answer").Nullable();
 
-    //    }
-    //}
+        }
+    }
 
     public class DocumentTransactionMap : SubclassMap<DocumentTransaction>
     {

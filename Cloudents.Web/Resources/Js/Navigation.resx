@@ -120,7 +120,4 @@
   <data name="nav_name_feed" xml:space="preserve">
     <value>Feed</value>
   </data>
-  <data name="nav_name_tutor" xml:space="preserve">
-    <value>Tutors</value>
-  </data>
 </root>

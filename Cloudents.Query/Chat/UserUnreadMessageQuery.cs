@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Cloudents.Core.Entities;
+using NHibernate.Criterion;
+using NHibernate.Transform;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using NHibernate.Criterion;
-using NHibernate.Transform;
 
 namespace Cloudents.Query.Chat
 {

@@ -9,6 +9,7 @@
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.37.0.1478" />
     <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.Face" Version="2.5.0-preview.1" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.0" />
     <PackageReference Include="SimMetrics" Version="1.1.4118.23231" />
     <!--Do not remove this-->

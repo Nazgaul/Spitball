@@ -15,9 +15,9 @@ namespace Cloudents.Command.StudyRooms
         }
         public Guid StudyRoomId { get; }
 
-        public bool RecordVideo { get;  }
+        public bool RecordVideo { get; }
 
-        public long UserId { get;  }
+        public long UserId { get; }
         public Uri CallbackUrl { get; }
     }
 }

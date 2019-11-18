@@ -14,7 +14,7 @@ namespace Cloudents.Command.Command
         public IEnumerable<TutorDailyHours> TutorDailyHoursObj { get; }
 
 
-        public class TutorDailyHours 
+        public class TutorDailyHours
         {
             public TutorDailyHours(DayOfWeek day, TimeSpan @from, TimeSpan to)
             {
@@ -25,9 +25,9 @@ namespace Cloudents.Command.Command
 
             public DayOfWeek Day { get; }
 
-            public TimeSpan From { get;}
+            public TimeSpan From { get; }
             public TimeSpan To { get; }
-           // public IList<TimeSpan> TimeFrames { get; protected set; }
+            // public IList<TimeSpan> TimeFrames { get; protected set; }
             //protected override IEnumerable<object> GetEqualityComponents()
             //{
             //    yield return Day;

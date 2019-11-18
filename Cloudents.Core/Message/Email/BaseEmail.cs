@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Cloudents.Core.Entities;
+using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Cloudents.Core.Entities;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Message.Email
 {
@@ -31,7 +31,7 @@ namespace Cloudents.Core.Message.Email
         [CanBeNull] public abstract string Campaign { get; }
 
         public abstract UnsubscribeGroup UnsubscribeGroup { get; }
-        [CanBeNull] protected abstract IDictionary<CultureInfo, string> Templates { get;  }
+        [CanBeNull] protected abstract IDictionary<CultureInfo, string> Templates { get; }
 
         private string AssignTemplate(CultureInfo info)
         {
@@ -41,7 +41,7 @@ namespace Cloudents.Core.Message.Email
             }
             while (info != null)
             {
-                
+
                 if (Templates.TryGetValue(info, out var template))
                 {
                     return template;
@@ -73,10 +73,10 @@ namespace Cloudents.Core.Message.Email
         [SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "Need for deserialize")]
         private UnsubscribeGroup()
         {
-            
+
         }
 
-        public int  GroupId { get; private set; }
+        public int GroupId { get; private set; }
 
         public static implicit operator int(UnsubscribeGroup group)
         {
@@ -84,7 +84,7 @@ namespace Cloudents.Core.Message.Email
         }
     }
 
-   //public interface IEmailMessage {
+    //public interface IEmailMessage {
 
-   //}
+    //}
 }

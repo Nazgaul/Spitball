@@ -203,9 +203,10 @@
             top: 13%;
             left: 42.5%;
             .top-helper{
-                border-radius: 6px;
                 // box-shadow: 0px 4px 13px 0 rgba(0, 0, 0, 0.35);
                 // background: white;
+                border: 2px #90949c dashed;
+                border-radius: 6px;
                 width: 280px;
                 height: 112px;
                 display: flex;

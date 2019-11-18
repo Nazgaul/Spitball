@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading.Tasks;
-using Cloudents.Core.Storage;
+﻿using Cloudents.Core.Storage;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Storage
 {
@@ -24,8 +24,8 @@ namespace Cloudents.Infrastructure.Storage
             var blobClient = GetCloudBlobClient();
             return blobClient;
             //var att = ExtractContainerData(container);
-           // var con = blobClient.GetContainerReference(container.Container.Name.ToLowerInvariant());
-            
+            // var con = blobClient.GetContainerReference(container.Container.Name.ToLowerInvariant());
+
             //return con.GetDirectoryReference(container.Container.RelativePath ?? string.Empty);
         }
 

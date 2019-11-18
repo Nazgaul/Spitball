@@ -1,7 +1,7 @@
-﻿using System;
-using System.Globalization;
-using Cloudents.Core.Attributes;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
+using System;
+using System.Globalization;
 
 namespace Cloudents.Core.Entities
 {
@@ -9,7 +9,7 @@ namespace Cloudents.Core.Entities
     {
         protected ViewQuestionWithFirstAnswer()
         {
-            
+
         }
 
         [EntityBind(nameof(Question.Id))]

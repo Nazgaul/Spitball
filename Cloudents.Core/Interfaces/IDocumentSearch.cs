@@ -1,8 +1,8 @@
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Query;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Cloudents.Core.Query;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -11,5 +11,5 @@ namespace Cloudents.Core.Interfaces
         Task<IEnumerable<FeedDto>> SearchDocumentsAsync(DocumentQuery query,
             CancellationToken cancelToken);
     }
-  
+
 }

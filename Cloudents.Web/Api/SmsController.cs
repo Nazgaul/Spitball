@@ -10,6 +10,7 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -18,7 +19,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 
 namespace Cloudents.Web.Api

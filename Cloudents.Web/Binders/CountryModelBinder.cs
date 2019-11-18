@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Cloudents.Web.Services;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Threading.Tasks;
-using Cloudents.Web.Services;
 
 namespace Cloudents.Web.Binders
 {
@@ -24,7 +24,7 @@ namespace Cloudents.Web.Binders
                 return;
             }
             bindingContext.Result = ModelBindingResult.Success(result);
-            
+
         }
     }
 }

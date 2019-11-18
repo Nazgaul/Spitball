@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminStudyRoomQuery: IQueryAdmin<IEnumerable<StudyRoomDto>>
+    public class AdminStudyRoomQuery : IQueryAdmin<IEnumerable<StudyRoomDto>>
     {
         public AdminStudyRoomQuery(string country)
         {
@@ -50,7 +50,7 @@ namespace Cloudents.Query.Query.Admin
                 }
                 sql += " order by S.created desc, S.Id";
 
-                    using (var connection = _dapper.OpenConnection())
+                using (var connection = _dapper.OpenConnection())
                 {
                     return await connection.QueryAsync<StudyRoomDto>(sql, new { query.Country });
                     //return res.AsList();

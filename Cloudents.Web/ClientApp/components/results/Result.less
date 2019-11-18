@@ -22,125 +22,11 @@
 .empty-state-tutor{
   max-width: @cellWidth!important;//keep here
 }
-.right-in {
-  border: 1px solid @color-main-purple;
-  padding: 16px;
-  text-align: center;
-  position: relative;
-  p.empty-state {
-    letter-spacing: -.3px;
-    font-size: 40px;
-    font-weight: 300;
-    line-height: 1.1;
-    margin-bottom: 0;
-    color: @color-main-purple;
-    .bold-text {
-      font-weight: 700;
-    }
-  }
-
-  &:before {
-    content: ' ';
-    position: absolute;
-    width: 0;
-    height: 0;
-    left: auto;
-    right: -31px;
-    top: 8px;
-    border-style: solid;
-    border-width: 9px 0 9px 30px;
-    border-color: transparent transparent transparent @color-main-purple;
-  }
-  &:after {
-    content: ' ';
-    position: absolute;
-    width: 0;
-    height: 0;
-    left: auto;
-    right: -28px;
-    top: 8px;
-    bottom: auto;
-    border-style: solid;
-    border-width: 9px 0 9px 30px;
-    border-color: transparent transparent transparent @color-white;
-  }
-  @media (max-width: @screen-xs) {
-    margin-top: 16px;
-
-    &:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-left: 8.5px solid transparent;
-      border-right: 8.5px solid transparent;
-      border-bottom:  20px solid @color-white;
-      margin-top: -26px;
-    }
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-left: 8.5px solid transparent;
-      border-right: 8.5px solid transparent;
-      border-bottom:  20px solid @color-main-purple;
-      margin-top: -29px;
-    }
-
-  }
-
-}
 
 .personalize-wrapper {
   background: white;
   border-radius: 4px;
   height: 72px;
-}
-.empty-state {
-  svg {
-    width: 120px;
-    //height: 96px;
-    .responsive-property(width, 120px, 120px, 100px);
-  }
-
-  .img-wrap {
-    .flexSameSize();
-  }
-
-  h6 {
-    color: @color-main-purple;
-    font-size: 16px;
-    letter-spacing: -0.3px;
-    line-height: 1.25;
-    font-weight: normal;
-    .user-search-text {
-      color: @color-grey;
-    }
-  }
-
-  .sug {
-    font-size: 12px;
-    color: @color-grey;
-    letter-spacing: -0.3px;
-  }
-
-  ul {
-    list-style-position: inside;
-    padding: 0;
-  }
-
-  li {
-    font-size: 12px;
-    letter-spacing: -0.3px;
-    color: #888b8e;
-  }
-
-  background: #fff;
 }
 
 .promo-cell {
@@ -190,38 +76,6 @@
       font-size: 10px;
       color: @color-medium-grey;
     }
-  }
-}
-
-.empty-filter-cell {
-  background: white;
-  border-radius: 4px;
-  position: relative;
-  padding: 16px 24px 16px 16px;
-  text-align: right;
-
-  img {
-    width: 120px;
-    height: 96px;
-    margin-right: 16px;
-  }
-
-  p {
-    color: @color-main-purple;
-    text-align: left;
-    line-height: 1.13;
-    letter-spacing: -0.3px;
-    font-size: 16px;
-  }
-  button {
-    color: white;
-    background: @color-main-purple;
-    text-align: center;
-    width: 73px;
-    height: 24px;
-    letter-spacing: -0.3px;
-    border-radius: 4px;
-    font-size: 16px;
   }
 }
 

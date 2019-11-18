@@ -26,7 +26,7 @@
                             <template slot="items" slot-scope="props">
                                 <td class="text-xs-left">{{ props.item.name }}</td>
                                 <td class="text-xs-left">{{ props.item.points | currencyLocalyFilter}}</td>
-                                <td class="text-xs-left bold" :style="props.item.value < 0 ? `direction:ltr;` : ''">{{ props.item.value }}</td>
+                                <td class="text-xs-left bold" :style="props.item.value < 0 ? `direction:ltr;` : ''">{{ props.item.value | currencyFormat(props.item.symbol) }}</td>
                             </template>
                         </v-data-table>
                     </v-flex>
@@ -69,7 +69,7 @@
                                          <bdi>
                                     <span>{{calculatedEarnedPoints ? `${calculatedEarnedPoints.toLocaleString(undefined,
                                         { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` || '0.00' : '0.00'}}
-                                        <span v-language:inner>app_currency_dynamic</span>
+                                        <span v-language:inner="'cashoutcard_SBL'"/>
                                         </span>
                                               </bdi>
                                     <span v-language:inner>wallet_you_have_redeemable_sbl</span>

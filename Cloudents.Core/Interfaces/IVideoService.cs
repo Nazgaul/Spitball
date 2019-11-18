@@ -5,7 +5,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IVideoService
     {
-        Task CreateVideoPreviewJobAsync(long id, string url, CancellationToken token); 
+        Task CreateVideoPreviewJobAsync(long id, string url, CancellationToken token);
         /// <summary>
         /// Return the container of the asset
         /// </summary>
@@ -25,7 +25,7 @@ namespace Cloudents.Core.Interfaces
         Task<string> GetShortStreamingUrlAsync(long videoId, CancellationToken token);
         Task CreateShortStreamingLocator(long videoId, CancellationToken token);
         Task CreatePreviewJobAsync(long id, string url, System.TimeSpan videoLength, CancellationToken token);
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -37,7 +37,7 @@ namespace Cloudents.Core.Interfaces
         Task CreateAudioPreviewJobAsync(long id, string url, CancellationToken token);
     }
 
-    public class AssetType 
+    public class AssetType
     {
         private readonly string _prefix;
 

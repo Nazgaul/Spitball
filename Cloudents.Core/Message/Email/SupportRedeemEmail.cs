@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-
-namespace Cloudents.Core.Message.Email
+﻿namespace Cloudents.Core.Message.Email
 {
     //[Serializable]
     //public class SupportRedeemEmail : BaseEmail

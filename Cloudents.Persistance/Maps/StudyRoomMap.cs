@@ -23,7 +23,7 @@ namespace Cloudents.Persistence.Maps
 
             HasMany(x => x.Users).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan();
-           
+
 
         }
 

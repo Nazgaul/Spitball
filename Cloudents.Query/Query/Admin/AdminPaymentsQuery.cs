@@ -54,6 +54,8 @@ namespace Cloudents.Query.Query.Admin
                 {
                     sql += @" and (u.Country = @Country or tu.Country = @Country)";
                 }
+
+                sql += "	order by srs.Created desc ";
                 using (var conn = _repository.OpenConnection())
                 {
                     return await conn.QueryAsync<PaymentDto>(sql, new { query.Country });

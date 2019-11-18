@@ -1,18 +1,18 @@
-﻿using System;
-using System.Globalization;
-using System.Net.Http;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Message.Email;
+using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+using System;
+using System.Globalization;
+using System.Net.Http;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Message.Email;
-using Cloudents.Core.Storage;
-using Microsoft.Extensions.Localization;
-using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -111,7 +111,7 @@ namespace Cloudents.Web.Api
             var id = queryString["id"];
             var code = queryString["code"];
             //var from = queryString["byPass"];
-            if (id == null || code ==null)
+            if (id == null || code == null)
             {
                 return BadRequest();
             }
@@ -123,7 +123,7 @@ namespace Cloudents.Web.Api
             }
 
             code = System.Net.WebUtility.UrlDecode(code);
-            
+
             var result = await _userManager.ResetPasswordAsync(user, code, model.Password);
             if (result.Succeeded)
             {
@@ -143,7 +143,7 @@ namespace Cloudents.Web.Api
 
             }
             //TODO: Localize
-            ModelState.AddIdentityModelError(nameof(model.Password),result);
+            ModelState.AddIdentityModelError(nameof(model.Password), result);
             return BadRequest(ModelState);
         }
     }

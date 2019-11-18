@@ -1,20 +1,21 @@
-﻿using Cloudents.Command;
+﻿using System.Diagnostics.CodeAnalysis;
+using Cloudents.Command;
 using Cloudents.Command.Universities;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Exceptions;
-using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -69,10 +70,11 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("set")]
+        [SuppressMessage("ReSharper", "PossibleInvalidOperationException", Justification = "Asp.net core validation will fix that")]
         public async Task<IActionResult> AssignUniversityAsync([FromBody] AssignUniversityRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new UserJoinUniversityCommand(userId, model.Id);
+            var command = new UserJoinUniversityCommand(userId, model.Id.Value);
             await _commandBus.DispatchAsync(command, token);
             var user = await _userManager.GetUserAsync(User);
             await _signInManager.RefreshSignInAsync(user);
@@ -86,7 +88,7 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<IActionResult> CreateUniversityAsync([FromBody] CreateUniversityRequest model, CancellationToken token)
         {
-            
+
             var userId = _userManager.GetLongUserId(User);
             try
             {

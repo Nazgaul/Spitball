@@ -8,7 +8,7 @@ namespace Cloudents.Core.DTOs.Admin
         public string UserName { get; set; }
         public DateTime Created { get; set; }
         public string Duration { get; set; }
-        public long TutorId{ get; set; }
+        public long TutorId { get; set; }
         public long UserId { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Query;
@@ -8,6 +6,8 @@ using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System.Threading;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,7 +28,8 @@ namespace Cloudents.Web.Controllers
         [Route("profile/{id:long}")]
         public async Task<IActionResult> OldIndex(long id, CancellationToken token)
         {
-            var query = new UserProfileQuery(id);
+            //not really need it in here
+            var query = new UserProfileQuery(id, 0);
             var retVal = await _queryBus.QueryAsync(query, token);
 
             if (retVal == null)
@@ -46,9 +47,9 @@ namespace Cloudents.Web.Controllers
         // GET: /<controller>/
         [Route("profile/{id:long}/{name}", Name = SeoTypeString.Tutor)]
         [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true), SignInWithToken]
-        public async Task<IActionResult> Index(long id,string name, CancellationToken token)
+        public async Task<IActionResult> Index(long id, string name, CancellationToken token)
         {
-            var query = new UserProfileQuery(id);
+            var query = new UserProfileQuery(id,0);
             var retVal = await _queryBus.QueryAsync(query, token);
             if (retVal == null)
             {
@@ -63,9 +64,9 @@ namespace Cloudents.Web.Controllers
             if (string.IsNullOrEmpty(retVal.UniversityName))
             {
                 localizerSuffix = "NoUniversity";
-                
+
             }
-            ViewBag.title = _localizer[$"Title{localizerSuffix}", retVal.Name,retVal.UniversityName];
+            ViewBag.title = _localizer[$"Title{localizerSuffix}", retVal.Name, retVal.UniversityName];
             ViewBag.metaDescription = _localizer["Description", retVal.Description];
             return View();
         }

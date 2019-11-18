@@ -25,7 +25,7 @@ namespace Cloudents.Query
                     , new { query.Id });
             }
 
-          
+
         }
     }
 }

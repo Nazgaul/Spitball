@@ -26,7 +26,7 @@ namespace Cloudents.Query.Query.Admin
                 return await _session.Query<AdminUser>()
                     .Select(s => s.Email)
                     .ToListAsync(token);
-               
+
 
             }
         }

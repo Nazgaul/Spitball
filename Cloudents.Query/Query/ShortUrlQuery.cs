@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Cloudents.Core.Entities;
+using NHibernate;
+using NHibernate.Linq;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using NHibernate;
-using NHibernate.Linq;
 
 namespace Cloudents.Query.Query
 {
@@ -30,13 +30,13 @@ namespace Cloudents.Query.Query
 
             public async Task<ShortUrlDto> GetAsync(ShortUrlQuery query, CancellationToken token)
             {
-              return  await _statelessSession.Query<ShortUrl>()
-                    .Where(w => w.Identifier == query.Identifier)
-                    .Where(w=> w.Expiration.GetValueOrDefault(DateTime.MaxValue) > DateTime.UtcNow)
-                    .Select(s => new ShortUrlDto()
-                    {
-                        Destination = s.Destination
-                    }).SingleOrDefaultAsync(token);
+                return await _statelessSession.Query<ShortUrl>()
+                      .Where(w => w.Identifier == query.Identifier)
+                      .Where(w => w.Expiration.GetValueOrDefault(DateTime.MaxValue) > DateTime.UtcNow)
+                      .Select(s => new ShortUrlDto()
+                      {
+                          Destination = s.Destination
+                      }).SingleOrDefaultAsync(token);
 
             }
         }

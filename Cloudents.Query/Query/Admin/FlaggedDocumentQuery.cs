@@ -35,15 +35,15 @@ namespace Cloudents.Query.Query.Admin
                 {
                     documents = documents.Where(w => w.User.Country == query.Country);
                 }
-                    
-                    return await documents.OrderByDescending(w => w.Id)
-                    .Take(100)
-                    .Select(s => new FlaggedDocumentDto
-                    {
-                        Id = s.Id,
-                        Reason = s.Status.FlagReason,
-                        FlaggedUserEmail = s.Status.FlaggedUser.Email
-                    }).ToListAsync(token);
+
+                return await documents.OrderByDescending(w => w.Id)
+                .Take(100)
+                .Select(s => new FlaggedDocumentDto
+                {
+                    Id = s.Id,
+                    Reason = s.Status.FlagReason,
+                    FlaggedUserEmail = s.Status.FlaggedUser.Email
+                }).ToListAsync(token);
             }
         }
     }
