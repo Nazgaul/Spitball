@@ -30,7 +30,7 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IUrlBuilder _urlBuilder;
-        private readonly IFeedService _feedSort;
+        private readonly IFeedService _feedService;
 
 
         public FeedController( UserManager<User> userManager, 
@@ -54,7 +54,7 @@ namespace Cloudents.Web.Api
 
             _userManager.TryGetLongUserId(User, out var userId);
 
-            var result = await _feedSort.GetFeedAsync(new GetFeedQuery(userId, page, request.Filter, profile.Country, null), token);
+            var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, page, request.Filter, profile.Country, null), token);
             return GenerateResult(result, new
             {
                 page = ++page,
@@ -105,7 +105,7 @@ namespace Cloudents.Web.Api
         {
             _userManager.TryGetLongUserId(User, out var userId);
 
-            var result = await _feedSort.GetFeedAsync(new GetFeedQuery(userId, request.Page, request.Filter, profile.Country, request.Course), token);
+            var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, request.Page, request.Filter, profile.Country, request.Course), token);
 
             return GenerateResult(result, new { page = ++request.Page, request.Course, request.Filter });
         }
@@ -118,7 +118,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            var resultTask = _feedSort.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, request.Course), token);
+            var resultTask = _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, request.Course), token);
             await Task.WhenAll(resultTask);
             
             return GenerateResult(resultTask.Result, new
@@ -139,7 +139,7 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
             CancellationToken token)
         {
-            var resultTask = _feedSort.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, null), token);
+            var resultTask = _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, null), token);
 
             await Task.WhenAll(resultTask);
             return GenerateResult(resultTask.Result, new
