@@ -26,15 +26,16 @@
           content-class="card-user-actions"
           v-model="showMenu"
         >
-          <v-btn
-            :depressed="true"
-            @click.native.stop.prevent="showReportOptions()"
-            slot="activator"
-            class="mr-0"
-            icon
-          >
-            <v-icon class="verticalMenu">sbf-3-dot</v-icon>
-          </v-btn>
+          <template v-slot:activator="{on}">
+            <v-btn
+              :depressed="true"
+              v-on:click.native.stop.prevent="showReportOptions()"
+              class="mr-0"
+              icon
+            >
+              <v-icon class="verticalMenu">sbf-3-dot</v-icon>
+            </v-btn>
+          </template>
           <v-list>
             <v-list-item
               v-show="item.isVisible(item.visible)"

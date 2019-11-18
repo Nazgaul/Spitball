@@ -18,9 +18,11 @@
             </div>
             
               <v-menu class="menu-area" bottom left content-class="card-user-actions" v-model="showMenu">
-                <v-btn :depressed="true" @click.native.stop.prevent="showReportOptions()" slot="activator" icon>
-                  <v-icon>sbf-3-dot</v-icon>
-                </v-btn>
+                <template v-slot:activator="{on}">
+                  <v-btn :depressed="true" v-on:click.native.stop.prevent="showReportOptions" icon> 
+                    <v-icon>sbf-3-dot</v-icon>
+                  </v-btn>
+                </template>  
                 <v-list>
                   <v-list-item v-show="item.isVisible(item.visible)" :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
                     <v-list-item-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-item-title>

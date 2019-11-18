@@ -1,7 +1,7 @@
 <template>
-    <router-link class="tutor-result-card-desktop pa-3 row" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+    <router-link class="tutor-result-card-desktop pa-3" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
 
-        <v-flex row class="user-details">
+        <v-flex class="user-details">
             <user-avatar-rect 
               :userName="tutorData.name" 
               :userImageUrl="tutorData.image" 
@@ -245,7 +245,7 @@ export default {
   @purple: #43425d;
 
   .tutor-result-card-desktop {
-    .heightMinMax(214px);
+    // .heightMinMax(214px);
     border-radius: 8px;
     background: #fff;
     width: 100%;
@@ -257,6 +257,7 @@ export default {
       width: 0;
       flex-grow: 5;
       display: flex;
+      align-items: center;
       .main-card {
         min-width: 0;
         h3{

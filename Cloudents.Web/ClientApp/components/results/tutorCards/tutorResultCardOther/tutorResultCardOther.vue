@@ -57,7 +57,7 @@
         <v-layout row class="btn-footer ab-cardB">
             <div class="send-msg text-xs-center text-truncate" :class="{'no-uploader': !uploader}">
                 <v-btn 
-                    round 
+                    rounded
                     small 
                     color="#4452fc" 
                     depressed 
@@ -69,7 +69,7 @@
             </div>
             
             <div class="more-documents text-xs-center text-truncate card-transform" v-if="uploader">
-                <v-btn @click.stop.prevent="goMoreDocs" round small color="#5158af" depressed class="caption py-3 px-2" v-language:inner="'resultTutor_btn_more_doc'"></v-btn>
+                <v-btn @click.stop.prevent="goMoreDocs" rounded small color="#5158af" depressed class="caption py-3 px-2" v-language:inner="'resultTutor_btn_more_doc'"></v-btn>
             </div>
         </v-layout>
     </router-link>

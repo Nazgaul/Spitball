@@ -16,18 +16,18 @@
                         <v-icon class="has-correct">sbf-check-circle</v-icon>
                     </div>
                     <div class="menu-area">
-
                         <v-menu class="menu-area" bottom left content-class="card-user-actions">
-                            <v-btn :depressed="true" @click.prevent slot="activator" icon>
-                            <v-icon>sbf-3-dot</v-icon>
-                            </v-btn>
+                            <template v-slot:activator="{ on }">
+                                <v-btn :depressed="true" @click.prevent icon v-on="on">
+                                    <v-icon>sbf-3-dot</v-icon>
+                                </v-btn>
+                            </template>
                             <v-list>
                             <v-list-item v-show="item.isVisible" class="report-list-item" :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
                                 <v-list-item-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-item-title>
                             </v-list-item>
                             </v-list>
                         </v-menu>
-
                     </div>
                 </div>
             </div>
