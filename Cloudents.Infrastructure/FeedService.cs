@@ -146,21 +146,44 @@ namespace Cloudents.Infrastructure
                 termToQuery = query.Term.Trim();
             }
 
-        
-            var feedQuery = new DocumentQuery(query.Profile, termToQuery, query.Course, _itemPageSize, null)
+            if (query.Filter == null)
             {
-                Page = query.Page,
-            };
+                var feedQuery = new DocumentQuery(query.Profile, termToQuery, query.Course, _itemPageSize, query.Filter)
+                {
+                    Page = query.Page,
+                };
 
-            var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, _tutorPageSize);
-            var tutorTask = _tutorSearch.SearchAsync(tutorQuery, token);
-            var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
+                var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, _tutorPageSize);
+                var tutorTask = _tutorSearch.SearchAsync(tutorQuery, token);
+                var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
 
 
-            await Task.WhenAll(resultTask, tutorTask);
-            var result = SortFeed(resultTask.Result?.ToList(), tutorTask.Result?.ToList(), query.Page);
-            return result;
- 
+                await Task.WhenAll(resultTask, tutorTask);
+                var result = SortFeed(resultTask.Result?.ToList(), tutorTask.Result?.ToList(), query.Page);
+                return result;
+            }
+
+            if (query.Filter == Core.Enum.FeedType.Tutor)
+            {
+                var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, 21);
+                var tutorsTask = _tutorSearch.SearchAsync(tutorQuery, token);
+                await Task.WhenAll(tutorsTask);
+                return tutorsTask.Result;
+            }
+
+            if (query.Filter == Core.Enum.FeedType.Document || query.Filter == Core.Enum.FeedType.Video)
+            {
+                var feedQuery = new DocumentQuery(query.Profile, termToQuery, query.Course, 21, query.Filter)
+                {
+                    Page = query.Page,
+                };
+                var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
+                await Task.WhenAll(resultTask);
+                //Query docs/video
+                return resultTask.Result;
+            }
+
+            return Enumerable.Empty<FeedDto>();
         }
     }
 }

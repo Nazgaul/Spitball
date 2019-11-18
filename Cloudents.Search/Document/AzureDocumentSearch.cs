@@ -89,10 +89,9 @@ namespace Cloudents.Search.Document
                 filters.Add($"({filterStr})");
             }
 
-            if (query.Filters != null)
+            if (query.Filter != null)
             {
-                var filterStr = string.Join(" or ", query.Filters.Select(s =>
-                     $"{Entities.Document.TypeFieldName} eq '{s.Replace("'", "''")}'"));
+                var filterStr = $"{Entities.Document.TypeName} eq {(int)query.Filter}";
                 if (!string.IsNullOrWhiteSpace(filterStr))
                 {
                     filters.Add($"({filterStr})");

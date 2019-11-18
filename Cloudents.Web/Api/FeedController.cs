@@ -5,7 +5,6 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query.Feed;
-using Cloudents.Core.Query.Feed;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Framework;
@@ -92,7 +91,7 @@ namespace Cloudents.Web.Api
 
                     return s;
                 }),
-                Filters = filters,
+                Filters = filters ?? filters,
                 NextPageLink = Url.RouteUrl("Documents", nextPageParams)
             };
         }
@@ -120,7 +119,7 @@ namespace Cloudents.Web.Api
         {
             var resultTask = _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, request.Course), token);
             await Task.WhenAll(resultTask);
-            
+
             return GenerateResult(resultTask.Result, new
             {
                 page = ++request.Page,
@@ -142,6 +141,7 @@ namespace Cloudents.Web.Api
             var resultTask = _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, null), token);
 
             await Task.WhenAll(resultTask);
+
             return GenerateResult(resultTask.Result, new
             {
                 page = ++request.Page,

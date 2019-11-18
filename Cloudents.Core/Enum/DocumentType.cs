@@ -9,9 +9,9 @@
 
     public enum FeedType 
     {
-        Document,
-        Question,
-        Tutor,
-        Video
+        Document = 0,
+        Question = 2,
+        Tutor = 3,
+        Video = 1
     }
 }
