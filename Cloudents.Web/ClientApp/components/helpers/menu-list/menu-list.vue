@@ -58,7 +58,7 @@
       <!-- end language swith-->
       <template v-for="(item) in notRegMenu">
         <template v-if="item.name && item.name !== 'feedback'">
-          <router-link tag="v-list-item" :to="{name : item.name}">
+          <router-link :to="{name : item.name}">
             <v-list-item-action>
               <v-icon>{{item.icon}}</v-icon>
             </v-list-item-action>

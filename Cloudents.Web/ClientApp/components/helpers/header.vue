@@ -32,14 +32,16 @@
                                     </div>
                                     <div class="header-rocket" v-if="loggedIn">
                                         <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'">
-                                            <user-avatar 
-                                                slot="activator"
-                                                @click.native="drawer = !drawer" 
-                                                size="32"
-                                                :userImageUrl="userImageUrl" 
-                                                :user-name="accountUser.name"
-                                            />
-                                            <menu-list :isAuthUser="loggedIn" v-if=!$vuetify.breakpoint.xsOnly></menu-list>
+                                            <template v-slot:activator="{on}">
+                                                <div v-on="on">
+                                                    <user-avatar
+                                                        size="32"
+                                                        :userImageUrl="userImageUrl"
+                                                        :user-name="accountUser.name"
+                                                    />
+                                                </div>
+                                            </template>
+                                            <menu-list :isAuthUser="loggedIn" v-if="!$vuetify.breakpoint.xsOnly"></menu-list>
                                         </v-menu>
                                         <span class="red-counter" v-if="unreadMessages">{{unreadMessages}}</span>
                                     </div>
@@ -50,11 +52,12 @@
 
                                     <v-menu close-on-content-click bottom left offset-y :content-class="'fixed-content'" class="gamburger"
                                             v-if="!loggedIn">
-                                        <v-btn :ripple="false" icon slot="activator" @click.native="drawer = !drawer">
-                                            <v-icon>sbf-menu</v-icon>
-                                        </v-btn>
-                                        <menu-list :isAuthUser="loggedIn"
-                                                   v-if="$vuetify.breakpoint.smAndUp"></menu-list>
+                                        <template v-slot:activator="{ on }">
+                                            <div v-on="on" @click.native="drawer = !drawer">
+                                                <v-icon>sbf-menu</v-icon>
+                                            </div>
+                                        </template>
+                                        <menu-list :isAuthUser="loggedIn" v-if="$vuetify.breakpoint.smAndUp"></menu-list>
                                     </v-menu>
                                    
                                 </div>
@@ -70,7 +73,6 @@
                 
             </v-layout>            
         </v-app-bar>
-
         <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
                              fixed app v-if="$vuetify.breakpoint.xsOnly"
                              :class="isRtl ? 'hebrew-drawer' : ''"
