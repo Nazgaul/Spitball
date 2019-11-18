@@ -35,13 +35,10 @@ namespace Cloudents.Core.DTOs
         // public long UserId { get; set; }
         //public bool HasCorrectAnswer { get; set; }
 
-        public bool IsRtl
-        {
-            get => CultureInfo?.TextInfo.IsRightToLeft ?? false;
-        }
-
-        [EntityBind(nameof(Question.Language))]
-        public CultureInfo CultureInfo { get; set; }
+        //public bool IsRtl
+        //{
+        //    get => CultureInfo?.TextInfo.IsRightToLeft ?? false;
+        //}
 
         // public VoteDto Vote { get; set; }
         public override FeedType Type => FeedType.Question;

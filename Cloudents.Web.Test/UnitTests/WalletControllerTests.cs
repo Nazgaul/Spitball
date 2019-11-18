@@ -82,7 +82,7 @@ namespace Cloudents.Web.Test.UnitTests
             response.EnsureSuccessStatusCode();
         }
 
-        [Fact]
+        [Fact(Skip = "This is not good - it is not the use case")]
         public async Task GetAsync_PaymentLink()
         {
             await _client.LogInAsync();

@@ -13,17 +13,15 @@ namespace Cloudents.Command.CommandHandler.Admin
         private readonly IFictiveUserRepository _userRepository;
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<University> _universityRepository;
-        private readonly ITextAnalysis _textAnalysis;
         private readonly IRepository<Course> _courseRepository;
 
 
         public CreateQuestionCommandHandler(IFictiveUserRepository userRepository,
-            IRepository<Question> questionRepository, ITextAnalysis textAnalysis,
+            IRepository<Question> questionRepository,
              IRepository<Course> courseRepository, IRepository<University> universityRepository)
         {
             _userRepository = userRepository;
             _questionRepository = questionRepository;
-            _textAnalysis = textAnalysis;
             _courseRepository = courseRepository;
             _universityRepository = universityRepository;
         }
@@ -45,10 +43,9 @@ namespace Cloudents.Command.CommandHandler.Admin
             }
 
             var course = await _courseRepository.LoadAsync(message.CourseName, token);
-            var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
             var question = new Question(course, message.Text,
                 user,
-                textLanguage, university);
+                university);
 
             await _questionRepository.AddAsync(question, token);
 

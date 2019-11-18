@@ -15,7 +15,7 @@ namespace Cloudents.Persistence.Maps
             //Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable().Not.Update();
             Map(x => x.Updated).Not.Nullable();
-            Map(x => x.Language).Length(10);
+            //Map(x => x.Language).Length(10);
             //Map(x => x.Subject).Nullable().Column("Subject_id").CustomType<QuestionSubject?>();
 
             References(x => x.User).Column("UserId")

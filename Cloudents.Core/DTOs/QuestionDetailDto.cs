@@ -28,15 +28,12 @@ namespace Cloudents.Core.DTOs
 
 
         public QuestionDetailAnswerDto(Guid id, string text, UserDto user,
-            DateTime create,
-            CultureInfo culture)
+            DateTime create)
         {
             Id = id;
             Text = text;
             User = user;
             Create = create;
-
-            IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
         }
 
 
@@ -47,7 +44,5 @@ namespace Cloudents.Core.DTOs
 
         public UserDto User { get; set; }
         public DateTime Create { get; set; }
-
-        public bool IsRtl { get; set; }
     }
 }

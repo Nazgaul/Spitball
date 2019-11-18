@@ -19,7 +19,7 @@ namespace Cloudents.Core.Entities
     {
         public Question(string text,
             User user,
-             CultureInfo language, [NotNull] Course course, University university)
+            [NotNull] Course course, University university)
         : this()
         {
             Text = text?.Trim();
@@ -36,11 +36,10 @@ namespace Cloudents.Core.Entities
             Status = status;
             Course = course ?? throw new ArgumentException();
             University = university;
-            Language = language ?? new CultureInfo("en");
         }
 
         public Question(Course course, string text, SystemUser user,
-             CultureInfo language, University university)
+             University university)
             : this()
         {
             Course = course;
@@ -49,8 +48,6 @@ namespace Cloudents.Core.Entities
             Updated = Created = DateTime.UtcNow;
 
             Status = Pending;
-            //ChangeState(ItemState.Pending);
-            Language = language ?? new CultureInfo("en");
             University = university;
 
         }
@@ -85,9 +82,9 @@ namespace Cloudents.Core.Entities
         //public virtual IList<QuestionTransaction> Transactions { get; protected set; }
 
 
-        public virtual Answer AddAnswer(string text, User user, CultureInfo language)
+        public virtual Answer AddAnswer(string text, User user)
         {
-            var answer = new Answer(this, text, user, language);
+            var answer = new Answer(this, text, user);
             _answers.Add(answer);
             AddEvent(new AnswerCreatedEvent(answer));
             return answer;
@@ -101,8 +98,8 @@ namespace Cloudents.Core.Entities
 
         
 
-        [NotNull]
-        public virtual CultureInfo Language { get; protected set; }
+        //[NotNull]
+        //public virtual CultureInfo Language { get; protected set; }
 
         public virtual void MakePublic()
         {

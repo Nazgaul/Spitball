@@ -44,7 +44,6 @@ namespace Cloudents.Query
                     Text = s.Text,
                     //CorrectAnswerId = s.CorrectAnswer.Id,
                     Create = s.Updated,
-                    IsRtl = SetIsRtl(s.Language),
                     User = new QuestionUserDto()
                     {
                         Id = s.User.Id,
@@ -68,14 +67,14 @@ namespace Cloudents.Query
                         Image = s.User.Image,
                         Score = s.User.Score
                     },
-                    s.Created,
+                    s.Created
 
                     //new VoteDto
                     //{
                     //   // Votes = s.VoteCount
                     //},
 
-                    s.Language
+                    
 
 
         )).ToFuture();

@@ -19,7 +19,7 @@ namespace Cloudents.Core.Entities
         public const int MinLength = 15;
         public const int MaxLength = 550;
 
-        public Answer(Question question, string text, User user, CultureInfo language)
+        public Answer(Question question, string text, User user)
             : this()
         {
             Question = question;
@@ -30,7 +30,6 @@ namespace Cloudents.Core.Entities
             Text = text;
             User = user;
             Created = DateTime.UtcNow;
-            Language = language;
             Status = Public;
 
         }
@@ -62,7 +61,7 @@ namespace Cloudents.Core.Entities
 
         // public virtual int VoteCount { get;  set; }
 
-        public virtual CultureInfo Language { get; protected set; }
+       // public virtual CultureInfo Language { get; protected set; }
 
 
         public virtual void UnFlag()

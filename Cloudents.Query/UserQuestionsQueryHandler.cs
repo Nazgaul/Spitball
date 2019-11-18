@@ -30,7 +30,6 @@ namespace Cloudents.Query
                     Text = s.Text,
                     Answers = s.Answers,
                     DateTime = s.DateTime,
-                    CultureInfo = s.CultureInfo,
                     Course = s.Course,
                     User = new QuestionUserDto()
                     {

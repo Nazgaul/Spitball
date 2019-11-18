@@ -19,18 +19,15 @@ namespace Cloudents.Command.CommandHandler
         private readonly IRepository<Question> _questionRepository;
         private readonly IAnswerRepository _answerRepository;
         private readonly IRepository<User> _userRepository;
-        private readonly ITextAnalysis _textAnalysis;
 
 
 
         public CreateAnswerCommandHandler(IRepository<Question> questionRepository,
-            IAnswerRepository answerRepository, IRepository<User> userRepository,
-             ITextAnalysis textAnalysis)
+            IAnswerRepository answerRepository, IRepository<User> userRepository)
         {
             _questionRepository = questionRepository;
             _answerRepository = answerRepository;
             _userRepository = userRepository;
-            _textAnalysis = textAnalysis;
         }
 
         public async Task ExecuteAsync(CreateAnswerCommand message, CancellationToken token)
@@ -77,8 +74,7 @@ namespace Cloudents.Command.CommandHandler
 
             //}
 
-            var language = await _textAnalysis.DetectLanguageAsync(message.Text, token);
-            var newAnswer = question.AddAnswer(message.Text, user, language);
+            var newAnswer = question.AddAnswer(message.Text, user);
             await _answerRepository.AddAsync(newAnswer, token);
         }
     }

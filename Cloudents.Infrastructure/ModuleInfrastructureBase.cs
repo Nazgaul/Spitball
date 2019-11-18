@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure
 
 
             builder.RegisterType<PayMePaymentProvider>().As<IPayment>();
-            builder.RegisterType<AzureTextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
+            //builder.RegisterType<AzureTextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
             builder.RegisterType<BinarySerializer>().As<IBinarySerializer>();
             builder.RegisterType<SbJsonSerializer>().As<IJsonSerializer>();
             builder.RegisterType<MailProvider>().As<IMailProvider>();
