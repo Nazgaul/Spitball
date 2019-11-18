@@ -73,7 +73,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             {
                 AllowAutoRedirect = false
             });
-            _client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
+            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
         [Theory]

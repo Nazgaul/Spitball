@@ -123,6 +123,12 @@
   <data name="footer_links_about" xml:space="preserve">
     <value>About Spitball</value>
   </data>
+  <data name="footer_links_ambassadors" xml:space="preserve">
+    <value>Ambassadors</value>
+  </data>
+  <data name="footer_links_blog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
   <data name="footer_links_contact" xml:space="preserve">
     <value>Contact us</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="footer_links_feedback" xml:space="preserve">
     <value>Feedback</value>
+  </data>
+  <data name="footer_links_partners" xml:space="preserve">
+    <value>Partnerships</value>
   </data>
   <data name="footer_links_pr" xml:space="preserve">
     <value>Public Relationships</value>
@@ -142,10 +151,10 @@
     <value>Terms &amp; Conditions</value>
   </data>
   <data name="header_find_tutors" xml:space="preserve">
-    <value>Find tutors who have experience teaching your course online</value>
+    <value>Get 50 NIS discount on your first lesson</value>
   </data>
   <data name="header_get_lesson" xml:space="preserve">
-    <value>Get private lessons  starting from ₪55</value>
+    <value>Professional private tutors that help you succeed</value>
   </data>
   <data name="rates" xml:space="preserve">
     <value>95%</value>
