@@ -1,7 +1,7 @@
 <template>
     <div class="tutorRequest-middle-courseInfo" v-if="isReady">
     <v-form v-model="validRequestTutorForm" ref="tutorRequestForm" :class="{'tutorProfile':isTutor}">
-            <fieldset class="fieldset-textArea mb-4 px-2 py-1">
+            <fieldset class="fieldset-textArea mb-6 px-2 py-1">
                 <legend v-language:inner="'tutorRequest_type_legend'"/>
                   <v-textarea 
                     :rows="isMobile?6:3"
@@ -284,11 +284,13 @@ export default {
             text-transform: capitalize  !important;
         }
         .tutorRequest-btn-back{
+            margin: 6px 8px;
             color: @global-blue;
             font-weight: 600;
             border: 1px solid @global-blue !important;
         }
         .tutorRequest-btn-next{
+            margin: 6px 8px;
             color: white !important;
             font-size: 14px;
             font-weight: 600;

@@ -39,7 +39,7 @@
                     </fieldset>
                 </div>
                 
-                <v-layout class="question-add-button-container pt-4 pb-4" :class="{'question-mobile': $vuetify.breakpoint.xsOnly}" align-center justify-center column>
+                <v-layout class="question-add-button-container pt-6 pb-4" :class="{'question-mobile': $vuetify.breakpoint.xsOnly}" align-center justify-center column>
                     <v-flex xs12 class="text-center">
                         <v-btn 
                             class="question-add-button font-weight-bold px-3 button_cancel" 

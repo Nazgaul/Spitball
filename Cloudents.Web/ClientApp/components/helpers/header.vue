@@ -5,7 +5,7 @@
             <v-layout column :class="layoutClass?layoutClass:'header-elements'" class="mx-0">
                 <div class="main">
                     <v-flex class="line top">
-                        <v-layout row>
+                        <v-layout>
                             <v-toolbar-title>
                                 <router-link @click.prevent="resetItems()" to="/" class="logo-link">
                                     <logoComponent></logoComponent>

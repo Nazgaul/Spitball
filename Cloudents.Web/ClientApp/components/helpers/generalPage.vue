@@ -4,12 +4,12 @@
         <!-- <slot name="verticalTabs"></slot> -->
         <div class="p-result">
             <v-container fluid class="pa-0 wrap">
-                <v-layout row class="p-result-layout">
+                <v-layout class="p-result-layout">
                     <v-flex class="first-grid hidden-xs-only left-side-bar">
                         <slot name="sideBar">
                         </slot>
                     </v-flex>
-                    <v-layout class="main-section" row :class="{'justify-center': props.mdAndDown}">
+                    <v-layout class="main-section" :class="{'justify-center': props.mdAndDown}">
                         <v-flex class="sec-result" :class="[props.name ==='tutor' ? 'tutor-result'  : '']">
                             <slot name="main"></slot>
                         </v-flex>
