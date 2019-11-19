@@ -1,10 +1,11 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json.Linq;
+using Cloudents.Infrastructure.Data.Test.IntegrationTests;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
+using Dapper;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
@@ -13,98 +14,52 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        private UriBuilder _uri = new UriBuilder()
-        {
-            Path = "/api/question"
-        };
-
-        private readonly object _question = new
-        {
-            course = "Economics",
-            text = "This is a testing question",
-            files = ""
-        };
-
-
         public QuestionsApiTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient(new WebApplicationFactoryClientOptions()
             {
                 AllowAutoRedirect = false
             });
-            _client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
+            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
-        //[Fact]
-        //public async Task GetAsync_Filters()
-        //{
-        //    var response = await _client.GetAsync(_uri.Path);
-
-        //    var str = await response.Content.ReadAsStringAsync();
-
-        //    var d = JObject.Parse(str);
-
-        //    var filters = d["filters"]?.Value<JArray>();
-        //    var type = filters[0]["data"]?.Value<JArray>();
-        //    //var subject = filters[1]["data"]?.Value<JArray>();
-
-        //    filters.Should().HaveCount(1);
-        //    type.Should().HaveCount(3);
-        //    //subject.Should().HaveCount(24);
-        //}
-
-        //[Theory]
-        //[InlineData("/api/Question?term=javascript:alert(219)")]
-        //[InlineData("/api/Question?term=main() { int a%3D4%2Cb%3D2%3B a%3Db<<a %2B b>>2%3B printf(\"%25d\"%2C a)%3B } a) 32 b) 2 c) 4 d) none")]
-        //public async Task GetAsync_QueryXss(string url)
-        //{
-        //    var response = await _client.GetAsync(url);
-        //    response.EnsureSuccessStatusCode();
-        //}
 
         [Theory]
-        [InlineData("/api/Question/9339")]
-        public async Task GetAsync_Url_Success(string url)
+        [InlineData("api/question/")]
+        public async Task GetAsync_Question_Ok(string uri)
         {
-            var response = await _client.GetAsync(url);
+            DatabaseFixture _fixture = new DatabaseFixture();
 
-            var str = await response.Content.ReadAsStringAsync();
+            using (var conn = _fixture.DapperRepository.OpenConnection())
+            {
+                var questionId = conn.QueryFirst<long>("select top 1 id from sb.question where state = 'Ok'");
+                uri += questionId;
+            }
 
-            var d = JObject.Parse(str);
-
-            var id = d["id"]?.Value<long?>();
-            var text = d["text"].Value<string>();
-            var course = d["course"].Value<string>();
-            var user = d["user"]?.Value<JObject>();
-            var userId = user["id"].Value<long>();
-            var userName = user["name"].Value<string>();
+            var response = await _client.GetAsync(uri);
 
             response.EnsureSuccessStatusCode();
 
-            id.Should().BeGreaterThan(0);
-            text.Should().NotBeNull();
-            course.Should().NotBeNull();
-            userId.Should().BeGreaterThan(0);
-            userName.Should().NotBeNull();
-
+            _fixture.Dispose();
         }
 
-        [Fact]
-        public async Task GetAsync_Not_Found()
+        [Theory]
+        [InlineData("api/question/")]
+        public async Task GetAsync_Question_NotFound(string uri)
         {
-            var response = await _client.GetAsync(_uri.Path + "/123");
+            DatabaseFixture _fixture = new DatabaseFixture();
+
+            using (var conn = _fixture.DapperRepository.OpenConnection())
+            {
+                var questionId = conn.QueryFirst<long>("select top 1 id from sb.question where state = 'deleted'");
+                uri += questionId;
+            }
+
+            var response = await _client.GetAsync(uri);
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
 
-        [Fact(Skip = "Need to delete the question before trying to create new one")]
-        public async Task PostAsync_New_OK()
-        {
-            await _client.LogInAsync();
-
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_question));
-
-            response.EnsureSuccessStatusCode();
+            _fixture.Dispose();
         }
     }
 

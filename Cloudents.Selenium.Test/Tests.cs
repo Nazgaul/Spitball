@@ -3,6 +3,7 @@ using Dapper;
 using FluentAssertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,47 +18,64 @@ namespace Cloudents.Selenium.Test
     {
         private readonly IWebDriver _driver = new ChromeDriver(Directory.GetCurrentDirectory());
 
+        private readonly WebDriverWait wait;
+
         private readonly DatabaseFixture _fixture;
 
         public Tests(DatabaseFixture fixture)
         {
             this._fixture = fixture;
-            //_driver.Manage().Window.Maximize();
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 5));
+            //_driver.Manage().Window.Maximize();
             // _autoMock = AutoMock.GetLoose();
 
         }
 
         const string SiteMainUrl = "https://dev.spitball.co";
+        const string FrymoSiteUrl = "?site=frymo";
 
         private static readonly IEnumerable<string> Cultures = new[]
         {
-        "en-US",
-        "he-IL"
-    };
-        //TODO: need to check
-        // 404
-        // 
+            "en-US",
+            "he-IL"
+        };
+
         private static readonly IEnumerable<string> RelativePaths = new[]
         {
-        "",
-        "tutor-list",
-        "register",
-        "signin",
-        "feed",
-        "tutor",
-        "studyroom"
-        //"wallet",
-        //"university",
-        //"courses"
-    };
+            "",
+            "tutor-list",
+            "register",
+            "signin",
+            "feed",
+            "tutor",
+            "studyroom"
+        };
 
+        private static readonly IEnumerable<string> SignedPaths = new[]
+        {
+            "wallet",
+            "university",
+            "courses"
+        };
 
-        //[SetUp]
-        //public void Setup()
-        //{
-
-        //}
+        private static readonly IEnumerable<string> menuItems = new[]
+        {
+            $"{SiteMainUrl.TrimEnd('/')}/wallet",
+            $"{SiteMainUrl.TrimEnd('/')}/profile/159489/Skyler%20%20White",
+            $"{SiteMainUrl.TrimEnd('/')}/university/add",
+            $"{SiteMainUrl.TrimEnd('/')}/courses/edit",
+            $"{SiteMainUrl.TrimEnd('/')}/studyroom",
+            "",
+            "",
+            "",
+            "",
+            "https://help.spitball.co/en/article/about-us",
+            "https://help.spitball.co/en/faq",
+            "https://help.spitball.co/en/article/terms-of-service",
+            "https://help.spitball.co/en/article/privacy-policy"
+        };
+        
         private IEnumerable<string> GetProfileUrls()
         {
             using (var conn = _fixture.DapperRepository.OpenConnection())
@@ -69,12 +87,34 @@ namespace Cloudents.Selenium.Test
             }
         }
 
+        private string GetQuestionUrl()
+        {
+            using (var conn = _fixture.DapperRepository.OpenConnection())
+            {
+                var questionId = conn.QueryFirst<long>("select top 1 id from sb.question where state = 'Ok'");
+                return $"question/{questionId}";
+            }
+        }
+
         [Fact]
         public void MissingResource()
         {
             foreach (var culture in Cultures)
             {
                 foreach (var site in RelativePaths.Union(GetProfileUrls()))
+                {
+                    var url = $"{SiteMainUrl.TrimEnd('/')}/{site}?culture={culture}";
+                    _driver.Navigate().GoToUrl(url);
+
+                    var htmlAttr = _driver.FindElement(By.TagName("html"));
+
+                    var langValue = htmlAttr.GetAttribute("lang");
+                    langValue.Should().Be(culture.Split('-')[0], "on link {0}", url);
+                    var body = _driver.FindElement(By.TagName("body"));
+                    body.Text.Should().NotContain("###");
+                }
+
+                foreach(var site in SignedPaths.Union(GetProfileUrls()))
                 {
                     var url = $"{SiteMainUrl.TrimEnd('/')}/{site}?culture={culture}";
                     _driver.Navigate().GoToUrl(url);
@@ -96,38 +136,31 @@ namespace Cloudents.Selenium.Test
             _driver.Navigate().GoToUrl(url);
             var logo = _driver.FindElement(By.XPath("//*[@class='logo']"));
 
-            url = $"{SiteMainUrl.TrimEnd('/')}/?site=frymo";
+            url = $"{SiteMainUrl.TrimEnd('/')}/{FrymoSiteUrl}";
             _driver.Navigate().GoToUrl(url);
             logo = _driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
 
         }
 
-        [Fact(Skip = "Need to finish this")]
+        [Fact]
         public void MissingResourceAsk()
         {
-            var url = "https://dev.spitball.co/question/2208";
+            foreach (var culture in Cultures)
+            {
+                var url = $"{SiteMainUrl.TrimEnd('/')}/{GetQuestionUrl()}?culture={culture}";
+                _driver.Navigate().GoToUrl(url);
 
-            _driver.Navigate().GoToUrl(url);
-
-            var htmlAttr = _driver.FindElement(By.TagName("html"));
-            //var v = _driver.Manage().Timeouts().PageLoad;
-            var langValue = htmlAttr.GetAttribute("lang");
-            //langValue.Should().Be(culture.Split('-')[0], "on link {0}", url);
-            var body = _driver.FindElement(By.TagName("body"));
-            var x = body.Text.ToString();
-
-
+                var htmlAttr = _driver.FindElement(By.TagName("html"));
+                var langValue = htmlAttr.GetAttribute("lang");
+                langValue.Should().Be(culture.Split('-')[0], "on link {0}", url);
+                var body = _driver.FindElement(By.TagName("body"));
+                body.Text.Should().NotContain("###");
+            }
+            
         }
 
-        //[TearDown]
-        //public void TearDown()
-        //{
-
-        //}
-
         [Theory]
-        [InlineData("feed", "//*[@class='d-block note-block cell']")]
-       //[InlineData("tutor", "//*[@class='tutor-result-card-mobile pa-2 ma-2 justify-space-between mb-2']")]
+        [InlineData("feed", "//*[@class='layout column']//a")]
         public void FeedPagingTest(string relativePath, string css)
         {
             var url = $"{SiteMainUrl.TrimEnd('/')}/{relativePath}";
@@ -142,34 +175,6 @@ namespace Cloudents.Selenium.Test
             Thread.Sleep(1000);
             var amountOfCardsAfterPaging = _driver.FindElements(By.XPath(css)).Count;
             amountOfCardsAfterPaging.Should().BeGreaterThan(amountOfCards);
-            //feedCards.Count.Should().BeGreaterThan(14);
-
-            //url = $"{SiteMainUrl.TrimEnd('/')}/tutor";
-            //_driver.Navigate().GoToUrl(url);
-            //body = _driver.FindElement(By.TagName("body"));
-            //for (int i = 0; i < 10; i++)
-            //    body.SendKeys(Keys.PageDown);
-            //Thread.Sleep(1000);
-            //var tutorCards = _driver.FindElements(By.XPath("//*[@class='tutor-result-card-mobile pa-2 ma-2 justify-space-between mb-2']"));
-            //tutorCards.Count.Should().BeGreaterThan(20);
-        }
-
-        [Fact(Skip = "Not sure what need to be tested here")]
-        public void SignTests()
-        {
-            var url = $"{SiteMainUrl.TrimEnd('/')}/register";
-            _driver.Navigate().GoToUrl(url);
-            var googleButton = _driver.FindElement(By.XPath("//*[@class='google elevation-5 btn-login v-btn v-btn--large v-btn--round theme--light']"));
-            var emailButton = _driver.FindElement(By.XPath("//*[@class='email v-btn v-btn--flat v-btn--large v-btn--round theme--light']"));
-            var checkBox = _driver.FindElement(By.XPath("//*[@id='checkBox']"));
-            googleButton.Click();
-            checkBox.Click();
-            googleButton.Click();
-            _driver.SwitchTo().Window(_driver.WindowHandles.Last());
-            _driver.Close();
-            _driver.SwitchTo().Window(_driver.CurrentWindowHandle);
-            //driver.Quit();
-            emailButton.Click();
         }
 
         [Fact]
@@ -177,16 +182,53 @@ namespace Cloudents.Selenium.Test
         {
             var url = $"{SiteMainUrl.TrimEnd('/')}/Signin";
             _driver.Navigate().GoToUrl(url);
-            var emailButton = _driver.FindElement(By.XPath("//*[@class='email v-btn v-btn--flat v-btn--large v-btn--round theme--light']"));
+            var emailButton = _driver.FindElement(By.XPath("//*[@sel='email']"));
             emailButton.Click();
-            var emailInput = _driver.FindElement(By.XPath("//*[@class='input-field errorTextStr']"));
+            var emailInput = _driver.FindElement(By.Name("email"));
             emailInput.SendKeys("elad13@cloudents.com");
-            var loginButton = _driver.FindElement(By.XPath("//*[@class='white--text btn-login v-btn v-btn--large v-btn--round theme--light']"));
+            var loginButton = _driver.FindElement(By.XPath("//*[@type='submit']"));
             loginButton.Click();
-            var passwordInput = _driver.FindElement(By.XPath("//*[@class='mt-4 widther input-wrapper']//input"));
-            loginButton = _driver.FindElement(By.XPath("//*[@class='white--text btn-login v-btn v-btn--large v-btn--round theme--light']"));
+            var passwordInput = _driver.FindElement(By.XPath("//*[@type='password']"));
+            loginButton = _driver.FindElement(By.XPath("//*[@type='submit']"));
             passwordInput.SendKeys("123456789");
             loginButton.Click();
+        }
+
+        [Fact]
+        public void CourseListTest()
+        {
+            foreach(var profile in GetProfileUrls())
+            {
+                var url = $"{SiteMainUrl.TrimEnd('/')}/{profile}";
+                _driver.Navigate().GoToUrl(url);
+
+                var course = _driver.FindElement(By.XPath("//*[@class='layout row wrap']//a"));
+                var courseName = _driver.FindElement(By.XPath("//*[@class='course-name mr-5']")).Text;
+                course.Click();
+                _driver.Url.Should().Be($"{SiteMainUrl.TrimEnd('/')}?course={courseName}");
+            }
+        }
+
+        [Fact]
+        public void MenuListItemsTest()
+        {
+            LoginTest();
+
+            var menu = _driver.FindElement(By.XPath("//*[@sel='menu']"));
+            var listItems = _driver.FindElements(By.XPath("//*[@sel='menu_row']"));
+
+            wait.Until(_driver => _driver.FindElement(By.XPath("//*[@sel='menu']")));
+            menu.Click();
+
+            for(int i = 0; i < 5; i++)
+            {
+                listItems[i].GetAttribute("href").Should().Be(menuItems.ElementAt(i));
+            }
+
+            /*for(int i = 9; i < 12; i++)
+            {
+                listItems[i].GetAttribute("href").Should().Be(menuItems.ElementAt(i));
+            }*/
         }
 
         public void Dispose()

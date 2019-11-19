@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using FluentAssertions;
+using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -9,16 +11,11 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        //private UriBuilder _uri = new UriBuilder()
-        //{
-        //    Path = "api/tutor"
-        //};
-
-
         public TutorApiTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
         }
+
 
         [Theory]
         [InlineData(false)]
@@ -70,44 +67,39 @@ namespace Cloudents.Web.Test.IntegrationTests
             //str.Should().BeEmpty();
         }
 
-        //[Fact]
-        //public async Task Get_OK_Result()
-        //{
-        //    var response = await _client.GetAsync(_uri.Path);
+        [Theory]
+        [InlineData("api/tutor")]
+        [InlineData("api/tutor/search")]
+        [InlineData("api/tutor/search?term=ram")]
+        [InlineData("api/tutor/search?term=saul%20goodman")]
+        [InlineData("api/tutor/reviews")]
+        public async Task GetAsync_Tutor_Ok(string uri)
+        {
+            var response = await _client.GetAsync(uri);
 
-        //    response.StatusCode.Should().Be(HttpStatusCode.OK);
-        //}
+            response.EnsureSuccessStatusCode();
+        }
 
-        //[Fact(Skip = "We did a hole markup change to tutor")]
-        //public async Task Post_Create_Room()
-        //{
-        //    var response = await _client.PostAsync("api/tutoring/create", null);
+        [Theory]
+        [InlineData("api/tutor/calendar/list")]
+        [InlineData("api/tutor/calendar/events?from=2019-11-18T05:48:47.649Z&to=2019-11-18T07:48:47.649Z")]
+        public async Task GetAsync_Tutor_Unauthorized(string uri)
+        {
+            var response = await _client.GetAsync(uri);
 
-        //    var str = await response.Content.ReadAsStringAsync();
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
 
-        //    var d = JObject.Parse(str);
+        [Theory]
+        [InlineData("api/tutor/calendar/list")]
+        [InlineData("api/tutor/calendar/events?from=2019-11-18T05:48:47.649Z&to=2019-11-18T07:48:47.649Z&tutorid=159489")]
+        public async Task GetAsync_Tutor_Calendar_OK(string uri)
+        {
+            await _client.LogInAsync();
 
-        //    var result = d["name"]?.Value<string>();
+            var response = await _client.GetAsync(uri);
 
-        //    response.StatusCode.Should().Be(HttpStatusCode.OK);
-
-        //    result.Should().NotBeNull();
-        //}
-
-        //[Fact]
-        //public async Task Get_NonExist_Tutor()
-        //{
-        //    await _client.LogInAsync();
-
-        //    var response = await _client.GetAsync(_uri.Path + "/search?term=fsdfds");
-
-        //    var str = await response.Content.ReadAsStringAsync();
-
-        //    var d = JObject.Parse(str);
-
-        //    var result = d["result"]?.Value<JArray>();
-
-        //    result.Should().BeEmpty();
-        //}
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
     }
 }
