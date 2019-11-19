@@ -5,7 +5,7 @@
                     :class="[$vuetify.breakpoint.xsOnly ? 'elevation-0 px-0 py-2': 'py-4']">
                 <v-flex class="hidden-sm-and-down">
                     <div>
-                        <div class="mb-2 text-xs-center px-3">
+                        <div class="mb-2 text-center px-3">
                         <span class="tutoring-info-heading font-italic" v-language:inner>profile_tutor_sidebar_title
                         </span>
                         </div>
@@ -16,10 +16,10 @@
                 </v-flex>
                 <!-- <div class="bottom-section px-3" :class="{'mobile-view': $vuetify.breakpoint.xsOnly}" v-if="false">
                     <div class="info-item mb-2" v-for="one in 3">
-                        <div class="text-xs-center">
+                        <div class="text-center">
                             <span class="tutoring-info-label">Tutoring Hours</span>
                         </div>
-                        <div class="text-xs-center">
+                        <div class="text-center">
                             <span class="tutoring-info-value">10 hours</span>
                         </div>
                     </div>

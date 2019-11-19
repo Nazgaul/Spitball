@@ -41,14 +41,14 @@
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>
             
             <div class="d-flex">
-              <v-btn flat icon @click="showIntercom">
+              <v-btn text icon @click="showIntercom">
                 <intercomSVG class="network-icon"/>
               </v-btn>
             </div> 
             
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
             
-            <v-btn flat icon @click="changeSettingsDialogState(true)">
+            <v-btn text icon @click="changeSettingsDialogState(true)">
               <v-icon class="white-btn">sbf-settings</v-icon>
             </v-btn>
 

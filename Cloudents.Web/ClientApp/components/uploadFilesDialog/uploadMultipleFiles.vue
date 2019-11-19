@@ -32,7 +32,7 @@
                 </v-stepper-items>
             </v-stepper>
         <div class="uf-sEdit-bottm pb-3 pt-3" v-if="currentStep == 2">
-            <v-btn :loading="loading" @click="send()" class="uf-sEdit-bottm-btn mb-2" depressed round color="#4452fc">
+            <v-btn :loading="loading" @click="send()" class="uf-sEdit-bottm-btn mb-2" depressed rounded color="#4452fc">
                 <span v-language:inner="'upload_uf_sEdit_bottm_btn'"/>
             </v-btn>             
             <span class="uf-sEdit-terms">

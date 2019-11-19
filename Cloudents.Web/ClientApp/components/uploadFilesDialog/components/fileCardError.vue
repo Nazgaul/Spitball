@@ -9,7 +9,7 @@
                 </div>
         </v-flex>
         <v-flex xs12 sm3 :class="[{'pl-4':isMobile}]">
-            <v-btn @click="deleteFile()" :class="['ufItem-error-btn']" color="#d16061" depressed round>
+            <v-btn @click="deleteFile()" :class="['ufItem-error-btn']" color="#d16061" depressed rounded>
                 <!-- <span v-language:inner="'upload_ufItem_error_btn'"/> -->
                 <span v-language:inner="'upload_ufItem_error_remove'"/>
             </v-btn>

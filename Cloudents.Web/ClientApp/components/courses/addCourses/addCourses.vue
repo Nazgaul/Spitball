@@ -6,13 +6,13 @@
                 <div class="d-inline-flex justify-center shrink">
                     <v-icon @click="goToEditCourses()" class="course-back-btn mr-3" :class="{'rtl': isRtl}">sbf-arrow-back
                     </v-icon>
-                    <span class="subheading font-weight-bold" v-language:inner>courses_join</span>
-                    <span class="subheading font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
+                    <span class="subtitle-1 font-weight-bold" v-language:inner>courses_join</span>
+                    <span class="subtitle-1 font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
                 </div>
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn round :disabled="localSelectedClasses.length === 0" :loading="doneButtonLoading" class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
+                <v-btn rounded :disabled="localSelectedClasses.length === 0" :loading="doneButtonLoading" class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
                     <span v-language:inner>courses_btn_done</span>
                 </v-btn>
             </v-flex>
@@ -51,14 +51,14 @@
             </v-flex>
         </v-layout>
         <v-layout align-center class="mt-3 px-2" row wrap>
-            <v-flex v-if="!classes && !classes.length" xs12 class="text-xs-center">
+            <v-flex v-if="!classes && !classes.length" xs12 class="text-center">
                 <div>
                     <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
                 </div>
             </v-flex>
             <v-flex v-if="showBox">
                 <div class="class-list search-classes-list" id="search-classes-list">
-                    <div class="list-item subheading search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
+                    <div class="list-item subtitle-1 search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleClass in classes" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
                         <v-layout column class="pl-3 limit-width">
                             <v-flex shrink class="course-name-wrap">
@@ -97,7 +97,7 @@
                         </v-layout>
                     </div>
                     <!--create new course-->
-                    <v-flex class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
+                    <v-flex class="text-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
                             @click="openCreateDialog(true)">
                         <span v-language:inner>courses_cant_find</span>
                         <span class="pl-1 add-item" v-language:inner>courses_create_new</span>

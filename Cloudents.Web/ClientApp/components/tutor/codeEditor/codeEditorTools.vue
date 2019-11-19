@@ -2,7 +2,7 @@
     <div class="nav-container">
             <v-tooltip bottom>
                 <template v-slot:activator="{on}" id="languagesListPop" >
-                    <v-btn v-on="on" flat @click="show = !show" class="selected-lang nav-action"  id="languagesListPop" >
+                    <v-btn v-on="on" text @click="show = !show" class="selected-lang nav-action"  id="languagesListPop" >
                         <div class="name_img">
                         <img style="width: 24px; margin-right: 5px;" :src="getLangImg(currentLang.langIcon)" >
                             {{currentLang.langName}}

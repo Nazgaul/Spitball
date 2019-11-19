@@ -1,6 +1,6 @@
 <template>
     <div class="share-screen-btn-wrap">
-        <v-flex class="text-xs-center">
+        <v-flex class="text-center">
             <div v-if="!isSharing" >
                 <v-tooltip top >
                     <template v-slot:activator="{on}">
@@ -43,7 +43,7 @@
                     >
                         <span v-language:inner="'tutor_chrome_ext_btn_install'"></span>
                     </a>
-                    <v-btn color="green darken-1" flat="flat" @click="extensionDialog = false">
+                    <v-btn color="green darken-1" text @click="extensionDialog = false">
                         <span v-language:inner="'tutor_chrome_ext_btn_cancel'"></span>
                     </v-btn>
                 </v-card-actions>

@@ -20,7 +20,7 @@
                               :suffix="priceForAll? pricePts :''"/>
             </v-flex>
             <v-flex xs5 sm3 :class="[{'pl-3':!isMobile}]">
-                <v-btn @click="applyAll" class="uf-sEdit-top-btn" color="white" depressed round>
+                <v-btn @click="applyAll" class="uf-sEdit-top-btn" color="white" depressed rounded>
                     <span v-language:inner="'upload_uf_sEdit_top_btn'"/>
                 </v-btn>
             </v-flex>

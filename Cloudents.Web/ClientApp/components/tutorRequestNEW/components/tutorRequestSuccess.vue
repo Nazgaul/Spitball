@@ -6,7 +6,7 @@
         </div>
         <div class="tutorRequest-success-bottom">
             <v-btn @click="tutorRequestDialogClose" 
-                class="tutorRequest-btn-back" color="white" depressed round>
+                class="tutorRequest-btn-back" color="white" depressed rounded>
                 <span v-language:inner="'tutorRequest_btn_close'"/>
             </v-btn>
         </div>

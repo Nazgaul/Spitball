@@ -3,7 +3,7 @@
        @click="(isOurs ? $_spitball($event):'')" :href="url" :class="'cell-'+$route.path.slice(1)">
         <v-container class="pa-0"
                      @click="$ga.event('Search_Results', $route.path.slice(1),`#${index+1}_${item.source}`)">
-            <v-layout row fluid class="result-cell-content">
+            <v-layout fluid class="result-cell-content">
 
                 <v-flex class="img-wrap mr-2 pa-0"
                         :class="['border-'+$route.path.slice(1),'spitball-bg-'+$route.path.slice(1)]">

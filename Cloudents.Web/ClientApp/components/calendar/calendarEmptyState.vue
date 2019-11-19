@@ -11,7 +11,7 @@
             <calendarHoursCMP v-if="!isSelectCalendar && isSelectHours" class="my-3"/>
 
 
-            <v-btn color="#4452FC" round :loading='isLoading'
+            <v-btn color="#4452FC" rounded :loading='isLoading'
                     class="white--text elevation-0 calbtnshare"
                     @click="emptyStateFunctions">
                 <span v-language:inner="emptyStateResources"/>

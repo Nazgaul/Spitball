@@ -21,7 +21,7 @@
 
                 <div class="uf-sDrop-btns">   
                     <template v-if="!isDraggin">
-                        <v-btn :class="['uf-sDrop-btn',{'mr-2':!isMobile},{'mt-4':isMobile}]" color="white" depressed round @click="DbFilesList()" :disabled="!dbReady">
+                        <v-btn :class="['uf-sDrop-btn',{'mr-2':!isMobile},{'mt-4':isMobile}]" color="white" depressed rounded @click="DbFilesList()" :disabled="!dbReady">
                             <v-icon v-html="'sbf-upload-dropbox'"/>
                             <span v-language:inner="'upload_uf_sDrop_btn_dropbox'"/>
                         </v-btn>
@@ -48,7 +48,7 @@
                             }">
                     </file-upload>
                     <template v-if="!isDraggin">
-                        <v-btn class="uf-sDrop-btn" color="white" depressed round>
+                        <v-btn class="uf-sDrop-btn" color="white" depressed rounded>
                             <v-icon v-html="isMobile?'sbf-phone':'sbf-pc'"/>
                             <span v-language:inner="isMobile?'upload_uf_sDrop_btn_local_mobile':'upload_uf_sDrop_btn_local'"/>
                         </v-btn>

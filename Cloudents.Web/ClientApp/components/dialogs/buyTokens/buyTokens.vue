@@ -7,12 +7,12 @@
         <div class="buy-tokens-wrap">
             <v-container pa-3 pt-4 pb-4 class="buy-tokens-top-container">
                 <v-layout>
-                    <v-flex text-xs-center xs12>
+                    <v-flex text-center xs12>
                         <span class="buy-tokens-title-text" v-language:inner="'buyTokens_get_points'"></span>
                     </v-flex>
                 </v-layout>
                 <v-layout pt-4 ml-2 mr-2 :class="{'column': $vuetify.breakpoint.xsOnly}">
-                    <v-flex class="flex-buy-tokens" text-xs-center column xs4 :class="$vuetify.breakpoint.xsOnly ? 'pl-5 pr-5' : 'pl-4 pr-4'">
+                    <v-flex class="flex-buy-tokens" text-center column xs4 :class="$vuetify.breakpoint.xsOnly ? 'pl-5 pr-5' : 'pl-4 pr-4'">
                         <div class="buy-tokens-icon">
                             <v-icon>sbf-answer-icon</v-icon>
                         </div>
@@ -20,7 +20,7 @@
                         <div class="buy-tokens-normal-text mt-1" v-language:inner="'buyTokens_earn_answer'"></div>
                         <div class="line-buy-tokens"></div>
                     </v-flex>
-                    <v-flex class="flex-buy-tokens" text-xs-center column xs4 pl-4 pr-4
+                    <v-flex class="flex-buy-tokens" text-center column xs4 pl-4 pr-4
                             :class="$vuetify.breakpoint.xsOnly ? 'mt-5 pl-5 pr-5' : 'pl-4 pr-4'">
                         <div class="buy-tokens-icon">
                             <v-icon>sbf-upload-icon</v-icon>
@@ -30,7 +30,7 @@
                         <div class="line-buy-tokens"></div>
 
                     </v-flex>
-                    <v-flex class="flex-buy-tokens" text-xs-center column xs4 pl-4 pr-4
+                    <v-flex class="flex-buy-tokens" text-center column xs4 pl-4 pr-4
                             :class="$vuetify.breakpoint.xsOnly ? 'mt-5 pl-5 pr-5' : 'pl-4 pr-4'">
                         <div class="buy-tokens-icon">
                             <v-icon>sbf-invite-icon</v-icon>
@@ -44,14 +44,14 @@
             </v-container>
             <v-container class="buy-tokens-bottom-container" :class="{'pt-4': $vuetify.breakpoint.xsOnly}">
                 <v-layout>
-                    <v-flex text-xs-center>
+                    <v-flex text-center>
                         <span class="buy-tokens-title-text" v-language:inner="'buyTokens_need_points'"></span>
                     </v-flex>
                 </v-layout>
                 <v-layout pt-4 justify-center class="buy-tokens-price-container">
                     <v-flex
                             class="buy-tokens-details-container"
-                            text-xs-center
+                            text-center
                             column
                             xs4
                             :class="{'item-selected': selectedProduct === 'basic'}"
@@ -73,7 +73,7 @@
                     </v-flex>
                     <v-flex
                             class="buy-tokens-details-container middle-box"
-                            text-xs-center
+                            text-center
                             column
                             xs4
                             :class="{'item-selected': selectedProduct === 'inter'}"
@@ -96,7 +96,7 @@
                     </v-flex>
                     <v-flex
                             class="buy-tokens-details-container"
-                            text-xs-center
+                            text-center
                             column
                             xs4
                             :class="{'item-selected': selectedProduct === 'pro'}"
@@ -128,7 +128,7 @@
                  </v-layout>
 
                 <v-layout class="buymebtn">
-                    <v-flex text-xs-center>
+                    <v-flex text-center>
                         <v-btn class="buyme-button white--text" depressed color="#4452fc" id="buyme-button" @click="openPaymeDialog">
                         <span class="mr-2 d-flex"><v-icon size="16">sbf-lock-icon</v-icon></span>
                         <span class="font-weight-bold" v-html="$Ph('buyTokens_secure_payment', products[selectedProduct].pts)"></span>

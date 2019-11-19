@@ -39,7 +39,7 @@
       <div class="card-mobile-center">{{tutorData.bio}}</div>
 
       <div class="card-mobile-footer">
-          <v-btn class="btn-chat white--text text-truncate my-0" depressed round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
+          <v-btn class="btn-chat white--text text-truncate my-0" depressed rounded block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
                 <iconChat class="chat-icon-btn" />
                 <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>

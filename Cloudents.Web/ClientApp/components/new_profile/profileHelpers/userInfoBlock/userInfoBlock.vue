@@ -11,7 +11,7 @@
     >
       <v-flex class="hidden-sm-and-down">
         <div>
-          <div class="mb-2 text-xs-center">
+          <div class="mb-2 text-center">
             <h2 class="box-title" v-language:inner>profile_user_sidebar_title</h2>
             <span
               class="tutoring-info-heading caption d-block font-weight-bold font-italic"
@@ -27,7 +27,7 @@
         <becomeTutorBtn></becomeTutorBtn>
       </v-flex>
       <!-- <div class="bottom-section px-3" :class="{'mobile-view': $vuetify.breakpoint.xsOnly}" v-if="false">
-                    <v-flex xs6 sm12 class="info-item mb-2 text-xs-center" v-for="one in 2">
+                    <v-flex xs6 sm12 class="info-item mb-2 text-center" v-for="one in 2">
                     <div>
                         <span class="tutoring-info-label">Learning Hours</span>
                     </div>

@@ -4,16 +4,16 @@
             <v-layout row class="py-4 pl-4 pr-3" align-center justify-center>
                 <v-flex grow>
                     <div class="d-inline-flex justify-center shrink">
-                        <span class="subheading font-weight-bold" v-language:inner>courses_my_courses</span>
-                        <span class="subheading font-weight-bold"
+                        <span class="subtitle-1 font-weight-bold" v-language:inner>courses_my_courses</span>
+                        <span class="subtitle-1 font-weight-bold"
                               v-if="coursesQuantaty">&nbsp;({{coursesQuantaty}})</span>
                     </div>
                 </v-flex>
-                <v-flex xs2 shrink class="text-xs-center hidden-xs-only" >
+                <v-flex xs2 shrink class="text-center hidden-xs-only" >
                     <finishBtn></finishBtn>
                 </v-flex>
                 <v-flex shrink class="d-flex justify-start">
-                    <v-btn round color="#4452FC" class="add-btn py-1 my-0 elevation-0"
+                    <v-btn rounded color="#4452FC" class="add-btn py-1 my-0 elevation-0"
                            :class="{'mr-2': $vuetify.breakpoint.xsOnly }"
                            @click="goToAddMore()">
                         <v-icon class="mr-1 vicon">sbf-plus-regular</v-icon>
@@ -44,7 +44,7 @@
                             <v-layout row align-center justify-end class="pr-2 grow">
                                 <v-flex shrink class="d-flex align-center" v-if="!singleClass.isLoading">
                                     <div v-show="isUserTutor">
-                                    <v-btn v-if="!singleClass.isTeaching" round @click="teachCourseToggle(singleClass)"
+                                    <v-btn v-if="!singleClass.isTeaching" rounded @click="teachCourseToggle(singleClass)"
                                            :loading="singleClass.isLoading && teachingActive"
                                            class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
                                     <span>
@@ -53,7 +53,7 @@
                                     </span>
                                     </v-btn>
 
-                                    <v-btn v-else round @click="teachCourseToggle(singleClass)"
+                                    <v-btn v-else rounded @click="teachCourseToggle(singleClass)"
                                            class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
                                     <span>
                                        <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
@@ -83,7 +83,7 @@
                 </v-flex>
             </v-layout>
             <v-layout  align-center justify-center class="hidden-sm-and-up fixed-bottom-wrap elevation-2">
-                <v-flex xs12 class="text-xs-center pt-3">
+                <v-flex xs12 class="text-center pt-3">
                     <finishBtn></finishBtn>
                 </v-flex>
             </v-layout>

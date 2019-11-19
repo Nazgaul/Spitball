@@ -26,7 +26,7 @@
                       class="face-icon mr-2"
                     >sbf-face-icon</v-icon>
                     <h1 
-                      class="subheading font-weight-bold lineClamp"
+                      class="subtitle-1 font-weight-bold lineClamp"
                       :style="[{wordBreak: 'break-all'},{maxWidth: $vuetify.breakpoint.xsOnly? '180px':'inherit'}]"
                     >{{userName}}</h1>
                     <v-icon
@@ -36,7 +36,7 @@
                     >sbf-edit-icon</v-icon>
                   </div>
                 </div>
-                <h2 class="text-xs-center text-sm-left user-university caption text-capitalize">{{university}}</h2>
+                <h2 class="text-center text-sm-left user-university caption text-capitalize">{{university}}</h2>
               </v-flex>
               <div class="tutor-price tutor-price-header mr-3">
                 <div class="tutor-price-header-wrap">
@@ -56,7 +56,7 @@
                   <span class="mt-0 ml-2" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
                     <v-icon
                       @click="openEditInfo()"
-                      class="edit-profile-action subheading"
+                      class="edit-profile-action subtitle-1"
                     >sbf-edit-icon</v-icon>
                   </span>
                 </div>
@@ -72,7 +72,7 @@
         </v-layout>
         <v-flex style="position:relative;">
           <div
-            class="tutor-price text-xs-center"
+            class="tutor-price text-center"
             v-if="$vuetify.breakpoint.xsOnly && isTutorProfile"
           >
             <div class="tutor-price-mobile">
@@ -99,7 +99,7 @@
             ></span>
           </div>
           <div
-            class="tutor-price strike-through text-xs-center"
+            class="tutor-price strike-through text-center"
             v-if="$vuetify.breakpoint.xsOnly && isTutorProfile && showStriked"
           >
             <span class="tutor-price">
@@ -140,7 +140,7 @@
     >
         <v-card class="pb-3 coupon-dialog-card" :class="{'d-block': $vuetify.breakpoint.xsOnly}">
             <v-layout class="header py-4">
-                <v-flex class="text-xs-center coupon-dialog-header" :class="{'mt-5': $vuetify.breakpoint.xsOnly}">
+                <v-flex class="text-center coupon-dialog-header" :class="{'mt-5': $vuetify.breakpoint.xsOnly}">
                     <span v-language:inner="'coupon_title'"></span>
                     <v-icon @click="closeCouponDialog" class="coupon-close" v-html="'sbf-close'" />
                 </v-flex>

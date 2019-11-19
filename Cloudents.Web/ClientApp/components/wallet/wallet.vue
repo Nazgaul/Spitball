@@ -18,7 +18,7 @@
                                 :headers="headers.balances"
                                 :items="items"
                                 :cash="cash"
-                                hide-actions
+                                hide-default-footer
                                 class="balance-table wallet-table">
                             <template slot="headerCell" slot-scope="props">
                                 <span :class="props.header.text+'-header table-header'">{{ props.header.text }}</span>
@@ -38,8 +38,8 @@
                                 :headers="headers.transactions"
                                 :items="items"
                                 :search="search"
-                                :pagination.sync="pagination"
-                                hide-actions
+                                :options.sync="pagination"
+                                hide-default-footer
                                 class="transaction-table wallet-table">
                             <template slot="headerCell" slot-scope="props">
                                 <span :class="props.header.text+'-header table-header'">{{ props.header.text }}</span>

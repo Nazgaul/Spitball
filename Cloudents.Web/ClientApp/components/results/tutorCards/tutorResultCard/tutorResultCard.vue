@@ -12,18 +12,18 @@
               :borderRadius="4"
             />
             <div class="main-card">
-                <h3 class="font-weight-bold text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
-                <h4 class="mb-3 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
+                <h3 class="font-weight-bold text-truncate body-1 mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+                <h4 class="mb-3 body-2 font-weight-bold text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
                 <div class="user-bio-wrapper mb-3">
-                  <div class="user-bio">{{tutorData.bio}}</div>
+                  <div class="user-bio body-2">{{tutorData.bio}}</div>
                 </div>
                 <div class="study-area mb-2 text-truncate" :class="{'study-area-hidden': !isSubjects}">
-                  <span class="mr-1 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
-                  <span class="">{{subjects}}</span>
+                  <span class="mr-1 body-2 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
+                  <span class="body-2">{{subjects}}</span>
                 </div>
                 <div class="courses text-truncate" v-if="isCourses">
-                  <span class="mr-2 font-weight-bold" v-language:inner="'resultTutor_courses'"></span>
-                  <span class="">{{courses}}</span> 
+                  <span class="mr-2 body-2 font-weight-bold" v-language:inner="'resultTutor_courses'"></span>
+                  <span class="body-2">{{courses}}</span> 
                 </div>
             </div>
         </v-flex>
@@ -66,7 +66,7 @@
               </div>
             </template>
             
-            <div class="classes-hours align-center">
+            <div class="classes-hours body-2 align-center">
               <clock />
               <span class="font-weight-bold caption ml-2" v-if="tutorData.lessons > 0">{{tutorData.lessons}}</span>
               

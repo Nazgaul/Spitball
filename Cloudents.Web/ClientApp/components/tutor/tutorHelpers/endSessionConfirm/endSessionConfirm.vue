@@ -10,7 +10,7 @@
                 <userAvatar :user-name="userName"  :userImageUrl="userImageUrl" :user-id="userId" :size="'58'" ></userAvatar>
             </v-flex>
             <v-flex xs12  class="pt-12">
-                <span class="subheading font-weight-bold" v-language:inner>tutor_end_session</span>
+                <span class="subtitle-1 font-weight-bold" v-language:inner>tutor_end_session</span>
             </v-flex>
             <v-card-actions class="pt-5">
                 <button class="cancel-btn elevation-0 align-center justify-center mr-2" @click="closeDialog()">

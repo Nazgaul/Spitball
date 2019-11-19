@@ -47,7 +47,7 @@
       />
 
       <v-btn type="submit" :loading="isEmailLoading" 
-             large round class="ctnBtn white--text btn-login">
+             large rounded class="ctnBtn white--text btn-login">
 
         <span v-language:inner="'loginRegister_setemailpass_btn'"></span>
       </v-btn>

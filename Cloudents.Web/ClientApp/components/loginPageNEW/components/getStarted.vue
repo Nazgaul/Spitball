@@ -25,7 +25,7 @@
                 </div>
                     <v-btn @click="goWithGoogle()" 
                         :loading="googleLoading" 
-                        large round
+                        large rounded
                         sel="gmail"
                         class="google elevation-5 btn-login">
                         <img src="../images/G icon@2x.png">
@@ -36,7 +36,7 @@
                 <span class="hidden-xs-only or" hidden-xs-only v-language:inner="'loginRegister_getstarted_or'"/>
 
                 <v-btn @click="goWithEmail()" 
-                    large flat round 
+                    large text rounded 
                     sel="email"
                     class="email">
                     <img src="../images/np_email@2x.png">

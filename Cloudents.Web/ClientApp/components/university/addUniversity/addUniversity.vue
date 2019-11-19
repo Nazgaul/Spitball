@@ -4,12 +4,12 @@
                   justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
-                    <span class="subheading font-weight-bold" v-language:inner>university_choose_title</span>
+                    <span class="subtitle-1 font-weight-bold" v-language:inner>university_choose_title</span>
                 </div>
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn round class="elevation-0 done-btn py-1 font-weight-bold my-0" @click="getOut()">
+                <v-btn rounded class="elevation-0 done-btn py-1 font-weight-bold my-0" @click="getOut()">
                     <span class="text-capitalize" v-language:inner>university_not_student_btn</span>
                 </v-btn>
             </v-flex>
@@ -36,7 +36,7 @@
         <v-layout align-center :class="[$vuetify.breakpoint.smAndUp ? 'px-2 mt-3': '']">
             <v-flex v-if="showBox">
                 <div class="university-list" id="university-list">
-                    <div class="list-item subheading cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
+                    <div class="list-item subtitle-1 cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleUni in universities"
                          @click="selectUniversity(singleUni)">
                         <v-layout shrink>
@@ -62,7 +62,7 @@
                         </v-layout>
                     </div>
                     <!--create new University-->
-                    <v-flex class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
+                    <v-flex class="text-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
                             @click.prevent="openCreateUniDialog()">
                         <span v-language:inner>university_cant_find</span>
                         <span class="pl-1 add-item" v-language:inner>university_create_new</span>

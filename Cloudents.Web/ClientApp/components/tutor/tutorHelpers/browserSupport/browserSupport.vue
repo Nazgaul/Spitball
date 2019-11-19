@@ -19,7 +19,7 @@
         </div>
 
         <v-flex pb-3>
-            <v-layout :class="{'column': isMobile}" align-center justify-center text-xs-center class="browserSupport-center-footer">
+            <v-layout :class="{'column': isMobile}" align-center justify-center text-center class="browserSupport-center-footer">
                 <div>
                     <img src="../../images/Safari.png" alt="Safari">
                     <p v-language:inner="'browserSupport_supported_safari'"></p>

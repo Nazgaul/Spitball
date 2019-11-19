@@ -35,11 +35,11 @@
                         v-model="moreTutors" off-icon="sbf-check-box-un" 
                         on-icon="sbf-check-box-done"/>
     </v-form>
-        <div class="tutorRequest-bottom" :class="{'mt-4': !getCurrTutor}">
-            <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed round>
+        <div class="tutorRequest-bottom" :class="{'mt-6': !getCurrTutor}">
+            <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed rounded>
             <span v-language:inner="'tutorRequest_cancel'"/>
             </v-btn>
-            <v-btn :loading="isLoading" class="tutorRequest-btn-next" depressed round 
+            <v-btn :loading="isLoading" class="tutorRequest-btn-next" depressed rounded 
                 @click="!isLoggedIn? next() : sumbit()" color="#4452fc" >
 
             <span v-if="!isLoggedIn" v-language:inner="'tutorRequest_next'"/> 

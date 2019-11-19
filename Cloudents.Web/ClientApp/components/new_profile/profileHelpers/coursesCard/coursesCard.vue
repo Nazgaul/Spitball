@@ -5,12 +5,12 @@
                     <v-layout>
                         <v-flex xs11 sm11  grow>
                             <div>
-                                <div v-show="isTutorProfile" class="courses-title  subheading font-weight-bold mb-4" v-language:inner>profile_courses_can_help</div>
-                                <div v-show="!isTutorProfile" class="courses-title  subheading font-weight-bold mb-4" v-language:inner>profile_courses_empty_state_title</div>
+                                <div v-show="isTutorProfile" class="courses-title  subtitle-1 font-weight-bold mb-4" v-language:inner>profile_courses_can_help</div>
+                                <div v-show="!isTutorProfile" class="courses-title  subtitle-1 font-weight-bold mb-4" v-language:inner>profile_courses_empty_state_title</div>
                             </div>
                         </v-flex>
                         <v-flex class="text-xs-right">
-                            <v-icon @click="openSetClasses()" v-if="isMyProfile" class="subheading pr-2 edit-icon">sbf-edit-icon</v-icon>
+                            <v-icon @click="openSetClasses()" v-if="isMyProfile" class="subtitle-1 pr-2 edit-icon">sbf-edit-icon</v-icon>
                         </v-flex>
                     </v-layout>
                     <v-layout row wrap >

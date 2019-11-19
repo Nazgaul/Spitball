@@ -116,10 +116,10 @@
                 </div>
               </div>
               <div class="purchase-actions">
-                <v-btn flat class="cancel" @click.native="updatePurchaseConfirmation(false)">
+                <v-btn text class="cancel" @click.native="updatePurchaseConfirmation(false)">
                   <span v-language:inner>preview_cancel</span>
                 </v-btn>
-                <v-btn round class="submit-purchase" @click.native="unlockDocument">
+                <v-btn rounded class="submit-purchase" @click.native="unlockDocument">
                   <span class="hidden-xs-only" v-language:inner>preview_buy_btn</span>
                   <span
                     class="hidden-sm-and-up text-uppercase"
@@ -133,7 +133,7 @@
       </div>
     </v-layout>
     <div class="document-wrap">
-      <div class="text-xs-center" v-if="!videoLoader">
+      <div class="text-center" v-if="!videoLoader">
         <img :style="{'width': `${dynamicWidthAndHeight.width}px`, 'height': `${dynamicWidthAndHeight.height}px`}" :src="require('./doc-preview-animation.gif')" alt="Photo" :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}">
         <!-- <v-progress-circular v-if="isVideo" :style="{'width': `${dynamicWidthAndHeight.width}px`}"
             :class="{'video_placeholder': $vuetify.breakpoint.smAndDown}"
@@ -144,7 +144,7 @@
       </div>
       
       <template  v-if="isVideo && videoSrc">
-        <div style="margin: 0 auto;background:black" class="text-xs-center main-header-wrapper mb-4">
+        <div style="margin: 0 auto;background:black" class="text-center main-header-wrapper mb-4">
           <sbVideoPlayer 
               @videoEnded="showAfterVideo = true"
               :id="`${document.details.id}`"
@@ -158,7 +158,7 @@
           />
         </div>
           <div class="docPreviewCarousel mb-4" v-if="$vuetify.breakpoint.smAndDown && getTutorList.length">
-            <h3 class="subtitle-1 mb-4 text-xs-center" v-language:inner="'resultTutor_title'"/>
+            <h3 class="subtitle-1 mb-4 text-center" v-language:inner="'resultTutor_title'"/>
             <sbCarousel class="carouselDocPreview" @select="enterTutorCard" 
                         :arrows="false"
                         :gap="20">
@@ -168,7 +168,7 @@
       </template>
       
       <div v-else>
-        <div class="text-xs-center" v-for="(page, index) in docPreview" :key="index">
+        <div class="text-center" v-for="(page, index) in docPreview" :key="index">
           <v-lazy-image 
             v-if="page"
             :style="`height:${dynamicWidthAndHeight.height}px; width:${dynamicWidthAndHeight.width}px`"
@@ -193,13 +193,13 @@
         v-if="isShowPurchased || !accountUser"
       >
         <div class="inner">
-          <p class="text-xs-center hidden-sm-and-down" v-language:inner="unlockDocDictionary"/>
+          <p class="text-center hidden-sm-and-down" v-language:inner="unlockDocDictionary"/>
           <div class="aside-top-btn align-center" v-if="!isLoading && accountUser" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)">
-            <span class="font-weight-bold text-xs-center disabled" v-if="isPrice" >{{docPrice | currencyLocalyFilter}}</span>
-            <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"/>
+            <span class="font-weight-bold text-center disabled" v-if="isPrice" >{{docPrice | currencyLocalyFilter}}</span>
+            <span class="white--text pa-3 font-weight-bold text-center" v-language:inner="'documentPage_unlock_btn'"/>
           </div>
           <div class="aside-top-btn-not align-center" v-if="!isLoading && !accountUser" @click="updateLoginDialogState(true)">
-            <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"/>
+            <span class="white--text pa-3 font-weight-bold text-center" v-language:inner="'documentPage_unlock_btn'"/>
           </div>
           <v-progress-circular
             class="unlock_progress"

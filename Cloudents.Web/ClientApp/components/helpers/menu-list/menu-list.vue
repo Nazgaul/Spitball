@@ -42,7 +42,7 @@
           <v-icon>{{singleLang.icon}}</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title class="subheading">{{singleLang.title}}</v-list-item-title>
+          <v-list-item-title class="subtitle-1">{{singleLang.title}}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <!-- end language swith-->
@@ -51,7 +51,7 @@
           <v-icon>{{link.icon}}</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <a :href="link.url" class="v-list__tile__title subheading">{{link.title}}</a>
+          <a :href="link.url" class="v-list__tile__title subtitle-1">{{link.title}}</a>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -71,7 +71,7 @@
           <v-icon>sbf-wallet</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title class="subheading" v-language:inner>menuList_my_wallet</v-list-item-title>
+          <v-list-item-title class="subtitle-1" v-language:inner>menuList_my_wallet</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item :to="{name:'profile',params:{id:accountUser.id,name:accountUser.name}}" sel="menu_row">
@@ -79,7 +79,7 @@
           <v-icon>sbf-user</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title class="subheading" v-language:inner>menuList_my_profile</v-list-item-title>
+          <v-list-item-title class="subtitle-1" v-language:inner>menuList_my_profile</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item
@@ -91,7 +91,7 @@
           <v-icon>sbf-university</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title class="subheading" v-language:inner>menuList_changeUniversity</v-list-item-title>
+          <v-list-item-title class="subtitle-1" v-language:inner>menuList_changeUniversity</v-list-item-title>
         </v-list-item-content>
         <v-list-item-action>
           <span class="edit-text">
@@ -107,7 +107,7 @@
           <v-icon>sbf-classes</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title class="subheading" v-language:inner>menuList_changeCourse</v-list-item-title>
+          <v-list-item-title class="subtitle-1" v-language:inner>menuList_changeCourse</v-list-item-title>
         </v-list-item-content>
         <v-list-item-action>
           <span class="edit-text">
@@ -126,7 +126,7 @@
           <v-icon>sbf-studyroom-icon</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title class="subheading" v-language:inner>menuList_my_study_rooms</v-list-item-title>
+          <v-list-item-title class="subtitle-1" v-language:inner>menuList_my_study_rooms</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       
@@ -141,7 +141,7 @@
             <v-icon>{{singleLang.icon}}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title class="subheading">{{singleLang.title}}</v-list-item-title>
+            <v-list-item-title class="subtitle-1">{{singleLang.title}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -151,7 +151,7 @@
           <v-icon>sbf-feedbackNew</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title class="subheading" v-language:inner>menuList_feedback</v-list-item-title>
+          <v-list-item-title class="subtitle-1" v-language:inner>menuList_feedback</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -160,7 +160,7 @@
           <v-icon>sbf-logout</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title class="subheading" v-language:inner>menuList_logout</v-list-item-title>
+          <v-list-item-title class="subtitle-1" v-language:inner>menuList_logout</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-divider class="my-3"></v-divider>
@@ -169,7 +169,7 @@
           <v-icon>sbf-user</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title class="subheading" v-language:inner>menuList_referral_spitball</v-list-item-title>
+          <v-list-item-title class="subtitle-1" v-language:inner>menuList_referral_spitball</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -178,7 +178,7 @@
           <v-icon>{{link.icon}}</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <a :href="link.url" class="v-list__tile__title subheading">{{link.title}}</a>
+          <a :href="link.url" class="v-list__tile__title subtitle-1">{{link.title}}</a>
         </v-list-item-content>
       </v-list-item>
     </v-list>

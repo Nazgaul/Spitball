@@ -12,7 +12,7 @@
               :borderRadius="4"
             />
             <div class="top-card-wrap">
-                <h3 class="subheading font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+                <h3 class="subtitle-1 font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
                 <template>
                     <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
@@ -31,7 +31,7 @@
                     <v-layout column align-center class="user-rates">
                         <div v-if="isReviews" :class="{'mr-4': !isReviews}">
                             <userRating :size="'15'" class="rating-holder" :rating="tutorData.rating" :showRateNumber="false" color="#ffca54"/>
-                            <div class="caption text-xs-center reviews" v-html="$Ph(tutorData.reviews === 1 ? `resultTutor_review_one` : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>        
+                            <div class="caption text-center reviews" v-html="$Ph(tutorData.reviews === 1 ? `resultTutor_review_one` : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>        
                         </div>
                         <div v-else class="no-reviews">
                             <star class="rating-holder" />
@@ -60,7 +60,7 @@
         <v-layout class="tutor-bio mb-2">{{tutorData.bio}}</v-layout>
 
         <v-layout row class="btn-footer ab-cardB">
-            <div class="send-msg text-xs-center text-truncate" :class="{'no-uploader': !uploader}">
+            <div class="send-msg text-center text-truncate" :class="{'no-uploader': !uploader}">
                 <v-btn 
                     rounded
                     small 
@@ -73,7 +73,7 @@
                 </v-btn>
             </div>
             
-            <div class="more-documents text-xs-center text-truncate card-transform" v-if="uploader">
+            <div class="more-documents text-center text-truncate card-transform" v-if="uploader">
                 <v-btn @click.stop.prevent="goMoreDocs" rounded small color="#5158af" depressed class="caption py-3 px-2" v-language:inner="'resultTutor_btn_more_doc'"></v-btn>
             </div>
         </v-layout>

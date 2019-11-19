@@ -1,7 +1,7 @@
 <template>
     <v-container class="new-baller-container">
         <v-layout align-center justify-center class="new-baller-header">
-                            <span class="new-baller-title d-flex text-xs-center"
+                            <span class="new-baller-title d-flex text-center"
                                   v-language:inner>newBaller_title
                             </span>
 

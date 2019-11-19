@@ -39,7 +39,7 @@
               <v-btn
                 :color="!isEventSent? 'white':'#4452fc'" 
                 @click="closeDialog" 
-                depressed round 
+                depressed rounded 
                 :class="[!isEventSent? 'cncl-btn': 'donebtn']">
                 <span v-language:inner="!isEventSent? 'calendar_add_event_cancel':'calendar_add_event_ok'"/>
               </v-btn>
@@ -47,7 +47,7 @@
               <v-btn v-if="!isEventSent"
                   @click="isNeedPayment? goPayment() : insertNewEvent()" 
                   :loading="isLoading" 
-                  depressed round 
+                  depressed rounded 
                   color="#4452fc" 
                   class="calbtn">
                 <span v-language:inner="isNeedPayment? 'calendar_add_event_ok' :'calendar_add_event_btn'"/>

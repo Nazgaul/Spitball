@@ -40,16 +40,16 @@
                 </div>
                 
                 <v-layout class="question-add-button-container pt-4 pb-3" :class="{'question-mobile': $vuetify.breakpoint.xsOnly}" align-center justify-center column>
-                    <v-flex xs12 class="text-xs-center">
+                    <v-flex xs12 class="text-center">
                         <v-btn 
                             class="question-add-button font-weight-bold px-3 button_cancel" 
-                            flat 
+                            text 
                             @click="closeAddQuestionDialog">
                                 <span v-language:inner="'addQuestion_cancel_button'"></span>
                         </v-btn>
                         <v-btn 
                             :loading="btnQuestionLoading"
-                            flat
+                            text
                             class="question-add-button font-weight-bold px-3"
                             @click="submitQuestion">
                                 <span v-language:inner="'addQuestion_add_button'"></span>

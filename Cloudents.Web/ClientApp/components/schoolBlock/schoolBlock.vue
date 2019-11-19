@@ -7,28 +7,42 @@
                          :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
       <router-link event :to="{name:'studyRooms'}" @click.native.prevent="openStudyRooms()">
         <v-list>
-          <v-list-item class="group-header search-university-title pl-1"
-                      :class="{'active': inStudyRoomLobby}">
-            <v-list-item-action>
-              <v-icon>sbf-studyroom-icon</v-icon>
-            </v-list-item-action>
-            <v-list-item-title v-text="dictionary.myStudyRooms" class="pl-1"></v-list-item-title>
+          <v-list-item class="group-header search-university-title pl-1 body-2" :class="{'active': inStudyRoomLobby}">
+            <!-- <v-list-item-action> -->
+              <v-list-item-icon>
+                <v-icon>sbf-studyroom-icon</v-icon>
+              </v-list-item-icon>
+            <!-- </v-list-item-action> -->
+            <v-list-item-content>
+              <v-list-item-title v-text="dictionary.myStudyRooms" class="pl-1"></v-list-item-title>
+            </v-list-item-content>
           </v-list-item>
         </v-list>
       </router-link>
-      <v-list class="class-list">
-        <v-list-item class="group-header cursor-pointer" :class="{'active': !selectedCourse && !inStudyRoomLobby}">
-          <v-list-item-action class="ml-1 mr-1">
-            <v-icon>sbf-courses-icon</v-icon>
-          </v-list-item-action>
-          <v-list-item-title @click="accountUser ? selectCourse(null, true) : openPersonalizeCourse()"
-                             v-text="accountUser ? dictionary.allCourses : dictionary.addcourses"></v-list-item-title>
-          <router-link event :to="{name: 'editCourse'}" @click.native.prevent="openPersonalizeCourse()">
-            <v-list-item-action class="edit-course px-3">
-              <v-icon>sbf-close</v-icon>
-            </v-list-item-action>
-          </router-link>
 
+
+      <v-list class="class-list">
+        <v-list-item link class="group-header cursor-pointer" :class="{'active': !selectedCourse && !inStudyRoomLobby}">
+          <v-list-item-icon class="ml-1 mr-1">
+            <v-icon>sbf-courses-icon</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title @click="accountUser ? selectCourse(null, true) : openPersonalizeCourse()" v-text="accountUser ? dictionary.allCourses : dictionary.addcourses"></v-list-item-title>
+          </v-list-item-content>
+
+          <!-- <v-list-item-action class="ml-1 mr-1">
+            <v-icon>sbf-courses-icon</v-icon>
+          </v-list-item-action> -->
+
+          <!-- <v-list-item-title @click="accountUser ? selectCourse(null, true) : openPersonalizeCourse()"
+                             v-text="accountUser ? dictionary.allCourses : dictionary.addcourses">
+          </v-list-item-title> -->
+
+          <router-link event :to="{name: 'editCourse'}" @click.native.prevent="openPersonalizeCourse()">
+            <v-list-item-icon class="edit-course px-3">
+              <v-icon>sbf-close</v-icon>
+            </v-list-item-icon>
+          </router-link>
         </v-list-item>
         <v-list-item
           class="group-items"
@@ -36,11 +50,17 @@
           v-for="(item, i) in selectedClasses"
           :class="{'active': item.text ? item.text.toLowerCase() === selectedCourse.toLowerCase() : item === selectedCourse}"
           :key="i"
+          link
           event
           @click.native.prevent="selectCourse(item)">
-          <v-list-item-title v-text="item.text ? item.text : item" class="pad-left"></v-list-item-title>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.text ? item.text : item" class="pad-left"></v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
+
       </v-list>
+
+
     </v-navigation-drawer>
 </template>
 

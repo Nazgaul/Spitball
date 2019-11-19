@@ -16,7 +16,7 @@
 				name="email" type="email"/>
         <v-btn  :loading="isEmailLoading"
                 type="submit"
-                large round 
+                large rounded 
                 class="white--text btn-login">
                 <span v-language:inner="'loginRegister_forgot_btn'"></span>
                 </v-btn>

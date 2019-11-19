@@ -1,0 +1,16 @@
+﻿using Cloudents.Core.DTOs;
+<<<<<<< HEAD
+using System;
+using System.Collections.Generic;
+using System.Text;
+=======
+using System.Collections.Generic;
+>>>>>>> origin/develop
+
+namespace Cloudents.Core.Interfaces
+{
+    public interface IFeedSort
+    {
+        IEnumerable<FeedDto> SortFeed(IList<FeedDto> itemsFeed, IList<TutorCardDto> tutorsFeed, int page);
+    }
+}

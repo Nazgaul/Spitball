@@ -46,10 +46,10 @@
     </v-form>
 
         <div class="tutorRequest-bottom">
-        <v-btn @click="goBack" class="tutorRequest-btn-back" color="white" depressed round>
+        <v-btn @click="goBack" class="tutorRequest-btn-back" color="white" depressed rounded>
             <span v-language:inner="'tutorRequest_back'"/>
         </v-btn>
-        <v-btn :loading="isLoading" @click="submit(!isAuthUser)" class="tutorRequest-btn-next" depressed round color="#4452fc" >
+        <v-btn :loading="isLoading" @click="submit(!isAuthUser)" class="tutorRequest-btn-next" depressed rounded color="#4452fc" >
             <span v-language:inner="'tutorRequest_send'"/>
         </v-btn>
         </div>

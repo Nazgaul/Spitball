@@ -6,7 +6,7 @@
                     <div class="rank-date-container">
                         <user-avatar class="mr-1" size="34" :userImageUrl="cardData.user.image" :user-name="cardData.user.name" :user-id="cardData.user.id"/>
                         <div class="user-question">
-                            <div class="user-question-name text-truncate">{{cardData.user.name}}</div>
+                            <div class="user-question-name body-2 text-truncate">{{cardData.user.name}}</div>
                             <div class="user-question-date">{{uploadDate}}</div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div class="question-body-container" :class="{'ml-5': !$vuetify.breakpoint.xsOnly}">
+            <div class="question-body-container" :class="{'ml-12': !$vuetify.breakpoint.xsOnly}">
                 <div class="question-right-body-container">
                     <!-- <v-layout align-center justify-start class="question-body-header-container">
                         <div class="question-subject">{{cardData.course}}</div>
@@ -41,10 +41,10 @@
                         </div>
                     </v-layout> -->
                     <div class="question-body-content-container mt-2 mb-1" :class="{'question-ellipsis': $route.name === 'feed'}">
-                        <div class="question-text">{{cardData.text}}</div>
+                        <div class="question-text body-2">{{cardData.text}}</div>
                     </div>
                     <div class="question-body-course-container" :class="[answers ? 'mb-3' : 'mb-0']">
-                        <div class="question-body-course text-truncate" v-html="$Ph('resultNote_course',[cardData.course])"></div>
+                        <div class="question-body-course body-2 text-truncate" v-html="$Ph('resultNote_course',[cardData.course])"></div>
                         <!-- <div class="mr-1" v-language:inner="'resultTutor_courses'"></div> -->
                         <!-- <div class="question-subject text-truncate">{{cardData.course}}</div> -->
                     </div>
@@ -69,24 +69,24 @@
                     <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
                 </v-dialog>
             </div>
-            <div class="question-footer-container" :class="{'ml-5': !$vuetify.breakpoint.xsOnly}">
+            <div class="question-footer-container" :class="{'ml-12': !$vuetify.breakpoint.xsOnly}">
                 <div class="answer-display-container">
                     <div class="user_answer_wrap" v-if="answers">
                         <div class="user_answer_body mb-1">
                             <div class="d-flex mb-2 user_answer_aligment">
                                 <user-avatar
-                                    class="avatar-area" 
+                                    class="avatar-area"
                                     :user-name="answers.user.name"
                                     :userImageUrl="answers.user.image"
                                     :user-id="answers.user.id"
                                 />
                                 <div class="user_answer_info">
-                                    <div class="user_answer_info_name text-truncate">{{answers.user.name}}</div>
+                                    <div class="user_answer_info_name body-2 text-truncate">{{answers.user.name}}</div>
                                     <div class="user_answer_info_date text-truncate">{{uploadDateAnswer}}</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="user_answer">{{answers.text}}</div>
+                        <div class="user_answer body-2">{{answers.text}}</div>
                     </div>
                     <div v-if="cardData.answers > 1" class="more-answers" v-html="$Ph(moreAnswersDictionary, answersCount -1)"></div>
                     <div v-else class="mt-3"></div>
@@ -99,7 +99,7 @@
                     </div>
                 </div> -->
             </div>
-            <div v-if="!hideAnswerInput" class="question-bottom-section" :class="[{'mx-5': !$vuetify.breakpoint.xsOnly}, answersCount > 1 ? 'mt-0' : 'mt-4']">
+            <div v-if="!hideAnswerInput" class="question-bottom-section" :class="[{'mx-12': !$vuetify.breakpoint.xsOnly}, answersCount > 1 ? 'mt-0' : 'mt-6']">
                 <div class="question-input-container d-flex">
                     <user-avatar class="avatar-area mr-2" :user-name="accountUser.name" :userImageUrl="accountUser.image" :user-id="accountUser.id" v-if="accountUser" />
                     <user-avatar class="avatar-area mr-2" :user-name="'JD'" :userImageUrl="''" v-else />

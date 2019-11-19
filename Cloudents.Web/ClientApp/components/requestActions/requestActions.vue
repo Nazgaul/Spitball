@@ -9,11 +9,11 @@
                         :user-id="userID"></userAvatar>
             </v-flex>
             <v-flex xs10 sm11  grow class="text-xs-left" :class="[$vuetify.breakpoint.xsOnly ? 'ml-2 pl-1' : '']">
-                <span class="subheading font-weight-bold request-box-title" v-language:inner>requestActions_title
+                <span class="subtitle-1 font-weight-bold request-box-title" v-language:inner>requestActions_title
                 </span>
             </v-flex>
         </v-layout>
-        <v-layout align-space-between class="pt-3 pb-3 buttons-layout text-xs-center" justify-space-between>
+        <v-layout align-space-between class="pt-3 pb-3 buttons-layout text-center" justify-space-between>
             <v-flex sm4 class="btn-wrap" shrink>
                 <v-btn rounded class="light-btn elevation-0 ma-0" @click="openAskQuestion()">
                     <v-icon class="light-btn-icon  mr-2">sbf-message-icon-new</v-icon>

@@ -18,7 +18,7 @@
                 </v-flex>
                 <v-flex xs12   class="mb-4">
                     <div>
-                        <span class="text-xs-center ref-subtitle"
+                        <span class="text-center ref-subtitle"
                               v-html="text.dialog.subTitle"></span>
                     </div>
                 </v-flex>

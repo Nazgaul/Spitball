@@ -44,12 +44,12 @@
         </v-layout>
         <v-layout  align-center class="px-3" :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between ' : 'justify-end']">
             <v-flex xs5 sm2  >
-                <v-btn class="shallow-blue ml-0" round outline primary @click="closeDialog">
+                <v-btn class="shallow-blue ml-0" rounded outline primary @click="closeDialog">
                     <span v-language:inner>profile_btn_cancel</span>
                 </v-btn>
             </v-flex>
             <v-flex xs5 sm2  :class="{'mr-3': $vuetify.breakpoint.smAndUp}">
-                <v-btn class="blue-btn  ml-0" round @click="saveChanges()" :loading="btnLoading">
+                <v-btn class="blue-btn  ml-0" rounded @click="saveChanges()" :loading="btnLoading">
                     <span v-language:inner>profile_btn_save_changes</span>
                 </v-btn>
             </v-flex>

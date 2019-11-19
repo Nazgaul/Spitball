@@ -10,7 +10,7 @@
                 </div>
             </bdi>
             <v-btn class="redeem-btn"
-                   flat
+                   text
                    value="Redeem"
                    :loading="loading"
                    :disabled="!available"

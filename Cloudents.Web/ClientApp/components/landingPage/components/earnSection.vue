@@ -3,7 +3,7 @@
         <div class="earnImg">
             <div class="earn-title" v-language:inner="'homePage_earn_title'"/>
             <div class="earn-subtitle" v-language:inner="'homePage_earn_subtitle'"/>
-            <v-btn tag="a" href="https://help.spitball.co/en/article/making-your-profile" depressed class="btn-earn" round color="#4c59ff">
+            <v-btn tag="a" href="https://help.spitball.co/en/article/making-your-profile" depressed class="btn-earn" rounded color="#4c59ff">
                 <span v-language:inner="'homePage_btn_earn'"/>
             </v-btn>
         </div>
