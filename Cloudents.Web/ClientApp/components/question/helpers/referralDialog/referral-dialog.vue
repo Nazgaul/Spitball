@@ -6,7 +6,7 @@
                 <v-icon>sbf-close</v-icon>
             </button>
             <v-layout column v-show="!isUploadReferral">
-                <v-flex xs12   class="mb-3">
+                <v-flex xs12   class="mb-4">
                     <div v-show="getSchoolName">
                         <span class="ref-title" v-html="text.dialog.title">
                         </span>
@@ -43,7 +43,7 @@
                         <span class="share-text" v-language:inner>referralDialog_share_whatsup</span>
                     </span>
                 </div>
-                <div class="input-container mb-3">
+                <div class="input-container mb-4">
                     <div class="link-container">
                         <sb-input v-if="!isMultiple" id="sb_referralLink" class="referral-input" :disabled="true"
                                   v-model="userReferralLink"

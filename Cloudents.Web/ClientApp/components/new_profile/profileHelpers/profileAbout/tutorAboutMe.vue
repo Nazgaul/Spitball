@@ -15,7 +15,7 @@
                         </v-flex>
                         <v-flex class="read-more-action mt-2 " v-if="readMoreVisible">
                             <v-divider style="widabout-textth: 100%; height: 2px;"></v-divider>
-                            <a class="read-more-text pt-3 pb-1" @click="isOpen = !isOpen">
+                            <a class="read-more-text pt-4 pb-1" @click="isOpen = !isOpen">
                                 <span v-show="!isOpen" v-language:inner>profile_read_more</span>
                                 <span v-show="isOpen" v-language:inner>profile_expand_less</span>
                             </a>

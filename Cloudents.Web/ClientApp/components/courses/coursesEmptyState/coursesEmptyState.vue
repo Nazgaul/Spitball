@@ -23,7 +23,7 @@
             <v-flex xs12  class="text-center mb-2">
                 <span class="text-small" v-language:inner>courses_out_of</span>
             </v-flex>
-            <v-flex xs12  class="text-center mt-3">
+            <v-flex xs12  class="text-center mt-4">
                 <img src="../images/courses-empty-image.png" alt="Empty courses">
             </v-flex>
         </v-layout>

@@ -1,5 +1,5 @@
 <template>
-    <v-flex :class="['result-cell', $vuetify.breakpoint.smAndUp ? 'mb-3': '', 'ask-action-card', 'xs-12', isFloatingBtn ? 'floatingcard' : 'regularCard']">
+    <v-flex :class="['result-cell', $vuetify.breakpoint.smAndUp ? 'mb-4': '', 'ask-action-card', 'xs-12', isFloatingBtn ? 'floatingcard' : 'regularCard']">
         <a class="mb-5 ask-link">
             <div :class="['ask-wrap', isFloatingBtn ? 'floating-ask' : '']">
                 <div class="static-center">

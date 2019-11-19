@@ -38,7 +38,7 @@
                     <a
                             :href="extensionLink"
                             target="_blank"
-                            class="btn px-3 py-2 mr-3"
+                            class="btn px-3 py-2 mr-4"
                             @click="dialog = false"
                     >
                         <span v-language:inner="'tutor_chrome_ext_btn_install'"></span>

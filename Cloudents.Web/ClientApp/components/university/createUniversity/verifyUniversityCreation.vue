@@ -1,6 +1,6 @@
 <template>
     <v-card class="verify-creation-wrap">
-        <v-layout class="close-toolbar pl-4 pr-3" style="width:100%;" align-center justify-end>
+        <v-layout class="close-toolbar pl-4 pr-4" style="width:100%;" align-center justify-end>
             <v-flex shrink class="mr-2">
                 <v-icon class="subtitle-1 course-close-icon" @click="closeDialog()" >sbf-close</v-icon>
             </v-flex>

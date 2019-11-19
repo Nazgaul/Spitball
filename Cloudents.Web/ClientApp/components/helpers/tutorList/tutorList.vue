@@ -1,5 +1,5 @@
 <template>
-    <v-layout column wrap align-center v-if="tutorList.length >= 1" class="tutor-list-wrap px-2" :class="{'px-0 mx-2 mt-3': $vuetify.breakpoint.xsOnly}">
+    <v-layout column wrap align-center v-if="tutorList.length >= 1" class="tutor-list-wrap px-2" :class="{'px-0 mx-2 mt-4': $vuetify.breakpoint.xsOnly}">
         <v-flex class="title-holder">
             <span @click="goToTutor()" class="subtitle-1 font-weight-bold tutors-title" v-language:inner="'tutorList_title'"></span>
         </v-flex>

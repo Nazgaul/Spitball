@@ -1,5 +1,5 @@
 <template>
-        <v-layout class="courses-section mt-3" >
+        <v-layout class="courses-section mt-4" >
             <v-flex xs12>
                 <v-card class="px-4 py-4 courses-card-wrap">
                     <v-layout>

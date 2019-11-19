@@ -1,7 +1,7 @@
 <template>
     <v-card class="course-created-wrap pt-4">
 
-            <v-layout class="close-toolbar"  :class="[$vuetify.breakpoint.xsOnly ? 'column align-center pb-4 mx-3 shrink': 'row mx-4 pb-3']">
+            <v-layout class="close-toolbar"  :class="[$vuetify.breakpoint.xsOnly ? 'column align-center pb-4 mx-3 shrink': 'row mx-4 pb-4']">
                 <v-flex xs12 sm1  order-xs2 order-sm1  class="mr-2" :class="{'mb-4 mr-0': $vuetify.breakpoint.xsOnly}">
                     <v-icon class="check-icon">sbf-check-circle</v-icon>
                 </v-flex>
@@ -28,7 +28,7 @@
                 <!-- <span class="small-text" v-language:inner>courses_sub_title_invite</span> -->
             </v-flex>
         </v-layout>
-        <v-layout align-center justify-center class="mt-4 mb-3" column :class="{'shrink mt-5 pt-2': $vuetify.breakpoint.xsOnly}">
+        <v-layout align-center justify-center class="mt-4 mb-4" column :class="{'shrink mt-5 pt-2': $vuetify.breakpoint.xsOnly}">
             <v-flex xs6  sm12 class="text-center pb-2">
                 <button @click="copyClassLink()" class="min-width solid d-flex align-center justify-center">
                     <v-icon class="pr-0" color="white" transition="fade-transition"

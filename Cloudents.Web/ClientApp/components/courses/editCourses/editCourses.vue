@@ -1,7 +1,7 @@
 <template>
     <div class="courses-list-wrap">
         <div v-if="!isEmpty">
-            <v-layout row class="py-4 pl-4 pr-3" align-center justify-center>
+            <v-layout row class="py-4 pl-4 pr-4" align-center justify-center>
                 <v-flex grow>
                     <div class="d-inline-flex justify-center shrink">
                         <span class="subtitle-1 font-weight-bold" v-language:inner>courses_my_courses</span>
@@ -83,7 +83,7 @@
                 </v-flex>
             </v-layout>
             <v-layout  align-center justify-center class="hidden-sm-and-up fixed-bottom-wrap elevation-2">
-                <v-flex xs12 class="text-center pt-3">
+                <v-flex xs12 class="text-center pt-4">
                     <finishBtn></finishBtn>
                 </v-flex>
             </v-layout>

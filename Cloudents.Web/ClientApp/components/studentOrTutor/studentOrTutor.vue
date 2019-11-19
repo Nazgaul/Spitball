@@ -1,7 +1,7 @@
 <template>
     <div class="student-tutor-wrap">
         <v-container align-center align-content-center justify-center>
-            <v-layout row wrap align-center justify-center class="pt-3">
+            <v-layout row wrap align-center justify-center class="pt-4">
                 <v-flex xs12   class="text-center pb-2">
                     <span class="body-2 text-black" v-language:inner>studentOrTutor_title</span>
                 </v-flex>

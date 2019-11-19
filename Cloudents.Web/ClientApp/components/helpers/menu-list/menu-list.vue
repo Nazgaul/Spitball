@@ -8,7 +8,7 @@
         v-if="isMobile"
         class="unsign"
       >
-        <template slot="text" class="mb-3">
+        <template slot="text" class="mb-4">
           <div class="menu-list-head-block">
             <div class="head-text-wrap">
               <h4 class="text--title" v-language:inner>menuList_Please</h4>

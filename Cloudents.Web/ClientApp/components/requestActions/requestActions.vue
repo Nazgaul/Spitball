@@ -1,6 +1,6 @@
 <template>
     <div class="request-box-wrap" :class="[$vuetify.breakpoint.xsOnly ? 'px-2 mx-2' : 'px-3']">
-        <v-layout align-center justify-start class="pt-3">
+        <v-layout align-center justify-start class="pt-4">
             <v-flex class="avatar-holder px-1" v-if="accountUser" >
                 <userAvatar
                         class="avatar-circle  mr-2"
@@ -13,7 +13,7 @@
                 </span>
             </v-flex>
         </v-layout>
-        <v-layout align-space-between class="pt-3 pb-3 buttons-layout text-center" justify-space-between>
+        <v-layout align-space-between class="pt-4 pb-4 buttons-layout text-center" justify-space-between>
             <v-flex sm4 class="btn-wrap" shrink>
                 <v-btn rounded class="light-btn elevation-0 ma-0" @click="openAskQuestion()">
                     <v-icon class="light-btn-icon  mr-2">sbf-message-icon-new</v-icon>

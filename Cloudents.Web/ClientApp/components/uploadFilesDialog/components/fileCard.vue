@@ -1,5 +1,5 @@
 <template>
-    <v-card class="uf-sEdit-item mb-3">
+    <v-card class="uf-sEdit-item mb-4">
         <v-icon v-if="!isLastItem" class="uf-sEdit-close" v-html="'sbf-close'" @click="deleteFile()"/>
         <v-layout row wrap pb-1 px-3>
             <v-layout row wrap justify-space-between>   

@@ -1,6 +1,6 @@
 <template>
     <v-card class="creation-wrap">
-        <v-layout class="close-toolbar limit-height pl-4 pr-3" style="width:100%;" align-center justify-end>
+        <v-layout class="close-toolbar limit-height pl-4 pr-4" style="width:100%;" align-center justify-end>
             <v-flex grow>
                 <span class="font-weight-bold dialog-heading" v-language:inner>courses_new_title</span>
             </v-flex>

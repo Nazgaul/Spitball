@@ -1,7 +1,7 @@
 <template>
-    <v-card class="user-edit-wrap pb-3">
+    <v-card class="user-edit-wrap pb-4">
         <v-form v-model="validUserForm" ref="formUser" @submit.prevent>
-        <v-layout class="header pa-3 mb-3">
+        <v-layout class="header pa-4 mb-4">
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
                 <span v-language:inner>profile_edit_user_profile_title</span>
@@ -48,7 +48,7 @@
                     <span v-language:inner>profile_btn_cancel</span>
                 </v-btn>
             </v-flex>
-            <v-flex xs5 sm2  :class="{'mr-3': $vuetify.breakpoint.smAndUp}">
+            <v-flex xs5 sm2  :class="{'mr-4': $vuetify.breakpoint.smAndUp}">
                 <v-btn class="blue-btn  ml-0" rounded @click="saveChanges()" :loading="btnLoading">
                     <span v-language:inner>profile_btn_save_changes</span>
                 </v-btn>

@@ -43,7 +43,7 @@
                 <iconChat class="chat-icon-btn" />
                 <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
-          <div class="price ml-3 align-center" >
+          <div class="price ml-4 align-center" >
               <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
               <div class="price_oneline">
                 <template>

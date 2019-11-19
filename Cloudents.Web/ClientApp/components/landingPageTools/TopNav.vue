@@ -16,7 +16,7 @@
                   >
                   </button>
                   <button
-                    class="tutor-list-header-right-signup mr-3"
+                    class="tutor-list-header-right-signup mr-4"
                     @click="$router.push('../register')"
                     v-language:inner="'tutorListLanding_topnav_btn_signup'"
                   >

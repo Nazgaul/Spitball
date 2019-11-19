@@ -38,7 +38,7 @@
                 </div>
                 <h2 class="text-center text-sm-left user-university caption text-capitalize">{{university}}</h2>
               </v-flex>
-              <div class="tutor-price tutor-price-header mr-3">
+              <div class="tutor-price tutor-price-header mr-4">
                 <div class="tutor-price-header-wrap">
                   <span class="tutor-price mx-2" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
                     {{isDiscount && tutorPrice !== 0  ? tutorDiscountPrice : tutorPrice | currencyFormat(getProfile.user.tutorData.currency)}}
@@ -46,7 +46,7 @@
                     </span>
                   </span>
                   <div v-if="isDiscount && $vuetify.breakpoint.smAndUp">
-                    <div class="tutor-price strike-through mr-3">
+                    <div class="tutor-price strike-through mr-4">
                       <span class="tutor-price" v-if="$vuetify.breakpoint.smAndUp && isTutorProfile">
                         {{tutorPrice ? tutorPrice : tutorDiscountPrice | currencyFormat(getProfile.user.tutorData.currency)}}
                         <span class="tutor-price small-text">/<span v-language:inner>profile_points_hour</span></span>
@@ -83,7 +83,7 @@
                   <span v-language:inner>profile_points_hour</span>
                 </span>
               </span>
-              <div class="tutor-price strike-through mr-3" v-if="isDiscount">
+              <div class="tutor-price strike-through mr-4" v-if="isDiscount">
                 <span class="tutor-price">
                   {{tutorPrice ? tutorPrice : tutorDiscountPrice | currencyFormat(getProfile.user.tutorData.currency)}}
                   <span class="tutor-price small-text">/<span v-language:inner>profile_points_hour</span></span>
@@ -138,7 +138,7 @@
       :content-class="'coupon-dialog'"
       :isPersistent="true"
     >
-        <v-card class="pb-3 coupon-dialog-card" :class="{'d-block': $vuetify.breakpoint.xsOnly}">
+        <v-card class="pb-4 coupon-dialog-card" :class="{'d-block': $vuetify.breakpoint.xsOnly}">
             <v-layout class="header py-4">
                 <v-flex class="text-center coupon-dialog-header" :class="{'mt-5': $vuetify.breakpoint.xsOnly}">
                     <span v-language:inner="'coupon_title'"></span>

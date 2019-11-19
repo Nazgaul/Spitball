@@ -4,11 +4,11 @@
         <!--open upload-->
         <!--<upload-files-btn class="upload-document-button" v-if="isNotes" @click="openUploaderDialog()"></upload-files-btn>-->
         <v-flex xs12 class="card-block">
-            <marketing-box class="mb-3"></marketing-box>
+            <marketing-box class="mb-4"></marketing-box>
             <!--<leaders-board ></leaders-board>-->
             <!-- <tutorList></tutorList> -->
         </v-flex>
-        <v-flex v-if="!!suggestList[name]" xs12 class="card-block mt-3">
+        <v-flex v-if="!!suggestList[name]" xs12 class="card-block mt-4">
         </v-flex>
     </v-flex>
 </template>

@@ -16,7 +16,7 @@
                         <span class="empty-text" v-language:inner>profile_courses_empty_select_courses</span>
                     </v-flex>
                 </v-layout>
-                <v-layout class="pt-3">
+                <v-layout class="pt-4">
                     <v-flex>
                         <v-btn @click="openUniInterface()"  rounded outline class="select-btn text-uppercase">
                             <span v-language:inner>profile_courses_empty_btn</span>

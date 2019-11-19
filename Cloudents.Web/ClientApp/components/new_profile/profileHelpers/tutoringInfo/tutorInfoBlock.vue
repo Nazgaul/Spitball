@@ -11,7 +11,7 @@
                         </div>
                     </div>
                 </v-flex>
-                <v-flex xs12 sm12  :class="[$vuetify.breakpoint.xsOnly ? 'mobile-btn-fixed-bottom py-0 mb-0' : 'py-4 mb-3']">
+                <v-flex xs12 sm12  :class="[$vuetify.breakpoint.xsOnly ? 'mobile-btn-fixed-bottom py-0 mb-0' : 'py-4 mb-4']">
                     <contactBtn v-if="!isMyProfile" ></contactBtn>
                 </v-flex>
                 <!-- <div class="bottom-section px-3" :class="{'mobile-view': $vuetify.breakpoint.xsOnly}" v-if="false">

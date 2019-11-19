@@ -1,6 +1,6 @@
 <template>
     <v-layout align-center justify-space-between row wrap 
-    :class="['ufItem-error','mb-3',isMobile? ' py-3':'px-3',{'pl-3':isMobile}]">
+    :class="['ufItem-error','mb-4',isMobile? ' py-3':'px-3',{'pl-4':isMobile}]">
         <v-flex xs12 sm7 class="ufItem-error-content">
             <v-icon color="white" class="mr-2 attachClass" v-html="'sbf-attachment'"/>
                 <div class="ufItem-error-txt">

@@ -4,10 +4,10 @@
             <div class="d-flex mobile-filter">
                   <askQuestionBtn :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "></askQuestionBtn>
             </div>
-            <div class="request-box mb-0" :class="[$vuetify.breakpoint.xsOnly ? 'pt-3' : '']">
+            <div class="request-box mb-0" :class="[$vuetify.breakpoint.xsOnly ? 'pt-4' : '']">
                 <request-box></request-box>
             </div>
-             <v-flex v-if="filterCondition" class="filter-container mb-3">
+             <v-flex v-if="filterCondition" class="filter-container mb-4">
             </v-flex>
             <v-snackbar class="question-toaster" @click="loadNewQuestions()" :top="true" :timeout="0" :value="showQuestionToaster">
                 <div class="text-wrap">
@@ -19,7 +19,7 @@
                     <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-2' : 'pa-0'">
                         <v-layout column>
                             <slot name="resultData" :items="items">                                
-                                <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index"
+                                <v-flex class="result-cell mb-4" xs-12 v-for="(item,index) in items" :key="index"
                                     :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                         <component 
                                             :id="index == 1 ? 'tour_vote' : ''"
@@ -31,7 +31,7 @@
                                             class="cell">
                                         </component>
                                 </v-flex>
-                                <v-flex class="suggestCard result-cell mb-3 xs-12 order-xs4">
+                                <v-flex class="suggestCard result-cell mb-4 xs-12 order-xs4">
                                     <suggest-card :name="currentSuggest" @click.native="openRequestTutor()"></suggest-card>   
                                 </v-flex>
                                 <!-- <v-flex 
@@ -40,8 +40,8 @@
                                     class="result-cell"
                                     :class="(index > 6 ? 'order-xs6' : index > 2 ? 'order-xs3' : 'order-xs2')"
                                     >
-                                    <tutor-result-card v-if="$vuetify.breakpoint.smAndUp" class="mb-3" :tutorData="tutor"></tutor-result-card>
-                                    <tutor-result-card-mobile v-else class="mb-3" :tutorData="tutor"/>
+                                    <tutor-result-card v-if="$vuetify.breakpoint.smAndUp" class="mb-4" :tutorData="tutor"></tutor-result-card>
+                                    <tutor-result-card-mobile v-else class="mb-4" :tutorData="tutor"/>
                                 </v-flex> -->
                             </slot>
                         </v-layout>

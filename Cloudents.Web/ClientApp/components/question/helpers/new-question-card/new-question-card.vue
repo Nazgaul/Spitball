@@ -43,7 +43,7 @@
                     <div class="question-body-content-container mt-2 mb-1" :class="{'question-ellipsis': $route.name === 'feed'}">
                         <div class="question-text body-2">{{cardData.text}}</div>
                     </div>
-                    <div class="question-body-course-container" :class="[answers ? 'mb-3' : 'mb-0']">
+                    <div class="question-body-course-container" :class="[answers ? 'mb-4' : 'mb-0']">
                         <div class="question-body-course body-2 text-truncate" v-html="$Ph('resultNote_course',[cardData.course])"></div>
                         <!-- <div class="mr-1" v-language:inner="'resultTutor_courses'"></div> -->
                         <!-- <div class="question-subject text-truncate">{{cardData.course}}</div> -->
@@ -89,7 +89,7 @@
                         <div class="user_answer body-2">{{answers.text}}</div>
                     </div>
                     <div v-if="cardData.answers > 1" class="more-answers" v-html="$Ph(moreAnswersDictionary, answersCount -1)"></div>
-                    <div v-else class="mt-3"></div>
+                    <div v-else class="mt-4"></div>
                 </div>
 
                 <!-- <div class="answers-info-container">

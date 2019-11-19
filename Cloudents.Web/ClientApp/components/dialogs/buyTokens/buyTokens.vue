@@ -5,7 +5,7 @@
             <v-icon @click="closeModal">sbf-close</v-icon>
         </div>
         <div class="buy-tokens-wrap">
-            <v-container pa-3 pt-4 pb-4 class="buy-tokens-top-container">
+            <v-container pa-4 pt-4 pb-4 class="buy-tokens-top-container">
                 <v-layout>
                     <v-flex text-center xs12>
                         <span class="buy-tokens-title-text" v-language:inner="'buyTokens_get_points'"></span>
@@ -16,7 +16,7 @@
                         <div class="buy-tokens-icon">
                             <v-icon>sbf-answer-icon</v-icon>
                         </div>
-                        <div class="buy-tokens-bold-text mt-3" v-language:inner="'buyTokens_answer'"></div>
+                        <div class="buy-tokens-bold-text mt-4" v-language:inner="'buyTokens_answer'"></div>
                         <div class="buy-tokens-normal-text mt-1" v-language:inner="'buyTokens_earn_answer'"></div>
                         <div class="line-buy-tokens"></div>
                     </v-flex>
@@ -25,7 +25,7 @@
                         <div class="buy-tokens-icon">
                             <v-icon>sbf-upload-icon</v-icon>
                         </div>
-                        <div class="buy-tokens-bold-text mt-3" v-language:inner="'buyTokens_upload'"></div>
+                        <div class="buy-tokens-bold-text mt-4" v-language:inner="'buyTokens_upload'"></div>
                         <div class="buy-tokens-normal-text mt-1" v-language:inner="'buyTokens_earn_upload'"></div>
                         <div class="line-buy-tokens"></div>
 
@@ -35,7 +35,7 @@
                         <div class="buy-tokens-icon">
                             <v-icon>sbf-invite-icon</v-icon>
                         </div>
-                        <div class="buy-tokens-bold-text mt-3" v-language:inner="'buyTokens_invite'"></div>
+                        <div class="buy-tokens-bold-text mt-4" v-language:inner="'buyTokens_invite'"></div>
                         <div class="buy-tokens-normal-text mt-1" v-language:inner="'buyTokens_earn_invite'"></div>
                         <div class="line-buy-tokens"></div>
 

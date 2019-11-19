@@ -1,13 +1,13 @@
 <template>
     <div class="aside-container">
         
-       <!-- <div class="aside-top mb-3" :class="[$vuetify.breakpoint.smAndDown ? 'pa-2' : 'pa-3']"> -->
+       <!-- <div class="aside-top mb-4" :class="[$vuetify.breakpoint.smAndDown ? 'pa-2' : 'pa-4']"> -->
             <v-layout justify-end>
                 <!-- <v-icon @click="goToNote" color="#43425d">sbf-spitball</v-icon> -->
                 <v-icon class="hidden-md-and-up subtitle-1" @click="closeDocument">sbf-close</v-icon>
             </v-layout>
 
-            <!-- <p class="pt-3 font-weight-bold subtitle-1" v-language:inner="'documentPage_student_learn'"></p> -->
+            <!-- <p class="pt-4 font-weight-bold subtitle-1" v-language:inner="'documentPage_student_learn'"></p> -->
             <!-- <p class="body-1 get-online" v-language:inner="'documentPage_online_tutor'"></p> -->
 
             <!-- <my-courses class="d-block mx-auto hidden-sm-and-down"></my-courses> -->
@@ -20,7 +20,7 @@
                     <span class="white--text pa-4 font-weight-bold text-center body-1" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
                 <a class="aside-top-btn index btn-download justify-center" @click="downloadDoc" :href="`${$route.path}/download`" target="_blank" :class="{'mt-2': !isShowPurchased}" v-if="!isShowPurchased && !isLoading">                    
-                    <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
+                    <v-icon color="#fff" class="pr-4">sbf-download-cloud</v-icon>
                     <span class="white--text font-weight-bold" v-language:inner="'documentPage_download_btn'"></span>
                 </a>
             </template> -->

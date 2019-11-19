@@ -33,7 +33,7 @@
                                 :rate-num-color="'#43425D'"></userRating>
                 </v-flex>
             </v-layout>
-            <v-layout v-if="reviewInputHidden" align-center justify-center class="pt-3"
+            <v-layout v-if="reviewInputHidden" align-center justify-center class="pt-4"
                       :class="{'pt-4': $vuetify.breakpoint.xsOnly}">
                 <v-flex @click="toggleReviewInput()" xs12 sm8  class="text-center  cursor-pointer">
                 <span class="mr-2">
@@ -43,7 +43,7 @@
                 </v-flex>
             </v-layout>
             <transition v-else name="fade">
-                <v-layout align-center justify-center class="pt-3 px-3">
+                <v-layout align-center justify-center class="pt-4 px-3">
                     <v-flex xs12  class="text-center">
                         <v-textarea
                                 rows="1"
@@ -57,7 +57,7 @@
                     </v-flex>
                 </v-layout>
             </transition>
-            <v-layout align-center justify-center class="pt-4 pb-3">
+            <v-layout align-center justify-center class="pt-4 pb-4">
                 <v-flex xs12 sm6  class="text-center">
                     <v-btn @click="sendReview()"
                            :loading="btnLoading"

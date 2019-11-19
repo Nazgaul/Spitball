@@ -6,7 +6,7 @@
                     <div class="cta-title mb-4 subtitle-1 font-weight-bold" v-language:inner>profile_cta_section_title
                     </div>
                 </v-flex>
-                <v-flex class="text-center  mt-3 ">
+                <v-flex class="text-center  mt-4 ">
                     <contactBtn v-if="isTutorProfile && !isMyProfile"></contactBtn>
                     <becomeTutorBtn v-else-if="!isTutorProfile && isMyProfile && !tutorPending"></becomeTutorBtn>
                 </v-flex>

@@ -22,7 +22,7 @@
       </v-flex>
       <v-flex
         xs12
-        :class="[$vuetify.breakpoint.xsOnly ? 'mobile-btn-fixed-bottom py-0 mb-0' : 'py-4 mb-3']"
+        :class="[$vuetify.breakpoint.xsOnly ? 'mobile-btn-fixed-bottom py-0 mb-0' : 'py-4 mb-4']"
       >
         <becomeTutorBtn></becomeTutorBtn>
       </v-flex>

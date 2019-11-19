@@ -1,7 +1,7 @@
 <template>
     <v-container class="tutor-landing-page-container">
-        <v-layout :class="`${isMobile ? 'pt-2 pb-5' : 'pt-1 pb-3'}`" px-4 class="tutor-landing-page-header" align-center justify-center column>
-            <v-flex pt-4 pb-3>
+        <v-layout :class="`${isMobile ? 'pt-2 pb-5' : 'pt-1 pb-4'}`" px-4 class="tutor-landing-page-header" align-center justify-center column>
+            <v-flex pt-4 pb-4>
                 <h1 v-language:inner="'tutorListLanding_header_get_lesson'"></h1>
             </v-flex>
             <v-flex pb-4>
@@ -22,7 +22,7 @@
                 @click.native="openRequestTutor()" :name="'tutor-list'"></suggest-card>  
             </v-flex>
             <v-flex class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
-                <tutor-result-card v-if="!isMobile" class="mb-3 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
+                <tutor-result-card v-if="!isMobile" class="mb-4 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
                 <tutor-result-card-mobile v-else class="mb-2 " :fromLandingPage="true" :tutorData="item"/>
             </v-flex>   
         </scroll-list>

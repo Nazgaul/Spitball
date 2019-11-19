@@ -5,7 +5,7 @@
                 <v-flex xs12 class="mb-4 span-cont">
                     <span class="sharing-text" v-language:inner="'becomeTutor_sharing_step_2'"></span>
                 </v-flex>
-                <v-flex xs12 class="mb-2" :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
+                <v-flex xs12 class="mb-2" :class="{'mt-4' : $vuetify.breakpoint.xsOnly}">
                     <v-textarea
                             :height="$vuetify.breakpoint.xsOnly? 134 :100"
                             rows="2"

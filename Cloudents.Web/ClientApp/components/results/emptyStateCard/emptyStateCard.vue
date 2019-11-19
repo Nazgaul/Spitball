@@ -1,6 +1,6 @@
 <template>
   <div class="elevation-1 mb-2 empty-state-container" xs-12>
-    <v-layout column class="pa-3 empty-state-top-layout" :class="[isRtl ? 'rtl-background' : '']">
+    <v-layout column class="pa-4 empty-state-top-layout" :class="[isRtl ? 'rtl-background' : '']">
       <v-flex>
         <div class="mb-1 user-search-text-container text-truncate" v-show="userText">
           <span v-language:inner>result_no_result_found_for</span>&nbsp;
@@ -21,7 +21,7 @@
         </v-flex>
       </v-flex>
     </v-layout>
-    <v-layout column class="pa-3 empty-state-bottom-layout" v-show="helpAction">
+    <v-layout column class="pa-4 empty-state-bottom-layout" v-show="helpAction">
       <v-flex>
         <div class="mb-1 user-search-cant-find-text">
           <span v-language:inner>result_still_cant_find</span>

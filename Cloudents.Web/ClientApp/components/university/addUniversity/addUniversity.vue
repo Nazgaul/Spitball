@@ -1,6 +1,6 @@
 <template>
     <div class="add-university-wrap">
-        <v-layout row :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2 pl-3 pr-1']" align-center
+        <v-layout row :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2 pl-4 pr-1']" align-center
                   justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
@@ -33,7 +33,7 @@
             </v-flex>
         </v-layout>
 
-        <v-layout align-center :class="[$vuetify.breakpoint.smAndUp ? 'px-2 mt-3': '']">
+        <v-layout align-center :class="[$vuetify.breakpoint.smAndUp ? 'px-2 mt-4': '']">
             <v-flex v-if="showBox">
                 <div class="university-list" id="university-list">
                     <div class="list-item subtitle-1 cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
@@ -49,7 +49,7 @@
                                 </span>
                             </v-flex>
                         </v-layout>
-                        <v-layout column class="ml-3 limit-width">
+                        <v-layout column class="ml-4 limit-width">
                             <v-flex shrink>
                                 <div v-html="$options.filters.boldText(singleUni.text, search)">
                                     {{ singleUni.text }}

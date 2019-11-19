@@ -1,7 +1,7 @@
 <template>
-    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap justify-space-between overflow-hidden ab-default-card" 
+    <router-link class="tutor-result-card-other pa-2 mb-4 row wrap justify-space-between overflow-hidden ab-default-card" 
     @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
-        <div class="mb-3 top-card justify-space-between">
+        <div class="mb-4 top-card justify-space-between">
             <user-avatar-rect 
               :userName="tutorData.name" 
               :userImageUrl="tutorData.image" 

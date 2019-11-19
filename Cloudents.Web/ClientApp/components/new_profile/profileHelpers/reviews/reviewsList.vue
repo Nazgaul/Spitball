@@ -1,6 +1,6 @@
 <template>
         <v-layout column class="reviews-container" v-if="reviews && reviews.length >0">
-            <v-flex class="mb-3">
+            <v-flex class="mb-4">
                 <span class="review-title" v-language:inner>profile_reviews</span>
             </v-flex>
             <v-flex  v-for="(singleReview, index) in reviews" :key="index"  class="single-review">

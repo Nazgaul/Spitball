@@ -3,8 +3,8 @@
     <div class="headlineSearch">
       <div class="headlineTitles">
         <h1 class="hd-title" v-language:inner="isMobile?'homePage_hd_title_mobile':'homePage_hd_title'"/>
-        <h2 :class="['hd-subtitle',isMobile?'mt-1':'mt-3']" v-language:inner="'homePage_hd_subtitle'"/>
-        <div class="hd-search mt-3">
+        <h2 :class="['hd-subtitle',isMobile?'mt-1':'mt-4']" v-language:inner="'homePage_hd_subtitle'"/>
+        <div class="hd-search mt-4">
           <div class="search-input-cont">
             <v-text-field
               class="search-input-hp"

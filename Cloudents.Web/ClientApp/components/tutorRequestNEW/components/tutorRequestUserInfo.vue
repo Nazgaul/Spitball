@@ -37,7 +37,7 @@
             </v-layout>
         <vue-recaptcha  
               size="invisible"
-              class="pb-3"
+              class="pb-4"
               :sitekey="siteKey"
               ref="recaptcha"
               @verify="onVerify"

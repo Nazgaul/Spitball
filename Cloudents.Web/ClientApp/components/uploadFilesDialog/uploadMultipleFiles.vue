@@ -4,10 +4,10 @@
         <v-card class="uf-main elevation-0">
             <v-stepper class="uf-mStepper elevation-0" v-model="currentStep" >
                 
-                <v-stepper-header :class="['uf-mHeader','elevation-0',isMobile?'pt-2' :'pl-3']">
+                <v-stepper-header :class="['uf-mHeader','elevation-0',isMobile?'pt-2' :'pl-4']">
                     <template>
                         <img v-if="!isMobile" class="uf-mImg" :src="userImage" alt="">
-                        <h2 :class="['uf-mTitle',{'ml-3':!isMobile}]" v-language:inner="'upload_uf_mTitle'"/>
+                        <h2 :class="['uf-mTitle',{'ml-4':!isMobile}]" v-language:inner="'upload_uf_mTitle'"/>
                     </template>
                 </v-stepper-header>
 
@@ -31,7 +31,7 @@
                     </v-stepper-content>
                 </v-stepper-items>
             </v-stepper>
-        <div class="uf-sEdit-bottm pb-3 pt-3" v-if="currentStep == 2">
+        <div class="uf-sEdit-bottm pb-4 pt-4" v-if="currentStep == 2">
             <v-btn :loading="loading" @click="send()" class="uf-sEdit-bottm-btn mb-2" depressed rounded color="#4452fc">
                 <span v-language:inner="'upload_uf_sEdit_bottm_btn'"/>
             </v-btn>             

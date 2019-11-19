@@ -4,7 +4,7 @@
                   justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
-                    <v-icon @click="goToEditCourses()" class="course-back-btn mr-3" :class="{'rtl': isRtl}">sbf-arrow-back
+                    <v-icon @click="goToEditCourses()" class="course-back-btn mr-4" :class="{'rtl': isRtl}">sbf-arrow-back
                     </v-icon>
                     <span class="subtitle-1 font-weight-bold" v-language:inner>courses_join</span>
                     <span class="subtitle-1 font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
@@ -37,10 +37,10 @@
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
                     <div class="class-list selected-classes-list py-3 px-3"
                          ref="listCourse">
-                        <div class="selected-class-item caption d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
+                        <div class="selected-class-item caption d-inline-flex text-truncate font-weight-bold align-center justify-center pl-4 pr-1  py-1 mr-2"
                              v-for="selectedClass in localSelectedClasses">
                             <span class="text-truncate">{{selectedClass.text}}</span>
-                            <span class="delete-class cursor-pointer pr-3"
+                            <span class="delete-class cursor-pointer pr-4"
                                   @click="deleteClass(selectedClass, selectedClasses)">
                         <v-icon color="white">sbf-close</v-icon>
                     </span>
@@ -50,7 +50,7 @@
                 </div>
             </v-flex>
         </v-layout>
-        <v-layout align-center class="mt-3 px-2" row wrap>
+        <v-layout align-center class="mt-4 px-2" row wrap>
             <v-flex v-if="!classes && !classes.length" xs12 class="text-center">
                 <div>
                     <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
@@ -60,7 +60,7 @@
                 <div class="class-list search-classes-list" id="search-classes-list">
                     <div class="list-item subtitle-1 search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
                          v-for="singleClass in classes" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
-                        <v-layout column class="pl-3 limit-width">
+                        <v-layout column class="pl-4 limit-width">
                             <v-flex shrink class="course-name-wrap">
                                 <div v-html="$options.filters.boldText(singleClass.text, search)">
                                     {{ singleClass.text }}

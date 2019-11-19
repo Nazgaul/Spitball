@@ -1,5 +1,5 @@
 <template>
-    <div class="rating-item-container pt-3 pb-2">
+    <div class="rating-item-container pt-4 pb-2">
         <v-layout align-center justify-space-between>
             <div class="image-rating-wrap">
                 <div>
@@ -8,7 +8,7 @@
                                  :userId="reviewData.id"
                                  :user-name="reviewData.name" />
                 </div>
-                <div class="user-rating ml-2 pt-3">
+                <div class="user-rating ml-2 pt-4">
                     <userRating :rating="reviewData.rate"
                                 :starColor="starRateColor"
                                 :readonly="true"
@@ -24,7 +24,7 @@
             </div>
         </v-layout>
         <v-layout class="left-padding">
-            <div class="mt-3">
+            <div class="mt-4">
                 <span class="review-text">
                     {{reviewData.reviewText}}
                 </span>

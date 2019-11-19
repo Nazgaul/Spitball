@@ -16,7 +16,7 @@
         </v-layout>
                 <v-layout v-bind="xsColumn" align-start  justify-start>
                     <v-flex xs12  sm9 :class="[isMyProfile && isTutorProfile ? '' : ''  ]">
-                        <v-flex xs12 sm12  class="mt-3  limited-760" :class="[$vuetify.breakpoint.xsOnly ? 'mb-2' : 'mb-4']">
+                        <v-flex xs12 sm12  class="mt-4  limited-760" :class="[$vuetify.breakpoint.xsOnly ? 'mb-2' : 'mb-4']">
                             <v-divider v-if="$vuetify.breakpoint.xsOnly" style="height:2px; color: rgba(163, 160, 251, 0.32);"></v-divider>
                             <v-tabs :dir="isRtl && $vuetify.breakpoint.xsOnly ? `ltr` : isRtl? 'rtl' : ''" class="tab-padding" hide-slider xs12>
                                 
@@ -97,7 +97,7 @@
                                 <!-- <router-link class="question-card-wrapper"
                                              :to="{name:'question',params:{id:questionData.id}}"
                                              v-for="(questionData,index) in profileData.questions" :key="index"> -->
-                                             <div class="mb-3"  v-for="(questionData,index) in questionDocuments" :key="index">
+                                             <div class="mb-4"  v-for="(questionData,index) in questionDocuments" :key="index">
                                     <question-card :cardData="questionData"></question-card>
                                     </div>
 
@@ -107,7 +107,7 @@
                                          :isComplete="answers.isComplete">
                                 <div 
                                              v-for="(answerData,index) in answerDocuments"
-                                             :key="index" class="mb-3">
+                                             :key="index" class="mb-4">
                                     <question-card :cardData="answerData"></question-card>
                                 </div>
                             </scroll-list>
@@ -115,8 +115,8 @@
                                          :isComplete="documents.isComplete">
                                 <div 
                                              v-for="(document ,index) in uploadedDocuments"
-                                             :key="index" class="mb-3">
-                                    <result-note :item="document" class="pa-3 "></result-note>
+                                             :key="index" class="mb-4">
+                                    <result-note :item="document" class="pa-4 "></result-note>
                                 </div>
                             </scroll-list>
                             <scroll-list v-if="activeTab === 5" :scrollFunc="loadPurchasedDocuments"
@@ -124,14 +124,14 @@
                                          :isComplete="purchasedDocuments.isComplete">
                                 <div 
                                              v-for="(document ,index) in purchasedsDocuments"
-                                             :key="index" class="mb-3">
-                                    <result-note :item="document" class="pa-3 "></result-note>
+                                             :key="index" class="mb-4">
+                                    <result-note :item="document" class="pa-4 "></result-note>
                                 </div>
                             </scroll-list>
                             <scroll-list v-if="activeTab === 6" :scrollFunc="(()=>{})"
                                          :isLoading="calendar.isLoading"
                                          :isComplete="calendar.isComplete">
-                                <div class="mb-3">
+                                <div class="mb-4">
                                     <calendarTab></calendarTab>
                                 </div>
                             </scroll-list>                            

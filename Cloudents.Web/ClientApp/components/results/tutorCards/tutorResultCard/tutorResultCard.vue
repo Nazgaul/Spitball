@@ -1,11 +1,11 @@
 <template>
-    <router-link class="tutor-result-card-desktop pa-3" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+    <router-link class="tutor-result-card-desktop pa-4" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
 
         <v-flex class="user-details">
             <user-avatar-rect 
               :userName="tutorData.name" 
               :userImageUrl="tutorData.image" 
-              class="mr-3 user-avatar-rect" 
+              class="mr-4 user-avatar-rect" 
               :userId="tutorData.userId"
               :width="148" 
               :height="182"
@@ -13,8 +13,8 @@
             />
             <div class="main-card">
                 <h3 class="font-weight-bold text-truncate body-1 mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
-                <h4 class="mb-3 body-2 font-weight-bold text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
-                <div class="user-bio-wrapper mb-3">
+                <h4 class="mb-4 body-2 font-weight-bold text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
+                <div class="user-bio-wrapper mb-4">
                   <div class="user-bio body-2">{{tutorData.bio}}</div>
                 </div>
                 <div class="study-area mb-2 text-truncate" :class="{'study-area-hidden': !isSubjects}">
@@ -208,7 +208,6 @@ export default {
       width: 0;
       flex-grow: 5;
       display: flex;
-      align-items: center;
       .main-card {
         min-width: 0;
         .university-hidden {

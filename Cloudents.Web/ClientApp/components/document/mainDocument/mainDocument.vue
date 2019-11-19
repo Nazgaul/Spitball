@@ -8,14 +8,14 @@
           :class="['arrow-back','hidden-sm-and-down',isRtl? 'arrow-back-rtl': '']"
           @click="closeDocument"
         >sbf-arrow-back-chat</v-icon>
-        <h2 class="courseName font-weight-bold text-truncate ml-3 hidden-sm-and-down">{{courseName}}</h2>
+        <h2 class="courseName font-weight-bold text-truncate ml-4 hidden-sm-and-down">{{courseName}}</h2>
         <v-spacer class="hidden-sm-and-down"></v-spacer>
-        <span v-if="docViews" class="grey-text" :class="[isSmAndDown ? 'pr-3' : 'pr-5']">
+        <span v-if="docViews" class="grey-text" :class="[isSmAndDown ? 'pr-4' : 'pr-5']">
           {{docViews}}
           <span class="" v-language:inner="docViews > 1 ? 'resultNote_views' : 'resultNote_view'"/> 
         </span>
         <v-spacer class="hidden-sm-and-up"></v-spacer>
-        <span class="grey-text date" :class="{'pl-3': isSmAndDown}">{{documentDate}}</span>
+        <span class="grey-text date" :class="{'pl-4': isSmAndDown}">{{documentDate}}</span>
 
         <v-menu
           class="menu-area"
@@ -196,10 +196,10 @@
           <p class="text-center hidden-sm-and-down" v-language:inner="unlockDocDictionary"/>
           <div class="aside-top-btn align-center" v-if="!isLoading && accountUser" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)">
             <span class="font-weight-bold text-center disabled" v-if="isPrice" >{{docPrice | currencyLocalyFilter}}</span>
-            <span class="white--text pa-3 font-weight-bold text-center" v-language:inner="'documentPage_unlock_btn'"/>
+            <span class="white--text pa-4 font-weight-bold text-center" v-language:inner="'documentPage_unlock_btn'"/>
           </div>
           <div class="aside-top-btn-not align-center" v-if="!isLoading && !accountUser" @click="updateLoginDialogState(true)">
-            <span class="white--text pa-3 font-weight-bold text-center" v-language:inner="'documentPage_unlock_btn'"/>
+            <span class="white--text pa-4 font-weight-bold text-center" v-language:inner="'documentPage_unlock_btn'"/>
           </div>
           <v-progress-circular
             class="unlock_progress"
@@ -218,7 +218,7 @@
         :class="{'mt-2': !isShowPurchased, 'v-hidden': isShowVideo && !isVideo}"
         v-if="!isShowPurchased && !isLoading && accountUser"
       >
-        <v-icon color="#fff" class="pr-3">sbf-download-cloud</v-icon>
+        <v-icon color="#fff" class="pr-4">sbf-download-cloud</v-icon>
         <span
           class="white--text py-4 font-weight-bold"
           v-language:inner="'documentPage_download_btn'"
