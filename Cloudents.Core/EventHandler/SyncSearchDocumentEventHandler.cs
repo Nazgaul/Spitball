@@ -1,10 +1,10 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs.SearchSync;
+﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Core.EventHandler
 {
@@ -27,7 +27,7 @@ namespace Cloudents.Core.EventHandler
                 Country = eventMessage.Document.University.Country.ToUpperInvariant(),
                 Course = eventMessage.Document.Course.Id.ToUpperInvariant(),
                 DateTime = eventMessage.Document.TimeStamp.UpdateTime,
-                ItemId =  eventMessage.Document.Id,
+                ItemId = eventMessage.Document.Id,
                 Name = eventMessage.Document.Name,
                 Type = eventMessage.Document.DocumentType.GetValueOrDefault()
             };

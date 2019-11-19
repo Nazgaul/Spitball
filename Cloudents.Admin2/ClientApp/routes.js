@@ -45,7 +45,7 @@ import shortUrl from './components/management/shortUrl/shortUrl.vue';
 
 import conversation from './components/conversation/conversation.vue';
 import conversations from './components/conversation/conversationComponent/conversationDetalis/conversationDetails.vue';
-import startConversations from './components/conversation/startconversation.vue'
+import startConversations from './components/conversation/startconversation.vue';
 // import conversationMessages from './components/conversation/conversationComponent/conversationMessages/conversationMessages.vue';
 
 import tutors from './components/tutor/tutor.vue';
@@ -55,7 +55,8 @@ import paymentSession from './components/tutor/paymentSession/paymentSession.vue
 import studyRoom from './components/studyRoom/studyRoom.vue';
 import studyRoomSession from './components/studyRoom/studyRoomComponents/sessions/studyRoomsSessions.vue';
 
-import leads from './components/leads/leads.vue'
+import leads from './components/leads/leads.vue';
+import coupon from './components/coupon/coupon.vue';
 
 export const routes = [
     {
@@ -339,6 +340,11 @@ export const routes = [
       path: '/leads',
       name: 'leads',
       component: leads
+    },
+    {
+      path: '/coupon',
+      name: 'coupon',
+      component: coupon
     },
     {
          path: '/*',

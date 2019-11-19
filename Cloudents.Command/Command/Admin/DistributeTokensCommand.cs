@@ -10,7 +10,7 @@
 
         public long UserId { get; }
         public decimal Price { get; }
-       
+
 
     }
 }

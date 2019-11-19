@@ -1,9 +1,4 @@
 ﻿using Cloudents.Admin2.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
@@ -11,6 +6,11 @@ using Cloudents.Core.Extension;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Admin2.Api
 {
@@ -50,7 +50,7 @@ namespace Cloudents.Admin2.Api
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Authorize(/*Roles = Roles.Admin, Policy = Policy.IsraelUser*/)]
+        [Authorize]
         public async Task<ActionResult> DeleteQuestionAsync([FromQuery(Name = "id")]IEnumerable<long> ids, CancellationToken token)
         {
             foreach (var id in ids)
@@ -66,11 +66,11 @@ namespace Cloudents.Admin2.Api
         [HttpPost("approve")]
         public async Task<ActionResult> ApproveQuestionAsync([FromBody] ApproveQuestionRequest model, CancellationToken token)
         {
-         
+
 
             var command = new ApproveQuestionCommand(model.Id);
             await _commandBus.Value.DispatchAsync(command, token);
-          
+
             return Ok();
         }
 
@@ -82,49 +82,15 @@ namespace Cloudents.Admin2.Api
         [HttpGet("Pending")]
         public async Task<IEnumerable<PendingQuestionDto>> Get(CancellationToken token)
         {
-          
+
             var query = new AdminPendingQuestionsQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 
-        //[HttpPost("upload")]
-        //public async Task<UploadAskFileResponse> UploadFileAsync([FromForm] UploadAskFileRequest model,
-        //    [FromServices] IQuestionsDirectoryBlobProvider blobProvider,
-        //    CancellationToken token)
-        //{
-        //    string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
-
-        //    var formFile = model.File;
-        //    //foreach (var formFile in model.File)
-        //    //{
-        //    if (!formFile.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
-        //    {
-        //        throw new ArgumentException("not an image");
-        //    }
-
-        //    var extension = Path.GetExtension(formFile.FileName);
-
-        //    if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
-        //    {
-        //        throw new ArgumentException("not an image");
-        //    }
-
-        //    using (var sr = formFile.OpenReadStream())
-        //    {
-        //        //Image.FromStream(sr);
-        //        var fileName = $"admin.{Guid.NewGuid()}.{formFile.FileName}";
-        //        await blobProvider
-        //            .UploadStreamAsync(fileName, sr, formFile.ContentType, TimeSpan.FromSeconds(60 * 24), token);
-
-        //        return new UploadAskFileResponse(fileName);
-        //    }
-
-        //}
-
         [HttpGet("flagged")]
         public async Task<IEnumerable<FlaggedQuestionDto>> FlagAsync(CancellationToken token)
         {
-           
+
             var query = new FlaggedQuestionQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }

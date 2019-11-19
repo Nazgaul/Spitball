@@ -1,21 +1,21 @@
 ﻿using Autofac.Extras.Moq;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Api;
 using Cloudents.Web.Extensions;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
-using Xunit;
-using Cloudents.Core.Storage;
+using Moq;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace Cloudents.Web.Test.UnitTests.Api
 {
@@ -61,10 +61,10 @@ namespace Cloudents.Web.Test.UnitTests.Api
 
                 var mockUrlHelper = new Mock<IUrlHelper>();
 
-                
+
                 mockUrlHelper.Setup(o => o.RouteUrl(It.IsAny<UrlRouteContext>())).Returns("a/mock/url/for/testing");
 
-               // mockUrlHelper.SetupGet(o => o.ActionContext.HttpContext.RequestServices.GetRequiredService<IBinarySerializer>())
+                // mockUrlHelper.SetupGet(o => o.ActionContext.HttpContext.RequestServices.GetRequiredService<IBinarySerializer>())
                 //    .Returns(new BinarySerializer(, ));
 
 
@@ -73,7 +73,7 @@ namespace Cloudents.Web.Test.UnitTests.Api
                 mock.Mock<IDocumentDirectoryBlobProvider>().Setup(o => o.GetPreviewImageLink(It.IsAny<long>(), It.IsAny<int>()))
                         .Returns(new Uri("https://spitball.co/test"));
 
-                
+
 
 
                 //mockUrlHelper.Setup(x => x.Action(

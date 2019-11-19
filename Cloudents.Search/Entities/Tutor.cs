@@ -1,10 +1,10 @@
-﻿using System;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Search.Document;
 using Cloudents.Search.Interfaces;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Newtonsoft.Json;
+using System;
 
 namespace Cloudents.Search.Entities
 {
@@ -18,11 +18,11 @@ namespace Cloudents.Search.Entities
 
         [IsSearchable]
         public string Name { get; set; }
-      
-        [IsSortable,JsonProperty(RateFieldName),IsFilterable]
+
+        [IsSortable, JsonProperty(RateFieldName), IsFilterable]
         public double Rate { get; set; }
 
-        [IsFilterable,JsonProperty(ReviewCountFieldName)]
+        [IsFilterable, JsonProperty(ReviewCountFieldName)]
         public int ReviewCount { get; set; }
 
         [IsFilterable]
@@ -42,7 +42,7 @@ namespace Cloudents.Search.Entities
         [JsonConverter(typeof(StringTypeConverter))]
         public TutorCardDto Data { get; set; }
 
-        [IsFilterable] 
+        [IsFilterable]
         public double OverAllRating { get; set; }
 
     }

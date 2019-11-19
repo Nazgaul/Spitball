@@ -12,10 +12,9 @@ namespace Cloudents.Persistence.Maps.Views
             Map(x => x.Course);
             Map(x => x.Answers);
             Map(x => x.DateTime);
-            Map(x => x.CultureInfo);
             //Map(x => x.UserId);
-            Component(x => x.User, z => 
-                { 
+            Component(x => x.User, z =>
+                {
                     z.Map(x => x.Id).Column("User_Id");
                     z.Map(x => x.Name).Column("User_Name");
                     z.Map(x => x.Score).Column("User_Score");

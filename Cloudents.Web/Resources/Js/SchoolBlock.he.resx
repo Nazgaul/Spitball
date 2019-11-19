@@ -126,9 +126,6 @@
   <data name="all_courses" xml:space="preserve">
     <value>כל הקורסים</value>
   </data>
-  <data name="information_box_latest" xml:space="preserve">
-    <value>כל הקורסים</value>
-  </data>
   <data name="my_courses" xml:space="preserve">
     <value>הקורסים שלי</value>
   </data>

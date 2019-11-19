@@ -39,7 +39,7 @@ namespace Cloudents.Query.Query.Admin
                 {
                     dbQuery = dbQuery.Where(w => w.User.Country == query.Country);
                 }
-                    
+
                 if (query.DocumentId.HasValue)
                 {
                     dbQuery = dbQuery.Where(w => w.Id < query.DocumentId.Value);

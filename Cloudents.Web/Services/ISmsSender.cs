@@ -1,12 +1,12 @@
-﻿using System.Threading;
+﻿using Cloudents.Core.Entities;
+using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Web.Services
 {
     public interface ISmsSender
     {
-       // Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, string countryCode, CancellationToken token);
+        // Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, string countryCode, CancellationToken token);
         /// <summary>
         /// User signin manager with TwoFactorSignInAsync
         /// </summary>

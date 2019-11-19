@@ -1,15 +1,15 @@
-﻿using System;
-using System.Globalization;
-using Cloudents.Core.Attributes;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
+using System;
+using System.Globalization;
 
 namespace Cloudents.Core.DTOs
 {
     public abstract class FeedDto
     {
-        
-        public abstract FeedType Type { get;  }
+
+        public abstract FeedType Type { get; }
     }
     public class QuestionFeedDto : FeedDto
     {
@@ -22,7 +22,7 @@ namespace Cloudents.Core.DTOs
 
         public int Answers { get; set; }
 
-       
+
         public QuestionUserDto User { get; set; }
 
         [EntityBind(nameof(Question.Updated))]
@@ -32,18 +32,15 @@ namespace Cloudents.Core.DTOs
         public string Course { get; set; }
 
         [EntityBind(nameof(Question.User.Id))]
-       // public long UserId { get; set; }
+        // public long UserId { get; set; }
         //public bool HasCorrectAnswer { get; set; }
 
-        public bool IsRtl
-        {
-            get => CultureInfo?.TextInfo.IsRightToLeft ?? false;
-        }
+        //public bool IsRtl
+        //{
+        //    get => CultureInfo?.TextInfo.IsRightToLeft ?? false;
+        //}
 
-        [EntityBind(nameof(Question.Language))]
-        public CultureInfo CultureInfo { get; set; }
-
-       // public VoteDto Vote { get; set; }
+        // public VoteDto Vote { get; set; }
         public override FeedType Type => FeedType.Question;
 
         [EntityBind(nameof(Question.Answers))]
@@ -64,7 +61,7 @@ namespace Cloudents.Core.DTOs
     }
 
     public class QuestionUserDto
-    { 
+    {
         [EntityBind(nameof(Question.User.Id))]
         public long Id { get; set; }
         [EntityBind(nameof(Question.User.Name))]

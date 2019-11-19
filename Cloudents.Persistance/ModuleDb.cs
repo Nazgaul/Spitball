@@ -1,17 +1,17 @@
-﻿using System.Reflection;
-using Autofac;
+﻿using Autofac;
 using Cloudents.Core.Interfaces;
 using Cloudents.Persistence.Repositories;
 using Cloudents.Query;
 using NHibernate;
+using System.Reflection;
 using Module = Autofac.Module;
 
 namespace Cloudents.Persistence
 {
- 
+
     public class ModuleDb : Module
     {
-      
+
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UnitOfWorkFactorySpitball>()

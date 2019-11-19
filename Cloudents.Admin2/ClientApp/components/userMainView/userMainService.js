@@ -27,13 +27,12 @@ function UserInfo(objInit) {
     this.phoneNumberConfirmed = {value: objInit.phoneNumberConfirmed ? 'Yes' : 'No', label: "Phone Confirmed"};
     this.university = {value: objInit.university || '', label: 'University'};
     this.country = {value: objInit.country || '', label: 'Country'};
-    this.score = {value: objInit.score || 0, label: 'Score'};
-    this.fraudScore = {value: objInit.fraudScore || 0, label: 'Fraud Score'};
     this.referredCount = {value: objInit.referredCount || 0, label: 'People Referred'};
     this.balance = {value: objInit.balance || 0, label: 'Balance'};
     this.status = {value: objInit.isActive ? false : true, label: 'Suspended'};
     this.lockoutReason = { value: objInit.lockoutReason ? objInit.lockoutReason : '', label: 'Lockout Reason' };
     this.wasSuspended = { value: objInit.wasSuspended ? true : false, label: 'Was Suspended' };
+    this.tutorPrice = { value: objInit.tutorPrice || null, label: 'Tutor Price' }
     if (objInit.joined !== null) {
         this.joined =
             {
@@ -64,7 +63,13 @@ function UserInfo(objInit) {
         value: objInit.tutorState ? objInit.tutorState : 'Not a tutor',
         label: 'Tutor State'
     };
-    
+    this.calendarExists = {
+        value: objInit.calendarExists,
+        label: 'Has Calendar',
+         showButton: true,
+         buttonText: "delete"
+
+    }
 }
 
 function createUserInfoItem(data) {
@@ -297,8 +302,14 @@ export default {
     updateUserPhone: ({ userId, newPhone }) => {
         return connectivityModule.http.put(`AdminUser/phone`, {userId, newPhone});
     },
+    updateTutorPrice: (priceOjb) => {
+        return connectivityModule.http.post(`AdminTutor/price`, priceOjb);
+    },
     removeTutor: (id) => {
         return connectivityModule.http.delete(`AdminTutor/${id}`);
+    },
+    removeCalender: (id) => {
+        return connectivityModule.http.delete(`AdminUser/calendar/?id=${id}`);
     },
     deletePayment: (id) => {
         return connectivityModule.http.delete(`AdminPayment/deletePayment?userId=${id}`);

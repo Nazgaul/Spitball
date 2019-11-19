@@ -7,7 +7,7 @@ namespace Cloudents.Core
         public ConfigurationKeys()
         {
             SiteEndPoint = new SiteEndPoints();
-            
+
         }
         //public ConfigurationKeys(string siteEndPoint)
         //{
@@ -52,7 +52,7 @@ namespace Cloudents.Core
         public string SpitballSite { get; set; }
         public string FunctionSite { get; set; }
     }
-  
+
 
     public class PayMeCredentials
     {
@@ -63,11 +63,11 @@ namespace Cloudents.Core
             BuyerKey = "BUYER156-4564629H-GXBKSW7B-T3H2FF2F";
         }
         //Need not to be in private set
-        public string EndPoint { get;  set; }
+        public string EndPoint { get; set; }
         //Need not to be in private set
-        public string SellerId { get;  set; }
+        public string SellerId { get; set; }
         //Need not to be in private set
-        public string BuyerKey { get;  set; }
+        public string BuyerKey { get; set; }
     }
 
     public class TwilioCredentials
@@ -102,9 +102,9 @@ namespace Cloudents.Core
             Integration = dataBaseIntegration;
         }
 
-        public string Db { get;  }
+        public string Db { get; }
 
-        public string Redis { get;  }
+        public string Redis { get; }
 
         public DataBaseIntegration Integration { get; set; }
 

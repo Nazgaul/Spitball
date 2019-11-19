@@ -4,9 +4,9 @@
     {
         public UnFlagQuestionCommand(long questionId)
         {
-            QuestionId = questionId ;
+            QuestionId = questionId;
         }
-        
+
         public long QuestionId { get; }
     }
 }

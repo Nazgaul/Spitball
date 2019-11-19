@@ -18,7 +18,7 @@ namespace Cloudents.Query.Admin
             _session = session.StatelessSession;
         }
 
-        public async Task<IList<string>> GetAsync(AdminSubjectsQuery query, 
+        public async Task<IList<string>> GetAsync(AdminSubjectsQuery query,
             CancellationToken token)
         {
             var res = await _session.Query<CourseSubject>()

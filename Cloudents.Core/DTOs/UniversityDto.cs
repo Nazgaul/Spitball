@@ -14,9 +14,9 @@ namespace Cloudents.Core.DTOs
             UsersCount = usersCount;
         }
 
-        public Guid Id { get;  }
+        public Guid Id { get; }
         public string Name { get; }
-        public string Country { get;  }
+        public string Country { get; }
 
         public string Image { get; }
         public int UsersCount { get; }

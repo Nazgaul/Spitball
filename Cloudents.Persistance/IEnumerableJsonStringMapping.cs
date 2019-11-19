@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NHibernate;
 using NHibernate.Engine;
 using NHibernate.SqlTypes;
 using NHibernate.UserTypes;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Linq;
 
 namespace Cloudents.Persistence
 {
@@ -58,12 +58,12 @@ namespace Cloudents.Persistence
             }
             if (value is IEnumerable<string> p)
             {
-            var data = JsonConvert.SerializeObject(p.Select(s=> new { name = s }));
-            NHibernateUtil.String.NullSafeSet(cmd, data, index, session);
+                var data = JsonConvert.SerializeObject(p.Select(s => new { name = s }));
+                NHibernateUtil.String.NullSafeSet(cmd, data, index, session);
             }
         }
 
-      
+
 
         public object DeepCopy(object value)
         {
@@ -85,7 +85,7 @@ namespace Cloudents.Persistence
             return value;
         }
 
-        public SqlType[] SqlTypes => new[] { new SqlType(DbType.String) };
+        public SqlType[] SqlTypes => new[] { new SqlType(DbType.String, 8000) };
         public Type ReturnedType => typeof(IEnumerable<string>);
         public bool IsMutable => false;
     }

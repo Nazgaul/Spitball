@@ -1,15 +1,10 @@
 import * as RouteTypes from "./routeTypes";
 
-//const resultContent = () => import('./components/results/Result.vue');
 const feeds = () => import('./components/results/feeds/Feeds.vue');
-const studyDocumentsComponent = () => import('./components/results/StudyDocuments/StudyDocuments.vue');
-const tutorsComponent = () => import('./components/results/Tutors/Tutors.vue');
-
 const pageHeader = () => import('./components/header/header.vue');
 
 const schoolBlock = () => import('./components/schoolBlock/schoolBlock.vue');
 const verticalsTabs = () => import('./components/header/verticalsTabs.vue');
-
 
 const document = () => import("./components/document/document.vue");
 //const previewHeader = () => import("./components/helpers/header.vue");
@@ -35,9 +30,7 @@ const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.v
 const tutorLandingPage=()=> import("./components/tutorLandingPage/tutorLandingPage.vue");
 
 const landingPage = () => import('./components/landingPage/landingPage.vue');
-const findTutor = () => import('./components/landingPage/pages/FindTutor.vue');
-// import HowItWorks from "./components/landingPage/pages/HowItWorks.vue";
-// import BecomeTutor from "./components/landingPage/pages/BecomeTutor.vue";
+const homePage = () => import('./components/landingPage/pages/homePage.vue');
 const registerPage = () => import('./components/loginPageNEW/pages/registerPage.vue');
 
 
@@ -65,12 +58,6 @@ function verticalResultPageFn(route) {
     };
 }
 
-// const resultPage = {
-//     default: resultContent,
-//     header: pageHeader,
-//     verticals: verticalsTabs,
-//     schoolBlock: schoolBlock,
-// };
 const resultProps = {
     default: dynamicPropsFn,
     header: headerResultPageFn,
@@ -78,19 +65,6 @@ const resultProps = {
 };
 const feedPage = {
     default: feeds,
-    header: pageHeader,
-    schoolBlock: schoolBlock,
-    verticals: verticalsTabs
-};
-const tutorPage = {
-    default: tutorsComponent,
-    header: pageHeader,
-    schoolBlock: schoolBlock,
-    verticals: verticalsTabs
-};
-
-const studyDocumentsPage = {
-    default: studyDocumentsComponent,
     header: pageHeader,
     schoolBlock: schoolBlock,
     verticals: verticalsTabs
@@ -112,7 +86,7 @@ let routes2 = [
         children:[
             {
                 path: '',
-                component: findTutor
+                component: homePage
             },
             {
                 path: "/tutor-list",
@@ -129,26 +103,6 @@ let routes2 = [
         path: "/" + RouteTypes.feedRoute,
         name: "feed",
         components: feedPage,
-        props: resultProps,
-        meta: {
-            isAcademic: true,
-            showMobileFooter: true,
-            analytics: {
-                pageviewTemplate(route) {
-                    return {
-                        title: route.path.slice(1).charAt(0).toUpperCase() + route.path.slice(2),
-                        path: route.path,
-                        location: window.location.href
-                    };
-                }
-            }
-        }
-    },
-
-    {
-        path: "/" + RouteTypes.tutorRoute,
-        name: "tutors",
-        components: tutorPage,
         props: resultProps,
         meta: {
             isAcademic: true,

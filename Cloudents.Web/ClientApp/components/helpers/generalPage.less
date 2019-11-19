@@ -147,23 +147,6 @@
     align-items: center;
     .v-btn__content {
       flex-direction: row-reverse;
-      .counter {
-        color: white;
-        width: 28px;
-        height: 28px;
-        text-align: center;
-        border-radius: 100%;
-        line-height: 24px;
-        margin-right: -12px;
-        border: 2px solid;
-        font-size: 12px;
-        border-color: #eee !important;
-      }
-      .fixedLocation {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-      }
     }
     //remove the eliptic shape when clicking the sort ans filter button on mobile
     .v-btn:before {
@@ -202,14 +185,6 @@
       margin-left: auto;
     }
   }
-  .mobile-filter-icon-btn {
-    .v-btn__content{
-      i{
-        color:@global-purple;
-        font-size: 17px;
-      }
-    }
-  }
 }
 
 .side-bar {
@@ -218,45 +193,12 @@
   //position: sticky;
   // max-height: ~"calc(100vh - @{upperSpace} - 16px)"; //container padding from bottom is 16
   top: @upperSpace;
-  margin-left: 32px;
+  margin: 0 32px;
   max-width: 320px;
   width: 100%;
   .edgeStatic();
   .side-bar-wrapper {
     max-width: 300px;
-  }
-}
-
-
-.v-chip.filter-chip {
-  margin: 0 8px 8px 0;
-  border: none;
-
-  &:focus {
-    box-shadow: none;
-
-    &:after {
-      content: none;
-    }
-  }
-  
-  
-  .v-chip__content {
-    padding: 0 4px 0 8px;
-    letter-spacing: -0.8px;
-    min-width: 102px;
-    border-radius: 4px;
-    background: white;
-    color: @color-grey;
-    z-index: 0;
-  }
-
-  i {
-    cursor: pointer;
-    padding: 4px;
-    margin: 0 0 0 12px;
-    font-size: 10px;
-    color: #bbb;
   }
 }
 

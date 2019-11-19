@@ -7,14 +7,14 @@ namespace Cloudents.Query
     public interface IQuery<TResult>
     {
     }
-    
+
 
     public interface IQueryHandler<in TQuery, TQueryResult>
        where TQuery : IQuery<TQueryResult>
     {
         Task<TQueryResult> GetAsync(TQuery query, CancellationToken token);
     }
-    
+
 
     public interface IQueryBus
     {

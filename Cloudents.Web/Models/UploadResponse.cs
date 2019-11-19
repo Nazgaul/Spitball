@@ -1,10 +1,10 @@
 ﻿
-using System;
-using System.ComponentModel.DataAnnotations;
 using Cloudents.Web.Binders;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -100,9 +100,9 @@ namespace Cloudents.Web.Models
     public class UploadRequestForm
     {
         //public UploadPhase Phase { get; set; }
-        [FromForm(Name="session_id")]
+        [FromForm(Name = "session_id")]
         public Guid SessionId { get; set; }
-        [FromForm(Name= "start_offset")]
+        [FromForm(Name = "start_offset")]
         public long StartOffset { get; set; }
 
         [Required]

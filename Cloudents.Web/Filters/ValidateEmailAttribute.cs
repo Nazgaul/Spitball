@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cloudents.Core.Interfaces;
+using Cloudents.Web.Resources;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Localization;
 using System.Collections;
@@ -6,8 +8,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Cloudents.Web.Resources;
 
 namespace Cloudents.Web.Filters
 {
@@ -26,7 +26,7 @@ namespace Cloudents.Web.Filters
             {
                 _mailProvider = mailProvider;
                 _localizer = localizer;
-                
+
             }
 
             public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -42,9 +42,9 @@ namespace Cloudents.Web.Filters
                         var error = _localizer["EmailAddress", t.Value.propertyName];
                         if (error.ResourceNotFound)
                         {
-                            error = new LocalizedString("EmailAddress","This email is not valid");
+                            error = new LocalizedString("EmailAddress", "This email is not valid");
                         }
-                        context.ModelState.AddModelError("error",error);
+                        context.ModelState.AddModelError("error", error);
                         context.Result = new BadRequestObjectResult(context.ModelState);
                     }
 

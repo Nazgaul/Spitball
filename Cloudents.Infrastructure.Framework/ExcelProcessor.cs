@@ -46,7 +46,7 @@ namespace Cloudents.Infrastructure.Framework
 
         public (string text, int pagesCount) ExtractMetaContent()
         {
-            
+
             return (null, _excel.Value.Worksheets.Count);
         }
 
@@ -61,7 +61,7 @@ namespace Cloudents.Infrastructure.Framework
 
             var diff = Enumerable.Range(0, _excel.Value.Worksheets.Count);
             diff = diff.Except(previewDelta);
-            
+
             foreach (var item in diff)
             {
                 if (token.IsCancellationRequested)
@@ -95,9 +95,9 @@ namespace Cloudents.Infrastructure.Framework
         //        );
         //}
 
-        
+
     }
 
 
-   
+
 }

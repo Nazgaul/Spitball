@@ -1,12 +1,12 @@
 ﻿using Cloudents.Core.DTOs.Admin;
+using Dapper;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Dapper;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminTutorsWithStudyRoomsQuery: IQueryAdmin<IEnumerable<TutorInfoDto>>
+    public class AdminTutorsWithStudyRoomsQuery : IQueryAdmin<IEnumerable<TutorInfoDto>>
     {
         public AdminTutorsWithStudyRoomsQuery(string country)
         {

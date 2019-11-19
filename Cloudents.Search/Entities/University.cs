@@ -1,8 +1,8 @@
-﻿using System;
-using Cloudents.Search.Interfaces;
+﻿using Cloudents.Search.Interfaces;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Newtonsoft.Json;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Search.Entities
@@ -13,7 +13,7 @@ namespace Cloudents.Search.Entities
     {
 
         public const string UserCountFieldName = "UsersCount2";
-       
+
 
         [System.ComponentModel.DataAnnotations.Key]
         public string Id { get; set; }

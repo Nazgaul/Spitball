@@ -126,6 +126,11 @@ export default {
     },
     computed: {
         ...mapGetters(["accountUser"]),
+        currentCurrency(){
+            if(!!this.accountUser){
+              return this.accountUser.currencySymbol
+            }
+        },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },

@@ -1,8 +1,8 @@
-﻿using System.Net;
+﻿using Cloudents.Core.Models;
+using JetBrains.Annotations;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Models;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -18,6 +18,6 @@ namespace Cloudents.Core.Interfaces
 
         //decimal ConvertPointsToLocalCurrency(string countryCode, decimal points);
         //string ConvertPointsToLocalCurrencyWithSymbol(string countryCode, decimal points);
-       // string ConvertToLocalCurrencyWithSymbol(string countryCode, decimal price);
+        // string ConvertToLocalCurrencyWithSymbol(string countryCode, decimal price);
     }
 }

@@ -14,14 +14,9 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.Name).Length(150).Not.Nullable();
             References(x => x.University).Not.Nullable().Column("UniversityId").ForeignKey("Document_University");
-           
-           
-
-         
-
             
             Component(x => x.TimeStamp);
-           
+
             References(x => x.Course).Column("CourseName").Not.Nullable().ForeignKey("Document_course");
             References(x => x.User).Column("UserId").Not.Nullable().ForeignKey("Document_User");
             Map(x => x.Views).Not.Nullable();
@@ -29,7 +24,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.PageCount).Nullable();
             Map(x => x.Description).Nullable();
             Map(x => x.MetaContent).Nullable();
-            Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney"); 
+            Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney");
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
             HasMany(x => x.Transactions)
                 .KeyColumn("DocumentId")
@@ -47,11 +42,11 @@ namespace Cloudents.Persistence.Maps
 
             Map(x => x.DocumentType).Column("DocumentType");
             Map(x => x.Duration);//.CustomType<TimeAsTimeSpanType>();
-
+            Map(e => e.IsShownHomePage);
 
             Component(x => x.Status);
         }
     }
 
-    
+
 }

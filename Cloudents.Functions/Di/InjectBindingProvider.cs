@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Autofac;
+using Microsoft.Azure.WebJobs.Host.Bindings;
+using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using Autofac;
-using Microsoft.Azure.WebJobs.Host.Bindings;
 
 namespace Cloudents.Functions.Di
 {

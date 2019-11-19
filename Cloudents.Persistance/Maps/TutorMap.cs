@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 using JetBrains.Annotations;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -30,7 +30,7 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.TutorHours).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.All().AsSet();
 
-            HasMany(x => x.StudyRooms).Access.CamelCaseField(Prefix.Underscore)
+            HasMany(x => x.StudyRooms)/*.Access.CamelCaseField(Prefix.Underscore)*/
                 .Cascade.AllDeleteOrphan().Inverse().AsSet();
 
             HasMany(x => x.Leads).Access.CamelCaseField(Prefix.Underscore)
@@ -39,9 +39,10 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.State).CustomType<GenericEnumStringType<ItemState>>();
             Map(e => e.Created).Insert().Not.Update();
             Map(x => x.ManualBoost).LazyLoad().Nullable();
+            Map(e => e.IsShownHomePage);
             DynamicUpdate();
             OptimisticLock.Version();
-            Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
+            Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
 
         }
 

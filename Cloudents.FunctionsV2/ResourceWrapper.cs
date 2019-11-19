@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -15,19 +13,14 @@ namespace Cloudents.FunctionsV2
     public static class ResourceWrapper
     {
         private static readonly ConcurrentDictionary<CultureInfo, ResourceSet> ResourceSets = new ConcurrentDictionary<CultureInfo, ResourceSet>();
-        private static ResourceManager projectManager;// = new ResourceManager();
+        private static readonly ResourceManager ProjectManager;// = new ResourceManager();
         static ResourceWrapper()
         {
 
             LoadLocalizationAssemblies();
 
-            projectManager = new ResourceManager(typeof(App));
-
-            //return x.GetString(val.ResourceName, CultureInfo.CurrentUICulture);
-            //resourceManager = new ResourceManager()
-            //  ResourceSets.Add(new CultureInfo("en-IN"), Load("en-IN"));
-            //            ResourceSets.Add(new CultureInfo("he"), Load("he"));
-            //ResourceSets.Add(new CultureInfo("en"), Load("en"));
+            ProjectManager = new ResourceManager(typeof(App));
+           
         }
 
         private static void LoadLocalizationAssemblies()
@@ -52,37 +45,17 @@ namespace Cloudents.FunctionsV2
                         var manifestResource = asm.GetManifestResourceNames();
 
                         var x = new ResourceSet(asm.GetManifestResourceStream(manifestResource.First()));
-
-                        // _tags.AddOrUpdate("vendor", webPackBundle, (_, existingValue) => existingValue);
-                        ResourceSets.AddOrUpdate(new CultureInfo(v),x, (_,x3) => x3);
-                        //ResourceSets.Add(new CultureInfo(v), x);
+                        ResourceSets.AddOrUpdate(new CultureInfo(v), x, (_, x3) => x3);
                     }
                 }
                 catch (FileLoadException e)
                 {
-                   //Happen in unit test.
+                    //Happen in unit test.
                 }
-
-                // var x = new ResourceManager(assmebly);
             }
-
-
         }
 
-        //private static ResourceSet Load(string lang)
-        //{
-
-        //    //var asm = Assembly.LoadFrom(Path.Combine(Environment.CurrentDirectory, "bin", lang, "Function.App.resources.dll"));
-        //    //var resourceName = $"Function.App.Resources.Emails.{lang}.resources";
-        //    //var tt = asm.GetManifestResourceNames();
-        //    //return new ResourceSet(asm.GetManifestResourceStream(resourceName));
-        //    var dir = Path.GetDirectoryName(typeof(ResourceWrapper).Assembly.Location);
-        //    var parent = dir.Remove(dir.IndexOf(@"\bin"));
-        //    var combine = Path.Combine(parent, lang, "Cloudents.FunctionsV2.resources.dll");
-        //    var asm = Assembly.LoadFrom(combine);
-        //    var resourceName = $"Cloudents.FunctionsV2.Resources.App.{lang}.resources";
-        //    return new ResourceSet(asm.GetManifestResourceStream(resourceName));
-        //}
+     
 
         public static string GetString(string key)
         {
@@ -90,9 +63,7 @@ namespace Cloudents.FunctionsV2
             {
                 return v.GetString(key);
             }
-            return projectManager.GetString(key);
-            //return null;
-            // return ResourceSets[CultureInfo.CurrentUICulture].GetString(key);
+            return ProjectManager.GetString(key);
         }
 
 

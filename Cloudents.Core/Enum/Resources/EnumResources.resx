@@ -121,7 +121,7 @@
     <value>Answer correct</value>
   </data>
   <data name="ActionTypeAwarded" xml:space="preserve">
-    <value>Awarded</value>
+    <value></value>
   </data>
   <data name="ActionTypeBuy" xml:space="preserve">
     <value>Buy</value>
@@ -152,15 +152,6 @@
   </data>
   <data name="ActionTypeSoldDocument" xml:space="preserve">
     <value>Sold Document</value>
-  </data>
-  <data name="QuestionFilterAnswered" xml:space="preserve">
-    <value>Answered</value>
-  </data>
-  <data name="QuestionFilterSold" xml:space="preserve">
-    <value>Answer accepted</value>
-  </data>
-  <data name="QuestionFilterUnanswered" xml:space="preserve">
-    <value>Unanswered</value>
   </data>
   <data name="TransactionTypeEarned" xml:space="preserve">
     <value>Earned</value>

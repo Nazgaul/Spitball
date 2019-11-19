@@ -1,7 +1,7 @@
-﻿using System;
-using System.Globalization;
-using Cloudents.Core.Attributes;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
+using System;
+using System.Globalization;
 
 namespace Cloudents.Core.Entities
 {
@@ -9,7 +9,7 @@ namespace Cloudents.Core.Entities
     {
         protected ViewQuestionWithFirstAnswer()
         {
-            
+
         }
 
         [EntityBind(nameof(Question.Id))]
@@ -22,8 +22,6 @@ namespace Cloudents.Core.Entities
         public virtual int Answers { get; set; }
         [EntityBind(nameof(Question.Updated))]
         public virtual DateTime DateTime { get; set; }
-        [EntityBind(nameof(Question.Language))]
-        public virtual CultureInfo CultureInfo { get; set; }
         [EntityBind(nameof(Question.Answers))]
         public virtual ViewQuestionAnswer Answer { get; set; }
         [EntityBind(nameof(Question.User))]

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Query.Query.Sync;
+using Cloudents.Query.Stuff;
+using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Query.Query.Sync;
-using Cloudents.Query.Stuff;
-using NHibernate;
 
 namespace Cloudents.Query.SearchSync
 {

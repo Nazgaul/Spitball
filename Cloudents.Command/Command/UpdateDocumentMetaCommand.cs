@@ -1,5 +1,5 @@
-﻿using System;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
+using System;
 
 namespace Cloudents.Command.Command
 {
@@ -7,19 +7,19 @@ namespace Cloudents.Command.Command
     {
         public static UpdateDocumentMetaCommand Document(long id, int? pageCount, string snippet)
         {
-            return new UpdateDocumentMetaCommand(id,pageCount,snippet,DocumentType.Document,null);
+            return new UpdateDocumentMetaCommand(id, pageCount, snippet, DocumentType.Document, null);
         }
 
-        public static UpdateDocumentMetaCommand Video(long id,TimeSpan duration )
+        public static UpdateDocumentMetaCommand Video(long id, TimeSpan duration)
         {
-            return new UpdateDocumentMetaCommand(id,null, null, DocumentType.Video, duration);
+            return new UpdateDocumentMetaCommand(id, null, null, DocumentType.Video, duration);
         }
-        private UpdateDocumentMetaCommand(long id, 
+        private UpdateDocumentMetaCommand(long id,
             int? pageCount, string snippet, DocumentType documentType, TimeSpan? duration)
         {
             Id = id;
-            
-           // Language = language;
+
+            // Language = language;
             PageCount = pageCount;
             Snippet = snippet;
             DocumentType = documentType;
@@ -32,9 +32,9 @@ namespace Cloudents.Command.Command
 
         public string Snippet { get; }
 
-        public DocumentType DocumentType { get;  }
+        public DocumentType DocumentType { get; }
 
-        public TimeSpan? Duration { get;  }
+        public TimeSpan? Duration { get; }
 
     }
 }

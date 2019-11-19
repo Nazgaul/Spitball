@@ -4,6 +4,6 @@
     {
         public long UserId { get; set; }
         public string NewPhone { get; set; }
-        
+
     }
 }

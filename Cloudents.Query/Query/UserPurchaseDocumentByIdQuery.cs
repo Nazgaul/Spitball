@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query
 {
@@ -34,8 +34,8 @@ namespace Cloudents.Query.Query
             {
 
                 return await _session.Query<Document>()
-                    .Fetch(f=>f.User)
-                    .ThenFetch(f=>f.University)
+                    .Fetch(f => f.User)
+                    .ThenFetch(f => f.University)
                     .Join(_session.Query<DocumentTransaction>(), l => l.Id, r => r.Document.Id, (search, transaction) =>
                           new
                           {
@@ -43,7 +43,7 @@ namespace Cloudents.Query.Query
                               transaction
                           })
                     .Where(w => w.transaction.User.Id == query.Id && w.transaction.Type == TransactionType.Spent)
-                    .OrderByDescending(o=>o.transaction.Created)
+                    .OrderByDescending(o => o.transaction.Created)
                     .Select(s => new DocumentFeedDto
                     {
                         Id = s.search.Id,
@@ -69,7 +69,7 @@ namespace Cloudents.Query.Query
                             Votes = s.search.VoteCount
                         }
                     })
-                    
+
                     .Take(50).Skip(query.Page * 50)
 
                     .ToListAsync(token);

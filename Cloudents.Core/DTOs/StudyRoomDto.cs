@@ -1,12 +1,12 @@
-﻿using System;
-using Cloudents.Core.Attributes;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
+using System;
 
 namespace Cloudents.Core.DTOs
 {
     public class StudyRoomDto
     {
-       
+
         [EntityBind(nameof(StudyRoom.OnlineDocumentUrl))]
         public string OnlineDocument { get; set; }
         [EntityBind(nameof(ChatRoom.Id))]
@@ -23,12 +23,12 @@ namespace Cloudents.Core.DTOs
         public string StudentImage { get; set; }
         [EntityBind(nameof(User.Name))]
         public string StudentName { get; set; }
-      
 
-        [EntityBind(nameof(User.PaymentExists),nameof(User.BuyerPayment.PaymentKeyExpiration))]
+
+        [EntityBind(nameof(User.PaymentExists), nameof(User.BuyerPayment.PaymentKeyExpiration))]
         public bool NeedPayment { get; set; }
     };
-       
+
 
 
     public class UserStudyRoomDto
@@ -42,6 +42,6 @@ namespace Cloudents.Core.DTOs
 
         public string ConversationId { get; set; }
 
-        
+
     }
 }

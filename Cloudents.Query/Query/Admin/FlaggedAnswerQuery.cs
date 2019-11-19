@@ -39,15 +39,15 @@ namespace Cloudents.Query.Query.Admin
                 }
 
                 return await answers.Select(s => new FlaggedAnswerDto
-                    {
-                        Id = s.Id,
-                        Text = s.Text,
-                        Reason = s.Status.FlagReason,
-                        FlaggedUserEmail = s.User.Email,
-                        QuestionId = s.Question.Id,
-                        QuestionText = s.Question.Text,
-                        MarkerEmail = s.Status.FlaggedUser.Email
-                    }).OrderBy(o => o.Id).ToListAsync(token);
+                {
+                    Id = s.Id,
+                    Text = s.Text,
+                    Reason = s.Status.FlagReason,
+                    FlaggedUserEmail = s.User.Email,
+                    QuestionId = s.Question.Id,
+                    QuestionText = s.Question.Text,
+                    MarkerEmail = s.Status.FlaggedUser.Email
+                }).OrderBy(o => o.Id).ToListAsync(token);
             }
         }
     }

@@ -18,7 +18,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         public async Task ExecuteAsync(ConfirmPhoneNumberCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.Id, token);
-         
+
             user.ConfirmPhoneNumber();
             await _userRepository.UpdateAsync(user, token);
         }

@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.AspNetCore.DataProtection;
+﻿using Microsoft.AspNetCore.DataProtection;
+using System;
 
 namespace Cloudents.FunctionsV2.Services
 {
-    public class DataProtectionService: IDataProtectionService
+    public class DataProtectionService : IDataProtectionService
     {
         private readonly ITimeLimitedDataProtector _dataProtector;
 

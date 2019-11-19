@@ -1,8 +1,8 @@
 ﻿using Cloudents.Command.Command.Admin;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {

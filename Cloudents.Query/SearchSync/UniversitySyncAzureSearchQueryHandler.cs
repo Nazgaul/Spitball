@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Cloudents.Core.DTOs.SearchSync;
+﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Enum;
 using Cloudents.Query.Query.Sync;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cloudents.Query.SearchSync
 {

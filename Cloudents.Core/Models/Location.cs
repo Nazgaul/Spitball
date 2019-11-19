@@ -6,8 +6,8 @@ namespace Cloudents.Core.Models
     public class Location
     {
         public Location(
-           //GeoPoint point,
-           //  string ip,
+            //GeoPoint point,
+            //  string ip,
             string countryCode,
             string callingCode
             )

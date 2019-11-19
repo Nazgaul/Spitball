@@ -167,11 +167,10 @@
             },
             price: {
                 get() {
-                    let price = this.getProfile.user.tutorData.price
-                    return +price.slice(1,price.length)
+                    return this.getProfile.user.tutorData.price;
                 },
                 set(newVal) {
-                    this.editedPrice = +newVal
+                    this.editedPrice = newVal;
                 }
             },
             lastName: {
@@ -206,18 +205,19 @@
                         description: this.editedDescription
                     };
                     this.btnLoading = true;
+                    let self = this
                     accountService.saveTutorInfo(editsData)
-                                  .then((success) => {
-                                      //update profile store
-                                      this.updateEditedProfile(editsData);
-                                      this.btnLoading = false;
-                                      this.closeDialog();
-                                      this.updateEditDialog(false)
-                                  }, (error) => {
-                                      console.log('Error', error);
-                                      this.btnLoading = false;
-                                      //TODO : error callback
-                                  });
+                        .then((res) => {
+                            //update profile store
+                            this.updateEditedProfile(editsData);
+                            this.btnLoading = false;
+                            this.closeDialog();
+                            this.updateEditDialog(false)
+                        }, (error) => {
+                            console.log('Error', error);
+                            this.btnLoading = false;
+                            //TODO : error callback
+                        });
                 }
             },
             closeDialog() {

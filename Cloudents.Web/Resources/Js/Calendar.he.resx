@@ -123,9 +123,6 @@
   <data name="add_event_cancel" xml:space="preserve">
     <value>ביטול</value>
   </data>
-  <data name="add_event_done" xml:space="preserve">
-    <value>אישור</value>
-  </data>
   <data name="add_event_ok" xml:space="preserve">
     <value>אישור</value>
   </data>

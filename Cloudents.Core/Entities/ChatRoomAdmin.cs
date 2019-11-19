@@ -1,6 +1,6 @@
 ﻿using Cloudents.Core.Enum;
-using System;
 using JetBrains.Annotations;
+using System;
 
 namespace Cloudents.Core.Entities
 {
@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities
         {
 
         }
-        public ChatRoomAdmin(ChatRoom room) :this()
+        public ChatRoomAdmin(ChatRoom room) : this()
         {
             ChatRoom = room;
         }

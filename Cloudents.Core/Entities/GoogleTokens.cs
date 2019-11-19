@@ -10,7 +10,7 @@
 
         protected GoogleTokens()
         {
-            
+
         }
 
         public virtual string Id { get; protected set; }

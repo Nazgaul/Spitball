@@ -1,12 +1,12 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
-using System;
 using Cloudents.Core.Enum;
+using System;
 
 
 namespace Cloudents.Core.DTOs.Admin
 {
-    
+
     public class UserAnswersDto
     {
         [EntityBind(nameof(Answer.Id))]
@@ -51,7 +51,7 @@ namespace Cloudents.Core.DTOs.Admin
         public decimal? Price { get; set; }
         [EntityBind(nameof(Document.Status.State))]
         public ItemState State { get; set; }
-        
+
         public Uri Preview { get; set; }
         public string SiteLink { get; set; }
     }

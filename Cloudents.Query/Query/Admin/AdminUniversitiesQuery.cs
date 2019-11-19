@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminUniversitiesQuery: IQueryAdmin<IList<PendingUniversitiesDto>>
+    public class AdminUniversitiesQuery : IQueryAdmin<IList<PendingUniversitiesDto>>
     {
         public AdminUniversitiesQuery(string country, ItemState state)
         {
@@ -44,7 +44,9 @@ namespace Cloudents.Query.Query.Admin
             {
                 Id = s.Id,
                 Name = s.Name,
-                Created = s.RowDetail.CreationTime
+                Created = s.RowDetail.CreationTime,
+                CanBeDeleted = !_session.Query<Document>().Any(a => a.University.Id == s.Id && a.University.Id != null) &&
+                                !_session.Query<Question>().Any(a => a.University.Id == s.Id && a.University.Id != null)
             }).ToListAsync(token);
             //var sql = $@"select Id, Name, CreationTime as Created from sb.University where State = @state";
 

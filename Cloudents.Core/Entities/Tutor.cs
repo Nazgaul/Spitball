@@ -1,9 +1,9 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities
 {
@@ -12,9 +12,9 @@ namespace Cloudents.Core.Entities
     {
         public const int MaximumPrice = 214748;
         public const int MinimumPrice = 50;
-        public Tutor(string bio, User user, decimal? price) : this()
+        public Tutor(string bio, [NotNull] User user, decimal? price) : this()
         {
-            User = user;
+            User = user ?? throw new ArgumentNullException(nameof(user));
             State = ItemState.Pending;
             Created = DateTime.UtcNow;
             Bio = bio;
@@ -55,17 +55,18 @@ namespace Cloudents.Core.Entities
             {
                 if (price < MinimumPrice || price > MaximumPrice) throw new ArgumentOutOfRangeException(nameof(price));
 
-                //Country c = User.Country;
                 Price = new TutorPrice(price.Value);
-                //Price = Price ?? new TutorPrice(price.Value);
-                //Price = price.Value;
             }
-
-
             Bio = bio;
-
-
             //  SubsidizedPrice = PriceAfterDiscount(price);
+            AddEvent(new UpdateTutorSettingsEvent(Id));
+        }
+
+        public virtual void ChangePrice(decimal newPrice)
+        {
+            if (newPrice <= 0) throw new ArgumentOutOfRangeException(nameof(newPrice));
+
+            Price = new TutorPrice(newPrice);
             AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 
@@ -89,8 +90,9 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<TutorReview> Reviews => _reviews;
 
-        private readonly ISet<StudyRoom> _studyRooms = new HashSet<StudyRoom>();
-        public virtual IEnumerable<StudyRoom> StudyRooms => _studyRooms;
+        //private readonly ISet<StudyRoom> _studyRooms = new HashSet<StudyRoom>();
+        protected internal virtual ISet<StudyRoom> StudyRooms { get; set; }
+    
 
         private readonly ISet<Lead> _leads = new HashSet<Lead>();
         public virtual IEnumerable<Lead> Leads => _leads;
@@ -122,7 +124,7 @@ namespace Cloudents.Core.Entities
 
         private readonly ISet<TutorHours> _tutorHours = new HashSet<TutorHours>();
         public virtual IEnumerable<TutorHours> TutorHours => _tutorHours;
-
+        public virtual bool IsShownHomePage { get; protected set; }
 
         public virtual void AddCalendar(string id, string name)
         {
@@ -146,11 +148,12 @@ namespace Cloudents.Core.Entities
 
         protected TutorPrice()
         {
-            
+
         }
 
         public virtual decimal Price { get; protected set; }
         public virtual decimal? SubsidizedPrice { get; protected set; }
+
 
 
         protected override IEnumerable<object> GetEqualityComponents()

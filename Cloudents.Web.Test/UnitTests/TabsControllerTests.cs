@@ -27,7 +27,7 @@ namespace Cloudents.Web.Test.UnitTests
             });
         }
 
-       
+
 
         [Fact(Skip = "Obsolete")]
         public async Task GetAsync_StudyDoc()
@@ -39,7 +39,7 @@ namespace Cloudents.Web.Test.UnitTests
             response.RequestMessage.RequestUri.Should().Be(_uri.Uri);
         }
 
-        [Fact(Skip ="Obsolete")]
+        [Fact(Skip = "Obsolete")]
         public async Task GetAsync_HW()
         {
             _uri.Path = "/ask";

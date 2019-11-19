@@ -11,8 +11,8 @@
                     autocomplete="off"/>
             </fieldset>
 
-            <v-layout justify-space-between row wrap class="userInfo-bottom mb-2">
-                <v-flex md8 xs12 :class="{'pr-3':!isMobile}">
+            <v-layout justify-space-between row class="userInfo-bottom mb-2">
+                <v-flex md8 xs12>
                 <fieldset class="fieldset-user-email px-2">
                     <legend v-language:inner="'tutorRequest_email'"/>
                     <v-text-field 
@@ -94,7 +94,7 @@ export default {
     },
     },
     methods: {
-        ...mapActions(['updateRequestDialog','updateTutorReqStep','sendTutorRequest']),
+        ...mapActions(['updateTutorReqStep','sendTutorRequest']),
         goBack() {
             this.updateTutorReqStep('tutorRequestCourseInfo')
         },
@@ -174,7 +174,7 @@ export default {
             letter-spacing: -0.38px;
         }
         fieldset{
-            width: 100%;
+            // width: 100%;
             border-radius: 4px;
             border: 1px #b8c0d1 solid;
             height: 58px;
@@ -251,8 +251,8 @@ export default {
                 flex-direction: column;
             }
             .fieldset-user-email{
-                margin-right: 14px;
                 padding-top: 2px;
+                margin-right: 14px;
                 .userEmail{
                     font-weight: 600;
                     width: 258px;
@@ -260,6 +260,9 @@ export default {
                     padding: 0;
                     font-size: 16px;
                     color:@global-purple;
+                }
+                @media (max-width: @screen-xs) {
+                    margin-right: 0;
                 }
             }
             .fieldset-user-phone{

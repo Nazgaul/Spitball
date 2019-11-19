@@ -13,16 +13,14 @@ namespace Cloudents.Command.CommandHandler
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IRegularUserRepository _userRepository;
-        private readonly ITextAnalysis _textAnalysis;
         private readonly IRepository<Course> _courseRepository;
 
         public CreateQuestionCommandHandler(IQuestionRepository questionRepository,
-            IRegularUserRepository userRepository, ITextAnalysis textAnalysis,
+            IRegularUserRepository userRepository,
              IRepository<Course> courseRepository)
         {
             _questionRepository = questionRepository;
             _userRepository = userRepository;
-            _textAnalysis = textAnalysis;
             _courseRepository = courseRepository;
         }
 
@@ -38,13 +36,12 @@ namespace Cloudents.Command.CommandHandler
             var course = await _courseRepository.LoadAsync(message.Course, token);
             await _courseRepository.UpdateAsync(course, token);
 
-            var textLanguage = await _textAnalysis.DetectLanguageAsync(message.Text, token);
 
             var question = new Question(
-                message.Text,  
-                user, textLanguage, course, user.University);
+                message.Text,
+                user, course, user.University);
 
-            await _userRepository.UpdateAsync(user, token);
+            //await _userRepository.UpdateAsync(user, token);
 
             await _questionRepository.AddAsync(question, token);
         }

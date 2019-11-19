@@ -23,8 +23,13 @@ module.exports = (env) => {
             rules: [
                 {
                     test: /\.svg$/,
-                    loader: "vue-svg-loader",
-                    options: {
+                    use:[
+                        {
+                            loader: 'babel-loader',
+                        },
+                        {
+                            loader: "vue-svg-loader",
+                        options: {
                         // optional [svgo](https://github.com/svg/svgo) options
                         svgo: {
                             plugins: [
@@ -43,6 +48,9 @@ module.exports = (env) => {
                             ]
                         }
                     }
+                        }
+                    ],
+                    
                 },
                 {
                     test: /\.(png|jpg|jpeg|gif)$/,
@@ -72,7 +80,6 @@ module.exports = (env) => {
                 {
                     test: /\.font\.js/,
                     use: [
-                        // MiniCssExtractPlugin.loader,
                         'css-loader',
                         {
                             loader: 'webfonts-loader',
@@ -83,8 +90,7 @@ module.exports = (env) => {
                     ]
                 },
                 {
-                    test: /\.m?js$/,
-                    exclude: /(node_modules|\.font\.js)/,
+                    test: /\.js$/,
                     loader: "babel-loader"
                 },
                 {
@@ -232,6 +238,7 @@ module.exports = (env) => {
             ]),
         mode: mode,
         entry: { main: ["@babel/polyfill", "./ClientApp/client.js"] },
+        // entry: { main: "./ClientApp/client.js" },
        
         
         output: {

@@ -1,5 +1,5 @@
-﻿using System.Text.RegularExpressions;
-using Newtonsoft.Json.Serialization;
+﻿using Newtonsoft.Json.Serialization;
+using System.Text.RegularExpressions;
 
 namespace Cloudents.Infrastructure
 {

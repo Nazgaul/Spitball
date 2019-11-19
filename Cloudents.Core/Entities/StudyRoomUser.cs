@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Cloudents.Core.Event;
+using System;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class StudyRoomUser : Entity<Guid>
     {
-        public StudyRoomUser(User user,StudyRoom room)
+        public StudyRoomUser(User user, StudyRoom room)
         {
             User = user;
             Room = room;
@@ -15,7 +15,7 @@ namespace Cloudents.Core.Entities
 
         protected StudyRoomUser()
         {
-            
+
         }
 
         public virtual User User { get; protected set; }

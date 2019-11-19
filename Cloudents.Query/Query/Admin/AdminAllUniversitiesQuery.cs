@@ -19,7 +19,7 @@ namespace Cloudents.Query.Query.Admin
         }
         internal sealed class AdminAllUniversitiesEmptyQueryHandler : IQueryHandler<AdminAllUniversitiesQuery, IList<AllUniversitiesDto>>
         {
-           // private readonly DapperRepository _dapper;
+            // private readonly DapperRepository _dapper;
             private readonly IStatelessSession _session;
 
             public AdminAllUniversitiesEmptyQueryHandler(QuerySession session)
@@ -36,10 +36,10 @@ namespace Cloudents.Query.Query.Admin
                     res = res.Where(w => w.Country == query.Country);
                 }
                 return await res.Select(s => new AllUniversitiesDto
-                    {
-                        Id = s.Id,
-                        Name = s.Name
-                    }
+                {
+                    Id = s.Id,
+                    Name = s.Name
+                }
                     ).ToListAsync(token);
                 //const string sql = @"select Id,Name from sb.University where  and State = 'Ok'";
                 //using (var connection = _dapper.OpenConnection())

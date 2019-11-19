@@ -1,6 +1,6 @@
-﻿using System;
-using Cloudents.Core.Extension;
+﻿using Cloudents.Core.Extension;
 using Newtonsoft.Json;
+using System;
 
 namespace Cloudents.Web.Binders
 {
@@ -34,7 +34,7 @@ namespace Cloudents.Web.Binders
             Enum e = (Enum)value;
             e.GetEnumLocalization();
             writer.WriteValue(e.GetEnumLocalization());
-            
+
         }
     }
 }

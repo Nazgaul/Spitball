@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Cloudents.Core.Event;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
@@ -49,7 +49,15 @@ namespace Cloudents.Core.Entities
             Ended = DateTime.UtcNow;
             Duration = Ended - Created;
             DurationInMinutes = Ended - Created;
-            Price = (decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60 * StudyRoom.Tutor.Price.SubsidizedPrice;
+            if (StudyRoom.Tutor.Price.SubsidizedPrice == null)
+            {
+                Price = ((decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.Price;
+            }
+            else
+            {
+                Price = ((decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.SubsidizedPrice;
+            }
+                
             AddEvent(new EndStudyRoomSessionEvent(this));
         }
 

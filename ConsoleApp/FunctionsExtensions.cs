@@ -42,7 +42,7 @@
 //                            set CourseId = @newId
 //                            where CourseId = @oldId
 //                            and UserId not in (select UserId from sb.UsersCourses where CourseId = @newId);
-                            
+
 //                            delete from sb.UsersCourses where CourseId = @oldId;
 
 //                            delete from sb.Course where [Name] = @oldId;";

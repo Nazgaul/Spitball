@@ -123,9 +123,6 @@
   <data name="add_event_cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="add_event_done" xml:space="preserve">
-    <value>Ok</value>
-  </data>
   <data name="add_event_ok" xml:space="preserve">
     <value>Ok</value>
   </data>
@@ -173,7 +170,7 @@
   </data>
   <data name="title" xml:space="preserve">
     <value>Choose the time the best suits you!</value>
-    </data>
+  </data>
   <data name="to" xml:space="preserve">
     <value>to</value>
   </data>

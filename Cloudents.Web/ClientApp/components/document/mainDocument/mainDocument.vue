@@ -1,21 +1,20 @@
 <template>
   <div class="mainDocument-container">
-    <v-layout row class="mainDocument-header" :class="[isSmAndDown ? 'pt-3' : 'pb-2']" align-center>
+    <h2 class="courseName font-weight-bold text-truncate pt-1 hidden-sm-and-up">{{courseName}}</h2>
+    <v-layout row class="mainDocument-header pt-1 pb-2" align-center>
       <div class="main-header-wrapper">
         <v-icon
           class="grey--text"
           :class="['arrow-back','hidden-sm-and-down',isRtl? 'arrow-back-rtl': '']"
           @click="closeDocument"
         >sbf-arrow-back-chat</v-icon>
-        <h2
-          class="courseName font-weight-bold text-truncate"
-          :class="[isSmAndDown ? 'pr-5' : 'pl-3']"
-        >{{courseName}}</h2>
-        <v-spacer></v-spacer>
-        <span class="grey-text views" :class="[isSmAndDown ? 'pr-3' : 'pr-5']">
+        <h2 class="courseName font-weight-bold text-truncate ml-3 hidden-sm-and-down">{{courseName}}</h2>
+        <v-spacer class="hidden-sm-and-down"></v-spacer>
+        <span v-if="docViews" class="grey-text" :class="[isSmAndDown ? 'pr-3' : 'pr-5']">
           {{docViews}}
-          <v-icon class="pl-2 doc-views" small>sbf-views</v-icon>
+          <span class="" v-language:inner="docViews > 1 ? 'resultNote_views' : 'resultNote_view'"/> 
         </span>
+        <v-spacer class="hidden-sm-and-up"></v-spacer>
         <span class="grey-text date" :class="{'pl-3': isSmAndDown}">{{documentDate}}</span>
 
         <v-menu
@@ -158,7 +157,14 @@
               :poster="`${document.preview.poster}?width=${videoWidth}&height=${videoHeight}&mode=crop&anchorPosition=bottom`"
           />
         </div>
-        <tutor-result-card-carousel v-if="$vuetify.breakpoint.smAndDown" :courseName="courseType" />
+          <div class="docPreviewCarousel mb-4" v-if="$vuetify.breakpoint.smAndDown && getTutorList.length">
+            <h3 class="subtitle-1 mb-4 text-xs-center" v-language:inner="'resultTutor_title'"/>
+            <sbCarousel class="carouselDocPreview" @select="enterTutorCard" 
+                        :arrows="false"
+                        :gap="20">
+              <tutorCardCarousel :fromCarousel="true" v-for="(tutor, index) in getTutorList" :tutor="tutor" :key="index"/>
+            </sbCarousel>
+          </div>
       </template>
       
       <div v-else>
@@ -171,7 +177,14 @@
             :src-placeholder="isObserver(page)"
             :alt="document.content"
           />
-          <tutor-result-card-carousel v-if="(index === 0 && $vuetify.breakpoint.smAndDown)" :courseName="courseType" />
+          <div class="docPreviewCarousel mb-4" v-if="$vuetify.breakpoint.smAndDown && getTutorList.length && index === 0">
+            <h3 class="subtitle-1 mb-4" v-language:inner="'resultTutor_title'"/>
+            <sbCarousel class="carouselDocPreview" @select="enterTutorCard" 
+                        :arrows="false"
+                        :gap="20">
+              <tutorCardCarousel :fromCarousel="true" v-for="(tutor, index) in getTutorList" :tutor="tutor" :key="index"/>
+            </sbCarousel>
+          </div>
         </div>
       </div>
     <transition-group name="slide-x-transition">
@@ -221,17 +234,19 @@ import sbDialog from "../../wrappers/sb-dialog/sb-dialog.vue";
 import reportItem from "../../results/helpers/reportItem/reportItem.vue";
 import utillitiesService from "../../../services/utilities/utilitiesService";
 import documentService from "../../../services/documentService";
-import tutorResultCardCarousel from "../../../components/results/tutorCards/tutorResultCardCarousel/tutorResultCardCarousel.vue";
 import sbVideoPlayer from '../../sbVideoPlayer/sbVideoPlayer.vue';
-import { VList } from 'vuetify/lib'
+import { VList } from 'vuetify/lib';
 
+import sbCarousel from '../../sbCarousel/sbCarousel.vue';
+import tutorCardCarousel from '../../carouselCards/tutorCard.vue';
 
 export default {
   name: "mainDocument",
   components: {
+    sbCarousel,
+    tutorCardCarousel,
     reportItem,
     sbDialog,
-    tutorResultCardCarousel,
     sbVideoPlayer,
     VList
   },
@@ -285,8 +300,8 @@ export default {
       "accountUser",
       "getPurchaseConfirmation",
       "getRouteStack",
-      "getDocumentLoaded"
-
+      "getDocumentLoaded",
+      "getTutorList"
     ]),
     videoSrc(){
       if(this.document && this.document.preview && this.document.preview.locator){
@@ -434,8 +449,16 @@ export default {
       "setNewDocumentPrice",
       "updateLoginDialogState",
       "downloadDocument",
+      "getTutorListCourse"
     ]),
     ...mapMutations(["UPDATE_SEARCH_LOADING"]),
+        enterTutorCard(vueElm){
+      if(vueElm.enterProfilePage){
+        vueElm.enterProfilePage();
+      }else{
+        vueElm.$parent.enterProfilePage();
+      }
+    },
     calculateWidthByScreenSize(){
       let width = 0;
       if (this.$vuetify.breakpoint.xl) {
@@ -469,9 +492,11 @@ export default {
       }
     },
     closeDocument() {
-      this.UPDATE_SEARCH_LOADING(true);
+      let regRoute = 'registration';
       let routeStackLength = this.getRouteStack.length;
-      if (routeStackLength > 1) {
+      let beforeLastRoute = this.getRouteStack[routeStackLength-2];
+      
+      if (routeStackLength > 1 && beforeLastRoute && beforeLastRoute !== regRoute) {
         this.$router.back();
       } else {
         this.$router.push({ path: "/feed" });
@@ -576,6 +601,11 @@ export default {
     this.docWrap = document.querySelector(".document-wrap");
     this.isMounted = true;
   },
+  created() {
+    if(this.$vuetify.breakpoint.smAndDown) {
+        this.getTutorListCourse(this.courseType);
+    }
+  },
 };
 </script>
 <style lang="less">
@@ -588,6 +618,14 @@ export default {
   @media (max-width: @screen-sm) {
     order: 2;
   }
+  .courseName {
+        font-size: 18px;
+        color: @global-purple;
+        line-height: initial !important;
+        @media (max-width: 1450px) {
+        font-size: 16px;
+        }
+    }
   .mainDocument-header {
     justify-content: center;
   }
@@ -612,25 +650,7 @@ export default {
         margin-bottom: 2px;
         font-size: 13px !important;
       }
-      .courseName {
-        font-size: 18px;
-                    color: @global-purple;
-        line-height: initial !important;
-        max-width: 0;
-        min-width: 60%;
-        @media (max-width: @screen-xs) {
-          max-width: 200px;
-          min-width: unset;
-        }
-        @media (max-width: @screen-xss) {
-          max-width: 160px;
-          min-width: unset;
-        }
-        @media (max-width: 320px) {
-          max-width: 110px;
-          min-width: unset;
-        }
-      }
+      
       .arrow-back {
         font-size: 24px;
         margin-top: 3px;
@@ -639,7 +659,7 @@ export default {
         transform: scaleX(-1);
       }
       .grey-text {
-        opacity: 0.6;
+        color: #a0a0a0;
       }
       .verticalMenu {
         font-size: 16px;
@@ -669,7 +689,7 @@ export default {
       bottom: 30px;
       margin: auto;
       text-align: center;
-      z-index: 5;
+      z-index: 12;
       @media (max-width: @screen-xs) {
         right: 0;
         bottom: 0;
@@ -734,6 +754,12 @@ export default {
         }
       }
     }
+    .docPreviewCarousel{
+      width: 100%;
+      .carouselDocPreview{
+        text-align: initial;
+      }
+    }
     .document-wrap-content {
       @media (max-width: @screen-sm) {
         width: 100%;
@@ -753,7 +779,7 @@ export default {
       padding: 14px 72px;
       border-radius: 5.5px;
                 background-color: @global-blue;
-      z-index: 9;
+      z-index: 12;
       margin-left: -340px;
       i {
         font-size: 32px;

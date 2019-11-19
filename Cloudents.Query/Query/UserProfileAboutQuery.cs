@@ -47,7 +47,7 @@ join sb.TutorReview tr
 	on tr.TutorId = t.Id
 join sb.[user] u
 	on tr.UserId = U.Id
-where t.Id = @id", new {id = query.UserId}))
+where t.Id = @id", new { id = query.UserId }))
                     {
                         var retVal = new UserProfileAboutDto
                         {

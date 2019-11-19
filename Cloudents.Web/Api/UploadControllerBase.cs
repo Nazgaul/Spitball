@@ -1,8 +1,12 @@
-﻿using Cloudents.Core.Storage;
+﻿using Cloudents.Core;
+using Cloudents.Core.Storage;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Framework;
 using Cloudents.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -11,10 +15,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Web.Framework;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Localization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -36,7 +36,7 @@ namespace Cloudents.Web.Api
         }
 
         // GET: api/<controller>
-        [HttpPost("upload"), FormContentType, ApiExplorerSettings(IgnoreApi = true),Authorize]
+        [HttpPost("upload"), FormContentType, ApiExplorerSettings(IgnoreApi = true), Authorize]
         public async Task<ActionResult<UploadStartResponse>> BatchUploadAsync(
             [FromForm] UploadRequestForm model,
             CancellationToken token)
@@ -45,7 +45,7 @@ namespace Cloudents.Web.Api
             var tempData = tempDataProvider.Get<TempData>($"update-{model.SessionId}");
             if (tempData == null)
             {
-                ModelState.AddModelError("error","bad upload");
+                ModelState.AddModelError("error", "bad upload");
                 return BadRequest(ModelState);
             }
             var index = (int)(model.StartOffset / UploadInnerResponse.BlockSize);
@@ -79,7 +79,7 @@ namespace Cloudents.Web.Api
         [NonAction]
         protected virtual IEnumerable<string> GetSupportedExtensions()
         {
-          return FileTypesExtensions.GetFormats();
+            return FileTypesExtensions.GetFormats();
         }
 
 

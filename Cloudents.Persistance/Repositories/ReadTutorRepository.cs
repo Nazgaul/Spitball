@@ -1,12 +1,12 @@
 ﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using NHibernate;
+using NHibernate.Linq;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Enum;
-using NHibernate.Linq;
 
 namespace Cloudents.Persistence.Repositories
 {

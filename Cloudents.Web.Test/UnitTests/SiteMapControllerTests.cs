@@ -8,7 +8,7 @@ namespace Cloudents.Web.Test.UnitTests
 
         private readonly string _sitemapLink = "https://dev.spitball.co/sitemap.xml";
 
-    
+
 
         [Fact]
         public void GetAsync_Sitemap()
@@ -18,7 +18,7 @@ namespace Cloudents.Web.Test.UnitTests
             sm.Load(_sitemapLink);
             XmlElement root = sm.DocumentElement;
             XmlNodeList nodes = root.SelectNodes("sitemap");
-            
+
         }
     }
 }

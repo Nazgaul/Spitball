@@ -146,7 +146,6 @@ const mutations = {
             state.profile.user.name = newData.name;
             state.profile.user.description = newData.description;
         }
-
     },
     setEditDialog(state, val){
         state.showEditDataDialog = val;
@@ -421,8 +420,6 @@ const actions = {
     },
     updateUserBalance({commit, state}, payload) {
         return;
-//        let newBalance = state.user.balance + payload;
-        //commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)});
     },
 
     signalR_SetBalance({commit, state, dispatch}, newBalance) {

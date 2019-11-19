@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Tutor
 {
@@ -41,7 +41,7 @@ namespace Cloudents.Query.Tutor
             public async Task<CalendarEventDto> GetAsync(CalendarEventsQuery query, CancellationToken token)
             {
 
-                var calendarsFuture =  _statelessSession.Query<TutorCalendar>().Where(w => w.Tutor.Id == query.Id)
+                var calendarsFuture = _statelessSession.Query<TutorCalendar>().Where(w => w.Tutor.Id == query.Id)
                     .Select(s => s.GoogleId).ToFuture();
 
                 var availableFuture = _statelessSession.Query<TutorHours>()
@@ -64,7 +64,7 @@ namespace Cloudents.Query.Tutor
                     //if (busySlots.Count >0)
                     if (freeSlot.Any(a => a.From < w.ToUniversalTime().TimeOfDay && w.ToUniversalTime().TimeOfDay < a.To))
                     {
-                      
+
                         // Im not busy busy
                         return false;
                     }

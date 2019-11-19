@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Specialized;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
+using System;
+using System.Collections.Specialized;
 
 namespace Cloudents.Core
 {
@@ -24,7 +24,7 @@ namespace Cloudents.Core
             {
                 _functionEndPoint = new Uri(siteEndPoints.FunctionSite.TrimEnd('/'));
             }
-           
+
         }
 
         public string BuildWalletEndPoint(string token)
@@ -59,13 +59,13 @@ namespace Cloudents.Core
         public Uri BuildChatEndpoint(string token, object parameters = null)
         {
             var nvc = new NameValueCollection();
-            
+
             if (parameters != null)
             {
                 foreach (var property in parameters.GetType().GetProperties())
                     nvc.Add(property.Name, property.GetValue(parameters).ToString());
             }
-            nvc.Add("token",token);
+            nvc.Add("token", token);
             nvc.Add("channel", CommunicationChannel.Phone.ToString("G"));
             nvc.Add("chat", "expand");
 
@@ -97,6 +97,6 @@ namespace Cloudents.Core
             var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
             return builder.ToString();
         }
-       
+
     }
 }

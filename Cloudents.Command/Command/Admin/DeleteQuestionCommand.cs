@@ -7,7 +7,7 @@
             QuestionId = questionId;
         }
 
-        public long QuestionId { get;}
+        public long QuestionId { get; }
 
     }
 }

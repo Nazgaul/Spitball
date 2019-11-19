@@ -9,10 +9,10 @@ namespace Cloudents.Core.Interfaces
     //    string GenerateKey(object sourceObject);
     //}
 
-    public interface ITextAnalysis
-    {
-        Task<CultureInfo> DetectLanguageAsync(string text, CancellationToken token);
-    }
+    //public interface ITextAnalysis
+    //{
+    //    Task<CultureInfo> DetectLanguageAsync(string text, CancellationToken token);
+    //}
 
     //public interface ITextClassifier
     //{

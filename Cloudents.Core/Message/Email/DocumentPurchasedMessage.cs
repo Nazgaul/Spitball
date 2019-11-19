@@ -1,5 +1,5 @@
-﻿using System;
-using Cloudents.Core.Message.System;
+﻿using Cloudents.Core.Message.System;
+using System;
 
 namespace Cloudents.Core.Message.Email
 {

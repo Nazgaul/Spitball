@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Cloudents.Core.Query.Payment;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Query.Payment;
 
 namespace Cloudents.Core.Interfaces
 {
     public interface IPayment
     {
         //Task<PayMeSellerResponse> CreateSellerAsync(PayMeSeller seller, CancellationToken token);
-        Task<GenerateSaleResponse> CreateBuyerAsync(string callback,string successRedirect, CancellationToken token);
+        Task<GenerateSaleResponse> CreateBuyerAsync(string callback, string successRedirect, CancellationToken token);
 
-        Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey,decimal price, CancellationToken token);
+        Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey, decimal price, CancellationToken token);
 
-        Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect,CancellationToken token);
+        Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token);
     }
 
     public sealed class PointBundle
@@ -22,7 +22,7 @@ namespace Cloudents.Core.Interfaces
         private static readonly PointBundle PaymentOne = new PointBundle(250, 10);
 
 
-        public static  PointBundle Parse(int points)
+        public static PointBundle Parse(int points)
         {
             if (PaymentOne.Points.Equals(points))
             {
@@ -44,7 +44,7 @@ namespace Cloudents.Core.Interfaces
             Price = priceInShekel;
         }
 
-        public int Price { get;  }
+        public int Price { get; }
 
         public int Points { get; }
 

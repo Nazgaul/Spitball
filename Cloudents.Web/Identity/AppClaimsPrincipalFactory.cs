@@ -1,10 +1,10 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Query;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Identity
 {
@@ -20,7 +20,7 @@ namespace Cloudents.Web.Identity
             //RoleManager<ApplicationRole> roleManager,
             IQueryBus queryBus,
             IOptions<IdentityOptions> options) :
-            base(userManager,  options)
+            base(userManager, options)
         {
         }
 
@@ -48,5 +48,5 @@ namespace Cloudents.Web.Identity
         }
     }
 
-    
+
 }

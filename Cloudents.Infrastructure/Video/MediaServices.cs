@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Cloudents.Core.Interfaces;
+using Microsoft.Azure.Management.Media;
+using Microsoft.Azure.Management.Media.Models;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Rest.Azure.Authentication;
+using Nito.AsyncEx;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Microsoft.Azure.Management.Media;
-using Microsoft.Azure.Management.Media.Models;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Microsoft.Rest.Azure.Authentication;
-using Nito.AsyncEx;
 
 namespace Cloudents.Infrastructure.Video
 {
@@ -50,7 +50,7 @@ namespace Cloudents.Infrastructure.Video
                 _config = stream.ToJsonReader<ConfigWrapper>();
             }
 
-          
+
             var clientCredential = new ClientCredential(_config.AadClientId, _config.AadSecret);
             var serviceClientCredentials = await ApplicationTokenProvider.LoginSilentAsync(_config.AadTenantId, clientCredential, ActiveDirectoryServiceSettings.Azure);
             //TODO Maybe we should pass http client factory
@@ -164,7 +164,7 @@ namespace Cloudents.Infrastructure.Video
             };
             var v = await _context;
 
-            
+
             // If you already have a job with the desired name, use the Jobs.Get method
             // to get the existing job. In Media Services v3, Get methods on entities returns null 
             // if the entity doesn't exist (a case-insensitive check on the name).
@@ -187,7 +187,7 @@ namespace Cloudents.Infrastructure.Video
             }
         }
 
-      
+
 
         public async Task CreatePreviewJobAsync(long id, string url, TimeSpan videoLength, CancellationToken token)
         {
@@ -220,19 +220,19 @@ namespace Cloudents.Infrastructure.Video
                         Outputs = jobOutputs,
                     }, token);
             }
-            catch (ApiErrorException e) when(e.Response.StatusCode == HttpStatusCode.Conflict)
+            catch (ApiErrorException e) when (e.Response.StatusCode == HttpStatusCode.Conflict)
             {
                 //There is already a job on this
-                
+
             }
-           
+
         }
 
         private async Task CreateStreamingJobAsync(long id, string url, CancellationToken token)
         {
             var videoAsset = await CreateOutputAssetAsync(id, AssetType.Long, token);
             var jobInput =
-                new JobInputHttp(files: new[] {url});
+                new JobInputHttp(files: new[] { url });
 
             JobOutput[] jobOutputs =
             {
@@ -276,7 +276,7 @@ namespace Cloudents.Infrastructure.Video
                 outputAssetName, asset, token);
         }
 
-       
+
         public async Task<string> GetAssetContainerAsync(long id, AssetType assetType, CancellationToken token)
         {
             var v = await _context;
@@ -314,7 +314,7 @@ namespace Cloudents.Infrastructure.Video
 
                 return await GetStreamingUrlAsync(locatorName, token);
             }
-            catch (ApiErrorException e) when(e.Response.StatusCode == HttpStatusCode.BadRequest)
+            catch (ApiErrorException e) when (e.Response.StatusCode == HttpStatusCode.BadRequest)
             {
                 return null;
             }

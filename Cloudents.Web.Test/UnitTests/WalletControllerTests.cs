@@ -16,7 +16,7 @@ namespace Cloudents.Web.Test.UnitTests
         private readonly System.Net.Http.HttpClient _client;
 
         private readonly string[] _types = { "Earned", "Stake", "Spent" };
-        
+
 
 
         public WalletControllerTests(SbWebApplicationFactory factory)
@@ -27,7 +27,7 @@ namespace Cloudents.Web.Test.UnitTests
 
         [Fact]
         public async Task GetAsync_Balance()
-        {   
+        {
             await _client.LogInAsync();
 
             var response = await _client.GetAsync("api/wallet/balance");
@@ -45,7 +45,7 @@ namespace Cloudents.Web.Test.UnitTests
                 type.Should().Be(_types[i]);
                 points.Should().NotBeNull();
                 value.Should().NotBeNull();
-            }            
+            }
         }
 
         [Fact]
@@ -59,11 +59,11 @@ namespace Cloudents.Web.Test.UnitTests
 
             var d = JArray.Parse(str);
 
-            var date = d[d.Count-1]["date"]?.Value<DateTime?>();
-            var action = d[d.Count-1]["action"]?.Value<string>();
-            var type = d[d.Count-1]["type"]?.Value<string>();
-            var amount = d[d.Count-1]["amount"]?.Value<decimal?>();
-            var balance = d[d.Count-1]["balance"]?.Value<decimal?>();
+            var date = d[d.Count - 1]["date"]?.Value<DateTime?>();
+            var action = d[d.Count - 1]["action"]?.Value<string>();
+            var type = d[d.Count - 1]["type"]?.Value<string>();
+            var amount = d[d.Count - 1]["amount"]?.Value<decimal?>();
+            var balance = d[d.Count - 1]["balance"]?.Value<decimal?>();
 
             date.Should().NotBeNull();
             action.Should().Be("Sign up");
@@ -82,7 +82,7 @@ namespace Cloudents.Web.Test.UnitTests
             response.EnsureSuccessStatusCode();
         }
 
-        [Fact]
+        [Fact(Skip = "This is not good - it is not the use case")]
         public async Task GetAsync_PaymentLink()
         {
             await _client.LogInAsync();

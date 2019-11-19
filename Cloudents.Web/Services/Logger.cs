@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
+using System;
+using System.Collections.Generic;
 
 namespace Cloudents.Web.Services
 {

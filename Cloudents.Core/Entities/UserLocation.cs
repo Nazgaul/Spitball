@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate proxy")]
-    public class UserLocation :Entity<Guid>
+    public class UserLocation : Entity<Guid>
     {
         public UserLocation(User user, string ip, string country, string fingerPrint, string userAgent)
         {
@@ -21,7 +21,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-      //  public virtual Guid Id { get; protected set; }
+        //  public virtual Guid Id { get; protected set; }
         public virtual User User { get; protected set; }
         public virtual DomainTimeStamp TimeStamp { get; protected set; }
         public virtual string Ip { get; protected set; }

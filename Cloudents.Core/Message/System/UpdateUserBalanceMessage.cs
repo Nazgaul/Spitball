@@ -2,7 +2,7 @@
 
 namespace Cloudents.Core.Message.System
 {
-    public class UpdateUserBalanceMessage: ISystemQueueMessage
+    public class UpdateUserBalanceMessage : ISystemQueueMessage
     {
         public UpdateUserBalanceMessage(IEnumerable<long> usersIds)
         {

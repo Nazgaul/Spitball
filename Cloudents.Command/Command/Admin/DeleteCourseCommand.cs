@@ -2,7 +2,7 @@
 {
     public class DeleteCourseCommand : ICommand
     {
-        public DeleteCourseCommand( string courseToRemove)
+        public DeleteCourseCommand(string courseToRemove)
         {
             CourseToRemove = courseToRemove;
         }

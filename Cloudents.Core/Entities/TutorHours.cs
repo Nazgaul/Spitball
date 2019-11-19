@@ -26,8 +26,8 @@ namespace Cloudents.Core.Entities
 
         protected bool Equals(TutorHours other)
         {
-            return Tutor.Id.Equals(other.Tutor.Id) 
-                && WeekDay.Equals(other.WeekDay) 
+            return Tutor.Id.Equals(other.Tutor.Id)
+                && WeekDay.Equals(other.WeekDay)
                 && From.Equals(other.From)
                 && To.Equals(other.To);
         }
@@ -42,7 +42,7 @@ namespace Cloudents.Core.Entities
 
         public override int GetHashCode()
         {
-            var hashCode =  Tutor.Id.GetHashCode() ^ WeekDay.GetHashCode() ^ From.GetHashCode() ^ To.GetHashCode();
+            var hashCode = Tutor.Id.GetHashCode() ^ WeekDay.GetHashCode() ^ From.GetHashCode() ^ To.GetHashCode();
             return hashCode;
         }
     }

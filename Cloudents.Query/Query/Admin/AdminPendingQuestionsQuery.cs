@@ -37,14 +37,14 @@ namespace Cloudents.Query.Query.Admin
                 {
                     questions = questions.Where(w => w.User.Country == query.Country);
                 }
-                    
+
                 return await questions.Select(s => new PendingQuestionDto
-                    {
-                        Id = s.Id,
-                        Text = s.Text,
-                        Email = s.User.Email,
-                        UserId = s.User.Id,
-                    }).OrderBy(o => o.Id).ToListAsync(token);
+                {
+                    Id = s.Id,
+                    Text = s.Text,
+                    Email = s.User.Email,
+                    UserId = s.User.Id,
+                }).OrderBy(o => o.Id).ToListAsync(token);
             }
         }
     }

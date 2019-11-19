@@ -3,26 +3,32 @@ using Cloudents.Command.Command;
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
+using Cloudents.Core.Models;
+using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Query;
+using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
+using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
-using NHibernate;
+using Cloudents.Core.Exceptions;
+using FluentNHibernate.Utils;
 using static Microsoft.AspNetCore.Http.StatusCodes;
-using System.Linq;
-using Cloudents.Web.Services;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Api
@@ -163,7 +169,7 @@ namespace Cloudents.Web.Api
             if (uri == null)
             {
                 ModelState.AddModelError("x", "not an image");
-                    return BadRequest(ModelState);
+                return BadRequest(ModelState);
             }
             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
             var url = Url.ImageUrl(imageProperties);
@@ -174,14 +180,20 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("settings")]
-        public async Task<IActionResult> ChangeSettingsAsync([FromBody]UpdateSettingsRequest model,
+        public async Task<IActionResult> ChangeSettingsAsync(
+            [FromBody]UpdateSettingsRequest model,
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var command = new UpdateUserSettingsCommand(userId, model.FirstName, model.LastName,
                 model.Description, model.Bio, model.Price);
             await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(profile.Country);
+            return Ok(new
+            {
+                newPrice = model.Price?.ToString("C0", culture)
+            });
         }
 
         [HttpPost("BecomeTutor")]
@@ -190,13 +202,13 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(Status409Conflict)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> BecomeTutorAsync(
-            [FromBody]UpdateSettingsRequest model, 
+            [FromBody]UpdateSettingsRequest model,
             [FromServices] ConfigurationService configurationService,
             CancellationToken token)
         {
             try
             {
-                
+
                 if (configurationService.GetSiteName() == ConfigurationService.Site.Frymo)
                 {
                     model.Price = null;
@@ -223,6 +235,34 @@ namespace Cloudents.Web.Api
             catch (NonUniqueObjectException)
             {
                 return BadRequest();
+            }
+        }
+
+
+        [HttpPost("coupon")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> ApplyCoupon(ApplyCouponRequest model, CancellationToken token)
+        {
+            try
+            {
+                var userId = _userManager.GetLongUserId(User);
+                var command = new ApplyCouponCommand(model.Coupon, userId, model.TutorId);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok(new
+                {
+                    Price = command.newPrice
+                });
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest("Invalid Coupon");
+            }
+            catch (DuplicateRowException)
+            {
+                return BadRequest("This coupon already in use");
+
             }
         }
 

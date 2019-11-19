@@ -1,6 +1,6 @@
-﻿using System;
-using Cloudents.Core.Event;
+﻿using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,7 +19,11 @@ namespace Cloudents.Core.EventHandler
 
         public async Task HandleAsync(TutorDeletedEvent eventMessage, CancellationToken token)
         {
-            var tutor = await _repository.LoadAsync(eventMessage.Id, token);
+            var tutor = await _repository.GetAsync(eventMessage.Id, token);
+            if (tutor is null)
+            {
+                return;
+            }
             await _repository.DeleteAsync(tutor, token);
             await _unitOfWork.CommitAsync(CancellationToken.None);
         }

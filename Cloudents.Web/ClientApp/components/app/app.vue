@@ -34,6 +34,7 @@
         :showDialog="loginDialogState"
         :popUpType="'loginPop'"
         :content-class="'login-popup'"
+        :max-width="'550px'"
       >
         <login-to-answer></login-to-answer>
       </sb-dialog>
@@ -84,10 +85,11 @@
         
         <sb-dialog :showDialog="getShowBuyDialog"
                     :popUpType="'buyTokens'"
-                    :content-class="'buy-tokens-popup'"
+                    :content-class="!isFrymo ? 'buy-tokens-popup' : 'buy-tokens-frymo-popup'"
                     :onclosefn="closeSblToken"
                     maxWidth='840px'>
-            <buy-tokens popUpType="buyTokens"></buy-tokens>
+            <buy-tokens v-if="!isFrymo" popUpType="buyTokens"></buy-tokens>
+            <buy-token-frymo v-else popUpType="buyTokensFrymo"></buy-token-frymo>
         </sb-dialog>
 
         <sb-dialog
@@ -120,6 +122,7 @@ import reportItem from "../results/helpers/reportItem/reportItem.vue";
 import mobileFooter from "../footer/mobileFooter/mobileFooter.vue";
 import marketingBox from "../helpers/marketingBox/marketingBox.vue";
 import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
+import buyTokenFrymo from "../dialogs/buyTokenFrymo/buyTokenFrymo.vue";
 import chatComponent from "../chat/chat.vue";
 import becomeTutor from "../becomeTutor/becomeTutor.vue";
 import tutorList from "../helpers/tutorList/tutorList.vue";
@@ -137,6 +140,7 @@ export default {
     marketingBox,
     uploadMultipleFiles,
     buyTokens,
+    buyTokenFrymo,
     becomeTutor,
     tutorList,
     tutorRequest,
@@ -172,6 +176,7 @@ export default {
       "becomeTutorDialog",
       "getRequestTutorDialog",
       "getShowPaymeDialog",
+      "isFrymo",
 
     ]),
     isMobile(){

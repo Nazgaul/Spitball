@@ -1,10 +1,17 @@
 <template>
-    <component v-if="!!userName" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId,name:userName}}:''">
-        <div v-if="userImageUrl" class="user-image-wrap" :style="{width: `${width}px`, height: `${height}px`}">
+    <component v-if="!!userName" class="user-avatar-rect" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId,name:userName}}:''">
+        <div v-if="userImageUrl" class="user-avatar-image-wrap" :style="{width: `${width}px`, height: `${height}px`}">
             <v-progress-circular v-if="!isLoaded" indeterminate v-bind:size="50"></v-progress-circular>
-            <img @load="loaded" @error="onImgError" :src="imageUrl" :alt="userName" class="user-avatar-rect-img">
+            <img 
+                draggable="false"
+                @load="loaded"
+                @error="onImgError"
+                :src="imageUrl"
+                :alt="userName"
+                :style="{borderRadius: `${borderRadius}px`}"
+                class="user-avatar-rect-img">
         </div>
-        <v-avatar v-else :tile="true" tag="v-avatar" :class="'user-avatar-rect-no-image userColor' + strToACII % 11" :style="{width: `${width}px`, height: `${height}px`}">
+        <v-avatar v-else :tile="true" tag="v-avatar" :class="'user-avatar-rect-no-image userColor' + strToACII % 11" :style="{width: `${width}px`, height: `${height}px`, fontSize: `${fontSize}px`, borderRadius: `${borderRadius}px`}">
             <span class="white--text">{{userName.slice(0,2).toUpperCase()}}</span>
         </v-avatar>
     </component>
@@ -29,6 +36,15 @@ export default {
         height: {
             type: Number,
             required: false
+        },
+        fontSize: {
+            type: Number,
+            required: false
+        },
+        borderRadius: {
+            type: Number,
+            required: false,
+            default: 0
         }
     },
     data(){
@@ -62,7 +78,7 @@ export default {
 
 <style lang="less">
     .user-avatar-rect {
-        .user-image-wrap{
+        .user-avatar-image-wrap{
             display: flex;
             justify-content: center;
             align-items: center;

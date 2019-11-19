@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -11,7 +11,7 @@ namespace Cloudents.Web.Test.IntegrationTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        
+
 
         public UnregFeedTests(SbWebApplicationFactory factory)
         {
@@ -21,7 +21,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             });
         }
 
-       
+
 
         [Theory]
         [InlineData("api/tutor/search")]

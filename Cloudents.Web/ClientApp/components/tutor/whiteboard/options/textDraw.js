@@ -24,7 +24,8 @@ const startingMousePosition = {
     y:null
 };
 
-const yOffset = 25;
+const yOffset = 50;
+const FONT_SIZE = 60;
 
 let isWriting = false;
 let currentId = null;
@@ -102,14 +103,14 @@ const mousedown = function(e){
         let text = document.getElementsByClassName(currentId)[0];
         if(!!text.value){
             // if(!isEditing){
-                this.context.font = `30px serif`;
+                this.context.font = `${FONT_SIZE}px serif`;
                 let meassureText = this.context.measureText(text.value);
                 let textObj = createPointsByOption({
                     mouseX: (window.innerWidth / 2) - (meassureText.width / 2),
                     mouseY: window.innerHeight / 3.5,
                     yOffset: yOffset,
                     width: meassureText.width,
-                    height: 30,
+                    height: FONT_SIZE,
                     fontFamily: 'serif',
                     color: this.color.hex,
                     option: optionType,

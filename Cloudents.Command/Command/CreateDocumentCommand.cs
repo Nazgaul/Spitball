@@ -15,7 +15,7 @@ namespace Cloudents.Command.Command
             UserId = userId;
         }
 
-       
+
 
         public string BlobName { get; }
         [NotNull] public string Name { get; }

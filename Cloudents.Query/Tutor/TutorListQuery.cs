@@ -1,12 +1,12 @@
 ﻿using Cloudents.Core.DTOs;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Tutor
 {
@@ -109,13 +109,13 @@ namespace Cloudents.Query.Tutor
                             .Select(x => x.Image).WithAlias(() => tutorCardDtoAlias.Image)
                             .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
                             .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
-                            .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.TutorPrice)
+                            .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
                             .Select(x => x.Rate).WithAlias(() => tutorCardDtoAlias.Rate)
                             .Select(x => x.RateCount).WithAlias(() => tutorCardDtoAlias.ReviewsCount)
                             .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
                             .Select(x => x.University).WithAlias(() => tutorCardDtoAlias.University)
                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons)
-                            .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.TutorCountry))
+                            .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.Country))
 
                     .OrderBy(o => o.OverAllRating).Desc
                     .TransformUsing(Transformers.AliasToBean<TutorCardDto>())

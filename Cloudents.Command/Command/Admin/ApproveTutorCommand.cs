@@ -1,6 +1,6 @@
 ﻿namespace Cloudents.Command.Command.Admin
 {
-    public class ApproveTutorCommand: ICommand
+    public class ApproveTutorCommand : ICommand
     {
         public ApproveTutorCommand(long id)
         {

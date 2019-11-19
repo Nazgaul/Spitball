@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Admin2.Models;
+﻿using Cloudents.Admin2.Models;
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
@@ -14,13 +9,18 @@ using Cloudents.Query.Query.Admin;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Admin2.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(/*Roles = Roles.Admin*/)]
+    [Authorize]
     //[Authorize(Policy = Policy.IsraelUser)]
     public class AdminPaymentController : ControllerBase
     {
@@ -38,6 +38,14 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PaymentDto>> GetPayments(CancellationToken token)
         {
             var query = new AdminPaymentsQuery(User.GetCountryClaim());
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<PaymentDetailDto> GetPayment(Guid id, CancellationToken token)
+        {
+
+            var query = new AdminPaymentBySessionIdQuery(id);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -59,11 +67,17 @@ namespace Cloudents.Admin2.Api
             }
             catch (HttpRequestException ex)
             {
-                client.TrackException(ex,model.AsDictionary());
+                client.TrackException(ex, model.AsDictionary());
                 return BadRequest(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Delete user pay method 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpDelete("deletePayment")]
         public async Task<IActionResult> DeletePaymentAsync(long userId,
             CancellationToken token)

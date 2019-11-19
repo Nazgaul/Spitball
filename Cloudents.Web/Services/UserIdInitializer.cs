@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Security.Claims;
-using Microsoft.ApplicationInsights.Channel;
+﻿using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Linq;
+using System.Security.Claims;
 
 namespace Cloudents.Web.Services
 {
@@ -27,11 +27,11 @@ namespace Cloudents.Web.Services
         {
             if (telemetry is RequestTelemetry)
             {
-                
+
 
                 if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
                 {
-                    var principal =  _httpContextAccessor.HttpContext.User;
+                    var principal = _httpContextAccessor.HttpContext.User;
                     var userId = principal.FindFirst(ClaimTypes.NameIdentifier);
                     telemetry.Context.User.Id = userId.Value;
                     return;
@@ -65,7 +65,7 @@ namespace Cloudents.Web.Services
                     }
                     catch (Exception ex)
                     {
-                        
+
                         //_logger.Value.TrackException(ex);
                         // ignored
                     }

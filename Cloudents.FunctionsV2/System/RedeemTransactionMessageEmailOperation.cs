@@ -1,13 +1,12 @@
-﻿using System.Globalization;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Extension;
 using Cloudents.Core.Message.Email;
 using Cloudents.Query;
 using Cloudents.Query.Email;
 using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
+using System.Globalization;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.FunctionsV2.System
 {

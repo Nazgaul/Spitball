@@ -16,6 +16,9 @@ import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import LoadScript from 'vue-plugin-load-script';
 
+// Filters
+import './filters/filters';
+
 import VueNumeric from 'vue-numeric';
 import VueMathjax from 'vue-mathjax';
 import utilitiesService from './services/utilities/utilitiesService';
@@ -30,7 +33,6 @@ Vue.use(VueFlicking);
 // import VueCodemirror from 'vue-codemirror'
 // import 'codemirror/lib/codemirror.css'
 // import 'code'
-
 
 // Vue.use(VueCodemirror);
 
@@ -145,6 +147,12 @@ const router = new VueRouter({
                 resolve({selector: to.hash});
             }
             if (savedPosition) {
+                //firefox fix
+                if(global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+                    setTimeout(()=>{
+                        global.scrollTo(savedPosition.x,savedPosition.y);
+                    });
+                }
                 resolve({x: savedPosition.x, y: savedPosition.y});
             } else {
                 resolve({x: 0, y: 0});
@@ -182,20 +190,6 @@ Vue.use(VueAnalytics, {
 Vue.directive('language', Language);
 // Register a global custom directive called `v-focus`
 
-//#region yifat
-Vue.filter('capitalize',
-    function (value) {
-        if (!value) return '';
-        value = value.toString();
-        var values = value.split("/");
-        for (var v in values) {
-            var tempVal = values[v];
-            values[v] = tempVal.charAt(0).toUpperCase() + tempVal.slice(1);
-        }
-        return values.join(" ");
-        //return value.charAt(0).toUpperCase() + value.slice(1);
-    });
-//#endregion
 //is rtl
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 //check if firefox for ellipsis, if yes use allipsis filter if false css multiline ellipsis
@@ -213,61 +207,6 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
 
 }
 
-Vue.filter('ellipsis',
-    function (value, characters, detailedView) {
-        value = value || '';
-        if (value.length <= characters || detailedView) {
-            return value;
-        } else {
-            return value.substr(0, characters) + '...';
-
-        }
-    });
-Vue.filter('bolder',
-    function (value, query) {
-        if (query.length) {
-            query.map((item) => {
-                value = value.replace(item, '<span class="bolder">' + item + '</span>');
-            });
-        }
-        return value;
-    });
-
-Vue.filter('fixedPoints', function (value) {
-    if (!value) return 0;
-    if (value.toString().indexOf('.') === -1) return value;
-    return parseFloat(value).toFixed(2);
-});
-
-Vue.filter('dollarVal', function (value) {
-    if (!value) return 0;
-    return parseFloat(value / 100).toFixed(2);
-});
-
-
-// 10/12/2018
-Vue.filter('dateFromISO', function (value) {
-    let d = new Date(value);
-    //return load if no data
-    if (!value) {
-        return LanguageService.getValueByKey('wallet_Loading');
-    }
-    return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
-});
-
-// Nov 14, 2018 :: MDN Global_Objects/Date/toLocaleDateString
-Vue.filter('fullMonthDate', function (value) {
-    let date = new Date(value);
-    //return load if no data
-    if (!value) {
-        return '';
-    }
-// request a weekday along with a long month
-    let options = {year: 'numeric', month: 'short', day: 'numeric'};
-    let languageDate = `${global.lang.toLowerCase()}-${global.country.toUpperCase()}`;
-    return date.toLocaleDateString(languageDate, options);
-});
-
 Vue.prototype.$loadStyle = function(url,id){
     return new Promise((resolve, reject) => {
         if (document.querySelector(id)) return resolve()
@@ -279,6 +218,16 @@ Vue.prototype.$loadStyle = function(url,id){
         return resolve()
     })
 }
+
+Vue.prototype.$proccessImageUrl = function(url, width, height, mode){
+    let usedMode = mode ? mode : 'crop';
+    if(url){
+        let returnedUrl = `${url}?&width=${width}&height=${height}&mode=${usedMode}`;
+        return returnedUrl;
+    }else{
+        return '';
+    }
+  };
 
 Vue.prototype.$Ph = function (key, placeholders) {
     let rawKey = LanguageService.getValueByKey(key);
@@ -318,30 +267,6 @@ Vue.prototype.$chatMessage = function (message) {
         return `<a href="${message.href}" target="_blank"><img src="${src}"/></a>`;
     }
 };
-
-// filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
-Vue.filter('currencyLocalyFilter', function (value, hideCurrrency) {
-    let amount = Number(value);
-    let sblCurrency = LanguageService.getValueByKey('wallet_SBL');
-    let result = amount && amount.toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }) || '0';
-    if (hideCurrrency) {
-        return result;
-    } else {
-        if (amount < 0 && global.isRtl) {
-          return `${result.substr(1,result.length)}${result.slice(0,1)} ${sblCurrency}`;
-        }
-        return result + " " + sblCurrency;
-    }
-
-});
-
-Vue.filter('commasFilter', function (value) {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-});
-
 
 router.beforeEach((to, from, next) => {
     store.dispatch('setRouteStack', to.name);

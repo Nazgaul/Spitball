@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Cloudents.Core.DTOs;
+using Dapper;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Dapper;
 
 
 namespace Cloudents.Query.Query
@@ -19,7 +19,7 @@ namespace Cloudents.Query.Query
         private int Page { get; }
 
 
-       
+
         internal sealed class CoursesByTermQueryHandler : IQueryHandler<CourseSearchQuery, IEnumerable<CourseDto>>
         {
             private readonly IDapperRepository _dapperRepository;
@@ -73,5 +73,5 @@ order by case when uc.CourseId is not null
             }
         }
     }
-    
+
 }

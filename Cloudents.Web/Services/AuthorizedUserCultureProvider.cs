@@ -1,14 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.Primitives;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Primitives;
+using System;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Services
 {
@@ -27,7 +27,7 @@ namespace Cloudents.Web.Services
             //throw new NotImplementedException();
         }
     }
-   
+
     public class AuthorizedUserCultureProvider : IRequestCultureProvider
     {
         public async Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)

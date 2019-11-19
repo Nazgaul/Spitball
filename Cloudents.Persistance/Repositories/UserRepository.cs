@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Criterion;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Persistence.Repositories
 {
@@ -34,7 +34,7 @@ namespace Cloudents.Persistence.Repositories
         }
 
 
-       
+
 
         public Task<decimal> UserBalanceAsync(long userId, CancellationToken token)
         {
@@ -42,7 +42,7 @@ namespace Cloudents.Persistence.Repositories
                 .SingleOrDefaultAsync<decimal>(token);
         }
 
-        public  Task<User> GetUserByEmailAsync(string userEmail, CancellationToken token)
+        public Task<User> GetUserByEmailAsync(string userEmail, CancellationToken token)
         {
             return
                 Session.QueryOver<User>()
@@ -84,6 +84,6 @@ namespace Cloudents.Persistence.Repositories
                   .Where(w => w.Type == TransactionType.Earned || w.Type == TransactionType.Stake)
                   .Select(Projections.Sum<Transaction>(x => x.Price));
         }
-       
+
     }
 }

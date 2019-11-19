@@ -2,7 +2,7 @@
 
 namespace Cloudents.Command.Command.Admin
 {
-    public class RenameUniversityCommand: ICommand
+    public class RenameUniversityCommand : ICommand
     {
         public RenameUniversityCommand(Guid universityId, string newName)
         {
@@ -10,6 +10,6 @@ namespace Cloudents.Command.Command.Admin
             NewName = newName;
         }
         public Guid UniversityId { get; }
-        public string NewName { get;  }
+        public string NewName { get; }
     }
 }

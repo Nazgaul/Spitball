@@ -4,8 +4,10 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
+using Cloudents.Query.Documents;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,8 +17,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Query.Documents;
-using Cloudents.Web.Filters;
 
 namespace Cloudents.Web.Controllers
 {
@@ -75,7 +75,7 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
-           
+
 
             var query = new DocumentSeoById(id);
             var model = await _queryBus.QueryAsync(query, token);
@@ -111,8 +111,8 @@ namespace Cloudents.Web.Controllers
         }
 
 
-       [Route("document/{courseName}/{name}/{id:long}", 
-            Name = SeoTypeString.Document)]
+        [Route("document/{courseName}/{name}/{id:long}",
+             Name = SeoTypeString.Document)]
         [ActionName("Index"), SignInWithToken]
         public async Task<IActionResult> IndexAsync(string courseName, string name, long id, CancellationToken token)
         {
@@ -125,7 +125,7 @@ namespace Cloudents.Web.Controllers
             }
 
             ViewBag.title = _localizer["Title", model.CourseName, model.Name];
-            ViewBag.metaDescription = _localizer["Description",model.CourseName];
+            ViewBag.metaDescription = _localizer["Description", model.CourseName];
             return View();
         }
 
@@ -140,7 +140,7 @@ namespace Cloudents.Web.Controllers
             await Task.WhenAll(tItem, tFiles);
 
             var item = tItem.Result;
-           
+
             if (item == null)
             {
                 return NotFound();

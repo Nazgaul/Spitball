@@ -1,7 +1,3 @@
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.Query;
@@ -12,6 +8,10 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
@@ -76,11 +76,10 @@ namespace Cloudents.FunctionsV2
                                 University = update.University,
                                 Lessons = Math.Max(update.LessonsCount, update.ReviewsCount),
                                 Bio = update.Bio,
-                                TutorPrice = (int)update.Price,
-                                TutorCountry = update.Country,
+                                Price = update.Price,
+                                Country = update.Country,
                                 Image = update.Image,
                                 NeedSerializer = true
-
                             }
                         },
                         Insert = true
@@ -90,6 +89,7 @@ namespace Cloudents.FunctionsV2
 
                 foreach (var delete in result.Delete)
                 {
+                    log.LogInformation($"delete tutor id {delete}");
                     updateOccur = true;
                     await indexInstance.AddAsync(new AzureSearchSyncOutput()
                     {

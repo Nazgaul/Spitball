@@ -1,7 +1,7 @@
 ﻿
 namespace Cloudents.Core.Enum
 {
-    public enum Gender
+    public enum Gender : int
     {
         None,
         Male,

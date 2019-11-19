@@ -5,16 +5,17 @@
                          :value="getShowSchoolBlock"
                          @input="updateDrawerValue"
                          :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''" app clipped>
-      <v-list>
-        <v-list-item class="group-header search-university-title pl-1"
-                     @click.native.prevent="openStudyRooms()"
-                     :class="{'active': inStudyRoomLobby}">
-          <v-list-item-action>
-            <v-icon>sbf-studyroom-icon</v-icon>
-          </v-list-item-action>
-          <v-list-item-title v-text="dictionary.myStudyRooms" class="pl-1"></v-list-item-title>
-        </v-list-item>
-      </v-list>
+      <router-link event :to="{name:'studyRooms'}" @click.native.prevent="openStudyRooms()">
+        <v-list>
+          <v-list-item class="group-header search-university-title pl-1"
+                      :class="{'active': inStudyRoomLobby}">
+            <v-list-item-action>
+              <v-icon>sbf-studyroom-icon</v-icon>
+            </v-list-item-action>
+            <v-list-item-title v-text="dictionary.myStudyRooms" class="pl-1"></v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </router-link>
       <v-list class="class-list">
         <v-list-item class="group-header cursor-pointer" :class="{'active': !selectedCourse && !inStudyRoomLobby}">
           <v-list-item-action class="ml-1 mr-1">
@@ -22,9 +23,12 @@
           </v-list-item-action>
           <v-list-item-title @click="accountUser ? selectCourse(null, true) : openPersonalizeCourse()"
                              v-text="accountUser ? dictionary.allCourses : dictionary.addcourses"></v-list-item-title>
-          <v-list-item-action class="edit-course px-3" @click="openPersonalizeCourse()">
-            <v-icon>sbf-close</v-icon>
-          </v-list-item-action>
+          <router-link event :to="{name: 'editCourse'}" @click.native.prevent="openPersonalizeCourse()">
+            <v-list-item-action class="edit-course px-3">
+              <v-icon>sbf-close</v-icon>
+            </v-list-item-action>
+          </router-link>
+
         </v-list-item>
         <v-list-item
           class="group-items"

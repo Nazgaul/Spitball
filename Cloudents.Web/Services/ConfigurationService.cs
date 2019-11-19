@@ -1,10 +1,10 @@
-﻿using System;
-using System.Net.Http;
-using Cloudents.Web.Api;
+﻿using Cloudents.Web.Api;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
+using System;
+using System.Net.Http;
 
 namespace Cloudents.Web.Services
 {

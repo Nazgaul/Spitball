@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.EventHandler
 {
-    public sealed class SyncTutorReadModelEventHandler : 
+    public sealed class SyncTutorReadModelEventHandler :
         IEventHandler<TutorApprovedEvent>,
         IEventHandler<TutorAddReviewEvent>,
         IEventHandler<UpdateTutorSettingsEvent>,
@@ -68,15 +68,15 @@ namespace Cloudents.Core.EventHandler
             await UpdateAsync(userId, _repository.AddAsync, token);
         }
 
-        private async Task UpdateAsync(long tutorId, Func<ReadTutor,CancellationToken,Task> addOrUpdate, CancellationToken token)
+        private async Task UpdateAsync(long tutorId, Func<ReadTutor, CancellationToken, Task> addOrUpdate, CancellationToken token)
         {
             var tutor = await _repository.GetReadTutorAsync(tutorId, token);
             if (tutor is null)
             {
                 return;
-                
+
             }
-            await addOrUpdate(tutor,token);
+            await addOrUpdate(tutor, token);
             await _unitOfWork.CommitAsync(token);
         }
 
@@ -99,6 +99,6 @@ namespace Cloudents.Core.EventHandler
         {
             await UpdateAsync(eventMessage.UserId, token);
         }
-        
+
     }
 }

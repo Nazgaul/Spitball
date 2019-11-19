@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Email
 {
@@ -16,7 +16,7 @@ namespace Cloudents.Query.Email
             TransactionId = transactionId;
         }
 
-        private Guid TransactionId { get;  }
+        private Guid TransactionId { get; }
 
         internal sealed class RedeemEmailQueryHandler :
             IQueryHandler<RedeemEmailQuery, RedeemEmailDto>

@@ -35,5 +35,5 @@ namespace Cloudents.Core.Entities
         public virtual DateTime UpdateTime { get; set; }
     }
 
-  
+
 }

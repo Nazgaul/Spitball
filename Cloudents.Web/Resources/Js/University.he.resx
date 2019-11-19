@@ -144,4 +144,10 @@
   <data name="not_student_btn" xml:space="preserve">
     <value>סיום</value>
   </data>
+  <data name="uni_error" xml:space="preserve">
+    <value>שגיאה ביצירת אוניברסיטה</value>
+  </data>
+  <data name="uni_success" xml:space="preserve">
+    <value>אוניברסיטה חדשה נוצרה בהצלחה</value>
+  </data>
 </root>

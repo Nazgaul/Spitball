@@ -1,5 +1,6 @@
 import { connectivityModule } from "./connectivity.module";
 import searchService from "../services/searchService.js";
+
 function AccountUser(objInit){
     this.balance= objInit.balance;
     this.email= objInit.email;
@@ -26,11 +27,14 @@ function createIsTutorState(str){
     }
 }
  function TutorData(objInit) {
-     this.price= objInit.price || 0;
+     this.price = objInit.price || 0;
+     this.currency = objInit.currency;
      this.rate = objInit.rate || 0;
      this.reviewCount = objInit.reviewCount || 0;
      this.firstName = objInit.firstName || '';
      this.lastName = objInit.lastName  || '';
+     this.discountPrice = objInit.discountPrice;
+     this.hasCoupon = objInit.hasCoupon;
  }
 
  function createTutorData(objInit) {

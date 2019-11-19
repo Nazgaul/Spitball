@@ -1,13 +1,13 @@
+using Cloudents.Core;
 using Cloudents.Core.Storage;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.Admin2.Controllers
 {
@@ -29,7 +29,7 @@ namespace Cloudents.Admin2.Controllers
 
 
         [Route("document/download/{id:long}", Name = "DocumentDownload")]
-        public async Task<IActionResult> DownloadDocument(long id, 
+        public async Task<IActionResult> DownloadDocument(long id,
             [FromServices] IDocumentDirectoryBlobProvider blobProvider,
             [FromServices] IBlobProvider blobProvider2,
             CancellationToken token)

@@ -33,20 +33,10 @@
       </user-block>
       <!-- start language swith-->
       <v-list-item
-        :to="{ name: 'tutoring'}"
-        target="_blank"
-      >
-        <v-list-item-action>
-          <v-icon>sbf-studyroom-icon</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title class="subheading" v-language:inner>menuList_my_study_rooms</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item
         v-for="singleLang in languageChoisesAval"
         :key="singleLang.name"
         @click="changeLanguage(singleLang.id)"
+        sel="menu_row"
       >
         <v-list-item-action>
           <v-icon>{{singleLang.icon}}</v-icon>
@@ -56,30 +46,14 @@
         </v-list-item-content>
       </v-list-item>
       <!-- end language swith-->
-      <template v-for="(item) in notRegMenu">
-        <template v-if="item.name && item.name !== 'feedback'">
-          <router-link :to="{name : item.name}">
-            <v-list-item-action>
-              <v-icon>{{item.icon}}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title class="subheading">{{item.title}}</v-list-item-title>
-            </v-list-item-content>
-          </router-link>
-        </template>
-        <!--if theres is click handler as in feedback/ check settings/const.js -->
-        <v-list-item
-          v-else-if="item.name === 'feedback' && accountUser"
-          @click="() => item.click ? item.click() : ''"
-        >
-          <v-list-item-action>
-            <v-icon>{{item.icon}}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title class="subheading">{{item.title}}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </template>
+      <v-list-item v-for="link in satelliteLinks" :key="link.title">
+        <v-list-item-action>
+          <v-icon>{{link.icon}}</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <a :href="link.url" class="v-list__tile__title subheading">{{link.title}}</a>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
     <!--mobile side menu open template-->
     <v-list class="menu-list" v-else>
@@ -92,7 +66,7 @@
       <!--!!!this wont generate link in dom!!!-->
       <!--<router-link tag="v-list-item" :to="{name:'wallet'}">-->
       <!--!!!!Use this instead, v-list tile with :to !!!!!-->
-      <v-list-item :to="{name:'wallet'}">
+      <v-list-item :to="{name:'wallet'}" sel="menu_row">
         <v-list-item-action>
           <v-icon>sbf-wallet</v-icon>
         </v-list-item-action>
@@ -100,7 +74,7 @@
           <v-list-item-title class="subheading" v-language:inner>menuList_my_wallet</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item :to="{name:'profile',params:{id:accountUser.id,name:accountUser.name}}">
+      <v-list-item :to="{name:'profile',params:{id:accountUser.id,name:accountUser.name}}" sel="menu_row">
         <v-list-item-action>
           <v-icon>sbf-user</v-icon>
         </v-list-item-action>
@@ -110,6 +84,7 @@
       </v-list-item>
       <v-list-item
         @click.native.prevent="openPersonalizeUniversity()"
+        sel="menu_row"
         :to="{name: 'addUniversity'}"
       >
         <v-list-item-action>
@@ -125,6 +100,7 @@
         </v-list-item-action>
       </v-list-item>
       <v-list-item
+        sel="menu_row"
         @click.native.prevent="openPersonalizeCourse()"
         :to="{name: 'editCourse'}">
         <v-list-item-action>
@@ -144,6 +120,7 @@
       <v-list-item
         :to="{ name: 'tutoring'}"
         target="_blank"
+        sel="menu_row"
       >
         <v-list-item-action>
           <v-icon>sbf-studyroom-icon</v-icon>
@@ -153,21 +130,23 @@
         </v-list-item-content>
       </v-list-item>
       
-      <v-list-item
-        v-if="!isFrymo"
-        v-for="singleLang in languageChoisesAval"
-        :key="singleLang.name"
-        @click="changeLanguage(singleLang.id)"
-      >
-        <v-list-item-action>
-          <v-icon>{{singleLang.icon}}</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title class="subheading">{{singleLang.title}}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+      <template v-if="!isFrymo">
+        <v-list-item
+          v-for="singleLang in languageChoisesAval"
+          :key="singleLang.name"
+          sel="menu_row"
+          @click="changeLanguage(singleLang.id)"
+        >
+          <v-list-item-action>
+            <v-icon>{{singleLang.icon}}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title class="subheading">{{singleLang.title}}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
 
-      <v-list-item @click="startIntercom">
+      <v-list-item @click="startIntercom" sel="menu_row">
         <v-list-item-action>
           <v-icon>sbf-feedbackNew</v-icon>
         </v-list-item-action>
@@ -176,7 +155,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item @click="logout">
+      <v-list-item @click="logout" sel="menu_row">
         <v-list-item-action>
           <v-icon>sbf-logout</v-icon>
         </v-list-item-action>
@@ -185,7 +164,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-divider class="my-3"></v-divider>
-      <v-list-item @click="openReferralDialog">
+      <v-list-item @click="openReferralDialog" sel="menu_row">
         <v-list-item-action>
           <v-icon>sbf-user</v-icon>
         </v-list-item-action>
@@ -194,7 +173,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item v-for="link in satelliteLinks" :key="link.title">
+      <v-list-item v-for="link in satelliteLinks" :key="link.title" sel="menu_row">
         <v-list-item-action>
           <v-icon>{{link.icon}}</v-icon>
         </v-list-item-action>
@@ -290,12 +269,8 @@ export default {
       return !!this.accountUser;
     },
     userReferralLink() {
-      return (
-        "http://www.spitball.co/" +
-        "?referral=" +
-        Base62.encode(this.accountUser.id) +
-        "&promo=referral"
-      );
+      let site = this.isFrymo ? 'frymo.com' : 'spitball.co';
+      return `http://www.${site}/?referral=${Base62.encode(this.accountUser.id)}&promo=referral`;
     }
   },
   watch: {

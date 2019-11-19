@@ -2,6 +2,6 @@
 {
     public class UpdateChatRoomAdminStatusCommand : ICommand
     {
-       
+
     }
 }

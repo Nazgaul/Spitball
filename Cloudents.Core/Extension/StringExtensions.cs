@@ -101,30 +101,30 @@ namespace Cloudents.Core.Extension
             return char.ToLowerInvariant(str[0]) + str.Substring(1);
         }
 
-       
+
         // <remarks>https://www.mikesdotnetting.com/article/139/highlighting-keywords-found-in-search-results</remarks>
-//        public static string HighlightKeyWords(this string text, IEnumerable<string> keywords, bool fullMatch)
-//        {
-//            if (text?.Length == 0 /*|| keywords == String.Empty*/)
-//                return text;
+        //        public static string HighlightKeyWords(this string text, IEnumerable<string> keywords, bool fullMatch)
+        //        {
+        //            if (text?.Length == 0 /*|| keywords == String.Empty*/)
+        //                return text;
 
-//            if (!fullMatch)
-//            {
-//                return keywords.Select(word => word.Trim()).Aggregate(text,
-//                   (current, pattern) =>
-//                       Regex.Replace(current,
-//                           pattern,
-//"<b>$0</b>",
-//                           RegexOptions.IgnoreCase));
-//            }
+        //            if (!fullMatch)
+        //            {
+        //                return keywords.Select(word => word.Trim()).Aggregate(text,
+        //                   (current, pattern) =>
+        //                       Regex.Replace(current,
+        //                           pattern,
+        //"<b>$0</b>",
+        //                           RegexOptions.IgnoreCase));
+        //            }
 
-//            return keywords.Select(word => "\\b" + word.Trim() + "\\b")
-//                .Aggregate(text, (current, pattern) =>
-//                    Regex.Replace(current,
-//                        pattern,
-//"<b>$0</b>",
-//                        RegexOptions.IgnoreCase));
-//        }
+        //            return keywords.Select(word => "\\b" + word.Trim() + "\\b")
+        //                .Aggregate(text, (current, pattern) =>
+        //                    Regex.Replace(current,
+        //                        pattern,
+        //"<b>$0</b>",
+        //                        RegexOptions.IgnoreCase));
+        //        }
 
 
         //private static string DecodeHtmlEntities(this string text)
@@ -141,6 +141,6 @@ namespace Cloudents.Core.Extension
         //    return RegEx.RemoveHtmlTags.Replace(text, string.Empty).DecodeHtmlEntities();
         //}
 
-       
+
     }
 }

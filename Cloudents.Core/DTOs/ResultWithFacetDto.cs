@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using System.Collections.Generic;
 
 namespace Cloudents.Core.DTOs
 {
     //public class ResultWithFacetDto<T>
     //{
-       
+
     //    [ItemCanBeNull,CanBeNull]
     //    public IEnumerable<T> Result { get; set; }
     //    public IEnumerable<string> Facet { get; set; }

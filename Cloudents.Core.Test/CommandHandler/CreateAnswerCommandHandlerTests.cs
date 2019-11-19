@@ -37,7 +37,7 @@
 //                question.AddAnswer("some textxxxxxxxxxxx", 0, user, CultureInfo.InvariantCulture);
 
 
-                
+
 //                mock.Mock<IRepository<RegularUser>>().Setup(s => s.LoadAsync(userId, default)).ReturnsAsync(user);
 //                mock.Mock<IRepository<Question>>().Setup(s => s.GetAsync(questionId, default)).ReturnsAsync(question);
 //                var instance = mock.Create<CreateAnswerCommandHandler>();

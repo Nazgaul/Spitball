@@ -5,7 +5,7 @@ import {
 } from 'vuex'
 import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue'
 import questionService from '../../../services/questionService'
-import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
+// import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
 import addQuestionUtilities from './addQuestionUtilities'
 // import QuestionRegular from './helpers/question-regular.vue'
 import analyticsService from '../../../services/analytics.service';
@@ -15,7 +15,7 @@ export default {
     components: {
         UserAvatar,
         // QuestionRegular,
-        FileUpload
+        // FileUpload
     },
     data() {
         return {

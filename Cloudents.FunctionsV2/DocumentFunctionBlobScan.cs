@@ -1,6 +1,6 @@
+using Microsoft.Azure.WebJobs;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
 
 namespace Cloudents.FunctionsV2
 {

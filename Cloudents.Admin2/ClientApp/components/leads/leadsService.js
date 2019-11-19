@@ -10,6 +10,7 @@ function AdminLeads(objInit) {
     this.phone = objInit.phone;
     this.text = objInit.text;
     this.university = objInit.university;
+    this.dateTime = new Date( objInit.dateTime);
 }
 
 function createAdminLead(objInit) {

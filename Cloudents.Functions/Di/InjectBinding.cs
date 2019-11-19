@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using Microsoft.Azure.WebJobs.Host.Bindings;
 using Microsoft.Azure.WebJobs.Host.Protocols;
+using System;
+using System.Threading.Tasks;
 
 namespace Cloudents.Functions.Di
 {
@@ -26,7 +26,7 @@ namespace Cloudents.Functions.Di
         {
             await Task.Yield();
             var scope = InjectBindingProvider.Scopes.GetOrAdd(context.FunctionInstanceId, (_) => _serviceProvider.BeginLifetimeScope());
-            
+
             var value = scope.Resolve(_type); //scope.ServiceProvider.GetRequiredService(_type);
             return await BindAsync(value, context.ValueContext);
         }

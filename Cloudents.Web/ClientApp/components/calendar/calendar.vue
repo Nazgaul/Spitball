@@ -41,7 +41,7 @@
                 @click="closeDialog" 
                 depressed round 
                 :class="[!isEventSent? 'cncl-btn': 'donebtn']">
-                <span v-language:inner="!isEventSent? 'calendar_add_event_cancel':'calendar_add_event_done'"/>
+                <span v-language:inner="!isEventSent? 'calendar_add_event_cancel':'calendar_add_event_ok'"/>
               </v-btn>
 
               <v-btn v-if="!isEventSent"
@@ -169,15 +169,9 @@ export default {
       isGoNext(){
         let lastDate = Object.keys(this.eventsMap).map((key)=>key)
         lastDate = lastDate[lastDate.length-1]
-        
-        let calendarMonth = Date.parse(new Date(this.today));
-        let dd = String(new Date(lastDate).getDate()-7).padStart(2, '0');
-        let mm = String(new Date(lastDate).getMonth()+1).padStart(2, '0');
-        let yyyy = new Date().getFullYear()
-        let currentMonth = Date.parse(new Date(yyyy + '-' + mm + '-' + dd))
-
-        return (currentMonth <= calendarMonth)
-
+        let lastDateStemp = new Date(`${lastDate}`).getTime()
+        let currentDateStemp = new Date(`${this.today}`).getTime()
+        return (currentDateStemp >= lastDateStemp)
       },
       isRtl(){
         return  global.isRtl

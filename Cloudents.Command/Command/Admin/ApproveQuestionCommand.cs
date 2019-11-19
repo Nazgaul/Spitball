@@ -6,7 +6,7 @@ namespace Cloudents.Command.Command.Admin
     {
         public ApproveQuestionCommand(long questionId)
         {
-            QuestionIds = new [] { questionId };
+            QuestionIds = new[] { questionId };
         }
 
         public ApproveQuestionCommand(IEnumerable<long> questionIds)

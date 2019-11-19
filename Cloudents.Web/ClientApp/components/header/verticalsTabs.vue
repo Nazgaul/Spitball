@@ -1,11 +1,11 @@
 <template>
     <div :class="{'pr-2 pl-2': isMobile, 'hide-header': hideHeader}">
-    <!-- <v-flex class="information-box" v-show="showInformationBlock">
+    <v-flex class="information-box" v-show="showInformationBlock">
         <div :class="{'information-box-mobile-wrap': isMobile}">
             <v-icon v-show="isMobile" class="gamburger-icon" @click="setNavigationDrawerState()">sbf-menu</v-icon>
             <span v-if="accountUser" class="information-box-text" :class="{'mobile': isMobile}">{{informationBlockText}}</span>
         </div>
-    </v-flex> -->
+    </v-flex>
     <!-- <v-flex class="line verticals static-card-what-is-hw-question">
         <v-layout row >
             <v-tabs hide-slider :dir="this.$vuetify.breakpoint.xsOnly && isRtl ? `ltr` : ''" v-model="currentVertical" :value="currentVertical" :scrollable="true">
@@ -72,10 +72,10 @@
                     if(!!this.$route.query && !!this.$route.query.Course){
                         return this.$route.query.Course
                     }else{
-                        return LanguageService.getValueByKey("schoolBlock_information_box_latest");
+                        return LanguageService.getValueByKey("schoolBlock_all_courses");
                     }
                 }else{
-                    return LanguageService.getValueByKey("schoolBlock_information_box_latest");
+                    return LanguageService.getValueByKey("schoolBlock_all_courses");
                 }
             },
             hideHeader(){

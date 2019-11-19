@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Cloudents.Core.DTOs;
+using Dapper;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
-using Dapper;
 
 namespace Cloudents.Query.Chat
 {

@@ -1,5 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -9,19 +12,16 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
-using System.Reflection;
-using Cloudents.Core;
-using Cloudents.Core.Interfaces;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Cloudents.Admin2
 {
@@ -131,7 +131,7 @@ namespace Cloudents.Admin2
             var keys = new ConfigurationKeys()
             {
                 SiteEndPoint = { SpitballSite = Configuration["Site"] },
-                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"], DbConnectionString.DataBaseIntegration.Update),
+                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"], DbConnectionString.DataBaseIntegration.Validate),
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
                        Configuration["AzureSearch:SearchServiceAdminApiKey"],
                     !HostingEnvironment.IsProduction()

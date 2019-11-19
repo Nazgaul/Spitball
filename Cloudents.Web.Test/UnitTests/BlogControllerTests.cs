@@ -31,7 +31,7 @@ namespace Cloudents.Web.Test.UnitTests
             });
         }
 
-        [Fact(Skip ="Obsolete")]
+        [Fact(Skip = "Obsolete")]
         public async Task Redirect_Test()
         {
             var response = await _client.GetAsync(_uri.Path);

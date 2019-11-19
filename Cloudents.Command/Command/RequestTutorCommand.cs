@@ -32,7 +32,7 @@
         public long? TutorId { get; }
         public string UtmSource { get; }
 
-        public bool MoreTutors { get;  }
+        public bool MoreTutors { get; }
     }
 
 

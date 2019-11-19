@@ -27,7 +27,7 @@ namespace Cloudents.Core.EventHandler
         {
             var dto = new QuestionFeedDto
             {
-                CultureInfo = eventMessage.Question.Language,
+                
 
                 Id = eventMessage.Question.Id,
                 // ReSharper disable once ConstantConditionalAccessQualifier this is later stuff - we still have null courses
@@ -41,7 +41,7 @@ namespace Cloudents.Core.EventHandler
                     Name = eventMessage.Question.User.Name,
                     Image = eventMessage.Question.User.Image
                 }
-               // UserId = eventMessage.Question.User.Id
+                // UserId = eventMessage.Question.User.Id
             };
 
             await _queueProvider.InsertMessageAsync(
@@ -60,7 +60,7 @@ namespace Cloudents.Core.EventHandler
                 new SignalRTransportType(SignalRType.Question, SignalRAction.Delete, dto), token);
         }
 
-       
+
 
         public Task HandleAsync(AnswerCreatedEvent eventMessage, CancellationToken token)
         {
@@ -74,8 +74,7 @@ namespace Cloudents.Core.EventHandler
                 eventMessage.Answer.Id,
                 eventMessage.Answer.Text,
                 user,
-                eventMessage.Answer.Created,
-                eventMessage.Answer.Language
+                eventMessage.Answer.Created
             );
             var dto = new
             {

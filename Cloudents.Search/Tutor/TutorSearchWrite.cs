@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.Interfaces;
+﻿using Cloudents.Core.Interfaces;
 using Cloudents.Search.Document;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using System.Collections.Generic;
 
 namespace Cloudents.Search.Tutor
 {
-    public class TutorSearchWrite :SearchServiceWrite<Entities.Tutor>
+    public class TutorSearchWrite : SearchServiceWrite<Entities.Tutor>
     {
 
         public const string IndexName = "tutor";
@@ -22,7 +22,7 @@ namespace Cloudents.Search.Tutor
             var index = new Index
             {
                 Name = indexName,
-               // Fields = FieldBuilder.BuildForType<Entities.Tutor>(new SearchIndexEnumToIntContractResolver()),
+                // Fields = FieldBuilder.BuildForType<Entities.Tutor>(new SearchIndexEnumToIntContractResolver()),
                 Analyzers = new List<Analyzer>
                 {
                     new CustomAnalyzer("prefix",TokenizerName.Standard,new List<TokenFilterName>

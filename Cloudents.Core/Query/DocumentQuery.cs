@@ -8,14 +8,16 @@ namespace Cloudents.Core.Query
         public DocumentQuery(UserProfile userProfile,
             string term,
             string course,
+            int pageSize,
             IEnumerable<string> filters) :
             base(userProfile, term, course)
         {
             Filters = filters;
+            PageSize = pageSize;
         }
 
         public IEnumerable<string> Filters { get; }
-
+        public int PageSize { get; }
     }
 
     public abstract class VerticalQuery

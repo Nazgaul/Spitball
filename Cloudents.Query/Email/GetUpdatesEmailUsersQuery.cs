@@ -1,10 +1,10 @@
 ﻿using Cloudents.Core.DTOs;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Dapper;
 
 namespace Cloudents.Query.Email
 {

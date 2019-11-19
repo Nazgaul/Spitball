@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Message.Email
 {
@@ -10,7 +10,7 @@ namespace Cloudents.Core.Message.Email
     public class ResetPasswordEmail : BaseEmail
     {
         public ResetPasswordEmail(string to, string link, CultureInfo info)
-            : base(to,  "Password Recovery", info)
+            : base(to, "Password Recovery", info)
         {
             Link = link;
         }

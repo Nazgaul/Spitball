@@ -1,7 +1,7 @@
-﻿using System;
-using Cloudents.Core.Attributes;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
+using System;
 
 namespace Cloudents.Core.DTOs.SearchSync
 {
@@ -27,6 +27,6 @@ namespace Cloudents.Core.DTOs.SearchSync
         [EntityBind(nameof(Document.DocumentType))]
         public DocumentType Type { get; set; }
 
-       
+
     }
 }

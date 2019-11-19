@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
-using Cloudents.Core.Attributes;
 
 namespace Cloudents.Core.Extension
 {
@@ -45,7 +45,7 @@ namespace Cloudents.Core.Extension
         //    if (val == null)
         //    {
         //        yield return value.ToString("G");
-               
+
         //    }
         //    else
         //    {

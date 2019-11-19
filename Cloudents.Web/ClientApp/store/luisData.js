@@ -39,10 +39,6 @@ const getters = {
     getCurrentVertical: state => state.currentVertical
 };
 const actions = {
-    updateAITerm({commit, dispatch}, {vertical, data}) {
-        commit(LUIS.UPDATE_TERM, {vertical, data});
-        dispatch('updateHistorySetVertical', {term: data.text, vertical});
-    },
     setFilteredCourses({commit}, data) {
         commit(LUIS.UPDATE_FILTER_COURSES, data);
     },

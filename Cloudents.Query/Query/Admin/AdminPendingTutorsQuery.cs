@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Query.Admin
 {
-    public class AdminPendingTutorsQuery: IQueryAdmin<IEnumerable<PendingTutorsDto>>
+    public class AdminPendingTutorsQuery : IQueryAdmin<IEnumerable<PendingTutorsDto>>
     {
         public AdminPendingTutorsQuery(string country)
         {
@@ -39,7 +39,7 @@ where t.State = 'Pending' AND (@Country IS NULL OR u.Country = @Country) order b
 
                 using (var connection = _dapper.OpenConnection())
                 {
-                    var res = await connection.QueryAsync<PendingTutorsDto>(sql, new {  query.Country});
+                    var res = await connection.QueryAsync<PendingTutorsDto>(sql, new { query.Country });
                     return res;
                 }
             }

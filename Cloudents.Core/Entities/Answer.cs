@@ -19,7 +19,7 @@ namespace Cloudents.Core.Entities
         public const int MinLength = 15;
         public const int MaxLength = 550;
 
-        public Answer(Question question, string text, User user, CultureInfo language)
+        public Answer(Question question, string text, User user)
             : this()
         {
             Question = question;
@@ -30,7 +30,6 @@ namespace Cloudents.Core.Entities
             Text = text;
             User = user;
             Created = DateTime.UtcNow;
-            Language = language;
             Status = Public;
 
         }
@@ -39,7 +38,7 @@ namespace Cloudents.Core.Entities
         {
         }
 
-       // public virtual Guid Id { get; set; }
+        // public virtual Guid Id { get; set; }
         public virtual Question Question { get; set; }
 
         public virtual string Text { get; set; }
@@ -47,23 +46,23 @@ namespace Cloudents.Core.Entities
 
         public virtual DateTime Created { get; set; }
 
-      //  protected internal virtual IList<Transaction> Transactions { get; set; }
+        //  protected internal virtual IList<Transaction> Transactions { get; set; }
 
         //public virtual IList<Transaction> TransactionsReadOnly => new ReadOnlyCollection<Transaction>(Transactions);
 
 
         public virtual ItemStatus Status { get; set; }
 
-       
 
 
-       //private readonly ICollection<Vote> _votes = new List<Vote>();
-       //public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
 
-       // public virtual int VoteCount { get;  set; }
+        //private readonly ICollection<Vote> _votes = new List<Vote>();
+        //public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
 
-        public virtual CultureInfo Language { get; protected set; }
-       
+        // public virtual int VoteCount { get;  set; }
+
+       // public virtual CultureInfo Language { get; protected set; }
+
 
         public virtual void UnFlag()
         {
@@ -152,7 +151,7 @@ namespace Cloudents.Core.Entities
         //        throw new ArgumentOutOfRangeException(nameof(state), state, null);
         //    }
         //}
-        
+
     }
 
 }

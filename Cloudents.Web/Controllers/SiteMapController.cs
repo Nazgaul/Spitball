@@ -4,6 +4,8 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Query;
+using Cloudents.Web.Framework;
+using Cloudents.Web.Services;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,8 +13,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using Cloudents.Web.Framework;
-using Cloudents.Web.Services;
 
 namespace Cloudents.Web.Controllers
 {
@@ -66,7 +66,7 @@ namespace Cloudents.Web.Controllers
             return Content(document.ToString(), "application/xml");
         }
 
-       
+
 
         [Route("sitemap-{type}-{index:int}.xml", Name = "siteMapDescription", Order = 2)]
         public IActionResult DetailIndexAsync(SeoType type, int index,

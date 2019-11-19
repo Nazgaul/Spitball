@@ -1,5 +1,5 @@
-﻿using System;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
+using System;
 
 namespace Cloudents.Core.Entities
 {
@@ -7,7 +7,7 @@ namespace Cloudents.Core.Entities
     {
         protected ViewConversation()
         {
-            
+
         }
         public virtual string Id { get; set; }
         public virtual DateTime LastMessage { get; set; }

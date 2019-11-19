@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
@@ -10,6 +6,10 @@ using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Api
 {
@@ -34,10 +34,11 @@ namespace Cloudents.Web.Api
         [HttpGet("{id}")]
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
-        
+
         public async Task<ActionResult<UserProfileDto>> GetAsync(long id, CancellationToken token)
         {
-            var query = new UserProfileQuery(id);
+            _userManager.TryGetLongUserId(User,out var userId);
+            var query = new UserProfileQuery(id, userId);
             var retVal = await _queryBus.QueryAsync(query, token);
             if (retVal == null)
             {
@@ -62,7 +63,7 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
         {
             var query = new UserDataPagingByIdQuery(id, page);
-            return await  _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            return await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
 
         }
 
@@ -110,7 +111,7 @@ namespace Cloudents.Web.Api
 
         public async Task<IEnumerable<DocumentFeedDto>> GetDocumentsAsync(
             long id, int page,
-            
+
             CancellationToken token)
         {
             var query = new UserDataPagingByIdQuery(id, page);

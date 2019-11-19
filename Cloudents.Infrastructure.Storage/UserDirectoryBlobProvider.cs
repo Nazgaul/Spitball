@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Storage
 {
-    public class UserDirectoryBlobProvider: BlobProviderContainer, IUserDirectoryBlobProvider
+    public class UserDirectoryBlobProvider : BlobProviderContainer, IUserDirectoryBlobProvider
     {
         public UserDirectoryBlobProvider(ICloudStorageProvider storageProvider)
             : base(storageProvider, StorageContainer.User)
         {
         }
-     
+
         public async Task<Uri> UploadImageAsync(long userId, string file,
                          Stream stream, string contentType, CancellationToken token)
         {

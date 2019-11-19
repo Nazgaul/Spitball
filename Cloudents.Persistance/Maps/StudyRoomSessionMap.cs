@@ -22,7 +22,7 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.ParticipantDisconnections).Access.CamelCaseField(Prefix.Underscore)
                .KeyColumn("SessionId")
                .Inverse().Cascade.AllDeleteOrphan();
-            Version(x => x.Version).CustomSqlType("rowversion").Generated.Always();
+            Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
         }
     }
 }

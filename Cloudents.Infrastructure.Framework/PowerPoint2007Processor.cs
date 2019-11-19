@@ -14,7 +14,7 @@ namespace Cloudents.Infrastructure.Framework
 {
     public class PowerPoint2007Processor : IPreviewProvider, IDisposable
     {
-        
+
         public PowerPoint2007Processor()
         {
             SetLicense();
@@ -40,13 +40,13 @@ namespace Cloudents.Infrastructure.Framework
 
                 //Loop through the Array of TextFrames
                 foreach (ITextFrame t in SlideUtil.GetAllTextFrames(ppt, false))
-                foreach (var para in t.Paragraphs)
-                    //Loop through portions in the current Paragraph
-                foreach (var port in para.Portions)
-                {
-                    //Display text in the current portion
-                    sb.Append(port.Text);
-                }
+                    foreach (var para in t.Paragraphs)
+                        //Loop through portions in the current Paragraph
+                        foreach (var port in para.Portions)
+                        {
+                            //Display text in the current portion
+                            sb.Append(port.Text);
+                        }
 
                 return sb.ToString();
             }
@@ -60,11 +60,11 @@ namespace Cloudents.Infrastructure.Framework
 
         public void Init(Func<Stream> stream)
         {
-            _pptx = new Lazy<Presentation>(() =>  new Presentation(stream(),new LoadOptions()
+            _pptx = new Lazy<Presentation>(() => new Presentation(stream(), new LoadOptions()
             {
                 OnlyLoadDocumentProperties = true
             }));
-            
+
         }
         public void Init(Func<string> stream)
         {
@@ -81,7 +81,7 @@ namespace Cloudents.Infrastructure.Framework
             return (txt, _pptx.Value.Slides.Count);
         }
 
-       
+
 
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)

@@ -73,5 +73,5 @@ namespace Cloudents.Persistence
             return treeBuilder.BooleanMethodCall("contains", args);
         }
     }
-  
+
 }

@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Cloudents.Core.Interfaces;
+using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
-using NHibernate;
 
 namespace Cloudents.Persistence.Repositories
 {
     public class NHibernateRepository<T> : IRepository<T> where T : class
     {
         protected readonly ISession Session;
-       
+
 
         [SuppressMessage("ReSharper", "MemberCanBeProtected.Global", Justification = "We can initialize this class as well")]
         public NHibernateRepository(ISession session)

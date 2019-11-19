@@ -9,5 +9,5 @@ namespace Cloudents.Web.Models
         public string Name { get; set; }
     }
 
-    
+
 }

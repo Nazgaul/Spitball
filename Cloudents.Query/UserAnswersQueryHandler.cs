@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Query.Query;
 using NHibernate;
 using NHibernate.Linq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query
 {
@@ -30,11 +30,11 @@ namespace Cloudents.Query
                         answer,
                         view
                     });
-                
+
 
             return await answerQuery
                 .Where(w =>
-                    w.answer.User.Id == query.Id 
+                    w.answer.User.Id == query.Id
                     && w.answer.Status.State == ItemState.Ok)
                 .OrderByDescending(o => o.view.Id)
                 .Select(s => new QuestionFeedDto
@@ -43,15 +43,14 @@ namespace Cloudents.Query
                     Text = s.view.Text,
                     Answers = s.view.Answers,
                     DateTime = s.view.DateTime,
-                    CultureInfo = s.view.CultureInfo,
                     Course = s.view.Course,
                     User = new QuestionUserDto()
                     {
                         Id = s.view.User.Id,
                         Name = s.view.User.Name,
-                        Image = s.view.User.Image 
+                        Image = s.view.User.Image
                     },
-                   // UserId = s.view.UserId,
+                    // UserId = s.view.UserId,
                     FirstAnswer = new AnswerFeedDto()
                     {
                         Text = s.view.Answer.Text,

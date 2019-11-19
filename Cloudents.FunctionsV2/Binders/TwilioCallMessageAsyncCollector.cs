@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Azure.WebJobs;
+using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
 using Twilio.Clients;
 using Twilio.Rest.Api.V2010.Account;
 
@@ -33,7 +33,7 @@ namespace Cloudents.FunctionsV2.Binders
             }
 
             if (messageOptions.Url == null)
-                //if (messageOptions.Body == null)
+            //if (messageOptions.Body == null)
             {
                 throw new InvalidOperationException("A 'Url' must be specified for the message.");
             }
@@ -45,7 +45,7 @@ namespace Cloudents.FunctionsV2.Binders
 
         //internal static void ApplyContextMessageSettings(CreateCallOptions messageOptions, TwilioSmsContext context)
         //{
-            
+
         //    if (messageOptions.From == null)
         //    {
         //        messageOptions.From = new PhoneNumber(context.From);

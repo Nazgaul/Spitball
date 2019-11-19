@@ -12,7 +12,7 @@ namespace Cloudents.Query.Query.Admin
             Country = country;
         }
         public long UserId { get; }
-        public int Page { get;  }
+        public int Page { get; }
         public string Country { get; }
     }
 }

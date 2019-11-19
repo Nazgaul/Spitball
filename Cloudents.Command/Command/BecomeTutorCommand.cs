@@ -18,8 +18,8 @@
         public string LastName { get; }
         public string Description { get; }
 
-        public string Bio { get;  }
-        public decimal? Price { get;  }
+        public string Bio { get; }
+        public decimal? Price { get; }
     }
-   
+
 }

@@ -1,6 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -15,7 +15,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Text).Length(Answer.MaxLength);
             //Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable();
-            Map(x => x.Language).Length(10);
+            //Map(x => x.Language).Length(10);
 
             References(x => x.User).Column("UserId").ForeignKey("Answer_User").Not.Nullable();
             References(x => x.Question).Column("QuestionId").ForeignKey("Answer_Question").Not.Nullable();
@@ -33,10 +33,9 @@ namespace Cloudents.Persistence.Maps
             //    .KeyColumns.Add("AnswerId")
             //    .Inverse().Cascade.AllDeleteOrphan();
             //Map(x => x.VoteCount);
-            SchemaAction.Validate();
             //DiscriminateSubClassesOnColumn("State");
         }
 
-        
+
     }
 }

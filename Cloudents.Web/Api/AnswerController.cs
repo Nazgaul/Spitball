@@ -1,18 +1,18 @@
-﻿using Cloudents.Web.Extensions;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Command.Item.Commands.FlagItem;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Command.Item.Commands.FlagItem;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Exceptions;
-using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -54,17 +54,17 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(model.Text), _localizer["You exceed your quota of answers"]);
                 return BadRequest(ModelState);
             }
-            catch (MoreThenOneAnswerException)
-            {
-                ModelState.AddModelError(nameof(model.Text), _localizer["More then one answer"]);
-                return BadRequest(ModelState);
-            }
-           
-            catch (DuplicateRowException)
-            {
-                ModelState.AddModelError(nameof(model.Text), _localizer["DuplicateAnswer"]);
-                return BadRequest(ModelState);
-            }
+            //catch (MoreThenOneAnswerException)
+            //{
+            //    ModelState.AddModelError(nameof(model.Text), _localizer["More then one answer"]);
+            //    return BadRequest(ModelState);
+            //}
+
+            //catch (DuplicateRowException)
+            //{
+            //    ModelState.AddModelError(nameof(model.Text), _localizer["DuplicateAnswer"]);
+            //    return BadRequest(ModelState);
+            //}
             catch (ArgumentException)
             {
                 ModelState.AddModelError(nameof(model.Text), _localizer["QuestionNotExists"]);
@@ -91,41 +91,7 @@ namespace Cloudents.Web.Api
             }
         }
 
-
-        //[HttpPost("vote")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesDefaultResponseType]
-        //public async Task<IActionResult> VoteAsync(
-        //    [FromBody] AddVoteAnswerRequest model,
-        //    [FromServices] IStringLocalizer<SharedResource> resource,
-        //    CancellationToken token)
-        //{
-        //    var userId = _userManager.GetLongUserId(User);
-        //    try
-        //    {
-        //        var command = new AddVoteAnswerCommand(userId, model.Id, model.VoteType);
-        //        await _commandBus.DispatchAsync(command, token);
-        //        return Ok();
-        //    }
-        //    catch (NoEnoughScoreException)
-        //    {
-        //        string voteMessage = resource[$"{model.VoteType:G}VoteError"];
-        //        ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), voteMessage);
-        //        return BadRequest(ModelState);
-        //    }
-        //    catch (UnauthorizedAccessException)
-        //    {
-        //        ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    catch (NotFoundException)
-        //    {
-        //        return NotFound();
-        //    }
-        //}
+       
 
         [HttpPost("flag")]
         [ProducesResponseType(StatusCodes.Status200OK)]

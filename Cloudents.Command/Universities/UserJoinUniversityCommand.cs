@@ -10,7 +10,7 @@ namespace Cloudents.Command.Universities
             UniversityId = universityId;
         }
 
-        public long UserId { get;  }
-        public Guid UniversityId { get;  }
+        public long UserId { get; }
+        public Guid UniversityId { get; }
     }
 }
