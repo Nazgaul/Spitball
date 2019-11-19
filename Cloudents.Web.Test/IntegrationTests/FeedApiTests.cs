@@ -29,6 +29,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [InlineData("/api/feed?page=0", FeedType.Document)]
         [InlineData("/api/feed?page=0", FeedType.Video)]
         [InlineData("/api/feed?page=0", FeedType.Tutor)]
+        [InlineData("/api/feed?page=0", FeedType.Question)]
         [InlineData("/api/feed?page=0", null)]
         public async Task AggregateAllCoursesAsync_Ok(string url, FeedType? filter)
         {
@@ -46,6 +47,35 @@ namespace Cloudents.Web.Test.IntegrationTests
             result.Should().NotBeNull();
             result.Should().OnlyHaveUniqueItems();
             result.Should().HaveCount(21);
+        }
+
+        [Theory]
+        [InlineData("/api/feed?page=0", FeedType.Document, "Temp")]
+        [InlineData("/api/feed?page=0", FeedType.Video, "Temp")]
+        [InlineData("/api/feed?page=0", FeedType.Question, "Temp")]
+        [InlineData("/api/feed?page=0", FeedType.Tutor, "Temp")]
+        [InlineData("/api/feed?page=0", null, "Temp")]
+        public async Task SpecificCourseAsync_Ok(string url, FeedType? filter, string course)
+        {
+            url += $"&course={course}";
+            if (filter != null)
+            {
+                url += $"&filter={filter}";
+            }
+
+            var response = await _client.GetAsync(url);
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+            var result = d["result"]?.Value<JArray>();
+
+            result.Should().NotBeNull();
+            result.Should().OnlyHaveUniqueItems();
+
+            if (filter == FeedType.Document || filter == FeedType.Video || filter == null)
+            {
+                result.Should().HaveCount(21);
+            }
         }
     }
 }
