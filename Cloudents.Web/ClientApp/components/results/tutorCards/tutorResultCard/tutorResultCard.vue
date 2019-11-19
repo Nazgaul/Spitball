@@ -13,11 +13,11 @@
             />
             <div class="main-card">
                 <h3 class="font-weight-bold text-truncate body-1 mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
-                <h4 class="mb-4 body-2 font-weight-bold text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
-                <div class="user-bio-wrapper mb-4">
+                <h4 class="mb-3 body-2 font-weight-bold text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
+                <div class="user-bio-wrapper mb-3">
                   <div class="user-bio body-2">{{tutorData.bio}}</div>
                 </div>
-                <div class="study-area mb-2 text-truncate" :class="{'study-area-hidden': !isSubjects}">
+                <div class="study-area text-truncate" :class="{'study-area-hidden': !isSubjects}">
                   <span class="mr-1 body-2 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
                   <span class="body-2">{{subjects}}</span>
                 </div>
@@ -225,7 +225,7 @@ export default {
           visibility: hidden;
         }
         .courses {
-          margin-top: 10px;
+          margin-top: 2px;
         }
       }
     }
@@ -234,7 +234,7 @@ export default {
     }
     .user-rates {
       display: grid;
-      grid-gap: 28px;
+      grid-gap: 25px;
       // display: flex;
       // flex-direction: column;
       // align-items: baseline;
