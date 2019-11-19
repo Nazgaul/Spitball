@@ -17,7 +17,7 @@
         <div>
             <v-btn depressed color="#4c59ff" class="tutor-btn">
             <span class="text-truncate">
-                <span v-html="$Ph('resultTutor_send_button', showFirstName)" class="mr-1"></span>
+                <button v-language:inner="'tutorCardCarousel_tutor_btn'" class="mr-1 contact-me-button"></button>{{showFirstName}}
             </span>
             </v-btn>
         </div>
@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+import analyticsService from '../../services/analytics.service';
 import { LanguageService } from "../../services/language/languageService.js";
 
 import userRating from "../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
@@ -52,6 +54,13 @@ import userAvatarRect from '../helpers/UserAvatar/UserAvatarRect.vue';
 import star from "./image/stars-copy.svg";
 export default {
     components:{userRating,star,userAvatarRect},
+    data(){
+        return{
+            contactClickedbtn: false,
+            flagLocalClick: false,
+            flagRemoteClick: false,
+        }
+    },
     props:{
         tutor:{
             type:Object,
@@ -64,6 +73,7 @@ export default {
         }
     },
     computed: {
+        ...mapGetters(['accountUser']),
         showFirstName() {
             let maxChar = 5;
             let name = this.tutor.name.split(' ')[0];
@@ -74,21 +84,51 @@ export default {
         },
     },
     methods: {
+        ...mapActions(['updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'updateRequestDialog']),
+        sendMessage(tutor) {
+            analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+            this.updateCurrTutor(tutor);
+            this.setTutorRequestAnalyticsOpenedFrom({
+                component: 'landingPage',
+                path: this.$route.path
+            });
+            this.updateRequestDialog(true);
+        },
         reviewsPlaceHolder(reviews) {
             return reviews === 0 ? reviews.toString() : reviews;
         },
-        goToProfile(enter){
+        goToProfile(event){
             if(this.fromCarousel){
-                return false;
-            }else{
-                this.enterProfilePage();
+                    this.flagLocalClick = true;
+                    if(event.target.querySelector('.contact-me-button') || event.target.classList.contains('contact-me-button')){
+                        this.contactClickedbtn = true;
+                    }else{
+                        this.contactClickedbtn = false;
+                    }
+                    //this flag protects us from mouse up after drag
+                    if(this.flagRemoteClick){
+                        this.enterProfilePage();
+                        this.flagRemoteClick = false;
+                    }
+                    return false;
+                
+                
             }
         },
         enterProfilePage(){
-            this.$router.push({
-                name: 'profile',
-                params: {id: this.tutor.userId, name: this.tutor.name}
-            })
+            this.flagRemoteClick = true;
+            if(this.flagLocalClick){
+                this.flagLocalClick = false;
+                if(!this.contactClickedbtn){
+                    this.$router.push({
+                        name: 'profile',
+                        params: {id: this.tutor.userId, name: this.tutor.name}
+                    })
+                }else{
+                    this.sendMessage(this.tutor)
+                }
+            }
+                
         },
     },
 }

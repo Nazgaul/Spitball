@@ -22,7 +22,9 @@
             <div class="buyTokenFrymo__payCard--or">OR</div>
             <div class="buyTokenFrymo__payCard--scan"></div>
         </div>
-        <h5 class="buyTokenFrymo__h5">If any queries contact us at support@frymo.com</h5>
+        <h5 class="buyTokenFrymo__h5">If any queries contact us at 
+            <a href="mailto:support@frymo.com">support@frymo.com</a>
+        </h5>
     </div>
 </template>
 
@@ -33,7 +35,6 @@ export default {
     name: "buyTokenFrymo",
     methods: {
         ...mapActions(['updateShowBuyDialog']),
-
         closeModal(){
             this.updateShowBuyDialog(false);
         },

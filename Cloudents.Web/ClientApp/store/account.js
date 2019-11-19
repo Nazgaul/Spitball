@@ -18,7 +18,6 @@ const state = {
     usersReferred: 0,
     showEditDataDialog: false,
     profileImageLoading: false,
-    activateTutorDiscounts: false, //TODO if not used until 1/10/2019 search this getter and remove it from all the system
 };
 const mutations = {
     setProfileImageLoading(state, val){
@@ -188,7 +187,6 @@ const getters = {
         }
     },
     getShowEditDataDialog: state => state.showEditDataDialog,
-    getActivateTutorDiscounts:state => state.activateTutorDiscounts
 };
 
 const actions = {

@@ -79,7 +79,7 @@
             },
             goToCourse(courseName){
                 this.UPDATE_SEARCH_LOADING(true);
-                this.$router.push({name: 'tutors', query: {Course: courseName}})
+                this.$router.push({name: 'feed', query: {Course: courseName}})
             },
         },
         computed: {

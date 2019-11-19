@@ -19,6 +19,7 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Api
@@ -53,38 +54,32 @@ namespace Cloudents.Web.Api
             [FromServices] IHubContext<SbHub> hubContext,
             CancellationToken token)
         {
-
+         
             var userId = _userManager.GetLongUserId(User);
-            //var toasterMessage = _localizer["PostedQuestionToasterOk"];
-            //try
-            //{
-            var command = new CreateQuestionCommand(model.Text,
-                userId, model.Course);
-            await _commandBus.DispatchAsync(command, token);
-            //}
-            //catch (DuplicateRowException)
-            //{
-            //    toasterMessage = _localizer["PostedQuestionToasterPending"];
-            //}
-            //catch (InsufficientFundException)
-            //{
-            //    ModelState.AddModelError(string.Empty, _localizer["InSufficientFunds"]);
-            //    return BadRequest(ModelState);
-            //}
-            //catch (QuotaExceededException)
-            //{
-            //    ModelState.AddModelError(string.Empty, _localizer["QuestionFlood"]);
-            //    return BadRequest(ModelState);
-            //}
-            //if (score < Privileges.Post)
-            //{
-            //    toasterMessage = _localizer["PostedQuestionToasterPending"];
-            //}
+
+            var toasterMessage = _localizer["PostedQuestionToasterOk"];
+            try
+            {
+                var command = new CreateQuestionCommand(model.Text,
+                    userId, model.Course);
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch (DuplicateRowException)
+            {
+                toasterMessage = _localizer["PostedQuestionToasterDuplicate"];
+            }
+            catch (SqlConstraintViolationException)
+            {
+                toasterMessage = _localizer["PostedQuestionToasterCourseNotExists"];
+                //Console.WriteLine(e);
+                //throw;
+            }
+
             await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
             {
                 new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
                     {
-                        text = _localizer["PostedQuestionToasterOk"]
+                        text = toasterMessage.Value
                     }
                 )}, token);
             return Ok();

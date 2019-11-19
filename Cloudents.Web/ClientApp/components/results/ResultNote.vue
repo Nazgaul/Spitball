@@ -5,8 +5,7 @@
               <user-avatar size="34" v-if="authorName" :userImageUrl="userImageUrl" :user-name="authorName" :user-id="authorId"/>
             <div class="document-header-name-container">
               <span class="document-header-name text-truncate"> 
-                <span v-if="isTutor" v-html="$Ph('resultNote_privet',[authorName])"/>
-                <span v-else>{{authorName}}</span> 
+                <span>{{authorName}}</span> 
               </span>
               <span class="date-area">{{uploadDate}}</span>
             </div>
@@ -277,11 +276,6 @@ export default {
         ours = this.item.source.toLowerCase().includes("cloudents");
       }
       return ours;
-    },
-    isTutor(){
-      if (!!this.item) {
-        return this.item.user.isTutor;
-      }
     },
     isMobile(){
       return this.$vuetify.breakpoint.xs;

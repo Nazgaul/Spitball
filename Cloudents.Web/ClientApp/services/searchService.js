@@ -85,7 +85,6 @@ function DocumentItemUser(objInit){
     this.id = objInit.id;
     this.image = objInit.image || '';
     this.name = objInit.name || '';
-    this.isTutor = objInit.isTutor || false; //TODO remove this
 }
 
 function createDocumentItemUser(objInit) {

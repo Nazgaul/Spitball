@@ -98,17 +98,6 @@
               style="height: 2px; width: 44px; background-color: rgba(67, 66, 93, 0.2); margin: 0 auto; display: block"
             ></span>
           </div>
-          <div
-            class="tutor-price strike-through text-xs-center"
-            v-if="$vuetify.breakpoint.xsOnly && isTutorProfile && showStriked"
-          >
-            <span class="tutor-price">
-              {{tutorPrice}}
-              <span class="tutor-price small-text">
-                <span v-language:inner>profile_points_hour</span>
-              </span>
-            </span>
-          </div>
         </v-flex>
         <v-flex>
           <div class="mt-4" v-if="$vuetify.breakpoint.xsOnly">
@@ -191,8 +180,6 @@ export default {
     return {
       disableApplyBtn: false,
       coupon: '',
-      discountAmount:70,
-      minimumPrice:55
     };
   },
   props: {
@@ -202,7 +189,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["accountUser", "getProfile", "isTutorProfile", "getShowEditDataDialog", "getActivateTutorDiscounts", 'getCouponError', 'getCouponDialog']),
+    ...mapGetters(["accountUser", "getProfile", "isTutorProfile", "getShowEditDataDialog", 'getCouponError', 'getCouponDialog']),
+    
     xsColumn() {
       const xsColumn = {};
       if (this.$vuetify.breakpoint.xsOnly) {
@@ -228,16 +216,6 @@ export default {
     },
     isDiscount() {
       return this.getProfile && (this.getProfile.user.tutorData.discountPrice || this.getProfile.user.tutorData.discountPrice === 0) ? true : false;
-    },
-    showStriked(){
-      if(!this.getActivateTutorDiscounts) return false;
-      let price = this.tutorPrice;
-      return price > this.minimumPrice;
-    },
-    discountedPrice(){
-      let price = this.tutorPrice;
-      let discountedAmount = price - this.discountAmount;
-      return discountedAmount > this.minimumPrice ? discountedAmount.toFixed(0) : this.minimumPrice.toFixed(0);
     },
     university() {
       if (this.getProfile && this.getProfile.user) {

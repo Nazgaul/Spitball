@@ -1,10 +1,10 @@
 <template>
-  <div class="headlineSection">
+  <div class="headlineSection" :style="{'backgroundImage': `url(${backgroundImg}`}">
     <div class="headlineSearch">
       <div class="headlineTitles">
         <h1 class="hd-title" v-language:inner="isMobile?'homePage_hd_title_mobile':'homePage_hd_title'"/>
-        <h2 :class="['hd-subtitle',isMobile?'mt-1':'mt-3']" v-language:inner="'homePage_hd_subtitle'"/>
-        <div class="hd-search mt-3">
+        <h2 :class="['hd-subtitle',isMobile?'my-1':'my-4']" v-language:inner="'homePage_hd_subtitle'"/>
+        <div class="hd-search">
           <div class="search-input-cont">
             <v-text-field
               class="search-input-hp"
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="headline-img">
-        <div class="handImg"></div>
+        <div class="handImg" :style="{'backgroundImage': `url(${handImg}`}"/>
       </div>
     </div>
     <headlineStatus></headlineStatus>
@@ -32,6 +32,7 @@
 <script>
 import headlineStatus from "./headlineStatus.vue";
 import { LanguageService } from "../../../services/language/languageService.js";
+import { mapGetters } from 'vuex';
 
 export default {
   components: { headlineStatus },
@@ -49,8 +50,23 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['isFrymo']),
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly;
+    },
+    backgroundImg(){
+      return global.isRtl? require('../images/bg_he.png') : require('../images/bg_en.jpg')
+    },
+    handImg(){
+      if(this.isFrymo){
+        return require('../images/Hand_Frymo.png')
+      }else{
+        if(global.isRtl){
+          return require('../images/Hand_he.png')
+        }else{
+          return require('../images/Hand_en.png')
+        }
+      }
     }
   }
 };
@@ -70,7 +86,6 @@ export default {
     background-size: 100% 50%;
     background-position-y: top;
   }
-  background-image: url("../images/bgHeadline.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -107,11 +122,11 @@ export default {
     justify-content: center;
       }
       .handImg {
-        width: 100%;
+        width: 105%;
         height: 100%;
-        background-image: url("../images/Hand_screen2.png");
         background-repeat: no-repeat;
         background-size: cover;
+        background-position-x: left;
         @media (max-width: @screen-xs) {
           margin-top: -20px;
           height: initial;
@@ -132,7 +147,7 @@ export default {
       .hd-title {
         @media (max-width: @screen-xs) {
           font-size: 28px;
-          margin-top: 10px;
+          // margin-top: 10px;
         }
         font-size: 36px;
         font-weight: bold;

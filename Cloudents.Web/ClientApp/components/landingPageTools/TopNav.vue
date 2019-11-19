@@ -110,7 +110,7 @@ export default {
     max-width: 1500px; 
     margin: 0 auto;
     .tutor-list-header-left {
-      padding: 10px 0;
+      // padding: 10px 0;
       display: flex;
       @media (max-width: @screen-sm) {
           justify-content: space-between
