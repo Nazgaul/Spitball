@@ -43,14 +43,14 @@ export default {
     .responsiveLandingPage(1354px,80px);
     @media (max-width: @screen-xs) {
         width: calc(~"100% - 22px");
-      margin-bottom: 26px;
+      margin-bottom: 40px;
         
     }
     margin-bottom: 80px;
     .is-title{
         @media (max-width: @screen-xs) {
             font-size: 18px;
-            margin-bottom: 10px;
+            margin-bottom: 14px;
         }
         font-size: 24px;
         font-weight: bold;

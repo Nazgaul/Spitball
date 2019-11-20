@@ -39,10 +39,10 @@ export default {
     .testimonialsSection{
         overflow: -webkit-paged-y;
         width: 100%;
-        height: 620px;
+        height: 580px;
         background-color: #f9f9fa;
         .tss-subtitle{
-            padding-top: 34px;
+            padding-top: 20px;
             font-size: 16px;
             font-weight: normal;
             font-stretch: normal;
@@ -51,6 +51,7 @@ export default {
             letter-spacing: normal;
             text-align: center;
             color: #43425d;
+            padding-bottom: 5px;
         }
         .tss-title{
             @media (max-width: @screen-xs) {
@@ -67,11 +68,14 @@ export default {
         }
         .tss-dvider{
             margin: 0 auto;
-            margin-top: 16px;
+            margin-top: 10px;
             margin-bottom: 58px;
             width: 111px;
             height: 6px;
             background-color: #4c59ff;
+            @media (max-width: @screen-xs) {
+            margin-bottom: 40px;
+            }
         }
         .testimonialsCont{
             .responsiveLandingPage(928px,80px);

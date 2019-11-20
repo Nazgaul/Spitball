@@ -17,7 +17,9 @@
         <div>
             <v-btn depressed color="#4c59ff" class="tutor-btn">
             <span class="text-truncate">
-                <button v-language:inner="'tutorCardCarousel_tutor_btn'" class="mr-1 contact-me-button"></button>{{showFirstName}}
+                <button class="mr-1">
+                    <div class="contact-me-button" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
+                </button>
             </span>
             </v-btn>
         </div>

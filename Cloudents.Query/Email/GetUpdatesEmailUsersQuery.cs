@@ -54,7 +54,7 @@ on u.UniversityId2 = t.UniversityId and t.CourseName  = uc.CourseId
 where u.EmailConfirmed = 1
 and u.country = 'IL'
 --Temp for now of emails
-and u.LastOnline > getUtcDate()-14
+and u.LastOnline > getUtcDate()-28
 order by id
      OFFSET @pageSize * @PageNumber ROWS
                 FETCH NEXT @pageSize ROWS ONLY;";

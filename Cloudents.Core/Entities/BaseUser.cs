@@ -108,15 +108,8 @@ namespace Cloudents.Core.Entities
 
         public virtual byte[] Version { get; protected set; }
 
-        public virtual void UpdateUserImage(string image, string imageName)
-        {
-            Image = image;
-            ImageName = imageName;
-        }
+      
 
-        public virtual void UpdateUserImageName(string imageName)
-        {
-            ImageName = imageName;
-        }
+       
     }
 }

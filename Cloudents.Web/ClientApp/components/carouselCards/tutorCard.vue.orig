@@ -18,9 +18,11 @@
             <v-btn depressed color="#4c59ff" class="tutor-btn">
             <span class="text-truncate">
 <<<<<<< HEAD
-                <button v-language:inner="'tutorCardCarousel_tutor_btn'" class="mr-1 contact-me-button"></button>{{showFirstName}}
+                <button class="mr-1">
+                    <div class="contact-me-button" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
+                </button>
 =======
-                <span v-html="$Ph('resultTutor_send_button', showFirstName)" class="mr-1"></span>
+                <button v-language:inner="'tutorCardCarousel_tutor_btn'" class="mr-1 contact-me-button"></button>{{showFirstName}}
 >>>>>>> origin/develop
             </span>
             </v-btn>
@@ -120,7 +122,6 @@ export default {
             }
         },
         enterProfilePage(){
-<<<<<<< HEAD
             this.flagRemoteClick = true;
             if(this.flagLocalClick){
                 this.flagLocalClick = false;
@@ -134,12 +135,6 @@ export default {
                 }
             }
                 
-=======
-            this.$router.push({
-                name: 'profile',
-                params: {id: this.tutor.userId, name: this.tutor.name}
-            })
->>>>>>> origin/develop
         },
     },
 }

@@ -111,11 +111,11 @@ export default {
 .categoriesSection {
   .responsiveLandingPage(1354px, 80px);
   margin-top: 50px;
-  padding-bottom: 74px;
+  padding-bottom: 70px;
   @media (max-width: @screen-xs) {
     width: 100%;
     padding-bottom: 30px;
-    margin-top: 0;
+    margin-top: 10px;
   }
   .cs-title {
     @media (max-width: @screen-xs) {
@@ -137,7 +137,7 @@ export default {
     margin-top: 18px;
     margin-bottom: 80px;
     @media (max-width: @screen-xs) {
-      margin-bottom: 22px;
+      margin-bottom: 14px;
     }
     display: flex;
     justify-content: space-between;
@@ -171,7 +171,7 @@ export default {
         font-size: 14px;
         font-weight: bold;
         margin-right: 6px;
-        padding: 10px;
+        padding: 5px 10px;
         border-radius: 20px;
         border: solid 1px #4c59ff;
         color: #4c59ff
@@ -187,7 +187,7 @@ export default {
       justify-content: center;
     }
     @media (max-width: @screen-xs) {
-      height: 296px;
+      height: unset;
     }
       // height: 316px;
     .categories-banner {
@@ -195,7 +195,7 @@ export default {
       background-color: #f9f9fa;
       padding: 12px 18px;
       @media (max-width: @screen-xs) {
-        padding: 30px 0;
+        padding: 16px 0 4px 0;
       }
       .banner-title {
         @media (max-width: @sbScreen-tablet) {
@@ -206,6 +206,7 @@ export default {
         @media (max-width: @screen-xs) {
           font-size: 24px;
           text-align: center;
+          padding: 0 10px;
 
         }
         display: block;
@@ -230,6 +231,7 @@ export default {
         .banner-svg {
           @media (max-width: @screen-xs) {
             margin-right: 10px;
+            min-width: 50px;
           }
         }
       }
