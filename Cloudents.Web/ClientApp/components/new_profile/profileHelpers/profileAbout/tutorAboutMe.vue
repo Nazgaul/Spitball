@@ -1,7 +1,7 @@
 <template>
         <v-layout class="aboutme-section">
             <v-flex xs12>
-                <v-card class="px-4 pt-4 about-me-card pb-2">
+                <v-card class="px-6 pt-6 about-me-card pb-2">
                     <v-layout column>
                         <v-flex xs12>
                             <div class="title-wrap">

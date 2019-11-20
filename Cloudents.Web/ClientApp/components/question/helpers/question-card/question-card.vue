@@ -27,9 +27,11 @@
                                 <v-spacer></v-spacer>
                                 <div class="menu-area">
                                     <v-menu bottom left content-class="card-user-actions">
-                                        <v-btn :depressed="true" @click.prevent slot="activator" icon>
-                                            <v-icon>sbf-3-dot</v-icon>
-                                        </v-btn>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn :depressed="true" @click.prevent v-on="on" icon>
+                                                <v-icon>sbf-3-dot</v-icon>
+                                            </v-btn>
+                                        </template>
                                         <v-list>
                                             <v-list-item
                                                     v-show="item.isVisible"
