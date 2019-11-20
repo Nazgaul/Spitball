@@ -141,7 +141,7 @@ namespace Cloudents.FunctionsV2
                 return;
             }
 
-            CultureInfo.DefaultThreadCurrentUICulture = msg.CultureInfo;
+            CultureInfo.DefaultThreadCurrentCulture = msg.CultureInfo;
             var messageOptions = new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
             {
                 Body = string.Format(ResourceWrapper.GetString("sms_text"), msg.Message)
@@ -195,7 +195,7 @@ namespace Cloudents.FunctionsV2
             string culture = req.Query["culture"];
 
             //var culture = CultureInfo.CurrentUICulture.ChangeCultureBaseOnCountry(result.Country);
-            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(culture);
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(culture);
             var twiml = new VoiceResponse();
             var sentence = string.Format(ResourceWrapper.GetString("call_text"), string.Join(". ", name.ToCharArray()));
             twiml.Say(sentence, loop: 3, voice: "alice");

@@ -126,4 +126,33 @@
   <data name="sms_text" xml:space="preserve">
     <value>Your code to enter into Frymo is: {0}</value>
   </data>
+  <data name="unread_message" xml:space="preserve">
+    <value>You have a new message from your {0} on Frymo. Click on the link to read your message {{link}}</value>
+  </data>
+  <data name="unread_message_first_message_tutor" xml:space="preserve">
+    <value>We found a student that wants a tutoring session with you. Click here {link} to chat and schedule a lesson.</value>
+  </data>
+  <data name="unread_message_request_email_body" xml:space="preserve">
+    <value>Hi {UserFirstName}, 
+{FirstMessageStudentName} would like to schedule a tutoring session with in {CourseName} {Request}.
+You can reach {FirstMessageStudentName} through Frymo {link}.  
+Alternatively you can reach me through WhatApp : {WhatsappLink}
+If you encounter any issues please feel free to reach me via WhatsApp at +918618134279 or by email at support@frymo.com
+Cheers, Aditya  </value>
+  </data>
+  <data name="unread_message_request_email_body_lead_request" xml:space="preserve">
+    <value>on {Request}</value>
+  </data>
+  <data name="unread_message_request_email_body_whatsapp_text" xml:space="preserve">
+    <value>I got your request in a tutoring from Frymo on {CourseName}. When will you have time to chat? </value>
+  </data>
+  <data name="unread_message_request_email_subject" xml:space="preserve">
+    <value>Student {FirstMessageStudentName} would like to schedule a tutoring session with you</value>
+  </data>
+  <data name="unread_message_student" xml:space="preserve">
+    <value>student</value>
+  </data>
+  <data name="unread_message_tutor" xml:space="preserve">
+    <value>teacher</value>
+  </data>
 </root>

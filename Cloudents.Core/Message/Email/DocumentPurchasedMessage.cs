@@ -12,4 +12,14 @@ namespace Cloudents.Core.Message.Email
 
         public Guid TransactionId { get; private set; }
     }
+
+    public class RequestTutorMessage : ISystemQueueMessage
+    {
+        public RequestTutorMessage(Guid leadId)
+        {
+            LeadId = leadId;
+        }
+
+        public Guid LeadId{ get; private set; }
+    }
 }

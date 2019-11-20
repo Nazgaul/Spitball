@@ -32,8 +32,8 @@ namespace Cloudents.FunctionsV2.System
 
             message.AddContent("text/html", $"User id: {result.UserId} want to redeem {result.Amount}");
 
-            var culture = CultureInfo.CurrentUICulture.ChangeCultureBaseOnCountry(result.Country);
-            CultureInfo.DefaultThreadCurrentUICulture = culture;
+            var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(result.Country);
+            CultureInfo.DefaultThreadCurrentCulture = culture;
             var emailTo = ResourceWrapper.GetString("email_support");
 
             message.AddTo(emailTo);

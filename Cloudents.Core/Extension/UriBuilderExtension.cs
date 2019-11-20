@@ -7,11 +7,11 @@ namespace Cloudents.Core.Extension
 {
     public static class UriBuilderExtensions
     {
-        public static void AddQuery(this UriBuilder builder, NameValueCollection nvc)
+        public static UriBuilder AddQuery(this UriBuilder builder, NameValueCollection nvc)
         {
             if (nvc == null)
             {
-                return;
+                return builder;
             }
             //var query = string.Join("&", val.AllKeys.Select(key => 
             //   $"{WebUtility.UrlEncode(key)}={WebUtility.UrlEncode(val[key])}"));
@@ -25,13 +25,15 @@ namespace Cloudents.Core.Extension
             {
                 builder.Query = query;
             }
+
+            return builder;
         }
 
-        public static void AddQuery(this UriBuilder builder, object obj)
+        public static UriBuilder AddQuery(this UriBuilder builder, object obj)
         {
             if (obj == null)
             {
-                return;
+                return builder;
             }
 
             var properties = from p in obj.GetType().GetProperties()
@@ -39,6 +41,7 @@ namespace Cloudents.Core.Extension
                              select p.Name + "=" + WebUtility.UrlEncode(p.GetValue(obj, null).ToString());
 
             builder.Query = string.Join("&", properties.ToArray());
+            return builder;
             //return string.Join("&", properties.ToArray());
         }
 

@@ -59,12 +59,43 @@ namespace Cloudents.FunctionsV2
 
         public static string GetString(string key)
         {
-            if (ResourceSets.TryGetValue(CultureInfo.DefaultThreadCurrentUICulture, out var v))
+            
+            var culture = CultureInfo.DefaultThreadCurrentCulture ?? CultureInfo.CurrentCulture;
+            if (ResourceSets.TryGetValue(culture, out var v))
             {
                 return v.GetString(key);
             }
             return ProjectManager.GetString(key);
         }
+
+        //private static string GetStringRecursion(string key, CultureInfo info)
+        //{
+        //    while (info != null)
+        //    {
+        //        if (ResourceSets.TryGetValue(info, out var v))
+        //        {
+        //            var result =  v.GetString(key);
+        //            if (result != null)
+        //            {
+        //                return result;
+        //            }
+        //        }
+
+        //        //if (Templates.TryGetValue(info, out var template))
+        //        //{
+        //        //    return template;
+        //        //}
+
+        //        if (Equals(info, info.Parent))
+        //        {
+        //            break;
+        //        }
+        //        info = info.Parent;
+        //    }
+
+        //    return null;
+
+        //}
 
 
     }

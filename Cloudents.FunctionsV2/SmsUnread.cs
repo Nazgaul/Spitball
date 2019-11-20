@@ -10,9 +10,16 @@ using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 using shortid;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
+using Cloudents.Core.DTOs.Email;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
+using Newtonsoft.Json;
+using SendGrid.Helpers.Mail;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
@@ -22,7 +29,7 @@ namespace Cloudents.FunctionsV2
 {
     public static class SmsUnread
     {
-        [FunctionName("SmsUnread")]
+        [FunctionName("SmsUnreadQuery")]
         public static async Task SmsUnreadAsync([TimerTrigger("0 */10 5-18 * * *")]TimerInfo myTimer,
             [Blob("spitball/chat/unread.txt")]CloudBlockBlob blob,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
@@ -41,7 +48,7 @@ namespace Cloudents.FunctionsV2
             }
 
             var query = new UserUnreadMessageQuery(version);
-            var result = await queryBus.QueryAsync(query, token);
+            var result = (await queryBus.QueryAsync(query, token)).ToList();
             var dataProtector = dataProtectProvider.CreateProtector("Spitball")
                 .ToTimeLimitedDataProtector();
             foreach (var unreadMessageDto in result.Distinct(UnreadMessageDto.UserIdComparer))
@@ -50,13 +57,17 @@ namespace Cloudents.FunctionsV2
                 {
                     continue;
                 }
-                var text =
-                    $"You have a new message from your {(unreadMessageDto.IsTutor ? "student" : "tutor")} on Spitball. Click on the link to read your message {{link}}";
+                string text = string.Format(
+                    ResourceWrapper.GetString("unread_message"),
+                    unreadMessageDto.IsTutor ?
+                        ResourceWrapper.GetString("unread_message_student") :
+                        ResourceWrapper.GetString("unread_message_tutor"));
+
                 if (unreadMessageDto.ChatMessagesCount == 1)
                 {
                     if (unreadMessageDto.IsTutor)
                     {
-                        text = "We found a student that wants a tutoring session with you. Click here {link} to chat and schedule a lesson.";
+                        text = ResourceWrapper.GetString("unread_message_first_message_tutor");
                     }
                     else
                     {
@@ -102,5 +113,87 @@ namespace Cloudents.FunctionsV2
                 await blob.UploadFromByteArrayAsync(version, 0, 8);
             }
         }
+
+
+
+        //[FunctionName("RequestTutorEmail")]
+        //public static async Task SendEmailAsync(
+        //    [QueueTrigger("request-tutor")] RequestTutorEmailDto obj,
+        //    [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
+        //    [Inject] ICommandBus commandBus,
+        //    [Inject] IUrlBuilder urlBuilder,
+        //    CancellationToken token)
+        //{
+
+        //    if (string.IsNullOrEmpty(obj.CourseName)) 
+        //    {
+        //        return;
+        //    }
+        //    CultureInfo.DefaultThreadCurrentCulture = obj.CultureInfo;
+        //    var body = ResourceWrapper.GetString("unread_message_request_email_body");
+        //    var request = string.Empty;
+        //    //TODO -  whatsapp link
+        //    if (!string.IsNullOrEmpty(obj.Request))
+        //    {
+        //        request = ResourceWrapper.GetString("unread_message_request_email_body_lead_request")
+        //            .InjectSingleValue("Request", obj.Request);
+        //    }
+
+
+        //    var whatsAppLink = new UriBuilder($"https://wa.me/{obj.FirstMessagePhoneNumber.Replace("+",string.Empty)}")
+        //        .AddQuery(new
+        //        {
+        //            text = ResourceWrapper.GetString("unread_message_request_email_body_whatsapp_text").InjectSingleValue("CourseName", obj.CourseName)
+        //        });
+
+        //    var identifier = ShortId.Generate(true, false);
+        //    var command = new CreateShortUrlCommand(identifier, whatsAppLink.ToString(), DateTime.UtcNow.AddDays(30));
+        //    await commandBus.DispatchAsync(command, token);
+        //    var urlShort = urlBuilder.BuildShortUrlEndpoint(identifier);
+        //    body = body.InjectSingleValue("Request", request);
+
+        //    body = body.InjectSingleValue("WhatsappLink", urlShort);
+
+        //    var htmlBodyDirection = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft? "rtl" :"ltr";
+        //    body = body.Inject(new
+        //    {
+        //        Request = request,
+        //        WhatsappLink = whatsAppLink.ToString(),
+        //        obj.UserFirstName,
+        //        link = obj.Url,
+        //        obj.FirstMessageStudentName,
+        //        obj.CourseName
+        //    });
+        //    var message = new SendGridMessage()
+        //    {
+
+        //        Subject = ResourceWrapper.GetString("unread_message_request_email_subject")
+        //            .Inject(obj),
+        //        HtmlContent =$"<html><body dir=\"{htmlBodyDirection}\">{body.Replace(Environment.NewLine, "<br><br>")}</body></html>" 
+
+
+        //    };
+        //    message.AddTo(obj.To);
+        //    await emailProvider.AddAsync(message, token);
+        //}
+
+
+        //public class RequestTutorEmailDto
+        //{
+        //    public CultureInfo CultureInfo { get; set; }
+
+        //    public string Request { get; set; }
+
+        //    public string FirstMessagePhoneNumber { get; set; }
+        //    public string FirstMessageStudentName { get; set; }
+
+        //    public string CourseName { get; set; }
+
+        //    public string UserFirstName { get; set; }
+
+        //    public string Url { get; set; }
+
+        //    public string To { get; set; }
+        //}
     }
 }

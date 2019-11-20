@@ -2,7 +2,7 @@
 using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
 
-namespace Cloudents.Persistence.Maps
+namespace Cloudents.Persistence.Maps.Views
 {
     public class ViewConversationMap : ClassMap<ViewConversation>
     {

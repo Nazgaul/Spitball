@@ -32,6 +32,7 @@ using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Courses;
 using Cloudents.Core.Query.Feed;
+using Cloudents.Query.Chat;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -139,12 +140,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            //var bus = _container.Resolve<ICommandBus>();
-            //var command = new ApplyCouponCommand("precentage", 638, 160171);
-            //await bus.DispatchAsync(command, default);
+            var query = new UserUnreadMessageQuery(null);
+            var queryBus = _container.Resolve<IQueryBus>();
+            var result = await queryBus.QueryAsync(query, default);
 
-            //var v = command.newPrice;
-            await ResyncTutorRead();
         }
         private static async Task ResyncTutorRead()
         {

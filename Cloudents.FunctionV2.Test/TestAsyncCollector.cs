@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Cloudents.FunctionsV2.Test
 {
@@ -23,4 +24,6 @@ namespace Cloudents.FunctionsV2.Test
             //Do nothing for now
         }
     }
+
+   
 }
