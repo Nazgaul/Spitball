@@ -1,6 +1,10 @@
 ﻿using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Entities;
 using Dapper;
+using NHibernate;
+using NHibernate.Transform;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +24,6 @@ namespace Cloudents.Query.Query.Admin
         internal sealed class AdminConversationDetailsQueryHandler : IQueryHandler<AdminConversationDetailsQuery, IEnumerable<ConversationDetailsDto>>
         {
             private readonly IDapperRepository _dapper;
-
 
             public AdminConversationDetailsQueryHandler(IDapperRepository dapper)
             {
@@ -57,6 +60,7 @@ select * from cte";
                     var res = await connection.QueryAsync<ConversationDetailsDto>(sql, new { query.Id, query.Country });
                     return res;
                 }
+
             }
         }
     }
