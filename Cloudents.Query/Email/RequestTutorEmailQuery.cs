@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs.Email;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Message.System;
+using Dapper;
 using NHibernate.Linq;
 
 namespace Cloudents.Query.Email
@@ -22,29 +23,68 @@ namespace Cloudents.Query.Email
 
         internal sealed class RequestTutorEmailQueryHandler : IQueryHandler<RequestTutorEmailQuery, IEnumerable<RequestTutorEmailDto>>
         {
-            private readonly QuerySession _querySession;
 
-            public RequestTutorEmailQueryHandler(QuerySession querySession)
+            private readonly IDapperRepository _dapper;
+
+            public RequestTutorEmailQueryHandler(IDapperRepository dapper)
             {
-                _querySession = querySession;
+                _dapper = dapper;
             }
+            //private readonly QuerySession _querySession;
+
+            //public RequestTutorEmailQueryHandler(QuerySession querySession)
+            //{
+            //    _querySession = querySession;
+            //}
 
             public async Task<IEnumerable<RequestTutorEmailDto>> GetAsync(RequestTutorEmailQuery query, CancellationToken token)
             {
-               return await _querySession.StatelessSession.Query<Lead>()
-                    .Fetch(f => f.Tutor).ThenFetch(f => f.User)
-                    .Fetch(f => f.User)
-                    .Where(w => w.Id == query.LeadId).Select(s => new RequestTutorEmailDto
+                const string sql = @"
+                                    select u.[Language] as TutorLanguage,
+	                                    l.Text as Request,
+	                                    us.PhoneNumberHash as StudentPhoneNumber,
+	                                    us.Name as StudentName,
+	                                    l.CourseId as CourseName,
+	                                    u.FirstName as TutorFirstName,
+	                                    t.Id as TutorId,
+	                                    u.Email as TutorEmail,
+	                                    u.Country as TutorCountry
+                                    from sb.ChatRoomAdmin cra
+                                    join sb.[Lead] l
+	                                    on cra.LeadId = l.Id
+                                    join sb.ChatUser cu
+	                                    on cu.ChatRoomId = cra.Id and cu.UserId != l.UserId
+                                    join sb.[user] u
+	                                    on cu.UserId = u.Id
+                                    join sb.Tutor t
+	                                    on t.Id = u.Id
+                                    join sb.[user] us
+	                                    on us.Id = l.UserId
+                                    where cra.LeadId = @leadId";
+                using (var conn = _dapper.OpenConnection())
+                { 
+                    var res = await conn.QueryAsync<RequestTutorEmailDto>(sql, new
                     {
-                        TutorLanguage = s.Tutor.User.Language,
-                        CourseName = s.Course.Id,
-                        Request = s.Text,
-                        TutorId = s.Tutor.Id,
-                        TutorEmail = s.Tutor.User.Email,
-                        StudentName = s.User.Name,
-                        TutorFirstName = s.Tutor.User.FirstName,
-                        StudentPhoneNumber = s.User.PhoneNumber
-                    }).ToListAsync(token);
+                        leadId = query.LeadId
+                    });
+                    return res;
+                }
+               //return await _querySession.StatelessSession.Query<Lead>()
+               //     .Fetch(f => f.Tutor).ThenFetch(f => f.User)
+               //     .Fetch(f => f.User)
+               //     .Where(w => w.Id == query.LeadId).Select(s => new RequestTutorEmailDto
+               //     {
+               //         TutorLanguage = s.Tutor.User.Language,
+               //         CourseName = s.Course.Id,
+               //         Request = s.Text,
+               //         TutorId = s.Tutor.Id,
+               //         TutorEmail = s.Tutor.User.Email,
+               //         StudentName = s.User.Name,
+               //         TutorFirstName = s.Tutor.User.FirstName,
+               //         StudentPhoneNumber = s.User.PhoneNumber,
+               //         TutorCountry = s.Tutor.User.Country
+
+               //     }).ToListAsync(token);
             }
         }
     }

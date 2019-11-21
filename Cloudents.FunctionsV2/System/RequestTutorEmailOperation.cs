@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
@@ -37,13 +38,9 @@ namespace Cloudents.FunctionsV2.System
             var result = await _queryBus.QueryAsync(query, token);
             foreach (var obj in result)
             {
+                CultureInfo.DefaultThreadCurrentCulture = obj.TutorLanguage.ChangeCultureBaseOnCountry(obj.TutorCountry);
+                var body = ResourceWrapper.GetString("unread_message_request_email_body");
 
-
-                if (string.IsNullOrEmpty(obj.CourseName))
-                {
-                    return;
-                }
-                CultureInfo.DefaultThreadCurrentCulture = obj.TutorLanguage;
 
                 var code = _dataProtectionService.ProtectData(obj.TutorId.ToString(), DateTimeOffset.UtcNow.AddDays(5));
                 var identifierChat = ShortId.Generate(true, false);
@@ -52,7 +49,6 @@ namespace Cloudents.FunctionsV2.System
                 var commandChat = new CreateShortUrlCommand(identifierChat, url.PathAndQuery, DateTime.UtcNow.AddDays(5));
                 await _commandBus.DispatchAsync(commandChat, token);
 
-                var body = ResourceWrapper.GetString("unread_message_request_email_body");
                 var request = string.Empty;
                 //TODO -  whatsapp link
                 if (!string.IsNullOrEmpty(obj.Request))
@@ -81,15 +77,16 @@ namespace Cloudents.FunctionsV2.System
                 {
                     Request = request,
                     WhatsappLink = whatsAppLink.ToString(),
-                    obj.TutorFirstName,
-                    link = url,
+                    UserFirstName = obj.TutorFirstName,
+                    link = _urlBuilder.BuildShortUrlEndpoint(identifierChat/*, obj.TutorCountry*/),
                     obj.StudentName,
-                    obj.CourseName
+                    obj.CourseName,
+                    FirstMessageStudentName = obj.StudentName
                 });
                 var message = new SendGridMessage()
                 {
 
-                    Subject = ResourceWrapper.GetString("unread_message_request_email_subject")
+                    Subject = ResourceWrapper.GetString("unread_message_request_email_subject").InjectSingleValue("FirstMessageStudentName", obj.StudentName)
                         .Inject(obj),
                     HtmlContent = $"<html><body dir=\"{htmlBodyDirection}\">{body.Replace(Environment.NewLine, "<br><br>")}</body></html>",
 

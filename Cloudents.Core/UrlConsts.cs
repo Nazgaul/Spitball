@@ -75,10 +75,29 @@ namespace Cloudents.Core
             return builder.Uri;
         }
 
+        public Uri BuildShortUrlEndpoint(string identifier, string country)
+        {
+            var nvc = new NameValueCollection();
+            if (country?.Equals("IN", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                nvc.Add("site","frymo");
+            }
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"go/{identifier}" };
+            builder.AddQuery(nvc);
+            return builder.Uri;
+        }
+
         public Uri BuildShortUrlEndpoint(string identifier)
         {
-            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"go/{identifier}" };
-            return builder.Uri;
+            return BuildShortUrlEndpoint(identifier, null);
+            //var nvc = new NameValueCollection();
+            //if (country.Equals("IN", StringComparison.OrdinalIgnoreCase))
+            //{
+            //    nvc.Add("site", "frymo");
+            //}
+            //var builder = new UriBuilder(_webSiteEndPoint) { Path = $"go/{identifier}" };
+            //builder.AddQuery(nvc);
+            //return builder.Uri;
         }
 
         public string BuildDocumentEndPoint(long id, object parameters = null)

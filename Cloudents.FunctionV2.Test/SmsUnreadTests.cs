@@ -70,7 +70,7 @@ namespace Cloudents.FunctionsV2.Test
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
             await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResult,  _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+                _mockedResult, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
                 _mockUriBuilder.Object, _logger, default);
 
             _mockedResult.Result.Should().HaveCount(1);
@@ -90,7 +90,7 @@ namespace Cloudents.FunctionsV2.Test
         //            //FirstMessageStudentName = "Ram",
         //            PhoneNumber = "+972542642202"
         //        }
-               
+
         //    };
         //    _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
@@ -123,7 +123,7 @@ namespace Cloudents.FunctionsV2.Test
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
             await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResult,  _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+                _mockedResult, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
                 _mockUriBuilder.Object, _logger, default);
 
             var body = _mockedResult.Result.Single().Body;
@@ -155,13 +155,13 @@ namespace Cloudents.FunctionsV2.Test
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
             await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResult,  _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+                _mockedResult, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
                 _mockUriBuilder.Object, _logger, default);
 
             var body = _mockedResult.Result.Single().Body;
             var expectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor").InjectSingleValue("link", _shortUrl);
             body.Should().BeEquivalentTo(expectedResult);
-           // body.Should().Contain(result.First().FirstMessageStudentName);
+            // body.Should().Contain(result.First().FirstMessageStudentName);
         }
 
         //[Fact]

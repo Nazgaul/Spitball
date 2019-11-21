@@ -134,11 +134,11 @@
   </data>
   <data name="unread_message_request_email_body" xml:space="preserve">
     <value>Hi {UserFirstName}, 
-{FirstMessageStudentName} would like to schedule a tutoring session with in {CourseName} {Request}.
+{FirstMessageStudentName} would like to schedule a tutoring session with you in {CourseName} {Request}.
 You can reach {FirstMessageStudentName} through Spitball {link}.  
-Alternatively you can reach me through WhatApp : {WhatsappLink}
-If you encounter any issues please feel free to reach me via WhatsApp at +972527368268 or by email at support@spitball.co
-Cheers, Yaniv Silovisky 
+Alternatively you can reach {UserFirstName} through WhatApp : {WhatsappLink}.
+If you are unable to connect with {UserFirstName}, feel free to reach out to me via WhatsApp at+972527368268 or by email at support@spitball.co.
+Cheers, Yaniv Silovisky
 </value>
   </data>
   <data name="unread_message_request_email_body_lead_request" xml:space="preserve">

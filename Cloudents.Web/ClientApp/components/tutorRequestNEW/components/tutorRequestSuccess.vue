@@ -48,7 +48,6 @@ export default {
                 width: 140px;
                 height: 88px;
                 object-fit: contain;
-                margin-top: -54px;
 
             }
             p{

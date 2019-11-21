@@ -21,5 +21,6 @@ namespace Cloudents.Core.DTOs.Email
        // public string Url { get; set; }
 
         public string TutorEmail { get; set; }
+        public string TutorCountry { get; set; }
     }
 }

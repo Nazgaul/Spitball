@@ -133,15 +133,16 @@
     <value>מצאנו תלמיד שביקש לתאם איתך שיעור פרטי. לחץ על הלינק כדי לשוחח ולתאם מועד לשיעור {link}</value>
   </data>
   <data name="unread_message_request_email_body" xml:space="preserve">
-    <value>{FirstMessageStudentName} ביקש לקבוע איתך שיעור פרטי ב{CourseName} {Request}
+    <value>היי {UserFirstName},
+{FirstMessageStudentName} ביקש לקבוע איתך שיעור פרטי ב{CourseName} {Request}.
 תוכל ליצור איתו קשר דרך מערכת ספיטבול – {link}.
-לחלופין, ניתן לשלוח הודעת ווטסאפ {WhatsappLink}
+לחלופין, ניתן לשלוח הודעת ווטסאפ {WhatsappLink}.
 במידה ונתקלת בכל בעיה  אנא צור איתי קשר : על ידי שליחת הודעת WhatsApp ל 0527368268 או במייל support@spitball.co. 
 בברכה, יניב סילובסקי 
 </value>
   </data>
   <data name="unread_message_request_email_body_lead_request" xml:space="preserve">
-    <value>וצריך עזרה ב {Request}</value>
+    <value>וצריך עזרה ב{Request}</value>
   </data>
   <data name="unread_message_request_email_body_whatsapp_text" xml:space="preserve">
     <value>קיבלתי את פנייתך דרך ספיטבול לשיעור פרטי. מתי נוח לך לדבר</value>
