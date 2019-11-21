@@ -18,9 +18,9 @@
         </v-layout>
         <v-layout align-center justify-center :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-4': '']">
             <v-flex xs12  sm5  class="text-center">
-                <p class="body-1 mb-1" v-language:inner>courses_check_mistakes</p>
-                <p class="body-1 mb-1" v-language:inner>courses_remove_spaces</p>
-                <p class="body-1 mb-1" v-language:inner>courses_find_similar</p>
+                <p class="body-2 mb-1" v-language:inner>courses_check_mistakes</p>
+                <p class="body-2 mb-1" v-language:inner>courses_remove_spaces</p>
+                <p class="body-2 mb-1" v-language:inner>courses_find_similar</p>
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-5': '']">

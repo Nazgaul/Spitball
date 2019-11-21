@@ -1,6 +1,6 @@
 <template>
     <div class="add-university-wrap">
-        <v-layout row :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2 pl-4 pr-1']" align-center
+        <v-layout :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2 pl-4 pr-1']" align-center
                   justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">

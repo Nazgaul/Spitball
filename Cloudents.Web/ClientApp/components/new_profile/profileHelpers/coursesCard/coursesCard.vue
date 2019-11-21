@@ -3,7 +3,7 @@
             <v-flex xs12>
                 <v-card class="px-4 py-4 courses-card-wrap">
                     <v-layout>
-                        <v-flex xs11 sm11  grow>
+                        <v-flex xs11 sm11 grow>
                             <div>
                                 <div v-show="isTutorProfile" class="courses-title  subtitle-1 font-weight-bold mb-4" v-language:inner>profile_courses_can_help</div>
                                 <div v-show="!isTutorProfile" class="courses-title  subtitle-1 font-weight-bold mb-4" v-language:inner>profile_courses_empty_state_title</div>
@@ -13,7 +13,7 @@
                             <v-icon @click="openSetClasses()" v-if="isMyProfile" class="subtitle-1 pr-2 edit-icon">sbf-edit-icon</v-icon>
                         </v-flex>
                     </v-layout>
-                    <v-layout row wrap >
+                    <v-layout wrap>
                         <!--<transition-group name="fade"  tag="v-layout" style="flex-direction: row; flex-wrap: wrap;">-->
                         <v-flex xs12 sm6 key="one"
                                 v-for="(course, index) in userCourses"
