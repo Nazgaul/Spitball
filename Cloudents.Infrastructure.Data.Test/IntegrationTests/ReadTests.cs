@@ -288,8 +288,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
+        [Fact]
+        public async Task RequestTutorEmailQuery_Ok()
+        {
+            var query = new RequestTutorEmailQuery(new Guid("DB8A3DB9-94B5-41AB-9377-AB0B00D81BCD"));
+            var res = await fixture.QueryBus.QueryAsync(query, default);
+            res.Should().NotBeEmpty();
+        }
 
-      
+
 
 
     }
