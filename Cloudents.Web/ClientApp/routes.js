@@ -89,7 +89,7 @@ let routes2 = [
                 component: homePage
             },
             {
-                path: "/tutor-list",
+                path: "/tutor-list/:course?",
                 name: "tutorLandingPage",
                 components: {
                     default: tutorLandingPage

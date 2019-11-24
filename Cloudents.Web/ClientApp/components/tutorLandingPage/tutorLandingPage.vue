@@ -100,7 +100,7 @@ export default {
     watch:{
         '$route'(val){
             // console.log(val.query.term)
-            this.query.term = val.query.term;
+            this.query.term = val.params.course;
             this.query.page = 0;
             this.updateList();
         }
@@ -142,7 +142,7 @@ export default {
         }
     },
     created(){
-        this.query.term = !!this.$route.query && !!this.$route.query.term ? this.$route.query.term : '';
+        this.query.term = !!this.$route.params && !!this.$route.params.course ? this.$route.params.course : '';
         this.updateList();
         this.updateHPReviews()
     },

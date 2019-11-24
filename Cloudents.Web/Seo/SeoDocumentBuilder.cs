@@ -1,16 +1,18 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NHibernate;
 using NHibernate.Linq;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Cloudents.Web.Services
+namespace Cloudents.Web.Seo
 {
     public class SeoDocumentBuilder : IBuildSeo
     {
@@ -25,28 +27,37 @@ namespace Cloudents.Web.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IEnumerable<string> GetUrls(int index)
+        public IEnumerable<SitemapNode> GetUrls(int index)
         {
             var t = _session.Query<Document>()
                 .Fetch(f => f.University)
-                .Where(w => w.Status.State == ItemState.Ok)
+                .Where(w => w.Status.State == ItemState.Ok && w.University.Country != Country.India.Name)
                 .Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)
-                .Select(s => new DocumentSeoDto
+                .Select(s => new 
                 {
                     Id = s.Id,
                     Name = s.Name,
                     CourseName = s.Course.Id,
-                    UniversityName = s.University.Name
+                    UniversityName = s.University.Name,
+                    s.TimeStamp.UpdateTime
+                    
                 });
 
             foreach (var item in t)
             {
-                yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Document, new
+                var url = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Document, new
                 {
                     courseName = FriendlyUrlHelper.GetFriendlyTitle(item.CourseName),
                     item.Id,
                     name = FriendlyUrlHelper.GetFriendlyTitle(item.Name)
                 });
+
+                yield return new SitemapNode(url)
+                {
+                    ChangeFrequency = ChangeFrequency.Daily,
+                    Priority = 1,
+                    TimeStamp = item.UpdateTime
+                };
 
             }
         }

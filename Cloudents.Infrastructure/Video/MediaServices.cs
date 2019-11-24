@@ -11,6 +11,8 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
 
 namespace Cloudents.Infrastructure.Video
 {
@@ -373,6 +375,7 @@ namespace Cloudents.Infrastructure.Video
 
         }
 
+        [Cache(TimeConst.Hour,"media-service",true)]
         public Task<string> GetShortStreamingUrlAsync(long videoId, CancellationToken token)
         {
             return GetStreamingUrlAsync(GetShortStreamingLocatorName(videoId), token);

@@ -113,8 +113,8 @@ namespace Cloudents.Core.Entities
             return result;
         }
 
-        public static Country Israel = new Country("IL", 1 / 25M, 1);
-        public static Country India = new Country("IN", 1, 2);
+        public static readonly Country Israel = new Country("IL", 1 / 25M, 1);
+        public static readonly Country India = new Country("IN", 1, 2);
 
 
         //    public static Country Palestine = new Country("PS", CountryGroup.Israel);

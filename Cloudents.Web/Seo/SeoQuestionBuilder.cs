@@ -1,13 +1,16 @@
-﻿using Cloudents.Core.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Web.Controllers;
+using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NHibernate;
-using System.Collections.Generic;
-using System.Linq;
+using NHibernate.Linq;
 
-namespace Cloudents.Web.Services
+namespace Cloudents.Web.Seo
 {
     public class SeoQuestionBuilder : IBuildSeo
     {
@@ -22,19 +25,26 @@ namespace Cloudents.Web.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IEnumerable<string> GetUrls(int index)
+        public IEnumerable<SitemapNode> GetUrls(int index)
         {
             var t = _session.Query<Question>()
-                .Where(w => w.Status.State == ItemState.Ok)
+                .Fetch(f => f.University)
+                .Where(w => w.Status.State == ItemState.Ok && w.University.Country != Country.India.Name)
                 .Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)
                 .Select(s => s.Id);
 
             foreach (var item in t)
             {
-                yield return _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Question, new
+                var url = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Question, new
                 {
                     Id = item,
                 });
+                yield return new SitemapNode(url)
+                {
+                    ChangeFrequency = ChangeFrequency.Daily,
+                    Priority = 1,
+                    TimeStamp = DateTime.UtcNow
+                };
 
             }
         }

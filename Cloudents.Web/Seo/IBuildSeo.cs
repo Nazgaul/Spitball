@@ -1,11 +1,11 @@
 ﻿
 using System.Collections.Generic;
 
-namespace Cloudents.Web.Services
+namespace Cloudents.Web.Seo
 {
     public interface IBuildSeo
     {
-        IEnumerable<string> GetUrls(int index);
+        IEnumerable<SitemapNode> GetUrls(int index);
 
 
     }

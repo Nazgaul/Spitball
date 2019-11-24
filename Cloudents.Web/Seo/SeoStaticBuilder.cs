@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Cloudents.Web.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 
-namespace Cloudents.Web.Services
+namespace Cloudents.Web.Seo
 {
     public class SeoStaticBuilder : IBuildSeo
     {
@@ -16,9 +17,14 @@ namespace Cloudents.Web.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IEnumerable<string> GetUrls(int index)
+        public IEnumerable<SitemapNode> GetUrls(int index)
         {
-            yield return GetBaseUrl();
+            yield return new SitemapNode(GetBaseUrl())
+            {
+                ChangeFrequency = ChangeFrequency.Daily,
+                Priority = 1,
+                TimeStamp = DateTime.UtcNow
+            }; 
         }
 
         private string GetBaseUrl()

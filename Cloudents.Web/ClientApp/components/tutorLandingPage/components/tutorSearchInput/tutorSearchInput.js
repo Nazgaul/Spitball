@@ -39,9 +39,8 @@ export default {
             }
             if(!!this.msg){
                 analyticsService.sb_unitedEvent("Tutor_Engagement", "Search", this.msg);
-            }
-            let query = {...this.$route.query, term: this.msg};
-            this.$router.push({path: 'tutor-list', query});
+            }       
+            this.$router.push({ path: `/tutor-list/${this.msg}` })
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
