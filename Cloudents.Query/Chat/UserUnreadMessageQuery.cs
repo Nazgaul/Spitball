@@ -49,6 +49,7 @@ namespace Cloudents.Query.Chat
                             .Select(() => userAlias.Id).WithAlias(() => resultAlias.UserId)
                             .Select(x => x.Version).WithAlias(() => resultAlias.Version)
                             .Select(() => userAlias.Language).WithAlias(() => resultAlias.CultureInfo)
+                            .Select(() => userAlias.Country).WithAlias(() => resultAlias.Country)
                             .SelectSubQuery(QueryOver.Of<ChatMessage>()
                                 .Where(w => w.ChatRoom.Id == chatUserAlias.ChatRoom.Id)
                                 .ToRowCountQuery()
@@ -78,6 +79,8 @@ namespace Cloudents.Query.Chat
         public byte[] Version { get; set; }
 
         public CultureInfo CultureInfo { get; set; }
+
+        public string Country { get; set; }
 
         public bool IsTutor => UserId != ChatUserId;
 

@@ -57,6 +57,8 @@ namespace Cloudents.FunctionsV2
                 {
                     continue;
                 }
+                CultureInfo.DefaultThreadCurrentCulture = unreadMessageDto.CultureInfo.ChangeCultureBaseOnCountry(unreadMessageDto.Country);
+
                 string text = string.Format(
                     ResourceWrapper.GetString("unread_message"),
                     unreadMessageDto.IsTutor ?
