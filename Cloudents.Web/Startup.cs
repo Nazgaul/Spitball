@@ -210,7 +210,7 @@ namespace Cloudents.Web
             {
                 SiteEndPoint = { SpitballSite = Configuration["Site"], FunctionSite = Configuration["functionCdnEndpoint"] },
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"),
-                    Configuration["Redis"], DbConnectionString.DataBaseIntegration.None)
+                    Configuration["Redis"], DbConnectionString.DataBaseIntegration.Validate)
                ,
                 Redis = Configuration["Redis"],
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],

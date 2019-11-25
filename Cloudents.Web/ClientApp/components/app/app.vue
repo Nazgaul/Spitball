@@ -7,7 +7,7 @@
         :callbacks="tourObject.tourCallbacks"
       ></v-tour> -->
     <router-view name="header"></router-view>
-    <router-view name="schoolBlock"></router-view>
+    <router-view v-if="showSsideMenu" name="sideMenu"></router-view>
     <v-content class="site-content" :class="{'loading':getIsLoading}">
       <div class="loader" v-show="getIsLoading">
         <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
@@ -71,6 +71,30 @@
                 <upload-multiple-files v-if="getDialogState"></upload-multiple-files>
             </sb-dialog>
 
+
+
+          <sb-dialog
+                v-if="!!this.accountUser"
+                :showDialog="getReferralDialog"
+                :popUpType="'referralPop'"
+                :onclosefn="closeReferralDialog"
+                :content-class="'login-popup'"
+              >
+                <referral-dialog
+                  :isTransparent="true"
+                  :onclosefn="closeReferralDialog"
+                  :showDialog="getReferralDialog"
+                  :popUpType="'referralPop'"
+                ></referral-dialog>
+              </sb-dialog>
+
+
+
+
+
+
+
+
         <sb-dialog :showDialog="becomeTutorDialog"
                    :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
                    :popUpType="'becomeTutorDialog'"
@@ -82,7 +106,7 @@
                    :content-class="'become-tutor'">
             <become-tutor v-if="becomeTutorDialog"></become-tutor>
         </sb-dialog>
-        
+
         <sb-dialog :showDialog="getShowBuyDialog"
                     :popUpType="'buyTokens'"
                     :content-class="!isFrymo ? 'buy-tokens-popup' : 'buy-tokens-frymo-popup'"
@@ -101,8 +125,7 @@
             <payment-dialog />
         </sb-dialog>
 
-        <mobile-footer v-show="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"
-                           :onStepChange="onFooterStepChange"></mobile-footer>
+        <mobile-footer v-if="$vuetify.breakpoint.xsOnly && getMobileFooterState && !hideFooter"/>
         </v-content>
         <v-snackbar absolute top :timeout="getToasterTimeout" :class="getShowToasterType" :value="getShowToaster">
             <div class="text-wrap" v-html="getToasterText"></div>
@@ -119,7 +142,7 @@ import uploadMultipleFiles from '../uploadFilesDialog/uploadMultipleFiles.vue';
 import {  GetDictionary,  LanguageService} from "../../services/language/languageService";
 import walletService from "../../services/walletService";
 import reportItem from "../results/helpers/reportItem/reportItem.vue";
-import mobileFooter from "../footer/mobileFooter/mobileFooter.vue";
+import mobileFooter from '../pages/layouts/mobileFooter/mobileFooter.vue';
 import marketingBox from "../helpers/marketingBox/marketingBox.vue";
 import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import buyTokenFrymo from "../dialogs/buyTokenFrymo/buyTokenFrymo.vue";
@@ -128,9 +151,11 @@ import becomeTutor from "../becomeTutor/becomeTutor.vue";
 import tutorList from "../helpers/tutorList/tutorList.vue";
 import tutorRequest from '../tutorRequestNEW/tutorRequest.vue';
 import paymentDialog from '../tutor/tutorHelpers/paymentDIalog/paymentDIalog.vue';
+import referralDialog from "../question/helpers/referralDialog/referral-dialog.vue";
 
 export default {
   components: {
+    referralDialog,
     AddQuestion,
     sbDialog,
     loginToAnswer,
@@ -156,6 +181,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'getReferralDialog',
       "getIsLoading",
       "accountUser",
       "loginDialogState",
@@ -168,7 +194,6 @@ export default {
       "getToasterTimeout",
       "getToasterText",
       "getMobileFooterState",
-      "showMarketingBox",
       "showLeaderBoard",
       "showMobileFeed",
       "getShowBuyDialog",
@@ -177,8 +202,16 @@ export default {
       "getRequestTutorDialog",
       "getShowPaymeDialog",
       "isFrymo",
-
+      "getShowSchoolBlock"
     ]),
+    showSsideMenu(){
+      if(this.$vuetify.breakpoint.xsOnly){
+        return this.getShowSchoolBlock;
+      }else{
+        return true;
+      }
+      
+    },
     isMobile(){
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -198,9 +231,6 @@ export default {
     },
     universitySelectPopup() {
       return this.getShowSelectUniPopUpInterface;
-    },
-    showMarketingMobile() {
-      return this.$vuetify.breakpoint.smAndDown && this.showMarketingBox;
     },
     showLeadersMobile() {
       return this.$vuetify.breakpoint.smAndDown && this.showLeaderBoard;
@@ -257,6 +287,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      'updateReferralDialog',
       "updateToasterParams",
       "updateLoginDialogState",
       "updateNewQuestionDialogState",
@@ -265,21 +296,19 @@ export default {
       "setCookieAccepted",
       "updateOnBoardState",
       "updateShowBuyDialog",
-      "updateCurrentStep",
-      "changeSelectUniState",
       "updateRequestDialog",
       "openChatInterface",
       "setTutorRequestAnalyticsOpenedFrom",
       "fireOptimizeActivate"
     ]),
-    ...mapGetters(["getCookieAccepted", "getIsFeedTabActive"]),
+    ...mapGetters(["getCookieAccepted"]),
     enterPayme(){
       walletService.getPaymeLink().then(({data})=>{
         global.open(data.link, '_blank', 'height=520,width=440');
       })
     },
-    onFooterStepChange() {
-      console.log('footer changed');
+    closeReferralDialog() {
+      this.updateReferralDialog(false)
     },
     closeSblToken() {
       this.updateShowBuyDialog(false);

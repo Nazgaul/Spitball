@@ -6,7 +6,6 @@
 import { mapActions, mapMutations, mapGetters } from 'vuex'
 export default {
     methods:{
-        ...mapActions(['updateCurrentStep', 'changeSelectUniState']),
         ...mapGetters(['getAllSteps']),
         openEditClass(){
            this.$router.push({name: 'addCourse'})

@@ -5,7 +5,6 @@ const state = {
     fileError: false,
     conversations: {},
     messages: {},
-    unreadMessages: {},
     enumChatState: {
         conversation: "conversation",
         messages: "messages"

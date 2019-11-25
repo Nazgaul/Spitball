@@ -249,7 +249,6 @@ export default {
             width: 100%;
             max-width: 920px;
             @media (max-width: @screen-xs) {
-                margin: 0 8px;
                 padding: 0;
             }
         }

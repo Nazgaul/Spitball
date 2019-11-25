@@ -90,13 +90,10 @@ html {
 
 .site-content {
   transition: none !important;
-  background-color: @systemBackgroundColor;
-  //&.gridBackground{
-  //  background-size: 40px 40px;
-  //  background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
-  //  background-repeat: initial;
-  //  background-blend-mode: color-burn;
-  //}
+  background-color: #f5f5f5;
+  @media (max-width: @screen-xs) {
+    background-color: #E6E6E6;
+  }
 }
 
 .loader {

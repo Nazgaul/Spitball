@@ -19,7 +19,7 @@ import analyticsService from '../../../../services/analytics.service';
             ...mapGetters(['accountUser']),
         },
         methods:{
-            ...mapActions(['setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface','updateRequestDialog','updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom']),
+            ...mapActions(['setActiveConversationObj', 'openChatInterface','updateRequestDialog','updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom']),
             ...mapGetters(['getProfile']),
 
             sendMessage(){

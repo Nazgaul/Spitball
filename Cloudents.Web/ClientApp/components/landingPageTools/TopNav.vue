@@ -35,7 +35,7 @@
               fixed app v-if="isMobileView"
               :class="isRtl ? 'hebrew-drawer' : ''"
               width="280">
-                 <menu-list :isAuthUser="loggedIn"></menu-list>
+                 <menuList/>
             </v-navigation-drawer>
 
         </v-layout>
@@ -47,7 +47,7 @@ import logoComponent from '../app/logo/logo.vue';
 import LogoSvg from "../../../wwwroot/Images/logo-spitball.svg";
 import languagesLocales from "../../services/language/localeLanguage";
 import { LanguageChange } from "../../services/language/languageService";
-import menuList from "../helpers/menu-list/menu-list.vue";
+import menuList from '../pages/layouts/menuList/menuList.vue';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -169,11 +169,11 @@ export default {
   }
   .v-navigation-drawer {
   z-index: 104;
-    &.hebrew-drawer{
-      // swap of right and left is going to be done by webpack RTL, so real vals are oposite
-      right: 0;
-      left: unset;
-    }
+    // &.hebrew-drawer{
+    //   // swap of right and left is going to be done by webpack RTL, so real vals are oposite
+    //   right: 0;
+    //   left: unset;
+    // }
   }
 }
 </style>

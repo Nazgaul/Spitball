@@ -1,0 +1,147 @@
+@import "../../../../styles/mixin.less";
+
+.sideMenu{
+  margin-top: 72px !important; //we use "temporary" property in the sideMenu so margin must be configured
+  overflow: visible;
+  @media (max-width: @screen-xs) {
+    margin-top: 122px !important; //we use "temporary" property in the sideMenu so margin must be configured
+  }
+  .sideMenu_cont{
+    position: relative;
+    height: 100%;
+    .sideMenu_btn{
+      cursor: pointer !important;
+      background-image: url('./image/btn_side.png')!important;
+       /*rtl:ignore*/
+        background-position: left;
+        /*rtl:ignore*/
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      position: absolute;
+      right: -24px;
+      top: 22px;
+      z-index: 5;
+      &:lang(he) {
+        transform: rotate(180deg);
+      }
+    }
+  .sideMenu_list_cont{
+    overflow-y: auto;
+    height: calc(~"100% - 16px");
+    .v-list__group:before{
+      height: 0!important;
+    }
+    .v-list__group:after{
+      height: 0!important;
+    }
+    .sideMenu_group{
+      margin-top: 14px;
+      .v-list__group__header__prepend-icon{
+        i:before{
+            color: #69687d !important;
+            font-size: 18px !important;
+        }
+      }
+      .v-list__group__items{
+        .group_list_sideMenu_dash{
+          .v-list__tile{
+              &:hover{
+                background: rgba(0,0,0,.04);
+              }
+          }
+        }
+        .group_list_sideMenu_course{
+          .v-list__tile{
+            &:hover{
+              background: rgba(0,0,0,.04);
+            }
+          }
+        }
+      }
+      .sideMenu_list{
+        .v-list__tile{
+          padding-left: 0;
+        }
+        .alingSVGcourse{
+          // margin-bottom: -4px;
+          vertical-align: -webkit-baseline-middle;
+        }
+      }
+
+      .group_list_sideMenu_dash{
+          background: none;
+        a{
+          padding: 0;
+          padding-left: 28px;
+          margin-left: 26px;
+          border-left: solid 1px rgba(106, 105, 127, 0.26);
+          background: none;
+        }
+        .group_list_titles_dash{
+          .pts_svg{
+            fill: #bdc0d1;
+            svg{
+              fill: #bdc0d1;
+            }
+          }
+          .group_list_icon_dash{
+            font-size: 18px;
+            color: #bdc0d1;
+          }
+          .group_list_title_dash{
+            font-size: 14px;
+            color: #43425d;
+          }
+          &.active_list_dash{
+            .group_list_title_dash{
+              font-weight: bold;
+              color: #4c59ff ;
+            }
+            .group_list_icon_dash{
+              color: #4c59ff ;
+            }
+          }
+        }
+      }
+      .group_list_sideMenu_course{
+        a{
+          padding: 0;
+          margin-left: 32px;
+          background:none;
+        }
+        .group_list_titles_course{
+          &.active_link_course{
+            font-weight: bold;
+    
+          }
+          .group_list_title_course{
+            font-size: 14px;
+            color: #43425d;
+            &.padding_current_course{
+              padding-left: 12px;
+            }
+          }
+          .arrow_course{
+            margin-bottom: -2px;
+            &:lang(he) {
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+      .sideMenu_list_title{
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+  }
+  &.v-navigation-drawer{
+    &.hebrew-drawer{
+      left: 0;
+      right: unset;
+    }
+  }
+}
+}
+.scrollBarStyle(6px, #484670, transparent,  inset 0 0 0px);

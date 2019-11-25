@@ -12,7 +12,7 @@
                 <v-tab @click="changeActiveTab(1)" :href="'#tab-1'" :key="1"><span v-language:inner>wallet_Balances</span>  </v-tab>
                 <v-tab @click="changeActiveTab(2)" :href="'#tab-2'" :key="2"><span v-language:inner>wallet_Transaction</span> </v-tab>
                 <v-tab @click="changeActiveTab(3)" :href="'#tab-3'" :key="3"><span v-language:inner>wallet_Cash_Out</span> </v-tab>
-                <v-tab-item :key="'1'" :id="'tab-1'" v-if="activeTab === 1">
+                <v-tab-item :key="'1'" :value="'tab-1'" v-if="activeTab === 1">
                     <v-flex xs12>
                         <v-data-table
                                 :headers="headers.balances"
@@ -32,7 +32,7 @@
                     </v-flex>
                 </v-tab-item>
 
-                <v-tab-item :key="'2'" :id="'tab-2'" class="tab-padding" v-if="activeTab === 2">
+                <v-tab-item :key="'2'" :value="'tab-2'" class="tab-padding" v-if="activeTab === 2">
                     <v-flex xs12>
                         <v-data-table
                                 :headers="headers.transactions"
@@ -59,7 +59,7 @@
                                       :prev-icon="`sbf-arrow-right ${ isRtl ? '': 'left' }`"></v-pagination>
                     </div>
                 </v-tab-item>
-                <v-tab-item :key="'3'" :id="'tab-3'" class="tab-padding" v-if="activeTab === 3">
+                <v-tab-item :key="'3'" :value="'tab-3'" class="tab-padding" v-if="activeTab === 3">
                     <div class="cash-out-wrapper">
                         <div class="text-wrap">
                             <!--<div class="main-text" v-language:inner>wallet_more_SBL_more_valuable</div>-->

@@ -1,13 +1,11 @@
 <template>
     <general-page :mdAndDown="$vuetify.breakpoint.mdAndDown" :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
         <div slot="main">
-            <div class="d-flex mobile-filter">
-                  <askQuestionBtn :class="[!filterCondition ? 'no-filter-btn' : 'with-filter-btn', 'ask-question-mob', 'hidden-md-and-up'] "></askQuestionBtn>
-            </div>
-            <div class="request-box mb-0" :class="[$vuetify.breakpoint.xsOnly ? 'pt-3' : '']">
+            <coursesTab/>
+            <div class="request-box mb-0">
                 <request-box></request-box>
             </div>
-             <v-flex v-if="filterCondition" class="filter-container mb-3">
+             <v-flex v-if="filterCondition" class="filter-container">
             </v-flex>
             <v-snackbar class="question-toaster" @click="loadNewQuestions()" :top="true" :timeout="0" :value="showQuestionToaster">
                 <div class="text-wrap">
@@ -17,10 +15,10 @@
             <div class="results-section" :class="{'loading-skeleton mt-5': showSkelaton}">
      
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
-                    <v-container class="ma-0 results-wrapper" :class="$vuetify.breakpoint.mdAndDown ? 'pa-2' : 'pa-0'">
+                    <v-container class="ma-0 results-wrapper pa-0">
                         <v-layout column>
                             <slot name="resultData" :items="items">                                
-                                <v-flex class="result-cell mb-3" xs-12 v-for="(item,index) in items" :key="index"
+                                <v-flex class="result-cell" xs-12 v-for="(item,index) in items" :key="index"
                                     :class="(index>6?'order-xs6': index>2 ? 'order-xs3' : 'order-xs2')">
                                         <component 
                                             :id="index == 1 ? 'tour_vote' : ''"

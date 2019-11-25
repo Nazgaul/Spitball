@@ -275,6 +275,7 @@ router.beforeEach((to, from, next) => {
     } 
 
     store.dispatch('sendQueryToAnalytic', to);
+    intercomSettings.IntercomSettings.set({hideLauncher:true});
 
     if (global.innerWidth < 600) {
         intercomSettings.IntercomSettings.set({hideLauncher:true});
@@ -284,7 +285,6 @@ router.beforeEach((to, from, next) => {
     }
     //if tutoring disable intercom
     if (global.location.href.indexOf("studyroom") > -1) {
-        console.log('studyroom disable intercom');
         intercomSettings.IntercomSettings.set({hideLauncher:true});
     }
     //case 10995

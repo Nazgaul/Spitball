@@ -40,7 +40,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['setFilteredCourses', 'updateCurrentStep', 'changeSelectUniState']),
+        ...mapActions(['setFilteredCourses', 'updateCurrentStep']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         ...mapGetters(['getAllSteps', 'getSchoolName']),
         updateSort(val) {
@@ -62,7 +62,6 @@ export default {
             let steps = this.getAllSteps();
             let step = !!schoolName ? steps.set_class : steps.set_school;
             this.updateCurrentStep(step);
-            this.changeSelectUniState(true);
         },
         updateFilter({id, val, name, event}) {
             this.UPDATE_SEARCH_LOADING(true);

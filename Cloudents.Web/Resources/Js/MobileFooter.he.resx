@@ -126,4 +126,19 @@
   <data name="action_promotion" xml:space="preserve">
     <value>הודעות</value>
   </data>
+  <data name="btn_chat" xml:space="preserve">
+    <value>הודעות</value>
+  </data>
+  <data name="btn_home" xml:space="preserve">
+    <value>דף הבית</value>
+  </data>
+  <data name="btn_profile" xml:space="preserve">
+    <value>פרופיל</value>
+  </data>
+  <data name="btn_tutors" xml:space="preserve">
+    <value>מורים</value>
+  </data>
+  <data name="btn_upload" xml:space="preserve">
+    <value>העלאה</value>
+  </data>
 </root>

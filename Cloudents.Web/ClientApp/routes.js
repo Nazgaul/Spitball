@@ -1,17 +1,12 @@
 import * as RouteTypes from "./routeTypes";
 
 const feeds = () => import('./components/results/feeds/Feeds.vue');
-const pageHeader = () => import('./components/header/header.vue');
-
-const schoolBlock = () => import('./components/schoolBlock/schoolBlock.vue');
-const verticalsTabs = () => import('./components/header/verticalsTabs.vue');
-
+const pageHeader = () => import('./components/pages/layouts/header/header.vue');
+const sideMenu = () => import('./components/pages/layouts/sideMenu/sideMenu.vue');
 const document = () => import("./components/document/document.vue");
-//const previewHeader = () => import("./components/helpers/header.vue");
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const wallet = () => import("./components/wallet/wallet.vue");
 const newProfile = () => import("./components/new_profile/new_profile.vue");
-const profilePageHeader = () => import("./components/new_profile/header/header.vue");
 
 // course section
 const setCourse = () => import("./components/courses/courses.vue");
@@ -46,18 +41,14 @@ function dynamicPropsFn(route) {
 
 function headerResultPageFn(route) {
     return {
-        userText: route.query.term,
-        submitRoute: route.path,
-        currentSelection: route.path.slice(1)
     };
 }
 
 function verticalResultPageFn(route) {
     return {
-        currentSelection: route.path.slice(1)
+        
     };
 }
-
 const resultProps = {
     default: dynamicPropsFn,
     header: headerResultPageFn,
@@ -66,14 +57,13 @@ const resultProps = {
 const feedPage = {
     default: feeds,
     header: pageHeader,
-    schoolBlock: schoolBlock,
-    verticals: verticalsTabs
+    sideMenu: sideMenu
 };
 
 const studyRoomsPage = {
     default: studyRoomsComponent,
     header: pageHeader,
-    schoolBlock: schoolBlock
+    sideMenu: sideMenu
 };
 
 let routes2 = [
@@ -93,6 +83,9 @@ let routes2 = [
                 name: "tutorLandingPage",
                 components: {
                     default: tutorLandingPage
+                },
+                meta: {
+                    showMobileFooter: true, 
                 }
             }
             
@@ -156,7 +149,7 @@ let routes2 = [
         components: {
             default: setCourse,
             header: pageHeader,
-            schoolBlock: schoolBlock
+            sideMenu: sideMenu
         },
         meta: {
             requiresAuth: true
@@ -192,7 +185,7 @@ let routes2 = [
         components: {
             default: setUniversity,
             header: pageHeader,
-            schoolBlock: schoolBlock
+            sideMenu: sideMenu
         },
         meta: {
             requiresAuth: true
@@ -204,16 +197,13 @@ let routes2 = [
         name: "document",
         components: {
             default: document,
+            // sideMenu: sideMenu,
             header: pageHeader
         },
         props: {
             default: (route) => ({
                 id: route.params.id
             }),
-            header: () => ({
-                submitRoute: '/note',
-                currentSelection: "note"
-            })
         }
     },
     {
@@ -222,9 +212,6 @@ let routes2 = [
         components: {
             default: tutorComponent
         },
-        header: () => ({
-            submitRoute: '/tutoring'
-        }),
         props: {
             default: (route) => ({
                 id: route.params.id
@@ -245,14 +232,11 @@ let routes2 = [
         path: "/question/:id",
         components: {
             default: viewQuestion,
+            sideMenu: sideMenu,
             header: pageHeader
         },
         name: "question",
         props: {
-            header: {
-                submitRoute: '/feed',
-                currentSelection: "feed"
-            },
             default: (route) => ({
                 id: route.params.id
             })
@@ -263,12 +247,13 @@ let routes2 = [
         path: "/profile/:id/:name",
         components: {
             default: newProfile,
-            header: profilePageHeader
+            header: pageHeader,
+            sideMenu: sideMenu,
         },
         name: "profile",
-        // meta:{
-        //     showMobileFooter: true,
-        // },
+        meta:{
+            showMobileFooter: true,
+        },
         props: {
             default: (route) => ({
                 id: route.params.id
@@ -280,7 +265,7 @@ let routes2 = [
         components: {
             // default: viewProfile,
             default: studentOrTutor,
-            schoolBlock: schoolBlock,
+            sideMenu: sideMenu,
             header: pageHeader
         },
         name: "studentTutor",
@@ -298,17 +283,13 @@ let routes2 = [
         path: "/wallet",
         components: {
             default: wallet,
-            header: pageHeader
+            header: pageHeader,
+            sideMenu: sideMenu,
         },
         name: "wallet",
         meta: {
             requiresAuth: true
         },
-        props: {
-            header: () => ({
-                currentSelection: "feed"
-            })
-        }
     },
 
     {

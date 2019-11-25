@@ -80,9 +80,9 @@ namespace Cloudents.Selenium.Test
         {
             using (var conn = _fixture.DapperRepository.OpenConnection())
             {
-                var tutorId = conn.QueryFirst<long>("select top 1 id from sb.tutor where state = 'Ok'");
+                var tutorId = conn.QueryFirst<long>("select top 1 id from sb.tutor t, sb.userscourses c where t.state = 'Ok' and t.id = c.userid");
                 yield return $"profile/{tutorId}/r";
-                var userId = conn.QueryFirst<long>("Select top 1 id from sb.[user] u where PhoneNumberConfirmed =1 and EmailConfirmed = 1  and not exists ( select id from sb.Tutor where id = u.id) ");
+                var userId = conn.QueryFirst<long>("Select top 1 id from sb.[user] u, sb.userscourses c where PhoneNumberConfirmed =1 and EmailConfirmed = 1  and not exists ( select id from sb.Tutor where id = u.id) and u.id = c.userid");
                 yield return $"profile/{userId}/xxx";
             }
         }
@@ -197,15 +197,18 @@ namespace Cloudents.Selenium.Test
         [Fact]
         public void CourseListTest()
         {
+            _driver.Manage().Window.Maximize();
+
             foreach(var profile in GetProfileUrls())
             {
                 var url = $"{SiteMainUrl.TrimEnd('/')}/{profile}";
                 _driver.Navigate().GoToUrl(url);
 
                 var course = _driver.FindElement(By.XPath("//*[@class='layout row wrap']//a"));
-                var courseName = _driver.FindElement(By.XPath("//*[@class='course-name mr-5']")).Text;
-                course.Click();
-                _driver.Url.Should().Be($"{SiteMainUrl.TrimEnd('/')}?course={courseName}");
+                var courseTerm = course.GetAttribute("href");
+                //course.Click();
+                //wait.Until(_driver => _driver.FindElement(By.XPath("//*[@class='flex side-bar']")));
+                courseTerm.Should().Be($"{SiteMainUrl.TrimEnd('/')}/?Course={course.Text}");
             }
         }
 

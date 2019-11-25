@@ -145,6 +145,9 @@
     <value>Inviting Teachers</value>
     <comment>Inviting Teachers</comment>
   </data>
+  <data name="hd_search" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="hd_subtitle" xml:space="preserve">
     <value>Get better at studies! Access teachers and experts online to help you with difficulties, preparations, homework and more!</value>
     <comment>Get better at studies! Access teachers and experts online to help you with difficulties, preparations, homework and more!</comment>

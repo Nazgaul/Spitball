@@ -16,16 +16,8 @@ export default {
   components: { headlineStatus, headlineSearchDesktop, headlineSearchMobile },
   data() {
     return {
-      search: "",
       phSearch: LanguageService.getValueByKey("homePage_hd_search_ph")
     };
-  },
-  methods: {
-    searchQuery() {
-      if (this.search) {
-        this.$router.push({ path: "/feed", query: { term: this.search } });
-      }
-    }
   },
   computed: {
     ...mapGetters(['isFrymo']),
@@ -59,6 +51,5 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  
 }
 </style>

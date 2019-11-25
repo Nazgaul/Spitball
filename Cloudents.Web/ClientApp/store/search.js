@@ -4,6 +4,7 @@ import searchService from "./../services/searchService";
 
 const LOCATION_VERTICALS = new Map([["tutor", true]]);
 const state = {
+    isResetSearch: false,
     //< -----keep this area ----
     loading: false,
     serachLoading: false,
@@ -47,15 +48,22 @@ const mutations = {
         for (let verticalName in state.queItemsPerVertical) {
             state.queItemsPerVertical[verticalName] = [];
         }
+    },
+    setResetSearch(state){
+        state.isResetSearch = !state.isResetSearch
     }
 };
 
 const getters = {
     getIsLoading: state => state.loading,
     getSearchLoading: state => state.serachLoading,
+    getSearchStatus: state => state.isResetSearch
 };
 
 const actions = {
+    resetSearch({commit}){
+        commit('setResetSearch')
+    },
     getAutocmplete(context, term) {
         return searchService.autoComplete(term);
     },

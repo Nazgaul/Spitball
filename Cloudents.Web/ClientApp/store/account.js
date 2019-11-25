@@ -11,7 +11,6 @@ import intercomeService from '../services/intercomService';
 const state = {
     login: false,
     user: null,
-    unreadMessages: 0,
     fromPath: null,
     lastActiveRoute: null,
     profile: null,
@@ -171,7 +170,6 @@ const getters = {
     },
     getProfile: state => state.profile,
     fromPath: state => state.fromPath,
-    unreadMessages: state => state.unreadMessages,
     loginStatus: state => state.login,
     isUser: state => state.user !== null,
     usersReffered: state => state.usersReferred,
