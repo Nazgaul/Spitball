@@ -89,19 +89,6 @@
             </v-tabs>
 
         </div>
-        <div class="cash-out-wrap" v-if="active==='tab-1'">
-            <div class="cash-out">
-                <span v-language:inner>wallet_Cash_Out</span>
-                <div class="btn-wrap">
-                    <div class="cash-out-val-wrap">
-                        <span class="cash-out-value"><span v-language:inner>wallet_currency</span>{{cash}}</span>
-                    </div>
-                    <div class="button-wrap">
-                        <button class="cash-out-btn" @click="gotToCashOutTab" v-language:inner>wallet_Cash_Out</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 

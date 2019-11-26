@@ -96,10 +96,6 @@ export default {
             }
 
         },
-        gotToCashOutTab () {
-            this.active = 'tab-3';
-        },
-
         getBalances() {
             walletService.getBalances()
                 .then((response) => {
