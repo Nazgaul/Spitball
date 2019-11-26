@@ -11,13 +11,13 @@
               <template  v-if="!loggedIn">
                   <button
                     class="tutor-list-header-right-login mr-2"
-                    @click="$router.push('../signin')"
+                    @click="$router.push({path:'/signin'})"
                     v-language:inner="'tutorListLanding_topnav_btn_login'"
                   >
                   </button>
                   <button
                     class="tutor-list-header-right-signup mr-3"
-                    @click="$router.push('../register')"
+                    @click="$router.push({path:'/register'})"
                     v-language:inner="'tutorListLanding_topnav_btn_signup'"
                   >
                   </button>

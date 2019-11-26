@@ -31,9 +31,9 @@
                         </v-tooltip>
                     </template>
                     <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
-                        <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push('../signin')" v-language:inner="'tutorListLanding_topnav_btn_login'">
+                        <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({path:'/signin'})" v-language:inner="'tutorListLanding_topnav_btn_login'">
                         </button>
-                        <button class="gH_i_r_btns gH_i_r_btn_up mr-3" @click="$router.push('../register')" v-language:inner="'tutorListLanding_topnav_btn_signup'">
+                        <button class="gH_i_r_btns gH_i_r_btn_up mr-3" @click="$router.push({path:'/register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'">
                         </button>
                     </template>
                     <v-menu close-on-content-click bottom right offset-y :content-class="'fixed-content'" sel="menu">
