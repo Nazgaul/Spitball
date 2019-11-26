@@ -404,7 +404,8 @@ export default {
       "setVideoDevice",
       "setAudioDevice",
       "initLocalMediaTracks",
-      "UPDATE_SEARCH_LOADING"
+      "UPDATE_SEARCH_LOADING",
+      "hideRoomToasterMessage"
     ]),
     ...mapGetters(['getDevicesObj']),
     closeFullScreen(e){
@@ -576,12 +577,12 @@ export default {
     document.addEventListener("fullscreenchange",this.closeFullScreen);
   },
   beforeDestroy(){
+    this.hideRoomToasterMessage();
     document.removeEventListener('fullscreenchange',this.closeFullScreen);
     storeService.unregisterModule(this.$store,'tutoringCanvas');
     storeService.unregisterModule(this.$store,'tutoringMain');
     storeService.unregisterModule(this.$store,'studyRoomTracks_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
-    
   },
   created() {
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);

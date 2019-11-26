@@ -164,6 +164,7 @@ import userInfoEdit from "../../profileHelpers/userInfoEdit/userInfoEdit.vue";
 import tutorInfoEdit from "../../profileHelpers/userInfoEdit/tutorInfoEdit.vue";
 import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import { LanguageService } from '../../../../services/language/languageService';
+import analyticsService from '../../../../services/analytics.service'
 
 import sbClose from '../../../../font-icon/close.svg';
 export default {
@@ -263,15 +264,20 @@ export default {
         return;
       } 
       this.updateCouponDialog(true)
+      analyticsService.sb_unitedEvent('Category: Tutor_Engagement', 'Action: Click_Redeem_Coupon', `Label: ${this.$route.path}`);
     },
     applyCoupon() {
       if(this.isTutorProfile) {
         this.disableApplyBtn = true;
         let tutorId = this.getProfile.user.id;
         let coupon = this.coupon;
+        let self = this
         this.updateCoupon({coupon, tutorId}).finally(() => {
-          this.coupon = ''
-          this.disableApplyBtn = false;
+          self.coupon = ''
+          self.disableApplyBtn = false;
+          if(!self.getCouponError) {
+            analyticsService.sb_unitedEvent('Category: Tutor_Engagement', 'Action: Redeem_Coupon_Success', `Label: ${this.$route.path}`);
+          }
         })
       }
     }

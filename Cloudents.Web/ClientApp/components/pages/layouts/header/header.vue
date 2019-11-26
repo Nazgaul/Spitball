@@ -36,7 +36,7 @@
                         <button class="gH_i_r_btns gH_i_r_btn_up mr-3" @click="$router.push('../register')" v-language:inner="'tutorListLanding_topnav_btn_signup'">
                         </button>
                     </template>
-                    <v-menu close-on-content-click bottom right offset-y :content-class="'fixed-content'">
+                    <v-menu close-on-content-click bottom right offset-y :content-class="'fixed-content'" sel="menu">
                         <template v-if="loggedIn" slot="activator">
                             <user-avatar  
                             @click.native="drawer=!drawer" 
@@ -221,10 +221,8 @@ export default {
             border-radius: 7px;
             ::placeholder {
                 color: #6a697f !important;
-                font-weight: normal;
                 font-stretch: normal;
                 font-style: normal;
-                line-height: normal;
                 letter-spacing: normal;
                 font-size: 14px;
             }
@@ -236,7 +234,7 @@ export default {
             }
             .v-text-field{
                 input{
-                    line-height: initial;
+                    max-height: initial;
                     padding: initial;
                 }
             }
@@ -252,10 +250,9 @@ export default {
                 max-width: 72px;
                 font-size: 14px;
             }
-                        .searchCMP-input{
+            .searchCMP-input{
                 .v-text-field__slot{
                     line-height: 16px;
-                    height: 16px;
                     align-items: normal;
                 }
 
@@ -296,13 +293,11 @@ export default {
                     font-weight: normal;
                     font-stretch: normal;
                     font-style: normal;
-                    line-height: normal;
                     letter-spacing: normal;
                     font-size: 14px;
                 }
                 .v-text-field{
                     input{
-                        line-height: initial;
                         padding: initial;
                     }
                 }
@@ -310,14 +305,13 @@ export default {
                     color: #6a697f !important;
                     font-size: 14px;
                     input{
-                        // line-height: inherit;
                         // margin-bottom: 4px;
                     }
                 }
             .searchCMP-input{
                 .v-text-field__slot{
                     line-height: 18px;
-                    height: 18px;
+                    // height: 18px;
                     align-items: normal;
                 }
 

@@ -53,7 +53,7 @@ namespace Cloudents.Web.Test.UnitTests
         {
             await _client.LogInAsync();
 
-            var response = await _client.GetAsync("api/wallet/transaction");
+            var response = await _client.GetAsync("api/wallet/transaction?culture=en-US");
 
             var str = await response.Content.ReadAsStringAsync();
 

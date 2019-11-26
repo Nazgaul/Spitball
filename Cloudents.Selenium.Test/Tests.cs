@@ -164,6 +164,7 @@ namespace Cloudents.Selenium.Test
         public void FeedPagingTest(string relativePath, string css)
         {
             var url = $"{SiteMainUrl.TrimEnd('/')}/{relativePath}";
+            _driver.Manage().Window.Maximize();
             _driver.Navigate().GoToUrl(url);
             var body = _driver.FindElement(By.TagName("body"));
 

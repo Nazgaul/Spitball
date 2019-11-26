@@ -98,12 +98,10 @@ export default {
             @media (max-width: @screen-xs) {
               font-size: 16px;
             }
-                line-height: inherit;
             font-size: 18px;
             font-weight: normal;
             font-stretch: normal;
             font-style: normal;
-            line-height: normal;
             letter-spacing: normal;
             color: #a1a3b0;
             

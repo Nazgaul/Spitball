@@ -62,9 +62,9 @@ namespace Cloudents.Core.Entities
             AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 
-        public virtual void ChangePrice(decimal newPrice)
+        public virtual void AdminChangePrice(decimal newPrice)
         {
-            if (newPrice <= 0) throw new ArgumentOutOfRangeException(nameof(newPrice));
+            if (newPrice < 0) throw new ArgumentOutOfRangeException(nameof(newPrice));
 
             Price = new TutorPrice(newPrice);
             AddEvent(new UpdateTutorSettingsEvent(Id));

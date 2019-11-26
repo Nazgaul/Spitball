@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Extension;
+﻿using System;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Message.Email;
 using Cloudents.Query;
 using Cloudents.Query.Email;
@@ -32,7 +33,13 @@ namespace Cloudents.FunctionsV2.System
 
             message.AddContent("text/html", $"User id: {result.UserId} want to redeem {result.Amount}");
 
-            var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(result.Country);
+            var culture = new CultureInfo("en");
+            if (result.Country.Equals("IN", StringComparison.OrdinalIgnoreCase))
+            {
+                culture = new CultureInfo("en-IN");
+
+            }
+           // var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(result.Country);
             CultureInfo.DefaultThreadCurrentCulture = culture;
             var emailTo = ResourceWrapper.GetString("email_support");
 

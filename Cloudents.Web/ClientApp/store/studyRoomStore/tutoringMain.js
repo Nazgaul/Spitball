@@ -206,8 +206,13 @@ const actions = {
     updateUserIdentity({commit, state}, val) {
         commit('setUserIdentity', val);
     },
-    updateCurrentRoomState({commit}, val) {
+    updateCurrentRoomState({commit, state, dispatch}, val) {
         commit('setCurrentRoomState', val);
+        if(state.roomStateEnum[val] === state.roomStateEnum['active']){
+            setTimeout(()=>{
+                dispatch('hideRoomToasterMessage');
+            }, 3000)
+        }
     },
     updateStudentStartDialog({commit}, val) {
         commit('setStudentStartDialog', val);

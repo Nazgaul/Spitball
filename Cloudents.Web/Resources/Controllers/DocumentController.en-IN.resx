@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Find what you need on {0} on Frymo, the biggest and most comprensive collection of content and teachers to help you succeed in your studies</value>
+    <value>Find what you need on {0} on Frymo, the biggest and most comprehensive collection of content and teachers to help you succeed in your studies</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Study documents on {0}: - {1}  | Frymo </value>

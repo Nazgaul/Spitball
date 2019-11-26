@@ -18,7 +18,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         {
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
 
-            tutor.ChangePrice(message.Price);
+            tutor.AdminChangePrice(message.Price);
         }
     }
 }

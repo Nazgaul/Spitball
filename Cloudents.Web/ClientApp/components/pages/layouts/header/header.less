@@ -329,6 +329,15 @@
   }
 }
 
+.drawerIndex{
+  &.hebrew-drawer{
+    // swap of right and left is going to be done by webpack RTL, so real vals are oposite
+    right: 0;
+    left: unset;
+  }
+}
+
+
 
 .settings-list .v-list__tile__title, .menu-list .v-list__tile__title {
   text-transform: capitalize;

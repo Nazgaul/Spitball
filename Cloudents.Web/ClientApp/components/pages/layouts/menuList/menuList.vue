@@ -51,11 +51,11 @@
         <!-- </div> -->
 
         <div class="userMenu_actionsList">
-          <v-list-tile v-if="!isFrymo" v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)">
+          <v-list-tile v-if="!isFrymo" v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)" sel="menu_row">
             <v-list-tile-action><v-icon class="userMenu_icons">{{singleLang.icon}}</v-icon></v-list-tile-action>
             <v-list-tile-content><v-list-tile-title class="subheading userMenu_titles">{{singleLang.title}}</v-list-tile-title></v-list-tile-content>
           </v-list-tile>
-          <v-list-tile v-for="link in satelliteLinks" :key="link.title">
+          <v-list-tile v-for="link in satelliteLinks" :key="link.title" sel="menu_row">
             <v-list-tile-action>
               <a :href="link.url"><v-icon class="userMenu_icons">{{link.icon}}</v-icon></a>
             </v-list-tile-action>
@@ -63,7 +63,7 @@
               <a :href="link.url" class="v-list__tile__title subheading userMenu_titles">{{link.title}}</a>
             </v-list-tile-content>
           </v-list-tile>
-         <v-list-tile @click="openReferralDialog" v-if="isLoggedIn">
+         <v-list-tile @click="openReferralDialog" v-if="isLoggedIn" sel="menu_row">
             <v-list-tile-action>
                 <v-icon class="userMenu_icons">sbf-user</v-icon>
             </v-list-tile-action>
@@ -71,7 +71,7 @@
                 <v-list-tile-title class="subheading userMenu_titles" v-language:inner>menuList_referral_spitball</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile @click="startIntercom" v-if="isLoggedIn">
+          <v-list-tile @click="startIntercom" v-if="isLoggedIn" sel="menu_row">
             <v-list-tile-action>
               <v-icon class="userMenu_icons">sbf-feedbackNew</v-icon>
             </v-list-tile-action>
@@ -79,7 +79,7 @@
               <v-list-tile-title class="subheading userMenu_titles" v-language:inner>menuList_feedback</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-                       <v-list-tile @click="logout" v-if="isLoggedIn">
+                       <v-list-tile @click="logout" v-if="isLoggedIn" sel="menu_row">
             <v-list-tile-action>
               <v-icon class="userMenu_icons">sbf-logout</v-icon>
             </v-list-tile-action>

@@ -33,6 +33,7 @@
               light 
               :right="!isRtl"
               fixed app v-if="isMobileView"
+              class="homepageDrawer"
               :class="isRtl ? 'hebrew-drawer' : ''"
               width="280">
                  <menuList/>
@@ -169,11 +170,13 @@ export default {
   }
   .v-navigation-drawer {
   z-index: 104;
-    // &.hebrew-drawer{
-    //   // swap of right and left is going to be done by webpack RTL, so real vals are oposite
-    //   right: 0;
-    //   left: unset;
-    // }
+    &.homepageDrawer{
+      &.hebrew-drawer{
+        // swap of right and left is going to be done by webpack RTL, so real vals are oposite
+        right: 0;
+        left: unset;
+      }
+    }
   }
 }
 </style>
