@@ -9,6 +9,7 @@ export default {
       showOverlay: false,
       transactionId: 750,
       products:{
+        // hardCoded cuz we need to take the right convert rate
         currency: '₪',
         basic:{
             pts: 250,
