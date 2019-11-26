@@ -1,4 +1,5 @@
 import { connectivityModule } from "./connectivity.module";
+import { HomePage } from './constructors.js'
 import searchService from './searchService.js'
 
 function getHomePageTutors(count = 12){
@@ -37,25 +38,10 @@ function getHomePageReviews(count = 3){
     })
 }
 function createHomePageStats(objInit){
-    return new HomePageStats(objInit)
+    return new HomePage.Stats(objInit)
 }
 function createHomePageReviews(objInit){
-    return new HomePageReview(objInit)
-}
-function HomePageReview(objInit){
-    this.text = objInit.text;
-    this.userName = objInit.userName;
-    this.tutorImage = objInit.tutorImage;
-    this.tutorName = objInit.tutorName;
-    this.tutorId = objInit.tutorId;
-    this.tutorReviews = objInit.tutorReviews;
-}
-
-function HomePageStats(objInit){
-    this.documents = objInit.documents;
-    this.tutors = objInit.tutors;
-    this.students = objInit.students;
-    this.reviews = objInit.reviews;
+    return new HomePage.Review(objInit)
 }
 export default {
     getHomePageTutors,
