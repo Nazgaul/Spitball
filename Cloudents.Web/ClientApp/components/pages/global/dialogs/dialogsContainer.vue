@@ -55,7 +55,7 @@
         <paymentDialog/>
     </sb-dialog>
     <!-- BUY TOKENS -->
-    <sb-dialog :showDialog="getShowBuyDialog"
+    <sb-dialog :showDialog="getBuyTokensDialog"
                 :popUpType="'buyTokens'"
                 :content-class="!isFrymo ? 'buy-tokens-popup' : 'buy-tokens-frymo-popup'"
                 :onclosefn="closeSblToken"
@@ -113,18 +113,18 @@ export default {
            'getDialogState',
            'becomeTutorDialog',
            'getShowPaymeDialog',
-           'getShowBuyDialog',
+           'getBuyTokensDialog',
            'isFrymo',
            'accountUser',
            'getReferralDialog']), 
     },
     methods: {
-        ...mapActions(['updateDialogState','updateShowBuyDialog','updateReferralDialog','changeSelectPopUpUniState']),
+        ...mapActions(['updateDialogState','updateBuyTokensDialog','updateReferralDialog','changeSelectPopUpUniState']),
         setUploadDialogState() {
             this.updateDialogState(false);
         },
         closeSblToken() {
-            this.updateShowBuyDialog(false);
+            this.updateBuyTokensDialog(false);
         },
         closeReferralDialog() {
             this.updateReferralDialog(false)

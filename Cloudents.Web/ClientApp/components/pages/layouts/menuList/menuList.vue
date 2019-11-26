@@ -151,13 +151,7 @@ export default {
     },
   },
   methods: {           
-    ...mapActions(['updateReferralDialog','updateShowBuyDialog',"logout","updateLoginDialogState",]),
-    // openSblToken(){
-    //   this.$emit('closeMenu')
-
-    //   analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
-    //   this.updateShowBuyDialog(true);
-    // },  
+    ...mapActions(['updateReferralDialog',"logout","updateLoginDialogState",]),
     changeLanguage(id) {
       LanguageChange.setUserLanguage(id).then(
         resp => {

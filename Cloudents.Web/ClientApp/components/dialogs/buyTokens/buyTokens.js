@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     ...mapGetters(['accountUser']),
-    ...mapActions(['updateShowBuyDialog', 'updateToasterParams', 'buyToken']),
+    ...mapActions(['updateBuyTokensDialog', 'updateToasterParams', 'buyToken']),
 
     selectProduct(val) {
       if (this.selectedProduct !== val) {
@@ -51,7 +51,7 @@ export default {
       }
     },
     closeModal(){
-      this.updateShowBuyDialog(false);
+      this.updateBuyTokensDialog(false);
     },
 
     openPaymeDialog() {

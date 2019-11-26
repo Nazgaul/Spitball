@@ -34,9 +34,9 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
     name: "buyTokenFrymo",
     methods: {
-        ...mapActions(['updateShowBuyDialog']),
+        ...mapActions(['updateBuyTokensDialog']),
         closeModal(){
-            this.updateShowBuyDialog(false);
+            this.updateBuyTokensDialog(false);
         },
     }
 } 

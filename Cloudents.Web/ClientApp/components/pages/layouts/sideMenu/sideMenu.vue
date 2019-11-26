@@ -208,14 +208,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateShowBuyDialog','resetSearch',"updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
+    ...mapActions(['updateBuyTokensDialog','resetSearch',"updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
     ...mapMutations(["UPDATE_SEARCH_LOADING", "UPDATE_LOADING"]),
     openSblToken(){
       if (this.accountUser == null) {
         this.updateLoginDialogState(true);
       } else{
         analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
-        this.updateShowBuyDialog(true);
+        this.updateBuyTokensDialog(true);
       }
     },  
     openPersonalizeUniversity() {

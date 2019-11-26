@@ -421,7 +421,7 @@ const actions = {
     signalR_SetBalance({commit, state, dispatch}, newBalance) {
         commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)});
         dispatch('updatePaymentDialogState',false);
-        dispatch('updateShowBuyDialog', false);
+        dispatch('updateBuyTokensDialog', false);
         dispatch('updateToasterParams', {
             toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
             showToaster: true,
