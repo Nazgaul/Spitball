@@ -38,14 +38,6 @@
       >
         <login-to-answer></login-to-answer>
       </sb-dialog>
-            <sb-dialog :showDialog="universitySelectPopup"
-                       :popUpType="'universitySelectPopup'"
-                       :onclosefn="closeUniPopDialog"
-                       :activateOverlay="true"
-                       :content-class="'pop-uniselect-container'">
-                <uni-Select-pop :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'"></uni-Select-pop>
-            </sb-dialog>
-
             <sb-dialog :isPersistent="true"
                        :showDialog="newQuestionDialogSate"
                        :popUpType="'newQuestion'"
@@ -186,7 +178,6 @@ export default {
       "accountUser",
       "loginDialogState",
       "newQuestionDialogSate",
-      "getShowSelectUniPopUpInterface",
       "getDialogState",
       "confirmationDialog",
       "getShowToaster",
@@ -228,9 +219,6 @@ export default {
       }else{
         return true;
       }
-    },
-    universitySelectPopup() {
-      return this.getShowSelectUniPopUpInterface;
     },
     showLeadersMobile() {
       return this.$vuetify.breakpoint.smAndDown && this.showLeaderBoard;
@@ -291,7 +279,6 @@ export default {
       "updateToasterParams",
       "updateLoginDialogState",
       "updateNewQuestionDialogState",
-      "changeSelectPopUpUniState",
       "updateDialogState",
       "setCookieAccepted",
       "updateOnBoardState",
@@ -316,10 +303,6 @@ export default {
     removeCookiesPopup: function() {
       this.setCookieAccepted();
     },
-    closeUniPopDialog() {
-      this.changeSelectPopUpUniState(false);
-    },
-
     setUploadDialogState() {
       this.updateDialogState(false);
     },

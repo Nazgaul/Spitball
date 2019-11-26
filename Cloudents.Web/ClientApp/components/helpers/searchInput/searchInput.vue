@@ -112,8 +112,7 @@ export default {
         }
     },
     methods: {
-        ...mapGetters(['getUniversityPopStorage', 'accountUser', 'getSchoolName']),
-        ...mapActions(['changeSelectPopUpUniState', 'setUniversityPopStorage_session']),
+        ...mapGetters(['getSchoolName']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         
         goBackFromSearch() {
@@ -179,32 +178,6 @@ export default {
                 }
             }
             return query;
-        },
-        openUniPop() {
-            console.log("uni select pop");
-            this.changeSelectPopUpUniState(true);
-
-        },
-        showUniPop() {
-            let user = this.accountUser();
-            if(!!user && !user.universityExists) {
-                let uniStoragePop = this.getUniversityPopStorage();
-                if(uniStoragePop.local < 3 && !uniStoragePop.session) {
-                    this.openUniPop();
-                    this.setUniversityPopStorage_session();
-                    return true;
-                }
-                return false;
-            } else {
-                return false;
-            }
-        },
-        openSuggestions() {
-            //if user with no university pop it, up to 3 times in seperated seassons
-            if(this.showUniPop()) {
-                return;
-            }
-            this.showSuggestions = true;
         },
         closeSuggestions() {
             this.focusedIndex = -1;
