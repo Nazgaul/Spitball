@@ -37,7 +37,7 @@
             }
         },
         computed: {
-            ...mapGetters(['accountUser', 'loginDialogState', 'getSelectedClasses', 'getDialogState', 'getCookieAccepted']),
+            ...mapGetters(['accountUser', 'getLoginDialog', 'getSelectedClasses', 'getDialogState', 'getCookieAccepted']),
 
             isFloatingBtn() {
                 if(this.$vuetify.breakpoint.smAndDown) {
@@ -58,7 +58,7 @@
 
         methods: {
             ...mapActions([
-                              "updateLoginDialogState",
+                              "updateLoginDialog",
                               'updateDialogState',
                               'setReturnToUpload'
                           ]),
@@ -67,7 +67,7 @@
                 let schoolName = this.getSchoolName();
                 let steps = this.getAllSteps();
                 if(this.accountUser == null) {
-                    this.updateLoginDialogState(true);
+                    this.updateLoginDialog(true);
                 } else if(!schoolName.length) {
                     this.$router.push({name: 'addUniversity'});
                     this.setReturnToUpload(true);

@@ -141,7 +141,7 @@ export default {
             'Feeds_fetchingData',
             'setFilteredCourses',
             'cleanData',
-            'updateLoginDialogState',
+            'updateLoginDialog',
             'updateNewQuestionDialogState',
             'Feeds_nextPage',
             'analyticsService',
@@ -155,7 +155,7 @@ export default {
         },
         goToAskQuestion(){
              if(this.accountUser == null){
-                this.updateLoginDialogState(true);
+                this.updateLoginDialog(true);
             }else{
                 //ab test original do not delete
                  this.updateNewQuestionDialogState(true);

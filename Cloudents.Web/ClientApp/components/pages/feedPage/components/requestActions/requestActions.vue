@@ -64,7 +64,7 @@ export default {
   methods: {
     ...mapActions([
       "updateNewQuestionDialogState",
-      "updateLoginDialogState",
+      "updateLoginDialog",
       "setReturnToUpload",
       "updateDialogState",
       "updateRequestDialog",
@@ -72,7 +72,7 @@ export default {
     ]),
     openAskQuestion() {
       if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
+        this.updateLoginDialog(true);
       } else {
         this.updateNewQuestionDialogState(true);
       }
@@ -80,7 +80,7 @@ export default {
     openUpload() {
       let schoolName = this.getSchoolName;
       if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
+        this.updateLoginDialog(true);
       } else if (!schoolName.length) {
         this.$router.push({ name: "addUniversity" });
         this.setReturnToUpload(true);

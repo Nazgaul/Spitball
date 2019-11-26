@@ -43,7 +43,7 @@ export default {
             "resetQuestion",
             "removeDeletedAnswer",
             "updateToasterParams",
-            "updateLoginDialogState",
+            "updateLoginDialog",
             'setQuestion',
         ]),
         ...mapMutations({updateLoading: "UPDATE_LOADING", updateSearchLoading:'UPDATE_SEARCH_LOADING'}),
@@ -127,7 +127,7 @@ export default {
             }
             else {
                 this.dialogType = '';
-                this.updateLoginDialogState(true);
+                this.updateLoginDialog(true);
             }
         },
 
@@ -140,7 +140,7 @@ export default {
         '$route': 'getData'
     },
     computed: {
-        ...mapGetters(["accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState", "isCardOwner"]),
+        ...mapGetters(["accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "getLoginDialog", "isCardOwner"]),
         questionData(){
             return this.getQuestion();
         },
@@ -164,7 +164,7 @@ export default {
             if (name === 'suggestions') {
                 this.showDialogSuggestQuestion = false;
             } else {
-                this.updateLoginDialogState(false);
+                this.updateLoginDialog(false);
             }
         });
 

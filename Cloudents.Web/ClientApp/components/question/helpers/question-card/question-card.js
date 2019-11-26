@@ -123,7 +123,7 @@ export default {
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved',
             answerVote: 'answerVote',
-            updateLoginDialogState: 'updateLoginDialogState'
+            updateLoginDialog: 'updateLoginDialog'
         }),
         ...mapGetters(['accountUser']),
 
@@ -165,7 +165,7 @@ export default {
         isAuthUser() {
             let user = this.accountUser();
             if (user == null) {
-                this.updateLoginDialogState(true);
+                this.updateLoginDialog(true);
                 return false;
             }
             return true;

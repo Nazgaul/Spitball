@@ -1,7 +1,7 @@
 <template>
   <section>
       <!-- LOGIN -->
-    <sb-dialog :showDialog="loginDialogState"
+    <sb-dialog :showDialog="getLoginDialog"
                :popUpType="'loginPop'"
                :content-class="'login-popup'"
                :max-width="'550px'">
@@ -107,7 +107,7 @@ export default {
     },
     computed: {
        ...mapGetters([
-           'loginDialogState',
+           'getLoginDialog',
            "newQuestionDialogSate",
            'getRequestTutorDialog',
            'getDialogState',

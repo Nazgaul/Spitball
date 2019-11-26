@@ -39,18 +39,9 @@
         computed: {
             ...mapGetters({
                 accountUser: 'accountUser',
-                loginDialogState: 'loginDialogState',
+                getLoginDialog: 'getLoginDialog',
 
             }),
-
-        },
-        methods:{
-            ...mapActions(["updateLoginDialogState"]),
-
-
-        },
-
-        created() {
         }
     }
 </script>

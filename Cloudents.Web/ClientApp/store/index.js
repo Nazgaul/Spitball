@@ -8,7 +8,6 @@ import Question from "./question";
 import Account from "./account";
 import Toaster from "./Toaster";
 import MarketingCampaign from './marketingCampaigns'
-import loginDialog from './loginDialog'
 import newQuestionDialog from './newQuestionDialog'
 import uploadFiles from  "./uploadFiles";
 import University from "./university";
@@ -40,7 +39,6 @@ const store = new Vuex.Store({
         Question,
         Toaster,
         MarketingCampaign,
-        loginDialog,
         newQuestionDialog,
         University,
         uploadFiles,

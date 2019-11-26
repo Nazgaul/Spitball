@@ -15,7 +15,7 @@
             <!-- <p class="caption font-weight-bold pt-2 text-xs-center hidden-sm-and-down" v-if="isShowPurchased" v-language:inner="'documentPage_credit_uploader'"></p> -->
 
             <!-- <template v-if="$vuetify.breakpoint.smAndDown && !isVideo">
-                <div class="aside-top-btn btn-lock" v-if="isShowPurchased && !isLoading" @click="accountUser? updatePurchaseConfirmation(true) : updateLoginDialogState(true)">
+                <div class="aside-top-btn btn-lock" v-if="isShowPurchased && !isLoading" @click="accountUser? updatePurchaseConfirmation(true) : updateLoginDialog(true)">
                     <span class="pa-4 font-weight-bold text-xs-center" v-if="isPrice">{{docPrice | currencyLocalyFilter}}</span>
                     <span class="white--text pa-4 font-weight-bold text-xs-center body-1" v-language:inner="'documentPage_unlock_btn'"></span>
                 </div>
@@ -74,7 +74,7 @@ export default {
         document: {},
     },
     methods: {
-        ...mapActions(['downloadDocument', 'updatePurchaseConfirmation','updateLoginDialogState']),
+        ...mapActions(['downloadDocument', 'updatePurchaseConfirmation','updateLoginDialog']),
         downloadDoc(e) {
             if(!this.accountUser){
                 e.preventDefault();

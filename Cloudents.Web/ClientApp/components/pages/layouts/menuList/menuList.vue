@@ -151,7 +151,7 @@ export default {
     },
   },
   methods: {           
-    ...mapActions(['updateReferralDialog',"logout","updateLoginDialogState",]),
+    ...mapActions(['updateReferralDialog',"logout","updateLoginDialog",]),
     changeLanguage(id) {
       LanguageChange.setUserLanguage(id).then(
         resp => {
@@ -176,7 +176,7 @@ export default {
     },
     // openPersonalizeUniversity() {
     //   if (!this.isLoggedIn) {
-    //     this.updateLoginDialogState(true);
+    //     this.updateLoginDialog(true);
     //   } else {
     //     this.$router.push({ name: "addUniversity" });
     //     this.$root.$emit("closeDrawer");
@@ -184,7 +184,7 @@ export default {
     // },
     // openPersonalizeCourse() {
     //   if (!this.isLoggedIn) {
-    //     this.updateLoginDialogState(true);
+    //     this.updateLoginDialog(true);
     //   } else {
     //     this.$router.push({ name: "editCourse" });
     //     this.$root.$emit("closeDrawer");

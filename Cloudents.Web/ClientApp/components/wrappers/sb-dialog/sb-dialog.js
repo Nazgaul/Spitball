@@ -44,7 +44,7 @@ export default {
     },
     computed: {
         ...mapGetters({
-            loginDialogState: 'loginDialogState',
+            getLoginDialog: 'getLoginDialog',
         }),
         OverlayActive() {
             if (this.$vuetify.breakpoint.xs) {
@@ -77,7 +77,7 @@ export default {
                 if (!!this.onclosefn) {
                     this.onclosefn();
                 }
-                this.updateLoginDialogState(false);
+                this.updateLoginDialog(false);
                 this.updateNewQuestionDialogState(false);
                 // this.$root.$emit('closePopUp', this.popUpType);
             }
@@ -85,7 +85,7 @@ export default {
     },
 
     methods: {
-        ...mapActions(['updateLoginDialogState', 'updateNewQuestionDialogState']),
+        ...mapActions(['updateLoginDialog', 'updateNewQuestionDialogState']),
     },
 
 

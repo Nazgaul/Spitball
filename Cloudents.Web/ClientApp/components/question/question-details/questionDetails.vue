@@ -102,7 +102,7 @@
                 <question-suggest-pop-up  :user="questionData.user" :cardList="cardList"></question-suggest-pop-up>
         </sb-dialog> -->
 
-        <!-- <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'"  :content-class="'login-popup'">
+        <!-- <sb-dialog :showDialog="getLoginDialog" :popUpType="'loginPop'"  :content-class="'login-popup'">
                 <login-to-answer></login-to-answer>
         </sb-dialog> -->
 

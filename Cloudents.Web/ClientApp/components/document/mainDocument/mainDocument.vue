@@ -193,11 +193,11 @@
       >
         <div class="inner">
           <p class="text-xs-center hidden-sm-and-down" v-language:inner="unlockDocDictionary"/>
-          <div class="aside-top-btn align-center" v-if="!isLoading && accountUser" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialogState(true)">
+          <div class="aside-top-btn align-center" v-if="!isLoading && accountUser" @click="accountUser? updatePurchaseConfirmation(true) :updateLoginDialog(true)">
             <span class="font-weight-bold text-xs-center disabled" v-if="isPrice" >{{docPrice | currencyLocalyFilter}}</span>
             <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"/>
           </div>
-          <div class="aside-top-btn-not align-center" v-if="!isLoading && !accountUser" @click="updateLoginDialogState(true)">
+          <div class="aside-top-btn-not align-center" v-if="!isLoading && !accountUser" @click="updateLoginDialog(true)">
             <span class="white--text pa-3 font-weight-bold text-xs-center" v-language:inner="'documentPage_unlock_btn'"/>
           </div>
           <v-progress-circular
@@ -443,7 +443,7 @@ export default {
       "purchaseDocument",
       "updateToasterParams",
       "setNewDocumentPrice",
-      "updateLoginDialogState",
+      "updateLoginDialog",
       "downloadDocument",
       "getTutorListCourse"
     ]),

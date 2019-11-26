@@ -248,7 +248,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateEditDialog', 'updateCoupon', 'updateCouponDialog', 'updateLoginDialogState']),
+    ...mapActions(['updateEditDialog', 'updateCoupon', 'updateCouponDialog', 'updateLoginDialog']),
     openEditInfo() {
       this.updateEditDialog(true);
     },
@@ -260,7 +260,7 @@ export default {
     },
     openCoupon() {
       if(this.accountUser == null) {
-        this.updateLoginDialogState(true);
+        this.updateLoginDialog(true);
         return;
       } 
       this.updateCouponDialog(true)

@@ -7,15 +7,13 @@ export default {
         return {};
     },
     computed: {
-        ...mapGetters({
-            loginDialogState: 'loginDialogState',
-        })
+        ...mapGetters(['getLoginDialog'])
     },
     methods: {
-        ...mapActions(["updateLoginDialogState"]),
+        ...mapActions(["updateLoginDialog"]),
         //close dialog
         requestDialogClose() {
-            this.updateLoginDialogState(false);
+            this.updateLoginDialog(false);
         },
         goToRegister(){
             this.requestDialogClose();
@@ -30,6 +28,6 @@ export default {
     },
 
     beforeDestroy(){
-        this.updateLoginDialogState(false);
+        this.updateLoginDialog(false);
     }
 }

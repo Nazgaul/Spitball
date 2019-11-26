@@ -277,7 +277,7 @@ export default {
   },
   methods: {
 <<<<<<< HEAD
-    ...mapActions(['updateEditDialog', 'updateCoupon', 'updateCouponDialog', 'updateLoginDialogState']),
+    ...mapActions(['updateEditDialog', 'updateCoupon', 'updateCouponDialog', 'updateLoginDialog']),
 =======
     ...mapActions(['updateEditDialog', 'updateCoupon', 'updateCouponDialog']),
 >>>>>>> origin/develop
@@ -293,7 +293,7 @@ export default {
     openCoupon() {
 <<<<<<< HEAD
       if(this.accountUser == null) {
-        this.updateLoginDialogState(true);
+        this.updateLoginDialog(true);
         return;
       } 
 =======

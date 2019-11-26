@@ -152,7 +152,7 @@ export default {
   methods: {
     ...mapActions([
       "updateToasterParams",
-      "updateLoginDialogState",
+      "updateLoginDialog",
       "updateNewQuestionDialogState",
       "updateDialogState",
       "setCookieAccepted",
@@ -211,7 +211,7 @@ export default {
       } else if (name === "newQuestionDialog") {
         this.updateNewQuestionDialogState(false);
       } else {
-        this.updateLoginDialogState(false);
+        this.updateLoginDialog(false);
       }
     });
 

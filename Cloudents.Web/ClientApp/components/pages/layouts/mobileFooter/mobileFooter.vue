@@ -86,10 +86,10 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateDialogState','setReturnToUpload', 'updateLoginDialogState','openChatInterface']),
+        ...mapActions(['updateDialogState','setReturnToUpload', 'updateLoginDialog','openChatInterface']),
         openChat(){
             if (this.accountUser == null) {
-                this.updateLoginDialogState(true);
+                this.updateLoginDialog(true);
             }else{
                 this.openChatInterface();
             }
@@ -97,7 +97,7 @@ export default {
         openUpload(){
             let schoolName = this.getSchoolName;
             if(this.accountUser == null) {
-                this.updateLoginDialogState(true);
+                this.updateLoginDialog(true);
             } else if(!schoolName.length) {
                 this.$router.push({name: 'addUniversity'});
                 this.setReturnToUpload(true);
@@ -118,7 +118,7 @@ export default {
             }
             if(tabName === 'profile' && this.activeTab !== tabName){
                 if(this.accountUser == null) {
-                    this.updateLoginDialogState(true);
+                    this.updateLoginDialog(true);
                 }else{
                     let user = this.accountUser;
                     this.$router.push({name:'profile',params:{id: this.accountUser.id,name: this.accountUser.name}})

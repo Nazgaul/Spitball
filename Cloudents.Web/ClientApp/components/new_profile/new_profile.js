@@ -86,7 +86,7 @@ export default {
             'resetProfileData',
             'getPurchasedDocuments',
             'setProfileByActiveTab',
-            'updateLoginDialogState',
+            'updateLoginDialog',
             'updateToasterParams'
         ]),
 
@@ -192,7 +192,7 @@ export default {
         },
         openCalendar() {
             if(!this.accountUser) {
-                this.updateLoginDialogState(true);
+                this.updateLoginDialog(true);
                 setTimeout(()=>{
                     document.getElementById(`tab-${this.activeTab}`).lastChild.click();
                 },200);

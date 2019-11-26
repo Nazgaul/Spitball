@@ -71,7 +71,7 @@ const actions = {
     downloadDocument({commit, getters, dispatch}, item) {
         let user = getters.accountUser;
 
-        if(!user) return dispatch('updateLoginDialogState', true);
+        if(!user) return dispatch('updateLoginDialog', true);
 
         let {id, course} = item;     
 

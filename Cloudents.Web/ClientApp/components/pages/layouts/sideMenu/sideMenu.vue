@@ -208,11 +208,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateBuyTokensDialog','resetSearch',"updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
+    ...mapActions(['updateBuyTokensDialog','resetSearch',"updateLoginDialog","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
     ...mapMutations(["UPDATE_SEARCH_LOADING", "UPDATE_LOADING"]),
     openSblToken(){
       if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
+        this.updateLoginDialog(true);
       } else{
         analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
         this.updateBuyTokensDialog(true);
@@ -220,7 +220,7 @@ export default {
     },  
     openPersonalizeUniversity() {
       if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
+        this.updateLoginDialog(true);
       } else {
         this.$router.push({ name: "addUniversity" });
         this.$root.$emit("closeDrawer");
@@ -245,7 +245,7 @@ export default {
     },
     goTo(path){
       if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
+        this.updateLoginDialog(true);
         return
       }
       if(path === "profile"){
@@ -374,7 +374,7 @@ export default {
     },
     openPersonalizeCourse() {
       if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
+        this.updateLoginDialog(true);
         return;
       }
       this.$router.push({name: 'editCourse'});

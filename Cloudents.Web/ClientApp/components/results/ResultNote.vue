@@ -300,7 +300,7 @@ export default {
       updateSearchLoading: "UPDATE_SEARCH_LOADING"
     }),
     ...mapActions([
-      "updateLoginDialogState",
+      "updateLoginDialog",
       "updateToasterParams",
       "removeItemFromProfile",
       "syncProfile",
@@ -403,7 +403,7 @@ export default {
     isAuthUser() {
       let user = this.accountUser();
       if (user == null) {
-        this.updateLoginDialogState(true);
+        this.updateLoginDialog(true);
         return false;
       }
       return true;
