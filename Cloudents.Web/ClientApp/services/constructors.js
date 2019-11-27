@@ -21,10 +21,25 @@ const User = {
         this.image = objInit.image;
         this.name = objInit.name;
         this.userId = objInit.userId;
-    }
-    
+    }  
 }
+const Tutoring = {
+    StudyRoom: function(objInit) {
+        return Object.assign(
+            new User.Default(objInit),
+            {   
+                online: objInit.online,
+                id: objInit.id,
+                dateTime: objInit.dateTime,
+                conversationId: objInit.conversationId,
+            }
+        )
+    }
+}
+
 export{
     HomePage,
-    User
+    User,
+    Tutoring
 }
+

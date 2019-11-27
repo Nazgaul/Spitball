@@ -1,18 +1,20 @@
 import { connectivityModule } from "./connectivity.module"
+import { Tutoring } from './constructors.js'
 
 
-function StudyRoom(objInit){
-    this.name = objInit.name;
-    this.image = objInit.image;
-    this.online = objInit.online;
-    this.id = objInit.id;
-    this.dateTime = objInit.dateTime;
-    this.conversationId = objInit.conversationId;
-    this.userId = objInit.userId;
-}
+
+// function StudyRoom(objInit){
+//     this.name = objInit.name;
+//     this.image = objInit.image;
+//     this.online = objInit.online;
+//     this.id = objInit.id;
+//     this.dateTime = objInit.dateTime;
+//     this.conversationId = objInit.conversationId;
+//     this.userId = objInit.userId;
+// }
 
 function createStudyRoom(objInit){
-    return new StudyRoom(objInit);
+    return new Tutoring.StudyRoom(objInit);
 }
 
 const getRooms = () => {
