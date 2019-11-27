@@ -2,7 +2,7 @@ import { connectivityModule } from "./connectivity.module"
 import { Tutoring } from './constructors.js'
 
 
-
+// REMOVE IT
 // function StudyRoom(objInit){
 //     this.name = objInit.name;
 //     this.image = objInit.image;
@@ -33,12 +33,8 @@ const createRoom = (userId)=>{
     };
     return connectivityModule.http.post("StudyRoom", params);
 };
-// const skipNeedPayment = (studyRoomId)=>{
-//     return connectivityModule.http.post("StudyRoom/NoCard", studyRoomId)
-// };
 
 export default {
-   // skipNeedPayment,
     getRooms,
     createRoom
 }
