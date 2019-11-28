@@ -41,6 +41,11 @@ const Chat = {
         this.dateTime = objInit.dateTime || new Date().toISOString();
         this.conversationId = objInit.conversationId || id;
     },
+    Event: function(objInit,fromSignalR){
+        this.type = objInit.type;
+        this.unreadMessage = objInit.unreadMessage || objInit.unread;
+        this.fromSignalR = fromSignalR || false;
+    },
     Conversation: function(objInit){
         return Object.assign(
             new User.Default(objInit),
@@ -57,11 +62,9 @@ const Chat = {
         return Object.assign(
             new User.Default(objInit),
             new Chat.Default(objInit,id),
+            new Chat.Event(objInit,fromSignalR),
             {
                 text : objInit.text,
-                type : objInit.type,
-                fromSignalR : fromSignalR || false,
-                unreadMessage : objInit.unreadMessage || objInit.unread,
                 isDummy : objInit.isDummy || false
             }
         )   
@@ -70,12 +73,10 @@ const Chat = {
         return Object.assign(
             new User.Default(objInit),
             new Chat.Default(objInit,id),
+            new Chat.Event(objInit,fromSignalR),
             {
                 src :objInit.src,
                 href :objInit.href,
-                type :objInit.type,
-                fromSignalR :fromSignalR || false,
-                unreadMessage :objInit.unreadMessage || objInit.unread
             }
         )
     },
@@ -126,25 +127,28 @@ const Status = {
 }
 const Item = {
     Default: function(objInit){
+        this.id = objInit.id; 
     },
     Tutor: function(objInit){
-        this.userId = objInit.userId;
-        this.name = objInit.name || '';
-        this.image = objInit.image;
-        this.courses = objInit.courses || [];
-        this.price = objInit.price || 0;
-        this.discountPrice = objInit.discountPrice;
-        this.country = objInit.country;
-        this.currency = objInit.currency;
-        this.rating =  objInit.rate ? Number(objInit.rate.toFixed(2)): null;
-        this.reviews = objInit.reviewsCount || 0;
-        this.template = 'tutor-result-card';
-        this.bio = objInit.bio || '';
-        this.university = objInit.university || '';
-        this.classes = objInit.classes || 0;
-        this.lessons = objInit.lessons || 0;
-        this.subjects = objInit.subjects || [];
-        this.isTutor = true;
+        return Object.assign(
+            new User.Default(objInit),
+            {                
+                courses: objInit.courses || [],
+                price: objInit.price || 0,
+                discountPrice: objInit.discountPrice,
+                country: objInit.country,
+                currency: objInit.currency,
+                rating:  objInit.rate ? Number(objInit.rate.toFixed(2)): null,
+                reviews: objInit.reviewsCount || 0,
+                template: 'tutor-result-card',
+                bio: objInit.bio || '',
+                university: objInit.university || '',
+                classes: objInit.classes || 0,
+                lessons: objInit.lessons || 0,
+                subjects: objInit.subjects || [],
+                isTutor: true,
+            }
+        )  
     }
 }
 
@@ -157,4 +161,3 @@ export{
     Status,
     Item
 }
-
