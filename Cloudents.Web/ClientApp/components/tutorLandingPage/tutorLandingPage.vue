@@ -38,7 +38,6 @@
                 </sbCarousel>
             </div>
         </v-layout>
-        <Footer></Footer>
     </v-container>
 </template>
 

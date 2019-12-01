@@ -1,72 +1,72 @@
 ﻿<template>
     <div v-if="!isHideHeader">
-
-    <v-toolbar class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app :fixed="true" clipped-left clipped-right>
-            <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
-                <logoComponent/>
-            </router-link>
-            <div class="globalHeader_items">
-                <div class="globalHeader_items_left" v-if="!isMobile">
-                    <searchCMP :placeholder="searchPlaceholder"/>
-                </div>
-                <v-spacer v-else></v-spacer>
-                <div class="globalHeader_items_right">
-                    <router-link v-if="!isMobile" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor"  v-language:inner="'header_find_tutors'"/>
-                    <template v-if="!isMobile && loggedIn" >
-                        <v-tooltip bottom>
-                            <template v-slot:activator="{on}">
-                                <v-icon v-on="on" v-if="!$vuetify.breakpoint.smAndDown" id="gH_i_r_intercom" class="gH_i_r_intercom" v-html="'sbf-help'"/>
-                            </template>
-                            <span v-language:inner="'header_tooltip_help'"/>
-                        </v-tooltip>
-                        
-                        <v-tooltip bottom>
-                            <template v-slot:activator="{on}">
-                                <div v-on="on" class="gH_i_r_chat">
-                                    <v-icon class="gH_i_r_chat_i" @click="openChatWindow" v-html="'sbf-forum-icon'"/>
-                                    <span @click="openChatWindow" class="unread_circle_nav" v-show="totalUnread > 0" :class="[totalUnread > 9 ? 'longer_nav' :'']">{{totalUnread}}</span>
-                                </div>
-                            </template>
-                            <span v-language:inner="'header_tooltip_chat'"/>
-                        </v-tooltip>
-                    </template>
-                    <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
-                        <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({path:'/signin'})" v-language:inner="'tutorListLanding_topnav_btn_login'">
-                        </button>
-                        <button class="gH_i_r_btns gH_i_r_btn_up mr-3" @click="$router.push({path:'/register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'">
-                        </button>
-                    </template>
-                    <v-menu close-on-content-click bottom right offset-y :content-class="'fixed-content'" sel="menu">
-                        <template v-if="loggedIn" slot="activator">
-                            <user-avatar  
-                            @click.native="drawer=!drawer" 
-                            size="40" 
-                            :userImageUrl="userImageUrl" 
-                            :user-name="accountUser.name"/>
-                            
-                            <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
-                                <span class="ur_greets" v-html="$Ph('header_greets', accountUser.name)"/>
-                                <div class="ur_balance">
-                                    <span v-html="$Ph('header_balance', userBalance(accountUser.balance))"/>
-                                    <v-icon v-if="!isMobile" class="ur_balance_drawer ml-2" color="#43425d" v-html="'sbf-arrow-fill'"/>
-                                </div>
+    <v-toolbar :class="{'homePageWrapper': isHomePage}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" :app="isApp" :fixed="isApp" clipped-left clipped-right>
+        <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
+            <logoComponent/>
+        </router-link>
+        <div class="globalHeader_items">
+            <div class="globalHeader_items_left" v-if="!isMobile && isShowSearch">
+                <searchCMP :placeholder="searchPlaceholder"/>
+            </div>
+            <v-spacer v-else></v-spacer>
+            <div class="globalHeader_items_right">
+                <router-link v-if="!isMobile && isShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
+                    <findSVG/>
+                    <span v-language:inner="'header_find_tutors'"/>
+                </router-link>
+                <template v-if="!isMobile && loggedIn" >
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{on}">
+                            <v-icon v-on="on" v-if="!$vuetify.breakpoint.smAndDown" id="gH_i_r_intercom" class="gH_i_r_intercom" v-html="'sbf-help'"/>
+                        </template>
+                        <span v-language:inner="'header_tooltip_help'"/>
+                    </v-tooltip>
+                    
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{on}">
+                            <div v-on="on" class="gH_i_r_chat">
+                                <v-icon class="gH_i_r_chat_i" @click="openChatWindow" v-html="'sbf-forum-icon'"/>
+                                <span @click="openChatWindow" class="unread_circle_nav" v-show="totalUnread > 0" :class="[totalUnread > 9 ? 'longer_nav' :'']">{{totalUnread}}</span>
                             </div>
                         </template>
-                        <template v-else slot="activator">
-                            <v-btn :ripple="false" icon @click.native="drawer = !drawer">
-                                <v-icon small v-html="'sbf-menu'"/>
-                            </v-btn>
-                        </template>
-                        <menuList v-if="!$vuetify.breakpoint.xsOnly"/>
-                    </v-menu>
-                </div>
+                        <span v-language:inner="'header_tooltip_chat'"/>
+                    </v-tooltip>
+                </template>
+                <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
+                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({path:'/signin'})" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_up mr-3" @click="$router.push({path:'/register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
+                    <a class="gH_i_lang" @click="changeLanguage()" v-if="!isFrymo && isHomePage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
+                </template>
+                <v-menu close-on-content-click bottom right offset-y :content-class="'fixed-content'" sel="menu">
+                    <template v-if="loggedIn" slot="activator">
+                        <user-avatar  
+                        @click.native="drawer=!drawer" 
+                        size="40" 
+                        :userImageUrl="userImageUrl" 
+                        :user-name="accountUser.name"/>
+                        
+                        <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
+                            <span class="ur_greets" v-html="$Ph('header_greets', accountUser.name)"/>
+                            <div class="ur_balance">
+                                <span v-html="$Ph('header_balance', userBalance(accountUser.balance))"/>
+                                <v-icon v-if="!isMobile" class="ur_balance_drawer ml-2" color="#43425d" v-html="'sbf-arrow-fill'"/>
+                            </div>
+                        </div>
+                    </template>
+                    <template slot="activator">
+                        <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
+                            <v-icon small v-html="'sbf-menu'"/>
+                        </v-btn>
+                    </template>
+                    <menuList v-if="!$vuetify.breakpoint.xsOnly"/>
+                </v-menu>
             </div>
-             <template v-slot:extension v-if="isMobile">
-                 <div class="mobileHeaderSearch">
-                    <searchCMP :placeholder="searchPlaceholder"/>
-                 </div>
-            </template>
-
+        </div>
+        <template v-slot:extension v-if="isMobile && isShowSearch">
+            <div class="mobileHeaderSearch">
+                <searchCMP :placeholder="searchPlaceholder"/>
+            </div>
+        </template>
     </v-toolbar>
             <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
                              fixed app v-if="$vuetify.breakpoint.xsOnly" class="drawerIndex"
@@ -74,26 +74,32 @@
                              width="280">
             <menuList @closeMenu="closeDrawer"/>
         </v-navigation-drawer>
+        <!-- <v-system-bar class="white--text" color="#1D285F" height="76" :app="true" :fixed="true">
+            sadfasdfsadfsad
+        </v-system-bar> -->
     </div>
 </template>
 
 <script>
 import {mapActions, mapGetters, mapMutations} from 'vuex';
 import { LanguageService } from "../../../../services/language/languageService";
+import languagesLocales from "../../../../services/language/localeLanguage";
 
 import searchCMP from '../../global/search/search.vue';
 import UserAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
 import menuList from '../menuList/menuList.vue';
 
 import logoComponent from '../../../app/logo/logo.vue';
+import findSVG from './images/findSVG.svg'
 
 export default {
-    components: {searchCMP,UserAvatar,menuList,logoComponent},
+    components: {searchCMP,UserAvatar,menuList,logoComponent,findSVG},
     data() {
         return {
             drawer: false,
-
-
+            currentRoute: this.$route.name,
+            languageChoisesAval: [],
+            currLanguage: document.documentElement.lang,
             clickOnce: false,
             isRtl: global.isRtl
         }
@@ -102,7 +108,7 @@ export default {
         layoutClass: {}
     },
     computed: {
-        ...mapGetters(['accountUser','getTotalUnread']),
+        ...mapGetters(['accountUser','getTotalUnread','isFrymo']),
         isTablet(){
             return this.$vuetify.breakpoint.smAndDown;
         },
@@ -125,6 +131,21 @@ export default {
         searchPlaceholder(){
             return this.isTablet ? LanguageService.getValueByKey(`header_placeholder_search`) : LanguageService.getValueByKey(`header_placeholder_search_m`);
         },
+        isShowSearch(){
+            let hiddenRoutes = ['document',undefined,'tutorLandingPage']
+            return !hiddenRoutes.includes(this.currentRoute)
+        },
+        isHomePage(){
+            return this.currentRoute === undefined;
+        },
+        isShowFindTutor(){ 
+            let hiddenRoutes = ['tutorLandingPage']
+            return !hiddenRoutes.includes(this.currentRoute)
+        },
+        isApp(){
+            let hiddenRoutes = ['tutorLandingPage',undefined]
+            return !hiddenRoutes.includes(this.currentRoute)
+        }
     },
     watch: {
         drawer(val){
@@ -133,7 +154,12 @@ export default {
             }else{
                 document.body.removeAttribute("class","noscroll");
             }
-        }
+        },
+    '$route'(){
+      this.$nextTick(()=>{
+          this.currentRoute = this.$route.name
+      })
+    },
     },
     methods: {
         ...mapActions(['openChatInterface']),
@@ -161,7 +187,18 @@ export default {
         userBalance(balance){
             let balanceFixed = +balance.toFixed()
             return balanceFixed.toLocaleString(`${global.lang}`)
-        }
+        },
+        changeLanguage() {
+        LanguageChange.setUserLanguage(this.languageChoisesAval.id).then(
+            resp => {
+            console.log("language responce success", resp);
+            global.location.reload(true);
+            },
+            error => {
+            console.log("language error error", error);
+            }
+        );
+        },
     },
     created() {
         this.$root.$on("closeDrawer", ()=>{
@@ -178,6 +215,10 @@ export default {
                     }
                 })
             });
+        let currentLocHTML = document.documentElement.lang;
+        this.languageChoisesAval = languagesLocales.filter(lan => {
+            return lan.locale !== currentLocHTML;
+        })[0];
     },
     beforeDestroy(){
             document.body.removeAttribute("class","noscroll");
@@ -190,6 +231,10 @@ export default {
 .globalHeader{
     border: solid 1px #dadada !important;
     z-index: 200;
+    &.homePageWrapper{
+        // max-width: 1500px; 
+        // margin: 0 auto !important;
+    }
     .v-toolbar__extension{
     @media (max-width: @screen-xs) {
       padding: 0 8px
@@ -332,19 +377,25 @@ export default {
             .flexSameSize();
             display: flex;
             align-items: center;
+            .gH_i_lang{
+                text-decoration: none;
+                font-size: 16px;
+                color: #43425d;
+                font-weight: bold;
+            }
             .gH_i_r_btns{
                 text-align: center;
                 border-radius: 6px;
                 font-size: 14px;
                 outline: none;
                 &.gH_i_r_btn_up {
-                    padding: 7px 14px;
+                    padding: 9px 14px;
                     margin: 8px;
                     background-color: #4c59ff;
                     color: white;
                 }
                 &.gH_i_r_btn_in {
-                    padding: 7px 20px;
+                    padding: 8px 20px;
                     margin: 5px;
                     border: solid 1px #43425d;
                     color: #43425d;
@@ -352,10 +403,21 @@ export default {
                 }
             }
             .gH_i_r_findTutor{
-                font-size: 14px;
-                font-weight: 600;
-                color: #43425d;
                 margin-right: 26px;
+                background: #69687d;
+                border-radius: 8px;
+                padding: 2px 10px 3px 4px;
+                svg{
+                    fill: white !important;
+                    vertical-align: text-bottom;
+                }
+                span{
+                    font-size: 14px;
+                    font-weight: normal;
+                    color: white;
+                    vertical-align: super;
+                    padding-left: 2px;
+                }
             }
             .gH_i_r_intercom{
                 cursor: pointer;

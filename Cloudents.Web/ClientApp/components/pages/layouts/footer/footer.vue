@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import {LanguageService} from '../../services/language/languageService';
-import LOGO from './sp-logo.svg';
-import satelliteService from '../../services/satelliteService';
-import logoComponent from '../app/logo/logo.vue';
+import {LanguageService} from '../../../../services/language/languageService';
+import satelliteService from '../../../../services/satelliteService';
+import logoComponent from '../../../app/logo/logo.vue';
+import LOGO from './images/sp-logo.svg';
 
     export default {
         name: "Footer",
@@ -77,7 +77,8 @@ import logoComponent from '../app/logo/logo.vue';
 </script>
 
 <style lang="less">
-@import "../../styles/mixin.less";
+@import "../../../../styles/mixin.less";
+
 .footer {
   height: 400px;
   background-color: #202431;

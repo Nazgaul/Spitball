@@ -22,9 +22,10 @@ const tutorComponent = () => import("./components/tutor/tutor.vue");
 const studyRoomsComponent = () => import("./components/studyRooms/studyRooms.vue");
 const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.vue");
 
+const landingPage = () => import('./components/pages/landingPage/landingPage.vue');
 const tutorLandingPage=()=> import("./components/tutorLandingPage/tutorLandingPage.vue");
+const landingPageFooter = () => import('./components/pages/layouts/footer/footer.vue')
 
-const landingPage = () => import('./components/landingPage/landingPage.vue');
 const homePage = () => import('./components/landingPage/pages/homePage.vue');
 const registerPage = () => import('./components/loginPageNEW/pages/registerPage.vue');
 
@@ -71,7 +72,9 @@ let routes2 = [
         path: "/",
         name: "landingPage",
         components: {
-            default: landingPage
+            default: landingPage,
+            header: pageHeader,
+            footer: landingPageFooter
         },
         children:[
             {

@@ -130,6 +130,8 @@
         <v-snackbar absolute top :timeout="getToasterTimeout" :class="getShowToasterType" :value="getShowToaster">
             <div class="text-wrap" v-html="getToasterText"></div>
         </v-snackbar>
+        
+      <router-view name="footer"></router-view>
     </v-app>
 </template>
 <script>
