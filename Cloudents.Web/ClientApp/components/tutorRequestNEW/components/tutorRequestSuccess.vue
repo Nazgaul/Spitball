@@ -5,7 +5,7 @@
             <p v-language:inner="'tutorRequest_success'"/>
         </div>
         <div class="tutorRequest-success-bottom">
-            <v-btn @click="tutorRequestDialogClose" 
+            <v-btn sel="cancel_tutor_request" @click="tutorRequestDialogClose" 
                 class="tutorRequest-btn-back" color="white" depressed round>
                 <span v-language:inner="'tutorRequest_btn_close'"/>
             </v-btn>
@@ -37,8 +37,10 @@ export default {
         align-items: center;
         justify-content: space-between;
         height: 100%;
+        min-height: 100%;
         text-align: center;
         .tutorRequest-success-middle{
+            padding: 100px 0 120px 0;
             height: 100%;
             display: flex;
             flex-direction: column;

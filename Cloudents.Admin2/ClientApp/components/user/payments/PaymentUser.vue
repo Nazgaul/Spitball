@@ -22,7 +22,7 @@
                 <td>{{ props.item.totalPrice.toFixed(2) }}</td>
                  <!-- <td>{{ props.item.subsidizing }}</td> -->
                 <td >
-                    <span  @click="editItem(props.item)">
+                    <span style="cursor:pointer"  @click="editItem(props.item)">
                         <v-icon small
                                 color="green"
                                 class="mr-2"

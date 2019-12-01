@@ -115,7 +115,7 @@ namespace Cloudents.FunctionsV2.System
             var message = new SendGridMessage
             {
                 Asm = new ASM { GroupId = UnsubscribeGroup.Update },
-                TemplateId = language == Language.English ? "d-91a839096c8547f9a028134744e78ecb" : "d-a9cd8623ad034007bb397f59477d81d2"
+                TemplateId = "d-91a839096c8547f9a028134744e78ecb" 
             };
             templateData.To = toAddress;
             var personalization = new Personalization

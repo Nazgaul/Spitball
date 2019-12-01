@@ -95,16 +95,16 @@
         <div class="canvas-tabs">
             <div @click="changeTab(tab)"
                  class="canvas-tab"
-                 v-for="(tab) in canvasTabs"
+                 v-for="(tab,index) in canvasTabs"
                  :key="tab.id"
                  :class="{'canvas-tabs-active': tab.id === getCurrentSelectedTab.id}">
                  <!-- add it to the other user tab -->
                 <!-- <div v-if="tab.id === getCurrentSelectedTab.id" class="tab-dot"></div> -->
-                <button>
-                    
+                <button :sel="`tab${index+1}`">
                 <span class="dot-tab" v-if="tab.id === getTabIndicator">●</span>
                 <span @blur="saveNewTabName" @keyup.enter="saveNewTabName" @keypress.enter="saveNewTabName"
-                @dblclick.self='editTabName(tab.id)' :id="tab.id">{{tab.name}}</span></button>
+                @dblclick.self='editTabName(tab.id)' :id="tab.id">{{tab.name}}</span>
+                </button>
                 <!-- <v-icon @click.stop="showTabOption(tab.id)">sbf-3-dot</v-icon>
                 <div class="canvas-tab-option" :class="{'canvas-tab-option-active': tabEditId === tab.id}">
                     <div>

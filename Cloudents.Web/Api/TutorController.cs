@@ -29,6 +29,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Services;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 
 namespace Cloudents.Web.Api
@@ -156,16 +157,17 @@ namespace Cloudents.Web.Api
             [FromServices] IIpToLocation ipLocation,
             [FromServices] TelemetryClient client,
             [FromHeader(Name = "referer")] Uri referer,
+            [FromServices] ICountryService countryService,
             CancellationToken token)
         {
 
             if (_userManager.TryGetLongUserId(User, out var userId))
             {
-                var query = new UserEmailInfoQuery(userId);
-                var userInfo = await _queryBus.QueryAsync(query, token);
-                model.Phone = userInfo.PhoneNumber;
-                model.Name = userInfo.Name;
-                model.Email = userInfo.Email;
+                // var query = new UserEmailInfoQuery(userId);
+                // var userInfo = await _queryBus.QueryAsync(query, token);
+                //model.Phone = userInfo.PhoneNumber;
+                //model.Name = userInfo.Name;
+                // model.Email = userInfo.Email;
             }
             else
             {
@@ -209,10 +211,10 @@ namespace Cloudents.Web.Api
                 }
                 else
                 {
-                    user = new User(model.Email, CultureInfo.CurrentCulture)
-                    {
-                        Name = model.Name,
-                    };
+                    var country = await countryService.GetUserCountryAsync(token);
+
+                    user = new User(model.Email, model.Name, null, CultureInfo.CurrentCulture, country);
+
                     var createUserCommand = new CreateUserCommand(user, model.Course);
                     await _commandBus.DispatchAsync(createUserCommand, token);
 

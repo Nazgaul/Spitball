@@ -24,7 +24,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual string Name { get; set; }
+        public virtual string Name { get; protected set; }
         //public virtual string NormalizedEmail { get; set; }
         public virtual string SecurityStamp { get; set; }
 
@@ -94,17 +94,7 @@ namespace Cloudents.Core.Entities
 
         public virtual string Country { get; protected set; }
 
-        public virtual void ChangeCountry(string country)
-        {
-
-            if (Country?.Equals(country) == true)
-            {
-                return;
-            }
-            Country = country;
-            University = null;
-            AddEvent(new ChangeCountryEvent(Id));
-        }
+       
 
         public virtual byte[] Version { get; protected set; }
 

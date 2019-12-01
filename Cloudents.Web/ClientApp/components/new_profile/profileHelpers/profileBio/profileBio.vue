@@ -29,7 +29,7 @@
                       class="subheading font-weight-bold lineClamp"
                       :style="[{wordBreak: 'break-all'},{maxWidth: $vuetify.breakpoint.xsOnly? '180px':'inherit'}]"
                     >{{userName}}</h1>
-                    <v-icon
+                    <v-icon sel="edit_profile"
                       @click="openEditInfo()"
                       v-if="$vuetify.breakpoint.xsOnly && isMyProfile"
                       class="edit-profile-action ml-2 "
@@ -54,7 +54,7 @@
                     </div>
                   </div>
                   <span class="mt-0 ml-2" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
-                    <v-icon
+                    <v-icon sel="edit_profile"
                       @click="openEditInfo()"
                       class="edit-profile-action subheading"
                     >sbf-edit-icon</v-icon>
@@ -139,7 +139,7 @@
                     <div class="coupon coupon__dialog" v-if="isTutorProfile && !isMyProfile">
                       <div class="text-xs-right ">
                         <div class="coupon__dialog--flex">
-                          <input type="text" v-model="coupon" :placeholder="couponPlaceholder" class="profile-coupon_input">
+                          <input type="text" @keyup.enter="applyCoupon" v-model="coupon" :placeholder="couponPlaceholder" class="profile-coupon_input">
                           <button class="profile-coupon_btn white--text" :disabled="disableApplyBtn" @click="applyCoupon" v-language:inner="'coupon_apply_btn'"></button>
                         </div>
                         <div class="profile-coupon_error" v-language:inner="'coupon_apply_error'" v-if="getCouponError"></div>
@@ -227,10 +227,9 @@ export default {
       if (this.isTutorProfile) {
         if (
           this.getProfile &&
-          this.getProfile.user &&
-          this.getProfile.user.tutorData
+          this.getProfile.user 
         ) {
-          return `${this.getProfile.user.tutorData.firstName} ${this.getProfile.user.tutorData.lastName}`;
+          return `${this.getProfile.user.firstName} ${this.getProfile.user.lastName}`;
         }
       } else {
         if (this.getProfile && this.getProfile.user) {
@@ -256,6 +255,7 @@ export default {
         this.updateEditDialog(false);
     },
     closeCouponDialog() {
+        this.coupon = ''
         this.updateCouponDialog(false);
     },
     openCoupon() {

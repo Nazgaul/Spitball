@@ -33,6 +33,7 @@ using Cloudents.Command.Command;
 using Cloudents.Command.Courses;
 using Cloudents.Core.Query.Feed;
 using Cloudents.Query.Chat;
+using Cloudents.Query.HomePage;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -140,8 +141,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var query = new UserUnreadMessageQuery(null);
             var queryBus = _container.Resolve<IQueryBus>();
+            var query = new ReviewsQuery("il", 5);
             var result = await queryBus.QueryAsync(query, default);
 
         }

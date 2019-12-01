@@ -49,6 +49,7 @@ function HomePageReview(objInit){
     this.tutorName = objInit.tutorName;
     this.tutorId = objInit.tutorId;
     this.tutorReviews = objInit.tutorReviews;
+    this.tutorCount = objInit.tutorCount;
 }
 
 function HomePageStats(objInit){

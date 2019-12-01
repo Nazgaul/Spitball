@@ -119,7 +119,7 @@ export default {
     computed: {
         ...mapGetters(['getIntervalFirst','getCalendarType','getCalendarEvents','getProfile','accountUser','getNeedPayment']),
         tutorName(){
-          return this.getProfile.user.tutorData.firstName.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+          return this.getProfile.user.firstName.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
         },
         calendarType(){
             return this.getCalendarType
@@ -180,7 +180,8 @@ export default {
         return this.$vuetify.breakpoint.xsOnly;
       },
       isNeedPayment(){
-        let price = this.getProfile.user.tutorData.price.slice(1, this.getProfile.user.tutorData.price.length);        
+        let price = this.getProfile.user.tutorData.price + ''
+        price.slice(1, this.getProfile.user.tutorData.price.length);        
         return this.getNeedPayment && Number(price) > 0;
       },
       isSelfTutor() {

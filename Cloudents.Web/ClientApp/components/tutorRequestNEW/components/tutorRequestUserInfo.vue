@@ -49,7 +49,7 @@
         <v-btn @click="goBack" class="tutorRequest-btn-back" color="white" depressed round>
             <span v-language:inner="'tutorRequest_back'"/>
         </v-btn>
-        <v-btn :loading="isLoading" @click="submit(!isAuthUser)" class="tutorRequest-btn-next" depressed round color="#4452fc" >
+        <v-btn sel="submit_tutor_request" :loading="isLoading" @click="submit(!isAuthUser)" class="tutorRequest-btn-next" depressed round color="#4452fc" >
             <span v-language:inner="'tutorRequest_send'"/>
         </v-btn>
         </div>

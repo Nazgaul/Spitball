@@ -16,7 +16,7 @@ namespace Cloudents.Core.Test.Entities
         {
             
             var studyRoom = new Mock<StudyRoom>();
-            var user = new User("hadar@cloudents.com", Language.Hebrew);
+            var user = new User("hadar@cloudents.com", "firstName", "lastName", Language.Hebrew,"IN");
             var tutor = new Tutor("this is bio", user, 100);
 
             var prop = tutor.Price.GetType().GetProperty("SubsidizedPrice");
@@ -41,7 +41,7 @@ namespace Cloudents.Core.Test.Entities
         {
 
             var studyRoom = new Mock<StudyRoom>();
-            var user = new User("hadar@cloudents.com", Language.Hebrew);
+            var user = new User("hadar@cloudents.com", "firstName", "lastName", Language.Hebrew,"IL");
             var tutor = new Tutor("this is bio", user, 10);
 
             studyRoom.SetupAllProperties();

@@ -49,6 +49,11 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(User.Tutor))]
         public UserTutorProfileDto Tutor { get; set; }
 
+        [EntityBind(nameof(User.FirstName))]
+        public string FirstName { get; set; }
+        [EntityBind(nameof(User.LastName))]
+        public string LastName { get; set; }
+
         //If the user is a tutor and then delete then the first name and the last name stays
         public bool ShouldSerializeTutor()
         {
@@ -67,26 +72,12 @@ namespace Cloudents.Core.DTOs
         internal string TutorCountry { get; set; }
 
         public decimal? DiscountPrice { get; set; }
-        //{
-        //    get
-        //    {
-        //        if (TutorCountry.Equals("IN", StringComparison.OrdinalIgnoreCase))
-        //        {
-        //            return 0;//.ToString("C0", _mergeCultureInfo);
-        //        }
-
-        //        return null;
-        //    }
-        //}
 
         [EntityBind(nameof(ReadTutor.Rate))]
         public double Rate { get; set; }
         [EntityBind(nameof(ReadTutor.RateCount))]
         public int ReviewCount { get; set; }
-        [EntityBind(nameof(User.FirstName))]
-        public string FirstName { get; set; }
-        [EntityBind(nameof(User.LastName))]
-        public string LastName { get; set; }
+       
 
         public bool HasCoupon { get; set; }
 

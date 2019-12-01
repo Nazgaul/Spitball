@@ -10,7 +10,7 @@
         <not-allowed :deviceValidationObj="deviceValidationObj"></not-allowed>
         <v-layout align-center justify-end>
           <v-flex class="d-flex align-center justify-center" style="max-width: 250px;">
-            <button class="blue-btn" @click="closeDialog()">
+            <button sel="done_error_msg" class="blue-btn" @click="closeDialog()">
               <span v-language:inner>tutor_quality_btn_done</span>
             </button>
           </v-flex>

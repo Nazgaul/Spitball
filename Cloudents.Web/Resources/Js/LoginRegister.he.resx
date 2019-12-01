@@ -213,6 +213,9 @@
   <data name="getstarted_title" xml:space="preserve">
     <value>הרשמה לספיטבול</value>
   </data>
+  <data name="getstarted_title_login" xml:space="preserve">
+    <value>ברוכים השבים. התחברו בבקשה</value>
+  </data>
   <data name="main_txt" xml:space="preserve">
     <value>להצליח במבחנים בעזרת מיטב הסיכומים והמורים הפרטיים</value>
   </data>
@@ -231,6 +234,9 @@
   <data name="setemailpass_btn" xml:space="preserve">
     <value>המשך</value>
   </data>
+  <data name="setemailpass_first" xml:space="preserve">
+    <value>הכנס שם פרטי</value>
+  </data>
   <data name="setemailpass_input_email" xml:space="preserve">
     <value>אימייל </value>
   </data>
@@ -240,8 +246,11 @@
   <data name="setemailpass_input_passconfirm" xml:space="preserve">
     <value>אשר סיסמא</value>
   </data>
+  <data name="setemailpass_last" xml:space="preserve">
+    <value>הכנס שם משפחה</value>
+  </data>
   <data name="setemailpass_title" xml:space="preserve">
-    <value>הכנס אימייל וסיסמא</value>
+    <value>הכנס פרטים אישיים</value>
   </data>
   <data name="setemail_btn" xml:space="preserve">
     <value>כניסה</value>
@@ -299,8 +308,5 @@
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
     <value>הכנסת קוד כניסה</value>
-  </data>
-  <data name="getstarted_title_login" xml:space="preserve">
-    <value>ברוכים השבים. התחברו בבקשה</value>
   </data>
 </root>

@@ -42,7 +42,7 @@ namespace Cloudents.Core.Test.CommandHandler
                 null, 10, 1, 1, DateTime.UtcNow.AddYears(-1),
                 null, null);
 
-            var user = new User("someUser", Language.English);
+            var user = new User("someUser","firstName","lastName", Language.English,"IN");
 
 
             // var userMoq = new Mock<User>();
@@ -92,7 +92,7 @@ namespace Cloudents.Core.Test.CommandHandler
 
             long tutorId = 1, userId = 2;
             //var userMoq = new Mock<User>();
-            var user = new User("SomeEmail", Language.English);
+            var user = new User("SomeEmail", "firstName", "lastName", Language.English,"IN");
             typeof(User).GetProperty("Id").SetValue(user, userId);
             var tutorMoq = new Mock<Tutor>();
 
@@ -122,7 +122,7 @@ namespace Cloudents.Core.Test.CommandHandler
 
             long tutorId = 1, userId = 2;
             //var userMoq = new Mock<User>();
-            var user = new User("SomeEmail", Language.English);
+            var user = new User("SomeEmail", "firstName", "lastName", Language.English,"IN");
             typeof(User).GetProperty("Id").SetValue(user, userId);
 
             var tutorMoq = new Mock<Tutor>();

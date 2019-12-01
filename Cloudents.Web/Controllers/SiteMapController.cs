@@ -31,7 +31,11 @@ namespace Cloudents.Web.Controllers
             Async = true,
             OmitXmlDeclaration = true,
             Encoding = Encoding.UTF8,
-            NamespaceHandling = NamespaceHandling.OmitDuplicates
+            NamespaceHandling = NamespaceHandling.OmitDuplicates,
+            Indent = true,
+            IndentChars = "  ",
+            NewLineChars = "\r\n",
+            NewLineHandling = NewLineHandling.Replace
         };
 
         public SiteMapController(IQueryBus queryBus)

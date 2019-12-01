@@ -41,31 +41,31 @@ namespace Cloudents.Web.Test.IntegrationTests
             await _client.LogInAsync();
         }
 
-        [Fact]
-        public async Task Post_Register_With_Email()
-        {
-            var sign = new
-            {
-                email = "elad+99@cloudents.com",
-                password = "123456789",
-                confirmPassword = "123456789"
-            };
+        //[Fact]
+        //public async Task Post_Register_With_Email()
+        //{
+        //    var sign = new
+        //    {
+        //        email = "elad+99@cloudents.com",
+        //        password = "123456789",
+        //        confirmPassword = "123456789"
+        //    };
 
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(sign));
+        //    var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(sign));
 
-            response.EnsureSuccessStatusCode();
-        }
+        //    response.EnsureSuccessStatusCode();
+        //}
 
-        [Fact]
-        public async Task PostAsync_Resend_Email()
-        {
-            await _client.PostAsync("api/Register", HttpClient.CreateJsonString(_cred));
+        //[Fact]
+        //public async Task PostAsync_Resend_Email()
+        //{
+        //    await _client.PostAsync("api/Register", HttpClient.CreateJsonString(_cred));
 
-            _uri.Path = "api/register/resend";
+        //    _uri.Path = "api/register/resend";
 
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateString("{}"));
+        //    var response = await _client.PostAsync(_uri.Path, HttpClient.CreateString("{}"));
 
-            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        }
+        //    response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        //}
     }
 }

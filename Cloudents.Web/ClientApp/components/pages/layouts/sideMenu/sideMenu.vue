@@ -39,7 +39,7 @@
               <v-list-tile class="group_list_sideMenu_dash" v-for="(item, index) in dashboardList" :key="index"
               :to="{name: item.key}"
               event
-               @click.native.prevent="getShowSchoolBlock ? goTo(item.key, item) : openSideMenu()">
+               @click.native.prevent="getShowSchoolBlock ? goTo(item.key, item) : openSideMenu()" :sel="item.sel">
                 <v-list-tile-content> 
                   <v-list-tile-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker(item.key)}]">
                     <v-icon class="group_list_icon_dash" v-html="item.icon"/>
@@ -90,12 +90,11 @@
                   <span class="sideMenu_list_title" v-text="courseSelectText"/>
                   </v-list-tile-title>
               </v-list-tile-content>
-              <v-list-tile-action>
+              <v-list-tile-action sel="add_course">
                 <router-link event :to="{name: 'editCourse'}" @click.native.prevent="openPersonalizeCourse()">
                   <addCourseSVG class="alingSVGcourse"/>
                 </router-link>
               </v-list-tile-action>
-           
             </v-list-tile>
           </template>
 
@@ -103,7 +102,7 @@
                class="group_list_sideMenu_course" v-for="(item, index) in selectedClasses" :key="index" 
                :to="{name: $route.name}"
                event
-               @click.native.prevent="getShowSchoolBlock ? selectCourse(item) : openSideMenu()">
+               @click.native.prevent="getShowSchoolBlock ? selectCourse(item) : openSideMenu()" :sel="item.isDefault? 'all_courses' : ''">
                 <v-list-tile-content>
                   <v-list-tile-title :class="['group_list_titles_course',{'active_link_course': currentCourseChecker(item)}]">
                     <arrowSVG v-if="currentCourseChecker(item)" class="arrow_course"/>
@@ -139,9 +138,9 @@ export default {
       sideMenulistElm: null,
       dashboardModel: false,
       dashboardList:[
-        {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', icon:'sbf-user'},
-        {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', icon:'sbf-wallet'},
-        {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', icon:'sbf-studyroom-icon'},
+        {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', icon:'sbf-user', sel:'sd_profile'},
+        {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
+        {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
         // {name: LanguageService.getValueByKey('schoolBlock_lessons'), key:'lessons', icon:'sbf-lessons'},
         // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
         // {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'purchases', icon:'sbf-cart'},
@@ -223,7 +222,7 @@ export default {
         this.updateLoginDialogState(true);
       } else {
         this.$router.push({ name: "addUniversity" });
-        this.$root.$emit("closeDrawer");
+        this.closeSideMenu()
       }
     },
     courseSelectClick(){

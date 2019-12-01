@@ -156,4 +156,7 @@ Cheers, Yaniv Silovisky
   <data name="unread_message_tutor" xml:space="preserve">
     <value>tutor</value>
   </data>
+  <data name="you_have_unread_message" xml:space="preserve">
+    <value>You have unread message</value>
+  </data>
 </root>

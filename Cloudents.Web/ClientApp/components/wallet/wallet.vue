@@ -4,14 +4,14 @@
         <div class="flex data-section">
             <div class="header ">
                 <span class="header-title" v-language:inner>wallet_My_Wallet</span>
-                <button class="back-button wallet" @click="$router.go(-1)">
+                <button sel="close_wallet" class="back-button wallet" @click="$router.go(-1)">
                     <v-icon right>sbf-close</v-icon>
                 </button>
             </div>
             <v-tabs v-if="!cashOut" >
-                <v-tab @click="changeActiveTab(1)" :href="'#tab-1'" :key="1"><span v-language:inner>wallet_Balances</span>  </v-tab>
-                <v-tab @click="changeActiveTab(2)" :href="'#tab-2'" :key="2"><span v-language:inner>wallet_Transaction</span> </v-tab>
-                <v-tab @click="changeActiveTab(3)" :href="'#tab-3'" :key="3"><span v-language:inner>wallet_Cash_Out</span> </v-tab>
+                <v-tab sel="balances" @click="changeActiveTab(1)" :href="'#tab-1'" :key="1"><span v-language:inner>wallet_Balances</span>  </v-tab>
+                <v-tab sel="transactions" @click="changeActiveTab(2)" :href="'#tab-2'" :key="2"><span v-language:inner>wallet_Transaction</span> </v-tab>
+                <v-tab sel="cashout" @click="changeActiveTab(3)" :href="'#tab-3'" :key="3"><span v-language:inner>wallet_Cash_Out</span> </v-tab>
                 <v-tab-item :key="'1'" :value="'tab-1'" v-if="activeTab === 1">
                     <v-flex xs12>
                         <v-data-table

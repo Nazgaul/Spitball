@@ -15,7 +15,7 @@
           <userAvatar size="80" :userImageUrl="user.image" :user-name="user.name" :user-id="user.id"/>
           <div class="uM_top_txts">
             <h1 class="uM_title" v-html="$Ph('menuList_greets', user.name)"/>
-            <h2 class="uM_subtitle" v-html="$Ph('menuList_balance', user.balance.toFixed())"/>
+            <h2 class="uM_subtitle" v-html="$Ph('menuList_balance', userBalance(user.balance))"/>
           </div>
         </div>
         <!-- <div class="userMenu_userList" v-if="isLoggedIn"> -->
@@ -180,6 +180,10 @@ export default {
         this.updateReferralDialog(true);
       });
     },
+    userBalance(balance){
+      let balanceFixed = +balance.toFixed()
+      return balanceFixed.toLocaleString(`${global.lang}`)
+    }
     // openPersonalizeUniversity() {
     //   if (!this.isLoggedIn) {
     //     this.updateLoginDialogState(true);

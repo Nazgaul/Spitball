@@ -12,14 +12,14 @@
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn round :disabled="localSelectedClasses.length === 0" :loading="doneButtonLoading" class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
+                <v-btn sel="done_add_courses" round :disabled="localSelectedClasses.length === 0" :loading="doneButtonLoading" class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
                     <span v-language:inner>courses_btn_done</span>
                 </v-btn>
             </v-flex>
         </v-layout>
         <v-layout column :class="{'px-3' : $vuetify.breakpoint.smAndUp}">
             <v-flex>
-                <v-text-field id="classes_input"
+                <v-text-field id="classes_input" sel="course_search"
                               v-model="search"
                               class="class-input"
                               ref="classInput"

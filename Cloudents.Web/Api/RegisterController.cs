@@ -38,13 +38,13 @@ namespace Cloudents.Web.Api
         private readonly IStringLocalizer<RegisterController> _localizer;
         private readonly IStringLocalizer<LogInController> _loginLocalizer;
         private readonly ILogger _logger;
+        private readonly ICountryService _countryProvider;
 
         internal const string Email = "email2";
         private const string EmailTime = "EmailTime";
 
         public RegisterController(UserManager<User> userManager, SbSignInManager signInManager,
-             IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger
-            )
+             IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger, ICountryService countryProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -53,6 +53,7 @@ namespace Cloudents.Web.Api
             _localizer = localizer;
             _loginLocalizer = loginLocalizer;
             _logger = logger;
+            _countryProvider = countryProvider;
         }
 
         [HttpPost, ValidateRecaptcha("6LfyBqwUAAAAALL7JiC0-0W_uWX1OZvBY4QS_OfL")]
@@ -78,7 +79,9 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
             }
-            user = new User(model.Email, CultureInfo.CurrentCulture);
+
+            var country = await _countryProvider.GetUserCountryAsync(token);
+            user = new User(model.Email, model.FirstName, model.LastName, CultureInfo.CurrentCulture, country);
             var p = await _userManager.CreateAsync(user, model.Password);
             if (p.Succeeded)
             {
@@ -134,10 +137,8 @@ namespace Cloudents.Web.Api
         public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync([FromBody] GoogleTokenRequest model,
             [FromServices] IGoogleAuth service,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
-            [FromHeader(Name = "user-agent")] string userAgent,
             [FromServices] TelemetryClient logClient,
             [FromServices] IHttpClientFactory clientFactory,
-            [FromServices]IDataProtectionProvider dataProtectProvider,
             CancellationToken cancellationToken)
         {
             var result = await service.LogInAsync(model.Token, cancellationToken);
@@ -153,17 +154,17 @@ namespace Cloudents.Web.Api
             if (result2.Succeeded)
             {
                 // For india mobile - temp solution
-                if (string.Equals(userAgent, "Spitball-Android", StringComparison.OrdinalIgnoreCase))
-                {
-                    var user2 = await _userManager.FindByEmailAsync(result.Email);
-                    var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
-                    var code = dataProtector.Protect(user2.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+                //if (string.Equals(userAgent, "Spitball-Android", StringComparison.OrdinalIgnoreCase))
+                //{
+                //    var user2 = await _userManager.FindByEmailAsync(result.Email);
+                //    var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
+                //    var code = dataProtector.Protect(user2.ToString(), DateTimeOffset.UtcNow.AddDays(5));
 
-                    return Ok(new
-                    {
-                        code
-                    });
-                }
+                //    return Ok(new
+                //    {
+                //        code
+                //    });
+                //}
 
                 return new ReturnSignUserResponse(false);
             }
@@ -183,9 +184,10 @@ namespace Cloudents.Web.Api
             }
             if (user == null)
             {
+                var country = await _countryProvider.GetUserCountryAsync(cancellationToken);
                 user = new User(result.Email,
                     result.FirstName, result.LastName,
-                    result.Language)
+                    result.Language, country)
                 {
                     EmailConfirmed = true
                 };

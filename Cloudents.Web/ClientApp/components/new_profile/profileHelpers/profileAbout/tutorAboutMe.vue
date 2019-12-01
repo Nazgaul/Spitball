@@ -6,7 +6,7 @@
                         <v-flex xs12>
                             <div class="title-wrap">
                                 <div class="about-title subheading font-weight-bold  mb-2" v-language:inner>profile_who_am_i</div>
-                                <v-icon @click="openEdit()" v-if="isMyProfile" class="subheading pr-2 edit-icon">sbf-edit-icon</v-icon>
+                                <v-icon sel="edit_bio" @click="openEdit()" v-if="isMyProfile" class="subheading pr-2 edit-icon">sbf-edit-icon</v-icon>
                             </div>
                             <div class="mt-2">
                              <blockquote class="about-text body-2">{{aboutMe | truncate(isOpen, '...', textLimit)}}</blockquote>

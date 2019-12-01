@@ -156,4 +156,7 @@
   <data name="unread_message_tutor" xml:space="preserve">
     <value>מורה</value>
   </data>
+  <data name="you_have_unread_message" xml:space="preserve">
+    <value>יש לך הודעה חדשה</value>
+  </data>
 </root>

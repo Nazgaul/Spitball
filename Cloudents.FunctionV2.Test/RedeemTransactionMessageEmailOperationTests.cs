@@ -8,6 +8,7 @@ using Microsoft.Azure.WebJobs;
 using Moq;
 using SendGrid.Helpers.Mail;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;

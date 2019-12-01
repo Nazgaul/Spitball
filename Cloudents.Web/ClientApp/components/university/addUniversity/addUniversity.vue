@@ -9,14 +9,14 @@
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn round class="elevation-0 done-btn py-1 font-weight-bold my-0" @click="getOut()">
+                <v-btn sel="uni_done" round class="elevation-0 done-btn py-1 font-weight-bold my-0" @click="getOut()">
                     <span class="text-capitalize" v-language:inner>university_not_student_btn</span>
                 </v-btn>
             </v-flex>
         </v-layout>
         <v-layout column :class="{'px-3' : $vuetify.breakpoint.smAndUp}">
             <v-flex>
-                <v-text-field id="university-input"
+                <v-text-field sel="uni_input" id="university-input"
                               v-model="university"
                               @input="updateSearch($event)"
                               class="uni-input"

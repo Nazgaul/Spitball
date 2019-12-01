@@ -27,7 +27,7 @@
               @click="updateActiveNav(singleNav.value)"
               v-for="(singleNav, index) in navs"
               :class="{'active-nav': singleNav.value === activeItem, 'tutor-nav-disabled': singleNav.value !== 'white-board' && !id}"
-              :key="index">
+              :key="index" :sel="`${singleNav.name.toLowerCase().replace(' ','_')}_tab`">
               <span class="dot-nav" v-if="singleNav.value === getActiveNavIndicator">●</span>
               <v-icon class="mr-2 nav-icon">{{singleNav.icon}}</v-icon>
               <a class="tutor-nav-item-link">{{singleNav.name}}</a>
@@ -41,14 +41,14 @@
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>
             
             <div class="d-flex">
-              <v-btn flat icon @click="showIntercom">
+              <v-btn sel="help_draw" flat icon @click="showIntercom">
                 <intercomSVG class="network-icon"/>
               </v-btn>
             </div> 
             
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
             
-            <v-btn flat icon @click="changeSettingsDialogState(true)">
+            <v-btn sel="setting_draw" flat icon @click="changeSettingsDialogState(true)">
               <v-icon class="white-btn">sbf-settings</v-icon>
             </v-btn>
 
@@ -67,7 +67,7 @@
               <share-screen-btn class="nav-share-btn"></share-screen-btn>
             </v-flex>
             <v-flex shrink class="controls-holder">
-              <v-btn
+              <v-btn sel="video_chat"
                 class="control-btn text-capitalize elevation-0 cursor-pointer"
                 @click.stop="selectViewOption(enumViewOptions.videoChat)"
                 :input-value="activeViewOption == enumViewOptions.videoChat"
@@ -84,7 +84,7 @@
               >
                 <span v-language:inner>tutor_option_videoFull</span>
               </v-btn>
-              <v-btn
+              <v-btn sel="full_board"
                 class="control-btn text-capitalize elevation-0 cursor-pointer"
                 @click.stop="selectViewOption(enumViewOptions.fullBoard)"
                 :input-value="activeViewOption == enumViewOptions.fullBoard"

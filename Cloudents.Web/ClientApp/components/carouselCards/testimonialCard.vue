@@ -13,12 +13,9 @@
                 :userImageUrl="item.tutorImage"/>
             <div class="tutorName-t text-truncate">{{item.tutorName}}</div>
             <template>
-                <div class="user-rate-testimonialCard mt-1" v-if="item.tutorReviews > 0" >
-                <userRating :rating="item.tutorReviews" :showRateNumber="false" :size="'14'" />
-                <span
-                    class="reviews-ts ml-1"
-                    v-html="$Ph(item.tutorReviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(item.tutorReviews))"
-                ></span>
+                <div class="user-rate-testimonialCard mt-1">
+                    <userRating :rating="item.tutorCount? item.tutorReviews : item.tutorCount" :showRateNumber="false" :size="'14'" />
+                    <span class="reviews-ts ml-1" v-html="$Ph(item.tutorCount === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(item.tutorCount))"/>
                 </div>
             </template>
         </div>

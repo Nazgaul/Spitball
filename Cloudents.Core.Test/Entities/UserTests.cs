@@ -15,7 +15,7 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void ApplyCoupon_AlreadyHaveTheSameOne_OnlyOne()
         {
-            var user = new User("some email", Language.English);
+            var user = new User("some email", "firstName", "lastName", Language.English,"IL");
             typeof(User).GetProperty("Id").SetValue(user, 1L);
             //user.Id = 1;
 
@@ -35,7 +35,7 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void ApplyCoupon_HaveUsedCoupon_Two()
         {
-            var user = new User("some email", Language.English);
+            var user = new User("some email", "firstName", "lastName", Language.English,"IL");
             typeof(User).GetProperty("Id").SetValue(user, 1L);
             //user.Id = 1;
             var couponCode = "SomeCode";
@@ -66,7 +66,7 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void ApplyCoupon_HaveNotUsedCoupon_Override()
         {
-            var user = new User("some email", Language.English);
+            var user = new User("some email", "firstName", "lastName", Language.English,"IL");
             typeof(User).GetProperty("Id").SetValue(user, 1L);
             //user.Id = 1;
             var couponCode = "SomeCode";

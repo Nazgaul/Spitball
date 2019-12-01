@@ -24,6 +24,9 @@ using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
+using System.Text;
+using Microsoft.Azure.ServiceBus;
+using Microsoft.WindowsAzure.Storage.Queue;
 
 namespace Cloudents.FunctionsV2
 {
@@ -33,6 +36,7 @@ namespace Cloudents.FunctionsV2
         public static async Task SmsUnreadAsync([TimerTrigger("0 */10 5-18 * * *")]TimerInfo myTimer,
             [Blob("spitball/chat/unread.txt")]CloudBlockBlob blob,
             [TwilioSms(AccountSidSetting = "TwilioSid", AuthTokenSetting = "TwilioToken", From = "+1 203-347-4577")] IAsyncCollector<CreateMessageOptions> options,
+            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
             [Inject] IQueryBus queryBus,
             [Inject] ICommandBus commandBus,
             [Inject] IDataProtectionProvider dataProtectProvider,
@@ -107,7 +111,15 @@ namespace Cloudents.FunctionsV2
                 {
                     log.LogError(ex, $"Cant send sms to {unreadMessageDto}");
                 }
+                var htmlBodyDirection = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
 
+                var message = new SendGridMessage();
+                message.AddTo(unreadMessageDto.Email);
+                message.AddContent("text/html", $"<html><body dir=\"{htmlBodyDirection}\">{messageOptions.Body.Replace(". ", ".<br><br>")}</body></html>");
+                message.SetSubject(ResourceWrapper.GetString("you_have_unread_message"));
+                await emailProvider.AddAsync(message);
+                await emailProvider.FlushAsync(token);
+               
             }
             if (result.Count > 0)
             {
@@ -115,6 +127,7 @@ namespace Cloudents.FunctionsV2
                 await blob.UploadFromByteArrayAsync(version, 0, 8);
             }
         }
+
 
 
 
@@ -197,5 +210,12 @@ namespace Cloudents.FunctionsV2
 
         //    public string To { get; set; }
         //}
+        public class UnreadEmailto
+        {
+            public string Email { get; set; }
+            public string From { get; set; }
+            public string Body { get; set; }
+            public string Subject { get; set; }
+        }
     }
 }

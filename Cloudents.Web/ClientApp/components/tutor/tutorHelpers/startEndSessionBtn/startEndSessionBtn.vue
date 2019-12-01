@@ -20,7 +20,7 @@
             </button>
         </v-flex>
         <v-flex v-show="!isTutor">
-            <button v-show="!roomIsActive && !waitingStudent" class="create-session" color="primary" :class="{'disabled': roomIsPending && !needPayment}" @click="enterRoom()">
+            <button sel="join_session" v-show="!roomIsActive && !waitingStudent" class="create-session" color="primary" :class="{'disabled': roomIsPending && !needPayment}" @click="enterRoom()">
                 <timerIcon class="timer-icon mr-2"></timerIcon>
                 <span>
                         <span v-language:inner v-show="needPayment">tutor_stream_btn_add_payment</span>

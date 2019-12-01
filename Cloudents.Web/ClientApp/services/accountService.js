@@ -54,6 +54,8 @@ function ProfilePersonalData(objInit){
     this.isTutor= objInit.hasOwnProperty('tutor') || false;
     this.tutorData = objInit.tutor ? createTutorData(objInit.tutor) : createTutorData({});
     this.online = objInit.online || false;
+    this.firstName = objInit.firstName || '';
+    this.lastName = objInit.lastName || '';
 }
 
 function ReviewItem(objInit){
@@ -167,7 +169,7 @@ export default {
     },
     saveTutorInfo: (data)=> {
         let serverFormat= {
-            firstName: data.name,
+            firstName: data.firstName,
             description: data.description,
             lastName: data.lastName,
             bio: data.bio,
@@ -177,7 +179,8 @@ export default {
     },
     saveUserInfo: (data)=> {
         let serverFormat= {
-                firstName: data.name,
+                firstName: data.firstName,
+                lastName: data.lastName,
                 description: data.description
 
         };

@@ -28,6 +28,7 @@ namespace Cloudents.FunctionsV2.Test
 
 
         private readonly TestAsyncCollector<CreateMessageOptions> _mockedResult = new TestAsyncCollector<CreateMessageOptions>();
+        private readonly TestAsyncCollector<SendGridMessage> _mockedemailProvider = new TestAsyncCollector<SendGridMessage>();
         //private readonly TestAsyncCollector<SmsUnread.RequestTutorEmailDto> _mockedEmailResult = new TestAsyncCollector<SmsUnread.RequestTutorEmailDto>();
         private readonly Mock<IQueryBus> _queryBusStub = new Mock<IQueryBus>();
 
@@ -56,21 +57,23 @@ namespace Cloudents.FunctionsV2.Test
                     UserId = 1,
                     Version = BitConverter.GetBytes(1L),
                     ChatMessagesCount = 1,
-                    PhoneNumber = "+972542642202"
+                     PhoneNumber = "+972523556456",
+                    Email = "hadar@cloudents.com"
                 },
                 new UnreadMessageDto()
                 {
                     UserId = 1,
                     Version = BitConverter.GetBytes(2L),
                     ChatMessagesCount = 1,
-                    PhoneNumber = "+972542642202"
+                     PhoneNumber = "+972523556456",
+                    Email = "hadar@cloudents.com"
 
                 }
             };
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
             await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResult, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+                _mockedResult, _mockedemailProvider, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
                 _mockUriBuilder.Object, _logger, default);
 
             _mockedResult.Result.Should().HaveCount(1);
@@ -115,7 +118,8 @@ namespace Cloudents.FunctionsV2.Test
                     Version = BitConverter.GetBytes(1L),
                     ChatMessagesCount = 1,
                    // FirstMessageStudentName = "Ram",
-                    PhoneNumber = "+972542642202",
+                     PhoneNumber = "+972523556456",
+                    Email = "hadar@cloudents.com"
                    // CourseName = "Ram"
                 }
 
@@ -123,7 +127,7 @@ namespace Cloudents.FunctionsV2.Test
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
             await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResult, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+                _mockedResult, _mockedemailProvider, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
                 _mockUriBuilder.Object, _logger, default);
 
             var body = _mockedResult.Result.Single().Body;
@@ -147,7 +151,8 @@ namespace Cloudents.FunctionsV2.Test
                     ChatMessagesCount = 1,
                     CultureInfo = new CultureInfo("he"),
                     //FirstMessageStudentName = "Ram",
-                    PhoneNumber = "+972542642202",
+                    PhoneNumber = "+972523556456",
+                    Email = "hadar@cloudents.com"
                    // CourseName = "Ram"
                 }
 
@@ -155,7 +160,7 @@ namespace Cloudents.FunctionsV2.Test
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
             await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResult, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+                _mockedResult, _mockedemailProvider, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
                 _mockUriBuilder.Object, _logger, default);
 
             var body = _mockedResult.Result.Single().Body;

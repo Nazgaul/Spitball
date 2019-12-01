@@ -7,24 +7,41 @@
                 <span v-language:inner>profile_edit_user_profile_title</span>
             </v-flex>
         </v-layout>
-        <v-layout class="px-3 mt-4 prev-grow"  row wrap>
-            <v-flex xs12 sm6  :class="{'pr-2' : $vuetify.breakpoint.smAndUp}">
-                <v-layout column>
-                    <v-flex xs12 sm6 class="mb-2 pl-2">
-                        <span class="subtitle" v-language:inner>profile_personal_details</span>
-                    </v-flex>
-                    <v-flex xs12 sm6 >
-                        <v-text-field
-                                :rules="[rules.required, rules.minimumChars]"
-                                class="user-edit-name"
-                                :label="userNameLabel"
-                                v-model="userName"
-                                outline
-                        ></v-text-field>
-                    </v-flex>
-                </v-layout>
-            </v-flex>
-        </v-layout>
+    
+            <v-layout class="px-3 mt-3" row wrap>
+                <v-flex xs12 sm6  :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
+                    <v-layout column>
+                        <v-flex xs12 sm6  class="pl-2 mb-2">
+                            <span class="subtitle" v-language:inner>profile_personal_details</span>
+                        </v-flex>
+                        <v-flex xs12>
+                            <v-text-field
+                                    :rules="[rules.required, rules.minimumChars]"
+                                    :label="firstNameLabel"
+                                    class="tutor-edit-firstname"
+                                    v-model.trim="firstName"
+                                    outline
+                            ></v-text-field>
+                        </v-flex>
+                    </v-layout>
+                </v-flex>
+                <v-flex xs12 sm6 :class="[ $vuetify.breakpoint.xsOnly ? 'mt-2 mr-0' : 'pr-2']">
+                    <v-layout column>
+                        <v-flex v-if="$vuetify.breakpoint.smAndUp" xs12 sm6  class="mb-2 pl-2" grow>
+                            <span class="subtitle" style="visibility: hidden">hidden</span>
+                        </v-flex>
+                        <v-flex>
+                            <v-text-field
+                                    :rules="[rules.required, rules.minimumChars]"
+                                    :label="lastNameLabel"
+                                    class="tutor-edit-lastname"
+                                    v-model.trim="lastName"
+                                    outline
+                            ></v-text-field>
+                        </v-flex>
+                    </v-layout>
+                </v-flex>
+            </v-layout>
 
         <v-layout class="px-3 prev-grow" column>
             <v-flex class="mb-2 pl-2">
@@ -68,10 +85,12 @@
         name: "userInfoEdit",
         data() {
             return {
-                userNameLabel: LanguageService.getValueByKey("profile_user_name_label"),
+                firstNameLabel: LanguageService.getValueByKey("profile_firstName_label"),
+                lastNameLabel: LanguageService.getValueByKey("profile_lastName_label"),
                 titleLabel: LanguageService.getValueByKey("profile_description_label"),
                 editedDescription: '',
-                editedUserName: '',
+                editedLastName:'',
+                editedFirstName:'',
                 rules: {
                     required:(value)=> validationRules.required(value),
                     maximumChars:(value) => validationRules.maximumChars(value, 255),
@@ -79,7 +98,7 @@
                     descriptionMinChars: (value) => validationRules.minimumChars(value, 15),
                 },
                 validUserForm: false,
-                btnLoading: false
+                btnLoading: false,
 
             }
         },
@@ -92,13 +111,20 @@
         computed: {
             ...mapGetters(['getProfile']),
 
-            userName:{
+            firstName:{
               get(){
-                 return this.getProfile.user.name
+                 return this.getProfile.user.firstName
               },
               set(newVal){
-                  this.editedUserName = newVal;
-                  console.log(this.editedUserName);
+                  this.editedFirstName = newVal;
+              }
+            },
+            lastName:{
+              get(){
+                 return this.getProfile.user.lastName
+              },
+              set(newVal){
+                  this.editedLastName = newVal;
               }
             },
             userDescription: {
@@ -115,12 +141,16 @@
             ...mapActions(['updateEditedProfile']),
             saveChanges() {
                 if(this.$refs.formUser.validate()) {
+                   let firstName = this.editedFirstName || this.firstName  ;
+                   let lastName = this.editedLastName|| this.lastName
                     let editsData = {
-                        name: this.editedUserName || this.userName,
-                        // description: this.editedDescription || this.userDescription spitball-712
-                        description: this.editedDescription
-                    };
+                        name: `${firstName} ${lastName}` ,
+                        description: this.editedDescription,
+                        firstName,
+                        lastName,
+                        };
                     this.btnLoading = true;
+                    debugger
                     accountService.saveUserInfo(editsData).then((success) => {
                         this.updateEditedProfile(editsData);
                         this.btnLoading = false;
@@ -133,7 +163,6 @@
             },
         },
         created(){
-
             this.editedDescription =  this.getProfile.user.description || ''
         }
     }

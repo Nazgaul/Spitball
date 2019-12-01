@@ -26,6 +26,14 @@
   border: 1px solid @colorInputFocused;
 }
 
+.cross-browser-sticky(@className){
+  @{className} {  position: sticky;}
+  @supports (-ms-ime-align:auto) {
+    html[dir="rtl"] @{className}  {
+      position: relative;
+    }
+  }
+ }
 
 .edgeStatic(){
   @supports (-ms-ime-align: auto) {

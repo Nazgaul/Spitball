@@ -8,6 +8,7 @@
                 <v-icon @click="handleMenuToggle()" class="tutor-list-header-left-menu hidden-md-and-up">sbf-menu</v-icon>
             </v-flex>
             <v-flex class="tutor-list-header-right hidden-sm-and-down">
+              <router-link v-if="!isMobile" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor"  v-language:inner="'header_find_tutors'"/>
               <template  v-if="!loggedIn">
                   <button
                     class="tutor-list-header-right-login mr-2"
@@ -85,6 +86,9 @@ export default {
   },
   computed: {
     ...mapGetters(['accountUser', 'isFrymo']),
+    isMobile(){
+      return this.$vuetify.breakpoint.xsOnly;
+    },
 
     isMobileView() {
       return this.$vuetify.breakpoint.width < 1024;
@@ -138,7 +142,12 @@ export default {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-
+            .gH_i_r_findTutor{
+                font-size: 14px;
+                font-weight: 600;
+                color: #43425d;
+                margin-right: 26px;
+            }
       button {
         text-align: center;
         border-radius: 6px;

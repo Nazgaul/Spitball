@@ -30,7 +30,7 @@
 
     </v-layout>
 
-    <v-layout v-show="!isMinimized" class="general-chat-style">
+    <v-layout v-if="!isMinimized" class="general-chat-style">
       <component :is="`chat-${state}`"></component>
     </v-layout>
     

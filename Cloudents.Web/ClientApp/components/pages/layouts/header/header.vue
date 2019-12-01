@@ -11,8 +11,8 @@
                 </div>
                 <v-spacer v-else></v-spacer>
                 <div class="globalHeader_items_right">
+                    <router-link v-if="!isMobile" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor"  v-language:inner="'header_find_tutors'"/>
                     <template v-if="!isMobile && loggedIn" >
-                        <router-link :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor"  v-language:inner="'header_find_tutors'"/>
                         <v-tooltip bottom>
                             <template v-slot:activator="{on}">
                                 <v-icon v-on="on" v-if="!$vuetify.breakpoint.smAndDown" id="gH_i_r_intercom" class="gH_i_r_intercom" v-html="'sbf-help'"/>
@@ -47,7 +47,7 @@
                             <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
                                 <span class="ur_greets" v-html="$Ph('header_greets', accountUser.name)"/>
                                 <div class="ur_balance">
-                                    <span v-html="$Ph('header_balance', accountUser.balance.toFixed())"/>
+                                    <span v-html="$Ph('header_balance', userBalance(accountUser.balance))"/>
                                     <v-icon v-if="!isMobile" class="ur_balance_drawer ml-2" color="#43425d" v-html="'sbf-arrow-fill'"/>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@ export default {
         },
         searchPlaceholder(){
             return this.isTablet ? LanguageService.getValueByKey(`header_placeholder_search`) : LanguageService.getValueByKey(`header_placeholder_search_m`);
-        }
+        },
     },
     watch: {
         drawer(val){
@@ -157,6 +157,10 @@ export default {
                     this.$refs.personalize.openDialog(id);
                 })
             }
+        },
+        userBalance(balance){
+            let balanceFixed = +balance.toFixed()
+            return balanceFixed.toLocaleString(`${global.lang}`)
         }
     },
     created() {
@@ -199,11 +203,17 @@ export default {
     }
     .globalHeader_logo{
         width: 20%;
+        @media (min-width: @screen-md) {
+            width: calc(~"276px - 16px");
+            flex-grow: 0;
+            flex-shrink: 0;
+            margin-right: 34px;
+        }
         svg{
-        @media (max-width: @screen-xs) {
-            width: 94px;
-            height: 22px;    
-        }  
+            @media (max-width: @screen-xs) {
+                width: 94px;
+                height: 22px;    
+            }  
             width: 120px;
             height: 30px;
             fill: #43425D;

@@ -30,7 +30,7 @@ namespace Cloudents.Query.HomePage
                 _session = session.StatelessSession;
             }
 
-            [Cache(TimeConst.Day, "homePage-reviews", false)]
+            [Cache(TimeConst.Day, "homePage-reviews2", false)]
             //We cant put cache due to serialize issue
             public async Task<IEnumerable<ReviewDto>> GetAsync(ReviewsQuery query, CancellationToken token)
             {
@@ -50,6 +50,7 @@ namespace Cloudents.Query.HomePage
                             TutorImage = s.tutor.Image,
                             TutorName = s.tutor.Name,
                             TutorReviews = s.tutor.Rate.GetValueOrDefault(),
+                            TutorCount = s.tutor.RateCount,
                             TutorId = s.tutor.Id
 
 
@@ -72,5 +73,6 @@ namespace Cloudents.Query.HomePage
         public double TutorReviews { get; set; }
 
         public long TutorId { get; set; }
+        public int TutorCount { get; set; }
     }
 }

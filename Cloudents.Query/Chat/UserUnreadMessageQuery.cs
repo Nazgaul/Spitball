@@ -46,6 +46,7 @@ namespace Cloudents.Query.Chat
                 var result = await z.SelectList(s =>
 
                         s.Select(() => userAlias.PhoneNumber).WithAlias(() => resultAlias.PhoneNumber)
+                        .Select(() => userAlias.Email).WithAlias(() => resultAlias.Email)
                             .Select(() => userAlias.Id).WithAlias(() => resultAlias.UserId)
                             .Select(x => x.Version).WithAlias(() => resultAlias.Version)
                             .Select(() => userAlias.Language).WithAlias(() => resultAlias.CultureInfo)
@@ -73,6 +74,7 @@ namespace Cloudents.Query.Chat
 
     public class UnreadMessageDto
     {
+        public string Email{ get; set; }
         public string PhoneNumber { get; set; }
         public long UserId { get; set; }
 

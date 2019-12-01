@@ -3,7 +3,7 @@
             <!--Select-->
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.pan}"
+                    <button v-on="on" sel="pen_draw" :class="{'active-tool': selectedOptionString === enumOptions.pan}"
                             class="nav-action" @click="setOptionType($event, enumOptions.pan)">
                         <v-icon>sbf-pan</v-icon>
                     </button>
@@ -25,7 +25,7 @@
             <!--Text-->
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
-                    <button  v-on="on"
+                    <button v-on="on" sel="text_draw"
                              :class="{'active-tool': selectedOptionString === enumOptions.text}"
                              class="nav-action" @click="setOptionType($event, enumOptions.text)">
                         <v-icon>sbf-text-icon</v-icon>
@@ -58,7 +58,7 @@
             <!--Color Picker-->
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': showPickColorInterface}" class="nav-action"
+                    <button  sel="color_picker" v-on="on" :class="{'active-tool': showPickColorInterface}" class="nav-action"
                             @click="showColorPicker">
                         <v-icon class="selected-color" :style="{ color: canvasData.color.hex}">sbf-color-picked</v-icon>
                     </button>
@@ -83,7 +83,7 @@
             <!--Line-->
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.line}"
+                    <button sel="line_draw" v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.line}"
                             class="nav-action" @click="setOptionType($event, enumOptions.line)">
                         <v-icon>sbf-connect-line</v-icon>
                     </button>
@@ -94,7 +94,7 @@
             <!--Circle-->
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.circle}"
+                    <button sel="circle_draw" v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.circle}"
                             class="nav-action" @click="setOptionType($event, enumOptions.circle)">
                         <v-icon>sbf-elipse-stroke</v-icon>
                     </button>
@@ -105,7 +105,7 @@
             <!--Square-->
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.rectangle}"
+                    <button sel="square_draw" v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.rectangle}"
                             class="nav-action" @click="setOptionType($event, enumOptions.rectangle)">
                         <v-icon>sbf-rectangle-stroke</v-icon>
                     </button>
@@ -140,7 +140,7 @@
             <!--Undo-->
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" class="nav-action" :class="{'disabled': dragData.length === 0}" @click="undo()">
+                    <button sel="undo_draw" v-on="on" class="nav-action" :class="{'disabled': dragData.length === 0}" @click="undo()">
                         <v-icon>sbf-undo</v-icon>
                     </button>
                 </template>
@@ -150,7 +150,7 @@
             <!--Clear All-->
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
-                    <button v-on="on" class="nav-action" @click="clearCanvas()">
+                    <button sel="clear_all_canvas" v-on="on" class="nav-action" @click="clearCanvas()">
                         <v-icon style="margin-top: 5px;">sbf-clearAll-icon</v-icon>
                     </button>
                 </template>
