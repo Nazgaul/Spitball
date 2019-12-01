@@ -86,6 +86,23 @@ namespace Cloudents.Core.Entities
             AddEvent(new TutorDeletedEvent(Id));
         }
 
+        public virtual void Suspend()
+        {
+            if (State == ItemState.Ok)
+            {
+                State = ItemState.Flagged;
+                AddEvent(new TutorSuspendedEvent(Id));
+            }
+        }
+
+        public virtual void UnSuspend()
+        {
+            if (State == ItemState.Flagged)
+            {
+                State = ItemState.Ok;
+                AddEvent(new TutorUnSuspendedEvent(Id));
+            }
+        }
         private readonly ICollection<TutorReview> _reviews = new List<TutorReview>();
 
         public virtual IEnumerable<TutorReview> Reviews => _reviews;

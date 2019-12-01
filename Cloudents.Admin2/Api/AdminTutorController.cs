@@ -61,5 +61,23 @@ namespace Cloudents.Admin2.Api
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+        [HttpPost("suspend")]
+        [Authorize]
+        public async Task<IActionResult> SuspendTutorAsync([FromBody] SuspendTutorRequest model, CancellationToken token)
+        {
+            var command = new SuspendTutorCommand(model.TutorId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("unsuspend")]
+        [Authorize]
+        public async Task<IActionResult> SuspendTutorAsync([FromBody] UnSuspendTutorRequest model, CancellationToken token)
+        {
+            var command = new UnSuspendTutorCommand(model.TutorId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
     }
 }
