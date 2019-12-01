@@ -22,10 +22,14 @@
   min-height: auto;
   // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
   //background: @color-white;
-  border-radius: 4px;
+  border-radius: 8px;
   //width: 100%;
   cursor: pointer;
   //padding: 14px 16px !important;
+
+  &.no-cursor {
+    cursor: text;
+  }
 
   .doc-type-text {
     font-size: 13px;
@@ -62,6 +66,11 @@
       min-width: 0;
       flex-grow: 1;
       align-items: end;
+
+      &--arrow {
+        align-self: center;
+        color: #69687d;
+      }
 
       .document-header-name-container {
         display: flex;
@@ -235,6 +244,9 @@
           padding-left: 8px;
           // width: 100%;
           // padding-left: 0;
+        }
+        &--noPadding {
+          padding-left: 0;
         }
       }
     }

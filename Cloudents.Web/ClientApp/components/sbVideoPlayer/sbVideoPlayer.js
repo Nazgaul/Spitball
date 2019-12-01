@@ -56,7 +56,6 @@ export default {
     },
     watch:{
         src(newVal, oldVal){
-            console.log(newVal);
             if(!!this.myPlayer){
                 let srcObj = {
                     src: newVal,

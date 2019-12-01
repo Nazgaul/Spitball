@@ -37,8 +37,13 @@ const actions = {
     documentVote({commit, getters, dispatch}, data) {
         reputationService.voteDocument(data.id, data.type).then(() => {
             let docs = getters.Feeds_getItems;
-            data.docs = docs
-            
+            let doc = getters.getDocumentDetails;
+            if(doc) {
+                data.docs = [doc.details.feedItem];
+            } else  {
+                data.docs = docs
+            }
+
             commit('StudyDocuments_updateDocumentVote', data);
             dispatch('profileVote', data);
         }, (err) => {

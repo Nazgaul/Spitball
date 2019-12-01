@@ -125,7 +125,7 @@ export default {
             return this.getTotalUnread;
         },
         isHideHeader(){
-            let filteredRoutes = ['document','profile'];
+            let filteredRoutes = ['profile'];
             return filteredRoutes.indexOf(this.$route.name) > -1 && this.$vuetify.breakpoint.xsOnly;
         },
         searchPlaceholder(){
@@ -366,6 +366,7 @@ export default {
             .searchCMP-input{
                 .v-text-field__slot{
                     line-height: 18px;
+                    margin-bottom: 2px;
                     // height: 18px;
                     align-items: normal;
                 }

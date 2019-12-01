@@ -64,7 +64,7 @@ namespace Cloudents.Web.Services
 
             var country = await countryService.GetUserCountryAsync(httpContext.RequestAborted);
 
-            if (country.Equals("IL",StringComparison.OrdinalIgnoreCase))
+            if (country?.Equals("IL",StringComparison.OrdinalIgnoreCase) == true)
             {
                 return new ProviderCultureResult(new StringSegment("he-IL")); 
             }

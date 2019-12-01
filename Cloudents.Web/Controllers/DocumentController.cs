@@ -145,7 +145,7 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
-            if (item.DocumentType == DocumentType.Video)
+            if (item.Document.DocumentType == DocumentType.Video)
             {
                 return Unauthorized();
             }
@@ -161,7 +161,7 @@ namespace Cloudents.Web.Controllers
             //blob.core.windows.net/spitball-files/files/6160/file-82925b5c-e3ba-4f88-962c-db3244eaf2b2-advanced-linux-programming.pdf
 
             await _queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfDownloads(id), token);
-            var nameToDownload = Path.GetFileNameWithoutExtension(item.Name);
+            var nameToDownload = Path.GetFileNameWithoutExtension(item.Document.Title);
             var extension = Path.GetExtension(file);
             var url = blobProvider2.GenerateDownloadLink(uri, TimeSpan.FromMinutes(30), nameToDownload + extension);
             return Redirect(url.AbsoluteUri);

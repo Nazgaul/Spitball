@@ -21,6 +21,7 @@
                 @visibleChange="visibleChange"
                 @hold-start="holdStart"
                 @hold-end="holdEnd"
+                @move-end="moveEnd"
                 :dir="isRtl ? 'rtl' : 'ltr'">
     <slot></slot>
     </flicking>

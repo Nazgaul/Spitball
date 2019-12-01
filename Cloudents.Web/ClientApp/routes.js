@@ -3,7 +3,9 @@ import * as RouteTypes from "./routeTypes";
 const feeds = () => import('./components/results/feeds/Feeds.vue');
 const pageHeader = () => import('./components/pages/layouts/header/header.vue');
 const sideMenu = () => import('./components/pages/layouts/sideMenu/sideMenu.vue');
-const document = () => import("./components/document/document.vue");
+// const document = () => import("./components/document/document.vue");
+const itemPage = () => import("./components/pages/itemPage/item.vue");
+
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
 const wallet = () => import("./components/wallet/wallet.vue");
 const newProfile = () => import("./components/new_profile/new_profile.vue");
@@ -199,9 +201,9 @@ let routes2 = [
         // alias: ['/document/:courseName/:name/:id'],
         name: "document",
         components: {
-            default: document,
-            // sideMenu: sideMenu,
-            header: pageHeader
+            header: pageHeader,
+            default: itemPage,
+            sideMenu: sideMenu,
         },
         props: {
             default: (route) => ({

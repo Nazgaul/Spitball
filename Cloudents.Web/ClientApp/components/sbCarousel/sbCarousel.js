@@ -34,6 +34,24 @@ export default {
         centered:{
             type: Boolean,
             default: false
+        },
+        prevFun: {
+            type: Function
+        },
+        nextFun: {
+            type: Function
+        },
+        moveEnd:{
+            type: Function,
+            default: ()=>{}
+        },
+        renderOnlyVisible:{
+            type:Boolean,
+            default:false,
+        },
+        moveType:{
+            type: String,
+            default: 'freeScroll'
         }
     },
     data() {
@@ -48,11 +66,12 @@ export default {
                 anchor: 0,
                 gap: this.gap, 
                 circular: this.infinite, 
-                moveType: 'freeScroll',
+                moveType: this.moveType,
                 bound: !this.infinite,
                 overflow: this.overflow,
                 duration:750,
                 adaptive:true,
+                renderOnlyVisible: this.renderOnlyVisible
             },
             isRtl: global.isRtl,
             stepMove:null,

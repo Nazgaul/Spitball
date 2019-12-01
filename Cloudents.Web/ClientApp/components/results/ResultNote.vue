@@ -1,88 +1,149 @@
 <template>
-  <router-link v-if="url" class="d-block note-block" :to="url">
-        <div class="document-header-container">
-          <div class="document-header-large-sagment">
-              <user-avatar size="34" v-if="authorName" :userImageUrl="userImageUrl" :user-name="authorName" :user-id="authorId"/>
-            <div class="document-header-name-container">
-              <span class="document-header-name text-truncate"> 
-                <span>{{authorName}}</span> 
-              </span>
-              <span class="date-area">{{uploadDate}}</span>
-            </div>
-          </div>
-          <div class="document-header-small-sagment">
-            <div v-if="!isMobile" v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
-                {{item.price ? item.price.toFixed(0): ''}}
-                <span v-language:inner>app_currency_dynamic</span>
-            </div>
-            
-              <v-menu class="menu-area" lazy bottom left content-class="card-user-actions" v-model="showMenu">
-                <v-btn :depressed="true" @click.native.stop.prevent="showReportOptions()" slot="activator" icon>
-                  <v-icon>sbf-3-dot</v-icon>
-                </v-btn>
-                <v-list>
-                  <v-list-tile v-show="item.isVisible(item.visible)" :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
-                    <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu>
-          </div>
+  <router-link v-show="url && !fromItemPage" class="d-block note-block" :class="{'no-cursor': fromItemPage}" :to="!fromItemPage ? url : ''">
+    <div class="document-header-container">
+      <div class="document-header-large-sagment">
+        <slot name="arrowBack"></slot>
+        <user-avatar
+          size="34"
+          v-if="authorName"
+          :userImageUrl="userImageUrl"
+          :user-name="authorName"
+          :user-id="authorId"
+        />
+        <div class="document-header-name-container">
+          <span class="document-header-name text-truncate">
+            <span>{{authorName}}</span>
+          </span>
+          <span class="date-area">{{uploadDate}}</span>
         </div>
-        
-        <v-flex grow class="top-row">
-          <template>
-            <v-progress-circular v-show="!isPreviewReady" class="document-body-card-img" :style="isMobile? 'height:108px; width:100%;' : 'height:130px'"  indeterminate v-bind:size="164" width="2" color="#514f7d"/>
-            <div class="document-body-card">
-              <span v-show="(isVideo && item.itemDuration) && isPreviewReady" class="videoType">
-                <vidSVG class="vidSvg"/>
-                <span class="vidTime">{{item.itemDuration}}</span>
-              </span>
-              <img class="document-body-card-img" @load="isPreviewReady = true" :src="docPreviewImg" alt="">
-            </div>
-          </template>
+      </div>
+      <div class="document-header-small-sagment">
+        <div
+          v-if="!isMobile"
+          v-show="item.price"
+          class="price-area"
+          :class="{'isPurchased': isPurchased}"
+        >
+          {{item.price ? item.price.toFixed(0): ''}}
+          <span v-language:inner>app_currency_dynamic</span>
+        </div>
 
-          <div class="type-wrap">
-            <v-flex grow class="data-row" v-if="isPreviewReady">
-               <div class="content-wrap">
-                <span class="item-title text-truncate">{{item.title}}</span>
-                <span class="item-course text-truncate" v-html="$Ph('resultNote_course',[item.course])"/>
-                <span class="item-university text-truncate" v-html="$Ph('resultNote_university',[item.university])"/>
-              </div>
-              <v-divider v-if="item.snippet" class="my-2"></v-divider>
-              <div class="doc-snippet" v-if="item.snippet">
-                <span class="doc-snippet-span">{{item.snippet}}</span>
-              </div>
-            </v-flex>
+        <v-menu
+          class="menu-area"
+          lazy
+          bottom
+          left
+          content-class="card-user-actions"
+          v-model="showMenu"
+        >
+          <v-btn
+            :depressed="true"
+            @click.native.stop.prevent="showReportOptions()"
+            slot="activator"
+            icon
+          >
+            <v-icon>sbf-3-dot</v-icon>
+          </v-btn>
+          <v-list>
+            <v-list-tile
+              v-show="item.isVisible(item.visible)"
+              :disabled="item.isDisabled()"
+              v-for="(item, i) in actions"
+              :key="i"
+            >
+              <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+      </div>
+    </div>
+
+    <v-flex grow class="top-row">
+      <template v-if="!fromItemPage">
+        <v-progress-circular
+          v-show="!isPreviewReady"
+          class="document-body-card-img"
+          :style="isMobile? 'height:108px; width:100%;' : 'height:130px'"
+          indeterminate
+          v-bind:size="164"
+          width="2"
+          color="#514f7d"
+        />
+        <div class="document-body-card">
+          <span v-show="(isVideo && item.itemDuration) && isPreviewReady" class="videoType">
+            <vidSVG class="vidSvg" />
+            <span class="vidTime">{{item.itemDuration}}</span>
+          </span>
+          <img
+            class="document-body-card-img"
+            @load="isPreviewReady = true"
+            :src="docPreviewImg"
+            alt
+          />
+        </div>
+      </template>
+
+      <div class="type-wrap" :class="{'type-wrap--noPadding': fromItemPage}">
+        <v-flex grow class="data-row">
+          <div class="content-wrap">
+            <span class="item-title text-truncate">{{item.title}}</span>
+            <span
+              class="item-course text-truncate"
+              v-html="$Ph('resultNote_course',[item.course])"
+            />
+            <span
+              class="item-university text-truncate"
+              v-html="$Ph('resultNote_university',[item.university])"
+            />
+          </div>
+          <v-divider v-show="item.snippet" class="my-2"></v-divider>
+          <div class="doc-snippet" v-show="item.snippet">
+            <span class="doc-snippet-span">{{item.snippet}}</span>
           </div>
         </v-flex>
+      </div>
+    </v-flex>
 
-        <v-flex grow class="bottom-row">
-          <div class="left">
-            <span v-if="docViews" class="views-cont">
-              <span>{{docViews}}</span>
-              <span class="views" v-language:inner="docViews > 1 ? 'resultNote_views' : 'resultNote_view'"/> 
-            </span>
-            <span v-if="docDownloads && !item.price">
-              <span>{{docDownloads}}</span>
-              <span class="downloads" v-language:inner="docDownloads > 1 ? 'resultNote_downloads' : 'resultNote_download'"/> 
-            </span>
-            <span v-if="docPurchased && item.price">
-              <span>{{docPurchased}}</span>
-              <span class="downloads" v-language:inner="docPurchased > 1 ? 'resultNote_purchaseds' : 'resultNote_purchased'"/> 
-            </span>
-          </div>
-            <span class="right">
-              <likeFilledSVG v-if="isLiked" @click.stop.prevent="upvoteDocument" class="likeSVG"/>
-              <likeSVG v-if="!isLiked" @click.stop.prevent="upvoteDocument" class="likeSVG"/> 
-              <span v-if="item.votes>0">{{item.votes}}</span>
-            </span>
-            <v-spacer v-if="isMobile"></v-spacer>
-            <div v-if="isMobile" v-show="item.price" class="price-area" :class="{'isPurchased': isPurchased}">
-                {{item.price ? item.price.toFixed(0): ''}}
-                <span v-language:inner>app_currency_dynamic</span>
-            </div>
-        </v-flex>
-
+    <v-flex grow class="bottom-row">
+      <div class="left">
+        <span v-if="docViews" class="views-cont">
+          <span>{{docViews}}</span>
+          <span
+            class="views"
+            v-language:inner="docViews > 1 ? 'resultNote_views' : 'resultNote_view'"
+          />
+        </span>
+        <span v-if="docDownloads && !item.price">
+          <span>{{docDownloads}}</span>
+          <span
+            class="downloads"
+            v-language:inner="docDownloads > 1 ? 'resultNote_downloads' : 'resultNote_download'"
+          />
+        </span>
+        <span v-if="docPurchased && item.price">
+          <span>{{docPurchased}}</span>
+          <span
+            class="downloads"
+            v-language:inner="docPurchased > 1 ? 'resultNote_purchaseds' : 'resultNote_purchased'"
+          />
+        </span>
+      </div>
+      <span class="right" style="cursor:pointer">
+        <likeFilledSVG v-if="isLiked" @click.stop.prevent="upvoteDocument" class="likeSVG" />
+        <likeSVG v-if="!isLiked" @click.stop.prevent="upvoteDocument" class="likeSVG" />
+        <span v-if="item.votes>0">{{item.votes}}</span>
+      </span>
+      <v-spacer v-if="isMobile"></v-spacer>
+      <div
+        v-if="isMobile"
+        v-show="item.price"
+        class="price-area"
+        :class="{'isPurchased': isPurchased}"
+      >
+        {{item.price ? item.price.toFixed(0): ''}}
+        <span v-language:inner>app_currency_dynamic</span>
+      </div>
+    </v-flex>
 
     <sb-dialog
       :showDialog="showReport"
@@ -99,15 +160,13 @@
       :onclosefn="closeNewPriceDialog"
       :activateOverlay="true"
       :isPersistent="true"
-      :content-class="`priceUpdate ${isRtl? 'rtl': ''}`">
+      :content-class="`priceUpdate ${isRtl? 'rtl': ''}`"
+    >
       <v-card class="price-change-wrap">
         <v-flex align-center justify-center class="relative-pos">
           <div class="title-wrap">
             <span class="change-title" v-language:inner>resultNote_change_for</span>
-            <span
-              class="change-title"
-              style="max-width: 150px;"
-            >&nbsp;"{{item.title}}"</span>
+            <span class="change-title" style="max-width: 150px;">&nbsp;"{{item.title}}"</span>
           </div>
           <div class="input-wrap row align-center justify-center">
             <div :class="['price-wrap', isRtl ? 'reversed' : '']">
@@ -135,11 +194,14 @@
         </div>
       </v-card>
     </sb-dialog>
+
+    <slot name="isTutor"></slot>
+
   </router-link>
 </template>
 <script>
-import studyDocumentsStore from '../../store/studyDocuments_store';
-import storeService from '../../services/store/storeService';
+import studyDocumentsStore from "../../store/studyDocuments_store";
+import storeService from "../../services/store/storeService";
 
 import userAvatar from "../helpers/UserAvatar/UserAvatar.vue";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
@@ -148,10 +210,10 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 import SbInput from "../question/helpers/sbInput/sbInput";
 import documentService from "../../services/documentService";
-import likeSVG from './img//like.svg';
-import likeFilledSVG from './img/like-filled.svg';
-import utilitiesService from '../../services/utilities/utilitiesService.js'
-import vidSVG from './svg/vid.svg';
+import likeSVG from "./img//like.svg";
+import likeFilledSVG from "./img/like-filled.svg";
+import utilitiesService from "../../services/utilities/utilitiesService.js";
+import vidSVG from "./svg/vid.svg";
 
 export default {
   components: {
@@ -165,7 +227,7 @@ export default {
   },
   data() {
     return {
-      isPreviewReady:false,
+      isPreviewReady: false,
       isLiked: false,
       loading: false,
       currentCurrency: LanguageService.getValueByKey("app_currency_dynamic"),
@@ -206,17 +268,24 @@ export default {
     };
   },
 
-  props: { item: { type: Object, required: true }, index: { Number } },
+  props: {
+    item: { type: Object, required: true },
+    index: { Number },
+    fromItemPage: {
+      type: Boolean,
+      default: false
+    }
+  },
   watch: {
     priceDialog(val) {
-      if(!val) {
-        this.newPrice = this.item.price;        
+      if (!val) {
+        this.newPrice = this.item.price;
       }
     }
   },
   computed: {
-    isVideo(){
-      return (this.item.documentType === 'Video')
+    isVideo() {
+      return this.item.documentType === "Video";
     },
     userImageUrl() {
       if (
@@ -255,8 +324,8 @@ export default {
         return this.item.downloads;
       }
     },
-    docPurchased(){
-      if(this.item){
+    docPurchased() {
+      if (this.item) {
         return this.item.purchased;
       }
     },
@@ -277,18 +346,28 @@ export default {
       }
       return ours;
     },
-    isMobile(){
+    isMobile() {
       return this.$vuetify.breakpoint.xs;
     },
-    docPreviewImg(){
-      if(this.isMobile){
-        return utilitiesService.proccessImageURL(this.item.preview, 100, 106,'crop&anchorPosition=top');
-      } else{
-        return utilitiesService.proccessImageURL(this.item.preview, 148, 130,'crop&anchorPosition=top');
+    docPreviewImg() {
+      if (this.isMobile) {
+        return utilitiesService.proccessImageURL(
+          this.item.preview,
+          100,
+          106,
+          "crop&anchorPosition=top"
+        );
+      } else {
+        return utilitiesService.proccessImageURL(
+          this.item.preview,
+          148,
+          130,
+          "crop&anchorPosition=top"
+        );
       }
     },
     isPreview() {
-      if(this.item && this.item.preview && this.loading) {
+      if (this.item && this.item.preview && this.loading) {
         return false;
       }
       return true;
@@ -380,8 +459,8 @@ export default {
           });
           this.removeItemFromList(id);
           this.updateProfile(id);
-          let objToDelete = {id: parseInt(id)};
-          this.removeDocItemAction(objToDelete)
+          let objToDelete = { id: parseInt(id) };
+          this.removeDocItemAction(objToDelete);
         },
         error => {
           this.updateToasterParams({
@@ -423,18 +502,22 @@ export default {
         };
         this.documentVote(data);
       }
-    },
+    }
   },
-  beforeDestroy(){
+  beforeDestroy() {
     // storeService.unregisterModule(this.$store, 'studyDocumentsStore');
   },
   created() {
-    storeService.lazyRegisterModule(this.$store,'studyDocumentsStore',studyDocumentsStore); 
+    storeService.lazyRegisterModule(
+      this.$store,
+      "studyDocumentsStore",
+      studyDocumentsStore
+    );
     this.isLiked = this.item.upvoted;
-      this.$nextTick(() => {
-        this.loading = true;
-      })
-  },
+    this.$nextTick(() => {
+      this.loading = true;
+    });
+  }
 };
 </script>
 <style src="./ResultNote.less" lang="less"></style>

@@ -77,6 +77,20 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
         [Theory]
+        [InlineData("api/document/similar", "Economics", 50413L, false)]
+        [InlineData("api/document/similar", "Economics", 50413L, true)]
+        public async Task GetSimilarDocuments_Ok(string url, string course, long documentId, bool authUser)
+        {
+            var endPoint = $"{url}?course={course}&documentId={documentId}";
+            if (authUser)
+            {
+                await _client.LogInAsync();
+            }
+            var response = await _client.GetAsync(endPoint);
+            response.StatusCode.Should().Be(200);
+        }
+
+        [Theory]
         [InlineData("api/feed", false)]
         [InlineData("/api/feed?page=1", false)]
         [InlineData("api/feed", true)]
