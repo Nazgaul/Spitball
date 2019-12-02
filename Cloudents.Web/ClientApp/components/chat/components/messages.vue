@@ -128,7 +128,9 @@ export default {
                 }
             })
         },
-        createRoom(){
+        createRoom(){            
+            if(this.$route.params.id === this.activeConversationObj.studyRoomId) return;
+            
             let conversationObj = this.activeConversationObj;
             this.loader = true;
             if(!!this.activeConversationObj.studyRoomId){
@@ -138,7 +140,8 @@ export default {
                         id: this.activeConversationObj.studyRoomId
                     }
                 });
-                global.open(routeData.href, '_blank');
+                // global.open(routeData.href, '_blank');
+                this.$router.push(routeData.href);
             }else{
                 if(!this.alreadyCreated){
                     let userId = conversationObj.userId;

@@ -48,7 +48,8 @@
                 </v-list-tile-content>
               </v-list-tile>
 
-              <v-list-tile class="group_list_sideMenu_dash" :to="{ name: 'tutoring'}" target="_blank" sel="menu_row">
+
+              <v-list-tile class="group_list_sideMenu_dash" :to="{ name: 'tutoring'}" sel="menu_row">
               <v-list-tile-content>
                 <v-list-tile-title :class="['group_list_titles_dash']" >
                   <v-icon style="font-size: 17px;" class="group_list_icon_dash" v-html="'sbf-pc'"/>

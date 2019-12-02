@@ -264,7 +264,7 @@ export default {
         return;
       } 
       this.updateCouponDialog(true)
-      analyticsService.sb_unitedEvent('Category: Tutor_Engagement', 'Action: Click_Redeem_Coupon', `Label: ${this.$route.path}`);
+      analyticsService.sb_unitedEvent('Tutor_Engagement', 'Click_Redeem_Coupon', `${this.$route.path}`);
     },
     applyCoupon() {
       if(this.isTutorProfile) {
@@ -276,7 +276,7 @@ export default {
           self.coupon = ''
           self.disableApplyBtn = false;
           if(!self.getCouponError) {
-            analyticsService.sb_unitedEvent('Category: Tutor_Engagement', 'Action: Redeem_Coupon_Success', `Label: ${this.$route.path}`);
+            analyticsService.sb_unitedEvent('Tutor_Engagement', 'Redeem_Coupon_Success', `${this.$route.path}`);
           }
         })
       }

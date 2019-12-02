@@ -583,6 +583,8 @@ export default {
     storeService.unregisterModule(this.$store,'tutoringMain');
     storeService.unregisterModule(this.$store,'studyRoomTracks_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
+
+    global.onbeforeunload = function() {};
   },
   created() {
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
@@ -636,7 +638,7 @@ export default {
       //MathJax.Message.Log()
     });
     console.log("ID Tutor!!", this.id);
-    global.onbeforeunload = function() {
+    global.onbeforeunload = function() {     
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_beforeUnloadTriggered', {'roomId': this.id, 'userId': this.userId}, null)
       return "Are you sure you want to close the window?";
     };

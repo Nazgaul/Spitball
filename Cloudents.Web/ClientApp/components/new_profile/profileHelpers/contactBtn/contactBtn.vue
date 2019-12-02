@@ -35,7 +35,7 @@ import analyticsService from '../../../../services/analytics.service';
                     this.updateRequestDialog(true);
                 } else {
                     analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
-                    analyticsService.sb_unitedEvent('Category: Request_Tutor_Submit', 'Action: Send_Chat_Message', `Label:${this.$route.path}`);
+                    analyticsService.sb_unitedEvent('Request_Tutor_Submit', 'Send_Chat_Message', `${this.$route.path}`);
                     let currentProfile = this.getProfile();
                     let conversationObj = {
                         userId: currentProfile.user.id,
