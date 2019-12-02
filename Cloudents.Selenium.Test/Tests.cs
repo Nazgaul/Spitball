@@ -236,6 +236,24 @@ namespace Cloudents.Selenium.Test
             }*/
         }
 
+        [Fact]
+        public void SignButtonsTest()
+        {
+            _driver.Manage().Window.Maximize();
+            _driver.Navigate().GoToUrl(" https://localhost:53217");
+
+            //var carousel = _driver.FindElements(By.XPath("//*[@class='itemsCarousel']//a"));
+            //carousel[0].Click();
+
+            var loginButton = _driver.FindElement(By.XPath("//*[@sel='sign']"));
+            loginButton.Click();
+
+            // blank page will not have class name with the word container
+            var div = _driver.FindElements(By.XPath("//*[contains(text(),'container')]"));
+
+            div.Count.Should().BeGreaterThan(1);
+        }
+
         public void Dispose()
         {
             _driver.Close();
