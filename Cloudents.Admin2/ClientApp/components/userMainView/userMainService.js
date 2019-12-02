@@ -296,6 +296,12 @@ export default {
                 return error;
             });
     },
+    suspendTutor: (id) => {
+        return connectivityModule.http.post(`AdminTutor/suspend`, id);
+    },
+    unSuspendTutor: (id) => {
+        return connectivityModule.http.post(`AdminTutor/unsuspend`, id);
+    },
     updateUserName: ({ userId, firstName, lastName }) => {
         return connectivityModule.http.put(`AdminUser/name`, {userId, firstName, lastName});
     },

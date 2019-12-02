@@ -113,6 +113,8 @@ export default {
             "updateFilterValue",
             "setNeedPaging",
             "removeTutor",
+            "updateSuspendTutor",
+            "updateUnSuspendTutor",
             "updateUserPhone",
             "updateUserName",
             "deletePayment",
@@ -182,6 +184,24 @@ export default {
             () => {
                 self.$toaster.error(`ERROR: failed to delete tutor ${id}`);
             });
+        },
+        suspendTutor() {
+            let id = this.$route.params.userId;
+
+            this.updateSuspendTutor(id).then(() => {
+                this.$toaster.success(`tutor been suspend ${id}`);
+            }, () => {
+                this.$toaster.error(`ERROR: failed to suspend tutor ${id}`);
+            })
+        },
+        unSuspendTutor() {
+            let id = this.$route.params.userId;
+
+            this.updateUnSuspendTutor(id).then(() => {
+                this.$toaster.success(`tutor been suspend ${id}`);
+            }, () => {
+                this.$toaster.error(`ERROR: failed to suspend tutor ${id}`);
+            })
         },
         deleteCalender(){
             var self = this;

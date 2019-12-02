@@ -166,6 +166,22 @@ const actions = {
             context.commit('updateTutorSate', 'Not a tutor');
         });
     },
+    updateSuspendTutor({commit, state}, id) {      
+        let suspendObj = {tutorId: id}
+        return UserMainService.suspendTutor(suspendObj).then(res => {
+            state.userInfo.isTutor.value = 'flagged';
+        }, (ex) => {
+            console.log(ex);
+        })
+    },
+    updateUnSuspendTutor({commit, state}, id) {
+        let suspendObj = {tutorId: id}
+        return UserMainService.unSuspendTutor(suspendObj).then(res => {
+            state.userInfo.isTutor.value = 'ok';
+        }, (ex) => {
+            console.log(ex);
+        })
+    },
     removeCalender(context, id) {
         return UserMainService.removeCalender(id)
         .then(() => {
