@@ -14,15 +14,13 @@ namespace Cloudents.Query.Documents
 {
     public class SimilarDocumentsQuery : IQuery<IEnumerable<DocumentFeedDto>>
     {
-        public SimilarDocumentsQuery(long documentId, string course, long userId)
+        public SimilarDocumentsQuery(long documentId/*, string course*/)
         {
             DocumentId = documentId;
-            Course = course;
-            UserId = userId;
+            //Course = course;
         }
-        public long DocumentId { get; set; }
-        public string Course { get; set; }
-        public long UserId { get; set; }
+        public long DocumentId { get;  }
+        //public string Course { get;  }
     }
 
     internal sealed class SimilarDocumentsQueryHandler : IQueryHandler<SimilarDocumentsQuery, IEnumerable<DocumentFeedDto>>
@@ -37,7 +35,12 @@ namespace Cloudents.Query.Documents
         {
             var t = await _session.Query<Document>()
                 .Fetch(f => f.User)
-                .Where(w => w.Course.Id == query.Course && w.Id != query.DocumentId && w.User.Id != query.UserId && w.Status.State == ItemState.Ok)
+                .Where(w => w.Course.Id ==
+                            _session.Query<Document>().Where(w2=>w2.Id == query.DocumentId).Select(s=>s.Course.Id).Single())
+                .Where(w => w.University.Id ==
+                            _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.University.Id).Single())
+                .Where(w=> w.Id != query.DocumentId 
+                            && w.Status.State == ItemState.Ok)
                 .Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
@@ -53,7 +56,7 @@ namespace Cloudents.Query.Documents
                     Snippet = s.Description ?? s.MetaContent,
                     Views = s.Views,
                     Downloads = s.Downloads,
-                    University = s.User.University.Name,
+                    University = s.University.Name,
                     Price = s.Price,
                     Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument),
                     DocumentType = s.DocumentType ?? DocumentType.Document,

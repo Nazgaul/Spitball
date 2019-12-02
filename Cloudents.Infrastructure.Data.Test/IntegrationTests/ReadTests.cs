@@ -297,10 +297,10 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(1L, "Temp", 159039L)]
-        public async Task SimilarDocumentsQuery_Ok(long documentId, string course, long userId)
+        [InlineData(1L)]
+        public async Task SimilarDocumentsQuery_Ok(long documentId)
         {
-            var query = new SimilarDocumentsQuery(documentId, course, userId);
+            var query = new SimilarDocumentsQuery(documentId);
             _ = await fixture.QueryBus.QueryAsync(query, default);
         }
     }

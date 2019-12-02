@@ -277,8 +277,7 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocuments([FromQuery] SimilarDocumentsRequest request, 
             [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
-            _userManager.TryGetLongUserId(User, out var userId);
-            var query = new SimilarDocumentsQuery(request.DocumentId, request.Course, userId);
+            var query = new SimilarDocumentsQuery(request.DocumentId);
             var res = await _queryBus.QueryAsync(query, token);
             return res.Select(s => {
                 s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
