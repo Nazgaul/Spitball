@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="credit_uploader" xml:space="preserve">
-    <value>על מנת לצפות במסמך, הענק נקודות לבעלי המסמך</value>
+    <value>לצפייה, הענק נקודות לבעלי התוכן</value>
   </data>
   <data name="docPage" xml:space="preserve">
     <value>עמוד {1} מתוך {2}</value>
@@ -148,7 +148,7 @@
     <value>נק'</value>
   </data>
   <data name="prepared_exams" xml:space="preserve">
-    <value>מוכן יותר למבחנים</value>
+    <value>לעבור את המבחנים בהצלחה</value>
   </data>
   <data name="related_content" xml:space="preserve">
     <value>תכנים דומים</value>
@@ -169,15 +169,18 @@
     <value>הועלה על ידי:</value>
   </data>
   <data name="unlock_btn" xml:space="preserve">
-    <value>פתח מסמך</value>
+    <value>פתח</value>
   </data>
   <data name="unlock_document" xml:space="preserve">
-    <value>על מנת לצפות במסמך, הענק נקודות לבעלי המסמך</value>
+    <value>לצפייה, הענק נקודות לבעלי התוכן</value>
   </data>
   <data name="unlock_document_unregister" xml:space="preserve">
     <value>כדי לראות את המסמך המלא, הירשם בבקשה</value>
   </data>
   <data name="unlock_video" xml:space="preserve">
     <value>זו צפייה מקדימה של 30 שניות,&lt;br&gt;לצפייה בסרטון המלא  העבר נקודות לבעלי הסרטון.</value>
+  </data>
+  <data name="why_spitball" xml:space="preserve">
+    <value>למה בספיטבול</value>
   </data>
 </root>

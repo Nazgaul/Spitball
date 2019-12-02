@@ -121,7 +121,7 @@
     <value>יתרה: {1} נק'</value>
   </data>
   <data name="find_tutors" xml:space="preserve">
-    <value>חיפוש מורים</value>
+    <value>מורים פרטיים</value>
   </data>
   <data name="greets" xml:space="preserve">
     <value>שלום, {1}</value>

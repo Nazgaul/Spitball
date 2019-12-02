@@ -233,7 +233,7 @@ export default {
                             border-radius: 0 0 8px 8px;
                         &--img {
                             color: #4c59ff !important; //vuetify
-                            font-size: 16px;
+                            font-size: 14px;
                             font-weight: 600;
     
                             &:before {
@@ -242,7 +242,7 @@ export default {
                         }
                         &--left {
                             width: 32px;
-                            padding: 4px 4px 6px 6px;
+                            padding: 2px 6px 6px 6px;
                             border-radius: 38px 0 0 38px;
                             border: solid 1px #d7d7d7;
                             outline: none;
@@ -250,7 +250,7 @@ export default {
                         }
                         &--right {
                             width: 32px;
-                            padding: 4px 4px 6px 6px;
+                            padding: 2px 6px 6px 6px;
                             border-radius: 0 38px 38px 0;
                             border: solid 1px #d7d7d7;
                             outline: none;

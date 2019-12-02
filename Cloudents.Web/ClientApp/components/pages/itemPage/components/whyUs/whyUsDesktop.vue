@@ -73,11 +73,11 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['accountUser', 'getBtnLoading']),
+        ...mapGetters(['accountUser']),
 
         showBlock() {
             if(this.isVideo && !this.isShowPurchased) {
-                return false;
+                return true;
             } else if (this.isVideo && this.isPurchased) {
                 return false
             }

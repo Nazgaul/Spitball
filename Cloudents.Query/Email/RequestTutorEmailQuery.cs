@@ -55,7 +55,7 @@ namespace Cloudents.Query.Email
                                     join sb.ChatUser cu
 	                                    on cu.ChatRoomId = cra.Id and cu.UserId != l.UserId
                                     join sb.[user] u
-	                                    on cu.UserId = u.Id
+	                                    on cu.UserId = u.Id and u.PhoneNumberConfirmed = 1
                                     join sb.Tutor t
 	                                    on t.Id = u.Id
                                     join sb.[user] us

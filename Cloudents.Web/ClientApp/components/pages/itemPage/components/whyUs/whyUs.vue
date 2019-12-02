@@ -1,6 +1,6 @@
 <template>
   <div class="whyUs">
-      <h1 class="whyUs__h1">Why Spitball</h1>
+      <h1 class="whyUs__h1" v-language:inner="'documentPage_why_spitball'"></h1>
       <div class="whyUs__bottom">
           <div class="whyUs__bottom__cont">
               <sheild class="whyUs__bottom__cont__icon"/>

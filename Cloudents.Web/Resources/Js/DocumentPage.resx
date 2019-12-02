@@ -181,4 +181,7 @@
   <data name="unlock_video" xml:space="preserve">
     <value>You are watching a 30 sec. preview.&lt;br&gt;Credit the uploader with points to unlock the full movie</value>
   </data>
+  <data name="why_spitball" xml:space="preserve">
+    <value>Why Spitball</value>
+  </data>
 </root>

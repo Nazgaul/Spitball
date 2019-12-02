@@ -74,15 +74,12 @@
                              width="280">
             <menuList @closeMenu="closeDrawer"/>
         </v-navigation-drawer>
-        <!-- <v-system-bar class="white--text" color="#1D285F" height="76" :app="true" :fixed="true">
-            sadfasdfsadfsad
-        </v-system-bar> -->
     </div>
 </template>
 
 <script>
 import {mapActions, mapGetters, mapMutations} from 'vuex';
-import { LanguageService } from "../../../../services/language/languageService";
+import {LanguageChange, LanguageService } from "../../../../services/language/languageService";
 import languagesLocales from "../../../../services/language/localeLanguage";
 
 import searchCMP from '../../global/search/search.vue';

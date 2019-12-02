@@ -121,13 +121,13 @@
     <value>ישראל ישראלי</value>
   </data>
   <data name="btn_ask" xml:space="preserve">
-    <value>ליצור שאלה</value>
+    <value>לשאול שאלה</value>
   </data>
   <data name="btn_ask_mob" xml:space="preserve">
     <value>שאלה</value>
   </data>
   <data name="btn_tutor" xml:space="preserve">
-    <value>לאתר מורה</value>
+    <value>מצא מורה</value>
   </data>
   <data name="btn_tutor_mob" xml:space="preserve">
     <value>תרגול</value>

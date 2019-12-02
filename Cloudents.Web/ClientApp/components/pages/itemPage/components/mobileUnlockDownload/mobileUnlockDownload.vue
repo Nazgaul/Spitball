@@ -1,6 +1,6 @@
 <template>
     <div class="mobileUnlockDownload" :class="{'mobileUnlockDownload--sticky': sticky, 'mobileUnlockDownload--purchased': isPurchased}" v-if="showBlock && !isLoading">
-        <div class="mobileUnlockDownload__title" v-language:inner="'documentPage_credit_uploader'" v-if="!zeroPrice && !btnLoader && !isPurchased"></div>
+        <div class="mobileUnlockDownload__title" v-language:inner="'documentPage_credit_uploader'" v-if="!zeroPrice && !isPurchased"></div>
         <div class="mobileUnlockDownload__action">
             <template v-if="!zeroPrice && !btnLoader && !isPurchased">
                 <span class="mobileUnlockDownload__action__price">{{priceWithComma}}</span>
@@ -57,7 +57,7 @@ export default {
 
         showBlock() {
             if(this.isVideo && !this.isShowPurchased) {
-                return false;
+                return true;
             } else if (this.isVideo && this.isPurchased) {
                 return false
             }
