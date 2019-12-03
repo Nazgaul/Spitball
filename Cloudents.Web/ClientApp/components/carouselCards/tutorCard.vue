@@ -27,7 +27,7 @@
             <div class="rank">
             <template>
                 <div class="user-rate-ts" v-if="tutor.reviews > 0">
-                    <userRating :rating="tutor.rating" :showRateNumber="false" :size="'14'" />
+                    <userRating class="user-rate-stars" :rating="tutor.rating" :showRateNumber="false" :size="'14'" />
                     <span class="reviews-ts ml-1" v-html="$Ph(tutor.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"/>
                 </div>
                 <div class="user-rate-ts align-center" v-else>
@@ -207,6 +207,9 @@ export default {
         .user-rate-ts {
             display: inline-flex;
             align-items: baseline;
+            .user-rate-stars{
+                align-self: end;
+            }
             .reviews-ts {
             font-size: 12px;
             letter-spacing: normal;
