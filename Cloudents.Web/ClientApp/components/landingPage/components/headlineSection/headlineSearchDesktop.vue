@@ -17,7 +17,7 @@
               type="search"
             ></v-text-field>
           </div>
-          <div @click="searchQuery" class="search-btn" v-language:inner="'homePage_hd_search'" />
+          <button @click="searchQuery" class="search-btn" v-language:inner="'homePage_hd_search'" />
         </div>
       </div>
       <div class="headline-img">
