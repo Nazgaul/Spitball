@@ -132,7 +132,6 @@
                     return this.getProfile.user.description
                 },
                 set(newVal) {
-                    console.log('new val::', newVal)
                     this.editedDescription = newVal;
                 }
             }
@@ -150,7 +149,6 @@
                         lastName,
                         };
                     this.btnLoading = true;
-                    debugger
                     accountService.saveUserInfo(editsData).then((success) => {
                         this.updateEditedProfile(editsData);
                         this.btnLoading = false;

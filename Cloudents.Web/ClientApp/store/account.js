@@ -140,11 +140,13 @@ const mutations = {
             state.profile.user.lastName = newData.lastName;
             state.profile.user.description = newData.description;
             state.profile.user.tutorData.price = newData.price;
+            state.user.name = `${firstName} ${lastName}`
         } else {
             state.profile.user.name = newData.name;
             state.profile.user.firstName = newData.firstName;
             state.profile.user.lastName = newData.lastName;
             state.profile.user.description = newData.description;
+            state.user.name = newData.name;
         }
     },
     setEditDialog(state, val){
