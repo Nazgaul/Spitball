@@ -3,22 +3,24 @@
       <div class="headlineTitlesMobile">
         <h1 class="hd-titleMobile" v-language:inner="'homePage_hd_title_mobile'"/>
         <h2 :class="['hd-subtitleMobile','mb-3']" v-language:inner="'homePage_hd_subtitle'"/>
-        <div class="hd-searchMobile">
-          <div class="search-input-cont">
-            <v-text-field
-              class="search-input-hp"
-              v-model="search"
-              @keyup.enter="searchQuery"
-              solo
-              prepend-inner-icon="sbf-search"
-              :placeholder="phSearch"
-              autocomplete="off"
-              hide-details
-              type="search"
-            ></v-text-field>
+        <form @submit.prevent="searchQuery">
+          <div class="hd-searchMobile">
+            <div class="search-input-cont">
+              <v-text-field
+                class="search-input-hp"
+                v-model="search"
+                solo
+                prepend-inner-icon="sbf-search"
+                :placeholder="phSearch"
+                autocomplete="off"
+                hide-details
+                name="search"
+                type="search"
+              ></v-text-field>
+            </div>
+            <button type="submit" class="search-btn" v-language:inner="'homePage_hd_search'" />
           </div>
-          <div @click="searchQuery" class="search-btn" v-language:inner="'homePage_hd_search'" />
-        </div>
+        </form>
       </div>
       <div class="headline-img" :style="{'backgroundImage': `url(${backgroundImg}`, 'background-position': '-900px -120px'}">
         <div class="handImg" :style="{'backgroundImage': `url(${handImg}`, 'background-size': '320px'}"/>

@@ -3,22 +3,23 @@
       <div class="headlineTitlesDesktop">
         <h1 class="hd-titleDesktop" v-language:inner="'homePage_hd_title'"/>
         <h2 :class="['hd-subtitleDesktop','my-4']" v-language:inner="'homePage_hd_subtitle'"/>
-        <div class="hd-searchDesktop">
-          <div class="search-input-cont">
-            <v-text-field
-              class="search-input-hp"
-              v-model="search"
-              @keyup.enter="searchQuery"
-              solo
-              prepend-inner-icon="sbf-search"
-              :placeholder="phSearch"
-              autocomplete="off"
-              hide-details
-              type="search"
-            ></v-text-field>
-          </div>
-          <button @click="searchQuery" class="search-btn" v-language:inner="'homePage_hd_search'" />
-        </div>
+          <form @submit.prevent="searchQuery">
+            <div class="hd-searchDesktop">
+              <div class="search-input-cont">
+                <v-text-field
+                  class="search-input-hp"
+                  v-model="search"
+                  solo
+                  prepend-inner-icon="sbf-search"
+                  :placeholder="phSearch"
+                  autocomplete="off"
+                  hide-details
+                  name="search"
+                  type="search"/>
+              </div>
+                <button type="submit" class="search-btn" v-language:inner="'homePage_hd_search'" />
+            </div>
+          </form>
       </div>
       <div class="headline-img">
         <div class="handImg" :style="{'backgroundImage': `url(${handImg}`}"/>
