@@ -14,7 +14,7 @@
         clearable
         type="search"/>
     </div>
-    <div @click="searchQuery" class="searchCMP-btn" v-language:inner="'search_search_btn'" />
+    <button @click="searchQuery" class="searchCMP-btn" v-language:inner="'search_search_btn'" />
   </div>
 </template>
 
@@ -111,6 +111,7 @@ export default {
     }
   }
   .searchCMP-btn {
+    outline: none;
     cursor: pointer;
     color: white;
     font-size: 20px;

@@ -189,6 +189,7 @@ export default {
           }
         }
         .search-btn {
+          outline: none;
           cursor: pointer;
           @media (max-width: @screen-xs) {
             font-size: 14px;

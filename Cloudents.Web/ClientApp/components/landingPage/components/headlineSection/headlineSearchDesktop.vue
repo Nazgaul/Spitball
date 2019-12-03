@@ -147,6 +147,7 @@ export default {
           }
         }
         .search-btn {
+          outline: none;
           cursor: pointer;
           font-size: 20px;
           display: flex;
