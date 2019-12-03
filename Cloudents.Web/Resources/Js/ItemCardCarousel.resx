@@ -120,6 +120,9 @@
   <data name="course" xml:space="preserve">
     <value>Course:</value>
   </data>
+  <data name="free" xml:space="preserve">
+    <value>Free</value>
+  </data>
   <data name="pts" xml:space="preserve">
     <value>Pts</value>
   </data>

@@ -16,7 +16,8 @@
         </div>
         <div class="itemCard-bottom">
             <span class="item-purchases">{{item.views}} <span v-language:inner="item.views > 1?'itemCardCarousel_views':'itemCardCarousel_view'"/> </span>
-            <span class="item-pts">{{item.price}} <span v-language:inner="'itemCardCarousel_pts'"/></span>
+            <span class="item-pts" v-if="item.price > 0">{{item.price}} <span v-language:inner="'itemCardCarousel_pts'"/></span>
+            <span class="item-pts" v-else v-language:inner="'itemCardCarousel_free'"/>
         </div>
     </div>
     </router-link>
