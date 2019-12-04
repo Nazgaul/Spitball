@@ -29,6 +29,7 @@ import paymetStore from './paymetStore.js'
 import homePage_store from './homePage_store.js'
 import sideMenu_Store from './sideMenu_Store'
 import dialog_Store from './dialogStore/dialog_Store.js'
+import banner_Store from './banner_Store.js'
 
 
 Vue.use(Vuex);
@@ -69,7 +70,8 @@ const store = new Vuex.Store({
         paymetStore,
         homePage_store,
         sideMenu_Store,
-        dialog_Store
+        dialog_Store,
+        banner_Store
     }
 });
 

@@ -36,12 +36,28 @@ namespace Cloudents.Core.Extension
                 return builder;
             }
 
-            var properties = from p in obj.GetType().GetProperties()
-                             where p.GetValue(obj, null) != null
-                             select p.Name + "=" + WebUtility.UrlEncode(p.GetValue(obj, null).ToString());
+            NameValueCollection formFields = new NameValueCollection();
 
-            builder.Query = string.Join("&", properties.ToArray());
-            return builder;
+            obj.GetType().GetProperties()
+                .ToList()
+                .ForEach(pi => formFields.Add(pi.Name, pi.GetValue(obj, null).ToString()));
+
+            return builder.AddQuery(formFields);
+            //var properties = from p in obj.GetType().GetProperties()
+            //    where p.GetValue(obj, null) != null
+            //    select formFields.Add(p.Name, WebUtility.UrlEncode(p.GetValue(obj, null).ToString()));
+
+            //var query = string.Join("&", properties.ToArray());
+            
+            //if (builder.Query.Length > 1)
+            //{
+            //    builder.Query = builder.Query.Substring(1) + "&" + query;
+            //}
+            //else
+            //{
+            //    builder.Query = query;
+            //}
+            //return builder;
             //return string.Join("&", properties.ToArray());
         }
 

@@ -120,6 +120,9 @@
   <data name="call_text" xml:space="preserve">
     <value>your code to enter into Spitball is: {0}</value>
   </data>
+  <data name="email_from" xml:space="preserve">
+    <value>ספיטבול&lt;no-reply@spitball.co&gt;</value>
+  </data>
   <data name="email_support" xml:space="preserve">
     <value>support@spitball.co</value>
   </data>
@@ -127,10 +130,23 @@
     <value>הקוד שלך לספיטבול הוא: {0}</value>
   </data>
   <data name="unread_message" xml:space="preserve">
-    <value>יש לך הודעה חדשה מ {0} בספיטבול. לחץ על הלינק לקרוא אותה {{link}}</value>
+    <value>יש לך הודעה חדשה מ{0} בספיטבול.
+ לחץ על הלינק לקרוא אותה {{link}}</value>
+  </data>
+  <data name="unread_message_email" xml:space="preserve">
+    <value>מצאנו {0} שביקש לתאם איתך שיעור פרטי.
+&lt;br&gt;
+
+ לחץ על &lt;a href="{{link}}"&gt;לינק&lt;/a&gt; כדי לשוחח ולתאם מועד לשיעור</value>
   </data>
   <data name="unread_message_first_message_tutor" xml:space="preserve">
-    <value>מצאנו תלמיד שביקש לתאם איתך שיעור פרטי. לחץ על הלינק כדי לשוחח ולתאם מועד לשיעור {link}</value>
+    <value>מצאנו תלמיד שביקש לתאם איתך שיעור פרטי.
+ לחץ על הלינק כדי לשוחח ולתאם מועד לשיעור {link}</value>
+  </data>
+  <data name="unread_message_first_message_tutor_email" xml:space="preserve">
+    <value>מצאנו תלמיד שביקש לתאם איתך שיעור פרטי.
+&lt;br&gt;
+ &lt;a href="{link}"&gt;לחץ על הלינק&lt;/a&gt; כדי לשוחח ולתאם מועד לשיעור</value>
   </data>
   <data name="unread_message_request_email_body" xml:space="preserve">
     <value>היי {UserFirstName},

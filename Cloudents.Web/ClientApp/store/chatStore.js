@@ -277,17 +277,17 @@ const actions = {
         dispatch('openChatInterface');
     },
     signalRAddRoomInformationMessage({commit, dispatch, state}, roomInfo){
-        let messageObj ={
-            message: {
-                userId: roomInfo.userId,
-                text: `${LanguageService.getValueByKey('chat_room_created')} ${global.location.origin}/studyroom/${roomInfo.id}`,
-                type: 'text'
-            },
-            //TODO signalR should return Conversation ID
-            conversationId: state.activeConversationObj.conversationId
-        };
-        let messageObj2 = chatService.createMessage(messageObj.message, messageObj.conversationId);
-        dispatch('addMessage', messageObj2);
+        // let messageObj ={
+        //     message: {
+        //         userId: roomInfo.userId,
+        //         text: `${LanguageService.getValueByKey('chat_room_created')} ${global.location.origin}/studyroom/${roomInfo.id}`,
+        //         type: 'text'
+        //     },
+        //     //TODO signalR should return Conversation ID
+        //     conversationId: state.activeConversationObj.conversationId
+        // };
+        // let messageObj2 = chatService.createMessage(messageObj.message, messageObj.conversationId);
+        // dispatch('addMessage', messageObj2);
         commit('setActiveConversationStudyRoom', roomInfo.id);
         commit('setShowStudentStudyRoom');
     },

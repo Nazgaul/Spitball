@@ -108,7 +108,7 @@ namespace Cloudents.FunctionsV2.System
             var emailProvider = await binder.BindAsync<IAsyncCollector<SendGridMessage>>(new SendGridAttribute()
             {
                 ApiKey = "SendgridKey",
-                From = "Spitball <no-reply @spitball.co>"
+                //From = "Spitball <no-reply @spitball.co>"
             }, token);
 
 
@@ -117,6 +117,11 @@ namespace Cloudents.FunctionsV2.System
                 Asm = new ASM { GroupId = UnsubscribeGroup.Update },
                 TemplateId = "d-91a839096c8547f9a028134744e78ecb" 
             };
+            if (language.Info.Equals(Language.EnglishIndia.Info))
+            {
+                message.TemplateId = "d-91a839096c8547f9a028134744e78ecb";
+            }
+            message.AddFromResource(language.Info);
             templateData.To = toAddress;
             var personalization = new Personalization
             {

@@ -12,8 +12,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.Extension;
 using SendGrid.Helpers.Mail;
 using Cloudents.Query.Email;
-using System.Configuration;
-using Microsoft.Extensions.Configuration;
 
 namespace Cloudents.FunctionsV2.System
 {

@@ -27,21 +27,30 @@ namespace Cloudents.FunctionsV2.Test
         private readonly Mock<IUrlBuilder> _mockUriBuilder = new Mock<IUrlBuilder>();
 
 
-        private readonly TestAsyncCollector<CreateMessageOptions> _mockedResult = new TestAsyncCollector<CreateMessageOptions>();
-        private readonly TestAsyncCollector<SendGridMessage> _mockedemailProvider = new TestAsyncCollector<SendGridMessage>();
+        private readonly TestAsyncCollector<CreateMessageOptions> _mockedResultSms = new TestAsyncCollector<CreateMessageOptions>();
+        private readonly TestAsyncCollector<SendGridMessage> _mockedResultEmail = new TestAsyncCollector<SendGridMessage>();
         //private readonly TestAsyncCollector<SmsUnread.RequestTutorEmailDto> _mockedEmailResult = new TestAsyncCollector<SmsUnread.RequestTutorEmailDto>();
         private readonly Mock<IQueryBus> _queryBusStub = new Mock<IQueryBus>();
 
 
 
-        private readonly Uri _shortUrl = new Uri("http://somesite.com");
+        private readonly Uri _shortUrl = new Uri("http://www.somesite.com");
+        private readonly Uri _shortUrlIndia = new Uri("http://www.somesite2.com?site=xxx");
         public SmsUnreadTests()
         {
             _mockUriBuilder.Setup(s => s.BuildChatEndpoint(It.IsAny<string>(), It.IsAny<object>()))
                 .Returns(new Uri("http://tempuri.org/blob"));
 
-            _mockUriBuilder.Setup(s => s.BuildShortUrlEndpoint(It.IsAny<string>()))
+            _mockUriBuilder.Setup(s => s.BuildShortUrlEndpoint(It.IsAny<string>(),
+                It.Is<string>(s2 => s2 != null && s2.Equals("IN", StringComparison.OrdinalIgnoreCase) == false)))
                 .Returns(_shortUrl);
+
+            _mockUriBuilder.Setup(s => s.BuildShortUrlEndpoint(It.IsAny<string>(),
+                    null)).Returns(_shortUrl);
+
+            _mockUriBuilder.Setup(s => s.BuildShortUrlEndpoint(It.IsAny<string>(),
+                    It.Is<string>(s2 =>s2 != null && s2.Equals("IN", StringComparison.OrdinalIgnoreCase))))
+                .Returns(_shortUrlIndia);
         }
 
         [Fact]
@@ -57,8 +66,9 @@ namespace Cloudents.FunctionsV2.Test
                     UserId = 1,
                     Version = BitConverter.GetBytes(1L),
                     ChatMessagesCount = 1,
-                     PhoneNumber = "+972523556456",
-                    Email = "hadar@cloudents.com"
+                    PhoneNumber = "+972523556456",
+                    Email = "hadar@cloudents.com",
+                    Country = "IL"
                 },
                 new UnreadMessageDto()
                 {
@@ -66,49 +76,92 @@ namespace Cloudents.FunctionsV2.Test
                     Version = BitConverter.GetBytes(2L),
                     ChatMessagesCount = 1,
                      PhoneNumber = "+972523556456",
-                    Email = "hadar@cloudents.com"
+                    Email = "hadar@cloudents.com",
+                    Country = "IL"
 
                 }
             };
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
             await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResult, _mockedemailProvider, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+                _mockedResultSms, _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
                 _mockUriBuilder.Object, _logger, default);
 
-            _mockedResult.Result.Should().HaveCount(1);
+            _mockedResultSms.Result.Should().HaveCount(1);
         }
 
 
-        //[Fact]
-        //public async Task SmsUnreadAsync_FirstMessage_WithoutCourse_ResourceOk()
-        //{
-        //    var result = new List<UnreadMessageDto>()
-        //    {
-        //        new UnreadMessageDto()
-        //        {
-        //            UserId = 1,
-        //            Version = BitConverter.GetBytes(1L),
-        //            ChatMessagesCount = 1,
-        //            //FirstMessageStudentName = "Ram",
-        //            PhoneNumber = "+972542642202"
-        //        }
+        [Fact]
+        public async Task SmsUnreadAsync_IndiaUser_OnlyEmail()
+        {
+            // var resultMoq = new Mock<UnreadMessageDto>();
 
-        //    };
-        //    _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
-        //    await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-        //        _mockedResult,  _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
-        //        _mockUriBuilder.Object, _logger, default);
+            var result = new List<UnreadMessageDto>()
+            {
+                new UnreadMessageDto()
+                {
+                    UserId = 1,
+                    Version = BitConverter.GetBytes(1L),
+                    ChatMessagesCount = 1,
+                    PhoneNumber = "+91523556456",
+                    Email = "hadar@cloudents.com",
+                    CultureInfo = new CultureInfo("en"),
+                    Country = "IN"
+                }
+            };
+            _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
-        //    var body = _mockedResult.Result.Single().Body;
-        //    var expectedResult = ResourceWrapper.GetString("unread_message_request_without_course").Inject(result.First()).InjectSingleValue("link", _shortUrl);
-        //    body.Should().BeEquivalentTo(expectedResult);
-        //    //body.Should().Contain(result.First().FirstMessageStudentName);
-        //}
+            await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
+                _mockedResultSms, _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+                _mockUriBuilder.Object, _logger, default);
+
+            _mockedResultSms.Result.Should().HaveCount(0);
+            _mockedResultEmail.Result.Should().HaveCount(1);
+
+            _mockedResultEmail.Result.First().From.Name.Should().BeEquivalentTo("frymo");
+        }
 
         [Fact]
-        public async Task SmsUnreadAsync_FirstMessage_ResourceOk()
+        public async Task SmsUnreadAsync_NotIndiaUser_EmailAndSms()
+        {
+            // var resultMoq = new Mock<UnreadMessageDto>();
+
+
+            var result = new List<UnreadMessageDto>()
+            {
+                new UnreadMessageDto()
+                {
+                    UserId = 1,
+                    Version = BitConverter.GetBytes(1L),
+                    ChatMessagesCount = 1,
+                    PhoneNumber = "+72523556456",
+                    Email = "hadar@cloudents.com",
+                    CultureInfo = new CultureInfo("en"),
+                    Country = "Il"
+                }
+            };
+            _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
+
+            await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
+                _mockedResultSms, _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+                _mockUriBuilder.Object, _logger, default);
+
+            _mockedResultSms.Result.Should().HaveCount(1);
+            _mockedResultEmail.Result.Should().HaveCount(1);
+
+
+            _mockedResultEmail.Result.First().From.Name.Should().BeEquivalentTo("spitball");
+
+        }
+
+
+
+        [Theory]
+        [InlineData("en", "US")]
+       // [InlineData("en", "IN")]
+        [InlineData("he", "IL")]
+        public async Task SmsUnreadAsync_FirstMessage_ResourceOk(string culture, string country)
         {
             var result = new List<UnreadMessageDto>()
             {
@@ -117,108 +170,53 @@ namespace Cloudents.FunctionsV2.Test
                     UserId = 1,
                     Version = BitConverter.GetBytes(1L),
                     ChatMessagesCount = 1,
-                   // FirstMessageStudentName = "Ram",
-                     PhoneNumber = "+972523556456",
-                    Email = "hadar@cloudents.com"
-                   // CourseName = "Ram"
-                }
-
-            };
-            _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
-
-            await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResult, _mockedemailProvider, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
-                _mockUriBuilder.Object, _logger, default);
-
-            var body = _mockedResult.Result.Single().Body;
-            var expectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor").InjectSingleValue("link", _shortUrl);
-            body.Should().BeEquivalentTo(expectedResult);
-            //body.Should().Contain(result.First().FirstMessageStudentName);
-
-            //_mockedEmailResult.Result.Count().Should().Be(1);
-        }
-
-
-        [Fact]
-        public async Task SmsUnreadAsync_UserWithHebrew_ResourceOk()
-        {
-            var result = new List<UnreadMessageDto>()
-            {
-                new UnreadMessageDto()
-                {
-                    UserId = 1,
-                    Version = BitConverter.GetBytes(1L),
-                    ChatMessagesCount = 1,
-                    CultureInfo = new CultureInfo("he"),
-                    //FirstMessageStudentName = "Ram",
                     PhoneNumber = "+972523556456",
-                    Email = "hadar@cloudents.com"
-                   // CourseName = "Ram"
+                    Email = "hadar@cloudents.com",
+                    CultureInfo = new CultureInfo(culture),
+                    Country = country
                 }
 
             };
             _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
             await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-                _mockedResult, _mockedemailProvider, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+                _mockedResultSms, _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
                 _mockUriBuilder.Object, _logger, default);
 
-            var body = _mockedResult.Result.Single().Body;
+            var body = _mockedResultSms.Result.Single().Body;
             var expectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor").InjectSingleValue("link", _shortUrl);
             body.Should().BeEquivalentTo(expectedResult);
-            // body.Should().Contain(result.First().FirstMessageStudentName);
+            var emailExpectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor_email").InjectSingleValue("link", _shortUrl);
+            _mockedResultEmail.Result.Single().Contents.First().Value.Should().Contain(emailExpectedResult);
         }
 
-        //[Fact]
-        //public async Task SmsUnreadAsync_FirstMessage_EmailTrigger()
-        //{
-        //    var result = new List<UnreadMessageDto>()
-        //    {
-        //        new UnreadMessageDto()
-        //        {
-        //            UserId = 1,
-        //            Version = BitConverter.GetBytes(1L),
-        //            ChatMessagesCount = 1,
-        //            CultureInfo = new CultureInfo("he"),
-        //           // FirstMessageStudentName = "Ram",
-        //            PhoneNumber = "+972542642202",
-        //           // CourseName = "Ram"
-        //        }
+        [Fact]
+        public async Task SmsUnreadAsync_IndiaFirstMessage_ResourceOk()
+        {
+            var result = new List<UnreadMessageDto>()
+            {
+                new UnreadMessageDto()
+                {
+                    UserId = 1,
+                    Version = BitConverter.GetBytes(1L),
+                    ChatMessagesCount = 1,
+                    // FirstMessageStudentName = "Ram",
+                    PhoneNumber = "+972523556456",
+                    Email = "hadar@cloudents.com",
+                    CultureInfo = new CultureInfo("en"),
+                    Country = "In"
+                    // CourseName = "Ram"
+                }
 
-        //    };
-        //    _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
+            };
+            _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
 
-        //    await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-        //        _mockedResult,  _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
-        //        _mockUriBuilder.Object, _logger, default);
+            await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
+                _mockedResultSms, _mockedResultEmail, _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
+                _mockUriBuilder.Object, _logger, default);
 
-        //    //_mockedEmailResult.Result.Count().Should().Be(1);
-        //}
-
-        //[Fact]
-        //public async Task SmsUnreadAsync_Conversation_NoEmail()
-        //{
-        //    var result = new List<UnreadMessageDto>()
-        //    {
-        //        new UnreadMessageDto()
-        //        {
-        //            UserId = 1,
-        //            Version = BitConverter.GetBytes(1L),
-        //            ChatMessagesCount =2,
-        //            CultureInfo = new CultureInfo("he"),
-        //            //FirstMessageStudentName = "Ram",
-        //            PhoneNumber = "+972542642202",
-        //           // CourseName = "Ram"
-        //        }
-
-        //    };
-        //    _queryBusStub.Setup(s => s.QueryAsync(It.IsAny<UserUnreadMessageQuery>(), default)).ReturnsAsync(result);
-
-        //    await SmsUnread.SmsUnreadAsync(null, _mockBlob.Object,
-        //        _mockedResult,  _queryBusStub.Object, _mockCommandBus.Object, new TestDataProtector(),
-        //        _mockUriBuilder.Object, _logger, default);
-
-        //   // _mockedEmailResult.Result.Count().Should().Be(0);
-        //}
+            var emailExpectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor_email").InjectSingleValue("link", _shortUrlIndia);
+            _mockedResultEmail.Result.Single().Contents.First().Value.Should().Contain(emailExpectedResult);
+        }
     }
 }

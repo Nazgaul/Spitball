@@ -63,8 +63,8 @@ export default {
                         id:this.card.id
                         }
                 });
-            // global.open(routeData.href, '_blank');
-            this.$router.push(routeData.href);
+            global.open(routeData.href, '_self');
+            // this.$router.push(routeData.href);
         },
         sendMessage(){
                 

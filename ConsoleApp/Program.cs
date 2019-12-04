@@ -31,10 +31,12 @@ using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Courses;
+using Cloudents.Core.Message.Email;
 using Cloudents.Core.Query.Feed;
 using Cloudents.Query.Chat;
 using Cloudents.Query.Documents;
 using Cloudents.Query.HomePage;
+using Newtonsoft.Json;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -142,9 +144,14 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var queryBus = _container.Resolve<IQueryBus>();
-            var query = new SimilarDocumentsQuery(242949);
-            var result = await queryBus.QueryAsync(query, default);
+            var x = new RegistrationEmail("ram@cloudents.com", "https://www.spitball.co", new CultureInfo("en"));
+            var json = JsonConvert.SerializeObject(x, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            });
+            //var queryBus = _container.Resolve<IQueryBus>();
+            //var query = new SimilarDocumentsQuery(242949);
+            //var result = await queryBus.QueryAsync(query, default);
 
         }
         private static async Task ResyncTutorRead()

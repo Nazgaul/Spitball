@@ -24,15 +24,14 @@ namespace Cloudents.Web.Controllers
     {
         internal const string Referral = "referral";
         private readonly SignInManager<User> _signInManager;
-        private readonly ILogger _logger;
 
-        public HomeController(SignInManager<User> signInManager, ILogger logger)
+        public HomeController(SignInManager<User> signInManager)
         {
             _signInManager = signInManager;
-            _logger = logger;
         }
 
-        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true), SignInWithToken]
+        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true)]
+        [SignInWithToken]
         [ApiNotFoundFilter]
         public IActionResult Index(
             [FromQuery, CanBeNull] string referral,

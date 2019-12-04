@@ -15,10 +15,15 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("tutor-list/{term?}", Name = SeoTypeString.TutorList)]
-        public IActionResult Index(string term)
+        public IActionResult Index([FromRoute]string term, [FromQuery(Name = "term")]string oldTerm)
         {
+
             if (string.IsNullOrEmpty(term))
             {
+                if (!string.IsNullOrEmpty(oldTerm))
+                {
+                    return RedirectToRoute(SeoTypeString.TutorList, new {term = oldTerm});
+                }
                 ViewBag.Title = _tutorListLocalizer["Title"];
                 ViewBag.metaDescription = _tutorListLocalizer["Description"];
             }

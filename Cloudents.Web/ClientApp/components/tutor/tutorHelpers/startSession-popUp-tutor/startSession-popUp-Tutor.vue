@@ -1,6 +1,6 @@
 <template>
-    <div class="tutor-start-wrap pb-5">
-        <v-layout row class="pt-2">
+    <div class="tutor-start-wrap pb-3">
+        <v-layout row class="pt-3">
             <v-flex xs12 class="text-xs-right px-3">
                 <v-icon class="caption cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
             </v-flex>
@@ -19,10 +19,11 @@
         </v-flex>
         <v-flex xs12   class="pt-4">
             <v-btn class="start-session-btn elevation-0 align-center justify-center"
-                    :loading="getSessionStartClickedOnce"
+                    :loading="buttonLoader"
+                    :disabled="buttonState"
                     @click="startSession()">
                 <timerIcon class="timer-icon mr-2"></timerIcon>
-                <span class="text-uppercase" v-language:inner>tutor_stream_btn_start_session</span>
+                <span class="text-uppercase">{{buttonText}}</span>
             </v-btn>
         </v-flex>
     </v-layout>
@@ -30,10 +31,11 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex';
+    import {mapGetters, mapActions, mapState} from 'vuex';
     import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
     import timerIcon from '../../images/timer.svg';
     import videoStreamService from "../../../../services/videoStreamService";
+    import {LanguageService} from "../../../../services/language/languageService";
     export default {
         name: "startSession-popUp-tutor",
         components: {userAvatar, timerIcon},
@@ -43,7 +45,8 @@
             },
         },
         computed: {
-            ...mapGetters(['getStudyRoomData', 'getSessionStartClickedOnce']),
+            ...mapState(['tutoringMain']),
+            ...mapGetters(['getStudyRoomData', 'getSessionStartClickedOnce', 'getTutorDialogState']),
             studentName() {
                 return this.getStudyRoomData.studentName;
             },
@@ -55,19 +58,41 @@
             },
             studentId(){
                 return this.getStudyRoomData.studentId;
+            },
+            buttonLoader(){
+                return this.getSessionStartClickedOnce && this.getTutorDialogState !== this.tutoringMain.startSessionDialogStateEnum.waiting
+            },
+            buttonText(){
+                if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.start){
+                    return LanguageService.getValueByKey('tutor_stream_btn_start_tutor')
+                }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.waiting){
+                    return LanguageService.getValueByKey('tutor_stream_btn_waiting_tutor')
+                }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.needPayment){
+                    return LanguageService.getValueByKey('tutor_stream_btn_needPayment_tutor')
+                }else{
+                    return LanguageService.getValueByKey('tutor_stream_btn_start_tutor')
+                }
+            },
+            buttonState() {
+                return this.getTutorDialogState !== this.tutoringMain.startSessionDialogStateEnum.start
             }
         },
         methods: {
-            ...mapActions(['updateTutorStartDialog', 'setSesionClickedOnce']),
-            closeDialog() {
-                this.updateTutorStartDialog(false)
-            },
+            ...mapActions(['updateTutorStartDialog', 'setSesionClickedOnce', 'UPDATE_SEARCH_LOADING']),
             startSession(){
                 videoStreamService.enterRoom();
+            },
+            closeDialog() {
+                let isExit = confirm(LanguageService.getValueByKey("login_are_you_sure_you_want_to_exit"),)
+                if(isExit){
+                    this.UPDATE_SEARCH_LOADING(true);
+                    this.$router.push('/');
+                }
             }
         },
         beforeDestroy(){
             this.setSesionClickedOnce(false);
+            global.onbeforeunload = function() {}
         }
     };
 </script>

@@ -40,7 +40,7 @@ namespace Cloudents.Query.HomePage
 
                 sessionQuery = sessionQuery.Where(w => w.University.Country == query.Country.ToString());
 
-                return await sessionQuery.Where(w => w.IsShownHomePage).Select(s => new DocumentFeedDto()
+                return await sessionQuery.Where(w => w.IsShownHomePage && w.Status.State == ItemState.Ok).Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
                     DocumentType = s.DocumentType ?? DocumentType.Document,

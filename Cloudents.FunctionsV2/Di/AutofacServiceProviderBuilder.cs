@@ -48,7 +48,11 @@ namespace Cloudents.FunctionsV2.Di
 
             var keys = new ConfigurationKeys
             {
-                SiteEndPoint = { SpitballSite = _configuration["SiteEndPoint"] ?? "https://www.spitball.co" },
+                SiteEndPoint =
+                {
+                    SpitballSite = _configuration["SiteEndPoint"] ?? "https://www.spitball.co",
+                    IndiaSite = _configuration["IndiaSiteEndPoint"] ?? "https://www.frymo.com"
+                },
                 Db = new DbConnectionString(_configuration["ConnectionString"], _configuration["Redis"], DbConnectionString.DataBaseIntegration.None),
                 Redis = _configuration["Redis"],
                 Search = new SearchServiceCredentials(

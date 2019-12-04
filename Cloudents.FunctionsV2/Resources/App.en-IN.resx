@@ -120,6 +120,9 @@
   <data name="call_text" xml:space="preserve">
     <value>your code to enter into Frymo is: {0}</value>
   </data>
+  <data name="email_from" xml:space="preserve">
+    <value>Frymo &lt;no-reply@frymo.com&gt;</value>
+  </data>
   <data name="email_support" xml:space="preserve">
     <value>support@frymo.com</value>
   </data>
@@ -127,10 +130,22 @@
     <value>Your code to enter into Frymo is: {0}</value>
   </data>
   <data name="unread_message" xml:space="preserve">
-    <value>You have a new message from your {0} on Frymo. Click on the link to read your message {{link}}</value>
+    <value>You have a new message from your {0} on Frymo.
+Click on the link to read your message {{link}}</value>
+  </data>
+  <data name="unread_message_email" xml:space="preserve">
+    <value>You have a new message from your {0} on Frymo. 
+&lt;br&gt;
+Click on the &lt;a href="{{link}}"&gt;link&lt;/a&gt; to read your message</value>
   </data>
   <data name="unread_message_first_message_tutor" xml:space="preserve">
-    <value>We found a student that wants a tutoring session with you. Click here {link} to chat and schedule a lesson.</value>
+    <value>We found a student that wants a tutoring session with you. 
+Click here {link} to chat and schedule a lesson.</value>
+  </data>
+  <data name="unread_message_first_message_tutor_email" xml:space="preserve">
+    <value>We found a student that wants a tutoring session with you. 
+&lt;br/&gt;
+&lt;a href="{link}"&gt;Click here&lt;/a&gt; to chat and schedule a lesson.</value>
   </data>
   <data name="unread_message_request_email_body" xml:space="preserve">
     <value>Hi {UserFirstName}, 

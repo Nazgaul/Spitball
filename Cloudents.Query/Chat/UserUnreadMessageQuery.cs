@@ -74,6 +74,11 @@ namespace Cloudents.Query.Chat
 
     public class UnreadMessageDto
     {
+        public override string ToString()
+        {
+            return $"{nameof(UserId)}: {UserId}, {nameof(CultureInfo)}: {CultureInfo}, {nameof(Country)}: {Country}, {nameof(IsTutor)}: {IsTutor}, {nameof(ChatUserId)}: {ChatUserId}, {nameof(ChatMessagesCount)}: {ChatMessagesCount}";
+        }
+
         public string Email{ get; set; }
         public string PhoneNumber { get; set; }
         public long UserId { get; set; }
@@ -92,10 +97,7 @@ namespace Cloudents.Query.Chat
 
         public long VersionAsLong => BitConverter.ToInt64(Version.Reverse().ToArray(), 0);
 
-        public override string ToString()
-        {
-            return $"{nameof(UserId)}: {UserId}, {nameof(IsTutor)}: {IsTutor}, {nameof(ChatUserId)}: {ChatUserId}, {nameof(ChatMessagesCount)}: {ChatMessagesCount}, {nameof(VersionAsLong)}: {VersionAsLong}";
-        }
+      
 
         private sealed class UserIdEqualityComparer : IEqualityComparer<UnreadMessageDto>
         {

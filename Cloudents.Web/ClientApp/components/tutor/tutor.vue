@@ -132,7 +132,7 @@
         :maxWidth="'612.5'"
         :onclosefn="closeBrowserSupportDialog"
         :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'browser-dialog-unsupport'"
+        :content-class="'device-dialog-unsupport'"
       >
           <deviceValidationError :deviceValidationObj="deviceValidationObj"></deviceValidationError>
       </sb-dialog>
@@ -171,7 +171,7 @@
         :maxWidth="'356'"
         :onclosefn="closeStartSessionTutor"
         :activateOverlay="false"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
+        :isPersistent="true"
         :content-class="'session-start-tutor-dialog'"
       >
         <startSessionTutor :id="id"></startSessionTutor>
@@ -197,7 +197,7 @@
         :maxWidth="'356'"
         :onclosefn="closeStartSessionStudent"
         :activateOverlay="false"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
+        :isPersistent="true"
         :content-class="'session-start-student-dialog'"
       >
         <startSessionStudent :id="id"></startSessionStudent>
@@ -312,7 +312,7 @@ export default {
   props: {
     id: ""
   },
-  
+
   computed: {
     ...mapGetters([
       "getStudyRoomSettingsDialog",
@@ -383,6 +383,17 @@ export default {
       return this.activeItem === "code-editor"
     }
   },
+
+watch: {
+  showDeviceValidationError: function(val){
+      if(val) {
+        setTimeout(function() {
+          document.querySelector('.device-dialog-unsupport').parentNode.style.zIndex=999;
+        },1000)
+      }
+    }
+},
+
   methods: {
     ...mapActions([
       "setStudyRoomSettingsDialog",
@@ -405,7 +416,7 @@ export default {
       "setAudioDevice",
       "initLocalMediaTracks",
       "UPDATE_SEARCH_LOADING",
-      "hideRoomToasterMessage"
+      "hideRoomToasterMessage",
     ]),
     ...mapGetters(['getDevicesObj']),
     closeFullScreen(e){
@@ -575,6 +586,16 @@ export default {
   },
   mounted() {
     document.addEventListener("fullscreenchange",this.closeFullScreen);
+    let isStudyRoomTest = this.$route.params ? this.$route.params.id : null;
+    if(isStudyRoomTest) {
+      setTimeout(()=>{
+        if(this.isTutor){
+          this.updateTutorStartDialog(true);
+        }else{
+          this.updateStudentStartDialog(true);
+        }
+      }, 1000)
+    }
   },
   beforeDestroy(){
     this.hideRoomToasterMessage();
@@ -583,14 +604,14 @@ export default {
     storeService.unregisterModule(this.$store,'tutoringMain');
     storeService.unregisterModule(this.$store,'studyRoomTracks_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
-
-    global.onbeforeunload = function() {};
   },
-  created() {
+  beforeCreate(){
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
     storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
     storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
+  },
+  created() {
     // let ready = this.initDevicesToStore();
     
     if (!this.isBrowserSupport()) {

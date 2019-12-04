@@ -1,5 +1,5 @@
 <template>
-    <div class="itemPage__side" v-if="showBlock && !isLoading">
+    <div :class="['itemPage__side',{'itemPage__sideActiveBanner':getBannerSatus}]" v-if="showBlock && !isLoading">
         <template v-if="!zeroPrice && !isPurchased">
             <div class="itemPage__side__top">
                 <h1 class="itemPage__side__top__h1">{{priceWithComma}}</h1>
@@ -73,7 +73,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['accountUser']),
+        ...mapGetters(['accountUser', 'getBtnLoading','getBannerSatus']),
 
         showBlock() {
             if(this.isVideo && !this.isShowPurchased) {
@@ -165,6 +165,9 @@ export default {
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
         background-color: #ffffff;
         text-align: center;
+        &.itemPage__sideActiveBanner{
+            top: 150px;
+        }
 
         &__top {
             display: flex;

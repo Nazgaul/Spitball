@@ -87,7 +87,7 @@ export default {
         },
         activateSticky(){
             if(!this.isMobile){
-                return this.topOffset > 270;
+                return this.topOffset > 240;
             }
         },
         activateStickyMobile(){
@@ -200,12 +200,14 @@ export default {
         position: -ms-sticky;
         position: -o-sticky;
         position: sticky;
+        z-index: 240;
 
 
-        top:30px;
-        z-index: 99;
+        // top:30px;
+        // z-index: 99;
         &.sticky-active{
-            top:0;
+            position: fixed;
+            top:70px;
             background: #fff;
             width: 100%;
             height: 70px;

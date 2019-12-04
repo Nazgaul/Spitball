@@ -1,5 +1,6 @@
 ﻿<template>
     <div class="elevation-1">
+        <!--<h1 class="text-xs-center mb-4">The lessons shown are 10 minutes and above</h1>-->
         <v-data-table :items="sessionsList"
                       hide-actions
                       v-bind:pagination.sync="pagination"

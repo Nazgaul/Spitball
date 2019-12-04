@@ -14,7 +14,8 @@ namespace Cloudents.Core.Message.Email
         {
             To = to;
             Subject = subject;
-            TemplateId = AssignTemplate(info);
+            Info = info;
+            TemplateId = AssignTemplate(Info);
         }
 
         protected BaseEmail()
@@ -22,11 +23,13 @@ namespace Cloudents.Core.Message.Email
 
         }
 
+        public CultureInfo Info { get; set; }
+
         public string To { get; private set; }
 
         public virtual string[] Bcc { get; protected set; }
 
-        public string TemplateId { get; private set; }
+        public string TemplateId { get; protected set; }
         public string Subject { get; protected set; }
         [CanBeNull] public abstract string Campaign { get; }
 

@@ -143,14 +143,28 @@ const connectToRoom = function (token, options) {
             } else {
                 store.dispatch('hideRoomToasterMessage');
             }
+
+            //close start dialogs after reload page (by refresh).
+                if (store.getters['getStudyRoomData'].isTutor) {
+                    if(room.participants.size > 0){
+                        if (store.getters['getTutorStartDialog']) {
+                            store.dispatch('updateTutorStartDialog', false);
+                        }
+                    }
+                } else {
+                    if (store.getters['getStudentStartDialog']) {
+                        store.dispatch('updateStudentStartDialog', false);
+                    }
+                }            
+            
+            
             
 
-            if (store.getters['getStudentStartDialog']) {
-                store.dispatch('updateStudentStartDialog', false);
-
-            } else if (store.getters['getTutorStartDialog']) {
-                store.dispatch('updateTutorStartDialog', false);
-            }
+            
+            //  else if (store.getters['getTutorStartDialog']) {
+            //     store.dispatch('updateTutorStartDialog', false);
+            // }
+            
             //event of network quality change
             store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality);
             // Attach the Tracks of all the remote Participants.
@@ -177,10 +191,16 @@ const connectToRoom = function (token, options) {
                 }
                 if (store.getters['getStudyRoomData'].isTutor) {
                     store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.ready);
+                    store.dispatch("setTutorDialogState", store.state.tutoringMain.startSessionDialogStateEnum.start);
+                    store.dispatch('updateTutorStartDialog', true);
+                    
                 } else {
                     store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.pending);
                     if (store.getters['getAllowReview']) {
                         store.dispatch('updateReviewDialog', true);
+                    }else{
+                        store.dispatch("setStudentDialogState", store.state.tutoringMain.startSessionDialogStateEnum.waiting);
+                        store.dispatch('updateStudentStartDialog', true);
                     }
                 }
                 let toasterParams = {
@@ -188,7 +208,7 @@ const connectToRoom = function (token, options) {
                     type: 'error-toaster'
                 };
                 store.dispatch('showRoomToasterMessage', toasterParams);
-                        store.dispatch('updateEndDialog', false);
+                store.dispatch('updateEndDialog', false);
                 //detach all local tracks to prevent multiple added tracks
                 store.getters['activeRoom'].localParticipant.tracks.forEach(function (track) {
                     detachTracks([track]);
@@ -220,6 +240,9 @@ const connectToRoom = function (token, options) {
                     let studentName = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentName : '';
                     let studentId = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentId : '';
                     analyticsService.sb_unitedEvent('study_room', 'session_started', `studentName: ${studentName} studentId: ${studentId}`);
+                    if (store.getters['getTutorStartDialog']) {
+                        store.dispatch('updateTutorStartDialog', false);
+                    }
                 }
             });
             // When a Participant adds a Track, attach it to the DOM.
@@ -296,11 +319,14 @@ const connectToRoom = function (token, options) {
                     store.dispatch('updateRemoteStatus', true);
                     // endTutoringSession(store.getters['getRoomId']);
                     store.dispatch('setSesionClickedOnce', false);
-                    // if (store.getters['getStudyRoomData'].isTutor) {
-                    //     store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.ready);
-                    // } else {
-                    //     store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.pending);
-                    // }
+                    if (store.getters['getStudyRoomData'].isTutor) {
+                        store.dispatch("setTutorDialogState", store.state.tutoringMain.startSessionDialogStateEnum.waiting);
+                        store.dispatch('updateTutorStartDialog', true);
+                        // store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.ready);
+                    } else {
+
+                        // store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.pending);
+                    }
                 }
                 detachParticipantTracks(participant);
             });

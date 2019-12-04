@@ -1,11 +1,11 @@
 ﻿using System;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Message.Email;
 using Cloudents.Query;
 using Cloudents.Query.Email;
 using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
 using System.Globalization;
+using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,7 +39,6 @@ namespace Cloudents.FunctionsV2.System
                 culture = new CultureInfo("en-IN");
 
             }
-           // var culture = CultureInfo.CurrentCulture.ChangeCultureBaseOnCountry(result.Country);
             CultureInfo.DefaultThreadCurrentCulture = culture;
             var emailTo = ResourceWrapper.GetString("email_support");
 
@@ -52,6 +51,17 @@ namespace Cloudents.FunctionsV2.System
 
             }, token);
             await emailProvider.AddAsync(message, token);
+        }
+    }
+
+    public static class SendGridMessageExtensions
+    {
+        public static void AddFromResource(this SendGridMessage message, CultureInfo culture)
+        {
+
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            var mailAddress = new MailAddress(ResourceWrapper.GetString("email_from"));
+            message.From = new EmailAddress(mailAddress.Address, mailAddress.DisplayName);
         }
     }
 }

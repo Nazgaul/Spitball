@@ -37,7 +37,7 @@
                     <button class="gH_i_r_btns gH_i_r_btn_up mr-3" @click="$router.push({path:'/register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="!isFrymo && isHomePage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
-                <v-menu close-on-content-click bottom right offset-y :content-class="'fixed-content'" sel="menu">
+                <v-menu fixed close-on-content-click bottom right offset-y :content-class="getBannerSatus? 'fixed-content-banner':'fixed-content'" sel="menu">
                     <template v-if="loggedIn" slot="activator">
                         <user-avatar  
                         @click.native="drawer=!drawer" 
@@ -105,7 +105,7 @@ export default {
         layoutClass: {}
     },
     computed: {
-        ...mapGetters(['accountUser','getTotalUnread','isFrymo']),
+        ...mapGetters(['accountUser','getTotalUnread','isFrymo','getBannerSatus']),
         isTablet(){
             return this.$vuetify.breakpoint.smAndDown;
         },
@@ -140,8 +140,9 @@ export default {
             return !hiddenRoutes.includes(this.currentRoute)
         },
         isApp(){
-            let hiddenRoutes = ['tutorLandingPage',undefined]
-            return !hiddenRoutes.includes(this.currentRoute)
+            return true;
+            // let hiddenRoutes = ['tutorLandingPage']
+            // return !hiddenRoutes.includes(this.currentRoute)
         }
     },
     watch: {

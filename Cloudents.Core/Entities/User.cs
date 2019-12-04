@@ -139,6 +139,21 @@ namespace Cloudents.Core.Entities
             AddEvent(new ChangeCountryEvent(Id));
         }
 
+
+        public virtual void ChangeCountryAdmin(string country)
+        {
+
+            if (Country?.Equals(country) == true)
+            {
+                return;
+            }
+            Country = country;
+            University = null;
+            ChangeLanguage(Entities.Language.English);
+            AddEvent(new ChangeCountryEvent(Id));
+        }
+
+
         public virtual void RemoveCourse(Course course)
         {
             var p = new UserCourse(this, course);

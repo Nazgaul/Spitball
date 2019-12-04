@@ -1,11 +1,15 @@
 @import "../../../../styles/mixin.less";
 
 .sideMenu{
-  margin-top: 72px !important; //we use "temporary" property in the sideMenu so margin must be configured
+  // margin-top: 72px !important; //we use "temporary" property in the sideMenu so margin must be configured
   overflow: visible;
-  @media (max-width: @screen-xs) {
-    margin-top: 122px !important; //we use "temporary" property in the sideMenu so margin must be configured
+  &.higherIndex{
+    z-index: 250 !important;
   }
+  // border-top: solid 1px rgba(106, 105, 127, 0.26);
+  // @media (max-width: @screen-xs) {
+    // margin-top: 122px !important; //we use "temporary" property in the sideMenu so margin must be configured
+  // }
   .sideMenu_cont{
     position: relative;
     height: 100%;

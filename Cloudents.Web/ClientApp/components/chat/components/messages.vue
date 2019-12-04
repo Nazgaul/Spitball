@@ -128,8 +128,13 @@ export default {
                 }
             })
         },
-        createRoom(){            
-            if(this.$route.params.id === this.activeConversationObj.studyRoomId) return;
+        createRoom(){         
+            if((this.$route && this.$route.params && this.$route.params.id) &&
+                (!!this.activeConversationObj && this.activeConversationObj.studyRoomId)){
+                let paramId = this.$route.params.id;
+                let studyRoomId = this.activeConversationObj.studyRoomId
+                if(paramId == studyRoomId) return;
+            }
             
             let conversationObj = this.activeConversationObj;
             this.loader = true;
@@ -140,8 +145,8 @@ export default {
                         id: this.activeConversationObj.studyRoomId
                     }
                 });
-                // global.open(routeData.href, '_blank');
-                this.$router.push(routeData.href);
+                global.open(routeData.href, '_self');
+                // this.$router.push(routeData.href);
             }else{
                 if(!this.alreadyCreated){
                     let userId = conversationObj.userId;

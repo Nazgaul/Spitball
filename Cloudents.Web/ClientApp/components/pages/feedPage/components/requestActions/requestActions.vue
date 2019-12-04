@@ -50,10 +50,11 @@ export default {
     },
     userName() {
       if (this.accountUser && this.accountUser.name.length > 1) {
-        return `${this.accountUser.name}`;
-      } else{
-        return LanguageService.getValueByKey('requestActions_anonymous')
-      }
+        return `, ${this.accountUser.name}?`;
+      } 
+      //Ram dont want John doe
+      return '?';//LanguageService.getValueByKey('requestActions_anonymous')
+      
     },
     userID() {
       if (this.accountUser && this.accountUser.id) {

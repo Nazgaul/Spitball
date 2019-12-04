@@ -24,6 +24,13 @@ const state = {
         loading: "loading",
         active: "active"
     },
+    startSessionDialogStateEnum:{
+        start: 'start',
+        waiting: 'waiting',
+        needPayment: 'needPayment'
+    },
+    tutorDialogState:'start',
+    studentDialogState:'waiting',
     sessionStartClickedOnce: false,
     sessionEndClicked: false,
     currentRoomState: "pending",
@@ -63,6 +70,8 @@ const getters = {
     showDeviceValidationError: state => state.deviceValidationError,
     getDevicesObj: state=> state.DevicesObject,
     getActiveNavIndicator: state => state.activeNavIndicator,
+    getTutorDialogState: state => state.tutorDialogState,
+    getStudentDialogState: state => state.studentDialogState,
 };
 
 const mutations = {
@@ -144,6 +153,12 @@ const mutations = {
     },
     setDeviceValidationError(state, val){
         state.deviceValidationError = val;
+    },
+    setTutorDialogState(state, val){
+        state.tutorDialogState = val;
+    },
+    setStudentDialogState(state, val){
+        state.studentDialogState = val;
     }
 };
 
@@ -223,18 +238,17 @@ const actions = {
     signalR_UpdateState({commit, dispatch, state}, notificationObj) {
         //TODO Update state according to the singnalR data
         let onlineCount = notificationObj.onlineCount;
-        if(onlineCount === 2){
-            commit('setIsRoomFull',true);
-        } else{
-            commit('setIsRoomFull',false);
-        }
+        // if(onlineCount === 2){
+        //     commit('setIsRoomFull',true);
+        // } else{
+        //     commit('setIsRoomFull',false);
+        // }
 
         let totalOnline = notificationObj.totalOnline;
         let jwtToken = notificationObj.jwtToken;
         let isTutor = state.studyRoomData.isTutor;
         let toasterParams = {};
         if(jwtToken){
-            //reconnect
             commit('setJwtToken', jwtToken);
             dispatch('updateCurrentRoomState', state.roomStateEnum.active);
             videoStreamService.createVideoSession();
@@ -253,35 +267,52 @@ const actions = {
                     dispatch('showRoomToasterMessage', toasterParams);
                     //show tutor start session
                     if(!state.studyRoomData.needPayment){
-                        dispatch("updateTutorStartDialog", true);
+                        dispatch("setTutorDialogState", state.startSessionDialogStateEnum.start);
+                        // dispatch("updateTutorStartDialog", true);
+                    }else{
+                        dispatch("setTutorDialogState", state.startSessionDialogStateEnum.needPayment);
                     }
                 } else {
-                    dispatch("updateTutorStartDialog", false);
+                    dispatch("setTutorDialogState", state.startSessionDialogStateEnum.waiting);
+                    dispatch('updateTutorStartDialog', true);
+                    // dispatch("updateTutorStartDialog", false);
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                     toasterParams.timeout = 3600000;
                     dispatch('showRoomToasterMessage', toasterParams);
                     dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
                 }
             } else {
-            // if is student
+            // if is STUDENT
             if(onlineCount == totalOnline) {
                 // toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
                 // dispatch('showRoomToasterMessage', toasterParams);
+                if(!state.studyRoomData.needPayment){
+                    dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
+                }else{
+                    dispatch("setStudentDialogState", state.startSessionDialogStateEnum.needPayment);
+                }
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_waiting_for_tutor_toaster');
                 toasterParams.timeout = 3600000;
                 dispatch('showRoomToasterMessage', toasterParams);
             } else {
+                if(!state.studyRoomData.needPayment){
+                    dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
+                }else{
+                    dispatch("setStudentDialogState", state.startSessionDialogStateEnum.needPayment);
+                }
+                dispatch('updateStudentStartDialog', true);
                 dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                 toasterParams.timeout = 3600000;
                 dispatch('showRoomToasterMessage', toasterParams);
                 //hide student start se3ssion
-                dispatch("updateStudentStartDialog", false);
+                // dispatch("updateStudentStartDialog", false);
             }
         }
         }
     },
     showRoomToasterMessage({dispatch}, toasterParams) {
+        return;
         let toasterObj = {
             toasterText: toasterParams.text,
             showToaster: true,
@@ -305,19 +336,26 @@ const actions = {
             // SPITBALL-1197 Tutoring - Session stuck on start (fix)
             setTimeout(()=>{
                 dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
-                dispatch("updateStudentStartDialog", true);
+                dispatch("setStudentDialogState", state.startSessionDialogStateEnum.start);
+                // dispatch("updateStudentStartDialog", true);
                 dispatch('hideRoomToasterMessage');
             }, 3000);
-
+        }else{
+            setTimeout(()=>{
+                dispatch("setTutorDialogState", state.startSessionDialogStateEnum.waiting);
+            }, 2500);
+            
         }
     },
     releasePaymeStatus_studyRoom({dispatch,state}){
         state.studyRoomData.needPayment = false;
         let isTutor = state.studyRoomData.isTutor;
         if(isTutor) {
-            dispatch("updateTutorStartDialog", true);
+            dispatch("setTutorDialogState", state.startSessionDialogStateEnum.start);
+            // dispatch("updateTutorStartDialog", true);
         }else{
             dispatch("updatePaymentDialogState", false);
+            dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
         }
     },
     setRoomId({commit}, val) {
@@ -331,6 +369,12 @@ const actions = {
     },
     setDeviceValidationError({commit}, val){
         commit('setDeviceValidationError', val);
+    },
+    setTutorDialogState({commit}, val){
+        commit('setTutorDialogState', val);
+    },
+    setStudentDialogState({commit}, val){
+        commit('setStudentDialogState', val);
     }
 };
 export default {

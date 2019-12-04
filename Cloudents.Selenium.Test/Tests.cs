@@ -240,7 +240,7 @@ namespace Cloudents.Selenium.Test
         public void SignButtonsTest()
         {
             _driver.Manage().Window.Maximize();
-            _driver.Navigate().GoToUrl(" https://localhost:53217");
+            _driver.Navigate().GoToUrl($"{SiteMainUrl.TrimEnd('/')}");
 
             //var carousel = _driver.FindElements(By.XPath("//*[@class='itemsCarousel']//a"));
             //carousel[0].Click();
@@ -257,6 +257,7 @@ namespace Cloudents.Selenium.Test
         public void Dispose()
         {
             _driver.Close();
+            _driver.Dispose();
         }
     }
 }

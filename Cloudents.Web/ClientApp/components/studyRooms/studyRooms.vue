@@ -6,7 +6,7 @@
         <v-layout mt-3 class="study-rooms-cards-container">
             <study-card xs6 v-for="(card, index) in studyRooms" :key="index" :card="card"></study-card>
             <v-spacer style="max-width:170px;" xs6 v-show="studyRooms.length % 2 !== 0 && $vuetify.breakpoint.xsOnly"></v-spacer>
-            <study-card-tutor v-if="!isTutor && isTutorPending"></study-card-tutor>
+            <study-card-tutor v-show="isReady && !isTutor && isTutorPending"></study-card-tutor>
         </v-layout>
     </v-container>
 
@@ -23,6 +23,7 @@ export default {
     },
     data(){
         return {
+            isReady:false,
         }
     },
     computed:{
@@ -31,12 +32,17 @@ export default {
             return this.getStudyRooms;
         },
         isTutor(){
-            if(this.accountUser) {
+            if(!!this.accountUser) {
                 return this.accountUser.isTutor;
             }
         },
         isTutorPending() {
             return this.accountUser.isTutorState !== 'pending' ? true : false;
+        }
+    },
+    watch:{
+        accountUser(val){
+            this.isReady = true;
         }
     },
     methods:{

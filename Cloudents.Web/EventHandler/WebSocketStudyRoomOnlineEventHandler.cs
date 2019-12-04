@@ -68,7 +68,9 @@ namespace Cloudents.Web.EventHandler
                 SignalRAction.Update, new
                 {
                     onlineCount,
-                    totalOnline
+                    totalOnline,
+                    users = studyRoom.Users.Where(f=>f.Online).Select(s=>s.User.Id).ToArray(),
+                    allUsers = studyRoom.Users.Select(s=>s.User.Id).ToArray()
                 });
 
 

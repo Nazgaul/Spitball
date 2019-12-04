@@ -43,7 +43,7 @@ namespace Cloudents.Query.Email
                                     join sb.[User] as ut
 	                                    on t.Id = ut.Id
                                     join sb.[user] u
-	                                    on l.UserId = u.Id and u.PhoneNumberConfirmed = 1
+	                                    on l.UserId = u.Id and u.PhoneNumberConfirmed = 1 and u.Country = 'il'
                                     where l.Id =  @LeadId";
                 using (var conn = _dapper.OpenConnection())
                 {

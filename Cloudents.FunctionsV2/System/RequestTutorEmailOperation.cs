@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
@@ -93,10 +92,11 @@ namespace Cloudents.FunctionsV2.System
 
 
                 };
+                message.AddFromResource(CultureInfo.DefaultThreadCurrentCulture);
                 message.AddTo(obj.TutorEmail);
                 var emailProvider =
                     await binder.BindAsync<IAsyncCollector<SendGridMessage>>(new SendGridAttribute()
-                    { ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>" }, token);
+                    { ApiKey = "SendgridKey" }, token);
                 await emailProvider.AddAsync(message, token);
             }
         }

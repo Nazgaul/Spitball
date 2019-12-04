@@ -36,7 +36,6 @@ namespace Cloudents.Search.Test
 
             builder.Register(c =>
             {
-                //TODO WTF
                 var configuration2 = c.Resolve<IConfigurationKeys>().Search;
                 return new SearchService("5B0433BFBBE625C9D60F7330CFF103F0", "cloudents", true);
             }).AsSelf().As<ISearchService>().SingleInstance();

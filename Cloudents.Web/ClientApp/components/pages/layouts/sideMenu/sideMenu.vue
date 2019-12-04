@@ -8,7 +8,8 @@
                          @input="updateDrawerValue"
                          :mini-variant-width="62"
                          :mini-variant.sync="isMiniSideMenu"
-                         :right="isRtl" :class="isRtl ? 'hebrew-drawer' : ''"
+                         :right="isRtl" 
+                         :class="[isRtl ? 'hebrew-drawer' : '',{'higherIndex':!isMiniSideMenu && $vuetify.breakpoint.mdAndDown}]"
                          app
                          clipped>
       <div class="sideMenu_cont">
@@ -47,7 +48,6 @@
                   </v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
-
 
               <v-list-tile class="group_list_sideMenu_dash" :to="{ name: 'tutoring'}" sel="menu_row">
               <v-list-tile-content>
@@ -389,7 +389,12 @@ export default {
     this.sideMenulistElm.removeEventListener('click', this.clickEventMiniMenuOpen);
   },
   mounted(){
+    // debugger
     this.sideMenulistElm = document.querySelector('.sideMenu');
+    // if(this.$vuetify.breakpoint)
+    // let marginTop = this.sideMenulistElm.style.marginTop;
+    // marginTop = +marginTop.slice(0,marginTop.length - 2)+1;
+    // this.sideMenulistElm.style.marginTop = marginTop + 'px'
     this.sideMenulistElm.addEventListener('click', this.clickEventMiniMenuOpen);
   },
   created() {

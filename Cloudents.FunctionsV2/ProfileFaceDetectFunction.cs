@@ -1,9 +1,6 @@
-using System;
-using System.IO;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;

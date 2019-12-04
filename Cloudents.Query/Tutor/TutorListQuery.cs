@@ -90,7 +90,7 @@ namespace Cloudents.Query.Tutor
 
                     futureCourse.WithSubquery.WhereProperty(w => w.Id).In(detachedQuery);
                     futureCourse2.WithSubquery.WhereProperty(w => w.Id).In(detachedQuery2);
-                    listOfQueries.Add(withCountryOnlyDetachedQuery);
+                    listOfQueries.Add(withCountryOnlyDetachedQuery.WithSubquery.WhereProperty(w => w.Id).NotIn(detachedQuery).WithSubquery.WhereProperty(w => w.Id).NotIn(detachedQuery2));
                 }
 
                 var futureResult = listOfQueries.Select(s => BuildSelectStatement(s, query.Page, query.PageSize)).ToList();

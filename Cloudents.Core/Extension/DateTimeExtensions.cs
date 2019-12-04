@@ -25,7 +25,10 @@ namespace Cloudents.Core.Extension
     {
         public static CultureInfo ChangeCultureBaseOnCountry(this CultureInfo cultureInfo, string country)
         {
-
+            if (cultureInfo is null)
+            {
+                return null;
+            }
             if (country == null)
             {
                 Debug.Assert(country == null, "this should not happen");

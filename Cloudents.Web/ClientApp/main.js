@@ -42,6 +42,7 @@ import {
     VBtn,
     VBtnToggle,
     VCard,
+    VCalendar,
     VCarousel,
     VCheckbox,
     VChip,
@@ -72,7 +73,7 @@ import {
     VForm,
     VAutocomplete,
     VSheet,
-    VCalendar,
+    VSystemBar,
     Vuetify
 } from "vuetify";
 import * as route from "./routes";
@@ -82,6 +83,7 @@ import * as route from "./routes";
 //NOTE: put changes in here in webpack vendor as well
 const vuetifyComponents = {
     VApp,
+    VCalendar,
     VGrid,
     VChip,
     VToolbar,
@@ -117,7 +119,7 @@ const vuetifyComponents = {
     VForm,
     VAutocomplete,
     VSheet,
-    VCalendar
+    VSystemBar,
 };
 
 

@@ -53,13 +53,18 @@ export default {
         background: #fff;
 
         @media (max-width: @screen-xs) {
-            padding: 10px;
+            padding: 6px;
         }
         &__close {
             display: flex;
             justify-content: flex-end;
             font-size: 12px;
             margin: 10px 10px 0 10px;
+
+            @media (max-width: @screen-xs) {
+                padding: 10px;
+                margin: 4px 10px 0 10px;
+            }
         }
 
         &__h2 {
@@ -67,6 +72,10 @@ export default {
             font-size: 24px;
             margin-bottom: 8px;
             font-weight: 600;
+
+            @media (max-width: @screen-xs) {
+                font-size: 20px;
+            }
         }
 
         &__h3 {
@@ -74,6 +83,11 @@ export default {
             font-size: 20px;
             margin-bottom: 10px;
             font-weight: 600;
+
+            @media (max-width: @screen-xs) {
+                font-size: 18px;
+                margin-bottom: 0;
+            }
         }
 
         &__h4 {
@@ -82,7 +96,8 @@ export default {
             margin-bottom: 24px;
             font-weight: 600;
             @media (max-width: @screen-xs) {
-                font-size: 16px;
+                font-size: 14px;
+                margin-bottom: 20px;
             }
         }
 
@@ -90,7 +105,10 @@ export default {
             display: flex;
             justify-content: center;
             margin-bottom: 6px;
-            
+
+            @media (max-width: @screen-xs) {
+                margin-bottom: 0;
+            }
             img {
                 @media (max-width: @screen-xs) { 
                 width: 100%;
@@ -102,6 +120,9 @@ export default {
                 width: 220px;
                 height: 140px;
                 border-radius: 6px;
+                @media (max-width: @screen-sm) {
+                    background-size: 100%;
+                }
                 @media (max-width: @screen-xs) {
                     display: none;
                 }
@@ -113,6 +134,9 @@ export default {
                 width: 220px;
                 height: 140px;
                 border-radius: 6px;
+                @media (max-width: @screen-sm) {
+                    background-size: 100%;
+                }
                 @media (max-width: @screen-xs) {
                     display: none;
                 }
@@ -124,6 +148,9 @@ export default {
                 width: 220px;
                 height: 140px;
                 border-radius: 6px;
+                @media (max-width: @screen-sm) {
+                    background-size: 100%;
+                }
                 @media (max-width: @screen-xs) {
                     display: none;
                 }
@@ -141,6 +168,7 @@ export default {
             @media (max-width: @screen-xs) {
                 width: 90%;
                 margin: 0 auto;
+                margin-bottom: 0;
             }
 
             &--img {
@@ -155,6 +183,7 @@ export default {
 
             &--p {
                 @media (max-width: @screen-xs) {
+                    font-size: 13px;
                     display: inline;
                 }
             }
@@ -166,17 +195,23 @@ export default {
             align-items: center;
             margin-bottom: 38px;
 
-                @media (max-width: @screen-xs) {
-                    flex-direction: column;
-                    margin-bottom: 0;
-                }
+            @media (max-width: @screen-sm) {
+                margin: 0 10px 38px 10px;
+            }
+            @media (max-width: @screen-xs) {
+                flex-direction: column;
+                margin-bottom: 0;
+            }
             &--phone {
-                background-image: url(./images/group-2.png);
+                background-image: url(./images/group-9.png);
                 background-position: center;
-                width: 300px;
-                height: 170px;
+                width: 270px;
+                height: 186px;
+                background-size: 100%;
                 @media (max-width: @screen-xs) {
+                    background-image: url(./images/group-9-mobile.png);
                     background-size: 240px;
+                    height: 160px;
                 }
             }
             &--or {
@@ -190,14 +225,23 @@ export default {
                 align-items: center;
                 justify-content: center;
                 margin: 0 10px;
+
+                @media (max-width: @screen-xs) {
+                    width: 36px;
+                    height: 36px;
+                    font-size: 12px;
+                }
             }
             &--scan {
-                background-image: url(./images/group-5.png);
+                background-image: url(./images/scanAndPlay.png);
                 background-position: center;
-                width: 300px;
-                height: 170px;
+                width: 270px;
+                height: 186px;
+                background-size: 100%;
                 @media (max-width: @screen-xs) {
+                    background-image: url(./images/scanAndPlay-mobile.png);
                     background-size: 240px;
+                    // height: 160px;
                 }
             }
         }

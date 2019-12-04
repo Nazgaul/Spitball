@@ -1,4 +1,5 @@
 import * as RouteTypes from "./routeTypes";
+const globalBanner = () => import('./components/pages/layouts/banner/banner.vue');
 
 const feeds = () => import('./components/results/feeds/Feeds.vue');
 const pageHeader = () => import('./components/pages/layouts/header/header.vue');
@@ -59,12 +60,14 @@ const resultProps = {
 };
 const feedPage = {
     default: feeds,
+    banner: globalBanner,
     header: pageHeader,
     sideMenu: sideMenu
 };
 
 const studyRoomsPage = {
     default: studyRoomsComponent,
+    banner: globalBanner,
     header: pageHeader,
     sideMenu: sideMenu
 };
@@ -75,6 +78,7 @@ let routes2 = [
         name: "landingPage",
         components: {
             default: landingPage,
+            banner: globalBanner,
             header: pageHeader,
             footer: landingPageFooter
         },
@@ -153,6 +157,7 @@ let routes2 = [
         ],
         components: {
             default: setCourse,
+            banner: globalBanner,
             header: pageHeader,
             sideMenu: sideMenu
         },
@@ -189,6 +194,7 @@ let routes2 = [
         ],
         components: {
             default: setUniversity,
+            banner: globalBanner,
             header: pageHeader,
             sideMenu: sideMenu
         },
@@ -202,6 +208,7 @@ let routes2 = [
         name: "document",
         components: {
             header: pageHeader,
+            banner: globalBanner,
             default: itemPage,
             sideMenu: sideMenu,
         },
@@ -237,6 +244,7 @@ let routes2 = [
         path: "/question/:id",
         components: {
             default: viewQuestion,
+            banner: globalBanner,
             sideMenu: sideMenu,
             header: pageHeader
         },
@@ -252,6 +260,7 @@ let routes2 = [
         path: "/profile/:id/:name",
         components: {
             default: newProfile,
+            banner: globalBanner,
             header: pageHeader,
             sideMenu: sideMenu,
         },
@@ -271,6 +280,7 @@ let routes2 = [
             // default: viewProfile,
             default: studentOrTutor,
             sideMenu: sideMenu,
+            banner: globalBanner,
             header: pageHeader
         },
         name: "studentTutor",
@@ -289,6 +299,7 @@ let routes2 = [
         components: {
             default: wallet,
             header: pageHeader,
+            banner: globalBanner,
             sideMenu: sideMenu,
         },
         name: "wallet",

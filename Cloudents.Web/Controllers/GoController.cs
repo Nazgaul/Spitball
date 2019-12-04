@@ -15,43 +15,47 @@ namespace Cloudents.Web.Controllers
     public class GoController : Controller
     {
         private readonly IQueryBus _queryBus;
-        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public GoController(IQueryBus queryBus, IHostingEnvironment configuration)
+        public GoController(IQueryBus queryBus)
         {
             _queryBus = queryBus;
-            _hostingEnvironment = configuration;
         }
 
         // GET: /<controller>/
         [Route("go/{identifier}")]
-        public async Task<IActionResult> Index(string identifier, [FromQuery]string site, CancellationToken token)
+        public async Task<RedirectResult> Index(string identifier, [FromQuery]string site, CancellationToken token)
         {
 
             var query = new ShortUrlQuery(identifier);
             var result = await _queryBus.QueryAsync(query, token);
             if (result == null)
             {
-                return NotFound();
+                return Redirect("/");
             }
 
-            Uri.TryCreate(result.Destination, UriKind.RelativeOrAbsolute, out var uri);
+            if (!Uri.TryCreate(result.Destination, UriKind.RelativeOrAbsolute, out var uri))
+            {
+                return RedirectPermanent(result.Destination);
+            }
             if (uri.IsAbsoluteUri)
             {
                 return RedirectPermanent(result.Destination);
             }
-            //if (site?.Equals("frymo", StringComparison.OrdinalIgnoreCase) == true)
-            //{
 
-            //    if (_hostingEnvironment.IsProduction())
-            //    {
-            //        //const string absoluteUri = "https://www.sp"
-            //    }
-            //}
-
-            //if ()
-
-            return RedirectPermanent(result.Destination);
+            var destination = result.Destination;
+            if (site?.Equals("frymo", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                if (destination.Contains("?"))
+                {
+                    destination += "&site=frymo";
+                }
+                else
+                {
+                    destination += "?site=frymo";
+                }
+                
+            }
+            return RedirectPermanent(destination);
         }
     }
 }

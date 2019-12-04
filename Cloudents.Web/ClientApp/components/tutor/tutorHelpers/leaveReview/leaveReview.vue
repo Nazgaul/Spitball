@@ -78,7 +78,7 @@
 
 <script>
     import userRating from '../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
-    import { mapActions, mapGetters } from 'vuex';
+    import { mapActions, mapGetters, mapState } from 'vuex';
     import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
     import finalReviewStep from './leaveReviewHelpers/finalScreen.vue';
     import utilitiesService from "../../../../services/utilities/utilitiesService";
@@ -102,6 +102,7 @@
             };
         },
         computed: {
+            ...mapState(['tutoringMain']),
             ...mapGetters(['getReview', 'getStudyRoomData']),
             tutorImg() {
                 if(this.getStudyRoomData && this.getStudyRoomData.tutorImage){
@@ -126,7 +127,7 @@
 
         },
         methods: {
-            ...mapActions(['submitReview', 'updateReviewDialog', 'updateReviewStars', 'updateReview']),
+            ...mapActions(['submitReview', 'updateReviewDialog', 'updateReviewStars', 'updateReview', 'updateStudentStartDialog', 'setStudentDialogState']),
             toggleReviewInput() {
                 return this.reviewInputHidden = !this.reviewInputHidden;
             },
@@ -163,6 +164,11 @@
             },
             closeReviewDialog() {
                 this.updateReviewDialog(false);
+                let self = this;
+                setTimeout(()=>{
+                    self.setStudentDialogState(this.tutoringMain.startSessionDialogStateEnum.waiting);
+                    self.updateStudentStartDialog(true);
+                }, 400);
             }
 
         },

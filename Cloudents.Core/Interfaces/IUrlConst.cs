@@ -17,6 +17,9 @@ namespace Cloudents.Core.Interfaces
         Uri BuildChatEndpoint(string token, object parameters = null);
 
         Uri BuildShortUrlEndpoint(string identifier);
+        Uri BuildShortUrlEndpoint(string identifier, string country);
+
+
         string BuildDocumentEndPoint(long id, object parameters = null);
         string BuildDocumentThumbnailEndpoint(long id);
     }

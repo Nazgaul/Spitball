@@ -6,6 +6,7 @@
         :options="tourObject.toursOptions"
         :callbacks="tourObject.tourCallbacks"
       ></v-tour> -->
+    <router-view name="banner"></router-view>
     <router-view name="header"></router-view>
     <router-view v-if="showSsideMenu" name="sideMenu"></router-view>
     <v-content class="site-content" :class="{'loading':getIsLoading}">
@@ -255,6 +256,13 @@ export default {
     }
   },
   watch: {
+    getShowPaymeDialog: function(val) {
+      if(val) {
+        setTimeout(function() {
+          document.querySelector('.payme-popup').parentNode.style.zIndex=999;
+        },1000)
+      }
+    },
     getShowToaster: function(val) {
       let self = this;
       if(val){
@@ -301,7 +309,8 @@ export default {
       "updateRequestDialog",
       "openChatInterface",
       "setTutorRequestAnalyticsOpenedFrom",
-      "fireOptimizeActivate"
+      "fireOptimizeActivate",
+      'updateBannerSatus'
     ]),
     ...mapGetters(["getCookieAccepted"]),
     enterPayme(){
@@ -352,6 +361,8 @@ export default {
             }, 170);
         }
     }
+      this.updateBannerSatus(true);
+
       if(this.$vuetify.breakpoint.xsOnly){
           if(!!this.$route.query && this.$route.query.chat){
               if(this.$route.query.chat.toLowerCase() === 'expand'){

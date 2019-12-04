@@ -22,7 +22,9 @@ namespace Cloudents.Core.Message.Email
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
             {Language.Hebrew , "7c24161f-f447-4760-a35b-5a42e6835766" },
-            {Language.English , "b3c762bd-605b-41a2-9c6c-24b01e5adf92" }
+            {Language.English , "b3c762bd-605b-41a2-9c6c-24b01e5adf92" },
+            {Language.EnglishIndia , "e2bf5d6d-b19c-4309-bb75-248144a40b29" }
+
         };
     }
 }
