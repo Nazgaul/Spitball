@@ -9,7 +9,7 @@ using Xunit;
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class AccountApiTests //: IClassFixture<SbWebApplicationFactory>
+    public class AccountControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
 
@@ -27,7 +27,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         //    Path = "api/account"
         //};
 
-        public AccountApiTests(SbWebApplicationFactory factory)
+        public AccountControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
             //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");

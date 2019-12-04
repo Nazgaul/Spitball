@@ -7,11 +7,11 @@ namespace Cloudents.Web.Test.IntegrationTests
 {
 
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class TutorApiTests //: IClassFixture<SbWebApplicationFactory>
+    public class TutorControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        public TutorApiTests(SbWebApplicationFactory factory)
+        public TutorControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
         }

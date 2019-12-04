@@ -7,7 +7,7 @@ using Xunit;
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class RegisterApiTests //: IClassFixture<SbWebApplicationFactory>
+    public class RegisterControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
 
@@ -28,7 +28,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
 
 
-        public RegisterApiTests(SbWebApplicationFactory factory)
+        public RegisterControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
             _client.DefaultRequestHeaders.Referrer = new Uri(_swaggerLink);

@@ -10,11 +10,11 @@ using Dapper;
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class QuestionsApiTests //:  IClassFixture<SbWebApplicationFactory>
+    public class QuestionsControllerTests //:  IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        public QuestionsApiTests(SbWebApplicationFactory factory)
+        public QuestionsControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient(new WebApplicationFactoryClientOptions()
             {

@@ -10,7 +10,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 {
 
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class CourseApiTests //: IClassFixture<SbWebApplicationFactory>
+    public class CourseControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
 
         private readonly System.Net.Http.HttpClient _client;
@@ -58,7 +58,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
 
 
-        public CourseApiTests(SbWebApplicationFactory factory)
+        public CourseControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
             _client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");

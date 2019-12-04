@@ -8,11 +8,11 @@ using Xunit;
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class UniversityApiTests //: IClassFixture<SbWebApplicationFactory>
+    public class UniversityControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        public UniversityApiTests(SbWebApplicationFactory factory)
+        public UniversityControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
             //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");

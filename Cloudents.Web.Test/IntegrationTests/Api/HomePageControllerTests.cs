@@ -5,11 +5,11 @@ using Xunit;
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class HomePage
+    public class HomePageControllerTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        public HomePage(SbWebApplicationFactory factory)
+        public HomePageControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
         }

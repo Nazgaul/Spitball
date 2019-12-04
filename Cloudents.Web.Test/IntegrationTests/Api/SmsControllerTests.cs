@@ -10,11 +10,11 @@ using Xunit;
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class SmsApiTests
+    public class SmsControllerTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        public SmsApiTests(SbWebApplicationFactory factory)
+        public SmsControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
         }

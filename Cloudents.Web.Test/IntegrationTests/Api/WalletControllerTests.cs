@@ -1,29 +1,52 @@
-﻿using Cloudents.Web.Test.IntegrationTests;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Cloudents.Web.Test.UnitTests
+
+namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class WalletControllerTests //: IClassFixture<SbWebApplicationFactory>
+    public class WalletControllerTests
     {
-
-        private readonly System.Net.Http.HttpClient _client;
-
+        private System.Net.Http.HttpClient _client;
         private readonly string[] _types = { "Earned", "Stake", "Spent" };
-
-
 
         public WalletControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
-            _client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
+            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
+
+
+        [Theory]
+        [InlineData("api/wallet/balance")]
+        [InlineData("api/wallet/transaction")]
+        [InlineData("api/wallet/GetPaymentLink")]
+        public async Task GetAsync_Wallet_Ok(string uri)
+        {
+            await _client.LogInAsync();
+
+            var response = await _client.GetAsync(uri);
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        [Theory]
+        [InlineData("api/wallet/balance")]
+        [InlineData("api/wallet/transaction")]
+        [InlineData("api/wallet/GetPaymentLink")]
+        public async Task GetAsync_Wallet_Unauthorized(string uri)
+        {
+            var response = await _client.GetAsync(uri);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
 
         [Fact]
         public async Task GetAsync_Balance()

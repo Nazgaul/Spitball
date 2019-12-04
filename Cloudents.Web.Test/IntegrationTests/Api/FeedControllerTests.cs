@@ -1,24 +1,26 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class UnregFeedTests
+    public class FeedControllerTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-
-
-        public UnregFeedTests(SbWebApplicationFactory factory)
+        public FeedControllerTests(SbWebApplicationFactory factory)
         {
-            _client = factory.CreateClient(new WebApplicationFactoryClientOptions
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions()
             {
                 AllowAutoRedirect = false
             });
+            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
 

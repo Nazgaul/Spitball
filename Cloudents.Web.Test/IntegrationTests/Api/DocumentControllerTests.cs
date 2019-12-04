@@ -9,7 +9,7 @@ using Xunit;
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class DocumentApiTests //: IClassFixture<SbWebApplicationFactory>
+    public class DocumentControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
 
@@ -67,7 +67,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
 
 
-        public DocumentApiTests(SbWebApplicationFactory factory)
+        public DocumentControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient(new WebApplicationFactoryClientOptions()
             {

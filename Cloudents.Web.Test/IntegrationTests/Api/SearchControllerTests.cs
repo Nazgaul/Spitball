@@ -7,11 +7,11 @@ using Xunit;
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class SearchApiTests //: IClassFixture<SbWebApplicationFactory>
+    public class SearchControllerTests //: IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        public SearchApiTests(SbWebApplicationFactory factory)
+        public SearchControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient(new WebApplicationFactoryClientOptions
             {

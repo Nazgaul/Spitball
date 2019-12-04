@@ -7,11 +7,11 @@ using Xunit;
 namespace Cloudents.Web.Test.IntegrationTests
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class Locale
+    public class LocaleControllerTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        public Locale(SbWebApplicationFactory factory)
+        public LocaleControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
         }
