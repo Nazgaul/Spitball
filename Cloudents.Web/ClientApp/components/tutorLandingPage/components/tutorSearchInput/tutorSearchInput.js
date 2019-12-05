@@ -3,7 +3,7 @@
 import debounce from "lodash/debounce";
 import { LanguageService } from "../../../../services/language/languageService";
 import universityService from "../../../../services/universityService";
-import analyticsService from '../../../../services/analytics.service';
+import { mapActions } from "vuex";
 
 export default {
     name: "tutor-search-input",
@@ -33,12 +33,13 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['updateAnalytics_unitedEvent']),
         search(text) {
             if(!!text){
                 this.msg = text;
             }
             if(!!this.msg){
-                analyticsService.sb_unitedEvent("Tutor_Engagement", "Search", this.msg);
+                this.updateAnalytics_unitedEvent(["Tutor_Engagement", "Search", this.msg])
             }       
             this.$router.push({ path: `/tutor-list/${this.msg}` })
             this.closeSuggestions();

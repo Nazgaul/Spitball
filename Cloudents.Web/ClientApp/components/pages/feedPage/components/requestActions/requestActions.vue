@@ -30,7 +30,6 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import userAvatar from "../../../../helpers/UserAvatar/UserAvatar.vue";
-import analyticsService from "../../../../../services/analytics.service";
 import {LanguageService} from "../../../../../services/language/languageService";
 
 import aQuestion from "./image/aQuestion.svg";
@@ -69,7 +68,8 @@ export default {
       "setReturnToUpload",
       "updateDialogState",
       "updateRequestDialog",
-      "setTutorRequestAnalyticsOpenedFrom"
+      "setTutorRequestAnalyticsOpenedFrom",
+      'updateAnalytics_unitedEvent'
     ]),
     openAskQuestion() {
       if (this.accountUser == null) {
@@ -94,7 +94,7 @@ export default {
       }
     },
     openRequestTutor() {
-      analyticsService.sb_unitedEvent("Tutor_Engagement", "request_box");
+      this.updateAnalytics_unitedEvent(["Tutor_Engagement", "request_box"]);
       if (this.accountUser == null) {
         this.setTutorRequestAnalyticsOpenedFrom({
           component: "actionBox",

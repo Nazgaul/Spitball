@@ -75,7 +75,6 @@ import { mapActions, mapGetters } from 'vuex';
 
 //services
 import { LanguageService } from "../../../services/language/languageService";
-import analyticsService from '../../../services/analytics.service';
 import chatService from '../../../services/chatService';
 
 //store
@@ -194,6 +193,7 @@ export default {
             'updateRequestDialog',
             'setActiveConversationObj',
             'openChatInterface',
+            'updateAnalytics_unitedEvent'
         ]),
         
         enterItemCard(vueElm){
@@ -224,7 +224,7 @@ export default {
         sendMessage() {
             let user = this.docTutor;
             if (this.accountUser == null) {
-                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_item_page', `userId:GUEST`);
+                this.updateAnalytics_unitedEvent(['Tutor_Engagement', 'contact_BTN_item_page', `userId:GUEST`]);
                 this.updateCurrTutor(user);
                 this.setTutorRequestAnalyticsOpenedFrom({
                     component: 'tutorCard',
@@ -233,7 +233,7 @@ export default {
                 this.updateRequestDialog(true);
             } 
             else {
-                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
+                this.updateAnalytics_unitedEvent(['Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`]);
                 let conversationObj = {
                     userId: user.userId,
                     image: user.image,

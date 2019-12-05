@@ -55,9 +55,6 @@ import { LanguageService } from '../../../services/language/languageService';
 import chatService from '../../../services/chatService';
 import addCircle from '../images/add-circle-outline.svg';
 
-import analyticsService from '../../../services/analytics.service';
-
-
 export default {
     components:{
         message,
@@ -110,7 +107,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['sendChatMessage', 'createStudyRoom']),
+        ...mapActions(['sendChatMessage', 'createStudyRoom','updateAnalytics_unitedEvent']),
         sendMessage(){     
             let messageToSend = this.messageText.trim();
             if(messageToSend !== ''){
@@ -151,7 +148,7 @@ export default {
                 if(!this.alreadyCreated){
                     let userId = conversationObj.userId;
                     this.createStudyRoom(userId).then(() => {
-                      analyticsService.sb_unitedEvent('study_room', 'created', `tutorName: ${this.accountUser.name} tutorId: ${this.accountUser.id}`);
+                      this.updateAnalytics_unitedEvent(['study_room', 'created', `tutorName: ${this.accountUser.name} tutorId: ${this.accountUser.id}`])
                       this.loader = false
                     });
                     this.alreadyCreated = true;

@@ -54,7 +54,6 @@ import {LanguageService} from '../../../services/language/languageService.js'
 import {validationRules} from '../../../services/utilities/formValidationRules.js'
 import universityService from '../../../services/universityService.js'
 import debounce from "lodash/debounce";
-import analyticsService from '../../../services/analytics.service'
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -119,7 +118,8 @@ export default {
                        'updateTutorReqStep',
                        'resetRequestTutor',
                        'sendTutorRequest',
-                       'updateMoreTutors']),
+                       'updateMoreTutors',
+                       'updateAnalytics_unitedEvent']),
         tutorRequestDialogClose() {
             this.updateRequestDialog(false);
             this.resetRequestTutor()
@@ -155,7 +155,7 @@ export default {
                 fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
                 fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
             };
-                analyticsService.sb_unitedEvent('Request Tutor Next', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+                this.updateAnalytics_unitedEvent(['Request Tutor Next', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`])
             }
         },
         sumbit(){
@@ -183,7 +183,7 @@ export default {
                 }                    
                 this.sendTutorRequest(serverObj).finally(()=>{
                     this.isLoading = false;
-                    analyticsService.sb_unitedEvent('Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+                    this.updateAnalytics_unitedEvent(['Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`])
                 })
             }
         }

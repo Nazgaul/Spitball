@@ -6,9 +6,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import analyticsService from '../../services/analytics.service';
-
+import { mapGetters, mapActions } from 'vuex';
 
 // cmps:
 import tutorRequestHeader from './components/tutorRequestHeader.vue'
@@ -36,6 +34,9 @@ export default {
             return this.currentStep === 'tutorRequestSuccess'
         }
     },
+    methods: {
+        ...mapActions(['updateAnalytics_unitedEvent'])
+    },
     created() {
         let analyticsObject = {
                 userId: this.isAuthUser ? this.accountUser.id : 'GUEST',
@@ -43,7 +44,7 @@ export default {
                 fromDialogPath: this.getTutorRequestAnalyticsOpenedFrom.path,
                 fromDialogComponent: this.getTutorRequestAnalyticsOpenedFrom.component
             };
-        analyticsService.sb_unitedEvent('Request Tutor Dialog Opened', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+        this.updateAnalytics_unitedEvent(['Request Tutor Dialog Opened', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`]);
     },
 }
 </script>

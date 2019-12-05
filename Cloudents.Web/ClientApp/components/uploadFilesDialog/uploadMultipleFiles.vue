@@ -50,7 +50,6 @@ import { mapGetters, mapActions } from 'vuex';
 import Base62 from "base62"
 
 import documentService from "../../services/documentService";
-import analyticsService from "../../services/analytics.service";
 import uploadService from "../../services/uploadService";
 import { LanguageService } from "../../services/language/languageService";
 
@@ -144,7 +143,8 @@ export default {
             'setReturnToUpload',
             'updateStep',
             'setCourse',
-            'updateToasterParams'
+            'updateToasterParams',
+            'updateAnalytics_unitedEvent'
         ]),
         goToNextStep() {
             if (!this.nextStepCalled) {
@@ -166,8 +166,8 @@ export default {
                 let serverFormattedObj = uploadService.createServerFileData(fileObj);
                 documentService.sendDocumentData(serverFormattedObj)
                     .then((resp) => {
-                        analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
-                        analyticsService.sb_unitedEvent('Action Box', 'Upload_D', `USER_ID:${self.accountUser.id}, DOC_COURSE${self.courseSelected}`);
+                        this.updateAnalytics_unitedEvent(['STUDY_DOCS', 'DOC_UPLOAD_COMPLETE']);
+                        this.updateAnalytics_unitedEvent(['Action Box', 'Upload_D', `USER_ID:${self.accountUser.id}, DOC_COURSE${self.courseSelected}`]);
                         self.loading = false;
                         this.updateToasterParams({
                             toasterText: LanguageService.getValueByKey("upload_CreateOk"),

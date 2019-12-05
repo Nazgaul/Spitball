@@ -164,7 +164,6 @@ import userInfoEdit from "../../profileHelpers/userInfoEdit/userInfoEdit.vue";
 import tutorInfoEdit from "../../profileHelpers/userInfoEdit/tutorInfoEdit.vue";
 import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import { LanguageService } from '../../../../services/language/languageService';
-import analyticsService from '../../../../services/analytics.service'
 
 import sbClose from '../../../../font-icon/close.svg';
 export default {
@@ -247,7 +246,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateEditDialog', 'updateCoupon', 'updateCouponDialog', 'updateLoginDialogState']),
+    ...mapActions(['updateAnalytics_unitedEvent','updateEditDialog', 'updateCoupon', 'updateCouponDialog', 'updateLoginDialogState']),
     openEditInfo() {
       this.updateEditDialog(true);
     },
@@ -264,7 +263,7 @@ export default {
         return;
       } 
       this.updateCouponDialog(true)
-      analyticsService.sb_unitedEvent('Tutor_Engagement', 'Click_Redeem_Coupon', `${this.$route.path}`);
+      this.updateAnalytics_unitedEvent(['Tutor_Engagement', 'Click_Redeem_Coupon', `${this.$route.path}`]);
     },
     applyCoupon() {
       if(this.isTutorProfile) {
@@ -276,7 +275,7 @@ export default {
           self.coupon = ''
           self.disableApplyBtn = false;
           if(!self.getCouponError) {
-            analyticsService.sb_unitedEvent('Tutor_Engagement', 'Redeem_Coupon_Success', `${this.$route.path}`);
+            self.updateAnalytics_unitedEvent(['Tutor_Engagement', 'Redeem_Coupon_Success', `${this.$route.path}`]);
           }
         })
       }

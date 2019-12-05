@@ -47,7 +47,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import analyticsService from '../../services/analytics.service';
 import { LanguageService } from "../../services/language/languageService.js";
 
 import userRating from "../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
@@ -86,9 +85,9 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'updateRequestDialog']),
+        ...mapActions(['updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'updateRequestDialog','updateAnalytics_unitedEvent']),
         sendMessage(tutor) {
-            analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+            this.updateAnalytics_unitedEvent(['Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`])
             this.updateCurrTutor(tutor);
             this.setTutorRequestAnalyticsOpenedFrom({
                 component: 'landingPage',

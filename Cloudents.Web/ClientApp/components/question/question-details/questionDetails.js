@@ -7,7 +7,6 @@ import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
 import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue';
 import questionService from "../../../services/questionService";
 import disableForm from "../../mixins/submitDisableMixin.js";
-import analyticsService from '../../../services/analytics.service';
 import { LanguageService } from "../../../services/language/languageService";
 
 export default {
@@ -45,6 +44,7 @@ export default {
             "updateToasterParams",
             "updateLoginDialogState",
             'setQuestion',
+            'updateAnalytics_unitedEvent'
         ]),
         ...mapMutations({updateLoading: "UPDATE_LOADING", updateSearchLoading:'UPDATE_SEARCH_LOADING'}),
         ...mapGetters(["getQuestion"]),

@@ -64,7 +64,6 @@ import { mapActions, mapGetters } from "vuex";
 
 import { LanguageService } from "../../../../services/language/languageService.js";
 import chatService from '../../../../services/chatService';
-import analyticsService from "../../../../services/analytics.service";
 
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
@@ -88,13 +87,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateRequestDialog", 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'openChatInterface', 'setActiveConversationObj']),
+    ...mapActions(['updateAnalytics_unitedEvent',"updateRequestDialog", 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'openChatInterface', 'setActiveConversationObj']),
 
     tutorCardClicked() {
       if(this.fromLandingPage){
-          analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+        this.updateAnalytics_unitedEvent(["Tutor_Engagement", "tutor_landing_page"])
       }else{
-          analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+        this.updateAnalytics_unitedEvent(["Tutor_Engagement", "tutor_page"])
       }
     },
     reviewsPlaceHolder(reviews) {
@@ -102,7 +101,7 @@ export default {
     },
     sendMessage(user) {
       if (this.accountUser == null) {
-          analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+        this.updateAnalytics_unitedEvent(['Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`])
           this.updateCurrTutor(user);
           this.setTutorRequestAnalyticsOpenedFrom({
             component: 'tutorCard',
@@ -110,7 +109,7 @@ export default {
           });
           this.updateRequestDialog(true);
       } else {
-          analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
+        this.updateAnalytics_unitedEvent(['Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`])
           let conversationObj = {
               userId: user.userId,
               image: user.image,

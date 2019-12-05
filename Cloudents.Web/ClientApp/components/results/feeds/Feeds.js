@@ -2,7 +2,6 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 // SERVICES
 import { verticalsName, verticalsNavbar } from "../../../services/navigation/vertical-navigation/nav";
 import { LanguageService } from '../../../services/language/languageService';
-import analyticsService from '../../../services/analytics.service';
 // COMPONENTS 
 import ResultItem from '../ResultItem.vue';
 import ResultAsk from "../ResultAsk.vue";
@@ -144,9 +143,9 @@ export default {
             'updateLoginDialogState',
             'updateNewQuestionDialogState',
             'Feeds_nextPage',
-            'analyticsService',
             'updateRequestDialog',
-            'setTutorRequestAnalyticsOpenedFrom'
+            'setTutorRequestAnalyticsOpenedFrom',
+            'updateAnalytics_unitedEvent'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING", "Feeds_injectQuestion"]),
 
@@ -252,7 +251,7 @@ export default {
         },
 
         openRequestTutor() {
-            analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
+            this.updateAnalytics_unitedEvent(['Tutor_Engagement', 'request_box'])
             this.setTutorRequestAnalyticsOpenedFrom({
                 component: 'suggestCard',
                 path: this.$route.path

@@ -1,6 +1,5 @@
 import {mapGetters, mapActions} from 'vuex';
 import {LanguageService} from '../../../services/language/languageService';
-import analyticsService from '../../../services/analytics.service';
 
 export default {
   data() {
@@ -42,7 +41,7 @@ export default {
   },
   methods: {
     ...mapGetters(['accountUser']),
-    ...mapActions(['updateShowBuyDialog', 'updateToasterParams', 'buyToken']),
+    ...mapActions(['updateAnalytics_unitedEvent','updateShowBuyDialog', 'updateToasterParams', 'buyToken']),
 
     selectProduct(val) {
       if (this.selectedProduct !== val) {
@@ -56,7 +55,7 @@ export default {
 
     openPaymeDialog() {
       let transactionId = this.transactionId;
-      analyticsService.sb_unitedEvent("BUY_POINTS", "PRODUCT_SELECTED", transactionId);
+      this.updateAnalytics_unitedEvent(["BUY_POINTS", "PRODUCT_SELECTED", transactionId]);
         this.buyToken({points : transactionId});
     }
   }
