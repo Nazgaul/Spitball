@@ -134,6 +134,7 @@ export default {
 @import "../../../../styles/mixin.less";
 .v-bottom-nav{
     &.mobileFooter{
+        z-index:11;
         box-shadow: none;
         border-top: solid 1px  #C7C7CD!important;
         .mF_btns{

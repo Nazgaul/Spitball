@@ -47,11 +47,11 @@ import tutorResultCardMobile from '../results/tutorCards/tutorResultCardMobile/t
 import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue';
 import tutorLandingPageService from './tutorLandingPageService';
 import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
-import SuggestCard from '../results/suggestCard.vue'
-import analyticsService from '../../services/analytics.service.js'
+import SuggestCard from '../results/suggestCard.vue';
+import analyticsService from '../../services/analytics.service.js';
 
 import sbCarousel from '../sbCarousel/sbCarousel.vue';
-import testimonialCard from '../carouselCards/testimonialCard.vue'
+import testimonialCard from '../carouselCards/testimonialCard.vue';
 
 import { mapActions,mapGetters } from 'vuex'
 export default {

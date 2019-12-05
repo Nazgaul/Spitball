@@ -113,8 +113,6 @@ export default {
                         this.flagRemoteClick = false;
                     }
                     return false;
-                
-                
             }
         },
         enterProfilePage(){

@@ -324,6 +324,24 @@ global.isMobileAgent = function () {
     return check;
 };
 
+let touchSupported = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+
+if(touchSupported){
+    global.addEventListener('touchstart', function(){
+        store.dispatch('setIsTouchEnd', false);
+        store.dispatch('setIsTouchMove', false);
+        store.dispatch('setIsTouchStarted', true);
+    })
+    global.addEventListener('touchmove', function(){
+        store.dispatch('setIsTouchMove', true);
+    })
+    global.addEventListener('touchend', function(){
+        store.dispatch('setIsTouchStarted', false);
+        store.dispatch('setIsTouchMove', false);
+        store.dispatch('setIsTouchEnd', true);
+    })
+}
+
 //initSignalRService();
 
 //app.$mount("#app");
