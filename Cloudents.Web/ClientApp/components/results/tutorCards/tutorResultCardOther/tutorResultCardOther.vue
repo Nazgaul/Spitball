@@ -83,7 +83,6 @@
 <script>
 import {mapActions, mapGetters} from 'vuex';
 
-import analyticsService from '../../../../services/analytics.service';
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import { LanguageService } from "../../../../services/language/languageService.js";
 
@@ -128,13 +127,13 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['setActiveConversationObj', 'openChatInterface', 'updateRequestDialog', 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom']),
+        ...mapActions(['updateAnalytics_unitedEvent','setActiveConversationObj', 'openChatInterface', 'updateRequestDialog', 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom']),
 
         tutorCardClicked() {
             if(this.fromLandingPage){
-                analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+                this.updateAnalytics_unitedEvent(["Tutor_Engagement", "tutor_landing_page"])
             } else {
-                analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+                this.updateAnalytics_unitedEvent(["Tutor_Engagement", "tutor_page"])
             };
         },
         reviewsPlaceHolder(reviewsOwner, reviews) {
@@ -148,7 +147,7 @@ export default {
         },
         sendMessage(user) {
             if (this.accountUser == null) {
-                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+                this.updateAnalytics_unitedEvent(['Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`])
                 this.updateCurrTutor(user);
                 this.setTutorRequestAnalyticsOpenedFrom({
                     component: 'tutorCard',
@@ -156,7 +155,7 @@ export default {
                 });
                 this.updateRequestDialog(true);
             } else {
-                analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
+                this.updateAnalytics_unitedEvent(['Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`])
                 let conversationObj = {
                     userId: user.userId,
                     image: user.image,

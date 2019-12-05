@@ -7,7 +7,6 @@ import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue'
 import loginToAnswer from '../../question/helpers/loginToAnswer/login-answer.vue';
 import questionService from "../../../services/questionService";
 import disableForm from "../../mixins/submitDisableMixin.js";
-import analyticsService from '../../../services/analytics.service';
 import { LanguageService } from "../../../services/language/languageService";
 
 export default {
@@ -45,6 +44,7 @@ export default {
             "updateToasterParams",
             "updateLoginDialogState",
             'setQuestion',
+            'updateAnalytics_unitedEvent'
         ]),
         ...mapMutations({updateLoading: "UPDATE_LOADING", updateSearchLoading:'UPDATE_SEARCH_LOADING'}),
         ...mapGetters(["getQuestion"]),
@@ -82,8 +82,8 @@ export default {
                 self.textAreaValue = self.textAreaValue.trim();
                 this.submitLoader = true;
                 questionService.answerQuestion(self.id, self.textAreaValue)
-                    .then(function (resp) {                       
-                        analyticsService.sb_unitedEvent("Submit_answer", "Homwork help");
+                    .then(function (resp) {    
+                        self.updateAnalytics_unitedEvent(["Submit_answer", "Homwork help"])                   
                         self.textAreaValue = "";
                         // self.updateLoading(false);
                         //self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)

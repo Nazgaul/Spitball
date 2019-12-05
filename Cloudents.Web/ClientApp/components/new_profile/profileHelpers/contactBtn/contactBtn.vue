@@ -11,7 +11,6 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import chatService from '../../../../services/chatService'
-import analyticsService from '../../../../services/analytics.service';
 
     export default {
         name: "contactBtn",
@@ -19,13 +18,13 @@ import analyticsService from '../../../../services/analytics.service';
             ...mapGetters(['accountUser']),
         },
         methods:{
-            ...mapActions(['setActiveConversationObj', 'openChatInterface','updateRequestDialog','updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom']),
+            ...mapActions(['updateAnalytics_unitedEvent','setActiveConversationObj', 'openChatInterface','updateRequestDialog','updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom']),
             ...mapGetters(['getProfile']),
 
             sendMessage(){
                 
                 if ( this.accountUser == null) {
-                    analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+                    this.updateAnalytics_unitedEvent(['Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`]);
                     let profile = this.getProfile()
                     this.updateCurrTutor(profile.user)    
                     this.setTutorRequestAnalyticsOpenedFrom({
@@ -34,8 +33,8 @@ import analyticsService from '../../../../services/analytics.service';
                     });
                     this.updateRequestDialog(true);
                 } else {
-                    analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
-                    analyticsService.sb_unitedEvent('Request_Tutor_Submit', 'Send_Chat_Message', `${this.$route.path}`);
+                    this.updateAnalytics_unitedEvent(['Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`]);
+                    this.updateAnalytics_unitedEvent(['Request_Tutor_Submit', 'Send_Chat_Message', `${this.$route.path}`]);
                     let currentProfile = this.getProfile();
                     let conversationObj = {
                         userId: currentProfile.user.id,

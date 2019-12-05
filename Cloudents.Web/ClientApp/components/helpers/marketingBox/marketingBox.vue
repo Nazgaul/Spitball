@@ -12,7 +12,6 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import Base62 from "base62"
-    import analyticsService from '../../../services/analytics.service'
 
     export default {
         name: "marketingBox",
@@ -34,12 +33,12 @@
             }
         },
         methods: {
-            ...mapActions(['updateRequestDialog', 'setTutorRequestAnalyticsOpenedFrom']),
+            ...mapActions(['updateAnalytics_unitedEvent','updateRequestDialog', 'setTutorRequestAnalyticsOpenedFrom']),
             promotionOpen() {
                 if (this.isLogedIn) {
-                    analyticsService.sb_unitedEvent('MARKETING_BOX', 'REGISTERED OPEN_TUTOR');
+                    this.updateAnalytics_unitedEvent(['MARKETING_BOX', 'REGISTERED OPEN_TUTOR']);
                 } else {
-                    analyticsService.sb_unitedEvent('MARKETING_BOX', 'NOT REGISTERED OPEN_TUTOR');
+                    this.updateAnalytics_unitedEvent(['MARKETING_BOX', 'NOT REGISTERED OPEN_TUTOR']);
                 }
                 // return this.isLogedIn ? this.goToWebForm() : this.goToRegister();
                 // return this.isLogedIn ? this.goToWebForm() : this.goToRegister();

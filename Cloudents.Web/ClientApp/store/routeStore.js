@@ -1,5 +1,3 @@
-import analyticsService from '../services/analytics.service'
-
 const state = {
     routeStack: [],
     isFrymo: global.siteName === 'frymo'
@@ -20,13 +18,13 @@ const actions = {
     setRouteStack({commit}, val){
         commit('setRouteStack', val);
     },
-    sendQueryToAnalytic(context, to) {
+    sendQueryToAnalytic({dispatch}, to) {
         let queryString = '';
         let queries = to.query;
         for(let query in queries) {
             queryString += `${query}=${queries[query]}|`;
         }
-        analyticsService.sb_unitedEvent('user_location', to.path, queryString);
+        dispatch('updateAnalytics_unitedEvent',['user_location', to.path, queryString])
     },
     fireOptimizeActivate(){
         if(!!global.dataLayer){

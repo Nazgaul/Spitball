@@ -5,9 +5,6 @@ import { LanguageService } from '../../services/language/languageService';
 import store from '../../store/index.js';
 import whiteBoardService from "./whiteboard/whiteBoardService";
 import insightService from '../../services/insightService';
-import analyticsService from '../../services/analytics.service';
-
-
 
 const dataTrack = new LocalDataTrack();
 const uploadCanvasImage = function (formData) {
@@ -239,7 +236,7 @@ const connectToRoom = function (token, options) {
                     store.dispatch('hideRoomToasterMessage');
                     let studentName = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentName : '';
                     let studentId = !!store.getters['getStudyRoomData'] ? store.getters['getStudyRoomData'].studentId : '';
-                    analyticsService.sb_unitedEvent('study_room', 'session_started', `studentName: ${studentName} studentId: ${studentId}`);
+                    store.dispatch('updateAnalytics_unitedEvent',['study_room', 'session_started', `studentName: ${studentName} studentId: ${studentId}`])
                     if (store.getters['getTutorStartDialog']) {
                         store.dispatch('updateTutorStartDialog', false);
                     }

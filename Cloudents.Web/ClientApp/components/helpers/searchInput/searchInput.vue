@@ -25,7 +25,6 @@ import classIcon from "./img/search-class-icon.svg";
 import universityIcon from "./img/search-university-icon.svg";
 import spitballIcon from "./img/search-spitball-icon.svg";
 import { LanguageService } from "../../../services/language/languageService";
-import analyticsService from '../../../services/analytics.service';
 
 export default {
     name: "search-input",
@@ -113,7 +112,7 @@ export default {
     },
     methods: {
         ...mapGetters(['getUniversityPopStorage', 'accountUser', 'getSchoolName']),
-        ...mapActions(['changeSelectPopUpUniState', 'setUniversityPopStorage_session']),
+        ...mapActions(['updateAnalytics_unitedEvent','changeSelectPopUpUniState', 'setUniversityPopStorage_session']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         
         goBackFromSearch() {
@@ -148,7 +147,7 @@ export default {
                         suggestOptions = 'Spitball';
                     }
                 }
-                analyticsService.sb_unitedEvent('global_search', suggestOptions, this.msg);
+                this.updateAnalytics_unitedEvent(['global_search', suggestOptions, this.msg]);
             }
             this.closeSuggestions();
             // to remove keyboard on mobile

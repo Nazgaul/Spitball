@@ -95,7 +95,6 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 
-import analyticsService from '../../../../services/analytics.service';
 import languagesLocales from "../../../../services/language/localeLanguage";
 import { LanguageChange, LanguageService } from "../../../../services/language/languageService";
 import satelliteService from '../../../../services/satelliteService';
@@ -152,12 +151,6 @@ export default {
   },
   methods: {           
     ...mapActions(['updateReferralDialog','updateShowBuyDialog',"logout","updateLoginDialogState",]),
-    // openSblToken(){
-    //   this.$emit('closeMenu')
-
-    //   analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
-    //   this.updateShowBuyDialog(true);
-    // },  
     changeLanguage(id) {
       LanguageChange.setUserLanguage(id).then(
         resp => {

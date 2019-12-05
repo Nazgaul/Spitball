@@ -8,7 +8,6 @@ import questionService from '../../../services/questionService'
 // import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
 import addQuestionUtilities from './addQuestionUtilities'
 // import QuestionRegular from './helpers/question-regular.vue'
-import analyticsService from '../../../services/analytics.service';
 import {LanguageService} from "../../../services/language/languageService";
 
 export default {
@@ -111,7 +110,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateNewQuestionDialogState']),
+        ...mapActions(['updateNewQuestionDialogState','updateAnalytics_unitedEvent']),
         ...mapMutations(['UPDATE_LOADING']),
         requestNewQuestionDialogClose() {
             this.updateNewQuestionDialogState(false);
@@ -163,7 +162,7 @@ export default {
                     course : this.questionClass,
                     files:this.uploadProp.uploadedFileNames
                 };
-                analyticsService.sb_unitedEvent('Action Box', 'Ask_Q', `USER_ID:${this.accountUser.id}, Q_COURSE:${serverQuestionObj.course}`);
+                this.updateAnalytics_unitedEvent(['Action Box', 'Ask_Q', `USER_ID:${this.accountUser.id}, Q_COURSE:${serverQuestionObj.course}`]);
                 questionService.postQuestion(serverQuestionObj).then(() => {
                     // let val = self.selectedPrice || this.price;
                     // this.updateUserBalance(-val);

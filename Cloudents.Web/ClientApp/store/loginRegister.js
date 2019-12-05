@@ -7,16 +7,12 @@ const defaultSubmitRoute = {path: '/feed'};
 const Fingerprint2 = require('fingerprintjs2');
 
 // SERVICES:
-import analyticsService from '../services/analytics.service.js'
 import registrationService from '../services/registrationService.js'
 import { LanguageService } from "../services/language/languageService.js";
 
 // FUNCTIONS:
 function _dictionary(key){
     return LanguageService.getValueByKey(key);
-}
-function _analytics (params){
-    analyticsService.sb_unitedEvent(...params);
 }
 
 const state = {
@@ -149,13 +145,13 @@ const actions = {
                 commit('setLocalCode',data.code)});
         }
     },
-    updateStep({commit,state},stepName){
+    updateStep({commit,state,dispatch},stepName){
         let specialSteps = ["setphone", "verifyphone", "resetpassword"];
 
         if(specialSteps.includes(stepName.toLowerCase())){
             commit('setResetStepHistory');
             commit('setCurrentStep',stepName);
-            _analytics(['Registration', 'Email Verified']);
+            dispatch('updateAnalytics_unitedEvent',['Registration', 'Email Verified']);
             return;
         }
         if(!stepName){
@@ -181,10 +177,10 @@ const actions = {
             return registrationService.googleRegistration(idToken).then((resp) => {
                 let newUser = resp.data.isNew;
                 if (newUser) {
-                    _analytics(['Registration', 'Start Google']);
+                    dispatch('updateAnalytics_unitedEvent',['Registration', 'Start Google']);
                     dispatch('updateStep','setPhone');
                 } else {
-                    _analytics(['Login', 'Start Google']);
+                    dispatch('updateAnalytics_unitedEvent',['Login', 'Start Google']);
                     global.isAuth = true;
                     let lastRoute = router.history.current.query.returnUrl || 'feed';
                     router.push({path: `${lastRoute}`});
@@ -212,7 +208,7 @@ const actions = {
                 }else{
                     dispatch('updateStep',nextStep);
                 }
-                _analytics(['Registration', 'Start']);
+                dispatch('updateAnalytics_unitedEvent',['Registration', 'Start']);
                 commit('setGlobalLoading',false);
             },  (error) => {
                 commit('setGlobalLoading',false);
@@ -225,7 +221,7 @@ const actions = {
             });
     },
     resendEmail({dispatch}){
-        _analytics(['Registration', 'Resend Email']);
+        dispatch('updateAnalytics_unitedEvent',['Registration', 'Resend Email']);
         registrationService.emailResend()
             .then(response => {
                 dispatch('updateToasterParams', {
@@ -254,7 +250,7 @@ const actions = {
                     showToaster: true,
                 });
                 commit('setGlobalLoading',false);
-                _analytics(['Registration', 'Phone Submitted']);
+                dispatch('updateAnalytics_unitedEvent',['Registration', 'Phone Submitted']);
                 dispatch('updateStep','VerifyPhone');
             }, function (error){
                 commit('setGlobalLoading',false);
@@ -286,9 +282,9 @@ const actions = {
                 registrationService.smsCodeVerification(data)
                     .then(userId => {
                             dispatch('updateStep','congrats');
-                            _analytics(['Registration', 'Phone Verified']);
+                            dispatch('updateAnalytics_unitedEvent',['Registration', 'Phone Verified']);
                             if(!!userId){
-                                _analytics(['Registration', 'User Id', userId.data.id]);
+                                dispatch('updateAnalytics_unitedEvent',['Registration', 'User Id', userId.data.id]);
                             }
                             commit('setGlobalLoading',false);
                     }, error =>{
@@ -299,7 +295,7 @@ const actions = {
     },
     callWithCode({dispatch,commit}){
         commit('setGlobalLoading',false);
-        _analytics(['Registration', 'Call Voice SMS']);
+        dispatch('updateAnalytics_unitedEvent',['Registration', 'Call Voice SMS']);
         registrationService.voiceConfirmation()
             .then((success) => {
                 commit('setGlobalLoading',false);
@@ -315,8 +311,8 @@ const actions = {
         commit('setResetState');
         dispatch('updateStep','setPhone');
     },
-    finishRegister(){
-        _analytics(['Registration', 'Congrats']);
+    finishRegister({dispatch}){
+        dispatch('updateAnalytics_unitedEvent',['Registration', 'Congrats']);
         global.isAuth = true;
         router.push({name:'studentTutor'});
     },
@@ -325,14 +321,14 @@ const actions = {
         registrationService.validateEmail(encodeURIComponent(state.email))
                 .then((response) => {
                     commit('setGlobalLoading',false);
-                    _analytics(['Login Email validation', 'email send']);
+                    dispatch('updateAnalytics_unitedEvent',['Login Email validation', 'email send']);
                     dispatch('updateStep','setPassword');
                 }, (error)=> {
                     commit('setGlobalLoading',false);
                     commit('setErrorMessages',{email: error.response.data["Email"] ? error.response.data["Email"][0] : ''});
                 });
     },
-    logIn({commit,state},password){
+    logIn({commit,state,dispatch},password){
         commit('setGlobalLoading',true);
         let data = {
             email: state.email,
@@ -348,7 +344,7 @@ const actions = {
                 registrationService.signIn(data)
                     .then(response =>{
                         commit('setGlobalLoading',false);
-                        _analytics(['Login', 'Start']);
+                        dispatch('updateAnalytics_unitedEvent',['Login', 'Start']);
                         global.isAuth = true;
                         global.country = response.data.country;
                         let url = state.toUrl || defaultSubmitRoute;
@@ -364,7 +360,7 @@ const actions = {
         registrationService.forgotPasswordReset(state.email)
             .then(response =>{
                 commit('setGlobalLoading',false);
-                _analytics(['Forgot Password', 'Reset email send']);
+                dispatch('updateAnalytics_unitedEvent',['Forgot Password', 'Reset email send']);
                 dispatch('updateStep','EmailConfirmed');
             },error =>{
                 commit('setGlobalLoading',false);
@@ -373,7 +369,7 @@ const actions = {
     },
     resendEmailPassword({dispatch,commit}){
         commit('setGlobalLoading',true);
-        _analytics(['Registration', 'Resend Email']);
+        dispatch('updateAnalytics_unitedEvent',['Registration', 'Resend Email']);
         registrationService.EmailforgotPasswordResend()
             .then(response => {
                 commit('setGlobalLoading',false);
@@ -385,7 +381,7 @@ const actions = {
                 commit('setGlobalLoading',false);
             });
     },
-    changePassword({state,commit},params) {
+    changePassword({state,commit,dispatch},params) {
         let {id} = params;
         let {code} = params;
         let {password} = params;
@@ -395,7 +391,7 @@ const actions = {
             commit('setGlobalLoading',true);
             registrationService.updatePassword(password, confirmPassword, id, code)
                 .then((response) => {
-                    _analytics(['Forgot Password', 'Updated password']);
+                    dispatch('updateAnalytics_unitedEvent',['Forgot Password', 'Updated password']);
                     global.isAuth = true;
                     commit('setGlobalLoading',false);
                     let url = state.toUrl || defaultSubmitRoute;

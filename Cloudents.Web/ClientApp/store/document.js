@@ -1,8 +1,6 @@
 import documentService from "../services/documentService";
-import analyticsService from '../services/analytics.service';
 import searchService from '../services/searchService';
 import { LanguageService } from "../services/language/languageService";
-import { Promise } from "q";
 
 const state = {
     document: {},
@@ -73,14 +71,13 @@ const actions = {
             return err;
         });
     },
-    downloadDocument({commit, getters, dispatch}, item) {
+    downloadDocument({getters, dispatch}, item) {
         let user = getters.accountUser;
 
         if(!user) return dispatch('updateLoginDialogState', true);
 
         let {id, course} = item;     
-
-        analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}, DOC_COURSE:${course}`);
+        dispatch('updateAnalytics_unitedEvent',['STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}, DOC_COURSE:${course}`])
     },
     purchaseDocument({commit, getters, dispatch, state}, item) {
         commit('setBtnLoading', true);
@@ -94,7 +91,7 @@ const actions = {
             return documentService.purchaseDocument(item.id).then((resp) => {
                 state.document.isPurchased = true;
                 console.log('purchased success', resp);
-                analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASED', item.price);
+                dispatch('updateAnalytics_unitedEvent',['STUDY_DOCS', 'DOC_PURCHASED', item.price])
                 dispatch('documentRequest', item.id);
                 },
                 (error) => {

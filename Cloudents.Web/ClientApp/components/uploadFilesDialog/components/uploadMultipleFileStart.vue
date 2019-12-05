@@ -63,7 +63,6 @@
 import { mapGetters, mapActions } from 'vuex';
 
 import uploadService from "../../../services/uploadService";
-import analyticsService from '../../../services/analytics.service';
 import { LanguageService } from "../../../services/language/languageService";
 
 import FileUpload from 'vue-upload-component/src';
@@ -113,7 +112,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateFile', 'updateFileName', 'stopUploadProgress', 'setFileBlobNameById', 'updateFileErrorById', 'deleteFileByIndex']),
+        ...mapActions(['updateAnalytics_unitedEvent','updateFile', 'updateFileName', 'stopUploadProgress', 'setFileBlobNameById', 'updateFileErrorById', 'deleteFileByIndex']),
         loadDropBoxSrc() {
             // if exists prevent duplicate loading
             let isDbExists = !!document.getElementById('dropboxjs');
@@ -255,7 +254,7 @@ export default {
     },
     created() {
         this.loadDropBoxSrc(); // load Drop box script
-        analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_START');
+        this.updateAnalytics_unitedEvent(['STUDY_DOCS', 'DOC_UPLOAD_START']);
     },
     mounted() {
         let uploadArea = document.querySelector('.uf-sDrop-container')

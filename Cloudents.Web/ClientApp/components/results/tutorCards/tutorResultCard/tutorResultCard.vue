@@ -80,7 +80,6 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 
-import analyticsService from "../../../../services/analytics.service";
 import chatService from '../../../../services/chatService';
 import { LanguageService } from "../../../../services/language/languageService.js";
 
@@ -108,13 +107,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateRequestDialog', 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'openChatInterface', 'setActiveConversationObj']),
+    ...mapActions(['updateAnalytics_unitedEvent','updateRequestDialog', 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'openChatInterface', 'setActiveConversationObj']),
 
     tutorCardClicked(e) {
       if(this.fromLandingPage){
-          analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
+        this.updateAnalytics_unitedEvent(["Tutor_Engagement", "tutor_landing_page"]);
       }else{
-          analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
+        this.updateAnalytics_unitedEvent(["Tutor_Engagement", "tutor_page"]);
       };
     },
     reviewsPlaceHolder(reviews) {
@@ -122,7 +121,7 @@ export default {
     },
     sendMessage(user) {
       if (this.accountUser == null) {
-          analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+        this.updateAnalytics_unitedEvent(['Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`]);
           this.updateCurrTutor(user);
           this.setTutorRequestAnalyticsOpenedFrom({
             component: 'tutorCard',
@@ -130,7 +129,7 @@ export default {
           });
           this.updateRequestDialog(true);
       } else {
-          analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
+        this.updateAnalytics_unitedEvent(['Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`]);
           let conversationObj = {
               userId: user.userId,
               image: user.image,

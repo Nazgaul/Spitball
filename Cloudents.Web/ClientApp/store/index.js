@@ -29,7 +29,8 @@ import homePage_store from './homePage_store.js'
 import sideMenu_Store from './sideMenu_Store'
 import dialog_Store from './dialogStore/dialog_Store.js'
 import utils_Store from './utils_Store'
-import banner_Store from './banner_Store.js'
+import banner_Store from './banner_Store.js';
+import analytics_Store from './analytics_Store.js';
 
 
 Vue.use(Vuex);
@@ -71,7 +72,8 @@ const store = new Vuex.Store({
         sideMenu_Store,
         dialog_Store,
         utils_Store,
-        banner_Store
+        banner_Store,
+        analytics_Store,
     }
 });
 

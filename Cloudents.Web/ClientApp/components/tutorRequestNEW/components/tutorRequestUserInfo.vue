@@ -61,7 +61,6 @@ import {LanguageService} from '../../../services/language/languageService.js'
 import {validationRules} from '../../../services/utilities/formValidationRules.js'
 import { mapActions,mapGetters } from 'vuex';
 import VueRecaptcha from 'vue-recaptcha';
-import analyticsService from '../../../services/analytics.service'
 
 export default {
     name:'tutorRequestUserInfo',
@@ -94,7 +93,7 @@ export default {
     },
     },
     methods: {
-        ...mapActions(['updateTutorReqStep','sendTutorRequest']),
+        ...mapActions(['updateTutorReqStep','sendTutorRequest','updateAnalytics_unitedEvent']),
         goBack() {
             this.updateTutorReqStep('tutorRequestCourseInfo')
         },
@@ -136,7 +135,7 @@ export default {
                 }
                 this.sendTutorRequest(serverObj).finally(()=>{
                     self.isLoading= false
-                    analyticsService.sb_unitedEvent('Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+                    self.updateAnalytics_unitedEvent(['Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`]);
                   if(self.$refs['recaptcha']){
                       self.$refs['recaptcha'].reset();
                     }

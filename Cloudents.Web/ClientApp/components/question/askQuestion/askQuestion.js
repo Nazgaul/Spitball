@@ -4,7 +4,6 @@ import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
 import { LanguageService } from "../../../services/language/languageService";
 import { validationRules } from "../../../services/utilities/formValidationRules";
 import questionService from "../../../services/questionService";
-import analyticsService from "../../../services/analytics.service";
 
 export default {
     components: {
@@ -38,7 +37,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateNewQuestionDialogState']),
+        ...mapActions(['updateNewQuestionDialogState','updateAnalytics_unitedEvent']),
         ...mapMutations(['UPDATE_LOADING']),
         requestAskClose() {
             this.updateNewQuestionDialogState(false);
@@ -53,7 +52,8 @@ export default {
                     course: self.questionCourse.text ? self.questionCourse.text : self.questionCourse,
                 };
                 questionService.postQuestion(serverQuestionObj).then(() => {
-                    analyticsService.sb_unitedEvent("Submit_question", "Homework help");
+
+                    self.updateAnalytics_unitedEvent(["Submit_question", "Homework help"]);
                     self.btnQuestionLoading =false;
                     //close dialog after question submitted
                     self.requestAskClose(false);

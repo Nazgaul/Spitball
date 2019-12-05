@@ -1,4 +1,3 @@
-import analyticsService from '../services/analytics.service.js';
 import tutorService from '../services/tutorService.js'
 import {LanguageService} from '../services/language/languageService.js'
 
@@ -96,7 +95,7 @@ const actions = {
                     return Promise.reject();
                 });
     },
-    sendAnalyticEvent({state,getters},beforeSubmit){
+    sendAnalyticEvent({state,getters,dispatch},beforeSubmit){
         let analyticsObject = {
             userId: getters.isAuthUser ? getters.accountUser.id : 'GUEST',
             course: state.tutorCourse,
@@ -104,9 +103,9 @@ const actions = {
             fromDialogComponent: getters.getTutorRequestAnalyticsOpenedFrom.component
         };
         if(beforeSubmit){
-            analyticsService.sb_unitedEvent('Request Tutor Dialog Opened', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+            dispatch('updateAnalytics_unitedEvent',['Request Tutor Dialog Opened', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`])
         }else{
-            analyticsService.sb_unitedEvent('Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+            dispatch('updateAnalytics_unitedEvent',['Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`])
         }
     },
     updateMoreTutors({commit},val){
