@@ -30,7 +30,7 @@ namespace Cloudents.Query.HomePage
                 _session = session.StatelessSession;
             }
 
-            [Cache(TimeConst.Day, "homePage-reviews2", false)]
+            [Cache(TimeConst.Day, "homePage-reviews3", false)]
             //We cant put cache due to serialize issue
             public async Task<IEnumerable<ReviewDto>> GetAsync(ReviewsQuery query, CancellationToken token)
             {

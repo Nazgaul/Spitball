@@ -21,6 +21,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using GoogleMeasurementProtocol;
+using GoogleMeasurementProtocol.Parameters.User;
 using Document = Google.Apis.Docs.v1.Data.Document;
 using User = Cloudents.Core.Entities.User;
 
@@ -30,15 +32,21 @@ namespace Cloudents.Infrastructure.Google
     public sealed class GoogleService :
         IGoogleAuth,
         IGoogleDocument,
-        ICalendarService
+        ICalendarService,
+        IGoogleAnalytics
     {
         private const string PrimaryGoogleCalendarId = "primary";
         private readonly ILifetimeScope _container;
+        private GoogleAnalyticsRequestFactory _factory;
+
 
         public GoogleService(ILifetimeScope container)
         {
             _container = container;
+            _factory = new GoogleAnalyticsRequestFactory("UA-100723645-2");
         }
+
+        
 
 
         //public GoogleService(GoogleDataStore googleDataStore)
@@ -362,5 +370,28 @@ namespace Cloudents.Infrastructure.Google
         }
 
 
+        public Task TrackEventAsync(string category, string action, string label)
+        {
+            var factory = new GoogleAnalyticsRequestFactory("UA-100723645-2");
+
+            //Create a PageView request by specifying request type
+            var request = factory.CreateRequest(HitTypes.Event);
+
+            request.Parameters.Add(new GoogleMeasurementProtocol.Parameters.EventTracking.EventAction(action));
+            request.Parameters.Add(new GoogleMeasurementProtocol.Parameters.EventTracking.EventCategory(category));
+            request.Parameters.Add(new GoogleMeasurementProtocol.Parameters.EventTracking.EventLabel(label));
+            //new GoogleMeasurementProtocol.Parameters.EventTracking.EventAction("x")//Add parameters to your request, each parameter has a corresponding class which has name = parameter name from google reference docs
+            //request.Parameters.Add(new DocumentHostName("test.com"));
+            //request.Parameters.Add(new DocumentPath("/test/testPath2"));
+            //request.Parameters.Add(new DocumentTitle("test title2"));
+
+            var clientId = new ClientId((Guid.NewGuid()));
+
+            //Make a get request which will contain all information from above
+            //await request.GetAsync(clientId);
+
+            //Make a Post request which will contain all information from above
+            return request.PostAsync(clientId);
+        }
     }
 }

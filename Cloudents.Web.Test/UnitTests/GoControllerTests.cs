@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Controllers;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
 using Xunit;
 
-namespace Cloudents.Web.Test.IntegrationTests
+namespace Cloudents.Web.Test.UnitTests
 {
     public class GoControllerTests
     {
         private readonly Mock<IQueryBus> _queryBusMoq = new Mock<IQueryBus>();
+        private readonly Mock<IGoogleAnalytics> _GoogleAnalyticsMoq = new Mock<IGoogleAnalytics>();
        
         public GoControllerTests()
         {
@@ -26,8 +24,8 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Fact]
         public async Task GetAsync_NoResult_RedirectBase()
         {
-            var controller = new GoController(_queryBusMoq.Object);
-            var result = await controller.Index("xxx", null, default);
+            var controller = new GoController(_queryBusMoq.Object, _GoogleAnalyticsMoq.Object);
+            var result = await controller.Index("xxx", null, null, null, null, default);
             result.Url.Should().Be("/");
         }
 
@@ -38,8 +36,8 @@ namespace Cloudents.Web.Test.IntegrationTests
             _queryBusMoq.Setup(s => s.QueryAsync(It.IsAny<ShortUrlQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new ShortUrlDto() {Destination = "/test"});
 
-            var controller = new GoController(_queryBusMoq.Object);
-            var result = await controller.Index("xxx", null, default);
+            var controller = new GoController(_queryBusMoq.Object, _GoogleAnalyticsMoq.Object);
+            var result = await controller.Index("xxx", null, null, null, null, default);
             result.Url.Should().Be("/test");
         }
 
@@ -49,8 +47,8 @@ namespace Cloudents.Web.Test.IntegrationTests
             _queryBusMoq.Setup(s => s.QueryAsync(It.IsAny<ShortUrlQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new ShortUrlDto() { Destination = "/test" });
 
-            var controller = new GoController(_queryBusMoq.Object);
-            var result = await controller.Index("xxx", "frymo", default);
+            var controller = new GoController(_queryBusMoq.Object, _GoogleAnalyticsMoq.Object);
+            var result = await controller.Index("xxx", "frymo", null, null, null, default);
             result.Url.Should().Be("/test?site=frymo");
         }
 
@@ -60,8 +58,8 @@ namespace Cloudents.Web.Test.IntegrationTests
             _queryBusMoq.Setup(s => s.QueryAsync(It.IsAny<ShortUrlQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new ShortUrlDto() { Destination = "/test?v=1" });
 
-            var controller = new GoController(_queryBusMoq.Object);
-            var result = await controller.Index("xxx", "frymo", default);
+            var controller = new GoController(_queryBusMoq.Object, _GoogleAnalyticsMoq.Object);
+            var result = await controller.Index("xxx", "frymo",null,null,null, default);
             result.Url.Should().Be("/test?v=1&site=frymo");
         }
     }

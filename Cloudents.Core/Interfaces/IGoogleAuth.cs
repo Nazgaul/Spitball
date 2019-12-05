@@ -14,6 +14,11 @@ namespace Cloudents.Core.Interfaces
         Task<ExternalAuthDto> LogInAsync(string token, CancellationToken cancellationToken);
     }
 
+    public interface IGoogleAnalytics
+    {
+        Task TrackEventAsync(string category, string action, string label);
+    }
+
 
     public interface IGoogleDocument
     {

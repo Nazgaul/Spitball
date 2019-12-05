@@ -18,6 +18,8 @@ namespace Cloudents.Core.DTOs.Email
 
         public long TutorId { get; set; }
 
+        public long StudentId { get; set; }
+
        // public string Url { get; set; }
 
         public string TutorEmail { get; set; }

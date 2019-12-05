@@ -60,13 +60,18 @@ namespace Cloudents.FunctionsV2.System
                 var whatsAppLink = new UriBuilder($"https://wa.me/{obj.StudentPhoneNumber.Replace("+", string.Empty)}")
                     .AddQuery(new
                     {
-                        text = ResourceWrapper.GetString("unread_message_request_email_body_whatsapp_text").InjectSingleValue("CourseName", obj.CourseName)
+                        text = ResourceWrapper.GetString("unread_message_request_email_body_whatsapp_text").InjectSingleValue("CourseName", obj.CourseName),
                     });
 
                 var identifierWhatsApp = ShortId.Generate(true, false);
                 var commandWhatsApp = new CreateShortUrlCommand(identifierWhatsApp, whatsAppLink.ToString(), DateTime.UtcNow.AddDays(30));
                 await _commandBus.DispatchAsync(commandWhatsApp, token);
-                var urlShortWhatsApp = _urlBuilder.BuildShortUrlEndpoint(identifierWhatsApp);
+                var urlShortWhatsApp = _urlBuilder.BuildShortUrlEndpoint(identifierWhatsApp,new 
+                {
+                    eventCategory = "Request Tutor Submit",
+                    eventAction = "Whatsapp email",
+                    eventLabel = $"Tutor{obj.TutorId}, Student {obj.StudentId}"
+                });
                 body = body.InjectSingleValue("Request", request);
 
                 body = body.InjectSingleValue("WhatsappLink", urlShortWhatsApp);

@@ -24,7 +24,7 @@ namespace Cloudents.Infrastructure
 
             builder.RegisterType<GoogleService>().AsSelf()
                 .As<IGoogleDocument>()
-                .As<IGoogleAuth>()
+                .As<IGoogleAuth>().As<IGoogleAnalytics>()
                 .As<ICalendarService>().SingleInstance();
 
 

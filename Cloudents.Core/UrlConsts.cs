@@ -98,9 +98,13 @@ namespace Cloudents.Core
             return builder.Uri;
         }
 
-        public Uri BuildShortUrlEndpoint(string identifier)
+        public Uri BuildShortUrlEndpoint(string identifier,  object parameters = null)
         {
-            return BuildShortUrlEndpoint(identifier, null);
+            var builder = new UriBuilder(_webSiteEndPoint) { Path = $"go/{identifier}" };
+            builder.AddQuery(parameters);
+            return builder.Uri;
+            //return BuildShortUrlEndpoint(identifier, null);
+
             //var nvc = new NameValueCollection();
             //if (country.Equals("IN", StringComparison.OrdinalIgnoreCase))
             //{

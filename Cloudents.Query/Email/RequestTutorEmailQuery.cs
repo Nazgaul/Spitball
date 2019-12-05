@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.DTOs.Email;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Message.System;
 using Dapper;
-using NHibernate.Linq;
 
 namespace Cloudents.Query.Email
 {
@@ -39,11 +35,12 @@ namespace Cloudents.Query.Email
 
             public async Task<IEnumerable<RequestTutorEmailDto>> GetAsync(RequestTutorEmailQuery query, CancellationToken token)
             {
-                const string sql = @"
-                                    select u.[Language] as TutorLanguage,
+                const string sql = @"select 
+                                        u.[Language] as TutorLanguage,
 	                                    l.Text as Request,
 	                                    us.PhoneNumberHash as StudentPhoneNumber,
 	                                    us.Name as StudentName,
+                                        us.Id as StudentId,
 	                                    l.CourseId as CourseName,
 	                                    u.FirstName as TutorFirstName,
 	                                    t.Id as TutorId,
