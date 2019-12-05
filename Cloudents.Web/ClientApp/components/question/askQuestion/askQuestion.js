@@ -52,7 +52,7 @@ export default {
                     text: self.questionText,
                     course: self.questionCourse.text ? self.questionCourse.text : self.questionCourse,
                 };
-                questionService.postQuestion(serverQuestionObj).then(() => {
+                questionService.post(serverQuestionObj).then(() => {
                     analyticsService.sb_unitedEvent("Submit_question", "Homework help");
                     self.btnQuestionLoading =false;
                     //close dialog after question submitted

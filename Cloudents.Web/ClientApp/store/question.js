@@ -71,7 +71,7 @@ const actions = {
         commit('updateDeleted', false);
     },
     deleteQuestion(context, id) {
-        return questionService.deleteQuestion(id).then(()=>{
+        return questionService.delete(id).then(()=>{
             if (id.type === 'Answer') {
                 context.commit('updateDeleted', true);
             }
@@ -81,7 +81,7 @@ const actions = {
         return questionService.markAsCorrectAnswer(id);
     },
     setQuestion({commit}, id){
-        return questionService.getQuestion(id)
+        return questionService.get(id)
         .then((response) => {
             commit('updateQuestion', response);
         }).catch(ex => {
@@ -95,7 +95,7 @@ const actions = {
             // commit('updateQuestion', res);
 
             //todo currently we are gonna get question by id.           
-            questionService.getQuestion(question.id).then((res)=>{
+            questionService.get(question.id).then((res)=>{
                 commit('updateQuestion', res);
             });
         }
