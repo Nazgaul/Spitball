@@ -200,8 +200,10 @@ export default {
         position: -ms-sticky;
         position: -o-sticky;
         position: sticky;
-        z-index: 240;
-
+        z-index: 200;
+        @media (max-width: @screen-xs) {
+            z-index: unset;
+        }
 
         // top:30px;
         // z-index: 99;
@@ -227,7 +229,7 @@ export default {
             }
             @media (max-width: @screen-xs) {
                 &.strech{
-                   width: 100%;
+                //    width: 100%;
                 }
             }
         }
