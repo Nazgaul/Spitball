@@ -254,6 +254,16 @@ namespace Cloudents.Web.Api
                 return BadRequest(ModelState);
             }
 
+            if (model.TutorId.HasValue)
+            {
+                var query = new GetPhoneNumberQuery(model.TutorId.Value);
+                var val =  await _queryBus.QueryAsync(query, token);
+                return Ok(new
+                {
+                    PhoneNumber = val
+                });
+            }
+
             return Ok();
         }
 
@@ -379,5 +389,12 @@ namespace Cloudents.Web.Api
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+        //[HttpGet("phone")]
+        //public async Task<string> GetPhoneNumberAsync(long tutorId, CancellationToken token)
+        //{
+        //    var query = new GetPhoneNumberQuery(tutorId);
+        //    return await _queryBus.QueryAsync(query, token);
+        //}
     }
 }

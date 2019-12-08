@@ -13,6 +13,7 @@ const state = {
     courseDescription:'',
     selectedCourse:'',
     moreTutors:true,
+    currentTutorPhoneNumber: null,
 };
 
 const getters = {
@@ -23,6 +24,7 @@ const getters = {
     getCourseDescription: state => state.courseDescription,
     getSelectedCourse: state => state.selectedCourse,
     getMoreTutors: state => state.moreTutors,
+    getCurrentTutorPhoneNumber: state => state.currentTutorPhoneNumber,
 };
 
 const mutations = {
@@ -50,9 +52,13 @@ const mutations = {
         state.courseDescription = '';
         state.selectedCourse = '';
         state.moreTutors = false;
+        state.currentTutorPhoneNumber = null
     },
     setMoreTutors(state, val) {
         state.moreTutors = val;
+    },
+    setCurrentTutorPhoneNumber(state, number) {
+        state.currentTutorPhoneNumber = number;
     },
 };
 
@@ -82,10 +88,13 @@ const actions = {
     resetRequestTutor({commit}){
         commit('setRequestTutor');
     },
-    sendTutorRequest({dispatch},serverObj){
+    sendTutorRequest({commit, dispatch},serverObj){
         dispatch('sendAnalyticEvent',false);
         return tutorService.requestTutor(serverObj)
                 .then((response) =>{
+                    if(response) {
+                        commit('setCurrentTutorPhoneNumber', response.phoneNumber);
+                    }
                     dispatch('updateTutorReqStep','tutorRequestSuccess');
                 }).catch((err)=>{
                     dispatch('updateToasterParams',{

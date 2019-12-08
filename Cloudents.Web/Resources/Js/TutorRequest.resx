@@ -132,6 +132,35 @@
   <data name="invalid" xml:space="preserve">
     <value>Invalid course name</value>
   </data>
+  <data name="message_success_btn_noThanks" xml:space="preserve">
+    <value>No, Thanks</value>
+  </data>
+  <data name="message_success_btn_showMe" xml:space="preserve">
+    <value>Show me</value>
+  </data>
+  <data name="message_success_btn_whatsapp" xml:space="preserve">
+    <value>Whatsapp</value>
+  </data>
+  <data name="message_success_tutor_1" xml:space="preserve">
+    <value>Your message was sent to</value>
+  </data>
+  <data name="message_success_tutor_2" xml:space="preserve">
+    <value>He will respond to you through SMS and Email, 
+but it might take him some time to respond.</value>
+  </data>
+  <data name="message_success_tutor_3" xml:space="preserve">
+    <value>Would you like to contact him directly on WhatsApp?</value>
+  </data>
+  <data name="message_success_yaniv_1" xml:space="preserve">
+    <value>Your message was sent.
+</value>
+  </data>
+  <data name="message_success_yaniv_2" xml:space="preserve">
+    <value>You will get a response through SMS and email.</value>
+  </data>
+  <data name="message_success_yaniv_3" xml:space="preserve">
+    <value>In the meantime, would you like to see other tutors that teach this course?</value>
+  </data>
   <data name="more_tutors" xml:space="preserve">
     <value>I would like to hear from 2-3 other Tutors like {1}</value>
   </data>
@@ -175,6 +204,9 @@ You will be contacted shortly.</value>
   </data>
   <data name="type_legend" xml:space="preserve">
     <value>What can i help you with?</value>
+  </data>
+  <data name="whatsapp_message" xml:space="preserve">
+    <value>Hello World</value>
   </data>
   <data name="yaniv" xml:space="preserve">
     <value>Yaniv</value>

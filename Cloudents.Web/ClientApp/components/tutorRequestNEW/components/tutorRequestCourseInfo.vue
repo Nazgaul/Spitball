@@ -184,6 +184,7 @@ export default {
                 this.sendTutorRequest(serverObj).finally(()=>{
                     this.isLoading = false;
                     analyticsService.sb_unitedEvent('Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+                    this.updateSelectedCourse(this.tutorCourse)
                 })
             }
         }

@@ -1,5 +1,5 @@
 <template>
-    <div class="tutorRequest-container">
+    <div class="tutorRequest-container" :class="{'tutorRequest-container--paddingTop': !showHeader}">
         <tutorRequestHeader v-if="!showHeader"></tutorRequestHeader>
         <component :is="currentStep"></component> 
     </div>
@@ -55,7 +55,7 @@ export default {
         background-color: #ffffff;
         border-radius: 6px;
         box-shadow: 0 13px 21px 0 rgba(0, 0, 0, 0.51);
-        padding: 14px 18px 10px 18px;
+        padding: 0px 18px 10px 18px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -65,6 +65,9 @@ export default {
                 height: 100%;
                 box-shadow: none;
             }
+        &--paddingTop {
+            padding-top: 20px;   
+        }
     }
     
 </style>
