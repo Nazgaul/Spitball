@@ -145,27 +145,11 @@
     <value>כניסה</value>
     <comment>צריך להיות התחבר</comment>
   </data>
-  <data name="login_l" xml:space="preserve">
-    <value>היכנס</value>
-    <comment>צריך להיות התחבר</comment>
-  </data>
   <data name="logout" xml:space="preserve">
     <value>התנתק מהמערכת</value>
   </data>
-  <data name="my_profile" xml:space="preserve">
-    <value>הפרופיל שלי</value>
-  </data>
   <data name="my_study_rooms" xml:space="preserve">
     <value>בדיקת חדר לימוד</value>
-  </data>
-  <data name="my_wallet" xml:space="preserve">
-    <value>הארנק שלי</value>
-  </data>
-  <data name="or" xml:space="preserve">
-    <value>או</value>
-  </data>
-  <data name="Please" xml:space="preserve">
-    <value>אנא</value>
   </data>
   <data name="points" xml:space="preserve">
     <value>קבל נקודות</value>
@@ -178,9 +162,6 @@
   </data>
   <data name="Sign_up" xml:space="preserve">
     <value>הרשמה</value>
-  </data>
-  <data name="sign_up_l" xml:space="preserve">
-    <value>הרשם</value>
   </data>
   <data name="terms_of_service" xml:space="preserve">
     <value>תנאי שירות</value>

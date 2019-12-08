@@ -120,9 +120,6 @@
   <data name="back" xml:space="preserve">
     <value>Back</value>
   </data>
-  <data name="btn_close" xml:space="preserve">
-    <value>Close</value>
-  </data>
   <data name="cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -195,18 +192,11 @@ but it might take him some time to respond.</value>
   <data name="submit" xml:space="preserve">
     <value>Submit</value>
   </data>
-  <data name="success" xml:space="preserve">
-    <value>Your message has been sent.
-You will be contacted shortly.</value>
-  </data>
   <data name="tell_tutor" xml:space="preserve">
     <value>Tell {1} how he can reach you</value>
   </data>
   <data name="type_legend" xml:space="preserve">
     <value>What can i help you with?</value>
-  </data>
-  <data name="whatsapp_message" xml:space="preserve">
-    <value>Hello World</value>
   </data>
   <data name="yaniv" xml:space="preserve">
     <value>Yaniv</value>

@@ -225,9 +225,6 @@
   <data name="stream_btn_start_session_student" xml:space="preserve">
     <value>התחל שיעור</value>
   </data>
-  <data name="stream_btn_start_student" xml:space="preserve">
-    <value>התחל שיעור</value>
-  </data>
   <data name="stream_btn_start_tutor" xml:space="preserve">
     <value>התחל שיעור</value>
   </data>

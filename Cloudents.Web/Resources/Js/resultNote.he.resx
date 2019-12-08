@@ -147,9 +147,6 @@
   <data name="error_delete" xml:space="preserve">
     <value>לא ניתן למחוק מסמך, נסה שנית מאוחר יותר</value>
   </data>
-  <data name="privet" xml:space="preserve">
-    <value>מורה פרטי/ת {1}</value>
-  </data>
   <data name="purchased" xml:space="preserve">
     <value>רכישה</value>
   </data>

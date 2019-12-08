@@ -229,9 +229,6 @@ Try connecting from a computer browser</value>
   <data name="stream_btn_start_session_student" xml:space="preserve">
     <value>Join Session</value>
   </data>
-  <data name="stream_btn_start_student" xml:space="preserve">
-    <value>Start Session</value>
-  </data>
   <data name="stream_btn_start_tutor" xml:space="preserve">
     <value>Start Session</value>
   </data>

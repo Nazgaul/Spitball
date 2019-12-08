@@ -120,9 +120,6 @@
   <data name="add_your_courses" xml:space="preserve">
     <value>מה אתה לומד?</value>
   </data>
-  <data name="add_your_university" xml:space="preserve">
-    <value>איפה אתה לומד?</value>
-  </data>
   <data name="allCourses" xml:space="preserve">
     <value>כל הקורסים</value>
   </data>
@@ -139,9 +136,6 @@
     <value>השיעורים שלי</value>
   </data>
   <data name="my" xml:space="preserve">
-    <value>הקורסים שלי</value>
-  </data>
-  <data name="my_courses" xml:space="preserve">
     <value>הקורסים שלי</value>
   </data>
   <data name="my_study_rooms" xml:space="preserve">

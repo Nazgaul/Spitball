@@ -126,9 +126,6 @@
   <data name="bottom_2" xml:space="preserve">
     <value>רכישת נקודות היא אך ורק עבור גישה למסמכי לימוד באתר ספיטבול.</value>
   </data>
-  <data name="buy_points_button" xml:space="preserve">
-    <value>קבל נקודות</value>
-  </data>
   <data name="choose" xml:space="preserve">
     <value>בחר</value>
   </data>

@@ -120,9 +120,6 @@
   <data name="add_your_courses" xml:space="preserve">
     <value>Add Your Courses</value>
   </data>
-  <data name="add_your_university" xml:space="preserve">
-    <value>Add Your School</value>
-  </data>
   <data name="allCourses" xml:space="preserve">
     <value>All courses</value>
   </data>
@@ -140,9 +137,6 @@
   </data>
   <data name="my" xml:space="preserve">
     <value>My courses</value>
-  </data>
-  <data name="my_courses" xml:space="preserve">
-    <value>My Courses</value>
   </data>
   <data name="my_study_rooms" xml:space="preserve">
     <value>My study rooms</value>

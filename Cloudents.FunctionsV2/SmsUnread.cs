@@ -92,8 +92,8 @@ namespace Cloudents.FunctionsV2
                         }
                         try
                         {
-                            // await options.AddAsync(messageOptions, token);
-                            //  await options.FlushAsync(token);
+                             await options.AddAsync(messageOptions, token);
+                             await options.FlushAsync(token);
                         }
                         catch (Exception ex)
                         {

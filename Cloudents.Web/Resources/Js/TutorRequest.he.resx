@@ -120,9 +120,6 @@
   <data name="back" xml:space="preserve">
     <value>חזרה</value>
   </data>
-  <data name="btn_close" xml:space="preserve">
-    <value>סגירה</value>
-  </data>
   <data name="cancel" xml:space="preserve">
     <value>ביטול</value>
   </data>
@@ -191,9 +188,6 @@
   </data>
   <data name="submit" xml:space="preserve">
     <value>אישור</value>
-  </data>
-  <data name="success" xml:space="preserve">
-    <value>הודעתך נשלחה וייצרו איתך קשר בקרוב</value>
   </data>
   <data name="tell_tutor" xml:space="preserve">
     <value>איך {1} יכול ליצור איתך קשר?</value>

@@ -126,20 +126,11 @@
   <data name="greets" xml:space="preserve">
     <value>שלום, {1}</value>
   </data>
-  <data name="login" xml:space="preserve">
-    <value>כניסה</value>
-  </data>
-  <data name="placeholder_feed" xml:space="preserve">
-    <value>חיפוש</value>
-  </data>
   <data name="placeholder_search" xml:space="preserve">
     <value>חיפוש</value>
   </data>
   <data name="placeholder_search_m" xml:space="preserve">
     <value>חיפוש מורים וחומרי לימוד</value>
-  </data>
-  <data name="sign_up" xml:space="preserve">
-    <value>הרשמה</value>
   </data>
   <data name="tooltip_chat" xml:space="preserve">
     <value>הודעות</value>

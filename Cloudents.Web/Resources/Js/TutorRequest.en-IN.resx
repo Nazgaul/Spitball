@@ -189,10 +189,6 @@ but it might take him some time to respond.</value>
   <data name="submit" xml:space="preserve">
     <value>Submit</value>
   </data>
-  <data name="success" xml:space="preserve">
-    <value>Your message has been sent.
-You will be contacted shortly.</value>
-  </data>
   <data name="tell_tutor" xml:space="preserve">
     <value>Tell {1} how he can reach you</value>
   </data>
