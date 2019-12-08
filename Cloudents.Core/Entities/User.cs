@@ -93,6 +93,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             userCoupon.UsedAmount++;
+            AddEvent(new UseCouponEvent(userCoupon));
         }
 
         public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
@@ -109,6 +110,7 @@ namespace Cloudents.Core.Entities
                 {
                     throw new DuplicateRowException();
                 }
+                AddEvent(new ApplyCouponEvent(p));
                 //{
                 //    _userCoupon.Remove(p);
                 //    _userCoupon.Add(p);
