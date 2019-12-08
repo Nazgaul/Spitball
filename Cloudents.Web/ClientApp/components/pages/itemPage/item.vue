@@ -67,6 +67,7 @@
         <whyUsDesktop v-if="$vuetify.breakpoint.lgAndUp" :document="document"></whyUsDesktop>
         <mobileUnlockDownload v-if="$vuetify.breakpoint.xsOnly" :document="document"></mobileUnlockDownload>
         <unlockDialog :document="document"></unlockDialog>
+        <downloadDocDialog/>
     </div>
 </template>
 
@@ -95,6 +96,7 @@ import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
 import whyUs from './components/whyUs/whyUs.vue';
 import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
 import unlockDialog from './components/dialog/unlockDialog.vue';
+import downloadDocDialog from './components/dialog/downloadDocDialog.vue';
 
 export default {
     name: 'itemPage',
@@ -109,7 +111,8 @@ export default {
         whyUs,
         mobileUnlockDownload,
         mainItem,
-        unlockDialog
+        unlockDialog,
+        downloadDocDialog
     },
     props: {
         id: {

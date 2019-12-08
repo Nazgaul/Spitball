@@ -11,6 +11,7 @@ const state = {
     btnLoading: false,
     showPurchaseConfirmation: false,
     documentLoaded: false,
+    downloadDocDialog:false,
 };
 
 const getters = {
@@ -30,6 +31,7 @@ const getters = {
     getPurchaseConfirmation: state => state.showPurchaseConfirmation,
     getDocumentLoaded: state => state.documentLoaded,
     getRelatedDocuments: state => state.itemsList,
+    getDownloadDocDialog: state => state.downloadDocDialog,
 };
 
 const mutations = {
@@ -59,11 +61,19 @@ const mutations = {
     setBtnLoading(state, payload) {
         state.btnLoading = payload;
     },
+    setDownloadDocDialog(state,val){
+        state.downloadDocDialog = val;
+
+    }
 };
 
 const actions = {
     updatePurchaseConfirmation({commit},val){
         commit('setPurchaseConfirmation',val);
+    },
+    updateDownloadDocDialog({commit},val){
+        commit('setDownloadDocDialog',val);
+
     },
     documentRequest({commit}, id) {
         return documentService.getDocument(id).then((DocumentObj) => {
@@ -73,10 +83,13 @@ const actions = {
             return err;
         });
     },
-    downloadDocument({commit, getters, dispatch}, item) {
+    downloadDocument({getters, dispatch}, item) {
         let user = getters.accountUser;
-
-        if(!user) return dispatch('updateLoginDialogState', true);
+        if(!user){
+            return dispatch('updateLoginDialogState', true);
+        }else{
+            dispatch('updateDownloadDocDialog',true)
+        }
 
         let {id, course} = item;     
 

@@ -20,9 +20,6 @@
         </v-btn>
         <v-btn
             v-else
-            tag="a"
-            :href="`${$route.path}/download`"
-            target="_blank"
             :loading="isLoading"
             class="itemPage__side__btn white--text"
             depressed block round @click="downloadDoc" color="#4c59ff">
@@ -137,6 +134,9 @@ export default {
             }
         },
         downloadDoc(e) {
+            //             tag="a"
+            // :href="`${$route.path}/download`"
+            // target="_blank"
             if (!this.accountUser) {
                 e.preventDefault();
             }
