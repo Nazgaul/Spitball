@@ -51,7 +51,7 @@ const mutations = {
         state.currentTutorReqStep = 'tutorRequestCourseInfo';
         state.courseDescription = '';
         state.selectedCourse = '';
-        state.moreTutors = false;
+        state.moreTutors = true;
         state.currentTutorPhoneNumber = null
     },
     setMoreTutors(state, val) {

@@ -131,7 +131,7 @@ export default {
                     email: (self.guestMail)? self.guestMail : null,
                     phone: (self.guestPhone)? self.guestPhone : null,
                     course: (self.getSelectedCourse)? self.getSelectedCourse.text || self.getSelectedCourse : null,
-                    moreTutors: (self.getMoreTutors)? self.getMoreTutors : null,
+                    moreTutors: self.getMoreTutors,
                     tutorId: tutorId
                 }
                 this.sendTutorRequest(serverObj).finally(()=>{

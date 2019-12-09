@@ -179,7 +179,8 @@ export default {
                     email: null,
                     phone: null,
                     course: this.tutorCourse? this.tutorCourse.text || this.tutorCourse : null,
-                    tutorId: tutorId
+                    tutorId: tutorId,
+                    moreTutors: this.moreTutors
                 }                    
                 this.sendTutorRequest(serverObj).finally(()=>{
                     this.isLoading = false;
