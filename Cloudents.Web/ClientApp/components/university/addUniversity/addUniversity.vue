@@ -1,6 +1,6 @@
 <template>
     <div class="add-university-wrap">
-        <v-layout :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2 pl-4 pr-1']" align-center
+        <v-layout :class="[$vuetify.breakpoint.smAndUp ? 'py-6 px-6': 'grey-backgound py-2 pl-4 pr-1']" align-center
                   justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
@@ -9,7 +9,7 @@
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn rounded class="elevation-0 done-btn py-1 font-weight-bold my-0" @click="getOut()">
+                <v-btn rounded class="elevation-0 done-btn mx-2 py-1 font-weight-bold my-0" @click="getOut()">
                     <span class="text-capitalize" v-language:inner>university_not_student_btn</span>
                 </v-btn>
             </v-flex>
@@ -322,6 +322,7 @@
             font-size: 28px;
         }
         .done-btn {
+            min-width: 88px;
             color: @global-blue;
             border-radius: 36px;
             border: solid 1px @global-blue;

@@ -329,7 +329,7 @@ export default {
                 background: #fff !important;
                 line-height: 0;
                 text-transform: inherit;
-                margin: 6px 0;
+                // margin: 6px 0;
             }
         }
     }

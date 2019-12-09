@@ -59,7 +59,7 @@ export default {
     background: white;
     border-radius: 8px;
     border: solid 1px #c1c3d2;
-    color: #43425d;
+    color: #43425d !important;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -162,13 +162,16 @@
       max-height: 344px;
       text-transform: capitalize;
       overflow:auto;
+      .v-data-table-header {
+        background-color: #f3f3ff;
+      }
       .v-table__overflow{
         width: inherit;
         @media (max-width: @screen-xs) {
           width: inherit;
         }
       }
-      .v-table {
+      // .v-table {
         thead {
           background-color: #f3f3ff;
           tr {
@@ -211,7 +214,7 @@
             }
           }
         }
-      }
+      // }
     }
 
     .bold, .Balance-header, .Value-header {

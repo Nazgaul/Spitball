@@ -8,7 +8,7 @@
                     <v-icon right>sbf-close</v-icon>
                 </button>
             </div>
-            <v-tabs v-if="!cashOut" >
+            <v-tabs v-if="!cashOut" background-color="#514f7d" color="#fff" hide-slider dark>
                 <v-tab @click="changeActiveTab(1)" :href="'#tab-1'" :key="1"><span v-language:inner>wallet_Balances</span>  </v-tab>
                 <v-tab @click="changeActiveTab(2)" :href="'#tab-2'" :key="2"><span v-language:inner>wallet_Transaction</span> </v-tab>
                 <v-tab @click="changeActiveTab(3)" :href="'#tab-3'" :key="3"><span v-language:inner>wallet_Cash_Out</span> </v-tab>
@@ -24,9 +24,9 @@
                                 <span :class="props.header.text+'-header table-header'">{{ props.header.text }}</span>
                             </template>
                             <template slot="items" slot-scope="props">
-                                <td class="text-xs-left">{{ props.item.name }}</td>
-                                <td class="text-xs-left">{{ props.item.points | currencyLocalyFilter}}</td>
-                                <td class="text-xs-left bold" :style="props.item.value < 0 ? `direction:ltr;` : ''">{{ props.item.value | currencyFormat(props.item.symbol) }}</td>
+                                <td class="text-left">{{ props.item.name }}</td>
+                                <td class="text-left">{{ props.item.points | currencyLocalyFilter}}</td>
+                                <td class="text-left bold" :style="props.item.value < 0 ? `direction:ltr;` : ''">{{ props.item.value | currencyFormat(props.item.symbol) }}</td>
                             </template>
                         </v-data-table>
                     </v-flex>
@@ -45,11 +45,11 @@
                                 <span :class="props.header.text+'-header table-header'">{{ props.header.text }}</span>
                             </template>
                             <template slot="items" slot-scope="props">
-                                <td class="text-xs-left">{{ props.item.date | dateFromISO}}</td>
-                                <td class="text-xs-left">{{ props.item.action }}</td>
-                                <td class="text-xs-left" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.type }}</td>
-                                <td class="text-xs-left">{{ props.item.amount | currencyLocalyFilter}}</td>
-                                <td class="text-xs-left bold"  v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.balance | currencyLocalyFilter }}</td>
+                                <td class="text-left">{{ props.item.date | dateFromISO}}</td>
+                                <td class="text-left">{{ props.item.action }}</td>
+                                <td class="text-left" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.type }}</td>
+                                <td class="text-left">{{ props.item.amount | currencyLocalyFilter}}</td>
+                                <td class="text-left bold"  v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.balance | currencyLocalyFilter }}</td>
                             </template>
                         </v-data-table>
                     </v-flex>
