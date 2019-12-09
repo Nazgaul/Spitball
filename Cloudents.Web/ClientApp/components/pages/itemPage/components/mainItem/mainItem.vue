@@ -232,10 +232,10 @@ export default {
                             padding: 14px 0;
                             border-radius: 0 0 8px 8px;
                         &--img {
+                            transform: none /*rtl:scaleX(-1)*/;
                             color: #4c59ff !important; //vuetify
                             font-size: 14px;
                             font-weight: 600;
-                            transform: none /*rtl:scaleX(-1)*/;
     
                             &:before {
                                 font-weight: 600 !important;

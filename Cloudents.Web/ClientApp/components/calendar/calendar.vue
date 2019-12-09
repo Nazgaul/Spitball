@@ -348,6 +348,7 @@ export default {
       }
     }
     .v-btn{
+      transform: none /*rtl:rotate(180deg)*/ ;
       min-width: auto !important;
       width: 40px;
       height: 30px;
@@ -357,7 +358,6 @@ export default {
         height: 28px;
         margin: 0;
       }
-      transform: none /*rtl:rotate(180deg)*/ ;
       .v-btn__content{
         .v-icon{
           font-size: 18px;

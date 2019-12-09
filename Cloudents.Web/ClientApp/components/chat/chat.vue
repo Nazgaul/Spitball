@@ -215,10 +215,10 @@ export default {
       margin: 4px 10px 0 4px;
       z-index: 2;
       &.sbf-arrow-back-chat {
+        transform: scaleX(1) /*rtl:append:scaleX(-1)*/;
         width: 24px;
         height: 24px;
         display: flex;
-        transform: scaleX(1) /*rtl:append:scaleX(-1)*/;
       }
     }
     .chat-header-name, .other-side {

@@ -482,6 +482,7 @@
         }
         .course-back-btn {
             transform: scaleX(1) /*rtl:append:scaleX(-1)*/;
+            height: inherit;
         }
 
     }

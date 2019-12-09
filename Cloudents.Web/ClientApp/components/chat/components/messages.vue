@@ -268,6 +268,7 @@ export default {
                     i { 
                         //Do not put it last because then the remark are gone
                         transform: rotateY(0deg)/*rtl:rotateY(180deg)*/; 
+                        /*rtl:append:transform: rotateY(180deg);*/;
                         color: #FFF;
                         font-size: 12px;
                         background-color: @global-blue;
@@ -275,7 +276,6 @@ export default {
                         border-radius: 70%;
                         width: 30px;
                         height: 30px;
-                        /*rtl:append:transform: rotateY(180deg);*/;
                     }
                 }
                 &.messages-input-disabled{
