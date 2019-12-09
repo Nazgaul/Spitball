@@ -32,6 +32,8 @@ const landingPageFooter = () => import('./components/pages/layouts/footer/footer
 const homePage = () => import('./components/landingPage/pages/homePage.vue');
 const registerPage = () => import('./components/loginPageNEW/pages/registerPage.vue');
 
+const myPurchases = () => import('./components/pages/dashboard/myPurchases/myPurchases.vue');
+
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -322,7 +324,20 @@ let routes2 = [
                 next();
             }
         }
-    }
+    },
+    {
+        path: "/myPurchases",
+        components: {
+            default: myPurchases,
+            header: pageHeader,
+            banner: globalBanner,
+            sideMenu: sideMenu,
+        },
+        name: "myPurchases",
+        meta: {
+            requiresAuth: true
+        },
+    },
 ];
 
 
