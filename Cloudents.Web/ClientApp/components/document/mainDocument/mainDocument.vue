@@ -1,7 +1,7 @@
 <template>
   <div class="mainDocument-container">
     <h2 class="courseName font-weight-bold text-truncate pt-1 hidden-sm-and-up">{{courseName}}</h2>
-    <v-layout row class="mainDocument-header pt-1 pb-2" align-center>
+    <v-layout class="mainDocument-header pt-1 pb-2" align-center>
       <div class="main-header-wrapper">
         <v-icon
           class="grey--text"
@@ -69,7 +69,7 @@
                 <span class="change-title pr-1" v-language:inner="'resultNote_change_for'"></span>
                 <span class="change-title">&nbsp;"{{courseName}}"</span>
               </div>
-              <div class="input-wrap d-flex row align-center justify-center">
+              <div class="input-wrap d-flex align-center justify-center">
                 <div :class="['price-wrap', isRtl ? 'reversed' : '']">
                   <vue-numeric
                     :currency="currentCurrency"

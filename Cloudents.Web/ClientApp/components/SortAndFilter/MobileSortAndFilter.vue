@@ -30,7 +30,7 @@
                 <div class="filter-sections">
                     <div class="filter-section" v-for="(singleFilter) in filterList" :key="singleFilter.id" :value="true">
                         <v-layout class="filter-header" slot="header">
-                            <v-layout row align-center>
+                            <v-layout align-center>
                                 <div class="icon-wrapper">
                                     <slot :name="`${singleFilter.title}TitlePrefix`"></slot>
                                 </div>

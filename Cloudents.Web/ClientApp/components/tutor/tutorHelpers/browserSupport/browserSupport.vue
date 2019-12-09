@@ -1,14 +1,14 @@
 <template>
     <div class="browserSupport">
         <v-flex pb-5 only>
-            <v-layout row wrap align-center justify-space-between class="browserSupport-header">
+            <v-layout wrap align-center justify-space-between class="browserSupport-header">
               <h4 v-language:inner="'browserSupport_unsupported_browser'"></h4>
               <!-- <v-icon class="close" @click="closeDialog()">sbf-close</v-icon> -->
             </v-layout>
         </v-flex>
 
         <v-flex pb-4>
-            <v-layout row wrap align-center justify-center class="browserSupport-center-top">
+            <v-layout wrap align-center justify-center class="browserSupport-center-top">
                     <v-icon class="card" color="#000000">sbf-card</v-icon>
                     <h3 v-language:inner="'browserSupport_update_browser'"></h3>
             </v-layout>

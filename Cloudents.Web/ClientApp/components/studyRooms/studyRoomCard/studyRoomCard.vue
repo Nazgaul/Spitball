@@ -22,7 +22,7 @@
                 <span class="study-card-enter-text" v-language:inner>studyRoom_enter_room</span>
             </v-flex>
         </v-layout>
-        <v-layout align-center row justify-space-between class="study-card-created-container">
+        <v-layout align-center justify-space-between class="study-card-created-container">
             <span v-language:inner>studyRoom_created</span>
             <span>
                 {{date}}

@@ -7,7 +7,7 @@
                 <span v-language:inner>profile_edit_user_profile_title</span>
             </v-flex>
         </v-layout>
-        <v-layout class="px-3 mt-4 prev-grow"  row wrap>
+        <v-layout class="px-3 mt-4 prev-grow" wrap>
             <v-flex xs12 sm6  :class="{'pr-2' : $vuetify.breakpoint.smAndUp}">
                 <v-layout column>
                     <v-flex xs12 sm6 class="mb-2 pl-2">

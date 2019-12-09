@@ -7,7 +7,7 @@
         </div>
     </v-flex>
     <!-- <v-flex class="line verticals static-card-what-is-hw-question">
-        <v-layout row >
+        <v-layout>
             <v-tabs hide-slider :dir="this.$vuetify.breakpoint.xsOnly && isRtl ? `ltr` : ''" v-model="currentVertical" :value="currentVertical" :scrollable="true">
                     <v-tab v-for="tab in verticals" :ripple="false" :key="tab.id" :href="tab.id" :id="tab.id"
                                  @click.prevent="$_updateType(tab.id)"

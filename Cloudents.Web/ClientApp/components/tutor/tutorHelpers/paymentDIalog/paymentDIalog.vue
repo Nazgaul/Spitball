@@ -3,7 +3,7 @@
         <v-icon class="exit-btn cursor-pointer" @click="closePaymentDialog()">sbf-close</v-icon>
         <div class="payme-popup-top pt-4" v-if="getTutorName">
             <div class="payme-top-title" v-language:inner="'payme_top_title'"/>
-            <v-layout row wrap :class="['payme-content',isMobile? 'pt-4 pb-2':'pt-5 pb-4']">
+            <v-layout wrap :class="['payme-content',isMobile? 'pt-4 pb-2':'pt-5 pb-4']">
                 <v-flex xs12 sm3 :class="['payme-content-div']">
                     <img :class="['payme-content-img']" src="./images/timer.png">
                     <span :class="['payme-content-txt',{'pt-2':!isMobile}]" v-language:inner="'payme_content_txt_time'"/>

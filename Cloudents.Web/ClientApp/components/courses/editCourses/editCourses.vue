@@ -1,7 +1,7 @@
 <template>
     <div class="courses-list-wrap">
         <div v-if="!isEmpty">
-            <v-layout row class="py-4 pl-4 pr-4" align-center justify-center>
+            <v-layout class="py-4 pl-4 pr-4" align-center justify-center>
                 <v-flex grow>
                     <div class="d-inline-flex justify-center shrink">
                         <span class="subtitle-1 font-weight-bold" v-language:inner>courses_my_courses</span>
@@ -41,7 +41,7 @@
                                 </v-flex>
                             </v-layout>
 
-                            <v-layout row align-center justify-end class="pr-2 grow">
+                            <v-layout align-center justify-end class="pr-2 grow">
                                 <v-flex shrink class="d-flex align-center" v-if="!singleClass.isLoading">
                                     <div v-show="isUserTutor">
                                     <v-btn v-if="!singleClass.isTeaching" rounded @click="teachCourseToggle(singleClass)"

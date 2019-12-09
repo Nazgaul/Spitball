@@ -1,6 +1,6 @@
 <template>
     <div class="review-submitted-wrap">
-        <v-layout row wrap align-center justify-center class="pb-4">
+        <v-layout wrap align-center justify-center class="pb-4">
             <v-flex xs12   class="text-center pt-4">
                 <v-icon class="star-icon">sbf-star-rating-full</v-icon>
             </v-flex>

@@ -1,5 +1,5 @@
 <template>
-    <router-link class="tutor-result-card-other pa-2 mb-4 row wrap justify-space-between overflow-hidden ab-default-card" 
+    <router-link class="tutor-result-card-other pa-2 mb-4 wrap justify-space-between overflow-hidden ab-default-card" 
     @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
         <div class="mb-4 top-card justify-space-between">
             <user-avatar-rect 
@@ -20,7 +20,7 @@
                 </template>
                 
 
-                <v-layout row class="moreDetails" align-center>
+                <v-layout class="moreDetails" align-center>
                     <div column class="price-box column mr-2">
                         <template>
                             <span v-if="tutorData.discountPrice" class="font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
@@ -59,7 +59,7 @@
         <!-- <v-layout class="tutor-bio mb-2" v-html="ellipsizeTextBox">{{tutorData.bio}}</v-layout> -->
         <v-layout class="tutor-bio mb-2">{{tutorData.bio}}</v-layout>
 
-        <v-layout row class="btn-footer ab-cardB">
+        <v-layout class="btn-footer ab-cardB">
             <div class="send-msg text-center text-truncate" :class="{'no-uploader': !uploader}">
                 <v-btn 
                     rounded

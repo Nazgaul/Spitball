@@ -86,7 +86,7 @@
                 </v-flex>
             </v-layout>
         </div>
-        <v-layout row align-center class="ref-bottom-section px-3" v-show="!isUploadReferral">
+        <v-layout align-center class="ref-bottom-section px-3" v-show="!isUploadReferral">
             <v-flex xs1 >
                 <!-- <i class="bottom-five"> -->
                     <v-icon  class="spread-out-loud-icon">sbf-spread-loud</v-icon>

@@ -1,6 +1,6 @@
 <template>
     <div class="report-comp-container">
-        <v-layout row wrap>
+        <v-layout wrap>
             <v-flex xs12>
                 <div class="report-head">
                     <v-icon class="flag-icon">sbf-flag</v-icon>

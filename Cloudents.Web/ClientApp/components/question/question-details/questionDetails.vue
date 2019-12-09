@@ -8,7 +8,7 @@
                 <a style="cursor:pointer;" @click="resetSearch()" v-language:inner>questionDetails_Ask_question</a>
                 <span class="question-category"> <span v-language:inner>questionDetails_question_dash</span>{{questionData.subject}}</span>
             </v-flex>
-            <v-layout row>
+            <v-layout>
                 <v-flex style="width:inherit;" class="question-data">
                     <question-thread 
                         v-if="questionData" 

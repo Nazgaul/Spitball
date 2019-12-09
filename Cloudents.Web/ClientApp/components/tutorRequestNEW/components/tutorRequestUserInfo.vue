@@ -11,7 +11,7 @@
                     autocomplete="off"/>
             </fieldset>
 
-            <v-layout justify-space-between row class="userInfo-bottom mb-2">
+            <v-layout justify-space-between class="userInfo-bottom mb-2">
                 <v-flex md8 xs12>
                 <fieldset class="fieldset-user-email px-2">
                     <legend v-language:inner="'tutorRequest_email'"/>

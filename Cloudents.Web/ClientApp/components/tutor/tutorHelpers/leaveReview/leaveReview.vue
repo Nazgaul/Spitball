@@ -9,7 +9,7 @@
             </v-flex>
         </v-layout>
         <div v-if="!reviewSent">
-            <v-layout row wrap class="pt-4 pb-2" :class="{'pt-5 pb-4': $vuetify.breakpoint.xsOnly}">
+            <v-layout wrap class="pt-4 pb-2" :class="{'pt-5 pb-4': $vuetify.breakpoint.xsOnly}">
                 <v-flex xs12  class="text-center text-sm-center">
                     <span class="review-title font-weight-bold" v-language:inner>leaveReview_subtitle</span>
                 </v-flex>
@@ -18,7 +18,7 @@
                     <span class="body-2 pl-1">{{nameTutor}}</span>
                 </v-flex>
             </v-layout>
-            <v-layout align-center justify-center row wrap class="middle-layout-wrapper py-2 border-grey mx-5" :class="{'ltr-style': isRtl}">
+            <v-layout align-center justify-center wrap class="middle-layout-wrapper py-2 border-grey mx-5" :class="{'ltr-style': isRtl}">
                 <v-flex xs12 sm1  shrink class="text-center d-inline-flex image-container py-3 mr-4">
                     <v-progress-circular v-if="!tutorImg" :width="2" indeterminate v-bind:size="35" color="#514f7d"/>
                     <user-avatar v-else class="tutor-img-wrap" size="54" :userImageUrl="tutorImg" :user-name="nameTutor" :user-id="tutorId"/>

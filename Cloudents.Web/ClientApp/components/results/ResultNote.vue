@@ -112,7 +112,7 @@
               style="max-width: 150px;"
             >&nbsp;"{{item.title}}"</span>
           </div>
-          <div class="input-wrap row align-center justify-center">
+          <div class="input-wrap align-center justify-center">
             <div :class="['price-wrap', isRtl ? 'reversed' : '']">
               <vue-numeric
                 :currency="currentCurrency"

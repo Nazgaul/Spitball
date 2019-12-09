@@ -1,6 +1,6 @@
 <template>
     <div class="empty-courses-wrap">
-        <v-layout row class="py-4" :class="[$vuetify.breakpoint.smAndUp ?  'px-4': 'px-3']" align-center justify-center>
+        <v-layout class="py-4" :class="[$vuetify.breakpoint.smAndUp ?  'px-4': 'px-3']" align-center justify-center>
             <v-flex grow xs8 sm10 >
                 <div class="d-inline-flex justify-center shrink">
                     <span class="subtitle-1 font-weight-bold" v-language:inner>courses_my_courses</span>
@@ -13,7 +13,7 @@
                 </v-btn>
             </v-flex>
         </v-layout>
-        <v-layout row wrap align-center justify-center>
+        <v-layout wrap align-center justify-center>
             <v-flex xs12   class="text-center mb-2">
                 <span class="subtitle-1 font-weight-bold dark-text" v-language:inner>courses_empty_pretty</span>
             </v-flex>

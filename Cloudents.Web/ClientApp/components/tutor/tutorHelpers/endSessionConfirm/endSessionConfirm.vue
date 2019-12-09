@@ -1,6 +1,6 @@
 <template>
     <div class="student-start-wrap pb-5">
-        <v-layout row class="pt-2">
+        <v-layout class="pt-2">
             <v-flex xs12 class="text-xs-right px-3">
                 <v-icon class="caption cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
             </v-flex>

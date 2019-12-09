@@ -1,6 +1,6 @@
 <template>
     <div class="add-courses-wrap">
-        <v-layout row :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2']" align-center
+        <v-layout :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2']" align-center
                   justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
@@ -50,7 +50,7 @@
                 </div>
             </v-flex>
         </v-layout>
-        <v-layout align-center class="mt-4 px-2" row wrap>
+        <v-layout align-center class="mt-4 px-2" wrap>
             <v-flex v-if="!classes && !classes.length" xs12 class="text-center">
                 <div>
                     <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
@@ -71,7 +71,7 @@
                                 <span class="students-enrolled" v-language:inner>courses_students</span>
                             </v-flex>
                         </v-layout>
-                        <v-layout row align-center justify-end class="minimize-width">
+                        <v-layout align-center justify-end class="minimize-width">
                             <div v-if="!singleClass.isFollowing">
                                 <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
                                     <span class="light-purple caption font-weight-medium mr-2"

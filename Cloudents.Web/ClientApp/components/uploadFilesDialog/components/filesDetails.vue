@@ -1,6 +1,6 @@
 <template>
     <div class="uf-sEdit">
-        <v-layout row wrap justify-space-between class="uf-sEdit-top pb-1 px-3" v-if="fileItems.length > 1 && !isError">
+        <v-layout wrap justify-space-between class="uf-sEdit-top pb-1 px-3" v-if="fileItems.length > 1 && !isError">
             <v-flex xs12 sm6 :class="[{'pl-4':!isMobile}]">
                 <v-combobox 
                     browser-autocomplete="abcd"

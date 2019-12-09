@@ -7,7 +7,7 @@
                     <span v-language:inner>profile_edit_tutor_title</span>
                 </v-flex>
             </v-layout>
-            <v-layout class="px-3 mt-4" row wrap>
+            <v-layout class="px-3 mt-4" wrap>
                 <v-flex xs12 sm4  :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
                     <v-layout column>
                         <v-flex xs12 sm6  class="pl-2 mb-2">

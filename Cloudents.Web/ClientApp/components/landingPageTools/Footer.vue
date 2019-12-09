@@ -1,6 +1,6 @@
 <template>
     <div class="footer">
-        <v-layout row align-center justify-space-around class="footer-warp">
+        <v-layout align-center justify-space-around class="footer-warp">
             <ul v-if="links" class="footer-wrap-list w-list-unstyled">
                 <li  v-for="(link, index) in links" :key="index">
                     <a :href="link.url" class="footer-link">{{link.title}}</a>

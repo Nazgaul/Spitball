@@ -1,7 +1,7 @@
 <template>
     <div class="become-first-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0' : '']">
         <span class="become-first-span" v-language:inner="'becomeTutor_sharing_step_1'"></span>
-        <v-layout row wrap align-start class="become-first-cont">
+        <v-layout wrap align-start class="become-first-cont">
             <v-flex xs12 sm4 shrink class="image-wrap text-center">
                 <img v-show="userImage && isLoaded" class="user-image" :src="userImage" alt="upload image" @load="loaded">
                 <div v-if="!isLoaded" class="image-loader">

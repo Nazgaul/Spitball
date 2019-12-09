@@ -12,7 +12,7 @@
                 <button class="tutor-button" @click="updateTutorDialog(true)" v-language:inner>studyRoom_become_tutor</button>
             </v-flex>
         </v-layout>
-        <v-layout align-center row justify-space-between class="tutor-card-bottom-area">
+        <v-layout align-center justify-space-between class="tutor-card-bottom-area">
            <v-flex class="text-card" v-language:inner>studyRoom_help_others</v-flex>
         </v-layout>
     </v-container>

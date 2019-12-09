@@ -1,6 +1,6 @@
 <template>
     <div class="become-final-wrap">
-        <v-layout row wrap>
+        <v-layout wrap>
             <v-flex xs12 class="text-center mb-4">
                <v-icon class="face-icon">sbf-face-icon</v-icon>
             </v-flex>
