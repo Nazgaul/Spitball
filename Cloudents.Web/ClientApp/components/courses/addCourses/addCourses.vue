@@ -4,7 +4,7 @@
                   justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
-                    <v-icon @click="goToEditCourses()" class="course-back-btn mr-3" :class="{'rtl': isRtl}">sbf-arrow-back
+                    <v-icon @click="goToEditCourses()" class="course-back-btn mr-3">sbf-arrow-back
                     </v-icon>
                     <span class="subheading font-weight-bold" v-language:inner>courses_join</span>
                     <span class="subheading font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
@@ -127,7 +127,6 @@
                 classNamePlaceholder: LanguageService.getValueByKey(
                     "courses_placeholder_find"
                 ),
-                isRtl: global.isRtl,
                 global: global,
                 localSelectedClasses: [],
                 doneButtonLoading: false
@@ -482,10 +481,7 @@
             margin-left: 8px;
         }
         .course-back-btn {
-            &.rtl {
-                /*rtl:ignore*/
-                transform: rotate(-180deg);
-            }
+            transform: scaleX(1) /*rtl:append:scaleX(-1)*/;
         }
 
     }

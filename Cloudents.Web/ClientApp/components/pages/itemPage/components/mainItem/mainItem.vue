@@ -40,13 +40,13 @@
                         <div class="mainItem__item__wrap__paging">
                             <v-layout class="mainItem__item__wrap__paging__actions">
                                 <button class="mainItem__item__wrap__paging__actions--left"  @click="isRtl ? nextDoc() : prevDoc()" v-if="showDesktopButtons">
-                                    <v-icon class="mainItem__item__wrap__paging__actions--img" v-html="!isRtl ? 'sbf-arrow-left-carousel': 'sbf-arrow-right-carousel'"></v-icon>
+                                    <v-icon class="mainItem__item__wrap__paging__actions--img" v-html="'sbf-arrow-left-carousel'"/>
                                 </button>
 
                                 <div class="mx-4 mainItem__item__wrap__paging--text" v-html="$Ph('documentPage_docPage', [docPage, docPreview.length])"></div>            
 
                                 <button class="mainItem__item__wrap__paging__actions--right" @click="isRtl ? prevDoc() : nextDoc()" v-if="showDesktopButtons">
-                                    <v-icon class="mainItem__item__wrap__paging__actions--img" v-html="isRtl ? 'sbf-arrow-left-carousel' : 'sbf-arrow-right-carousel'"></v-icon>
+                                    <v-icon class="mainItem__item__wrap__paging__actions--img" v-html="'sbf-arrow-right-carousel'"/>
                                 </button>
                             </v-layout>
                         </div>
@@ -235,6 +235,7 @@ export default {
                             color: #4c59ff !important; //vuetify
                             font-size: 14px;
                             font-weight: 600;
+                            transform: none /*rtl:scaleX(-1)*/;
     
                             &:before {
                                 font-weight: 600 !important;

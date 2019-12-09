@@ -70,7 +70,6 @@
     </v-toolbar>
             <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
                              fixed app v-if="$vuetify.breakpoint.xsOnly" class="drawerIndex"
-                             :class="isRtl ? 'hebrew-drawer' : ''"
                              width="280">
             <menuList @closeMenu="closeDrawer"/>
         </v-navigation-drawer>

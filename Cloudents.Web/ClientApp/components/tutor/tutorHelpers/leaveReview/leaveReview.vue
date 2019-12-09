@@ -18,7 +18,7 @@
                     <span class="body-2 pl-1">{{nameTutor}}</span>
                 </v-flex>
             </v-layout>
-            <v-layout align-center justify-center row wrap class="middle-layout-wrapper py-2 border-grey mx-5" :class="{'ltr-style': isRtl}">
+            <v-layout align-center justify-center row wrap class="middle-layout-wrapper py-2 border-grey mx-5">
                 <v-flex xs12 sm1  shrink class="text-xs-center d-inline-flex image-container py-3 mr-4">
                     <v-progress-circular v-if="!tutorImg" :width="2" indeterminate v-bind:size="35" color="#514f7d"/>
                     <user-avatar v-else class="tutor-img-wrap" size="54" :userImageUrl="tutorImg" :user-name="nameTutor" :user-id="tutorId"/>
@@ -98,7 +98,6 @@
                 rating: 0,
                 starNotSet: false,
                 reviewPlaceholder: LanguageService.getValueByKey("leaveReview_review_placeholder"),
-                isRtl: global.isRtl
             };
         },
         computed: {
@@ -206,9 +205,7 @@
             color: @global-blue;
         }
         .middle-layout-wrapper{
-            &.ltr-style{
-                direction: rtl;
-            }
+            direction: ltr /*rtl:ltr*/;
             &.border-grey {
                 border-top: 1px solid rgba(67, 66, 93, 0.2);
                 border-bottom: 1px solid rgba(67, 66, 93, 0.2);

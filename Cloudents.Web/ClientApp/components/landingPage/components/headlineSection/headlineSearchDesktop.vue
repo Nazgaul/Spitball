@@ -48,9 +48,6 @@ export default {
   },
   computed: {
     ...mapGetters(['isFrymo']),
-    backgroundImg(){
-      return global.isRtl? require('../../images/bg_he.png') : require('../../images/bg_en.jpg')
-    },
     handImg(){
       if(this.isFrymo){
         return require('../../images/Hand_Frymo.png')

@@ -149,7 +149,7 @@
       :showDialog="showReport"
       :maxWidth="'438px'"
       :popUpType="'reportDialog'"
-      :content-class="`reportDialog ${isRtl? 'rtl': ''}` "
+      :content-class="`reportDialog` "
     >
       <report-item :closeReport="closeReportDialog" :itemType="'Document'" :itemId="itemId"></report-item>
     </sb-dialog>
@@ -160,7 +160,7 @@
       :onclosefn="closeNewPriceDialog"
       :activateOverlay="true"
       :isPersistent="true"
-      :content-class="`priceUpdate ${isRtl? 'rtl': ''}`"
+      :content-class="`priceUpdate`"
     >
       <v-card class="price-change-wrap">
         <v-flex align-center justify-center class="relative-pos">
@@ -169,7 +169,7 @@
             <span class="change-title" style="max-width: 150px;">&nbsp;"{{item.title}}"</span>
           </div>
           <div class="input-wrap row align-center justify-center">
-            <div :class="['price-wrap', isRtl ? 'reversed' : '']">
+            <div class="price-wrap">
               <vue-numeric
                 :currency="currentCurrency"
                 class="sb-input-upload-price"
@@ -257,7 +257,6 @@ export default {
       ],
       itemId: 0,
       showReport: false,
-      isRtl: global.isRtl,
       showMenu: false,
       priceDialog: false,
       newPrice: this.item.price ? this.item.price : 0,

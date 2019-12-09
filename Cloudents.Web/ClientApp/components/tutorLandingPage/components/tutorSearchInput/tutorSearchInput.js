@@ -19,7 +19,6 @@ export default {
         isFirst: true,
         showSuggestions: false,
         originalMsg: '',
-        isRtl: global.isRtl,
         msg:"",
         suggests: [],
         term: '',

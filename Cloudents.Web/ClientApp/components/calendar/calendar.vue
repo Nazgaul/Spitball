@@ -10,11 +10,11 @@
             </div>
         </div>
         <div class="navigation-btns-calendar">
-          <v-btn :disabled="isGoPrev" small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.prev()">
+          <v-btn :disabled="isGoPrev" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.prev()">
             <v-icon>sbf-arrow-left-carousel</v-icon>
           </v-btn>
           <span class="title-calendar">{{calendarMonth}}</span>
-          <v-btn :disabled="isGoNext" small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.next()">
+          <v-btn :disabled="isGoNext" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.next()">
             <v-icon dark>sbf-arrow-right-carousel</v-icon>
           </v-btn>
         </div>
@@ -351,13 +351,13 @@ export default {
       min-width: auto !important;
       width: 40px;
       height: 30px;
+      border-radius: 3px;
       @media (max-width: @screen-xs) {
         width: 34px;
         height: 28px;
         margin: 0;
       }
-
-      border-radius: 3px;
+      transform: none /*rtl:rotate(180deg)*/ ;
       .v-btn__content{
         .v-icon{
           font-size: 18px;
@@ -365,9 +365,6 @@ export default {
       }
 
     }
-      .rtl{
-        transform: rotate(180deg);
-      }
   }
 
 .v-sheet{

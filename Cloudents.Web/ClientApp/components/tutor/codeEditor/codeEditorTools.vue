@@ -76,9 +76,6 @@ export default {
             if(!isInside){
                 this.show = false
             }
-        },
-        rtlLang(langName){
-            return global.isRtl? langName.split('').reverse().join('') : langName;
         }
     },
     computed:{

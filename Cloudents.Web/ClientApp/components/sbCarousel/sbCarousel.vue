@@ -21,8 +21,7 @@
                 @visibleChange="visibleChange"
                 @hold-start="holdStart"
                 @hold-end="holdEnd"
-                @move-end="moveEnd"
-                :dir="isRtl ? 'rtl' : 'ltr'">
+                @move-end="moveEnd">
     <slot></slot>
     </flicking>
     <!-- <div class="pagination flicking-pagination">

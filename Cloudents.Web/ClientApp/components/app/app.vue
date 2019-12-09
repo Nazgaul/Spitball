@@ -176,7 +176,6 @@ export default {
   },
   data() {
     return {
-      isRtl: global.isRtl,
       hideFooter: false,
       showBuyTokensDialog: false,
       toasterTimeoutObj: null,

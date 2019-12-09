@@ -75,7 +75,6 @@ export default {
                 adaptive:true,
                 renderOnlyVisible: this.renderOnlyVisible
             },
-            isRtl: global.isRtl,
             stepMove:null,
         }
     },

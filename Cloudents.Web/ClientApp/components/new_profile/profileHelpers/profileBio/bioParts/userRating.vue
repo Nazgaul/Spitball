@@ -1,7 +1,7 @@
 <template>
         <v-layout align-center justify-center class="rating-container">
             <v-flex shrink :class="{'mr-1': $vuetify.breakpoint.smAndUp}">
-                <v-rating :class="['ratingCmp',{'rtl-rating': isRtl}]"
+                <v-rating :class="['ratingCmp']"
                         v-model="dynamicRating"
                         :color="starColor"
                         :background-color="starColor"
@@ -11,9 +11,7 @@
                         empty-icon="sbf-star-rating-empty"
                         :readonly="readonly"
                         :size="size"
-                        :hover="true"
-                ></v-rating>
-                <!--  :hover="!isRtl" hover binded to rtl, if rtl true prevent hover effect cause of half star wrong side animation-->
+                        :hover="true" />
             </v-flex>
             <v-flex>
                 <div class="">
@@ -31,7 +29,6 @@
         data() {
             return {
                 ratingLength: 5,
-                isRtl: global.isRtl
             }
         },
         props: {
@@ -87,14 +84,11 @@
     .rating-container{
         .ratingCmp{
             display: flex;
-        }
-        .rtl-rating{
             .sbf-star-rating-half{
-                -moz-transform: scaleX(-1)/*rtl:ignore*/;
-                -o-transform: scaleX(-1)/*rtl:ignore*/;
-                -webkit-transform: scaleX(-1)/*rtl:ignore*/;
-                transform: scaleX(-1)/*rtl:ignore*/;
-
+                -moz-transform: none /*rtl:scaleX(-1)*/;
+                -o-transform: none/*rtl:scaleX(-1)*/;
+                -webkit-transform: none/*rtl:scaleX(-1)*/;
+                transform: none/*rtl:scaleX(-1)*/;
             }
         }
         .v-rating{

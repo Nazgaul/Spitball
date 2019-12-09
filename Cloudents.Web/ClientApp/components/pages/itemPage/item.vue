@@ -8,7 +8,7 @@
                         <v-icon
                             class="hidden-md-and-up document-header-large-sagment--arrow" 
                             @click="closeDocument" 
-                            v-html="isRtl ? 'sbf-arrow-right-carousel' : 'sbf-arrow-left-carousel'">
+                            v-html="'sbf-arrow-left-carousel'">
                         </v-icon>
                     </template>
 
@@ -179,9 +179,6 @@ export default {
             if(this.document && this.document.details) {
                 return this.document.details.course;
             }
-        },
-        isRtl() {
-            return global.isRtl;
         }
     },
         methods: {
@@ -309,6 +306,7 @@ export default {
                 }
                 .document-header-large-sagment {
                     &--arrow {
+                        transform: none /*rtl:scaleX(-1)*/;
                         margin-right: 18px;
                         font-size: 20px;
                     }

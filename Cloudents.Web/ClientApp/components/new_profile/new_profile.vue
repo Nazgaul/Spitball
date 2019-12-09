@@ -1,7 +1,7 @@
 <template>
     <v-container class="profile-page-container"> 
         <button class="back-button hidden-sm-and-up" @click="$router.go(-1)">
-            <v-icon :class="{'rtl-icon': isRtl}" right>sbf-arrow-back</v-icon>
+            <v-icon right>sbf-arrow-back</v-icon>
         </button>
         <v-layout  justify-start v-bind="xsColumn" class="bio-wrap" >
                 <v-flex xs12 sm9  >

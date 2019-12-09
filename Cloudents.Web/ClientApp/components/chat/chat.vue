@@ -7,11 +7,7 @@
     :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]"
   >
     <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
-      <v-icon
-        :class="{'rtl':isRtl}"
-        @click.stop="OriginalChatState"
-      >{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
-
+      <v-icon @click.stop="OriginalChatState" v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'" />
         <template v-if="state === 'messages'">
           <user-avatar :size="'32'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/> 
           <div class="chat-header-name text-truncate pl-3">{{activeConversationObj.name}}</div>
@@ -54,7 +50,6 @@ export default {
     return {
       enumChatState: this.getEnumChatState(),
       mobileHeaderHeight: 39,
-      isRtl: global.isRtl
     };
   },
   watch: {
@@ -223,9 +218,7 @@ export default {
         width: 24px;
         height: 24px;
         display: flex;
-        &.rtl {
-          transform: rotate(180deg);
-        }
+        transform: scaleX(1) /*rtl:append:scaleX(-1)*/;
       }
     }
     .chat-header-name, .other-side {

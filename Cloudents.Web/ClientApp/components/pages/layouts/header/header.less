@@ -328,20 +328,15 @@
 
 .v-navigation-drawer {
   z-index: 104;
-  &.hebrew-drawer{
-    // swap of right and left is going to be done by webpack RTL, so real vals are oposite
-    left: 0;
-    right: unset;
-  }
+  right:auto /*rtl:0*/;
+  left:0 /*rtl:unset*/;
 }
 
 .drawerIndex{
-  &.hebrew-drawer{
-    // swap of right and left is going to be done by webpack RTL, so real vals are oposite
-    right: 0;
-    left: unset;
-  }
+  right:0 /*rtl:unset*/;
+  left:unset /*rtl:0*/;
 }
+
 
 
 

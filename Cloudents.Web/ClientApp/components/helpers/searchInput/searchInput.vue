@@ -56,7 +56,6 @@ export default {
         showSuggestions: false,
         focusedIndex: -1,
         originalMsg: '',
-        isRtl: global.isRtl,
         suggestOptions: [
             {
                 name: LanguageService.getValueByKey("searchInput_class_search"),
@@ -254,9 +253,6 @@ export default {
       font-size: 14px;
       margin-left: 14px;
       cursor: pointer;
-      &.rtl {
-        transform: unset;
-      }
     }
   }
 

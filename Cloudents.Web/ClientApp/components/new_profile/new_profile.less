@@ -7,11 +7,6 @@
   &.content-center{
     margin: 0 auto;
   }
-  .rtl-icon{
-    /*rtl:ignore*/
-      transform: rotate( -180deg );
-
-  }
   @media (max-width: @screen-md-plus) {
     margin-left: 0;
   }
@@ -31,6 +26,7 @@
     left: 10px;
     z-index: 99;
     outline: none;
+    transform: none /*rtl:rotate(180deg)*/ ;
   }
   .limit-width{
     max-width: 500px;

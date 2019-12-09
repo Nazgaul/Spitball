@@ -9,7 +9,7 @@
                          :mini-variant-width="62"
                          :mini-variant.sync="isMiniSideMenu"
                          :right="isRtl" 
-                         :class="[isRtl ? 'hebrew-drawer' : '',{'higherIndex':!isMiniSideMenu && $vuetify.breakpoint.mdAndDown}]"
+                         :class="[{'higherIndex':!isMiniSideMenu && $vuetify.breakpoint.mdAndDown}]"
                          app
                          clipped>
       <div class="sideMenu_cont">

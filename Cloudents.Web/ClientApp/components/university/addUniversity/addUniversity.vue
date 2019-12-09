@@ -92,7 +92,6 @@
                 search: '',
                 schoolNamePlaceholder: LanguageService.getValueByKey('university_create_uni_placeholder'),
                 globalHeight: global.innerHeight,
-                isRtl: global.isRtl
             };
         },
         watch: {
