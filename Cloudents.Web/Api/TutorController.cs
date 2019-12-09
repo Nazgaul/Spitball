@@ -65,18 +65,18 @@ namespace Cloudents.Web.Api
         /// <param name="course">The course</param>
         /// <param name="profile"></param>
         /// <param name="page"></param>
+        /// <param name="pageSize"></param>
         /// <param name="tutorSearch"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
         public async Task<WebResponseWithFacet<TutorCardDto>> GetAsync(
-            string term, string course,
+            string term, string course, 
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             int page,
             [FromServices] ITutorSearch tutorSearch,
-
-            CancellationToken token)
+            CancellationToken token, int pageSize = 20)
         {
             term = term ?? string.Empty;
             course = course ?? string.Empty;
@@ -85,22 +85,24 @@ namespace Cloudents.Web.Api
             if (string.IsNullOrWhiteSpace(term))
             {
                 _userManager.TryGetLongUserId(User, out var userId);
-                var query = new TutorListQuery(userId, profile.Country, page);
+                var query = new TutorListQuery(userId, profile.Country, page, pageSize);
                 var result = await _queryBus.QueryAsync(query, token);
                 return new WebResponseWithFacet<TutorCardDto>
                 {
-                    Result = result,
+                    Result = result.Result,
+                    Count = result.Count,
                     NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page })
                 };
             }
             else
             {
-                var query = new TutorListTabSearchQuery(term, profile.Country, page);
+                var query = new TutorListTabSearchQuery(term, profile.Country, page, pageSize);
                 var result = await tutorSearch.SearchAsync(query, token);
                 return new WebResponseWithFacet<TutorCardDto>
                 {
-                    Result = result,
-                    NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page, term })
+                    Result = result.Result,
+                    NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page, term }),
+                    Count = result.Count
                 };
             }
         }
@@ -118,7 +120,7 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpGet]
         [ResponseCache(Duration = TimeConst.Minute * 5, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
-        public async Task<IEnumerable<TutorCardDto>> GetTutorsAsync(
+        public async Task<ListWithCountDto<TutorCardDto>> GetTutorsAsync(
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {

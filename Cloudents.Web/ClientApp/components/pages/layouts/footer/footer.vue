@@ -13,10 +13,20 @@
                 </div>
                 
                 <div class="footer-contact-box-icons">
-                    <a  v-for="(sm, index) in socialMedias" :key="index" :href="sm.url" target="_blank"><v-icon>{{sm.icon}}</v-icon></a>
+                    <a v-for="(sm, index) in socialMedias" :key="index" :href="sm.url" target="_blank"><v-icon>{{sm.icon}}</v-icon></a>
                 </div>
             </div>
         </v-layout>
+        <div v-if="isTutorList" class="tutorList_footer">
+            <h1 class="tutorList_footer_txt" v-if="!courseTerm" v-language:inner="'tutorListLanding_footer_h1'"/>
+            <h1 class="tutorList_footer_txt" v-else v-html="$Ph('tutorListLanding_footer_h1_course',[courseTerm,courseTerm])"/>
+    
+            <h2 class="tutorList_footer_txt" v-if="!courseTerm" v-language:inner="'tutorListLanding_footer_h2'"/>
+            <h2 class="tutorList_footer_txt" v-else v-html="$Ph('tutorListLanding_footer_h2_course',[courseTerm,courseTerm])"/>
+
+            <h3 class="tutorList_footer_txt" v-if="!courseTerm" v-language:inner="'tutorListLanding_footer_h3'"/>
+            <h3 class="tutorList_footer_txt" v-else v-html="$Ph('tutorListLanding_footer_h3_course',courseTerm)"/>
+        </div>
     </div>
 </template>
 
@@ -33,6 +43,7 @@ import LOGO from './images/sp-logo.svg';
         },
         data(){
             return{
+                courseTerm:'',
                 socialMedias: satelliteService.getSocialMedias(),
                 links:[
                     {
@@ -62,6 +73,11 @@ import LOGO from './images/sp-logo.svg';
                 ]
             }
         },
+        computed: {
+            isTutorList(){
+                return this.$route.name === 'tutorLandingPage';
+            }
+        },
         methods: {
             footerLinksRoute(link) {
                 if(link === 'blog') {
@@ -71,7 +87,24 @@ import LOGO from './images/sp-logo.svg';
                 }else {
                     this.$router.push({name: link});
                 }
+            },
+            checkParams(){
+                if(this.$route.name === 'tutorLandingPage'){
+                    if(!!this.$route.params && this.$route.params.course){
+                        this.courseTerm = this.$route.params.course
+                    }
+                }
             }
+        },
+        mounted() {
+            this.checkParams()
+        },
+        watch:{
+            '$route'(){
+                this.$nextTick(()=>{
+                    this.checkParams()
+                })
+            },
         }
     }
 </script>
@@ -80,12 +113,28 @@ import LOGO from './images/sp-logo.svg';
 @import "../../../../styles/mixin.less";
 
 .footer {
-  height: 400px;
   background-color: #202431;
   color: #fff;
+  padding-top: 30px;
+  padding-bottom: 20px;
   @media (max-width: @screen-sm) {
-      padding: 20px 0;
-      height: auto;
+    padding-top: 20px;
+  }
+  @media (max-width: @screen-xs) {
+        padding-bottom: 76px;
+        padding-top: 0;
+  }
+  .tutorList_footer{
+      margin-top: 14px;
+    @media (max-width: @screen-xs) {
+        padding: 0 20px;
+    }
+      .tutorList_footer_txt{
+        opacity: 0.3;
+        font-weight: normal;
+        font-size: 12px;
+        text-align: center;
+      }
   }
  .footer-warp {
     max-width: 1200px;
@@ -111,6 +160,9 @@ import LOGO from './images/sp-logo.svg';
         @media (max-width: @screen-sm) {
             margin-top: 50px;
         }
+        @media (max-width: @screen-xs) {
+            margin-top: 20px;
+        }
         li {
             margin-left: 50px;
             text-align: left;
@@ -131,6 +183,9 @@ import LOGO from './images/sp-logo.svg';
         display: none;
         @media (max-width: @screen-sm) { 
             display: block;
+        }
+        @media (max-width: @screen-xs) { 
+            margin-top: 8px !important;
         }
      }
     .footer-contact-box {

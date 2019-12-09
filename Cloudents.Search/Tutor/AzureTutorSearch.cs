@@ -21,11 +21,12 @@ namespace Cloudents.Search.Tutor
 
         }
 
-        public async Task<Entities.Tutor> GetByIdAsync(long id)
+        public async Task<Microsoft.Azure.Search.Models.Document> GetByIdAsync(long id)
         {
-            return await _client.Documents.GetAsync<Entities.Tutor>(id.ToString());
+            return await _client.Documents.GetAsync(id.ToString());
+            //return await _client.Documents.GetAsync<Entities.Tutor>(id.ToString());
         }
-        public async Task<IEnumerable<TutorCardDto>> SearchAsync(TutorListTabSearchQuery query, CancellationToken token)
+        public async Task<ListWithCountDto<TutorCardDto>> SearchAsync(TutorListTabSearchQuery query, CancellationToken token)
         {
             //const int pageSize = 25;
             var searchParams = new SearchParameters()
@@ -46,21 +47,28 @@ namespace Cloudents.Search.Tutor
 
                 },
                 ScoringProfile = TutorSearchWrite.ScoringProfile,
+                IncludeTotalResultCount = true
             };
             if (!string.IsNullOrEmpty(query.Country))
             {
                 searchParams.Filter = $"{nameof(Entities.Tutor.Country)} eq '{query.Country.ToUpperInvariant()}'";
             }
             var result = await _client.Documents.SearchAsync<Entities.Tutor>(query.Term, searchParams, cancellationToken: token);
-            return result.Results.Where(w => w.Document.Data != null).Select(s =>
-              {
-                  var courses = (s.Highlights?[nameof(Entities.Tutor.Courses)] ?? Enumerable.Empty<string>()).Union(
-                      s.Document.Data.Courses).Take(3).Distinct(StringComparer.OrdinalIgnoreCase);
 
-                  s.Document.Data.Courses = courses;
-                  s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
-                  return s.Document.Data;
-              });
+            var obj = new ListWithCountDto<TutorCardDto>()
+            {
+                Result = result.Results.Where(w => w.Document.Data != null).Select(s =>
+               {
+                   var courses = (s.Highlights?[nameof(Entities.Tutor.Courses)] ?? Enumerable.Empty<string>()).Union(
+                       s.Document.Data.Courses).Take(3).Distinct(StringComparer.OrdinalIgnoreCase);
+
+                   s.Document.Data.Courses = courses;
+                   s.Document.Data.Subjects = s.Document.Data.Subjects?.Take(3);
+                   return s.Document.Data;
+               }),
+                Count = result.Count
+            };
+            return obj;
 
         }
     }

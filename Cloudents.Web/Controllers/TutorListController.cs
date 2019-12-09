@@ -15,7 +15,8 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("tutor-list/{term?}", Name = SeoTypeString.TutorList)]
-        public IActionResult Index([FromRoute]string term, [FromQuery(Name = "term")]string oldTerm)
+        public IActionResult Index([FromRoute]string term, 
+            [FromQuery(Name = "term")]string oldTerm)
         {
 
             if (string.IsNullOrEmpty(term))
