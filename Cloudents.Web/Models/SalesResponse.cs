@@ -11,5 +11,9 @@ namespace Cloudents.Web.Models
         public DateTime Date { get; set; }
         public decimal Price { get; set; }
         public string Preview { get; set; }
+        public string StudentName { get; set; }
+        public long? Duration { get; set; }
+        public string AnswerText { get; set; }
+        public string Course { get; set; }
     }
 }

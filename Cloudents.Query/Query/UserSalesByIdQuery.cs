@@ -27,11 +27,15 @@ namespace Cloudents.Query.Query
             public async Task<IEnumerable<SaleDto>> GetAsync(UserSalesByIdQuery query, CancellationToken token)
             {
                 const string sql = @"select COALESCE(q.Id, d.Id) as Id,
+                                    COALESCE(q.CourseId, d.CourseName) as Course,
                                         COALESCE(q.Text, d.Name) as Info,
                                         COALESCE(d.DocumentType, TransactionType) as [Type],
                                         'Paid' as [Status],
                                         t.Created as [Date],
-                                        t.Price
+                                        t.Price,
+	                                    '' as StudentName,
+	                                    0 as Duration,
+	                                    case when q.Id is not null then (select a.Text from sb.Answer a where a.QuestionId = q.Id and a.UserId = @UserId) end as AnswerText
                                     from sb.[Transaction] t
                                     left join sb.Question q
 	                                    on t.QuestionId = q.Id
@@ -40,13 +44,24 @@ namespace Cloudents.Query.Query
                                     where user_id = @UserId and TransactionType in ('Document','Question')
                                     and t.[Type] = 'Earned'
                                     union
-                                    select null as Id,
-                                        'Tutoring Sessuion' as info,
+
+                                    select 0 as Id,
+                                    '' as course,
+                                        'Tutoring Sessuion with' as info,
                                         'TutoringSession' as [Type],
                                         case when srs.Receipt is null then 'Pending'
 	                                        else 'Paid' end as [Status],
                                         srs.Created as [Date],
-                                        srs.Price
+                                        srs.Price,
+	                                    (
+		                                    select u.Name 
+		                                    from sb.[user] u 
+		                                    join sb.StudyRoomUser sru 
+			                                    on u.Id = sru.UserId 
+		                                    where sru.StudyRoomId = sr.Id and sru.UserId != sr.TutorId
+	                                    ) as StudentName,
+	                                    srs.DurationInMinutes as Duration,
+	                                    '' as AnswerText
                                     from sb.StudyRoom sr
                                     join sb.StudyRoomSession srs
 	                                    on sr.Id = srs.StudyRoomId

@@ -181,15 +181,19 @@ namespace Cloudents.Web.Api
             var query = new UserSalesByIdQuery(userId);
             var result = await _queryBus.QueryAsync(query, token);
             return result.Select(s =>
+            {
+                return new SalesResponse()
                 {
-                    return new SalesResponse()
-                    {
-                        Info = s.Info,
-                        Type = s.Type,
-                        Status = s.Status,
-                        Date = s.Date,
-                        Price = s.Price,
-                        Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id)
+                    Info = s.Info,
+                    Type = s.Type,
+                    Status = s.Status,
+                    Date = s.Date,
+                    Price = s.Price,
+                    Preview = s.Id != 0 ? _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id) : null,
+                    StudentName = !string.IsNullOrEmpty(s.StudentName) ? s.StudentName : null,
+                    Duration = s.Duration > 0 ? s.Duration : null,
+                    AnswerText = !string.IsNullOrEmpty(s.AnswerText)? s.AnswerText : null,
+                    Course = !string.IsNullOrEmpty(s.Course) ? s.Course : null
                 };
             });
         }
