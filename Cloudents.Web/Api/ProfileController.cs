@@ -4,6 +4,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -170,6 +171,14 @@ namespace Cloudents.Web.Api
                 }
                 return s;
             });
+        }
+
+        [HttpGet("sales"), Authorize]
+        public async Task<IEnumerable<SaleDto>> GetUserSalesAsync(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserSalesByIdQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
         }
 
     }
