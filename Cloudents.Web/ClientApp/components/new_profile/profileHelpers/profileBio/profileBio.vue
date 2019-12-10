@@ -286,8 +286,15 @@ export default {
     storeService.unregisterModule(this.$store, 'couponStore');
     
   },
+  mounted() {
+    if(this.$route.query.coupon === true) {
+      setTimeout(() => {
+        this.openCoupon();
+      })
+    }
+  },
   created() {
-    storeService.lazyRegisterModule(this.$store, 'couponStore', couponStore); 
+    storeService.lazyRegisterModule(this.$store, 'couponStore', couponStore);
   }
 };
 </script>

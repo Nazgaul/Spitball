@@ -10,37 +10,53 @@
         <div class="ts-content">
             <h1 class="tutor-name text-truncate">{{tutor.name}}</h1>
             <h2 class="tutor-university text-truncate">{{tutor.university}}</h2>
+
+            <div class="rank">
+                <template>
+                    <div class="user-rate-ts" v-if="tutor.reviews > 0">
+                        <userRating :rating="tutor.rating" :showRateNumber="false" :size="'14'" />
+                        <span class="reviews-ts ml-1" v-html="$Ph(tutor.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"/>
+                    </div>
+                    <div class="user-rate-ts align-center" v-else>
+                        <star class="mr-1 icon-star" />
+                        <span class="reviews-ts" v-html="$Ph(`resultTutor_collecting_review`, reviewsPlaceHolder(tutor.reviews))"/>
+                    </div>
+                </template>
+            </div>
+
             <p class="tutor-bio my-2">{{tutor.bio}}</p>
         </div>
         </div>
         <div class="tutorCarousel-bottom">
-        <div>
+            <div class="ts-bottom">
+                <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutor.userId, name: tutor.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
+
+
+                <div class="ts-price">
+                    <template>
+                        <span v-if="tutor.discountPrice" class="ts-price-discount font-weight-bold">{{tutor.discountPrice | currencyFormat(tutor.currency)}}</span>
+                        <span class="ts-price-original font-weight-bold" v-else>{{tutor.price | currencyFormat(tutor.currency)}}</span>
+                    </template>
+                    <span class="caption">
+                        <span class="">/</span>
+                        <span class="" v-language:inner="'tutorCardCarousel_hour'"></span>
+                    </span>
+                    <div class="striked ml-2" v-if="tutor.discountPrice">{{tutor.price | currencyFormat(tutor.currency)}}</div>
+                </div>
+
+
+                <!-- <div class="ts-price">
+                    <span class="price-mark">{{tutor.price | currencyFormat(tutor.currency)}}</span>/
+                    <span v-language:inner="'tutorCardCarousel_hour'" />
+                </div> -->
+            </div>
             <v-btn depressed color="#4c59ff" class="tutor-btn">
-            <span class="text-truncate">
-                <button class="mr-1">
-                    <div class="contact-me-button" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
-                </button>
-            </span>
+                <span class="text-truncate">
+                    <button class="mr-1">
+                        <div class="contact-me-button" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
+                    </button>
+                </span>
             </v-btn>
-        </div>
-        <div class="ts-bottom">
-            <div class="rank">
-            <template>
-                <div class="user-rate-ts" v-if="tutor.reviews > 0">
-                    <userRating :rating="tutor.rating" :showRateNumber="false" :size="'14'" />
-                    <span class="reviews-ts ml-1" v-html="$Ph(tutor.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"/>
-                </div>
-                <div class="user-rate-ts align-center" v-else>
-                    <star class="mr-1 icon-star" />
-                    <span class="reviews-ts" v-html="$Ph(`resultTutor_collecting_review`, reviewsPlaceHolder(tutor.reviews))"/>
-                </div>
-            </template>
-            </div>
-            <div class="ts-price">
-            <span class="price-mark">{{tutor.price | currencyFormat(tutor.currency)}}</span>/
-            <span v-language:inner="'tutorCardCarousel_hour'" />
-            </div>
-        </div>
         </div>
     </router-link>
 </template>
@@ -139,7 +155,7 @@ export default {
 .tutorCarouselCard {
     overflow: hidden;
     width: 242px;
-    height: 340px;
+    height: 362px;
     background: white;
     border-radius: 8px;
     border: solid 1px #c1c3d2;
@@ -153,7 +169,7 @@ export default {
         // border-top-right-radius: 8px;
     }
     .ts-content {
-        padding: 4px 8px 0 8px;
+        padding: 7px 8px 0 8px;
         .tutor-name {
         font-size: 14px;
         font-weight: bold;
@@ -161,6 +177,7 @@ export default {
         font-style: normal;
         line-height: normal;
         letter-spacing: normal;
+        margin-bottom: 4px;
         }
         .tutor-university {
         font-size: 14px;
@@ -169,6 +186,7 @@ export default {
         font-style: normal;
         line-height: normal;
         letter-spacing: normal;
+        margin-bottom: 4px;
         }
         .tutor-bio {
         .giveMeEllipsis(2, 30);
@@ -181,9 +199,25 @@ export default {
         line-height: 1.54;
         letter-spacing: normal;
         }
+        .rank {
+            .user-rate-ts {
+                display: inline-flex;
+                // align-items: baseline;
+                .reviews-ts {
+                font-size: 12px;
+                letter-spacing: normal;
+                color: #43425d;
+                }
+                .icon-star {
+                width: 14px;
+                align-self: center;
+                }
+            }
+        }
     }
     }
     .tutorCarousel-bottom {
+        // margin-top: 10px;
         padding: 0 8px 8px 8px;
     .tutor-btn {
         width: 100%;
@@ -192,40 +226,59 @@ export default {
         font-size: 14px;
         font-weight: 600;
         text-transform: capitalize !important;
-        height: 34px !important;
         min-width: 100%;
         margin: 0;
-        margin-bottom: 16px;
     }
     .ts-bottom {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        .rank {
-        .user-rate-ts {
-            display: inline-flex;
-            align-items: baseline;
-            .reviews-ts {
-            font-size: 12px;
-            letter-spacing: normal;
-            color: #43425d;
-            }
-            .icon-star {
-              width: 14px;
-              align-self: center;
-            }
+        margin-bottom: 8px;
+
+        @media(max-width: @screen-xs) {
+            margin-bottom: 10px;
         }
+        .applyCoupon {
+          color: #4c59ff;
+          font-weight: 600;
+          font-size: 13px;
+          margin-top: 6px;
         }
         .ts-price {
-        font-size: 12px;
-        font-weight: normal;
-        line-height: 1;
-        .price-mark {
-            font-weight: bold;
-            font-size: 16px;
+            display: flex;
+            font-size: 12px;
+            font-weight: normal;
+            line-height: 1;
+            align-items: flex-end;
+            &-original {
+                font-size: 18px;
+            }
+            &-discount {
+                font-size: 18px;
+            }
+            .price-mark {
+                color: #43425d;
+                font-weight: bold;
+                font-size: 16px;
+            }
+            .striked {
+                margin: 0 0 0 auto;
+                max-width: max-content;
+                position: relative;
+                color: #a0a4be;
+                font-size: 14px;
+                &:after {
+                    content: "";
+                    width: 100%;
+                    border-bottom: solid 1px #a0a4be;
+                    position: absolute;
+                    left: -2px;
+                    top: 50%;
+                    z-index: 1;
+                }
+            }
         }
         }
-    }
     }
 }
 </style>
