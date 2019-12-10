@@ -303,5 +303,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new SimilarDocumentsQuery(documentId);
             _ = await fixture.QueryBus.QueryAsync(query, default);
         }
+
+        [Fact]
+        public async Task UserSalesByIdQuery_Ok()
+        {
+            var query = new UserSalesByIdQuery(159039L);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
     }
 }
