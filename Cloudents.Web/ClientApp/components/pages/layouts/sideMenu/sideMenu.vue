@@ -144,7 +144,7 @@ export default {
         {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
         // {name: LanguageService.getValueByKey('schoolBlock_lessons'), key:'lessons', icon:'sbf-lessons'},
         // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
-        // {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'purchases', icon:'sbf-cart'},
+        {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
       ],
       selectedCourse: "",
       lock: false,
@@ -263,8 +263,8 @@ export default {
       if(path === "posts"){
         // this.$router.push({name:'posts'})
       }
-      if(path === "purchases"){
-        // this.$router.push({name:'purchases'})
+      if(path === "myPurchases"){
+        this.$router.push({name:'myPurchases'})
       }
       this.closeSideMenu();
     },
