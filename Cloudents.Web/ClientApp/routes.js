@@ -32,7 +32,7 @@ const landingPageFooter = () => import('./components/pages/layouts/footer/footer
 const homePage = () => import('./components/landingPage/pages/homePage.vue');
 const registerPage = () => import('./components/loginPageNEW/pages/registerPage.vue');
 
-const myPurchases = () => import('./components/pages/dashboard/myPurchases/myPurchases.vue');
+const dashboardPage = () => import('./components/pages/dashboardPage/dashboardPage.vue');
 
 
 function dynamicPropsFn(route) {
@@ -326,19 +326,19 @@ let routes2 = [
         }
     },
     {
-        path: "/myPurchases",
+        path: "/dashboard",
+        alias: ['/myCalendar','/myPurchases','/myFollowers','/mySales'],
         components: {
-            default: myPurchases,
+            default: dashboardPage,
             header: pageHeader,
             banner: globalBanner,
             sideMenu: sideMenu,
         },
-        name: "myPurchases",
+        name: "dashboard",
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            showMobileFooter: true,
         },
     },
 ];
-
-
 export const routes = routes2;

@@ -1,14 +1,15 @@
 <template>
 	<v-layout column class="myPurchases">
+		<h1>My Purchases</h1>
 		<v-layout row wrap justify-end class="myPurchases_filters">
 			<v-btn class="black--text" color="none" @click="reset" icon><v-icon>sbf-clearAll-icon</v-icon></v-btn>
-			<v-flex xs2 class="mr-3">
+			<v-flex sm2 xs12 :class="[{'mr-3':!isMobile}]">
 				<v-select :append-icon="'sbf-arrow-down'" :items="['Video','Doc','Sessions','All']" v-model="filter" label="Type" outline/>
 			</v-flex>
-			<v-flex xs2 class="mr-3">
+			<v-flex sm2 xs12 :class="[{'mr-3':!isMobile}]">
 				<v-select :append-icon="'sbf-arrow-down'" :items="['Date','Price']" v-model="sort" label="Sort" outline/>
 			</v-flex>
-			<v-flex xs3>
+			<v-flex sm3 xs12>
 				<v-text-field v-model="search" placeholder="Placeholder"/>
 			</v-flex>
 		</v-layout>
@@ -16,17 +17,21 @@
 			<v-data-table
 				:headers="headers"
 				:items="dataFilteredAndSorted"
-				 hide-actions
 				 disable-initial-sort
 				class="elevation-1"
-				:prev-icon="''"
+				:prev-icon="'sbf-arrow-left-carousel'"
 				:sort-icon="'sbf-arrow-down'"
-				:next-icon="''">
+				:next-icon="'sbf-arrow-right-carousel'">
 				<template v-slot:items="props">
 					<td class="myPurchases_td_img">
 						<img :src="require(`${props.item.preview}`)" alt="">
 					</td>
-					<td class="text-xs-left">{{ props.item.info }}</td>
+					<td class="text-xs-left">
+						<div>
+							<span>{{ props.item.info }}</span>
+							<p>Course: sdafsfsd</p>
+						</div>
+					</td>
 					<td class="text-xs-left">{{ props.item.type }}</td>
 					<td class="text-xs-left">{{ props.item.status }}</td>
 					<td class="text-xs-left">{{ props.item.price }}</td>
@@ -55,6 +60,7 @@ export default {
 				{preview:'./Desktop.png',info:'elad',type:'Video',status:'bla',price:39,date:'1/5/19'},
 				{preview:'./Desktop.png',info:'hadar',type:'Video',status:'bla',price:3,date:'1/5/19'},
 				{preview:'./Desktop.png',info:'idan2',type:'Doc',status:'bla',price:40,date:'1/5/19'},
+				{preview:'./Desktop.png',info:'idan2',type:'Tutor Session',status:'bla',price:40,date:'1/5/19'},
 			],
 			fakeDataCopy:[
 				{preview:'./Desktop.png',info:'maor',type:'Doc',status:'bla',price:1,date:'1/5/19'},
@@ -84,6 +90,9 @@ export default {
 		}
 	},
 	computed: {
+		isMobile(){
+			return this.$vuetify.breakpoint.xsOnly;
+		},
 		dataFilteredAndSorted(){
 			let data = this.fakeData;
 
@@ -106,47 +115,13 @@ export default {
 			}
 			return data;
 		}
-	},
-	watch: {
-		// search(val){
-		// 	if(this.fakeDataCopy.length === 0){
-		// 		this.fakeDataCopy = this.fakeData.filter(d => d.info.includes(val))
-		// 	}else{
-		// 		this.fakeDataCopy = this.fakeDataCopy.filter(d => d.info.includes(val))
-		// 	}
-		// },
-		// sort(val){
-		// 	if(val === 'Price'){
-		// 		let sorted = JSON.parse(JSON.stringify(this.fakeDataCopy.sort((a,b)=> a.price - b.price)))
-		// 		this.fakeDataCopy = sorted
-		// 	}
-		// 	if(val === 'Date'){
-		// 		this.fakeDataCopy = this.fakeDataCopy.sort((a,b)=> a.date - b.date)
-		// 	}
-		// },
-		// filter(val){
-		// 	if(val === 'Video'){
-		// 		this.fakeDataCopy = this.fakeData.filter(d => d.type ==='Video')
-		// 	}
-		// 	if(val === 'Doc'){
-		// 		this.fakeDataCopy = this.fakeData.filter(d => d.type ==='Doc')
-		// 	}
-		// 	if(val === 'Sessions'){
-		// 		this.fakeDataCopy = this.fakeData.filter(d => d.type ==='Sessions')
-		// 	}
-		// 	if(val === 'All'){
-		// 		this.fakeDataCopy = this.fakeData;
-		// 	}
-		// }
-	},
+	}
 }
 </script>
 
 <style lang="less">
+@import '../../../../styles/mixin.less';
 .myPurchases{
-	padding-left: 30px;
-	padding-top: 30px;
-	max-width: 1150px;
 	.myPurchases_td_img{
 		padding-right: 0 !important;
 		width: 100px;

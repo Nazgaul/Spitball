@@ -145,6 +145,8 @@ export default {
         // {name: LanguageService.getValueByKey('schoolBlock_lessons'), key:'lessons', icon:'sbf-lessons'},
         // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
         {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
+        {name: 'myCalendar', key:'myCalendar', icon:'sbf-cart',sel:'sd_calendar'},
+        {name: 'myFollowers', key:'myFollowers', icon:'sbf-cart',sel:'sd_followers'},
       ],
       selectedCourse: "",
       lock: false,
@@ -264,7 +266,16 @@ export default {
         // this.$router.push({name:'posts'})
       }
       if(path === "myPurchases"){
-        this.$router.push({name:'myPurchases'})
+        this.$router.push({path:'/myPurchases'})
+      }
+      if(path === "myCalendar"){
+        this.$router.push({path:'/myCalendar'})
+      }
+      if(path === "myFollowers"){
+        this.$router.push({path:'/myFollowers'})
+      }
+      if(path === "mySales"){
+        this.$router.push({path:'/mySales'})
       }
       this.closeSideMenu();
     },

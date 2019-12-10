@@ -1,0 +1,32 @@
+import { Promise } from "q";
+
+// import { connectivityModule } from "./connectivity.module";
+let dummy = [
+   {preview:'./Desktop.png',info:'maor',date:"2019-12-09T14:33:51.3495317Z",status:"Paid",type:'Doc',price:56},
+   {preview:'./Desktop.png',info:'ron',date:"2019-12-09T14:33:51.6648492Z",status:"Pending Spitball",type:'Video',price:32},
+   {preview:'./Desktop.png',info:'eidan',date:"2019-12-08T12:35:31.9032542Z",status:"Pending Student",type:'Q&A',price:26},
+   {preview:'./Desktop.png',info:'gab',date:"2019-12-09T14:33:51.6648492Z",status:"Processing",type:'Doc',price:21},
+   {preview:'./Desktop.png',info:'elad',date:"2019-12-08T09:40:16.459378Z",status:"Declined",type:'Doc',price:16}
+]
+
+function SalesItem(objInit){
+   this.preview = objInit.preview;
+   this.info = objInit.info;
+   this.date = objInit.date;
+   this.status = objInit.status;
+   this.type = objInit.type;
+   this.price = objInit.price;
+}
+
+function createSalesItem(objInit){
+   return new SalesItem(objInit)
+}
+
+function getSalesItems(){
+   return Promise.resolve(dummy);
+   // return connectivityModule.http.get(`/Document/${id}`).then(({data})=>data.map( item => createSalesItem(item)));
+}
+
+export default {
+   getSalesItems,
+}
