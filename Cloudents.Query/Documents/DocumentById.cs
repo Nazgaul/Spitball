@@ -95,6 +95,10 @@ namespace Cloudents.Query.Documents
                        .Where(w => w.User.Id == query.UserId.Value && w.Document.Id == query.Id && w.Type == TransactionType.Spent)
                        .ToFutureValue();
 
+                var purchaseCountFuture = _session.QueryOver<DocumentTransaction>()
+                    .Where(w => w.Document.Id == query.Id && w.Type == TransactionType.Spent)
+                    .SelectList(s => s.SelectCount(c => c.Id)).FutureValue<int>();
+
                 var voteQuery = _session.Query<Vote>().Where(w => w.User.Id == query.UserId && w.Document.Id == query.Id).Select(s => s.VoteType).Take(1).ToFutureValue();
 
                 var result = await futureValue.GetValueAsync(token);
@@ -132,6 +136,7 @@ namespace Cloudents.Query.Documents
                         result.IsPurchased = transactionResult != null;
                     }
                 }
+                result.Document.Purchased = await purchaseCountFuture.GetValueAsync(token);
                 return result;
             }
         }
