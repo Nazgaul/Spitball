@@ -1,13 +1,10 @@
-﻿using FluentAssertions;
+﻿using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace Cloudents.Web.Test.IntegrationTests
+namespace Cloudents.Web.Test.IntegrationTests.Api
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class FeedControllerTests
@@ -24,21 +21,24 @@ namespace Cloudents.Web.Test.IntegrationTests
         }
 
 
-
         [Theory]
-        [InlineData("api/tutor/search")]
-        [InlineData("api/tutor/search?page=1")]
-        public async Task GetAsync_Tutor_OK(string url)
+        [InlineData("nice123", false, 0)]
+        [InlineData("physics 20II", false, 0)]
+        [InlineData("nice123", true, 0)]
+        [InlineData("physics 20II", true, 0)]
+
+        public async Task GetAsync_Search_Without_Results(string cousre, bool logIn, int page)
         {
-            var response = await _client.GetAsync(url);
 
-            var str = await response.Content.ReadAsStringAsync();
+            if (logIn)
+            {
+                await _client.LogInAsync();
+            }
+            var response = await _client.GetAsync($"api/feed?Course={cousre}&page={page}");
+            response.EnsureSuccessStatusCode();
+            //var str = await response.Content.ReadAsStringAsync();
 
-            var d = JObject.Parse(str);
-
-            var result = d["result"]?.Value<JArray>();
-
-            result.Should().NotBeNull();
+            //str.Should().BeEmpty();
         }
     }
 }

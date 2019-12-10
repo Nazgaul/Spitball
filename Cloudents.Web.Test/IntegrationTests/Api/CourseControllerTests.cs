@@ -1,12 +1,12 @@
-﻿using Cloudents.Core.Extension;
-using FluentAssertions;
-using System;
+﻿using System;
 using System.Collections.Specialized;
 using System.Net;
 using System.Threading.Tasks;
+using Cloudents.Core.Extension;
+using FluentAssertions;
 using Xunit;
 
-namespace Cloudents.Web.Test.IntegrationTests
+namespace Cloudents.Web.Test.IntegrationTests.Api
 {
 
     [Collection(SbWebApplicationFactory.WebCollection)]

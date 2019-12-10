@@ -18,8 +18,8 @@ namespace Cloudents.Infrastructure
         private readonly IQueryBus _queryBus;
         private readonly ITutorSearch _tutorSearch;
         private readonly IDocumentSearch _searchProvider;
-        private const int _tutorPageSize = 3;
-        private const int _itemPageSize = 18;
+        private const int TutorPageSize = 3;
+        private const int ItemPageSize = 18;
 
         public FeedService(IQueryBus queryBus, ITutorSearch tutorSearch, IDocumentSearch searchProvider)
         {
@@ -28,7 +28,7 @@ namespace Cloudents.Infrastructure
             _searchProvider = searchProvider;
         }
 
-        private IEnumerable<FeedDto> SortFeed(IList<FeedDto> itemsFeed, IList<TutorCardDto> tutorsFeed, int page)
+        private static IEnumerable<FeedDto> SortFeed(IList<FeedDto> itemsFeed, IList<TutorCardDto> tutorsFeed, int page)
         {
             if (itemsFeed == null)
             {
@@ -68,23 +68,34 @@ namespace Cloudents.Infrastructure
                 throw new ArgumentNullException(nameof(query));
             }
 
-            var feedQuery = new FeedAggregateQuery(query.UserId, query.Page, query.Filter, query.Country, query.Course, _itemPageSize);
-            Task<ListWithCountDto<TutorCardDto>> tutorsTask = null;
+            var feedQuery = new FeedAggregateQuery(query.UserId, query.Page, query.Filter, query.Country, query.Course, ItemPageSize);
+            Task<IEnumerable<TutorCardDto>> tutorsTask;
+            var itemsTask = _queryBus.QueryAsync(feedQuery, token);
+
+            //Task<ListWithCountDto<TutorCardDto>> tutorsTask = Task.FromResult<ListWithCountDto<TutorCardDto>>(null);
 
             if (string.IsNullOrEmpty(query.Course))
             {
-                var tutorQuery = new TutorListQuery(query.UserId, query.Country, query.Page, _tutorPageSize);
-                tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
-            }
-            //else
-            //{
-            //    var tutorQuery = new TutorListByCourseQuery(query.Course, query.UserId, query.Country, _tutorPageSize, query.Page);
-            //    tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
-            //}
+                var tutorQuery = new TutorListQuery(query.UserId, query.Country, query.Page, TutorPageSize);
+                var task  = _queryBus.QueryAsync(tutorQuery, token);
+                await Task.WhenAll(itemsTask, task);
 
-            var itemsTask = _queryBus.QueryAsync(feedQuery, token);
-            await Task.WhenAll(itemsTask, tutorsTask);
-            return SortFeed(itemsTask.Result?.ToList(), tutorsTask.Result?.Result?.ToList(), query.Page);
+                return SortFeed(itemsTask.Result?.ToList(),
+                    task.Result.Result.ToList(),
+                    query.Page);
+            }
+        
+            else
+            {
+                var tutorQuery = new TutorListByCourseQuery(query.Course, query.UserId, query.Country, TutorPageSize, query.Page);
+                tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
+
+                await Task.WhenAll(itemsTask, tutorsTask);
+
+                return SortFeed(itemsTask.Result?.ToList(),
+                    tutorsTask.Result.ToList(),
+                    query.Page);
+            }
         }
 
 
@@ -103,12 +114,12 @@ namespace Cloudents.Infrastructure
             {
                 termToQuery = query.Term.Trim();
             }
-            var feedQuery = new DocumentQuery(query.Profile, query.Term, query.Course, _itemPageSize, query.Filter?.Where(w => !string.IsNullOrEmpty(w)))
+            var feedQuery = new DocumentQuery(query.Profile, query.Term, query.Course, ItemPageSize, query.Filter?.Where(w => !string.IsNullOrEmpty(w)))
             {
                 Page = query.Page,
             };
 
-            var tutorQuery = new TutorListTabSearchQuery(query.Term, query.Country, query.Page, _tutorPageSize);
+            var tutorQuery = new TutorListTabSearchQuery(query.Term, query.Country, query.Page, TutorPageSize);
             var tutorTask = _tutorSearch.SearchAsync(tutorQuery, token);
             var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
 

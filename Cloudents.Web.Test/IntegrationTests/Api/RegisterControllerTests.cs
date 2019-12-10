@@ -1,10 +1,8 @@
-﻿using FluentAssertions;
-using System;
-using System.Net;
+﻿using System;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Cloudents.Web.Test.IntegrationTests
+namespace Cloudents.Web.Test.IntegrationTests.Api
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class RegisterControllerTests //: IClassFixture<SbWebApplicationFactory>
@@ -13,17 +11,19 @@ namespace Cloudents.Web.Test.IntegrationTests
 
         private readonly string _swaggerLink = "https://localhost:44345/swagger";
 
+/*
         private readonly object _cred = new
         {
             confirmPassword = "123456789",
             email = "elad+99@cloudents.com",
             password = "123456789"
         };
+*/
 
-        private UriBuilder _uri = new UriBuilder()
-        {
-            Path = "api/register"
-        };
+        //private UriBuilder _uri = new UriBuilder()
+        //{
+        //    Path = "api/register"
+        //};
 
 
 

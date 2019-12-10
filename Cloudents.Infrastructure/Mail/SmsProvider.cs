@@ -174,32 +174,32 @@ namespace Cloudents.Infrastructure.Mail
         }
 
 
-        public async Task ComposeVideo(string roomId)
-        {
+        //public async Task ComposeVideo(string roomId)
+        //{
 
-            var room = await RoomResource.FetchAsync(roomId);
-            var t = RoomRecordingResource.Read(room.Sid);
-            var x = t.Where(s => s.Type == RoomRecordingResource.TypeEnum.Video);
-
-
-            var layout = new
-            {
-                transcode = new
-                {
-                    video_sources = new string[] { "MT*" }
-                }
-            };
+        //    var room = await RoomResource.FetchAsync(roomId);
+        //    var t = RoomRecordingResource.Read(room.Sid);
+        //    var x = t.Where(s => s.Type == RoomRecordingResource.TypeEnum.Video);
 
 
-            var composition = CompositionResource.Create(
-                roomSid: room.Sid,
-                audioSources: new List<string>() { "*" },
-                videoLayout: layout,
-                trim: true,
-                //statusCallback: new Uri('http://my.server.org/callbacks'),
-                format: FormatEnum.Mp4
-            );
-        }
+        //    var layout = new
+        //    {
+        //        transcode = new
+        //        {
+        //            video_sources = new string[] { "MT*" }
+        //        }
+        //    };
+
+
+        //    var composition = CompositionResource.Create(
+        //        roomSid: room.Sid,
+        //        audioSources: new List<string>() { "*" },
+        //        videoLayout: layout,
+        //        trim: true,
+        //        //statusCallback: new Uri('http://my.server.org/callbacks'),
+        //        format: FormatEnum.Mp4
+        //    );
+        //}
 
 
 

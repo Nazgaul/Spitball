@@ -1,9 +1,9 @@
-﻿using FluentAssertions;
+﻿using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace Cloudents.Web.Test.IntegrationTests
+namespace Cloudents.Web.Test.IntegrationTests.Controllers
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class ConfirmEmailControllerTests //: IClassFixture<SbWebApplicationFactory>

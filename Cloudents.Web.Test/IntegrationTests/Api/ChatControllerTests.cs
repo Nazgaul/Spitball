@@ -1,11 +1,10 @@
-﻿using FluentAssertions;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
+using FluentAssertions;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace Cloudents.Web.Test.IntegrationTests
+namespace Cloudents.Web.Test.IntegrationTests.Api
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class ChatControllerTests //: IClassFixture<SbWebApplicationFactory>
