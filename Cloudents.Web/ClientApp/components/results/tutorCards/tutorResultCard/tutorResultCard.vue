@@ -35,14 +35,14 @@
               <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
               <div class="user-rates-top">
                 <template>
-                    <span v-if="tutorData.discountPrice" class="tutor-card-price font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
+                    <span v-if="isDiscount" class="tutor-card-price font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
                     <span class="tutor-card-price font-weight-bold" v-else>{{tutorData.price | currencyFormat(tutorData.currency)}}</span>
                 </template>
                 <span class="caption">
                   <span class="tutor-card-price-divider font-weight-bold">/</span>
                   <span class="tutor-card-price-divider font-weight-bold" v-language:inner="'resultTutor_hour'"></span>
                 </span>
-                <div class="striked mr-1" v-if="tutorData.discountPrice">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
+                <div class="striked mr-1" v-if="isDiscount">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
                 <div class="striked no-discount" v-else></div>
               </div>
             </div>
@@ -178,6 +178,9 @@ export default {
     isReviews() {
       return this.tutorData.reviews > 0 ? true : false;
     },
+    isDiscount() {
+      return this.tutorData.discountPrice !== undefined;
+    }
   },
 };
 </script>

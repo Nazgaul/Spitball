@@ -34,14 +34,14 @@
 
                 <div class="ts-price">
                     <template>
-                        <span v-if="tutor.discountPrice" class="ts-price-discount font-weight-bold">{{tutor.discountPrice | currencyFormat(tutor.currency)}}</span>
+                        <span v-if="isDiscount" class="ts-price-discount font-weight-bold">{{tutor.discountPrice | currencyFormat(tutor.currency)}}</span>
                         <span class="ts-price-original font-weight-bold" v-else>{{tutor.price | currencyFormat(tutor.currency)}}</span>
                     </template>
                     <span class="caption">
                         <span class="">/</span>
                         <span class="" v-language:inner="'tutorCardCarousel_hour'"></span>
                     </span>
-                    <div class="striked ml-2" v-if="tutor.discountPrice">{{tutor.price | currencyFormat(tutor.currency)}}</div>
+                    <div class="striked ml-2" v-if="isDiscount">{{tutor.price | currencyFormat(tutor.currency)}}</div>
                 </div>
 
 
@@ -100,6 +100,9 @@ export default {
             }
             return name;
         },
+        isDiscount() {
+            return this.tutor.discountPrice !== undefined;
+        }
     },
     methods: {
         ...mapActions(['updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'updateRequestDialog']),
