@@ -4,6 +4,7 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -174,11 +175,23 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("sales"), Authorize]
-        public async Task<IEnumerable<SaleDto>> GetUserSalesAsync(CancellationToken token)
+        public async Task<IEnumerable<SalesResponse>> GetUserSalesAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserSalesByIdQuery(userId);
-            return await _queryBus.QueryAsync(query, token);
+            var result = await _queryBus.QueryAsync(query, token);
+            return result.Select(s =>
+                {
+                    return new SalesResponse()
+                    {
+                        Info = s.Info,
+                        Type = s.Type,
+                        Status = s.Status,
+                        Date = s.Date,
+                        Price = s.Price,
+                        Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id)
+                };
+            });
         }
 
     }

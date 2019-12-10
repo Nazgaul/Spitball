@@ -26,7 +26,7 @@ namespace Cloudents.Query.Query
 
             public async Task<IEnumerable<SaleDto>> GetAsync(UserSalesByIdQuery query, CancellationToken token)
             {
-                const string sql = @"select
+                const string sql = @"select COALESCE(q.Id, d.Id) as Id,
                                         COALESCE(q.Text, d.Name) as Info,
                                         COALESCE(d.DocumentType, TransactionType) as [Type],
                                         'Paid' as [Status],
@@ -40,7 +40,7 @@ namespace Cloudents.Query.Query
                                     where user_id = @UserId and TransactionType in ('Document','Question')
                                     and t.[Type] = 'Earned'
                                     union
-                                    select 
+                                    select null as Id,
                                         'Tutoring Sessuion' as info,
                                         'TutoringSession' as [Type],
                                         case when srs.Receipt is null then 'Pending'
