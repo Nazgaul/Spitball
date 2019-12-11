@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json.Linq;
@@ -39,6 +40,37 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             //var str = await response.Content.ReadAsStringAsync();
 
             //str.Should().BeEmpty();
+        }
+        private UriBuilder _uri = new UriBuilder()
+        {
+            Path = "api/document"
+        };
+
+        [Theory]
+        [InlineData("api/feed", false)]
+        [InlineData("/api/feed?page=1", false)]
+        [InlineData("api/feed", true)]
+        [InlineData("/api/feed?page=1", true)]
+        public async Task GetAsync_OK(string url, bool authUser)
+        {
+            if (authUser)
+            {
+                await _client.LogInAsync();
+            }
+            var response = await _client.GetAsync(url);
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            var d = JObject.Parse(str);
+
+            var result = d["result"]?.Value<JArray>();
+
+            var next = d["nextPageLink"]?.Value<string>();
+
+            result.Should().NotBeNull();
+
+            if (url == _uri.Path + "?page=1")
+                next.Should().Be(_uri.Path + "?page=2");
         }
     }
 }

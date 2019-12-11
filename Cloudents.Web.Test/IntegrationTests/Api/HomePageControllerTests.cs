@@ -17,6 +17,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         [InlineData("api/HomePage/version")]
         [InlineData("api/HomePage/tutors")]
+        [InlineData("api/HomePage/banner")]
         [InlineData("api/HomePage/reviews")]
         [InlineData("api/HomePage")]
         [InlineData("api/Homepage/documents")]

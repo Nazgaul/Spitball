@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure.Data.Test.IntegrationTests;
 using Dapper;
@@ -12,6 +13,26 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
     public class QuestionsControllerTests //:  IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
+
+        private readonly object _question = new
+        {
+            subjectId = "",
+            course = "Economics",
+            text = "Blah blah blah...",
+            price = 1
+        };
+
+        private UriBuilder _uri = new UriBuilder()
+        {
+            Path = "api/login"
+        };
+
+        private readonly object _credentials = new
+        {
+            email = "blah@cloudents.com",
+            password = "123456789",
+            fingerPrint = "string"
+        };
 
         public QuestionsControllerTests(SbWebApplicationFactory factory)
         {
@@ -59,6 +80,19 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
             fixture.Dispose();
+        }
+
+
+        [Fact]
+        public async Task Ask_Course_Without_Uni()
+        {
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));
+
+            _uri.Path = "api/question";
+
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_question));
+
+            response.EnsureSuccessStatusCode();
         }
     }
 

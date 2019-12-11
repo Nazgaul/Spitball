@@ -90,35 +90,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             response.StatusCode.Should().Be(200);
         }
 
-        [Theory]
-        [InlineData("api/feed", false)]
-        [InlineData("/api/feed?page=1", false)]
-        [InlineData("api/feed", true)]
-        [InlineData("/api/feed?page=1", true)]
-        public async Task GetAsync_OK(string url, bool authUser)
-        {
-            if (authUser)
-            {
-                await _client.LogInAsync();
-            }
-            var response = await _client.GetAsync(url);
-
-            var str = await response.Content.ReadAsStringAsync();
-
-            var d = JObject.Parse(str);
-
-            var result = d["result"]?.Value<JArray>();
-
-            var next = d["nextPageLink"]?.Value<string>();
-
-            result.Should().NotBeNull();
-
-            if (url == _uri.Path + "?page=1")
-                next.Should().Be(_uri.Path + "?page=2");
-        }
-
-
-
         [Fact]
         public async Task PostAsync_Upload_Regular_FileName()
         {

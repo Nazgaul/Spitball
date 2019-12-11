@@ -130,6 +130,17 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
+        public async Task PostAsync_Chat_Read_NoSuchConversation_BadRequestssss()
+        {
+            await _client.LogInAsync();
+
+            var response = await _client.GetAsync("api/chat/conversation/159489_160171");
+
+            response.EnsureSuccessStatusCode();
+
+        }
+
+        [Fact]
         public async Task PostAsync_Chat_Read_OK()
         {
             await _client.LogInAsync();

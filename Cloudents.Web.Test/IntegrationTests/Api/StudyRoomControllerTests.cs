@@ -51,5 +51,14 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
+
+        [Theory]
+        [InlineData("api/studyRoom")]
+        public async Task GetUserLobbyStudyRooms_StudyRoom_Ok(string uri)
+        {
+            var response = await _client.GetAsync(uri);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
     }
 }
