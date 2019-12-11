@@ -1,31 +1,35 @@
 <template>
-   <div class="mySales">
-      <v-data-table
-            border="1"
-				:headers="headers"
-				:items="salesItems"
-				 disable-initial-sort
-             hide-actions
-				class="elevation-1"
-				:prev-icon="'sbf-arrow-left-carousel'"
-				:sort-icon="'sbf-arrow-down'"
-				:next-icon="'sbf-arrow-right-carousel'">
-				<template v-slot:items="props">
-					<td class="mySales_td_img">
-						<img :src="require(`${props.item.preview}`)" alt="">
-					</td>
-					<td class="text-xs-left">{{ props.item.info }}</td>
-					<td class="text-xs-left">{{ props.item.type }}</td>
-					<td class="text-xs-left">{{ props.item.price }}</td>
-					<td class="text-xs-left">{{ props.item.status }}</td>
-					<td class="text-xs-left">{{ props.item.date }}</td>
-				</template>
-			</v-data-table>
-   </div>
+      <div class="mySales">
+            <v-data-table
+               border="1"
+               :headers="headers"
+               :items="salesItems"
+               disable-initial-sort
+               hide-actions
+               class="elevation-1"
+               :prev-icon="'sbf-arrow-left-carousel'"
+               :sort-icon="'sbf-arrow-down'"
+               :next-icon="'sbf-arrow-right-carousel'">
+               <template v-slot:items="props">
+                  <td class="mySales_td_img"><img :src="props.item.preview" :alt="props.item.info"></td>
+                  <td class="text-xs-left">{{ props.item.info }}</td>
+                  <td class="text-xs-left">{{ props.item.type }}</td>
+                  <td class="text-xs-left">{{ props.item.likes }}</td>
+                  <td class="text-xs-left">{{ props.item.views }}</td>
+                  <td class="text-xs-left">{{ props.item.downloads }}</td>
+                  <td class="text-xs-left">{{ props.item.purchased }}</td>
+                  <td class="text-xs-left">{{ props.item.price }}</td>
+                  <td class="text-xs-left">{{ props.item.status }}</td>
+                  <td class="text-xs-left">{{ props.item.date }}</td>
+                  <td class="text-xs-left"></td>
+               </template>
+            </v-data-table>
+      </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
    name:'mySales',
    data() {
@@ -34,10 +38,14 @@ export default {
             {text:'Preview',align:'left',sortable: false,value:'preview'},
             {text:'Info',align:'left',sortable: false,value:'info'},
             {text:'Type',align:'left',sortable: true,value:'type'},
+            {text:'Likes',align:'left',sortable: true,value:'likes'},
+            {text:'Views',align:'left',sortable: true,value:'views'},
+            {text:'Downloads',align:'left',sortable: true,value:'downloads'},
+            {text:'Purchased',align:'left',sortable: true,value:'purchased'},
             {text:'Price',align:'left',sortable: true,value:'price'},
             {text:'Status',align:'left',sortable: true,value:'status'},
             {text:'Date',align:'left',sortable: true,value:'date'},
-            // {text:'Action',align:'left',sortable: false,value:'action'},
+            {text:'Action',align:'left',sortable: false,value:'action'},
          ],
       }
    },
