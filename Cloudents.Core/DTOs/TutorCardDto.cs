@@ -30,18 +30,18 @@ namespace Cloudents.Core.DTOs
 
         public string Currency => new RegionInfo(Country).ISOCurrencySymbol;
 
-        public decimal? DiscountPrice
-        {
-            get
-            {
-                if (Country?.Equals("IN", StringComparison.OrdinalIgnoreCase) == true)
-                {
-                    return 0;
-                }
+        public decimal? DiscountPrice { get; set; }
+        //{
+        //    get
+        //    {
+        //        if (Country?.Equals("IN", StringComparison.OrdinalIgnoreCase) == true)
+        //        {
+        //            return 0;
+        //        }
 
-                return null;
-            }
-        }
+        //        return null;
+        //    }
+        //}
        
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Used by json.net")]
         public bool ShouldSerializeTutorCountry()
