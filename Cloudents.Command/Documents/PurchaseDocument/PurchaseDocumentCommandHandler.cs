@@ -2,6 +2,7 @@
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,8 +13,8 @@ namespace Cloudents.Command.Documents.PurchaseDocument
         private readonly IRepository<BaseUser> _userRepository;
         private readonly ITransactionRepository _transactionRepository;
         private readonly IRepository<Document> _documentRepository;
-
-        public PurchaseDocumentCommandHandler(IRepository<BaseUser> userRepository, ITransactionRepository transactionRepository, IRepository<Document> documentRepository)
+        public PurchaseDocumentCommandHandler(IRepository<BaseUser> userRepository, ITransactionRepository transactionRepository, 
+            IRepository<Document> documentRepository)
         {
             _userRepository = userRepository;
             _transactionRepository = transactionRepository;
@@ -39,6 +40,8 @@ namespace Cloudents.Command.Documents.PurchaseDocument
 
             DocumentTransaction.MakerTransaction(purchaseUser, document.User, document);
 
+            document.User.AddFollower(purchaseUser);
+           
             await _userRepository.UpdateAsync(purchaseUser, token);
             await _userRepository.UpdateAsync(document.User, token);
 

@@ -94,6 +94,4 @@ namespace Cloudents.Core.Interfaces
     {
         Task<Coupon> GetCouponAsync(string coupon, CancellationToken token);
     }
-
-
 }
