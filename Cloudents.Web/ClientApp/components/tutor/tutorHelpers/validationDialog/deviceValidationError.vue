@@ -1,12 +1,12 @@
 <template>
   <div class="device-validation-container">
-    <div class="header-text-wrap px-4 py-2">
+    <div class="header-text-wrap px-6 py-2">
       <div class="header-text 1">
         <span v-html="$Ph('studyRoom_error_with',[devicesTypeWithError])"/>
       </div>
     </div>
-    <v-card class="elevation-0" color="grey lighten-1">
-      <v-container>
+    <v-card class="elevation-0 pa-6" color="white" tile>
+      <v-container class="pa-0">
         <not-allowed :deviceValidationObj="deviceValidationObj"></not-allowed>
         <v-layout align-center justify-end>
           <v-flex class="d-flex align-center justify-center" style="max-width: 250px;">
@@ -83,6 +83,7 @@ export default {
     }
   }
   .blue-btn {
+    width: 100%;
     padding: 5px 10px;
     border-radius: 4px;
     box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.16);
