@@ -79,7 +79,8 @@ namespace Cloudents.FunctionsV2
                                 Price = update.Price,
                                 Country = update.Country,
                                 Image = update.Image,
-                                NeedSerializer = true
+                                NeedSerializer = true,
+                                DiscountPrice = update.SubsidizedPrice
                             }
                         },
                         Insert = true
