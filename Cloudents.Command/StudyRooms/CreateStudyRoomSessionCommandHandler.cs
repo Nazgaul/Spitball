@@ -25,7 +25,6 @@ namespace Cloudents.Command.StudyRooms
                 throw new ArgumentException();
             }
 
-            var sessionName = $"{message.StudyRoomId}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
             var lastSession = room.GetCurrentSession();
             if (lastSession != null)
             {
@@ -36,6 +35,8 @@ namespace Cloudents.Command.StudyRooms
                     return;
                 }
             }
+            var sessionName = $"{message.StudyRoomId}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
+
             await _videoProvider.CreateRoomAsync(sessionName, message.RecordVideo, message.CallbackUrl, room.Type.GetValueOrDefault(StudyRoomType.PeerToPeer));
             var session = new StudyRoomSession(room, sessionName);
             room.AddSession(session);

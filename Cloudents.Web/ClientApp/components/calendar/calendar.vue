@@ -88,7 +88,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import paymentDialog from '../tutor/tutorHelpers/paymentDIalog/paymentDIalog.vue'
+import paymentDialog from '../studyroom/tutorHelpers/paymentDIalog/paymentDIalog.vue'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
 import {LanguageService} from '../../services/language/languageService.js'
 import Schedule from './images/schedule.svg'

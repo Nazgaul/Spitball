@@ -242,11 +242,12 @@ export default {
         position: -ms-sticky;
         position: -o-sticky;
         position: sticky;
-        z-index: 200;
+        z-index: 240;
         @media (max-width: @screen-xs) {
             z-index: unset;
         }
 
+        // top:30px;
         // top:30px;
         // z-index: 99;
         &.sticky-active{

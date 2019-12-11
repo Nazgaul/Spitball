@@ -57,8 +57,12 @@ export default {
             'getLastActiveLocalVideoTrack',
             'getIsVideoActive',
             'getIsAudioActive',
-            'activeRoom'
+            'activeRoom',
+            'getCurrentVideoTrack'
         ]),
+        extandLocalVideoScreen(){
+            return !this.getCurrentVideoTrack;
+          },
         localVideoTrack(){
             return this.getLocalVideoTrack;
         },

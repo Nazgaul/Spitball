@@ -5,12 +5,12 @@
                 <v-tooltip top >
                     <template v-slot:activator="{on}">
                         <!--keep this div, due to tooltip not appearing on disabled btn bug of vuetify-->
-                        <div v-on="on" >
+                        <!-- <div v-on="on"> -->
                             <button @click="showScreen" class="outline-btn-share" :disabled="(!roomIsActive && !isSafari) || (!roomIsActive && isSafari)">
                                 <castIcon class="cast-icon"></castIcon>
                                 <span v-language:inner="'tutor_btn_share_screen'"></span>
                             </button>
-                        </div>
+                        <!-- </div> -->
                     </template>
                     <span v-language:inner="isSafari? 'tutor_browser_not':'tutor_start_to_share'"/>
                 </v-tooltip>
@@ -91,6 +91,18 @@
                 return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
             }
         },
+        watch: {
+            activeRoom(room) {
+                // console.log("active room changed", val);
+                //
+                // if(room.state == 'disconnected'){
+                //     return
+                // }else{
+                //     this.showScreen();
+                // }
+
+            },
+        },
         methods: {
             ...mapActions(["updateToasterParams", 'changeVideoTrack', 'setIsVideoActive']),
             ...mapState(["Toaster"]),
@@ -167,6 +179,7 @@
             }
         },
         created() {
+            console.log('shareScreen init')
             this.isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
         },
     };

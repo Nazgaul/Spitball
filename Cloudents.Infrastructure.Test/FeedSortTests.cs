@@ -131,6 +131,7 @@ namespace Cloudents.Infrastructure.Test
         public async Task GetFeedAsync_First_Page_Return_Null_Items_Ok()
         {
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync((ListWithCountDto<TutorCardDto>) null);
+            _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListByCourseQuery>(), default)).ReturnsAsync((IEnumerable<TutorCardDto>) null);
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync((IList<FeedDto>) null);
 
             var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object);

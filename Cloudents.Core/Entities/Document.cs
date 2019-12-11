@@ -30,7 +30,6 @@ namespace Cloudents.Core.Entities
             {
                 Description = description;
             }
-
             ChangePrice(price);
             //Price = price;
             var status = Public;// GetInitState(user);

@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
-using JetBrains.Annotations;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
@@ -57,13 +56,13 @@ namespace Cloudents.Infrastructure.Storage
             return new CloudBlockBlob(blobUrl, _client.Credentials);
         }
 
-        private CloudBlockBlob GetBlob(string blobName)
+        protected CloudBlockBlob GetBlob(string blobName)
         {
             return _blobDirectory.GetBlockBlobReference(blobName);
         }
 
 
-        public Task UploadStreamAsync(string blobName, Stream fileContent,
+        public virtual Task UploadStreamAsync(string blobName, Stream fileContent,
             string mimeType = null, TimeSpan? cacheControlSeconds = null, CancellationToken token = default)
         {
             var blob = GetBlob(blobName);
@@ -268,22 +267,5 @@ namespace Cloudents.Infrastructure.Storage
             return url;
         }
 
-    }
-
-    public static class BlockBlobExtensions
-    {
-        public static Uri GetDownloadLink([NotNull] this CloudBlockBlob blob, TimeSpan expirationTime)
-        {
-            if (blob == null) throw new ArgumentNullException(nameof(blob));
-            var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
-            {
-                SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
-                Permissions = SharedAccessBlobPermissions.Read,
-                SharedAccessExpiryTime = DateTimeOffset.UtcNow + expirationTime
-
-            });
-            var url = new Uri(blob.Uri, signedUrl);
-            return url;
-        }
     }
 }

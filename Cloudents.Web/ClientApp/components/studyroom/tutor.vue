@@ -5,7 +5,7 @@
     :style="{'background-size': zoom, 'background-position-x': panX, 'background-position-y': panY}"
     :class="{'gridBackground': $route.name === 'tutoring', 'mobile-no-support': isMobile}"
   >
-    <div v-if="isMobile" class="mobile-no-support-container">
+    <div v-show="isMobile" class="mobile-no-support-container">
       <noSupportTop></noSupportTop>
       <div class="no-support-text" v-language:inner="'tutor_not_supported'"></div>
       <div class="no-support-button">
@@ -13,7 +13,7 @@
       </div>
       <noSupportBottom></noSupportBottom>
     </div>
-    <div v-else>
+    <div v-show="!isMobile">
       <v-flex>
         <nav class="tutoring-navigation">
           <div class="logo-nav-wrap">
@@ -37,8 +37,15 @@
             style="display: flex; align-items: center; max-height: 48px; justify-content: space-between;"
           >
             <startEndSessionBtn :id="id"></startEndSessionBtn>
+          
+            <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>  
             
-            <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>
+            <v-btn flat icon @click="toggleRecord" v-if="isRecordingSupported">
+              <v-icon v-if="!getIsRecording" class="white-btn">sbf-begain-recording</v-icon>
+              <v-icon v-else class="white-btn">sbf-stop-recording</v-icon>
+            </v-btn>
+           
+            <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
             
             <div class="d-flex">
               <v-btn sel="help_draw" flat icon @click="showIntercom">
@@ -46,12 +53,14 @@
               </v-btn>
             </div> 
             
+            
+
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
             
             <v-btn sel="setting_draw" flat icon @click="changeSettingsDialogState(true)">
               <v-icon class="white-btn">sbf-settings</v-icon>
             </v-btn>
-
+            
           </div>
         </nav>
         <v-flex xs12   class="study-tools-wrapper">
@@ -63,8 +72,8 @@
               <codeEditorTools/>
             </v-flex>
             <v-spacer></v-spacer>
-            <v-flex xs1  >
-              <share-screen-btn class="nav-share-btn"></share-screen-btn>
+            <v-flex shrink xs1>
+              <shareScreenBtn class="nav-share-btn" />
             </v-flex>
             <v-flex shrink class="controls-holder">
               <v-btn sel="video_chat"
@@ -124,19 +133,6 @@
       >
           <browserSupport></browserSupport>
       </sb-dialog>
-
-<sb-dialog
-        :showDialog="showDeviceValidationError"
-        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
-        :popUpType="'browserDialog'"
-        :maxWidth="'612.5'"
-        :onclosefn="closeBrowserSupportDialog"
-        :isPersistent="$vuetify.breakpoint.smAndUp"
-        :content-class="'device-dialog-unsupport'"
-      >
-          <deviceValidationError :deviceValidationObj="deviceValidationObj"></deviceValidationError>
-      </sb-dialog>
-    
 
       <sb-dialog
         :showDialog="getStudyRoomSettingsDialog"
@@ -202,6 +198,18 @@
       >
         <startSessionStudent :id="id"></startSessionStudent>
       </sb-dialog>
+
+      <sb-dialog
+        :showDialog="getShowAudioRecordingError"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'errorWithAudioRecording'"
+        :maxWidth="'675'"
+        :onclosefn="closeShowAudioRecordingError"
+        :activateOverlay="false"
+        :isPersistent="$vuetify.breakpoint.smAndUp"
+      >
+        <errorWithAudioRecording></errorWithAudioRecording>
+      </sb-dialog>
     </div>
   </v-layout>
 </template>
@@ -235,9 +243,10 @@ import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfir
 import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
 import insightService from '../../services/insightService.js';
 import studyRoomSettingsDialog from "./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue";
-import deviceValidationError from './tutorHelpers/validationDialog/deviceValidationError.vue';
 import paymentDialog from './tutorHelpers/paymentDIalog/paymentDIalog.vue'
 import intercomSVG from './images/icon-1-2.svg'
+import studyRoomRecordingService from './studyRoomRecordingService.js';
+import errorWithAudioRecording from './tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
 
 //store
 import storeService from "../../services/store/storeService";
@@ -245,6 +254,10 @@ import tutoringCanvas from '../../store/studyRoomStore/tutoringCanvas.js';
 import tutoringMain from '../../store/studyRoomStore/tutoringMain.js';
 import studyRoomTracks_store from '../../store/studyRoomStore/studyRoomTracks_store.js';
 import codeEditor_store from '../../store/studyRoomStore/codeEditor_store.js';
+import roomRecording_store from '../../store/studyRoomStore/roomRecording_store.js';
+import studyroomSettings_store from '../../store/studyRoomStore/studyroomSettings_store';
+
+import studyroomSettingsUtils from '../studyroomSettings/studyroomSettingsUtils';
 
 export default {
   components: {
@@ -268,14 +281,14 @@ export default {
     endSessionConfirm,
     browserSupport,
     studyRoomSettingsDialog,
-    deviceValidationError,
     paymentDialog,
     codeEditorTools,
-    intercomSVG
+    intercomSVG,
+    errorWithAudioRecording
   },
   name: "tutor",
   data() {
-    return {
+    return {      
       activeNavItem: "white-board",
       showSupportBrowser: false,
       showQualityDialog: false,
@@ -305,7 +318,6 @@ export default {
       },
       activeViewOption: "videoChat",
       userId: null,
-      deviceValidationObj: null,
     };
   },
 
@@ -328,12 +340,16 @@ export default {
       "getEndDialog",
       "getBrowserSupportDialog",
       "accountUser",
-      "showDeviceValidationError",
       "getShowPaymentDialog",
       "getStudyRoomData",
       "releaseFullVideoButton",
       "getActiveNavIndicator",
-      "isFrymo"
+      "getRecorder",
+      "isFrymo",
+      "getRecorderStream",
+      "getIsRecording",
+      "getShowAudioRecordingError",
+      "getVisitedSettingPage"      
     ]),
     activeItem() {
       return this.activeNavItem;
@@ -357,12 +373,6 @@ export default {
     browserSupportDialog(){
       return this.getBrowserSupportDialog;
     },
-    showNotConnectedDevicesDialog(){
-      // TODO SHOW SPECIFIC INFORMATION, WHICH DEVICE IS NOT CONNECTED AUDIO VIDEO EXC...
-      
-      // let browserSupported = this.isBrowserSupport();
-      // return this.qualityDialog && browserSupported && !this.isMobile
-    },
     needPayment() {
       if(!this.isTutor){
         return this.getStudyRoomData ? this.getStudyRoomData.needPayment : true;
@@ -381,6 +391,13 @@ export default {
     },
     isCodeEditorActive(){
       return this.activeItem === "code-editor"
+    },
+    isRecordingSupported(){
+      if(this.id){
+        return !this.isTutor;
+      }else{
+        return tutorService.isRecordingSupported();
+      }
     }
   },
 
@@ -411,14 +428,14 @@ watch: {
       "updateEndDialog",
       "setBrowserSupportDialog",
       "setRoomId",
-      "setDeviceValidationError",
       "setVideoDevice",
       "setAudioDevice",
       "initLocalMediaTracks",
       "UPDATE_SEARCH_LOADING",
+      "setShowAudioRecordingError",
       "hideRoomToasterMessage",
     ]),
-    ...mapGetters(['getDevicesObj']),
+    // ...mapGetters(['getDevicesObj']),
     closeFullScreen(e){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
        this.selectViewOption(this.enumViewOptions.videoChat)
@@ -439,6 +456,9 @@ watch: {
     closeStartSessionStudent() {
       this.updateStudentStartDialog(false);
     },
+    closeShowAudioRecordingError(){
+      this.setShowAudioRecordingError(false);
+    },
     updateActiveNav(value) {
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_navigation', {'roomId': this.id, 'userId': this.userId, 'navigatedTo': value}, null)
       this.activeNavItem = value;
@@ -458,6 +478,7 @@ watch: {
       this.setStudyRoomSettingsDialog(val);
       // this.updateTestDialogState(val);
     },
+    
     selectViewOption(param) {
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_selectViewOption', {'roomId': this.id, 'userId': this.userId, 'viewOption': param}, null)
       this.activeViewOption = param;
@@ -488,20 +509,26 @@ watch: {
         video.msRequestFullscreen();
       }
     },
-    setStudyRoom(id) {
+    async setStudyRoom(id) {
       let self = this;
-      tutorService.getRoomInformation(id).then((RoomProps) => {
-        insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_RoomProps', RoomProps, null)
+      let _roomProps = this.getStudyRoomData;
+      if(_roomProps){
         initSignalRService(`studyRoomHub?studyRoomId=${id}`);
-        this.updateStudyRoomProps(RoomProps);
-        self.getChatById(RoomProps.conversationId).then(({ data }) => {
-          insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
-          let currentConversationObj = chatService.createActiveConversationObj(data);
-          self.setActiveConversationObj(currentConversationObj);
-          self.lockChat();
+      }else{
+        await tutorService.getRoomInformation(id).then((RoomProps) => {
+          _roomProps = RoomProps;
+          insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_RoomProps', _roomProps, null)
+          initSignalRService(`studyRoomHub?studyRoomId=${id}`);
+          this.updateStudyRoomProps(_roomProps);
+        }, err => {
+          insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
         });
-      }, err => {
-        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
+      }
+      self.getChatById(_roomProps.conversationId).then(({ data }) => {
+        insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
+        let currentConversationObj = chatService.createActiveConversationObj(data);
+        self.setActiveConversationObj(currentConversationObj);
+        self.lockChat();
       });
     },
     closeWin() {
@@ -509,22 +536,6 @@ watch: {
     },
     closeBrowserSupportDialog(){ 
       this.setBrowserSupportDialog(false);
-    },
-    isBrowserSupport(){
-      let agent = navigator.userAgent;
-      if(agent.match(/Edge/)){
-        return false;
-      }
-      return agent.match(/Firefox|Chrome|Safari/);
-    },
-     async validateMedia(){
-      await tutorService.validateUserMedia(true, true);
-      this.deviceValidationObj = this.getDevicesObj();
-      if(this.deviceValidationObj.errors.video.length > 0 || this.deviceValidationObj.errors.audio.length > 0){
-        this.setDeviceValidationError(true);
-      }else{
-        this.initLocalMediaTracks();
-      }
     },
     async initDevicesToStore(){
         let availableDevices = [];
@@ -581,40 +592,50 @@ watch: {
         global.Intercom('show')
         intercomSettings.hide_default_launcher = false;
       }
-      
+    },
+    toggleRecord(){
+      studyRoomRecordingService.toggleRecord();
+    
     }
+
   },
   mounted() {
     document.addEventListener("fullscreenchange",this.closeFullScreen);
-    let isStudyRoomTest = this.$route.params ? this.$route.params.id : null;
-    if(isStudyRoomTest) {
-      setTimeout(()=>{
-        if(this.isTutor){
-          this.updateTutorStartDialog(true);
-        }else{
-          this.updateStudentStartDialog(true);
-        }
-      }, 1000)
+    let isNotStudyRoomTest = this.$route.params ? this.$route.params.id : null;
+    if(isNotStudyRoomTest) {
+      let self = this;
+      this.$nextTick(function(){
+        setTimeout(()=>{
+          if(self.isTutor){
+            self.updateTutorStartDialog(true);
+          }else{
+            self.updateStudentStartDialog(true);
+          }
+        }, 1500)
+      })
     }
   },
   beforeDestroy(){
     this.hideRoomToasterMessage();
     document.removeEventListener('fullscreenchange',this.closeFullScreen);
     storeService.unregisterModule(this.$store,'tutoringCanvas');
-    storeService.unregisterModule(this.$store,'tutoringMain');
+    // storeService.unregisterModule(this.$store,'tutoringMain');
     storeService.unregisterModule(this.$store,'studyRoomTracks_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
   },
   beforeCreate(){
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
-    storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
+    storeService.registerModule(this.$store,'roomRecording_store',roomRecording_store);
+    // storeService.registerModule(this.$store,'tutoringMain',tutoringMain);
+    storeService.lazyRegisterModule(this.$store,'tutoringMain',tutoringMain);
+    storeService.lazyRegisterModule(this.$store,'studyroomSettings_store',studyroomSettings_store);
     storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
-  created() {
+  async created() {
     // let ready = this.initDevicesToStore();
     
-    if (!this.isBrowserSupport()) {
+    if (!studyroomSettingsUtils.isBrowserSupport()) {
       this.$nextTick(()=>{
         this.setBrowserSupportDialog(true)
         let roomId = this.id ? this.id : 'No-Id';
@@ -623,7 +644,19 @@ watch: {
       return;
     }
     
-    this.validateMedia();
+    // in case refresh was made in studyRoom page, make sure to init local media tracks. (to be able to share video/audio)
+
+    // this code will create an error object to know what is the cause of the problem in case there is one.
+    // settings page is running this code, but we should run this code in case refresh was made in the study room page.
+    // run this code only if refresh was made in the study room 
+    if(!this.getVisitedSettingPage){
+      await tutorService.validateUserMedia(true, true); 
+    }
+    //this line will init the tracks to show local medias
+    studyroomSettingsUtils.validateMedia();
+
+
+
     this.userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
     if(!!this.id){
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null)

@@ -265,5 +265,14 @@ namespace Cloudents.Web.Api
             }
         }
 
+        [HttpGet("recording")]
+        public async Task<IEnumerable<SessionRecordingDto>> GetSessionRecordingAsync(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new SessionRecordingQuery(userId);
+            
+            return await _queryBus.QueryAsync(query, token);
+        }
+
     }
 }

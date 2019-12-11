@@ -1,6 +1,6 @@
 import videoStreamService from '../../services/videoStreamService';
 import { LanguageService } from '../../services/language/languageService';
-import tutorService from '../../components/tutor/tutorService';
+import tutorService from '../../components/studyroom/tutorService';
 
 
 const state = {
@@ -41,7 +41,7 @@ const state = {
     settingsDialogState: false,
     activeNavIndicator: 'white-board',
     deviceValidationError:false,
-    DevicesObject: tutorService.createDevicesObj()
+    DevicesObject: tutorService.createDevicesObj(),
     
 };
 const getters = {

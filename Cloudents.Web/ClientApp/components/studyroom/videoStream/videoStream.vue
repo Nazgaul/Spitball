@@ -8,7 +8,7 @@
                     <div class="row remote_video_container">
                         <div id="remoteTrack"></div>
 
-                        <div class="local-video-holder">
+                        <div class="local-video-holder" :class="{'extended-video-window': extandLocalVideoScreen}">
                             <div v-show="!isVideoActive" class="localTrack-placeholder">
                                 <div class="placeholder-back">
                                     <videoCameraImageIgnore2 class="placeholder-svg" />

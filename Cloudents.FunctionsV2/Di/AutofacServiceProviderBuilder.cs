@@ -77,7 +77,6 @@ namespace Cloudents.FunctionsV2.Di
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(
-                Assembly.Load("Cloudents.Infrastructure.Storage"), //We need this because of event handler in question populate
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Persistence"));
 

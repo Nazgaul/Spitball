@@ -7,7 +7,7 @@ import whiteBoardService from "./whiteboard/whiteBoardService";
 import insightService from '../../services/insightService';
 import analyticsService from '../../services/analytics.service';
 
-
+import studyRoomRecordingService from './studyRoomRecordingService';
 
 const dataTrack = new LocalDataTrack();
 const uploadCanvasImage = function (formData) {
@@ -61,72 +61,18 @@ const printNetworkQuality = function (networkQualityLevel,networkQualityStats) {
       }
 };
 
-
-const createAudioContext = function () {
-    navigator.mediaDevices.getUserMedia({
-        audio: true
-    }).then(stream => {
-        const processInput = audioProcessingEvent => {
-            let array = new Uint8Array(analyzer.frequencyBinCount);
-            analyzer.getByteFrequencyData(array);
-            let values = 0;
-
-            let length = array.length;
-            for (let i = 0; i < length; i++) {
-                values += (array[i]);
-            }
-
-            let average = values / length;
-
-            //console.log(Math.round(average - 40));
-            //TODO fix style to class
-            let micVolume = document.getElementById('micVolume_indicator');
-            if (!micVolume) return;
-            micVolume.style.backgroundColor = 'rgba(66, 224, 113, 0.8)';
-            micVolume.style.height = '6px';
-            micVolume.style.maxWidth = '150px';
-            micVolume.style.width = `${Math.round(average)}px`;
-
-        };
-
-        // Handle the incoming audio stream
-        // Handle the incoming audio stream
-        const audioContext = new (global.AudioContext || global.webkitAudioContext)();
-        const input = audioContext.createMediaStreamSource(stream);
-        const analyzer = audioContext.createAnalyser();
-        const scriptProcessor = audioContext.createScriptProcessor();
-
-        // Some analyser setup
-        analyzer.smoothingTimeConstant = 0.3;
-        analyzer.fftSize = 1024;
-
-        input.connect(analyzer);
-        analyzer.connect(scriptProcessor);
-        scriptProcessor.connect(audioContext.destination);
-        scriptProcessor.onaudioprocess = processInput;
-
-    }, error => {
-        console.log('Something went wrong, or the browser does not support getUserMedia');
-        // Something went wrong, or the browser does not support getUserMedia
-    });
-
-};
-
 const connectToRoom = function (token, options) {
     // disconnect the user from room if they already joined
     insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_connectToRoom', {'token': token}, null);
     store.dispatch('leaveRoomIfJoined');
     Twilio.connect(token, options)
         .then((room) => {
-            // add microphone indicator, comment if not in use, otherwise will throw errors cause cant get element
-            // createAudioContext();
             insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioConnect', room, null);
             store.dispatch('updateRoomInstance', room);
             console.log('Successfully joined a Room: ', room);
             store.dispatch('updateRoomLoading', false);
             //update room status in store of chat to use for show/hide shareBtn
             store.dispatch('updateRoomStatus', true);
-            // TODO persistent
             let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
             store.dispatch('updateUserIdentity', localIdentity);
             store.dispatch('updateLocalStatus', false);
@@ -203,6 +149,9 @@ const connectToRoom = function (token, options) {
                         store.dispatch('updateStudentStartDialog', true);
                     }
                 }
+                //stop recording when disconnecting
+                studyRoomRecordingService.stopRecord();
+
                 let toasterParams = {
                     text: LanguageService.getValueByKey('studyRoom_session_ended'),
                     type: 'error-toaster'
@@ -420,6 +369,16 @@ const validateUserMedia = async function(audioCheck, videoCheck) {
     });
 };
 
+function uploadRecording(formData, roomId){
+   return connectivityModule.http.post(`StudyRoom/${roomId}/Video`, formData);
+};
+
+function isRecordingSupported(){
+    return store.getters.getStudyRoomData ? !store.getters.getStudyRoomData.isTutor : true;
+    
+    // return ((navigator.userAgent.toLowerCase().indexOf('chrome') > -1) &&(navigator.vendor.toLowerCase().indexOf("google") > -1));
+};
+
 export default {
     dataTrack,
     attachTracks,
@@ -431,5 +390,7 @@ export default {
     createRoomProps,
     endTutoringSession,
     validateUserMedia,
-    createDevicesObj
+    createDevicesObj,
+    uploadRecording,
+    isRecordingSupported
 };

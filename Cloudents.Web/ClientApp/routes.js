@@ -21,8 +21,10 @@ const editCourse = () => import("./components/courses/editCourses/editCourses.vu
 const setUniversity = () => import("./components/university/university.vue");
 const addUniversity = () => import("./components/university/addUniversity/addUniversity.vue");
 
-const tutorComponent = () => import("./components/tutor/tutor.vue");
+
 const studyRoomsComponent = () => import("./components/studyRooms/studyRooms.vue");
+const roomSettings = () => import("./components/studyroomSettings/studyroomSettings.vue");
+const tutorComponent = () => import("./components/studyroom/tutor.vue");
 const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.vue");
 
 const landingPage = () => import('./components/pages/landingPage/landingPage.vue');
@@ -216,6 +218,21 @@ let routes2 = [
             default: (route) => ({
                 id: route.params.id
             }),
+        }
+    },
+    {
+        path: "/studyroomSettings/:id?",
+        name: 'roomSettings',
+        components: {
+            default: roomSettings
+        },
+        header: () => ({
+            submitRoute: '/tutoring'
+        }),
+        props: {
+            default: (route) => ({
+                id: route.params.id
+            })
         }
     },
     {

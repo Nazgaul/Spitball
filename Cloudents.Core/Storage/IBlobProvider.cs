@@ -48,11 +48,6 @@ namespace Cloudents.Core.Storage
         Task<string> DownloadTextAsync(string name, string directory, CancellationToken token);
     }
 
-    //public interface IQuestionsDirectoryBlobProvider : IBlobProvider
-    //{
-
-    //}
-
     public interface IUserDirectoryBlobProvider : IBlobProvider
     {
         Task<Uri> UploadImageAsync(long userId, string file,
@@ -61,6 +56,13 @@ namespace Cloudents.Core.Storage
 
     public interface IChatDirectoryBlobProvider : IBlobProvider
     {
+
+    }
+
+    public interface IStudyRoomSessionBlobProvider : IBlobProvider
+    {
+        Task UploadVideoAsync(Guid roomId, string sessionId, Stream stream, CancellationToken token);
+        Uri DownloadVideoLink(Guid roomId, string sessionId);
 
     }
 

@@ -70,35 +70,6 @@ namespace Cloudents.Web.Api
 
         }
 
-        //private async Task<IEnumerable<QuestionFeedDto>> MergeFeedWithVotes(Task<IEnumerable<QuestionFeedDto>> retValTask, CancellationToken token)
-        //{
-        //    var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        var userId = _userManager.GetLongUserId(User);
-        //        var queryTags = new UserVotesByCategoryQuery(userId);
-        //        votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteQuestionDto>>(queryTags, token)
-        //            .ContinueWith(
-        //                t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
-        //    }
-
-        //    await Task.WhenAll(retValTask, votesTask);
-        //    if (votesTask.Result == null)
-        //    {
-        //        return retValTask.Result;
-        //    }
-
-        //    return retValTask.Result.Select(s =>
-        //    {
-        //        if (votesTask.Result.TryGetValue(s.Id, out var p))
-        //        {
-        //            s.Vote.Vote = p;
-        //        }
-
-        //        return s;
-        //    });
-        //}
-
         // GET
         [HttpGet("{id:long}/answers")]
         [ProducesResponseType(200)]
@@ -193,6 +164,8 @@ namespace Cloudents.Web.Api
             await commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+       
 
     }
 }
