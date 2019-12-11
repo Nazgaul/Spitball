@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-list class="menu-list">
+    <v-list class="menu-list" dense>
       <div class="userMenu_cont">
         <div class="userMenu_top_postion" v-if="isLoggedIn"/>
         <div class="userMenu_top_noLogin" v-if="!isLoggedIn && isMobile">

@@ -14,7 +14,7 @@
                          clipped>
       <div class="sideMenu_cont">
         <div @click="toggleMiniSideMenu" v-if="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown" class="sideMenu_btn"/>
-      <v-list class="sideMenu_list_cont" >
+      <v-list class="sideMenu_list_cont" dense>
         <v-list-group active-class="''" :prepend-icon="'sbf-home-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="resetItems">
           <template v-slot:activator>
             <v-list-tile class="sideMenu_list">
