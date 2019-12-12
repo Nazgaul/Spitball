@@ -121,7 +121,8 @@ export default {
         text-align: center;
         .uf-close {
             position: absolute;
-            right: 0;
+            right: -10px;
+            top: 10px;
             font-size: 12px;
             color: #adadba;
         }
