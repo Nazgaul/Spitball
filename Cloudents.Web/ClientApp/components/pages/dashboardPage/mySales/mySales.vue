@@ -5,7 +5,7 @@
                :headers="headers"
                :items="salesItems"
                disable-initial-sort
-               rows-per-page-items
+               :rows-per-page-items="[]"
                class="elevation-1"
                :prev-icon="'sbf-arrow-left-carousel'"
                :sort-icon="'sbf-arrow-down'"
