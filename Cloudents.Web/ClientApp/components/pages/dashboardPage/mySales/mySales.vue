@@ -98,6 +98,9 @@ export default {
          // Temporary
          font-size: 70px;
       }
-	}
+   }
+   .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
+      transform: none /*rtl:rotate(180deg)*/ 
+   }
 }
 </style>
