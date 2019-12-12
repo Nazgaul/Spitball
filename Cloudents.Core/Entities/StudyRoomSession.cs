@@ -40,6 +40,13 @@ namespace Cloudents.Core.Entities
 
         public virtual IEnumerable<SessionParticipantDisconnect> ParticipantDisconnections => _participantDisconnections;
 
+        public virtual bool VideoExists { get; protected set; }
+
+        public virtual void UpdateVideo()
+        {
+            VideoExists = true;
+        }
+
         public virtual void EndSession()
         {
             if (Ended.HasValue)

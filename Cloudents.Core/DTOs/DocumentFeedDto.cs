@@ -6,12 +6,6 @@ using System;
 
 namespace Cloudents.Core.DTOs
 {
-    //public class DocumentFeedWithFacetDto
-    //{
-    //    public IEnumerable<DocumentFeedDto> Result { get; set; }
-    //    public IEnumerable<string> Facet { get; set; }
-    //}
-
     public class DocumentFeedDto : FeedDto
     {
         [EntityBind(nameof(Document.Id))]
@@ -85,17 +79,18 @@ namespace Cloudents.Core.DTOs
 
     }
 
-    //public class UserVoteQuestionDto : UserVoteDto<long>
-    //{
+    public class SessionRecordingDto
+    {
+        //Session
+        public Guid Id { get; set; }
+        //Session
+        //public DateTime DateTime { get; set; }
+        public long TutorId { get; set; }
+        public string TutorName { get; set; }
+        public string TutorImage { get; set; }
 
-    //}
+        public TimeSpan Duration { get; set; }//Session
 
-    //public class UserVoteAnswerDto : UserVoteDto<Guid>
-    //{
-    //    public UserVoteAnswerDto(Guid? id, VoteType vote)
-    //    {
-    //        Id = id ?? default;
-    //        Vote = vote;
-    //    }
-    //}
+        public string Url { get; set; }
+    }
 }

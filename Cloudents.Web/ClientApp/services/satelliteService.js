@@ -70,7 +70,7 @@ const sattelites = {
             en: urlForEnglishUsers('contact'),
             he:"https://help.spitball.co/he/contact"
         } 
-    },
+    }
 }
 const socialMedias = {
     medium:{

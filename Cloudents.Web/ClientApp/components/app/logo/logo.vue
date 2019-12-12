@@ -29,6 +29,7 @@ export default {
     .frymo-logo {
         width: 114px;
         height: 48px;
+        fill:#429DDB;
       @media (max-width: @screen-xs) {
           height: 32px;
       }

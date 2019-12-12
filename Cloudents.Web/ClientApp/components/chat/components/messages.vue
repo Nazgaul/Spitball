@@ -140,7 +140,7 @@ export default {
             this.loader = true;
             if(!!this.activeConversationObj.studyRoomId){
                 let routeData = this.$router.resolve({
-                    name: 'tutoring',
+                    name: 'roomSettings',
                     params: {
                         id: this.activeConversationObj.studyRoomId
                     }

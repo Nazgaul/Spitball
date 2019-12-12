@@ -70,6 +70,7 @@ import userRating from "../new_profile/profileHelpers/profileBio/bioParts/userRa
 import userAvatarRect from '../helpers/UserAvatar/UserAvatarRect.vue';
 
 import star from "./image/stars-copy.svg";
+
 export default {
     components:{userRating,star,userAvatarRect},
     data(){

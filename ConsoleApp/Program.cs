@@ -29,6 +29,8 @@ using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Core.Message.Email;
 using Newtonsoft.Json;
+using Cloudents.Core.Message.Email;
+using Newtonsoft.Json;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
