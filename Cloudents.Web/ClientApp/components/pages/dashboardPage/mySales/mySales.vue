@@ -24,7 +24,7 @@
                   <!-- <td class="text-xs-left">{{ props.item.price }}</td> -->
                   <td class="text-xs-left">{{ props.item.status }}</td>
                   <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-                  <!-- <td class="text-xs-left"></td> -->
+                  <td class="text-xs-left"><v-icon @click="openDialog">sbf-3-dot</v-icon></td>
                </template>
             </v-data-table>
       </div>
@@ -48,7 +48,7 @@ export default {
             // {text:'Price',align:'left',sortable: true,value:'price'},
             {text:'Status',align:'left',sortable: true,value:'status'},
             {text:'Date',align:'left',sortable: true,value:'date'},
-            // {text:'Action',align:'left',sortable: false,value:'action'},
+            {text:'Action',align:'left',sortable: false,value:'action'},
          ],
       }
    },
@@ -59,7 +59,11 @@ export default {
       },
    },
    methods: {
-      ...mapActions(['updateSalesItems'])
+      ...mapActions(['updateSalesItems', 'openDashboardDialog']),
+
+      openDialog() {
+         this.openDashboardDialog(true);
+      }
    },
    created() {
       this.updateSalesItems()
