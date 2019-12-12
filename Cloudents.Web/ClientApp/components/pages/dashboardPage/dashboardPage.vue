@@ -1,6 +1,6 @@
 <template>
    <div class="dashboardPage">
-      <dashboardFilters></dashboardFilters>
+      <!-- <dashboardFilters></dashboardFilters> -->
       <component :is="currentComponentByRoute"></component>
    </div>
 </template>
@@ -33,10 +33,10 @@ export default {
 <style lang="less">
 @import '../../../styles/mixin.less';
 .dashboardPage{
-	// padding-left: 30px;
-	// padding-top: 30px;
-   // max-width: 1150px;
-   padding: 34px;
+	padding-left: 30px;
+	padding-top: 30px;
+   max-width: 1150px;
+   // padding: 34px;
 	@media (max-width: @screen-xs) {
 		padding-left: 0;
       width: 100%;
