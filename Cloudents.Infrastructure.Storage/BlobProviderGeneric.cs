@@ -215,6 +215,27 @@ namespace Cloudents.Infrastructure.Storage
 
         }
 
+        public async Task UndeleteDirectoryAsync(string id, CancellationToken token)
+        {
+            var directory = _blobDirectory.GetDirectoryReference(id);
+            var blobs = await directory.ListBlobsSegmentedAsync(useFlatBlobListing: true, blobListingDetails: BlobListingDetails.Deleted, null, new BlobContinuationToken(), new BlobRequestOptions(),
+                new OperationContext(), token);
+            var l = new List<Task>();
+            foreach (var blob in blobs.Results)
+            {
+
+
+                if (blob is CloudBlockBlob p)
+                {
+
+                    var t = p.UndeleteAsync(AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
+                    l.Add(t);
+                }
+            }
+
+            await Task.WhenAll(l);
+        }
+
         public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token)
         {
             var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);

@@ -40,6 +40,7 @@ namespace Cloudents.Core.Storage
         Task<bool> ExistsAsync(string blobName, CancellationToken token);
 
         Task DeleteDirectoryAsync(string id, CancellationToken token);
+        Task UndeleteDirectoryAsync(string id, CancellationToken token);
     }
 
     public interface IDocumentDirectoryBlobProvider : IBlobProvider

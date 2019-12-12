@@ -142,6 +142,12 @@ namespace Cloudents.Core.Entities
             Status = Public;
         }
 
+        public virtual void UnDelete()
+        {
+            Status = ItemStatus.Public;
+            AddEvent(new DocumentUndeletedEvent(this));
+        }
+
         public const decimal PriceLimit = 1000M;
 
         public virtual void ChangePrice(decimal newPrice)
