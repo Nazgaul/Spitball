@@ -117,76 +117,66 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="credit_uploader" xml:space="preserve">
-    <value>לצפייה, הענק נקודות לבעלי התוכן</value>
+  <data name="call_text" xml:space="preserve">
+    <value>your code to enter into Spitball is: {0}</value>
   </data>
-  <data name="docPage" xml:space="preserve">
-    <value>עמוד {1} מתוך {2}</value>
+  <data name="email_from" xml:space="preserve">
+    <value>ספיטבול&lt;no-reply@spitball.co&gt;</value>
   </data>
-  <data name="download_btn" xml:space="preserve">
-    <value>הורדה</value>
+  <data name="email_support" xml:space="preserve">
+    <value>support@spitball.co</value>
   </data>
-  <data name="full_list" xml:space="preserve">
-    <value>לצפייה ברשימה המלאה</value>
+  <data name="sms_text" xml:space="preserve">
+    <value>הקוד שלך לספיטבול הוא: {0}</value>
   </data>
-  <data name="money_back" xml:space="preserve">
-    <value>החזר כספי מובטח</value>
+  <data name="unread_message" xml:space="preserve">
+    <value>יש לך הודעה חדשה מ{0} בספיטבול.
+ לחץ על הלינק לקרוא אותה {{link}}</value>
   </data>
-  <data name="more_tutors" xml:space="preserve">
-    <value>עוד מורים בקורס זה</value>
+  <data name="unread_message_email" xml:space="preserve">
+    <value>מצאנו {0} שביקש לתאם איתך שיעור פרטי.
+&lt;br&gt;
+
+<<<<<<< HEAD
+ לחץ על &lt;a href="{link}"&gt;לינק&lt;/a&gt; כדי לשוחח ולתאם מועד לשיעור</value>
+=======
+ לחץ על &lt;a href="{{link}}"&gt;לינק&lt;/a&gt; כדי לשוחח ולתאם מועד לשיעור</value>
+>>>>>>> origin/develop
   </data>
-  <data name="need_help1" xml:space="preserve">
-    <value>צריך עזרה במקצוע זה?</value>
+  <data name="unread_message_first_message_tutor" xml:space="preserve">
+    <value>מצאנו תלמיד שביקש לתאם איתך שיעור פרטי.
+ לחץ על הלינק כדי לשוחח ולתאם מועד לשיעור {link}</value>
   </data>
-  <data name="need_help2" xml:space="preserve">
-    <value>{1} יכול ללמד אותך</value>
+  <data name="unread_message_first_message_tutor_email" xml:space="preserve">
+    <value>מצאנו תלמיד שביקש לתאם איתך שיעור פרטי.
+&lt;br&gt;
+ &lt;a href="{link}"&gt;לחץ על הלינק&lt;/a&gt; כדי לשוחח ולתאם מועד לשיעור</value>
   </data>
-  <data name="online_tutor" xml:space="preserve">
-    <value>השג מורים פרטיים אונליין ואת כל חומרי הלימוד כדי להצליח</value>
+  <data name="unread_message_request_email_body" xml:space="preserve">
+    <value>היי {UserFirstName},
+{FirstMessageStudentName} ביקש לקבוע איתך שיעור פרטי ב{CourseName} {Request}.
+תוכל ליצור איתו קשר דרך מערכת ספיטבול – {link}.
+לחלופין, ניתן לשלוח הודעת ווטסאפ {WhatsappLink}.
+במידה ונתקלת בכל בעיה  אנא צור איתי קשר : על ידי שליחת הודעת WhatsApp ל 0527368268 או במייל support@spitball.co. 
+בברכה, יניב סילובסקי 
+</value>
   </data>
-  <data name="points" xml:space="preserve">
-    <value>נק'</value>
+  <data name="unread_message_request_email_body_lead_request" xml:space="preserve">
+    <value>וצריך עזרה ב{Request}</value>
   </data>
-  <data name="prepared_exams" xml:space="preserve">
-    <value>לעבור את המבחנים בהצלחה</value>
+  <data name="unread_message_request_email_body_whatsapp_text" xml:space="preserve">
+    <value>קיבלתי את פנייתך דרך ספיטבול לשיעור פרטי. מתי נוח לך לדבר</value>
   </data>
-  <data name="related_content" xml:space="preserve">
-    <value>תכנים דומים</value>
+  <data name="unread_message_request_email_subject" xml:space="preserve">
+    <value>{FirstMessageStudentName} ביקש לקבוע איתך שיעור פרטי </value>
   </data>
-  <data name="secure_payment" xml:space="preserve">
-    <value>תשלום במערכת מאובטחת</value>
+  <data name="unread_message_student" xml:space="preserve">
+    <value>סטודנט</value>
   </data>
-  <data name="student_learn" xml:space="preserve">
-    <value>סטודנטים לומדים מסטודנטים</value>
+  <data name="unread_message_tutor" xml:space="preserve">
+    <value>מורה</value>
   </data>
-  <data name="table_course" xml:space="preserve">
-    <value>קורס:</value>
-  </data>
-  <data name="table_university" xml:space="preserve">
-    <value>מוסד לימוד:</value>
-  </data>
-  <data name="table_uploaded" xml:space="preserve">
-    <value>הועלה על ידי:</value>
-  </data>
-  <data name="unlock_btn" xml:space="preserve">
-    <value>פתח</value>
-  </data>
-  <data name="unlock_document" xml:space="preserve">
-    <value>לצפייה, הענק נקודות לבעלי התוכן</value>
-  </data>
-  <data name="unlock_document_btn" xml:space="preserve">
-    <value>פתח מסמך</value>
-  </data>
-  <data name="unlock_document_unregister" xml:space="preserve">
-    <value>כדי לראות את המסמך המלא, הירשם בבקשה</value>
-  </data>
-  <data name="unlock_video" xml:space="preserve">
-    <value>זו צפייה מקדימה של 30 שניות,&lt;br&gt;לצפייה בסרטון המלא  העבר נקודות לבעלי הסרטון.</value>
-  </data>
-  <data name="unlock_video_btn" xml:space="preserve">
-    <value>פתח סרטון</value>
-  </data>
-  <data name="why_spitball" xml:space="preserve">
-    <value>למה בספיטבול</value>
+  <data name="you_have_unread_message" xml:space="preserve">
+    <value>יש לך הודעה חדשה</value>
   </data>
 </root>

@@ -169,17 +169,20 @@
   <data name="table_uploaded" xml:space="preserve">
     <value>Uploaded by:</value>
   </data>
-  <data name="unlock_btn" xml:space="preserve">
-    <value>Unlock now</value>
-  </data>
   <data name="unlock_document" xml:space="preserve">
     <value>Credit the uploader with points to unlock</value>
+  </data>
+  <data name="unlock_document_btn" xml:space="preserve">
+    <value>Unlock document</value>
   </data>
   <data name="unlock_document_unregister" xml:space="preserve">
     <value>To unlock this document, please register</value>
   </data>
   <data name="unlock_video" xml:space="preserve">
     <value>You are watching a 30 sec. preview.&lt;br&gt;Credit the uploader with points to unlock the full movie</value>
+  </data>
+  <data name="unlock_video_btn" xml:space="preserve">
+    <value>Unlock video</value>
   </data>
   <data name="why_spitball" xml:space="preserve">
     <value>Why Spitball</value>
