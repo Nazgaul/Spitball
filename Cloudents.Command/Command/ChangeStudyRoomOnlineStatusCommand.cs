@@ -17,6 +17,5 @@ namespace Cloudents.Command.Command
         public Guid StudyRoomId { get; }
 
 
-        public IList<long> OtherUsers { get; set; }
     }
 }

@@ -15,11 +15,10 @@ namespace Cloudents.Web.Hubs
     {
         private readonly ICommandBus _commandBus;
         private const string QueryStringName = "studyRoomId";
-        private readonly IHubContext<SbHub> _hubContext;
-        public StudyRoomHub(ICommandBus commandBus, IHubContext<SbHub> hubContext)
+      
+        public StudyRoomHub(ICommandBus commandBus)
         {
             _commandBus = commandBus;
-            _hubContext = hubContext;
         }
 
         public override async Task OnConnectedAsync()
@@ -36,8 +35,7 @@ namespace Cloudents.Web.Hubs
             var userId = long.Parse(Context.UserIdentifier);
 
 
-            var message = new SignalRTransportType(SignalRType.User,
-                SignalREventAction.EnterStudyRoom, new object());
+           
 
             var command = new ChangeStudyRoomOnlineStatusCommand(userId, true, roomId);
 
@@ -49,8 +47,7 @@ namespace Cloudents.Web.Hubs
             await _commandBus.DispatchAsync(command, default);
 
 
-            await _hubContext.Clients.Users(command.OtherUsers.Select(s => s.ToString()).ToList())
-                .SendAsync(SbHub.MethodName, message, CancellationToken.None);
+           
             await base.OnConnectedAsync();
 
 
