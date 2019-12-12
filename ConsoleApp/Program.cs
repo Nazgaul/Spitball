@@ -38,6 +38,7 @@ using Cloudents.Query.Documents;
 using Cloudents.Query.HomePage;
 using Newtonsoft.Json;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
+using Cloudents.Query.Query;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -499,7 +500,7 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
         {
             var queryBus = _container.Resolve<IQueryBus>();
 
-            var query = new CalendarEventsQuery(161755L, new DateTime(2019, 9, 16, 17, 0, 0), new DateTime(2019, 9, 22, 17, 0, 0));
+            var query = new UserSalesByIdQuery(159039);
             var t = await queryBus.QueryAsync(query, default);
             //await PopulateUsersImageName();
             //await commandBus.DispatchAsync(command2, default);
