@@ -146,6 +146,7 @@ export default {
         // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
         {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
         {name: 'myCalendar', key:'myCalendar', icon:'sbf-cart',sel:'sd_calendar'},
+        {name: 'mySales', key:'mySales', icon:'sbf-cart',sel:'sd_sales'},
         {name: 'myFollowers', key:'myFollowers', icon:'sbf-cart',sel:'sd_followers'},
       ],
       selectedCourse: "",
