@@ -67,6 +67,7 @@ const connectToRoom = function (token, options) {
     store.dispatch('leaveRoomIfJoined');
     Twilio.connect(token, options)
         .then((room) => {
+            store.dispatch('setSessionTimeStart');
             insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioConnect', room, null);
             store.dispatch('updateRoomInstance', room);
             console.log('Successfully joined a Room: ', room);
@@ -101,11 +102,7 @@ const connectToRoom = function (token, options) {
                     if (store.getters['getStudentStartDialog']) {
                         store.dispatch('updateStudentStartDialog', false);
                     }
-                }            
-            
-            
-            
-
+                }           
             
             //  else if (store.getters['getTutorStartDialog']) {
             //     store.dispatch('updateTutorStartDialog', false);
@@ -123,7 +120,7 @@ const connectToRoom = function (token, options) {
             //disconnected room
             store.getters['activeRoom'].on('disconnected', (room, error) => {
                 if(!error) return;
-                
+                store.dispatch('setSessionTimeEnd');
                 let errorCode = !!error && error.code ? error.code : "";
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioDisconnected', {'errorCode': errorCode}, null);
                 if (errorCode === 20104) {
@@ -137,7 +134,7 @@ const connectToRoom = function (token, options) {
                 }
                 if (store.getters['getStudyRoomData'].isTutor) {
                     store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.ready);
-                    store.dispatch("setTutorDialogState", store.state.tutoringMain.startSessionDialogStateEnum.start);
+                    store.dispatch("setTutorDialogState", store.state.tutoringMain.startSessionDialogStateEnum.finished);
                     store.dispatch('updateTutorStartDialog', true);
                     
                 } else {
@@ -145,7 +142,7 @@ const connectToRoom = function (token, options) {
                     if (store.getters['getAllowReview']) {
                         store.dispatch('updateReviewDialog', true);
                     }else{
-                        store.dispatch("setStudentDialogState", store.state.tutoringMain.startSessionDialogStateEnum.waiting);
+                        store.dispatch("setStudentDialogState", store.state.tutoringMain.startSessionDialogStateEnum.finished);
                         store.dispatch('updateStudentStartDialog', true);
                     }
                 }
@@ -269,11 +266,11 @@ const connectToRoom = function (token, options) {
                     // endTutoringSession(store.getters['getRoomId']);
                     store.dispatch('setSesionClickedOnce', false);
                     if (store.getters['getStudyRoomData'].isTutor) {
-                        store.dispatch("setTutorDialogState", store.state.tutoringMain.startSessionDialogStateEnum.waiting);
+                        store.dispatch("setTutorDialogState", store.state.tutoringMain.startSessionDialogStateEnum.disconnected);
                         store.dispatch('updateTutorStartDialog', true);
                         // store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.ready);
                     } else {
-
+                        store.dispatch("setStudentDialogState", store.state.tutoringMain.startSessionDialogStateEnum.disconnected);
                         // store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.pending);
                     }
                 }

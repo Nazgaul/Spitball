@@ -10,21 +10,29 @@
             <v-progress-circular v-if="isStudentImage && studentImage" :width="2" indeterminate v-bind:size="35" color="#514f7d"/>
             <userAvatar v-else :user-name="studentName"  :userImageUrl="studentImage" :user-id="studentId" :size="'58'"/>
         </v-flex>
-        <v-flex xs12   class="pt-12">
+        <v-flex xs12  class="pt-12">
             <span class="subheading font-weight-bold" v-language:inner>tutor_start_dialog_your_student</span>
             <span class="subheading font-weight-bold">&nbsp;{{studentName}}</span>
         </v-flex>
-        <v-flex xs12  style="text-align: center;" class="pt-2">
+        
+        <!-- <v-flex xs12  style="text-align: center;" class="pt-2">
             <span class="subheading" v-language:inner>tutor_entered_room</span>
-        </v-flex>
-        <v-flex xs12   class="pt-4">
+        </v-flex> -->
+        <v-flex xs12 v-if="showButton" class="pt-4">
             <v-btn class="start-session-btn elevation-0 align-center justify-center"
                     :loading="buttonLoader"
                     :disabled="buttonState"
                     @click="startSession()">
                 <timerIcon class="timer-icon mr-2"></timerIcon>
-                <span class="text-uppercase">{{buttonText}}</span>
+                <span class="text-uppercase">{{roomStateText}}</span>
             </v-btn>
+        </v-flex>
+        <v-flex class="text-uppercase font-weight-bold start-session-text" pt-4 v-else>
+            {{roomStateText}}
+        </v-flex>
+        <v-flex xs12 v-if="sessionFinished" class="pt-12">
+            <span class="subheading" v-language:inner="'tutor_start_dialog_session_time'"></span>
+            <span class="subheading">&nbsp;{{sessionTime}}</span>
         </v-flex>
     </v-layout>
     </div>
@@ -46,9 +54,14 @@
         },
         computed: {
             ...mapState(['tutoringMain']),
-            ...mapGetters(['getStudyRoomData', 'getSessionStartClickedOnce', 'getTutorDialogState']),
+            ...mapGetters(['getStudyRoomData', 'getSessionStartClickedOnce', 'getTutorDialogState', 'getSessionTimeStart', 'getSessionTimeEnd']),
             studentName() {
                 return this.getStudyRoomData.studentName;
+            },
+            sessionTime(){
+                let end = this.getSessionTimeEnd;
+                let start = this.getSessionTimeStart;
+                return this.getTimeFromMs(end - start);
             },
             isStudentImage() {
                 return (this.getStudyRoomData && this.getStudyRoomData.studentImage) ? false : true;
@@ -62,16 +75,31 @@
             buttonLoader(){
                 return this.getSessionStartClickedOnce && this.getTutorDialogState !== this.tutoringMain.startSessionDialogStateEnum.waiting
             },
-            buttonText(){
+            showButton(){
+                let statesToShow = [
+                    this.tutoringMain.startSessionDialogStateEnum.start,
+                    this.tutoringMain.startSessionDialogStateEnum.waiting,
+                    this.tutoringMain.startSessionDialogStateEnum.needPayment
+                ]
+                return statesToShow.indexOf(this.getTutorDialogState) > -1
+            },
+            roomStateText(){
                 if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.start){
                     return LanguageService.getValueByKey('tutor_stream_btn_start_tutor')
                 }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.waiting){
                     return LanguageService.getValueByKey('tutor_stream_btn_waiting_tutor')
                 }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.needPayment){
                     return LanguageService.getValueByKey('tutor_stream_btn_needPayment_tutor')
+                }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.disconnected){
+                    return LanguageService.getValueByKey('tutor_stream_btn_disconnected_tutor')
+                }else if(this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.finished){
+                    return LanguageService.getValueByKey('tutor_stream_btn_finished_tutor')
                 }else{
                     return LanguageService.getValueByKey('tutor_stream_btn_start_tutor')
                 }
+            },
+            sessionFinished(){
+                return this.getTutorDialogState === this.tutoringMain.startSessionDialogStateEnum.finished;
             },
             buttonState() {
                 return this.getTutorDialogState !== this.tutoringMain.startSessionDialogStateEnum.start
@@ -88,6 +116,11 @@
                     this.UPDATE_SEARCH_LOADING(true);
                     this.$router.push('/');
                 }
+            },
+            getTimeFromMs(mills){
+                let ms = 1000*Math.round(mills/1000); // round to nearest second
+                let d = new Date(ms);
+               return (`${d.getUTCHours()}:${d.getUTCMinutes()}:${d.getUTCSeconds()} `)
             }
         },
         beforeDestroy(){
@@ -108,6 +141,7 @@
         border-radius: 4px;
         box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
         width: 356px;
+        padding: 0 5px;
         .start-session-btn{
             display: flex;
             height: 48px;
@@ -119,6 +153,9 @@
                 fill: @color-white;
                 max-width: 24px;
             }
+        }
+        .start-session-text{
+            text-align: center;
         }
     }
 

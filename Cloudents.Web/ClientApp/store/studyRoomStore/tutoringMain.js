@@ -27,7 +27,9 @@ const state = {
     startSessionDialogStateEnum:{
         start: 'start',
         waiting: 'waiting',
-        needPayment: 'needPayment'
+        needPayment: 'needPayment',
+        disconnected: 'disconnected',
+        finished: 'finished'
     },
     tutorDialogState:'start',
     studentDialogState:'waiting',
@@ -42,6 +44,8 @@ const state = {
     activeNavIndicator: 'white-board',
     deviceValidationError:false,
     DevicesObject: tutorService.createDevicesObj(),
+    sessionTimeStart: null,
+    sessionTimeEnd: null,
     
 };
 const getters = {
@@ -72,6 +76,8 @@ const getters = {
     getActiveNavIndicator: state => state.activeNavIndicator,
     getTutorDialogState: state => state.tutorDialogState,
     getStudentDialogState: state => state.studentDialogState,
+    getSessionTimeStart: state => state.sessionTimeStart,
+    getSessionTimeEnd: state => state.sessionTimeEnd,
 };
 
 const mutations = {
@@ -159,7 +165,13 @@ const mutations = {
     },
     setStudentDialogState(state, val){
         state.studentDialogState = val;
-    }
+    },
+    setSessionTimeStart(state, val){
+        state.sessionTimeStart = val;
+    },
+    setSessionTimeEnd(state, val){
+        state.sessionTimeEnd = val;
+    },
 };
 
 const actions = {
@@ -273,7 +285,11 @@ const actions = {
                         dispatch("setTutorDialogState", state.startSessionDialogStateEnum.needPayment);
                     }
                 } else {
-                    dispatch("setTutorDialogState", state.startSessionDialogStateEnum.waiting);
+                    if(state.currentRoomState === state.roomStateEnum.ready){
+                        dispatch("setTutorDialogState", state.startSessionDialogStateEnum.waiting);
+                    }else{
+                        dispatch("setTutorDialogState", state.startSessionDialogStateEnum.disconnected);
+                    }
                     dispatch('updateTutorStartDialog', true);
                     // dispatch("updateTutorStartDialog", false);
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
@@ -296,10 +312,16 @@ const actions = {
                 dispatch('showRoomToasterMessage', toasterParams);
             } else {
                 if(!state.studyRoomData.needPayment){
-                    dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
+                    console.log(state.currentRoomState);
+                    if(state.currentRoomState === state.roomStateEnum.pending){
+                        dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
+                    }else{
+                        dispatch("setStudentDialogState", state.startSessionDialogStateEnum.disconnected);
+                    }
                 }else{
                     dispatch("setStudentDialogState", state.startSessionDialogStateEnum.needPayment);
                 }
+                
                 dispatch('updateStudentStartDialog', true);
                 dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
@@ -375,7 +397,13 @@ const actions = {
     },
     setStudentDialogState({commit}, val){
         commit('setStudentDialogState', val);
-    }
+    },
+    setSessionTimeStart({commit}){
+        commit('setSessionTimeStart', Date.now());
+    },
+    setSessionTimeEnd({commit}){
+        commit('setSessionTimeEnd', Date.now());
+    },
 };
 export default {
     state,

@@ -165,7 +165,7 @@
                 this.updateReviewDialog(false);
                 let self = this;
                 setTimeout(()=>{
-                    self.setStudentDialogState(this.tutoringMain.startSessionDialogStateEnum.waiting);
+                    self.setStudentDialogState(this.tutoringMain.startSessionDialogStateEnum.finished);
                     self.updateStudentStartDialog(true);
                 }, 400);
             }

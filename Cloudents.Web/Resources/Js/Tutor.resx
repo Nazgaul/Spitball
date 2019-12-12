@@ -154,7 +154,7 @@
     <value>Finished the session?</value>
   </data>
   <data name="entered_room" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>Canvas</value>
@@ -319,5 +319,20 @@ Voice Recording?</value>
   </data>
   <data name="ewar-try-again" xml:space="preserve">
     <value>Try Again</value>
+  </data>
+  <data name="start_dialog_session_time" xml:space="preserve">
+    <value>session duration:</value>
+  </data>
+  <data name="stream_btn_disconnected_student" xml:space="preserve">
+    <value>session was disconnected please wait while we are trying to recconect</value>
+  </data>
+  <data name="stream_btn_disconnected_tutor" xml:space="preserve">
+    <value>session was disconnected please wait while we are trying to recconect</value>
+  </data>
+  <data name="stream_btn_finished_student" xml:space="preserve">
+    <value>session ended</value>
+  </data>
+  <data name="stream_btn_finished_tutor" xml:space="preserve">
+    <value>session ended</value>
   </data>
 </root>

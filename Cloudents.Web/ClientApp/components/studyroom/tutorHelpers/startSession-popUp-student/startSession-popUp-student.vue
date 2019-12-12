@@ -17,15 +17,18 @@
             <v-flex xs12 style="text-align: center;" class="pt-2">
                 <span class="subheading" v-language:inner>tutor_entered_room</span>
             </v-flex>
-            <v-flex xs12 class="pt-4">
+            <v-flex v-if="showButton" xs12 class="pt-4">
                 <v-btn class="start-session-btn elevation-0 align-center justify-center"
                         :loading="getSessionStartClickedOnce"
                         :disabled="buttonState"
                         @click="joinSession()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
                     <!-- <span class="text-uppercase" v-language:inner="'tutor_btn_accept_and_start'"></span> -->
-                    <span class="text-uppercase">{{buttonText}}</span>
+                    <span class="text-uppercase">{{roomStateText}}</span>
                 </v-btn>
+            </v-flex>
+            <v-flex class="font-weight-bold start-session-text text-uppercase" v-else>
+                {{roomStateText}}
             </v-flex>
         </v-layout>
     </div>
@@ -66,13 +69,25 @@
             isReady(){
                 return this.getCurrentRoomState === this.tutoringMainStore.roomStateEnum.ready;
             },
-            buttonText(){
+            showButton(){
+                let statesToShow = [
+                    this.tutoringMain.startSessionDialogStateEnum.start,
+                    this.tutoringMain.startSessionDialogStateEnum.waiting,
+                    this.tutoringMain.startSessionDialogStateEnum.needPayment
+                ]
+                return statesToShow.indexOf(this.getStudentDialogState) > -1
+            },
+            roomStateText(){
                 if(this.getStudentDialogState === this.tutoringMain.startSessionDialogStateEnum.start){
                     return LanguageService.getValueByKey('tutor_stream_btn_start_session_student')
                 }else if(this.getStudentDialogState === this.tutoringMain.startSessionDialogStateEnum.waiting){
                     return LanguageService.getValueByKey('tutor_stream_btn_waiting_student')
                 }else if(this.getStudentDialogState === this.tutoringMain.startSessionDialogStateEnum.needPayment){
                     return LanguageService.getValueByKey('tutor_stream_btn_needPayment_student')
+                }else if(this.getStudentDialogState === this.tutoringMain.startSessionDialogStateEnum.disconnected){
+                    return LanguageService.getValueByKey('tutor_stream_btn_disconnected_student')
+                }else if(this.getStudentDialogState === this.tutoringMain.startSessionDialogStateEnum.finished){
+                    return LanguageService.getValueByKey('tutor_stream_btn_finished_student')
                 }else{
                     return LanguageService.getValueByKey('tutor_stream_btn_waiting_student')
                 }
@@ -114,6 +129,7 @@
         border-radius: 4px;
         box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
         width: 356px;
+        padding: 0 5px;
         .start-session-btn {
             display: flex;
             height: 48px;
@@ -125,6 +141,9 @@
                 fill: @color-white;
                 max-width: 24px;
             }
+        }
+        .start-session-text{
+            text-align: center;
         }
     }
 
