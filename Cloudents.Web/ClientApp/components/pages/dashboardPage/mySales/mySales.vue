@@ -24,7 +24,7 @@
                   <!-- <td class="text-xs-left">{{ props.item.price }}</td> -->
                   <td class="text-xs-left">{{ props.item.status }}</td>
                   <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-                  <td class="text-xs-left"><v-icon @click="openDialog">sbf-3-dot</v-icon></td>
+                  <td class="text-xs-left"><v-icon @click="openDialog" small>sbf-3-dot</v-icon></td>
                </template>
             </v-data-table>
       </div>

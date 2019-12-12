@@ -36,7 +36,7 @@ function createSalesItems({data}) {
 }
 
 function getSalesItems(){
-   return connectivityModule.http.get('/Profile/sales').then(createSalesItems).catch(ex => ex)
+   return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex)
    // return Promise.resolve(dummy);
    // return connectivityModule.http.get(`/Document/${id}`).then(({data})=>data.map( item => createSalesItem(item)));
 }
