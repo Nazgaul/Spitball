@@ -338,4 +338,7 @@ Voice Recording?</value>
   <data name="stream_btn_finished_tutor" xml:space="preserve">
     <value>session ended</value>
   </data>
+  <data name="waiting_in_studyRoom" xml:space="preserve">
+    <value>is waiting for you at the study room</value>
+  </data>
 </root>

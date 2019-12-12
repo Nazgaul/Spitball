@@ -285,7 +285,7 @@ const actions = {
                         dispatch("setTutorDialogState", state.startSessionDialogStateEnum.needPayment);
                     }
                 } else {
-                    if(state.currentRoomState === state.roomStateEnum.ready){
+                    if(state.currentRoomState !== state.roomStateEnum.active){
                         dispatch("setTutorDialogState", state.startSessionDialogStateEnum.waiting);
                     }else{
                         dispatch("setTutorDialogState", state.startSessionDialogStateEnum.disconnected);
