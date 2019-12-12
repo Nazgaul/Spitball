@@ -26,7 +26,7 @@
               class="tutor-nav-item cursor-pointer"
               @click="updateActiveNav(singleNav.value)"
               v-for="(singleNav, index) in navs"
-              :class="{'active-nav': singleNav.value === activeItem, 'tutor-nav-disabled': singleNav.value !== 'white-board' && !id}"
+              :class="{'active-nav': singleNav.value === activeItem, 'tutor-nav-disabled': singleNav.value !== 'white-board' && singleNav.value !== 'code-editor' && !id}"
               :key="index" :sel="`${singleNav.name.toLowerCase().replace(' ','_')}_tab`">
               <span class="dot-nav" v-if="singleNav.value === getActiveNavIndicator">●</span>
               <v-icon class="mr-2 nav-icon">{{singleNav.icon}}</v-icon>
@@ -72,7 +72,7 @@
               <codeEditorTools/>
             </v-flex>
             <v-spacer></v-spacer>
-            <v-flex shrink xs1>
+            <v-flex class="share-screen">
               <shareScreenBtn class="nav-share-btn" />
             </v-flex>
             <v-flex shrink class="controls-holder">

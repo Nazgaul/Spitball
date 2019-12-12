@@ -5,7 +5,7 @@
                 <v-icon class="star-icon">sbf-star-rating-full</v-icon>
             </v-flex>
             <v-flex xs12   class="text-xs-center pt-4">
-                <span class="font-weight-black final-review-title" v-language:inner>leaveReview_final_title</span>
+                <span class="final-review-title" v-language:inner>leaveReview_final_title</span>
             </v-flex>
             <v-flex xs12   class="text-xs-center pt-3 pb-5">
                 <span @click="goToReview()" class="body-2 blue-text cursor-pointer" v-language:inner>leaveReview_final_goTo</span>
@@ -43,6 +43,7 @@
         .final-review-title{
             font-size: 18px;
             color: @global-purple;
+            font-weight: 700;
         }
         .star-icon{
             font-size: 86px;

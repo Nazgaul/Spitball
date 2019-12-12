@@ -212,6 +212,7 @@ export default {
         position: relative;
         background-color: #1b2441;
         h1{
+            text-align: center;
             color: #5158af;
             font-size: 35px;
             font-weight: bold;
@@ -242,7 +243,7 @@ export default {
         position: -ms-sticky;
         position: -o-sticky;
         position: sticky;
-        z-index: 240;
+        // z-index: 240;
         @media (max-width: @screen-xs) {
             z-index: unset;
         }

@@ -31,8 +31,14 @@ export default {
     computed: {
         ...mapGetters(['accountUser', 'getSelectedClasses', 'newQuestionDialogSate']),
         userImageUrl() {
-            if(this.accountUser.image.length > 1) {
+            if(this.accountUser && this.accountUser.image.length > 1) {
                 return `${this.accountUser.image}`;
+            }
+            return '';
+        },
+        userName() {
+            if(this.accountUser && this.accountUser.name) {
+                return this.accountUser.name
             }
             return '';
         }

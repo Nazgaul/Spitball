@@ -27,6 +27,7 @@
 
 <script>
 import satelliteService from '../../../services/satelliteService';
+import studyRoomRecordingService from '../../studyRoom/studyRoomRecordingService';
 export default {
   props:{
     nextStep:{
@@ -44,7 +45,9 @@ export default {
   },
   methods:{
     gotoNextPage(){
-      this.nextStep('enableScreenStep')
+      studyRoomRecordingService.toggleRecord();
+      this.nextStep('studyRoom')
+      //this.nextStep('enableScreenStep')
     },
     skipToStudyRoom(){
       this.nextStep('studyRoom')

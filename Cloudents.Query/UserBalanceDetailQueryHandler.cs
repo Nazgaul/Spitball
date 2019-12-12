@@ -40,7 +40,7 @@ namespace Cloudents.Query
             {
                 var listOfQueries = new Dictionary<TransactionType, IFutureValue<decimal?>>(); //List<IFutureValue<decimal>>();
 
-                foreach (var value in Enum.GetValues(typeof(TransactionType)))
+                foreach (var value in Enum.GetValues(typeof(TransactionType)).Cast<TransactionType>().Where(w => w != TransactionType.Stake))
                 {
                     var type = (TransactionType)value;
                     var xx = _statelessSession.Query<Transaction>()
@@ -59,10 +59,10 @@ namespace Cloudents.Query
 
                 var retVal = listOfQueries.Select(s =>
                 {
-                   var dbVal = s.Value.Value;
+                    var dbVal = s.Value.Value;
 
-                   var currencyValue = (country.ConversationRate * dbVal.GetValueOrDefault());
-                   return new BalanceDto(s.Key.ToString("G"), dbVal.GetValueOrDefault(), currencyValue, country.RegionInfo.ISOCurrencySymbol);
+                    var currencyValue = (country.ConversationRate * dbVal.GetValueOrDefault());
+                    return new BalanceDto(s.Key.ToString("G"), dbVal.GetValueOrDefault(), currencyValue, country.RegionInfo.ISOCurrencySymbol);
 
                 }).ToList();
 

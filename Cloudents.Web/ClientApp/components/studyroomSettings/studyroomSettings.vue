@@ -42,7 +42,7 @@ import intercomSVG from './image/icon-1-2.svg'
 
 import unableToConnetStep from './components/unableToConnetStep.vue';
 import watchRecordedStep from './components/watchRecordedStep.vue';
-import enableScreenStep from './components/enableScreenStep.vue';
+//import enableScreenStep from './components/enableScreenStep.vue';
 import notAllowedStep from './components/notAllowedStep.vue';
 
 import studySettingPopUp from './components/studySettingPopUp.vue';
@@ -58,7 +58,7 @@ export default {
     intercomSVG,
     unableToConnetStep,
     watchRecordedStep,
-    enableScreenStep,
+   // enableScreenStep,
     notAllowedStep,
     studySettingPopUp,
     sbDialog

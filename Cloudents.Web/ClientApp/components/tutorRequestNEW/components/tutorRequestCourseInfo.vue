@@ -259,9 +259,9 @@ export default {
                         }
                         .v-label {
                             display: block;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
+                            // overflow: hidden;
+                            // text-overflow: ellipsis;
+                            // white-space: nowrap;
                         }
                     }
                 }
