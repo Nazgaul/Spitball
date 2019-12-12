@@ -129,6 +129,9 @@ function createRemoteAudioStream(){
 }
 
 async function activateRecord(){
+  let roomId = store.getters.getRoomId ? store.getters.getRoomId : 'testRoom'
+  let userId = store.getters.accountUser ? store.getters.accountUser.id : 'GUEST'
+  insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_Recording_Start', {'roomId': roomId, 'userId': userId}, null)
   recordingChunks = [];
   wasCancelled = false;
   //start record
@@ -176,6 +179,9 @@ function createMediaRecorder (){
 }
 
 function stopRecord(cancelled){
+  let roomId = store.getters.getRoomId ? store.getters.getRoomId : 'testRoom'
+  let userId = store.getters.accountUser ? store.getters.accountUser.id : 'GUEST'
+  insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_Recording_End', {'roomId': roomId, 'userId': userId}, null)
   if(cancelled){
     wasCancelled = true;
   }
