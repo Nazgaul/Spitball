@@ -15,9 +15,9 @@
             <span class="subheading font-weight-bold">&nbsp;{{studentName}}</span>
         </v-flex>
         
-        <!-- <v-flex xs12  style="text-align: center;" class="pt-2">
-            <span class="subheading" v-language:inner>tutor_entered_room</span>
-        </v-flex> -->
+        <v-flex xs12  style="text-align: center;" class="pt-2">
+            <span class="" v-language:inner="'tutor_can_be_recorded'"></span>
+        </v-flex>
         <v-flex xs12 v-if="showButton" class="pt-4">
             <v-btn class="start-session-btn elevation-0 align-center justify-center"
                     :loading="buttonLoader"

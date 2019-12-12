@@ -320,6 +320,9 @@ Voice Recording?</value>
   <data name="ewar-try-again" xml:space="preserve">
     <value>Try Again</value>
   </data>
+  <data name="can_be_recorded" xml:space="preserve">
+    <value>note: You can be recorded</value>
+  </data>
   <data name="start_dialog_session_time" xml:space="preserve">
     <value>session duration:</value>
   </data>
