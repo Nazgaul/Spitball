@@ -615,6 +615,9 @@ watch: {
       })
     }
   },
+  destroyed(){
+    global.onbeforeunload = function() { };
+  },
   beforeDestroy(){
     this.hideRoomToasterMessage();
     document.removeEventListener('fullscreenchange',this.closeFullScreen);
