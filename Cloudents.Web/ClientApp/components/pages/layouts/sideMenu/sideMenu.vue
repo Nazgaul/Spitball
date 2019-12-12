@@ -267,16 +267,16 @@ export default {
         // this.$router.push({name:'posts'})
       }
       if(path === "myPurchases"){
-        this.$router.push({path:'/myPurchases'})
+        this.$router.push({path:'/my-purchases'})
       }
       if(path === "myCalendar"){
-        this.$router.push({path:'/myCalendar'})
+        this.$router.push({path:'/my-calendar'})
       }
       if(path === "myFollowers"){
-        this.$router.push({path:'/myFollowers'})
+        this.$router.push({path:'/my-followers'})
       }
       if(path === "mySales"){
-        this.$router.push({path:'/mySales'})
+        this.$router.push({path:'/my-sales'})
       }
       this.closeSideMenu();
     },

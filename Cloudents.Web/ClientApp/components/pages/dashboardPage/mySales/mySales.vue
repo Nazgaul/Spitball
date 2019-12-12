@@ -15,14 +15,27 @@
                      <img :src="props.item.preview" :alt="props.item.info" v-if="props.item.preview">
                      <v-icon v-else>sbf-user</v-icon>
                   </td>
-                  <td class="text-xs-left">{{ props.item.info }}</td>
+                  <td class="text-xs-left mySales_td_course">
+                     <div v-if="props.item.type !== 'TutoringSession'">
+                        <span>{{props.item.name}}</span>
+                        <span>{{ props.item.info }}</span>
+                     </div>
+                     <div v-else>
+                        <span v-language:inner="'dashboardPage_session'"></span>
+                        <span>{{props.item.studentName}} {{props.item.duration | currentHourAndMin}}</span>
+                     </div>
+                     <div>
+                        <span v-language:inner="'dashboardPage_course'"></span>
+                        <span>{{props.item.course}}</span>
+                     </div>
+                  </td>
                   <td class="text-xs-left">{{ props.item.type }}</td>
                   <!-- <td class="text-xs-left">{{ props.item.likes }}</td> -->
                   <!-- <td class="text-xs-left">{{ props.item.views }}</td> -->
                   <!-- <td class="text-xs-left">{{ props.item.downloads }}</td> -->
                   <!-- <td class="text-xs-left">{{ props.item.purchased }}</td> -->
                   <!-- <td class="text-xs-left">{{ props.item.price }}</td> -->
-                  <td class="text-xs-left">{{ props.item.status }}</td>
+                  <td class="text-xs-left" v-language:inner="`dashboardPage_${props.item.status.toLowerCase()}`"></td>
                   <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                   <td class="text-xs-left"><v-icon @click="openDialog" small>sbf-3-dot</v-icon></td>
                </template>
@@ -33,22 +46,24 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
+import { LanguageService } from '../../../../services/language/languageService';
+
 export default {
    name:'mySales',
    data() {
       return {
          headers:[
-            {text:'Preview',align:'left',sortable: false,value:'preview'},
-            {text:'Info',align:'left',sortable: false,value:'info'},
-            {text:'Type',align:'left',sortable: true,value:'type'},
-            // {text:'Likes',align:'left',sortable: true,value:'likes'},
-            // {text:'Views',align:'left',sortable: true,value:'views'},
-            // {text:'Downloads',align:'left',sortable: true,value:'downloads'},
-            // {text:'Purchased',align:'left',sortable: true,value:'purchased'},
-            // {text:'Price',align:'left',sortable: true,value:'price'},
-            {text:'Status',align:'left',sortable: true,value:'status'},
-            {text:'Date',align:'left',sortable: true,value:'date'},
-            {text:'Action',align:'left',sortable: false,value:'action'},
+            {text: LanguageService.getValueByKey('dashboardPage_preview'), align:'left', sortable: false, value:'preview'},
+            {text: LanguageService.getValueByKey('dashboardPage_info'), align:'left', sortable: false, value:'info'},
+            {text: LanguageService.getValueByKey('dashboardPage_type'), align:'left', sortable: true, value:'type'},
+            // {text:LanguageService.getValueByKey('dashboardPage_likes'), align:'left', sortable: true, value:'likes'},
+            // {text:LanguageService.getValueByKey('dashboardPage_views'), align:'left', sortable: true, value:'views'},
+            // {text:LanguageService.getValueByKey('dashboardPage_downloads'), align:'left', sortable: true, value:'downloads'},
+            // {text:LanguageService.getValueByKey('dashboardPage_purchased'), align:'left', sortable: true, value:'purchased'},
+            // {text:LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
+            {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'status'},
+            {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
+            {text: LanguageService.getValueByKey('dashboardPage_action'), align:'left', sortable: false, value:'action'},
          ],
       }
    },
@@ -82,7 +97,7 @@ export default {
       }
       tbody {
          td{
-            padding: 8px 24px !important; //vuetify
+            // padding: 8px 24px !important; //vuetify
             // border: 1px solid black;
          }
       }
@@ -97,6 +112,12 @@ export default {
       i {
          // Temporary
          font-size: 70px;
+      }
+   }
+
+   .mySales_td_course {
+      div {
+         padding: 10px 0;
       }
    }
    .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {

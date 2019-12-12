@@ -10,17 +10,21 @@ import { connectivityModule } from "./connectivity.module";
 // ]
 
 function SalesItem(objInit){
-   this.preview = objInit.preview;
-   this.info = objInit.info;
-   this.type = objInit.type;
-   this.likes = objInit.likes;
-   this.views = objInit.views;
-   this.downloads = objInit.downloads;
-   this.purchased = objInit.purchased;
+   this.id = objInit.id || null
+   this.preview = objInit.preview || '';
+   this.info = objInit.info || '';
+   this.type = objInit.type || '';
+   // this.likes = objInit.likes;
+   // this.views = objInit.views;
+   // this.downloads = objInit.downloads;
+   // this.purchased = objInit.purchased;
    this.price = objInit.price;
-   this.status = objInit.status;
-   this.date = objInit.date;
+   this.status = objInit.status || '';
+   this.date = objInit.date || null;
    this.course = objInit.course;
+   this.name = objInit.name || '';
+   this.studentName = objInit.studentName || '';
+   this.duration = objInit.duration;
 }
 
 function createSalesItem(objInit){

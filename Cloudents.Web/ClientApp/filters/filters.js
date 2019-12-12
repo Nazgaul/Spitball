@@ -94,3 +94,8 @@ Vue.filter('commasFilter', function (value) {
 Vue.filter('currencyFormat', function(number, currency) {
     return new Intl.NumberFormat(`${global.lang}-${global.country}`, { style: 'currency', currency: currency, minimumFractionDigits: 0  }).format(number);
 })
+
+Vue.filter('currentHourAndMin', function(number) {
+    let date = new Date()
+    return `${date.getHours(number)} ${LanguageService.getValueByKey('dashboardPage_date_hour')} ${date.getMinutes(number)} ${LanguageService.getValueByKey('dashboardPage_date_mins')}`;
+})
