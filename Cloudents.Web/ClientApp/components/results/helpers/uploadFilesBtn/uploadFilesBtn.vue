@@ -6,7 +6,7 @@
                     <!--<p v-show="$vuetify.breakpoint.smAndUp"  :class="['upload-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>-->
                     <!--upload_files_component_share_study-->
                     <!--</p>-->
-                    <button round
+                    <button rounded
                             :class="['upload-btn',  isFloatingBtn ? 'rounded-floating-button' : '', {'raised': raiseFloatingButtonPosition}]"
                             @click="openUploaderDialog()">
                         <v-icon class="sb-cloud-upload-icon">sbf-upload-cloud</v-icon>

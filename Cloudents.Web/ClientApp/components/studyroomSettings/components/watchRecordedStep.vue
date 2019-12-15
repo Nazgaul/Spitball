@@ -19,8 +19,8 @@
         <span v-language:inner="'studyroomSets_watch_actions_txt'"/> 
         <a class="actions-terms-link" :href="termPageLink" target="_blank" v-language:inner="'studyroomSets_watch_actions_term'"/>
       </div>
-      <v-btn class="actions-yes" depressed round color="#4452fc" @click="gotoNextPage"><span v-language:inner="'studyroomSets_watch_actions_yes'"/></v-btn>
-      <v-btn class="actions-no" depressed round @click="skipToStudyRoom"><span v-language:inner="'studyroomSets_watch_actions_no'"/></v-btn>
+      <v-btn class="actions-yes" depressed rounded color="#4452fc" @click="gotoNextPage"><span v-language:inner="'studyroomSets_watch_actions_yes'"/></v-btn>
+      <v-btn class="actions-no" depressed rounded @click="skipToStudyRoom"><span v-language:inner="'studyroomSets_watch_actions_no'"/></v-btn>
     </div>
   </div>
 </template>

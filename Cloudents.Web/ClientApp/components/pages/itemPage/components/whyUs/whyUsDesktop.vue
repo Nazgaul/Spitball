@@ -11,7 +11,7 @@
             class="itemPage__side__btn white--text"
             depressed
             block
-            round
+            rounded
             :loading="isLoading"
             @click="openPurchaseDialog"
             v-if="!isPurchased || isVideo"
@@ -26,7 +26,7 @@
             target="_blank"
             :loading="isLoading"
             class="itemPage__side__btn white--text"
-            depressed block round @click="downloadDoc" color="#4c59ff">
+            depressed block rounded @click="downloadDoc" color="#4c59ff">
             <span v-language:inner="'documentPage_download_btn'"></span>
         </v-btn>
         <div class="itemPage__side__bottom">

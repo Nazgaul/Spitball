@@ -14,98 +14,99 @@
                          clipped>
       <div class="sideMenu_cont">
         <div @click="toggleMiniSideMenu" v-if="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown" class="sideMenu_btn"/>
-      <v-list class="sideMenu_list_cont" >
-        <v-list-group active-class="''" :prepend-icon="'sbf-home-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="resetItems">
-          <template v-slot:activator>
-            <v-list-tile class="sideMenu_list">
-              <v-list-tile-content>
-                <v-list-tile-title>
-                  <span class="sideMenu_list_title" v-language:inner="'schoolBlock_home'"/>
-                  </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </template>
-        </v-list-group>
+        <v-list class="sideMenu_list_cont" dense>
+          <v-list-group active-class="''" :prepend-icon="'sbf-home-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="resetItems">
+            <template v-slot:activator>
+              <v-list-item class="sideMenu_list">
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <span class="sideMenu_list_title" v-language:inner="'schoolBlock_home'"/>
+                    </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+          </v-list-group>
 
-        <v-list-group v-model="dashboardModel" active-class="''" v-if="dashboardList" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
-          <template v-slot:activator>
-            <v-list-tile class="sideMenu_list">
-              <v-list-tile-content>
-                <v-list-tile-title>
-                  <span class="sideMenu_list_title" v-language:inner="'schoolBlock_dashboard'"/>
-                  </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </template>
-              <v-list-tile class="group_list_sideMenu_dash" v-for="(item, index) in dashboardList" :key="index"
-              :to="{name: item.key}"
-              event
-               @click.native.prevent="getShowSchoolBlock ? goTo(item.key, item) : openSideMenu()" :sel="item.sel">
-                <v-list-tile-content> 
-                  <v-list-tile-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker(item.key)}]">
-                    <v-icon class="group_list_icon_dash" v-html="item.icon"/>
-                    <span class="group_list_title_dash ml-2">{{item.name}}</span>
-                  </v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
+          <v-list-group v-model="dashboardModel" active-class="''" v-if="dashboardList" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
+            <template v-slot:activator>
+              <v-list-item class="sideMenu_list">
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <span class="sideMenu_list_title" v-language:inner="'schoolBlock_dashboard'"/>
+                    </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            
+                <v-list-item class="group_list_sideMenu_dash" v-for="(item, index) in dashboardList" :key="index"
+                :to="{name: item.key}"
+                event
+                @click.native.prevent="getShowSchoolBlock ? goTo(item.key, item) : openSideMenu()" :sel="item.sel">
+                  <v-list-item-content> 
+                    <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker(item.key)}]">
+                      <v-icon class="group_list_icon_dash" v-html="item.icon"/>
+                      <span class="group_list_title_dash ml-2">{{item.name}}</span>
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
 
-              <v-list-tile class="group_list_sideMenu_dash" :to="{ name: 'tutoring'}" sel="menu_row">
-              <v-list-tile-content>
-                <v-list-tile-title :class="['group_list_titles_dash']" >
-                  <v-icon style="font-size: 17px;" class="group_list_icon_dash" v-html="'sbf-pc'"/>
-                  <span class="group_list_title_dash ml-2" v-language:inner="'menuList_my_study_rooms'"/>
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
+                <v-list-item class="group_list_sideMenu_dash" :to="{ name: 'tutoring'}" sel="menu_row">
+                <v-list-item-content>
+                  <v-list-item-title :class="['group_list_titles_dash']" >
+                    <v-icon style="font-size: 17px;" class="group_list_icon_dash" v-html="'sbf-pc'"/>
+                    <span class="group_list_title_dash ml-2" v-language:inner="'menuList_my_study_rooms'"/>
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
 
-          <v-list-tile @click="openSblToken" class="group_list_sideMenu_dash">
-            <v-list-tile-content>
-              <v-list-tile-title :class="['group_list_titles_dash']">
-                <getPts class="pts_svg"/>
-                <!-- <v-icon class="group_list_icon_dash" v-html="'sbf-points'"/> -->
-                <span class="group_list_title_dash ml-2" v-language:inner="'menuList_points'"/>
+            <v-list-item @click="openSblToken" class="group_list_sideMenu_dash">
+              <v-list-item-content>
+                <v-list-item-title :class="['group_list_titles_dash']">
+                  <getPts class="pts_svg"/>
+                  <!-- <v-icon class="group_list_icon_dash" v-html="'sbf-points'"/> -->
+                  <span class="group_list_title_dash ml-2" v-language:inner="'menuList_points'"/>
 
-              </v-list-tile-title>  
-            </v-list-tile-content>
-          </v-list-tile>
+                </v-list-item-title>  
+              </v-list-item-content>
+            </v-list-item>
 
-          <v-list-tile class="group_list_sideMenu_dash" event @click.native.prevent="openPersonalizeUniversity()" :to="{name: 'addUniversity'}">
-            <v-list-tile-content>
-              <v-list-tile-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker('addUniversity')}]">
-                <v-icon class="group_list_icon_dash" v-html="'sbf-university'"/>
-                <span class="group_list_title_dash ml-2" v-language:inner="'menuList_changeUniversity'"/>
-              </v-list-tile-title> 
-            </v-list-tile-content>
-          </v-list-tile>
+            <v-list-item class="group_list_sideMenu_dash" event @click.native.prevent="openPersonalizeUniversity()" :to="{name: 'addUniversity'}">
+              <v-list-item-content>
+                <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker('addUniversity')}]">
+                  <v-icon class="group_list_icon_dash" v-html="'sbf-university'"/>
+                  <span class="group_list_title_dash ml-2" v-language:inner="'menuList_changeUniversity'"/>
+                </v-list-item-title> 
+              </v-list-item-content>
+            </v-list-item>
 
-        </v-list-group>
-        
-        <v-list-group :value="true" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu" >
-          <template v-slot:activator>
-            <v-list-tile class="sideMenu_list">
-              <v-list-tile-content>
-                <v-list-tile-title>
-                  <span class="sideMenu_list_title" v-text="courseSelectText"/>
-                  </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </template>
+          </v-list-group>
+          
+          <v-list-group :value="true" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
+            <template v-slot:activator>
+              <v-list-item class="sideMenu_list">
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <span class="sideMenu_list_title" v-text="courseSelectText"/>
+                    </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
 
-              <v-list-tile
-               class="group_list_sideMenu_course" v-for="(item, index) in selectedClasses" :key="index" 
-               :to="{name: $route.name}"
-               event
-               @click.native.prevent="getShowSchoolBlock ? selectCourse(item) : openSideMenu()" :sel="item.isDefault? 'all_courses' : ''">
-                <v-list-tile-content>
-                  <v-list-tile-title :class="['group_list_titles_course',{'active_link_course': currentCourseChecker(item)}]">
-                    <arrowSVG v-if="currentCourseChecker(item)" class="arrow_course"/>
-                    <span :class="['group_list_title_course',currentCourseChecker(item)? 'padding_current_course':'ml-4']" v-text="item.text ? item.text : item"/>
-                  </v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-        
-        </v-list-group>
-      </v-list>
+                <v-list-item
+                class="group_list_sideMenu_course" v-for="(item, index) in selectedClasses" :key="index" 
+                :to="{name: $route.name}"
+                event
+                @click.native.prevent="getShowSchoolBlock ? selectCourse(item) : openSideMenu()" :sel="item.isDefault? 'all_courses' : ''">
+                  <v-list-item-content>
+                    <v-list-item-title :class="['group_list_titles_course',{'active_link_course': currentCourseChecker(item)}]">
+                      <arrowSVG v-if="currentCourseChecker(item)" class="arrow_course"/>
+                      <span :class="['group_list_title_course',currentCourseChecker(item)? 'padding_current_course':'ml-4']" v-text="item.text ? item.text : item"/>
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+          
+          </v-list-group>
+        </v-list>
       </div>
     </v-navigation-drawer>
 </template>

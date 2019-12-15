@@ -17,7 +17,7 @@
 				</div>
 				<div class="globalBanner_timer" v-if="$vuetify.breakpoint.mdAndUp && !!getBannerParams">
 					<span class="globalBanner_timer_title" v-language:inner="'banner_offer'"/>
-					<v-layout row class="globalBanner_timer_container mt-1">
+					<v-layout class="globalBanner_timer_container mt-1">
 						<v-flex xs2 class="globalBanner_timer_box">
 							<h1 class="globalBanner_timer_box_time" v-html="time.days"/>
 							<span class="globalBanner_timer_box_text" v-language:inner="'banner_days'"/>

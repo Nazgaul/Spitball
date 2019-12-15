@@ -4,21 +4,21 @@
       <userAvatar :size="'34'" :userImageUrl="userImageUrl" :user-name="userName" :user-id="userID"/>
       <span @click="openAskQuestion()" class="rA_txt text-truncate" v-html="$Ph('requestActions_title',userName)" />
     </div>
-    <v-layout row class="rA_bottom">
+    <v-layout class="rA_bottom">
       <v-flex xs4 class="rA_btn">
-        <v-btn :ripple="false" depressed flat block @click="openRequestTutor()" sel="request">
+        <v-btn :ripple="false" depressed text block @click="openRequestTutor()" sel="request">
           <rTutor class="rA_i" />
           <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_tutor_mob':'requestActions_btn_tutor'"/>
         </v-btn>
       </v-flex>
       <v-flex xs4 class="rA_btn">
-        <v-btn :ripple="false" flat block @click="openUpload()" sel="upload">
+        <v-btn :ripple="false" text block @click="openUpload()" sel="upload">
           <uStudy class="rA_i mr-1" />
           <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_upload_mob':'requestActions_btn_upload'"/>
         </v-btn>
       </v-flex>
       <v-flex xs4 class="rA_btn">
-        <v-btn :ripple="false" flat block @click="openAskQuestion()" sel="ask">
+        <v-btn :ripple="false" text block @click="openAskQuestion()" sel="ask">
           <aQuestion class="rA_i" />
           <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_ask_mob':'requestActions_btn_ask'"/>
         </v-btn>

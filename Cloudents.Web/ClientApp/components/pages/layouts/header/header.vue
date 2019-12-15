@@ -1,6 +1,6 @@
 ﻿<template>
     <div v-if="!isHideHeader">
-    <v-toolbar :class="{'homePageWrapper': isHomePage}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" :app="isApp" :fixed="isApp" clipped-left clipped-right>
+    <v-app-bar :class="{'homePageWrapper': isHomePage}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" :app="isApp" :fixed="isApp" clipped-left clipped-right>
         <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
             <logoComponent/>
         </router-link>
@@ -38,25 +38,28 @@
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="!isFrymo && isHomePage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
                 <v-menu fixed close-on-content-click bottom right offset-y :content-class="getBannerSatus? 'fixed-content-banner':'fixed-content'" sel="menu">
-                    <template v-if="loggedIn" slot="activator">
-                        <user-avatar  
-                        @click.native="drawer=!drawer" 
-                        size="40" 
-                        :userImageUrl="userImageUrl" 
-                        :user-name="accountUser.name"/>
-                        
-                        <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
-                            <span class="ur_greets" v-html="$Ph('header_greets', accountUser.name)"/>
-                            <div class="ur_balance">
-                                <span v-html="$Ph('header_balance', userBalance(accountUser.balance))"/>
-                                <v-icon v-if="!isMobile" class="ur_balance_drawer ml-2" color="#43425d" v-html="'sbf-arrow-fill'"/>
-                            </div>
+                    <template v-slot:activator="{on}">
+                        <div v-on="on" class="gH_i_r_menuList">
+                            <user-avatar
+                                size="40"
+                                :userImageUrl="userImageUrl"
+                                :user-name="userName"
+                            />
+                            <template v-if="loggedIn">
+                                <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
+                                    <span class="ur_greets" v-html="$Ph('header_greets', accountUser.name)"/>
+                                    <div class="ur_balance">
+                                        <span v-html="$Ph('header_balance', userBalance(accountUser.balance))"/>
+                                        <v-icon v-if="!isMobile" class="ur_balance_drawer ml-2" color="#43425d" v-html="'sbf-arrow-fill'"/>
+                                    </div>
+                                </div>
+                            </template>
+                            <template>
+                                <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
+                                    <v-icon small v-html="'sbf-menu'"/>
+                                </v-btn>
+                            </template>
                         </div>
-                    </template>
-                    <template slot="activator">
-                        <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
-                            <v-icon small v-html="'sbf-menu'"/>
-                        </v-btn>
                     </template>
                     <menuList v-if="!$vuetify.breakpoint.xsOnly"/>
                 </v-menu>
@@ -67,7 +70,7 @@
                 <searchCMP :placeholder="searchPlaceholder"/>
             </div>
         </template>
-    </v-toolbar>
+    </v-app-bar>
             <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
                              fixed app v-if="$vuetify.breakpoint.xsOnly" class="drawerIndex"
                              width="280">
@@ -112,7 +115,10 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         userImageUrl(){
-            return this.accountUser.image.length > 1 ? `${this.accountUser.image}` : '';
+            return this.accountUser && this.accountUser.image.length > 1 ? this.accountUser.image : '';
+        },
+        userName(){
+            return this.accountUser && this.accountUser.name ? this.accountUser.name : '';
         },
         loggedIn() {
             return this.accountUser !== null;
@@ -226,18 +232,18 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .globalHeader{
-    border: solid 1px #dadada !important;
     z-index: 200;
     &.homePageWrapper{
         // max-width: 1500px; 
         // margin: 0 auto !important;
     }
     .v-toolbar__extension{
-    @media (max-width: @screen-xs) {
-      padding: 0 8px
+        @media (max-width: @screen-xs) {
+            padding: 0 8px
     }
     }
     .v-toolbar__content{
+        border: solid 1px #dadada;
         padding-left: 16px;
         @media (max-width: @screen-xs) {
             padding: 0 8px 0 4px;      
@@ -477,6 +483,10 @@ export default {
                         cursor: pointer;
                     }
                 }
+            }
+            .gH_i_r_menuList {
+                display: flex;
+                cursor: pointer;
             }
         }
     }

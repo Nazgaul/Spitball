@@ -2,7 +2,7 @@
   <section class="setEmailPassword">
     <p v-language:inner="'loginRegister_setemailpass_title'"/>
     <form @submit.prevent="submit">
-      <v-layout row wrap justify-space-between class="widther mb-4">
+      <v-layout wrap justify-space-between class="widther mb-4">
         <v-flex xs6 class="pr-3">
           <sb-input v-model="firstName"
                     placeholder="loginRegister_setemailpass_first"

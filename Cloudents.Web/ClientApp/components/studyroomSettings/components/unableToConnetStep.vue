@@ -14,8 +14,8 @@
       
       </div>
       <div class="unable-actions">
-        <v-btn class="actions-try" depressed round color="#4452fc" @click="reloadPage"><span v-language:inner="'studyroomSets_unable_action_try'"/></v-btn>
-        <v-btn class="actions-continue" depressed round @click="nextPage"><span v-language:inner="'studyroomSets_unable_action_continue'"/></v-btn>
+        <v-btn class="actions-try" depressed rounded color="#4452fc" @click="reloadPage"><span v-language:inner="'studyroomSets_unable_action_try'"/></v-btn>
+        <v-btn class="actions-continue" depressed rounded @click="nextPage"><span v-language:inner="'studyroomSets_unable_action_continue'"/></v-btn>
       </div>
   </div>
 </template>

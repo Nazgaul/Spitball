@@ -48,7 +48,7 @@
                             }">
                     </file-upload>
                     <template v-if="!isDraggin">
-                        <v-btn class="uf-sDrop-btn" color="white" depressed rounded sel="my_computer"></v-btn>
+                        <v-btn class="uf-sDrop-btn" color="white" depressed rounded sel="my_computer">
                             <v-icon v-html="isMobile?'sbf-phone':'sbf-pc'"/>
                             <span v-language:inner="isMobile?'upload_uf_sDrop_btn_local_mobile':'upload_uf_sDrop_btn_local'"/>
                         </v-btn>
@@ -341,7 +341,7 @@ export default {
     }
     .uf-sDrop-or{
         padding-top: 18px;
-        padding-right: 10px;
+        // padding-right: 10px;
         font-size: 16px;
         font-weight: 600;
         font-style: normal;

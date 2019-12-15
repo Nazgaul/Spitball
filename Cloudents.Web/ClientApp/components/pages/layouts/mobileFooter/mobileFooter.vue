@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-bottom-nav
+        <v-bottom-navigation
                 height="62px"
                 :active.sync="activeTab"
                 :value="true"
@@ -31,7 +31,7 @@
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_profile'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account'"/>
             </v-btn>
-        </v-bottom-nav>
+        </v-bottom-navigation>
     </div>
 </template>
 
