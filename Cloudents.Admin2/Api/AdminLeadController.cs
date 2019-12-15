@@ -1,8 +1,4 @@
-﻿using Cloudents.Admin2.Models;
-using Cloudents.Command;
-using Cloudents.Command.Command.Admin;
-using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Extension;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
@@ -19,12 +15,11 @@ namespace Cloudents.Admin2.Api
     [Authorize]
     public class AdminLeadController : ControllerBase
     {
-        private readonly ICommandBus _commandBus;
+        
         private readonly IQueryBus _queryBus;
 
-        public AdminLeadController(ICommandBus commandBus, IQueryBus queryBus)
+        public AdminLeadController( IQueryBus queryBus)
         {
-            _commandBus = commandBus;
             _queryBus = queryBus;
         }
         [HttpGet]

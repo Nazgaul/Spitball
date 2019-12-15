@@ -43,36 +43,44 @@ namespace Cloudents.Query.Documents
                 BaseUser userAlias = null;
                 DocumentDetailDto dtoAlias = null;
 
+
                 var futureValue = _session.QueryOver(() => documentAlias)
                     .JoinAlias(x => x.University, () => universityAlias)
                     .JoinAlias(x => x.User, () => userAlias)
-
                     .JoinEntityAlias(() => tutorAlias, () => documentAlias.User.Id == tutorAlias.Id, JoinType.LeftOuterJoin)
                     .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
                     .SelectList(l =>
-                        l.Select(() => documentAlias.Id).WithAlias(() => dtoAlias.Id)
-                            .Select(() => documentAlias.Name).WithAlias(() => dtoAlias.Name)
-                            .Select(() => documentAlias.TimeStamp.UpdateTime).WithAlias(() => dtoAlias.Date)
-                            .Select(() => universityAlias.Name).WithAlias(() => dtoAlias.University)
-                            .Select(() => documentAlias.PageCount).WithAlias(() => dtoAlias.Pages)
-                            .Select(() => documentAlias.Views).WithAlias(() => dtoAlias.Views)
-                            .Select(() => documentAlias.Price).WithAlias(() => dtoAlias.Price)
-                            .Select(() => documentAlias.Course.Id).WithAlias(() => dtoAlias.Course)
-                            .Select(() => documentAlias.User.Id).WithAlias(() => dtoAlias.UploaderId)
-                            .Select(() => userAlias.Name).WithAlias(() => dtoAlias.UploaderName)
-                            .Select(() => documentAlias.DocumentType).WithAlias(() => dtoAlias.DocumentType)
-                            .Select(Projections.Property(() => tutorAlias.Id).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.UserId)}"))
-                            .Select(Projections.Property(() => tutorAlias.Name).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Name)}"))
-                            .Select(Projections.Property(() => tutorAlias.Image).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Image)}"))
-                            .Select(Projections.Property(() => tutorAlias.Courses).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Courses)}"))
-                            .Select(Projections.Property(() => tutorAlias.Subjects).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Subjects)}"))
-                            .Select(Projections.Property(() => tutorAlias.Price).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Price)}"))
-                            .Select(Projections.Property(() => tutorAlias.Rate).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Rate)}"))
-                            .Select(Projections.Property(() => tutorAlias.RateCount).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.ReviewsCount)}"))
-                            .Select(Projections.Property(() => tutorAlias.Bio).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Bio)}"))
-                            .Select(Projections.Property(() => tutorAlias.University).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.University)}"))
-                            .Select(Projections.Property(() => tutorAlias.Lessons).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Lessons)}"))
-                            .Select(Projections.Property(() => tutorAlias.Country).As($"{nameof(DocumentDetailDto.User)}.{nameof(TutorCardDto.Country)}"))
+                        l.Select(() => documentAlias.PageCount).WithAlias(() => dtoAlias.Pages)
+                            .Select(Projections.Property(() => documentAlias.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Id)}"))
+                            .Select(Projections.Property(() => documentAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Title)}"))
+                            .Select(Projections.Property(() => documentAlias.TimeStamp.UpdateTime).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.DateTime)}"))
+                            .Select(Projections.Property(() => universityAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.University)}"))
+                            .Select(Projections.Property(() => documentAlias.Views).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Views)}"))
+                            .Select(Projections.Property(() => documentAlias.Price).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Price)}"))
+                            .Select(Projections.Property(() => documentAlias.Course.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Course)}"))
+                            .Select(Projections.Property(() => documentAlias.Downloads).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Downloads)}"))
+                            .Select(Projections.Property(() => documentAlias.VoteCount).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Vote)}.{nameof(VoteDto.Votes)}"))
+                            .Select(Projections.SqlFunction("COALESCE", NHibernateUtil.String
+                               , Projections.Property<Document>(documentAlias2 => documentAlias2.Description)
+                               , Projections.Property<Document>(documentAlias2 => documentAlias2.MetaContent))
+                            .WithAlias($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.Snippet)}"))
+                            .Select(Projections.Property(() => userAlias.Id).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.User)}.{nameof(DocumentUserDto.Id)}"))
+                            .Select(Projections.Property(() => userAlias.Name).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.User)}.{nameof(DocumentUserDto.Name)}"))
+                            .Select(Projections.Property(() => userAlias.Image).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.User)}.{nameof(DocumentUserDto.Image)}"))
+                            .Select(Projections.Property(() => documentAlias.DocumentType).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.DocumentType)}"))
+                            .Select(Projections.Property(() => tutorAlias.Id).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.UserId)}"))
+                            .Select(Projections.Property(() => tutorAlias.SubsidizedPrice).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.DiscountPrice)}"))
+                            .Select(Projections.Property(() => tutorAlias.Name).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Name)}"))
+                            .Select(Projections.Property(() => tutorAlias.Image).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Image)}"))
+                            .Select(Projections.Property(() => tutorAlias.Courses).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Courses)}"))
+                            .Select(Projections.Property(() => tutorAlias.Subjects).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Subjects)}"))
+                            .Select(Projections.Property(() => tutorAlias.Price).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Price)}"))
+                            .Select(Projections.Property(() => tutorAlias.Rate).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Rate)}"))
+                            .Select(Projections.Property(() => tutorAlias.RateCount).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.ReviewsCount)}"))
+                            .Select(Projections.Property(() => tutorAlias.Bio).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Bio)}"))
+                            .Select(Projections.Property(() => tutorAlias.University).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.University)}"))
+                            .Select(Projections.Property(() => tutorAlias.Lessons).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Lessons)}"))
+                            .Select(Projections.Property(() => tutorAlias.Country).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Country)}"))
 
 
                     )
@@ -88,13 +96,30 @@ namespace Cloudents.Query.Documents
                        .Where(w => w.User.Id == query.UserId.Value && w.Document.Id == query.Id && w.Type == TransactionType.Spent)
                        .ToFutureValue();
 
+                var purchaseCountFuture = _session.QueryOver<DocumentTransaction>()
+                    .Where(w => w.Document.Id == query.Id && w.Type == TransactionType.Spent)
+                    .SelectList(s => s.SelectCount(c => c.Id)).FutureValue<int>();
+
+                var voteQuery = _session.Query<Vote>().Where(w => w.User.Id == query.UserId && w.Document.Id == query.Id).Select(s => s.VoteType).Take(1).ToFutureValue();
+
                 var result = await futureValue.GetValueAsync(token);
+
+               
                 if (result == null)
                 {
                     return null;
                 }
                 result.IsPurchased = true;
-                if (result.Price.GetValueOrDefault() <= 0) return result;
+                var voteResult = await voteQuery.GetValueAsync(token);
+                if (voteResult == VoteType.None)
+                {
+                    result.Document.Vote.Vote = null;
+                }
+                else
+                {
+                    result.Document.Vote.Vote = voteResult;
+                }
+                if (result.Document.Price.GetValueOrDefault() <= 0) return result;
                 if (purchaseFuture == null)
                 {
                     result.IsPurchased = false;
@@ -102,7 +127,7 @@ namespace Cloudents.Query.Documents
                 }
                 else
                 {
-                    if (result.UploaderId == query.UserId.Value)
+                    if (result.Document.User.Id == query.UserId.Value)
                     {
                         result.IsPurchased = true;
                     }
@@ -112,6 +137,7 @@ namespace Cloudents.Query.Documents
                         result.IsPurchased = transactionResult != null;
                     }
                 }
+                result.Document.Purchased = await purchaseCountFuture.GetValueAsync(token);
                 return result;
             }
         }

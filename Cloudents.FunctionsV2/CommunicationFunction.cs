@@ -18,8 +18,10 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.FunctionsV2.System;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.TwiML;
 using Twilio.Types;
@@ -34,7 +36,7 @@ namespace Cloudents.FunctionsV2
         [FunctionName("FunctionEmail")]
         public static async Task EmailFunctionAsync(
             [QueueTrigger(QueueName.EmailQueueName)] CloudQueueMessage cloudMessage,
-            [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
+            [SendGrid(ApiKey = "SendgridKey")] IAsyncCollector<SendGridMessage> emailProvider,
             ILogger log,
             CancellationToken token)
         {
@@ -49,7 +51,7 @@ namespace Cloudents.FunctionsV2
                 log.LogError("error with parsing message");
                 return;
             }
-
+            
             await ProcessEmail(emailProvider, log, topicMessage, token);
 
             log.LogInformation("finish sending email");
@@ -113,7 +115,8 @@ namespace Cloudents.FunctionsV2
                 log.LogWarning("error with template name" + topicMessage.TemplateId);
             }
 
-
+            CultureInfo.DefaultThreadCurrentCulture = topicMessage.Info;
+            message.AddFromResource(topicMessage.Info);
             message.AddTo(topicMessage.To);
 
             await emailProvider.AddAsync(message, token);
@@ -141,7 +144,7 @@ namespace Cloudents.FunctionsV2
                 return;
             }
 
-            CultureInfo.DefaultThreadCurrentUICulture = msg.CultureInfo;
+            CultureInfo.DefaultThreadCurrentCulture = msg.CultureInfo;
             var messageOptions = new CreateMessageOptions(new PhoneNumber(msg.PhoneNumber))
             {
                 Body = string.Format(ResourceWrapper.GetString("sms_text"), msg.Message)
@@ -195,7 +198,7 @@ namespace Cloudents.FunctionsV2
             string culture = req.Query["culture"];
 
             //var culture = CultureInfo.CurrentUICulture.ChangeCultureBaseOnCountry(result.Country);
-            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(culture);
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(culture);
             var twiml = new VoiceResponse();
             var sentence = string.Format(ResourceWrapper.GetString("call_text"), string.Join(". ", name.ToCharArray()));
             twiml.Say(sentence, loop: 3, voice: "alice");

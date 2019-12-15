@@ -36,14 +36,12 @@
                         on-icon="sbf-check-box-done"/>
     </v-form>
         <div class="tutorRequest-bottom" :class="{'mt-6': !getCurrTutor}">
-            <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed rounded>
-            <span v-language:inner="'tutorRequest_cancel'"/>
+            <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed rounded sel="cancel_tutor_request">
+                <span v-language:inner="'tutorRequest_cancel'"/>
             </v-btn>
-            <v-btn :loading="isLoading" class="tutorRequest-btn-next" depressed rounded 
-                @click="!isLoggedIn? next() : sumbit()" color="#4452fc" >
-
-            <span v-if="!isLoggedIn" v-language:inner="'tutorRequest_next'"/> 
-            <span v-else v-language:inner="'tutorRequest_submit'"/>
+            <v-btn :loading="isLoading" class="tutorRequest-btn-next" depressed rounded sel="submit_tutor_request" @click="!isLoggedIn? next() : sumbit()" color="#4452fc">
+                <span v-if="!isLoggedIn" v-language:inner="'tutorRequest_next'"/> 
+                <span v-else v-language:inner="'tutorRequest_submit'"/>
             </v-btn>
         </div>
     </div>
@@ -179,11 +177,13 @@ export default {
                     email: null,
                     phone: null,
                     course: this.tutorCourse? this.tutorCourse.text || this.tutorCourse : null,
-                    tutorId: tutorId
+                    tutorId: tutorId,
+                    moreTutors: this.moreTutors
                 }                    
                 this.sendTutorRequest(serverObj).finally(()=>{
                     this.isLoading = false;
                     analyticsService.sb_unitedEvent('Request Tutor Submit', `${analyticsObject.fromDialogPath}-${analyticsObject.fromDialogComponent}`, `USER_ID:${analyticsObject.userId}, T_Course:${analyticsObject.course}`);
+                    this.updateSelectedCourse(this.tutorCourse)
                 })
             }
         }
@@ -191,6 +191,13 @@ export default {
     mounted() {
         if(this.getCourseDescription){
             this.description = this.getCourseDescription;
+        }
+        if(this.$route.params && this.$route.params.course){
+            let queryCourse = this.$route.params.course;
+            this.tutorCourse = queryCourse
+            this.isFromQuery = true;
+            this.searchCourses(queryCourse)
+            this.isReady = true;
         }
         if((this.$route.query && this.$route.query.Course) || (!!this.getSelectedCourse && this.getSelectedCourse.text)){
             let queryCourse;
@@ -250,9 +257,9 @@ export default {
                         }
                         .v-label {
                             display: block;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
+                            // overflow: hidden;
+                            // text-overflow: ellipsis;
+                            // white-space: nowrap;
                         }
                     }
                 }

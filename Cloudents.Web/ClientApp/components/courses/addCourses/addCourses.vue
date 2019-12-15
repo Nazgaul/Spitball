@@ -4,22 +4,21 @@
                   justify-center>
             <v-flex grow xs10>
                 <div class="d-inline-flex justify-center shrink">
-                    <v-icon @click="goToEditCourses()" class="course-back-btn mr-4" :class="{'rtl': isRtl}">sbf-arrow-back
-                    </v-icon>
+                    <v-icon @click="goToEditCourses()" class="course-back-btn mr-4">sbf-arrow-back</v-icon>
                     <span class="subtitle-1 font-weight-bold" v-language:inner>courses_join</span>
                     <span class="subtitle-1 font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
                 </div>
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn rounded :disabled="localSelectedClasses.length === 0" :loading="doneButtonLoading" class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
+                <v-btn sel="done_add_courses" rounded :disabled="localSelectedClasses.length === 0" :loading="doneButtonLoading" class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
                     <span v-language:inner>courses_btn_done</span>
                 </v-btn>
             </v-flex>
         </v-layout>
         <v-layout column :class="{'px-3' : $vuetify.breakpoint.smAndUp}">
             <v-flex>
-                <v-text-field id="classes_input"
+                <v-text-field id="classes_input" sel="course_search"
                               v-model="search"
                               class="class-input"
                               ref="classInput"
@@ -127,7 +126,6 @@
                 classNamePlaceholder: LanguageService.getValueByKey(
                     "courses_placeholder_find"
                 ),
-                isRtl: global.isRtl,
                 global: global,
                 localSelectedClasses: [],
                 doneButtonLoading: false
@@ -482,10 +480,8 @@
             margin-left: 8px;
         }
         .course-back-btn {
-            &.rtl {
-                /*rtl:ignore*/
-                transform: rotate(-180deg);
-            }
+            transform: scaleX(1) /*rtl:append:scaleX(-1)*/;
+            height: inherit;
         }
 
     }

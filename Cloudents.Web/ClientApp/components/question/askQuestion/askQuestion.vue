@@ -9,7 +9,7 @@
                 <div class="question-textarea-container">
                     <div class="question-textarea-upper-part">
                         <div class="question-profile-data-container">
-                            <user-avatar :userImageUrl="userImageUrl" :user-name="accountUser.name"></user-avatar>
+                            <user-avatar :userImageUrl="userImageUrl" :user-name="userName"></user-avatar>
                         </div>
                         <v-textarea
                                 solo
@@ -41,13 +41,13 @@
                 
                 <v-layout class="question-add-button-container pt-6 pb-4" :class="{'question-mobile': $vuetify.breakpoint.xsOnly}" align-center justify-center column>
                     <v-flex xs12 class="text-center">
-                        <v-btn 
+                        <v-btn sel="cancel_ask"
                             class="question-add-button font-weight-bold px-3 button_cancel" 
                             text 
                             @click="closeAddQuestionDialog">
                                 <span v-language:inner="'addQuestion_cancel_button'"></span>
                         </v-btn>
-                        <v-btn 
+                        <v-btn sel="post"
                             :loading="btnQuestionLoading"
                             text
                             class="question-add-button font-weight-bold px-3"

@@ -1,10 +1,9 @@
 <template>
-    <div class="marketing-box-component ">
+    <div class="marketing-box-component">
         <div class="heading" v-if="$vuetify.breakpoint.smAndDown">
             <span class="heading-text" v-language:inner>marketingBox_title</span>
         </div>
-        <v-card class="main-marketing-content transparent"
-                @click="promotionOpen()">
+        <v-card tag="a" :to="{name: 'tutorLandingPage'}" class="main-marketing-content transparent" @click="promotionOpen()">
             <img :src="imgBySiteType" alt="Private lessons">
         </v-card>
     </div>
@@ -35,14 +34,14 @@
             }
         },
         methods: {
-            ...mapActions(['changemobileMarketingBoxState', 'updateRequestDialog', 'setTutorRequestAnalyticsOpenedFrom']),
+            ...mapActions(['updateRequestDialog', 'setTutorRequestAnalyticsOpenedFrom']),
             promotionOpen() {
                 if (this.isLogedIn) {
                     analyticsService.sb_unitedEvent('MARKETING_BOX', 'REGISTERED OPEN_TUTOR');
                 } else {
                     analyticsService.sb_unitedEvent('MARKETING_BOX', 'NOT REGISTERED OPEN_TUTOR');
                 }
-                return this.isLogedIn ? this.goToWebForm() : this.goToRegister();
+                // return this.isLogedIn ? this.goToWebForm() : this.goToRegister();
                 // return this.isLogedIn ? this.goToWebForm() : this.goToRegister();
             },
             goToRegister() {
@@ -51,14 +50,17 @@
                     component: 'marketingBox',
                     path: this.$route.path
                 });
-                this.updateRequestDialog(true);
+                // this.updateRequestDialog(true);
+                this.$router.push({name: 'tutorLandingPage'});
+
             },
             goToWebForm(){
                 this.setTutorRequestAnalyticsOpenedFrom({
                     component: 'marketingBox',
                     path: this.$route.path
                 });
-                this.updateRequestDialog(true);
+                // this.updateRequestDialog(true);
+                this.$router.push({name: 'tutorLandingPage'});
             }
         },
     }

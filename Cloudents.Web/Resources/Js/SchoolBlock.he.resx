@@ -120,16 +120,40 @@
   <data name="add_your_courses" xml:space="preserve">
     <value>מה אתה לומד?</value>
   </data>
-  <data name="add_your_university" xml:space="preserve">
-    <value>איפה אתה לומד?</value>
+  <data name="allCourses" xml:space="preserve">
+    <value>כל הקורסים</value>
   </data>
   <data name="all_courses" xml:space="preserve">
     <value>כל הקורסים</value>
   </data>
-  <data name="my_courses" xml:space="preserve">
+  <data name="courses" xml:space="preserve">
+    <value>ניהול קורסים</value>
+  </data>
+  <data name="dashboard" xml:space="preserve">
+    <value>כלי ניהול</value>
+  </data>
+  <data name="home" xml:space="preserve">
+    <value>דף הבית</value>
+  </data>
+  <data name="lessons" xml:space="preserve">
+    <value>השיעורים שלי</value>
+  </data>
+  <data name="my" xml:space="preserve">
     <value>הקורסים שלי</value>
   </data>
   <data name="my_study_rooms" xml:space="preserve">
     <value>חדרי הלימוד שלי</value>
+  </data>
+  <data name="profile" xml:space="preserve">
+    <value>פרופיל</value>
+  </data>
+  <data name="purchases" xml:space="preserve">
+    <value>הרכישות שלי</value>
+  </data>
+  <data name="study" xml:space="preserve">
+    <value>חדרי הלימוד שלי</value>
+  </data>
+  <data name="wallet" xml:space="preserve">
+    <value>ארנק</value>
   </data>
 </root>

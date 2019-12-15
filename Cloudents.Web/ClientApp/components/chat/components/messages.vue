@@ -128,17 +128,25 @@ export default {
                 }
             })
         },
-        createRoom(){
+        createRoom(){         
+            if((this.$route && this.$route.params && this.$route.params.id) &&
+                (!!this.activeConversationObj && this.activeConversationObj.studyRoomId)){
+                let paramId = this.$route.params.id;
+                let studyRoomId = this.activeConversationObj.studyRoomId
+                if(paramId == studyRoomId) return;
+            }
+            
             let conversationObj = this.activeConversationObj;
             this.loader = true;
             if(!!this.activeConversationObj.studyRoomId){
                 let routeData = this.$router.resolve({
-                    name: 'tutoring',
+                    name: 'roomSettings',
                     params: {
                         id: this.activeConversationObj.studyRoomId
                     }
                 });
-                global.open(routeData.href, '_blank');
+                global.open(routeData.href, '_self');
+                // this.$router.push(routeData.href);
             }else{
                 if(!this.alreadyCreated){
                     let userId = conversationObj.userId;
@@ -260,6 +268,7 @@ export default {
                     i { 
                         //Do not put it last because then the remark are gone
                         transform: rotateY(0deg)/*rtl:rotateY(180deg)*/; 
+                        /*rtl:append:transform: rotateY(180deg);*/;
                         color: #FFF;
                         font-size: 12px;
                         background-color: @global-blue;
@@ -267,7 +276,6 @@ export default {
                         border-radius: 70%;
                         width: 30px;
                         height: 30px;
-                        /*rtl:append:transform: rotateY(180deg);*/;
                     }
                 }
                 &.messages-input-disabled{

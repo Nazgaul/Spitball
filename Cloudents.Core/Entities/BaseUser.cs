@@ -24,7 +24,7 @@ namespace Cloudents.Core.Entities
 
 
 
-        public virtual string Name { get; set; }
+        public virtual string Name { get; protected set; }
         //public virtual string NormalizedEmail { get; set; }
         public virtual string SecurityStamp { get; set; }
 
@@ -41,6 +41,7 @@ namespace Cloudents.Core.Entities
         public virtual string AuthenticatorKey { get; set; }
 
         public virtual bool? OldUser { get; set; }
+
 
         //public virtual int Score { get; protected set; }
 
@@ -94,29 +95,21 @@ namespace Cloudents.Core.Entities
 
         public virtual string Country { get; protected set; }
 
-        public virtual void ChangeCountry(string country)
-        {
-
-            if (Country?.Equals(country) == true)
-            {
-                return;
-            }
-            Country = country;
-            University = null;
-            AddEvent(new ChangeCountryEvent(Id));
-        }
-
         public virtual byte[] Version { get; protected set; }
 
-        public virtual void UpdateUserImage(string image, string imageName)
+        private readonly ISet<Follow> _followers = new HashSet<Follow>();
+        public virtual IEnumerable<Follow> Followers => _followers.ToList();
+
+        public virtual void AddFollower(BaseUser follower)
         {
-            Image = image;
-            ImageName = imageName;
+            var follow = new Follow(this, follower);
+            var v = _followers.Add(follow);
         }
 
-        public virtual void UpdateUserImageName(string imageName)
+        public virtual void RemoveFollower(BaseUser follower)
         {
-            ImageName = imageName;
+            var follow = new Follow(this, follower);
+            _followers.Remove(follow);
         }
     }
 }

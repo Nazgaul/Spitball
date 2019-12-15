@@ -62,9 +62,9 @@ namespace Cloudents.Core.Entities
             AddEvent(new UpdateTutorSettingsEvent(Id));
         }
 
-        public virtual void ChangePrice(decimal newPrice)
+        public virtual void AdminChangePrice(decimal newPrice)
         {
-            if (newPrice <= 0) throw new ArgumentOutOfRangeException(nameof(newPrice));
+            if (newPrice < 0) throw new ArgumentOutOfRangeException(nameof(newPrice));
 
             Price = new TutorPrice(newPrice);
             AddEvent(new UpdateTutorSettingsEvent(Id));
@@ -86,6 +86,23 @@ namespace Cloudents.Core.Entities
             AddEvent(new TutorDeletedEvent(Id));
         }
 
+        public virtual void Suspend()
+        {
+            if (State == ItemState.Ok)
+            {
+                State = ItemState.Flagged;
+                AddEvent(new TutorSuspendedEvent(Id));
+            }
+        }
+
+        public virtual void UnSuspend()
+        {
+            if (State == ItemState.Flagged)
+            {
+                State = ItemState.Ok;
+                AddEvent(new TutorUnSuspendedEvent(Id));
+            }
+        }
         private readonly ICollection<TutorReview> _reviews = new List<TutorReview>();
 
         public virtual IEnumerable<TutorReview> Reviews => _reviews;

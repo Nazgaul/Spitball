@@ -46,17 +46,15 @@
                                     </v-menu>
                                 </div>
                             </div>
-
-                            <p
-                                    class="q-text"
-                                    :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`, {'answer': typeAnswer}]"
-                            >{{cardData.text}}</p>
+                            
+                            <p :class="['q-text',{'answer': typeAnswer}]">{{cardData.text}}</p>
                         </div>
                     </div>
+                    <!-- TODO CLEAN IT! -->
                     <div class="gallery fixed-margin" v-if="gallery && gallery.length">
                         <v-carousel
-                                :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-right left'"
-                                :next-icon="isRtl ?  'sbf-arrow-right left': 'sbf-arrow-right right'"
+                                :prev-icon="'sbf-arrow-right'"
+                                :next-icon="'sbf-arrow-right'"
                                 interval="600000"
                                 cycle
                                 full-screen
@@ -71,6 +69,7 @@
                             ></v-carousel-item>
                         </v-carousel>
                     </div>
+                    <!-- TODO CLEAN IT! -->
                 </div>
             </div>
             <v-dialog
@@ -87,7 +86,7 @@
                 :showDialog="showReport"
                 :maxWidth="'438px'"
                 :popUpType="'reportDialog'"
-                :content-class="`reportDialog ${isRtl? 'rtl': ''}` "
+                :content-class="`reportDialog`"
         >
             <report-item
                     :closeReport="closeReportDialog"

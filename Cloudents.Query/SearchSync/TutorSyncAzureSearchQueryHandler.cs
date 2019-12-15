@@ -9,7 +9,7 @@ namespace Cloudents.Query.SearchSync
     public class TutorSyncAzureSearchQuery : IQuery<SearchWrapperDto<TutorSearchDto>>
 
     {
-        public const int PageSize = 200;
+        private const int PageSize = 200;
         public TutorSyncAzureSearchQuery(long version)
         {
             Version = version;
@@ -57,6 +57,7 @@ t.bio,
 t.price,
 t.image,
 t.rating as OverAllRating,
+t.SubsidizedPrice  as SubsidizedPrice,
 cTable.*
 from sb.ReadTutor  t
 CROSS APPLY CHANGETABLE(VERSION sb.readTutor, (Id), (t.Id)) AS cTable
@@ -80,6 +81,7 @@ t.bio,
 t.price,
 t.image,
 t.rating as OverAllRating,
+t.SubsidizedPrice  as SubsidizedPrice,
 cTable.* 
 from sb.ReadTutor  t
 right outer join CHANGETABLE (changes sb.[readTutor], @version) AS cTable ON t.Id = cTable.id

@@ -157,14 +157,6 @@
                     this.editedBio = newVal;
                 }
             },
-            firstName: {
-                get() {
-                    return this.getProfile.user.tutorData.firstName;
-                },
-                set(newVal) {
-                    this.editedFirstName = newVal;
-                }
-            },
             price: {
                 get() {
                     return this.getProfile.user.tutorData.price;
@@ -173,10 +165,18 @@
                     this.editedPrice = newVal;
                 }
             },
+            firstName: {
+                get() {
+                    return this.getProfile.user.firstName;
+                },
+                set(newVal) {
+                    this.editedFirstName = newVal;
+                }
+            },
             lastName: {
                 get() {
                     // return this.getProfile.user.lastName
-                    return this.getProfile.user.tutorData.lastName;
+                    return this.getProfile.user.lastName;
                 },
                 set(newVal) {
                     console.log('new val::', newVal);
@@ -197,9 +197,12 @@
             ...mapActions(['updateEditedProfile','updateEditDialog']),
             saveChanges() {
                 if(this.$refs.formTutor.validate()) {
+                    let firstName = this.editedFirstName || this.firstName;
+                    let lastName = this.editedLastName || this.lastName;
                     let editsData = {
-                        name: this.editedFirstName || this.firstName,
-                        lastName: this.editedLastName || this.lastName,
+                        name: `${firstName} ${lastName}`,
+                        lastName,
+                        firstName,
                         price: this.editedPrice || this.price,
                         bio: this.editedBio,
                         description: this.editedDescription

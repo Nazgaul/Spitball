@@ -50,7 +50,18 @@ namespace Cloudents.Core.Entities
         [CanBeNull]
         public virtual StudyRoomSession GetCurrentSession()
         {
-            return Sessions.AsQueryable().SingleOrDefault(w => w.Ended == null);
+
+            var result = Sessions.AsQueryable().Where(w => w.Ended == null).OrderBy(o => o.Id).ToList();
+
+            //if (result.Count > 1)
+            //{
+            for (int i = 0; i < result.Count - 1; i++)
+            {
+                result[i].EndSession();
+            }
+
+            //}
+            return result.SingleOrDefault(w => w.Ended == null);
         }
 
         public virtual StudyRoomType? Type { get; protected set; }

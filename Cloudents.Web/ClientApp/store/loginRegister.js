@@ -24,6 +24,8 @@ const state = {
     stepsHistory: [],
     toUrl: '',
 
+    firstName:'',
+    lastName:'',
     email: '',
     phone: '',
     localCode: '',
@@ -58,6 +60,8 @@ const mutations = {
         state.email = '';
         state.phone = '';
         state.localCode = '';
+        state.firstName = '';
+        state.lastName = '';
 
         state.globalLoading = false;
 
@@ -106,6 +110,10 @@ const mutations = {
     },
     setLocalCode(state,localCode){
         state.localCode = localCode;
+    },
+    setName(state,fullNameObj){
+        state.firstName = fullNameObj.firstName;
+        state.lastName = fullNameObj.lastName;
     }
 };
 
@@ -123,6 +131,9 @@ const getters = {
 const actions = {
     updateToUrl({commit},url){
         commit('setToUrl',url);
+    },
+    updateName({commit},fullNameObj){
+        commit('setName',fullNameObj)
     },
     updateEmail({commit},email){
         commit('setEmail',email);
@@ -193,7 +204,7 @@ const actions = {
         let {password} = params;
         let {confirmPassword} = params;
         commit('setGlobalLoading',true);
-        return registrationService.emailRegistration(state.email, recaptcha, password, confirmPassword)
+        return registrationService.emailRegistration(state.firstName,state.lastName,state.email, recaptcha, password, confirmPassword)
             .then((resp) => {
                 let nextStep = resp.data.step;
                 if(nextStep.toLowerCase() === "verifyphone" || nextStep.toLowerCase() === "enterphone"){

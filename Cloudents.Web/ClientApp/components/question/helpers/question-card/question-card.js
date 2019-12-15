@@ -77,7 +77,6 @@ export default {
             src: '',
             selectedImage: '',
             showDialog: false,
-            isRtl: global.isRtl
         };
     },
     computed: {

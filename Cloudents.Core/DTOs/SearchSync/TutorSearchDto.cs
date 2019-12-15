@@ -31,6 +31,8 @@ namespace Cloudents.Core.DTOs.SearchSync
         public string SYS_CHANGE_OPERATION { get; set; }
 
         public double OverAllRating { get; set; }
+
+        public decimal? SubsidizedPrice { get; set; }
         // public ItemState State { get; set; }
         //public long VersionAsLong => BitConverter.ToInt64(Version.Reverse().ToArray(), 0);
     }

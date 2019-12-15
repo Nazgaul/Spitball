@@ -42,7 +42,7 @@ namespace Cloudents.Core.Test.CommandHandler
                 null, 10, 1, 1, DateTime.UtcNow.AddYears(-1),
                 null, null);
 
-            var user = new User("someUser", Language.English);
+            var user = new User("someUser","firstName","lastName", Language.English,"IN");
 
 
             // var userMoq = new Mock<User>();
@@ -92,8 +92,9 @@ namespace Cloudents.Core.Test.CommandHandler
 
             long tutorId = 1, userId = 2;
             //var userMoq = new Mock<User>();
-            var user = new User("SomeEmail", Language.English);
-            typeof(User).GetProperty("Id").SetValue(user, userId);
+            var user = new User("SomeEmail", "firstName", "lastName", Language.English,"IN");
+            // ReSharper disable once PossibleNullReferenceException
+            typeof(User).GetProperty(nameof(User.Id)).SetValue(user, userId);
             var tutorMoq = new Mock<Tutor>();
 
             // userMoq.Setup(s => s.Id).Returns(userId);
@@ -122,7 +123,8 @@ namespace Cloudents.Core.Test.CommandHandler
 
             long tutorId = 1, userId = 2;
             //var userMoq = new Mock<User>();
-            var user = new User("SomeEmail", Language.English);
+            var user = new User("SomeEmail", "firstName", "lastName", Language.English,"IN");
+            // ReSharper disable once PossibleNullReferenceException
             typeof(User).GetProperty("Id").SetValue(user, userId);
 
             var tutorMoq = new Mock<Tutor>();

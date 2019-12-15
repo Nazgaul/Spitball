@@ -1,4 +1,4 @@
-import tutorService from '../../components/tutor/tutorService.js';
+import tutorService from '../../components/studyroom/tutorService.js';
 
 const state = {
     isDarkTheme: true,

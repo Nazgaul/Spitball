@@ -117,21 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="menu_item_about_spitball" xml:space="preserve">
-    <value>About Spitball</value>
-  </data>
-  <data name="menu_item_feedback" xml:space="preserve">
-    <value>Feedback</value>
-  </data>
-  <data name="menu_item_help" xml:space="preserve">
-    <value>Help</value>
-  </data>
-  <data name="menu_item_privacy_policy" xml:space="preserve">
-    <value>Privacy Policy</value>
-  </data>
-  <data name="menu_item_terms" xml:space="preserve">
-    <value>Terms of Service</value>
-  </data>
   <data name="my_courses" xml:space="preserve">
     <value>My courses</value>
   </data>

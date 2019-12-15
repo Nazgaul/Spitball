@@ -11,7 +11,6 @@ const state = {
     resultLockForClassesChange: false,
     selectForTheFirstTime: false,
     reflectChangeToPage: 0,
-    showSchoolBlock: global.innerWidth > 1260 ? true : false,
     createDialog: false,
     creationVerified: false,
     createUniDialog: false,
@@ -31,7 +30,6 @@ const getters = {
     getAllSteps: state => state.stepsEnum,
     getCurrentStep: state => state.currentStep,
     getUniversityPopStorage: state => state.universityPopStorage,
-    getShowSchoolBlock: state => state.showSchoolBlock,
     createDialogVisibility: state => state.createDialog,
     creationVerified: state => state.creationVerified,
     getCreateDialogVisibility: state => state.createUniDialog,
@@ -123,9 +121,6 @@ const mutations = {
     },
     setReflectChangeToPage(state) {
         state.reflectChangeToPage++;
-    },
-    updtaeShowSchoolBlock(state, val) {
-        state.showSchoolBlock = val;
     },
     setAllClassesTeaching(state){
         if(state.selectedClasses && state.selectedClasses.length){
@@ -317,14 +312,6 @@ const actions = {
     },
     closeSelectUniFromNav({commit}) {
         commit('setSelectUniState', false);
-    },
-    toggleShowSchoolBlock({commit, state}, val) {
-        if(typeof val !== "undefined") {
-            commit('updtaeShowSchoolBlock', val);
-        } else {
-            commit('updtaeShowSchoolBlock', !state.showSchoolBlock);
-        }
-
     },
     changeCreateDialogState({commit, state}, val) {
         commit('updateCreateDialogState', val);

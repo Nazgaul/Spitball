@@ -2,13 +2,33 @@
   <section class="setEmailPassword">
     <p v-language:inner="'loginRegister_setemailpass_title'"/>
     <form @submit.prevent="submit">
+      <v-layout row wrap justify-space-between class="widther mb-4">
+        <v-flex xs6 class="pr-3">
+          <sb-input v-model="firstName"
+                    placeholder="loginRegister_setemailpass_first"
+                    :bottomError="true"
+                    :errorMessage="firstNameError"
+                    :autofocus="true"
+                    name="firstName"
+                    type="text"/>
+        </v-flex>
+        <v-flex xs6 class="pl-3">
+          <sb-input v-model="lastName"
+                    placeholder="loginRegister_setemailpass_last"
+                    :bottomError="true"
+                    :errorMessage="lastNameError"
+                    :autofocus="false"
+                    name="lastName" type="text"/>
+        </v-flex>
+                    <!-- :errorMessage="'errorMessages.email'" -->
+      </v-layout>
       <sb-input
         class="widther"
         v-model="email"
         placeholder="loginRegister_setemailpass_input_email"
         icon="sbf-email"
         :bottomError="true"
-        :autofocus="true"
+        :autofocus="false"
         :errorMessage="errorMessages.email"
         name="email"
         type="email"
@@ -57,6 +77,8 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
+import { LanguageService} from "../../../services/language/languageService";
+
 import SbInput from "../../question/helpers/sbInput/sbInput.vue";
 import VueRecaptcha from "vue-recaptcha";
 
@@ -76,6 +98,10 @@ export default {
       },
       recaptcha: "",
       siteKey: '6LfyBqwUAAAAAM-inDEzhgI2Cjf2OKH0IZbWPbQA',
+      firstName:'',
+      lastName:'',
+      firstNameError:'',
+      lastNameError:'',
     };
   },
   watch: {
@@ -84,7 +110,24 @@ export default {
     },
     confirmPassword: function(val){
         this.setErrorMessages({})
-    }
+    },
+    firstName: function(val){
+      this.firstNameError ='';
+      let fullNameObj = {
+        firstName: this.firstName,
+        lastName: this.lastName
+      }
+      this.updateName(fullNameObj)
+    },
+    lastName: function(val){
+      this.lastNameError ='';
+      let fullNameObj = {
+        firstName: this.firstName,
+        lastName: this.lastName
+      }
+      this.updateName(fullNameObj)
+    },
+    
   },
   computed: {
     ...mapGetters(["getEmail1","getGlobalLoading","getErrorMessages","getPassScoreObj"]),
@@ -118,7 +161,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateEmail","emailSigning"]),
+    ...mapActions(["updateEmail","emailSigning",'updateName']),
     ...mapMutations(['setErrorMessages']),
     onVerify(response) {
       this.recaptcha = response
@@ -139,7 +182,16 @@ export default {
         });
     },
     submit(){
-      this.$refs.recaptcha.execute()
+      if(this.firstName.length > 1 && this.lastName.length > 1){
+        this.$refs.recaptcha.execute()
+      } else{
+        if(this.firstName.length < 2 ){
+          this.firstNameError = `${LanguageService.getValueByKey("formErrors_min_chars")} ${2}`
+        }
+        if(this.lastName.length < 2 ){
+          this.lastNameError = `${LanguageService.getValueByKey("formErrors_min_chars")} ${2}`
+        }
+      }
     }
   },
   created() {
@@ -179,6 +231,9 @@ export default {
     }
     .input-wrapper {
       input[type="password"] {
+        padding: 10px !important;
+      }
+      input[type="text"] {
         padding: 10px !important;
       }
       input {

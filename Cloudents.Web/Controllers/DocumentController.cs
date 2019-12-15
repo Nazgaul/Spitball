@@ -1,4 +1,6 @@
-﻿using Cloudents.Core;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Message.System;
@@ -131,12 +133,14 @@ namespace Cloudents.Web.Controllers
 
         [Route("document/{courseName}/{name}/{id:long}/download", Name = "ItemDownload")]
         [Authorize]
-        public async Task<ActionResult> DownloadAsync(long id, [FromServices] IBlobProvider blobProvider2, CancellationToken token)
+        public async Task<ActionResult> DownloadAsync(long id, [FromServices] ICommandBus commandBus,
+            [FromServices] IBlobProvider blobProvider2, CancellationToken token)
         {
             var user = _userManager.GetLongUserId(User);
             var query = new DocumentById(id, user);
             var tItem = _queryBus.QueryAsync(query, token);
             var tFiles = _blobProvider.FilesInDirectoryAsync("file-", id.ToString(), token);
+            
             await Task.WhenAll(tItem, tFiles);
 
             var item = tItem.Result;
@@ -145,7 +149,7 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
-            if (item.DocumentType == DocumentType.Video)
+            if (item.Document.DocumentType == DocumentType.Video)
             {
                 return Unauthorized();
             }
@@ -159,9 +163,13 @@ namespace Cloudents.Web.Controllers
             var file = uri.Segments.Last();
 
             //blob.core.windows.net/spitball-files/files/6160/file-82925b5c-e3ba-4f88-962c-db3244eaf2b2-advanced-linux-programming.pdf
+            var command = new FollowUserCommand(item.Document.User.Id, user);
+            var followTask = commandBus.DispatchAsync(command, token);
+            var messageTask = _queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfDownloads(id), token);
 
-            await _queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfDownloads(id), token);
-            var nameToDownload = Path.GetFileNameWithoutExtension(item.Name);
+            await Task.WhenAll(followTask, messageTask);
+
+            var nameToDownload = Path.GetFileNameWithoutExtension(item.Document.Title);
             var extension = Path.GetExtension(file);
             var url = blobProvider2.GenerateDownloadLink(uri, TimeSpan.FromMinutes(30), nameToDownload + extension);
             return Redirect(url.AbsoluteUri);

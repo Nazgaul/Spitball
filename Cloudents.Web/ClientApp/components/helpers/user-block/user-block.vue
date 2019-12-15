@@ -1,7 +1,6 @@
 <template>
     <div>
         <div v-if="showExtended || cardData && cardData.subject">
-            <!-- question userBlock -->
             <div class="user-block" :class="classType">
                 <slot name="icon">
                     <user-avatar class="avatar-circle" :user-name="user.name"  :userImageUrl="user.image" :user-id="user.id"/>
@@ -21,7 +20,6 @@
             </div>
         </div>
         <div v-else>
-            <!-- answer userBlock -->
             <div class="user-block" :class="classType">
                 <div style="margin-top:15px;">
                     <slot name="icon">

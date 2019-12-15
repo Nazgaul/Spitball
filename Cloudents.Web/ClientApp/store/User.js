@@ -1,6 +1,7 @@
 ﻿//import settingsService from './../services/settingsService'
 import { USER } from './mutation-types'
 import * as consts from './constants'
+import {LanguageService} from '../services/language/languageService';
 
 ﻿
 const state = {
@@ -149,8 +150,25 @@ const actions = {
     },
     updateSort({ commit }, data) {
         commit(USER.UPDATE_SORT, data);
+    },
+    signalR_TutorEnterStudyRoom({ dispatch, rootState }, notificationObj){
+        if(rootState.route.name !== 'tutoring' && rootState.route.name !== 'roomSettings'){
+            let id = notificationObj.studyRoomId;
+            let userName = notificationObj.userName;
+            let location = global.location.origin;
+            let textLang = LanguageService.getValueByKey('tutor_waiting_in_studyRoom');
+            let textElm = `<a style="text-decoration: none;" href="${location}/studyroomSettings/${id}">
+                ${userName} ${textLang}
+            </a>`
+            let toasterObj = {
+                toasterText: textElm,
+                showToaster: true,
+                toasterType: '',
+                toasterTimeout: 3600000
+            };
+            dispatch('updateToasterParams', toasterObj);
+        }
     }
-
 };
 export default {
     state,

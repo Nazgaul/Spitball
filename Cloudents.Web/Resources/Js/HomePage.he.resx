@@ -145,7 +145,7 @@
     <value>חיפוש</value>
   </data>
   <data name="hd_search_ph" xml:space="preserve">
-    <value>נסו "מורה למתמטיקה"</value>
+    <value>נסו "מתמטיקה"</value>
   </data>
   <data name="hd_stats_docs" xml:space="preserve">
     <value>מסמכי לימוד</value>
@@ -167,33 +167,6 @@
   </data>
   <data name="is_title" xml:space="preserve">
     <value>נצפים כרגע</value>
-  </data>
-  <data name="Testimonial1" xml:space="preserve">
-    <value>אוהבים את הכל!!! אין על ספיטבול, האתר הכי עוזר שיש.</value>
-  </data>
-  <data name="Testimonial1Person" xml:space="preserve">
-    <value>ורד סלקמן</value>
-  </data>
-  <data name="Testimonial1Title" xml:space="preserve">
-    <value>המכללה האקדמית אשקלון</value>
-  </data>
-  <data name="Testimonial2" xml:space="preserve">
-    <value>אתר מדהים! ממשק פשוט ונוח עם מאגר חומרי לימוד יעיל ועדכני.</value>
-  </data>
-  <data name="Testimonial2Person" xml:space="preserve">
-    <value>חן נעים</value>
-  </data>
-  <data name="Testimonial2Title" xml:space="preserve">
-    <value>האוניברסיטה הפתוחה</value>
-  </data>
-  <data name="Testimonial3" xml:space="preserve">
-    <value>כסטודנט טרי, מצאתי את עצמי שובר את הראש לבד. עד שסיפרו לי על ספיטבול.</value>
-  </data>
-  <data name="Testimonial3Person" xml:space="preserve">
-    <value>טובי כהן</value>
-  </data>
-  <data name="Testimonial3Title" xml:space="preserve">
-    <value>האוניברסיטה הפתוחה</value>
   </data>
   <data name="tss_subtitle" xml:space="preserve">
     <value>המלצות של תלמידים</value>

@@ -193,7 +193,7 @@
     <value>Contact me</value>
   </data>
   <data name="tutor_sidebar_title" xml:space="preserve">
-    <value>Let me know what you need and i”ll be happy to help</value>
+    <value>Let me know what you need and i will be happy to help</value>
   </data>
   <data name="user_sidebar_text" xml:space="preserve">
     <value>Help others with what you know best</value>
@@ -239,9 +239,6 @@
   </data>
   <data name="pricing" xml:space="preserve">
     <value>Pricing</value>
-  </data>
-  <data name="user_name_label" xml:space="preserve">
-    <value>Username</value>
   </data>
   <data name="expand_more_single_course" xml:space="preserve">
     <value>More Course</value>

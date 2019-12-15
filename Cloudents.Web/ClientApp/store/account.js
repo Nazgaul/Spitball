@@ -11,14 +11,12 @@ import intercomeService from '../services/intercomService';
 const state = {
     login: false,
     user: null,
-    unreadMessages: 0,
     fromPath: null,
     lastActiveRoute: null,
     profile: null,
     usersReferred: 0,
     showEditDataDialog: false,
     profileImageLoading: false,
-    activateTutorDiscounts: false, //TODO if not used until 1/10/2019 search this getter and remove it from all the system
 };
 const mutations = {
     setProfileImageLoading(state, val){
@@ -138,12 +136,14 @@ const mutations = {
     updateEditedData(state, newData) {
         if(state.profile.user.isTutor) {
             state.profile.about.bio = newData.bio;
-            state.profile.user.tutorData.firstName = `${newData.name}`;
-            state.profile.user.tutorData.lastName = newData.lastName;
+            state.profile.user.firstName = newData.firstName;
+            state.profile.user.lastName = newData.lastName;
             state.profile.user.description = newData.description;
             state.profile.user.tutorData.price = newData.price;
         } else {
             state.profile.user.name = newData.name;
+            state.profile.user.firstName = newData.firstName;
+            state.profile.user.lastName = newData.lastName;
             state.profile.user.description = newData.description;
         }
     },
@@ -172,7 +172,6 @@ const getters = {
     },
     getProfile: state => state.profile,
     fromPath: state => state.fromPath,
-    unreadMessages: state => state.unreadMessages,
     loginStatus: state => state.login,
     isUser: state => state.user !== null,
     usersReffered: state => state.usersReferred,
@@ -188,7 +187,6 @@ const getters = {
         }
     },
     getShowEditDataDialog: state => state.showEditDataDialog,
-    getActivateTutorDiscounts:state => state.activateTutorDiscounts
 };
 
 const actions = {

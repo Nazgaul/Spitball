@@ -49,7 +49,7 @@ namespace Cloudents.Query
                             Name = s.Answer.UserName
                         }
                     }
-                })
+                }).OrderByDescending(o => o.DateTime)
                 .Take(50).Skip(query.Page * 50)
                 .ToListAsync(token);
         }

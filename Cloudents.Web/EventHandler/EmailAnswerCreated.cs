@@ -9,6 +9,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Extension;
 
 namespace Cloudents.Web.EventHandler
 {
@@ -45,10 +46,12 @@ namespace Cloudents.Web.EventHandler
             var question = eventMessage.Answer.Question;
             var code = _dataProtect.Protect(question.User.Id.ToString(),
                 DateTimeOffset.UtcNow.AddDays(2));
+
+            var culture = question.User.Language.ChangeCultureBaseOnCountry(question.User.Country);
             var link = _urlBuilder.BuildQuestionEndPoint(question.Id, new { token = code });
             await SendEmail(
                    new GotAnswerEmail(question.Text, question.User.Email, eventMessage.Answer.Text, link,
-                       question.User.Language)
+                       culture)
 
                    , token);
         }

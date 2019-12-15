@@ -99,7 +99,7 @@ namespace Cloudents.FunctionsV2
             var result = (await queryBus.QueryAsync(q, token)).ToList();
             if (result.Count == 0)
             {
-
+                return;
             }
             var courses = result.GroupBy(g => g.Course).Take(3).Select(s =>
             {

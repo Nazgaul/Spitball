@@ -1,11 +1,11 @@
 import chatService from '../services/chatService';
 import { LanguageService } from '../services/language/languageService';
+import analyticsService from '../services/analytics.service';
 
 const state = {
     fileError: false,
     conversations: {},
     messages: {},
-    unreadMessages: {},
     enumChatState: {
         conversation: "conversation",
         messages: "messages"
@@ -184,7 +184,7 @@ const actions = {
     updateChatUploadLoading({commit}, val){
         commit('activateLoader', val);
     },
-    addMessage:({commit, state, dispatch}, message)=>{
+    addMessage:({commit, state, getters, dispatch}, message)=>{
         //check if inside conversation
         let isInConversation = state.chatState == state.enumChatState.messages;
         let conversationExists = !!state.conversations[message.conversationId];
@@ -221,6 +221,8 @@ const actions = {
                     conversationObj.userId = state.activeConversationObj.userId;
                     commit('addConversation', conversationObj);
                     commit('addMessage', message);
+
+                    analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${getters.accountUser.id}`);
                 }else{
                     // message here will be sent by remote user
                     dispatch('getChatById', message.conversationId).then(({data})=>{
@@ -278,17 +280,17 @@ const actions = {
         dispatch('openChatInterface');
     },
     signalRAddRoomInformationMessage({commit, dispatch, state}, roomInfo){
-        let messageObj ={
-            message: {
-                userId: roomInfo.userId,
-                text: `${LanguageService.getValueByKey('chat_room_created')} ${global.location.origin}/studyroom/${roomInfo.id}`,
-                type: 'text'
-            },
-            //TODO signalR should return Conversation ID
-            conversationId: state.activeConversationObj.conversationId
-        };
-        let messageObj2 = chatService.createMessage(messageObj.message, messageObj.conversationId);
-        dispatch('addMessage', messageObj2);
+        // let messageObj ={
+        //     message: {
+        //         userId: roomInfo.userId,
+        //         text: `${LanguageService.getValueByKey('chat_room_created')} ${global.location.origin}/studyroom/${roomInfo.id}`,
+        //         type: 'text'
+        //     },
+        //     //TODO signalR should return Conversation ID
+        //     conversationId: state.activeConversationObj.conversationId
+        // };
+        // let messageObj2 = chatService.createMessage(messageObj.message, messageObj.conversationId);
+        // dispatch('addMessage', messageObj2);
         commit('setActiveConversationStudyRoom', roomInfo.id);
         commit('setShowStudentStudyRoom');
     },

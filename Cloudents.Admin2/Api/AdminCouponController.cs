@@ -1,8 +1,6 @@
-﻿using System;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
@@ -46,7 +44,7 @@ namespace Cloudents.Admin2.Api
                 );
                 await _commandBus.DispatchAsync(command, token);
             }
-            catch (DuplicateRowException e)
+            catch (DuplicateRowException)
             {
                 return BadRequest("This coupon already exists");
             }

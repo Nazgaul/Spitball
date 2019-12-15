@@ -120,9 +120,6 @@
   <data name="back" xml:space="preserve">
     <value>חזרה</value>
   </data>
-  <data name="btn_close" xml:space="preserve">
-    <value>סגירה</value>
-  </data>
   <data name="cancel" xml:space="preserve">
     <value>ביטול</value>
   </data>
@@ -131,6 +128,33 @@
   </data>
   <data name="invalid" xml:space="preserve">
     <value>הקורס לא קיים</value>
+  </data>
+  <data name="message_success_btn_noThanks" xml:space="preserve">
+    <value>לא, תודה</value>
+  </data>
+  <data name="message_success_btn_showMe" xml:space="preserve">
+    <value>הראו לי</value>
+  </data>
+  <data name="message_success_btn_whatsapp" xml:space="preserve">
+    <value>וואטסאפ</value>
+  </data>
+  <data name="message_success_tutor_1" xml:space="preserve">
+    <value>ההודעה שלך נשלחה אל</value>
+  </data>
+  <data name="message_success_tutor_2" xml:space="preserve">
+    <value>התשובה של המורה תשלח דרך SMS ומייל, אך יתכן והדבר יקח זמן.</value>
+  </data>
+  <data name="message_success_tutor_3" xml:space="preserve">
+    <value>האם תרצו ליצור עם המורה קשר דרך וואטסאפ?</value>
+  </data>
+  <data name="message_success_yaniv_1" xml:space="preserve">
+    <value>ההודעה שלך נשלחה.</value>
+  </data>
+  <data name="message_success_yaniv_2" xml:space="preserve">
+    <value>תשובה תשלח אליך ב- SMS ובמייל.</value>
+  </data>
+  <data name="message_success_yaniv_3" xml:space="preserve">
+    <value>בינתיים, תרצו לראות מורים אחרים אשר מלמדים את הקורס הזה?</value>
   </data>
   <data name="more_tutors" xml:space="preserve">
     <value>אני רוצה לשמוע מעוד 2-3 מורים כמו {1}</value>
@@ -164,9 +188,6 @@
   </data>
   <data name="submit" xml:space="preserve">
     <value>אישור</value>
-  </data>
-  <data name="success" xml:space="preserve">
-    <value>הודעתך נשלחה וייצרו איתך קשר בקרוב</value>
   </data>
   <data name="tell_tutor" xml:space="preserve">
     <value>איך {1} יכול ליצור איתך קשר?</value>

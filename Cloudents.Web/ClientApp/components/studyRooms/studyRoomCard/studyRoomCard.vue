@@ -55,15 +55,16 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['setActiveConversationObj', 'changeFooterActiveTab', 'openChatInterface', 'accountUser']),
+        ...mapActions(['setActiveConversationObj', 'openChatInterface', 'accountUser']),
         enterRoom(){
             let routeData = this.$router.resolve({
-                    name: 'tutoring',
+                    name: 'roomSettings',
                     params: {
                         id:this.card.id
                         }
                 });
-            global.open(routeData.href, '_blank');
+            global.open(routeData.href, '_self');
+            // this.$router.push(routeData.href);
         },
         sendMessage(){
                 

@@ -153,8 +153,14 @@
   <data name="end_session" xml:space="preserve">
     <value>סיימת את השיעור?</value>
   </data>
-  <data name="entered_room" xml:space="preserve">
-    <value>ממתין להתחלת השיעור</value>
+  <data name="ewar-continue-without-audio" xml:space="preserve">
+    <value>המשך ללא קול</value>
+  </data>
+  <data name="ewar-continue-without-recording" xml:space="preserve">
+    <value>בטוח שברצונך להמשיך ללא הקלטה קולית?</value>
+  </data>
+  <data name="ewar-try-again" xml:space="preserve">
+    <value>נסה שוב</value>
   </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>לוח</value>
@@ -196,10 +202,10 @@
     <value>סיום</value>
   </data>
   <data name="start_dialog_your_student" xml:space="preserve">
-    <value>הסטודנט שלך</value>
+    <value>הסטודנט שלך הוא</value>
   </data>
   <data name="start_dialog_your_tutor" xml:space="preserve">
-    <value>המורה הפרטי שלך</value>
+    <value>המורה הפרטי שלך הוא</value>
   </data>
   <data name="start_to_share" xml:space="preserve">
     <value>זמין במהלך השיעור</value>
@@ -213,13 +219,34 @@
   <data name="stream_btn_join_session" xml:space="preserve">
     <value>התחל שיעור</value>
   </data>
+  <data name="stream_btn_needPayment_student" xml:space="preserve">
+    <value>הוסף פרטי כרטיס אשראי</value>
+  </data>
+  <data name="stream_btn_needPayment_tutor" xml:space="preserve">
+    <value>ממתין לסטודנט</value>
+  </data>
   <data name="stream_btn_pending_tutor" xml:space="preserve">
-    <value>ממתין שהסטודנט יכניס פרטי תשלום</value>
+    <value>ממתין לסטודנט</value>
   </data>
   <data name="stream_btn_start_session" xml:space="preserve">
     <value>התחל שיעור</value>
   </data>
+  <data name="stream_btn_start_session_student" xml:space="preserve">
+    <value>התחל שיעור</value>
+  </data>
+  <data name="stream_btn_start_student" xml:space="preserve">
+    <value>התחל שיעור</value>
+  </data>
+  <data name="stream_btn_start_tutor" xml:space="preserve">
+    <value>התחל שיעור</value>
+  </data>
   <data name="stream_btn_waiting" xml:space="preserve">
+    <value>ממתין לסטודנט</value>
+  </data>
+  <data name="stream_btn_waiting_student" xml:space="preserve">
+    <value>ממתין למורה</value>
+  </data>
+  <data name="stream_btn_waiting_tutor" xml:space="preserve">
     <value>ממתין לסטודנט</value>
   </data>
   <data name="tab" xml:space="preserve">

@@ -29,7 +29,7 @@
                       class="subtitle-1 font-weight-bold lineClamp"
                       :style="[{wordBreak: 'break-all'},{maxWidth: $vuetify.breakpoint.xsOnly? '180px':'inherit'}]"
                     >{{userName}}</h1>
-                    <v-icon
+                    <v-icon sel="edit_profile"
                       @click="openEditInfo()"
                       v-if="$vuetify.breakpoint.xsOnly && isMyProfile"
                       class="edit-profile-action ml-2 "
@@ -54,7 +54,7 @@
                     </div>
                   </div>
                   <span class="mt-0 ml-2" v-if="$vuetify.breakpoint.smAndUp && isMyProfile">
-                    <v-icon
+                    <v-icon sel="edit_profile"
                       @click="openEditInfo()"
                       class="edit-profile-action subtitle-1"
                     >sbf-edit-icon</v-icon>
@@ -150,7 +150,7 @@
                     <div class="coupon coupon__dialog" v-if="isTutorProfile && !isMyProfile">
                       <div class="text-xs-right ">
                         <div class="coupon__dialog--flex">
-                          <input type="text" v-model="coupon" :placeholder="couponPlaceholder" class="profile-coupon_input">
+                          <input type="text" @keyup.enter="applyCoupon" v-model="coupon" :placeholder="couponPlaceholder" class="profile-coupon_input">
                           <button class="profile-coupon_btn white--text" :disabled="disableApplyBtn" @click="applyCoupon" v-language:inner="'coupon_apply_btn'"></button>
                         </div>
                         <div class="profile-coupon_error" v-language:inner="'coupon_apply_error'" v-if="getCouponError"></div>
@@ -175,6 +175,7 @@ import userInfoEdit from "../../profileHelpers/userInfoEdit/userInfoEdit.vue";
 import tutorInfoEdit from "../../profileHelpers/userInfoEdit/tutorInfoEdit.vue";
 import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import { LanguageService } from '../../../../services/language/languageService';
+import analyticsService from '../../../../services/analytics.service'
 
 import sbClose from '../../../../font-icon/close.svg';
 export default {
@@ -191,8 +192,6 @@ export default {
     return {
       disableApplyBtn: false,
       coupon: '',
-      discountAmount:70,
-      minimumPrice:55
     };
   },
   props: {
@@ -202,7 +201,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["accountUser", "getProfile", "isTutorProfile", "getShowEditDataDialog", "getActivateTutorDiscounts", 'getCouponError', 'getCouponDialog']),
+    ...mapGetters(["accountUser", "getProfile", "isTutorProfile", "getShowEditDataDialog", 'getCouponError', 'getCouponDialog']),
+    
     xsColumn() {
       const xsColumn = {};
       if (this.$vuetify.breakpoint.xsOnly) {
@@ -229,16 +229,6 @@ export default {
     isDiscount() {
       return this.getProfile && (this.getProfile.user.tutorData.discountPrice || this.getProfile.user.tutorData.discountPrice === 0) ? true : false;
     },
-    showStriked(){
-      if(!this.getActivateTutorDiscounts) return false;
-      let price = this.tutorPrice;
-      return price > this.minimumPrice;
-    },
-    discountedPrice(){
-      let price = this.tutorPrice;
-      let discountedAmount = price - this.discountAmount;
-      return discountedAmount > this.minimumPrice ? discountedAmount.toFixed(0) : this.minimumPrice.toFixed(0);
-    },
     university() {
       if (this.getProfile && this.getProfile.user) {
         return this.getProfile.user.universityName;
@@ -248,10 +238,9 @@ export default {
       if (this.isTutorProfile) {
         if (
           this.getProfile &&
-          this.getProfile.user &&
-          this.getProfile.user.tutorData
+          this.getProfile.user 
         ) {
-          return `${this.getProfile.user.tutorData.firstName} ${this.getProfile.user.tutorData.lastName}`;
+          return `${this.getProfile.user.firstName} ${this.getProfile.user.lastName}`;
         }
       } else {
         if (this.getProfile && this.getProfile.user) {
@@ -277,33 +266,48 @@ export default {
         this.updateEditDialog(false);
     },
     closeCouponDialog() {
+        this.coupon = ''
         this.updateCouponDialog(false);
     },
     openCoupon() {
-      if(this.accountUser == null) {
+      if(global.isAuth) {
+        if(this.accountUser) {          
+          if(this.$route.params.id != this.accountUser.id) {
+            this.updateCouponDialog(true)
+            analyticsService.sb_unitedEvent('Tutor_Engagement', 'Click_Redeem_Coupon', `${this.$route.path}`);
+          }
+        }
+      } else {
         this.updateLoginDialogState(true);
-        return;
-      } 
-      this.updateCouponDialog(true)
+      }
     },
     applyCoupon() {
       if(this.isTutorProfile) {
         this.disableApplyBtn = true;
         let tutorId = this.getProfile.user.id;
         let coupon = this.coupon;
+        let self = this
         this.updateCoupon({coupon, tutorId}).finally(() => {
-          this.coupon = ''
-          this.disableApplyBtn = false;
+          self.coupon = ''
+          self.disableApplyBtn = false;
+          if(!self.getCouponError) {
+            analyticsService.sb_unitedEvent('Tutor_Engagement', 'Redeem_Coupon_Success', `${this.$route.path}`);
+          }
         })
       }
     }
   },
   beforeDestroy(){
+    this.updateCouponDialog(false);
     storeService.unregisterModule(this.$store, 'couponStore');
-    
   },
   created() {
-    storeService.lazyRegisterModule(this.$store, 'couponStore', couponStore); 
+    storeService.registerModule(this.$store, 'couponStore', couponStore);
+    if(!!this.$route.query.coupon) {
+      setTimeout(() => {
+        this.openCoupon();
+      },200)
+    }
   }
 };
 </script>

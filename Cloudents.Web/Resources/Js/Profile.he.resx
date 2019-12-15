@@ -240,9 +240,6 @@
   <data name="tutor_sidebar_title" xml:space="preserve">
     <value>ספר לי מה אתה צריך ואשמח לעזור לך</value>
   </data>
-  <data name="user_name_label" xml:space="preserve">
-    <value>שם משתמש</value>
-  </data>
   <data name="user_sidebar_text" xml:space="preserve">
     <value>עזור לאחרים באמצעות הידע שלך</value>
   </data>

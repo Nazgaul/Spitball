@@ -12,7 +12,10 @@ const getters = {
 
 const mutations = {
     setCouponError: (state, error) => state.couponError = error,
-    setCouponDialog: (state, val) => state.couponDialog = val,
+    setCouponDialog(state, val){ 
+        state.couponDialog = val
+        state.couponError = false
+    }
 };
 
 const actions = {

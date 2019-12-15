@@ -14,4 +14,14 @@ namespace Cloudents.Core.Event
         public Transaction Transaction { get; }
         public User User { get; }
     }
+
+    public class LeadEvent : IEvent
+    {
+        public LeadEvent(Lead lead)
+        {
+            Lead = lead;
+        }
+
+        public Lead Lead { get;}
+    }
 }

@@ -113,7 +113,7 @@
                 :showDialog="showReportReasons"
                 :maxWidth="'438px'"
                 :popUpType="'reportDialog'"
-                :content-class="`reportDialog ${isRtl? 'rtl': ''}` ">
+                :content-class="`reportDialog ` ">
             <report-item :closeReport="closeReportDialog" :itemType="'Question'" :itemId="itemId"></report-item>
         </sb-dialog>
     </div>

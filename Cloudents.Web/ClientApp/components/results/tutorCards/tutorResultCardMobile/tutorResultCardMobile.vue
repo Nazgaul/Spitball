@@ -1,13 +1,13 @@
 <template>
   <router-link class="tutor-result-card-mobile justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
-      <div class="card-mobile-header mb-2">
+      <div class="card-mobile-header">
           <user-avatar-rect
             :userName="tutorData.name"
             :userImageUrl="tutorData.image"
             class="mr-2"
             :userId="tutorData.userId"
             :width="102"
-            :height="108"
+            :height="116"
             :fontSize="24"
             :borderRadius="4"
           />
@@ -15,7 +15,11 @@
               <h3 class="text-truncate body-2 font-weight-bold" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
               <template>
-                  <div class="user-rate mb-2 align-center" v-if="tutorData.reviews > 0">
+                <h4 class="text-truncate university mt-1 font-weight-light" v-if="tutorData.university">{{tutorData.university}}</h4>
+              </template>
+
+              <template>
+                  <div class="user-rate align-center" v-if="tutorData.reviews > 0">
                     <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="mr-2" />
                     <span class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
                   </div>
@@ -24,19 +28,42 @@
                     <span class="reviews" v-html="$Ph(`resultTutor_collecting_review`, reviewsPlaceHolder(tutorData.reviews))"></span>
                   </div>
               </template>
+
+              <div class="price align-center">
+                  <div class="price_oneline">
+                      <template>
+                          <span v-if="isDiscount" class="price_oneline--count font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
+                          <span v-else class="price_oneline--count font-weight-bold">{{tutorData.price | currencyFormat(tutorData.currency)}}</span>
+                          <span>/</span>
+                      </template>
+                      <span class="caption" v-language:inner="'resultTutor_hour'"></span>
+                  </div>
+                  <div class="striked ml-3" v-if="isDiscount">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
+              </div>
+
+              <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
               
-              <div class="courses text-truncate">
+              <!-- DO NOT REMOVE THIS WAITING SHIRAN -->
+              <!-- <div class="courses text-truncate">
                   <div class="" v-language:inner="'resultTutor_courses'"></div>
                   <div class="text-truncate">{{courses}}</div>
-              </div>
-              <template>
+              </div>  -->
+
+              <!-- <template>
                 <h4 class="text-truncate mb-1 university font-weight-light" v-if="isUniversity" v-html="$Ph('resultNote_university',[tutorData.university])"/>
                 <h4 class="text-truncate mb-1 university" v-else></h4>
-              </template> 
+              </template>  -->
+
           </div>
       </div>
 
       <div class="card-mobile-center">{{tutorData.bio}}</div>
+
+      <!-- DO NOT REMOVE THIS WAITING SHIRAN -->
+      <div class="courses text-truncate">
+          <div class="courses-title" v-language:inner="'resultTutor_courses'"></div>
+          <div class="text-truncate">{{courses}}</div>
+      </div> 
 
       <div class="card-mobile-footer">
           <v-btn class="btn-chat white--text text-truncate my-0" depressed rounded block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
@@ -144,6 +171,9 @@ export default {
       }
       return name;
     },
+    isDiscount() {
+      return this.tutorData.discountPrice !== undefined;
+    }
   }
 };
 </script>
@@ -168,7 +198,7 @@ export default {
         }
         .user-rate {
             display: inline-flex;
-            margin-top: 5px;
+            margin-top: 6px;
             .reviews {
                 font-size: 12px;
                 letter-spacing: normal;
@@ -186,12 +216,49 @@ export default {
         }
         .university {
           font-size: 12px;
-          line-height: 30px;
-          .heightMinMax(23px);
+
+          &.no-field {
+            .heightMinMax(16px);
+          }
+        }
+        .price {
+          display: flex;
+          align-items: flex-end;
+          flex: .5;
+          margin: 4px 0 1px 0;
+          .price_oneline {
+            display: flex;
+            align-items: flex-end;
+            color: #5158af;
+
+            &--count {
+              font-size: 20px;
+            }
+          }
+          .striked {
+            max-width: max-content;
+            position: relative;
+            color: #a0a4be;
+            &:after {
+                content: "";
+                width: 120%;
+                border-bottom: solid 1px #a0a4be;
+                position: absolute;
+                left: -2px;
+                top: 50%;
+                z-index: 1;
+            }
+          }
+       }
+       .applyCoupon {
+          color: #4c59ff;
+          font-weight: 600;
+          font-size: 12px;
+          margin-top: 6px;
         }
     }
     .card-mobile-center {
-      margin-bottom: 12px;
+      margin: 10px 0;
       .giveMeEllipsis(2,20px);
     }
     .card-mobile-footer {
@@ -200,9 +267,10 @@ export default {
           font-weight: 600;
           .v-btn__content{
             .chat-icon-btn{
-              position: absolute;
-              top: 0;
-              left: 0;
+              // position: absolute;
+              // top: 0;
+              // left: 0;
+              align-self: flex-end;
             }
             :last-child {
               margin-bottom: 2px;
@@ -213,35 +281,18 @@ export default {
           border-radius: 7.5px;
           div {
             div {
-              padding-left: 22px;
+              padding-left: 10px;
             }
           }
         }
-        .price {
-          align-self: flex-end;
-          flex: .5;
-          .price_oneline {
-            display: flex;
-            align-items: flex-end;
-            color: #5158af;
-          }
-          .striked {
-              max-width: max-content;
-              position: relative;
-              color: @colorBlackNew;
-              font-size: 12px;
-              font-weight: normal;
-              &:after {
-                  content: "";
-                  width: 100%;
-                  border-bottom: solid 1px @colorBlackNew;
-                  position: absolute;
-                  left: 0;
-                  top: 50%;
-                  z-index: 1;
-              }
-          }
-       }
+    }
+    .courses {
+      display: flex;
+      font-size: 12px;
+      margin-bottom: 10px;
+      &-title {
+        margin-right: 4px;
+      }
     }
 }
 </style>

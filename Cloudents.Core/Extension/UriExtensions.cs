@@ -27,16 +27,16 @@ namespace Cloudents.Core.Extension
             return uriBuilder.Uri;
         }
 
-        public static string GetUriDomain(this Uri value)
-        {
-            var host = value.Host;
-            var lastDot = host.LastIndexOf('.');
+        //public static string GetUriDomain(this Uri value)
+        //{
+        //    var host = value.Host;
+        //    var lastDot = host.LastIndexOf('.');
 
-            var secondToLastDot = host.Substring(0, lastDot).LastIndexOf('.');
+        //    var secondToLastDot = host.Substring(0, lastDot).LastIndexOf('.');
 
-            if (secondToLastDot > -1)
-                return host.Substring(secondToLastDot + 1);
-            return host;
-        }
+        //    if (secondToLastDot > -1)
+        //        return host.Substring(secondToLastDot + 1);
+        //    return host;
+        //}
     }
 }

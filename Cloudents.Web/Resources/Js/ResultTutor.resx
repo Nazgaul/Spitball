@@ -151,12 +151,6 @@
   <data name="private_tutor" xml:space="preserve">
     <value>Tutor {1}</value>
   </data>
-  <data name="read_more" xml:space="preserve">
-    <value>Read more</value>
-  </data>
-  <data name="subtitle" xml:space="preserve">
-    <value>Tutor</value>
-  </data>
   <data name="title" xml:space="preserve">
     <value>Tutors</value>
   </data>
@@ -178,5 +172,8 @@
   </data>
   <data name="collecting_review" xml:space="preserve">
     <value>Collecting reviews</value>
+  </data>
+  <data name="apply_coupon" xml:space="preserve">
+    <value>Apply Coupon</value>
   </data>
 </root>

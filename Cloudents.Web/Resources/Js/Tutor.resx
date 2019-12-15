@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="browser_not" xml:space="preserve">
+    <value>Browser not supported</value>
+  </data>
   <data name="btn_accept_and_start" xml:space="preserve">
     <value>Accept and Start</value>
   </data>
@@ -141,11 +144,17 @@
   <data name="chrome_ext_title" xml:space="preserve">
     <value>Chrome Extension Installation</value>
   </data>
+  <data name="clearAll_warning_text" xml:space="preserve">
+    <value>This action cannot be undone, are you sure you want to clear the canvas?</value>
+  </data>
   <data name="close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="end_session" xml:space="preserve">
+    <value>Finished the session?</value>
+  </data>
   <data name="entered_room" xml:space="preserve">
-    <value>is waiting for session to start</value>
+    <value />
   </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>Canvas</value>
@@ -156,15 +165,15 @@
   <data name="nav_text" xml:space="preserve">
     <value>Text Editor</value>
   </data>
+  <data name="not_supported" xml:space="preserve">
+    <value>Study Room currently not supported by Mobile.
+Try connecting from a computer browser</value>
+  </data>
   <data name="option_fullBoard" xml:space="preserve">
     <value>Full Board</value>
   </data>
   <data name="option_videoChat" xml:space="preserve">
     <value>Video &amp; Chat</value>
-  </data>
-  <data name="not_supported" xml:space="preserve">
-    <value>Study Room currently not supported by Mobile.
-Try connecting from a computer browser</value>
   </data>
   <data name="option_videoFull" xml:space="preserve">
     <value>Full Video</value>
@@ -188,10 +197,10 @@ Try connecting from a computer browser</value>
     <value>Done</value>
   </data>
   <data name="start_dialog_your_student" xml:space="preserve">
-    <value>Your student</value>
+    <value>Your student is</value>
   </data>
   <data name="start_dialog_your_tutor" xml:space="preserve">
-    <value>Your tutor</value>
+    <value>Your tutor is</value>
   </data>
   <data name="start_to_share" xml:space="preserve">
     <value>Available while session is active</value>
@@ -205,13 +214,34 @@ Try connecting from a computer browser</value>
   <data name="stream_btn_join_session" xml:space="preserve">
     <value>Join Session</value>
   </data>
+  <data name="stream_btn_needPayment_student" xml:space="preserve">
+    <value>Add payment details</value>
+  </data>
+  <data name="stream_btn_needPayment_tutor" xml:space="preserve">
+    <value>Waiting for student</value>
+  </data>
   <data name="stream_btn_pending_tutor" xml:space="preserve">
-    <value>Waiting for student to enter payment details</value>
+    <value>Waiting for student</value>
   </data>
   <data name="stream_btn_start_session" xml:space="preserve">
     <value>Start Session</value>
   </data>
+  <data name="stream_btn_start_session_student" xml:space="preserve">
+    <value>Join Session</value>
+  </data>
+  <data name="stream_btn_start_student" xml:space="preserve">
+    <value>Start Session</value>
+  </data>
+  <data name="stream_btn_start_tutor" xml:space="preserve">
+    <value>Start Session</value>
+  </data>
   <data name="stream_btn_waiting" xml:space="preserve">
+    <value>Waiting for student</value>
+  </data>
+  <data name="stream_btn_waiting_student" xml:space="preserve">
+    <value>Waiting for Tutor</value>
+  </data>
+  <data name="stream_btn_waiting_tutor" xml:space="preserve">
     <value>Waiting for student</value>
   </data>
   <data name="tab" xml:space="preserve">
@@ -220,14 +250,38 @@ Try connecting from a computer browser</value>
   <data name="tooltip_circle" xml:space="preserve">
     <value>Circle</value>
   </data>
+  <data name="tooltip_clearAll" xml:space="preserve">
+    <value>Clear All</value>
+  </data>
+  <data name="tooltip_code_langauge" xml:space="preserve">
+    <value>Choose Languages</value>
+  </data>
+  <data name="tooltip_code_theme" xml:space="preserve">
+    <value>Choose Theme</value>
+  </data>
+  <data name="tooltip_code_theme_switch" xml:space="preserve">
+    <value>Light Theme</value>
+  </data>
   <data name="tooltip_color" xml:space="preserve">
     <value>Color Picker</value>
   </data>
   <data name="tooltip_equation" xml:space="preserve">
     <value>Equation</value>
   </data>
+  <data name="tooltip_eraser" xml:space="preserve">
+    <value>Eraser</value>
+  </data>
+  <data name="tooltip_iink" xml:space="preserve">
+    <value>Handwriting</value>
+  </data>
   <data name="tooltip_line" xml:space="preserve">
     <value>Line</value>
+  </data>
+  <data name="tooltip_mic_mute" xml:space="preserve">
+    <value>Mute</value>
+  </data>
+  <data name="tooltip_mic_unmute" xml:space="preserve">
+    <value>Unmute</value>
   </data>
   <data name="tooltip_pan" xml:space="preserve">
     <value>Pan</value>
@@ -250,43 +304,41 @@ Try connecting from a computer browser</value>
   <data name="tooltip_upload" xml:space="preserve">
     <value>Upload Image</value>
   </data>
-  <data name="end_session" xml:space="preserve">
-    <value>Finished the session?</value>
-  </data>
-  <data name="tooltip_eraser" xml:space="preserve">
-    <value>Eraser</value>
-  </data>
-  <data name="clearAll_warning_text" xml:space="preserve">
-    <value>This action cannot be undone, are you sure you want to clear the canvas?</value>
-  </data>
-  <data name="tooltip_clearAll" xml:space="preserve">
-    <value>Clear All</value>
-  </data>
-  <data name="tooltip_mic_mute" xml:space="preserve">
-    <value>Mute</value>
-  </data>
-  <data name="tooltip_mic_unmute" xml:space="preserve">
-    <value>Unmute</value>
-  </data>
   <data name="tooltip_video_pause" xml:space="preserve">
     <value>Pause</value>
   </data>
   <data name="tooltip_video_resume" xml:space="preserve">
     <value>Resume</value>
   </data>
-  <data name="tooltip_code_langauge" xml:space="preserve">
-    <value>Choose Languages</value>
+  <data name="ewar-continue-without-audio" xml:space="preserve">
+    <value>Continue without audio</value>
   </data>
-  <data name="tooltip_code_theme" xml:space="preserve">
-    <value>Choose Theme</value>
+  <data name="ewar-continue-without-recording" xml:space="preserve">
+    <value>Are you sure you want to continue without
+Voice Recording?</value>
   </data>
-  <data name="tooltip_code_theme_switch" xml:space="preserve">
-    <value>Light Theme</value>
+  <data name="ewar-try-again" xml:space="preserve">
+    <value>Try Again</value>
   </data>
-  <data name="browser_not" xml:space="preserve">
-    <value>Browser not supported</value>
+  <data name="can_be_recorded" xml:space="preserve">
+    <value>note: You can be recorded</value>
   </data>
-  <data name="tooltip_iink" xml:space="preserve">
-    <value>Handwriting</value>
+  <data name="start_dialog_session_time" xml:space="preserve">
+    <value>session duration:</value>
+  </data>
+  <data name="stream_btn_disconnected_student" xml:space="preserve">
+    <value>session was disconnected please wait while we are trying to recconect</value>
+  </data>
+  <data name="stream_btn_disconnected_tutor" xml:space="preserve">
+    <value>session was disconnected please wait while we are trying to recconect</value>
+  </data>
+  <data name="stream_btn_finished_student" xml:space="preserve">
+    <value>session ended</value>
+  </data>
+  <data name="stream_btn_finished_tutor" xml:space="preserve">
+    <value>session ended</value>
+  </data>
+  <data name="waiting_in_studyRoom" xml:space="preserve">
+    <value>is waiting for you at the study room</value>
   </data>
 </root>

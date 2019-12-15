@@ -27,7 +27,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Exceptions;
-using FluentNHibernate.Utils;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
@@ -241,7 +240,7 @@ namespace Cloudents.Web.Api
 
         [HttpPost("coupon")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), Status400BadRequest)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> ApplyCoupon(ApplyCouponRequest model, CancellationToken token)
         {
@@ -264,6 +263,15 @@ namespace Cloudents.Web.Api
                 return BadRequest("This coupon already in use");
 
             }
+        }
+
+        [HttpGet("recording")]
+        public async Task<IEnumerable<SessionRecordingDto>> GetSessionRecordingAsync(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new SessionRecordingQuery(userId);
+            
+            return await _queryBus.QueryAsync(query, token);
         }
 
     }

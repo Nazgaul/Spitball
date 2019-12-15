@@ -4,12 +4,14 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Query;
 using Cloudents.Query.HomePage;
+using Cloudents.Query.Query;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -59,6 +61,18 @@ namespace Cloudents.Web.Api
             return retValTask;
         }
 
+        /// <summary>
+        /// Get banner for home page
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpGet("banner")]
+        public async Task<BannerDto> GetTopBannerAsync(CancellationToken token)
+        {
+            var query = new GetBannerQuery(CultureInfo.CurrentCulture);
+            var retValTask = await _queryBus.QueryAsync(query, token);
+            return retValTask;
+        }
 
         /// <summary>
         /// Get tutor reviews for home page

@@ -34,4 +34,20 @@ namespace Cloudents.Core.EventHandler
             }
         }
     }
+
+    public class LeadEventHandler : IEventHandler<LeadEvent>
+    {
+        private readonly IQueueProvider _queueProvider;
+
+        public LeadEventHandler(IQueueProvider queueProvider)
+        {
+            _queueProvider = queueProvider;
+        }
+
+        public async Task HandleAsync(LeadEvent eventMessage, CancellationToken token)
+        {
+            var message = new RequestTutorMessage(eventMessage.Lead.Id);
+            await _queueProvider.InsertMessageAsync(message, token);
+        }
+    }
 }

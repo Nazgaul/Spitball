@@ -41,6 +41,7 @@ const allModules = [
     "vuetify/es5/components/VTooltip",
     "vuetify/es5/components/VMenu",
     "vuetify/es5/components/VSwitch",
+    "vuetify/es5/components/VSystemBar",
     "vuetify/es5/components/VTabs",
     "vuetify/es5/directives/scroll",
     "vuetify/es5/components/VIcon",

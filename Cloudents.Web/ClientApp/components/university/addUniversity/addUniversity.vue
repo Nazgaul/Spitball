@@ -9,14 +9,14 @@
 
             </v-flex>
             <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn rounded class="elevation-0 done-btn mx-2 py-1 font-weight-bold my-0" @click="getOut()">
+                <v-btn rounded class="elevation-0 done-btn mx-2 py-1 font-weight-bold my-0" @click="getOut()" sel="uni_done">
                     <span class="text-capitalize" v-language:inner>university_not_student_btn</span>
                 </v-btn>
             </v-flex>
         </v-layout>
         <v-layout column :class="{'px-3' : $vuetify.breakpoint.smAndUp}">
             <v-flex>
-                <v-text-field id="university-input"
+                <v-text-field sel="uni_input" id="university-input"
                               v-model="university"
                               @input="updateSearch($event)"
                               class="uni-input"
@@ -92,7 +92,6 @@
                 search: '',
                 schoolNamePlaceholder: LanguageService.getValueByKey('university_create_uni_placeholder'),
                 globalHeight: global.innerHeight,
-                isRtl: global.isRtl
             };
         },
         watch: {

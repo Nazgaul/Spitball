@@ -40,6 +40,7 @@ namespace Cloudents.Core.Storage
         Task<bool> ExistsAsync(string blobName, CancellationToken token);
 
         Task DeleteDirectoryAsync(string id, CancellationToken token);
+        Task UndeleteDirectoryAsync(string id, CancellationToken token);
     }
 
     public interface IDocumentDirectoryBlobProvider : IBlobProvider
@@ -47,11 +48,6 @@ namespace Cloudents.Core.Storage
         Uri GetPreviewImageLink(long id, int i);
         Task<string> DownloadTextAsync(string name, string directory, CancellationToken token);
     }
-
-    //public interface IQuestionsDirectoryBlobProvider : IBlobProvider
-    //{
-
-    //}
 
     public interface IUserDirectoryBlobProvider : IBlobProvider
     {
@@ -61,6 +57,13 @@ namespace Cloudents.Core.Storage
 
     public interface IChatDirectoryBlobProvider : IBlobProvider
     {
+
+    }
+
+    public interface IStudyRoomSessionBlobProvider : IBlobProvider
+    {
+        Task UploadVideoAsync(Guid roomId, string sessionId, Stream stream, CancellationToken token);
+        Uri DownloadVideoLink(Guid roomId, string sessionId);
 
     }
 

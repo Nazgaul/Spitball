@@ -10,11 +10,11 @@
             </div>
         </div>
         <div class="navigation-btns-calendar">
-          <v-btn :disabled="isGoPrev" small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.prev()">
+          <v-btn :disabled="isGoPrev" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.prev()">
             <v-icon>sbf-arrow-left-carousel</v-icon>
           </v-btn>
           <span class="title-calendar">{{calendarMonth}}</span>
-          <v-btn :disabled="isGoNext" small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.next()">
+          <v-btn :disabled="isGoNext" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.next()">
             <v-icon dark>sbf-arrow-right-carousel</v-icon>
           </v-btn>
         </div>
@@ -88,7 +88,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import paymentDialog from '../tutor/tutorHelpers/paymentDIalog/paymentDIalog.vue'
+import paymentDialog from '../studyroom/tutorHelpers/paymentDIalog/paymentDIalog.vue'
 import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
 import {LanguageService} from '../../services/language/languageService.js'
 import Schedule from './images/schedule.svg'
@@ -119,7 +119,7 @@ export default {
     computed: {
         ...mapGetters(['getIntervalFirst','getCalendarType','getCalendarEvents','getProfile','accountUser','getNeedPayment']),
         tutorName(){
-          return this.getProfile.user.tutorData.firstName.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+          return this.getProfile.user.firstName.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
         },
         calendarType(){
             return this.getCalendarType
@@ -180,7 +180,8 @@ export default {
         return this.$vuetify.breakpoint.xsOnly;
       },
       isNeedPayment(){
-        let price = this.getProfile.user.tutorData.price.slice(1, this.getProfile.user.tutorData.price.length);        
+        let price = this.getProfile.user.tutorData.price + ''
+        price.slice(1, this.getProfile.user.tutorData.price.length);        
         return this.getNeedPayment && Number(price) > 0;
       },
       isSelfTutor() {
@@ -347,16 +348,16 @@ export default {
       }
     }
     .v-btn{
+      transform: none /*rtl:rotate(180deg)*/ ;
       min-width: auto !important;
       width: 40px;
       height: 30px;
+      border-radius: 3px;
       @media (max-width: @screen-xs) {
         width: 34px;
         height: 28px;
         margin: 0;
       }
-
-      border-radius: 3px;
       .v-btn__content{
         .v-icon{
           font-size: 18px;
@@ -364,9 +365,6 @@ export default {
       }
 
     }
-      .rtl{
-        transform: rotate(180deg);
-      }
   }
 
 .v-sheet{

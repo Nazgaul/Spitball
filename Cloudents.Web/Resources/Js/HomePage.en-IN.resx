@@ -145,6 +145,9 @@
     <value>Inviting Teachers</value>
     <comment>Inviting Teachers</comment>
   </data>
+  <data name="hd_search" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="hd_subtitle" xml:space="preserve">
     <value>Get better at studies! Access teachers and experts online to help you with difficulties, preparations, homework and more!</value>
     <comment>Get better at studies! Access teachers and experts online to help you with difficulties, preparations, homework and more!</comment>
@@ -152,12 +155,6 @@
   <data name="hd_title" xml:space="preserve">
     <value>Study smarter, go digital with Frymo</value>
     <comment>Study smarter, go digital with Frymo</comment>
-  </data>
-  <data name="Testimonial1" xml:space="preserve">
-    <value>Love it all!!! Frymo's the best. It's the most helpful site out there.</value>
-  </data>
-  <data name="Testimonial3" xml:space="preserve">
-    <value>I found myself looking for a new way to communicate and study with my classmates. Frymo. It's genius!</value>
   </data>
   <data name="tss_title" xml:space="preserve">
     <value>Testimonial from Students</value>

@@ -29,6 +29,7 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<BinarySerializer>().As<IBinarySerializer>();
             builder.RegisterType<SbJsonSerializer>().As<IJsonSerializer>();
             builder.RegisterType<MailProvider>().As<IMailProvider>();
+            builder.RegisterType<CognitiveService>().As<ICognitiveService>().SingleInstance();
             builder.RegisterType<TwilioProvider>().AsSelf().As<ISmsProvider>().As<IVideoProvider>().SingleInstance();
             builder.RegisterType<CountryProvider>().As<ICountryProvider>();
         }

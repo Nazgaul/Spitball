@@ -148,12 +148,6 @@
                 type: Boolean,
                 required: false
             },
-            userReferralLink: {
-                type: String,
-                // http://www.spitball.co/" +"?referral=" + Base62.encode(this.accountUser().id) + "&promo=referral
-                default: "",
-                required: false
-            },
             refLinkArr: {
                 type: Array,
                 required: false
@@ -173,13 +167,16 @@
             },
             onclosefn: {
                 required: false,
-                type: Function
             }
         },
         computed: {
-            ...mapGetters(['usersReffered', 'getSchoolName', 'accountUser']),
+            ...mapGetters(['isFrymo','usersReffered', 'getSchoolName', 'accountUser']),
             isUploadReferral() {
                 return this.referralType === 'uploadReffer';
+            },
+            userReferralLink() {
+            let site = this.isFrymo ? 'frymo.com' : 'spitball.co';
+            return `http://www.${site}/?referral=${Base62.encode(this.accountUser.id)}&promo=referral`;
             }
 
         },

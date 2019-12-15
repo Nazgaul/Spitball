@@ -32,7 +32,7 @@ function ConnectionQue(connection, message, data) {
 function messageHandler(message) {
     //Todo create Notification Object
     let notificationObj = new Notification(message);
-    console.log(message);
+    // console.log(message);
 
     //Todo fire signlaREvents correct event
     if (!signlaREvents[notificationObj.type]) {

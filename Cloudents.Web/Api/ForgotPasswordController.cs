@@ -57,6 +57,12 @@ namespace Cloudents.Web.Api
             var phoneConfirmed = await _userManager.IsPhoneNumberConfirmedAsync(user);
             var userLockedOut = await _userManager.GetLockoutEndDateAsync(user) ?? DateTimeOffset.MinValue;
 
+            if (phoneConfirmed && !emailConfirmed)
+            {
+                await GenerateEmailAsync(user, token);
+                return Ok();
+            }
+
             if (!emailConfirmed || !phoneConfirmed || userLockedOut == DateTimeOffset.MaxValue)
             {
                 ModelState.AddModelError("ForgotPassword", _localizer["UserDoesntExists"]);
@@ -121,6 +127,8 @@ namespace Cloudents.Web.Api
                 // Don't reveal that the user does not exist
                 return BadRequest();
             }
+
+            user.EmailConfirmed = true;
 
             code = System.Net.WebUtility.UrlDecode(code);
 

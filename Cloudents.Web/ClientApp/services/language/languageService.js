@@ -32,7 +32,7 @@ const LanguageChange = {
 };
 
 const GetDictionary = (type) => {
-    let dictionaryType = `?v=${global.version}&l=${global.lang}-${global.country}`;
+    let dictionaryType = `?v=${global.version}&culture=${global.lang}-${global.country}`;
     if(!!type){
         //version is for anti caching ability
         dictionaryType += `&resource=${type}`;

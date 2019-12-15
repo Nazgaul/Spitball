@@ -4,6 +4,7 @@ using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Specialized;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core
 {
@@ -12,9 +13,11 @@ namespace Cloudents.Core
     {
         private readonly Uri _webSiteEndPoint;
         private readonly Uri _functionEndPoint;
+        private readonly Uri _indiaWebSiteEndpoint;
 
         public UrlConst(IConfigurationKeys configuration)
         {
+            
             var siteEndPoints = configuration.SiteEndPoint;
             if (siteEndPoints.SpitballSite != null)
             {
@@ -24,6 +27,12 @@ namespace Cloudents.Core
             {
                 _functionEndPoint = new Uri(siteEndPoints.FunctionSite.TrimEnd('/'));
             }
+
+            if (siteEndPoints.IndiaSite != null)
+            {
+                _indiaWebSiteEndpoint = new Uri(siteEndPoints.IndiaSite.TrimEnd('/')); ;
+            }
+
 
         }
 
@@ -75,9 +84,26 @@ namespace Cloudents.Core
             return builder.Uri;
         }
 
-        public Uri BuildShortUrlEndpoint(string identifier)
+        public Uri BuildShortUrlEndpoint(string identifier, string country)
+        {
+            var nvc = new NameValueCollection();
+            var webSiteEndpoint = _webSiteEndPoint;
+            if (country?.Equals("IN", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                webSiteEndpoint = _indiaWebSiteEndpoint;
+            }
+
+            var builder = new UriBuilder(webSiteEndpoint) { Path = $"go/{identifier}" };
+            builder.AddQuery(nvc);
+            return builder.Uri;
+        }
+
+       
+
+        public Uri BuildShortUrlEndpoint(string identifier,  object parameters = null)
         {
             var builder = new UriBuilder(_webSiteEndPoint) { Path = $"go/{identifier}" };
+            builder.AddQuery(parameters);
             return builder.Uri;
         }
 

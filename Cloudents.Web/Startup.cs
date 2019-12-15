@@ -36,6 +36,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using Cloudents.Web.Seo;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -209,7 +210,7 @@ namespace Cloudents.Web
             {
                 SiteEndPoint = { SpitballSite = Configuration["Site"], FunctionSite = Configuration["functionCdnEndpoint"] },
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"),
-                    Configuration["Redis"], DbConnectionString.DataBaseIntegration.Update)
+                    Configuration["Redis"], DbConnectionString.DataBaseIntegration.Validate)
                ,
                 Redis = Configuration["Redis"],
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
@@ -240,6 +241,8 @@ namespace Cloudents.Web
             containerBuilder.RegisterType<SeoQuestionBuilder>()
                 .Keyed<IBuildSeo>(SeoType.Question);
 
+            containerBuilder.RegisterType<SeoCourseTutorBuilder>()
+                .Keyed<IBuildSeo>(SeoType.TutorList);
 
             containerBuilder.RegisterType<VideoServiceGenerator>()
                 .Keyed<IDocumentGenerator>(DocumentType.Video);
@@ -299,6 +302,7 @@ namespace Cloudents.Web
                 o.RequestCultureProviders.Add(new QueryStringRequestCultureProvider());
                 o.RequestCultureProviders.Add(new CookieRequestCultureProvider());
                 o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
+                o.RequestCultureProviders.Add(new CountryCultureProvider());
                 o.RequestCultureProviders.Add(new AcceptLanguageHeaderRequestCultureProvider());
 
             });
@@ -356,8 +360,8 @@ namespace Cloudents.Web
                 );
 
                 //routes.MapRoute(
-                //    name: SeoTypeString.Tutor,
-                //    template: "profile/{id:long}/{name:string}",
+                //    name: SeoTypeString.TutorList,
+                //    template: "tutor-list/{id}",
                 //    defaults: new { controller = "Home", action = "Index" }
                 //);
                 routes.MapRoute(

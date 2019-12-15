@@ -5,25 +5,28 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class User : BaseUser
     {
-        public User(string email, string firstName, string lastName, Language language) : this()
+        public User(string email, string firstName, string lastName,
+            Language language, string country) : this()
         {
             Email = email;
             ChangeName(firstName, lastName);
             TwoFactorEnabled = true;
             Language = language;
             Created = DateTime.UtcNow;
+            Country = country;
         }
 
-        public User(string email, Language language) : this(email, null, null, language)
-        {
+        //public User(string email, Language language) : this(email, null, null, language)
+        //{
 
-        }
+        //}
 
         protected User()
         {
@@ -90,6 +93,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             userCoupon.UsedAmount++;
+            AddEvent(new UseCouponEvent(userCoupon));
         }
 
         public virtual void ApplyCoupon(Coupon coupon, Tutor tutor)
@@ -106,6 +110,7 @@ namespace Cloudents.Core.Entities
                 {
                     throw new DuplicateRowException();
                 }
+                AddEvent(new ApplyCouponEvent(p));
                 //{
                 //    _userCoupon.Remove(p);
                 //    _userCoupon.Add(p);
@@ -123,6 +128,33 @@ namespace Cloudents.Core.Entities
             //}
             
         }
+
+        public virtual void ChangeCountry(string country)
+        {
+
+            if (Country?.Equals(country) == true)
+            {
+                return;
+            }
+            Country = country;
+            University = null;
+            AddEvent(new ChangeCountryEvent(Id));
+        }
+
+
+        public virtual void ChangeCountryAdmin(string country)
+        {
+
+            if (Country?.Equals(country) == true)
+            {
+                return;
+            }
+            Country = country;
+            University = null;
+            ChangeLanguage(Entities.Language.English);
+            AddEvent(new ChangeCountryEvent(Id));
+        }
+
 
         public virtual void RemoveCourse(Course course)
         {
@@ -211,7 +243,7 @@ namespace Cloudents.Core.Entities
             LastName = null;
         }
 
-        public virtual void ChangeName(string firstName, string lastName)
+        public virtual void ChangeName(string firstName, [CanBeNull] string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -251,9 +283,10 @@ namespace Cloudents.Core.Entities
             Transactions.UpdateBalance(balance, score);
         }
 
-        public virtual void UpdateImage(string image)
+        public virtual void UpdateUserImage(string image, string imageName)
         {
             Image = image;
+            ImageName = imageName;
             AddEvent(new UpdateImageEvent(Id));
         }
 

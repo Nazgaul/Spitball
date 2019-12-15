@@ -59,11 +59,8 @@
         methods: {
             ...mapActions([
                               "updateLoginDialogState",
-                              'updateNewQuestionDialogState',
                               'updateDialogState',
                               'changeSelectPopUpUniState',
-                              'updateCurrentStep',
-                              'changeSelectUniState',
                               'setReturnToUpload'
                           ]),
             ...mapGetters(['getSchoolName', 'getAllSteps']),
@@ -76,8 +73,6 @@
                     this.$router.push({name: 'addUniversity'});
                     this.setReturnToUpload(true);
                 } else if(!this.getSelectedClasses.length) {
-                    // this.updateCurrentStep(steps.set_class);
-                    // this.changeSelectUniState(true);
                     this.$router.push({name: 'addCourse'});
                     this.setReturnToUpload(true);
                 } else if(schoolName.length > 0 && this.getSelectedClasses.length > 0) {

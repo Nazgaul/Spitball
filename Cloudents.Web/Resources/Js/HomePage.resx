@@ -153,33 +153,6 @@
   <data name="is_title" xml:space="preserve">
     <value>Students are Viewing</value>
   </data>
-  <data name="Testimonial1" xml:space="preserve">
-    <value>Love it all!!! Spitball's the best. It's the most helpful site out there.</value>
-  </data>
-  <data name="Testimonial1Person" xml:space="preserve">
-    <value>Hannah Newman</value>
-  </data>
-  <data name="Testimonial1Title" xml:space="preserve">
-    <value>Arizona State University</value>
-  </data>
-  <data name="Testimonial2" xml:space="preserve">
-    <value>What an amazing site! The setup is so user-friendly and there are tons of effective and up-to-date resources.</value>
-  </data>
-  <data name="Testimonial2Person" xml:space="preserve">
-    <value>Daniel Kaplan</value>
-  </data>
-  <data name="Testimonial2Title" xml:space="preserve">
-    <value>University of Washington</value>
-  </data>
-  <data name="Testimonial3" xml:space="preserve">
-    <value>I found myself looking for a new way to communicate and study with my classmates. Spitball. It's genius!</value>
-  </data>
-  <data name="Testimonial3Person" xml:space="preserve">
-    <value>Ron Sawyer</value>
-  </data>
-  <data name="Testimonial3Title" xml:space="preserve">
-    <value>Sophomore at UC Davis</value>
-  </data>
   <data name="tss_subtitle" xml:space="preserve">
     <value>Testimonials</value>
   </data>
@@ -193,7 +166,7 @@
     <value>Popular Tutors</value>
   </data>
   <data name="hd_search_ph" xml:space="preserve">
-    <value>Try “Math teacher”</value>
+    <value>Try “Mathematics”</value>
   </data>
   <data name="hd_stats_docs" xml:space="preserve">
     <value>Study resources</value>

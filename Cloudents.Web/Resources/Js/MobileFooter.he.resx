@@ -117,13 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="action_earners" xml:space="preserve">
-    <value>מורים פרטיים</value>
-  </data>
-  <data name="action_feed" xml:space="preserve">
-    <value>פיד</value>
-  </data>
-  <data name="action_promotion" xml:space="preserve">
+  <data name="btn_chat" xml:space="preserve">
     <value>הודעות</value>
+  </data>
+  <data name="btn_home" xml:space="preserve">
+    <value>דף הבית</value>
+  </data>
+  <data name="btn_profile" xml:space="preserve">
+    <value>פרופיל</value>
+  </data>
+  <data name="btn_tutors" xml:space="preserve">
+    <value>מורים</value>
+  </data>
+  <data name="btn_upload" xml:space="preserve">
+    <value>העלאה</value>
   </data>
 </root>

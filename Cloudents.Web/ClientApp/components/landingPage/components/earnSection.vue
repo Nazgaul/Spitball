@@ -3,7 +3,7 @@
         <div class="earnImg">
             <div class="earn-title" v-language:inner="'homePage_earn_title'"/>
             <div class="earn-subtitle" v-language:inner="'homePage_earn_subtitle'"/>
-            <v-btn tag="a" href="https://help.spitball.co/en/article/making-your-profile" depressed class="btn-earn" rounded color="#4c59ff">
+            <v-btn tag="a" :href="href" depressed class="btn-earn" rounded color="#4c59ff">
                 <span v-language:inner="'homePage_btn_earn'"/>
             </v-btn>
         </div>
@@ -11,8 +11,19 @@
 </template>
 
 <script>
-export default {
+import { mapGetters } from 'vuex';
 
+export default {
+    computed: {
+        ...mapGetters(['isFrymo']),
+
+        href() {
+            if(this.isFrymo) {
+                return 'https://help.frymo.com/en/article/making-your-teacher-profile';
+            }
+            return 'https://help.spitball.co/en/article/making-your-profile';
+        }
+    }
 }
 </script>
 
@@ -29,7 +40,8 @@ export default {
         width: 100%;
         height: 317px;
         @media (max-width: @screen-xs) {
-            height: 255px;
+            height: unset;
+            padding: 15px 0;
         }
         background-image: url('../images/earn.png');
         background-repeat: no-repeat;
@@ -66,6 +78,7 @@ export default {
         .btn-earn{
             @media (max-width: @screen-xs) {
                 height: 42px;
+                padding: 20px;
             }
             font-size: 18px;
             font-weight: 600;

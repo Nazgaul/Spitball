@@ -6,7 +6,7 @@ namespace Cloudents.Admin2.Models
     {
         [Range(1,long.MaxValue)]
         public long TutorId { get; set; }
-        [Range(1,50000)]
+        [Range(0,50000)]
         public decimal Price { get; set; }
     }
 }

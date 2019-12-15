@@ -17,17 +17,16 @@ namespace Cloudents.FunctionsV2.Test
 {
     public class RedeemTransactionMessageEmailOperationTests
     {
-
-        Mock<IQueryBus> queryBusStub = new Mock<IQueryBus>();
-        TestAsyncCollector<SendGridMessage> mockedResult = new TestAsyncCollector<SendGridMessage>();
-        private Mock<IBinder> mock;
+        private readonly Mock<IQueryBus> _queryBusStub = new Mock<IQueryBus>();
+        private readonly TestAsyncCollector<SendGridMessage> _mockedResult = new TestAsyncCollector<SendGridMessage>();
+        private readonly Mock<IBinder> _mock;
 
         public RedeemTransactionMessageEmailOperationTests()
         {
-            mock = new Mock<IBinder>();
-            mock
+            _mock = new Mock<IBinder>();
+            _mock
                 .Setup(x => x.BindAsync<IAsyncCollector<SendGridMessage>>(It.IsAny<SendGridAttribute>(), CancellationToken.None))
-                .ReturnsAsync(mockedResult);
+                .ReturnsAsync(_mockedResult);
         }
 
 
@@ -38,14 +37,14 @@ namespace Cloudents.FunctionsV2.Test
             {
                 Country = "IL"
             };
-            queryBusStub.Setup(x =>
+            _queryBusStub.Setup(x =>
                 x.QueryAsync(It.IsAny<RedeemEmailQuery>(), CancellationToken.None))
                 .ReturnsAsync(queryResult);
 
-            var operation = new RedeemTransactionMessageEmailOperation(queryBusStub.Object);
+            var operation = new RedeemTransactionMessageEmailOperation(_queryBusStub.Object);
             var msg = new RedeemTransactionMessage(Guid.Empty);
-            await operation.DoOperationAsync(msg, mock.Object, default);
-            var result = mockedResult.Result.First();
+            await operation.DoOperationAsync(msg, _mock.Object, default);
+            var result = _mockedResult.Result.First();
             result.Personalizations[0].Tos[0].Email.Should().Be("support@spitball.co");
         }
 
@@ -56,14 +55,14 @@ namespace Cloudents.FunctionsV2.Test
             {
                 Country = "IN"
             };
-            queryBusStub.Setup(x =>
+            _queryBusStub.Setup(x =>
                     x.QueryAsync(It.IsAny<RedeemEmailQuery>(), CancellationToken.None))
                 .ReturnsAsync(queryResult);
 
-            var operation = new RedeemTransactionMessageEmailOperation(queryBusStub.Object);
+            var operation = new RedeemTransactionMessageEmailOperation(_queryBusStub.Object);
             var msg = new RedeemTransactionMessage(Guid.Empty);
-            await operation.DoOperationAsync(msg, mock.Object, default);
-            var result = mockedResult.Result.First();
+            await operation.DoOperationAsync(msg, _mock.Object, default);
+            var result = _mockedResult.Result.First();
             result.Personalizations[0].Tos[0].Email.Should().Be("support@frymo.com");
         }
     }

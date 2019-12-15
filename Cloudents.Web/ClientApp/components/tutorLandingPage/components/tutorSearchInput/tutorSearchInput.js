@@ -19,7 +19,6 @@ export default {
         isFirst: true,
         showSuggestions: false,
         originalMsg: '',
-        isRtl: global.isRtl,
         msg:"",
         suggests: [],
         term: '',
@@ -39,9 +38,8 @@ export default {
             }
             if(!!this.msg){
                 analyticsService.sb_unitedEvent("Tutor_Engagement", "Search", this.msg);
-            }
-            let query = {...this.$route.query, term: this.msg};
-            this.$router.push({path: 'tutor-list', query});
+            }       
+            this.$router.push({ path: `/tutor-list/${this.msg}` })
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
@@ -143,7 +141,7 @@ export default {
         }
     },
     created() {
-        this.msg = !!this.$route.query && !!this.$route.query.term ? this.$route.query.term : '';
+        this.msg = !!this.$route.params && !!this.$route.params.course ? this.$route.params.course : '';
     }
 
 };

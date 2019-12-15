@@ -12,7 +12,6 @@ import loginDialog from './loginDialog'
 import newQuestionDialog from './newQuestionDialog'
 import uploadFiles from  "./uploadFiles";
 import University from "./university";
-import marketingBox from './marketingBox'
 import mobileFooter from './mobileFooter';
 import buyTokens from './buyTokens';
 import chatStore from './chatStore';
@@ -28,6 +27,10 @@ import calendarStore from './calendarStore'
 import gapiStore from './gapiStore';
 import paymetStore from './paymetStore.js'
 import homePage_store from './homePage_store.js'
+import sideMenu_Store from './sideMenu_Store'
+import dialog_Store from './dialogStore/dialog_Store.js'
+import utils_Store from './utils_Store'
+import banner_Store from './banner_Store.js'
 
 
 Vue.use(Vuex);
@@ -48,7 +51,6 @@ const store = new Vuex.Store({
         // homeLanding,
         // homeworkHelpStore,
         // studyDocumentsStore,
-        marketingBox,
         //leaderBoard,
         mobileFooter,
         //onBoardGuide,
@@ -67,7 +69,11 @@ const store = new Vuex.Store({
         calendarStore,
         gapiStore,
         paymetStore,
-        homePage_store
+        homePage_store,
+        sideMenu_Store,
+        dialog_Store,
+        utils_Store,
+        banner_Store
     }
 });
 

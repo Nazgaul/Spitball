@@ -126,9 +126,6 @@
   <data name="bottom_2" xml:space="preserve">
     <value>Purchasing of points is solely to access documents on the Spitball platform.</value>
   </data>
-  <data name="buy_points_button" xml:space="preserve">
-    <value>GET POINTS</value>
-  </data>
   <data name="choose" xml:space="preserve">
     <value>Choose</value>
   </data>

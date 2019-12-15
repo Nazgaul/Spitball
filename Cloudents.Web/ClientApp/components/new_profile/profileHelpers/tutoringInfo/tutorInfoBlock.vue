@@ -60,7 +60,7 @@
         .mobile-btn-fixed-bottom {
             align-items: baseline;
             position: fixed;
-            bottom: 0px;
+            bottom: 66px;
             right: 0;
             width: 100%;
             z-index: 9;

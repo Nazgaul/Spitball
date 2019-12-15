@@ -2,14 +2,11 @@
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Infrastructure;
-using Cloudents.Infrastructure.Search.Document;
 using Cloudents.Infrastructure.Stuff;
 using Cloudents.Persistence;
 using Cloudents.Query;
 using Cloudents.Search.Document;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cloudents.Search.Test
 {
@@ -36,7 +33,7 @@ namespace Cloudents.Search.Test
 
             builder.Register(c =>
             {
-                var configuration = c.Resolve<IConfigurationKeys>().Search;
+               /// var configuration2 = c.Resolve<IConfigurationKeys>().Search;
                 return new SearchService("5B0433BFBBE625C9D60F7330CFF103F0", "cloudents", true);
             }).AsSelf().As<ISearchService>().SingleInstance();
            

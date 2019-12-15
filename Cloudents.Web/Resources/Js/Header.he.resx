@@ -117,13 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>כניסה</value>
+  <data name="balance" xml:space="preserve">
+    <value>יתרה: {1} נק'</value>
   </data>
-  <data name="placeholder_feed" xml:space="preserve">
+  <data name="find_tutors" xml:space="preserve">
+    <value>מורים פרטיים</value>
+  </data>
+  <data name="greets" xml:space="preserve">
+    <value>שלום, {1}</value>
+  </data>
+  <data name="placeholder_search" xml:space="preserve">
     <value>חיפוש</value>
   </data>
-  <data name="sign_up" xml:space="preserve">
-    <value>הרשמה</value>
+  <data name="placeholder_search_m" xml:space="preserve">
+    <value>חיפוש מורים וחומרי לימוד</value>
+  </data>
+  <data name="tooltip_chat" xml:space="preserve">
+    <value>הודעות</value>
+  </data>
+  <data name="tooltip_help" xml:space="preserve">
+    <value>עזרה</value>
   </data>
 </root>

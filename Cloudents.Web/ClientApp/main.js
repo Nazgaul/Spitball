@@ -277,6 +277,7 @@ router.beforeEach((to, from, next) => {
     } 
 
     store.dispatch('sendQueryToAnalytic', to);
+    intercomSettings.IntercomSettings.set({hideLauncher:true});
 
     if (global.innerWidth < 600) {
         intercomSettings.IntercomSettings.set({hideLauncher:true});
@@ -286,7 +287,6 @@ router.beforeEach((to, from, next) => {
     }
     //if tutoring disable intercom
     if (global.location.href.indexOf("studyroom") > -1) {
-        console.log('studyroom disable intercom');
         intercomSettings.IntercomSettings.set({hideLauncher:true});
     }
     //case 10995
@@ -323,6 +323,24 @@ global.isMobileAgent = function () {
     })(navigator.userAgent || navigator.vendor || window.opera);
     return check;
 };
+
+let touchSupported = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+
+if(touchSupported){
+    global.addEventListener('touchstart', function(){
+        store.dispatch('setIsTouchEnd', false);
+        store.dispatch('setIsTouchMove', false);
+        store.dispatch('setIsTouchStarted', true);
+    })
+    global.addEventListener('touchmove', function(){
+        store.dispatch('setIsTouchMove', true);
+    })
+    global.addEventListener('touchend', function(){
+        store.dispatch('setIsTouchStarted', false);
+        store.dispatch('setIsTouchMove', false);
+        store.dispatch('setIsTouchEnd', true);
+    })
+}
 
 //initSignalRService();
 

@@ -3,8 +3,8 @@
 
         <app-frymo v-if="isFrymo" class="logo frymo-logo"></app-frymo>
         <app-logo v-else class="logo"></app-logo>
-
-
+    
+    
     </div>
 </template>
 
@@ -25,7 +25,23 @@ export default {
 </script>
 
 <style lang="less">
-    .frymo-logo {
-        width: 114px;
+@import '../../../styles/mixin.less';
+    .logo {
+        width: 120px;
+        height: 30px;
+        fill: #43425D;
+        vertical-align: bottom;
+        @media (max-width: @screen-xs) {
+            width: 94px;
+            height: 22px;    
+        }  
+    }
+     .frymo-logo {
+        //width: 114px;
+        //height: 48px;
+        fill:#429DDB;
+      @media (max-width: @screen-xs) {
+          //height: 32px;
+      }
     }
 </style>

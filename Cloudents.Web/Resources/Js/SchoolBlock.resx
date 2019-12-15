@@ -120,16 +120,43 @@
   <data name="add_your_courses" xml:space="preserve">
     <value>Add Your Courses</value>
   </data>
-  <data name="add_your_university" xml:space="preserve">
-    <value>Add Your School</value>
+  <data name="allCourses" xml:space="preserve">
+    <value>All courses</value>
   </data>
   <data name="all_courses" xml:space="preserve">
     <value>All courses</value>
   </data>
-  <data name="my_courses" xml:space="preserve">
-    <value>My Courses</value>
+  <data name="courses" xml:space="preserve">
+    <value>Manage Courses</value>
+  </data>
+  <data name="dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="lessons" xml:space="preserve">
+    <value>My Lessons</value>
+  </data>
+  <data name="my" xml:space="preserve">
+    <value>My courses</value>
   </data>
   <data name="my_study_rooms" xml:space="preserve">
     <value>My study rooms</value>
+  </data>
+  <data name="posts" xml:space="preserve">
+    <value>My Posts</value>
+  </data>
+  <data name="profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="purchases" xml:space="preserve">
+    <value>My Purchases</value>
+  </data>
+  <data name="study" xml:space="preserve">
+    <value>My Study rooms</value>
+  </data>
+  <data name="wallet" xml:space="preserve">
+    <value>Wallet</value>
   </data>
 </root>

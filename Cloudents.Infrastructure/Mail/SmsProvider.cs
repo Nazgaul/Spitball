@@ -12,7 +12,7 @@ using Twilio.Jwt.AccessToken;
 using Twilio.Rest.Lookups.V1;
 using Twilio.Rest.Video.V1;
 using Twilio.Rest.Video.V1.Room;
-using static Twilio.Rest.Video.V1.CompositionResource;
+
 
 namespace Cloudents.Infrastructure.Mail
 {
@@ -20,7 +20,8 @@ namespace Cloudents.Infrastructure.Mail
     {
 
 
-        private readonly string[] _badProviders = {
+        private readonly string[] _badProviders =
+        {
             "Twilio",
             "LEGOS - LOCAL EXCHANGE GLOBAL OPERATION SERVICES",
             "Belgacom Mobile - Proximus",
@@ -35,7 +36,7 @@ namespace Cloudents.Infrastructure.Mail
             TwilioClient.Init(AccountSid, AuthToken);
         }
 
-        public async Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, string countryCode, CancellationToken token)
+        public static string BuildPhoneNumber(string phoneNumber, string countryCode)
         {
             phoneNumber = Regex.Replace(phoneNumber, "\\([0-9]+?\\)", string.Empty);
             phoneNumber = Regex.Replace(phoneNumber, "[^0-9]", string.Empty);
@@ -46,6 +47,14 @@ namespace Cloudents.Infrastructure.Mail
             {
                 phoneNumber = $"+{countryCode}{phoneNumber}";
             }
+
+            return phoneNumber;
+        }
+
+        public async Task<(string phoneNumber, string country)> ValidateNumberAsync(string phoneNumber, string countryCode, CancellationToken token)
+        {
+            phoneNumber = BuildPhoneNumber(phoneNumber, countryCode);
+
             try
             {
                 var result = await PhoneNumberResource.FetchAsync(
@@ -174,32 +183,32 @@ namespace Cloudents.Infrastructure.Mail
         }
 
 
-        public async Task ComposeVideo(string roomId)
-        {
+        //public async Task ComposeVideo(string roomId)
+        //{
 
-            var room = await RoomResource.FetchAsync(roomId);
-            var t = RoomRecordingResource.Read(room.Sid);
-            var x = t.Where(s => s.Type == RoomRecordingResource.TypeEnum.Video);
-
-
-            var layout = new
-            {
-                transcode = new
-                {
-                    video_sources = new string[] { "MT*" }
-                }
-            };
+        //    var room = await RoomResource.FetchAsync(roomId);
+        //    var t = RoomRecordingResource.Read(room.Sid);
+        //    var x = t.Where(s => s.Type == RoomRecordingResource.TypeEnum.Video);
 
 
-            var composition = CompositionResource.Create(
-                roomSid: room.Sid,
-                audioSources: new List<string>() { "*" },
-                videoLayout: layout,
-                trim: true,
-                //statusCallback: new Uri('http://my.server.org/callbacks'),
-                format: FormatEnum.Mp4
-            );
-        }
+        //    var layout = new
+        //    {
+        //        transcode = new
+        //        {
+        //            video_sources = new string[] { "MT*" }
+        //        }
+        //    };
+
+
+        //    var composition = CompositionResource.Create(
+        //        roomSid: room.Sid,
+        //        audioSources: new List<string>() { "*" },
+        //        videoLayout: layout,
+        //        trim: true,
+        //        //statusCallback: new Uri('http://my.server.org/callbacks'),
+        //        format: FormatEnum.Mp4
+        //    );
+        //}
 
 
 

@@ -118,19 +118,43 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="credit_uploader" xml:space="preserve">
-    <value>על מנת לצפות במסמך, הענק נקודות לבעלי המסמך</value>
+    <value>לצפייה, הענק נקודות לבעלי התוכן</value>
+  </data>
+  <data name="docPage" xml:space="preserve">
+    <value>עמוד {1} מתוך {2}</value>
   </data>
   <data name="download_btn" xml:space="preserve">
-    <value>הורד</value>
+    <value>הורדה</value>
   </data>
   <data name="full_list" xml:space="preserve">
     <value>לצפייה ברשימה המלאה</value>
   </data>
+  <data name="money_back" xml:space="preserve">
+    <value>החזר כספי מובטח</value>
+  </data>
   <data name="more_tutors" xml:space="preserve">
     <value>עוד מורים בקורס זה</value>
   </data>
+  <data name="need_help1" xml:space="preserve">
+    <value>צריך עזרה במקצוע זה?</value>
+  </data>
+  <data name="need_help2" xml:space="preserve">
+    <value>{1} יכול ללמד אותך</value>
+  </data>
   <data name="online_tutor" xml:space="preserve">
     <value>השג מורים פרטיים אונליין ואת כל חומרי הלימוד כדי להצליח</value>
+  </data>
+  <data name="points" xml:space="preserve">
+    <value>נק'</value>
+  </data>
+  <data name="prepared_exams" xml:space="preserve">
+    <value>לעבור את המבחנים בהצלחה</value>
+  </data>
+  <data name="related_content" xml:space="preserve">
+    <value>תכנים דומים</value>
+  </data>
+  <data name="secure_payment" xml:space="preserve">
+    <value>תשלום במערכת מאובטחת</value>
   </data>
   <data name="student_learn" xml:space="preserve">
     <value>סטודנטים לומדים מסטודנטים</value>
@@ -145,15 +169,24 @@
     <value>הועלה על ידי:</value>
   </data>
   <data name="unlock_btn" xml:space="preserve">
-    <value>פתח מסמך</value>
+    <value>פתח</value>
   </data>
   <data name="unlock_document" xml:space="preserve">
-    <value>על מנת לצפות במסמך, הענק נקודות לבעלי המסמך</value>
+    <value>לצפייה, הענק נקודות לבעלי התוכן</value>
+  </data>
+  <data name="unlock_document_btn" xml:space="preserve">
+    <value>פתח מסמך</value>
   </data>
   <data name="unlock_document_unregister" xml:space="preserve">
     <value>כדי לראות את המסמך המלא, הירשם בבקשה</value>
   </data>
   <data name="unlock_video" xml:space="preserve">
     <value>זו צפייה מקדימה של 30 שניות,&lt;br&gt;לצפייה בסרטון המלא  העבר נקודות לבעלי הסרטון.</value>
+  </data>
+  <data name="unlock_video_btn" xml:space="preserve">
+    <value>פתח סרטון</value>
+  </data>
+  <data name="why_spitball" xml:space="preserve">
+    <value>למה בספיטבול</value>
   </data>
 </root>

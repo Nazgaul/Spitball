@@ -49,8 +49,8 @@ u.online,
 cast ((select count(*) from sb.GoogleTokens gt where u.Id = gt.Id) as bit) as CalendarShared,
 t.rate as Tutor_Rate,
 t.rateCount as Tutor_ReviewCount,
-u.FirstName as Tutor_FirstName ,
-u.LastName as Tutor_LastName,
+u.FirstName as FirstName,
+u.LastName as LastName,
 t.price as Tutor_Price, 
 t.SubsidizedPrice as Tutor_DiscountPrice,
 t.country as Tutor_TutorCountry
@@ -64,12 +64,12 @@ where u.id = :profileId
 and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())";
 
 
-                var couponSql = @"Select c.value as Value,
+                const string couponSql = @"Select c.value as Value,
 c.CouponType as Type
 from sb.UserCoupon uc
 join sb.coupon c on uc.couponId = c.id and uc.UsedAmount < c.AmountOfUsePerUser
 where userid = :userid
-and uc.tutorid =  :profileId";
+and uc.tutorId =  :profileId";
 
                 var sqlQuery = _session.CreateSQLQuery(sql);
                 sqlQuery.SetInt64("profileId", query.Id);

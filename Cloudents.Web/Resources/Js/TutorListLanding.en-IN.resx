@@ -123,4 +123,7 @@
   <data name="header_get_lesson" xml:space="preserve">
     <value>Get private lessons</value>
   </data>
+  <data name="header_find_tutors" xml:space="preserve">
+    <value> </value>
+  </data>
 </root>

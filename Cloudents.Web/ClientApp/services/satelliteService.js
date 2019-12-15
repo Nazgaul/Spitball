@@ -13,10 +13,10 @@ function websitePrefix(){
 
 function urlForEnglishUsers(type){
     let urlByType = {
-        about: `https://help.${websitePrefix()}/en/about-us`,
+        about: isFrymo ? `https://help.${websitePrefix()}/en/article/welcome-to-frymo` : `https://help.${websitePrefix()}/en/about-us`,
         feedback: `https://help.${websitePrefix()}/en/article/how-to-contact-us`,
         terms: isFrymo ? `https://help.${websitePrefix()}/en/article/terms` : `https://help.${websitePrefix()}/en/article/terms-of-service`,
-        privacy: isFrymo ? `https://help.${websitePrefix()}/en/policies` : `https://help.${websitePrefix()}/en/article/privacy-policy`,
+        privacy: `https://help.${websitePrefix()}/en/article/privacy-policy`,
         faq: isFrymo ? `https://help.${websitePrefix()}/en/faqs` : `https://help.${websitePrefix()}/en/faq`,
         contact: `https://help.${websitePrefix()}/en/article/how-to-contact-us`,
     }
@@ -70,7 +70,7 @@ const sattelites = {
             en: urlForEnglishUsers('contact'),
             he:"https://help.spitball.co/he/contact"
         } 
-    },
+    }
 }
 const socialMedias = {
     medium:{

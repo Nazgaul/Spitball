@@ -1,9 +1,12 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -66,35 +69,6 @@ namespace Cloudents.Web.Api
             return await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
 
         }
-
-        //private async Task<IEnumerable<QuestionFeedDto>> MergeFeedWithVotes(Task<IEnumerable<QuestionFeedDto>> retValTask, CancellationToken token)
-        //{
-        //    var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        var userId = _userManager.GetLongUserId(User);
-        //        var queryTags = new UserVotesByCategoryQuery(userId);
-        //        votesTask = _queryBus.QueryAsync<IEnumerable<UserVoteQuestionDto>>(queryTags, token)
-        //            .ContinueWith(
-        //                t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
-        //    }
-
-        //    await Task.WhenAll(retValTask, votesTask);
-        //    if (votesTask.Result == null)
-        //    {
-        //        return retValTask.Result;
-        //    }
-
-        //    return retValTask.Result.Select(s =>
-        //    {
-        //        if (votesTask.Result.TryGetValue(s.Id, out var p))
-        //        {
-        //            s.Vote.Vote = p;
-        //        }
-
-        //        return s;
-        //    });
-        //}
 
         // GET
         [HttpGet("{id:long}/answers")]
@@ -171,6 +145,27 @@ namespace Cloudents.Web.Api
                 return s;
             });
         }
+
+        [HttpPost("follow"), Authorize]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> FollowAsync(long id, [FromServices] ICommandBus commandBus, CancellationToken token)
+        {
+            var user = _userManager.GetLongUserId(User);
+            var command = new FollowUserCommand(id, user);
+            await commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpDelete("unFollow"), Authorize]
+        public async Task<IActionResult> UnFollowAsync(long id, [FromServices] ICommandBus commandBus, CancellationToken token)
+        {
+            var user = _userManager.GetLongUserId(User);
+            var command = new UnFollowUserCommand(id, user);
+            await commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+       
 
     }
 }

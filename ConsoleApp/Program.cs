@@ -4,7 +4,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Infrastructure.Video;
@@ -17,7 +16,6 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
 using NHibernate;
-using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -29,9 +27,10 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Command.Courses;
-using Cloudents.Core.Query.Feed;
+using Cloudents.Core.Message.Email;
+using Newtonsoft.Json;
+using Cloudents.Core.Message.Email;
+using Newtonsoft.Json;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -139,12 +138,15 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            //var bus = _container.Resolve<ICommandBus>();
-            //var command = new ApplyCouponCommand("precentage", 638, 160171);
-            //await bus.DispatchAsync(command, default);
+            var x = new RegistrationEmail("ram@cloudents.com", "https://www.spitball.co", new CultureInfo("en"));
+            var json = JsonConvert.SerializeObject(x, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            });
+            //var queryBus = _container.Resolve<IQueryBus>();
+            //var query = new SimilarDocumentsQuery(242949);
+            //var result = await queryBus.QueryAsync(query, default);
 
-            //var v = command.newPrice;
-            await ResyncTutorRead();
         }
         private static async Task ResyncTutorRead()
         {
@@ -454,38 +456,38 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
         //    }
         //}
 
-        private static async Task PopulateUsersImageName()
-        {
-            var uof = _container.Resolve<IUnitOfWork>();
-            var session = _container.Resolve<ISession>();
-            var blobProvider = _container.Resolve<IUserDirectoryBlobProvider>();
-            var repository = _container.Resolve<IRepository<BaseUser>>();
+        //private static async Task PopulateUsersImageName()
+        //{
+        //    var uof = _container.Resolve<IUnitOfWork>();
+        //    var session = _container.Resolve<ISession>();
+        //    var blobProvider = _container.Resolve<IUserDirectoryBlobProvider>();
+        //    var repository = _container.Resolve<IRepository<BaseUser>>();
 
-            var keyNew = _container.Resolve<IConfigurationKeys>().Storage;
-            var storageAccount = CloudStorageAccount.Parse(keyNew);
-            var blobClient = storageAccount.CreateCloudBlobClient();
-            var container = blobClient.GetContainerReference("spitball-user");
-
-
-            var userIds = await session.Query<User>().Where(w => w.Image != null).Select(s => s.Id).ToListAsync();
+        //    var keyNew = _container.Resolve<IConfigurationKeys>().Storage;
+        //    var storageAccount = CloudStorageAccount.Parse(keyNew);
+        //    var blobClient = storageAccount.CreateCloudBlobClient();
+        //    var container = blobClient.GetContainerReference("spitball-user");
 
 
-            foreach (var userId in userIds)
-            {
-                var user = await repository.LoadAsync(userId, default);
-                var dir = container.GetDirectoryReference($"profile/{userId.ToString()}");
+        //    var userIds = await session.Query<User>().Where(w => w.Image != null).Select(s => s.Id).ToListAsync();
 
-                var img = dir.ListBlobs().LastOrDefault();
-                var name = img.StorageUri.PrimaryUri.AbsolutePath.Split('/').LastOrDefault();
-                if (!string.IsNullOrEmpty(name))
-                {
-                    user.UpdateUserImageName(name);
-                    await repository.UpdateAsync(user, default);
-                }
-            }
-            await uof.CommitAsync(default);
 
-        }
+        //    foreach (var userId in userIds)
+        //    {
+        //        var user = await repository.LoadAsync(userId, default);
+        //        var dir = container.GetDirectoryReference($"profile/{userId.ToString()}");
+
+        //        var img = dir.ListBlobs().LastOrDefault();
+        //        var name = img.StorageUri.PrimaryUri.AbsolutePath.Split('/').LastOrDefault();
+        //        if (!string.IsNullOrEmpty(name))
+        //        {
+        //            user.UpdateUserImageName(name);
+        //            await repository.UpdateAsync(user, default);
+        //        }
+        //    }
+        //    await uof.CommitAsync(default);
+
+        //}
 
         private static async Task HadarMethod()
         {

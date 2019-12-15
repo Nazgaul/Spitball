@@ -1,7 +1,7 @@
 <template>
     <v-container class="profile-page-container"> 
         <button class="back-button hidden-sm-and-up" @click="$router.go(-1)">
-            <v-icon :class="{'rtl-icon': isRtl}" right>sbf-arrow-back</v-icon>
+            <v-icon right>sbf-arrow-back</v-icon>
         </button>
         <v-layout  justify-start v-bind="xsColumn" class="bio-wrap" >
                 <v-flex xs12 sm9  >
@@ -20,27 +20,27 @@
                             <v-divider v-if="$vuetify.breakpoint.xsOnly" style="height:2px; color: rgba(163, 160, 251, 0.32);"></v-divider>
                             <v-tabs :dir="isRtl && $vuetify.breakpoint.xsOnly ? `ltr` : isRtl? 'rtl' : ''" class="tab-padding" hide-slider xs12>
                                 
-                                <v-tab @click="activeTab = 1" :id="`tab-${1}`" :href="'#tab-1'" :key="1">
+                                <v-tab sel="about_tab" @click="activeTab = 1" :id="`tab-${1}`" :href="'#tab-1'" :key="1">
                                     <span v-language:inner="'profile_about'"/>
                                 </v-tab>
 
-                                <v-tab @click="activeTab = 2" :id="`tab-${2}`" :href="'#tab-2'" :key="2">
+                                <v-tab sel="question_tab" @click="activeTab = 2" :id="`tab-${2}`" :href="'#tab-2'" :key="2">
                                     <span v-language:inner="'profile_Questions'"/>
                                 </v-tab>
 
-                                <v-tab @click="activeTab = 3" :id="`tab-${3}`" :href="'#tab-3'" :key="3">
+                                <v-tab sel="answer_tab" @click="activeTab = 3" :id="`tab-${3}`" :href="'#tab-3'" :key="3">
                                     <span v-language:inner="'profile_Answers'"/>
                                 </v-tab>
 
-                                <v-tab @click="activeTab = 4" :id="`tab-${4}`" :href="'#tab-4'" :key="4">
+                                <v-tab sel="uploaded_tab" @click="activeTab = 4" :id="`tab-${4}`" :href="'#tab-4'" :key="4">
                                     <span v-language:inner="'profile_documents'"/>
                                 </v-tab>
 
-                                <v-tab @click="activeTab = 5" :id="`tab-${5}`" :href="'#tab-5'" :key="5">
+                                <v-tab sel="purchased_tab" @click="activeTab = 5" :id="`tab-${5}`" :href="'#tab-5'" :key="5">
                                     <span v-language:inner="'profile_purchased_documents'"/>
                                 </v-tab>
 
-                                <v-tab @click="openCalendar" :id="`tab-${6}`" :href="'#tab-6'" :key="6" v-if="showCalendar">
+                                <v-tab sel="calendar_tab" @click="openCalendar" :id="`tab-${6}`" :href="'#tab-6'" :key="6" v-if="showCalendar">
                                     <span v-language:inner="'profile_calendar'"/>
                                 </v-tab>
 

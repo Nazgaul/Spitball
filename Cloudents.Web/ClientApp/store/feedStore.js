@@ -108,7 +108,8 @@ const actions = {
         } else {
             commit('Feeds_ResetQue');
             let paramsList = {...state.search, ...params, page};
-            return searchService.activateFunction[name](paramsList).then((data) => {
+            let route = name.toLowerCase();
+            return searchService.activateFunction[route](paramsList).then((data) => {
                 // dispatch('Feeds_getTutors');
                 update(data);
                 dispatch('Feeds_setDataItems', data);

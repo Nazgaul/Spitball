@@ -9,13 +9,14 @@ import ResultAsk from "../ResultAsk.vue";
 import ResultNote from "../ResultNote.vue";
 import SuggestCard from '../suggestCard.vue';
 import faqBlock from '../helpers/faq-block/faq-block.vue';
-import askQuestionBtn from '../helpers/askQuestionBtn/askQuestionBtn.vue';
 import resultFilter from '../helpers/resultFilter/resultFilter.vue';
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue';
-import requestBox from '../../requestActions/requestActions.vue';
+
+import requestBox from '../../pages/feedPage/components/requestActions/requestActions.vue';
 import tutorResultCard from '../tutorCards/tutorResultCard/tutorResultCard.vue';
 import tutorResultCardMobile from '../tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import marketingBox from "../../helpers/marketingBox/marketingBox.vue";
+import coursesTab from "../../pages/feedPage/components/coursesTab/coursesTab.vue";
 
 // SVG
 import emptyState from "../svg/no-match-icon.svg";
@@ -30,7 +31,6 @@ export default {
         emptyState,
         SuggestCard,
         faqBlock,
-        askQuestionBtn,
         ResultAsk,
         ResultNote,
         ResultItem,
@@ -39,7 +39,8 @@ export default {
         requestBox,
         tutorResultCard,
         tutorResultCardMobile,
-        marketingBox
+        marketingBox,
+        coursesTab
     },
     data() {
         return {

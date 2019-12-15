@@ -49,7 +49,7 @@
         <v-btn @click="goBack" class="tutorRequest-btn-back" color="white" depressed rounded>
             <span v-language:inner="'tutorRequest_back'"/>
         </v-btn>
-        <v-btn :loading="isLoading" @click="submit(!isAuthUser)" class="tutorRequest-btn-next" depressed rounded color="#4452fc" >
+        <v-btn :loading="isLoading" @click="submit(!isAuthUser)" class="tutorRequest-btn-next" depressed rounded color="#4452fc" sel="submit_tutor_request">
             <span v-language:inner="'tutorRequest_send'"/>
         </v-btn>
         </div>
@@ -131,7 +131,7 @@ export default {
                     email: (self.guestMail)? self.guestMail : null,
                     phone: (self.guestPhone)? self.guestPhone : null,
                     course: (self.getSelectedCourse)? self.getSelectedCourse.text || self.getSelectedCourse : null,
-                    moreTutors: (self.getMoreTutors)? self.getMoreTutors : null,
+                    moreTutors: self.getMoreTutors,
                     tutorId: tutorId
                 }
                 this.sendTutorRequest(serverObj).finally(()=>{

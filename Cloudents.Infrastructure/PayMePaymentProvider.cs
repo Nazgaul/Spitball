@@ -133,6 +133,7 @@ namespace Cloudents.Infrastructure
             public string SellerPaymeId { get; private set; }
 
             public int SalePrice { get; private set; }
+            [SuppressMessage("ReSharper", "UnusedMember.Local",Justification = "Used for serialize")] 
             public string Currency => "ILS";
             public string ProductName { get; private set; }
             public int? CaptureBuyer { get; private set; }

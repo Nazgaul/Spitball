@@ -120,10 +120,59 @@
   <data name="call_text" xml:space="preserve">
     <value>your code to enter into Spitball is: {0}</value>
   </data>
+  <data name="email_from" xml:space="preserve">
+    <value>ספיטבול&lt;no-reply@spitball.co&gt;</value>
+  </data>
   <data name="email_support" xml:space="preserve">
     <value>support@spitball.co</value>
   </data>
   <data name="sms_text" xml:space="preserve">
     <value>הקוד שלך לספיטבול הוא: {0}</value>
+  </data>
+  <data name="unread_message" xml:space="preserve">
+    <value>יש לך הודעה חדשה מ{0} בספיטבול.
+ לחץ על הלינק לקרוא אותה {{link}}</value>
+  </data>
+  <data name="unread_message_email" xml:space="preserve">
+    <value>מצאנו {0} שביקש לתאם איתך שיעור פרטי.
+&lt;br&gt;
+
+ לחץ על &lt;a href="{{link}}"&gt;לינק&lt;/a&gt; כדי לשוחח ולתאם מועד לשיעור</value>
+  </data>
+  <data name="unread_message_first_message_tutor" xml:space="preserve">
+    <value>מצאנו תלמיד שביקש לתאם איתך שיעור פרטי.
+ לחץ על הלינק כדי לשוחח ולתאם מועד לשיעור {link}</value>
+  </data>
+  <data name="unread_message_first_message_tutor_email" xml:space="preserve">
+    <value>מצאנו תלמיד שביקש לתאם איתך שיעור פרטי.
+&lt;br&gt;
+ &lt;a href="{link}"&gt;לחץ על הלינק&lt;/a&gt; כדי לשוחח ולתאם מועד לשיעור</value>
+  </data>
+  <data name="unread_message_request_email_body" xml:space="preserve">
+    <value>היי {UserFirstName},
+{FirstMessageStudentName} ביקש לקבוע איתך שיעור פרטי ב{CourseName} {Request}.
+תוכל ליצור איתו קשר דרך מערכת ספיטבול – {link}.
+לחלופין, ניתן לשלוח הודעת ווטסאפ {WhatsappLink}.
+במידה ונתקלת בכל בעיה  אנא צור איתי קשר : על ידי שליחת הודעת WhatsApp ל 0527368268 או במייל support@spitball.co. 
+בברכה, יניב סילובסקי 
+</value>
+  </data>
+  <data name="unread_message_request_email_body_lead_request" xml:space="preserve">
+    <value>וצריך עזרה ב{Request}</value>
+  </data>
+  <data name="unread_message_request_email_body_whatsapp_text" xml:space="preserve">
+    <value>קיבלתי את פנייתך דרך ספיטבול לשיעור פרטי. מתי נוח לך לדבר</value>
+  </data>
+  <data name="unread_message_request_email_subject" xml:space="preserve">
+    <value>{FirstMessageStudentName} ביקש לקבוע איתך שיעור פרטי </value>
+  </data>
+  <data name="unread_message_student" xml:space="preserve">
+    <value>סטודנט</value>
+  </data>
+  <data name="unread_message_tutor" xml:space="preserve">
+    <value>מורה</value>
+  </data>
+  <data name="you_have_unread_message" xml:space="preserve">
+    <value>יש לך הודעה חדשה</value>
   </data>
 </root>

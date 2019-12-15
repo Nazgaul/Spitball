@@ -120,4 +120,52 @@
   <data name="about_spitball" xml:space="preserve">
     <value>About Frymo</value>
   </data>
+  <data name="balance" xml:space="preserve">
+    <value>Your balance: {1} Pts</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="changeCourse" xml:space="preserve">
+    <value>Courses</value>
+  </data>
+  <data name="changeUniversity" xml:space="preserve">
+    <value>School</value>
+  </data>
+  <data name="feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="greets" xml:space="preserve">
+    <value>Hi, {1}</value>
+  </data>
+  <data name="help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="my_study_rooms" xml:space="preserve">
+    <value>Test study room</value>
+  </data>
+  <data name="points" xml:space="preserve">
+    <value>Get Points</value>
+  </data>
+  <data name="privacy_policy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="referral_spitball" xml:space="preserve">
+    <value>Refer a friend</value>
+  </data>
+  <data name="Sign_up" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  <data name="terms_of_service" xml:space="preserve">
+    <value>Terms of Service</value>
+  </data>
+  <data name="txt_out" xml:space="preserve">
+    <value>Get access to thousands of online study materials and tutors</value>
+  </data>
 </root>

@@ -451,7 +451,6 @@ export default {
       "downloadDocument",
       "getTutorListCourse"
     ]),
-    ...mapMutations(["UPDATE_SEARCH_LOADING"]),
         enterTutorCard(vueElm){
       if(vueElm.enterProfilePage){
         vueElm.enterProfilePage();

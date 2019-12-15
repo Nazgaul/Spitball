@@ -32,8 +32,8 @@
             },
             userName(){
                 if(this.isTutorProfile){
-                    if(this.getProfile && this.getProfile.user && this.getProfile.user.tutorData){
-                        return `${this.getProfile.user.tutorData.firstName} ${this.getProfile.user.tutorData.lastName}`
+                    if(this.getProfile && this.getProfile.user){
+                        return `${this.getProfile.user.firstName} ${this.getProfile.user.lastName}`
                     }
                 }else{
                     if (this.getProfile && this.getProfile.user) {

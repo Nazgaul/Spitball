@@ -44,7 +44,13 @@
                                 <v-btn small color='warning' @click="openPhoneDialog(userInfo.phoneNumber.value)" v-if="infoItem.label == 'Phone Number'">Edit</v-btn>
                                 <v-btn small color='warning' @click="openTutorPriceDialog(userInfo.tutorPrice.value)" v-if="infoItem.label == 'Tutor Price'" class="white--text">Edit</v-btn>
                                 <v-btn small color='red' class="white--text" @click="removePayment(userInfo.id.value)" v-if="infoItem.label == 'Has Payment' && infoItem.value">Delete</v-btn>
-                                <v-btn small color='red' class="white--text" @click="deleteTutor()" v-if="infoItem.label == 'Tutor State' && infoItem.value === 'ok'">Delete</v-btn>
+                                <v-btn small color='red' class="white--text" @click="deleteTutor()" v-if="infoItem.label == 'Tutor State'">Delete</v-btn>
+
+                                <template v-if="infoItem.label == 'Tutor State'">
+                                    <v-btn small color='warning' class="white--text" @click="suspendTutor()" v-if="infoItem.value === 'ok'">suspend</v-btn>
+                                    <v-btn small color='red' class="white--text" @click="unSuspendTutor()" v-if="infoItem.value === 'flagged'">un suspend</v-btn>
+                                </template>
+
                                 <v-btn small color='red' class="white--text" @click="deleteCalender()" v-if="infoItem.label == 'Has Calendar' && infoItem.value === true">Delete</v-btn>
                                 <span>{{infoItem.value}}</span>
                             </v-layout>

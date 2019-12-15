@@ -51,6 +51,7 @@ namespace Cloudents.Core
     {
         public string SpitballSite { get; set; }
         public string FunctionSite { get; set; }
+        public string IndiaSite { get; set; }
     }
 
 

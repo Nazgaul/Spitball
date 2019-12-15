@@ -1,3 +1,5 @@
+import {mapGetters} from 'vuex';
+
 export default {
     name:'sbCarousel',
     props:{
@@ -34,6 +36,24 @@ export default {
         centered:{
             type: Boolean,
             default: false
+        },
+        prevFun: {
+            type: Function
+        },
+        nextFun: {
+            type: Function
+        },
+        moveEnd:{
+            type: Function,
+            default: ()=>{}
+        },
+        renderOnlyVisible:{
+            type:Boolean,
+            default:false,
+        },
+        moveType:{
+            type: String,
+            default: 'freeScroll'
         }
     },
     data() {
@@ -48,13 +68,13 @@ export default {
                 anchor: 0,
                 gap: this.gap, 
                 circular: this.infinite, 
-                moveType: 'freeScroll',
+                moveType: this.moveType,
                 bound: !this.infinite,
                 overflow: this.overflow,
                 duration:750,
                 adaptive:true,
+                renderOnlyVisible: this.renderOnlyVisible
             },
-            isRtl: global.isRtl,
             stepMove:null,
         }
     },
@@ -74,6 +94,7 @@ export default {
         }
     },
     computed: {
+        ...mapGetters(['getIsTouchMove']),
         uniqueID(){
             return `${this.name}_${Math.random().toString(36).substr(2, 9)}`;
         }
@@ -112,7 +133,8 @@ export default {
             this.isFirstItemVisible = visiblesItems.some(item=>item.prevSibling === null);
           },
         select(item){
-            if(!this.isDragging){
+            let dragging = this.isDragging || this.getIsTouchMove
+            if(!dragging){
                 let vueComponent = item.panel.element.__vue__;
                 this.$emit('select', vueComponent)
             }
@@ -135,6 +157,9 @@ export default {
     },
     mounted() {
         this.stepMove = this.$refs[this.uniqueID].getVisiblePanels().length;
+        if(this.stepMove > 1){
+            this.stepMove -= 1;
+        }
         let visiblesItems = this.$refs[this.uniqueID].getVisiblePanels()
         this.isLastItemVisible = visiblesItems.some(item=>item.nextSibling === null)
         this.isFirstItemVisible = visiblesItems.some(item=>item.prevSibling === null);

@@ -1,6 +1,10 @@
 ﻿@import "../../styles/mixin.less";
 .main-container{
-  background-color: @systemBackgroundColor;
+  background-color: #f5f5f5;
+  @media (max-width: @screen-xs) {
+    background-color: #E6E6E6;
+    overflow: hidden;
+  }
   .p-result {    
     .limited-width();
     @media(max-width: @screen-md) and (min-width: @screen-xs) {
@@ -18,16 +22,13 @@
 @marginTop: 24px;
 .main-section {
   min-width: 0;
-  margin-top: @marginTop;
+  margin-top: 24px;
   @media (max-width: @screen-xs) {
     margin-top: 0;
     margin-left: unset;
   }
   @media (min-width: (@screen-xs+1)) {
-    margin-top: 16px;
-  }
-  @media (min-width: (@screen-sm)) {
-    margin-top: @marginTop;
+    margin-top: 24px;
   }
 }
 
@@ -37,42 +38,12 @@
   &.tutor-result{
     max-width: 720px;
   }
-  a.ask-question-mob {
-    width: 100%;
-    max-width: 400px;
-    @media (min-width: (@screen-md)) {
-      display: none;
-    }
-    @media (max-width: (@screen-md)) {
-      display: block;
-    }
-    @media (max-width: (@screen-xs)) {
-      display: block;
-      margin: 10px 32px 10px 64px;
-      width: 80%;
-      &.no-filter-btn {
-        margin: 16px 48px;
-      }
-    }
-    @media (max-width: (@screen-sm)) {
-      display: block;
-    }
-    font-size: 18px;
-    line-height: 40px;
-    border-radius: 4px;
-    background-color: @color-main-purple;
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-    color: @color-white;
-    font-weight: bold;
-    letter-spacing: -0.5px;
-    text-align: center;
-    margin: 0 auto 16px;
-    left: 0;
-    right: 0;
-
-  }
   .result-cell {
+    margin-bottom: 16px;
     border-radius: 4px;
+    @media (max-width: @screen-xs) {
+      border-radius: 0px;
+    }
     position: relative;
     width: 100%;
     max-width: @cellWidth;
@@ -121,9 +92,9 @@
     }
 
     &:hover {
-      .question-viewer {
-        animation: fade-in-animation .8s forwards;
-      }
+      // .question-viewer {
+      //   animation: fade-in-animation .8s forwards;
+      // }
     }
   }
 
@@ -138,6 +109,9 @@
     @media (max-width: @screen-sm) {
         border-color: #fff !important;
         padding: 12px;
+      }
+      @media (max-width: @screen-xs) {
+        border-radius: 0px;
       }
     
   }
@@ -162,9 +136,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @media (max-width: @screen-sm) {
-      padding-top: 6px;
-    }
+    margin-bottom: 16px;
     
     .result-filter-text{
         margin-left: 5px;

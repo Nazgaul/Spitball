@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Core.EventHandler
 {
-    public class TutorDeletedEventHandler : IEventHandler<TutorDeletedEvent>, IDisposable
+    public class TutorDeletedEventHandler : IEventHandler<TutorDeletedEvent>, IEventHandler<TutorSuspendedEvent>, IDisposable
     {
         private readonly IReadTutorRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
@@ -18,6 +18,17 @@ namespace Cloudents.Core.EventHandler
         }
 
         public async Task HandleAsync(TutorDeletedEvent eventMessage, CancellationToken token)
+        {
+            var tutor = await _repository.GetAsync(eventMessage.Id, token);
+            if (tutor is null)
+            {
+                return;
+            }
+            await _repository.DeleteAsync(tutor, token);
+            await _unitOfWork.CommitAsync(CancellationToken.None);
+        }
+
+        public async Task HandleAsync(TutorSuspendedEvent eventMessage, CancellationToken token)
         {
             var tutor = await _repository.GetAsync(eventMessage.Id, token);
             if (tutor is null)

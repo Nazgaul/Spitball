@@ -2,14 +2,10 @@
 
 .profile-page-container {
   max-width: 1054px;
-  margin-left: auto;
+  // margin-left: auto;
+  margin-left: 24px;
   &.content-center{
     margin: 0 auto;
-  }
-  .rtl-icon{
-    /*rtl:ignore*/
-      transform: rotate( -180deg );
-
   }
   @media (max-width: @screen-md-plus) {
     margin-left: 0;
@@ -25,6 +21,7 @@
     margin: unset;
   }
   .back-button{
+    transform: none /*rtl:rotate(180deg)*/ ;
     position: absolute;
     top: 32px;
     left: 10px;

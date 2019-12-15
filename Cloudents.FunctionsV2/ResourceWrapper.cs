@@ -20,7 +20,7 @@ namespace Cloudents.FunctionsV2
             LoadLocalizationAssemblies();
 
             ProjectManager = new ResourceManager(typeof(App));
-           
+
         }
 
         private static void LoadLocalizationAssemblies()
@@ -55,16 +55,53 @@ namespace Cloudents.FunctionsV2
             }
         }
 
-     
+
 
         public static string GetString(string key)
         {
-            if (ResourceSets.TryGetValue(CultureInfo.DefaultThreadCurrentUICulture, out var v))
+
+            var culture = CultureInfo.DefaultThreadCurrentCulture ?? CultureInfo.CurrentCulture;
+            if (culture.Equals(new CultureInfo("he-IL")))
+            {
+                CultureInfo.DefaultThreadCurrentCulture = culture = culture.Parent;
+            }
+            if (ResourceSets.TryGetValue(culture, out var v))
             {
                 return v.GetString(key);
             }
+
+
             return ProjectManager.GetString(key);
         }
+
+        //private static string GetStringRecursion(string key, CultureInfo info)
+        //{
+        //    while (info != null)
+        //    {
+        //        if (ResourceSets.TryGetValue(info, out var v))
+        //        {
+        //            var result =  v.GetString(key);
+        //            if (result != null)
+        //            {
+        //                return result;
+        //            }
+        //        }
+
+        //        //if (Templates.TryGetValue(info, out var template))
+        //        //{
+        //        //    return template;
+        //        //}
+
+        //        if (Equals(info, info.Parent))
+        //        {
+        //            break;
+        //        }
+        //        info = info.Parent;
+        //    }
+
+        //    return null;
+
+        //}
 
 
     }

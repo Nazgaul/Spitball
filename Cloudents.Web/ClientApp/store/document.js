@@ -7,6 +7,7 @@ import { Promise } from "q";
 const state = {
     document: {},
     tutorList: [],
+    itemsList:[],
     btnLoading: false,
     showPurchaseConfirmation: false,
     documentLoaded: false,
@@ -28,6 +29,7 @@ const getters = {
     getBtnLoading: state => state.btnLoading,
     getPurchaseConfirmation: state => state.showPurchaseConfirmation,
     getDocumentLoaded: state => state.documentLoaded,
+    getRelatedDocuments: state => state.itemsList,
 };
 
 const mutations = {
@@ -44,6 +46,9 @@ const mutations = {
     setDocument(state, payload) {
         state.document = payload;    
         state.documentLoaded = true;    
+    },
+    setRelatedDocs(state, payload) {
+        state.itemsList = payload;
     },
     setTutorsList(state, payload) {
         state.tutorList = payload;
@@ -77,7 +82,7 @@ const actions = {
 
         analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}, DOC_COURSE:${course}`);
     },
-    purchaseDocument({commit, getters, dispatch}, item) {
+    purchaseDocument({commit, getters, dispatch, state}, item) {
         commit('setBtnLoading', true);
         let userBalance = 0;
         let id = item.id ? item.id : '';
@@ -87,6 +92,7 @@ const actions = {
         
         if(userBalance >= item.price) {
             return documentService.purchaseDocument(item.id).then((resp) => {
+                state.document.isPurchased = true;
                 console.log('purchased success', resp);
                 analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASED', item.price);
                 dispatch('documentRequest', item.id);
@@ -110,6 +116,13 @@ const actions = {
         searchService.activateFunction.getTutors(courseName).then(res => {
             commit('setTutorsList', res);
         });
+    },
+    getStudyDocuments({commit}, docObj) {
+        documentService.getStudyDocuments(docObj).then(items => {
+            commit('setRelatedDocs', items);
+        }).catch(ex => {
+            console.log(ex);
+        })
     },
     setNewDocumentPrice({ commit }, price) {
         if(!!state.document && !!state.document.details){

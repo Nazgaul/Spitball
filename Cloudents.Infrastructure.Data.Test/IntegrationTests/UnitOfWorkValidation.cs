@@ -38,12 +38,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
                 }
             }
-            //var builder = new ContainerBuilder();
-            //builder.Register(_ => configuration).As<IConfigurationKeys>();
-            //builder.RegisterModule<ModuleDb>();
-            //var container = builder.Build();
-            //container.Resolve<IUnitOfWork>();
-
         }
     }
 }

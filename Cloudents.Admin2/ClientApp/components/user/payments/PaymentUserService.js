@@ -22,7 +22,7 @@ function createPaymentRequestItem(objInit) {
 
 const subsidizingPrice = function(price) {
     return price;
-}
+};
 
 const path = 'AdminPayment/';
 
@@ -67,7 +67,7 @@ function UserSessionPayment(objInit) {
 }
 
 function createUserSessionPayment(data) {
-    return new UserSessionPayment(data)
+    return new UserSessionPayment(data);
 }
 
 function handleError(err) {
@@ -75,7 +75,7 @@ function handleError(err) {
 }
 
 function getUserSessionPayment(id) {
-    return connectivityModule.http.get(`${path}${id}`).then(createUserSessionPayment).catch(handleError)
+    return connectivityModule.http.get(`${path}${id}`).then(createUserSessionPayment).catch(handleError);
 }
 
 export {

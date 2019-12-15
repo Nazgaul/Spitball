@@ -48,7 +48,11 @@ namespace Cloudents.FunctionsV2.Di
 
             var keys = new ConfigurationKeys
             {
-                SiteEndPoint = { SpitballSite = _configuration["SiteEndPoint"] ?? "https://www.spitball.co" },
+                SiteEndPoint =
+                {
+                    SpitballSite = _configuration["SiteEndPoint"] ?? "https://www.spitball.co",
+                    IndiaSite = _configuration["IndiaSiteEndPoint"] ?? "https://www.frymo.com"
+                },
                 Db = new DbConnectionString(_configuration["ConnectionString"], _configuration["Redis"], DbConnectionString.DataBaseIntegration.None),
                 Redis = _configuration["Redis"],
                 Search = new SearchServiceCredentials(
@@ -73,7 +77,6 @@ namespace Cloudents.FunctionsV2.Di
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(
-                Assembly.Load("Cloudents.Infrastructure.Storage"), //We need this because of event handler in question populate
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Persistence"));
 

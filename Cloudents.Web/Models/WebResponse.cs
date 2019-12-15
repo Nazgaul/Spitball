@@ -9,10 +9,11 @@ namespace Cloudents.Web.Models
 
         public IList<IFilters> Filters { get; set; }
 
-        public IEnumerable<KeyValuePair<string, string>> Sort { get; set; }
-
+        public long? Count { get; set; }
         public string NextPageLink { get; set; }
     }
+
+ 
 
     public interface IFilters
     {

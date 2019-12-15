@@ -13,13 +13,13 @@ namespace Cloudents.Query.Query.Admin
             Country = country;
         }
         public string Country { get; }
-        internal class AdminPendingUniversitiesQueryHandler : IQueryHandler<AdminStudyRoomQuery, IEnumerable<StudyRoomDto>>
+        internal class AdminStudyRoomQueryHandler : IQueryHandler<AdminStudyRoomQuery, IEnumerable<StudyRoomDto>>
         {
 
             private readonly IDapperRepository _dapper;
 
 
-            public AdminPendingUniversitiesQueryHandler(IDapperRepository dapper)
+            public AdminStudyRoomQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }
@@ -46,7 +46,7 @@ namespace Cloudents.Query.Query.Admin
                             and (DATEDIFF(minute, s.Created, s.Ended) != 0 or DATEDIFF(minute, s.Created, s.Ended) is null)";
                 if (!string.IsNullOrEmpty(query.Country))
                 {
-                    sql += " and U.Country = @Country";
+                    sql += " and T.Country = @Country";
                 }
                 sql += " order by S.created desc, S.Id";
 

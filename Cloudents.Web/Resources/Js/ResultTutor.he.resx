@@ -144,9 +144,6 @@
   <data name="private_tutor" xml:space="preserve">
     <value>מורה פרטי/ת {1}</value>
   </data>
-  <data name="read_more" xml:space="preserve">
-    <value>קרא עוד</value>
-  </data>
   <data name="reviews_many" xml:space="preserve">
     <value>{1} ביקורות</value>
   </data>
@@ -158,9 +155,6 @@
   </data>
   <data name="study-area" xml:space="preserve">
     <value>תחומי לימוד:</value>
-  </data>
-  <data name="subtitle" xml:space="preserve">
-    <value>מורה פרטי/ת</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>מורים פרטיים</value>
@@ -174,5 +168,8 @@
   </data>
   <data name="hour_completed" xml:space="preserve">
     <value>שיעור הושלם</value>
+  </data>
+  <data name="apply_coupon" xml:space="preserve">
+    <value>מימוש קופון</value>
   </data>
 </root>

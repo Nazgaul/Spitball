@@ -22,7 +22,7 @@
                 <td>{{ props.item.totalPrice.toFixed(2) }}</td>
                  <!-- <td>{{ props.item.subsidizing }}</td> -->
                 <td >
-                    <span  @click="editItem(props.item)">
+                    <span style="cursor:pointer"  @click="editItem(props.item)">
                         <v-icon small
                                 color="green"
                                 class="mr-2"
@@ -226,15 +226,20 @@ export default {
             )
         },
         decline() {
-                var itemToSubmit = this.editedItem;
-            const index = this.editedIndex;
-            const item = this.paymentRequestsList[index];
+              let item = this.sessionPayment;
+              let itemObj = {
+                 studyRoomSessionId: item.studyRoomSessionId
+              }
+              debugger;
+            //     var itemToSubmit = this.editedItem;
+            // const index = this.editedIndex;
+            // const item = this.paymentRequestsList[index];
             var result = confirm("Are you sure?");
             if (result) {
-                declinePayment(itemToSubmit).then((resp) => {
+                declinePayment(itemObj).then((resp) => {
 
                 this.$toaster.success(`Payment removed`);
-                this.paymentRequestsList.splice(index, 1);
+                 this.paymentRequestsList.splice(this.editedIndex, 1);
                 this.dialog = false;
                 this.editedItem = {};
                 this.editedIndex = -1;

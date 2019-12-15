@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Services
@@ -31,7 +32,7 @@ namespace Cloudents.Web.Services
             var site = _configurationService.GetSiteName();
             if (site == ConfigurationService.Site.Frymo)
             {
-                return "IN";
+                return Country.India.Name;
             }
             var cookieValue = _httpContext.HttpContext.User.Claims.FirstOrDefault(f =>
                 string.Equals(f.Type, AppClaimsPrincipalFactory.Country,

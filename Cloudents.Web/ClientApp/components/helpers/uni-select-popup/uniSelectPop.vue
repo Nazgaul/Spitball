@@ -26,7 +26,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions([ 'changeSelectPopUpUniState', 'changeSelectUniState']),
+        ...mapActions([ 'changeSelectPopUpUniState']),
         closePopup(){
             this.$root.$emit('closePopUp', this.popUpType);
             this.changeSelectPopUpUniState(false);

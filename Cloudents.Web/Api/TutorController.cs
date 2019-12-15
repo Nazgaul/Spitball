@@ -29,6 +29,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Services;
 using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 
 namespace Cloudents.Web.Api
@@ -64,18 +65,18 @@ namespace Cloudents.Web.Api
         /// <param name="course">The course</param>
         /// <param name="profile"></param>
         /// <param name="page"></param>
+        /// <param name="pageSize"></param>
         /// <param name="tutorSearch"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
         public async Task<WebResponseWithFacet<TutorCardDto>> GetAsync(
-            string term, string course,
+            string term, string course, 
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             int page,
             [FromServices] ITutorSearch tutorSearch,
-
-            CancellationToken token)
+            CancellationToken token, int pageSize = 20)
         {
             term = term ?? string.Empty;
             course = course ?? string.Empty;
@@ -84,22 +85,24 @@ namespace Cloudents.Web.Api
             if (string.IsNullOrWhiteSpace(term))
             {
                 _userManager.TryGetLongUserId(User, out var userId);
-                var query = new TutorListQuery(userId, profile.Country, page);
+                var query = new TutorListQuery(userId, profile.Country, page, pageSize);
                 var result = await _queryBus.QueryAsync(query, token);
                 return new WebResponseWithFacet<TutorCardDto>
                 {
-                    Result = result,
+                    Result = result.Result,
+                    Count = result.Count,
                     NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page })
                 };
             }
             else
             {
-                var query = new TutorListTabSearchQuery(term, profile.Country, page);
+                var query = new TutorListTabSearchQuery(term, profile.Country, page, pageSize);
                 var result = await tutorSearch.SearchAsync(query, token);
                 return new WebResponseWithFacet<TutorCardDto>
                 {
-                    Result = result,
-                    NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page, term })
+                    Result = result.Result,
+                    NextPageLink = Url.RouteUrl("TutorSearch", new { page = ++page, term }),
+                    Count = result.Count
                 };
             }
         }
@@ -117,7 +120,7 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpGet]
         [ResponseCache(Duration = TimeConst.Minute * 5, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
-        public async Task<IEnumerable<TutorCardDto>> GetTutorsAsync(
+        public async Task<ListWithCountDto<TutorCardDto>> GetTutorsAsync(
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
@@ -156,18 +159,10 @@ namespace Cloudents.Web.Api
             [FromServices] IIpToLocation ipLocation,
             [FromServices] TelemetryClient client,
             [FromHeader(Name = "referer")] Uri referer,
+            [FromServices] ICountryService countryService,
             CancellationToken token)
         {
-
-            if (_userManager.TryGetLongUserId(User, out var userId))
-            {
-                var query = new UserEmailInfoQuery(userId);
-                var userInfo = await _queryBus.QueryAsync(query, token);
-                model.Phone = userInfo.PhoneNumber;
-                model.Name = userInfo.Name;
-                model.Email = userInfo.Email;
-            }
-            else
+            if (!_userManager.TryGetLongUserId(User, out var userId))
             {
                 if (model.Email == null)
                 {
@@ -176,20 +171,24 @@ namespace Cloudents.Web.Api
                     client.TrackTrace("Need to have email 1");
                     return BadRequest(ModelState);
                 }
+
                 if (model.Phone == null)
                 {
                     ModelState.AddModelError("error", _stringLocalizer["Need to have phone"]);
                     client.TrackTrace("Need to have phone 2");
                     return BadRequest(ModelState);
                 }
+                var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
+
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null)
                 {
                     if (user.PhoneNumber == null)
                     {
-
-                        var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
-                        var result = await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
+                       
+                        var result =
+                            await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode,
+                                token);
                         if (result != IdentityResult.Success)
                         {
                             if (string.Equals(result.Errors.First().Code, "Duplicate",
@@ -199,33 +198,44 @@ namespace Cloudents.Web.Api
                                 ModelState.AddModelError("error", _stringLocalizer["Phone number Already in use"]);
                                 return BadRequest(ModelState);
                             }
+
                             client.TrackTrace("Invalid Phone number");
                             ModelState.AddModelError("error", _stringLocalizer["Invalid Phone number"]);
                             return BadRequest(ModelState);
                         }
                     }
-                    userId = user.Id;
 
+                    userId = user.Id;
                 }
                 else
                 {
-                    user = new User(model.Email, CultureInfo.CurrentCulture)
+                    user = await _userManager.FindByPhoneAsync(model.Phone, location?.CallingCode);
+                    if (user != null)
                     {
-                        Name = model.Name,
-                    };
-                    var createUserCommand = new CreateUserCommand(user, model.Course);
-                    await _commandBus.DispatchAsync(createUserCommand, token);
-
-                    var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
-                    var result = await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
-                    if (result != IdentityResult.Success)
-                    {
-                        ModelState.AddModelError("error", _stringLocalizer["Invalid Phone number"]);
-
-                        client.TrackTrace("Invalid Phone number 2");
-                        return BadRequest(ModelState);
+                        userId = user.Id;
                     }
-                    userId = user.Id;
+                    else
+                    {
+                        var country = await countryService.GetUserCountryAsync(token);
+
+                        user = new User(model.Email, model.Name, null, CultureInfo.CurrentCulture, country);
+
+                        var createUserCommand = new CreateUserCommand(user, model.Course);
+                        await _commandBus.DispatchAsync(createUserCommand, token);
+
+                        var result =
+                            await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode,
+                                token);
+                        if (result != IdentityResult.Success)
+                        {
+                            ModelState.AddModelError("error", _stringLocalizer["Invalid Phone number"]);
+
+                            client.TrackTrace("Invalid Phone number 2");
+                            return BadRequest(ModelState);
+                        }
+
+                        userId = user.Id;
+                    }
                 }
             }
 
@@ -250,6 +260,16 @@ namespace Cloudents.Web.Api
                 client.TrackTrace("Invalid Course");
                 ModelState.AddModelError("error", _stringLocalizer["Invalid Course"]);
                 return BadRequest(ModelState);
+            }
+
+            if (model.TutorId.HasValue)
+            {
+                var query = new GetPhoneNumberQuery(model.TutorId.Value);
+                var val =  await _queryBus.QueryAsync(query, token);
+                return Ok(new
+                {
+                    PhoneNumber = val
+                });
             }
 
             return Ok();
@@ -377,5 +397,12 @@ namespace Cloudents.Web.Api
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+        //[HttpGet("phone")]
+        //public async Task<string> GetPhoneNumberAsync(long tutorId, CancellationToken token)
+        //{
+        //    var query = new GetPhoneNumberQuery(tutorId);
+        //    return await _queryBus.QueryAsync(query, token);
+        //}
     }
 }

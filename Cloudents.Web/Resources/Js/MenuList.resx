@@ -129,32 +129,14 @@
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="login_l" xml:space="preserve">
-    <value>Login</value>
-  </data>
   <data name="logout" xml:space="preserve">
     <value>Logout</value>
-  </data>
-  <data name="my_profile" xml:space="preserve">
-    <value>My Profile</value>
-  </data>
-  <data name="my_wallet" xml:space="preserve">
-    <value>My Wallet</value>
-  </data>
-  <data name="or" xml:space="preserve">
-    <value>or</value>
-  </data>
-  <data name="Please" xml:space="preserve">
-    <value>Please</value>
   </data>
   <data name="privacy_policy" xml:space="preserve">
     <value>Privacy Policy</value>
   </data>
   <data name="Sign_up" xml:space="preserve">
     <value>Sign up</value>
-  </data>
-  <data name="sign_up_l" xml:space="preserve">
-    <value>sign up</value>
   </data>
   <data name="terms_of_service" xml:space="preserve">
     <value>Terms of Service</value>
@@ -174,5 +156,17 @@
   </data>
   <data name="my_study_rooms" xml:space="preserve">
     <value>Test study room</value>
+  </data>
+  <data name="balance" xml:space="preserve">
+    <value>Your balance: {1} Pts</value>
+  </data>
+  <data name="greets" xml:space="preserve">
+    <value>Hi, {1}</value>
+  </data>
+  <data name="points" xml:space="preserve">
+    <value>Get Points</value>
+  </data>
+  <data name="txt_out" xml:space="preserve">
+    <value>Get access to thousands of online study materials and tutors</value>
   </data>
 </root>

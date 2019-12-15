@@ -17,7 +17,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         public async Task ExecuteAsync(ChangeCountryCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.Id, token);
-            user.ChangeCountry(message.Country.ToUpperInvariant());
+            user.ChangeCountryAdmin(message.Country.ToUpperInvariant());
             await _userRepository.UpdateAsync(user, token);
 
         }

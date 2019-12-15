@@ -278,10 +278,10 @@ namespace Cloudents.Admin2.Api
         {
             var country = User.GetCountryClaim();
             var query = new AdminUserSoldDocsQuery(id, page, country);
-            var res = await _queryBus.QueryAsync(query, token);
+            var res = (await _queryBus.QueryAsync(query, token)).ToList();
             foreach (var r in res)
             {
-                r.Url = $"{_configuration["Site"]}document/{r.ItemCourse}/{r.ItemCreated.ToString("dd-M-yyyy")}/{r.ItemId}";
+                r.Url = $"{_configuration["Site"]}document/{r.ItemCourse}/{r.ItemCreated:dd-M-yyyy}/{r.ItemId}";
             }
             return res;
         }

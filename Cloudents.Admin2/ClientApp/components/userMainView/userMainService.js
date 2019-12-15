@@ -32,7 +32,7 @@ function UserInfo(objInit) {
     this.status = {value: objInit.isActive ? false : true, label: 'Suspended'};
     this.lockoutReason = { value: objInit.lockoutReason ? objInit.lockoutReason : '', label: 'Lockout Reason' };
     this.wasSuspended = { value: objInit.wasSuspended ? true : false, label: 'Was Suspended' };
-    this.tutorPrice = { value: objInit.tutorPrice || null, label: 'Tutor Price' }
+    this.tutorPrice = { value: objInit.tutorPrice || null, label: 'Tutor Price' };
     if (objInit.joined !== null) {
         this.joined =
             {
@@ -69,7 +69,7 @@ function UserInfo(objInit) {
          showButton: true,
          buttonText: "delete"
 
-    }
+    };
 }
 
 function createUserInfoItem(data) {
@@ -136,8 +136,8 @@ function createPurchasedDocItem(data) {
 }
 function createSoldItems(data){
     return data.map((item)=>{
-        return new SoldItem(item)
-    })
+        return new SoldItem(item);
+    });
 }
 function SoldItem(objInit){
     this.itemId = objInit.itemId;
@@ -155,7 +155,7 @@ function SoldItem(objInit){
 }
 
 function formatTime(isoTime){
-    let date = new Date(isoTime)
+    let date = new Date(isoTime);
     return `${date.getUTCMonth() + 1}/${date.getUTCDate()}/${date.getUTCFullYear({})}`; 
 }
 
@@ -295,6 +295,12 @@ export default {
                 console.log(error, 'error get 20 docs');
                 return error;
             });
+    },
+    suspendTutor: (id) => {
+        return connectivityModule.http.post(`AdminTutor/suspend`, id);
+    },
+    unSuspendTutor: (id) => {
+        return connectivityModule.http.post(`AdminTutor/unsuspend`, id);
     },
     updateUserName: ({ userId, firstName, lastName }) => {
         return connectivityModule.http.put(`AdminUser/name`, {userId, firstName, lastName});

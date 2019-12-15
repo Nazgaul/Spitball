@@ -30,11 +30,6 @@ export default {
         },
         lastMsgIndex: {}
     },
-    data() {
-        return {
-            rtl: global.isRtl
-        }
-    },
     computed:{
         ...mapGetters(['accountUser','getChatLoader']),
 

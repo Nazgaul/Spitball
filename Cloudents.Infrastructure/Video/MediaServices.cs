@@ -11,14 +11,16 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
 
 namespace Cloudents.Infrastructure.Video
 {
     public class MediaServices : IVideoService
     {
-        public const string JobLabelImage = "image";
-        public const string JobLabelShortVideo = "video-short";
-        public const string JobLabelFullVideo = "video";
+       // public const string JobLabelImage = "image";
+       // public const string JobLabelShortVideo = "video-short";
+       // public const string JobLabelFullVideo = "video";
 
         private readonly AsyncLazy<AzureMediaServicesClient> _context;
         private ConfigWrapper _config;
@@ -34,6 +36,38 @@ namespace Cloudents.Infrastructure.Video
 
         private const string ThumbnailTransformer = "PreviewTransformer";
         private const string StreamingTransformer = "StreamingTransformer";
+        private const string FullHdTransformer = "FullHdTransformer";
+
+        public async Task CreateStudyRoomSessionEncoding(string sessionId, string url,
+            CancellationToken token)
+        {
+            var thumbnailAsset = await CreateOutputAssetAsync(sessionId, AssetType.StudyRoom, token);
+            var jobInput =
+                new JobInputHttp(files: new[] { url });
+            JobOutput[] jobOutputs =
+            {
+                new JobOutputAsset(thumbnailAsset.Name, label: AssetType.StudyRoom.ToString())
+            };
+            var v = await _context;
+
+            try
+            {
+                await v.Jobs.CreateAsync(
+                    _config.ResourceGroup,
+                    _config.AccountName,
+                    FullHdTransformer,
+                    $"{sessionId} study room session",
+                    new Job
+                    {
+                        Input = jobInput,
+                        Outputs = jobOutputs,
+                    }, token);
+            }
+            catch (ApiErrorException e) when (e.Response.StatusCode == HttpStatusCode.Conflict)
+            {
+                //Do nothing
+            }
+        }
 
         private async Task<AzureMediaServicesClient> Init(bool isDevelop)
         {
@@ -96,7 +130,20 @@ namespace Cloudents.Infrastructure.Video
 
                 });
 
-            await Task.WhenAll(t1, t2);
+            var t3 = client.Transforms.CreateOrUpdateAsync(
+                _config.ResourceGroup,
+                _config.AccountName,
+                FullHdTransformer,
+                new List<TransformOutput>()
+                {
+                    new TransformOutput(new BuiltInStandardEncoderPreset()
+                    {
+                        PresetName = EncoderNamedPreset.H264SingleBitrate1080p
+                    }),
+
+                });
+
+            await Task.WhenAll(t1, t2, t3);
             return client;
             //TODO: need to add event to queue
 
@@ -123,21 +170,19 @@ namespace Cloudents.Infrastructure.Video
             //return job;
         }
 
-
-
         public Task DeleteImageAssetAsync(long id, CancellationToken token)
         {
-            return DeleteAssetAsync(id, AssetType.Thumbnail, token);
+            var assetName = BuildAssetName(id.ToString(), AssetType.Thumbnail);
+            return DeleteAssetAsync(assetName, token);
             //var assetName = BuildAssetName(id, AssetType.Thumbnail);
             //await v.Assets.DeleteAsync(_config.ResourceGroup, _config.AccountName, assetName, token);
         }
 
-
-        public async Task DeleteAssetAsync(long id, AssetType type, CancellationToken token)
+        public async Task DeleteAssetAsync(string assetName, CancellationToken token)
         {
             var v = await _context;
 
-            var assetName = BuildAssetName(id, type);
+          
             //TODO need to delete the jobs as well.
             //TODO need to delete this when the file is deleted
             var result = await v.StreamingLocators.ListAsync(_config.ResourceGroup, _config.AccountName, cancellationToken: token);
@@ -146,21 +191,28 @@ namespace Cloudents.Infrastructure.Video
             {
                 await v.StreamingLocators.DeleteAsync(_config.ResourceGroup, _config.AccountName,
                     streamingLocator.Name, cancellationToken: token);
-
-
             }
+
+
             await v.Assets.DeleteAsync(_config.ResourceGroup, _config.AccountName, assetName, token);
+        }
+
+
+        public Task DeleteAssetAsync(long id, AssetType type, CancellationToken token)
+        {
+            var assetName = BuildAssetName(id.ToString(), type);
+            return DeleteAssetAsync(assetName, token);
         }
 
 
         private async Task CreateThumbnailJobAsync(long id, string url, CancellationToken token)
         {
-            var thumbnailAsset = await CreateOutputAssetAsync(id, AssetType.Thumbnail, token);
+            var thumbnailAsset = await CreateOutputAssetAsync(id.ToString(), AssetType.Thumbnail, token);
             var jobInput =
                 new JobInputHttp(files: new[] { url });
             JobOutput[] jobOutputs =
             {
-                new JobOutputAsset(thumbnailAsset.Name, label: JobLabelImage)
+                new JobOutputAsset(thumbnailAsset.Name, label: AssetType.Thumbnail.ToString())
             };
             var v = await _context;
 
@@ -193,13 +245,13 @@ namespace Cloudents.Infrastructure.Video
         {
 
             var clipEndTime = Math.Min(TimeSpan.FromSeconds(30).Ticks, videoLength.Ticks);
-            var videoAsset = await CreateOutputAssetAsync(id, AssetType.Short, token);
+            var videoAsset = await CreateOutputAssetAsync(id.ToString(), AssetType.Short, token);
             var jobInput =
                 new JobInputHttp(files: new[] { url }, end: new AbsoluteClipTime(new TimeSpan(clipEndTime)));
 
             JobOutput[] jobOutputs =
             {
-                new JobOutputAsset(videoAsset.Name, label: JobLabelShortVideo),
+                new JobOutputAsset(videoAsset.Name, label: AssetType.Short.ToString()),
             };
 
             var v = await _context;
@@ -230,13 +282,13 @@ namespace Cloudents.Infrastructure.Video
 
         private async Task CreateStreamingJobAsync(long id, string url, CancellationToken token)
         {
-            var videoAsset = await CreateOutputAssetAsync(id, AssetType.Long, token);
+            var videoAsset = await CreateOutputAssetAsync(id.ToString(), AssetType.Long, token);
             var jobInput =
                 new JobInputHttp(files: new[] { url });
 
             JobOutput[] jobOutputs =
             {
-                new JobOutputAsset(videoAsset.Name, label: JobLabelFullVideo),
+                new JobOutputAsset(videoAsset.Name, label: AssetType.Long.ToString()),
             };
 
             var v = await _context;
@@ -266,11 +318,11 @@ namespace Cloudents.Infrastructure.Video
         }
 
 
-        private async Task<Asset> CreateOutputAssetAsync(long id, AssetType assetType, CancellationToken token)
+        private async Task<Asset> CreateOutputAssetAsync(string id, AssetType assetType, CancellationToken token)
         {
             var assetName = BuildAssetName(id, assetType);
             var v = await _context;
-            var asset = new Asset(name: assetName, description: assetName, container: assetName, alternateId: id.ToString());
+            var asset = new Asset(name: assetName, description: assetName, container: assetName, alternateId: id);
             var outputAssetName = assetName;
             return await v.Assets.CreateOrUpdateAsync(_config.ResourceGroup, _config.AccountName,
                 outputAssetName, asset, token);
@@ -281,13 +333,13 @@ namespace Cloudents.Infrastructure.Video
         {
             var v = await _context;
 
-            var assetName = BuildAssetName(id, assetType);
+            var assetName = BuildAssetName(id.ToString(), assetType);
             var asset = await v.Assets.GetAsync(_config.ResourceGroup, _config.AccountName, assetName, token);
 
             return asset?.Container;
         }
 
-        private static string BuildAssetName(long id, AssetType assetType)
+        private static string BuildAssetName(string id, AssetType assetType)
         {
             return $"{assetType}{id}";
 
@@ -373,6 +425,7 @@ namespace Cloudents.Infrastructure.Video
 
         }
 
+        [Cache(TimeConst.Hour, "media-service", true)]
         public Task<string> GetShortStreamingUrlAsync(long videoId, CancellationToken token)
         {
             return GetStreamingUrlAsync(GetShortStreamingLocatorName(videoId), token);

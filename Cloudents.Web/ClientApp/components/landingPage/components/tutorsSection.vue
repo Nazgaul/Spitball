@@ -48,7 +48,7 @@ export default {
     width: calc(~"100% - 22px");
     margin-bottom: 50px;
   }
-  margin-bottom: 80px;
+  margin-bottom: 70px;
   .ts-title {
     @media (max-width: @screen-xs) {
       font-size: 18px;
@@ -66,7 +66,7 @@ export default {
       margin: 8px 0 14px 0;
       font-size: 14px;
     }
-    margin: 10px 0;
+    margin: 10px 0 15px 0;
     font-size: 16px;
     font-weight: normal;
     font-stretch: normal;

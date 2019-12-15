@@ -31,14 +31,17 @@ namespace Cloudents.Infrastructure.Test
         public async Task GetFeedAsync_First_Page_Ok()
         {
             IList<FeedDto> itemsFeed = Enumerable.Range(0, 18).Select(s => new DocumentFeedDto()).ToList<FeedDto>();
-            IList<TutorCardDto> tutorsFeed = Enumerable.Range(0, 3).Select(s => new TutorCardDto()).ToList();
-
+            ListWithCountDto<TutorCardDto> tutorsFeed = new ListWithCountDto<TutorCardDto>()
+            {
+             Result = Enumerable.Range(0, 3).Select(s => new TutorCardDto()).ToList(),
+             Count = 3
+            };
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync(tutorsFeed);
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync(itemsFeed);
 
             var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object);
 
-            var res = (await feedService.GetFeedAsync(new Core.Query.Feed.GetFeedQuery(162107, 0, null, "IL", null), default)).ToList();
+            var res = (await feedService.GetFeedAsync(new GetFeedQuery(162107, 0, null, "IL", null), default)).ToList();
 
             res[2].GetType().Should().Be(typeof(TutorCardDto));
             res[12].GetType().Should().Be(typeof(TutorCardDto));
@@ -50,10 +53,10 @@ namespace Cloudents.Infrastructure.Test
         public async Task GetFeedAsync_Null_Exception()
         {
             var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object);
-            GetFeedQuery query = null;
-            SearchFeedQuery searchQuery = null;
-            await Assert.ThrowsAsync<ArgumentNullException>(() => feedService.GetFeedAsync(query, default));
-            await Assert.ThrowsAsync<ArgumentNullException>(() => feedService.GetFeedAsync(searchQuery, default));
+            //GetFeedQuery query = null;
+            //SearchFeedQuery searchQuery = null;
+            await Assert.ThrowsAsync<ArgumentNullException>(() => feedService.GetFeedAsync((GetFeedQuery) null, default));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => feedService.GetFeedAsync((SearchFeedQuery) null, default));
         }
 
         [Fact]
@@ -61,7 +64,11 @@ namespace Cloudents.Infrastructure.Test
         {
 
             IList<FeedDto> itemsFeed = Enumerable.Range(0, 18).Select(s => new DocumentFeedDto()).ToList<FeedDto>();
-            IList<TutorCardDto> tutorsFeed = Enumerable.Range(0, 3).Select(s => new TutorCardDto()).ToList();
+            ListWithCountDto<TutorCardDto> tutorsFeed = new ListWithCountDto<TutorCardDto>()
+            { 
+            Result = Enumerable.Range(0, 3).Select(s => new TutorCardDto()).ToList(),
+            Count = 3
+            };
 
 
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync(tutorsFeed);
@@ -79,7 +86,11 @@ namespace Cloudents.Infrastructure.Test
         public async Task GetFeedAsync_First_Page_12_Items_Ok()
         {
             IList<FeedDto> itemsFeed = Enumerable.Range(0, 12).Select(s => new DocumentFeedDto()).ToList<FeedDto>();
-            IList<TutorCardDto> tutorsFeed = Enumerable.Range(0, 3).Select(s => new TutorCardDto()).ToList();
+            ListWithCountDto<TutorCardDto> tutorsFeed = new ListWithCountDto<TutorCardDto>()
+            {
+                Result = Enumerable.Range(0, 3).Select(s => new TutorCardDto()).ToList(),
+                Count = 3
+            };
 
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync(tutorsFeed);
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync(itemsFeed);
@@ -97,7 +108,11 @@ namespace Cloudents.Infrastructure.Test
         public async Task GetFeedAsync_First_Page_No_Items_Ok()
         {
             IList<FeedDto> itemsFeed = new List<FeedDto>();
-            IList<TutorCardDto> tutorsFeed = Enumerable.Range(0, 3).Select(s => new TutorCardDto()).ToList();
+            ListWithCountDto<TutorCardDto> tutorsFeed = new ListWithCountDto<TutorCardDto>()
+            {
+                Result = Enumerable.Range(0, 3).Select(s => new TutorCardDto()).ToList(),
+                Count = 3
+            };
 
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync(tutorsFeed);
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync(itemsFeed);
@@ -113,13 +128,11 @@ namespace Cloudents.Infrastructure.Test
 
 
         [Fact]
-        public async Task GetFeedAsync_First_Page_Returen_Null_Items_Ok()
+        public async Task GetFeedAsync_First_Page_Return_Null_Items_Ok()
         {
-            IList<FeedDto> itemsFeed = null;
-            IList<TutorCardDto> tutorsFeed = null;
-
-            _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync(tutorsFeed);
-            _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync(itemsFeed);
+            _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync((ListWithCountDto<TutorCardDto>) null);
+            _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListByCourseQuery>(), default)).ReturnsAsync((IEnumerable<TutorCardDto>) null);
+            _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync((IList<FeedDto>) null);
 
             var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object);
 
@@ -135,7 +148,11 @@ namespace Cloudents.Infrastructure.Test
         {
 
             IList<FeedDto> itemsFeed = Enumerable.Range(0, 18).Select(s => new DocumentFeedDto()).ToList<FeedDto>();
-            IList<TutorCardDto> tutorsFeed = Enumerable.Range(0, 1).Select(s => new TutorCardDto()).ToList();
+            ListWithCountDto<TutorCardDto> tutorsFeed = new ListWithCountDto<TutorCardDto>()
+            {
+                Result = Enumerable.Range(0, 1).Select(s => new TutorCardDto()).ToList(),
+                Count = 1
+            };
 
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync(tutorsFeed);
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync(itemsFeed);
@@ -152,7 +169,7 @@ namespace Cloudents.Infrastructure.Test
         public async Task GetFeedAsync_First_Page_No_Tutor_Ok()
         {
             IList<FeedDto> itemsFeed = Enumerable.Range(0, 18).Select(s => new DocumentFeedDto()).ToList<FeedDto>();
-            IList<TutorCardDto> tutorsFeed = new List<TutorCardDto>();
+            ListWithCountDto<TutorCardDto> tutorsFeed = new ListWithCountDto<TutorCardDto>();
 
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync(tutorsFeed);
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync(itemsFeed);
@@ -161,7 +178,7 @@ namespace Cloudents.Infrastructure.Test
 
             var res = (await feedService.GetFeedAsync(new GetFeedQuery(162107, 0, null, "IL", null), default))?.ToList();
 
-            res.Count.Should().Equals(18);
+            res.Count.Should().Be(18);
             res.Contains(null).Should().BeFalse();
         }
     }

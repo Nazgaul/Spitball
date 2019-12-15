@@ -61,14 +61,13 @@ export default {
 .user-info-section {
   min-width: 260px;
    @media (max-width: @screen-xs) {
-  //&.mobile-view {
     background-color: transparent;
     flex-direction: row;
   }
   .mobile-btn-fixed-bottom {
     align-items: baseline;
     position: fixed;
-    bottom: 6px;
+    bottom: 66px;
     right: 0;
     width: 100%;
     z-index: 9;

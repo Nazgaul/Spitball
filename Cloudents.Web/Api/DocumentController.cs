@@ -7,6 +7,7 @@ using Cloudents.Command.Documents.PurchaseDocument;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Command.Votes.Commands.AddVoteDocument;
 using Cloudents.Core;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
@@ -26,6 +27,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Wangkanai.Detection;
@@ -91,8 +95,9 @@ namespace Cloudents.Web.Api
                 textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             }
 
-            var files = await generatorIndex[model.DocumentType].GeneratePreview(model, userId.GetValueOrDefault(-1), token);
+            var files = await generatorIndex[model.Document.DocumentType].GeneratePreview(model, userId.GetValueOrDefault(-1), token);
             await System.Threading.Tasks.Task.WhenAll(tQueue, textTask);
+            model.Document.Url = Url.DocumentUrl(model.Document.University, model.Document.Course, model.Document.Id, model.Document.Title);
             return new DocumentPreviewResponse(model, files, textTask.Result);
         }
 
@@ -267,6 +272,20 @@ namespace Cloudents.Web.Api
             return new UploadStartResponse(blobName);
         }
 
+
+        [HttpGet("similar")]
+        public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocuments([FromQuery] SimilarDocumentsRequest request, 
+            [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
+        {
+            var query = new SimilarDocumentsQuery(request.DocumentId);
+            var res = await _queryBus.QueryAsync(query, token);
+            return res.Select(s => {
+                s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+                s.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
+                s.Title = Path.GetFileNameWithoutExtension(s.Title);
+                return s;
+                });
+        }
 
         [NonAction]
         public override Task FinishUploadAsync(UploadRequestFinish model, string blobName, CancellationToken token)

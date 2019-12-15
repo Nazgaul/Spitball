@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Tutor
 {
-    public class TutorListQuery : IQuery<IEnumerable<TutorCardDto>>
+    public class TutorListQuery : IQuery<ListWithCountDto<TutorCardDto>>
     {
         public TutorListQuery(long userId, string country, int page, int pageSize = 20)
         {
@@ -26,7 +26,7 @@ namespace Cloudents.Query.Tutor
         private int Page { get; }
         public int PageSize { get; set; }
 
-        internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, IEnumerable<TutorCardDto>>
+        internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, ListWithCountDto<TutorCardDto>>
         {
             private readonly IStatelessSession _session;
 
@@ -36,7 +36,7 @@ namespace Cloudents.Query.Tutor
             }
 
             //TODO: review query 
-            public Task<IEnumerable<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
+            public Task<ListWithCountDto<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
                 //TODO maybe we can fix this query
                 ReadTutor viewTutorAlias = null;
@@ -90,13 +90,24 @@ namespace Cloudents.Query.Tutor
 
                     futureCourse.WithSubquery.WhereProperty(w => w.Id).In(detachedQuery);
                     futureCourse2.WithSubquery.WhereProperty(w => w.Id).In(detachedQuery2);
-                    listOfQueries.Add(withCountryOnlyDetachedQuery);
+                    listOfQueries.Add(withCountryOnlyDetachedQuery.WithSubquery.WhereProperty(w => w.Id).NotIn(detachedQuery).WithSubquery.WhereProperty(w => w.Id).NotIn(detachedQuery2));
                 }
-
+                
+                var futureCount = listOfQueries.Select(s => BuildSelectStatement(s)).ToList();
+                var count = futureCount.Select(s => s.Value).Sum();
+                    
+               
                 var futureResult = listOfQueries.Select(s => BuildSelectStatement(s, query.Page, query.PageSize)).ToList();
 
                 IEnumerable<TutorCardDto> retVal = futureResult.Select(async s => await s.GetEnumerableAsync(token)).SelectMany(s => s.Result).Distinct(TutorCardDto.UserIdComparer).Take(query.PageSize).ToList();
-                return Task.FromResult(retVal);
+
+        
+                var res = new ListWithCountDto<TutorCardDto>()
+                {
+                    Result = retVal,
+                    Count = count
+                };
+                return Task.FromResult(res);
             }
 
             private static IFutureEnumerable<TutorCardDto> BuildSelectStatement(IQueryOver<ReadTutor, ReadTutor> futureCourse, int page, int pageSize)
@@ -115,11 +126,22 @@ namespace Cloudents.Query.Tutor
                             .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
                             .Select(x => x.University).WithAlias(() => tutorCardDtoAlias.University)
                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons)
-                            .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.Country))
+                            .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.Country)
+                            .Select(x=>x.SubsidizedPrice).WithAlias(() =>  tutorCardDtoAlias.DiscountPrice)
+                        )
 
                     .OrderBy(o => o.OverAllRating).Desc
                     .TransformUsing(Transformers.AliasToBean<TutorCardDto>())
                     .Take(pageSize).Skip(page * pageSize).Future<TutorCardDto>();
+            }
+
+            private static IFutureValue<int> BuildSelectStatement(IQueryOver<ReadTutor, ReadTutor> futureCourse)
+            {
+                var res =  futureCourse.SelectList(s =>
+                        s.SelectCount(x => x.Id)
+                           )
+                    .FutureValue<int>();
+                return res;
             }
         }
     }

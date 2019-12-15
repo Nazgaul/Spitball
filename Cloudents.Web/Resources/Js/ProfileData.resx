@@ -118,7 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="generalProfile_modal_heading" xml:space="preserve">
-    <value>Login or sign up for free to continue</value>
+    <value>Login or sign up for free 
+to continue</value>
   </data>
   <data name="generalProfile_modal_text" xml:space="preserve">
     <value>Access the best study resources and find 
