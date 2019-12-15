@@ -50,7 +50,7 @@
                      </template>
                   </router-link>
                </td>
-               <td class="text-xs-left">{{ props.item.type }}</td>
+               <td class="text-xs-left">{{formatItemType(props.item.type)}}</td>
                <td class="text-xs-left" v-html="formatItemStatus(props.item.status)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-left">{{ formatItemPrice(props.item.price,props.item.type) }}</td>
@@ -137,6 +137,20 @@ export default {
          }
          if(item.type === 'Question'){
             return {path:'/question/'+item.id}
+         }
+      },
+      formatItemType(type){
+         if(type === 'Question'){
+            return LanguageService.getValueByKey('dashboardPage_qa')
+         }
+         if(type === 'Document'){
+            return LanguageService.getValueByKey('dashboardPage_document')
+         }
+         if(type === 'Video'){
+            return LanguageService.getValueByKey('dashboardPage_video')
+         }
+         if(type === 'TutoringSession'){
+            return LanguageService.getValueByKey('dashboardPage_tutor_session')
          }
       }
    },
