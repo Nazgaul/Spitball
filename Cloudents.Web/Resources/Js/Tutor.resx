@@ -339,6 +339,9 @@ Voice Recording?</value>
     <value>session ended</value>
   </data>
   <data name="waiting_in_studyRoom" xml:space="preserve">
-    <value>is waiting for you at the study room</value>
+    <value>is waiting for you at the</value>
+  </data>
+  <data name="waiting_in_studyRoom_link" xml:space="preserve">
+    <value>study room</value>
   </data>
 </root>
