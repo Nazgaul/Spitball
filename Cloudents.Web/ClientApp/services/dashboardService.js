@@ -11,7 +11,11 @@ function SalesItem(objInit){
    this.date = objInit.date || null;
    this.studentName = objInit.studentName;
    this.duration = objInit.duration;
+   this.answerText = objInit.answerText || '';
+   this.text = objInit.text || '';
+   this.studentImage = objInit.studentImage || '';
 }
+
 // function ContentItem(objInit){
 //    this.id = objInit.id || null
 //    this.preview = objInit.preview || '';

@@ -120,6 +120,9 @@
   <data name="action" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="answer" xml:space="preserve">
+    <value>Answer:</value>
+  </data>
   <data name="course" xml:space="preserve">
     <value>Course:</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="date_mins" xml:space="preserve">
     <value>mins</value>
+  </data>
+  <data name="date_secs" xml:space="preserve">
+    <value>Seconds</value>
   </data>
   <data name="document" xml:space="preserve">
     <value>Doc</value>
@@ -164,6 +170,9 @@
   </data>
   <data name="qa" xml:space="preserve">
     <value>Q&amp;A</value>
+  </data>
+  <data name="questuin" xml:space="preserve">
+    <value>Questuin:</value>
   </data>
   <data name="session" xml:space="preserve">
     <value>Tutoring session with</value>

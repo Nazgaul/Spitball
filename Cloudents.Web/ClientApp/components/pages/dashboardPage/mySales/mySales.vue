@@ -5,6 +5,7 @@
                :headers="headers"
                :items="salesItems"
                disable-initial-sort
+               :item-key="'date'"
                :rows-per-page-items="['5']"
                class="elevation-1"
                :prev-icon="'sbf-arrow-left-carousel'"
@@ -12,26 +13,43 @@
                :next-icon="'sbf-arrow-right-carousel'">
                <template v-slot:items="props">
                   <td class="mySales_td_img">
-                     <img :src="props.item.preview" :alt="props.item.info" v-if="props.item.preview">
+                     <img v-if="props.item.preview || props.item.studentImage" :src="$proccessImageUrl(props.item.preview? props.item.preview: props.item.studentImage,80,80)">
                      <v-icon v-else>sbf-user</v-icon>
                   </td>
                   <td class="text-xs-left mySales_td_course">
-                     <div v-if="props.item.type !== 'TutoringSession'">
-                        <span>{{props.item.name}}</span>
-                        <span>{{ props.item.info }}</span>
-                     </div>
-                     <div v-else>
+                     <template v-if="checkIsSession(props.item.type)">
                         <span v-language:inner="'dashboardPage_session'"></span>
-                        <span>{{props.item.studentName}} {{props.item.duration | currentHourAndMin}}</span>
-                     </div>
-                     <div>
-                        <span v-language:inner="'dashboardPage_course'"></span>
-                        <span>{{props.item.course}}</span>
-                     </div>
+                        <span>{{props.item.studentName}}</span>
+                        <span>{{props.item.duration | sessionDuration}}</span>
+                     </template>
+
+                     <template v-if="checkIsQuestuin(props.item.type)">
+                        <div class="content_txt text-truncate">
+                           <span v-language:inner="'dashboardPage_questuin'"/>
+                           <span class="text-truncate">{{props.item.text}}</span>
+                        </div>
+                        <div class="content_txt text-truncate">
+                           <span v-language:inner="'dashboardPage_answer'"/>
+                           <span>{{props.item.answerText}}</span>
+                        </div>
+                        <div>
+                           <span v-language:inner="'dashboardPage_course'"></span>
+                           <span>{{props.item.course}}</span>
+                        </div>
+                     </template>
+
+                     <template v-if="checkIsItem(props.item.type)">
+                        <span>{{props.item.name}}</span>
+                        <div>
+                           <span v-language:inner="'dashboardPage_course'"></span>
+                           <span>{{props.item.course}}</span>
+                        </div>
+                     </template>
                   </td>
                   <td class="text-xs-left">{{ props.item.type }}</td>
                   <td class="text-xs-left" v-language:inner="`dashboardPage_${props.item.status.toLowerCase()}`"></td>
                   <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
+                  <td class="text-xs-left">{{ props.item.price}}</td>
                   <!-- <td class="text-xs-left"><v-icon @click="openDialog" small>sbf-3-dot</v-icon></td> -->
                </template>
                <template slot="pageText" slot-scope="item">
@@ -61,6 +79,7 @@ export default {
             // {text:LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
             {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'status'},
             {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
+            {text: LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
             // {text: LanguageService.getValueByKey('dashboardPage_action'), align:'left', sortable: false, value:'action'},
          ],
       }
@@ -76,6 +95,15 @@ export default {
 
       openDialog() {
          this.openDashboardDialog(true);
+      },
+      checkIsSession(prop){
+         return prop === 'TutoringSession';
+      },
+      checkIsQuestuin(prop){
+         return prop === 'Question';
+      },
+      checkIsItem(prop){
+         return prop !== 'Question' && prop !== 'TutoringSession';
       }
    },
    created() {
@@ -115,11 +143,15 @@ export default {
 
    .mySales_td_course {
       div {
-         padding: 10px 0;
+         // padding: 10px 0;
+      }
+      .content_txt{
+         max-width: 300px;
       }
    }
    .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-      transform: none /*rtl:rotate(180deg)*/ 
+      transform: none /*rtl:rotate(180deg)*/;
+      height: inherit;
    }
 }
 </style>
