@@ -14,6 +14,8 @@ function SalesItem(objInit){
    this.answerText = objInit.answerText || '';
    this.text = objInit.text || '';
    this.studentImage = objInit.studentImage || '';
+   this.studentId = objInit.studentId || '';
+   this.url = objInit.url
 }
 
 // function ContentItem(objInit){

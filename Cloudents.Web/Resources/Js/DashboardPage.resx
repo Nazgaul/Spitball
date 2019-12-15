@@ -150,6 +150,9 @@
   <data name="likes" xml:space="preserve">
     <value>Likes</value>
   </data>
+  <data name="my_sales_title" xml:space="preserve">
+    <value>My Sales</value>
+  </data>
   <data name="of" xml:space="preserve">
     <value>of</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="price" xml:space="preserve">
     <value>Price</value>
+  </data>
+  <data name="pts" xml:space="preserve">
+    <value>Pts</value>
   </data>
   <data name="purchased" xml:space="preserve">
     <value>Purchased</value>
