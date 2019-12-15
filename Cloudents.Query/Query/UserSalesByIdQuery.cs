@@ -42,7 +42,7 @@ namespace Cloudents.Query.Query
                         Id = s.Document.Id,
                         Name = s.Document.Name,
                         Course = s.Document.Course.Id,
-                        Type = s.Document.DocumentType.ToString(),
+                        Type = s.Document.DocumentType != null ?  s.Document.DocumentType.ToString() : "Document",
                         Date = s.Created,
                         Price = s.Price
                     }).ToFuture<SaleDto>();
