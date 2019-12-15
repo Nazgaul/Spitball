@@ -59,7 +59,7 @@ namespace Cloudents.Query.Query
                         Date = s.Created,
                         Course = s.Course.Id,
                         Text = s.Text,
-                        AnswerText = s.Answers.Select(s => s.Text).FirstOrDefault()
+                        AnswerText = s.Answers.Select(si => si.Text).FirstOrDefault()
                     }).ToFuture<UserContentDto>();
 
                 var answerFuture = _session.Query<Answer>()

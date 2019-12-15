@@ -71,9 +71,9 @@ namespace Cloudents.Query.Query
                         Status = string.IsNullOrEmpty(s.Receipt)? "Pending" : "Paid",
                         Date = s.Created,
                         Price = s.Price,
-                        StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(s => s.User.Name).FirstOrDefault(),
+                        StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name).FirstOrDefault(),
                         Duration = s.Duration,
-                        StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(s => s.User.Image).FirstOrDefault()
+                        StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Image).FirstOrDefault()
                     }).ToFuture<SaleDto>();
           
 

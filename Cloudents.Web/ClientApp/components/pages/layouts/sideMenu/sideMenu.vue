@@ -144,10 +144,10 @@ export default {
         {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
         // {name: LanguageService.getValueByKey('schoolBlock_lessons'), key:'lessons', icon:'sbf-lessons'},
         // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
-        {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
-        {name: 'myCalendar', key:'myCalendar', icon:'sbf-cart',sel:'sd_calendar'},
-        {name: 'mySales', key:'mySales', icon:'sbf-cart',sel:'sd_sales'},
-        {name: 'myFollowers', key:'myFollowers', icon:'sbf-cart',sel:'sd_followers'},
+        // {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
+        // {name: 'myCalendar', key:'myCalendar', icon:'sbf-cart',sel:'sd_calendar'},
+        {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'mySales', icon:'sbf-cart',sel:'sd_sales'},
+        // {name: 'myFollowers', key:'myFollowers', icon:'sbf-cart',sel:'sd_followers'},
       ],
       selectedCourse: "",
       lock: false,
@@ -267,16 +267,16 @@ export default {
         // this.$router.push({name:'posts'})
       }
       if(path === "myPurchases"){
-        this.$router.push({path:'/myPurchases'})
+        this.$router.push({path:'/my-purchases'})
       }
       if(path === "myCalendar"){
-        this.$router.push({path:'/myCalendar'})
+        this.$router.push({path:'/my-calendar'})
       }
       if(path === "myFollowers"){
-        this.$router.push({path:'/myFollowers'})
+        this.$router.push({path:'/my-followers'})
       }
       if(path === "mySales"){
-        this.$router.push({path:'/mySales'})
+        this.$router.push({path:'/my-sales'})
       }
       this.closeSideMenu();
     },

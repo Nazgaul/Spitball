@@ -327,7 +327,14 @@ let routes2 = [
     },
     {
         path: "/dashboard",
-        alias: ['/myCalendar','/myPurchases','/myFollowers','/mySales'],
+        alias: [
+            '/my-sales',
+            // '/my-content',
+            
+            
+            
+            // '/my-calendar','/my-purchases','/my-followers'
+        ],
         components: {
             default: dashboardPage,
             header: pageHeader,

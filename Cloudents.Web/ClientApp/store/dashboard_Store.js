@@ -2,6 +2,7 @@ import dashboardService from '../services/dashboardService.js';
 
 const state = {
    salesItems: [],
+   // contentItems: [],
    dashboardDialog: false,
 }
 
@@ -9,6 +10,9 @@ const mutations = {
    setSalesItems(state,val) {
       state.salesItems = val;
    },
+   // setContentItems(state,val) {
+   //    state.contentItems = val;
+   // },
    setDashboardDialog(state, val) {
       state.dashboardDialog = val;
    }
@@ -16,6 +20,7 @@ const mutations = {
 
 const getters = {
    getSalesItems: state => state.salesItems,
+   // getContentItems: state => state.contentItems,
    getShowDashboardDialog: state => state.dashboardDialog,
 }
 
@@ -25,6 +30,11 @@ const actions = {
          commit('setSalesItems', items);
       })
    },
+   // updateContentItems({commit}){
+   //    dashboardService.getContentItems().then(items=>{
+   //       commit('setContentItems', items);
+   //    }) 
+   // },
    openDashboardDialog({commit}, val) {
       commit('setDashboardDialog', val);
    }
