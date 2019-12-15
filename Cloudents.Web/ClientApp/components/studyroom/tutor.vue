@@ -621,6 +621,8 @@ watch: {
   },
   beforeDestroy(){
     this.hideRoomToasterMessage();
+    this.updateTutorStartDialog(false);
+    this.updateStudentStartDialog(false);
     document.removeEventListener('fullscreenchange',this.closeFullScreen);
     storeService.unregisterModule(this.$store,'tutoringCanvas');
     // storeService.unregisterModule(this.$store,'tutoringMain');
