@@ -151,10 +151,10 @@
     <value>Continue without access</value>
   </data>
   <data name="settingPop_title" xml:space="preserve">
-    <value>Are you sure you want to continue without audio or video?</value>
+    <value>Are you sure?</value>
   </data>
   <data name="settingPop_txt" xml:space="preserve">
-    <value>If you enable access to your devices, you won’t be able to communicate effectively with other participants.</value>
+    <value>If you do not enable access to your devices, you won’t be able to communicate effectively with other participants.</value>
   </data>
   <data name="start_recording_instruction" xml:space="preserve">
     <value>To start Click on the recording button in the top menu bar.</value>

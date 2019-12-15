@@ -40,8 +40,12 @@
       height: 0!important;
     }
     .sideMenu_group{
-      margin-top: 14px;
+      margin-top: 8px;
+      &:first-child {
+        margin-top: 22px;
+      }
       .v-list__group__header__prepend-icon{
+        min-width: 54px;
         i:before{
             color: #69687d !important;
             font-size: 18px !important;
@@ -109,12 +113,13 @@
         }
       }
       .group_list_sideMenu_course{
-        height: 32px;
+        height: 34px;
+        padding-right: 14px;
         a{
           padding: 0;
-          margin-left: 32px;
+          margin-left: 30px;
           background:none;
-          height: 32px;
+          height: 34px;
         }
         .group_list_titles_course{
           padding-right: 5px;

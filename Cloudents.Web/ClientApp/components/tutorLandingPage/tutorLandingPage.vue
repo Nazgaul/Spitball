@@ -29,7 +29,7 @@
         </v-layout>
         <div class="tutorLandingPage_pagination" v-if="items.length && pagination.length > 1">
             <v-pagination
-                    total-visible=5 
+                    total-visible=7 
                     v-model="pagination.current" 
                     :length="pagination.length"
                     @next="goNext"
