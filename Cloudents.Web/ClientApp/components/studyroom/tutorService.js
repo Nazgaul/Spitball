@@ -371,7 +371,8 @@ function uploadRecording(formData, roomId){
 };
 
 function isRecordingSupported(){
-    return store.getters.getStudyRoomData ? !store.getters.getStudyRoomData.isTutor : true;
+    return true;
+    // return store.getters.getStudyRoomData ? !store.getters.getStudyRoomData.isTutor : true;
     
     // return ((navigator.userAgent.toLowerCase().indexOf('chrome') > -1) &&(navigator.vendor.toLowerCase().indexOf("google") > -1));
 };

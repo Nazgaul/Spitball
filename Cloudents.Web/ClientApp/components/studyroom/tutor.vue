@@ -394,11 +394,7 @@ export default {
       return this.activeItem === "code-editor"
     },
     isRecordingSupported(){
-      if(this.id){
-        return !this.isTutor;
-      }else{
-        return tutorService.isRecordingSupported();
-      }
+      return tutorService.isRecordingSupported();
     }
   },
 

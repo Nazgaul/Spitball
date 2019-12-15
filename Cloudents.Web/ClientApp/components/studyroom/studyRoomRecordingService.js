@@ -1,6 +1,7 @@
 import store from '../../store/index';
 import tutorService from './tutorService';
 import {Decoder, Encoder, tools, Reader} from 'ts-ebml';
+import insightService from '../../services/insightService';
 
 const MIME_TYPE = getBestMimeType();
 
@@ -83,14 +84,14 @@ const handleRecording = function(e){
     let options = {mimeType: MIME_TYPE};
     const recordingData = new Blob(recordingChunks, options);
         if(store.getters.getRoomId && recordingData.size < 209715199){
-          let formData = new FormData()
-          formData.append('file', recordingData);
           downloadRecording(e, recordingData);
-          tutorService.uploadRecording(formData, store.getters.getRoomId).then(success=>{
-            console.log('Upload Success');
-          }, err=>{
-            downloadRecording(e, recordingData);
-          });
+          // let formData = new FormData();
+          // formData.append('file', recordingData);
+          // tutorService.uploadRecording(formData, store.getters.getRoomId).then(success=>{
+          //   console.log('Upload Success');
+          // }, err=>{
+          //   downloadRecording(e, recordingData);
+          // });
         }else{
           downloadRecording(e, recordingData);
         }
