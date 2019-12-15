@@ -7,15 +7,14 @@
             disable-initial-sort
             :item-key="'date'"
             :rows-per-page-items="['5']"
-            class="elevation-1"
+            class="elevation-1 mySales_table"
             :prev-icon="'sbf-arrow-left-carousel'"
             :sort-icon="'sbf-arrow-down'"
             :next-icon="'sbf-arrow-right-carousel'">
             <template v-slot:items="props">
                <td class="mySales_td_img">
-                  <router-link :to="dynamicRouter(props.item)">
-                     <img width="80" height="80" v-if="props.item.preview || props.item.studentImage" :src="$proccessImageUrl(props.item.preview? props.item.preview: props.item.studentImage,80,80)">
-                     <v-icon v-else>sbf-user</v-icon>
+                  <router-link :to="dynamicRouter(props.item)" class="mySales_td_img_img">
+                     <img width="80" height="80" :src="formatItemImg(props.item)" :class="{'imgPreview_sales':props.item.preview}">
                   </router-link>
                </td>
                <td class="text-xs-left mySales_td_course">
@@ -69,6 +68,7 @@
 import { mapActions, mapGetters } from 'vuex';
 
 import { LanguageService } from '../../../../services/language/languageService';
+import utillitiesService from '../../../../services/utilities/utilitiesService.js'
 
 export default {
    name:'mySales',
@@ -152,6 +152,17 @@ export default {
          if(type === 'TutoringSession'){
             return LanguageService.getValueByKey('dashboardPage_tutor_session')
          }
+      },
+      formatItemImg(item){
+         if(item.preview){
+            return this.$proccessImageUrl(item.preview,140,140,"crop&anchorPosition=top")
+         }
+         if(item.studentImage){
+            return this.$proccessImageUrl(item.studentImage,80,80)
+         }
+         if(item.type === 'Question'){
+            return require(`../images/qs.png`) 
+         }
       }
    },
    created() {
@@ -163,33 +174,62 @@ export default {
 <style lang="less">
 .mySales{
    .mySales_title{
-      font-size: 33px;
+      font-size: 22px;
+      color: #43425d;
       font-weight: 600;
-      line-height: 2;
+      padding: 0 0 10px 2px;
    }
-   .mySales_footer{
-      font-size: 16px;
-   }
-   .mySales_td_img{
-		padding-right: 0 !important;
-      i {
-         // Temporary
-         font-size: 70px;
+   .mySales_table{
+      .v-datatable{
+         tr{
+            height: auto;
+            th{
+               color: #43425d !important;
+               font-size: 14px;
+               padding-top: 14px;
+               padding-bottom: 14px;
+            }
+         }
+         color: #43425d !important;
       }
+      .mySales_footer{
+         font-size: 14px;
+         color: #43425d !important;
+      }
+      .mySales_td_img{
+         line-height: 0;
+         padding-right: 0 !important;
+         .mySales_td_img_img{
+            i {
+               // Temporary
+               font-size: 70px;
+            }
+            img{
+               margin: 10px 0;
+               &.imgPreview_sales{
+                  object-fit: none;
+                  object-position: top;
+               }
+            }
+
+         }
+      }
+      .mySales_td_course {
+         a{
+            color: #43425d !important;
+         }
+         width: 450px;
+         max-width: 450px;
+         min-width: 300px;
+      }
+      .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
+         color: #43425d !important;
+         transform: none /*rtl:rotate(180deg)*/;
+         height: inherit;
+         font-size: 14px;
+      }
+
    }
 
-   .mySales_td_course {
-      a{
-         color: initial !important;
-      }
-      width: 450px;
-      max-width: 450px;
-      min-width: 300px;
-   }
-   .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-      transform: none /*rtl:rotate(180deg)*/;
-      height: inherit;
-      font-size: 16px;
-   }
 }
 </style>

@@ -1,41 +1,6 @@
 <template>
-      <div class="mySales">
-         sdfsadfs
-            <!-- <v-data-table
-               border="1"
-               :headers="headers"
-               :items="contentItems"
-               disable-initial-sort
-               :rows-per-page-items="['5']"
-               class="elevation-1"
-               :prev-icon="'sbf-arrow-left-carousel'"
-               :sort-icon="'sbf-arrow-down'"
-               :next-icon="'sbf-arrow-right-carousel'">
-               <template v-slot:items="props">
-                  <td class="mySales_td_img">
-                     <img :src="props.item.preview" :alt="props.item.info" v-if="props.item.preview">
-                     <v-icon v-else>sbf-user</v-icon>
-                  </td>
-                  <td class="text-xs-left mySales_td_course">
-                     <div v-if="props.item.type !== 'TutoringSession'">
-                        <span>{{props.item.name}}</span>
-                        <span>{{ props.item.info }}</span>
-                     </div>
-                     <div v-else>
-                        <span v-language:inner="'dashboardPage_session'"></span>
-                        <span>{{props.item.studentName}} {{props.item.duration | currentHourAndMin}}</span>
-                     </div>
-                     <div>
-                        <span v-language:inner="'dashboardPage_course'"></span>
-                        <span>{{props.item.course}}</span>
-                     </div>
-                  </td>
-                  <td class="text-xs-left">{{ props.item.type }}</td>
-                  <td class="text-xs-left" v-language:inner="`dashboardPage_${props.item.status.toLowerCase()}`"></td>
-                  <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-                  <!-- <td class="text-xs-left"><v-icon @click="openDialog" small>sbf-3-dot</v-icon></td> -->
-               <!-- </template>
-            </v-data-table> --> -->
+      <div class="myContent">
+           
       </div>
 </template>
 
