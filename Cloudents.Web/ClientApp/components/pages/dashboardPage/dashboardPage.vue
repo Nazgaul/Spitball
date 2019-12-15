@@ -16,24 +16,30 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import mySales from './mySales/mySales.vue';
+// import myContent from './myContent/myContent.vue';
 
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import dashboardDialog from './dashboardDialog/dashboardDialog.vue';
 import dashboardFilters from './dashboardFilters/dashboardFilters.vue';
-import myPurchases from './myPurchases/myPurchases.vue';
-import myCalendar from './myCalendar/myCalendar.vue';
-import myFollowers from './myFollowers/myFollowers.vue';
-import mySales from './mySales/mySales.vue';
+// import myPurchases from './myPurchases/myPurchases.vue';
+// import myCalendar from './myCalendar/myCalendar.vue';
+// import myFollowers from './myFollowers/myFollowers.vue';
 
 export default {
    name:'dashboardPage',
    components:{
+      mySales,
+      // myContent,
+
+
+
+
       dashboardFilters,
       dashboardDialog,
-      myPurchases,
-      myCalendar,
-      myFollowers,
-      mySales,
+      // myPurchases,
+      // myCalendar,
+      // myFollowers,
       sbDialog
    },
    computed:{

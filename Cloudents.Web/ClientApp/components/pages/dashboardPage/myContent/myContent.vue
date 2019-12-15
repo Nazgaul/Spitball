@@ -1,9 +1,10 @@
 <template>
       <div class="mySales">
-            <v-data-table
+         sdfsadfs
+            <!-- <v-data-table
                border="1"
                :headers="headers"
-               :items="salesItems"
+               :items="contentItems"
                disable-initial-sort
                :rows-per-page-items="['5']"
                class="elevation-1"
@@ -33,8 +34,8 @@
                   <td class="text-xs-left" v-language:inner="`dashboardPage_${props.item.status.toLowerCase()}`"></td>
                   <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                   <!-- <td class="text-xs-left"><v-icon @click="openDialog" small>sbf-3-dot</v-icon></td> -->
-               </template>
-            </v-data-table>
+               <!-- </template>
+            </v-data-table> --> -->
       </div>
 </template>
 
@@ -44,7 +45,7 @@ import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from '../../../../services/language/languageService';
 
 export default {
-   name:'mySales',
+   name:'myContent',
    data() {
       return {
          headers:[
@@ -63,41 +64,26 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['getSalesItems']),
-      salesItems(){
-         return this.getSalesItems;
-      },
+      ...mapGetters(['getContentItems']),
+      // contentItems(){
+      //    return this.getContentItems;
+      // },
    },
    methods: {
-      ...mapActions(['updateSalesItems', 'openDashboardDialog']),
+      ...mapActions(['updateContentItems', 'openDashboardDialog']),
 
-      openDialog() {
-         this.openDashboardDialog(true);
-      }
+      // openDialog() {
+      //    this.openDashboardDialog(true);
+      // }
    },
    created() {
-      this.updateSalesItems()
+      // this.updateContentItems()
    },
 }
 </script>
 
 <style lang="less">
 .mySales{
-   .v-table {
-      thead {
-         th{
-            // border: 1px solid black;
-            // border-bottom: 0;
-         }
-      }
-      tbody {
-         td{
-            // padding: 8px 24px !important; //vuetify
-            // border: 1px solid black;
-         }
-      }
-   }
-
    .mySales_td_img{
 		padding-right: 0 !important;
 		width: 100px;
