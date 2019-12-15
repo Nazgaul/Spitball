@@ -3,7 +3,7 @@
     <v-flex xs12>
       <v-card
         class="profile-bio-card"
-        :class="[$vuetify.breakpoint.smAndUp ?  'pl-4 px-3 py-4' : 'px-1 mt-2 transparent elevation-0 py-1']"
+        :class="[$vuetify.breakpoint.smAndUp ?  'pl-6 px-4 py-6' : 'px-1 mt-2 transparent elevation-0 py-1']"
       >
         <v-layout
           v-bind="xsColumn"

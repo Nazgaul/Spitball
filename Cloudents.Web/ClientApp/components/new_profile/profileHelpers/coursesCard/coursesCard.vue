@@ -1,7 +1,7 @@
 <template>
         <v-layout class="courses-section mt-4" >
             <v-flex xs12>
-                <v-card class="px-4 py-4 courses-card-wrap">
+                <v-card class="pa-6 courses-card-wrap">
                     <v-layout>
                         <v-flex xs11 sm11 grow>
                             <div>

@@ -43,26 +43,18 @@
 
   .tab-padding {
     .v-tabs__bar {
-      background-color: transparent;
       @media (max-width: @screen-xs) {
         height: 42px;
         font-size: 18px;
       }
     }
-    .v-tabs__container {
-      height: 42px;
-      .v-tabs__item {
-        font-size: 14px;
-        font-weight: 300;
-        color: @textColor;
-        text-transform: capitalize;
-        &.v-tabs__item--active {
-          font-weight: bold;
-          color: @color-blue-new !important;
-        }
-      }
-      .v-tabs__slider.blue {
-        border-bottom: 2px solid @color-blue-new;
+    &-tabs {
+      font-size: 14px;
+      font-weight: 300;
+      text-transform: capitalize;
+      &.v-tab--active {
+        color: @color-blue-new;
+        font-weight: bold;
       }
     }
   }
