@@ -321,7 +321,7 @@ Voice Recording?</value>
     <value>Try Again</value>
   </data>
   <data name="can_be_recorded" xml:space="preserve">
-    <value>note: You can be recorded</value>
+    <value>This session might be recorded by the student</value>
   </data>
   <data name="start_dialog_session_time" xml:space="preserve">
     <value>Session Duration:</value>

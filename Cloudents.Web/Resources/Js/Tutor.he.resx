@@ -318,4 +318,13 @@
   <data name="start_dialog_session_time" xml:space="preserve">
     <value>זמן השיעור:</value>
   </data>
+  <data name="can_be_recorded" xml:space="preserve">
+    <value>יתכן והשיעור יוקלט על ידי התלמיד</value>
+  </data>
+  <data name="stream_btn_finished_student" xml:space="preserve">
+    <value>השיעור הסתיים</value>
+  </data>
+  <data name="stream_btn_finished_tutor" xml:space="preserve">
+    <value>השיעור הסתיים</value>
+  </data>
 </root>
