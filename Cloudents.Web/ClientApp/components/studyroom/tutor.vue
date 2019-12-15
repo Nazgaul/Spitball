@@ -216,6 +216,7 @@
 <script>
 
 import initSignalRService from "../../services/signalR/signalrEventService";
+import {CloseConnection} from "../../services/signalR/signalrEventService";
 import { mapActions, mapGetters } from "vuex";
 import videoStream from "./videoStream/videoStream.vue";
 import whiteBoard from "./whiteboard/WhiteBoard.vue";
@@ -624,7 +625,11 @@ watch: {
     storeService.unregisterModule(this.$store,'tutoringCanvas');
     // storeService.unregisterModule(this.$store,'tutoringMain');
     storeService.unregisterModule(this.$store,'studyRoomTracks_store');
+    storeService.unregisterModule(this.$store,'roomRecording_store');
     storeService.unregisterModule(this.$store,'codeEditor_store');
+    if(this.id){
+      CloseConnection(`studyRoomHub?studyRoomId=${this.id}`);
+    }
   },
   beforeCreate(){
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
