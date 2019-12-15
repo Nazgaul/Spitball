@@ -327,4 +327,16 @@
   <data name="stream_btn_finished_tutor" xml:space="preserve">
     <value>השיעור הסתיים</value>
   </data>
+  <data name="waiting_in_studyRoom" xml:space="preserve">
+    <value>מחכה לך</value>
+  </data>
+  <data name="waiting_in_studyRoom_link" xml:space="preserve">
+    <value>בחדר הלימוד</value>
+  </data>
+  <data name="stream_btn_disconnected_student" xml:space="preserve">
+    <value>הקשר נותק. אנחנו מנסים להתחבר חזרה</value>
+  </data>
+  <data name="stream_btn_disconnected_tutor" xml:space="preserve">
+    <value>הקשר נותק. אנחנו מנסים להתחבר חזרה</value>
+  </data>
 </root>

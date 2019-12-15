@@ -327,10 +327,10 @@ Voice Recording?</value>
     <value>Session Duration:</value>
   </data>
   <data name="stream_btn_disconnected_student" xml:space="preserve">
-    <value>session was disconnected please wait while we are trying to recconect</value>
+    <value>Session was disconnected. We are trying to bring it back </value>
   </data>
   <data name="stream_btn_disconnected_tutor" xml:space="preserve">
-    <value>session was disconnected please wait while we are trying to recconect</value>
+    <value>Session was disconnected. We are trying to bring it back </value>
   </data>
   <data name="stream_btn_finished_student" xml:space="preserve">
     <value>session ended</value>
@@ -339,7 +339,7 @@ Voice Recording?</value>
     <value>session ended</value>
   </data>
   <data name="waiting_in_studyRoom" xml:space="preserve">
-    <value>is waiting for you at the</value>
+    <value>is waiting for you in your </value>
   </data>
   <data name="waiting_in_studyRoom_link" xml:space="preserve">
     <value>study room</value>
