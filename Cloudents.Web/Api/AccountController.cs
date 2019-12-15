@@ -296,6 +296,7 @@ namespace Cloudents.Web.Api
                 if (s is UserDocumentsDto d)
                 {
                     d.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
+                    d.Url = Url.DocumentUrl(string.Empty, d.Course, d.Id, d.Name);
                 }
                 return s;
             });
