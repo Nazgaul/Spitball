@@ -296,6 +296,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
+        [InlineData(160468L)]
+        public async Task SessionRecordingQuery_Ok(long userId)
+        {
+            var query = new SessionRecordingQuery(userId);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+
         [InlineData(1L)]
         public async Task SimilarDocumentsQuery_Ok(long documentId)
         {

@@ -42,6 +42,7 @@ namespace Cloudents.Core.Entities
 
         public virtual bool? OldUser { get; set; }
 
+
         //public virtual int Score { get; protected set; }
 
 
@@ -94,12 +95,21 @@ namespace Cloudents.Core.Entities
 
         public virtual string Country { get; protected set; }
 
-       
-
         public virtual byte[] Version { get; protected set; }
 
-      
+        private readonly ISet<Follow> _followers = new HashSet<Follow>();
+        public virtual IEnumerable<Follow> Followers => _followers.ToList();
 
-       
+        public virtual void AddFollower(BaseUser follower)
+        {
+            var follow = new Follow(this, follower);
+            var v = _followers.Add(follow);
+        }
+
+        public virtual void RemoveFollower(BaseUser follower)
+        {
+            var follow = new Follow(this, follower);
+            _followers.Remove(follow);
+        }
     }
 }

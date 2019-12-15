@@ -234,6 +234,10 @@ export default {
                 boldText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
                 btnText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
                 btnUrl: () => {
+                    if(this.accountUser == null) {
+                        this.updateLoginDialogState(true);
+                        return;
+                    }
                     let obj = {
                         status: true,
                         from: 5

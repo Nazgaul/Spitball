@@ -29,7 +29,7 @@
         </div>
         <div class="tutorCarousel-bottom">
             <div class="ts-bottom">
-                <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutor.userId, name: tutor.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
+                <router-link event @click.native.stop="openCoupon" class="applyCoupon" to="/" v-language:inner="'resultTutor_apply_coupon'"></router-link>
 
 
                 <div class="ts-price">
@@ -70,6 +70,7 @@ import userRating from "../new_profile/profileHelpers/profileBio/bioParts/userRa
 import userAvatarRect from '../helpers/UserAvatar/UserAvatarRect.vue';
 
 import star from "./image/stars-copy.svg";
+
 export default {
     components:{userRating,star,userAvatarRect},
     data(){
@@ -123,7 +124,10 @@ export default {
                     this.flagLocalClick = true;
                     if(event.target.querySelector('.contact-me-button') || event.target.classList.contains('contact-me-button')){
                         this.contactClickedbtn = true;
-                    }else{
+                    }else if(event.target.querySelector('.applyCoupon') || event.target.classList.contains('applyCoupon')){
+                        this.contactClickedbtn = false;
+                        this.openCoupon();
+                    } else {
                         this.contactClickedbtn = false;
                     }
                     //this flag protects us from mouse up after drag
@@ -147,8 +151,10 @@ export default {
                     this.sendMessage(this.tutor)
                 }
             }
-                
         },
+        openCoupon() {
+            this.$router.push({name: 'profile', params: {id: this.tutor.userId, name: this.tutor.name},  query: {coupon: true}})
+        }
     },
 }
 </script>

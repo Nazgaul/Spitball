@@ -101,7 +101,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         //    response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         //}
 
-        [Fact(Skip = "Need Redu")]
+        [Fact]
         public async Task PostAsync_settings_OK()
         {
            //_uri.Path = "api/account/settings";
@@ -123,8 +123,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
             var tutor = d["tutor"]?.Value<JObject>() ?? throw new ArgumentNullException("d[\"tutor\"]?.Value<JObject>()");
 
-            var firstName = tutor["firstName"]?.Value<string>();
-            var lastName = tutor["lastName"]?.Value<string>();
+            var firstName = d["firstName"]?.Value<string>();
+            var lastName = d["lastName"]?.Value<string>();
             var price = tutor["price"]?.Value<decimal>();
 
 

@@ -150,7 +150,6 @@
                         lastName,
                         };
                     this.btnLoading = true;
-                    debugger
                     accountService.saveUserInfo(editsData).then((success) => {
                         this.updateEditedProfile(editsData);
                         this.btnLoading = false;

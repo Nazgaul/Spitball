@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Cloudents.Core.EventHandler
 {
     public class SyncSearchDocumentEventHandler : IEventHandler<DocumentCreatedEvent>,
-        IEventHandler<DocumentDeletedEvent>
+        IEventHandler<DocumentDeletedEvent>, IEventHandler<DocumentUndeletedEvent>
     {
         private readonly IQueueProvider _queueProvider;
 
@@ -41,6 +41,22 @@ namespace Cloudents.Core.EventHandler
                 ItemId = eventMessage.Document.Id
             };
             return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, false), token);
+        }
+
+        public Task HandleAsync(DocumentUndeletedEvent eventMessage, CancellationToken token)
+        {
+            var doc = new DocumentSearchDto
+            {
+                UniversityId = eventMessage.Document.University.Id,
+                UniversityName = eventMessage.Document.University.Name,
+                Country = eventMessage.Document.University.Country.ToUpperInvariant(),
+                Course = eventMessage.Document.Course.Id.ToUpperInvariant(),
+                DateTime = eventMessage.Document.TimeStamp.UpdateTime,
+                ItemId = eventMessage.Document.Id,
+                Name = eventMessage.Document.Name,
+                Type = eventMessage.Document.DocumentType.GetValueOrDefault()
+            };
+            return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, true), token);
         }
     }
 }

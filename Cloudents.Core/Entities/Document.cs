@@ -30,7 +30,6 @@ namespace Cloudents.Core.Entities
             {
                 Description = description;
             }
-
             ChangePrice(price);
             //Price = price;
             var status = Public;// GetInitState(user);
@@ -141,6 +140,12 @@ namespace Cloudents.Core.Entities
                 VoteCount = 0;
             }
             Status = Public;
+        }
+
+        public virtual void UnDelete()
+        {
+            Status = ItemStatus.Public;
+            AddEvent(new DocumentUndeletedEvent(this));
         }
 
         public const decimal PriceLimit = 1000M;

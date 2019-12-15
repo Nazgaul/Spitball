@@ -251,17 +251,7 @@ export default {
             flex-shrink: 0;
             margin-right: 34px;
         }
-        svg{
-            @media (max-width: @screen-xs) {
-                width: 94px;
-                height: 22px;    
-            }  
-            width: 120px;
-            height: 30px;
-            fill: #43425D;
-            vertical-align: bottom;
-            // margin-right: 32px;
-        }
+        
     }    
     .mobileHeaderSearch{
         width: 100%;

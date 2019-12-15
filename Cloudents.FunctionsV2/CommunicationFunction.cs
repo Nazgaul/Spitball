@@ -18,6 +18,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.FunctionsV2.System;

@@ -1,4 +1,4 @@
-import tutorService from "../components/tutor/tutorService";
+import tutorService from "../components/studyroom/tutorService";
 const extensionId = 'jaimgihanebafnbcpckdkilkeoomkpik'; // dev && prod
 import store from '../store/index.js';
 import insightService from './insightService.js'

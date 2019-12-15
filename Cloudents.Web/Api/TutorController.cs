@@ -162,16 +162,7 @@ namespace Cloudents.Web.Api
             [FromServices] ICountryService countryService,
             CancellationToken token)
         {
-
-            if (_userManager.TryGetLongUserId(User, out var userId))
-            {
-                // var query = new UserEmailInfoQuery(userId);
-                // var userInfo = await _queryBus.QueryAsync(query, token);
-                //model.Phone = userInfo.PhoneNumber;
-                //model.Name = userInfo.Name;
-                // model.Email = userInfo.Email;
-            }
-            else
+            if (!_userManager.TryGetLongUserId(User, out var userId))
             {
                 if (model.Email == null)
                 {
@@ -180,20 +171,24 @@ namespace Cloudents.Web.Api
                     client.TrackTrace("Need to have email 1");
                     return BadRequest(ModelState);
                 }
+
                 if (model.Phone == null)
                 {
                     ModelState.AddModelError("error", _stringLocalizer["Need to have phone"]);
                     client.TrackTrace("Need to have phone 2");
                     return BadRequest(ModelState);
                 }
+                var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
+
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null)
                 {
                     if (user.PhoneNumber == null)
                     {
-
-                        var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
-                        var result = await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
+                       
+                        var result =
+                            await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode,
+                                token);
                         if (result != IdentityResult.Success)
                         {
                             if (string.Equals(result.Errors.First().Code, "Duplicate",
@@ -203,33 +198,44 @@ namespace Cloudents.Web.Api
                                 ModelState.AddModelError("error", _stringLocalizer["Phone number Already in use"]);
                                 return BadRequest(ModelState);
                             }
+
                             client.TrackTrace("Invalid Phone number");
                             ModelState.AddModelError("error", _stringLocalizer["Invalid Phone number"]);
                             return BadRequest(ModelState);
                         }
                     }
-                    userId = user.Id;
 
+                    userId = user.Id;
                 }
                 else
                 {
-                    var country = await countryService.GetUserCountryAsync(token);
-
-                    user = new User(model.Email, model.Name, null, CultureInfo.CurrentCulture, country);
-
-                    var createUserCommand = new CreateUserCommand(user, model.Course);
-                    await _commandBus.DispatchAsync(createUserCommand, token);
-
-                    var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
-                    var result = await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode, token);
-                    if (result != IdentityResult.Success)
+                    user = await _userManager.FindByPhoneAsync(model.Phone, location?.CallingCode);
+                    if (user != null)
                     {
-                        ModelState.AddModelError("error", _stringLocalizer["Invalid Phone number"]);
-
-                        client.TrackTrace("Invalid Phone number 2");
-                        return BadRequest(ModelState);
+                        userId = user.Id;
                     }
-                    userId = user.Id;
+                    else
+                    {
+                        var country = await countryService.GetUserCountryAsync(token);
+
+                        user = new User(model.Email, model.Name, null, CultureInfo.CurrentCulture, country);
+
+                        var createUserCommand = new CreateUserCommand(user, model.Course);
+                        await _commandBus.DispatchAsync(createUserCommand, token);
+
+                        var result =
+                            await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode,
+                                token);
+                        if (result != IdentityResult.Success)
+                        {
+                            ModelState.AddModelError("error", _stringLocalizer["Invalid Phone number"]);
+
+                            client.TrackTrace("Invalid Phone number 2");
+                            return BadRequest(ModelState);
+                        }
+
+                        userId = user.Id;
+                    }
                 }
             }
 

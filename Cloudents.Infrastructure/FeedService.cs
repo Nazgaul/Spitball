@@ -81,7 +81,7 @@ namespace Cloudents.Infrastructure
                 await Task.WhenAll(itemsTask, task);
 
                 return SortFeed(itemsTask.Result?.ToList(),
-                    task.Result.Result.ToList(),
+                    task.Result?.Result?.ToList(),
                     query.Page);
             }
         

@@ -11,10 +11,11 @@
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.Extensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.DurableTask" Version="1.8.3" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.SendGrid" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.ServiceBus" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.ServiceBus" Version="3.1.1" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.SignalRService" Version="1.0.1" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="3.0.1" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Twilio" Version="3.0.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="4.3.0" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.29" />
     <PackageReference Include="Sendgrid" Version="9.12.0" />
     <PackageReference Include="shortid" Version="2.0.0" />
@@ -26,7 +27,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Cloudents.Command\Cloudents.Command.csproj" />
     <ProjectReference Include="..\Cloudents.Core\Cloudents.Core.csproj" />
-    <ProjectReference Include="..\Cloudents.Infrastructure.Storage\Cloudents.Infrastructure.Storage.csproj" />
     <ProjectReference Include="..\Cloudents.Infrastructure\Cloudents.Infrastructure.csproj" />
     <ProjectReference Include="..\Cloudents.Persistance\Cloudents.Persistence.csproj" />
     <ProjectReference Include="..\Cloudents.Query\Cloudents.Query.csproj" />
