@@ -72,7 +72,8 @@ namespace Cloudents.Query.Query
                         Date = s.Created,
                         Price = s.Price,
                         StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(s => s.User.Name).FirstOrDefault(),
-                        Duration = s.Duration
+                        Duration = s.Duration,
+                        StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(s => s.User.Image).FirstOrDefault()
                     }).ToFuture<SaleDto>();
           
 

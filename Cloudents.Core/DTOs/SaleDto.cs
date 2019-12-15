@@ -32,6 +32,7 @@ namespace Cloudents.Core.DTOs
     {
         public string StudentName { get; set; }
         public TimeSpan? Duration { get; set; }
+        public string StudentImage { get; set; }
         public override string Type => "TutoringSession";
     }
 }
