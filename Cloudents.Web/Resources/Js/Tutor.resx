@@ -324,7 +324,7 @@ Voice Recording?</value>
     <value>note: You can be recorded</value>
   </data>
   <data name="start_dialog_session_time" xml:space="preserve">
-    <value>session duration:</value>
+    <value>Session Duration:</value>
   </data>
   <data name="stream_btn_disconnected_student" xml:space="preserve">
     <value>session was disconnected please wait while we are trying to recconect</value>

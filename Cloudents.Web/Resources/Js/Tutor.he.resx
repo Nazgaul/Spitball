@@ -315,4 +315,7 @@
   <data name="tooltip_video_resume" xml:space="preserve">
     <value>הפעל</value>
   </data>
+  <data name="start_dialog_session_time" xml:space="preserve">
+    <value>זמן השיעור:</value>
+  </data>
 </root>
