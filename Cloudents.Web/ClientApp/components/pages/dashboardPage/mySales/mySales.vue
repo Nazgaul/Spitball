@@ -14,7 +14,7 @@
             <template v-slot:items="props">
                <td class="mySales_td_img">
                   <router-link :to="dynamicRouter(props.item)">
-                     <img v-if="props.item.preview || props.item.studentImage" :src="$proccessImageUrl(props.item.preview? props.item.preview: props.item.studentImage,80,80)">
+                     <img width="80" height="80" v-if="props.item.preview || props.item.studentImage" :src="$proccessImageUrl(props.item.preview? props.item.preview: props.item.studentImage,80,80)">
                      <v-icon v-else>sbf-user</v-icon>
                   </router-link>
                </td>
