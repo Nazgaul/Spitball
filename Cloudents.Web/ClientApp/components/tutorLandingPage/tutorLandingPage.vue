@@ -119,13 +119,14 @@ export default {
             if(!!val.query){
                 this.query.page = val.query.page || 0;
                 this.pagination.current = +val.query.page+1 || 1
+                this.query.term = (!!val.params && !!val.params.course) ? val.params.course : '';
             }
             this.updateList();
         }
     },
     methods:{
         ...mapActions(['setTutorRequestAnalyticsOpenedFrom','updateRequestDialog','updateHPReviews']),
-        updateList(){
+        updateList(){            
             this.showEmptyState = false;
             let self = this;
             tutorLandingPageService.getTutorList(this.query).then(data=>{
