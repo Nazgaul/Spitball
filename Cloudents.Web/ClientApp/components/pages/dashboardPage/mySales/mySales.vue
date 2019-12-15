@@ -1,6 +1,6 @@
 <template>
       <div class="mySales">
-            <v-data-table
+            <v-data-table v-if="salesItems.length"
                border="1"
                :headers="headers"
                :items="salesItems"
@@ -33,6 +33,9 @@
                   <td class="text-xs-left" v-language:inner="`dashboardPage_${props.item.status.toLowerCase()}`"></td>
                   <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                   <!-- <td class="text-xs-left"><v-icon @click="openDialog" small>sbf-3-dot</v-icon></td> -->
+               </template>
+               <template slot="pageText" slot-scope="item">
+                  {{item.pageStart}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
                </template>
             </v-data-table>
       </div>

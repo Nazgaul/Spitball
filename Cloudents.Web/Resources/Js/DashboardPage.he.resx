@@ -117,70 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="action" xml:space="preserve">
-    <value>Action</value>
-  </data>
-  <data name="course" xml:space="preserve">
-    <value>Course:</value>
-  </data>
-  <data name="date" xml:space="preserve">
-    <value>Date</value>
-  </data>
-  <data name="date_hour" xml:space="preserve">
-    <value>Hour and</value>
-  </data>
-  <data name="date_mins" xml:space="preserve">
-    <value>mins</value>
-  </data>
-  <data name="document" xml:space="preserve">
-    <value>Doc</value>
-  </data>
-  <data name="downloads" xml:space="preserve">
-    <value>Downloads</value>
-  </data>
-  <data name="info" xml:space="preserve">
-    <value>Info</value>
-  </data>
-  <data name="likes" xml:space="preserve">
-    <value>Likes</value>
-  </data>
   <data name="of" xml:space="preserve">
-    <value>of</value>
-  </data>
-  <data name="paid" xml:space="preserve">
-    <value>Paid</value>
-  </data>
-  <data name="pending" xml:space="preserve">
-    <value>Pending</value>
-  </data>
-  <data name="preview" xml:space="preserve">
-    <value>Preview</value>
-  </data>
-  <data name="price" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="purchased" xml:space="preserve">
-    <value>Purchased</value>
-  </data>
-  <data name="qa" xml:space="preserve">
-    <value>Q&amp;A</value>
-  </data>
-  <data name="session" xml:space="preserve">
-    <value>Tutoring session with</value>
-  </data>
-  <data name="status" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="tutor_session" xml:space="preserve">
-    <value>Tutoring Session</value>
-  </data>
-  <data name="type" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="video" xml:space="preserve">
-    <value>Video</value>
-  </data>
-  <data name="views" xml:space="preserve">
-    <value>Views</value>
+    <value>מתוך</value>
   </data>
 </root>
