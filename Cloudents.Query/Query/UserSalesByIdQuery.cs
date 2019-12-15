@@ -42,7 +42,7 @@ namespace Cloudents.Query.Query
                         Id = s.Document.Id,
                         Name = s.Document.Name,
                         Course = s.Document.Course.Id,
-                        Type = s.Document.DocumentType != null ?  s.Document.DocumentType.ToString() : "Document",
+                        Type = s.Document.DocumentType != null ? s.Document.DocumentType.ToString() : "Document",
                         Date = s.Created,
                         Price = s.Price
                     }).ToFuture<SaleDto>();
@@ -55,6 +55,7 @@ namespace Cloudents.Query.Query
                     .Where(w => w.Type == Core.Enum.TransactionType.Earned)
                     .Select(s => new QuestionSaleDto()
                     {
+                        Id = s.Question.Id,
                         Course = s.Question.Course.Id,
                         Date = s.Created,
                         Price = s.Price,
@@ -67,22 +68,23 @@ namespace Cloudents.Query.Query
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
                     .Where(w => w.StudyRoom.Tutor.Id == query.Id)
-                    .Select(s => new SessionSaleDto() {
-                        Status = string.IsNullOrEmpty(s.Receipt)? "Pending" : "Paid",
+                    .Select(s => new SessionSaleDto()
+                    {
+                        Status = string.IsNullOrEmpty(s.Receipt) ? "Pending" : "Paid",
                         Date = s.Created,
                         Price = s.Price,
                         StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name).FirstOrDefault(),
                         Duration = s.Duration,
-                        StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Image).FirstOrDefault()
+                        StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Image).FirstOrDefault(),
+                        StudentId = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Id).FirstOrDefault()
                     }).ToFuture<SaleDto>();
-          
+
 
                 IEnumerable<SaleDto> documentResult = await documentFuture.GetEnumerableAsync(token);
                 IEnumerable<SaleDto> questionResult = await questionFuture.GetEnumerableAsync(token);
                 IEnumerable<SaleDto> sessionResult = await sessionFuture.GetEnumerableAsync(token);
-               
-                return documentResult.Union(questionResult).Union(sessionResult).OrderByDescending(o => o.Date);
-                
+
+                return documentResult.Union(questionResult).Union(sessionResult).OrderByDescending(o => o.Date);               
             }
         }
     }

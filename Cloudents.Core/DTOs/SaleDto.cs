@@ -17,11 +17,13 @@ namespace Cloudents.Core.DTOs
         public string Name { get; set; }
         public long Id { get; set; }
         public string Preview { get; set; }
+        public string Url { get; set; }
         public override string Status => "Paid";
     }
 
     public class QuestionSaleDto : SaleDto
     {
+        public long Id{ get; set; }
         public string Course { get; set; }
         public string Text { get; set; }
         public string AnswerText { get; set; }
@@ -33,6 +35,7 @@ namespace Cloudents.Core.DTOs
         public string StudentName { get; set; }
         public TimeSpan? Duration { get; set; }
         public string StudentImage { get; set; }
+        public long StudentId { get; set; }
         public override string Type => "TutoringSession";
     }
 }
