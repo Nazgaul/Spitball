@@ -1,5 +1,5 @@
 <template>
-    <router-link event @click.native.prevent="goToItem" :to="item.url" class="itemCarouselCard">
+    <router-link v-if="item.url" event @click.native.prevent="goToItem" :to="item.url" class="itemCarouselCard">
     <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="">
     <div class="item-cont pa-2">
         <h1 class="item-title text-truncate">{{item.title}}</h1>
