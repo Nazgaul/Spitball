@@ -283,5 +283,21 @@ namespace Cloudents.Web.Api
             });
         }
 
+        [HttpGet("content")]
+        public async Task<IEnumerable<UserContentDto>> GetUserContentAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserContentByIdQuery(userId);
+            var result = await _queryBus.QueryAsync(query, token);
+
+            return result.Select(s =>
+            {
+                if (s is UserDocumentsDto d)
+                {
+                    d.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
+                }
+                return s;
+            });
+        }
     }
 }
