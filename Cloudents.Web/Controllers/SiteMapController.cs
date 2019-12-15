@@ -58,7 +58,8 @@ namespace Cloudents.Web.Controllers
                 for (var i = 0; i <= elem.Count / PageSize; i++)
                 {
 
-                    var url = Url.RouteUrl("siteMapDescription", new { type = elem.Type, index = i },
+                    var url = Url.RouteUrl("siteMapDescription",
+                        new { type = elem.Type, index = i },
                                         Request.GetUri().Scheme);
                     root.Add(
                          new XElement(nameSpace + "sitemap",
@@ -67,7 +68,7 @@ namespace Cloudents.Web.Controllers
                      );
                 }
             }
-            XDocument doc = new XDocument(
+            var doc = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment("This is a comment"),
                 new XElement("Root", "content")
@@ -87,13 +88,12 @@ namespace Cloudents.Web.Controllers
 
         [Route("sitemap-{type}-{index:int}.xml", Name = "siteMapDescription", Order = 2)]
         public IActionResult DetailIndexAsync(SeoType type, int index,
-            [FromServices] IIndex<SeoType, IBuildSeo> seoBuilder,
-        CancellationToken token)
+            [FromServices] IIndex<SeoType, IBuildSeo> seoBuilder)
         {
             var provider = seoBuilder[type];
             var urls = provider.GetUrls(index);
 
-            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+            var ns = new XmlSerializerNamespaces();
             ns.Add("", "");
             return new FileCallbackResult("application/xml", async (stream, context) =>
             {
