@@ -1,22 +1,22 @@
 import store from '../../../../store/index.js'
-import {createPointsByOption, createShape} from '../utils/factories'
+// import {createShape} from '../utils/factories'
 import canvasFinder from '../utils/canvasFinder';
 import whiteBoardService from '../whiteBoardService'
 import selectShape from './selectShape';
 
-const optionType = 'eraser';
+// const optionType = 'eraser';
 
-let localShape = createShape({
-    type: optionType,
-    points: []
-});
+// let localShape = createShape({
+//     type: optionType,
+//     points: []
+// });
 
-const clearLocalShape = function(){
-    localShape = createShape({
-        type: optionType,
-        points: []
-    });
-};
+// const clearLocalShape = function(){
+//     localShape = createShape({
+//         type: optionType,
+//         points: []
+//     });
+// };
 
 let wrapperElm = null;
 let currentX = null;
@@ -25,7 +25,7 @@ let currentY = null;
 const init = function(){
     wrapperElm = document.getElementById('canvas-wrapper');
 };
-const liveDraw = function(dragObj){
+const liveDraw = function(){
 };
 
 const setSelectedShapes = function(shape){

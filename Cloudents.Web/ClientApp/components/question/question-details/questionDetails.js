@@ -82,7 +82,7 @@ export default {
                 self.textAreaValue = self.textAreaValue.trim();
                 this.submitLoader = true;
                 questionService.answerQuestion(self.id, self.textAreaValue)
-                    .then(function (resp) {                       
+                    .then(function () {                       
                         analyticsService.sb_unitedEvent("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
                         // self.updateLoading(false);

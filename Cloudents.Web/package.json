@@ -17,7 +17,7 @@
     "build": "npm run vendor && npm run client",
     "start": "dotnet build && dotnet run",
     "all": "npm run build && npm run start",
-	  "lint": "node node_modules/eslint/bin/eslint.js ./clientapp/"
+    "lint": "node node_modules/eslint/bin/eslint.js ./clientapp/"
   },
   "devDependencies": {
     "@babel/core": "7.6.0",

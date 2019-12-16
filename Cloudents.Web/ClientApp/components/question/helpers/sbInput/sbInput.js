@@ -57,7 +57,7 @@ export default {
         };
     },
     watch: {
-        focus(newVal, oldVal) {
+        focus(newVal) {
             if (newVal) {
                 this.isReadOnly = false;
                 this.$el.querySelector('.input-field').focus();
@@ -69,7 +69,7 @@ export default {
             get(){
                 return this.errorMessage;
             },
-            set(val){
+            set(){
             }
         }
     },

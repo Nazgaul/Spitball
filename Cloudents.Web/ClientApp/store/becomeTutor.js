@@ -26,7 +26,7 @@ const mutations = {
 };
 
 const actions = {
-    updateTutorDialog({commit, state}, val) {
+    updateTutorDialog({commit}, val) {
         commit('changeDialogState', val);
     },
     updateTutorInfo({commit}, val) {

@@ -8,7 +8,7 @@ const getTutor = (params) => {
     return connectivityModule.http.get("tutor/search", { params });
 };
 
-const getNextPage = ({ url, vertical }) => {
+const getNextPage = ({ url }) => {
     return connectivityModule.http.get(url, { baseURL: "" });
 };
 

@@ -10,7 +10,15 @@
     ],
     "globals": {
         "Atomics": "readonly",
-      "SharedArrayBuffer": "readonly"
+        "SharedArrayBuffer": "readonly",
+        "global": "readonly",
+        "Intercom": "readonly",
+        "MathJax": "readonly",
+        "require": "readonly",
+        "gapi": "readonly",
+        "describe": "readonly",
+        "it": "readonly",
+        "expect": "readonly"
     },
     "parserOptions": {
         "ecmaVersion": 2018,
@@ -20,6 +28,9 @@
         "vue"
     ],
   "rules": {
-    "no-extra-boolean-cast": "off"
+    "no-extra-boolean-cast": "off",
+    "no-useless-escape": "off",
+    "no-prototype-builtins": "off",
+    "require-atomic-updates": "off"
   }
 }

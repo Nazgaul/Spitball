@@ -75,7 +75,7 @@ export const signlaREvents = {
                 onlinestatus: function(data){
                     store.dispatch("setUserStatus", data);
                 },
-                paymentreceived: function(data){
+                paymentreceived: function(){
                     store.dispatch("signalR_ReleasePaymeStatus");
                 },
                 enterstudyroom: function(data){

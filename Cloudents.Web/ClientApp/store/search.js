@@ -2,7 +2,6 @@
 import { skeletonData } from '../components/results/consts';
 import searchService from "./../services/searchService";
 
-const LOCATION_VERTICALS = new Map([["tutor", true]]);
 const state = {
     isResetSearch: false,
     //< -----keep this area ----

@@ -60,6 +60,7 @@ function bootIntercom(){
             language_override: global.lang,
             is_tutor: IntercomSettings.is_tutor
         };
+        /* global intercomSettings */
         global.Intercom('boot', {intercomSettings});
     }
 }

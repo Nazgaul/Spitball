@@ -175,22 +175,22 @@ const mutations = {
 };
 
 const actions = {
-    updateEndDialog({commit, state}, val){
+    updateEndDialog({commit}, val){
         commit('setEndDialog', val);
     },
-    setSesionClickedOnce({commit, state}, val) {
+    setSesionClickedOnce({commit}, val) {
         commit('updateSessionClickedOnce', val);
     },
-    setSesionEndClicked({commit, state}, val) {
+    setSesionEndClicked({commit}, val) {
         commit('updateSessionEndClicked', val);
     },
-    setAvaliableDevicesStatus({commit, state}, val) {
+    setAvaliableDevicesStatus({commit}, val) {
         commit('updateAvaliableDevices', val);
     },
-    setAllowedDevicesStatus({commit, state}, val) {
+    setAllowedDevicesStatus({commit}, val) {
         commit('updateAllowedDevices', val);
     },
-    updateStudyRoomProps({dispatch,commit,state}, val) {
+    updateStudyRoomProps({dispatch,commit}, val) {
         //update leaveReview store, to prevent leaving of multiple reviews
         dispatch('updateAllowReview',  val.allowReview);
         commit('setStudyRoomProps', val);
@@ -200,37 +200,37 @@ const actions = {
             }, 500);
         }
     },
-    updateTestDialogState({commit, state}, val) {
+    updateTestDialogState({commit}, val) {
         commit('setqualityDialogState', val);
     },
-    updateLocalParticipant({commit, state}, val) {
+    updateLocalParticipant({commit}, val) {
         commit('setlocalParticipantObj', val);
     },
-    updateLocalParticipantsNetworkQuality({commit, state}, val) {
+    updateLocalParticipantsNetworkQuality({commit}, val) {
         commit('setNetworkQuality', val);
     },
-    updateCodeLoadedOnce({commit, state}, val) {
+    updateCodeLoadedOnce({commit}, val) {
         commit('changeFirepadLoaded', val);
     },
-    updateRoomLoading({commit, state}, val) {
+    updateRoomLoading({commit}, val) {
         commit('setRoomLoading', val);
     },
     leaveRoomIfJoined({commit}) {
         commit('leaveIfJoinedRoom');
     },
-    updateRoomInstance({commit, state}, data) {
+    updateRoomInstance({commit}, data) {
         commit('setRoomInstance', data);
     },
-    updateLocalStatus({commit, state}, val) {
+    updateLocalStatus({commit}, val) {
         commit('setLocalStatus', val);
     },
-    updateRemoteStatus({commit, state}, val) {
+    updateRemoteStatus({commit}, val) {
         commit('setRemoteStatus', val);
     },
-    updateRoomStatus({commit, state}, val) {
+    updateRoomStatus({commit}, val) {
         commit('setRoomStatus', val);
     },
-    updateUserIdentity({commit, state}, val) {
+    updateUserIdentity({commit}, val) {
         commit('setUserIdentity', val);
     },
     updateCurrentRoomState({commit, state, dispatch}, val) {
