@@ -17,7 +17,7 @@
         <v-list class="sideMenu_list_cont" dense>
           <v-list-group active-class="''" :prepend-icon="'sbf-home-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="resetItems">
             <template v-slot:activator>
-              <v-list-item class="sideMenu_list">
+              <v-list-item class="sideMenu_list" color="#69687d !important">
                 <v-list-item-content>
                   <v-list-item-title>
                     <span class="sideMenu_list_title" v-language:inner="'schoolBlock_home'"/>
@@ -29,7 +29,7 @@
 
           <v-list-group v-model="dashboardModel" active-class="''" v-if="dashboardList" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu" color="#fff">
             <template v-slot:activator>
-              <v-list-item class="sideMenu_list">
+              <v-list-item class="sideMenu_list" color="#69687d !important">
                 <v-list-item-content>
                   <v-list-item-title>
                     <span class="sideMenu_list_title" v-language:inner="'schoolBlock_dashboard'"/>
@@ -61,7 +61,7 @@
 
             <v-list-item @click="openSblToken" class="group_list_sideMenu_dash">
               <v-list-item-content>
-                <v-list-item-title :class="['group_list_titles_dash']">
+                <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker('getPoint')}]">
                   <getPts class="pts_svg"/>
                   <!-- <v-icon class="group_list_icon_dash" v-html="'sbf-points'"/> -->
                   <span class="group_list_title_dash ml-2" v-language:inner="'menuList_points'"/>
@@ -83,7 +83,7 @@
           
           <v-list-group :value="true" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu" color="#fff">
             <template v-slot:activator>
-              <v-list-item class="sideMenu_list">
+              <v-list-item class="sideMenu_list" color="#69687d !important">
                 <v-list-item-content>
                   <v-list-item-title>
                     <span class="sideMenu_list_title" v-text="courseSelectText"/>
@@ -157,6 +157,7 @@ export default {
       "accountUser",
       "getSearchLoading",
       "getShowSchoolBlock",
+      "getShowBuyDialog",
     ]),
     isMiniSideMenu(){
       return (this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly) && !this.getShowSchoolBlock
@@ -231,9 +232,9 @@ export default {
     currentPageChecker(pathName){
       if(pathName == "studyRooms") {
         return this.$route.path.indexOf('study-rooms') > -1;
+      } else if(pathName == 'getPoint' && this.getShowBuyDialog) {
+        return true;
       } else{
-        debugger
-        console.log(this.$route.path.indexOf(pathName) > -1)
         return this.$route.path.indexOf(pathName) > -1;
       }
     },

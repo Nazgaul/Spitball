@@ -30,7 +30,6 @@
 
         <v-menu
           class="menu-area"
-          lazy
           bottom
           left
           content-class="card-user-actions"

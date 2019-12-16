@@ -122,6 +122,10 @@ export default {
         recalculate(){
             this.getBalances();
             this.cashOut = false;
+        },
+        cutsomFilter() {
+            console.log("dasdsafjksdnhfidfnidfi");
+            
         }
     },
     computed: {

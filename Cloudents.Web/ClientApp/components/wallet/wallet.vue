@@ -20,13 +20,15 @@
                                 :cash="cash"
                                 hide-default-footer
                                 class="balance-table wallet-table">
-                            <template slot="headerCell" slot-scope="props">
-                                <span :class="props.header.text+'-header table-header'">{{ props.header.text }}</span>
+                            <template slot="header" slot-scope="{props}">
+                                <span :class="props.header+'-header table-header'">{{ props.header }}</span>
                             </template>
-                            <template slot="items" slot-scope="props">
-                                <td class="text-left">{{ props.item.name }}</td>
-                                <td class="text-left">{{ props.item.points | currencyLocalyFilter}}</td>
-                                <td class="text-left bold" :style="props.item.value < 0 ? `direction:ltr;` : ''">{{ props.item.value | currencyFormat(props.item.symbol) }}</td>
+                            <template slot="item" slot-scope="props">
+                                <tr>
+                                    <td class="text-left">{{ props.item.name }}</td>
+                                    <td class="text-left">{{ props.item.points | currencyLocalyFilter}}</td>
+                                    <td class="text-left bold" :style="props.item.value < 0 ? `direction:ltr;` : ''">{{ props.item.value | currencyFormat(props.item.symbol) }}</td>
+                                </tr>
                             </template>
                         </v-data-table>
                     </v-flex>
@@ -41,15 +43,17 @@
                                 :options.sync="pagination"
                                 hide-default-footer
                                 class="transaction-table wallet-table">
-                            <template slot="headerCell" slot-scope="props">
-                                <span :class="props.header.text+'-header table-header'">{{ props.header.text }}</span>
+                            <template slot="header" slot-scope="{props}">
+                                <span :class="props.header+'-header table-header'">{{ props.header }}</span>
                             </template>
-                            <template slot="items" slot-scope="props">
-                                <td class="text-left">{{ props.item.date | dateFromISO}}</td>
-                                <td class="text-left">{{ props.item.action }}</td>
-                                <td class="text-left" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.type }}</td>
-                                <td class="text-left">{{ props.item.amount | currencyLocalyFilter}}</td>
-                                <td class="text-left bold"  v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.balance | currencyLocalyFilter }}</td>
+                            <template slot="item" slot-scope="props">
+                                <tr>
+                                    <td class="text-left">{{ props.item.date | dateFromISO}}</td>
+                                    <td class="text-left">{{ props.item.action }}</td>
+                                    <td class="text-left" v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.type }}</td>
+                                    <td class="text-left">{{ props.item.amount | currencyLocalyFilter}}</td>
+                                    <td class="text-left bold"  v-if="!$vuetify.breakpoint.xsOnly">{{ props.item.balance | currencyLocalyFilter }}</td>
+                                </tr>
                             </template>
                         </v-data-table>
                     </v-flex>
