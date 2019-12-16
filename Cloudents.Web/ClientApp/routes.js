@@ -346,7 +346,7 @@ let routes2 = [
         path: "/dashboard",
         alias: [
             '/my-sales',
-            // '/my-content',
+            '/my-content',
             
             
             

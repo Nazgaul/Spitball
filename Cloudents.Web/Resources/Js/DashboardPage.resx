@@ -150,6 +150,9 @@
   <data name="likes" xml:space="preserve">
     <value>Likes</value>
   </data>
+  <data name="my_content_title" xml:space="preserve">
+    <value>My Content</value>
+  </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>My Sales</value>
   </data>
@@ -179,6 +182,9 @@
   </data>
   <data name="questuin" xml:space="preserve">
     <value>Questuin:</value>
+  </data>
+  <data name="rename" xml:space="preserve">
+    <value>Rename</value>
   </data>
   <data name="session" xml:space="preserve">
     <value>Tutoring session with</value>

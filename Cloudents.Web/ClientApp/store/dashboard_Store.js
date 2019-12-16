@@ -2,26 +2,28 @@ import dashboardService from '../services/dashboardService.js';
 
 const state = {
    salesItems: [],
-   // contentItems: [],
-   dashboardDialog: false,
+   contentItems: [],
 }
 
 const mutations = {
    setSalesItems(state,val) {
       state.salesItems = val;
    },
-   // setContentItems(state,val) {
-   //    state.contentItems = val;
-   // },
-   setDashboardDialog(state, val) {
-      state.dashboardDialog = val;
+   setContentItems(state,val) {
+      state.contentItems = val;
+   },
+   dashboard_updatePrice(state,{newPrice,itemId}){
+      state.contentItems.map(item =>{
+         if(item.id === itemId){
+            item.price = newPrice;
+         }
+      })
    }
 }
 
 const getters = {
    getSalesItems: state => state.salesItems,
-   // getContentItems: state => state.contentItems,
-   getShowDashboardDialog: state => state.dashboardDialog,
+   getContentItems: state => state.contentItems,
 }
 
 const actions = {
@@ -30,15 +32,11 @@ const actions = {
          commit('setSalesItems', items);
       })
    },
-   // updateContentItems({commit}){
-   //    dashboardService.getContentItems().then(items=>{
-   //       commit('setContentItems', items);
-   //    }) 
-   // },
-   openDashboardDialog({commit}, val) {
-      commit('setDashboardDialog', val);
+   updateContentItems({commit}){
+      dashboardService.getContentItems().then(items=>{
+         commit('setContentItems', items);
+      }) 
    }
-   
 }
 
 export default {

@@ -3,7 +3,6 @@ import { connectivityModule } from "./connectivity.module";
 function DefaultItem(objInit){
    this.type = objInit.type;
    this.date = objInit.date;
-   this.status = objInit.status;
 }
 function SalesItem(objInit){
    return Object.assign(
@@ -21,23 +20,30 @@ function SalesItem(objInit){
          studentName: objInit.studentName,
          studentId: objInit.studentId || '',
          url: objInit.url,
+         paymentStatus: objInit.paymentStatus,
       }
    )
 }
 
 function ContentItem(objInit){
-   this.preview = objInit.preview || '';
-   this.likes = objInit.likes;
-   this.views = objInit.views;
-   this.downloads = objInit.downloads;
-   this.purchased = objInit.purchased;
-   this.price = objInit.price;
-   this.url = objInit.url;
-   this.text = objInit.text || '';
-   this.answerText = objInit.answerText || '';
-   this.course = objInit.course || '';
-   this.name = objInit.name;
-   this.id = objInit.id || null;
+   return Object.assign(
+      new DefaultItem(objInit),
+      {
+         preview: objInit.preview || '',
+         likes: objInit.likes,
+         views: objInit.views,
+         downloads: objInit.downloads,
+         purchased: objInit.purchased,
+         price: objInit.price,
+         url: objInit.url,
+         text: objInit.text || '',
+         answerText: objInit.answerText || '',
+         course: objInit.course || '',
+         name: objInit.name,
+         id: objInit.id || null,
+         // state: objInit.state,
+      }
+   )
 }
 
 function createSalesItems({data}) {

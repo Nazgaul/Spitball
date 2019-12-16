@@ -39,7 +39,7 @@ namespace Cloudents.Query.Query
                         Id = s.Id,
                         Name = s.Name,
                         Course = s.Course.Id,
-                        Type = s.DocumentType.ToString(),
+                        Type = s.DocumentType != null?  s.DocumentType.ToString() : "Document",
                         Likes = s.VoteCount,
                         Price = s.Price,
                         State = s.Status.State,

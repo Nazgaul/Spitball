@@ -1,60 +1,59 @@
 <template>
    <div class="dashboardPage">
-      <!-- <dashboardFilters></dashboardFilters> -->
-      <component :is="currentComponentByRoute"></component>
+      <component @openDialog="openDialog" :is="currentComponentByRoute"></component>
       <sb-dialog 
-         :showDialog="getShowDashboardDialog"
+         :showDialog="isDialog"
          :popUpType="'dashboardDialog'"
-         :onclosefn="closeDashboardDialog"
+         :onclosefn="closeDialog"
          :activateOverlay="true"
          :max-width="'550px'"
          :content-class="'pop-dashboard-container'">
-            <dashboardDialog></dashboardDialog>
+            <changeNameDialog v-if="currentDialog === 'rename'" :dialogData="dialogData" @closeDialog="closeDialog"/>
+            <changePriceDialog v-if="currentDialog === 'changePrice'" :dialogData="dialogData" @closeDialog="closeDialog"/>
       </sb-dialog>
    </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
 import mySales from './mySales/mySales.vue';
-// import myContent from './myContent/myContent.vue';
+import myContent from './myContent/myContent.vue';
 
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
-import dashboardDialog from './dashboardDialog/dashboardDialog.vue';
-import dashboardFilters from './dashboardFilters/dashboardFilters.vue';
-// import myPurchases from './myPurchases/myPurchases.vue';
-// import myCalendar from './myCalendar/myCalendar.vue';
-// import myFollowers from './myFollowers/myFollowers.vue';
+import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
+import changePriceDialog from './dashboardDialog/changePriceDialog.vue';
 
 export default {
    name:'dashboardPage',
+   data() {
+      return {
+         currentDialog:'',
+         isDialog:false,
+         dialogData:'',
+      }
+   },
    components:{
       mySales,
-      // myContent,
-
-
-
-
-      dashboardFilters,
-      dashboardDialog,
-      // myPurchases,
-      // myCalendar,
-      // myFollowers,
+      myContent,
+      changeNameDialog,
+      changePriceDialog,
       sbDialog
    },
    computed:{
-      ...mapGetters(['getShowDashboardDialog']),
-
       currentComponentByRoute(){
          return this.$route.path.slice(1);
       }
    },
    methods: {
-      ...mapActions(['openDashboardDialog']),
-
-      closeDashboardDialog() {
-         this.openDashboardDialog(false);
-      }
+      closeDialog() {
+         this.currentDialog = '';
+         this.dialogData = ''
+         this.isDialog = false;
+      },
+      openDialog(args){
+         this.currentDialog = args[0];
+         this.dialogData = args[1]
+         this.isDialog = true;
+      },
    }
 
 }
@@ -66,7 +65,6 @@ export default {
 	padding-left: 30px;
 	padding-top: 30px;
    max-width: 1150px;
-   // padding: 34px;
 	@media (max-width: @screen-xs) {
 		padding-left: 0;
       width: 100%;
