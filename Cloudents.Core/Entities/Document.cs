@@ -15,6 +15,10 @@ namespace Cloudents.Core.Entities
 
     public class Document : Entity<long>, IAggregateRoot, ISoftDelete
     {
+
+        public const int MinLength = 4;
+        public const int MaxLength = 150;
+
         public Document(string name,
             Course course,
             BaseUser user, decimal price, DocumentType documentType, string description)
@@ -165,6 +169,11 @@ namespace Cloudents.Core.Entities
             Price = decimal.Round(newPrice, 2);
             TimeStamp.UpdateTime = DateTime.UtcNow;
 
+        }
+
+        public virtual void Rename(string name)
+        {
+            Name = name;
         }
 
         public virtual DocumentType? DocumentType { get; set; }
