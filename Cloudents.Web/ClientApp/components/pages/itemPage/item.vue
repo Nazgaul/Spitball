@@ -46,6 +46,7 @@
                         v-language:inner="'documentPage_full_list'"
                         :to="{name: 'feed', query: {course: courseName}}"
                         class="itemPage__main__carousel__header--seeAll"
+                        color="#4c59ff"
                     ></router-link>
                 </div>
                 <sbCarousel 
@@ -57,11 +58,8 @@
                 </sbCarousel>
             </div>
 
-            <div class="itemPage__main__tutorCard" v-if="docTutor.isTutor" :class="{'itemPage__main__tutorCard--margin': docTutor.isTutor && $vuetify.breakpoint.xsOnly, 'itemPage__main__tutorCard--marginT': !itemList.length}">
-                class="itemPage__main__tutorCard" 
-                v-if="docTutor.isTutor" 
-                :class="{'itemPage__main__tutorCard--margin': docTutor.isTutor && $vuetify.breakpoint.xsOnly, 'itemPage__main__tutorCard--marginTop': itemList.length === 0}"
-                >
+            <div class="itemPage__main__tutorCard" v-if="docTutor.isTutor" 
+            :class="{'itemPage__main__tutorCard--margin': docTutor.isTutor && $vuetify.breakpoint.xsOnly, 'itemPage__main__tutorCard--marginT': !itemList.length}">
                     <tutorResultCardMobile v-if="$vuetify.breakpoint.xsOnly" :tutorData="docTutor"></tutorResultCardMobile>
                     <tutorResultCard v-else :tutorData="docTutor"></tutorResultCard>
             </div>
@@ -320,7 +318,7 @@ export default {
                     align-items: center;
                     flex-wrap: wrap;
                     font-weight: 600;
-
+                    font-size: 14px;
                     &__link {
                         @media (max-width: @screen-md) {
                             margin-bottom: 6px;
@@ -393,7 +391,8 @@ export default {
                     }
 
                     &--seeAll {
-                        color: #4c59ff;
+                        color: #4c59ff !important;
+                        font-size: 14px;
                     }
                 }
                 &--margin {

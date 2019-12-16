@@ -10,6 +10,7 @@
                 class="mobileUnlockDownload__action__btn"
                 depressed
                 block
+                large
                 rounded
                 :loading="isLoading"
                 @click="openPurchaseDialog"
@@ -21,6 +22,7 @@
             <v-btn
                 v-else
                 tag="a"
+                large
                 :href="`${$route.path}/download`"
                 target="_blank"
                 class="mobileUnlockDownload__action__btn"

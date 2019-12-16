@@ -298,7 +298,9 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-
+            span {
+                margin-top: 4px;
+            }
         }
         .v-input__slot {
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17) !important;
@@ -321,7 +323,7 @@
             font-size: 28px;
         }
         .done-btn {
-            min-width: 88px;
+            min-width: 88px !important;
             color: @global-blue;
             border-radius: 36px;
             border: solid 1px @global-blue;

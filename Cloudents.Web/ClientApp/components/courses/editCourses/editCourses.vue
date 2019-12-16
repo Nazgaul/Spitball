@@ -1,7 +1,7 @@
 <template>
     <div class="courses-list-wrap">
         <div v-if="!isEmpty">
-            <v-layout class="py-4 pl-4 pr-4" align-center justify-center>
+            <v-layout class="py-6 pl-6 pr-4" align-center justify-center>
                 <v-flex grow>
                     <div class="d-inline-flex justify-center shrink">
                         <span class="subtitle-1 font-weight-bold" v-language:inner>courses_my_courses</span>
@@ -26,7 +26,7 @@
                     <div class="class-list search-classes-list">
                         <div class="list-item search-class-item py-2 mx-2 justify-space-between align-center font-weight-regular"
                              v-for="(singleClass, index) in classesSelected" :key="index">
-                            <v-layout column class="pl-4 limit-width">
+                            <v-layout column class="pl-6 limit-width">
                                 <v-flex shrink class="text-truncate course-name-wrap">
                                     {{ singleClass.text }}
                                 </v-flex>
@@ -180,7 +180,7 @@
         .scrollBarStyle(6px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
         .rounded-btn {
             border-radius: 36px!important; //vuetify
-            min-width: 108px;
+            min-width: 108px !important; //vuetify
         }
         .fixed-bottom-wrap{
             position: fixed;

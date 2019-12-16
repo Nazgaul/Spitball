@@ -12,6 +12,7 @@
             depressed
             block
             rounded
+            large
             :loading="isLoading"
             @click="openPurchaseDialog"
             v-if="!isPurchased || isVideo"
@@ -21,6 +22,7 @@
         </v-btn>
         <v-btn
             v-else
+            large
             tag="a"
             :href="`${$route.path}/download`"
             target="_blank"
@@ -198,7 +200,7 @@ export default {
             margin-bottom: 25px;
             text-transform: initial;
             font-weight: 600;
-            font-size: 20px;
+            font-size: 20px !important;
 
             div {
                 margin-bottom: 2px;
