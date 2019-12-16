@@ -87,6 +87,7 @@ export default {
             }
         }
         .user-avatar-rect-no-image {
+            position: unset;
             border-radius: 4px;
             font-size: 24px;
         }
