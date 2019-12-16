@@ -62,18 +62,18 @@ export default {
                return list.sort((a,b)=> new Date(b[sortBy]) - new Date(a[sortBy]))
             }
          }
-            if(sortedBy === sortBy){
-               return list.reverse()
-            }else{
-               return list = list.sort((a,b)=> {
-                  if(a[sortBy] == undefined) return 1;
-                  if(b[sortBy] == undefined) return -1;
+         if(sortedBy === sortBy){
+            return list.reverse()
+         }else{
+            return list = list.sort((a,b)=> {
+               if(a[sortBy] == undefined) return 1;
+               if(b[sortBy] == undefined) return -1;
 
-                  if(a[sortBy] > b[sortBy])return -1;
-                  if(b[sortBy] > a[sortBy])return 1;
-                  return 0;
-               })
-            }
+               if(a[sortBy] > b[sortBy])return -1;
+               if(b[sortBy] > a[sortBy])return 1;
+               return 0;
+            })
+         }
       }
    }
 

@@ -183,27 +183,6 @@ export default {
       },
       changeSort(sortBy){
          let list = this.sortFunction(this.itemList,sortBy,this.sortedBy)
-         // if(sortBy == 'date'){
-         //    if(this.sortedBy === sortBy){
-         //       this.itemList.reverse()
-         //    }else{
-         //       this.itemList = this.itemList.sort((a,b)=> new Date(b[sortBy]) - new Date(a[sortBy]))
-         //    }
-         //    this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
-         //    return
-         // }
-         //    if(this.sortedBy === sortBy){
-         //       this.itemList.reverse()
-         //    }else{
-         //       this.itemList = this.itemList.sort((a,b)=> {
-         //          if(a[sortBy] == undefined) return 1;
-         //          if(b[sortBy] == undefined) return -1;
-
-         //          if(a[sortBy] > b[sortBy])return -1;
-         //          if(b[sortBy] > a[sortBy])return 1;
-         //          return 0;
-         //       })
-         //    }
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
          return list;
       }
