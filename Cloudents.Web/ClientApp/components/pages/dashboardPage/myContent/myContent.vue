@@ -19,7 +19,7 @@
                   :class="['column',{'sortable':header.sortable}]"
                   @click="changeSort(header.value)">
                   <span class="text-xs-left">{{ header.text }}
-                     <v-icon v-if="header.sortable" small>sbf-arrow-down</v-icon>
+                     <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
                   </span>
                </th>
             </tr>
@@ -89,6 +89,12 @@ import { LanguageService } from '../../../../services/language/languageService';
 
 export default {
    name:'myContent',
+   props:{
+      sortFunction: {
+         type: Function,
+      },
+
+   },
    data() {
       return {
          itemList:[],
@@ -176,37 +182,30 @@ export default {
          }
       },
       changeSort(sortBy){
-         if(sortBy == 'date'){
-            if(this.sortedBy === sortBy){
-               this.itemList = this.itemList.sort((a,b)=> new Date(a[sortBy]) - new Date(b[sortBy]))
-            }else{
-               this.itemList = this.itemList.sort((a,b)=> new Date(b[sortBy]) - new Date(a[sortBy]))
-            }
-         }
-         if(sortBy == 'type'){
-            if(this.sortedBy === sortBy){
-               this.itemList = this.itemList.sort((a,b)=> {
-                  if(a[sortBy] > b[sortBy]){
-                     return -1;
-                  }
-                  if(b[sortBy] > a[sortBy]){
-                     return 1;
-                  }
-                  return 0;
-               })
-            }else{
-               this.itemList = this.itemList.sort((a,b)=> {
-                  if(b[sortBy] > a[sortBy]){
-                     return -1;
-                  }
-                  if(a[sortBy] > b[sortBy]){
-                     return 1;
-                  }
-                  return 0;
-               })
-            }
-         }
+         let list = this.sortFunction(this.itemList,sortBy,this.sortedBy)
+         // if(sortBy == 'date'){
+         //    if(this.sortedBy === sortBy){
+         //       this.itemList.reverse()
+         //    }else{
+         //       this.itemList = this.itemList.sort((a,b)=> new Date(b[sortBy]) - new Date(a[sortBy]))
+         //    }
+         //    this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
+         //    return
+         // }
+         //    if(this.sortedBy === sortBy){
+         //       this.itemList.reverse()
+         //    }else{
+         //       this.itemList = this.itemList.sort((a,b)=> {
+         //          if(a[sortBy] == undefined) return 1;
+         //          if(b[sortBy] == undefined) return -1;
+
+         //          if(a[sortBy] > b[sortBy])return -1;
+         //          if(b[sortBy] > a[sortBy])return 1;
+         //          return 0;
+         //       })
+         //    }
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
+         return list;
       }
    },
    created() {

@@ -1,6 +1,6 @@
 <template>
    <div class="dashboardPage">
-      <component @openDialog="openDialog" :is="currentComponentByRoute"></component>
+      <component :sortFunction="sortFunction" @openDialog="openDialog" :is="currentComponentByRoute"></component>
       <sb-dialog 
          :showDialog="isDialog"
          :popUpType="'dashboardDialog'"
@@ -54,6 +54,27 @@ export default {
          this.dialogData = args[1]
          this.isDialog = true;
       },
+      sortFunction(list,sortBy,sortedBy){
+         if(sortBy == 'date'){
+            if(sortedBy === sortBy){
+              return list.reverse()
+            }else{
+               return list.sort((a,b)=> new Date(b[sortBy]) - new Date(a[sortBy]))
+            }
+         }
+            if(sortedBy === sortBy){
+               return list.reverse()
+            }else{
+               return list = list.sort((a,b)=> {
+                  if(a[sortBy] == undefined) return 1;
+                  if(b[sortBy] == undefined) return -1;
+
+                  if(a[sortBy] > b[sortBy])return -1;
+                  if(b[sortBy] > a[sortBy])return 1;
+                  return 0;
+               })
+            }
+      }
    }
 
 }
