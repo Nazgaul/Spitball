@@ -411,6 +411,7 @@
             border-radius: 36px;
             border: solid 1px @global-blue;
             background-color: transparent !important;
+            min-width: 100px !important;
             &.v-btn--disabled{
                 border:none;
             }
