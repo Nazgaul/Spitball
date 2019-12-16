@@ -45,6 +45,8 @@ namespace Cloudents.Query.Tutor
 
 
                 var listOfQueries = new List<IQueryOver<ReadTutor, ReadTutor>>();
+                var listOfCountQueries = new List<IQueryOver<ReadTutor, ReadTutor>>();
+
                 IQueryOver<ReadTutor, ReadTutor> futureCourse = _session.QueryOver(() => viewTutorAlias).Where(w => w.Id != query.UserId);
 
                 listOfQueries.Add(futureCourse);
@@ -90,10 +92,18 @@ namespace Cloudents.Query.Tutor
 
                     futureCourse.WithSubquery.WhereProperty(w => w.Id).In(detachedQuery);
                     futureCourse2.WithSubquery.WhereProperty(w => w.Id).In(detachedQuery2);
-                    listOfQueries.Add(withCountryOnlyDetachedQuery.WithSubquery.WhereProperty(w => w.Id).NotIn(detachedQuery).WithSubquery.WhereProperty(w => w.Id).NotIn(detachedQuery2));
+                    listOfQueries.Add(withCountryOnlyDetachedQuery);
+
+                    var withCountryOnlyDetachedCountQuery = withCountryOnlyDetachedQuery.Clone();
+
+                    listOfCountQueries.Add(futureCourse);
+                    listOfCountQueries.Add(futureCourse2);
+                    listOfCountQueries.Add(withCountryOnlyDetachedCountQuery.WithSubquery.WhereProperty(w => w.Id).NotIn(detachedQuery).WithSubquery.WhereProperty(w => w.Id).NotIn(detachedQuery2));
                 }
-                
-                var futureCount = listOfQueries.Select(s => BuildSelectStatement(s)).ToList();
+
+               
+
+                var futureCount = listOfCountQueries.Select(s => BuildSelectStatement(s)).ToList();
                 var count = futureCount.Select(s => s.Value).Sum();
                     
                
