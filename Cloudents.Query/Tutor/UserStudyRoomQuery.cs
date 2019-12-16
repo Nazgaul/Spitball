@@ -41,26 +41,34 @@ namespace Cloudents.Query.Tutor
                 UserStudyRoomDto resultAlias = null;
 
 
+                //_session.Query<StudyRoomUser>()
+                //    .Fetch(f=>f.Room)
+                //    .ThenFetch(f=>f.Users)
                 var detachedQuery = QueryOver.Of<StudyRoomUser>()
                     .Where(w => w.User.Id == query.UserId)
                     .Select(s => s.Room.Id);
 
-                return (await _session.QueryOver(() => studyRoomAlias)
+                return await _session.QueryOver(() => studyRoomAlias)
                     .JoinAlias(x => x.Users, () => studyRoomUserAlias)
-                    .JoinEntityAlias(() => userAlias, () => userAlias.Id == studyRoomUserAlias.User.Id && userAlias.Id != query.UserId)
+                    .JoinEntityAlias(() => userAlias,
+                        () => userAlias.Id == studyRoomUserAlias.User.Id && userAlias.Id != query.UserId)
                     .WithSubquery.WhereProperty(x => x.Id).In(detachedQuery)
-                    .SelectList(sl => 
-                        sl.Select(s => userAlias.Name).WithAlias(() => resultAlias.Name)
-                        .Select(s => userAlias.Image).WithAlias(() => resultAlias.Image)
-                        .Select(s => userAlias.Online).WithAlias(() => resultAlias.Online)
-                        .Select(s => userAlias.Id).WithAlias(() => resultAlias.UserId)
-                        .Select(s => s.Id).WithAlias(() => resultAlias.Id)
-                        .Select(s => s.DateTime.CreationTime).WithAlias(() => resultAlias.DateTime)
-                        .Select(s => s.Identifier).WithAlias(() => resultAlias.ConversationId)
-                        //.Select(s => s.DateTime.UpdateTime).WithAlias(() => resultAlias.LastActive)
-                    ).OrderBy(o => o.DateTime.UpdateTime ?? o.DateTime.CreationTime).Desc
+                    .SelectList(sl =>
+                            sl.Select(s => userAlias.Name).WithAlias(() => resultAlias.Name)
+                                .Select(s => userAlias.Image).WithAlias(() => resultAlias.Image)
+                                .Select(s => userAlias.Online).WithAlias(() => resultAlias.Online)
+                                .Select(s => userAlias.Id).WithAlias(() => resultAlias.UserId)
+                                .Select(s => s.Id).WithAlias(() => resultAlias.Id)
+                                .Select(s => s.DateTime.CreationTime).WithAlias(() => resultAlias.DateTime)
+                                .Select(s => s.Identifier).WithAlias(() => resultAlias.ConversationId)
+                        
+                    ) 
+                    .OrderBy(Projections.SqlFunction("COALESCE",NHibernateUtil.Object,
+                        Projections.Property(() => studyRoomAlias.DateTime.UpdateTime),
+                        Projections.Property(() => studyRoomAlias.DateTime.CreationTime))).Desc
+                    //TODO on nhibernate 5.3 need to fix.
                     .TransformUsing(Transformers.AliasToBean<UserStudyRoomDto>())
-                    .ListAsync<UserStudyRoomDto>(token))/*.OrderByDescending(o => o.LastActive > o.DateTime ? o.LastActive : o.DateTime)*/;
+                    .ListAsync<UserStudyRoomDto>(token);/*.OrderByDescending(o => o.LastActive > o.DateTime ? o.LastActive : o.DateTime)*/;
 
                 //var t = await _session.Query<StudyRoom>()
                 //    .FetchMany(f => f.Sessions)
