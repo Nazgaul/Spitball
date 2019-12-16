@@ -15,7 +15,7 @@
 
         <v-divider></v-divider>
 
-        <v-list dense class="pt-0">
+        <v-list dense class="study-room-settings-nav-sideMenu pt-0">
           <v-list-item
             v-for="item in items"
             :key="item.title"
@@ -107,18 +107,21 @@ export default {
             align-items: center;
             font-weight: bold;
         }
-        .v-list__tile__title {
+        .v-list-item__title {
           transition: none;
+        }
+        .v-list-item__action{
+          margin: 0 32px 0 0;
         }
         .tileActive {
           background-color: #5158af;
-          color: white;
+          color: white !important;
           i {
-            color: white;
+            color: white !important;
           }
-          .v-list__tile__action{
+          .v-list-item__action{
             svg{
-              fill: #FFF;
+              fill: #FFF !important;
             }
           }
         }

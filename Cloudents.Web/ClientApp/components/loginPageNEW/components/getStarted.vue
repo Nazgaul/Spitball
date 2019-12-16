@@ -61,6 +61,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import insightService from '../../../services/insightService';
+
 // let auth2;
 
 export default {

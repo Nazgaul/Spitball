@@ -124,7 +124,8 @@ export default {
             min-width: 100px;
         }
         .indicator-audio-meter{
-                margin-top:20px; 
+                font-size: 14px;
+                margin-top:20px;
                 display:flex;
                 align-items: center;
             }
@@ -139,9 +140,11 @@ export default {
         display: flex;
         margin-top: 25px;
         .studyRoom-audio-settings-speaker-label{
+            font-size: 14px;
             width: 100px;
         }
         .audio-output-controls{
+            font-size: 14px;
             display: flex;
             button{
                 background-color: #5158af;

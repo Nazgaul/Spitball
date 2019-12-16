@@ -67,7 +67,7 @@
             background-color: @color-white;
         }
         .outline{
-            border-radius: 16px;
+            border-radius: 22px;
             border: solid 1px @global-purple;
             color: @global-purple;
             background-color: transparent;
@@ -79,7 +79,7 @@
             font-size: 18px;
         }
         .solid{
-            border-radius: 16px;
+            border-radius: 22px;
             color: @color-white;
             background-color: @global-purple;
         }

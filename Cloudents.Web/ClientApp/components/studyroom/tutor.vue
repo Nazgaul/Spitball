@@ -40,7 +40,7 @@
           
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>  
             
-            <v-btn flat icon @click="toggleRecord" v-if="isRecordingSupported">
+            <v-btn icon @click="toggleRecord" v-if="isRecordingSupported">
               <v-icon v-if="!getIsRecording" class="white-btn">sbf-begain-recording</v-icon>
               <v-icon v-else class="white-btn">sbf-stop-recording</v-icon>
             </v-btn>

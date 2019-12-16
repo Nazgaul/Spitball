@@ -115,6 +115,7 @@ export default {
         display:flex;
         justify-content: space-between;
         .studyRoom-video-settings-label{
+            font-size: 14px;
             min-width: 100px;
         }
         .v-input__control{
