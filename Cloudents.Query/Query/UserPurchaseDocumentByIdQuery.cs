@@ -42,7 +42,7 @@ namespace Cloudents.Query.Query
                               search,
                               transaction
                           })
-                    .Where(w => w.transaction.User.Id == query.Id && w.transaction.Type == TransactionType.Spent)
+                    .Where(w => w.transaction.User.Id == query.Id && w.transaction.Type == TransactionType.Spent && w.search.Status.State == ItemState.Ok)
                     .OrderByDescending(o => o.transaction.Created)
                     .Select(s => new DocumentFeedDto
                     {

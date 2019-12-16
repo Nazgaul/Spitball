@@ -120,6 +120,24 @@
   <data name="courses" xml:space="preserve">
     <value>9,575 Courses</value>
   </data>
+  <data name="footer_h1" xml:space="preserve">
+    <value>Private lessons online: Find private teachers in a variety of courses and subjects</value>
+  </data>
+  <data name="footer_h1_course" xml:space="preserve">
+    <value>Private {1} lessons online: Find {2} teachers online in a variety of courses and subjects</value>
+  </data>
+  <data name="footer_h2" xml:space="preserve">
+    <value>Find your next private tutor and arrange a video meeting where you’ll learn online lessons according to your needs.</value>
+  </data>
+  <data name="footer_h2_course" xml:space="preserve">
+    <value>Find your next private {1} tutor and arrange a video meeting where you’ll learn online math lessons according to your needs.</value>
+  </data>
+  <data name="footer_h3" xml:space="preserve">
+    <value>Professional private teachers who are committed to your success</value>
+  </data>
+  <data name="footer_h3_course" xml:space="preserve">
+    <value>Professional private teachers who are committed to your success in {1}</value>
+  </data>
   <data name="footer_links_about" xml:space="preserve">
     <value>About Spitball</value>
   </data>

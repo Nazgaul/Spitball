@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NHibernate;
@@ -27,23 +26,43 @@ namespace Cloudents.Web.Seo
 
         public IEnumerable<SitemapNode> GetUrls(int index)
         {
+            var urlBase = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.TutorList, new
+            {
+            });
+            yield return new SitemapNode(urlBase)
+            {
+                ChangeFrequency = ChangeFrequency.Daily,
+                Priority = 1,
+                TimeStamp = DateTime.UtcNow
+            };
 
+            const int pageSize = 50;
             var query = from tutor in _session.Query<Tutor>().Fetch(f => f.User)
                         join userCourse in _session.Query<UserCourse>() on tutor.Id equals userCourse.User.Id
-                        where tutor.State == ItemState.Ok && userCourse.CanTeach && tutor.User.Country != Country.India.Name
-                        select userCourse.Course.Id;
-            foreach (var course in query.Distinct())
+                        where tutor.State == ItemState.Ok
+                              && userCourse.CanTeach && tutor.User.Country != Country.India.Name
+                        group userCourse by userCourse.Course.Id
+                into newGroup
+                        select new { Course = newGroup.Key, Count = newGroup.Count() };
+            foreach (var group in query)
             {
-                var url = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.TutorList, new
+                for (var i = 0; i <= group.Count / pageSize; i++)
                 {
-                    term = course
-                });
-                yield return new SitemapNode(url)
-                {
-                    ChangeFrequency = ChangeFrequency.Daily,
-                    Priority = 1,
-                    TimeStamp = DateTime.UtcNow
-                };
+                    var url = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.TutorList, new
+                    {
+                        term = group.Course,
+                        page = i,
+                        size = pageSize
+                    });
+                    yield return new SitemapNode(url)
+                    {
+                        ChangeFrequency = ChangeFrequency.Daily,
+                        Priority = 1,
+                        TimeStamp = DateTime.UtcNow
+                    };
+                }
+                
+               
             }
         }
     }

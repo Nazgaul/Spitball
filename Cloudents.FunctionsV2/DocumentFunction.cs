@@ -19,6 +19,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -164,37 +165,7 @@ namespace Cloudents.FunctionsV2
         }
 
 
-        [FunctionName("media-service-event")]
-        public static async Task Run(
-            [QueueTrigger("media-service")] string message,
-            [Inject] VideoProcessor videoProvider,
-            IBinder binder,
-            CancellationToken token)
-        {
-
-            dynamic json = JToken.Parse(message);
-            foreach (var output in json.data.outputs)
-            {
-                string label = output.label;
-                string assetName = output.assetName;
-                var id = long.Parse(RegEx.NumberExtractor.Match(assetName).Value);
-                if (label == MediaServices.JobLabelImage)
-                {
-                    await videoProvider.MoveImageAsync(id, binder, token);
-                }
-
-                if (label == MediaServices.JobLabelShortVideo)
-                {
-                    await videoProvider.CreateLocatorAsync(id, token);
-                }
-
-                if (label == MediaServices.JobLabelFullVideo)
-                {
-                    await videoProvider.UpdateDurationAsync(id, binder, token);
-                }
-            }
-
-        }
+        
 
 
     }

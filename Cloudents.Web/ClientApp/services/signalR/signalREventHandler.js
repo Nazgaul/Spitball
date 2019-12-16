@@ -77,6 +77,9 @@ export const signlaREvents = {
                 },
                 paymentreceived: function(data){
                     store.dispatch("signalR_ReleasePaymeStatus");
+                },
+                enterstudyroom: function(data){
+                    store.dispatch("signalR_TutorEnterStudyRoom", data);
                 }
             };  
             arrEventObj.forEach((action)=>{

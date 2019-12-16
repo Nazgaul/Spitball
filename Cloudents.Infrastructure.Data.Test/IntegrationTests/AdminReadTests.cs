@@ -2,7 +2,6 @@
 using Cloudents.Core.Enum;
 using Cloudents.Query.Query.Admin;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
@@ -159,7 +158,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task AdminPaymentsQuery_Ok(string country)
         {
             var q1 = new AdminPaymentsQuery(country);
-            var t1 = await _fixture.QueryBus.QueryAsync(q1, default);
+            var _ = await _fixture.QueryBus.QueryAsync(q1, default);
         }
 
         [Theory]

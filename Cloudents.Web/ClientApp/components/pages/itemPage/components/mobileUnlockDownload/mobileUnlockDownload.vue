@@ -15,7 +15,8 @@
                 @click="openPurchaseDialog"
                 v-if="!isPurchased || isVideo"
                 color="#4c59ff">
-                <span v-language:inner="'documentPage_unlock_btn'"></span>
+                    <span v-if="isVideo" v-language:inner="'documentPage_unlock_video_btn'"></span>
+                    <span v-else v-language:inner="'documentPage_unlock_document_btn'"></span>
             </v-btn>
             <v-btn
                 v-else

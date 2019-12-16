@@ -23,4 +23,15 @@ namespace Cloudents.Core.Event
             StudyRoomSession = studyRoomSession;
         }
     }
+
+    //public class StudyRoomSessionVideoUploadedEvent : IEvent
+    //{
+    //    public StudyRoomSession StudyRoomSession { get; }
+
+    //    public StudyRoomSessionVideoUploadedEvent(StudyRoomSession studyRoomSession)
+    //    {
+    //        StudyRoomSession = studyRoomSession;
+    //    }
+
+    //}
 }

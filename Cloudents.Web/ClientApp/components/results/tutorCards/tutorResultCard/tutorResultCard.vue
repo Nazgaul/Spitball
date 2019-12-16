@@ -5,7 +5,7 @@
             <user-avatar-rect 
               :userName="tutorData.name" 
               :userImageUrl="tutorData.image" 
-              class="mr-3 user-avatar-rect" 
+              class="user-avatar-rect" 
               :userId="tutorData.userId"
               :width="148" 
               :height="182"
@@ -31,17 +31,19 @@
         <v-divider vertical class="mx-3"></v-divider>
 
         <div class="user-rates">
-            <div class="price font-weight-bold">
+            <div class="price">
+              <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
               <div class="user-rates-top">
-                <div class="striked mr-2" v-if="tutorData.discountPrice">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
                 <template>
-                    <span v-if="tutorData.discountPrice" class="tutor-card-price font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
+                    <span v-if="isDiscount" class="tutor-card-price font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
                     <span class="tutor-card-price font-weight-bold" v-else>{{tutorData.price | currencyFormat(tutorData.currency)}}</span>
                 </template>
                 <span class="caption">
                   <span class="tutor-card-price-divider font-weight-bold">/</span>
                   <span class="tutor-card-price-divider font-weight-bold" v-language:inner="'resultTutor_hour'"></span>
                 </span>
+                <div class="striked mr-1" v-if="isDiscount">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
+                <div class="striked no-discount" v-else></div>
               </div>
             </div>
 
@@ -58,7 +60,7 @@
             
             <div class="classes-hours align-center">
               <clock />
-              <span class="font-weight-bold caption ml-2" v-if="tutorData.lessons > 0">{{tutorData.lessons}}</span>
+              <span class="font-weight-bold caption classes-hours_lesson" v-if="tutorData.lessons > 0">{{tutorData.lessons}}</span>
               
               <template>
                 <span class="font-weight-bold caption no-classes" v-language:inner="'resultTutor_no_hours_completed'" v-if="tutorData.lessons === 0"></span>
@@ -176,6 +178,9 @@ export default {
     isReviews() {
       return this.tutorData.reviews > 0 ? true : false;
     },
+    isDiscount() {
+      return this.tutorData.discountPrice !== undefined;
+    }
   },
 };
 </script>
@@ -186,7 +191,7 @@ export default {
   @purple: #43425d;
 
   .tutor-result-card-desktop {
-    .heightMinMax(214px);
+    // .heightMinMax(214px);
     border-radius: 8px;
     background: #fff;
     width: 100%;
@@ -194,9 +199,12 @@ export default {
     h3, h4, .user-bio, .courses, .price, .classes-hours, .study-area {
       color: @purple;
     }
+    .user-avatar-rect {
+      margin-right: 12px;
+    }
     .user-details {
       width: 0;
-      flex-grow: 5;
+      flex-grow: 4.5;
       display: flex;
       .main-card {
         min-width: 0;
@@ -223,37 +231,44 @@ export default {
       flex-basis: auto;
     }
     .user-rates {
-      display: grid;
-      grid-gap: 28px;
-      // display: flex;
-      // flex-direction: column;
-      // align-items: baseline;
-      // justify-content: space-between;
+      // display: grid;
+      // grid-gap: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: baseline;
+      justify-content: space-between;
       flex: 2;
       .striked {
+        margin: 0 0 0 auto;
         max-width: max-content;
         position: relative;
-        color: @colorBlackNew;
+        color: #a0a4be;
         &:after {
             content: "";
-            width: 100%;
-            border-bottom: solid 1px @colorBlackNew;
+            width: 120%;
+            border-bottom: solid 1px #a0a4be;
             position: absolute;
-            left: 0;
+            left: -2px;
             top: 50%;
             z-index: 1;
         }
+        &.no-discount {
+          min-height: 19px;
+        }
       }
       .price {
-        justify-self: end;
-        // width: 100%;
-        // display: flex;
-        // justify-content: flex-end;
-        // margin-top: -8px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: -20px;
+        .applyCoupon {
+          color: #5a61ba;
+          font-weight: 600;
+          font-size: 12px;
+          margin-top: 6px;
+        }
         .user-rates-top {
-          // display: flex;
           align-items: baseline;
-          // margin-right: 10px;
           .tutor-card-currency {
             font-size: 16px;
             color:#5158af;
@@ -284,16 +299,22 @@ export default {
       .classes-hours {
         margin-left: 3px;
         display: flex;
+        align-items: end;
+        &_lesson {
+          margin-left: 6px;
+        }
         .no-classes {
-          margin-left: 8px;
+          margin-left: 6px;
         }
       }
       .user-rank {
         display: -webkit-box;
+        margin-bottom: -20px;
         i{
-          font-size: 20px !important;
+          font-size: 18px !important;
         }
         .reviews {
+          font-size: 12px;
           color: #4452fc;
         }
         .no-reviews {
@@ -301,7 +322,8 @@ export default {
           color: #43425d;
         }
         .user-rank-star {
-          width: 20px;
+          width: 18px;
+          vertical-align: sub;
         }
       }
       .send-btn {

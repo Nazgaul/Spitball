@@ -2,13 +2,12 @@
 using FluentAssertions;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
 namespace Cloudents.Core.Test.Entities
 {
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException", Justification = "unit test")]
     public class StudyRoomSessionTests
     {
         [Fact]
@@ -31,7 +30,7 @@ namespace Cloudents.Core.Test.Entities
             prop.SetValue(studyRoomSession, DateTime.UtcNow.AddHours(-1));
             studyRoomSession.EndSession();
             studyRoomSession.Price.Should().NotBeNull();
-            studyRoomSession.Price.Should().Equals(10M);
+            studyRoomSession.Price.Should().Be(10M);
 
 
         }
@@ -53,7 +52,7 @@ namespace Cloudents.Core.Test.Entities
             prop.SetValue(studyRoomSession, DateTime.UtcNow.AddHours(-1));
             studyRoomSession.EndSession();
             studyRoomSession.Price.Should().NotBeNull();
-            studyRoomSession.Price.Should().Equals(10M);
+            studyRoomSession.Price.Should().Be(10M);
 
         }
     }

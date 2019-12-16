@@ -120,6 +120,25 @@
   <data name="courses" xml:space="preserve">
     <value>9,575 קורסים</value>
   </data>
+  <data name="footer_h1" xml:space="preserve">
+    <value>שיעורים פרטיים אונליין: מצאו מורים פרטיים במגוון קורסים ומקצועות 
+לימוד</value>
+  </data>
+  <data name="footer_h1_course" xml:space="preserve">
+    <value>שיעורים פרטיים ב{1} אונליין: מצאו מורים פרטיים ב{2}</value>
+  </data>
+  <data name="footer_h2" xml:space="preserve">
+    <value>מצאו מורה פרטי מקצועי ואמין ממאגר ענק של מורים פרטיים שמעבירים שיעור פרטי אונליין במגוון נושאים אקדמאיים וקורסים במערכת הלמידה המתקדמת של ספיטבול</value>
+  </data>
+  <data name="footer_h2_course" xml:space="preserve">
+    <value>מצאו מורה פרטי מקצועי ואמין ב{1} מתוך מאגר ענק של מורים פרטיים ב{2} שמעבירים שיעור פרטי אונליין במגוון נושאים אקדמאיים וקורסים במערכת הלמידה המתקדמת של ספיטבול</value>
+  </data>
+  <data name="footer_h3" xml:space="preserve">
+    <value>מורים פרטיים מעולים שמחוייבים להצלחה שלך</value>
+  </data>
+  <data name="footer_h3_course" xml:space="preserve">
+    <value>מורים פרטיים מעולים שמחוייבים להצלחה שלך</value>
+  </data>
   <data name="footer_links_about" xml:space="preserve">
     <value>אודות ספיטבול</value>
   </data>

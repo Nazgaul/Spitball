@@ -141,7 +141,7 @@ export default {
         }
     },
     created() {
-        this.msg = !!this.$route.query && !!this.$route.query.term ? this.$route.query.term : '';
+        this.msg = !!this.$route.params && !!this.$route.params.course ? this.$route.params.course : '';
     }
 
 };

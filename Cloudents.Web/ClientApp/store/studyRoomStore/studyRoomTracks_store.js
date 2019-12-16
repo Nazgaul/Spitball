@@ -1,4 +1,5 @@
 import { createLocalVideoTrack,createLocalAudioTrack } from "twilio-video";
+import studyRoomRecordingService from '../../components/studyroom/studyRoomRecordingService';
 
 const _getLocalTrack = (getters,type) =>{
     if(getters['activeRoom'] && getters['activeRoom'].localParticipant) {
@@ -27,7 +28,9 @@ const state = {
         audio:'sb-audioTrackId'
     },
     isVideoActive: false,
-    isAudioActive: false
+    isAudioActive: false,
+    localDisplayMedia: null,
+    localUserMedia: null
 };
 
 const getters = {
@@ -39,6 +42,8 @@ const getters = {
     getLastActiveLocalVideoTrack: state => state.lastActiveLocalVideoTrack,
     getIsVideoActive: state => state.isVideoActive,
     getIsAudioActive: state => state.isAudioActive,
+    getLocalDisplayMedia: state => state.localDisplayMedia,
+    getLocalUserMedia: state => state.localUserMedia,
 };
 
 const mutations = {
@@ -65,7 +70,13 @@ const mutations = {
     },
     setIsAudioActive(state, val){
         state.isAudioActive  = val;
-    }
+    },
+    setLocalDisplayMedia(state, val){
+        state.localDisplayMedia  = val;
+    },
+    setLocalUserMedia(state, val){
+        state.localUserMedia  = val;
+    },
 };
 
 const actions = {
@@ -115,7 +126,7 @@ const actions = {
         let deviceId = global.localStorage.getItem(state.storageENUM.audio);
         dispatch('createLocalAudioTrack_store', deviceId);
     },
-    createLocalAudioTrack_store({getters, commit}, id){
+    createLocalAudioTrack_store({getters, commit, dispatch}, id){
         let param = id ? {deviceId: {exact: id}} : {};
         createLocalAudioTrack(param).then(audioTrack => {
             if(getters['activeRoom'] && state.isAudioActive){
@@ -183,6 +194,12 @@ const actions = {
                 getters['activeRoom'].localParticipant.unpublishTrack(AudioTrack.mediaStreamTrack);
             }
             dispatch('setCurrentAudioTrack', track);
+            let recorderStream = getters.getRecorder;
+            if(recorderStream){
+                // recorderStream.requestData(); //init the dataAvailable Event;
+                let recorderTrackToAdd = studyRoomRecordingService.createRemoteAudioStream();
+                studyRoomRecordingService.createCombinedMediaStreams(recorderTrackToAdd)
+            }
             container.appendChild(track.attach());
         }
     },
@@ -266,6 +283,12 @@ const actions = {
     },
     setIsAudioActive({commit}, val){
         commit('setIsAudioActive', val);
+    },
+    setLocalDisplayMedia({commit}, val){
+        commit('setLocalDisplayMedia', val)
+    },
+    setLocalUserMedia({commit}, val){
+        commit('setLocalUserMedia', val)
     },
 };
 

@@ -58,7 +58,7 @@ export default {
         ...mapActions(['setActiveConversationObj', 'openChatInterface', 'accountUser']),
         enterRoom(){
             let routeData = this.$router.resolve({
-                    name: 'tutoring',
+                    name: 'roomSettings',
                     params: {
                         id:this.card.id
                         }

@@ -1,11 +1,10 @@
-﻿using FluentAssertions;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
+using FluentAssertions;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace Cloudents.Web.Test.IntegrationTests
+namespace Cloudents.Web.Test.IntegrationTests.Api
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class ChatControllerTests //: IClassFixture<SbWebApplicationFactory>
@@ -127,6 +126,17 @@ namespace Cloudents.Web.Test.IntegrationTests
             var response = await _client.PostAsync("api/chat/read", HttpClient.CreateJsonString(_user));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        }
+
+        [Fact]
+        public async Task PostAsync_Chat_Read_NoSuchConversation_BadRequestssss()
+        {
+            await _client.LogInAsync();
+
+            var response = await _client.GetAsync("api/chat/conversation/159489_160171");
+
+            response.EnsureSuccessStatusCode();
 
         }
 

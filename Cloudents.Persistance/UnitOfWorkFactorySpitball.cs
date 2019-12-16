@@ -123,8 +123,6 @@ namespace Cloudents.Persistence
                 case DbConnectionString.DataBaseIntegration.Update:
                     config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
                     break;
-                default:
-                    break;
             }
         }
     }

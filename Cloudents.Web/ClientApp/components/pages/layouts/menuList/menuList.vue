@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-list class="menu-list">
+    <v-list class="menu-list" dense>
       <div class="userMenu_cont">
         <div class="userMenu_top_postion" v-if="isLoggedIn"/>
         <div class="userMenu_top_noLogin" v-if="!isLoggedIn && isMobile">
@@ -55,6 +55,14 @@
             <v-list-tile-action><v-icon class="userMenu_icons">{{singleLang.icon}}</v-icon></v-list-tile-action>
             <v-list-tile-content><v-list-tile-title class="subheading userMenu_titles">{{singleLang.title}}</v-list-tile-title></v-list-tile-content>
           </v-list-tile>
+
+          <v-list-tile :to="{ name: 'tutoring'}">
+            <v-list-tile-action><v-icon class="userMenu_icons" v-html="'sbf-pc'"></v-icon></v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title><span class="userMenu_titles" v-language:inner="'menuList_my_study_rooms'"></span></v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          
           <v-list-tile v-for="link in satelliteLinks" :key="link.title" sel="menu_row">
             <v-list-tile-action>
               <a :href="link.url"><v-icon class="userMenu_icons">{{link.icon}}</v-icon></a>

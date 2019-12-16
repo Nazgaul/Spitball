@@ -2,8 +2,8 @@
 using Cloudents.Command.Command;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
-using Cloudents.Infrastructure.Storage;
 using Cloudents.Infrastructure.Video;
+using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json.Linq;
@@ -42,6 +42,42 @@ namespace Cloudents.FunctionsV2.FileProcessor
             await _videoService.CreateVideoPreviewJobAsync(id, url.AbsoluteUri, token);
         }
 
+        public async Task MoveStudyRoomVideoAsync(string assetName, IBinder binder, CancellationToken token)
+        {
+            var name = assetName.Replace(AssetType.StudyRoom.ToString(), string.Empty).Trim('-').Split(StudyRoomFunctionBlobScan.Separator);
+            var studyRoomId = name[0];
+            var sessionId = name[1];
+
+
+
+            //binder.BindAsync<CloudBlob>(new BlobAttribute(""))
+            var assetContainer = await binder.BindAsync<CloudBlobContainer>(new BlobAttribute(assetName), token);
+            var blobs = await assetContainer.ListBlobsSegmentedAsync(null);
+            var blobItem = blobs.Results.SingleOrDefault(w => w.Uri.AbsoluteUri.EndsWith("mp4"));
+            if (!(blobItem is null))
+            {
+                var blob = (CloudBlockBlob)blobItem;
+                var url = blob.GetDownloadLink(TimeSpan.FromHours(1));
+
+
+                var destinationBlob = await binder.BindAsync<CloudBlockBlob>(
+                    new BlobAttribute(
+                        $"{StorageContainer.StudyRoom.Name}/{StorageContainer.StudyRoom.RelativePath}/{studyRoomId}/{studyRoomId}_{sessionId}.mp4"),
+                    token);
+
+                destinationBlob.Metadata[StudyRoomFunctionBlobScan.MetaEncodingKey] = "Finish";
+
+                await destinationBlob.StartCopyAsync(url);
+
+                while (destinationBlob.CopyState.Status != CopyStatus.Success)
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(0.2), token);
+                    await destinationBlob.ExistsAsync();
+                }
+            }
+
+            await _videoService.DeleteAssetAsync(assetName, token);
+        }
 
         public async Task MoveImageAsync(long id, IBinder binder, CancellationToken token)
         {
@@ -84,6 +120,8 @@ namespace Cloudents.FunctionsV2.FileProcessor
             return _videoService.CreateShortStreamingLocator(id, token);
         }
 
+       
+
         public async Task UpdateDurationAsync(long id, IBinder binder, CancellationToken token)
         {
             //var id = RegEx.NumberExtractor.Match(assetName).Value;
@@ -110,6 +148,25 @@ namespace Cloudents.FunctionsV2.FileProcessor
             await _commandBus.DispatchAsync(command, token);
         }
 
-
     }
+
+    public static class BlockBlobExtensions
+    {
+        public static Uri GetDownloadLink([NotNull] this CloudBlockBlob blob, TimeSpan expirationTime)
+        {
+            if (blob == null) throw new ArgumentNullException(nameof(blob));
+            var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            {
+                SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
+                Permissions = SharedAccessBlobPermissions.Read,
+                SharedAccessExpiryTime = DateTimeOffset.UtcNow + expirationTime
+
+            });
+            var url = new Uri(blob.Uri, signedUrl);
+            return url;
+        }
+    }
+
+
+
 }

@@ -194,6 +194,13 @@ export default {
         if(this.getCourseDescription){
             this.description = this.getCourseDescription;
         }
+        if(this.$route.params && this.$route.params.course){
+            let queryCourse = this.$route.params.course;
+            this.tutorCourse = queryCourse
+            this.isFromQuery = true;
+            this.searchCourses(queryCourse)
+            this.isReady = true;
+        }
         if((this.$route.query && this.$route.query.Course) || (!!this.getSelectedCourse && this.getSelectedCourse.text)){
             let queryCourse;
             if(this.$route.query && this.$route.query.Course){
@@ -252,9 +259,9 @@ export default {
                         }
                         .v-label {
                             display: block;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
+                            // overflow: hidden;
+                            // text-overflow: ellipsis;
+                            // white-space: nowrap;
                         }
                     }
                 }

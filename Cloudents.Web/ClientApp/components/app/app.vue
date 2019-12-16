@@ -153,7 +153,7 @@ import chatComponent from "../chat/chat.vue";
 import becomeTutor from "../becomeTutor/becomeTutor.vue";
 import tutorList from "../helpers/tutorList/tutorList.vue";
 import tutorRequest from '../tutorRequestNEW/tutorRequest.vue';
-import paymentDialog from '../tutor/tutorHelpers/paymentDIalog/paymentDIalog.vue';
+import paymentDialog from '../studyroom/tutorHelpers/paymentDIalog/paymentDIalog.vue';
 import referralDialog from "../question/helpers/referralDialog/referral-dialog.vue";
 
 export default {

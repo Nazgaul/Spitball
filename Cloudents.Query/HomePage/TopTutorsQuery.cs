@@ -46,7 +46,7 @@ namespace Cloudents.Query.HomePage
                             });
                 linqQuery = linqQuery.Where(w => w.readTutor.Country == query.Country.ToString());
 
-                return await linqQuery.Where(w => w.tutor.IsShownHomePage)
+                return await linqQuery.Where(w => w.tutor.IsShownHomePage && w.tutor.State == Core.Enum.ItemState.Ok)
                     .OrderByDescending(o => o.readTutor.OverAllRating).Select(s => new TutorCardDto()
                 {
                     UserId = s.readTutor.Id,
@@ -60,7 +60,8 @@ namespace Cloudents.Query.HomePage
                     Lessons = s.readTutor.Lessons,
                     ReviewsCount = s.readTutor.RateCount,
                     Subjects = s.readTutor.Subjects,
-                    University = s.readTutor.University
+                    University = s.readTutor.University,
+                    DiscountPrice = s.readTutor.SubsidizedPrice
                 }).Take(query.Count).ToListAsync(token);
                 //return await res.SelectList(s =>
                 //         s.Select(x => x.Id).WithAlias(() => tutorCardDtoAlias.UserId)

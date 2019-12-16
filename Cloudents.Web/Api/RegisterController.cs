@@ -10,7 +10,6 @@ using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using JetBrains.Annotations;
 using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

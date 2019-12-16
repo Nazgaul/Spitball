@@ -10,19 +10,19 @@
             </div>
             <v-spacer v-else></v-spacer>
             <div class="globalHeader_items_right">
-                <router-link v-if="!isMobile && isShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
+                <router-link v-show="!isMobile && isShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
                     <findSVG/>
                     <span v-language:inner="'header_find_tutors'"/>
                 </router-link>
-                <template v-if="!isMobile && loggedIn" >
+                <template v-if="!isMobile" >
                     <v-tooltip bottom>
                         <template v-slot:activator="{on}">
-                            <v-icon v-on="on" v-if="!$vuetify.breakpoint.smAndDown" id="gH_i_r_intercom" class="gH_i_r_intercom" v-html="'sbf-help'"/>
+                            <v-icon v-on="on" v-if="!$vuetify.breakpoint.smAndDown" id="gH_i_r_intercom" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" v-html="'sbf-help'"/>
                         </template>
                         <span v-language:inner="'header_tooltip_help'"/>
                     </v-tooltip>
                     
-                    <v-tooltip bottom>
+                    <v-tooltip bottom v-if="loggedIn">
                         <template v-slot:activator="{on}">
                             <div v-on="on" class="gH_i_r_chat">
                                 <v-icon class="gH_i_r_chat_i" @click="openChatWindow" v-html="'sbf-forum-icon'"/>
@@ -251,17 +251,7 @@ export default {
             flex-shrink: 0;
             margin-right: 34px;
         }
-        svg{
-            @media (max-width: @screen-xs) {
-                width: 94px;
-                height: 22px;    
-            }  
-            width: 120px;
-            height: 30px;
-            fill: #43425D;
-            vertical-align: bottom;
-            // margin-right: 32px;
-        }
+        
     }    
     .mobileHeaderSearch{
         width: 100%;
@@ -423,6 +413,10 @@ export default {
                 font-size: 22px;
                 padding-top: 4px;
                 margin-right: 26px;
+
+                &--margin {
+                    margin-right: 20px;
+                }
             }
             .gH_i_r_chat{
                 position: relative;

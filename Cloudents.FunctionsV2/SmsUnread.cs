@@ -16,7 +16,6 @@ using System.Linq;
 using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.FunctionsV2.System;
 using SendGrid.Helpers.Mail;

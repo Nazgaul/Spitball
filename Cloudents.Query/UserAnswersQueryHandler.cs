@@ -36,7 +36,6 @@ namespace Cloudents.Query
                 .Where(w =>
                     w.answer.User.Id == query.Id
                     && w.answer.Status.State == ItemState.Ok)
-                .OrderByDescending(o => o.view.Id)
                 .Select(s => new QuestionFeedDto
                 {
                     Id = s.view.Id,
@@ -62,7 +61,7 @@ namespace Cloudents.Query
                             Name = s.view.Answer.UserName
                         }
                     }
-                }).Take(50).Skip(query.Page * 50).ToListAsync(token);
+                }).OrderByDescending(o => o.DateTime).Take(50).Skip(query.Page * 50).ToListAsync(token);
         }
     }
 }

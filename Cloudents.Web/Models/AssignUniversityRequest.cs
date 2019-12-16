@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using JetBrains.Annotations;
 
 namespace Cloudents.Web.Models
 {

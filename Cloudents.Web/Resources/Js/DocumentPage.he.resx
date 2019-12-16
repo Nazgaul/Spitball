@@ -174,11 +174,17 @@
   <data name="unlock_document" xml:space="preserve">
     <value>לצפייה, הענק נקודות לבעלי התוכן</value>
   </data>
+  <data name="unlock_document_btn" xml:space="preserve">
+    <value>פתח מסמך</value>
+  </data>
   <data name="unlock_document_unregister" xml:space="preserve">
     <value>כדי לראות את המסמך המלא, הירשם בבקשה</value>
   </data>
   <data name="unlock_video" xml:space="preserve">
     <value>זו צפייה מקדימה של 30 שניות,&lt;br&gt;לצפייה בסרטון המלא  העבר נקודות לבעלי הסרטון.</value>
+  </data>
+  <data name="unlock_video_btn" xml:space="preserve">
+    <value>פתח סרטון</value>
   </data>
   <data name="why_spitball" xml:space="preserve">
     <value>למה בספיטבול</value>

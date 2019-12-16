@@ -1,14 +1,12 @@
-﻿using Cloudents.Infrastructure.Data.Test.IntegrationTests;
+﻿using System;
+using System.Net;
+using System.Threading.Tasks;
+using Cloudents.Infrastructure.Data.Test.IntegrationTests;
 using Dapper;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace Cloudents.Web.Test.IntegrationTests
+namespace Cloudents.Web.Test.IntegrationTests.Api
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class StudyRoomApiTests
@@ -24,7 +22,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [InlineData("api/studyRoom/")]
         public async Task GetAsync_StudyRoom_Ok(string uri)
         {
-            DatabaseFixture _fixture = new DatabaseFixture();
+            DatabaseFixture fixture = new DatabaseFixture();
 
             await _client.LogInAsync();
 
@@ -32,7 +30,7 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             response.EnsureSuccessStatusCode();
 
-            using (var conn = _fixture.DapperRepository.OpenConnection())
+            using (var conn = fixture.DapperRepository.OpenConnection())
             {
                 var studyRoomId = conn.QueryFirst<Guid>("select top 1 id from sb.studyroom where tutorid = 159489");
                 uri += studyRoomId.ToString();
@@ -42,12 +40,21 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             response.EnsureSuccessStatusCode();
 
-            _fixture.Dispose();
+            fixture.Dispose();
         }
 
         [Theory]
         [InlineData("api/studyRoom")]
         public async Task GetAsync_StudyRoom_Unauthorized(string uri)
+        {
+            var response = await _client.GetAsync(uri);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Theory]
+        [InlineData("api/studyRoom")]
+        public async Task GetUserLobbyStudyRooms_StudyRoom_Ok(string uri)
         {
             var response = await _client.GetAsync(uri);
 

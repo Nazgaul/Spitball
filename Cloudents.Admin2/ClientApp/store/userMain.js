@@ -62,7 +62,7 @@ const mutations = {
     },
     updateCalenderSate()
     {
-        state.userInfo.calendarExists.value = !state.userInfo.calendarExists.value
+        state.userInfo.calendarExists.value = !state.userInfo.calendarExists.value;
     },
     setUserInfo(state, data) {
         state.userInfo = data;
@@ -77,7 +77,7 @@ const mutations = {
         state.userPurchasedDocs = data;
     },
     setUserSoldItems(state,data){
-        state.userSoldItems = data
+        state.userSoldItems = data;
     },
     setUserDocuments(state, data) {
         state.userDocuments = data;
@@ -167,20 +167,20 @@ const actions = {
         });
     },
     updateSuspendTutor({commit, state}, id) {      
-        let suspendObj = {tutorId: id}
+        let suspendObj = {tutorId: id};
         return UserMainService.suspendTutor(suspendObj).then(res => {
             state.userInfo.isTutor.value = 'flagged';
         }, (ex) => {
             console.log(ex);
-        })
+        });
     },
     updateUnSuspendTutor({commit, state}, id) {
-        let suspendObj = {tutorId: id}
+        let suspendObj = {tutorId: id};
         return UserMainService.unSuspendTutor(suspendObj).then(res => {
             state.userInfo.isTutor.value = 'ok';
         }, (ex) => {
             console.log(ex);
-        })
+        });
     },
     removeCalender(context, id) {
         return UserMainService.removeCalender(id)

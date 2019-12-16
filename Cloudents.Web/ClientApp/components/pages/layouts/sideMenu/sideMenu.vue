@@ -14,7 +14,7 @@
                          clipped>
       <div class="sideMenu_cont">
         <div @click="toggleMiniSideMenu" v-if="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown" class="sideMenu_btn"/>
-      <v-list class="sideMenu_list_cont">
+      <v-list class="sideMenu_list_cont" dense>
         <v-list-group active-class="''" :prepend-icon="'sbf-home-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="resetItems">
           <template v-slot:activator>
             <v-list-tile class="sideMenu_list">
@@ -58,7 +58,6 @@
               </v-list-tile-content>
             </v-list-tile>
 
-
           <v-list-tile @click="openSblToken" class="group_list_sideMenu_dash">
             <v-list-tile-content>
               <v-list-tile-title :class="['group_list_titles_dash']">
@@ -69,8 +68,6 @@
               </v-list-tile-title>  
             </v-list-tile-content>
           </v-list-tile>
-
-
 
           <v-list-tile class="group_list_sideMenu_dash" event @click.native.prevent="openPersonalizeUniversity()" :to="{name: 'addUniversity'}">
             <v-list-tile-content>
@@ -91,11 +88,6 @@
                   <span class="sideMenu_list_title" v-text="courseSelectText"/>
                   </v-list-tile-title>
               </v-list-tile-content>
-              <v-list-tile-action sel="add_course">
-                <router-link event :to="{name: 'editCourse'}" @click.native.prevent="openPersonalizeCourse()">
-                  <addCourseSVG class="alingSVGcourse"/>
-                </router-link>
-              </v-list-tile-action>
             </v-list-tile>
           </template>
 
@@ -122,7 +114,6 @@
 import { mapGetters, mapActions, mapMutations } from "vuex";
 
 import arrowSVG from './image/left-errow.svg';
-import addCourseSVG from './image/addCourse.svg';
 
 import {LanguageService} from "../../../../services/language/languageService";
 import analyticsService from '../../../../services/analytics.service';
@@ -133,7 +124,7 @@ import getPts from './image/get-points.svg';
 
 export default {
   name: "sideMenu",
-  components:{arrowSVG,addCourseSVG,getPts},
+  components:{arrowSVG,getPts},
   data() {
     return {
       sideMenulistElm: null,
@@ -145,6 +136,7 @@ export default {
         {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'my-sales', icon:'sbf-cart',sel:'sd_sales'},
         // {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', icon:'sbf-cart',sel:'sd_content'},
         // {name: LanguageService.getValueByKey('schoolBlock_lessons'), key:'lessons', icon:'sbf-lessons'},
+        {name: LanguageService.getValueByKey('schoolBlock_courses'), key:'editCourse', icon:'sbf-classes-icon'},
         // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
         // {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
         // {name: 'myCalendar', key:'myCalendar', icon:'sbf-cart',sel:'sd_calendar'},
@@ -282,6 +274,9 @@ export default {
       // if(path === "my-content"){
       //   this.$router.push({path:'/my-content'})
       // }
+      if(path === "editCourse"){
+        this.$router.push({name:'editCourse'})
+      }
       this.closeSideMenu();
     },
     resetItems(){

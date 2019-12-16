@@ -372,10 +372,10 @@ namespace Cloudents.Infrastructure.Google
 
         public Task TrackEventAsync(string category, string action, string label)
         {
-            var factory = new GoogleAnalyticsRequestFactory("UA-100723645-2");
+            //var factory = new GoogleAnalyticsRequestFactory("UA-100723645-2");
 
             //Create a PageView request by specifying request type
-            var request = factory.CreateRequest(HitTypes.Event);
+            var request = _factory.CreateRequest(HitTypes.Event);
 
             request.Parameters.Add(new GoogleMeasurementProtocol.Parameters.EventTracking.EventAction(action));
             request.Parameters.Add(new GoogleMeasurementProtocol.Parameters.EventTracking.EventCategory(category));

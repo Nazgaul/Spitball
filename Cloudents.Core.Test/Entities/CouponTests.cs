@@ -47,6 +47,7 @@ namespace Cloudents.Core.Test.Entities
             var coupon = new Coupon("SomeCode", CouponType.Percentage, null, 5, null, 1, null, null,
                 null);
 
+            // ReSharper disable once PossibleNullReferenceException
             typeof(Coupon).GetProperty("Expiration").SetValue(coupon, DateTime.UtcNow.AddDays(-1));
 
             Assert.Throws<ArgumentException>(() => coupon.CanApplyCoupon());
@@ -55,7 +56,7 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void InitCoupon_Valid_Ok()
         {
-            var coupon = new Coupon("SomeCode", CouponType.Percentage, null, 5, null, 1, null, null,
+            var _ = new Coupon("SomeCode", CouponType.Percentage, null, 5, null, 1, null, null,
                 null);
 
             
@@ -78,6 +79,7 @@ namespace Cloudents.Core.Test.Entities
 
 
 
+            // ReSharper disable once PossibleNullReferenceException
             typeof(Coupon).GetField("_userCoupon", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(coupon, usedCoupon);
             
             

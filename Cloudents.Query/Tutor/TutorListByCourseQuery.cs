@@ -49,7 +49,7 @@ namespace Cloudents.Query.Tutor
             public async Task<IEnumerable<TutorCardDto>> GetAsync(TutorListByCourseQuery query, CancellationToken token)
             {
                 //TODO maybe we can fix this query
-                Core.Entities.ReadTutor tutorAlias = null;
+                ReadTutor tutorAlias = null;
                 UserCourse userCourseAlias = null;
                 Course courseAlias = null;
                 TutorCardDto tutorCardDtoAlias = null;
@@ -91,8 +91,8 @@ namespace Cloudents.Query.Tutor
                              .Select(x => x.Bio).WithAlias(() => tutorCardDtoAlias.Bio)
                              .Select(x => x.University).WithAlias(() => tutorCardDtoAlias.University)
                              .Select(x => x.Country).WithAlias(() => tutorCardDtoAlias.Country)
-                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons))
-
+                             .Select(x => x.Lessons).WithAlias(() => tutorCardDtoAlias.Lessons)
+                     .Select(x=>x.SubsidizedPrice).WithAlias(() => tutorCardDtoAlias.DiscountPrice))
                      .OrderBy(o => o.OverAllRating).Desc
 
                      .TransformUsing(Transformers.AliasToBean<TutorCardDto>())

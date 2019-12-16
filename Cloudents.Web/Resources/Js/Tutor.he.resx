@@ -153,6 +153,15 @@
   <data name="end_session" xml:space="preserve">
     <value>סיימת את השיעור?</value>
   </data>
+  <data name="ewar-continue-without-audio" xml:space="preserve">
+    <value>המשך ללא קול</value>
+  </data>
+  <data name="ewar-continue-without-recording" xml:space="preserve">
+    <value>בטוח שברצונך להמשיך ללא הקלטה קולית?</value>
+  </data>
+  <data name="ewar-try-again" xml:space="preserve">
+    <value>נסה שוב</value>
+  </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>לוח</value>
   </data>
@@ -223,6 +232,9 @@
     <value>התחל שיעור</value>
   </data>
   <data name="stream_btn_start_session_student" xml:space="preserve">
+    <value>התחל שיעור</value>
+  </data>
+  <data name="stream_btn_start_student" xml:space="preserve">
     <value>התחל שיעור</value>
   </data>
   <data name="stream_btn_start_tutor" xml:space="preserve">
@@ -302,5 +314,29 @@
   </data>
   <data name="tooltip_video_resume" xml:space="preserve">
     <value>הפעל</value>
+  </data>
+  <data name="start_dialog_session_time" xml:space="preserve">
+    <value>זמן השיעור:</value>
+  </data>
+  <data name="can_be_recorded" xml:space="preserve">
+    <value>יתכן והשיעור יוקלט על ידי התלמיד</value>
+  </data>
+  <data name="stream_btn_finished_student" xml:space="preserve">
+    <value>השיעור הסתיים</value>
+  </data>
+  <data name="stream_btn_finished_tutor" xml:space="preserve">
+    <value>השיעור הסתיים</value>
+  </data>
+  <data name="waiting_in_studyRoom" xml:space="preserve">
+    <value>מחכה לך</value>
+  </data>
+  <data name="waiting_in_studyRoom_link" xml:space="preserve">
+    <value>בחדר הלימוד</value>
+  </data>
+  <data name="stream_btn_disconnected_student" xml:space="preserve">
+    <value>הקשר נותק. אנחנו מנסים להתחבר חזרה</value>
+  </data>
+  <data name="stream_btn_disconnected_tutor" xml:space="preserve">
+    <value>הקשר נותק. אנחנו מנסים להתחבר חזרה</value>
   </data>
 </root>

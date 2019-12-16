@@ -16,8 +16,8 @@ namespace Cloudents.Web.Controllers
         private readonly IQueryBus _queryBus;
         private readonly IGoogleAnalytics _googleAnalytics;
 
-     
-        public GoController( IQueryBus queryBus, IGoogleAnalytics googleAnalytics)
+
+        public GoController(IQueryBus queryBus, IGoogleAnalytics googleAnalytics)
         {
             _googleAnalytics = googleAnalytics;
             _queryBus = queryBus;
@@ -47,7 +47,6 @@ namespace Cloudents.Web.Controllers
             {
                 return RedirectPermanent(result.Destination);
             }
-
             if (uri.IsAbsoluteUri)
             {
                 return RedirectPermanent(result.Destination);
@@ -63,7 +62,6 @@ namespace Cloudents.Web.Controllers
                 {
                     destination += "?site=frymo";
                 }
-                
             }
             return RedirectPermanent(destination);
         }

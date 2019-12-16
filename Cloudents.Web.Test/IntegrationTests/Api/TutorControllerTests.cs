@@ -1,9 +1,9 @@
-﻿using FluentAssertions;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Xunit;
 
-namespace Cloudents.Web.Test.IntegrationTests
+namespace Cloudents.Web.Test.IntegrationTests.Api
 {
 
     [Collection(SbWebApplicationFactory.WebCollection)]
@@ -43,24 +43,26 @@ namespace Cloudents.Web.Test.IntegrationTests
             var response = await _client.GetAsync("api/tutor?course=Economics");
             response.EnsureSuccessStatusCode();
         }
+        
 
         [Theory]
-        [InlineData("gfc",false)]
-        [InlineData("Economics", false)]
-        [InlineData("Math", false)]
-        [InlineData("", false)]
-        [InlineData("gfc", true)]
-        [InlineData("Economics", true)]
-        [InlineData("Math", true)]
-        [InlineData("", true)]
-        public async Task GetAsync_Search_Without_Results(string term, bool logIn)
+        [InlineData("gfc",false ,0)]
+        [InlineData("Economics", false,0)]
+        [InlineData("Math", false, 0)]
+        [InlineData("", false, 0)]
+        [InlineData("gfc", true, 0)]
+        [InlineData("Economics", true, 0)]
+        [InlineData("Math", true, 0)]
+        [InlineData("", true, 0)]
+        [InlineData("", true, 1)]
+        public async Task GetAsync_Search_Without_Results(string term, bool logIn, int page)
         {
 
             if (logIn)
             {
                 await _client.LogInAsync();
             }
-            var response = await _client.GetAsync($"api/tutor/search?term={term}");
+            var response = await _client.GetAsync($"api/tutor/search?term={term}&page={page}");
             response.EnsureSuccessStatusCode();
             //var str = await response.Content.ReadAsStringAsync();
 

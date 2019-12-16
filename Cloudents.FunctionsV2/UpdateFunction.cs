@@ -44,14 +44,14 @@ namespace Cloudents.FunctionsV2
 
 //                await openConnection.ExecuteAsync(sqlY);
 
-                var sql2 =
-                    @"Select id from sb.tutor t where t.State = 'Ok'";
-                var result = await openConnection.QueryAsync<long>(sql2);
-                foreach (var userId in result)
-                {
-                    var @event = new TutorAddReviewEvent(userId);
-                    await eventHandler.HandleAsync(@event, default);
-                }
+                //var sql2 =
+                //    @"Select id from sb.tutor t where t.State = 'Ok'";
+                //var result = await openConnection.QueryAsync<long>(sql2);
+                //foreach (var userId in result)
+                //{
+                //    var @event = new TutorAddReviewEvent(userId);
+                //    await eventHandler.HandleAsync(@event, default);
+                //}
 
             }
 

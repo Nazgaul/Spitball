@@ -31,7 +31,7 @@ namespace Cloudents.Infrastructure.Mail
                 ["ip_address"] = ""
             };
 
-            using (var c = new CancellationTokenSource(TimeSpan.FromSeconds(1)))
+            using (var c = new CancellationTokenSource(TimeSpan.FromSeconds(2)))
             using (var source = CancellationTokenSource.CreateLinkedTokenSource(token, c.Token))
             {
 

@@ -56,10 +56,11 @@
                         <itemCard :fromCarousel="true" v-for="(item, index) in itemList" :item="item" :key="index"/>
                 </sbCarousel>
             </div>
-            
-            <div class="itemPage__main__tutorCard" v-if="docTutor.isTutor" :class="{'itemPage__main__tutorCard--margin': docTutor.isTutor && $vuetify.breakpoint.xsOnly}">
-                <tutorResultCardMobile v-if="$vuetify.breakpoint.xsOnly" :tutorData="docTutor"></tutorResultCardMobile>
-                <tutorResultCard v-else :tutorData="docTutor"></tutorResultCard>
+
+            <div class="itemPage__main__tutorCard" v-if="docTutor.isTutor" 
+            :class="{'itemPage__main__tutorCard--margin': docTutor.isTutor && $vuetify.breakpoint.xsOnly, 'itemPage__main__tutorCard--marginT': !itemList.length}">                >
+                    <tutorResultCardMobile v-if="$vuetify.breakpoint.xsOnly" :tutorData="docTutor"></tutorResultCardMobile>
+                    <tutorResultCard v-else :tutorData="docTutor"></tutorResultCard>
             </div>
             <mobileUnlockDownload :sticky="true" v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.sm" :document="document"></mobileUnlockDownload>
         </div>
@@ -340,7 +341,6 @@ export default {
                             }
                         }
                         @media (max-width: @screen-xs) {
-                            flex-grow: 1;
                             flex-direction: column;
                             justify-content: center;
                             margin-bottom: 10px;
@@ -408,8 +408,14 @@ export default {
                 }
             }
             &__tutorCard {
+                &--marginT {
+                    margin-top: 34px;
+                }
                 &--margin {
                     margin-bottom: 100px;
+                }
+                &--marginTop {
+                    margin-top: 34px; 
                 }
             }
         }

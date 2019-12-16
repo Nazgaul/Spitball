@@ -16,7 +16,8 @@
                 <tutor-search-component></tutor-search-component>
             </div>
         </v-layout>
-        <scroll-list :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete" class="layout column tutor-landing-page-body" >
+
+        <v-layout column wrap class="tutor-landing-page-body">
             <v-flex class="tutor-landing-page-empty-state">
                 <suggest-card v-if="items.length === 0 && query.term && showEmptyState" 
                 @click.native="openRequestTutor()" :name="'tutor-list'"></suggest-card>  
@@ -25,7 +26,18 @@
                 <tutor-result-card v-if="!isMobile" class="mb-3 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
                 <tutor-result-card-mobile v-else class="mb-2 " :fromLandingPage="true" :tutorData="item"/>
             </v-flex>   
-        </scroll-list>
+        </v-layout>
+        <div class="tutorLandingPage_pagination" v-if="items.length && pagination.length > 1">
+            <v-pagination
+                    total-visible=5 
+                    v-model="pagination.current" 
+                    :length="pagination.length"
+                    @next="goNext"
+                    @input="goSelected"
+                    @previous="goPrevious"
+                    :next-icon="`sbf-arrow-right-carousel`"
+                    :prev-icon="`sbf-arrow-left-carousel`"/>
+        </div>
         <v-layout align-center py-5 justify-space-around class="tutor-landing-status-row">
             <span class="hidden-xs-only"><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></span>
             <span class="hidden-xs-only" v-language:inner="'tutorListLanding_courses'"></span>
@@ -66,17 +78,17 @@ export default {
     },
     data(){
         return {
+            pagination:{
+                length:0,
+                current:1
+            },
             items: [],
             query: {
                 term: '',
-                page: 0
+                page: 0,
+                pageSize: 10,
             },
             showEmptyState: false,
-            scrollBehaviour:{
-                isLoading: false,
-                isComplete: false,
-                MAX_ITEMS: 20
-            },
             topOffset: 0
         }
     },
@@ -98,9 +110,16 @@ export default {
     },
     watch:{
         '$route'(val){
-            // console.log(val.query.term)
-            this.query.term = val.params.course;
-            this.query.page = 0;
+            if(!!val.query && !!val.query.size){
+            this.query.pageSize = val.query.size;
+            }
+            if(!!val.params && !!val.params.course){
+                this.query.term = (!!val.params && !!val.params.course) ? val.params.course : '';
+            }
+            if(!!val.query){
+                this.query.page = val.query.page || 0;
+                this.pagination.current = +val.query.page+1 || 1
+            }
             this.updateList();
         }
     },
@@ -108,28 +127,48 @@ export default {
         ...mapActions(['setTutorRequestAnalyticsOpenedFrom','updateRequestDialog','updateHPReviews']),
         updateList(){
             this.showEmptyState = false;
+            let self = this;
             tutorLandingPageService.getTutorList(this.query).then(data=>{
-                if(data.length < this.scrollBehaviour.MAX_ITEMS){
-                    this.scrollBehaviour.isComplete = true;
-                }
-                if (this.query.page === 0) {
-                    this.scrollBehaviour.isComplete = false;
-                    this.items = data;
-                }
-                else {
-                    this.items = this.items.concat(data);
-                }
-                this.showEmptyState = true;
-                this.scrollBehaviour.isLoading = false;
+                self.items = data.result;
+                self.pagination.length = Math.ceil(data.count / self.query.pageSize)
+                self.showEmptyState = true;
             })
         },
-        scrollFunc(){
-            this.scrollBehaviour.isLoading = true;
-            this.query.page = this.query.page + 1;
-            this.updateList();
+        goNext(){
+            this.showEmptyState = false;
+            this.$router.push({
+                path: `/tutor-list/${this.query.term}`,
+                query: {
+                    page: this.pagination.current -1,
+                },
+                params:{
+                    course: this.query.term
+                }
+            })
         },
-        setTopOffset(){
-            this.topOffset = window.pageYOffset || document.documentElement.scrollTop;
+        goPrevious(){
+            this.showEmptyState = false;
+             this.$router.push({
+                path: `/tutor-list/${this.query.term}`,
+                query: {
+                    page: this.pagination.current -1,
+                },
+                params:{
+                    course: this.query.term
+                }
+            })
+        },
+        goSelected(){
+            this.showEmptyState = false;
+            this.$router.push({
+                path: `/tutor-list/${this.query.term}`,
+                query: {
+                    page: this.pagination.current -1,
+                },
+                params:{
+                    course: this.query.term
+                }
+            })
         },
         openRequestTutor() {
             analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
@@ -140,18 +179,21 @@ export default {
             this.updateRequestDialog(true);
         }
     },
-    created(){
-        this.query.term = !!this.$route.params && !!this.$route.params.course ? this.$route.params.course : '';
-        this.updateList();
-        this.updateHPReviews()
-    },
-    beforeMount(){
-        if (window) {
-           window.addEventListener('scroll', this.setTopOffset);
+    mounted() {
+        if(!!this.$route.query && !!this.$route.query.size){
+            this.query.pageSize = this.$route.query.size;
         }
     },
-    destroyed(){
-        window.removeEventListener('scroll', this.setTopOffset);
+    created(){
+        if(!!this.$route.params && !!this.$route.params.course){
+            this.query.term = (!!this.$route.params && !!this.$route.params.course) ? this.$route.params.course : '';
+        }
+        if(!!this.$route.query){
+            this.query.page = this.$route.query.page || 0;
+            this.pagination.current = +this.$route.query.page+1 || 1
+        }
+        this.updateList();
+        this.updateHPReviews()
     }
 }
 </script>
@@ -170,6 +212,7 @@ export default {
         position: relative;
         background-color: #1b2441;
         h1{
+            text-align: center;
             color: #5158af;
             font-size: 35px;
             font-weight: bold;
@@ -200,11 +243,12 @@ export default {
         position: -ms-sticky;
         position: -o-sticky;
         position: sticky;
-        z-index: 200;
+        // z-index: 240;
         @media (max-width: @screen-xs) {
             z-index: unset;
         }
 
+        // top:30px;
         // top:30px;
         // z-index: 99;
         &.sticky-active{
@@ -234,7 +278,33 @@ export default {
             }
         }
     }
-    
+    .tutorLandingPage_pagination{
+        padding: 20px 0;
+        text-align: center;
+        button{
+            outline: none;
+        }
+        .v-pagination__item{
+            background-color: initial !important;
+            box-shadow: none !important;
+            &.v-pagination__item--active{
+                color: initial !important;
+                background-color: initial !important;
+                border: none !important;
+                border: 1px solid rgb(68, 82, 252) !important;
+            }
+        }
+
+        .v-pagination__navigation{
+            background-color: initial !important;
+            box-shadow: none !important;
+            i{
+                transform: scaleX(1)/*rtl:scaleX(-1)*/; 
+                color: rgb(68, 82, 252) !important;
+                font-size: 16px;
+            }
+        }
+    }
     .tutor-landing-page-body{
         .responsive-property(margin-top, 15px, null, 0px);
 

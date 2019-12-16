@@ -1,12 +1,12 @@
-﻿using Cloudents.Core.Extension;
-using FluentAssertions;
-using System;
+﻿using System;
 using System.Collections.Specialized;
 using System.Net;
 using System.Threading.Tasks;
+using Cloudents.Core.Extension;
+using FluentAssertions;
 using Xunit;
 
-namespace Cloudents.Web.Test.IntegrationTests
+namespace Cloudents.Web.Test.IntegrationTests.Api
 {
 
     [Collection(SbWebApplicationFactory.WebCollection)]
@@ -22,13 +22,6 @@ namespace Cloudents.Web.Test.IntegrationTests
             fingerPrint = "string"
         };
 
-        private readonly object _question = new
-        {
-            subjectId = "",
-            course = "Economics",
-            text = "Blah blah blah...",
-            price = 1
-        };
 
         private readonly object _course = new
         {
@@ -75,17 +68,7 @@ namespace Cloudents.Web.Test.IntegrationTests
             response.EnsureSuccessStatusCode();
         }
 
-        [Fact(Skip = "Wrong place of test")]
-        public async Task Ask_Course_Without_Uni()
-        {
-            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));
-
-            _uri.Path = "api/question";
-
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_question));
-
-            response.EnsureSuccessStatusCode();
-        }
+      
 
         [Fact]
         public async Task Teach_Course()

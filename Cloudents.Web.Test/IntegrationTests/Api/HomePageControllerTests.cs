@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xunit;
 
-namespace Cloudents.Web.Test.IntegrationTests
+namespace Cloudents.Web.Test.IntegrationTests.Api
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class HomePageControllerTests
@@ -18,6 +17,7 @@ namespace Cloudents.Web.Test.IntegrationTests
         [Theory]
         [InlineData("api/HomePage/version")]
         [InlineData("api/HomePage/tutors")]
+        [InlineData("api/HomePage/banner")]
         [InlineData("api/HomePage/reviews")]
         [InlineData("api/HomePage")]
         [InlineData("api/Homepage/documents")]

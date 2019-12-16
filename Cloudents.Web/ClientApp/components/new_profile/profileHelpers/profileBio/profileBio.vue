@@ -259,12 +259,16 @@ export default {
         this.updateCouponDialog(false);
     },
     openCoupon() {
-      if(this.accountUser == null) {
+      if(global.isAuth) {
+        if(this.accountUser) {          
+          if(this.$route.params.id != this.accountUser.id) {
+            this.updateCouponDialog(true)
+            analyticsService.sb_unitedEvent('Tutor_Engagement', 'Click_Redeem_Coupon', `${this.$route.path}`);
+          }
+        }
+      } else {
         this.updateLoginDialogState(true);
-        return;
-      } 
-      this.updateCouponDialog(true)
-      analyticsService.sb_unitedEvent('Tutor_Engagement', 'Click_Redeem_Coupon', `${this.$route.path}`);
+      }
     },
     applyCoupon() {
       if(this.isTutorProfile) {
@@ -283,11 +287,16 @@ export default {
     }
   },
   beforeDestroy(){
+    this.updateCouponDialog(false);
     storeService.unregisterModule(this.$store, 'couponStore');
-    
   },
   created() {
-    storeService.lazyRegisterModule(this.$store, 'couponStore', couponStore); 
+    storeService.registerModule(this.$store, 'couponStore', couponStore);
+    if(!!this.$route.query.coupon) {
+      setTimeout(() => {
+        this.openCoupon();
+      },200)
+    }
   }
 };
 </script>

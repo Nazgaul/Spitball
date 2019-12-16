@@ -154,7 +154,7 @@
     <value>Finished the session?</value>
   </data>
   <data name="entered_room" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>Canvas</value>
@@ -228,6 +228,9 @@ Try connecting from a computer browser</value>
   </data>
   <data name="stream_btn_start_session_student" xml:space="preserve">
     <value>Join Session</value>
+  </data>
+  <data name="stream_btn_start_student" xml:space="preserve">
+    <value>Start Session</value>
   </data>
   <data name="stream_btn_start_tutor" xml:space="preserve">
     <value>Start Session</value>
@@ -306,5 +309,39 @@ Try connecting from a computer browser</value>
   </data>
   <data name="tooltip_video_resume" xml:space="preserve">
     <value>Resume</value>
+  </data>
+  <data name="ewar-continue-without-audio" xml:space="preserve">
+    <value>Continue without audio</value>
+  </data>
+  <data name="ewar-continue-without-recording" xml:space="preserve">
+    <value>Are you sure you want to continue without
+Voice Recording?</value>
+  </data>
+  <data name="ewar-try-again" xml:space="preserve">
+    <value>Try Again</value>
+  </data>
+  <data name="can_be_recorded" xml:space="preserve">
+    <value>This session might be recorded by the student</value>
+  </data>
+  <data name="start_dialog_session_time" xml:space="preserve">
+    <value>Session Duration:</value>
+  </data>
+  <data name="stream_btn_disconnected_student" xml:space="preserve">
+    <value>Session was disconnected. We are trying to bring it back </value>
+  </data>
+  <data name="stream_btn_disconnected_tutor" xml:space="preserve">
+    <value>Session was disconnected. We are trying to bring it back </value>
+  </data>
+  <data name="stream_btn_finished_student" xml:space="preserve">
+    <value>session ended</value>
+  </data>
+  <data name="stream_btn_finished_tutor" xml:space="preserve">
+    <value>session ended</value>
+  </data>
+  <data name="waiting_in_studyRoom" xml:space="preserve">
+    <value>is waiting for you in your </value>
+  </data>
+  <data name="waiting_in_studyRoom_link" xml:space="preserve">
+    <value>study room</value>
   </data>
 </root>

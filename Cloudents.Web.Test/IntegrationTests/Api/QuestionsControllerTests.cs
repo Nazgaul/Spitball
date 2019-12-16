@@ -1,18 +1,38 @@
-﻿using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Cloudents.Infrastructure.Data.Test.IntegrationTests;
-using System;
+﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using Xunit;
+using Cloudents.Infrastructure.Data.Test.IntegrationTests;
 using Dapper;
+using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
 
-namespace Cloudents.Web.Test.IntegrationTests
+namespace Cloudents.Web.Test.IntegrationTests.Api
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class QuestionsControllerTests //:  IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
+
+        private readonly object _question = new
+        {
+            subjectId = "",
+            course = "Economics",
+            text = "Blah blah blah...",
+            price = 1
+        };
+
+        private UriBuilder _uri = new UriBuilder()
+        {
+            Path = "api/login"
+        };
+
+        private readonly object _credentials = new
+        {
+            email = "blah@cloudents.com",
+            password = "123456789",
+            fingerPrint = "string"
+        };
 
         public QuestionsControllerTests(SbWebApplicationFactory factory)
         {
@@ -28,9 +48,9 @@ namespace Cloudents.Web.Test.IntegrationTests
         [InlineData("api/question/")]
         public async Task GetAsync_Question_Ok(string uri)
         {
-            DatabaseFixture _fixture = new DatabaseFixture();
+            DatabaseFixture fixture = new DatabaseFixture();
 
-            using (var conn = _fixture.DapperRepository.OpenConnection())
+            using (var conn = fixture.DapperRepository.OpenConnection())
             {
                 var questionId = conn.QueryFirst<long>("select top 1 id from sb.question where state = 'Ok'");
                 uri += questionId;
@@ -40,16 +60,16 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             response.EnsureSuccessStatusCode();
 
-            _fixture.Dispose();
+            fixture.Dispose();
         }
 
         [Theory]
         [InlineData("api/question/")]
         public async Task GetAsync_Question_NotFound(string uri)
         {
-            DatabaseFixture _fixture = new DatabaseFixture();
+            DatabaseFixture fixture = new DatabaseFixture();
 
-            using (var conn = _fixture.DapperRepository.OpenConnection())
+            using (var conn = fixture.DapperRepository.OpenConnection())
             {
                 var questionId = conn.QueryFirst<long>("select top 1 id from sb.question where state = 'deleted'");
                 uri += questionId;
@@ -59,7 +79,20 @@ namespace Cloudents.Web.Test.IntegrationTests
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
-            _fixture.Dispose();
+            fixture.Dispose();
+        }
+
+
+        [Fact]
+        public async Task Ask_Course_Without_Uni()
+        {
+            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));
+
+            _uri.Path = "api/question";
+
+            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_question));
+
+            response.EnsureSuccessStatusCode();
         }
     }
 

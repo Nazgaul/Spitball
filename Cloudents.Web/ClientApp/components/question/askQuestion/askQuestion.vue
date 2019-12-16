@@ -9,7 +9,7 @@
                 <div class="question-textarea-container">
                     <div class="question-textarea-upper-part">
                         <div class="question-profile-data-container">
-                            <user-avatar :userImageUrl="userImageUrl" :user-name="accountUser.name"></user-avatar>
+                            <user-avatar :userImageUrl="userImageUrl" :user-name="userName"></user-avatar>
                         </div>
                         <v-textarea
                                 solo

@@ -1,11 +1,10 @@
-﻿using Cloudents.Web.Test.IntegrationTests;
+﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using System;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace Cloudents.Web.Test.UnitTests
+namespace Cloudents.Web.Test.IntegrationTests.Controllers
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class TabsControllerTests //: IClassFixture<SbWebApplicationFactory>

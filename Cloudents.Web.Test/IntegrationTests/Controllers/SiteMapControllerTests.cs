@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using Xunit;
 
-namespace Cloudents.Web.Test.UnitTests
+namespace Cloudents.Web.Test.IntegrationTests.Controllers
 {
     public class SiteMapControllerTests //:IClassFixture<SbWebApplicationFactory>
     {

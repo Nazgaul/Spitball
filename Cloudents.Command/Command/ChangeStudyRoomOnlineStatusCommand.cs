@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Cloudents.Command.Command
 {
@@ -14,5 +15,7 @@ namespace Cloudents.Command.Command
         public long UserId { get; }
         public bool Status { get; }
         public Guid StudyRoomId { get; }
+
+
     }
 }

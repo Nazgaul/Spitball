@@ -61,7 +61,8 @@ namespace Cloudents.Core
         Toaster,
         OnlineStatus,
         StartSession,
-        PaymentReceived
+        PaymentReceived,
+        EnterStudyRoom
     }
 
     public enum SignalRType

@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cloudents.Query.Query.Admin;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -70,7 +69,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new FeedAggregateQuery(userId, page, filter, country, course, 18);
 
-            var result = await fixture.QueryBus.QueryAsync(query, default);
+            var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             result.Should().NotBeNullOrEmpty();
 
             result.OfType<QuestionFeedDto>().Should().Contain(c => c.User.Id > 0);
@@ -221,7 +220,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserPurchaseDocumentByIdQuery_Ok()
         {
             var query = new UserPurchaseDocumentByIdQuery(638, 0);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
 
         }
 
@@ -229,7 +228,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task QuestionDataByIdQuery_Ok()
         {
             var query = new QuestionDataByIdQuery(10626);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Theory]
@@ -239,7 +238,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
 
             var query = new UserBalanceQuery(id);
-            var result = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
 
 
         }
@@ -248,7 +247,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task GetUpdatesEmailUsersQuery_Ok()
         {
             var query = new GetUpdatesEmailUsersQuery(DateTime.UtcNow.AddDays(-1), 0);
-            var result = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
 
         }
 
@@ -258,7 +257,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task TopTutorsQuery_Ok(string country)
         {
             var query = new TopTutorsQuery(country, 12);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
 
@@ -268,14 +267,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task TopDocumentsQuery_Ok(string country)
         {
             var query = new TopDocumentsQuery(country, 5);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task StatsQuery_Ok()
         {
             var query = new StatsQuery();
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
 
@@ -285,7 +284,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task ReviewsQuery_Ok(string country)
         {
             var query = new ReviewsQuery(country, 5);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
@@ -297,11 +296,19 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
+        [InlineData(160468L)]
+        public async Task SessionRecordingQuery_Ok(long userId)
+        {
+            var query = new SessionRecordingQuery(userId);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+
         [InlineData(1L)]
         public async Task SimilarDocumentsQuery_Ok(long documentId)
         {
             var query = new SimilarDocumentsQuery(documentId);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]

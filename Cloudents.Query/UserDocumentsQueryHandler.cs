@@ -25,7 +25,6 @@ namespace Cloudents.Query
                 .Fetch(f => f.User)
                 .ThenFetch(f => f.University)
                 .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
-                .OrderByDescending(o => o.Id)
                 .Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
@@ -52,7 +51,7 @@ namespace Cloudents.Query
                     Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
 
                 }
-                )
+                ).OrderByDescending(o => o.DateTime)
                 .Take(50).Skip(query.Page * 50)
                 .ToListAsync(token);
         }

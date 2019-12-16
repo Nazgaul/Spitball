@@ -173,4 +173,7 @@
   <data name="collecting_review" xml:space="preserve">
     <value>Collecting reviews</value>
   </data>
+  <data name="apply_coupon" xml:space="preserve">
+    <value>Apply Coupon</value>
+  </data>
 </root>

@@ -42,7 +42,7 @@ namespace Cloudents.Core
 
         public static FileTypesExtension Video = new FileTypesExtension("Icons_720_video.png",
             new[] {".flv", ".mxf", ".gxf", ".ts", ".ps", ".3gp", ".3gpp", ".mpg", ".wmv", ".asf", ".avi", ".mp4",
-                ".m4v",  ".ismv", ".dvr-ms", ".mkv", ".mov" }, DocumentType.Video);
+                ".m4v",  ".ismv", ".dvr-ms", ".mkv", ".mov",".webm" }, DocumentType.Video);
 
         public static FileTypesExtension Music = new FileTypesExtension("Icons_720_sound.png",
             new[] { ".wav", ".isma", ".m4a" }, DocumentType.Video);

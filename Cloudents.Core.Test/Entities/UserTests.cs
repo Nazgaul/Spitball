@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using FluentAssertions;
@@ -8,6 +8,7 @@ using Xunit;
 
 namespace Cloudents.Core.Test.Entities
 {
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException", Justification = "Unit test")]
     public class UserTests
     {
 

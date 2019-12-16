@@ -14,10 +14,12 @@ namespace Cloudents.Web.EventHandler
     public class WebSocketStudyRoomOnlineEventHandler : IEventHandler<StudyRoomOnlineChangeEvent>
     {
         private readonly IHubContext<StudyRoomHub> _hubContext;
+        
         private readonly IVideoProvider _videoProvider;
         private readonly TelemetryClient _telemetryClient;
 
-        public WebSocketStudyRoomOnlineEventHandler(IHubContext<StudyRoomHub> hubContext, IVideoProvider videoProvider, TelemetryClient telemetryClient)
+        public WebSocketStudyRoomOnlineEventHandler(IHubContext<StudyRoomHub> hubContext,
+            IVideoProvider videoProvider, TelemetryClient telemetryClient)
         {
             _hubContext = hubContext;
             _videoProvider = videoProvider;
@@ -75,6 +77,9 @@ namespace Cloudents.Web.EventHandler
 
 
             await _hubContext.Clients.Group(studyRoom.Id.ToString()).SendAsync(SbHub.MethodName, message, token);
+
+
+        
         }
     }
 }

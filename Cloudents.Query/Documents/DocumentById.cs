@@ -69,6 +69,7 @@ namespace Cloudents.Query.Documents
                             .Select(Projections.Property(() => userAlias.Image).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.User)}.{nameof(DocumentUserDto.Image)}"))
                             .Select(Projections.Property(() => documentAlias.DocumentType).As($"{nameof(DocumentDetailDto.Document)}.{nameof(DocumentFeedDto.DocumentType)}"))
                             .Select(Projections.Property(() => tutorAlias.Id).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.UserId)}"))
+                            .Select(Projections.Property(() => tutorAlias.SubsidizedPrice).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.DiscountPrice)}"))
                             .Select(Projections.Property(() => tutorAlias.Name).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Name)}"))
                             .Select(Projections.Property(() => tutorAlias.Image).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Image)}"))
                             .Select(Projections.Property(() => tutorAlias.Courses).As($"{nameof(DocumentDetailDto.Tutor)}.{nameof(TutorCardDto.Courses)}"))
@@ -94,6 +95,10 @@ namespace Cloudents.Query.Documents
                 var purchaseFuture = _session.Query<DocumentTransaction>()
                        .Where(w => w.User.Id == query.UserId.Value && w.Document.Id == query.Id && w.Type == TransactionType.Spent)
                        .ToFutureValue();
+
+                var purchaseCountFuture = _session.QueryOver<DocumentTransaction>()
+                    .Where(w => w.Document.Id == query.Id && w.Type == TransactionType.Spent)
+                    .SelectList(s => s.SelectCount(c => c.Id)).FutureValue<int>();
 
                 var voteQuery = _session.Query<Vote>().Where(w => w.User.Id == query.UserId && w.Document.Id == query.Id).Select(s => s.VoteType).Take(1).ToFutureValue();
 
@@ -132,6 +137,7 @@ namespace Cloudents.Query.Documents
                         result.IsPurchased = transactionResult != null;
                     }
                 }
+                result.Document.Purchased = await purchaseCountFuture.GetValueAsync(token);
                 return result;
             }
         }
