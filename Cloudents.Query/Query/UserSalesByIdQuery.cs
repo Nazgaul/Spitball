@@ -70,7 +70,7 @@ namespace Cloudents.Query.Query
                     .Where(w => w.StudyRoom.Tutor.Id == query.Id)
                     .Select(s => new SessionSaleDto()
                     {
-                        Status = string.IsNullOrEmpty(s.Receipt) ? "Pending" : "Paid",
+                        PaymentStatus = string.IsNullOrEmpty(s.Receipt) ? "Pending" : "Paid",
                         Date = s.Created,
                         Price = s.Price,
                         StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name).FirstOrDefault(),

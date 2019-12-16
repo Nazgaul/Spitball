@@ -50,7 +50,7 @@
                   </router-link>
                </td>
                <td class="text-xs-left">{{formatItemType(props.item.type)}}</td>
-               <td class="text-xs-left" v-html="formatItemStatus(props.item.status)"/>
+               <td class="text-xs-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-left">{{ formatItemPrice(props.item.price,props.item.type) }}</td>
                <!-- <td class="text-xs-left"><v-icon @click="openDialog" small>sbf-3-dot</v-icon></td> -->
@@ -68,7 +68,6 @@
 import { mapActions, mapGetters } from 'vuex';
 
 import { LanguageService } from '../../../../services/language/languageService';
-import utillitiesService from '../../../../services/utilities/utilitiesService.js'
 
 export default {
    name:'mySales',
@@ -78,15 +77,9 @@ export default {
             {text: LanguageService.getValueByKey('dashboardPage_preview'), align:'left', sortable: false, value:'preview'},
             {text: LanguageService.getValueByKey('dashboardPage_info'), align:'left', sortable: false, value:'info'},
             {text: LanguageService.getValueByKey('dashboardPage_type'), align:'left', sortable: true, value:'type'},
-            // {text:LanguageService.getValueByKey('dashboardPage_likes'), align:'left', sortable: true, value:'likes'},
-            // {text:LanguageService.getValueByKey('dashboardPage_views'), align:'left', sortable: true, value:'views'},
-            // {text:LanguageService.getValueByKey('dashboardPage_downloads'), align:'left', sortable: true, value:'downloads'},
-            // {text:LanguageService.getValueByKey('dashboardPage_purchased'), align:'left', sortable: true, value:'purchased'},
-            // {text:LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
             {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'status'},
             {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
             {text: LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
-            // {text: LanguageService.getValueByKey('dashboardPage_action'), align:'left', sortable: false, value:'action'},
          ],
       }
    },
@@ -97,11 +90,8 @@ export default {
       },
    },
    methods: {
-      ...mapActions(['updateSalesItems', 'openDashboardDialog']),
+      ...mapActions(['updateSalesItems']),
 
-      openDialog() {
-         this.openDashboardDialog(true);
-      },
       checkIsSession(prop){
          return prop === 'TutoringSession';
       },
@@ -113,18 +103,16 @@ export default {
       },
       formatItemPrice(price,type){
          if(type === 'TutoringSession'){
-            // return `${+price.toFixed(1)} ${this.accountUser.currencySymbol}`
             return `${Math.round(+price)} ${this.accountUser.currencySymbol}`
          }else{
-            // return `${+price.toFixed(1)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
             return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
          }
       },
-      formatItemStatus(status){
-         if(status === 'Pending'){
+      formatItemStatus(paymentStatus){
+         if(paymentStatus === 'Pending'){
             return LanguageService.getValueByKey('dashboardPage_pending')
          }
-         if(status === 'Paid'){
+         if(paymentStatus === 'Paid'){
             return LanguageService.getValueByKey('dashboardPage_paid')
          }
       },
@@ -200,10 +188,6 @@ export default {
          line-height: 0;
          padding-right: 0 !important;
          .mySales_td_img_img{
-            i {
-               // Temporary
-               font-size: 70px;
-            }
             img{
                margin: 10px 0;
                &.imgPreview_sales{
@@ -223,8 +207,8 @@ export default {
          min-width: 300px;
       }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-         color: #43425d !important;
          transform: none /*rtl:rotate(180deg)*/;
+         color: #43425d !important;
          height: inherit;
          font-size: 14px;
       }
