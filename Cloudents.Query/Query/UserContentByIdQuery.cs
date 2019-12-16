@@ -55,7 +55,7 @@ namespace Cloudents.Query.Query
                     .Where(w => w.User.Id == query.Id)
                     .Select(s => new UserQuestionsDto()
                     {
-                        Id = s.Id
+                        Id = s.Id,
                         State = s.Status.State,
                         Date = s.Created,
                         Course = s.Course.Id,
@@ -68,7 +68,7 @@ namespace Cloudents.Query.Query
                     .Where(w => w.User.Id == query.Id)
                     .Select(s => new UserAnswersDto()
                     { 
-                        QuestionId = s.Question.Id
+                        QuestionId = s.Question.Id,
                         State = s.Status.State,
                         Date = s.Created,
                         Course = s.Question.Course.Id,
