@@ -16,7 +16,8 @@
     "bundle-report": "webpack-bundle-analyzer --port 4200 wwwroot/dist/stats.json",
     "build": "npm run vendor && npm run client",
     "start": "dotnet build && dotnet run",
-    "all": "npm run build && npm run start"
+    "all": "npm run build && npm run start",
+	  "lint": "node node_modules/eslint/bin/eslint.js ./clientapp/"
   },
   "devDependencies": {
     "@babel/core": "7.6.0",
@@ -36,6 +37,8 @@
     "babel-preset-stage-2": "7.0.0-beta.3",
     "base62": "^2.0.1",
     "css-loader": "3.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.0.1",
     "file-loader": "4.1.0",
     "image-webpack-loader": "5.0.0",
     "less": "3.9.0",
