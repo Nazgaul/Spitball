@@ -232,7 +232,7 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .globalHeader{
-    z-index: 200;
+    z-index: 200 !important;
     &.homePageWrapper{
         // max-width: 1500px; 
         // margin: 0 auto !important;

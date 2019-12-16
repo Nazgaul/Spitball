@@ -27,7 +27,7 @@
             </template>
           </v-list-group>
 
-          <v-list-group v-model="dashboardModel" active-class="''" v-if="dashboardList" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
+          <v-list-group v-model="dashboardModel" active-class="''" v-if="dashboardList" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu" color="#fff">
             <template v-slot:activator>
               <v-list-item class="sideMenu_list">
                 <v-list-item-content>
@@ -72,7 +72,7 @@
 
             <v-list-item class="group_list_sideMenu_dash" event @click.native.prevent="openPersonalizeUniversity()" :to="{name: 'addUniversity'}">
               <v-list-item-content>
-                <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker('addUniversity')}]">
+                <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker('university')}]">
                   <v-icon class="group_list_icon_dash" v-html="'sbf-university'"/>
                   <span class="group_list_title_dash ml-2" v-language:inner="'menuList_changeUniversity'"/>
                 </v-list-item-title> 
@@ -81,7 +81,7 @@
 
           </v-list-group>
           
-          <v-list-group :value="true" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
+          <v-list-group :value="true" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu" color="#fff">
             <template v-slot:activator>
               <v-list-item class="sideMenu_list">
                 <v-list-item-content>
@@ -134,7 +134,7 @@ export default {
         {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', icon:'sbf-user', sel:'sd_profile'},
         {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
         {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
-        {name: LanguageService.getValueByKey('schoolBlock_courses'), key:'editCourse', icon:'sbf-classes-icon'},
+        {name: LanguageService.getValueByKey('schoolBlock_courses'), key:'courses', icon:'sbf-classes-icon'},
         // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
         // {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'purchases', icon:'sbf-cart'},
       ],
@@ -232,6 +232,8 @@ export default {
       if(pathName == "studyRooms") {
         return this.$route.path.indexOf('study-rooms') > -1;
       } else{
+        debugger
+        console.log(this.$route.path.indexOf(pathName) > -1)
         return this.$route.path.indexOf(pathName) > -1;
       }
     },
@@ -258,7 +260,7 @@ export default {
       if(path === "purchases"){
         // this.$router.push({name:'purchases'})
       }
-      if(path === "editCourse"){
+      if(path === "courses"){
         this.$router.push({name:'editCourse'})
       }
       this.closeSideMenu();
