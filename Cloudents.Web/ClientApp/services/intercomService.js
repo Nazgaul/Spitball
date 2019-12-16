@@ -13,7 +13,7 @@ function IntercomSettingsObj(){
     this.is_tutor = false;
 }
 
-IntercomSettingsObj.prototype.set = function({id, name, email, phoneNumber, isTutor, hideLauncher, alignment}){
+IntercomSettingsObj.prototype.set = function({id, name, email, phoneNumber, isTutor, alignment}){
     if(IntercomStatus){
         this.custom_launcher_selector = '#gH_i_r_intercom'
         this.user_id = id ? "Sb_" + id : this.user_id;

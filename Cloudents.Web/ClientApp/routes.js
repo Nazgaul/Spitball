@@ -45,12 +45,12 @@ function dynamicPropsFn(route) {
     };
 }
 
-function headerResultPageFn(route) {
+function headerResultPageFn() {
     return {
     };
 }
 
-function verticalResultPageFn(route) {
+function verticalResultPageFn() {
     return {
         
     };

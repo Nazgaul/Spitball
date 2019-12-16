@@ -333,15 +333,8 @@ const actions = {
         }
         }
     },
-    showRoomToasterMessage({dispatch}, toasterParams) {
+    showRoomToasterMessage() {
         return;
-        let toasterObj = {
-            toasterText: toasterParams.text,
-            showToaster: true,
-            toasterType: toasterParams.type ? toasterParams.type : '',
-            toasterTimeout: toasterParams.timeout
-        };
-        dispatch('updateToasterParams', toasterObj);
     },
     hideRoomToasterMessage({dispatch}) {
         let toasterObj = {
