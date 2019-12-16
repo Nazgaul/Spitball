@@ -11,7 +11,19 @@
             :prev-icon="'sbf-arrow-left-carousel'"
             :sort-icon="'sbf-arrow-down'"
             :next-icon="'sbf-arrow-right-carousel'">
-         
+         <template slot="headers" slot-scope="props">
+            <tr>
+               <th class="text-xs-left"
+                  v-for="header in props.headers"
+                  :key="header.text"
+                  :class="['column',{'sortable':header.sortable}]"
+                  @click="changeSort(header.value)">
+                  <span class="text-xs-left">{{ header.text }}
+                     <v-icon v-if="header.sortable" small>sbf-arrow-down</v-icon>
+                  </span>
+               </th>
+            </tr>
+         </template>
             <template v-slot:items="props">
                <td class="myContent_td_img">
                   <router-link :to="dynamicRouter(props.item)" class="myContent_td_img_img">
@@ -63,7 +75,7 @@
 
          <template slot="pageText" slot-scope="item">
             <span class="myContent_footer">
-            {{item.pageStart}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
+            {{item.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
             </span>
          </template>
 
@@ -75,11 +87,12 @@
 import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from '../../../../services/language/languageService';
 
-
 export default {
    name:'myContent',
    data() {
       return {
+         itemList:[],
+         sortedBy:'',
          currentItemIndex:'',
          showMenu:false,
          headers:[
@@ -101,8 +114,14 @@ export default {
    },
    computed: {
       ...mapGetters(['getContentItems']),
-      contentItems(){
-         return this.getContentItems;
+      contentItems:{
+         get(){
+            this.itemList = this.getContentItems
+            return this.itemList;
+         },
+         set(val){
+            this.itemList = val
+         }
       },
    },
    methods: {
@@ -137,33 +156,62 @@ export default {
             return LanguageService.getValueByKey('dashboardPage_video')
          }
       },
-      formatItemStatus(state){
-         if(state === 'Ok'){
-            return LanguageService.getValueByKey('dashboardPage_ok')
-         }
-         if(state === 'Deleted'){
-            return LanguageService.getValueByKey('dashboardPage_deleted')
-         }
-         if(state === 'Flagged'){
-            return LanguageService.getValueByKey('dashboardPage_flagged')
-         }
-         if(state === 'Pending'){
-            return LanguageService.getValueByKey('dashboardPage_pending ')
-         }
-      },
+      // formatItemStatus(state){
+      //    if(state === 'Ok'){
+      //       return LanguageService.getValueByKey('dashboardPage_ok')
+      //    }
+      //    if(state === 'Deleted'){
+      //       return LanguageService.getValueByKey('dashboardPage_deleted')
+      //    }
+      //    if(state === 'Flagged'){
+      //       return LanguageService.getValueByKey('dashboardPage_flagged')
+      //    }
+      //    if(state === 'Pending'){
+      //       return LanguageService.getValueByKey('dashboardPage_pending ')
+      //    }
+      // },
       formatItemPrice(price,type){
          if(type !== 'Question'){
             return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
          }
       },
-      checkProps(p){
-         console.log(p)
+      changeSort(sortBy){
+         if(sortBy == 'date'){
+            if(this.sortedBy === sortBy){
+               this.itemList = this.itemList.sort((a,b)=> new Date(a[sortBy]) - new Date(b[sortBy]))
+            }else{
+               this.itemList = this.itemList.sort((a,b)=> new Date(b[sortBy]) - new Date(a[sortBy]))
+            }
+         }
+         if(sortBy == 'type'){
+            if(this.sortedBy === sortBy){
+               this.itemList = this.itemList.sort((a,b)=> {
+                  if(a[sortBy] > b[sortBy]){
+                     return -1;
+                  }
+                  if(b[sortBy] > a[sortBy]){
+                     return 1;
+                  }
+                  return 0;
+               })
+            }else{
+               this.itemList = this.itemList.sort((a,b)=> {
+                  if(b[sortBy] > a[sortBy]){
+                     return -1;
+                  }
+                  if(a[sortBy] > b[sortBy]){
+                     return 1;
+                  }
+                  return 0;
+               })
+            }
+         }
+         this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
       }
    },
    created() {
       this.updateContentItems()
    },
-
 }
 </script>
 
