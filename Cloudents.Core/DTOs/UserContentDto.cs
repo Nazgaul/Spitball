@@ -1,12 +1,11 @@
-﻿using Cloudents.Core.Enum;
-using System;
+﻿using System;
 
 namespace Cloudents.Core.DTOs
 {
     public abstract class UserContentDto
     {
         public virtual string Type { get; set; }
-        public ItemState State { get; set; }
+        //public ItemState State { get; set; }
         public DateTime Date { get; set; }
         public string Course { get; set; }
     }
