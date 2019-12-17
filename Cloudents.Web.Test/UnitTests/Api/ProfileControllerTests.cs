@@ -24,14 +24,14 @@ namespace Cloudents.Web.Test.UnitTests.Api
 
         public interface IExtensionMethodsWrapper
         {
-            string DocumentUrlWrapper<T>(IUrlHelper myObj, string university, string course, long id, string name);
+            string DocumentUrlWrapper<T>(IUrlHelper myObj, string course, long id, string name);
         }
 
         public class ExtensionMethodsWrapper : IExtensionMethodsWrapper
         {
-            public string DocumentUrlWrapper<T>(IUrlHelper myObj, string university, string course, long id, string name)
+            public string DocumentUrlWrapper<T>(IUrlHelper myObj,  string course, long id, string name)
             {
-                return myObj.DocumentUrl(university, course, id, name);
+                return myObj.DocumentUrl( course, id, name);
             }
         }
 

@@ -139,14 +139,10 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var x = new RegistrationEmail("ram@cloudents.com", "https://www.spitball.co", new CultureInfo("en"));
-            var json = JsonConvert.SerializeObject(x, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            });
-            //var queryBus = _container.Resolve<IQueryBus>();
-            //var query = new SimilarDocumentsQuery(242949);
-            //var result = await queryBus.QueryAsync(query, default);
+         
+            var queryBus = _container.Resolve<IQueryBus>();
+            var query = new UserSalesByIdQuery(638);
+            var result = await queryBus.QueryAsync(query, default);
 
         }
         private static async Task ResyncTutorRead()

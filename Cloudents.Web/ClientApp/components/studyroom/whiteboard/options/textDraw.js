@@ -1,7 +1,6 @@
-import {createPointsByOption, createShape, createGhostShape, createGuid} from '../utils/factories'
+import {createPointsByOption, createShape, createGuid} from '../utils/factories'
 import helper from '../utils/helper'
 import whiteBoardService from '../whiteBoardService'
-import store from '../../../../store';
 
 const optionType = 'textDraw';
 
@@ -29,12 +28,10 @@ const FONT_SIZE = 60;
 
 let isWriting = false;
 let currentId = null;
-let startShapes = {};
 
 const init = function(){
     currentId = null;
     isWriting = false;
-    startShapes = {};
 };
 const draw = function(textObj){
     //determin the stroke color
@@ -66,23 +63,23 @@ const setHelperObj = function(e, selectedHelper){
     helper.showHelper();
 };
 
-const changeTextActionObj = function(id, oldShapePoint, newShapePoint){
-    this.id = id;
-    this.oldText = oldShapePoint.text;
-    this.oldWidth = oldShapePoint.width;
-    this.newText = newShapePoint.text;
-    this.newWidth = newShapePoint.width;
-};
+// const changeTextActionObj = function(id, oldShapePoint, newShapePoint){
+//     this.id = id;
+//     this.oldText = oldShapePoint.text;
+//     this.oldWidth = oldShapePoint.width;
+//     this.newText = newShapePoint.text;
+//     this.newWidth = newShapePoint.width;
+// };
 
-const addGhostLocalShape = function(actionType, actionObj){
-    let ghostLocalShape = createGhostShape({
-        type: optionType,
-        actionType: actionType, // changeText
-        actionObj: actionObj
-    });
-    this.methods.addShape(ghostLocalShape);
-    startShapes = {};
-};
+// const addGhostLocalShape = function(actionType, actionObj){
+//     let ghostLocalShape = createGhostShape({
+//         type: optionType,
+//         actionType: actionType, // changeText
+//         actionObj: actionObj
+//     });
+//     this.methods.addShape(ghostLocalShape);
+//     startShapes = {};
+// };
 
 const enterPressed = function(e){
     if(isWriting){
@@ -90,9 +87,9 @@ const enterPressed = function(e){
     }
 };
 
-const moveToSelectTool = function(){
-    this.methods.selectDefaultTool();
-};
+// const moveToSelectTool = function(){
+//     this.methods.selectDefaultTool();
+// };
 
 const mousedown = function(e){
     this.methods.hideColorPicker();
@@ -132,7 +129,7 @@ const mousedown = function(e){
         //STARTING POINT - SET INPUT ELEMENT POSITION (local)
         isWriting = true;
         let popupSize = 172;
-        startingMousePosition.x = (window.innerWidth / 2) - (popupSize / 2);;
+        startingMousePosition.x = (window.innerWidth / 2) - (popupSize / 2);
         startingMousePosition.y = (window.innerHeight / 3);
         currentId = createGuid('text');
         setHelperObj.bind(this, e)();
@@ -143,10 +140,10 @@ const mousedown = function(e){
         });
     }
 };
-const mousemove = function(e){
+const mousemove = function(){
 };
 
-const defineEndPosition = function(e){
+const defineEndPosition = function(){
 };
 
 

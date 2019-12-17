@@ -1,5 +1,4 @@
 import accountService from "../services/accountService";
-import { debug } from "util";
 import { dollarCalculate } from "./constants";
 import analyticsService from '../services/analytics.service';
 import reputationService from '../services/reputationService';
@@ -104,7 +103,7 @@ const mutations = {
 
         }
     },
-    deleteItemFromProfile(state, {id, type}) {
+    deleteItemFromProfile(state, {id}) {
         if(!!state.profile) {
             state.profile.questions.forEach((item, index) => {
                 if(item.id === id) {
@@ -309,7 +308,7 @@ const actions = {
             }
             //return true if we can call to the server
             return data.length === maximumElementsRecivedFromServer;
-        }, (err) => {
+        }, () => {
             return false;
         });
     },
@@ -332,7 +331,7 @@ const actions = {
             }
             //return true if we can call to the server
             return data.length === maximumElementsRecivedFromServer;
-        }, (err) => {
+        }, () => {
             return false;
         });
     },
@@ -354,7 +353,7 @@ const actions = {
             }
             //return true if we can call to the server
             return data.length === maximumElementsReceivedFromServer;
-        }, (err) => {
+        }, () => {
             return false;
         });
     },
@@ -376,11 +375,11 @@ const actions = {
             }
             //return true if we can call to the server
             return data.length === maximumElementsReceivedFromServer;
-        }, (err) => {
+        }, () => {
             return false;
         });
     },
-    logout({state, commit}) {
+    logout({commit}) {
         intercomeService.IntercomSettings.reset();
         commit("logout");
         global.location.replace("/logout");
@@ -389,7 +388,7 @@ const actions = {
     changeLastActiveRoute({commit}, route) {
         commit("setLastActiveRoute", route);
     },
-    userStatus({dispatch, commit, getters, rootState}, {isRequire, to}) {
+    userStatus({dispatch, commit, getters}, {isRequire, to}) {
         commit("changeLoginStatus", global.isAuth);
         if(getters.isUser) {
             return;
@@ -404,7 +403,7 @@ const actions = {
                 analyticsService.sb_setUserId(userAccount.id);
                 insightService.authenticate.set(userAccount.id);
                 initSignalRService();
-            }, err=>{
+            }, ()=>{
                 intercomeService.bootIntercom();
                 isRequire ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
@@ -416,7 +415,7 @@ const actions = {
     saveCurrentPathOnPageChange({commit}, {currentRoute}) {
         commit("updateFromPath", currentRoute);
     },
-    updateUserBalance({commit, state}, payload) {
+    updateUserBalance() {
         return;
     },
 

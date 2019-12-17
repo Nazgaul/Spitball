@@ -2,7 +2,6 @@ import documentService from "../services/documentService";
 import analyticsService from '../services/analytics.service';
 import searchService from '../services/searchService';
 import { LanguageService } from "../services/language/languageService";
-import { Promise } from "q";
 
 const state = {
     document: {},
@@ -73,7 +72,7 @@ const actions = {
             return err;
         });
     },
-    downloadDocument({commit, getters, dispatch}, item) {
+    downloadDocument({getters, dispatch}, item) {
         let user = getters.accountUser;
 
         if(!user) return dispatch('updateLoginDialogState', true);
@@ -85,7 +84,6 @@ const actions = {
     purchaseDocument({commit, getters, dispatch, state}, item) {
         commit('setBtnLoading', true);
         let userBalance = 0;
-        let id = item.id ? item.id : '';
         if(!!getters.accountUser && getters.accountUser.balance){
             userBalance = getters.accountUser.balance;
         }
@@ -112,7 +110,7 @@ const actions = {
             });
         }
     },
-    getTutorListCourse({ commit, state }, courseName) {
+    getTutorListCourse({ commit }, courseName) {
         searchService.activateFunction.getTutors(courseName).then(res => {
             commit('setTutorsList', res);
         });

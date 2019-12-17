@@ -1,6 +1,11 @@
 import store from '../../store/index';
+<<<<<<< HEAD
 // import tutorService from './tutorService';
 import {Decoder, tools, Reader} from 'ts-ebml';
+=======
+import tutorService from './tutorService';
+import {Decoder, Encoder, tools, Reader} from 'ts-ebml';
+>>>>>>> origin/develop
 import insightService from '../../services/insightService';
 
 const MIME_TYPE = getBestMimeType();

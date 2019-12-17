@@ -88,24 +88,12 @@ const actions = {
             console.log(ex);
         })
     },
-    updateQuestionSignalR({commit, state}, question){
-        return;
-        if(!!state.question && state.question.id == question.id){
-            // let res = searchService.createQuestionItem(question);
-            // commit('updateQuestion', res);
-
-            //todo currently we are gonna get question by id.           
-            questionService.getQuestion(question.id).then((res)=>{
-                commit('updateQuestion', res);
-            });
-        }
-    },
     updateQuestionItemCorrect({commit, state}, question){
         if(!!state.question && state.question.id == question.questionId){
             commit('markAsCorrect', question.answerId);
         }
     },
-    answerAdded({commit, state, dispatch}, notifyObj){
+    answerAdded({commit, state}, notifyObj){
         let questionId = notifyObj.questionId;
         let answerObj = searchService.createAnswerItem(notifyObj.answer);
         //update question in case user is in the question page
@@ -113,7 +101,7 @@ const actions = {
            commit('addAnswer', answerObj);
         }
     },
-    answerRemoved({dispatch, commit}, notifyObj){
+    answerRemoved({commit}, notifyObj){
         let questionId = notifyObj.questionId;
         let answerId = notifyObj.answer.id;
         //update question in case user is in the question page

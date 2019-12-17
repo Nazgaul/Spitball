@@ -408,6 +408,12 @@ export default {
     isCodeEditorActive(){
       return this.activeItem === "code-editor"
     },
+<<<<<<< HEAD
+    isRecordingSupported(){
+      return tutorService.isRecordingSupported();
+    }
+=======
+>>>>>>> origin/develop
   },
 
 watch: {

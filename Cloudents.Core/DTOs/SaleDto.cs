@@ -1,11 +1,10 @@
-﻿using Cloudents.Core.Enum;
-using System;
+﻿using System;
 
 namespace Cloudents.Core.DTOs
 {
     public abstract class SaleDto
     {
-        public virtual DtoType Type { get; set; }
+        public virtual SaleType Type { get; set; }
         public virtual PaymentStatus PaymentStatus { get; set; }
         public DateTime Date { get; set; }
         public decimal? Price { get; set; }
@@ -28,7 +27,7 @@ namespace Cloudents.Core.DTOs
         public string Text { get; set; }
         public string AnswerText { get; set; }
         public override PaymentStatus PaymentStatus => PaymentStatus.Paid;
-        public override DtoType Type => DtoType.Question;
+        public override SaleType Type => SaleType.Question;
     }
     public class SessionSaleDto : SaleDto
     {
@@ -36,7 +35,7 @@ namespace Cloudents.Core.DTOs
         public TimeSpan? Duration { get; set; }
         public string StudentImage { get; set; }
         public long StudentId { get; set; }
-        public override DtoType Type => DtoType.TutoringSession;
+        public override SaleType Type => SaleType.TutoringSession;
     }
 
     public enum PaymentStatus
@@ -44,7 +43,7 @@ namespace Cloudents.Core.DTOs
         Pending,
         Paid
     }
-    public enum DtoType
+    public enum SaleType
     {
         Document,
         Video,

@@ -259,15 +259,6 @@ export default {
       if(path === "posts"){
         // this.$router.push({name:'posts'})
       }
-      if(path === "myPurchases"){
-        this.$router.push({path:'/my-purchases'})
-      }
-      if(path === "myCalendar"){
-        this.$router.push({path:'/my-calendar'})
-      }
-      if(path === "myFollowers"){
-        this.$router.push({path:'/my-followers'})
-      }
       if(path === "my-sales"){
         this.$router.push({path:'/my-sales'})
       }

@@ -15,7 +15,7 @@ const mutations = {
 };
 
 const actions = {
-    gapiLoad({commit, state, dispatch}, scopeName){
+    gapiLoad({commit, state}, scopeName){
         if(state.auth2) return;
         return gapi.load('auth2', function() { 
         let scopesToUse = state.scopes[scopeName];      

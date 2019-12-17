@@ -1,5 +1,6 @@
 import { getMainConnection } from './signalrEventService'
-import { Notification, NotifyServer } from './signalrEventService'
+// import { Notification, NotifyServer } from './signalrEventService'
+import { NotifyServer } from './signalrEventService'
 
 export const signalRSender = {
     send: function(message, data){

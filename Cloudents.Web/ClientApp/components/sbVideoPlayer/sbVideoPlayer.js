@@ -55,7 +55,7 @@ export default {
         }
     },
     watch:{
-        src(newVal, oldVal){
+        src(newVal){
             if(!!this.myPlayer){
                 let srcObj = {
                     src: newVal,
@@ -85,14 +85,15 @@ export default {
             };
             let uniqueID = this.uniqueID;
             let srcObj = {src:this.src,type:this.type};
+            /* global amp */
             this.myPlayer = amp(uniqueID,videoOptions);
             this.myPlayer.src([srcObj]);
-            this.myPlayer.addEventListener('ended',(e)=>{
+            this.myPlayer.addEventListener('ended',()=>{
                 this.$emit('videoEnded');
             });
         },
         loadStyle(){
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve) => {
                 if (document.querySelector('#amp-azure')) return resolve();
                 let linkTag = document.createElement('link');
                 linkTag.id = '#amp-azure';

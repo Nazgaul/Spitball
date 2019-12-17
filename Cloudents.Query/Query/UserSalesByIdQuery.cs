@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
+using PaymentStatus = Cloudents.Core.DTOs.PaymentStatus;
 
 namespace Cloudents.Query.Query
 {
@@ -16,7 +18,7 @@ namespace Cloudents.Query.Query
             Id = id;
         }
 
-        public long Id { get; }
+        private long Id { get; }
 
         internal sealed class UserSalesByIdQueryHandler : IQueryHandler<UserSalesByIdQuery, IEnumerable<SaleDto>>
         {
@@ -36,14 +38,15 @@ namespace Cloudents.Query.Query
                     .Fetch(f => f.Document)
                     .Where(w => w.User.Id == query.Id)
                     .Where(w => w.Type == Core.Enum.TransactionType.Earned)
+                    .Where(w=>w.Document.Status.State == ItemState.Ok)
                     .Select(s => new DocumentSaleDto()
                     {
                         Id = s.Document.Id,
                         Name = s.Document.Name,
                         Course = s.Document.Course.Id,
                         Type = s.Document.DocumentType != null ? 
-                            (DtoType)s.Document.DocumentType :
-                            DtoType.Document,
+                            (SaleType)s.Document.DocumentType :
+                            SaleType.Document,
                         Date = s.Created,
                         Price = s.Price
                     }).ToFuture<SaleDto>();
@@ -52,6 +55,7 @@ namespace Cloudents.Query.Query
                 var questionFuture = _session.Query<QuestionTransaction>()
                     .Fetch(f => f.Answer)
                     .Fetch(f => f.Question)
+                    .Where(w=> w.Question != null)
                     .Where(w => w.User.Id == query.Id)
                     .Where(w => w.Type == Core.Enum.TransactionType.Earned)
                     .Select(s => new QuestionSaleDto()
@@ -81,9 +85,9 @@ namespace Cloudents.Query.Query
                     }).ToFuture<SaleDto>();
 
 
-                IEnumerable<SaleDto> documentResult = await documentFuture.GetEnumerableAsync(token);
-                IEnumerable<SaleDto> questionResult = await questionFuture.GetEnumerableAsync(token);
-                IEnumerable<SaleDto> sessionResult = await sessionFuture.GetEnumerableAsync(token);
+                var documentResult = await documentFuture.GetEnumerableAsync(token);
+                var questionResult = await questionFuture.GetEnumerableAsync(token);
+                var sessionResult = await sessionFuture.GetEnumerableAsync(token);
 
                 return documentResult.Union(questionResult).Union(sessionResult).OrderByDescending(o => o.Date);               
             }

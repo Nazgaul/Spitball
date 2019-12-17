@@ -35,14 +35,22 @@ export default {
         search(text) {
             if(!!text){
                 this.msg = text;
+<<<<<<< HEAD
+            }else {
+=======
             }else if(!this.msg) {
+>>>>>>> origin/develop
                 this.msg = '';
             }
             if(!!this.msg){
                 analyticsService.sb_unitedEvent("Tutor_Engagement", "Search", this.msg);
             }
 
+<<<<<<< HEAD
             this.$router.push({ path: `/tutor-list/${this.msg}` }).catch(() => {});
+=======
+            this.$router.push({ path: `/tutor-list/${this.msg}` }).catch(err => {});
+>>>>>>> origin/develop
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {

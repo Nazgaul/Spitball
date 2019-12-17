@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
 using System;

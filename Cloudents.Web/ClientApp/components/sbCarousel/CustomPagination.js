@@ -1,9 +1,8 @@
-var CustomPagination = function (container,ref){
+var CustomPagination = function (container){
     let length = 0;
     let element;
     let itemTag;
     let items = [];
-    let flicking = ref
   
     return {
       update: function (flicking) {
@@ -36,7 +35,7 @@ var CustomPagination = function (container,ref){
         element.className += " flicking-pagination";
         itemTag = element.nodeName === "UL" ? "li" : "div";
   
-        flicking.on("moveEnd", function (e) {
+        flicking.on("moveEnd", function () {
           var selectedElement = element.querySelector(".selected");
           if (selectedElement) {
             selectedElement.className = selectedElement.className.replace(/\s*selected/g, "");
