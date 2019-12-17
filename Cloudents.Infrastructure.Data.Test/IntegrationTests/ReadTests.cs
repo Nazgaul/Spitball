@@ -303,7 +303,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-
+        [Theory]
         [InlineData(1L)]
         public async Task SimilarDocumentsQuery_Ok(long documentId)
         {
@@ -316,6 +316,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new UserSalesByIdQuery(638L);
             _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Theory]
+        [InlineData(159039)]
+        [InlineData(638)]
+        public async Task UserPurchasesByIdQuery_Ok(long userId)
+        {
+            var query = new UserPurchasesByIdQuery(userId);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
     }
 }
