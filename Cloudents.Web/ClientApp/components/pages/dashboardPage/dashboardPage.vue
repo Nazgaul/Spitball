@@ -39,7 +39,7 @@ export default {
                'Video': LanguageService.getValueByKey('dashboardPage_video'),
             },
             headers:{
-               'preview': {text: LanguageService.getValueByKey('dashboardPage_preview'), align:'left', sortable: false, value:'preview'},
+               'preview': {text: '', align:'left', sortable: false, value:'preview'},
                'info': {text: LanguageService.getValueByKey('dashboardPage_info'), align:'left', sortable: false, value:'info'},
                'type': {text: LanguageService.getValueByKey('dashboardPage_type'), align:'left', sortable: true, value:'type'},
                'likes': {text:LanguageService.getValueByKey('dashboardPage_likes'), align:'left', sortable: true, value:'likes'},
@@ -137,6 +137,7 @@ export default {
    padding-top: 30px;
    padding-right: 30px;
    // max-width: 1150px;
+   max-width: fit-content;
 	@media (max-width: @screen-xs) {
       padding-left: 6px;
       padding-right: 6px;

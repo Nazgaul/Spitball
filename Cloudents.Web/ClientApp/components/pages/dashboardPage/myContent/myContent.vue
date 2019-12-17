@@ -60,8 +60,8 @@
                <td class="text-xs-left">{{props.item.purchased}}</td>
                <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-               <td v-if="!checkIsQuestuin(props.item.type)" class="text-xs-center">
-                  <v-menu lazy bottom right v-model="showMenu">
+               <td class="text-xs-center">
+                  <v-menu lazy bottom right v-model="showMenu" v-if="!checkIsQuestuin(props.item.type)" >
                      <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
 
                      <v-list v-if="props.index == currentItemIndex">
