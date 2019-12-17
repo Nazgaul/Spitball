@@ -156,6 +156,15 @@
                 </template>
                 <span v-language:inner>tutor_tooltip_clearAll</span>
             </v-tooltip>
+            
+            <v-tooltip bottom>
+                <template v-slot:activator="{on}">
+                    <button sel="clear_all_canvas" v-on="on" class="nav-action" @click="takeSnapshot()">
+                        <v-icon style="margin-top: 5px;">sbf-close</v-icon>
+                    </button>
+                </template>
+                <span v-language:inner>tutor_tooltip_clearAll</span>
+            </v-tooltip>
         </div>
 </template>
 
@@ -205,7 +214,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['setShowPickColorInterface', 'setCurrentOptionSelected', 'setSelectedOptionString', 'setUndoClicked', 'setClearAllClicked']),
+        ...mapActions(['setShowPickColorInterface', 'setCurrentOptionSelected', 'setSelectedOptionString', 'setUndoClicked', 'setClearAllClicked', 'setSnapshotDialog']),
         showColorPicker() {
             this.setShowPickColorInterface(true);
         },
@@ -244,6 +253,9 @@ export default {
         },
         clearCanvas(){
             this.setClearAllClicked();
+        },
+        takeSnapshot(){
+            this.setSnapshotDialog(true);
         }
     },
     computed:{

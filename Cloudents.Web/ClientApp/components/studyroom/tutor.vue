@@ -222,6 +222,18 @@
       >
           <studentConsentDialog></studentConsentDialog>
       </sb-dialog>
+      
+      <sb-dialog
+        :showDialog="getSnapshotDialog"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'studyroomSnapshotDialog'"
+        :maxWidth="'800'"
+        :onclosefn="closeSnapshotDialog"
+        :isPersistent="$vuetify.breakpoint.smAndUp"
+        :content-class="'studyroom-snapshot-dialog'"
+      >
+          <snapshotDialog></snapshotDialog>
+      </sb-dialog>
     </div>
   </v-layout>
 </template>
@@ -261,6 +273,7 @@ import intercomSVG from './images/icon-1-2.svg'
 import studyRoomRecordingService from './studyRoomRecordingService.js';
 import errorWithAudioRecording from './tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
 import studentConsentDialog from './tutorHelpers/studentConsentDialog/studentConsentDialog.vue';
+import snapshotDialog from './tutorHelpers/snapshotDialog/snapshotDialog.vue';
 
 //store
 import storeService from "../../services/store/storeService";
@@ -299,7 +312,8 @@ export default {
     codeEditorTools,
     intercomSVG,
     errorWithAudioRecording,
-    studentConsentDialog
+    studentConsentDialog,
+    snapshotDialog
   },
   name: "tutor",
   data() {
@@ -365,7 +379,8 @@ export default {
       "getIsRecording",
       "getShowAudioRecordingError",
       "getVisitedSettingPage",
-      "getShowUserConsentDialog"      
+      "getShowUserConsentDialog",
+      "getSnapshotDialog"
     ]),
     activeItem() {
       return this.activeNavItem;
@@ -444,6 +459,7 @@ watch: {
       "setShowAudioRecordingError",
       "hideRoomToasterMessage",
       "setShowUserConsentDialog",
+      "setSnapshotDialog",
     ]),
     // ...mapGetters(['getDevicesObj']),
     closeFullScreen(e){
@@ -608,6 +624,9 @@ watch: {
     },
     closeUserConsentDialog(){
       this.setShowUserConsentDialog(false);
+    },
+    closeSnapshotDialog(){
+      this.setSnapshotDialog(false);
     }
   },
   mounted() {

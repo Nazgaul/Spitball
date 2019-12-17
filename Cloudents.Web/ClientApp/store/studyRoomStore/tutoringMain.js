@@ -47,7 +47,7 @@ const state = {
     sessionTimeStart: null,
     sessionTimeEnd: null,
     showUserConsentDialog: false,
-    
+    snapshotDialog: false,    
 };
 const getters = {
     getIsRoomFull: state => state.isRoomFull,
@@ -80,6 +80,7 @@ const getters = {
     getSessionTimeStart: state => state.sessionTimeStart,
     getSessionTimeEnd: state => state.sessionTimeEnd,
     getShowUserConsentDialog: state => state.showUserConsentDialog,
+    getSnapshotDialog: state => state.snapshotDialog,
 };
 
 const mutations = {
@@ -176,6 +177,9 @@ const mutations = {
     },
     setShowUserConsentDialog(state, val){
         state.showUserConsentDialog = val;
+    },
+    setSnapshotDialog(state, val){
+        state.snapshotDialog = val;
     },
 };
 
@@ -404,6 +408,9 @@ const actions = {
     },
     setShowUserConsentDialog({commit}, val){
         commit('setShowUserConsentDialog', val);
+    },
+    setSnapshotDialog({commit}, val){
+        commit('setSnapshotDialog', val);
     },
 };
 export default {
