@@ -139,7 +139,8 @@
     <value>Duration:</value>
   </data>
   <data name="info" xml:space="preserve">
-    <value>Info</value>
+    <value>Product
+</value>
   </data>
   <data name="likes" xml:space="preserve">
     <value>Likes</value>
@@ -178,7 +179,7 @@
     <value>Tutoring session with {1}</value>
   </data>
   <data name="status" xml:space="preserve">
-    <value>Status</value>
+    <value>Product</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>Tutoring Session</value>
