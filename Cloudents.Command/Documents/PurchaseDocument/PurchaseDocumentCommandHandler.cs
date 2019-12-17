@@ -40,7 +40,10 @@ namespace Cloudents.Command.Documents.PurchaseDocument
 
             DocumentTransaction.MakerTransaction(purchaseUser, document.User, document);
 
-            document.User.AddFollower(purchaseUser);
+            if (!document.User.Equals(purchaseUser))
+            {
+                document.User.AddFollower(purchaseUser);
+            }
            
             await _userRepository.UpdateAsync(purchaseUser, token);
             await _userRepository.UpdateAsync(document.User, token);

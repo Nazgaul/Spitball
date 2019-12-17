@@ -162,9 +162,13 @@ namespace Cloudents.Web.Controllers
             var uri = files.First();
             var file = uri.Segments.Last();
 
+            Task followTask = Task.CompletedTask;
             //blob.core.windows.net/spitball-files/files/6160/file-82925b5c-e3ba-4f88-962c-db3244eaf2b2-advanced-linux-programming.pdf
-            var command = new FollowUserCommand(item.Document.User.Id, user);
-            var followTask = commandBus.DispatchAsync(command, token);
+            if (item.Document.User.Id != user)
+            {
+                var command = new FollowUserCommand(item.Document.User.Id, user);
+                followTask = commandBus.DispatchAsync(command, token);
+            }
             var messageTask = _queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfDownloads(id), token);
 
             await Task.WhenAll(followTask, messageTask);
