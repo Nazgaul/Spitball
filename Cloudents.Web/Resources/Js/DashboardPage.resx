@@ -181,7 +181,7 @@
     <value>Questuin:</value>
   </data>
   <data name="session" xml:space="preserve">
-    <value>Tutoring session with</value>
+    <value>Tutoring session with {1}</value>
   </data>
   <data name="status" xml:space="preserve">
     <value>Status</value>

@@ -20,9 +20,10 @@
                <td class="text-xs-left mySales_td_course">
                   <router-link :to="dynamicRouter(props.item)">
                      <template v-if="checkIsSession(props.item.type)">
-                        <span v-language:inner="'dashboardPage_session'"></span>
-                        <span>{{props.item.studentName}}</span>
-                        <span>{{props.item.duration | sessionDuration}}</span>
+                        <span  v-html="$Ph('dashboardPage_session',props.item.studentName)"/>
+                        <!-- <span>{{props.item.studentName}}</span> -->
+                        <!-- v-language:inner="'dashboardPage_session'" -->
+                        <p>{{props.item.duration | sessionDuration}}</p>
                      </template>
 
                      <template v-if="checkIsQuestuin(props.item.type)">
@@ -57,7 +58,7 @@
             </template>
             <template slot="pageText" slot-scope="item">
                <span class="mySales_footer">
-               {{item.pageStart}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
+               {{item.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
                </span>
             </template>
          </v-data-table>
