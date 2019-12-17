@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Dapper;
 using NHibernate;
 using NHibernate.Linq;
 using System.Collections.Generic;
@@ -42,7 +41,9 @@ namespace Cloudents.Query.Query
                         Id = s.Document.Id,
                         Name = s.Document.Name,
                         Course = s.Document.Course.Id,
-                        Type = s.Document.DocumentType != null ? s.Document.DocumentType.ToString() : "Document",
+                        Type = s.Document.DocumentType != null ? 
+                            (DtoType)s.Document.DocumentType :
+                            DtoType.Document,
                         Date = s.Created,
                         Price = s.Price
                     }).ToFuture<SaleDto>();
@@ -70,7 +71,7 @@ namespace Cloudents.Query.Query
                     .Where(w => w.StudyRoom.Tutor.Id == query.Id)
                     .Select(s => new SessionSaleDto()
                     {
-                        PaymentStatus = string.IsNullOrEmpty(s.Receipt) ? "Pending" : "Paid",
+                        PaymentStatus = string.IsNullOrEmpty(s.Receipt) ? PaymentStatus.Pending : PaymentStatus.Paid,
                         Date = s.Created,
                         Price = s.Price,
                         StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name).FirstOrDefault(),

@@ -314,7 +314,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task UserSalesByIdQuery_Ok()
         {
-            var query = new UserSalesByIdQuery(159039L);
+            var query = new UserSalesByIdQuery(638L);
             _ = await fixture.QueryBus.QueryAsync(query, default);
         }
     }
