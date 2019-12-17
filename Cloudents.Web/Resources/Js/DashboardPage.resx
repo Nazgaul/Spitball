@@ -129,20 +129,14 @@
   <data name="date" xml:space="preserve">
     <value>Date</value>
   </data>
-  <data name="date_hour" xml:space="preserve">
-    <value>Hour and</value>
-  </data>
-  <data name="date_mins" xml:space="preserve">
-    <value>mins</value>
-  </data>
-  <data name="date_secs" xml:space="preserve">
-    <value>Seconds</value>
-  </data>
   <data name="document" xml:space="preserve">
     <value>Doc</value>
   </data>
   <data name="downloads" xml:space="preserve">
     <value>Downloads</value>
+  </data>
+  <data name="duration" xml:space="preserve">
+    <value>Duration:</value>
   </data>
   <data name="info" xml:space="preserve">
     <value>Info</value>

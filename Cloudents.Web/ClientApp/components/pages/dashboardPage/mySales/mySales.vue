@@ -21,7 +21,7 @@
                   <router-link :to="dynamicRouter(props.item)">
                      <template v-if="checkIsSession(props.item.type)">
                         <span  v-html="$Ph('dashboardPage_session',props.item.studentName)"/>
-                        <p>{{props.item.duration | sessionDuration}}</p>
+                        <p><span v-language:inner="'dashboardPage_duration'"/> {{props.item.duration | sessionDuration}}</p>
                      </template>
 
                      <template v-if="checkIsQuestuin(props.item.type)">
@@ -73,7 +73,7 @@ export default {
    data() {
       return {
          headers:[
-            {text: LanguageService.getValueByKey('dashboardPage_preview'), align:'left', sortable: false, value:'preview'},
+            {text: '', align:'left', sortable: false, value:'preview'},
             {text: LanguageService.getValueByKey('dashboardPage_info'), align:'left', sortable: false, value:'info'},
             {text: LanguageService.getValueByKey('dashboardPage_type'), align:'left', sortable: true, value:'type'},
             {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'status'},
