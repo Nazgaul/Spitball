@@ -21,8 +21,6 @@
                   <router-link :to="dynamicRouter(props.item)">
                      <template v-if="checkIsSession(props.item.type)">
                         <span  v-html="$Ph('dashboardPage_session',props.item.studentName)"/>
-                        <!-- <span>{{props.item.studentName}}</span> -->
-                        <!-- v-language:inner="'dashboardPage_session'" -->
                         <p>{{props.item.duration | sessionDuration}}</p>
                      </template>
 
