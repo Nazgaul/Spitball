@@ -56,6 +56,7 @@
             flex-direction: column;
         }
         .image-edit-text{
+            line-height: 1;
             font-size: 11px;
             color: @color-black;
         }

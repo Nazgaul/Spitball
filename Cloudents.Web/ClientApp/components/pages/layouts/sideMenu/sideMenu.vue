@@ -17,19 +17,19 @@
         <v-list class="sideMenu_list_cont" dense>
           <v-list-group active-class="''" :prepend-icon="'sbf-home-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="resetItems">
             <template v-slot:activator>
-              <v-list-item class="sideMenu_list" color="#69687d !important">
+              <v-list-item class="sideMenu_list">
                 <v-list-item-content>
                   <v-list-item-title>
                     <span class="sideMenu_list_title" v-language:inner="'schoolBlock_home'"/>
-                    </v-list-item-title>
+                  </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </template>
           </v-list-group>
 
-          <v-list-group v-model="dashboardModel" active-class="''" v-if="dashboardList" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu" color="#fff">
+          <v-list-group v-model="dashboardModel" active-class="''" v-if="dashboardList" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
             <template v-slot:activator>
-              <v-list-item class="sideMenu_list" color="#69687d !important">
+              <v-list-item class="sideMenu_list">
                 <v-list-item-content>
                   <v-list-item-title>
                     <span class="sideMenu_list_title" v-language:inner="'schoolBlock_dashboard'"/>
@@ -39,9 +39,9 @@
             </template>
             
                 <v-list-item class="group_list_sideMenu_dash" v-for="(item, index) in dashboardList" :key="index"
-                :to="{name: item.key}"
-                event
-                @click.native.prevent="getShowSchoolBlock ? goTo(item.key, item) : openSideMenu()" :sel="item.sel">
+                  :to="{name: item.key}"
+                  event
+                  @click.native.prevent="getShowSchoolBlock ? goTo(item.key, item) : openSideMenu()" :sel="item.sel">
                   <v-list-item-content> 
                     <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker(item.key)}]">
                       <v-icon class="group_list_icon_dash" v-html="item.icon"/>
@@ -81,9 +81,9 @@
 
           </v-list-group>
           
-          <v-list-group :value="true" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu" color="#fff">
+          <v-list-group :value="true" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
             <template v-slot:activator>
-              <v-list-item class="sideMenu_list" color="#69687d !important">
+              <v-list-item class="sideMenu_list">
                 <v-list-item-content>
                   <v-list-item-title>
                     <span class="sideMenu_list_title" v-text="courseSelectText"/>

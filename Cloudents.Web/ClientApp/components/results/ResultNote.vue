@@ -37,6 +37,7 @@
         >
           <template v-slot:activator="{ on }">  
             <v-btn
+              class="menu-area-btn"
               :depressed="true"
               @click.native.stop.prevent="showReportOptions()"
               icon

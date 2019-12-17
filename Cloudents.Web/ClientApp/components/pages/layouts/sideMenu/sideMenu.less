@@ -44,31 +44,16 @@
       &:first-child {
         margin-top: 14px;
       }
+      i {
+        color: #717171 !important; // vuetify
+        font-size: 18px;
+      }
       .v-list__group__header__prepend-icon{
-        i:before{
-            color: #69687d !important;
-            font-size: 18px !important;
-        }
+        color: #69687d !important;
       }
       .v-list-item__icon:first-child {
         margin-right: 0;
       }
-      // .v-list__group__items{
-      //   .group_list_sideMenu_dash{
-      //     .v-list__tile{
-      //         &:hover{
-      //           background: rgba(0,0,0,.04);
-      //         }
-      //     }
-      //   }
-      //   .group_list_sideMenu_course{
-      //     .v-list__tile{
-      //       &:hover{
-      //         background: rgba(0,0,0,.04);
-      //       }
-      //     }
-      //   }
-      // }
       .sideMenu_list{
         .v-list__tile{
           padding-left: 0;
@@ -79,14 +64,13 @@
       }
 
       .group_list_sideMenu_dash{
+          color: #fff;
           background: none;
-        // a{
           padding: 0;
           padding-left: 28px;
           margin-left: 26px;
           border-left: solid 1px rgba(106, 105, 127, 0.26);
           background: none;
-        // }
         .group_list_titles_dash{
           .pts_svg{
             vertical-align: sub;
@@ -108,6 +92,7 @@
               font-weight: bold;
               color: #4c59ff ;
             }
+            
             .group_list_icon_dash{
               color: #4c59ff ;
             }
@@ -115,7 +100,9 @@
         }
       }
       .group_list_sideMenu_course{
+          color: #fff;
           min-height: 32px;
+          padding-left: 30px;
         a{
           padding: 0;
           margin-left: 32px;
@@ -132,7 +119,7 @@
             font-size: 14px;
             color: #43425d;
             &.padding_current_course{
-              padding-left: 12px;
+              padding-left: 4px;
             }
           }
           .arrow_course{
