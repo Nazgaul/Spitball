@@ -44,8 +44,12 @@
       &:first-child {
         margin-top: 14px;
       }
+      .v-list-group__header__prepend-icon {
+        i {
+          color: rgba(0, 0, 0, 0.54);
+        }
+      }
       i {
-        color: #717171 !important; // vuetify
         font-size: 18px;
       }
       .v-list__group__header__prepend-icon{
@@ -102,7 +106,7 @@
       .group_list_sideMenu_course{
           color: #fff;
           min-height: 32px;
-          padding-left: 30px;
+          padding-left: 40px;
         a{
           padding: 0;
           margin-left: 32px;
@@ -114,7 +118,9 @@
           padding-right: 5px;
           &.active_link_course{
             font-weight: bold;
-    
+            svg {
+              overflow: visible;
+            }
           }
           .group_list_title_course{
             font-size: 14px;
@@ -136,7 +142,7 @@
         font-weight: 600;
       }
       .v-list-group__items {
-        padding-left: 10px;
+        // padding-left: 10px;
       }
     }
   }

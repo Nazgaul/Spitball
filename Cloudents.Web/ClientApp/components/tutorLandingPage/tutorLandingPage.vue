@@ -7,7 +7,7 @@
             <v-flex pb-4>
                 <h2 v-language:inner="'tutorListLanding_header_find_tutors'"></h2>
             </v-flex>
-            <v-flex :class="{'pb-4': !isMobile}">
+            <v-flex :class="{'pb-6': !isMobile}">
                 <h3><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3>
             </v-flex>
         </v-layout>
@@ -38,7 +38,7 @@
                     :next-icon="`sbf-arrow-right-carousel`"
                     :prev-icon="`sbf-arrow-left-carousel`"/>
         </div>
-        <v-layout align-center py-5 justify-space-around class="tutor-landing-status-row">
+        <v-layout align-center py-12 justify-space-around class="tutor-landing-status-row">
             <span class="hidden-xs-only"><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></span>
             <span class="hidden-xs-only" v-language:inner="'tutorListLanding_courses'"></span>
             <span v-language:inner="'tutorListLanding_tutors'"></span>

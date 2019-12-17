@@ -100,7 +100,7 @@
                   <v-list-item-content>
                     <v-list-item-title :class="['group_list_titles_course',{'active_link_course': currentCourseChecker(item)}]">
                       <arrowSVG v-if="currentCourseChecker(item)" class="arrow_course"/>
-                      <div :class="['group_list_title_course text-truncate',currentCourseChecker(item)? 'padding_current_course':'ml-4']" v-text="item.text ? item.text : item"/>
+                      <span :class="['group_list_title_course text-truncate',currentCourseChecker(item)? 'padding_current_course':'ml-4']" v-text="item.text ? item.text : item"/>
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
