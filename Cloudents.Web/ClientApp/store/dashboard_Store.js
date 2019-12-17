@@ -18,7 +18,14 @@ const mutations = {
             item.price = newPrice;
          }
       })
-   }
+   },
+   dashboard_updateName(state,{newName,itemId}){
+      state.contentItems.map(item =>{
+         if(item.id === itemId){
+            item.name = newName;
+         }
+      })
+   },
 }
 
 const getters = {

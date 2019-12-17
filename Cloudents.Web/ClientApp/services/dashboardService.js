@@ -1,9 +1,4 @@
 import { connectivityModule } from "./connectivity.module";
-
-function DefaultItem(objInit){
-   this.type = objInit.type;
-   this.date = objInit.date;
-}
 function SalesItem(objInit){
    return Object.assign(
       new DefaultItem(objInit),
@@ -24,25 +19,52 @@ function SalesItem(objInit){
       }
    )
 }
+function DefaultItem(objInit){
+   this.type = objInit.type;
+   this.date = objInit.date;
+}
+const Item = {
+   Default:function(objInit){
+      this.type = objInit.type;
+      this.date = objInit.date;
+      this.course = objInit.course;
+   },
+   Document:function(objInit){
+      this.name = objInit.name;
+      this.price = objInit.price;
+      this.views = objInit.views;
+      this.likes = objInit.likes;
+      this.downloads = objInit.downloads;
+      this.purchased = objInit.purchased;
+      this.preview = objInit.preview;
+      this.url = objInit.url;
+      this.id = objInit.id;
+   },
+   Question:function(objInit){
+      this.id = objInit.questionId || objInit.id;
+      this.text = objInit.text || objInit.questionText;
+      this.answerText = objInit.answerText || '';
+   }
+}
+
+
+
+function _itemTypeChcker(type){
+   if(type === 'Document' || type === 'Video'){
+      return 'Document';
+   }
+   if(type === 'Question' || type === 'Answer'){
+      return 'Question';
+   }
+}
+
+
+
 
 function ContentItem(objInit){
    return Object.assign(
-      new DefaultItem(objInit),
-      {
-         preview: objInit.preview || '',
-         likes: objInit.likes,
-         views: objInit.views,
-         downloads: objInit.downloads,
-         purchased: objInit.purchased,
-         price: objInit.price,
-         url: objInit.url,
-         text: objInit.text || '',
-         answerText: objInit.answerText || '',
-         course: objInit.course || '',
-         name: objInit.name,
-         id: objInit.id || null,
-         // state: objInit.state,
-      }
+      new Item.Default(objInit),
+      new Item[_itemTypeChcker(objInit.type)](objInit)
    )
 }
 
