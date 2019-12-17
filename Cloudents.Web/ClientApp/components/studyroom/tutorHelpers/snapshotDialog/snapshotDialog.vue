@@ -13,15 +13,21 @@
                 <span v-language:inner="'tutor_take_snapshot_message'"></span>
             </v-flex>
             <v-flex v-show="!noCameraError" xs12 style="text-align: center;" class="pt-2">
-               <video autoplay="true" id="videoElement"></video>
-               <canvas id="snapshot" width=800 height=600 style="display:none;"></canvas>
+               <video autoplay="true" id="videoElement" style="width:640px; height:480px"></video>
+               <div id="snapshot-container" :style="{width: width +'px', height: height+'px', display:'none'}"></div>
             </v-flex>
             <v-flex v-show="noCameraError" xs12 style="text-align: center;" class="pt-2">
                <span v-language:inner="'tutor_take_snapshot_error'"></span>
             </v-flex>
             <v-flex xs12 class="pt-4">
+                <!-- <input type="text" v-model="width">
+                <input type="text" v-model="height"> -->
+                <!-- <input type="text" v-model="scale"> -->
+            </v-flex>
+            <v-flex xs12 class="pt-4">
                 <v-btn class="accept-consent-btn elevation-0 align-center justify-center" @click="takeSnapshot()">
-                    <span class="text-capitalize" v-language:inner="'tutor_take_snapshot_btn'"></span>
+                    <span class="text-capitalize">{{snapshotBtnText}}</span>
+                    <span class="text-capitalize" v-show="timerCountdown">&nbsp;({{timerCountdown}})</span>
                 </v-btn>
             </v-flex>
         </v-layout>
@@ -37,28 +43,62 @@
         data() {
             return {
                 noCameraError: false,
+                width: 800,
+                height: 600,
+                scale: 1,
+                snapshotBtnText: LanguageService.getValueByKey('tutor_take_snapshot_btn'),
+                timerCountdown: null,
             };
         },
         methods: {
             ...mapActions(['setSnapshotDialog']),
             drawImageToCanvas(){
-                let context = document.getElementById("snapshot").getContext('2d');
+                let oldCanvas = document.getElementById("snapshot");
+                if(oldCanvas){
+                    oldCanvas.remove();
+                }
+                let canvasContainer = document.getElementById("snapshot-container");
+                let canvasElm = document.createElement('canvas');
+                canvasElm.width = this.width * Number(this.scale);
+                canvasElm.height = this.height * Number(this.scale);
+                canvasElm.id = "snapshot";
+                canvasContainer.appendChild(canvasElm);
+                let context = canvasElm.getContext('2d');
                 let player = document.getElementById("videoElement");
-                context.drawImage(player, 0, 0, 800, 600);
+                let hRatio = canvasElm.width / 640;
+                let vRatio = canvasElm.height / 480;
+                let ratio  = Math.min ( hRatio, vRatio );
+                context.drawImage(player, 0, 0, 640, 480, 0, 0, 640*ratio, 480*ratio);
             },
-            downloadImg(){
+            downloadImg(blob){
                 let a = document.createElement("a");
                 document.body.appendChild(a);
                 a.style = "display: none";
-                let context = document.getElementById("snapshot").getContext('2d');
-                let url = context.canvas.toDataURL("image/png");
+                let url = URL.createObjectURL(blob)
                 a.href = url;
                 a.download = 'img.png';
                 a.click();
             },
+            getUrlFromBlob(){
+                let context = document.getElementById("snapshot").getContext('2d');
+                let blob = context.canvas.toBlob(this.downloadImg, "image/png");
+            },
+            startInterval() {
+                let timeleft = 3;
+                this.timerCountdown = timeleft;
+                let downloadTimer = setInterval(()=>{
+                timeleft--;
+                this.timerCountdown = timeleft;
+                if(timeleft <= 0){
+                    clearInterval(downloadTimer);
+                    this.timerCountdown = null;
+                    this.drawImageToCanvas();
+                    this.getUrlFromBlob();
+                }
+                },1000);
+            },
             takeSnapshot() {
-                this.drawImageToCanvas();
-                this.downloadImg();
+                this.startInterval();                     
             },
             closeDialog() {
                 this.setSnapshotDialog(false);
@@ -70,8 +110,8 @@
                 }catch(err){
                     return null;
                 }
-                }
-            },
+            }
+        },
         async mounted(){
             let video = document.querySelector("#videoElement");
             let stream = await this.getUserMedia();

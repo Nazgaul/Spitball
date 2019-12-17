@@ -163,7 +163,7 @@
                         <v-icon style="margin-top: 5px;">sbf-close</v-icon>
                     </button>
                 </template>
-                <span v-language:inner>tutor_tooltip_clearAll</span>
+                <span v-language:inner>tutor_tooltip_takeSnapshot</span>
             </v-tooltip>
         </div>
 </template>
