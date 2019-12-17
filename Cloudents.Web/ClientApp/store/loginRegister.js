@@ -350,7 +350,7 @@ const actions = {
                         _analytics(['Login', 'Start']);
                         global.isAuth = true;
                         global.country = response.data.country;
-                        let url = state.toUrl || defaultSubmitRoute;
+                        let url = !!state.toUrl.path ? state.toUrl : defaultSubmitRoute;
                         router.push({ path: `${url.path}` });
                     },error =>{
                         commit('setGlobalLoading',false);
