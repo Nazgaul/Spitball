@@ -134,7 +134,7 @@ export default {
    methods: {
       ...mapActions(['updateContentItems']),
       checkIsQuestuin(prop){
-         return prop === 'Question';
+         return prop === 'Question' || prop === 'Answer';
       },
       formatItemPrice(price,type){
          if(type !== 'Question' && type !== 'Answer'){
