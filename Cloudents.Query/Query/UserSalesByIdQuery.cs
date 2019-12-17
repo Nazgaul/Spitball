@@ -42,8 +42,8 @@ namespace Cloudents.Query.Query
                         Name = s.Document.Name,
                         Course = s.Document.Course.Id,
                         Type = s.Document.DocumentType != null ? 
-                            (DtoType)s.Document.DocumentType :
-                            DtoType.Document,
+                            (ContentType)s.Document.DocumentType :
+                            ContentType.Document,
                         Date = s.Created,
                         Price = s.Price
                     }).ToFuture<SaleDto>();
