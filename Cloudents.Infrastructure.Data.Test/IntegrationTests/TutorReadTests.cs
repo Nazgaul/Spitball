@@ -1,4 +1,5 @@
-﻿using Cloudents.Query.Tutor;
+﻿using System.Linq;
+using Cloudents.Query.Tutor;
 using FluentAssertions;
 using System.Threading.Tasks;
 using Xunit;
@@ -46,15 +47,24 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new TutorListQuery(userId, country, page);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNull();
-            //cant do this check because userid give country null
-            //foreach (var tutorCardDto in result)
-            //{
-            //    tutorCardDto.TutorCountry.Should().BeEquivalentTo(country);
-            //}
-
-
-
+            result.Count.Should().BeGreaterThan(0);
         }
+
+        [Fact]
+
+        public async Task TutorListQuery_PageCountOk()
+        {
+            var query = new TutorListQuery(0, "IL",0,int.MaxValue);
+            var result = await _fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNull();
+            var count = result.Count;
+            result.Count.Should().Be(result.Result.Count());
+
+            var query2 = new TutorListQuery(0, "IL", 0, 20);
+            var result2 = await _fixture.QueryBus.QueryAsync(query2, default);
+            result2.Count.Should().Be(count);
+        }
+
 
 
 

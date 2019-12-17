@@ -40,7 +40,7 @@
           
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>  
             
-            <v-btn flat icon @click="toggleRecord" v-if="isRecordingSupported">
+            <v-btn flat icon @click="toggleRecord">
               <v-icon v-if="!getIsRecording" class="white-btn">sbf-begain-recording</v-icon>
               <v-icon v-else class="white-btn">sbf-stop-recording</v-icon>
             </v-btn>
@@ -210,6 +210,18 @@
       >
         <errorWithAudioRecording></errorWithAudioRecording>
       </sb-dialog>
+
+      <sb-dialog
+        :showDialog="getShowUserConsentDialog"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'userConsentDialog'"
+        :maxWidth="'356'"
+        :onclosefn="closeUserConsentDialog"
+        :isPersistent="$vuetify.breakpoint.smAndUp"
+        :content-class="'user-consent-dialog'"
+      >
+          <studentConsentDialog></studentConsentDialog>
+      </sb-dialog>
     </div>
   </v-layout>
 </template>
@@ -248,6 +260,7 @@ import paymentDialog from './tutorHelpers/paymentDIalog/paymentDIalog.vue'
 import intercomSVG from './images/icon-1-2.svg'
 import studyRoomRecordingService from './studyRoomRecordingService.js';
 import errorWithAudioRecording from './tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
+import studentConsentDialog from './tutorHelpers/studentConsentDialog/studentConsentDialog.vue';
 
 //store
 import storeService from "../../services/store/storeService";
@@ -285,7 +298,8 @@ export default {
     paymentDialog,
     codeEditorTools,
     intercomSVG,
-    errorWithAudioRecording
+    errorWithAudioRecording,
+    studentConsentDialog
   },
   name: "tutor",
   data() {
@@ -350,7 +364,8 @@ export default {
       "getRecorderStream",
       "getIsRecording",
       "getShowAudioRecordingError",
-      "getVisitedSettingPage"      
+      "getVisitedSettingPage",
+      "getShowUserConsentDialog"      
     ]),
     activeItem() {
       return this.activeNavItem;
@@ -393,9 +408,6 @@ export default {
     isCodeEditorActive(){
       return this.activeItem === "code-editor"
     },
-    isRecordingSupported(){
-      return tutorService.isRecordingSupported();
-    }
   },
 
 watch: {
@@ -431,6 +443,7 @@ watch: {
       "UPDATE_SEARCH_LOADING",
       "setShowAudioRecordingError",
       "hideRoomToasterMessage",
+      "setShowUserConsentDialog",
     ]),
     // ...mapGetters(['getDevicesObj']),
     closeFullScreen(e){
@@ -591,10 +604,11 @@ watch: {
       }
     },
     toggleRecord(){
-      studyRoomRecordingService.toggleRecord();
-    
+      studyRoomRecordingService.toggleRecord(this.isTutor);
+    },
+    closeUserConsentDialog(){
+      this.setShowUserConsentDialog(false);
     }
-
   },
   mounted() {
     document.addEventListener("fullscreenchange",this.closeFullScreen);

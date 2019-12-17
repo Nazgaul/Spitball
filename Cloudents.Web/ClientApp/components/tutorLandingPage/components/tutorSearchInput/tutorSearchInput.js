@@ -35,7 +35,7 @@ export default {
         search(text) {
             if(!!text){
                 this.msg = text;
-            }else {
+            }else if(!this.msg) {
                 this.msg = '';
             }
             if(!!this.msg){

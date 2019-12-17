@@ -273,19 +273,26 @@ export default {
             .striked {
                 margin: 0 0 0 auto;
                 max-width: max-content;
-                position: relative;
                 color: #a0a4be;
                 font-size: 14px;
-                &:after {
-                    content: "";
-                    width: 100%;
-                    border-bottom: solid 1px #a0a4be;
-                    position: absolute;
-                    left: -2px;
-                    top: 50%;
-                    z-index: 1;
-                }
+                text-decoration: line-through;
             }
+            // .striked {
+            //     margin: 0 0 0 auto;
+            //     max-width: max-content;
+            //     position: relative;
+            //     color: #a0a4be;
+            //     font-size: 14px;
+            //     &:after {
+            //         content: "";
+            //         width: 100%;
+            //         border-bottom: solid 1px #a0a4be;
+            //         position: absolute;
+            //         left: -2px;
+            //         top: 50%;
+            //         z-index: 1;
+            //     }
+            // }
         }
         }
     }

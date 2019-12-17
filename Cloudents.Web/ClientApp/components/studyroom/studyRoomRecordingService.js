@@ -196,9 +196,13 @@ function stopRecord(cancelled){
   }
 }
 
-async function toggleRecord(){
+async function toggleRecord(isTutor){
     if(!store.getters.getIsRecording){
-      activateRecord();
+      if(isTutor){
+        store.dispatch('setShowUserConsentDialog', true);
+      }else{
+        activateRecord();
+      }
     }else{
       stopRecord();
     }
@@ -207,5 +211,6 @@ async function toggleRecord(){
     toggleRecord,
     stopRecord,
     createRemoteAudioStream,
-    createCombinedMediaStreams
+    createCombinedMediaStreams,
+    activateRecord
   }

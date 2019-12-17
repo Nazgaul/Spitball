@@ -46,6 +46,7 @@ const state = {
     DevicesObject: tutorService.createDevicesObj(),
     sessionTimeStart: null,
     sessionTimeEnd: null,
+    showUserConsentDialog: false,
     
 };
 const getters = {
@@ -78,6 +79,7 @@ const getters = {
     getStudentDialogState: state => state.studentDialogState,
     getSessionTimeStart: state => state.sessionTimeStart,
     getSessionTimeEnd: state => state.sessionTimeEnd,
+    getShowUserConsentDialog: state => state.showUserConsentDialog,
 };
 
 const mutations = {
@@ -171,6 +173,9 @@ const mutations = {
     },
     setSessionTimeEnd(state, val){
         state.sessionTimeEnd = val;
+    },
+    setShowUserConsentDialog(state, val){
+        state.showUserConsentDialog = val;
     },
 };
 
@@ -396,6 +401,9 @@ const actions = {
     },
     setSessionTimeEnd({commit}){
         commit('setSessionTimeEnd', Date.now());
+    },
+    setShowUserConsentDialog({commit}, val){
+        commit('setShowUserConsentDialog', val);
     },
 };
 export default {
