@@ -49,24 +49,23 @@ const Item = {
 
 
 
-
+function _itemTypeChcker(type){
+   if(type === 'Document' || type === 'Video'){
+      return 'Document';
+   }
+   if(type === 'Question' || type === 'Answer'){
+      return 'Question';
+   }
+}
 
 
 
 
 function ContentItem(objInit){
-   if(objInit.type === 'Document' || objInit.type === 'Video'){
-      return Object.assign(
-         new Item.Default(objInit),
-         new Item.Document(objInit)
-      )
-   }
-   if(objInit.type === 'Question' || objInit.type === 'Answer'){
-      return Object.assign(
-         new Item.Default(objInit),
-         new Item.Question(objInit),
-      )
-   }
+   return Object.assign(
+      new Item.Default(objInit),
+      new Item[_itemTypeChcker(objInit.type)](objInit)
+   )
 }
 
 function createSalesItems({data}) {

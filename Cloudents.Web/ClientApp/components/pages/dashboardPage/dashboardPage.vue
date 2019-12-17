@@ -3,6 +3,7 @@
       <component :dictionary="dictionary" :globalFunctions="globalFunctions" :is="currentComponentByRoute"/>
       <sb-dialog 
          :showDialog="isDialog"
+         :isPersistent="true"
          :popUpType="'dashboardDialog'"
          :onclosefn="closeDialog"
          :activateOverlay="true"
@@ -137,7 +138,8 @@ export default {
    padding-right: 30px;
    // max-width: 1150px;
 	@media (max-width: @screen-xs) {
-		padding-left: 0;
+      padding-left: 6px;
+      padding-right: 6px;
       width: 100%;
       height: 100%;
    }

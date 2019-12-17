@@ -65,8 +65,8 @@
                      <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
 
                      <v-list v-if="props.index == currentItemIndex">
-                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog(['rename',props.item])" v-html="rename"/>
-                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog(['changePrice',props.item])" v-html="changePrice"/>
+                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog(['rename',props.item])">{{rename}}</v-list-tile>
+                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog(['changePrice',props.item])">{{changePrice}}</v-list-tile>
                      </v-list>
                   </v-menu>
                </td>
