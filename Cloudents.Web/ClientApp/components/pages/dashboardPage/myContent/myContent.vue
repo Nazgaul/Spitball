@@ -72,11 +72,15 @@
                </td>
             </template>
 
-         <template slot="pageText" slot-scope="item">
+         <!-- <template slot="pageText" slot-scope="item"> -->
+            <tableFooter slot="pageText" slot-scope="item" :item="item"/>
+         <!-- </template> -->
+
+         <!-- <template slot="pageText" slot-scope="item">
             <span class="myContent_footer">
             {{item.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
             </span>
-         </template>
+         </template> -->
 
       </v-data-table>
    </div>
@@ -85,8 +89,10 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from '../../../../services/language/languageService';
+import tableFooter from '../components/tableFooter.vue';
 
 export default {
+   components:{tableFooter},
    name:'myContent',
    props:{
       globalFunctions: {

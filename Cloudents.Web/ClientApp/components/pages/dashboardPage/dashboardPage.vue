@@ -18,6 +18,7 @@
 <script>
 import mySales from './mySales/mySales.vue';
 import myContent from './myContent/myContent.vue';
+import myPurchases from './myPurchases/myPurchases.vue';
 
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
@@ -63,6 +64,8 @@ export default {
    components:{
       mySales,
       myContent,
+      myPurchases,
+
       changeNameDialog,
       changePriceDialog,
       sbDialog
@@ -75,12 +78,12 @@ export default {
    methods: {
       closeDialog() {
          this.currentDialog = '';
-         this.dialogData = ''
+         this.dialogData = '';
          this.isDialog = false;
       },
       openDialog(args){
          this.currentDialog = args[0];
-         this.dialogData = args[1]
+         this.dialogData = args[1];
          this.isDialog = true;
       },
       dynamicRouter(item){

@@ -153,6 +153,9 @@
   <data name="my_content_title" xml:space="preserve">
     <value>My Content</value>
   </data>
+  <data name="my_purchases_title" xml:space="preserve">
+    <value>My Purchases</value>
+  </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>My Sales</value>
   </data>

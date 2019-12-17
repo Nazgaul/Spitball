@@ -347,10 +347,11 @@ let routes2 = [
         alias: [
             '/my-sales',
             '/my-content',
+            '/my-purchases',
             
             
             
-            // '/my-calendar','/my-purchases','/my-followers'
+            // '/my-calendar',,'/my-followers'
         ],
         components: {
             default: dashboardPage,

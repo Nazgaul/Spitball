@@ -1,4 +1,13 @@
 import { connectivityModule } from "./connectivity.module";
+function _itemTypeChcker(type){
+   if(type === 'Document' || type === 'Video'){
+      return 'Document';
+   }
+   if(type === 'Question' || type === 'Answer'){
+      return 'Question';
+   }
+}
+
 function SalesItem(objInit){
    return Object.assign(
       new DefaultItem(objInit),
@@ -47,25 +56,14 @@ const Item = {
    }
 }
 
-
-
-function _itemTypeChcker(type){
-   if(type === 'Document' || type === 'Video'){
-      return 'Document';
-   }
-   if(type === 'Question' || type === 'Answer'){
-      return 'Question';
-   }
-}
-
-
-
-
 function ContentItem(objInit){
    return Object.assign(
       new Item.Default(objInit),
       new Item[_itemTypeChcker(objInit.type)](objInit)
    )
+}
+function PurchasesItem(objInit){
+   
 }
 
 function createSalesItems({data}) {
@@ -75,8 +73,13 @@ function createSalesItems({data}) {
 }
 function createContentItems({data}) {
    let contentItems = [];
-   data.forEach(item => contentItems.push(new ContentItem(item)));
+   data.map(item => contentItems.push(new ContentItem(item)));
    return contentItems;
+}
+function createPurchasesItems({data}) {
+   let purchasesItems = [];
+   data.map(item => purchasesItems.push(new PurchasesItem(item)));
+   return purchasesItems;
 }
 
 function getSalesItems(){
@@ -85,8 +88,12 @@ function getSalesItems(){
 function getContentItems(){
    return connectivityModule.http.get('/Account/content').then(createContentItems).catch(ex => ex)
 }
+function getPurchasesItems(){
+   return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex)
+}
 
 export default {
    getSalesItems,
-   getContentItems
+   getContentItems,
+   getPurchasesItems,
 }

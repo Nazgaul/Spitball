@@ -1,136 +1,198 @@
 <template>
-	<v-layout column class="myPurchases">
-		<h1>My Purchases</h1>
-		<v-layout row wrap justify-end class="myPurchases_filters">
-			<v-btn class="black--text" color="none" @click="reset" icon><v-icon>sbf-clearAll-icon</v-icon></v-btn>
-			<v-flex sm2 xs12 :class="[{'mr-3':!isMobile}]">
-				<v-select :append-icon="'sbf-arrow-down'" :items="['Video','Doc','Sessions','All']" v-model="filter" label="Type" outline/>
-			</v-flex>
-			<v-flex sm2 xs12 :class="[{'mr-3':!isMobile}]">
-				<v-select :append-icon="'sbf-arrow-down'" :items="['Date','Price']" v-model="sort" label="Sort" outline/>
-			</v-flex>
-			<v-flex sm3 xs12>
-				<v-text-field v-model="search" placeholder="Placeholder"/>
-			</v-flex>
-		</v-layout>
-		<v-flex xs12 class="myPurchases_table">
-			<v-data-table
-				:headers="headers"
-				:items="dataFilteredAndSorted"
-				 disable-initial-sort
-				class="elevation-1"
-				:prev-icon="'sbf-arrow-left-carousel'"
-				:sort-icon="'sbf-arrow-down'"
-				:next-icon="'sbf-arrow-right-carousel'">
-				<template v-slot:items="props">
-					<td class="myPurchases_td_img">
-						<img :src="require(`${props.item.preview}`)" alt="">
-					</td>
-					<td class="text-xs-left">
-						<div>
-							<span>{{ props.item.info }}</span>
-							<p>Course: sdafsfsd</p>
-						</div>
-					</td>
-					<td class="text-xs-left">{{ props.item.type }}</td>
-					<td class="text-xs-left">{{ props.item.status }}</td>
-					<td class="text-xs-left">{{ props.item.price }}</td>
-					<td class="text-xs-left">{{ props.item.date }}</td>
-					<td class="text-xs-center">
-						<v-btn depressed round color="primary">{{props.item.type === 'Video'?'Watch':'Download'}}</v-btn>
-					</td>
-				</template>
-			</v-data-table>
-		</v-flex>
-	</v-layout>
+	<div class="myPurchases">
+      <div class="myPurchases_title" v-language:inner="'dashboardPage_my_purchases_title'"/>
+		<v-data-table v-if="purchasesItems.length"
+            :headers="headers"
+            :items="purchasesItems"
+            disable-initial-sort
+            :item-key="'date'"
+            :rows-per-page-items="['5']"
+            class="elevation-1 myPurchases_table"
+            :prev-icon="'sbf-arrow-left-carousel'"
+            :sort-icon="'sbf-arrow-down'"
+            :next-icon="'sbf-arrow-right-carousel'">
+         <template slot="headers" slot-scope="props">
+            <tr>
+               <th class="text-xs-left"
+                  v-for="header in props.headers"
+                  :key="header.text"
+                  :class="['column',{'sortable':header.sortable}]"
+                  @click="changeSort(header.value)">
+                  <span class="text-xs-left">{{ header.text }}
+                     <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
+                  </span>
+               </th>
+            </tr>
+         </template>
+            <template v-slot:items="props">
+               <td class="myPurchases_td_img">
+                  <router-link :to="globalFunctions.router(props.item)" class="myPurchases_td_img_img">
+                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)" :class="{'imgPreview_content':props.item.preview}">
+                  </router-link>
+               </td>
+               
+               <td class="text-xs-left myPurchases_td_course text-truncate">
+                  <router-link :to="globalFunctions.router(props.item)">
+                     <template v-if="checkIsQuestuin(props.item.type)">
+                        <div class="text-truncate">
+                           <span v-language:inner="'dashboardPage_questuin'"/>
+                           <span class="text-truncate">{{props.item.text}}</span>
+                        </div>
+                        <div class="text-truncate" v-if="props.item.answerText">
+                           <span v-language:inner="'dashboardPage_answer'"/>
+                           <span>{{props.item.answerText}}</span>
+                        </div>
+                     </template>
+
+                     <template v-else>
+                        <span>{{props.item.name}}</span>
+                     </template>
+                        <div class="text-truncate">
+                           <span v-language:inner="'dashboardPage_course'"></span>
+                           <span>{{props.item.course}}</span>
+                        </div>
+                  </router-link>
+               </td>
+               <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
+               <td class="text-xs-left">{{props.item.likes}}</td>
+               <td class="text-xs-left">{{props.item.views}}</td>
+               <td class="text-xs-left">{{props.item.downloads}}</td>
+               <td class="text-xs-left">{{props.item.purchased}}</td>
+               <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
+               <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
+               <td v-if="!checkIsQuestuin(props.item.type)" class="text-xs-center">
+                  <v-menu lazy bottom right v-model="showMenu">
+                     <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
+
+                     <v-list v-if="props.index == currentItemIndex">
+                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog(['rename',props.item])">{{rename}}</v-list-tile>
+                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog(['changePrice',props.item])">{{changePrice}}</v-list-tile>
+                     </v-list>
+                  </v-menu>
+               </td>
+            </template>
+
+			<tableFooter/>
+         <!-- <template slot="pageText" slot-scope="item">
+            <span class="myPurchases_footer">
+            {{item.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
+            </span>
+         </template> -->
+
+      </v-data-table>
+	</div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
-   name:'myPurchases',
-   data() {
-      return {
-			search:'',
-			filter:'',
-			sort:'',
-         fakeData: [
-				{preview:'./Desktop.png',info:'maor',type:'Doc',status:'bla',price:1,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'ram',type:'Video',status:'bla',price:38,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'gab',type:'Doc',status:'bla',price:2,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'elad',type:'Video',status:'bla',price:39,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'hadar',type:'Video',status:'bla',price:3,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'idan2',type:'Doc',status:'bla',price:40,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'idan2',type:'Tutor Session',status:'bla',price:40,date:'1/5/19'},
-			],
-			fakeDataCopy:[
-				{preview:'./Desktop.png',info:'maor',type:'Doc',status:'bla',price:1,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'ram',type:'Video',status:'bla',price:38,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'gab',type:'Doc',status:'bla',price:2,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'elad',type:'Video',status:'bla',price:39,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'hadar',type:'Video',status:'bla',price:3,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'idan2',type:'Doc',status:'bla',price:40,date:'1/5/19'},
-			],
-			 headers: [
-				 {text:'Preview',align:'left',sortable: false,value:'preview'},
-				 {text:'Info',align:'left',sortable: false,value:'info'},
-				 {text:'Type',align:'left',sortable: true,value:'type'},
-				 {text:'Status',align:'left',sortable: true,value:'status'},
-				 {text:'Price',align:'left',sortable: true,value:'price'},
-				 {text:'Date',align:'left',sortable: true,value:'date'},
-				 {text:'Action',align:'left',sortable: false,value:'action'},
-      	],
+	name:'myPurchases',
+	props:{
+      globalFunctions: {
+         type: Object,
+      },
+      dictionary:{
+         type: Object,
+         required: true
       }
-	},
-	methods: {
-		reset(){
-			this.fakeDataCopy = this.fakeData;
-			this.search = '';
-			this.sort = '';
-			this.filter = '';
+   },
+	data() {
+		return {
+			itemList:[],
+			sortedBy:'',
+			headers:[
+            this.dictionary.headers['preview'],
+            this.dictionary.headers['info'],
+            this.dictionary.headers['type'],
+            this.dictionary.headers['price'],
+            this.dictionary.headers['date'],
+            this.dictionary.headers['action'],
+         ],
 		}
 	},
 	computed: {
-		isMobile(){
-			return this.$vuetify.breakpoint.xsOnly;
-		},
-		dataFilteredAndSorted(){
-			let data = this.fakeData;
-
-			if(this.filter){
-				if(this.filter === 'All'){
-					data = this.fakeData;
-				}else{
-					data = data.filter(d=> d.type.includes(this.filter))
-				}
-			}
-			if(this.sort){
-				if(this.sort === 'Date'){
-					data = data.sort((a,b)=> a.date - b.date)
-				}else{
-					data = data.sort((a,b)=> a.price - b.price)
-				}
-			}
-			if(this.search){
-				data = data.filter(d => d.info.includes(this.search))
-			}
-			return data;
-		}
-	}
+		...mapGetters(['getPurchasesItems']),
+		purchasesItems:{
+         get(){
+            this.itemList = this.getPurchasesItems
+            return this.itemList;
+         },
+         set(val){
+            this.itemList = val
+         }
+      },
+	},
+	methods: {
+		...mapActions(['updatePurchasesItems']),
+      changeSort(sortBy){
+         let list = this.globalFunctions.sort(this.itemList,sortBy,this.sortedBy)
+         this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
+         return list;
+      }
+	},
+	created() {
+		// this.updatePurchasesItems()
+	},
 }
 </script>
 
 <style lang="less">
-@import '../../../../styles/mixin.less';
 .myPurchases{
-	.myPurchases_td_img{
-		padding-right: 0 !important;
-		width: 100px;
-		img{
-			height: 80px;
+	.myPurchases_title{
+		font-size: 22px;
+		color: #43425d;
+		font-weight: 600;
+		padding: 0 0 10px 2px;
+	}
+	.myPurchases_table{
+		.v-datatable{
+			tr{
+				height: auto;
+				th{
+					color: #43425d !important;
+					font-size: 14px;
+					padding-top: 14px;
+					padding-bottom: 14px;
+				}
+				
+			}
+			color: #43425d !important;
 		}
+		.myPurchases_footer{
+			font-size: 14px;
+			color: #43425d !important;
+		}
+		.myPurchases_td_img{
+			line-height: 0;
+			padding-right: 0 !important;
+			.myPurchases_td_img_img{
+				img{
+					margin: 10px 0;
+					&.imgPreview_content{
+						object-fit: none;
+						object-position: top;
+					}
+				}
+
+			}
+		}
+		.myPurchases_td_course {
+			a{
+				color: #43425d !important;
+			}
+			width: 300px;
+			max-width: 300px;
+			min-width: 300px;
+		}
+		.sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
+			transform: none /*rtl:rotate(180deg)*/;
+			color: #43425d !important;
+			height: inherit;
+			font-size: 14px;
+		}
+
 	}
 }
-
 </style>
 
 

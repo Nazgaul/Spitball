@@ -3,6 +3,7 @@ import dashboardService from '../services/dashboardService.js';
 const state = {
    salesItems: [],
    contentItems: [],
+   purchasesItems: [],
 }
 
 const mutations = {
@@ -11,6 +12,9 @@ const mutations = {
    },
    setContentItems(state,val) {
       state.contentItems = val;
+   },
+   setPurchasesItems(state,val) {
+      state.purchasesItems = val;
    },
    dashboard_updatePrice(state,{newPrice,itemId}){
       state.contentItems.map(item =>{
@@ -31,6 +35,7 @@ const mutations = {
 const getters = {
    getSalesItems: state => state.salesItems,
    getContentItems: state => state.contentItems,
+   getPurchasesItems: state => state.purchasesItems,
 }
 
 const actions = {
@@ -42,6 +47,11 @@ const actions = {
    updateContentItems({commit}){
       dashboardService.getContentItems().then(items=>{
          commit('setContentItems', items);
+      }) 
+   },
+   updatePurchasesItems({commit}){
+      dashboardService.getPurchasesItems().then(items=>{
+         commit('setPurchasesItems', items);
       }) 
    }
 }
