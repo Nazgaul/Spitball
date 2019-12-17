@@ -13,7 +13,7 @@
                 <span v-language:inner="'tutor_take_snapshot_message'"></span>
             </v-flex>
             <v-flex v-show="!noCameraError" xs12 style="text-align: center;" class="pt-2">
-               <video autoplay="true" id="videoElement" style="width:640px; height:480px"></video>
+               <video autoplay="true" id="videoElement" style="width:640px; height:480px;"></video>
                <div id="snapshot-container" :style="{width: width +'px', height: height+'px', display:'none'}"></div>
             </v-flex>
             <v-flex v-show="noCameraError" xs12 style="text-align: center;" class="pt-2">
