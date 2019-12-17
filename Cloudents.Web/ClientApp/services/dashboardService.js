@@ -48,14 +48,14 @@ const Item = {
 }
 
 
-
 function _itemTypeChcker(type){
-   if(type === 'Document' || type === 'Video'){
+   if(type.toLowerCase() === 'document' || type.toLowerCase() === 'video'){
       return 'Document';
    }
-   if(type === 'Question' || type === 'Answer'){
+   if(type.toLowerCase() === 'question' || type.toLowerCase() === 'answer'){
       return 'Question';
    }
+   return console.error('type:',type,'is not defined')
 }
 
 

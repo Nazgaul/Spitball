@@ -65,8 +65,8 @@
                      <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
 
                      <v-list v-if="props.index == currentItemIndex">
-                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog(['rename',props.item])">{{rename}}</v-list-tile>
-                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog(['changePrice',props.item])">{{changePrice}}</v-list-tile>
+                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog('rename',props.item)">{{rename}}</v-list-tile>
+                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog('changePrice',props.item)">{{changePrice}}</v-list-tile>
                      </v-list>
                   </v-menu>
                </td>
@@ -99,7 +99,6 @@ export default {
    },
    data() {
       return {
-         itemList:[],
          sortedBy:'',
          currentItemIndex:'',
          showMenu:false,
@@ -121,18 +120,12 @@ export default {
    },
    computed: {
       ...mapGetters(['getContentItems']),
-      contentItems:{
-         get(){
-            this.itemList = this.getContentItems
-            return this.itemList;
-         },
-         set(val){
-            this.itemList = val
-         }
+      contentItems(){
+         return this.getContentItems
       },
    },
    methods: {
-      ...mapActions(['updateContentItems']),
+      ...mapActions(['updateContentItems','dashboard_sort']),
       checkIsQuestuin(prop){
          return prop === 'Question' || prop === 'Answer';
       },
@@ -142,9 +135,13 @@ export default {
          }
       },
       changeSort(sortBy){
-         let list = this.globalFunctions.sort(this.itemList,sortBy,this.sortedBy)
+         let sortObj = {
+            listName: 'contentItems',
+            sortBy,
+            sortedBy: this.sortedBy
+         }
+         this.dashboard_sort(sortObj)
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
-         return list;
       }
    },
    created() {

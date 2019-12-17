@@ -1,6 +1,6 @@
 <template>
    <div class="dashboardPage">
-      <component :dictionary="dictionary" :globalFunctions="globalFunctions" :is="currentComponentByRoute"/>
+      <component :dictionary="dictionary" :globalFunctions="globalFunctions" :is="component"/>
       <sb-dialog 
          :showDialog="isDialog"
          :isPersistent="true"
@@ -26,6 +26,7 @@ import { LanguageService } from '../../../services/language/languageService';
 
 export default {
    name:'dashboardPage',
+   props:['component'],
    data() {
       return {
          currentDialog:'',
@@ -52,7 +53,6 @@ export default {
             }
          },
          globalFunctions:{
-            sort: this.sortFunction,
             openDialog: this.openDialog,
             formatImg: this.formatImg,
             formatPrice: this.formatPrice,
@@ -67,20 +67,15 @@ export default {
       changePriceDialog,
       sbDialog
    },
-   computed:{
-      currentComponentByRoute(){
-         return this.$route.path.slice(1);
-      }
-   },
    methods: {
       closeDialog() {
          this.currentDialog = '';
          this.dialogData = ''
          this.isDialog = false;
       },
-      openDialog(args){
-         this.currentDialog = args[0];
-         this.dialogData = args[1]
+      openDialog(dialogName,itemData){
+         this.currentDialog = dialogName;
+         this.dialogData = itemData;
          this.isDialog = true;
       },
       dynamicRouter(item){
@@ -102,27 +97,6 @@ export default {
       formatPrice(price,type){
          if(type !== 'Question' && type !== 'Answer'){
             return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
-         }
-      },
-      sortFunction(list,sortBy,sortedBy){
-         if(sortBy == 'date'){
-            if(sortedBy === sortBy){
-              return list.reverse()
-            }else{
-               return list.sort((a,b)=> new Date(b[sortBy]) - new Date(a[sortBy]))
-            }
-         }
-         if(sortedBy === sortBy){
-            return list.reverse()
-         }else{
-            return list = list.sort((a,b)=> {
-               if(a[sortBy] == undefined) return 1;
-               if(b[sortBy] == undefined) return -1;
-
-               if(a[sortBy] > b[sortBy])return -1;
-               if(b[sortBy] > a[sortBy])return 1;
-               return 0;
-            })
          }
       }
    }

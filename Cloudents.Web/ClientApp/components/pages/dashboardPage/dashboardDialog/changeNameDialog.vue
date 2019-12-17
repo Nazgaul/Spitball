@@ -5,7 +5,7 @@
            <h1>{{title}}</h1>
         </v-flex>
          <v-flex xs12>
-           <v-text-field v-model="name" :rules="[rules.required,rules.minimumChars,rules.maximumChars]"/>
+           <v-text-field v-model="editedName" :rules="[rules.required,rules.minimumChars,rules.maximumChars]"/>
         </v-flex>
         <v-flex xs12>
            <v-btn :disabled="!validationName" @click="submitNewName" color="success">done</v-btn>
@@ -18,7 +18,7 @@
 import { LanguageService } from '../../../../services/language/languageService';
 import documentService from '../../../../services/documentService.js';
 import { validationRules } from '../../../../services/utilities/formValidationRules';
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
    name: 'changeNameDialog',
@@ -26,7 +26,7 @@ export default {
    data() {
       return {
          validationName:false,
-         editedName:'',
+         editedName: this.dialogData.name,
          title:LanguageService.getValueByKey('dashboardPage_rename'),
          rules:{
             required: (value) => validationRules.required(value),
@@ -35,19 +35,8 @@ export default {
          }
       }
    },
-   computed: {
-      name:{
-         get(){
-            this.editedName = this.dialogData.name;
-            return this.dialogData.name;
-         },
-         set(val){
-            this.editedName = val;
-         }
-      }
-   },
    methods: {
-      ...mapMutations(['dashboard_updateName']),
+      ...mapActions(['dashboard_updateName']),
       submitNewName() {
          if(!this.validationName)return
          let data = { documentId: this.dialogData.id, name: this.editedName };

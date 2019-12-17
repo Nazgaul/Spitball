@@ -5,7 +5,7 @@
            <h1>{{title}}</h1>
         </v-flex>
          <v-flex xs4>       
-           <v-text-field v-model="price" :rules="[rules.integer,rules.maximum]"/>
+           <v-text-field v-model="editedPrice" :rules="[rules.integer,rules.maximum]"/>
         </v-flex>
         <v-flex xs12>
            <v-btn :disabled="!validationPrice" @click="submitNewPrice" color="success">done</v-btn>
@@ -19,14 +19,14 @@ import { LanguageService } from '../../../../services/language/languageService';
 import documentService from '../../../../services/documentService.js';
 import { validationRules } from '../../../../services/utilities/formValidationRules';
 
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
    name: 'changePriceDialog',
    props:['dialogData'],
    data() {
       return {
-         editedPrice:'',
+         editedPrice: this.dialogData.price,
          validationPrice:false,
          title:LanguageService.getValueByKey('resultNote_change_price'),
          rules:{
@@ -35,19 +35,8 @@ export default {
          }
       }
    },
-   computed: {
-      price:{
-         get(){
-            this.editedPrice = this.dialogData.price;
-            return this.dialogData.price;
-         },
-         set(val){
-            this.editedPrice = val;
-         }
-      }
-   },
    methods: {
-      ...mapMutations(['dashboard_updatePrice']),
+      ...mapActions(['dashboard_updatePrice']),
       submitNewPrice() {
          if(!this.validationPrice)return
 
