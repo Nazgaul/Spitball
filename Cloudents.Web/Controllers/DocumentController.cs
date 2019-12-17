@@ -7,7 +7,6 @@ using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Documents;
-using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
@@ -83,7 +82,7 @@ namespace Cloudents.Web.Controllers
             }
 
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new DocumentById(id,userId);
+            var query = new DocumentById(id, userId);
             var model = await _queryBus.QueryAsync(query, token);
             if (model == null)
             {
@@ -102,7 +101,7 @@ namespace Cloudents.Web.Controllers
         public async Task<IActionResult> OldDocumentLinkRedirect2(long id, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new DocumentById(id,userId);
+            var query = new DocumentById(id, userId);
 
             var model = await _queryBus.QueryAsync(query, token);
             if (model == null)
@@ -165,7 +164,7 @@ namespace Cloudents.Web.Controllers
             var query = new DocumentById(id, user);
             var tItem = _queryBus.QueryAsync(query, token);
             var tFiles = _blobProvider.FilesInDirectoryAsync("file-", id.ToString(), token);
-            
+
             await Task.WhenAll(tItem, tFiles);
 
             var item = tItem.Result;

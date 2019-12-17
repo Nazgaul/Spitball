@@ -22,13 +22,11 @@ namespace Cloudents.Web.Controllers
     {
         private readonly IStringLocalizer<ProfileController> _localizer;
         private readonly IQueryBus _queryBus;
-        private readonly IConfiguration _configuration;
 
-        public ProfileController(IStringLocalizer<ProfileController> localizer, IQueryBus queryBus, IConfiguration configuration)
+        public ProfileController(IStringLocalizer<ProfileController> localizer, IQueryBus queryBus)
         {
             _localizer = localizer;
             _queryBus = queryBus;
-            _configuration = configuration;
         }
 
         [Route("profile/{id:long}")]

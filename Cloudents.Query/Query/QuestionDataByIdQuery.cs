@@ -1,4 +1,13 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using NHibernate;
+using NHibernate.Linq;
 
 namespace Cloudents.Query.Query
 {
@@ -10,6 +19,68 @@ namespace Cloudents.Query.Query
             Id = id;
         }
 
-        public long Id { get; }
+        private long Id { get; }
+
+
+        internal sealed class QuestionDetailQueryHandler : IQueryHandler<QuestionDataByIdQuery, QuestionDetailDto>
+        {
+            private readonly IStatelessSession _session;
+
+            public QuestionDetailQueryHandler(QuerySession session)
+            {
+                _session = session.StatelessSession;
+            }
+
+
+            [Cache(TimeConst.Minute*10,"question-detail",false)]
+            public async Task<QuestionDetailDto> GetAsync(QuestionDataByIdQuery query, CancellationToken token)
+            {
+                var questionFuture = _session.Query<Question>()
+                    .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)
+                    .Fetch(f => f.User)
+                    .Select(s => new QuestionDetailDto
+                        {
+                            Id = s.Id,
+                            Course = s.Course.Id,
+                            Text = s.Text,
+                            Create = s.Updated,
+                            User = new QuestionUserDto()
+                            {
+                                Id = s.User.Id,
+                                Name = s.User.Name,
+                                Image = s.User.Image
+                            }
+                        }
+
+                    ).ToFutureValue();
+                var answersFuture = _session.Query<Answer>()
+                    .Where(w => w.Question.Id == query.Id && w.Status.State == ItemState.Ok)
+                    .Fetch(f => f.User)
+                    .OrderByDescending(x => x.Created)
+                    .Select(s => new QuestionDetailAnswerDto
+                    (
+                        s.Id,
+                        s.Text,
+                        new UserDto
+                        {
+                            Id = s.User.Id,
+                            Name = s.User.Name,
+                            Image = s.User.Image,
+                        },
+                        s.Created
+                    )).ToFuture();
+
+                var dto = await questionFuture.GetValueAsync(token);
+                if (dto == null)
+                {
+                    return null;
+                }
+
+                dto.Answers = answersFuture.GetEnumerable().ToList();
+                return dto;
+            }
+
+
+        }
     }
 }

@@ -14,11 +14,10 @@ namespace Cloudents.Core.DTOs
 
         public string Course { get; set; }
         public QuestionUserDto User { get; set; }
-        public IEnumerable<QuestionDetailAnswerDto> Answers { get; set; }
+        public IList<QuestionDetailAnswerDto> Answers { get; set; }
 
         public DateTime Create { get; set; }
 
-        public bool IsRtl { get; set; }
     }
 
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
