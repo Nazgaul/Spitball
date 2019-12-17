@@ -1,7 +1,7 @@
 ﻿const path = require("path");
 const webpack = require("webpack");
 const bundleOutputDir = "./wwwroot/dist";
-const MiniCssExtractPlugin = require("mini-css-extract-plugin-with-rtl");
+const MiniCssExtractPluginRtl = require("mini-css-extract-plugin-with-rtl");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const webpackRtlPlugin = require("webpack-rtl-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
@@ -81,7 +81,12 @@ module.exports = (env) => {
                 {
                     test: /\.font\.js/,
                     use: [
-                        'css-loader',
+                        {
+                            loader: MiniCssExtractPluginRtl.loader,
+                        },
+                        {
+                            loader: 'css-loader',
+                        },
                         {
                             loader: 'webfonts-loader',
                             options: {
@@ -102,7 +107,7 @@ module.exports = (env) => {
                     use: 
                         isDevBuild ? ['vue-style-loader','rtl-css-loader']
                              :
-                        [MiniCssExtractPlugin.loader,'css-loader']
+                        [MiniCssExtractPluginRtl.loader,'css-loader']
                         //{
                         //    loader: MiniCssExtractPlugin.loader,
                         //    options: {
@@ -123,7 +128,7 @@ module.exports = (env) => {
                         :
                         [
                             {
-                                loader: MiniCssExtractPlugin.loader,
+                                loader: MiniCssExtractPluginRtl.loader,
                                 options: {
                                     publicPath: '/dist/'
                                 }
@@ -143,7 +148,7 @@ module.exports = (env) => {
                         :
                         [
                             {
-                                loader: MiniCssExtractPlugin.loader,
+                                loader: MiniCssExtractPluginRtl.loader,
                                 options: {
                                     publicPath: '/dist/'
                                 }
@@ -213,6 +218,14 @@ module.exports = (env) => {
             //     // ReSharper disable once JsPathNotFound
             //     manifest: require("./wwwroot/dist/vendor-manifest.json")
             // }),
+            new MiniCssExtractPluginRtl({
+                filename: "site.[contenthash].css",
+                rtlEnabled: true,
+                ignoreOrder: true,
+                
+                // allChunks: true
+
+            }),
             
         ].concat(isDevBuild
             ? [
@@ -224,15 +237,7 @@ module.exports = (env) => {
                 })
             ]
             : [
-             
-                new MiniCssExtractPlugin({
-                    filename: "site.[contenthash].css",
-                    rtlEnabled: true,
-                    ignoreOrder: true,
-                    
-                    // allChunks: true
-
-                }),
+                
                 new webpackRtlPlugin({
                     minify: false
                 })
