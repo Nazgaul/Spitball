@@ -175,15 +175,5 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             price.Should().BeGreaterOrEqualTo(0);
         }
 
-        [Fact]
-        public async Task GetAsync_recording_OK()
-        {
-            await _client.LogInAsync();
-
-            var response = await _client.GetAsync("api/account/recording");
-
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
-        }
-
     }
 }
