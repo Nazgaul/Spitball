@@ -3,7 +3,7 @@ import { connectivityModule } from "./connectivity.module";
 function DefaultItem(objInit){
    this.type = objInit.type;
    this.date = objInit.date;
-   this.status = objInit.status;
+   this.paymentStatus = objInit.paymentStatus;
 }
 function SalesItem(objInit){
    return Object.assign(

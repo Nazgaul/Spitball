@@ -279,7 +279,7 @@ const actions = {
         dispatch('addMessage', messageObj2);
         dispatch('openChatInterface');
     },
-    signalRAddRoomInformationMessage({commit, dispatch, state}, roomInfo){
+    signalRAddRoomInformationMessage({commit}, roomInfo){
         // let messageObj ={
         //     message: {
         //         userId: roomInfo.userId,
@@ -306,7 +306,7 @@ const actions = {
         if(!getters.accountUser) {
             commit('closeChat');
             return;
-        };
+        }
         chatService.getAllConversations().then(({data})=>{
             if(data.length > 0){
                 data.forEach(conversation => {
@@ -366,7 +366,7 @@ const actions = {
     updateChatState:({commit}, val)=>{
         commit('changeChatState', val);
     },
-    sendChatMessage:({state, dispatch, commit, getters}, message)=>{
+    sendChatMessage:({state, dispatch, getters}, message)=>{
         //send message to server.
         let messageObj = chatService.createServerMessageObj({
             message: message,
@@ -417,7 +417,7 @@ const actions = {
     lockChat:({commit})=>{
         commit('lockChat');
     },
-    checkUnreadMessageFromSignalR({commit, dispatch, state}, obj) {
+    checkUnreadMessageFromSignalR({state}, obj) {
         let currentConversation = state.activeConversationObj.conversationId === obj.conversationId;
         if(currentConversation) {
             let messages = state.messages[obj.conversationId];

@@ -22,6 +22,7 @@ export default {
     },
     data() {
         return {
+            canvas: null,
             isEdit: false,
             currentTabId: null,
             canvasWidth: 2800,
@@ -191,7 +192,7 @@ export default {
         },
         finishEquation(){
             let mouseEvent = new MouseEvent("mousedown", {});
-            canvas.dispatchEvent(mouseEvent);
+            this.canvas.dispatchEvent(mouseEvent);
         },
         deleteTab(tab) {
             this.removeCanvasTab(tab);
@@ -203,11 +204,6 @@ export default {
         },
         hideColorPicker() {
             this.setShowPickColorInterface(false);
-        },
-        clearCanvas() {
-            this.resetDragData();
-            whiteBoardService.redraw(this.canvasData);
-            helperUtil.HelperObj.isActive = false;
         },
         returnToDefaultState(dragObj){
             let stateToDefault = ['textDraw', 'selectShape'];
@@ -267,7 +263,6 @@ export default {
         clearCanvas(){
             this.resetDragData(this.getCurrentSelectedTab);
             whiteBoardService.redraw(this.canvasData);
-
             let transferDataObj = {
                 type: "clearCanvas",
                 data: this.canvasData,
@@ -327,13 +322,13 @@ export default {
             }
         },
         resizeCanvas() {
-            let canvas = document.getElementById('canvas');
-            let ctx = canvas.getContext("2d");
+            // let canvas = document.getElementById('canvas');
+            let ctx = this.canvas.getContext("2d");
             ctx.setTransform(1, 0, 0, 1, 0, 0);
             this.windowWidth = global.innerWidth,
                 this.windowHeight = global.innerHeight - HeaderHeight,
-                canvas.width = this.canvasWidth;
-            canvas.height = this.canvasHeight;
+                this.canvas.width = this.canvasWidth;
+                this.canvas.height = this.canvasHeight;
             whiteBoardService.redraw(this.canvasData);
         },
         injectToTextArea(textToInject) {
@@ -350,9 +345,9 @@ export default {
             let self = this;
             global.addEventListener('resize', this.resizeCanvas, false);
             let dropArea = canvas;
-            dropArea.addEventListener('dragenter', (e) =>{
+            dropArea.addEventListener('dragenter', () =>{
             }, false);
-            dropArea.addEventListener('dragleave', (e) =>{
+            dropArea.addEventListener('dragleave', () =>{
 
             }, false);
             dropArea.addEventListener('dragover', (e) =>{
@@ -447,16 +442,16 @@ export default {
         }
     },
     mounted() {
-        let canvas = document.querySelector('canvas');
+        this.canvas = document.querySelector('canvas');
         let canvasWrapper = document.querySelector('.canvas-wrapper');
-        canvas.width = this.canvasWidth;
-        canvas.height = this.canvasHeight;
-        this.canvasData.context = canvas.getContext("2d");
+        this.canvas.width = this.canvasWidth;
+        this.canvas.height = this.canvasHeight;
+        this.canvasData.context = this.canvas.getContext("2d");
         this.canvasData.context.font = '16px Open Sans';
         this.canvasData.context.lineJoin = this.canvasData.lineJoin;
         this.canvasData.context.lineWidth = this.canvasData.lineWidth;
         canvasFinder.trackTransforms(this.canvasData.context);
-        this.registerCanvasEvents(canvas, canvasWrapper);
+        this.registerCanvasEvents(this.canvas, canvasWrapper);
         global.document.addEventListener("keydown", this.keyPressed);
     }
 }

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
+using PaymentStatus = Cloudents.Core.DTOs.PaymentStatus;
 
 namespace Cloudents.Query.Query
 {
@@ -36,6 +38,7 @@ namespace Cloudents.Query.Query
                     .Fetch(f => f.Document)
                     .Where(w => w.User.Id == query.Id)
                     .Where(w => w.Type == Core.Enum.TransactionType.Earned)
+                    .Where(w=>w.Document.Status.State == ItemState.Ok)
                     .Select(s => new DocumentSaleDto()
                     {
                         Id = s.Document.Id,

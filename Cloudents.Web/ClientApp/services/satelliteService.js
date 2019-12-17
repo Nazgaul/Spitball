@@ -1,8 +1,8 @@
 ﻿// import { help } from './resources';
-import { connectivityModule } from "./connectivity.module";
+// import { connectivityModule } from "./connectivity.module";
 import {LanguageService} from './language/languageService';
 import store from '../store/index';
-let cacheControl = `?v=${global.version}&l=${global.lang}`;
+// let cacheControl = `?v=${global.version}&l=${global.lang}`;
 const isFrymo = store.getters['isFrymo'];
 
 
@@ -145,15 +145,15 @@ const socialMedias = {
 }
 
 function socialMediaObj(prop){
-    let language = !!lang ? lang : global.lang
-    this.icon = socialMedias[prop].icon,
-    this.url = socialMedias[prop].url[language]
-    this.svg = socialMedias[prop].svg
+    let language = global.lang;
+    this.icon = socialMedias[prop].icon;
+    this.url = socialMedias[prop].url[language];
+    this.svg = socialMedias[prop].svg;
 }
 
 export default {
     getSatelliteUrlByName(name, lang){
-        let language = !!lang ? lang : global.lang
+        let language = !!lang ? lang : global.lang;
         if(!sattelites[name]){
             console.error(`no satellite name ${name} found`);
         }

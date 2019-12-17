@@ -163,7 +163,10 @@ namespace Cloudents.Infrastructure.Cache
 
         public void Set(string key, string region, object value, int expire, bool slideExpiration)
         {
-
+            if (value is null)
+            {
+                return;
+            }
             try
             {
                 var obj = ConvertEnumerableToList(value);

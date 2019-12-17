@@ -59,7 +59,7 @@ const actions = {
        let documentObj = searchService.createDocumentItem(notificationQuestionObject);
         commit('StudyDocuments_removeDocument', documentObj);
     },
-    reportDocument({commit, dispatch}, data) {
+    reportDocument({dispatch}, data) {
         return reportService.reportDocument(data).then(() => {
             let objToRemove = {
                 id: data.id
@@ -68,7 +68,7 @@ const actions = {
             dispatch('removeItemFromProfile', objToRemove);
         });
     },
-    removeItemFromList({state, commit, dispatch}, itemId) {
+    removeItemFromList({dispatch}, itemId) {
         let docToRemove = { id: itemId };
         dispatch('removeDocumentItemAction', docToRemove);
     }

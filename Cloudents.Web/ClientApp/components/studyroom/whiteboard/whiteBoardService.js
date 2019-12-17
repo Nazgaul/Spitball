@@ -10,7 +10,7 @@ import equationDraw from './options/equationDraw'
 import iink from './options/iink'
 import panTool from './options/panTool'
 import selectShape from './options/selectShape'
-import {createShape} from './utils/factories'
+// import {createShape} from './utils/factories'
 import helper from './utils/helper'
 
 let dragData = [];

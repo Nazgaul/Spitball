@@ -48,10 +48,11 @@ export default {
 .dashboardPage{
 	padding-left: 30px;
 	padding-top: 30px;
-   max-width: 1150px;
-   // padding: 34px;
+	padding-right: 30px;
+   // max-width: 1150px;
 	@media (max-width: @screen-xs) {
-		padding-left: 0;
+      padding-left: 6px;
+	   padding-right: 6px;
       width: 100%;
       height: 100%;
    }

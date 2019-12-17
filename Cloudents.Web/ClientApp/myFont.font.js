@@ -1,4 +1,5 @@
-﻿module.exports = {
+﻿/* global module */
+module.exports = {
     'files': [
         './font-icon/*.svg'
     ],

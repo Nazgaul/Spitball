@@ -194,8 +194,8 @@ const mousedown = function(e){
         //here the user statring to write text
         //Set Click Position
         isWriting = true;
-        let mouseX = e.pageX - e.target.offsetLeft;
-        let mouseY = e.pageY - e.target.getBoundingClientRect().top;
+        // let mouseX = e.pageX - e.target.offsetLeft;
+        // let mouseY = e.pageY - e.target.getBoundingClientRect().top;
         // let hasShape = canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData());
         let hasShape = {};
         if(Object.keys(hasShape).length > 0){

@@ -12,7 +12,7 @@ const startingMousePosition = {
 };
 let wrapperElm = null;
 let startShapes = {};
-let topOffset = null;
+// let topOffset = null;
 
 let dragoffx = 0;
 let dragoffy = 0;
@@ -89,7 +89,7 @@ const markShapes = function(){
     });
     let rectangleBoundries = canvasFinder.getBoundriesPoints(points, this);
     //a = scale of x / d = scale of y
-    let {a, b, c, d, e, f} = this.context.getTransform();
+    let {a, d} = this.context.getTransform();
     let {mouseX:startX, mouseY:startY} = canvasFinder.getRelativeMousePoints(this.context, rectangleBoundries.startX*-a, rectangleBoundries.startY*-d );
     let {mouseX:endX, mouseY:endY} = canvasFinder.getRelativeMousePoints(this.context, rectangleBoundries.endX*-a, rectangleBoundries.endY*-d);
     let helperObj = getHelperObj.bind(this, startX*-a, startY*-d, endX*-a, endY*-d)();
@@ -102,7 +102,7 @@ const clearMark = function(){
 };
 
 const mousedown = function(e){
-    topOffset = e.target.getBoundingClientRect().top;
+    // topOffset = e.target.getBoundingClientRect().top;
     startingMousePosition.x = e.clientX;
     startingMousePosition.y = e.clientY;
     this.methods.hideColorPicker();
@@ -159,7 +159,7 @@ const mousedown = function(e){
 };
 
 const moveShapes = function(){
-    let {a, b, c, d, e, f} = this.context.getTransform();
+    let {a, d} = this.context.getTransform();
     Object.keys(selectedShapes()).forEach(shapeId=>{
         let shape = selectedShapes(shapeId);
         shape.points.forEach((point, index)=>{
@@ -258,7 +258,7 @@ const mouseleave = function(e){
 };
 
 
-const deleteSelectedShape = function(e){
+const deleteSelectedShape = function(){
     console.log("entered Delete Shape");
     if(Object.keys(selectedShapes()).length> 0){
         Object.keys(selectedShapes()).forEach(shapeId=>{

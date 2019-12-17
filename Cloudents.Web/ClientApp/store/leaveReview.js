@@ -32,19 +32,19 @@ const mutations = {
 };
 
 const actions = {
-    updateAllowReview({commit, state}, val){
+    updateAllowReview({commit}, val){
         commit('setAllowReview', val);
     },
-    updateReviewDialog({commit, state}, val) {
+    updateReviewDialog({commit}, val) {
         commit('changeReviewDialogState', val);
     },
-    updateReviewStars({commit, state}, val) {
+    updateReviewStars({commit}, val) {
         commit('setReviewStars', val);
     },
-    updateReview({commit, state}, reviewData) {
+    updateReview({commit}, reviewData) {
         commit('setReview', reviewData);
     },
-    submitReview({commit, state}, reviewData) {
+    submitReview({commit}, reviewData) {
         commit('setReview', reviewData);
         return reviewService.sendReview(reviewData)
                             .then((resp) => {

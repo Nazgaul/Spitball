@@ -80,7 +80,7 @@ const mutations = {
 };
 
 const actions = {
-    initLocalMediaTracks({state, dispatch}){
+    initLocalMediaTracks({dispatch}){
         dispatch('setIsVideoActive', true);
         dispatch('initLocalVideoTrack');
         dispatch('setIsAudioActive', true);
@@ -110,13 +110,13 @@ const actions = {
                 getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
             }
                 dispatch('setLocalVideoTrack',videoTrack);
-        },err=>{
+        },()=>{
                 createLocalVideoTrack().then(videoTrack => {
                     if(getters['activeRoom'] && state.isVideoActive){
                         getters['activeRoom'].localParticipant.publishTrack(videoTrack.mediaStreamTrack);  
                     }
                         dispatch('setLocalVideoTrack',videoTrack);
-                },err=>{
+                },()=>{
                         dispatch('setIsVideoActive', false);
                         dispatch('setLocalVideoTrack', null);
                 });
@@ -133,13 +133,13 @@ const actions = {
                 getters['activeRoom'].localParticipant.publishTrack(audioTrack.mediaStreamTrack);  
             }
             commit('setLocalAudioTrack',audioTrack);
-        },err=>{
+        },()=>{
                 createLocalAudioTrack().then(audioTrack => {
                     if(getters['activeRoom'] && state.isAudioActive){
                         getters['activeRoom'].localParticipant.publishTrack(audioTrack.mediaStreamTrack);  
                     }
                     commit('setLocalAudioTrack',audioTrack);
-                },err=>{
+                },()=>{
                         dispatch('setIsAudioActive', false);
                         commit('setLocalAudioTrack',null);
                 });
