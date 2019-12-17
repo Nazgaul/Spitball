@@ -84,7 +84,7 @@ namespace Cloudents.Web.Api
                     {
                         p.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(p.Id);
                         p.Url = Url.DocumentUrl(p.University, p.Course, p.Id, p.Title);
-                        p.Title = Path.GetFileNameWithoutExtension(p.Title);
+                       // p.Title = Path.GetFileNameWithoutExtension(p.Title);
                     }
                     //TODO add question
 

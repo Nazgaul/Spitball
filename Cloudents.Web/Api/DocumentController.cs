@@ -282,7 +282,7 @@ namespace Cloudents.Web.Api
             return res.Select(s => {
                 s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
                 s.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
-                s.Title = Path.GetFileNameWithoutExtension(s.Title);
+                //s.Title = Path.GetFileNameWithoutExtension(s.Title);
                 return s;
                 });
         }

@@ -4,6 +4,7 @@ using Cloudents.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using static Cloudents.Core.Entities.ItemStatus;
 
@@ -21,7 +22,7 @@ namespace Cloudents.Core.Entities
       : this()
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
-            Name = name.Replace("+", "-");
+            Name = Path.GetFileNameWithoutExtension(name.Replace("+", "-"));
             University = user.University;
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = user;

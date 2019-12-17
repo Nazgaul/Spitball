@@ -169,7 +169,7 @@ namespace Cloudents.Web.Controllers
 
             await Task.WhenAll(followTask, messageTask);
 
-            var nameToDownload = Path.GetFileNameWithoutExtension(item.Document.Title);
+            var nameToDownload = item.Document.Title;
             var extension = Path.GetExtension(file);
             var url = blobProvider2.GenerateDownloadLink(uri, TimeSpan.FromMinutes(30), nameToDownload + extension);
             return Redirect(url.AbsoluteUri);
