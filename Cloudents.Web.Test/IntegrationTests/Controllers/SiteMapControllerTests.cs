@@ -34,6 +34,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Controllers
                 //{
                 var result2 = await _client.GetAsync(xElement.Value);
                 result2.EnsureSuccessStatusCode();
+                var str = await result2.Content.ReadAsStringAsync();
+                var doc2 = XDocument.Parse(str);
                 // }
 
             }

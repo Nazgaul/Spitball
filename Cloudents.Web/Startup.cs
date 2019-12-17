@@ -368,10 +368,12 @@ namespace Cloudents.Web
                     template: "{id}",
                     defaults: new { controller = "Home", action = "Index" }
                 );
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "Index" });
+
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new
