@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -178,7 +178,7 @@
     <value>Q&amp;A</value>
   </data>
   <data name="questuin" xml:space="preserve">
-    <value>Questuin:</value>
+    <value>Question:</value>
   </data>
   <data name="session" xml:space="preserve">
     <value>Tutoring session with {1}</value>
