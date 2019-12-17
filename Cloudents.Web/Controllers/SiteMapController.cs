@@ -39,7 +39,7 @@ namespace Cloudents.Web.Controllers
             _queryBus = queryBus;
         }
 
-       
+
         [Route("sitemap.xml")]
         [ResponseCache(Duration = 1 * TimeConst.Day)]
         public async Task<IActionResult> IndexAsync(CancellationToken token)
@@ -47,7 +47,7 @@ namespace Cloudents.Web.Controllers
             var query = new SiteMapQuery();
             var result = await _queryBus.QueryAsync(query, token);
             result.Add(new SiteMapCountDto(SeoType.Static, 1));
-            
+
             XNamespace nameSpace = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
             // ReSharper disable once StringLiteralTypo
@@ -58,7 +58,8 @@ namespace Cloudents.Web.Controllers
                 for (var i = 0; i <= elem.Count / PageSize; i++)
                 {
 
-                    var url = Url.RouteUrl("siteMapDescription", new { type = elem.Type, index = i },
+                    var url = Url.RouteUrl("siteMapDescription",
+                        new { type = elem.Type, index = i },
                                         Request.GetUri().Scheme);
                     root.Add(
                          new XElement(nameSpace + "sitemap",
@@ -67,7 +68,7 @@ namespace Cloudents.Web.Controllers
                      );
                 }
             }
-            XDocument doc = new XDocument(
+            var doc = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment("This is a comment"),
                 new XElement("Root", "content")
@@ -87,13 +88,12 @@ namespace Cloudents.Web.Controllers
 
         [Route("sitemap-{type}-{index:int}.xml", Name = "siteMapDescription", Order = 2)]
         public IActionResult DetailIndexAsync(SeoType type, int index,
-            [FromServices] IIndex<SeoType, IBuildSeo> seoBuilder,
-        CancellationToken token)
+            [FromServices] IIndex<SeoType, IBuildSeo> seoBuilder)
         {
             var provider = seoBuilder[type];
             var urls = provider.GetUrls(index);
 
-            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+            var ns = new XmlSerializerNamespaces();
             ns.Add("", "");
             return new FileCallbackResult("application/xml", async (stream, context) =>
             {
@@ -108,7 +108,8 @@ namespace Cloudents.Web.Controllers
                         "http://www.sitemaps.org/schemas/sitemap/0.9");
                     writer.WriteAttributeString("image", "http://www.google.com/schemas/sitemap-image/1.1");
                     writer.WriteAttributeString("video", "http://www.google.com/schemas/sitemap-video/1.1");
-                    writer.WriteAttributeString("xhtml", "http://www.w3.org/1999/xhtml");
+                    writer.WriteAttributeString("xmlns", "xhtml", null, "http://www.w3.org/1999/xhtml");
+                    //writer.WriteAttributeString("xmlns:xhtml", "http://www.w3.org/1999/xhtml"); // for lang support
                     foreach (var url in urls)
                     {
                         i++;

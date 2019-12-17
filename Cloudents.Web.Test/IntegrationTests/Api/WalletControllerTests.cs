@@ -13,7 +13,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
     public class WalletControllerTests
     {
         private System.Net.Http.HttpClient _client;
-        private readonly string[] _types = { "Earned", "Stake", "Spent" };
+        private readonly string[] _types = { "Earned", "Spent", "Total" };
 
         public WalletControllerTests(SbWebApplicationFactory factory)
         {
@@ -63,10 +63,12 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
                 var type = d[i]["type"]?.Value<string>();
                 var points = d[i]["points"]?.Value<decimal?>();
                 var value = d[i]["value"]?.Value<string>();
+                var symbol = d[i]["symbol"]?.Value<string>();
 
                 type.Should().Be(_types[i]);
                 points.Should().NotBeNull();
                 value.Should().NotBeNull();
+                symbol.Should().Be("ILS");
             }
         }
 

@@ -141,6 +141,12 @@
   <data name="my" xml:space="preserve">
     <value>My courses</value>
   </data>
+  <data name="my_content" xml:space="preserve">
+    <value>My Content</value>
+  </data>
+  <data name="my_sales" xml:space="preserve">
+    <value>My Sales</value>
+  </data>
   <data name="my_study_rooms" xml:space="preserve">
     <value>My study rooms</value>
   </data>

@@ -24,10 +24,10 @@
                     :disabled="buttonState"
                     @click="startSession()">
                 <timerIcon class="timer-icon mr-2"></timerIcon>
-                <span class="text-uppercase">{{roomStateText}}</span>
+                <span class="">{{roomStateText}}</span>
             </v-btn>
         </v-flex>
-        <v-flex class="text-uppercase font-weight-bold start-session-text" pt-4 v-else>
+        <v-flex class="font-weight-bold start-session-text" pt-4 v-else>
             {{roomStateText}}
         </v-flex>
         <v-flex xs12 v-if="sessionFinished" class="pt-12">
@@ -149,6 +149,7 @@
             color: @color-white;
             background-color: @BtnBackground!important;
             border-radius: 4px;
+            text-transform: initial;
             .timer-icon{
                 fill: @color-white;
                 max-width: 24px;

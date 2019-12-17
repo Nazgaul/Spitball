@@ -104,7 +104,7 @@ namespace Cloudents.Web.Api
             await Task.WhenAll(retValTask, votesTask);
             return retValTask.Result.Select(s =>
             {
-                s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+                s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
                 s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                 if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
                 {
@@ -136,7 +136,7 @@ namespace Cloudents.Web.Api
             await Task.WhenAll(retValTask, votesTask);
             return retValTask.Result.Select(s =>
             {
-                s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+                s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
                 s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                 if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
                 {

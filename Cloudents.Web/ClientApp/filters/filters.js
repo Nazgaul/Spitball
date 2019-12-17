@@ -94,3 +94,13 @@ Vue.filter('commasFilter', function (value) {
 Vue.filter('currencyFormat', function(number, currency) {
     return new Intl.NumberFormat(`${global.lang}-${global.country}`, { style: 'currency', currency: currency, minimumFractionDigits: 0  }).format(number);
 })
+
+Vue.filter('sessionDuration', function(number) {
+    let hours = +number.slice(0,2);
+    let minutes = +number.slice(3,5);
+    let seconds = Math.ceil(+number.slice(6));
+    let hoursStr = hours >= 1? `${hours} ${LanguageService.getValueByKey('dashboardPage_date_hour')} ` :'';
+    let minutesStr = minutes >= 1? `${minutes} ${LanguageService.getValueByKey('dashboardPage_date_mins')} ` :'';
+    let secondsStr = seconds >= 1? `${seconds} ${LanguageService.getValueByKey('dashboardPage_date_secs')}` :'';
+    return `${hoursStr}${minutesStr}${secondsStr}`
+})

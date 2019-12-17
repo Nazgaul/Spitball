@@ -145,16 +145,16 @@
     <value>נא לרענן את הדף לאחר נתינת אישור.</value>
   </data>
   <data name="settingPop_actions_no" xml:space="preserve">
-    <value>נסה שוב</value>
+    <value>נסה להתחבר שוב</value>
   </data>
   <data name="settingPop_actions_yes" xml:space="preserve">
     <value>המשך ללא גישה</value>
   </data>
   <data name="settingPop_title" xml:space="preserve">
-    <value>האם בטוח שברצונך להמשיך בלי שמע או וידאו?</value>
+    <value>האם אתם בטוחים?</value>
   </data>
   <data name="settingPop_txt" xml:space="preserve">
-    <value>אם לא תגדירו גישה למכשירים שלכם, לא תוכלו לתקשר ביעילות עם משתתפים אחרים.</value>
+    <value>במידה ולא תתחברו את מערכת השמע ו/או את מערכת הוידאו, לא תוכלו לתקשר עם הצד השני בצורה יעילה.</value>
   </data>
   <data name="start_recording_instruction" xml:space="preserve">
     <value>על מנת להתחיל לחצו על כפתור ההקלטה שנמצא בתפריט העליון.</value>

@@ -97,7 +97,7 @@ namespace Cloudents.Web.Api
 
             var files = await generatorIndex[model.Document.DocumentType].GeneratePreview(model, userId.GetValueOrDefault(-1), token);
             await System.Threading.Tasks.Task.WhenAll(tQueue, textTask);
-            model.Document.Url = Url.DocumentUrl(model.Document.University, model.Document.Course, model.Document.Id, model.Document.Title);
+            model.Document.Url = Url.DocumentUrl(model.Document.Course, model.Document.Id, model.Document.Title);
             return new DocumentPreviewResponse(model, files, textTask.Result);
         }
 
@@ -280,7 +280,7 @@ namespace Cloudents.Web.Api
             var query = new SimilarDocumentsQuery(request.DocumentId);
             var res = await _queryBus.QueryAsync(query, token);
             return res.Select(s => {
-                s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+                s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
                 s.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                 //s.Title = Path.GetFileNameWithoutExtension(s.Title);
                 return s;
