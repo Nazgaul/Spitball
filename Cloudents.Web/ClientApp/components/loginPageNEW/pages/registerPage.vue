@@ -61,7 +61,8 @@ import loginRegister from '../../../store/loginRegister';
 export default {
     data() {
         return {
-            showDialog: false
+            showDialog: false,
+            from: ''
         }
     },
     components:{
@@ -101,12 +102,21 @@ export default {
     beforeDestroy(){
         storeService.unregisterModule(this.$store, 'loginRegister');
     },
+    beforeRouteEnter (to, from, next) {
+        next((vm) => {
+            vm.from = from;
+        });
+    },
     created() {
         storeService.registerModule(this.$store, 'loginRegister', loginRegister);
         global.onpopstate = (event) => {
             this.goBackStep()
         }; 
         let path = this.$route.path.toLowerCase();
+
+        this.$nextTick(() => {
+            this.updateToUrl({path: this.from.path});
+        })       
         
         if (!!this.$route.query.returnUrl) {
             this.updateToUrl({ path: `${this.$route.query.returnUrl}`, query: { term: '' } })
@@ -121,7 +131,7 @@ export default {
                 this.updateStep('VerifyPhone')
             }
         } 
-    }
+    },
 }
 
 </script>

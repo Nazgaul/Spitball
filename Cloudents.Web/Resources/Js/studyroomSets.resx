@@ -192,6 +192,9 @@
   <data name="watch_actions_txt" xml:space="preserve">
     <value>Do you consent record your lessons and agree with our</value>
   </data>
+  <data name="watch_actions_user_consent" xml:space="preserve">
+    <value>Recording the session is permitted only with the consent of the student</value>
+  </data>
   <data name="watch_actions_yes" xml:space="preserve">
     <value>Yes, I agree</value>
   </data>

@@ -1,9 +1,9 @@
 import whiteBoardService from "../whiteBoardService";
 import store from "../../../../store/index";
 
-let lastX=null;
-let lastY=null;
-let scaleFactor = null;
+// let lastX=null;
+// let lastY=null;
+// let scaleFactor = null;
 let dragStart = false;
 
 let mouseStartX = null;
@@ -15,7 +15,7 @@ const init = function(){
     // lastX = this.context.canvas.width/2;
     // lastY = this.context.canvas.height/2;
     dragStart = false;
-    scaleFactor = 1.1;    
+    // scaleFactor = 1.1;    
 };
 const draw = function(){
     let p1 = this.context.transformedPoint(0,0);
@@ -62,51 +62,52 @@ const mousemove = function(e){
 };
 
 
-const zoom = function(clicks){
-    //if we want to limit zoom
-    // let maxLimit = 2;
-    // let minLimit = 0.5;
+/*const zoom = function(clicks){
+    if we want to limit zoom
+    let maxLimit = 2;
+    let minLimit = 0.5;
     
-    // if(a > maxLimit){
-    //     this.context.setTransform(maxLimit,b,c,maxLimit,e,f);
-    //     return;
-    // }else if(a < minLimit){
-    //     this.context.setTransform(minLimit,b,c,minLimit,e,f);
-    //     return;
-    // }
-    // if(a === maxLimit && clicks > 0){
-    //     return;
-    // }else if(a === minLimit && clicks < 0){
-    //     return;
-    // }
+    if(a > maxLimit){
+        this.context.setTransform(maxLimit,b,c,maxLimit,e,f);
+        return;
+    }else if(a < minLimit){
+        this.context.setTransform(minLimit,b,c,minLimit,e,f);
+        return;
+    }
+    if(a === maxLimit && clicks > 0){
+        return;
+    }else if(a === minLimit && clicks < 0){
+        return;
+    }
 
-    //deprecated added scroll
-    // let pt = this.context.transformedPoint(lastX, lastY);
-    // this.context.translate(pt.x, pt.y);
-    // let factor = Math.pow(scaleFactor, clicks);
-    // this.context.scale(factor, factor);
-    // this.context.translate(-pt.x, -pt.y);
-    // whiteBoardService.redraw(this);
-    // let transform = this.context.getTransform();
-    // store.dispatch('updateZoom', transform.a*100);
-    // store.dispatch('updatePan', transform);
+    deprecated added scroll
+    let pt = this.context.transformedPoint(lastX, lastY);
+    this.context.translate(pt.x, pt.y);
+    let factor = Math.pow(scaleFactor, clicks);
+    this.context.scale(factor, factor);
+    this.context.translate(-pt.x, -pt.y);
+    whiteBoardService.redraw(this);
+    let transform = this.context.getTransform();
+    store.dispatch('updateZoom', transform.a*100);
+    store.dispatch('updatePan', transform);
 };
 
-// const mouseScroll = function(evt){
-//     let delta = evt.wheelDelta ? evt.wheelDelta/40 : evt.detail ? -evt.detail : 0;
-//     if (delta) {
-//         zoom.bind(this, delta)()
-//     };
-//     return evt.preventDefault() && false;
-// }
+const mouseScroll = function(evt){
+    let delta = evt.wheelDelta ? evt.wheelDelta/40 : evt.detail ? -evt.detail : 0;
+    if (delta) {
+        zoom.bind(this, delta)()
+    };
+    return evt.preventDefault() && false;
+}
 
-// const manualScroll = function(zoomIn){
-//     let scrollValue = 0.75;
-//     let delta = zoomIn ? scrollValue : scrollValue*-1;
-//     zoom.bind(this, delta)()
-// }
+const manualScroll = function(zoomIn){
+    let scrollValue = 0.75;
+    let delta = zoomIn ? scrollValue : scrollValue*-1;
+    zoom.bind(this, delta)()
+}
+*/
 
-const defineEndPosition = function(e){
+const defineEndPosition = function(){
     dragStart = false;
 };
 const mouseup = function(e){

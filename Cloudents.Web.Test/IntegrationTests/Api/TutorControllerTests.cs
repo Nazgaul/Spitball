@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests.Api
@@ -102,6 +103,17 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync(uri);
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task GetAsync_Tutor_Search_Count()
+        {
+            var response = await _client.GetAsync("api/tutor/search?page=0&pageSize=10&term=");
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var responseBody = await response.Content.ReadAsStringAsync();
+            dynamic  v = JsonConvert.DeserializeObject(responseBody);
+            int result = v.count;
+            result.Should().BeGreaterThan(0);
         }
     }
 }

@@ -3,7 +3,6 @@ import { USER } from './mutation-types'
 import * as consts from './constants'
 import {LanguageService} from '../services/language/languageService';
 
-﻿
 const state = {
     user: {
         //universityId: null,
