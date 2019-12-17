@@ -1,7 +1,7 @@
 <template>
-    <div class="tutor-start-wrap pb-3">
-        <v-layout class="pt-3">
-            <v-flex xs12 class="text-xs-right px-3">
+    <div class="tutor-start-wrap pb-4">
+        <v-layout class="pt-4">
+            <v-flex xs12 class="text-xs-right px-4">
                 <v-icon class="caption cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
             </v-flex>
         </v-layout>
@@ -20,6 +20,7 @@
         </v-flex>
         <v-flex xs12 v-if="showButton" class="pt-4">
             <v-btn class="start-session-btn elevation-0 align-center justify-center"
+                    large
                     :loading="buttonLoader"
                     :disabled="buttonState"
                     @click="startSession()">
@@ -149,6 +150,7 @@
             color: @color-white;
             background-color: @BtnBackground!important;
             border-radius: 4px;
+            letter-spacing: inherit;
             .timer-icon{
                 fill: @color-white;
                 max-width: 24px;

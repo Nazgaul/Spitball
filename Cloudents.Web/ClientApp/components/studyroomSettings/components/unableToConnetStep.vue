@@ -111,9 +111,11 @@ methods:{
       font-weight: 600;
     }
     .actions-try{
+      margin: 6px 8px;
       color: white !important;
     }
     .actions-continue{
+      margin: 6px 8px;
       color: #4452fc;
       border: 1px solid #4452fc !important;
     }

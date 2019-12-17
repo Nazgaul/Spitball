@@ -19,6 +19,7 @@
             </v-flex>
             <v-flex v-if="showButton" xs12 class="pt-4">
                 <v-btn class="start-session-btn elevation-0 align-center justify-center"
+                        large
                         :loading="getSessionStartClickedOnce"
                         :disabled="buttonState"
                         @click="joinSession()">
@@ -137,6 +138,7 @@
             color: @color-white;
             background-color: @BtnBackground!important;
             border-radius: 4px;
+            letter-spacing: inherit;
             .timer-icon {
                 fill: @color-white;
                 max-width: 24px;

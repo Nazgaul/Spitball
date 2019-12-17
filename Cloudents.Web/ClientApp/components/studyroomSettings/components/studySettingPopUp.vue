@@ -71,9 +71,11 @@ nextPage(){
         margin-bottom: 0;
         }
         .settingPop-actions-yes{
+          margin: 6px 8px;
             color: white !important;
         }
         .settingPop-actions-no{
+          margin: 6px 8px;
         color: #4452fc;
         border: 1px solid #4452fc !important;
         }
