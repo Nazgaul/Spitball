@@ -71,22 +71,18 @@
                   </v-menu>
                </td>
             </template>
-
-			<tableFooter/>
-         <!-- <template slot="pageText" slot-scope="item">
-            <span class="myPurchases_footer">
-            {{item.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
-            </span>
-         </template> -->
-
+         <tableFooter slot="pageText" slot-scope="item" :item="item"/>
       </v-data-table>
 	</div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import tableFooter from '../components/tableFooter.vue';
+
 export default {
-	name:'myPurchases',
+   name:'myPurchases',
+   components:{tableFooter},
 	props:{
       globalFunctions: {
          type: Object,
@@ -131,7 +127,7 @@ export default {
       }
 	},
 	created() {
-		// this.updatePurchasesItems()
+		this.updatePurchasesItems()
 	},
 }
 </script>

@@ -53,7 +53,10 @@ const Item = {
       this.id = objInit.questionId || objInit.id;
       this.text = objInit.text || objInit.questionText;
       this.answerText = objInit.answerText || '';
-   }
+   },
+   // Session:function(objInit){
+
+   // }
 }
 
 function ContentItem(objInit){
@@ -62,6 +65,80 @@ function ContentItem(objInit){
       new Item[_itemTypeChcker(objInit.type)](objInit)
    )
 }
+// {
+//     {
+//     "id": 50479,
+//     "name": "2dae",
+//     "course": "Temp",
+//     "preview": "https://spitball-dev-function.azureedge.net:443/api/image/document/50479",
+//     "url": "/document/temp/2dae/50479",
+//     "type": "Document",
+//     "price": -11,
+//     "date": "2019-12-12T11:25:41.1461168Z"
+//   },
+//   {
+//     "tutorName": "gab ha totach",
+//     "tutorImage": "/image/ClVodHRwczovL3NwaXRiYWxsZGV2LmJsb2IuY29yZS53aW5kb3dzLm5ldC9zcGl0YmFsbC11c2VyL3Byb2ZpbGUvMTYwMTA1LzE1Njc5NDYwMTguanBnEAA",
+//     "tutorId": 160105,
+//     "type": "TutoringSession",
+//     "date": "2019-12-04T15:19:52.64782Z"
+//   },
+//   {
+//     "tutorName": "gab ha totach",
+//     "duration": "00:00:17.2113312",
+//     "tutorImage": "/image/ClVodHRwczovL3NwaXRiYWxsZGV2LmJsb2IuY29yZS53aW5kb3dzLm5ldC9zcGl0YmFsbC11c2VyL3Byb2ZpbGUvMTYwMTA1LzE1Njc5NDYwMTguanBnEAA",
+//     "tutorId": 160105,
+//     "type": "TutoringSession",
+//     "price": 0,
+//     "date": "2019-12-04T15:18:16.8458866Z"
+//   },
+//   {
+//     "tutorName": "gab ha totach",
+//     "duration": "00:02:16.6129951",
+//     "tutorImage": "/image/ClVodHRwczovL3NwaXRiYWxsZGV2LmJsb2IuY29yZS53aW5kb3dzLm5ldC9zcGl0YmFsbC11c2VyL3Byb2ZpbGUvMTYwMTA1LzE1Njc5NDYwMTguanBnEAA",
+//     "tutorId": 160105,
+//     "type": "TutoringSession",
+//     "price": 1.6667,
+//     "date": "2019-12-04T15:15:43.4734697Z"
+//   },
+//   {
+//     "tutorName": "gab ha totach",
+//     "duration": "00:06:48.4517951",
+//     "tutorImage": "/image/ClVodHRwczovL3NwaXRiYWxsZGV2LmJsb2IuY29yZS53aW5kb3dzLm5ldC9zcGl0YmFsbC11c2VyL3Byb2ZpbGUvMTYwMTA1LzE1Njc5NDYwMTguanBnEAA",
+//     "tutorId": 160105,
+//     "type": "TutoringSession",
+//     "price": 5,
+//     "date": "2019-12-04T15:02:32.950453Z"
+//   },
+//   {
+//     "tutorName": "gab ha totach",
+//     "duration": "00:00:13.5944467",
+//     "tutorImage": "/image/ClVodHRwczovL3NwaXRiYWxsZGV2LmJsb2IuY29yZS53aW5kb3dzLm5ldC9zcGl0YmFsbC11c2VyL3Byb2ZpbGUvMTYwMTA1LzE1Njc5NDYwMTguanBnEAA",
+//     "tutorId": 160105,
+//     "type": "TutoringSession",
+//     "price": 0,
+//     "date": "2019-12-04T15:01:37.2798245Z"
+//   },
+//   {
+//     "tutorName": "gab ha totach",
+//     "duration": "00:00:14.6878245",
+//     "tutorImage": "/image/ClVodHRwczovL3NwaXRiYWxsZGV2LmJsb2IuY29yZS53aW5kb3dzLm5ldC9zcGl0YmFsbC11c2VyL3Byb2ZpbGUvMTYwMTA1LzE1Njc5NDYwMTguanBnEAA",
+//     "tutorId": 160105,
+//     "type": "TutoringSession",
+//     "price": 0,
+//     "date": "2019-12-04T15:00:56.1368716Z"
+//   },
+//   {
+//     "id": 49723,
+//     "name": "sample",
+//     "course": "Temp",
+//     "preview": "https://spitball-dev-function.azureedge.net:443/api/image/document/49723",
+//     "url": "/document/temp/sample/49723",
+//     "type": "Video",
+//     "price": -4,
+//     "date": "2019-10-02T08:11:24.8537488Z"
+//   },
+// }
 function PurchasesItem(objInit){
    
 }

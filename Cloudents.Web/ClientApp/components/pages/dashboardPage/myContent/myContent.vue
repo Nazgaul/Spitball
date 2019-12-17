@@ -71,17 +71,7 @@
                   </v-menu>
                </td>
             </template>
-
-         <!-- <template slot="pageText" slot-scope="item"> -->
             <tableFooter slot="pageText" slot-scope="item" :item="item"/>
-         <!-- </template> -->
-
-         <!-- <template slot="pageText" slot-scope="item">
-            <span class="myContent_footer">
-            {{item.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
-            </span>
-         </template> -->
-
       </v-data-table>
    </div>
 </template>

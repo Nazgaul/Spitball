@@ -1,13 +1,9 @@
-<template>
+<template functional>
    <span class="tableFooter">
-   {{item.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
+   {{props.item.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{props.item.itemsLength}}
    </span>
 </template>
-<script>
-export default {
-   props:['item']
-}
-</script>
+
 <style lang="less">
 .tableFooter{
    font-size: 14px;
