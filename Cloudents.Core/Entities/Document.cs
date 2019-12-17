@@ -2,6 +2,7 @@
 using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -173,7 +174,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void Rename(string name)
         {
-            Name = name;
+            Name = Path.GetFileNameWithoutExtension(name);
         }
 
         public virtual DocumentType? DocumentType { get; set; }
