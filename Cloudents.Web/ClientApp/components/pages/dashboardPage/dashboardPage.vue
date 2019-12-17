@@ -1,6 +1,6 @@
 <template>
    <div class="dashboardPage">
-      <component :sortFunction="sortFunction" @openDialog="openDialog" :is="currentComponentByRoute"></component>
+      <component :dictionary="dictionary" :globalFunctions="globalFunctions" :is="currentComponentByRoute"/>
       <sb-dialog 
          :showDialog="isDialog"
          :popUpType="'dashboardDialog'"
@@ -21,6 +21,7 @@ import myContent from './myContent/myContent.vue';
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
 import changePriceDialog from './dashboardDialog/changePriceDialog.vue';
+import { LanguageService } from '../../../services/language/languageService';
 
 export default {
    name:'dashboardPage',
@@ -29,6 +30,33 @@ export default {
          currentDialog:'',
          isDialog:false,
          dialogData:'',
+         dictionary:{
+            types:{
+               'Question': LanguageService.getValueByKey('dashboardPage_qa'),
+               'Answer': LanguageService.getValueByKey('dashboardPage_qa'),
+               'Document': LanguageService.getValueByKey('dashboardPage_document'),
+               'Video': LanguageService.getValueByKey('dashboardPage_video'),
+            },
+            headers:{
+               'preview': {text: LanguageService.getValueByKey('dashboardPage_preview'), align:'left', sortable: false, value:'preview'},
+               'info': {text: LanguageService.getValueByKey('dashboardPage_info'), align:'left', sortable: false, value:'info'},
+               'type': {text: LanguageService.getValueByKey('dashboardPage_type'), align:'left', sortable: true, value:'type'},
+               'likes': {text:LanguageService.getValueByKey('dashboardPage_likes'), align:'left', sortable: true, value:'likes'},
+               'views': {text:LanguageService.getValueByKey('dashboardPage_views'), align:'left', sortable: true, value:'views'},
+               'downloads': {text:LanguageService.getValueByKey('dashboardPage_downloads'), align:'left', sortable: true, value:'downloads'},
+               'purchased': {text:LanguageService.getValueByKey('dashboardPage_purchased'), align:'left', sortable: true, value:'purchased'},
+               'price': {text:LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
+               'date': {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
+               'action': {text: LanguageService.getValueByKey('dashboardPage_action'), align:'center', sortable: false, value:'action'},
+            }
+         },
+         globalFunctions:{
+            sort: this.sortFunction,
+            openDialog: this.openDialog,
+            formatImg: this.formatImg,
+            formatPrice: this.formatPrice,
+            router: this.dynamicRouter
+         }
       }
    },
    components:{
@@ -53,6 +81,27 @@ export default {
          this.currentDialog = args[0];
          this.dialogData = args[1]
          this.isDialog = true;
+      },
+      dynamicRouter(item){
+         if(item.url){
+            return item.url;
+         }
+         if(item.type === 'Question' || item.type === 'Answer'){
+            return {path:'/question/'+item.id}
+         }
+      },
+      formatImg(item){
+         if(item.preview){
+            return this.$proccessImageUrl(item.preview,140,140,"crop&anchorPosition=top")
+         }
+         if(item.type === 'Question' || item.type === 'Answer'){
+            return require(`./images/qs.png`) 
+         }
+      },
+      formatPrice(price,type){
+         if(type !== 'Question' && type !== 'Answer'){
+            return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
+         }
       },
       sortFunction(list,sortBy,sortedBy){
          if(sortBy == 'date'){
@@ -84,8 +133,9 @@ export default {
 @import '../../../styles/mixin.less';
 .dashboardPage{
 	padding-left: 30px;
-	padding-top: 30px;
-   max-width: 1150px;
+   padding-top: 30px;
+   padding-right: 30px;
+   // max-width: 1150px;
 	@media (max-width: @screen-xs) {
 		padding-left: 0;
       width: 100%;

@@ -34,7 +34,7 @@ namespace Cloudents.Core.DTOs
     public class UserAnswersDto : UserContentDto
     {
         public long QuestionId { get; set; }
-        public override string Type => "Question";
+        public override string Type => "Answer";
         public string QuestionText { get; set; }
         public string AnswerText { get; set; }
     }
