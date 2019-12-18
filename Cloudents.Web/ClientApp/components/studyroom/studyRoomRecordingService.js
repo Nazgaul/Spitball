@@ -132,7 +132,7 @@ function createRemoteAudioStream(){
 async function activateRecord(){
   let roomId = store.getters.getRoomId ? store.getters.getRoomId : 'testRoom'
   let userId = store.getters.accountUser ? store.getters.accountUser.id : 'GUEST'
-  debugger
+  
   insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_Recording_Start', {'roomId': roomId, 'userId': userId}, null)
   recordingChunks = [];
   wasCancelled = false;
