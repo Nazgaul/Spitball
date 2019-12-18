@@ -50,7 +50,7 @@ export default {
                'purchased': {text:LanguageService.getValueByKey('dashboardPage_purchased'), align:'left', sortable: true, value:'purchased'},
                'price': {text:LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
                'date': {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
-               'action': {text: LanguageService.getValueByKey('dashboardPage_action'), align:'center', sortable: false, value:'action'},
+               'action': {text: '', align:'center', sortable: false, value:'action'},
                'status': {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'status'},
             }
          },
