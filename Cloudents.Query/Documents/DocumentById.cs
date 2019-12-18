@@ -9,6 +9,8 @@ using NHibernate.SqlCommand;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
 
 namespace Cloudents.Query.Documents
 {
@@ -34,6 +36,7 @@ namespace Cloudents.Query.Documents
             {
                 _session = session.StatelessSession;
             }
+            [Cache(TimeConst.Minute*2,"document-by-id",false)]
             public async Task<DocumentDetailDto> GetAsync(DocumentById query, CancellationToken token)
             {
 

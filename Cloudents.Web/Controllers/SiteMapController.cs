@@ -86,7 +86,7 @@ namespace Cloudents.Web.Controllers
 
 
 
-        [Route("sitemap-{type}-{index:int}.xml", Name = "siteMapDescription", Order = 2)]
+        [Route("sitemap-{type}-{index:int}.xml", Name = "siteMapDescription")]
         public IActionResult DetailIndexAsync(SeoType type, int index,
             [FromServices] IIndex<SeoType, IBuildSeo> seoBuilder)
         {

@@ -51,7 +51,12 @@
     @Html.Raw(JavaScriptSnippet.FullScript)
     @Html.Raw(ClickJackingTagHelper.FullScript)
 
-
+    @if (ViewBag.jsonLd != null)
+    {
+        <script type="application/ld+json">
+            @Html.Raw(ViewBag.jsonLd.ToHtmlEscapedString())
+        </script>
+    }
 </head>
 <body lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
     <div>
