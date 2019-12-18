@@ -135,6 +135,7 @@ namespace Cloudents.Core.Entities
                 throw new UnauthorizedAccessException("you cannot flag your own document");
             }
             Status = Status.Flag(messageFlagReason, user);
+            AddEvent(new DocumentFlaggedEvent(this));
         }
 
         public virtual void UnFlag()
@@ -170,6 +171,7 @@ namespace Cloudents.Core.Entities
 
             Price = decimal.Round(newPrice, 2);
             TimeStamp.UpdateTime = DateTime.UtcNow;
+            AddEvent(new DocumentPriceChangeEvent(this));
 
         }
 
