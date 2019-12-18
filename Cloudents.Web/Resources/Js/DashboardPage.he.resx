@@ -166,9 +166,6 @@
   <data name="qa" xml:space="preserve">
     <value>שאלות</value>
   </data>
-  <data name="questuin" xml:space="preserve">
-    <value>שאלה:</value>
-  </data>
   <data name="session" xml:space="preserve">
     <value>שיעור פרטי עם {1}</value>
   </data>
@@ -192,5 +189,8 @@
   </data>
   <data name="rename" xml:space="preserve">
     <value>שינוי שם</value>
+  </data>
+  <data name="question" xml:space="preserve">
+    <value>שאלה:</value>
   </data>
 </root>

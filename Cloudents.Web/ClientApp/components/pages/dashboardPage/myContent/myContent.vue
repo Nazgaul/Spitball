@@ -15,7 +15,7 @@
             <tr>
                <th class="text-xs-left"
                   v-for="header in props.headers"
-                  :key="header.text"
+                  :key="header.value"
                   :class="['column',{'sortable':header.sortable}]"
                   @click="changeSort(header.value)">
                   <span class="text-xs-left">{{ header.text }}
@@ -61,7 +61,7 @@
                <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-center">
-                  <v-menu lazy bottom right v-model="showMenu" v-if="!checkIsQuestion(props.item.type)" >
+                  <v-menu lazy bottom left v-model="showMenu" v-if="!checkIsQuestion(props.item.type)" >
                      <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
 
                      <v-list v-if="props.index == currentItemIndex">
@@ -128,11 +128,6 @@ export default {
       ...mapActions(['updateContentItems','dashboard_sort']),
       checkIsQuestion(prop){
          return prop === 'Question' || prop === 'Answer';
-      },
-      formatItemPrice(price,type){
-         if(type !== 'Question' && type !== 'Answer'){
-            return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
-         }
       },
       changeSort(sortBy){
          if(sortBy === 'info') return;

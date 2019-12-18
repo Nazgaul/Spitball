@@ -165,4 +165,7 @@
   <data name="views" xml:space="preserve">
     <value>צפיות</value>
   </data>
+  <data name="action_apply_name" xml:space="preserve">
+    <value>שנה שם</value>
+  </data>
 </root>
