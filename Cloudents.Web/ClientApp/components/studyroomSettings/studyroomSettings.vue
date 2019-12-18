@@ -73,7 +73,10 @@ export default {
     }
   },
   props: {
-    id: ""
+    id: {
+      type: String,
+      default: ''
+    }
   },
   computed:{
     ...mapGetters(['getStepHistory', 'isFrymo']),
@@ -119,7 +122,7 @@ export default {
         window.open('mailto: support@frymo.com', '_blank');
       }else{
         global.Intercom('show')
-        intercomSettings.hide_default_launcher = false;
+        global.intercomSettings.hide_default_launcher = false;
       }
     },
   },

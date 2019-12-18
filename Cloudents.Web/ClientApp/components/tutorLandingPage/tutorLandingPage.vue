@@ -58,7 +58,7 @@ import tutorResultCard from '../results/tutorCards/tutorResultCard/tutorResultCa
 import tutorResultCardMobile from '../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue';
 import tutorLandingPageService from './tutorLandingPageService';
-import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
+// import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
 import SuggestCard from '../results/suggestCard.vue';
 import analyticsService from '../../services/analytics.service.js';
 
@@ -71,7 +71,7 @@ export default {
         tutorResultCard,
         tutorResultCardMobile,
         tutorSearchComponent,
-        emptyStateCard,
+        // emptyStateCard,
         SuggestCard,
         sbCarousel,
         testimonialCard
@@ -100,11 +100,15 @@ export default {
         activateSticky(){
             if(!this.isMobile){
                 return this.topOffset > 240;
+            }else{
+                return false
             }
         },
         activateStickyMobile(){
             if(this.isMobile){
                 return this.topOffset > 280;
+            }else{
+                return false
             }
         }
     },
