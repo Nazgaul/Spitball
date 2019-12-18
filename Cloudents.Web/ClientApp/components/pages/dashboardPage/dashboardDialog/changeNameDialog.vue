@@ -149,7 +149,7 @@ export default {
       align-items: center;
       justify-content: center;
       padding: 32px 0 16px 0;
-      background: #f7f7f7;
+      // background: #f7f7f7;
       .change-name {
         .sb-rounded-btn();
         padding: 8px 20px 8px 20px;
