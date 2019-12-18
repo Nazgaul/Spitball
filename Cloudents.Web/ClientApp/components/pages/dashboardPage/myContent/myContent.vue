@@ -15,7 +15,7 @@
             <tr>
                <th class="text-xs-left"
                   v-for="header in props.headers"
-                  :key="header.text"
+                  :key="header.value"
                   :class="['column',{'sortable':header.sortable}]"
                   @click="changeSort(header.value)">
                   <span class="text-xs-left">{{ header.text }}
