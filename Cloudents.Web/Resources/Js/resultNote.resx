@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="action_apply_name" xml:space="preserve">
-    <value>Apply New Name</value>
+    <value>Rename</value>
   </data>
   <data name="action_apply_price" xml:space="preserve">
     <value>Apply New Price</value>
