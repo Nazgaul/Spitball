@@ -48,10 +48,10 @@
             <v-list-tile
               v-show="item.isVisible(item.visible)"
               :disabled="item.isDisabled()"
-              v-for="(prop, i) in actions"
+              v-for="(item, i) in actions"
               :key="i"
             >
-              <v-list-tile-title style="cursor:pointer;" @click="prop.action()">{{ prop.title }}</v-list-tile-title>
+              <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
