@@ -4,10 +4,12 @@
         "es6": true,
         "shared-node-browser": true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:vue/essential"
-    ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/essential",
+    "plugin:vue/recommended",
+    "plugin:css-modules/recommended"
+  ],
     "parser": "vue-eslint-parser",
     "globals": {
         "Atomics": "readonly",
@@ -28,7 +30,8 @@
         "allowImportExportEverywhere": true
     },
     "plugins": [
-        "vue"
+      "vue",
+      "css-modules"
     ],
   "rules": {
     "no-extra-boolean-cast": "off",
