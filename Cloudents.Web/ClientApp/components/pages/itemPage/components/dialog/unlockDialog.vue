@@ -89,10 +89,8 @@ export default {
                 id: this.document.details.id,
                 price: this.document.details.price
             };
-            if (!this.isLoading) {
-                this.purchaseDocument(item);
-                this.updatePurchaseConfirmation(false);
-            }
+            this.purchaseDocument(item);
+            this.updatePurchaseConfirmation(false);
         },
     }
 }

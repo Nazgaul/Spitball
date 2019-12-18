@@ -1,5 +1,5 @@
 <template>
-    <div :class="['itemPage__side',{'itemPage__sideActiveBanner':getBannerSatus}]" v-if="showBlock && !isLoading">
+    <div :class="['itemPage__side',{'itemPage__sideActiveBanner':getBannerSatus}]" v-if="showBlock">
         <template v-if="!zeroPrice && !isPurchased">
             <div class="itemPage__side__top">
                 <h1 class="itemPage__side__top__h1">{{priceWithComma}}</h1>
@@ -68,11 +68,6 @@ export default {
         exams,
         secure,
     },
-    data() {
-        return {
-            btnLoader: true,
-        }
-    },
     computed: {
         ...mapGetters(['accountUser', 'getBtnLoading','getBannerSatus']),
 
@@ -118,7 +113,7 @@ export default {
             return true;
         },
         isLoading() {
-            if(this.document && this.document.details && !this.btnLoader) {
+            if(this.document && this.document.details && !this.getBtnLoading) {
                 return false;
             }
             return true;
@@ -148,9 +143,6 @@ export default {
             this.downloadDocument(item);
         },
     },
-    created() {
-        this.btnLoader = false;
-    }
 }
 </script>
 <style lang="less">
