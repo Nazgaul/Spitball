@@ -166,9 +166,6 @@
   <data name="header_get_lesson" xml:space="preserve">
     <value>מורים פרטיים מעולים שמחוייבים להצלחה שלך</value>
   </data>
-  <data name="rates" xml:space="preserve">
-    <value>95%</value>
-  </data>
   <data name="reviews" xml:space="preserve">
     <value>ביקורות</value>
   </data>

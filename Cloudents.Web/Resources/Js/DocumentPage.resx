@@ -187,4 +187,7 @@
   <data name="why_spitball" xml:space="preserve">
     <value>Why Spitball</value>
   </data>
+  <data name="unlock_btn" xml:space="preserve">
+    <value>Open</value>
+  </data>
 </root>

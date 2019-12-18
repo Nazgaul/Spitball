@@ -159,4 +159,10 @@
   <data name="wallet" xml:space="preserve">
     <value>ארנק</value>
   </data>
+  <data name="my_content" xml:space="preserve">
+    <value>התוכן שלי</value>
+  </data>
+  <data name="posts" xml:space="preserve">
+    <value>ההודעות שלי</value>
+  </data>
 </root>
