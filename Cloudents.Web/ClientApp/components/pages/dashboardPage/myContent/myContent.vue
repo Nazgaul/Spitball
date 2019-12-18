@@ -135,6 +135,8 @@ export default {
          }
       },
       changeSort(sortBy){
+         if(sortBy === 'info') return;
+
          let sortObj = {
             listName: 'contentItems',
             sortBy,

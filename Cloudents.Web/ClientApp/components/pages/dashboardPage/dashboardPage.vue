@@ -51,7 +51,7 @@ export default {
                'price': {text:LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
                'date': {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
                'action': {text: '', align:'center', sortable: false, value:'action'},
-               'status': {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'status'},
+               'status': {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'paymentStatus'},
             }
          },
          globalFunctions:{

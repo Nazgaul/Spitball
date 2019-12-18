@@ -11,6 +11,19 @@
             :prev-icon="'sbf-arrow-left-carousel'"
             :sort-icon="'sbf-arrow-down'"
             :next-icon="'sbf-arrow-right-carousel'">
+            <template slot="headers" slot-scope="props">
+               <tr>
+                  <th class="text-xs-left"
+                     v-for="header in props.headers"
+                     :key="header.text"
+                     :class="['column',{'sortable':header.sortable}]"
+                     @click="changeSort(header.value)">
+                     <span class="text-xs-left">{{ header.text }}
+                        <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
+                     </span>
+                  </th>
+               </tr>
+            </template>
             <template v-slot:items="props">
                <td class="mySales_td_img">
                   <router-link :to="globalFunctions.router(props.item)" class="mySales_td_img_img">
@@ -52,7 +65,6 @@
                <td class="text-xs-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-left">{{ formatItemPrice(props.item.price,props.item.type) }}</td>
-               <!-- <td class="text-xs-left"><v-icon @click="openDialog" small>sbf-3-dot</v-icon></td> -->
             </template>
             <template slot="pageText" slot-scope="item">
                <span class="mySales_footer">
@@ -81,6 +93,7 @@ export default {
    },
    data() {
       return {
+         sortedBy:'',
          headers:[
             this.dictionary.headers['preview'],
             this.dictionary.headers['info'],
@@ -98,7 +111,7 @@ export default {
       },
    },
    methods: {
-      ...mapActions(['updateSalesItems']),
+      ...mapActions(['updateSalesItems','dashboard_sort']),
 
       checkIsSession(prop){
          return prop === 'TutoringSession';
@@ -124,6 +137,17 @@ export default {
             return LanguageService.getValueByKey('dashboardPage_paid')
          }
       },
+      changeSort(sortBy){
+         if(sortBy === 'info') return;
+
+         let sortObj = {
+            listName: 'salesItems',
+            sortBy,
+            sortedBy: this.sortedBy
+         }
+         this.dashboard_sort(sortObj)
+         this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
+      }
    },
    created() {
       this.updateSalesItems()
