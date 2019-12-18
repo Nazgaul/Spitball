@@ -29,7 +29,7 @@
                                     <v-menu bottom left content-class="card-user-actions">
                                         <template v-slot:activator="{ on }">
                                             <v-btn :depressed="true" @click.prevent v-on="on" icon>
-                                                <v-icon>sbf-3-dot</v-icon>
+                                                <v-icon small>sbf-3-dot</v-icon>
                                             </v-btn>
                                         </template>
                                         <v-list>
