@@ -103,6 +103,8 @@ export default {
         currentTutorCourses(){
             if(!!this.getCurrTutor && this.getCurrTutor.courses.length){
                 return this.getCurrTutor.courses
+            }else{
+                return []
             }
         },
         isTutor(){
