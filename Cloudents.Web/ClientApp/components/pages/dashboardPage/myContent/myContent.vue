@@ -61,7 +61,7 @@
                <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-center">
-                  <v-menu lazy bottom right v-model="showMenu" v-if="!checkIsQuestion(props.item.type)" >
+                  <v-menu lazy bottom left v-model="showMenu" v-if="!checkIsQuestion(props.item.type)" >
                      <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
 
                      <v-list v-if="props.index == currentItemIndex">
