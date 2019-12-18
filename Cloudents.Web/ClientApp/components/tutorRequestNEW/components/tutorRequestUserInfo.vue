@@ -1,6 +1,6 @@
 <template>
     <div class="tutorRequest-middle-userInfo">
-        <span class="tR-span" v-html="$Ph('tutorRequest_tell_tutor',this.getCurrTutor? this.getCurrTutor.name : generalName)"/>
+        <span class="tR-span" v-html="$Ph('tutorRequest_tell_tutor',getCurrTutor? getCurrTutor.name : generalName)"/>
     <v-form v-model="validRequestTutorForm" ref="tutorRequestForm">
             <fieldset class="fieldset-user-name px-2">
                 <legend v-language:inner="'tutorRequest_name'"/>
