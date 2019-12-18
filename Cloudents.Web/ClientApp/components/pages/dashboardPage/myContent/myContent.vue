@@ -35,11 +35,11 @@
                   <router-link :to="globalFunctions.router(props.item)">
                      <template v-if="checkIsQuestion(props.item.type)">
                         <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_question'"/>
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_question'"/>
                            <span class="text-truncate">{{props.item.text}}</span>
                         </div>
                         <div class="text-truncate" v-if="props.item.answerText">
-                           <span v-language:inner="'dashboardPage_answer'"/>
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_answer'"/>
                            <span>{{props.item.answerText}}</span>
                         </div>
                      </template>
@@ -48,7 +48,7 @@
                         <span>{{props.item.name}}</span>
                      </template>
                      <div class="text-truncate" v-if="props.item.course">
-                        <span v-language:inner="'dashboardPage_course'"></span>
+                        <span class="font-weight-bold" v-language:inner="'dashboardPage_course'"></span>
                         <span>{{props.item.course}}</span>
                      </div>
                   </router-link>
