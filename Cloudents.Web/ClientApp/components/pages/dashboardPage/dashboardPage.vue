@@ -1,6 +1,13 @@
 <template>
    <div class="dashboardPage">
-      <component :dictionary="dictionary" :globalFunctions="globalFunctions" :is="component"/>
+      <component 
+         :dictionary="dictionary" 
+         :globalFunctions="globalFunctions" 
+         :is="component">
+         <template slot="tableEmptyState">
+            <tableEmptyState/>
+         </template>
+      </component>
       <sb-dialog 
          :showDialog="isDialog"
          :isPersistent="true"
@@ -19,6 +26,7 @@
 import mySales from './mySales/mySales.vue';
 import myContent from './myContent/myContent.vue';
 
+import tableEmptyState from './global/tableEmptyState.vue';
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
 import changePriceDialog from './dashboardDialog/changePriceDialog.vue';
@@ -68,7 +76,8 @@ export default {
       myContent,
       changeNameDialog,
       changePriceDialog,
-      sbDialog
+      sbDialog,
+      tableEmptyState,
    },
    computed: {
       ...mapGetters(['accountUser'])

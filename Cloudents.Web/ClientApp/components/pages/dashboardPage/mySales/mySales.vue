@@ -1,7 +1,7 @@
 <template>
    <div class="mySales">
       <div class="mySales_title" v-language:inner="'dashboardPage_my_sales_title'"/>
-         <v-data-table v-if="salesItems.length"
+         <v-data-table 
             :headers="headers"
             :items="salesItems"
             disable-initial-sort
@@ -15,7 +15,7 @@
                <tr>
                   <th class="text-xs-left"
                      v-for="header in props.headers"
-                     :key="header.text"
+                     :key="header.value"
                      :class="['column',{'sortable':header.sortable}]"
                      @click="changeSort(header.value)">
                      <span class="text-xs-left">{{ header.text }}
@@ -66,6 +66,7 @@
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"></td>
             </template>
+         <slot slot="no-data" name="tableEmptyState"/>
             <template slot="pageText" slot-scope="item">
                <span class="mySales_footer">
                {{item.pageStart}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}

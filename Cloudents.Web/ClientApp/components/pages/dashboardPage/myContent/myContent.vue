@@ -1,7 +1,7 @@
 <template>
    <div class="myContent">
       <div class="myContent_title" v-language:inner="'dashboardPage_my_content_title'"/>
-      <v-data-table v-if="contentItems.length"
+      <v-data-table 
             :headers="headers"
             :items="contentItems"
             disable-initial-sort
@@ -71,7 +71,7 @@
                   </v-menu>
                </td>
             </template>
-
+         <slot slot="no-data" name="tableEmptyState"/>
          <template slot="pageText" slot-scope="item">
             <span class="myContent_footer">
             {{item.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
