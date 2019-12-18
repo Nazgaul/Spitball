@@ -110,8 +110,6 @@ export default {
 	padding-left: 30px;
    padding-top: 30px;
    padding-right: 30px;
-   // max-width: 1150px;
-   max-width: fit-content;
 	@media (max-width: @screen-xs) {
       padding-left: 6px;
       padding-right: 6px;
