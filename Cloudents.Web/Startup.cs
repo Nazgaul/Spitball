@@ -329,8 +329,7 @@ namespace Cloudents.Web
             //https://stackoverflow.com/a/41335701/1235448
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor |
-                                   ForwardedHeaders.XForwardedProto
+                ForwardedHeaders = ForwardedHeaders.All
             });
             app.UseAuthentication();
 

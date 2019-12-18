@@ -123,10 +123,6 @@
   <data name="apply_coupon" xml:space="preserve">
     <value>Apply Coupon</value>
   </data>
-  <data name="apply_coupon_btn" xml:space="preserve">
-    <value></value>
-    <comment>Need to be removed</comment>
-  </data>
   <data name="apply_error" xml:space="preserve">
     <value>The coupon code entered is not valid. Perhaps you used the wrong coupon code?</value>
   </data>

@@ -118,7 +118,7 @@ const handleImage = function (e,isDragged) {
             // self.methods.addShape(localShape, clearLocalShape);
         };
         img.src = url;
-    },err=>{
+    },()=>{
         store.dispatch("updateImgLoader", false);
         store.dispatch('updateToasterParams', {
             toasterText: LanguageService.getValueByKey("upload_multiple_error_extension_title"),

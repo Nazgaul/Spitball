@@ -1,5 +1,4 @@
 import { connectivityModule } from "./connectivity.module";
-import { LanguageService } from "../services/language/languageService";
 
 function University(objInit) {
     if(!objInit) {

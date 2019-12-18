@@ -304,11 +304,21 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
 
+        [Theory]
         [InlineData(1L)]
         public async Task SimilarDocumentsQuery_Ok(long documentId)
         {
             var query = new SimilarDocumentsQuery(documentId);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Theory]
+        [InlineData(638)]
+        [InlineData(159039)]
+        public async Task UserSalesByIdQuery_Ok(long id)
+        {
+            var query = new UserSalesByIdQuery(id);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
         }
     }
 }

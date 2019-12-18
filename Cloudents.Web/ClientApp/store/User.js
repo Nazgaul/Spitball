@@ -3,7 +3,6 @@ import { USER } from './mutation-types'
 import * as consts from './constants'
 import {LanguageService} from '../services/language/languageService';
 
-﻿
 const state = {
     user: {
         //universityId: null,
@@ -157,8 +156,9 @@ const actions = {
             let userName = notificationObj.userName;
             let location = global.location.origin;
             let textLang = LanguageService.getValueByKey('tutor_waiting_in_studyRoom');
+            let textLangStudyRoom = LanguageService.getValueByKey('tutor_waiting_in_studyRoom_link');
             let textElm = `<a style="text-decoration: none;" href="${location}/studyroomSettings/${id}">
-                ${userName} ${textLang}
+                <span>${userName} ${textLang}</span> <span style="text-decoration: underline;">${textLangStudyRoom}</span> 
             </a>`
             let toasterObj = {
                 toasterText: textElm,

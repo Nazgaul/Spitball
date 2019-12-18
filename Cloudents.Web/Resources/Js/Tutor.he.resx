@@ -129,6 +129,9 @@
   <data name="btn_stop_sharing" xml:space="preserve">
     <value>הפסק שיתוף מסך</value>
   </data>
+  <data name="can_be_recorded" xml:space="preserve">
+    <value>יתכן והשיעור יוקלט על ידי התלמיד</value>
+  </data>
   <data name="chrome_ext_btn_cancel" xml:space="preserve">
     <value>ביטול</value>
   </data>
@@ -201,6 +204,9 @@
   <data name="quality_btn_done" xml:space="preserve">
     <value>סיום</value>
   </data>
+  <data name="start_dialog_session_time" xml:space="preserve">
+    <value>זמן השיעור:</value>
+  </data>
   <data name="start_dialog_your_student" xml:space="preserve">
     <value>הסטודנט שלך הוא</value>
   </data>
@@ -213,8 +219,20 @@
   <data name="stream_btn_add_payment" xml:space="preserve">
     <value>הוסף פרטי כרטיס אשראי</value>
   </data>
+  <data name="stream_btn_disconnected_student" xml:space="preserve">
+    <value>הקשר נותק. אנחנו מנסים להתחבר חזרה</value>
+  </data>
+  <data name="stream_btn_disconnected_tutor" xml:space="preserve">
+    <value>הקשר נותק. אנחנו מנסים להתחבר חזרה</value>
+  </data>
   <data name="stream_btn_end_session" xml:space="preserve">
     <value>סיים שיעור</value>
+  </data>
+  <data name="stream_btn_finished_student" xml:space="preserve">
+    <value>השיעור הסתיים</value>
+  </data>
+  <data name="stream_btn_finished_tutor" xml:space="preserve">
+    <value>השיעור הסתיים</value>
   </data>
   <data name="stream_btn_join_session" xml:space="preserve">
     <value>התחל שיעור</value>
@@ -314,5 +332,20 @@
   </data>
   <data name="tooltip_video_resume" xml:space="preserve">
     <value>הפעל</value>
+  </data>
+  <data name="user_consent_dialog_accept" xml:space="preserve">
+    <value>התחל הקלטה</value>
+  </data>
+  <data name="user_consent_dialog_message" xml:space="preserve">
+    <value>אתה צריך את הסכמת התלמיד בכדי להקליט את השיעור</value>
+  </data>
+  <data name="user_consent_dialog_title" xml:space="preserve">
+    <value>שים לב</value>
+  </data>
+  <data name="waiting_in_studyRoom" xml:space="preserve">
+    <value>מחכה לך</value>
+  </data>
+  <data name="waiting_in_studyRoom_link" xml:space="preserve">
+    <value>בחדר הלימוד</value>
   </data>
 </root>

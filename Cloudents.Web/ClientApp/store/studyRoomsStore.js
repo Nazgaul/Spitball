@@ -27,7 +27,7 @@ const state = {
             commit('setStudyRooms', rooms);
         });
     },
-     createStudyRoom({commit}, userId){
+     createStudyRoom(context, userId){
         return studyRoomsService.createRoom(userId);
      },
  };

@@ -95,7 +95,7 @@ async function start(connectionInstance) {
             }
         }, 5000 * (connectionInstance.connectionStartCount + 1));
     }
-};
+}
 
 //init function is launched from the main.js
 export default function init(connString = '/sbHub') {
@@ -105,13 +105,33 @@ export default function init(connString = '/sbHub') {
 
     //reconnect in case connection closes for some reason
     connectionInstance.connection.onclose(async () => {
-        store.dispatch('setIsSignalRConnected', false);
-        connectionInstance.isConnected = false;
-        await start(connectionInstance);
+        let isNotDeleted = signalRConnectionPool.filter((conn)=>{
+            return conn.connection.connection.baseUrl === connectionInstance.connection.connection.baseUrl
+        })
+        if(isNotDeleted.length > 0){
+            store.dispatch('setIsSignalRConnected', false);
+            connectionInstance.isConnected = false;
+            await start(connectionInstance);
+        }
     });
 
     //open the connection and register the events
     startConnection(connectionInstance, "Message");
+}
+
+export function CloseConnection(connString){
+    let connectionInstance = null
+    let indexOfInstance = -1;
+    signalRConnectionPool.forEach((con, index)=>{
+        if(con.connection.connection.baseUrl.indexOf(connString) > -1){
+            connectionInstance = con;
+            indexOfInstance = index;
+        }
+    })
+    signalRConnectionPool.splice(indexOfInstance, 1);
+    if(!!connectionInstance){
+        connectionInstance.connection.stop();
+    }
 }
 
 export function NotifyServer(connection, message, data) {

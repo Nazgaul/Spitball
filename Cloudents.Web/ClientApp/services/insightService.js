@@ -9,7 +9,7 @@ function createEventName(type, name){
 }
 
 const track={
-    exception: function(exception, handledAt = null, properties, measurements, severityLevel){
+    exception: function(exception, properties, measurements, severityLevel){
         /*
         Gaby: use this only in a TRY CATCH expression otherwise use the track Event function
         exception - An Error from a catch clause.

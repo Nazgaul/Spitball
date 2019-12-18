@@ -236,19 +236,12 @@ export default {
             }
           }
           .striked {
-            max-width: max-content;
-            position: relative;
-            color: #a0a4be;
-            &:after {
-                content: "";
-                width: 120%;
-                border-bottom: solid 1px #a0a4be;
-                position: absolute;
-                left: -2px;
-                top: 50%;
-                z-index: 1;
+                margin: 0 0 0 auto;
+                max-width: max-content;
+                color: #a0a4be;
+                font-size: 14px;
+                text-decoration: line-through;
             }
-          }
        }
        .applyCoupon {
           color: #4c59ff;
@@ -264,7 +257,11 @@ export default {
     .card-mobile-footer {
         display: inherit;
         .btn-chat {
+          position: unset;
           font-weight: 600;
+          &:before{
+            position:unset;
+          }
           .v-btn__content{
             .chat-icon-btn{
               // position: absolute;
@@ -276,7 +273,6 @@ export default {
               margin-bottom: 2px;
             }
           }
-          position: relative;
           text-transform: inherit;
           border-radius: 7.5px;
           div {

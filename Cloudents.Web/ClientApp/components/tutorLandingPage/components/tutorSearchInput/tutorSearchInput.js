@@ -35,11 +35,14 @@ export default {
         search(text) {
             if(!!text){
                 this.msg = text;
+            }else if(!this.msg) {
+                this.msg = '';
             }
             if(!!this.msg){
                 analyticsService.sb_unitedEvent("Tutor_Engagement", "Search", this.msg);
-            }       
-            this.$router.push({ path: `/tutor-list/${this.msg}` })
+            }
+
+            this.$router.push({ path: `/tutor-list/${this.msg}` }).catch(() => {});
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {

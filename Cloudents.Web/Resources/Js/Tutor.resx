@@ -321,24 +321,36 @@ Voice Recording?</value>
     <value>Try Again</value>
   </data>
   <data name="can_be_recorded" xml:space="preserve">
-    <value>note: You can be recorded</value>
+    <value>This session might be recorded by the student</value>
   </data>
   <data name="start_dialog_session_time" xml:space="preserve">
-    <value>session duration:</value>
+    <value>Session Duration:</value>
   </data>
   <data name="stream_btn_disconnected_student" xml:space="preserve">
-    <value>session was disconnected please wait while we are trying to recconect</value>
+    <value>Session was disconnected. We are trying to bring it back </value>
   </data>
   <data name="stream_btn_disconnected_tutor" xml:space="preserve">
-    <value>session was disconnected please wait while we are trying to recconect</value>
+    <value>Session was disconnected. We are trying to bring it back </value>
   </data>
   <data name="stream_btn_finished_student" xml:space="preserve">
-    <value>session ended</value>
+    <value>Session ended</value>
   </data>
   <data name="stream_btn_finished_tutor" xml:space="preserve">
-    <value>session ended</value>
+    <value>Session ended</value>
   </data>
   <data name="waiting_in_studyRoom" xml:space="preserve">
-    <value>is waiting for you at the study room</value>
+    <value>is waiting for you in your </value>
+  </data>
+  <data name="waiting_in_studyRoom_link" xml:space="preserve">
+    <value>study room</value>
+  </data>
+  <data name="user_consent_dialog_accept" xml:space="preserve">
+    <value>Start recording</value>
+  </data>
+  <data name="user_consent_dialog_message" xml:space="preserve">
+    <value>You need student's consent in order to record this session</value>
+  </data>
+  <data name="user_consent_dialog_title" xml:space="preserve">
+    <value>Note</value>
   </data>
 </root>

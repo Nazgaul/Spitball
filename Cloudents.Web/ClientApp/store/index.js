@@ -31,7 +31,7 @@ import sideMenu_Store from './sideMenu_Store'
 import dialog_Store from './dialogStore/dialog_Store.js'
 import utils_Store from './utils_Store'
 import banner_Store from './banner_Store.js'
-
+import dashboard_Store from './dashboard_Store.js'
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -73,7 +73,8 @@ const store = new Vuex.Store({
         sideMenu_Store,
         dialog_Store,
         utils_Store,
-        banner_Store
+        banner_Store,
+        dashboard_Store,
     }
 });
 

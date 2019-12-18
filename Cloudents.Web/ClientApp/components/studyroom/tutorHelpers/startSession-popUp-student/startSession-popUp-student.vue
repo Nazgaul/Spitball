@@ -25,10 +25,10 @@
                         @click="joinSession()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
                     <!-- <span class="text-uppercase" v-language:inner="'tutor_btn_accept_and_start'"></span> -->
-                    <span class="text-uppercase">{{roomStateText}}</span>
+                    <span class="">{{roomStateText}}</span>
                 </v-btn>
             </v-flex>
-            <v-flex class="font-weight-bold start-session-text text-uppercase" v-else>
+            <v-flex class="font-weight-bold start-session-text" v-else>
                 {{roomStateText}}
             </v-flex>
         </v-layout>
@@ -139,6 +139,7 @@
             background-color: @BtnBackground!important;
             border-radius: 4px;
             letter-spacing: inherit;
+            text-transform: initial;
             .timer-icon {
                 fill: @color-white;
                 max-width: 24px;

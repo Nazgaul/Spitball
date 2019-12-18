@@ -46,7 +46,7 @@ namespace Cloudents.Web.Seo
                         select new { Course = newGroup.Key, Count = newGroup.Count() };
             foreach (var group in query)
             {
-                for (int i = 0; i < group.Count / pageSize; i++)
+                for (var i = 0; i <= group.Count / pageSize; i++)
                 {
                     var url = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.TutorList, new
                     {

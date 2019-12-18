@@ -161,7 +161,7 @@ const actions = {
         });
     },
     //to sync courses only
-    syncCoursesData({commit, dispatch}) {
+    syncCoursesData({dispatch}) {
         universityService.getProfileCourses().then((courses) => {
             if(courses.length > 0) {
                 dispatch('setSelectedClasses', courses);
@@ -172,13 +172,13 @@ const actions = {
             }
         });
     },
-    createCourse({commit, dispatch}, courseToCreate) {
+    createCourse({dispatch}, courseToCreate) {
         universityService.createCourse(courseToCreate).then((course) => {
             dispatch('pushClassToSelectedClasses', course);
         });
     },
 
-    createUniversity({commit, dispatch}, uniTocreate) {
+    createUniversity({commit}, uniTocreate) {
         return universityService.createUni(uniTocreate).then((uni) => {
             commit('setSchoolName', uni);
         });
@@ -211,7 +211,7 @@ const actions = {
            return universityService.getUni(val).then(data => {
                 commit('setUniversities', data);
                 return data;
-           }, err => {
+           }, () => {
                 commit('setUniversities', []);
             });
         }
@@ -221,7 +221,7 @@ const actions = {
             return universityService.getUni(val).then(data => {
                 commit('addUniversities', data);
                 return data;
-            }, err => {
+            }, () => {
                 commit('setUniversities', []);
             });
         }
@@ -241,7 +241,7 @@ const actions = {
             return universityService.getCourse(val).then(data => {
                 commit('addClasses', data);
                 return data;
-            }, err => {
+            }, () => {
                 commit('setClasses', []);
             });
         }
@@ -279,10 +279,10 @@ const actions = {
     assignSelectedClassesCache({commit, state}) {
         commit("setSelectedClassesCahce", state.selectedClasses);
     },
-    addToCachedClasses({commit, state}, val) {
+    addToCachedClasses({commit}, val) {
         commit("updateCachedList", val);
     },
-    changeClassesToCachedClasses({commit, state, dispatch}) {
+    changeClassesToCachedClasses({state, dispatch}) {
         if(state.selectedClassesCache.length > 0) {
             dispatch('setSelectedClasses', [].concat(state.selectedClassesCache));
         }
@@ -292,7 +292,7 @@ const actions = {
             commit("setCurrentStep", val);
         }
     },
-    setUniversityPopStorage_session({commit, state}, val) {
+    setUniversityPopStorage_session({commit, state}) {
         let localPopedItem = state.universityPopStorage.local;
         if(localPopedItem < 3) {
             localPopedItem++;
@@ -313,16 +313,16 @@ const actions = {
     closeSelectUniFromNav({commit}) {
         commit('setSelectUniState', false);
     },
-    changeCreateDialogState({commit, state}, val) {
+    changeCreateDialogState({commit}, val) {
         commit('updateCreateDialogState', val);
     },
-    updateVerification({commit, state}, val) {
+    updateVerification({commit}, val) {
         commit('verifyCreation', val);
     },
-    changeUniCreateDialogState({commit, state}, val) {
+    changeUniCreateDialogState({commit}, val) {
         commit('updateUniCreateDialogState', val);
     },
-    updateUniVerification({commit, state}, val) {
+    updateUniVerification({commit}, val) {
         commit('verifyUniCreation', val);
     },
     setSelectedClasses({commit, dispatch}, val){
