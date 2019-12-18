@@ -47,10 +47,10 @@
                      <template v-else>
                         <span>{{props.item.name}}</span>
                      </template>
-                        <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_course'"></span>
-                           <span>{{props.item.course}}</span>
-                        </div>
+                     <div class="text-truncate" v-if="props.item.course">
+                        <span v-language:inner="'dashboardPage_course'"></span>
+                        <span>{{props.item.course}}</span>
+                     </div>
                   </router-link>
                </td>
                <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>

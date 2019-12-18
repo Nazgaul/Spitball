@@ -33,7 +33,7 @@
                            <span v-language:inner="'dashboardPage_answer'"/>
                            <span>{{props.item.answerText}}</span>
                         </div>
-                        <div>
+                        <div v-if="props.item.course">
                            <span v-language:inner="'dashboardPage_course'"></span>
                            <span>{{props.item.course}}</span>
                         </div>
@@ -41,7 +41,7 @@
 
                      <template v-if="checkIsItem(props.item.type)">
                         <span>{{props.item.name}}</span>
-                        <div>
+                        <div v-if="props.item.course">
                            <span v-language:inner="'dashboardPage_course'"></span>
                            <span>{{props.item.course}}</span>
                         </div>
