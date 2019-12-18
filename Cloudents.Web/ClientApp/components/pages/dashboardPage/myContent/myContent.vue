@@ -135,6 +135,8 @@ export default {
          }
       },
       changeSort(sortBy){
+         if(sortBy === 'info') return;
+
          let sortObj = {
             listName: 'contentItems',
             sortBy,
@@ -190,6 +192,7 @@ export default {
       .myContent_td_course {
          a{
             color: #43425d !important;
+            line-height: 1.6;
          }
          width: 300px;
          max-width: 300px;

@@ -8,7 +8,7 @@
 
         <img v-else v-show="isLoaded" class="tutorRequest-img" @load="loaded" :src="defaultImage" alt="../images/yaniv.jpg">
         <p class="text-xs-center" v-if="!getCurrTutor" v-language:inner="'tutorRequest_send_msg_yaniv'"/>
-        <p class="text-xs-center" v-else v-html="$Ph(isMobile? 'tutorRequest_send_msg_tutor_mobile' :'tutorRequest_send_msg_tutor',this.getCurrTutor.name)" />
+        <p class="text-xs-center" v-else v-html="$Ph(isMobile? 'tutorRequest_send_msg_tutor_mobile' :'tutorRequest_send_msg_tutor',getCurrTutor.name)" />
     </div>
 </template>
 

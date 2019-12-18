@@ -1,5 +1,5 @@
 <template>
-   <v-card class="price-change-wrap">
+   <v-card class="priceD-change-wrap">
       <v-flex align-center justify-center class="relative-pos">
          <div class="title-wrap">
             <span class="change-title pr-1" v-language:inner="'resultNote_change_for'"></span>
@@ -93,7 +93,7 @@ export default {
   }
 }
 //price-change dialog
-.price-change-wrap {
+.priceD-change-wrap {
     padding: 12px 0 0 0;
     position: relative;
     .price-wrap {
