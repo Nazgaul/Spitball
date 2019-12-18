@@ -38,6 +38,7 @@ export default {
                'Answer': LanguageService.getValueByKey('dashboardPage_qa'),
                'Document': LanguageService.getValueByKey('dashboardPage_document'),
                'Video': LanguageService.getValueByKey('dashboardPage_video'),
+               'TutoringSession': LanguageService.getValueByKey('dashboardPage_tutor_session'),
             },
             headers:{
                'preview': {text: '', align:'left', sortable: false, value:'preview'},
@@ -50,6 +51,7 @@ export default {
                'price': {text:LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
                'date': {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
                'action': {text: LanguageService.getValueByKey('dashboardPage_action'), align:'center', sortable: false, value:'action'},
+               'status': {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'status'},
             }
          },
          globalFunctions:{
@@ -85,15 +87,21 @@ export default {
          if(item.type === 'Question' || item.type === 'Answer'){
             return {path:'/question/'+item.id}
          }
+         if(item.studentId){
+            return {name: 'profile',params: {id: item.studentId, name: item.studentName}}
+         }
       },
       formatImg(item){
          if(item.preview){
             return this.$proccessImageUrl(item.preview,140,140,"crop&anchorPosition=top")
          }
+         if(item.studentImage){
+            return this.$proccessImageUrl(item.studentImage,80,80)
+         }
          if(item.type === 'Question' || item.type === 'Answer'){
             return require(`./images/qs.png`) 
          }
-      },
+      },      
       formatPrice(price,type){
          if(type !== 'Question' && type !== 'Answer'){
             return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`

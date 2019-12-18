@@ -175,7 +175,7 @@
   <data name="qa" xml:space="preserve">
     <value>Q&amp;A</value>
   </data>
-  <data name="questuin" xml:space="preserve">
+  <data name="question" xml:space="preserve">
     <value>Question:</value>
   </data>
   <data name="rename" xml:space="preserve">
@@ -185,7 +185,7 @@
     <value>Tutoring session with {1}</value>
   </data>
   <data name="status" xml:space="preserve">
-    <value>Product</value>
+    <value>Status</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>Tutoring Session</value>

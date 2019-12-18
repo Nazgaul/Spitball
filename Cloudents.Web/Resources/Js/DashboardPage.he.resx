@@ -173,7 +173,7 @@
     <value>שיעור פרטי עם {1}</value>
   </data>
   <data name="status" xml:space="preserve">
-    <value>מוצר</value>
+    <value>סטטוס</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>שיעור פרטי</value>

@@ -13,20 +13,20 @@
             :next-icon="'sbf-arrow-right-carousel'">
             <template v-slot:items="props">
                <td class="mySales_td_img">
-                  <router-link :to="dynamicRouter(props.item)" class="mySales_td_img_img">
-                     <img width="80" height="80" :src="formatItemImg(props.item)" :class="{'imgPreview_sales':props.item.preview}">
+                  <router-link :to="globalFunctions.router(props.item)" class="mySales_td_img_img">
+                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)" :class="{'imgPreview_sales':props.item.preview}">
                   </router-link>
                </td>
                <td class="text-xs-left mySales_td_course">
-                  <router-link :to="dynamicRouter(props.item)">
+                  <router-link :to="globalFunctions.router(props.item)">
                      <template v-if="checkIsSession(props.item.type)">
                         <span v-html="$Ph('dashboardPage_session',props.item.studentName)"/>
                         <p><span v-language:inner="'dashboardPage_duration'"/> {{props.item.duration | sessionDuration}}</p>
                      </template>
 
-                     <template v-if="checkIsQuestuin(props.item.type)">
+                     <template v-if="checkIsQuestion(props.item.type)">
                         <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_questuin'"/>
+                           <span v-language:inner="'dashboardPage_question'"/>
                            <span class="text-truncate">{{props.item.text}}</span>
                         </div>
                         <div class="text-truncate">
@@ -48,7 +48,7 @@
                      </template>
                   </router-link>
                </td>
-               <td class="text-xs-left">{{formatItemType(props.item.type)}}</td>
+               <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
                <td class="text-xs-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-left">{{ formatItemPrice(props.item.price,props.item.type) }}</td>
@@ -70,15 +70,24 @@ import { LanguageService } from '../../../../services/language/languageService';
 
 export default {
    name:'mySales',
+   props:{
+      globalFunctions: {
+         type: Object,
+      },
+      dictionary:{
+         type: Object,
+         required: true
+      }
+   },
    data() {
       return {
          headers:[
-            {text: '', align:'left', sortable: false, value:'preview'},
-            {text: LanguageService.getValueByKey('dashboardPage_info'), align:'left', sortable: false, value:'info'},
-            {text: LanguageService.getValueByKey('dashboardPage_type'), align:'left', sortable: true, value:'type'},
-            {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'status'},
-            {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
-            {text: LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
+            this.dictionary.headers['preview'],
+            this.dictionary.headers['info'],
+            this.dictionary.headers['type'],
+            this.dictionary.headers['status'],
+            this.dictionary.headers['date'],
+            this.dictionary.headers['price'],
          ],
       }
    },
@@ -94,11 +103,11 @@ export default {
       checkIsSession(prop){
          return prop === 'TutoringSession';
       },
-      checkIsQuestuin(prop){
-         return prop === 'Question';
+      checkIsQuestion(prop){
+         return prop === 'Question' && prop !== 'Answer';
       },
       checkIsItem(prop){
-         return prop !== 'Question' && prop !== 'TutoringSession';
+         return prop !== 'Question' && prop !== 'TutoringSession' && prop !== 'Answer';
       },
       formatItemPrice(price,type){
          if(type === 'TutoringSession'){
@@ -115,42 +124,6 @@ export default {
             return LanguageService.getValueByKey('dashboardPage_paid')
          }
       },
-      dynamicRouter(item){
-         if(item.url){
-            return item.url;
-         }
-         if(item.studentId){
-            return {name: 'profile',params: {id: item.studentId, name: item.studentName}}
-         }
-         if(item.type === 'Question'){
-            return {path:'/question/'+item.id}
-         }
-      },
-      formatItemType(type){
-         if(type === 'Question'){
-            return LanguageService.getValueByKey('dashboardPage_qa')
-         }
-         if(type === 'Document'){
-            return LanguageService.getValueByKey('dashboardPage_document')
-         }
-         if(type === 'Video'){
-            return LanguageService.getValueByKey('dashboardPage_video')
-         }
-         if(type === 'TutoringSession'){
-            return LanguageService.getValueByKey('dashboardPage_tutor_session')
-         }
-      },
-      formatItemImg(item){
-         if(item.preview){
-            return this.$proccessImageUrl(item.preview,140,140,"crop&anchorPosition=top")
-         }
-         if(item.studentImage){
-            return this.$proccessImageUrl(item.studentImage,80,80)
-         }
-         if(item.type === 'Question'){
-            return require(`../images/qs.png`) 
-         }
-      }
    },
    created() {
       this.updateSalesItems()
