@@ -72,12 +72,12 @@ namespace Cloudents.Query.Query
                 var sessionFuture = _session.Query<StudyRoomSession>()
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
-                    .Where(w => w.StudyRoom.Tutor.Id == query.Id)
+                    .Where(w => w.StudyRoom.Tutor.Id == query.Id && w.Ended != null)
                     .Select(s => new SessionSaleDto()
                     {
                         PaymentStatus = string.IsNullOrEmpty(s.Receipt) ? PaymentStatus.Pending : PaymentStatus.Paid,
                         Date = s.Created,
-                        Price = s.Price,
+                        Price = s.Price ?? 0,
                         StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name).FirstOrDefault(),
                         Duration = s.Duration,
                         StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Image).FirstOrDefault(),
