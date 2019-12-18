@@ -7,7 +7,7 @@
          :popUpType="'dashboardDialog'"
          :onclosefn="closeDialog"
          :activateOverlay="true"
-         :max-width="'550px'"
+         :max-width="'438px'"
          :content-class="'pop-dashboard-container'">
             <changeNameDialog v-if="currentDialog === 'rename'" :dialogData="dialogData" @closeDialog="closeDialog"/>
             <changePriceDialog v-if="currentDialog === 'changePrice'" :dialogData="dialogData" @closeDialog="closeDialog"/>
