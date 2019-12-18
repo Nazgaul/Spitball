@@ -129,11 +129,6 @@ export default {
       checkIsQuestion(prop){
          return prop === 'Question' || prop === 'Answer';
       },
-      formatItemPrice(price,type){
-         if(type !== 'Question' && type !== 'Answer'){
-            return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
-         }
-      },
       changeSort(sortBy){
          if(sortBy === 'info') return;
 

@@ -23,6 +23,7 @@ import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
 import changePriceDialog from './dashboardDialog/changePriceDialog.vue';
 import { LanguageService } from '../../../services/language/languageService';
+import { mapGetters } from 'vuex';
 
 export default {
    name:'dashboardPage',
@@ -69,6 +70,9 @@ export default {
       changePriceDialog,
       sbDialog
    },
+   computed: {
+      ...mapGetters(['accountUser'])
+   },
    methods: {
       closeDialog() {
          this.currentDialog = '';
@@ -103,10 +107,13 @@ export default {
          }
       },      
       formatPrice(price,type){
-         if(type !== 'Question' && type !== 'Answer'){
+         if(type === 'Document' || type === 'Video'){
             return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
          }
-      }
+         if(type === 'TutoringSession'){
+            return `${Math.round(+price)} ${this.accountUser.currencySymbol}`
+         }
+      },
    }
 
 }

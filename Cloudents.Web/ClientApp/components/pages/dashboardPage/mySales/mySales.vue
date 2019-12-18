@@ -64,7 +64,7 @@
                <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
                <td class="text-xs-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-               <td class="text-xs-left">{{ formatItemPrice(props.item.price,props.item.type) }}</td>
+               <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"></td>
             </template>
             <template slot="pageText" slot-scope="item">
                <span class="mySales_footer">
@@ -120,14 +120,7 @@ export default {
          return prop === 'Question' && prop !== 'Answer';
       },
       checkIsItem(prop){
-         return prop !== 'Question' && prop !== 'TutoringSession' && prop !== 'Answer';
-      },
-      formatItemPrice(price,type){
-         if(type === 'TutoringSession'){
-            return `${Math.round(+price)} ${this.accountUser.currencySymbol}`
-         }else{
-            return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
-         }
+         return prop !== 'Question' && prop !== 'Answer' && prop !== 'TutoringSession';
       },
       formatItemStatus(paymentStatus){
          if(paymentStatus === 'Pending'){
