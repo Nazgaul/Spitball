@@ -13,7 +13,7 @@
           <span v-language:inner="'homePage_hd_stats_docs'" />
         </span>
         <v-flex class="landing-headelien-headlineStatus-stars">
-          <span v-language:inner="'landingPage_main_stats_reviews_presents'"></span>
+          <span>95%</span>
           <v-layout class="landing-headelien-headlineStatus-startsrating" align-center row wrap>
             <v-flex class="star" v-for="(star, index) in 5" :key="index"></v-flex>
           </v-layout>

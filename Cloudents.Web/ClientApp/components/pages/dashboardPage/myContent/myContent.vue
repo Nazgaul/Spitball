@@ -27,15 +27,15 @@
             <template v-slot:items="props">
                <td class="myContent_td_img">
                   <router-link :to="globalFunctions.router(props.item)" class="myContent_td_img_img">
-                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)" :class="{'imgPreview_content':props.item.preview}">
+                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)">
                   </router-link>
                </td>
                
                <td class="text-xs-left myContent_td_course text-truncate">
                   <router-link :to="globalFunctions.router(props.item)">
-                     <template v-if="checkIsQuestuin(props.item.type)">
+                     <template v-if="checkIsQuestion(props.item.type)">
                         <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_questuin'"/>
+                           <span v-language:inner="'dashboardPage_question'"/>
                            <span class="text-truncate">{{props.item.text}}</span>
                         </div>
                         <div class="text-truncate" v-if="props.item.answerText">
@@ -47,10 +47,10 @@
                      <template v-else>
                         <span>{{props.item.name}}</span>
                      </template>
-                        <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_course'"></span>
-                           <span>{{props.item.course}}</span>
-                        </div>
+                     <div class="text-truncate" v-if="props.item.course">
+                        <span v-language:inner="'dashboardPage_course'"></span>
+                        <span>{{props.item.course}}</span>
+                     </div>
                   </router-link>
                </td>
                <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
@@ -61,7 +61,7 @@
                <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-center">
-                  <v-menu lazy bottom right v-model="showMenu" v-if="!checkIsQuestuin(props.item.type)" >
+                  <v-menu lazy bottom right v-model="showMenu" v-if="!checkIsQuestion(props.item.type)" >
                      <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
 
                      <v-list v-if="props.index == currentItemIndex">
@@ -126,7 +126,7 @@ export default {
    },
    methods: {
       ...mapActions(['updateContentItems','dashboard_sort']),
-      checkIsQuestuin(prop){
+      checkIsQuestion(prop){
          return prop === 'Question' || prop === 'Answer';
       },
       formatItemPrice(price,type){
@@ -182,10 +182,7 @@ export default {
          .myContent_td_img_img{
             img{
                margin: 10px 0;
-               &.imgPreview_content{
-                  object-fit: none;
-                  object-position: top;
-               }
+               border: 1px solid #d8d8d8;
             }
 
          }

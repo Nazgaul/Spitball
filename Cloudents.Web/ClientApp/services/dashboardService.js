@@ -27,7 +27,7 @@ const Item = {
    Default:function(objInit){
       this.type = objInit.type;
       this.date = objInit.date;
-      this.course = objInit.course;
+      this.course = objInit.course || '';
    },
    Document:function(objInit){
       this.name = objInit.name;
