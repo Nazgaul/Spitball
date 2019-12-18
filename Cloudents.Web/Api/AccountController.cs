@@ -281,7 +281,7 @@ namespace Cloudents.Web.Api
                 }
                 if(s is SessionSaleDto ss)
                 {
-                    ss.StudentImage = urlBuilder.BuildUserImageEndpoint(ss.StudentId, ss.StudentImage);
+                    ss.StudentImage = urlBuilder.BuildUserImageEndpoint(ss.StudentId, ss.StudentImage, ss.StudentName);
                 }
                 return s;
             });
