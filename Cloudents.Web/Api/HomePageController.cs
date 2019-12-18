@@ -126,7 +126,7 @@ namespace Cloudents.Web.Api
             {
                 s.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                 s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
-                s.Title = Path.GetFileNameWithoutExtension(s.Title);
+                //s.Title = Path.GetFileNameWithoutExtension(s.Title);
                 return s;
             });
         }
