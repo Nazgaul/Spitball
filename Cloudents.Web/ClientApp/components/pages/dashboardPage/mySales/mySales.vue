@@ -14,7 +14,7 @@
             <template v-slot:items="props">
                <td class="mySales_td_img">
                   <router-link :to="globalFunctions.router(props.item)" class="mySales_td_img_img">
-                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)" :class="{'imgPreview_sales':props.item.preview}">
+                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)">
                   </router-link>
                </td>
                <td class="text-xs-left mySales_td_course">
@@ -162,10 +162,6 @@ export default {
          .mySales_td_img_img{
             img{
                margin: 10px 0;
-               &.imgPreview_sales{
-                  object-fit: none;
-                  object-position: top;
-               }
             }
 
          }

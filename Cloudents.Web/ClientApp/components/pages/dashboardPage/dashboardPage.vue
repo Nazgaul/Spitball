@@ -93,7 +93,7 @@ export default {
       },
       formatImg(item){
          if(item.preview){
-            return this.$proccessImageUrl(item.preview,140,140,"crop&anchorPosition=top")
+            return this.$proccessImageUrl(item.preview,80,80)
          }
          if(item.studentImage){
             return this.$proccessImageUrl(item.studentImage,80,80)
