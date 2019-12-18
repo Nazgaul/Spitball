@@ -125,5 +125,15 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
+
+        public const string ImageFunctionUserRoute = "image/user/{id}/{file}";
+        public string BuildUserImageEndpoint(long id, string imageName)
+        {
+            var injectionObj = new { id, file = imageName };
+            var path = ImageFunctionUserRoute.Inject(injectionObj);
+            var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+            return builder.ToString();
+        }
+
     }
 }

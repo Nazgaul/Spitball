@@ -7,7 +7,7 @@ namespace Cloudents.Core.DTOs
         public virtual SaleType Type { get; set; }
         public virtual PaymentStatus PaymentStatus { get; set; }
         public DateTime Date { get; set; }
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
     }
 
     public class DocumentSaleDto : SaleDto
