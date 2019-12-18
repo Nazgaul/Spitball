@@ -50,7 +50,7 @@ export default {
                'purchased': {text:LanguageService.getValueByKey('dashboardPage_purchased'), align:'left', sortable: true, value:'purchased'},
                'price': {text:LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
                'date': {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
-               'action': {text: LanguageService.getValueByKey('dashboardPage_action'), align:'center', sortable: false, value:'action'},
+               'action': {text: '', align:'center', sortable: false, value:'action'},
                'status': {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'status'},
             }
          },
@@ -93,7 +93,7 @@ export default {
       },
       formatImg(item){
          if(item.preview){
-            return this.$proccessImageUrl(item.preview,140,140,"crop&anchorPosition=top")
+            return this.$proccessImageUrl(item.preview,80,80)
          }
          if(item.studentImage){
             return this.$proccessImageUrl(item.studentImage,80,80)

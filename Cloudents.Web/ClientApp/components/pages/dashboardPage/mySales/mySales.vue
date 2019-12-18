@@ -14,27 +14,27 @@
             <template v-slot:items="props">
                <td class="mySales_td_img">
                   <router-link :to="globalFunctions.router(props.item)" class="mySales_td_img_img">
-                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)" :class="{'imgPreview_sales':props.item.preview}">
+                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)">
                   </router-link>
                </td>
                <td class="text-xs-left mySales_td_course">
                   <router-link :to="globalFunctions.router(props.item)">
                      <template v-if="checkIsSession(props.item.type)">
                         <span v-html="$Ph('dashboardPage_session',props.item.studentName)"/>
-                        <p><span v-language:inner="'dashboardPage_duration'"/> {{props.item.duration | sessionDuration}}</p>
+                        <p><span class="font-weight-bold" v-language:inner="'dashboardPage_duration'"/> {{props.item.duration | sessionDuration}}</p>
                      </template>
 
                      <template v-if="checkIsQuestion(props.item.type)">
                         <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_question'"/>
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_question'"/>
                            <span class="text-truncate">{{props.item.text}}</span>
                         </div>
                         <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_answer'"/>
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_answer'"/>
                            <span>{{props.item.answerText}}</span>
                         </div>
                         <div v-if="props.item.course">
-                           <span v-language:inner="'dashboardPage_course'"></span>
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_course'"></span>
                            <span>{{props.item.course}}</span>
                         </div>
                      </template>
@@ -42,7 +42,7 @@
                      <template v-if="checkIsItem(props.item.type)">
                         <span>{{props.item.name}}</span>
                         <div v-if="props.item.course">
-                           <span v-language:inner="'dashboardPage_course'"></span>
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_course'"></span>
                            <span>{{props.item.course}}</span>
                         </div>
                      </template>
@@ -162,10 +162,7 @@ export default {
          .mySales_td_img_img{
             img{
                margin: 10px 0;
-               &.imgPreview_sales{
-                  object-fit: none;
-                  object-position: top;
-               }
+               border: 1px solid #d8d8d8;
             }
 
          }
