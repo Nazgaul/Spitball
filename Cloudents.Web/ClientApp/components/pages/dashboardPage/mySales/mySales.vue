@@ -170,6 +170,7 @@ export default {
       .mySales_td_course {
          a{
             color: #43425d !important;
+            line-height: 1.6;
          }
          width: 450px;
          max-width: 450px;
