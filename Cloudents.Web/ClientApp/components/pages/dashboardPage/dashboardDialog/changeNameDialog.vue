@@ -103,6 +103,8 @@ export default {
       .v-text-field {
          margin-top: 0px !important;
          padding-top: 8px !important;
+         padding-left: 12px;
+         padding-right: 12px;
          .v-input__slot:before {
             border: none;
          }
