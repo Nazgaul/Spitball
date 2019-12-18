@@ -162,6 +162,7 @@ export default {
          .mySales_td_img_img{
             img{
                margin: 10px 0;
+               border: 1px solid #d8d8d8;
             }
 
          }
