@@ -7,7 +7,7 @@
          :popUpType="'dashboardDialog'"
          :onclosefn="closeDialog"
          :activateOverlay="true"
-         :max-width="'550px'"
+         :max-width="'438px'"
          :content-class="'pop-dashboard-container'">
             <changeNameDialog v-if="currentDialog === 'rename'" :dialogData="dialogData" @closeDialog="closeDialog"/>
             <changePriceDialog v-if="currentDialog === 'changePrice'" :dialogData="dialogData" @closeDialog="closeDialog"/>
@@ -38,6 +38,7 @@ export default {
                'Answer': LanguageService.getValueByKey('dashboardPage_qa'),
                'Document': LanguageService.getValueByKey('dashboardPage_document'),
                'Video': LanguageService.getValueByKey('dashboardPage_video'),
+               'TutoringSession': LanguageService.getValueByKey('dashboardPage_tutor_session'),
             },
             headers:{
                'preview': {text: '', align:'left', sortable: false, value:'preview'},
@@ -49,7 +50,8 @@ export default {
                'purchased': {text:LanguageService.getValueByKey('dashboardPage_purchased'), align:'left', sortable: true, value:'purchased'},
                'price': {text:LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
                'date': {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
-               'action': {text: LanguageService.getValueByKey('dashboardPage_action'), align:'center', sortable: false, value:'action'},
+               'action': {text: '', align:'center', sortable: false, value:'action'},
+               'status': {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'status'},
             }
          },
          globalFunctions:{
@@ -85,15 +87,21 @@ export default {
          if(item.type === 'Question' || item.type === 'Answer'){
             return {path:'/question/'+item.id}
          }
+         if(item.studentId){
+            return {name: 'profile',params: {id: item.studentId, name: item.studentName}}
+         }
       },
       formatImg(item){
          if(item.preview){
-            return this.$proccessImageUrl(item.preview,140,140,"crop&anchorPosition=top")
+            return this.$proccessImageUrl(item.preview,80,80)
+         }
+         if(item.studentImage){
+            return this.$proccessImageUrl(item.studentImage,80,80)
          }
          if(item.type === 'Question' || item.type === 'Answer'){
             return require(`./images/qs.png`) 
          }
-      },
+      },      
       formatPrice(price,type){
          if(type !== 'Question' && type !== 'Answer'){
             return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
@@ -110,8 +118,6 @@ export default {
 	padding-left: 30px;
    padding-top: 30px;
    padding-right: 30px;
-   // max-width: 1150px;
-   max-width: fit-content;
 	@media (max-width: @screen-xs) {
       padding-left: 6px;
       padding-right: 6px;

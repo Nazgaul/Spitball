@@ -173,7 +173,7 @@
     <value>שיעור פרטי עם {1}</value>
   </data>
   <data name="status" xml:space="preserve">
-    <value>מוצר</value>
+    <value>סטטוס</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>שיעור פרטי</value>
@@ -187,16 +187,10 @@
   <data name="views" xml:space="preserve">
     <value>צפיות</value>
   </data>
-  <data name="action" xml:space="preserve">
-    <value>פעולה</value>
-  </data>
   <data name="my_content_title" xml:space="preserve">
     <value>התוכן שלי</value>
   </data>
   <data name="rename" xml:space="preserve">
     <value>שינוי שם</value>
-  </data>
-  <data name="preview" xml:space="preserve">
-    <value>צפיות</value>
   </data>
 </root>

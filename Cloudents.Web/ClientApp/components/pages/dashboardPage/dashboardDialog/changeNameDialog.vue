@@ -1,18 +1,26 @@
 <template>
-  <v-form v-model="validationName"  class="changeNameDialog">
-     <v-layout align-center text-xs-center row wrap pa-2>
-        <v-flex xs12>
-           <h1>{{title}}</h1>
-        </v-flex>
-         <v-flex xs12>
-           <v-text-field v-model="editedName" :rules="[rules.required,rules.minimumChars,rules.maximumChars]"/>
-        </v-flex>
-        <v-flex xs12>
-           <v-btn :disabled="!validationName" @click="submitNewName" color="success">done</v-btn>
-           <v-btn color="error" @click="$emit('closeDialog')">cancel</v-btn>
-        </v-flex>
-     </v-layout>
-  </v-form>
+<v-form v-model="validationName" class="changeNameDialog">
+   <v-card class="name-change-wrap">
+      <v-flex align-center justify-center class="relative-pos">
+         <div class="title-wrap">
+            <span class="change-title pr-1" v-language:inner="'dashboardPage_rename'"></span>
+         </div>
+         <div class="input-wrap d-flex row align-center justify-center">
+            <div :class="['name-wrap']">
+            <v-text-field class="sb-input-upload-name" v-model="editedName" :rules="[rules.required,rules.minimumChars,rules.maximumChars]"/>
+            </div>
+         </div>
+      </v-flex>
+      <div class="change-name-actions">
+         <button @click="$emit('closeDialog')" class="cancel mr-2">
+            <span v-language:inner="'resultNote_action_cancel'"/>
+         </button>
+         <button @click.prevent="submitNewName()" class="change-name">
+            <span v-language:inner="'resultNote_action_apply_name'"/>
+         </button>
+      </div>
+   </v-card>
+   </v-form>
 </template>
 <script>
 import { LanguageService } from '../../../../services/language/languageService';
@@ -39,6 +47,7 @@ export default {
       ...mapActions(['dashboard_updateName']),
       submitNewName() {
          if(!this.validationName)return
+
          let data = { documentId: this.dialogData.id, name: this.editedName };
          let self = this;
          documentService.changeDocumentName(data).then(
@@ -56,8 +65,109 @@ export default {
 }
 </script>
 
+
 <style lang="less">
-.changeNameDialog{
-   width: 100%;
+@import '../../../../styles/mixin.less';
+@placeholderGrey: rgba(74, 74, 74, 0.25);
+@colorName: rgba(74, 74, 74, 0.87);
+.relative-pos {
+  position: relative;
+  .input-wrap {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    bottom: -12px;
+    right: 0; 
+  }
 }
+//price-change dialog
+.name-change-wrap {
+    padding: 12px 0 0 0;
+    position: relative;
+    .name-wrap {
+      background: @color-white;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      max-width: 300px;
+      min-width: 300px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, .25);
+      justify-content: center;
+      &:focus-within {
+        .glowingBorderFocused();
+      }
+
+      .v-text-field {
+         margin-top: 0px !important;
+         padding-top: 8px !important;
+         .v-input__slot:before {
+            border: none;
+         }
+         .v-input__slot:after {
+            border: none;
+         }
+      }
+      .sb-input-upload-name {
+        height: 44px;
+        order: 1;
+        outline: none;
+        .input-field {
+          .placeholder-color(@placeholderGrey, 1);
+          font-size: 16px;
+          color: @colorName;
+          text-align: center;
+          height: 100%;
+          width: 100%;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+  
+  
+    .title-wrap {
+      padding-top: 16px;
+      padding-bottom: 48px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      .change-title {
+        font-size: 16px;
+        letter-spacing: -0.4px;
+        color: @textColor;
+        .lineClamp()
+      }
+    }
+    .change-name-actions {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 0 16px 0;
+      // background: #f7f7f7;
+      .change-name {
+        .sb-rounded-btn();
+        padding: 8px 20px 8px 20px;
+        font-size: 14px;
+        font-weight: 400;
+      }
+      .cancel {
+        border-radius: 16px;
+        border: 1px solid #979797;
+        color: @colorBlackNew;
+        display: flex;
+        align-items: center;
+        padding: 6px 22px 6px 22px;
+        outline: none;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.4px;
+      }
+    }
+  }
 </style>
