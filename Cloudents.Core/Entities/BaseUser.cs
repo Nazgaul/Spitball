@@ -102,8 +102,11 @@ namespace Cloudents.Core.Entities
 
         public virtual void AddFollower(BaseUser follower)
         {
-            var follow = new Follow(this, follower);
-            var v = _followers.Add(follow);
+            if (!Equals(follower))
+            {
+                var follow = new Follow(this, follower);
+                _followers.Add(follow);
+            }
         }
 
         public virtual void RemoveFollower(BaseUser follower)

@@ -47,10 +47,9 @@ namespace Cloudents.Command.CommandHandler
 
             var url = await _googleDocument.CreateOnlineDocAsync(chatRoomIdentifier
                 , token);
-            if (!userTutor.Equals(student))
-            {
-                userTutor.AddFollower(student);
-            }
+           
+            userTutor.AddFollower(student);
+            
             var studyRoom = new StudyRoom(userTutor.Tutor, student,url);
             await _studyRoomRepository.AddAsync(studyRoom, token);
 
