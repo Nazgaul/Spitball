@@ -40,7 +40,7 @@
 					</v-layout>
 				</div>
 			</div>  
-			<v-btn flat icon class="banner_closeBtn" @click="updateBannerSatus(false)">
+			<v-btn text icon class="banner_closeBtn" @click="updateBannerSatus(false)">
 				<v-icon class="close_banner" v-html="'sbf-close'"/>
 			</v-btn>
 		</div>
@@ -119,8 +119,8 @@ export default {
         width: 100%;
         .banner_closeBtn{
             position: absolute;
-            top: -10px;
-            right: -16px;
+            top: 0;
+            right: -10px;
             .close_banner{
                 color: white !important;
                 opacity: 0.57;
