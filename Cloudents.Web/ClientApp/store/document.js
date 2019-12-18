@@ -88,7 +88,7 @@ const actions = {
             userBalance = getters.accountUser.balance;
         }
         
-        if(userBalance >= item.price) {
+        // if(userBalance >= item.price) {
             return documentService.purchaseDocument(item.id).then((resp) => {
                 state.document.isPurchased = true;
                 console.log('purchased success', resp);
@@ -97,18 +97,22 @@ const actions = {
                 },
                 (error) => {
                     console.log('purchased Error', error);
+                    dispatch('updateToasterParams', {
+                        toasterText: LanguageService.getValueByKey("resultNote_unsufficient_fund"),
+                        showToaster: true,
+                    });
             }).finally(() => {
                 setTimeout(() => {
                     commit('setBtnLoading', false);
                 }, 500);
             });
-        } else {
-            commit('setBtnLoading', false);
-            dispatch('updateToasterParams', {
-                toasterText: LanguageService.getValueByKey("resultNote_unsufficient_fund"),
-                showToaster: true,
-            });
-        }
+        // } else {
+        //     commit('setBtnLoading', false);
+        //     dispatch('updateToasterParams', {
+        //         toasterText: LanguageService.getValueByKey("resultNote_unsufficient_fund"),
+        //         showToaster: true,
+        //     });
+        // }
     },
     getTutorListCourse({ commit }, courseName) {
         searchService.activateFunction.getTutors(courseName).then(res => {
