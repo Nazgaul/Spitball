@@ -28,12 +28,11 @@
 <script>
     import {mapGetters, mapActions} from 'vuex';
     import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
-    import timerIcon from '../../images/timer.svg';
     import stopIcon from '../../images/stop-icon.svg';
     import tutorService from "../../tutorService";
     export default {
         name: "endSessionConfirm",
-        components: {userAvatar, timerIcon, stopIcon},
+        components: {userAvatar, stopIcon},
         data() {
             return {};
         },
@@ -65,7 +64,7 @@
             endSession(){
                 let self = this;
                 tutorService.endTutoringSession(self.getRoomId)
-                            .then((resp) => {
+                            .then(() => {
                                 self.closeDialog();
                             }, (error) => {
                                 console.log('error', error);

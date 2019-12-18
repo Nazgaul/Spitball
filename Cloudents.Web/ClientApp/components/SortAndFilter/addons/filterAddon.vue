@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
     methods:{
         ...mapGetters(['getAllSteps']),

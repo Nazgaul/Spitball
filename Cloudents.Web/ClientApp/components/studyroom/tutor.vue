@@ -337,7 +337,10 @@ export default {
   },
 
   props: {
-    id: ""
+    id: {
+      type: String,
+      default: ''
+    }
   },
 
   computed: {
@@ -446,7 +449,7 @@ watch: {
       "setShowUserConsentDialog",
     ]),
     // ...mapGetters(['getDevicesObj']),
-    closeFullScreen(e){
+    closeFullScreen(){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
        this.selectViewOption(this.enumViewOptions.videoChat)
       }
@@ -582,7 +585,7 @@ watch: {
             this.setVideoDevice(videoDevice);
             this.setAudioDevice(audioDevice);
             return true;
-        }, err=>{
+        }, ()=>{
           return false;
         })
 
@@ -600,7 +603,7 @@ watch: {
         window.open('mailto: support@frymo.com', '_blank');
       }else{
         global.Intercom('show')
-        intercomSettings.hide_default_launcher = false;
+        global.intercomSettings.hide_default_launcher = false;
       }
     },
     toggleRecord(){

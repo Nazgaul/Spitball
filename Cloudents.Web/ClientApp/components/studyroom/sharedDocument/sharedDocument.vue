@@ -29,6 +29,8 @@
             sharedDocUrl(){
                 if(this.getStudyRoomData && this.getStudyRoomData.onlineDocument){
                      return this.getStudyRoomData.onlineDocument
+                }else{
+                    return false
                 }
             }
         },

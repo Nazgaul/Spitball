@@ -84,7 +84,6 @@
 import {mapActions, mapGetters} from 'vuex';
 
 import analyticsService from '../../../../services/analytics.service';
-import utilitiesService from "../../../../services/utilities/utilitiesService";
 import { LanguageService } from "../../../../services/language/languageService.js";
 
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
@@ -113,6 +112,8 @@ export default {
         isTutor() {
             if(this.tutorData) {
                 return this.tutorData.isTutor;
+            }else{
+                return null;
             }
         },
         isReviews() {
@@ -135,7 +136,7 @@ export default {
                 analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
             } else {
                 analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
-            };
+            }
         },
         reviewsPlaceHolder(reviewsOwner, reviews) {
             let review;
@@ -165,7 +166,6 @@ export default {
                 }
                 let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
                 this.setActiveConversationObj(currentConversationObj);
-                let isMobile = this.$vuetify.breakpoint.smAndDown;
                 this.openChatInterface();                    
             }
         },

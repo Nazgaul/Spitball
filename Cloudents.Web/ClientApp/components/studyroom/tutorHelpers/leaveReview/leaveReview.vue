@@ -156,7 +156,7 @@
                               console.log('error sending review', error);
                               this.btnLoading = false;
                           }
-                    ).finally((done) => {
+                    ).finally(() => {
                     this.btnLoading = false;
 
                 });

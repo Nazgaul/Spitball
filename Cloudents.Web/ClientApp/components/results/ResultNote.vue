@@ -46,12 +46,12 @@
           </v-btn>
           <v-list>
             <v-list-tile
-              v-show="item.isVisible(item.visible)"
-              :disabled="item.isDisabled()"
-              v-for="(item, i) in actions"
+              v-for="(prop, i) in actions"
+              v-show="prop.isVisible(item.visible)"
+              :disabled="prop.isDisabled()"
               :key="i"
             >
-              <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
+              <v-list-tile-title style="cursor:pointer;" @click="prop.action()">{{ prop.title }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -208,7 +208,6 @@ import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import reportItem from "./helpers/reportItem/reportItem.vue";
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
-import SbInput from "../question/helpers/sbInput/sbInput";
 import documentService from "../../services/documentService";
 import likeSVG from "./img//like.svg";
 import likeFilledSVG from "./img/like-filled.svg";
@@ -217,7 +216,6 @@ import vidSVG from "./svg/vid.svg";
 
 export default {
   components: {
-    SbInput,
     sbDialog,
     reportItem,
     userAvatar,
@@ -306,26 +304,36 @@ export default {
     authorName() {
       if (!!this.item.user) {
         return this.item.user.name;
+      }else{
+        return null;
       }
     },
     authorId() {
       if (!!this.item && !!this.item.user && !!this.item.user.id) {
         return this.item.user.id;
+      }else{
+        return null;
       }
     },
     docViews() {
       if (this.item) {
         return this.item.views;
+      }else{
+        return null;
       }
     },
     docDownloads() {
       if (this.item) {
         return this.item.downloads;
+      }else{
+        return null;
       }
     },
     docPurchased() {
       if (this.item) {
         return this.item.purchased;
+      }else{
+        return null;
       }
     },
     uploadDate() {
@@ -408,7 +416,7 @@ export default {
       let data = { id: this.item.id, price: this.newPrice };
       let self = this;
       documentService.changeDocumentPrice(data).then(
-        success => {
+        () => {
           self.updateItemPrice(self.newPrice);
           self.closeNewPriceDialog();
         },
@@ -449,7 +457,7 @@ export default {
     deleteDocument() {
       let id = this.item.id;
       documentService.deleteDoc(id).then(
-        success => {
+        () => {
           this.updateToasterParams({
             toasterText: LanguageService.getValueByKey(
               "resultNote_deleted_success"
@@ -461,7 +469,7 @@ export default {
           let objToDelete = { id: parseInt(id) };
           this.removeDocItemAction(objToDelete);
         },
-        error => {
+        () => {
           this.updateToasterParams({
             toasterText: LanguageService.getValueByKey(
               "resultNote_error_delete"

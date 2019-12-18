@@ -25,7 +25,9 @@ export default {
     props: {
         fileItem: {
             type: Object,
-            default: {}
+            default(){
+                return {}
+            }
         },
         singleFileIndex: {
             type: Number,
@@ -35,7 +37,7 @@ export default {
     watch: {
         item: {
             deep: true,
-            handler(newVal, oldVal) {
+            handler(newVal) {
                 let fileObj = {
                     index: this.singleFileIndex,
                     data: newVal
