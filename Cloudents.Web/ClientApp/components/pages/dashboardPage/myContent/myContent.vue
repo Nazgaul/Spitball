@@ -4,13 +4,17 @@
       <v-data-table v-if="contentItems.length"
             :headers="headers"
             :items="contentItems"
-            disable-initial-sort
+            :items-per-page="5"
+            :footer-props="{
+               showFirstLastPage: true,
+               firstIcon: '',
+               lastIcon: '',
+               prevIcon: 'sbf-arrow-left-carousel',
+               nextIcon: 'sbf-arrow-right-carousel'
+            }"
+            sort-by
             :item-key="'date'"
-            :rows-per-page-items="['5']"
-            class="elevation-1 myContent_table"
-            :prev-icon="'sbf-arrow-left-carousel'"
-            :sort-icon="'sbf-arrow-down'"
-            :next-icon="'sbf-arrow-right-carousel'">
+            class="elevation-1 myContent_table">
          <template slot="headers" slot-scope="props">
             <tr>
                <th class="text-xs-left"
@@ -24,52 +28,54 @@
                </th>
             </tr>
          </template>
-            <template v-slot:items="props">
-               <td class="myContent_td_img">
-                  <router-link :to="globalFunctions.router(props.item)" class="myContent_td_img_img">
-                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)" :class="{'imgPreview_content':props.item.preview}">
-                  </router-link>
-               </td>
-               
-               <td class="text-xs-left myContent_td_course text-truncate">
-                  <router-link :to="globalFunctions.router(props.item)">
-                     <template v-if="checkIsQuestuin(props.item.type)">
-                        <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_questuin'"/>
-                           <span class="text-truncate">{{props.item.text}}</span>
-                        </div>
-                        <div class="text-truncate" v-if="props.item.answerText">
-                           <span v-language:inner="'dashboardPage_answer'"/>
-                           <span>{{props.item.answerText}}</span>
-                        </div>
-                     </template>
+            <template v-slot:item="props">
+               <tr>
+                  <td class="myContent_td_img">
+                     <router-link :to="globalFunctions.router(props.item)" class="myContent_td_img_img">
+                        <img width="80" height="80" :src="globalFunctions.formatImg(props.item)" :class="{'imgPreview_content':props.item.preview}">
+                     </router-link>
+                  </td>
+                  
+                  <td class="text-xs-left myContent_td_course text-truncate">
+                     <router-link :to="globalFunctions.router(props.item)">
+                        <template v-if="checkIsQuestuin(props.item.type)">
+                           <div class="text-truncate">
+                              <span v-language:inner="'dashboardPage_questuin'"/>
+                              <span class="text-truncate">{{props.item.text}}</span>
+                           </div>
+                           <div class="text-truncate" v-if="props.item.answerText">
+                              <span v-language:inner="'dashboardPage_answer'"/>
+                              <span>{{props.item.answerText}}</span>
+                           </div>
+                        </template>
 
-                     <template v-else>
-                        <span>{{props.item.name}}</span>
-                     </template>
-                        <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_course'"></span>
-                           <span>{{props.item.course}}</span>
-                        </div>
-                  </router-link>
-               </td>
-               <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
-               <td class="text-xs-left">{{props.item.likes}}</td>
-               <td class="text-xs-left">{{props.item.views}}</td>
-               <td class="text-xs-left">{{props.item.downloads}}</td>
-               <td class="text-xs-left">{{props.item.purchased}}</td>
-               <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
-               <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-               <td class="text-xs-center">
-                  <v-menu lazy bottom right v-model="showMenu" v-if="!checkIsQuestuin(props.item.type)" >
-                     <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
+                        <template v-else>
+                           <span>{{props.item.name}}</span>
+                        </template>
+                           <div class="text-truncate">
+                              <span v-language:inner="'dashboardPage_course'"></span>
+                              <span>{{props.item.course}}</span>
+                           </div>
+                     </router-link>
+                  </td>
+                  <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
+                  <td class="text-xs-left">{{props.item.likes}}</td>
+                  <td class="text-xs-left">{{props.item.views}}</td>
+                  <td class="text-xs-left">{{props.item.downloads}}</td>
+                  <td class="text-xs-left">{{props.item.purchased}}</td>
+                  <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
+                  <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
+                  <td class="text-xs-center">
+                     <v-menu lazy bottom right v-model="showMenu" v-if="!checkIsQuestuin(props.item.type)" >
+                        <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
 
-                     <v-list v-if="props.index == currentItemIndex">
-                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog('rename',props.item)">{{rename}}</v-list-tile>
-                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog('changePrice',props.item)">{{changePrice}}</v-list-tile>
-                     </v-list>
-                  </v-menu>
-               </td>
+                        <v-list v-if="props.index == currentItemIndex">
+                           <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog('rename',props.item)">{{rename}}</v-list-tile>
+                           <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog('changePrice',props.item)">{{changePrice}}</v-list-tile>
+                        </v-list>
+                     </v-menu>
+                  </td>
+               </tr>
             </template>
 
          <template slot="pageText" slot-scope="item">

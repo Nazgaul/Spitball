@@ -4,55 +4,61 @@
          <v-data-table v-if="salesItems.length"
             :headers="headers"
             :items="salesItems"
-            disable-initial-sort
+            :items-per-page="5"
+            :footer-props="{
+               showFirstLastPage: false,
+               firstIcon: '',
+               lastIcon: '',
+               prevIcon: 'sbf-arrow-left-carousel',
+               nextIcon: 'sbf-arrow-right-carousel'
+            }"
+            sort-by
             :item-key="'date'"
-            :rows-per-page-items="['5']"
-            class="elevation-1 mySales_table"
-            :prev-icon="'sbf-arrow-left-carousel'"
-            :sort-icon="'sbf-arrow-down'"
-            :next-icon="'sbf-arrow-right-carousel'">
-            <template v-slot:items="props">
-               <td class="mySales_td_img">
-                  <router-link :to="dynamicRouter(props.item)" class="mySales_td_img_img">
-                     <img width="80" height="80" :src="formatItemImg(props.item)" :class="{'imgPreview_sales':props.item.preview}">
-                  </router-link>
-               </td>
-               <td class="text-xs-left mySales_td_course">
-                  <router-link :to="dynamicRouter(props.item)">
-                     <template v-if="checkIsSession(props.item.type)">
-                        <span v-html="$Ph('dashboardPage_session',props.item.studentName)"/>
-                        <p><span v-language:inner="'dashboardPage_duration'"/> {{props.item.duration | sessionDuration}}</p>
-                     </template>
+            class="elevation-1 mySales_table">
+            <template v-slot:item="props">
+               <tr>
+                  <td class="mySales_td_img">
+                     <router-link :to="dynamicRouter(props.item)" class="mySales_td_img_img">
+                        <img width="80" height="80" :src="formatItemImg(props.item)" :class="{'imgPreview_sales':props.item.preview}">
+                     </router-link>
+                  </td>
+                  <td class="text-xs-left mySales_td_course">
+                     <router-link :to="dynamicRouter(props.item)">
+                        <template v-if="checkIsSession(props.item.type)">
+                           <span v-html="$Ph('dashboardPage_session',props.item.studentName)"/>
+                           <p><span v-language:inner="'dashboardPage_duration'"/> {{props.item.duration | sessionDuration}}</p>
+                        </template>
 
-                     <template v-if="checkIsQuestuin(props.item.type)">
-                        <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_questuin'"/>
-                           <span class="text-truncate">{{props.item.text}}</span>
-                        </div>
-                        <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_answer'"/>
-                           <span>{{props.item.answerText}}</span>
-                        </div>
-                        <div>
-                           <span v-language:inner="'dashboardPage_course'"></span>
-                           <span>{{props.item.course}}</span>
-                        </div>
-                     </template>
+                        <template v-if="checkIsQuestuin(props.item.type)">
+                           <div class="text-truncate">
+                              <span v-language:inner="'dashboardPage_questuin'"/>
+                              <span class="text-truncate">{{props.item.text}}</span>
+                           </div>
+                           <div class="text-truncate">
+                              <span v-language:inner="'dashboardPage_answer'"/>
+                              <span>{{props.item.answerText}}</span>
+                           </div>
+                           <div>
+                              <span v-language:inner="'dashboardPage_course'"></span>
+                              <span>{{props.item.course}}</span>
+                           </div>
+                        </template>
 
-                     <template v-if="checkIsItem(props.item.type)">
-                        <span>{{props.item.name}}</span>
-                        <div>
-                           <span v-language:inner="'dashboardPage_course'"></span>
-                           <span>{{props.item.course}}</span>
-                        </div>
-                     </template>
-                  </router-link>
-               </td>
-               <td class="text-xs-left">{{formatItemType(props.item.type)}}</td>
-               <td class="text-xs-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
-               <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-               <td class="text-xs-left">{{ formatItemPrice(props.item.price,props.item.type) }}</td>
-               <!-- <td class="text-xs-left"><v-icon @click="openDialog" small>sbf-3-dot</v-icon></td> -->
+                        <template v-if="checkIsItem(props.item.type)">
+                           <span>{{props.item.name}}</span>
+                           <div>
+                              <span v-language:inner="'dashboardPage_course'"></span>
+                              <span>{{props.item.course}}</span>
+                           </div>
+                        </template>
+                     </router-link>
+                  </td>
+                  <td class="text-xs-left">{{formatItemType(props.item.type)}}</td>
+                  <td class="text-xs-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
+                  <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
+                  <td class="text-xs-left">{{ formatItemPrice(props.item.price,props.item.type) }}</td>
+                  <!-- <td class="text-xs-left"><v-icon @click="openDialog" small>sbf-3-dot</v-icon></td> -->
+               </tr>
             </template>
             <template slot="pageText" slot-scope="item">
                <span class="mySales_footer">

@@ -270,7 +270,7 @@ export default {
         this.$router.push({name: 'myContent'})
       }
       if(path === "courses"){
-        this.$router.push({name:'courses'})
+        this.$router.push({name:'editCourse'})
       }
       this.closeSideMenu();
     },
