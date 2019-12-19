@@ -21,10 +21,12 @@
       
 
         <div class="userMenu_actionsList">
-          <v-list-tile v-if="!isFrymo" v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)" sel="menu_row">
-            <v-list-tile-action><v-icon class="userMenu_icons">{{singleLang.icon}}</v-icon></v-list-tile-action>
-            <v-list-tile-content><v-list-tile-title class="subheading userMenu_titles">{{singleLang.title}}</v-list-tile-title></v-list-tile-content>
-          </v-list-tile>
+          <template v-if="!isFrymo">
+            <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)" sel="menu_row">
+              <v-list-tile-action><v-icon class="userMenu_icons">{{singleLang.icon}}</v-icon></v-list-tile-action>
+              <v-list-tile-content><v-list-tile-title class="subheading userMenu_titles">{{singleLang.title}}</v-list-tile-title></v-list-tile-content>
+            </v-list-tile>
+          </template>
 
           <v-list-tile :to="{ name: 'tutoring'}">
             <v-list-tile-action><v-icon class="userMenu_icons" v-html="'sbf-pc'"></v-icon></v-list-tile-action>

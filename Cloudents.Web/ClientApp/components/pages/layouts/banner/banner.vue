@@ -71,17 +71,20 @@ export default {
 		coupon(){
 			if(!!this.getBannerParams){
 				return this.getBannerParams.coupon;
-			}
+            }
+            return null
 		},
 		titleText(){
 			if(!!this.getBannerParams){
 				return this.getBannerParams.title;
-			}
+            }
+            return null
 		},
 		subTitleText(){
 			if(!!this.getBannerParams){
 				return this.getBannerParams.subTitle;
-			}
+            }
+            return null
 		}
 	},
 	methods: {

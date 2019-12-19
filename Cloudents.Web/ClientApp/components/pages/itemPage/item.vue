@@ -173,11 +173,13 @@ export default {
                 }
                 return name;
             }
+            return null
         },
         courseName() {
             if(this.document && this.document.details) {
                 return this.document.details.course;
             }
+            return null
         }
     },
         methods: {

@@ -137,6 +137,7 @@ export default {
                 });
                 return result;
             }
+            return null
         },
         videoLoader() {
             if(this.getDocumentLoaded) {
@@ -182,6 +183,7 @@ export default {
             if (this.document.details && this.document.details.name) {
                 return this.document.details.name;
             }
+            return null
         },
         
     },

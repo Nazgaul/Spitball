@@ -59,6 +59,7 @@ export default {
       if (this.accountUser && this.accountUser.id) {
         return this.accountUser.id;
       }
+      return null
     }
   },
   methods: {

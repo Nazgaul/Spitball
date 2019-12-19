@@ -70,6 +70,7 @@ export default {
                 else{
                     return this.currentActiveTab 
                 }
+                return null
             },
             set(tabName){
                 let self = this;
