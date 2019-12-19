@@ -2,7 +2,7 @@
     <div>
         <v-bottom-navigation
                 height="62px"
-                :active.sync="activeTab"
+                :v-model="activeTab"
                 :value="true"
                 fixed
                 color="white"
