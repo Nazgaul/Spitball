@@ -34,7 +34,7 @@
 import {LanguageService} from '../../../../services/language/languageService';
 import satelliteService from '../../../../services/satelliteService';
 import logoComponent from '../../../app/logo/logo.vue';
-import LOGO from './images/sp-logo.svg';
+//import LOGO from './images/sp-logo.svg';
 
     export default {
         name: "Footer",

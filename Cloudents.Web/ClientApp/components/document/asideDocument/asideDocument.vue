@@ -29,12 +29,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import asideDocumentTutors from './asideDocumentTutors.vue';
-import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
+//import tutorResultCardMobile from '../../../components/results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import tutorResultCardOther from '../../../components/results/tutorCards/tutorResultCardOther/tutorResultCardOther.vue';
 
 export default {
     components: {
-        tutorResultCardMobile,
+      //  tutorResultCardMobile,
         tutorResultCardOther,
         asideDocumentTutors
     },

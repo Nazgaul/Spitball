@@ -84,11 +84,6 @@ export default {
 			}
 		}
 	},
-		watch:{
-			params(val){
-				// debugger
-			}
-	},
 	methods: {
 		...mapActions(['updateBannerSatus']),
 		getNow() {

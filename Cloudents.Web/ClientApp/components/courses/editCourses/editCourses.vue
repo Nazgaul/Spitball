@@ -139,11 +139,11 @@
                 this.teachingActive = true;
                 course.isLoading = true;
                 universityService.teachCourse(course.text)
-                                 .then((resp) => {
+                                 .then(() => {
                                      course.isLoading = false;
                                      this.teachingActive = false;
                                      return course.isTeaching = !course.isTeaching;
-                                 }, (error) => {
+                                 }, () => {
                                      course.isLoading = false;
                                      this.teachingActive = false;
                                  }).finally(() => {
@@ -154,10 +154,10 @@
             removeClass(classDelete) {
                 classDelete.isLoading = true;
                 this.removingActive = true;
-                this.deleteClass(classDelete).then((resp) => {
+                this.deleteClass(classDelete).then(() => {
                     classDelete.isLoading = false;
 
-                }, (error) => {
+                }, () => {
                     classDelete.isLoading = false;
                     this.removingActive = false;
                 }).finally(() => {

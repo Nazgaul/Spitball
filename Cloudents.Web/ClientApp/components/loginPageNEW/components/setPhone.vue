@@ -55,7 +55,7 @@ export default {
         }
     },
     watch: {
-        phoneNumber: function(val){
+        phoneNumber: function(){
             this.setErrorMessages({})
         }
     },

@@ -105,13 +105,13 @@ export default {
     };
   },
   watch: {
-    password: function(val){
+    password: function(){
         this.setErrorMessages({})
     },
-    confirmPassword: function(val){
+    confirmPassword: function(){
         this.setErrorMessages({})
     },
-    firstName: function(val){
+    firstName: function(){
       this.firstNameError ='';
       let fullNameObj = {
         firstName: this.firstName,
@@ -119,7 +119,7 @@ export default {
       }
       this.updateName(fullNameObj)
     },
-    lastName: function(val){
+    lastName: function(){
       this.lastNameError ='';
       let fullNameObj = {
         firstName: this.firstName,
@@ -177,7 +177,7 @@ export default {
         confirmPassword: this.confirmPassword,
         recaptcha: this.recaptcha
       }
-      this.emailSigning(paramObj).then(response => {},err => {
+      this.emailSigning(paramObj).then(() => {},() => {
         this.$refs.recaptcha.reset()
         });
     },

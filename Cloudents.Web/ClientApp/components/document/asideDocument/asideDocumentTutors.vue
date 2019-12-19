@@ -11,7 +11,7 @@
 
 <script>
 import tutorResultCardOther from '../../../components/results/tutorCards/tutorResultCardOther/tutorResultCardOther.vue';
-import { mapGetters, mapActions } from 'vuex';
+import {  mapActions } from 'vuex';
 
 export default {
     props:{

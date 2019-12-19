@@ -38,7 +38,7 @@ export default {
         }
     },
     methods: {
-        goToItem(enter){
+        goToItem(){
             if(this.fromCarousel){
                 return false;
             }else{

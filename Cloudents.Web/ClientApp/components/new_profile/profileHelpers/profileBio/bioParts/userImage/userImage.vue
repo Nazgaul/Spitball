@@ -32,8 +32,7 @@
 <script>
     import { mapGetters } from 'vuex';
 
-    import utilitiesService from '../../../../../../services/utilities/utilitiesService';
-
+    
     import userRating from '../userRating.vue';
     import uploadImage from '../uploadImage/uploadImage.vue';
     import userOnlineStatus from '../../../../../helpers/userOnlineStatus/userOnlineStatus.vue';

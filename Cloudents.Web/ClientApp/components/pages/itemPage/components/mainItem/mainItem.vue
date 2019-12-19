@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import {  mapGetters } from 'vuex';
 
 import utillitiesService from "../../../../../services/utilities/utilitiesService";
 

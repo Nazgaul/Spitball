@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex';
+import {mapGetters} from 'vuex';
 import doubleCheck from '../../images/group-2.svg';
 import timeAgoService from '../../../../services/language/timeAgoService';
 

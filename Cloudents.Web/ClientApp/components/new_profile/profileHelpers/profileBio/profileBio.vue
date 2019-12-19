@@ -166,7 +166,7 @@ import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import { LanguageService } from '../../../../services/language/languageService';
 import analyticsService from '../../../../services/analytics.service'
 
-import sbClose from '../../../../font-icon/close.svg';
+
 export default {
   name: "profileBio",
   components: {
@@ -174,8 +174,8 @@ export default {
     userAboutMessage,
     userInfoEdit,
     tutorInfoEdit,
-    sbDialog,
-    sbClose
+    sbDialog
+    
   },
   data() {
     return {

@@ -80,11 +80,6 @@ export default {
             }
         }
     },
-    watch:{
-        currentActiveTab(newVal,oldVal){
-        
-        }
-    },
     methods: {
         ...mapActions(['updateDialogState','setReturnToUpload', 'updateLoginDialogState','openChatInterface']),
         openChat(){
@@ -120,7 +115,6 @@ export default {
                 if(this.accountUser == null) {
                     this.updateLoginDialogState(true);
                 }else{
-                    let user = this.accountUser;
                     this.$router.push({name:'profile',params:{id: this.accountUser.id,name: this.accountUser.name}})
                 }
             }
