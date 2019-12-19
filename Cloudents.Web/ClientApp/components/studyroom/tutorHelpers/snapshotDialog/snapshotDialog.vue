@@ -16,7 +16,7 @@
                <video autoplay="true" id="videoElement" style="width:640px; height:480px;"></video>
                <div id="snapshot-container" :style="{width: width +'px', height: height+'px', display:'none'}"></div>
             </v-flex>
-            <v-flex v-show="noCameraError" xs12 style="text-align: center;" class="pt-2">
+            <v-flex v-show="noCameraError" xs12 style="text-align: center; min-width:640px; min-height:480px;" class="no-camera-error pt-2">
                <span v-language:inner="'tutor_take_snapshot_error'"></span>
             </v-flex>
             <v-flex xs12 class="pt-4">
@@ -25,9 +25,9 @@
                 <!-- <input type="text" v-model="scale"> -->
             </v-flex>
             <v-flex xs12 class="pt-4">
-                <v-btn class="accept-consent-btn elevation-0 align-center justify-center" @click="takeSnapshot()">
+                <v-btn :disabled="noCameraError" class="accept-consent-btn elevation-0 align-center justify-center" @click="takeSnapshot()">
                     <span class="text-capitalize">{{snapshotBtnText}}</span>
-                    <span class="text-capitalize" v-show="timerCountdown">&nbsp;({{timerCountdown}})</span>
+                    <!-- <span class="text-capitalize" v-show="timerCountdown">&nbsp;({{timerCountdown}})</span> -->
                 </v-btn>
             </v-flex>
         </v-layout>
@@ -83,22 +83,24 @@
                 let context = document.getElementById("snapshot").getContext('2d');
                 let blob = context.canvas.toBlob(this.downloadImg, "image/png");
             },
-            startInterval() {
-                let timeleft = 3;
-                this.timerCountdown = timeleft;
-                let downloadTimer = setInterval(()=>{
-                timeleft--;
-                this.timerCountdown = timeleft;
-                if(timeleft <= 0){
-                    clearInterval(downloadTimer);
-                    this.timerCountdown = null;
-                    this.drawImageToCanvas();
-                    this.getUrlFromBlob();
-                }
-                },1000);
-            },
+            // startInterval() {
+            //     let timeleft = 3;
+            //     this.timerCountdown = timeleft;
+            //     let downloadTimer = setInterval(()=>{
+            //     timeleft--;
+            //     this.timerCountdown = timeleft;
+            //     if(timeleft <= 0){
+            //         clearInterval(downloadTimer);
+            //         this.timerCountdown = null;
+            //         this.drawImageToCanvas();
+            //         this.getUrlFromBlob();
+            //     }
+            //     },1000);
+            // },
             takeSnapshot() {
-                this.startInterval();                     
+                // this.startInterval(); 
+                this.drawImageToCanvas();
+                this.getUrlFromBlob();                    
             },
             closeDialog() {
                 this.setSnapshotDialog(false);
@@ -144,6 +146,14 @@
             color: @color-white;
             background-color: @BtnBackground!important;
             border-radius: 4px;
+        }
+        .no-camera-error{
+            text-align: center;
+            min-width: 640px;
+            min-height: 480px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
         }
     }
 
