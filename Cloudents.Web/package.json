@@ -9,12 +9,10 @@
     "test": "jest",
     "client-prod": "node node_modules/webpack/bin/webpack.js --env.prod",
     "client": "node node_modules/webpack/bin/webpack.js",
-    "vendor": "node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js",
-    "vendor-prod": "node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod",
     "server": "node node_modules/webpack/bin/webpack.js --config webpack.config.server.js",
     "debug": "node-nightly --inspect node_modules/webpack/bin/webpack.js",
     "bundle-report": "webpack-bundle-analyzer --port 4200 wwwroot/dist/stats.json",
-    "build": "npm run vendor && npm run client",
+    "build": "npm run client",
     "start": "dotnet build && dotnet run",
     "all": "npm run build && npm run start",
     "lint": "node node_modules/eslint/bin/eslint.js ./clientapp/"

@@ -50,7 +50,7 @@ module.exports = (env) => {
                         }
                     }
                         }
-                    ],
+                    ]
                     
                 },
                 {
@@ -80,7 +80,21 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.font\.js/,
-                    use: [
+                    use: isDevBuild ? [
+                        {
+                            loader: 'vue-style-loader',
+                        },
+                            {
+                                loader: 'rtl-css-loader',
+                            },
+                            {
+                                loader: 'webfonts-loader',
+                                options: {
+                                    publicPath: '/dist/'
+                                }
+                            }]
+                        :
+                    [
                         {
                             loader: MiniCssExtractPluginRtl.loader,
                         },
@@ -218,14 +232,7 @@ module.exports = (env) => {
             //     // ReSharper disable once JsPathNotFound
             //     manifest: require("./wwwroot/dist/vendor-manifest.json")
             // }),
-            new MiniCssExtractPluginRtl({
-                filename: "site.[contenthash].css",
-                rtlEnabled: true,
-                ignoreOrder: true,
-                
-                // allChunks: true
-
-            }),
+           
             
         ].concat(isDevBuild
             ? [
@@ -237,7 +244,14 @@ module.exports = (env) => {
                 })
             ]
             : [
-                
+                new MiniCssExtractPluginRtl({
+                    filename: "site.[contenthash].css",
+                    rtlEnabled: true,
+                    ignoreOrder: true,
+
+                    // allChunks: true
+
+                }),
                 new webpackRtlPlugin({
                     minify: false
                 })

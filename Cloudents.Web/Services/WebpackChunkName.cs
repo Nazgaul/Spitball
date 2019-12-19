@@ -18,70 +18,70 @@ namespace Cloudents.Web.Services
         }
 
 
-        public WebPackBundle GetVendorTag()
-        {
-            if (!_environment.IsDevelopment() && _tags.TryGetValue("vendor", out var webPack))
-            {
-                return webPack;
-            }
+        //public WebPackBundle GetVendorTag()
+        //{
+        //    if (!_environment.IsDevelopment() && _tags.TryGetValue("vendor", out var webPack))
+        //    {
+        //        return webPack;
+        //    }
 
-            var content = _provider.GetDirectoryContents("wwwroot/dist");
+        //    var content = _provider.GetDirectoryContents("wwwroot/dist");
 
-            var files = content.Where(w => w.Name.StartsWith("vendor")).OrderByDescending(o => o.LastModified).ToList();
+        //    var files = content.Where(w => w.Name.StartsWith("vendor")).OrderByDescending(o => o.LastModified).ToList();
 
 
-            var webPackBundle = new WebPackBundle();
-            webPackBundle.Js = files.FirstOrDefault(f => f.Name.EndsWith("js"))?.Name;
-            webPackBundle.Css = files.FirstOrDefault(f => f.Name.EndsWith("css") && !f.Name.EndsWith("rtl.css"))?.Name;
-            webPackBundle.RtlCss = files.FirstOrDefault(f => f.Name.EndsWith("rtl.css"))?.Name;
+        //    var webPackBundle = new WebPackBundle();
+        //    webPackBundle.Js = files.FirstOrDefault(f => f.Name.EndsWith("js"))?.Name;
+        //    webPackBundle.Css = files.FirstOrDefault(f => f.Name.EndsWith("css") && !f.Name.EndsWith("rtl.css"))?.Name;
+        //    webPackBundle.RtlCss = files.FirstOrDefault(f => f.Name.EndsWith("rtl.css"))?.Name;
 
-            _tags.AddOrUpdate("vendor", webPackBundle, (_, existingValue) => existingValue);
-            return webPackBundle;
-            //var t = _provider.GetFileInfo($"wwwroot/dist/{chunk}.json");
-            //if (!t.Exists)
-            //{
-            //    return new WebPackBundle();
-            //}
-            //using (var stream = t.CreateReadStream())
-            //{
-            //    using (var sr = new StreamReader(stream))
-            //    {
-            //        using (var reader = new JsonTextReader(sr))
-            //        {
-            //            var obj = JObject.Load(reader);
+        //    _tags.AddOrUpdate("vendor", webPackBundle, (_, existingValue) => existingValue);
+        //    return webPackBundle;
+        //    //var t = _provider.GetFileInfo($"wwwroot/dist/{chunk}.json");
+        //    //if (!t.Exists)
+        //    //{
+        //    //    return new WebPackBundle();
+        //    //}
+        //    //using (var stream = t.CreateReadStream())
+        //    //{
+        //    //    using (var sr = new StreamReader(stream))
+        //    //    {
+        //    //        using (var reader = new JsonTextReader(sr))
+        //    //        {
+        //    //            var obj = JObject.Load(reader);
 
-            //            var webPackBundle = new WebPackBundle();
-            //            var chunk2 = obj[chunk];
-            //            if (chunk2.Type == JTokenType.Array)
-            //            {
+        //    //            var webPackBundle = new WebPackBundle();
+        //    //            var chunk2 = obj[chunk];
+        //    //            if (chunk2.Type == JTokenType.Array)
+        //    //            {
 
-            //            }
+        //    //            }
 
-            //            foreach (var file in chunk2.Values<string>())
-            //            {
-            //                if (file.EndsWith("js", StringComparison.OrdinalIgnoreCase))
-            //                {
-            //                    webPackBundle.Js = file;
-            //                    continue;
-            //                }
+        //    //            foreach (var file in chunk2.Values<string>())
+        //    //            {
+        //    //                if (file.EndsWith("js", StringComparison.OrdinalIgnoreCase))
+        //    //                {
+        //    //                    webPackBundle.Js = file;
+        //    //                    continue;
+        //    //                }
 
-            //                if (file.EndsWith("rtl.css", StringComparison.OrdinalIgnoreCase))
-            //                {
-            //                    webPackBundle.RtlCss = file;
-            //                    continue;
+        //    //                if (file.EndsWith("rtl.css", StringComparison.OrdinalIgnoreCase))
+        //    //                {
+        //    //                    webPackBundle.RtlCss = file;
+        //    //                    continue;
 
-            //                }
-            //                if (file.EndsWith("css", StringComparison.OrdinalIgnoreCase))
-            //                {
-            //                    webPackBundle.Css = file;
-            //                }
-            //            }
-            //            _tags.AddOrUpdate(chunk, webPackBundle, (_, existingValue) => existingValue);
-            //            return webPackBundle;
-            //        }
-            //    }
-            //}
-        }
+        //    //                }
+        //    //                if (file.EndsWith("css", StringComparison.OrdinalIgnoreCase))
+        //    //                {
+        //    //                    webPackBundle.Css = file;
+        //    //                }
+        //    //            }
+        //    //            _tags.AddOrUpdate(chunk, webPackBundle, (_, existingValue) => existingValue);
+        //    //            return webPackBundle;
+        //    //        }
+        //    //    }
+        //    //}
+        //}
 
 
         public WebPackBundle GetClientTag(bool isRtl)

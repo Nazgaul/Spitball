@@ -11,7 +11,7 @@
 @inject ConfigurationService VersionService
 
 @{
-    var p = Provider.GetVendorTag();
+    //var p = Provider.GetVendorTag();
     var cdnEndPoint = Constants.GetCdnEndpoint(Configuration);
     var isAuth = User.Identity.IsAuthenticated;
     var result = System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
@@ -30,10 +30,10 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
     }
 
-    <link rel="stylesheet" href="@cdnEndPoint/dist/@p.GetCss()"
+    @*<link rel="stylesheet" href="@cdnEndPoint/dist/@p.GetCss()"
           asp-fallback-href="~/dist/@p.GetCss()"
           asp-fallback-test-class="cdn-only" asp-fallback-test-property="position" asp-append-version="true"
-          asp-fallback-test-value="absolute" />
+          asp-fallback-test-value="absolute" />*@
 
     @await RenderSectionAsync("styleSection", required: false)
     
@@ -64,7 +64,7 @@
     </div>
     <div class="cdn-only"></div>
 
-    <environment include="Development">
+    @*<environment include="Development">
         <script src="~/dist/@p.Js" asp-append-version="true"></script>
     </environment>
 
@@ -73,7 +73,7 @@
                 asp-fallback-src="~/dist/@p.Js"
                 asp-fallback-test="window.vendor">
         </script>
-    </environment>
+    </environment>*@
 
 
 
