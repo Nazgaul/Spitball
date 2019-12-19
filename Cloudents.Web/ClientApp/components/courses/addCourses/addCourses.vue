@@ -38,7 +38,7 @@
                     <div class="class-list selected-classes-list py-3 px-3"
                          ref="listCourse">
                         <div class="selected-class-item caption d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
-                             v-for="selectedClass in localSelectedClasses">
+                             v-for="(selectedClass, index) in localSelectedClasses" :key="index">
                             <span class="text-truncate">{{selectedClass.text}}</span>
                             <span class="delete-class cursor-pointer pr-3"
                                   @click="deleteClass(selectedClass, selectedClasses)">
@@ -59,7 +59,7 @@
             <v-flex v-if="showBox">
                 <div class="class-list search-classes-list" id="search-classes-list">
                     <div class="list-item subheading search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
-                         v-for="singleClass in classes" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
+                         v-for="(singleClass, index) in classes" :key="index" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
                         <v-layout column class="pl-3 limit-width">
                             <v-flex shrink class="course-name-wrap">
                                 <div v-html="$options.filters.boldText(singleClass.text, search)">
@@ -267,9 +267,6 @@
                 }, () => {
                     self.isComplete = true;
                 });
-            },
-            setTeachActiveOnSelectedClass(){
-                universityService.teachCourse(course.text);
             },
             submitAndGo() {
                 //assign all saved in cached list to classes list

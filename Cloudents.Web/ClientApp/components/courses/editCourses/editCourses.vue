@@ -119,9 +119,10 @@
             isEmpty() {
                 if(!this.getIsSelectedClassLocked){
                     if(this.getSelectedClasses.length < 1){
-                        this.$router.push({name:'addCourse'});
+                        this.goToAddMore();
                     }
                 }
+                return false;
             },
             coursesQuantaty() {
                 return this.getSelectedClasses.length;

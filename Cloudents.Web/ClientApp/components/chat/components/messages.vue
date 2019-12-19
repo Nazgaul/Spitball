@@ -91,6 +91,7 @@ export default {
             if(this.activeConversationObj && this.activeConversationObj.studyRoomId){
                 return this.activeConversationObj.studyRoomId.length > 1
             }
+            return false
         },
         showStudyRoomInteraction(){
             return this.messages &&  this.messages.length > 0;

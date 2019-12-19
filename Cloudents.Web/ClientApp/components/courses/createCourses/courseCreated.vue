@@ -63,7 +63,10 @@
 
         },
         props: {
-            courseName: ''
+            courseName: {
+                type: String,
+                default: ''
+            }
         },
         methods: {
             ...mapActions(['changeCreateDialogState']),
