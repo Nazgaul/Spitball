@@ -128,7 +128,8 @@ export default {
         },
         searchCourses: debounce(function(ev){
             this.isFromMounted = false;
-            let term = this.isFromQuery ? ev : ev.target.value.trim()
+            // let term = this.isFromQuery ? ev : ev.target.value.trim() need to check this
+            let term = ev.target.value.trim()
             if(!term) {
                 this.tutorCourse = ''
                 this.suggestsCourses = []
