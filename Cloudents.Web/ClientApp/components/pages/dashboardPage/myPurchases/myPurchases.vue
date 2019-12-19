@@ -1,7 +1,7 @@
 <template>
-	<div class="myPurchases">
+   <div class="myPurchases">
       <div class="myPurchases_title" v-language:inner="'dashboardPage_my_purchases_title'"/>
-		<v-data-table v-if="purchasesItems.length"
+      <v-data-table 
             :headers="headers"
             :items="purchasesItems"
             disable-initial-sort
@@ -11,11 +11,12 @@
             :prev-icon="'sbf-arrow-left-carousel'"
             :sort-icon="'sbf-arrow-down'"
             :next-icon="'sbf-arrow-right-carousel'">
+            
          <template slot="headers" slot-scope="props">
             <tr>
                <th class="text-xs-left"
                   v-for="header in props.headers"
-                  :key="header.text"
+                  :key="header.value"
                   :class="['column',{'sortable':header.sortable}]"
                   @click="changeSort(header.value)">
                   <span class="text-xs-left">{{ header.text }}
@@ -25,65 +26,30 @@
             </tr>
          </template>
             <template v-slot:items="props">
-               <td class="myPurchases_td_img">
-                  <router-link :to="globalFunctions.router(props.item)" class="myPurchases_td_img_img">
-                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)" :class="{'imgPreview_content':props.item.preview}">
-                  </router-link>
-               </td>
-               
-               <td class="text-xs-left myPurchases_td_course text-truncate">
-                  <router-link :to="globalFunctions.router(props.item)">
-                     <template v-if="checkIsQuestuin(props.item.type)">
-                        <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_questuin'"/>
-                           <span class="text-truncate">{{props.item.text}}</span>
-                        </div>
-                        <div class="text-truncate" v-if="props.item.answerText">
-                           <span v-language:inner="'dashboardPage_answer'"/>
-                           <span>{{props.item.answerText}}</span>
-                        </div>
-                     </template>
-
-                     <template v-else>
-                        <span>{{props.item.name}}</span>
-                     </template>
-                        <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_course'"></span>
-                           <span>{{props.item.course}}</span>
-                        </div>
-                  </router-link>
-               </td>
+               <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
+               <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
                <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
-               <td class="text-xs-left">{{props.item.likes}}</td>
-               <td class="text-xs-left">{{props.item.views}}</td>
-               <td class="text-xs-left">{{props.item.downloads}}</td>
-               <td class="text-xs-left">{{props.item.purchased}}</td>
                <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
-               <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-               <td v-if="!checkIsQuestuin(props.item.type)" class="text-xs-center">
-                  <v-menu lazy bottom right v-model="showMenu">
-                     <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
-
-                     <v-list v-if="props.index == currentItemIndex">
-                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog(['rename',props.item])">{{rename}}</v-list-tile>
-                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog(['changePrice',props.item])">{{changePrice}}</v-list-tile>
-                     </v-list>
-                  </v-menu>
-               </td>
+               <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td> 
+               <td class="text-xs-center">
+                  <button @click="dynamicAction(props.item)" class="myPurchases_action" v-language:inner="dynamicResx(props.item.type)"/>
+               </td> 
             </template>
-         <tableFooter slot="pageText" slot-scope="item" :item="item"/>
+         <slot slot="no-data" name="tableEmptyState"/>
+         <slot slot="pageText" name="tableFooter"/>
       </v-data-table>
-	</div>
+   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import tableFooter from '../components/tableFooter.vue';
+import tablePreviewTd from '../global/tablePreviewTd.vue';
+import tableInfoTd from '../global/tableInfoTd.vue';
 
 export default {
    name:'myPurchases',
-   components:{tableFooter},
-	props:{
+   components:{tablePreviewTd,tableInfoTd},
+   props:{
       globalFunctions: {
          type: Object,
       },
@@ -92,11 +58,10 @@ export default {
          required: true
       }
    },
-	data() {
-		return {
-			itemList:[],
-			sortedBy:'',
-			headers:[
+   data() {
+      return {
+         sortedBy:'',
+         headers:[
             this.dictionary.headers['preview'],
             this.dictionary.headers['info'],
             this.dictionary.headers['type'],
@@ -104,91 +69,85 @@ export default {
             this.dictionary.headers['date'],
             this.dictionary.headers['action'],
          ],
-		}
-	},
-	computed: {
-		...mapGetters(['getPurchasesItems']),
-		purchasesItems:{
-         get(){
-            this.itemList = this.getPurchasesItems
-            return this.itemList;
-         },
-         set(val){
-            this.itemList = val
+      }
+   },
+   computed: {
+      ...mapGetters(['getPurchasesItems']),
+      purchasesItems(){
+         return this.getPurchasesItems
+      },
+   },
+   methods: {
+      ...mapActions(['updatePurchasesItems','dashboard_sort']),
+      dynamicResx(type){
+         if(type === 'Document'){
+            return 'dashboardPage_action_download'
+         }else{
+            return 'dashboardPage_action_watch'
          }
       },
-	},
-	methods: {
-		...mapActions(['updatePurchasesItems']),
+      dynamicAction(item){
+         if(item.type === 'Document' || 'Video'){
+            this.$router.push({path:item.url})
+         }
+      },
       changeSort(sortBy){
-         let list = this.globalFunctions.sort(this.itemList,sortBy,this.sortedBy)
+         if(sortBy === 'info') return;
+
+         let sortObj = {
+            listName: 'purchasesItems',
+            sortBy,
+            sortedBy: this.sortedBy
+         }
+         this.dashboard_sort(sortObj)
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
-         return list;
       }
-	},
-	created() {
-		this.updatePurchasesItems()
-	},
+   },
+   created() {
+      this.updatePurchasesItems()
+   },
 }
 </script>
 
 <style lang="less">
 .myPurchases{
-	.myPurchases_title{
-		font-size: 22px;
-		color: #43425d;
-		font-weight: 600;
-		padding: 0 0 10px 2px;
-	}
-	.myPurchases_table{
-		.v-datatable{
-			tr{
-				height: auto;
-				th{
-					color: #43425d !important;
-					font-size: 14px;
-					padding-top: 14px;
-					padding-bottom: 14px;
-				}
-				
-			}
-			color: #43425d !important;
-		}
-		.myPurchases_footer{
-			font-size: 14px;
-			color: #43425d !important;
-		}
-		.myPurchases_td_img{
-			line-height: 0;
-			padding-right: 0 !important;
-			.myPurchases_td_img_img{
-				img{
-					margin: 10px 0;
-					&.imgPreview_content{
-						object-fit: none;
-						object-position: top;
-					}
-				}
+   .myPurchases_title{
+      font-size: 22px;
+      color: #43425d;
+      font-weight: 600;
+      padding: 0 0 10px 2px;
+   }
+   .myPurchases_table{
+      .v-datatable{
+         tr{
+            height: auto;
+            th{
+               color: #43425d !important;
+               font-size: 14px;
+               padding-top: 14px;
+               padding-bottom: 14px;
+            }
+         }
+         color: #43425d !important;
+      }
+      .myPurchases_action{
+         outline: none;
+         padding: 10px 0px;
+         width: 100%;
+         max-width: 140px;
+         border: 1px solid black;
+         border-radius: 26px;
+         text-transform: capitalize;
+         font-weight: 600;
+         font-size: 14px;
+      }
+      .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
+         transform: none /*rtl:rotate(180deg)*/;
+         color: #43425d !important;
+         height: inherit;
+         font-size: 14px;
+      }
 
-			}
-		}
-		.myPurchases_td_course {
-			a{
-				color: #43425d !important;
-			}
-			width: 300px;
-			max-width: 300px;
-			min-width: 300px;
-		}
-		.sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
-			transform: none /*rtl:rotate(180deg)*/;
-			color: #43425d !important;
-			height: inherit;
-			font-size: 14px;
-		}
-
-	}
+   }
 }
 </style>
-
-

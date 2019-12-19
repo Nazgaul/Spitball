@@ -268,7 +268,7 @@ export default {
         this.$router.push({name: 'myContent'})
       }
       if(path === "my-purchases"){
-        this.$router.push({path:'/myPurchases'})
+        this.$router.push({name:'myPurchases'})
       }
       if(path === "editCourse"){
         this.$router.push({name:'editCourse'})

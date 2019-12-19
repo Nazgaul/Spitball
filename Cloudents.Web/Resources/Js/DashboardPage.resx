@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="action_download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="action_watch" xml:space="preserve">
+    <value>Watch</value>
+  </data>
   <data name="answer" xml:space="preserve">
     <value>Answer:</value>
   </data>

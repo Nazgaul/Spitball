@@ -34,6 +34,7 @@ namespace Cloudents.Query.Query
                     .Fetch(f => f.User)
                     .Fetch(f => f.Document)
                     .Where(w => w.User.Id == query.Id)
+                    .Where(w => w.Document.Status.State == Core.Enum.ItemState.Ok)
                     .Where(w => w.Type == Core.Enum.TransactionType.Spent)
                     .Select(s => new PurchasedDocumentDto()
                     {

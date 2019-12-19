@@ -25,64 +25,29 @@
                </tr>
             </template>
             <template v-slot:items="props">
-               <td class="mySales_td_img">
-                  <router-link :to="globalFunctions.router(props.item)" class="mySales_td_img_img">
-                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)">
-                  </router-link>
-               </td>
-               <td class="text-xs-left mySales_td_course">
-                  <router-link :to="globalFunctions.router(props.item)">
-                     <template v-if="checkIsSession(props.item.type)">
-                        <span v-html="$Ph('dashboardPage_session',props.item.studentName)"/>
-                        <p><span class="font-weight-bold" v-language:inner="'dashboardPage_duration'"/> {{props.item.duration | sessionDuration}}</p>
-                     </template>
+               <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
+               <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
 
-                     <template v-if="checkIsQuestion(props.item.type)">
-                        <div class="text-truncate">
-                           <span class="font-weight-bold" v-language:inner="'dashboardPage_question'"/>
-                           <span class="text-truncate">{{props.item.text}}</span>
-                        </div>
-                        <div class="text-truncate">
-                           <span class="font-weight-bold" v-language:inner="'dashboardPage_answer'"/>
-                           <span>{{props.item.answerText}}</span>
-                        </div>
-                        <div v-if="props.item.course">
-                           <span class="font-weight-bold" v-language:inner="'dashboardPage_course'"></span>
-                           <span>{{props.item.course}}</span>
-                        </div>
-                     </template>
-
-                     <template v-if="checkIsItem(props.item.type)">
-                        <span>{{props.item.name}}</span>
-                        <div v-if="props.item.course">
-                           <span class="font-weight-bold" v-language:inner="'dashboardPage_course'"></span>
-                           <span>{{props.item.course}}</span>
-                        </div>
-                     </template>
-                  </router-link>
-               </td>
                <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
                <td class="text-xs-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"></td>
             </template>
-         <slot slot="no-data" name="tableEmptyState"/>
-            <template slot="pageText" slot-scope="item">
-               <span class="mySales_footer">
-               {{item.pageStart}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
-               </span>
-            </template>
+            <slot slot="no-data" name="tableEmptyState"/>
+            <slot slot="pageText" name="tableFooter"/>
          </v-data-table>
    </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-
 import { LanguageService } from '../../../../services/language/languageService';
+import tablePreviewTd from '../global/tablePreviewTd.vue';
+import tableInfoTd from '../global/tableInfoTd.vue';
 
 export default {
    name:'mySales',
+   components:{tablePreviewTd,tableInfoTd},
    props:{
       globalFunctions: {
          type: Object,
@@ -169,30 +134,6 @@ export default {
             }
          }
          color: #43425d !important;
-      }
-      .mySales_footer{
-         font-size: 14px;
-         color: #43425d !important;
-      }
-      .mySales_td_img{
-         line-height: 0;
-         padding-right: 0 !important;
-         .mySales_td_img_img{
-            img{
-               margin: 10px 0;
-               border: 1px solid #d8d8d8;
-            }
-
-         }
-      }
-      .mySales_td_course {
-         a{
-            color: #43425d !important;
-            line-height: 1.6;
-         }
-         width: 450px;
-         max-width: 450px;
-         min-width: 300px;
       }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          transform: none /*rtl:rotate(180deg)*/;

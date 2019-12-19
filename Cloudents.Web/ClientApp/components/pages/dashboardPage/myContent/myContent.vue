@@ -25,34 +25,9 @@
             </tr>
          </template>
             <template v-slot:items="props">
-               <td class="myContent_td_img">
-                  <router-link :to="globalFunctions.router(props.item)" class="myContent_td_img_img">
-                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)">
-                  </router-link>
-               </td>
-               
-               <td class="text-xs-left myContent_td_course text-truncate">
-                  <router-link :to="globalFunctions.router(props.item)">
-                     <template v-if="checkIsQuestion(props.item.type)">
-                        <div class="text-truncate">
-                           <span class="font-weight-bold" v-language:inner="'dashboardPage_question'"/>
-                           <span class="text-truncate">{{props.item.text}}</span>
-                        </div>
-                        <div class="text-truncate" v-if="props.item.answerText">
-                           <span class="font-weight-bold" v-language:inner="'dashboardPage_answer'"/>
-                           <span>{{props.item.answerText}}</span>
-                        </div>
-                     </template>
+               <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
+               <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
 
-                     <template v-else>
-                        <span>{{props.item.name}}</span>
-                     </template>
-                     <div class="text-truncate" v-if="props.item.course">
-                        <span class="font-weight-bold" v-language:inner="'dashboardPage_course'"></span>
-                        <span>{{props.item.course}}</span>
-                     </div>
-                  </router-link>
-               </td>
                <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
                <td class="text-xs-left">{{props.item.likes}}</td>
                <td class="text-xs-left">{{props.item.views}}</td>
@@ -72,11 +47,7 @@
                </td>
             </template>
          <slot slot="no-data" name="tableEmptyState"/>
-         <template slot="pageText" slot-scope="item">
-            <span class="myContent_footer">
-            {{item.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
-            </span>
-         </template>
+         <slot slot="pageText" name="tableFooter"/>
 
       </v-data-table>
    </div>
@@ -85,11 +56,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from '../../../../services/language/languageService';
-import tableFooter from '../components/tableFooter.vue';
+import tablePreviewTd from '../global/tablePreviewTd.vue';
+import tableInfoTd from '../global/tableInfoTd.vue';
 
 export default {
-   components:{tableFooter},
    name:'myContent',
+   components:{tablePreviewTd,tableInfoTd},
    props:{
       globalFunctions: {
          type: Object,
@@ -171,37 +143,12 @@ export default {
          }
          color: #43425d !important;
       }
-      .myContent_footer{
-         font-size: 14px;
-         color: #43425d !important;
-      }
-      .myContent_td_img{
-         line-height: 0;
-         padding-right: 0 !important;
-         .myContent_td_img_img{
-            img{
-               margin: 10px 0;
-               border: 1px solid #d8d8d8;
-            }
-
-         }
-      }
-      .myContent_td_course {
-         a{
-            color: #43425d !important;
-            line-height: 1.6;
-         }
-         width: 300px;
-         max-width: 300px;
-         min-width: 300px;
-      }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          transform: none /*rtl:rotate(180deg)*/;
          color: #43425d !important;
          height: inherit;
          font-size: 14px;
       }
-
    }
 }
 </style>

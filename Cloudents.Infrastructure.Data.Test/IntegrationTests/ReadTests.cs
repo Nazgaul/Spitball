@@ -303,10 +303,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> release-00033
         [Theory]
         [InlineData(1L)]
         public async Task SimilarDocumentsQuery_Ok(long documentId)

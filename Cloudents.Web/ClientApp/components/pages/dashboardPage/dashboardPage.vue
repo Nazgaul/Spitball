@@ -1,9 +1,9 @@
 <template>
    <div class="dashboardPage">
-      <component 
-         :dictionary="dictionary" 
-         :globalFunctions="globalFunctions" 
-         :is="component">
+      <component :dictionary="dictionary" :globalFunctions="globalFunctions" :is="component">
+         <template slot="tableFooter">
+            <tableFooter/>
+         </template>
          <template slot="tableEmptyState">
             <tableEmptyState/>
          </template>
@@ -28,6 +28,8 @@ import myContent from './myContent/myContent.vue';
 import myPurchases from './myPurchases/myPurchases.vue';
 
 import tableEmptyState from './global/tableEmptyState.vue';
+import tableFooter from './global/tableFooter.vue';
+
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
 import changePriceDialog from './dashboardDialog/changePriceDialog.vue';
@@ -68,7 +70,8 @@ export default {
             openDialog: this.openDialog,
             formatImg: this.formatImg,
             formatPrice: this.formatPrice,
-            router: this.dynamicRouter
+            router: this.dynamicRouter,
+            '$Ph': this.$Ph,
          }
       }
    },
@@ -81,6 +84,7 @@ export default {
       changePriceDialog,
       sbDialog,
       tableEmptyState,
+      tableFooter
    },
    computed: {
       ...mapGetters(['accountUser'])
@@ -103,22 +107,25 @@ export default {
          if(item.type === 'Question' || item.type === 'Answer'){
             return {path:'/question/'+item.id}
          }
-         if(item.studentId){
-            return {name: 'profile',params: {id: item.studentId, name: item.studentName}}
+         if(item.type === 'TutoringSession'){
+            return {name: 'profile',params: {id: item.id, name: item.name}}
          }
       },
       formatImg(item){
          if(item.preview){
             return this.$proccessImageUrl(item.preview,80,80)
          }
-         if(item.studentImage){
-            return this.$proccessImageUrl(item.studentImage,80,80)
+         if(item.image){
+            return this.$proccessImageUrl(item.image,80,80)
          }
          if(item.type === 'Question' || item.type === 'Answer'){
             return require(`./images/qs.png`) 
          }
       },      
       formatPrice(price,type){
+         if(price < 0){
+            price = Math.abs(price)
+         }
          if(type === 'Document' || type === 'Video'){
             return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
          }
