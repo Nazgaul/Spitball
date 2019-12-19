@@ -131,7 +131,7 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button sel="clear_all_canvas" v-on="on" class="nav-action" @click="takeSnapshot()">
-                        <v-icon style="margin-top: 5px;">sbf-close</v-icon>
+                        <v-icon style="margin-bottom: 2px;">sbf-capture-icon</v-icon>
                     </button>
                 </template>
                 <span v-language:inner>tutor_tooltip_takeSnapshot</span>

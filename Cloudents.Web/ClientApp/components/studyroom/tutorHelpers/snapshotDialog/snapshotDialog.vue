@@ -17,7 +17,7 @@
                <div id="snapshot-container" :style="{width: width +'px', height: height+'px', display:'none'}"></div>
             </v-flex>
             <v-flex v-show="noCameraError" xs12 style="text-align: center; min-width:640px; min-height:480px;" class="no-camera-error pt-2">
-               <span v-language:inner="'tutor_take_snapshot_error'"></span>
+               <img :src="require(`./img/noCamera-${lang}.png`)" alt="">
             </v-flex>
             <v-flex xs12 class="pt-4">
                 <!-- <input type="text" v-model="width">
@@ -48,6 +48,7 @@
                 scale: 1,
                 snapshotBtnText: LanguageService.getValueByKey('tutor_take_snapshot_btn'),
                 timerCountdown: null,
+                lang: global.lang,
             };
         },
         methods: {
