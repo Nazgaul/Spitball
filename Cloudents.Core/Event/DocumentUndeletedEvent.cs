@@ -12,4 +12,25 @@ namespace Cloudents.Core.Event
 
         public Document Document { get; }
     }
+
+    public class DocumentPriceChangeEvent : IEvent
+    {
+        public DocumentPriceChangeEvent(Document document)
+        {
+            Document = document;
+        }
+
+        public Document Document { get; }
+    }
+
+
+    public class DocumentFlaggedEvent : IEvent
+    {
+        public DocumentFlaggedEvent(Document document)
+        {
+            Document = document;
+        }
+
+        public Document Document { get; }
+    }
 }

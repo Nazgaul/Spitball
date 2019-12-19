@@ -13,15 +13,13 @@ namespace Cloudents.Command.Documents.PurchaseDocument
         private readonly IRepository<BaseUser> _userRepository;
         private readonly ITransactionRepository _transactionRepository;
         private readonly IRepository<Document> _documentRepository;
-        private readonly ICacheProvider _cacheProvider;
 
-        public PurchaseDocumentCommandHandler(IRepository<BaseUser> userRepository, ITransactionRepository transactionRepository, 
-            IRepository<Document> documentRepository, ICacheProvider cacheProvider)
+        public PurchaseDocumentCommandHandler(IRepository<BaseUser> userRepository, ITransactionRepository transactionRepository,
+            IRepository<Document> documentRepository)
         {
             _userRepository = userRepository;
             _transactionRepository = transactionRepository;
             _documentRepository = documentRepository;
-            _cacheProvider = cacheProvider;
         }
 
         public async Task ExecuteAsync(PurchaseDocumentCommand message, CancellationToken token)
@@ -43,10 +41,9 @@ namespace Cloudents.Command.Documents.PurchaseDocument
 
             DocumentTransaction.MakerTransaction(purchaseUser, document.User, document);
 
-            
+
             document.User.AddFollower(purchaseUser);
-            _cacheProvider.DeleteRegion("document-by-id");
-             await _userRepository.UpdateAsync(purchaseUser, token);
+            await _userRepository.UpdateAsync(purchaseUser, token);
             await _userRepository.UpdateAsync(document.User, token);
 
         }

@@ -11,48 +11,60 @@
             :prev-icon="'sbf-arrow-left-carousel'"
             :sort-icon="'sbf-arrow-down'"
             :next-icon="'sbf-arrow-right-carousel'">
+            <template slot="headers" slot-scope="props">
+               <tr>
+                  <th class="text-xs-left"
+                     v-for="header in props.headers"
+                     :key="header.text"
+                     :class="['column',{'sortable':header.sortable}]"
+                     @click="changeSort(header.value)">
+                     <span class="text-xs-left">{{ header.text }}
+                        <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
+                     </span>
+                  </th>
+               </tr>
+            </template>
             <template v-slot:items="props">
                <td class="mySales_td_img">
-                  <router-link :to="dynamicRouter(props.item)" class="mySales_td_img_img">
-                     <img width="80" height="80" :src="formatItemImg(props.item)" :class="{'imgPreview_sales':props.item.preview}">
+                  <router-link :to="globalFunctions.router(props.item)" class="mySales_td_img_img">
+                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)">
                   </router-link>
                </td>
                <td class="text-xs-left mySales_td_course">
-                  <router-link :to="dynamicRouter(props.item)">
+                  <router-link :to="globalFunctions.router(props.item)">
                      <template v-if="checkIsSession(props.item.type)">
                         <span v-html="$Ph('dashboardPage_session',props.item.studentName)"/>
-                        <p><span v-language:inner="'dashboardPage_duration'"/> {{props.item.duration | sessionDuration}}</p>
+                        <p><span class="font-weight-bold" v-language:inner="'dashboardPage_duration'"/> {{props.item.duration | sessionDuration}}</p>
                      </template>
 
-                     <template v-if="checkIsQuestuin(props.item.type)">
+                     <template v-if="checkIsQuestion(props.item.type)">
                         <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_questuin'"/>
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_question'"/>
                            <span class="text-truncate">{{props.item.text}}</span>
                         </div>
                         <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_answer'"/>
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_answer'"/>
                            <span>{{props.item.answerText}}</span>
                         </div>
-                        <div>
-                           <span v-language:inner="'dashboardPage_course'"></span>
+                        <div v-if="props.item.course">
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_course'"></span>
                            <span>{{props.item.course}}</span>
                         </div>
                      </template>
 
                      <template v-if="checkIsItem(props.item.type)">
                         <span>{{props.item.name}}</span>
-                        <div>
-                           <span v-language:inner="'dashboardPage_course'"></span>
+                        <div v-if="props.item.course">
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_course'"></span>
                            <span>{{props.item.course}}</span>
                         </div>
                      </template>
                   </router-link>
                </td>
-               <td class="text-xs-left">{{formatItemType(props.item.type)}}</td>
+               <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
                <td class="text-xs-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-               <td class="text-xs-left">{{ formatItemPrice(props.item.price,props.item.type) }}</td>
-               <!-- <td class="text-xs-left"><v-icon @click="openDialog" small>sbf-3-dot</v-icon></td> -->
+               <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"></td>
             </template>
             <template slot="pageText" slot-scope="item">
                <span class="mySales_footer">
@@ -70,15 +82,25 @@ import { LanguageService } from '../../../../services/language/languageService';
 
 export default {
    name:'mySales',
+   props:{
+      globalFunctions: {
+         type: Object,
+      },
+      dictionary:{
+         type: Object,
+         required: true
+      }
+   },
    data() {
       return {
+         sortedBy:'',
          headers:[
-            {text: '', align:'left', sortable: false, value:'preview'},
-            {text: LanguageService.getValueByKey('dashboardPage_info'), align:'left', sortable: false, value:'info'},
-            {text: LanguageService.getValueByKey('dashboardPage_type'), align:'left', sortable: true, value:'type'},
-            {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'status'},
-            {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
-            {text: LanguageService.getValueByKey('dashboardPage_price'), align:'left', sortable: true, value:'price'},
+            this.dictionary.headers['preview'],
+            this.dictionary.headers['info'],
+            this.dictionary.headers['type'],
+            this.dictionary.headers['status'],
+            this.dictionary.headers['date'],
+            this.dictionary.headers['price'],
          ],
       }
    },
@@ -89,23 +111,16 @@ export default {
       },
    },
    methods: {
-      ...mapActions(['updateSalesItems']),
+      ...mapActions(['updateSalesItems','dashboard_sort']),
 
       checkIsSession(prop){
          return prop === 'TutoringSession';
       },
-      checkIsQuestuin(prop){
-         return prop === 'Question';
+      checkIsQuestion(prop){
+         return prop === 'Question' && prop !== 'Answer';
       },
       checkIsItem(prop){
-         return prop !== 'Question' && prop !== 'TutoringSession';
-      },
-      formatItemPrice(price,type){
-         if(type === 'TutoringSession'){
-            return `${Math.round(+price)} ${this.accountUser.currencySymbol}`
-         }else{
-            return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
-         }
+         return prop !== 'Question' && prop !== 'Answer' && prop !== 'TutoringSession';
       },
       formatItemStatus(paymentStatus){
          if(paymentStatus === 'Pending'){
@@ -115,41 +130,16 @@ export default {
             return LanguageService.getValueByKey('dashboardPage_paid')
          }
       },
-      dynamicRouter(item){
-         if(item.url){
-            return item.url;
+      changeSort(sortBy){
+         if(sortBy === 'info') return;
+
+         let sortObj = {
+            listName: 'salesItems',
+            sortBy,
+            sortedBy: this.sortedBy
          }
-         if(item.studentId){
-            return {name: 'profile',params: {id: item.studentId, name: item.studentName}}
-         }
-         if(item.type === 'Question'){
-            return {path:'/question/'+item.id}
-         }
-      },
-      formatItemType(type){
-         if(type === 'Question'){
-            return LanguageService.getValueByKey('dashboardPage_qa')
-         }
-         if(type === 'Document'){
-            return LanguageService.getValueByKey('dashboardPage_document')
-         }
-         if(type === 'Video'){
-            return LanguageService.getValueByKey('dashboardPage_video')
-         }
-         if(type === 'TutoringSession'){
-            return LanguageService.getValueByKey('dashboardPage_tutor_session')
-         }
-      },
-      formatItemImg(item){
-         if(item.preview){
-            return this.$proccessImageUrl(item.preview,140,140,"crop&anchorPosition=top")
-         }
-         if(item.studentImage){
-            return this.$proccessImageUrl(item.studentImage,80,80)
-         }
-         if(item.type === 'Question'){
-            return require(`../images/qs.png`) 
-         }
+         this.dashboard_sort(sortObj)
+         this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
       }
    },
    created() {
@@ -189,10 +179,7 @@ export default {
          .mySales_td_img_img{
             img{
                margin: 10px 0;
-               &.imgPreview_sales{
-                  object-fit: none;
-                  object-position: top;
-               }
+               border: 1px solid #d8d8d8;
             }
 
          }
@@ -200,6 +187,7 @@ export default {
       .mySales_td_course {
          a{
             color: #43425d !important;
+            line-height: 1.6;
          }
          width: 450px;
          max-width: 450px;

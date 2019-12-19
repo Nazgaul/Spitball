@@ -58,10 +58,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import debounce from "lodash/debounce";
 
 import { LanguageService } from "../../../services/language/languageService";
-import universityService from '../../../services/universityService.js';
 import { validationRules } from '../../../services/utilities/formValidationRules';
 
 export default {
@@ -88,7 +86,9 @@ export default {
     props: {
         fileItem: {
             type: Object,
-            default: {}
+            default(){
+                return {}
+            }
         },
         singleFileIndex: {
             type: Number,
@@ -102,7 +102,7 @@ export default {
     watch: {
         item: {
             deep: true,
-            handler(newVal, oldVal) {
+            handler(newVal) {
                 if(this.selectedCourse !== newVal.course){
                     this.isFromQuery = true
                 }

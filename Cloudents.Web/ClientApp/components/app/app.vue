@@ -75,7 +75,7 @@
 
 
           <sb-dialog
-                v-if="!!this.accountUser"
+                v-if="!!accountUser"
                 :showDialog="getReferralDialog"
                 :popUpType="'referralPop'"
                 :onclosefn="closeReferralDialog"

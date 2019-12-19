@@ -12,6 +12,7 @@ using Schema.NET;
 
 namespace Cloudents.Web.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class QuestionController : Controller
     {
         private readonly IQueryBus _queryBus;

@@ -55,7 +55,7 @@
             redeem(amount) {
                 this.loading = true;
                 walletService.redeem(amount)
-                    .then(response => {
+                    .then(() => {
                         // show toaster text
                         this.updateToasterParams({
                             toasterText: LanguageService.getValueByKey('cashoutcard_Cashed'),

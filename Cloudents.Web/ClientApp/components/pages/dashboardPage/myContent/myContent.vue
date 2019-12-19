@@ -15,7 +15,7 @@
             <tr>
                <th class="text-xs-left"
                   v-for="header in props.headers"
-                  :key="header.text"
+                  :key="header.value"
                   :class="['column',{'sortable':header.sortable}]"
                   @click="changeSort(header.value)">
                   <span class="text-xs-left">{{ header.text }}
@@ -27,19 +27,19 @@
             <template v-slot:items="props">
                <td class="myContent_td_img">
                   <router-link :to="globalFunctions.router(props.item)" class="myContent_td_img_img">
-                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)" :class="{'imgPreview_content':props.item.preview}">
+                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)">
                   </router-link>
                </td>
                
                <td class="text-xs-left myContent_td_course text-truncate">
                   <router-link :to="globalFunctions.router(props.item)">
-                     <template v-if="checkIsQuestuin(props.item.type)">
+                     <template v-if="checkIsQuestion(props.item.type)">
                         <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_questuin'"/>
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_question'"/>
                            <span class="text-truncate">{{props.item.text}}</span>
                         </div>
                         <div class="text-truncate" v-if="props.item.answerText">
-                           <span v-language:inner="'dashboardPage_answer'"/>
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_answer'"/>
                            <span>{{props.item.answerText}}</span>
                         </div>
                      </template>
@@ -47,10 +47,10 @@
                      <template v-else>
                         <span>{{props.item.name}}</span>
                      </template>
-                        <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_course'"></span>
-                           <span>{{props.item.course}}</span>
-                        </div>
+                     <div class="text-truncate" v-if="props.item.course">
+                        <span class="font-weight-bold" v-language:inner="'dashboardPage_course'"></span>
+                        <span>{{props.item.course}}</span>
+                     </div>
                   </router-link>
                </td>
                <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
@@ -61,7 +61,7 @@
                <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-center">
-                  <v-menu lazy bottom right v-model="showMenu" v-if="!checkIsQuestuin(props.item.type)" >
+                  <v-menu lazy bottom left v-model="showMenu" v-if="!checkIsQuestion(props.item.type)" >
                      <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
 
                      <v-list v-if="props.index == currentItemIndex">
@@ -126,15 +126,12 @@ export default {
    },
    methods: {
       ...mapActions(['updateContentItems','dashboard_sort']),
-      checkIsQuestuin(prop){
+      checkIsQuestion(prop){
          return prop === 'Question' || prop === 'Answer';
       },
-      formatItemPrice(price,type){
-         if(type !== 'Question' && type !== 'Answer'){
-            return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
-         }
-      },
       changeSort(sortBy){
+         if(sortBy === 'info') return;
+
          let sortObj = {
             listName: 'contentItems',
             sortBy,
@@ -182,10 +179,7 @@ export default {
          .myContent_td_img_img{
             img{
                margin: 10px 0;
-               &.imgPreview_content{
-                  object-fit: none;
-                  object-position: top;
-               }
+               border: 1px solid #d8d8d8;
             }
 
          }
@@ -193,6 +187,7 @@ export default {
       .myContent_td_course {
          a{
             color: #43425d !important;
+            line-height: 1.6;
          }
          width: 300px;
          max-width: 300px;

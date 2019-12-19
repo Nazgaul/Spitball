@@ -4,10 +4,12 @@
         "es6": true,
         "shared-node-browser": true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:vue/essential"
-    ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/essential",
+    "plugin:vue/recommended",
+    "plugin:css-modules/recommended"
+  ],
     "parser": "vue-eslint-parser",
     "globals": {
         "Atomics": "readonly",
@@ -28,12 +30,32 @@
         "allowImportExportEverywhere": true
     },
     "plugins": [
-        "vue"
+      "vue",
+      "css-modules"
     ],
   "rules": {
     "no-extra-boolean-cast": "off",
     "no-useless-escape": "off",
     "no-prototype-builtins": "off",
-    "require-atomic-updates": "off"
+    "require-atomic-updates": "off",
+    "vue/html-indent": "off",
+    "vue/attributes-order": "off",
+    "vue/html-closing-bracket-spacing": "off",
+    "vue/singleline-html-element-content-newline": "off",
+    "vue/html-self-closing": "off",
+    "vue/html-quotes": "off",
+    "vue/no-v-html": "off",
+    "vue/this-in-template": "off",
+    "vue/v-bind-style": "off",
+    "vue/require-prop-types": "off",
+    "vue/name-property-casing": "off",
+    "vue/require-default-prop": "off",
+    "vue/no-multi-spaces": "off",
+    "vue/order-in-components": "off",
+    "vue/attribute-hyphenation": "off",
+    "vue/multiline-html-element-content-newline": "off",
+    "vue/mustache-interpolation-spacing": "off",
+    "vue/html-closing-bracket-newline": "off",
+    "vue/max-attributes-per-line": "off"
   }
 }

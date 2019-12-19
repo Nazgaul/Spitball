@@ -129,4 +129,7 @@
   <data name="views" xml:space="preserve">
     <value>צפיות</value>
   </data>
+  <data name="view" xml:space="preserve">
+    <value>צפייה</value>
+  </data>
 </root>

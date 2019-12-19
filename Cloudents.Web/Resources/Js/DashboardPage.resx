@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="action" xml:space="preserve">
-    <value>Action</value>
-  </data>
   <data name="answer" xml:space="preserve">
     <value>Answer:</value>
   </data>
@@ -160,9 +157,6 @@
   <data name="pending" xml:space="preserve">
     <value>Pending</value>
   </data>
-  <data name="preview" xml:space="preserve">
-    <value>Preview</value>
-  </data>
   <data name="price" xml:space="preserve">
     <value>Price</value>
   </data>
@@ -175,7 +169,7 @@
   <data name="qa" xml:space="preserve">
     <value>Q&amp;A</value>
   </data>
-  <data name="questuin" xml:space="preserve">
+  <data name="question" xml:space="preserve">
     <value>Question:</value>
   </data>
   <data name="rename" xml:space="preserve">
@@ -185,7 +179,7 @@
     <value>Tutoring session with {1}</value>
   </data>
   <data name="status" xml:space="preserve">
-    <value>Product</value>
+    <value>Status</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>Tutoring Session</value>

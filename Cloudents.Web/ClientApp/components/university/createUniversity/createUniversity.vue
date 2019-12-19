@@ -86,11 +86,11 @@
                     let toasterText;
                     //create new uni add action in store needed
 
-                    self.createUniversity(university).then((success)=>{
+                    self.createUniversity(university).then(()=>{
                         self.changeUniCreateDialogState(false);
                         classesSet ?  self.$router.push({name: 'feed'})  : self.$router.push({name: 'editCourse'});
                         toasterText = LanguageService.getValueByKey("university_uni_success");
-                    }, (error)=>{
+                    }, ()=>{
                         toasterText = LanguageService.getValueByKey("university_uni_error");
                     }).finally(() => {
                         self.updateToasterParams({

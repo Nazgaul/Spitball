@@ -1,8 +1,8 @@
 <template>
-    <div class="mobileUnlockDownload" :class="{'mobileUnlockDownload--sticky': sticky, 'mobileUnlockDownload--purchased': isPurchased}" v-if="showBlock && !isLoading">
+    <div class="mobileUnlockDownload" :class="{'mobileUnlockDownload--sticky': sticky, 'mobileUnlockDownload--purchased': isPurchased}" v-if="showBlock">
         <div class="mobileUnlockDownload__title" v-language:inner="'documentPage_credit_uploader'" v-if="!zeroPrice && !isPurchased"></div>
         <div class="mobileUnlockDownload__action">
-            <template v-if="!zeroPrice && !btnLoader && !isPurchased">
+            <template v-if="!zeroPrice && !isPurchased">
                 <span class="mobileUnlockDownload__action__price">{{priceWithComma}}</span>
                 <span class="mobileUnlockDownload__action__pts" v-language:inner="'documentPage_points'"></span>
             </template>
@@ -48,13 +48,8 @@ export default {
             type: Boolean
         }
     },
-    data() {
-        return {
-            btnLoader: true,
-        }
-    },
     computed: {
-        ...mapGetters(['accountUser']),
+        ...mapGetters(['accountUser', 'getBtnLoading']),
 
         showBlock() {
             if(this.isVideo && !this.isShowPurchased) {
@@ -98,7 +93,7 @@ export default {
             return false;
         },
         isLoading() {
-            if(this.document && this.document.details && !this.btnLoader) {
+            if(this.document && this.document.details && !this.getBtnLoading) {
                 return false;
             }
             return true;
@@ -128,9 +123,6 @@ export default {
             this.downloadDocument(item);
         },
     },
-    created() {
-        this.btnLoader = false;
-    }
 }
 </script>
 

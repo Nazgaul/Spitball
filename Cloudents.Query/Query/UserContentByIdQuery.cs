@@ -64,7 +64,7 @@ namespace Cloudents.Query.Query
 
                 var answerFuture = _session.Query<Answer>()
                     .Fetch(f => f.User).Fetch(f => f.Question)
-                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
+                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.Question.Status.State == ItemState.Ok)
                     .Select(s => new UserAnswersDto()
                     { 
                         QuestionId = s.Question.Id,
