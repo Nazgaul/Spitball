@@ -40,10 +40,8 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import debounce from "lodash/debounce";
 
 import {LanguageService} from '../../../services/language/languageService.js'
-import universityService from '../../../services/universityService.js';
 import { validationRules } from '../../../services/utilities/formValidationRules';
 
 
@@ -76,15 +74,23 @@ export default {
         }
     },
     props: {
-        propName: '',
+        propName: {
+            type:String,
+            default: ''
+        },
         showError: {
             type: Boolean,
             default: false
         },
-        errorText: 'testin error',
+        errorText: {
+            type:String,
+            default: 'testin error'
+        },
         callBackmethods: {
             type: Object,
-            default: {},
+            default(){
+                return{}
+            },
             required: false
         },
         chackValidation:{

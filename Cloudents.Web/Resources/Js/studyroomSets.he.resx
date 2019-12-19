@@ -204,4 +204,7 @@
   <data name="watch_title" xml:space="preserve">
     <value>צפו בשיעור אונליין שהקלטתם בחינם</value>
   </data>
+  <data name="watch_actions_user_consent" xml:space="preserve">
+    <value>הקלטת השיעור מאושרת רק בהסכמת התלמיד</value>
+  </data>
 </root>

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
+using PaymentStatus = Cloudents.Core.DTOs.PaymentStatus;
 
 namespace Cloudents.Query.Query
 {
@@ -36,6 +38,7 @@ namespace Cloudents.Query.Query
                     .Fetch(f => f.Document)
                     .Where(w => w.User.Id == query.Id)
                     .Where(w => w.Type == Core.Enum.TransactionType.Earned)
+                    .Where(w=>w.Document.Status.State == ItemState.Ok)
                     .Select(s => new DocumentSaleDto()
                     {
                         Id = s.Document.Id,
@@ -69,15 +72,15 @@ namespace Cloudents.Query.Query
                 var sessionFuture = _session.Query<StudyRoomSession>()
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
-                    .Where(w => w.StudyRoom.Tutor.Id == query.Id)
+                    .Where(w => w.StudyRoom.Tutor.Id == query.Id && w.Ended != null)
                     .Select(s => new SessionSaleDto()
                     {
                         PaymentStatus = string.IsNullOrEmpty(s.Receipt) ? PaymentStatus.Pending : PaymentStatus.Paid,
                         Date = s.Created,
-                        Price = s.Price,
+                        Price = s.Price ?? 0,
                         StudentName = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Name).FirstOrDefault(),
                         Duration = s.Duration,
-                        StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Image).FirstOrDefault(),
+                        StudentImage = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.ImageName).FirstOrDefault(),
                         StudentId = s.StudyRoom.Users.Where(w => w.User.Id != query.Id).Select(si => si.User.Id).FirstOrDefault()
                     }).ToFuture<SaleDto>();
 

@@ -40,7 +40,7 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex';
+    import { mapActions } from 'vuex';
     import thinkIcon from  '../images/thinking.svg'
     export default {
         name: "verifyUniversityCreation",

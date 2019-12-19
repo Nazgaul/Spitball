@@ -1,10 +1,4 @@
 import { connectivityModule } from "./connectivity.module";
-
-function DefaultItem(objInit){
-   this.type = objInit.type;
-   this.date = objInit.date;
-   this.status = objInit.status;
-}
 function SalesItem(objInit){
    return Object.assign(
       new DefaultItem(objInit),
@@ -21,23 +15,57 @@ function SalesItem(objInit){
          studentName: objInit.studentName,
          studentId: objInit.studentId || '',
          url: objInit.url,
+         paymentStatus: objInit.paymentStatus,
       }
    )
 }
+function DefaultItem(objInit){
+   this.type = objInit.type;
+   this.date = objInit.date;
+}
+const Item = {
+   Default:function(objInit){
+      this.type = objInit.type;
+      this.date = objInit.date;
+      this.course = objInit.course || '';
+   },
+   Document:function(objInit){
+      this.name = objInit.name;
+      this.price = objInit.price;
+      this.views = objInit.views;
+      this.likes = objInit.likes;
+      this.downloads = objInit.downloads;
+      this.purchased = objInit.purchased;
+      this.preview = objInit.preview;
+      this.url = objInit.url;
+      this.id = objInit.id;
+   },
+   Question:function(objInit){
+      this.id = objInit.questionId || objInit.id;
+      this.text = objInit.text || objInit.questionText;
+      this.answerText = objInit.answerText || '';
+   }
+}
+
+
+function _itemTypeChcker(type){
+   if(type.toLowerCase() === 'document' || type.toLowerCase() === 'video'){
+      return 'Document';
+   }
+   if(type.toLowerCase() === 'question' || type.toLowerCase() === 'answer'){
+      return 'Question';
+   }
+   return console.error('type:',type,'is not defined')
+}
+
+
+
 
 function ContentItem(objInit){
-   this.preview = objInit.preview || '';
-   this.likes = objInit.likes;
-   this.views = objInit.views;
-   this.downloads = objInit.downloads;
-   this.purchased = objInit.purchased;
-   this.price = objInit.price;
-   this.url = objInit.url;
-   this.text = objInit.text || '';
-   this.answerText = objInit.answerText || '';
-   this.course = objInit.course || '';
-   this.name = objInit.name;
-   this.id = objInit.id || null;
+   return Object.assign(
+      new Item.Default(objInit),
+      new Item[_itemTypeChcker(objInit.type)](objInit)
+   )
 }
 
 function createSalesItems({data}) {

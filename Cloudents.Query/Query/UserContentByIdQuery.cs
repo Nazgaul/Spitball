@@ -1,11 +1,10 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -33,16 +32,16 @@ namespace Cloudents.Query.Query
             {
                 var documentFuture = _session.Query<Document>()
                     .Fetch(f => f.User).FetchMany(f => f.Transactions)
-                    .Where(w => w.User.Id == query.Id)
+                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
                     .Select(s => new UserDocumentsDto()
                     {
                         Id = s.Id,
                         Name = s.Name,
                         Course = s.Course.Id,
-                        Type = s.DocumentType.ToString(),
+                        Type = s.DocumentType != null?  s.DocumentType.ToString() : "Document",
                         Likes = s.VoteCount,
                         Price = s.Price,
-                        State = s.Status.State,
+                        //State = s.Status.State,
                         Date = s.TimeStamp.CreationTime,
                         Views = s.Views,
                         Downloads = s.Downloads,
@@ -52,11 +51,11 @@ namespace Cloudents.Query.Query
 
                 var questionFuture = _session.Query<Question>()
                     .FetchMany(f => f.Answers)
-                    .Where(w => w.User.Id == query.Id)
+                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
                     .Select(s => new UserQuestionsDto()
                     {
                         Id = s.Id,
-                        State = s.Status.State,
+                        //State = s.Status.State,
                         Date = s.Created,
                         Course = s.Course.Id,
                         Text = s.Text,
@@ -65,11 +64,11 @@ namespace Cloudents.Query.Query
 
                 var answerFuture = _session.Query<Answer>()
                     .Fetch(f => f.User).Fetch(f => f.Question)
-                    .Where(w => w.User.Id == query.Id)
+                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.Question.Status.State == ItemState.Ok)
                     .Select(s => new UserAnswersDto()
                     { 
                         QuestionId = s.Question.Id,
-                        State = s.Status.State,
+                        //State = s.Status.State,
                         Date = s.Created,
                         Course = s.Question.Course.Id,
                         QuestionText = s.Question.Text,

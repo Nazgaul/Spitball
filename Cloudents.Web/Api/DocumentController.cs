@@ -282,9 +282,29 @@ namespace Cloudents.Web.Api
             return res.Select(s => {
                 s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
                 s.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
-                s.Title = Path.GetFileNameWithoutExtension(s.Title);
+                //s.Title = Path.GetFileNameWithoutExtension(s.Title);
                 return s;
                 });
+        }
+
+        [HttpPost("rename"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> RenameDocumentAsync([FromBody] RenameDocumentRequest model,
+                CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new RenameDocumentCommand(userId, model.DocumentId, model.Name);
+            try
+            {
+                await _commandBus.DispatchAsync(command, token);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
+            return Ok();
         }
 
         [NonAction]

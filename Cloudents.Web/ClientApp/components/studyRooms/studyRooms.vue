@@ -32,9 +32,7 @@ export default {
             return this.getStudyRooms;
         },
         isTutor(){
-            if(!!this.accountUser) {
-                return this.accountUser.isTutor;
-            }
+            return this.accountUser.isTutor;
         },
         isTutorPending() {
             return this.accountUser.isTutorState !== 'pending' ? true : false;
@@ -42,7 +40,9 @@ export default {
     },
     watch:{
         accountUser(val){
-            this.isReady = true;
+            if(!!val){
+                this.isReady = true;
+            }
         }
     },
     methods:{

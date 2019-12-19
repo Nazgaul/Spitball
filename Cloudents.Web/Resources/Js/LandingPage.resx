@@ -120,7 +120,4 @@
   <data name="main_stats_reviews" xml:space="preserve">
     <value>Reviews</value>
   </data>
-  <data name="main_stats_reviews_presents" xml:space="preserve">
-    <value>95%</value>
-  </data>
 </root>

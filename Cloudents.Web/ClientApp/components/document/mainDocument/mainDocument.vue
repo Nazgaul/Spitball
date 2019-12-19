@@ -181,7 +181,7 @@
             <sbCarousel class="carouselDocPreview" @select="enterTutorCard" 
                         :arrows="false"
                         :gap="20">
-              <tutorCardCarousel :fromCarousel="true" v-for="(tutor, index) in getTutorList" :tutor="tutor" :key="index"/>
+              <tutorCardCarousel :fromCarousel="true" v-for="(tutor, i) in getTutorList" :tutor="tutor" :key="i"/>
             </sbCarousel>
           </div>
         </div>

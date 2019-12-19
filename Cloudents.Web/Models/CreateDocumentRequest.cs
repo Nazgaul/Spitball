@@ -10,10 +10,11 @@ namespace Cloudents.Web.Models
         [Required]
         public string BlobName { get; set; }
         [Required]
+        [StringLength(Document.MaxLength, ErrorMessage = "StringLength", MinimumLength = Core.Entities.Course.MinLength)]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(Core.Entities.Course.MaxLength, ErrorMessage = "StringLength", MinimumLength = Core.Entities.Course.MinLength)]
+        [StringLength(Document.MaxLength, ErrorMessage = "StringLength", MinimumLength = Document.MinLength)]
         public string Course { get; set; }
 
 
