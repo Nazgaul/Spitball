@@ -17,16 +17,14 @@
                     flat hide-no-data
                     :append-icon="''"
                     v-model="tutorCourse"
-                    :items="suggestsCourses"
-                    :rules="[rules.required,rules.matchCourse]"/>
+                    :items="suggestsCourses"/>
                     <v-combobox 
                     v-else
                     class="text-truncate"
                     flat hide-no-data
                     :append-icon="''"
                     v-model="tutorCourse"
-                    :items="getSelectedClasses"
-                    :rules="[rules.required,rules.matchLocalCourse]"/>
+                    :items="getSelectedClasses"/>
             </fieldset>
             
 
@@ -128,7 +126,8 @@ export default {
         },
         searchCourses: debounce(function(ev){
             this.isFromMounted = false;
-            let term = this.isFromQuery ? ev : ev.target.value.trim()
+            // let term = this.isFromQuery ? ev : ev.target.value.trim() need to check this
+            let term = ev.target.value.trim()
             if(!term) {
                 this.tutorCourse = ''
                 this.suggestsCourses = []

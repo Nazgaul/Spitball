@@ -57,7 +57,7 @@ namespace Cloudents.Query.Query.Admin
                     Email = s.User.Email,
                     Phone = s.User.PhoneNumber,
                     Text = s.Text,
-                    Course = s.Course.Id,
+                    Course = s.Course,
                     University = s.User.University.Name,
                     DateTime = s.CreationTime 
                     //Referer = s.UtmSource,

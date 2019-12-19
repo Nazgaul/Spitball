@@ -203,8 +203,8 @@ namespace ConsoleApp
                             await session.Query<UserCourse>().Where(w => w.Course.Id == courseName)
                                 .DeleteAsync(CancellationToken.None);
 
-                            await session.Query<Lead>().Where(w => w.Course.Id == courseName)
-                                .DeleteAsync(CancellationToken.None);
+                            //await session.Query<Lead>().Where(w => w.Course.Id == courseName)
+                            //    .DeleteAsync(CancellationToken.None);
 
                             await session.Query<Course>().Where(w => w.Id == courseName)
                                 .DeleteAsync(CancellationToken.None);

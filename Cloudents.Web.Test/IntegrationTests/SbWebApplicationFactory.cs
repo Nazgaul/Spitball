@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -25,15 +26,45 @@ namespace Cloudents.Web.Test.IntegrationTests
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             //builder.UseEnvironment(Startup.IntegrationTestEnvironmentName);
+            //builder.ConfigureAppConfiguration()
         }
 
 
 
     }
 
-    public static class HttpClient
+    public static class StringExtensions
     {
-        public static async Task LogInAsync(this System.Net.Http.HttpClient client)
+        public static bool IsValidJson(this string stringValue)
+        {
+            if (string.IsNullOrWhiteSpace(stringValue))
+            {
+                return false;
+            }
+
+            var value = stringValue.Trim();
+
+            if ((value.StartsWith("{") && value.EndsWith("}")) || //For object
+                (value.StartsWith("[") && value.EndsWith("]"))) //For array
+            {
+                try
+                {
+                    var obj = JToken.Parse(value);
+                    return true;
+                }
+                catch (JsonReaderException)
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    public static class HttpClientExtensions
+    {
+        public static async Task LogInAsync(this HttpClient client)
         {
             var response = await client.PostAsync("api/LogIn", new StringContent(TestUser.GetTestUser(),
                  Encoding.UTF8, "application/json"));
@@ -51,8 +82,6 @@ namespace Cloudents.Web.Test.IntegrationTests
             var str = JsonConvert.SerializeObject(obj);
             return new StringContent(str, Encoding.UTF8, "application/json");
         }
-
-        //public string User => TestUser.GetTestUser();
 
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local", Justification = "Json serializer")]
