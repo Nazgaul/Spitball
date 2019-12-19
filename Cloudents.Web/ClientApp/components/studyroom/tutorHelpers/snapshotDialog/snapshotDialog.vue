@@ -100,7 +100,8 @@
             takeSnapshot() {
                 // this.startInterval(); 
                 this.drawImageToCanvas();
-                this.getUrlFromBlob();                    
+                this.getUrlFromBlob();  
+                this.closeDialog();                  
             },
             closeDialog() {
                 this.setSnapshotDialog(false);
