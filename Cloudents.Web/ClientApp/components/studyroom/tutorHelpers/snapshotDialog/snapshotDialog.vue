@@ -1,5 +1,5 @@
 <template>
-    <div class="snapshot-dialog-wrap pb-3">
+    <div class="snapshot_dialog_wrap pb-3">
         <v-layout row class="pt-3">
             <v-flex xs12 class="text-xs-right px-3">
                 <v-icon class="caption cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
@@ -12,11 +12,11 @@
             <v-flex xs12 style="text-align: center;" class="pt-2">
                 <span v-language:inner="'tutor_take_snapshot_message'"></span>
             </v-flex>
-            <v-flex v-show="!noCameraError" xs12 style="text-align: center;" class="pt-2">
-               <video autoplay="true" id="videoElement" style="width:640px; height:480px;"></video>
+            <v-flex class="snapshot_video_container pt-2" v-show="!noCameraError" id="videoElementContainer" xs12 style="text-align: center;">
+               <video autoplay="true" id="videoElement" style="width:640px; height:480px; display:none;"></video>
                <div id="snapshot-container" :style="{width: width +'px', height: height+'px', display:'none'}"></div>
             </v-flex>
-            <v-flex v-show="noCameraError" xs12 style="text-align: center; min-width:640px; min-height:480px;" class="no-camera-error pt-2">
+            <v-flex v-show="noCameraError" xs12 style="text-align: center;" class="snapshot_video_container snapshot_no_camera_error pt-2">
                <img :src="require(`./img/noCamera-${lang}.png`)" alt="">
             </v-flex>
             <v-flex xs12 class="pt-4">
@@ -25,7 +25,7 @@
                 <!-- <input type="text" v-model="scale"> -->
             </v-flex>
             <v-flex xs12 class="pt-4">
-                <v-btn :disabled="noCameraError" class="accept-consent-btn elevation-0 align-center justify-center" @click="takeSnapshot()">
+                <v-btn :disabled="noCameraError" class="snapshot_accept_consent_btn elevation-0 align-center justify-center" @click="takeSnapshot()">
                     <span class="text-capitalize">{{snapshotBtnText}}</span>
                     <!-- <span class="text-capitalize" v-show="timerCountdown">&nbsp;({{timerCountdown}})</span> -->
                 </v-btn>
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import studyRoomRecordingService from '../../studyRoomRecordingService';
     import {LanguageService} from "../../../../services/language/languageService";
 
@@ -51,6 +51,9 @@
                 lang: global.lang,
             };
         },
+        computed:{
+            ...mapGetters(['getLocalVideoTrack']),
+        },
         methods: {
             ...mapActions(['setSnapshotDialog']),
             drawImageToCanvas(){
@@ -65,7 +68,7 @@
                 canvasElm.id = "snapshot";
                 canvasContainer.appendChild(canvasElm);
                 let context = canvasElm.getContext('2d');
-                let player = document.getElementById("videoElement");
+                let player = document.querySelector("#videoElementContainer video");
                 let hRatio = canvasElm.width / 640;
                 let vRatio = canvasElm.height / 480;
                 let ratio  = Math.min ( hRatio, vRatio );
@@ -111,18 +114,25 @@
                 try{
                     let userMedia = await navigator.mediaDevices.getUserMedia({video:true});
                     return userMedia;
-                }catch(err){
-                    return null;
+                    }catch(err){
+                        return null;
+                    }
                 }
-            }
-        },
+            },
         async mounted(){
-            let video = document.querySelector("#videoElement");
-            let stream = await this.getUserMedia();
-            if(!!stream){
-                video.srcObject = stream;
+            let videoContainer = document.querySelector("#videoElementContainer");
+            let videoElm = document.querySelector('#videoElement');
+            if(this.getLocalVideoTrack && !this.getLocalVideoTrack.isStopped){
+                videoContainer.appendChild(this.getLocalVideoTrack.attach());
             }else{
-                this.noCameraError = true;
+                //incase no local video or localvideo disconnected;
+                videoElm.style.display = '';
+                let stream = await this.getUserMedia();
+                if(!!stream){
+                    videoElm.srcObject = stream;
+                }else{
+                    this.noCameraError = true;
+                }
             }
         }
     };
@@ -135,21 +145,25 @@
         padding-top: 12px;
     }
 
-    .snapshot-dialog-wrap {
+    .snapshot_dialog_wrap {
         @BtnBackground: #ffc739;
         background: @color-white;
         border-radius: 4px;
         box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
         width: 100%;
         padding: 0 5px;
-        .accept-consent-btn {
+        .snapshot_video_container{
+            min-width:640px; 
+            min-height:480px;
+        }
+        .snapshot_accept_consent_btn {
             display: flex;
             height: 48px;
             color: @color-white;
             background-color: @BtnBackground!important;
             border-radius: 4px;
         }
-        .no-camera-error{
+        .snapshot_no_camera_error{
             text-align: center;
             min-width: 640px;
             min-height: 480px;

@@ -290,6 +290,17 @@ const actions = {
     setLocalUserMedia({commit}, val){
         commit('setLocalUserMedia', val)
     },
+    stopTracks({state, dispatch}){
+        let currentVideoTrack = _getLocalTrack(getters,'video');
+        if(currentVideoTrack){
+            state.lastActiveLocalVideoTrack = null;
+            dispatch('destroyLocalVideoTrack',currentVideoTrack.track);
+        }
+        let currentAudioTrack = _getLocalTrack(getters,'audio');
+        if(currentAudioTrack){
+            dispatch('destroyLocalAudioTrack',currentAudioTrack.track);
+        }      
+    }
 };
 
 export default {

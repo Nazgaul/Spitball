@@ -460,6 +460,7 @@ watch: {
       "hideRoomToasterMessage",
       "setShowUserConsentDialog",
       "setSnapshotDialog",
+      "stopTracks"
     ]),
     // ...mapGetters(['getDevicesObj']),
     closeFullScreen(e){
@@ -649,6 +650,7 @@ watch: {
     global.onbeforeunload = function() { };
   },
   beforeDestroy(){
+    this.stopTracks();
     this.hideRoomToasterMessage();
     this.updateTutorStartDialog(false);
     this.updateStudentStartDialog(false);
@@ -661,6 +663,7 @@ watch: {
     if(this.id){
       CloseConnection(`studyRoomHub?studyRoomId=${this.id}`);
     }
+
   },
   beforeCreate(){
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);
