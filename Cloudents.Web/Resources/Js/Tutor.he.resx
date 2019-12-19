@@ -205,7 +205,7 @@
     <value>סיום</value>
   </data>
   <data name="start_dialog_session_time" xml:space="preserve">
-    <value>זמן השיעור:</value>
+    <value>משך השיעור:</value>
   </data>
   <data name="start_dialog_your_student" xml:space="preserve">
     <value>הסטודנט שלך הוא</value>
@@ -270,6 +270,15 @@
   <data name="tab" xml:space="preserve">
     <value>לשונית</value>
   </data>
+  <data name="take_snapshot_btn" xml:space="preserve">
+    <value>צילום תמונה</value>
+  </data>
+  <data name="take_snapshot_message" xml:space="preserve">
+    <value>קובץ התמונה ירד באופן אוטומטי לאחר הצילום</value>
+  </data>
+  <data name="take_snapshot_title" xml:space="preserve">
+    <value>צלם תמונה מהירה</value>
+  </data>
   <data name="tooltip_circle" xml:space="preserve">
     <value>עיגול</value>
   </data>
@@ -317,6 +326,9 @@
   </data>
   <data name="tooltip_square" xml:space="preserve">
     <value>מלבן</value>
+  </data>
+  <data name="tooltip_takeSnapshot" xml:space="preserve">
+    <value>צילום מהיר</value>
   </data>
   <data name="tooltip_text" xml:space="preserve">
     <value>טקסט</value>
