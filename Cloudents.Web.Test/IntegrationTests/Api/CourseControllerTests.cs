@@ -54,7 +54,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         public CourseControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
-            _client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
         [Theory]
@@ -73,15 +72,15 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Fact]
         public async Task Teach_Course()
         {
-            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));
+            await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_credentials));
 
             _uri.Path = "api/course/set";
 
-            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_course));
+            await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_course));
 
             _uri.Path = "api/course/teach";
 
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_course));
+            var response = await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_course));
 
             response.EnsureSuccessStatusCode();
         }
@@ -100,7 +99,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
             await _client.DeleteAsync(_uri.Uri);
 
-            var response = await _client.PostAsync(_uri.Path + "/create", HttpClient.CreateJsonString(_newCourse));
+            var response = await _client.PostAsync(_uri.Path + "/create", HttpClientExtensions.CreateJsonString(_newCourse));
 
             response.StatusCode.Should().Be(HttpStatusCode.OK, "Create Course Failed");
 
