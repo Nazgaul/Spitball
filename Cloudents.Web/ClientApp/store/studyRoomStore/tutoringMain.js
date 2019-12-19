@@ -256,7 +256,7 @@ const actions = {
     updateTutorStartDialog({commit}, val) {
         commit('setTutorStartDialog', val);
     },
-    signalR_UpdateState({commit, dispatch, state}, notificationObj) {
+    signalR_UpdateState({commit, dispatch, state, getters}, notificationObj) {
         //TODO Update state according to the singnalR data
         let onlineCount = notificationObj.onlineCount;
         // if(onlineCount === 2){
@@ -330,8 +330,9 @@ const actions = {
                 }else{
                     dispatch("setStudentDialogState", state.startSessionDialogStateEnum.needPayment);
                 }
-                
-                dispatch('updateStudentStartDialog', true);
+                if(!getters.getReviewDialogState){
+                    dispatch('updateStudentStartDialog', true);
+                }
                 dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                 toasterParams.timeout = 3600000;
