@@ -277,7 +277,11 @@ namespace Cloudents.Web.Api
                 if (s is DocumentSaleDto d)
                 {
                     d.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
-                    d.Url = Url.DocumentUrl(string.Empty, d.Course, d.Id, d.Name);
+                    d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
+                }
+                if(s is SessionSaleDto ss)
+                {
+                    ss.StudentImage = urlBuilder.BuildUserImageEndpoint(ss.StudentId, ss.StudentImage, ss.StudentName);
                 }
                 return s;
             });
@@ -295,7 +299,7 @@ namespace Cloudents.Web.Api
                 if (s is UserDocumentsDto d)
                 {
                     d.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
-                    d.Url = Url.DocumentUrl(string.Empty, d.Course, d.Id, d.Name);
+                    d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
                 }
                 return s;
             });

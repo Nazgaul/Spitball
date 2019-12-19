@@ -1,7 +1,7 @@
 <template>
    <div class="myContent">
       <div class="myContent_title" v-language:inner="'dashboardPage_my_content_title'"/>
-      <v-data-table v-if="contentItems.length"
+      <v-data-table 
             :headers="headers"
             :items="contentItems"
             disable-initial-sort
@@ -15,7 +15,7 @@
             <tr>
                <th class="text-xs-left"
                   v-for="header in props.headers"
-                  :key="header.text"
+                  :key="header.value"
                   :class="['column',{'sortable':header.sortable}]"
                   @click="changeSort(header.value)">
                   <span class="text-xs-left">{{ header.text }}
@@ -27,19 +27,19 @@
             <template v-slot:items="props">
                <td class="myContent_td_img">
                   <router-link :to="globalFunctions.router(props.item)" class="myContent_td_img_img">
-                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)" :class="{'imgPreview_content':props.item.preview}">
+                     <img width="80" height="80" :src="globalFunctions.formatImg(props.item)">
                   </router-link>
                </td>
                
                <td class="text-xs-left myContent_td_course text-truncate">
                   <router-link :to="globalFunctions.router(props.item)">
-                     <template v-if="checkIsQuestuin(props.item.type)">
+                     <template v-if="checkIsQuestion(props.item.type)">
                         <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_questuin'"/>
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_question'"/>
                            <span class="text-truncate">{{props.item.text}}</span>
                         </div>
                         <div class="text-truncate" v-if="props.item.answerText">
-                           <span v-language:inner="'dashboardPage_answer'"/>
+                           <span class="font-weight-bold" v-language:inner="'dashboardPage_answer'"/>
                            <span>{{props.item.answerText}}</span>
                         </div>
                      </template>
@@ -47,10 +47,10 @@
                      <template v-else>
                         <span>{{props.item.name}}</span>
                      </template>
-                        <div class="text-truncate">
-                           <span v-language:inner="'dashboardPage_course'"></span>
-                           <span>{{props.item.course}}</span>
-                        </div>
+                     <div class="text-truncate" v-if="props.item.course">
+                        <span class="font-weight-bold" v-language:inner="'dashboardPage_course'"></span>
+                        <span>{{props.item.course}}</span>
+                     </div>
                   </router-link>
                </td>
                <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
@@ -60,18 +60,24 @@
                <td class="text-xs-left">{{props.item.purchased}}</td>
                <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-               <td v-if="!checkIsQuestuin(props.item.type)" class="text-xs-center">
-                  <v-menu lazy bottom right v-model="showMenu">
+               <td class="text-xs-center">
+                  <v-menu lazy bottom left v-model="showMenu" v-if="!checkIsQuestion(props.item.type)" >
                      <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
 
                      <v-list v-if="props.index == currentItemIndex">
-                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog(['rename',props.item])">{{rename}}</v-list-tile>
-                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog(['changePrice',props.item])">{{changePrice}}</v-list-tile>
+                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog('rename',props.item)">{{rename}}</v-list-tile>
+                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog('changePrice',props.item)">{{changePrice}}</v-list-tile>
                      </v-list>
                   </v-menu>
                </td>
             </template>
-            <tableFooter slot="pageText" slot-scope="item" :item="item"/>
+         <slot slot="no-data" name="tableEmptyState"/>
+         <template slot="pageText" slot-scope="item">
+            <span class="myContent_footer">
+            {{item.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{item.itemsLength}}
+            </span>
+         </template>
+
       </v-data-table>
    </div>
 </template>
@@ -95,7 +101,6 @@ export default {
    },
    data() {
       return {
-         itemList:[],
          sortedBy:'',
          currentItemIndex:'',
          showMenu:false,
@@ -117,30 +122,25 @@ export default {
    },
    computed: {
       ...mapGetters(['getContentItems']),
-      contentItems:{
-         get(){
-            this.itemList = this.getContentItems
-            return this.itemList;
-         },
-         set(val){
-            this.itemList = val
-         }
+      contentItems(){
+         return this.getContentItems
       },
    },
    methods: {
-      ...mapActions(['updateContentItems']),
-      checkIsQuestuin(prop){
+      ...mapActions(['updateContentItems','dashboard_sort']),
+      checkIsQuestion(prop){
          return prop === 'Question' || prop === 'Answer';
       },
-      formatItemPrice(price,type){
-         if(type !== 'Question' && type !== 'Answer'){
-            return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
-         }
-      },
       changeSort(sortBy){
-         let list = this.globalFunctions.sort(this.itemList,sortBy,this.sortedBy)
+         if(sortBy === 'info') return;
+
+         let sortObj = {
+            listName: 'contentItems',
+            sortBy,
+            sortedBy: this.sortedBy
+         }
+         this.dashboard_sort(sortObj)
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
-         return list;
       }
    },
    created() {
@@ -181,10 +181,7 @@ export default {
          .myContent_td_img_img{
             img{
                margin: 10px 0;
-               &.imgPreview_content{
-                  object-fit: none;
-                  object-position: top;
-               }
+               border: 1px solid #d8d8d8;
             }
 
          }
@@ -192,6 +189,7 @@ export default {
       .myContent_td_course {
          a{
             color: #43425d !important;
+            line-height: 1.6;
          }
          width: 300px;
          max-width: 300px;

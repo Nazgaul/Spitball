@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Enum;
-using System;
+﻿using System;
 
 namespace Cloudents.Core.DTOs
 {
@@ -8,7 +7,7 @@ namespace Cloudents.Core.DTOs
         public virtual ContentType Type { get; set; }
         public virtual PaymentStatus PaymentStatus { get; set; }
         public DateTime Date { get; set; }
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
     }
 
     public class DocumentSaleDto : SaleDto

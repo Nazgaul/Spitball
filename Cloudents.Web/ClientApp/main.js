@@ -142,7 +142,7 @@ const router = new VueRouter({
     mode: "history",
     routes: route.routes,
     scrollBehavior(to, from, savedPosition) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             if(to.hash){
                 resolve({selector: to.hash});
             }
@@ -208,7 +208,7 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
 }
 
 Vue.prototype.$loadStyle = function(url,id){
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         if (document.querySelector(id)) return resolve()
         let linkTag = document.createElement('link')
         linkTag.id = id
@@ -291,7 +291,7 @@ router.beforeEach((to, from, next) => {
     }
     //case 10995
     if (global.appInsights) {
-        appInsights.trackPageView(to.fullPath);
+        global.appInsights.trackPageView(to.fullPath);
     }
     store.dispatch('changeLastActiveRoute', from);
     checkUserStatus(to, next);

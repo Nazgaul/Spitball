@@ -1,7 +1,6 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 // SERVICES
-import { verticalsName, verticalsNavbar } from "../../../services/navigation/vertical-navigation/nav";
-import { LanguageService } from '../../../services/language/languageService';
+import { verticalsName } from "../../../services/navigation/vertical-navigation/nav";
 import analyticsService from '../../../services/analytics.service';
 // COMPONENTS 
 import ResultItem from '../ResultItem.vue';
@@ -174,7 +173,7 @@ export default {
                     } else {
                         this.scrollBehaviour.isComplete = true;
                     }
-                }).catch(reason => {
+                }).catch(() => {
                 this.scrollBehaviour.isComplete = true;
             })
         },
@@ -194,7 +193,7 @@ export default {
                     this.showFilterNotApplied = false;
                     this.updateData.call(this, {...data, vertical: toName});
                     next();
-                }).catch(reason => {
+                }).catch(() => {
                 //when error from fetching data remove the loader
                 if (to.path === from.path && to.query.term === from.query.term) {
                     this.showFilterNotApplied = true;
@@ -247,7 +246,7 @@ export default {
         },
 
         //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
-        $_showSelectedFilter({value, key}) {
+        $_showSelectedFilter({value}) {
             return value;
         },
 

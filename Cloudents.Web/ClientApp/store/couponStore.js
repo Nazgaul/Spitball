@@ -27,7 +27,6 @@ const actions = {
                 tutorUser.price = data.price;
             } else {
                 tutorUser.discountPrice = data.price;
-                tutorUser.price = tutorUser.price;
             }
             
             if(!tutorUser.hasCoupon)  tutorUser.hasCoupon = true;

@@ -172,4 +172,7 @@
   <data name="apply_coupon" xml:space="preserve">
     <value>מימוש קופון</value>
   </data>
+  <data name="collecting_review" xml:space="preserve">
+    <value>אוספים המלצות</value>
+  </data>
 </root>

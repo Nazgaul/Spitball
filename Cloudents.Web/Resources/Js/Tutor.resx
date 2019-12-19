@@ -153,9 +153,6 @@
   <data name="end_session" xml:space="preserve">
     <value>Finished the session?</value>
   </data>
-  <data name="entered_room" xml:space="preserve">
-    <value />
-  </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>Canvas</value>
   </data>
@@ -333,15 +330,24 @@ Voice Recording?</value>
     <value>Session was disconnected. We are trying to bring it back </value>
   </data>
   <data name="stream_btn_finished_student" xml:space="preserve">
-    <value>session ended</value>
+    <value>Session ended</value>
   </data>
   <data name="stream_btn_finished_tutor" xml:space="preserve">
-    <value>session ended</value>
+    <value>Session ended</value>
   </data>
   <data name="waiting_in_studyRoom" xml:space="preserve">
     <value>is waiting for you in your </value>
   </data>
   <data name="waiting_in_studyRoom_link" xml:space="preserve">
     <value>study room</value>
+  </data>
+  <data name="user_consent_dialog_accept" xml:space="preserve">
+    <value>Start recording</value>
+  </data>
+  <data name="user_consent_dialog_message" xml:space="preserve">
+    <value>You need student's consent in order to record this session</value>
+  </data>
+  <data name="user_consent_dialog_title" xml:space="preserve">
+    <value>Note</value>
   </data>
 </root>

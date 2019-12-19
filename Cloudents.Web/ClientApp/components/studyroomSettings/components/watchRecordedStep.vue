@@ -19,6 +19,9 @@
         <span v-language:inner="'studyroomSets_watch_actions_txt'"/> 
         <a class="actions-terms-link" :href="termPageLink" target="_blank" v-language:inner="'studyroomSets_watch_actions_term'"/>
       </div>
+      <div v-if="isTutor" class="actions-terms">
+        <span class="actions-terms-bold-text" v-language:inner="'studyroomSets_watch_actions_user_consent'"/> 
+      </div>
       <v-btn class="actions-yes" depressed round color="#4452fc" @click="gotoNextPage"><span v-language:inner="'studyroomSets_watch_actions_yes'"/></v-btn>
       <v-btn class="actions-no" depressed round @click="skipToStudyRoom"><span v-language:inner="'studyroomSets_watch_actions_no'"/></v-btn>
     </div>
@@ -26,6 +29,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 import satelliteService from '../../../services/satelliteService';
 import studyRoomRecordingService from '../../studyRoom/studyRoomRecordingService';
 export default {
@@ -36,12 +40,16 @@ export default {
     }
   },
   computed:{
+    ...mapGetters(['getStudyRoomData']),
     termPageLink(){
       return satelliteService.getSatelliteUrlByName('terms');
     },
     faqPageLink(){
       return satelliteService.getSatelliteUrlByName('faq');
-    }
+    },
+    isTutor() {
+        return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
+    },
   },
   methods:{
     gotoNextPage(){
@@ -124,6 +132,9 @@ export default {
       .actions-terms-link{
         color: #6870ff;
         text-decoration: underline;
+      }
+      .actions-terms-bold-text{
+        font-weight: bold;
       }
     }
     .v-btn{

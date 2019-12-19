@@ -10,9 +10,11 @@ using Xunit;
 namespace Cloudents.Web.Test.IntegrationTests.Api
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class QuestionsControllerTests //:  IClassFixture<SbWebApplicationFactory>
+    public sealed class QuestionsControllerTests : IDisposable //:  IClassFixture<SbWebApplicationFactory>
     {
         private readonly System.Net.Http.HttpClient _client;
+        private readonly DatabaseFixture _fixture = new DatabaseFixture();
+
 
         private readonly object _question = new
         {
@@ -48,9 +50,9 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("api/question/")]
         public async Task GetAsync_Question_Ok(string uri)
         {
-            DatabaseFixture fixture = new DatabaseFixture();
+          
 
-            using (var conn = fixture.DapperRepository.OpenConnection())
+            using (var conn = _fixture.DapperRepository.OpenConnection())
             {
                 var questionId = conn.QueryFirst<long>("select top 1 id from sb.question where state = 'Ok'");
                 uri += questionId;
@@ -60,16 +62,14 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
             response.EnsureSuccessStatusCode();
 
-            fixture.Dispose();
         }
 
         [Theory]
         [InlineData("api/question/")]
         public async Task GetAsync_Question_NotFound(string uri)
         {
-            DatabaseFixture fixture = new DatabaseFixture();
 
-            using (var conn = fixture.DapperRepository.OpenConnection())
+            using (var conn = _fixture.DapperRepository.OpenConnection())
             {
                 var questionId = conn.QueryFirst<long>("select top 1 id from sb.question where state = 'deleted'");
                 uri += questionId;
@@ -79,7 +79,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
-            fixture.Dispose();
         }
 
 
@@ -93,6 +92,12 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_question));
 
             response.EnsureSuccessStatusCode();
+        }
+
+        public void Dispose()
+        {
+            _client.Dispose();
+            _fixture.Dispose();
         }
     }
 

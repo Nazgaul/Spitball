@@ -117,9 +117,21 @@ namespace Cloudents.Core
 
 
         public const string ImageFunctionDocumentRoute = "image/document/{id}";
-        public string BuildDocumentThumbnailEndpoint(long id)
+        public string BuildDocumentThumbnailEndpoint(long id, object parameters = null)
         {
             var path = ImageFunctionDocumentRoute.InjectSingleValue("id", id);
+            var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+            builder.AddQuery(parameters);
+            return builder.ToString();
+        }
+
+
+        public const string ImageFunctionUserRoute = "image/user/{id}/{file}";
+        public string BuildUserImageEndpoint(long id, string imageName, string userName)
+        {
+            
+            var injectionObj = new { id, file = !string.IsNullOrEmpty(imageName) ? imageName : userName };
+            var path = ImageFunctionUserRoute.Inject(injectionObj);
             var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
             return builder.ToString();
         }

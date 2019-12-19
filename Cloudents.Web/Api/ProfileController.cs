@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -104,7 +105,7 @@ namespace Cloudents.Web.Api
             await Task.WhenAll(retValTask, votesTask);
             return retValTask.Result.Select(s =>
             {
-                s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+                s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
                 s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                 if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
                 {
@@ -136,7 +137,7 @@ namespace Cloudents.Web.Api
             await Task.WhenAll(retValTask, votesTask);
             return retValTask.Result.Select(s =>
             {
-                s.Url = Url.DocumentUrl(s.University, s.Course, s.Id, s.Title);
+                s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
                 s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                 if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
                 {
@@ -148,9 +149,15 @@ namespace Cloudents.Web.Api
 
         [HttpPost("follow"), Authorize]
         [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> FollowAsync(long id, [FromServices] ICommandBus commandBus, CancellationToken token)
         {
             var user = _userManager.GetLongUserId(User);
+            if (id == user)
+            {
+                return BadRequest();
+            }
             var command = new FollowUserCommand(id, user);
             await commandBus.DispatchAsync(command, token);
             return Ok();

@@ -1,7 +1,6 @@
 // GLOBALS:
 import {router} from '../main.js';
 import codesJson from '../components/loginPageNEW/helpers/CountryCallingCodes';
-const isIl = global.country.toLowerCase() === 'il';
 const defaultSubmitRoute = {path: '/feed'};
 
 const Fingerprint2 = require('fingerprintjs2');
@@ -189,7 +188,7 @@ const actions = {
                     let lastRoute = router.history.current.query.returnUrl || 'feed';
                     router.push({path: `${lastRoute}`});
                 }
-                return Promise.reject(error);
+                return Promise.reject();
                 }, (error) => {
                     commit('setErrorMessages',{gmail: error.response.data["Google"] ? error.response.data["Google"][0] : ''});
                     return Promise.reject(error);
@@ -227,13 +226,13 @@ const actions = {
     resendEmail({dispatch}){
         _analytics(['Registration', 'Resend Email']);
         registrationService.emailResend()
-            .then(response => {
+            .then(() => {
                 dispatch('updateToasterParams', {
                     toasterText: _dictionary("login_email_sent"),
                     showToaster: true,
                 });
                 },
-                error => {
+             () => {
                     dispatch('updateToasterParams', {
                         toasterText: LanguageService.getValueByKey("put some error"),
                         showToaster: true,
@@ -247,7 +246,7 @@ const actions = {
     sendSMScode({dispatch,commit,state}){
         commit('setGlobalLoading',true);
         registrationService.smsRegistration(state.localCode,state.phone)
-            .then(function (resp){
+            .then(function (){
                 commit('setErrorMessages',{});
                 dispatch('updateToasterParams',{
                     toasterText: _dictionary("login_verification_code_sent_to_phone"),
@@ -291,7 +290,7 @@ const actions = {
                                 _analytics(['Registration', 'User Id', userId.data.id]);
                             }
                             commit('setGlobalLoading',false);
-                    }, error =>{
+                    }, () =>{
                         commit('setGlobalLoading',false);
                         commit('setErrorMessages',{code: "Invalid code"});
                     });
@@ -301,7 +300,7 @@ const actions = {
         commit('setGlobalLoading',false);
         _analytics(['Registration', 'Call Voice SMS']);
         registrationService.voiceConfirmation()
-            .then((success) => {
+            .then(() => {
                 commit('setGlobalLoading',false);
                 dispatch('updateToasterParams',{
                     toasterText: _dictionary("login_call_code"),
@@ -323,7 +322,7 @@ const actions = {
     emailValidate({dispatch,commit,state}) {
         commit('setGlobalLoading',true);
         registrationService.validateEmail(encodeURIComponent(state.email))
-                .then((response) => {
+                .then(() => {
                     commit('setGlobalLoading',false);
                     _analytics(['Login Email validation', 'email send']);
                     dispatch('updateStep','setPassword');
@@ -351,7 +350,7 @@ const actions = {
                         _analytics(['Login', 'Start']);
                         global.isAuth = true;
                         global.country = response.data.country;
-                        let url = state.toUrl || defaultSubmitRoute;
+                        let url = !!state.toUrl.path ? state.toUrl : defaultSubmitRoute;
                         router.push({ path: `${url.path}` });
                     },error =>{
                         commit('setGlobalLoading',false);
@@ -362,7 +361,7 @@ const actions = {
     resetPassword({dispatch,state,commit}){
         commit('setGlobalLoading',true);
         registrationService.forgotPasswordReset(state.email)
-            .then(response =>{
+            .then(() =>{
                 commit('setGlobalLoading',false);
                 _analytics(['Forgot Password', 'Reset email send']);
                 dispatch('updateStep','EmailConfirmed');
@@ -375,13 +374,13 @@ const actions = {
         commit('setGlobalLoading',true);
         _analytics(['Registration', 'Resend Email']);
         registrationService.EmailforgotPasswordResend()
-            .then(response => {
+            .then(() => {
                 commit('setGlobalLoading',false);
                 dispatch('updateToasterParams',{
                     toasterText: _dictionary("login_email_sent"),
                     showToaster: true,
                 });
-            },error => {
+            },() => {
                 commit('setGlobalLoading',false);
             });
     },
@@ -394,7 +393,7 @@ const actions = {
         if(isValid){
             commit('setGlobalLoading',true);
             registrationService.updatePassword(password, confirmPassword, id, code)
-                .then((response) => {
+                .then(() => {
                     _analytics(['Forgot Password', 'Updated password']);
                     global.isAuth = true;
                     commit('setGlobalLoading',false);

@@ -73,10 +73,10 @@ namespace Cloudents.Web
             }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
 
             services.AddWebMarkupMin().AddHtmlMinification();
-            services.AddRouting(x =>
-            {
-                // x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
-            });
+            //services.AddRouting(x =>
+            //{
+            //    // x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
+            //});
 
             services.AddMvc()
 
@@ -329,8 +329,7 @@ namespace Cloudents.Web
             //https://stackoverflow.com/a/41335701/1235448
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor |
-                                   ForwardedHeaders.XForwardedProto
+                ForwardedHeaders = ForwardedHeaders.All
             });
             app.UseAuthentication();
 
@@ -353,11 +352,11 @@ namespace Cloudents.Web
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: SeoTypeString.Question,
-                    template: "question/{id:long}",
-                    defaults: new { controller = "Home", action = "Index" }
-                );
+                //routes.MapRoute(
+                //    name: SeoTypeString.Question,
+                //    template: "question/{id:long}",
+                //    defaults: new { controller = "Home", action = "Index" }
+                //);
 
                 //routes.MapRoute(
                 //    name: SeoTypeString.TutorList,
@@ -369,10 +368,12 @@ namespace Cloudents.Web
                     template: "{id}",
                     defaults: new { controller = "Home", action = "Index" }
                 );
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "Index" });
+
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new

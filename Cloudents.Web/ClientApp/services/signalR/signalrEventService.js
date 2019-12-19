@@ -95,7 +95,7 @@ async function start(connectionInstance) {
             }
         }, 5000 * (connectionInstance.connectionStartCount + 1));
     }
-};
+}
 
 //init function is launched from the main.js
 export default function init(connString = '/sbHub') {

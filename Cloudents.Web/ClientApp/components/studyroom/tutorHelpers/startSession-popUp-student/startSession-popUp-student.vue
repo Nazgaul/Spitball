@@ -14,9 +14,9 @@
                 <span class="subheading font-weight-bold" v-language:inner>tutor_start_dialog_your_tutor</span>
                 <span class="subheading font-weight-bold">&nbsp;{{tutorName}}</span>
             </v-flex>
-            <v-flex xs12 style="text-align: center;" class="pt-2">
+            <!-- <v-flex xs12 style="text-align: center;" class="pt-2">
                 <span class="subheading" v-language:inner>tutor_entered_room</span>
-            </v-flex>
+            </v-flex> -->
             <v-flex v-if="showButton" xs12 class="pt-4">
                 <v-btn class="start-session-btn elevation-0 align-center justify-center"
                         :loading="getSessionStartClickedOnce"
@@ -24,10 +24,10 @@
                         @click="joinSession()">
                     <timerIcon class="timer-icon mr-2"></timerIcon>
                     <!-- <span class="text-uppercase" v-language:inner="'tutor_btn_accept_and_start'"></span> -->
-                    <span class="text-uppercase">{{roomStateText}}</span>
+                    <span class="">{{roomStateText}}</span>
                 </v-btn>
             </v-flex>
-            <v-flex class="font-weight-bold start-session-text text-uppercase" v-else>
+            <v-flex class="font-weight-bold start-session-text" v-else>
                 {{roomStateText}}
             </v-flex>
         </v-layout>
@@ -137,6 +137,7 @@
             color: @color-white;
             background-color: @BtnBackground!important;
             border-radius: 4px;
+            text-transform: initial;
             .timer-icon {
                 fill: @color-white;
                 max-width: 24px;

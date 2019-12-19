@@ -26,7 +26,6 @@ const startingMousePosition = {
 
 let imageCache = {};
 
-const yOffset = 12;
 
 let isWriting = false;
 let isEditing = false;
@@ -45,7 +44,7 @@ const init = function(){
 const sizeProportion = 2;
 
 const getImageDimensions = function(text, id){
-   return new Promise(function(resolve, reject){
+   return new Promise(function(resolve){
     MathJax.AuthorInit(`$$${text}$$`, (output)=>{
         var DOMURL = window.URL || window.webkitURL || window;     
         let img = new Image();
@@ -197,8 +196,8 @@ const mousedown = function(e){
         //here the user statring to write text
         //Set Click Position
         isWriting = true;
-        let mouseX = e.pageX - e.target.offsetLeft;
-        let mouseY = e.pageY - e.target.getBoundingClientRect().top;
+        // let mouseX = e.pageX - e.target.offsetLeft;
+        // let mouseY = e.pageY - e.target.getBoundingClientRect().top;
         // let hasShape = canvasFinder.getShapeByPoint(mouseX, mouseY, this, whiteBoardService.getDragData());
         let hasShape = {};
         if(Object.keys(hasShape).length > 0){
@@ -232,10 +231,10 @@ const mousedown = function(e){
         })
     }
 }
-const mousemove = function(e){
+const mousemove = function(){
 }
 
-const defineEndPosition = function(e){
+const defineEndPosition = function(){
 }
 
 

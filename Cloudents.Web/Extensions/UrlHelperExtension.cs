@@ -107,11 +107,10 @@ namespace Cloudents.Web.Extensions
         }
 
 
-        public static string DocumentUrl(this IUrlHelper helper, string university, string course, long id, string name)
+        public static string DocumentUrl(this IUrlHelper helper,  string course, long id, string name)
         {
             return helper.RouteUrl(SeoTypeString.Document, new
             {
-                //universityName = university.Replace("+", "-"),
                 courseName = FriendlyUrlHelper.GetFriendlyTitle(course),
                 id,
                 name = FriendlyUrlHelper.GetFriendlyTitle(name)

@@ -75,7 +75,9 @@ export default {
     props: {
         callBackmethods: {
             type: Object,
-            default: {},
+            default() {
+                return {}
+            },
             required: false
         }
     },
@@ -105,10 +107,16 @@ export default {
         },
         errorFile(){
             if(this.getFileData && this.getFileData.length && this.getFileData[0].error && this.isError){
-                this.uploadStarted = false;
                 return true;
             }else{
                 return false;
+            }
+        }
+    },
+    watch:{
+        isError(hasError){
+            if(this.getFileData && this.getFileData.length && this.getFileData[0].error && hasError){
+                this.uploadStarted = false;
             }
         }
     },
@@ -210,7 +218,7 @@ export default {
                 }
             }             
         },
-        addFile(newFile, oldFile) {
+        addFile(newFile) {
             // Add file
             newFile.blob = '';
             let URL = window.URL || window.webkitURL;
@@ -219,8 +227,8 @@ export default {
                 this.updateFile(singleFile);
             }
         },
-        uploadingError(newFile, oldFile) {
-            let index = this.getFileData.findIndex((file) => file.id === newFile.id);
+        uploadingError(newFile) {
+            // let index = this.getFileData.findIndex((file) => file.id === newFile.id);
             let text = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");
             this.errorText = newFile.response.Name ? newFile.response.Name["0"] : text;
             let fileErrorObj = {
@@ -236,7 +244,7 @@ export default {
                 // this.deleteFileByIndex(index);
             }
         },
-        getResponse(newFile, oldFile) {
+        getResponse(newFile) {
             // Get response data
             if (newFile.status && newFile.status.toLowerCase() === 'success') {
                 //  Get the response status code
@@ -259,17 +267,17 @@ export default {
     },
     mounted() {
         let uploadArea = document.querySelector('.uf-sDrop-container')
-        uploadArea.addEventListener('dragenter',(e)=>{
+        uploadArea.addEventListener('dragenter',()=>{
             this.isDraggin = true
         })
         uploadArea.addEventListener('dragover',(e)=>{
             e.preventDefault()
             this.isDraggin = true
         })
-        uploadArea.addEventListener('drop',(e)=>{
+        uploadArea.addEventListener('drop',()=>{
             this.isDraggin = false
         })
-        uploadArea.addEventListener('dragleave',(e)=>{
+        uploadArea.addEventListener('dragleave',()=>{
             this.isDraggin = false
         })
     },

@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import utilitiesService from "../../../services/utilities/utilitiesService";
 import {mapActions} from 'vuex'
 export default {
     data(){

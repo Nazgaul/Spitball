@@ -2,8 +2,10 @@
 using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using static Cloudents.Core.Entities.ItemStatus;
 
@@ -25,7 +27,7 @@ namespace Cloudents.Core.Entities
       : this()
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
-            Name = name.Replace("+", "-");
+            Name = Path.GetFileNameWithoutExtension(name.Replace("+", "-"));
             University = user.University;
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = user;
@@ -133,6 +135,7 @@ namespace Cloudents.Core.Entities
                 throw new UnauthorizedAccessException("you cannot flag your own document");
             }
             Status = Status.Flag(messageFlagReason, user);
+            AddEvent(new DocumentFlaggedEvent(this));
         }
 
         public virtual void UnFlag()
@@ -168,12 +171,13 @@ namespace Cloudents.Core.Entities
 
             Price = decimal.Round(newPrice, 2);
             TimeStamp.UpdateTime = DateTime.UtcNow;
+            AddEvent(new DocumentPriceChangeEvent(this));
 
         }
 
         public virtual void Rename(string name)
         {
-            Name = name;
+            Name = Path.GetFileNameWithoutExtension(name);
         }
 
         public virtual DocumentType? DocumentType { get; set; }

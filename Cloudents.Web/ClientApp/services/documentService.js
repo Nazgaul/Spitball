@@ -24,7 +24,7 @@ function DocumentItem(obj) {
     this.uploaderName = ObjInit.uploaderName;
     this.tutor = ObjInitTutor ? searchService.createTutorItem(ObjInitTutor) : null;
     this.feedItem = searchService.createDocumentItem(ObjInit);
-};
+}
 
 function createDocumentItem(ObjInit) {
     return new DocumentItem(ObjInit);

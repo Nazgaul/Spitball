@@ -90,19 +90,18 @@
               </v-list-tile-content>
             </v-list-tile>
           </template>
-
-              <v-list-tile
-               class="group_list_sideMenu_course" v-for="(item, index) in selectedClasses" :key="index" 
-               :to="{name: $route.name}"
-               event
-               @click.native.prevent="getShowSchoolBlock ? selectCourse(item) : openSideMenu()" :sel="item.isDefault? 'all_courses' : ''">
-                <v-list-tile-content>
-                  <v-list-tile-title :class="['group_list_titles_course',{'active_link_course': currentCourseChecker(item)}]">
-                    <arrowSVG v-if="currentCourseChecker(item)" class="arrow_course"/>
-                    <span :class="['group_list_title_course',currentCourseChecker(item)? 'padding_current_course':'ml-4']" v-text="item.text ? item.text : item"/>
-                  </v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
+          <v-list-tile
+            class="group_list_sideMenu_course" v-for="(item, index) in selectedClasses" :key="index" 
+            :to="{name: $route.name}"
+            event
+            @click.native.prevent="getShowSchoolBlock ? selectCourse(item) : openSideMenu()" :sel="item.isDefault? 'all_courses' : ''">
+            <v-list-tile-content>
+              <v-list-tile-title :class="['group_list_titles_course',{'active_link_course': currentCourseChecker(item)}]">
+                <arrowSVG v-if="currentCourseChecker(item)" class="arrow_course"/>
+                <span :class="['group_list_title_course',currentCourseChecker(item)? 'padding_current_course':'ml-4']" v-text="item.text ? item.text : dictionary.allCourses"/>
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
         
         </v-list-group>
       </v-list>
@@ -134,8 +133,9 @@ export default {
         {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
         {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
         {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'my-sales', icon:'sbf-cart',sel:'sd_sales'},
-        {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', icon:'sbf-cart',sel:'sd_content'},
+        {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', icon:'sbf-my-content',sel:'sd_content'},
         {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'my-purchases', icon:'sbf-cart',sel:'sd_purchases'},
+
         // {name: LanguageService.getValueByKey('schoolBlock_lessons'), key:'lessons', icon:'sbf-lessons'},
         {name: LanguageService.getValueByKey('schoolBlock_courses'), key:'editCourse', icon:'sbf-classes-icon'},
         // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
@@ -170,6 +170,7 @@ export default {
     },
     selectedClasses(){
         let selectedClasses = JSON.parse(JSON.stringify(this.getSelectedClasses))
+        
         selectedClasses = selectedClasses.sort((a, b) => a.text.toLowerCase() > b.text.toLowerCase() ? 1 : -1);
         let defaultCourse = {
           isFollowing: true,
@@ -181,6 +182,7 @@ export default {
           text: this.dictionary.allCourses,
           isDefault: true
         }
+
         selectedClasses.unshift(defaultCourse);
         return selectedClasses;
     },
@@ -259,20 +261,14 @@ export default {
       if(path === "posts"){
         // this.$router.push({name:'posts'})
       }
-      if(path === "myCalendar"){
-        this.$router.push({path:'/my-calendar'})
-      }
-      if(path === "myFollowers"){
-        this.$router.push({path:'/my-followers'})
-      }
       if(path === "my-sales"){
-        this.$router.push({path:'/my-sales'})
+        this.$router.push({name: 'mySales'})
       }
       if(path === "my-content"){
-        this.$router.push({path:'/my-content'})
+        this.$router.push({name: 'myContent'})
       }
       if(path === "my-purchases"){
-        this.$router.push({path:'/my-purchases'})
+        this.$router.push({path:'/myPurchases'})
       }
       if(path === "editCourse"){
         this.$router.push({name:'editCourse'})

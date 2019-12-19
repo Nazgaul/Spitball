@@ -213,7 +213,6 @@ export default {
           min-height: 16px;
         }
         .user-bio-wrapper {
-          position: relative;
           min-height: 60px;
           .user-bio {
             .giveMeEllipsis(3, 20px);
@@ -241,17 +240,9 @@ export default {
       .striked {
         margin: 0 0 0 auto;
         max-width: max-content;
-        position: relative;
         color: #a0a4be;
-        &:after {
-            content: "";
-            width: 120%;
-            border-bottom: solid 1px #a0a4be;
-            position: absolute;
-            left: -2px;
-            top: 50%;
-            z-index: 1;
-        }
+        font-size: 14px;
+        text-decoration: line-through;
         &.no-discount {
           min-height: 19px;
         }
@@ -332,9 +323,12 @@ export default {
         max-width: 0;
         .btn-chat {
           font-weight: 600;
-          position: relative;
+          position: unset;
           margin: 0 auto;
           text-transform: initial;
+          &:before{
+            position:unset;
+          }
           .chat-icon-btn {
             text-transform: inherit;
             position: absolute;

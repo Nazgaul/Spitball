@@ -4,7 +4,7 @@ const createAudioContext = function (elId, myPreferredCameraDeviceId) {
     stopAudioContext();
     navigator.mediaDevices.getUserMedia({audio: myPreferredCameraDeviceId ? {deviceId: myPreferredCameraDeviceId} : true})
         .then(stream => {
-        const processInput = audioProcessingEvent => {
+        const processInput = () => {
             let array = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(array);
             let values = 0;
@@ -27,6 +27,7 @@ const createAudioContext = function (elId, myPreferredCameraDeviceId) {
         };
 
         // Handle the incoming audio stream
+        /* global webkitAudioContext */
         audioContext = new (AudioContext || webkitAudioContext)();
         input = audioContext.createMediaStreamSource(stream);
         analyser = audioContext.createAnalyser();
@@ -41,7 +42,7 @@ const createAudioContext = function (elId, myPreferredCameraDeviceId) {
         scriptProcessor.connect(audioContext.destination);
         scriptProcessor.onaudioprocess = processInput;
 
-    }, error => {
+    }, () => {
         console.log('Something went wrong, or the browser does not support getUserMedia');
         // Something went wrong, or the browser does not support getUserMedia
     });
