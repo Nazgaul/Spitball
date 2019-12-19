@@ -21,19 +21,11 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import classIcon from "./img/search-class-icon.svg";
-import universityIcon from "./img/search-university-icon.svg";
-import spitballIcon from "./img/search-spitball-icon.svg";
 import { LanguageService } from "../../../services/language/languageService";
 import analyticsService from '../../../services/analytics.service';
 
 export default {
     name: "search-input",
-    components: {
-        classIcon,
-        spitballIcon,
-        universityIcon
-    },
     props: {
         hideOnScroll: {
             type: Boolean,
