@@ -29,6 +29,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             }
             var response = await _client.GetAsync("api/tutor");
             response.EnsureSuccessStatusCode();
+            var str = await response.Content.ReadAsStringAsync();
+            str.IsValidJson().Should().BeTrue();
         }
 
 
@@ -43,6 +45,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             }
             var response = await _client.GetAsync("api/tutor?course=Economics");
             response.EnsureSuccessStatusCode();
+            var str = await response.Content.ReadAsStringAsync();
+            str.IsValidJson().Should().BeTrue();
         }
         
 
@@ -65,6 +69,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             }
             var response = await _client.GetAsync($"api/tutor/search?term={term}&page={page}");
             response.EnsureSuccessStatusCode();
+            var str = await response.Content.ReadAsStringAsync();
+            str.IsValidJson().Should().BeTrue();
             //var str = await response.Content.ReadAsStringAsync();
 
             //str.Should().BeEmpty();
@@ -81,6 +87,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync(uri);
 
             response.EnsureSuccessStatusCode();
+            var str = await response.Content.ReadAsStringAsync();
+            str.IsValidJson().Should().BeTrue();
         }
 
         [Theory]
@@ -103,6 +111,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync(uri);
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var str = await response.Content.ReadAsStringAsync();
+            str.IsValidJson().Should().BeTrue();
         }
 
         [Fact]

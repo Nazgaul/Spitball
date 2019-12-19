@@ -46,10 +46,10 @@ namespace Cloudents.Command.CommandHandler
                 tutor = await _tutorRepository.LoadAsync(message.TutorId.Value, token);
             }
 
-            var course = await _courseRepository.LoadAsync(message.Course, token);
+           // var course = await _courseRepository.LoadAsync(message.Course, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
-            var lead = new Lead(course, message.LeadText,
+            var lead = new Lead(message.Course, message.LeadText,
                  message.Referer, user,
                 tutor, message.UtmSource);
             await _leadRepository.AddAsync(lead, token);

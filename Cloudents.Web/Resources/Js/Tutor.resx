@@ -350,4 +350,16 @@ Voice Recording?</value>
   <data name="user_consent_dialog_title" xml:space="preserve">
     <value>Note</value>
   </data>
+  <data name="take_snapshot_btn" xml:space="preserve">
+    <value>Capture</value>
+  </data>
+  <data name="take_snapshot_message" xml:space="preserve">
+    <value>snapshot file will be downloaded when taken</value>
+  </data>
+  <data name="take_snapshot_title" xml:space="preserve">
+    <value>Take A Snapshot</value>
+  </data>
+  <data name="tooltip_takeSnapshot" xml:space="preserve">
+    <value>Snapshot</value>
+  </data>
 </root>
