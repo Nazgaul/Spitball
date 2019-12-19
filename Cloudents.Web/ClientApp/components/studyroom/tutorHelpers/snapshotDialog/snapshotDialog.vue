@@ -68,7 +68,8 @@
                 canvasElm.id = "snapshot";
                 canvasContainer.appendChild(canvasElm);
                 let context = canvasElm.getContext('2d');
-                let player = document.querySelector("#videoElementContainer video");
+                let player = document.querySelectorAll("#videoElementContainer video");
+                player = player[player.length-1];
                 let hRatio = canvasElm.width / 640;
                 let vRatio = canvasElm.height / 480;
                 let ratio  = Math.min ( hRatio, vRatio );
