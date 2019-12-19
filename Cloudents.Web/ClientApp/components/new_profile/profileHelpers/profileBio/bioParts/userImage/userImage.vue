@@ -63,8 +63,8 @@
                         // let url = utilitiesService.proccessImageURL(this.getProfile.user.image, 214,240);
                         return this.getProfile.user.image;
                     } 
-                    return '';
                 }
+                return '';
             },
             reviewCount(){
                 if (this.getProfile && this.getProfile.user && this.getProfile.user.tutorData) {
@@ -90,11 +90,11 @@
                 }
                 return -1;
             },
-            profUserBal() {
-                if (this.getProfile && this.getProfile.user) {
-                    return this.getProfile.user.score
-                }
-            }
+            // profUserBal() {
+            //     if (this.getProfile && this.getProfile.user) {
+            //         return this.getProfile.user.score
+            //     }
+            // }
         },
     }
 </script>

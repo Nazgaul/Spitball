@@ -30,9 +30,9 @@
             ...mapGetters(['getProfile', 'accountUser']),
             isMyProfile() {
                 if(!!this.getProfile) {
-                    // return false
                     return this.accountUser && this.accountUser.id && this.getProfile ? this.getProfile.user.id == this.accountUser.id : false;
                 }
+                return false
             }
         },
     }

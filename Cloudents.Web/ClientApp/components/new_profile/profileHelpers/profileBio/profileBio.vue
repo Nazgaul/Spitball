@@ -222,6 +222,7 @@ export default {
       if (this.getProfile && this.getProfile.user) {
         return this.getProfile.user.universityName;
       }
+      return null
     },
     userName() {
       if (this.isTutorProfile) {
@@ -236,11 +237,13 @@ export default {
           return this.getProfile.user.name;
         }
       }
+      return null
     },
     userScore() {
       if (this.getProfile && this.getProfile.user) {
         return this.getProfile.user.score;
       }
+      return null
     },
     couponPlaceholder() {
       return LanguageService.getValueByKey('coupon_placeholder')
