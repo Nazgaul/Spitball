@@ -134,9 +134,10 @@ export default {
     passHint() {
       if (this.password.length > 0) {
         let passScoreObj = this.getPassScoreObj;
-        this.score = global.zxcvbn(this.password).score;
+        this.changeScore()
         return `${passScoreObj[this.score].name}`;
       }
+      return null
     },
     errorMessages() {
       return this.getErrorMessages;
@@ -158,6 +159,7 @@ export default {
       if (this.passHint) {
         return passScoreObj[this.score].className;
       }
+      return null
     }
   },
   methods: {
@@ -192,6 +194,9 @@ export default {
           this.lastNameError = `${LanguageService.getValueByKey("formErrors_min_chars")} ${2}`
         }
       }
+    },
+    changeScore() {
+      this.score = global.zxcvbn(this.password).score;
     }
   },
   created() {
