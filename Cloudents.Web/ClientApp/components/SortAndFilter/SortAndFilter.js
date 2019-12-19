@@ -63,7 +63,7 @@ export default {
             let step = !!schoolName ? steps.set_class : steps.set_school;
             this.updateCurrentStep(step);
         },
-        updateFilter({id, val, name, event}) {
+        updateFilter({id, val, event}) {
             this.UPDATE_SEARCH_LOADING(true);
             let query = {};
             let isChecked = event.target.checked;

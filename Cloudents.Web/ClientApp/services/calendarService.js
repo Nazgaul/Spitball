@@ -10,13 +10,13 @@ function signIn(signInData){
 function getEvents(params){
     return connectivityModule.http.get(`Tutor/calendar/events`,{params}).then(
         (response)=>{
-            let events = [];
+            // let events = [];
             return calendarEvents(response.data);
       });
 }
 
 function addEvent(params){
-    return connectivityModule.http.post(`Tutor/calendar/events`,params).then(response=>{
+    return connectivityModule.http.post(`Tutor/calendar/events`,params).then(()=>{
     });
 }
 

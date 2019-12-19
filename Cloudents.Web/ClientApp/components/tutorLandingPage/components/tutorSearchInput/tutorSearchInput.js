@@ -42,7 +42,7 @@ export default {
                 analyticsService.sb_unitedEvent("Tutor_Engagement", "Search", this.msg);
             }
 
-            this.$router.push({ path: `/tutor-list/${this.msg}` }).catch(err => {});
+            this.$router.push({ path: `/tutor-list/${this.msg}` }).catch(() => {});
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {

@@ -1,12 +1,11 @@
-﻿using Cloudents.Core.Enum;
-using System;
+﻿using System;
 
 namespace Cloudents.Core.DTOs
 {
     public abstract class UserContentDto
     {
         public virtual string Type { get; set; }
-        public ItemState State { get; set; }
+        //public ItemState State { get; set; }
         public DateTime Date { get; set; }
         public string Course { get; set; }
     }
@@ -35,7 +34,7 @@ namespace Cloudents.Core.DTOs
     public class UserAnswersDto : UserContentDto
     {
         public long QuestionId { get; set; }
-        public override string Type => "Question";
+        public override string Type => "Answer";
         public string QuestionText { get; set; }
         public string AnswerText { get; set; }
     }

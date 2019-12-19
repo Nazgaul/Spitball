@@ -63,9 +63,6 @@ const mutations = {
         state.items.data[questionObj.questionIndex].hasCorrectAnswer = true;
         state.items.data[questionObj.questionIndex].correctAnswerId = questionObj.answerId;
     },
-    Feeds_updateAnswersCounter(state, counter) {
-        state.items.data[questionIndex].answers += counter;
-    },
     Feeds_injectQuestion(state) {
         //check if ask Tab was loaded at least once
         if (state.queItems.length > 0) {
@@ -201,7 +198,7 @@ const actions = {
     },
     Feeds_reportAnswer({dispatch}, data) {
         let objToRemove = { id: data.id };
-        return reportService.reportAnswer(data).then((success) => {
+        return reportService.reportAnswer(data).then(() => {
             dispatch('removeItemFromProfile', objToRemove);
         }, (error) => {
             console.log(error, 'error report answer');

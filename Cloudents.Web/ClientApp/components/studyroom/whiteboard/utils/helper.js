@@ -85,15 +85,15 @@ const setEquationShape = function(helperObj){
     HelperObj.cssClass = `equation-helper ${helperObj.id}`;
 };
 
-const setIinkShape = function(helperObj){
-    HelperObj.style = {
-        top: `${helperObj.currentY}px`,
-        left: `${helperObj.currentX}px`,
-        text: `${helperObj.text}`,
-        color: `${helperObj.strokeStyle}`,
-    };
-    HelperObj.cssClass = `iink-helper ${helperObj.id}`;
-}
+// const setIinkShape = function(helperObj){
+//     HelperObj.style = {
+//         top: `${helperObj.currentY}px`,
+//         left: `${helperObj.currentX}px`,
+//         text: `${helperObj.text}`,
+//         color: `${helperObj.strokeStyle}`,
+//     };
+//     HelperObj.cssClass = `iink-helper ${helperObj.id}`;
+// }
 
 export default {
     showHelper,

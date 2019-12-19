@@ -2,8 +2,10 @@
 using Cloudents.Core.Event;
 using Cloudents.Core.Exceptions;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using static Cloudents.Core.Entities.ItemStatus;
 
@@ -15,13 +17,17 @@ namespace Cloudents.Core.Entities
 
     public class Document : Entity<long>, IAggregateRoot, ISoftDelete
     {
+
+        public const int MinLength = 4;
+        public const int MaxLength = 150;
+
         public Document(string name,
             Course course,
             BaseUser user, decimal price, DocumentType documentType, string description)
       : this()
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
-            Name = name.Replace("+", "-");
+            Name = Path.GetFileNameWithoutExtension(name.Replace("+", "-"));
             University = user.University;
             Course = course ?? throw new ArgumentNullException(nameof(course));
             User = user;
@@ -165,6 +171,11 @@ namespace Cloudents.Core.Entities
             Price = decimal.Round(newPrice, 2);
             TimeStamp.UpdateTime = DateTime.UtcNow;
 
+        }
+
+        public virtual void Rename(string name)
+        {
+            Name = Path.GetFileNameWithoutExtension(name);
         }
 
         public virtual DocumentType? DocumentType { get; set; }

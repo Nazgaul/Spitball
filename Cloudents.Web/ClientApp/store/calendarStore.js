@@ -41,7 +41,6 @@ const mutations ={
     setAvailabilityCalendar(state,dayAvailabilityObj){
         if(state.tutorDailyHours.length){
             let self = this;
-            let dayIndex;
             let isContain = state.tutorDailyHours.some(
                 (dayObj,index)=>{
                     if(dayObj.day === dayAvailabilityObj.day){

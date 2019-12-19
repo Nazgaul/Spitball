@@ -20,7 +20,7 @@
                <td class="text-xs-left mySales_td_course">
                   <router-link :to="dynamicRouter(props.item)">
                      <template v-if="checkIsSession(props.item.type)">
-                        <span  v-html="$Ph('dashboardPage_session',props.item.studentName)"/>
+                        <span v-html="$Ph('dashboardPage_session',props.item.studentName)"/>
                         <p><span v-language:inner="'dashboardPage_duration'"/> {{props.item.duration | sessionDuration}}</p>
                      </template>
 

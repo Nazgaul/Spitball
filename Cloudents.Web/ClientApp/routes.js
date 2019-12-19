@@ -47,12 +47,12 @@ function dynamicPropsFn(route) {
     };
 }
 
-function headerResultPageFn(route) {
+function headerResultPageFn() {
     return {
     };
 }
 
-function verticalResultPageFn(route) {
+function verticalResultPageFn() {
     return {
         
     };
@@ -75,6 +75,13 @@ const studyRoomsPage = {
     header: pageHeader,
     sideMenu: sideMenu
 };
+
+const dashboardPages = {
+    default: dashboardPage,
+    header: pageHeader,
+    banner: globalBanner,
+    sideMenu: sideMenu,
+}
 
 let routes2 = [
     {
@@ -343,26 +350,32 @@ let routes2 = [
         }
     },
     {
-        path: "/dashboard",
-        alias: [
-            '/my-sales',
-            // '/my-content',
-            
-            
-            
-            // '/my-calendar','/my-purchases','/my-followers'
-        ],
-        components: {
-            default: dashboardPage,
-            header: pageHeader,
-            banner: globalBanner,
-            sideMenu: sideMenu,
+        path: "/my-sales",
+        components: dashboardPages,
+        name: "mySales",
+        props: {
+            default: (route) => ({
+                component: route.name,
+            })
         },
-        name: "dashboard",
         meta: {
             requiresAuth: true,
             showMobileFooter: true,
         },
     },
+    {
+        path: "/my-content",
+        components: dashboardPages,
+        name: "myContent",
+        props: {
+            default: (route) => ({
+                component: route.name,
+            })
+        },
+        meta: {
+            requiresAuth: true,
+            showMobileFooter: true,
+        },
+    }
 ];
 export const routes = routes2;

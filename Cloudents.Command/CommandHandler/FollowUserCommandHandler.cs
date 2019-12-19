@@ -18,9 +18,11 @@ namespace Cloudents.Command.CommandHandler
         {
             var followed = await _userRepository.LoadAsync(message.FollowedId, token);
             var follower = await _userRepository.LoadAsync(message.FollowerId, token);
-            
+
+           
             followed.AddFollower(follower);
             await _userRepository.UpdateAsync(followed, token);
+            
         }
     }
 }

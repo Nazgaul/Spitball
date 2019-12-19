@@ -36,7 +36,7 @@ const getters = {
 };
 
 const actions = {
-    buyToken({commit, dispatch, getters}, points) {
+    buyToken({commit, dispatch}, points) {
         walletService.buyTokens(points).then(({ data }) => {
             commit('setPaymentURL',data.link);
             dispatch('updatePaymentDialogState',true);
@@ -50,7 +50,7 @@ const actions = {
             global.localStorage.setItem("sb_transactionError", points);
         });
     },
-    requestPaymentURL({commit,dispatch, getters}, paymeObj ){
+    requestPaymentURL({commit,dispatch}, paymeObj ){
         dispatch('updateTutorName', paymeObj.name);
         dispatch('updateDictionaryTitle', paymeObj.title);
         walletService.getPaymeLink().then(({ data }) => {

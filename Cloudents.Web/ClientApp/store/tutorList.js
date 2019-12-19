@@ -17,14 +17,14 @@ const mutations = {
 };
 
 const actions = {
-    getTutorList({commit, state}, objReq) {
+    getTutorList({commit}, objReq) {
         commit('setTutors', []);
         tutorListService.getTutorList(objReq)
                         .then((tutors) => {
                             commit('setTutors', tutors);
                         });
     },
-    resetList({commit, state}){
+    resetList({commit}){
         commit('resetTutorList', []);
     }
 

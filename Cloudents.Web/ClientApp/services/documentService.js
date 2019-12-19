@@ -24,7 +24,7 @@ function DocumentItem(obj) {
     this.uploaderName = ObjInit.uploaderName;
     this.tutor = ObjInitTutor ? searchService.createTutorItem(ObjInitTutor) : null;
     this.feedItem = searchService.createDocumentItem(ObjInit);
-};
+}
 
 function createDocumentItem(ObjInit) {
     return new DocumentItem(ObjInit);
@@ -94,6 +94,7 @@ export default {
     deleteDoc: (id) => connectivityModule.http.delete(`/Document/${id}`),
     purchaseDocument: (id) => connectivityModule.http.post("/Document/purchase", {id}),
     changeDocumentPrice: (data) => connectivityModule.http.post("/Document/price", data),
+    changeDocumentName: (data) => connectivityModule.http.post("/Document/rename", data),
     getStudyDocuments,
     getDocument,
     createDocumentItem

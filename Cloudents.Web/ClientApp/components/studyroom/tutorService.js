@@ -1,5 +1,5 @@
 
-import Twilio, { connect, LocalDataTrack } from 'twilio-video';
+import Twilio, { LocalDataTrack } from 'twilio-video';
 import { connectivityModule } from '../../services/connectivity.module';
 import { LanguageService } from '../../services/language/languageService';
 import store from '../../store/index.js';
@@ -163,7 +163,7 @@ const connectToRoom = function (token, options) {
 
             });
             //reconnecting room
-            store.getters['activeRoom'].on('reconnecting', (error) => {
+            store.getters['activeRoom'].on('reconnecting', () => {
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioReconnecting', null, null);
                 console.log("ROOM - RECONNECTING");
             });
@@ -192,7 +192,7 @@ const connectToRoom = function (token, options) {
                 }
             });
             // When a Participant adds a Track, attach it to the DOM.
-            store.getters['activeRoom'].on('trackSubscribed', (track, participant) => {
+            store.getters['activeRoom'].on('trackSubscribed', (track) => {
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioTrackSubscribed', track, null);
                 let previewContainer = document.getElementById('remoteTrack');
                 if (track.kind === 'data') {
@@ -335,7 +335,7 @@ function createDevicesObj(){
     return new DevicesObject();
 }
 
-const validateUserMedia = async function(audioCheck, videoCheck) {
+const validateUserMedia = async function() {
     // let self = this;
     // let devices = await navigator.mediaDevices.enumerateDevices();
     let devicesObj = store.getters['getDevicesObj'];
@@ -368,14 +368,14 @@ const validateUserMedia = async function(audioCheck, videoCheck) {
 
 function uploadRecording(formData, roomId){
    return connectivityModule.http.post(`StudyRoom/${roomId}/Video`, formData);
-};
+}
 
 function isRecordingSupported(){
     // return true;
      return store.getters.getStudyRoomData ? !store.getters.getStudyRoomData.isTutor : true;
     
     // return ((navigator.userAgent.toLowerCase().indexOf('chrome') > -1) &&(navigator.vendor.toLowerCase().indexOf("google") > -1));
-};
+}
 
 export default {
     dataTrack,
