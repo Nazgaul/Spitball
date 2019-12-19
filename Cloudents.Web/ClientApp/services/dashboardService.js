@@ -40,6 +40,12 @@ const Item = {
       this.name = objInit.tutorName || objInit.studentName;
       this.image = objInit.tutorImage || objInit.studentImage;
    },
+   Balances:function(objInit){
+      this.type = objInit.type;
+      this.points = objInit.points;
+      this.value = objInit.value;
+      this.symbol = objInit.symbol;
+   }
 }
 function ContentItem(objInit){
    return Object.assign(
@@ -55,14 +61,15 @@ function SalesItem(objInit){
          paymentStatus: objInit.paymentStatus,
       }
    )
-   
-   
 }
 function PurchasesItem(objInit){
    return Object.assign(
       new Item.Default(objInit),
       new Item[itemTypeChcker(objInit.type)](objInit)
    )
+}
+function BalancesItems(objInit){
+   return new Item.Balances(objInit)
 }
 function createSalesItems({data}) {
    let salesItems = [];
@@ -74,10 +81,17 @@ function createContentItems({data}) {
    data.map(item => contentItems.push(new ContentItem(item)));
    return contentItems;
 }
+
 function createPurchasesItems({data}) {
    let purchasesItems = [];
    data.map(item => purchasesItems.push(new PurchasesItem(item)));
    return purchasesItems;
+}
+
+function createBalancesItems({data}) {
+   let balancesItems = [];
+   data.map(item => balancesItems.push(new BalancesItems(item)));
+   return balancesItems;
 }
 
 function getSalesItems(){
@@ -89,9 +103,13 @@ function getContentItems(){
 function getPurchasesItems(){
    return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex)
 }
+function getBalancesItems(){
+   return connectivityModule.http.get('Wallet/balance').then(createBalancesItems).catch(ex => ex)
+}
 
 export default {
    getSalesItems,
    getContentItems,
    getPurchasesItems,
+   getBalancesItems,
 }

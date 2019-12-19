@@ -64,6 +64,8 @@ export default {
                'date': {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
                'action': {text: '', align:'center', sortable: false, value:'action'},
                'status': {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'paymentStatus'},
+               'points': {text: LanguageService.getValueByKey('wallet_Tokens'), align:'left', sortable: true, value:'points'},
+               'value': {text: LanguageService.getValueByKey('wallet_Value'), align:'left', sortable: true, value:'value'},
             }
          },
          globalFunctions:{

@@ -1,6 +1,45 @@
 <template>
    <div class="mySales">
       <div class="mySales_title" v-language:inner="'dashboardPage_my_sales_title'"/>
+      <v-layout ba row wrap class="mySales_wallet mb-5">
+         <v-flex xs12 sm6>
+            <v-data-table 
+               :headers="balancesHeaders"
+               :items="balancesItems"
+               disable-initial-sort
+               hide-actions
+               :item-key="'date'"
+               class="elevation-1 mySales_table"
+               :prev-icon="'sbf-arrow-left-carousel'"
+               :sort-icon="'sbf-arrow-down'"
+               :next-icon="'sbf-arrow-right-carousel'">
+               <template v-slot:items="props">
+                  <td>
+                     <span>{{props.item.type}}</span>
+                  </td>
+                  <td>
+                     <span>{{props.item.points}}</span>
+                  </td> 
+                  <td>
+                     <span class="font-weight-bold">
+                        {{ props.item.value | currencyFormat(props.item.symbol)}}
+                     </span>
+                  </td> 
+               </template>
+            </v-data-table>
+         </v-flex>
+         <v-flex xs12 sm6 >
+              <cash-out-card class="mySales_wallet_reedem" v-for="(cashOutOption,index) in cashOutOptions"
+                                       :key="index"
+                                       :points-for-dollar="cashOutOption.pointsForDollar"
+                                       :cost="cashOutOption.cost"
+                                       :image="cashOutOption.image"
+                                       :available="calculatedEarnedPoints >= cashOutOption.cost">
+                        </cash-out-card>
+            
+         </v-flex>
+      </v-layout>
+
          <v-data-table 
             :headers="headers"
             :items="salesItems"
@@ -42,12 +81,16 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from '../../../../services/language/languageService';
+import cashOutCard from '../../../wallet/cashOutCard/cashOutCard.vue';
+import { cashOutCards } from '../../../wallet/consts.js';
+
+
 import tablePreviewTd from '../global/tablePreviewTd.vue';
 import tableInfoTd from '../global/tableInfoTd.vue';
 
 export default {
    name:'mySales',
-   components:{tablePreviewTd,tableInfoTd},
+   components:{tablePreviewTd,tableInfoTd,cashOutCard},
    props:{
       globalFunctions: {
          type: Object,
@@ -59,6 +102,7 @@ export default {
    },
    data() {
       return {
+         cashOutOptions: cashOutCards,
          sortedBy:'',
          headers:[
             this.dictionary.headers['preview'],
@@ -68,16 +112,24 @@ export default {
             this.dictionary.headers['date'],
             this.dictionary.headers['price'],
          ],
+         balancesHeaders:[
+            this.dictionary.headers['preview'],
+            this.dictionary.headers['points'],
+            this.dictionary.headers['value'],
+         ]
       }
    },
    computed: {
-      ...mapGetters(['getSalesItems','accountUser']),
+      ...mapGetters(['getSalesItems','accountUser','getBalancesItems']),
       salesItems(){
          return this.getSalesItems;
       },
+      balancesItems(){
+         return this.getBalancesItems;
+      },
    },
    methods: {
-      ...mapActions(['updateSalesItems','dashboard_sort']),
+      ...mapActions(['updateSalesItems','dashboard_sort','updateBalancesItems']),
 
       checkIsSession(prop){
          return prop === 'TutoringSession';
@@ -106,10 +158,25 @@ export default {
          }
          this.dashboard_sort(sortObj)
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
-      }
+      },
+      calculatedEarnedPoints(){
+         let typesDictionary = {};
+            let earned = 0;
+            this.balancesItems.forEach((item) => {
+                      typesDictionary[item.type] = item.points;
+                  });
+            let reduce = typesDictionary["Stake"] + typesDictionary["Spent"];
+            if(reduce < 0){
+                earned = typesDictionary["Earned"] + reduce;
+            }else{
+                earned = typesDictionary["Earned"];
+            }
+            return earned;
+        },
    },
    created() {
       this.updateSalesItems()
+      this.updateBalancesItems()
    },
 }
 </script>
@@ -121,6 +188,12 @@ export default {
       color: #43425d;
       font-weight: 600;
       padding: 0 0 10px 2px;
+   }
+   .mySales_wallet{
+      .mySales_wallet_reedem{
+         background: white;
+      }
+      
    }
    .mySales_table{
       .v-datatable{

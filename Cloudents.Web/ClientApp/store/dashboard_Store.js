@@ -4,6 +4,7 @@ const state = {
    salesItems: [],
    contentItems: [],
    purchasesItems: [],
+   balancesItems: [],
 }
 
 const mutations = {
@@ -15,6 +16,9 @@ const mutations = {
    },
    setPurchasesItems(state,val) {
       state.purchasesItems = val;
+   },
+   setBalancesItems(state,val) {
+      state.balancesItems = val;
    },
    dashboard_setPrice(state,{newPrice,itemId}){
       state.contentItems.forEach(item =>{
@@ -36,6 +40,7 @@ const getters = {
    getSalesItems: state => state.salesItems,
    getContentItems: state => state.contentItems,
    getPurchasesItems: state => state.purchasesItems,
+   getBalancesItems: state => state.balancesItems,
 }
 
 const actions = {
@@ -52,6 +57,11 @@ const actions = {
    updatePurchasesItems({commit}){
       dashboardService.getPurchasesItems().then(items=>{
          commit('setPurchasesItems', items);
+      }) 
+   },
+   updateBalancesItems({commit}){
+      dashboardService.getBalancesItems().then(items=>{
+         commit('setBalancesItems', items);
       }) 
    },
    dashboard_updatePrice({commit},paramObj){
