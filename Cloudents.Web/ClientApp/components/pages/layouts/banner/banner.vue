@@ -63,12 +63,6 @@ export default {
 	},
 	computed: {
 		...mapGetters(['getBannerSatus','getBannerParams']),
-		params(){
-			if(!!this.getBannerParams){
-                this.setParamsInterval()
-                // this computed only for update time...DO NOT remove it
-			}
-		},
 		coupon(){
 			if(!!this.getBannerParams){
 				return this.getBannerParams.coupon;
@@ -89,9 +83,11 @@ export default {
 		}
     },
     watch:{
-        params(){
-            // DONT remove it!
-        }
+        getBannerParams(params){
+            if(!!params){
+                this.setParamsInterval()
+            }
+        },
 	},
 	methods: {
         ...mapActions(['updateBannerSatus']),
