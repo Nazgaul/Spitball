@@ -65,7 +65,7 @@ namespace Cloudents.Query.Documents
                     {
                         Votes = s.VoteCount
                     }
-                }).Take(10).ToListAsync(token);
+                }).OrderByDescending(o => o.DateTime).Take(10).ToListAsync(token);
 
             return t;
         }
