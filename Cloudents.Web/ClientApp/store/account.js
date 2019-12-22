@@ -423,11 +423,11 @@ const actions = {
         commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)});
         dispatch('updatePaymentDialogState',false);
         dispatch('updateShowBuyDialog', false);
-        dispatch('updateToasterParams', {
-            toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
-            showToaster: true,
-            toasterTimeout: 5000
-        });
+        // dispatch('updateToasterParams', {
+        //     toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
+        //     showToaster: true,
+        //     toasterTimeout: 5000
+        // });
     },
     profileVote({commit}, data) {
         commit('updateProfileVote', data);
