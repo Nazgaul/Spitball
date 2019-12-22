@@ -57,6 +57,10 @@
                 walletService.redeem(amount)
                     .then(() => {
                         // show toaster text
+                        this.updateToasterParams({
+                            toasterText: LanguageService.getValueByKey('cashoutcard_Cashed'),
+                            showToaster: true,
+                        });
                         //update user balance
                         this.updateBalance(-amount);
                         this.updatePoint();
