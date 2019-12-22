@@ -15,7 +15,7 @@
               <h3 class="text-truncate body-2 font-weight-bold" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
               <template>
-                <h4 class="text-truncate university mt-1 font-weight-light" v-if="tutorData.university">{{tutorData.university}}</h4>
+                <h4 class="text-truncate university font-weight-light" v-if="tutorData.university">{{tutorData.university}}</h4>
               </template>
 
               <template>
@@ -195,10 +195,13 @@ export default {
         display: flex;
         .card-mobile-header-content {
           min-width: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
         }
         .user-rate {
             display: inline-flex;
-            margin-top: 6px;
+            // margin-top: 6px;
             .reviews {
                 font-size: 12px;
                 letter-spacing: normal;
@@ -225,7 +228,7 @@ export default {
           display: flex;
           align-items: flex-end;
           flex: .5;
-          margin: 4px 0 1px 0;
+          // margin: 4px 0 1px 0;
           .price_oneline {
             display: flex;
             align-items: flex-end;
