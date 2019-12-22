@@ -143,9 +143,7 @@ export default {
 <style lang="less">
 @import '../../../styles/mixin.less';
 .dashboardPage{
-	padding-left: 30px;
-   padding-top: 30px;
-   padding-right: 30px;
+   padding: 30px;
 	@media (max-width: @screen-xs) {
       padding-left: 6px;
       padding-right: 6px;

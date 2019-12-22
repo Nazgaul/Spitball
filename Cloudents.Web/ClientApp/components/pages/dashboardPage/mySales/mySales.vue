@@ -1,8 +1,8 @@
 <template>
    <div class="mySales">
       <div class="mySales_title" v-language:inner="'dashboardPage_my_sales_title'"/>
-      <v-layout ba row wrap class="mySales_wallet mb-5">
-         <v-flex xs12 sm6>
+      <v-layout align-baseline row wrap class="mySales_wallet mb-5" v-if="accountUser.id">
+         <v-flex sm12 md6>
             <v-data-table 
                :headers="balancesHeaders"
                :items="balancesItems"
@@ -28,14 +28,35 @@
                </template>
             </v-data-table>
          </v-flex>
-         <v-flex xs12 sm6 >
-              <cash-out-card class="mySales_wallet_reedem" v-for="(cashOutOption,index) in cashOutOptions"
+         <v-flex sm12 md6 :class="[{'mt-3':$vuetify.breakpoint.smAndDown}]">
+            <div class="mySales_cash-out-wrapper">
+               <div class="mySales_text-wrap">
+                     <!-- <div class="main-text" v-language:inner>wallet_more_SBL_more_valuable</div> -->
+                     <div class="mySales_points-text">
+                        <span>
+                           <span v-language:inner>wallet_You_have</span>
+                                 <bdi>
+                           <span> {{Math.round(accountUser.balance)}}
+                                 <span v-language:inner="'cashoutcard_SBL'"/>
+                                 </span>
+                                       </bdi>
+                           <span v-language:inner>wallet_you_have_redeemable_sbl</span>
+                        </span>
+                     </div>
+               </div>
+<cash-out-card class="mySales_wallet_reedem" v-for="(cashOutOption,index) in cashOutOptions"
                                        :key="index"
                                        :points-for-dollar="cashOutOption.pointsForDollar"
                                        :cost="cashOutOption.cost"
                                        :image="cashOutOption.image"
-                                       :available="calculatedEarnedPoints >= cashOutOption.cost">
+                                       :available="accountUser.balance >= cashOutOption.cost">
                         </cash-out-card>
+            </div>
+
+
+
+
+              
             
          </v-flex>
       </v-layout>
@@ -182,6 +203,7 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../styles/mixin.less';
 .mySales{
    .mySales_title{
       font-size: 22px;
@@ -190,9 +212,30 @@ export default {
       padding: 0 0 10px 2px;
    }
    .mySales_wallet{
+        .mySales_cash-out-wrapper {
+    text-align: center;
+    padding: 0 8px;
+   //  .responsive-property(margin-top, 22px, null, 16px);
+   //  padding-bottom: 32px;
+    .mySales_text-wrap {
+      .responsive-property(margin-bottom, 32px, null, 16px);
+      .responsive-property(font-size, 24px, null, 20px);
+      color: grey;
+      letter-spacing: -0.7px;
+      text-align: center;
+      .main-text {
+        font-weight: bold;
+      }
+      .mySales_points-text span {
+        font-weight: bold;
+        color: @color-main-purple;
+      }
+    }
       .mySales_wallet_reedem{
          background: white;
       }
+
+  }
       
    }
    .mySales_table{
