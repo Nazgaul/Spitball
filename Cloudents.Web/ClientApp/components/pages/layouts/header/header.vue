@@ -246,7 +246,8 @@ export default {
         border: solid 1px #dadada;
         padding-left: 16px;
         @media (max-width: @screen-xs) {
-            padding: 0 8px 0 4px;      
+            padding: 0 8px 0 4px; 
+            border: none;     
         }  
     }
     .globalHeader_logo{
