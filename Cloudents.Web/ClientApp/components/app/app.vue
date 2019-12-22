@@ -342,7 +342,7 @@ export default {
           });
         },
         error => {
-          global.localStorage.setItem("sb_transactionError", transactionId);
+          global.localStorage.setItem("sb_transactionError", transactionObjectError.points);
           console.log(error);
         }
       );
