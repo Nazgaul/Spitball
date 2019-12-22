@@ -231,7 +231,7 @@ export default {
           // margin: 4px 0 1px 0;
           .price_oneline {
             display: flex;
-            align-items: flex-end;
+            align-items: baseline;
             color: #5158af;
 
             &--count {
@@ -250,7 +250,7 @@ export default {
           color: #4c59ff;
           font-weight: 600;
           font-size: 12px;
-          margin-top: 6px;
+          // margin-top: 6px;
         }
     }
     .card-mobile-center {
