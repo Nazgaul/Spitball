@@ -65,7 +65,8 @@ export default {
 		...mapGetters(['getBannerSatus','getBannerParams']),
 		params(){
 			if(!!this.getBannerParams){
-				this.interVal = setInterval(this.getNow, 200);
+                this.setParamsInterval()
+                // this computed only for update time...DO NOT remove it
 			}
 		},
 		coupon(){
@@ -86,9 +87,17 @@ export default {
             }
             return null
 		}
+    },
+    watch:{
+        params(){
+            // DONT remove it!
+        }
 	},
 	methods: {
-		...mapActions(['updateBannerSatus']),
+        ...mapActions(['updateBannerSatus']),
+        setParamsInterval(){
+            this.interVal = setInterval(this.getNow, 200);
+        },
 		getNow() {
 			let countDownDate = new Date(this.getBannerParams.expirationDate).getTime();
 			let now = new Date();

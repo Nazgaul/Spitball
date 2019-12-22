@@ -153,6 +153,8 @@ export default {
           } else{
             return `${month} ${year}`
           }
+        }else{
+          return false;
         }
       },
       isGoPrev(){

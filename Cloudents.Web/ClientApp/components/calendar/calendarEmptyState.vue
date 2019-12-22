@@ -49,6 +49,7 @@
                 if(!this.isSelectCalendar && this.isSelectHours){
                     return `becomeTutor_connect_mobile`
                 }
+                return '';
             }
         },
         methods: {
