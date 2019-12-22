@@ -115,9 +115,12 @@
         }
         .group_list_titles_course{
           display: flex;
+          line-height: unset;
+          align-items: center;
           padding-right: 5px;
           &.active_link_course{
             font-weight: bold;
+
             svg {
               overflow: visible;
             }
@@ -130,7 +133,7 @@
             }
           }
           .arrow_course{
-            margin-bottom: -2px;
+            margin-bottom: 2px;
             &:lang(he) {
               transform: rotate(180deg);
             }
