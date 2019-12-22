@@ -67,7 +67,7 @@ export default {
   .mobile-btn-fixed-bottom {
     align-items: baseline;
     position: fixed;
-    bottom: 66px;
+    bottom: 62px;
     right: 0;
     width: 100%;
     z-index: 9;
