@@ -51,7 +51,7 @@
                             <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
                         </v-select>
                     
-                        <removeTimeSVG @click.native="closeAdditionalTime" class="removeTime"/> 
+                        <removeTimeSVG @click="closeAdditionalTime" class="removeTime"/> 
                 </div>
             </td>
         </tr>
