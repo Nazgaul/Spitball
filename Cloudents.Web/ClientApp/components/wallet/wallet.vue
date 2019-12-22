@@ -19,9 +19,11 @@
                                 :items="items"
                                 :cash="cash"
                                 hide-default-footer
+                                
                                 class="balance-table wallet-table">
                             <template slot="header" slot-scope="{props}">
                                 <span :class="props.header+'-header table-header'">{{ props.header }}</span>
+                                <!-- <span :class="props.headers+'-header table-header'"></span> -->
                             </template>
                             <template slot="item" slot-scope="props">
                                 <tr>
@@ -71,10 +73,11 @@
                                 <span>
                                     <span v-language:inner>wallet_You_have</span>
                                          <bdi>
-                                    <span>{{calculatedEarnedPoints ? `${calculatedEarnedPoints.toLocaleString(undefined,
+                                    <span>
+                                        {{calculatedEarnedPoints ? `${calculatedEarnedPoints.toLocaleString(undefined,
                                         { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` || '0.00' : '0.00'}}
                                         <span v-language:inner="'cashoutcard_SBL'"/>
-                                        </span>
+                                    </span>
                                               </bdi>
                                     <span v-language:inner>wallet_you_have_redeemable_sbl</span>
                                 </span>
