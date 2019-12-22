@@ -31,14 +31,9 @@
                <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-left">
-
+                  <v-icon @click="sendMessage(props.item)" v-html="'sbf-message-icon'"/>
+                  <v-icon class="ml-2" @click="enterRoom(props.item.id)" v-html="'sbf-enter-icon'" />
                </td>
-               <!-- 
-               <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
-               <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
-               <td class="text-xs-center">
-                  <button @click="dynamicAction(props.item)" class="myStudyRooms_action" v-language:inner="dynamicResx(props.item.type)"/>
-               </td>  -->
             </template>
          <slot slot="no-data" name="tableEmptyState"/>
          <slot slot="pageText" name="tableFooter"/>
@@ -84,7 +79,24 @@ export default {
       },
    },
    methods: {
-      ...mapActions(['updateStudyRoomItems','dashboard_sort']),
+      ...mapActions(['updateStudyRoomItems','dashboard_sort','openChatInterface','setActiveConversationObj']),
+      sendMessage(item){
+         let currentConversationObj = {
+            userId: item.userId,
+            conversationId: item.conversationId,
+            name: item.name,
+            image: item.image || null,
+         }
+         this.setActiveConversationObj(currentConversationObj);
+         this.openChatInterface();
+      },
+      enterRoom(id){
+         let routeData = this.$router.resolve({
+            name: 'roomSettings',
+            params: {id}
+            });
+         global.open(routeData.href, '_self');
+      },
       changeSort(sortBy){
          if(sortBy === 'info') return;
 

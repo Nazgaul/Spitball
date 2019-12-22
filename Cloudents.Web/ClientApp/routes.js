@@ -21,8 +21,6 @@ const editCourse = () => import("./components/courses/editCourses/editCourses.vu
 const setUniversity = () => import("./components/university/university.vue");
 const addUniversity = () => import("./components/university/addUniversity/addUniversity.vue");
 
-
-const studyRoomsComponent = () => import("./components/studyRooms/studyRooms.vue");
 const roomSettings = () => import("./components/studyroomSettings/studyroomSettings.vue");
 const tutorComponent = () => import("./components/studyroom/tutor.vue");
 const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.vue");
@@ -64,13 +62,6 @@ const resultProps = {
 };
 const feedPage = {
     default: feeds,
-    banner: globalBanner,
-    header: pageHeader,
-    sideMenu: sideMenu
-};
-
-const studyRoomsPage = {
-    default: studyRoomsComponent,
     banner: globalBanner,
     header: pageHeader,
     sideMenu: sideMenu
@@ -381,17 +372,6 @@ let routes2 = [
             showMobileFooter: true,
         },
     },
-    // {
-    //     path: "/study-rooms",
-    //     name: 'studyRooms',
-    //     components: studyRoomsPage,
-    //     props: {
-    //         default: (route) => ({
-    //             id: route.params.id
-    //         })
-    //     }
-    // },
-    
     {
         path: "/study-rooms",
         components: dashboardPages,
