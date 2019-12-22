@@ -3,7 +3,7 @@
         <v-bottom-nav
                 height="62px"
                 :active.sync="activeTab"
-                :value="true"
+                :value="activeTab"
                 fixed
                 color="white"
                 :app="$vuetify.breakpoint.xsOnly"
@@ -41,7 +41,6 @@ export default {
     name: "mobileFooter",
     data() {
         return {
-            lastTab:null,
             currentActiveTab:this.$route.name,
         }
     },
@@ -52,32 +51,35 @@ export default {
         },
         activeTab:{
             get(){
-                if(this.$route.name === 'profile'){
-                    if(!!this.accountUser){
-                        if(this.$route.params.id == this.accountUser.id){
-                           return this.$route.name;
-                        }else{
-                            setTimeout(() => {
-                                return ''
-                            }, 200);
-                        }
-                    }else{
-                        setTimeout(() => {
-                            return ''
-                        }, 200);
-                    }
-                }
-                else{
-                    return this.currentActiveTab 
-                }
-                return null
+                return this.currentActiveTab;
             },
             set(tabName){
-                let self = this;
                 this.currentActiveTab = tabName;
-                setTimeout(() => {
-                    self.currentActiveTab = this.$route.name
-                }, 200);
+            }
+        }
+    },
+        watch:{
+        '$route'(route){
+            if(this.$route.name === 'profile'){
+                if(!!this.accountUser){
+                    if(this.$route.params.id == this.accountUser.id){
+                        this.currentActiveTab = 'profile';
+                        }else{
+                            this.currentActiveTab = null;
+                        }
+                }else{
+                    this.currentActiveTab = route.name;
+                }
+            }else{
+                this.currentActiveTab = route.name;
+            }
+        },
+        currentActiveTab(newVal, oldVal){
+            if(newVal !== this.$route.name){
+                setTimeout(()=>{
+                    this.currentActiveTab = oldVal;
+                }, 500);
+                
             }
         }
     },

@@ -4,7 +4,7 @@ const globalBanner = () => import('./components/pages/layouts/banner/banner.vue'
 const feeds = () => import('./components/results/feeds/Feeds.vue');
 const pageHeader = () => import('./components/pages/layouts/header/header.vue');
 const sideMenu = () => import('./components/pages/layouts/sideMenu/sideMenu.vue');
-// const document = () => import("./components/document/document.vue");
+
 const itemPage = () => import("./components/pages/itemPage/item.vue");
 
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
