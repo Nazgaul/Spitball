@@ -275,10 +275,9 @@ export default {
         //register Feeds Store
         storeService.lazyRegisterModule(this.$store, 'feeds', feedStore);
         //If query have courses save those courses
-        if (this.query.course) this.setFilteredCourses(this.query.course);
+        // if (this.query.course) this.setFilteredCourses(this.query.course);
         
         this.UPDATE_LOADING(true);
-
         //fetch data with the params
         this.Feeds_fetchingData({
             name: this.name,
