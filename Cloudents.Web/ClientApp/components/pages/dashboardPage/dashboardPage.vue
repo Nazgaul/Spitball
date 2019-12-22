@@ -64,8 +64,8 @@ export default {
                'date': {text: LanguageService.getValueByKey('dashboardPage_date'), align:'left', sortable: true, value:'date'},
                'action': {text: '', align:'center', sortable: false, value:'action'},
                'status': {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'paymentStatus'},
-               'points': {text: LanguageService.getValueByKey('wallet_Tokens'), align:'left', sortable: true, value:'points'},
-               'value': {text: LanguageService.getValueByKey('wallet_Value'), align:'left', sortable: true, value:'value'},
+               'points': {text: LanguageService.getValueByKey('wallet_Tokens'), align:'center', sortable: true, value:'points'},
+               'value': {text: LanguageService.getValueByKey('wallet_Value'), align:'center', sortable: true, value:'value'},
             }
          },
          globalFunctions:{
@@ -128,11 +128,12 @@ export default {
          if(price < 0){
             price = Math.abs(price)
          }
+         price = Math.round(+price).toLocaleString();
          if(type === 'Document' || type === 'Video'){
-            return `${Math.round(+price)} ${LanguageService.getValueByKey('dashboardPage_pts')}`
+            return `${price} ${LanguageService.getValueByKey('dashboardPage_pts')}`
          }
          if(type === 'TutoringSession'){
-            return `${Math.round(+price)} ${this.accountUser.currencySymbol}`
+            return `${price} ${this.accountUser.currencySymbol}`
          }
       },
    }

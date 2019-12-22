@@ -96,8 +96,6 @@ Vue.filter('currencyFormat', function(number, currency) {
 })
 
 Vue.filter('sessionDuration', function(number) {
-    debugger
-    console.log(number)
     if(!number){return}
     return number.slice(number.length - 16 ,-8)
 })

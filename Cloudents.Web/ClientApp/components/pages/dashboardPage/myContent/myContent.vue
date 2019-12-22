@@ -2,6 +2,7 @@
    <div class="myContent">
       <div class="myContent_title" v-language:inner="'dashboardPage_my_content_title'"/>
       <v-data-table 
+            :pagination.sync="paginationModel"
             :headers="headers"
             :items="contentItems"
             disable-initial-sort
@@ -73,6 +74,9 @@ export default {
    },
    data() {
       return {
+         paginationModel:{
+            page:1
+         },
          sortedBy:'',
          currentItemIndex:'',
          showMenu:false,
@@ -112,6 +116,7 @@ export default {
             sortedBy: this.sortedBy
          }
          this.dashboard_sort(sortObj)
+         this.paginationModel.page = 1;
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
       }
    },

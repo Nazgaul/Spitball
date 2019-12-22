@@ -1,9 +1,9 @@
 <template>
    <div class="mySales">
       <div class="mySales_title" v-language:inner="'dashboardPage_my_sales_title'"/>
-      <v-layout align-baseline row wrap class="mySales_wallet mb-5" v-if="accountUser.id">
+      <v-layout align-baseline row wrap class="mySales_wallet mb-5" v-if="!!accountUser && accountUser.id">
          <v-flex sm12 md6>
-            <v-data-table 
+            <v-data-table
                :headers="balancesHeaders"
                :items="balancesItems"
                disable-initial-sort
@@ -14,13 +14,13 @@
                :sort-icon="'sbf-arrow-down'"
                :next-icon="'sbf-arrow-right-carousel'">
                <template v-slot:items="props">
-                  <td>
+                  <td class="text-xs-left">
                      <span>{{props.item.type}}</span>
                   </td>
-                  <td>
-                     <span>{{props.item.points}}</span>
+                  <td class="text-xs-center">
+                     <span>{{formatBalancePts(props.item.points)}}</span>
                   </td> 
-                  <td>
+                  <td class="text-xs-center">
                      <span class="font-weight-bold">
                         {{ props.item.value | currencyFormat(props.item.symbol)}}
                      </span>
@@ -36,7 +36,7 @@
                         <span>
                            <span v-language:inner>wallet_You_have</span>
                                  <bdi>
-                           <span> {{Math.round(accountUser.balance)}}
+                           <span> {{Math.round(accountUser.balance).toLocaleString()}}
                                  <span v-language:inner="'cashoutcard_SBL'"/>
                                  </span>
                                        </bdi>
@@ -44,13 +44,17 @@
                         </span>
                      </div>
                </div>
-<cash-out-card class="mySales_wallet_reedem" v-for="(cashOutOption,index) in cashOutOptions"
-                                       :key="index"
-                                       :points-for-dollar="cashOutOption.pointsForDollar"
-                                       :cost="cashOutOption.cost"
-                                       :image="cashOutOption.image"
-                                       :available="accountUser.balance >= cashOutOption.cost">
-                        </cash-out-card>
+               
+               <cash-out-card 
+                  class="mySales_wallet_reedem" 
+                  v-for="(cashOutOption,index) in cashOutOptions"
+                  :key="index"
+                  :points-for-dollar="cashOutOption.pointsForDollar"
+                  :cost="cashOutOption.cost"
+                  :image="cashOutOption.image"
+                  :available="accountUser.balance >= cashOutOption.cost"
+                  :updatePoint="recalculate">
+               </cash-out-card>
             </div>
 
 
@@ -60,8 +64,8 @@
             
          </v-flex>
       </v-layout>
-
-         <v-data-table 
+         <v-data-table
+            :pagination.sync="paginationModel"
             :headers="headers"
             :items="salesItems"
             disable-initial-sort
@@ -119,10 +123,13 @@ export default {
       dictionary:{
          type: Object,
          required: true
-      }
+      },
    },
    data() {
       return {
+         paginationModel:{
+            page:1
+         },
          cashOutOptions: cashOutCards,
          sortedBy:'',
          headers:[
@@ -151,7 +158,13 @@ export default {
    },
    methods: {
       ...mapActions(['updateSalesItems','dashboard_sort','updateBalancesItems']),
-
+      formatBalancePts(pts){
+         pts = Math.round(+pts).toLocaleString();
+         return `${pts} ${LanguageService.getValueByKey('dashboardPage_pts')}`
+      },
+      recalculate(){
+         this.updateBalancesItems()
+      },
       checkIsSession(prop){
          return prop === 'TutoringSession';
       },
@@ -178,6 +191,7 @@ export default {
             sortedBy: this.sortedBy
          }
          this.dashboard_sort(sortObj)
+         this.paginationModel.page = 1;
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
       },
       calculatedEarnedPoints(){
