@@ -44,7 +44,7 @@
                     <h3 v-language:inner="'documentPage_related_content'"></h3>
                     <router-link 
                         v-language:inner="'documentPage_full_list'"
-                        :to="{name: 'feed', query: {course: courseName}}"
+                        :to="{name: 'feed', query: {Course: courseName}}"
                         class="itemPage__main__carousel__header--seeAll"
                     ></router-link>
                 </div>

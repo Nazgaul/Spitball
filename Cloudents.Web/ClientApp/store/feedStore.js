@@ -92,29 +92,31 @@ const actions = {
     Feeds_updateData({commit}, data) {
         commit('Feeds_UpdateItems', data);
     },
-    Feeds_fetchingData({state, commit, getters, dispatch}, {name, params, page, skipLoad}) {
+    Feeds_fetchingData({state, commit, dispatch}, {name, params, page}) {
         dispatch('Feeds_updateDataLoaded', false);
-        let verticalItems = state.items;
-        let skip = (!!verticalItems && !!verticalItems.data && verticalItems.data.length > 0) ? skipLoad : false;
-        if ((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !getters.getSearchLoading) || skip) {
-            if (state.queItems.length) {
-                commit('Feeds_injectQuestion')
-            }
-            update(verticalItems);
-            return verticalItems;
-        } else {
-            commit('Feeds_ResetQue');
-            let paramsList = {...state.search, ...params, page};
-            let route = name.toLowerCase();
-            return searchService.activateFunction[route](paramsList).then((data) => {
-                // dispatch('Feeds_getTutors');
-                update(data);
-                dispatch('Feeds_setDataItems', data);
-                return data;
-            }, (err) => {
-                return Promise.reject(err);
-            })
-        }
+        // let verticalItems = state.items;
+        // let skip = (!!verticalItems && !!verticalItems.data && verticalItems.data.length > 0) ? skipLoad : false;
+        // if ((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !getters.getSearchLoading) || skip) {
+        //     if (state.queItems.length) {
+        //         commit('Feeds_injectQuestion')
+        //     }
+        //     update(verticalItems);
+        //     return verticalItems;
+        // } else {
+            
+        commit('Feeds_ResetQue');
+
+        let paramsList = {...state.search, ...params, page};
+        let route = name.toLowerCase();
+        
+        return searchService.activateFunction[route](paramsList).then((data) => {
+            update(data);
+            dispatch('Feeds_setDataItems', data);
+            return data;
+        }, (err) => {
+            return Promise.reject(err);
+        })
+        // }
         function update(data) {
             let sortData = !!data.sort ? data.sort : null;
             let filtersData = !!data.filters ? searchService.createFilters(data.filters) : null;

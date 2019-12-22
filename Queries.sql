@@ -1,7 +1,7 @@
 ﻿--update user balance
 update sb.[user] 
-set balance = (Select sum(price) from sb.[Transaction] where User_id = sb.[User].id)
-where balance != (Select sum(price) from sb.[Transaction] where User_id = sb.[User].id)
+set balance = (Select sum(price) from sb.[Transaction] where User_id = sb.[User].id and type != 'stake')
+where balance != (Select sum(price) from sb.[Transaction] where User_id = sb.[User].id and type != 'stake')
 
 --update user score
 update top(1000) sb.[user]
