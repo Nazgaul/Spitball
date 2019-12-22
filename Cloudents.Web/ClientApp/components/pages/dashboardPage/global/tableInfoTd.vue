@@ -1,6 +1,6 @@
 <template functional>
    <td class="tableInfo text-xs-left text-truncate">
-      <router-link :to="props.globalFunctions.router(props.item)">
+      <router-link class="tableInfo_router" :to="props.globalFunctions.router(props.item)">
          <template v-if="props.item.type === 'TutoringSession'">
             <div class="text-truncate">
                <span v-html="props.globalFunctions.$Ph('dashboardPage_session',props.item.name)"/>
@@ -38,7 +38,7 @@
    width: 400px;
    max-width: 400px;
    min-width: 300px;
-   a{
+   .tableInfo_router{
       color: #43425d !important;
       line-height: 1.6;
    }
