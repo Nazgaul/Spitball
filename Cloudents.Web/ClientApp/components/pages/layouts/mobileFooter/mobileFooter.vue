@@ -8,26 +8,26 @@
                 color="white"
                 :app="$vuetify.breakpoint.xsOnly"
                 class="notransition mobileFooter">
-            <v-btn :ripple="false" class="mF_btns" text color="#69687d" value="feed" @click="changeActiveTab('feed')">
+            <v-btn :ripple="false" class="mF_btns" text value="feed" @click="changeActiveTab('feed')">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_home'"/>
                 <v-icon class="mF_icon" v-html="'sbf-home-tab'"/>
             </v-btn>
-            <v-btn :ripple="false" class="mF_btns" text color="#69687d" value="tutorLandingPage" @click="changeActiveTab('tutorLandingPage')">
+            <v-btn :ripple="false" class="mF_btns" text value="tutorLandingPage" @click="changeActiveTab('tutorLandingPage')">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_tutors'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account-group'"/>
             </v-btn>
-            <v-btn :ripple="false" class="mF_btns" text color="#69687d" value='upload' @click="openUpload">
+            <v-btn :ripple="false" class="mF_btns" text value='upload' @click="openUpload">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_upload'"/>
                 <v-icon class="mF_icon" v-html="'sbf-button-add'" />
             </v-btn>
-            <v-btn :ripple="false" class="mF_btns" text color="#69687d" value="chat" @click="openChat">
+            <v-btn :ripple="false" class="mF_btns" text value="chat" @click="openChat">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_chat'"/>
                 <span class="mF_chat">
                     <v-icon class="mF_icon" v-html="'sbf-btm-msg'"/>
                     <span class="mF_chat_unread" v-show="totalUnread > 0">{{totalUnread}}</span>
                 </span>
             </v-btn>
-            <v-btn :ripple="false" class="mF_btns" text color="#69687d" value="profile" @click="changeActiveTab('profile')">
+            <v-btn :ripple="false" class="mF_btns" text value="profile" @click="changeActiveTab('profile')">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_profile'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account'"/>
             </v-btn>
@@ -178,10 +178,11 @@ export default {
         }
     }
 }
-.v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
-    color: #5560ff;
-}
-.v-item-group.v-bottom-nav .v-btn--active {
-    padding-top: 2px;
+    
+.v-btn--active {
+        padding-top: 2px;
+    .v-btn__content {
+        color: #5560ff;
+    }
 }
 </style>
