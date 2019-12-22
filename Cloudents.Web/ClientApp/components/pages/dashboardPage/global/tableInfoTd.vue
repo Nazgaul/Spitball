@@ -25,6 +25,11 @@
                <span>{{props.item.answerText}}</span>
             </div>
          </template>
+         <template v-if="props.item.conversationId">
+            <div class="text-truncate">
+               <span>{{props.item.name}}</span>
+            </div>
+         </template>
          <div class="text-truncate" v-if="props.item.course">
             <span class="font-weight-bold" v-language:inner="'dashboardPage_course'"></span>
             <span>{{props.item.course}}</span>

@@ -26,6 +26,7 @@
 import mySales from './mySales/mySales.vue';
 import myContent from './myContent/myContent.vue';
 import myPurchases from './myPurchases/myPurchases.vue';
+import myStudyRooms from './myStudyRooms/myStudyRooms.vue';
 
 import tableEmptyState from './global/tableEmptyState.vue';
 import tableFooter from './global/tableFooter.vue';
@@ -66,6 +67,8 @@ export default {
                'status': {text: LanguageService.getValueByKey('dashboardPage_status'), align:'left', sortable: true, value:'paymentStatus'},
                'points': {text: LanguageService.getValueByKey('wallet_Tokens'), align:'center', sortable: true, value:'points'},
                'value': {text: LanguageService.getValueByKey('wallet_Value'), align:'center', sortable: true, value:'value'},
+               'student_tutor': {text: LanguageService.getValueByKey('dashboardPage_student_tutor'), align:'left', sortable: true, value:'name'},
+               'last_date': {text: LanguageService.getValueByKey('dashboardPage_last_date'), align:'left', sortable: true, value:'date'},
             }
          },
          globalFunctions:{
@@ -81,6 +84,7 @@ export default {
       mySales,
       myContent,
       myPurchases,
+      myStudyRooms,
 
       changeNameDialog,
       changePriceDialog,
@@ -111,6 +115,9 @@ export default {
          }
          if(item.type === 'TutoringSession'){
             return {name: 'profile',params: {id: item.id, name: item.name}}
+         }
+         if(item.conversationId){
+            return {name: 'profile',params: {id: item.userId, name: item.name}}
          }
       },
       formatImg(item){

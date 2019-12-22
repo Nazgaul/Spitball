@@ -45,7 +45,22 @@ const Item = {
       this.points = objInit.points;
       this.value = objInit.value;
       this.symbol = objInit.symbol;
+   },
+   StudyRoom:function(objInit){
+      this.name = objInit.name;
+      this.image = objInit.image;
+      this.userId = objInit.userId;
+      this.online = objInit.online;
+      this.id = objInit.id;
+      this.date = objInit.dateTime;
+      this.conversationId = objInit.conversationId;
    }
+}
+
+function StudyRoomItem(objInit){
+   return Object.assign(
+      new Item.StudyRoom(objInit)
+   )
 }
 function ContentItem(objInit){
    return Object.assign(
@@ -81,19 +96,21 @@ function createContentItems({data}) {
    data.map(item => contentItems.push(new ContentItem(item)));
    return contentItems;
 }
-
 function createPurchasesItems({data}) {
    let purchasesItems = [];
    data.map(item => purchasesItems.push(new PurchasesItem(item)));
    return purchasesItems;
 }
-
 function createBalancesItems({data}) {
    let balancesItems = [];
    data.map(item => balancesItems.push(new BalancesItems(item)));
    return balancesItems;
 }
-
+function createStudyRoomItems({data}) {
+   let studyRoomItems = [];
+   data.map(item => studyRoomItems.push(new StudyRoomItem(item)));
+   return studyRoomItems;
+}
 function getSalesItems(){
    return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex)
 }
@@ -106,10 +123,14 @@ function getPurchasesItems(){
 function getBalancesItems(){
    return connectivityModule.http.get('Wallet/balance').then(createBalancesItems).catch(ex => ex)
 }
+function getStudyRoomItems(){
+   return connectivityModule.http.get('StudyRoom').then(createStudyRoomItems).catch(ex => ex)
+}
 
 export default {
    getSalesItems,
    getContentItems,
    getPurchasesItems,
    getBalancesItems,
+   getStudyRoomItems,
 }

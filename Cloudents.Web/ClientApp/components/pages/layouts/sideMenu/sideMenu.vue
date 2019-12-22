@@ -253,7 +253,7 @@ export default {
         this.$router.push({name:'wallet'})
       }
       if(path === "studyRooms"){
-          this.$router.push({name:'studyRooms'})
+          this.$router.push({name:'myStudyRooms'})
       }
       if(path === "lessons"){
         // this.$router.push({name:'lessons'})

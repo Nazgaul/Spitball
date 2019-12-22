@@ -257,16 +257,6 @@ let routes2 = [
         }
     },
     {
-        path: "/study-rooms",
-        name: 'studyRooms',
-        components: studyRoomsPage,
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            })
-        }
-    },
-    {
         path: "/question/:id",
         components: {
             default: viewQuestion,
@@ -381,6 +371,31 @@ let routes2 = [
         path: "/my-purchases",
         components: dashboardPages,
         name: "myPurchases",
+        props: {
+            default: (route) => ({
+                component: route.name,
+            })
+        },
+        meta: {
+            requiresAuth: true,
+            showMobileFooter: true,
+        },
+    },
+    // {
+    //     path: "/study-rooms",
+    //     name: 'studyRooms',
+    //     components: studyRoomsPage,
+    //     props: {
+    //         default: (route) => ({
+    //             id: route.params.id
+    //         })
+    //     }
+    // },
+    
+    {
+        path: "/study-rooms",
+        components: dashboardPages,
+        name: "myStudyRooms",
         props: {
             default: (route) => ({
                 component: route.name,

@@ -148,6 +148,9 @@
     <value>Product
 </value>
   </data>
+  <data name="last_date" xml:space="preserve">
+    <value>Last Session</value>
+  </data>
   <data name="likes" xml:space="preserve">
     <value>Likes</value>
   </data>
@@ -192,6 +195,9 @@
   </data>
   <data name="status" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="student_tutor" xml:space="preserve">
+    <value>Student / tutor</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>Tutoring Session</value>
