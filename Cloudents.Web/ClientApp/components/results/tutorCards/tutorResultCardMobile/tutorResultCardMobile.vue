@@ -67,8 +67,8 @@
 
       <div class="card-mobile-footer">
           <v-btn class="btn-chat white--text text-truncate my-0" depressed rounded block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
-                <iconChat class="chat-icon-btn" />
-                <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
+                <iconChat class="chat_icon_btn" />
+                <div class="text-truncate text_icon_btn" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
           <div class="price ml-4 align-center" >
               <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
@@ -263,10 +263,7 @@ export default {
             position:unset;
           }
           .v-btn__content{
-            .chat-icon-btn{
-              // position: absolute;
-              // top: 0;
-              // left: 0;
+            .chat_icon_btn{
               align-self: flex-end;
             }
             :last-child {
@@ -275,10 +272,8 @@ export default {
           }
           text-transform: inherit;
           border-radius: 7.5px;
-          div {
-            div {
-              padding-left: 10px;
-            }
+          .text_icon_btn {
+            padding-left: 10px;
           }
         }
     }
