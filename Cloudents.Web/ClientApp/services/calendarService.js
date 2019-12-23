@@ -33,6 +33,10 @@ function postCalendarAvailability(paramsObj){
     let params = createCalendarHours(paramsObj);
     return connectivityModule.http.post(`Tutor/calendar/hours`,params);
 }
+function postCalendarAvailabilityHours(paramsObj){
+    let params = createCalendarHours(paramsObj);
+    return connectivityModule.http.post(`Tutor/calendar/updateHours`,params);
+}
 
 function calendarDate(dateTime){
     return dateTime.toISOString().substr(0, 10);
@@ -97,5 +101,6 @@ export default {
     addEvent,
     getCalendarsList,
     postCalendarsList,
-    postCalendarAvailability
+    postCalendarAvailability,
+    postCalendarAvailabilityHours
 }

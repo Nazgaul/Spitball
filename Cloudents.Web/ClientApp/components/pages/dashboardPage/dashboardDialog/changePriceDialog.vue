@@ -94,6 +94,7 @@ export default {
 }
 //price-change dialog
 .priceD-change-wrap {
+   width: 438px;
     padding: 12px 0 0 0;
     position: relative;
     .price-wrap {

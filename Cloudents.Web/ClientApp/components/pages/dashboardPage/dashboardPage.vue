@@ -14,11 +14,12 @@
          :popUpType="'dashboardDialog'"
          :onclosefn="closeDialog"
          :activateOverlay="true"
-         :max-width="'438px'"
+         :max-width="'fit-content'"
          :content-class="'pop-dashboard-container'">
             <changeNameDialog v-if="currentDialog === 'rename'" :dialogData="dialogData" @closeDialog="closeDialog"/>
             <changePriceDialog v-if="currentDialog === 'changePrice'" :dialogData="dialogData" @closeDialog="closeDialog"/>
             <changeCalendarList v-if="currentDialog === 'changeCalendarList'" :dialogData="dialogData" @closeDialog="closeDialog"/>
+            <changeCalendarAvailability v-if="currentDialog === 'changeCalendarAvailability'" :dialogData="dialogData" @closeDialog="closeDialog"/>
       </sb-dialog>
    </div>
 </template>
@@ -37,6 +38,8 @@ import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
 import changePriceDialog from './dashboardDialog/changePriceDialog.vue';
 import changeCalendarList from './dashboardDialog/changeCalendarList.vue';
+import changeCalendarAvailability from './dashboardDialog/changeCalendarAvailability.vue';
+
 import { LanguageService } from '../../../services/language/languageService';
 import { mapGetters } from 'vuex';
 
@@ -96,6 +99,7 @@ export default {
       changeNameDialog,
       changePriceDialog,
       changeCalendarList,
+      changeCalendarAvailability,
       sbDialog,
       tableEmptyState,
       tableFooter

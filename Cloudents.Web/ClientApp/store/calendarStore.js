@@ -103,6 +103,9 @@ const actions ={
     updateAvailabilityCalendar({state}){
         return calendarService.postCalendarAvailability(state.tutorDailyHours);
     },
+    updateAvailabilityHours({state}){
+        return calendarService.postCalendarAvailabilityHours(state.tutorDailyHours);
+    },
     getEvents({commit}){
         let tutorId = router.history.current.params.id;
         commit('setTutorId',tutorId);
