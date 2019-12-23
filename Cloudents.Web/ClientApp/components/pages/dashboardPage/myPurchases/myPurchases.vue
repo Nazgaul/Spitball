@@ -33,7 +33,7 @@
                <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td> 
                <td class="text-xs-center">
-                  <button @click="dynamicAction(props.item)" class="myPurchases_action" v-language:inner="dynamicResx(props.item.type)"/>
+                  <button v-if="props.item.type !== 'TutoringSession'" @click="dynamicAction(props.item)" class="myPurchases_action" v-language:inner="dynamicResx(props.item.type)"/>
                </td> 
             </template>
          <slot slot="no-data" name="tableEmptyState"/>
