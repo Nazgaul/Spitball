@@ -77,6 +77,10 @@ module.exports = (env) => {
 
                 },
                 {
+                    test: /\.(ogg|mp3|wav)$/i,
+                    loader: 'file-loader'
+                },
+                {
                     test: /\.js$/,
                     loader: "babel-loader"
                 },
