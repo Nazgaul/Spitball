@@ -193,4 +193,7 @@
   <data name="question" xml:space="preserve">
     <value>שאלה:</value>
   </data>
+  <data name="session_on" xml:space="preserve">
+    <value>לא הסתיים</value>
+  </data>
 </root>
