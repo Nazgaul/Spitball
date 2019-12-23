@@ -61,7 +61,7 @@ namespace Cloudents.FunctionsV2.Test
                  _queryBusStub.Object,
                  null,
                  null,
-                 null,
+                // null,
                  _dataProtectProviderStub.Object,
                  _hostUriService.Object,
                  CancellationToken.None);
@@ -95,7 +95,7 @@ namespace Cloudents.FunctionsV2.Test
                  _queryBusStub.Object,
                  null,
                  null,
-                 null,
+                 //null,
                  _dataProtectProviderStub.Object,
                  _hostUriService.Object,
                  CancellationToken.None);
@@ -135,7 +135,7 @@ namespace Cloudents.FunctionsV2.Test
                 _queryBusStub.Object,
                 null,
                 null,
-                null,
+                //null,
                 _dataProtectProviderStub.Object,
                 _hostUriService.Object,
                 CancellationToken.None);

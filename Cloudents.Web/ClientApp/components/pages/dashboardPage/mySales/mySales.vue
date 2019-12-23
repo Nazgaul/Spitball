@@ -15,7 +15,7 @@
                :next-icon="'sbf-arrow-right-carousel'">
                <template v-slot:items="props">
                   <td class="text-xs-left">
-                     <span>{{props.item.type}}</span>
+                     <span>{{dictionary.types[props.item.type]}}</span>
                   </td>
                   <td class="text-xs-center">
                      <span>{{formatBalancePts(props.item.points)}}</span>
@@ -159,7 +159,7 @@ export default {
    methods: {
       ...mapActions(['updateSalesItems','dashboard_sort','updateBalancesItems']),
       formatBalancePts(pts){
-         pts = Math.round(+pts).toLocaleString();
+         pts = Math.round(+pts).toLocaleString(`${global.lang}-${global.country}`);
          return `${pts} ${LanguageService.getValueByKey('dashboardPage_pts')}`
       },
       recalculate(){
