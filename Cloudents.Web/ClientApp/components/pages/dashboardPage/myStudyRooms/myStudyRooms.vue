@@ -31,8 +31,17 @@
                <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-left">
+                  <v-btn class="myStudyRooms_btns white--text" depressed round color="#4452fc" @click="sendMessage(props.item)">
+                     <iconChat class="myStudyRooms_btn_icon"/>
+                     <div v-html="$Ph('resultTutor_send_button', showFirstName(props.item.name))"></div>
+                  </v-btn>
+                  <v-btn class="myStudyRooms_btns myStudyRooms_btns_enterRoom" depressed round color="white" @click="enterRoom(props.item.id)">
+                     <enterRoom class="myStudyRooms_btn_icon"/>
+                     <span>Enter the room</span>
+                  </v-btn>
+<!-- 
                   <v-icon @click="sendMessage(props.item)" v-html="'sbf-message-icon'"/>
-                  <v-icon class="ml-2" @click="enterRoom(props.item.id)" v-html="'sbf-enter-icon'" />
+                  <v-icon class="ml-2" @click="enterRoom(props.item.id)" v-html="'sbf-enter-icon'" /> -->
                </td>
             </template>
          <slot slot="no-data" name="tableEmptyState"/>
@@ -45,10 +54,12 @@
 import { mapActions, mapGetters } from 'vuex';
 import tablePreviewTd from '../global/tablePreviewTd.vue';
 import tableInfoTd from '../global/tableInfoTd.vue';
+import iconChat from './images/icon-chat.svg';
+import enterRoom from './images/enterRoom.svg';
 
 export default {
    name:'myStudyRooms',
-   components:{tablePreviewTd,tableInfoTd},
+   components:{tablePreviewTd,tableInfoTd,iconChat,enterRoom},
    data() {
       return {
          paginationModel:{
@@ -80,6 +91,14 @@ export default {
    },
    methods: {
       ...mapActions(['updateStudyRoomItems','dashboard_sort','openChatInterface','setActiveConversationObj']),
+      showFirstName(name) {
+         let maxChar = 5;
+         name = name.split(' ')[0];
+         if(name.length > maxChar) {
+         return LanguageService.getValueByKey('resultTutor_message_me');
+         }
+         return name;
+      },
       sendMessage(item){
          let currentConversationObj = {
             userId: item.userId,
@@ -147,6 +166,25 @@ export default {
          text-transform: capitalize;
          font-weight: 600;
          font-size: 14px;
+      }
+      .myStudyRooms_btns{
+         width: 100%;
+         max-width: 190px;
+         height: 38px;
+         font-size: 12px;
+         font-weight: 600;
+         text-transform: initial;
+         .v-btn__content{
+            justify-content: flex-end;
+         }
+         .myStudyRooms_btn_icon {
+            text-transform: inherit;
+            position: absolute;
+            left: 0;
+         }
+         &.myStudyRooms_btns_enterRoom{
+            border: solid 1px #43425d;
+         }
       }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          transform: none /*rtl:rotate(180deg)*/;
