@@ -2,11 +2,8 @@
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.Linq;
 using NHibernate.Transform;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -61,7 +58,10 @@ namespace Cloudents.Query.Tutor
                                 .Select(s => s.Id).WithAlias(() => resultAlias.Id)
                                 .Select(s => s.DateTime.CreationTime).WithAlias(() => resultAlias.DateTime)
                                 .Select(s => s.Identifier).WithAlias(() => resultAlias.ConversationId)
-                        
+                                .Select(Projections.SqlFunction("coalesce", NHibernateUtil.DateTime,
+                                                    Projections.Property(() => studyRoomAlias.DateTime.UpdateTime),
+                                                    Projections.Property(() => studyRoomAlias.DateTime.CreationTime)))
+                                    .WithAlias(() => resultAlias.LastSession)
                     ) 
                     .OrderBy(Projections.SqlFunction("COALESCE",NHibernateUtil.Object,
                         Projections.Property(() => studyRoomAlias.DateTime.UpdateTime),
