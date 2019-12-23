@@ -6,7 +6,8 @@
                <span v-html="props.globalFunctions.$Ph('dashboardPage_session',props.item.name)"/>
                <div class="text-truncate">
                   <span class="font-weight-bold" v-language:inner="'dashboardPage_duration'"/> 
-                  {{props.item.duration | sessionDuration}}
+                  <span v-if="props.item.duration">{{props.item.duration | sessionDuration}}</span>
+                  <span v-else v-language:inner="'dashboardPage_session_on'"/>
                </div>
             </div>
          </template>

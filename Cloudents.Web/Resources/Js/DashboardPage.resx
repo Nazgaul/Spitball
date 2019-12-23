@@ -196,6 +196,9 @@
   <data name="session" xml:space="preserve">
     <value>Tutoring session with {1}</value>
   </data>
+  <data name="session_on" xml:space="preserve">
+    <value>Ongoing</value>
+  </data>
   <data name="status" xml:space="preserve">
     <value>Status</value>
   </data>
