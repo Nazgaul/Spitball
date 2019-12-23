@@ -93,7 +93,7 @@ export default {
    methods: {
       ...mapActions(['updateStudyRoomItems','dashboard_sort','openChatInterface','setActiveConversationObj']),
       showFirstName(name) {
-         let maxChar = 3;
+         let maxChar = 4;
          name = name.split(' ')[0];
          if(name.length > maxChar) {
          return LanguageService.getValueByKey('resultTutor_message_me');
