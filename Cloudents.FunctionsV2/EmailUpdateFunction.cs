@@ -79,7 +79,7 @@ namespace Cloudents.FunctionsV2
             [Inject] IQueryBus queryBus,
             [Inject] IUrlBuilder urlBuilder,
             [Inject] IBinarySerializer binarySerializer,
-            [Inject] IDocumentDirectoryBlobProvider blobProvider,
+            //[Inject] IDocumentDirectoryBlobProvider blobProvider,
             [Inject] IDataProtectionService dataProtectService,
             [Inject] IHostUriService hostUriService,
             CancellationToken token)
@@ -111,12 +111,12 @@ namespace Cloudents.FunctionsV2
                     NeedMore = emailUpdates.Count == 4,
                     Documents = emailUpdates.OfType<DocumentUpdateEmailDto>().Select(document =>
                     {
-                        var previewUri = blobProvider.GetPreviewImageLink(document.Id, 0);
-                        var hash = BuildHash(binarySerializer, previewUri);
+                        //var previewUri = blobProvider.GetPreviewImageLink(document.Id, 0);
+                        //var hash = BuildHash(binarySerializer, previewUri);
 
                         var uriBuilder = new UriBuilder(uri)
                         {
-                            Path = $"api/image/{hash}",
+                            Path = $"api/image/document/{document.Id}",
                         };
                         uriBuilder.AddQuery(questionNvc);
 
@@ -208,7 +208,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("EmailUpdateFunction_TimerStart")]
         public static async Task TimerStart(
-            [TimerTrigger("0 0 8 * * *")] TimerInfo myTimer,
+            [TimerTrigger("0 */1 * * * *")] TimerInfo myTimer,
             [OrchestrationClient]DurableOrchestrationClient starter,
             ILogger log)
         {
