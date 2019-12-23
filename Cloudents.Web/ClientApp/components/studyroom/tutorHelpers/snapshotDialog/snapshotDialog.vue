@@ -49,6 +49,7 @@
                 snapshotBtnText: LanguageService.getValueByKey('tutor_take_snapshot_btn'),
                 timerCountdown: null,
                 lang: global.lang,
+                audio: null,
             };
         },
         computed:{
@@ -102,8 +103,12 @@
             //     }
             //     },1000);
             // },
+            playSound(){
+                this.audio.play();
+            },
             takeSnapshot() {
                 // this.startInterval(); 
+                this.playSound();
                 this.drawImageToCanvas();
                 this.getUrlFromBlob();  
                 this.closeDialog();                  
@@ -121,6 +126,7 @@
                 }
             },
         async mounted(){
+            this.audio = new Audio(require('./sound/Shutter.wav'));
             let videoContainer = document.querySelector("#videoElementContainer");
             let videoElm = document.querySelector('#videoElement');
             if(this.getLocalVideoTrack && !this.getLocalVideoTrack.isStopped){
