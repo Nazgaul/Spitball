@@ -208,7 +208,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("EmailUpdateFunction_TimerStart")]
         public static async Task TimerStart(
-            [TimerTrigger("0 */1 * * * *")] TimerInfo myTimer,
+            [TimerTrigger("0 0 8 * * *")] TimerInfo myTimer,
             [OrchestrationClient]DurableOrchestrationClient starter,
             ILogger log)
         {
