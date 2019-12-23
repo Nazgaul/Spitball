@@ -7,7 +7,7 @@
             <v-flex pb-4>
                 <h2 v-language:inner="'tutorListLanding_header_find_tutors'"></h2>
             </v-flex>
-            <v-flex :class="{'pb-6': !isMobile}">
+            <v-flex class="pb-6">
                 <h3><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3>
             </v-flex>
         </v-layout>
