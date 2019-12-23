@@ -54,6 +54,7 @@ const Item = {
       this.id = objInit.id;
       this.date = objInit.dateTime;
       this.conversationId = objInit.conversationId;
+      this.lastSession = objInit.lastSession;
    }
 }
 

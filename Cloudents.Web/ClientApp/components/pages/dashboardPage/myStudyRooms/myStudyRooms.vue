@@ -30,18 +30,16 @@
                <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
                <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-               <td class="text-xs-left">
+               <td class="text-xs-left">{{ props.item.lastSession | dateFromISO }}</td>
+               <td>
                   <v-btn class="myStudyRooms_btns white--text" depressed round color="#4452fc" @click="sendMessage(props.item)">
                      <iconChat class="myStudyRooms_btn_icon"/>
-                     <div v-html="$Ph('resultTutor_send_button', showFirstName(props.item.name))"></div>
+                     <div class="myStudyRooms_btn_txt" v-html="$Ph('resultTutor_send_button', showFirstName(props.item.name))"></div>
                   </v-btn>
                   <v-btn class="myStudyRooms_btns myStudyRooms_btns_enterRoom" depressed round color="white" @click="enterRoom(props.item.id)">
                      <enterRoom class="myStudyRooms_btn_icon"/>
-                     <span>Enter the room</span>
+                     <span class="myStudyRooms_btn_txt" v-language:inner="'dashboardPage_enter_room'"/>
                   </v-btn>
-<!-- 
-                  <v-icon @click="sendMessage(props.item)" v-html="'sbf-message-icon'"/>
-                  <v-icon class="ml-2" @click="enterRoom(props.item.id)" v-html="'sbf-enter-icon'" /> -->
                </td>
             </template>
          <slot slot="no-data" name="tableEmptyState"/>
@@ -69,6 +67,7 @@ export default {
          headers:[
             this.dictionary.headers['preview'],
             this.dictionary.headers['student_tutor'],
+            this.dictionary.headers['created'],
             this.dictionary.headers['last_date'],
             this.dictionary.headers['action'],
          ],
@@ -168,22 +167,31 @@ export default {
          font-size: 14px;
       }
       .myStudyRooms_btns{
-         width: 100%;
+         // width: 100%;
          max-width: 190px;
+         min-width: 190px;
+         // min-width: 160px;
          height: 38px;
          font-size: 12px;
          font-weight: 600;
          text-transform: initial;
          .v-btn__content{
-            justify-content: flex-end;
+            // justify-content: space-between;
+            // padding: 0 20px;
          }
          .myStudyRooms_btn_icon {
             text-transform: inherit;
             position: absolute;
             left: 0;
          }
+         .myStudyRooms_btn_txt{
+            margin-left: 20px;
+         }
          &.myStudyRooms_btns_enterRoom{
-            border: solid 1px #43425d;
+            max-width: 170px;
+            font-weight: bold;
+            color: #43425d;
+            border: solid 1px #43425d !important;
          }
       }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {

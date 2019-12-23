@@ -144,6 +144,9 @@
   <data name="empty" xml:space="preserve">
     <value>Sorry, nothing to display here :(</value>
   </data>
+  <data name="enter_room" xml:space="preserve">
+    <value>Enter the room</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>Product
 </value>

@@ -81,7 +81,7 @@ const actions = {
       commit('dashboard_setName',paramObj)
    },
    dashboard_sort({state},{listName,sortBy,sortedBy}){
-      if(sortBy == 'date'){
+      if(sortBy == 'date' || sortBy == 'lastSession'){
          if(sortedBy === sortBy){
             state[listName].reverse();
          }else{
