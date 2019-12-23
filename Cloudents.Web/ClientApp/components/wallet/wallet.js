@@ -41,7 +41,7 @@ export default {
                     align: 'left',
                     value: 'type',
                     sortable: false,
-                    showOnMobile: false
+                    showOnMobile: true
                 },
                 {
                     text: LanguageService.getValueByKey('wallet_Amount'),
@@ -55,7 +55,7 @@ export default {
                     align: 'left',
                     value: 'balance',
                     sortable: false,
-                    showOnMobile: false
+                    showOnMobile: true
                 }
             ],
             allBalanceHeaders: [{
