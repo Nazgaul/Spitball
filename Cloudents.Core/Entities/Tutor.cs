@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
@@ -130,6 +131,16 @@ namespace Cloudents.Core.Entities
 
         public virtual void AddTutorHours(DayOfWeek weekDay, TimeSpan from, TimeSpan to)
         {
+            _tutorHours.Add(new TutorHours(this, weekDay, from, to));
+        }
+
+        public virtual void UpdateTutorHours(DayOfWeek weekDay, TimeSpan from, TimeSpan to)
+        {
+            var itemToRemove = _tutorHours.Where(w => w.WeekDay == weekDay).FirstOrDefault();
+            if (itemToRemove != null)
+            {
+                _tutorHours.Remove(itemToRemove);
+            }
             _tutorHours.Add(new TutorHours(this, weekDay, from, to));
         }
 

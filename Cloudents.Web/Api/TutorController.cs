@@ -398,6 +398,15 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
+        [HttpPost("calendar/updateHours")]
+        public async Task<IActionResult> UpdateTutorHoursAsync([FromBody] TutorHoursRequest model,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new UpdateTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new SetTutorHoursCommand.TutorDailyHours(s.Day, s.From, s.To)));
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
         //[HttpGet("phone")]
         //public async Task<string> GetPhoneNumberAsync(long tutorId, CancellationToken token)
         //{
