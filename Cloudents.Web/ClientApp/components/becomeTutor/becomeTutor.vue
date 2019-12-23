@@ -1,5 +1,5 @@
 <template>
-    <div class="become-tutor-wrap d-flex" >
+    <div class="become-tutor-wrap" >
         <v-stepper v-model="currentStep" class="elevation-0 stepper" :class="{'back-image': isLastStep}">
             <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
                 <v-flex xs12 sm12  class="text-center">
