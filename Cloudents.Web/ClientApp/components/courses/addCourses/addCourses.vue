@@ -1,8 +1,8 @@
 <template>
     <div class="add-courses-wrap">
-        <v-layout :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2']" align-center
+        <v-layout :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound pa-2']" align-center
                   justify-center>
-            <v-flex grow xs10>
+            <v-flex grow xs8>
                 <div class="d-inline-flex justify-center shrink">
                     <v-icon @click="goToEditCourses()" class="course-back-btn mr-4">sbf-arrow-back</v-icon>
                     <span class="subtitle-1 font-weight-bold" v-language:inner>courses_join</span>
@@ -10,7 +10,7 @@
                 </div>
 
             </v-flex>
-            <v-flex xs2 shrink class="d-flex justify-end">
+            <v-flex xs4 shrink class="d-flex justify-end">
                 <v-btn sel="done_add_courses" rounded :disabled="localSelectedClasses.length === 0" :loading="doneButtonLoading" class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
                     <span v-language:inner>courses_btn_done</span>
                 </v-btn>

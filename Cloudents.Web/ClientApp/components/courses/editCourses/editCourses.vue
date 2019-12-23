@@ -220,6 +220,7 @@
         .add-btn {
             color: @color-white;
             text-transform: initial;
+            margin: 6px 8px;
         }
         .delete-sbf-icon {
             color: lighten(@color-black, 75%);
