@@ -81,6 +81,12 @@ const getters ={
 };
 
 const actions ={
+    getCalendarListAction({commit}){
+        return calendarService.getCalendarsList().then(response=>{
+            commit('setCalendarList',response.data);
+            return Promise.resolve(response.data);
+        });
+    },
     updateStateAvailabilityCalendar({commit},dayAvailability){
         commit('setAvailabilityCalendar',dayAvailability);
     },

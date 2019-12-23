@@ -18,6 +18,7 @@
          :content-class="'pop-dashboard-container'">
             <changeNameDialog v-if="currentDialog === 'rename'" :dialogData="dialogData" @closeDialog="closeDialog"/>
             <changePriceDialog v-if="currentDialog === 'changePrice'" :dialogData="dialogData" @closeDialog="closeDialog"/>
+            <changeCalendarList v-if="currentDialog === 'changeCalendarList'" :dialogData="dialogData" @closeDialog="closeDialog"/>
       </sb-dialog>
    </div>
 </template>
@@ -27,6 +28,7 @@ import mySales from './mySales/mySales.vue';
 import myContent from './myContent/myContent.vue';
 import myPurchases from './myPurchases/myPurchases.vue';
 import myStudyRooms from './myStudyRooms/myStudyRooms.vue';
+import myCalendar from './myCalendar/myCalendar.vue';
 
 import tableEmptyState from './global/tableEmptyState.vue';
 import tableFooter from './global/tableFooter.vue';
@@ -34,6 +36,7 @@ import tableFooter from './global/tableFooter.vue';
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
 import changePriceDialog from './dashboardDialog/changePriceDialog.vue';
+import changeCalendarList from './dashboardDialog/changeCalendarList.vue';
 import { LanguageService } from '../../../services/language/languageService';
 import { mapGetters } from 'vuex';
 
@@ -88,9 +91,11 @@ export default {
       myContent,
       myPurchases,
       myStudyRooms,
+      myCalendar,
 
       changeNameDialog,
       changePriceDialog,
+      changeCalendarList,
       sbDialog,
       tableEmptyState,
       tableFooter

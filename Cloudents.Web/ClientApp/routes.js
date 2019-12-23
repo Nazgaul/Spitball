@@ -301,19 +301,19 @@ let routes2 = [
         }
     },
 
-    {
-        path: "/wallet",
-        components: {
-            default: wallet,
-            header: pageHeader,
-            banner: globalBanner,
-            sideMenu: sideMenu,
-        },
-        name: "wallet",
-        meta: {
-            requiresAuth: true
-        },
-    },
+    // {
+    //     path: "/wallet",
+    //     components: {
+    //         default: wallet,
+    //         header: pageHeader,
+    //         banner: globalBanner,
+    //         sideMenu: sideMenu,
+    //     },
+    //     name: "wallet",
+    //     meta: {
+    //         requiresAuth: true
+    //     },
+    // },
 
     {
         path: "/register",
@@ -376,6 +376,20 @@ let routes2 = [
         path: "/study-rooms",
         components: dashboardPages,
         name: "myStudyRooms",
+        props: {
+            default: (route) => ({
+                component: route.name,
+            })
+        },
+        meta: {
+            requiresAuth: true,
+            showMobileFooter: true,
+        },
+    },
+    {
+        path: "/my-calendar",
+        components: dashboardPages,
+        name: "myCalendar",
         props: {
             default: (route) => ({
                 component: route.name,
