@@ -72,7 +72,7 @@ namespace Cloudents.Web.Api
         [HttpGet("search", Name = "TutorSearch")]
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
         public async Task<WebResponseWithFacet<TutorCardDto>> GetAsync(
-            string term, string course, 
+            string term, string course,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             int page,
             [FromServices] ITutorSearch tutorSearch,
@@ -185,7 +185,7 @@ namespace Cloudents.Web.Api
                 {
                     if (user.PhoneNumber == null)
                     {
-                       
+
                         var result =
                             await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode,
                                 token);
@@ -265,7 +265,7 @@ namespace Cloudents.Web.Api
             if (model.TutorId.HasValue)
             {
                 var query = new GetPhoneNumberQuery(model.TutorId.Value);
-                var val =  await _queryBus.QueryAsync(query, token);
+                var val = await _queryBus.QueryAsync(query, token);
                 return Ok(new
                 {
                     PhoneNumber = val
@@ -406,6 +406,14 @@ namespace Cloudents.Web.Api
             var command = new UpdateTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new SetTutorHoursCommand.TutorDailyHours(s.Day, s.From, s.To)));
             await _commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+        [HttpGet("calendar/hours"), Authorize]
+        public async Task<IEnumerable<TutorDailyHoursDto>> GetTutorHours(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new TutorDailyHoursQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
         }
         //[HttpGet("phone")]
         //public async Task<string> GetPhoneNumberAsync(long tutorId, CancellationToken token)

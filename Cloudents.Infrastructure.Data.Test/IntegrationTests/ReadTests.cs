@@ -329,5 +329,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new UserPurchasesByIdQuery(userId);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
+
+        [Fact]
+        public async Task TutorDailyHoursQuery_Ok()
+        {
+            var query = new TutorDailyHoursQuery(159039);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
     }
 }
