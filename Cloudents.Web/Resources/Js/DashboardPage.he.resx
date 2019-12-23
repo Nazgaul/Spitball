@@ -193,6 +193,9 @@
   <data name="status" xml:space="preserve">
     <value>סטטוס</value>
   </data>
+  <data name="student_tutor" xml:space="preserve">
+    <value>תלמיד / מורה</value>
+  </data>
   <data name="tutor_session" xml:space="preserve">
     <value>שיעור פרטי</value>
   </data>
