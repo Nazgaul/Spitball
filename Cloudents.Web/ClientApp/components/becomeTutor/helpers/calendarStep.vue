@@ -22,7 +22,7 @@
         <template>
             <v-layout class="px-1 btns-cal-step"
                         :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center',isSelectCalendar || isSelectHours? 'resetMargin': '']">
-                <v-btn @click="goToPreviousStep()" class="cancel-btn-step elevation-0" rounded outline text>
+                <v-btn @click="goToPreviousStep()" class="cancel-btn-step elevation-0" rounded outlined text>
                     <span v-language:inner="'becomeTutor_btn_back'"/>
                 </v-btn>
                 <v-btn  color="#4452FC"

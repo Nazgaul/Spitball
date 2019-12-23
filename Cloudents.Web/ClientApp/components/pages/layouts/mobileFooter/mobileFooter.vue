@@ -1,10 +1,11 @@
 <template>
-    <div>
+    <!-- <div> -->
         <v-bottom-navigation
                 height="62px"
-                :v-model="activeTab"
+                v-model="activeTab"
                 :value="true"
                 fixed
+                grow
                 color="white"
                 :app="$vuetify.breakpoint.xsOnly"
                 class="notransition mobileFooter">
@@ -32,7 +33,7 @@
                 <v-icon class="mF_icon" v-html="'sbf-account'"/>
             </v-btn>
         </v-bottom-navigation>
-    </div>
+    <!-- </div> -->
 </template>
 
 <script>
@@ -132,13 +133,13 @@ export default {
 
 <style lang="less">
 @import "../../../../styles/mixin.less";
-.v-bottom-nav{
+.v-bottom-navigation {
     &.mobileFooter{
         z-index:11;
         box-shadow: none;
         border-top: solid 1px  #C7C7CD!important;
         .mF_btns{
-            min-width: 50px;
+            min-width: 64px;
             padding-top: 2px;
             .v-btn__content{
                 margin-top: -2px;

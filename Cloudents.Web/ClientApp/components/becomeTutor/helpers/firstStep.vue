@@ -18,7 +18,7 @@
                         id="tutor-picture"
                         accept="image/*"
                         ref="tutorImage" v-show="false"/>
-                    <div v-if="errorUpload" v-language:inner="'becomeTutor_upload_error'"></div>
+                    <div v-if="errorUpload" class="tutor_picture_error" v-language:inner="'becomeTutor_upload_error'"></div>
                     <!-- <span class="image-edit-text" v-language:inner="'becomeTutor_upload_image'"></span> -->
                 </label>
             </v-flex>
@@ -66,7 +66,7 @@
         <v-layout class="mt-4 px-1 btns-first"
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
 
-            <v-btn @click="closeDialog()" class="cancel-btn elevation-0" rounded outline text>
+            <v-btn @click="closeDialog()" class="cancel-btn elevation-0" rounded outlined text>
                 <span v-language:inner>becomeTutor_btn_cancel</span>
             </v-btn>
 
@@ -203,6 +203,7 @@
                 align-items: flex-end;
             }
             .v-btn {
+                margin: 6px 8px;
               @media (max-width: @screen-xs) {
                   height: 40px;
                   padding: 0 20px;
@@ -270,6 +271,9 @@
                 @media (max-width: @screen-xs) {
                     height: auto;
                 }
+            }
+            .tutor_picture_error {
+                font-size: 14px;
             }
         }
         .price-input {

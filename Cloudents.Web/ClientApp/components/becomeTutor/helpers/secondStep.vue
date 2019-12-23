@@ -10,7 +10,7 @@
                             :height="$vuetify.breakpoint.xsOnly? 134 :100"
                             rows="2"
                             class="sb-text-area"
-                            outline
+                            outlined
                             no-resize
                             v-model="description"
                             name="input-about"
@@ -25,7 +25,7 @@
                             no-resize
                             class="sb-text-area"
                             rows="5"
-                            outline
+                            outlined
                             :rules="[rules.maximumChars, rules.descriptionMinChars]"
                             v-model="bio"
                             name="input-bio"
@@ -118,6 +118,7 @@
                 align-items: flex-start;
                 }
             .v-btn {
+                margin: 6px 8px;
                 @media (max-width: @screen-xs) {
                   height: 40px;
                   padding: 0 20px;
