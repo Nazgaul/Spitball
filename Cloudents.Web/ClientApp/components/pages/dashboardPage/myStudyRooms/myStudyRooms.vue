@@ -54,6 +54,8 @@ import tablePreviewTd from '../global/tablePreviewTd.vue';
 import tableInfoTd from '../global/tableInfoTd.vue';
 import iconChat from './images/icon-chat.svg';
 import enterRoom from './images/enterRoom.svg';
+import { LanguageService } from '../../../../services/language/languageService';
+
 
 export default {
    name:'myStudyRooms',
@@ -91,7 +93,7 @@ export default {
    methods: {
       ...mapActions(['updateStudyRoomItems','dashboard_sort','openChatInterface','setActiveConversationObj']),
       showFirstName(name) {
-         let maxChar = 5;
+         let maxChar = 3;
          name = name.split(' ')[0];
          if(name.length > maxChar) {
          return LanguageService.getValueByKey('resultTutor_message_me');
@@ -167,18 +169,12 @@ export default {
          font-size: 14px;
       }
       .myStudyRooms_btns{
-         // width: 100%;
-         max-width: 190px;
-         min-width: 190px;
-         // min-width: 160px;
+         max-width: 180px;
+         min-width: 180px;
          height: 38px;
          font-size: 12px;
          font-weight: 600;
          text-transform: initial;
-         .v-btn__content{
-            // justify-content: space-between;
-            // padding: 0 20px;
-         }
          .myStudyRooms_btn_icon {
             text-transform: inherit;
             position: absolute;
