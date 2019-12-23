@@ -1,7 +1,7 @@
 <template>
     <v-card class="user-edit-wrap pb-4">
         <v-form v-model="validUserForm" ref="formUser" @submit.prevent>
-        <v-layout class="header pa-4 mb-4">
+        <v-layout class="header pa-4 pt-3 mb-4">
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
                 <span v-language:inner>profile_edit_user_profile_title</span>

@@ -142,7 +142,6 @@ export default {
     background: white;
     width: 100%;
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.22);
-    height: 84px;
     color: #4d4b69;
     position: fixed;
     bottom: 0;
