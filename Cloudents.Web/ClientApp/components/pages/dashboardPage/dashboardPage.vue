@@ -81,6 +81,7 @@ export default {
             formatPrice: this.formatPrice,
             router: this.dynamicRouter,
             '$Ph': this.$Ph,
+            strToACII: this.strToACII
          }
       }
    },
@@ -146,6 +147,13 @@ export default {
          if(type === 'TutoringSession'){
             return `${price} ${this.accountUser.currencySymbol}`
          }
+      },
+      strToACII(name) {
+         let sum = 0;
+         for (let i in name) {
+            sum += name.charCodeAt(i);
+         }
+         return sum % 11
       },
    }
 
