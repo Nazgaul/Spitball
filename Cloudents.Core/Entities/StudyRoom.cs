@@ -21,12 +21,13 @@ namespace Cloudents.Core.Entities
             Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
             OnlineDocumentUrl = onlineDocumentUrl;
             Type = StudyRoomType.PeerToPeer;
+            DateTime = new DomainTimeStamp();
             AddEvent(new StudyRoomCreatedEvent(this));
         }
 
         protected StudyRoom()
         {
-            DateTime = new DomainTimeStamp();
+            
         }
 
         public virtual Tutor Tutor { get; protected set; }
