@@ -138,9 +138,15 @@
   <data name="empty" xml:space="preserve">
     <value>מצטערים, אין מידע להציג</value>
   </data>
+  <data name="enter_room" xml:space="preserve">
+    <value>כניסה לחדר</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>מוצר
 </value>
+  </data>
+  <data name="last_date" xml:space="preserve">
+    <value>שיעור אחרון</value>
   </data>
   <data name="likes" xml:space="preserve">
     <value>לייקים</value>
