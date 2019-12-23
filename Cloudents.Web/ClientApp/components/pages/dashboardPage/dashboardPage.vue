@@ -51,6 +51,9 @@ export default {
                'Document': LanguageService.getValueByKey('dashboardPage_document'),
                'Video': LanguageService.getValueByKey('dashboardPage_video'),
                'TutoringSession': LanguageService.getValueByKey('dashboardPage_tutor_session'),
+               'Earned': LanguageService.getValueByKey('wallet_earned'),
+               'Spent': LanguageService.getValueByKey('wallet_spent'),
+               'Total': LanguageService.getValueByKey('wallet_total'),
             },
             headers:{
                'preview': {text: '', align:'left', sortable: false, value:'preview'},
