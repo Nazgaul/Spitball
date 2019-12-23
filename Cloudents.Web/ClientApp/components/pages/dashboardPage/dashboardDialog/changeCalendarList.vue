@@ -2,7 +2,7 @@
    <div class="changeCalendarList">
       <v-icon @click="$emit('closeDialog')" class="changeCalendarList_close" small>sbf-close</v-icon>
       <calendarSelect/>
-      <v-btn @click="change" class="changeCalendarList_btn white--text" round depressed color="#4452fc">Select</v-btn>
+      <v-btn :loading="isLoading" @click="change" class="changeCalendarList_btn white--text" round depressed color="#4452fc">Select</v-btn>
    </div>
 </template>
 
@@ -11,14 +11,29 @@ import calendarSelect from '../../../calendar/calendarSelect.vue';
 import { mapActions } from 'vuex';
 export default {
    components:{calendarSelect},
+   data() {
+      return {
+         isLoading:false,
+      }
+   },
    methods: {
-      ...mapActions(['updateSelectedCalendarList']),
+      ...mapActions(['updateSelectedCalendarList','updateToasterParams']),
       change(){
          let self = this;
-         self.loading = true;
+         self.isLoading = true;
          this.updateSelectedCalendarList().then(()=>{
-            self.loading = true;
+            self.isLoading = false;
             self.$emit('closeDialog')
+            self.updateToasterParams({
+               toasterText: 'bla bla bla calendar connected',
+               showToaster: true
+            });
+         }).catch(()=>{
+            self.updateToasterParams({
+               toasterText: 'bla bla bla calendar connected',
+               showToaster: true,
+               toasterType: 'error-toaster'
+            });
          })
       }
    },

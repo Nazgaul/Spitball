@@ -17,12 +17,23 @@ export default {
       }
    },
    methods: {
-      ...mapActions(['updateAvailabilityHours']),
+      ...mapActions(['updateAvailabilityHours','updateToasterParams']),
       change(){
          this.isLoading = true;
          this.updateAvailabilityHours().then(()=>{
             this.isLoading = false;
             this.$emit('closeDialog')
+            this.updateToasterParams({
+               toasterText: 'bla bla bla calendar hours changed',
+               showToaster: true
+            });
+         }).catch(()=>{
+            this.isLoading = false;
+            this.updateToasterParams({
+               toasterText: 'bla bla bla calendar connected',
+               showToaster: true,
+               toasterType: 'error-toaster'
+            });
          })
       }
    },

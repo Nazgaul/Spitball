@@ -135,6 +135,7 @@ export default {
         {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'my-sales', icon:'sbf-cart',sel:'sd_sales'},
         {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', icon:'sbf-my-content',sel:'sd_content'},
         {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'my-purchases', icon:'sbf-cart',sel:'sd_purchases'},
+        {name: LanguageService.getValueByKey('schoolBlock_calendar'), key:'my-calendar', icon:'sbf-lessons',sel:'sd_calendar'},
 
         // {name: LanguageService.getValueByKey('schoolBlock_lessons'), key:'lessons', icon:'sbf-lessons'},
         {name: LanguageService.getValueByKey('schoolBlock_courses'), key:'editCourse', icon:'sbf-classes-icon'},
@@ -269,6 +270,9 @@ export default {
       }
       if(path === "my-purchases"){
         this.$router.push({name:'myPurchases'})
+      }
+      if(path === "my-calendar"){
+        this.$router.push({name: 'myCalendar'})
       }
       if(path === "editCourse"){
         this.$router.push({name:'editCourse'})
