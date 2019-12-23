@@ -159,7 +159,7 @@ export default {
    methods: {
       ...mapActions(['updateSalesItems','dashboard_sort','updateBalancesItems']),
       formatBalancePts(pts){
-         pts = Math.round(+pts).toLocaleString();
+         pts = Math.round(+pts).toLocaleString(`${global.lang}-${global.country}`);
          return `${pts} ${LanguageService.getValueByKey('dashboardPage_pts')}`
       },
       recalculate(){
