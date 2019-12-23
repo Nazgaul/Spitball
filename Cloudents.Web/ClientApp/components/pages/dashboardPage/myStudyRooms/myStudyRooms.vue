@@ -184,7 +184,7 @@ export default {
             margin-left: 20px;
          }
          &.myStudyRooms_btns_enterRoom{
-            max-width: 170px;
+            // max-width: 170px;
             font-weight: bold;
             color: #43425d;
             border: solid 1px #43425d !important;
