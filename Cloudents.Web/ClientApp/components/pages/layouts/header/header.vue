@@ -39,12 +39,14 @@
                 </template>
                 <v-menu fixed close-on-content-click bottom right offset-y :content-class="getBannerSatus? 'fixed-content-banner':'fixed-content'" sel="menu">
                     <template v-slot:activator="{on}">
-                        <div v-on="on" class="gH_i_r_menuList">
-                            <user-avatar
-                                size="40"
-                                :userImageUrl="userImageUrl"
-                                :user-name="userName"
-                            />
+                        <div v-on="on" class="gH_i_r_menuList" >
+                            <div @click.prevent="drawer=!drawer">
+                                <user-avatar
+                                    size="40"
+                                    :userImageUrl="userImageUrl"
+                                    :user-name="userName"
+                                />
+                            </div>
                             <template v-if="loggedIn">
                                 <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
                                     <span class="ur_greets" v-html="$Ph('header_greets', accountUser.name)"/>
