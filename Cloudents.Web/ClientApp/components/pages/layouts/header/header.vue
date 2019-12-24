@@ -436,7 +436,7 @@ export default {
                     height: 18px;
                     width: 18px;
                     line-height: 12px;
-                    font-size: 10px;
+                    font-size: 12px;
                     display: flex;
                     font-weight: 500;
                     justify-content: center;

@@ -105,7 +105,7 @@ export default {
         align-items: center;
         .message-text-date {
             color: rgba(0, 0, 0, 0.38);
-            font-size: 11px;
+            font-size: 12px;
             display: flex;
             margin-right: 6px;
             margin-top: 2px;
