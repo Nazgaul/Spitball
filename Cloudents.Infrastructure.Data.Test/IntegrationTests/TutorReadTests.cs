@@ -50,20 +50,24 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             result.Count.Should().BeGreaterThan(0);
         }
 
-        [Fact]
+        [Theory]
+        [InlineData(0)]
+        [InlineData(638)]
 
-        public async Task TutorListQuery_PageCountOk()
+        public async Task TutorListQuery_PageCountOk(long userId)
         {
-            var query = new TutorListQuery(0, "IL",0,int.MaxValue);
+            var query = new TutorListQuery(userId, "IL",0,int.MaxValue);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNull();
             var count = result.Count;
             result.Count.Should().Be(result.Result.Count());
 
-            var query2 = new TutorListQuery(0, "IL", 0, 20);
+            var query2 = new TutorListQuery(userId, "IL", 0, 20);
             var result2 = await _fixture.QueryBus.QueryAsync(query2, default);
             result2.Count.Should().Be(count);
         }
+
+
 
 
 
