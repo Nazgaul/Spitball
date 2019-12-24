@@ -22,7 +22,7 @@ namespace Cloudents.Command.CommandHandler
             var tutor = await _tutorRepository.GetAsync(message.UserId, token);
             if (tutor == null) throw new ArgumentNullException(nameof(tutor));
 
-            foreach (var tutorDailyHours in message.TutorDailyHoursObj)
+            foreach (var tutorDailyHours in message.TutorDailyHours)
             {
                 tutor.UpdateTutorHours(tutorDailyHours.Day, tutorDailyHours.From, tutorDailyHours.To);
             }

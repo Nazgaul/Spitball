@@ -8,9 +8,9 @@ namespace Cloudents.Command.Command
         public UpdateTutorHoursCommand(long userId, IEnumerable<TutorDailyHours> tutorDailyHours)
         {
             UserId = userId;
-            TutorDailyHoursObj = tutorDailyHours;
+            TutorDailyHours = tutorDailyHours;
         }
         public long UserId { get; }
-        public IEnumerable<TutorDailyHours> TutorDailyHoursObj { get; }
+        public IEnumerable<TutorDailyHours> TutorDailyHours { get; }
     }
 }
