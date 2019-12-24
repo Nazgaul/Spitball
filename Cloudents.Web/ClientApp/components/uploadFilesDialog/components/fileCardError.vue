@@ -86,7 +86,6 @@ export default {
         color: white;
         border: 1px solid white !important;
         font-size: 14px;
-        font-weight: 100;
         letter-spacing: 0.5px;
     }
     .ufItem-error-span{

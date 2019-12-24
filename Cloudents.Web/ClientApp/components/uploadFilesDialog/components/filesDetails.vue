@@ -167,7 +167,7 @@ export default {
                 ::placeholder{
                     font-size: 14px;
                     color: #a1a3b0;
-                    font-weight:100;
+                    // font-weight:100;
                 }
             }
         }
