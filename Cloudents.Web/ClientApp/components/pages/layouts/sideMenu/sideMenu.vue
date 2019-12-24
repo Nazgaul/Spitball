@@ -26,7 +26,6 @@
               </v-list-item>
             </template>
           </v-list-group>
-
           <v-list-group v-model="dashboardModel" active-class="''" v-if="dashboardList" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
             <template v-slot:activator>
               <v-list-item class="sideMenu_list">
@@ -37,11 +36,11 @@
                 </v-list-item-content>
               </v-list-item>
             </template>
-            
+
                 <v-list-item class="group_list_sideMenu_dash" v-for="(item, index) in dashboardList" :key="index"
-                  :to="{name: item.key}"
+                  :to="{path: item.route}"
                   event
-                  @click.native.prevent="getShowSchoolBlock ? goTo(item.key, item) : openSideMenu()" :sel="item.sel">
+                  @click.native.prevent="getShowSchoolBlock ? goTo(item.route) : openSideMenu()" :sel="item.sel">
                   <v-list-item-content> 
                     <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker(item.key)}]">
                       <v-icon class="group_list_icon_dash" v-html="item.icon"/>
@@ -62,10 +61,8 @@
             <v-list-item @click="openSblToken" class="group_list_sideMenu_dash">
               <v-list-item-content>
                 <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker('getPoint')}]">
-                  <getPts class="pts_svg"/>
-                  <!-- <v-icon class="group_list_icon_dash" v-html="'sbf-points'"/> -->
+                  <v-icon class="group_list_icon_dash" v-html="'sbf-get-points'"/>
                   <span class="group_list_title_dash ml-2" v-language:inner="'menuList_points'"/>
-
                 </v-list-item-title>  
               </v-list-item-content>
             </v-list-item>
@@ -94,6 +91,7 @@
 
                 <v-list-item
                 class="group_list_sideMenu_course" v-for="(item, index) in selectedClasses" :key="index" 
+                color="#fff"
                 :to="{name: $route.name}"
                 event
                 @click.native.prevent="getShowSchoolBlock ? selectCourse(item) : openSideMenu()" :sel="item.isDefault? 'all_courses' : ''">
@@ -118,26 +116,22 @@ import arrowSVG from './image/left-errow.svg';
 
 import {LanguageService} from "../../../../services/language/languageService";
 import analyticsService from '../../../../services/analytics.service';
-import getPts from './image/get-points.svg';
-
-
-
 
 export default {
   name: "sideMenu",
-  components:{arrowSVG,getPts},
+  components:{arrowSVG},
   data() {
     return {
       sideMenulistElm: null,
       dashboardModel: false,
       dashboardList:[
-        {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', icon:'sbf-user', sel:'sd_profile'},
-        {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
-        {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
-        {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'my-sales', icon:'sbf-cart',sel:'sd_sales'},
-        {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', icon:'sbf-cart',sel:'sd_content'},
+        {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', route: 'profile', icon:'sbf-user', sel:'sd_profile'},
+        {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', route: 'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
+        {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', route: 'studyRooms', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
+        {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'my-sales', route: 'mySales', icon:'sbf-cart',sel:'sd_sales'},
+        {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', route: 'myContent', icon:'sbf-cart',sel:'sd_content'},
         // {name: LanguageService.getValueByKey('schoolBlock_lessons'), key:'lessons', icon:'sbf-lessons'},
-        {name: LanguageService.getValueByKey('schoolBlock_courses'), key:'courses', icon:'sbf-classes-icon'},
+        {name: LanguageService.getValueByKey('schoolBlock_courses'), key:'courses', route: 'editCourse', icon:'sbf-classes-icon'},
         // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
         // {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
         // {name: 'myCalendar', key:'myCalendar', icon:'sbf-cart',sel:'sd_calendar'},
@@ -243,33 +237,33 @@ export default {
         return this.$route.path.indexOf(pathName) > -1;
       }
     },
-    goTo(path){
+    goTo(name){
       if (this.accountUser == null) {
         this.updateLoginDialogState(true);
         return
       }
-      if(path === "profile"){
+      if(name === "profile"){
         this.$router.push({name:'profile',params:{id:this.accountUser.id,name:this.accountUser.name}})
       }
-      if(path === "wallet"){
+      if(name === "wallet"){
         this.$router.push({name:'wallet'})
       }
-      if(path === "studyRooms"){
+      if(name === "studyRooms"){
           this.$router.push({name:'studyRooms'})
       }
-      if(path === "lessons"){
+      if(name === "lessons"){
         // this.$router.push({name:'lessons'})
       }
-      if(path === "posts"){
+      if(name === "posts"){
         // this.$router.push({name:'posts'})
       }
-      if(path === "my-sales"){
+      if(name === "mySales"){
         this.$router.push({name: 'mySales'})
       }
-      if(path === "my-content"){
+      if(name === "myContent"){
         this.$router.push({name: 'myContent'})
       }
-      if(path === "courses"){
+      if(name === "editCourse"){
         this.$router.push({name:'editCourse'})
       }
       this.closeSideMenu();
