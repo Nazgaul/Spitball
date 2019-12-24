@@ -246,7 +246,7 @@ const moveShapes = function(){
     markShapes.bind(this)();
 };
 const getShapeY = function(mouseY, lockedY, dragoffy){
-    if(mouseY > lockedY - 6 && mouseY < lockedY + 6){
+    if(mouseY > lockedY - 8 && mouseY < lockedY + 8){
         return mouseY;
     }else if(mouseY < lockedY){
         return mouseY + dragoffy
@@ -256,7 +256,7 @@ const getShapeY = function(mouseY, lockedY, dragoffy){
 }
 
 const getShapeX = function(mouseX, lockedX, dragoffx){
-    if(mouseX > lockedX - 6 && mouseX < lockedX + 6){
+    if(mouseX > lockedX - 8 && mouseX < lockedX + 8){
         return mouseX;
     }else if(mouseX < lockedX){
         return mouseX + dragoffx
@@ -316,8 +316,8 @@ const getImageHeight = function(height, dragoffy, type){
 }
 
 
-const getShapeDimensions = function(isImg, originalPosition, selectedAnchor, dragoffx, dragoffy){
-    if(isImg){
+const getShapeDimensions = function(option, originalPosition, selectedAnchor, dragoffx, dragoffy){
+    if(option === 'imageDraw'){
         return{
             x: getImageX(originalPosition.mouseX, selectedAnchor.locked.startX + 6 + originalPosition.width, dragoffx, selectedAnchor.active.type),
             y: getImageY(originalPosition.mouseY, selectedAnchor.locked.startY - 98 + originalPosition.height, dragoffy, selectedAnchor.active.type),
@@ -336,7 +336,7 @@ const setNewPoints = function(originalPosition, dragoffx, dragoffy, selectedAnch
     let newDragoffx = fromUndo ? dragoffx * -1 : dragoffx;
     let newDragoffy = fromUndo ? dragoffy * -1 : dragoffy;
     if(originalPosition.option === "imageDraw"){
-        let imageDimensions = getShapeDimensions(true, originalPosition, selectedAnchor, newDragoffx, newDragoffy);
+        let imageDimensions = getShapeDimensions(originalPosition.option, originalPosition, selectedAnchor, newDragoffx, newDragoffy);
         
         return{
             x: imageDimensions.x,
@@ -345,7 +345,7 @@ const setNewPoints = function(originalPosition, dragoffx, dragoffy, selectedAnch
             height: imageDimensions.height
         }
     }else{
-        let shapeDimensions = getShapeDimensions(false, originalPosition, selectedAnchor, newDragoffx, newDragoffy);
+        let shapeDimensions = getShapeDimensions(originalPosition.option, originalPosition, selectedAnchor, newDragoffx, newDragoffy);
         
         return{
             x: shapeDimensions.x,
@@ -381,7 +381,7 @@ const mousemove = function(e){
     currentX = e.clientX;
     currentY = e.clientY;
     if(this.shouldPaint){
-        if(selectedAnchor){
+        if(selectedAnchor && (Object.keys(selectedShapes()).length === 1)){
             resizeShapes.bind(this)();
         }else if(mouseInsideSelectedRectangle){
             //move shape
