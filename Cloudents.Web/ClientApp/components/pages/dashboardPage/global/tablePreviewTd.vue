@@ -2,8 +2,8 @@
    <td class="tablePreview">
       <router-link :to="props.globalFunctions.router(props.item)">
          <span v-if="props.item.online" class="tablePreview_online"/>
-
-         <img v-if="props.item.image" width="80" height="80" :src="props.globalFunctions.formatImg(props.item)" class="tablePreview_img">
+         <img v-if="props.item.image || props.item.preview || props.item.type == 'Question' || props.item.type == 'Answer'" width="80" height="80" :src="props.globalFunctions.formatImg(props.item)" class="tablePreview_img">
+         
          <v-avatar v-else :tile="true" tag="v-avatar" :class="'tablePreview_img tablePreview_no_image userColor' + props.globalFunctions.strToACII(props.item.name)" :style="{width: `80px`, height: `80px`, fontSize: `22px`}">
             <span class="white--text">{{props.item.name.slice(0,2).toUpperCase()}}</span>
         </v-avatar>
