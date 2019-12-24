@@ -208,6 +208,7 @@ export default {
       } else{
         analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
         this.updateShowBuyDialog(true);
+        this.toggleShowSchoolBlock(false)
       }
     },  
     openPersonalizeUniversity() {

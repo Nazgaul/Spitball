@@ -70,17 +70,6 @@
                 <iconChat class="chat_icon_btn" />
                 <div class="text-truncate text_icon_btn" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
-          <div class="price ml-4 align-center" >
-              <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
-              <div class="price_oneline">
-                <template>
-                    <span v-if="tutorData.discountPrice" class="title font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
-                    <span v-else class="title font-weight-bold">{{tutorData.price | currencyFormat(tutorData.currency)}}</span>
-                    <span>/</span>
-                </template>
-                <span class="caption" v-language:inner="'resultTutor_hour'"></span>
-              </div>
-          </div>
       </div>
 
   </router-link>
