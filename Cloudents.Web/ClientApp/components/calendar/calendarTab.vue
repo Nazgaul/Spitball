@@ -28,6 +28,7 @@ export default {
             isReady: false,
             showCalendar: this.isCalendar,
             studentEmptyState: false,
+            isDashboard: this.$route.name == 'myCalendar'
         }
     },
     computed: {
@@ -39,7 +40,7 @@ export default {
                return false;
         },
         showEmptyState(){
-            return (this.isMyProfile && !this.getShowCalendar)
+            return ((this.isMyProfile || this.isDashboard) && !this.getShowCalendar)
         },
     },
     methods: {

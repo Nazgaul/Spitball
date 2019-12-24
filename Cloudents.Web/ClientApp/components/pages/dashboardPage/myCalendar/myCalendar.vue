@@ -4,17 +4,19 @@
         <v-btn :loading="isLoadingConnet" @click="openConnet" class="myCalendar_btns white--text" round depressed color="#4452fc">Connet Google Calendars</v-btn>
         <v-btn @click="openAvailability" class="myCalendar_btns white--text" round depressed color="#4452fc">Change Availability</v-btn>
      </div>
-     <calendar class="myCalendar_calendar" v-if="!!accountUser && isReady"/>
+     <calendarTab class="myCalendar_calendar" v-if="!!accountUser && isReady"/>
   </div>
 </template>
 
 <script>
 import calendar from '../../../calendar/calendar.vue';
+import calendarTab from '../../../calendar/calendarTab.vue';
 
 import { mapGetters, mapActions } from 'vuex';
 export default {
    components:{
       calendar,
+      calendarTab
    },
    props:{
       globalFunctions: {
@@ -66,6 +68,7 @@ export default {
 .myCalendar{
    width: fit-content;
    .myCalendar_top{
+      width: 620px;
       padding-bottom: 20px;
       display: flex;
       justify-content: center;

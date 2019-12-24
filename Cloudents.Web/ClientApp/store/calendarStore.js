@@ -183,6 +183,7 @@ const actions ={
     },
     updateCalendarStatus({state,getters,dispatch}){
         let isSharedCalendar = getters.getProfile.user.calendarShared;
+        // let isDashboard = getters.accountUser.calendarShared;
         if(isSharedCalendar){
             let tutorId = router.history.current.params.id;
            return dispatch('initCalendar',tutorId).then(()=>{
