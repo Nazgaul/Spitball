@@ -127,6 +127,17 @@
                 <span v-language:inner>tutor_tooltip_upload</span>
             </v-tooltip>
 
+            <!--snapshot-->
+            <v-tooltip bottom>
+                <template v-slot:activator="{on}">
+                    <button sel="clear_all_canvas" v-on="on" class="nav-action" @click="takeSnapshot()">
+                        <v-icon style="margin-bottom: 2px;">sbf-capture-icon</v-icon>
+                    </button>
+                </template>
+                <span v-language:inner>tutor_tooltip_takeSnapshot</span>
+            </v-tooltip>
+
+            <!--eraser-->
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.eraser}"
@@ -207,7 +218,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['setShowPickColorInterface', 'setCurrentOptionSelected', 'setSelectedOptionString', 'setUndoClicked', 'setClearAllClicked']),
+        ...mapActions(['setShowPickColorInterface', 'setCurrentOptionSelected', 'setSelectedOptionString', 'setUndoClicked', 'setClearAllClicked', 'setSnapshotDialog']),
         showColorPicker() {
             this.setShowPickColorInterface(true);
         },
@@ -246,6 +257,9 @@ export default {
         },
         clearCanvas(){
             this.setClearAllClicked();
+        },
+        takeSnapshot(){
+            this.setSnapshotDialog(true);
         }
     },
     computed:{

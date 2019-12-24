@@ -12,13 +12,12 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
     [Collection(SbWebApplicationFactory.WebCollection)]
     public class WalletControllerTests
     {
-        private System.Net.Http.HttpClient _client;
+        private HttpClient _client;
         private readonly string[] _types = { "Earned", "Spent", "Total" };
 
         public WalletControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
-            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
 

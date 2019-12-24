@@ -172,7 +172,7 @@ const actions = {
         let lastStep = state.stepsHistory[stepIndex];
         dispatch('updateStep',lastStep);
     },
-    googleSigning({dispatch,commit}){
+    googleSigning({dispatch,commit,state}){
         let authInstance = gapi.auth2.getAuthInstance();
 
         return authInstance.signIn().then((googleUser) => {
@@ -185,7 +185,7 @@ const actions = {
                 } else {
                     _analytics(['Login', 'Start Google']);
                     global.isAuth = true;
-                    let lastRoute = router.history.current.query.returnUrl || 'feed';
+                    let lastRoute = !!state.toUrl.path ? state.toUrl.path : defaultSubmitRoute.path;
                     router.push({path: `${lastRoute}`});
                 }
                 return Promise.reject();

@@ -10,7 +10,7 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class Lead : Entity<Guid>
     {
-        public Lead(Course course, string text, string referer,
+        public Lead(string course, string text, string referer,
             [CanBeNull] User user, Tutor tutor, string utmSource)
         {
             Course = course;
@@ -31,7 +31,7 @@ namespace Cloudents.Core.Entities
 
         [CanBeNull]
         public virtual User User { get; protected set; }
-        public virtual Course Course { get; protected set; }
+        public virtual string Course { get; protected set; }
 
         public virtual string Text { get; protected set; }
         public virtual string Referer { get; protected set; }

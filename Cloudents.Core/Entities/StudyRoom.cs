@@ -19,7 +19,6 @@ namespace Cloudents.Core.Entities
             _users = new[] { new StudyRoomUser(tutor.User, this), new StudyRoomUser(user, this) };
             Tutor = tutor;
             Identifier = ChatRoom.BuildChatRoomIdentifier(new[] { tutor.Id, user.Id });
-            DateTime = DateTime.UtcNow;
             OnlineDocumentUrl = onlineDocumentUrl;
             Type = StudyRoomType.PeerToPeer;
             AddEvent(new StudyRoomCreatedEvent(this));
@@ -27,7 +26,7 @@ namespace Cloudents.Core.Entities
 
         protected StudyRoom()
         {
-
+            DateTime = new DomainTimeStamp();
         }
 
         public virtual Tutor Tutor { get; protected set; }
@@ -38,7 +37,7 @@ namespace Cloudents.Core.Entities
 
 
         public virtual string Identifier { get; protected set; }
-        public virtual DateTime DateTime { get; protected set; }
+        public virtual DomainTimeStamp DateTime { get; protected set; }
 
         public virtual string OnlineDocumentUrl { get; protected set; }
 
@@ -69,6 +68,7 @@ namespace Cloudents.Core.Entities
         public virtual void AddSession(StudyRoomSession session)
         {
             _sessions.Add(session);
+            DateTime.UpdateTime = System.DateTime.UtcNow;
         }
 
         public virtual void ChangeOnlineStatus(long userId, bool isOnline)

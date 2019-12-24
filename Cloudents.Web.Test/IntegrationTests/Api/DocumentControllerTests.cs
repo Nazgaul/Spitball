@@ -73,7 +73,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             {
                 AllowAutoRedirect = false
             });
-            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
         [Theory]
@@ -95,7 +94,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClient.CreateJsonString(_doc1));
+            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClientExtensions.CreateJsonString(_doc1));
 
             response.EnsureSuccessStatusCode();
         }
@@ -105,7 +104,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClient.CreateJsonString(_doc2));
+            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClientExtensions.CreateJsonString(_doc2));
 
             response.EnsureSuccessStatusCode();
         }
@@ -115,7 +114,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClient.CreateJsonString(_doc3));
+            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClientExtensions.CreateJsonString(_doc3));
 
             response.EnsureSuccessStatusCode();
         }
@@ -125,7 +124,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClient.CreateJsonString(_doc4));
+            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClientExtensions.CreateJsonString(_doc4));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -163,11 +162,11 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Fact]
         public async Task Upload_Doc_Without_Uni()
         {
-            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));
+            await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_credentials));
 
             _uri.Path = "api/upload";
 
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_upload));
+            var response = await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_upload));
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }

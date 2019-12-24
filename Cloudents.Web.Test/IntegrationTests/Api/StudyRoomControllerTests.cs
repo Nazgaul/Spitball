@@ -9,9 +9,10 @@ using Xunit;
 namespace Cloudents.Web.Test.IntegrationTests.Api
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class StudyRoomApiTests
+    public sealed class StudyRoomApiTests : IDisposable
     {
         private readonly System.Net.Http.HttpClient _client;
+        private readonly DatabaseFixture _fixture = new DatabaseFixture();
 
         public StudyRoomApiTests(SbWebApplicationFactory factory)
         {
@@ -22,15 +23,13 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("api/studyRoom/")]
         public async Task GetAsync_StudyRoom_Ok(string uri)
         {
-            DatabaseFixture fixture = new DatabaseFixture();
-
             await _client.LogInAsync();
 
             var response = await _client.GetAsync(uri);
 
             response.EnsureSuccessStatusCode();
 
-            using (var conn = fixture.DapperRepository.OpenConnection())
+            using (var conn = _fixture.DapperRepository.OpenConnection())
             {
                 var studyRoomId = conn.QueryFirst<Guid>("select top 1 id from sb.studyroom where tutorid = 159489");
                 uri += studyRoomId.ToString();
@@ -39,8 +38,9 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             response = await _client.GetAsync(uri);
 
             response.EnsureSuccessStatusCode();
-
-            fixture.Dispose();
+            var str = await response.Content.ReadAsStringAsync();
+            str.IsValidJson().Should().BeTrue();
+           
         }
 
         [Theory]
@@ -51,14 +51,12 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
+        
 
-        [Theory]
-        [InlineData("api/studyRoom")]
-        public async Task GetUserLobbyStudyRooms_StudyRoom_Ok(string uri)
+        public void Dispose()
         {
-            var response = await _client.GetAsync(uri);
-
-            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+            _client.Dispose();
+            _fixture.Dispose();
         }
     }
 }
