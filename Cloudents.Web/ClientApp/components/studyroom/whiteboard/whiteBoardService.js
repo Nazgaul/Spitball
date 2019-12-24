@@ -45,6 +45,25 @@ const ghostMoveData = function(actionObj, fromUndo){
     });
 };
 
+const ghostResizeData = function(actionObj, fromUndo){
+    dragData = store.getters['getDragData'];
+    dragData.forEach(shape=>{
+        if(actionObj.ids.indexOf(shape.id) > -1){
+            shape.points.forEach(point=>{
+                let newPoints =  selectShape.setNewPoints(point, actionObj.dragoffx, actionObj.dragoffy, actionObj.selectedAnchor, fromUndo)
+                if(point.option === "imageDraw"){
+                    point.width = newPoints.width;
+                    point.height =  newPoints.height;
+                }
+                point.mouseX = newPoints.x;
+                point.mouseY = newPoints.y;
+            });
+        }
+    });
+}
+
+
+
 const ghostDeleteData = function(actionObj, fromUndo){
     dragData = store.getters['getDragData'];
     dragData.forEach(shape=>{
@@ -69,7 +88,8 @@ const ghostChangeText = function(actionObj, fromUndo){
 const ghostByAction = {
     move: ghostMoveData,
     delete: ghostDeleteData,
-    changeText: ghostChangeText
+    changeText: ghostChangeText,
+    resize: ghostResizeData
 };
 
 const init = function(optionName){
