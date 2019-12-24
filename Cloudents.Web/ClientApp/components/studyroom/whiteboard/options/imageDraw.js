@@ -41,7 +41,8 @@ const imgSizeFit = function(imgWidth, imgHeight, maxWidth, maxHeight) {
 const draw = function (imgObj) {
     if (!!imageDictionary[imgObj.id]) {
         let img = imageDictionary[imgObj.id].img;
-        whiteBoardService.getContext().drawImage(img, imgObj.mouseX, imgObj.mouseY, img.width, img.height);
+        console.log(`img newX ${imgObj.mouseX} img newY ${imgObj.mouseY} img width ${imgObj.width} img height ${imgObj.height}`)
+        whiteBoardService.getContext().drawImage(img, imgObj.mouseX, imgObj.mouseY, imgObj.width, imgObj.height);
     } else {
         let img = new Image();
         // img.crossOrigin="anonymous";

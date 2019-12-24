@@ -13,8 +13,8 @@
                   :width="helperStyle.width"
                   :height="helperStyle.height"
                   :class="helperClass"
-                  :style="{'stroke': helperStyle.stroke}"/>
-
+                  :style="{'stroke': helperStyle.stroke}"/>            
+            
             <line v-if="selectedOptionString === enumOptions.line"
                   :x1="helperStyle.x1"
                   :y1="helperStyle.y1"
@@ -30,6 +30,32 @@
                      :ry="helperStyle.ry"
                      :class="helperClass"
                      :style="{'stroke': helperStyle.stroke}"/>
+
+            <rect v-if="selectedOptionString === enumOptions.select"
+                  :x="(Number(helperStyle.xRaw) - 6) + 'px'"
+                  :y="(Number(helperStyle.yRaw) - 6) + 'px'"
+                  :width="12"
+                  :height="12"
+                  class="anchor anchor-top-left"/>
+                  {{helperStyle.widthRaw}}
+            <rect v-if="selectedOptionString === enumOptions.select"
+                  :x="(Number(helperStyle.xRaw) + Number(helperStyle.widthRaw) -6) + 'px'"
+                  :y="Number(helperStyle.yRaw - 6) + 'px'"
+                  :width="12"
+                  :height="12"
+                  class="anchor anchor-top-right"/>
+            <rect v-if="selectedOptionString === enumOptions.select"
+                  :x="Number(helperStyle.xRaw - 6) + 'px'"
+                  :y="(Number(helperStyle.yRaw) + Number(helperStyle.heightRaw) - 6) + 'px'"
+                  :width="12"
+                  :height="12"
+                  class="anchor anchor-bottom-left"/>
+            <rect v-if="selectedOptionString === enumOptions.select"
+                  :x="(Number(helperStyle.xRaw) + Number(helperStyle.widthRaw) - 6) + 'px'"
+                  :y="(Number(helperStyle.yRaw) + Number( helperStyle.heightRaw) - 6) + 'px'"
+                  :width="12"
+                  :height="12"
+                  class="anchor anchor-bottom-right"/>
         </svg>
         <div v-if="getShowBoxHelper && dragData.length === 0" class="welcome-helper-top">
             <div class="top-helper">
@@ -165,6 +191,9 @@
             pointer-events: none;
             top: 0;
             left: 0;
+            .anchor{
+                fill:#4c59ff;
+            }
             .rectangular-helper {
                 pointer-events: none;
                 position: absolute;
