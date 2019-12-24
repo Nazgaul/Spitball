@@ -431,7 +431,7 @@ const actions = {
     uploadCapturedImage(context, formData) {
         return chatService.uploadCapturedImage(formData);
     },
-    createStudyRoom({}, userId){
+    createStudyRoom(context, userId){
         return studyRoomsService.createRoom(userId);
     },
 };

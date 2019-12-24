@@ -91,7 +91,7 @@ export default {
          }
       },
       dynamicAction(item){
-         if(item.type === 'Document' || 'Video'){
+         if(item.type === 'Document' || item.type === 'Video'){
             this.$router.push({path:item.url})
          }
       },
