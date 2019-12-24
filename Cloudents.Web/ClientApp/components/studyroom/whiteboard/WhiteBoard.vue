@@ -31,30 +31,30 @@
                      :class="helperClass"
                      :style="{'stroke': helperStyle.stroke}"/>
 
-            <rect v-if="selectedOptionString === enumOptions.select"
-                  :x="(Number(helperStyle.xRaw) - 6) + 'px'"
-                  :y="(Number(helperStyle.yRaw) - 6) + 'px'"
-                  :width="12"
-                  :height="12"
+            <rect v-if="selectedOptionString === enumOptions.select && showAnchors"
+                  :x="(Number(helperStyle.xRaw) - 4) + 'px'"
+                  :y="(Number(helperStyle.yRaw) - 4) + 'px'"
+                  :width="8"
+                  :height="8"
                   class="anchor anchor-top-left"/>
                   {{helperStyle.widthRaw}}
-            <rect v-if="selectedOptionString === enumOptions.select"
-                  :x="(Number(helperStyle.xRaw) + Number(helperStyle.widthRaw) -6) + 'px'"
-                  :y="Number(helperStyle.yRaw - 6) + 'px'"
-                  :width="12"
-                  :height="12"
+            <rect v-if="selectedOptionString === enumOptions.select && showAnchors"
+                  :x="(Number(helperStyle.xRaw) + Number(helperStyle.widthRaw) -4) + 'px'"
+                  :y="Number(helperStyle.yRaw - 4) + 'px'"
+                  :width="8"
+                  :height="8"
                   class="anchor anchor-top-right"/>
-            <rect v-if="selectedOptionString === enumOptions.select"
-                  :x="Number(helperStyle.xRaw - 6) + 'px'"
-                  :y="(Number(helperStyle.yRaw) + Number(helperStyle.heightRaw) - 6) + 'px'"
-                  :width="12"
-                  :height="12"
+            <rect v-if="selectedOptionString === enumOptions.select && showAnchors"
+                  :x="Number(helperStyle.xRaw - 4) + 'px'"
+                  :y="(Number(helperStyle.yRaw) + Number(helperStyle.heightRaw) - 4) + 'px'"
+                  :width="8"
+                  :height="8"
                   class="anchor anchor-bottom-left"/>
-            <rect v-if="selectedOptionString === enumOptions.select"
-                  :x="(Number(helperStyle.xRaw) + Number(helperStyle.widthRaw) - 6) + 'px'"
-                  :y="(Number(helperStyle.yRaw) + Number( helperStyle.heightRaw) - 6) + 'px'"
-                  :width="12"
-                  :height="12"
+            <rect v-if="selectedOptionString === enumOptions.select && showAnchors"
+                  :x="(Number(helperStyle.xRaw) + Number(helperStyle.widthRaw) - 4) + 'px'"
+                  :y="(Number(helperStyle.yRaw) + Number( helperStyle.heightRaw) - 4) + 'px'"
+                  :width="8"
+                  :height="8"
                   class="anchor anchor-bottom-right"/>
         </svg>
         <div v-if="getShowBoxHelper && dragData.length === 0" class="welcome-helper-top">

@@ -81,7 +81,8 @@ export default {
             'clearAllClicked',
             'getTabIndicator',
             'getImgLoader',
-            'getShowBoxHelper']),
+            'getShowBoxHelper',
+            'getShapesSelected']),
         equationSizeX(){
             return (window.innerWidth / 2) - 300;
         },
@@ -122,6 +123,19 @@ export default {
         isTutor() {
             return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
         },
+        showAnchors(){
+            let unsupportedResizeShapes = ["liveDraw", "textDraw", "equationDraw", "iink"];
+            if(Object.keys(this.getShapesSelected).length === 1){
+                let shapeId = Object.keys(this.getShapesSelected)[0];
+                if(unsupportedResizeShapes.indexOf(this.getShapesSelected[shapeId].type) > -1){
+                    return false;
+                }else{
+                    return true;
+                }
+            }else{
+                return false
+            }
+        }
     },
     watch: {
         canvasDataColor(newVal){
