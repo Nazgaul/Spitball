@@ -47,7 +47,7 @@
           <v-list>
             <v-list-tile
               v-for="(prop, i) in actions"
-              v-show="prop.isVisible(item.visible)"
+              v-show="prop.isVisible(prop.visible)"
               :disabled="prop.isDisabled()"
               :key="i"
             >
