@@ -87,6 +87,10 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             }
             var response = await _client.GetAsync(endPoint);
             response.StatusCode.Should().Be(200);
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
         }
 
         [Fact]
@@ -129,16 +133,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
-        [Fact]
-        public async Task GetAsync_OldDocument_OK()
-        {
-            _uri.Path = "document/Box%20Read%20for%20hotmail%20user/Load%20Stress%20Testing%20Multimi2.docx/457";
-
-            var response = await _client.GetAsync(_uri.Path);
-
-            response.EnsureSuccessStatusCode();
-        }
-
         [Theory]
         [InlineData("document/המסלול-האקדמי-המכללה-למנהל")]
         public async Task ShortUrl_Invalid_404(string url)
@@ -157,6 +151,9 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
+            var str = await response.Content.ReadAsStringAsync();
+
+            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
         }
 
         [Fact]

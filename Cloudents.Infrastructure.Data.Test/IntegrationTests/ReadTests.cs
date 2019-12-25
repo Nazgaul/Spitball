@@ -209,6 +209,26 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
+        [Fact]
+        public async Task UserCoursesQuery_Ok()
+        {
+            var query = new UserCoursesQuery(638);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task UniversityQuery_Ok()
+        {
+            var query = new UniversityQuery(Guid.Parse("80B226AE-94A1-4240-8796-A98200E81A54"));
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task UserReferralsQuery_Ok()
+        {
+            var query = new UserReferralsQuery(159039);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
 
         [Fact]
         public async Task UserUnreadMessage_Ok()
@@ -334,5 +354,63 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new UserPurchasesByIdQuery(userId);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
+
+        [Theory]
+        [InlineData(638)]
+        [InlineData(159039)]
+        public async Task UserContentByIdQuery_Ok(long id)
+        {
+            var query = new UserContentByIdQuery(id);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task ChatConversationsQuery_Ok()
+        {
+            var query = new ChatConversationsQuery(159039);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task GetBannerQuery_Ok()
+        {
+            var query = new GetBannerQuery(new System.Globalization.CultureInfo("en"));
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task ChatConversationQuery_Ok()
+        {
+            var query = new ChatConversationQuery("159039_160171", 159039);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task ChatConversationByIdQuery_Ok()
+        {
+            var query = new ChatConversationByIdQuery("159039_160171", 0);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task UserVotesByCategoryQuery_Ok()
+        {
+            var query = new UserVotesByCategoryQuery(159039);
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task AboutTutorQuery_Ok()
+        {
+            var query = new AboutTutorQuery();
+            _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        //[Fact]
+        //public async Task CalendarEventsQuery_Ok()
+        //{
+        //    var query = new CalendarEventsQuery(159039, DateTime.UtcNow, DateTime.UtcNow.AddDays(2));
+        //    _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
     }
 }
