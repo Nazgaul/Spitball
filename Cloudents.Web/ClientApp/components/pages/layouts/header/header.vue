@@ -1,16 +1,16 @@
 ﻿<template>
     <div v-if="!isHideHeader">
-    <v-toolbar :class="{'homePageWrapper': isHomePage}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" :app="isApp" :fixed="isApp" clipped-left clipped-right>
+    <v-toolbar :class="{'homePageWrapper': isHomePage}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
         <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
             <logoComponent/>
         </router-link>
         <div class="globalHeader_items">
-            <div class="globalHeader_items_left" v-if="!isMobile && isShowSearch">
+            <div class="globalHeader_items_left" v-if="!isMobile && showSearch">
                 <searchCMP :placeholder="searchPlaceholder"/>
             </div>
             <v-spacer v-else></v-spacer>
             <div class="globalHeader_items_right">
-                <router-link v-show="!isMobile && isShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
+                <router-link v-show="!isMobile && shouldShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
                     <findSVG/>
                     <span v-language:inner="'header_find_tutors'"/>
                 </router-link>
@@ -62,7 +62,7 @@
                 </v-menu>
             </div>
         </div>
-        <template v-slot:extension v-if="isMobile && isShowSearch">
+        <template v-slot:extension v-if="isMobile && showSearch">
             <div class="mobileHeaderSearch">
                 <searchCMP :placeholder="searchPlaceholder"/>
             </div>
@@ -127,34 +127,36 @@ export default {
         searchPlaceholder(){
             return this.isTablet ? LanguageService.getValueByKey(`header_placeholder_search`) : LanguageService.getValueByKey(`header_placeholder_search_m`);
         },
-        isShowSearch(){
-            let hiddenRoutes = ['document',undefined,'tutorLandingPage']
-            return !hiddenRoutes.includes(this.currentRoute)
+        showSearch(){
+            let showRoutes = ['feed'];
+            return showRoutes.includes(this.currentRoute)
         },
         isHomePage(){
             return this.currentRoute === undefined;
         },
-        isShowFindTutor(){ 
+        shouldShowFindTutor(){ 
             let hiddenRoutes = ['tutorLandingPage']
             return !hiddenRoutes.includes(this.currentRoute)
         },
-        isApp(){
-            return true;
-            // let hiddenRoutes = ['tutorLandingPage']
-            // return !hiddenRoutes.includes(this.currentRoute)
-        }
+        // isApp(){
+        //     return true;
+        //     // let hiddenRoutes = ['tutorLandingPage']
+        //     // return !hiddenRoutes.includes(this.currentRoute)
+        // }
     },
     watch: {
-        drawer(val){
-            if(!!val && this.$vuetify.breakpoint.xsOnly){
-                document.body.className="noscroll";
-            }else{
-                document.body.removeAttribute("class","noscroll");
-            }
-        },
+        // drawer(val){
+        //     if(!!val && this.$vuetify.breakpoint.xsOnly){
+        //         document.body.className="noscroll";
+        //     }else{
+        //         document.body.removeAttribute("class","noscroll");
+        //     }
+        // },
     '$route'(){
       this.$nextTick(()=>{
-          this.currentRoute = this.$route.name
+          console.log(this.$route.name)
+            this.drawer = false;
+            this.currentRoute = this.$route.name
       })
     },
     },
@@ -168,7 +170,7 @@ export default {
             this.UPDATE_SEARCH_LOADING(true);
             this.$router.push('/');
         },
-        closeDrawer(){
+        closeDrawer() {
             this.drawer = !this.drawer;
         },         
         $_currentClick({id, name}) {
@@ -228,10 +230,10 @@ export default {
 .globalHeader{
     border: solid 1px #dadada !important;
     z-index: 200;
-    &.homePageWrapper{
+    //&.homePageWrapper{
         // max-width: 1500px; 
         // margin: 0 auto !important;
-    }
+    //}
     .v-toolbar__extension{
     @media (max-width: @screen-xs) {
       padding: 0 8px
@@ -436,9 +438,9 @@ export default {
                     height: 18px;
                     width: 18px;
                     line-height: 12px;
-                    font-size: 10px;
+                    font-size: 12px;
                     display: flex;
-                    font-weight: 500;
+                    font-weight: 600;
                     justify-content: center;
                     flex-direction: column;
                     text-align: center;

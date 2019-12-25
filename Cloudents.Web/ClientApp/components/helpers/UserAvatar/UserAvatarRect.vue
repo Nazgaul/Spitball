@@ -58,7 +58,10 @@ export default {
             this.isLoaded = true;
         },
         onImgError(){
+            //this.isLoaded  = true;
+            this.userImageUrl = null;
             this.imgError = true;
+          
         }
     },
     computed: {

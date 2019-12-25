@@ -115,7 +115,7 @@ export default {
         let path = this.$route.path.toLowerCase();
 
         this.$nextTick(() => {
-            this.updateToUrl({path: this.from.path});
+            this.updateToUrl({path: this.from.fullPath});
         })       
         
         if (!!this.$route.query.returnUrl) {

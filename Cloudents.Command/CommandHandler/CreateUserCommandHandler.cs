@@ -23,8 +23,11 @@ namespace Cloudents.Command.CommandHandler
         {
             if (!string.IsNullOrEmpty(message.Course))
             {
-                var course = await _courseRepository.LoadAsync(message.Course, token);
-                message.User.AssignCourses(new[] { course });
+                var course = await _courseRepository.GetAsync(message.Course, token);
+                if (course != null)
+                {
+                    message.User.AssignCourses(new[] {course});
+                }
             }
             await _userRepository.AddAsync(message.User, token);
         }

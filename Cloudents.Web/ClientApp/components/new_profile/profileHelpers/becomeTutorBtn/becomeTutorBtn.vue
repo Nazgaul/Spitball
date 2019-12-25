@@ -2,7 +2,7 @@
     <div class="tutor-btn-wrap">
         <button class="ct-btn" @click="updateTutorDialog(true)">
             <v-icon class="ct-btn-icon mr-2">sbf-face-icon</v-icon>
-            <span class="btn-text text-uppercase" v-language:inner>profile_become_tutor_btn</span>
+            <span class="btn-text" v-language:inner>profile_become_tutor_btn</span>
         </button>
     </div>
 </template>

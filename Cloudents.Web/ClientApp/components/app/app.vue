@@ -225,6 +225,7 @@ export default {
       }
     },
     cookiesShow() {
+      if(global.country === 'IL') return true;
       if(!this.accountUser){
         return this.getCookieAccepted();
       }else{
@@ -289,6 +290,9 @@ export default {
       }, this.getToasterTimeout);
     },
     '$route'(){
+      if(this.loginDialogState) {
+        this.updateLoginDialogState(false);
+      }
       this.$nextTick(()=>{
         this.fireOptimizeActivate()
       })

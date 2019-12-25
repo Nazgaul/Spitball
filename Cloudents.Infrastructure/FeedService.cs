@@ -39,12 +39,12 @@ namespace Cloudents.Infrastructure
                 return itemsFeed;
             }
 
-            var tutorlocationPageZero = new[] { 2, 12, 19 };
-            var tutorlocationPage = new[] { 6, 13, 20 };
+            var tutorLocationPageZero = new[] { 2, 12, 19 };
+            var tutorLocationPage = new[] { 6, 13, 20 };
 
-            var locations = new[] { tutorlocationPageZero, tutorlocationPage };
+            var locations = new[] { tutorLocationPageZero, tutorLocationPage };
 
-            var pageLocations = locations.ElementAtOrDefault(page) ?? tutorlocationPage;
+            var pageLocations = locations.ElementAtOrDefault(page) ?? tutorLocationPage;
 
 
             foreach (var item in pageLocations)
@@ -69,7 +69,6 @@ namespace Cloudents.Infrastructure
             }
 
             var feedQuery = new FeedAggregateQuery(query.UserId, query.Page, query.Filter, query.Country, query.Course, ItemPageSize);
-            Task<IEnumerable<TutorCardDto>> tutorsTask;
             var itemsTask = _queryBus.QueryAsync(feedQuery, token);
 
             //Task<ListWithCountDto<TutorCardDto>> tutorsTask = Task.FromResult<ListWithCountDto<TutorCardDto>>(null);
@@ -88,7 +87,7 @@ namespace Cloudents.Infrastructure
             else
             {
                 var tutorQuery = new TutorListByCourseQuery(query.Course, query.UserId, query.Country, TutorPageSize, query.Page);
-                tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
+                var tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
 
                 await Task.WhenAll(itemsTask, tutorsTask);
 
@@ -119,7 +118,7 @@ namespace Cloudents.Infrastructure
                 Page = query.Page,
             };
 
-            var tutorQuery = new TutorListTabSearchQuery(query.Term, query.Country, query.Page, TutorPageSize);
+            var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, TutorPageSize);
             var tutorTask = _tutorSearch.SearchAsync(tutorQuery, token);
             var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
 

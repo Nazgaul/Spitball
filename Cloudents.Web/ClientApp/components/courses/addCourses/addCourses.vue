@@ -438,7 +438,7 @@
         }
         .students-enrolled {
             color: rgba(128, 128, 128, 0.87);
-            font-size: 10px;
+            font-size: 12px;
         }
         //new
         .selected-class-item {
