@@ -63,6 +63,11 @@ export default {
     }
     .itemsCarousel{
         width: 100%;
+        .sbCarousel_btn {
+            i {
+                font-size: 18px;
+            }
+        }
     }
 
 }

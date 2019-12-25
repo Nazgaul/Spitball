@@ -156,6 +156,8 @@ export default {
         position: absolute;
         left: 14px;
         top: 8px;
+        font-size: 14px;
+        line-height: normal;
       }
     }
     .categories-chips {
@@ -181,7 +183,7 @@ export default {
   .categories-bottom {
     display: flex;
     justify-content: space-between;
-    height: 260px;
+    // height: 260px;
     @media (max-width: @sbScreen-tablet) {
       background-color: #f9f9fa;
       justify-content: center;
@@ -198,6 +200,7 @@ export default {
         padding: 16px 0 4px 0;
       }
       .banner-title {
+        line-height: normal;
         @media (max-width: @sbScreen-tablet) {
           text-align: center;
 
@@ -252,6 +255,8 @@ export default {
           position: absolute;
           left: 14px;
           top: 8px;
+          font-size: 14px;
+          line-height: normal;
         }
       }
     }

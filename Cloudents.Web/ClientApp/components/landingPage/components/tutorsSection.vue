@@ -77,6 +77,14 @@ export default {
   }
   .tutorsCarousel {
     width: 100%;
+
+    .sbCarousel_btn {
+      i {
+        // transform: scaleX(1)/*rtl:scaleX(-1)*/; 
+        color: rgb(68, 82, 252) !important;
+        font-size: 16px;
+      }
+    }
   }
 }
 </style>
