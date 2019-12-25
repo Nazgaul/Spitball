@@ -225,6 +225,7 @@ export default {
       }
     },
     cookiesShow() {
+      if(global.country === 'IL') return true;
       if(!this.accountUser){
         return this.getCookieAccepted();
       }else{
