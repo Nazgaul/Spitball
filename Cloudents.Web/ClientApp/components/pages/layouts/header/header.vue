@@ -436,9 +436,9 @@ export default {
                     height: 18px;
                     width: 18px;
                     line-height: 12px;
-                    font-size: 10px;
+                    font-size: 12px;
                     display: flex;
-                    font-weight: 500;
+                    font-weight: 600;
                     justify-content: center;
                     flex-direction: column;
                     text-align: center;

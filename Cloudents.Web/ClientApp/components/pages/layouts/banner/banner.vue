@@ -235,7 +235,7 @@ export default {
                         letter-spacing: normal;
                     }
                     .globalBanner_timer_box_text{
-                        font-size: 9px;
+                        font-size: 12px;
                         font-weight: 600;
                         font-stretch: normal;
                         font-style: normal;

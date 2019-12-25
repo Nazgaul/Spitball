@@ -371,7 +371,7 @@ export default {
       width: 200px;
       margin: 4px 0 0 auto;
       text-align: left;
-      font-size: 11px;
+      font-size: 12px;
       color: #ff5252;
     }
   }
@@ -401,7 +401,7 @@ export default {
         font-weight: normal;
         color: #ccc;
         .small-text{
-          font-size: 11px;
+          font-size: 12px;
         }
       }
       &:after {
@@ -499,7 +499,7 @@ export default {
     width: 236px;
     margin-top: 4px;
     text-align: left;
-    font-size: 11px;
+    font-size: 12px;
     color: #ff5252;
   }
     }
