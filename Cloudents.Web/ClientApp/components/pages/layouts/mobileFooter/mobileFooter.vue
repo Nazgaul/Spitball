@@ -141,7 +141,7 @@ export default {
                 margin-top: -2px;
             }
             .mF_title{
-                font-size: 10px;
+                font-size: 12px;
                 font-weight: 600;
                 font-stretch: normal;
                 font-style: normal;
@@ -157,16 +157,16 @@ export default {
                 position: relative;
                 .mF_chat_unread{
                     position: absolute;
-                    top: -6px;
+                    top: -2px;
                     right: -6px;
                     background: #ce3333;
                     color: #fff;
                     border-radius: 50%;
-                    height: 13px;
-                    width: 13px;
-                    line-height: 13px;
+                    height: 16px;
+                    width: 16px;
+                    line-height: 16px;
                     display: flex;
-                    font-size: 10px;
+                    font-size: 12px;
                     justify-content: center;
                     flex-direction: column;
                     text-align: center;

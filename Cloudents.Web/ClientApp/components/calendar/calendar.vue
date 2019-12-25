@@ -494,7 +494,7 @@ display: flex;
           font-weight: bold;
           padding: 0;
         @media (max-width: @screen-xs) {
-            font-size: 10px;
+            font-size: 12px;
             text-align: center;
         }
         }
