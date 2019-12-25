@@ -3,7 +3,7 @@ import {createShape, createGhostShape} from '../utils/factories'
 import whiteBoardService from '../whiteBoardService'
 import helper from '../utils/helper'
 import canvasFinder from '../utils/canvasFinder'
-import { async } from 'q'
+
 
 const optionType = 'selectShape';
 
