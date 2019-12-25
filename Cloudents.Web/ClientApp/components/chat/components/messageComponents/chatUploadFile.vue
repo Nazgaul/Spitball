@@ -146,7 +146,7 @@
 
                 this.uploadCapturedImage(formData).then(()=> {
                     
-                }).catch(ex => {
+                }).catch(() => {
                     this.updateFileError(true)
                 }).finally(() => {
                     this.updateChatUploadLoading(false)

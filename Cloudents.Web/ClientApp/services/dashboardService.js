@@ -1,33 +1,24 @@
 import { connectivityModule } from "./connectivity.module";
-function SalesItem(objInit){
-   return Object.assign(
-      new DefaultItem(objInit),
-      {
-         name: objInit.name,
-         price: objInit.price,
-         course: objInit.course || '',
-         preview: objInit.preview || '',
-         id: objInit.id || null,
-         duration: objInit.duration,
-         answerText: objInit.answerText || '',
-         text: objInit.text || '',
-         studentImage: objInit.studentImage || '',
-         studentName: objInit.studentName,
-         studentId: objInit.studentId || '',
-         url: objInit.url,
-         paymentStatus: objInit.paymentStatus,
-      }
-   )
+
+function itemTypeChcker(type){
+   if(type.toLowerCase() === 'document' || type.toLowerCase() === 'video'){
+      return 'Document';
+   }
+   if(type.toLowerCase() === 'question' || type.toLowerCase() === 'answer'){
+      return 'Question';
+   }
+   if(type.toLowerCase() === 'tutoringsession'){
+      return 'Session';
+   }
+   return console.error('type:',type,'is not defined')
 }
-function DefaultItem(objInit){
-   this.type = objInit.type;
-   this.date = objInit.date;
-}
+
 const Item = {
    Default:function(objInit){
       this.type = objInit.type;
       this.date = objInit.date;
       this.course = objInit.course || '';
+      this.id = objInit.id || objInit.questionId || objInit.tutorId || objInit.studentId;
    },
    Document:function(objInit){
       this.name = objInit.name;
@@ -38,36 +29,64 @@ const Item = {
       this.purchased = objInit.purchased;
       this.preview = objInit.preview;
       this.url = objInit.url;
-      this.id = objInit.id;
    },
    Question:function(objInit){
-      this.id = objInit.questionId || objInit.id;
       this.text = objInit.text || objInit.questionText;
       this.answerText = objInit.answerText || '';
+   },
+   Session:function(objInit){
+      this.duration = objInit.duration;
+      this.price = objInit.price;
+      this.name = objInit.tutorName || objInit.studentName;
+      this.image = objInit.tutorImage || objInit.studentImage;
+   },
+   Balances:function(objInit){
+      this.type = objInit.type;
+      this.points = objInit.points;
+      this.value = objInit.value;
+      this.symbol = objInit.symbol;
+   },
+   StudyRoom:function(objInit){
+      this.name = objInit.name;
+      this.image = objInit.image;
+      this.userId = objInit.userId;
+      this.online = objInit.online;
+      this.id = objInit.id;
+      this.date = objInit.dateTime;
+      this.conversationId = objInit.conversationId;
+      this.lastSession = objInit.lastSession;
    }
 }
 
-
-function _itemTypeChcker(type){
-   if(type.toLowerCase() === 'document' || type.toLowerCase() === 'video'){
-      return 'Document';
-   }
-   if(type.toLowerCase() === 'question' || type.toLowerCase() === 'answer'){
-      return 'Question';
-   }
-   return console.error('type:',type,'is not defined')
+function StudyRoomItem(objInit){
+   return Object.assign(
+      new Item.StudyRoom(objInit)
+   )
 }
-
-
-
-
 function ContentItem(objInit){
    return Object.assign(
       new Item.Default(objInit),
-      new Item[_itemTypeChcker(objInit.type)](objInit)
+      new Item[itemTypeChcker(objInit.type)](objInit)
    )
 }
-
+function SalesItem(objInit){
+   return Object.assign(
+      new Item.Default(objInit),
+      new Item[itemTypeChcker(objInit.type)](objInit),
+      {
+         paymentStatus: objInit.paymentStatus,
+      }
+   )
+}
+function PurchasesItem(objInit){
+   return Object.assign(
+      new Item.Default(objInit),
+      new Item[itemTypeChcker(objInit.type)](objInit)
+   )
+}
+function BalancesItems(objInit){
+   return new Item.Balances(objInit)
+}
 function createSalesItems({data}) {
    let salesItems = [];
    data.forEach(item => salesItems.push(new SalesItem(item)));
@@ -75,18 +94,44 @@ function createSalesItems({data}) {
 }
 function createContentItems({data}) {
    let contentItems = [];
-   data.forEach(item => contentItems.push(new ContentItem(item)));
+   data.map(item => contentItems.push(new ContentItem(item)));
    return contentItems;
 }
-
+function createPurchasesItems({data}) {
+   let purchasesItems = [];
+   data.map(item => purchasesItems.push(new PurchasesItem(item)));
+   return purchasesItems;
+}
+function createBalancesItems({data}) {
+   let balancesItems = [];
+   data.map(item => balancesItems.push(new BalancesItems(item)));
+   return balancesItems;
+}
+function createStudyRoomItems({data}) {
+   let studyRoomItems = [];
+   data.map(item => studyRoomItems.push(new StudyRoomItem(item)));
+   return studyRoomItems;
+}
 function getSalesItems(){
    return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex)
 }
 function getContentItems(){
    return connectivityModule.http.get('/Account/content').then(createContentItems).catch(ex => ex)
 }
+function getPurchasesItems(){
+   return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex)
+}
+function getBalancesItems(){
+   return connectivityModule.http.get('Wallet/balance').then(createBalancesItems).catch(ex => ex)
+}
+function getStudyRoomItems(){
+   return connectivityModule.http.get('StudyRoom').then(createStudyRoomItems).catch(ex => ex)
+}
 
 export default {
    getSalesItems,
-   getContentItems
+   getContentItems,
+   getPurchasesItems,
+   getBalancesItems,
+   getStudyRoomItems,
 }

@@ -13,7 +13,6 @@
 
 <script>
 import sbCarousel from '../../sbCarousel/sbCarousel.vue';
-import { LanguageService } from "../../../services/language/languageService.js";
 import testimonialCard from '../../carouselCards/testimonialCard.vue'
 import { mapGetters, mapActions } from 'vuex';
 

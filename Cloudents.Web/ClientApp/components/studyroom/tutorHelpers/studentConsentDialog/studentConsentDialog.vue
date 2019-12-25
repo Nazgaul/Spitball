@@ -24,7 +24,6 @@
 <script>
     import { mapActions } from 'vuex';
     import studyRoomRecordingService from '../../studyRoomRecordingService';
-    import {LanguageService} from "../../../../services/language/languageService";
 
     export default {
         data() {

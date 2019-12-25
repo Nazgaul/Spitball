@@ -13,12 +13,11 @@
 </template>
 <script>
     import {mapGetters, mapActions} from 'vuex';
-    import tutorCard from "../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue";
     import tutorResultCardOther from "../../results/tutorCards/tutorResultCardOther/tutorResultCardOther.vue";
 
     export default {
         name: "tutorList",
-        components: {tutorCard,tutorResultCardOther},
+        components: {tutorResultCardOther},
         computed: {
             ...mapGetters(['tutorList']),
             isMobile(){
@@ -26,7 +25,7 @@
             }
         },
         watch: {
-            '$route.query'(val) {
+            '$route.query'() {
                 let objReq;
                 if(!!this.$route.query) {
                     let course = this.getCourseFromQuery();

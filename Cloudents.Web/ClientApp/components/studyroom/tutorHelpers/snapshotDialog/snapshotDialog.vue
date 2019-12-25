@@ -36,7 +36,7 @@
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
-    import studyRoomRecordingService from '../../studyRoomRecordingService';
+    // import studyRoomRecordingService from '../../studyRoomRecordingService';
     import {LanguageService} from "../../../../services/language/languageService";
 
     export default {
@@ -87,7 +87,7 @@
             },
             getUrlFromBlob(){
                 let context = document.getElementById("snapshot").getContext('2d');
-                let blob = context.canvas.toBlob(this.downloadImg, "image/png");
+                context.canvas.toBlob(this.downloadImg, "image/png");
             },
             // startInterval() {
             //     let timeleft = 3;

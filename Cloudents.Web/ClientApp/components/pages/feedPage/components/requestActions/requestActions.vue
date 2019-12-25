@@ -31,7 +31,6 @@
 import { mapActions, mapGetters } from "vuex";
 import userAvatar from "../../../../helpers/UserAvatar/UserAvatar.vue";
 import analyticsService from "../../../../../services/analytics.service";
-import {LanguageService} from "../../../../../services/language/languageService";
 
 import aQuestion from "./image/aQuestion.svg";
 import rTutor from "./image/rTutor.svg";
@@ -60,6 +59,7 @@ export default {
       if (this.accountUser && this.accountUser.id) {
         return this.accountUser.id;
       }
+      return null
     }
   },
   methods: {

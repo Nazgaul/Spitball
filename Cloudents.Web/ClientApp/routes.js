@@ -4,7 +4,7 @@ const globalBanner = () => import('./components/pages/layouts/banner/banner.vue'
 const feeds = () => import('./components/results/feeds/Feeds.vue');
 const pageHeader = () => import('./components/pages/layouts/header/header.vue');
 const sideMenu = () => import('./components/pages/layouts/sideMenu/sideMenu.vue');
-// const document = () => import("./components/document/document.vue");
+
 const itemPage = () => import("./components/pages/itemPage/item.vue");
 
 const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
@@ -21,8 +21,6 @@ const editCourse = () => import("./components/courses/editCourses/editCourses.vu
 const setUniversity = () => import("./components/university/university.vue");
 const addUniversity = () => import("./components/university/addUniversity/addUniversity.vue");
 
-
-const studyRoomsComponent = () => import("./components/studyRooms/studyRooms.vue");
 const roomSettings = () => import("./components/studyroomSettings/studyroomSettings.vue");
 const tutorComponent = () => import("./components/studyroom/tutor.vue");
 const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.vue");
@@ -64,13 +62,6 @@ const resultProps = {
 };
 const feedPage = {
     default: feeds,
-    banner: globalBanner,
-    header: pageHeader,
-    sideMenu: sideMenu
-};
-
-const studyRoomsPage = {
-    default: studyRoomsComponent,
     banner: globalBanner,
     header: pageHeader,
     sideMenu: sideMenu
@@ -257,16 +248,6 @@ let routes2 = [
         }
     },
     {
-        path: "/study-rooms",
-        name: 'studyRooms',
-        components: studyRoomsPage,
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            })
-        }
-    },
-    {
         path: "/question/:id",
         components: {
             default: viewQuestion,
@@ -367,6 +348,34 @@ let routes2 = [
         path: "/my-content",
         components: dashboardPages,
         name: "myContent",
+        props: {
+            default: (route) => ({
+                component: route.name,
+            })
+        },
+        meta: {
+            requiresAuth: true,
+            showMobileFooter: true,
+        },
+    },
+    {
+        path: "/my-purchases",
+        components: dashboardPages,
+        name: "myPurchases",
+        props: {
+            default: (route) => ({
+                component: route.name,
+            })
+        },
+        meta: {
+            requiresAuth: true,
+            showMobileFooter: true,
+        },
+    },
+    {
+        path: "/study-rooms",
+        components: dashboardPages,
+        name: "myStudyRooms",
         props: {
             default: (route) => ({
                 component: route.name,

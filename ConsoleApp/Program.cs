@@ -490,7 +490,7 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
         {
             var queryBus = _container.Resolve<IQueryBus>();
 
-            var query = new UserSalesByIdQuery(159039);
+            var query = new UserStudyRoomQuery(159039);
             var t = await queryBus.QueryAsync(query, default);
             //await PopulateUsersImageName();
             //await commandBus.DispatchAsync(command2, default);

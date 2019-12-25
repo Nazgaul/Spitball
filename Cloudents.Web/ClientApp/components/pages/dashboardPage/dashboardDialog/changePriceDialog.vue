@@ -61,13 +61,10 @@ export default {
          let data = { id: this.dialogData.id, price: this.editedPrice };
          let self = this;
          documentService.changeDocumentPrice(data).then(
-            success => {
+            () => {
                self.dashboard_updatePrice({newPrice:self.editedPrice,itemId:self.dialogData.id})
                self.editedPrice = '';
                self.$emit('closeDialog')
-            },
-            error => {
-               console.error("erros change price", error);
             }
          );
       },

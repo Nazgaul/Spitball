@@ -175,7 +175,9 @@ import {mapGetters, mapActions} from 'vuex';
 import helperUtil from './utils/helper';
 import whiteBoardService from './whiteBoardService';
 import {Compact} from 'vue-color';
+// eslint-disable-next-line no-unused-vars
 import textDraw from './options/textDraw';
+// eslint-disable-next-line no-unused-vars
 import equationDraw from './options/equationDraw';
 
 export default {
@@ -231,13 +233,13 @@ export default {
             this.setSelectedOptionString(selectedOption);
             if(selectedOption === 'textDraw'){
                 let mouseEvent = new MouseEvent("mousedown", {});
-                canvas.dispatchEvent(mouseEvent);
+                global.canvas.dispatchEvent(mouseEvent);
             } else if(selectedOption === 'equationDraw'){
                 let mouseEvent = new MouseEvent("mousedown", {});
-                canvas.dispatchEvent(mouseEvent);
+                global.canvas.dispatchEvent(mouseEvent);
             } else if(selectedOption === 'iink'){
                 let mouseEvent = new MouseEvent("mousedown", {});
-                canvas.dispatchEvent(mouseEvent);
+                global.canvas.dispatchEvent(mouseEvent);
             } else{
                 helperUtil.HelperObj.isActive = false;
             }

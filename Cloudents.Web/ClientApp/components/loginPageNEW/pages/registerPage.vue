@@ -109,7 +109,7 @@ export default {
     },
     created() {
         storeService.registerModule(this.$store, 'loginRegister', loginRegister);
-        global.onpopstate = (event) => {
+        global.onpopstate = () => {
             this.goBackStep()
         }; 
         let path = this.$route.path.toLowerCase();

@@ -86,6 +86,7 @@ export default {
             if(this.document && this.document.details) {
                 return this.document.details.price.toLocaleString();
             }
+            return null
         },
         docPrice() {
             if(this.document && this.document.details) {

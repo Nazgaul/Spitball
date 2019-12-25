@@ -1,136 +1,158 @@
 <template>
-	<v-layout column class="myPurchases">
-		<h1>My Purchases</h1>
-		<v-layout row wrap justify-end class="myPurchases_filters">
-			<v-btn class="black--text" color="none" @click="reset" icon><v-icon>sbf-clearAll-icon</v-icon></v-btn>
-			<v-flex sm2 xs12 :class="[{'mr-3':!isMobile}]">
-				<v-select :append-icon="'sbf-arrow-down'" :items="['Video','Doc','Sessions','All']" v-model="filter" label="Type" outline/>
-			</v-flex>
-			<v-flex sm2 xs12 :class="[{'mr-3':!isMobile}]">
-				<v-select :append-icon="'sbf-arrow-down'" :items="['Date','Price']" v-model="sort" label="Sort" outline/>
-			</v-flex>
-			<v-flex sm3 xs12>
-				<v-text-field v-model="search" placeholder="Placeholder"/>
-			</v-flex>
-		</v-layout>
-		<v-flex xs12 class="myPurchases_table">
-			<v-data-table
-				:headers="headers"
-				:items="dataFilteredAndSorted"
-				 disable-initial-sort
-				class="elevation-1"
-				:prev-icon="'sbf-arrow-left-carousel'"
-				:sort-icon="'sbf-arrow-down'"
-				:next-icon="'sbf-arrow-right-carousel'">
-				<template v-slot:items="props">
-					<td class="myPurchases_td_img">
-						<img :src="require(`${props.item.preview}`)" alt="">
-					</td>
-					<td class="text-xs-left">
-						<div>
-							<span>{{ props.item.info }}</span>
-							<p>Course: sdafsfsd</p>
-						</div>
-					</td>
-					<td class="text-xs-left">{{ props.item.type }}</td>
-					<td class="text-xs-left">{{ props.item.status }}</td>
-					<td class="text-xs-left">{{ props.item.price }}</td>
-					<td class="text-xs-left">{{ props.item.date }}</td>
-					<td class="text-xs-center">
-						<v-btn depressed round color="primary">{{props.item.type === 'Video'?'Watch':'Download'}}</v-btn>
-					</td>
-				</template>
-			</v-data-table>
-		</v-flex>
-	</v-layout>
+   <div class="myPurchases">
+      <div class="myPurchases_title" v-language:inner="'dashboardPage_my_purchases_title'"/>
+      <v-data-table 
+            :pagination.sync="paginationModel"
+            :headers="headers"
+            :items="purchasesItems"
+            disable-initial-sort
+            :item-key="'date'"
+            :rows-per-page-items="['5']"
+            class="elevation-1 myPurchases_table"
+            :prev-icon="'sbf-arrow-left-carousel'"
+            :sort-icon="'sbf-arrow-down'"
+            :next-icon="'sbf-arrow-right-carousel'">
+            
+         <template slot="headers" slot-scope="props">
+            <tr>
+               <th class="text-xs-left"
+                  v-for="header in props.headers"
+                  :key="header.value"
+                  :class="['column',{'sortable':header.sortable}]"
+                  @click="changeSort(header.value)">
+                  <span class="text-xs-left">{{ header.text }}
+                     <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
+                  </span>
+               </th>
+            </tr>
+         </template>
+            <template v-slot:items="props">
+               <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
+               <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
+               <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
+               <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
+               <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td> 
+               <td class="text-xs-center">
+                  <button v-if="props.item.type !== 'TutoringSession'" @click="dynamicAction(props.item)" class="myPurchases_action" v-language:inner="dynamicResx(props.item.type)"/>
+               </td> 
+            </template>
+         <slot slot="no-data" name="tableEmptyState"/>
+         <slot slot="pageText" name="tableFooter"/>
+      </v-data-table>
+   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import tablePreviewTd from '../global/tablePreviewTd.vue';
+import tableInfoTd from '../global/tableInfoTd.vue';
+
 export default {
    name:'myPurchases',
+   components:{tablePreviewTd,tableInfoTd},
+   props:{
+      globalFunctions: {
+         type: Object,
+      },
+      dictionary:{
+         type: Object,
+         required: true
+      }
+   },
    data() {
       return {
-			search:'',
-			filter:'',
-			sort:'',
-         fakeData: [
-				{preview:'./Desktop.png',info:'maor',type:'Doc',status:'bla',price:1,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'ram',type:'Video',status:'bla',price:38,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'gab',type:'Doc',status:'bla',price:2,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'elad',type:'Video',status:'bla',price:39,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'hadar',type:'Video',status:'bla',price:3,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'idan2',type:'Doc',status:'bla',price:40,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'idan2',type:'Tutor Session',status:'bla',price:40,date:'1/5/19'},
-			],
-			fakeDataCopy:[
-				{preview:'./Desktop.png',info:'maor',type:'Doc',status:'bla',price:1,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'ram',type:'Video',status:'bla',price:38,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'gab',type:'Doc',status:'bla',price:2,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'elad',type:'Video',status:'bla',price:39,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'hadar',type:'Video',status:'bla',price:3,date:'1/5/19'},
-				{preview:'./Desktop.png',info:'idan2',type:'Doc',status:'bla',price:40,date:'1/5/19'},
-			],
-			 headers: [
-				 {text:'Preview',align:'left',sortable: false,value:'preview'},
-				 {text:'Info',align:'left',sortable: false,value:'info'},
-				 {text:'Type',align:'left',sortable: true,value:'type'},
-				 {text:'Status',align:'left',sortable: true,value:'status'},
-				 {text:'Price',align:'left',sortable: true,value:'price'},
-				 {text:'Date',align:'left',sortable: true,value:'date'},
-				 {text:'Action',align:'left',sortable: false,value:'action'},
-      	],
+         paginationModel:{
+            page:1
+         },
+         sortedBy:'',
+         headers:[
+            this.dictionary.headers['preview'],
+            this.dictionary.headers['info'],
+            this.dictionary.headers['type'],
+            this.dictionary.headers['price'],
+            this.dictionary.headers['date'],
+            this.dictionary.headers['action'],
+         ],
       }
-	},
-	methods: {
-		reset(){
-			this.fakeDataCopy = this.fakeData;
-			this.search = '';
-			this.sort = '';
-			this.filter = '';
-		}
-	},
-	computed: {
-		isMobile(){
-			return this.$vuetify.breakpoint.xsOnly;
-		},
-		dataFilteredAndSorted(){
-			let data = this.fakeData;
+   },
+   computed: {
+      ...mapGetters(['getPurchasesItems']),
+      purchasesItems(){
+         return this.getPurchasesItems
+      },
+   },
+   methods: {
+      ...mapActions(['updatePurchasesItems','dashboard_sort']),
+      dynamicResx(type){
+         if(type === 'Document'){
+            return 'dashboardPage_action_download'
+         }else{
+            return 'dashboardPage_action_watch'
+         }
+      },
+      dynamicAction(item){
+         if(item.type === 'Document' || item.type === 'Video'){
+            this.$router.push({path:item.url})
+         }
+      },
+      changeSort(sortBy){
+         if(sortBy === 'info') return;
 
-			if(this.filter){
-				if(this.filter === 'All'){
-					data = this.fakeData;
-				}else{
-					data = data.filter(d=> d.type.includes(this.filter))
-				}
-			}
-			if(this.sort){
-				if(this.sort === 'Date'){
-					data = data.sort((a,b)=> a.date - b.date)
-				}else{
-					data = data.sort((a,b)=> a.price - b.price)
-				}
-			}
-			if(this.search){
-				data = data.filter(d => d.info.includes(this.search))
-			}
-			return data;
-		}
-	}
+         let sortObj = {
+            listName: 'purchasesItems',
+            sortBy,
+            sortedBy: this.sortedBy
+         }
+         this.dashboard_sort(sortObj)
+         this.paginationModel.page = 1;
+         this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
+      }
+   },
+   created() {
+      this.updatePurchasesItems()
+   },
 }
 </script>
 
 <style lang="less">
-@import '../../../../styles/mixin.less';
 .myPurchases{
-	.myPurchases_td_img{
-		padding-right: 0 !important;
-		width: 100px;
-		img{
-			height: 80px;
-		}
-	}
+   .myPurchases_title{
+      font-size: 22px;
+      color: #43425d;
+      font-weight: 600;
+      padding: 0 0 10px 2px;
+   }
+   .myPurchases_table{
+      .v-datatable{
+         tr{
+            height: auto;
+            th{
+               color: #43425d !important;
+               font-size: 14px;
+               padding-top: 14px;
+               padding-bottom: 14px;
+            }
+         }
+         color: #43425d !important;
+      }
+      .myPurchases_action{
+         outline: none;
+         padding: 10px 0px;
+         width: 100%;
+         max-width: 140px;
+         border: 1px solid black;
+         border-radius: 26px;
+         text-transform: capitalize;
+         font-weight: 600;
+         font-size: 14px;
+      }
+      .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
+         transform: none /*rtl:rotate(180deg)*/;
+         color: #43425d !important;
+         height: inherit;
+         font-size: 14px;
+      }
+
+   }
 }
-
 </style>
-
-

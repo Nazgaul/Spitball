@@ -11,19 +11,10 @@
                         </div>
                     </div>
                 </v-flex>
-                <v-flex xs12 sm12  :class="[$vuetify.breakpoint.xsOnly ? 'mobile-btn-fixed-bottom py-0 mb-0' : 'py-4 mb-3']">
+                <v-flex xs12 :class="[$vuetify.breakpoint.xsOnly ? 'mobile-btn-fixed-bottom py-0 mb-0' : 'py-4 mb-3']">
                     <contactBtn v-if="!isMyProfile" ></contactBtn>
                 </v-flex>
-                <!-- <div class="bottom-section px-3" :class="{'mobile-view': $vuetify.breakpoint.xsOnly}" v-if="false">
-                    <div class="info-item mb-2" v-for="one in 3">
-                        <div class="text-xs-center">
-                            <span class="tutoring-info-label">Tutoring Hours</span>
-                        </div>
-                        <div class="text-xs-center">
-                            <span class="tutoring-info-value">10 hours</span>
-                        </div>
-                    </div>
-                </div> -->
+              
             </v-card>
         </v-flex>
     </v-layout>
@@ -31,7 +22,7 @@
 
 <script>
     import contactBtn from '../../profileHelpers/contactBtn/contactBtn.vue';
-    import {mapGetters, mapActions } from 'vuex';
+    import {mapGetters } from 'vuex';
     export default {
         name: "tutorInfoBlock",
         components: {contactBtn},
@@ -39,9 +30,9 @@
             ...mapGetters(['getProfile', 'accountUser']),
             isMyProfile() {
                 if(!!this.getProfile) {
-                    // return false
                     return this.accountUser && this.accountUser.id && this.getProfile ? this.getProfile.user.id == this.accountUser.id : false;
                 }
+                return false
             }
         },
     }
@@ -60,7 +51,7 @@
         .mobile-btn-fixed-bottom {
             align-items: baseline;
             position: fixed;
-            bottom: 66px;
+            bottom: 62px;
             right: 0;
             width: 100%;
             z-index: 9;

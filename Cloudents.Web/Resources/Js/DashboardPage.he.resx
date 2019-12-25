@@ -135,12 +135,24 @@
   <data name="duration" xml:space="preserve">
     <value>משך השיעור:</value>
   </data>
+  <data name="empty" xml:space="preserve">
+    <value>מצטערים, אין מידע להציג</value>
+  </data>
+  <data name="enter_room" xml:space="preserve">
+    <value>כניסה לחדר</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>מוצר
 </value>
   </data>
+  <data name="last_date" xml:space="preserve">
+    <value>שיעור אחרון</value>
+  </data>
   <data name="likes" xml:space="preserve">
     <value>לייקים</value>
+  </data>
+  <data name="my_content_title" xml:space="preserve">
+    <value>התוכן שלי</value>
   </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>המכירות שלי</value>
@@ -166,11 +178,23 @@
   <data name="qa" xml:space="preserve">
     <value>שאלות</value>
   </data>
+  <data name="question" xml:space="preserve">
+    <value>שאלה:</value>
+  </data>
+  <data name="rename" xml:space="preserve">
+    <value>שינוי שם</value>
+  </data>
   <data name="session" xml:space="preserve">
     <value>שיעור פרטי עם {1}</value>
   </data>
+  <data name="session_on" xml:space="preserve">
+    <value>לא הסתיים</value>
+  </data>
   <data name="status" xml:space="preserve">
     <value>סטטוס</value>
+  </data>
+  <data name="student_tutor" xml:space="preserve">
+    <value>תלמיד / מורה</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>שיעור פרטי</value>
@@ -183,14 +207,5 @@
   </data>
   <data name="views" xml:space="preserve">
     <value>צפיות</value>
-  </data>
-  <data name="my_content_title" xml:space="preserve">
-    <value>התוכן שלי</value>
-  </data>
-  <data name="rename" xml:space="preserve">
-    <value>שינוי שם</value>
-  </data>
-  <data name="question" xml:space="preserve">
-    <value>שאלה:</value>
   </data>
 </root>

@@ -157,7 +157,7 @@
                         return;
                     }
                     self.imageAdded = true;
-                    }).catch((error) => {
+                    }).catch(() => {
                         self.imageAdded = false;
                         self.errorUpload = true;
                     });

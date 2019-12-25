@@ -51,15 +51,11 @@ export default {
          let data = { documentId: this.dialogData.id, name: this.editedName };
          let self = this;
          documentService.changeDocumentName(data).then(
-            success => {
+            () => {
                self.dashboard_updateName({newName:self.editedName,itemId:self.dialogData.id})
                self.editedName = '';
                self.$emit('closeDialog')
-            },
-            error => {
-               console.error("erros change name", error);
-            }
-         );
+            });
       },
    }, 
 }

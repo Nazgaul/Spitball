@@ -54,7 +54,7 @@ export default {
             let self = this
             this.isLoading = true;
             this.sendBecomeTutorData().then(
-                (resp) => {
+                () => {
                     self.$root.$emit('becomeTutorStep', 5);
                     self.updateAccountUserToTutor(true);
                     self.updateToasterParams({

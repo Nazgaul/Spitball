@@ -63,34 +63,37 @@ export default {
 	},
 	computed: {
 		...mapGetters(['getBannerSatus','getBannerParams']),
-		params(){
-			if(!!this.getBannerParams){
-				this.interVal = setInterval(this.getNow, 200);
-			}
-		},
 		coupon(){
 			if(!!this.getBannerParams){
 				return this.getBannerParams.coupon;
-			}
+            }
+            return null
 		},
 		titleText(){
 			if(!!this.getBannerParams){
 				return this.getBannerParams.title;
-			}
+            }
+            return null
 		},
 		subTitleText(){
 			if(!!this.getBannerParams){
 				return this.getBannerParams.subTitle;
-			}
+            }
+            return null
 		}
-	},
-		watch:{
-			params(val){
-				// debugger
-			}
+    },
+    watch:{
+        getBannerParams(params){
+            if(!!params){
+                this.setParamsInterval()
+            }
+        },
 	},
 	methods: {
-		...mapActions(['updateBannerSatus']),
+        ...mapActions(['updateBannerSatus']),
+        setParamsInterval(){
+            this.interVal = setInterval(this.getNow, 200);
+        },
 		getNow() {
 			let countDownDate = new Date(this.getBannerParams.expirationDate).getTime();
 			let now = new Date();

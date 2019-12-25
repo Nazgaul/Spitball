@@ -419,15 +419,17 @@ const actions = {
         return;
     },
 
-    signalR_SetBalance({commit, state, dispatch}, newBalance) {
-        commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)});
+    signalR_SetBalance({commit, state, dispatch,getters}, newBalance) {
         dispatch('updatePaymentDialogState',false);
-        dispatch('updateShowBuyDialog', false);
-        dispatch('updateToasterParams', {
-            toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
-            showToaster: true,
-            toasterTimeout: 5000
-        });
+        if(getters.getShowBuyDialog || state.user.balance > newBalance){
+            dispatch('updateShowBuyDialog', false);
+            dispatch('updateToasterParams', {
+                toasterText: LanguageService.getValueByKey("buyTokens_success_transaction"),
+                showToaster: true,
+                toasterTimeout: 5000
+            });
+        }
+        commit('updateUser', {...state.user, balance: newBalance, dollar: dollarCalculate(newBalance)});
     },
     profileVote({commit}, data) {
         commit('updateProfileVote', data);

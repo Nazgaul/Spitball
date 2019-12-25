@@ -96,12 +96,6 @@ Vue.filter('currencyFormat', function(number, currency) {
 })
 
 Vue.filter('sessionDuration', function(number) {
-    return number.slice(0,8)
-    // let hours = +number.slice(0,2);
-    // let minutes = +number.slice(3,5);
-    // let seconds = Math.ceil(+number.slice(6));
-    // let hoursStr = hours >= 1? `${hours} ${hours > 1 ? LanguageService.getValueByKey('dashboardPage_date_hours') : LanguageService.getValueByKey('dashboardPage_date_hour')} ` :'';
-    // let minutesStr = minutes >= 1? `${minutes} ${minutes > 1 ? LanguageService.getValueByKey('dashboardPage_date_mins') : LanguageService.getValueByKey('dashboardPage_date_min')} ` :'';
-    // let secondsStr = seconds >= 1? `${seconds} ${seconds > 1 ? LanguageService.getValueByKey('dashboardPage_date_secs') : LanguageService.getValueByKey('dashboardPage_date_sec')}` :'';
-    // return `${hoursStr}${minutesStr}${secondsStr}`
+    if(!number){return}
+    return number.slice(number.length - 16 ,-8)
 })

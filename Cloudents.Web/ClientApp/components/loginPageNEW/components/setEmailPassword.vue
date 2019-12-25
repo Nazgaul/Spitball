@@ -105,13 +105,13 @@ export default {
     };
   },
   watch: {
-    password: function(val){
+    password: function(){
         this.setErrorMessages({})
     },
-    confirmPassword: function(val){
+    confirmPassword: function(){
         this.setErrorMessages({})
     },
-    firstName: function(val){
+    firstName: function(){
       this.firstNameError ='';
       let fullNameObj = {
         firstName: this.firstName,
@@ -119,7 +119,7 @@ export default {
       }
       this.updateName(fullNameObj)
     },
-    lastName: function(val){
+    lastName: function(){
       this.lastNameError ='';
       let fullNameObj = {
         firstName: this.firstName,
@@ -134,9 +134,10 @@ export default {
     passHint() {
       if (this.password.length > 0) {
         let passScoreObj = this.getPassScoreObj;
-        this.score = global.zxcvbn(this.password).score;
+        this.changeScore()
         return `${passScoreObj[this.score].name}`;
       }
+      return null
     },
     errorMessages() {
       return this.getErrorMessages;
@@ -158,6 +159,7 @@ export default {
       if (this.passHint) {
         return passScoreObj[this.score].className;
       }
+      return null
     }
   },
   methods: {
@@ -177,7 +179,7 @@ export default {
         confirmPassword: this.confirmPassword,
         recaptcha: this.recaptcha
       }
-      this.emailSigning(paramObj).then(response => {},err => {
+      this.emailSigning(paramObj).then(() => {},() => {
         this.$refs.recaptcha.reset()
         });
     },
@@ -192,6 +194,9 @@ export default {
           this.lastNameError = `${LanguageService.getValueByKey("formErrors_min_chars")} ${2}`
         }
       }
+    },
+    changeScore() {
+      this.score = global.zxcvbn(this.password).score;
     }
   },
   created() {

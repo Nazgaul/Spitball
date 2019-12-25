@@ -18,43 +18,15 @@
             <h2 class="uM_subtitle" v-html="$Ph('menuList_balance', userBalance(user.balance))"/>
           </div>
         </div>
-        <!-- <div class="userMenu_userList" v-if="isLoggedIn"> -->
-          <!-- <v-list-tile @click="openSblToken">
-            <v-list-tile-action>
-              <getPointsSVG class="userMenu_icons"></getPointsSVG>
-              </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title class="subheading userMenu_titles" v-language:inner="'menuList_points'"/>
-              </v-list-tile-content>
-          </v-list-tile> -->
-          <!-- <v-list-tile @click.native.prevent="openPersonalizeCourse()" :to="{name: 'editCourse'}">
-            <v-list-tile-action><classesIcon class="userMenu_icons"/></v-list-tile-action>
-            <v-list-tile-content><v-list-tile-title class="subheading userMenu_titles" v-language:inner="'menuList_changeCourse'"/></v-list-tile-content>
-          </v-list-tile>  -->
-          <!-- <v-list-tile @click.native.prevent="openPersonalizeUniversity()" :to="{name: 'addUniversity'}">
-            <v-list-tile-action><v-icon class="userMenu_icons" v-html="'sbf-university'"/></v-list-tile-action>
-            <v-list-tile-content><v-list-tile-title class="subheading userMenu_titles" v-language:inner="'menuList_changeUniversity'"/></v-list-tile-content>
-            <v-list-tile-action><span class="edit-text"><v-icon class="edit-after-icon" v-html="'sbf-edit-icon'"/></span></v-list-tile-action>
-          </v-list-tile> -->
-            <!-- <v-list-tile
-              :to="{ name: 'tutoring'}"
-              target="_blank"
-              sel="menu_row"
-            >
-              <v-list-tile-action>
-                <v-icon class="userMenu_icons">sbf-studyroom-icon</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title class="subheading userMenu_titles" v-language:inner>menuList_my_study_rooms</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile> -->
-        <!-- </div> -->
+      
 
         <div class="userMenu_actionsList">
-          <v-list-tile v-if="!isFrymo" v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)" sel="menu_row">
-            <v-list-tile-action><v-icon class="userMenu_icons">{{singleLang.icon}}</v-icon></v-list-tile-action>
-            <v-list-tile-content><v-list-tile-title class="subheading userMenu_titles">{{singleLang.title}}</v-list-tile-title></v-list-tile-content>
-          </v-list-tile>
+          <template v-if="!isFrymo">
+            <v-list-tile v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)" sel="menu_row">
+              <v-list-tile-action><v-icon class="userMenu_icons">{{singleLang.icon}}</v-icon></v-list-tile-action>
+              <v-list-tile-content><v-list-tile-title class="subheading userMenu_titles">{{singleLang.title}}</v-list-tile-title></v-list-tile-content>
+            </v-list-tile>
+          </template>
 
           <v-list-tile :to="{ name: 'tutoring'}">
             <v-list-tile-action><v-icon class="userMenu_icons" v-html="'sbf-pc'"></v-icon></v-list-tile-action>
@@ -103,20 +75,17 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 
-import analyticsService from '../../../../services/analytics.service';
+
 import languagesLocales from "../../../../services/language/localeLanguage";
 import { LanguageChange, LanguageService } from "../../../../services/language/languageService";
 import satelliteService from '../../../../services/satelliteService';
 
 import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
-import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import logoComponent from '../../../app/logo/logo.vue';
 
-import getPointsSVG from './image/get-points.svg';
-import classesIcon from './image/classes-icon.svg';
 
 export default {
-   components: { sbDialog,userAvatar,getPointsSVG,classesIcon,logoComponent},
+   components: { userAvatar,logoComponent},
   data() {
     return {
       languagesLocales,
@@ -168,11 +137,9 @@ export default {
     // },  
     changeLanguage(id) {
       LanguageChange.setUserLanguage(id).then(
-        resp => {
+        () => {
           global.location.reload(true);
-        },
-        error => {
-        }
+        }     
       );
     },
     startIntercom() {

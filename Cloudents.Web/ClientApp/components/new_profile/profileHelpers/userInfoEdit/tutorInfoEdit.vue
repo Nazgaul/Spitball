@@ -208,9 +208,8 @@
                         description: this.editedDescription
                     };
                     this.btnLoading = true;
-                    let self = this
                     accountService.saveTutorInfo(editsData)
-                        .then((res) => {
+                        .then(() => {
                             //update profile store
                             this.updateEditedProfile(editsData);
                             this.btnLoading = false;

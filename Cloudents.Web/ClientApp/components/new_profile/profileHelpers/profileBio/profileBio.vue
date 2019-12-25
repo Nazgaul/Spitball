@@ -166,7 +166,7 @@ import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import { LanguageService } from '../../../../services/language/languageService';
 import analyticsService from '../../../../services/analytics.service'
 
-import sbClose from '../../../../font-icon/close.svg';
+
 export default {
   name: "profileBio",
   components: {
@@ -174,8 +174,8 @@ export default {
     userAboutMessage,
     userInfoEdit,
     tutorInfoEdit,
-    sbDialog,
-    sbClose
+    sbDialog
+    
   },
   data() {
     return {
@@ -222,6 +222,7 @@ export default {
       if (this.getProfile && this.getProfile.user) {
         return this.getProfile.user.universityName;
       }
+      return null
     },
     userName() {
       if (this.isTutorProfile) {
@@ -236,11 +237,13 @@ export default {
           return this.getProfile.user.name;
         }
       }
+      return null
     },
     userScore() {
       if (this.getProfile && this.getProfile.user) {
         return this.getProfile.user.score;
       }
+      return null
     },
     couponPlaceholder() {
       return LanguageService.getValueByKey('coupon_placeholder')

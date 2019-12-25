@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="action_download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="action_watch" xml:space="preserve">
+    <value>Watch</value>
+  </data>
   <data name="answer" xml:space="preserve">
     <value>Answer:</value>
   </data>
@@ -135,9 +141,18 @@
   <data name="duration" xml:space="preserve">
     <value>Duration:</value>
   </data>
+  <data name="empty" xml:space="preserve">
+    <value>Sorry, nothing to display here :(</value>
+  </data>
+  <data name="enter_room" xml:space="preserve">
+    <value>Enter the room</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>Product
 </value>
+  </data>
+  <data name="last_date" xml:space="preserve">
+    <value>Last Session</value>
   </data>
   <data name="likes" xml:space="preserve">
     <value>Likes</value>
@@ -145,11 +160,14 @@
   <data name="my_content_title" xml:space="preserve">
     <value>My Content</value>
   </data>
+  <data name="my_purchases_title" xml:space="preserve">
+    <value>My Purchases</value>
+  </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>My Sales</value>
   </data>
   <data name="of" xml:space="preserve">
-    <value>of</value>
+    <value>out of</value>
   </data>
   <data name="paid" xml:space="preserve">
     <value>Paid</value>
@@ -178,8 +196,14 @@
   <data name="session" xml:space="preserve">
     <value>Tutoring session with {1}</value>
   </data>
+  <data name="session_on" xml:space="preserve">
+    <value>Ongoing</value>
+  </data>
   <data name="status" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="student_tutor" xml:space="preserve">
+    <value>Student / tutor</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>Tutoring Session</value>

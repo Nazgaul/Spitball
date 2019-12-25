@@ -34,7 +34,7 @@ export default {
     };
   },
   watch: {
-    getSearchStatus(newVal,oldVal){
+    getSearchStatus(){
         this.search = ""
     }
   },

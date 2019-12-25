@@ -66,11 +66,13 @@ export default {
             if (this.document.details && this.document.details.user.name) {
                 return this.document.details.user.name;
             }
+            return null
         },
         docPrice() {
             if (this.document.details && this.document.details.price >= 0) {
                 return this.document.details.price.toFixed(2);
             }
+            return null
         },
         isVideo(){      
             return this.document.documentType === 'Video';
@@ -79,6 +81,7 @@ export default {
             if (this.document.details && this.document.details.feedItem) {
                 return this.document.details.feedItem.title;
             }
+            return null
         },
     },
     methods: {

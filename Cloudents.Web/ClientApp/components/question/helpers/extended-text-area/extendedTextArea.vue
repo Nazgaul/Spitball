@@ -21,7 +21,10 @@ export default {
         value: {type: String},
         error: {},
         actionType: {type: String, default: 'answer'},
-        isFocused: false,
+        isFocused: {
+          type:Boolean,
+          default:false
+        },
         uploadUrl: {type: String},
         isAttachVisible: {type: Boolean, default: true, required: false}
     },

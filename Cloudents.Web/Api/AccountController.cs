@@ -304,6 +304,25 @@ namespace Cloudents.Web.Api
                 return s;
             });
         }
+
+        [HttpGet("purchases")]
+        public async Task<IEnumerable<UserPurchasDto>> GetUserPurchasesAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserPurchasesByIdQuery(userId);
+            var result = await _queryBus.QueryAsync(query, token);
+
+            return result.Select(s =>
+            {
+                if (s is PurchasedDocumentDto d)
+                {
+                    d.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
+                    d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
+                }
+                return s;
+            });
+        }
+
         [HttpGet("recording")]
         public async Task<IEnumerable<SessionRecordingDto>> GetSessionRecordingAsync(CancellationToken token)
         {

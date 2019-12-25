@@ -14,7 +14,10 @@ namespace Cloudents.Persistence.Maps
             References(x => x.Tutor).Not.Nullable();
 
             Map(x => x.Type);
-            Map(x => x.DateTime).Not.Nullable();
+            Component(x => x.DateTime, z => {
+                z.Map(m => m.CreationTime).Column("DateTime");
+                z.Map(m => m.UpdateTime).Column("Updated");
+            });
             Map(x => x.OnlineDocumentUrl).Not.Nullable();
             HasMany(x => x.Sessions).Access.CamelCaseField(Prefix.Underscore)
                 .KeyColumn("StudyRoomId")

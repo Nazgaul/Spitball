@@ -44,7 +44,6 @@ import analyticsService from '../../../../services/analytics.service';
                     }
                     let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
                     this.setActiveConversationObj(currentConversationObj);
-                    let isMobile = this.$vuetify.breakpoint.smAndDown;
                     this.openChatInterface();                    
                 }
             }
