@@ -289,6 +289,9 @@ export default {
       }, this.getToasterTimeout);
     },
     '$route'(){
+      if(this.loginDialogState) {
+        this.updateLoginDialogState(false);
+      }
       this.$nextTick(()=>{
         this.fireOptimizeActivate()
       })

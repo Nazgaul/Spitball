@@ -9,7 +9,7 @@
       <noSupportTop></noSupportTop>
       <div class="no-support-text" v-language:inner="'tutor_not_supported'"></div>
       <div class="no-support-button">
-        <button @click="closeWin" v-language:inner="'tutor_close'"></button>
+        <router-link to="/" tag="button" v-language:inner="'tutor_close'"></router-link>
       </div>
       <noSupportBottom></noSupportBottom>
     </div>
@@ -561,9 +561,9 @@ watch: {
         self.lockChat();
       });
     },
-    closeWin() {
-      global.close();
-    },
+    // closeWin() {
+    //   global.close();
+    // },
     closeBrowserSupportDialog(){ 
       this.setBrowserSupportDialog(false);
     },

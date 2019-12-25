@@ -127,13 +127,13 @@
     <value>Thank you for rating</value>
   </data>
   <data name="press_star" xml:space="preserve">
-    <value>Press a star to rate</value>
+    <value>Overall rating</value>
   </data>
   <data name="review_placeholder" xml:space="preserve">
     <value>Type a review</value>
   </data>
   <data name="subtitle" xml:space="preserve">
-    <value>Was this Session Helpful?</value>
+    <value>Tell the tutor what you thought about this session</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>Rating and review</value>
