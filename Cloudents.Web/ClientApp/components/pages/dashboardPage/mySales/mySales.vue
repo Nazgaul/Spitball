@@ -15,50 +15,52 @@
             sort-by
             :item-key="'date'"
             class="elevation-1 mySales_table">
-            <template v-slot:item="props">
-               <tr>
-                  <td class="mySales_td_img">
-                     <router-link :to="dynamicRouter(props.item)" class="mySales_td_img_img">
-                        <img width="80" height="80" :src="formatItemImg(props.item)" :class="{'imgPreview_sales':props.item.preview}">
-                     </router-link>
-                  </td>
-                  <td class="text-xs-left mySales_td_course">
-                     <router-link :to="dynamicRouter(props.item)">
-                        <template v-if="checkIsSession(props.item.type)">
-                           <span v-html="$Ph('dashboardPage_session',props.item.studentName)"/>
-                           <p><span v-language:inner="'dashboardPage_duration'"/> {{props.item.duration | sessionDuration}}</p>
-                        </template>
+            <template v-slot:body="props">
+               <tbody>
+                  <tr v-for="(item, index) in props.items" :key="index">
+                     <td class="mySales_td mySales_td_img d-block d-sm-table-cell">
+                        <router-link :to="dynamicRouter(item)" class="mySales_td_img_img">
+                           <img width="80" height="80" :src="formatItemImg(item)" :class="{'imgPreview_sales':item.preview}">
+                        </router-link>
+                     </td>
+                     <td class="mySales_td text-xs-left mySales_td_course d-block d-sm-table-cell">
+                        <router-link :to="dynamicRouter(item)">
+                           <template v-if="checkIsSession(item.type)">
+                              <span v-html="$Ph('dashboardPage_session',item.studentName)"/>
+                              <p><span v-language:inner="'dashboardPage_duration'"/> {{item.duration | sessionDuration}}</p>
+                           </template>
 
-                        <template v-if="checkIsQuestuin(props.item.type)">
-                           <div class="text-truncate">
-                              <span v-language:inner="'dashboardPage_questuin'"/>
-                              <span class="text-truncate">{{props.item.text}}</span>
-                           </div>
-                           <div class="text-truncate">
-                              <span v-language:inner="'dashboardPage_answer'"/>
-                              <span>{{props.item.answerText}}</span>
-                           </div>
-                           <div>
-                              <span v-language:inner="'dashboardPage_course'"></span>
-                              <span>{{props.item.course}}</span>
-                           </div>
-                        </template>
+                           <template v-if="checkIsQuestuin(item.type)">
+                              <div class="text-truncate">
+                                 <span v-language:inner="'dashboardPage_questuin'"/>
+                                 <span class="text-truncate">{{item.text}}</span>
+                              </div>
+                              <div class="text-truncate">
+                                 <span v-language:inner="'dashboardPage_answer'"/>
+                                 <span>{{item.answerText}}</span>
+                              </div>
+                              <div>
+                                 <span v-language:inner="'dashboardPage_course'"></span>
+                                 <span>{{item.course}}</span>
+                              </div>
+                           </template>
 
-                        <template v-if="checkIsItem(props.item.type)">
-                           <span>{{props.item.name}}</span>
-                           <div>
-                              <span v-language:inner="'dashboardPage_course'"></span>
-                              <span>{{props.item.course}}</span>
-                           </div>
-                        </template>
-                     </router-link>
-                  </td>
-                  <td class="text-xs-left">{{formatItemType(props.item.type)}}</td>
-                  <td class="text-xs-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
-                  <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-                  <td class="text-xs-left">{{ formatItemPrice(props.item.price,props.item.type) }}</td>
-                  <!-- <td class="text-xs-left"><v-icon @click="openDialog" small>sbf-3-dot</v-icon></td> -->
-               </tr>
+                           <template v-if="checkIsItem(item.type)">
+                              <span>{{item.name}}</span>
+                              <div>
+                                 <span v-language:inner="'dashboardPage_course'"></span>
+                                 <span>{{item.course}}</span>
+                              </div>
+                           </template>
+                        </router-link>
+                     </td>
+                     <td class="mySales_td text-xs-left d-block d-sm-table-cell">{{formatItemType(item.type)}}</td>
+                     <td class="mySales_td text-xs-left d-block d-sm-table-cell" v-html="formatItemStatus(item.paymentStatus)"/>
+                     <td class="mySales_td text-xs-left d-block d-sm-table-cell">{{ item.date | dateFromISO }}</td>
+                     <td class="mySales_td text-xs-left d-block d-sm-table-cell">{{ formatItemPrice(item.price,item.type) }}</td>
+                     <!-- <td class="text-xs-left"><v-icon @click="openDialog" small>sbf-3-dot</v-icon></td> -->
+                  </tr>
+               </tbody>
             </template>
             <template slot="pageText" slot-scope="item">
                <span class="mySales_footer">
@@ -165,6 +167,8 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../styles/mixin';
+
 .mySales{
    .mySales_title{
       font-size: 22px;
@@ -189,6 +193,9 @@ export default {
          font-size: 14px;
          color: #43425d !important;
       }
+      .mySales_td {
+         height: auto;
+      }
       .mySales_td_img{
          line-height: 0;
          padding-right: 0 !important;
@@ -210,6 +217,9 @@ export default {
          width: 450px;
          max-width: 450px;
          min-width: 300px;
+         @media (max-width: @screen-xs) {
+            width: auto;
+         }
       }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          transform: none /*rtl:rotate(180deg)*/;

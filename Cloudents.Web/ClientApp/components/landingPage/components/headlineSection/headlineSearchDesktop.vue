@@ -2,7 +2,7 @@
     <div class="headlineSearchDesktop">
       <div class="headlineTitlesDesktop">
         <h1 class="hd-titleDesktop" v-language:inner="'homePage_hd_title'"/>
-        <h2 :class="['hd-subtitleDesktop','my-4']" v-language:inner="'homePage_hd_subtitle'"/>
+        <h2 :class="['hd-subtitleDesktop','my-6']" v-language:inner="'homePage_hd_subtitle'"/>
         <div class="hd-searchDesktop">
           <div class="search-input-cont">
             <v-text-field
@@ -95,6 +95,7 @@ export default {
         padding-bottom: 70px;
       width: 50%;
       .hd-titleDesktop {
+        line-height: normal;
         font-size: 36px;
         font-weight: bold;
       }
