@@ -18,7 +18,7 @@
                         <v-flex xs12 sm6 v-for="(course, index) in userCourses" :key="index" class="course-name">
                             <template v-if="index < showQuantity">
                                 <router-link event @click.native.prevent="goToCourse(course.name)" :to="{name: 'tutors', query: {Course: course.name}}" class="cursor-pointer elevation-0 border py-3 text-truncate course-card" :class="{'mr-0': index%2}" key="two">
-                                    <h4 class="course-name" :class="{'mr-5': index % 2 === 0}">{{course.name}}</h4>
+                                    <div class="course-name" :class="{'mr-5': index % 2 === 0}">{{course.name}}</div>
                                 </router-link>
                             </template>
                         </v-flex>
@@ -129,7 +129,6 @@
         }
         .course-name {
             .giveMeEllipsisOne();
-            font-weight: 100;
             font-size: 14px;
             color: @global-blue;
             cursor: pointer;

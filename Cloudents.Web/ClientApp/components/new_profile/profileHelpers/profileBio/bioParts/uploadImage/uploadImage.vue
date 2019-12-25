@@ -56,7 +56,7 @@
             flex-direction: column;
         }
         .image-edit-text{
-            font-size: 11px;
+            font-size: 12px;
             color: @color-black;
         }
         .profile-image-input-container {

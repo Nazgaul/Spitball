@@ -148,7 +148,7 @@ export default {
           display: inline-block;
           text-align: center;
           vertical-align: middle;
-          font-size: 11px;
+          font-size: 12px;
         }
       }
     }
