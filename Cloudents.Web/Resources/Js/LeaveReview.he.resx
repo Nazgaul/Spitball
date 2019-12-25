@@ -127,13 +127,13 @@
     <value>תודה על הדירוג</value>
   </data>
   <data name="press_star" xml:space="preserve">
-    <value>לחץ על הכוכבים כדי לדרג את</value>
+    <value>ציון כללי</value>
   </data>
   <data name="review_placeholder" xml:space="preserve">
     <value>כתוב חוות דעת</value>
   </data>
   <data name="subtitle" xml:space="preserve">
-    <value>האם השיעור עזר לך?</value>
+    <value>ספרו למורה מה חשבתם על השיעור</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>דירוג וחוות דעת</value>
