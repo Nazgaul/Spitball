@@ -53,6 +53,7 @@ namespace Cloudents.Query.Query
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
                     .Where(w => w.StudyRoom.Users.Select(s => s.User.Id).Any(a => a == query.Id) && query.Id != w.StudyRoom.Tutor.Id)
+                    .Where(w => w.Ended != null)
                     .Select(s => new PurchasedSessionDto()
                     {
                         Date = s.Created,

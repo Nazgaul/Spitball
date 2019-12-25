@@ -68,7 +68,7 @@ namespace Cloudents.FunctionsV2.System
                 await _commandBus.DispatchAsync(commandWhatsApp, token);
                 var urlShortWhatsApp = _urlBuilder.BuildShortUrlEndpoint(identifierWhatsApp,new 
                 {
-                    eventCategory = "Request Tutor Submit",
+                    eventCategory = "After tutor Submit",
                     eventAction = "Whatsapp email",
                     eventLabel = $"Tutor{obj.TutorId}, Student {obj.StudentId}"
                 });

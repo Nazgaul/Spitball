@@ -87,18 +87,18 @@ export default {
         },
         sendWhatsapp() {
             if(!this.accountUser) {
-                analyticsService.sb_unitedEvent('Request Tutor Submit','Whatsapp btn', `Tutor ${this.tutorId}, Student GUEST`);
+                analyticsService.sb_unitedEvent('After tutor Submit','Whatsapp btn', `Tutor ${this.tutorId}, Student GUEST`);
             } else {
-                analyticsService.sb_unitedEvent('Request Tutor Submit','Whatsapp btn', `Tutor ${this.tutorId}, Student ${this.studentId}`);
+                analyticsService.sb_unitedEvent('After tutor Submit','Whatsapp btn', `Tutor ${this.tutorId}, Student ${this.studentId}`);
             }
             window.open(`https://api.whatsapp.com/send?phone=${this.tutorPhoneNumber}&text=%20${this.defaultMessage}`);
             this.tutorRequestDialogClose();
         },
         showMoreTutors() {
             if(!this.accountUser) {
-                analyticsService.sb_unitedEvent('Request Tutor Submit','Show me btn', `Student GUEST`);
+                analyticsService.sb_unitedEvent('After tutor Submit','Show me btn', `Student GUEST`);
             } else {
-                analyticsService.sb_unitedEvent('Request Tutor Submit','Show me btn', `Student ${this.studentId}`);
+                analyticsService.sb_unitedEvent('After tutor Submit','Show me btn', `Student ${this.studentId}`);
             }
             this.$router.push({name: 'tutorLandingPage', params: {course: this.courseName}});
             this.tutorRequestDialogClose();
