@@ -5,7 +5,7 @@
             <logoComponent/>
         </router-link>
         <div class="globalHeader_items">
-            <div class="globalHeader_items_left" v-if="!isMobile && shouldnotShowSearch">
+            <div class="globalHeader_items_left" v-if="!isMobile && showSearch">
                 <searchCMP :placeholder="searchPlaceholder"/>
             </div>
             <v-spacer v-else></v-spacer>
@@ -62,7 +62,7 @@
                 </v-menu>
             </div>
         </div>
-        <template v-slot:extension v-if="isMobile && shouldnotShowSearch">
+        <template v-slot:extension v-if="isMobile && showSearch">
             <div class="mobileHeaderSearch">
                 <searchCMP :placeholder="searchPlaceholder"/>
             </div>
@@ -129,7 +129,7 @@ export default {
         },
         showSearch(){
             let showRoutes = ['feed'];
-            return !showRoutes.includes(this.currentRoute)
+            return showRoutes.includes(this.currentRoute)
         },
         isHomePage(){
             return this.currentRoute === undefined;
