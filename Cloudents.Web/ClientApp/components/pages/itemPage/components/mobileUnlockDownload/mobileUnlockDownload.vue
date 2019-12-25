@@ -52,12 +52,15 @@ export default {
         ...mapGetters(['accountUser', 'getBtnLoading']),
 
         showBlock() {
-            if(this.isVideo && !this.isShowPurchased) {
+            if(this.isVideo) {
+                if(this.isPurchased || this.docPrice <= 0) {
+                    return false;
+                }
                 return true;
-            } else if (this.isVideo && this.isPurchased) {
-                return false
+            } else if(!this.isVideo) {
+                return true;
             }
-            return true;
+            return false;
         },
         zeroPrice() {
             return (this.document && this.document.details && this.document.details.price === 0);
