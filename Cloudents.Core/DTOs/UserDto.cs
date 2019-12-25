@@ -35,7 +35,7 @@ namespace Cloudents.Core.DTOs
         public long Id { get; set; }
         [EntityBind(nameof(User.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(User.Image))]
+        [EntityBind(nameof(User.ImageName))]
         public string Image { get; set; }
         [EntityBind(nameof(User.Score))]
         public int Score { get; set; }

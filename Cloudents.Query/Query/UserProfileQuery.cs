@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using NHibernate.Transform;
 using NHibernate.Type;
 
@@ -30,9 +31,11 @@ namespace Cloudents.Query.Query
         {
 
             private readonly IStatelessSession _session;
+            private readonly IUrlBuilder _urlBuilder;
 
-            public UserProfileQueryHandler(QuerySession session)
+            public UserProfileQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
             {
+                _urlBuilder = urlBuilder;
                 _session = session.StatelessSession;
             }
 
@@ -40,7 +43,7 @@ namespace Cloudents.Query.Query
             {
 
                 const string sql = @"select u.id,
-u.Image,
+u.ImageName as Image,
 u.Name,
 u2.name as universityName,
 u.Score,
@@ -103,6 +106,8 @@ and uc.tutorId =  :profileId";
                     result.Tutor.CouponType = couponResult.TypeEnum;
                     result.Tutor.CouponValue = couponResult.Value;
                 }
+
+                result.Image = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image, result.Name);
 
                 if (result.Tutor?.CouponValue.HasValue == true && result.Tutor?.CouponType.HasValue == true)
                 {
