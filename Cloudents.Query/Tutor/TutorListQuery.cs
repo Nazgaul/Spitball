@@ -33,8 +33,7 @@ namespace Cloudents.Query.Tutor
             //TODO: review query 
             public async Task<ListWithCountDto<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
-
-                var sql = @"Select distinct 1 as o, 'Tutor' as 'Type', rt.Id as UserId, rt.Name as 'Name', rt.Image as 'Image', rt.Courses, rt.Subjects, rt.Price,
+                const string sql = @"Select distinct 1 as o, 'Tutor' as 'Type', rt.Id as UserId, rt.Name as 'Name', rt.Image as 'Image', rt.Courses, rt.Subjects, rt.Price,
 rt.Rate, rt.RateCount, rt.Bio, rt.University, rt.Lessons, rt.Country, rt.SubsidizedPrice, rt.Rating
 from sb.ReadTutor rt
 join sb.UsersCourses uc 
