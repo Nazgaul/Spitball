@@ -206,10 +206,10 @@ export default {
         .tR-span{
                 font-size: 16px;
                 color:@global-purple;
-                margin-top: 26px;
+                margin-bottom: 26px;
                 text-align: center;
                 @media (max-width: @screen-xs) {
-                    margin-top: 36px;
+                    margin-bottom: 36px;
                 }
         }
     .tutorRequest-bottom{
