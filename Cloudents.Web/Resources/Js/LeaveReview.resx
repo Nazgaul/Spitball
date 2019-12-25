@@ -127,7 +127,7 @@
     <value>Thank you for rating</value>
   </data>
   <data name="press_star" xml:space="preserve">
-    <value>Overall rating</value>
+    <value>Overall rating for tutor</value>
   </data>
   <data name="review_placeholder" xml:space="preserve">
     <value>Type a review</value>

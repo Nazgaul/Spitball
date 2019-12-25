@@ -33,22 +33,9 @@ namespace Cloudents.FunctionsV2
 {
     public static class ImageFunction
     {
-        //private static readonly Dictionary<string, string> ExtensionToDefaultImage;
-        static ImageFunction()
-        {
-
-
-            //ExtensionToDefaultImage = FileTypesExtension.GetTypes()
-            //    .SelectMany(v => v.Extensions, (parent, child) => new
-            //    {
-            //        extension = child,
-            //        thumbnail = parent.DefaultThumbnail
-            //    }).ToDictionary(x => x.extension, z => z.thumbnail);
-        }
-
         [FunctionName("ImageFunctionUser")]
         public static async Task<IActionResult> RunUserImageAsync(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/user/{id}/{file}")]
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = UrlConst.ImageFunctionUserRoute)]
             HttpRequest req, long id, string file,
             [Blob("spitball-user/profile/{id}/{file}")]CloudBlockBlob blob,
             Microsoft.Extensions.Logging.ILogger logger
