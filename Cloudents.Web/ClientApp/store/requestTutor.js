@@ -52,7 +52,7 @@ const mutations = {
         state.courseDescription = '';
         state.selectedCourse = '';
         state.moreTutors = true;
-        state.currentTutorPhoneNumber = null
+        state.currentTutorPhoneNumber = null;
     },
     setMoreTutors(state, val) {
         state.moreTutors = val;

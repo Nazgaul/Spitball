@@ -93,9 +93,9 @@ Vue.filter('commasFilter', function (value) {
 
 Vue.filter('currencyFormat', function(number, currency) {
     return new Intl.NumberFormat(`${global.lang}-${global.country}`, { style: 'currency', currency: currency, minimumFractionDigits: 0  }).format(number);
-})
+});
 
 Vue.filter('sessionDuration', function(number) {
     if(!number){return}
-    return number.slice(number.length - 16 ,-8)
-})
+    return number.slice(number.length - 16 ,-8);
+});

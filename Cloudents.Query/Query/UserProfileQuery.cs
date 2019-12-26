@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using NHibernate.Transform;
-using NHibernate.Type;
 
 namespace Cloudents.Query.Query
 {

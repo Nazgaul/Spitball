@@ -19,7 +19,6 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -27,10 +26,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
-using Cloudents.Core.Message.Email;
-using Newtonsoft.Json;
-using Cloudents.Core.Message.Email;
-using Newtonsoft.Json;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudents.Query.Query;
 

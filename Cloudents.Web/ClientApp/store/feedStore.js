@@ -8,17 +8,17 @@ const state = {
     itemsSkeleton: skeletonData.ask,
     dataLoaded: false,
     tutors: [],
-}
+};
 
 const getters = {
     Feeds_getItems: (state, {getIsLoading, getSearchLoading}) => {
-        return (getIsLoading || getSearchLoading) ? state.itemsSkeleton : state.items.data
+        return (getIsLoading || getSearchLoading) ? state.itemsSkeleton : state.items.data;
     },
     Feeds_getTutors: (state) => state.tutors,
     Feeds_getNextPageUrl: (state) =>  state.items.nextPage,
     Feeds_getShowQuestionToaster: (state) => !!state.queItems ? state.queItems.length > 0 : false,
     Feeds_isDataLoaded: (state) => state.dataLoaded,
-}
+};
 
 const mutations = {
     Feeds_SetItems(state, data) {
@@ -70,11 +70,11 @@ const mutations = {
                 if (!!state.items.data && state.items.data.length > 0) {
                     state.items.data.unshift(itemToAdd);
                 }
-            })
+            });
             state.queItems = [];
         }
     },
-}
+};
 
 const actions = {
     Feeds_nextPage({dispatch}, {url, vertical}) {
@@ -115,7 +115,8 @@ const actions = {
             return data;
         }, (err) => {
             return Promise.reject(err);
-        })
+        });
+
         // }
         function update(data) {
             let sortData = !!data.sort ? data.sort : null;
@@ -137,7 +138,7 @@ const actions = {
         let questionToSend = {
             user: getters.accountUser,
             question: searchService.createQuestionItem(notificationQuestionObject)
-        }
+        };
         commit('Feeds_AddQuestion', questionToSend);
     },
     removeQuestionItemAction({commit, state}, notificationQuestionObject) {
@@ -157,7 +158,7 @@ const actions = {
             for (let documentIndex = 0; documentIndex < state.items.data.length; documentIndex++) {
                 let currentDocument = state.items.data[documentIndex];
                 if (currentDocument.id === documentToRemove.id) {
-                    commit('Feeds_removeDocItem',documentIndex)
+                    commit('Feeds_removeDocItem',documentIndex);
                 }
             }
         }
@@ -177,14 +178,14 @@ const actions = {
         }
     },
     Feeds_updateCounter({commit, state}, actionObj) {
-        let questionId = actionObj.questionId
-        let addAnswersCounter = actionObj.addCounter
+        let questionId = actionObj.questionId;
+        let addAnswersCounter = actionObj.addCounter;
         if (!!state.items && !!state.items.data && state.items.data.length > 0) {
             for (let questionIndex = 0; questionIndex < state.items.data.length; questionIndex++) {
                 let currentQuestion = state.items.data[questionIndex];
                 if (currentQuestion.id === questionId) {
                     let val = (addAnswersCounter) ? 1 : -1;
-                    commit('Feeds_updateAnswersCounter', val)
+                    commit('Feeds_updateAnswersCounter', val);
                 }
             }
         }
@@ -196,7 +197,7 @@ const actions = {
             dispatch('removeItemFromProfile', objToRemove);
         }, (error) => {
             console.log(error, 'error report question');
-        })
+        });
     },
     Feeds_reportAnswer({dispatch}, data) {
         let objToRemove = { id: data.id };
@@ -204,9 +205,9 @@ const actions = {
             dispatch('removeItemFromProfile', objToRemove);
         }, (error) => {
             console.log(error, 'error report answer');
-        })
+        });
     }
-}
+};
 
 export default {
     state,

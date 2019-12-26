@@ -251,7 +251,7 @@ namespace Cloudents.Web.Api
                 await _commandBus.DispatchAsync(command, token);
                 return Ok(new
                 {
-                    Price = command.newPrice
+                    Price = command.NewPrice
                 });
             }
             catch (ArgumentException)

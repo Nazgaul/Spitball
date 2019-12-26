@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Enum;
-using System;
+﻿using System;
 
 namespace Cloudents.Core.DTOs.Admin
 {

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Dapper;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;

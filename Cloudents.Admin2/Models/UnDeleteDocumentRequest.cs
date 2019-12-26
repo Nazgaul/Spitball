@@ -1,5 +1,4 @@
-﻿using System;
-namespace Cloudents.Admin2.Models
+﻿namespace Cloudents.Admin2.Models
 {
     public class UnDeleteDocumentRequest
     {

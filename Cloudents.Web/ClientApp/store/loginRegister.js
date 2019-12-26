@@ -132,7 +132,7 @@ const actions = {
         commit('setToUrl',url);
     },
     updateName({commit},fullNameObj){
-        commit('setName',fullNameObj)
+        commit('setName',fullNameObj);
     },
     updateEmail({commit},email){
         commit('setEmail',email);

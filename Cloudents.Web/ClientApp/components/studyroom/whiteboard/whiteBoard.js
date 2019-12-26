@@ -150,7 +150,7 @@ export default {
                     return true;
                 }
             }else{
-                return false
+                return false;
             }
         },
         fontSize:{
@@ -158,7 +158,7 @@ export default {
                 return this.getFontSize;
             },
             set(val){
-                this.setFontSize(val)
+                this.setFontSize(val);
             }
         }
     },

@@ -325,7 +325,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task SessionRecordingQuery_Ok(long userId)
         {
             var query = new SessionRecordingQuery(userId);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
 
@@ -343,7 +343,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserSalesByIdQuery_Ok(long id)
         {
             var query = new UserSalesByIdQuery(id);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+           var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Theory]
@@ -361,49 +361,49 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserContentByIdQuery_Ok(long id)
         {
             var query = new UserContentByIdQuery(id);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task ChatConversationsQuery_Ok()
         {
             var query = new ChatConversationsQuery(159039);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task GetBannerQuery_Ok()
         {
             var query = new GetBannerQuery(new System.Globalization.CultureInfo("en"));
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task ChatConversationQuery_Ok()
         {
             var query = new ChatConversationQuery("159039_160171", 159039);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task ChatConversationByIdQuery_Ok()
         {
             var query = new ChatConversationByIdQuery("159039_160171", 0);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task UserVotesByCategoryQuery_Ok()
         {
             var query = new UserVotesByCategoryQuery(159039);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task AboutTutorQuery_Ok()
         {
             var query = new AboutTutorQuery();
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         //[Fact]

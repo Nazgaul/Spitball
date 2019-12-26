@@ -20,7 +20,7 @@ function BannerData(objInit){
 }
 
 function createBannerData(objInit){
-    return new BannerData(objInit)
+    return new BannerData(objInit);
 }
 
 function getBannerParams() {
@@ -28,7 +28,7 @@ function getBannerParams() {
         if(obj.data == null){
             return null;
         }else{
-            return createBannerData(obj.data)
+            return createBannerData(obj.data);
         }
     });
 }

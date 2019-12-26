@@ -76,19 +76,19 @@ export default {
                 renderOnlyVisible: this.renderOnlyVisible
             },
             stepMove:null,
-        }
+        };
     },
     watch: {
         arrows:function(val){
-            this.isArrows = val
+            this.isArrows = val;
         },
         centered: {
             deep: true,
             handler(newVal) {
                 if(newVal){
-                    this.onCentered()
+                    this.onCentered();
                 } else{
-                    this.onUnCenterd()
+                    this.onUnCenterd();
                 }
             }
         }
@@ -101,46 +101,46 @@ export default {
     },
     methods: {
         next(){
-            let carouselEl = this.$refs[this.uniqueID]
-            let itemsCount = carouselEl.getPanelCount()
-            let currentItemIndex = carouselEl.getIndex()
+            let carouselEl = this.$refs[this.uniqueID];
+            let itemsCount = carouselEl.getPanelCount();
+            let currentItemIndex = carouselEl.getIndex();
             if(currentItemIndex < itemsCount){
-                carouselEl.moveTo(currentItemIndex+this.stepMove)
+                carouselEl.moveTo(currentItemIndex+this.stepMove);
             }
         },
         prev(){
-            let carouselEl = this.$refs[this.uniqueID]
-            let itemsCount = carouselEl.getPanelCount()
-            let currentItemIndex = carouselEl.getIndex()
+            let carouselEl = this.$refs[this.uniqueID];
+            let itemsCount = carouselEl.getPanelCount();
+            let currentItemIndex = carouselEl.getIndex();
             if(currentItemIndex < itemsCount && currentItemIndex > 0 ){
-                carouselEl.moveTo(currentItemIndex-this.stepMove)
+                carouselEl.moveTo(currentItemIndex-this.stepMove);
             }
         },
         onCentered(){
-            this.optionsObj.hanger = '50%'
-            this.optionsObj.anchor = '50%'
-            this.optionsObj.bound = false
+            this.optionsObj.hanger = '50%';
+            this.optionsObj.anchor = '50%';
+            this.optionsObj.bound = false;
         },
         onUnCenterd(){
-            this.optionsObj.hanger = 0
-            this.optionsObj.anchor = 0
-            this.optionsObj.bound = true
+            this.optionsObj.hanger = 0;
+            this.optionsObj.anchor = 0;
+            this.optionsObj.bound = true;
         },
         handleMove(event){
-            this.$emit('move',event)
-            let visiblesItems = this.$refs[this.uniqueID].getVisiblePanels()
-            this.isLastItemVisible = visiblesItems.some(item=>item.nextSibling === null)
+            this.$emit('move',event);
+            let visiblesItems = this.$refs[this.uniqueID].getVisiblePanels();
+            this.isLastItemVisible = visiblesItems.some(item=>item.nextSibling === null);
             this.isFirstItemVisible = visiblesItems.some(item=>item.prevSibling === null);
           },
         select(item){
-            let dragging = this.isDragging || this.getIsTouchMove
+            let dragging = this.isDragging || this.getIsTouchMove;
             if(!dragging){
                 let vueComponent = item.panel.element.__vue__;
-                this.$emit('select', vueComponent)
+                this.$emit('select', vueComponent);
             }
         },
         visibleChange(event){
-            this.$emit('visibleChange',event)
+            this.$emit('visibleChange',event);
         },
         holdStart(){
             this.isDragging = true;
@@ -150,9 +150,9 @@ export default {
         },
     },
     created() {
-        this.isArrows = this.arrows
+        this.isArrows = this.arrows;
         if(this.centered){
-            this.onCentered()
+            this.onCentered();
         }
     },
     mounted() {
@@ -160,13 +160,13 @@ export default {
         if(this.stepMove > 1){
             this.stepMove -= 1;
         }
-        let visiblesItems = this.$refs[this.uniqueID].getVisiblePanels()
-        this.isLastItemVisible = visiblesItems.some(item=>item.nextSibling === null)
+        let visiblesItems = this.$refs[this.uniqueID].getVisiblePanels();
+        this.isLastItemVisible = visiblesItems.some(item=>item.nextSibling === null);
         this.isFirstItemVisible = visiblesItems.some(item=>item.prevSibling === null);
         if(!!this.$slots && this.$slots.default){
             this.$slots.default.forEach((slot)=>{
                 slot.elm.draggable = false;
-            })
+            });
         }
     }
 }

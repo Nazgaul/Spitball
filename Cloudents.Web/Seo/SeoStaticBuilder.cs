@@ -7,12 +7,10 @@ namespace Cloudents.Web.Seo
 {
     public class SeoStaticBuilder : IBuildSeo
     {
-        private readonly LinkGenerator _linkGenerator;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public SeoStaticBuilder(LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        public SeoStaticBuilder(IHttpContextAccessor httpContextAccessor)
         {
-            _linkGenerator = linkGenerator;
             _httpContextAccessor = httpContextAccessor;
         }
 

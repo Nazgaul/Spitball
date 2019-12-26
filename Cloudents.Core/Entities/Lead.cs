@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Enum;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

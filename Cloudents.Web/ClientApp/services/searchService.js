@@ -143,7 +143,7 @@ const transferMap = {
 let transferResult = ({data}) => {
     let documents = data.result.map((doc) => {
         return transferMap[doc.type](doc);
-    })
+    });
 
     return {
         sort: data.sort || '',
@@ -151,7 +151,7 @@ let transferResult = ({data}) => {
         data: documents,
         nextPage: data.nextPageLink
     };
-}
+};
 
 let transferNextPage = (res) => {
     return transferResult(res);    
