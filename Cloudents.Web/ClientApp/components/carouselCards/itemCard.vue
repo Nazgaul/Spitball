@@ -5,8 +5,8 @@
         <h1 class="item-title text-truncate">{{item.title}}</h1>
         <div class="item-course text-truncate">
             <b v-language:inner="'itemCardCarousel_course'"/> {{item.course}}</div>
-        <div class="item-university text-truncate">
-            <b v-language:inner="'itemCardCarousel_university'"/> {{item.university}}</div>
+        <div class="item-university text-truncate" v-if="item.university">
+            <b v-language:inner="'itemCardCarousel_university'"/>ram {{item.university}}</div>
         <div class="item-user">
             <UserAvatar :size="'34'" :user-name="item.user.name" :user-id="item.user.id" :userImageUrl="item.user.image"/> 
             <div class="ml-2 user-info">
