@@ -156,6 +156,9 @@
   <data name="end_session" xml:space="preserve">
     <value>סיימת את השיעור?</value>
   </data>
+  <data name="enter_text" xml:space="preserve">
+    <value>הכנס טקסט</value>
+  </data>
   <data name="ewar-continue-without-audio" xml:space="preserve">
     <value>המשך ללא קול</value>
   </data>
@@ -164,6 +167,15 @@
   </data>
   <data name="ewar-try-again" xml:space="preserve">
     <value>נסה שוב</value>
+  </data>
+  <data name="fontSize_large" xml:space="preserve">
+    <value>גדול</value>
+  </data>
+  <data name="fontSize_normal" xml:space="preserve">
+    <value>רגיל</value>
+  </data>
+  <data name="fontSize_small" xml:space="preserve">
+    <value>קטן</value>
   </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>לוח</value>
