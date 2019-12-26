@@ -384,7 +384,7 @@ const actions = {
                 commit('setGlobalLoading',false);
             });
     },
-    changePassword({state,commit},params) {
+    changePassword({commit},params) {
         let {id} = params;
         let {code} = params;
         let {password} = params;
