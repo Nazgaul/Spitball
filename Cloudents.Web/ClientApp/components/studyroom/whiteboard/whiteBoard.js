@@ -80,6 +80,7 @@ export default {
                     value: '60'
                 }
             ],
+            sizeText: LanguageService.getValueByKey('tutor_size_label')
         };
     },
     computed: {

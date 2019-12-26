@@ -380,4 +380,7 @@ Voice Recording?</value>
   <data name="fontSize_small" xml:space="preserve">
     <value>Small</value>
   </data>
+  <data name="size_label" xml:space="preserve">
+    <value>Size</value>
+  </data>
 </root>
