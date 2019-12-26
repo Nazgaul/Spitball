@@ -1,10 +1,6 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using Cloudents.Core.Entities;
 using Dapper;
-using NHibernate;
-using NHibernate.Transform;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

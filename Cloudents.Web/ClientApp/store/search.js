@@ -49,7 +49,7 @@ const mutations = {
         }
     },
     setResetSearch(state){
-        state.isResetSearch = !state.isResetSearch
+        state.isResetSearch = !state.isResetSearch;
     }
 };
 
@@ -61,7 +61,7 @@ const getters = {
 
 const actions = {
     resetSearch({commit}){
-        commit('setResetSearch')
+        commit('setResetSearch');
     },
     getAutocmplete(context, term) {
         return searchService.autoComplete(term);

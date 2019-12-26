@@ -13,8 +13,8 @@ const getters = {
 const mutations = {
     setCouponError: (state, error) => state.couponError = error,
     setCouponDialog(state, val){ 
-        state.couponDialog = val
-        state.couponError = false
+        state.couponDialog = val;
+        state.couponError = false;
     }
 };
 
@@ -36,7 +36,7 @@ const actions = {
         }).catch(ex => {
             commit('setCouponError', true);
             console.log(ex);
-        })
+        });
     },
     updateCouponDialog({commit}, val) {
         commit('setCouponDialog', val);

@@ -8,7 +8,7 @@ const isFrymo = store.getters['isFrymo'];
 
 
 function websitePrefix(){
-    return `${isFrymo ? 'frymo.com':'spitball.co'}`
+    return `${isFrymo ? 'frymo.com':'spitball.co'}`;
 }
 
 function urlForEnglishUsers(type){
@@ -19,7 +19,7 @@ function urlForEnglishUsers(type){
         privacy: `https://help.${websitePrefix()}/en/article/privacy-policy`,
         faq: isFrymo ? `https://help.${websitePrefix()}/en/faqs` : `https://help.${websitePrefix()}/en/faq`,
         contact: `https://help.${websitePrefix()}/en/article/how-to-contact-us`,
-    }
+    };
     return urlByType[type];
 }
 
@@ -71,7 +71,7 @@ const sattelites = {
             he:"https://help.spitball.co/he/contact"
         } 
     }
-}
+};
 const socialMedias = {
     medium:{
         icon:'sbf-social-medium-small',
@@ -142,7 +142,7 @@ const socialMedias = {
             en: 'https://www.instagram.com/frymo_official/' //isFrymo ? 'https://twitter.com/frymo_official': 'https://twitter.com/spitballstudy',
         }
     }   
-}
+};
 
 function socialMediaObj(prop){
     let language = global.lang;
@@ -175,7 +175,7 @@ export default {
             if(!socialMedias[prop].hidden){
                 result.push(new socialMediaObj(prop));
             }
-        })
+        });
         return result;     
     }
 }

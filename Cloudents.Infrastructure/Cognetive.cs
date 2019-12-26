@@ -1,12 +1,9 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Microsoft.Azure.CognitiveServices.Vision.Face;
-using Microsoft.Azure.CognitiveServices.Vision.Face.Models;
 
 namespace Cloudents.Infrastructure
 {
@@ -31,7 +28,7 @@ namespace Cloudents.Infrastructure
  * DETECT FACES
  * Detects features from faces and IDs them.
  */
-        public async Task<System.Drawing.Point?> DetectCenterFaceAsync(Stream stream)
+        public async Task<Point?> DetectCenterFaceAsync(Stream stream)
         {
             var result = await _faceClient.Face.DetectWithStreamAsync(stream);
 

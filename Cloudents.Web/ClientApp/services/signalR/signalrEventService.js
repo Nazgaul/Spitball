@@ -106,8 +106,8 @@ export default function init(connString = '/sbHub') {
     //reconnect in case connection closes for some reason
     connectionInstance.connection.onclose(async () => {
         let isNotDeleted = signalRConnectionPool.filter((conn)=>{
-            return conn.connection.connection.baseUrl === connectionInstance.connection.connection.baseUrl
-        })
+            return conn.connection.connection.baseUrl === connectionInstance.connection.connection.baseUrl;
+        });
         if(isNotDeleted.length > 0){
             store.dispatch('setIsSignalRConnected', false);
             connectionInstance.isConnected = false;
@@ -120,14 +120,14 @@ export default function init(connString = '/sbHub') {
 }
 
 export function CloseConnection(connString){
-    let connectionInstance = null
+    let connectionInstance = null;
     let indexOfInstance = -1;
     signalRConnectionPool.forEach((con, index)=>{
         if(con.connection.connection.baseUrl.indexOf(connString) > -1){
             connectionInstance = con;
             indexOfInstance = index;
         }
-    })
+    });
     signalRConnectionPool.splice(indexOfInstance, 1);
     if(!!connectionInstance){
         connectionInstance.connection.stop();

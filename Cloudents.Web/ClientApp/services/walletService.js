@@ -16,7 +16,7 @@ export default {
             return data.map((item)=>{
                 return new BalanceDetails(item);
             });
-        })
+        });
     },
     getTransactions: () => connectivityModule.http.get("/Wallet/transaction"),
     buyTokens: (points) => connectivityModule.http.post("/Wallet/buyTokens", points),

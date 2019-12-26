@@ -1,7 +1,4 @@
-﻿using Cloudents.Core.Enum;
-using System;
-
-namespace Cloudents.Core.DTOs
+﻿namespace Cloudents.Core.DTOs
 {
     public class DocumentDetailDto
     {

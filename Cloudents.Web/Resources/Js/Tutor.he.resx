@@ -378,13 +378,7 @@
   <data name="begain_recording" xml:space="preserve">
     <value>הקלט</value>
   </data>
-  <data name="fontSize_large" xml:space="preserve">
-    <value>גדול</value>
-  </data>
-  <data name="fontSize_normal" xml:space="preserve">
-    <value>רגיל</value>
-  </data>
-  <data name="fontSize_small" xml:space="preserve">
-    <value>קטן</value>
+  <data name="size_label" xml:space="preserve">
+    <value>גודל</value>
   </data>
 </root>

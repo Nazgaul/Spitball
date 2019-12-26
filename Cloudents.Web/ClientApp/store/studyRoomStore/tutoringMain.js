@@ -247,7 +247,7 @@ const actions = {
         if(state.roomStateEnum[val] === state.roomStateEnum['active']){
             setTimeout(()=>{
                 dispatch('hideRoomToasterMessage');
-            }, 3000)
+            }, 3000);
         }
     },
     updateStudentStartDialog({commit}, val) {

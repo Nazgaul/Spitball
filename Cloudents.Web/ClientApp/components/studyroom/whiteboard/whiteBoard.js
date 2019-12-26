@@ -80,6 +80,8 @@ export default {
                     value: '60'
                 }
             ],
+            sizeText: LanguageService.getValueByKey('tutor_size_label'),
+            isRtl: global.isRtl
         };
     },
     computed: {
@@ -150,7 +152,7 @@ export default {
                     return true;
                 }
             }else{
-                return false
+                return false;
             }
         },
         fontSize:{
@@ -158,7 +160,7 @@ export default {
                 return this.getFontSize;
             },
             set(val){
-                this.setFontSize(val)
+                this.setFontSize(val);
             }
         }
     },
