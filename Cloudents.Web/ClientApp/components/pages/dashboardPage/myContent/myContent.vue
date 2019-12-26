@@ -132,7 +132,9 @@ export default {
       font-size: 22px;
       color: #43425d;
       font-weight: 600;
-      padding: 0 0 10px 2px;
+      padding: 30px;
+      background-color: #fff;
+      line-height: 1.3px;
    }
    .myContent_table{
       .v-datatable{
