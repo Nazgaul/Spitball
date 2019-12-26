@@ -42,7 +42,6 @@
                                 <button class="mainItem__item__wrap__paging__actions--left"  @click="isRtl ? nextDoc() : prevDoc()" v-if="showDesktopButtons">
                                     <v-icon class="mainItem__item__wrap__paging__actions--img" v-html="'sbf-arrow-left-carousel'"/>
                                 </button>
-
                                 <div class="mx-4 mainItem__item__wrap__paging--text" v-html="$Ph('documentPage_docPage', [docPage, docPreview.length])"></div>            
 
                                 <button class="mainItem__item__wrap__paging__actions--right" @click="isRtl ? prevDoc() : nextDoc()" v-if="showDesktopButtons">
@@ -58,7 +57,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import {  mapGetters } from 'vuex';
 
 import utillitiesService from "../../../../../services/utilities/utilitiesService";
 
@@ -90,6 +89,7 @@ export default {
             //reset the document with the v-if, fixing issue that moving from video to document wont reset the video ELEMENT
             let self = this;
             this.isLoad = true;
+            this.docPage = 1;
             setTimeout(()=>{
                 self.isLoad = false;
             })
@@ -137,6 +137,7 @@ export default {
                 });
                 return result;
             }
+            return null
         },
         videoLoader() {
             if(this.getDocumentLoaded) {
@@ -182,6 +183,7 @@ export default {
             if (this.document.details && this.document.details.name) {
                 return this.document.details.name;
             }
+            return null
         },
         
     },

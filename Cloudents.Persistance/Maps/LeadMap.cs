@@ -8,7 +8,8 @@ namespace Cloudents.Persistence.Maps
         public LeadMap()
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
-            References(x => x.Course).Not.Nullable();
+            //References(x => x.Course).Not.Nullable();
+            Map(x => x.Course).Column("CourseId").Not.Nullable();
             References(x => x.User).Nullable();
             References(x => x.Tutor).Nullable();
             Map(x => x.Referer).Length(400);

@@ -27,12 +27,10 @@
 </template>
 
 <script>
-import headlineStatus from ".././headlineStatus.vue";
 import { LanguageService } from "../../../../services/language/languageService.js";
 import { mapGetters } from 'vuex';
 
 export default {
-  components: { headlineStatus },
   data() {
     return {
       search: "",

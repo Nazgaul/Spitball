@@ -37,14 +37,14 @@
 
 <script>
     import {mapGetters, mapActions, mapState} from 'vuex';
-    import tutorService from "../../tutorService";
+    // import tutorService from "../../tutorService";
     import videoStreamService from "../../../../services/videoStreamService";
-    import timerIcon from '../../images/timer.svg';
+    // import timerIcon from '../../images/timer.svg';
     import stopIcon from '../../images/stop-icon.svg';
     export default {
         name: "startEndSessionBtn",
         components:{
-            timerIcon,
+            // timerIcon,
             stopIcon
 
         },
@@ -76,6 +76,8 @@
             accountUserID() {
                 if (this.accountUser && this.accountUser.id) {
                     return this.accountUser.id;
+                }else{
+                    return null;
                 }
             }
         },

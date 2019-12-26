@@ -89,19 +89,19 @@
               </v-list-item>
             </template>
 
-                <v-list-item
-                class="group_list_sideMenu_course" v-for="(item, index) in selectedClasses" :key="index" 
-                color="#fff"
-                :to="{name: $route.name}"
-                event
-                @click.native.prevent="getShowSchoolBlock ? selectCourse(item) : openSideMenu()" :sel="item.isDefault? 'all_courses' : ''">
-                  <v-list-item-content>
-                    <v-list-item-title :class="['group_list_titles_course',{'active_link_course': currentCourseChecker(item)}]">
-                      <arrowSVG v-if="currentCourseChecker(item)" class="arrow_course"/>
-                      <span :class="['group_list_title_course text-truncate',currentCourseChecker(item)? 'padding_current_course':'ml-4']" v-text="item.text ? item.text : item"/>
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
+            <v-list-item
+              class="group_list_sideMenu_course" v-for="(item, index) in selectedClasses" :key="index" 
+              color="#fff"
+              :to="{name: $route.name}"
+              event
+              @click.native.prevent="getShowSchoolBlock ? selectCourse(item) : openSideMenu()" :sel="item.isDefault? 'all_courses' : ''">
+              <v-list-item-content>
+                <v-list-item-title :class="['group_list_titles_course',{'active_link_course': currentCourseChecker(item)}]">
+                  <arrowSVG v-if="currentCourseChecker(item)" class="arrow_course"/>
+                  <span :class="['group_list_title_course text-truncate',currentCourseChecker(item)? 'padding_current_course':'ml-4']" v-text="item.text ? item.text : dictionary.allCourses"/>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
           
           </v-list-group>
         </v-list>
@@ -127,15 +127,23 @@ export default {
       dashboardList:[
         {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', route: 'profile', icon:'sbf-user', sel:'sd_profile'},
         {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', route: 'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
-        {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', route: 'studyRooms', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
+        {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', route: 'roomSettings', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
         {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'my-sales', route: 'mySales', icon:'sbf-cart',sel:'sd_sales'},
         {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', route: 'myContent', icon:'sbf-cart',sel:'sd_content'},
+        {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'my-purchases', route: 'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
         // {name: LanguageService.getValueByKey('schoolBlock_lessons'), key:'lessons', icon:'sbf-lessons'},
         {name: LanguageService.getValueByKey('schoolBlock_courses'), key:'courses', route: 'editCourse', icon:'sbf-classes-icon'},
         // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
-        // {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
         // {name: 'myCalendar', key:'myCalendar', icon:'sbf-cart',sel:'sd_calendar'},
         // {name: 'myFollowers', key:'myFollowers', icon:'sbf-cart',sel:'sd_followers'},
+
+        // TODO: check which 1 to keep
+        // {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', icon:'sbf-user', sel:'sd_profile'},
+        // // {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
+        // {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
+        // {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'my-sales', icon:'sbf-cart',sel:'sd_sales'},
+        // {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', icon:'sbf-my-content',sel:'sd_content'},
+        // {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'my-purchases', icon:'sbf-cart',sel:'sd_purchases'},
       ],
       selectedCourse: "",
       lock: false,
@@ -166,6 +174,7 @@ export default {
     },
     selectedClasses(){
         let selectedClasses = JSON.parse(JSON.stringify(this.getSelectedClasses))
+        
         selectedClasses = selectedClasses.sort((a, b) => a.text.toLowerCase() > b.text.toLowerCase() ? 1 : -1);
         let defaultCourse = {
           isFollowing: true,
@@ -177,6 +186,7 @@ export default {
           text: this.dictionary.allCourses,
           isDefault: true
         }
+
         selectedClasses.unshift(defaultCourse);
         return selectedClasses;
     },
@@ -252,6 +262,9 @@ export default {
       if(name === "studyRooms"){
           this.$router.push({name:'studyRooms'})
       }
+      // if(path === "studyRooms"){
+      //     this.$router.push({name:'myStudyRooms'})
+      // }
       if(name === "lessons"){
         // this.$router.push({name:'lessons'})
       }
@@ -267,6 +280,15 @@ export default {
       if(name === "editCourse"){
         this.$router.push({name:'editCourse'})
       }
+      if(name === "myPurchases"){
+        this.$router.push({name:'myPurchases'})
+      }
+      // if(path === "my-purchases"){
+      //   this.$router.push({name:'myPurchases'})
+      // }
+      // if(path === "editCourse"){
+      //   this.$router.push({name:'editCourse'})
+      // }
       this.closeSideMenu();
     },
     resetItems(){

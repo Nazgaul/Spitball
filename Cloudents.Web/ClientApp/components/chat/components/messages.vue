@@ -46,13 +46,9 @@
 <script>
 import message from "./messageComponents/message.vue"
 import chatUploadFile from './messageComponents/chatUploadFile.vue';
-
-import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
-import userOnlineStatus from '../../helpers/userOnlineStatus/userOnlineStatus.vue';
-
 import {mapGetters, mapActions} from 'vuex';
 import { LanguageService } from '../../../services/language/languageService';
-import chatService from '../../../services/chatService';
+
 import addCircle from '../images/add-circle-outline.svg';
 
 import analyticsService from '../../../services/analytics.service';
@@ -62,9 +58,9 @@ export default {
     components:{
         message,
         addCircle,
-        UserAvatar,
+      //  UserAvatar,
         chatUploadFile,
-        userOnlineStatus
+      //  userOnlineStatus
     },
     data(){
         return{
@@ -95,6 +91,7 @@ export default {
             if(this.activeConversationObj && this.activeConversationObj.studyRoomId){
                 return this.activeConversationObj.studyRoomId.length > 1
             }
+            return false
         },
         showStudyRoomInteraction(){
             return this.messages &&  this.messages.length > 0;

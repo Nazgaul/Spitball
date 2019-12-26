@@ -69,7 +69,7 @@ export default {
                     }
                 },
                 (error) => {
-                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', err, null);
+                    insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoSettings_getVideoInputdevices', error, null);
                     console.log('error cant get video input devices', error)
                 }
             )

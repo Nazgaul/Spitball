@@ -204,14 +204,14 @@
             doCopy() {
                 let self = this;
                 if (!self.isMultiple) {
-                    this.$copyText(this.userReferralLink).then((e) => {
+                    this.$copyText(this.userReferralLink).then(() => {
                         self.isCopied = true;
-                    }, (e) => {
+                    }, () => {
                     })
                 } else {
-                    this.$copyText(this.singleRefLink).then((e) => {
+                    this.$copyText(this.singleRefLink).then(() => {
                         self.isCopied = true;
-                    }, (e) => {
+                    }, () => {
                     })
                 }
             },

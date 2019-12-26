@@ -106,6 +106,7 @@ export default {
           return this.getActiveConversationObj.name;
         }
       }
+      return ''
     },
     errorTitle() {
       return LanguageService.getValueByKey("chat_error_messages");

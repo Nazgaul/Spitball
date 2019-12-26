@@ -24,8 +24,10 @@
         computed: {
             ...mapGetters(['getProfile']),
             reviews() {
-                if(this.getProfile && this.getProfile.about && this.getProfile.about.reviews)
-                return this.getProfile.about.reviews
+                if(this.getProfile && this.getProfile.about && this.getProfile.about.reviews) {
+                    return this.getProfile.about.reviews
+                }
+                return null
             }
 
         },

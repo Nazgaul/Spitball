@@ -72,7 +72,7 @@ export default {
 		}
 	},
 	  watch: {
-        smsCode: function(val){
+        smsCode: function(){
             this.setErrorMessages({})
 		}
 	}

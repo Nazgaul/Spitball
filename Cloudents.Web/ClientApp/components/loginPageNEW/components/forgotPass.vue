@@ -36,7 +36,7 @@ export default {
     computed: {
         ...mapGetters(['getEmail1','getErrorMessages','getGlobalLoading']),
         isEmailLoading(){
-		    return this.getGlobalLoading
+            return this.getGlobalLoading
         },
         errorMessages(){
             return this.getErrorMessages
@@ -61,7 +61,7 @@ export default {
         }
     },
     watch: {
-    email: function(val){
+    email: function(){
         this.setErrorMessages({})
     }
 	}

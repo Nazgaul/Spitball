@@ -46,7 +46,7 @@ export default {
         }
     },
     watch: {
-        password: function(val){
+        password: function(){
             this.setErrorMessages({})
         },
     },

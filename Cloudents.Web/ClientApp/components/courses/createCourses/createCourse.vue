@@ -71,7 +71,7 @@
                 if (this.$refs.courseForm.validate()) {
                     let self = this;
                     let course = {name: self.courseName.trim()};
-                    self.createCourse(course).then((success) => {
+                    self.createCourse(course).then(() => {
                         self.$root.$emit('courseCreated', self.courseName);
                     });
                 }

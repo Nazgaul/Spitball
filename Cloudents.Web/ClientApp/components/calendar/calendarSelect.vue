@@ -37,6 +37,8 @@ export default {
         paddingScroll(){
             if(!this.isMobile && this.calendarsList.length > 5){
                 return `padding-right: 10px`
+            } else{
+                return '';
             }
         }
     },

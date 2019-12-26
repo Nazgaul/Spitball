@@ -1,8 +1,8 @@
 <template>
-    <div class="mobileUnlockDownload" :class="{'mobileUnlockDownload--sticky': sticky, 'mobileUnlockDownload--purchased': isPurchased}" v-if="showBlock && !isLoading">
+    <div class="mobileUnlockDownload" :class="{'mobileUnlockDownload--sticky': sticky, 'mobileUnlockDownload--purchased': isPurchased}" v-if="showBlock">
         <div class="mobileUnlockDownload__title" v-language:inner="'documentPage_credit_uploader'" v-if="!zeroPrice && !isPurchased"></div>
         <div class="mobileUnlockDownload__action">
-            <template v-if="!zeroPrice && !btnLoader && !isPurchased">
+            <template v-if="!zeroPrice && !isPurchased">
                 <span class="mobileUnlockDownload__action__price">{{priceWithComma}}</span>
                 <span class="mobileUnlockDownload__action__pts" v-language:inner="'documentPage_points'"></span>
             </template>
@@ -50,21 +50,19 @@ export default {
             type: Boolean
         }
     },
-    data() {
-        return {
-            btnLoader: true,
-        }
-    },
     computed: {
-        ...mapGetters(['accountUser']),
+        ...mapGetters(['accountUser', 'getBtnLoading']),
 
         showBlock() {
-            if(this.isVideo && !this.isShowPurchased) {
+            if(this.isVideo) {
+                if(this.isPurchased || this.docPrice <= 0) {
+                    return false;
+                }
                 return true;
-            } else if (this.isVideo && this.isPurchased) {
-                return false
+            } else if(!this.isVideo) {
+                return true;
             }
-            return true;
+            return false;
         },
         zeroPrice() {
             return (this.document && this.document.details && this.document.details.price === 0);
@@ -73,6 +71,7 @@ export default {
             if(this.document && this.document.details) {
                 return this.document.details.price.toLocaleString();
             }
+            return null
         },
         docPrice() {
             if(this.document && this.document.details) {
@@ -100,7 +99,7 @@ export default {
             return false;
         },
         isLoading() {
-            if(this.document && this.document.details && !this.btnLoader) {
+            if(this.document && this.document.details && !this.getBtnLoading) {
                 return false;
             }
             return true;
@@ -130,9 +129,6 @@ export default {
             this.downloadDocument(item);
         },
     },
-    created() {
-        this.btnLoader = false;
-    }
 }
 </script>
 

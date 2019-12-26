@@ -29,6 +29,7 @@
                 if (this.getProfile && this.getProfile.user) {
                     return this.getProfile.user.description;
                 }
+                return null
             },
             userName(){
                 if(this.isTutorProfile){
@@ -40,7 +41,7 @@
                         return this.getProfile.user.name;
                     }
                 }
-
+                return null
             },
             // userName() {
             //     if (this.getProfile && this.getProfile.user) {

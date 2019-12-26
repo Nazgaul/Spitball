@@ -17,7 +17,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             {
                 Db = new DbConnectionString(
                     "Server=tcp:sb-dev.database.windows.net,1433;Initial Catalog=ZboxNew_Develop;Persist Security Info=False;User ID=sb-dev;Password=Pa$$W0rd123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
-                    null, DbConnectionString.DataBaseIntegration.None)
+                    null, DbConnectionString.DataBaseIntegration.None),
+                SiteEndPoint = new SiteEndPoints()
+                {
+                    FunctionSite = "https://www.spitball.co",
+                    IndiaSite = "https://www.spitball.co",
+                    SpitballSite = "https://www.spitball.co"
+                }
+
 
 
                 //PROD
@@ -34,7 +41,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.RegisterModule<ModuleCore>();
             builder.RegisterModule<ModuleInfrastructureBase>();
             // builder.RegisterModule<ModuleCache>();
-
+            builder.RegisterModule<ModuleCore>();
             builder.RegisterType<DapperRepository>().AsSelf();
             Container = builder.Build();
             QueryBus = Container.Resolve<IQueryBus>();

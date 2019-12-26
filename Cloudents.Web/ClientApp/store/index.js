@@ -16,7 +16,6 @@ import mobileFooter from './mobileFooter';
 import buyTokens from './buyTokens';
 import chatStore from './chatStore';
 import becomeTutor from './becomeTutor';
-import studyRoomsStore from './studyRoomsStore';
 import tutorList from './tutorList';
 import userOnlineStatus from './userOnlineStatus';
 import leaveReview from './leaveReview';
@@ -57,7 +56,6 @@ const store = new Vuex.Store({
         buyTokens,
         chatStore,
         becomeTutor,
-        studyRoomsStore,
         tutorList,
         leaveReview,
         userOnlineStatus,

@@ -37,8 +37,9 @@
             <v-flex v-if="showBox">
                 <div class="university-list" id="university-list">
                     <div class="list-item subtitle-1 cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
-                         v-for="singleUni in universities"
-                         @click="selectUniversity(singleUni)">
+                         v-for="(singleUni, index) in universities"
+                         @click="selectUniversity(singleUni)" 
+                         :key="index">
                         <v-layout shrink>
                             <v-flex xs1  >
                                 <span class="uni-logo">
@@ -137,6 +138,7 @@
                               "changeUniCreateDialogState"
                           ]),
             ...mapMutations(['UPDATE_SEARCH_LOADING','setSchoolName']),
+            // eslint-disable-next-line no-unused-vars
             clearData(search, university) {
                 search = '';
                 university = undefined;
@@ -159,7 +161,7 @@
                     }
                     self.isLoading = false;
                     self.page = 1;
-                }, (err) => {
+                }, () => {
                     self.isComplete = true;
                 })
             },
@@ -176,7 +178,7 @@
                     }
                     self.isLoading = false;
                     self.page++;
-                }, (err) => {
+                }, () => {
                     self.isComplete = true;
                 })
             },
@@ -223,7 +225,7 @@
                 if(this.checkBeforeNextStep(schoolName)) {
                     //new if changed
                     this.updateSchoolName(objToSend)
-                        .then((success) => {
+                        .then(() => {
                                 this.UPDATE_SEARCH_LOADING(true);
                                 this.getOut();
                               },
@@ -340,7 +342,7 @@
         }
         .students-enrolled {
             color: rgba(128, 128, 128, 0.87);
-            font-size: 10px;
+            font-size: 12px;
         }
         .list-item {
             color: inherit;

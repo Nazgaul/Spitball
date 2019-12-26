@@ -39,14 +39,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 export default {
-  methods: {
-    // ...mapActions(['setBrowserSupportDialog']),
-    // closeDialog() {
-    //   this.setBrowserSupportDialog(false);
-    // }
-  },
   computed:{
     isMobile(){
       return this.$vuetify.breakpoint.xsOnly;

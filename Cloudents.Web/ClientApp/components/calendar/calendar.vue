@@ -88,14 +88,14 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import paymentDialog from '../studyroom/tutorHelpers/paymentDIalog/paymentDIalog.vue'
-import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
+//import paymentDialog from '../studyroom/tutorHelpers/paymentDIalog/paymentDIalog.vue'
+//import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
 import {LanguageService} from '../../services/language/languageService.js'
 import Schedule from './images/schedule.svg'
 export default {
     components:{
-      paymentDialog,
-      sbDialog,
+     // paymentDialog,
+     // sbDialog,
       Schedule
     },
     data() {
@@ -153,6 +153,8 @@ export default {
           } else{
             return `${month} ${year}`
           }
+        }else{
+          return false;
         }
       },
       isGoPrev(){
@@ -197,7 +199,7 @@ export default {
           let options = { weekday: this.isMobile? 'narrow':'short' };
           return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
         },
-        insertNewEvent(date,time){
+        insertNewEvent(){
           this.isLoading = true;
           let paramObj = {
             date: this.selectedDate,
@@ -207,7 +209,7 @@ export default {
               this.isEventSent = true
               this.calendarEvents.push(paramObj)
               this.isLoading = false;
-          },err=>{
+          },()=>{
             this.addEventDialog = false;
             this.isLoading = false;
             this.updateToasterParams({
@@ -269,7 +271,7 @@ export default {
        this.$refs.calendar.scrollToTime('06:00')
     },
     watch: {
-      getCalendarEvents:function(val){
+      getCalendarEvents:function(){
         this.isReady = true
       },
       isMobile:function(val){
@@ -492,7 +494,7 @@ display: flex;
           font-weight: bold;
           padding: 0;
         @media (max-width: @screen-xs) {
-            font-size: 10px;
+            font-size: 12px;
             text-align: center;
         }
         }

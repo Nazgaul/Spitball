@@ -107,7 +107,11 @@ module.exports = (env) => {
                                 publicPath: '/dist/'
                             }
                         }
-                    ]
+                    ],
+                },
+                {
+                    test: /\.(ogg|mp3|wav)$/i,
+                    loader: 'file-loader'
                 },
                 {
                     test: /\.js$/,

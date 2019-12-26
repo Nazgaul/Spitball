@@ -11,7 +11,6 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
-    import Base62 from "base62"
     import analyticsService from '../../../services/analytics.service'
 
     export default {

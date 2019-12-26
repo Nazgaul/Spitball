@@ -177,7 +177,7 @@ import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import { LanguageService } from '../../../../services/language/languageService';
 import analyticsService from '../../../../services/analytics.service'
 
-import sbClose from '../../../../font-icon/close.svg';
+
 export default {
   name: "profileBio",
   components: {
@@ -185,8 +185,8 @@ export default {
     userAboutMessage,
     userInfoEdit,
     tutorInfoEdit,
-    sbDialog,
-    sbClose
+    sbDialog
+    
   },
   data() {
     return {
@@ -233,6 +233,7 @@ export default {
       if (this.getProfile && this.getProfile.user) {
         return this.getProfile.user.universityName;
       }
+      return null
     },
     userName() {
       if (this.isTutorProfile) {
@@ -247,11 +248,13 @@ export default {
           return this.getProfile.user.name;
         }
       }
+      return null
     },
     userScore() {
       if (this.getProfile && this.getProfile.user) {
         return this.getProfile.user.score;
       }
+      return null
     },
     couponPlaceholder() {
       return LanguageService.getValueByKey('coupon_placeholder')
@@ -379,7 +382,7 @@ export default {
       width: 200px;
       margin: 4px 0 0 auto;
       text-align: left;
-      font-size: 11px;
+      font-size: 12px;
       color: #ff5252;
     }
   }
@@ -409,7 +412,7 @@ export default {
         font-weight: normal;
         color: #ccc;
         .small-text{
-          font-size: 11px;
+          font-size: 12px;
         }
       }
       &:after {
@@ -507,7 +510,7 @@ export default {
     width: 236px;
     margin-top: 4px;
     text-align: left;
-    font-size: 11px;
+    font-size: 12px;
     color: #ff5252;
   }
     }

@@ -46,7 +46,6 @@
                 } else {
                     return false;
                 }
-                return this.offsetTop2 >= offHeight && (this.$vuetify.breakpoint.smAndDown);
             },
             raiseFloatingButtonPosition() {
                 return !this.getCookieAccepted;
@@ -66,7 +65,6 @@
             ...mapGetters(['getSchoolName', 'getAllSteps']),
             openUploaderDialog() {
                 let schoolName = this.getSchoolName();
-                let steps = this.getAllSteps();
                 if(this.accountUser == null) {
                     this.updateLoginDialogState(true);
                 } else if(!schoolName.length) {

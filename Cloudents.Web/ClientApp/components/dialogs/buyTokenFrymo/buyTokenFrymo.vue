@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
     name: "buyTokenFrymo",
@@ -249,7 +249,7 @@ export default {
         &__h5 {
             font-size: 13px;
             margin-bottom: 13px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
     }

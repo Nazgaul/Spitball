@@ -6,10 +6,12 @@ import insightService from '../../services/insightService';
 const MIME_TYPE = getBestMimeType();
 
 function getBestMimeType(){
-  if(MediaRecorder.isTypeSupported('video/webm; codecs=vp9,opus')){
-    return 'video/webm; codecs=vp9,opus'
-  }else{
-    return 'video/webm; codecs=vp8,opus'
+  if(!!global.MediaRecorder){
+    if(MediaRecorder.isTypeSupported('video/webm; codecs=vp9,opus')){
+      return 'video/webm; codecs=vp9,opus'
+    }else{
+      return 'video/webm; codecs=vp8,opus'
+    }
   }
 }
 
@@ -174,7 +176,9 @@ function createMediaRecorder (){
   //record true only after recorderStream selected
   store.dispatch('setIsRecording', true);
   let options = {mimeType: MIME_TYPE};
-  store.dispatch('setRecorder', new MediaRecorder(store.getters.getRecorderStream, options));
+  if(!!global.MediaRecorder){
+    store.dispatch('setRecorder', new MediaRecorder(store.getters.getRecorderStream, options));
+  }
   console.log(store.getters.getRecorder);
   registerRecorderEvents();
   store.getters.getRecorder.start();

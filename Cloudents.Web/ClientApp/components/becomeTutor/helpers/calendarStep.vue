@@ -40,7 +40,7 @@
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
-    import { LanguageService } from "../../../services/language/languageService";
+ //   import { LanguageService } from "../../../services/language/languageService";
     import calendarSelect from '../../calendar/calendarSelect.vue'
     import calendarHours from '../../calendar/calendarHours.vue'
     export default {
@@ -79,9 +79,9 @@
             shareCalendar(){
                 this.isLoadingCalendar = true;
                 let self = this
-                this.gapiSignIn().then((res)=>{
+                this.gapiSignIn().then(()=>{
                     self.isSelectCalendar = true
-                },err=>{
+                },()=>{
                     this.isLoadingCalendar = false;
                 })
             },

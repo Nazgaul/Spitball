@@ -112,12 +112,12 @@ export default {
   methods: {
     ...mapActions(['updateRequestDialog', 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'openChatInterface', 'setActiveConversationObj']),
 
-    tutorCardClicked(e) {
+    tutorCardClicked() {
       if(this.fromLandingPage){
           analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
       }else{
           analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
-      };
+      }
     },
     reviewsPlaceHolder(reviews) {
       return reviews === 0 ? reviews.toString() : reviews
@@ -141,7 +141,6 @@ export default {
           }
           let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
           this.setActiveConversationObj(currentConversationObj);
-          let isMobile = this.$vuetify.breakpoint.smAndDown;
           this.openChatInterface();                    
       }
     }

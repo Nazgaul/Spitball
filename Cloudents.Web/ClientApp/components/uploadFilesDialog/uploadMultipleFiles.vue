@@ -47,7 +47,6 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Base62 from "base62"
 
 import documentService from "../../services/documentService";
 import analyticsService from "../../services/analytics.service";
@@ -113,6 +112,8 @@ export default {
         classesList() {
             if (this.isClassesSet) {
                 return this.getSelectedClasses
+            }else{
+                return this.getSelectedClasses;
             }
         },
         firstStep() {
@@ -133,6 +134,8 @@ export default {
         errorFile(){
             if(this.getFileData && this.getFileData.length && this.isError && this.getFileData[0].error){
                 return this.getFileData[0]
+            }else{
+                return null;
             }
         }
     },
@@ -165,7 +168,7 @@ export default {
                 if(fileObj.error)return;
                 let serverFormattedObj = uploadService.createServerFileData(fileObj);
                 documentService.sendDocumentData(serverFormattedObj)
-                    .then((resp) => {
+                    .then(() => {
                         analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_UPLOAD_COMPLETE');
                         analyticsService.sb_unitedEvent('Action Box', 'Upload_D', `USER_ID:${self.accountUser.id}, DOC_COURSE${self.courseSelected}`);
                         self.loading = false;
@@ -176,7 +179,7 @@ export default {
                         this.closeUpload()
                         // self.goToNextStep()
                     },
-                        (error) => {
+                        () => {
                             fileObj.error = true;
                             self.loading = false;
                             fileObj.errorText = LanguageService.getValueByKey("upload_multiple_error_upload_something_wrong");

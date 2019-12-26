@@ -37,15 +37,13 @@
                     <div class="class-list selected-classes-list py-3 px-3"
                          ref="listCourse">
                         <div class="selected-class-item caption d-inline-flex text-truncate font-weight-bold align-center justify-center pl-4 pr-1  py-1 mr-2"
-                             v-for="selectedClass in localSelectedClasses">
+                             v-for="(selectedClass, index) in localSelectedClasses" :key="index">
                             <span class="text-truncate">{{selectedClass.text}}</span>
-                            <span class="delete-class cursor-pointer pr-4"
-                                  @click="deleteClass(selectedClass, selectedClasses)">
-                        <v-icon color="white">sbf-close</v-icon>
-                    </span>
+                            <span class="delete-class cursor-pointer pr-4" @click="deleteClass(selectedClass, selectedClasses)">
+                                <v-icon color="white">sbf-close</v-icon>
+                            </span>
                         </div>
                     </div>
-
                 </div>
             </v-flex>
         </v-layout>
@@ -58,7 +56,7 @@
             <v-flex v-if="showBox">
                 <div class="class-list search-classes-list" id="search-classes-list">
                     <div class="list-item subtitle-1 search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
-                         v-for="singleClass in classes" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
+                         v-for="(singleClass, index) in classes" :key="index" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
                         <v-layout column class="pl-4 limit-width">
                             <v-flex shrink class="course-name-wrap">
                                 <div v-html="$options.filters.boldText(singleClass.text, search)">
@@ -233,7 +231,7 @@
                         }
                         self.isLoading = false;
                         self.page++;
-                    }, (err) => {
+                    }, () => {
                         self.isComplete = true;
                     });
             },
@@ -263,13 +261,8 @@
                     }
                     self.isLoading = false;
                     self.page = 1;
-                }, (err) => {
+                }, () => {
                     self.isComplete = true;
-                });
-            },
-            setTeachActiveOnSelectedClass(){
-                universityService.teachCourse(course.text).then((resp) => {
-                    }, (error) => {
                 });
             },
             submitAndGo() {
@@ -279,7 +272,7 @@
                 this.assignClasses(this.localSelectedClasses).then(() => {
                     if(this.isTutor){
                             this.localSelectedClasses.forEach(course=>{
-                                universityService.teachCourse(course.text).then(resp=>{
+                                universityService.teachCourse(course.text).then(()=>{
                                     course.isTeaching = true;
                                     this.doneButtonLoading = false;
                                     this.$router.push({name: 'editCourse'});
@@ -443,7 +436,7 @@
         }
         .students-enrolled {
             color: rgba(128, 128, 128, 0.87);
-            font-size: 10px;
+            font-size: 12px;
         }
         //new
         .selected-class-item {

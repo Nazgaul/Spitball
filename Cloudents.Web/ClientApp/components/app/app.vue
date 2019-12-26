@@ -75,7 +75,7 @@
 
 
           <sb-dialog
-                v-if="!!this.accountUser"
+                v-if="!!accountUser"
                 :showDialog="getReferralDialog"
                 :popUpType="'referralPop'"
                 :onclosefn="closeReferralDialog"
@@ -142,11 +142,11 @@ import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import loginToAnswer from "../question/helpers/loginToAnswer/login-answer.vue";
 import AddQuestion from "../question/askQuestion/askQuestion.vue";
 import uploadMultipleFiles from '../uploadFilesDialog/uploadMultipleFiles.vue';
-import {  GetDictionary,  LanguageService} from "../../services/language/languageService";
+import {  LanguageService} from "../../services/language/languageService";
 import walletService from "../../services/walletService";
-import reportItem from "../results/helpers/reportItem/reportItem.vue";
+//import reportItem from "../results/helpers/reportItem/reportItem.vue";
 import mobileFooter from '../pages/layouts/mobileFooter/mobileFooter.vue';
-import marketingBox from "../helpers/marketingBox/marketingBox.vue";
+//import marketingBox from "../helpers/marketingBox/marketingBox.vue";
 import buyTokens from "../dialogs/buyTokens/buyTokens.vue";
 import buyTokenFrymo from "../dialogs/buyTokenFrymo/buyTokenFrymo.vue";
 import chatComponent from "../chat/chat.vue";
@@ -163,9 +163,9 @@ export default {
     sbDialog,
     loginToAnswer,
     chatComponent,
-    reportItem,
+   // reportItem,
     mobileFooter,
-    marketingBox,
+   // marketingBox,
     uploadMultipleFiles,
     buyTokens,
     buyTokenFrymo,
@@ -225,6 +225,7 @@ export default {
       }
     },
     cookiesShow() {
+      if(global.country === 'IL') return true;
       if(!this.accountUser){
         return this.getCookieAccepted();
       }else{
@@ -289,6 +290,9 @@ export default {
       }, this.getToasterTimeout);
     },
     '$route'(){
+      if(this.loginDialogState) {
+        this.updateLoginDialogState(false);
+      }
       this.$nextTick(()=>{
         this.fireOptimizeActivate()
       })
@@ -342,7 +346,7 @@ export default {
           });
         },
         error => {
-          global.localStorage.setItem("sb_transactionError", transactionId);
+          global.localStorage.setItem("sb_transactionError", transactionObjectError.points);
           console.log(error);
         }
       );
@@ -384,7 +388,7 @@ export default {
 
     this.acceptedCookies = this.getCookieAccepted();
     if (global.isMobileAgent) {
-      global.addEventListener("resize", event => {
+      global.addEventListener("resize", () => {
           if (
             (document && document.activeElement.tagName == "INPUT") ||
             document.activeElement.tagName == "TEXTAREA"

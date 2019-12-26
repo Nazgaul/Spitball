@@ -46,7 +46,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         public ChatControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
-            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
 
@@ -69,6 +68,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync(api);
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var str = await response.Content.ReadAsStringAsync();
+            str.IsValidJson().Should().BeTrue();
         }
 
         [Fact]
@@ -79,6 +80,11 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync("api/chat");
 
             response.EnsureSuccessStatusCode();
+
+          
+            var str = await response.Content.ReadAsStringAsync();
+            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+          
         }
 
         [Fact]
@@ -90,6 +96,9 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync("api/chat/159039");
 
             response.EnsureSuccessStatusCode();
+            var str = await response.Content.ReadAsStringAsync();
+            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+           
         }
 
         [Fact]
@@ -97,9 +106,10 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/chat", HttpClient.CreateJsonString(_msg));
+            var response = await _client.PostAsync("api/chat", HttpClientExtensions.CreateJsonString(_msg));
 
             response.EnsureSuccessStatusCode();
+
         }
 
         [Fact]
@@ -111,11 +121,15 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
             var str = await response.Content.ReadAsStringAsync();
 
+            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+
             var d = JArray.Parse(str);
 
             d.Should().NotBeNull();
 
             response.EnsureSuccessStatusCode();
+
+           
         }
 
         [Fact]
@@ -123,7 +137,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/chat/read", HttpClient.CreateJsonString(_user));
+            var response = await _client.PostAsync("api/chat/read", HttpClientExtensions.CreateJsonString(_user));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
@@ -165,19 +179,36 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             };
 
 
-            var response = await _client.PostAsync("api/chat", HttpClient.CreateJsonString(msg));
+            var response = await _client.PostAsync("api/chat", HttpClientExtensions.CreateJsonString(msg));
 
             response.EnsureSuccessStatusCode();
+
+            var str = await response.Content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(str))
+            {
+                str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+            }
 
             //_uri.Path = "api/login";
 
-            response = await _client.PostAsync("api/login", HttpClient.CreateJsonString(otherUser));
+            response = await _client.PostAsync("api/login", HttpClientExtensions.CreateJsonString(otherUser));
             response.EnsureSuccessStatusCode();
-           // _uri.Path = "api/chat/read";
 
-            response = await _client.PostAsync("api/chat/read", HttpClient.CreateJsonString(read));
+            str = await response.Content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(str))
+            {
+                str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+            }
+            // _uri.Path = "api/chat/read";
+
+            response = await _client.PostAsync("api/chat/read", HttpClientExtensions.CreateJsonString(read));
 
             response.EnsureSuccessStatusCode();
+            str = await response.Content.ReadAsStringAsync();
+            if (!string.IsNullOrEmpty(str))
+            {
+                str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+            }
         }
     }
 }

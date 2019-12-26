@@ -127,6 +127,17 @@
                 <span v-language:inner>tutor_tooltip_upload</span>
             </v-tooltip>
 
+            <!--snapshot-->
+            <v-tooltip bottom>
+                <template v-slot:activator="{on}">
+                    <button sel="clear_all_canvas" v-on="on" class="nav-action" @click="takeSnapshot()">
+                        <v-icon style="margin-bottom: 2px;">sbf-capture-icon</v-icon>
+                    </button>
+                </template>
+                <span v-language:inner>tutor_tooltip_takeSnapshot</span>
+            </v-tooltip>
+
+            <!--eraser-->
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" :class="{'active-tool': selectedOptionString === enumOptions.eraser}"
@@ -164,7 +175,9 @@ import {mapGetters, mapActions} from 'vuex';
 import helperUtil from './utils/helper';
 import whiteBoardService from './whiteBoardService';
 import {Compact} from 'vue-color';
+// eslint-disable-next-line no-unused-vars
 import textDraw from './options/textDraw';
+// eslint-disable-next-line no-unused-vars
 import equationDraw from './options/equationDraw';
 
 export default {
@@ -205,7 +218,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['setShowPickColorInterface', 'setCurrentOptionSelected', 'setSelectedOptionString', 'setUndoClicked', 'setClearAllClicked']),
+        ...mapActions(['setShowPickColorInterface', 'setCurrentOptionSelected', 'setSelectedOptionString', 'setUndoClicked', 'setClearAllClicked', 'setSnapshotDialog']),
         showColorPicker() {
             this.setShowPickColorInterface(true);
         },
@@ -220,13 +233,13 @@ export default {
             this.setSelectedOptionString(selectedOption);
             if(selectedOption === 'textDraw'){
                 let mouseEvent = new MouseEvent("mousedown", {});
-                canvas.dispatchEvent(mouseEvent);
+                global.canvas.dispatchEvent(mouseEvent);
             } else if(selectedOption === 'equationDraw'){
                 let mouseEvent = new MouseEvent("mousedown", {});
-                canvas.dispatchEvent(mouseEvent);
+                global.canvas.dispatchEvent(mouseEvent);
             } else if(selectedOption === 'iink'){
                 let mouseEvent = new MouseEvent("mousedown", {});
-                canvas.dispatchEvent(mouseEvent);
+                global.canvas.dispatchEvent(mouseEvent);
             } else{
                 helperUtil.HelperObj.isActive = false;
             }
@@ -244,6 +257,9 @@ export default {
         },
         clearCanvas(){
             this.setClearAllClicked();
+        },
+        takeSnapshot(){
+            this.setSnapshotDialog(true);
         }
     },
     computed:{

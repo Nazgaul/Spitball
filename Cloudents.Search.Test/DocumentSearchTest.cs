@@ -26,12 +26,12 @@ namespace Cloudents.Search.Test
         [InlineData("IL", null, "Economics")]
         public async Task Test1(string country, string term, string course, CancellationToken token = default)
         {
-            var userprofile = new UserProfile()
+            var userProfile = new UserProfile()
             {
                 Country = country
             };
-            var query = new DocumentQuery(userprofile, term, course, 20, null);
-            var searchResult = await _client.SearchAsync(query, userprofile, token);
+            var query = new DocumentQuery(userProfile, term, course, 20, null);
+            var searchResult = await _client.SearchAsync(query, userProfile, token);
 
             var documentResult = searchResult.result.ToList();
             var ids = documentResult.Select(s => s.Id);

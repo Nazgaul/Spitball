@@ -26,10 +26,7 @@
         computed: {
             ...mapGetters(['isTutorProfile', 'accountUser', 'getProfile', 'getIsTutorState']),
             isMyProfile() {
-                if (!!this.getProfile) {
-                    // return false
-                    return this.accountUser && this.accountUser.id && this.getProfile ? this.getProfile.user.id == this.accountUser.id : false;
-                }
+                return this.accountUser && this.accountUser.id && this.getProfile ? this.getProfile.user.id == this.accountUser.id : false;
             },
             tutorPending(){
                return this.getIsTutorState && this.getIsTutorState ==='pending';

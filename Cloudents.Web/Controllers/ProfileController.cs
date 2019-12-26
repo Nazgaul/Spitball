@@ -1,5 +1,4 @@
-﻿using System;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Query;
@@ -9,9 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.Extensions.Configuration;
-using Schema.NET;
+using Cloudents.Core.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -73,7 +70,14 @@ namespace Cloudents.Web.Controllers
             }
             ViewBag.title = _localizer[$"Title{localizerSuffix}", retVal.Name, retVal.UniversityName];
             ViewBag.metaDescription = _localizer["Description", retVal.Description];
-            ViewBag.fbImage = retVal.Image;
+            if (retVal.Image != null)
+            {
+                ViewBag.fbImage = $"{retVal.Name}?width=1200&height=630";
+
+
+                ViewBag.ogImageWidth = 1200;
+                ViewBag.ogImageHeight = 630;
+            }
 
             //var jsonLd = new ProfilePage()
             //{

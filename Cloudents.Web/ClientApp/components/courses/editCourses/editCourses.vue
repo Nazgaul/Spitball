@@ -119,9 +119,10 @@
             isEmpty() {
                 if(!this.getIsSelectedClassLocked){
                     if(this.getSelectedClasses.length < 1){
-                        this.$router.push({name:'addCourse'});
+                        this.goToAddMore();
                     }
                 }
+                return false;
             },
             coursesQuantaty() {
                 return this.getSelectedClasses.length;
@@ -139,11 +140,11 @@
                 this.teachingActive = true;
                 course.isLoading = true;
                 universityService.teachCourse(course.text)
-                                 .then((resp) => {
+                                 .then(() => {
                                      course.isLoading = false;
                                      this.teachingActive = false;
                                      return course.isTeaching = !course.isTeaching;
-                                 }, (error) => {
+                                 }, () => {
                                      course.isLoading = false;
                                      this.teachingActive = false;
                                  }).finally(() => {
@@ -154,10 +155,10 @@
             removeClass(classDelete) {
                 classDelete.isLoading = true;
                 this.removingActive = true;
-                this.deleteClass(classDelete).then((resp) => {
+                this.deleteClass(classDelete).then(() => {
                     classDelete.isLoading = false;
 
-                }, (error) => {
+                }, () => {
                     classDelete.isLoading = false;
                     this.removingActive = false;
                 }).finally(() => {
@@ -191,7 +192,7 @@
         }
         .badge {
             max-height: 48px;
-            font-size: 10px;
+            font-size: 12px;
             padding: 2px 0;
             border-radius: 8px;
             background-color: @purpleLight;
@@ -199,7 +200,7 @@
         }
         .label-text {
             color: rgba(128, 128, 128, 0.87);
-            font-size: 10px;
+            font-size: 12px;
         }
         .solid-btn {
             &:not(.v-btn--flat) {

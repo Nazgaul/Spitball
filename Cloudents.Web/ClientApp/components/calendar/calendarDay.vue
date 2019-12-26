@@ -51,7 +51,7 @@
                             <template slot="item" slot-scope="item">{{timeFormat(item.item)}}</template>
                         </v-select>
                     
-                        <removeTimeSVG @click.native="closeAdditionalTime" class="removeTime"/> 
+                        <removeTimeSVG @click="closeAdditionalTime" class="removeTime"/> 
                 </div>
             </td>
         </tr>
@@ -106,7 +106,7 @@ export default {
                 return start > end ? start - key : start + key;
             })
             if(this.selectedHourTo <= rangeArray[0]){
-                this.selectedHourTo = rangeArray[0]
+                this.setSelectedHourTo(rangeArray[0])
             }
             return rangeArray
         },
@@ -114,7 +114,7 @@ export default {
         hoursAdditionaFromList(){
             let listTo = this.hoursList.filter(hour=> hour > this.selectedHourTo)
             if(this.selectedAdditionalHourFrom <= listTo[0]){
-                this.selectedAdditionalHourFrom = listTo[0]
+                this.setSelectedAdditionalHourFrom(listTo[0])
             }
             return listTo
         },
@@ -122,7 +122,7 @@ export default {
             let listTo = this.hoursAdditionaFromList.filter(hour=> hour > this.selectedAdditionalHourFrom)
                 listTo.push(24)
             if(this.selectedAdditionalHourTo <= listTo[0]){
-                this.selectedAdditionalHourTo = listTo[0]
+                this.setSelectedAdditionalHourTo(listTo[0])
             }
             return listTo
             
@@ -133,6 +133,15 @@ export default {
     },
     methods: {
         ...mapActions(['updateStateAvailabilityCalendar']),
+        setSelectedHourTo(val){
+            this.selectedHourTo = val
+        },
+        setSelectedAdditionalHourFrom(val){
+            this.selectedAdditionalHourFrom = val;
+        },
+        setSelectedAdditionalHourTo(val){
+            this.selectedAdditionalHourTo = val;
+        },
         timeFormat(time){
             if(time == this.hoursList[0]) {
                 return time
@@ -187,7 +196,7 @@ export default {
                 this.closeAdditionalTime()
             }
         },
-        
+
     },
     created() {
         if(this.day === 6){

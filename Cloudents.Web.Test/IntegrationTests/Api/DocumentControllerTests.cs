@@ -73,7 +73,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             {
                 AllowAutoRedirect = false
             });
-            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
         [Theory]
@@ -88,6 +87,10 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             }
             var response = await _client.GetAsync(endPoint);
             response.StatusCode.Should().Be(200);
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
         }
 
         [Fact]
@@ -95,7 +98,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClient.CreateJsonString(_doc1));
+            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClientExtensions.CreateJsonString(_doc1));
 
             response.EnsureSuccessStatusCode();
         }
@@ -105,7 +108,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClient.CreateJsonString(_doc2));
+            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClientExtensions.CreateJsonString(_doc2));
 
             response.EnsureSuccessStatusCode();
         }
@@ -115,7 +118,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClient.CreateJsonString(_doc3));
+            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClientExtensions.CreateJsonString(_doc3));
 
             response.EnsureSuccessStatusCode();
         }
@@ -125,19 +128,9 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClient.CreateJsonString(_doc4));
+            var response = await _client.PostAsync(_uri.Path + "/upload", HttpClientExtensions.CreateJsonString(_doc4));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        }
-
-        [Fact]
-        public async Task GetAsync_OldDocument_OK()
-        {
-            _uri.Path = "document/Box%20Read%20for%20hotmail%20user/Load%20Stress%20Testing%20Multimi2.docx/457";
-
-            var response = await _client.GetAsync(_uri.Path);
-
-            response.EnsureSuccessStatusCode();
         }
 
         [Theory]
@@ -158,16 +151,19 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
+            var str = await response.Content.ReadAsStringAsync();
+
+            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
         }
 
         [Fact]
         public async Task Upload_Doc_Without_Uni()
         {
-            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));
+            await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_credentials));
 
             _uri.Path = "api/upload";
 
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_upload));
+            var response = await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_upload));
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }

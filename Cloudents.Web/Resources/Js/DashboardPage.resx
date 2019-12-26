@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="action" xml:space="preserve">
-    <value>Action</value>
+  <data name="action_download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="action_watch" xml:space="preserve">
+    <value>Watch</value>
   </data>
   <data name="answer" xml:space="preserve">
     <value>Answer:</value>
@@ -138,9 +141,18 @@
   <data name="duration" xml:space="preserve">
     <value>Duration:</value>
   </data>
+  <data name="empty" xml:space="preserve">
+    <value>Sorry, nothing to display here :(</value>
+  </data>
+  <data name="enter_room" xml:space="preserve">
+    <value>Enter the room</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>Product
 </value>
+  </data>
+  <data name="last_date" xml:space="preserve">
+    <value>Last Session</value>
   </data>
   <data name="likes" xml:space="preserve">
     <value>Likes</value>
@@ -148,20 +160,20 @@
   <data name="my_content_title" xml:space="preserve">
     <value>My Content</value>
   </data>
+  <data name="my_purchases_title" xml:space="preserve">
+    <value>My Purchases</value>
+  </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>My Sales</value>
   </data>
   <data name="of" xml:space="preserve">
-    <value>of</value>
+    <value>out of</value>
   </data>
   <data name="paid" xml:space="preserve">
     <value>Paid</value>
   </data>
   <data name="pending" xml:space="preserve">
     <value>Pending</value>
-  </data>
-  <data name="preview" xml:space="preserve">
-    <value>Preview</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>Price</value>
@@ -175,7 +187,7 @@
   <data name="qa" xml:space="preserve">
     <value>Q&amp;A</value>
   </data>
-  <data name="questuin" xml:space="preserve">
+  <data name="question" xml:space="preserve">
     <value>Question:</value>
   </data>
   <data name="rename" xml:space="preserve">
@@ -184,8 +196,14 @@
   <data name="session" xml:space="preserve">
     <value>Tutoring session with {1}</value>
   </data>
+  <data name="session_on" xml:space="preserve">
+    <value>Ongoing</value>
+  </data>
   <data name="status" xml:space="preserve">
-    <value>Product</value>
+    <value>Status</value>
+  </data>
+  <data name="student_tutor" xml:space="preserve">
+    <value>Student / tutor</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>Tutoring Session</value>

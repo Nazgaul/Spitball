@@ -30,7 +30,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         public AccountControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
-            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
         [Theory]
@@ -41,8 +40,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         public async Task AccountApiTestGet_NotLogIn_Unauthorized(string api)
         {
             var response = await _client.GetAsync(api);
-
-            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);            
         }
 
         [Theory]
@@ -50,57 +48,23 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("api/account/courses")]
         [InlineData("api/account/university")]
         [InlineData("api/account/referrals")]
+        [InlineData("api/account/content")]
+        [InlineData("api/account/sales")]
         public async Task AccountApiTestGet_LogIn_Ok(string api)
         {
             await _client.LogInAsync();
             var response = await _client.GetAsync(api);
             response.EnsureSuccessStatusCode();
+            if (response.StatusCode != HttpStatusCode.NoContent)
+            {
+                var str = await response.Content.ReadAsStringAsync();
+                str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+            }
+
             //response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
 
-        //[Fact]
-        //public async Task GetAsync_Unauthorized_401()
-        //{
-        //    var response = await _client.GetAsync("api/account");
-
-        //    response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
-        //}
-
-        //[Fact]
-        //public async Task GetAsync_OK_200()
-        //{
-        //    await _client.LogInAsync();
-
-        //    var response = await _client.GetAsync("api/account");
-
-        //    response.EnsureSuccessStatusCode();
-        //}
-
-        //[Fact]
-        //public async Task GetAsync_courses_OK()
-        //{
-        //   // _uri.Path = "api/account/courses";
-
-        //    await _client.LogInAsync();
-
-        //    var response = await _client.GetAsync("api/account/courses");
-        //    response.EnsureSuccessStatusCode();
-        //    //var str = await response.Content.ReadAsStringAsync();
-
-        //    //var d = JArray.Parse(str);
-
-        //    //response.EnsureSuccessStatusCode();
-
-        //    //d.Should().NotBeNull();
-        //}
-
-        //[Fact]
-        //public async Task GetAsync_courses_Unauthorized()
-        //{
-        //   // _uri.Path = "api/account/courses";
-        //    var response = await _client.GetAsync("api/account/courses");
-        //    response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
-        //}
+        
 
         [Fact]
         public async Task PostAsync_settings_OK()
@@ -109,7 +73,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
             await _client.LogInAsync();
 
-            var response = await _client.PostAsync("api/account/settings", HttpClient.CreateJsonString(_settings));
+            var response = await _client.PostAsync("api/account/settings", HttpClientExtensions.CreateJsonString(_settings));
 
             response.EnsureSuccessStatusCode();
 

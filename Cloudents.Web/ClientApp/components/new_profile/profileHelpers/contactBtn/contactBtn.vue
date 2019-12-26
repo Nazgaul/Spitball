@@ -3,7 +3,7 @@
 
         <button class="ct-btn" @click="sendMessage">
             <v-icon class="ct-btn-icon mr-2">sbf-message-icon</v-icon>  
-            <span class="btn-text text-uppercase" v-language:inner>profile_tutor_contact_btn</span>
+            <span class="btn-text" v-language:inner>profile_tutor_contact_btn</span>
         </button>
     </div>
 </template>
@@ -44,7 +44,6 @@ import analyticsService from '../../../../services/analytics.service';
                     }
                     let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
                     this.setActiveConversationObj(currentConversationObj);
-                    let isMobile = this.$vuetify.breakpoint.smAndDown;
                     this.openChatInterface();                    
                 }
             }

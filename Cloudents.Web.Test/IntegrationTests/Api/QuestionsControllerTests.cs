@@ -24,10 +24,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             price = 1
         };
 
-        private UriBuilder _uri = new UriBuilder()
-        {
-            Path = "api/login"
-        };
+      
 
         private readonly object _credentials = new
         {
@@ -42,7 +39,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             {
                 AllowAutoRedirect = false
             });
-            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
 
@@ -61,6 +57,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync(uri);
 
             response.EnsureSuccessStatusCode();
+            var str = await response.Content.ReadAsStringAsync();
+            str.IsValidJson().Should().BeTrue();
 
         }
 
@@ -85,11 +83,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Fact]
         public async Task Ask_Course_Without_Uni()
         {
-            await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_credentials));
-
-            _uri.Path = "api/question";
-
-            var response = await _client.PostAsync(_uri.Path, HttpClient.CreateJsonString(_question));
+            await _client.PostAsync("api/login", HttpClientExtensions.CreateJsonString(_credentials));
+            var response = await _client.PostAsync("api/question", HttpClientExtensions.CreateJsonString(_question));
 
             response.EnsureSuccessStatusCode();
         }

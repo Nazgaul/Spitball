@@ -47,7 +47,7 @@ const state = {
     sessionTimeStart: null,
     sessionTimeEnd: null,
     showUserConsentDialog: false,
-    
+    snapshotDialog: false,    
 };
 const getters = {
     getIsRoomFull: state => state.isRoomFull,
@@ -80,6 +80,7 @@ const getters = {
     getSessionTimeStart: state => state.sessionTimeStart,
     getSessionTimeEnd: state => state.sessionTimeEnd,
     getShowUserConsentDialog: state => state.showUserConsentDialog,
+    getSnapshotDialog: state => state.snapshotDialog,
 };
 
 const mutations = {
@@ -177,6 +178,9 @@ const mutations = {
     setShowUserConsentDialog(state, val){
         state.showUserConsentDialog = val;
     },
+    setSnapshotDialog(state, val){
+        state.snapshotDialog = val;
+    },
 };
 
 const actions = {
@@ -252,7 +256,7 @@ const actions = {
     updateTutorStartDialog({commit}, val) {
         commit('setTutorStartDialog', val);
     },
-    signalR_UpdateState({commit, dispatch, state}, notificationObj) {
+    signalR_UpdateState({commit, dispatch, state, getters}, notificationObj) {
         //TODO Update state according to the singnalR data
         let onlineCount = notificationObj.onlineCount;
         // if(onlineCount === 2){
@@ -326,8 +330,9 @@ const actions = {
                 }else{
                     dispatch("setStudentDialogState", state.startSessionDialogStateEnum.needPayment);
                 }
-                
-                dispatch('updateStudentStartDialog', true);
+                if(!getters.getReviewDialogState){
+                    dispatch('updateStudentStartDialog', true);
+                }
                 dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                 toasterParams.timeout = 3600000;
@@ -404,6 +409,9 @@ const actions = {
     },
     setShowUserConsentDialog({commit}, val){
         commit('setShowUserConsentDialog', val);
+    },
+    setSnapshotDialog({commit}, val){
+        commit('setSnapshotDialog', val);
     },
 };
 export default {

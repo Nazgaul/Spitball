@@ -3,6 +3,9 @@ import dashboardService from '../services/dashboardService.js';
 const state = {
    salesItems: [],
    contentItems: [],
+   purchasesItems: [],
+   balancesItems: [],
+   studyRoomItems: [],
 }
 
 const mutations = {
@@ -11,6 +14,15 @@ const mutations = {
    },
    setContentItems(state,val) {
       state.contentItems = val;
+   },
+   setPurchasesItems(state,val) {
+      state.purchasesItems = val;
+   },
+   setBalancesItems(state,val) {
+      state.balancesItems = val;
+   },
+   setStudyRoomItems(state,val) {
+      state.studyRoomItems = val;
    },
    dashboard_setPrice(state,{newPrice,itemId}){
       state.contentItems.forEach(item =>{
@@ -31,6 +43,9 @@ const mutations = {
 const getters = {
    getSalesItems: state => state.salesItems,
    getContentItems: state => state.contentItems,
+   getPurchasesItems: state => state.purchasesItems,
+   getBalancesItems: state => state.balancesItems,
+   getStudyRoomItems: state => state.studyRoomItems,
 }
 
 const actions = {
@@ -44,6 +59,21 @@ const actions = {
          commit('setContentItems', items);
       }) 
    },
+   updatePurchasesItems({commit}){
+      dashboardService.getPurchasesItems().then(items=>{
+         commit('setPurchasesItems', items);
+      }) 
+   },
+   updateBalancesItems({commit}){
+      dashboardService.getBalancesItems().then(items=>{
+         commit('setBalancesItems', items);
+      }) 
+   },
+   updateStudyRoomItems({commit}){
+      dashboardService.getStudyRoomItems().then(items=>{
+         commit('setStudyRoomItems', items);
+      }) 
+   },
    dashboard_updatePrice({commit},paramObj){
       commit('dashboard_setPrice',paramObj)
    },
@@ -51,7 +81,7 @@ const actions = {
       commit('dashboard_setName',paramObj)
    },
    dashboard_sort({state},{listName,sortBy,sortedBy}){
-      if(sortBy == 'date'){
+      if(sortBy == 'date' || sortBy == 'lastSession'){
          if(sortedBy === sortBy){
             state[listName].reverse();
          }else{

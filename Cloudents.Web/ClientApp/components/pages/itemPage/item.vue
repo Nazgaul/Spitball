@@ -44,7 +44,7 @@
                     <h3 v-language:inner="'documentPage_related_content'"></h3>
                     <router-link 
                         v-language:inner="'documentPage_full_list'"
-                        :to="{name: 'feed', query: {course: courseName}}"
+                        :to="{name: 'feed', query: {Course: courseName}}"
                         class="itemPage__main__carousel__header--seeAll"
                         color="#4c59ff"
                     ></router-link>
@@ -90,7 +90,6 @@ import mainItem from './components/mainItem/mainItem.vue';
 import resultNote from '../../results/ResultNote.vue';
 import sbCarousel from '../../sbCarousel/sbCarousel.vue';
 import itemCard from '../../carouselCards/itemCard.vue'
-import tutorCardCarousel from '../../carouselCards/tutorCard.vue';
 import tutorResultCard from '../../results/tutorCards/tutorResultCard/tutorResultCard.vue';
 import tutorResultCardMobile from '../../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
@@ -103,7 +102,6 @@ export default {
     components: {
         resultNote,
         sbCarousel,
-        tutorCardCarousel,
         tutorResultCard,
         tutorResultCardMobile,
         itemCard,
@@ -176,11 +174,13 @@ export default {
                 }
                 return name;
             }
+            return null
         },
         courseName() {
             if(this.document && this.document.details) {
                 return this.document.details.course;
             }
+            return null
         }
     },
         methods: {
@@ -241,7 +241,7 @@ export default {
                 }
                 let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
                 this.setActiveConversationObj(currentConversationObj);
-                let isMobile = this.$vuetify.breakpoint.smAndDown;
+                
                 this.openChatInterface();                    
             }
         },

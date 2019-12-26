@@ -51,10 +51,12 @@
         <!-- </div> -->
 
         <div class="userMenu_actionsList">
-          <v-list-item v-if="!isFrymo" v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)" sel="menu_row">
-            <v-list-item-action><v-icon class="userMenu_icons">{{singleLang.icon}}</v-icon></v-list-item-action>
-            <v-list-item-content><v-list-item-title class="subheading userMenu_titles">{{singleLang.title}}</v-list-item-title></v-list-item-content>
-          </v-list-item>
+          <template v-if="!isFrymo">
+            <v-list-item v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)" sel="menu_row">
+              <v-list-item-action><v-icon class="userMenu_icons">{{singleLang.icon}}</v-icon></v-list-item-action>
+              <v-list-item-content><v-list-item-title class="subheading userMenu_titles">{{singleLang.title}}</v-list-item-title></v-list-item-content>
+            </v-list-item>
+          </template>
 
           <v-list-item :to="{ name: 'tutoring'}">
             <v-list-item-action><v-icon class="userMenu_icons" v-html="'sbf-pc'"></v-icon></v-list-item-action>
@@ -103,20 +105,17 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 
-import analyticsService from '../../../../services/analytics.service';
+
 import languagesLocales from "../../../../services/language/localeLanguage";
 import { LanguageChange, LanguageService } from "../../../../services/language/languageService";
 import satelliteService from '../../../../services/satelliteService';
 
 import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
-import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import logoComponent from '../../../app/logo/logo.vue';
 
-import getPointsSVG from './image/get-points.svg';
-import classesIcon from './image/classes-icon.svg';
 
 export default {
-   components: { sbDialog,userAvatar,getPointsSVG,classesIcon,logoComponent},
+   components: { userAvatar,logoComponent},
   data() {
     return {
       languagesLocales,
@@ -168,11 +167,9 @@ export default {
     // },  
     changeLanguage(id) {
       LanguageChange.setUserLanguage(id).then(
-        resp => {
+        () => {
           global.location.reload(true);
-        },
-        error => {
-        }
+        }     
       );
     },
     startIntercom() {

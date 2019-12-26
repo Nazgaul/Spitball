@@ -150,7 +150,7 @@
                         lastName,
                         };
                     this.btnLoading = true;
-                    accountService.saveUserInfo(editsData).then((success) => {
+                    accountService.saveUserInfo(editsData).then(() => {
                         this.updateEditedProfile(editsData);
                         this.btnLoading = false;
                         this.closeDialog();

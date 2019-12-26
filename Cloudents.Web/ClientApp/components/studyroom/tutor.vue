@@ -9,7 +9,7 @@
       <noSupportTop></noSupportTop>
       <div class="no-support-text" v-language:inner="'tutor_not_supported'"></div>
       <div class="no-support-button">
-        <button @click="closeWin" v-language:inner="'tutor_close'"></button>
+        <router-link to="/" tag="button" v-language:inner="'tutor_close'"></router-link>
       </div>
       <noSupportBottom></noSupportBottom>
     </div>
@@ -222,6 +222,18 @@
       >
           <studentConsentDialog></studentConsentDialog>
       </sb-dialog>
+      
+      <sb-dialog
+        :showDialog="getSnapshotDialog"
+        :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
+        :popUpType="'studyroomSnapshotDialog'"
+        :maxWidth="'800'"
+        :onclosefn="closeSnapshotDialog"
+        :isPersistent="$vuetify.breakpoint.smAndUp"
+        :content-class="'studyroom-snapshot-dialog'"
+      >
+          <snapshotDialog></snapshotDialog>
+      </sb-dialog>
     </div>
   </v-layout>
 </template>
@@ -261,6 +273,7 @@ import intercomSVG from './images/icon-1-2.svg'
 import studyRoomRecordingService from './studyRoomRecordingService.js';
 import errorWithAudioRecording from './tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
 import studentConsentDialog from './tutorHelpers/studentConsentDialog/studentConsentDialog.vue';
+import snapshotDialog from './tutorHelpers/snapshotDialog/snapshotDialog.vue';
 
 //store
 import storeService from "../../services/store/storeService";
@@ -299,7 +312,8 @@ export default {
     codeEditorTools,
     intercomSVG,
     errorWithAudioRecording,
-    studentConsentDialog
+    studentConsentDialog,
+    snapshotDialog
   },
   name: "tutor",
   data() {
@@ -337,7 +351,10 @@ export default {
   },
 
   props: {
-    id: ""
+    id: {
+      type: String,
+      default: ''
+    }
   },
 
   computed: {
@@ -365,7 +382,8 @@ export default {
       "getIsRecording",
       "getShowAudioRecordingError",
       "getVisitedSettingPage",
-      "getShowUserConsentDialog"      
+      "getShowUserConsentDialog",
+      "getSnapshotDialog"
     ]),
     activeItem() {
       return this.activeNavItem;
@@ -444,9 +462,11 @@ watch: {
       "setShowAudioRecordingError",
       "hideRoomToasterMessage",
       "setShowUserConsentDialog",
+      "setSnapshotDialog",
+      "stopTracks"
     ]),
     // ...mapGetters(['getDevicesObj']),
-    closeFullScreen(e){
+    closeFullScreen(){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
        this.selectViewOption(this.enumViewOptions.videoChat)
       }
@@ -541,9 +561,9 @@ watch: {
         self.lockChat();
       });
     },
-    closeWin() {
-      global.close();
-    },
+    // closeWin() {
+    //   global.close();
+    // },
     closeBrowserSupportDialog(){ 
       this.setBrowserSupportDialog(false);
     },
@@ -582,7 +602,7 @@ watch: {
             this.setVideoDevice(videoDevice);
             this.setAudioDevice(audioDevice);
             return true;
-        }, err=>{
+        }, ()=>{
           return false;
         })
 
@@ -600,7 +620,7 @@ watch: {
         window.open('mailto: support@frymo.com', '_blank');
       }else{
         global.Intercom('show')
-        intercomSettings.hide_default_launcher = false;
+        global.intercomSettings.hide_default_launcher = false;
       }
     },
     toggleRecord(){
@@ -608,6 +628,9 @@ watch: {
     },
     closeUserConsentDialog(){
       this.setShowUserConsentDialog(false);
+    },
+    closeSnapshotDialog(){
+      this.setSnapshotDialog(false);
     }
   },
   mounted() {
@@ -630,6 +653,7 @@ watch: {
     global.onbeforeunload = function() { };
   },
   beforeDestroy(){
+    this.stopTracks();
     this.hideRoomToasterMessage();
     this.updateTutorStartDialog(false);
     this.updateStudentStartDialog(false);
@@ -642,6 +666,7 @@ watch: {
     if(this.id){
       CloseConnection(`studyRoomHub?studyRoomId=${this.id}`);
     }
+
   },
   beforeCreate(){
     storeService.registerModule(this.$store,'studyRoomTracks_store',studyRoomTracks_store);

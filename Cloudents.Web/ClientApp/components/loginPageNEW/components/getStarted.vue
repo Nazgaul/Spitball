@@ -87,7 +87,7 @@ export default {
                     return;
             }
                     this.googleLoading = true;
-                    this.googleSigning().then(res=>{},err=>{
+                    this.googleSigning().then(()=>{},err=>{
                         insightService.track.event(insightService.EVENT_TYPES.ERROR, 'signInWithGoogle', err);
                         this.googleLoading = false
                         })

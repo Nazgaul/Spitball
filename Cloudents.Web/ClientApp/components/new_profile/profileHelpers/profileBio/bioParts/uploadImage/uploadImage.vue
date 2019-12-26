@@ -57,7 +57,7 @@
         }
         .image-edit-text{
             line-height: 1;
-            font-size: 11px;
+            font-size: 12px;
             color: @color-black;
         }
         .profile-image-input-container {

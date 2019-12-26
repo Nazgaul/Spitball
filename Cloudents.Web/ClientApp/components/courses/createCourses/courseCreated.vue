@@ -63,7 +63,10 @@
 
         },
         props: {
-            courseName: ''
+            courseName: {
+                type: String,
+                default: ''
+            }
         },
         methods: {
             ...mapActions(['changeCreateDialogState']),
@@ -74,11 +77,10 @@
             copyClassLink() {
                 let url = `${global.location.origin}/feed/?Course=${this.courseName}`;
                 let self = this;
-                self.$copyText(url).then((e) => {
+                self.$copyText(url).then(() => {
                     self.isCopied = true;
-                }, (e) => {
                 });
-                setTimeout((uncopy) => {
+                setTimeout(() => {
                     self.isCopied = false;
                 }, 2000);
 

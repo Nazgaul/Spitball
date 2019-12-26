@@ -14,9 +14,15 @@
                 <span class="subtitle-1 font-weight-bold" v-language:inner>tutor_start_dialog_your_tutor</span>
                 <span class="subtitle-1 font-weight-bold">&nbsp;{{tutorName}}</span>
             </v-flex>
-            <v-flex xs12 style="text-align: center;" class="pt-2">
+
+            <!-- DO WE NEED THIS? -->
+            <!-- <v-flex xs12 style="text-align: center;" class="pt-2">
                 <span class="subtitle-1" v-language:inner>tutor_entered_room</span>
-            </v-flex>
+            </v-flex> -->
+
+            <!-- <v-flex xs12 style="text-align: center;" class="pt-2">
+                <span class="subheading" v-language:inner>tutor_entered_room</span>
+            </v-flex> -->
             <v-flex v-if="showButton" xs12 class="pt-4">
                 <v-btn class="start-session-btn elevation-0 align-center justify-center"
                         large
