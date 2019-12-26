@@ -88,7 +88,7 @@
                 <div style="width: 100px;height: 55px;">
                     <v-select
                         :items="textScales"
-                        label="Size"
+                        :label="sizeText"
                         append-icon='sbf-arrow-down'
                         v-model="fontSize"
                         item-text='text'
