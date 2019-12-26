@@ -32,8 +32,8 @@ namespace Cloudents.Web.Seo
                 .Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)
                 .Select(s => new 
                 {
-                    Id = s.Id,
-                    Name = s.Name,
+                    s.Id,
+                    s.Name,
                     CourseName = s.Course.Id,
                     UniversityName = s.University.Name,
                     s.TimeStamp.UpdateTime

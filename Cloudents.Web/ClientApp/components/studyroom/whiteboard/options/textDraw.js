@@ -109,7 +109,7 @@ const mousedown = function(e){
             // if(!isEditing){
                 let fontSize = FONT_SIZE();
                 let heightOffset = yOffset();
-                this.context.font = `${fontSize}px serif`;
+                this.context.font = `${fontSize}px open sans`;
                 let meassureText = this.context.measureText(text.value);
                 let textObj = createPointsByOption({
                     // mouseX: (window.innerWidth / 2) - (meassureText.width / 2),
@@ -119,7 +119,7 @@ const mousedown = function(e){
                     yOffset: heightOffset,
                     width: meassureText.width,
                     height: Number(fontSize),
-                    fontFamily: 'serif',
+                    fontFamily: 'open sans',
                     color: this.color.hex,
                     option: optionType,
                     eventName: 'start',

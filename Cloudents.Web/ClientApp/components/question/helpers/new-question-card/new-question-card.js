@@ -81,10 +81,10 @@ export default {
             return this.cardData.hasCorrectAnswer || this.cardData.correctAnswerId;
         },
         answersCount() {
-            return this.cardData.answers
+            return this.cardData.answers;
         },
         answers() {           
-            return this.cardData.firstAnswer
+            return this.cardData.firstAnswer;
         },
         answersNumber() {
             let answersNum = this.cardData.answers;
@@ -114,7 +114,7 @@ export default {
             return delta;
         },
         moreAnswersDictionary() {
-            return this.cardData.answers > 1 ? 'questionCard_Answers' : 'questionCard_Answer_one'
+            return this.cardData.answers > 1 ? 'questionCard_Answers' : 'questionCard_Answer_one';
         }
         
     },
@@ -148,7 +148,7 @@ export default {
             if (!isOwner) {
                 return true;
             } else{
-                return false
+                return false;
             }
         },
         showBigImage(src) {
@@ -196,6 +196,6 @@ export default {
         }
     },
     created() {
-        this.isQuestionPage = (this.$route.name === 'question')
+        this.isQuestionPage = (this.$route.name === 'question');
     },
 };

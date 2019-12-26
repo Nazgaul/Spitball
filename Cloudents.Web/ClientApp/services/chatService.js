@@ -50,7 +50,7 @@ function FileMessage(objInit, id, fromSignalR){
     this.unreadMessage = objInit.unreadMessage || objInit.unread;
 }
 
-function activeConversationObj(objInit){
+function ActiveConversationObj(objInit){
     this.userId = objInit.userId || null;
     this.conversationId = objInit.conversationId || null;
     this.name = objInit.name || null;
@@ -58,7 +58,7 @@ function activeConversationObj(objInit){
 }
 
 function createActiveConversationObj(objInit){
-    return new activeConversationObj(objInit);
+    return new ActiveConversationObj(objInit);
 }
 
 
@@ -70,13 +70,13 @@ function createMessage(objInit, id, fromSignalR){
     }
 }
 
-function serverMessageObj(objInit){
+function ServerMessageObj(objInit){
     this.message = objInit.message;
     this.otherUser = objInit.otherUser;
 }
 
 function createServerMessageObj(objInit){
-    return new serverMessageObj(objInit);
+    return new ServerMessageObj(objInit);
 }
 
 const getAllConversations = () => {

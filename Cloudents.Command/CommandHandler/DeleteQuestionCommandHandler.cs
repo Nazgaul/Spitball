@@ -4,7 +4,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

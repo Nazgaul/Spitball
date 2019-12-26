@@ -86,7 +86,7 @@ function getDocument(id){
 function getStudyDocuments(obj) {
     return connectivityModule.http.get(`/Document/similar?course=${obj.course}&documentId=${obj.id}`).then(({data}) => {
         return createDocumentsObj(data);
-    })
+    });
 }
 
 export default {

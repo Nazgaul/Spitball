@@ -38,7 +38,7 @@ export default {
         },
         userName() {
             if(this.accountUser && this.accountUser.name) {
-                return this.accountUser.name
+                return this.accountUser.name;
             }
             return '';
         }

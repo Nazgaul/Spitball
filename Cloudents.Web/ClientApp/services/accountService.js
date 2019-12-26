@@ -15,7 +15,7 @@ function AccountUser(objInit){
     this.image = objInit.image || '';
     this.online = objInit.online || false;
     this.needPayment = objInit.needPayment || false;
-    this.currencySymbol = objInit.currencySymbol
+    this.currencySymbol = objInit.currencySymbol;
 }
 function createIsTutorState(str){
     if(str && str.toLowerCase() === 'ok'){

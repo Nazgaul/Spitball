@@ -152,7 +152,7 @@ export default {
         },
         userAnswered() {
             if(this.accountUser) {
-                return this.questionData.answers.length && this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length
+                return this.questionData.answers.length && this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length;
             }
             return null;
         },

@@ -1,27 +1,31 @@
-﻿import Vue from "vue";
+﻿// ReSharper disable once InconsistentNaming
+import Vue from "vue";
+// ReSharper disable once InconsistentNaming
+
 import VueRouter from "vue-router"
+// ReSharper disable once InconsistentNaming
 import App from './App.vue'
 import { routes } from './routes'
-import Toaster from 'v-toaster'
+import toaster from 'v-toaster'
 import 'v-toaster/dist/v-toaster.css'
 import store from "./store";
-import Vuetify from 'vuetify'
+import vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import VueClipboard from 'vue-clipboard2'
+import vueClipboard from 'vue-clipboard2'
 
-const VueUploadComponent = require('vue-upload-component');
-Vue.component('file-upload', VueUploadComponent);
+const vueUploadComponent = require('vue-upload-component');
+Vue.component('file-upload', vueUploadComponent);
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
-Vue.use(Toaster);
-Vue.use(Vuetify,
+Vue.use(toaster);
+Vue.use(vuetify,
     {
         theme: {
             
         }
     });
-Vue.use(VueClipboard);
+Vue.use(vueClipboard);
 // 10/12/2018
 Vue.filter('dateFromISO', function (value) {
     let d = new Date(value);
@@ -30,7 +34,6 @@ Vue.filter('dateFromISO', function (value) {
 });
 
 
-Vue.use(VueClipboard);
 const router = new VueRouter({
     mode: "history",
     routes: routes
@@ -46,4 +49,4 @@ const app = new Vue({
 export {
     app,
     router
-};
+    };

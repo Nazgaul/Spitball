@@ -198,7 +198,7 @@ const actions = {
             if(recorderStream){
                 // recorderStream.requestData(); //init the dataAvailable Event;
                 let recorderTrackToAdd = studyRoomRecordingService.createRemoteAudioStream();
-                studyRoomRecordingService.createCombinedMediaStreams(recorderTrackToAdd)
+                studyRoomRecordingService.createCombinedMediaStreams(recorderTrackToAdd);
             }
             container.appendChild(track.attach());
         }
@@ -285,10 +285,10 @@ const actions = {
         commit('setIsAudioActive', val);
     },
     setLocalDisplayMedia({commit}, val){
-        commit('setLocalDisplayMedia', val)
+        commit('setLocalDisplayMedia', val);
     },
     setLocalUserMedia({commit}, val){
-        commit('setLocalUserMedia', val)
+        commit('setLocalUserMedia', val);
     },
     stopTracks({state, dispatch}){
         let currentVideoTrack = _getLocalTrack(getters,'video');

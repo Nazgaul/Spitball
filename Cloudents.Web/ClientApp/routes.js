@@ -27,7 +27,7 @@ const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.v
 
 const landingPage = () => import('./components/pages/landingPage/landingPage.vue');
 const tutorLandingPage=()=> import("./components/tutorLandingPage/tutorLandingPage.vue");
-const landingPageFooter = () => import('./components/pages/layouts/footer/footer.vue')
+const landingPageFooter = () => import('./components/pages/layouts/footer/footer.vue');
 
 const homePage = () => import('./components/landingPage/pages/homePage.vue');
 const registerPage = () => import('./components/loginPageNEW/pages/registerPage.vue');
@@ -72,7 +72,7 @@ const dashboardPages = {
     header: pageHeader,
     banner: globalBanner,
     sideMenu: sideMenu,
-}
+};
 
 let routes2 = [
     {

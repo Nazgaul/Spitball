@@ -37,8 +37,8 @@ const determinFirstPage = function(){
     let notAllowedObj = {
       videoNotAllowed: false,
       audioNotAllowed: false,
-    }
-      let deviceValidationObj = store.getters.getDevicesObj;
+    };
+    let deviceValidationObj = store.getters.getDevicesObj;
       if (!deviceValidationObj.hasVideo) {
         notAllowedObj.videoNotAllowed = deviceValidationObj.errors.video.indexOf("NotAllowedError") > -1;
       }
@@ -61,7 +61,7 @@ const determinFirstPage = function(){
     return new firstPageObj("studyRoom");
   }
   
-}
+};
 
 export default {
     isBrowserSupport,

@@ -159,7 +159,7 @@ const actions = {
             let textLangStudyRoom = LanguageService.getValueByKey('tutor_waiting_in_studyRoom_link');
             let textElm = `<a style="text-decoration: none;" href="${location}/studyroomSettings/${id}">
                 <span>${userName} ${textLang}</span> <span style="text-decoration: underline;">${textLangStudyRoom}</span> 
-            </a>`
+            </a>`;
             let toasterObj = {
                 toasterText: textElm,
                 showToaster: true,

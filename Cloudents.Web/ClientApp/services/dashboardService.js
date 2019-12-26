@@ -10,7 +10,7 @@ function itemTypeChcker(type){
    if(type.toLowerCase() === 'tutoringsession'){
       return 'Session';
    }
-   return console.error('type:',type,'is not defined')
+   return console.error('type:',type,'is not defined');
 }
 
 const Item = {
@@ -56,18 +56,18 @@ const Item = {
       this.conversationId = objInit.conversationId;
       this.lastSession = objInit.lastSession;
    }
-}
+};
 
 function StudyRoomItem(objInit){
    return Object.assign(
       new Item.StudyRoom(objInit)
-   )
+   );
 }
 function ContentItem(objInit){
    return Object.assign(
       new Item.Default(objInit),
       new Item[itemTypeChcker(objInit.type)](objInit)
-   )
+   );
 }
 function SalesItem(objInit){
    return Object.assign(
@@ -76,16 +76,16 @@ function SalesItem(objInit){
       {
          paymentStatus: objInit.paymentStatus,
       }
-   )
+   );
 }
 function PurchasesItem(objInit){
    return Object.assign(
       new Item.Default(objInit),
       new Item[itemTypeChcker(objInit.type)](objInit)
-   )
+   );
 }
 function BalancesItems(objInit){
-   return new Item.Balances(objInit)
+   return new Item.Balances(objInit);
 }
 function createSalesItems({data}) {
    let salesItems = [];
@@ -113,19 +113,19 @@ function createStudyRoomItems({data}) {
    return studyRoomItems;
 }
 function getSalesItems(){
-   return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex)
+   return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex);
 }
 function getContentItems(){
-   return connectivityModule.http.get('/Account/content').then(createContentItems).catch(ex => ex)
+   return connectivityModule.http.get('/Account/content').then(createContentItems).catch(ex => ex);
 }
 function getPurchasesItems(){
-   return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex)
+   return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex);
 }
 function getBalancesItems(){
-   return connectivityModule.http.get('Wallet/balance').then(createBalancesItems).catch(ex => ex)
+   return connectivityModule.http.get('Wallet/balance').then(createBalancesItems).catch(ex => ex);
 }
 function getStudyRoomItems(){
-   return connectivityModule.http.get('StudyRoom').then(createStudyRoomItems).catch(ex => ex)
+   return connectivityModule.http.get('StudyRoom').then(createStudyRoomItems).catch(ex => ex);
 }
 
 export default {
