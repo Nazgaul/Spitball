@@ -31,8 +31,9 @@ const init = function () {
     imageElm.addEventListener('change', handleImage.bind(this), false);
 };
 
-const imgSizeFit = function(imgWidth, imgHeight, maxWidth, maxHeight) {
-    let ratio = Math.min(1, maxWidth / imgWidth, maxHeight / imgHeight);
+const imgSizeFit = function(imgWidth, imgHeight) {
+    // let ratio = Math.min(1, maxWidth / imgWidth, maxHeight / imgHeight);
+    let ratio = 1;
     let width = imgWidth * ratio;
     let height = imgHeight * ratio;
     return {width, height};
@@ -98,7 +99,8 @@ const handleImage = function (e,isDragged) {
                 height: img.height,
                 option: optionType,
                 eventName: 'start',
-                src: img.src
+                src: img.src,
+                aspectRatio: img.height / img.width
             });
             let dictionaryImage = {
                 imgObj,

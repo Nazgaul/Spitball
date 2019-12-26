@@ -298,9 +298,9 @@ const getImageWidth = function(width, dragoffx, type){
     /*0 1
       2 3*/
     if(type === 0 || type === 2){
-        return width - dragoffx
+        return (width - dragoffx); 
     }else{
-        return width + dragoffx;
+        return (width + dragoffx);
     } 
 }
 
@@ -308,20 +308,35 @@ const getImageHeight = function(height, dragoffy, type){
     /*0 1
       2 3*/
     if(type === 0 || type === 1){
-        return height - dragoffy
+        return (height - dragoffy);
     }else{
-        return height + dragoffy;
+        return (height + dragoffy);
     } 
 }
 
+const setRatioOnImage = function(newImagePoints, ratio){
+    return{
+        x: newImagePoints.x,
+        y: newImagePoints.y,
+        width: newImagePoints.height / ratio,
+        height: newImagePoints.height
+    }
+}
 
 const getShapeDimensions = function(option, originalPosition, selectedAnchor, dragoffx, dragoffy){
     if(option === 'imageDraw'){
-        return{
+        let keepAspectRation = true; // could be move to store
+        let newImagePoints = {
             x: getImageX(originalPosition.mouseX, selectedAnchor.locked.startX + 6 + originalPosition.width, dragoffx, selectedAnchor.active.type),
             y: getImageY(originalPosition.mouseY, selectedAnchor.locked.startY - 98 + originalPosition.height, dragoffy, selectedAnchor.active.type),
             width: getImageWidth(originalPosition.width, dragoffx, selectedAnchor.active.type), 
             height: getImageHeight(originalPosition.height, dragoffy, selectedAnchor.active.type)
+        }
+        if(keepAspectRation){
+            let pointsWithRatioSaved = setRatioOnImage(newImagePoints, originalPosition.aspectRatio)
+            return pointsWithRatioSaved;
+        }else{
+            return newImagePoints
         }
     }else{
         return{
@@ -335,6 +350,7 @@ const setNewPoints = function(originalPosition, dragoffx, dragoffy, selectedAnch
     let newDragoffx = fromUndo ? dragoffx * -1 : dragoffx;
     let newDragoffy = fromUndo ? dragoffy * -1 : dragoffy;
     if(originalPosition.option === "imageDraw"){
+        
         let imageDimensions = getShapeDimensions(originalPosition.option, originalPosition, selectedAnchor, newDragoffx, newDragoffy);
         
         return{

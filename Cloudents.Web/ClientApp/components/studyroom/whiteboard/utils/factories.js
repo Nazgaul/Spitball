@@ -50,6 +50,7 @@ function ImageObj(objInit){
     this.eventName=objInit.eventName;
     this.src = objInit.src;
     this.isRect = true;
+    this.aspectRatio = objInit.aspectRatio;
 }
 
 function TextObj(objInit){
