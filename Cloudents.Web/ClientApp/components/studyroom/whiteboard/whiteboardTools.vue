@@ -26,7 +26,7 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{on}">
                     <button v-on="on" sel="text_draw"
-                             :class="{'active-tool': selectedOptionString === enumOptions.text}"
+                             :class="{'active-tool': selectedOptionString === enumOptions.text, 'mouse-text': selectedOptionString === enumOptions.text}"
                              class="nav-action" @click="setOptionType($event, enumOptions.text)">
                         <v-icon>sbf-text-icon</v-icon>
                     </button>
@@ -231,10 +231,11 @@ export default {
         setOptionType(e,selectedOption) {
             this.setCurrentOptionSelected(whiteBoardService.init.bind(this.canvasData, selectedOption)());
             this.setSelectedOptionString(selectedOption);
-            if(selectedOption === 'textDraw'){
-                let mouseEvent = new MouseEvent("mousedown", {});
-                global.canvas.dispatchEvent(mouseEvent);
-            } else if(selectedOption === 'equationDraw'){
+            // if(selectedOption === 'textDraw'){
+            //     let mouseEvent = new MouseEvent("mousedown", {});
+            //     global.canvas.dispatchEvent(mouseEvent);
+            // } 
+            if(selectedOption === 'equationDraw'){
                 let mouseEvent = new MouseEvent("mousedown", {});
                 global.canvas.dispatchEvent(mouseEvent);
             } else if(selectedOption === 'iink'){
@@ -270,7 +271,17 @@ export default {
         canvasData(){
             return this.canvasDataStore;
         }
+    },
+    watch:{
+        selectedOptionString(val){
+            if(val === this.enumOptions.text){
+                document.body.style.cursor = "text"
+            }else{
+                document.body.style.cursor = ""
+            }
+        }
     }
+
 }
 </script>
 
@@ -305,6 +316,7 @@ export default {
                     .v-icon {
                         color:#2a79ff;
                     }
+                    background:#cfe1ff;
                 }
                 &.active-tool-svg{
                     svg {
@@ -324,8 +336,8 @@ export default {
             }
             .color-picker {
                 position: absolute;
-                top: 106px;
-                left: 80px;
+                top: 48px;
+                left: 220px;
                 height: auto;
                 .vc-compact-color-item {
                     list-style: none;

@@ -362,4 +362,16 @@ Voice Recording?</value>
   <data name="tooltip_takeSnapshot" xml:space="preserve">
     <value>Snapshot</value>
   </data>
+  <data name="enter_text" xml:space="preserve">
+    <value>Enter Some Text</value>
+  </data>
+  <data name="fontSize_large" xml:space="preserve">
+    <value>Large</value>
+  </data>
+  <data name="fontSize_normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="fontSize_small" xml:space="preserve">
+    <value>Small</value>
+  </data>
 </root>

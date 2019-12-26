@@ -2,7 +2,7 @@
     <div class="canvas-container" id="canvasDiv">
         <div id="canvas-wrapper" class="canvas-wrapper" style="position:relative; overflow: auto;" :style="`width:${windowWidth}px;height:${windowHeight}px;`">
             <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
-
+            <!-- <whiteBoardLayers v-if="false" :canvasData="canvasData"></whiteBoardLayers> -->
             <v-progress-circular v-if="getImgLoader" class="loader-img-canvas light-blue" 
                 indeterminate
                 :rotate="3" :size="100" :width="3" color="info"></v-progress-circular>
@@ -78,11 +78,24 @@
                 </div>
             </div>
         </div>
-        <div class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.text">
-            <input type="text" placeholder="Enter Some Text"
-                   v-model="helperStyle.text"
-                   :class="[helperClass, helperStyle.id]"
-                   :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"/>
+        <div :style="{'top':helperStyle.top, 'left':helperStyle.left}" class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.text">
+                <div style="width:240px;height:40px">
+                    <input type="text" v-language:placeholder="'tutor_enter_text'"
+                    v-model="helperStyle.text"
+                    :class="[helperClass, helperStyle.id]"
+                    :style="{'color': helperStyle.color }"/>
+                </div>
+                <div style="width: 100px;height: 55px;">
+                    <v-select
+                        :items="textScales"
+                        label="Size"
+                        append-icon='sbf-arrow-down'
+                        v-model="fontSize"
+                        item-text='text'
+                        item-value='value'
+                    ></v-select>
+                </div>
+            
         </div>
         <div class="equation-helper-container"
              :style="{'color': helperStyle.color, 'top':`${equationSizeY}px`, 'left':`${equationSizeX}px`}"
@@ -217,6 +230,14 @@
             }
         }
         .text-helper-container {
+            position:fixed;
+            display:flex;
+            background: #FFF;
+            height: 75px;
+            width: 400px;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 8px;
             .text-helper {
                 position: fixed;
                 border: 1px solid #7b7b7b;

@@ -1,6 +1,8 @@
-import {createPointsByOption, createShape, createGuid} from '../utils/factories'
-import helper from '../utils/helper'
-import whiteBoardService from '../whiteBoardService'
+import {createPointsByOption, createShape, createGuid} from '../utils/factories';
+import canvasFinder from '../utils/canvasFinder';
+import helper from '../utils/helper';
+import whiteBoardService from '../whiteBoardService';
+import store from '../../../../store/index';
 
 const optionType = 'textDraw';
 
@@ -23,8 +25,13 @@ const startingMousePosition = {
     y:null
 };
 
-const yOffset = 50;
-const FONT_SIZE = 60;
+
+const FONT_SIZE = function(){
+    return store.getters.getFontSize;
+};
+const yOffset = function(){
+    return store.getters.getFontSize - Number(store.getters.getFontSize) * 17 / 100;
+};
 
 let isWriting = false;
 let currentId = null;
@@ -49,12 +56,12 @@ const hideHelperObj = function(){
 };
 
 const setHelperObj = function(e, selectedHelper){
-    let popupSize = 172;
-    let currentX = (window.innerWidth / 2) - (popupSize / 2);
-    let currentY = (window.innerHeight / 3);
+    // let popupSize = 172;
+    // let currentX = (window.innerWidth / 2) - (popupSize / 2);
+    // let currentY = (window.innerHeight / 3);
     let helperObj = {
-        currentX,
-        currentY,
+        currentX: startingMousePosition.x,
+        currentY: startingMousePosition.y,
         color: this.color.hex,
         text: selectedHelper ? selectedHelper.text : '',
         id: currentId
@@ -100,14 +107,18 @@ const mousedown = function(e){
         let text = document.getElementsByClassName(currentId)[0];
         if(!!text.value){
             // if(!isEditing){
-                this.context.font = `${FONT_SIZE}px serif`;
+                let fontSize = FONT_SIZE();
+                let heightOffset = yOffset();
+                this.context.font = `${fontSize}px serif`;
                 let meassureText = this.context.measureText(text.value);
                 let textObj = createPointsByOption({
-                    mouseX: (window.innerWidth / 2) - (meassureText.width / 2),
-                    mouseY: window.innerHeight / 3.5,
-                    yOffset: yOffset,
+                    // mouseX: (window.innerWidth / 2) - (meassureText.width / 2),
+                    // mouseY: window.innerHeight / 3.5,
+                    mouseX: startingMousePosition.x,
+                    mouseY: startingMousePosition.y,
+                    yOffset: heightOffset,
                     width: meassureText.width,
-                    height: FONT_SIZE,
+                    height: Number(fontSize),
                     fontFamily: 'serif',
                     color: this.color.hex,
                     option: optionType,
@@ -125,14 +136,17 @@ const mousedown = function(e){
         }
         hideHelperObj();
     }else{
+        let {mouseX, mouseY} = canvasFinder.getRelativeMousePoints(this.context, e.pageX - e.target.offsetLeft - e.target.getBoundingClientRect().left, e.pageY - e.target.getBoundingClientRect().top);
         console.log('else 2 ');
         //STARTING POINT - SET INPUT ELEMENT POSITION (local)
         isWriting = true;
-        let popupSize = 172;
-        startingMousePosition.x = (window.innerWidth / 2) - (popupSize / 2);
-        startingMousePosition.y = (window.innerHeight / 3);
+        // let popupSize = 172;
+        startingMousePosition.x = mouseX;
+        startingMousePosition.y = mouseY;
+        // startingMousePosition.x = (window.innerWidth / 2) - (popupSize / 2);
+        // startingMousePosition.y = (window.innerHeight / 3);
         currentId = createGuid('text');
-        setHelperObj.bind(this, e)();
+        setHelperObj.bind(this, startingMousePosition)();
         
         setTimeout(()=>{
             let textElm = document.getElementsByClassName(currentId)[0];
