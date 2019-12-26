@@ -80,7 +80,8 @@ export default {
                     value: '60'
                 }
             ],
-            sizeText: LanguageService.getValueByKey('tutor_size_label')
+            sizeText: LanguageService.getValueByKey('tutor_size_label'),
+            isRtl: global.isRtl
         };
     },
     computed: {
