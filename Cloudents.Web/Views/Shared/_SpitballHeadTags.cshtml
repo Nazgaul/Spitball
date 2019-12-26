@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Http.Extensions
 @{
     ViewBag.metaDescription = ViewBag.metaDescription ?? "עזרה בשיעורי בית והכנה למבחנים? מאות אלפי סיכומים ומורים פרטיים לכל המקצועות ";
-    ViewBag.ogImage = ViewBag.imageSrc ?? "https://" +Context.Request.Host + "/images/3rdParty/fbShare.jpg";
+    ViewBag.ogImage = ViewBag.ogImage ?? "https://" +Context.Request.Host + "/images/3rdParty/fbShare.jpg";
 
     ViewBag.ogImageWidth = ViewBag.ogImageWidth ?? 1493;
     ViewBag.ogImageHeight = ViewBag.ogImageHeight ?? 939;
