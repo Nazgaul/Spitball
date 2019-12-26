@@ -178,7 +178,7 @@ namespace Cloudents.Web.Api
                     client.TrackTrace("Need to have phone 2");
                     return BadRequest(ModelState);
                 }
-                var location = await ipLocation.GetAsync(HttpContext.Connection.GetIpAddress(), token);
+                var location = await ipLocation.GetAsync(HttpContext.GetIpAddress(), token);
 
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null)

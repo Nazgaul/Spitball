@@ -372,4 +372,19 @@
   <data name="waiting_in_studyRoom_link" xml:space="preserve">
     <value>בחדר הלימוד</value>
   </data>
+  <data name="stop_recording" xml:space="preserve">
+    <value>עצור הקלטה</value>
+  </data>
+  <data name="begain_recording" xml:space="preserve">
+    <value>הקלט</value>
+  </data>
+  <data name="fontSize_large" xml:space="preserve">
+    <value>גדול</value>
+  </data>
+  <data name="fontSize_normal" xml:space="preserve">
+    <value>רגיל</value>
+  </data>
+  <data name="fontSize_small" xml:space="preserve">
+    <value>קטן</value>
+  </data>
 </root>
