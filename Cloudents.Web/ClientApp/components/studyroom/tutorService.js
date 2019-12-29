@@ -197,25 +197,25 @@ const connectToRoom = function (token, options) {
                 let previewContainer = document.getElementById('remoteTrack');
                 if (track.kind === 'data') {
                     track.on('message', transferObj => {
-                        let Data = JSON.parse(transferObj);
-                        let parsedData = Data.data;
-                        if (Data.type === 'passData') {
+                        let data = JSON.parse(transferObj);
+                        let parsedData = data.data;
+                        if (data.type === 'passData') {
                             whiteBoardService.passData(parsedData.canvasContext, parsedData.dataContext);
-                        } else if (Data.type === 'undoData') {
-                            whiteBoardService.undo(parsedData, Data.tab);
-                        } else if (Data.type === 'clearCanvas') {
-                            whiteBoardService.clearData(parsedData, Data.tab);
-                        } else if(Data.type === 'codeEditor_lang'){
+                        } else if (data.type === 'undoData') {
+                            whiteBoardService.undo(parsedData, data.tab);
+                        } else if (data.type === 'clearCanvas') {
+                            whiteBoardService.clearData(parsedData, data.tab);
+                        } else if(data.type === 'codeEditor_lang'){
                             store.commit('setLang',parsedData);
-                        } else if (Data.type === 'updateTab'){
+                        } else if (data.type === 'updateTab'){
                             store.dispatch('updateTab', parsedData);
-                        } else if(Data.type === 'updateTabById'){
+                        } else if(data.type === 'updateTabById'){
                             store.commit('setTab',parsedData);
                         } 
-                        else if(Data.type === 'updateActiveNav'){
+                        else if(data.type === 'updateActiveNav'){
                             store.commit('setActiveNavIndicator',parsedData);
                         } 
-                        else if(Data.type === 'codeEditor_code'){
+                        else if(data.type === 'codeEditor_code'){
                             store.commit('setCode',parsedData);
                         }
                         
