@@ -32,7 +32,7 @@ namespace Cloudents.Core.DTOs
     {
         [EntityBind(nameof(User.Id))]
         public long Id { get; set; }
-        [EntityBind(nameof(User.Name))]
+        [EntityBind(nameof(User.ImageName))]
         public string Name { get; set; }
         [EntityBind(nameof(User.ImageName))]
         public string Image { get; set; }
@@ -103,10 +103,9 @@ namespace Cloudents.Core.DTOs
         public long Id { get; set; }
         [EntityBind(nameof(User.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(User.Image))]
+        [EntityBind(nameof(User.ImageName))]
         public string Image { get; set; }
-        [EntityBind(nameof(User.Score))]
-        public int Score { get; set; }
+        
         public ItemState? IsTutor { get; set; }
 
         [EntityBind(nameof(User.PaymentExists), nameof(User.Country))]
@@ -132,7 +131,7 @@ namespace Cloudents.Core.DTOs
         public long UserId { get; set; }
         [EntityBind(nameof(BaseUser.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(BaseUser.Image))]
+        [EntityBind(nameof(BaseUser.ImageName))]
         public string Image { get; set; }
 
         [EntityBind(nameof(ChatUser.Unread))]

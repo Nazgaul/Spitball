@@ -2,6 +2,7 @@
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
@@ -32,16 +33,18 @@ namespace Cloudents.Web.Api
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
-
+        private readonly IUrlBuilder _urlBuilder;
         public ChatController(ICommandBus commandBus, UserManager<User> userManager, IQueryBus queryBus,
             IChatDirectoryBlobProvider blobProvider,
             ITempDataDictionaryFactory tempDataDictionaryFactory,
-            IStringLocalizer<UploadControllerBase> localizer)
+            IStringLocalizer<UploadControllerBase> localizer,
+            IUrlBuilder urlBuilder)
         : base(blobProvider, tempDataDictionaryFactory, localizer)
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _queryBus = queryBus;
+            _urlBuilder = urlBuilder;
         }
 
         // GET: api/<controller>
@@ -50,6 +53,11 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var result = await _queryBus.QueryAsync(new ChatConversationsQuery(userId), token);
+            result = result.Select(s =>
+            {
+                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image, s.Name);
+                return s;
+            });
             return result;
         }
 
@@ -71,6 +79,9 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest();
             }
+
+            result.Image = _urlBuilder.BuildUserImageEndpoint(result.UserId, result.Image, result.Name);
+
             return result;
         }
 
@@ -82,6 +93,7 @@ namespace Cloudents.Web.Api
             var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(id, page), token);
             return result.Select(s =>
             {
+                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image, s.Name);
                 if (!(s is ChatAttachmentDto p)) return s;
                 var url = BlobProvider.GetBlobUrl($"{p.ChatRoomId}/{p.Id}/{p.Attachment}");
                 p.Src = Url.ImageUrl(new ImageProperties(url));

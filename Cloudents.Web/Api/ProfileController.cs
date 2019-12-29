@@ -39,15 +39,18 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
 
-        public async Task<ActionResult<UserProfileDto>> GetAsync(long id, CancellationToken token)
+        public async Task<ActionResult<UserProfileDto>> GetAsync(long id,
+            [FromServices] IUrlBuilder urlBuilder,
+            CancellationToken token)
         {
-            _userManager.TryGetLongUserId(User,out var userId);
+            _userManager.TryGetLongUserId(User, out var userId);
             var query = new UserProfileQuery(id, userId);
             var retVal = await _queryBus.QueryAsync(query, token);
             if (retVal == null)
             {
                 return NotFound();
             }
+            retVal.Image = urlBuilder.BuildUserImageEndpoint(id, retVal.Image, retVal.Name);
             return retVal;
         }
 
@@ -172,7 +175,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-       
+
 
     }
 }

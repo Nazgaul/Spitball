@@ -61,12 +61,12 @@ namespace Cloudents.Web.Api
             [FromServices] IQueryBus queryBus,
             [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
             [FromServices] ILogger logger,
+            [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserAccountQuery(userId);
             var user = await queryBus.QueryAsync(query, token);
-
 
             if (user == null)
             {
@@ -74,12 +74,7 @@ namespace Cloudents.Web.Api
                 logger.Error($"User is null {userId}");
                 return Unauthorized();
             }
-
-            if (user.Score != score)
-            {
-                var regularUser = await _userManager.GetUserAsync(User);
-                await _signInManager.RefreshSignInAsync(regularUser);
-            }
+            user.Image = urlBuilder.BuildUserImageEndpoint(userId, user.Image, user.Name);
             return user;
         }
 
@@ -279,7 +274,7 @@ namespace Cloudents.Web.Api
                     d.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
                     d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
                 }
-                if(s is SessionSaleDto ss)
+                if (s is SessionSaleDto ss)
                 {
                     ss.StudentImage = urlBuilder.BuildUserImageEndpoint(ss.StudentId, ss.StudentImage, ss.StudentName);
                 }
@@ -328,7 +323,7 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new SessionRecordingQuery(userId);
-            
+
             return await _queryBus.QueryAsync(query, token);
         }
 

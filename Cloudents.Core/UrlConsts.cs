@@ -29,7 +29,7 @@ namespace Cloudents.Core
 
             if (siteEndPoints.IndiaSite != null)
             {
-                _indiaWebSiteEndpoint = new Uri(siteEndPoints.IndiaSite.TrimEnd('/')); ;
+                _indiaWebSiteEndpoint = new Uri(siteEndPoints.IndiaSite.TrimEnd('/'));
             }
 
 
@@ -139,5 +139,13 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
+        //public string BuildUserImageEndpoint(long id, string imageName)
+        //{
+
+        //    var injectionObj = new { id, file = imageName };
+        //    var path = ImageFunctionUserRoute.Inject(injectionObj);
+        //    var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+        //    return builder.ToString();
+        //}
     }
 }

@@ -11,6 +11,7 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.Assigned();
             Map(x => x.Name);
             Map(x => x.Image);
+            Map(x => x.ImageName);
             Map(x => x.Subjects).CustomType<EnumerableJsonStringMapping>();
             Map(x => x.AllSubjects).CustomType<EnumerableJsonStringMapping>();
             Map(x => x.Courses).CustomType<EnumerableJsonStringMapping>();

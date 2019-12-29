@@ -27,6 +27,7 @@ namespace Cloudents.Persistence.Repositories
                 {
                     s.User.Id,
                     s.User.Name,
+                    s.User.ImageName,
                     s.User.Image,
                     s.Bio,
                     UniversityName = s.User.University.Name,
@@ -82,7 +83,7 @@ namespace Cloudents.Persistence.Repositories
                 average = (reviews?.Sum ?? 0) / count;
             }
 
-            var readTutor = new ReadTutor(tutor.Id, tutor.Name, tutor.Image,
+            var readTutor = new ReadTutor(tutor.Id, tutor.Name, tutor.Image, tutor.ImageName,
                 course.Where(w => !string.IsNullOrEmpty(w.SubjectName)).Select(s => s.SubjectName).Distinct(),
                 course.Select(s => s.CourseName),
                 tutor.Price, average, count, tutor.Bio, tutor.UniversityName,
