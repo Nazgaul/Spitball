@@ -248,7 +248,7 @@ export default {
     }
     }
     .v-toolbar__content{
-        border: solid 1px #dadada;
+        border-bottom: solid 1px #dadada;
         padding-left: 16px;
         @media (max-width: @screen-xs) {
             padding: 0 8px 0 4px; 
