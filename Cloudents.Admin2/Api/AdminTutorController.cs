@@ -9,6 +9,7 @@ using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,11 +35,11 @@ namespace Cloudents.Admin2.Api
         {
             var query = new AdminPendingTutorsQuery(User.GetCountryClaim());
             var res =  await _queryBus.QueryAsync(query, token);
-            foreach (var item in res)
+            return res.Select(item =>
             {
                 item.Image = urlBuilder.BuildUserImageEndpoint(item.Id, item.Image);
-            }
-            return res;
+                return item;
+            });
         }
 
         [HttpPost("approve")]

@@ -48,7 +48,6 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            retVal.Image = _urlBuilder.BuildUserImageEndpoint(id, retVal.Image);
             return retVal;
         }
 
@@ -75,11 +74,11 @@ namespace Cloudents.Web.Api
             var query = new UserDataPagingByIdQuery(id, page);
             
             var res =  await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
-            foreach (var item in res)
+            return res.Select(item =>
             {
                 item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
-            }
-            return res;
+                return item;
+            });
 
         }
 
@@ -91,12 +90,14 @@ namespace Cloudents.Web.Api
         {
             var query = new UserAnswersByIdQuery(id, page);
             var res = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
-            foreach (var item in res)
+            return res.Select(item =>
             {
                 item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
-                item.FirstAnswer.User.Image = _urlBuilder.BuildUserImageEndpoint(item.FirstAnswer.User.Id, item.FirstAnswer.User.Image);
-            }
-            return res;
+                item.FirstAnswer.User.Image =
+                    _urlBuilder.BuildUserImageEndpoint(item.FirstAnswer.User.Id, item.FirstAnswer.User.Image);
+                return item;
+            });
+           
         }
 
         [HttpGet("{id:long}/documents")]

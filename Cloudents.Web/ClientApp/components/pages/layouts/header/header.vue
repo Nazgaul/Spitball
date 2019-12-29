@@ -447,9 +447,9 @@ export default {
                     border: 1px solid white;
                     cursor: pointer;
                     &.longer_nav{
-                        top: 1px;
-                        right: 4px;
-                        height: 16px;
+                        top: -5px;
+                        right: 10px;
+                        height: 24px;
                         width: 24px;
                     }
                 }

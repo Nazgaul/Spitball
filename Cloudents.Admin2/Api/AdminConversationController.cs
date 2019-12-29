@@ -59,12 +59,12 @@ namespace Cloudents.Admin2.Api
         {
 
             var query = new AdminConversationDetailsQuery(identifier, User.GetCountryClaim());
-            var res =  await _queryBus.QueryAsync(query, token);
-            foreach (var item in res)
-            {
-                item.Image = urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
-            }
-            return res;
+            var res = await _queryBus.QueryAsync(query, token);
+            return res.Select(item =>
+             {
+                 item.Image = urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
+                 return item;
+             });
         }
 
 
@@ -78,11 +78,11 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
             var result = await _queryBus.QueryAsync(new AdminChatConversationByIdQuery(identifier, 0, User.GetCountryClaim()), token);
-            foreach (var item in result)
+            return result.Select(item =>
             {
                 item.Image = urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
-            }
-            return result;
+                return item;
+            });
         }
 
         [HttpPost("{identifier}/status")]

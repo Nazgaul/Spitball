@@ -5,7 +5,7 @@ namespace Cloudents.Core.Entities
 {
     public class ReadTutor : Entity<long>
     {
-        public ReadTutor(long id, string name, string image, string imageName, IEnumerable<string> allSubjects, IEnumerable<string> allCourses,
+        public ReadTutor(long id, string name, string image, string imageName, IReadOnlyList<string> allSubjects, IReadOnlyList<string> allCourses,
             decimal price, double? rate, int rateCount, string bio, string university, int lessons, string country, decimal? subsidizedPrice)
         {
             Id = id;

@@ -58,12 +58,13 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var query = new TopTutorsQuery(profile.Country, count);
-            var retValTask = await _queryBus.QueryAsync(query, token);
-            foreach (var item in retValTask)
+            var result = await _queryBus.QueryAsync(query, token);
+            return result.Select(s =>
             {
-                item.Image = _urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
-            }
-            return retValTask;
+                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
+                return s;
+            });
+           
         }
 
         /// <summary>
@@ -94,12 +95,14 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var query = new ReviewsQuery(profile.Country, count);
-            var retValTask = await _queryBus.QueryAsync(query, token);
-            foreach (var item in retValTask)
+            var result = await _queryBus.QueryAsync(query, token);
+
+            return result.Select(s =>
             {
-                item.TutorImage = _urlBuilder.BuildUserImageEndpoint(item.TutorId, item.TutorImage);
-            }
-            return retValTask;
+                s.TutorImage = _urlBuilder.BuildUserImageEndpoint(s.TutorId, s.TutorImage);
+                return s;
+            });
+            
         }
 
         [HttpGet]
@@ -129,19 +132,16 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var query = new TopDocumentsQuery(profile.Country, count);
-            var retValTask = await _queryBus.QueryAsync(query, token);
+            var result = await _queryBus.QueryAsync(query, token);
 
-            foreach (var item in retValTask)
+            return result.Select(item =>
             {
                 item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
-            }
-            return retValTask.Select(s =>
-            {
-                s.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
-                s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
-                //s.Title = Path.GetFileNameWithoutExtension(s.Title);
-                return s;
+                item.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(item.Id);
+                item.Url = Url.DocumentUrl(item.Course, item.Id, item.Title);
+                return item;
             });
+           
         }
     }
 }
