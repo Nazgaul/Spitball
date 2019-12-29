@@ -110,6 +110,7 @@ export default {
                 line-height: normal;
                 letter-spacing: normal;
                 color: #43425d;
+                min-width: 0;
             }
         }
         .itemCard-bottom{

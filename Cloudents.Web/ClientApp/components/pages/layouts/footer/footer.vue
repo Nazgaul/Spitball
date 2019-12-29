@@ -140,6 +140,7 @@ import logoComponent from '../../../app/logo/logo.vue';
     max-width: 1200px;
     margin: 0 auto;
     height: inherit;
+    font-size: 14px;
     @media (max-width: @screen-sm) {
         flex-direction: column-reverse;
     }

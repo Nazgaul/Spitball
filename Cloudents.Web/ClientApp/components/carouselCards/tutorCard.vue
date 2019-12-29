@@ -258,7 +258,7 @@ export default {
             font-size: 12px;
             font-weight: normal;
             line-height: 1;
-            align-items: flex-end;
+            align-items: baseline;
             &-original {
                 font-size: 18px;
             }
