@@ -58,7 +58,7 @@ export default {
             text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
             font-size: 28px;
             font-weight: bold;
-            line-height: 1.34;
+            line-height: normal;
             max-width: 714px;
             margin-bottom: 12px;
         }
