@@ -134,16 +134,20 @@ namespace Cloudents.Core.Entities
             _tutorHours.Add(new TutorHours(this, weekDay, from, to));
         }
 
-        public virtual void UpdateTutorHours(DayOfWeek weekDay, TimeSpan from, TimeSpan to)
+        public virtual void UpdateTutorHours(IEnumerable<TutorHours> newTutorHours)
         {
-            var itemToRemove = _tutorHours.Where(w => w.WeekDay == weekDay).FirstOrDefault();
-            if (itemToRemove != null)
+            while (TutorHours.Count() > 0)
             {
-                _tutorHours.Remove(itemToRemove);
+                var item = _tutorHours.First();
+                _tutorHours.Remove(item);
             }
-            _tutorHours.Add(new TutorHours(this, weekDay, from, to));
+         
+            foreach (var item in newTutorHours)
+            {
+                _tutorHours.Add(new TutorHours(this, item.WeekDay, item.From, item.To));
+            }
+           
         }
-
 
         // ReSharper disable once InconsistentNaming Need to have due to mapping
         private readonly ICollection<TutorCalendar> _calendars = new List<TutorCalendar>();
