@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.Exceptions;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudents.Query.Documents;
@@ -335,6 +336,23 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new TutorDailyHoursQuery(159039);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Theory]
+        [InlineData(638)]
+        [InlineData(159039)]
+        [InlineData(162657)]
+        public async Task CalendarListQuery_Ok(long userId)
+        {
+            var query = new CalendarListQuery(userId);
+            try
+            {
+                var _ = await fixture.QueryBus.QueryAsync(query, default);
+            }
+            catch (NotFoundException)
+            { 
+            
+            }
         }
     }
 }
