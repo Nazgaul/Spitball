@@ -54,6 +54,7 @@ export default {
         flex-direction: column;
         align-items: center;
         width: 100%;
+        line-height: normal;
         .tutorRequest-img{
             border-radius: 50%;
             width: 66px;

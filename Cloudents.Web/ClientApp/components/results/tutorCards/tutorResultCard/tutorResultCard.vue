@@ -306,7 +306,6 @@ export default {
         .reviews {
           font-size: 12px;
           color: #4452fc;
-          font-size: 14px;
         }
         .no-reviews {
           margin-left: 5px;

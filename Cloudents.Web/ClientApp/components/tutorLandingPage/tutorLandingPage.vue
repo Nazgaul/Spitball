@@ -338,6 +338,8 @@ export default {
     .tutor-landing-status-row{
         background-color:#FFF;
         padding: 0 290px;
+        line-height: normal;
+        font-size: 14px;
         @media (max-width: @screen-md) {
             padding: 0;
         }
