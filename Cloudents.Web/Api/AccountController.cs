@@ -66,7 +66,6 @@ namespace Cloudents.Web.Api
             var userId = _userManager.GetLongUserId(User);
             var query = new UserAccountQuery(userId);
             var user = await queryBus.QueryAsync(query, token);
-            user.Image = urlBuilder.BuildUserImageEndpoint(userId, user.Image);
             if (user == null)
             {
                 await _signInManager.SignOutAsync();

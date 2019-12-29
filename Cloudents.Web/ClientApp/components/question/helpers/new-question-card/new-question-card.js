@@ -88,7 +88,7 @@ export default {
         },
         answersNumber() {
             let answersNum = this.cardData.answers;
-            let numericValue = 0;
+            let numericValue;
             if (typeof answersNum !== 'number') {
                 numericValue = answersNum.length;
             } else {
@@ -101,7 +101,7 @@ export default {
         },
         answersDeltaNumber() {
             let answersNum = this.cardData.answers || 1;
-            let numericValue = 0;
+            let numericValue;
             if (typeof answersNum !== 'number') {
                 numericValue = answersNum.length;
             } else {

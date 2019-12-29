@@ -44,7 +44,7 @@ export default {
             "removeDeletedAnswer",
             "updateToasterParams",
             "updateLoginDialogState",
-            'setQuestion',
+            'setQuestion'
         ]),
         ...mapMutations({updateLoading: "UPDATE_LOADING", updateSearchLoading:'UPDATE_SEARCH_LOADING'}),
         ...mapGetters(["getQuestion"]),

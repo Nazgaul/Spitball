@@ -84,8 +84,8 @@ namespace Cloudents.Persistence.Repositories
             }
 
             var readTutor = new ReadTutor(tutor.Id, tutor.Name, tutor.Image, tutor.ImageName,
-                course.Where(w => !string.IsNullOrEmpty(w.SubjectName)).Select(s => s.SubjectName).Distinct(),
-                course.Select(s => s.CourseName),
+                course.Where(w => !string.IsNullOrEmpty(w.SubjectName)).Select(s => s.SubjectName).Distinct().ToList(),
+                course.Select(s => s.CourseName).ToList(),
                 tutor.Price, average, count, tutor.Bio, tutor.UniversityName,
                 lessons, tutor.Country, tutor.SubsidizedPrice);
 

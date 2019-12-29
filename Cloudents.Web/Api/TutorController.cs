@@ -69,7 +69,6 @@ namespace Cloudents.Web.Api
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
         /// <param name="tutorSearch"></param>
-        /// <param name="urlBuilder"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
@@ -169,11 +168,12 @@ namespace Cloudents.Web.Api
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new TutorListByCourseQuery(course, userId, profile.Country, count.GetValueOrDefault(10));
             var retVal = await _queryBus.QueryAsync(query, token);
-            foreach (var item in retVal)
+            return retVal.Select(item =>
             {
                 item.Image = _urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
-            }
-            return retVal;
+                return item;
+            });
+           
         }
 
         [HttpPost("request"), ValidateRecaptcha("6LfyBqwUAAAAALL7JiC0-0W_uWX1OZvBY4QS_OfL"), ValidateEmail]
@@ -304,12 +304,13 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<AboutTutorDto>> GetReviewsAsync(CancellationToken token)
         {
             var query = new AboutTutorQuery();
-            var retValTask = await _queryBus.QueryAsync(query, token);
-            foreach (var item in retValTask)
+            var retVal = await _queryBus.QueryAsync(query, token);
+            return retVal.Select(item =>
             {
                 item.Image = _urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
-            }
-            return retValTask;
+                return item;
+            });
+            
         }
 
 
