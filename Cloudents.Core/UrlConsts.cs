@@ -147,6 +147,11 @@ namespace Cloudents.Core
                 return null;
             }
 
+            if (Uri.TryCreate(imageName, UriKind.Absolute, out var uri))
+            {
+                return uri.AbsoluteUri;
+            }
+
             return BuildUserImageEndpoint(id, imageName, null);
         }
     }
