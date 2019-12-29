@@ -5,6 +5,7 @@ using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
+using Cloudents.Query.Admin;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -399,6 +400,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task AdminUserSoldDocsQuery_Ok(long userId, int page, string country)
         {
             var query = new AdminUserSoldDocsQuery(userId, page, country);
+            await _fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task ValidateUserQuery_Ok()
+        {
+            var query = new ValidateUserQuery("elad@cloudents.com");
             await _fixture.QueryBus.QueryAsync(query, default);
         }
     }

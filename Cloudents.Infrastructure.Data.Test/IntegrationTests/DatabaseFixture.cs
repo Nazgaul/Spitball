@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
+using Cloudents.Infrastructure.Google;
 using Cloudents.Infrastructure.Stuff;
 using Cloudents.Persistence;
 using Cloudents.Query;
@@ -41,6 +42,11 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.RegisterModule<ModuleCore>();
             builder.RegisterModule<ModuleInfrastructureBase>();
             // builder.RegisterModule<ModuleCache>();
+            builder.RegisterType<GoogleService>().AsSelf()
+              .As<ICalendarService>().SingleInstance();
+
+            builder.RegisterType<GoogleDataStore>()
+                .AsSelf().InstancePerDependency();
             builder.RegisterModule<ModuleCore>();
             builder.RegisterType<DapperRepository>().AsSelf();
             Container = builder.Build();
