@@ -61,13 +61,12 @@ namespace Cloudents.Web.Controllers
                 Response.Headers.Add("X-Robots-Tag", "noindex");
                 return View();
             }
-            var localizerSuffix = string.Empty;
-            if (string.IsNullOrEmpty(retVal.UniversityName))
-            {
-                localizerSuffix = "NoUniversity";
+            //if (string.IsNullOrEmpty(retVal.UniversityName))
+            //{
+            //    localizerSuffix = "NoUniversity";
 
-            }
-            ViewBag.title = _localizer[$"Title{localizerSuffix}", retVal.Name, retVal.UniversityName];
+            //}
+            ViewBag.title = _localizer["TitleNoUniversity", retVal.Name];
             ViewBag.metaDescription = _localizer["Description", retVal.Description];
             if (retVal.Image != null)
             {
