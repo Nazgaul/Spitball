@@ -55,8 +55,6 @@ namespace Cloudents.Web.Api
         [HttpGet("{id:long}/about")]
         public async Task<UserProfileAboutDto> GetAboutAsync(long id, CancellationToken token)
         {
-            //var user = _userManager.GetU
-            //_userManager.IsInRoleAsync()
             var query = new UserProfileAboutQuery(id);
             return await _queryBus.QueryAsync(query, token);
         }
