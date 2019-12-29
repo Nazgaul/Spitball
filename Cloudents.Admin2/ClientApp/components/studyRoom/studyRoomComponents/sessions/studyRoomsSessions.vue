@@ -1,60 +1,106 @@
 ﻿<template>
-    <div class="elevation-1">
-        <!--<h1 class="text-xs-center mb-4">The lessons shown are 10 minutes and above</h1>-->
-        <v-data-table :items="sessionsList"
-                      hide-actions
-                      v-bind:pagination.sync="pagination"
-                      :headers="headers">
+    <div class="container studyRoomSessions">
+        <h1 class="text-xs-center mb-4">Study Room</h1>
+        <v-data-table 
+            :headers="headers"
+            :items="sessionsList"
+            :loading="loading"
+            :pagination.sync="pagination">
             <template slot="items" slot-scope="props">
-                <tr @click="openItem(props.item)">
-                    <td class="text-xs-left">{{ props.item.created.toLocaleString() }}</td>
-                    <td class="text-xs-left" @click.stop="">
-                        <router-link :to="{name: `userConversations`, params: {userId: props.item.tutorId}}">
-                            {{ props.item.tutorName }}
-                        </router-link>
-                    </td>
-                    <td class="text-xs-left" @click.stop="">
-                        <router-link :to="{name: 'userConversations', params: {userId: props.item.userId}}">
-                            {{ props.item.userName }}
-                        </router-link>
-                    </td>
-                    <td class="text-xs-left">{{ props.item.duration }}</td>
-                </tr>
+                <td class="text-xs-left">{{ props.item.created.toLocaleString() }}</td>
+                <td class="text-xs-left" @click.stop="">
+                    <router-link :to="{name: `userConversations`, params: {userId: props.item.tutorId}}">
+                        {{ props.item.tutorName }}
+                    </router-link>
+                </td>
+                <td class="text-xs-left" @click.stop="">
+                    <router-link :to="{name: 'userConversations', params: {userId: props.item.userId}}">
+                        {{ props.item.userName }}
+                    </router-link>
+                </td>
+                <!-- <td>{{props.item.sessionId}}</td> -->
+                <td class="text-xs-left">{{ props.item.duration }}</td>
+                <td>
+                    <v-tooltip top>
+                        <v-btn slot="activator" icon @click="openSessionRowDialog(props.item)">
+                            <v-icon color="warning">edit</v-icon>
+                        </v-btn>
+                        <span>Edit</span>
+                    </v-tooltip>
+                </td>
             </template>
-
         </v-data-table>
+        <v-dialog v-model="sessionDialog" class="studyRoomSessionsDialog" width="500" v-if="sessionDialog">
+            <v-card class="studyRoomSessionsDialog_wrap">
+                <h3>Edit Minutes</h3>
+                <v-text-field
+                    v-model="minutes"
+                    label="Minutes"
+                ></v-text-field>
+                <div class="text-xs-right">
+                    <v-btn color="primary" class="ma-0" @click="editSessionMinutes">Send</v-btn>
+                </div>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
 <script>
 
-    import { getSessions } from './studyRoomSessionsService'
+    import { getSessions, updateSessionEdit } from './studyRoomSessionsService'
 
     export default {
-        data() {
-            return {
-                headers: [
-                    { text: 'Created' },
-                    { text: 'Tutor' },
-                    { text: 'Student' },
-                    { text: 'Duration (minutes)' }
-                ],
-                showLoading: true,
-                showNoResult: false,
-                sessionsList: [],
-                pagination: { 'sortBy': 'Created', 'descending': true, 'rowsPerPage': -1 }
+        name: 'studyRoomSessions',
+        data: () => ({
+            headers: [
+                { text: 'Created' },
+                { text: 'Tutor' },
+                { text: 'Student' },
+                // { text: 'Session Id' }
+                { text: 'Duration (minutes)' },
+                { text: 'Actions' }
+            ],
+            sessionsList: [],
+            pagination: { 'sortBy': 'Created', 'descending': true, 'rowsPerPage': 10 },
+            loading: true,
+            sessionDialog: false,
+            currentSession: null,
+            minutes: '',
+        }),
+        watch: {
+            sessionDialog(val) {
+                if(!val)  {
+                    this.minutes = '';
+                    this.currentSession = null;
+                }
+            }
+        },
+        methods: {
+            openSessionRowDialog(row) {
+                this.sessionDialog = true;
+                this.currentSession = row;
+            },
+            editSessionMinutes() {
+                let updateObj = {
+                    sessionId: this.currentSession.sessionId,
+                    minutes: this.minutes
+                }
+                updateSessionEdit(updateObj).then(res => {
+                    console.log(res);
+                    this.$toaster.success(`Edit ${this.currentSession.sessionId} were Accepted`);
+                }, (err) => {
+                    console.log(err);
+                    this.$toaster.error(`Edit ${this.currentSession.sessionId} were Accepted`);
+                })
             }
         },
         created() {
             getSessions().then((list) => {
-                if (list.length === 0) {
-                    this.showNoResult = true;
-                } else {
-                    this.sessionsList = list;
-                }
-                this.showLoading = false;
+                this.sessionsList = list;
             }, (err) => {
                 console.log(err)
+            }).finally(() => {
+                this.loading = false
             })
         }
     }
@@ -62,11 +108,9 @@
 </script>
 
 <style lang="less">
-    .elevation-1 {
-        width: 100%
+    // .studyRoomSessions {
+    // }
+    .studyRoomSessionsDialog_wrap {
+        padding: 10px;
     }
-        .elevation-1 i {
-            display: none;
-            
-        }
 </style>
