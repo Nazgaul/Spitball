@@ -40,7 +40,6 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(200)]
 
         public async Task<ActionResult<UserProfileDto>> GetAsync(long id,
-            [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
@@ -50,15 +49,12 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            retVal.Image = urlBuilder.BuildUserImageEndpoint(id, retVal.Image, retVal.Name);
             return retVal;
         }
 
         [HttpGet("{id:long}/about")]
         public async Task<UserProfileAboutDto> GetAboutAsync(long id, CancellationToken token)
         {
-            //var user = _userManager.GetU
-            //_userManager.IsInRoleAsync()
             var query = new UserProfileAboutQuery(id);
             return await _queryBus.QueryAsync(query, token);
         }

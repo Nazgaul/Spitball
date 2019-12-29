@@ -55,7 +55,7 @@ namespace Cloudents.Web.Api
             var result = await _queryBus.QueryAsync(new ChatConversationsQuery(userId), token);
             result = result.Select(s =>
             {
-                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image, s.Name);
+                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
                 return s;
             });
             return result;
@@ -80,7 +80,7 @@ namespace Cloudents.Web.Api
                 return BadRequest();
             }
 
-            result.Image = _urlBuilder.BuildUserImageEndpoint(result.UserId, result.Image, result.Name);
+            result.Image = _urlBuilder.BuildUserImageEndpoint(result.UserId, result.Image);
 
             return result;
         }
@@ -93,7 +93,7 @@ namespace Cloudents.Web.Api
             var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(id, page), token);
             return result.Select(s =>
             {
-                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image, s.Name);
+                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
                 if (!(s is ChatAttachmentDto p)) return s;
                 var url = BlobProvider.GetBlobUrl($"{p.ChatRoomId}/{p.Id}/{p.Attachment}");
                 p.Src = Url.ImageUrl(new ImageProperties(url));

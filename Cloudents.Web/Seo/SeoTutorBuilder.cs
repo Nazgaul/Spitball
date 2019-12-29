@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using Cloudents.Web.Controllers;
+using Cloudents.Web.Seo.Images;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NHibernate;
@@ -17,12 +19,14 @@ namespace Cloudents.Web.Seo
         private readonly IStatelessSession _session;
         private readonly LinkGenerator _linkGenerator;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public SeoTutorBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        public SeoTutorBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor, IUrlBuilder urlBuilder)
         {
             _session = session;
             _linkGenerator = linkGenerator;
             _httpContextAccessor = httpContextAccessor;
+            _urlBuilder = urlBuilder;
         }
 
         public IEnumerable<SitemapNode> GetUrls(int index)
@@ -33,7 +37,7 @@ namespace Cloudents.Web.Seo
                 .Where(w => w.State == ItemState.Ok && w.User.Country != Country.India.Name)
                 .Take(SiteMapController.PageSize)
                 .Skip(SiteMapController.PageSize * index)
-                .Select(s => new { s.Id, s.User.Name });
+                .Select(s => new { s.Id, s.User.Name,s.User.ImageName });
 
             foreach (var item in t)
             {
@@ -50,7 +54,14 @@ namespace Cloudents.Web.Seo
                 {
                     ChangeFrequency = ChangeFrequency.Daily,
                     Priority = 1,
-                    TimeStamp = DateTime.UtcNow
+                    TimeStamp = DateTime.UtcNow,
+                    Images = new List<SitemapImage>()
+                    {
+                        new SitemapImage(_urlBuilder.BuildUserImageEndpoint(item.Id,item.ImageName,item.Name))
+                        {
+                            Caption = $"{item.Name} profile image"
+                        }
+                    }
                 };
 
             }

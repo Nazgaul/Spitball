@@ -59,7 +59,6 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(Status200OK)]
         public async Task<ActionResult<UserAccountDto>> GetAsync(
             [FromServices] IQueryBus queryBus,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
             [FromServices] ILogger logger,
             [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
@@ -74,7 +73,7 @@ namespace Cloudents.Web.Api
                 logger.Error($"User is null {userId}");
                 return Unauthorized();
             }
-            user.Image = urlBuilder.BuildUserImageEndpoint(userId, user.Image, user.Name);
+            user.Image = urlBuilder.BuildUserImageEndpoint(userId, user.Image);
             return user;
         }
 
