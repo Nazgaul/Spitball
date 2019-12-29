@@ -169,7 +169,7 @@
             <span class="change-title" v-language:inner>resultNote_change_for</span>
             <span class="change-title" style="max-width: 150px;">&nbsp;"{{item.title}}"</span>
           </div>
-          <div class="input-wrap row align-center justify-center">
+          <div class="input-wrap align-center justify-center">
             <div class="price-wrap">
               <vue-numeric
                 :currency="currentCurrency"
