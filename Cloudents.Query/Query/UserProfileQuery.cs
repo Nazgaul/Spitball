@@ -103,7 +103,7 @@ and uc.tutorId =  :profileId";
                     result.Tutor.CouponValue = couponResult.Value;
                 }
 
-                result.Image = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image, result.Name);
+                result.Image = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image);
 
                 if (result.Tutor?.CouponValue.HasValue == true && result.Tutor?.CouponType.HasValue == true)
                 {
