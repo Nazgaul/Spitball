@@ -26,11 +26,13 @@ namespace Cloudents.Web.Api
 
         private readonly ConfigurationService _versionService;
         private readonly IQueryBus _queryBus;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public HomePageController(ConfigurationService versionService, IQueryBus queryBus)
+        public HomePageController(ConfigurationService versionService, IQueryBus queryBus, IUrlBuilder urlBuilder)
         {
             _versionService = versionService;
             _queryBus = queryBus;
+            _urlBuilder = urlBuilder;
         }
 
         [HttpGet("version")]
@@ -57,6 +59,10 @@ namespace Cloudents.Web.Api
         {
             var query = new TopTutorsQuery(profile.Country, count);
             var retValTask = await _queryBus.QueryAsync(query, token);
+            foreach (var item in retValTask)
+            {
+                item.Image = _urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
+            }
             return retValTask;
         }
 
@@ -89,6 +95,10 @@ namespace Cloudents.Web.Api
         {
             var query = new ReviewsQuery(profile.Country, count);
             var retValTask = await _queryBus.QueryAsync(query, token);
+            foreach (var item in retValTask)
+            {
+                item.TutorImage = _urlBuilder.BuildUserImageEndpoint(item.TutorId, item.TutorImage);
+            }
             return retValTask;
         }
 
@@ -121,6 +131,10 @@ namespace Cloudents.Web.Api
             var query = new TopDocumentsQuery(profile.Country, count);
             var retValTask = await _queryBus.QueryAsync(query, token);
 
+            foreach (var item in retValTask)
+            {
+                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+            }
             return retValTask.Select(s =>
             {
                 s.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);

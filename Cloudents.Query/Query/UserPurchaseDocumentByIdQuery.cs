@@ -51,7 +51,7 @@ namespace Cloudents.Query.Query
                         {
                             Id = s.search.User.Id,
                             Name = s.search.User.Name,
-                            Image = s.search.User.Image,
+                            Image = s.search.User.ImageName,
                         },
                         DateTime = s.search.TimeStamp.UpdateTime,
                         Course = s.search.Course.Id,

@@ -87,7 +87,7 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-
+            
             model.Document.User.Image = urlBuilder.BuildUserImageEndpoint(model.Document.User.Id, model.Document.User.Image);
             if (model.Tutor != null)
             {

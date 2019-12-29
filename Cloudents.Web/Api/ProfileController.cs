@@ -25,7 +25,6 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly IUrlBuilder _urlBuilder;
 
-
         public ProfileController(IQueryBus queryBus, UserManager<User> userManager,
              IUrlBuilder urlBuilder)
         {
@@ -49,6 +48,7 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
+            retVal.Image = _urlBuilder.BuildUserImageEndpoint(id, retVal.Image);
             return retVal;
         }
 
@@ -56,7 +56,14 @@ namespace Cloudents.Web.Api
         public async Task<UserProfileAboutDto> GetAboutAsync(long id, CancellationToken token)
         {
             var query = new UserProfileAboutQuery(id);
-            return await _queryBus.QueryAsync(query, token);
+            var res = await _queryBus.QueryAsync(query, token);
+
+            foreach (var review in res.Reviews)
+            {
+                review.Image = _urlBuilder.BuildUserImageEndpoint(review.Id, review.Image);
+            }
+            
+            return res;
         }
 
         // GET
@@ -66,7 +73,13 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
         {
             var query = new UserDataPagingByIdQuery(id, page);
-            return await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            
+            var res =  await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            foreach (var item in res)
+            {
+                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+            }
+            return res;
 
         }
 
@@ -77,7 +90,13 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<QuestionFeedDto>> GetAnswersAsync(long id, int page, CancellationToken token)
         {
             var query = new UserAnswersByIdQuery(id, page);
-            return await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            var res = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            foreach (var item in res)
+            {
+                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+                item.FirstAnswer.User.Image = _urlBuilder.BuildUserImageEndpoint(item.FirstAnswer.User.Id, item.FirstAnswer.User.Image);
+            }
+            return res;
         }
 
         [HttpGet("{id:long}/documents")]
@@ -102,6 +121,13 @@ namespace Cloudents.Web.Api
             }
 
             await Task.WhenAll(retValTask, votesTask);
+            foreach (var item in retValTask.Result)
+            {
+                if (item.User != null)
+                {
+                    item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+                }
+            }
             return retValTask.Result.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
@@ -134,6 +160,12 @@ namespace Cloudents.Web.Api
             }
 
             await Task.WhenAll(retValTask, votesTask);
+
+            foreach (var item in retValTask.Result)
+            {
+                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+            }
+
             return retValTask.Result.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);

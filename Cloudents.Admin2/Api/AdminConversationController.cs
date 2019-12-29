@@ -7,6 +7,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
@@ -53,11 +54,17 @@ namespace Cloudents.Admin2.Api
         //[Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<ConversationDetailsDto>> ConversationDetailAsync(
            [FromRoute] string identifier,
+           [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
 
             var query = new AdminConversationDetailsQuery(identifier, User.GetCountryClaim());
-            return await _queryBus.QueryAsync(query, token);
+            var res =  await _queryBus.QueryAsync(query, token);
+            foreach (var item in res)
+            {
+                item.Image = urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
+            }
+            return res;
         }
 
 
@@ -67,9 +74,14 @@ namespace Cloudents.Admin2.Api
 
         //        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new []{ "*" })]
         public async Task<IEnumerable<ChatMessageDto>> Get(string identifier,
+            [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
             var result = await _queryBus.QueryAsync(new AdminChatConversationByIdQuery(identifier, 0, User.GetCountryClaim()), token);
+            foreach (var item in result)
+            {
+                item.Image = urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
+            }
             return result;
         }
 

@@ -37,14 +37,11 @@ namespace Cloudents.Web.Seo
                 .Where(w => w.State == ItemState.Ok && w.User.Country != Country.India.Name)
                 .Take(SiteMapController.PageSize)
                 .Skip(SiteMapController.PageSize * index)
-                .Select(s => new { s.Id, s.User.Name,s.User.ImageName });
+                .Select(s => new { s.Id, s.User.Name, s.User.ImageName });
 
             foreach (var item in t)
             {
-
-
-
-                var url =  _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Tutor, new
+                var url = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Tutor, new
                 {
                     item.Id,
                     item.Name
@@ -57,7 +54,11 @@ namespace Cloudents.Web.Seo
                     TimeStamp = DateTime.UtcNow,
                     Images = new List<SitemapImage>()
                     {
-                        new SitemapImage(_urlBuilder.BuildUserImageEndpoint(item.Id,item.ImageName,item.Name))
+                        new SitemapImage(_urlBuilder.BuildUserImageEndpoint(item.Id,item.ImageName,item.Name, new
+                        {
+                            width= "214",
+                            height = "240"
+                        }))
                         {
                             Caption = $"{item.Name} profile image"
                         }

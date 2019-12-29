@@ -4,6 +4,7 @@ using Cloudents.Command.StudyRooms;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
@@ -85,13 +86,14 @@ namespace Cloudents.Web.Api
         /// Get Study Room data and sessionId if opened
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="urlBuilder"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id, CancellationToken token)
+        public async Task<ActionResult<StudyRoomDto>> GetStudyRoomAsync(Guid id, [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new StudyRoomQuery(id, userId);
@@ -103,6 +105,8 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
+            result.StudentImage = urlBuilder.BuildUserImageEndpoint(result.StudentId, result.StudentImage);
+            result.TutorImage = urlBuilder.BuildUserImageEndpoint(result.TutorId, result.TutorImage);
             return result;
         }
 
@@ -135,14 +139,20 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Get study rooms data of user - used in study room url
         /// </summary>
+        /// <param name="urlBuilder"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<UserStudyRoomDto>> GetUserLobbyStudyRooms(CancellationToken token)
+        public async Task<IEnumerable<UserStudyRoomDto>> GetUserLobbyStudyRooms([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserStudyRoomQuery(userId);
-            return await _queryBus.QueryAsync(query, token);
+            var res = await _queryBus.QueryAsync(query, token);
+            return res.Select(item =>
+            {
+                item.Image = urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
+                return item;
+            });
         }
 
 

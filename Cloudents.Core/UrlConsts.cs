@@ -126,7 +126,7 @@ namespace Cloudents.Core
 
 
         public const string ImageFunctionUserRoute = "image/user/{id}/{file}";
-        public string BuildUserImageEndpoint(long id, string imageName, string userName)
+        public string BuildUserImageEndpoint(long id, string imageName, string userName, object parameters = null)
         {
             
             var injectionObj = new 
@@ -136,6 +136,7 @@ namespace Cloudents.Core
             };
             var path = ImageFunctionUserRoute.Inject(injectionObj);
             var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+            builder.AddQuery(parameters);
             return builder.ToString();
         }
 

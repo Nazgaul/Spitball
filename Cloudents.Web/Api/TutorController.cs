@@ -46,15 +46,17 @@ namespace Cloudents.Web.Api
         private readonly SbUserManager _userManager;
         private readonly ICommandBus _commandBus;
         private readonly IStringLocalizer<TutorController> _stringLocalizer;
+        private readonly IUrlBuilder _urlBuilder;
 
 
         public TutorController(IQueryBus queryBus, SbUserManager userManager,
-             ICommandBus commandBus, IStringLocalizer<TutorController> stringLocalizer)
+             ICommandBus commandBus, IStringLocalizer<TutorController> stringLocalizer, IUrlBuilder urlBuilder)
         {
             _queryBus = queryBus;
             _userManager = userManager;
             _commandBus = commandBus;
             _stringLocalizer = stringLocalizer;
+            _urlBuilder = urlBuilder;
         }
 
 
@@ -67,12 +69,13 @@ namespace Cloudents.Web.Api
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
         /// <param name="tutorSearch"></param>
+        /// <param name="urlBuilder"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("search", Name = "TutorSearch")]
         [ResponseCache(Duration = TimeConst.Hour, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
         public async Task<WebResponseWithFacet<TutorCardDto>> GetAsync(
-            string term, string course, 
+            string term, string course,
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             int page,
             [FromServices] ITutorSearch tutorSearch,
@@ -87,6 +90,12 @@ namespace Cloudents.Web.Api
                 _userManager.TryGetLongUserId(User, out var userId);
                 var query = new TutorListQuery(userId, profile.Country, page, pageSize);
                 var result = await _queryBus.QueryAsync(query, token);
+                result.Result = result.Result.Select(s =>
+                {
+                    s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
+                    return s;
+                });
+
                 return new WebResponseWithFacet<TutorCardDto>
                 {
                     Result = result.Result,
@@ -98,6 +107,12 @@ namespace Cloudents.Web.Api
             {
                 var query = new TutorListTabSearchQuery(term, profile.Country, page, pageSize);
                 var result = await tutorSearch.SearchAsync(query, token);
+                result.Result = result.Result.Select(s =>
+                {
+                    s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
+                    return s;
+                });
+               
                 return new WebResponseWithFacet<TutorCardDto>
                 {
                     Result = result.Result,
@@ -126,8 +141,14 @@ namespace Cloudents.Web.Api
         {
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new TutorListQuery(userId, profile.Country, 0);
-            var retValTask = await _queryBus.QueryAsync(query, token);
-            return retValTask;
+            var result = await _queryBus.QueryAsync(query, token);
+            result.Result = result.Result.Select(s =>
+            {
+                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
+                return s;
+            });
+           
+            return result;
         }
 
         /// <summary>
@@ -148,6 +169,10 @@ namespace Cloudents.Web.Api
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new TutorListByCourseQuery(course, userId, profile.Country, count.GetValueOrDefault(10));
             var retVal = await _queryBus.QueryAsync(query, token);
+            foreach (var item in retVal)
+            {
+                item.Image = _urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
+            }
             return retVal;
         }
 
@@ -185,7 +210,7 @@ namespace Cloudents.Web.Api
                 {
                     if (user.PhoneNumber == null)
                     {
-                       
+
                         var result =
                             await _userManager.SetPhoneNumberAndCountryAsync(user, model.Phone, location?.CallingCode,
                                 token);
@@ -265,7 +290,7 @@ namespace Cloudents.Web.Api
             if (model.TutorId.HasValue)
             {
                 var query = new GetPhoneNumberQuery(model.TutorId.Value);
-                var val =  await _queryBus.QueryAsync(query, token);
+                var val = await _queryBus.QueryAsync(query, token);
                 return Ok(new
                 {
                     PhoneNumber = val
@@ -280,6 +305,10 @@ namespace Cloudents.Web.Api
         {
             var query = new AboutTutorQuery();
             var retValTask = await _queryBus.QueryAsync(query, token);
+            foreach (var item in retValTask)
+            {
+                item.Image = _urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
+            }
             return retValTask;
         }
 

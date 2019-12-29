@@ -52,7 +52,7 @@ namespace Cloudents.Query.Tutor
                     .WithSubquery.WhereProperty(x => x.Id).In(detachedQuery)
                     .SelectList(sl =>
                             sl.Select(s => userAlias.Name).WithAlias(() => resultAlias.Name)
-                                .Select(s => userAlias.Image).WithAlias(() => resultAlias.Image)
+                                .Select(s => userAlias.ImageName).WithAlias(() => resultAlias.Image)
                                 .Select(s => userAlias.Online).WithAlias(() => resultAlias.Online)
                                 .Select(s => userAlias.Id).WithAlias(() => resultAlias.UserId)
                                 .Select(s => s.Id).WithAlias(() => resultAlias.Id)

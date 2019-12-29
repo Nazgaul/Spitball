@@ -57,7 +57,7 @@ namespace Cloudents.Core.DTOs
         public long Id { get; set; }
         [EntityBind(nameof(Document.User.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(Document.User.Image))]
+        [EntityBind(nameof(Document.User.ImageName))]
         public string Image { get; set; }
 
     }
