@@ -139,13 +139,14 @@ namespace Cloudents.Core
             return builder.ToString();
         }
 
-        //public string BuildUserImageEndpoint(long id, string imageName)
-        //{
+        public string BuildUserImageEndpoint(long id, string imageName)
+        {
+            if (imageName is null)
+            {
+                return null;
+            }
 
-        //    var injectionObj = new { id, file = imageName };
-        //    var path = ImageFunctionUserRoute.Inject(injectionObj);
-        //    var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
-        //    return builder.ToString();
-        //}
+            return BuildUserImageEndpoint(id, imageName, null);
+        }
     }
 }

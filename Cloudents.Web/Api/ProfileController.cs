@@ -40,7 +40,6 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(200)]
 
         public async Task<ActionResult<UserProfileDto>> GetAsync(long id,
-            [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
@@ -50,7 +49,6 @@ namespace Cloudents.Web.Api
             {
                 return NotFound();
             }
-            retVal.Image = urlBuilder.BuildUserImageEndpoint(id, retVal.Image, retVal.Name);
             return retVal;
         }
 

@@ -45,7 +45,6 @@ namespace Cloudents.Query.Query
 u.ImageName as Image,
 u.Name,
 u2.name as universityName,
-u.Score,
 u.description,
 u.online,
 cast ((select count(*) from sb.GoogleTokens gt where u.Id = gt.Id) as bit) as CalendarShared,
@@ -60,8 +59,6 @@ from sb.[user] u
 left join sb.[University] u2 on u.UniversityId2 = u2.Id
 left join sb.readTutor t 
 	on U.Id = t.Id 
-
-
 where u.id = :profileId
 and (u.LockoutEnd is null or u.LockoutEnd < GetUtcDate())";
 

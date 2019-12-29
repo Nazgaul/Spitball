@@ -88,11 +88,11 @@ namespace Cloudents.Web.Api
                 return NotFound();
             }
 
-            model.Document.User.Image = urlBuilder.BuildUserImageEndpoint(model.Document.User.Id, model.Document.User.Image, model.Document.User.Name);
+            model.Document.User.Image = urlBuilder.BuildUserImageEndpoint(model.Document.User.Id, model.Document.User.Image);
             if (model.Tutor != null)
             {
                 model.Tutor.Image =
-                    urlBuilder.BuildUserImageEndpoint(model.Tutor.UserId, model.Tutor.Image, model.Tutor.Name);
+                    urlBuilder.BuildUserImageEndpoint(model.Tutor.UserId, model.Tutor.Image);
             }
 
             var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
