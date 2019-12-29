@@ -25,7 +25,7 @@
                 </v-btn>
             </v-flex>
         </v-layout>
-        <div :class="['uf-sEdit-items',isMobile?'py-3':'pt-4',isMobile? 'px-2': 'px-3']" class="">
+        <div :class="['uf-sEdit-items',isMobile?'py-3':'pt-4',isMobile? 'px-2': 'px-4']" class="">
             <!-- <div v-if="isError" class="uf-sEdit-items-error mb-2" v-language:inner="'upload_uf_sEdit_items_error'"/> -->
             <v-form ref="filesDetailsForm">
                 <transition-group name="slide-x-transition">
@@ -137,6 +137,7 @@ export default {
         flex-direction: column;
     }
    .uf-sEdit-top{
+        align-items: baseline;
        @media (max-width: @screen-xs) {
         .flexSameSize()
        }

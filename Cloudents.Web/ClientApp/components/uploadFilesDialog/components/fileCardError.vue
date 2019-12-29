@@ -1,6 +1,6 @@
 <template>
     <v-layout align-center justify-space-between wrap 
-    :class="['ufItem-error','mb-4',isMobile? ' py-3':'px-3',{'pl-4':isMobile}]">
+    :class="['ufItem-error','mb-4',isMobile? ' py-3':'px-4',{'pl-4':isMobile}]">
         <v-flex xs12 sm7 class="ufItem-error-content">
             <v-icon color="white" class="mr-2 attachClass" v-html="'sbf-attachment'"/>
                 <div class="ufItem-error-txt">
@@ -76,7 +76,6 @@ export default {
     border-radius: 4px;
     color: white;
     .v-btn{
-        min-width: 150px;
         height: 40px !important;
         text-transform: capitalize !important;
         margin-left: 0;
@@ -87,6 +86,7 @@ export default {
         border: 1px solid white !important;
         font-size: 14px;
         letter-spacing: 0.5px;
+        min-width: 150px !important; //vuetify
     }
     .ufItem-error-span{
         font-size: 14px;

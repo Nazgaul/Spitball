@@ -1,7 +1,7 @@
 <template>
     <v-card class="uf-sEdit-item mb-4">
         <v-icon v-if="!isLastItem" class="uf-sEdit-close" v-html="'sbf-close'" @click="deleteFile()"/>
-        <v-layout wrap pb-1 px-3>
+        <v-layout wrap pb-1 px-4>
             <v-layout wrap justify-space-between>   
                 <v-flex xs12 md8 pr-4>
                     <v-text-field style="direction: ltr;" :prepend-inner-icon="'sbf-attachment'" 

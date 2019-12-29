@@ -341,6 +341,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
+        line-height: normal;
     .uf-sDrop-title{
         font-size: 20px;
         font-weight: 600;
@@ -349,7 +350,7 @@ export default {
     }
     .uf-sDrop-or{
         padding-top: 18px;
-        // padding-right: 10px;
+        padding-right: 10px;
         font-size: 16px;
         font-weight: 600;
         font-style: normal;

@@ -12,7 +12,7 @@
                 </v-stepper-header>
 
                 <v-stepper-items class="uf-items">
-                    <div v-if="errorFile && errorFile.name" class="px-3">
+                    <div v-if="errorFile && errorFile.name" class="px-4">
                         <fileCardError :fileItem="errorFile" :singleFileIndex="0"/>
                     </div>
                     <v-stepper-content :class="['uf-mStepper-content', `step-${n}`]"
