@@ -2,7 +2,7 @@
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
+//using Microsoft.AspNetCore.Http.Internal;
 using System;
 using System.IO;
 
@@ -33,13 +33,13 @@ namespace Cloudents.Web.Services
             //Allows re-usage of the stream
             try
             {
-                _httpContextAccessor.HttpContext.Request.EnableRewind();
+                //_httpContextAccessor.HttpContext.Request.EnableRewind();
 
                 if (_httpContextAccessor.HttpContext.Request.Body.CanRead)
                 {
                     using (var stream = new StreamReader(_httpContextAccessor.HttpContext.Request.Body))
                     {
-                        var body = stream.ReadToEnd();
+                        var body = stream.ReadToEndAsync().Result;
                         _httpContextAccessor.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
                         requestTelemetry.Properties.Add(jsonBody, body);
                     }

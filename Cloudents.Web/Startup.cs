@@ -37,6 +37,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Web.Seo;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
@@ -47,158 +48,26 @@ namespace Cloudents.Web
     public class Startup
     {
         public const string IntegrationTestEnvironmentName = "Integration-Test";
-        private const bool UseAzureSignalR = true;
+        //private const bool UseAzureSignalR = true;
 
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             HostingEnvironment = env;
         }
 
         private IConfiguration Configuration { get; }
-        private IHostingEnvironment HostingEnvironment { get; }
+        private IWebHostEnvironment HostingEnvironment { get; }
+
+        public ILifetimeScope AutofacContainer { get; private set; }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to conapp\Cloudents.Web\Startup.csfigure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 
-        [UsedImplicitly]
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureContainer(ContainerBuilder containerBuilder)
         {
-            services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
-            services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
-
-
-            services.AddLocalization(x => x.ResourcesPath = "Resources");
-            services.AddDataProtection(o =>
-            {
-                o.ApplicationDiscriminator = "spitball";
-            }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
-
-            services.AddWebMarkupMin().AddHtmlMinification();
-            //services.AddRouting(x =>
-            //{
-            //    // x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
-            //});
-
-            services.AddMvc()
-
-                .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
-                {
-                    o.DataAnnotationLocalizerProvider = (type, factory) =>
-                    {
-                        var assemblyName = new AssemblyName(typeof(DataAnnotationSharedResource).GetTypeInfo().Assembly.FullName);
-                        return factory.Create("DataAnnotationSharedResource", assemblyName.Name);
-                    };
-                })
-                .AddCookieTempDataProvider(o =>
-                {
-                    o.Cookie.Name = "td";
-                    o.Cookie.HttpOnly = true;
-                })
-                .AddJsonOptions(options =>
-            {
-                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
-                options.SerializerSettings.Converters.Add(new RequestCultureConverter());
-                options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-
-            })
-
-                .AddMvcOptions(o =>
-                {
-                    //TODO: check in source code
-                    o.Filters.Add<OperationCancelledExceptionFilter>();
-                    o.Filters.Add<UserLockedExceptionFilter>();
-                    o.Filters.Add<GlobalExceptionFilter>();
-                    o.Filters.Add(new ResponseCacheAttribute
-                    {
-                        NoStore = true,
-                        Location = ResponseCacheLocation.None
-                    });
-                    o.ModelBinderProviders.Insert(0, new ApiBinder());
-                })
-               .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .ConfigureApiBehaviorOptions(o =>
-                {
-                    o.SuppressMapClientErrors = true; //https://github.com/aspnet/AspNetCore/issues/4792#issuecomment-454164457
-                    o.SuppressUseValidationProblemDetailsForInvalidModelStateResponses = false;
-                    o.InvalidModelStateResponseFactory = actionContext =>
-                    {
-                        var telemetryClient = actionContext.HttpContext.RequestServices.GetService<TelemetryClient>();
-
-
-                        var errorList = actionContext.ModelState.ToDictionary(
-                            kvp => kvp.Key,
-                            kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).FirstOrDefault()
-                        );
-                        telemetryClient.TrackEvent($"Bad request - {actionContext.HttpContext.Request.GetDisplayUrl()}", errorList);
-                        return new BadRequestObjectResult(actionContext.ModelState);
-                    };
-                });
-            if (HostingEnvironment.IsDevelopment() || HostingEnvironment.IsStaging())
-            {
-                Swagger.Startup.SwaggerInitial(services);
-            }
-
-            var t = services.AddSignalR().AddJsonProtocol(o =>
-                {
-                    o.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                    o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                    o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
-                });
-            if (UseAzureSignalR)
-            {
-                t.AddAzureSignalR();
-            }
-            services.AddResponseCompression();
-            services.AddResponseCaching();
-            var physicalProvider = HostingEnvironment.ContentRootFileProvider;
-            services.AddSingleton(physicalProvider);
-
-            services.AddDetectionCore().AddCrawler();
-            services.AddSbIdentity();
-
-            services.AddResponseCompression(x =>
-            {
-                x.Providers.Add<BrotliCompressionProvider>();
-                x.Providers.Add<GzipCompressionProvider>();
-                x.EnableForHttps = true;
-                x.MimeTypes = new[] {"text/javascript",
-                    "application/javascript",
-                    "text/css",
-                    "text/html","application/json"};
-            });
-
-            services.ConfigureApplicationCookie(o =>
-            {
-                o.Cookie.Name = "sb5";
-                o.SlidingExpiration = true;
-
-                o.Events.OnRedirectToLogin = context =>
-                {
-                    context.Response.StatusCode = 401;
-                    return Task.CompletedTask;
-                };
-                o.Events.OnRedirectToAccessDenied = context =>
-                {
-                    context.Response.StatusCode = 401;
-                    return Task.CompletedTask;
-                };
-            });
-
-
-            //TODO: not sure we need those
-            //services.AddScoped<IRoleStore<UserRole>, RoleStore>();
-            services.AddScoped<ISmsSender, SmsSender>();
-            services.AddScoped<ICountryService, CountryService>();
-            services.AddSingleton<ConfigurationService>();
-            services.AddHttpClient();
-            services.AddOptions();
-            services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));
-
-
-
+            // Register your own things directly with Autofac, like:
             var assembliesOfProgram = new[]
-            {
+           {
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Core"),
@@ -210,13 +79,13 @@ namespace Cloudents.Web
 
 
 
-            var containerBuilder = new ContainerBuilder();
+           // var containerBuilder = new ContainerBuilder();
             containerBuilder.Register(c =>
             {
                 var val = c.Resolve<IOptionsMonitor<PayMeCredentials>>();
                 return val.CurrentValue;
             }).AsSelf();
-            services.AddSingleton<WebPackChunkName>();
+           
 
             var keys = new ConfigurationKeys()
             {
@@ -266,15 +135,158 @@ namespace Cloudents.Web
                 var z = c.Resolve<IHttpClientFactory>();
                 return z.CreateClient();
             });
-            containerBuilder.Populate(services);
-            var container = containerBuilder.Build();
-            return new AutofacServiceProvider(container);
+            //containerBuilder.Populate(services);
+            //var container = containerBuilder.Build();
+            //return new AutofacServiceProvider(container);
+        }
+
+        [UsedImplicitly]
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
+            services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
+            services.AddApplicationInsightsTelemetry();
+
+            services.AddLocalization(x => x.ResourcesPath = "Resources");
+            services.AddDataProtection(o =>
+            {
+                o.ApplicationDiscriminator = "spitball";
+            }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
+
+            services.AddWebMarkupMin().AddHtmlMinification();
+            services.AddControllersWithViews();
+            //services.AddRouting(x =>
+            //{
+            //    // x.ConstraintMap.Add("StorageContainerConstraint", typeof(StorageContainerRouteConstraint));
+            //});
+
+            services.AddControllersWithViews()
+
+                .AddMvcLocalization(LanguageViewLocationExpanderFormat.SubFolder, o =>
+                {
+                    o.DataAnnotationLocalizerProvider = (type, factory) =>
+                    {
+                        var assemblyName = new AssemblyName(typeof(DataAnnotationSharedResource).GetTypeInfo().Assembly.FullName);
+                        return factory.Create("DataAnnotationSharedResource", assemblyName.Name);
+                    };
+                })
+                .AddCookieTempDataProvider(o =>
+                {
+                    o.Cookie.Name = "td";
+                    o.Cookie.HttpOnly = true;
+                })
+                //ToDO use the new one
+                .AddNewtonsoftJson(options =>
+            {
+                
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
+                options.SerializerSettings.Converters.Add(new RequestCultureConverter());
+                options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+
+            })
+
+                .AddMvcOptions(o =>
+                {
+                    //TODO: check in source code
+                    o.Filters.Add<OperationCancelledExceptionFilter>();
+                    o.Filters.Add<UserLockedExceptionFilter>();
+                    o.Filters.Add<GlobalExceptionFilter>();
+                    o.Filters.Add(new ResponseCacheAttribute
+                    {
+                        NoStore = true,
+                        Location = ResponseCacheLocation.None
+                    });
+                    o.ModelBinderProviders.Insert(0, new ApiBinder());
+                })
+                .ConfigureApiBehaviorOptions(o =>
+                {
+                    o.SuppressMapClientErrors = true; //https://github.com/aspnet/AspNetCore/issues/4792#issuecomment-454164457
+                   // o.SuppressUseValidationProblemDetailsForInvalidModelStateResponses = false;
+                    o.InvalidModelStateResponseFactory = actionContext =>
+                    {
+                        var telemetryClient = actionContext.HttpContext.RequestServices.GetService<TelemetryClient>();
+
+
+                        var errorList = actionContext.ModelState.ToDictionary(
+                            kvp => kvp.Key,
+                            kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).FirstOrDefault()
+                        );
+                        telemetryClient.TrackEvent($"Bad request - {actionContext.HttpContext.Request.GetDisplayUrl()}", errorList);
+                        return new BadRequestObjectResult(actionContext.ModelState);
+                    };
+                });
+            if (HostingEnvironment.IsDevelopment() || HostingEnvironment.IsStaging())
+            {
+                Swagger.Startup.SwaggerInitial(services);
+            }
+
+            var t = services.AddSignalR().AddNewtonsoftJsonProtocol(o =>
+            {
+                    o.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                    o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
+                });
+            //if (UseAzureSignalR)
+            //{
+                t.AddAzureSignalR();
+            //}
+            services.AddResponseCompression();
+            services.AddResponseCaching();
+            var physicalProvider = HostingEnvironment.ContentRootFileProvider;
+            services.AddSingleton(physicalProvider);
+
+            services.AddDetectionCore().AddCrawler();
+            services.AddSbIdentity();
+
+            services.AddResponseCompression(x =>
+            {
+                x.Providers.Add<BrotliCompressionProvider>();
+                x.Providers.Add<GzipCompressionProvider>();
+                x.EnableForHttps = true;
+                x.MimeTypes = new[] {"text/javascript",
+                    "application/javascript",
+                    "text/css",
+                    "text/html","application/json"};
+            });
+
+            services.ConfigureApplicationCookie(o =>
+            {
+                o.Cookie.Name = "sb5";
+                o.SlidingExpiration = true;
+
+                o.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+                o.Events.OnRedirectToAccessDenied = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+            });
+
+
+            //TODO: not sure we need those
+            //services.AddScoped<IRoleStore<UserRole>, RoleStore>();
+            services.AddScoped<ISmsSender, SmsSender>();
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddSingleton<ConfigurationService>();
+            services.AddHttpClient();
+            services.AddOptions();
+            services.Configure<PayMeCredentials>(Configuration.GetSection("PayMe"));
+            services.AddSingleton<WebPackChunkName>();
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         [UsedImplicitly]
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
             app.UseClickJacking();
             app.UseResponseCompression();
@@ -331,12 +343,14 @@ namespace Cloudents.Web
             });
 
             app.UseWebMarkupMin();
+           
             if (env.IsDevelopment() || env.IsStaging())
             {
                 app.UseSwagger();
                 // Enable middleWare to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
             }
+            app.UseRouting();
             //This is for ip
             //https://stackoverflow.com/a/41335701/1235448
             app.UseForwardedHeaders(new ForwardedHeadersOptions
@@ -344,56 +358,74 @@ namespace Cloudents.Web
                 ForwardedHeaders = ForwardedHeaders.All
             });
             app.UseAuthentication();
+            app.UseAuthorization();
 
-            if (UseAzureSignalR)
-            {
+            //if (UseAzureSignalR)
+            //{
                 app.UseAzureSignalR(routes =>
                 {
                     routes.MapHub<SbHub>("/SbHub");
                     routes.MapHub<StudyRoomHub>("/StudyRoomHub");
                 });
-            }
-            else
-            {
-                app.UseSignalR(routes =>
-                {
-                    routes.MapHub<SbHub>("/SbHub");
-                    routes.MapHub<StudyRoomHub>("/StudyRoomHub");
-                });
-            }
+            //}
+            //else
+            //{
+                
+            //    //app.UseSignalR(routes =>
+            //    //{
+            //    //    routes.MapHub<SbHub>("/SbHub");
+            //    //    routes.MapHub<StudyRoomHub>("/StudyRoomHub");
+            //    //});
+            //}
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
                 //routes.MapRoute(
                 //    name: SeoTypeString.Question,
                 //    template: "question/{id:long}",
                 //    defaults: new { controller = "Home", action = "Index" }
                 //);
-
-                //routes.MapRoute(
-                //    name: SeoTypeString.TutorList,
-                //    template: "tutor-list/{id}",
-                //    defaults: new { controller = "Home", action = "Index" }
-                //);
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: SeoTypeString.Static,
-                    template: "{id}",
-                    defaults: new { controller = "Home", action = "Index" }
+                    pattern: "{id}",
+                    defaults: new {controller = "Home", action = "Index"}
                 );
-
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index" });
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapFallbackToController("Index", "Home");
 
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new
-                    {
-                        controller = "Home",
-                        action = "Index"
-                    });
             });
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: SeoTypeString.Question,
+            //        template: "question/{id:long}",
+            //        defaults: new { controller = "Home", action = "Index" }
+            //    );
+
+            //    //routes.MapRoute(
+            //    //    name: SeoTypeString.TutorList,
+            //    //    template: "tutor-list/{id}",
+            //    //    defaults: new { controller = "Home", action = "Index" }
+            //    //);
+            //    routes.MapRoute(
+            //        name: SeoTypeString.Static,
+            //        template: "{id}",
+            //        defaults: new { controller = "Home", action = "Index" }
+            //    );
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller}/{action}/{id?}",
+            //        defaults: new { controller = "Home", action = "Index" });
+            //    routes.MapSpaFallbackRoute(
+            //        name: "spa-fallback",
+            //        defaults: new
+            //        {
+            //            controller = "Home",
+            //            action = "Index"
+            //        });
+            //});
         }
     }
 

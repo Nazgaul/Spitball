@@ -11,6 +11,7 @@ using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 
 namespace Cloudents.Web.Filters
 {
@@ -50,9 +51,9 @@ namespace Cloudents.Web.Filters
         {
             private readonly string _secretKey;
             private readonly IRestClient _httpClient;
-            private readonly IHostingEnvironment _environment;
+            private readonly IWebHostEnvironment _environment;
 
-            public ValidateRecaptchaImpl(string secretKey, /*IConfiguration configuration,*/ IRestClient httpClient, IHostingEnvironment environment)
+            public ValidateRecaptchaImpl(string secretKey, /*IConfiguration configuration,*/ IRestClient httpClient, IWebHostEnvironment environment)
             {
                 //if (!string.IsNullOrEmpty(secretKey))
                 //{

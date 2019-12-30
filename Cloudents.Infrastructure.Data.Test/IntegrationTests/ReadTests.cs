@@ -258,9 +258,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(638, "IL")]
-        [InlineData(1696, "IN")]
-        public async Task UserBalanceQuery_Ok(long id, string country)
+        [InlineData(638)]
+        [InlineData(1696)]
+        public async Task UserBalanceQuery_Ok(long id)
         {
 
             var query = new UserBalanceQuery(id);
