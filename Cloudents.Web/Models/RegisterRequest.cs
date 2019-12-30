@@ -23,5 +23,8 @@ namespace Cloudents.Web.Models
         [Required(ErrorMessage = "Required")]
         [Compare("Password", ErrorMessage = "PasswordNotMatch")]
         public string ConfirmPassword { get; set; }
+
+        [Captcha]
+        public string Captcha { get; set; }
     }
 }

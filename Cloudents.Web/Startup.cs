@@ -143,7 +143,7 @@ namespace Cloudents.Web
         [UsedImplicitly]
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
+           // services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
             services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
             services.AddApplicationInsightsTelemetry();
 
