@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cloudents.Core.DTOs.Email
+﻿namespace Cloudents.Core.DTOs.Email
 {
     public class RequestTutorAdminEmailDto
     {

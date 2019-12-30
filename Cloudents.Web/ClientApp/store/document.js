@@ -111,7 +111,7 @@ const actions = {
             commit('setRelatedDocs', items);
         }).catch(ex => {
             console.log(ex);
-        })
+        });
     },
     setNewDocumentPrice({ commit }, price) {
         if(!!state.document && !!state.document.details){

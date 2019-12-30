@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 using System;
 using System.Globalization;
 
@@ -33,12 +32,10 @@ namespace Cloudents.Core.DTOs
     {
         [EntityBind(nameof(User.Id))]
         public long Id { get; set; }
-        [EntityBind(nameof(User.Name))]
+        [EntityBind(nameof(User.ImageName))]
         public string Name { get; set; }
         [EntityBind(nameof(User.ImageName))]
         public string Image { get; set; }
-        [EntityBind(nameof(User.Score))]
-        public int Score { get; set; }
         public string UniversityName { get; set; }
         [EntityBind(nameof(User.Description))]
         public string Description { get; set; }
@@ -104,10 +101,9 @@ namespace Cloudents.Core.DTOs
         public long Id { get; set; }
         [EntityBind(nameof(User.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(User.Image))]
+        [EntityBind(nameof(User.ImageName))]
         public string Image { get; set; }
-        [EntityBind(nameof(User.Score))]
-        public int Score { get; set; }
+        
         public ItemState? IsTutor { get; set; }
 
         [EntityBind(nameof(User.PaymentExists), nameof(User.Country))]
@@ -133,7 +129,7 @@ namespace Cloudents.Core.DTOs
         public long UserId { get; set; }
         [EntityBind(nameof(BaseUser.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(BaseUser.Image))]
+        [EntityBind(nameof(BaseUser.ImageName))]
         public string Image { get; set; }
 
         [EntityBind(nameof(ChatUser.Unread))]

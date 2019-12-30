@@ -3,7 +3,7 @@
         <user-avatar-rect
             :userName="userName"
             :userImageUrl="profileImage"
-            class="mr-4"
+            class="mr-4 d-block"
             :userId="userId"
             :width="214"
             :height="240"

@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs;
 using System;
-using System.Globalization;
 
 namespace Cloudents.Core.Entities
 {

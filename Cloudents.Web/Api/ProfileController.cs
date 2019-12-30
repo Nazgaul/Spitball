@@ -25,7 +25,6 @@ namespace Cloudents.Web.Api
         private readonly UserManager<User> _userManager;
         private readonly IUrlBuilder _urlBuilder;
 
-
         public ProfileController(IQueryBus queryBus, UserManager<User> userManager,
              IUrlBuilder urlBuilder)
         {
@@ -39,9 +38,10 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
 
-        public async Task<ActionResult<UserProfileDto>> GetAsync(long id, CancellationToken token)
+        public async Task<ActionResult<UserProfileDto>> GetAsync(long id,
+            CancellationToken token)
         {
-            _userManager.TryGetLongUserId(User,out var userId);
+            _userManager.TryGetLongUserId(User, out var userId);
             var query = new UserProfileQuery(id, userId);
             var retVal = await _queryBus.QueryAsync(query, token);
             if (retVal == null)
@@ -54,10 +54,15 @@ namespace Cloudents.Web.Api
         [HttpGet("{id:long}/about")]
         public async Task<UserProfileAboutDto> GetAboutAsync(long id, CancellationToken token)
         {
-            //var user = _userManager.GetU
-            //_userManager.IsInRoleAsync()
             var query = new UserProfileAboutQuery(id);
-            return await _queryBus.QueryAsync(query, token);
+            var res = await _queryBus.QueryAsync(query, token);
+
+            foreach (var review in res.Reviews)
+            {
+                review.Image = _urlBuilder.BuildUserImageEndpoint(review.Id, review.Image);
+            }
+            
+            return res;
         }
 
         // GET
@@ -67,7 +72,13 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
         {
             var query = new UserDataPagingByIdQuery(id, page);
-            return await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            
+            var res =  await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            return res.Select(item =>
+            {
+                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+                return item;
+            });
 
         }
 
@@ -78,7 +89,15 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<QuestionFeedDto>> GetAnswersAsync(long id, int page, CancellationToken token)
         {
             var query = new UserAnswersByIdQuery(id, page);
-            return await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            var res = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            return res.Select(item =>
+            {
+                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+                item.FirstAnswer.User.Image =
+                    _urlBuilder.BuildUserImageEndpoint(item.FirstAnswer.User.Id, item.FirstAnswer.User.Image);
+                return item;
+            });
+           
         }
 
         [HttpGet("{id:long}/documents")]
@@ -103,6 +122,13 @@ namespace Cloudents.Web.Api
             }
 
             await Task.WhenAll(retValTask, votesTask);
+            foreach (var item in retValTask.Result)
+            {
+                if (item.User != null)
+                {
+                    item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+                }
+            }
             return retValTask.Result.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
@@ -135,6 +161,12 @@ namespace Cloudents.Web.Api
             }
 
             await Task.WhenAll(retValTask, votesTask);
+
+            foreach (var item in retValTask.Result)
+            {
+                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+            }
+
             return retValTask.Result.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
@@ -172,7 +204,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-       
+
 
     }
 }

@@ -1,80 +1,96 @@
 ﻿<template>
-    <div id="answer-wrapper-scroll">
-        <div class="container">
-            <v-layout justify-center>
-                <v-flex xs12 style="background: #ffffff; max-width: 960px; min-width: 960px;">
-                    <v-toolbar color="indigo" class="heading-toolbar" :height="'64px'" dark>
-                        <v-toolbar-title>Flagged Answers</v-toolbar-title>
-                    </v-toolbar>
-                    <v-card v-for="(answer, index) in answers" :key="index" style="padding: 0 12px;">
-                        <v-toolbar class="question-toolbar mt-4 back-color-purple">
-                            <v-toolbar-title class="question-text-title">
-                                Question: {{answer.questionText}}
-                            </v-toolbar-title>
-                            <v-spacer></v-spacer>
-                            <span title="Fictive Or Original Question ">{{answer.markerEmail}}</span>
-                            <v-spacer></v-spacer>
-                            <!--<div class="answer-id" @click="doCopy(answer.id)">-->
-                                <!--<span>Answer Id: {{answer.id}}</span>-->
-                            <!--</div>-->
-                        </v-toolbar>
+    <div class="container flaggedAnswer">
+        <h1 class="text-xs-center mb-4">Flagged Answers</h1>
+        <v-data-table
+            :headers="headers"
+            :items="answers"
+            class="flaggedAnswer_table mx-3"
+            disable-initial-sort
+            :loading="loading"
+            expand
+            :rows-per-page-items="[5, 10, 25,{text: 'All', value:-1}]">
 
-                        <v-list two-line avatar>
-                            <template>
-                                <v-list-tile class="answers-list-tile">
-                                    <v-list-tile-content class="answers-content">
-                                        <v-list-tile-sub-title  class="answer-subtitle-reason">
-                                            Reason: {{answer.reason}}
-                                            <v-spacer></v-spacer>
-                                            Flagged User Email: {{answer.flaggedUserEmail}}
-                                        </v-list-tile-sub-title>
-                                        <v-list-tile-sub-title class="answer-subtitle">Answer: {{answer.text}}
-                                        </v-list-tile-sub-title>
-                                    </v-list-tile-content>
-                                    <v-list-tile-action class="answer-action">
-                                        <v-list-tile-action-text></v-list-tile-action-text>
-                                        <v-tooltip left>
-                                        <v-btn slot="activator" icon @click="declineAnswer(answer, index)">
-                                            <v-icon color="red">close</v-icon>
-                                        </v-btn>
-                                            <span>Delete</span>
-                                        </v-tooltip>
-                                    </v-list-tile-action>
-                                    <v-list-tile-action class="answer-action">
-                                        <v-list-tile-action-text></v-list-tile-action-text>
-                                        <v-tooltip left>
-                                        <v-btn  slot="activator" icon @click="aproveA(answer, index)">
-                                            <v-icon color="green">done</v-icon>
-                                        </v-btn>
-                                            <span>Accept</span>
-                                        </v-tooltip>
-                                    </v-list-tile-action>
-
-                                </v-list-tile>
-                            </template>
-                        </v-list>
-                    </v-card>
-                    <div v-if="loading">Loading questions, please wait...</div>
-                     <div v-show="answers.length === 0 && !loading">No more flagged answers</div>
-                </v-flex>
-            </v-layout>
-            
-        </div>
+            <template slot="items" slot-scope="props">
+                <tr @click="props.expanded = !props.expanded">
+                    <td class="flaggedAnswer_item">{{props.item.questionText}}</td>
+                    <td class="flaggedAnswer_item">{{props.item.markerEmail}}</td>
+                    <td class="flaggedAnswer_item">{{props.item.id}}</td>
+                    <td class="flaggedAnswer_item">{{props.item.reason}}</td>
+                    <td class="flaggedAnswer_item">
+                        <v-tooltip top>
+                            <v-btn slot="activator" icon @click.stop="declineAnswer(props.item, props.index)">
+                                <v-icon color="red">close</v-icon>
+                            </v-btn>
+                            <span>Delete</span>
+                        </v-tooltip>
+                        <v-tooltip top>
+                            <v-btn slot="activator" icon @click.stop="aproveA(props.item, props.index)">
+                                <v-icon color="green">done</v-icon>
+                            </v-btn>
+                            <span>Accept</span>
+                        </v-tooltip>
+                    </td>
+                </tr>
+            </template>
+            <template slot="expand" slot-scope="props">
+                <v-card flat>
+                    <v-card-text><span class="font-weight-bold mr-1">Answer:</span> {{props.item.text}}</v-card-text>
+                    <v-card-text><span class="font-weight-bold mr-1">Email:</span> {{props.item.flaggedUserEmail}}</v-card-text>
+                    <hr>
+                </v-card>
+            </template>
+        </v-data-table>
     </div>
 </template>
 
-<script src="./flaggedAnswers.js"></script>
+<script>
+import { getAllAnswers, aproveAnswer } from './flaggedAnswersService'
+import { deleteAnswer} from '../delete/deleteAnswerService'
+
+export default {
+    name: 'flaggedAnswer',
+    data: () => ({
+        headers: [
+            {text: 'Question', value: 'question', sortable: false},
+            {text: 'Email', value: 'email', sortable: false},
+            {text: 'Question Id', value: 'questionId', sortable: false},
+            {text: 'Reason', value: 'reason', sortable: false},
+            {text: 'Actions', value: 'actions', sortable: false}
+        ],
+        answers: [],
+        loading: true,
+        expand: false,
+    }),
+    methods: {
+        aproveA(answer, index) {
+            aproveAnswer(answer.id).then(() => {
+                this.answers.splice(index, 1);
+                this.$toaster.success(`Answer Aproved`);
+            }, () => {
+                this.$toaster.error(`Answer Aproved Failed`);
+            });
+        },
+        declineAnswer(answer, index) {
+            let id = answer.id;
+            deleteAnswer([id]).then(() => {
+                this.answers.splice(index, 1);
+                this.$toaster.success(`Answer Declined`);
+            },() => {
+                this.$toaster.error(`Answer Declined Failed`);
+            });
+        }
+    },
+    created() {
+        getAllAnswers().then((answersResp) => {
+            this.answers = answersResp;
+            this.loading = false;
+        });
+    }
+}
+</script>
 
 <style lang="less" scoped>
-    .v-list__tile__sub-title{
-        &.answer-subtitle-reason{
-            color: #3f51b5!important;
-            font-weight: 500;
-        }
+    .flaggedAnswer {
+        
     }
-
-    .answer-id{
-        cursor: pointer;
-    }
-
 </style>

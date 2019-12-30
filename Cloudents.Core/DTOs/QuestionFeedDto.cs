@@ -2,7 +2,6 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using System;
-using System.Globalization;
 
 namespace Cloudents.Core.DTOs
 {
@@ -66,7 +65,7 @@ namespace Cloudents.Core.DTOs
         public long Id { get; set; }
         [EntityBind(nameof(Question.User.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(Question.User.Image))]
+        [EntityBind(nameof(Question.User.ImageName))]
         public string Image { get; set; }
     }
 

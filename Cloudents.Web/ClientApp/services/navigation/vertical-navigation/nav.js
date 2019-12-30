@@ -29,7 +29,7 @@ for (let i in nav) {
         'id': item.id,
         'name': item.name,
         'icon': item.icon,
-    }
+    };
 
     if(isRtl && isMobile) {
         verticalsNavbar.unshift(navObj);

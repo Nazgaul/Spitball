@@ -3,7 +3,7 @@ const IntercomSettings = createIntercomSettings();
 
 function IntercomSettingsObj(){
     this.app_id = "njmpgayv";
-    this.custom_launcher_selector = '#gH_i_r_intercom'
+    this.custom_launcher_selector = '#gH_i_r_intercom';
     this.hide_default_launcher = true;
     this.user_id = null;
     this.user_name = null;
@@ -15,7 +15,7 @@ function IntercomSettingsObj(){
 
 IntercomSettingsObj.prototype.set = function({id, name, email, phoneNumber, isTutor, alignment}){
     if(IntercomStatus){
-        this.custom_launcher_selector = '#gH_i_r_intercom'
+        this.custom_launcher_selector = '#gH_i_r_intercom';
         this.user_id = id ? "Sb_" + id : this.user_id;
         this.user_name = name ? name : this.user_name;
         this.user_email = email ? email : this.user_email;
@@ -25,12 +25,12 @@ IntercomSettingsObj.prototype.set = function({id, name, email, phoneNumber, isTu
         this.alignment = alignment ? alignment : global.isRtl ? 'left' : 'right';
         bootIntercom();
     }
-}
+};
 
 IntercomSettingsObj.prototype.reset = function(){
     if(IntercomStatus){
         shutIntercom();
-        this.custom_launcher_selector = '#gH_i_r_intercom'
+        this.custom_launcher_selector = '#gH_i_r_intercom';
         this.user_id = null;
         this.user_name = null;
         this.user_email = null;
@@ -40,7 +40,7 @@ IntercomSettingsObj.prototype.reset = function(){
         this.alignment = global.isRtl ? 'left' : 'right';
         bootIntercom();
     }
-}
+};
 
 function createIntercomSettings(){
     return new IntercomSettingsObj();

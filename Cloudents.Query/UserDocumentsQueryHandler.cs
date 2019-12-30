@@ -32,7 +32,7 @@ namespace Cloudents.Query
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,
-                        Image = s.User.Image,
+                        Image = s.User.ImageName,
                     },
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Id,

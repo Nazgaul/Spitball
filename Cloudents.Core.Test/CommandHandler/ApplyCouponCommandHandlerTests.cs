@@ -108,7 +108,7 @@ namespace Cloudents.Core.Test.CommandHandler
             var command = new ApplyCouponCommand(someCoupon, userId, tutorId);
             var instance = _mock.Create<ApplyCouponCommandHandler>();
             await instance.ExecuteAsync(command, default);
-            command.newPrice.Should().Be(total);
+            command.NewPrice.Should().Be(total);
 
         }
 
@@ -140,7 +140,7 @@ namespace Cloudents.Core.Test.CommandHandler
             var command = new ApplyCouponCommand(someCoupon, userId, tutorId);
             var instance = _mock.Create<ApplyCouponCommandHandler>();
             await instance.ExecuteAsync(command, default);
-            command.newPrice.Should().Be(total);
+            command.NewPrice.Should().Be(total);
 
         }
 

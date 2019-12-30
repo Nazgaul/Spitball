@@ -209,15 +209,15 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
 
 Vue.prototype.$loadStyle = function(url,id){
     return new Promise((resolve) => {
-        if (document.querySelector(id)) return resolve()
-        let linkTag = document.createElement('link')
-        linkTag.id = id
-        linkTag.rel = 'stylesheet'
-        linkTag.href = url
-        document.head.insertBefore(linkTag, document.head.firstChild)
-        return resolve()
-    })
-}
+        if (document.querySelector(id)) return resolve();
+        let linkTag = document.createElement('link');
+        linkTag.id = id;
+        linkTag.rel = 'stylesheet';
+        linkTag.href = url;
+        document.head.insertBefore(linkTag, document.head.firstChild);
+        return resolve();
+    });
+};
 
 Vue.prototype.$proccessImageUrl = function(url, width, height, mode){
     let usedMode = mode ? mode : 'crop';
@@ -331,15 +331,15 @@ if(touchSupported){
         store.dispatch('setIsTouchEnd', false);
         store.dispatch('setIsTouchMove', false);
         store.dispatch('setIsTouchStarted', true);
-    })
+    });
     global.addEventListener('touchmove', function(){
         store.dispatch('setIsTouchMove', true);
-    })
+    });
     global.addEventListener('touchend', function(){
         store.dispatch('setIsTouchStarted', false);
         store.dispatch('setIsTouchMove', false);
         store.dispatch('setIsTouchEnd', true);
-    })
+    });
 }
 
 //initSignalRService();

@@ -73,7 +73,7 @@ select 'd' as type
 , un.Name as University
 , u.Id as 'User.Id'
 , u.Name as 'User.Name'
-, u.Image as 'User.Image'
+, u.ImageName as 'User.Image'
 , un.Id as UniversityId
 , COALESCE(d.description,metaContent) as Snippet
 , d.Name as Title
@@ -110,13 +110,13 @@ q.Updated as DateTime,
 q.Language as CultureInfo
 --TODO from cross join
 ,x.Id as 'FirstAnswer.User.Id'
-,x.Image as 'FirstAnswer.User.Image'
+,x.ImageName as 'FirstAnswer.User.Image'
 ,x.Name as 'FirstAnswer.User.Name'
 ,x.Text as 'FirstAnswer.Text'
 ,x.Created as 'FirstAnswer.DateTime'
 ,u.Id as 'User.Id'
 ,u.Name as 'User.Name'
-,u.Image as 'User.Image'
+,u.ImageName as 'User.Image'
 ,'Question' as documentType for json path) JsonArray
 
 FROM sb.[Question] q
@@ -124,7 +124,7 @@ join sb.[user] u
 	on q.UserId = u.Id
 join sb.University un on q.UniversityId = un.Id
 outer apply (
-select top 1 text, u.id, u.name, u.image, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
+select top 1 text, u.id, u.name, u.ImageName, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 
 ) as x
@@ -168,7 +168,7 @@ select 'd' as type
 ,un.Name as University
 ,u.Id as 'User.Id'
 ,u.Name as 'User.Name'
-,u.Image as 'User.Image'
+,u.ImageName as 'User.Image'
 ,un.Id as UniversityId
 ,COALESCE(d.description,metaContent) as Snippet
 ,d.Name as Title
@@ -202,13 +202,13 @@ q.Updated as DateTime,
 q.Language as CultureInfo
 --TODO from cross join
 ,x.Id as 'FirstAnswer.User.Id'
-,x.Image as 'FirstAnswer.User.Image'
+,x.ImageName as 'FirstAnswer.User.Image'
 ,x.Name as 'FirstAnswer.User.Name'
 ,x.Text as 'FirstAnswer.Text'
 ,x.Created as 'FirstAnswer.DateTime'
 ,u.Id as 'User.Id'
 ,u.Name as 'User.Name'
-,u.Image as 'User.Image'
+,u.ImageName as 'User.Image'
 ,'Question' as documentType for json path) JsonArray
 
 FROM sb.[Question] q
@@ -216,7 +216,7 @@ join sb.[user] u
 	on q.UserId = u.Id
 join sb.University un on q.UniversityId = un.Id
 outer apply (
-select  top 1 text,u.id,u.name,u.image, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
+select  top 1 text,u.id,u.name,u.ImageName, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 
 ) as x

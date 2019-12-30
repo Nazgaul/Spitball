@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;

@@ -86,7 +86,7 @@ const actions = {
             commit('updateQuestion', response);
         }).catch(ex => {
             console.log(ex);
-        })
+        });
     },
     updateQuestionItemCorrect({commit, state}, question){
         if(!!state.question && state.question.id == question.questionId){

@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using Cloudents.Core.Message.System;
 
 namespace Cloudents.Core.DTOs.Email
 {

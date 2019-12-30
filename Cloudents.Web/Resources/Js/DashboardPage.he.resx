@@ -208,4 +208,13 @@
   <data name="views" xml:space="preserve">
     <value>צפיות</value>
   </data>
+  <data name="action_download" xml:space="preserve">
+    <value>הורדה</value>
+  </data>
+  <data name="action_watch" xml:space="preserve">
+    <value>צפייה</value>
+  </data>
+  <data name="my_purchases_title" xml:space="preserve">
+    <value>הרכישות שלי</value>
+  </data>
 </root>

@@ -130,7 +130,7 @@ namespace Cloudents.Admin2
             }).AsSelf();
             var keys = new ConfigurationKeys()
             {
-                SiteEndPoint = { SpitballSite = Configuration["Site"] },
+                SiteEndPoint = { SpitballSite = Configuration["Site"], FunctionSite = Configuration["functionCdnEndpoint"] },
                 Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"], DbConnectionString.DataBaseIntegration.Validate),
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
                        Configuration["AzureSearch:SearchServiceAdminApiKey"],

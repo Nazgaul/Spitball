@@ -10,6 +10,7 @@ import { LanguageService } from '../../../services/language/languageService';
 import imageDraw from './options/imageDraw';
 import pencilSVG from '../images/noun-edit-684936.svg';
 import uploadSVG from '../images/outline-open-in-browser-24-px.svg';
+// import whiteBoardLayers from './innerComponents/whiteBoardLayers.vue'
 
 const HeaderHeight = 108;
 
@@ -18,7 +19,8 @@ export default {
         equationMapper,
         pencilSVG,
         uploadSVG,
-        iinkDrawer
+        iinkDrawer,
+        // whiteBoardLayers
     },
     data() {
         return {
@@ -63,7 +65,23 @@ export default {
                     selectDefaultTool: this.selectDefaultTool
                 },
                 objDetected: false
-            }
+            },
+            textScales:[
+                {
+                    text: LanguageService.getValueByKey('tutor_fontSize_small'),
+                    value: '20'
+                },
+                {
+                    text: LanguageService.getValueByKey('tutor_fontSize_normal'),
+                    value: '40'
+                },
+                {
+                    text: LanguageService.getValueByKey('tutor_fontSize_large'),
+                    value: '60'
+                }
+            ],
+            sizeText: LanguageService.getValueByKey('tutor_size_label'),
+            isRtl: global.isRtl
         };
     },
     computed: {
@@ -82,7 +100,8 @@ export default {
             'getTabIndicator',
             'getImgLoader',
             'getShowBoxHelper',
-            'getShapesSelected']),
+            'getShapesSelected',
+            'getFontSize']),
         equationSizeX(){
             return (window.innerWidth / 2) - 300;
         },
@@ -133,7 +152,15 @@ export default {
                     return true;
                 }
             }else{
-                return false
+                return false;
+            }
+        },
+        fontSize:{
+            get(){
+                return this.getFontSize;
+            },
+            set(val){
+                this.setFontSize(val);
             }
         }
     },
@@ -158,7 +185,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateShowBoxHelper','updateImgLoader','resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab', 'setCurrentOptionSelected', 'setShowPickColorInterface']),
+        ...mapActions(['updateShowBoxHelper','updateImgLoader','resetDragData', 'updateDragData', 'updateZoom', 'updatePan', 'setSelectedOptionString', 'changeSelectedTab', 'removeCanvasTab', 'setCurrentOptionSelected', 'setShowPickColorInterface', 'setFontSize']),
         ...mapMutations(['setTabName']),
         renameTab() {
             console.log("Rename Tab");
@@ -461,7 +488,7 @@ export default {
         this.canvas.width = this.canvasWidth;
         this.canvas.height = this.canvasHeight;
         this.canvasData.context = this.canvas.getContext("2d");
-        this.canvasData.context.font = '16px Open Sans';
+        this.canvasData.context.font = `16px Open Sans`;
         this.canvasData.context.lineJoin = this.canvasData.lineJoin;
         this.canvasData.context.lineWidth = this.canvasData.lineWidth;
         canvasFinder.trackTransforms(this.canvasData.context);

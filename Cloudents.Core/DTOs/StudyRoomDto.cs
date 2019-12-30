@@ -13,13 +13,13 @@ namespace Cloudents.Core.DTOs
         public string ConversationId { get; set; }
         [EntityBind(nameof(Tutor.Id))]
         public long TutorId { get; set; }
-        [EntityBind(nameof(User.Image))]
+        [EntityBind(nameof(User.ImageName))]
         public string TutorImage { get; set; }
         [EntityBind(nameof(User.Name))]
         public string TutorName { get; set; }
         [EntityBind(nameof(User.Id))]
         public long StudentId { get; set; }
-        [EntityBind(nameof(User.Image))]
+        [EntityBind(nameof(User.ImageName))]
         public string StudentImage { get; set; }
         [EntityBind(nameof(User.Name))]
         public string StudentName { get; set; }

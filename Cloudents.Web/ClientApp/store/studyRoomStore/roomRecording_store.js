@@ -29,16 +29,16 @@ const mutations = {
 
 const actions = {
     setRecorder({commit}, val){
-        commit('setRecorder', val)
+        commit('setRecorder', val);
     },
     setRecorderStearm({commit}, val){
-        commit('setRecorderStearm', val)
+        commit('setRecorderStearm', val);
     },
     setIsRecording({commit}, val){
-        commit('setIsRecording', val)
+        commit('setIsRecording', val);
     },
     setShowAudioRecordingError({commit}, val){
-        commit('setShowAudioRecordingError', val)
+        commit('setShowAudioRecordingError', val);
     }
 };
 

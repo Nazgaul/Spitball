@@ -132,7 +132,7 @@ export default {
         ...mapGetters(["accountUser"]),
         currentCurrency(){
             if(!!this.accountUser){
-              return this.accountUser.currencySymbol
+              return this.accountUser.currencySymbol;
             }
         },
         isMobile() {

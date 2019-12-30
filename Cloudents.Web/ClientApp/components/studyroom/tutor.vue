@@ -38,11 +38,17 @@
           >
             <startEndSessionBtn :id="id"></startEndSessionBtn>
           
-            <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>  
-            
-            <v-btn text icon @click="toggleRecord">
-              <v-icon v-if="!getIsRecording" class="white-btn">sbf-begain-recording</v-icon>
-              <v-icon v-else class="white-btn">sbf-stop-recording</v-icon>
+            <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>
+
+            <v-btn text icon @click="toggleRecord" class="recording_btn" :ripple="false">
+              <span v-if="!getIsRecording" class="mt-1 d-flex">
+                <beginRecording class="white-btn mr-1"></beginRecording>
+                <span class="recording_btn_text" v-language:inner="'tutor_begain_recording'"></span>
+              </span>
+              <span v-else class="mt-1 d-flex">
+                <stopRecording class="mr-2"></stopRecording>
+                <span class="recording_btn_text" v-language:inner="'tutor_stop_recording'"></span>
+              </span>
             </v-btn>
            
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
@@ -274,6 +280,8 @@ import studyRoomRecordingService from './studyRoomRecordingService.js';
 import errorWithAudioRecording from './tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
 import studentConsentDialog from './tutorHelpers/studentConsentDialog/studentConsentDialog.vue';
 import snapshotDialog from './tutorHelpers/snapshotDialog/snapshotDialog.vue';
+import stopRecording from './images/stop-recording.svg';
+import beginRecording from './images/begain-recording.svg';
 
 //store
 import storeService from "../../services/store/storeService";
@@ -313,7 +321,9 @@ export default {
     intercomSVG,
     errorWithAudioRecording,
     studentConsentDialog,
-    snapshotDialog
+    snapshotDialog,
+    stopRecording,
+    beginRecording
   },
   name: "tutor",
   data() {

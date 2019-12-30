@@ -5,12 +5,13 @@ namespace Cloudents.Core.Entities
 {
     public class ReadTutor : Entity<long>
     {
-        public ReadTutor(long id, string name, string image, IEnumerable<string> allSubjects, IEnumerable<string> allCourses,
+        public ReadTutor(long id, string name, string image, string imageName, IReadOnlyList<string> allSubjects, IReadOnlyList<string> allCourses,
             decimal price, double? rate, int rateCount, string bio, string university, int lessons, string country, decimal? subsidizedPrice)
         {
             Id = id;
             Name = name;
             Image = image;
+            ImageName = imageName;
             Subjects = allSubjects?.OrderBy(o => o).Take(3);
             AllSubjects = allSubjects;
             Courses = allCourses?.OrderBy(o => o).Take(3);
@@ -36,6 +37,7 @@ namespace Cloudents.Core.Entities
 
         public virtual string Name { get; protected set; }
         public virtual string Image { get; protected set; }
+        public virtual string ImageName { get; protected set; }
         public virtual IEnumerable<string> Subjects { get; protected set; }
         public virtual IEnumerable<string> AllSubjects { get; protected set; }
         public virtual IEnumerable<string> Courses { get; protected set; }

@@ -167,11 +167,16 @@ namespace Cloudents.Web.Api
         [HttpPost("PayMe", Name = "PayMeCallback"), AllowAnonymous, ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> PayMeCallbackAsync([FromQuery]long userId,
             [FromForm] PayMeBuyerCallbackRequest model,
+            [FromServices] TelemetryClient client,
             CancellationToken token)
         {
             var paymentKeyExpiration = DateTime.ParseExact(model.BuyerCardExp, "MMyy", CultureInfo.InvariantCulture);
             paymentKeyExpiration = paymentKeyExpiration.AddMonths(1).AddMinutes(-1);
-
+            client.TrackTrace("Receive credit card details", new Dictionary<string, string>()
+            {
+                ["userId"] = userId.ToString(),
+                ["data"] = model.ToString()
+            });
             var command = new AddBuyerTokenCommand(userId, model.BuyerKey, paymentKeyExpiration, model.BuyerCardMask);
             await _commandBus.DispatchAsync(command, token);
             return Ok();

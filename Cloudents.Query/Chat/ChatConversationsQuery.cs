@@ -32,7 +32,7 @@ namespace Cloudents.Query.Chat
                     var result = await conn.QueryAsync<ChatUserDto>(@"
 Select u.Name,
 u.Id as UserId,
-u.Image,
+u.ImageName as Image,
 u.Online,
 cu.Unread,
 cr.Identifier as ConversationId,

@@ -28,7 +28,6 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -72,6 +71,7 @@ namespace Cloudents.Web.Api
             [FromServices] IQueueProvider queueProvider,
             [FromServices] ICrawlerResolver crawlerResolver,
             [FromServices] IIndex<DocumentType, IDocumentGenerator> generatorIndex,
+            [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
             long? userId = null;
@@ -86,6 +86,13 @@ namespace Cloudents.Web.Api
             if (model == null)
             {
                 return NotFound();
+            }
+            
+            model.Document.User.Image = urlBuilder.BuildUserImageEndpoint(model.Document.User.Id, model.Document.User.Image);
+            if (model.Tutor != null)
+            {
+                model.Tutor.Image =
+                    urlBuilder.BuildUserImageEndpoint(model.Tutor.UserId, model.Tutor.Image);
             }
 
             var tQueue = queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfViews(id), token);
@@ -274,17 +281,18 @@ namespace Cloudents.Web.Api
 
 
         [HttpGet("similar")]
-        public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocuments([FromQuery] SimilarDocumentsRequest request, 
+        public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocuments([FromQuery] SimilarDocumentsRequest request,
             [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var query = new SimilarDocumentsQuery(request.DocumentId);
             var res = await _queryBus.QueryAsync(query, token);
-            return res.Select(s => {
+            return res.Select(s =>
+            {
                 s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
                 s.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                 //s.Title = Path.GetFileNameWithoutExtension(s.Title);
                 return s;
-                });
+            });
         }
 
         [HttpPost("rename"), Authorize]

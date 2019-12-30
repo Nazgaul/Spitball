@@ -30,7 +30,7 @@ u.Email, t.Bio, t.Price, t.Created,
 (select STRING_AGG(dt.CourseId, ', ') FROM(select top 10 courseId
 from sb.UsersCourses dt 
 where u.Id = dt.UserId and dt.CanTeach = 1) dt) as courses,
-u.image
+u.ImageName as Image
 from sb.[User] u
 join sb.Tutor t
 	on u.Id = t.Id 

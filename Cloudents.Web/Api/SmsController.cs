@@ -59,7 +59,7 @@ namespace Cloudents.Web.Api
 
             [FromServices] IIpToLocation service, CancellationToken token)
         {
-            var result = await service.GetAsync(HttpContext.Connection.GetIpAddress(), token);
+            var result = await service.GetAsync(HttpContext.GetIpAddress(), token);
             return new CallingCallResponse(result?.CallingCode);
         }
 
@@ -183,7 +183,7 @@ namespace Cloudents.Web.Api
             }
             TempData.Clear();
 
-            var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress(), fingerPrint, userAgent);
+            var command2 = new AddUserLocationCommand(user, country, HttpContext.GetIpAddress(), fingerPrint, userAgent);
             var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
             var t1 = _commandBus.DispatchAsync(command2, token);
             var t2 = _signInManager.SignInAsync(user, false);

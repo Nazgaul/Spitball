@@ -3,11 +3,13 @@ using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,10 +31,15 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PendingTutorsDto>> GetPendingTutorsAsync(CancellationToken token)
+        public async Task<IEnumerable<PendingTutorsDto>> GetPendingTutorsAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var query = new AdminPendingTutorsQuery(User.GetCountryClaim());
-            return await _queryBus.QueryAsync(query, token);
+            var res =  await _queryBus.QueryAsync(query, token);
+            return res.Select(item =>
+            {
+                item.Image = urlBuilder.BuildUserImageEndpoint(item.Id, item.Image);
+                return item;
+            });
         }
 
         [HttpPost("approve")]

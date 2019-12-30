@@ -92,7 +92,7 @@
               class="item-course text-truncate"
               v-html="$Ph('resultNote_course',[item.course])"
             />
-            <span
+            <span  v-if="item.university"
               class="item-university text-truncate"
               v-html="$Ph('resultNote_university',[item.university])"
             />

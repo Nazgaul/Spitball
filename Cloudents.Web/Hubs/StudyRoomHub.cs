@@ -3,10 +3,7 @@ using Cloudents.Command.Command;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 
 namespace Cloudents.Web.Hubs
 {

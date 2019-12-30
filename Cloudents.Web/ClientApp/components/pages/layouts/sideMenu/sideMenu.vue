@@ -49,32 +49,32 @@
                   </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item class="group_list_sideMenu_dash" :to="{ name: 'tutoring'}" sel="menu_row">
+                <!-- <v-list-item class="group_list_sideMenu_dash" :to="{ name: 'tutoring'}" sel="menu_row">
                 <v-list-item-content>
                   <v-list-item-title :class="['group_list_titles_dash']" >
                     <v-icon style="font-size: 17px;" class="group_list_icon_dash" v-html="'sbf-pc'"/>
                     <span class="group_list_title_dash ml-2" v-language:inner="'menuList_my_study_rooms'"/>
                   </v-list-item-title>
                 </v-list-item-content>
-              </v-list-item>
+              </v-list-item> -->
 
-            <v-list-item @click="openSblToken" class="group_list_sideMenu_dash">
+            <!-- <v-list-item @click="openSblToken" class="group_list_sideMenu_dash">
               <v-list-item-content>
                 <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker('getPoint')}]">
                   <v-icon class="group_list_icon_dash" v-html="'sbf-get-points'"/>
                   <span class="group_list_title_dash ml-2" v-language:inner="'menuList_points'"/>
                 </v-list-item-title>  
               </v-list-item-content>
-            </v-list-item>
+            </v-list-item> -->
 
-            <v-list-item class="group_list_sideMenu_dash" event @click.native.prevent="openPersonalizeUniversity()" :to="{name: 'addUniversity'}">
+            <!-- <v-list-item class="group_list_sideMenu_dash" event @click.native.prevent="openPersonalizeUniversity()" :to="{name: 'addUniversity'}">
               <v-list-item-content>
                 <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker('university')}]">
                   <v-icon class="group_list_icon_dash" v-html="'sbf-university'"/>
                   <span class="group_list_title_dash ml-2" v-language:inner="'menuList_changeUniversity'"/>
                 </v-list-item-title> 
               </v-list-item-content>
-            </v-list-item>
+            </v-list-item> -->
 
           </v-list-group>
           
@@ -126,11 +126,13 @@ export default {
       dashboardModel: false,
       dashboardList:[
         {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', route: 'profile', icon:'sbf-user', sel:'sd_profile'},
-        {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', route: 'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
-        {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', route: 'roomSettings', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
+        // {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', route: 'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
         {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'my-sales', route: 'mySales', icon:'sbf-cart',sel:'sd_sales'},
-        {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', route: 'myContent', icon:'sbf-cart',sel:'sd_content'},
         {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'my-purchases', route: 'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
+        {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', route: 'myContent', icon:'sbf-cart',sel:'sd_content'},
+        {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', route: 'roomSettings', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
+        {name: LanguageService.getValueByKey('menuList_my_study_rooms'), key:'tutoring', route: 'tutoring', icon:'sbf-pc',sel:'menu_row'},
+        {name: LanguageService.getValueByKey('menuList_changeUniversity'), key:'university', route: 'addUniversity', icon:'sbf-university',sel:'sd_studyroom'},
         // {name: LanguageService.getValueByKey('schoolBlock_lessons'), key:'lessons', icon:'sbf-lessons'},
         {name: LanguageService.getValueByKey('schoolBlock_courses'), key:'courses', route: 'editCourse', icon:'sbf-classes-icon'},
         // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
@@ -244,7 +246,7 @@ export default {
         return this.$route.path.indexOf('study-rooms') > -1;
       } else if(pathName == 'getPoint' && this.getShowBuyDialog) {
         return true;
-      } else{
+      } else{        
         return this.$route.path.indexOf(pathName) > -1;
       }
     },
@@ -253,18 +255,20 @@ export default {
         this.updateLoginDialogState(true);
         return
       }
+      console.log(name);
+      
       if(name === "profile"){
         this.$router.push({name:'profile',params:{id:this.accountUser.id,name:this.accountUser.name}})
       }
       if(name === "wallet"){
         this.$router.push({name:'wallet'})
       }
-      if(name === "studyRooms"){
-          this.$router.push({name:'studyRooms'})
+      if(name === "roomSettings"){
+          this.$router.push({name:'myStudyRooms'})
       }
-      // if(path === "studyRooms"){
-      //     this.$router.push({name:'myStudyRooms'})
-      // }
+      if(name === "tutoring"){
+          this.$router.push({name:'tutoring'})
+      }
       if(name === "lessons"){
         // this.$router.push({name:'lessons'})
       }
@@ -277,18 +281,15 @@ export default {
       if(name === "myContent"){
         this.$router.push({name: 'myContent'})
       }
+      if(name === "addUniversity"){
+        this.$router.push({name:'addUniversity'})
+      }
       if(name === "editCourse"){
         this.$router.push({name:'editCourse'})
       }
       if(name === "myPurchases"){
         this.$router.push({name:'myPurchases'})
       }
-      // if(path === "my-purchases"){
-      //   this.$router.push({name:'myPurchases'})
-      // }
-      // if(path === "editCourse"){
-      //   this.$router.push({name:'editCourse'})
-      // }
       this.closeSideMenu();
     },
     resetItems(){

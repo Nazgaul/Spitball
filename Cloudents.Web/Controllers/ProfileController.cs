@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -62,17 +61,16 @@ namespace Cloudents.Web.Controllers
                 Response.Headers.Add("X-Robots-Tag", "noindex");
                 return View();
             }
-            var localizerSuffix = string.Empty;
-            if (string.IsNullOrEmpty(retVal.UniversityName))
-            {
-                localizerSuffix = "NoUniversity";
+            //if (string.IsNullOrEmpty(retVal.UniversityName))
+            //{
+            //    localizerSuffix = "NoUniversity";
 
-            }
-            ViewBag.title = _localizer[$"Title{localizerSuffix}", retVal.Name, retVal.UniversityName];
+            //}
+            ViewBag.title = _localizer["TitleNoUniversity", retVal.Name];
             ViewBag.metaDescription = _localizer["Description", retVal.Description];
             if (retVal.Image != null)
             {
-                ViewBag.fbImage = $"{retVal.Name}?width=1200&height=630";
+                ViewBag.ogImage = $"{retVal.Image}?width=1200&height=630";
 
 
                 ViewBag.ogImageWidth = 1200;

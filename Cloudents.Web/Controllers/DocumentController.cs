@@ -48,22 +48,7 @@ namespace Cloudents.Web.Controllers
             _urlBuilder = urlBuilder;
         }
 
-        //[Route("item/{universityName}/{boxId:long}/{boxName}/{oldId:long}/{name}")]
-        //public async Task<IActionResult> OldDocumentLinkRedirect(string universityName, string boxName, long oldId, string name, CancellationToken token)
-        //{
-        //    var query = new DocumentSeoByOldId(oldId);
-        //    var model = await _queryBus.QueryAsync(query, token);
-        //    if (model == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return RedirectToRoutePermanent(SeoTypeString.Document, new
-        //    {
-        //        courseName = FriendlyUrlHelper.GetFriendlyTitle(model.CourseName),
-        //        id = model.Id,
-        //        name = FriendlyUrlHelper.GetFriendlyTitle(model.Name)
-        //    });
-        //}
+        
 
         [Route("document/{base62}", Name = "ShortDocumentLink")]
         public async Task<IActionResult> ShortUrl(string base62,

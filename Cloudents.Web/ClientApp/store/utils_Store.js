@@ -27,13 +27,13 @@ const getters = {
 
 const actions = {
     setIsTouchStarted({commit}, val){
-        commit('setIsTouchStarted', val)
+        commit('setIsTouchStarted', val);
     },
     setIsTouchMove({commit}, val){
-        commit('setIsTouchMove', val)
+        commit('setIsTouchMove', val);
     },
     setIsTouchEnd({commit}, val){
-        commit('setIsTouchEnd', val)
+        commit('setIsTouchEnd', val);
     },
 };
 

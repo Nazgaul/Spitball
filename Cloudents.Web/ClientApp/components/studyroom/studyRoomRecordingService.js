@@ -8,9 +8,9 @@ const MIME_TYPE = getBestMimeType();
 function getBestMimeType(){
   if(!!global.MediaRecorder){
     if(MediaRecorder.isTypeSupported('video/webm; codecs=vp9,opus')){
-      return 'video/webm; codecs=vp9,opus'
+      return 'video/webm; codecs=vp9,opus';
     }else{
-      return 'video/webm; codecs=vp8,opus'
+      return 'video/webm; codecs=vp8,opus';
     }
   }
 }
@@ -24,7 +24,7 @@ const readAsArrayBuffer = async function(blob) {
         reader.onloadend = () => { resolve(reader.result); };
         reader.onerror = (ev) => { reject(ev.error); };
     });
-}
+};
 
 const injectMetadata = async function(blob) {
     const decoder = new Decoder();
@@ -46,13 +46,13 @@ const injectMetadata = async function(blob) {
 
        return result;
     });
-}
+};
 
 let wasCancelled = false;
 
 const getDisplayMedia = function(){
     return navigator.mediaDevices.getDisplayMedia({video:true});
-}
+};
 const getUserMedia = async function(){
   try{
     let userMedia = await navigator.mediaDevices.getUserMedia({audio:true});
@@ -60,7 +60,7 @@ const getUserMedia = async function(){
   }catch(err){
     return null;
   }
-}
+};
 
 const downloadRecording = async function(e, recordingData){
 // usage: pass in a webm blob
@@ -75,11 +75,11 @@ const downloadRecording = async function(e, recordingData){
   a.download = 'Recorded_File.webm';
   a.click();
   window.URL.revokeObjectURL(url);
-}
+};
 
 const stackChunks = function(e){
   recordingChunks.push(e.data);
-}
+};
 
 const handleRecording = function(e){
   if(!wasCancelled){
@@ -104,7 +104,7 @@ const handleRecording = function(e){
   /* if error dialog is open and stopsharing button was pressed,
    then dialog should be closed anyway. */
   store.dispatch('setShowAudioRecordingError', false);
-}
+};
 const registerRecorderEvents = function(){
     // store.getters.getRecorder.removeEventListener('dataavailable', stackChunks);
     // store.getters.getRecorder.addEventListener('dataavailable', stackChunks);
@@ -116,8 +116,8 @@ const registerRecorderEvents = function(){
     streams.forEach(stream=>{
       stream.removeEventListener('ended', toggleRecord);
       stream.addEventListener('ended', toggleRecord);
-    })
-}
+    });
+};
 
 function createRemoteAudioStream(){
   let remoteAudioTrack = store.getters.getCurrentAudioTrack;
@@ -132,10 +132,9 @@ function createRemoteAudioStream(){
 }
 
 async function activateRecord(){
-  let roomId = store.getters.getRoomId ? store.getters.getRoomId : 'testRoom'
-  let userId = store.getters.accountUser ? store.getters.accountUser.id : 'GUEST'
-  
-  insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_Recording_Start', {'roomId': roomId, 'userId': userId}, null)
+  let roomId = store.getters.getRoomId ? store.getters.getRoomId : 'testRoom';
+  let userId = store.getters.accountUser ? store.getters.accountUser.id : 'GUEST';
+  insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_Recording_Start', {'roomId': roomId, 'userId': userId}, null);
   recordingChunks = [];
   wasCancelled = false;
   //start record
@@ -153,7 +152,7 @@ async function activateRecord(){
 function combineAudioStreams(streams) {
   let audioContext = new (window.AudioContext || window.webkitAudioContext)();
   let userMedia = store.getters.getLocalUserMedia;
-  let newStreams = [userMedia, ...streams]
+  let newStreams = [userMedia, ...streams];
   const dest = audioContext.createMediaStreamDestination();
   newStreams.forEach(stream => {
     if(stream){
@@ -185,9 +184,9 @@ function createMediaRecorder (){
 }
 
 function stopRecord(cancelled){
-  let roomId = store.getters.getRoomId ? store.getters.getRoomId : 'testRoom'
-  let userId = store.getters.accountUser ? store.getters.accountUser.id : 'GUEST'
-  insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_Recording_End', {'roomId': roomId, 'userId': userId}, null)
+  let roomId = store.getters.getRoomId ? store.getters.getRoomId : 'testRoom';
+  let userId = store.getters.accountUser ? store.getters.accountUser.id : 'GUEST';
+  insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_Recording_End', {'roomId': roomId, 'userId': userId}, null);
   if(cancelled){
     wasCancelled = true;
   }
@@ -197,7 +196,7 @@ function stopRecord(cancelled){
     let tracks = store.getters.getRecorderStream.getTracks();
     tracks.forEach((track)=>{
       track.stop();
-    })
+    });
   }
 }
 

@@ -30,7 +30,7 @@ const resetItems = function(){
     dragoffx = 0;
     dragoffy = 0;
     selectedAnchor = null;
-}
+};
 
 const init = function(){
     wrapperElm = document.getElementById('canvas-wrapper');
@@ -148,31 +148,31 @@ const anchorHasClicked = function(currentHelperObj){
         selectedAnchor = {
             active: anchor_top_left,
             locked: anchor_bottom_right
-        }
+        };
     }else if(canvasFinder.inBox(currentX, currentY, anchor_top_right)){
         selectedAnchor = {
             active: anchor_top_right,
             locked: anchor_bottom_left
-        }
+        };
     }else if(canvasFinder.inBox(currentX, currentY, anchor_bottom_left)){
         selectedAnchor = {
             active: anchor_bottom_left,
             locked: anchor_top_right
-        }
+        };
     }else if(canvasFinder.inBox(currentX, currentY, anchor_bottom_right)){
         selectedAnchor = {
             active: anchor_bottom_right,
             locked: anchor_top_left
-        }
+        };
     }else{
         selectedAnchor = null;
     }
     return selectedAnchor;
-}
+};
 
 const mousedown = function(e){
     // topOffset = e.target.getBoundingClientRect().top;
-    console.log(e.target.classList)
+    
     // return;
     startingMousePosition.x = e.clientX;
     startingMousePosition.y = e.clientY;
@@ -248,36 +248,36 @@ const getShapeY = function(mouseY, lockedY, dragoffy){
     if(mouseY > lockedY - 8 && mouseY < lockedY + 8){
         return mouseY;
     }else if(mouseY < lockedY){
-        return mouseY + dragoffy
+        return mouseY + dragoffy;
     }else if(mouseY > lockedY){
-        return mouseY + dragoffy
+        return mouseY + dragoffy;
     }    
-}
+};
 
 const getShapeX = function(mouseX, lockedX, dragoffx){
     if(mouseX > lockedX - 8 && mouseX < lockedX + 8){
         return mouseX;
     }else if(mouseX < lockedX){
-        return mouseX + dragoffx
+        return mouseX + dragoffx;
     }else if(mouseX > lockedX){
-        return mouseX + dragoffx
+        return mouseX + dragoffx;
     }
-}
+};
 
 const getImageY = function(mouseY, lockedY, dragoffy, type){
     if(type === 0 || type === 1){
         if(mouseY > lockedY - 6 && mouseY < lockedY + 6){
             return mouseY;
         }else if(mouseY < lockedY){
-            return mouseY + dragoffy
+            return mouseY + dragoffy;
         }else if(mouseY > lockedY){
-            return mouseY + dragoffy
+            return mouseY + dragoffy;
         }    
     }else{
         return mouseY;
     }
     
-}
+};
 const getImageX = function(mouseX, lockedX, dragoffx, type){
     /*0 1
       2 3*/
@@ -285,56 +285,72 @@ const getImageX = function(mouseX, lockedX, dragoffx, type){
         if(mouseX > lockedX - 6 && mouseX < lockedX + 6){
             return mouseX;
         }else if(mouseX < lockedX){
-            return mouseX + dragoffx
+            return mouseX + dragoffx;
         }else if(mouseX > lockedX){
-            return mouseX + dragoffx
+            return mouseX + dragoffx;
         }
     }else{
         return mouseX;
     } 
-}
+};
 
 const getImageWidth = function(width, dragoffx, type){
     /*0 1
       2 3*/
     if(type === 0 || type === 2){
-        return width - dragoffx
+        return (width - dragoffx); 
     }else{
-        return width + dragoffx;
+        return (width + dragoffx);
     } 
-}
+};
 
 const getImageHeight = function(height, dragoffy, type){
     /*0 1
       2 3*/
     if(type === 0 || type === 1){
-        return height - dragoffy
+        return (height - dragoffy);
     }else{
-        return height + dragoffy;
+        return (height + dragoffy);
     } 
-}
+};
 
+const setRatioOnImage = function(newImagePoints, ratio){
+    return{
+        x: newImagePoints.x,
+        y: newImagePoints.y,
+        width: newImagePoints.height / ratio,
+        height: newImagePoints.height
+    };
+};
 
 const getShapeDimensions = function(option, originalPosition, selectedAnchor, dragoffx, dragoffy){
     if(option === 'imageDraw'){
-        return{
+        let keepAspectRation = true; // could be move to store
+        let newImagePoints = {
             x: getImageX(originalPosition.mouseX, selectedAnchor.locked.startX + 6 + originalPosition.width, dragoffx, selectedAnchor.active.type),
             y: getImageY(originalPosition.mouseY, selectedAnchor.locked.startY - 98 + originalPosition.height, dragoffy, selectedAnchor.active.type),
             width: getImageWidth(originalPosition.width, dragoffx, selectedAnchor.active.type), 
             height: getImageHeight(originalPosition.height, dragoffy, selectedAnchor.active.type)
+        };
+        if(keepAspectRation){
+            let pointsWithRatioSaved = setRatioOnImage(newImagePoints, originalPosition.aspectRatio);
+            return pointsWithRatioSaved;
+        }else{
+            return newImagePoints;
         }
     }else{
         return{
             x: getShapeX(originalPosition.mouseX, selectedAnchor.locked.startX + 6, dragoffx, selectedAnchor.active.type),
             y: getShapeY(originalPosition.mouseY, selectedAnchor.locked.startY - 98, dragoffy, selectedAnchor.active.type),
-        }
+        };
     }
-}
+};
 
 const setNewPoints = function(originalPosition, dragoffx, dragoffy, selectedAnchor, fromUndo){
     let newDragoffx = fromUndo ? dragoffx * -1 : dragoffx;
     let newDragoffy = fromUndo ? dragoffy * -1 : dragoffy;
     if(originalPosition.option === "imageDraw"){
+        
         let imageDimensions = getShapeDimensions(originalPosition.option, originalPosition, selectedAnchor, newDragoffx, newDragoffy);
         
         return{
@@ -342,17 +358,17 @@ const setNewPoints = function(originalPosition, dragoffx, dragoffy, selectedAnch
             y: imageDimensions.y,
             width: imageDimensions.width,
             height: imageDimensions.height
-        }
+        };
     }else{
         let shapeDimensions = getShapeDimensions(originalPosition.option, originalPosition, selectedAnchor, newDragoffx, newDragoffy);
         
         return{
             x: shapeDimensions.x,
             y: shapeDimensions.y
-        }
+        };
     }
     
-}
+};
 
 const resizeShapes = function(){
     let {a, d} = this.context.getTransform();

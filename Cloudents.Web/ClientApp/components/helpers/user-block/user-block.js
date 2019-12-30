@@ -1,7 +1,7 @@
-import UserAvatar from "../UserAvatar/UserAvatar.vue";
+import userAvatar from "../UserAvatar/UserAvatar.vue";
 
 export default {
-    components: {UserAvatar},
+    components: {UserAvatar: userAvatar},
     props:{
         name:{String},
         user:{
