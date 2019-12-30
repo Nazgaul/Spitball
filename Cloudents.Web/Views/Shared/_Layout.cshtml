@@ -27,13 +27,14 @@
     <base href="~/" />
     @if (!string.Equals(@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, "he", StringComparison.OrdinalIgnoreCase))
     {
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+        <link onload="this.rel='stylesheet'" rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap">
     }
 
-    <link rel="stylesheet" href="@cdnEndPoint/dist/@p.GetCss()"
+    <link onload="this.rel='stylesheet'" rel="preload" as="style" href="@cdnEndPoint/dist/@p.GetCss()"
           asp-fallback-href="~/dist/@p.GetCss()"
           asp-fallback-test-class="cdn-only" asp-fallback-test-property="position" asp-append-version="true"
-          asp-fallback-test-value="absolute" />
+          asp-fallback-test-value="absolute" 
+          />
 
     @await RenderSectionAsync("styleSection", required: false)
     

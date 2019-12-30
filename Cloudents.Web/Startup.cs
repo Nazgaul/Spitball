@@ -37,6 +37,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Cloudents.Web.Seo;
+using Microsoft.AspNetCore.ResponseCompression;
 using WebMarkupMin.AspNetCore2;
 using Logger = Cloudents.Web.Services.Logger;
 
@@ -156,6 +157,17 @@ namespace Cloudents.Web
             services.AddDetectionCore().AddCrawler();
             services.AddSbIdentity();
 
+            services.AddResponseCompression(x =>
+            {
+                x.Providers.Add<BrotliCompressionProvider>();
+                x.Providers.Add<GzipCompressionProvider>();
+                x.EnableForHttps = true;
+                x.MimeTypes = new[] {"text/javascript",
+                    "application/javascript",
+                    "text/css",
+                    "text/html","application/json"};
+            });
+
             services.ConfigureApplicationCookie(o =>
             {
                 o.Cookie.Name = "sb5";
@@ -265,7 +277,7 @@ namespace Cloudents.Web
         {
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
             app.UseClickJacking();
-
+            app.UseResponseCompression();
             if (env.IsDevelopment())
             {
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
@@ -289,7 +301,7 @@ namespace Cloudents.Web
 
             app.UseRewriter(reWriterOptions);
 
-            app.UseResponseCompression();
+           
             app.UseResponseCaching();
 
             app.UseRequestLocalization(o =>

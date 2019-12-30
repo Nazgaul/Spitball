@@ -64,7 +64,6 @@ const allModules = [
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
-    // const isDevBuild =  false;
     const mode =  isDevBuild ? 'development':'production';
 
     const clientBundleConfig =
