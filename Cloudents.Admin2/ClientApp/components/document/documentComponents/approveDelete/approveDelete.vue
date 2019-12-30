@@ -1,5 +1,5 @@
 <template>
-    <div class="container approveDelete">
+    <div class="approveDelete">
         <h2 class="mb-4 approveDelete_title">Document List</h2>
   
         <v-data-table
