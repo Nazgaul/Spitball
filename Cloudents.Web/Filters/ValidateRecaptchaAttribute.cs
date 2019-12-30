@@ -84,6 +84,7 @@ namespace Cloudents.Web.Filters
                     return;
                 }
                 string captcha;
+                context.HttpContext.Request.EnableBuffering();
                 context.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
                 using (var sr = new StreamReader(context.HttpContext.Request.Body))
                 using (var jsonTextReader = new JsonTextReader(sr))
