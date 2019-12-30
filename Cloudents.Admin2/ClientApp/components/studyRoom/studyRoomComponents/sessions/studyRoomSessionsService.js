@@ -17,11 +17,7 @@ function CreateSessionItem(objInit) {
 }
 
 const updateSessionEdit = (session) => {
-    return connectivityModule.http.post(`${path}/update`, session).then(res => {
-        return res
-    }, (err) => {
-        return err
-    })
+    return connectivityModule.http.post(`${path}update`, session)
 }
 
 const getSessions = function () {
