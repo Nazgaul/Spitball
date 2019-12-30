@@ -88,5 +88,6 @@ namespace Cloudents.Core.Entities
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
+        public virtual SchoolType? SchoolType { get; set; }
     }
 }
