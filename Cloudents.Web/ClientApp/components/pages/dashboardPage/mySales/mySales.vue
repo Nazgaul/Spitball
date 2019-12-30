@@ -1,7 +1,7 @@
 <template>
    <div class="mySales">
       <div class="mySales_title" v-language:inner="'dashboardPage_my_sales_title'"/>
-      <v-layout align-baseline row wrap class="mySales_wallet mb-5" v-if="!!accountUser && accountUser.id">
+      <v-layout align-baseline wrap class="mySales_wallet mb-5" v-if="!!accountUser && accountUser.id">
          <v-flex sm12 md6>
             <v-data-table
                :headers="balancesHeaders"

@@ -409,13 +409,13 @@ export default {
                 padding: 2px 10px 3px 4px;
                 svg{
                     fill: white !important;
-                    vertical-align: text-bottom;
+                    vertical-align: middle;
                 }
                 span{
                     font-size: 14px;
                     font-weight: normal;
                     color: white;
-                    vertical-align: super;
+                    vertical-align: middle;
                     padding-left: 2px;
                 }
             }
