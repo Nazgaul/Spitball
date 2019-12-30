@@ -33,7 +33,7 @@ namespace Cloudents.Web.Services
             //Allows re-usage of the stream
             try
             {
-                //_httpContextAccessor.HttpContext.Request.EnableRewind();
+                _httpContextAccessor.HttpContext.Request.EnableBuffering();
 
                 if (_httpContextAccessor.HttpContext.Request.Body.CanRead)
                 {
