@@ -40,7 +40,7 @@
           
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>
 
-            <v-btn text icon @click="toggleRecord" class="recording_btn" :ripple="false">
+            <v-btn text icon @click="toggleRecord" class="recording_btn tutoringNavigationBtn" :ripple="false">
               <span v-if="!getIsRecording" class="mt-1 d-flex">
                 <beginRecording class="white-btn mr-1"></beginRecording>
                 <span class="recording_btn_text" v-language:inner="'tutor_begain_recording'"></span>
@@ -53,7 +53,7 @@
            
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
             
-            <div class="d-flex">
+            <div class="d-flex tutoringNavigationBtn">
               <v-btn text icon @click="showIntercom" sel="help_draw">
                 <intercomSVG class="network-icon"/>
               </v-btn>
@@ -63,7 +63,7 @@
 
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
             
-            <v-btn text icon @click="changeSettingsDialogState(true)" sel="setting_draw">
+            <v-btn class="tutoringNavigationBtn" text icon @click="changeSettingsDialogState(true)" sel="setting_draw">
               <v-icon class="white-btn">sbf-settings</v-icon>
             </v-btn>
             
