@@ -107,8 +107,8 @@ namespace Cloudents.Web.Controllers
                     writer.WriteStartElement("urlset",
                         "http://www.sitemaps.org/schemas/sitemap/0.9");
                     writer.WriteAttributeString("xmlns", "image", null, "http://www.google.com/schemas/sitemap-image/1.1");
-                    writer.WriteAttributeString("xmlns", "video", null, "http://www.google.com/schemas/sitemap-video/1.1");
-                    writer.WriteAttributeString("xmlns", "xhtml", null, "http://www.w3.org/1999/xhtml");
+                    //writer.WriteAttributeString("xmlns", "video", null, "http://www.google.com/schemas/sitemap-video/1.1");
+                    //writer.WriteAttributeString("xmlns", "xhtml", null, "http://www.w3.org/1999/xhtml");
                     //writer.WriteAttributeString("xmlns:xhtml", "http://www.w3.org/1999/xhtml"); // for lang support
                     foreach (var url in urls)
                     {
