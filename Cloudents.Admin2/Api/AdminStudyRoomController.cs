@@ -7,6 +7,7 @@ using Cloudents.Query;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,9 +55,17 @@ namespace Cloudents.Admin2.Api
             [FromServices] ICommandBus commandBus,
             CancellationToken token)
         {
-            var command = new UpdateSessionInfoCommand(model.SessionId, model.Minutes);
-            await commandBus.DispatchAsync(command, token);
-            return Ok();
+            try
+            {
+                var command = new UpdateSessionInfoCommand(model.SessionId, model.Minutes);
+                await commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
+           
         }
     }
 }
