@@ -1,5 +1,5 @@
 <template>
-  <form class="searchCMP" @submit.prevent="searchQuery">
+  <form class="searchCMP" @submit.prevent="searchQuery" action=".">
     <div class="searchCMP-cont">
        <!-- class="searchCMP-input" -->
       <v-text-field
@@ -15,12 +15,13 @@
         clearable
         type="search"/>
     </div>
-    <input type="submit" class="searchCMP-btn" v-language:inner="'search_search_btn'" />
+    <input :value="searchBtnText" type="submit" class="searchCMP-btn" />
   </form>
 </template>
 
 <script>
 import { mapMutations, mapGetters } from 'vuex';
+import {LanguageService } from "../../../../services/language/languageService";
 
 export default {
   props: {
@@ -31,7 +32,8 @@ export default {
   },
   data() {
     return {
-      search: ""
+      search: "",
+      searchBtnText: LanguageService.getValueByKey('search_search_btn')
     };
   },
   watch: {
