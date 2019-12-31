@@ -1,5 +1,5 @@
 <template>
-    <div class="container pendingQuestions">
+    <div class="pendingQuestions">
         <h1 class="text-xs-center mb-4">Pending Questions</h1>
         <v-data-table
             :headers="headers"
@@ -11,8 +11,8 @@
 
             <template slot="items" slot-scope="props">
                 <td class="pendingQuestions_item">{{props.item.text}}</td>
-                <td class="pendingQuestions_item">{{props.item.user.email}}</td>
-                <td class="pendingQuestions_item">{{props.item.user.id}}</td>
+                <!-- <td class="pendingQuestions_item">{{props.item.user.email}}</td> -->
+                <td class="pendingQuestions_item"><router-link :to="{name: 'userMainView', query: {id: props.item.user.id}}" target="_blank">{{props.item.user.id}}</router-link></td>
                 <td class="pendingQuestions_item">
                     <v-tooltip top>
                         <v-btn slot="activator" icon @click="declineQuestion(props.item, props.index)">
@@ -42,7 +42,7 @@ export default {
     data: () => ({
         headers: [
             {text: 'Question', value: 'question', sortable: false},
-            {text: 'Email', value: 'email', sortable: false},
+            // {text: 'Email', value: 'email', sortable: false},
             {text: 'User Id', value: 'userId', sortable: false},
             {text: 'Actions', value: 'actions', sortable: false}
         ],
@@ -88,6 +88,6 @@ export default {
 
 <style lang="less" scoped>
     .pendingQuestions {
-
+        width: 100%;
     }
 </style>

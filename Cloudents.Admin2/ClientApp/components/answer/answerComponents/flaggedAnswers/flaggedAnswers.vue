@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="container flaggedAnswer">
+    <div class="flaggedAnswer">
         <h1 class="text-xs-center mb-4">Flagged Answers</h1>
         <v-data-table
             :headers="headers"
@@ -13,8 +13,8 @@
             <template slot="items" slot-scope="props">
                 <tr @click="props.expanded = !props.expanded">
                     <td class="flaggedAnswer_item">{{props.item.questionText}}</td>
-                    <td class="flaggedAnswer_item">{{props.item.markerEmail}}</td>
-                    <td class="flaggedAnswer_item">{{props.item.id}}</td>
+                    <!-- <td class="flaggedAnswer_item">{{props.item.markerEmail}}</td> -->
+                    <!-- <td class="flaggedAnswer_item">{{props.item.id}}</td> -->
                     <td class="flaggedAnswer_item">{{props.item.reason}}</td>
                     <td class="flaggedAnswer_item">
                         <v-tooltip top>
@@ -52,8 +52,8 @@ export default {
     data: () => ({
         headers: [
             {text: 'Question', value: 'question', sortable: false},
-            {text: 'Email', value: 'email', sortable: false},
-            {text: 'Question Id', value: 'questionId', sortable: false},
+            // {text: 'Email', value: 'email', sortable: false},
+            // {text: 'Question Id', value: 'questionId', sortable: false},
             {text: 'Reason', value: 'reason', sortable: false},
             {text: 'Actions', value: 'actions', sortable: false}
         ],
@@ -91,6 +91,6 @@ export default {
 
 <style lang="less" scoped>
     .flaggedAnswer {
-        
+        width: 100%;
     }
 </style>
