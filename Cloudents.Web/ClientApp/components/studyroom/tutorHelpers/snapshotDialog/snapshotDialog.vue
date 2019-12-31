@@ -151,12 +151,13 @@
     .pt-12 {
         padding-top: 12px;
     }
-
-    .snapshot_dialog_wrap {
-        @BtnBackground: #ffc739;
-        background: @color-white;
+.studyroom-snapshot-dialog{
+    background: @color-white;
         border-radius: 4px;
         box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    .snapshot_dialog_wrap {
+        @BtnBackground: #ffc739;
+        border-radius: 4px;
         width: 100%;
         padding: 0 5px;
         .snapshot_video_container{
@@ -179,5 +180,7 @@
             display: flex;
         }
     }
+}
+    
 
 </style>

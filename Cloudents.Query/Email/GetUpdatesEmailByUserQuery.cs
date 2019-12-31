@@ -91,10 +91,10 @@ namespace Cloudents.Query.Email
                         sl.Select(() => userAlias.Id).WithAlias(() => documentEmailDtoAlias.UserId);
                         sl.Select(x => x.Course.Id).WithAlias(() => documentEmailDtoAlias.Course);
                         sl.Select(() => userAlias.ImageName).WithAlias(() => documentEmailDtoAlias.UserImage);
-
+                        sl.Select(x => x.DocumentType).WithAlias(() => documentEmailDtoAlias.DocumentType);
                         return sl;
                     }).TransformUsing(Transformers.AliasToBean<DocumentUpdateEmailDto>())
-                    .Future<DocumentUpdateEmailDto>();
+                    .OrderBy(x=>x.DocumentType).Desc.Future<DocumentUpdateEmailDto>();
 
                 IEnumerable<UpdateEmailDto> questions = await questionFuture.GetEnumerableAsync(token);
                 IEnumerable<UpdateEmailDto> documents = await documentFuture.GetEnumerableAsync(token);

@@ -241,7 +241,9 @@ export default {
             this.UPDATE_SEARCH_LOADING(true);
             let updatedList = this.query[key];
             updatedList = [].concat(updatedList).filter(i => i.toString() !== value.toString());
-            key === 'course' ? this.setFilteredCourses(updatedList) : "";
+            if(key === 'course'){
+                this.setFilteredCourses(updatedList)
+            }
             this.$router.push({path: this.name, query: {...this.query, [key]: updatedList}});
         },
 

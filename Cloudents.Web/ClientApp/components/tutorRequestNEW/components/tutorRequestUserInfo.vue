@@ -28,7 +28,7 @@
                     <v-text-field 
                         :rules="[rules.required,rules.phone,rules.notSpaces]"
                         type="tel"
-                        maxlength="12"
+                        maxlength="13"
                         autocomplete="off"
                         v-model="guestPhone" 
                         class="userPhone"/>
@@ -85,7 +85,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getTutorRequestAnalyticsOpenedFrom','getCourseDescription','getSelectedCourse','accountUser','getCurrTutor','getMoreTutors']),
+        ...mapGetters(['getTutorRequestAnalyticsOpenedFrom','getCourseDescription','getSelectedCourse','accountUser','getCurrTutor','getMoreTutors', 'getGuestName', 'getGuestMail', 'getGuestPhone']),
         isAuthUser(){
             return !!this.accountUser;
         },
@@ -94,8 +94,11 @@ export default {
     },
     },
     methods: {
-        ...mapActions(['updateTutorReqStep','sendTutorRequest']),
+        ...mapActions(['updateTutorReqStep','sendTutorRequest', 'setGuestName', 'setGuestMail', 'setGuestPhone']),
         goBack() {
+            this.setGuestName(this.guestName);
+            this.setGuestMail(this.guestMail);
+            this.setGuestPhone(this.guestPhone);
             this.updateTutorReqStep('tutorRequestCourseInfo')
         },
         submit(guest){
@@ -152,6 +155,11 @@ export default {
             this.recaptcha = "";
             this.$refs['recaptcha'].reset();
         },
+    },
+    mounted(){
+        this.guestName = this.getGuestName;
+        this.guestMail = this.getGuestMail;
+        this.guestPhone = this.getGuestPhone;
     },
     created() {
          let captchaLangCode = global.lang === 'he' ? 'iw' : 'en';
