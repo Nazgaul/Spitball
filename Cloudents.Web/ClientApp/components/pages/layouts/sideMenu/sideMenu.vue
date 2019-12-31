@@ -348,7 +348,7 @@ export default {
               this.selectedCourse = "";
             }else{
               this.lock = false;
-              return;
+              // return;
             }
           }else{
             this.selectedCourse = ""
@@ -385,7 +385,10 @@ export default {
       if(this.isOutsideFeed()){
           this.$router.push({path: '/feed', query: newQueryObject });
       }else{
-          this.$router.push({ query: newQueryObject });
+        if(this.$route.path === `/feed` && this.$route.fullPath === '/feed'){
+          newQueryObject.reloaded = '';
+        }
+        this.$router.push({ query: newQueryObject });
       }
     },
     openPersonalizeCourse() {
