@@ -129,9 +129,9 @@ export default {
       dashboardList:[
         {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', icon:'sbf-user', sel:'sd_profile'},
         // {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
-        {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'my-sales', icon:'sbf-cart',sel:'sd_sales'},
-        {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'my-purchases', icon:'sbf-cart',sel:'sd_purchases'},
-        {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', icon:'sbf-my-content',sel:'sd_content'},
+        {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'mySales', icon:'sbf-cart',sel:'sd_sales'},
+        {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
+        {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'myContent', icon:'sbf-my-content',sel:'sd_content'},
         {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
         {name: LanguageService.getValueByKey('menuList_my_study_rooms'), key:'tutoring', icon:'sbf-pc',sel:'menu_row'},
         {name: LanguageService.getValueByKey('menuList_changeUniversity'), key:'addUniversity', icon:'sbf-university',sel:'sd_studyroom'},
@@ -163,7 +163,7 @@ export default {
       "getShowSchoolBlock",
     ]),
     dashboardModel(){
-      return this.$route.name !== 'feed'
+      return this.$route.name !== 'feed' && this.$route.name !== 'document'
     },
     isMiniSideMenu(){
       return (this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly) && !this.getShowSchoolBlock
@@ -239,10 +239,11 @@ export default {
       }
     },
     currentPageChecker(pathName){
+      console.log(pathName)
       if(pathName == "studyRooms") {
         return this.$route.path.indexOf('study-rooms') > -1;
       } else{
-        return this.$route.path.indexOf(pathName) > -1;
+        return this.$route.name.indexOf(pathName) > -1;
       }
     },
     goTo(path){
@@ -268,13 +269,13 @@ export default {
       if(path === "posts"){
         // this.$router.push({name:'posts'})
       }
-      if(path === "my-sales"){
+      if(path === "mySales"){
         this.$router.push({name: 'mySales'})
       }
-      if(path === "my-content"){
+      if(path === "myContent"){
         this.$router.push({name: 'myContent'})
       }
-      if(path === "my-purchases"){
+      if(path === "myPurchases"){
         this.$router.push({name:'myPurchases'})
       }
       if(path === "addUniversity"){
