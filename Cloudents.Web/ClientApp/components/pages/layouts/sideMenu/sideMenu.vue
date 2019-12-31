@@ -79,7 +79,7 @@
 
         </v-list-group>
         
-        <v-list-group :value="true" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu" >
+        <v-list-group :value="!dashboardModel" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu" >
           <template v-slot:activator>
             <v-list-tile class="sideMenu_list">
               <v-list-tile-content>
@@ -126,7 +126,6 @@ export default {
   data() {
     return {
       sideMenulistElm: null,
-      dashboardModel: false,
       dashboardList:[
         {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', icon:'sbf-user', sel:'sd_profile'},
         // {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
@@ -163,6 +162,9 @@ export default {
       "getSearchLoading",
       "getShowSchoolBlock",
     ]),
+    dashboardModel(){
+      return this.$route.name !== 'feed'
+    },
     isMiniSideMenu(){
       return (this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly) && !this.getShowSchoolBlock
     },
