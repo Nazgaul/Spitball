@@ -18,9 +18,7 @@
                 <span v-else class="ml-1" v-language:inner>profile_single_review</span>
             </span>
         </div>
-        <!-- <div class="bottom-section" v-else>
-                    <span class="user-balance py-2">{{profUserBal | currencyLocalyFilter}}</span>
-        </div> -->
+
         <div v-if="isMyProfile"
              class="hover-block d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-3 white--text">
             <uploadImage></uploadImage>

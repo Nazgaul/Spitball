@@ -138,7 +138,7 @@
             }
         },
         methods: {
-            ...mapActions(['updateEditedProfile']),
+            ...mapActions(['updateEditedProfile','updateEditDialog']),
             saveChanges() {
                 if(this.$refs.formUser.validate()) {
                    let firstName = this.editedFirstName || this.firstName  ;
@@ -158,7 +158,7 @@
                 }
             },
             closeDialog() {
-                this.closeCallback ? this.closeCallback() : ''
+                this.updateEditDialog(false);
             },
         },
         created(){

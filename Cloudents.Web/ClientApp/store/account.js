@@ -8,6 +8,7 @@ import { LanguageService } from '../services/language/languageService';
 import intercomeService from '../services/intercomService';
 
 const state = {
+    profileReviews:null,
     login: false,
     user: null,
     fromPath: null,
@@ -18,6 +19,14 @@ const state = {
     profileImageLoading: false,
 };
 const mutations = {
+    setProfileFollower(state, val){
+        state.profile.user.isFollowing = val;
+        if(val){
+            state.profile.user.followers += 1;
+        }else{
+            state.profile.user.followers -= 1;
+        }
+    },
     setProfileImageLoading(state, val){
         state.profileImageLoading = val;
     },
@@ -43,11 +52,11 @@ const mutations = {
     setProfile(state, val) {
         state.profile = val;
     },
+    setProfileReviews(state,val){
+        state.profileReviews = val;
+    },
     setProfileQuestions(state, val) {
         state.profile.questions = val;
-    },
-    setProfileAbout(state, val) {
-        state.profile = {...state.profile, about: val};
     },
     setProfileAnswers(state, val) {
         state.profile.answers = val;
@@ -134,7 +143,7 @@ const mutations = {
     },
     updateEditedData(state, newData) {
         if(state.profile.user.isTutor) {
-            state.profile.about.bio = newData.bio;
+            state.profile.user.tutorData.bio = newData.bio;
             state.profile.user.firstName = newData.firstName;
             state.profile.user.lastName = newData.lastName;
             state.profile.user.description = newData.description;
@@ -170,6 +179,7 @@ const getters = {
         }
     },
     getProfile: state => state.profile,
+    getProfileReviews: state => state.profileReviews,
     fromPath: state => state.fromPath,
     loginStatus: state => state.login,
     isUser: state => state.user !== null,
@@ -189,6 +199,20 @@ const getters = {
 };
 
 const actions = {
+    toggleProfileFollower({state,commit},val){
+        if(val){
+            return accountService.followProfile(state.profile.user.id).then(()=>{
+                commit('setProfileFollower',true)
+
+                return Promise.resolve()
+            })
+        }else{
+            return accountService.unfollowProfile(state.profile.user.id).then(()=>{
+                commit('setProfileFollower',false)
+                return Promise.resolve()
+            })
+        }
+    },
     updateProfileImageLoader(context, val){
         context.commit('setProfileImageLoading', val);
     },
@@ -228,7 +252,13 @@ const actions = {
             // cause of multiple profile requests to server
             context.dispatch('setProfileByActiveTab', activeTab);
             context.dispatch('setUserStatus', profileUserData.user);
+            if(profileUserData.user.isTutor){
+                accountService.getProfileReviews(id).then(val=>{
+                    context.commit('setProfileReviews', val);
+                })
+            }
         });
+        
     },
     getRefferedUsersNum(context, id) {
         accountService.getNumberReffered(id)
@@ -244,46 +274,32 @@ const actions = {
     setProfileByActiveTab(context, activeTab) {
         if(!!context.state.profile && !!context.state.profile.user) {
             let id = context.state.profile.user.id;
-            if(activeTab === 1) {
-                /*
-                 TODO v21 prevent duplication of gtProfile call, no need cause profile data loaded via 'syncProfile',
-                  and here only the active  tab content is set
-                */
-                // let p1 = accountService.getProfile(id);
-                let p2 = accountService.getProfileAbout(id);
-                // return Promise.all([p1, p2]).then((vals) => {
-                    return Promise.all([p2]).then((vals) => {
-                    let profileData = accountService.createProfileAbout(vals);
-                    context.commit('setProfileAbout', profileData);
-                });
 
-            }
-            if(activeTab === 2) {
-                return accountService.getProfileQuestions(id).then(vals => {
-                    let profileData = accountService.createProfileQuestionData(vals);
-                    context.commit('setProfileQuestions', profileData);
-                });
-            }
-            if(activeTab === 3) {
-                return accountService.getProfileAnswers(id).then(vals => {
-                    let answers = accountService.createProfileAnswerData(vals);
-                    context.commit('setProfileAnswers', answers);
-                });
-            }
-            if(activeTab === 4) {
+            if(activeTab === 1) {
                 return accountService.getProfileDocuments(id).then(vals => {
                     let documents = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfileDocuments', documents);
                 });
             }
-            if(activeTab === 5) {
+            if(activeTab === 2) {
+                return accountService.getProfileAnswers(id).then(vals => {
+                    let answers = accountService.createProfileAnswerData(vals);
+                    context.commit('setProfileAnswers', answers);
+                });
+            }
+            if(activeTab === 3) {
+                return accountService.getProfileQuestions(id).then(vals => {
+                    let profileData = accountService.createProfileQuestionData(vals);
+                    context.commit('setProfileQuestions', profileData);
+                });
+            }
+            if(activeTab === 4) {
                 return accountService.getProfilePurchasedDocuments(id).then(vals => {
                     let purchasedDocuments = accountService.createProfileDocumentData(vals);
                     context.commit('setPorfilePurchasedDocuments', purchasedDocuments);
                 });
             }
         }
-        console.log(activeTab);
     },
     removeItemFromProfile({commit}, data) {
         commit('deleteItemFromProfile', data);

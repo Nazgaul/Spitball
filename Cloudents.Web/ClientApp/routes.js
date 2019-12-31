@@ -272,9 +272,9 @@ let routes2 = [
             sideMenu: sideMenu,
         },
         name: "profile",
-        meta:{
-            showMobileFooter: true,
-        },
+        // meta:{
+        //     showMobileFooter: true,
+        // },
         props: {
             default: (route) => ({
                 id: route.params.id

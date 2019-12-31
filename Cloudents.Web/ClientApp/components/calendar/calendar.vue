@@ -257,7 +257,6 @@ export default {
           this.isEventSent = false;
           this.isLoading = false;
         },
-
         goPayment(){
           this.requestPaymentURL({ title: 'payme_title', name: this.tutorName });
         },

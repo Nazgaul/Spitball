@@ -117,113 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="action_download" xml:space="preserve">
-    <value>הורדה</value>
+  <data name="see_less" xml:space="preserve">
+    <value>See less</value>
   </data>
-  <data name="action_watch" xml:space="preserve">
-    <value>צפיה</value>
+  <data name="see_more" xml:space="preserve">
+    <value>See more</value>
   </data>
-  <data name="answer" xml:space="preserve">
-    <value>תשובה:</value>
-  </data>
-  <data name="course" xml:space="preserve">
-    <value>קורס:</value>
-  </data>
-  <data name="date" xml:space="preserve">
-    <value>תאריך</value>
-  </data>
-  <data name="document" xml:space="preserve">
-    <value>מסמך</value>
-  </data>
-  <data name="downloads" xml:space="preserve">
-    <value>הורדות</value>
-  </data>
-  <data name="duration" xml:space="preserve">
-    <value>משך השיעור:</value>
-  </data>
-  <data name="empty" xml:space="preserve">
-    <value>מצטערים, אין מידע להציג</value>
-  </data>
-  <data name="enter_room" xml:space="preserve">
-    <value>כניסה לחדר</value>
-  </data>
-  <data name="info" xml:space="preserve">
-    <value>מוצר
-</value>
-  </data>
-  <data name="last_date" xml:space="preserve">
-    <value>שיעור אחרון</value>
-  </data>
-  <data name="likes" xml:space="preserve">
-    <value>לייקים</value>
-  </data>
-  <data name="my_content_title" xml:space="preserve">
-    <value>התוכן שלי</value>
-  </data>
-  <data name="my_purchases_title" xml:space="preserve">
-    <value>הרכישות שלי</value>
-  </data>
-  <data name="my_sales_title" xml:space="preserve">
-    <value>המכירות שלי</value>
-  </data>
-  <data name="of" xml:space="preserve">
-    <value>מתוך</value>
-  </data>
-  <data name="paid" xml:space="preserve">
-    <value>שולם</value>
-  </data>
-  <data name="pending" xml:space="preserve">
-    <value>ממתין לתשלום</value>
-  </data>
-  <data name="price" xml:space="preserve">
-    <value>מחיר</value>
-  </data>
-  <data name="pts" xml:space="preserve">
-    <value>נק'</value>
-  </data>
-  <data name="purchased" xml:space="preserve">
-    <value>נרכש</value>
-  </data>
-  <data name="qa" xml:space="preserve">
-    <value>שאלות</value>
-  </data>
-  <data name="question" xml:space="preserve">
-    <value>שאלה:</value>
-  </data>
-  <data name="rename" xml:space="preserve">
-    <value>שינוי שם</value>
-  </data>
-  <data name="session" xml:space="preserve">
-    <value>שיעור פרטי עם {1}</value>
-  </data>
-  <data name="session_on" xml:space="preserve">
-    <value>לא הסתיים</value>
-  </data>
-  <data name="status" xml:space="preserve">
-    <value>סטטוס</value>
-  </data>
-  <data name="student_tutor" xml:space="preserve">
-    <value>סטודנט / מורה פרטי</value>
-  </data>
-  <data name="tutor_session" xml:space="preserve">
-    <value>שיעור פרטי</value>
-  </data>
-  <data name="type" xml:space="preserve">
-    <value>סוג</value>
-  </data>
-  <data name="video" xml:space="preserve">
-    <value>וידאו</value>
-  </data>
-  <data name="views" xml:space="preserve">
-    <value>צפיות</value>
-  </data>
-  <data name="action_download" xml:space="preserve">
-    <value>הורדה</value>
-  </data>
-  <data name="action_watch" xml:space="preserve">
-    <value>צפייה</value>
-  </data>
-  <data name="my_purchases_title" xml:space="preserve">
-    <value>הרכישות שלי</value>
+  <data name="title" xml:space="preserve">
+    <value>Ratings &amp; reviews</value>
   </data>
 </root>
