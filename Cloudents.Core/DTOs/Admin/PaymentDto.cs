@@ -24,7 +24,7 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(StudyRoomSession.Created))]
         public DateTime Created { get; set; }
         [EntityBind(nameof(StudyRoomSession.Created), nameof(StudyRoomSession.Ended))]
-        public int Duration { get; set; }
+        public TimeSpan Duration { get; set; }
     }
 
     public class PaymentDetailDto
