@@ -1,9 +1,9 @@
 ﻿<template>
   <div>
-    <div class="pa-2">
+    <div class="">
       <v-layout justify-center>
         <v-flex xs12 style="background: #ffffff;">
-          <v-toolbar color="indigo" class="heading-toolbar" dark>
+          <v-toolbar color="indigo" class="heading-toolbar elevation-0" dark>
             <v-toolbar-title>Conversations</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn flat @click="clearFilters">Clear</v-btn>
@@ -15,6 +15,7 @@
                 menu-props="lazy"
                 box
                 outline
+                small
                 label="Waiting for"
                 validate-on-blur
                 @change="handleFilter"
@@ -45,8 +46,8 @@
               ></v-combobox>
           </v-toolbar>
 
-          <v-card class="blue lighten-4" style="max-width:100%;">
-            <v-container fluid grid-list-lg>
+          <v-card style="max-width:100%;" class="elevation-0">
+            <div class="pa-1">
               <v-layout row wrap>
 
                 <v-expansion-panel class="elevation-0">
@@ -55,7 +56,7 @@
                     xs12
                     v-for="(conversation, index) in conversationsList"
                     :key="index"
-                    class="mb-3 elevation-4 card-conversation">
+                    class="mb-3 card-conversation">
                     <div slot="header" class="card-conversation-wrap" @click="getConversationData(conversation.id)">
                       <v-layout class="card-converstaion-header">
                           <v-flex xs2 class="pl-3">Student</v-flex>
@@ -113,8 +114,8 @@
                           <v-divider vertical></v-divider>
                           <v-flex xs2 class="card-converstaion-content-col-5 pl-3">
                               <v-layout column justify-center align-center>
-                                  <span class="text-xs-center py-1 mb-4 elevation-2 white--text" :class="[conversation.studyRoomExists ? 'studyRoomExists' : 'studyRoomNotExists']">{{conversation.studyRoomExists ? 'Yes' : 'No'}}</span>
-                                  <span class="text-xs-center py-1 elevation-2 white--text" :class="statusColor(conversation.autoStatus)">{{conversation.autoStatus}}</span>
+                                  <span class="text-xs-center py-1 mb-4 elevation-0 white--text" :class="[conversation.studyRoomExists ? 'studyRoomExists' : 'studyRoomNotExists']">{{conversation.studyRoomExists ? 'Yes' : 'No'}}</span>
+                                  <span class="text-xs-center py-1 elevation-0 white--text" :class="statusColor(conversation.autoStatus)">{{conversation.autoStatus}}</span>
                               </v-layout>
                           </v-flex>
                           <v-divider vertical></v-divider>
@@ -122,7 +123,8 @@
                               <v-btn 
                                 color="#b4d6f3"
                                 block
-                                class="mb-2 px-4"
+                                depressed
+                                class="mb-2 px-4 "
                                 @click.native.stop="openStatusDialog(true, conversation.id, index)"
                               >
                                   {{conversation.status.name || 'New'}}
@@ -130,6 +132,7 @@
                               <v-btn 
                                 color="#b4d6f3" 
                                 block
+                                depressed
                                 class="px-4" 
                                 @click.native.stop="openAssignDialog(conversation.assignTo, conversation.id, index)"
                               >
@@ -142,7 +145,7 @@
                   </v-expansion-panel-content>
                 </v-expansion-panel>                
               </v-layout>
-            </v-container>
+            </div>
           </v-card>
         </v-flex>
       </v-layout>
@@ -438,22 +441,24 @@ export default {
     z-index: 1;
     height: 74px;
     padding-top: 5px;
+    margin-bottom: 10px;
   .top-card-select{
     max-width: 254px;
   }
 }
 .card-conversation {
-  border-radius: 8px;
+  // border-radius: 8px;
   .v-expansion-panel__header{
-    padding: 12px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)
+    padding: 0;
+    // border-radius: 8px;
+    border: 1px solid #ccc;
+    // box-shadow: 0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)
   }
   .card-conversation-wrap {
 
     .card-converstaion-header {
       background-color:#d0deff;
-      border-radius: 8px 8px 0 0;
+      // border-radius: 8px 8px 0 0;
       font-weight: 600;
       align-items: center;
       .card-converstaion-header-btn {

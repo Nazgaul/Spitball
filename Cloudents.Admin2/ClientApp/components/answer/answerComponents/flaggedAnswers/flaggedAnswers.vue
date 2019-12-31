@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="container flaggedAnswer">
+    <div class="flaggedAnswer">
         <h1 class="text-xs-center mb-4">Flagged Answers</h1>
         <v-data-table
             :headers="headers"
@@ -13,21 +13,21 @@
             <template slot="items" slot-scope="props">
                 <tr @click="props.expanded = !props.expanded">
                     <td class="flaggedAnswer_item">{{props.item.questionText}}</td>
-                    <td class="flaggedAnswer_item">{{props.item.markerEmail}}</td>
-                    <td class="flaggedAnswer_item">{{props.item.id}}</td>
+                    <!-- <td class="flaggedAnswer_item">{{props.item.markerEmail}}</td> -->
+                    <!-- <td class="flaggedAnswer_item">{{props.item.id}}</td> -->
                     <td class="flaggedAnswer_item">{{props.item.reason}}</td>
                     <td class="flaggedAnswer_item">
                         <v-tooltip top>
                             <v-btn slot="activator" icon @click.stop="declineAnswer(props.item, props.index)">
                                 <v-icon color="red">close</v-icon>
                             </v-btn>
-                            <span>Delete</span>
+                            <span>Delete answer</span>
                         </v-tooltip>
                         <v-tooltip top>
                             <v-btn slot="activator" icon @click.stop="aproveA(props.item, props.index)">
                                 <v-icon color="green">done</v-icon>
                             </v-btn>
-                            <span>Accept</span>
+                            <span>Approve answer</span>
                         </v-tooltip>
                     </td>
                 </tr>
@@ -52,8 +52,8 @@ export default {
     data: () => ({
         headers: [
             {text: 'Question', value: 'question', sortable: false},
-            {text: 'Email', value: 'email', sortable: false},
-            {text: 'Question Id', value: 'questionId', sortable: false},
+            // {text: 'Email', value: 'email', sortable: false},
+            // {text: 'Question Id', value: 'questionId', sortable: false},
             {text: 'Reason', value: 'reason', sortable: false},
             {text: 'Actions', value: 'actions', sortable: false}
         ],
@@ -89,8 +89,15 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
     .flaggedAnswer {
-        
+        width: 100%;
+        .flaggedAnswer_table {
+            thead {
+                th {
+                    width: 30% !important;
+                }
+            }
+        }
     }
 </style>

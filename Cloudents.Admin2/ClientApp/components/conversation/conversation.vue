@@ -16,7 +16,6 @@ export default {
 
 <style lang="less" scoped>
     .conversation-content {
-        padding: 5px;
         width: 100%;
     }
 </style>
