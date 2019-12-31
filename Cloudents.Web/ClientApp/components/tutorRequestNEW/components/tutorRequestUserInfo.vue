@@ -28,7 +28,7 @@
                     <v-text-field 
                         :rules="[rules.required,rules.phone,rules.notSpaces]"
                         type="tel"
-                        maxlength="12"
+                        maxlength="13"
                         autocomplete="off"
                         v-model="guestPhone" 
                         class="userPhone"/>
