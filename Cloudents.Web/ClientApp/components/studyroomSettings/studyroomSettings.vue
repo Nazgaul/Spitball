@@ -80,6 +80,9 @@ export default {
   },
   computed:{
     ...mapGetters(['getStepHistory', 'isFrymo']),
+    isMobile() {
+      return this.$vuetify.breakpoint.xsOnly;
+    },
   },
   methods:{
     ...mapMutations(['UPDATE_SEARCH_LOADING']),
@@ -129,6 +132,9 @@ export default {
   async created(){
     storeService.lazyRegisterModule(this.$store,'studyroomSettings_store',studyroomSettings_store);
     storeService.lazyRegisterModule(this.$store,'tutoringMain',tutoringMain);
+    if(this.isMobile){
+      this.$router.push({name:'tutoring', params:{id:this.id}})
+    }
     global.onpopstate = (event)=>{
       this.goStep(event.state)
     }; 
