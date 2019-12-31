@@ -121,7 +121,7 @@ const connectToRoom = function (token, options) {
             store.getters['activeRoom'].on('disconnected', (room, error) => {
                 if(!error) return;
                 store.dispatch('setSessionTimeEnd');
-                let errorCode = !!error && error.code ? error.code : "";
+                let errorCode = error.code;
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioDisconnected', {'errorCode': errorCode}, null);
                 if (errorCode === 20104) {
                     console.error('Signaling reconnection failed due to expired AccessToken!');
