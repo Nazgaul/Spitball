@@ -324,16 +324,13 @@ export default {
                 .v-text-field__slot{
                     color: #6a697f !important;
                     font-size: 14px;
-                    input{
-                        // margin-bottom: 4px;
-                    }
                 }
             .searchCMP-input{
                 .v-text-field__slot{
                     line-height: 18px;
-                    margin-bottom: 2px;
+                    //margin-bottom: 2px;
                     // height: 18px;
-                    align-items: normal;
+                    //align-items: normal;
                 }
 
             } 

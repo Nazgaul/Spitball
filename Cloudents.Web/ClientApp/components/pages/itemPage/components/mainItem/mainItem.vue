@@ -34,7 +34,16 @@
                                 :renderOnlyVisible="true"
                                 :moveType="'snap'"
                                 >
-                                    <img draggable="false" class="mainItem__item__wrap--img" :src="doc" alt="" v-for="(doc, index) in docPreview" :key="index">
+                                    <lazyImage
+                                        v-for="(doc, index) in docPreview"
+                                        :src="doc"
+                                        :key="index"
+                                        class="mainItem__item__wrap--img"
+                                        draggable="false"
+                                        :element="selector"
+                                        >
+                                    </lazyImage>
+                                    <!-- <img draggable="false" class="mainItem__item__wrap--img" :src="doc" alt="" v-for="(doc, index) in docPreview" :key="index"> -->
                             </sbCarousel>
                         </div>
                         <div class="mainItem__item__wrap__paging">
@@ -63,12 +72,14 @@ import utillitiesService from "../../../../../services/utilities/utilitiesServic
 
 import sbCarousel from '../../../../sbCarousel/sbCarousel.vue';
 import sbVideoPlayer from '../../../../sbVideoPlayer/sbVideoPlayer.vue';
+import lazyImage from '../../../global/lazyImage/lazyImage.vue';
 
 export default {
     name: 'mainItem',
     components: {
         sbCarousel,
-        sbVideoPlayer
+        sbVideoPlayer,
+        lazyImage,
     },
     props: {
         document: {
@@ -185,7 +196,11 @@ export default {
             }
             return null
         },
-        
+        selector() {
+            let element = document.querySelector('.itemPage__main')
+            if(!element) return '';
+            return element;
+        }
     },
     methods: {
         setDocPage(){  
