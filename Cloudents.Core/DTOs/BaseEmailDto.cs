@@ -2,6 +2,7 @@
 using Cloudents.Core.Entities;
 using System;
 using System.Globalization;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
@@ -76,7 +77,7 @@ namespace Cloudents.Core.DTOs
         public long Id { get; set; }
         public string Name { get; set; }
 
-
+        public DocumentType DocumentType { get; set; }
         //public string Image { get; set; }
 
     }

@@ -1,13 +1,13 @@
 ﻿namespace Cloudents.Core.Enum
 {
-    public enum DocumentType
+    public enum DocumentType 
     {
-        Document,
-        Video
+        Document = 0,
+        Video = 1
     }
 
 
-    public enum FeedType 
+    public enum FeedType
     {
         Document,
         Question,
