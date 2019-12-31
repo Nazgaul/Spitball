@@ -118,10 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add_your_courses" xml:space="preserve">
-    <value />
+    <value>Add Your Courses</value>
+  </data>
+  <data name="allCourses" xml:space="preserve">
+    <value>All courses</value>
   </data>
   <data name="all_courses" xml:space="preserve">
-    <value />
+    <value>All courses</value>
   </data>
   <data name="dashboard" xml:space="preserve">
     <value>Dashboard</value>
