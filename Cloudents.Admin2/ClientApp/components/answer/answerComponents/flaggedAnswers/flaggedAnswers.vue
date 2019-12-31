@@ -21,13 +21,13 @@
                             <v-btn slot="activator" icon @click.stop="declineAnswer(props.item, props.index)">
                                 <v-icon color="red">close</v-icon>
                             </v-btn>
-                            <span>Delete</span>
+                            <span>Delete answer</span>
                         </v-tooltip>
                         <v-tooltip top>
                             <v-btn slot="activator" icon @click.stop="aproveA(props.item, props.index)">
                                 <v-icon color="green">done</v-icon>
                             </v-btn>
-                            <span>Accept</span>
+                            <span>Approve answer</span>
                         </v-tooltip>
                     </td>
                 </tr>
@@ -89,8 +89,15 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
     .flaggedAnswer {
         width: 100%;
+        .flaggedAnswer_table {
+            thead {
+                th {
+                    width: 30% !important;
+                }
+            }
+        }
     }
 </style>

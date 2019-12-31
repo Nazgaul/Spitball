@@ -28,7 +28,7 @@
                             >
                               <v-icon color="red">close</v-icon>
                             </v-btn>
-                            <span>Delete</span>
+                            <span>Delete item</span>
                         </v-tooltip>
                         <v-tooltip top>
                             <v-btn 
@@ -39,7 +39,7 @@
                             >
                               <v-icon color="green">done</v-icon>
                             </v-btn>
-                            <span>Check</span>
+                            <span>Approve item</span>
                         </v-tooltip>
                         <v-tooltip top>
                           <v-btn
@@ -203,7 +203,6 @@
         background: #fff;
         padding: 10px;
         img {
-          width: 100%;
           vertical-align: middle;
         }
       }

@@ -31,7 +31,7 @@
                           >
                             <v-icon color="red">close</v-icon>
                           </v-btn>
-                          <span>Delete</span>
+                          <span>Accept flag, delete item</span>
                       </v-tooltip>
                       <v-tooltip top>
                           <v-btn 
@@ -42,7 +42,7 @@
                           >
                             <v-icon color="green">done</v-icon>
                           </v-btn>
-                          <span>Check</span>
+                          <span>Ignore flag, approve item</span>
                       </v-tooltip>
                       <v-tooltip top>
                           <v-btn
@@ -212,7 +212,6 @@ export default {
       background: #fff;
       padding: 10px;
       img {
-        width: 100%;
         vertical-align: middle;
       }
     }

@@ -19,13 +19,13 @@
                             <v-btn slot="activator" icon @click="declineQuestion(props.item, props.index)">
                                 <v-icon color="red">close</v-icon>
                             </v-btn>
-                            <span>Delete</span>
+                            <span>Delete question</span>
                         </v-tooltip>
                         <v-tooltip top>
                             <v-btn slot="activator" icon @click="unflagQ(props.item, props.index)">
                                 <v-icon color="green">done</v-icon>
                             </v-btn>
-                            <span>Accept</span>
+                            <span>Approve question</span>
                         </v-tooltip>
                     </td>
                 </tr>
@@ -82,5 +82,12 @@ export default {
 <style lang="less" scoped>
     .flaggedQuestion {
         width: 100%;
+        .flaggedQuestion_item {
+            &:last-child {
+                display: flex;
+                flex-shrink: 0;
+                flex-grow: 0;
+            }
+        }
     }
 </style>

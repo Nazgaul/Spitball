@@ -18,13 +18,13 @@
                         <v-btn slot="activator" icon @click="declineQuestion(props.item, props.index)">
                             <v-icon color="red">close</v-icon>
                         </v-btn>
-                        <span>Delete</span>
+                        <span>Delete question</span>
                     </v-tooltip>
                     <v-tooltip top>
                         <v-btn slot="activator" icon @click="aproveQ(props.item, props.index)">
                             <v-icon color="green">done</v-icon>
                         </v-btn>
-                        <span>Accept</span>
+                        <span>Approve question</span>
                     </v-tooltip>
                 </td>
             </template>
@@ -86,8 +86,15 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
     .pendingQuestions {
         width: 100%;
+        .pendingQuestions_table {
+            thead {
+                th {
+                    width: 30% !important;
+                }
+            }
+        }
     }
 </style>
