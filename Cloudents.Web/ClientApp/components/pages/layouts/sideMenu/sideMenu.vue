@@ -61,7 +61,7 @@
             </v-list-item>
           </v-list-group>
           
-          <v-list-group :value="true" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
+          <v-list-group :value="!dashboardModel" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
             <template v-slot:activator>
               <v-list-item class="sideMenu_list">
                 <v-list-item-content>
@@ -87,7 +87,10 @@
             </v-list-item>
           </v-list-group>
 
-        </v-list>
+        <!-- </v-list-group> -->
+        
+
+      </v-list>
       </div>
     </v-navigation-drawer>
 </template>
@@ -106,7 +109,6 @@ export default {
   data() {
     return {
       sideMenulistElm: null,
-      dashboardModel: false,
       dashboardList:[
         {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', route: 'profile', icon:'sbf-user', sel:'sd_profile'},
         // {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', route: 'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
@@ -143,6 +145,9 @@ export default {
       "getShowSchoolBlock",
       "getShowBuyDialog",
     ]),
+    dashboardModel(){
+      return this.$route.name !== 'feed' && this.$route.name !== 'document'
+    },
     isMiniSideMenu(){
       return (this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly) && !this.getShowSchoolBlock
     },
@@ -196,6 +201,7 @@ export default {
         analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
         this.updateShowBuyDialog(true);
       }
+      this.closeSideMenu();
     },  
     openPersonalizeUniversity() {
       if (this.accountUser == null) {
@@ -328,7 +334,7 @@ export default {
               this.selectedCourse = "";
             }else{
               this.lock = false;
-              return;
+              // return;
             }
           }else{
             this.selectedCourse = ""
@@ -365,7 +371,10 @@ export default {
       if(this.isOutsideFeed()){
           this.$router.push({path: '/feed', query: newQueryObject });
       }else{
-          this.$router.push({ query: newQueryObject });
+        if(this.$route.path === `/feed` && this.$route.fullPath === '/feed'){
+          newQueryObject.reloaded = '';
+        }
+        this.$router.push({ query: newQueryObject });
       }
     },
     openPersonalizeCourse() {

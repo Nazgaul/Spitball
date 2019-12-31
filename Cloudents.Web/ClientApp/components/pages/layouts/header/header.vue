@@ -17,7 +17,7 @@
                 <template v-if="!isMobile" >
                     <v-tooltip bottom>
                         <template v-slot:activator="{on}">
-                            <v-icon v-on="on" v-if="!$vuetify.breakpoint.smAndDown" id="gH_i_r_intercom" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" v-html="'sbf-help'"/>
+                            <v-icon @click="startIntercom" v-on="on" v-if="!$vuetify.breakpoint.smAndDown" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" v-html="'sbf-help'"/>
                         </template>
                         <span v-language:inner="'header_tooltip_help'"/>
                     </v-tooltip>
@@ -146,20 +146,8 @@ export default {
             let hiddenRoutes = ['tutorLandingPage']
             return !hiddenRoutes.includes(this.currentRoute)
         },
-        // isApp(){
-        //     return true;
-        //     // let hiddenRoutes = ['tutorLandingPage']
-        //     // return !hiddenRoutes.includes(this.currentRoute)
-        // }
     },
     watch: {
-        // drawer(val){
-        //     if(!!val && this.$vuetify.breakpoint.xsOnly){
-        //         document.body.className="noscroll";
-        //     }else{
-        //         document.body.removeAttribute("class","noscroll");
-        //     }
-        // },
     '$route'(){
       this.$nextTick(()=>{
           console.log(this.$route.name)
@@ -180,17 +168,14 @@ export default {
         },
         closeDrawer() {
             this.drawer = !this.drawer;
-        },         
-        $_currentClick({id, name}) {
-            if (name === 'Feedback') {
-                Intercom('showNewMessage', '');
-            } else {
-                this.clickOnce = true;
-                this.$nextTick(() => {
-                    this.$refs.personalize.openDialog(id);
-                })
+        },       
+        startIntercom() {
+            if(this.isFrymo){
+                window.open('mailto: support@frymo.com', '_blank');
+            }else{
+                Intercom("showNewMessage");
             }
-        },
+        },  
         userBalance(balance){
             let balanceFixed = +balance.toFixed()
             return balanceFixed.toLocaleString(`${global.lang}`)
@@ -213,15 +198,6 @@ export default {
                 this.closeDrawer();
             })
         })
-        this.$root.$on("personalize",
-            (type) => {
-                this.clickOnce = true;
-                this.$nextTick(() => {
-                    if (this.$refs.personalize) {
-                        this.$refs.personalize.openDialog(type);
-                    }
-                })
-            });
         let currentLocHTML = document.documentElement.lang;
         this.languageChoisesAval = languagesLocales.filter(lan => {
             return lan.locale !== currentLocHTML;
@@ -358,16 +334,13 @@ export default {
                 .v-text-field__slot{
                     color: #6a697f !important;
                     font-size: 14px;
-                    // input{
-                    //     // margin-bottom: 4px;
-                    // }
                 }
             .searchCMP-input{
                 .v-text-field__slot{
                     line-height: 18px;
-                    margin-bottom: 2px;
+                    //margin-bottom: 2px;
                     // height: 18px;
-                    align-items: normal;
+                    //align-items: normal;
                 }
 
             } 

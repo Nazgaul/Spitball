@@ -25,15 +25,15 @@
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.2.0" />
     <PackageReference Include="CacheManager.StackExchange.Redis" Version="1.2.0" />
     <PackageReference Include="Dapper" Version="2.0.30" />
-    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.41.1.1732" />
-    <PackageReference Include="Google.Apis.Docs.v1" Version="1.41.1.1738" />
-    <PackageReference Include="Google.Apis.Drive.v3" Version="1.41.1.1729" />
+    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.42.0.1781" />
+    <PackageReference Include="Google.Apis.Docs.v1" Version="1.42.0.1777" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.42.0.1772" />
     <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
     <PackageReference Include="GoogleMeasurementProtocol" Version="2.1.0" />
     <!--<PackageReference Include="Microsoft.Azure.CognitiveServices.Language.TextAnalytics" Version="4.0.0" />-->
     <PackageReference Include="Nager.Country" Version="1.0.4" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
-    <PackageReference Include="Twilio" Version="5.33.1" />
+    <PackageReference Include="Twilio" Version="5.35.1" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.0" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.Face" Version="2.5.0-preview.1" />

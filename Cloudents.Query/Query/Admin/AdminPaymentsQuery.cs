@@ -1,5 +1,9 @@
 ﻿using Cloudents.Core.DTOs.Admin;
-using Dapper;
+using Cloudents.Core.Entities;
+using NHibernate;
+using NHibernate.Criterion;
+using NHibernate.Transform;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,52 +19,58 @@ namespace Cloudents.Query.Query.Admin
         public string Country { get; }
         internal sealed class AdminPaymentsQueryHandler : IQueryHandler<AdminPaymentsQuery, IEnumerable<PaymentDto>>
         {
-            private readonly IDapperRepository _repository;
+            //private readonly IDapperRepository _repository;
+            private readonly IStatelessSession _session;
 
-            public AdminPaymentsQueryHandler(IDapperRepository repository)
+
+            public AdminPaymentsQueryHandler(IStatelessSession session)
             {
-                _repository = repository;
+                _session = session;
             }
 
             public async Task<IEnumerable<PaymentDto>> GetAsync(AdminPaymentsQuery query, CancellationToken token)
             {
-                //This query will not work in case there will be more then one student in a room.
-                string sql = @"select srs.Id as StudyRoomSessionId,
-                    case when t.Price is null then tr.Price else t.Price end as Price,
-                    case when tr.SellerKey is null then 1 else 0 end as cantPay,
-		                    tr.Id as TutorId, 
-		                    tu.Name as TutorName, 
-		                    u.Id as UserId,
-		                    u.Name as UserName,
-		                    srs.Created,
-							datediff(MINUTE, srs.Created, srs.Ended) as Duration
-                    from [sb].[StudyRoomSession] srs
-                    join sb.StudyRoom sr
-	                    on srs.StudyRoomId = sr.Id
-                    left join sb.TutorHistory t
-	                    on sr.TutorId = t.Id and srs.Created between t.BeginDate and t.EndDate
-                    join sb.Tutor tr
-	                    on tr.Id = sr.TutorId
-                    join sb.StudyRoomUser sru
-	                    on srs.StudyRoomId = sru.StudyRoomId and sru.userId != tr.Id
-                    join sb.[user] u
-	                    on u.id = sru.UserId
-                    join sb.[User] tu
-	                    on tr.Id = tu.Id
-                    where Receipt is null
-                        and datediff(MINUTE, srs.Created, srs.Ended) > 10
-	                    and u.PaymentKey is not null";
+                StudyRoomSession studyRoomSessionAlias = null;
+                StudyRoom studyRoomAlias = null;
+                Core.Entities.Tutor tutorAlias = null;
+                StudyRoomUser studyRoomUserAlias = null;
+                User studentAlias = null;
+                User tutorUserAlias = null;
+
+                PaymentDto resultDto = null;
+
+                var res = _session.QueryOver(() => studyRoomSessionAlias)
+                            .JoinAlias(x => x.StudyRoom, () => studyRoomAlias)
+                            .JoinEntityAlias(() => tutorAlias, () => studyRoomAlias.Tutor.Id == tutorAlias.Id)
+                            .JoinEntityAlias(() => studyRoomUserAlias, 
+                                () => studyRoomAlias.Id == studyRoomUserAlias.Room.Id &&
+                                    tutorAlias.Id != studyRoomUserAlias.User.Id)
+                            .JoinEntityAlias(() => studentAlias, () => studyRoomUserAlias.User.Id == studentAlias.Id)
+                            .JoinEntityAlias(() => tutorUserAlias, () => tutorUserAlias.Id == tutorAlias.User.Id)
+                            .Where(w => w.Receipt == null)
+                            .Where(w => w.Duration.Value > TimeSpan.FromMinutes(10))
+                            .Where(w => studentAlias.BuyerPayment.PaymentKey != null);
                 if (!string.IsNullOrEmpty(query.Country))
                 {
-                    sql += @" and (u.Country = @Country or tu.Country = @Country)";
+                    res = res.Where(w => studentAlias.Country == query.Country || tutorUserAlias.Country == query.Country);
                 }
 
-                sql += "	order by srs.Created desc ";
-                using (var conn = _repository.OpenConnection())
-                {
-                    return await conn.QueryAsync<PaymentDto>(sql, new { query.Country });
-
-                }
+                return await res.SelectList(sl => 
+                sl.Select(s => s.Id).WithAlias(() => resultDto.StudyRoomSessionId)
+                .Select(s => s.Price).WithAlias(() => resultDto.Price)
+                .Select(Projections.Conditional(
+                    Restrictions.IsNull(Projections.Property(() => tutorAlias.SellerKey)),
+                    Projections.Constant(true),
+                    Projections.Constant(false)
+                    )).WithAlias(() => resultDto.CantPay)
+                .Select(s => tutorAlias.Id).WithAlias(() => resultDto.TutorId)
+                .Select(s => tutorUserAlias.Name).WithAlias(() => resultDto.TutorName)
+                .Select(s => studentAlias.Id).WithAlias(() => resultDto.UserId)
+                .Select(s => studentAlias.Name).WithAlias(() => resultDto.UserName)
+                .Select(s => s.Created).WithAlias(() => resultDto.Created)
+                .Select(s => s.Duration.Value).WithAlias(() => resultDto.Duration)
+                ).TransformUsing(Transformers.AliasToBean<PaymentDto>())
+                    .ListAsync<PaymentDto>();
             }
         }
     }

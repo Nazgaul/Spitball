@@ -2,16 +2,17 @@
 using Microsoft.Extensions.FileProviders;
 using System.Collections.Concurrent;
 using System.Linq;
+using Microsoft.Extensions.Hosting;
 
 namespace Cloudents.Web.Services
 {
     public class WebPackChunkName
     {
         private readonly IFileProvider _provider;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
         private readonly ConcurrentDictionary<string, WebPackBundle> _tags = new ConcurrentDictionary<string, WebPackBundle>();
 
-        public WebPackChunkName(IFileProvider provider, IHostingEnvironment environment)
+        public WebPackChunkName(IFileProvider provider, IWebHostEnvironment environment)
         {
             _provider = provider;
             _environment = environment;

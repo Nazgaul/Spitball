@@ -1,5 +1,5 @@
 <template>
-    <div class="container approveDelete">
+    <div class="approveDelete">
         <h2 class="mb-4 approveDelete_title">Document List</h2>
   
         <v-data-table
@@ -14,7 +14,7 @@
             <template slot="items" slot-scope="props">
                 <tr @click="props.expanded = !props.expanded">
                     <td class="approveDelete_item">
-                      <img class="approveDelete_img" :src="props.item.preview ? props.item.preview: `${require('../../../../assets/img/document.png')}`" />
+                      <img class="approveDelete_img" @click.prevent="openApproveDialogState(props.item.preview)" :src="props.item.preview ? props.item.preview: `${require('../../../../assets/img/document.png')}`" />
                     </td>
                     <td class="approveDelete_item">{{props.item.id}}</td>
                     <td class="approveDelete_item">{{props.item.name}}</td>
@@ -28,7 +28,7 @@
                             >
                               <v-icon color="red">close</v-icon>
                             </v-btn>
-                            <span>Delete</span>
+                            <span>Delete item</span>
                         </v-tooltip>
                         <v-tooltip top>
                             <v-btn 
@@ -39,7 +39,7 @@
                             >
                               <v-icon color="green">done</v-icon>
                             </v-btn>
-                            <span>Check</span>
+                            <span>Approve item</span>
                         </v-tooltip>
                         <v-tooltip top>
                           <v-btn
@@ -59,7 +59,11 @@
             </template>
         </v-data-table>
 
-        <div class="text-xs-center approveDelete_sticky mt-4">
+        <v-dialog v-model="approveDialogState" depressed max-width="550" content-class="approveDeleteDialog">
+          <img :src="currentImage || require('../../../../assets/img/document.png')" alt="image">
+        </v-dialog>
+
+        <!-- <div class="text-xs-center approveDelete_sticky mt-4">
           <v-btn
             class="bottom-nav-btn"
             dark
@@ -70,7 +74,7 @@
             <div class="btn-text">Approve All</div>
             <v-icon right>check</v-icon>
           </v-btn>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -83,7 +87,9 @@
         documentsList: [],
         arrayOfIds: [],
         proccessedDocuments: [],
+        approveDialogState: false,
         loading: false,
+        currentImage: null,
         headers: [
           {text: 'Preview', value: 'preview', sortable: false},
           {text: 'Id', value: 'id', sortable: false},
@@ -159,6 +165,10 @@
         downloadDocument(link) {
           if(!link) return;
           global.location.href = link
+        },
+        openApproveDialogState(image) {
+          this.approveDialogState = true;
+          this.currentImage = image;
         }
       },
       created() {
@@ -189,11 +199,12 @@
         }
         }
       }
-      .approveDelete_sticky {
-        position: sticky;
-        bottom: 0;
-        background: #3f51b5;
+      .approveDeleteDialog {
+        background: #fff;
         padding: 10px;
+        img {
+          vertical-align: middle;
+        }
       }
     }
 </style>

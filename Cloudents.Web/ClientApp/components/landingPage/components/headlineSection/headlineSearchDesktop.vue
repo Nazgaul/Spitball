@@ -130,12 +130,11 @@ export default {
                 .v-text-field__slot {
 
                   font-size: 18px;
-                  font-weight: normal;
-                  font-stretch: normal;
-                  font-style: normal;
-                  line-height: normal;
-                  letter-spacing: normal;
+               
                   color: #a1a3b0;
+                  input {
+                    height: 100%;
+                  }
                 }
               }
             }

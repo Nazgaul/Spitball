@@ -266,7 +266,8 @@ namespace Cloudents.Web.Api
 
             try
             {
-                var utmSource = referer.ParseQueryString()["utm_source"];
+                var queryString = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(referer.Query);
+                queryString.TryGetValue("utm_source", out var utmSource);
                 var command = new RequestTutorCommand(model.Course,
                     _stringLocalizer["RequestTutorChatMessage", model.Course, model.Text ?? string.Empty],
                     userId,

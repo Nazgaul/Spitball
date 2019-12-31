@@ -1,10 +1,11 @@
 <template>
-  <div class="searchCMP">
+  <form class="searchCMP" @submit.prevent="searchQuery" action=".">
     <div class="searchCMP-cont">
+       <!-- class="searchCMP-input" -->
       <v-text-field
-        class="searchCMP-input"
+       
         v-model="search"
-        @keyup.enter="searchQuery"
+      class="searchCMP-input"
         solo
         prepend-inner-icon="sbf-search"
         :placeholder="placeholder"
@@ -14,12 +15,13 @@
         clearable
         type="search"/>
     </div>
-    <div @click="searchQuery" class="searchCMP-btn" v-language:inner="'search_search_btn'" />
-  </div>
+    <input :value="searchBtnText" type="submit" class="searchCMP-btn" />
+  </form>
 </template>
 
 <script>
 import { mapMutations, mapGetters } from 'vuex';
+import {LanguageService } from "../../../../services/language/languageService";
 
 export default {
   props: {
@@ -30,7 +32,8 @@ export default {
   },
   data() {
     return {
-      search: ""
+      search: "",
+      searchBtnText: LanguageService.getValueByKey('search_search_btn')
     };
   },
   watch: {
@@ -84,11 +87,12 @@ export default {
       .v-input__control {
         height: 100%;
         min-height: initial;
+        justify-content: center;
         .v-input__slot {
-          background: none;
+          //background: none;
           box-shadow: none;
-          height: 100%;
-          padding-right: 0;
+          //height: 100%;
+          //padding-right: 0;
           .v-input__icon {
             i {
               color: #c3c3d0;
@@ -99,11 +103,14 @@ export default {
               font-size: 16px;
             }
             font-size: 18px;
-            font-weight: normal;
-            font-stretch: normal;
-            font-style: normal;
-            letter-spacing: normal;
+            //font-weight: normal;
+            //font-stretch: normal;
+            //font-style: normal;
+            //letter-spacing: normal;
             color: #a1a3b0;
+            input {
+              height: 100%;
+            }
             
           }
         }

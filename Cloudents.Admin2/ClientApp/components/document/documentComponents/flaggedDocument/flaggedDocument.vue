@@ -1,7 +1,7 @@
 <template>
-  <div class="container flaggedDocument">
+  <div class="flaggedDocument">
     <h2 class="mb-4 flaggedDocument_title">Document List</h2>
-  
+
       <v-data-table
         :headers="headers"
         :items="documentsList"
@@ -14,10 +14,12 @@
           <template slot="items" slot-scope="props">
               <tr @click="props.expanded = !props.expanded">
                   <td class="flaggedDocument_item">
-                    <img class="flaggedDocument_img" :src="props.item.preview ? props.item.preview: `${require('../../../../assets/img/document.png')}`" />
+                    <img class="flaggedDocument_img" @click.prevent="openFlaggedDialogState(props.item.preview)" :src="props.item.preview ? props.item.preview: `${require('../../../../assets/img/document.png')}`" />
                   </td>
-                  <td class="flaggedDocument_item">{{props.item.id}}</td>
-                  <td class="flaggedDocument_item">{{props.item.flaggedUserEmail}}</td>
+                  <td class="flaggedDocument_item">
+                    <router-link :to="{name: 'userMainView', query: {id: props.item.id}}" target="_blank">{{props.item.id}}</router-link>
+                  </td>
+                  <!-- <td class="flaggedDocument_item">{{props.item.flaggedUserEmail}}</td> -->
                   <td class="flaggedDocument_item">{{props.item.reason}}</td>
                   <td class="flaggedDocument_item">
                       <v-tooltip top>
@@ -29,7 +31,7 @@
                           >
                             <v-icon color="red">close</v-icon>
                           </v-btn>
-                          <span>Delete</span>
+                          <span>Accept flag, delete item</span>
                       </v-tooltip>
                       <v-tooltip top>
                           <v-btn 
@@ -40,14 +42,31 @@
                           >
                             <v-icon color="green">done</v-icon>
                           </v-btn>
-                          <span>Check</span>
+                          <span>Ignore flag, approve item</span>
+                      </v-tooltip>
+                      <v-tooltip top>
+                          <v-btn
+                            slot="activator"
+                            flat
+                            icon
+                            color="indigo"
+                            :disabled="proccessedDocuments.includes(props.item.id)"
+                            @click="downloadDocument(props.item.siteLink)"
+                          >
+                            <v-icon>cloud_download</v-icon>
+                          </v-btn>
+                          <span>Download</span>
                       </v-tooltip>
                   </td>
               </tr>
           </template>
       </v-data-table>
 
-      <div class="text-xs-center flaggedDocument_sticky mt-4">
+      <v-dialog v-model="flaggedDialogState" depressed max-width="550" content-class="flaggedDialog">
+          <img :src="currentImage || require('../../../../assets/img/document.png')" alt="image">
+      </v-dialog>
+
+      <!-- <div class="text-xs-center flaggedDocument_sticky mt-4">
         <v-btn
           class="bottom-nav-btn"
           dark
@@ -58,7 +77,7 @@
           <div class="btn-text">Unflag All</div>
           <v-icon right>check</v-icon>
         </v-btn>
-      </div>
+      </div> -->
   </div>
 </template>
 
@@ -71,11 +90,13 @@ export default {
     documentsList: [],
     arrayOfIds: [],
     proccessedDocuments: [],
+    flaggedDialogState: false,
     loading: true,
+    currentImage: null,
     headers: [
       {text: 'Preview', value: 'preview', sortable: false},
       {text: 'Id', value: 'id', sortable: false},
-      {text: 'Email', value: 'email', sortable: false},
+      // {text: 'Email', value: 'email', sortable: false},
       {text: 'Reason', value: 'reason', sortable: true},
       {text: 'Actions', value: 'actions', sortable: false}
     ],
@@ -150,6 +171,14 @@ export default {
                     this.$toaster.error('Something went wrong');
                     console.log('component accept error', error);
                 });
+    },
+    downloadDocument(link) {
+      if(!link) return;
+      global.location.href = link
+    },
+    openFlaggedDialogState(image) {
+      this.flaggedDialogState = true;
+      this.currentImage = image;
     }
   },
   created() {
@@ -178,11 +207,12 @@ export default {
         }
         }
       }
-      .flaggedDocument_sticky {
-        position: sticky;
-        bottom: 0;
-        background: #3f51b5;
-        padding: 10px;
+    }
+    .flaggedDialog {
+      background: #fff;
+      padding: 10px;
+      img {
+        vertical-align: middle;
       }
     }
 </style>

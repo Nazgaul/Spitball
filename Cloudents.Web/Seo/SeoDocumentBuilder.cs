@@ -40,7 +40,7 @@ namespace Cloudents.Web.Seo
                     s.Id,
                     s.Name,
                     CourseName = s.Course.Id,
-                    UniversityName = s.University.Name,
+                   // UniversityName = s.University.Name,
                     s.TimeStamp.UpdateTime
                     
                 });

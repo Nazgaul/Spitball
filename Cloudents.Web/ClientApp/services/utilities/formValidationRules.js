@@ -29,7 +29,7 @@ export const validationRules = {
         return Number.isInteger(+value) || LanguageService.getValueByKey("formErrors_integer");
     },
     phone: (value) =>{
-        let regex = /^\d{8,12}$/;
+        let regex = /^\d{8,13}$/;
         return regex.test(value) || LanguageService.getValueByKey("formErrors_phone");
     }
 };

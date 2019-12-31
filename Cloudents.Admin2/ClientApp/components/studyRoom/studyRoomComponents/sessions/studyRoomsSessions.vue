@@ -36,6 +36,7 @@
                 <v-text-field
                     v-model="minutes"
                     label="Minutes"
+                    type="number"
                 ></v-text-field>
                 <div class="text-xs-right">
                     <v-btn color="primary" class="ma-0" @click="editSessionMinutes">Send</v-btn>
@@ -85,12 +86,14 @@
                     sessionId: this.currentSession.sessionId,
                     minutes: this.minutes
                 }
+
                 updateSessionEdit(updateObj).then(res => {
-                    console.log(res);
                     this.$toaster.success(`Edit ${this.currentSession.sessionId} were Accepted`);
+                    this.currentSession.duration = updateObj.minutes;
                 }, (err) => {
-                    console.log(err);
                     this.$toaster.error(`Edit ${this.currentSession.sessionId} were Accepted`);
+                }).finally(() => {
+                    this.sessionDialog = false;
                 })
             }
         },

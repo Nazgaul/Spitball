@@ -141,17 +141,11 @@
 
             };
         },
-        props: {
-            closeCallback: {
-                type: Function,
-                required: false
-            },
-        },
         computed: {
             ...mapGetters(['getProfile','accountUser', 'isFrymo']),
             bio: {
                 get() {
-                    return this.getProfile.about.bio;
+                    return this.getProfile.user.tutorData.bio
                 },
                 set(newVal) {
                     this.editedBio = newVal;
@@ -179,7 +173,6 @@
                     return this.getProfile.user.lastName;
                 },
                 set(newVal) {
-                    console.log('new val::', newVal);
                     this.editedLastName = newVal;
                 }
             },
@@ -188,7 +181,6 @@
                     return this.getProfile.user.description;
                 },
                 set(newVal) {
-                    console.log('new val::', newVal);
                     this.editedDescription = newVal;
                 }
             }
@@ -223,11 +215,11 @@
                 }
             },
             closeDialog() {
-                this.closeCallback ? this.closeCallback() : '';
+                this.updateEditDialog(false);
             }
         },
         created() {
-            this.editedBio = this.getProfile.about.bio || '';
+            this.editedBio = this.getProfile.user.tutorData.bio || '';
             this.editedDescription = this.getProfile.user.description || '';
         }
 

@@ -2,6 +2,7 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace Cloudents.Core.DTOs
@@ -51,6 +52,11 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(User.LastName))]
         public string LastName { get; set; }
 
+        [EntityBind(nameof(User.Followers))]
+        public int Followers { get; set; }
+
+        public bool IsFollowing { get; set; }
+
         //If the user is a tutor and then delete then the first name and the last name stays
         public bool ShouldSerializeTutor()
         {
@@ -80,6 +86,19 @@ namespace Cloudents.Core.DTOs
 
         public decimal? CouponValue { get; set; }
         public CouponType? CouponType { get; set; }
+
+        [EntityBind(nameof(ReadTutor.Bio))] 
+        public string Bio { get; set; }
+
+        [EntityBind(nameof(ReadTutor.AllSubjects))]
+        public IEnumerable<string> Subjects { get; set; }
+
+        [EntityBind(nameof(ReadTutor.Lessons))]
+        public int Lessons { get; set; }
+
+        public int Documents { get; set; }
+
+       // public int ResponseTime { get; set; }
 
     }
 

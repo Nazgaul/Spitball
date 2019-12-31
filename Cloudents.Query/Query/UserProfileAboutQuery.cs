@@ -1,7 +1,11 @@
-﻿using Cloudents.Core.DTOs;
-using Dapper;
+﻿using System.Linq;
+using Cloudents.Core.DTOs;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
+using NHibernate;
+using NHibernate.Linq;
+using System;
 
 namespace Cloudents.Query.Query
 {
@@ -12,53 +16,82 @@ namespace Cloudents.Query.Query
             UserId = userId;
         }
 
-        private long UserId { get; set; }
+        private long UserId { get; }
 
 
 
         internal sealed class UserProfileAboutQueryHandler : IQueryHandler<UserProfileAboutQuery, UserProfileAboutDto>
         {
-            private readonly IDapperRepository _repository;
+            private readonly IStatelessSession _statelessSession;
 
-            public UserProfileAboutQueryHandler(IDapperRepository repository)
+            public UserProfileAboutQueryHandler(QuerySession querySession)
             {
-                _repository = repository;
+                _statelessSession = querySession.StatelessSession;
             }
-
+            
             public async Task<UserProfileAboutDto> GetAsync(UserProfileAboutQuery query, CancellationToken token)
             {
-                using (var conn = _repository.OpenConnection())
-                {
-                    using (var grid = await conn.QueryMultipleAsync(@"
-select  CourseId as Name from sb.UsersCourses uc
-where UserId = @id
-and ( 1 = case when exists (  select * from sb.Tutor t where t.Id = uc.UserId) 
-	then   uc.canTeach
-	else  1
-end);
-
-select t.bio
-from sb.Tutor t
-where t.Id = @id;
-
-select tr.Review as ReviewText, tr.Rate, tr.DateTime as Created, u.Name, u.ImageName as Image, u.Score,u.Id
-from sb.Tutor t
-join sb.TutorReview tr
-	on tr.TutorId = t.Id
-join sb.[user] u
-	on tr.UserId = U.Id
-where t.Id = @id", new { id = query.UserId }))
+             var result =  _statelessSession.Query<TutorReview>()
+                    .Fetch(f => f.User)
+                    .Where(w => w.Tutor.Id == query.UserId)
+                    .Where(w => w.Review != null && w.Review != string.Empty)
+                    .Select(s => new TutorReviewDto()
                     {
-                        var retVal = new UserProfileAboutDto
-                        {
-                            Courses = await grid.ReadAsync<CourseDto>(),
-                            Bio = await grid.ReadSingleOrDefaultAsync<string>(),
-                            Reviews = await grid.ReadAsync<TutorReviewDto>()
-                        };
+                        Id = s.User.Id,
+                        Image = s.User.Image,
+                        ReviewText = s.Review,
+                        Rate = s.Rate,
+                        Created = s.DateTime,
+                        Name = s.User.Name
+                    })
+                    .ToFuture();
 
-                        return retVal;
-                    }
-                }
+                var rates = _statelessSession.Query<TutorReview>()
+                    .Where(w => w.Tutor.Id == query.UserId)
+                    .GroupBy(g => Math.Floor(g.Rate))
+                    .Select(s => new RatesDto()
+                    {
+                        Rate = (int)Math.Floor(s.Key),
+                        Users = s.Count()
+                    }).ToFuture();
+
+             return new UserProfileAboutDto()
+             {
+                 Reviews = await result.GetEnumerableAsync(token),
+                 Rates = await rates.GetEnumerableAsync(token)
+             };
+//                using (var conn = _repository.OpenConnection())
+//                {
+//                    using (var grid = await conn.QueryMultipleAsync(@"
+//select  CourseId as Name from sb.UsersCourses uc
+//where UserId = @id
+//and ( 1 = case when exists (  select * from sb.Tutor t where t.Id = uc.UserId) 
+//	then   uc.canTeach
+//	else  1
+//end);
+
+//select t.bio
+//from sb.Tutor t
+//where t.Id = @id;
+
+//select tr.Review as ReviewText, tr.Rate, tr.DateTime as Created, u.Name, u.Image, u.Score,u.Id
+//from sb.Tutor t
+//join sb.TutorReview tr
+//	on tr.TutorId = t.Id
+//join sb.[user] u
+//	on tr.UserId = U.Id
+//where t.Id = @id", new { id = query.UserId }))
+//                    {
+//                        var retVal = new UserProfileAboutDto
+//                        {
+//                            Courses = await grid.ReadAsync<CourseDto>(),
+//                            Bio = await grid.ReadSingleOrDefaultAsync<string>(),
+//                            Reviews = await grid.ReadAsync<TutorReviewDto>()
+//                        };
+
+//                        return retVal;
+//                    }
+//                }
             }
         }
     }

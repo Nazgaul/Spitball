@@ -47,16 +47,22 @@ namespace Cloudents.Core.Entities
             VideoExists = true;
         }
 
+        protected virtual void CalculatePriceAndDuration()
+        {
+            Duration = DurationInMinutes = Ended - Created;
+
+            Price = ((decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.SubsidizedPrice ??
+                      ((decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.Price;
+        }
 
         public virtual void EditDuration(int duration)
         {
+            if (Ended == null)
+            {
+                throw new ArgumentException();
+            }
             Ended = Created.AddMinutes(duration);
-            Duration = DurationInMinutes = Ended - Created;
-            // DurationInMinutes = Ended - Created;
-
-            Price = ((decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.SubsidizedPrice?? 
-                      ((decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.Price;
-        
+            CalculatePriceAndDuration();
         }
 
         public virtual void EndSession()
@@ -66,12 +72,7 @@ namespace Cloudents.Core.Entities
                 return;
             }
             Ended = DateTime.UtcNow;
-            Duration = DurationInMinutes = Ended - Created;
-
-            Price = ((decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.SubsidizedPrice ??
-                       ((decimal)Math.Floor(DurationInMinutes.Value.TotalMinutes) / 60) * StudyRoom.Tutor.Price.Price;
-
-
+            CalculatePriceAndDuration();
             AddEvent(new EndStudyRoomSessionEvent(this));
         }
 

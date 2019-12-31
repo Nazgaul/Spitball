@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Cloudents.Web.Models;
 
 namespace Cloudents.Web.Api
 {
@@ -183,23 +184,23 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> FollowAsync(long id, [FromServices] ICommandBus commandBus, CancellationToken token)
+        public async Task<IActionResult> FollowAsync([FromBody] FollowRequest model, [FromServices] ICommandBus commandBus, CancellationToken token)
         {
             var user = _userManager.GetLongUserId(User);
-            if (id == user)
+            if (model.Id == user)
             {
                 return BadRequest();
             }
-            var command = new FollowUserCommand(id, user);
+            var command = new FollowUserCommand(model.Id, user);
             await commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
-        [HttpDelete("unFollow"), Authorize]
-        public async Task<IActionResult> UnFollowAsync(long id, [FromServices] ICommandBus commandBus, CancellationToken token)
+        [HttpDelete("unFollow/{id}"), Authorize]
+        public async Task<IActionResult> UnFollowAsync([FromRoute] UnFollowRequest model, [FromServices] ICommandBus commandBus, CancellationToken token)
         {
             var user = _userManager.GetLongUserId(User);
-            var command = new UnFollowUserCommand(id, user);
+            var command = new UnFollowUserCommand(model.Id, user);
             await commandBus.DispatchAsync(command, token);
             return Ok();
         }

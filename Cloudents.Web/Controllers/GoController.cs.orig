@@ -15,13 +15,14 @@ namespace Cloudents.Web.Controllers
     {
         private readonly IQueryBus _queryBus;
 <<<<<<< HEAD
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public GoController(IQueryBus queryBus)
+        public GoController(IQueryBus queryBus, IWebHostEnvironment configuration)
 =======
         private readonly IGoogleAnalytics _googleAnalytics;
 
-     
-        public GoController( IQueryBus queryBus, IGoogleAnalytics googleAnalytics)
+
+        public GoController(IQueryBus queryBus, IGoogleAnalytics googleAnalytics)
 >>>>>>> origin/develop
         {
             _googleAnalytics = googleAnalytics;
@@ -31,15 +32,11 @@ namespace Cloudents.Web.Controllers
 
         // GET: /<controller>/
         [Route("go/{identifier}")]
-<<<<<<< HEAD
-        public async Task<RedirectResult> Index(string identifier, [FromQuery]string site, CancellationToken token)
-=======
         public async Task<RedirectResult> Index(string identifier, [FromQuery]string site,
             [FromQuery]string eventCategory,
             [FromQuery]string eventAction,
             [FromQuery]string eventLabel,
             CancellationToken token)
->>>>>>> origin/develop
         {
 
             var query = new ShortUrlQuery(identifier);
@@ -47,14 +44,6 @@ namespace Cloudents.Web.Controllers
             if (result == null)
             {
                 return Redirect("/");
-<<<<<<< HEAD
-            }
-
-            if (!Uri.TryCreate(result.Destination, UriKind.RelativeOrAbsolute, out var uri))
-            {
-                return RedirectPermanent(result.Destination);
-            }
-=======
             }
             if (eventCategory != null && eventAction != null && eventLabel != null)
             {
@@ -64,16 +53,10 @@ namespace Cloudents.Web.Controllers
             {
                 return RedirectPermanent(result.Destination);
             }
-
->>>>>>> origin/develop
             if (uri.IsAbsoluteUri)
             {
                 return RedirectPermanent(result.Destination);
             }
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/develop
             var destination = result.Destination;
             if (site?.Equals("frymo", StringComparison.OrdinalIgnoreCase) == true)
             {
@@ -85,7 +68,6 @@ namespace Cloudents.Web.Controllers
                 {
                     destination += "?site=frymo";
                 }
-                
             }
             return RedirectPermanent(destination);
         }

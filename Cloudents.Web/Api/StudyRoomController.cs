@@ -24,6 +24,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 
 namespace Cloudents.Web.Api
 {
@@ -162,7 +163,7 @@ namespace Cloudents.Web.Api
         /// <returns></returns>
         [HttpPost("{id:guid}/enter")]
         public async Task<IActionResult> CreateAsync([FromRoute] Guid id,
-            [FromServices] IHostingEnvironment configuration,
+            [FromServices] IWebHostEnvironment configuration,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);

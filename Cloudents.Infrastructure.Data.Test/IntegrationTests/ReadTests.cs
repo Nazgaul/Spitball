@@ -258,9 +258,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(638, "IL")]
-        [InlineData(1696, "IN")]
-        public async Task UserBalanceQuery_Ok(long id, string country)
+        [InlineData(638)]
+        [InlineData(1696)]
+        public async Task UserBalanceQuery_Ok(long id)
         {
 
             var query = new UserBalanceQuery(id);
@@ -421,10 +421,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task GetUpdatesEmailByUserQuery_Ok()
+        [Theory]
+        [InlineData(159039)]
+        [InlineData(638)]
+        public async Task GetUpdatesEmailByUserQuery_Ok(long id)
         {
-            var query = new GetUpdatesEmailByUserQuery(159039, DateTime.UtcNow.AddDays(-1));
+            var query = new GetUpdatesEmailByUserQuery(id, DateTime.UtcNow.AddDays(-30));
             _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 

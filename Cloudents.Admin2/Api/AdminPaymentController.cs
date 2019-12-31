@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,10 +36,22 @@ namespace Cloudents.Admin2.Api
 
         // GET
         [HttpGet]
-        public async Task<IEnumerable<PaymentDto>> GetPayments(CancellationToken token)
+        public async Task<IEnumerable<PaymentResponse>> GetPayments(CancellationToken token)
         {
             var query = new AdminPaymentsQuery(User.GetCountryClaim());
-            return await _queryBus.QueryAsync(query, token);
+            var result = await _queryBus.QueryAsync(query, token);
+            return result.Select(s => new PaymentResponse()
+            {
+                StudyRoomSessionId = s.StudyRoomSessionId,
+                Price = s.Price,
+                CantPay = s.CantPay,
+                TutorId = s.TutorId,
+                TutorName = s.TutorName,
+                UserId = s.UserId,
+                UserName = s.UserName,
+                Created = s.Created,
+                Duration = s.Duration.TotalMinutes
+            });
         }
 
         [HttpGet("{id}")]

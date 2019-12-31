@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -16,5 +17,14 @@ namespace Cloudents.Web.Models
         public long? TutorId { get; set; }
 
         public bool MoreTutors { get; set; }
+
+        [Captcha]
+        public string Captcha { get; set; }
+
+    }
+
+    public class CaptchaAttribute : Attribute
+    {
+
     }
 }

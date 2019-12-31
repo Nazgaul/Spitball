@@ -5,13 +5,12 @@ const MiniCssExtractPluginRtl = require("mini-css-extract-plugin-with-rtl");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const webpackRtlPlugin = require("webpack-rtl-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin = require('terser-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = (env) => {
-    
     const isDevBuild =  !(env && env.prod);
     const mode = isDevBuild ? 'development' : 'production';
 
@@ -240,6 +239,11 @@ module.exports = (env) => {
             
         ].concat(isDevBuild
             ? [
+                // new BundleAnalyzerPlugin({
+                //    analyzerMode: 'disabled',
+                //    generateStatsFile: true,
+                //    statsOptions: { source: false }
+                // }),
                 new webpack.SourceMapDevToolPlugin({
                     filename: "[file].map", // Remove this line if you prefer inline source maps
                     moduleFilenameTemplate:

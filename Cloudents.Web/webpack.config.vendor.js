@@ -61,7 +61,9 @@
 //    "vuetify/es5/components/VSheet",
 //    "vuetify/es5/components/VCalendar"
 
-//];
+// module.exports = (env) => {
+//     const isDevBuild = !(env && env.prod);
+//     const mode =  isDevBuild ? 'development':'production';
 
 //module.exports = (env) => {
 //    const isDevBuild = !(env && env.prod);
@@ -194,4 +196,4 @@
 
 //    return [clientBundleConfig];
 
-//};
+// };

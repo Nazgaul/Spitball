@@ -151,7 +151,7 @@
     <value>שלחנו לך אימייל אישור</value>
   </data>
   <data name="emailconfirm_title_reset" xml:space="preserve">
-    <value>שלחנו לך אימייל עם סיסמא חדשה</value>
+    <value>שלחנו לך אימייל עם הוראות כיצד לאפס את הסיסמה</value>
   </data>
   <data name="emailconfirm_to" xml:space="preserve">
     <value>ל</value>

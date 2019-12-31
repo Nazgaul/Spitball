@@ -120,6 +120,15 @@ const handleImage = function (e,isDragged) {
             }, 500);
             // self.methods.addShape(localShape, clearLocalShape);
         };
+        img.onerror = function () {
+            store.dispatch('updateToasterParams', {
+                toasterText: LanguageService.getValueByKey("upload_multiple_error_extension_title"),
+                showToaster: true,
+                toasterType: 'error-toaster'
+            });
+            store.dispatch("updateImgLoader", false);
+        }
+
         img.src = url;
     },()=>{
         store.dispatch("updateImgLoader", false);

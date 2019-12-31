@@ -7,10 +7,16 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Specialized;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Models;
+using Microsoft.Extensions.Hosting;
 
 namespace Cloudents.Web.Filters
 {
@@ -41,6 +47,7 @@ namespace Cloudents.Web.Filters
         public ValidateRecaptchaAttribute(string secretKey) : base(typeof(ValidateRecaptchaImpl))
         {
             this.Arguments = new object[] { secretKey };
+
             //SecretKey = secretKey;
         }
 
@@ -50,9 +57,9 @@ namespace Cloudents.Web.Filters
         {
             private readonly string _secretKey;
             private readonly IRestClient _httpClient;
-            private readonly IHostingEnvironment _environment;
+            private readonly IWebHostEnvironment _environment;
 
-            public ValidateRecaptchaImpl(string secretKey, /*IConfiguration configuration,*/ IRestClient httpClient, IHostingEnvironment environment)
+            public ValidateRecaptchaImpl(string secretKey, /*IConfiguration configuration,*/ IRestClient httpClient, IWebHostEnvironment environment)
             {
                 //if (!string.IsNullOrEmpty(secretKey))
                 //{
@@ -82,14 +89,7 @@ namespace Cloudents.Web.Filters
                     await base.OnActionExecutionAsync(context, next);
                     return;
                 }
-                string captcha;
-                context.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
-                using (var sr = new StreamReader(context.HttpContext.Request.Body))
-                using (var jsonTextReader = new JsonTextReader(sr))
-                {
-                    var t = await JToken.ReadFromAsync(jsonTextReader);
-                    captcha = t["captcha"]?.Value<string>();
-                }
+                var captcha = ScanObject(context);
 
                 if (string.IsNullOrEmpty(captcha))
                 {
@@ -119,6 +119,40 @@ namespace Cloudents.Web.Filters
                     context.Result = new BadRequestObjectResult(context.ModelState);
                 }
                 await base.OnActionExecutionAsync(context, next);
+            }
+
+            private static string ScanObject(ActionExecutingContext context)
+            {
+                foreach (var obj in context.ActionArguments.Values)
+                {
+                    switch (obj)
+                    {
+                        case CancellationToken _:
+                            return null;
+                    }
+
+                    foreach (var property in obj.GetType().GetProperties())
+                    {
+                        var propValue = property.GetValue(obj, null);
+                        if (property.PropertyType.IsPrimitive || property.PropertyType == typeof(string))
+                        {
+                            if (property.GetCustomAttribute(typeof(CaptchaAttribute)) != null)
+                            {
+                                return propValue.ToString();
+                            }
+                        }
+                        else if (typeof(IEnumerable).IsAssignableFrom(property.PropertyType))
+                        {
+                            return null;
+                        }
+                        //else
+                        //{
+                        //    return ScanObject(propValue);
+                        //}
+                    }
+                }
+
+                return null;
             }
         }
 
