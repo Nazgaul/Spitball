@@ -39,7 +39,8 @@ using System.Threading.Tasks;
 using Cloudents.Web.Seo;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
-using WebMarkupMin.AspNetCore2;
+using WebMarkupMin.AspNetCore3;
+using WebMarkupMin.Core;
 using Logger = Cloudents.Web.Services.Logger;
 
 
@@ -153,7 +154,10 @@ namespace Cloudents.Web
                 o.ApplicationDiscriminator = "spitball";
             }).PersistKeysToAzureBlobStorage(CloudStorageAccount.Parse(Configuration["Storage"]), "/spitball/keys/keys.xml");
 
-            services.AddWebMarkupMin().AddHtmlMinification();
+            services.AddWebMarkupMin().AddHtmlMinification(x =>
+                {
+                    x.MinificationSettings.AttributeQuotesRemovalMode = HtmlAttributeQuotesRemovalMode.KeepQuotes;
+                });
             services.AddControllersWithViews();
             //services.AddRouting(x =>
             //{
