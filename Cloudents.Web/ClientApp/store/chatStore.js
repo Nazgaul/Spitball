@@ -265,7 +265,7 @@ const actions = {
         }
         if(state.conversations[conversationId]){
             let otherUserId = state.conversations[conversationId].userId;
-            if(state.totalUnread > 0) {
+            if(state.totalUnread > 0 && state.conversations[conversationId].unread > 0) {
                 chatService.clearUnread(otherUserId);
             }
             let unreadNumber = state.conversations[conversationId].unread * -1;
