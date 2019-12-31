@@ -421,10 +421,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task GetUpdatesEmailByUserQuery_Ok()
+        [Theory]
+        [InlineData(159039)]
+        [InlineData(638)]
+        public async Task GetUpdatesEmailByUserQuery_Ok(long id)
         {
-            var query = new GetUpdatesEmailByUserQuery(159039, DateTime.UtcNow.AddDays(-1));
+            var query = new GetUpdatesEmailByUserQuery(id, DateTime.UtcNow.AddDays(-30));
             _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
