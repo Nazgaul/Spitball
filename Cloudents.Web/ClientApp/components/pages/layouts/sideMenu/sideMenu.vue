@@ -218,6 +218,7 @@ export default {
         analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
         this.updateShowBuyDialog(true);
       }
+      this.closeSideMenu();
     },  
     openPersonalizeUniversity() {
       if (this.accountUser == null) {
