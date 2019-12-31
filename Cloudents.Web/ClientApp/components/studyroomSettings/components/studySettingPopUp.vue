@@ -3,8 +3,8 @@
         <h1 class="settingPop-title" v-language:inner="'studyroomSets_settingPop_title'"/>
         <h2 class="settingPop-txt" v-language:inner="'studyroomSets_settingPop_txt'"/>
         <div class="settingPop-actions">
-            <v-btn class="settingPop-actions-yes" depressed round color="#4452fc" @click="nextPage"><span v-language:inner="'studyroomSets_settingPop_actions_yes'"/></v-btn>
-            <v-btn class="settingPop-actions-no" depressed round color="white" @click="closeDialog"><span v-language:inner="'studyroomSets_settingPop_actions_no'"/></v-btn>
+            <v-btn class="settingPop-actions-yes" depressed round color="white" @click="nextPage"><span v-language:inner="'studyroomSets_settingPop_actions_yes'"/></v-btn>
+            <v-btn class="settingPop-actions-no" depressed round color="#4452fc" @click="closeDialog"><span v-language:inner="'studyroomSets_settingPop_actions_no'"/></v-btn>
         </div>
     </div>
 </template>
@@ -70,10 +70,10 @@ nextPage(){
         font-weight: 600;
         margin-bottom: 0;
         }
-        .settingPop-actions-yes{
+        .settingPop-actions-no{
             color: white !important;
         }
-        .settingPop-actions-no{
+        .settingPop-actions-yes{
         color: #4452fc;
         border: 1px solid #4452fc !important;
         }
