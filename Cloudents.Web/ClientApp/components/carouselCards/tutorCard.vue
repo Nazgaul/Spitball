@@ -233,7 +233,7 @@ export default {
     }
     }
     .tutorCarousel-bottom {
-        // margin-top: 10px;
+        line-height: normal;
         padding: 0 8px 8px 8px;
     .ts_subjects {
         font-size: 13px;

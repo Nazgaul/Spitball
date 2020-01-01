@@ -46,12 +46,12 @@
     </v-form>
 
         <div class="tutorRequest-bottom">
-        <v-btn @click="goBack" class="tutorRequest-btn-back" color="white" depressed rounded>
-            <span v-language:inner="'tutorRequest_back'"/>
-        </v-btn>
-        <v-btn :loading="isLoading" @click="submit(!isAuthUser)" class="tutorRequest-btn-next" depressed rounded color="#4452fc" sel="submit_tutor_request">
-            <span v-language:inner="'tutorRequest_send'"/>
-        </v-btn>
+            <v-btn @click="goBack" class="tutorRequest-btn-back" color="white" depressed rounded>
+                <span v-language:inner="'tutorRequest_back'"/>
+            </v-btn>
+            <v-btn :loading="isLoading" @click="submit(!isAuthUser)" class="tutorRequest-btn-next" depressed rounded color="#4452fc" sel="submit_tutor_request">
+                <span v-language:inner="'tutorRequest_send'"/>
+            </v-btn>
         </div>
     </div>
 </template>
@@ -231,10 +231,12 @@ export default {
             text-transform: capitalize  !important;
         }
         .tutorRequest-btn-back{
+            margin: 6px 8px;
             color: @global-blue;
             border: 1px solid @global-blue !important;
         }
         .tutorRequest-btn-next{
+            margin: 6px 8px;
             color: white !important;
             font-size: 16px;
             font-weight: 600;
