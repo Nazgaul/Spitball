@@ -3,6 +3,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -12,13 +13,11 @@ namespace Cloudents.Query.Documents
 {
     public class SimilarDocumentsQuery : IQuery<IEnumerable<DocumentFeedDto>>
     {
-        public SimilarDocumentsQuery(long documentId/*, string course*/)
+        public SimilarDocumentsQuery(long documentId)
         {
             DocumentId = documentId;
-            //Course = course;
         }
         public long DocumentId { get;  }
-        //public string Course { get;  }
     }
 
     internal sealed class SimilarDocumentsQueryHandler : IQueryHandler<SimilarDocumentsQuery, IEnumerable<DocumentFeedDto>>
@@ -39,6 +38,7 @@ namespace Cloudents.Query.Documents
                             _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.University.Id).Single())
                 .Where(w=> w.Id != query.DocumentId 
                             && w.Status.State == ItemState.Ok)
+                .OrderByDescending(o => o.DocumentType).ThenByDescending(o => o.TimeStamp.UpdateTime)
                 .Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
@@ -63,7 +63,8 @@ namespace Cloudents.Query.Documents
                     {
                         Votes = s.VoteCount
                     }
-                }).OrderByDescending(o => o.DateTime).Take(10).ToListAsync(token);
+                })
+                .Take(10).ToListAsync(token);
 
             return t;
         }
