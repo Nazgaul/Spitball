@@ -176,8 +176,16 @@ export default {
                   .v-progress-linear{
                      margin: 10px 0;
                      .v-progress-linear__background{
+                        display: none;
+                     }
+                     .v-progress-linear__buffer{
                         background-color: #bdc0d1 !important;
                         border-color: #bdc0d1 !important;
+                        opacity: .3;
+                     }
+                     .v-progress-linear__determinate{
+                        position: relative;
+                        z-index: 2;
                      }
                   }
                }
