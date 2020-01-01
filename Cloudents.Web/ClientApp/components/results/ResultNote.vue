@@ -86,19 +86,19 @@
       <div class="type-wrap" :class="{'type-wrap--noPadding': fromItemPage}">
         <v-flex grow class="data-row">
           <div class="content-wrap">
-            <span class="item-title text-truncate">{{item.title}}</span>
-            <span
-              class="item-course text-truncate"
-              v-html="$Ph('resultNote_course',[item.course])"
-            />
-            <span  v-if="item.university"
-              class="item-university text-truncate"
-              v-html="$Ph('resultNote_university',[item.university])"
-            />
+            <h1 class="item-title text-truncate">{{item.title}}</h1>
+            <span class="item-course text-truncate">
+              <span class="item-course" v-language:inner="'resultNote_course'"/>
+              <h2 class="item-course">{{item.course}}</h2>
+            </span>
+            <span v-if="item.university" class="item-university text-truncate">
+              <span class="item-university" v-language:inner="'resultNote_university'"/>
+              <h3 class="item-university">{{item.university}}</h3>
+            </span>
           </div>
           <v-divider v-show="item.snippet" class="my-2"></v-divider>
           <div class="doc-snippet" v-show="item.snippet">
-            <span class="doc-snippet-span">{{item.snippet}}</span>
+            <h6 class="doc-snippet-h6">{{item.snippet}}</h6>
           </div>
         </v-flex>
       </div>

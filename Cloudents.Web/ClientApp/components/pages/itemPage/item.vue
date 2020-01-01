@@ -41,7 +41,8 @@
 
             <div v-if="itemList.length" class="itemPage__main__carousel" :class="{'itemPage__main__carousel--margin': !docTutor && !docTutor.isTutor && $vuetify.breakpoint.xsOnly}">
                 <div class="itemPage__main__carousel__header">
-                    <h3 v-language:inner="'documentPage_related_content'"></h3>
+                    
+                    <div class="itemPage__main__carousel__header__title" v-language:inner="'documentPage_related_content'"></div>
                     <router-link 
                         v-language:inner="'documentPage_full_list'"
                         :to="{name: 'feed', query: {Course: courseName}}"
@@ -383,12 +384,11 @@ export default {
                     align-items: center;
                     margin-bottom: 14px;
                     font-weight: 600;
-
-                    h3 {
+                    &__title{
                         color: #43425d;
                         font-size: 18px;
+                        font-weight: 700;                       
                     }
-
                     &--seeAll {
                         color: #4c59ff;
                     }
