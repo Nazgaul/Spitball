@@ -107,8 +107,8 @@
             </span>
             </template> -->
             <template v-slot:footer="{props}">
-               {{props.pagination.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{props.pagination.itemsLength}}
-               <!-- <slot name="tableFooter"></slot> -->
+               <!-- {{props.pagination.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{props.pagination.itemsLength}} -->
+               <slot name="tableFooter"></slot>
             </template>
          </v-data-table>
    </div>
