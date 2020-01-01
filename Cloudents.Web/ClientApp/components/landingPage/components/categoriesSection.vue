@@ -177,6 +177,7 @@ export default {
         border-radius: 20px;
         border: solid 1px #4c59ff;
         color: #4c59ff
+        
       }
     }
   }
