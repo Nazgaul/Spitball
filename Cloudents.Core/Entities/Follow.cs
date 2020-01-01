@@ -12,6 +12,7 @@ namespace Cloudents.Core.Entities
             }
             Followed = followed;
             Follower = follower;
+            Created = DateTime.UtcNow;
         }
 
         protected Follow() 
@@ -19,6 +20,7 @@ namespace Cloudents.Core.Entities
         public virtual Guid Id { get; }
         public virtual BaseUser Followed { get; protected set; }
         public virtual BaseUser Follower { get; protected set; }
+        public virtual DateTime Created { get; }
 
         public virtual bool Equals(Follow other)
         {
