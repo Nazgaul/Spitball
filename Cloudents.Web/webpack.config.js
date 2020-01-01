@@ -141,7 +141,19 @@ module.exports = (env) => {
                 {
                     test: /\.s[ac]ss$/i,
                     use:
-                        isDevBuild ? ['vue-style-loader', 'rtl-css-loader', 'sass-loader']
+                        isDevBuild ? ['vue-style-loader', 'rtl-css-loader', 
+                        {
+                            loader:'sass-loader',
+                            options: {
+                                implementation: require('sass'),
+                                sassOptions: {
+                                  fiber: require('fibers'),
+                                  indentedSyntax: true, // optional
+                                },
+                                prependData: `@import "./ClientApp/variables.scss"`,
+                            }
+                        },
+                    ]
                         :
                         [
                             {
@@ -154,7 +166,15 @@ module.exports = (env) => {
                                 loader:'css-loader'
                             },
                             {
-                                loader:'sass-loader'
+                                loader:'sass-loader',
+                                options: {
+                                    implementation: require('sass'),
+                                    sassOptions: {
+                                      fiber: require('fibers'),
+                                      indentedSyntax: true // optional
+                                    },
+                                    prependData: `@import "./ClientApp/variables.scss"`,
+                                }
                             }
                         ]
                 },
