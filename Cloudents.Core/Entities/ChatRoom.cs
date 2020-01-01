@@ -22,7 +22,7 @@ namespace Cloudents.Core.Entities
 
             Users = users.Select(s => new ChatUser(this, s)).ToList();
             Identifier = BuildChatRoomIdentifier(users.Select(s => s.Id));
-            UpdateTime = DateTime.UtcNow;
+            TimeStamp = new DomainTimeStamp();
 
         }
 
@@ -36,7 +36,7 @@ namespace Cloudents.Core.Entities
             return string.Join("_", userIdsList);
         }
 
-        public virtual DateTime UpdateTime { get; protected set; }
+        public virtual DomainTimeStamp TimeStamp { get; protected set; }
 
         public virtual ICollection<ChatUser> Users { get; protected set; }
         public virtual ICollection<ChatMessage> Messages { get; protected set; }
@@ -46,7 +46,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void AddMessage(ChatMessage message)
         {
-            UpdateTime = DateTime.UtcNow;
+            TimeStamp.UpdateTime = DateTime.UtcNow;
             foreach (var userInChat in Users)
             {
                 if (userInChat.User.Id != message.User.Id)

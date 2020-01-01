@@ -10,7 +10,7 @@ namespace Cloudents.Persistence.Maps
         public ChatRoomMap()
         {
             Id(x => x.Id).GeneratedBy.GuidComb();
-            Map(x => x.UpdateTime).Not.Nullable();
+            Component(x => x.TimeStamp);
             Map(x => x.Identifier).Not.Nullable().Unique();
             // One 
             HasOne(x => x.Extra)/*.LazyLoad(Laziness.NoProxy).Constrained()*/.Cascade.All();

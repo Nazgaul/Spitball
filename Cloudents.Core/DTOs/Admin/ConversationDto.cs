@@ -9,7 +9,7 @@ namespace Cloudents.Core.DTOs.Admin
     {
         [EntityBind(nameof(ChatRoom.Identifier))]
         public string Id { get; set; }
-        [EntityBind(nameof(ChatRoom.UpdateTime))]
+        [EntityBind(nameof(ChatRoom.TimeStamp.UpdateTime))]
 
         public DateTime LastMessage { get; set; }
 

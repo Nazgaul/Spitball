@@ -160,7 +160,7 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(ChatRoom.Identifier))]
         public string ConversationId { get; set; }
 
-        [EntityBind(nameof(ChatRoom.UpdateTime))]
+        [EntityBind(nameof(ChatRoom.TimeStamp.UpdateTime))]
         public DateTime DateTime { get; set; }
 
         [EntityBind(nameof(StudyRoom.Id))]

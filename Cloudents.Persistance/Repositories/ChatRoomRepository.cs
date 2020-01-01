@@ -49,7 +49,7 @@ namespace Cloudents.Persistence.Repositories
         {
             await Session.Query<ChatRoomAdmin>()
                 .Where(w => (Session.Query<ChatRoom>()
-                .Where(w2 => w2.UpdateTime > DateTime.UtcNow.AddDays(-1)).Select(s => s.Id).Contains(w.Id)))
+                .Where(w2 => w2.TimeStamp.UpdateTime > DateTime.UtcNow.AddDays(-1)).Select(s => s.Id).Contains(w.Id)))
                 .UpdateAsync(x => new { Status = ChatRoomStatus.New }, token);
 
         }
