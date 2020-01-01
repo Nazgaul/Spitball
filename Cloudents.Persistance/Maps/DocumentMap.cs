@@ -39,6 +39,9 @@ namespace Cloudents.Persistence.Maps
                 .Inverse().Cascade.AllDeleteOrphan();
             Map(m => m.VoteCount);
 
+            HasMany(x => x.DocumentDownloads)
+             .Cascade.AllDeleteOrphan()
+             .KeyColumn("DocumentId").Inverse().AsSet();
 
             Map(x => x.DocumentType).Column("DocumentType");
             Map(x => x.Duration);//.CustomType<TimeAsTimeSpanType>();

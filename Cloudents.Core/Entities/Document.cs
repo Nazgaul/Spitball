@@ -89,6 +89,18 @@ namespace Cloudents.Core.Entities
 
         public virtual int VoteCount { get; protected set; }
 
+        protected internal virtual ISet<UserDownloadDocument> DocumentDownloads { get; set; }
+
+        public virtual void AddDownload(BaseUser user)
+        {
+            if (!User.Equals(user))
+            {
+                var download = new UserDownloadDocument(user, this);
+                DocumentDownloads.Add(download);
+            }
+        }
+
+
         public virtual void Vote(VoteType type, User user)
         {
             if (type == VoteType.Down)
