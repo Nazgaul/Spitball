@@ -17,7 +17,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Expiration).Nullable();
             Map(x => x.Description).Nullable().Length(8000);
             Map(x => x.Owner).Nullable();
-            Map(x => x.CreateTime).Insert().Not.Update();
+            Map(x => x.CreateTime).Insert().Not.Update().Not.Nullable();
 
             HasMany(x => x.UserCoupon).Access.CamelCaseField(Prefix.Underscore)
                 .Inverse().Cascade.AllDeleteOrphan().AsSet();

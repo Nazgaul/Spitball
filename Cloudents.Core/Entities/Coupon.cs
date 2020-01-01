@@ -67,7 +67,7 @@ namespace Cloudents.Core.Entities
         public virtual int AmountOfUsePerUser { get; protected set; }
 
         public virtual DateTime? Expiration { get; protected set; }
-        public virtual DateTime? CreateTime { get; protected set; }
+        public virtual DateTime CreateTime { get; protected set; }
 
         public virtual string Description { get; protected set; }
 
