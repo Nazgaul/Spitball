@@ -45,17 +45,17 @@
         height: 50px !important;
         width: 50px !important;
         position: absolute;
-        top: calc(~"50% - 25px");
+        top: calc(~"50% - 20px");
         z-index: 11;
         &:before {
             background-color: transparent !important;
             transition: none !important;
         }
         &.sbCarousel-nextBtn{
-            right: -28px;
+            right: -20px;
         }
         &.sbCarousel-prevBtn{
-            left: -28px;
+            left: -20px;
         }
     }
 }
