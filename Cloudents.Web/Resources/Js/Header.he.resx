@@ -124,7 +124,7 @@
     <value>מורים פרטיים</value>
   </data>
   <data name="greets" xml:space="preserve">
-    <value>שלום, {1}</value>
+    <value>{1}</value>
   </data>
   <data name="placeholder_search" xml:space="preserve">
     <value>חיפוש</value>

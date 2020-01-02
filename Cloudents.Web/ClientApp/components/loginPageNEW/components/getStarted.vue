@@ -186,8 +186,9 @@ export default {
             .line-terms{
                 .checkbox-userinfo{
                 .v-input__slot{
-                display: flex;
-                align-items: unset;
+                    display: flex;
+                    align-items: unset;
+                    margin-bottom: 6px;
                     .v-icon{
                         color: @global-blue !important;
                     }
@@ -248,6 +249,7 @@ export default {
                     }
                     .responsive-property(margin-bottom, 0px, null, 20px);
                     color: white;
+                    
                     span{
                         font-size: 16px;
                         color: white;
@@ -257,7 +259,9 @@ export default {
                     .v-btn__loading{
                         color: white;
                     }
-
+                    .v-btn__content {
+                        margin: 0;
+                    }
             }
             &.email{
                 img{
@@ -274,7 +278,11 @@ export default {
                 }
                 background-color: rgba(68, 82, 252, 0.06);
                 border: solid 1px rgba(55, 81, 255, 0.29);
+                .v-btn__content {
+                    margin: 0;
+                }
             }
+            
         }
     }
      }
