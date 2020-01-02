@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate")]
     public class UserDownloadDocument : IEquatable<UserDownloadDocument>
     {
         public UserDownloadDocument(BaseUser user, Document document)

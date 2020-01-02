@@ -6,6 +6,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -18,23 +19,46 @@ namespace Cloudents.Selenium.Test
 {
     public class DriverFixture : IDisposable
     {
+        private readonly Process _process;
+
         public DriverFixture()
         {
-            //IWebDriver _driverFirefox = new FirefoxDriver(Directory.GetCurrentDirectory());
-            //IWebDriver _driverIe = new EdgeDriver(Directory.GetCurrentDirectory());
+            var directoryName = Directory.GetCurrentDirectory();
+            //var s = Directory.GetParent(directoryName);
+            while (!Directory.GetFiles(directoryName, "*.sln").Any())
+            {
+                directoryName = Directory.GetParent(directoryName).ToString();
+            }
+
+            var applicationPath = Path.Combine(directoryName, "Cloudents.Web");
 
 
-
+             _process = new Process
+            {
+                StartInfo =
+                {
+                    FileName = "dotnet",
+                    Arguments = "run",
+                    UseShellExecute = false,
+                    WorkingDirectory = applicationPath
+                }
+            };
+            _process.Start();
+            SiteUrl = "https://localhost:53217/";
             //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             Drivers = new IWebDriver[]
             {
-                new ChromeDriver(Directory.GetCurrentDirectory()),
-                new FirefoxDriver(Directory.GetCurrentDirectory(), new FirefoxOptions()
-                {
-                    PageLoadStrategy = PageLoadStrategy.None,
-                    AcceptInsecureCertificates = true,
+                new ChromeDriver(Directory.GetCurrentDirectory(),
+                    new ChromeOptions()
+                    {
+                        AcceptInsecureCertificates = true
+                    }),
+                //new FirefoxDriver(Directory.GetCurrentDirectory(), new FirefoxOptions()
+                //{
+                //    PageLoadStrategy = PageLoadStrategy.None,
+                //    AcceptInsecureCertificates = true,
                     
-                })
+                //})
             };
             // ... initialize data in the test database ...
         }
@@ -44,7 +68,11 @@ namespace Cloudents.Selenium.Test
             foreach (var webDriver in Drivers)
             {
                 webDriver.Close();
+                webDriver.Quit();
                 webDriver.Dispose();
+
+                _process.CloseMainWindow();
+                _process.Close();
             }
 
             // ... clean up test data from the database ...
@@ -52,9 +80,16 @@ namespace Cloudents.Selenium.Test
 
         public IEnumerable<IWebDriver> Drivers { get; private set; }
 
+        public string SiteUrl { get; private set; }
+
 
     }
-    [Collection("Database collection")]
+
+    
+    
+
+
+        [Collection("Database collection")]
     public class Tests : IClassFixture<DriverFixture>
     {
         //private readonly IWebDriver _driver = new ChromeDriver(Directory.GetCurrentDirectory());
@@ -75,7 +110,7 @@ namespace Cloudents.Selenium.Test
             // _autoMock = AutoMock.GetLoose();
         }
 
-        const string SiteMainUrl = "https://dev.spitball.co";
+       // const string SiteMainUrl = "https://dev.spitball.co";
         const string FrymoSiteUrl = "?site=frymo";
 
         private static readonly IEnumerable<string> Cultures = new[]
@@ -131,7 +166,7 @@ namespace Cloudents.Selenium.Test
                 {
                     foreach (var site in RelativePaths.Union(GetProfileUrls()))
                     {
-                        var url = $"{SiteMainUrl.TrimEnd('/')}/{site}?culture={culture}";
+                        var url = $"{_driver.SiteUrl.TrimEnd('/')}/{site}?culture={culture}";
                         driver.Navigate().GoToUrl(url);
 
                         var htmlAttr = driver.FindElement(By.TagName("html"));
@@ -144,7 +179,7 @@ namespace Cloudents.Selenium.Test
 
                     foreach (var site in SignedPaths.Union(GetProfileUrls()))
                     {
-                        var url = $"{SiteMainUrl.TrimEnd('/')}/{site}?culture={culture}";
+                        var url = $"{_driver.SiteUrl.TrimEnd('/')}/{site}?culture={culture}";
                         driver.Navigate().GoToUrl(url);
 
                         var htmlAttr = driver.FindElement(By.TagName("html"));
@@ -163,11 +198,11 @@ namespace Cloudents.Selenium.Test
         {
             foreach (var driver in this._driver.Drivers)
             {
-                var url = $"{SiteMainUrl.TrimEnd('/')}";
+                var url = $"{_driver.SiteUrl.TrimEnd('/')}";
                 driver.Navigate().GoToUrl(url);
                 var logo = driver.FindElement(By.XPath("//*[@class='logo']"));
 
-                url = $"{SiteMainUrl.TrimEnd('/')}/{FrymoSiteUrl}";
+                url = $"{_driver.SiteUrl.TrimEnd('/')}/{FrymoSiteUrl}";
                 driver.Navigate().GoToUrl(url);
                 logo = driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
             }
@@ -181,7 +216,7 @@ namespace Cloudents.Selenium.Test
             {
                 foreach (var culture in Cultures)
                 {
-                    var url = $"{SiteMainUrl.TrimEnd('/')}/{GetQuestionUrl()}?culture={culture}";
+                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/{GetQuestionUrl()}?culture={culture}";
                     driver.Navigate().GoToUrl(url);
 
                     var htmlAttr = driver.FindElement(By.TagName("html"));
@@ -199,7 +234,7 @@ namespace Cloudents.Selenium.Test
         {
             foreach (var driver in this._driver.Drivers)
             {
-                var url = $"{SiteMainUrl.TrimEnd('/')}/{relativePath}";
+                var url = $"{_driver.SiteUrl.TrimEnd('/')}/{relativePath}";
                 driver.Manage().Window.Maximize();
                 driver.Navigate().GoToUrl(url);
                 var body = driver.FindElement(By.TagName("body"));
@@ -220,7 +255,7 @@ namespace Cloudents.Selenium.Test
         {
             foreach (var driver in this._driver.Drivers)
             {
-                var url = $"{SiteMainUrl.TrimEnd('/')}/Signin";
+                var url = $"{_driver.SiteUrl.TrimEnd('/')}/Signin";
                 driver.Navigate().GoToUrl(url);
                 var emailButton = driver.FindElementByWait(By.XPath("//*[@sel='email']"));
                 emailButton.Click();
@@ -247,14 +282,14 @@ namespace Cloudents.Selenium.Test
 
                 foreach (var profile in GetProfileUrls())
                 {
-                    var url = $"{SiteMainUrl.TrimEnd('/')}/{profile}";
+                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/{profile}";
                     driver.Navigate().GoToUrl(url);
                     //var wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 5));
                     var course = driver.FindElement(By.XPath("//*[@class='layout row wrap']//a"));
                     var courseTerm = course.GetAttribute("href");
                     //course.Click();
                     //wait.Until(x => x.FindElement(By.XPath("//*[@class='flex side-bar']")));
-                    courseTerm.Should().Be($"{SiteMainUrl.TrimEnd('/')}/?Course={course.Text}");
+                    courseTerm.Should().Be($"{_driver.SiteUrl.TrimEnd('/')}/?Course={course.Text}");
                 }
             }
         }

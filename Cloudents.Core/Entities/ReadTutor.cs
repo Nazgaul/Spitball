@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate")]
     public class ReadTutor : Entity<long>
     {
         public ReadTutor(long id, string name, string image, string imageName, IReadOnlyList<string> allSubjects, IReadOnlyList<string> allCourses,

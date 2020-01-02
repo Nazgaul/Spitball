@@ -74,7 +74,7 @@ namespace Cloudents.Web.Controllers
             var t = RedirectToRoutePermanent(SeoTypeString.Document, new
             {
                 courseName = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Course),
-                id = id,
+                id,
                 name = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Title)
             });
             return t;

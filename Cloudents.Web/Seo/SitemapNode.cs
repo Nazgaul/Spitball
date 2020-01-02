@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Cloudents.Web.Seo.Images;
-using Cloudents.Web.Seo.Translations;
-using Cloudents.Web.Seo.Videos;
 
 
 namespace Cloudents.Web.Seo

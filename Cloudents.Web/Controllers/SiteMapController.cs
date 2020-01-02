@@ -68,15 +68,8 @@ namespace Cloudents.Web.Controllers
                      );
                 }
             }
-            var doc = new XDocument(
-                new XDeclaration("1.0", "utf-8", "yes"),
-                new XComment("This is a comment"),
-                new XElement("Root", "content")
-            );
-
-            var z = doc.ToString();
             var document = new XDocument(
-                new XDeclaration("1.0", "utf-8", ""), root);
+                 new XDeclaration("1.0", "utf-8", ""), root);
             return new FileCallbackResult("application/xml",
                 async (stream, context) =>
                 {

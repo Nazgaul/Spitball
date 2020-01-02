@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using System.Reflection;
+﻿using Microsoft.AspNetCore.Hosting;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 

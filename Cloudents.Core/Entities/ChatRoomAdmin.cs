@@ -1,9 +1,12 @@
 ﻿using Cloudents.Core.Enum;
 using JetBrains.Annotations;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernane proxy")]
+
     public class ChatRoomAdmin : Entity<Guid>
     {
         protected ChatRoomAdmin()

@@ -68,46 +68,8 @@ namespace Cloudents.Query.Tutor
                         Projections.Property(() => studyRoomAlias.DateTime.CreationTime))).Desc
                     //TODO on nhibernate 5.3 need to fix.
                     .TransformUsing(Transformers.AliasToBean<UserStudyRoomDto>())
-                    .ListAsync<UserStudyRoomDto>(token);/*.OrderByDescending(o => o.LastActive > o.DateTime ? o.LastActive : o.DateTime)*/;
+                    .ListAsync<UserStudyRoomDto>(token);/*.OrderByDescending(o => o.LastActive > o.DateTime ? o.LastActive : o.DateTime)*/
 
-                //var t = await _session.Query<StudyRoom>()
-                //    .FetchMany(f => f.Sessions)
-                //    .FetchMany(f => f.Users)
-                //    .ThenFetch(f => f.User)
-                //    .Where(w => _session.Query<StudyRoomUser>().Where(w => w.User.Id == query.UserId).Select(s => s.Room.Id).Contains(w.Id))
-                //   .Where(w => w.Users.All(a => a.User.Id != query.UserId)).ToListAsync(token);
-                //    //.Select(s => new UserStudyRoomDto()
-                //    //{
-                //    //    Name = s.Users.Select(s => s.User.Name).FirstOrDefault(),
-                //    //    //Image = s.Users.Where(w => w.User.Id != query.UserId).Select(s => s.User.Image).FirstOrDefault(),
-                //    //    //Online = s.Users.Where(w => w.User.Id != query.UserId).Select(s => s.User.Online).FirstOrDefault(),
-                //    //    //UserId = s.Users.Where(w => w.User.Id != query.UserId).Select(s => s.User.Id).FirstOrDefault(),
-                //    //    Id = s.Id,
-                //    //    DateTime = s.DateTime,
-                //    //    ConversationId = s.Identifier,
-                //    //    LastActive = s.Sessions.Select(s => s.Created).OrderByDescending(o => o).FirstOrDefault()
-                //    //}).OrderByDescending(o => o.LastActive).ToListAsync(token);
-                //return null;
-
-                //                using (var connection = _dapperRepository.OpenConnection())
-                //                {
-                //                    var result = await connection.QueryAsync<UserStudyRoomDto>(@"Select
-                // u.Name as Name,
-                // u.Image as Image,
-                // u.Online as online,
-                // u.Id as userId,
-                // sr.Id as id,
-                // sr.DateTime,
-                // sr.Identifier as conversationId
-                //from sb.StudyRoom sr
-                //join sb.StudyRoomUser sru on sr.id = sru.studyRoomId
-                //join sb.[User] u on sru.UserId = u.Id
-                //where sr.Id in (select StudyRoomId from sb.StudyRoomUser where userid = @UserId)
-                //and sru.UserId <> @UserId
-                //order by COALESCE((select max(Created) from sb.StudyRoomSession where StudyRoomId = sr.Id), sr.[DateTime]) desc", new { query.UserId });
-                //                    return result;
-
-                //}
 
             }
         }

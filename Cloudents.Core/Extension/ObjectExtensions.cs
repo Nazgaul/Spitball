@@ -6,21 +6,21 @@ namespace Cloudents.Core.Extension
 {
     public static class ObjectExtensions
     {
-        public static T ToObject<T>(this IDictionary<string, object> source)
-            where T : class, new()
-        {
-            var someObject = new T();
-            var someObjectType = someObject.GetType();
+        //public static T ToObject<T>(this IDictionary<string, object> source)
+        //    where T : class, new()
+        //{
+        //    var someObject = new T();
+        //    var someObjectType = someObject.GetType();
 
-            foreach (var item in source)
-            {
-                someObjectType
-                    .GetProperty(item.Key)
-                    .SetValue(someObject, item.Value, null);
-            }
+        //    foreach (var item in source)
+        //    {
+        //        someObjectType
+        //            .GetProperty(item.Key)
+        //            .SetValue(someObject, item.Value, null);
+        //    }
 
-            return someObject;
-        }
+        //    return someObject;
+        //}
 
         public static IDictionary<string, string> AsDictionary(this object source,
             BindingFlags bindingAttr = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
@@ -40,9 +40,9 @@ namespace Cloudents.Core.Extension
         }
     }
 
-    public static class IDictionaryExtensions
+    public static class DictionaryExtensions
     {
-        public static string ToContentString<T, U>(this IDictionary<T, U> source)
+        public static string ToContentString<T, TU>(this IDictionary<T, TU> source)
         {
             return "{" + string.Join(",", source.Select(kv => kv.Key + "=" + kv.Value)) + "}";
         }

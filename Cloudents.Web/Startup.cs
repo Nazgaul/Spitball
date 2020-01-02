@@ -30,7 +30,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
-using System;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
@@ -39,6 +38,7 @@ using System.Threading.Tasks;
 using Cloudents.Web.Seo;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
+using Newtonsoft.Json.Serialization;
 using WebMarkupMin.AspNetCore3;
 using WebMarkupMin.Core;
 using Logger = Cloudents.Web.Services.Logger;
@@ -182,9 +182,8 @@ namespace Cloudents.Web
                 //ToDO use the new one
                 .AddNewtonsoftJson(options =>
             {
-                
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
+                options.SerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { NamingStrategy = new CamelCaseNamingStrategy()});
                 options.SerializerSettings.Converters.Add(new RequestCultureConverter());
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
 
@@ -229,7 +228,8 @@ namespace Cloudents.Web
             {
                     o.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     o.PayloadSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                    o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter { CamelCaseText = true });
+                    o.PayloadSerializerSettings.Converters.Add(new StringEnumNullUnknownStringConverter 
+                        {  NamingStrategy = new CamelCaseNamingStrategy()});
                 });
             //if (UseAzureSignalR)
             //{
