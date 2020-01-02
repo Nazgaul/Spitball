@@ -441,14 +441,7 @@ export default {
 watch: {
   getStudyRoomData(val){
     if(!!val){
-      let isNotStudyRoomTest = this.$route.params ? this.$route.params.id : null;
-      if(isNotStudyRoomTest) {
-        if(this.isTutor){
-          this.updateTutorStartDialog(true);
-        }else{
-          this.updateStudentStartDialog(true);
-        }
-    }
+      this.initStartSession();
     }
   }
 },
@@ -480,6 +473,16 @@ watch: {
       "setSnapshotDialog",
       "stopTracks"
     ]),
+    initStartSession(){
+      let isNotStudyRoomTest = this.$route.params ? this.$route.params.id : null;
+      if(isNotStudyRoomTest) {
+        if(this.isTutor){
+          this.updateTutorStartDialog(true);
+        }else{
+          this.updateStudentStartDialog(true);
+        }
+      }
+    },
     // ...mapGetters(['getDevicesObj']),
     closeFullScreen(){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
@@ -559,6 +562,10 @@ watch: {
       let _roomProps = this.getStudyRoomData;
       if(_roomProps){
         initSignalRService(`studyRoomHub?studyRoomId=${id}`);
+        setTimeout(()=>{
+          this.initStartSession();
+        })
+        
       }else{
         await tutorService.getRoomInformation(id).then((RoomProps) => {
           _roomProps = RoomProps;
