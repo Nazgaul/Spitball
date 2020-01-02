@@ -1,6 +1,6 @@
 <template>
     <v-container class="tutor-landing-page-container">
-        <v-layout :class="`${isMobile ? 'pt-2 pb-5' : 'pt-1 pb-4'}`" px-4 class="tutor-landing-page-header" align-center justify-center column>
+        <v-layout :class="`${isMobile ? 'pt-1' : 'pt-1 pb-4'}`" px-4 class="tutor-landing-page-header" align-center justify-center column>
             <v-flex pt-4 pb-4>
                 <h1 v-language:inner="'tutorListLanding_header_get_lesson'"></h1>
             </v-flex>
@@ -220,6 +220,7 @@ export default {
     .tutor-landing-page-header{
         position: relative;
         background-color: #1b2441;
+        padding-bottom:40px;
         h1{
             text-align: center;
             color: #5158af;
