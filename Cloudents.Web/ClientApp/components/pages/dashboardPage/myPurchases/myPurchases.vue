@@ -13,9 +13,9 @@
                firstIcon: '',
                lastIcon: '',
                prevIcon: 'sbf-arrow-left-carousel',
-               nextIcon: 'sbf-arrow-right-carousel'
+               nextIcon: 'sbf-arrow-right-carousel',
+               itemsPerPageOptions: [5]
             }">
-            
          <template slot="headers" slot-scope="props">
             <tr>
                <th class="text-xs-left"
@@ -30,7 +30,7 @@
             </tr>
          </template>
             <template v-slot:item="props">
-               <tr>
+               <tr class="myPurchases_table_tr">
                   <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
                   <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
                   
@@ -42,17 +42,17 @@
                   </td>
                </tr> 
             </template>
-         <slot slot="no-data" name="tableEmptyState"/>
-         <slot slot="pageText" name="tableFooter"/>
+
+            <slot slot="no-data" name="tableEmptyState"/>
       </v-data-table>
    </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+
 import tablePreviewTd from '../global/tablePreviewTd.vue';
 import tableInfoTd from '../global/tableInfoTd.vue';
-
 export default {
    name:'myPurchases',
    components:{tablePreviewTd,tableInfoTd},
@@ -132,7 +132,7 @@ export default {
       box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
    }
    .myPurchases_table{
-      .v-datatable{
+      .v-data-table-header{
          tr{
             height: auto;
             th{
@@ -140,9 +140,15 @@ export default {
                font-size: 14px;
                padding-top: 14px;
                padding-bottom: 14px;
+               font-weight: normal;
             }
          }
          color: #43425d !important;
+      }
+      .myPurchases_table_tr {
+         td {
+            font-size: 13px !important;
+         }
       }
       .myPurchases_action{
          outline: none;
@@ -161,7 +167,19 @@ export default {
          height: inherit;
          font-size: 14px;
       }
-
+      .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
+         transform: none /*rtl:rotate(180deg)*/;
+         color: #43425d !important;
+         height: inherit;
+         font-size: 14px;
+      }
+      .v-data-footer {
+         padding: 6px 0;
+         .v-data-footer__pagination {
+            font-size: 14px;
+            color: #43425d;
+         }
+      }
    }
 }
 </style>

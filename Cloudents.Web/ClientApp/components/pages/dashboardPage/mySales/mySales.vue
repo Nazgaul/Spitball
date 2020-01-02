@@ -58,24 +58,22 @@
             
          </v-flex>
       </v-layout>
+      
          <v-data-table
-            ref="table"
             :headers="headers"
-            :items="salesItems"
+            :items="salesItems" 
             :items-per-page="5"
+            sort-by
+            :item-key="'date'"
+            class="elevation-1 mySales_table"
             :footer-props="{
                showFirstLastPage: false,
                firstIcon: '',
                lastIcon: '',
                prevIcon: 'sbf-arrow-left-carousel',
                nextIcon: 'sbf-arrow-right-carousel',
-               itemsPerPageText: '',
-               pageText: pageText,
                itemsPerPageOptions: [5]
-            }"
-            sort-by
-            :item-key="'date'"
-            class="elevation-1 mySales_table">
+            }">
             <template slot="headers" slot-scope="props">
                <tr>
                   <th class="text-xs-left"
@@ -90,7 +88,7 @@
                </tr>
             </template>
             <template v-slot:item="props">
-               <tr>
+               <tr class="mySales_table_tr">
                   <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
                   <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
 
@@ -100,8 +98,8 @@
                   <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"></td>
                </tr>
             </template>
+
             <slot slot="no-data" name="tableEmptyState"/>
-    
          </v-data-table>
    </div>
 </template>
@@ -158,13 +156,6 @@ export default {
       balancesItems(){
          return this.getBalancesItems;
       },
-      pageText() {
-         let table = this.$refs.table
-         if(this.salesItems.length && table) {
-            return `${table.itemsPerPage} ${LanguageService.getValueByKey('dashboardPage_of')} ${this.salesItems.length}`;
-         }
-         return '';
-      }
    },
    methods: {
       ...mapActions(['updateSalesItems','dashboard_sort','updateBalancesItems']),
@@ -216,21 +207,39 @@ export default {
       .mySales_cash-out-wrapper {
          text-align: center;
          padding: 0 8px;
-    .mySales_text-wrap {
-      .responsive-property(margin-bottom, 32px, null, 16px);
-      .responsive-property(font-size, 24px, null, 20px);
-      color: grey;
-      letter-spacing: -0.7px;
-      text-align: center;
-      .mySales_points-text span {
-        font-weight: bold;
-        color: @color-main-purple;
+         .mySales_text-wrap {
+            .responsive-property(margin-bottom, 32px, null, 16px);
+            .responsive-property(font-size, 24px, null, 20px);
+            color: grey;
+            letter-spacing: -0.7px;
+            text-align: center;
+            .mySales_points-text span {
+               font-weight: bold;
+               color: @color-main-purple;
+            }
+         }
       }
-    }
-  }
-      
    }
    .mySales_table{
+      .v-data-table-header {
+         tr{
+            height: auto;
+            th{
+               color: #43425d !important;
+               font-size: 14px;
+               padding-top: 14px;
+               padding-bottom: 14px;
+               font-weight: normal;
+            }
+            
+         }
+         color: #43425d !important;
+      }
+      .mySales_table_tr {
+         td {
+            font-size: 13px !important;
+         }
+      }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          transform: none /*rtl:rotate(180deg)*/;
          color: #43425d !important;
