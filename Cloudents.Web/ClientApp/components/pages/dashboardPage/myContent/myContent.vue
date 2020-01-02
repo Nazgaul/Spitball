@@ -29,7 +29,7 @@
                </th>
             </tr>
          </template>
-            <template v-slot:items="props">
+            <template v-slot:item="props">
                <tr>
                   <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
                   <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>

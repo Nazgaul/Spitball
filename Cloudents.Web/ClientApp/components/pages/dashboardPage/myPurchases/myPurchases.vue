@@ -2,16 +2,19 @@
    <div class="myPurchases">
       <div class="myPurchases_title" v-language:inner="'dashboardPage_my_purchases_title'"/>
       <v-data-table 
-            :pagination.sync="paginationModel"
             :headers="headers"
             :items="purchasesItems"
-            disable-initial-sort
+            sort-by
             :item-key="'date'"
-            :rows-per-page-items="['5']"
+            :items-per-page="5"
             class="elevation-1 myPurchases_table"
-            :prev-icon="'sbf-arrow-left-carousel'"
-            :sort-icon="'sbf-arrow-down'"
-            :next-icon="'sbf-arrow-right-carousel'">
+            :footer-props="{
+               showFirstLastPage: false,
+               firstIcon: '',
+               lastIcon: '',
+               prevIcon: 'sbf-arrow-left-carousel',
+               nextIcon: 'sbf-arrow-right-carousel'
+            }">
             
          <template slot="headers" slot-scope="props">
             <tr>
@@ -26,15 +29,18 @@
                </th>
             </tr>
          </template>
-            <template v-slot:items="props">
-               <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
-               <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
-               <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
-               <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
-               <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td> 
-               <td class="text-xs-center">
-                  <button v-if="props.item.type !== 'TutoringSession'" @click="dynamicAction(props.item)" class="myPurchases_action" v-language:inner="dynamicResx(props.item.type)"/>
-               </td> 
+            <template v-slot:item="props">
+               <tr>
+                  <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
+                  <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
+                  
+                  <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
+                  <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
+                  <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td> 
+                  <td class="text-xs-center">
+                     <button v-if="props.item.type !== 'TutoringSession'" @click="dynamicAction(props.item)" class="myPurchases_action" v-language:inner="dynamicResx(props.item.type)"/>
+                  </td>
+               </tr> 
             </template>
          <slot slot="no-data" name="tableEmptyState"/>
          <slot slot="pageText" name="tableFooter"/>

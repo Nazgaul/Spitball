@@ -6,25 +6,24 @@
             <v-data-table
                :headers="balancesHeaders"
                :items="balancesItems"
-               disable-initial-sort
-               hide-actions
+               sort-by
+               hide-default-footer
                :item-key="'date'"
-               class="elevation-1 mySales_table"
-               :prev-icon="'sbf-arrow-left-carousel'"
-               :sort-icon="'sbf-arrow-down'"
-               :next-icon="'sbf-arrow-right-carousel'">
-               <template v-slot:items="props">
-                  <td class="text-xs-left">
-                     <span>{{dictionary.types[props.item.type]}}</span>
-                  </td>
-                  <td class="text-xs-center">
-                     <span>{{formatBalancePts(props.item.points)}}</span>
-                  </td> 
-                  <td class="text-xs-center">
-                     <span class="font-weight-bold">
-                        {{ props.item.value | currencyFormat(props.item.symbol)}}
-                     </span>
-                  </td> 
+               class="elevation-1 mySales_table">
+               <template v-slot:item="props">
+                  <tr>
+                     <td class="text-left">
+                        <span>{{dictionary.types[props.item.type]}}</span>
+                     </td>
+                     <td class="text-center">
+                        <span>{{formatBalancePts(props.item.points)}}</span>
+                     </td> 
+                     <td class="text-center">
+                        <span class="font-weight-bold">
+                           {{ props.item.value | currencyFormat(props.item.symbol)}}
+                        </span>
+                     </td> 
+                  </tr>
                </template>
             </v-data-table>
          </v-flex>
@@ -60,7 +59,6 @@
          </v-flex>
       </v-layout>
          <v-data-table
-            :pagination.sync="paginationModel"
             :headers="headers"
             :items="salesItems"
             :items-per-page="5"
@@ -73,11 +71,7 @@
             }"
             sort-by
             :item-key="'date'"
-            :rows-per-page-items="['5']"
-            class="elevation-1 mySales_table"
-            :prev-icon="'sbf-arrow-left-carousel'"
-            :sort-icon="'sbf-arrow-down'"
-            :next-icon="'sbf-arrow-right-carousel'">
+            class="elevation-1 mySales_table">
             <template slot="headers" slot-scope="props">
                <tr>
                   <th class="text-xs-left"
@@ -91,17 +85,31 @@
                   </th>
                </tr>
             </template>
-            <template v-slot:items="props">
-               <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
-               <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
+            <template v-slot:item="props">
+               <tr>
+                  <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
+                  <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
 
-               <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
-               <td class="text-xs-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
-               <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-               <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"></td>
+                  <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
+                  <td class="text-xs-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
+                  <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
+                  <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"></td>
+               </tr>
             </template>
             <slot slot="no-data" name="tableEmptyState"/>
-            <slot slot="pageText" name="tableFooter"/>
+            <!-- <template v-slot:footer="{props}"> 
+               <span class="tableFooter">
+               {{props.pagination.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{props.pagination.itemsLength}}
+            </span>
+            </template> -->
+            <!-- <template v-slot:footer="{props}"> 
+               <span class="tableFooter">
+            </span>
+            </template> -->
+            <template v-slot:footer="{props}">
+               <!-- {{props.pagination.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{props.pagination.itemsLength}} -->
+               <slot name="tableFooter"></slot>
+            </template>
          </v-data-table>
    </div>
 </template>
