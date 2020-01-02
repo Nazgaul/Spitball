@@ -1,7 +1,7 @@
 <template>
     <div class="student-start-wrap pb-5">
         <v-layout class="pt-2">
-            <v-flex xs12 class="text-xs-right px-3">
+            <v-flex xs12 class="text-xs-right px-4">
                 <v-icon class="caption cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
             </v-flex>
         </v-layout>
@@ -9,10 +9,10 @@
             <v-flex xs12  class="pt-2">
                 <userAvatar :user-name="userName"  :userImageUrl="userImageUrl" :user-id="userId" :size="'58'" ></userAvatar>
             </v-flex>
-            <v-flex xs12  class="pt-12">
+            <v-flex xs12  class="pt-3">
                 <span class="subtitle-1 font-weight-bold" v-language:inner>tutor_end_session</span>
             </v-flex>
-            <v-card-actions class="pt-5">
+            <v-card-actions class="pt-12">
                 <button class="cancel-btn elevation-0 align-center justify-center mr-2" @click="closeDialog()">
                     <span class="text-capitalize" v-language:inner>tutor_chrome_ext_btn_cancel</span>
                 </button>

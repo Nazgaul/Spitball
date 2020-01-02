@@ -137,14 +137,14 @@
             :content-class="'coupon-dialog'"
             :isPersistent="true"
         >
-        <v-card class="pb-3 coupon-dialog-card" :class="{'d-block': $vuetify.breakpoint.xsOnly}">
-            <v-layout class="header py-4">
+        <v-card class="pb-4 coupon-dialog-card" :class="{'d-block': $vuetify.breakpoint.xsOnly}">
+            <v-layout class="header py-6">
                 <v-flex class="text-xs-center coupon-dialog-header" :class="{'mt-5': $vuetify.breakpoint.xsOnly}">
                     <span v-language:inner="'coupon_title'"></span>
                     <v-icon @click="closeCouponDialog" class="coupon-close" v-html="'sbf-close'" />
                 </v-flex>
             </v-layout>
-            <v-layout class="px-3" column>
+            <v-layout class="px-4" column>
                 <v-flex class="mb-2">
                     <div class="coupon coupon__dialog" v-if="isTutor && !isMyProfile">
                       <div class="text-xs-right ">
@@ -389,6 +389,7 @@
       display: flex;
       flex-direction: column;
       .coupon-dialog-header {
+        text-align: center;
          font-weight: 600;
          font-size: 18px;
          color: #43425d;
