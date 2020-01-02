@@ -3,10 +3,9 @@
         <div v-if="!isEmpty">
             <v-layout class="py-6 pl-6 pr-4" align-center justify-center>
                 <v-flex grow>
-                    <div class="d-inline-flex justify-center shrink">
-                        <span class="subtitle-1 font-weight-bold" v-language:inner>courses_my_courses</span>
-                        <span class="subtitle-1 font-weight-bold"
-                              v-if="coursesQuantaty">&nbsp;({{coursesQuantaty}})</span>
+                    <div class="d-inline-flex justify-center shrink courses-list-wrap-title">
+                        <span class="font-weight-bold" v-language:inner>courses_my_courses</span>
+                        <span class="font-weight-bold" v-if="coursesQuantaty">&nbsp;({{coursesQuantaty}})</span>
                     </div>
                 </v-flex>
                 <v-flex xs2 shrink class="text-center hidden-xs-only" >
@@ -47,24 +46,22 @@
                                     <v-btn v-if="!singleClass.isTeaching" rounded @click="teachCourseToggle(singleClass)"
                                            :loading="singleClass.isLoading && teachingActive"
                                            class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
-                                    <span>
-                                    <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
-                                        <span class="purple-text caption" v-html="$Ph('courses_teach')"></span>
-                                    </span>
+                                        <span>
+                                            <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
+                                            <span class="purple-text caption" v-html="$Ph('courses_teach')"></span>
+                                        </span>
                                     </v-btn>
 
                                     <v-btn v-else rounded @click="teachCourseToggle(singleClass)"
                                            class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
-                                    <span>
-                                       <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
-                                        <span class="caption" v-html="$Ph('courses_teaching')"></span>
-                                  </span>
+                                        <span>
+                                            <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
+                                            <span class="caption" v-html="$Ph('courses_teaching')"></span>
+                                        </span>
                                     </v-btn>
                                     </div>
                                     <span>
-                                            <v-icon @click="removeClass(singleClass)"
-                                                    v-show="!singleClass.isLoading"
-                                                    class="delete-sbf-icon">sbf-delete-outline</v-icon>
+                                        <v-icon @click="removeClass(singleClass)" v-show="!singleClass.isLoading" class="delete-sbf-icon">sbf-delete-outline</v-icon>
                                     </span>
                                 </v-flex>
                                 <v-flex v-else shrink class="d-flex align-center px-5">
@@ -180,6 +177,7 @@
     .courses-list-wrap {
         .scrollBarStyle(6px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
         .rounded-btn {
+            margin: 6px 8px;
             border-radius: 36px!important; //vuetify
             min-width: 108px !important; //vuetify
         }
@@ -198,6 +196,9 @@
             background-color: @purpleLight;
             color: @color-white;
         }
+        .courses-list-wrap-title {
+            font-size: 16px;
+        }
         .label-text {
             color: rgba(128, 128, 128, 0.87);
             font-size: 12px;
@@ -213,7 +214,6 @@
             color: @purpleLight;
             border-radius: 16px;
             border: 1px solid @purpleLight;
-
         }
         .vicon{
             font-size: 21px;
