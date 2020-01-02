@@ -37,7 +37,7 @@
                     <button class="gH_i_r_btns gH_i_r_btn_up mr-3" @click="$router.push({path:'/register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="!isFrymo && isHomePage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
-                <v-menu fixed close-on-content-click bottom right offset-y :content-class="getBannerSatus? 'fixed-content-banner':'fixed-content'" sel="menu">
+                <v-menu fixed close-on-content-click bottom offset-y :content-class="getBannerSatus? 'fixed-content-banner':'fixed-content'" sel="menu">
                     <template v-slot:activator="{on}">
                         <div v-on="on" class="gH_i_r_menuList" >
                             <div @click.prevent="drawer=!drawer">
@@ -73,7 +73,7 @@
             </div>
         </template>
     </v-app-bar>
-            <v-navigation-drawer temporary v-model="drawer" light :right="isMobile ? !isRtl : false"
+            <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
                              fixed app v-if="$vuetify.breakpoint.xsOnly" class="drawerIndex"
                              width="280">
             <menuList @closeMenu="closeDrawer"/>
