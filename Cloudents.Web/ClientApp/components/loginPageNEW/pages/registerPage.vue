@@ -18,11 +18,11 @@
                 <button class="close-btn" @click="updateDialog(false)">
                     <v-icon>sbf-close</v-icon>
                 </button>
-                <v-card-text class="limited-width">
+                <v-card-text class="limited-width py-8 px-7">
                     <h1 style="font-size: 22px;" v-language:inner="'login_are_you_sure_you_want_to_exit'"/>
                     <p><span class="pre-line" v-language:inner="'login_exiting_information1'"/><br /></p>
 
-                    <v-btn v-if="isMobile" class="continue-registr" @click="updateDialog(false)">
+                    <v-btn v-if="isMobile" height="48" class="continue-registr" @click="updateDialog(false)">
                         <span v-language:inner="'login_continue_registration'"/>
                     </v-btn>
                     <button class="continue-btn" @click="exit" v-language:inner>login_Exit</button>
