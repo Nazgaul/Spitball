@@ -1,6 +1,6 @@
 <template>
-    <v-btn sel="finished_courses" @click="finish()" round-outline class="sb-round sb-outline px-4 elevation-0">
-        <span class="caption font-weight-bold text-capitalize" v-language:inner>courses_btn_finished</span>
+    <v-btn sel="finished_courses" @click="finish()" round-outline class="sb-round sb-outline px-6 elevation-0">
+        <span class="font-weight-bold text-capitalize" v-language:inner>courses_btn_finished</span>
     </v-btn>
 </template>
 
