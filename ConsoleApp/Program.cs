@@ -26,6 +26,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Command.Documents.ChangePrice;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudents.Query.Query;
 
@@ -138,8 +139,9 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
          
-            var queryBus = _container.Resolve<MLRecommendation>();
-            queryBus.Do();
+            var queryBus = _container.Resolve<ICommandBus>();
+            var command = new ChangeDocumentPriceCommand(6725, 159786, 22);
+            await queryBus.DispatchAsync(command, default);
 
         }
         private static async Task ResyncTutorRead()

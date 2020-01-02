@@ -167,7 +167,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("DocumentCalculateMd5")]
         public static async Task CalculateMd5Async(
-            [TimerTrigger("0 */20 * * * *")] TimerInfo timer,
+            [TimerTrigger("0 0 1 * * *")] TimerInfo timer,
             [Inject] IStatelessSession session,
             IBinder binder,
             ILogger log,
