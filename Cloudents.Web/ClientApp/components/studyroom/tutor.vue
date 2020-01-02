@@ -439,13 +439,18 @@ export default {
   },
 
 watch: {
-  showDeviceValidationError: function(val){
-      if(val) {
-        setTimeout(function() {
-          document.querySelector('.device-dialog-unsupport').parentNode.style.zIndex=999;
-        },1000)
-      }
+  getStudyRoomData(val){
+    if(!!val){
+      let isNotStudyRoomTest = this.$route.params ? this.$route.params.id : null;
+      if(isNotStudyRoomTest) {
+        if(this.isTutor){
+          this.updateTutorStartDialog(true);
+        }else{
+          this.updateStudentStartDialog(true);
+        }
     }
+    }
+  }
 },
 
   methods: {
@@ -645,19 +650,6 @@ watch: {
   },
   mounted() {
     document.addEventListener("fullscreenchange",this.closeFullScreen);
-    let isNotStudyRoomTest = this.$route.params ? this.$route.params.id : null;
-    if(isNotStudyRoomTest) {
-      let self = this;
-      this.$nextTick(function(){
-        setTimeout(()=>{
-          if(self.isTutor){
-            self.updateTutorStartDialog(true);
-          }else{
-            self.updateStudentStartDialog(true);
-          }
-        }, 1500)
-      })
-    }
   },
   destroyed(){
     global.onbeforeunload = function() { };
