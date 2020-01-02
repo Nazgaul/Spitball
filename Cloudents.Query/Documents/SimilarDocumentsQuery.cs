@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Documents
 {
@@ -17,15 +18,17 @@ namespace Cloudents.Query.Documents
         {
             DocumentId = documentId;
         }
-        public long DocumentId { get;  }
+        public long DocumentId { get; }
     }
 
     internal sealed class SimilarDocumentsQueryHandler : IQueryHandler<SimilarDocumentsQuery, IEnumerable<DocumentFeedDto>>
     {
         private readonly IStatelessSession _session;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public SimilarDocumentsQueryHandler(QuerySession session)
+        public SimilarDocumentsQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
         {
+            _urlBuilder = urlBuilder;
             _session = session.StatelessSession;
         }
         public async Task<IEnumerable<DocumentFeedDto>> GetAsync(SimilarDocumentsQuery query, CancellationToken token)
@@ -33,10 +36,10 @@ namespace Cloudents.Query.Documents
             var t = await _session.Query<Document>()
                 .Fetch(f => f.User)
                 .Where(w => w.Course.Id ==
-                            _session.Query<Document>().Where(w2=>w2.Id == query.DocumentId).Select(s=>s.Course.Id).Single())
+                            _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.Course.Id).Single())
                 .Where(w => w.University.Id ==
                             _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.University.Id).Single())
-                .Where(w=> w.Id != query.DocumentId 
+                .Where(w => w.Id != query.DocumentId
                             && w.Status.State == ItemState.Ok)
                 .OrderByDescending(o => o.DocumentType).ThenByDescending(o => o.TimeStamp.UpdateTime)
                 .Select(s => new DocumentFeedDto()
@@ -46,7 +49,7 @@ namespace Cloudents.Query.Documents
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,
-                        Image = s.User.Image,
+                        Image = _urlBuilder.BuildUserImageEndpoint(s.User.Id, s.User.ImageName),
                     },
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Id,

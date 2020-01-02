@@ -26,7 +26,16 @@ namespace Cloudents.Selenium.Test
 
 
             //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            Drivers = new[] { new ChromeDriver(Directory.GetCurrentDirectory()) };
+            Drivers = new IWebDriver[]
+            {
+                new ChromeDriver(Directory.GetCurrentDirectory()),
+                new FirefoxDriver(Directory.GetCurrentDirectory(), new FirefoxOptions()
+                {
+                    PageLoadStrategy = PageLoadStrategy.None,
+                    AcceptInsecureCertificates = true,
+                    
+                })
+            };
             // ... initialize data in the test database ...
         }
 
@@ -116,33 +125,33 @@ namespace Cloudents.Selenium.Test
         [Fact]
         public void MissingResource()
         {
-            foreach (var _driver in this._driver.Drivers)
+            foreach (var driver in this._driver.Drivers)
             {
                 foreach (var culture in Cultures)
                 {
                     foreach (var site in RelativePaths.Union(GetProfileUrls()))
                     {
                         var url = $"{SiteMainUrl.TrimEnd('/')}/{site}?culture={culture}";
-                        _driver.Navigate().GoToUrl(url);
+                        driver.Navigate().GoToUrl(url);
 
-                        var htmlAttr = _driver.FindElement(By.TagName("html"));
+                        var htmlAttr = driver.FindElement(By.TagName("html"));
 
                         var langValue = htmlAttr.GetAttribute("lang");
                         langValue.Should().Be(culture.Split('-')[0], "on link {0}", url);
-                        var body = _driver.FindElement(By.TagName("body"));
+                        var body = driver.FindElement(By.TagName("body"));
                         body.Text.Should().NotContain("###");
                     }
 
                     foreach (var site in SignedPaths.Union(GetProfileUrls()))
                     {
                         var url = $"{SiteMainUrl.TrimEnd('/')}/{site}?culture={culture}";
-                        _driver.Navigate().GoToUrl(url);
+                        driver.Navigate().GoToUrl(url);
 
-                        var htmlAttr = _driver.FindElement(By.TagName("html"));
+                        var htmlAttr = driver.FindElement(By.TagName("html"));
 
                         var langValue = htmlAttr.GetAttribute("lang");
                         langValue.Should().Be(culture.Split('-')[0], "on link {0}", url);
-                        var body = _driver.FindElement(By.TagName("body"));
+                        var body = driver.FindElement(By.TagName("body"));
                         body.Text.Should().NotContain("###");
                     }
                 }
@@ -152,15 +161,15 @@ namespace Cloudents.Selenium.Test
         [Fact]
         public void LogoTest()
         {
-            foreach (var _driver in this._driver.Drivers)
+            foreach (var driver in this._driver.Drivers)
             {
                 var url = $"{SiteMainUrl.TrimEnd('/')}";
-                _driver.Navigate().GoToUrl(url);
-                var logo = _driver.FindElement(By.XPath("//*[@class='logo']"));
+                driver.Navigate().GoToUrl(url);
+                var logo = driver.FindElement(By.XPath("//*[@class='logo']"));
 
                 url = $"{SiteMainUrl.TrimEnd('/')}/{FrymoSiteUrl}";
-                _driver.Navigate().GoToUrl(url);
-                logo = _driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
+                driver.Navigate().GoToUrl(url);
+                logo = driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
             }
 
         }
@@ -168,17 +177,17 @@ namespace Cloudents.Selenium.Test
         [Fact]
         public void MissingResourceAsk()
         {
-            foreach (var _driver in _driver.Drivers)
+            foreach (var driver in _driver.Drivers)
             {
                 foreach (var culture in Cultures)
                 {
                     var url = $"{SiteMainUrl.TrimEnd('/')}/{GetQuestionUrl()}?culture={culture}";
-                    _driver.Navigate().GoToUrl(url);
+                    driver.Navigate().GoToUrl(url);
 
-                    var htmlAttr = _driver.FindElement(By.TagName("html"));
+                    var htmlAttr = driver.FindElement(By.TagName("html"));
                     var langValue = htmlAttr.GetAttribute("lang");
                     langValue.Should().Be(culture.Split('-')[0], "on link {0}", url);
-                    var body = _driver.FindElement(By.TagName("body"));
+                    var body = driver.FindElement(By.TagName("body"));
                     body.Text.Should().NotContain("###");
                 }
             }
@@ -188,20 +197,20 @@ namespace Cloudents.Selenium.Test
         [InlineData("feed", "//*[@class='layout column']//a")]
         public void FeedPagingTest(string relativePath, string css)
         {
-            foreach (var _driver in this._driver.Drivers)
+            foreach (var driver in this._driver.Drivers)
             {
                 var url = $"{SiteMainUrl.TrimEnd('/')}/{relativePath}";
-                _driver.Manage().Window.Maximize();
-                _driver.Navigate().GoToUrl(url);
-                var body = _driver.FindElement(By.TagName("body"));
+                driver.Manage().Window.Maximize();
+                driver.Navigate().GoToUrl(url);
+                var body = driver.FindElement(By.TagName("body"));
 
 
-                var amountOfCards = _driver.FindElements(By.XPath(css)).Count;
+                var amountOfCards = driver.FindElements(By.XPath(css)).Count;
 
                 for (int i = 0; i < 10; i++)
                     body.SendKeys(Keys.PageDown);
                 Thread.Sleep(1000);
-                var amountOfCardsAfterPaging = _driver.FindElements(By.XPath(css)).Count;
+                var amountOfCardsAfterPaging = driver.FindElements(By.XPath(css)).Count;
                 amountOfCardsAfterPaging.Should().BeGreaterThan(amountOfCards);
             }
         }
@@ -209,40 +218,42 @@ namespace Cloudents.Selenium.Test
         [Fact]
         public void LoginTest()
         {
-            foreach (var _driver in this._driver.Drivers)
+            foreach (var driver in this._driver.Drivers)
             {
                 var url = $"{SiteMainUrl.TrimEnd('/')}/Signin";
-                _driver.Navigate().GoToUrl(url);
-                var emailButton = _driver.FindElement(By.XPath("//*[@sel='email']"));
+                driver.Navigate().GoToUrl(url);
+                var emailButton = driver.FindElementByWait(By.XPath("//*[@sel='email']"));
                 emailButton.Click();
-                var emailInput = _driver.FindElement(By.Name("email"));
+
+                var emailInput = driver.FindElementByWait(By.Name("email"));
                 emailInput.SendKeys("elad13@cloudents.com");
-                var loginButton = _driver.FindElement(By.XPath("//*[@type='submit']"));
+                var loginButton = driver.FindElement(By.XPath("//*[@type='submit']"));
                 loginButton.Click();
-                var passwordInput = _driver.FindElement(By.XPath("//*[@type='password']"));
-                loginButton = _driver.FindElement(By.XPath("//*[@type='submit']"));
+
+                var passwordInput = driver.FindElementByWait(By.XPath("//*[@type='password']"));
+                loginButton = driver.FindElement(By.XPath("//*[@type='submit']"));
                 passwordInput.SendKeys("123456789");
                 loginButton.Click();
             }
         }
 
-        [Fact]
+        [Fact(Skip = "not using selenium tags")]
         public void CourseListTest()
         {
-            foreach (var _driver in this._driver.Drivers)
+            foreach (var driver in this._driver.Drivers)
             {
 
-                _driver.Manage().Window.Maximize();
+                driver.Manage().Window.Maximize();
 
                 foreach (var profile in GetProfileUrls())
                 {
                     var url = $"{SiteMainUrl.TrimEnd('/')}/{profile}";
-                    _driver.Navigate().GoToUrl(url);
-                    var _wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 5));
-                    var course = _driver.FindElement(By.XPath("//*[@class='layout row wrap']//a"));
+                    driver.Navigate().GoToUrl(url);
+                    //var wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 5));
+                    var course = driver.FindElement(By.XPath("//*[@class='layout row wrap']//a"));
                     var courseTerm = course.GetAttribute("href");
                     //course.Click();
-                    //wait.Until(_driver => _driver.FindElement(By.XPath("//*[@class='flex side-bar']")));
+                    //wait.Until(x => x.FindElement(By.XPath("//*[@class='flex side-bar']")));
                     courseTerm.Should().Be($"{SiteMainUrl.TrimEnd('/')}/?Course={course.Text}");
                 }
             }
@@ -251,15 +262,16 @@ namespace Cloudents.Selenium.Test
         [Fact]
         public void MenuListItemsTest()
         {
-            foreach (var _driver in this._driver.Drivers)
+            foreach (var driver in this._driver.Drivers)
             {
                 LoginTest();
 
-                var menu = _driver.FindElement(By.XPath("//*[@sel='menu']"));
-                var listItems = _driver.FindElements(By.XPath("//*[@sel='menu_row']//a"));
-                var _wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 5));
-                _wait.Until(driver => driver.FindElement(By.XPath("//*[@sel='menu']")));
+                var menu = driver.FindElementByWait(By.XPath("//*[@sel='menu']"));
                 menu.Click();
+                var listItems = driver.FindElements(By.XPath("//*[@sel='menu_row']//a"));
+                //var _wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 5));
+                //_wait.Until(driver => driver.FindElement(By.XPath("//*[@sel='menu']")));
+               
                 listItems.Count.Should().Be(8);
             }
 
@@ -292,10 +304,24 @@ namespace Cloudents.Selenium.Test
         //    div.Count.Should().BeGreaterThan(1);
         //}
 
+        
+
         public void Dispose()
         {
             // _driver.Close();
             // _driver.Dispose();
+        }
+    }
+
+
+    public static class SeleniumExtensions
+    {
+        public static IWebElement FindElementByWait(this IWebDriver driver, By by)
+        {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 5));
+            wait.Until(x => x.FindElement(by));
+
+            return driver.FindElement(by);
         }
     }
 }

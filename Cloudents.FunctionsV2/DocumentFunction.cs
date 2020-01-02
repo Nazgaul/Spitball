@@ -12,10 +12,14 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using NHibernate;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Enum;
+using NHibernate.Linq;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -161,7 +165,71 @@ namespace Cloudents.FunctionsV2
         }
 
 
-        
+        [FunctionName("DocumentCalculateMd5")]
+        public static async Task CalculateMd5Async(
+            [TimerTrigger("0 */20 * * * *")] TimerInfo timer,
+            [Inject] IStatelessSession session,
+            IBinder binder,
+            ILogger log,
+            CancellationToken token
+            )
+        {
+            var continue2 = true;
+            while (continue2)
+            {
+                var items = await session.Query<Core.Entities.Document>()
+                    .Where(w => w.Status.State == ItemState.Ok && w.Md5 == null)
+                    .OrderByDescending(x => x.Id)
+                    .Select(s => s.Id).Take(100).ToListAsync(cancellationToken: token);
+                continue2 = false;
+                foreach (var id in items)
+                {
+                    if (token.IsCancellationRequested)
+                    {
+                        log.LogInformation("Finish due to cancellation token");
+                        break;
+                    }
+                    continue2 = true;
+                    log.LogInformation($"Processing {id}");
+                    var blobDirectory = await binder.BindAsync<CloudBlobDirectory>(new BlobAttribute($"spitball-files/files/{id}"), token);
+                    var blobs = await blobDirectory.ListBlobsSegmentedAsync(false, BlobListingDetails.Metadata, 100, null, null, null, token);
+                    var blob = blobs.Results.OfType<CloudBlockBlob>().First(f =>
+                        f.Name.StartsWith("file", StringComparison.OrdinalIgnoreCase));
+
+                  
+                    var md5 = blob.Properties.ContentMD5;
+                    if (string.IsNullOrEmpty(md5))
+                    {
+                        log.LogInformation("no md5 calculating");
+                        using (var sr = await blob.OpenReadAsync())
+                        {
+                            md5 = CalculateMd5(sr);
+                            blob.Properties.ContentMD5 = md5;
+                            await blob.SetPropertiesAsync();
+                        }
+
+                    }
+
+                    await session.Query<Core.Entities.Document>().Where(w => w.Id == id)
+                        .UpdateBuilder()
+                        .Set(c => c.Md5, x => md5)
+                        .UpdateAsync(token);
+                }
+            }
+        }
+
+        private static string CalculateMd5(Stream stream)
+        {
+            using (var md5 = MD5.Create())
+            {
+                var hash = md5.ComputeHash(stream);
+                var base64String = Convert.ToBase64String(hash);
+                return base64String;
+            }
+        }
+
+
+
 
 
     }

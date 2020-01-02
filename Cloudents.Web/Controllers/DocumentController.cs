@@ -48,7 +48,38 @@ namespace Cloudents.Web.Controllers
             _urlBuilder = urlBuilder;
         }
 
-        
+        [Route("d/{id}", Name = "ShortDocumentLink2")]
+        public async Task<IActionResult> ShortUrl2(long id,
+            CancellationToken token)
+        {
+            //if (string.IsNullOrEmpty(base62))
+            //{
+            //    return NotFound();
+            //}
+
+            ////if (!long.TryParse(base62, out var id))
+            ////{
+            //if (!Base62.TryParse(base62, out var id))
+            //{
+            //    return NotFound();
+            //}
+
+            _userManager.TryGetLongUserId(User, out var userId);
+            var query = new DocumentById(id, userId);
+            var model = await _queryBus.QueryAsync(query, token);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            var t = RedirectToRoutePermanent(SeoTypeString.Document, new
+            {
+                courseName = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Course),
+                id = id,
+                name = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Title)
+            });
+            return t;
+        }
+
 
         [Route("document/{base62}", Name = "ShortDocumentLink")]
         public async Task<IActionResult> ShortUrl(string base62,
@@ -114,6 +145,15 @@ namespace Cloudents.Web.Controllers
             if (model == null)
             {
                 return NotFound();
+            }
+
+            if (model.DuplicateId.HasValue && id != model.DuplicateId)
+            {
+
+                var url = Url.RouteUrl("ShortDocumentLink2",
+                    new { id = model.DuplicateId.Value}, "https");
+
+                Response.Headers.Add("Link", $"<{url}>; rel=\"canonical\"");
             }
 
             ViewBag.title = _localizer["Title", model.Document.Course, model.Document.Title];

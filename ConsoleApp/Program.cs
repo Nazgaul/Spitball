@@ -108,8 +108,11 @@ namespace ConsoleApp
                 .As<IVideoService>().WithParameter("isDevelop", env == EnvironmentSettings.Dev);
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
             builder.RegisterModule<ModuleFile>();
-
-            _container = builder.Build();
+            builder.RegisterType<MLRecommendation>().AsSelf();
+                
+                
+                
+                _container = builder.Build();
 
             if (Environment.UserName == "Ram")
             {
@@ -135,9 +138,8 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
          
-            var queryBus = _container.Resolve<IQueryBus>();
-            var query = new UserSalesByIdQuery(638);
-            var result = await queryBus.QueryAsync(query, default);
+            var queryBus = _container.Resolve<MLRecommendation>();
+            queryBus.Do();
 
         }
         private static async Task ResyncTutorRead()

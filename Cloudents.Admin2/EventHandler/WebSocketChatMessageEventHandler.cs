@@ -18,10 +18,12 @@ namespace Cloudents.Admin2.EventHandler
     public class WebSocketChatMessageEventHandler : IEventHandler<ChatMessageEvent>
     {
         private readonly IServiceBusProvider _queueProvider;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public WebSocketChatMessageEventHandler(IServiceBusProvider queueProvider)
+        public WebSocketChatMessageEventHandler(IServiceBusProvider queueProvider, IUrlBuilder urlBuilder)
         {
             _queueProvider = queueProvider;
+            _urlBuilder = urlBuilder;
         }
 
 
@@ -60,7 +62,7 @@ namespace Cloudents.Admin2.EventHandler
                 Text = chatMessage.Message,
                 DateTime = DateTime.UtcNow,
                 Name = chatMessage.User.Name,
-                Image = chatMessage.User.Image
+                Image = _urlBuilder.BuildUserImageEndpoint(chatMessage.User.Id,chatMessage.User.ImageName)
             };
         }
 
