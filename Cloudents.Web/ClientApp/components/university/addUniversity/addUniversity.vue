@@ -3,18 +3,18 @@
         <v-layout :class="[$vuetify.breakpoint.smAndUp ? 'py-6 px-6': 'grey-backgound py-2 pl-4 pr-1']" align-center
                   justify-center>
             <v-flex grow xs10>
-                <div class="d-inline-flex justify-center shrink">
-                    <span class="subtitle-1 font-weight-bold" v-language:inner>university_choose_title</span>
+                <div class="d-inline-flex justify-center shrink add-university-wrap-title">
+                    <span class="font-weight-bold" v-language:inner>university_choose_title</span>
                 </div>
 
             </v-flex>
-            <v-flex xs2 shrink class="d-flex justify-end">
+            <v-flex xs2 shrink>
                 <v-btn rounded class="elevation-0 done-btn mx-2 py-1 font-weight-bold my-0" @click="getOut()" sel="uni_done">
                     <span class="text-capitalize" v-language:inner>university_not_student_btn</span>
                 </v-btn>
             </v-flex>
         </v-layout>
-        <v-layout column :class="{'px-3' : $vuetify.breakpoint.smAndUp}">
+        <v-layout column :class="{'px-4' : $vuetify.breakpoint.smAndUp}">
             <v-flex>
                 <v-text-field sel="uni_input" id="university-input"
                               v-model="university"
@@ -291,6 +291,9 @@
                 min-width: 90px;
             }
         }
+        .add-university-wrap-title {
+            font-size: 16px;
+        }
         .uni-logo {
             border: 1px solid rgb(221, 221, 221);
             background-color: rgb(240, 240, 247);
@@ -300,9 +303,6 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            span {
-                margin-top: 4px;
-            }
         }
         .v-input__slot {
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17) !important;
@@ -325,8 +325,8 @@
             font-size: 28px;
         }
         .done-btn {
-            min-width: 88px !important;
             color: @global-blue;
+            min-width: 100px !important; //vuetify
             border-radius: 36px;
             border: solid 1px @global-blue;
             background-color: transparent !important;
@@ -351,11 +351,16 @@
             border-bottom: solid 1px #f0f0f7;
             text-decoration: none;
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
+            line-height: normal;
+            .limit-width{
+                font-size: 16px;
+            }
         }
         .cant-find {
             display: flex;
             margin: 0;
             min-height: 48px;
+            font-size: 12px !important; // vuetify
         }
         .add-item {
             color: @global-blue;
