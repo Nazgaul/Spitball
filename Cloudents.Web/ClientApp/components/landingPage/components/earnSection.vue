@@ -3,7 +3,7 @@
         <div class="earnImg">
             <div class="earn-title" v-language:inner="'homePage_earn_title'"/>
             <div class="earn-subtitle" v-language:inner="'homePage_earn_subtitle'"/>
-            <v-btn tag="a" :href="href" depressed class="btn-earn" rounded color="#4c59ff">
+            <v-btn tag="a" :href="href" class="btn-earn" rounded color="#4c59ff">
                 <span v-language:inner="'homePage_btn_earn'"/>
             </v-btn>
         </div>
@@ -58,7 +58,6 @@ export default {
             text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
             font-size: 28px;
             font-weight: bold;
-            line-height: normal;
             max-width: 714px;
             margin-bottom: 12px;
         }

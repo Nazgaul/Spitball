@@ -34,7 +34,7 @@
                 </template>
                 <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
                     <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({path:'/signin'})" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
-                    <button class="gH_i_r_btns gH_i_r_btn_up mr-3" @click="$router.push({path:'/register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$router.push({path:'/register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="!isFrymo && isHomePage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
                 <v-menu fixed close-on-content-click bottom offset-y :content-class="getBannerSatus? 'fixed-content-banner':'fixed-content'" sel="menu">
@@ -213,11 +213,6 @@ export default {
 @import '../../../../styles/mixin.less';
 .globalHeader{
     z-index: 200 !important;
-    border: solid 1px #dadada !important;
-    //&.homePageWrapper{
-        // max-width: 1500px; 
-        // margin: 0 auto !important;
-    //}
     .v-toolbar__extension{
         @media (max-width: @screen-xs) {
             padding: 0 8px
@@ -225,10 +220,9 @@ export default {
     }
     .v-toolbar__content{
         border-bottom: solid 1px #dadada;
-        padding-left: 16px;
+        padding: 0 24px 0 16px;
         @media (max-width: @screen-xs) {
             padding: 0 8px 0 4px; 
-            border: none;     
         }  
     }
     .globalHeader_logo{
@@ -355,6 +349,7 @@ export default {
                 font-size: 16px;
                 color: #43425d;
                 font-weight: bold;
+                margin-bottom: 1px;
             }
             .gH_i_r_btns{
                 text-align: center;
@@ -401,6 +396,7 @@ export default {
 
                 &--margin {
                     margin-right: 20px;
+                    margin-bottom: 1px;
                 }
             }
             .gH_i_r_chat{

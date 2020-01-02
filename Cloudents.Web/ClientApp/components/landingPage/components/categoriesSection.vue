@@ -184,7 +184,7 @@ export default {
   .categories-bottom {
     display: flex;
     justify-content: space-between;
-    height: 256px;
+    height: 254px;
     @media (max-width: @sbScreen-tablet) {
       background-color: #f9f9fa;
       justify-content: center;
