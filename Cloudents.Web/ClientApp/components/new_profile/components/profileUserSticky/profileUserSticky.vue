@@ -30,7 +30,7 @@
             </v-flex>
          </div>
          <div class="profileUserSticky_btns">
-            <v-btn :disabled="isMyProfile" class="profileUserSticky_btn white--text" :class="{'isMyProfile':isMyProfile}" depressed round color="#4452fc" @click="globalFunctions.sendMessage">
+            <v-btn :disabled="isMyProfile" class="profileUserSticky_btn white--text" :class="{'isMyProfile':isMyProfile}" depressed rounded color="#4452fc" @click="globalFunctions.sendMessage">
                <v-flex xs2 mr-1>
                   <chatIcon class="profileUserSticky_btn_icon"/>
                </v-flex>
@@ -41,7 +41,7 @@
                   
                </v-flex>
             </v-btn>
-            <v-btn :disabled="isMyProfile" v-if="getProfile.user.calendarShared" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isMyProfile}" class="profileUserSticky_btn profileUserSticky_btn_book white--text" depressed round color="white">
+            <v-btn :disabled="isMyProfile" v-if="getProfile.user.calendarShared" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isMyProfile}" class="profileUserSticky_btn profileUserSticky_btn_book white--text" depressed rounded color="white">
                <v-flex xs2 mr-1>
                   <calendarIcon class="profileUserSticky_btn_icon"/>
                </v-flex>
@@ -92,7 +92,7 @@
          </div>
          <div class="profileUserSticky_title_become_text" v-else v-language:inner="'profile_become_txt'"/>
          <div class="profileUserSticky_btns why_learn_user_btn mt-3">
-            <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed round color="#4452fc" @click="isMyProfile? globalFunctions.openBecomeTutor() : globalFunctions.goTutorList()">
+            <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed rounded color="#4452fc" @click="isMyProfile? globalFunctions.openBecomeTutor() : globalFunctions.goTutorList()">
                <div class="profileUserSticky_btn_txt" v-language:inner="isMyProfile? 'profile_become_tutor_btn':'profile_find_tutors'"/>
             </v-btn>
          </div>

@@ -1,6 +1,6 @@
 <template>
    <span class="tableFooter">
-      {{$parent.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{$parent.itemsLength}}
+      {{$parent.$parent.pagination.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{$parent.$parent.pagination.itemsLength}}
    </span>
 </template>
 
