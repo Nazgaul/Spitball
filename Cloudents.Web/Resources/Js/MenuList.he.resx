@@ -135,9 +135,6 @@
   <data name="feedback" xml:space="preserve">
     <value>משוב</value>
   </data>
-  <data name="greets" xml:space="preserve">
-    <value>שלום, {1}</value>
-  </data>
   <data name="help" xml:space="preserve">
     <value>עזרה</value>
   </data>
