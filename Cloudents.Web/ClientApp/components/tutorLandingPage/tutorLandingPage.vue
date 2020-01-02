@@ -1,16 +1,18 @@
 <template>
     <v-container class="tutor-landing-page-container">
-        <v-layout :class="`${isMobile ? 'pt-1' : 'pt-1 pb-4'}`" px-4 class="tutor-landing-page-header" align-center justify-center column>
-            <v-flex pt-4 pb-4>
+        <v-layout :class="`${isMobile ? 'pt-2' : 'pt-1 pb-4'}`" px-6 class="tutor-landing-page-header" align-center justify-center column>
+            <v-flex pt-6 pb-4>
                 <h1 v-language:inner="'tutorListLanding_header_get_lesson'"></h1>
             </v-flex>
-            <v-flex pb-4>
+            <v-flex pb-6>
                 <h2 v-language:inner="'tutorListLanding_header_find_tutors'"></h2>
             </v-flex>
             <!-- <v-flex class="pb-6">
                 <h3><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3> -->
             <v-flex :class="{'pb-6': !isMobile}">
-                <h3><span>95%</span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3>
+                <span class="rating_tutorLanding">
+                    <span class="mr-1">95%</span>&nbsp;<v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp;<span class="ml-1" v-language:inner="'tutorListLanding_reviews'"></span>
+                </span>
             </v-flex>
         </v-layout>
         <v-layout class="tutor-landing-page-search" :class="{'sticky-active': activateSticky}" align-center justify-center>
@@ -216,11 +218,17 @@ export default {
     .tutor-landing-page-star{
         color:#ffca54;
         font-size: 20px;
+        line-height: normal;
     }
     .tutor-landing-page-header{
         position: relative;
         background-color: #1b2441;
         padding-bottom:40px;
+        @media (max-width: @screen-xs) {
+            padding-bottom:48px;
+        }
+
+
         h1{
             text-align: center;
             color: #5158af;
@@ -238,13 +246,17 @@ export default {
                 font-size: 16px;
             }
         }
-        h3{
+        .rating_tutorLanding{
             font-size: 18px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.87);
+            display: inline-flex;
+            align-items: flex-end;
             @media (max-width: @screen-xs) {
                 font-size: 16px;
             }
+        }
+        h3{
         }
     }
     .tutor-landing-page-search{

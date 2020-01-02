@@ -6,7 +6,7 @@
                     <a :href="link.url" class="footer-link">{{link.title}}</a>
                 </li>
             </ul>
-            <div class="footer-warp-divider mt-4"></div>
+            <div class="footer-warp-divider mt-6"></div>
             <div class="footer-contact-box">
                 <div class="tutor-list-footer-logo">
                     <logoComponent></logoComponent>
