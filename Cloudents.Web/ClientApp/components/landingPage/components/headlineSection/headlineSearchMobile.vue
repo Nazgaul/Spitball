@@ -2,7 +2,7 @@
     <div class="headlineSearchMobile">
       <div class="headlineTitlesMobile">
         <h1 class="hd-titleMobile" v-language:inner="'homePage_hd_title_mobile'"/>
-        <h2 :class="['hd-subtitleMobile','mb-3']" v-language:inner="'homePage_hd_subtitle'"/>
+        <h2 :class="['hd-subtitleMobile','mb-4']" v-language:inner="'homePage_hd_subtitle'"/>
         <div class="hd-searchMobile">
           <div class="search-input-cont">
             <v-text-field
