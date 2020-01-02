@@ -2,8 +2,8 @@
   <section class="setEmailPassword">
     <p v-language:inner="'loginRegister_setemailpass_title'"/>
     <form @submit.prevent="submit">
-      <v-layout wrap justify-space-between class="widther mb-4">
-        <v-flex xs6 class="pr-3">
+      <v-layout wrap justify-space-between class="widther mb-6">
+        <v-flex xs6 class="pr-4">
           <sb-input v-model="firstName"
                     placeholder="loginRegister_setemailpass_first"
                     :bottomError="true"
@@ -12,7 +12,7 @@
                     name="firstName"
                     type="text"/>
         </v-flex>
-        <v-flex xs6 class="pl-3">
+        <v-flex xs6 class="pl-4">
           <sb-input v-model="lastName"
                     placeholder="loginRegister_setemailpass_last"
                     :bottomError="true"
@@ -36,7 +36,7 @@
 
       <sb-input
         v-model="password"
-        :class="['mt-4', hintClass,'widther']"
+        :class="['mt-6', hintClass,'widther']"
         :hint="passHint"
         placeholder="loginRegister_setemailpass_input_pass"
         :errorMessage="errorMessages.password"
@@ -47,7 +47,7 @@
       />
 
       <sb-input
-        class="mt-4 widther"
+        class="mt-6 widther"
         :errorMessage="errorMessages.confirmPassword"
         :bottomError="true"
         v-model="confirmPassword"
@@ -59,7 +59,7 @@
 
       <vue-recaptcha
         size="invisible"
-        class="mt-4 captcha"
+        class="mt-6 captcha"
         :sitekey="siteKey"
         ref="recaptcha"
         @verify="onVerify"
