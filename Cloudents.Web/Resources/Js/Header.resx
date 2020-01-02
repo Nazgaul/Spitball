@@ -124,7 +124,7 @@
     <value>Find Tutors</value>
   </data>
   <data name="greets" xml:space="preserve">
-    <value>Hi, {1}</value>
+    <value></value>
   </data>
   <data name="placeholder_search" xml:space="preserve">
     <value>Search</value>

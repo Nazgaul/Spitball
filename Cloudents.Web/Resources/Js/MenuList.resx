@@ -161,7 +161,7 @@
     <value>Your balance: {1} Pts</value>
   </data>
   <data name="greets" xml:space="preserve">
-    <value>Hi, {1}</value>
+    <value></value>
   </data>
   <data name="points" xml:space="preserve">
     <value>Get Points</value>
