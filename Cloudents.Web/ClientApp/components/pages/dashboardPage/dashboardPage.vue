@@ -1,9 +1,6 @@
 <template>
    <div class="dashboardPage">
       <component :dictionary="dictionary" :globalFunctions="globalFunctions" :is="component">
-         <template slot="tableFooter">
-            <tableFooter/>
-         </template>
          <template slot="tableEmptyState">
             <tableEmptyState/>
          </template>
@@ -29,7 +26,6 @@ import myPurchases from './myPurchases/myPurchases.vue';
 import myStudyRooms from './myStudyRooms/myStudyRooms.vue';
 
 import tableEmptyState from './global/tableEmptyState.vue';
-import tableFooter from './global/tableFooter.vue';
 
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
@@ -95,7 +91,6 @@ export default {
       changePriceDialog,
       sbDialog,
       tableEmptyState,
-      tableFooter
    },
    computed: {
       ...mapGetters(['accountUser'])

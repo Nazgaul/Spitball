@@ -58,20 +58,22 @@
             
          </v-flex>
       </v-layout>
+      
          <v-data-table
             :headers="headers"
-            :items="salesItems"
+            :items="salesItems" 
             :items-per-page="5"
+            sort-by
+            :item-key="'date'"
+            class="elevation-1 mySales_table"
             :footer-props="{
                showFirstLastPage: false,
                firstIcon: '',
                lastIcon: '',
                prevIcon: 'sbf-arrow-left-carousel',
-               nextIcon: 'sbf-arrow-right-carousel'
-            }"
-            sort-by
-            :item-key="'date'"
-            class="elevation-1 mySales_table">
+               nextIcon: 'sbf-arrow-right-carousel',
+               itemsPerPageOptions: [5]
+            }">
             <template slot="headers" slot-scope="props">
                <tr>
                   <th class="text-xs-left"
@@ -86,7 +88,7 @@
                </tr>
             </template>
             <template v-slot:item="props">
-               <tr>
+               <tr class="mySales_table_tr">
                   <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
                   <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
 
@@ -96,20 +98,8 @@
                   <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"></td>
                </tr>
             </template>
+
             <slot slot="no-data" name="tableEmptyState"/>
-            <!-- <template v-slot:footer="{props}"> 
-               <span class="tableFooter">
-               {{props.pagination.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{props.pagination.itemsLength}}
-            </span>
-            </template> -->
-            <!-- <template v-slot:footer="{props}"> 
-               <span class="tableFooter">
-            </span>
-            </template> -->
-            <template v-slot:footer="{props}">
-               <!-- {{props.pagination.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{props.pagination.itemsLength}} -->
-               <slot name="tableFooter"></slot>
-            </template>
          </v-data-table>
    </div>
 </template>
@@ -176,15 +166,6 @@ export default {
       recalculate(){
          this.updateBalancesItems()
       },
-      checkIsSession(prop){
-         return prop === 'TutoringSession';
-      },
-      checkIsQuestion(prop){
-         return prop === 'Question' && prop !== 'Answer';
-      },
-      checkIsItem(prop){
-         return prop !== 'Question' && prop !== 'Answer' && prop !== 'TutoringSession';
-      },
       formatItemStatus(paymentStatus){
          if(paymentStatus === 'Pending'){
             return LanguageService.getValueByKey('dashboardPage_pending')
@@ -205,20 +186,6 @@ export default {
          this.paginationModel.page = 1;
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
       },
-      calculatedEarnedPoints(){
-         let typesDictionary = {};
-            let earned = 0;
-            this.balancesItems.forEach((item) => {
-                      typesDictionary[item.type] = item.points;
-                  });
-            let reduce = typesDictionary["Stake"] + typesDictionary["Spent"];
-            if(reduce < 0){
-                earned = typesDictionary["Earned"] + reduce;
-            }else{
-                earned = typesDictionary["Earned"];
-            }
-            return earned;
-        },
    },
    created() {
       this.updateSalesItems()
@@ -237,34 +204,24 @@ export default {
       padding: 0 0 10px 2px;
    }
    .mySales_wallet{
-        .mySales_cash-out-wrapper {
-    text-align: center;
-    padding: 0 8px;
-   //  .responsive-property(margin-top, 22px, null, 16px);
-   //  padding-bottom: 32px;
-    .mySales_text-wrap {
-      .responsive-property(margin-bottom, 32px, null, 16px);
-      .responsive-property(font-size, 24px, null, 20px);
-      color: grey;
-      letter-spacing: -0.7px;
-      text-align: center;
-      .main-text {
-        font-weight: bold;
+      .mySales_cash-out-wrapper {
+         text-align: center;
+         padding: 0 8px;
+         .mySales_text-wrap {
+            .responsive-property(margin-bottom, 32px, null, 16px);
+            .responsive-property(font-size, 24px, null, 20px);
+            color: grey;
+            letter-spacing: -0.7px;
+            text-align: center;
+            .mySales_points-text span {
+               font-weight: bold;
+               color: @color-main-purple;
+            }
+         }
       }
-      .mySales_points-text span {
-        font-weight: bold;
-        color: @color-main-purple;
-      }
-    }
-      .mySales_wallet_reedem{
-         background: white;
-      }
-
-  }
-      
    }
    .mySales_table{
-      .v-datatable{
+      .v-data-table-header {
          tr{
             height: auto;
             th{
@@ -272,40 +229,15 @@ export default {
                font-size: 14px;
                padding-top: 14px;
                padding-bottom: 14px;
+               font-weight: normal;
             }
+            
          }
          color: #43425d !important;
       }
-      .mySales_footer{
-         font-size: 14px;
-         color: #43425d !important;
-      }
-      .mySales_td {
-         height: auto;
-      }
-      .mySales_td_img{
-         line-height: 0;
-         padding-right: 0 !important;
-         .mySales_td_img_img{
-            img{
-               margin: 10px 0;
-               &.imgPreview_sales{
-                  object-fit: none;
-                  object-position: top;
-               }
-            }
-
-         }
-      }
-      .mySales_td_course {
-         a{
-            color: #43425d !important;
-         }
-         width: 450px;
-         max-width: 450px;
-         min-width: 300px;
-         @media (max-width: @screen-xs) {
-            width: auto;
+      .mySales_table_tr {
+         td {
+            font-size: 13px !important;
          }
       }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
@@ -314,7 +246,13 @@ export default {
          height: inherit;
          font-size: 14px;
       }
-
+      .v-data-footer {
+         padding: 6px 0;
+         .v-data-footer__pagination {
+            font-size: 14px;
+            color: #43425d;
+         }
+      }
    }
 
 }

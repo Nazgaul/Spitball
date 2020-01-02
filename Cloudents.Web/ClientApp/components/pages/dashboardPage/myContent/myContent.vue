@@ -2,20 +2,20 @@
    <div class="myContent">
       <div class="myContent_title" v-language:inner="'dashboardPage_my_content_title'"/>
       <v-data-table 
-            :pagination.sync="paginationModel"
             :headers="headers"
             :items="contentItems"
             :items-per-page="5"
+            sort-by
+            :item-key="'date'"
+            class="elevation-1 myContent_table"
             :footer-props="{
-               showFirstLastPage: true,
+               showFirstLastPage: false,
                firstIcon: '',
                lastIcon: '',
                prevIcon: 'sbf-arrow-left-carousel',
-               nextIcon: 'sbf-arrow-right-carousel'
-            }"
-            sort-by
-            :item-key="'date'"
-            class="elevation-1 myContent_table">
+               nextIcon: 'sbf-arrow-right-carousel',
+               itemsPerPageOptions: [5]
+            }">
          <template slot="headers" slot-scope="props">
             <tr>
                <th class="text-xs-left"
@@ -30,7 +30,7 @@
             </tr>
          </template>
             <template v-slot:item="props">
-               <tr>
+               <tr class="myContent_table_tr">
                   <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
                   <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
 
@@ -42,20 +42,21 @@
                   <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
                   <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                   <td class="text-xs-center">
-                     <v-menu lazy bottom left v-model="showMenu" v-if="!checkIsQuestion(props.item.type)" >
-                        <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
-
+                     <v-menu bottom left v-model="showMenu" v-if="!checkIsQuestion(props.item.type)">
+                        <template v-slot:activator="{ on }">
+                           <v-icon @click="currentItemIndex = props.index" v-on="on" slot="activator" small icon>sbf-3-dot</v-icon>
+                        </template>
+                     
                         <v-list v-if="props.index == currentItemIndex">
-                           <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog('rename',props.item)">{{rename}}</v-list-tile>
-                           <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog('changePrice',props.item)">{{changePrice}}</v-list-tile>
+                           <v-list-item style="cursor:pointer;" @click="globalFunctions.openDialog('rename',props.item)">{{rename}}</v-list-item>
+                           <v-list-item style="cursor:pointer;" @click="globalFunctions.openDialog('changePrice',props.item)">{{changePrice}}</v-list-item>
                         </v-list>
                      </v-menu>
                   </td>
                </tr>
             </template>
-         <slot slot="no-data" name="tableEmptyState"/>
-         <slot slot="pageText" name="tableFooter"/>
 
+            <slot slot="no-data" name="tableEmptyState"/>
       </v-data-table>
    </div>
 </template>
@@ -144,7 +145,7 @@ export default {
       box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
    }
    .myContent_table{
-      .v-datatable{
+      .v-data-table-header{
          tr{
             height: auto;
             th{
@@ -152,16 +153,35 @@ export default {
                font-size: 14px;
                padding-top: 14px;
                padding-bottom: 14px;
+               font-weight: normal;
             }
             
          }
          color: #43425d !important;
+      }
+      .myContent_table_tr {
+         td {
+            font-size: 13px !important;
+         }
       }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          transform: none /*rtl:rotate(180deg)*/;
          color: #43425d !important;
          height: inherit;
          font-size: 14px;
+      }
+      .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
+         transform: none /*rtl:rotate(180deg)*/;
+         color: #43425d !important;
+         height: inherit;
+         font-size: 14px;
+      }
+      .v-data-footer {
+         padding: 6px 0;
+         .v-data-footer__pagination {
+            font-size: 14px;
+            color: #43425d;
+         }
       }
    }
 }
