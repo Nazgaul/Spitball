@@ -59,6 +59,7 @@
          </v-flex>
       </v-layout>
          <v-data-table
+            ref="table"
             :headers="headers"
             :items="salesItems"
             :items-per-page="5"
@@ -67,7 +68,10 @@
                firstIcon: '',
                lastIcon: '',
                prevIcon: 'sbf-arrow-left-carousel',
-               nextIcon: 'sbf-arrow-right-carousel'
+               nextIcon: 'sbf-arrow-right-carousel',
+               itemsPerPageText: '',
+               pageText: pageText,
+               itemsPerPageOptions: [5]
             }"
             sort-by
             :item-key="'date'"
@@ -97,19 +101,7 @@
                </tr>
             </template>
             <slot slot="no-data" name="tableEmptyState"/>
-            <!-- <template v-slot:footer="{props}"> 
-               <span class="tableFooter">
-               {{props.pagination.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{props.pagination.itemsLength}}
-            </span>
-            </template> -->
-            <!-- <template v-slot:footer="{props}"> 
-               <span class="tableFooter">
-            </span>
-            </template> -->
-            <template v-slot:footer="{props}">
-               <!-- {{props.pagination.pageStop}} <span v-language:inner="'dashboardPage_of'"/> {{props.pagination.itemsLength}} -->
-               <slot name="tableFooter"></slot>
-            </template>
+    
          </v-data-table>
    </div>
 </template>
@@ -166,6 +158,13 @@ export default {
       balancesItems(){
          return this.getBalancesItems;
       },
+      pageText() {
+         let table = this.$refs.table
+         if(this.salesItems.length && table) {
+            return `${table.itemsPerPage} ${LanguageService.getValueByKey('dashboardPage_of')} ${this.salesItems.length}`;
+         }
+         return '';
+      }
    },
    methods: {
       ...mapActions(['updateSalesItems','dashboard_sort','updateBalancesItems']),
@@ -175,15 +174,6 @@ export default {
       },
       recalculate(){
          this.updateBalancesItems()
-      },
-      checkIsSession(prop){
-         return prop === 'TutoringSession';
-      },
-      checkIsQuestion(prop){
-         return prop === 'Question' && prop !== 'Answer';
-      },
-      checkIsItem(prop){
-         return prop !== 'Question' && prop !== 'Answer' && prop !== 'TutoringSession';
       },
       formatItemStatus(paymentStatus){
          if(paymentStatus === 'Pending'){
@@ -205,20 +195,6 @@ export default {
          this.paginationModel.page = 1;
          this.sortedBy = this.sortedBy === sortBy ? '' : sortBy;
       },
-      calculatedEarnedPoints(){
-         let typesDictionary = {};
-            let earned = 0;
-            this.balancesItems.forEach((item) => {
-                      typesDictionary[item.type] = item.points;
-                  });
-            let reduce = typesDictionary["Stake"] + typesDictionary["Spent"];
-            if(reduce < 0){
-                earned = typesDictionary["Earned"] + reduce;
-            }else{
-                earned = typesDictionary["Earned"];
-            }
-            return earned;
-        },
    },
    created() {
       this.updateSalesItems()
@@ -237,84 +213,37 @@ export default {
       padding: 0 0 10px 2px;
    }
    .mySales_wallet{
-        .mySales_cash-out-wrapper {
-    text-align: center;
-    padding: 0 8px;
-   //  .responsive-property(margin-top, 22px, null, 16px);
-   //  padding-bottom: 32px;
+      .mySales_cash-out-wrapper {
+         text-align: center;
+         padding: 0 8px;
     .mySales_text-wrap {
       .responsive-property(margin-bottom, 32px, null, 16px);
       .responsive-property(font-size, 24px, null, 20px);
       color: grey;
       letter-spacing: -0.7px;
       text-align: center;
-      .main-text {
-        font-weight: bold;
-      }
       .mySales_points-text span {
         font-weight: bold;
         color: @color-main-purple;
       }
     }
-      .mySales_wallet_reedem{
-         background: white;
-      }
-
   }
       
    }
    .mySales_table{
-      .v-datatable{
-         tr{
-            height: auto;
-            th{
-               color: #43425d !important;
-               font-size: 14px;
-               padding-top: 14px;
-               padding-bottom: 14px;
-            }
-         }
-         color: #43425d !important;
-      }
-      .mySales_footer{
-         font-size: 14px;
-         color: #43425d !important;
-      }
-      .mySales_td {
-         height: auto;
-      }
-      .mySales_td_img{
-         line-height: 0;
-         padding-right: 0 !important;
-         .mySales_td_img_img{
-            img{
-               margin: 10px 0;
-               &.imgPreview_sales{
-                  object-fit: none;
-                  object-position: top;
-               }
-            }
-
-         }
-      }
-      .mySales_td_course {
-         a{
-            color: #43425d !important;
-         }
-         width: 450px;
-         max-width: 450px;
-         min-width: 300px;
-         @media (max-width: @screen-xs) {
-            width: auto;
-         }
-      }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          transform: none /*rtl:rotate(180deg)*/;
          color: #43425d !important;
          height: inherit;
          font-size: 14px;
       }
-
+      .v-data-footer {
+         padding: 6px 0;
+         .v-data-footer__pagination {
+            font-size: 14px;
+            color: #43425d;
+         }
+      }
    }
 
 }
