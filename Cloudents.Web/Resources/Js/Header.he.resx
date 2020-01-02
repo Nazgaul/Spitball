@@ -123,6 +123,9 @@
   <data name="find_tutors" xml:space="preserve">
     <value>מורים פרטיים</value>
   </data>
+  <data name="greets" xml:space="preserve">
+    <value>{1}</value>
+  </data>
   <data name="placeholder_search" xml:space="preserve">
     <value>חיפוש</value>
   </data>
