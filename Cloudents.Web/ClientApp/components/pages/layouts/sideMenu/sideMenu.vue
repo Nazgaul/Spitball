@@ -46,7 +46,7 @@
               <v-list-item-content> 
                 <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker(item.key)}]">
                   <v-icon class="group_list_icon_dash" v-html="item.icon"/>
-                  <span class="group_list_title_dash ml-2">{{item.name}}</span>
+                  <span class="group_list_title_dash ml-3">{{item.name}}</span>
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -55,7 +55,7 @@
               <v-list-item-content>
                 <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker('getPoint')}]">
                   <v-icon class="group_list_icon_dash" v-html="'sbf-get-points'"/>
-                  <span class="group_list_title_dash ml-2" v-language:inner="'menuList_points'"/>
+                  <span class="group_list_title_dash ml-3" v-language:inner="'menuList_points'"/>
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
