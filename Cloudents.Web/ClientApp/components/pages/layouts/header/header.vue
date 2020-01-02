@@ -150,7 +150,6 @@ export default {
     watch: {
     '$route'(){
       this.$nextTick(()=>{
-          console.log(this.$route.name)
             this.drawer = false;
             this.currentRoute = this.$route.name
       })
@@ -215,14 +214,16 @@ export default {
     z-index: 200 !important;
     .v-toolbar__extension{
         @media (max-width: @screen-xs) {
-            padding: 0 8px
-    }
+            padding: 0 8px;
+            border-bottom: solid 1px #dadada;
+        }
     }
     .v-toolbar__content{
         border-bottom: solid 1px #dadada;
         padding: 0 24px 0 16px;
         @media (max-width: @screen-xs) {
-            padding: 0 8px 0 4px; 
+            padding: 0 8px 0 4px;
+            border-bottom: none;
         }  
     }
     .globalHeader_logo{
