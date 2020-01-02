@@ -2,12 +2,12 @@
   <div class="study-room-settings-wrapper">
     <button @click="closeDialog" class="close-button"><v-icon>sbf-close</v-icon></button>
     <div class="study-room-settings-top">
-      <v-navigation-drawer permanent class="study-room-settings-nav">
-        <v-toolbar flat>
+      <v-navigation-drawer width="300" permanent class="study-room-settings-nav">
+        <v-toolbar class="study_room_toolBar" flat>
           <v-list>
-            <v-list-item>
+            <v-list-item class="pa-0">
               <v-list-item-title class="study-room-settings-nav-title">
-                <span v-language:inner='"studyRoomSettings_title"'></span>
+                <span class="study-room-settings-nav-title_title" v-language:inner='"studyRoomSettings_title"'></span>
               </v-list-item-title>
             </v-list-item>
           </v-list>
@@ -102,13 +102,21 @@ export default {
       display: flex;
       height: 100%;
       .study-room-settings-nav {
+        .study_room_toolBar{
+          background: rgb(245, 245, 245)
+
+        }
         .study-room-settings-nav-title{
             display: flex;
             align-items: center;
             font-weight: bold;
         }
+        .study-room-settings-nav-title_title{
+          font-size: 16px;
+        }
         .v-list-item__title {
           transition: none;
+          font-size: 13px;
         }
         .v-list-item__action{
           margin: 0 32px 0 0;
