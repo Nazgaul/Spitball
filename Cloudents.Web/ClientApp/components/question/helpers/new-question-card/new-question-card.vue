@@ -33,24 +33,14 @@
             </div>
             <div class="question-body-container" :class="{'ml-12': !$vuetify.breakpoint.xsOnly}">
                 <div class="question-right-body-container">
-                    <!-- <v-layout align-center justify-start class="question-body-header-container">
-                        <div class="question-subject">{{cardData.course}}</div>
-                        <div v-show="!!cardData.course && !!cardData.subject" class="question-course"> 
-                            <span class="dot"></span>  
-                            <span class="lineClamp">{{cardData.subject}}</span>
-                        </div>
-                    </v-layout> -->
                     <div class="question-body-content-container mt-2 mb-1" :class="{'question-ellipsis': $route.name === 'feed'}">
                         <div class="question-text body-2">{{cardData.text}}</div>
                     </div>
                     <div class="question-body-course-container" :class="[answers ? 'mb-4' : 'mb-0']">
-                        <!-- <div class="question-body-course text-truncate" v-html="$Ph('resultNote_course',[cardData.course])"></div> -->
                         <div class="question-body-course_name text-truncate">
                             <span class="question-body-course_name_span" v-language:inner="'resultNote_course'"></span>
-                            <span class="question-body-course_name_h2"> {{cardData.course}}</span>
+                            <h2 class="question-body-course_name_h2"> {{cardData.course}}</h2>
                         </div>
-                        <!-- <div class="mr-1" v-language:inner="'resultTutor_courses'"></div> -->
-                        <!-- <div class="question-subject text-truncate">{{cardData.course}}</div> -->
                     </div>
                     <div class="gallery" v-if="cardData.files && cardData.files.length">
                         <v-carousel 
