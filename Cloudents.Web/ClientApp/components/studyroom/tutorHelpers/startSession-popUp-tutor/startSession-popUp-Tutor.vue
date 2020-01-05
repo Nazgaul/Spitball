@@ -28,10 +28,10 @@
                 <span class="">{{roomStateText}}</span>
             </v-btn>
         </v-flex>
-        <v-flex class="font-weight-bold start-session-text" pt-4 v-else>
+        <v-flex class="font-weight-bold start-session-text" pt-6 v-else>
             {{roomStateText}}
         </v-flex>
-        <v-flex xs12 v-if="sessionFinished" class="pt-12">
+        <v-flex xs12 v-if="sessionFinished" class="pt-3">
             <span class="subheading" v-language:inner="'tutor_start_dialog_session_time'"></span>
             <span class="subheading">&nbsp;{{sessionTime}}</span>
         </v-flex>
