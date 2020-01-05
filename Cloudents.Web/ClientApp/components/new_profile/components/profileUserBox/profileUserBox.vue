@@ -88,7 +88,7 @@
         <v-flex v-if="currentProfileUser.description" sm9 xs12 class="profileUserBox_middle">
             <h3 class="pUb_middle_AboutMe" v-text="currentProfileUser.description"/>
             <template v-if="currentProfileUser.isTutor">
-                <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}<span v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-text="isOpen? 'Read less' : 'Read more'"/></h4>
+                <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}<span v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'" v-text="isOpen? 'Read less' : 'Read more'"/></h4>
             </template>
         </v-flex>
         <div class="profileUserBox_bottom" v-if="currentProfileUser.isTutor && currentProfileTutor.subjects.length">
