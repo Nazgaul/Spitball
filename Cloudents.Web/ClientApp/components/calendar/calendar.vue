@@ -66,7 +66,7 @@
             :interval-minutes="intervals.minutes"
             :interval-count="intervals.count"
             :interval-height="intervals.height">
-            <template v-slot:dayBody="{ date, hour, timeToY, minutesToPixels }">
+            <template v-slot:day-body="{ date, hour, timeToY, minutesToPixels }">
               <template v-for="event in eventsMap[date]">
                 <div v-if="event.time" :key="event.time+2" class="my-event with-time" v-html="event.time"
                   :style="{ top: timeToY(event.time) + 'px', height: minutesToPixels(60) + 'px' }">
@@ -448,6 +448,7 @@ display: flex;
         min-width: 140px;
         height: 40px !important;
         padding: 0px 32px !important;
+        margin: 6px 8px;
       }
       .cncl-btn{
         color: @global-blue;
@@ -557,7 +558,7 @@ display: flex;
 .my-event {
     text-align: center;
     font-size: 12px;
-    padding: 3px;
+    padding: 5px;
     padding-bottom: 0;
     margin-right: 8px;
     position: relative;
