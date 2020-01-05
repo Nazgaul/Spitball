@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace Cloudents.Core.Entities
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernane proxy")]
+
     public class TutorCalendar : Entity<Guid>
     {
         public TutorCalendar([NotNull] string googleId, [NotNull] string name, Tutor tutor)

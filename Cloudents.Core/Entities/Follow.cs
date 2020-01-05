@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor",Justification = "nhibernate")]
     public class Follow : IEquatable<Follow>
     {
         public Follow(BaseUser followed, BaseUser follower)

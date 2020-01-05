@@ -32,13 +32,13 @@ namespace Cloudents.Core.EventHandler
             return Task.CompletedTask;
         }
 
-        private Task SendEmailAsync(User user, CancellationToken token)
-        {
-            var invisibleTime = _random.Next(10, 20);
-            return SendEmail(
-                new QuestionDeletedEmail(user.Email, user.Language),
-                TimeSpan.FromMinutes(invisibleTime), token);
-        }
+        //private Task SendEmailAsync(User user, CancellationToken token)
+        //{
+        //    var invisibleTime = _random.Next(10, 20);
+        //    return SendEmail(
+        //        new QuestionDeletedEmail(user.Email, user.Language),
+        //        TimeSpan.FromMinutes(invisibleTime), token);
+        //}
 
         //public Task HandleAsync(QuestionRejectEvent eventMessage, CancellationToken token)
         //{

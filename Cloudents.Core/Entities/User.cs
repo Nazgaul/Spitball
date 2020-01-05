@@ -193,6 +193,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
+
         private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
 
         public virtual IEnumerable<StudyRoomUser> StudyRooms => _studyRooms;

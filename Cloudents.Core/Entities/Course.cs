@@ -79,8 +79,10 @@ namespace Cloudents.Core.Entities
 
         public virtual DateTime Created { get; protected set; }
 
-        private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
-        public virtual IEnumerable<UserCourse> Users => _users;
+        //private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
+        //public virtual IEnumerable<UserCourse> Users => _users;
+
+        protected internal virtual ISet<UserCourse> Users { get; set; }
 
 
         public virtual ItemState State { get; protected set; }

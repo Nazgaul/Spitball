@@ -32,7 +32,7 @@ function TextMessage(objInit, id, fromSignalR){
     this.type = objInit.type;
     this.dateTime = objInit.dateTime || new Date().toISOString();
     this.name = objInit.name;
-    this.image = objInit.image;
+   // this.image = objInit.image;
     this.fromSignalR = fromSignalR || false;
     this.unreadMessage = objInit.unreadMessage || objInit.unread;
     this.isDummy = objInit.isDummy || false;

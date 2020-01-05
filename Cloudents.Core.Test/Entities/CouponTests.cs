@@ -80,7 +80,8 @@ namespace Cloudents.Core.Test.Entities
 
 
             // ReSharper disable once PossibleNullReferenceException
-            typeof(Coupon).GetField("_userCoupon", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(coupon, usedCoupon);
+            typeof(Coupon).GetProperty("UserCoupon", BindingFlags.NonPublic | BindingFlags.Instance)
+                .SetValue(coupon, usedCoupon);
             
             
 

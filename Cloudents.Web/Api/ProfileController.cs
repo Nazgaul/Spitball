@@ -57,12 +57,6 @@ namespace Cloudents.Web.Api
         {
             var query = new UserProfileAboutQuery(id);
             var res = await _queryBus.QueryAsync(query, token);
-
-            foreach (var review in res.Reviews)
-            {
-                review.Image = _urlBuilder.BuildUserImageEndpoint(review.Id, review.Image);
-            }
-            
             return res;
         }
 

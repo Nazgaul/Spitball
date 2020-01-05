@@ -8,7 +8,14 @@ namespace Cloudents.Web.Services
 {
     public class Logger : ILogger
     {
-        private readonly TelemetryClient _telemetry = new TelemetryClient();
+        private readonly TelemetryClient _telemetry;
+
+        public Logger(TelemetryClient client)
+        {
+            _telemetry = client;
+        }
+
+        //private readonly TelemetryClient _telemetry = new TelemetryClient();
         public void Exception(Exception ex, IDictionary<string, string> properties = null)
         {
             _telemetry.TrackException(ex, properties);

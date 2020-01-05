@@ -37,7 +37,7 @@ namespace Cloudents.Query.Query
                     .Fetch(f => f.User)
                     .Fetch(f => f.Document)
                     .Where(w => w.User.Id == query.Id)
-                    .Where(w => w.Type == Core.Enum.TransactionType.Earned)
+                    .Where(w => w.Type == TransactionType.Earned)
                     .Where(w=>w.Document.Status.State == ItemState.Ok)
                     .Select(s => new DocumentSaleDto()
                     {
@@ -57,7 +57,7 @@ namespace Cloudents.Query.Query
                     .Fetch(f => f.Question)
                     .Where(w=> w.Question != null)
                     .Where(w => w.User.Id == query.Id)
-                    .Where(w => w.Type == Core.Enum.TransactionType.Earned)
+                    .Where(w => w.Type == TransactionType.Earned)
                     .Select(s => new QuestionSaleDto()
                     {
                         Id = s.Question.Id,

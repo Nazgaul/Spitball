@@ -179,7 +179,7 @@
   </data>
   <data name="hey_there" xml:space="preserve">
     <value>Hey there, I’m</value>
-    <comment>Dont show this </comment>
+    <comment>Don't show this </comment>
   </data>
   <data name="points_hour" xml:space="preserve">
     <value>hour</value>
@@ -258,7 +258,7 @@
   </data>
   <data name="no_students" xml:space="preserve">
     <value>No Students yet</value>
-    <comment>Dont show this </comment>
+    <comment>Don't show this </comment>
   </data>
   <data name="resourses" xml:space="preserve">
     <value>{1} Downloadables</value>
@@ -279,7 +279,7 @@
     <value>Teach On Spitball</value>
   </data>
   <data name="become_txt" xml:space="preserve">
-    <value>Earn mony by teaching what you know best. Access to the tools you need to create and sell education Content and teach online.</value>
+    <value>Earn money by teaching what you know best. Access to the tools you need to create and sell education Content and teach online.</value>
   </data>
   <data name="book_session" xml:space="preserve">
     <value>Book a lesson with me</value>
@@ -309,7 +309,7 @@
     <value>I want to earn money</value>
   </data>
   <data name="earn_desc" xml:space="preserve">
-    <value>Tust upload your documents/class notes that you already have and make passive income.</value>
+    <value>Trust upload your documents/class notes that you already have and make passive income.</value>
   </data>
   <data name="earn_title" xml:space="preserve">
     <value>Your study materials worth money on spitball!</value>

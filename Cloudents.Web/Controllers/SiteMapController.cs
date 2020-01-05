@@ -14,6 +14,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Cloudents.Web.Seo;
+using Cloudents.Web.Services;
 
 
 namespace Cloudents.Web.Controllers
@@ -24,19 +25,23 @@ namespace Cloudents.Web.Controllers
     {
         internal const int PageSize = 20000;
         private readonly IQueryBus _queryBus;
+        private readonly ConfigurationService _configurationService;
+
         private readonly XmlWriterSettings _xmlWriterSettings = new XmlWriterSettings
         {
             Async = true,
             Encoding = Encoding.UTF8,
             Indent = true,
+            OmitXmlDeclaration = true,
             IndentChars = "  ",
             NewLineChars = "\r\n",
             NewLineHandling = NewLineHandling.Replace
         };
 
-        public SiteMapController(IQueryBus queryBus)
+        public SiteMapController(IQueryBus queryBus, ConfigurationService configurationService)
         {
             _queryBus = queryBus;
+            _configurationService = configurationService;
         }
 
 
@@ -44,7 +49,7 @@ namespace Cloudents.Web.Controllers
         [ResponseCache(Duration = 1 * TimeConst.Day)]
         public async Task<IActionResult> IndexAsync(CancellationToken token)
         {
-            var query = new SiteMapQuery();
+            var query = new SiteMapQuery(_configurationService.GetSiteName() == ConfigurationService.Site.Frymo);
             var result = await _queryBus.QueryAsync(query, token);
             result.Add(new SiteMapCountDto(SeoType.Static, 1));
 
@@ -68,15 +73,8 @@ namespace Cloudents.Web.Controllers
                      );
                 }
             }
-            var doc = new XDocument(
-                new XDeclaration("1.0", "utf-8", "yes"),
-                new XComment("This is a comment"),
-                new XElement("Root", "content")
-            );
-
-            var z = doc.ToString();
             var document = new XDocument(
-                new XDeclaration("1.0", "utf-8", ""), root);
+                 new XDeclaration("1.0", "utf-8", ""), root);
             return new FileCallbackResult("application/xml",
                 async (stream, context) =>
                 {
@@ -87,43 +85,42 @@ namespace Cloudents.Web.Controllers
 
 
         [Route("sitemap-{type}-{index:int}.xml", Name = "siteMapDescription")]
-        public IActionResult DetailIndexAsync(SeoType type, int index,
+        public IActionResult DetailIndex(SeoType type, int index,
             [FromServices] IIndex<SeoType, IBuildSeo> seoBuilder)
         {
             var provider = seoBuilder[type];
-            var urls = provider.GetUrls(index);
+            var urls = provider.GetUrls(_configurationService.GetSiteName() == ConfigurationService.Site.Frymo, index);
 
             var ns = new XmlSerializerNamespaces();
             ns.Add("", "");
             return new FileCallbackResult("application/xml", async (stream, context) =>
             {
-                using (var writer = XmlWriter.Create(stream, _xmlWriterSettings))
+                using var writer = XmlWriter.Create(stream, _xmlWriterSettings);
+                var serializer = new XmlSerializer(typeof(SitemapNode));
+                var i = 0;
+                await writer.WriteStartDocumentAsync();
+
+                await writer.WriteStartElementAsync(null, "urlset", null);
+                // writer.WriteStartElement("urlset",
+                //     "http://www.sitemaps.org/schemas/sitemap/0.9");
+                await writer.WriteAttributeStringAsync("xmlns", "image", null, "http://www.google.com/schemas/sitemap-image/1.1");
+                await writer.WriteAttributeStringAsync("v", "xmlns", null, "http://www.sitemaps.org/schemas/sitemap/0.9");
+                //writer.WriteAttributeString("xmlns", "video", null, "http://www.google.com/schemas/sitemap-video/1.1");
+                //writer.WriteAttributeString("xmlns", "xhtml", null, "http://www.w3.org/1999/xhtml");
+                //writer.WriteAttributeString("xmlns:xhtml", "http://www.w3.org/1999/xhtml"); // for lang support
+                foreach (var url in urls)
                 {
-                    var serializer = new XmlSerializer(typeof(SitemapNode), "");
-                    var i = 0;
-                    await writer.WriteStartDocumentAsync();
-
-                    //writer.WriteStartElement();
-                    writer.WriteStartElement("urlset",
-                        "http://www.sitemaps.org/schemas/sitemap/0.9");
-                    writer.WriteAttributeString("xmlns", "image", null, "http://www.google.com/schemas/sitemap-image/1.1");
-                    //writer.WriteAttributeString("xmlns", "video", null, "http://www.google.com/schemas/sitemap-video/1.1");
-                    //writer.WriteAttributeString("xmlns", "xhtml", null, "http://www.w3.org/1999/xhtml");
-                    //writer.WriteAttributeString("xmlns:xhtml", "http://www.w3.org/1999/xhtml"); // for lang support
-                    foreach (var url in urls)
+                    i++;
+                    serializer.Serialize(writer, url, ns);
+                    if (i % 100 == 0)
                     {
-                        i++;
-                        serializer.Serialize(writer, url, ns);
-                        if (i % 100 == 0)
-                        {
-                            await writer.FlushAsync();
-                        }
+                        await writer.FlushAsync();
                     }
-
-                    await writer.WriteEndElementAsync();
-                    await writer.WriteEndDocumentAsync();
-                    await writer.FlushAsync();
                 }
+
+                await writer.WriteEndElementAsync();
+                await writer.WriteEndDocumentAsync();
+                await writer.FlushAsync();
             });
         }
 

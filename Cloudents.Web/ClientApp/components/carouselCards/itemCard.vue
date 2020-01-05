@@ -2,7 +2,7 @@
     <router-link v-if="item.url" event @click.native.prevent="goToItem" :to="item.url" class="itemCarouselCard">
     <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="">
     <div class="item-cont pa-2">
-        <h1 class="item-title text-truncate">{{item.title}}</h1>
+        <div class="item-title text-truncate">{{item.title}}</div>
         <div class="item-course text-truncate">
             <b v-language:inner="'itemCardCarousel_course'"/> {{item.course}}</div>
         <div class="item-university text-truncate" v-if="item.university">

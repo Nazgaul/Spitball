@@ -1,14 +1,14 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
-using NHibernate;
-using NHibernate.Linq;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
+using NHibernate;
+using NHibernate.Linq;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.HomePage
 {
     public class GetBannerQuery : IQuery<BannerDto>
     {

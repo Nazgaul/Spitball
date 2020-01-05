@@ -44,7 +44,11 @@
                         <div class="question-text body-2">{{cardData.text}}</div>
                     </div>
                     <div class="question-body-course-container" :class="[answers ? 'mb-4' : 'mb-0']">
-                        <div class="question-body-course body-2 text-truncate" v-html="$Ph('resultNote_course',[cardData.course])"></div>
+                        <!-- <div class="question-body-course text-truncate" v-html="$Ph('resultNote_course',[cardData.course])"></div> -->
+                        <div class="question-body-course_name text-truncate">
+                            <span class="question-body-course_name_span" v-language:inner="'resultNote_course'"></span>
+                            <span class="question-body-course_name_h2"> {{cardData.course}}</span>
+                        </div>
                         <!-- <div class="mr-1" v-language:inner="'resultTutor_courses'"></div> -->
                         <!-- <div class="question-subject text-truncate">{{cardData.course}}</div> -->
                     </div>

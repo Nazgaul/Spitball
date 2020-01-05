@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Query
 {
@@ -20,10 +21,12 @@ namespace Cloudents.Query.Query
         internal sealed class UserPurchasesByIdQueryHandler : IQueryHandler<UserPurchasesByIdQuery, IEnumerable<UserPurchasDto>>
         {
             private readonly IStatelessSession _session;
+            private readonly IUrlBuilder _urlBuilder;
 
-            public UserPurchasesByIdQueryHandler(IStatelessSession session)
+            public UserPurchasesByIdQueryHandler(IStatelessSession session, IUrlBuilder urlBuilder)
             {
                 _session = session;
+                _urlBuilder = urlBuilder;
             }
 
             public async Task<IEnumerable<UserPurchasDto>> GetAsync(UserPurchasesByIdQuery query, CancellationToken token)
@@ -59,7 +62,7 @@ namespace Cloudents.Query.Query
                         Duration = s.Duration,
                         TutorName = s.StudyRoom.Tutor.User.Name,
                         TutorId = s.StudyRoom.Tutor.Id,
-                        TutorImage = s.StudyRoom.Tutor.User.Image
+                        TutorImage = _urlBuilder.BuildUserImageEndpoint(s.StudyRoom.Tutor.Id, s.StudyRoom.Tutor.User.ImageName, s.StudyRoom.Tutor.User.Name, null)
                     }).ToFuture<UserPurchasDto>();
 
 

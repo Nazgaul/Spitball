@@ -26,6 +26,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Command.Documents.ChangePrice;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudents.Query.Query;
 
@@ -108,8 +109,11 @@ namespace ConsoleApp
                 .As<IVideoService>().WithParameter("isDevelop", env == EnvironmentSettings.Dev);
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
             builder.RegisterModule<ModuleFile>();
-
-            _container = builder.Build();
+            builder.RegisterType<MLRecommendation>().AsSelf();
+                
+                
+                
+                _container = builder.Build();
 
             if (Environment.UserName == "Ram")
             {
@@ -136,8 +140,10 @@ namespace ConsoleApp
         {
          
             var queryBus = _container.Resolve<IQueryBus>();
-            var query = new UserSalesByIdQuery(638);
+
+            var query = new SiteMapQuery(true);
             var result = await queryBus.QueryAsync(query, default);
+
 
         }
         private static async Task ResyncTutorRead()

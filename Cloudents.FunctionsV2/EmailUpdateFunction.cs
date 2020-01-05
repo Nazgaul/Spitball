@@ -6,7 +6,6 @@ using Cloudents.Core.Message.Email;
 using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using Cloudents.Query.Email;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -192,13 +191,13 @@ namespace Cloudents.FunctionsV2
             return uriBuilderImage.ToString();
         }
 
-        private static string BuildHash(IBinarySerializer binarySerializer, Uri previewUri)
-        {
-            var properties = new ImageProperties(previewUri);
-            var byteHash = binarySerializer.Serialize(properties);
-            var hash = Base64UrlTextEncoder.Encode(byteHash);
-            return hash;
-        }
+        //private static string BuildHash(IBinarySerializer binarySerializer, Uri previewUri)
+        //{
+        //    var properties = new ImageProperties(previewUri);
+        //    var byteHash = binarySerializer.Serialize(properties);
+        //    var hash = Base64UrlTextEncoder.Encode(byteHash);
+        //    return hash;
+        //}
 
         [FunctionName("EmailUpdateFunction_TimerStart")]
         public static async Task TimerStart(
