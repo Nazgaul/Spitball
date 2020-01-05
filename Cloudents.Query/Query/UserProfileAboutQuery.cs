@@ -38,6 +38,7 @@ namespace Cloudents.Query.Query
                        .Fetch(f => f.User)
                        .Where(w => w.Tutor.Id == query.UserId)
                        .Where(w => w.Review != null && w.Review != string.Empty)
+                       .OrderByDescending(x=>x.DateTime)
                        .Select(s => new TutorReviewDto()
                        {
                            Id = s.User.Id,

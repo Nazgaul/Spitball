@@ -109,7 +109,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new UserProfileAboutQuery(638);
 
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+            result.Reviews.Should().BeInDescendingOrder(x => x.Created);
         }
 
         [Fact]
