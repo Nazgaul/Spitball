@@ -6,7 +6,7 @@
                     <div class="rank-date-container">
                         <user-avatar class="mr-1" size="34" :userImageUrl="cardData.user.image" :user-name="cardData.user.name" :user-id="cardData.user.id"/>
                         <div class="user-question">
-                            <div class="user-question-name body-2 text-truncate">{{cardData.user.name}}</div>
+                            <div class="user-question-name text-truncate">{{cardData.user.name}}</div>
                             <div class="user-question-date">{{uploadDate}}</div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
             <div class="question-body-container" :class="{'ml-12': !$vuetify.breakpoint.xsOnly}">
                 <div class="question-right-body-container">
                     <div class="question-body-content-container mt-2 mb-1" :class="{'question-ellipsis': $route.name === 'feed'}">
-                        <div class="question-text body-2">{{cardData.text}}</div>
+                        <div class="question-text">{{cardData.text}}</div>
                     </div>
                     <div class="question-body-course-container" :class="[answers ? 'mb-4' : 'mb-0']">
                         <div class="question-body-course_name text-truncate">
@@ -75,12 +75,12 @@
                                     :user-id="answers.user.id"
                                 />
                                 <div class="user_answer_info">
-                                    <div class="user_answer_info_name body-2 text-truncate">{{answers.user.name}}</div>
+                                    <div class="user_answer_info_name text-truncate">{{answers.user.name}}</div>
                                     <div class="user_answer_info_date text-truncate">{{uploadDateAnswer}}</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="user_answer body-2">{{answers.text}}</div>
+                        <div class="user_answer">{{answers.text}}</div>
                     </div>
                     <div v-if="cardData.answers > 1" class="more-answers" v-html="$Ph(moreAnswersDictionary, answersCount -1)"></div>
                     <div v-else class="mt-4"></div>
