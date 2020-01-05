@@ -120,7 +120,10 @@ namespace Cloudents.Infrastructure.Storage
                 blob.Metadata["fileName"] = originalFileName;
             }
 
-            return blob.PutBlockListAsync(indexes.Select(ToBase64));
+            return blob.PutBlockListAsync(indexes.Select(ToBase64), AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions()
+            {
+                StoreBlobContentMD5 = true
+            }, null, token);
         }
 
         private static string ToBase64(int blockIndex)
@@ -167,7 +170,10 @@ namespace Cloudents.Infrastructure.Storage
             var destinationDirectory = _blobDirectory.GetDirectoryReference(destinationContainerName);
             var sourceBlob = GetBlob(blobName);
             var destinationBlob = destinationDirectory.GetBlockBlobReference(blobName);
-            await destinationBlob.StartCopyAsync(sourceBlob, AccessCondition.GenerateIfExistsCondition(), AccessCondition.GenerateEmptyCondition(), null, null, token);
+            await destinationBlob.StartCopyAsync(sourceBlob, AccessCondition.GenerateIfExistsCondition(), AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions()
+            {
+                StoreBlobContentMD5 = true
+            }, null, token);
             while (destinationBlob.CopyState.Status != CopyStatus.Success)
             {
                 await Task.Delay(TimeSpan.FromSeconds(0.2), token);

@@ -439,13 +439,11 @@ export default {
   },
 
 watch: {
-  showDeviceValidationError: function(val){
-      if(val) {
-        setTimeout(function() {
-          document.querySelector('.device-dialog-unsupport').parentNode.style.zIndex=999;
-        },1000)
-      }
+  getStudyRoomData(val){
+    if(!!val){
+      this.initStartSession();
     }
+  }
 },
 
   methods: {
@@ -475,6 +473,16 @@ watch: {
       "setSnapshotDialog",
       "stopTracks"
     ]),
+    initStartSession(){
+      let isNotStudyRoomTest = this.$route.params ? this.$route.params.id : null;
+      if(isNotStudyRoomTest) {
+        if(this.isTutor){
+          this.updateTutorStartDialog(true);
+        }else{
+          this.updateStudentStartDialog(true);
+        }
+      }
+    },
     // ...mapGetters(['getDevicesObj']),
     closeFullScreen(){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
@@ -554,6 +562,10 @@ watch: {
       let _roomProps = this.getStudyRoomData;
       if(_roomProps){
         initSignalRService(`studyRoomHub?studyRoomId=${id}`);
+        setTimeout(()=>{
+          this.initStartSession();
+        })
+        
       }else{
         await tutorService.getRoomInformation(id).then((RoomProps) => {
           _roomProps = RoomProps;
@@ -645,19 +657,6 @@ watch: {
   },
   mounted() {
     document.addEventListener("fullscreenchange",this.closeFullScreen);
-    let isNotStudyRoomTest = this.$route.params ? this.$route.params.id : null;
-    if(isNotStudyRoomTest) {
-      let self = this;
-      this.$nextTick(function(){
-        setTimeout(()=>{
-          if(self.isTutor){
-            self.updateTutorStartDialog(true);
-          }else{
-            self.updateStudentStartDialog(true);
-          }
-        }, 1500)
-      })
-    }
   },
   destroyed(){
     global.onbeforeunload = function() { };

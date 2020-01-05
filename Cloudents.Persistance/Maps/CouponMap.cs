@@ -19,7 +19,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.Owner).Nullable();
             Map(x => x.CreateTime).Insert().Not.Update();
 
-            HasMany(x => x.UserCoupon).Access.CamelCaseField(Prefix.Underscore)
+            HasMany(x => x.UserCoupon)
                 .Inverse().Cascade.AllDeleteOrphan().AsSet();
         }
     }

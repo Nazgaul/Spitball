@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernane proxy")]
     public class TutorHours : Entity<Guid>
     {
         public TutorHours(Tutor tutor, DayOfWeek weekDay, TimeSpan from, TimeSpan to)

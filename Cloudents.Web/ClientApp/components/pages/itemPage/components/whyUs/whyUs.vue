@@ -1,6 +1,6 @@
 <template>
   <div class="whyUs">
-      <h1 class="whyUs__h1" v-language:inner="'documentPage_why_spitball'"></h1>
+      <div class="whyUs__div" v-language:inner="'documentPage_why_spitball'"></div>
       <div class="whyUs__bottom">
           <div class="whyUs__bottom__cont">
               <sheild class="whyUs__bottom__cont__icon"/>
@@ -45,7 +45,7 @@ export default {
         padding: 14px 24px 14px 24px;
         margin-bottom: 16px;
     }
-    &__h1{
+    &__div{
         @media (max-width: @screen-xs) {
             font-size: 18px;
             padding-bottom: 16px;

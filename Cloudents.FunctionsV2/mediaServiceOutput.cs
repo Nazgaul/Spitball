@@ -9,7 +9,7 @@ using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
 {
-    public static class mediaServiceOutput
+    public static class MediaServiceOutput
     {
         [FunctionName("media-service-event")]
         public static async Task Run(

@@ -41,7 +41,7 @@ namespace Cloudents.Query
 
                 foreach (var value in Enum.GetValues(typeof(TransactionType)).Cast<TransactionType>().Where(w => w != TransactionType.Stake))
                 {
-                    var type = (TransactionType)value;
+                    var type = value;
                     var xx = _statelessSession.Query<Transaction>()
                          .Where(w => w.User.Id == query.Id && w.Type == type)
                          .GroupBy(g => 1)

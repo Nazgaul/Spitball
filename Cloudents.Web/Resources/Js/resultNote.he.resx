@@ -133,7 +133,7 @@
     <value>שנה מחיר</value>
   </data>
   <data name="course" xml:space="preserve">
-    <value>קורס: {1}</value>
+    <value>קורס:</value>
   </data>
   <data name="deleted_success" xml:space="preserve">
     <value>הקובץ נמחק</value>
@@ -154,7 +154,7 @@
     <value>רכישות</value>
   </data>
   <data name="university" xml:space="preserve">
-    <value>מוסד לימוד: {1}</value>
+    <value>מוסד לימוד:</value>
   </data>
   <data name="unsufficient_fund" xml:space="preserve">
     <value>אין לך מספיק נקודות לרכוש את המוצר</value>

@@ -1,5 +1,9 @@
-﻿namespace Cloudents.Core.Entities
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Cloudents.Core.Entities
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+
     public class GoogleTokens
     {
         public GoogleTokens(string id, string value)

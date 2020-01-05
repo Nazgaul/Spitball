@@ -278,49 +278,63 @@
       height: 100%;
       margin-right: 10px;
       .doc-snippet{
-          font-size: 14px;
-          font-weight: normal;
-          font-style: normal;
-          font-stretch: normal;
-          line-height: 1.57;
-          letter-spacing: normal;
-          color:@global-purple;
-          @media (max-width: @screen-xs) {
-            font-size: 12px;
-          }
-          .doc-snippet-span{
+          .doc-snippet-h6{
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.57;
+            color:@global-purple;
+            @media (max-width: @screen-xs) {
+              font-size: 12px;
+            }
             .giveMeEllipsis(2, 22);
             @media (max-width: @screen-xs) {
               .giveMeEllipsis(2, 16);
             }
           }
+          
       }
       .content-wrap {
         display: flex;
         flex-direction: column;
+        .item-title{
+          font-size: 14px;
+          font-weight: bold;
+          color: @global-purple;
+            @media (max-width: @screen-xs) {
+              font-size: 12px;
+            }
+        }
+        .item-course{
+          line-height: 1.8;
+          color: @global-purple;
+          font-size: 14px;
+          font-weight: normal;
+          display: initial;
+          @media (max-width: @screen-xs) {
+            font-size: 12px;
+            line-height: 1.9; 
+          }
+        }
+        .item-university{
+          line-height: 1.4;
+          color: @global-purple;
+          font-size: 14px;
+          font-weight: normal;
+          display: initial;
+          @media (max-width: @screen-xs) {
+            line-height: 1.5;
+            font-size: 12px;
+          }
+        }
         span{
           color: @global-purple;
           font-size: 14px;
           @media (max-width: @screen-xs) {
             font-size: 12px;
           }
-          &.item-title{
-            font-size: 14px;
-            font-weight: bold;
-          }
-          &.item-course{
-            line-height: 1.8;
-            @media (max-width: @screen-xs) {
-              line-height: 1.9; 
-            }
 
-          }
-          &.item-university{
-            line-height: 1.4;
-            @media (max-width: @screen-xs) {
-              line-height: 1.5;
-            }
-          }
+          
+
         }
         &.type-lecture {
           background: fade(@colorTypeLecture, 12%)

@@ -29,23 +29,33 @@ namespace Cloudents.Web.Seo
             _client = client;
         }
 
-        public IEnumerable<SitemapNode> GetUrls(int index)
+        public IEnumerable<SitemapNode> GetUrls(bool isFrymo, int index)
         {
             var t = _session.Query<Document>()
                 .Fetch(f => f.University)
-                .Where(w => w.Status.State == ItemState.Ok && w.University.Country != Country.India.Name)
-                .Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)
-                .Select(s => new 
-                {
-                    s.Id,
-                    s.Name,
-                    CourseName = s.Course.Id,
-                   // UniversityName = s.University.Name,
-                    s.TimeStamp.UpdateTime
-                    
-                });
+                .Where(w => w.Status.State == ItemState.Ok);
 
-            foreach (var item in t)
+            if (isFrymo)
+            {
+                t = t.Where(w => w.University.Country == Country.India.Name);
+            }
+            else
+            {
+                t = t.Where(w => w.University.Country != Country.India.Name);
+            }
+
+            var docs = t.Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)
+                 .Select(s => new
+                 {
+                     s.Id,
+                     s.Name,
+                     CourseName = s.Course.Id,
+                    // UniversityName = s.University.Name,
+                    s.TimeStamp.UpdateTime
+
+                 });
+
+            foreach (var item in docs)
             {
                 var url = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Document, new
                 {
@@ -55,7 +65,7 @@ namespace Cloudents.Web.Seo
                 });
                 if (string.IsNullOrEmpty(url))
                 {
-                    _client.TrackTrace("Fail to Generate Doc Url",SeverityLevel.Critical,new Dictionary<string, string>()
+                    _client.TrackTrace("Fail to Generate Doc Url", SeverityLevel.Critical, new Dictionary<string, string>()
                     {
                         ["Id"] = item.Id.ToString()
                     });
@@ -71,5 +81,7 @@ namespace Cloudents.Web.Seo
 
             }
         }
+
+       
     }
 }

@@ -24,14 +24,18 @@ namespace Cloudents.Web.EventHandler
         private readonly IBinarySerializer _binarySerializer;
         private readonly LinkGenerator _linkGenerator;
         private readonly IHttpContextAccessor _httpContextAccessor;
+       // private readonly IUrlBuilder _urlBuilder;
 
-        public WebSocketChatMessageEventHandler(IHubContext<SbHub> hubContext, IChatDirectoryBlobProvider blobProvider, IBinarySerializer binarySerializer, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        public WebSocketChatMessageEventHandler(IHubContext<SbHub> hubContext, IChatDirectoryBlobProvider blobProvider, 
+            IBinarySerializer binarySerializer, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor
+            )
         {
             _hubContext = hubContext;
             _blobProvider = blobProvider;
             _binarySerializer = binarySerializer;
             _linkGenerator = linkGenerator;
             _httpContextAccessor = httpContextAccessor;
+           // _urlBuilder = urlBuilder;
         }
 
         public async Task HandleAsync(ChatMessageEvent eventMessage, CancellationToken token)
@@ -66,7 +70,7 @@ namespace Cloudents.Web.EventHandler
                 Text = chatMessage.Message,
                 DateTime = DateTime.UtcNow,
                 Name = chatMessage.User.Name,
-                Image = chatMessage.User.Image
+               // Image = _urlBuilder.BuildUserImageEndpoint(chatMessage.User.Id, chatMessage.User.ImageName)
             };
         }
 

@@ -24,15 +24,25 @@ namespace Cloudents.Web.Seo
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IEnumerable<SitemapNode> GetUrls(int index)
+        public IEnumerable<SitemapNode> GetUrls(bool isFrymo, int index)
         {
             var t = _session.Query<Question>()
                 .Fetch(f => f.University)
-                .Where(w => w.Status.State == ItemState.Ok && w.University.Country != Country.India.Name)
-                .Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)
-                .Select(s => s.Id);
+                .Where(w => w.Status.State == ItemState.Ok);
 
-            foreach (var item in t)
+            if (isFrymo)
+            {
+                t = t.Where(w => w.University.Country == Country.India.Name);
+            }
+            else
+            {
+                t = t.Where(w => w.University.Country != Country.India.Name);
+            }
+
+            var question = t.Take(SiteMapController.PageSize).Skip(SiteMapController.PageSize * index)
+              .Select(s => s.Id);
+
+            foreach (var item in question)
             {
                 var url = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Question, new
                 {
@@ -47,5 +57,7 @@ namespace Cloudents.Web.Seo
 
             }
         }
+
+        
     }
 }

@@ -5,6 +5,7 @@
             :headers="headers"
             :items="contentItems"
             :items-per-page="5"
+            hide-default-header
             sort-by
             :item-key="'date'"
             class="elevation-1 myContent_table"
@@ -16,18 +17,20 @@
                nextIcon: 'sbf-arrow-right-carousel',
                itemsPerPageOptions: [5]
             }">
-         <template slot="headers" slot-scope="props">
-            <tr>
-               <th class="text-xs-left"
-                  v-for="header in props.headers"
-                  :key="header.value"
-                  :class="['column',{'sortable':header.sortable}]"
-                  @click="changeSort(header.value)">
-                  <span class="text-xs-left">{{ header.text }}
-                     <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
-                  </span>
-               </th>
-            </tr>
+         <template v-slot:header="{props}">
+            <thead>
+               <tr>
+                  <th class="text-xs-left"
+                     v-for="header in props.headers"
+                     :key="header.value"
+                     :class="['column',{'sortable':header.sortable}]"
+                     @click="changeSort(header.value)">
+                     <span class="text-xs-left">{{ header.text }}
+                        <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
+                     </span>
+                  </th>
+               </tr>
+            </thead>
          </template>
             <template v-slot:item="props">
                <tr class="myContent_table_tr">
@@ -134,6 +137,7 @@ export default {
 </script>
 
 <style lang="less">
+@import "../../../../styles/mixin.less";
 .myContent{
    .myContent_title{
       font-size: 22px;
@@ -145,7 +149,7 @@ export default {
       box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
    }
    .myContent_table{
-      .v-data-table-header{
+      thead{
          tr{
             height: auto;
             th{
@@ -154,16 +158,29 @@ export default {
                padding-top: 14px;
                padding-bottom: 14px;
                font-weight: normal;
+               min-width: 100px;
             }
             
          }
          color: #43425d !important;
       }
-      .myContent_table_tr {
-         td {
-            font-size: 13px !important;
-         }
-      }
+      // .myContent_table_tr {
+      //    @media (max-width: @screen-xs) {
+      //       display: flex;
+      //       flex-direction: column;
+      //       border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      //       padding-bottom: 10px;  
+      //    }
+         
+      //    td {
+      //       font-size: 13px !important;
+      //       @media (max-width: @screen-xs) {
+      //          height: unset;
+      //          border-bottom: none !important;    
+                        
+      //       }
+      //    }
+      // }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          transform: none /*rtl:rotate(180deg)*/;
          color: #43425d !important;
