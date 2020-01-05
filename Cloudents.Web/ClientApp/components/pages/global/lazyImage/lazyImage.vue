@@ -8,10 +8,19 @@ export default {
     src: {},
     element: {}
   },
-  data: () => ({ observer: null, intersected: false }),
+  data: () => ({
+     observer: null, 
+     intersected: false,
+     intersectNotSuppoerted: false, 
+
+  }),
   computed: {
     srcImage() {
+      if(this.intersectNotSuppoerted){
+        return this.src;
+      }else{
         return this.intersected ? this.src : '';
+      }
     }
   },
   mounted() {
@@ -24,6 +33,8 @@ export default {
           }
         });
         this.observer.observe(this.element);
+    }else{
+      this.intersectNotSuppoerted = true;
     }
   },
   destroyed() {
