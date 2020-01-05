@@ -335,4 +335,7 @@
   <data name="study_materials" xml:space="preserve">
     <value>{1}’s study materials</value>
   </data>
+  <data name="read_less" xml:space="preserve">
+    <value>Read less</value>
+  </data>
 </root>
