@@ -19,7 +19,7 @@ namespace Cloudents.Query.Tutor
         private long UserId { get; }
         private string Country { get; }
         private int Page { get; }
-        public int PageSize { get; set; }
+        private int PageSize { get;  }
 
         internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, ListWithCountDto<TutorCardDto>>
         {
@@ -33,8 +33,9 @@ namespace Cloudents.Query.Tutor
             //TODO: review query 
             public async Task<ListWithCountDto<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
-                const string sql = @"Select rt.Id as UserId, rt.Name as 'Name', rt.ImageName as 'Image', rt.Courses, rt.Subjects, rt.Price,
-rt.Rate, rt.RateCount as ReviewsCount, rt.Bio, rt.University, rt.Lessons, rt.Country, rt.SubsidizedPrice
+                const string sql = @"Select rt.Id as UserId,
+rt.Name as 'Name', rt.ImageName as 'Image', rt.Courses, rt.Subjects, rt.Price,
+rt.Rate, rt.RateCount as ReviewsCount, rt.Bio, rt.University, rt.Lessons, rt.Country, rt.SubsidizedPrice as DiscountPrice
 from sb.ReadTutor rt
 where rt.Country = coalesce(@country, (select country from sb.[user] where Id = @userId))
 and rt.Id != @userId
