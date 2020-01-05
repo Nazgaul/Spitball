@@ -499,15 +499,17 @@ display: flex;
         }
         }
         .v-calendar-daily_head-day-label{
-          font-size:24px;
-          line-height: inherit;
-          padding: 0 0 6px 0;
-          @media (max-width: @screen-xs) {
-            font-size: 18px;
-            text-align: center;
-            line-height: 1.6;
-            padding: 0;
+          button {
+            font-size:24px;
+            line-height: inherit;
+            // padding: 0 0 6px 0;
+            @media (max-width: @screen-xs) {
+              font-size: 18px;
+              text-align: center;
+              line-height: 1.6;
+              padding: 0;
 
+            }
           }
         }
         &.v-present{
@@ -519,7 +521,9 @@ display: flex;
               color:@global-blue;
             }
             .v-calendar-daily_head-day-label{
-              color:@global-blue;
+              button {
+                color:@global-blue;
+              }
             }
         }
       }
