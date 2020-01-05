@@ -407,6 +407,11 @@ export default {
                             }
                         }
                     }
+                    .sbCarousel_btn {
+                        i {
+                            font-size: 18px;
+                        }
+                    }
                 }
             }
             &__tutorCard {
