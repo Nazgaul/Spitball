@@ -17,7 +17,7 @@
 				</div>
 				<div class="globalBanner_timer" v-if="$vuetify.breakpoint.mdAndUp && !!getBannerParams">
 					<span class="globalBanner_timer_title" v-language:inner="'banner_offer'"/>
-					<v-layout row class="globalBanner_timer_container mt-1">
+					<v-layout class="globalBanner_timer_container mt-1">
 						<v-flex xs2 class="globalBanner_timer_box">
 							<h1 class="globalBanner_timer_box_time" v-html="time.days"/>
 							<span class="globalBanner_timer_box_text" v-language:inner="'banner_days'"/>
@@ -40,7 +40,7 @@
 					</v-layout>
 				</div>
 			</div>  
-			<v-btn flat icon class="banner_closeBtn" @click="updateBannerSatus(false)">
+			<v-btn text icon class="banner_closeBtn" @click="updateBannerSatus(false)">
 				<v-icon class="close_banner" v-html="'sbf-close'"/>
 			</v-btn>
 		</div>
@@ -122,8 +122,8 @@ export default {
         width: 100%;
         .banner_closeBtn{
             position: absolute;
-            top: -10px;
-            right: -16px;
+            top: 0;
+            right: -10px;
             .close_banner{
                 color: white !important;
                 opacity: 0.57;

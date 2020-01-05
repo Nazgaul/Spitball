@@ -3,7 +3,7 @@
         <v-flex xs12 class="card-block">
             <marketing-box/>
         </v-flex>
-        <v-flex v-if="!!suggestList[name]" xs12 class="card-block mt-3">
+        <v-flex v-if="!!suggestList[name]" xs12 class="card-block mt-4">
         </v-flex>
     </v-flex>
 </template>

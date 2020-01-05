@@ -10,7 +10,7 @@
       <v-icon @click.stop="OriginalChatState" v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'" />
         <template v-if="state === 'messages'">
           <user-avatar :size="'32'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/> 
-          <div class="chat-header-name text-truncate pl-3">{{activeConversationObj.name}}</div>
+          <div class="chat-header-name text-truncate pl-4">{{activeConversationObj.name}}</div>
         </template>
         <template v-else>
             <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>

@@ -3,7 +3,7 @@
      <h1>My Calendar</h1>
      <ul class="myCalendar_ul elevation-1">
         <li class="myCalendar_li" v-for="(item, index) in 100" :key="index">
-           <v-layout row class="myCalendar_div">
+           <v-layout class="myCalendar_div">
               <v-flex xs4 sm2 class="myCalendar_div_day">Mon Aug 29</v-flex>
               <v-flex xs3 sm2 >8:00am - 8:15am</v-flex>
               <v-flex xs6 sm6>Plan this dayPlan this day Plan this day Plan this day Plan this day</v-flex>

@@ -258,6 +258,9 @@
   <data name="Questions" xml:space="preserve">
     <value>שאלות</value>
   </data>
+  <data name="read_less" xml:space="preserve">
+    <value>הסתר</value>
+  </data>
   <data name="read_more" xml:space="preserve">
     <value>קרא עוד</value>
   </data>

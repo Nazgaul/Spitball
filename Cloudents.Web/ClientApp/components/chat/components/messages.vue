@@ -10,7 +10,7 @@
                     </button>
 
                     <v-btn v-if="(!studyRoomExists && isRoomTutor) && !isStudyRoom " 
-                           flat class="white--text messages-study-room-btn-create" 
+                           text class="white--text messages-study-room-btn-create" 
                            :loading="loader">
                         <add-circle />&nbsp;&nbsp;&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span>
                     </v-btn>

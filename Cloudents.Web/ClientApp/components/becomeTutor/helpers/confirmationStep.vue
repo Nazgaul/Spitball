@@ -13,14 +13,14 @@
 
         <v-layout class="px-1 btns-confirmation-step"
                 :class="[isMobile ? 'align-end justify-end' : 'align-center justify-center']">
-            <v-btn class="cancel-btn-step elevation-0" round outline flat @click="goToPreviousStep">
+            <v-btn class="cancel-btn-step elevation-0" rounded outlined text @click="goToPreviousStep">
                 <span v-language:inner="'becomeTutor_btn_back'"/>
             </v-btn>
             <v-btn  color="#4452FC"
                     :loading="isLoading"
                     :disabled="!isAgree"
                     @click="submit"
-                    round
+                    rounded
                     class="white-text elevation-0">
                     <span v-language:inner="'becomeTutor_btn_done'"/>
             </v-btn>

@@ -54,7 +54,7 @@
 //         }
 //       },
 //       sbl:{
-//         target: ".v-list .leader-tile .leader-ammount",
+//         target: ".v-list .leader-item .leader-ammount",
        
 //         header: {
 //           title: LanguageService.getValueByKey('tour_sbl_currency_title')
@@ -125,7 +125,7 @@
 //         }
 //       },
 //       sbl:{
-//         target: ".v-list .leader-tile .leader-ammount",
+//         target: ".v-list .leader-item .leader-ammount",
        
 //         header: {
 //           title: LanguageService.getValueByKey('tour_sbl_currency_title')

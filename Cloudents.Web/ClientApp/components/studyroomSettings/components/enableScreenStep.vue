@@ -18,7 +18,7 @@
       <h3 class="enable-middle-title" v-language:inner="'studyroomSets_enable_middle_title'"/>
       <img :src="shareScreenImg" alt="">
       <div class="enable-actions">
-        <v-btn class="actions-record" depressed round color="#4452fc" @click="skipToStudyRoom"><span v-language:inner="'studyroomSets_enable_actions_yes'"/></v-btn>
+        <v-btn class="actions-record" depressed rounded color="#4452fc" @click="skipToStudyRoom"><span v-language:inner="'studyroomSets_enable_actions_yes'"/></v-btn>
       </div>
   </div>
 </template>

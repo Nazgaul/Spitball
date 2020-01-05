@@ -2,48 +2,56 @@
  <div class="myStudyRooms">
       <div class="myStudyRooms_title" v-language:inner="'schoolBlock_my_study_rooms'"/>
       <v-data-table 
-            :pagination.sync="paginationModel"
             :headers="headers"
             :items="studyRoomItems"
-            disable-initial-sort
+            :items-per-page="5"
+            sort-by
+            hide-default-header
             :item-key="'date'"
-            :rows-per-page-items="['5']"
             class="elevation-1 myStudyRooms_table"
-            :prev-icon="'sbf-arrow-left-carousel'"
-            :sort-icon="'sbf-arrow-down'"
-            :next-icon="'sbf-arrow-right-carousel'">
+            :footer-props="{
+               showFirstLastPage: false,
+               firstIcon: '',
+               lastIcon: '',
+               prevIcon: 'sbf-arrow-left-carousel',
+               nextIcon: 'sbf-arrow-right-carousel',
+               itemsPerPageOptions: [5]
+            }">
             
-         <template slot="headers" slot-scope="props">
-            <tr>
-               <th class="text-xs-left"
-                  v-for="header in props.headers"
-                  :key="header.value"
-                  :class="['column',{'sortable':header.sortable}]"
-                  @click="changeSort(header.value)">
-                  <span class="text-xs-left">{{ header.text }}
-                     <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
-                  </span>
-               </th>
-            </tr>
+         <template v-slot:header="{props}">
+            <thead>
+               <tr>
+                  <th class="text-xs-left"
+                     v-for="header in props.headers"
+                     :key="header.value"
+                     :class="['column',{'sortable':header.sortable}]"
+                     @click="changeSort(header.value)">
+                     <span class="text-xs-left">{{ header.text }}
+                        <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
+                     </span>
+                  </th>
+               </tr>
+            </thead>
          </template>
-            <template v-slot:items="props">
+         <template v-slot:item="props">
+            <tr class="myStudyRooms_table_tr">
                <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
                <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
                <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
                <td class="text-xs-left">{{ props.item.lastSession | dateFromISO }}</td>
                <td>
-                  <v-btn class="myStudyRooms_btns white--text" depressed round color="#4452fc" @click="sendMessage(props.item)">
+                  <v-btn class="myStudyRooms_btns white--text" depressed rounded color="#4452fc" @click="sendMessage(props.item)">
                      <iconChat class="myStudyRooms_btn_icon"/>
                      <div class="myStudyRooms_btn_txt" v-html="$Ph('resultTutor_send_button', showFirstName(props.item.name))"></div>
                   </v-btn>
-                  <v-btn class="myStudyRooms_btns myStudyRooms_btns_enterRoom" depressed round color="white" @click="enterRoom(props.item.id)">
+                  <v-btn class="myStudyRooms_btns myStudyRooms_btns_enterRoom" depressed rounded color="white" @click="enterRoom(props.item.id)">
                      <enterRoom class="myStudyRooms_btn_icon"/>
                      <span class="myStudyRooms_btn_txt" v-language:inner="'dashboardPage_enter_room'"/>
                   </v-btn>
                </td>
-            </template>
+            </tr>
+         </template>
          <slot slot="no-data" name="tableEmptyState"/>
-         <slot slot="pageText" name="tableFooter"/>
       </v-data-table>
    </div>
 </template>
@@ -148,7 +156,7 @@ export default {
       box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
    }
    .myStudyRooms_table{
-      .v-datatable{
+      thead{
          tr{
             height: auto;
             th{
@@ -156,6 +164,8 @@ export default {
                font-size: 14px;
                padding-top: 14px;
                padding-bottom: 14px;
+               font-weight: normal;
+               min-width: 130px;
             }
          }
          color: #43425d !important;
@@ -178,6 +188,7 @@ export default {
          font-size: 12px;
          font-weight: 600;
          text-transform: initial;
+         margin: 6px 8px;
          .myStudyRooms_btn_icon {
             text-transform: inherit;
             position: absolute;
@@ -199,7 +210,13 @@ export default {
          height: inherit;
          font-size: 14px;
       }
-
+      .v-data-footer {
+         padding: 6px 0;
+         .v-data-footer__pagination {
+            font-size: 14px;
+            color: #43425d;
+         }
+      }
    }
 }
 </style>

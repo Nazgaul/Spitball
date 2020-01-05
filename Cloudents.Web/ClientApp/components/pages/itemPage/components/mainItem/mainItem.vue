@@ -251,7 +251,7 @@ export default {
                         &--img {
                             transform: none /*rtl:scaleX(-1)*/;
                             color: #4c59ff !important; //vuetify
-                            font-size: 14px;
+                            font-size: 14px !important; //vuetify
                             font-weight: 600;
     
                             &:before {

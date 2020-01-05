@@ -15,7 +15,7 @@
               <h3 class="text-truncate body-2 font-weight-bold" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
               <template>
-                <h4 class="text-truncate university mt-1 font-weight-light" v-if="tutorData.university">{{tutorData.university}}</h4>
+                <h4 class="text-truncate university font-weight-light" v-if="tutorData.university">{{tutorData.university}}</h4>
               </template>
 
               <template>
@@ -66,9 +66,9 @@
       </div> 
 
       <div class="card-mobile-footer">
-          <v-btn class="btn-chat white--text text-truncate my-0" depressed round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
-                <iconChat class="chat-icon-btn" />
-                <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
+          <v-btn class="btn-chat white--text text-truncate my-0" depressed rounded block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
+                <iconChat class="chat_icon_btn" />
+                <div class="text-truncate text_icon_btn" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
       </div>
 
@@ -183,10 +183,13 @@ export default {
         display: flex;
         .card-mobile-header-content {
           min-width: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
         }
         .user-rate {
             display: inline-flex;
-            margin-top: 6px;
+            // margin-top: 6px;
             .reviews {
                 font-size: 12px;
                 letter-spacing: normal;
@@ -213,10 +216,10 @@ export default {
           display: flex;
           align-items: flex-end;
           flex: .5;
-          margin: 4px 0 1px 0;
+          // margin: 4px 0 1px 0;
           .price_oneline {
             display: flex;
-            align-items: flex-end;
+            align-items: baseline;
             color: #5158af;
 
             &--count {
@@ -235,7 +238,7 @@ export default {
           color: #4c59ff;
           font-weight: 600;
           font-size: 12px;
-          margin-top: 6px;
+          // margin-top: 6px;
         }
     }
     .card-mobile-center {
@@ -251,10 +254,7 @@ export default {
             position:unset;
           }
           .v-btn__content{
-            .chat-icon-btn{
-              // position: absolute;
-              // top: 0;
-              // left: 0;
+            .chat_icon_btn{
               align-self: flex-end;
             }
             :last-child {
@@ -263,10 +263,8 @@ export default {
           }
           text-transform: inherit;
           border-radius: 7.5px;
-          div {
-            div {
-              padding-left: 10px;
-            }
+          .text_icon_btn {
+            padding-left: 10px;
           }
         }
     }

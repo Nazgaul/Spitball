@@ -6,7 +6,7 @@
         </div>
         <img src="../images/group-4.png" alt="">
         <div class="bottom" v-language:inner="'loginRegister_congrats_bottom'"/>
-        <v-btn @click="finish" large round class="white--text btn-login" v-language:inner="'loginRegister_congrats_btn'"/>
+        <v-btn @click="finish" large rounded class="white--text btn-login" v-language:inner="'loginRegister_congrats_btn'"/>
     </div>
 </template>
 

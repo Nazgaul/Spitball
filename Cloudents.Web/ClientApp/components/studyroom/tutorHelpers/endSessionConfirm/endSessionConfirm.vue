@@ -1,18 +1,18 @@
 <template>
-    <div class="student-start-wrap pb-5">
-        <v-layout row class="pt-2">
-            <v-flex xs12 class="text-xs-right px-3">
-                <v-icon class="caption cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
+    <div class="student-start-wrap pb-12">
+        <v-layout class="pt-3">
+            <v-flex xs12 class="text-right px-4">
+                <v-icon class="body-2 cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
             </v-flex>
         </v-layout>
         <v-layout column align-center>
             <v-flex xs12  class="pt-2">
                 <userAvatar :user-name="userName"  :userImageUrl="userImageUrl" :user-id="userId" :size="'58'" ></userAvatar>
             </v-flex>
-            <v-flex xs12  class="pt-12">
-                <span class="subheading font-weight-bold" v-language:inner>tutor_end_session</span>
+            <v-flex xs12  class="pt-3">
+                <span class="student-start-wrap_title font-weight-bold" v-language:inner>tutor_end_session</span>
             </v-flex>
-            <v-card-actions class="pt-5">
+            <v-card-actions class="pt-12">
                 <button class="cancel-btn elevation-0 align-center justify-center mr-2" @click="closeDialog()">
                     <span class="text-capitalize" v-language:inner>tutor_chrome_ext_btn_cancel</span>
                 </button>
@@ -86,6 +86,9 @@
         border-radius: 4px;
         box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
         width: 356px;
+        .student-start-wrap_title{
+            font-size: 16px;
+        }
         .cancel-btn{
             min-width: 146px;
             display: flex;

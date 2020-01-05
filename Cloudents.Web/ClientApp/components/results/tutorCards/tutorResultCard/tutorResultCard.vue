@@ -1,7 +1,7 @@
 <template>
-    <router-link class="tutor-result-card-desktop pa-3 row" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
+    <router-link class="tutor-result-card-desktop pa-4" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
 
-        <v-flex row class="user-details">
+        <v-flex class="user-details">
             <user-avatar-rect 
               :userName="tutorData.name" 
               :userImageUrl="tutorData.image" 
@@ -13,22 +13,22 @@
             />
             <div class="main-card">
                 <h3 class="font-weight-bold text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
-                <h4 class="mb-3 text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
-                <div class="user-bio-wrapper mb-3">
+                <h4 class="mb-4 font-weight-bold text-truncate" :class="{'university-hidden': !university}">{{university}}</h4>
+                <div class="user-bio-wrapper mb-4">
                   <div class="user-bio">{{tutorData.bio}}</div>
                 </div>
                 <div class="study-area mb-2 text-truncate" :class="{'study-area-hidden': !isSubjects}">
                   <span class="mr-1 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
-                  <span class="">{{subjects}}</span>
+                  <span>{{subjects}}</span>
                 </div>
                 <div class="courses text-truncate" v-if="isCourses">
                   <span class="mr-2 font-weight-bold" v-language:inner="'resultTutor_courses'"></span>
-                  <span class="">{{courses}}</span> 
+                  <span>{{courses}}</span> 
                 </div>
             </div>
         </v-flex>
 
-        <v-divider vertical class="mx-3"></v-divider>
+        <v-divider vertical class="mx-4"></v-divider>
 
         <div class="user-rates">
             <div class="price">
@@ -54,22 +54,22 @@
               </div>
               <div v-else class="user-rank align-center">
                 <star class="user-rank-star"/>
-                <span class="no-reviews font-weight-bold caption" v-language:inner="'resultTutor_no_reviews'"></span>
+                <span class="no-reviews font-weight-bold" v-language:inner="'resultTutor_no_reviews'"></span>
               </div>
             </template>
             
             <div class="classes-hours align-center">
               <clock />
-              <span class="font-weight-bold caption classes-hours_lesson" v-if="tutorData.lessons > 0">{{tutorData.lessons}}</span>
+              <span class="font-weight-bold classes-hours_lesson" v-if="tutorData.lessons > 0">{{tutorData.lessons}}</span>
               
               <template>
-                <span class="font-weight-bold caption no-classes" v-language:inner="'resultTutor_no_hours_completed'" v-if="tutorData.lessons === 0"></span>
-                <span class="font-weight-bold caption no-classes" v-language:inner="tutorData.lessons === 1 ? 'resultTutor_hour_completed' : 'resultTutor_hours_completed' " v-else></span>    
+                <span class="font-weight-bold no-classes" v-language:inner="'resultTutor_no_hours_completed'" v-if="tutorData.lessons === 0"></span>
+                <span class="font-weight-bold no-classes" v-language:inner="tutorData.lessons === 1 ? 'resultTutor_hour_completed' : 'resultTutor_hours_completed' " v-else></span>    
               </template>
             </div>                
 
             <div class="send-btn">
-                <v-btn class="btn-chat white--text" depressed round block color="#4452fc" @click.prevent="sendMessage(tutorData)">
+                <v-btn class="btn-chat white--text" depressed rounded block color="#4452fc" @click.prevent="sendMessage(tutorData)">
                   <iconChat class="chat-icon-btn" v-if="fromLandingPage" />
                   <div class="" v-html="$Ph('resultTutor_send_button', showFirstName)" ></div>
                 </v-btn>
@@ -221,7 +221,8 @@ export default {
           visibility: hidden;
         }
         .courses {
-          margin-top: 10px;
+          // margin-top: 2px;
+          padding-top: 2px;
         }
       }
     }
@@ -290,10 +291,14 @@ export default {
         margin-left: 3px;
         display: flex;
         align-items: end;
+        .classes-hours_lesson{
+          font-size: 12px;
+        }
         &_lesson {
           margin-left: 6px;
         }
         .no-classes {
+          font-size: 12px;
           margin-left: 6px;
         }
       }
@@ -309,6 +314,7 @@ export default {
         }
         .no-reviews {
           margin-left: 5px;
+          font-size: 12px;
           color: #43425d;
         }
         .user-rank-star {

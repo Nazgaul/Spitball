@@ -114,7 +114,7 @@
                          :formula="`$$${helperStyle.text}$$`"
                          class="math-jax"></vue-mathjax>
                 <div style="align-self: flex-end;">
-                    <v-btn @click="finishEquation" class="white--text" round color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
+                    <v-btn @click="finishEquation" class="white--text" rounded color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
                 </div>
             </div>
             
@@ -127,7 +127,7 @@
              </div>
             <div class="equation-text-area" style="justify-content: space-between;">
                 <div style="align-self: flex-end;">
-                    <v-btn @click="finishEquation" class="white--text" round color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
+                    <v-btn @click="finishEquation" class="white--text" rounded color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
                 </div>
             </div>
         </div>

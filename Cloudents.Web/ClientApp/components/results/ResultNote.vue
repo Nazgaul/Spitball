@@ -30,29 +30,30 @@
 
         <v-menu
           class="menu-area"
-          lazy
           bottom
           left
           content-class="card-user-actions"
           v-model="showMenu"
         >
-          <v-btn
-            :depressed="true"
-            @click.native.stop.prevent="showReportOptions()"
-            slot="activator"
-            icon
-          >
-            <v-icon>sbf-3-dot</v-icon>
-          </v-btn>
+          <template v-slot:activator="{  }">  
+            <v-btn
+              class="menu-area-btn"
+              :depressed="true"
+              @click.native.stop.prevent="showReportOptions()"
+              icon
+            >
+              <v-icon>sbf-3-dot</v-icon>
+            </v-btn>
+          </template>
           <v-list>
-            <v-list-tile
+            <v-list-item
               v-for="(prop, i) in actions"
               v-show="prop.isVisible(prop.visible)"
               :disabled="prop.isDisabled()"
               :key="i"
             >
-              <v-list-tile-title style="cursor:pointer;" @click="prop.action()">{{ prop.title }}</v-list-tile-title>
-            </v-list-tile>
+              <v-list-item-title style="cursor:pointer;" @click="prop.action()">{{ prop.title }}</v-list-item-title>
+            </v-list-item>
           </v-list>
         </v-menu>
       </div>
@@ -168,7 +169,7 @@
             <span class="change-title" v-language:inner>resultNote_change_for</span>
             <span class="change-title" style="max-width: 150px;">&nbsp;"{{item.title}}"</span>
           </div>
-          <div class="input-wrap row align-center justify-center">
+          <div class="input-wrap align-center justify-center">
             <div class="price-wrap">
               <vue-numeric
                 :currency="currentCurrency"

@@ -1,7 +1,7 @@
 <template>
    <div class="myFollowers">
       <h1>myFollowers</h1>
-      <v-layout row wrap align-baseline>
+      <v-layout wrap align-baseline>
          <v-btn depressed color="primary">Send Email</v-btn>
          <v-btn depressed color="primary">Chat</v-btn>
          <v-btn depressed color="primary">Make a Billing</v-btn>

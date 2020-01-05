@@ -1,18 +1,17 @@
 <template>
     <div class="add-courses-wrap">
-        <v-layout row :class="[$vuetify.breakpoint.smAndUp ? 'py-4 px-4': 'grey-backgound py-2']" align-center
+        <v-layout :class="[$vuetify.breakpoint.smAndUp ? 'py-6 px-6': 'grey-backgound pa-2']" align-center
                   justify-center>
-            <v-flex grow xs10>
-                <div class="d-inline-flex justify-center shrink">
-                    <v-icon @click="goToEditCourses()" class="course-back-btn mr-3">sbf-arrow-back
-                    </v-icon>
-                    <span class="subheading font-weight-bold" v-language:inner>courses_join</span>
-                    <span class="subheading font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
+            <v-flex grow xs8>
+                <div class="d-inline-flex justify-center shrink add-courses-wrap-title">
+                    <v-icon @click="goToEditCourses()" class="course-back-btn mr-4">sbf-arrow-back</v-icon>
+                    <span class="font-weight-bold" v-language:inner>courses_join</span>
+                    <span class="subtitle-1 font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
                 </div>
 
             </v-flex>
-            <v-flex xs2 shrink class="d-flex justify-end">
-                <v-btn sel="done_add_courses" round :disabled="localSelectedClasses.length === 0" :loading="doneButtonLoading" class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
+            <v-flex xs4 shrink class="d-flex justify-end">
+                <v-btn sel="done_add_courses" depressed rounded :disabled="localSelectedClasses.length === 0" :loading="doneButtonLoading" class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
                     <span v-language:inner>courses_btn_done</span>
                 </v-btn>
             </v-flex>
@@ -35,32 +34,30 @@
             </v-flex>
             <v-flex v-show="quantatySelected" transition="fade-transition" style="position: relative">
                 <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
-                    <div class="class-list selected-classes-list py-3 px-3"
+                    <div class="class-list selected-classes-list pa-4"
                          ref="listCourse">
-                        <div class="selected-class-item caption d-inline-flex text-truncate font-weight-bold align-center justify-center pl-3 pr-1  py-1 mr-2"
+                        <div class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-4 pr-1  py-1 mr-2"
                              v-for="(selectedClass, index) in localSelectedClasses" :key="index">
                             <span class="text-truncate">{{selectedClass.text}}</span>
-                            <span class="delete-class cursor-pointer pr-3"
-                                  @click="deleteClass(selectedClass, selectedClasses)">
-                        <v-icon color="white">sbf-close</v-icon>
-                    </span>
+                            <span class="delete-class cursor-pointer pr-4" @click="deleteClass(selectedClass, selectedClasses)">
+                                <v-icon color="white">sbf-close</v-icon>
+                            </span>
                         </div>
                     </div>
-
                 </div>
             </v-flex>
         </v-layout>
-        <v-layout align-center class="mt-3 px-2" row wrap>
-            <v-flex v-if="!classes && !classes.length" xs12 class="text-xs-center">
+        <v-layout align-center class="mt-4 px-2" wrap>
+            <v-flex v-if="!classes && !classes.length" xs12 class="text-center">
                 <div>
                     <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
                 </div>
             </v-flex>
             <v-flex v-if="showBox">
                 <div class="class-list search-classes-list" id="search-classes-list">
-                    <div class="list-item subheading search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
+                    <div class="list-item subtitle-1 search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
                          v-for="(singleClass, index) in classes" :key="index" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
-                        <v-layout column class="pl-3 limit-width">
+                        <v-layout column class="pl-4 limit-width">
                             <v-flex shrink class="course-name-wrap">
                                 <div v-html="$options.filters.boldText(singleClass.text, search)">
                                     {{ singleClass.text }}
@@ -71,7 +68,7 @@
                                 <span class="students-enrolled" v-language:inner>courses_students</span>
                             </v-flex>
                         </v-layout>
-                        <v-layout row align-center justify-end class="minimize-width">
+                        <v-layout align-center justify-end class="minimize-width">
                             <div v-if="!singleClass.isFollowing">
                                 <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
                                     <span class="light-purple caption font-weight-medium mr-2"
@@ -97,7 +94,7 @@
                         </v-layout>
                     </div>
                     <!--create new course-->
-                    <v-flex class="text-xs-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
+                    <v-flex class="text-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
                             @click="openCreateDialog(true)">
                         <span v-language:inner>courses_cant_find</span>
                         <span class="pl-1 add-item" v-language:inner>courses_create_new</span>
@@ -382,6 +379,10 @@
                 min-width: 90px;
             }
         }
+        .add-courses-wrap-title{
+            align-items: center;
+            font-size: 16px;
+        }
         .v-input__slot {
             box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17) !important;
         }
@@ -403,10 +404,12 @@
             font-size: 28px;
         }
         .done-btn {
+            margin: 6px 8px;
             color: @global-blue;
             border-radius: 36px;
             border: solid 1px @global-blue;
             background-color: transparent !important;
+            min-width: 100px !important;
             &.v-btn--disabled{
                 border:none;
             }
@@ -448,6 +451,7 @@
             background-color: @purpleLight;
             color: lighten(@color-white, 87%);
             text-decoration: none;
+            font-size: 12px;
         }
         .select-class-string {
             color: @color-blue-new;
@@ -461,6 +465,12 @@
             border-bottom: solid 1px #f0f0f7;
             text-decoration: none;
             transition: background .3s cubic-bezier(.25, .8, .5, 1);
+            .course-name-wrap {
+                font-size: 16px;
+            }
+            .limit-width {
+                line-height: normal;
+            }
         }
         .cant-find {
             display: flex;

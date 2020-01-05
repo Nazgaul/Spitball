@@ -1,35 +1,35 @@
 <template>
     <v-card class="verify-creation-wrap">
-        <v-layout class="close-toolbar pl-4 pr-3" style="width:100%;" align-center justify-end>
+        <v-layout class="close-toolbar pl-4 pr-4" style="width:100%;" align-center justify-end>
             <v-flex shrink class="mr-2">
-                <v-icon class="subheading course-close-icon" @click="closeDialog()" >sbf-close</v-icon>
+                <v-icon class="subtitle-1 course-close-icon" @click="closeDialog()" >sbf-close</v-icon>
             </v-flex>
         </v-layout>
 
         <v-layout align-center justify-center :class="{'shrink': $vuetify.breakpoint.xsOnly}">
-            <v-flex xs12   class="text-xs-center">
+            <v-flex xs12 class="text-center">
                 <thinkIcon></thinkIcon>
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-4': '']">
-            <v-flex class="text-xs-center">
+            <v-flex class="text-center">
                 <span class="font-weight-bold heading-text" v-language:inner>university_new_title</span>
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-4': '']">
-            <v-flex xs12  sm5  class="text-xs-center">
-                <p class="body-1 mb-1" v-language:inner>courses_check_mistakes</p>
-                <p class="body-1 mb-1" v-language:inner>courses_remove_spaces</p>
-                <p class="body-1 mb-1" v-language:inner>university_find_similar</p>
+            <v-flex xs12  sm5  class="text-center">
+                <p class="body-2 mb-1" v-language:inner>courses_check_mistakes</p>
+                <p class="body-2 mb-1" v-language:inner>courses_remove_spaces</p>
+                <p class="body-2 mb-1" v-language:inner>university_find_similar</p>
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center :class="[ $vuetify.breakpoint.xsOnly ? 'shrink mt-5': '']">
-            <v-flex shrink xs6  sm3 class="text-xs-center">
+            <v-flex shrink xs6  sm3 class="text-center">
                 <button @click="goTocreation()" class="min-width shrink outline d-flex align-center justify-center py-2 px-3">
                     <span class="font-weight-bold text-capitalize" v-language:inner>university_btn_create_university</span>
                 </button>
             </v-flex>
-            <v-flex shrink xs5  sm3 class="text-xs-center">
+            <v-flex shrink xs5  sm3 class="text-center">
                 <button @click="closeDialog()" class="min-width solid d-flex align-center justify-center py-2 px-3">
                     <span class="font-weight-bold text-capitalize" v-language:inner>courses_try_again</span>
                 </button>
@@ -67,7 +67,7 @@
             background-color: @color-white;
         }
         .outline{
-            border-radius: 16px;
+            border-radius: 22px;
             border: solid 1px @global-purple;
             color: @global-purple;
             background-color: transparent;
@@ -79,7 +79,7 @@
             font-size: 18px;
         }
         .solid{
-            border-radius: 16px;
+            border-radius: 22px;
             color: @color-white;
             background-color: @global-purple;
         }

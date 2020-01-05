@@ -5,7 +5,7 @@
          <div class="title-wrap">
             <span class="change-title pr-1" v-language:inner="'dashboardPage_rename'"></span>
          </div>
-         <div class="input-wrap d-flex row align-center justify-center">
+         <div class="input-wrap d-flex align-center justify-center">
             <div :class="['name-wrap']">
             <v-text-field class="sb-input-upload-name" v-model="editedName" :rules="[rules.required,rules.minimumChars,rules.maximumChars]"/>
             </div>

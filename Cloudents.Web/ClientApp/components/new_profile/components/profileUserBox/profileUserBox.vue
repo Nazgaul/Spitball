@@ -229,10 +229,10 @@ export default {
     filters: {
         truncate(val, isOpen, suffix, textLimit){
             if (val.length > textLimit && !isOpen) {
-                return val.substring(0, textLimit) + suffix;
+                return val.substring(0, textLimit) +  suffix + ' ';
             } 
             if (val.length > textLimit && isOpen) {
-                return val + suffix;
+                return val + ' ';
             }
             return val;
         }

@@ -2,13 +2,13 @@
 <transition name="fade">
     <div class="answer-question" v-if="questionData">
         <!-- Web version -->
-        <div class="pt-3 question-wrap" v-if="!$vuetify.breakpoint.smAndDown"
+        <div class="pt-4 question-wrap" v-if="!$vuetify.breakpoint.smAndDown"
              :class="{'my-question': cardOwner}">
             <v-flex xs12 class="breadcrumbs">
                 <a style="cursor:pointer;" @click="resetSearch()" v-language:inner>questionDetails_Ask_question</a>
                 <span class="question-category"> <span v-language:inner>questionDetails_question_dash</span>{{questionData.subject}}</span>
             </v-flex>
-            <v-layout row>
+            <v-layout>
                 <v-flex style="width:inherit;" class="question-data">
                     <question-thread 
                         v-if="questionData" 
@@ -18,7 +18,7 @@
                         :hasCorrectAnswer="getCorrectAnswer">
                             <div slot="currently-watching"></div>
                     </question-thread>
-                    <div slot="answer-form" class="mb-3" style="width:inherit;" v-if="!cardOwner && !userAnswered">
+                    <div slot="answer-form" class="mb-4" style="width:inherit;" v-if="!cardOwner && !userAnswered">
                             <div style="position:relative;width:inherit;" v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one">
                                 <extended-text-area 
                                     uploadUrl="/api/question/ask"
@@ -67,7 +67,7 @@
                                              :hasCorrectAnswer="getCorrectAnswer">
                                 
                             </question-thread>
-                            <div slot="answer-form" class="answer-form mb-3" v-if="!cardOwner && !userAnswered">
+                            <div slot="answer-form" class="answer-form mb-4" v-if="!cardOwner && !userAnswered">
                                     <div v-if="(accountUser && !questionData.answers.length) || (questionData.answers.length && showForm)">
                                         <extended-text-area 
                                             uploadUrl="/api/question/ask"

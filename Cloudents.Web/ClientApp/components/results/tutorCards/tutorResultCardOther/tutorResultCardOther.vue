@@ -1,7 +1,7 @@
 <template>
-    <router-link class="tutor-result-card-other pa-2 mb-3 row wrap justify-space-between overflow-hidden ab-default-card" 
+    <router-link class="tutor-result-card-other pa-2 mb-4 wrap justify-space-between overflow-hidden ab-default-card" 
     @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name}}">
-        <div class="mb-3 top-card justify-space-between">
+        <div class="mb-4 top-card justify-space-between">
             <user-avatar-rect 
               :userName="tutorData.name" 
               :userImageUrl="tutorData.image" 
@@ -12,7 +12,7 @@
               :borderRadius="4"
             />
             <div class="top-card-wrap">
-                <h3 class="subheading font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+                <h3 class="subtitle-1 font-weight-bold tutor-name text-truncate" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
                 <template>
                     <div class="striked" v-if="tutorData.discountPrice">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
@@ -20,7 +20,7 @@
                 </template>
                 
 
-                <v-layout row class="moreDetails" align-center>
+                <v-layout class="moreDetails" align-center>
                     <div column class="price-box column mr-2">
                         <template>
                             <span v-if="tutorData.discountPrice" class="font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
@@ -31,7 +31,7 @@
                     <v-layout column align-center class="user-rates">
                         <div v-if="isReviews" :class="{'mr-4': !isReviews}">
                             <userRating :size="'15'" class="rating-holder" :rating="tutorData.rating" :showRateNumber="false" color="#ffca54"/>
-                            <div class="caption text-xs-center reviews" v-html="$Ph(tutorData.reviews === 1 ? `resultTutor_review_one` : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>        
+                            <div class="caption text-center reviews" v-html="$Ph(tutorData.reviews === 1 ? `resultTutor_review_one` : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviewsCount,tutorData.reviews))"></div>        
                         </div>
                         <div v-else class="no-reviews">
                             <star class="rating-holder" />
@@ -59,10 +59,10 @@
         <!-- <v-layout class="tutor-bio mb-2" v-html="ellipsizeTextBox">{{tutorData.bio}}</v-layout> -->
         <v-layout class="tutor-bio mb-2">{{tutorData.bio}}</v-layout>
 
-        <v-layout row class="btn-footer ab-cardB">
-            <div class="send-msg text-xs-center text-truncate" :class="{'no-uploader': !uploader}">
+        <v-layout class="btn-footer ab-cardB">
+            <div class="send-msg text-center text-truncate" :class="{'no-uploader': !uploader}">
                 <v-btn 
-                    round 
+                    rounded
                     small 
                     color="#4452fc" 
                     depressed 
@@ -73,8 +73,8 @@
                 </v-btn>
             </div>
             
-            <div class="more-documents text-xs-center text-truncate card-transform" v-if="uploader">
-                <v-btn @click.stop.prevent="goMoreDocs" round small color="#5158af" depressed class="caption py-3 px-2" v-language:inner="'resultTutor_btn_more_doc'"></v-btn>
+            <div class="more-documents text-center text-truncate card-transform" v-if="uploader">
+                <v-btn @click.stop.prevent="goMoreDocs" rounded small color="#5158af" depressed class="caption py-3 px-2" v-language:inner="'resultTutor_btn_more_doc'"></v-btn>
             </div>
         </v-layout>
     </router-link>
@@ -329,7 +329,7 @@ export default {
                 background: #fff !important;
                 line-height: 0;
                 text-transform: inherit;
-                margin: 6px 0;
+                // margin: 6px 0;
             }
         }
     }

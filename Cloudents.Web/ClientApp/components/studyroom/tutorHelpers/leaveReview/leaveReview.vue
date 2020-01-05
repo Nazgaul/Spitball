@@ -1,6 +1,6 @@
 <template>
     <div class="leave-review-wrap">
-        <v-layout align-center justify-space-between class="review-heading px-3">
+        <v-layout align-center justify-space-between class="review-heading px-4">
             <v-flex xs11  grow>
                 <span class="heading-text font-weight-bold" v-language:inner>leaveReview_title</span>
             </v-flex>
@@ -9,17 +9,17 @@
             </v-flex>
         </v-layout>
         <div v-if="!reviewSent">
-            <v-layout row wrap class="pt-4 pb-2" :class="{'pt-5 pb-4': $vuetify.breakpoint.xsOnly}">
-                <v-flex xs12  class="text-xs-center text-sm-center">
+            <v-layout wrap class="pt-6 pb-2" :class="{'pt-5 pb-4': $vuetify.breakpoint.xsOnly}">
+                <v-flex xs12  class="text-center text-sm-center">
                     <span class="review-title font-weight-bold" v-language:inner>leaveReview_subtitle</span>
                 </v-flex>
-                <v-flex xs12  class="text-xs-center text-sm-center pt-2">
+                <v-flex xs12  class="text-center text-sm-center pt-2">
                     <span class="body-2" v-language:inner>leaveReview_press_star</span>
                     <span class="body-2 pl-1">{{nameTutor}}</span>
                 </v-flex>
             </v-layout>
-            <v-layout align-center justify-center row wrap class="middle-layout-wrapper py-2 border-grey mx-5">
-                <v-flex xs12 sm1  shrink class="text-xs-center d-inline-flex image-container py-3 mr-4">
+            <v-layout align-center justify-center wrap class="middle-layout-wrapper py-2 border-grey mx-5">
+                <v-flex xs12 sm1  shrink class="text-center d-inline-flex image-container py-3 mr-4">
                     <v-progress-circular v-if="!tutorImg" :width="2" indeterminate v-bind:size="35" color="#514f7d"/>
                     <user-avatar v-else class="tutor-img-wrap" size="54" :userImageUrl="tutorImg" :user-name="nameTutor" :user-id="tutorId"/>
                 </v-flex>
@@ -33,9 +33,9 @@
                                 :rate-num-color="'#43425D'"></userRating>
                 </v-flex>
             </v-layout>
-            <v-layout v-if="reviewInputHidden" align-center justify-center class="pt-3"
-                      :class="{'pt-4': $vuetify.breakpoint.xsOnly}">
-                <v-flex @click="toggleReviewInput()" xs12 sm8  class="text-xs-center  cursor-pointer">
+            <v-layout v-if="reviewInputHidden" align-center justify-center class="pt-6"
+                      :class="{'pt-6': $vuetify.breakpoint.xsOnly}">
+                <v-flex @click="toggleReviewInput()" xs12 sm8  class="text-center  cursor-pointer">
                 <span class="mr-2">
                     <v-icon class="blue-text body-2">sbf-edit-icon</v-icon>
                 </span>
@@ -43,8 +43,8 @@
                 </v-flex>
             </v-layout>
             <transition v-else name="fade">
-                <v-layout align-center justify-center class="pt-3 px-3">
-                    <v-flex xs12  class="text-xs-center">
+                <v-layout align-center justify-center class="pt-6 px-4">
+                    <v-flex xs12  class="text-center">
                         <v-textarea
                                 rows="1"
                                 outline
@@ -57,16 +57,16 @@
                     </v-flex>
                 </v-layout>
             </transition>
-            <v-layout align-center justify-center class="pt-4 pb-3">
-                <v-flex xs12 sm6  class="text-xs-center">
+            <v-layout align-center justify-center class="pt-6 pb-6">
+                <v-flex xs12 sm6  class="text-center">
                     <v-btn @click="sendReview()"
                            :loading="btnLoading"
                            color="#4452FC"
-                           round
+                           rounded
                            id="submit-review-id"
                            :disabled="btnDisabled"
                            class="white-text elevation-0 py-2 submit-review">
-                        <span class="text-capitalize px-4 subheading"
+                        <span class="text-capitalize px-6"
                               v-language:inner>leaveReview_btn_send_review</span>
                     </v-btn>
                 </v-flex>

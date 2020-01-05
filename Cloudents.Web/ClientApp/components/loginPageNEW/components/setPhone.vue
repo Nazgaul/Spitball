@@ -7,13 +7,13 @@
                 :label="localCode"
                 :items="countryCodesList"
                 item-text="name"
-                solo flat
+                solo text
                 :append-icon="'sbf-arrow-down'"
                 item-value="callingCode">
             <template slot="selection" slot-scope="data">
-                <v-list-tile-content>
-                    <v-list-tile-title>{{getCode(data.item)}}</v-list-tile-title>
-                </v-list-tile-content>
+                <v-list-item-content>
+                    <v-list-item-title>{{getCode(data.item)}}</v-list-item-title>
+                </v-list-item-content>
             </template>
             <template slot="item" slot-scope="data">
                 {{getCode(data.item)}}
@@ -33,7 +33,7 @@
 
         <v-btn  type="submit"
                 :loading="smsLoading" 
-                large round 
+                large rounded 
                 class="white--text btn-login" >
                 <span v-language:inner="'loginRegister_setphone_btn'"></span>
                 </v-btn>

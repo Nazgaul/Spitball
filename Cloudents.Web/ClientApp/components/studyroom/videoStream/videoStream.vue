@@ -5,7 +5,7 @@
                 <v-flex class="px-3 video-con-controls">
                 </v-flex>
                 <v-flex v-show="visible.remote_player">
-                    <div class="row remote_video_container">
+                    <div class="remote_video_container">
                         <div id="remoteTrack"></div>
 
                         <div class="local-video-holder" :class="{'extended-video-window': extandLocalVideoScreen}">

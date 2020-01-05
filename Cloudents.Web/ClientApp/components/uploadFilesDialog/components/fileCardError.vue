@@ -1,6 +1,6 @@
 <template>
-    <v-layout align-center justify-space-between row wrap 
-    :class="['ufItem-error','mb-3',isMobile? ' py-3':'px-3',{'pl-3':isMobile}]">
+    <v-layout align-center justify-space-between wrap 
+    :class="['ufItem-error','mb-4',isMobile? ' py-3':'px-4',{'pl-4':isMobile}]">
         <v-flex xs12 sm7 class="ufItem-error-content">
             <v-icon color="white" class="mr-2 attachClass" v-html="'sbf-attachment'"/>
                 <div class="ufItem-error-txt">
@@ -9,7 +9,7 @@
                 </div>
         </v-flex>
         <v-flex xs12 sm3 :class="[{'pl-4':isMobile}]">
-            <v-btn @click="deleteFile()" :class="['ufItem-error-btn']" color="#d16061" depressed round>
+            <v-btn @click="deleteFile()" :class="['ufItem-error-btn']" color="#d16061" depressed rounded>
                 <!-- <span v-language:inner="'upload_ufItem_error_btn'"/> -->
                 <span v-language:inner="'upload_ufItem_error_remove'"/>
             </v-btn>
@@ -76,7 +76,6 @@ export default {
     border-radius: 4px;
     color: white;
     .v-btn{
-        min-width: 150px;
         height: 40px !important;
         text-transform: capitalize !important;
         margin-left: 0;
@@ -87,6 +86,7 @@ export default {
         border: 1px solid white !important;
         font-size: 14px;
         letter-spacing: 0.5px;
+        min-width: 150px !important; //vuetify
     }
     .ufItem-error-span{
         font-size: 14px;

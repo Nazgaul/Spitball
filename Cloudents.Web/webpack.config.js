@@ -1,12 +1,14 @@
 ﻿const path = require("path");
 const webpack = require("webpack");
 const bundleOutputDir = "./wwwroot/dist";
-const MiniCssExtractPlugin = require("mini-css-extract-plugin-with-rtl");
+const MiniCssExtractPluginRtl = require("mini-css-extract-plugin-with-rtl");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const webpackRtlPlugin = require("webpack-rtl-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin = require('terser-webpack-plugin');
+const RemovePlugin = require('remove-files-webpack-plugin');
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = (env) => {
     const isDevBuild =  !(env && env.prod);
@@ -47,7 +49,7 @@ module.exports = (env) => {
                         }
                     }
                         }
-                    ],
+                    ]
                     
                 },
                 {
@@ -76,6 +78,37 @@ module.exports = (env) => {
 
                 },
                 {
+                    test: /\.font\.js/,
+                    use: isDevBuild ? [
+                        {
+                            loader: 'vue-style-loader',
+                        },
+                            {
+                                loader: 'rtl-css-loader',
+                            },
+                            {
+                                loader: 'webfonts-loader',
+                                options: {
+                                    publicPath: '/dist/'
+                                }
+                            }]
+                        :
+                    [
+                        {
+                            loader: MiniCssExtractPluginRtl.loader,
+                        },
+                        {
+                            loader: 'css-loader',
+                        },
+                        {
+                            loader: 'webfonts-loader',
+                            options: {
+                                publicPath: '/dist/'
+                            }
+                        }
+                    ],
+                },
+                {
                     test: /\.(ogg|mp3|wav)$/i,
                     loader: 'file-loader'
                 },
@@ -91,7 +124,7 @@ module.exports = (env) => {
                     use: 
                         isDevBuild ? ['vue-style-loader','rtl-css-loader']
                              :
-                        [MiniCssExtractPlugin.loader,'css-loader']
+                        [MiniCssExtractPluginRtl.loader,'css-loader']
                         //{
                         //    loader: MiniCssExtractPlugin.loader,
                         //    options: {
@@ -106,13 +139,53 @@ module.exports = (env) => {
                     
                 },
                 {
+                    test: /\.s[ac]ss$/i,
+                    use:
+                        isDevBuild ? ['vue-style-loader', 'rtl-css-loader', 
+                        {
+                            loader:'sass-loader',
+                            options: {
+                                implementation: require('sass'),
+                                sassOptions: {
+                                  fiber: require('fibers'),
+                                  indentedSyntax: true, // optional
+                                },
+                                prependData: `@import "./ClientApp/variables.scss"`,
+                            }
+                        },
+                    ]
+                        :
+                        [
+                            {
+                                loader: MiniCssExtractPluginRtl.loader,
+                                options: {
+                                    publicPath: '/dist/'
+                                }
+                            },
+                            {
+                                loader:'css-loader'
+                            },
+                            {
+                                loader:'sass-loader',
+                                options: {
+                                    implementation: require('sass'),
+                                    sassOptions: {
+                                      fiber: require('fibers'),
+                                      indentedSyntax: true // optional
+                                    },
+                                    prependData: `@import "./ClientApp/variables.scss"`,
+                                }
+                            }
+                        ]
+                },
+                {
                     test: /\.less(\?|$)/,
                     use:
                         isDevBuild ? ['vue-style-loader', 'rtl-css-loader', 'less-loader']
                         :
                         [
                             {
-                                loader: MiniCssExtractPlugin.loader,
+                                loader: MiniCssExtractPluginRtl.loader,
                                 options: {
                                     publicPath: '/dist/'
                                 }
@@ -124,7 +197,8 @@ module.exports = (env) => {
                                 loader:'less-loader'
                             }
                         ]
-                }
+                },
+                
             ]
         },
         devtool: false,
@@ -159,17 +233,30 @@ module.exports = (env) => {
             })] : []
         },
         plugins: [
+            new RemovePlugin({
+                before: {
+                    // parameters.
+                    include: ['./wwwroot/dist']
+                },
+                after: {
+                    // parameters.
+                }
+            }),
+            
             new VueLoaderPlugin(),
             new webpack.DefinePlugin({
                 'process.env': {
                     NODE_ENV: JSON.stringify(isDevBuild ? 'development' : 'production')
                 }
             }),
-            new webpack.DllReferencePlugin({
-                context: __dirname,
-                // ReSharper disable once JsPathNotFound
-                manifest: require("./wwwroot/dist/vendor-manifest.json")
-            })
+            new VuetifyLoaderPlugin(),
+            // new webpack.DllReferencePlugin({
+            //     context: __dirname,
+            //     // ReSharper disable once JsPathNotFound
+            //     manifest: require("./wwwroot/dist/vendor-manifest.json")
+            // }),
+           
+            
         ].concat(isDevBuild
             ? [
                 // new BundleAnalyzerPlugin({
@@ -185,12 +272,11 @@ module.exports = (env) => {
                 })
             ]
             : [
-             
-                new MiniCssExtractPlugin({
+                new MiniCssExtractPluginRtl({
                     filename: "site.[contenthash].css",
                     rtlEnabled: true,
                     ignoreOrder: true,
-                    
+
                     // allChunks: true
 
                 }),

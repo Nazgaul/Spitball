@@ -10,7 +10,7 @@
         
       </div>
       <div class="unable-actions">
-        <v-btn class="actions-try" depressed round color="#4452fc" @click="nextPage"><span v-language:inner="'studyroomSets_continue-anyway'"/></v-btn>
+        <v-btn class="actions-try" depressed rounded color="#4452fc" @click="nextPage"><span v-language:inner="'studyroomSets_continue-anyway'"/></v-btn>
       </div>
   </div>
 </template>

@@ -1,12 +1,12 @@
 <template>
-    <v-flex :class="['result-cell', $vuetify.breakpoint.smAndUp ? 'mb-3': '', 'upload-files-action-card', 'xs-12', isFloatingBtn ? 'floatingcard' : 'regularCard']">
+    <v-flex :class="['result-cell', $vuetify.breakpoint.smAndUp ? 'mb-4': '', 'upload-files-action-card', 'xs-12', isFloatingBtn ? 'floatingcard' : 'regularCard']">
         <a class="mb-5 upload-link">
             <div :class="['upload-wrap', isFloatingBtn ? 'floating-upload' : '']">
                 <div class="static-center">
                     <!--<p v-show="$vuetify.breakpoint.smAndUp"  :class="['upload-text',  isFloatingBtn ? 'hidden-text' : '']" v-language:inner>-->
                     <!--upload_files_component_share_study-->
                     <!--</p>-->
-                    <button round
+                    <button rounded
                             :class="['upload-btn',  isFloatingBtn ? 'rounded-floating-button' : '', {'raised': raiseFloatingButtonPosition}]"
                             @click="openUploaderDialog()">
                         <v-icon class="sb-cloud-upload-icon">sbf-upload-cloud</v-icon>

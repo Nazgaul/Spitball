@@ -6,7 +6,6 @@
             :origin="'bottom center'"
             :transition="transitionAnimation"
             :fullscreen="OverlayActive"
-            :full-width="fullWidth"
             :max-width="fullWidth ? '1280px' : maxWidth"
             scrollable
             :content-class="contentClass"

@@ -10,13 +10,13 @@
                 </div>
             </bdi>
             <v-btn class="redeem-btn"
-                   flat
+                   text
                    value="Redeem"
                    :loading="loading"
                    :disabled="!available"
                    @click="redeem(cost)"><span v-language:inner="'cashoutcard_Redeem'"></span></v-btn>
         </div>
-        <img :src="require(`./../img/${imageSrc}`)" />
+        <img class="cash-out-card__img" :src="require(`./../img/${imageSrc}`)" />
     </div>
 </template>
 

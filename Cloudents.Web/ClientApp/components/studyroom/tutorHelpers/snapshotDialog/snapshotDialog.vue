@@ -1,13 +1,13 @@
 <template>
-    <div class="snapshot_dialog_wrap pb-3">
-        <v-layout row class="pt-3">
-            <v-flex xs12 class="text-xs-right px-3">
-                <v-icon class="caption cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
+    <div class="snapshot_dialog_wrap pb-6">
+        <v-layout class="pt-4">
+            <v-flex xs12 class="text-right px-4">
+                <v-icon class="body-2 cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
             </v-flex>
         </v-layout>
         <v-layout column align-center>
-            <v-flex xs12 class="pt-12">
-                <span class="subheading font-weight-bold" v-language:inner="'tutor_take_snapshot_title'"></span>
+            <v-flex xs12 class="pt-3">
+                <span class="snapshot_dialog_wrap_title font-weight-bold" v-language:inner="'tutor_take_snapshot_title'"></span>
             </v-flex>
             <v-flex xs12 style="text-align: center;" class="pt-2">
                 <span v-language:inner="'tutor_take_snapshot_message'"></span>
@@ -19,12 +19,12 @@
             <v-flex v-show="noCameraError" xs12 style="text-align: center;" class="snapshot_video_container snapshot_no_camera_error pt-2">
                <img :src="require(`./img/noCamera-${lang}.png`)" alt="">
             </v-flex>
-            <v-flex xs12 class="pt-4">
+            <v-flex xs12 class="pt-6">
                 <!-- <input type="text" v-model="width">
                 <input type="text" v-model="height"> -->
                 <!-- <input type="text" v-model="scale"> -->
             </v-flex>
-            <v-flex xs12 class="pt-4">
+            <v-flex xs12 class="pt-6">
                 <v-btn :disabled="noCameraError" class="snapshot_accept_consent_btn elevation-0 align-center justify-center" @click="takeSnapshot()">
                     <span class="text-capitalize">{{snapshotBtnText}}</span>
                     <!-- <span class="text-capitalize" v-show="timerCountdown">&nbsp;({{timerCountdown}})</span> -->
@@ -160,6 +160,9 @@
         border-radius: 4px;
         width: 100%;
         padding: 0 5px;
+        .snapshot_dialog_wrap_title{
+            font-size: 16px;
+        }
         .snapshot_video_container{
             min-width:640px; 
             min-height:480px;

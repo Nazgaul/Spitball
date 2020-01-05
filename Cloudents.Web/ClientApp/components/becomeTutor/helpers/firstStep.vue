@@ -1,8 +1,8 @@
 <template>
     <div class="become-first-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0' : '']">
         <span class="become-first-span" v-language:inner="'becomeTutor_sharing_step_1'"></span>
-        <v-layout row wrap align-start class="become-first-cont">
-            <v-flex xs12 sm4 shrink class="image-wrap text-xs-center">
+        <v-layout wrap align-start class="become-first-cont">
+            <v-flex xs12 sm4 shrink class="image-wrap text-center">
                 <img v-show="userImage && isLoaded" class="user-image" :src="userImage" alt="upload image" @load="loaded">
                 <div v-if="!isLoaded" class="image-loader">
                     <v-progress-circular indeterminate :size="isMobile? 70: 180" width="3" color="info"></v-progress-circular>
@@ -18,7 +18,7 @@
                         id="tutor-picture"
                         accept="image/*"
                         ref="tutorImage" v-show="false"/>
-                    <div v-if="errorUpload" v-language:inner="'becomeTutor_upload_error'"></div>
+                    <div v-if="errorUpload" class="tutor_picture_error" v-language:inner="'becomeTutor_upload_error'"></div>
                     <!-- <span class="image-edit-text" v-language:inner="'becomeTutor_upload_image'"></span> -->
                 </label>
             </v-flex>
@@ -66,13 +66,13 @@
         <v-layout class="mt-4 px-1 btns-first"
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
 
-            <v-btn @click="closeDialog()" class="cancel-btn elevation-0" round outline flat>
+            <v-btn @click="closeDialog()" class="cancel-btn elevation-0" rounded outlined text>
                 <span v-language:inner>becomeTutor_btn_cancel</span>
             </v-btn>
 
             <v-btn
                     color="#4452FC"
-                    round
+                    rounded
                     class="white-text elevation-0 btn-first_next-btn"
                     :disabled="btnDisabled"
                     @click="nextStep()">
@@ -203,6 +203,7 @@
                 align-items: flex-end;
             }
             .v-btn {
+                margin: 6px 8px;
               @media (max-width: @screen-xs) {
                   height: 40px;
                   padding: 0 20px;
@@ -270,6 +271,9 @@
                 @media (max-width: @screen-xs) {
                     height: auto;
                 }
+            }
+            .tutor_picture_error {
+                font-size: 14px;
             }
         }
         .price-input {

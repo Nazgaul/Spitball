@@ -20,7 +20,7 @@
                                 <div class="itemPage__main__document__tutor__link--title1" v-language:inner="'documentPage_need_help1'" @click="moveDownToTutorItem"></div>
                                 <div class="itemPage__main__document__tutor__link--title2" v-html="$Ph('documentPage_need_help2', firstName)"></div>
                             </div>
-                            <v-btn class="itemPage__main__document__tutor--btn ma-0" depressed round @click="sendMessage">
+                            <v-btn class="itemPage__main__document__tutor--btn ma-0" depressed rounded @click="sendMessage">
                                 <div v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
                             </v-btn>
                         </div>
@@ -47,6 +47,7 @@
                         v-language:inner="'documentPage_full_list'"
                         :to="{name: 'feed', query: {Course: courseName}}"
                         class="itemPage__main__carousel__header--seeAll"
+                        color="#4c59ff"
                     ></router-link>
                 </div>
                 <sbCarousel 
@@ -318,7 +319,7 @@ export default {
                     align-items: center;
                     flex-wrap: wrap;
                     font-weight: 600;
-
+                    font-size: 14px;
                     &__link {
                         @media (max-width: @screen-md) {
                             margin-bottom: 6px;
@@ -390,7 +391,8 @@ export default {
                         font-weight: 700;                       
                     }
                     &--seeAll {
-                        color: #4c59ff;
+                        color: #4c59ff !important;
+                        font-size: 14px;
                     }
                 }
                 &--margin {
@@ -403,6 +405,11 @@ export default {
                             @media (max-width: @screen-xs) {
                                 overflow: visible !important; //flicking
                             }
+                        }
+                    }
+                    .sbCarousel_btn {
+                        i {
+                            font-size: 18px;
                         }
                     }
                 }

@@ -5,7 +5,7 @@
             <span class="change-title pr-1" v-language:inner="'resultNote_change_for'"></span>
             <span class="change-title">&nbsp;"{{dialogData.name}}"</span>
          </div>
-         <div class="input-wrap d-flex row align-center justify-center">
+         <div class="input-wrap d-flex align-center justify-center">
             <div :class="['price-wrap']">
             <vue-numeric
                :currency="currentCurrency"

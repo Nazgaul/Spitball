@@ -4,15 +4,15 @@
         <v-card class="uf-main elevation-0">
             <v-stepper class="uf-mStepper elevation-0" v-model="currentStep" >
                 
-                <v-stepper-header :class="['uf-mHeader','elevation-0',isMobile?'pt-2' :'pl-3']">
+                <v-stepper-header :class="['uf-mHeader','elevation-0',isMobile?'pt-2' :'pl-4']">
                     <template>
                         <img v-if="!isMobile" class="uf-mImg" :src="userImage" alt="">
-                        <h2 :class="['uf-mTitle',{'ml-3':!isMobile}]" v-language:inner="'upload_uf_mTitle'"/>
+                        <h2 :class="['uf-mTitle',{'ml-4':!isMobile}]" v-language:inner="'upload_uf_mTitle'"/>
                     </template>
                 </v-stepper-header>
 
                 <v-stepper-items class="uf-items">
-                    <div v-if="errorFile && errorFile.name" class="px-3">
+                    <div v-if="errorFile && errorFile.name" class="px-4">
                         <fileCardError :fileItem="errorFile" :singleFileIndex="0"/>
                     </div>
                     <v-stepper-content :class="['uf-mStepper-content', `step-${n}`]"
@@ -31,8 +31,8 @@
                     </v-stepper-content>
                 </v-stepper-items>
             </v-stepper>
-        <div class="uf-sEdit-bottm pb-3 pt-3" v-if="currentStep == 2">
-            <v-btn :loading="loading" @click="send()" class="uf-sEdit-bottm-btn mb-2" depressed round color="#4452fc">
+        <div class="uf-sEdit-bottm pb-4 pt-4" v-if="currentStep == 2">
+            <v-btn :loading="loading" @click="send()" class="uf-sEdit-bottm-btn" depressed rounded color="#4452fc">
                 <span v-language:inner="'upload_uf_sEdit_bottm_btn'"/>
             </v-btn>             
             <span class="uf-sEdit-terms">
@@ -268,6 +268,7 @@ export default {
             margin-right: 0;
         }
         .uf-sEdit-bottm-btn{
+            margin: 6px 8px;
             color: white;
             border: 1px solid @global-blue !important;
             font-size: 14px;
