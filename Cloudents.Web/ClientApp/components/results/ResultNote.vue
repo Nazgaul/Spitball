@@ -35,7 +35,7 @@
           content-class="card-user-actions"
           v-model="showMenu"
         >
-          <template v-slot:activator="{ on }">  
+          <template v-slot:activator="{  }">  
             <v-btn
               class="menu-area-btn"
               :depressed="true"
