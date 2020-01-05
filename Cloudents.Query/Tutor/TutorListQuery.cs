@@ -30,7 +30,6 @@ namespace Cloudents.Query.Tutor
                 _dapper = dapper;
             }
 
-            //TODO: review query 
             public async Task<ListWithCountDto<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
                 const string sql = @"Select rt.Id as UserId,
