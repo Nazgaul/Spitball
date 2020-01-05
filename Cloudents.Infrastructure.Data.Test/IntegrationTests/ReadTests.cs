@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cloudents.Query.Query.Admin;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -498,6 +499,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task CountryByIpQuery_Ok()
         {
             var query = new CountryByIpQuery("112.209.166.71");
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task AdminCouponQuery_Ok()
+        {
+            var query = new AdminCouponQuery();
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
