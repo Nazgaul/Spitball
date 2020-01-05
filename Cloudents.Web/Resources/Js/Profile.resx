@@ -185,7 +185,7 @@
     <value>hour</value>
   </data>
   <data name="read_more" xml:space="preserve">
-    <value>Read More ...</value>
+    <value>Read More</value>
   </data>
   <data name="reviews" xml:space="preserve">
     <value>Reviews</value>
@@ -334,5 +334,8 @@
   </data>
   <data name="study_materials" xml:space="preserve">
     <value>{1}’s study materials</value>
+  </data>
+  <data name="read_less" xml:space="preserve">
+    <value>Read less</value>
   </data>
 </root>
