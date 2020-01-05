@@ -6,6 +6,7 @@
             :items="studyRoomItems"
             :items-per-page="5"
             sort-by
+            hide-default-header
             :item-key="'date'"
             class="elevation-1 myStudyRooms_table"
             :footer-props="{
@@ -17,18 +18,20 @@
                itemsPerPageOptions: [5]
             }">
             
-         <template slot="headers" slot-scope="props">
-            <tr>
-               <th class="text-xs-left"
-                  v-for="header in props.headers"
-                  :key="header.value"
-                  :class="['column',{'sortable':header.sortable}]"
-                  @click="changeSort(header.value)">
-                  <span class="text-xs-left">{{ header.text }}
-                     <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
-                  </span>
-               </th>
-            </tr>
+         <template v-slot:header="{props}">
+            <thead>
+               <tr>
+                  <th class="text-xs-left"
+                     v-for="header in props.headers"
+                     :key="header.value"
+                     :class="['column',{'sortable':header.sortable}]"
+                     @click="changeSort(header.value)">
+                     <span class="text-xs-left">{{ header.text }}
+                        <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
+                     </span>
+                  </th>
+               </tr>
+            </thead>
          </template>
          <template v-slot:item="props">
             <tr class="myStudyRooms_table_tr">
@@ -153,7 +156,7 @@ export default {
       box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
    }
    .myStudyRooms_table{
-      .v-data-table-header{
+      thead{
          tr{
             height: auto;
             th{
@@ -162,6 +165,7 @@ export default {
                padding-top: 14px;
                padding-bottom: 14px;
                font-weight: normal;
+               min-width: 130px;
             }
          }
          color: #43425d !important;

@@ -1,17 +1,29 @@
 <template>
    <div class="mySales">
       <div class="mySales_title" v-language:inner="'dashboardPage_my_sales_title'"/>
-      <v-layout align-baseline wrap class="mySales_wallet mb-5" v-if="!!accountUser && accountUser.id">
+      <v-layout align-baseline wrap class="mySales_wallet mb-12" v-if="!!accountUser && accountUser.id">
          <v-flex sm12 md6>
             <v-data-table
                :headers="balancesHeaders"
                :items="balancesItems"
                sort-by
                hide-default-footer
+               hide-default-header
                :item-key="'date'"
                class="elevation-1 mySales_table">
+               <template v-slot:header="{props}">
+                  <thead>
+                     <tr>
+                        <th class="text-center"
+                           v-for="header in props.headers"
+                           :key="header.value">
+                           {{header.text}}
+                        </th>
+                     </tr>
+                  </thead>
+               </template>
                <template v-slot:item="props">
-                  <tr>
+                  <tr class="mySales_table_tr">
                      <td class="text-left">
                         <span>{{dictionary.types[props.item.type]}}</span>
                      </td>
@@ -64,6 +76,7 @@
             :items="salesItems" 
             :items-per-page="5"
             sort-by
+            hide-default-header
             :item-key="'date'"
             class="elevation-1 mySales_table"
             :footer-props="{
@@ -74,7 +87,22 @@
                nextIcon: 'sbf-arrow-right-carousel',
                itemsPerPageOptions: [5]
             }">
-            <template slot="headers" slot-scope="props">
+            <template v-slot:header="{props}">
+               <thead>
+                  <tr>
+                     <th class="text-left"
+                        v-for="header in props.headers"
+                        :key="header.value"
+                        :class="['column',{'sortable':header.sortable}]"
+                        @click="changeSort(header.value)">
+                        <span class="text-left">{{ header.text }}
+                           <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
+                        </span>
+                     </th>
+                  </tr>
+               </thead>
+            </template>
+            <!-- <template slot="headers" slot-scope="props">
                <tr>
                   <th class="text-xs-left"
                      v-for="header in props.headers"
@@ -86,16 +114,16 @@
                      </span>
                   </th>
                </tr>
-            </template>
+            </template> -->
             <template v-slot:item="props">
                <tr class="mySales_table_tr">
                   <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
                   <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
 
-                  <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
-                  <td class="text-xs-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
-                  <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-                  <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"></td>
+                  <td class="text-left" v-html="dictionary.types[props.item.type]"/>
+                  <td class="text-left" v-html="formatItemStatus(props.item.paymentStatus)"/>
+                  <td class="text-left">{{ props.item.date | dateFromISO }}</td>
+                  <td class="text-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"></td>
                </tr>
             </template>
 
@@ -221,7 +249,7 @@ export default {
       }
    }
    .mySales_table{
-      .v-data-table-header {
+      thead {
          tr{
             height: auto;
             th{
@@ -230,6 +258,7 @@ export default {
                padding-top: 14px;
                padding-bottom: 14px;
                font-weight: normal;
+               min-width: 100px;
             }
             
          }
