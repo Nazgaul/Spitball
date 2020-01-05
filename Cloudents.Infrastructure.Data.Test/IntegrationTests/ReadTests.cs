@@ -459,11 +459,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task SiteMapQuery_Ok()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async Task SiteMapQuery_Ok(bool country)
         {
-            var query = new SiteMapQuery();
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
+            
+            var query = new SiteMapQuery(country);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Theory]

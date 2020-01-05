@@ -9,7 +9,7 @@ namespace Cloudents.Web.Seo
     /// <summary>
     /// Encloses all information about a specific URL.
     /// </summary>
-    [XmlRoot("url", Namespace = null)]
+    [XmlRoot("url")]
     public class SitemapNode
     {
 

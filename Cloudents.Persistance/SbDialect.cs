@@ -7,6 +7,7 @@ using NHibernate.Linq.Visitors;
 using System;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using Cloudents.Query.Stuff;
 
 namespace Cloudents.Persistence
 {
@@ -23,6 +24,7 @@ namespace Cloudents.Persistence
             RegisterFunction(RandomOrder, new StandardSQLFunction("NEWID", NHibernateUtil.Guid));
             //RegisterFunction("NEWID()", new StandardSQLFunction("NEWID()", NHibernateUtil.Guid));
 
+            CustomProjections.Register();
         }
 
 

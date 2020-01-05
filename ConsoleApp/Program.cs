@@ -139,9 +139,11 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
          
-            var queryBus = _container.Resolve<ICommandBus>();
-            var command = new ChangeDocumentPriceCommand(6725, 159786, 22);
-            await queryBus.DispatchAsync(command, default);
+            var queryBus = _container.Resolve<IQueryBus>();
+
+            var query = new SiteMapQuery(true);
+            var result = await queryBus.QueryAsync(query, default);
+
 
         }
         private static async Task ResyncTutorRead()

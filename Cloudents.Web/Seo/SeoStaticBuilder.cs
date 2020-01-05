@@ -13,7 +13,7 @@ namespace Cloudents.Web.Seo
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IEnumerable<SitemapNode> GetUrls(int index)
+        public IEnumerable<SitemapNode> GetUrls(bool isFrymo, int index)
         {
             yield return new SitemapNode(GetBaseUrl())
             {
