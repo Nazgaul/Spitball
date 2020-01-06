@@ -262,17 +262,9 @@ export default {
 
             if (Math.abs(diffX)) {
                 if (diffX > 0) {
-                    if(global.isRtl){
-                        this.prevDoc()
-                    }else{
-                        this.nextDoc()
-                    }
+                    this.nextDoc()
                 } else {
-                    if(!global.isRtl){
-                        this.prevDoc()
-                    }else{
-                        this.nextDoc()
-                    }
+                    this.prevDoc()
                 }
             } 
 
