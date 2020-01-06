@@ -2,10 +2,10 @@
     <v-container class="tutor-landing-page-container">
         <v-layout :class="`${isMobile ? 'pt-2' : 'pt-1 pb-4'}`" px-6 class="tutor-landing-page-header" align-center justify-center column>
             <v-flex pt-6 pb-4>
-                <h1 v-language:inner="'tutorListLanding_header_get_lesson'"></h1>
+                <div class="tutor-landing-title" v-language:inner="'tutorListLanding_header_get_lesson'"></div>
             </v-flex>
             <v-flex pb-6>
-                <h2 v-language:inner="'tutorListLanding_header_find_tutors'"></h2>
+                <div class="tutor-landing-subtitle" v-language:inner="'tutorListLanding_header_find_tutors'"></div>
             </v-flex>
             <!-- <v-flex class="pb-6">
                 <h3><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3> -->
@@ -229,7 +229,7 @@ export default {
         }
 
 
-        h1{
+        .tutor-landing-title{
             text-align: center;
             color: #5158af;
             font-size: 35px;
@@ -238,7 +238,7 @@ export default {
                 font-size: 32px;
             }
         }
-        h2{
+        .tutor-landing-subtitle{
             font-size: 25px;
             font-weight: bold;
             color: #ffffff;
@@ -255,8 +255,6 @@ export default {
             @media (max-width: @screen-xs) {
                 font-size: 16px;
             }
-        }
-        h3{
         }
     }
     .tutor-landing-page-search{
