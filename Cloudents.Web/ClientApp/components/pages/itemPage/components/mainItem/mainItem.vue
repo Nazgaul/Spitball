@@ -29,7 +29,9 @@
                     <div class="mainItem__item__wrap">
                         <div :style="{height: `${dynamicWidthAndHeight.height}px`}">
                             <v-scroll-x-reverse-transition>
-                                <unlockItem @ class="unlockItem_swipe" v-if="showUnlockPage" :type="document.documentType" :docLength="docPreview.length"/>
+                                <unlockItem  v-touch="{
+                                    left:() => handleSwipe(true),
+                                    right:() => handleSwipe(false)}"  class="unlockItem_swipe" v-if="showUnlockPage" :type="document.documentType" :docLength="docPreview.length"/>
                             </v-scroll-x-reverse-transition>
                             
                             <sbCarousel
@@ -103,7 +105,6 @@ export default {
             docPage: 1,
             isRtl: global.isRtl,
             showAfterVideo:false,
-            unlockPageX:null,
         }
     },
     watch:{
@@ -116,15 +117,6 @@ export default {
                 self.isLoad = false;
             })
         },
-        showUnlockPage(val){
-            if(val && !this.isVideo){
-                setTimeout(() => {
-                    let el = document.querySelector('.unlockItem_swipe');
-                    el.addEventListener("touchstart", this.startTouch, false);
-                    el.addEventListener("touchmove", this.moveTouch, false);
-                }, 50);
-            }
-        }   
     },
     computed: {
         ...mapGetters(['getDocumentLoaded']),
@@ -247,29 +239,12 @@ export default {
         updateAfterVideo(){
             this.showAfterVideo = true;
         },
-        startTouch(e) {
-            if(e.touches && e.touches[0]){
-                this.unlockPageX = e.touches[0].clientX;
+        handleSwipe(dir){
+            if(dir){
+                this.nextDoc()
+            }else{
+                this.prevDoc()
             }
-        },
-        moveTouch(e) {
-            if (this.unlockPageX === null) {
-                return;
-            }
-            let currentX = e.touches[0].clientX;
-
-            let diffX = this.unlockPageX - currentX;
-
-            if (Math.abs(diffX)) {
-                if (diffX > 0) {
-                    this.nextDoc()
-                } else {
-                    this.prevDoc()
-                }
-            } 
-
-            this.unlockPageX = null;
-            e.preventDefault();
         }
     },
 }
