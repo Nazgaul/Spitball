@@ -302,7 +302,7 @@ namespace Cloudents.Selenium.Test
                 driver.Manage().Window.Maximize();
                 LoginTest();
 
-                var menu = driver.FindElementByWait(By.ClassName("gH_i_r_menuList"));
+                var menu = driver.FindElementByWait(By.XPath("//*[@sel='menu']"));
                 menu.Click();
                 var listItems = driver.FindElements(By.XPath("//*[@sel='menu_row']//a"));
                 //var _wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 5));
