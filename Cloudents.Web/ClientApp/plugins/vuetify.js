@@ -1,8 +1,13 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
+import { Touch } from 'vuetify/lib/directives'
 
 
-Vue.use(Vuetify);
+Vue.use(Vuetify,{
+  directives: {
+    Touch
+  },
+});
 
 import he from '../../node_modules/vuetify/src/locale/he.ts';
 import en from '../../node_modules/vuetify/src/locale/en.ts';
