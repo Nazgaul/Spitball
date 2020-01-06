@@ -20,7 +20,7 @@
                   <!-- <v-flex class="profileUserStickyMobile_pricing_discount" v-if="tutorDiscountPrice">
                      {{tutorPrice ? tutorPrice : tutorDiscountPrice | currencyFormat(getProfile.user.tutorData.currency)}}
                   </v-flex> -->
-                  <v-flex class="profileUserStickyMobile_pricing_discount" v-if="tutorDiscountPrice">
+                  <v-flex class="profileUserStickyMobile_pricing_discount" v-if="isDiscount">
                      {{tutorPrice ? tutorPrice : tutorDiscountPrice | currencyFormat(getProfile.user.tutorData.currency)}}
                   </v-flex>
                </div>
