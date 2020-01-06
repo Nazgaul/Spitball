@@ -15,7 +15,7 @@
       <div v-else class="unlockItem_video">
          <div class="unlockItem_video_container">
             <div class="unlockItem_video_title" v-language:inner="'documentPage_unlock_title'"/>
-            <div class="unlockItem_video_subtitle" v-language:inner="'documentPage_unlock_video_subtitle'">Want to see the full Video?</div>
+            <div class="unlockItem_video_subtitle" v-language:inner="'documentPage_unlock_video_subtitle'"></div>
 
             <v-btn class="unlockItem_video_btn white--text"
                   @click="openPurchaseDialog" :loading="isLoading"
