@@ -24,7 +24,7 @@
                         <div class="control-panel">
                             <v-tooltip top>
                                 <template v-slot:activator="{ on }">
-                                    <button sel="audio_enabling" v-on="on" :class="['mic-image-btn', localAudioTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light']" @click="toggleAudio">   
+                                    <button sel="audio_enabling" v-on="on" :class="['mic-image-btn', localAudioTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light', !isAudioActive ? 'micIgnore':'']" @click="toggleAudio">   
                                         <microphoneImage v-if="isAudioActive" class="mic-image-svg" />
                                         <microphoneImageIgnore v-if="!isAudioActive" class="mic-ignore" />           
                                     </button>
@@ -33,7 +33,7 @@
                             </v-tooltip>
                             <v-tooltip top>
                                 <template v-slot:activator="{ on }">
-                                    <button sel="video_enabling" v-on="on" :class="['video-image-btn', localVideoTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light']" @click="toggleVideo">              
+                                    <button sel="video_enabling" v-on="on" :class="['video-image-btn', localVideoTrack && activeRoom ? 'dynamicBackground-dark': 'dynamicBackground-light', !isVideoActive ? 'camIgnore':'']" @click="toggleVideo">              
                                         <videoCameraImage v-if="isVideoActive" class="video-image-svg"/>
                                         <videoCameraImageIgnore v-else class="cam-ignore"/>
                                     </button>
