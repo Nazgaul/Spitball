@@ -115,7 +115,7 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .globalBanner{
-    z-index: 20;
+    z-index: 20 !important;
     background-image: linear-gradient(to bottom, #7072fb -20%, #1a2b87 96%);
     .banner_wrapper{
         position: relative;
