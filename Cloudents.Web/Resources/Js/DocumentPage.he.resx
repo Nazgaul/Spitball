@@ -180,6 +180,15 @@
   <data name="unlock_document_unregister" xml:space="preserve">
     <value>כדי לראות את המסמך המלא, הירשם בבקשה</value>
   </data>
+  <data name="unlock_place_btn" xml:space="preserve">
+    <value>פתח מסמך</value>
+  </data>
+  <data name="unlock_subtitle" xml:space="preserve">
+    <value>רוצה לקרוא את כל {1} הדפים?</value>
+  </data>
+  <data name="unlock_title" xml:space="preserve">
+    <value>הגעת לסוף התצוגה המקדימה</value>
+  </data>
   <data name="unlock_video" xml:space="preserve">
     <value>זו צפייה מקדימה של 30 שניות,&lt;br&gt;לצפייה בסרטון המלא  העבר נקודות לבעלי הסרטון.</value>
   </data>
