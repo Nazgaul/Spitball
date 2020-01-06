@@ -131,6 +131,8 @@ export default {
             path: this.$route.path
           });
           this.updateRequestDialog(true);
+      } else if(user.isTutor && user.userId == this.accountUser.id) { // this is my profile
+        return
       } else {
           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
           let conversationObj = {
