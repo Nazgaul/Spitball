@@ -8,7 +8,9 @@
         <div v-if="!isLoad && videoLoader">
             <template v-if="isVideo && videoSrc">
                 <div style="margin: 0 auto;background:black" class="text-center mainItem__item mb-3">
-                <unlockItem v-if="showAfterVideo && !isPurchased" :type="document.documentType"/>
+                <v-fade-transition>
+                    <unlockItem v-if="showAfterVideo && !isPurchased" :type="document.documentType"/>
+                </v-fade-transition>
                 <sbVideoPlayer 
                     @videoEnded="updateAfterVideo()"
                     :id="`${document.details.id}`"
@@ -26,7 +28,10 @@
                 <template v-if="docPreview">
                     <div class="mainItem__item__wrap">
                         <div :style="{height: `${dynamicWidthAndHeight.height}px`}">
-                            <unlockItem @ class="unlockItem_swipe" v-if="showUnlockPage" :type="document.documentType" :docLength="docPreview.length"/>
+                            <v-scroll-x-reverse-transition>
+                                <unlockItem @ class="unlockItem_swipe" v-if="showUnlockPage" :type="document.documentType" :docLength="docPreview.length"/>
+                            </v-scroll-x-reverse-transition>
+                            
                             <sbCarousel
                                 ref="itemPageChildComponent"
                                 :gap="20"
@@ -117,7 +122,7 @@ export default {
                     let el = document.querySelector('.unlockItem_swipe');
                     el.addEventListener("touchstart", this.startTouch, false);
                     el.addEventListener("touchmove", this.moveTouch, false);
-                }, 100);
+                }, 50);
             }
         }   
     },
