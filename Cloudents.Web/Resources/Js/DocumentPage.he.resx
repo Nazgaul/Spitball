@@ -195,6 +195,9 @@
   <data name="unlock_video_btn" xml:space="preserve">
     <value>פתח סרטון</value>
   </data>
+  <data name="unlock_video_subtitle" xml:space="preserve">
+    <value>רוצים לראות את הסרטון המלא?</value>
+  </data>
   <data name="why_spitball" xml:space="preserve">
     <value>למה בספיטבול</value>
   </data>
