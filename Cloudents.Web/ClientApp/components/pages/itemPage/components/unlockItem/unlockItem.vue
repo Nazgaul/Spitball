@@ -7,7 +7,7 @@
             <v-btn class="unlockItem_document_btn white--text"
                   @click="openPurchaseDialog" :loading="isLoading"
                   depressed height="44" rounded color="#4c59ff">
-                     <span v-language:inner="'documentPage_unlock_place_btn'"/>
+                     <span v-language:inner="'documentPage_unlock_document_btn'"/>
             </v-btn>
             <img class="unlockItem_document_img" src="./lockdoc.png" alt="">
          </div>
@@ -20,7 +20,7 @@
             <v-btn class="unlockItem_video_btn white--text"
                   @click="openPurchaseDialog" :loading="isLoading"
                   depressed height="38" rounded color="#4c59ff">
-                     <span v-language:inner="'documentPage_unlock_place_btn'"/>
+                     <span v-language:inner="'documentPage_unlock_video_btn'"/>
             </v-btn>
             <img class="unlockItem_video_img" src="./lockvid.png" alt="">
          </div>
