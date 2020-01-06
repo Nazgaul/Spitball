@@ -131,7 +131,7 @@
         <sb-dialog
             :onclosefn="closeCouponDialog"
             :activateOverlay="false"
-            :showDialog="getCouponDialog"
+            :showDialog="isShowCouponDialog"
             :maxWidth="'410px'"
             :popUpType="'coupon'"
             :content-class="'coupon-dialog'"
