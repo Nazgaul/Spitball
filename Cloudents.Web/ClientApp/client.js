@@ -10,9 +10,9 @@ global.client_id = '341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleuse
 /*makes sure user have the latest client version temporary solution*/
 function versionCheck() {
     let inStudyRoom = global.location.pathname.indexOf('studyroom') > -1;
-    if(!inStudyRoom){
+    if (!inStudyRoom) {
         GetVersion().then(version => {
-            if(version !== global.version) {
+            if (version !== global.version) {
                 analyticsService.sb_unitedEvent('VERSION_UPGRADE', `Previous_Version: ${global.version} Current_Version: ${version}`);
                 location.reload(true);
             }
@@ -28,32 +28,76 @@ function errorHandling(err) {
     var errJson = JSON.stringify(err);
     console.error(err);
     //for (let prop in err) {
-        let el = document.createElement('div');
-        el.innerHTML = errJson;
-        body.appendChild(el);  
+    let el = document.createElement('div');
+    el.innerHTML = errJson;
+    body.appendChild(el);
 }
-GetDictionary().then(() => {
-    function getComponent() {
-        return import("./main").catch(err => {
-            errorHandling(err);
-        });
-    }
 
-    // dynamic import the main component
-    getComponent().then(component => {
-        try {
-            component.router.onReady(() => {
-                const matchedComponents = component.router.getMatchedComponents();
-                // no matched routes, reject with 404
-                if (!matchedComponents.length) {
-                    window.location = "/error/notfound?client=true";
-                }
-                component.app.$mount("#app");
-            });
-        }
-        catch (err) {
-            errorHandling(err);
-        }
+console.time('x')
+let dicPromise = GetDictionary();
+let mainComponenet = new Promise((resolve) => {
+    import("./main").then((component) => {
+        //component.router.onReady(() => {
+          //  const matchedComponents = component.router.getMatchedComponents();
+            // no matched routes, reject with 404
+          //  if (!matchedComponents.length) {
+          //      window.location = "/error/notfound?client=true";
+         //   }
+            resolve(component.app);
+            //v.resolve(component.app);
+            //return component.app;
+      //  });
     });
+}
+, err => {
+    errorHandling(err);
 });
+
+
+
+// }).catch(err => {
+//     errorHandling(err);
+// });
+
+Promise.all([dicPromise, mainComponenet]).then((val) => {
+    try {
+        let app = val[1];
+        // component.router.onReady(() => {
+        //     const matchedComponents = component.router.getMatchedComponents();
+        //     // no matched routes, reject with 404
+        //     if (!matchedComponents.length) {
+        //         window.location = "/error/notfound?client=true";
+        //     }
+        app.$mount("#app");
+        console.timeEnd('x')
+        //});
+    }
+    catch (err) {
+        errorHandling(err);
+    }
+})
+//GetDictionary().then(() => {
+    // function getComponent() {
+    //     return import("./main").catch(err => {
+    //         errorHandling(err);
+    //     });
+    // }
+
+    // // dynamic import the main component
+    // getComponent().then(component => {
+    //     try {
+    //         component.router.onReady(() => {
+    //             const matchedComponents = component.router.getMatchedComponents();
+    //             // no matched routes, reject with 404
+    //             if (!matchedComponents.length) {
+    //                 window.location = "/error/notfound?client=true";
+    //             }
+    //             component.app.$mount("#app");
+    //         });
+    //     }
+    //     catch (err) {
+    //         errorHandling(err);
+    //     }
+    // });
+//});
 
