@@ -74,14 +74,21 @@ export default {
 .unlockItem{
    background: #ffffff8a;
    width: 100%;
-   height: 100%;
    position: absolute;
    z-index: 5;
+   height: calc(~"100% - 40px");
+      // height: 100%;
+   
+   @media (max-width: @screen-xss) {
+      // height: 100%;
+   }
+
+
    .unlockItem_document{
       width: 100%;
       height: 100%;
       padding: 32px;
-      padding-bottom: 60px;
+      // padding-bottom: 60px;
       @media (max-width: @screen-xs) {
          padding: 10px;
       }
@@ -172,6 +179,11 @@ export default {
                font-size: 16px;
                padding: 0 10px;
             }
+            @media (max-width: @screen-xss) {
+               line-height: 1.2;
+            }
+
+
          }
          .unlockItem_video_subtitle{
                padding-top: 8px;
@@ -181,6 +193,10 @@ export default {
                @media (max-width: @screen-xs) {
                   font-size: 14px;
                   padding-top: 6px;
+               }
+               @media (max-width: @screen-xss) {
+                  padding-top: 4px;
+                  padding-bottom: 2px;
                }
          }
          .unlockItem_video_btn{
@@ -198,6 +214,10 @@ export default {
                font-size: 16px;
                height: 36px;
             }
+            @media (max-width: @screen-xss) {
+               margin-top: 2px;
+            }
+
          }
          .unlockItem_video_img{
             height: auto;

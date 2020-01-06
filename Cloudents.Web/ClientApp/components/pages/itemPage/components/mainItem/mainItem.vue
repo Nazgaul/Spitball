@@ -26,7 +26,7 @@
                 <template v-if="docPreview">
                     <div class="mainItem__item__wrap">
                         <div :style="{height: `${dynamicWidthAndHeight.height}px`}">
-                            <unlockItem v-if="showUnlockPage" :type="document.documentType" :docLength="docPreview.length"/>
+                            <unlockItem @ class="unlockItem_swipe" v-if="showUnlockPage" :type="document.documentType" :docLength="docPreview.length"/>
                             <sbCarousel
                                 ref="itemPageChildComponent"
                                 :gap="20"
@@ -98,6 +98,7 @@ export default {
             docPage: 1,
             isRtl: global.isRtl,
             showAfterVideo:false,
+            unlockPageX:null,
         }
     },
     watch:{
@@ -109,11 +110,21 @@ export default {
             setTimeout(()=>{
                 self.isLoad = false;
             })
-        }
+        },
+        showUnlockPage(val){
+            if(val && !this.isVideo){
+                setTimeout(() => {
+                    let el = document.querySelector('.unlockItem_swipe');
+                    el.addEventListener("touchstart", this.startTouch, false);
+                    el.addEventListener("touchmove", this.moveTouch, false);
+                }, 100);
+            }
+        }   
     },
     computed: {
         ...mapGetters(['getDocumentLoaded']),
         showUnlockPage(){
+            // touchmove 
             return (this.docPage > 2 && !this.isPurchased)
         },
         showDesktopButtons() {
@@ -230,6 +241,34 @@ export default {
         },
         updateAfterVideo(){
             this.showAfterVideo = true;
+        },
+        startTouch(e) {
+            if(e.touches && e.touches[0]){
+                this.unlockPageX = e.touches[0].clientX;
+            }
+        },
+        moveTouch(e) {
+            if (this.unlockPageX === null) {
+                return;
+            }
+            let currentX = e.touches[0].clientX;
+
+            let diffX = this.unlockPageX - currentX;
+
+            if (Math.abs(diffX)) {
+                if (diffX > 0) {
+                    if(global.isRtl){
+                        this.prevDoc()
+                    }
+                } else {
+                    if(!global.isRtl){
+                        this.prevDoc()
+                    }
+                }
+            } 
+
+            this.unlockPageX = null;
+            e.preventDefault();
         }
     },
 }
