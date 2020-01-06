@@ -89,7 +89,7 @@ import { LanguageService } from "../../../../services/language/languageService.j
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 
-import iconChat from '../tutorResultCardOther/icon-chat.svg';
+import iconChat from '../icon-chat.svg';
 import clock from './clock.svg';
 import star from '../stars-copy.svg';
 
