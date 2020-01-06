@@ -12,6 +12,7 @@ const opts = {
         locales: { en, he },
         current: global.lang,
       },
+      theme: { disable: true }
 }
 
 export default new Vuetify(opts)

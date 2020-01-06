@@ -262,7 +262,10 @@ let routes2 = [
             })
         }
     },
-
+{
+path : "/profile",
+redirect: { name: 'feed' }
+},
     {
         path: "/profile/:id/:name",
         components: {
@@ -388,7 +391,8 @@ let routes2 = [
     },
     {
         path:'*',
-        redirect : () => {
+        redirect : (x) => {
+            debugger;
             window.location = "/error/notfound?client=true";
         }
 
