@@ -350,12 +350,27 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPut("name")]
-        public async Task<IActionResult> UpdatePhoneAsync(
+        public async Task<IActionResult> UpdateNameAsync(
                 [FromBody]UpdateNameRequest model, CancellationToken token)
         {
             var command = new UpdateNameCommand(model.UserId, model.FirstName, model.LastName);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+        [HttpPut("email")]
+        public async Task<IActionResult> UpdateEmailAsync([FromBody]UpdateEmailRequest model, CancellationToken token)
+        {
+            try
+            {
+                var command = new UpdateEmailCommand(model.UserId, model.Email);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("calendar")]

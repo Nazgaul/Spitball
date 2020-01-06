@@ -256,6 +256,15 @@ namespace Cloudents.Core.Entities
             }
         }
 
+        public virtual void ChangeEmail(string email)
+        {
+            if (UserLogins.Count > 0)
+            {
+                throw new ArgumentException();
+            }
+            Email = email;
+        }
+
         public virtual void SuspendUser(DateTimeOffset lockTime, string reason)
         {
             LockoutEnd = lockTime;
