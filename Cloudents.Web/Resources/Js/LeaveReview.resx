@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="back" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="btn_send_review" xml:space="preserve">
     <value>Submit</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>*error</value>
   </data>
   <data name="final_goTo" xml:space="preserve">
     <value>Go to your review</value>
@@ -126,17 +132,35 @@
   <data name="final_title" xml:space="preserve">
     <value>Thank you for rating</value>
   </data>
+  <data name="noThanks" xml:space="preserve">
+    <value>No, thanks</value>
+  </data>
   <data name="press_star" xml:space="preserve">
     <value>Overall rating for tutor</value>
   </data>
   <data name="review_placeholder" xml:space="preserve">
     <value>Type a review</value>
   </data>
+  <data name="send" xml:space="preserve">
+    <value>Post</value>
+  </data>
   <data name="subtitle" xml:space="preserve">
     <value>Tell the tutor what you thought about this session</value>
   </data>
+  <data name="sub_title_step1" xml:space="preserve">
+    <value>Rate and review tutor {1} based on your session</value>
+  </data>
+  <data name="sub_title_step2" xml:space="preserve">
+    <value>You can help other students by also adding a review</value>
+  </data>
   <data name="title" xml:space="preserve">
     <value>Rating and review</value>
+  </data>
+  <data name="title_step1" xml:space="preserve">
+    <value>Rate and Review</value>
+  </data>
+  <data name="title_step2" xml:space="preserve">
+    <value>Wonderful you gave a score!</value>
   </data>
   <data name="write" xml:space="preserve">
     <value>Write a review</value>
