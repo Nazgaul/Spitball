@@ -375,6 +375,14 @@ export default {
         
         
         "getProfile", "isTutorProfile"]),
+        isShowCouponDialog(){
+            if(this.getCouponDialog){
+                setTimeout(() => {
+                    document.querySelector('.profile-coupon_input').focus()
+                }, 100);
+            }
+            return this.getCouponDialog;
+        },
         showReviewBox(){
             if((!!this.getProfile && this.getProfile.user.isTutor) && (this.getProfile.user.tutorData.rate)){
                 return true;
