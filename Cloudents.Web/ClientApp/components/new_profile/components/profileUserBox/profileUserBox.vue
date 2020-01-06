@@ -495,6 +495,7 @@ export default {
             font-stretch: normal;
             font-style: normal;
             letter-spacing: normal;
+                word-break: break-word;
             @media (max-width: @screen-xs) {
                 font-size: 16px;
                 line-height: 1.4;
@@ -515,6 +516,7 @@ export default {
             font-style: normal;
             line-height: 1.57;
             letter-spacing: normal;
+                word-break: break-word;
             .pUb_middle_bio_readMore{
                 font-weight: 600;
                 cursor: pointer;
