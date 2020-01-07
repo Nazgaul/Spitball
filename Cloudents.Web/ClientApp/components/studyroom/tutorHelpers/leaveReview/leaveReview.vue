@@ -5,41 +5,45 @@
             <div class="review_title text-center font-weight-bold mx-auto" v-language:inner="reviewsTitle"></div>
         </div>
         <div class="review_sub_title text-center mt-1 mb-6">
-            <span v-if="!showNextStep" v-html="$Ph('leaveReview_sub_title_step1', nameTutor)"></span>
+            <span v-if="!showNextStep" v-html="$Ph('leaveReview_sub_title_step1', tutorName)"></span>
             <span class="review_sub_title_step2" v-else v-language:inner="'leaveReview_sub_title_step2'"></span>
         </div>
         <div class="review_user_rate mb-5" v-if="!showNextStep">
-            <user-avatar class="tutor-img-wrap mr-2" size="42" :userImageUrl="tutorImg" :user-name="nameTutor" :user-id="tutorId"/>
-            <userRating 
-                class="review_stars"
-                :rating="rating"
-                :rateNumColor="'#43425D'"
-                :size="'28'"
-                :readonly="false"
-                :showRateNumber="false"
-                :callbackFn="setRateStar"
-                :rate-num-color="'#43425D'">
-            </userRating>
+            <user-avatar class="tutor-img-wrap mr-2" :size="imgSize" :userImageUrl="tutorImg" :user-name="tutorName" :user-id="tutorId"/>
+            <v-rating 
+                v-model="rating"
+                ref="hahahahau"
+                full-icon="sbf-star-rating-full"
+                empty-icon="sbf-star-rating-empty"
+                :hover="true"
+                :size="28"
+                :dense="true"
+                :color="'#ffca54'"
+                :background-color="'#ffca54'"
+            >
+            </v-rating>
             <span class="review_start_rate">{{ratingRate}}</span>
         </div>
         <div class="review_textarea">
-            <div class="mb-1 review_error" v-show="reviewsError && btnDisabled" v-language:inner="'leaveReview_error'"></div>
+            <div class="mb-1 review_error" v-show="reviewsError && !showNextStep">
+                <span v-language:inner="errorText"></span>
+            </div>
             <v-textarea
                 rows="4"
                 outlined
                 autofocus
                 v-model="reviewText"
                 name="input-review"
+                no-resize
                 hide-details
-                auto-grow
                 :placeholder="reviewPlaceholder"
             ></v-textarea>
         </div>
         <div class="text-center mt-5">
-            <v-btn @click="closeReviewDialog" class="review_btn review_btn-back" depressed color="white" rounded>
+            <v-btn @click="closeReviewDialog" class="review_btn review_btn-back" outlined depressed rounded>
                 <span v-language:inner="btnText"/>
             </v-btn>
-            <v-btn :loading="btnLoading" @click="goNextStep" class="review_btn review_btn-next white--text" depressed rounded color="#4452fc" sel="submit_tutor_request">
+            <v-btn :loading="btnLoading" @click="showNextStep ? sendReview() : goNextStep()" class="review_btn review_btn-next white--text" depressed rounded color="#4452fc" sel="submit_tutor_request">
                 <span v-language:inner="'leaveReview_send'"/>
             </v-btn>
         </div>
@@ -52,31 +56,41 @@
     import { LanguageService } from "../../../../services/language/languageService";
     import utilitiesService from "../../../../services/utilities/utilitiesService";
 
-    import userRating from '../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue';
     import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
 
     export default {
-        components: {userRating, userAvatar},
+        components: {userAvatar},
         name: "leaveReview",
         data() {
             return {
+                errorText: '',
                 reviewText: '',
                 reviewsError: false,
-                reviewInputHidden: false,
-                reviewSent: false,
                 btnLoading: false,
                 showNextStep: false,
                 roomId: 0,
                 rating: 0,
                 reviewPlaceholder: LanguageService.getValueByKey("leaveReview_review_placeholder"),
+                imgSize: '48',
+                starRate: [
+                    '',
+                    LanguageService.getValueByKey("leaveReview_star_1"),
+                    LanguageService.getValueByKey("leaveReview_star_2"),
+                    LanguageService.getValueByKey("leaveReview_star_3"),
+                    LanguageService.getValueByKey("leaveReview_star_4"),
+                    LanguageService.getValueByKey("leaveReview_star_5"),
+                ],
+                ratingScore: 0,
             };
         },
         computed: {
             ...mapState(['tutoringMain']),
             ...mapGetters(['getReview', 'getStudyRoomData']),
+
             tutorImg() {
+                let size = [this.imgSize, this.imgSize];
                 if(this.getStudyRoomData && this.getStudyRoomData.tutorImage){
-                    return utilitiesService.proccessImageURL(this.getStudyRoomData.tutorImage, 54, 54);
+                    return utilitiesService.proccessImageURL(this.getStudyRoomData.tutorImage, ...size);
                 }
                 return '';
             },
@@ -86,69 +100,60 @@
             tutorName() {
                 return this.getStudyRoomData ?  this.getStudyRoomData.tutorName : '';
             },
-            nameTutor() {
-                return this.getStudyRoomData.tutorName;
-            },
-            btnDisabled() {
-                return this.rating === 0;
-            },
             ratingRate() {
-                return this.rating > 2.5 ? 'strong' : 'weak';
+                if(this.ratingScore === -1 && this.rating !== 0){
+                    return this.starRate[this.rating];
+                }else{
+                    return this.starRate[this.ratingScore];
+                }
             },
             reviewsTitle() {
                 return this.showNextStep ? 'leaveReview_title_step2' : 'leaveReview_title_step1';
             },
-            // reviewsSubTitle() {
-            //     if(this.showNextStep) {
-            //         return LanguageService.getValueByKey('leaveReview_sub_title_step2');
-            //     } else {
-            //         return this.$Ph('leaveReview_sub_title_step1', this.nameTutor);
-            //     } 
-            // },
             btnText() {
                 return this.showNextStep ? 'leaveReview_noThanks' : 'leaveReview_back';
-            }
-        },
-        methods: {
-            ...mapActions(['submitReview', 'updateReviewDialog', 'updateReviewStars', 'updateReview', 'updateStudentStartDialog', 'setStudentDialogState']),
-            toggleReviewInput() {
-                return this.reviewInputHidden = !this.reviewInputHidden;
             },
-            setRateStar(val) {
+        },
+        watch: {
+            rating(val) {
                 this.rating = val;
                 if(val > 0) {
+                    this.reviewsError = false;
                     this.updateReviewStars(val);
                 }
             },
+        },
+        methods: {
+            ...mapActions(['submitReview', 'updateReviewDialog', 'updateReviewStars', 'updateReview', 'updateStudentStartDialog', 'setStudentDialogState']),
+
             goNextStep() {
-                if(this.reviewText.length > 0 && this.rating > 0) {
-                    this.sendReview();
-                } else if(this.reviewText.length <= 0 && this.rating > 0) {
-                    this.showNextStep = true;
+                if(this.rating > 0) {
+                    if(this.reviewText.length) {
+                        this.sendReview();
+                    } else {
+                        this.showNextStep = true;
+                    }
                 } else {
                     this.reviewsError = true;
+                    this.errorText = LanguageService.getValueByKey('leaveReview_emptyStarError')
                 }
             },
             sendReview() {
                 this.btnLoading = true;
-                let stars = this.getReview.rate;
                 this.submitReview({
                     roomId: this.getStudyRoomData.roomId,
                     review: this.reviewText,
-                    rate: stars,
+                    rate: this.getReview.rate,
                     tutor: this.tutorId
                 })
-                .then((resp) => {
-                    if(!!resp) {
-                        this.reviewSent = true;
-                        this.btnLoading = false;
-                        this.updateReview(null);
-                        this.closeReviewDialog();
-                    }
+                .then(() => {
+                    this.updateReview(null);
+                    this.closeReviewDialog();
                 },
                 (error) => {
                     console.log('error sending review', error);
-                    this.btnLoading = false;
+                    this.reviewsError = true;
+                    this.errorText = LanguageService.getValueByKey('leaveReview_sendReviewError')
                 }
                 ).finally(() => {
                     this.btnLoading = false;
@@ -162,8 +167,28 @@
                     self.updateStudentStartDialog(true);
                 }, 400);
             }
-
         },
+        mounted(){
+            let self = this;
+            this.$nextTick(function(){
+                this.$refs.hahahahau.onMouseEnter = function(e, i){
+                    this.runDelay('open', () => {
+                    this.hoverIndex = this.genHoverIndex(e, i);
+                    self.ratingScore = this.hoverIndex;
+                });
+                    console.log(self.ratingScore)
+                }
+            })
+            this.$nextTick(function(){
+                this.$refs.hahahahau.onMouseLeave = function(){
+                    self.$refs.hahahahau.runDelay('close', () => {
+                        self.$refs.hahahahau.hoverIndex = -1
+                        self.ratingScore = self.$refs.hahahahau.hoverIndex;
+                    });
+                    console.log(self.ratingScore)
+                }
+            })   
+        }
     };
 </script>
 
@@ -182,10 +207,6 @@
         }
         .review_sub_title {
             color: @global-purple;
-
-            .review_sub_title_step2 {
-                // font-size: 16px;
-            }
         }
         .review_user_rate {
             display: flex;
@@ -212,69 +233,16 @@
             }
         }
         .review_btn {
-            min-width: 122px !important; //vuetify
+            min-width: @btnDialog !important;
             margin: 6px 8px;
             &.review_btn-back {
-                border: 1px solid #4452fc !important;
+                font-weight: 600;
                 color: #4452fc;
             }
             .v-btn__content {
                 font-size: 18px;
             }
         }
-
-
-
-
-        
-        // .v-text-field--outline > .v-input__control > .v-input__slot {
-        //     border: 1px solid rgba(0, 0, 0, 0.19);
-        //     font-size: 14px;
-        //     &:hover {
-        //         border: 1px solid rgba(0, 0, 0, 0.19) !important;
-        //     }
-        // }
-        // .v-textarea.v-text-field--enclosed textarea {
-        //     margin-top: 12px;
-        // }
-
-        // .white-text {
-        //     color: @color-white;
-        // }
-        // .blue-text {
-        //     color: @global-blue;
-        // }
-        // .middle-layout-wrapper{
-        //     direction: ltr /*rtl:ltr*/;
-        //     &.border-grey {
-        //         border-top: 1px solid rgba(67, 66, 93, 0.2);
-        //         border-bottom: 1px solid rgba(67, 66, 93, 0.2);
-        //     }
-        //     .image-container{
-        //         margin-right:24px/*rtl:ignore*/;
-        //         padding: 16px 0/*rtl:ignore*/;
-        //         .tutor-img-wrap{
-        //             max-width: 54px;
-        //         }
-        //     }
-            
-        // }
-        
-        // .submit-review {
-        //     height: 42px;
-        // }
-        // #submit-review-id{
-        //     &:disabled {
-        //         background-color: #f0f0f7!important; //vuetify
-        //     }
-        // }
-        // .review-heading {
-        //     height: 46px;
-        //     background-color: @systemBackgroundColor;
-        //     .heading-text {
-        //         color: @global-purple;
-        //     }
-        // }
     }
 
 </style>

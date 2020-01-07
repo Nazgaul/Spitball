@@ -123,6 +123,9 @@
   <data name="btn_send_review" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="emptyStarError" xml:space="preserve">
+    <value>Required star</value>
+  </data>
   <data name="error" xml:space="preserve">
     <value>*error</value>
   </data>
@@ -143,6 +146,24 @@
   </data>
   <data name="send" xml:space="preserve">
     <value>Post</value>
+  </data>
+  <data name="sendReviewError" xml:space="preserve">
+    <value>Server error</value>
+  </data>
+  <data name="star_1" xml:space="preserve">
+    <value>Not recommended</value>
+  </data>
+  <data name="star_2" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="star_3" xml:space="preserve">
+    <value>Good</value>
+  </data>
+  <data name="star_4" xml:space="preserve">
+    <value>Very Good</value>
+  </data>
+  <data name="star_5" xml:space="preserve">
+    <value>Excellent</value>
   </data>
   <data name="subtitle" xml:space="preserve">
     <value>Tell the tutor what you thought about this session</value>
