@@ -277,7 +277,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> CreateReview([FromBody] ReviewRequest model,
+        public async Task<IActionResult> CreateReviewAsync([FromBody] ReviewRequest model,
             [FromServices] UserManager<User> userManager,
             CancellationToken token)
         {

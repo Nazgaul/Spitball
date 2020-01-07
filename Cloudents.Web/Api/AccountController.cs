@@ -77,7 +77,7 @@ namespace Cloudents.Web.Api
         }
 
         [AllowAnonymous, HttpPost("language")]
-        public async Task<IActionResult> ChangeLanguage([FromBody]ChangeCultureRequest model, CancellationToken token)
+        public async Task<IActionResult> ChangeLanguageAsync([FromBody]ChangeCultureRequest model, CancellationToken token)
         {
             var culture = model.Culture;
 
@@ -106,7 +106,7 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns>list of courses for a user</returns>
         [HttpGet("courses")]
-        public async Task<IEnumerable<CourseDto>> GetCourses(CancellationToken token)
+        public async Task<IEnumerable<CourseDto>> GetCoursesAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
 
@@ -130,7 +130,7 @@ namespace Cloudents.Web.Api
 
         [HttpGet("referrals")]
         [ResponseCache(Duration = TimeConst.Minute * 30, Location = ResponseCacheLocation.Client)]
-        public async Task<UserReferralsDto> GetReferrals(CancellationToken token)
+        public async Task<UserReferralsDto> GetReferralsAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserReferralsQuery(userId);
@@ -235,7 +235,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> ApplyCoupon(ApplyCouponRequest model, CancellationToken token)
+        public async Task<IActionResult> ApplyCouponAsync(ApplyCouponRequest model, CancellationToken token)
         {
             try
             {
