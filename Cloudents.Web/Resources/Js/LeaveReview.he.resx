@@ -124,7 +124,7 @@
     <value>אישור</value>
   </data>
   <data name="emptyStarError" xml:space="preserve">
-    <value>Required star</value>
+    <value>חובה לסמן ציון כללי בכוכבים</value>
   </data>
   <data name="final_goTo" xml:space="preserve">
     <value>עבור לחוות הדעת שלך</value>

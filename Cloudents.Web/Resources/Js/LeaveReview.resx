@@ -124,7 +124,7 @@
     <value>Submit</value>
   </data>
   <data name="emptyStarError" xml:space="preserve">
-    <value>Required star</value>
+    <value>Required selecting stars rating</value>
   </data>
   <data name="error" xml:space="preserve">
     <value>*error</value>
