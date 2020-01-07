@@ -85,7 +85,7 @@ import analyticsService from "../../../../services/analytics.service";
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 
-import iconChat from '../tutorResultCardOther/icon-chat.svg';
+import iconChat from '../icon-chat.svg';
 import star from '../stars-copy.svg';
 
 export default {
@@ -125,6 +125,8 @@ export default {
             path: this.$route.path
           });
           this.updateRequestDialog(true);
+      } else if(user.isTutor && user.userId == this.accountUser.id) { // this is my profile
+          return
       } else {
           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
           let conversationObj = {

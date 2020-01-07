@@ -102,15 +102,15 @@ export default {
         });
         this.updateRequestDialog(true);
       } else {
-        if (this.getSelectedClasses.length) {
-          this.setTutorRequestAnalyticsOpenedFrom({
-            component: "actionBox",
-            path: this.$route.path
-          });
-          this.updateRequestDialog(true);
-        } else {
-          this.$router.push({ name: "addCourse" });
-        }
+        // if (this.getSelectedClasses.length) {
+        this.setTutorRequestAnalyticsOpenedFrom({
+          component: "actionBox",
+          path: this.$route.path
+        });
+        this.updateRequestDialog(true);
+        // } else {
+        //   this.$router.push({ name: "addCourse" });
+        // }
       }
     }
   }
