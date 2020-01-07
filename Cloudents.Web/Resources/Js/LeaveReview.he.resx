@@ -132,6 +132,9 @@
   <data name="final_title" xml:space="preserve">
     <value>תודה על הדירוג</value>
   </data>
+  <data name="noThanks" xml:space="preserve">
+    <value>לא, תודה</value>
+  </data>
   <data name="press_star" xml:space="preserve">
     <value>ציון כללי למורה</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="sub_title_step1" xml:space="preserve">
     <value>הענק ציון כללי וחוות דעת על המורה {1} אחרי שסיימת את השיעור</value>
+  </data>
+  <data name="sub_title_step2" xml:space="preserve">
+    <value>אתם יכולים לעזור לסטודנטים אחרים על ידי כתיבת חוות דעת</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>דירוג וחוות דעת</value>
