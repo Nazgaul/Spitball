@@ -1,7 +1,8 @@
 <template>
     <div class="leave_review_wrap">
+        <closeIcon class="body-2 review_close_icon d-flex d-sm-none" @click="closeReviewDialog"></closeIcon>
+        <!-- <v-icon class="body-2 review_close_icon d-flex d-sm-none" @click="closeReviewDialog">sbf-close</v-icon> -->
         <div class="d-flex">
-            <v-icon class="body-2 review_close_icon d-flex d-sm-none" @click="closeReviewDialog">sbf-close</v-icon>
             <div class="review_title text-center font-weight-bold mx-auto" v-language:inner="reviewsTitle"></div>
         </div>
         <div class="review_sub_title text-center mt-1 mb-6">
@@ -10,7 +11,7 @@
         </div>
         <div class="review_user_rate mb-5" v-if="!showNextStep">
             <user-avatar class="tutor-img-wrap mr-2" :size="imgSize" :userImageUrl="tutorImg" :user-name="tutorName" :user-id="tutorId"/>
-            <v-rating 
+            <v-rating
                 v-model="rating"
                 ref="hahahahau"
                 full-icon="sbf-star-rating-full"
@@ -55,11 +56,11 @@
 
     import { LanguageService } from "../../../../services/language/languageService";
     import utilitiesService from "../../../../services/utilities/utilitiesService";
-
+    import closeIcon from '../../../../font-icon/close.svg'
     import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
 
     export default {
-        components: {userAvatar},
+        components: {userAvatar, closeIcon},
         name: "leaveReview",
         data() {
             return {
@@ -200,6 +201,8 @@
         background-color: @color-white;
         .review_close_icon {
             color: #a4a3be;
+            display: flex;
+            margin: 0 0 0 auto;
         }
         .review_title {
             font-size: 20px;
