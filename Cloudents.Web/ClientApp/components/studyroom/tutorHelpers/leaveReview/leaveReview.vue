@@ -25,8 +25,8 @@
             </v-rating>
             <span class="review_start_rate ml-2">{{ratingRate}}</span>
         </div>
-        <div class="review_textarea">
-            <div class="mb-1 review_error" v-show="reviewsError && !showNextStep">
+        <div class="review_textarea" :class="{'review_textarea--noPadding':showNextStep}">
+            <div class="mb-1 review_error" v-show="reviewsError">
                 <span v-language:inner="errorText"></span>
             </div>
             <v-textarea
@@ -40,11 +40,12 @@
                 :placeholder="reviewPlaceholder"
             ></v-textarea>
         </div>
+        
         <div class="text-center mt-5">
-            <v-btn @click="closeReviewDialog" class="review_btn review_btn-back" outlined depressed rounded>
+            <v-btn :loading="btnLoadingNoThx" @click="!showNextStep ? closeReviewDialog() : noThanks()" class="review_btn review_btn-back" outlined depressed rounded>
                 <span v-language:inner="btnText"/>
             </v-btn>
-            <v-btn :loading="btnLoading" @click="showNextStep ? sendReview() : goNextStep()" class="review_btn review_btn-next white--text" depressed rounded color="#4452fc" sel="submit_tutor_request">
+            <v-btn :loading="btnLoading" @click="showNextStep ? sendPost() : goNextStep()" class="review_btn review_btn-next white--text" depressed rounded color="#4452fc" sel="submit_tutor_request">
                 <span v-language:inner="'leaveReview_send'"/>
             </v-btn>
         </div>
@@ -68,6 +69,7 @@
                 reviewText: '',
                 reviewsError: false,
                 btnLoading: false,
+                btnLoadingNoThx: false,
                 showNextStep: false,
                 roomId: 0,
                 rating: 0,
@@ -127,20 +129,33 @@
         methods: {
             ...mapActions(['submitReview', 'updateReviewDialog', 'updateReviewStars', 'updateReview', 'updateStudentStartDialog', 'setStudentDialogState']),
 
+            noThanks() {
+                this.btnLoadingNoThx = true;
+                this.sendReview();
+            },
+            sendPost() {
+                this.btnLoading = true;
+                if(!this.reviewText.length) {
+                    this.setReviewError('leaveReview_emptyStarError');
+                    this.btnLoading = false;
+                } else {
+                    this.sendReview();
+                }
+            },
             goNextStep() {
                 if(this.rating > 0) {
                     if(this.reviewText.length) {
+                        this.btnLoading = true;
                         this.sendReview();
                     } else {
                         this.showNextStep = true;
+                        this.reviewsError = false;
                     }
                 } else {
-                    this.reviewsError = true;
-                    this.errorText = LanguageService.getValueByKey('leaveReview_emptyStarError')
+                    this.setReviewError('leaveReview_emptyStarError');
                 }
             },
             sendReview() {
-                this.btnLoading = true;
                 this.submitReview({
                     roomId: this.getStudyRoomData.roomId,
                     review: this.reviewText,
@@ -153,12 +168,16 @@
                 },
                 (error) => {
                     console.log('error sending review', error);
-                    this.reviewsError = true;
-                    this.errorText = LanguageService.getValueByKey('leaveReview_sendReviewError')
+                    this.setReviewError('leaveReview_sendReviewError')
                 }
                 ).finally(() => {
                     this.btnLoading = false;
+                    this.btnLoadingNoThx = false;
                 });
+            },
+            setReviewError(err) {
+                this.reviewsError = true;
+                this.errorText = LanguageService.getValueByKey(err)
             },
             closeReviewDialog() {
                 this.updateReviewDialog(false);
@@ -230,21 +249,24 @@
         }
         .review_textarea {
             padding-left: 60px;
-
+            &--noPadding {
+                padding-left: unset;
+            }
             @media (max-width: @screen-xs) {
                 padding-left: unset;
             }
         }
         .review_btn {
             text-transform: initial;
-            min-width: @btnDialog !important;
+            min-width: @btnDialog !important; //vuetify
+            height: 40px !important; //vuetify
             margin: 6px 8px;
+            font-weight: 600;
             &.review_btn-back {
-                font-weight: 600;
                 color: #4452fc;
             }
             .v-btn__content {
-                font-size: 18px;
+                font-size: 14px;
             }
         }
     }
