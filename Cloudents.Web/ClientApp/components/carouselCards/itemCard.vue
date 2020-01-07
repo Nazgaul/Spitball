@@ -70,6 +70,7 @@ export default {
     }
     .item-cont{
         .item-title{
+            overflow: hidden !important;
             font-size: 14px;
             font-weight: bold;
             font-stretch: normal;
