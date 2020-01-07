@@ -157,7 +157,7 @@
         :showDialog="getReviewDialogState"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'reviewDilaog'"
-        :maxWidth="'596'"
+        :maxWidth="'523'"
         :onclosefn="closeReviewDialog"
         :activateOverlay="false"
         :isPersistent="$vuetify.breakpoint.smAndUp"

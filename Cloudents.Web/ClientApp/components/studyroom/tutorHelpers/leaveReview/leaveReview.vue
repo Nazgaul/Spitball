@@ -9,7 +9,7 @@
             <span v-if="!showNextStep" v-html="$Ph('leaveReview_sub_title_step1', tutorName)"></span>
             <span class="review_sub_title_step2" v-else v-language:inner="'leaveReview_sub_title_step2'"></span>
         </div>
-        <div class="review_user_rate mb-5" v-if="!showNextStep">
+        <div class="review_user_rate" v-if="!showNextStep">
             <user-avatar class="tutor-img-wrap mr-2" :size="imgSize" :userImageUrl="tutorImg" :user-name="tutorName" :user-id="tutorId"/>
             <v-rating
                 v-model="rating"
@@ -23,7 +23,7 @@
                 :background-color="'#ffca54'"
             >
             </v-rating>
-            <span class="review_start_rate">{{ratingRate}}</span>
+            <span class="review_start_rate ml-2">{{ratingRate}}</span>
         </div>
         <div class="review_textarea">
             <div class="mb-1 review_error" v-show="reviewsError && !showNextStep">
@@ -229,13 +229,14 @@
             color: #ff0000;
         }
         .review_textarea {
-            padding-left: 50px;
+            padding-left: 60px;
 
             @media (max-width: @screen-xs) {
                 padding-left: unset;
             }
         }
         .review_btn {
+            text-transform: initial;
             min-width: @btnDialog !important;
             margin: 6px 8px;
             &.review_btn-back {
