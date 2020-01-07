@@ -5,7 +5,7 @@
         <div class="d-flex">
             <div class="review_title text-center font-weight-bold mx-auto" v-language:inner="reviewsTitle"></div>
         </div>
-        <div class="review_sub_title text-center mt-1 mb-6">
+        <div class="review_sub_title text-center mt-1" :class="{'mb-6': !showNextStep}">
             <span v-if="!showNextStep" v-html="$Ph('leaveReview_sub_title_step1', tutorName)"></span>
             <span class="review_sub_title_step2" v-else v-language:inner="'leaveReview_sub_title_step2'"></span>
         </div>
@@ -26,14 +26,18 @@
             <span class="review_start_rate ml-2">{{ratingRate}}</span>
         </div>
         <div class="review_textarea" :class="{'review_textarea--noPadding':showNextStep}">
-            <div class="mb-1 review_error" v-show="reviewsError">
-                <span v-language:inner="errorText"></span>
-            </div>
+            <template>
+                <div class="mb-1 review_error" v-if="reviewsError">
+                    <span v-language:inner="errorText"></span>
+                </div>
+                <div v-else class="review_no_error"></div>
+            </template>
             <v-textarea
                 rows="4"
                 outlined
                 autofocus
                 v-model="reviewText"
+                class="review_textarea_field"
                 name="input-review"
                 no-resize
                 hide-details
@@ -41,7 +45,7 @@
             ></v-textarea>
         </div>
         
-        <div class="text-center mt-5">
+        <div class="text-center mt-4">
             <v-btn :loading="btnLoadingNoThx" @click="!showNextStep ? closeReviewDialog() : noThanks()" class="review_btn review_btn-back" outlined depressed rounded>
                 <span v-language:inner="btnText"/>
             </v-btn>
@@ -74,7 +78,7 @@
                 roomId: 0,
                 rating: 0,
                 reviewPlaceholder: LanguageService.getValueByKey("leaveReview_review_placeholder"),
-                imgSize: '48',
+                imgSize: '42',
                 starRate: [
                     '',
                     LanguageService.getValueByKey("leaveReview_star_1"),
@@ -255,12 +259,27 @@
             @media (max-width: @screen-xs) {
                 padding-left: unset;
             }
+            .v-input__slot {
+                fieldset {
+                    border: 1px solid #c4c3d1;
+                }
+            }
+            .review_textarea_field {
+                border-radius: 6px;
+                textarea {
+                    font-size: 14px !important;
+                    color: #6a697f !important;
+                }
+            }
+            .review_no_error {
+                min-height: 21px;
+            }
         }
         .review_btn {
             text-transform: initial;
             min-width: @btnDialog !important; //vuetify
             height: 40px !important; //vuetify
-            margin: 6px 8px;
+            margin: 0 8px;
             font-weight: 600;
             &.review_btn-back {
                 color: #4452fc;
