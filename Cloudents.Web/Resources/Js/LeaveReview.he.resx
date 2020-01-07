@@ -120,6 +120,9 @@
   <data name="btn_send_review" xml:space="preserve">
     <value>אישור</value>
   </data>
+  <data name="emptyStarError" xml:space="preserve">
+    <value>Required star</value>
+  </data>
   <data name="final_goTo" xml:space="preserve">
     <value>עבור לחוות הדעת שלך</value>
   </data>
@@ -131,6 +134,24 @@
   </data>
   <data name="review_placeholder" xml:space="preserve">
     <value>כתוב חוות דעת</value>
+  </data>
+  <data name="sendReviewError" xml:space="preserve">
+    <value>Server error</value>
+  </data>
+  <data name="star_1" xml:space="preserve">
+    <value>לא מומלץ</value>
+  </data>
+  <data name="star_2" xml:space="preserve">
+    <value>בסדר</value>
+  </data>
+  <data name="star_3" xml:space="preserve">
+    <value>טוב</value>
+  </data>
+  <data name="star_4" xml:space="preserve">
+    <value>טוב מאוד</value>
+  </data>
+  <data name="star_5" xml:space="preserve">
+    <value>מצוין</value>
   </data>
   <data name="subtitle" xml:space="preserve">
     <value>ספרו למורה מה חשבתם על השיעור</value>
