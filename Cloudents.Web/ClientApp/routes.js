@@ -262,7 +262,10 @@ let routes2 = [
             })
         }
     },
-
+{
+path : "/profile",
+redirect: { name: 'feed' }
+},
     {
         path: "/profile/:id/:name",
         components: {
@@ -385,6 +388,13 @@ let routes2 = [
             requiresAuth: true,
             showMobileFooter: true,
         },
+    },
+    {
+        path:'*',
+        redirect : () => {
+            window.location = "/error/notfound?client=true";
+        }
+
     }
 ];
 export const routes = routes2;

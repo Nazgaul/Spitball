@@ -261,7 +261,7 @@
     <comment>Don't show this </comment>
   </data>
   <data name="resourses" xml:space="preserve">
-    <value>{1} Downloadables</value>
+    <value>{1} Contents</value>
   </data>
   <data name="sessions" xml:space="preserve">
     <value>{1} Lessons</value>
@@ -324,7 +324,7 @@
     <value>{1} Followers</value>
   </data>
   <data name="resourse" xml:space="preserve">
-    <value>{1} Downloadable</value>
+    <value>{1} Content</value>
   </data>
   <data name="session" xml:space="preserve">
     <value>{1} Lesson</value>

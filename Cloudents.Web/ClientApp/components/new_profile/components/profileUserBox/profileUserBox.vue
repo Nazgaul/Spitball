@@ -88,7 +88,7 @@
         <v-flex v-if="currentProfileUser.description" sm9 xs12 class="profileUserBox_middle">
             <h3 class="pUb_middle_AboutMe" v-text="currentProfileUser.description"/>
             <template v-if="currentProfileUser.isTutor">
-                <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}<span v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'"/></h4>
+                <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}<span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span><span v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'"/></h4>
             </template>
         </v-flex>
         <div class="profileUserBox_bottom" v-if="currentProfileUser.isTutor && currentProfileTutor.subjects.length">
@@ -235,6 +235,14 @@ export default {
                 return val + ' ';
             }
             return val;
+        },
+        restOfText(val, isOpen, suffix, textLimit){
+            if (val.length > textLimit && !isOpen) {
+                return val.substring(textLimit) ;
+            }
+            if (val.length > textLimit && isOpen) {
+                return '';
+            }
         }
     },
 }
@@ -487,6 +495,7 @@ export default {
             font-stretch: normal;
             font-style: normal;
             letter-spacing: normal;
+                word-break: break-word;
             @media (max-width: @screen-xs) {
                 font-size: 16px;
                 line-height: 1.4;
@@ -507,6 +516,7 @@ export default {
             font-style: normal;
             line-height: 1.57;
             letter-spacing: normal;
+                word-break: break-word;
             .pUb_middle_bio_readMore{
                 font-weight: 600;
                 cursor: pointer;

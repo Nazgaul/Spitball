@@ -190,4 +190,16 @@
   <data name="unlock_btn" xml:space="preserve">
     <value>Open</value>
   </data>
+  <data name="unlock_place_btn" xml:space="preserve">
+    <value>Unlock document</value>
+  </data>
+  <data name="unlock_subtitle" xml:space="preserve">
+    <value>Want to read all {1} pages?</value>
+  </data>
+  <data name="unlock_title" xml:space="preserve">
+    <value>You’ve reached the end of your free preview</value>
+  </data>
+  <data name="unlock_video_subtitle" xml:space="preserve">
+    <value>Want to see the full Video?</value>
+  </data>
 </root>

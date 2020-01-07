@@ -20,7 +20,7 @@
                                 <div class="itemPage__main__document__tutor__link--title1" v-language:inner="'documentPage_need_help1'" @click="moveDownToTutorItem"></div>
                                 <div class="itemPage__main__document__tutor__link--title2" v-html="$Ph('documentPage_need_help2', firstName)"></div>
                             </div>
-                            <v-btn class="itemPage__main__document__tutor--btn ma-0" depressed rounded @click="sendMessage">
+                            <v-btn v-if="!isMyProfile" class="itemPage__main__document__tutor--btn ma-0" depressed rounded @click="sendMessage">
                                 <div v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
                             </v-btn>
                         </div>
@@ -182,7 +182,13 @@ export default {
                 return this.document.details.course;
             }
             return null
-        }
+        },
+        isMyProfile(){
+            if(!!this.docTutor && !!this.accountUser){
+                return (this.docTutor.isTutor && this.docTutor.userId == this.accountUser.id)
+            }
+            return false;
+        },
     },
         methods: {
         ...mapActions([

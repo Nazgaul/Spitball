@@ -85,7 +85,8 @@ select 'd' as type
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration
 ,d.DocumentType as documentType for json path) as JsonArray,
-case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo
+case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo,
+case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId
@@ -117,7 +118,8 @@ q.Language as CultureInfo
 ,u.Name as 'User.Name'
 ,u.ImageName as 'User.Image'
 ,'Question' as documentType for json path) JsonArray,
-0 as IsVideo
+0 as IsVideo,
+case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
@@ -138,8 +140,8 @@ order by
 
 case when R.UniversityId = cte.UniversityId then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
 DATEDiff(hour, R.DateTime, GetUtcDATE()) +
-case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
-
+case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
+case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
                 const string sqlWithoutCourse = @"with cte as (
@@ -178,7 +180,8 @@ select 'd' as type
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration
 ,d.DocumentType as documentType for json path) as JsonArray,
-case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo
+case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo,
+case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId
@@ -210,7 +213,8 @@ q.Language as CultureInfo
 ,u.Name as 'User.Name'
 ,u.ImageName as 'User.Image'
 ,'Question' as documentType for json path) JsonArray
-, 0 as IsVideo
+, 0 as IsVideo,
+case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
@@ -233,7 +237,8 @@ order by
 case when R.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 0 else DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())*2 end +
 case when R.UniversityId = cte.UniversityId then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
 DATEDiff(hour, R.DateTime, GetUtcDATE()) +
-case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
+case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
+case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
 

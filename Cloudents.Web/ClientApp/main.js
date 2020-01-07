@@ -353,7 +353,8 @@ utilitiesService.init();
 
 
 Vue.use(VueAppInsights, {
-    appInsights: global.appInsights,
+    //appInsights: global.appInsights,
+    id : global.applicationId,
     router
 });
 

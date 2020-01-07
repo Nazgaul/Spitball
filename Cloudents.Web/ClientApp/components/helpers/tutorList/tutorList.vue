@@ -13,11 +13,9 @@
 </template>
 <script>
     import {mapGetters, mapActions} from 'vuex';
-    import tutorResultCardOther from "../../results/tutorCards/tutorResultCardOther/tutorResultCardOther.vue";
 
     export default {
         name: "tutorList",
-        components: {tutorResultCardOther},
         computed: {
             ...mapGetters(['tutorList']),
             isMobile(){

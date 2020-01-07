@@ -32,6 +32,7 @@ export default {
             isEdgeRtl : global.isEdgeRtl,
             cahceQuestion: {},
             submitLoader: false,
+            hasData: false
         };
     },
     beforeRouteLeave(to, from, next) {
@@ -119,7 +120,9 @@ export default {
                 if (updateViewer) {
                     this.cahceQuestion = {...this.questionData};
                 }
-            });
+            }).finally(() => {
+                this.hasData = true
+            })
         },
         showAnswerField() {            
             if (this.accountUser) {
@@ -135,6 +138,11 @@ export default {
     watch: {
         textAreaValue(){
             this.errorLength = {};
+        },
+        hasData(val) {
+            if(this.$route.hash && val) {
+                this.goToAnswer();
+            }
         },
         //watch route(url query) update, and het question data from server
         '$route': 'getData'
@@ -156,10 +164,14 @@ export default {
             }
             return null;
         },
+        goToAnswer() {            
+            let elem = this.$refs.answers;
+            elem.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
     },
     created() {               
         this.getData();
-        
+
         this.$root.$on('closePopUp', (name) => {
             if (name === 'suggestions') {
                 this.showDialogSuggestQuestion = false;

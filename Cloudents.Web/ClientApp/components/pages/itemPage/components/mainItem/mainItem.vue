@@ -7,9 +7,12 @@
         </template>
         <div v-if="!isLoad && videoLoader">
             <template v-if="isVideo && videoSrc">
-                <div style="margin: 0 auto;background:black" class="text-xs-center mainItem__item mb-3">
+                <div style="margin: 0 auto;background:black" class="text-center mainItem__item mb-3">
+                <v-fade-transition>
+                    <unlockItem v-if="showAfterVideo && !isPurchased" :type="document.documentType"/>
+                </v-fade-transition>
                 <sbVideoPlayer 
-                    @videoEnded="showAfterVideo = true"
+                    @videoEnded="updateAfterVideo()"
                     :id="`${document.details.id}`"
                     :height="videoHeight" 
                     :width="videoWidth" 
@@ -25,6 +28,12 @@
                 <template v-if="docPreview">
                     <div class="mainItem__item__wrap">
                         <div :style="{height: `${dynamicWidthAndHeight.height}px`}">
+                            <v-scroll-x-reverse-transition>
+                                <unlockItem  v-touch="{
+                                    left:() => handleSwipe(true),
+                                    right:() => handleSwipe(false)}"  class="unlockItem_swipe" v-if="showUnlockPage" :type="document.documentType" :docLength="docPreview.length"/>
+                            </v-scroll-x-reverse-transition>
+                            
                             <sbCarousel
                                 ref="itemPageChildComponent"
                                 :gap="20"
@@ -34,15 +43,15 @@
                                 :renderOnlyVisible="true"
                                 :moveType="'snap'"
                                 >
-                                    <lazyImage
-                                        v-for="(doc, index) in docPreview"
-                                        :src="doc"
-                                        :key="index"
-                                        class="mainItem__item__wrap--img"
-                                        draggable="false"
-                                        :element="selector"
-                                        >
-                                    </lazyImage>
+                                <lazyImage 
+                                    v-for="(doc, index) in docPreview"
+                                    :src="doc"
+                                    :key="index"
+                                    class="mainItem__item__wrap--img"
+                                    draggable="false"
+                                    :element="selector"
+                                    >
+                                </lazyImage>
                                     <!-- <img draggable="false" class="mainItem__item__wrap--img" :src="doc" alt="" v-for="(doc, index) in docPreview" :key="index"> -->
                             </sbCarousel>
                         </div>
@@ -73,6 +82,7 @@ import utillitiesService from "../../../../../services/utilities/utilitiesServic
 import sbCarousel from '../../../../sbCarousel/sbCarousel.vue';
 import sbVideoPlayer from '../../../../sbVideoPlayer/sbVideoPlayer.vue';
 import lazyImage from '../../../global/lazyImage/lazyImage.vue';
+import unlockItem from '../unlockItem/unlockItem.vue';
 
 export default {
     name: 'mainItem',
@@ -80,6 +90,7 @@ export default {
         sbCarousel,
         sbVideoPlayer,
         lazyImage,
+        unlockItem,
     },
     props: {
         document: {
@@ -93,6 +104,7 @@ export default {
         return {
             docPage: 1,
             isRtl: global.isRtl,
+            showAfterVideo:false,
         }
     },
     watch:{
@@ -104,14 +116,24 @@ export default {
             setTimeout(()=>{
                 self.isLoad = false;
             })
-        }
+        },
     },
     computed: {
         ...mapGetters(['getDocumentLoaded']),
+        showUnlockPage(){
+            // touchmove 
+            return (this.docPage > 2 && !this.isPurchased)
+        },
         showDesktopButtons() {
             if(this.docPreview) {
                 if(this.$vuetify.breakpoint.xsOnly || this.docPreview.length < 2) return false;
                 return true;
+            }
+            return false;
+        },
+        isPurchased() {
+            if (this.document.details) {
+                return this.document.details.isPurchased;
             }
             return false;
         },
@@ -200,7 +222,7 @@ export default {
             let element = document.querySelector('.itemPage__main')
             if(!element) return '';
             return element;
-        }
+        },
     },
     methods: {
         setDocPage(){  
@@ -214,6 +236,16 @@ export default {
         nextDoc() {
             this.$refs.itemPageChildComponent.next();
         },
+        updateAfterVideo(){
+            this.showAfterVideo = true;
+        },
+        handleSwipe(dir){
+            if(dir){
+                this.nextDoc()
+            }else{
+                this.prevDoc()
+            }
+        }
     },
 }
 </script>
@@ -228,6 +260,7 @@ export default {
             }
         }
         &__item {
+            position: relative;
             &__wrap {
                 position: relative;
                 height: 100%;

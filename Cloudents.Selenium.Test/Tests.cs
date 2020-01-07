@@ -299,6 +299,7 @@ namespace Cloudents.Selenium.Test
         {
             foreach (var driver in this._driver.Drivers)
             {
+                driver.Manage().Window.Maximize();
                 LoginTest();
 
                 var menu = driver.FindElementByWait(By.XPath("//*[@sel='menu']"));

@@ -4,7 +4,7 @@
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
 @using Microsoft.Extensions.Configuration
-@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+@inject Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration JavaScriptSnippetTelemetry
 @inject IWebHostEnvironment Environment
 @inject WebPackChunkName Provider
 @inject IConfiguration Configuration
@@ -30,12 +30,6 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap">
     }
 
-    @*<link rel="stylesheet" href="@cdnEndPoint/dist/@p.GetCss()"
-          asp-fallback-href="~/dist/@p.GetCss()"
-          asp-fallback-test-class="cdn-only" asp-fallback-test-property="position" asp-append-version="true"
-          asp-fallback-test-value="absolute" 
-          />*@
-
     @await RenderSectionAsync("styleSection", required: false)
     
 
@@ -49,7 +43,7 @@
         @await Html.PartialAsync("_SpitballTags");
     }
 
-    @Html.Raw(JavaScriptSnippet.FullScript)
+    @*@Html.Raw(JavaScriptSnippet.FullScript)*@
     @Html.Raw(ClickJackingTagHelper.FullScript)
 
     @if (ViewBag.jsonLd != null)
@@ -64,29 +58,12 @@
         @RenderBody()
     </div>
     <div class="cdn-only"></div>
-
-    @*<environment include="Development">
-        <script src="~/dist/@p.Js" asp-append-version="true"></script>
-    </environment>
-
-    <environment exclude="Development">
-        <script src="@cdnEndPoint/dist/@p.Js" crossorigin="anonymous"
-                asp-fallback-src="~/dist/@p.Js"
-                asp-fallback-test="window.vendor">
-        </script>
-    </environment>*@
-
-
-
     <script>
         window.version = '@VersionService.GetVersion()';
-
-
         window.publicPath = '@cdnEndPoint' + '/dist/';// + '@result/';
         window.isAuth = @isAuth.ToString().ToLower();
         window.siteName = '@VersionService.GetSiteName().ToString("G").ToLowerInvariant()';
-
-
+        window.applicationId = '@JavaScriptSnippetTelemetry.InstrumentationKey';
     </script>
     @await Component.InvokeAsync("Country")
     @await RenderSectionAsync("scripts", required: false)

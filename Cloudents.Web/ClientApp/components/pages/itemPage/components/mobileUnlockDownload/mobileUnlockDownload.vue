@@ -145,7 +145,7 @@ export default {
     right: 0;
     padding: 8px 0;
     text-align: center;
-    z-index: 4;
+    z-index: 6;
     margin-top: 20px;
     
     &--sticky {
