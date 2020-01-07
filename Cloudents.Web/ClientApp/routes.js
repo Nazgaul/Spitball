@@ -391,8 +391,7 @@ redirect: { name: 'feed' }
     },
     {
         path:'*',
-        redirect : (x) => {
-            debugger;
+        redirect : () => {
             window.location = "/error/notfound?client=true";
         }
 
