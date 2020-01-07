@@ -33,7 +33,6 @@ function errorHandling(err) {
     body.appendChild(el);
 }
 
-console.time('x')
 let dicPromise = GetDictionary();
 let mainComponenet = new Promise((resolve) => {
     import("./main").then((component) => {
@@ -69,7 +68,6 @@ Promise.all([dicPromise, mainComponenet]).then((val) => {
         //         window.location = "/error/notfound?client=true";
         //     }
         app.$mount("#app");
-        console.timeEnd('x')
         //});
     }
     catch (err) {
