@@ -204,6 +204,9 @@ module.exports = (env) => {
         devtool: false,
         optimization: {
             minimize: !isDevBuild,
+            //splitChunks: {
+            //    chunks: 'all'
+            //},
             minimizer: !isDevBuild ? [new TerserPlugin({
 
 
@@ -249,14 +252,7 @@ module.exports = (env) => {
                     NODE_ENV: JSON.stringify(isDevBuild ? 'development' : 'production')
                 }
             }),
-            new VuetifyLoaderPlugin(),
-            // new webpack.DllReferencePlugin({
-            //     context: __dirname,
-            //     // ReSharper disable once JsPathNotFound
-            //     manifest: require("./wwwroot/dist/vendor-manifest.json")
-            // }),
-           
-            
+            new VuetifyLoaderPlugin()
         ].concat(isDevBuild
             ? [
                 // new BundleAnalyzerPlugin({

@@ -35,9 +35,9 @@
 
 
 <script>
-import chatConversation from "./components/conversations.vue";
-import chatMessages from "./components/messages.vue";
-import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
+const chatConversation = () => import("./components/conversations.vue");
+const chatMessages = () => import("./components/messages.vue");
+const UserAvatar = () => import('../helpers/UserAvatar/UserAvatar.vue');
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 export default {
