@@ -32,17 +32,20 @@
                 </div>
                 <div v-else class="review_no_error"></div>
             </template>
-            <v-textarea
-                rows="4"
-                outlined
-                autofocus
-                v-model="reviewText"
-                class="review_textarea_field"
-                name="input-review"
-                no-resize
-                hide-details
-                :placeholder="reviewPlaceholder"
-            ></v-textarea>
+            <v-form v-model="validReviewForm" ref="validReviewForm">        
+                <v-textarea
+                    rows="4"
+                    outlined
+                    autofocus
+                    v-model="reviewText"
+                    class="review_textarea_field"
+                    name="input-review"
+                    no-resize
+                    :placeholder="reviewPlaceholder"
+                    :rules="[rules.required]"
+                ></v-textarea>
+            </v-form>
+                <!-- hide-details -->
         </div>
         
         <div class="text-center mt-4">
@@ -63,6 +66,8 @@
     import utilitiesService from "../../../../services/utilities/utilitiesService";
     import closeIcon from '../../../../font-icon/close.svg'
     import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
+    import { validationRules } from '../../../../services/utilities/formValidationRules';
+
 
     export default {
         components: {userAvatar, closeIcon},
@@ -88,6 +93,10 @@
                     LanguageService.getValueByKey("leaveReview_star_5"),
                 ],
                 ratingScore: 0,
+                rules: {
+                    required: (value) => validationRules.required(value),
+                },
+                validReviewForm:false,
             };
         },
         computed: {
@@ -139,8 +148,8 @@
             },
             sendPost() {
                 this.btnLoading = true;
-                if(!this.reviewText.length) {
-                    this.setReviewError('leaveReview_emptyStarError');
+                if(!this.$refs.validReviewForm.validate()) {
+                    // this.setReviewError('leaveReview_emptyStarError');
                     this.btnLoading = false;
                 } else {
                     this.sendReview();
