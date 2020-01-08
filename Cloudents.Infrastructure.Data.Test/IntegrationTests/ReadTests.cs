@@ -79,9 +79,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             {
                 p.Should().Contain(c => c.User.Id > 0);
             }
-            
-           // result.OfType<QuestionFeedDto>().Should().Contain(c => c.CultureInfo != null);
-
         }
 
         [Theory]

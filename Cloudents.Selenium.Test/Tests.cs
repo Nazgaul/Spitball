@@ -52,7 +52,7 @@ namespace Cloudents.Selenium.Test
                     new ChromeOptions()
                     {
                         AcceptInsecureCertificates = true
-                    }),
+                    },TimeSpan.FromMinutes(20)),
                 //new FirefoxDriver(Directory.GetCurrentDirectory(), new FirefoxOptions()
                 //{
                 //    PageLoadStrategy = PageLoadStrategy.None,
@@ -73,6 +73,7 @@ namespace Cloudents.Selenium.Test
 
                 _process.CloseMainWindow();
                 _process.Close();
+                _process.Dispose();
             }
 
             // ... clean up test data from the database ...
