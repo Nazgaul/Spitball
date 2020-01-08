@@ -28,7 +28,7 @@
         <div class="review_textarea" :class="{'review_textarea--noPadding':showNextStep}">
             <template>
                 <div class="mb-1 review_error" v-if="reviewsError">
-                    <span v-language:inner="errorText"></span>
+                    <span>{{errorText}}</span>
                 </div>
                 <div v-else class="review_no_error"></div>
             </template>
