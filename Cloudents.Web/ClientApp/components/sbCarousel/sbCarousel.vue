@@ -1,41 +1,11 @@
 <template>
 <div class="sbCarousel" style="width:100%;height:100%" :class="{'isRtl': isRtl}">
-    <!-- <template v-if="isArrows">
-        <v-btn v-show="!isFirstItemVisible" 
-               :ripple="false" 
-               class="sbCarousel_btn sbCarousel-prevBtn" 
-               @click="prev" fab small color="white">
-            <v-icon v-html="'sbf-arrow-left-carousel'"/>
-            </v-btn>
-            <v-btn v-show="!isLastItemVisible" :ripple="false"
-                class="sbCarousel_btn sbCarousel-nextBtn" 
-                @click="next" fab small color="white">
-            <v-icon v-html="'sbf-arrow-right-carousel'"/>
-            </v-btn>
-    </template> -->
-    
     <hooper :class="uniqueID" :ref="uniqueID" :settings="hooperSettings">
         <slide v-for="(item, index) in items" :key="index">
             <slot name="slide" :item="item" :index="index" :isDragging="isDragging"></slot>
         </slide>
         <hooper-navigation v-if="arrows" slot="hooper-addons"></hooper-navigation>
     </hooper>
-    <!-- <flicking   :class="uniqueID"
-                :ref="uniqueID"
-                :options="optionsObj"
-                @move="handleMove"
-                @select="select"
-                @visibleChange="visibleChange"
-                @hold-start="holdStart"
-                @hold-end="holdEnd"
-                @move-end="moveEnd">
-    <slot></slot>
-    </flicking> -->
-    <!-- <div class="pagination flicking-pagination">
-        <div class="flicking-pagination-item selected"></div>
-        <div class="flicking-pagination-item"></div>
-        <div class="flicking-pagination-item"></div>
-    </div> -->
 </div>
 </template>
 
@@ -108,12 +78,7 @@
         }
     }
 }
-
 /*rtl:end:ignore*/
-
-
-
-
 </style>
 
 
