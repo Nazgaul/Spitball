@@ -613,7 +613,6 @@ var Carousel = {
         return;
       }
 
-      this.isDragging = true;
       this.endPosition.x = this.isTouch ? event.touches[0].clientX : event.clientX;
       this.endPosition.y = this.isTouch ? event.touches[0].clientY : event.clientY;
       var deltaX = this.endPosition.x - this.startPosition.x;
@@ -623,6 +622,7 @@ var Carousel = {
         return;
       }
 
+      this.isDragging = true;
       this.delta.y = deltaY;
       this.delta.x = deltaX;
 
