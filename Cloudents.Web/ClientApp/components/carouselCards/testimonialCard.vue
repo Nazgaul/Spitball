@@ -51,7 +51,8 @@ export default {
     width: 285px;
     height: 375px;
     border-radius: 8px;
-    box-shadow: 0 2px 24px 0 rgba(0, 0, 0, 0.31);
+    // box-shadow: 0 2px 24px 0 rgba(0, 0, 0, 0.31);
+    border: 1px solid #4c59ff1c;
     background-color: #ffffff;
     display: flex;
     flex-direction: column;

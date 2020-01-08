@@ -93,6 +93,9 @@ export default {
             type:Boolean,
             required: false,
             default: false
+        },
+        isDragging:{
+            type:Boolean,
         }
     },
     computed: {
@@ -127,7 +130,7 @@ export default {
             return reviews === 0 ? reviews.toString() : reviews;
         },
         goToProfile(event){
-            if(this.fromCarousel){
+            if(this.fromCarousel && !this.isDragging){
                     this.flagLocalClick = true;
                     if(event.target.querySelector('.contact-me-button') || event.target.classList.contains('contact-me-button')){
                         this.contactClickedbtn = true;
@@ -137,18 +140,13 @@ export default {
                     } else {
                         this.contactClickedbtn = false;
                     }
-                    //this flag protects us from mouse up after drag
-                    if(this.flagRemoteClick){
-                        this.enterProfilePage();
-                        this.flagRemoteClick = false;
-                    }
+
+                    this.enterProfilePage();
+                    
                     return false;
             }
         },
         enterProfilePage(){
-            this.flagRemoteClick = true;
-            if(this.flagLocalClick){
-                this.flagLocalClick = false;
                 if(!this.contactClickedbtn){
                     this.$router.push({
                         name: 'profile',
@@ -157,7 +155,7 @@ export default {
                 }else{
                     this.sendMessage(this.tutor)
                 }
-            }
+            
         },
         openCoupon() {
             this.$router.push({name: 'profile', params: {id: this.tutor.userId, name: this.tutor.name},  query: {coupon: true}})

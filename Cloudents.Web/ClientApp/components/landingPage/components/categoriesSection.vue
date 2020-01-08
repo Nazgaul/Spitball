@@ -1,18 +1,21 @@
 <template>
   <div class="categoriesSection">
     <h1 class="cs-title" v-language:inner="'homePage_cs_title'" />
-    <div class="categories-top">
-      <sbCarousel :slideStep="1" :arrows="$vuetify.breakpoint.smAndDown" v-if="!isMobile">
-        <router-link
-          :to="{ path: '/feed', query: {term: card.name}}" event @click.native.prevent="update(card.name)"
-          v-for="(card, index) in categoriesCardsCarousel"
-          :key="index"
-          class="categories-card"
-          :class="{'hidden-md-and-down': index+1 == categoriesCardsCarousel.length}"
-          :style="{'backgroundImage': `url(${getImg(card.img)}`}"
-        >
-          <span class="card-title">{{card.name}}</span>
-        </router-link>
+    <div class="categories-top" ref="categoriesTop" v-resize="setCategorySlidesToShow">
+      <sbCarousel :itemsToShow="categoryTopSlideItems" :items="categoriesCardsCarousel" :itemsToSlide="categoryTopSlideItems" :arrows="$vuetify.breakpoint.smAndDown" v-if="!isMobile">
+        <template v-slot:slide="{item, isDragging}">
+          <router-link
+            :to="{ path: '/feed', query: {term: item.name}}" event @click.native.prevent="update(item.name, isDragging)"
+          >
+            <div 
+            class="categories-card"
+            :style="{'backgroundImage': `url(${getImg(item.img)}`}"
+            >
+              <span class="card-title">{{item.name}}</span>
+            </div>
+          </router-link>
+        </template>
+        
       </sbCarousel>
       <div v-else class="categories-chips">
         <router-link v-for="(card, index) in categoriesCardsCarousel"
@@ -39,17 +42,22 @@
           <span v-language:inner="'homePage_banner_content_choose'" />
         </span>
       </div>
-      <div class="categories-carousel" v-if="!$vuetify.breakpoint.smAndDown">
-        <sbCarousel :slideStep="1">
-          <router-link
-            :to="{ path: '/feed', query: {term: item.name}}"
+      <div class="categories-carousel" ref="categoriesBottom" v-if="!$vuetify.breakpoint.smAndDown">
+        <sbCarousel :itemsToShow="categoryBottomSlideItems" :items="categoriesCardsCarousel2" :slideStep="1" :arrows="false">
+          <template v-slot:slide="{item}">
+            <router-link
+              :to="{ path: '/feed', query: {term: item.name}}"
+              
+            >
+            <div 
             class="carousel-card"
-            v-for="(item, index) in categoriesCardsCarousel2"
-            :key="index"
             :style="{'backgroundImage': `url(${getImg(item.img)}`}"
-          >
-            <span class="card-title">{{item.name}}</span>
+            >
+              <span class="card-title">{{item.name}}</span>
+            </div>
           </router-link>
+          </template>
+            
         </sbCarousel>
       </div>
     </div>
@@ -64,21 +72,47 @@ import sbCarousel from "../../sbCarousel/sbCarousel.vue";
 import { LanguageService } from "../../../services/language/languageService.js";
 import { mapMutations } from 'vuex';
 
+import sbCarouselService from '../../sbCarousel/sbCarouselService';
+
 export default {
   components: {
     compSVG,
     pplSVG,
     vidSVG,
-    sbCarousel
+    sbCarousel,
+  },
+  data(){
+    return {
+      categoryTop: {
+        width: 242,
+        itemsToShow: 5,
+        maxItemsToShow: 5,
+      },
+      categoryBottom: {
+        width: 242,
+        itemsToShow: 3,
+        maxItemsToShow: 3,
+      },
+    }
   },
   methods: {
     ...mapMutations(['UPDATE_SEARCH_LOADING']),
     getImg(path) {
+      console.log(require(`${path}`))
       return require(`${path}`);
     },
-    update(name){
-      this.UPDATE_SEARCH_LOADING(true)
-      this.$router.push({ path: '/feed', query: {term: name}})
+    update(name, isDragging){
+      if(!isDragging){
+        this.UPDATE_SEARCH_LOADING(true)
+        this.$router.push({ path: '/feed', query: {term: name}})
+      }
+    },
+    setCategorySlidesToShow(){
+      let containerElm1 = this.$refs.categoriesTop;
+      let containerElm2 = this.$refs.categoriesBottom;
+      let offset = 10;
+      this.categoryTop.itemsToShow = sbCarouselService.calculateItemsToShow(containerElm1, this.categoryTop.width, offset, this.categoryTop.maxItemsToShow)
+      this.categoryBottom.itemsToShow = sbCarouselService.calculateItemsToShow(containerElm2, this.categoryBottom.width, offset, this.categoryBottom.maxItemsToShow)
     }
   },
   computed: {
@@ -100,6 +134,12 @@ export default {
           img: `./staticCardImgs/category2_${index+1}.png`
         }
       })
+    },
+    categoryTopSlideItems(){
+      return this.categoryTop.itemsToShow;
+    },
+    categoryBottomSlideItems(){
+      return this.categoryBottom.itemsToShow;
     }
   }
 };
@@ -145,10 +185,8 @@ export default {
     .categories-card {
       color: white;
       position: relative;
-      width: 242px;
       height: 136px;
-      background-repeat: no-repeat;
-      background-size: cover;
+      background-position: left;
       :last-child {
         margin-right: 0;
       }
@@ -243,12 +281,12 @@ export default {
     .categories-carousel {
       width: calc(~"100% - 554px");
       .carousel-card {
-        width: 242px;
         position: relative;
         height: 256px;
-        background-repeat: no-repeat;
-        background-size: cover;
+        background-position: left;
         color: white;
+        border-radius: 8px;
+        min-width: 266px;
         :last-child {
           margin-right: 0;
         }

@@ -35,12 +35,19 @@ export default {
             type:Boolean,
             required: false,
             default: false
+        },
+        isDragging:{
+            type:Boolean,
         }
     },
     methods: {
         goToItem(){
             if(this.fromCarousel){
-                return false;
+                if(this.isDragging){
+                    return false;
+                }else{
+                    this.enterItemPage();
+                }
             }else{
                 this.enterItemPage();
             }

@@ -2,9 +2,11 @@
   <div class="tutorsSections">
     <h1 class="ts-title" v-language:inner="'homePage_ts_title'" />
     <h2 class="ts-subtitle" v-language:inner="'homePage_ts_subtitle'" />
-    <div class="tutorsCarousel">
-      <sbCarousel :slideStep="5" @select="enterTutorCard" v-if="tutorList.length" :arrows="!$vuetify.breakpoint.xsOnly">
-        <tutorCard :fromCarousel="true" v-for="(tutor, index) in tutorList" :tutor="tutor" :key="index"/>
+    <div class="tutorsCarousel" ref="tutorsCarousel" v-resize="setItemsToShow">
+      <sbCarousel :itemsToShow="slideItems" :items="tutorList" :itemsToSlide="slideItems" v-if="tutorList.length" :arrows="!$vuetify.breakpoint.xsOnly">
+        <template v-slot:slide="{item, isDragging}">
+          <tutorCard draggable="false" :isDragging="isDragging" :fromCarousel="true" :tutor="item" />
+        </template>
       </sbCarousel>
     </div>
   </div>
@@ -14,23 +16,37 @@
 import sbCarousel from "../../sbCarousel/sbCarousel.vue";
 import tutorCard from "../../carouselCards/tutorCard.vue"
 import { mapActions, mapGetters } from "vuex";
+import sbCarouselService from '../../sbCarousel/sbCarouselService';
+
 export default {
   components: {sbCarousel,tutorCard},
+  data(){
+    return {
+      tutorCardWidth: 242,
+      itemsToShow: 5,
+      maxItemsToShow: 5,
+    }
+  },
   computed: {
     ...mapGetters(["getHPTutors"]),
     tutorList() {
       return this.getHPTutors;
+    },
+    slideItems(){
+      return this.itemsToShow;
     }
   },
   methods: {
     ...mapActions(["updateHPTutors"]),
-    enterTutorCard(vueElm){
-      if(vueElm.enterProfilePage){
-        vueElm.enterProfilePage();
-      }else{
-        vueElm.$parent.enterProfilePage();
+    enterTutorCard(isDragging){
+      if(!isDragging){
+        this.$el.enterProfilePage();
       }
-      
+    },
+    setItemsToShow(){
+      let containerElm = this.$refs.tutorsCarousel;
+      let offset = 10;
+      this.itemsToShow = sbCarouselService.calculateItemsToShow(containerElm, this.tutorCardWidth, offset, this.maxItemsToShow)
     }
   },
   created() {
