@@ -2,9 +2,7 @@
     <v-card class="ref-block" elevation="0"
             :style="isTransparent ? 'backgroundColor: transparent;' : 'background-color: #fff;' ">
         <div class="dialog-wrapp referral-container">
-            <button class="close-btn text-md-right" @click.prevent="requestDialogClose()">
-                <v-icon>sbf-close</v-icon>
-            </button>
+            <v-icon class="close-btn-referral body-1 pr-3 pt-3" @click.prevent="requestDialogClose()">sbf-close</v-icon>
             <v-layout column v-show="!isUploadReferral">
                 <v-flex xs12   class="mb-4">
                     <div v-show="getSchoolName">
