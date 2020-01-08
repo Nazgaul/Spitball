@@ -216,7 +216,7 @@ export default {
     padding: 0;
     margin: 0;
     .tutor-landing-page-star{
-        color:#ffca54;
+        color:#ffca54 !important;
         font-size: 20px;
         line-height: normal;
     }
