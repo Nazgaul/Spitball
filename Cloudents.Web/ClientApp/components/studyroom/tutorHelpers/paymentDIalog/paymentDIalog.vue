@@ -62,7 +62,7 @@ export default {
         position: absolute;
         top: 16px;
         right: 16px;
-        font-size: 12px;
+        font-size: 12px !important;
         color: rgba(0, 0, 0, 0.541);
     }
     .payment-iframe{
