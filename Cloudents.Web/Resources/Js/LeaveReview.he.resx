@@ -124,7 +124,10 @@
     <value>אישור</value>
   </data>
   <data name="emptyStarError" xml:space="preserve">
-    <value>חובה לסמן ציון כללי בכוכבים</value>
+    <value>חובה לדרג באמצעות כוכבים</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>טעות</value>
   </data>
   <data name="final_goTo" xml:space="preserve">
     <value>עבור לחוות הדעת שלך</value>
@@ -142,10 +145,10 @@
     <value>כתוב חוות דעת</value>
   </data>
   <data name="send" xml:space="preserve">
-    <value>פירסום</value>
+    <value>פרסם</value>
   </data>
   <data name="sendReviewError" xml:space="preserve">
-    <value>Server error</value>
+    <value>שגיאה בשרת</value>
   </data>
   <data name="star_1" xml:space="preserve">
     <value>לא מומלץ</value>
@@ -163,7 +166,7 @@
     <value>מצוין</value>
   </data>
   <data name="subtitle" xml:space="preserve">
-    <value>ספרו למורה מה חשבתם על השיעור</value>
+    <value>כתיבת חוות דעת תוכל לעזור לתלמידים אחרים</value>
   </data>
   <data name="sub_title_step1" xml:space="preserve">
     <value>הענק ציון כללי וחוות דעת על המורה {1} אחרי שסיימת את השיעור</value>
