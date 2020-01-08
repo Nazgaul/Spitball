@@ -163,6 +163,18 @@
   <data name="my_purchases_title" xml:space="preserve">
     <value>My Purchases</value>
   </data>
+  <data name="my_sales_action_need" xml:space="preserve">
+    <value>Need more points?</value>
+  </data>
+  <data name="my_sales_action_need_btn" xml:space="preserve">
+    <value>Buy Points</value>
+  </data>
+  <data name="my_sales_action_redeem" xml:space="preserve">
+    <value>You have {1} Pts</value>
+  </data>
+  <data name="my_sales_action_redeem_btn" xml:space="preserve">
+    <value>Redeem {1} Pts</value>
+  </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>My Sales</value>
   </data>

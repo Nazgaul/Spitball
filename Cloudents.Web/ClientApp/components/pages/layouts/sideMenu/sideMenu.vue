@@ -51,14 +51,6 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item @click="openSblToken" class="group_list_sideMenu_dash">
-              <v-list-item-content>
-                <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker('getPoint')}]">
-                  <v-icon class="group_list_icon_dash" v-html="'sbf-get-points'"/>
-                  <span class="group_list_title_dash ml-3" v-language:inner="'menuList_points'"/>
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
           </v-list-group>
           
           <v-list-group :value="!dashboardModel" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
@@ -101,7 +93,6 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 import arrowSVG from './image/left-errow.svg';
 
 import {LanguageService} from "../../../../services/language/languageService";
-import analyticsService from '../../../../services/analytics.service';
 
 export default {
   name: "sideMenu",
@@ -192,17 +183,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateShowBuyDialog','resetSearch',"updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
+    ...mapActions(['resetSearch',"updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
     ...mapMutations(["UPDATE_SEARCH_LOADING", "UPDATE_LOADING"]),
-    openSblToken(){
-      if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
-      } else{
-        analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
-        this.updateShowBuyDialog(true);
-      }
-      this.closeSideMenu();
-    },  
     openPersonalizeUniversity() {
       if (this.accountUser == null) {
         this.updateLoginDialogState(true);

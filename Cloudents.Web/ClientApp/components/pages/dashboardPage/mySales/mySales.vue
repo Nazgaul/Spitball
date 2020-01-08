@@ -1,7 +1,7 @@
 <template>
    <div class="mySales">
       <div class="mySales_title" v-language:inner="'dashboardPage_my_sales_title'"/>
-      <v-layout align-baseline wrap class="mySales_wallet mb-12" v-if="!!accountUser && accountUser.id">
+      <v-layout wrap class="mySales_wallet mb-1 mb-md-7 mb-sm-4" v-if="!!accountUser && accountUser.id">
          <v-flex sm12 md6>
             <v-data-table
                :headers="balancesHeaders"
@@ -39,35 +39,11 @@
                </template>
             </v-data-table>
          </v-flex>
-         <v-flex sm12 md6 :class="[{'mt-3':$vuetify.breakpoint.smAndDown}]">
-            <div class="mySales_cash-out-wrapper">
-               <div class="mySales_text-wrap">
-                     <!-- <div class="main-text" v-language:inner>wallet_more_SBL_more_valuable</div> -->
-                     <div class="mySales_points-text">
-                        <span>
-                           <span v-language:inner>wallet_You_have</span>
-                                 <bdi>
-                           <span> {{Math.round(accountUser.balance).toLocaleString()}}
-                                 <span v-language:inner="'cashoutcard_SBL'"/>
-                                 </span>
-                                       </bdi>
-                           <span v-language:inner>wallet_you_have_redeemable_sbl</span>
-                        </span>
-                     </div>
-               </div>
-               
-               <cash-out-card 
-                  class="mySales_wallet_reedem" 
-                  v-for="(cashOutOption,index) in cashOutOptions"
-                  :key="index"
-                  :points-for-dollar="cashOutOption.pointsForDollar"
-                  :cost="cashOutOption.cost"
-                  :image="cashOutOption.image"
-                  :available="accountUser.balance >= cashOutOption.cost"
-                  :updatePoint="recalculate">
-               </cash-out-card>
+         <v-flex sm12 md6 :class="[{'mt-1':$vuetify.breakpoint.xsOnly},{'mt-3':$vuetify.breakpoint.smAndDown && !$vuetify.breakpoint.xsOnly}]">
+            <div class="mySales_actions ml-md-6">
+               <redeemPointsLayout class="my-2 my-md-0 mx-lg-2 "/>
+               <buyPointsLayout class="my-2 my-md-0 mx-lg-2"/>
             </div>
-            
          </v-flex>
       </v-layout>
       
@@ -135,16 +111,16 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from '../../../../services/language/languageService';
-import cashOutCard from '../../../wallet/cashOutCard/cashOutCard.vue';
-import { cashOutCards } from '../../../wallet/consts.js';
-
 
 import tablePreviewTd from '../global/tablePreviewTd.vue';
 import tableInfoTd from '../global/tableInfoTd.vue';
+import buyPointsLayout from './buyPointsLayout/buyPointsLayout.vue'
+import redeemPointsLayout from './redeemPointsLayout/redeemPointsLayout.vue'
+
 
 export default {
    name:'mySales',
-   components:{tablePreviewTd,tableInfoTd,cashOutCard},
+   components:{tablePreviewTd,tableInfoTd,buyPointsLayout,redeemPointsLayout},
    props:{
       globalFunctions: {
          type: Object,
@@ -159,7 +135,6 @@ export default {
          paginationModel:{
             page:1
          },
-         cashOutOptions: cashOutCards,
          sortedBy:'',
          headers:[
             this.dictionary.headers['preview'],
@@ -186,13 +161,10 @@ export default {
       },
    },
    methods: {
-      ...mapActions(['updateSalesItems','dashboard_sort','updateBalancesItems']),
+      ...mapActions(['updateSalesItems','dashboard_sort']),
       formatBalancePts(pts){
          pts = Math.round(+pts).toLocaleString(`${global.lang}-${global.country}`);
          return `${pts} ${LanguageService.getValueByKey('dashboardPage_pts')}`
-      },
-      recalculate(){
-         this.updateBalancesItems()
       },
       formatItemStatus(paymentStatus){
          if(paymentStatus === 'Pending'){
@@ -217,7 +189,6 @@ export default {
    },
    created() {
       this.updateSalesItems()
-      this.updateBalancesItems()
    },
 }
 </script>
@@ -232,20 +203,16 @@ export default {
       padding: 0 0 10px 2px;
    }
    .mySales_wallet{
-      .mySales_cash-out-wrapper {
-         text-align: center;
-         padding: 0 8px;
-         .mySales_text-wrap {
-            .responsive-property(margin-bottom, 32px, null, 16px);
-            .responsive-property(font-size, 24px, null, 20px);
-            color: grey;
-            letter-spacing: -0.7px;
-            text-align: center;
-            .mySales_points-text span {
-               font-weight: bold;
-               color: @color-main-purple;
-            }
+      .mySales_actions{
+         display: flex;
+         @media (max-width: @screen-md-plus) {
+            flex-wrap: wrap;
+            height: 100%;
+            // justify-content: space-between;
+            justify-content: space-evenly;
+            align-content: space-between;
          }
+
       }
    }
    .mySales_table{
