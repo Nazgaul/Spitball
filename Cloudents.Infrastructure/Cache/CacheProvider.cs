@@ -154,14 +154,7 @@ namespace Cloudents.Infrastructure.Cache
             return default;
         }
 
-        public bool Exists(string key, string region)
-        {
-
-            return Cache.Exists(key, region);
-
-        }
-
-        public void Set(string key, string region, object value, int expire, bool slideExpiration)
+        public void Set(string key, string region, object value, TimeSpan expire, bool slideExpiration)
         {
             if (value is null)
             {
@@ -177,7 +170,7 @@ namespace Cloudents.Infrastructure.Cache
 
                 var cacheItem = new CacheItem<object>(key, region, obj,
                     slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
-                    TimeSpan.FromSeconds(expire));
+                    expire);
                 Cache.Put(cacheItem);
             }
             catch (Exception e)
@@ -190,6 +183,18 @@ namespace Cloudents.Infrastructure.Cache
                     ["Value"] = value.ToString()
                 });
             }
+        }
+
+        public bool Exists(string key, string region)
+        {
+
+            return Cache.Exists(key, region);
+
+        }
+
+        public void Set(string key, string region, object value, int expire, bool slideExpiration)
+        {
+            Set(key, region, value, TimeSpan.FromSeconds(expire), slideExpiration);
 
 
             //return obj;

@@ -8,7 +8,9 @@
         <div v-if="!isLoad && videoLoader">
             <template v-if="isVideo && videoSrc">
                 <div style="margin: 0 auto;background:black" class="text-center mainItem__item mb-3">
-                <unlockItem v-if="showAfterVideo && !isPurchased" :type="document.documentType"/>
+                <v-fade-transition>
+                    <unlockItem v-if="showAfterVideo && !isPurchased" :type="document.documentType"/>
+                </v-fade-transition>
                 <sbVideoPlayer 
                     @videoEnded="updateAfterVideo()"
                     :id="`${document.details.id}`"
@@ -26,7 +28,12 @@
                 <template v-if="docPreview">
                     <div class="mainItem__item__wrap">
                         <div :style="{height: `${dynamicWidthAndHeight.height}px`}">
-                            <unlockItem v-if="showUnlockPage" :type="document.documentType" :docLength="docPreview.length"/>
+                            <v-scroll-x-reverse-transition>
+                                <unlockItem  v-touch="{
+                                    left:() => handleSwipe(true),
+                                    right:() => handleSwipe(false)}"  class="unlockItem_swipe" v-if="showUnlockPage" :type="document.documentType" :docLength="docPreview.length"/>
+                            </v-scroll-x-reverse-transition>
+                            
                             <sbCarousel
                                 ref="itemPageChildComponent"
                                 :arrows="false"
@@ -117,6 +124,7 @@ export default {
     computed: {
         ...mapGetters(['getDocumentLoaded']),
         showUnlockPage(){
+            // touchmove 
             return (this.docPage > 2 && !this.isPurchased)
         },
         showDesktopButtons() {
@@ -246,6 +254,13 @@ export default {
         },
         isReady(){
             this.isMounted = true;
+        },
+        handleSwipe(dir){
+            if(dir){
+                this.nextDoc()
+            }else{
+                this.prevDoc()
+            }
         }
     },
     

@@ -8,80 +8,32 @@ html {
 }
 
 .v-tooltip__content{
-  z-index: 102 !important;
+  z-index: 202 !important;
 }
 .v-application{
   ul, ol{
     padding-left: 0;
   }
 }
-.set-class-dropdown-container {
-  .v-chip__content {
-    cursor: pointer !important;
-  }
-}
-
-//TODO do we need this.
-// .onboard-guide-container {
-//   min-width: 100%;
-//   min-height: 100%;
-//   height: 100vh;
-// }
-
-// .v-tour {
-//   .v-step {
-//     z-index: 103;
-//     box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.35);
-//     background-image: linear-gradient(93deg, #4b8ffe, #4452fc) !important;
-//     text-align: left !important;
-//     .v-step__header {
-//       background-color: none !important;
-//       font-size: 16px;
-//       margin-left: 0;
-//       padding-left: 0;
-//       padding-top: 1.5rem;
-//     }
-//     .v-step__content {
-//       font-size: 13px;
-//       font-weight: 100;
-//     }
-//     .v-step__buttons {
-//       text-align: right;
-//       .v-step__button {
-//         margin: 0 3px;
-//         color: @color-blue-new;
-//         background-color: #ffffff;
-//         border-radius: 12px;
-//         padding: 0.35rem 1.4rem;
-//         &.regular_step_button {
-//           background: none;
-//           border: .05rem solid #ffffff;
-//           color: white;
-//         }
-//       }
-//     }
-//     &[x-placement^="top"] {
-//       top: -10px !important;
-//       .v-step__arrow {
-//         border-width: .8rem .8rem 0 !important;
-//         bottom: -.8rem !important;
-//         .v-step__arrow--dark {
-//           border-color: #4870fd !important;
-//         }
-//       }
-//     }
-//     &[x-placement^="bottom"] {
-//       top: 10px !important;
-//       .v-step__arrow {
-//         border-width: 0px 0.8rem 0.8rem !important;
-//         top: -.8rem !important;
-//         .v-step__arrow--dark {
-//           border-color: #4870fd !important;
-//         }
-//       }
-//     }
+// .set-class-dropdown-container {
+//   .v-chip__content {
+//     cursor: pointer !important;
 //   }
 // }
+
+//Section to get stuff from vuetify theme since we disabled it
+.v-application .error--text {
+  color: #ff5252 !important;
+  caret-color: #ff5252 !important;
+}
+
+.v-application .info {
+  background-color: #2196f3 !important;
+  border-color: #2196f3 !important;
+}
+
+
+
 
 .v-menu__content{
   .v-list__tile__content{
@@ -301,4 +253,58 @@ html {
             right: unset !important;
         }
     }
+}
+
+
+//fab animation
+@-webkit-keyframes fade {
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100% {opacity: 1}
+}
+
+@-moz-keyframes fade{
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+
+@keyframes fade {
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100%{opacity: 1}
+}
+@-o-keyframes fade {
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100%{opacity: 1}
+
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+
+@-moz-keyframes fadeIn{
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+@-o-keyframes fadeIn {
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+
 }

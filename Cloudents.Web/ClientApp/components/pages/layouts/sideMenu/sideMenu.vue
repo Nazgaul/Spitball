@@ -40,7 +40,7 @@
             </template>
 
             <v-list-item class="group_list_sideMenu_dash" v-for="(item, index) in dashboardList" :key="index"
-              :to="{path: item.route}"
+              :to="{name: item.route}"
               event
               @click.native.prevent="getShowSchoolBlock ? goTo(item.route) : openSideMenu()" :sel="item.sel">
               <v-list-item-content> 
