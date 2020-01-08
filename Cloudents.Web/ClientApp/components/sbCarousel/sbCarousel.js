@@ -75,6 +75,9 @@ export default {
         itemsToSlide:{
             type:Number
         },
+        isCarouselReady:{
+            type:Function
+        }
     },
     data() {
         return {
@@ -211,6 +214,10 @@ export default {
     },
     mounted(){
         this.isMounted = true;
+        if(this.isCarouselReady){
+            //tell the parent component that the carousel is ready
+            this.isCarouselReady();
+        }
     },
     created() {
         this.isArrows = this.arrows;

@@ -50,9 +50,11 @@
             <span v-language:inner="'tutorListLanding_tutors'"></span>
         </v-layout>
         <v-layout class="tutor-landing-card-bottom" v-if="getHPReviews.length">
-            <div class="testimonialCarousel-tutorList" :style="{'pointer-events':$vuetify.breakpoint.smAndDown?'':'none'}">
-                <sbCarousel :slideStep="1" :overflow="true" :arrows="!isMobile">
-                    <testimonialCard v-for="(item, index) in getHPReviews" :item="item" :key="index"/>
+            <div class="testimonialCarousel-tutorList" ref="testimonialCarouselTutorList" v-resize="setItemsToShow" :style="{'pointer-events':$vuetify.breakpoint.smAndDown?'':'none'}">
+                <sbCarousel :itemsToShow="slideItems" :slideStep="1" :items="getHPReviews" :overflow="true" :arrows="false">
+                    <template v-slot:slide="{item}">
+                        <testimonialCard draggable="false" :item="item" :key="index"/>
+                    </template>
                 </sbCarousel>
             </div>
         </v-layout>
@@ -70,6 +72,7 @@ import analyticsService from '../../services/analytics.service.js';
 
 import sbCarousel from '../sbCarousel/sbCarousel.vue';
 import testimonialCard from '../carouselCards/testimonialCard.vue';
+import sbCarouselService from '../sbCarousel/sbCarouselService';
 
 import { mapActions,mapGetters } from 'vuex'
 export default {
@@ -95,7 +98,10 @@ export default {
                 pageSize: 10,
             },
             showEmptyState: false,
-            topOffset: 0
+            topOffset: 0,
+            itemsToShow:3,
+            maxItems:3,
+            itemWidth: 285
         }
     },
     computed:{
@@ -116,6 +122,9 @@ export default {
             }else{
                 return false
             }
+        },
+        slideItems(){
+            return this.itemsToShow
         }
     },
     watch:{
@@ -188,6 +197,11 @@ export default {
                 path: this.$route.path
             });
             this.updateRequestDialog(true);
+        },
+        setItemsToShow(){
+            let carouselContainer = this.$refs.testimonialCarouselTutorList;
+            let offset = 10;
+            this.itemsToShow = sbCarouselService.calculateItemsToShow(carouselContainer, this.itemWidth, offset, this.maxItems);
         }
     },
     mounted() {

@@ -39,7 +39,7 @@
                 <whyUs :document="document"></whyUs>
             </template>
 
-            <div v-if="itemList.length" class="itemPage__main__carousel" :class="{'itemPage__main__carousel--margin': !docTutor && !docTutor.isTutor && $vuetify.breakpoint.xsOnly}">
+            <div v-if="itemList.length" class="itemPage__main__carousel" ref="itemPageMainCarousel" :class="{'itemPage__main__carousel--margin': !docTutor && !docTutor.isTutor && $vuetify.breakpoint.xsOnly}">
                 <div class="itemPage__main__carousel__header">
                     
                     <div class="itemPage__main__carousel__header__title" v-language:inner="'documentPage_related_content'"></div>
@@ -54,8 +54,13 @@
                     class="carouselDocPreview" 
                     @select="enterItemCard" 
                     :arrows="$vuetify.breakpoint.mdAndUp ? true : false"
-                    :gap="20">
-                        <itemCard :fromCarousel="true" v-for="(item, index) in itemList" :item="item" :key="index"/>
+                    :itemsToShow="itemsToShow"
+                    :items="itemList"
+                    v-resize="slidesToShow"
+                    >
+                    <template v-slot:slide="{item, isDragging}">
+                        <itemCard draggable="false" :isDragging="isDragging" :fromCarousel="true" :item="item"/>
+                    </template>
                 </sbCarousel>
             </div>
 
@@ -98,6 +103,8 @@ import whyUs from './components/whyUs/whyUs.vue';
 import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
 import unlockDialog from './components/dialog/unlockDialog.vue';
 
+import sbCarouselService from '../../sbCarousel/sbCarouselService';
+
 export default {
     name: 'itemPage',
     components: {
@@ -121,6 +128,11 @@ export default {
         return {
             docPage: 1,
             isLoad: false,
+            itemsCarousel:{
+                itemsToShow:3,
+                maxItemsToShow:3,
+                itemWidth:242
+            }
         }
     },
     watch:{
@@ -182,6 +194,9 @@ export default {
                 return this.document.details.course;
             }
             return null
+        },
+        itemsToShow(){
+            return this.itemsCarousel.itemsToShow;
         }
     },
         methods: {
@@ -249,6 +264,11 @@ export default {
         moveDownToTutorItem() {
             let elem = this.$el.querySelector('.itemPage__main__tutorCard');
             elem.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        },
+        slidesToShow(){
+            let carouselContainer = this.$refs.itemPageMainCarousel;
+            let offset = 10;
+            this.itemsCarousel.itemsToShow = sbCarouselService.calculateItemsToShow(carouselContainer, this.itemsCarousel.itemWidth, offset, this.itemsCarousel.maxItemsToShow);
         }
     },
     beforeDestroy(){
