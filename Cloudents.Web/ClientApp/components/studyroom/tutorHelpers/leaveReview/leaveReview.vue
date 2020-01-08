@@ -5,11 +5,11 @@
         <div class="d-flex">
             <div class="review_title text-center font-weight-bold mx-auto" v-language:inner="reviewsTitle"></div>
         </div>
-        <div class="review_sub_title text-center mt-1 mb-6">
+        <div class="review_sub_title text-center mt-1" :class="{'mb-6': !showNextStep}">
             <span v-if="!showNextStep" v-html="$Ph('leaveReview_sub_title_step1', tutorName)"></span>
             <span class="review_sub_title_step2" v-else v-language:inner="'leaveReview_sub_title_step2'"></span>
         </div>
-        <div class="review_user_rate mb-5" v-if="!showNextStep">
+        <div class="review_user_rate" v-if="!showNextStep">
             <user-avatar class="tutor-img-wrap mr-2" :size="imgSize" :userImageUrl="tutorImg" :user-name="tutorName" :user-id="tutorId"/>
             <v-rating
                 v-model="rating"
@@ -23,28 +23,46 @@
                 :background-color="'#ffca54'"
             >
             </v-rating>
-            <span class="review_start_rate">{{ratingRate}}</span>
+            <span class="review_start_rate ml-2">{{ratingRate}}</span>
         </div>
-        <div class="review_textarea">
-            <div class="mb-1 review_error" v-show="reviewsError && !showNextStep">
-                <span v-language:inner="errorText"></span>
-            </div>
-            <v-textarea
+        <div class="review_textarea" :class="{'review_textarea--noPadding':showNextStep}">
+            <template>
+                <div class="mb-1 review_error" v-if="reviewsError">
+                    <span>{{errorText}}</span>
+                </div>
+                <div v-else class="review_no_error"></div>
+            </template>  
+            <v-textarea v-if="!showNextStep"
                 rows="4"
                 outlined
                 autofocus
                 v-model="reviewText"
+                class="review_textarea_field"
                 name="input-review"
                 no-resize
-                hide-details
                 :placeholder="reviewPlaceholder"
             ></v-textarea>
+            <v-form v-if="showNextStep" v-model="validReviewForm" ref="validReviewForm">        
+                <v-textarea
+                    rows="4"
+                    outlined
+                    autofocus
+                    v-model="reviewText"
+                    class="review_textarea_field"
+                    name="input-review"
+                    no-resize
+                    :placeholder="reviewPlaceholder"
+                    :rules="[rules.required]"
+                ></v-textarea>
+            </v-form>
+                <!-- hide-details -->
         </div>
-        <div class="text-center mt-5">
-            <v-btn @click="closeReviewDialog" class="review_btn review_btn-back" outlined depressed rounded>
+        
+        <div class="text-center mt-4">
+            <v-btn :loading="btnLoadingNoThx" @click="!showNextStep ? closeReviewDialog() : noThanks()" class="review_btn review_btn-back" outlined depressed rounded>
                 <span v-language:inner="btnText"/>
             </v-btn>
-            <v-btn :loading="btnLoading" @click="showNextStep ? sendReview() : goNextStep()" class="review_btn review_btn-next white--text" depressed rounded color="#4452fc" sel="submit_tutor_request">
+            <v-btn :loading="btnLoading" @click="showNextStep ? sendPost() : goNextStep()" class="review_btn review_btn-next white--text" depressed rounded color="#4452fc" sel="submit_tutor_request">
                 <span v-language:inner="'leaveReview_send'"/>
             </v-btn>
         </div>
@@ -58,6 +76,8 @@
     import utilitiesService from "../../../../services/utilities/utilitiesService";
     import closeIcon from '../../../../font-icon/close.svg'
     import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
+    import { validationRules } from '../../../../services/utilities/formValidationRules';
+
 
     export default {
         components: {userAvatar, closeIcon},
@@ -68,11 +88,12 @@
                 reviewText: '',
                 reviewsError: false,
                 btnLoading: false,
+                btnLoadingNoThx: false,
                 showNextStep: false,
                 roomId: 0,
                 rating: 0,
                 reviewPlaceholder: LanguageService.getValueByKey("leaveReview_review_placeholder"),
-                imgSize: '48',
+                imgSize: '42',
                 starRate: [
                     '',
                     LanguageService.getValueByKey("leaveReview_star_1"),
@@ -82,6 +103,10 @@
                     LanguageService.getValueByKey("leaveReview_star_5"),
                 ],
                 ratingScore: 0,
+                rules: {
+                    required: (value) => validationRules.required(value),
+                },
+                validReviewForm:false,
             };
         },
         computed: {
@@ -127,20 +152,33 @@
         methods: {
             ...mapActions(['submitReview', 'updateReviewDialog', 'updateReviewStars', 'updateReview', 'updateStudentStartDialog', 'setStudentDialogState']),
 
+            noThanks() {
+                this.btnLoadingNoThx = true;
+                this.sendReview();
+            },
+            sendPost() {
+                this.btnLoading = true;
+                if(!this.$refs.validReviewForm.validate()) {
+                    // this.setReviewError('leaveReview_emptyStarError');
+                    this.btnLoading = false;
+                } else {
+                    this.sendReview();
+                }
+            },
             goNextStep() {
                 if(this.rating > 0) {
                     if(this.reviewText.length) {
+                        this.btnLoading = true;
                         this.sendReview();
                     } else {
                         this.showNextStep = true;
+                        this.reviewsError = false;
                     }
                 } else {
-                    this.reviewsError = true;
-                    this.errorText = LanguageService.getValueByKey('leaveReview_emptyStarError')
+                    this.setReviewError('leaveReview_emptyStarError');
                 }
             },
             sendReview() {
-                this.btnLoading = true;
                 this.submitReview({
                     roomId: this.getStudyRoomData.roomId,
                     review: this.reviewText,
@@ -153,12 +191,16 @@
                 },
                 (error) => {
                     console.log('error sending review', error);
-                    this.reviewsError = true;
-                    this.errorText = LanguageService.getValueByKey('leaveReview_sendReviewError')
+                    this.setReviewError('leaveReview_sendReviewError')
                 }
                 ).finally(() => {
                     this.btnLoading = false;
+                    this.btnLoadingNoThx = false;
                 });
+            },
+            setReviewError(err) {
+                this.reviewsError = true;
+                this.errorText = LanguageService.getValueByKey(err)
             },
             closeReviewDialog() {
                 this.updateReviewDialog(false);
@@ -229,21 +271,40 @@
             color: #ff0000;
         }
         .review_textarea {
-            padding-left: 50px;
-
+            padding-left: 60px;
+            &--noPadding {
+                padding-left: unset;
+            }
             @media (max-width: @screen-xs) {
                 padding-left: unset;
             }
+            .v-input__slot {
+                fieldset {
+                    border: 1px solid #c4c3d1;
+                }
+            }
+            .review_textarea_field {
+                border-radius: 6px;
+                textarea {
+                    font-size: 14px !important;
+                    color: #6a697f !important;
+                }
+            }
+            .review_no_error {
+                min-height: 21px;
+            }
         }
         .review_btn {
-            min-width: @btnDialog !important;
-            margin: 6px 8px;
+            text-transform: initial;
+            min-width: @btnDialog !important; //vuetify
+            height: 40px !important; //vuetify
+            margin: 0 8px;
+            font-weight: 600;
             &.review_btn-back {
-                font-weight: 600;
                 color: #4452fc;
             }
             .v-btn__content {
-                font-size: 18px;
+                font-size: 14px;
             }
         }
     }

@@ -232,7 +232,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("coupon")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(Status200OK)]
         [ProducesResponseType(typeof(string), Status400BadRequest)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> ApplyCouponAsync(ApplyCouponRequest model, CancellationToken token)

@@ -29,7 +29,7 @@ namespace Cloudents.Web.Controllers
             _signInManager = signInManager;
         }
 
-        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true)]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = TimeConst.Hour, VaryByQueryKeys = new[] { "*" })]
         [SignInWithToken]
         [ApiNotFoundFilter]
         public IActionResult Index(

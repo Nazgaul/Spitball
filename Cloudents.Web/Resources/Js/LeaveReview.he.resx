@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="back" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
   <data name="btn_send_review" xml:space="preserve">
     <value>אישור</value>
   </data>
   <data name="emptyStarError" xml:space="preserve">
-    <value>Required star</value>
+    <value>חובה לסמן ציון כללי בכוכבים</value>
   </data>
   <data name="final_goTo" xml:space="preserve">
     <value>עבור לחוות הדעת שלך</value>
@@ -129,11 +132,17 @@
   <data name="final_title" xml:space="preserve">
     <value>תודה על הדירוג</value>
   </data>
+  <data name="noThanks" xml:space="preserve">
+    <value>לא, תודה</value>
+  </data>
   <data name="press_star" xml:space="preserve">
     <value>ציון כללי למורה</value>
   </data>
   <data name="review_placeholder" xml:space="preserve">
     <value>כתוב חוות דעת</value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value>פירסום</value>
   </data>
   <data name="sendReviewError" xml:space="preserve">
     <value>Server error</value>
@@ -156,8 +165,20 @@
   <data name="subtitle" xml:space="preserve">
     <value>ספרו למורה מה חשבתם על השיעור</value>
   </data>
+  <data name="sub_title_step1" xml:space="preserve">
+    <value>הענק ציון כללי וחוות דעת על המורה {1} אחרי שסיימת את השיעור</value>
+  </data>
+  <data name="sub_title_step2" xml:space="preserve">
+    <value>אתם יכולים לעזור לסטודנטים אחרים על ידי כתיבת חוות דעת</value>
+  </data>
   <data name="title" xml:space="preserve">
     <value>דירוג וחוות דעת</value>
+  </data>
+  <data name="title_step1" xml:space="preserve">
+    <value>ציון כללי וחוות דעת</value>
+  </data>
+  <data name="title_step2" xml:space="preserve">
+    <value>נפלא, הענקתם ציון!</value>
   </data>
   <data name="write" xml:space="preserve">
     <value>כתוב חוות דעת</value>
