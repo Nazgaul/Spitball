@@ -31,8 +31,18 @@
                     <span>{{errorText}}</span>
                 </div>
                 <div v-else class="review_no_error"></div>
-            </template>
-            <v-form v-model="validReviewForm" ref="validReviewForm">        
+            </template>  
+            <v-textarea v-if="!showNextStep"
+                rows="4"
+                outlined
+                autofocus
+                v-model="reviewText"
+                class="review_textarea_field"
+                name="input-review"
+                no-resize
+                :placeholder="reviewPlaceholder"
+            ></v-textarea>
+            <v-form v-if="showNextStep" v-model="validReviewForm" ref="validReviewForm">        
                 <v-textarea
                     rows="4"
                     outlined
