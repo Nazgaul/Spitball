@@ -17,6 +17,7 @@
 /*rtl:begin:ignore*/
 .sbCarousel{
     position: relative;
+    touch-action: pan-x;
     .hooper{
         outline: none;
         height:100%;
