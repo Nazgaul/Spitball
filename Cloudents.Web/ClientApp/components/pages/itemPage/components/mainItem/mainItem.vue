@@ -31,7 +31,8 @@
                             <v-scroll-x-reverse-transition>
                                 <unlockItem  v-touch="{
                                     left:() => handleSwipe(true),
-                                    right:() => handleSwipe(false)}"  class="unlockItem_swipe" v-if="showUnlockPage" :type="document.documentType" :docLength="docPreview.length"/>
+                                    right:() => handleSwipe(false)}"  
+                                    class="unlockItem_swipe" v-if="showUnlockPage" :type="document.documentType" :docLength="docPreview.length"/>
                             </v-scroll-x-reverse-transition>
                             
                             <sbCarousel
@@ -256,6 +257,7 @@ export default {
             this.isMounted = true;
         },
         handleSwipe(dir){
+            dir = this.isRtl ? !dir : dir;
             if(dir){
                 this.nextDoc()
             }else{
