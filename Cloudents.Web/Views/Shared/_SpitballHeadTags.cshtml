@@ -9,6 +9,7 @@
 
     const string themeColor = "#4190b";
     ViewBag.title = ViewBag.title ?? "להצליח במבחנים בעזרת מיטב הסיכומים והמורים הפרטיים | ספיטבול";
+    ViewBag.ogTitle = ViewBag.ogTitle ?? ViewBag.title;
 }
 <title>@ViewBag.title</title>
 <meta name="theme-color" content="@themeColor">
@@ -24,7 +25,7 @@
 <meta property="og:image:width" content="@ViewBag.ogImageWidth"/>
 <meta property="og:image:height" content="@ViewBag.ogImageHeight" />
 <meta property="og:description" content="@ViewBag.metaDescription" />
-<meta property="og:title" content="@ViewBag.title" />
+<meta property="og:title" content="@ViewBag.ogTitle" />
 <meta property="og:url" content="@Context.Request.GetEncodedUrl()" />
 <meta property="og:type" content="website" />
 <link href="https://plus.google.com/116999550356569810034" rel="publisher" />

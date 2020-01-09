@@ -157,7 +157,7 @@
     <value>מוסד לימוד:</value>
   </data>
   <data name="unsufficient_fund" xml:space="preserve">
-    <value>אין לך מספיק נקודות לרכוש את המוצר</value>
+    <value>אין מספיק נקודות</value>
   </data>
   <data name="view" xml:space="preserve">
     <value>צפייה</value>
