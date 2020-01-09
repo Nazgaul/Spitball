@@ -45,7 +45,7 @@ export default {
     },
     setItemsToShow(){
       let containerElm = this.$refs.tutorsCarousel;
-      let offset = 10;
+      let offset = 11;
       this.itemsToShow = sbCarouselService.calculateItemsToShow(containerElm, this.tutorCardWidth, offset, this.maxItemsToShow)
     }
   },
