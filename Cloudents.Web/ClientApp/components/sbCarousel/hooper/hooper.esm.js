@@ -316,7 +316,8 @@ var Carousel = {
         start: 0,
         end: 0,
         time: 0
-      }
+      },
+      onDragEntered: false
     };
   },
   computed: {
@@ -622,9 +623,22 @@ var Carousel = {
       this.endPosition.x = this.isTouch ? event.touches[0].clientX : event.clientX;
       this.endPosition.y = this.isTouch ? event.touches[0].clientY : event.clientY;
       var deltaX = this.endPosition.x - this.startPosition.x;
-      var deltaY = this.endPosition.y - this.startPosition.y; // Maybe scrolling.
+      var deltaY = this.endPosition.y - this.startPosition.y;
+
+      if (!this.onDragEntered) {
+        this.onDragEntered = true;
+
+        if (this.isInvalidDirection(deltaX, deltaY)) {
+          document.removeEventListener(this.isTouch ? 'touchmove' : 'mousemove', this.onDrag);
+          document.removeEventListener(this.isTouch ? 'touchend' : 'mouseup', this.onDragEnd);
+          this.onDragEntered = false;
+          return;
+        }
+      } // Maybe scrolling.
+
 
       if (this.isInvalidDirection(deltaX, deltaY)) {
+        console.log("invalidDirection");
         return;
       }
 
@@ -641,6 +655,7 @@ var Carousel = {
 
       this.isMousePressed = false;
       var tolerance = this.config.shortDrag ? 0.5 : 0.15;
+      this.onDragEntered = false;
 
       if (this.isDragging) {
         this.swipeObj.end = Date.now();
