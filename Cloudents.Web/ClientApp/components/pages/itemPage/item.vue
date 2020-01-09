@@ -27,12 +27,13 @@
                     </template>
                 </resultNote>
                 <template v-else>
-                    <div class="itemPage__main__document--loader">
+                    <skeletonLoader></skeletonLoader>
+                    <!-- <div class="itemPage__main__document--loader">
                         <v-progress-circular indeterminate v-bind:size="50" color="primary"></v-progress-circular>
-                    </div>
+                    </div> -->
                 </template>
             </div>
-
+                    
             <mainItem :isLoad="isLoad" :document="document"></mainItem>
 
             <template v-if="$vuetify.breakpoint.mdAndDown">    
@@ -114,6 +115,7 @@ import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
 import whyUs from './components/whyUs/whyUs.vue';
 import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
 import unlockDialog from './components/dialog/unlockDialog.vue';
+import skeletonLoader from '../../pages/global/skeletonLoader/skeletonLoader.vue';
 
 export default {
     name: 'itemPage',
@@ -127,7 +129,8 @@ export default {
         whyUs,
         mobileUnlockDownload,
         mainItem,
-        unlockDialog
+        unlockDialog,
+        skeletonLoader
     },
     props: {
         id: {
