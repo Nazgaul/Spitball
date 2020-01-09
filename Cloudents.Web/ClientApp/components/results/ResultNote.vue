@@ -72,7 +72,7 @@
         />
         <div class="document-body-card">
           <span v-show="(isVideo && item.itemDuration) && isPreviewReady" class="videoType">
-            <vidSVG class="vidSvg" />
+            <vidSVG  />
             <span class="vidTime">{{item.itemDuration}}</span>
           </span>
           <img

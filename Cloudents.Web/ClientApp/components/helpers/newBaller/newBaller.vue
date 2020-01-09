@@ -157,10 +157,6 @@
                 color: @global-purple;
             }
         }
-        .new-baller-action-section {
-
-        }
-
     }
 
 </style>

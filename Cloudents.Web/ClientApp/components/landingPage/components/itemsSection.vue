@@ -65,7 +65,7 @@ export default {
         width: 100%;
         .sbCarousel_btn {
             i {
-                font-size: 18px;
+                font-size: 18px !important;
             }
         }
     }

@@ -216,7 +216,7 @@
             border: 1px solid @purpleLight;
         }
         .vicon{
-            font-size: 21px;
+            font-size: 21px !important;
         }
         .add-btn {
             color: @color-white;
@@ -230,7 +230,7 @@
             color: @purpleLight;
         }
         .btn-icon {
-            font-size: 18px;
+            font-size: 18px !important;
         }
         .class-list {
             background-color: #ffffff;

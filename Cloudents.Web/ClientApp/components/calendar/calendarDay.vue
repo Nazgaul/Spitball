@@ -289,7 +289,7 @@ export default {
                                     margin-top: 4px !important;
                                     .v-input__icon{
                                         i{
-                                            font-size: 6px;
+                                            font-size: 6px !important;
                                             color: #26262f;
                                         }
                                     }

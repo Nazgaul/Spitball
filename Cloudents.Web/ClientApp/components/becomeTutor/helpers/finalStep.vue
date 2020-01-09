@@ -42,7 +42,7 @@
     .become-final-wrap{
         padding: 106px 0;
             .face-icon{
-                font-size: 44px;
+                font-size: 44px !important;
                 color: @global-purple;
             }
         .final-text{
