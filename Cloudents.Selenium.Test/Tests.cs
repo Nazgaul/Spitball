@@ -356,7 +356,7 @@ namespace Cloudents.Selenium.Test
                 courses[0].Click();
                 search.SendKeys("test");
                 search.SendKeys(Keys.Enter);
-                Thread.Sleep(1000);
+                var marketingBox = driver.FindElementByWait(By.XPath("//*[@class='marketing-box-component']"));
                 driver.Url.Should().Contain("term=test");
                 driver.Url.Should().Contain("course=");
             }
