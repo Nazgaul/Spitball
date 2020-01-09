@@ -70,6 +70,23 @@
         <whyUsDesktop v-if="$vuetify.breakpoint.lgAndUp" :document="document"></whyUsDesktop>
         <mobileUnlockDownload v-if="$vuetify.breakpoint.xsOnly" :document="document"></mobileUnlockDownload>
         <unlockDialog :document="document"></unlockDialog>
+        <v-snackbar
+            v-model="snackbar"
+            :top="true"
+            :timeout="8000"
+        >
+            <div>
+                <span v-language:inner="'resultNote_unsufficient_fund'"></span>
+            </div>
+            <v-btn
+                class="px-4"
+                outlined
+                rounded
+                @click="openBuyTokenDialog"
+            >
+                <span v-language:inner="'dashboardPage_my_sales_action_need_btn'"></span>
+            </v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -128,11 +145,19 @@ export default {
             this.clearDocument();
             this.documentRequest(this.id);        
             this.getStudyDocuments({course: this.$route.params.courseName , id: this.id})
-        }
+        },
     },
     computed: {
-        ...mapGetters(['accountUser', 'getDocumentDetails', 'getRelatedDocuments', 'getRouteStack', 'getPurchaseConfirmation', 'getSearchLoading']),
+        ...mapGetters(['accountUser', 'getDocumentDetails', 'getRelatedDocuments', 'getRouteStack', 'getPurchaseConfirmation', 'getSearchLoading', 'getShowItemToaster']),
 
+        snackbar: {
+            get() {
+                return this.getShowItemToaster
+            },
+            set(val) {
+                this.updateItemToaster(val)
+            }
+        },
         document() {
             if(this.getDocumentDetails) {
                 return this.getDocumentDetails;
@@ -200,6 +225,8 @@ export default {
             'updateRequestDialog',
             'setActiveConversationObj',
             'openChatInterface',
+            'updateItemToaster',
+            'updateShowBuyDialog',
         ]),
         
         enterItemCard(vueElm){
@@ -255,6 +282,10 @@ export default {
         moveDownToTutorItem() {
             let elem = this.$el.querySelector('.itemPage__main__tutorCard');
             elem.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        },
+        openBuyTokenDialog() {
+            this.updateItemToaster(false);
+            this.updateShowBuyDialog(true)
         }
     },
     beforeDestroy(){
