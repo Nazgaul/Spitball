@@ -161,7 +161,7 @@
     <value>School:</value>
   </data>
   <data name="unsufficient_fund" xml:space="preserve">
-    <value>You do not have sufficient points to purchase this product</value>
+    <value>Not have enough points</value>
   </data>
   <data name="view" xml:space="preserve">
     <value>View</value>
