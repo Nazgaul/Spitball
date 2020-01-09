@@ -45,9 +45,10 @@ export default {
     ...mapGetters(['getSearchStatus'])
   },
   methods: {
-    ...mapMutations(['UPDATE_SEARCH_LOADING']),
+    ...mapMutations(['UPDATE_SEARCH_LOADING', 'UPDATE_LOADING']),
     searchQuery() {
       this.UPDATE_SEARCH_LOADING(true);
+      this.UPDATE_LOADING(true);
       if(this.search){
         this.$router.push({ path: "/feed", query: { term: this.search } });
         }else{
