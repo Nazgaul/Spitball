@@ -7,7 +7,8 @@ namespace Cloudents.Admin2.Models
         public Guid StudyRoomSessionId { get; set; }
         public decimal Price { get; set; }
 
-        public bool CantPay { get; set; }
+        public bool IsSellerKeyExists { get; set; }
+        public bool IsPaymentKeyExists { get; set; }
         public long TutorId { get; set; }
         public string TutorName { get; set; }
         public long UserId { get; set; }
