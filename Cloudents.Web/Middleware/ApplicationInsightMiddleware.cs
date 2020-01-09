@@ -1,12 +1,11 @@
 ﻿using System;
-using Microsoft.AspNetCore.Http;
-//using Microsoft.AspNetCore.Http.Internal;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Http; //using Microsoft.AspNetCore.Http.Internal;
 
-namespace Cloudents.Web.Services
+namespace Cloudents.Web.Middleware
 {
 
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Middleware")]
@@ -27,27 +26,35 @@ namespace Cloudents.Web.Services
            // var request = httpContext.Request;
             httpContext.Request.EnableBuffering();
             await _next(httpContext);
-            var response = httpContext.Response;
-            if (response.StatusCode < 400)
+            try
             {
-                return;
-            }
+                var response = httpContext.Response;
+                if (response.StatusCode < 400)
+                {
+                    return;
+                }
             
-            var request = httpContext.Request;
-            if (request.Method == HttpMethods.Post || request.Method == HttpMethods.Put)
-            {
-                try
+                var request = httpContext.Request;
+                if (request.Method == HttpMethods.Post || request.Method == HttpMethods.Put)
                 {
-                    request.Body.Seek(0, SeekOrigin.Begin);
-                    using var stream = new StreamReader(request.Body);
-                    var v = await stream.ReadToEndAsync();
+                    try
+                    {
+                        request.Body.Seek(0, SeekOrigin.Begin);
+                        using var stream = new StreamReader(request.Body);
+                        var v = await stream.ReadToEndAsync();
 
-                    _context.TrackTrace($"Log of parameters: {v}");
+                        _context.TrackTrace($"Log of parameters: {v}");
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        _context.TrackTrace("Cant log parameters");
+                    }
                 }
-                catch (ObjectDisposedException)
-                {
-                    _context.TrackTrace("Cant log parameters");
-                }
+            }
+            catch (Exception e)
+            {
+               // Console.WriteLine(e);
+                //throw;
             }
         }
     }

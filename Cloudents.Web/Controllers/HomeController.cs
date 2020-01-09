@@ -29,7 +29,8 @@ namespace Cloudents.Web.Controllers
             _signInManager = signInManager;
         }
 
-        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = TimeConst.Hour, VaryByQueryKeys = new[] { "*" })]
+        //Any got issue with auth vs no auth. need to fix this.
+        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new[] { "*" })]
         [SignInWithToken]
         [ApiNotFoundFilter]
         public IActionResult Index(

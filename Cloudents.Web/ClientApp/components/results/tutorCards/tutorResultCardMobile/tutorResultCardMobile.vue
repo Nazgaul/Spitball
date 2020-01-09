@@ -12,7 +12,7 @@
             :borderRadius="4"
           />
           <div class="card-mobile-header-content">
-              <h3 class="text-truncate body-2 font-weight-bold" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+              <h3 class="text-truncate font-weight-bold card-mobile-tutor-name" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
               <template>
                 <h4 class="text-truncate university font-weight-light" v-if="tutorData.university">{{tutorData.university}}</h4>
@@ -188,6 +188,9 @@ export default {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          .card-mobile-tutor-name {
+            font-size: 14px;
+          }
         }
         .user-rate {
             display: inline-flex;

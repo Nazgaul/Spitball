@@ -173,7 +173,7 @@
     <value>You have {1} Pts</value>
   </data>
   <data name="my_sales_action_redeem_btn" xml:space="preserve">
-    <value>Redeem {1} Pts</value>
+    <value>Redeem 1,000 Pts</value>
   </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>My Sales</value>

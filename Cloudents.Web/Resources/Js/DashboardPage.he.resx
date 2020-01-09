@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="action_download" xml:space="preserve">
+    <value>הורדה</value>
+  </data>
+  <data name="action_watch" xml:space="preserve">
+    <value>צפייה</value>
+  </data>
   <data name="answer" xml:space="preserve">
     <value>תשובה:</value>
   </data>
@@ -153,6 +159,21 @@
   </data>
   <data name="my_content_title" xml:space="preserve">
     <value>התוכן שלי</value>
+  </data>
+  <data name="my_purchases_title" xml:space="preserve">
+    <value>הרכישות שלי</value>
+  </data>
+  <data name="my_sales_action_need" xml:space="preserve">
+    <value>צריך עוד נקודות?</value>
+  </data>
+  <data name="my_sales_action_need_btn" xml:space="preserve">
+    <value>קנה נקודות</value>
+  </data>
+  <data name="my_sales_action_redeem" xml:space="preserve">
+    <value>יש לך {1} נק' למימוש</value>
+  </data>
+  <data name="my_sales_action_redeem_btn" xml:space="preserve">
+    <value>ממש 1,000 נקודות</value>
   </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>המכירות שלי</value>
@@ -207,14 +228,5 @@
   </data>
   <data name="views" xml:space="preserve">
     <value>צפיות</value>
-  </data>
-  <data name="action_download" xml:space="preserve">
-    <value>הורדה</value>
-  </data>
-  <data name="action_watch" xml:space="preserve">
-    <value>צפייה</value>
-  </data>
-  <data name="my_purchases_title" xml:space="preserve">
-    <value>הרכישות שלי</value>
   </data>
 </root>
