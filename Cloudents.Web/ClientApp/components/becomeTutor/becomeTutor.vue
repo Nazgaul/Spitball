@@ -188,7 +188,7 @@
             .v-stepper__step__step{
                 background-color: #2ec293 !important;
                 .v-icon{
-                    font-size: 24px;
+                    font-size: 24px !important;
                 }
             }
         }

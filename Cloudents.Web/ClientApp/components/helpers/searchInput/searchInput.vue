@@ -242,7 +242,7 @@ export default {
       transform: rotate(180deg);
       line-height: 32px;
       margin-right: 20px;
-      font-size: 14px;
+      font-size: 14px !important;
       margin-left: 14px;
       cursor: pointer;
     }
@@ -280,7 +280,7 @@ export default {
         .v-input__append-inner {
           .v-icon {
             &.sbf-close {
-              font-size: 10px;
+              font-size: 10px !important;
               padding: 0 8px 8px 0;
             }
 
@@ -347,7 +347,7 @@ export default {
           min-width: 24px;
 
           .v-icon {
-            font-size: 16px;
+            font-size: 16px !important;
           }
         }
       }
