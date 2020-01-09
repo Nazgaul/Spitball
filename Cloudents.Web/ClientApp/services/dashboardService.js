@@ -47,19 +47,25 @@ const Item = {
       this.symbol = objInit.symbol;
    },
    StudyRoom:function(objInit){
+      this.online = objInit.online;
+      this.id = objInit.id;
+      this.conversationId = objInit.conversationId;
+      this.lastSession = objInit.lastSession;
+   },
+   User:function(objInit){
       this.name = objInit.name;
       this.image = objInit.image;
       this.userId = objInit.userId;
-      this.online = objInit.online;
-      this.id = objInit.id;
-      this.date = objInit.dateTime;
-      this.conversationId = objInit.conversationId;
-      this.lastSession = objInit.lastSession;
+      this.date = objInit.dateTime || objInit.created;
+   },
+   Follower:function(objInit){
+      this.email = objInit.email;
+      this.phoneNumber = objInit.phoneNumber;
    }
 };
-
 function StudyRoomItem(objInit){
    return Object.assign(
+      new Item.User(objInit),
       new Item.StudyRoom(objInit)
    );
 }
@@ -87,6 +93,12 @@ function PurchasesItem(objInit){
 function BalancesItems(objInit){
    return new Item.Balances(objInit);
 }
+function FollowersItem(objInit){
+   return Object.assign(
+      new Item.User(objInit),
+      new Item.Follower(objInit)
+   )
+}
 function createSalesItems({data}) {
    let salesItems = [];
    data.forEach(item => salesItems.push(new SalesItem(item)));
@@ -112,6 +124,11 @@ function createStudyRoomItems({data}) {
    data.map(item => studyRoomItems.push(new StudyRoomItem(item)));
    return studyRoomItems;
 }
+function createFollowersItems({data}) {
+   let followersItems = [];
+   data.map(item => followersItems.push(new FollowersItem(item)));
+   return followersItems;
+}
 function getSalesItems(){
    return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex);
 }
@@ -127,6 +144,9 @@ function getBalancesItems(){
 function getStudyRoomItems(){
    return connectivityModule.http.get('StudyRoom').then(createStudyRoomItems).catch(ex => ex);
 }
+function getFollowersItems(){
+   return connectivityModule.http.get('/Account/followers').then(createFollowersItems).catch(ex => ex);
+}
 
 export default {
    getSalesItems,
@@ -134,4 +154,5 @@ export default {
    getPurchasesItems,
    getBalancesItems,
    getStudyRoomItems,
+   getFollowersItems
 }

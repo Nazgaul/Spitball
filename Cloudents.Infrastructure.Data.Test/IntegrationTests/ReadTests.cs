@@ -356,6 +356,16 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
+        [InlineData(159039)]
+        [InlineData(638)]
+        public async Task UserFollowersByIdQuery_Ok(long userId)
+        {
+            var query = new UserFollowersByIdQuery(userId);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+        
+        
+        [Theory]
         [InlineData(638)]
         [InlineData(159039)]
         public async Task UserContentByIdQuery_Ok(long id)

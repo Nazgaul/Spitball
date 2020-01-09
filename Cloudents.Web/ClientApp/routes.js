@@ -334,6 +334,20 @@ redirect: { name: 'feed' }
         }
     },
     {
+        path: "/my-followers",
+        components: dashboardPages,
+        name: "myFollowers",
+        props: {
+            default: (route) => ({
+                component: route.name,
+            })
+        },
+        meta: {
+            requiresAuth: true,
+            showMobileFooter: true,
+        },
+    },
+    {
         path: "/my-sales",
         components: dashboardPages,
         name: "mySales",
