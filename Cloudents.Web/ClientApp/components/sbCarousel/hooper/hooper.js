@@ -317,7 +317,12 @@
           x: 0,
           y: 0
         },
-        config: {}
+        config: {},
+        swipeObj: {
+          start: 0,
+          end: 0,
+          time: 0
+        }
       };
     },
     computed: {
@@ -589,6 +594,7 @@
           return;
         }
 
+        this.swipeObj.start = Date.now();
         this.startPosition = {
           x: 0,
           y: 0
@@ -639,7 +645,16 @@
       onDragEnd: function onDragEnd() {
         var _this6 = this;
 
+        this.isMousePressed = false;
         var tolerance = this.config.shortDrag ? 0.5 : 0.15;
+
+        if (this.isDragging) {
+          this.swipeObj.end = Date.now();
+          this.swipeObj.time = this.swipeObj.end - this.swipeObj.start;
+          var speedDelimeter = 10 / this.swipeObj.time * 60;
+          this.delta.x = this.delta.x * speedDelimeter;
+        }
+
         setTimeout(function () {
           _this6.isDragging = false;
         }, 300);

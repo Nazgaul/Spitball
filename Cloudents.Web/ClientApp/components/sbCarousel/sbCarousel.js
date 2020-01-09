@@ -46,7 +46,7 @@ export default {
                 wheelControl: false,
                 keysControl: false,
                 trimWhiteSpace: true,
-                transition: 750,
+                transition: global.innerWidth < 600 ? 300 : 750,
             },
             isMoving: false,
             stepMove:null,
