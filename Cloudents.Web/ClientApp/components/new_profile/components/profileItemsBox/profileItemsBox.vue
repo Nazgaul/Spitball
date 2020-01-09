@@ -23,6 +23,9 @@
    <div class="profileItemsBox_content">
       <itemCard v-for="(item, index) in itemToPreview" :key="index" :item="item"/>
    </div>
+   <!-- <div class="profileItemsBox_content hidden-sm-and-up">
+      <resultNote class="pa-3 mb-3" v-for="(item, index) in itemToPreview" :key="index" :item="item"/>
+   </div> -->
    <div class="profileItemBox_pagination" v-if="pagination.length > 1">
       <v-pagination circle
          total-visible=5 
@@ -38,12 +41,14 @@
 </template>
 
 <script>
-import itemCard from '../../../carouselCards/itemCard.vue'
+import itemCard from '../../../carouselCards/itemCard.vue';
+import resultNote from "../../../results/ResultNote.vue";
 import { mapGetters } from 'vuex'
 export default {
    name:'profileItemsBox',
    components:{
-      itemCard
+      itemCard,
+      resultNote
    },
    data() {
       return {
@@ -55,10 +60,13 @@ export default {
          ],
          selectedTypeItem:'documents',
          pagination:{
-               length:0,
-               current:1,
-               pageSize:6,
+            length:0,
+            current:1,
          },
+         query:{
+            page: 0,
+            pageSize:6,
+         }
       }
    },
    computed: {
@@ -67,8 +75,8 @@ export default {
          return this.getProfile[this.selectedTypeItem]
       },
       itemToPreview(){
-         let startIdx = (this.pagination.current * this.pagination.pageSize) - this.pagination.pageSize;
-         let endIdx = this.pagination.current * this.pagination.pageSize;
+         let startIdx = (this.pagination.current * this.query.pageSize) - this.query.pageSize;
+         let endIdx = this.pagination.current * this.query.pageSize;
          return this.items.slice(startIdx,endIdx)
       }
    },
@@ -79,14 +87,9 @@ export default {
    },
    watch: {
       items(){
-         this.pagination.length = Math.ceil(this.items.length / this.pagination.pageSize);
+         this.pagination.length = Math.ceil(this.items.length / this.query.pageSize);
       }
    },
-   mounted() {
-
-      // this.pagination.length = this.getProfile[this.selectedTypeItem].length / 6;
-   },
-
 }
 </script>
 

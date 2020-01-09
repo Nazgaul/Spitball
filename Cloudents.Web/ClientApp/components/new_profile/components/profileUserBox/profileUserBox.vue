@@ -218,9 +218,6 @@ export default {
                 block: 'center',
             }
             document.querySelector('.profileReviewsBox').scrollIntoView(scrollIntoViewOptions);
-            setTimeout(() => {
-                document.querySelector('.profileReviewsBox').scrollIntoView(scrollIntoViewOptions);   
-            }, 2000);
         },
         dynamicDictionay(number,multipleDictionay,singleDictionay){
             return number > 1 ? multipleDictionay : singleDictionay;
