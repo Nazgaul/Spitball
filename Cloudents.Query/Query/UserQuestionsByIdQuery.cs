@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cloudents.Query.Query
 {
-    public class UserDataPagingByIdQuery : IQuery<IEnumerable<QuestionFeedDto>>, IQuery<IEnumerable<DocumentFeedDto>>
+    public class UserDataPagingByIdQuery : IQuery<IEnumerable<QuestionFeedDto>>
     {
         public UserDataPagingByIdQuery(long id, int page)
         {
@@ -14,6 +14,7 @@ namespace Cloudents.Query.Query
         public long Id { get; }
         public int Page { get; }
     }
+
 
 
     public class UserAnswersByIdQuery : UserDataPagingByIdQuery

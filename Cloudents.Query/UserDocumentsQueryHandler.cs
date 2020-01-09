@@ -4,14 +4,13 @@ using Cloudents.Core.Enum;
 using Cloudents.Query.Query;
 using NHibernate;
 using NHibernate.Linq;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Query
 {
-    public class UserDocumentsQueryHandler : IQueryHandler<UserDataPagingByIdQuery, IEnumerable<DocumentFeedDto>>
+    public class UserDocumentsQueryHandler : IQueryHandler<UserDocumentsQuery, ListWithCountDto<DocumentFeedDto>>
     {
         private readonly IStatelessSession _session;
 
@@ -19,9 +18,9 @@ namespace Cloudents.Query
         {
             _session = session.StatelessSession;
         }
-        public async Task<IEnumerable<DocumentFeedDto>> GetAsync(UserDataPagingByIdQuery query, CancellationToken token)
+        public async Task<ListWithCountDto<DocumentFeedDto>> GetAsync(UserDocumentsQuery query, CancellationToken token)
         {
-            return await _session.Query<Document>()
+            var r = _session.Query<Document>()
                 .Fetch(f => f.User)
                 .ThenFetch(f => f.University)
                 .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
@@ -52,8 +51,16 @@ namespace Cloudents.Query
 
                 }
                 ).OrderByDescending(o => o.DateTime)
-                .Take(50).Skip(query.Page * 50)
-                .ToListAsync(token);
+                .Take(50).Skip(query.Page * query.PageSize).ToFuture();
+
+            var count = _session.Query<Document>().Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok).ToFuture();
+
+
+            return new ListWithCountDto<DocumentFeedDto>()
+            {
+                Result = await r.GetEnumerableAsync(token),
+                Count = (await count.GetEnumerableAsync(token)).Count()
+            };
         }
     }
 
