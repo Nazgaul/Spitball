@@ -76,4 +76,15 @@ export const dashboardRoutes = [
            showMobileFooter: true,
        },
    },
+    {
+        path: "/wallet",
+        components: {
+            default: lazyComponent('wallet/wallet'),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
+        },
+        name: "wallet",
+        meta: {
+            requiresAuth: true
+        },
+    },
 ]

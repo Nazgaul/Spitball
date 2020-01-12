@@ -1,4 +1,4 @@
-import {lazyComponent} from './routesUtils.js';
+import {lazyComponent,staticComponents} from './routesUtils.js';
 
 export const registrationRoutes = [
    {
@@ -16,4 +16,20 @@ export const registrationRoutes = [
           }
       }
   },
+  {
+    path: "/student-or-tutor",
+    components: {
+        default: lazyComponent('studentOrTutor/studentOrTutor'),
+        ...staticComponents(['banner', 'header', 'sideMenu'])
+    },
+    name: "studentTutor",
+    meta: {
+        requiresAuth: true
+    },
+    props: {
+        default: (route) => ({
+            id: route.params.id
+        })
+    }
+},
 ]
