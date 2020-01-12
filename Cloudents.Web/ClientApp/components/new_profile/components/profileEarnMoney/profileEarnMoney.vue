@@ -3,7 +3,7 @@
       <div class="profileEarnMoney_wrapper">
          <div class="profileEarnMoney_title" v-language:inner="'profile_earn_title'"/>
          <div class="profileEarnMoney_desc" v-language:inner="'profile_earn_desc'"/>
-         <v-btn class="profileEarnMoney_action white--text" depressed round color="#4452fc" @click="globalFunctions.openUpload">
+         <v-btn class="profileEarnMoney_action white--text" depressed rounded color="#4452fc" @click="globalFunctions.openUpload">
             <div class="profileEarnMoney_action_txt" v-language:inner="'profile_earn_btn'"/>
          </v-btn>
       </div>

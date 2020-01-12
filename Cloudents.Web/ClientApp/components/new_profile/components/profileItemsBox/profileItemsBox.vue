@@ -1,5 +1,5 @@
 <template>
-<div class="profileItemsBox" v-if="itemToPreview.length">
+<div id="profileItemsBox" v-if="items">
    <div class="profileItemsBox_title" v-text="$Ph('profile_study_materials',getProfile.user.firstName)"/>
    <!-- <div class="profileItemsBox_filters">
       <v-flex xs1 sm4 pr-4>
@@ -20,17 +20,19 @@
          </v-select>
       </v-flex>
    </div> -->
-   <div class="profileItemsBox_content">
-      <itemCard v-for="(item, index) in itemToPreview" :key="index" :item="item"/>
+   <!-- {{items.length}} -->
+   <div class="profileItemsBox_content" v-if="$vuetify.breakpoint.smAndUp">
+      <itemCard v-for="(item, index) in items" :key="index" :item="item"/>
    </div>
-   <div class="profileItemBox_pagination" v-if="pagination.length > 1">
+   <div v-if="$vuetify.breakpoint.xsOnly" class="profileItemsBox_content_mobile">
+      <resultNote v-for="(item, index) in items" :key="index" :item="item" class="pa-3 mb-2"/>
+   </div>
+   <div class="profileItemBox_pagination" v-if="pageCount > 1">
       <v-pagination circle
-         total-visible=5 
-         v-model="pagination.current" 
-         :length="pagination.length"
-         @next="goNext"
+         total-visible=7 
+         v-model="query.page" 
+         :length="pageCount"
          @input="goSelected"
-         @previous="goPrevious"
          :next-icon="`sbf-arrow-right-carousel`"
          :prev-icon="`sbf-arrow-left-carousel`"/>
    </div>
@@ -38,12 +40,21 @@
 </template>
 
 <script>
-import itemCard from '../../../carouselCards/itemCard.vue'
+import itemCard from '../../../carouselCards/itemCard.vue';
+import resultNote from "../../../results/ResultNote.vue";
+
 import { mapGetters } from 'vuex'
 export default {
    name:'profileItemsBox',
    components:{
-      itemCard
+      itemCard,
+      resultNote
+   },
+   props:{
+      globalFunctions:{
+         type: Object,
+         required:true
+      }
    },
    data() {
       return {
@@ -54,54 +65,63 @@ export default {
             {name:'Question',value:'questions'},
          ],
          selectedTypeItem:'documents',
-         pagination:{
-               length:0,
-               current:1,
-               pageSize:6,
-         },
+         query:{
+            type:'documents',
+            page: 1,
+            pageSize:6,
+         }
       }
    },
    computed: {
       ...mapGetters(['getProfile']),
-      items(){
-         return this.getProfile[this.selectedTypeItem]
+      pageCount(){
+         return Math.ceil(this.getProfile[this.selectedTypeItem].count / this.query.pageSize);
       },
-      itemToPreview(){
-         let startIdx = (this.pagination.current * this.pagination.pageSize) - this.pagination.pageSize;
-         let endIdx = this.pagination.current * this.pagination.pageSize;
-         return this.items.slice(startIdx,endIdx)
-      }
+      items(){
+         return this.getProfile[this.selectedTypeItem].result;
+      },
    },
    methods: {
-      goNext(){},
-      goSelected(){},
-      goPrevious(){},
-   },
-   watch: {
-      items(){
-         this.pagination.length = Math.ceil(this.items.length / this.pagination.pageSize);
-      }
-   },
-   mounted() {
+      goSelected(){
+         let itemsObj = {
+            type: this.query.type,
+            page: this.query.page -1,
+            pageSize: this.query.pageSize
+         }
+         this.globalFunctions.getItems(itemsObj).then(()=>{
+            let scrollIntoViewOptions = {
+                behavior: 'smooth',
+                block: 'start',
+            }
+            document.getElementById('profileItemsBox').scrollIntoView(scrollIntoViewOptions);
+         })
 
-      // this.pagination.length = this.getProfile[this.selectedTypeItem].length / 6;
+      },
    },
-
+   created() {
+      this.query.pageSize = this.$vuetify.breakpoint.xsOnly? 3 : 6
+   },
 }
 </script>
 
 <style lang="less">
 @import '../../../../styles/mixin.less';
 
-.profileItemsBox{
+#profileItemsBox{
    @media (max-width: @screen-xs) {
-      padding: 0 14px;
+      // padding: 0 14px;
    }
    width: 100%;
    color: #43425d;
    .profileItemsBox_title{
       font-size: 18px;
       font-weight: 600;
+      @media (max-width: @screen-xs) {
+         padding: 10px 14px;
+         background: white;
+         font-size: 16px;
+         font-weight: bold;
+      }
    }
    .profileItemsBox_filters{
       display: flex;
@@ -137,21 +157,33 @@ export default {
          }
       }
    }
+   .profileItemsBox_content_mobile{
+      width: 100%;
+      padding-bottom: 20px;
+      .note-block{
+         border-radius: unset;
+      }
+   }
    .profileItemsBox_content{
       width: 100%;
       display: flex;
       flex-flow: row wrap;
-      justify-content: flex-start;
+      // justify-content: space-between;
+
+      display: grid;
+      box-sizing: border-box;
+      grid-gap: 14px;
       padding-bottom: 20px;
+      grid-template-columns: repeat(auto-fill, 230px);
       .itemCarouselCard{
          flex: 0 0 32%;
          margin-top: 20px;
          width: 230px;
       }
-      .itemCarouselCard:nth-child(3n-1) {
-         margin-left: 2%;
-         margin-right: 2%;
-      }
+      // .itemCarouselCard:nth-child(3n-1) {
+      //    margin-left: 2%;
+      //    margin-right: 2%;
+      // }
    }
    .profileItemBox_pagination{
       text-align: center;

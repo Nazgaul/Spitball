@@ -4,9 +4,9 @@
         <div class="profilePage_main profile-page-container">
             
             <profileUserBox/>
-            <!-- <profileItemsBox v-if="showItems" class="mb-3"/> -->
-            <!-- <profileEarnMoney v-if="showEarnMoney" class="mb-3" :globalFunctions="globalFunctions"/> -->
-            <v-layout wrap v-bind="xsColumn" align-start  justify-start>
+            <profileEarnMoney v-if="showEarnMoney" class="mb-3" :globalFunctions="globalFunctions"/>
+            <profileItemsBox v-if="showItems" class="mb-3" :globalFunctions="globalFunctions"/>
+            <!-- <v-layout wrap v-bind="xsColumn" align-start  justify-start>
                 <v-flex sm12 :class="[isMyProfile && isTutorProfile ? '' : ''  ]">
                     <v-flex xs12 class="mt-3" :class="[$vuetify.breakpoint.xsOnly ? 'mb-2' : 'mb-4']">
                         <v-divider v-if="$vuetify.breakpoint.xsOnly" style="height:2px; color: rgba(163, 160, 251, 0.32);"></v-divider>
@@ -116,7 +116,7 @@
                 <v-flex sm3 xs12 v-if="isMyProfile || isTutorProfile">
                     <v-spacer></v-spacer>
                 </v-flex>
-            </v-layout>
+            </v-layout> -->
             <profileReviewsBox v-if="showReviewBox"/>
             <profileUserStickyMobile :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.mdAndDown"/>
         </div>

@@ -66,6 +66,7 @@ export default {
                 openBecomeTutor: this.openBecomeTutor,
                 goTutorList: this.goTutorList,
                 openUpload: this.openUpload,
+                getItems: this.getItems,
             },
             coupon: '',
             couponPlaceholder: LanguageService.getValueByKey('coupon_placeholder'),
@@ -131,6 +132,7 @@ export default {
             'updateTutorDialog',
             'setReturnToUpload',
             'updateDialogState',
+            'updateProfileItemsByType',
 
 
             
@@ -138,7 +140,7 @@ export default {
             'syncProfile',
             'getAnswers',
             'getQuestions',
-            'getDocuments',
+            // 'getDocuments',
             'resetProfileData',
             'getPurchasedDocuments',
             'setProfileByActiveTab',
@@ -220,7 +222,10 @@ export default {
               this.updateDialogState(true);
               this.setReturnToUpload(false);
             }
-          },
+        },
+        getItems({type,page,pageSize}){
+            return this.updateProfileItemsByType({id:this.id,type,page,pageSize})
+        },
 
         
 
@@ -249,10 +254,16 @@ export default {
             this.activeTab = tabId;
         },
         fetchData() {
+            // let syncObj = {
+            //     id: this.id,
+            //     activeTab: this.activeTab
+            // };
             let syncObj = {
                 id: this.id,
-                activeTab: this.activeTab
-            };
+                type:'documents',
+                page: 0,
+                pageSize:this.$vuetify.breakpoint.xsOnly? 3 : 6,
+            }
             this.syncProfile(syncObj);
         },
         getInfoByTab() {
@@ -302,27 +313,27 @@ export default {
                 this.questions.isComplete = true;
             });
         },
-        loadDocuments() {
-            if (this.profileData.documents.length < this.itemsPerTab) {
-                this.documents.isComplete = true;
-                return;
-            }
-            this.documents.isLoading = true;
-            let documentsInfo = {
-                id: this.id,
-                page: this.documents.page,
-                user: this.profileData.user
-            };
-            this.getDocuments(documentsInfo).then((hasData) => {
-                if (!hasData) {
-                    this.documents.isComplete = true;
-                }
-                this.documents.isLoading = false;
-                this.documents.page++;
-            }, () => {
-                this.documents.isComplete = true;
-            });
-        },
+        // loadDocuments() {
+        //     if (this.profileData.documents.length < this.itemsPerTab) {
+        //         this.documents.isComplete = true;
+        //         return;
+        //     }
+        //     this.documents.isLoading = true;
+        //     let documentsInfo = {
+        //         id: this.id,
+        //         page: this.documents.page,
+        //         user: this.profileData.user
+        //     };
+        //     this.getDocuments(documentsInfo).then((hasData) => {
+        //         if (!hasData) {
+        //             this.documents.isComplete = true;
+        //         }
+        //         this.documents.isLoading = false;
+        //         this.documents.page++;
+        //     }, () => {
+        //         this.documents.isComplete = true;
+        //     });
+        // },
         loadPurchasedDocuments() {
             if (this.profileData.purchasedDocuments.length < this.itemsPerTab) {
                 this.purchasedDocuments.isComplete = true;
@@ -505,6 +516,13 @@ export default {
     },
     watch: {
         '$route': function(val){
+
+
+
+
+
+
+
             this.resetProfileData();
             if((val.params.id == this.accountUser.id) && this.accountUser.isTutorState === "pending"){
                 this.updateToasterParams({
@@ -521,11 +539,29 @@ export default {
         },
 
         activeTab() {
+
+
+
+
+
+
+
+
+
             this.getInfoByTab();
         }
     },
     //reset profile data to prevent glitch in profile loading
     beforeRouteLeave(to, from, next) {
+
+
+
+
+
+
+
+
+
         this.updateToasterParams({
             showToaster: false
         });
@@ -533,10 +569,30 @@ export default {
         next();
     },
     beforeDestroy(){
+
+
+
+
+
+
+
+
+
         this.closeCouponDialog();
         storeService.unregisterModule(this.$store, 'couponStore');
      },
     created() {
+
+
+
+
+
+
+
+
+
+
+
         this.fetchData();
         storeService.registerModule(this.$store, 'couponStore', couponStore);
         if(!!this.$route.query.coupon) {

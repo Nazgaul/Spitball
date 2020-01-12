@@ -202,7 +202,6 @@ const actions = {
             //update profile data with new university
             //let currentProfID = this.getters.accountUser.id;
             dispatch('updateUniExists', true);
-            //dispatch("syncProfile", currentProfID);
             return true;
         });
     },

@@ -114,8 +114,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task UserDocumentsQueryHandler_Ok()
         {
-            var query = new UserDataPagingByIdQuery(638, 0);
-            var _ = await fixture.QueryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, default);
+            var query = new UserDocumentsQuery(638, 0, 20);
+            var _ = await fixture.QueryBus.QueryAsync<ListWithCountDto<DocumentFeedDto>>(query, default);
         }
 
 
