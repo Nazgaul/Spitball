@@ -13,23 +13,23 @@
                         <v-tabs :dir="isRtl && $vuetify.breakpoint.xsOnly ? `ltr` : isRtl? 'rtl' : ''" class="tab-padding" hide-slider xs12>
 
                             <v-tab sel="uploaded_tab" @click="activeTab = 1" :id="`tab-${1}`" :href="'#tab-1'" :key="1">
-                                <span v-language:inner="'profile_documents'"/>
+                                <span class="text-capitalize body-1" v-language:inner="'profile_documents'"/>
                             </v-tab>
 
                             <v-tab sel="answer_tab" @click="activeTab = 2" :id="`tab-${2}`" :href="'#tab-2'" :key="2">
-                                <span v-language:inner="'profile_Answers'"/>
+                                <span class="text-capitalize body-1" v-language:inner="'profile_Answers'"/>
                             </v-tab>
 
                             <v-tab sel="question_tab" @click="activeTab = 3" :id="`tab-${3}`" :href="'#tab-3'" :key="3">
-                                <span v-language:inner="'profile_Questions'"/>
+                                <span class="text-capitalize body-1" v-language:inner="'profile_Questions'"/>
                             </v-tab>
 
                             <v-tab sel="purchased_tab" @click="activeTab = 4" :id="`tab-${4}`" :href="'#tab-4'" :key="4">
-                                <span v-language:inner="'profile_purchased_documents'"/>
+                                <span class="text-capitalize body-1" v-language:inner="'profile_purchased_documents'"/>
                             </v-tab>
 
                             <v-tab sel="calendar_tab" @click="openCalendar" :id="`tab-${5}`" :href="'#tab-5'" :key="5" v-if="showCalendar">
-                                <span v-language:inner="'profile_calendar'"/>
+                                <span class="text-capitalize body-1" v-language:inner="'profile_calendar'"/>
                             </v-tab>
 
 

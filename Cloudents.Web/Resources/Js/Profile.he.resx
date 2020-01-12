@@ -139,10 +139,13 @@
     <value>הניסיון שלי</value>
   </data>
   <data name="book_session" xml:space="preserve">
-    <value>קבעו איתי שיעור</value>
+    <value>הזמינו איתי שיעור</value>
   </data>
   <data name="book_session_mobile" xml:space="preserve">
-    <value>קבע שיעור</value>
+    <value>הזמנת שיעור</value>
+  </data>
+  <data name="book_session_mobile_xs" xml:space="preserve">
+    <value>הזמנה</value>
   </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>ביטול</value>

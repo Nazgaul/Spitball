@@ -25,7 +25,7 @@
          </div>
       </div>
       <div class="profileUserStickyMobile_actions ml-1">
-            <v-btn :disabled="isMyProfile" class="profileUserStickyMobile_btn mr-2 white--text" :class="{'isMyProfile':isMyProfile}" depressed rounded color="#4452fc" @click="globalFunctions.sendMessage">
+            <v-btn :disabled="isMyProfile" class="profileUserStickyMobile_btn mr-2 white--text" :class="[{'isMyProfile':isMyProfile},{'noCalendar':!getProfile.user.calendarShared}]" depressed rounded color="#4452fc" @click="globalFunctions.sendMessage">
                <chatIcon class="profileUserStickyMobile_btn_icon" :class="[{'mr-2':$vuetify.breakpoint.mdAndUp || $vuetify.breakpoint.xsOnly}]"/>
                <div v-if="$vuetify.breakpoint.mdAndUp || $vuetify.breakpoint.xsOnly" class="profileUserStickyMobile_btn_txt" v-language:inner="'profile_send_message'"/>
             </v-btn>
@@ -122,6 +122,7 @@ export default {
       @media (max-width: @screen-xs) {
             width: 100%;
             max-width: 310px;
+            min-height: 30px;
       }
       .profileUserStickyMobile_user_img{
          margin-right: 10px;
@@ -210,6 +211,12 @@ export default {
                width: 100%;
 
                // min-width: 50px;
+               &.noCalendar{
+                  max-width: 100%;
+                  .v-btn__content{
+                     justify-content: center !important;
+                  }
+               }
             }
             .v-btn__content{
                justify-content: flex-start;
