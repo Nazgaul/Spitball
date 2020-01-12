@@ -4,8 +4,10 @@
         <div class="profilePage_main profile-page-container">
             
             <profileUserBox/>
+            <calendarTab v-if="activeTab === 5" class="mb-3" :globalFunctions="globalFunctions"/>
             <profileEarnMoney v-if="showEarnMoney" class="mb-3" :globalFunctions="globalFunctions"/>
             <profileItemsBox v-if="showItems" class="mb-3" :globalFunctions="globalFunctions"/>
+
             <!-- <v-layout wrap v-bind="xsColumn" align-start  justify-start>
                 <v-flex sm12 :class="[isMyProfile && isTutorProfile ? '' : ''  ]">
                     <v-flex xs12 class="mt-3" :class="[$vuetify.breakpoint.xsOnly ? 'mb-2' : 'mb-4']">

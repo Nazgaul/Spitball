@@ -63,6 +63,7 @@ export default {
                 openCoupon: this.openCoupon,
                 sendMessage: this.sendMessage,
                 openCalendar: this.openCalendar,
+                closeCalendar: this.closeCalendar,
                 openBecomeTutor: this.openBecomeTutor,
                 goTutorList: this.goTutorList,
                 openUpload: this.openUpload,
@@ -365,6 +366,9 @@ export default {
                     document.getElementById(`tab-${this.activeTab}`).lastChild.click();
                 },200);
             }
+        },
+        closeCalendar(){
+            this.activeTab = null
         }
     },
     computed: {
