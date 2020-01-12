@@ -122,6 +122,7 @@ export default {
       @media (max-width: @screen-xs) {
             width: 100%;
             max-width: 310px;
+            min-height: 30px;
       }
       .profileUserStickyMobile_user_img{
          margin-right: 10px;
