@@ -1,39 +1,21 @@
-import * as RouteTypes from "./routeTypes";
-const globalBanner = () => import('./components/pages/layouts/banner/banner.vue');
+function lazyComponent(path) {
+    return () => import(`./components/${path}.vue`);
+}
 
-const feeds = () => import('./components/results/feeds/Feeds.vue');
-const pageHeader = () => import('./components/pages/layouts/header/header.vue');
-const sideMenu = () => import('./components/pages/layouts/sideMenu/sideMenu.vue');
+const routesDefaults = {
+    banner: lazyComponent('pages/layouts/banner/banner'),
+    header: lazyComponent('pages/layouts/header/header'),
+    sideMenu: lazyComponent('pages/layouts/sideMenu/sideMenu'),
+    footer: lazyComponent('pages/layouts/footer/footer')
+}
 
-const itemPage = () => import("./components/pages/itemPage/item.vue");
+function staticComponents(components) {
+    let defaultRoutes = {};
 
-const viewQuestion = () => import("./components/question/question-details/questionDetails.vue");
-const wallet = () => import("./components/wallet/wallet.vue");
-const newProfile = () => import("./components/new_profile/new_profile.vue");
-
-// course section
-const setCourse = () => import("./components/courses/courses.vue");
-const addCourse = () => import("./components/courses/addCourses/addCourses.vue");
-const editCourse = () => import("./components/courses/editCourses/editCourses.vue");
-/*
- new uni section
-*/
-const setUniversity = () => import("./components/university/university.vue");
-const addUniversity = () => import("./components/university/addUniversity/addUniversity.vue");
-
-const roomSettings = () => import("./components/studyroomSettings/studyroomSettings.vue");
-const tutorComponent = () => import("./components/studyroom/tutor.vue");
-const studentOrTutor= () => import("./components/studentOrTutor/studentOrTutor.vue");
-
-const landingPage = () => import('./components/pages/landingPage/landingPage.vue');
-const tutorLandingPage=()=> import("./components/tutorLandingPage/tutorLandingPage.vue");
-const landingPageFooter = () => import('./components/pages/layouts/footer/footer.vue');
-
-const homePage = () => import('./components/landingPage/pages/homePage.vue');
-const registerPage = () => import('./components/loginPageNEW/pages/registerPage.vue');
-
-const dashboardPage = () => import('./components/pages/dashboardPage/dashboardPage.vue');
-
+    components.forEach(comp => defaultRoutes[comp] = routesDefaults[comp]);
+        
+    return defaultRoutes;
+}
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -45,33 +27,18 @@ function dynamicPropsFn(route) {
     };
 }
 
-function headerResultPageFn() {
-    return {
-    };
-}
-
-function verticalResultPageFn() {
-    return {
-        
-    };
-}
 const resultProps = {
     default: dynamicPropsFn,
-    header: headerResultPageFn,
-    verticals: verticalResultPageFn
 };
+
 const feedPage = {
-    default: feeds,
-    banner: globalBanner,
-    header: pageHeader,
-    sideMenu: sideMenu
+    default: lazyComponent('results/feeds/Feeds'),
+    ...staticComponents(['banner', 'header', 'sideMenu'])
 };
 
 const dashboardPages = {
-    default: dashboardPage,
-    header: pageHeader,
-    banner: globalBanner,
-    sideMenu: sideMenu,
+    default: lazyComponent('pages/dashboardPage/dashboardPage'),
+    ...staticComponents(['banner', 'header', 'sideMenu'])
 };
 
 let routes2 = [
@@ -79,21 +46,19 @@ let routes2 = [
         path: "/",
         name: "landingPage",
         components: {
-            default: landingPage,
-            banner: globalBanner,
-            header: pageHeader,
-            footer: landingPageFooter
+            default: lazyComponent('pages/landingPage/landingPage'),
+            ...staticComponents(['banner', 'header', 'footer']),
         },
         children:[
             {
                 path: '',
-                component: homePage
+                component: lazyComponent('landingPage/pages/homePage')
             },
             {
                 path: "/tutor-list/:course?",
                 name: "tutorLandingPage",
                 components: {
-                    default: tutorLandingPage
+                    default: lazyComponent('tutorLandingPage/tutorLandingPage')
                 },
                 meta: {
                     showMobileFooter: true, 
@@ -104,7 +69,7 @@ let routes2 = [
     },
     
     {
-        path: "/" + RouteTypes.feedRoute,
+        path: "/" + 'feed',
         name: "feed",
         components: feedPage,
         props: resultProps,
@@ -136,7 +101,7 @@ let routes2 = [
             {
                 path: 'add',
                 name: 'addCourse',
-                component: addCourse,
+                component: lazyComponent('courses/addCourses/addCourses'),
                 meta: {
                     requiresAuth: true
                 }
@@ -144,7 +109,7 @@ let routes2 = [
             {
                 path: 'edit',
                 name: 'editCourse',
-                component: editCourse,
+                component: lazyComponent('courses/editCourses/editCourses'),
                 meta: {
                     requiresAuth: true
                 }
@@ -158,10 +123,8 @@ let routes2 = [
             }
         ],
         components: {
-            default: setCourse,
-            banner: globalBanner,
-            header: pageHeader,
-            sideMenu: sideMenu
+            default: lazyComponent('courses/courses'),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         meta: {
             requiresAuth: true
@@ -181,7 +144,7 @@ let routes2 = [
             {
                 path: 'add',
                 name: 'addUniversity',
-                component: addUniversity,
+                component: lazyComponent('university/addUniversity/addUniversity'),
                 meta: {
                     requiresAuth: true
                 }
@@ -195,10 +158,8 @@ let routes2 = [
             }
         ],
         components: {
-            default: setUniversity,
-            banner: globalBanner,
-            header: pageHeader,
-            sideMenu: sideMenu
+            default: lazyComponent('university/university'),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         meta: {
             requiresAuth: true
@@ -206,13 +167,10 @@ let routes2 = [
     },
     {
         path: "/document/:courseName/:name/:id",
-        // alias: ['/document/:courseName/:name/:id'],
         name: "document",
         components: {
-            header: pageHeader,
-            banner: globalBanner,
-            default: itemPage,
-            sideMenu: sideMenu,
+            default: lazyComponent('pages/itemPage/item'),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         props: {
             default: (route) => ({
@@ -224,7 +182,8 @@ let routes2 = [
         path: "/studyroomSettings/:id?",
         name: 'roomSettings',
         components: {
-            default: roomSettings
+            default: lazyComponent('studyroomSettings/studyroomSettings')
+            // default: roomSettings
         },
         header: () => ({
             submitRoute: '/tutoring'
@@ -239,7 +198,7 @@ let routes2 = [
         path: "/studyroom/:id?",
         name: 'tutoring',
         components: {
-            default: tutorComponent
+            default: lazyComponent('studyroom/tutor')
         },
         props: {
             default: (route) => ({
@@ -250,10 +209,8 @@ let routes2 = [
     {
         path: "/question/:id",
         components: {
-            default: viewQuestion,
-            banner: globalBanner,
-            sideMenu: sideMenu,
-            header: pageHeader
+            default: lazyComponent('question/question-details/questionDetails'),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         name: "question",
         props: {
@@ -269,10 +226,8 @@ redirect: { name: 'feed' }
     {
         path: "/profile/:id/:name",
         components: {
-            default: newProfile,
-            banner: globalBanner,
-            header: pageHeader,
-            sideMenu: sideMenu,
+            default: lazyComponent('new_profile/new_profile'),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         name: "profile",
         // meta:{
@@ -287,11 +242,8 @@ redirect: { name: 'feed' }
     {
         path: "/student-or-tutor",
         components: {
-            // default: viewProfile,
-            default: studentOrTutor,
-            sideMenu: sideMenu,
-            banner: globalBanner,
-            header: pageHeader
+            default: lazyComponent('studentOrTutor/studentOrTutor'),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         name: "studentTutor",
         meta: {
@@ -307,10 +259,8 @@ redirect: { name: 'feed' }
     {
         path: "/wallet",
         components: {
-            default: wallet,
-            header: pageHeader,
-            banner: globalBanner,
-            sideMenu: sideMenu,
+            default: lazyComponent('wallet/wallet'),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         name: "wallet",
         meta: {
@@ -322,7 +272,7 @@ redirect: { name: 'feed' }
         path: "/register",
         alias: ['/signin', '/resetpassword'],
         components: {
-            default: registerPage
+            default: lazyComponent('loginPageNEW/pages/registerPage')
         },
         name: "registration",
         beforeEnter: (to, from, next) => {
