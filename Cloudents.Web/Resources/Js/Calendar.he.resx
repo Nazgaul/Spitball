@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add_event_btn" xml:space="preserve">
-    <value>שריין עכשיו</value>
+    <value>הזמינו עכשיו</value>
   </data>
   <data name="add_event_cancel" xml:space="preserve">
     <value>ביטול</value>
@@ -160,10 +160,10 @@
     <value>היומן שלי לא זמין כעת, צור איתי קשר בהודעה ונתאם מועד לשיעור פרטי.</value>
   </data>
   <data name="error_create_event" xml:space="preserve">
-    <value>ההזמנה נכשלה, נסה לרענן את הדף!</value>
+    <value>ההזמנה נכשלה, אנא רענן את הדף!</value>
   </data>
   <data name="header" xml:space="preserve">
-    <value>מוזמנים לתאם איתי שיעור</value>
+    <value>הזמינו איתי שיעור</value>
   </data>
   <data name="time" xml:space="preserve">
     <value>השעות מוצגות לפי הזמן המקומי שלך</value>
