@@ -244,13 +244,15 @@ const actions = {
         context.commit('changeIsUserTutor', val);
         context.commit('setIsTutorState', 'pending');
     },
-    syncProfile(context, {id, activeTab}) {
+    syncProfile(context, {id,type,page,pageSize,/*activeTab*/}) {
+
         //fetch all the data before returning the value to the component
         accountService.getProfile(id).then(val => {
             let profileUserData = accountService.createUserProfileData(val);
             context.commit('setProfile', profileUserData);
             // cause of multiple profile requests to server
-            context.dispatch('setProfileByActiveTab', activeTab);
+            // context.dispatch('setProfileByActiveTab', activeTab);  
+            context.dispatch('setProfileItemsByType', {id,type,page,pageSize});
             context.dispatch('setUserStatus', profileUserData.user);
             if(profileUserData.user.isTutor){
                 accountService.getProfileReviews(id).then(val=>{
@@ -270,6 +272,16 @@ const actions = {
                                 console.error(error);
                             }
                       );
+    },
+    setProfileItemsByType({state,commit},{id,type,page,pageSize}){
+        if(!!state.profile && !!state.profile.user) {
+            if(type == "documents"){
+                return accountService.getProfileDocuments(id,page,pageSize).then(vals => {
+                    // let documents = accountService.createProfileDocumentData(vals);
+                    // commit('setPorfileDocuments', documents);
+                });
+            }
+        }
     },
     setProfileByActiveTab(context, activeTab) {
         if(!!context.state.profile && !!context.state.profile.user) {
@@ -351,28 +363,28 @@ const actions = {
             return false;
         });
     },
-    getDocuments(context, documentsInfo) {
-        let id = documentsInfo.id;
-        let page = documentsInfo.page;
-        let user = documentsInfo.user;
-        return accountService.getProfileDocuments(id, page).then(({data}) => {
-            let maximumElementsReceivedFromServer = 50;
-            if(data.length > 0) {
-                data.forEach(document => {
-                    //create answer Object and push it to the state
-                    let documentToPush = {
-                        ...document,
-                        user: user
-                    };
-                    context.state.profile.documents.push(documentToPush);
-                });
-            }
-            //return true if we can call to the server
-            return data.length === maximumElementsReceivedFromServer;
-        }, () => {
-            return false;
-        });
-    },
+    // getDocuments(context, documentsInfo) {
+    //     let id = documentsInfo.id;
+    //     let page = documentsInfo.page;
+    //     let user = documentsInfo.user;
+    //     return accountService.getProfileDocuments(id, page).then(({data}) => {
+    //         let maximumElementsReceivedFromServer = 50;
+    //         if(data.length > 0) {
+    //             data.forEach(document => {
+    //                 //create answer Object and push it to the state
+    //                 let documentToPush = {
+    //                     ...document,
+    //                     user: user
+    //                 };
+    //                 context.state.profile.documents.push(documentToPush);
+    //             });
+    //         }
+    //         //return true if we can call to the server
+    //         return data.length === maximumElementsReceivedFromServer;
+    //     }, () => {
+    //         return false;
+    //     });
+    // },
     getPurchasedDocuments(context, documentsInfo) {
         let id = documentsInfo.id;
         let page = documentsInfo.page;

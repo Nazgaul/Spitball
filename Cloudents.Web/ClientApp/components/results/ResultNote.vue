@@ -390,7 +390,6 @@ export default {
       "updateLoginDialogState",
       "updateToasterParams",
       "removeItemFromProfile",
-      "syncProfile",
       "documentVote",
       "removeItemFromList",
       "removeDocItemAction"

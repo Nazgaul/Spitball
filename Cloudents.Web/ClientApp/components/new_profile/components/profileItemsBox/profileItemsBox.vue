@@ -23,9 +23,6 @@
    <div class="profileItemsBox_content">
       <itemCard v-for="(item, index) in itemToPreview" :key="index" :item="item"/>
    </div>
-   <!-- <div class="profileItemsBox_content hidden-sm-and-up">
-      <resultNote class="pa-3 mb-3" v-for="(item, index) in itemToPreview" :key="index" :item="item"/>
-   </div> -->
    <div class="profileItemBox_pagination" v-if="pagination.length > 1">
       <v-pagination circle
          total-visible=5 
@@ -42,13 +39,11 @@
 
 <script>
 import itemCard from '../../../carouselCards/itemCard.vue';
-import resultNote from "../../../results/ResultNote.vue";
 import { mapGetters } from 'vuex'
 export default {
    name:'profileItemsBox',
    components:{
       itemCard,
-      resultNote
    },
    data() {
       return {
@@ -64,6 +59,7 @@ export default {
             current:1,
          },
          query:{
+            type:'documents',
             page: 0,
             pageSize:6,
          }

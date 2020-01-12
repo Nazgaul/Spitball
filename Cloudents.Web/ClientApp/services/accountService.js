@@ -158,10 +158,14 @@ export default {
         let strPage = page ? `?page=${page}` : "";
         return connectivityModule.http.get(`/Profile/${id}/answers/${strPage}`);
     },
-    getProfileDocuments:(id, page) => {
-        let strPage = page ? `?page=${page}` : "";
+    getProfileDocuments:(id, page,pageSize) => {
+        let strPage = `?page=${page}&pageSize=${pageSize}`;
         return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`);
     },
+    // getProfileDocuments:(id, page) => {
+    //     let strPage = page ? `?page=${page}` : "";
+    //     return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`);
+    // },
     getProfilePurchasedDocuments:(id, page)=>{
         let strPage = page ? `?page=${page}` : "";
         return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`);

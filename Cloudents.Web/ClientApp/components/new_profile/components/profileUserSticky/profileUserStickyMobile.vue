@@ -40,7 +40,7 @@
 
      </template>
      <template v-if="!getProfile.user.isTutor">
-         <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed round color="#4452fc" @click="isMyProfile? globalFunctions.openBecomeTutor() : globalFunctions.goTutorList()">
+         <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed rounded color="#4452fc" @click="isMyProfile? globalFunctions.openBecomeTutor() : globalFunctions.goTutorList()">
             <div class="profileUserSticky_btn_txt" v-language:inner="isMyProfile? 'profile_become_tutor_btn':'profile_find_tutors'"/>
          </v-btn>
      </template>

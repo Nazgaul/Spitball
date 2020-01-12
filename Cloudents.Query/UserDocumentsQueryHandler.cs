@@ -51,7 +51,7 @@ namespace Cloudents.Query
 
                 }
                 ).OrderByDescending(o => o.DateTime)
-                .Take(50).Skip(query.Page * query.PageSize).ToFuture();
+                .Take(query.PageSize).Skip(query.Page * query.PageSize).ToFuture();
 
             var count = _session.Query<Document>().Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok).ToFuture();
 
