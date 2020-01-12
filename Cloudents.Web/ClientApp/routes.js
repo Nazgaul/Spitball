@@ -1,3 +1,13 @@
+import {dashboardRoutes} from './routes/dashboardRoutes.js';
+import {profileRoutes} from './routes/profileRoutes.js';
+import {studyRoomRoutes} from './routes/studyRoomRoutes.js';
+import {registrationRoutes} from './routes/registrationRoutes.js';
+import {landingRoutes} from './routes/landingRoutes.js';
+import {questionRoutes} from './routes/questionRoutes.js';
+import {itemRoutes} from './routes/itemRoutes.js';
+
+
+
 function lazyComponent(path) {
     return () => import(`./components/${path}.vue`);
 }
@@ -36,38 +46,8 @@ const feedPage = {
     ...staticComponents(['banner', 'header', 'sideMenu'])
 };
 
-const dashboardPages = {
-    default: lazyComponent('pages/dashboardPage/dashboardPage'),
-    ...staticComponents(['banner', 'header', 'sideMenu'])
-};
 
 let routes2 = [
-    {
-        path: "/",
-        name: "landingPage",
-        components: {
-            default: lazyComponent('pages/landingPage/landingPage'),
-            ...staticComponents(['banner', 'header', 'footer']),
-        },
-        children:[
-            {
-                path: '',
-                component: lazyComponent('landingPage/pages/homePage')
-            },
-            {
-                path: "/tutor-list/:course?",
-                name: "tutorLandingPage",
-                components: {
-                    default: lazyComponent('tutorLandingPage/tutorLandingPage')
-                },
-                meta: {
-                    showMobileFooter: true, 
-                }
-            }
-            
-        ]
-    },
-    
     {
         path: "/" + 'feed',
         name: "feed",
@@ -165,80 +145,8 @@ let routes2 = [
             requiresAuth: true
         }
     },
-    {
-        path: "/document/:courseName/:name/:id",
-        name: "document",
-        components: {
-            default: lazyComponent('pages/itemPage/item'),
-            ...staticComponents(['banner', 'header', 'sideMenu'])
-        },
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            }),
-        }
-    },
-    {
-        path: "/studyroomSettings/:id?",
-        name: 'roomSettings',
-        components: {
-            default: lazyComponent('studyroomSettings/studyroomSettings')
-            // default: roomSettings
-        },
-        header: () => ({
-            submitRoute: '/tutoring'
-        }),
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            })
-        }
-    },
-    {
-        path: "/studyroom/:id?",
-        name: 'tutoring',
-        components: {
-            default: lazyComponent('studyroom/tutor')
-        },
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            })
-        }
-    },
-    {
-        path: "/question/:id",
-        components: {
-            default: lazyComponent('question/question-details/questionDetails'),
-            ...staticComponents(['banner', 'header', 'sideMenu'])
-        },
-        name: "question",
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            })
-        }
-    },
-{
-path : "/profile",
-redirect: { name: 'feed' }
-},
-    {
-        path: "/profile/:id/:name",
-        components: {
-            default: lazyComponent('new_profile/new_profile'),
-            ...staticComponents(['banner', 'header', 'sideMenu'])
-        },
-        name: "profile",
-        // meta:{
-        //     showMobileFooter: true,
-        // },
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            })
-        }
-    },
+
+
     {
         path: "/student-or-tutor",
         components: {
@@ -267,92 +175,13 @@ redirect: { name: 'feed' }
             requiresAuth: true
         },
     },
-
-    {
-        path: "/register",
-        alias: ['/signin', '/resetpassword'],
-        components: {
-            default: lazyComponent('loginPageNEW/pages/registerPage')
-        },
-        name: "registration",
-        beforeEnter: (to, from, next) => {
-            if(global.isAuth) {
-                next(false);
-            } else {
-                next();
-            }
-        }
-    },
-    {
-        path: "/my-followers",
-        components: dashboardPages,
-        name: "myFollowers",
-        props: {
-            default: (route) => ({
-                component: route.name,
-            })
-        },
-        meta: {
-            requiresAuth: true,
-            showMobileFooter: true,
-        },
-    },
-    {
-        path: "/my-sales",
-        components: dashboardPages,
-        name: "mySales",
-        props: {
-            default: (route) => ({
-                component: route.name,
-            })
-        },
-        meta: {
-            requiresAuth: true,
-            showMobileFooter: true,
-        },
-    },
-    {
-        path: "/my-content",
-        components: dashboardPages,
-        name: "myContent",
-        props: {
-            default: (route) => ({
-                component: route.name,
-            })
-        },
-        meta: {
-            requiresAuth: true,
-            showMobileFooter: true,
-        },
-    },
-    {
-        path: "/my-purchases",
-        components: dashboardPages,
-        name: "myPurchases",
-        props: {
-            default: (route) => ({
-                component: route.name,
-            })
-        },
-        meta: {
-            requiresAuth: true,
-            showMobileFooter: true,
-        },
-    },
-    {
-        path: "/study-rooms",
-        components: dashboardPages,
-        name: "myStudyRooms",
-        props: {
-            default: (route) => ({
-                component: route.name,
-            })
-        },
-        meta: {
-            requiresAuth: true,
-            showMobileFooter: true,
-        },
-    },
+    ...landingRoutes,
+    ...registrationRoutes,
+    ...studyRoomRoutes,
+    ...profileRoutes,
+    ...dashboardRoutes,
+    ...questionRoutes,
+    ...itemRoutes,
     {
         path:'*',
         redirect : () => {

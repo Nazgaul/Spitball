@@ -1,0 +1,79 @@
+import {lazyComponent,staticComponents} from './routesUtils.js';
+
+const dashboardPages = {
+   default: lazyComponent('pages/dashboardPage/dashboardPage'),
+   ...staticComponents(['banner', 'header', 'sideMenu'])
+};
+
+export const dashboardRoutes = [
+   {
+       path: "/my-followers",
+       components: dashboardPages,
+       name: "myFollowers",
+       props: {
+           default: (route) => ({
+               component: route.name,
+           })
+       },
+       meta: {
+           requiresAuth: true,
+           showMobileFooter: true,
+       },
+   },
+   {
+       path: "/my-sales",
+       components: dashboardPages,
+       name: "mySales",
+       props: {
+           default: (route) => ({
+               component: route.name,
+           })
+       },
+       meta: {
+           requiresAuth: true,
+           showMobileFooter: true,
+       },
+   },
+   {
+       path: "/my-content",
+       components: dashboardPages,
+       name: "myContent",
+       props: {
+           default: (route) => ({
+               component: route.name,
+           })
+       },
+       meta: {
+           requiresAuth: true,
+           showMobileFooter: true,
+       },
+   },
+   {
+       path: "/my-purchases",
+       components: dashboardPages,
+       name: "myPurchases",
+       props: {
+           default: (route) => ({
+               component: route.name,
+           })
+       },
+       meta: {
+           requiresAuth: true,
+           showMobileFooter: true,
+       },
+   },
+   {
+       path: "/study-rooms",
+       components: dashboardPages,
+       name: "myStudyRooms",
+       props: {
+           default: (route) => ({
+               component: route.name,
+           })
+       },
+       meta: {
+           requiresAuth: true,
+           showMobileFooter: true,
+       },
+   },
+]
