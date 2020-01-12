@@ -50,9 +50,9 @@ export default {
       this.UPDATE_SEARCH_LOADING(true);
       this.UPDATE_LOADING(true);
       if(this.search){
-        this.$router.push({ path: "/feed", query: { term: this.search } });
+        this.$router.push({ name: "feed", query: { term: this.search } });
         }else{
-        this.$router.push({ path: "/feed"});  
+        this.$router.push({ name: "feed"});  
       }
       this.$nextTick(() => {
         setTimeout(()=>{

@@ -355,7 +355,7 @@ export default {
         delete newQueryObject.Course;
       }
       if(this.isOutsideFeed()){
-          this.$router.push({path: '/feed', query: newQueryObject });
+          this.$router.push({name: 'feed', query: newQueryObject });
       }else{
         if(this.$route.path === `/feed` && this.$route.fullPath === '/feed'){
           newQueryObject.reloaded = '';
