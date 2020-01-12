@@ -280,7 +280,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpGet("similar")]
-        public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocuments([FromQuery] SimilarDocumentsRequest request,
+        public async Task<IEnumerable<DocumentFeedDto>> GetSimilarDocumentsAsync([FromQuery] SimilarDocumentsRequest request,
             [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var query = new SimilarDocumentsQuery(request.DocumentId);

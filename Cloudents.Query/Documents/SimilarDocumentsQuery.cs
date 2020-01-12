@@ -36,11 +36,12 @@ namespace Cloudents.Query.Documents
                 .Fetch(f => f.User)
                 .Where(w => w.Course.Id ==
                             _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.Course.Id).Single())
-                .Where(w => w.University.Id ==
-                            _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.University.Id).Single())
+                //.Where(w => w.University == null || w.University.Id ==
+                //            _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.University.Id).Single())
                 .Where(w => w.Id != query.DocumentId
                             && w.Status.State == ItemState.Ok)
-                .OrderByDescending(o => o.DocumentType).ThenByDescending(o => o.TimeStamp.UpdateTime)
+                .OrderByDescending(o => o.University.Id == _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.University.Id).Single())
+                .ThenByDescending(o => o.DocumentType).ThenByDescending(o => o.TimeStamp.UpdateTime)
                 .Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
