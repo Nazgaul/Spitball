@@ -160,6 +160,9 @@ export default {
    .profileItemsBox_content_mobile{
       width: 100%;
       padding-bottom: 20px;
+      @media (max-width: @screen-xs) {
+         padding-bottom: 0;
+      }
       .note-block{
          border-radius: unset;
       }
@@ -173,11 +176,15 @@ export default {
       display: grid;
       box-sizing: border-box;
       grid-gap: 14px;
-      padding-bottom: 20px;
+      padding-bottom: 10px;      
+
       grid-template-columns: repeat(auto-fill, 230px);
+         margin-top: 10px;
+
       .itemCarouselCard{
+         border: 1px solid #e0e1e9;
          flex: 0 0 32%;
-         margin-top: 20px;
+         // margin-top: 10px;
          width: 230px;
       }
       // .itemCarouselCard:nth-child(3n-1) {
@@ -186,13 +193,15 @@ export default {
       // }
    }
    .profileItemBox_pagination{
+      padding-bottom: 10px;
+
+
       text-align: center;
       .v-pagination__item{
          background-color: initial !important;
          box-shadow: none !important;
          outline:none;
          &.v-pagination__item--active{
-            color: initial !important;
             background-color: initial !important;
             border: none !important;
             border: 1.5px solid rgb(68, 82, 252) !important;

@@ -260,6 +260,8 @@ export default {
         box-shadow: none;
         padding: 0;
         padding-top: 14px;
+        margin-bottom: 8px;
+
     }
     .visibility_hidden{
         visibility: hidden;
