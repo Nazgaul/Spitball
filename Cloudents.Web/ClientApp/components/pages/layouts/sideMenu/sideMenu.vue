@@ -104,7 +104,7 @@ export default {
         {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', route: 'profile', icon:'sbf-user', sel:'sd_profile'},
         // {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', route: 'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
         {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'my-sales', route: 'mySales', icon:'sbf-cart',sel:'sd_sales'},
-        {name: "My Followers", key:'my-followers', route: 'myFollowers', icon:'sbf-cart',sel:'sd_followers'},
+        {name: LanguageService.getValueByKey('schoolBlock_my_followers'), key:'my-followers', route: 'myFollowers', icon:'sbf-follow',sel:'sd_followers'},
         {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'my-purchases', route: 'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
         {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', route: 'myContent', icon:'sbf-my-content',sel:'sd_content'},
         {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', route: 'roomSettings', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
@@ -355,7 +355,7 @@ export default {
         delete newQueryObject.Course;
       }
       if(this.isOutsideFeed()){
-          this.$router.push({path: '/feed', query: newQueryObject });
+          this.$router.push({name: 'feed', query: newQueryObject });
       }else{
         if(this.$route.path === `/feed` && this.$route.fullPath === '/feed'){
           newQueryObject.reloaded = '';

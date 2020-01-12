@@ -1,11 +1,10 @@
-import * as routes from "../../../routeTypes";
 import { LanguageService } from "../../language/languageService";
 
 const nav = {
     feed: {
         data:{
             filter:[],
-            id: routes.feedRoute,
+            id: 'feed',
             name: LanguageService.getValueByKey("navigation_nav_name_feed"),
             icon: "sbf-ask-q", //BLITZ TODO do we need this.....
         }

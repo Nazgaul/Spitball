@@ -7,8 +7,6 @@ namespace Cloudents.Core.Enum
     {
         [ResourceDescription(typeof(EnumResources), "TransactionTypeEarned")]
         Earned,
-        [ResourceDescription(typeof(EnumResources), "TransactionTypeStake")]
-        Stake,
         [ResourceDescription(typeof(EnumResources), "TransactionTypeSpent")]
         Spent
     }

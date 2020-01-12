@@ -338,4 +338,7 @@
   <data name="read_less" xml:space="preserve">
     <value>Read less</value>
   </data>
+  <data name="book_session_mobile_xs" xml:space="preserve">
+    <value>Book</value>
+  </data>
 </root>

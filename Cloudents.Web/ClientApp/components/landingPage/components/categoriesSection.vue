@@ -78,7 +78,7 @@ export default {
     },
     update(name){
       this.UPDATE_SEARCH_LOADING(true)
-      this.$router.push({ path: '/feed', query: {term: name}})
+      this.$router.push({ name: 'feed', query: {term: name}})
     }
   },
   computed: {

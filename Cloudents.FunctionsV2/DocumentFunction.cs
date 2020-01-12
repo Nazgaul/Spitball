@@ -147,6 +147,7 @@ namespace Cloudents.FunctionsV2
             [QueueTrigger("generate-blob-preview-v2")] string id,
             [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
             [Inject] IFileProcessorFactory factory,
+            IBinder binder,
             ILogger log,
             CancellationToken token)
         {
@@ -160,7 +161,12 @@ namespace Cloudents.FunctionsV2
             }
 
             var processor = factory.GetProcessor(originalBlob);
-            await processor.ProcessFileAsync(long.Parse(id), originalBlob, log, token);
+            if (processor is null)
+            {
+                log.LogError($"did not process id:{id}");
+                return;
+            }
+            await processor.ProcessFileAsync(long.Parse(id), originalBlob, binder, log, token);
             log.LogInformation("C# Blob trigger function Processed");
         }
 

@@ -39,7 +39,7 @@ namespace Cloudents.Query
             {
                 var listOfQueries = new Dictionary<TransactionType, IFutureValue<decimal?>>(); //List<IFutureValue<decimal>>();
 
-                foreach (var value in Enum.GetValues(typeof(TransactionType)).Cast<TransactionType>().Where(w => w != TransactionType.Stake))
+                foreach (var value in Enum.GetValues(typeof(TransactionType)).Cast<TransactionType>())
                 {
                     var type = value;
                     var xx = _statelessSession.Query<Transaction>()

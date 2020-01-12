@@ -251,7 +251,7 @@ export default {
             if (routeStackLength > 1 && beforeLastRoute && beforeLastRoute !== regRoute && beforeLastRoute !== 'document') {
                 this.$router.back();
             } else {
-                this.$router.push({ path: "/feed" });
+                this.$router.push({ name: "feed" });
             }
         },
         sendMessage() {
