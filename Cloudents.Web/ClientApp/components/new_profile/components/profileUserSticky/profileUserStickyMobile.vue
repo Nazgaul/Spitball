@@ -28,11 +28,11 @@
          </div>
       </div>
       <div class="profileUserStickyMobile_actions ml-1">
-            <v-btn :disabled="isMyProfile" class="profileUserStickyMobile_btn mr-2 white--text" :class="{'isMyProfile':isMyProfile}" depressed round color="#4452fc" @click="globalFunctions.sendMessage">
+            <v-btn :disabled="isMyProfile" class="profileUserStickyMobile_btn mr-2 white--text" :class="{'isMyProfile':isMyProfile}" depressed rounded color="#4452fc" @click="globalFunctions.sendMessage">
                <chatIcon class="profileUserStickyMobile_btn_icon" :class="[{'mr-2':$vuetify.breakpoint.mdAndUp}]"/>
                <div v-if="$vuetify.breakpoint.mdAndUp" class="profileUserStickyMobile_btn_txt" v-language:inner="'profile_send_message'"/>
             </v-btn>
-            <v-btn :disabled="isMyProfile" v-if="getProfile.user.calendarShared" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isMyProfile}" class="profileUserStickyMobile_btn profileUserStickyMobile_btn_book white--text" depressed round :color="$vuetify.breakpoint.xsOnly? '#4452fc':'white'">
+            <v-btn :disabled="isMyProfile" v-if="getProfile.user.calendarShared" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isMyProfile}" class="profileUserStickyMobile_btn profileUserStickyMobile_btn_book white--text" depressed rounded :color="$vuetify.breakpoint.xsOnly? '#4452fc':'white'">
                <calendarIcon  class="profileUserStickyMobile_btn_icon" :class="[{'mr-3':$vuetify.breakpoint.mdAndUp}]"/>
                <div v-if="$vuetify.breakpoint.mdAndUp" class="profileUserStickyMobile_btn_txt" v-language:inner="'profile_book_session_mobile'"/>
             </v-btn>

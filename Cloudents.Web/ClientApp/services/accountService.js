@@ -1,5 +1,10 @@
 import { connectivityModule } from "./connectivity.module";
 import searchService from "../services/searchService.js";
+function itemTypeChcker(type){
+    if(type.toLowerCase() === 'document'){
+       return 'Document';
+    }
+ }
 
 const User = {
     Default:function(objInit){
@@ -42,7 +47,44 @@ const User = {
                 return {rate: 0,users: 0}
             }
         })
-    }
+    },
+    // Item:function(objInit){
+
+    // },
+    Document:function(objInit){
+        this.id = objInit.id || null;
+        this.type = objInit.type || 'Document';
+        this.course = objInit.course; 
+        this.dateTime = objInit.dateTime; 
+        this.downloads = objInit.downloads; 
+        this.purchased = objInit.purchased; 
+        this.snippet = objInit.snippet;
+        this.title = objInit.title;
+        this.university = objInit.university;
+        this.url = objInit.url;
+        this.views = objInit.views;
+        this.price = objInit.price;
+        this.preview = objInit.preview;
+        this.documentType = objInit.documentType;
+        this.itemDuration = objInit.duration;
+        this.votes = !!objInit.vote ? objInit.vote.votes : null;
+        this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
+        this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
+        this.template = 'result-note';
+        this.user = objInit.user ? new User.Default(objInit.user) : '';
+    },
+}
+
+function createProfileItems(objInit){
+    return Object.assign(
+        {
+            result: objInit.data.result.map(objData => {
+                return new User[itemTypeChcker(objData.type)](objData)
+            }),
+            count: objInit.data.count,
+        }
+    )
+    
 }
 function createProfileReviews(objInit){
     return new User.Reviews(objInit)
@@ -160,7 +202,7 @@ export default {
     },
     getProfileDocuments:(id, page,pageSize) => {
         let strPage = `?page=${page}&pageSize=${pageSize}`;
-        return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`);
+        return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`).then(createProfileItems);
     },
     // getProfileDocuments:(id, page) => {
     //     let strPage = page ? `?page=${page}` : "";

@@ -132,6 +132,7 @@ export default {
             'updateTutorDialog',
             'setReturnToUpload',
             'updateDialogState',
+            'updateProfileItemsByType',
 
 
             
@@ -223,7 +224,7 @@ export default {
             }
         },
         getItems({type,page,pageSize}){
-
+            return this.updateProfileItemsByType({id:this.id,type,page,pageSize})
         },
 
         
@@ -261,7 +262,7 @@ export default {
                 id: this.id,
                 type:'documents',
                 page: 0,
-                pageSize:6,
+                pageSize:this.$vuetify.breakpoint.xsOnly? 3 : 6,
             }
             this.syncProfile(syncObj);
         },
