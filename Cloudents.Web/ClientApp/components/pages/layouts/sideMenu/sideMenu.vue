@@ -140,8 +140,13 @@ export default {
     dashboardModel(){
       return this.$route.name !== 'feed' && this.$route.name !== 'document'
     },
-    isMiniSideMenu(){
+    isMiniSideMenu: {
+      get() {
       return (this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly) && !this.getShowSchoolBlock
+      },
+      set(val) {
+        this.updateDrawerValue(val)
+      }
     },
     courseSelectText(){
       return !!this.accountUser ? this.dictionary.myCourses : this.dictionary.addcourses;
@@ -288,11 +293,13 @@ export default {
     },
 
     updateDrawerValue(val){
+      if(this.isMiniSideMenu) {
+        this.toggleShowSchoolBlock(!val);
+      }
         //this is required to set the current drawer state on the store, because when the 
         //created event is getting called again (during route change)
         //we need the last updated drawer state to be considered as default.
         // console.log(`drawer value is ${val}`);
-        this.toggleShowSchoolBlock(val);
       
     },
     isInSearchMode(){
