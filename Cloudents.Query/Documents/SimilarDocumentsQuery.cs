@@ -38,6 +38,8 @@ namespace Cloudents.Query.Documents
                             _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.Course.Id).Single())
                 //.Where(w => w.University == null || w.University.Id ==
                 //            _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.University.Id).Single())
+                .Where(w => w.User.Country == 
+                            _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.User.Country).Single())
                 .Where(w => w.Id != query.DocumentId
                             && w.Status.State == ItemState.Ok)
                 .OrderByDescending(o => o.University.Id == _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.University.Id).Single())

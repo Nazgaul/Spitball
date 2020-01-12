@@ -90,9 +90,10 @@ case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @use
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 left join sb.University un on un.Id = d.UniversityId
-left join cte on un.country = cte.country
+join cte on un.country = cte.country or u.country = cte.country
 where
-  d.State = 'Ok'
+
+d.State = 'Ok'
 and d.courseName = @course
 
 union all
@@ -136,7 +137,6 @@ and q.State = 'Ok'
   ) R,
   cte
 order by
-
 case when R.UniversityId = cte.UniversityId or R.UniversityId is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
 DATEDiff(hour, R.DateTime, GetUtcDATE()) +
 case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
@@ -184,7 +184,7 @@ case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @use
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 left join sb.University un on un.Id = d.UniversityId
-left join cte on un.country = cte.country
+join cte on un.country = cte.country or u.country = cte.country
 where
     d.UpdateTime > GETUTCDATE() - 182
 and d.State = 'Ok'
