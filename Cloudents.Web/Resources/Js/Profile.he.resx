@@ -310,7 +310,7 @@
     <value>תחומי הוראה:</value>
   </data>
   <data name="study_materials" xml:space="preserve">
-    <value>מסמכי הלימוד של {1}</value>
+    <value>חומרי הלימוד של {1}</value>
   </data>
   <data name="tutor" xml:space="preserve">
     <value>מורה פרטי</value>
