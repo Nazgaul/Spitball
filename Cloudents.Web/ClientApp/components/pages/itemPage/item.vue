@@ -301,6 +301,11 @@ export default {
         openBuyTokenDialog() {
             this.updateItemToaster(false);
             this.updateShowBuyDialog(true)
+        },
+        slidesToShow(){
+            let carouselContainer = this.$refs.itemPageMainCarousel;
+            let offset = 10;
+            this.itemsCarousel.itemsToShow = sbCarouselService.calculateItemsToShow(carouselContainer, this.itemsCarousel.itemWidth, offset, this.itemsCarousel.maxItemsToShow);
         }
     },
     beforeDestroy(){
