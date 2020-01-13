@@ -98,7 +98,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -141,9 +141,8 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-        
-           // await Convert();
-         
+            await Convert();
+
 
             await ReduPreviewProcessingAsync();
 
@@ -179,13 +178,13 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
 
             // Configure API key authorization: Apikey
-            Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "64ee981a-2022-47b5-afe2-5058114e6a12");
+            Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "86afd89a-207c-4e7a-9ffc-da23fcb9d5b7");
             Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.Timeout = int.MaxValue;
-            
+
             var apiInstance = new ConvertDocumentApi();
             var apiInstance2 = new ConvertImageApi();
 
-            var inputFile = new FileStream("C:\\Users\\Ram\\Downloads\\SwapLettersIssue.doc", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
+            var inputFile = new FileStream("C:\\Users\\Ram\\Downloads\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
 
             try
             {
@@ -193,13 +192,13 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
                 sw.Start();
                 //var v = apiInstance.ConvertDocumentDocxToTxt(inputFile);
                 //inputFile.Seek(0, SeekOrigin.Begin);
-               
-                var f = apiInstance.ConvertDocumentAutodetectGetInfo(inputFile);
-                var result =  apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
-                
+
+                //var f = apiInstance.ConvertDocumentAutodetectGetInfo(inputFile);
+                var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
+
                 //apiInstance.ConvertDocumentAutodetectGetInfo()
                 //var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
-                
+
                 // Word DOCX to PDF
                 //Object result = apiInstance.ConvertDocumentDocxToPdf(inputFile);
                 sw.Stop();
@@ -358,8 +357,8 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
                         continue;
                     }
 
-                  
-                    
+
+
 
                 }
 
