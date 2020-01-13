@@ -74,12 +74,16 @@ namespace Cloudents.Web.Api
             }
             catch (InvalidOperationException e)
             {
-                client.TrackException(e,new Dictionary<string, string>()
+                client.TrackException(e, new Dictionary<string, string>()
                 {
                     ["UserId"] = model.UserId.ToString(),
                     ["tutorId"] = tutorId.ToString()
                 });
                 return BadRequest();
+            }
+            catch
+            {
+                return BadRequest("User equals tutor");
             }
         }
 
@@ -283,12 +287,17 @@ namespace Cloudents.Web.Api
         {
             var userId = userManager.GetLongUserId(User);
 
+
             var command = new AddTutorReviewCommand(model.RoomId, model.Review, model.Rate, userId);
             try
             {
                 await _commandBus.DispatchAsync(command, token);
             }
             catch (DuplicateRowException)
+            {
+                return BadRequest();
+            }
+            catch (ArgumentException)
             {
                 return BadRequest();
             }

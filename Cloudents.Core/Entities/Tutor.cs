@@ -120,6 +120,10 @@ namespace Cloudents.Core.Entities
         public virtual byte[] Version { get; protected set; }
         public virtual void AddReview(string review, float rate, User user)
         {
+            if (Id == user.Id)
+            {
+                throw new ArgumentException("user can't review it self");
+            }
             var newReview = new TutorReview(review, rate, user, this);
 
             _reviews.Add(newReview);
