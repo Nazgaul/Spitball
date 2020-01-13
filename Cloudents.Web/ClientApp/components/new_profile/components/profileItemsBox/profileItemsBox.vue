@@ -28,7 +28,7 @@
       <resultNote v-for="(item, index) in items" :key="index" :item="item" class="pa-3 mb-2"/>
    </div>
    <div class="profileItemBox_pagination" v-if="pageCount > 1">
-      <v-pagination circle
+      <v-pagination
          total-visible=7 
          v-model="query.page" 
          :length="pageCount"
@@ -204,10 +204,9 @@ export default {
          &.v-pagination__item--active{
             background-color: initial !important;
             border: none !important;
-            border: 1.5px solid rgb(68, 82, 252) !important;
+            border: 1px solid rgb(68, 82, 252) !important;
             outline:none;
-            color: rgb(68, 82, 252) !important;
-            font-weight: bold;
+            color: black;
          }
       }
       .v-pagination__navigation{
