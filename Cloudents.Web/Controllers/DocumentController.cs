@@ -114,7 +114,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("document/{universityName}/{courseName}/{id:long}/{name}")]
-        public async Task<IActionResult> OldDocumentLinkRedirect2(long id, CancellationToken token)
+        public async Task<IActionResult> OldDocumentLinkRedirect2Async(long id, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new DocumentById(id, userId);
