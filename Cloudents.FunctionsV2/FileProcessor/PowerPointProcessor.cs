@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -26,8 +27,8 @@ namespace Cloudents.FunctionsV2.FileProcessor
 
             using (var sr = await blob.OpenReadAsync())
             {
-                var pageCount2 = await apiInstance.ConvertDocumentAutodetectGetInfoAsync(sr);
-                sr.Seek(0, SeekOrigin.Begin);
+                //var pageCount2 = await apiInstance.ConvertDocumentAutodetectGetInfoAsync(sr);
+                //sr.Seek(0, SeekOrigin.Begin);
                 var text2 = await apiInstance.ConvertDocumentPptxToTxtAsync(sr);
                 sr.Seek(0, SeekOrigin.Begin);
 
@@ -37,6 +38,10 @@ namespace Cloudents.FunctionsV2.FileProcessor
 
 
                 var text = text2.TextResult;
+                if (result.Successful == false)
+                {
+                    throw new ArgumentException($"ConvertDocumentAutodetectToPngArrayAsync return false in id {id}");
+                }
                 var imagesResult = result.PngResultPages;
                 //var imageUrls = imagesResult.Select(s => s.URL);
 
