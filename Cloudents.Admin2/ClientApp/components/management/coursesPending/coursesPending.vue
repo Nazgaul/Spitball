@@ -67,15 +67,24 @@
                                     <v-radio label="Merge" value="merge"></v-radio>
                                 </v-radio-group>
                                 <!--<v-text-field v-show="radios === 'merge'" v-model="newItem.course" label="New course"></v-text-field>-->
-                                <div class="select-type-container">
-                                    <v-select v-show="radios === 'approve'"
-                                              class="select-type-input"
-                                              v-model="subject"
-                                              :items="subjects"
-                                              :loading="isLoading"
-                                               label="Select subjects"
-                                          ></v-select>
-                            </div>
+
+                                <template v-if="radios === 'approve'">
+                                    <div class="select-type-container">
+                                        <v-select
+                                            class="select-type-input"
+                                            v-model="subject"
+                                            :items="subjects"
+                                            :loading="isLoading"
+                                            label="Select subjects"
+                                        ></v-select>
+                                        <v-select 
+                                            class="select-type-input"
+                                            v-model="schoolType"
+                                            :items="schoolTypes"
+                                            label="Select school type"
+                                        ></v-select>
+                                    </div>
+                                </template>
 
                                 <search-Component :context="adminAPI" 
                                                   :contextCallback="setadminAPI" 
@@ -145,6 +154,8 @@
                     { text: 'Pending Courses', value: 'name' },
                     { text: 'Actions', value: 'actions' },
                 ],
+                schoolTypes: ['University', 'Highschool'],
+                schoolType: '',
             }
         },
         computed: {
@@ -210,7 +221,8 @@
             },
             approve(item) {
                 const index = this.newCourseList.indexOf(item.name);
-                approve(item).then((resp) => {
+                let schoolType = this.schoolType;
+                approve({course: item, schoolType}).then((resp) => {
                     console.log('got migration resp success')
                     this.$toaster.success(`Approved Course ${item.name.name}`);
                     this.newCourseList.splice(index, 1);
