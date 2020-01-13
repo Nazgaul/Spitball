@@ -1,21 +1,36 @@
 import {lazyComponent,staticComponents} from './routesUtils.js';
 
 export const registrationRoutes = [
-   {
-      path: "/register",
-      alias: ['/signin', '/resetpassword'],
-      components: {
-          default: lazyComponent('loginPageNEW/pages/registerPage')
-      },
-      name: "registration",
-      beforeEnter: (to, from, next) => {
-          if(global.isAuth) {
-              next(false);
-          } else {
-              next();
-          }
-      }
-  },
+    {
+        path: "/register",
+        alias: ['/signin', '/resetpassword'],
+        components: {
+            default: lazyComponent('pages/authenticationPage/authenticationPage')
+        },
+        name: "registration",
+        beforeEnter: (to, from, next) => {
+            if(global.isAuth) {
+                next(false);
+            } else {
+                next();
+            }
+        }
+    },
+//    {
+//       path: "/register",
+//       alias: ['/signin', '/resetpassword'],
+//       components: {
+//           default: lazyComponent('loginPageNEW/pages/registerPage')
+//       },
+//       name: "registration",
+//       beforeEnter: (to, from, next) => {
+//           if(global.isAuth) {
+//               next(false);
+//           } else {
+//               next();
+//           }
+//       }
+//   },
   {
     path: "/student-or-tutor",
     components: {
