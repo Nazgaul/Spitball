@@ -45,13 +45,15 @@
                                 >
                                 <template v-slot:slide="{item}">
                                     <div class="mainItem__item__wrap--img">
-                                    <lazyImage 
+                                    <v-lazy>
+                                        <lazyImage 
                                         :src="item"
                                         draggable="false"
                                         :element="selector"
                                         style="width:100%;"
                                         >
-                                    </lazyImage>
+                                        </lazyImage>
+                                    </v-lazy>
                                     </div>
                                         <!-- <img draggable="false" class="mainItem__item__wrap--img" :src="doc" alt="" v-for="(doc, index) in docPreview" :key="index"> -->
                                 </template>
@@ -263,7 +265,12 @@ export default {
             }else{
                 this.prevDoc()
             }
-        }
+        },
+        onIntersect (entries) {
+            console.log(entries[0].isIntersecting)
+            console.log(entries[0].isVisible)
+            // console.log(observer)
+      },
     },
     
 }
