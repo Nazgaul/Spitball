@@ -51,14 +51,6 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item @click="openSblToken" class="group_list_sideMenu_dash">
-              <v-list-item-content>
-                <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker('getPoint')}]">
-                  <v-icon class="group_list_icon_dash" v-html="'sbf-get-points'"/>
-                  <span class="group_list_title_dash ml-3" v-language:inner="'menuList_points'"/>
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
           </v-list-group>
           
           <v-list-group :value="!dashboardModel" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
@@ -101,7 +93,6 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 import arrowSVG from './image/left-errow.svg';
 
 import {LanguageService} from "../../../../services/language/languageService";
-import analyticsService from '../../../../services/analytics.service';
 
 export default {
   name: "sideMenu",
@@ -113,6 +104,7 @@ export default {
         {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', route: 'profile', icon:'sbf-user', sel:'sd_profile'},
         // {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', route: 'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
         {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'my-sales', route: 'mySales', icon:'sbf-cart',sel:'sd_sales'},
+        {name: LanguageService.getValueByKey('schoolBlock_my_followers'), key:'my-followers', route: 'myFollowers', icon:'sbf-follow',sel:'sd_followers'},
         {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'my-purchases', route: 'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
         {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', route: 'myContent', icon:'sbf-my-content',sel:'sd_content'},
         {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', route: 'roomSettings', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
@@ -148,8 +140,13 @@ export default {
     dashboardModel(){
       return this.$route.name !== 'feed' && this.$route.name !== 'document'
     },
-    isMiniSideMenu(){
+    isMiniSideMenu: {
+      get() {
       return (this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly) && !this.getShowSchoolBlock
+      },
+      set(val) {
+        this.updateDrawerValue(val)
+      }
     },
     courseSelectText(){
       return !!this.accountUser ? this.dictionary.myCourses : this.dictionary.addcourses;
@@ -192,17 +189,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateShowBuyDialog','resetSearch',"updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
+    ...mapActions(['resetSearch',"updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
     ...mapMutations(["UPDATE_SEARCH_LOADING", "UPDATE_LOADING"]),
-    openSblToken(){
-      if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
-      } else{
-        analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
-        this.updateShowBuyDialog(true);
-      }
-      this.closeSideMenu();
-    },  
     openPersonalizeUniversity() {
       if (this.accountUser == null) {
         this.updateLoginDialogState(true);
@@ -256,6 +244,9 @@ export default {
       if(name === "mySales"){
         this.$router.push({name: 'mySales'})
       }
+      if(name === "myFollowers"){
+        this.$router.push({name: 'myFollowers'})
+      }
       if(name === "myContent"){
         this.$router.push({name: 'myContent'})
       }
@@ -302,11 +293,13 @@ export default {
     },
 
     updateDrawerValue(val){
+      if(this.isMiniSideMenu) {
+        this.toggleShowSchoolBlock(!val);
+      }
         //this is required to set the current drawer state on the store, because when the 
         //created event is getting called again (during route change)
         //we need the last updated drawer state to be considered as default.
         // console.log(`drawer value is ${val}`);
-        this.toggleShowSchoolBlock(val);
       
     },
     isInSearchMode(){
@@ -369,7 +362,7 @@ export default {
         delete newQueryObject.Course;
       }
       if(this.isOutsideFeed()){
-          this.$router.push({path: '/feed', query: newQueryObject });
+          this.$router.push({name: 'feed', query: newQueryObject });
       }else{
         if(this.$route.path === `/feed` && this.$route.fullPath === '/feed'){
           newQueryObject.reloaded = '';

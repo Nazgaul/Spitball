@@ -2,13 +2,13 @@
     <div class="add-university-wrap">
         <v-layout :class="[$vuetify.breakpoint.smAndUp ? 'py-6 px-6': 'grey-backgound py-2 pl-4 pr-1']" align-center
                   justify-center>
-            <v-flex grow xs10>
+            <v-flex grow>
                 <div class="d-inline-flex justify-center shrink add-university-wrap-title">
                     <span class="font-weight-bold" v-language:inner>university_choose_title</span>
                 </div>
 
             </v-flex>
-            <v-flex xs2 shrink>
+            <v-flex shrink>
                 <v-btn rounded class="elevation-0 done-btn mx-2 py-1 font-weight-bold my-0" @click="getOut()" sel="uni_done">
                     <span class="text-capitalize" v-language:inner>university_not_student_btn</span>
                 </v-btn>

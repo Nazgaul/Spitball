@@ -59,7 +59,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<ReturnSignUserResponse>> Post(
+        public async Task<ActionResult<ReturnSignUserResponse>> PostAsync(
             [FromBody] RegisterRequest model,
             [CanBeNull] ReturnUrlRequest returnUrl,
             CancellationToken token)
@@ -69,7 +69,7 @@ namespace Cloudents.Web.Api
             {
                 try
                 {
-                    return await MakeDecision(user, false, returnUrl, token);
+                    return await MakeDecisionAsync(user, false, returnUrl, token);
                 }
                 catch (ArgumentException)
                 {
@@ -92,7 +92,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        private async Task<ReturnSignUserResponse> MakeDecision(User user,
+        private async Task<ReturnSignUserResponse> MakeDecisionAsync(User user,
             bool isExternal,
             [CanBeNull] ReturnUrlRequest returnUrl,
             CancellationToken token)
@@ -152,19 +152,6 @@ namespace Cloudents.Web.Api
             var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
             if (result2.Succeeded)
             {
-                // For india mobile - temp solution
-                //if (string.Equals(userAgent, "Spitball-Android", StringComparison.OrdinalIgnoreCase))
-                //{
-                //    var user2 = await _userManager.FindByEmailAsync(result.Email);
-                //    var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
-                //    var code = dataProtector.Protect(user2.ToString(), DateTimeOffset.UtcNow.AddDays(5));
-
-                //    return Ok(new
-                //    {
-                //        code
-                //    });
-                //}
-
                 return new ReturnSignUserResponse(false);
             }
 
@@ -197,35 +184,29 @@ namespace Cloudents.Web.Api
                 {
                     if (!string.IsNullOrEmpty(result.Picture))
                     {
-                        using (var httpClient = clientFactory.CreateClient())
+                        using var httpClient = clientFactory.CreateClient();
+                        var message = await httpClient.GetAsync(result.Picture, cancellationToken);
+                        using var sr = await message.Content.ReadAsStreamAsync();
+                        var mimeType = message.Content.Headers.ContentType;
+                        try
                         {
-                            var message = await httpClient.GetAsync(result.Picture, cancellationToken);
-                            using (var sr = await message.Content.ReadAsStreamAsync())
-                            {
-                                var mimeType = message.Content.Headers.ContentType;
-                                try
-                                {
-                                    var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, sr,
-                                        mimeType.ToString(), cancellationToken);
-                                    var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
-                                    var url = Url.ImageUrl(imageProperties);
-                                    var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
-                                    user.UpdateUserImage(url, fileName);
-                                }
-                                catch (ArgumentException e)
-                                {
-                                    logClient.TrackException(e, new Dictionary<string, string>()
-                                    {
-                                        ["FromGoogle"] = result.Picture
-                                    });
-                                }
-                            }
+                            var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, sr,
+                                mimeType.ToString(), cancellationToken);
+                            var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
+                            var url = Url.ImageUrl(imageProperties);
+                            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+                            user.UpdateUserImage(url, fileName);
                         }
-
-
+                        catch (ArgumentException e)
+                        {
+                            logClient.TrackException(e, new Dictionary<string, string>()
+                            {
+                                ["FromGoogle"] = result.Picture
+                            });
+                        }
                     }
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-                    return await MakeDecision(user, true, null, cancellationToken);
+                    return await MakeDecisionAsync(user, true, null, cancellationToken);
                 }
                 logClient.TrackTrace($"failed to register {string.Join(", ", result3.Errors)}");
 
@@ -239,7 +220,7 @@ namespace Cloudents.Web.Api
             }
 
             await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-            return await MakeDecision(user, true, null, cancellationToken);
+            return await MakeDecisionAsync(user, true, null, cancellationToken);
         }
 
 

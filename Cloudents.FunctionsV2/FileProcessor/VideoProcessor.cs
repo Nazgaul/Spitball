@@ -29,7 +29,7 @@ namespace Cloudents.FunctionsV2.FileProcessor
             _commandBus = commandBus;
         }
 
-        public async Task ProcessFileAsync(long id, CloudBlockBlob blob, ILogger log, CancellationToken token)
+        public async Task ProcessFileAsync(long id, CloudBlockBlob blob, IBinder binder, ILogger log, CancellationToken token)
         {
             var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
             {

@@ -139,10 +139,13 @@
     <value>הניסיון שלי</value>
   </data>
   <data name="book_session" xml:space="preserve">
-    <value>קבעו איתי שיעור</value>
+    <value>הזמינו איתי שיעור</value>
   </data>
   <data name="book_session_mobile" xml:space="preserve">
-    <value>קבע שיעור</value>
+    <value>הזמנת שיעור</value>
+  </data>
+  <data name="book_session_mobile_xs" xml:space="preserve">
+    <value>הזמנה</value>
   </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>ביטול</value>
@@ -179,6 +182,9 @@
   </data>
   <data name="earn_btn" xml:space="preserve">
     <value>אני רוצה להרוויח כסף</value>
+  </data>
+  <data name="earn_desc" xml:space="preserve">
+    <value>האמינו כי העלאת מסמכי הלימוד שברשותכם יכולים לייצר הכנסה פסיבית.</value>
   </data>
   <data name="earn_title" xml:space="preserve">
     <value>מסמכי הלימוד שלך שווים כסף בספיטבול!</value>
@@ -302,6 +308,9 @@
   </data>
   <data name="study" xml:space="preserve">
     <value>תחומי הוראה:</value>
+  </data>
+  <data name="study_materials" xml:space="preserve">
+    <value>חומרי הלימוד של {1}</value>
   </data>
   <data name="tutor" xml:space="preserve">
     <value>מורה פרטי</value>

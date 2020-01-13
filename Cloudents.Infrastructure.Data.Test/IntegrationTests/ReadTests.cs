@@ -79,9 +79,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             {
                 p.Should().Contain(c => c.User.Id > 0);
             }
-            
-           // result.OfType<QuestionFeedDto>().Should().Contain(c => c.CultureInfo != null);
-
         }
 
         [Theory]
@@ -117,8 +114,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task UserDocumentsQueryHandler_Ok()
         {
-            var query = new UserDataPagingByIdQuery(638, 0);
-            var _ = await fixture.QueryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, default);
+            var query = new UserDocumentsQuery(638, 0, 20);
+            var _ = await fixture.QueryBus.QueryAsync<ListWithCountDto<DocumentFeedDto>>(query, default);
         }
 
 
@@ -358,6 +355,16 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
+        [Theory]
+        [InlineData(159039)]
+        [InlineData(638)]
+        public async Task UserFollowersByIdQuery_Ok(long userId)
+        {
+            var query = new UserFollowersByIdQuery(userId);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+        
+        
         [Theory]
         [InlineData(638)]
         [InlineData(159039)]

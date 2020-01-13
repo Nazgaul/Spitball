@@ -17,10 +17,7 @@
                   <v-flex class="profileUserStickyMobile_pricing_price">
                      <span class="profileUserStickyMobile_pricing_price_number">{{isDiscount && tutorPrice !== 0  ? tutorDiscountPrice : tutorPrice | currencyFormat(getProfile.user.tutorData.currency)}}</span>/<span class="profileUserStickyMobile_pricing_price_hour" v-language:inner="'profile_points_hour'"/>
                   </v-flex>
-                  <!-- <v-flex class="profileUserStickyMobile_pricing_discount" v-if="tutorDiscountPrice">
-                     {{tutorPrice ? tutorPrice : tutorDiscountPrice | currencyFormat(getProfile.user.tutorData.currency)}}
-                  </v-flex> -->
-                  <v-flex class="profileUserStickyMobile_pricing_discount" v-if="isDiscount">
+                  <v-flex class="profileUserStickyMobile_pricing_discount" :class="[{'pl-4':$vuetify.breakpoint.xsOnly}]" v-if="isDiscount">
                      {{tutorPrice ? tutorPrice : tutorDiscountPrice | currencyFormat(getProfile.user.tutorData.currency)}}
                   </v-flex>
                </div>
@@ -28,19 +25,18 @@
          </div>
       </div>
       <div class="profileUserStickyMobile_actions ml-1">
-            <v-btn :disabled="isMyProfile" class="profileUserStickyMobile_btn mr-2 white--text" :class="{'isMyProfile':isMyProfile}" depressed round color="#4452fc" @click="globalFunctions.sendMessage">
-               <chatIcon class="profileUserStickyMobile_btn_icon" :class="[{'mr-2':$vuetify.breakpoint.mdAndUp}]"/>
-               <div v-if="$vuetify.breakpoint.mdAndUp" class="profileUserStickyMobile_btn_txt" v-language:inner="'profile_send_message'"/>
+            <v-btn :disabled="isMyProfile" class="profileUserStickyMobile_btn mr-2 white--text" :class="[{'isMyProfile':isMyProfile},{'noCalendar':!getProfile.user.calendarShared}]" depressed rounded color="#4452fc" @click="globalFunctions.sendMessage">
+               <chatIcon class="profileUserStickyMobile_btn_icon" :class="[{'mr-2':$vuetify.breakpoint.mdAndUp || $vuetify.breakpoint.xsOnly}]"/>
+               <div v-if="$vuetify.breakpoint.mdAndUp || $vuetify.breakpoint.xsOnly" class="profileUserStickyMobile_btn_txt" v-language:inner="'profile_send_message'"/>
             </v-btn>
-            <v-btn :disabled="isMyProfile" v-if="getProfile.user.calendarShared" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isMyProfile}" class="profileUserStickyMobile_btn profileUserStickyMobile_btn_book white--text" depressed round :color="$vuetify.breakpoint.xsOnly? '#4452fc':'white'">
-               <calendarIcon  class="profileUserStickyMobile_btn_icon" :class="[{'mr-3':$vuetify.breakpoint.mdAndUp}]"/>
-               <div v-if="$vuetify.breakpoint.mdAndUp" class="profileUserStickyMobile_btn_txt" v-language:inner="'profile_book_session_mobile'"/>
+            <v-btn :disabled="isMyProfile" v-if="getProfile.user.calendarShared" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isMyProfile}" class="profileUserStickyMobile_btn profileUserStickyMobile_btn_book white--text" depressed rounded color="white">
+               <calendarIcon class="profileUserStickyMobile_btn_icon" :class="[{'mr-3':$vuetify.breakpoint.mdAndUp},{'mr-2':$vuetify.breakpoint.xsOnly}]"/>
+               <div v-if="$vuetify.breakpoint.mdAndUp || $vuetify.breakpoint.xsOnly" class="profileUserStickyMobile_btn_txt" v-language:inner="!$vuetify.breakpoint.xsOnly?'profile_book_session_mobile':'profile_book_session_mobile_xs'"/>
             </v-btn>
       </div>
-
      </template>
      <template v-if="!getProfile.user.isTutor">
-         <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed round color="#4452fc" @click="isMyProfile? globalFunctions.openBecomeTutor() : globalFunctions.goTutorList()">
+         <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed rounded color="#4452fc" @click="isMyProfile? globalFunctions.openBecomeTutor() : globalFunctions.goTutorList()">
             <div class="profileUserSticky_btn_txt" v-language:inner="isMyProfile? 'profile_become_tutor_btn':'profile_find_tutors'"/>
          </v-btn>
      </template>
@@ -60,7 +56,7 @@ export default {
    props:{
       globalFunctions:{
          type: Object,
-         required:true
+         required: true
       }
    },
    computed: {
@@ -115,22 +111,29 @@ export default {
        padding-right: 0;
     }
     @media (max-width: @screen-xs) {
-       position: fixed;
-       justify-content: space-evenly;
-       align-items: end;
-       padding: 2px 0;
-       height: 70px;
-       
+         position: fixed;
+         height: 86px;
+         display: flex;
+         flex-direction: column;
+         padding: 0 6px;
     }
     .profileUserStickyMobile_user{
        display: flex;
       @media (max-width: @screen-xs) {
-         text-align: center;
+            width: 100%;
+            max-width: 310px;
+            min-height: 30px;
       }
       .profileUserStickyMobile_user_img{
          margin-right: 10px;
       }
       .profileUserStickyMobile_user_info{
+         @media (max-width: @screen-xs) {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            width: 100%;
+         }
          .profileUserStickyMobile_user_info_name{
             font-size: 16px;
             font-weight: bold;
@@ -146,8 +149,8 @@ export default {
                   font-weight: bold;
                   line-height: 1.9;
                   @media (max-width: @screen-xs) {
-                     font-size: 22px;
-                     line-height: 1.3;
+                     font-size: 16px;
+                     padding-left: 6px;
                   }
                }
                .profileUserStickyMobile_pricing_price_hour{
@@ -160,7 +163,8 @@ export default {
                color: #b2b5c9;
                text-decoration: line-through;
                @media (max-width: @screen-xs) {
-                  padding-left: 16px;
+                  // padding-left: 16px;
+                  font-size: 14px;
                }
             }
          }
@@ -172,6 +176,7 @@ export default {
             text-align: end;
             @media (max-width: @screen-xs) {
                font-size: 12px;
+               padding-right: 8px
             }
             &.isMyProfileCoupon{
                color: #c5c8cf;
@@ -187,9 +192,13 @@ export default {
       height: 100%;
       padding-bottom: 8px;
       @media (max-width: @screen-xs) {
-         padding-bottom: 0;
-         padding-top: 8px;
-         height: auto;
+         display: flex;
+         width: 100%;
+         max-width: 320px;
+         justify-content: inherit;
+         // justify-content: space-between;
+         align-items: unset; 
+         padding: 0;
       }
       .profileUserStickyMobile_btn{
             max-width: 186px;
@@ -197,15 +206,26 @@ export default {
             border-radius: 26px;
             margin: 0;
             @media (max-width: @screen-xs) {
-               height: 50px;
-               width: 50px;
-               min-width: 50px;
+               height: 38px;
+               max-width: 198px;
+               width: 100%;
+
+               // min-width: 50px;
+               &.noCalendar{
+                  max-width: 100%;
+                  .v-btn__content{
+                     justify-content: center !important;
+                  }
+               }
             }
             .v-btn__content{
                justify-content: flex-start;
                text-transform: none;
                @media (max-width: @screen-sm) {
                   justify-content: center;
+               }
+               @media (max-width: @screen-xs) {
+                  justify-content: flex-start;
                }
             }
             &.isMyProfile{
@@ -229,17 +249,17 @@ export default {
                   width: auto;
                }
                @media (max-width: @screen-xs) {
-                  margin-left: 10%;
-                  height: 50px;
-                  width: 50px;
-                  min-width: 50px;
-                  color: initial !important;
-                  border: none !important;
-                  svg{
-                  path{
-                     fill: white;
-                  }
-               }
+                  // margin-left: 10%;
+                  // height: 50px;
+                  // width: 50px;
+                  // min-width: 50px;
+                  // color: initial !important;
+                  // border: none !important;
+                  // svg{
+                  //    path{
+                  //       fill: white;
+                  //    }
+                  // }
                }
                width: 100%;
                color: #4c59ff !important;

@@ -316,7 +316,23 @@ namespace Cloudents.Web.Api
             });
         }
 
-        //[HttpGet("recording")]
+        [HttpGet("followers")]
+        public async Task<IEnumerable<FollowersDto>> GetFollowersAsync([FromServices] IUrlBuilder urlBuilder, 
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserFollowersByIdQuery(userId);
+            var result = await _queryBus.QueryAsync(query, token);
+            return result.Select(s =>
+            {
+                s.Image = urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image, s.Name);
+                return s;
+            });
+        }
+
+
+
+//[HttpGet("recording")]
         //public async Task<IEnumerable<SessionRecordingDto>> GetSessionRecordingAsync(CancellationToken token)
         //{
         //    var userId = _userManager.GetLongUserId(User);
@@ -324,6 +340,5 @@ namespace Cloudents.Web.Api
 
         //    return await _queryBus.QueryAsync(query, token);
         //}
-
-    }
+        }
 }

@@ -56,9 +56,9 @@ export default {
             padding: 6px;
         }
         &__close {
-            display: flex;
-            justify-content: flex-end;
-            font-size: 12px;
+            display: flex !important;
+            justify-content: flex-end !important;
+            font-size: 18px !important;
             margin: 10px 10px 0 10px;
 
             @media (max-width: @screen-xs) {

@@ -101,18 +101,9 @@ export default {
       console.log(require(`${path}`))
       return require(`${path}`);
     },
-    update(name, isDragging){
-      if(!isDragging){
-        this.UPDATE_SEARCH_LOADING(true)
-        this.$router.push({ path: '/feed', query: {term: name}})
-      }
-    },
-    setCategorySlidesToShow(){
-      let containerElm1 = this.$refs.categoriesTop;
-      let containerElm2 = this.$refs.categoriesBottom;
-      let offset = 10;
-      this.categoryTop.itemsToShow = sbCarouselService.calculateItemsToShow(containerElm1, this.categoryTop.width, offset, this.categoryTop.maxItemsToShow)
-      this.categoryBottom.itemsToShow = sbCarouselService.calculateItemsToShow(containerElm2, this.categoryBottom.width, offset, this.categoryBottom.maxItemsToShow)
+    update(name){
+      this.UPDATE_SEARCH_LOADING(true)
+      this.$router.push({ name: 'feed', query: {term: name}})
     }
   },
   computed: {

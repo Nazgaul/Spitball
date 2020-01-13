@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
@@ -48,8 +49,7 @@ namespace Cloudents.Query.Query.Admin
                             .JoinEntityAlias(() => studentAlias, () => studyRoomUserAlias.User.Id == studentAlias.Id)
                             .JoinEntityAlias(() => tutorUserAlias, () => tutorUserAlias.Id == tutorAlias.User.Id)
                             .Where(w => w.Receipt == null)
-                            .Where(w => w.Duration.Value > TimeSpan.FromMinutes(10))
-                            .Where(w => studentAlias.BuyerPayment.PaymentKey != null);
+                            .Where(w => w.Duration.Value > TimeSpan.FromMinutes(10));
                 if (!string.IsNullOrEmpty(query.Country))
                 {
                     res = res.Where(w => studentAlias.Country == query.Country || tutorUserAlias.Country == query.Country);
@@ -60,9 +60,14 @@ namespace Cloudents.Query.Query.Admin
                 .Select(s => s.Price).WithAlias(() => resultDto.Price)
                 .Select(Projections.Conditional(
                     Restrictions.IsNull(Projections.Property(() => tutorAlias.SellerKey)),
-                    Projections.Constant(true),
-                    Projections.Constant(false)
-                    )).WithAlias(() => resultDto.CantPay)
+                    Projections.Constant(false),
+                    Projections.Constant(true)
+                    )).WithAlias(() => resultDto.IsSellerKeyExists)
+                .Select(Projections.Conditional(
+                    Restrictions.Eq(Projections.Property(() => studentAlias.PaymentExists), PaymentStatus.None),
+                    Projections.Constant(false),
+                    Projections.Constant(true)
+                    )).WithAlias(() => resultDto.IsPaymentKeyExists)
                 .Select(s => tutorAlias.Id).WithAlias(() => resultDto.TutorId)
                 .Select(s => tutorUserAlias.Name).WithAlias(() => resultDto.TutorName)
                 .Select(s => studentAlias.Id).WithAlias(() => resultDto.UserId)

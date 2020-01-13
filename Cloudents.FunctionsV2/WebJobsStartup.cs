@@ -4,6 +4,7 @@ using Cloudents.FunctionsV2.Di;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Http;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 [assembly: WebJobsStartup(typeof(Startup))]
@@ -23,6 +24,10 @@ namespace Cloudents.FunctionsV2
             //builder.AddTimers();
             //builder.AddSignalR();
 
+            builder.AddExtension<HttpClientFactoryExtensionConfigProvider>();
+
+            builder.Services.AddHttpClient();
+            builder.Services.Configure<HttpClientFactoryOptions>(options => options.SuppressHandlerScope = true);
             builder.AddExtension<AzureSearchSyncProvider>();
             builder.AddExtension<TwilioExtensionConfigProvider>();
             builder.AddDependencyInjection<AutofacServiceProviderBuilder>();

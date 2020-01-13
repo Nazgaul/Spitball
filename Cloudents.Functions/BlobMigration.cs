@@ -39,7 +39,7 @@ namespace Cloudents.Functions
                     return;
                 }
                 var f = factory.PreviewFactory(originalBlob.Name);
-                if (f == null)
+                if (f is null)
                 {
                     await collectorPreview2.AddAsync(id, token);
                     log.Error($"did not process id:{id}");

@@ -172,7 +172,7 @@
     <value>Remove</value>
   </data>
   <data name="uf_course_name" xml:space="preserve">
-    <value>Name of the course</value>
+    <value>Course name</value>
   </data>
   <data name="uf_desc" xml:space="preserve">
     <value>Write a few words to describe the file</value>

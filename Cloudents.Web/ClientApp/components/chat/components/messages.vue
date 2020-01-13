@@ -5,7 +5,7 @@
             <div class="messages-header">
                 <div class="messages-study-room" :class="{'join-room': studyRoomExists || isStudyRoom, 'create-room': !studyRoomExists && isRoomTutor}" v-if="showStudyRoomInteraction || isStudyRoom" @click="createRoom">
                     <button v-if="studyRoomExists || isStudyRoom">
-                        <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
+                        <v-icon style="font-size:16px !important; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
                         <span v-language:inner="'chat_studyRoom_enter'"></span>
                     </button>
 

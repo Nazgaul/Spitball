@@ -40,7 +40,7 @@ export default {
   methods: {
     searchQuery() {
       if (this.search) {
-        this.$router.push({ path: "/feed", query: { term: this.search } });
+        this.$router.push({ name: "feed", query: { term: this.search } });
       }
     }
   },

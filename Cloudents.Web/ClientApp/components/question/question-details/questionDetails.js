@@ -51,7 +51,7 @@ export default {
         ...mapGetters(["getQuestion"]),
         resetSearch(){
             this.updateSearchLoading(true);
-            this.$router.push({path:"/feed"});
+            this.$router.push({name: "feed"});
         },
         submitAnswer() {
             
