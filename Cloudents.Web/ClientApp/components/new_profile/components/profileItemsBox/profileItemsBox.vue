@@ -1,6 +1,6 @@
 <template>
 <div id="profileItemsBox" v-if="items">
-   <div class="profileItemsBox_title" v-text="$Ph('profile_study_materials',getProfile.user.firstName)"/>
+   <div class="profileItemsBox_title text-truncate" v-text="$Ph('profile_study_materials',userName)"/>
    <!-- <div class="profileItemsBox_filters">
       <v-flex xs1 sm4 pr-4>
          <v-select class="profileItemsBox_filters_select"
@@ -28,7 +28,7 @@
       <resultNote v-for="(item, index) in items" :key="index" :item="item" class="pa-3 mb-2"/>
    </div>
    <div class="profileItemBox_pagination" v-if="pageCount > 1">
-      <v-pagination circle
+      <v-pagination
          total-visible=7 
          v-model="query.page" 
          :length="pageCount"
@@ -80,6 +80,9 @@ export default {
       items(){
          return this.getProfile[this.selectedTypeItem].result;
       },
+      userName(){
+         return this.getProfile.user.firstName? this.getProfile.user.firstName : this.getProfile.user.name;
+      },
    },
    methods: {
       goSelected(){
@@ -108,9 +111,6 @@ export default {
 @import '../../../../styles/mixin.less';
 
 #profileItemsBox{
-   @media (max-width: @screen-xs) {
-      // padding: 0 14px;
-   }
    width: 100%;
    color: #43425d;
    .profileItemsBox_title{
@@ -135,7 +135,6 @@ export default {
             display: unset;
             height: 36px;
             .v-input__slot{
-               // padding: 0 16px;
                border-radius: 8px;
                box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
                margin: 0;
@@ -160,6 +159,9 @@ export default {
    .profileItemsBox_content_mobile{
       width: 100%;
       padding-bottom: 20px;
+      @media (max-width: @screen-xs) {
+         padding-bottom: 0;
+      }
       .note-block{
          border-radius: unset;
       }
@@ -168,37 +170,31 @@ export default {
       width: 100%;
       display: flex;
       flex-flow: row wrap;
-      // justify-content: space-between;
-
       display: grid;
       box-sizing: border-box;
       grid-gap: 14px;
-      padding-bottom: 20px;
+      padding-bottom: 10px;      
       grid-template-columns: repeat(auto-fill, 230px);
+      margin-top: 10px;
       .itemCarouselCard{
+         border: 1px solid #e0e1e9;
          flex: 0 0 32%;
-         margin-top: 20px;
          width: 230px;
       }
-      // .itemCarouselCard:nth-child(3n-1) {
-      //    margin-left: 2%;
-      //    margin-right: 2%;
-      // }
    }
    .profileItemBox_pagination{
+      padding-bottom: 10px;
       text-align: center;
       .v-pagination__item{
          background-color: initial !important;
          box-shadow: none !important;
          outline:none;
          &.v-pagination__item--active{
-            color: initial !important;
             background-color: initial !important;
             border: none !important;
-            border: 1.5px solid rgb(68, 82, 252) !important;
+            border: 1px solid rgb(68, 82, 252) !important;
             outline:none;
-            color: rgb(68, 82, 252) !important;
-            font-weight: bold;
+            color: black;
          }
       }
       .v-pagination__navigation{

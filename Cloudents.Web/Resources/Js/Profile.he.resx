@@ -183,6 +183,9 @@
   <data name="earn_btn" xml:space="preserve">
     <value>אני רוצה להרוויח כסף</value>
   </data>
+  <data name="earn_desc" xml:space="preserve">
+    <value>האמינו כי העלאת מסמכי הלימוד שברשותכם יכולים לייצר הכנסה פסיבית.</value>
+  </data>
   <data name="earn_title" xml:space="preserve">
     <value>מסמכי הלימוד שלך שווים כסף בספיטבול!</value>
   </data>
@@ -305,6 +308,9 @@
   </data>
   <data name="study" xml:space="preserve">
     <value>תחומי הוראה:</value>
+  </data>
+  <data name="study_materials" xml:space="preserve">
+    <value>חומרי הלימוד של {1}</value>
   </data>
   <data name="tutor" xml:space="preserve">
     <value>מורה פרטי</value>

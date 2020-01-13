@@ -1,28 +1,27 @@
 ﻿@model string
 @using Microsoft.AspNetCore.Http.Extensions
 @{
-    ViewBag.metaDescription = ViewBag.metaDescription ?? "עזרה בשיעורי בית והכנה למבחנים? מאות אלפי סיכומים ומורים פרטיים לכל המקצועות ";
-    ViewBag.ogImage = ViewBag.ogImage ?? "https://" +Context.Request.Host + "/images/3rdParty/fbShare.jpg";
+
+    ViewBag.ogImage = ViewBag.ogImage ?? "https://" + Context.Request.Host + "/images/3rdParty/fbShare.jpg";
 
     ViewBag.ogImageWidth = ViewBag.ogImageWidth ?? 1493;
     ViewBag.ogImageHeight = ViewBag.ogImageHeight ?? 939;
 
     const string themeColor = "#4190b";
-    ViewBag.title = ViewBag.title ?? "להצליח במבחנים בעזרת מיטב הסיכומים והמורים הפרטיים | ספיטבול";
+
     ViewBag.ogTitle = ViewBag.ogTitle ?? ViewBag.title;
 }
-<title>@ViewBag.title</title>
+
 <meta name="theme-color" content="@themeColor">
 
 <meta name="msapplication-navbutton-color" content="@themeColor">
 <meta name="apple-mobile-web-app-status-bar-style" content="@themeColor">
-<meta name="title" content="@ViewBag.title" />
-<meta name="description" content="@ViewBag.metaDescription" />
+
 @*<link rel="image_src" href="@ViewBag.imageSrc" />*@
 <meta property="fb:app_id" content="450314258355338" />
 <meta property="og:site_name" content="Spitball" />
 <meta property="og:image" content="@ViewBag.ogImage" />
-<meta property="og:image:width" content="@ViewBag.ogImageWidth"/>
+<meta property="og:image:width" content="@ViewBag.ogImageWidth" />
 <meta property="og:image:height" content="@ViewBag.ogImageHeight" />
 <meta property="og:description" content="@ViewBag.metaDescription" />
 <meta property="og:title" content="@ViewBag.ogTitle" />

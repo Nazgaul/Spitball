@@ -63,6 +63,7 @@ export default {
                 openCoupon: this.openCoupon,
                 sendMessage: this.sendMessage,
                 openCalendar: this.openCalendar,
+                closeCalendar: this.closeCalendar,
                 openBecomeTutor: this.openBecomeTutor,
                 goTutorList: this.goTutorList,
                 openUpload: this.openUpload,
@@ -365,6 +366,9 @@ export default {
                     document.getElementById(`tab-${this.activeTab}`).lastChild.click();
                 },200);
             }
+        },
+        closeCalendar(){
+            this.activeTab = null
         }
     },
     computed: {
@@ -408,10 +412,10 @@ export default {
             return !!this.getProfile && !!this.accountUser && this.accountUser.id == this.getProfile.user.id
         },
         showEarnMoney(){
-            return this.isMyProfile && !this.uploadedDocuments.length
+            return this.isMyProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
         },
         showItems(){
-            return !!this.getProfile
+            return !!this.getProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && this.uploadedDocuments.result.length;
         },
         isTutorPending(){
             return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
