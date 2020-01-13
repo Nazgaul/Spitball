@@ -361,7 +361,7 @@ export default {
       }
       .v-btn__content{
         .v-icon{
-          font-size: 18px;
+          font-size: 18px !important;
         }
       }
 

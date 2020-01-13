@@ -11,9 +11,9 @@
                       disable-initial-sort>
             <template slot="items" slot-scope="props" >
 
-                <td :class="{ 'no-pay': props.item.tutorPayme }" >{{ props.item.tutorId }}</td>
+                <td :class="{ 'no-tutorPayme': !props.item.tutorPayme}" >{{ props.item.tutorId }}</td>
                 <td >{{ props.item.tutorName }}</td>
-                <td >{{ props.item.userId }}</td>
+                <td :class="{ 'no-userPayme': !props.item.userPayme }">{{ props.item.userId }}</td>
                 <td >{{ props.item.userName }}</td>
                 <td>{{ props.item.created }}</td>
                 <td>{{ props.item.duration }}</td>
@@ -281,8 +281,12 @@ export default {
     input {
     width: 300px;
     }
-    .no-pay {
+    .no-tutorPayme {
         background: red;
     }
+    .no-userPayme {
+        background: purple;
+    }
+    
   
 </style>

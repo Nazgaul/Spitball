@@ -19,16 +19,19 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Documents.ChangePrice;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudents.Query.Query;
+using Cloudmersive.APIClient.NET.DocumentAndDataConvert.Api;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -95,7 +98,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -110,10 +113,10 @@ namespace ConsoleApp
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
             builder.RegisterModule<ModuleFile>();
             builder.RegisterType<MLRecommendation>().AsSelf();
-                
-                
-                
-                _container = builder.Build();
+
+
+
+            _container = builder.Build();
 
             if (Environment.UserName == "Ram")
             {
@@ -138,7 +141,11 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-         
+            await Convert();
+
+
+            await ReduPreviewProcessingAsync();
+
             var queryBus = _container.Resolve<IQueryBus>();
 
             var query = new SiteMapQuery(true);
@@ -165,6 +172,44 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
             }
         }
 
+        private static async Task Convert()
+        {
+
+
+
+            // Configure API key authorization: Apikey
+            Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "86afd89a-207c-4e7a-9ffc-da23fcb9d5b7");
+            Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.Timeout = int.MaxValue;
+
+            var apiInstance = new ConvertDocumentApi();
+            var apiInstance2 = new ConvertImageApi();
+
+            var inputFile = new FileStream("C:\\Users\\Ram\\Downloads\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
+
+            try
+            {
+                var sw = new Stopwatch();
+                sw.Start();
+                //var v = apiInstance.ConvertDocumentDocxToTxt(inputFile);
+                //inputFile.Seek(0, SeekOrigin.Begin);
+
+                //var f = apiInstance.ConvertDocumentAutodetectGetInfo(inputFile);
+                var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
+
+                //apiInstance.ConvertDocumentAutodetectGetInfo()
+                //var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
+
+                // Word DOCX to PDF
+                //Object result = apiInstance.ConvertDocumentDocxToPdf(inputFile);
+                sw.Stop();
+
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ConvertDocumentApi.ConvertDocumentDocxToPdf: " + e.Message);
+            }
+        }
 
         private static async Task ResetVideo()
         {
@@ -219,140 +264,111 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
         }
 
 
-        //private static async Task ReduPreviewProcessingAsync()
-        //{
+        private static async Task ReduPreviewProcessingAsync()
+        {
 
 
 
-        //    var bus = _container.Resolve<ICloudStorageProvider>();
-        //    var blobClient = bus.GetBlobClient();
-        //    var queueClient = bus.GetQueueClient();
+            var bus = _container.Resolve<ICloudStorageProvider>();
+            var blobClient = bus.GetBlobClient();
+            var queueClient = bus.GetQueueClient();
 
 
-        //    var container = blobClient.GetContainerReference("spitball-files");
-        //    var dir = container.GetDirectoryReference("files/4782");
+            var container = blobClient.GetContainerReference("spitball-files");
+            var dir = container.GetDirectoryReference("files");
 
 
 
-        //    BlobContinuationToken blobToken = null;
-        //    do
-        //    {
-        //        var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 
-        //            5000, blobToken,
-        //            new BlobRequestOptions(),
-        //            new OperationContext(), default);
+            BlobContinuationToken blobToken = null;
+            do
+            {
+                var result = await dir.ListBlobsSegmentedAsync(true, BlobListingDetails.None,
+                    5000, blobToken,
+                    new BlobRequestOptions(),
+                    new OperationContext(), default);
 
-        //        var list = new HashSet<long>();
-        //        Console.WriteLine("Receiving a new batch of blobs");
-        //        foreach (IListBlobItem blob in result.Results)
-        //        {
+                var list = new HashSet<long>();
+                Console.WriteLine("Receiving a new batch of blobs");
+                foreach (IListBlobItem blob in result.Results)
+                {
 
-        //            //var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
-        //            var id = long.Parse(blob.Uri.Segments[3].TrimEnd('/'));
-        //            if (!list.Add(id))
-        //            {
-        //                continue;
-        //            }
-        //            var fileDir = container.GetDirectoryReference($"files/{id}");
-        //            var blobs = fileDir.ListBlobs(false,BlobListingDetails.Metadata).ToList();
+                    //var fileNameWithoutDirectory = blob.Parent.Uri.MakeRelativeUri(blob.Uri).ToString();
+                    var id = long.Parse(blob.Uri.Segments[3].TrimEnd('/'));
+                    if (!list.Add(id))
+                    {
+                        continue;
+                    }
+                    var fileDir = container.GetDirectoryReference($"files/{id}");
+                    var blobs = fileDir.ListBlobs(false, BlobListingDetails.Metadata).ToList();
 
-        //            var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("text.txt"));
-        //            if (textBlobItem != null)
-        //            {
+                    var fileItem = (CloudBlockBlob)blobs.First(a => a.Uri.AbsoluteUri.Contains("file-"));
+                    var extension = Path.GetExtension(fileItem.Name);
 
-        //                //var textBlob2 = (CloudBlockBlob)textBlobItem;
-        //                //textBlob2.FetchAttributes();
-        //                //if (!textBlob2.Metadata.ContainsKey("ProcessTags"))
-        //                //{
-        //                //    var queue = queueClient.GetQueueReference("generate-search-preview");
-        //                //    var msg = new CloudQueueMessage(id.ToString());
-        //                //    await queue.AddMessageAsync(msg);
-        //                //    Console.WriteLine("Processing tags " + id);
-        //                //}
-        //            }
+                    if (!FileTypesExtension.PowerPoint.Extensions.Contains(extension, StringComparer.OrdinalIgnoreCase))
+                    {
+                        continue;
+                        //var queue = queueClient.GetQueueReference("generate-blob-preview");
+                        //var msg = new CloudQueueMessage(id.ToString());
+                        //await queue.AddMessageAsync(msg);
+                        //Console.WriteLine("Processing regular " + id);
+                    }
+                    var textBlobItem = blobs.FirstOrDefault(a => a.Uri.AbsoluteUri.Contains("text.txt"));
+                    if (textBlobItem != null)
+                    {
 
-        //            else
-        //            {
-        //                var queue = queueClient.GetQueueReference("generate-blob-preview");
-        //                var msg = new CloudQueueMessage(id.ToString());
-        //                await queue.AddMessageAsync(msg);
-        //                Console.WriteLine("Processing regular " + id);
-        //                continue;
-        //            }
+                        //var textBlob2 = (CloudBlockBlob)textBlobItem;
+                        //textBlob2.FetchAttributes();
+                        //if (!textBlob2.Metadata.ContainsKey("ProcessTags"))
+                        //{
+                        //    var queue = queueClient.GetQueueReference("generate-search-preview");
+                        //    var msg = new CloudQueueMessage(id.ToString());
+                        //    await queue.AddMessageAsync(msg);
+                        //    Console.WriteLine("Processing tags " + id);
+                        //}
+                    }
 
-        //            var previewFiles = blobs.Where(a => a.Uri.AbsoluteUri.Contains("preview")).ToList();
-        //            var textBlob = (CloudBlockBlob)textBlobItem;
-        //           // textBlob.FetchAttributes();
-        //            textBlob.Metadata.TryGetValue("PageCount", out var pageCountStr);
-        //            int.TryParse(pageCountStr, out var pageCount);
-        //            if (previewFiles.Count == 0 || previewFiles.Count < pageCount)
-        //            {
-        //                var queue = queueClient.GetQueueReference("generate-blob-preview");
-        //                var msg = new CloudQueueMessage(id.ToString());
-        //                await queue.AddMessageAsync(msg);
-        //                //             using (var file =
-        //                //new StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
-        //                //             {
+                    else
+                    {
+                        var queue = queueClient.GetQueueReference("generate-blob-preview");
+                        var msg = new CloudQueueMessage(id.ToString());
+                        await queue.AddMessageAsync(msg);
+                        Console.WriteLine("Processing regular " + id);
+                        continue;
+                    }
 
-        //                //                 file.WriteLine(id);
+                    var previewFiles = blobs.Where(a => a.Uri.AbsoluteUri.Contains("preview")).ToList();
+                    var textBlob = (CloudBlockBlob)textBlobItem;
+                    // textBlob.FetchAttributes();
+                    textBlob.Metadata.TryGetValue("PageCount", out var pageCountStr);
+                    int.TryParse(pageCountStr, out var pageCount);
+                    if (previewFiles.Count == 0 || previewFiles.Count < pageCount)
+                    {
+                        var queue = queueClient.GetQueueReference("generate-blob-preview");
+                        var msg = new CloudQueueMessage(id.ToString());
+                        await queue.AddMessageAsync(msg);
+                        //             using (var file =
+                        //new StreamWriter(@"C:\Users\Ram\Documents\regular.txt", true))
+                        //             {
 
-        //                //             }
-        //                Console.WriteLine("Processing regular " + id);
-        //                continue;
-        //            }
+                        //                 file.WriteLine(id);
 
-        //            var duplicatePreview = previewFiles.Cast<CloudBlockBlob>()
-        //                .GroupBy(g => new { g.Properties.ContentMD5, g.Properties.Length }).Where(g => g.Count() == Math.Max(previewFiles.Count, 2));
-        //            if (duplicatePreview.Any())
-        //            {
-        //                foreach (var listBlobItem in previewFiles)
-        //                {
-        //                    if (listBlobItem is CloudBlockBlob p)
-        //                    {
-        //                        p.Delete();
-        //                    }
-
-        //                }
-
-        //                foreach (var listBlobItem in blobs.Where(a => a.Uri.AbsoluteUri.Contains("blur")))
-        //                {
-        //                    if (listBlobItem is CloudBlockBlob p)
-        //                    {
-        //                        p.Delete();
-        //                    }
-        //                }
-        //                var queue = queueClient.GetQueueReference("generate-blob-preview");
-        //                var msg = new CloudQueueMessage(id.ToString());
-        //                await queue.AddMessageAsync(msg);
-        //                Console.WriteLine("Duplicate preview " + id);
-        //                continue;
-        //            }
-        //            var blobBlurCount = blobs.Count(a => a.Uri.AbsoluteUri.Contains("blur"));
-        //            if (blobBlurCount == 0 || blobBlurCount < Math.Min(pageCount, 10))
-        //            {
-        //                var queue = queueClient.GetQueueReference("generate-blob-preview-blur");
-        //                var msg = new CloudQueueMessage(id.ToString());
-        //                await queue.AddMessageAsync(msg);
-
-        //                //               using (var file =
-        //                //new StreamWriter(@"C:\Users\Ram\Documents\blur.txt", true))
-        //                //               {
-
-        //                //                   file.WriteLine(id);
-
-        //                //               }
-        //                Console.WriteLine("Processing blur " + id);
-        //            }
-
-        //        }
-
-        //        blobToken = result.ContinuationToken;
-        //    } while (blobToken != null);
+                        //             }
+                        Console.WriteLine("Processing regular " + id);
+                        continue;
+                    }
 
 
 
 
-        //}
+                }
+
+                blobToken = result.ContinuationToken;
+            } while (blobToken != null);
+
+
+
+
+        }
 
 
 

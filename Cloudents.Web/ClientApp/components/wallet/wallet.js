@@ -1,13 +1,8 @@
 import walletService from '../../services/walletService';
-import { cashOutCards } from './consts';
-import cashOutCard from './cashOutCard/cashOutCard.vue';
 import { mapGetters } from 'vuex';
 import { LanguageService } from "../../services/language/languageService";
 
 export default {
-    components: {
-        cashOutCard
-    },
     props: {},
     data() {
         return {
@@ -82,7 +77,6 @@ export default {
                 transactions: []
             },
             items: [],
-            cashOutOptions: cashOutCards,
             walletData: []
         };
     },

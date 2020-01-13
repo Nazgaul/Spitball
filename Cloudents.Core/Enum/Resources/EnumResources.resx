@@ -159,7 +159,4 @@
   <data name="TransactionTypeSpent" xml:space="preserve">
     <value>Spent</value>
   </data>
-  <data name="TransactionTypeStake" xml:space="preserve">
-    <value>Stake</value>
-  </data>
 </root>

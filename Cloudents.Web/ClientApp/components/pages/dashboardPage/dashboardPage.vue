@@ -24,6 +24,7 @@ import mySales from './mySales/mySales.vue';
 import myContent from './myContent/myContent.vue';
 import myPurchases from './myPurchases/myPurchases.vue';
 import myStudyRooms from './myStudyRooms/myStudyRooms.vue';
+import myFollowers from './myFollowers/myFollowers.vue';
 
 import tableEmptyState from './global/tableEmptyState.vue';
 
@@ -69,6 +70,8 @@ export default {
                'student_tutor': {text: LanguageService.getValueByKey('dashboardPage_student_tutor'), align:'left', sortable: true, value:'name'},
                'created': {text: LanguageService.getValueByKey('studyRoom_created'), align:'left', sortable: true, value:'date'},
                'last_date': {text: LanguageService.getValueByKey('dashboardPage_last_date'), align:'left', sortable: true, value:'lastSession'},
+               'joined': {text: LanguageService.getValueByKey('dashboardPage_joined'), align:'left', sortable: true, value:'date'},
+               'name': {text: LanguageService.getValueByKey('dashboardPage_name'), align:'left', sortable: true, value:'name'},
             }
          },
          globalFunctions:{
@@ -86,6 +89,7 @@ export default {
       myContent,
       myPurchases,
       myStudyRooms,
+      myFollowers,
 
       changeNameDialog,
       changePriceDialog,
@@ -117,6 +121,9 @@ export default {
             return {name: 'profile',params: {id: item.id, name: item.name}}
          }
          if(item.conversationId){
+            return {name: 'profile',params: {id: item.userId, name: item.name}}
+         }
+         if(item.userId && !item.conversationId && !item.type){
             return {name: 'profile',params: {id: item.userId, name: item.name}}
          }
       },

@@ -6,6 +6,7 @@ const state = {
    purchasesItems: [],
    balancesItems: [],
    studyRoomItems: [],
+   followersItems: [],
 };
 
 const mutations = {
@@ -23,6 +24,9 @@ const mutations = {
    },
    setStudyRoomItems(state,val) {
       state.studyRoomItems = val;
+   },
+   setFollowersItems(state,val) {
+      state.followersItems = val;
    },
    dashboard_setPrice(state,{newPrice,itemId}){
       state.contentItems.forEach(item =>{
@@ -46,6 +50,7 @@ const getters = {
    getPurchasesItems: state => state.purchasesItems,
    getBalancesItems: state => state.balancesItems,
    getStudyRoomItems: state => state.studyRoomItems,
+   getFollowersItems: state => state.followersItems,
 };
 
 const actions = {
@@ -72,6 +77,11 @@ const actions = {
    updateStudyRoomItems({commit}){
       dashboardService.getStudyRoomItems().then(items=>{
          commit('setStudyRoomItems', items);
+      });
+   },
+   updateFollowersItems({commit}){
+      dashboardService.getFollowersItems().then(items=>{
+         commit('setFollowersItems', items);
       });
    },
    dashboard_updatePrice({commit},paramObj){

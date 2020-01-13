@@ -79,34 +79,6 @@
                     </div>
                 </v-tab-item>
                 <v-tab-item :key="'3'" :value="'tab-3'" class="tab-padding" v-if="activeTab === 3">
-                    <div class="cash-out-wrapper">
-                        <div class="text-wrap">
-                            <!--<div class="main-text" v-language:inner>wallet_more_SBL_more_valuable</div>-->
-                            <div class="points-text">
-                    <span>
-                        <span v-language:inner>wallet_You_have</span>
-                                <bdi>
-                        <span>
-                            {{Math.round(accountUser.balance)}}
-                            <!-- {{calculatedEarnedPoints ? `${calculatedEarnedPoints.toLocaleString(undefined,
-                            { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` || '0.00' : '0.00'}} -->
-
-                            <span v-language:inner="'cashoutcard_SBL'"/>
-                            </span>
-                                    </bdi>
-                        <span v-language:inner>wallet_you_have_redeemable_sbl</span>
-                    </span>
-                            </div>
-                        </div>
-                        <cash-out-card class="cash-out-option" v-for="(cashOutOption,index) in cashOutOptions"
-                                       :key="index"
-                                       :points-for-dollar="cashOutOption.pointsForDollar"
-                                       :cost="cashOutOption.cost"
-                                       :image="cashOutOption.image"
-                                       :available="accountUser.balance >= cashOutOption.cost"
-                                       :updatePoint="recalculate">
-                        </cash-out-card>
-                    </div>
                 </v-tab-item>
             </v-tabs>
 

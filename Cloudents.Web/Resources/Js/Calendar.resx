@@ -160,7 +160,7 @@
     <value>My calendar is not available at the moment. Massage me directly to schedule a session.</value>
   </data>
   <data name="error_create_event" xml:space="preserve">
-    <value>Booking failed please refresh the page!</value>
+    <value>Booking failed, please refresh the page!</value>
   </data>
   <data name="header" xml:space="preserve">
     <value>Book a lesson with me</value>

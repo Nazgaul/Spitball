@@ -165,4 +165,7 @@
   <data name="posts" xml:space="preserve">
     <value>ההודעות שלי</value>
   </data>
+  <data name="my_followers" xml:space="preserve">
+    <value>העוקבים שלי</value>
+  </data>
 </root>

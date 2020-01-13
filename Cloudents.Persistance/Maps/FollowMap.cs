@@ -10,6 +10,7 @@ namespace Cloudents.Persistence.Maps
             Id(x => x.Id).GeneratedBy.GuidComb();
             References(x => x.Followed).Column("UserId").Not.Nullable().UniqueKey("c_follower");
             References(x => x.Follower).Column("FollowerId").Not.Nullable().UniqueKey("c_follower");
+            Map(x => x.Created).Insert().Not.Update();
             Table("UsersRelationship");
         }
     }

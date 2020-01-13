@@ -81,7 +81,7 @@ namespace Cloudents.Persistence.Repositories
             return
               Session.QueryOver<Transaction>()
                   .Where(w => w.User.Id == userId)
-                  .Where(w => w.Type == TransactionType.Earned || w.Type == TransactionType.Stake)
+                  .Where(w => w.Type == TransactionType.Earned)
                   .Select(Projections.Sum<Transaction>(x => x.Price));
         }
 

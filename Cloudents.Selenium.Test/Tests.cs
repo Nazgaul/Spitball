@@ -52,7 +52,7 @@ namespace Cloudents.Selenium.Test
                     new ChromeOptions()
                     {
                         AcceptInsecureCertificates = true
-                    }),
+                    },TimeSpan.FromMinutes(20)),
                 //new FirefoxDriver(Directory.GetCurrentDirectory(), new FirefoxOptions()
                 //{
                 //    PageLoadStrategy = PageLoadStrategy.None,
@@ -73,6 +73,7 @@ namespace Cloudents.Selenium.Test
 
                 _process.CloseMainWindow();
                 _process.Close();
+                _process.Dispose();
             }
 
             // ... clean up test data from the database ...
@@ -340,7 +341,27 @@ namespace Cloudents.Selenium.Test
         //    div.Count.Should().BeGreaterThan(1);
         //}
 
-        
+        [Fact]
+        public void Feed_Search()
+        {
+            foreach (var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                LoginTest();
+
+                var wait = driver.FindElementByWait(By.XPath("//*[@sel='all_courses']"));
+                var courses = driver.FindElements(By.XPath("//*[@class='group_list_sideMenu_course v-list-item--active v-list-item v-list-item--link theme--light']"));
+                var search = driver.FindElementByWait(By.XPath("//*[@class='v-text-field__slot']//input"));
+
+                
+                courses[0].Click();
+                search.SendKeys("test");
+                search.SendKeys(Keys.Enter);
+                var marketingBox = driver.FindElementByWait(By.XPath("//*[@class='marketing-box-component']"));
+                driver.Url.Should().Contain("term=test");
+                driver.Url.Should().Contain("course=");
+            }
+        }
 
         public void Dispose()
         {
@@ -354,7 +375,7 @@ namespace Cloudents.Selenium.Test
     {
         public static IWebElement FindElementByWait(this IWebDriver driver, By by)
         {
-            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 5));
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 7));
             wait.Until(x => x.FindElement(by));
 
             return driver.FindElement(by);

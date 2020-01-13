@@ -44,7 +44,8 @@ namespace Cloudents.Admin2.Api
             {
                 StudyRoomSessionId = s.StudyRoomSessionId,
                 Price = s.Price,
-                CantPay = s.CantPay,
+                IsSellerKeyExists = s.IsSellerKeyExists,
+                IsPaymentKeyExists = s.IsPaymentKeyExists,
                 TutorId = s.TutorId,
                 TutorName = s.TutorName,
                 UserId = s.UserId,

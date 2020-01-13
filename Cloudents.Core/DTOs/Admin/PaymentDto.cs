@@ -12,7 +12,7 @@ namespace Cloudents.Core.DTOs.Admin
         public decimal Price { get; set; }
 
         [EntityBind(nameof(Tutor.SellerKey))]
-        public bool CantPay { get; set; }
+        public bool IsSellerKeyExists { get; set; }
         [EntityBind(nameof(Tutor.Id))]
         public long TutorId { get; set; }
         [EntityBind(nameof(User.Name))]
@@ -25,6 +25,8 @@ namespace Cloudents.Core.DTOs.Admin
         public DateTime Created { get; set; }
         [EntityBind(nameof(StudyRoomSession.Created), nameof(StudyRoomSession.Ended))]
         public TimeSpan Duration { get; set; }
+        [EntityBind(nameof(User.PaymentExists))]
+        public bool IsPaymentKeyExists { get; set; }
     }
 
     public class PaymentDetailDto

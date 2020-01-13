@@ -170,7 +170,7 @@ export default {
                     //close dialog after question submitted
                     this.requestNewQuestionDialogClose(false);
                     this.$router.push({
-                        path: '/ask'
+                        name: 'feed'
                         // query: {
                         //     term: ''
                         // }

@@ -8,7 +8,8 @@ function PaymentRequestItem(objInit) {
     this.tutorName = objInit.tutorName;
     this.userId = objInit.userId;
     this.userName = objInit.userName;
-    this.tutorPayme = objInit.cantPay; 
+    this.userPayme = objInit.isPaymentKeyExists; 
+    this.tutorPayme = objInit.isSellerKeyExists; 
     this.studyRoomSessionId = objInit.studyRoomSessionId;
     this.created = new Date(objInit.created).toLocaleString();
     this.duration = objInit.duration;

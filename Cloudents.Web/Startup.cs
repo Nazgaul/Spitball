@@ -144,7 +144,7 @@ namespace Cloudents.Web
         [UsedImplicitly]
         public void ConfigureServices(IServiceCollection services)
         {
-           // services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
+            //services.AddSingleton<ITelemetryInitializer, RequestBodyInitializer>();
             services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
             services.AddApplicationInsightsTelemetry();
 
@@ -381,7 +381,7 @@ namespace Cloudents.Web
             //    //    routes.MapHub<StudyRoomHub>("/StudyRoomHub");
             //    //});
             //}
-
+            app.UseMiddleware<ApplicationInsightMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 //routes.MapRoute(

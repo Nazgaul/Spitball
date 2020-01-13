@@ -45,10 +45,10 @@ export default {
     padding: 10px;
   }
   .gamburger-icon{
-    font-size: 12px;
-    line-height: 22px;
-    color: rgba(67, 66, 93, 0.6);
-    margin-right: 5px;
+    font-size: 12px !important;
+    line-height: 22px !important;
+    color: rgba(67, 66, 93, 0.6) !important;
+    margin-right: 5px !important;
   }
   .information-box-mobile-wrap{
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
