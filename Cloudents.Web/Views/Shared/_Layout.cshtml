@@ -3,24 +3,33 @@
 @using Cloudents.Web.Services
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
+@using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Configuration
 @inject Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration JavaScriptSnippetTelemetry
 @inject IWebHostEnvironment Environment
 @inject WebPackChunkName Provider
 @inject IConfiguration Configuration
 @inject ConfigurationService VersionService
+@inject IViewLocalizer Localizer
 
 @{
     //var p = Provider.GetVendorTag();
     var cdnEndPoint = Constants.GetCdnEndpoint(Configuration);
     var isAuth = User.Identity.IsAuthenticated;
     var result = System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
+
+
+    ViewBag.title = ViewBag.title ?? Localizer["Title"];
+    ViewBag.metaDescription = ViewBag.metaDescription ?? Localizer["MetaDescription"];
 }
 <!DOCTYPE html>
 
 
 <html dir="@result" lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
 <head>
+    <title>@ViewBag.title</title>
+    <meta name="title" content="@ViewBag.title" />
+    <meta name="description" content="@ViewBag.metaDescription" />
     <meta charset="utf-8">
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -31,16 +40,18 @@
     }
 
     @await RenderSectionAsync("styleSection", required: false)
-    
+
 
     @try
     {
-        @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}HeadTags",cdnEndPoint);
+        @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}HeadTags", cdnEndPoint)
+        ;
 
     }
     catch (InvalidOperationException ex)
     {
-        @await Html.PartialAsync("_SpitballTags");
+        @await Html.PartialAsync("_SpitballTags")
+        ;
     }
 
     @*@Html.Raw(JavaScriptSnippet.FullScript)*@
@@ -52,7 +63,7 @@
             @Html.Raw(ViewBag.jsonLd.ToHtmlEscapedString())
         </script>
     }
-    
+
     <style>
         body {
             margin: 0;
