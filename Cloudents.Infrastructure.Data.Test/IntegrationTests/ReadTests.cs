@@ -516,5 +516,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
+
+        [Theory]
+        [InlineData("Economics")]
+        [InlineData("31010-אנגלית רמה A למדעי הרוח")]
+        public async Task CourseSubjectQuery_Ok(string courseName)
+        {
+            var query = new CourseSubjectQuery(courseName);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
     }
 }

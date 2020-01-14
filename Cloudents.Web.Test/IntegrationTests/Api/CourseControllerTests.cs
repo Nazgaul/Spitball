@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Net;
-using System.Threading.Tasks;
-using Cloudents.Core.Extension;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
 
@@ -28,10 +24,10 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             Name = "Economics"
         };
 
-        private readonly object _newCourse = new
-        {
-            name = "NewCourse1"
-        };
+        //private readonly object _newCourse = new
+        //{
+        //    name = "NewCourse1"
+        //};
 
         //private readonly object _upload = new
         //{
@@ -44,10 +40,10 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         //    price = 0M
         //};
 
-        private UriBuilder _uri = new UriBuilder()
-        {
-            Path = "api/login"
-        };
+        //private UriBuilder _uri = new UriBuilder()
+        //{
+        //    Path = "api/login"
+        //};
 
 
 
@@ -58,7 +54,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/course/search?term=his")]
-        public async Task Get_SomeCourse_ReturnResult(string url)
+        public async Task Get_SomeCourse_ReturnResultAsync(string url)
         {
             await _client.LogInAsync();
 
@@ -74,74 +70,84 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
       
 
         [Fact]
-        public async Task Teach_Course()
+        public async Task Teach_CourseAsync()
         {
-            await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_credentials));
+            await _client.PostAsync("api/login", HttpClientExtensions.CreateJsonString(_credentials));
 
-            _uri.Path = "api/course/set";
+          
 
-            await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_course));
+            await _client.PostAsync("api/course/set", HttpClientExtensions.CreateJsonString(_course));
 
-            _uri.Path = "api/course/teach";
+            
 
-            var response = await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_course));
+            var response = await _client.PostAsync("api/course/teach", HttpClientExtensions.CreateJsonString(_course));
 
             response.EnsureSuccessStatusCode();
         }
 
-        [Fact(Skip = "this is not a good unit test - need to think about it")]
-        public async Task PostAsync_CreateAndDelete_Course()
-        {
-            _uri.Path = "api/course";
+        //[Fact(Skip = "this is not a good unit test - need to think about it")]
+        //public async Task PostAsync_CreateAndDelete_CourseAsync()
+        //{
+        //    _uri.Path = "api/course";
 
-            _uri.AddQuery(new NameValueCollection
-            {
-                ["name"] = "NewCourse1"
-            });
+        //    _uri.AddQuery(new NameValueCollection
+        //    {
+        //        ["name"] = "NewCourse1"
+        //    });
 
-            await _client.LogInAsync();
+        //    await _client.LogInAsync();
 
-            await _client.DeleteAsync(_uri.Uri);
+        //    await _client.DeleteAsync(_uri.Uri);
 
-            var response = await _client.PostAsync(_uri.Path + "/create", HttpClientExtensions.CreateJsonString(_newCourse));
+        //    var response = await _client.PostAsync(_uri.Path + "/create", HttpClientExtensions.CreateJsonString(_newCourse));
 
-            response.StatusCode.Should().Be(HttpStatusCode.OK, "Create Course Failed");
+        //    response.StatusCode.Should().Be(HttpStatusCode.OK, "Create Course Failed");
 
-            response = await _client.DeleteAsync(_uri.Uri);
+        //    response = await _client.DeleteAsync(_uri.Uri);
 
-            response.StatusCode.Should().Be(HttpStatusCode.OK, "Delete Course Failed");
-        }
+        //    response.StatusCode.Should().Be(HttpStatusCode.OK, "Delete Course Failed");
+        //}
 
-        [Fact(Skip = "this is not a good unit test - need to think about it")]
-        public async Task PostAsync_Delete_Course()
-        {
-            await _client.LogInAsync();
+        //[Fact(Skip = "this is not a good unit test - need to think about it")]
+        //public async Task PostAsync_Delete_CourseAsync()
+        //{
+        //    await _client.LogInAsync();
 
-            _uri.Path = "api/course";
+        //    _uri.Path = "api/course";
 
-            _uri.AddQuery(new NameValueCollection()
-            {
-                ["name"] = "NewCourse1"
-            });
+        //    _uri.AddQuery(new NameValueCollection()
+        //    {
+        //        ["name"] = "NewCourse1"
+        //    });
 
-            var response = await _client.DeleteAsync(_uri.Uri);
+        //    var response = await _client.DeleteAsync(_uri.Uri);
 
-            response.EnsureSuccessStatusCode();
-        }
+        //    response.EnsureSuccessStatusCode();
+        //}
 
         [Fact]
-        public async Task GetAsync_Get_Courses()
+        public async Task GetAsync_Get_CoursesAsync()
         {
-            await _client.LogInAsync();
+          //  await _client.LogInAsync();
 
-            _uri.Path = "api/course/search";
+//            _uri.Path = "api/course/search";
 
-            var response = await _client.GetAsync(_uri.Path);
+            var response = await _client.GetAsync("api/course/search");
 
             response.Should().NotBeNull();
 
             var str = await response.Content.ReadAsStringAsync();
 
+            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+        }
+
+
+        [Fact]
+        public async Task GetSubjectAsync_Ok()
+        {
+            var response = await _client.GetAsync("api/course/subject?course=31010-אנגלית רמה A למדעי הרוח");
+            response.Should().NotBeNull();
+            var str = await response.Content.ReadAsStringAsync();
             str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
         }
 
