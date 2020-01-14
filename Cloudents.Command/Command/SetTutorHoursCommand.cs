@@ -6,13 +6,13 @@ namespace Cloudents.Command.Command
 {
     public class SetTutorHoursCommand : ICommand
     {
-        public SetTutorHoursCommand(long userId, IEnumerable<TutorDailyHours> tutorDailyHours)
+        public SetTutorHoursCommand(long userId, IEnumerable<TutorAvailabilitySlot> tutorDailyHours)
         {
             UserId = userId;
             TutorDailyHoursObj = tutorDailyHours;
         }
         public long UserId { get; }
-        public IEnumerable<TutorDailyHours> TutorDailyHoursObj { get; }
+        public IEnumerable<TutorAvailabilitySlot> TutorDailyHoursObj { get; }
     }
 
 

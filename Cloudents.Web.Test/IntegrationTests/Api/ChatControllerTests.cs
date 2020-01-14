@@ -52,7 +52,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         [InlineData("api/chat")]
        
-        public async Task ChatApiTestGet_NotLogIn_Unauthorized(string api)
+        public async Task ChatApiTestGet_NotLogIn_UnauthorizedAsync(string api)
         {
             var response = await _client.GetAsync(api);
 
@@ -62,7 +62,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         [InlineData("api/chat")]
         
-        public async Task ChatApiTestGet_LogIn_Ok(string api)
+        public async Task ChatApiTestGet_LogIn_OkAsync(string api)
         {
             await _client.LogInAsync();
             var response = await _client.GetAsync(api);
@@ -73,7 +73,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task GetAsync_Get_Chat()
+        public async Task GetAsync_Get_ChatAsync()
         {
             await _client.LogInAsync();
 
@@ -88,7 +88,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task GetAsync_Get_User_Chat()
+        public async Task GetAsync_Get_User_ChatAsync()
         {
             await _client.LogInAsync();
 
@@ -102,7 +102,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task PostAsync_Send_Message()
+        public async Task PostAsync_Send_MessageAsync()
         {
             await _client.LogInAsync();
 
@@ -113,7 +113,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task GetAsync_NotValidUrl_Messages()
+        public async Task GetAsync_NotValidUrl_MessagesAsync()
         {
             await _client.LogInAsync();
 
@@ -133,7 +133,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task PostAsync_Chat_Read_NoSuchConversation_BadRequest()
+        public async Task PostAsync_Chat_Read_NoSuchConversation_BadRequestAsync()
         {
             await _client.LogInAsync();
 
@@ -144,7 +144,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task PostAsync_Chat_Read_NoSuchConversation_BadRequestssss()
+        public async Task PostAsync_Chat_Read_NoSuchConversation_BadRequestssssAsync()
         {
             await _client.LogInAsync();
 
@@ -155,7 +155,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task PostAsync_Chat_Read_OK()
+        public async Task PostAsync_Chat_Read_OKAsync()
         {
             await _client.LogInAsync();
 

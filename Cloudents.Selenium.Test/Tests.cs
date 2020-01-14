@@ -17,7 +17,7 @@ using Xunit;
 
 namespace Cloudents.Selenium.Test
 {
-    public class DriverFixture : IDisposable
+    public sealed class DriverFixture : IDisposable
     {
         private readonly Process _process;
 

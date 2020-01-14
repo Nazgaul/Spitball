@@ -428,20 +428,20 @@ namespace Cloudents.Web.Api
         {
 
             var userId = _userManager.GetLongUserId(User);
-            var command = new SetTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new TutorDailyHours(s.Day, s.From, s.To)));
+            var command = new UpdateTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new TutorAvailabilitySlot(s.Day, s.From, s.To)));
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
-        [HttpPost("calendar/updateHours")]
-        public async Task<IActionResult> UpdateTutorHoursAsync([FromBody] TutorHoursRequest model,
-            CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new UpdateTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new TutorDailyHours(s.Day, s.From, s.To)));
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+        //[HttpPost("calendar/updateHours")]
+        //public async Task<IActionResult> UpdateTutorHoursAsync([FromBody] TutorHoursRequest model,
+        //    CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var command = new UpdateTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new TutorDailyHours(s.Day, s.From, s.To)));
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
 
         [HttpGet("calendar/hours"), Authorize]
         public async Task<IEnumerable<TutorDailyHoursDto>> GetTutorHours(CancellationToken token)

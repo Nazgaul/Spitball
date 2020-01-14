@@ -2,23 +2,23 @@
 
 namespace Cloudents.Core
 {
-    public struct TutorDailyHours
+    public struct TutorAvailabilitySlot
     {
-        public TutorDailyHours(DayOfWeek day, TimeSpan @from, TimeSpan to)
+        public TutorAvailabilitySlot(DayOfWeek day, TimeSpan @from, TimeSpan to)
         {
             Day = day;
             From = @from;
             To = to;
         }
 
-        public bool Equals(TutorDailyHours other)
+        public bool Equals(TutorAvailabilitySlot other)
         {
             return Day == other.Day && From.Equals(other.From) && To.Equals(other.To);
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TutorDailyHours other && Equals(other);
+            return obj is TutorAvailabilitySlot other && Equals(other);
         }
 
         public override int GetHashCode()
@@ -37,12 +37,12 @@ namespace Cloudents.Core
         public TimeSpan From { get; }
         public TimeSpan To { get; }
 
-        public static bool operator ==(TutorDailyHours left, TutorDailyHours right)
+        public static bool operator ==(TutorAvailabilitySlot left, TutorAvailabilitySlot right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(TutorDailyHours left, TutorDailyHours right)
+        public static bool operator !=(TutorAvailabilitySlot left, TutorAvailabilitySlot right)
         {
             return !(left == right);
         }

@@ -516,5 +516,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
+
+        [Fact]
+        public async Task UserCalendarByIdQuery_Ok()
+        {
+            var query = new UserCalendarByIdQuery(638);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
     }
 }

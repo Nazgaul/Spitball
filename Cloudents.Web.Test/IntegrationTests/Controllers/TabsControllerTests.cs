@@ -29,7 +29,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Controllers
 
 
         [Fact(Skip = "Obsolete")]
-        public async Task GetAsync_StudyDoc()
+        public async Task GetAsync_StudyDocAsync()
         {
             var response = await _client.GetAsync(_uri.Path);
 
@@ -39,7 +39,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Controllers
         }
 
         [Fact(Skip = "Obsolete")]
-        public async Task GetAsync_HW()
+        public async Task GetAsync_HWAsync()
         {
             _uri.Path = "/ask";
 

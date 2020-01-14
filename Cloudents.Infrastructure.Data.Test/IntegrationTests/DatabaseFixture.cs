@@ -9,7 +9,7 @@ using System;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
-    public class DatabaseFixture : IDisposable
+    public sealed class DatabaseFixture : IDisposable
     {
         private IContainer Container { get; }
         public DatabaseFixture()

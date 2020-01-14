@@ -25,7 +25,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Controllers
         };
 
         [Fact]
-        public async Task GetAsync_OldDocument_OK()
+        public async Task GetAsync_OldDocument_OKAsync()
         {
             _uri.Path = "document/Box%20Read%20for%20hotmail%20user/Load%20Stress%20Testing%20Multimi2.docx/457";
 

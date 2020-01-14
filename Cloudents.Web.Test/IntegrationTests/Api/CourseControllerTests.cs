@@ -58,7 +58,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/course/search?term=his")]
-        public async Task Get_SomeCourse_ReturnResult(string url)
+        public async Task Get_SomeCourse_ReturnResultAsync(string url)
         {
             await _client.LogInAsync();
 
@@ -74,7 +74,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
       
 
         [Fact]
-        public async Task Teach_Course()
+        public async Task Teach_CourseAsync()
         {
             await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_credentials));
 
@@ -90,7 +90,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact(Skip = "this is not a good unit test - need to think about it")]
-        public async Task PostAsync_CreateAndDelete_Course()
+        public async Task PostAsync_CreateAndDelete_CourseAsync()
         {
             _uri.Path = "api/course";
 
@@ -113,7 +113,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact(Skip = "this is not a good unit test - need to think about it")]
-        public async Task PostAsync_Delete_Course()
+        public async Task PostAsync_Delete_CourseAsync()
         {
             await _client.LogInAsync();
 
@@ -130,7 +130,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task GetAsync_Get_Courses()
+        public async Task GetAsync_Get_CoursesAsync()
         {
             await _client.LogInAsync();
 

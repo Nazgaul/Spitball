@@ -131,7 +131,7 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public virtual void UpdateTutorHours(IEnumerable<TutorDailyHours> tutorHours)
+        public virtual void UpdateTutorHours(IEnumerable<TutorAvailabilitySlot> tutorHours)
         {
             var newSet = new HashSet<TutorHours>(tutorHours.Select(s => new TutorHours(this, s.Day, s.From, s.To)));
             _tutorHours.IntersectWith(newSet);

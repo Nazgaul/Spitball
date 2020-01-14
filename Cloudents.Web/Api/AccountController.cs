@@ -330,9 +330,17 @@ namespace Cloudents.Web.Api
             });
         }
 
+        [HttpGet("calendar")]
+        public async Task<DashboardCalendarDto> GetDashboardCalendarAsync(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserCalendarByIdQuery(userId);
+            var result = await _queryBus.QueryAsync(query, token);
+            return result;
+        }
 
 
-//[HttpGet("recording")]
+        //[HttpGet("recording")]
         //public async Task<IEnumerable<SessionRecordingDto>> GetSessionRecordingAsync(CancellationToken token)
         //{
         //    var userId = _userManager.GetLongUserId(User);
@@ -340,5 +348,5 @@ namespace Cloudents.Web.Api
 
         //    return await _queryBus.QueryAsync(query, token);
         //}
-        }
+    }
 }

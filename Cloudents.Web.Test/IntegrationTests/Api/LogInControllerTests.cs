@@ -18,7 +18,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/LogIn/ValidateEmail?email=elad13@cloudents.com")]
-        public async Task GetAsync_Login_Ok(string uri)
+        public async Task GetAsync_Login_OkAsync(string uri)
         {
             var response = await _client.GetAsync(uri);
 
@@ -29,7 +29,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/LogIn/ValidateEmail")]
-        public async Task GetAsync_Login_BadRquest(string uri)
+        public async Task GetAsync_Login_BadRquestAsync(string uri)
         {
             var response = await _client.GetAsync(uri);
 
