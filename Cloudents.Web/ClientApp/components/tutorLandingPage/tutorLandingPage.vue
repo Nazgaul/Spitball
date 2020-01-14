@@ -248,10 +248,12 @@ export default {
             }
         }
         .tutor-landing-subtitle{
+            
             font-size: 25px;
             font-weight: bold;
             color: #ffffff;
             @media (max-width: @screen-xs) {
+                text-align: center;
                 font-size: 16px;
             }
         }
