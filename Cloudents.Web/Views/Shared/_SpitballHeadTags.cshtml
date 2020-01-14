@@ -1,25 +1,35 @@
 ﻿@model string
+@using Cloudents.Core.Entities
+@using Cloudents.Core.Extension
+@using Microsoft.ApplicationInsights.AspNetCore.Extensions
 @using Microsoft.AspNetCore.Http.Extensions
+@using Cloudents.Web.Extensions
 @{
-    ViewBag.metaDescription = ViewBag.metaDescription ?? "עזרה בשיעורי בית והכנה למבחנים? מאות אלפי סיכומים ומורים פרטיים לכל המקצועות ";
-    ViewBag.fbImage = ViewBag.fbImage ?? "/images/3rdParty/fbShare.jpg";
-    ViewBag.imageSrc = ViewBag.imageSrc ?? "/images/3rdParty/fbShare.jpg";
+
+    ViewBag.ogImage = ViewBag.ogImage ?? "https://" + Context.Request.Host + "/images/3rdParty/fbShare.jpg";
+
+    ViewBag.ogImageWidth = ViewBag.ogImageWidth ?? 1493;
+    ViewBag.ogImageHeight = ViewBag.ogImageHeight ?? 939;
+
     const string themeColor = "#4190b";
-    ViewBag.title = ViewBag.title ?? "להצליח במבחנים בעזרת מיטב הסיכומים והמורים הפרטיים | ספיטבול";
+
+    ViewBag.ogTitle = ViewBag.ogTitle ?? ViewBag.title;
+    ViewBag.ogDescription = ViewBag.ogDescription ?? ViewBag.metaDescription;
 }
-<title>@ViewBag.title</title>
+
 <meta name="theme-color" content="@themeColor">
 
 <meta name="msapplication-navbutton-color" content="@themeColor">
 <meta name="apple-mobile-web-app-status-bar-style" content="@themeColor">
-<meta name="title" content="@ViewBag.title" />
-<meta name="description" content="@ViewBag.metaDescription" />
-<link rel="image_src" href="@ViewBag.imageSrc" />
+
+@*<link rel="image_src" href="@ViewBag.imageSrc" />*@
 <meta property="fb:app_id" content="450314258355338" />
 <meta property="og:site_name" content="Spitball" />
-<meta property="og:image" content="@("https://" +Context.Request.Host + ViewBag.fbImage)" />
-<meta property="og:description" content="@ViewBag.metaDescription" />
-<meta property="og:title" content="@ViewBag.title" />
+<meta property="og:image" content="@ViewBag.ogImage" />
+<meta property="og:image:width" content="@ViewBag.ogImageWidth" />
+<meta property="og:image:height" content="@ViewBag.ogImageHeight" />
+<meta property="og:description" content="@ViewBag.ogDescription" />
+<meta property="og:title" content="@ViewBag.ogTitle" />
 <meta property="og:url" content="@Context.Request.GetEncodedUrl()" />
 <meta property="og:type" content="website" />
 <link href="https://plus.google.com/116999550356569810034" rel="publisher" />
@@ -39,8 +49,21 @@
 <link rel="icon" type="image/png" sizes="96x96" href="@Model/images/favIcons/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="16x16" href="@Model/images/favIcons/favicon-16x16.png">
 <link rel="manifest" href="@Model/images/favIcons/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="@Model/images/favIcons/ms-icon-144x144.png">
+<meta name="msapplication-itemColor" content="#ffffff">
+<meta name="msapplication-itemImage" content="@Model/images/favIcons/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+
+@{
+    string GetUrlBaseOnCulture(string culture)
+    {
+        var url = @Context.Request.GetUri().RemoveQueryStringByKey("culture");
+        var uriBuilder = new UriBuilder(url);
+        return uriBuilder.AddQuery(new { culture = culture }).ToString();
+    }
+}
+
+<link rel="alternate" hreflang="iw" href="@GetUrlBaseOnCulture(Language.Hebrew.Info.Name)" />
+<link rel="alternate" hreflang="en" href="@GetUrlBaseOnCulture(Language.English.Info.Name)" />
 
 

@@ -83,7 +83,7 @@
 
       .menu-area {
         margin-top: -8px;
-        width: 21px;
+        margin-right: -16px;
         position: relative;
         @media (max-width: @screen-xs) {
           // margin-top: -10px;
@@ -174,10 +174,26 @@
       .question-body-course-container {
         display: flex;
         color: #43425d;
+        font-size: 14px;
         @media (max-width: @screen-xs) {
           font-size: 12px;
         }
         .question-body-course {
+          padding-right: 45px;
+          @media (max-width: @screen-xs) {
+            padding-right: 0;
+          }
+        }
+        .question-body-course_name {
+          display: inherit;
+          .question-body-course_name_h2{
+            padding-left: 4px;
+            font-weight: normal;
+            font-size: 14px;
+            @media (max-width: @screen-xs) {
+              font-size: 12px;
+            }
+          }
           padding-right: 45px;
           @media (max-width: @screen-xs) {
             padding-right: 0;
@@ -303,7 +319,7 @@
       }
       .answer-currently-watching-container {
         opacity: 0.9;      
-        font-size: 11px;
+        font-size: 12px;
         letter-spacing: -0.2px;
         color: @color-blue-new;
         &.space {

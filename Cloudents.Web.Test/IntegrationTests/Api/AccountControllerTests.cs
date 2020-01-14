@@ -40,7 +40,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         public async Task AccountApiTestGet_NotLogIn_Unauthorized(string api)
         {
             var response = await _client.GetAsync(api);
-            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);            
         }
 
         [Theory]

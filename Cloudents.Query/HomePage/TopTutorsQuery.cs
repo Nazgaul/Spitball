@@ -52,7 +52,7 @@ namespace Cloudents.Query.HomePage
                     UserId = s.readTutor.Id,
                     Country = s.readTutor.Country,
                     Name = s.readTutor.Name,
-                    Image = s.readTutor.Image,
+                    Image = s.readTutor.ImageName,
                     Price = s.readTutor.Price,
                     Rate = s.readTutor.Rate,
                     Bio = s.readTutor.Bio,

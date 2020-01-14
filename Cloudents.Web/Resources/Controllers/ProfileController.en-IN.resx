@@ -120,9 +120,6 @@
   <data name="Description" xml:space="preserve">
     <value>Hello, {0}</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>Private tutor {0} - {1} | Frymo</value>
-  </data>
   <data name="TitleNoUniversity" xml:space="preserve">
     <value>Private tutor {0} | Frymo</value>
   </data>

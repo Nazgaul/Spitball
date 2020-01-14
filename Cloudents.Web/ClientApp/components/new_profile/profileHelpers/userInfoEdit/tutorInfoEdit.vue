@@ -1,13 +1,13 @@
 <template>
-    <v-card class="tutor-edit-wrap pb-3">
+    <v-card class="tutor-edit-wrap pb-4">
         <v-form v-model="valid" ref="formTutor">
-            <v-layout class="header pa-3 mb-3">
+            <v-layout class="header pa-4 mb-4">
                 <v-flex>
                     <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
                     <span v-language:inner>profile_edit_tutor_title</span>
                 </v-flex>
             </v-layout>
-            <v-layout class="px-3 mt-3" row wrap>
+            <v-layout class="px-3 mt-4" wrap>
                 <v-flex xs12 sm4  :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
                     <v-layout column>
                         <v-flex xs12 sm6  class="pl-2 mb-2">
@@ -61,7 +61,7 @@
                 </v-flex>
             </v-layout>
 
-            <v-layout class="px-3" column :class="[$vuetify.breakpoint.xsOnly ? 'mt-3' : '']">
+            <v-layout class="px-3" column :class="[$vuetify.breakpoint.xsOnly ? 'mt-4' : '']">
                 <v-flex class="mb-2 pl-2">
                     <span class="subtitle" v-language:inner>profile_aboutme</span>
                 </v-flex>
@@ -93,12 +93,12 @@
             <v-layout align-center class="px-3"
                       :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between' : 'justify-end']">
                 <v-flex xs5 sm2 >
-                    <v-btn :disabled="btnLoading" class="shallow-blue ml-0" round outline primary @click="closeDialog">
+                    <v-btn :disabled="btnLoading" class="shallow-blue ml-0" rounded outline primary @click="closeDialog">
                         <span v-language:inner>profile_btn_cancel</span>
                     </v-btn>
                 </v-flex>
-                <v-flex xs5 sm2 :class="{'mr-3': $vuetify.breakpoint.smAndUp}">
-                    <v-btn class="blue-btn  ml-0" round @click="saveChanges()" :loading="btnLoading">
+                <v-flex xs5 sm2 :class="{'mr-4': $vuetify.breakpoint.smAndUp}">
+                    <v-btn class="blue-btn  ml-0" rounded @click="saveChanges()" :loading="btnLoading">
                         <span v-language:inner>profile_btn_save_changes</span>
                     </v-btn>
                 </v-flex>
@@ -141,17 +141,11 @@
 
             };
         },
-        props: {
-            closeCallback: {
-                type: Function,
-                required: false
-            },
-        },
         computed: {
             ...mapGetters(['getProfile','accountUser', 'isFrymo']),
             bio: {
                 get() {
-                    return this.getProfile.about.bio;
+                    return this.getProfile.user.tutorData.bio
                 },
                 set(newVal) {
                     this.editedBio = newVal;
@@ -179,7 +173,6 @@
                     return this.getProfile.user.lastName;
                 },
                 set(newVal) {
-                    console.log('new val::', newVal);
                     this.editedLastName = newVal;
                 }
             },
@@ -188,7 +181,6 @@
                     return this.getProfile.user.description;
                 },
                 set(newVal) {
-                    console.log('new val::', newVal);
                     this.editedDescription = newVal;
                 }
             }
@@ -208,9 +200,8 @@
                         description: this.editedDescription
                     };
                     this.btnLoading = true;
-                    let self = this
                     accountService.saveTutorInfo(editsData)
-                        .then((res) => {
+                        .then(() => {
                             //update profile store
                             this.updateEditedProfile(editsData);
                             this.btnLoading = false;
@@ -224,11 +215,11 @@
                 }
             },
             closeDialog() {
-                this.closeCallback ? this.closeCallback() : '';
+                this.updateEditDialog(false);
             }
         },
         created() {
-            this.editedBio = this.getProfile.about.bio || '';
+            this.editedBio = this.getProfile.user.tutorData.bio || '';
             this.editedDescription = this.getProfile.user.description || '';
         }
 

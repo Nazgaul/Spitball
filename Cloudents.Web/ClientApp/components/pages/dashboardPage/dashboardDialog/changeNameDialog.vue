@@ -5,7 +5,7 @@
          <div class="title-wrap">
             <span class="change-title pr-1" v-language:inner="'dashboardPage_rename'"></span>
          </div>
-         <div class="input-wrap d-flex row align-center justify-center">
+         <div class="input-wrap d-flex align-center justify-center">
             <div :class="['name-wrap']">
             <v-text-field class="sb-input-upload-name" v-model="editedName" :rules="[rules.required,rules.minimumChars,rules.maximumChars]"/>
             </div>
@@ -51,15 +51,11 @@ export default {
          let data = { documentId: this.dialogData.id, name: this.editedName };
          let self = this;
          documentService.changeDocumentName(data).then(
-            success => {
+            () => {
                self.dashboard_updateName({newName:self.editedName,itemId:self.dialogData.id})
                self.editedName = '';
                self.$emit('closeDialog')
-            },
-            error => {
-               console.error("erros change name", error);
-            }
-         );
+            });
       },
    }, 
 }

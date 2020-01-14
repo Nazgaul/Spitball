@@ -34,9 +34,9 @@ namespace Cloudents.Web.Services
                 if (!model.IsPurchased)
                 {
                     effect = ImageProperties.BlurEffect.All;
-                    if (i == 0)
+                    if (i == 0 || i == 1)
                     {
-                        effect = ImageProperties.BlurEffect.Part;
+                        effect = ImageProperties.BlurEffect.None;
                     }
 
                 }

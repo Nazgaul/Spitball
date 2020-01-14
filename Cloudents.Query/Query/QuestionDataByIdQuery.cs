@@ -32,7 +32,8 @@ namespace Cloudents.Query.Query
             }
 
 
-            [Cache(TimeConst.Minute*10,"question-detail",false)]
+            //TODO We need to delete the cache upon adding deleting answer
+            //[Cache(TimeConst.Minute*10,"question-detail",false)]
             public async Task<QuestionDetailDto> GetAsync(QuestionDataByIdQuery query, CancellationToken token)
             {
                 var questionFuture = _session.Query<Question>()
@@ -48,7 +49,7 @@ namespace Cloudents.Query.Query
                             {
                                 Id = s.User.Id,
                                 Name = s.User.Name,
-                                Image = s.User.Image
+                                Image = s.User.ImageName
                             }
                         }
 
@@ -65,7 +66,7 @@ namespace Cloudents.Query.Query
                         {
                             Id = s.User.Id,
                             Name = s.User.Name,
-                            Image = s.User.Image,
+                            Image = s.User.ImageName,
                         },
                         s.Created
                     )).ToFuture();

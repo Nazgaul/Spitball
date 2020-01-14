@@ -132,6 +132,9 @@
   <data name="date" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="default_message" xml:space="preserve">
+    <value />
+  </data>
   <data name="document" xml:space="preserve">
     <value>Doc</value>
   </data>
@@ -144,9 +147,15 @@
   <data name="empty" xml:space="preserve">
     <value>Sorry, nothing to display here :(</value>
   </data>
+  <data name="enter_room" xml:space="preserve">
+    <value>Enter the room</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>Product
 </value>
+  </data>
+  <data name="joined" xml:space="preserve">
+    <value>Joined</value>
   </data>
   <data name="last_date" xml:space="preserve">
     <value>Last Session</value>
@@ -157,11 +166,29 @@
   <data name="my_content_title" xml:space="preserve">
     <value>My Content</value>
   </data>
+  <data name="my_followers_title" xml:space="preserve">
+    <value>My Followers</value>
+  </data>
   <data name="my_purchases_title" xml:space="preserve">
     <value>My Purchases</value>
   </data>
+  <data name="my_sales_action_need" xml:space="preserve">
+    <value>Need more points?</value>
+  </data>
+  <data name="my_sales_action_need_btn" xml:space="preserve">
+    <value>Buy Points</value>
+  </data>
+  <data name="my_sales_action_redeem" xml:space="preserve">
+    <value>You have {1} Pts</value>
+  </data>
+  <data name="my_sales_action_redeem_btn" xml:space="preserve">
+    <value>Redeem 1,000 Pts</value>
+  </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>My Sales</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="of" xml:space="preserve">
     <value>out of</value>
@@ -189,6 +216,12 @@
   </data>
   <data name="rename" xml:space="preserve">
     <value>Rename</value>
+  </data>
+  <data name="send_email" xml:space="preserve">
+    <value>send email</value>
+  </data>
+  <data name="send_whatsapp" xml:space="preserve">
+    <value>send whatsapp</value>
   </data>
   <data name="session" xml:space="preserve">
     <value>Tutoring session with {1}</value>

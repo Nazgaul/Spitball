@@ -5,7 +5,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
 using static Cloudents.Core.Entities.ItemStatus;
 
@@ -89,6 +88,18 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<Vote> Votes => _votes;
 
         public virtual int VoteCount { get; protected set; }
+
+        protected internal virtual ISet<UserDownloadDocument> DocumentDownloads { get; set; }
+
+        public virtual void AddDownload(BaseUser user)
+        {
+            if (!User.Equals(user))
+            {
+                var download = new UserDownloadDocument(user, this);
+                DocumentDownloads.Add(download);
+            }
+        }
+
 
         public virtual void Vote(VoteType type, User user)
         {
@@ -185,5 +196,7 @@ namespace Cloudents.Core.Entities
         //This is only for video
         public virtual TimeSpan? Duration { get; set; }
         public virtual bool IsShownHomePage { get; protected set; }
+
+        public virtual string Md5 { get; set; }
     }
 }

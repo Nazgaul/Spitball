@@ -1,8 +1,8 @@
 ﻿<template> 
-    <div class="expansion-panel elevation-4 pa-4">
+    <div class="expansion-panel elevation-0 pa-1">
         <h3>Conversation</h3>
         <table v-show="!loadMessage">
-            <tr v-for="msg in messages">
+            <tr v-for="(msg, index) in messages" :key="index">
                 <td>{{ studentName === msg.name ? 'student' :'tutor' }}</td>
                 <td>{{ msg.text }}</td>
                 <td>{{ new Date(msg.dateTime).toLocaleString('he-IL') }}</td>
@@ -51,23 +51,23 @@ tr{
         }
 }
 .expansion-panel {
+    border: 1px solid #ccc;
     height: 256px;
-    background: #fcfcfc;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    // border-bottom-left-radius: 8px;
+    // border-bottom-right-radius: 8px;
     overflow: auto;
     table {
-        border-top: solid 1px #979797;
-        border-bottom: solid 1px #979797;
+        // border-top: solid 1px #979797;
+        // border-bottom: solid 1px #979797;
         width: 100%;
         tr {
-            height: 56px;
+            height: 30px;
         }
         tr:nth-child(odd) {
-            background: #f7f7f7;
+            background: #f2f6ff;
         }
         tr:nth-child(even) {
-            background: #fcfcfc;
+            background: #fff;
         }
     }
 }

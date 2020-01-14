@@ -3,10 +3,10 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { verticalsName } from "../../../services/navigation/vertical-navigation/nav";
 import analyticsService from '../../../services/analytics.service';
 // COMPONENTS 
-import ResultItem from '../ResultItem.vue';
-import ResultAsk from "../ResultAsk.vue";
-import ResultNote from "../ResultNote.vue";
-import SuggestCard from '../suggestCard.vue';
+import resultItem from '../ResultItem.vue';
+import resultAsk from "../ResultAsk.vue";
+import resultNote from "../ResultNote.vue";
+import suggestCard from '../suggestCard.vue';
 import faqBlock from '../helpers/faq-block/faq-block.vue';
 import resultFilter from '../helpers/resultFilter/resultFilter.vue';
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue';
@@ -28,11 +28,11 @@ import feedStore from '../../../store/feedStore';
 export default {
     components: {
         emptyState,
-        SuggestCard,
+        SuggestCard: suggestCard,
         faqBlock,
-        ResultAsk,
-        ResultNote,
-        ResultItem,
+        ResultAsk: resultAsk,
+        ResultNote: resultNote,
+        ResultItem: resultItem,
         resultFilter,
         emptyStateCard,
         requestBox,
@@ -67,7 +67,7 @@ export default {
     },
     //When route has been updated(query,filter,vertical) 1-%%%
     beforeRouteUpdate(to, from, next) {
-        this.updatePageData(to, from, next)
+        this.updatePageData(to, from, next);
     },
 
     computed: {
@@ -76,12 +76,12 @@ export default {
             'accountUser', 
             'Feeds_getShowQuestionToaster', 
             'getSearchLoading',
-            'Feeds_getNextPageUrl',
+            'Feeds_getNextPageUrl'
         ]),
         ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'Feeds_getItems'}),
 
         filterCondition() {
-            return this.filterSelection.length || (this.filterObject && this.page)
+            return this.filterSelection.length || (this.filterObject && this.page);
         },
         showQuestionToaster(){
             return this.Feeds_getShowQuestionToaster;
@@ -108,15 +108,15 @@ export default {
                             })
                                 .then(filters => {
                                     let myFilters = filters();
-                                    let ExtraContent = "";
+                                    let extraContent = "";
                                     if (myFilters && Object.keys(myFilters).length) {
-                                        ExtraContent = "#";
+                                        extraContent = "#";
                                         Object.entries(myFilters).forEach(([key, currentVal]) => {
-                                            ExtraContent += `${key}:[${currentVal}]`;
+                                            extraContent += `${key}:[${currentVal}]`;
                                         });
-                                        ExtraContent += "#";
+                                        extraContent += "#";
                                     }
-                                    this.$ga.event("Empty_State", this.name, ExtraContent + this.userText);
+                                    this.$ga.event("Empty_State", this.name, extraContent + this.userText);
                                 });
                         }
                         this.UPDATE_LOADING(false);
@@ -126,13 +126,13 @@ export default {
             }
         },
         currentSuggest() {
-            return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))]
+            return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))];
         },
         userText() {
-            return this.query.term
+            return this.query.term;
         },
         showSkelaton() {
-            return this.getSearchLoading || this.loading || this.isLoad
+            return this.getSearchLoading || this.loading || this.isLoad;
         }
     },
     methods: {
@@ -175,7 +175,7 @@ export default {
                     }
                 }).catch(() => {
                 this.scrollBehaviour.isComplete = true;
-            })
+            });
         },
         //   2-%%%
         updatePageData(to, from, next) {
@@ -241,7 +241,9 @@ export default {
             this.UPDATE_SEARCH_LOADING(true);
             let updatedList = this.query[key];
             updatedList = [].concat(updatedList).filter(i => i.toString() !== value.toString());
-            key === 'course' ? this.setFilteredCourses(updatedList) : "";
+            if(key === 'course'){
+                this.setFilteredCourses(updatedList)
+            }
             this.$router.push({path: this.name, query: {...this.query, [key]: updatedList}});
         },
 
@@ -284,11 +286,11 @@ export default {
             params: {...this.query, ...this.params, term: this.userText},
             skipLoad: this.$route.path.indexOf("question") > -1
         }).then((data) => {            
-            this.updateData.call(this, {...data, vertical: this.name})
+            this.updateData.call(this, {...data, vertical: this.name});
         }).catch(reason => {
             console.error(reason);
             this.UPDATE_SEARCH_LOADING(false);
         });
-    },
+    }
 
 };

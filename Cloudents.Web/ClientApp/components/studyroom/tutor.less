@@ -45,23 +45,28 @@
     border-radius: 4px;
     border: solid 2px #a5a4bf;
     background-color: rgba(165, 164, 191, 0.1);
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.27;
     letter-spacing: 0.5px;
     color: #ffffff;
   }
 
   .control-btn {
-    height: 32px;
+    height: 32px !important; 
     background-color: transparent !important;
     font-size: 12px;
     margin: 6px 3px;
     border: solid 1px transparent;
+    // padding: 0 10px !important;
+
     &.control-btn-active {
       border-radius: 4px;
       border: solid 1px @color-main;
       //font-weight: 600;
       color: @color-main;
+        .v-btn__content {
+          color:@color-main
+        }
       &:before {
         background-color: rgba(61, 194, 186, 0.06) !important;
       }
@@ -111,6 +116,19 @@
       height: 100%;
     }
 
+    .recording_btn {
+      width: auto;
+      &::before {
+        background-color: unset;
+      }
+      .recording_btn_text {
+        text-transform: initial;
+        color: #fff;
+      }
+    }
+    .tutoringNavigationBtn {
+      margin: 6px 8px;
+    }
     .tutor-nav-item {
       padding: 0 20px;
       font-size: 14px;
@@ -141,7 +159,6 @@
       .tutor-nav-item-link {
         color: rgba(255, 255, 255, 0.87);
       }
-
       .nav-icon {
         /*rtl:ignore*/
         margin-right: 12px;

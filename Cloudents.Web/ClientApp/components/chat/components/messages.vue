@@ -5,12 +5,12 @@
             <div class="messages-header">
                 <div class="messages-study-room" :class="{'join-room': studyRoomExists || isStudyRoom, 'create-room': !studyRoomExists && isRoomTutor}" v-if="showStudyRoomInteraction || isStudyRoom" @click="createRoom">
                     <button v-if="studyRoomExists || isStudyRoom">
-                        <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
+                        <v-icon style="font-size:16px !important; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
                         <span v-language:inner="'chat_studyRoom_enter'"></span>
                     </button>
 
                     <v-btn v-if="(!studyRoomExists && isRoomTutor) && !isStudyRoom " 
-                           flat class="white--text messages-study-room-btn-create" 
+                           text class="white--text messages-study-room-btn-create" 
                            :loading="loader">
                         <add-circle />&nbsp;&nbsp;&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span>
                     </v-btn>
@@ -46,13 +46,9 @@
 <script>
 import message from "./messageComponents/message.vue"
 import chatUploadFile from './messageComponents/chatUploadFile.vue';
-
-import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
-import userOnlineStatus from '../../helpers/userOnlineStatus/userOnlineStatus.vue';
-
 import {mapGetters, mapActions} from 'vuex';
 import { LanguageService } from '../../../services/language/languageService';
-import chatService from '../../../services/chatService';
+
 import addCircle from '../images/add-circle-outline.svg';
 
 import analyticsService from '../../../services/analytics.service';
@@ -62,9 +58,9 @@ export default {
     components:{
         message,
         addCircle,
-        UserAvatar,
+      //  UserAvatar,
         chatUploadFile,
-        userOnlineStatus
+      //  userOnlineStatus
     },
     data(){
         return{
@@ -95,6 +91,7 @@ export default {
             if(this.activeConversationObj && this.activeConversationObj.studyRoomId){
                 return this.activeConversationObj.studyRoomId.length > 1
             }
+            return false
         },
         showStudyRoomInteraction(){
             return this.messages &&  this.messages.length > 0;

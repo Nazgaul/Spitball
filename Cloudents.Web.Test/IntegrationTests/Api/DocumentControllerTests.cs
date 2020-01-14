@@ -3,7 +3,6 @@ using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests.Api
@@ -78,7 +77,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         [InlineData("api/document/similar", "Economics", 50413L, false)]
         [InlineData("api/document/similar", "Economics", 50413L, true)]
-        public async Task GetSimilarDocuments_Ok(string url, string course, long documentId, bool authUser)
+        public async Task GetSimilarDocuments_OkAsync(string url, string course, long documentId, bool authUser)
         {
             var endPoint = $"{url}?course={course}&documentId={documentId}";
             if (authUser)
@@ -87,10 +86,14 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             }
             var response = await _client.GetAsync(endPoint);
             response.StatusCode.Should().Be(200);
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
         }
 
         [Fact]
-        public async Task PostAsync_Upload_Regular_FileName()
+        public async Task PostAsync_Upload_Regular_FileNameAsync()
         {
             await _client.LogInAsync();
 
@@ -100,7 +103,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task PostAsync_Upload_FileName_With_Space()
+        public async Task PostAsync_Upload_FileName_With_SpaceAsync()
         {
             await _client.LogInAsync();
 
@@ -110,7 +113,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task PostAsync_Upload_Hebrew_FileName()
+        public async Task PostAsync_Upload_Hebrew_FileNameAsync()
         {
             await _client.LogInAsync();
 
@@ -120,7 +123,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task PostAsync_Upload_Without_File_Extension()
+        public async Task PostAsync_Upload_Without_File_ExtensionAsync()
         {
             await _client.LogInAsync();
 
@@ -129,19 +132,9 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
-        [Fact]
-        public async Task GetAsync_OldDocument_OK()
-        {
-            _uri.Path = "document/Box%20Read%20for%20hotmail%20user/Load%20Stress%20Testing%20Multimi2.docx/457";
-
-            var response = await _client.GetAsync(_uri.Path);
-
-            response.EnsureSuccessStatusCode();
-        }
-
         [Theory]
         [InlineData("document/המסלול-האקדמי-המכללה-למנהל")]
-        public async Task ShortUrl_Invalid_404(string url)
+        public async Task ShortUrl_Invalid_404Async(string url)
         {
             var response = await _client.GetAsync(url);
 
@@ -152,15 +145,18 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/document/2999")]
-        public async Task Valid_Url_200(string url)
+        public async Task Valid_Url_200Async(string url)
         {
             var response = await _client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
+            var str = await response.Content.ReadAsStringAsync();
+
+            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
         }
 
         [Fact]
-        public async Task Upload_Doc_Without_Uni()
+        public async Task Upload_Doc_Without_UniAsync()
         {
             await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_credentials));
 

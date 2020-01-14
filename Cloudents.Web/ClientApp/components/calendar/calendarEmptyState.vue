@@ -11,7 +11,7 @@
             <calendarHoursCMP v-if="!isSelectCalendar && isSelectHours" class="my-3"/>
 
 
-            <v-btn color="#4452FC" round :loading='isLoading'
+            <v-btn color="#4452FC" rounded :loading='isLoading'
                     class="white--text elevation-0 calbtnshare"
                     @click="emptyStateFunctions">
                 <span v-language:inner="emptyStateResources"/>
@@ -20,7 +20,7 @@
     </div>
 </template>
 <script>
-    import { mapActions, mapMutations} from 'vuex';
+    import { mapActions} from 'vuex';
     import {LanguageService} from '../../services/language/languageService.js'
     import selectCalendarCMP from './calendarSelect.vue';
     import calendarHoursCMP from './calendarHours.vue'
@@ -49,6 +49,7 @@
                 if(!this.isSelectCalendar && this.isSelectHours){
                     return `becomeTutor_connect_mobile`
                 }
+                return '';
             }
         },
         methods: {
@@ -56,7 +57,7 @@
             shareCalendar(){
                 this.isLoading = true;
                 let self = this
-                this.gapiSignIn().then((res)=>{
+                this.gapiSignIn().then(()=>{
                     self.isSelectCalendar = true
                     this.isLoading = false;
                     

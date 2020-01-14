@@ -1,19 +1,18 @@
 <template>
     <div class="courses-list-wrap">
         <div v-if="!isEmpty">
-            <v-layout row class="py-4 pl-4 pr-3" align-center justify-center>
+            <v-layout class="py-6 pl-6 pr-4" align-center justify-center>
                 <v-flex grow>
-                    <div class="d-inline-flex justify-center shrink">
-                        <span class="subheading font-weight-bold" v-language:inner>courses_my_courses</span>
-                        <span class="subheading font-weight-bold"
-                              v-if="coursesQuantaty">&nbsp;({{coursesQuantaty}})</span>
+                    <div class="d-inline-flex justify-center shrink courses-list-wrap-title">
+                        <span class="font-weight-bold" v-language:inner>courses_my_courses</span>
+                        <span class="font-weight-bold" v-if="coursesQuantaty">&nbsp;({{coursesQuantaty}})</span>
                     </div>
                 </v-flex>
-                <v-flex xs2 shrink class="text-xs-center hidden-xs-only" >
+                <v-flex xs2 shrink class="text-center hidden-xs-only" >
                     <finishBtn></finishBtn>
                 </v-flex>
                 <v-flex shrink class="d-flex justify-start">
-                    <v-btn sel="add_courses_button" round color="#4452FC" class="add-btn py-1 my-0 elevation-0"
+                    <v-btn sel="add_courses_button" rounded color="#4452FC" class="add-btn py-1 my-0 elevation-0"
                            :class="{'mr-2': $vuetify.breakpoint.xsOnly }"
                            @click="goToAddMore()">
                         <v-icon class="mr-1 vicon">sbf-plus-regular</v-icon>
@@ -26,7 +25,7 @@
                     <div class="class-list search-classes-list">
                         <div class="list-item search-class-item py-2 mx-2 justify-space-between align-center font-weight-regular"
                              v-for="(singleClass, index) in classesSelected" :key="index">
-                            <v-layout column class="pl-4 limit-width">
+                            <v-layout column class="pl-6 limit-width">
                                 <v-flex shrink class="text-truncate course-name-wrap">
                                     {{ singleClass.text }}
                                 </v-flex>
@@ -41,30 +40,28 @@
                                 </v-flex>
                             </v-layout>
 
-                            <v-layout row align-center justify-end class="pr-2 grow">
+                            <v-layout align-center justify-end class="pr-2 grow">
                                 <v-flex shrink class="d-flex align-center" v-if="!singleClass.isLoading">
                                     <div v-show="isUserTutor">
-                                    <v-btn v-if="!singleClass.isTeaching" round @click="teachCourseToggle(singleClass)"
+                                    <v-btn v-if="!singleClass.isTeaching" rounded @click="teachCourseToggle(singleClass)"
                                            :loading="singleClass.isLoading && teachingActive"
                                            class="outline-btn elevation-0 text-none align-center justify-center rounded-btn">
-                                    <span>
-                                    <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
-                                        <span class="purple-text caption" v-html="$Ph('courses_teach')"></span>
-                                    </span>
+                                        <span>
+                                            <v-icon color="#a3a0fb" class="btn-icon mr-1">sbf-face-icon</v-icon>
+                                            <span class="purple-text caption" v-html="$Ph('courses_teach')"></span>
+                                        </span>
                                     </v-btn>
 
-                                    <v-btn v-else round @click="teachCourseToggle(singleClass)"
+                                    <v-btn v-else rounded @click="teachCourseToggle(singleClass)"
                                            class="solid-btn elevation-0 text-none align-center justify-center rounded-btn">
-                                    <span>
-                                       <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
-                                        <span class="caption" v-html="$Ph('courses_teaching')"></span>
-                                  </span>
+                                        <span>
+                                            <v-icon class="btn-icon mr-1">sbf-checkmark</v-icon>
+                                            <span class="caption" v-html="$Ph('courses_teaching')"></span>
+                                        </span>
                                     </v-btn>
                                     </div>
                                     <span>
-                                            <v-icon @click="removeClass(singleClass)"
-                                                    v-show="!singleClass.isLoading"
-                                                    class="delete-sbf-icon">sbf-delete-outline</v-icon>
+                                        <v-icon @click="removeClass(singleClass)" v-show="!singleClass.isLoading" class="delete-sbf-icon">sbf-delete-outline</v-icon>
                                     </span>
                                 </v-flex>
                                 <v-flex v-else shrink class="d-flex align-center px-5">
@@ -83,7 +80,7 @@
                 </v-flex>
             </v-layout>
             <v-layout  align-center justify-center class="hidden-sm-and-up fixed-bottom-wrap elevation-2">
-                <v-flex xs12 class="text-xs-center pt-3">
+                <v-flex xs12 class="text-center pt-4">
                     <finishBtn></finishBtn>
                 </v-flex>
             </v-layout>
@@ -119,9 +116,10 @@
             isEmpty() {
                 if(!this.getIsSelectedClassLocked){
                     if(this.getSelectedClasses.length < 1){
-                        this.$router.push({name:'addCourse'});
+                        this.goToAddMore();
                     }
                 }
+                return false;
             },
             coursesQuantaty() {
                 return this.getSelectedClasses.length;
@@ -139,11 +137,11 @@
                 this.teachingActive = true;
                 course.isLoading = true;
                 universityService.teachCourse(course.text)
-                                 .then((resp) => {
+                                 .then(() => {
                                      course.isLoading = false;
                                      this.teachingActive = false;
                                      return course.isTeaching = !course.isTeaching;
-                                 }, (error) => {
+                                 }, () => {
                                      course.isLoading = false;
                                      this.teachingActive = false;
                                  }).finally(() => {
@@ -154,10 +152,10 @@
             removeClass(classDelete) {
                 classDelete.isLoading = true;
                 this.removingActive = true;
-                this.deleteClass(classDelete).then((resp) => {
+                this.deleteClass(classDelete).then(() => {
                     classDelete.isLoading = false;
 
-                }, (error) => {
+                }, () => {
                     classDelete.isLoading = false;
                     this.removingActive = false;
                 }).finally(() => {
@@ -179,8 +177,9 @@
     .courses-list-wrap {
         .scrollBarStyle(6px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
         .rounded-btn {
+            margin: 6px 8px;
             border-radius: 36px!important; //vuetify
-            min-width: 108px;
+            min-width: 108px !important; //vuetify
         }
         .fixed-bottom-wrap{
             position: fixed;
@@ -191,15 +190,18 @@
         }
         .badge {
             max-height: 48px;
-            font-size: 10px;
+            font-size: 12px;
             padding: 2px 0;
             border-radius: 8px;
             background-color: @purpleLight;
             color: @color-white;
         }
+        .courses-list-wrap-title {
+            font-size: 16px;
+        }
         .label-text {
             color: rgba(128, 128, 128, 0.87);
-            font-size: 10px;
+            font-size: 12px;
         }
         .solid-btn {
             &:not(.v-btn--flat) {
@@ -212,14 +214,14 @@
             color: @purpleLight;
             border-radius: 16px;
             border: 1px solid @purpleLight;
-
         }
         .vicon{
-            font-size: 21px;
+            font-size: 21px !important;
         }
         .add-btn {
             color: @color-white;
             text-transform: initial;
+            margin: 6px 8px;
         }
         .delete-sbf-icon {
             color: lighten(@color-black, 75%);
@@ -228,7 +230,7 @@
             color: @purpleLight;
         }
         .btn-icon {
-            font-size: 18px;
+            font-size: 18px !important;
         }
         .class-list {
             background-color: #ffffff;

@@ -2,16 +2,17 @@
     <div :class="['itemPage__side',{'itemPage__sideActiveBanner':getBannerSatus}]" v-if="showBlock">
         <template v-if="!zeroPrice && !isPurchased">
             <div class="itemPage__side__top">
-                <h1 class="itemPage__side__top__h1">{{priceWithComma}}</h1>
+                <div class="itemPage__side__top__price">{{priceWithComma}}</div>
                 <span class="itemPage__side__top__pts" v-language:inner="'documentPage_points'"></span>
             </div>
-            <h5 class="itemPage__side__h5" v-language:inner="'documentPage_credit_uploader'"></h5>
+            <div class="itemPage__side__credit" v-language:inner="'documentPage_credit_uploader'"></div>
         </template>
         <v-btn 
             class="itemPage__side__btn white--text"
             depressed
             block
-            round
+            rounded
+            large
             :loading="isLoading"
             @click="openPurchaseDialog"
             v-if="!isPurchased || isVideo"
@@ -21,12 +22,13 @@
         </v-btn>
         <v-btn
             v-else
+            large
             tag="a"
             :href="`${$route.path}/download`"
             target="_blank"
             :loading="isLoading"
             class="itemPage__side__btn white--text"
-            depressed block round @click="downloadDoc" color="#4c59ff">
+            depressed block rounded @click="downloadDoc" color="#4c59ff">
             <span v-language:inner="'documentPage_download_btn'"></span>
         </v-btn>
         <div class="itemPage__side__bottom">
@@ -72,12 +74,15 @@ export default {
         ...mapGetters(['accountUser', 'getBtnLoading','getBannerSatus']),
 
         showBlock() {
-            if(this.isVideo && !this.isShowPurchased) {
+            if(this.isVideo) {
+                if(this.isPurchased || this.docPrice <= 0) {
+                    return false;
+                }
                 return true;
-            } else if (this.isVideo && this.isPurchased) {
-                return false
+            } else if(!this.isVideo) {
+                return true;
             }
-            return true;
+            return false;
         },
         zeroPrice() {
             return (this.document && this.document.details && this.document.details.price === 0);
@@ -86,6 +91,7 @@ export default {
             if(this.document && this.document.details) {
                 return this.document.details.price.toLocaleString();
             }
+            return null
         },
         docPrice() {
             if(this.document && this.document.details) {
@@ -170,27 +176,27 @@ export default {
             font-weight: bold;
             margin-bottom: 8px;
             
-            &__h1 {
+            &__price{
                 font-size: 30px;
-                margin-right: 4px;
+                margin-right: 4px;           
             }
             &__pts {
                 font-weight: 600;
             }
         }
-        &__h5 {
+        &__credit {
             color: #43425d;
             font-size: 13px;
             margin-bottom: 10px;
             font-weight: 600;
-        }
+        }     
         &__btn {
             padding: 0 50px;
             height: 44px;
             margin-bottom: 25px;
             text-transform: initial;
             font-weight: 600;
-            font-size: 20px;
+            font-size: 20px !important;
 
             div {
                 margin-bottom: 2px;

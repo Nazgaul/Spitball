@@ -31,8 +31,9 @@ const init = function () {
     imageElm.addEventListener('change', handleImage.bind(this), false);
 };
 
-const imgSizeFit = function(imgWidth, imgHeight, maxWidth, maxHeight) {
-    let ratio = Math.min(1, maxWidth / imgWidth, maxHeight / imgHeight);
+const imgSizeFit = function(imgWidth, imgHeight) {
+    // let ratio = Math.min(1, maxWidth / imgWidth, maxHeight / imgHeight);
+    let ratio = 1;
     let width = imgWidth * ratio;
     let height = imgHeight * ratio;
     return {width, height};
@@ -41,7 +42,8 @@ const imgSizeFit = function(imgWidth, imgHeight, maxWidth, maxHeight) {
 const draw = function (imgObj) {
     if (!!imageDictionary[imgObj.id]) {
         let img = imageDictionary[imgObj.id].img;
-        whiteBoardService.getContext().drawImage(img, imgObj.mouseX, imgObj.mouseY, img.width, img.height);
+        console.log(`img newX ${imgObj.mouseX} img newY ${imgObj.mouseY} img width ${imgObj.width} img height ${imgObj.height}`);
+        whiteBoardService.getContext().drawImage(img, imgObj.mouseX, imgObj.mouseY, imgObj.width, imgObj.height);
     } else {
         let img = new Image();
         // img.crossOrigin="anonymous";
@@ -97,7 +99,8 @@ const handleImage = function (e,isDragged) {
                 height: img.height,
                 option: optionType,
                 eventName: 'start',
-                src: img.src
+                src: img.src,
+                aspectRatio: img.height / img.width
             });
             let dictionaryImage = {
                 imgObj,
@@ -117,6 +120,15 @@ const handleImage = function (e,isDragged) {
             }, 500);
             // self.methods.addShape(localShape, clearLocalShape);
         };
+        img.onerror = function () {
+            store.dispatch('updateToasterParams', {
+                toasterText: LanguageService.getValueByKey("upload_multiple_error_extension_title"),
+                showToaster: true,
+                toasterType: 'error-toaster'
+            });
+            store.dispatch("updateImgLoader", false);
+        }
+
         img.src = url;
     },()=>{
         store.dispatch("updateImgLoader", false);

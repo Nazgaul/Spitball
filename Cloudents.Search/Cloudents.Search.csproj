@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
-    <PackageReference Include="Microsoft.Azure.Search" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Azure.Search" Version="10.1.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
   </ItemGroup>
 

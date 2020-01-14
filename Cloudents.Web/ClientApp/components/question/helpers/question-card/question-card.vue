@@ -27,19 +27,21 @@
                                 <v-spacer></v-spacer>
                                 <div class="menu-area">
                                     <v-menu bottom left content-class="card-user-actions">
-                                        <v-btn :depressed="true" @click.prevent slot="activator" icon>
-                                            <v-icon>sbf-3-dot</v-icon>
-                                        </v-btn>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn :depressed="true" @click.prevent v-on="on" icon>
+                                                <v-icon small>sbf-3-dot</v-icon>
+                                            </v-btn>
+                                        </template>
                                         <v-list>
-                                            <v-list-tile
+                                            <v-list-item
                                                     v-show="item.isVisible"
                                                     :disabled="item.isDisabled()"
                                                     v-for="(item, i) in actions"
                                                     :key="i"
                                             >
-                                                <v-list-tile-title @click="item.action()">{{ item.title }}
-                                                </v-list-tile-title>
-                                            </v-list-tile>
+                                                <v-list-item-title @click="item.action()">{{ item.title }}
+                                                </v-list-item-title>
+                                            </v-list-item>
                                         </v-list>
                                     </v-menu>
                                 </div>

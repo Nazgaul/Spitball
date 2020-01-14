@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="action_download" xml:space="preserve">
+    <value>הורדה</value>
+  </data>
+  <data name="action_watch" xml:space="preserve">
+    <value>צפייה</value>
+  </data>
   <data name="answer" xml:space="preserve">
     <value>תשובה:</value>
   </data>
@@ -138,9 +144,18 @@
   <data name="empty" xml:space="preserve">
     <value>מצטערים, אין מידע להציג</value>
   </data>
+  <data name="enter_room" xml:space="preserve">
+    <value>כניסה לחדר</value>
+  </data>
   <data name="info" xml:space="preserve">
     <value>מוצר
 </value>
+  </data>
+  <data name="joined" xml:space="preserve">
+    <value>תאריך הצטרפות</value>
+  </data>
+  <data name="last_date" xml:space="preserve">
+    <value>שיעור אחרון</value>
   </data>
   <data name="likes" xml:space="preserve">
     <value>לייקים</value>
@@ -148,8 +163,29 @@
   <data name="my_content_title" xml:space="preserve">
     <value>התוכן שלי</value>
   </data>
+  <data name="my_followers_title" xml:space="preserve">
+    <value>העוקבים שלי</value>
+  </data>
+  <data name="my_purchases_title" xml:space="preserve">
+    <value>הרכישות שלי</value>
+  </data>
+  <data name="my_sales_action_need" xml:space="preserve">
+    <value>צריך עוד נקודות?</value>
+  </data>
+  <data name="my_sales_action_need_btn" xml:space="preserve">
+    <value>קנה נקודות</value>
+  </data>
+  <data name="my_sales_action_redeem" xml:space="preserve">
+    <value>יש לך {1} נק' למימוש</value>
+  </data>
+  <data name="my_sales_action_redeem_btn" xml:space="preserve">
+    <value>ממש 1,000 נקודות</value>
+  </data>
   <data name="my_sales_title" xml:space="preserve">
     <value>המכירות שלי</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>שם</value>
   </data>
   <data name="of" xml:space="preserve">
     <value>מתוך</value>
@@ -178,6 +214,12 @@
   <data name="rename" xml:space="preserve">
     <value>שינוי שם</value>
   </data>
+  <data name="send_email" xml:space="preserve">
+    <value>שלח אימייל</value>
+  </data>
+  <data name="send_whatsapp" xml:space="preserve">
+    <value>שלח הודעת וואטסאפ</value>
+  </data>
   <data name="session" xml:space="preserve">
     <value>שיעור פרטי עם {1}</value>
   </data>
@@ -186,6 +228,9 @@
   </data>
   <data name="status" xml:space="preserve">
     <value>סטטוס</value>
+  </data>
+  <data name="student_tutor" xml:space="preserve">
+    <value>סטודנט / מורה פרטי</value>
   </data>
   <data name="tutor_session" xml:space="preserve">
     <value>שיעור פרטי</value>

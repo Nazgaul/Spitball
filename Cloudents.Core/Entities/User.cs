@@ -193,6 +193,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
+
         private readonly ICollection<StudyRoomUser> _studyRooms = new List<StudyRoomUser>();
 
         public virtual IEnumerable<StudyRoomUser> StudyRooms => _studyRooms;
@@ -253,6 +254,15 @@ namespace Cloudents.Core.Entities
             {
                 Name = $"{Email.Split(new[] { '.', '@' }, StringSplitOptions.RemoveEmptyEntries)[0]}";
             }
+        }
+
+        public virtual void ChangeEmail(string email)
+        {
+            if (UserLogins.Count > 0)
+            {
+                throw new ArgumentException();
+            }
+            Email = email;
         }
 
         public virtual void SuspendUser(DateTimeOffset lockTime, string reason)

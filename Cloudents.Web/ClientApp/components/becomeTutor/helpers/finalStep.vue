@@ -1,20 +1,20 @@
 <template>
     <div class="become-final-wrap">
-        <v-layout row wrap>
-            <v-flex xs12 class="text-xs-center mb-4">
+        <v-layout wrap>
+            <v-flex xs12 class="text-center mb-4">
                <v-icon class="face-icon">sbf-face-icon</v-icon>
             </v-flex>
 
-            <v-flex xs12 class="text-xs-center text-capitalize mb-2 mt-1" >
+            <v-flex xs12 class="text-center text-capitalize mb-2 mt-1" >
                 <span class="final-text font-weight-bold" v-language:inner>becomeTutor_oh</span>
             </v-flex>
 
-            <v-flex xs12 class="text-xs-center mb-4">
+            <v-flex xs12 class="text-center mb-4">
                 <span class="final-text font-weight-bold" v-language:inner>becomeTutor_tutor_now</span>
             </v-flex>
 
-            <v-flex xs12 class="text-xs-center">
-                <v-btn @click="goToCourses()" round class="add-btn text-uppercase">
+            <v-flex xs12 class="text-center">
+                <v-btn @click="goToCourses()" rounded class="add-btn text-uppercase">
                     <span class="font-weight-bold" v-language:inner>becomeTutor_btn_add_courses_teach</span>
                 </v-btn>
             </v-flex>
@@ -42,7 +42,7 @@
     .become-final-wrap{
         padding: 106px 0;
             .face-icon{
-                font-size: 44px;
+                font-size: 44px !important;
                 color: @global-purple;
             }
         .final-text{

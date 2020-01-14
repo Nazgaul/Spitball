@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
 
@@ -26,8 +27,11 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         {
             var response = await _client.GetAsync(uri);
             response.EnsureSuccessStatusCode();
-            var str = await response.Content.ReadAsStringAsync();
-            str.IsValidJson().Should().BeTrue();
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var str = await response.Content.ReadAsStringAsync();
+                str.IsValidJson().Should().BeTrue();
+            }
         }
     }
 }

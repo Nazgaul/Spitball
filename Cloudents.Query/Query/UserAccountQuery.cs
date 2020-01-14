@@ -27,9 +27,9 @@ namespace Cloudents.Query.Query
             public async Task<UserAccountDto> GetAsync(UserAccountQuery query, CancellationToken token)
             {
                 //TODO: to nhibernate
-                const string sql = @"select u.Id, U.Balance, u.Name, u.Image, u.Email, 
+                const string sql = @"select u.Id, U.Balance, u.Name, u.ImageName as Image, u.Email, 
                           case when u.UniversityId2 is null then 0 else 1 end as UniversityExists,
-                          u.Score, u.PhoneNumberHash,
+                          u.PhoneNumberHash,
                 u.Country,
                           t.State as IsTutor,
                             coalesce(

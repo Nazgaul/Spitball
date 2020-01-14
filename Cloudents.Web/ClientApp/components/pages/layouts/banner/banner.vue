@@ -17,7 +17,7 @@
 				</div>
 				<div class="globalBanner_timer" v-if="$vuetify.breakpoint.mdAndUp && !!getBannerParams">
 					<span class="globalBanner_timer_title" v-language:inner="'banner_offer'"/>
-					<v-layout row class="globalBanner_timer_container mt-1">
+					<v-layout class="globalBanner_timer_container mt-1">
 						<v-flex xs2 class="globalBanner_timer_box">
 							<h1 class="globalBanner_timer_box_time" v-html="time.days"/>
 							<span class="globalBanner_timer_box_text" v-language:inner="'banner_days'"/>
@@ -40,7 +40,7 @@
 					</v-layout>
 				</div>
 			</div>  
-			<v-btn flat icon class="banner_closeBtn" @click="updateBannerSatus(false)">
+			<v-btn text icon class="banner_closeBtn" @click="updateBannerSatus(false)">
 				<v-icon class="close_banner" v-html="'sbf-close'"/>
 			</v-btn>
 		</div>
@@ -63,34 +63,37 @@ export default {
 	},
 	computed: {
 		...mapGetters(['getBannerSatus','getBannerParams']),
-		params(){
-			if(!!this.getBannerParams){
-				this.interVal = setInterval(this.getNow, 200);
-			}
-		},
 		coupon(){
 			if(!!this.getBannerParams){
 				return this.getBannerParams.coupon;
-			}
+            }
+            return null
 		},
 		titleText(){
 			if(!!this.getBannerParams){
 				return this.getBannerParams.title;
-			}
+            }
+            return null
 		},
 		subTitleText(){
 			if(!!this.getBannerParams){
 				return this.getBannerParams.subTitle;
-			}
+            }
+            return null
 		}
-	},
-		watch:{
-			params(val){
-				// debugger
-			}
+    },
+    watch:{
+        getBannerParams(params){
+            if(!!params){
+                this.setParamsInterval()
+            }
+        },
 	},
 	methods: {
-		...mapActions(['updateBannerSatus']),
+        ...mapActions(['updateBannerSatus']),
+        setParamsInterval(){
+            this.interVal = setInterval(this.getNow, 200);
+        },
 		getNow() {
 			let countDownDate = new Date(this.getBannerParams.expirationDate).getTime();
 			let now = new Date();
@@ -112,15 +115,15 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .globalBanner{
-    z-index: 20;
+    z-index: 20 !important;
     background-image: linear-gradient(to bottom, #7072fb -20%, #1a2b87 96%);
     .banner_wrapper{
         position: relative;
         width: 100%;
         .banner_closeBtn{
             position: absolute;
-            top: -10px;
-            right: -16px;
+            top: 0;
+            right: -10px;
             .close_banner{
                 color: white !important;
                 opacity: 0.57;
@@ -232,7 +235,7 @@ export default {
                         letter-spacing: normal;
                     }
                     .globalBanner_timer_box_text{
-                        font-size: 9px;
+                        font-size: 12px;
                         font-weight: 600;
                         font-stretch: normal;
                         font-style: normal;

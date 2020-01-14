@@ -132,7 +132,7 @@ const actions = {
         commit('setToUrl',url);
     },
     updateName({commit},fullNameObj){
-        commit('setName',fullNameObj)
+        commit('setName',fullNameObj);
     },
     updateEmail({commit},email){
         commit('setEmail',email);
@@ -384,7 +384,7 @@ const actions = {
                 commit('setGlobalLoading',false);
             });
     },
-    changePassword({state,commit},params) {
+    changePassword({commit},params) {
         let {id} = params;
         let {code} = params;
         let {password} = params;
@@ -397,8 +397,7 @@ const actions = {
                     _analytics(['Forgot Password', 'Updated password']);
                     global.isAuth = true;
                     commit('setGlobalLoading',false);
-                    let url = state.toUrl || defaultSubmitRoute;
-                    router.push({path: `${url.path }`});
+                    router.push({path: defaultSubmitRoute.path});
                 }, (error) => {
                     commit('setGlobalLoading',false);
                     commit('setErrorMessages',{

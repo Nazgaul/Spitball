@@ -2,54 +2,64 @@
    <div class="myContent">
       <div class="myContent_title" v-language:inner="'dashboardPage_my_content_title'"/>
       <v-data-table 
-            :pagination.sync="paginationModel"
             :headers="headers"
             :items="contentItems"
-            disable-initial-sort
+            :items-per-page="5"
+            hide-default-header
+            sort-by
             :item-key="'date'"
-            :rows-per-page-items="['5']"
             class="elevation-1 myContent_table"
-            :prev-icon="'sbf-arrow-left-carousel'"
-            :sort-icon="'sbf-arrow-down'"
-            :next-icon="'sbf-arrow-right-carousel'">
-         <template slot="headers" slot-scope="props">
-            <tr>
-               <th class="text-xs-left"
-                  v-for="header in props.headers"
-                  :key="header.value"
-                  :class="['column',{'sortable':header.sortable}]"
-                  @click="changeSort(header.value)">
-                  <span class="text-xs-left">{{ header.text }}
-                     <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
-                  </span>
-               </th>
-            </tr>
+            :footer-props="{
+               showFirstLastPage: false,
+               firstIcon: '',
+               lastIcon: '',
+               prevIcon: 'sbf-arrow-left-carousel',
+               nextIcon: 'sbf-arrow-right-carousel',
+               itemsPerPageOptions: [5]
+            }">
+         <template v-slot:header="{props}">
+            <thead>
+               <tr>
+                  <th class="text-xs-left"
+                     v-for="header in props.headers"
+                     :key="header.value"
+                     :class="['column',{'sortable':header.sortable}]"
+                     @click="changeSort(header.value)">
+                     <span class="text-xs-left">{{ header.text }}
+                        <v-icon v-if="header.sortable" v-html="sortedBy !== header.value?'sbf-arrow-down':'sbf-arrow-up'" />
+                     </span>
+                  </th>
+               </tr>
+            </thead>
          </template>
-            <template v-slot:items="props">
-               <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
-               <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
+            <template v-slot:item="props">
+               <tr class="myContent_table_tr">
+                  <tablePreviewTd :globalFunctions="globalFunctions" :item="props.item"/>
+                  <tableInfoTd :globalFunctions="globalFunctions" :item="props.item"/>
 
-               <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
-               <td class="text-xs-left">{{props.item.likes}}</td>
-               <td class="text-xs-left">{{props.item.views}}</td>
-               <td class="text-xs-left">{{props.item.downloads}}</td>
-               <td class="text-xs-left">{{props.item.purchased}}</td>
-               <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
-               <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
-               <td class="text-xs-center">
-                  <v-menu lazy bottom left v-model="showMenu" v-if="!checkIsQuestion(props.item.type)" >
-                     <v-icon @click="currentItemIndex = props.index" slot="activator" small icon>sbf-3-dot</v-icon>
-
-                     <v-list v-if="props.index == currentItemIndex">
-                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog('rename',props.item)">{{rename}}</v-list-tile>
-                        <v-list-tile style="cursor:pointer;" @click="globalFunctions.openDialog('changePrice',props.item)">{{changePrice}}</v-list-tile>
-                     </v-list>
-                  </v-menu>
-               </td>
+                  <td class="text-xs-left" v-html="dictionary.types[props.item.type]"/>
+                  <td class="text-xs-left">{{props.item.likes}}</td>
+                  <td class="text-xs-left">{{props.item.views}}</td>
+                  <td class="text-xs-left">{{props.item.downloads}}</td>
+                  <td class="text-xs-left">{{props.item.purchased}}</td>
+                  <td class="text-xs-left" v-html="globalFunctions.formatPrice(props.item.price,props.item.type)"/>
+                  <td class="text-xs-left">{{ props.item.date | dateFromISO }}</td>
+                  <td class="text-xs-center">
+                     <v-menu bottom left v-model="showMenu" v-if="!checkIsQuestion(props.item.type)">
+                        <template v-slot:activator="{ on }">
+                           <v-icon @click="currentItemIndex = props.index" v-on="on" slot="activator" small icon>sbf-3-dot</v-icon>
+                        </template>
+                     
+                        <v-list v-if="props.index == currentItemIndex">
+                           <v-list-item style="cursor:pointer;" @click="globalFunctions.openDialog('rename',props.item)">{{rename}}</v-list-item>
+                           <v-list-item style="cursor:pointer;" @click="globalFunctions.openDialog('changePrice',props.item)">{{changePrice}}</v-list-item>
+                        </v-list>
+                     </v-menu>
+                  </td>
+               </tr>
             </template>
-         <slot slot="no-data" name="tableEmptyState"/>
-         <slot slot="pageText" name="tableFooter"/>
 
+            <slot slot="no-data" name="tableEmptyState"/>
       </v-data-table>
    </div>
 </template>
@@ -127,15 +137,19 @@ export default {
 </script>
 
 <style lang="less">
+@import "../../../../styles/mixin.less";
 .myContent{
    .myContent_title{
       font-size: 22px;
       color: #43425d;
       font-weight: 600;
-      padding: 0 0 10px 2px;
+      padding: 30px;
+      background-color: #fff;
+      line-height: 1.3px;
+      box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)!important;
    }
    .myContent_table{
-      .v-datatable{
+      thead{
          tr{
             height: auto;
             th{
@@ -143,16 +157,48 @@ export default {
                font-size: 14px;
                padding-top: 14px;
                padding-bottom: 14px;
+               font-weight: normal;
+               min-width: 100px;
             }
             
          }
          color: #43425d !important;
+      }
+      // .myContent_table_tr {
+      //    @media (max-width: @screen-xs) {
+      //       display: flex;
+      //       flex-direction: column;
+      //       border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      //       padding-bottom: 10px;  
+      //    }
+         
+      //    td {
+      //       font-size: 13px !important;
+      //       @media (max-width: @screen-xs) {
+      //          height: unset;
+      //          border-bottom: none !important;    
+                        
+      //       }
+      //    }
+      // }
+      .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
+         transform: none /*rtl:rotate(180deg)*/;
+         color: #43425d !important;
+         height: inherit;
+         font-size: 14px;
       }
       .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
          transform: none /*rtl:rotate(180deg)*/;
          color: #43425d !important;
          height: inherit;
          font-size: 14px;
+      }
+      .v-data-footer {
+         padding: 6px 0;
+         .v-data-footer__pagination {
+            font-size: 14px;
+            color: #43425d;
+         }
       }
    }
 }

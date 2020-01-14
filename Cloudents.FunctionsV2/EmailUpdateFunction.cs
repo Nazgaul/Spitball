@@ -3,11 +3,9 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
-using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using Cloudents.Query.Email;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -78,8 +76,6 @@ namespace Cloudents.FunctionsV2
             [SendGrid(ApiKey = "SendgridKey", From = "Spitball <no-reply@spitball.co>")] IAsyncCollector<SendGridMessage> emailProvider,
             [Inject] IQueryBus queryBus,
             [Inject] IUrlBuilder urlBuilder,
-            [Inject] IBinarySerializer binarySerializer,
-            //[Inject] IDocumentDirectoryBlobProvider blobProvider,
             [Inject] IDataProtectionService dataProtectService,
             [Inject] IHostUriService hostUriService,
             CancellationToken token)
@@ -111,9 +107,6 @@ namespace Cloudents.FunctionsV2
                     NeedMore = emailUpdates.Count == 4,
                     Documents = emailUpdates.OfType<DocumentUpdateEmailDto>().Select(document =>
                     {
-                        //var previewUri = blobProvider.GetPreviewImageLink(document.Id, 0);
-                        //var hash = BuildHash(binarySerializer, previewUri);
-
                         var uriBuilder = new UriBuilder(uri)
                         {
                             Path = $"api/image/document/{document.Id}",
@@ -198,13 +191,13 @@ namespace Cloudents.FunctionsV2
             return uriBuilderImage.ToString();
         }
 
-        private static string BuildHash(IBinarySerializer binarySerializer, Uri previewUri)
-        {
-            var properties = new ImageProperties(previewUri);
-            var byteHash = binarySerializer.Serialize(properties);
-            var hash = Base64UrlTextEncoder.Encode(byteHash);
-            return hash;
-        }
+        //private static string BuildHash(IBinarySerializer binarySerializer, Uri previewUri)
+        //{
+        //    var properties = new ImageProperties(previewUri);
+        //    var byteHash = binarySerializer.Serialize(properties);
+        //    var hash = Base64UrlTextEncoder.Encode(byteHash);
+        //    return hash;
+        //}
 
         [FunctionName("EmailUpdateFunction_TimerStart")]
         public static async Task TimerStart(

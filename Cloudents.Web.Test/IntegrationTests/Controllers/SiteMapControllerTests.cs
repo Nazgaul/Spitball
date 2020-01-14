@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
@@ -20,10 +19,17 @@ namespace Cloudents.Web.Test.IntegrationTests.Controllers
 
         private readonly System.Net.Http.HttpClient _client;
 
-        [Fact]
-        public async Task GetAsync_SiteMap()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public async Task GetAsync_SiteMapAsync(bool isFrymo)
         {
-            var result = await _client.GetStringAsync("sitemap.xml");
+            var url = "sitemap.xml";
+            if (isFrymo)
+            {
+                url += "?site=frymo";
+            }
+            var result = await _client.GetStringAsync(url);
             XNamespace ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
             var doc = XDocument.Parse(result);
 

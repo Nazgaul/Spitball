@@ -4,7 +4,6 @@ using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Specialized;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Core
 {
@@ -30,7 +29,7 @@ namespace Cloudents.Core
 
             if (siteEndPoints.IndiaSite != null)
             {
-                _indiaWebSiteEndpoint = new Uri(siteEndPoints.IndiaSite.TrimEnd('/')); ;
+                _indiaWebSiteEndpoint = new Uri(siteEndPoints.IndiaSite.TrimEnd('/'));
             }
 
 
@@ -127,14 +126,33 @@ namespace Cloudents.Core
 
 
         public const string ImageFunctionUserRoute = "image/user/{id}/{file}";
-        public string BuildUserImageEndpoint(long id, string imageName, string userName)
+        public string BuildUserImageEndpoint(long id, string imageName, string userName, object parameters = null)
         {
             
-            var injectionObj = new { id, file = !string.IsNullOrEmpty(imageName) ? imageName : userName };
+            var injectionObj = new 
+            { 
+                id,
+                file = !string.IsNullOrEmpty(imageName) ? imageName : userName
+            };
             var path = ImageFunctionUserRoute.Inject(injectionObj);
             var builder = new UriBuilder(_functionEndPoint) { Path = $"api/{path}" };
+            builder.AddQuery(parameters);
             return builder.ToString();
         }
 
+        public string BuildUserImageEndpoint(long id, string imageName)
+        {
+            if (imageName is null)
+            {
+                return null;
+            }
+
+            if (Uri.TryCreate(imageName, UriKind.Absolute, out var uri))
+            {
+                return uri.AbsoluteUri;
+            }
+
+            return BuildUserImageEndpoint(id, imageName, null);
+        }
     }
 }

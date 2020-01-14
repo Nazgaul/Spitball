@@ -1,33 +1,33 @@
 <template>
     <div class="student-tutor-wrap">
         <v-container align-center align-content-center justify-center>
-            <v-layout row wrap align-center justify-center class="pt-3">
-                <v-flex xs12   class="text-xs-center pb-2">
+            <v-layout wrap align-center justify-center class="pt-4">
+                <v-flex xs12   class="text-center pb-2">
                     <span class="body-2 text-black" v-language:inner>studentOrTutor_title</span>
                 </v-flex>
-                <v-flex xs12   class="text-xs-center">
+                <v-flex xs12   class="text-center">
                     <span class="headline font-weight-bold text-black" v-language:inner>studentOrTutor_subtitle</span>
                 </v-flex>
             </v-layout>
-            <v-layout row wrap align-center justify-center class="pt-5">
-                <v-flex xs12   class="text-xs-center pb-4">
+            <v-layout wrap align-center justify-center class="pt-5">
+                <v-flex xs12   class="text-center pb-4">
                     <span class="body-2 font-weight-bold text-black" v-language:inner>studentOrTutor_currently</span>
                 </v-flex>
-                <v-flex xs12 sm2  shrink class="text-xs-center d-inline-flex btn-wrap">
+                <v-flex xs12 sm2  shrink class="text-center d-inline-flex btn-wrap">
                     <v-btn @click="goToUniSelect()" class="sb-yellow-btn elevation-0"
                            :class="{'wide-btn ': $vuetify.breakpoint.smAndUp}">
-                        <span class="subheading font-weight-bold text-capitalize" v-language:inner>studentOrTutor_btn_student</span>
+                        <span class="subtitle-1 font-weight-bold text-capitalize" v-language:inner>studentOrTutor_btn_student</span>
                     </v-btn>
                 </v-flex>
-                <v-flex xs12 sm2  shrink class="text-xs-center d-inline-flex btn-wrap">
+                <v-flex xs12 sm2  shrink class="text-center d-inline-flex btn-wrap">
                     <v-btn @click="openBecomeTutor()" class="sb-yellow-btn elevation-0"
                            :class="{'wide-btn ': $vuetify.breakpoint.smAndUp}">
-                        <span class="subheading font-weight-bold text-capitalize" v-language:inner>studentOrTutor_btn_tutor</span>
+                        <span class="subtitle-1 font-weight-bold text-capitalize" v-language:inner>studentOrTutor_btn_tutor</span>
                     </v-btn>
                 </v-flex>
             </v-layout>
             <v-layout align-center justify-center>
-                <v-flex xs12   class="text-xs-center">
+                <v-flex xs12   class="text-center">
                     <img v-if="$vuetify.breakpoint.xsOnly" class="people-img mobile"
                          src="./images/people-background-mobile.png" alt="student tutor study">
                     <img v-else class="people-img" src="./images/people-background.png" alt="student tutor study">

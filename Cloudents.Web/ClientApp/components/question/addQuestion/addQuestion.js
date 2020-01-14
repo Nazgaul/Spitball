@@ -3,7 +3,7 @@ import {
     mapGetters,
     mapMutations
 } from 'vuex'
-import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue'
+import userAvatar from '../../helpers/UserAvatar/UserAvatar.vue'
 import questionService from '../../../services/questionService'
 // import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
 import addQuestionUtilities from './addQuestionUtilities'
@@ -13,7 +13,7 @@ import {LanguageService} from "../../../services/language/languageService";
 
 export default {
     components: {
-        UserAvatar,
+        UserAvatar: userAvatar,
         // QuestionRegular,
         // FileUpload
     },
@@ -170,7 +170,7 @@ export default {
                     //close dialog after question submitted
                     this.requestNewQuestionDialogClose(false);
                     this.$router.push({
-                        path: '/ask'
+                        name: 'feed'
                         // query: {
                         //     term: ''
                         // }

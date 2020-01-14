@@ -32,6 +32,7 @@ export default {
             isEdgeRtl : global.isEdgeRtl,
             cahceQuestion: {},
             submitLoader: false,
+            hasData: false
         };
     },
     beforeRouteLeave(to, from, next) {
@@ -44,13 +45,13 @@ export default {
             "removeDeletedAnswer",
             "updateToasterParams",
             "updateLoginDialogState",
-            'setQuestion',
+            'setQuestion'
         ]),
         ...mapMutations({updateLoading: "UPDATE_LOADING", updateSearchLoading:'UPDATE_SEARCH_LOADING'}),
         ...mapGetters(["getQuestion"]),
         resetSearch(){
             this.updateSearchLoading(true);
-            this.$router.push({path:"/feed"});
+            this.$router.push({name: "feed"});
         },
         submitAnswer() {
             
@@ -119,7 +120,9 @@ export default {
                 if (updateViewer) {
                     this.cahceQuestion = {...this.questionData};
                 }
-            });
+            }).finally(() => {
+                this.hasData = true
+            })
         },
         showAnswerField() {            
             if (this.accountUser) {
@@ -135,6 +138,11 @@ export default {
     watch: {
         textAreaValue(){
             this.errorLength = {};
+        },
+        hasData(val) {
+            if(this.$route.hash && val) {
+                this.goToAnswer();
+            }
         },
         //watch route(url query) update, and het question data from server
         '$route': 'getData'
@@ -152,14 +160,18 @@ export default {
         },
         userAnswered() {
             if(this.accountUser) {
-                return this.questionData.answers.length && this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length
+                return this.questionData.answers.length && this.questionData.answers.filter(i => i.user.id === this.accountUser.id).length;
             }
             return null;
         },
+        goToAnswer() {            
+            let elem = this.$refs.answers;
+            elem.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
     },
     created() {               
         this.getData();
-        
+
         this.$root.$on('closePopUp', (name) => {
             if (name === 'suggestions') {
                 this.showDialogSuggestQuestion = false;

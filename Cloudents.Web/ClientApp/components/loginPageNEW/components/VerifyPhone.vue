@@ -20,7 +20,7 @@
 
     <v-btn 	:loading="isLoading"
         	type="submit"
-			large round 
+			large rounded 
 			class="white--text btn-login">
                 <span v-language:inner="'loginRegister_smsconfirm_btn'"></span>
                 </v-btn>
@@ -72,7 +72,7 @@ export default {
 		}
 	},
 	  watch: {
-        smsCode: function(val){
+        smsCode: function(){
             this.setErrorMessages({})
 		}
 	}

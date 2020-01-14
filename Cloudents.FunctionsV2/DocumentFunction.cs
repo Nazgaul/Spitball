@@ -1,25 +1,25 @@
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
-using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.FileProcessor;
-using Cloudents.Infrastructure.Video;
 using Cloudents.Search.Document;
 using JetBrains.Annotations;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
-using Newtonsoft.Json.Linq;
 using NHibernate;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Interfaces;
+using Cloudents.Core.Enum;
+using NHibernate.Linq;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -144,14 +144,21 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("BlobPreviewGenerator")]
         public static async Task GeneratePreviewAsync(
-            [QueueTrigger("generate-blob-preview-v2")] string id,
+            [QueueTrigger("generate-blob-preview-v2")] string id, int dequeueCount,
             [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
             [Inject] IFileProcessorFactory factory,
+            [Inject] IStatelessSession session,
+            IBinder binder,
             ILogger log,
             CancellationToken token)
         {
-
             log.LogInformation($"receive preview for {id}");
+            if (dequeueCount > 2)
+            {
+                log.LogInformation($"try to process more then 2 times");
+
+                return;
+            }
             var segment = await directory.ListBlobsSegmentedAsync(null);
             var originalBlob = (CloudBlockBlob)segment.Results.FirstOrDefault(f2 => f2.Uri.Segments.Last().StartsWith("file-"));
             if (originalBlob == null)
@@ -160,12 +167,110 @@ namespace Cloudents.FunctionsV2
             }
 
             var processor = factory.GetProcessor(originalBlob);
-            await processor.ProcessFileAsync(long.Parse(id), originalBlob, log, token);
+            if (processor is null)
+            {
+                log.LogError($"did not process id:{id}");
+                return;
+            }
+
+            try
+            {
+                await processor.ProcessFileAsync(long.Parse(id), originalBlob, binder, log, token);
+            }
+            catch (Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.ApiException ex)
+            {
+                if (ex.Message.Contains("virus"))
+                {
+                    await session.Query<Core.Entities.Document>().Where(w => w.Id == long.Parse(id))
+                        .UpdateBuilder()
+                        .Set(c => c.Status.State, x => ItemState.Deleted)
+                        .Set(c => c.Status.DeletedOn, x => DateTime.UtcNow)
+                        .Set(c => c.Status.FlagReason, x => "Virus")
+                        .UpdateAsync(token);
+                    foreach (var item in segment.Results.OfType<CloudBlockBlob>())
+                    {
+
+                        await item.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots, AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
+                    }
+                  
+                }
+            }
+            catch (Exception ex)
+            {
+                originalBlob.Metadata["error"] = ex.Message;
+                await originalBlob.SetMetadataAsync();
+                throw;
+            }
+
             log.LogInformation("C# Blob trigger function Processed");
         }
 
 
-        
+        [FunctionName("DocumentCalculateMd5")]
+        public static async Task CalculateMd5Async(
+            [TimerTrigger("0 0 1 * * *")] TimerInfo timer,
+            [Inject] IStatelessSession session,
+            IBinder binder,
+            ILogger log,
+            CancellationToken token
+            )
+        {
+            var continue2 = true;
+            while (continue2)
+            {
+                var items = await session.Query<Core.Entities.Document>()
+                    .Where(w => w.Status.State == ItemState.Ok && w.Md5 == null)
+                    .OrderByDescending(x => x.Id)
+                    .Select(s => s.Id).Take(100).ToListAsync(cancellationToken: token);
+                continue2 = false;
+                foreach (var id in items)
+                {
+                    if (token.IsCancellationRequested)
+                    {
+                        log.LogInformation("Finish due to cancellation token");
+                        break;
+                    }
+                    continue2 = true;
+                    log.LogInformation($"Processing {id}");
+                    var blobDirectory = await binder.BindAsync<CloudBlobDirectory>(new BlobAttribute($"spitball-files/files/{id}"), token);
+                    var blobs = await blobDirectory.ListBlobsSegmentedAsync(false, BlobListingDetails.Metadata, 100, null, null, null, token);
+                    var blob = blobs.Results.OfType<CloudBlockBlob>().First(f =>
+                        f.Name.StartsWith("file", StringComparison.OrdinalIgnoreCase));
+
+                  
+                    var md5 = blob.Properties.ContentMD5;
+                    if (string.IsNullOrEmpty(md5))
+                    {
+                        log.LogInformation("no md5 calculating");
+                        using (var sr = await blob.OpenReadAsync())
+                        {
+                            md5 = CalculateMd5(sr);
+                            blob.Properties.ContentMD5 = md5;
+                            await blob.SetPropertiesAsync();
+                        }
+
+                    }
+
+                    await session.Query<Core.Entities.Document>().Where(w => w.Id == id)
+                        .UpdateBuilder()
+                        .Set(c => c.Md5, x => md5)
+                        .UpdateAsync(token);
+                }
+            }
+        }
+
+        private static string CalculateMd5(Stream stream)
+        {
+            using (var md5 = MD5.Create())
+            {
+                var hash = md5.ComputeHash(stream);
+                var base64String = Convert.ToBase64String(hash);
+                return base64String;
+            }
+        }
+
+
+
 
 
     }

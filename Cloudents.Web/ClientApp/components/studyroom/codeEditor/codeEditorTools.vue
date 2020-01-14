@@ -2,7 +2,7 @@
     <div class="nav-container">
             <v-tooltip bottom>
                 <template v-slot:activator="{on}" id="languagesListPop" >
-                    <v-btn v-on="on" flat @click="show = !show" class="selected-lang nav-action"  id="languagesListPop" >
+                    <v-btn v-on="on" text @click="show = !show" class="selected-lang nav-action"  id="languagesListPop" >
                         <div class="name_img">
                         <img style="width: 24px; margin-right: 5px;" :src="getLangImg(currentLang.langIcon)" >
                             {{currentLang.langName}}
@@ -20,7 +20,7 @@
                 </template>
                 <span v-language:inner="'tutor_tooltip_code_theme'"/>
             </v-tooltip>
-            <v-card v-if="show" class="list-lang-cont" id="languagesListPop">
+            <v-card v-if="show" class="list-lang-cont" id="languagesListPop" max-width="none">
                 <div v-for="lang in languagesList" :key="lang.langName" class="list-lang" @click="selectLang(lang)"> 
                     <img style="width: 24px; margin-right: 5px;" v-if="lang.langIcon" :src="getLangImg(lang.langIcon)">
                     {{lang.langName}}
@@ -131,6 +131,7 @@ export default {
         padding: 5px;
         top: 52px;
         left: 8px;
+        font-size: 14px;
         .list-lang{
             cursor: pointer;
             // padding: 5px;

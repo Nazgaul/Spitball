@@ -3,7 +3,7 @@
         <user-avatar-rect
             :userName="userName"
             :userImageUrl="profileImage"
-            class="mr-3"
+            class="mr-4 d-block"
             :userId="userId"
             :width="214"
             :height="240"
@@ -18,9 +18,7 @@
                 <span v-else class="ml-1" v-language:inner>profile_single_review</span>
             </span>
         </div>
-        <!-- <div class="bottom-section" v-else>
-                    <span class="user-balance py-2">{{profUserBal | currencyLocalyFilter}}</span>
-        </div> -->
+
         <div v-if="isMyProfile"
              class="hover-block d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-3 white--text">
             <uploadImage></uploadImage>
@@ -32,8 +30,7 @@
 <script>
     import { mapGetters } from 'vuex';
 
-    import utilitiesService from '../../../../../../services/utilities/utilitiesService';
-
+    
     import userRating from '../userRating.vue';
     import uploadImage from '../uploadImage/uploadImage.vue';
     import userOnlineStatus from '../../../../../helpers/userOnlineStatus/userOnlineStatus.vue';
@@ -64,8 +61,8 @@
                         // let url = utilitiesService.proccessImageURL(this.getProfile.user.image, 214,240);
                         return this.getProfile.user.image;
                     } 
-                    return '';
                 }
+                return '';
             },
             reviewCount(){
                 if (this.getProfile && this.getProfile.user && this.getProfile.user.tutorData) {
@@ -91,11 +88,11 @@
                 }
                 return -1;
             },
-            profUserBal() {
-                if (this.getProfile && this.getProfile.user) {
-                    return this.getProfile.user.score
-                }
-            }
+            // profUserBal() {
+            //     if (this.getProfile && this.getProfile.user) {
+            //         return this.getProfile.user.score
+            //     }
+            // }
         },
     }
 </script>

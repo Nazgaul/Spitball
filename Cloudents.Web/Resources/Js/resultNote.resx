@@ -136,7 +136,7 @@
     <value>Change Price</value>
   </data>
   <data name="course" xml:space="preserve">
-    <value>Course: {1}</value>
+    <value>Course:</value>
     <comment>Duplicate</comment>
   </data>
   <data name="deleted_success" xml:space="preserve">
@@ -158,10 +158,10 @@
     <value>Purchases</value>
   </data>
   <data name="university" xml:space="preserve">
-    <value>School: {1}</value>
+    <value>School:</value>
   </data>
   <data name="unsufficient_fund" xml:space="preserve">
-    <value>You do not have sufficient points to purchase this product</value>
+    <value>Not have enough points</value>
   </data>
   <data name="view" xml:space="preserve">
     <value>View</value>

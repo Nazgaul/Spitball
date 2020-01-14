@@ -9,7 +9,7 @@ const getters = {
         if(isMobile){
             return state.showSchoolBlock && state.showSchoolBlockMobile;
         }else{
-            return state.showSchoolBlock
+            return state.showSchoolBlock;
         }
        
     },

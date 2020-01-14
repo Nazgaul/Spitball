@@ -32,8 +32,12 @@ const setRectangleShape = function(helperObj){
     HelperObj.style = {
         y: `${shouldFlipVertical ? helperObj.currentY : helperObj.startPositionTop}px`,
         x: `${shouldFlipHorizontal ? helperObj.currentX : helperObj.startPositionLeft}px`,
+        yRaw: `${shouldFlipVertical ? helperObj.currentY : helperObj.startPositionTop}`,
+        xRaw: `${shouldFlipHorizontal ? helperObj.currentX : helperObj.startPositionLeft}`,
         width: `${correctedWidth}px`,
         height: `${correctedHeight}px`,
+        widthRaw: `${correctedWidth}`,
+        heightRaw: `${correctedHeight}`,
         stroke: `${helperObj.strokeStyle}`
     };
     HelperObj.cssClass = "rectangular-helper";
@@ -67,7 +71,7 @@ const setEllipseShape = function(helperObj){
 
 const setTextShape = function(helperObj){
     HelperObj.style = {
-        top: `${helperObj.currentY}px`,
+        top: `${helperObj.currentY + 80}px`,
         left: `${helperObj.currentX}px`,
         text: `${helperObj.text}`,
         color: `${helperObj.strokeStyle}`,

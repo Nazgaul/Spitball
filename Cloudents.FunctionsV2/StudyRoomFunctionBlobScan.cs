@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command;
-using Cloudents.Command.StudyRooms;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.FileProcessor;
@@ -12,7 +10,6 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
-using NHibernate;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 

@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
 import calendarDay from './calendarDay.vue';
 export default {
     components:{calendarDay},

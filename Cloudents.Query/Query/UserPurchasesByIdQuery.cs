@@ -2,12 +2,11 @@
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Query
 {
@@ -22,10 +21,12 @@ namespace Cloudents.Query.Query
         internal sealed class UserPurchasesByIdQueryHandler : IQueryHandler<UserPurchasesByIdQuery, IEnumerable<UserPurchasDto>>
         {
             private readonly IStatelessSession _session;
+            private readonly IUrlBuilder _urlBuilder;
 
-            public UserPurchasesByIdQueryHandler(IStatelessSession session)
+            public UserPurchasesByIdQueryHandler(IStatelessSession session, IUrlBuilder urlBuilder)
             {
                 _session = session;
+                _urlBuilder = urlBuilder;
             }
 
             public async Task<IEnumerable<UserPurchasDto>> GetAsync(UserPurchasesByIdQuery query, CancellationToken token)
@@ -53,6 +54,7 @@ namespace Cloudents.Query.Query
                     .Fetch(f => f.StudyRoom)
                     .ThenFetch(f => f.Users)
                     .Where(w => w.StudyRoom.Users.Select(s => s.User.Id).Any(a => a == query.Id) && query.Id != w.StudyRoom.Tutor.Id)
+                    .Where(w => w.Ended != null)
                     .Select(s => new PurchasedSessionDto()
                     {
                         Date = s.Created,
@@ -60,7 +62,7 @@ namespace Cloudents.Query.Query
                         Duration = s.Duration,
                         TutorName = s.StudyRoom.Tutor.User.Name,
                         TutorId = s.StudyRoom.Tutor.Id,
-                        TutorImage = s.StudyRoom.Tutor.User.Image
+                        TutorImage = _urlBuilder.BuildUserImageEndpoint(s.StudyRoom.Tutor.Id, s.StudyRoom.Tutor.User.ImageName, s.StudyRoom.Tutor.User.Name, null)
                     }).ToFuture<UserPurchasDto>();
 
 

@@ -7,7 +7,7 @@
                 <img src="../images/calendar.png" alt="">
                 <p v-language:inner="'becomeTutor_cal_step'"/>
                 <v-btn  color="#4452FC"
-                        round
+                        rounded
                         :loading='isLoadingCalendar'
                         class="white-text elevation-0 calbtnshare"
                         @click="shareCalendar()">
@@ -22,12 +22,12 @@
         <template>
             <v-layout class="px-1 btns-cal-step"
                         :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center',isSelectCalendar || isSelectHours? 'resetMargin': '']">
-                <v-btn @click="goToPreviousStep()" class="cancel-btn-step elevation-0" round outline flat>
+                <v-btn @click="goToPreviousStep()" class="cancel-btn-step elevation-0" rounded outlined text>
                     <span v-language:inner="'becomeTutor_btn_back'"/>
                 </v-btn>
                 <v-btn  color="#4452FC"
                         :disabled="isBtn"
-                        round
+                        rounded
                         :loading='isLoading'
                         class="white-text elevation-0"
                         @click="btnDoneNextFunc">
@@ -40,7 +40,7 @@
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
-    import { LanguageService } from "../../../services/language/languageService";
+ //   import { LanguageService } from "../../../services/language/languageService";
     import calendarSelect from '../../calendar/calendarSelect.vue'
     import calendarHours from '../../calendar/calendarHours.vue'
     export default {
@@ -79,9 +79,9 @@
             shareCalendar(){
                 this.isLoadingCalendar = true;
                 let self = this
-                this.gapiSignIn().then((res)=>{
+                this.gapiSignIn().then(()=>{
                     self.isSelectCalendar = true
-                },err=>{
+                },()=>{
                     this.isLoadingCalendar = false;
                 })
             },

@@ -3,32 +3,31 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Documents
 {
     public class SimilarDocumentsQuery : IQuery<IEnumerable<DocumentFeedDto>>
     {
-        public SimilarDocumentsQuery(long documentId/*, string course*/)
+        public SimilarDocumentsQuery(long documentId)
         {
             DocumentId = documentId;
-            //Course = course;
         }
-        public long DocumentId { get;  }
-        //public string Course { get;  }
+        public long DocumentId { get; }
     }
 
     internal sealed class SimilarDocumentsQueryHandler : IQueryHandler<SimilarDocumentsQuery, IEnumerable<DocumentFeedDto>>
     {
         private readonly IStatelessSession _session;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public SimilarDocumentsQueryHandler(QuerySession session)
+        public SimilarDocumentsQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
         {
+            _urlBuilder = urlBuilder;
             _session = session.StatelessSession;
         }
         public async Task<IEnumerable<DocumentFeedDto>> GetAsync(SimilarDocumentsQuery query, CancellationToken token)
@@ -36,11 +35,12 @@ namespace Cloudents.Query.Documents
             var t = await _session.Query<Document>()
                 .Fetch(f => f.User)
                 .Where(w => w.Course.Id ==
-                            _session.Query<Document>().Where(w2=>w2.Id == query.DocumentId).Select(s=>s.Course.Id).Single())
+                            _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.Course.Id).Single())
                 .Where(w => w.University.Id ==
                             _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.University.Id).Single())
-                .Where(w=> w.Id != query.DocumentId 
+                .Where(w => w.Id != query.DocumentId
                             && w.Status.State == ItemState.Ok)
+                .OrderByDescending(o => o.DocumentType).ThenByDescending(o => o.TimeStamp.UpdateTime)
                 .Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
@@ -48,7 +48,7 @@ namespace Cloudents.Query.Documents
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,
-                        Image = s.User.Image,
+                        Image = _urlBuilder.BuildUserImageEndpoint(s.User.Id, s.User.ImageName),
                     },
                     DateTime = s.TimeStamp.UpdateTime,
                     Course = s.Course.Id,
@@ -65,7 +65,8 @@ namespace Cloudents.Query.Documents
                     {
                         Votes = s.VoteCount
                     }
-                }).OrderByDescending(o => o.DateTime).Take(10).ToListAsync(token);
+                })
+                .Take(10).ToListAsync(token);
 
             return t;
         }

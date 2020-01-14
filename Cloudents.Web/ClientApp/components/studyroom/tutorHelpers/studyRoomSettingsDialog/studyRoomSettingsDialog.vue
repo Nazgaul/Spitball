@@ -2,34 +2,34 @@
   <div class="study-room-settings-wrapper">
     <button @click="closeDialog" class="close-button"><v-icon>sbf-close</v-icon></button>
     <div class="study-room-settings-top">
-      <v-navigation-drawer permanent class="study-room-settings-nav">
-        <v-toolbar flat>
+      <v-navigation-drawer width="300" permanent class="study-room-settings-nav">
+        <v-toolbar class="study_room_toolBar" flat>
           <v-list>
-            <v-list-tile>
-              <v-list-tile-title class="study-room-settings-nav-title">
-                <span v-language:inner='"studyRoomSettings_title"'></span>
-              </v-list-tile-title>
-            </v-list-tile>
+            <v-list-item class="pa-0">
+              <v-list-item-title class="study-room-settings-nav-title">
+                <span class="study-room-settings-nav-title_title" v-language:inner='"studyRoomSettings_title"'></span>
+              </v-list-item-title>
+            </v-list-item>
           </v-list>
         </v-toolbar>
 
         <v-divider></v-divider>
 
-        <v-list dense class="pt-0">
-          <v-list-tile
+        <v-list dense class="study-room-settings-nav-sideMenu pt-0">
+          <v-list-item
             v-for="item in items"
             :key="item.title"
             @click="currenctComponent = item.componentName"
             :class="{'tileActive': currenctComponent === item.componentName}"
           >
-            <v-list-tile-action>
+            <v-list-item-action>
               <component :is="item.icon"></component>
-            </v-list-tile-action>
+            </v-list-item-action>
 
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
       </v-navigation-drawer>
       <v-container class="study-room-settings-body">
@@ -102,23 +102,34 @@ export default {
       display: flex;
       height: 100%;
       .study-room-settings-nav {
+        .study_room_toolBar{
+          background: rgb(245, 245, 245)
+
+        }
         .study-room-settings-nav-title{
             display: flex;
             align-items: center;
             font-weight: bold;
         }
-        .v-list__tile__title {
+        .study-room-settings-nav-title_title{
+          font-size: 16px;
+        }
+        .v-list-item__title {
           transition: none;
+          font-size: 13px;
+        }
+        .v-list-item__action{
+          margin: 0 32px 0 0;
         }
         .tileActive {
           background-color: #5158af;
-          color: white;
+          color: white !important;
           i {
-            color: white;
+            color: white !important;
           }
-          .v-list__tile__action{
+          .v-list-item__action{
             svg{
-              fill: #FFF;
+              fill: #FFF !important;
             }
           }
         }

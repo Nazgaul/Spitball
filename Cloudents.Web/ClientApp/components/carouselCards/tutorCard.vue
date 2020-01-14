@@ -1,33 +1,37 @@
 <template>
     <router-link event @click.native.prevent="goToProfile" :to="{name: 'profile', params: {id: tutor.userId, name:tutor.name}}" class="tutorCarouselCard">
         <div class="tutorCarousel-top">
-        <userAvatarRect draggable="false"
-              :userName="tutor.name" 
-              :userImageUrl="tutor.image" 
-              class="tutorCarouselImg" 
-              :width="240" 
-              :height="152"></userAvatarRect>
-        <div class="ts-content">
-            <h1 class="tutor-name text-truncate">{{tutor.name}}</h1>
-            <h2 class="tutor-university text-truncate">{{tutor.university}}</h2>
+            <userAvatarRect draggable="false"
+                :userName="tutor.name" 
+                :userImageUrl="tutor.image" 
+                class="tutorCarouselImg" 
+                :width="240" 
+                :height="152"></userAvatarRect>
+            <div class="ts-content">
+                <!-- <h3 class="font-weight-bold text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3> -->
+                <h3 class="font-weight-bold text-truncate mb-1" v-html="$Ph('resultTutor_private_tutor', tutor.name)"></h3>
+                <!-- <h2 class="tutor-university text-truncate">{{tutor.university}}</h2> -->
+                <div class="rank">
+                    <template>
+                        <div class="user-rate-ts" v-if="tutor.reviews > 0">
+                            <userRating :rating="tutor.rating" :showRateNumber="false" :size="'14'" />
+                            <span class="reviews-ts ml-1" v-html="$Ph(tutor.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"/>
+                        </div>
+                        <div class="user-rate-ts align-center" v-else>
+                            <star class="mr-1 icon-star" />
+                            <span class="reviews-ts" v-html="$Ph(`resultTutor_collecting_review`, reviewsPlaceHolder(tutor.reviews))"/>
+                        </div>
+                    </template>
+                </div>
 
-            <div class="rank">
-                <template>
-                    <div class="user-rate-ts" v-if="tutor.reviews > 0">
-                        <userRating :rating="tutor.rating" :showRateNumber="false" :size="'14'" />
-                        <span class="reviews-ts ml-1" v-html="$Ph(tutor.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutor.reviews))"/>
-                    </div>
-                    <div class="user-rate-ts align-center" v-else>
-                        <star class="mr-1 icon-star" />
-                        <span class="reviews-ts" v-html="$Ph(`resultTutor_collecting_review`, reviewsPlaceHolder(tutor.reviews))"/>
-                    </div>
-                </template>
+                <p class="tutor-bio my-2">{{tutor.bio}}</p>
             </div>
-
-            <p class="tutor-bio my-2">{{tutor.bio}}</p>
-        </div>
         </div>
         <div class="tutorCarousel-bottom">
+            <div class="text-truncate ts_subjects" v-show="tutor.subjects.length > 0">
+                <span class="mr-1 font-weight-bold" v-language:inner="'resultTutor_study-area'"></span>
+                <span class="">{{subjects}}</span>
+            </div>
             <div class="ts-bottom">
                 <router-link event @click.native.stop="openCoupon" class="applyCoupon" to="/" v-language:inner="'resultTutor_apply_coupon'"></router-link>
 
@@ -37,9 +41,9 @@
                         <span v-if="isDiscount" class="ts-price-discount font-weight-bold">{{tutor.discountPrice | currencyFormat(tutor.currency)}}</span>
                         <span class="ts-price-original font-weight-bold" v-else>{{tutor.price | currencyFormat(tutor.currency)}}</span>
                     </template>
-                    <span class="caption">
-                        <span class="">/</span>
-                        <span class="" v-language:inner="'tutorCardCarousel_hour'"></span>
+                    <span>
+                        <span>/</span>
+                        <span v-language:inner="'tutorCardCarousel_hour'"></span>
                     </span>
                     <div class="striked ml-2" v-if="isDiscount">{{tutor.price | currencyFormat(tutor.currency)}}</div>
                 </div>
@@ -103,7 +107,10 @@ export default {
         },
         isDiscount() {
             return this.tutor.discountPrice !== undefined;
-        }
+        },
+        subjects() {
+            return this.tutor.subjects.join(', ');
+        },
     },
     methods: {
         ...mapActions(['updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'updateRequestDialog']),
@@ -168,7 +175,7 @@ export default {
     background: white;
     border-radius: 8px;
     border: solid 1px #c1c3d2;
-    color: #43425d;
+    color: #43425d !important; //vuetify
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -226,8 +233,11 @@ export default {
     }
     }
     .tutorCarousel-bottom {
-        // margin-top: 10px;
+        line-height: normal;
         padding: 0 8px 8px 8px;
+    .ts_subjects {
+        font-size: 13px;
+    }
     .tutor-btn {
         width: 100%;
         border-radius: 8px;
@@ -258,7 +268,7 @@ export default {
             font-size: 12px;
             font-weight: normal;
             line-height: 1;
-            align-items: flex-end;
+            align-items: baseline;
             &-original {
                 font-size: 18px;
             }

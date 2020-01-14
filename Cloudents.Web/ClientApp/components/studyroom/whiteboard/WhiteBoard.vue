@@ -2,7 +2,7 @@
     <div class="canvas-container" id="canvasDiv">
         <div id="canvas-wrapper" class="canvas-wrapper" style="position:relative; overflow: auto;" :style="`width:${windowWidth}px;height:${windowHeight}px;`">
             <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
-
+            <!-- <whiteBoardLayers v-if="false" :canvasData="canvasData"></whiteBoardLayers> -->
             <v-progress-circular v-if="getImgLoader" class="loader-img-canvas light-blue" 
                 indeterminate
                 :rotate="3" :size="100" :width="3" color="info"></v-progress-circular>
@@ -13,8 +13,8 @@
                   :width="helperStyle.width"
                   :height="helperStyle.height"
                   :class="helperClass"
-                  :style="{'stroke': helperStyle.stroke}"/>
-
+                  :style="{'stroke': helperStyle.stroke}"/>            
+            
             <line v-if="selectedOptionString === enumOptions.line"
                   :x1="helperStyle.x1"
                   :y1="helperStyle.y1"
@@ -30,6 +30,32 @@
                      :ry="helperStyle.ry"
                      :class="helperClass"
                      :style="{'stroke': helperStyle.stroke}"/>
+
+            <rect v-if="selectedOptionString === enumOptions.select && showAnchors"
+                  :x="(Number(helperStyle.xRaw) - 4) + 'px'"
+                  :y="(Number(helperStyle.yRaw) - 4) + 'px'"
+                  :width="8"
+                  :height="8"
+                  class="anchor anchor-top-left"/>
+                  {{helperStyle.widthRaw}}
+            <rect v-if="selectedOptionString === enumOptions.select && showAnchors"
+                  :x="(Number(helperStyle.xRaw) + Number(helperStyle.widthRaw) -4) + 'px'"
+                  :y="Number(helperStyle.yRaw - 4) + 'px'"
+                  :width="8"
+                  :height="8"
+                  class="anchor anchor-top-right"/>
+            <rect v-if="selectedOptionString === enumOptions.select && showAnchors"
+                  :x="Number(helperStyle.xRaw - 4) + 'px'"
+                  :y="(Number(helperStyle.yRaw) + Number(helperStyle.heightRaw) - 4) + 'px'"
+                  :width="8"
+                  :height="8"
+                  class="anchor anchor-bottom-left"/>
+            <rect v-if="selectedOptionString === enumOptions.select && showAnchors"
+                  :x="(Number(helperStyle.xRaw) + Number(helperStyle.widthRaw) - 4) + 'px'"
+                  :y="(Number(helperStyle.yRaw) + Number( helperStyle.heightRaw) - 4) + 'px'"
+                  :width="8"
+                  :height="8"
+                  class="anchor anchor-bottom-right"/>
         </svg>
         <div v-if="getShowBoxHelper && dragData.length === 0" class="welcome-helper-top">
             <div class="top-helper">
@@ -52,11 +78,25 @@
                 </div>
             </div>
         </div>
-        <div class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.text">
-            <input type="text" placeholder="Enter Some Text"
-                   v-model="helperStyle.text"
-                   :class="[helperClass, helperStyle.id]"
-                   :style="{'color': helperStyle.color, 'top':helperStyle.top, 'left':helperStyle.left}"/>
+        <div :style="{'top':helperStyle.top, 'left':helperStyle.left, 'flex-direction': isRtl ?  'row-reverse': ''}" class="text-helper-container" v-if="helperShow && selectedOptionString === enumOptions.text">
+                <div style="width:240px;height:40px">
+                    <input type="text" v-language:placeholder="'tutor_enter_text'"
+                    v-model="helperStyle.text"
+                    :class="[helperClass, helperStyle.id]"
+                    :style="{'color': helperStyle.color, 'direction':isRtl ? 'rtl' : 'ltr' }"/>
+                </div>
+                <div style="width: 100px;height: 55px;">
+                    <v-select
+                        :items="textScales"
+                        :label="sizeText"
+                        append-icon='sbf-arrow-down'
+                        v-model="fontSize"
+                        item-text='text'
+                        item-value='value'
+                        right
+                    ></v-select>
+                </div>
+            
         </div>
         <div class="equation-helper-container"
              :style="{'color': helperStyle.color, 'top':`${equationSizeY}px`, 'left':`${equationSizeX}px`}"
@@ -74,7 +114,7 @@
                          :formula="`$$${helperStyle.text}$$`"
                          class="math-jax"></vue-mathjax>
                 <div style="align-self: flex-end;">
-                    <v-btn @click="finishEquation" class="white--text" round color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
+                    <v-btn @click="finishEquation" class="white--text" rounded color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
                 </div>
             </div>
             
@@ -87,7 +127,7 @@
              </div>
             <div class="equation-text-area" style="justify-content: space-between;">
                 <div style="align-self: flex-end;">
-                    <v-btn @click="finishEquation" class="white--text" round color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
+                    <v-btn @click="finishEquation" class="white--text" rounded color="#514f7d" v-language:inner="'studyRoom_equation_btn'"/>
                 </div>
             </div>
         </div>
@@ -165,6 +205,9 @@
             pointer-events: none;
             top: 0;
             left: 0;
+            .anchor{
+                fill:#4c59ff;
+            }
             .rectangular-helper {
                 pointer-events: none;
                 position: absolute;
@@ -188,6 +231,14 @@
             }
         }
         .text-helper-container {
+            position:fixed;
+            display:flex;
+            background: #FFF;
+            height: 75px;
+            width: 400px;
+            justify-content: space-around;
+            align-items: center;
+            border-radius: 8px;
             .text-helper {
                 position: fixed;
                 border: 1px solid #7b7b7b;

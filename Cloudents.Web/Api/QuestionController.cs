@@ -19,6 +19,7 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Web.Api
 {
@@ -92,13 +93,20 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
         public async Task<ActionResult<QuestionDetailDto>> GetQuestionAsync(long id,
-            [FromServices] IQueryBus bus, CancellationToken token)
+            [FromServices] IQueryBus bus,
+            [FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
             var query = new QuestionDataByIdQuery(id);
             var retVal = await  bus.QueryAsync(query, token);
             if (retVal == null)
             {
                 return NotFound();
+            }
+            retVal.User.Image = urlBuilder.BuildUserImageEndpoint(retVal.User.Id, retVal.User.Image);
+
+            foreach (var answer in retVal.Answers)
+            {
+                answer.User.Image = urlBuilder.BuildUserImageEndpoint(answer.User.Id, answer.User.Image);
             }
             return retVal;
         }
@@ -128,17 +136,10 @@ namespace Cloudents.Web.Api
         public async Task<IActionResult> FlagAsync([FromBody] FlagQuestionRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            //try
-            //{
             var command = new FlagQuestionCommand(userId, model.Id, model.FlagReason);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
-            //}
-            //catch (NoEnoughScoreException)
-            //{
-            //    ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteNotEnoughScore"]);
-            //    return BadRequest(ModelState);
-            //}
+            
         }
 
 

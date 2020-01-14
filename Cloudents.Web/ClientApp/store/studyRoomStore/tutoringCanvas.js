@@ -64,6 +64,7 @@ const state = {
     tabIndicator: 'tab-0',
     imgLoader: false,
     showBoxHelper: true,
+    fontSize: '40'
 };
 const getters = {
     getDragData: state => state.dragData[state.currentSelectedTab.id],
@@ -88,6 +89,7 @@ const getters = {
     getTabIndicator:state => state.tabIndicator,
     getImgLoader:state => state.imgLoader,
     getShowBoxHelper:state => state.showBoxHelper,
+    getFontSize: state=>state.fontSize
 };
 
 const mutations = {
@@ -174,6 +176,9 @@ const mutations = {
     },
     setShowBoxHelper(state,val){
         state.showBoxHelper = val;
+    },
+    setFontSize(state, val){
+        state.fontSize = val;
     }
 };
 
@@ -253,6 +258,9 @@ const actions = {
     },
     updateShowBoxHelper({commit},val){
         commit('setShowBoxHelper',val);
+    },
+    setFontSize({commit}, val){
+        commit('setFontSize', val);
     }
 };
 export default {

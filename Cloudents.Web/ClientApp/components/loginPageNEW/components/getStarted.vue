@@ -25,7 +25,7 @@
                 </div>
                     <v-btn @click="goWithGoogle()" 
                         :loading="googleLoading" 
-                        large round
+                        large rounded
                         sel="gmail"
                         class="google elevation-5 btn-login">
                         <img src="../images/G icon@2x.png">
@@ -36,7 +36,7 @@
                 <span class="hidden-xs-only or" hidden-xs-only v-language:inner="'loginRegister_getstarted_or'"/>
 
                 <v-btn @click="goWithEmail()" 
-                    large flat round 
+                    large text rounded 
                     sel="email"
                     class="email">
                     <img src="../images/np_email@2x.png">
@@ -61,6 +61,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import insightService from '../../../services/insightService';
+
 // let auth2;
 
 export default {
@@ -86,7 +87,7 @@ export default {
                     return;
             }
                     this.googleLoading = true;
-                    this.googleSigning().then(res=>{},err=>{
+                    this.googleSigning().then(()=>{},err=>{
                         insightService.track.event(insightService.EVENT_TYPES.ERROR, 'signInWithGoogle', err);
                         this.googleLoading = false
                         })
@@ -185,8 +186,9 @@ export default {
             .line-terms{
                 .checkbox-userinfo{
                 .v-input__slot{
-                display: flex;
-                align-items: unset;
+                    display: flex;
+                    align-items: unset;
+                    margin-bottom: 6px;
                     .v-icon{
                         color: @global-blue !important;
                     }
@@ -247,6 +249,7 @@ export default {
                     }
                     .responsive-property(margin-bottom, 0px, null, 20px);
                     color: white;
+                    
                     span{
                         font-size: 16px;
                         color: white;
@@ -256,7 +259,9 @@ export default {
                     .v-btn__loading{
                         color: white;
                     }
-
+                    .v-btn__content {
+                        margin: 0;
+                    }
             }
             &.email{
                 img{
@@ -273,7 +278,11 @@ export default {
                 }
                 background-color: rgba(68, 82, 252, 0.06);
                 border: solid 1px rgba(55, 81, 255, 0.29);
+                .v-btn__content {
+                    margin: 0;
+                }
             }
+            
         }
     }
      }

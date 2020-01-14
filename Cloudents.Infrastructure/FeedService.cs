@@ -18,17 +18,19 @@ namespace Cloudents.Infrastructure
         private readonly IQueryBus _queryBus;
         private readonly ITutorSearch _tutorSearch;
         private readonly IDocumentSearch _searchProvider;
+        private readonly IUrlBuilder _urlBuilder;
         private const int TutorPageSize = 3;
         private const int ItemPageSize = 18;
 
-        public FeedService(IQueryBus queryBus, ITutorSearch tutorSearch, IDocumentSearch searchProvider)
+        public FeedService(IQueryBus queryBus, ITutorSearch tutorSearch, IDocumentSearch searchProvider, IUrlBuilder urlBuilder)
         {
             _queryBus = queryBus;
             _tutorSearch = tutorSearch;
             _searchProvider = searchProvider;
+            _urlBuilder = urlBuilder;
         }
 
-        private static IEnumerable<FeedDto> SortFeed(IList<FeedDto> itemsFeed, IList<TutorCardDto> tutorsFeed, int page)
+        private IEnumerable<FeedDto> SortFeed(IList<FeedDto> itemsFeed, IList<TutorCardDto> tutorsFeed, int page)
         {
             if (itemsFeed == null)
             {
@@ -39,12 +41,35 @@ namespace Cloudents.Infrastructure
                 return itemsFeed;
             }
 
-            var tutorlocationPageZero = new[] { 2, 12, 19 };
-            var tutorlocationPage = new[] { 6, 13, 20 };
+            foreach (var item in itemsFeed)
+            {
+                if (item is DocumentFeedDto d)
+                {
+                    if (d.User != null)
+                    {
+                        d.User.Image = _urlBuilder.BuildUserImageEndpoint(d.User.Id, d.User.Image);
+                    }
+                }
+                else if (item is QuestionFeedDto q)
+                { 
+                    q.User.Image = _urlBuilder.BuildUserImageEndpoint(q.User.Id, q.User.Image);
+                    if (q.FirstAnswer != null)
+                    {
+                        q.FirstAnswer.User.Image = _urlBuilder.BuildUserImageEndpoint(q.FirstAnswer.User.Id, q.FirstAnswer.User.Image);
+                    }
+                }
+            }
+            foreach (var item in tutorsFeed)
+            {
+                item.Image = _urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
+            }
 
-            var locations = new[] { tutorlocationPageZero, tutorlocationPage };
+            var tutorLocationPageZero = new[] { 2, 12, 19 };
+            var tutorLocationPage = new[] { 6, 13, 20 };
 
-            var pageLocations = locations.ElementAtOrDefault(page) ?? tutorlocationPage;
+            var locations = new[] { tutorLocationPageZero, tutorLocationPage };
+
+            var pageLocations = locations.ElementAtOrDefault(page) ?? tutorLocationPage;
 
 
             foreach (var item in pageLocations)
@@ -69,7 +94,6 @@ namespace Cloudents.Infrastructure
             }
 
             var feedQuery = new FeedAggregateQuery(query.UserId, query.Page, query.Filter, query.Country, query.Course, ItemPageSize);
-            Task<IEnumerable<TutorCardDto>> tutorsTask;
             var itemsTask = _queryBus.QueryAsync(feedQuery, token);
 
             //Task<ListWithCountDto<TutorCardDto>> tutorsTask = Task.FromResult<ListWithCountDto<TutorCardDto>>(null);
@@ -88,7 +112,7 @@ namespace Cloudents.Infrastructure
             else
             {
                 var tutorQuery = new TutorListByCourseQuery(query.Course, query.UserId, query.Country, TutorPageSize, query.Page);
-                tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
+                var tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
 
                 await Task.WhenAll(itemsTask, tutorsTask);
 
@@ -119,7 +143,7 @@ namespace Cloudents.Infrastructure
                 Page = query.Page,
             };
 
-            var tutorQuery = new TutorListTabSearchQuery(query.Term, query.Country, query.Page, TutorPageSize);
+            var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, TutorPageSize);
             var tutorTask = _tutorSearch.SearchAsync(tutorQuery, token);
             var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
 

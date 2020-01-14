@@ -56,6 +56,7 @@
     "vue/multiline-html-element-content-newline": "off",
     "vue/mustache-interpolation-spacing": "off",
     "vue/html-closing-bracket-newline": "off",
-    "vue/max-attributes-per-line": "off"
+    "vue/max-attributes-per-line": "off",
+    "no-mixed-spaces-and-tabs": "off"
   }
 }

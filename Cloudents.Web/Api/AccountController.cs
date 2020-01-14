@@ -59,32 +59,25 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(Status200OK)]
         public async Task<ActionResult<UserAccountDto>> GetAsync(
             [FromServices] IQueryBus queryBus,
-            [ClaimModelBinder(AppClaimsPrincipalFactory.Score)] int score,
             [FromServices] ILogger logger,
+            [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserAccountQuery(userId);
             var user = await queryBus.QueryAsync(query, token);
-
-
             if (user == null)
             {
                 await _signInManager.SignOutAsync();
                 logger.Error($"User is null {userId}");
                 return Unauthorized();
             }
-
-            if (user.Score != score)
-            {
-                var regularUser = await _userManager.GetUserAsync(User);
-                await _signInManager.RefreshSignInAsync(regularUser);
-            }
+            user.Image = urlBuilder.BuildUserImageEndpoint(userId, user.Image);
             return user;
         }
 
         [AllowAnonymous, HttpPost("language")]
-        public async Task<IActionResult> ChangeLanguage([FromBody]ChangeCultureRequest model, CancellationToken token)
+        public async Task<IActionResult> ChangeLanguageAsync([FromBody]ChangeCultureRequest model, CancellationToken token)
         {
             var culture = model.Culture;
 
@@ -113,7 +106,7 @@ namespace Cloudents.Web.Api
         /// <param name="token"></param>
         /// <returns>list of courses for a user</returns>
         [HttpGet("courses")]
-        public async Task<IEnumerable<CourseDto>> GetCourses(CancellationToken token)
+        public async Task<IEnumerable<CourseDto>> GetCoursesAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
 
@@ -137,7 +130,7 @@ namespace Cloudents.Web.Api
 
         [HttpGet("referrals")]
         [ResponseCache(Duration = TimeConst.Minute * 30, Location = ResponseCacheLocation.Client)]
-        public async Task<UserReferralsDto> GetReferrals(CancellationToken token)
+        public async Task<UserReferralsDto> GetReferralsAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserReferralsQuery(userId);
@@ -239,10 +232,10 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("coupon")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(Status200OK)]
         [ProducesResponseType(typeof(string), Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> ApplyCoupon(ApplyCouponRequest model, CancellationToken token)
+        public async Task<IActionResult> ApplyCouponAsync(ApplyCouponRequest model, CancellationToken token)
         {
             try
             {
@@ -251,7 +244,7 @@ namespace Cloudents.Web.Api
                 await _commandBus.DispatchAsync(command, token);
                 return Ok(new
                 {
-                    Price = command.newPrice
+                    Price = command.NewPrice
                 });
             }
             catch (ArgumentException)
@@ -279,7 +272,7 @@ namespace Cloudents.Web.Api
                     d.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(d.Id);
                     d.Url = Url.DocumentUrl(d.Course, d.Id, d.Name);
                 }
-                if(s is SessionSaleDto ss)
+                if (s is SessionSaleDto ss)
                 {
                     ss.StudentImage = urlBuilder.BuildUserImageEndpoint(ss.StudentId, ss.StudentImage, ss.StudentName);
                 }
@@ -323,14 +316,29 @@ namespace Cloudents.Web.Api
             });
         }
 
-        [HttpGet("recording")]
-        public async Task<IEnumerable<SessionRecordingDto>> GetSessionRecordingAsync(CancellationToken token)
+        [HttpGet("followers")]
+        public async Task<IEnumerable<FollowersDto>> GetFollowersAsync([FromServices] IUrlBuilder urlBuilder, 
+            CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var query = new SessionRecordingQuery(userId);
-            
-            return await _queryBus.QueryAsync(query, token);
+            var query = new UserFollowersByIdQuery(userId);
+            var result = await _queryBus.QueryAsync(query, token);
+            return result.Select(s =>
+            {
+                s.Image = urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image, s.Name);
+                return s;
+            });
         }
 
-    }
+
+
+//[HttpGet("recording")]
+        //public async Task<IEnumerable<SessionRecordingDto>> GetSessionRecordingAsync(CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var query = new SessionRecordingQuery(userId);
+
+        //    return await _queryBus.QueryAsync(query, token);
+        //}
+        }
 }

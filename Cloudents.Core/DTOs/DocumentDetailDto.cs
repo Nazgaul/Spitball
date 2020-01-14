@@ -1,7 +1,4 @@
-﻿using Cloudents.Core.Enum;
-using System;
-
-namespace Cloudents.Core.DTOs
+﻿namespace Cloudents.Core.DTOs
 {
     public class DocumentDetailDto
     {
@@ -9,6 +6,10 @@ namespace Cloudents.Core.DTOs
         public DocumentFeedDto Document{ get; set; }
         public int Pages { get; set; }
         public bool IsPurchased { get; set; }
+
+        public long? DuplicateId { get; set; }
+
+        public bool ShouldSerializeDuplicateId() => false;
     }
 
     //public class DocumentUserDto 

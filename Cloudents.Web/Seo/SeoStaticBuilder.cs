@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 
 namespace Cloudents.Web.Seo
 {
     public class SeoStaticBuilder : IBuildSeo
     {
-        private readonly LinkGenerator _linkGenerator;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public SeoStaticBuilder(LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        public SeoStaticBuilder(IHttpContextAccessor httpContextAccessor)
         {
-            _linkGenerator = linkGenerator;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IEnumerable<SitemapNode> GetUrls(int index)
+        public IEnumerable<SitemapNode> GetUrls(bool isFrymo, int index)
         {
             yield return new SitemapNode(GetBaseUrl())
             {

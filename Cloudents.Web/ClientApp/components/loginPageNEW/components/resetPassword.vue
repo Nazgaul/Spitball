@@ -22,7 +22,7 @@
 
         <v-btn  type="submit"
                 :loading="loading"
-                large round 
+                large rounded 
                 class="white--text btn-login">
                 <span v-language:inner="'loginRegister_resetpass_btn'"></span>
                 </v-btn>
@@ -59,15 +59,17 @@ export default {
         passHint(){
 			if(this.password.length > 0){
 			let passScoreObj = this.getPassScoreObj
-				this.score = global.zxcvbn(this.password).score;
+				this.changeScore()
 				return `${passScoreObj[this.score].name}`
-			}
+            }
+            return null
         },
         hintClass(){
 			let passScoreObj = this.getPassScoreObj
 			if(this.passHint){
 				return passScoreObj[this.score].className;
-			} 
+            } 
+            return null;
         }
     },
     methods: {
@@ -80,6 +82,9 @@ export default {
                 confirmPassword: this.confirmPassword
             }
             this.changePassword(paramsObj)
+        },
+        changeScore() {
+            this.score = global.zxcvbn(this.password).score;
         }
     },
     created(){

@@ -26,7 +26,8 @@ namespace Cloudents.Query.Query.Admin
 
             public async Task<IEnumerable<StudyRoomDto>> GetAsync(AdminStudyRoomQuery query, CancellationToken token)
             {
-                var sql = @"Select	T.[name] TutorName, 
+                var sql = @"Select	S.Id as SessionId,
+                                    T.[name] TutorName, 
 		                            U.[Name] UserName, 
 		                            S.created Created, 
 		                            isnull(cast(DATEDIFF(minute, s.Created, s.Ended) as nvarchar(10)), 'OnGoing') Duration,

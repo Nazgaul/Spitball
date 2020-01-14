@@ -14,6 +14,9 @@ const state = {
     selectedCourse:'',
     moreTutors:true,
     currentTutorPhoneNumber: null,
+    guestName: '',
+    guestMail: '',
+    guestPhone: ''
 };
 
 const getters = {
@@ -25,6 +28,9 @@ const getters = {
     getSelectedCourse: state => state.selectedCourse,
     getMoreTutors: state => state.moreTutors,
     getCurrentTutorPhoneNumber: state => state.currentTutorPhoneNumber,
+    getGuestName: state => state.guestName,
+    getGuestMail: state => state.guestMail,
+    getGuestPhone: state => state.guestPhone,
 };
 
 const mutations = {
@@ -52,13 +58,25 @@ const mutations = {
         state.courseDescription = '';
         state.selectedCourse = '';
         state.moreTutors = true;
-        state.currentTutorPhoneNumber = null
+        state.currentTutorPhoneNumber = null;
+        state.guestName = '';
+        state.guestMail = '';
+        state.guestPhone = '';
     },
     setMoreTutors(state, val) {
         state.moreTutors = val;
     },
     setCurrentTutorPhoneNumber(state, number) {
         state.currentTutorPhoneNumber = number;
+    },
+    setGuestName(state, name) {
+        state.guestName = name;
+    },
+    setGuestMail(state, mail) {
+        state.guestMail = mail;
+    },
+    setGuestPhone(state, phone) {
+        state.guestPhone = phone;
     },
 };
 
@@ -120,7 +138,16 @@ const actions = {
     },
     updateMoreTutors({commit},val){
         commit('setMoreTutors',val);
-    }
+    },
+    setGuestName({commit}, name) {
+        commit('setGuestName', name)
+    },
+    setGuestMail({commit}, mail) {
+        commit('setGuestMail', mail)
+    },
+    setGuestPhone({commit}, phone) {
+        commit('setGuestPhone', phone)
+    },
 
 };
 export default {

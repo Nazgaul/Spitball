@@ -1,9 +1,6 @@
 <template>
    <div class="dashboardPage">
       <component :dictionary="dictionary" :globalFunctions="globalFunctions" :is="component">
-         <template slot="tableFooter">
-            <tableFooter/>
-         </template>
          <template slot="tableEmptyState">
             <tableEmptyState/>
          </template>
@@ -30,9 +27,9 @@ import myContent from './myContent/myContent.vue';
 import myPurchases from './myPurchases/myPurchases.vue';
 import myStudyRooms from './myStudyRooms/myStudyRooms.vue';
 import myCalendar from './myCalendar/myCalendar.vue';
+import myFollowers from './myFollowers/myFollowers.vue';
 
 import tableEmptyState from './global/tableEmptyState.vue';
-import tableFooter from './global/tableFooter.vue';
 
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
@@ -77,7 +74,10 @@ export default {
                'points': {text: LanguageService.getValueByKey('wallet_Tokens'), align:'center', sortable: true, value:'points'},
                'value': {text: LanguageService.getValueByKey('wallet_Value'), align:'center', sortable: true, value:'value'},
                'student_tutor': {text: LanguageService.getValueByKey('dashboardPage_student_tutor'), align:'left', sortable: true, value:'name'},
-               'last_date': {text: LanguageService.getValueByKey('dashboardPage_last_date'), align:'left', sortable: true, value:'date'},
+               'created': {text: LanguageService.getValueByKey('studyRoom_created'), align:'left', sortable: true, value:'date'},
+               'last_date': {text: LanguageService.getValueByKey('dashboardPage_last_date'), align:'left', sortable: true, value:'lastSession'},
+               'joined': {text: LanguageService.getValueByKey('dashboardPage_joined'), align:'left', sortable: true, value:'date'},
+               'name': {text: LanguageService.getValueByKey('dashboardPage_name'), align:'left', sortable: true, value:'name'},
             }
          },
          globalFunctions:{
@@ -86,6 +86,7 @@ export default {
             formatPrice: this.formatPrice,
             router: this.dynamicRouter,
             '$Ph': this.$Ph,
+            strToACII: this.strToACII
          }
       }
    },
@@ -95,14 +96,13 @@ export default {
       myPurchases,
       myStudyRooms,
       myCalendar,
-
+      myFollowers,
       changeNameDialog,
       changePriceDialog,
       changeCalendarList,
       changeCalendarAvailability,
       sbDialog,
       tableEmptyState,
-      tableFooter
    },
    computed: {
       ...mapGetters(['accountUser'])
@@ -131,6 +131,9 @@ export default {
          if(item.conversationId){
             return {name: 'profile',params: {id: item.userId, name: item.name}}
          }
+         if(item.userId && !item.conversationId && !item.type){
+            return {name: 'profile',params: {id: item.userId, name: item.name}}
+         }
       },
       formatImg(item){
          if(item.preview){
@@ -154,6 +157,13 @@ export default {
          if(type === 'TutoringSession'){
             return `${price} ${this.accountUser.currencySymbol}`
          }
+      },
+      strToACII(name) {
+         let sum = 0;
+         for (let i in name) {
+            sum += name.charCodeAt(i);
+         }
+         return sum % 11
       },
    }
 

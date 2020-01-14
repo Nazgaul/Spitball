@@ -10,7 +10,7 @@ function itemTypeChcker(type){
    if(type.toLowerCase() === 'tutoringsession'){
       return 'Session';
    }
-   return console.error('type:',type,'is not defined')
+   return console.error('type:',type,'is not defined');
 }
 
 const Item = {
@@ -47,26 +47,33 @@ const Item = {
       this.symbol = objInit.symbol;
    },
    StudyRoom:function(objInit){
+      this.online = objInit.online;
+      this.id = objInit.id;
+      this.conversationId = objInit.conversationId;
+      this.lastSession = objInit.lastSession;
+   },
+   User:function(objInit){
       this.name = objInit.name;
       this.image = objInit.image;
       this.userId = objInit.userId;
-      this.online = objInit.online;
-      this.id = objInit.id;
-      this.date = objInit.dateTime;
-      this.conversationId = objInit.conversationId;
+      this.date = objInit.dateTime || objInit.created;
+   },
+   Follower:function(objInit){
+      this.email = objInit.email;
+      this.phoneNumber = objInit.phoneNumber;
    }
-}
-
+};
 function StudyRoomItem(objInit){
    return Object.assign(
+      new Item.User(objInit),
       new Item.StudyRoom(objInit)
-   )
+   );
 }
 function ContentItem(objInit){
    return Object.assign(
       new Item.Default(objInit),
       new Item[itemTypeChcker(objInit.type)](objInit)
-   )
+   );
 }
 function SalesItem(objInit){
    return Object.assign(
@@ -75,16 +82,22 @@ function SalesItem(objInit){
       {
          paymentStatus: objInit.paymentStatus,
       }
-   )
+   );
 }
 function PurchasesItem(objInit){
    return Object.assign(
       new Item.Default(objInit),
       new Item[itemTypeChcker(objInit.type)](objInit)
-   )
+   );
 }
 function BalancesItems(objInit){
-   return new Item.Balances(objInit)
+   return new Item.Balances(objInit);
+}
+function FollowersItem(objInit){
+   return Object.assign(
+      new Item.User(objInit),
+      new Item.Follower(objInit)
+   )
 }
 function createSalesItems({data}) {
    let salesItems = [];
@@ -111,20 +124,28 @@ function createStudyRoomItems({data}) {
    data.map(item => studyRoomItems.push(new StudyRoomItem(item)));
    return studyRoomItems;
 }
+function createFollowersItems({data}) {
+   let followersItems = [];
+   data.map(item => followersItems.push(new FollowersItem(item)));
+   return followersItems;
+}
 function getSalesItems(){
-   return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex)
+   return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex);
 }
 function getContentItems(){
-   return connectivityModule.http.get('/Account/content').then(createContentItems).catch(ex => ex)
+   return connectivityModule.http.get('/Account/content').then(createContentItems).catch(ex => ex);
 }
 function getPurchasesItems(){
-   return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex)
+   return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex);
 }
 function getBalancesItems(){
-   return connectivityModule.http.get('Wallet/balance').then(createBalancesItems).catch(ex => ex)
+   return connectivityModule.http.get('Wallet/balance').then(createBalancesItems).catch(ex => ex);
 }
 function getStudyRoomItems(){
-   return connectivityModule.http.get('StudyRoom').then(createStudyRoomItems).catch(ex => ex)
+   return connectivityModule.http.get('StudyRoom').then(createStudyRoomItems).catch(ex => ex);
+}
+function getFollowersItems(){
+   return connectivityModule.http.get('/Account/followers').then(createFollowersItems).catch(ex => ex);
 }
 
 export default {
@@ -133,4 +154,5 @@ export default {
    getPurchasesItems,
    getBalancesItems,
    getStudyRoomItems,
+   getFollowersItems
 }

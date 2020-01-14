@@ -30,29 +30,30 @@
 
         <v-menu
           class="menu-area"
-          lazy
           bottom
           left
           content-class="card-user-actions"
           v-model="showMenu"
         >
-          <v-btn
-            :depressed="true"
-            @click.native.stop.prevent="showReportOptions()"
-            slot="activator"
-            icon
-          >
-            <v-icon>sbf-3-dot</v-icon>
-          </v-btn>
+          <template v-slot:activator="{  }">  
+            <v-btn
+              class="menu-area-btn"
+              :depressed="true"
+              @click.native.stop.prevent="showReportOptions()"
+              icon
+            >
+              <v-icon>sbf-3-dot</v-icon>
+            </v-btn>
+          </template>
           <v-list>
-            <v-list-tile
-              v-show="item.isVisible(item.visible)"
-              :disabled="item.isDisabled()"
-              v-for="(item, i) in actions"
+            <v-list-item
+              v-for="(prop, i) in actions"
+              v-show="prop.isVisible(prop.visible)"
+              :disabled="prop.isDisabled()"
               :key="i"
             >
-              <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
-            </v-list-tile>
+              <v-list-item-title style="cursor:pointer;" @click="prop.action()">{{ prop.title }}</v-list-item-title>
+            </v-list-item>
           </v-list>
         </v-menu>
       </div>
@@ -71,7 +72,7 @@
         />
         <div class="document-body-card">
           <span v-show="(isVideo && item.itemDuration) && isPreviewReady" class="videoType">
-            <vidSVG class="vidSvg" />
+            <vidSVG  />
             <span class="vidTime">{{item.itemDuration}}</span>
           </span>
           <img
@@ -86,19 +87,19 @@
       <div class="type-wrap" :class="{'type-wrap--noPadding': fromItemPage}">
         <v-flex grow class="data-row">
           <div class="content-wrap">
-            <span class="item-title text-truncate">{{item.title}}</span>
-            <span
-              class="item-course text-truncate"
-              v-html="$Ph('resultNote_course',[item.course])"
-            />
-            <span
-              class="item-university text-truncate"
-              v-html="$Ph('resultNote_university',[item.university])"
-            />
+            <h1 class="item-title text-truncate">{{item.title}}</h1>
+            <span class="item-course text-truncate">
+              <span class="item-course" v-language:inner="'resultNote_course'"/>
+              <h2 class="item-course">{{item.course}}</h2>
+            </span>
+            <span v-if="item.university" class="item-university text-truncate">
+              <span class="item-university" v-language:inner="'resultNote_university'"/>
+              <h3 class="item-university">{{item.university}}</h3>
+            </span>
           </div>
           <v-divider v-show="item.snippet" class="my-2"></v-divider>
           <div class="doc-snippet" v-show="item.snippet">
-            <span class="doc-snippet-span">{{item.snippet}}</span>
+            <h6 class="doc-snippet-h6">{{item.snippet}}</h6>
           </div>
         </v-flex>
       </div>
@@ -168,7 +169,7 @@
             <span class="change-title" v-language:inner>resultNote_change_for</span>
             <span class="change-title" style="max-width: 150px;">&nbsp;"{{item.title}}"</span>
           </div>
-          <div class="input-wrap row align-center justify-center">
+          <div class="input-wrap align-center justify-center">
             <div class="price-wrap">
               <vue-numeric
                 :currency="currentCurrency"
@@ -208,7 +209,6 @@ import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import reportItem from "./helpers/reportItem/reportItem.vue";
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
-import SbInput from "../question/helpers/sbInput/sbInput";
 import documentService from "../../services/documentService";
 import likeSVG from "./img//like.svg";
 import likeFilledSVG from "./img/like-filled.svg";
@@ -217,7 +217,6 @@ import vidSVG from "./svg/vid.svg";
 
 export default {
   components: {
-    SbInput,
     sbDialog,
     reportItem,
     userAvatar,
@@ -306,26 +305,36 @@ export default {
     authorName() {
       if (!!this.item.user) {
         return this.item.user.name;
+      }else{
+        return null;
       }
     },
     authorId() {
       if (!!this.item && !!this.item.user && !!this.item.user.id) {
         return this.item.user.id;
+      }else{
+        return null;
       }
     },
     docViews() {
       if (this.item) {
         return this.item.views;
+      }else{
+        return null;
       }
     },
     docDownloads() {
       if (this.item) {
         return this.item.downloads;
+      }else{
+        return null;
       }
     },
     docPurchased() {
       if (this.item) {
         return this.item.purchased;
+      }else{
+        return null;
       }
     },
     uploadDate() {
@@ -381,7 +390,6 @@ export default {
       "updateLoginDialogState",
       "updateToasterParams",
       "removeItemFromProfile",
-      "syncProfile",
       "documentVote",
       "removeItemFromList",
       "removeDocItemAction"
@@ -408,7 +416,7 @@ export default {
       let data = { id: this.item.id, price: this.newPrice };
       let self = this;
       documentService.changeDocumentPrice(data).then(
-        success => {
+        () => {
           self.updateItemPrice(self.newPrice);
           self.closeNewPriceDialog();
         },
@@ -449,7 +457,7 @@ export default {
     deleteDocument() {
       let id = this.item.id;
       documentService.deleteDoc(id).then(
-        success => {
+        () => {
           this.updateToasterParams({
             toasterText: LanguageService.getValueByKey(
               "resultNote_deleted_success"
@@ -461,7 +469,7 @@ export default {
           let objToDelete = { id: parseInt(id) };
           this.removeDocItemAction(objToDelete);
         },
-        error => {
+        () => {
           this.updateToasterParams({
             toasterText: LanguageService.getValueByKey(
               "resultNote_error_delete"

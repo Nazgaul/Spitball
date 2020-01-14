@@ -65,6 +65,10 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
         }
 
       
@@ -135,6 +139,10 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync(_uri.Path);
 
             response.Should().NotBeNull();
+
+            var str = await response.Content.ReadAsStringAsync();
+
+            str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
         }
 
     }

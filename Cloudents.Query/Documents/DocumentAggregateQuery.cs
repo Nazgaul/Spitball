@@ -58,6 +58,7 @@ select top 1 * from(select 1 as o, u2.Id as UniversityId, COALESCE(u2.country, u
     order by o
 )
 
+
 select R.*
 from
 (
@@ -73,7 +74,7 @@ select 'd' as type
 , un.Name as University
 , u.Id as 'User.Id'
 , u.Name as 'User.Name'
-, u.Image as 'User.Image'
+, u.ImageName as 'User.Image'
 , un.Id as UniversityId
 , COALESCE(d.description,metaContent) as Snippet
 , d.Name as Title
@@ -83,15 +84,14 @@ select 'd' as type
 , (select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as 'Vote.Vote'
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration
-,d.DocumentType as documentType for json path) as JsonArray
+,d.DocumentType as documentType for json path) as JsonArray,
+case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo,
+case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId
 ,cte
 where
-   
-
-
  un.country = cte.country
 and d.State = 'Ok'
 and d.courseName = @course
@@ -110,28 +110,26 @@ q.Updated as DateTime,
 q.Language as CultureInfo
 --TODO from cross join
 ,x.Id as 'FirstAnswer.User.Id'
-,x.Image as 'FirstAnswer.User.Image'
+,x.ImageName as 'FirstAnswer.User.Image'
 ,x.Name as 'FirstAnswer.User.Name'
 ,x.Text as 'FirstAnswer.Text'
 ,x.Created as 'FirstAnswer.DateTime'
 ,u.Id as 'User.Id'
 ,u.Name as 'User.Name'
-,u.Image as 'User.Image'
-,'Question' as documentType for json path) JsonArray
-
+,u.ImageName as 'User.Image'
+,'Question' as documentType for json path) JsonArray,
+0 as IsVideo,
+case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
 join sb.University un on q.UniversityId = un.Id
 outer apply (
-select top 1 text, u.id, u.name, u.image, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
+select top 1 text, u.id, u.name, u.ImageName, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
-
 ) as x
 ,cte
-
 where
-   
  un.country = cte.country
 and q.courseId = @course
 
@@ -139,8 +137,11 @@ and q.State = 'Ok'
   ) R,
   cte
 order by
-case when R.UniversityId = cte.UniversityId then 3 else 0 end  +
-cast(1 as float)/ISNULL(nullif(DATEDiff(minute, R.DateTime, GetUtcDATE()   ),0),1) desc
+
+case when R.UniversityId = cte.UniversityId then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
+DATEDiff(hour, R.DateTime, GetUtcDATE()) +
+case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
+case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
                 const string sqlWithoutCourse = @"with cte as (
@@ -168,7 +169,7 @@ select 'd' as type
 ,un.Name as University
 ,u.Id as 'User.Id'
 ,u.Name as 'User.Name'
-,u.Image as 'User.Image'
+,u.ImageName as 'User.Image'
 ,un.Id as UniversityId
 ,COALESCE(d.description,metaContent) as Snippet
 ,d.Name as Title
@@ -178,7 +179,9 @@ select 'd' as type
 ,(select v.VoteType from sb.Vote v where v.DocumentId = d.Id and v.UserId = cte.userid) as 'Vote.Vote'
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration
-,d.DocumentType as documentType for json path) as JsonArray
+,d.DocumentType as documentType for json path) as JsonArray,
+case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo,
+case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId
@@ -202,21 +205,22 @@ q.Updated as DateTime,
 q.Language as CultureInfo
 --TODO from cross join
 ,x.Id as 'FirstAnswer.User.Id'
-,x.Image as 'FirstAnswer.User.Image'
+,x.ImageName as 'FirstAnswer.User.Image'
 ,x.Name as 'FirstAnswer.User.Name'
 ,x.Text as 'FirstAnswer.Text'
 ,x.Created as 'FirstAnswer.DateTime'
 ,u.Id as 'User.Id'
 ,u.Name as 'User.Name'
-,u.Image as 'User.Image'
+,u.ImageName as 'User.Image'
 ,'Question' as documentType for json path) JsonArray
-
+, 0 as IsVideo,
+case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
 join sb.University un on q.UniversityId = un.Id
 outer apply (
-select  top 1 text,u.id,u.name,u.image, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
+select  top 1 text,u.id,u.name,u.ImageName, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 
 ) as x
@@ -230,9 +234,11 @@ and q.State = 'Ok'
   ) R,
   cte
 order by
-case when R.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 4 else 0 end +
-case when R.UniversityId = cte.UniversityId then 3 else 0 end  +
-cast(1 as float)/ISNULL(nullif( DATEDIFF(minute, R.DateTime, GETUTCDATE()   ),0),1) desc
+case when R.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 0 else DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())*2 end +
+case when R.UniversityId = cte.UniversityId then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
+DATEDiff(hour, R.DateTime, GetUtcDATE()) +
+case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
+case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
 

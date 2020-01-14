@@ -1,7 +1,7 @@
 import { mapGetters, mapMutations } from "vuex";
 import { page } from "../../services/navigation/vertical-navigation/nav";
-import MobileSortAndFilter from '../SortAndFilter/MobileSortAndFilter.vue';
-import SortAndFilter from '../SortAndFilter/SortAndFilter.vue';
+import mobileSortAndFilter from '../SortAndFilter/MobileSortAndFilter.vue';
+import sortAndFilter from '../SortAndFilter/SortAndFilter.vue';
 
 
 export default {
@@ -11,7 +11,7 @@ export default {
             filtersDefault: {}
         };
     },
-    components: {SortAndFilter, MobileSortAndFilter},
+    components: {SortAndFilter: sortAndFilter, MobileSortAndFilter: mobileSortAndFilter},
 
     props: {
         name: {type: String},

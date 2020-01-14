@@ -1,27 +1,34 @@
 <template>
-        <v-layout class="calendar-section mt-3">
-            <v-flex xs12>
-                <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"/>
-                <v-card class="elevation-0 caltab" v-if="isReady">
-                    <calendar v-if="getShowCalendar"/>
-                    <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
-                </v-card>
-                <v-card class="elevation-0 caltab safdsfsfd" v-show="studentEmptyState">
-                    <span v-language:inner="'calendar_empty_state_student'"></span>
-                </v-card>
-            </v-flex>
-        </v-layout>
+    <v-layout class="calendar-section mt-4">
+        <v-icon @click="globalFunctions.closeCalendar()" class="close-btn">sbf-close</v-icon>
+        <v-flex xs12>
+            <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"/>
+            <v-card class="elevation-0 caltab" v-if="isReady">
+                <calendar v-if="getShowCalendar"/>
+                <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
+            </v-card>
+            <v-card class="elevation-0 caltab safdsfsfd" v-show="studentEmptyState">
+                <span v-language:inner="'calendar_empty_state_student'"></span>
+            </v-card>
+        </v-flex>
+    </v-layout>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import calendar from './calendar.vue'
 import calendarEmptyState from './calendarEmptyState.vue'
-import {LanguageService} from '../../services/language/languageService.js'
+//import {LanguageService} from '../../services/language/languageService.js'
 export default {
     components:{
         calendar,
         calendarEmptyState
+    },
+    props:{
+        globalFunctions:{
+            type: Object,
+            required:true
+        }
     },
     data() {
         return {
@@ -64,6 +71,16 @@ export default {
 <style lang="less">
     @import '../../styles/mixin.less';
     .calendar-section {
+        
+        .close-btn{
+            cursor: pointer;
+            position: absolute;
+            font-size: 12px !important;
+            z-index: 6;
+            right: 0;
+            padding-right: 16px;
+            padding-top: 16px;
+        }
 
         @media (max-width: @screen-xs) {
             box-shadow: none;

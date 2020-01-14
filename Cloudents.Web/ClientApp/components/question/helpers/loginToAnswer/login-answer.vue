@@ -11,8 +11,8 @@
                 </div>
             </div>
             <div class="btn-container">
-                <a  class="login-btns body-1" @click="goToSignIn()" v-language:inner>loginAnswer_login</a>
-                <a  class="login-btns body-1" @click="goToRegister()" v-language:inner>loginAnswer_Sign_Up</a>
+                <a  class="login-btns" @click="goToSignIn()" v-language:inner>loginAnswer_login</a>
+                <a  class="login-btns" @click="goToRegister()" v-language:inner>loginAnswer_Sign_Up</a>
             </div>
         </div>
     </v-card>

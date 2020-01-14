@@ -1,97 +1,100 @@
 <template>
-    <div class="panding-question-container">
-        <div class="container">
-            <v-layout justify-center>
-                <v-flex xs12 style="background: #ffffff; max-width: 960px; min-width: 960px;">
-                    <v-toolbar color="indigo" class="heading-toolbar" :height="'64px'" dark>
-                        <v-toolbar-title>Pending Questions</v-toolbar-title>
-                    </v-toolbar>
-                    <v-card v-for="(question, index) in questions" :key="index" style="padding: 0 12px;">
-                        <v-toolbar class="question-toolbar mt-4 back-color-purple">
-                            <v-toolbar-title class="question-text-title cursor-default">
-                                {{question.text}}
-                            </v-toolbar-title>
-                            <v-spacer></v-spacer>
-                            <div class="user-email"  @click="doCopy(question.user.email, 'User Email')">
-                                <span>{{question.user.email}}</span>
-                            </div>
-                            <div class="user-id ml-2"  @click="doCopy(question.user.id, 'User ID')">
-                                <span>User ID:{{question.user.id}}</span>
-                            </div>
-                            <div class="question-actions-container">
-                                <v-tooltip left>
-                                <v-btn slot="activator" icon @click="declineQuestion(question, index)">
-                                    <v-icon color="red">close</v-icon>
-                                </v-btn>
-                                    <span>Delete</span>
-                                </v-tooltip>
-                                <v-tooltip left>
-                                <v-btn slot="activator" icon @click="aproveQ(question, index)">
-                                    <v-icon color="green">done</v-icon>
-                                </v-btn>
-                                    <span>Accept</span>
-                                </v-tooltip>
-                            </div>
-                        </v-toolbar>
-                    </v-card>
-                </v-flex>
-            </v-layout>
-            <div v-if="loading">Loading questions, please wait...</div>
-            <div v-show="questions.length === 0 && !loading">No more pending questions</div>
-        </div>
+    <div class="pendingQuestions">
+        <h1 class="text-xs-center mb-4">Pending Questions</h1>
+        <v-data-table
+            :headers="headers"
+            :items="questions"
+            class="pendingQuestions_table mx-3"
+            disable-initial-sort
+            :loading="loading"
+            :rows-per-page-items="[25, 50, 100,{text: 'All', value:-1}]">
 
+            <template slot="items" slot-scope="props">
+                <td class="pendingQuestions_item">{{props.item.text}}</td>
+                <!-- <td class="pendingQuestions_item">{{props.item.user.email}}</td> -->
+                <td class="pendingQuestions_item"><router-link :to="{name: 'userMainView', query: {id: props.item.user.id}}" target="_blank">{{props.item.user.id}}</router-link></td>
+                <td class="pendingQuestions_item">
+                    <v-tooltip top>
+                        <v-btn slot="activator" icon @click="declineQuestion(props.item, props.index)">
+                            <v-icon color="red">close</v-icon>
+                        </v-btn>
+                        <span>Delete question</span>
+                    </v-tooltip>
+                    <v-tooltip top>
+                        <v-btn slot="activator" icon @click="aproveQ(props.item, props.index)">
+                            <v-icon color="green">done</v-icon>
+                        </v-btn>
+                        <span>Approve question</span>
+                    </v-tooltip>
+                </td>
+            </template>
+        </v-data-table>
     </div>
 </template>
 
-<script src="./pendingQuestions.js"></script>
+<script>
+import {getAllQuesitons, aproveQuestion} from './pendingQuestionsService'
+import {deleteQuestion} from '../delete/deleteQuestionService'
 
-<style lang="less" scoped>
-    .user-id, .user-email {
-        cursor: pointer;
+export default {
+    name: 'pendingQuestions',
+    components: {},
+    data: () => ({
+        headers: [
+            {text: 'Question', value: 'question', sortable: false},
+            // {text: 'Email', value: 'email', sortable: false},
+            {text: 'User Id', value: 'userId', sortable: false},
+            {text: 'Actions', value: 'actions', sortable: false}
+        ],
+        questions: [],
+        loading: true
+    }),
+    methods:{
+        doCopy(id, type){
+            let dataType = type || '';
+            let self = this;
+            this.$copyText(id).then(() => {
+                self.$toaster.success(`${dataType} Copied` );
+            }, () => {
+            });
+
+        },
+        aproveQ(question, index){ 
+            aproveQuestion(question.id).then(()=>{
+                this.questions.splice(index, 1);
+                this.$toaster.success(`Question Aproved`);
+            }, ()=>{
+                this.$toaster.error(`Question Aproved Failed`);
+            });
+        },
+        declineQuestion(question, index){
+            let id = question.id;
+            deleteQuestion([id]).then(()=>{
+                this.questions.splice(index, 1);
+                this.$toaster.success(`Question Declined`);
+            }, ()=>{
+                this.$toaster.error(`Question Declined Failed`);
+            });
+        }   
+    },
+    created(){
+        getAllQuesitons().then((questionsResp)=>{
+            this.questions = questionsResp;
+            this.loading = false;
+        });
     }
-    .cursor-default{
-        cursor: default!important;
-    }
-    .v-list__tile__content {
-        &.answers-content {
-            .v-list__tile__sub-title {
-                &.answer-subtitle {
-                    color: rgba(0, 0, 0, .87);
-                    white-space: pre-line;
-                    padding: 8px;
+}
+</script>
+
+<style lang="less">
+    .pendingQuestions {
+        width: 100%;
+        .pendingQuestions_table {
+            thead {
+                th {
+                    width: 30% !important;
                 }
             }
         }
     }
-
-    .question-actions-container {
-        visibility: hidden;
-    }
-
-    .question-toolbar, .v-card {
-        max-width: 1280px;
-        &:hover {
-            .question-actions-container {
-                visibility: visible;
-            }
-        }
-    }
-    .question-toolbar {
-        cursor: default;
-        .v-toolbar__content {
-            height: auto !important;
-            text-align: left;
-            padding: 12px 24px;
-        }
-    }
-
-    .question-text-title {
-        //white-space: pre-line;
-        cursor: default;
-    }
-
-    .panding-question-container {
-        margin: 0 auto;
-    }
-
 </style>

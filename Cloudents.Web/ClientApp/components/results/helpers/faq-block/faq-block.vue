@@ -3,7 +3,7 @@
         <v-flex xs12 class="card-block">
             <marketing-box/>
         </v-flex>
-        <v-flex v-if="!!suggestList[name]" xs12 class="card-block mt-3">
+        <v-flex v-if="!!suggestList[name]" xs12 class="card-block mt-4">
         </v-flex>
     </v-flex>
 </template>
@@ -11,16 +11,11 @@
 
 <script>
     import {suggestList} from "./../../consts"
-    import help from "../../../../services/satelliteService";
     import {mapGetters, mapActions } from 'vuex';
-    import uploadFilesBtn from "../uploadFilesBtn/uploadFilesBtn.vue";
     import marketingBox from "../../../helpers/marketingBox/marketingBox.vue";
-    import tutorList from "../../../helpers/tutorList/tutorList.vue";
     export default {
         components:{
-            uploadFilesBtn,
             marketingBox,
-            tutorList
         },
         data() {
             return {

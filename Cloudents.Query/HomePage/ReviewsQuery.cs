@@ -47,7 +47,7 @@ namespace Cloudents.Query.HomePage
                         {
                             Text = s.review.Review,
                             UserName = s.review.User.Name,
-                            TutorImage = s.tutor.Image,
+                            TutorImage = s.tutor.ImageName,
                             TutorName = s.tutor.Name,
                             TutorReviews = s.tutor.Rate.GetValueOrDefault(),
                             TutorCount = s.tutor.RateCount,

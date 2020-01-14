@@ -53,7 +53,7 @@ namespace Cloudents.Query.HomePage
                     {
                         Id = s.User.Id,
                         Name = s.User.Name,
-                        Image = s.User.Image
+                        Image = s.User.ImageName
                     },
                     Views = s.Views,
                     Downloads = s.Downloads,

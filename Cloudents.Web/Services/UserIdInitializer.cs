@@ -63,7 +63,7 @@ namespace Cloudents.Web.Services
                             //telemetry.Context.Session.Id = val.Value;
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
 
                         //_logger.Value.TrackException(ex);

@@ -2,8 +2,8 @@
   <section class="setEmailPassword">
     <p v-language:inner="'loginRegister_setemailpass_title'"/>
     <form @submit.prevent="submit">
-      <v-layout row wrap justify-space-between class="widther mb-4">
-        <v-flex xs6 class="pr-3">
+      <v-layout wrap justify-space-between class="widther mb-6">
+        <v-flex xs6 class="pr-4">
           <sb-input v-model="firstName"
                     placeholder="loginRegister_setemailpass_first"
                     :bottomError="true"
@@ -12,7 +12,7 @@
                     name="firstName"
                     type="text"/>
         </v-flex>
-        <v-flex xs6 class="pl-3">
+        <v-flex xs6 class="pl-4">
           <sb-input v-model="lastName"
                     placeholder="loginRegister_setemailpass_last"
                     :bottomError="true"
@@ -36,7 +36,7 @@
 
       <sb-input
         v-model="password"
-        :class="['mt-4', hintClass,'widther']"
+        :class="['mt-6', hintClass,'widther']"
         :hint="passHint"
         placeholder="loginRegister_setemailpass_input_pass"
         :errorMessage="errorMessages.password"
@@ -47,7 +47,7 @@
       />
 
       <sb-input
-        class="mt-4 widther"
+        class="mt-6 widther"
         :errorMessage="errorMessages.confirmPassword"
         :bottomError="true"
         v-model="confirmPassword"
@@ -59,7 +59,7 @@
 
       <vue-recaptcha
         size="invisible"
-        class="mt-4 captcha"
+        class="mt-6 captcha"
         :sitekey="siteKey"
         ref="recaptcha"
         @verify="onVerify"
@@ -67,7 +67,7 @@
       />
 
       <v-btn type="submit" :loading="isEmailLoading" 
-             large round class="ctnBtn white--text btn-login">
+             large rounded class="ctnBtn white--text btn-login">
 
         <span v-language:inner="'loginRegister_setemailpass_btn'"></span>
       </v-btn>
@@ -105,13 +105,13 @@ export default {
     };
   },
   watch: {
-    password: function(val){
+    password: function(){
         this.setErrorMessages({})
     },
-    confirmPassword: function(val){
+    confirmPassword: function(){
         this.setErrorMessages({})
     },
-    firstName: function(val){
+    firstName: function(){
       this.firstNameError ='';
       let fullNameObj = {
         firstName: this.firstName,
@@ -119,7 +119,7 @@ export default {
       }
       this.updateName(fullNameObj)
     },
-    lastName: function(val){
+    lastName: function(){
       this.lastNameError ='';
       let fullNameObj = {
         firstName: this.firstName,
@@ -134,9 +134,10 @@ export default {
     passHint() {
       if (this.password.length > 0) {
         let passScoreObj = this.getPassScoreObj;
-        this.score = global.zxcvbn(this.password).score;
+        this.changeScore()
         return `${passScoreObj[this.score].name}`;
       }
+      return null
     },
     errorMessages() {
       return this.getErrorMessages;
@@ -158,6 +159,7 @@ export default {
       if (this.passHint) {
         return passScoreObj[this.score].className;
       }
+      return null
     }
   },
   methods: {
@@ -177,7 +179,7 @@ export default {
         confirmPassword: this.confirmPassword,
         recaptcha: this.recaptcha
       }
-      this.emailSigning(paramObj).then(response => {},err => {
+      this.emailSigning(paramObj).then(() => {},() => {
         this.$refs.recaptcha.reset()
         });
     },
@@ -192,6 +194,9 @@ export default {
           this.lastNameError = `${LanguageService.getValueByKey("formErrors_min_chars")} ${2}`
         }
       }
+    },
+    changeScore() {
+      this.score = global.zxcvbn(this.password).score;
     }
   },
   created() {

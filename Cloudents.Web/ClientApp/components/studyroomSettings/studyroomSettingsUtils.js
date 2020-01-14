@@ -11,7 +11,8 @@ const isBrowserSupport = function(){
 const validateMedia = async function(){
   let deviceValidationObj = store.getters.getDevicesObj;
   if(deviceValidationObj.errors.video.length > 0){
-    store.dispatch("setDeviceValidationError", true);    
+    store.dispatch("setDeviceValidationError", true);  
+    store.dispatch("initLocalMediaTracks");  
   }else if(deviceValidationObj.errors.audio.length > 0){
     store.dispatch("setDeviceValidationError", true);
     //allow video to be shown locally.
@@ -37,8 +38,8 @@ const determinFirstPage = function(){
     let notAllowedObj = {
       videoNotAllowed: false,
       audioNotAllowed: false,
-    }
-      let deviceValidationObj = store.getters.getDevicesObj;
+    };
+    let deviceValidationObj = store.getters.getDevicesObj;
       if (!deviceValidationObj.hasVideo) {
         notAllowedObj.videoNotAllowed = deviceValidationObj.errors.video.indexOf("NotAllowedError") > -1;
       }
@@ -61,7 +62,7 @@ const determinFirstPage = function(){
     return new firstPageObj("studyRoom");
   }
   
-}
+};
 
 export default {
     isBrowserSupport,

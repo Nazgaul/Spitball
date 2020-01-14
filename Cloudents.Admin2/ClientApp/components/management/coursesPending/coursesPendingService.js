@@ -53,8 +53,8 @@ const migrateCourses = function (newCourse, oldCourse) {
         });
 };
 
-const approve = function (course) {
-    return connectivityModule.http.post(`${path}approve`, { "Course": course.name.name, "Subject": course.subject !== "N/A" ? course.subject : null })
+const approve = function ({course, schoolType}) {
+    return connectivityModule.http.post(`${path}approve`, { "Course": course.name.name, "Subject": course.subject !== "N/A" ? course.subject : null, schoolType })
         .then((resp) => {
             console.log(resp, 'post doc success');
             return Promise.resolve(resp);

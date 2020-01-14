@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Globalization;
-using System.Net.Http;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Primitives;
 
 namespace Cloudents.Web.Api
 {
@@ -113,46 +113,54 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordRequest model, [FromHeader(Name = "referer")] Uri referer, CancellationToken token)
         {
-            var queryString = referer.ParseQueryString();
-            var id = queryString["id"];
-            var code = queryString["code"];
-            //var from = queryString["byPass"];
-            if (id == null || code == null)
+            var queryString = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(referer.Query);
+            if (queryString.TryGetValue("id", out var id) &&
+                queryString.TryGetValue("code", out var code)
+            )
             {
-                return BadRequest();
-            }
-            var user = await _userManager.FindByIdAsync(id);
-            if (user == null)
-            {
-                // Don't reveal that the user does not exist
-                return BadRequest();
-            }
-
-            user.EmailConfirmed = true;
-
-            code = System.Net.WebUtility.UrlDecode(code);
-
-            var result = await _userManager.ResetPasswordAsync(user, code, model.Password);
-            if (result.Succeeded)
-            {
-                //if (from != null)
-                //{
-                //    await _signInManager.SignInAsync(user, false);
-                //    return Ok();
-                //}
-                if (user.PhoneNumberConfirmed)
+                //  var id = queryString["id"];
+                //var code = queryString["code"];
+                //var from = queryString["byPass"];
+                if (id == StringValues.Empty || code == StringValues.Empty)
                 {
-                    await _signInManager.SignInAsync(user, false);
-                    return Ok();
+                    return BadRequest();
                 }
-                return Ok();
-                //ModelState.AddModelError(nameof(model.Password), _localizer["UserDoesntExists"]);
-                //return BadRequest(ModelState);
 
+                var user = await _userManager.FindByIdAsync(id);
+                if (user == null)
+                {
+                    // Don't reveal that the user does not exist
+                    return BadRequest();
+                }
+
+                user.EmailConfirmed = true;
+
+                code = System.Net.WebUtility.UrlDecode(code);
+
+                var result = await _userManager.ResetPasswordAsync(user, code, model.Password);
+                if (result.Succeeded)
+                {
+                    //if (from != null)
+                    //{
+                    //    await _signInManager.SignInAsync(user, false);
+                    //    return Ok();
+                    //}
+                    if (user.PhoneNumberConfirmed)
+                    {
+                        await _signInManager.SignInAsync(user, false);
+                        return Ok();
+                    }
+
+                    return Ok();
+                    //ModelState.AddModelError(nameof(model.Password), _localizer["UserDoesntExists"]);
+                    //return BadRequest(ModelState);
+
+                }
+               //TODO: Localize
+                ModelState.AddIdentityModelError(nameof(model.Password), result);
+                return BadRequest(ModelState);
             }
-            //TODO: Localize
-            ModelState.AddIdentityModelError(nameof(model.Password), result);
-            return BadRequest(ModelState);
+            return BadRequest();
         }
     }
 }

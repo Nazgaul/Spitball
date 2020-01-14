@@ -7,8 +7,8 @@
           <div class="userMenu_logo"><logoComponent/></div>
             <div class="uM_noLogin_txt" v-language:inner="'menuList_txt_out'"/>
             <div class="uM_noLogin_btns">
-              <v-btn round depressed class="uM_noLogin_btns_in" color="white" :to="{ path: '/signin'}" v-language:inner="'menuList_Login'"/>
-              <v-btn round depressed class="uM_noLogin_btns_up" color="#4c59ff" :to="{ name: 'registration'}" v-language:inner="'menuList_Sign_up'"/>
+              <v-btn rounded depressed class="uM_noLogin_btns_in" color="white" :to="{ path: '/signin'}" v-language:inner="'menuList_Login'"/>
+              <v-btn rounded depressed class="uM_noLogin_btns_up" color="#4c59ff" :to="{ name: 'registration'}" v-language:inner="'menuList_Sign_up'"/>
             </div>
         </div>
         <div class="userMenu_top" v-if="isLoggedIn">
@@ -19,82 +19,84 @@
           </div>
         </div>
         <!-- <div class="userMenu_userList" v-if="isLoggedIn"> -->
-          <!-- <v-list-tile @click="openSblToken">
-            <v-list-tile-action>
+          <!-- <v-list-item @click="openSblToken">
+            <v-list-item-action>
               <getPointsSVG class="userMenu_icons"></getPointsSVG>
-              </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title class="subheading userMenu_titles" v-language:inner="'menuList_points'"/>
-              </v-list-tile-content>
-          </v-list-tile> -->
-          <!-- <v-list-tile @click.native.prevent="openPersonalizeCourse()" :to="{name: 'editCourse'}">
-            <v-list-tile-action><classesIcon class="userMenu_icons"/></v-list-tile-action>
-            <v-list-tile-content><v-list-tile-title class="subheading userMenu_titles" v-language:inner="'menuList_changeCourse'"/></v-list-tile-content>
-          </v-list-tile>  -->
-          <!-- <v-list-tile @click.native.prevent="openPersonalizeUniversity()" :to="{name: 'addUniversity'}">
-            <v-list-tile-action><v-icon class="userMenu_icons" v-html="'sbf-university'"/></v-list-tile-action>
-            <v-list-tile-content><v-list-tile-title class="subheading userMenu_titles" v-language:inner="'menuList_changeUniversity'"/></v-list-tile-content>
-            <v-list-tile-action><span class="edit-text"><v-icon class="edit-after-icon" v-html="'sbf-edit-icon'"/></span></v-list-tile-action>
-          </v-list-tile> -->
-            <!-- <v-list-tile
+              </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title class="subheading userMenu_titles" v-language:inner="'menuList_points'"/>
+              </v-list-item-content>
+          </v-list-item> -->
+          <!-- <v-list-item @click.native.prevent="openPersonalizeCourse()" :to="{name: 'editCourse'}">
+            <v-list-item-action><classesIcon class="userMenu_icons"/></v-list-item-action>
+            <v-list-item-content><v-list-item-title class="subheading userMenu_titles" v-language:inner="'menuList_changeCourse'"/></v-list-item-content>
+          </v-list-item>  -->
+          <!-- <v-list-item @click.native.prevent="openPersonalizeUniversity()" :to="{name: 'addUniversity'}">
+            <v-list-item-action><v-icon class="userMenu_icons" v-html="'sbf-university'"/></v-list-item-action>
+            <v-list-item-content><v-list-item-title class="subheading userMenu_titles" v-language:inner="'menuList_changeUniversity'"/></v-list-item-content>
+            <v-list-item-action><span class="edit-text"><v-icon class="edit-after-icon" v-html="'sbf-edit-icon'"/></span></v-list-item-action>
+          </v-list-item> -->
+            <!-- <v-list-item
               :to="{ name: 'tutoring'}"
               target="_blank"
               sel="menu_row"
             >
-              <v-list-tile-action>
+              <v-list-item-action>
                 <v-icon class="userMenu_icons">sbf-studyroom-icon</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title class="subheading userMenu_titles" v-language:inner>menuList_my_study_rooms</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile> -->
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title class="subheading userMenu_titles" v-language:inner>menuList_my_study_rooms</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item> -->
         <!-- </div> -->
 
         <div class="userMenu_actionsList">
-          <v-list-tile v-if="!isFrymo" v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)" sel="menu_row">
-            <v-list-tile-action><v-icon class="userMenu_icons">{{singleLang.icon}}</v-icon></v-list-tile-action>
-            <v-list-tile-content><v-list-tile-title class="subheading userMenu_titles">{{singleLang.title}}</v-list-tile-title></v-list-tile-content>
-          </v-list-tile>
+          <template v-if="!isFrymo">
+            <v-list-item v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)" sel="menu_row">
+              <v-list-item-action><v-icon class="userMenu_icons">{{singleLang.icon}}</v-icon></v-list-item-action>
+              <v-list-item-content><v-list-item-title class="subheading userMenu_titles">{{singleLang.title}}</v-list-item-title></v-list-item-content>
+            </v-list-item>
+          </template>
 
-          <v-list-tile :to="{ name: 'tutoring'}">
-            <v-list-tile-action><v-icon class="userMenu_icons" v-html="'sbf-pc'"></v-icon></v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title><span class="userMenu_titles" v-language:inner="'menuList_my_study_rooms'"></span></v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+          <v-list-item :to="{ name: 'tutoring'}">
+            <v-list-item-action><v-icon class="userMenu_icons" v-html="'sbf-pc'"></v-icon></v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title><span class="userMenu_titles" v-language:inner="'menuList_my_study_rooms'"></span></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           
-          <v-list-tile v-for="link in satelliteLinks" :key="link.title" sel="menu_row">
-            <v-list-tile-action>
+          <v-list-item v-for="link in satelliteLinks" :key="link.title" sel="menu_row">
+            <v-list-item-action>
               <a :href="link.url"><v-icon class="userMenu_icons">{{link.icon}}</v-icon></a>
-            </v-list-tile-action>
-            <v-list-tile-content>
+            </v-list-item-action>
+            <v-list-item-content>
               <a :href="link.url" class="v-list__tile__title subheading userMenu_titles">{{link.title}}</a>
-            </v-list-tile-content>
-          </v-list-tile>
-         <v-list-tile @click="openReferralDialog" v-if="isLoggedIn" sel="menu_row">
-            <v-list-tile-action>
+            </v-list-item-content>
+          </v-list-item>
+         <v-list-item @click="openReferralDialog" v-if="isLoggedIn" sel="menu_row">
+            <v-list-item-action>
                 <v-icon class="userMenu_icons">sbf-user</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-                <v-list-tile-title class="subheading userMenu_titles" v-language:inner>menuList_referral_spitball</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile @click="startIntercom" v-if="isLoggedIn" sel="menu_row">
-            <v-list-tile-action>
+            </v-list-item-action>
+            <v-list-item-content>
+                <v-list-item-title class="subheading userMenu_titles" v-language:inner>menuList_referral_spitball</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item @click="startIntercom" v-if="isLoggedIn" sel="menu_row">
+            <v-list-item-action>
               <v-icon class="userMenu_icons">sbf-feedbackNew</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title class="subheading userMenu_titles" v-language:inner>menuList_feedback</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-                       <v-list-tile @click="logout" v-if="isLoggedIn" sel="menu_row">
-            <v-list-tile-action>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title class="subheading userMenu_titles" v-language:inner>menuList_feedback</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+                       <v-list-item @click="logout" v-if="isLoggedIn" sel="menu_row">
+            <v-list-item-action>
               <v-icon class="userMenu_icons">sbf-logout</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title class="subheading userMenu_titles" v-language:inner>menuList_logout</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title class="subheading userMenu_titles" v-language:inner>menuList_logout</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </div>
       </div>
     </v-list>
@@ -103,20 +105,17 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 
-import analyticsService from '../../../../services/analytics.service';
+
 import languagesLocales from "../../../../services/language/localeLanguage";
 import { LanguageChange, LanguageService } from "../../../../services/language/languageService";
 import satelliteService from '../../../../services/satelliteService';
 
 import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
-import sbDialog from "../../../wrappers/sb-dialog/sb-dialog.vue";
 import logoComponent from '../../../app/logo/logo.vue';
 
-import getPointsSVG from './image/get-points.svg';
-import classesIcon from './image/classes-icon.svg';
 
 export default {
-   components: { sbDialog,userAvatar,getPointsSVG,classesIcon,logoComponent},
+   components: { userAvatar,logoComponent},
   data() {
     return {
       languagesLocales,
@@ -168,11 +167,9 @@ export default {
     // },  
     changeLanguage(id) {
       LanguageChange.setUserLanguage(id).then(
-        resp => {
+        () => {
           global.location.reload(true);
-        },
-        error => {
-        }
+        }     
       );
     },
     startIntercom() {

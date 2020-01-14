@@ -10,9 +10,11 @@ const state = {
     btnLoading: false,
     showPurchaseConfirmation: false,
     documentLoaded: false,
+    toaster: false,
 };
 
 const getters = {
+    getShowItemToaster: state => state.toaster,
     getDocumentDetails: state => state.document,
     getTutorList: (state) => {
         if(!!state.document.details){
@@ -58,6 +60,9 @@ const mutations = {
     setBtnLoading(state, payload) {
         state.btnLoading = payload;
     },
+    setShowItemToaster(state, val) {
+        state.toaster = val
+    }
 };
 
 const actions = {
@@ -81,7 +86,14 @@ const actions = {
 
         analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}, DOC_COURSE:${course}`);
     },
-    purchaseDocument({commit, dispatch, state}, item) {
+    purchaseDocument({commit, dispatch, state, getters}, item) {
+        let cantBuyItem = getters.accountUser.balance < item.price;
+
+        if(cantBuyItem) {
+            dispatch('updateItemToaster', true);
+            return
+        }
+
         commit('setBtnLoading', true);
             return documentService.purchaseDocument(item.id).then((resp) => {
                 state.document.isPurchased = true;
@@ -111,7 +123,7 @@ const actions = {
             commit('setRelatedDocs', items);
         }).catch(ex => {
             console.log(ex);
-        })
+        });
     },
     setNewDocumentPrice({ commit }, price) {
         if(!!state.document && !!state.document.details){
@@ -121,7 +133,9 @@ const actions = {
     clearDocument({commit}){
         commit('resetState');
     },
-    
+    updateItemToaster({commit}, val){
+        commit('setShowItemToaster', val);
+    },
 };
 
 export default {

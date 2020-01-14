@@ -3,7 +3,7 @@
         <div class="heading" v-if="$vuetify.breakpoint.smAndDown">
             <span class="heading-text" v-language:inner>marketingBox_title</span>
         </div>
-        <v-card tag="a" :to="{name: 'tutorLandingPage'}" class="main-marketing-content transparent" @click="promotionOpen()">
+        <v-card tag="a" tile :ripple="false" :to="{name: 'tutorLandingPage'}" class="main-marketing-content transparent" @click="promotionOpen()">
             <img :src="imgBySiteType" alt="Private lessons">
         </v-card>
     </div>
@@ -11,7 +11,6 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
-    import Base62 from "base62"
     import analyticsService from '../../../services/analytics.service'
 
     export default {

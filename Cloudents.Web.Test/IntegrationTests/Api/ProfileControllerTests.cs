@@ -1,7 +1,9 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests.Api
@@ -34,6 +36,19 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             response.EnsureSuccessStatusCode();
             var str = await response.Content.ReadAsStringAsync();
             str.IsValidJson().Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task GetAsync_ImageIsValid()
+        {
+            var response = await _client.GetAsync("api/profile/159039");
+
+            response.EnsureSuccessStatusCode();
+            var str = await response.Content.ReadAsStringAsync();
+            dynamic json = JToken.Parse(str);
+            string image = json.image;
+            var uri = new Uri(image);
+
         }
 
         [Theory]

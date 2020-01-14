@@ -1,23 +1,23 @@
 ﻿<template>
     <div v-if="!isHideHeader">
-    <v-toolbar :class="{'homePageWrapper': isHomePage}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" :app="isApp" :fixed="isApp" clipped-left clipped-right>
+    <v-app-bar :class="{'homePageWrapper': isHomePage}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
         <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
             <logoComponent/>
         </router-link>
         <div class="globalHeader_items">
-            <div class="globalHeader_items_left" v-if="!isMobile && isShowSearch">
+            <div class="globalHeader_items_left" v-if="!isMobile && showSearch">
                 <searchCMP :placeholder="searchPlaceholder"/>
             </div>
             <v-spacer v-else></v-spacer>
             <div class="globalHeader_items_right">
-                <router-link v-show="!isMobile && isShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
+                <router-link v-show="!isMobile && shouldShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
                     <findSVG/>
                     <span v-language:inner="'header_find_tutors'"/>
                 </router-link>
                 <template v-if="!isMobile" >
                     <v-tooltip bottom>
                         <template v-slot:activator="{on}">
-                            <v-icon v-on="on" v-if="!$vuetify.breakpoint.smAndDown" id="gH_i_r_intercom" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" v-html="'sbf-help'"/>
+                            <v-icon @click="startIntercom" v-on="on" v-if="!$vuetify.breakpoint.smAndDown" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" v-html="'sbf-help'"/>
                         </template>
                         <span v-language:inner="'header_tooltip_help'"/>
                     </v-tooltip>
@@ -34,40 +34,45 @@
                 </template>
                 <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
                     <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({path:'/signin'})" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
-                    <button class="gH_i_r_btns gH_i_r_btn_up mr-3" @click="$router.push({path:'/register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$router.push({path:'/register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="!isFrymo && isHomePage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
-                <v-menu fixed close-on-content-click bottom right offset-y :content-class="getBannerSatus? 'fixed-content-banner':'fixed-content'" sel="menu">
-                    <template v-if="loggedIn" slot="activator">
-                        <user-avatar  
-                        @click.native="drawer=!drawer" 
-                        size="40" 
-                        :userImageUrl="userImageUrl" 
-                        :user-name="accountUser.name"/>
-                        
-                        <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
-                            <span class="ur_greets" v-html="$Ph('header_greets', accountUser.name)"/>
-                            <div class="ur_balance">
-                                <span v-html="$Ph('header_balance', userBalance(accountUser.balance))"/>
-                                <v-icon v-if="!isMobile" class="ur_balance_drawer ml-2" color="#43425d" v-html="'sbf-arrow-fill'"/>
+                <v-menu fixed close-on-content-click bottom offset-y :content-class="getBannerSatus? 'fixed-content-banner':'fixed-content'">
+                    <template v-slot:activator="{on}">
+                        <div v-on="on" class="gH_i_r_menuList" sel="menu">
+                            <div @click.prevent="drawer=!drawer">
+                                <user-avatar
+                                    size="40"
+                                    :userImageUrl="userImageUrl"
+                                    :user-name="userName"
+                                />
                             </div>
+                            <template v-if="loggedIn">
+                                <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
+                                    <span class="ur_greets" v-html="$Ph('header_greets', accountUser.name)"/>
+                                    <div class="ur_balance">
+                                        <span v-html="$Ph('header_balance', userBalance(accountUser.balance))"/>
+                                        <v-icon v-if="!isMobile" class="ur_balance_drawer ml-2" color="#43425d" v-html="'sbf-arrow-fill'"/>
+                                    </div>
+                                </div>
+                            </template>
+                            <template>
+                                <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
+                                    <v-icon small v-html="'sbf-menu'"/>
+                                </v-btn>
+                            </template>
                         </div>
-                    </template>
-                    <template slot="activator">
-                        <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
-                            <v-icon small v-html="'sbf-menu'"/>
-                        </v-btn>
                     </template>
                     <menuList v-if="!$vuetify.breakpoint.xsOnly"/>
                 </v-menu>
             </div>
         </div>
-        <template v-slot:extension v-if="isMobile && isShowSearch">
+        <template v-slot:extension v-if="isMobile && showSearch">
             <div class="mobileHeaderSearch">
                 <searchCMP :placeholder="searchPlaceholder"/>
             </div>
         </template>
-    </v-toolbar>
+    </v-app-bar>
             <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
                              fixed app v-if="$vuetify.breakpoint.xsOnly" class="drawerIndex"
                              width="280">
@@ -112,7 +117,10 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         userImageUrl(){
-            return this.accountUser.image.length > 1 ? `${this.accountUser.image}` : '';
+            return this.accountUser && this.accountUser.image.length > 1 ? this.accountUser.image : '';
+        },
+        userName(){
+            return this.accountUser && this.accountUser.name ? this.accountUser.name : '';
         },
         loggedIn() {
             return this.accountUser !== null;
@@ -127,34 +135,23 @@ export default {
         searchPlaceholder(){
             return this.isTablet ? LanguageService.getValueByKey(`header_placeholder_search`) : LanguageService.getValueByKey(`header_placeholder_search_m`);
         },
-        isShowSearch(){
-            let hiddenRoutes = ['document',undefined,'tutorLandingPage']
-            return !hiddenRoutes.includes(this.currentRoute)
+        showSearch(){
+            let showRoutes = ['feed'];
+            return showRoutes.includes(this.currentRoute)
         },
         isHomePage(){
             return this.currentRoute === undefined;
         },
-        isShowFindTutor(){ 
+        shouldShowFindTutor(){ 
             let hiddenRoutes = ['tutorLandingPage']
             return !hiddenRoutes.includes(this.currentRoute)
         },
-        isApp(){
-            return true;
-            // let hiddenRoutes = ['tutorLandingPage']
-            // return !hiddenRoutes.includes(this.currentRoute)
-        }
     },
     watch: {
-        drawer(val){
-            if(!!val && this.$vuetify.breakpoint.xsOnly){
-                document.body.className="noscroll";
-            }else{
-                document.body.removeAttribute("class","noscroll");
-            }
-        },
     '$route'(){
       this.$nextTick(()=>{
-          this.currentRoute = this.$route.name
+            this.drawer = false;
+            this.currentRoute = this.$route.name
       })
     },
     },
@@ -168,19 +165,16 @@ export default {
             this.UPDATE_SEARCH_LOADING(true);
             this.$router.push('/');
         },
-        closeDrawer(){
+        closeDrawer() {
             this.drawer = !this.drawer;
-        },         
-        $_currentClick({id, name}) {
-            if (name === 'Feedback') {
-                Intercom('showNewMessage', '');
-            } else {
-                this.clickOnce = true;
-                this.$nextTick(() => {
-                    this.$refs.personalize.openDialog(id);
-                })
+        },       
+        startIntercom() {
+            if(this.isFrymo){
+                window.open('mailto: support@frymo.com', '_blank');
+            }else{
+                Intercom("showNewMessage");
             }
-        },
+        },  
         userBalance(balance){
             let balanceFixed = +balance.toFixed()
             return balanceFixed.toLocaleString(`${global.lang}`)
@@ -203,15 +197,6 @@ export default {
                 this.closeDrawer();
             })
         })
-        this.$root.$on("personalize",
-            (type) => {
-                this.clickOnce = true;
-                this.$nextTick(() => {
-                    if (this.$refs.personalize) {
-                        this.$refs.personalize.openDialog(type);
-                    }
-                })
-            });
         let currentLocHTML = document.documentElement.lang;
         this.languageChoisesAval = languagesLocales.filter(lan => {
             return lan.locale !== currentLocHTML;
@@ -226,21 +211,19 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .globalHeader{
-    border: solid 1px #dadada !important;
-    z-index: 200;
-    &.homePageWrapper{
-        // max-width: 1500px; 
-        // margin: 0 auto !important;
-    }
+    z-index: 200 !important;
     .v-toolbar__extension{
-    @media (max-width: @screen-xs) {
-      padding: 0 8px
-    }
+        @media (max-width: @screen-xs) {
+            padding: 0 8px;
+            border-bottom: solid 1px #dadada;
+        }
     }
     .v-toolbar__content{
-        padding-left: 16px;
+        border-bottom: solid 1px #dadada;
+        padding: 0 24px 0 16px;
         @media (max-width: @screen-xs) {
-            padding: 0 8px 0 4px;      
+            padding: 0 8px 0 4px;
+            border-bottom: none;
         }  
     }
     .globalHeader_logo{
@@ -270,9 +253,9 @@ export default {
             }
             .v-text-field__slot{
                 color: #6a697f !important;
-                input{
+                // input{
 
-                }
+                // }
             }
             .v-text-field{
                 input{
@@ -346,16 +329,13 @@ export default {
                 .v-text-field__slot{
                     color: #6a697f !important;
                     font-size: 14px;
-                    input{
-                        // margin-bottom: 4px;
-                    }
                 }
             .searchCMP-input{
                 .v-text-field__slot{
                     line-height: 18px;
-                    margin-bottom: 2px;
+                    //margin-bottom: 2px;
                     // height: 18px;
-                    align-items: normal;
+                    //align-items: normal;
                 }
 
             } 
@@ -370,6 +350,7 @@ export default {
                 font-size: 16px;
                 color: #43425d;
                 font-weight: bold;
+                margin-bottom: 1px;
             }
             .gH_i_r_btns{
                 text-align: center;
@@ -397,13 +378,13 @@ export default {
                 padding: 2px 10px 3px 4px;
                 svg{
                     fill: white !important;
-                    vertical-align: text-bottom;
+                    vertical-align: middle;
                 }
                 span{
                     font-size: 14px;
                     font-weight: normal;
                     color: white;
-                    vertical-align: super;
+                    vertical-align: middle;
                     padding-left: 2px;
                 }
             }
@@ -416,6 +397,7 @@ export default {
 
                 &--margin {
                     margin-right: 20px;
+                    margin-bottom: 1px;
                 }
             }
             .gH_i_r_chat{
@@ -436,18 +418,18 @@ export default {
                     height: 18px;
                     width: 18px;
                     line-height: 12px;
-                    font-size: 10px;
+                    font-size: 12px;
                     display: flex;
-                    font-weight: 500;
+                    font-weight: 600;
                     justify-content: center;
                     flex-direction: column;
                     text-align: center;
                     border: 1px solid white;
                     cursor: pointer;
                     &.longer_nav{
-                        top: 1px;
-                        right: 4px;
-                        height: 16px;
+                        top: -5px;
+                        right: 10px;
+                        height: 24px;
                         width: 24px;
                     }
                 }
@@ -477,6 +459,10 @@ export default {
                         cursor: pointer;
                     }
                 }
+            }
+            .gH_i_r_menuList {
+                display: flex;
+                cursor: pointer;
             }
         }
     }

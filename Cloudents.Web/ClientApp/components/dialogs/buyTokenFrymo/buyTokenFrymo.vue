@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
     name: "buyTokenFrymo",
@@ -56,9 +56,9 @@ export default {
             padding: 6px;
         }
         &__close {
-            display: flex;
-            justify-content: flex-end;
-            font-size: 12px;
+            display: flex !important;
+            justify-content: flex-end !important;
+            font-size: 18px !important;
             margin: 10px 10px 0 10px;
 
             @media (max-width: @screen-xs) {
@@ -249,7 +249,7 @@ export default {
         &__h5 {
             font-size: 13px;
             margin-bottom: 13px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
     }

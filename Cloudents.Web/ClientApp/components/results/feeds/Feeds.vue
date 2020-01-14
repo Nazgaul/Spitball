@@ -13,7 +13,6 @@
                 </div>
             </v-snackbar>
             <div class="results-section" :class="{'loading-skeleton mt-5': showSkelaton}">
-     
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                     <v-container class="ma-0 results-wrapper pa-0">
                         <v-layout column>
@@ -30,7 +29,7 @@
                                             class="cell">
                                         </component>
                                 </v-flex>
-                                <v-flex class="suggestCard result-cell mb-3 xs-12 order-xs4">
+                                <v-flex class="suggestCard result-cell mb-4 xs-12 order-xs4">
                                     <suggest-card :name="currentSuggest" @click.native="openRequestTutor()"></suggest-card>   
                                 </v-flex>
                                 <!-- <v-flex 
@@ -39,8 +38,8 @@
                                     class="result-cell"
                                     :class="(index > 6 ? 'order-xs6' : index > 2 ? 'order-xs3' : 'order-xs2')"
                                     >
-                                    <tutor-result-card v-if="$vuetify.breakpoint.smAndUp" class="mb-3" :tutorData="tutor"></tutor-result-card>
-                                    <tutor-result-card-mobile v-else class="mb-3" :tutorData="tutor"/>
+                                    <tutor-result-card v-if="$vuetify.breakpoint.smAndUp" class="mb-4" :tutorData="tutor"></tutor-result-card>
+                                    <tutor-result-card-mobile v-else class="mb-4" :tutorData="tutor"/>
                                 </v-flex> -->
                             </slot>
                         </v-layout>

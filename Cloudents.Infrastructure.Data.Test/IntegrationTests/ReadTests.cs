@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Exceptions;
+using Cloudents.Core.Entities;
 using Cloudents.Query;
 using Cloudents.Query.Chat;
 using Cloudents.Query.Documents;
@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cloudents.Query.Query.Admin;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -73,19 +74,21 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             result.Should().NotBeNullOrEmpty();
 
-            result.OfType<QuestionFeedDto>().Should().Contain(c => c.User.Id > 0);
-           // result.OfType<QuestionFeedDto>().Should().Contain(c => c.CultureInfo != null);
-
+            var p = result.OfType<QuestionFeedDto>().ToList();
+            if (p.Count > 0)
+            {
+                p.Should().Contain(c => c.User.Id > 0);
+            }
         }
 
         [Theory]
         [InlineData(50084, 638)]
+        [InlineData(45209,638)]
         public async Task DocumentById_Ok(long documentId, long? userId)
         {
             var query = new DocumentById(documentId, userId);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);
-            result.Should().NotBeNull();
         }
 
 
@@ -104,14 +107,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new UserProfileAboutQuery(638);
 
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+            result.Reviews.Should().BeInDescendingOrder(x => x.Created);
         }
 
         [Fact]
         public async Task UserDocumentsQueryHandler_Ok()
         {
-            var query = new UserDataPagingByIdQuery(638, 0);
-            var _ = await fixture.QueryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, default);
+            var query = new UserDocumentsQuery(638, 0, 20);
+            var _ = await fixture.QueryBus.QueryAsync<ListWithCountDto<DocumentFeedDto>>(query, default);
         }
 
 
@@ -205,6 +209,26 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
+        [Fact]
+        public async Task UserCoursesQuery_Ok()
+        {
+            var query = new UserCoursesQuery(638);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task UniversityQuery_Ok()
+        {
+            var query = new UniversityQuery(Guid.Parse("80B226AE-94A1-4240-8796-A98200E81A54"));
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task UserReferralsQuery_Ok()
+        {
+            var query = new UserReferralsQuery(159039);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
 
         [Fact]
         public async Task UserUnreadMessage_Ok()
@@ -233,9 +257,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(638, "IL")]
-        [InlineData(1696, "IN")]
-        public async Task UserBalanceQuery_Ok(long id, string country)
+        [InlineData(638)]
+        [InlineData(1696)]
+        public async Task UserBalanceQuery_Ok(long id)
         {
 
             var query = new UserBalanceQuery(id);
@@ -296,13 +320,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             res.Should().NotBeEmpty();
         }
 
-        [Theory]
-        [InlineData(160468L)]
-        public async Task SessionRecordingQuery_Ok(long userId)
-        {
-            var query = new SessionRecordingQuery(userId);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+        //[Theory]
+        //[InlineData(160468L)]
+        //public async Task SessionRecordingQuery_Ok(long userId)
+        //{
+        //    var query = new SessionRecordingQuery(userId);
+        //    var _ = await fixture.QueryBus.QueryAsync(query, default);
+        //}
 
 
         [Theory]
@@ -319,7 +343,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserSalesByIdQuery_Ok(long id)
         {
             var query = new UserSalesByIdQuery(id);
-            _ = await fixture.QueryBus.QueryAsync(query, default);
+           var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Theory]
@@ -331,28 +355,166 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task TutorDailyHoursQuery_Ok()
+        [Theory]
+        [InlineData(159039)]
+        [InlineData(638)]
+        public async Task UserFollowersByIdQuery_Ok(long userId)
         {
-            var query = new TutorDailyHoursQuery(159039);
+            var query = new UserFollowersByIdQuery(userId);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+        
+        
+        [Theory]
+        [InlineData(638)]
+        [InlineData(159039)]
+        public async Task UserContentByIdQuery_Ok(long id)
+        {
+            var query = new UserContentByIdQuery(id);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task ChatConversationsQuery_Ok()
+        {
+            var query = new ChatConversationsQuery(159039);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task GetBannerQuery_Ok()
+        {
+            var query = new GetBannerQuery(new System.Globalization.CultureInfo("en"));
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task ChatConversationQuery_Ok()
+        {
+            var query = new ChatConversationQuery("159039_160171", 159039);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task ChatConversationByIdQuery_Ok()
+        {
+            var query = new ChatConversationByIdQuery("159039_160171", 0);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task UserVotesByCategoryQuery_Ok()
+        {
+            var query = new UserVotesByCategoryQuery(159039);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task AboutTutorQuery_Ok()
+        {
+            var query = new AboutTutorQuery();
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task GetDocumentPurchasedEmailQuery_Ok()
+        {
+            var query = new GetDocumentPurchasedEmailQuery(Guid.Parse("FA99DD71-F925-4B53-A7AD-A9C600F2FAEE"));
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task GetEmailByEventQuery_Ok()
+        {
+            var query = new GetEmailByEventQuery("DocumentPurchased");
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Theory]
-        [InlineData(638)]
         [InlineData(159039)]
-        [InlineData(162657)]
-        public async Task CalendarListQuery_Ok(long userId)
+        [InlineData(638)]
+        public async Task GetUpdatesEmailByUserQuery_Ok(long id)
         {
-            var query = new CalendarListQuery(userId);
-            try
-            {
-                var _ = await fixture.QueryBus.QueryAsync(query, default);
-            }
-            catch (NotFoundException)
-            { 
-            
-            }
+            var query = new GetUpdatesEmailByUserQuery(id, DateTime.UtcNow.AddDays(-30));
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
+
+        [Fact]
+        public async Task RedeemEmailQuery_Ok()
+        {
+            var query = new RedeemEmailQuery(Guid.Parse("C3760BED-ACDB-45ED-985A-A92E00905B80"));
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task RequestTutorAdminEmailQuery_Ok()
+        {
+            var query = new RequestTutorAdminEmailQuery(Guid.Parse("F339FFCE-7310-4C5B-B0FA-AB2E00EBA022"));
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+
+        [Fact]
+        public async Task StudyRoomVideoEmailQuery_Ok()
+        {
+            var query = new StudyRoomVideoEmailQuery("d7140ca0-2b83-4ce5-b35c-ab190086fe18_1575469575");
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task ShortUrlQuery_Ok()
+        {
+            var query = new ShortUrlQuery("pIX5VcMSI");
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async Task SiteMapQuery_Ok(bool country)
+        {
+            
+            var query = new SiteMapQuery(country);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Theory]
+        [InlineData(159039)]
+        [InlineData(638)]
+        public async Task UserDataByIdQuery_Ok(long userId)
+        {
+            var query = new UserDataByIdQuery(userId);
+            var _ = await fixture.QueryBus.QueryAsync<User>(query, default);
+            await fixture.QueryBus.QueryAsync<IEnumerable<TransactionDto>> (query, default);
+        }
+
+        [Fact]
+        public async Task CalendarEventsQuery_Ok()
+        {
+            var query = new CalendarEventsQuery(159039, DateTime.UtcNow, DateTime.UtcNow.AddDays(5));
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task GetPhoneNumberQuery_Ok()
+        {
+            var query = new GetPhoneNumberQuery(159039);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task CountryByIpQuery_Ok()
+        {
+            var query = new CountryByIpQuery("112.209.166.71");
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+        [Fact]
+        public async Task AdminCouponQuery_Ok()
+        {
+            var query = new AdminCouponQuery();
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
     }
 }

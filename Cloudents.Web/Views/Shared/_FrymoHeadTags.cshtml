@@ -1,14 +1,9 @@
 ﻿@model string
 @using Microsoft.AspNetCore.Http.Extensions
 @{
-    ViewBag.metaDescription = ViewBag.metaDescription ?? "Get better at studies, access teachers and experts online to help you out with your difficulties, preparation, homework and more!";
-    ViewBag.fbImage = ViewBag.fbImage ?? "/images/3rdParty/fbShare_Frymo.jpg";
+    ViewBag.fbImage = ViewBag.ogImage ?? "/images/3rdParty/fbShare_Frymo.jpg";
     ViewBag.imageSrc = ViewBag.imageSrc ?? "/images/3rdParty/fbShare_Frymo.jpg";
-    ViewBag.title = ViewBag.title ?? "Study smarter, go digital with Frymo";
 }
-<title>@ViewBag.title</title>
-<meta name="title" content="@ViewBag.title" />
-<meta name="description" content="@ViewBag.metaDescription" />
 <link rel="image_src" href="@ViewBag.imageSrc" />
 <meta property="fb:app_id" content="450314258355338" />
 <meta property="og:site_name" content="Frymo" />
@@ -32,7 +27,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="@Model/Images/frymoFavIcons/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="16x16" href="@Model/Images/frymoFavIcons/favicon-16x16.png">
 <link rel="manifest" href="@Model/Images/frymoFavIcons/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="@Model/Images/frymoFavIcons/ms-icon-144x144.png">
+<meta name="msapplication-itemColor" content="#ffffff">
+<meta name="msapplication-itemImage" content="@Model/Images/frymoFavIcons/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
 

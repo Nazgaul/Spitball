@@ -2,11 +2,9 @@
     <v-card class="ref-block" elevation="0"
             :style="isTransparent ? 'backgroundColor: transparent;' : 'background-color: #fff;' ">
         <div class="dialog-wrapp referral-container">
-            <button class="close-btn text-md-right" @click.prevent="requestDialogClose()">
-                <v-icon>sbf-close</v-icon>
-            </button>
+            <v-icon class="close-btn-referral body-1 pr-3 pt-3" @click.prevent="requestDialogClose()">sbf-close</v-icon>
             <v-layout column v-show="!isUploadReferral">
-                <v-flex xs12   class="mb-3">
+                <v-flex xs12   class="mb-4">
                     <div v-show="getSchoolName">
                         <span class="ref-title" v-html="text.dialog.title">
                         </span>
@@ -18,7 +16,7 @@
                 </v-flex>
                 <v-flex xs12   class="mb-4">
                     <div>
-                        <span class="text-xs-center ref-subtitle"
+                        <span class="text-center ref-subtitle"
                               v-html="text.dialog.subTitle"></span>
                     </div>
                 </v-flex>
@@ -43,7 +41,7 @@
                         <span class="share-text" v-language:inner>referralDialog_share_whatsup</span>
                     </span>
                 </div>
-                <div class="input-container mb-3">
+                <div class="input-container mb-4">
                     <div class="link-container">
                         <sb-input v-if="!isMultiple" id="sb_referralLink" class="referral-input" :disabled="true"
                                   v-model="userReferralLink"
@@ -86,7 +84,7 @@
                 </v-flex>
             </v-layout>
         </div>
-        <v-layout row align-center class="ref-bottom-section px-3" v-show="!isUploadReferral">
+        <v-layout align-center class="ref-bottom-section px-3" v-show="!isUploadReferral">
             <v-flex xs1 >
                 <!-- <i class="bottom-five"> -->
                     <v-icon  class="spread-out-loud-icon">sbf-spread-loud</v-icon>
@@ -204,14 +202,14 @@
             doCopy() {
                 let self = this;
                 if (!self.isMultiple) {
-                    this.$copyText(this.userReferralLink).then((e) => {
+                    this.$copyText(this.userReferralLink).then(() => {
                         self.isCopied = true;
-                    }, (e) => {
+                    }, () => {
                     })
                 } else {
-                    this.$copyText(this.singleRefLink).then((e) => {
+                    this.$copyText(this.singleRefLink).then(() => {
                         self.isCopied = true;
-                    }, (e) => {
+                    }, () => {
                     })
                 }
             },

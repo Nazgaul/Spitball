@@ -21,10 +21,10 @@
             </div>
             </div>
             <div class="purchase-actions">
-            <v-btn flat class="cancel" @click.native="updatePurchaseConfirmation(false)">
+            <v-btn text class="cancel" @click.native="updatePurchaseConfirmation(false)">
                 <span v-language:inner>preview_cancel</span>
             </v-btn>
-            <v-btn round class="submit-purchase" @click.native="unlockDocument">
+            <v-btn rounded class="submit-purchase" @click.native="unlockDocument">
                 <span class="hidden-xs-only" v-language:inner>preview_buy_btn</span>
                 <span
                 class="hidden-sm-and-up text-uppercase"
@@ -66,11 +66,13 @@ export default {
             if (this.document.details && this.document.details.user.name) {
                 return this.document.details.user.name;
             }
+            return null
         },
         docPrice() {
             if (this.document.details && this.document.details.price >= 0) {
                 return this.document.details.price.toFixed(2);
             }
+            return null
         },
         isVideo(){      
             return this.document.documentType === 'Video';
@@ -79,6 +81,7 @@ export default {
             if (this.document.details && this.document.details.feedItem) {
                 return this.document.details.feedItem.title;
             }
+            return null
         },
     },
     methods: {

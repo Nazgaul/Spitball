@@ -1,4 +1,4 @@
-import DialogToolbar from '../dialog-toolbar/DialogToolbar.vue'
+import dialogToolbar from '../dialog-toolbar/DialogToolbar.vue'
 import {mapActions, mapGetters, mapMutations} from 'vuex'
 import { LanguageService } from "../../services/language/languageService";
 export default {
@@ -6,7 +6,7 @@ export default {
         prop: "value",
         event: "input"
     },
-    components: {DialogToolbar},
+    components: {DialogToolbar: dialogToolbar},
     data() {
         return {
             filters: {},

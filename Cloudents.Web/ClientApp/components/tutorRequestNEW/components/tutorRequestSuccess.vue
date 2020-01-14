@@ -20,12 +20,12 @@
         </div>
 
         <div class="tutorRequest-success-bottom">
-            <v-btn sel="cancel_tutor_request" @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed round>
+            <v-btn sel="cancel_tutor_request" @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed rounded>
                 <span v-language:inner="'tutorRequest_message_success_btn_noThanks'"></span>
             </v-btn>
 
             <template>
-                <v-btn v-if="isTutor" sel="send_whatsapp" @click="sendWhatsapp" class="tutorRequest-btn-whatsapp white--text" color="#46c16b" depressed round>
+                <v-btn v-if="isTutor" sel="send_whatsapp" @click="sendWhatsapp" class="tutorRequest-btn-whatsapp white--text" color="#46c16b" depressed rounded>
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28" height="28" viewBox="0 0 28 28">
                         <g fill-rule="evenodd" fill="none">
                             <path d="M0 .346h27.654V28H0z"/>
@@ -36,7 +36,7 @@
                     <span class="btn-whatsapp-text" v-language:inner="'tutorRequest_message_success_btn_whatsapp'"></span>
                 </v-btn>
 
-                <v-btn v-else @click="showMoreTutors" sel="show_more_tutors" class="tutorRequest-btn-showme white--text" color="#4452fc" depressed round>
+                <v-btn v-else @click="showMoreTutors" sel="show_more_tutors" class="tutorRequest-btn-showme white--text" color="#4452fc" depressed rounded>
                     <span v-language:inner="'tutorRequest_message_success_btn_showMe'"></span>
                 </v-btn>
             </template>
@@ -87,18 +87,18 @@ export default {
         },
         sendWhatsapp() {
             if(!this.accountUser) {
-                analyticsService.sb_unitedEvent('Request Tutor Submit','Whatsapp btn', `Tutor ${this.tutorId}, Student GUEST`);
+                analyticsService.sb_unitedEvent('After tutor Submit','Whatsapp btn', `Tutor ${this.tutorId}, Student GUEST`);
             } else {
-                analyticsService.sb_unitedEvent('Request Tutor Submit','Whatsapp btn', `Tutor ${this.tutorId}, Student ${this.studentId}`);
+                analyticsService.sb_unitedEvent('After tutor Submit','Whatsapp btn', `Tutor ${this.tutorId}, Student ${this.studentId}`);
             }
             window.open(`https://api.whatsapp.com/send?phone=${this.tutorPhoneNumber}&text=%20${this.defaultMessage}`);
             this.tutorRequestDialogClose();
         },
         showMoreTutors() {
             if(!this.accountUser) {
-                analyticsService.sb_unitedEvent('Request Tutor Submit','Show me btn', `Student GUEST`);
+                analyticsService.sb_unitedEvent('After tutor Submit','Show me btn', `Student GUEST`);
             } else {
-                analyticsService.sb_unitedEvent('Request Tutor Submit','Show me btn', `Student ${this.studentId}`);
+                analyticsService.sb_unitedEvent('After tutor Submit','Show me btn', `Student ${this.studentId}`);
             }
             this.$router.push({name: 'tutorLandingPage', params: {course: this.courseName}});
             this.tutorRequestDialogClose();
@@ -176,11 +176,16 @@ export default {
             font-weight: 600;
         }
         .tutorRequest-btn-back{
+            margin: 6px 8px;
             font-weight: 600;
             color: @global-blue;
             border: 1px solid @global-blue !important;
         }
+        .tutorRequest-btn-showme {
+            margin: 6px 8px;
+        }
         .tutorRequest-btn-whatsapp {
+            margin: 6px 8px;
             font-weight: normal;
             .v-btn__content {
                 padding-left: 10px;

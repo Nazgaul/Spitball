@@ -8,3 +8,9 @@
 </template>
 
 <script src="./sbVideoPlayer.js"/>
+ 
+<style lang="less">
+    .azuremediaplayer {
+        width: 100%;
+    }
+</style>

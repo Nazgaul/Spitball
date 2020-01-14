@@ -175,16 +175,17 @@
     <value>Show Less</value>
   </data>
   <data name="expand_more_courses" xml:space="preserve">
-    <value>More Courses</value>
+    <value>See all {1} courses</value>
   </data>
   <data name="hey_there" xml:space="preserve">
     <value>Hey there, I’m</value>
+    <comment>Don't show this </comment>
   </data>
   <data name="points_hour" xml:space="preserve">
     <value>hour</value>
   </data>
   <data name="read_more" xml:space="preserve">
-    <value>Read More ...</value>
+    <value>Read More</value>
   </data>
   <data name="reviews" xml:space="preserve">
     <value>Reviews</value>
@@ -248,5 +249,96 @@
   </data>
   <data name="calendar" xml:space="preserve">
     <value>Calendar</value>
+  </data>
+  <data name="courses" xml:space="preserve">
+    <value>Courses</value>
+  </data>
+  <data name="tutor" xml:space="preserve">
+    <value>Tutor</value>
+  </data>
+  <data name="no_students" xml:space="preserve">
+    <value>No Students yet</value>
+    <comment>Don't show this </comment>
+  </data>
+  <data name="resourses" xml:space="preserve">
+    <value>{1} Contents</value>
+  </data>
+  <data name="sessions" xml:space="preserve">
+    <value>{1} Lessons</value>
+  </data>
+  <data name="students" xml:space="preserve">
+    <value>{1} Students</value>
+  </data>
+  <data name="follow" xml:space="preserve">
+    <value>Follow</value>
+  </data>
+  <data name="following" xml:space="preserve">
+    <value>Following</value>
+  </data>
+  <data name="become_title" xml:space="preserve">
+    <value>Teach On Spitball</value>
+  </data>
+  <data name="become_txt" xml:space="preserve">
+    <value>Earn money by teaching what you know best. Access to the tools you need to create and sell education Content and teach online.</value>
+  </data>
+  <data name="book_session" xml:space="preserve">
+    <value>Book a lesson with me</value>
+  </data>
+  <data name="find_tutors" xml:space="preserve">
+    <value>Find Tutors at Spitball</value>
+  </data>
+  <data name="response" xml:space="preserve">
+    <value>Response time</value>
+  </data>
+  <data name="response_hour" xml:space="preserve">
+    <value>{1} hour</value>
+  </data>
+  <data name="response_hours" xml:space="preserve">
+    <value>{1} hours</value>
+  </data>
+  <data name="send_message" xml:space="preserve">
+    <value>Send me a message</value>
+  </data>
+  <data name="why_learn" xml:space="preserve">
+    <value>Why Learn at Spitball</value>
+  </data>
+  <data name="book_session_mobile" xml:space="preserve">
+    <value>Book a lesson</value>
+  </data>
+  <data name="earn_btn" xml:space="preserve">
+    <value>I want to earn money</value>
+  </data>
+  <data name="earn_desc" xml:space="preserve">
+    <value>Trust upload your documents/class notes that you already have and make passive income.</value>
+  </data>
+  <data name="earn_title" xml:space="preserve">
+    <value>Your study materials worth money on spitball!</value>
+  </data>
+  <data name="study" xml:space="preserve">
+    <value>Study area:</value>
+  </data>
+  <data name="tutor_follower" xml:space="preserve">
+    <value>{1} Follower</value>
+  </data>
+  <data name="tutor_followers" xml:space="preserve">
+    <value>{1} Followers</value>
+  </data>
+  <data name="resourse" xml:space="preserve">
+    <value>{1} Content</value>
+  </data>
+  <data name="session" xml:space="preserve">
+    <value>{1} Lesson</value>
+  </data>
+  <data name="student" xml:space="preserve">
+    <value>{1} Student</value>
+  </data>
+  <data name="study_materials" xml:space="preserve">
+    <value>{1}’s study materials</value>
+  </data>
+  <data name="read_less" xml:space="preserve">
+    <value>Read less</value>
+  </data>
+  <data name="book_session_mobile_xs" xml:space="preserve">
+    <value>Book</value>
   </data>
 </root>

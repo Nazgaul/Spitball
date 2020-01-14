@@ -18,7 +18,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             {
                 Db = new DbConnectionString(
                     "Server=tcp:sb-dev.database.windows.net,1433;Initial Catalog=ZboxNew_Develop;Persist Security Info=False;User ID=sb-dev;Password=Pa$$W0rd123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
-                    null, DbConnectionString.DataBaseIntegration.None)
+                    null, DbConnectionString.DataBaseIntegration.None),
+                SiteEndPoint = new SiteEndPoints()
+                {
+                    FunctionSite = "https://www.spitball.co",
+                    IndiaSite = "https://www.spitball.co",
+                    SpitballSite = "https://www.spitball.co"
+                }
+
 
 
                 //PROD
@@ -34,12 +41,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.RegisterModule<ModuleDb>();
             builder.RegisterModule<ModuleCore>();
             builder.RegisterModule<ModuleInfrastructureBase>();
+            // builder.RegisterModule<ModuleCache>();
             builder.RegisterType<GoogleService>().AsSelf()
               .As<ICalendarService>().SingleInstance();
 
+            builder.RegisterType<DummyCacheProvider>().As<ICacheProvider>();
             builder.RegisterType<GoogleDataStore>()
                 .AsSelf().InstancePerDependency();
-
+            builder.RegisterModule<ModuleCore>();
             builder.RegisterType<DapperRepository>().AsSelf();
             Container = builder.Build();
             QueryBus = Container.Resolve<IQueryBus>();
@@ -60,5 +69,43 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public IDapperRepository DapperRepository { get; }
         public ITutorRepository TutorRepository { get; }
         public IReadTutorRepository ReadTutorRepository { get; }
+    }
+
+    public class DummyCacheProvider : ICacheProvider
+    {
+        public object Get(string key, string region)
+        {
+            return null;
+        }
+
+        public T Get<T>(string key, string region)
+        {
+            return default;
+        }
+
+        public void Set(string key, string region, object value, int expire, bool slideExpiration)
+        {
+            
+        }
+
+        public void Set(string key, string region, object value, TimeSpan expire, bool slideExpiration)
+        {
+            
+        }
+
+        public bool Exists(string key, string region)
+        {
+            return false;
+        }
+
+        public void DeleteRegion(string region)
+        {
+           
+        }
+
+        public void DeleteKey(string region, string key)
+        {
+            
+        }
     }
 }

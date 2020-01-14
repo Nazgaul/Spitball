@@ -1,6 +1,6 @@
 <template>
     <div class="report-comp-container">
-        <v-layout row wrap>
+        <v-layout wrap>
             <v-flex xs12>
                 <div class="report-head">
                     <v-icon class="flag-icon">sbf-flag</v-icon>
@@ -13,21 +13,21 @@
                     </div>
                     <v-list>
                         <template v-for="(reason, i) in reasons">
-                            <v-list-tile :class="['reason-tile', isSelected(reason.title) ? 'selected' : '']" :key="i">
-                                <v-list-tile-content class="reason-tile-content">
-                                    <v-list-tile-title class="reason-name" @click="selectReason(reason.title)">{{
+                            <v-list-item :class="['reason-item', isSelected(reason.title) ? 'selected' : '']" :key="i">
+                                <v-list-item-content class="reason-item-content">
+                                    <v-list-item-title class="reason-name" @click="selectReason(reason.title)">{{
                                         reason.title }}
-                                    </v-list-tile-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
+                                    </v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
                         </template>
 
-                        <v-list-tile class="reason-tile" @click="toogleOtherInput()">
-                            <v-list-tile-content class="reason-tile-content">
-                                <v-list-tile-title class="reason-name" v-language:inner>reportItem_report_other
-                                </v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
+                        <v-list-item class="reason-item" @click="toogleOtherInput()">
+                            <v-list-item-content class="reason-item-content">
+                                <v-list-item-title class="reason-name" v-language:inner>reportItem_report_other
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
 
                     </v-list>
                     <transition name="slide-y-transition">
@@ -206,7 +206,7 @@
                     color: @textColor;
                 }
             }
-            .reason-tile {
+            .reason-item {
                 border-bottom: 1px solid fade(@newGreyColor, 12%);
                 cursor: pointer;
                 &:hover {
@@ -215,7 +215,7 @@
                 &.selected {
                     // background-color: @color-blue-new;
                     .v-list__tile {
-                        .reason-tile-content {
+                        .reason-item-content {
                             .reason-name {
                                 color: @color-blue-new;
                             }
@@ -228,7 +228,7 @@
                 .v-list__tile {
                     padding-left: 0;
                     padding-right: 0;
-                    .reason-tile-content {
+                    .reason-item-content {
                         .reason-name {
                             font-size: 16px;
                             letter-spacing: -0.3px;

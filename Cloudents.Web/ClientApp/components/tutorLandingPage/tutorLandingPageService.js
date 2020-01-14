@@ -4,7 +4,7 @@ import searchService from '../../services/searchService';
 
 
 function createTutorList(objInit){
-    return new TutorList(objInit)
+    return new TutorList(objInit);
 }
 
 function TutorList(objInit){
@@ -14,7 +14,7 @@ function TutorList(objInit){
 }
 const getTutorList = (params) => {
     return connectivityModule.http.get("tutor/search", { params }).then(({data})=>{
-        return createTutorList(data)
+        return createTutorList(data);
     });
 };
 

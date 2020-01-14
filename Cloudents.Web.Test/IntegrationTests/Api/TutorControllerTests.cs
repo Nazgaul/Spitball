@@ -121,6 +121,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync("api/tutor/search?page=0&pageSize=10&term=");
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             var responseBody = await response.Content.ReadAsStringAsync();
+            responseBody.IsValidJson().Should().BeTrue();
             dynamic  v = JsonConvert.DeserializeObject(responseBody);
             int result = v.count;
             result.Should().BeGreaterThan(0);

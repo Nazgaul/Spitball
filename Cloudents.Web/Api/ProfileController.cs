@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Cloudents.Web.Models;
 
 namespace Cloudents.Web.Api
 {
@@ -24,7 +25,6 @@ namespace Cloudents.Web.Api
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
         private readonly IUrlBuilder _urlBuilder;
-
 
         public ProfileController(IQueryBus queryBus, UserManager<User> userManager,
              IUrlBuilder urlBuilder)
@@ -39,9 +39,10 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
 
-        public async Task<ActionResult<UserProfileDto>> GetAsync(long id, CancellationToken token)
+        public async Task<ActionResult<UserProfileDto>> GetAsync(long id,
+            CancellationToken token)
         {
-            _userManager.TryGetLongUserId(User,out var userId);
+            _userManager.TryGetLongUserId(User, out var userId);
             var query = new UserProfileQuery(id, userId);
             var retVal = await _queryBus.QueryAsync(query, token);
             if (retVal == null)
@@ -54,10 +55,9 @@ namespace Cloudents.Web.Api
         [HttpGet("{id:long}/about")]
         public async Task<UserProfileAboutDto> GetAboutAsync(long id, CancellationToken token)
         {
-            //var user = _userManager.GetU
-            //_userManager.IsInRoleAsync()
             var query = new UserProfileAboutQuery(id);
-            return await _queryBus.QueryAsync(query, token);
+            var res = await _queryBus.QueryAsync(query, token);
+            return res;
         }
 
         // GET
@@ -67,7 +67,13 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
         {
             var query = new UserDataPagingByIdQuery(id, page);
-            return await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            
+            var res =  await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            return res.Select(item =>
+            {
+                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+                return item;
+            });
 
         }
 
@@ -78,19 +84,26 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<QuestionFeedDto>> GetAnswersAsync(long id, int page, CancellationToken token)
         {
             var query = new UserAnswersByIdQuery(id, page);
-            return await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            var res = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            return res.Select(item =>
+            {
+                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+                item.FirstAnswer.User.Image =
+                    _urlBuilder.BuildUserImageEndpoint(item.FirstAnswer.User.Id, item.FirstAnswer.User.Image);
+                return item;
+            });
+           
         }
 
         [HttpGet("{id:long}/documents")]
         [ProducesResponseType(200)]
 
-        public async Task<IEnumerable<DocumentFeedDto>> GetDocumentsAsync(
+        public async Task<WebResponseWithFacet<DocumentFeedDto>> GetDocumentsAsync(
             long id, int page,
-
-            CancellationToken token)
+            int pageSize = 20, CancellationToken token = default)
         {
-            var query = new UserDataPagingByIdQuery(id, page);
-            var retValTask = _queryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, token);
+            var query = new UserDocumentsQuery(id, page, pageSize);
+            var retValTask = _queryBus.QueryAsync(query, token);
 
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
             if (User.Identity.IsAuthenticated)
@@ -103,17 +116,28 @@ namespace Cloudents.Web.Api
             }
 
             await Task.WhenAll(retValTask, votesTask);
-            return retValTask.Result.Select(s =>
+            foreach (var item in retValTask.Result.Result)
             {
-                s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
-                s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
-                if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
+                if (item.User != null)
                 {
-                    s.Vote.Vote = p;
+                    item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
                 }
+            }
+            return new WebResponseWithFacet<DocumentFeedDto>()
+            {
+                Result = retValTask.Result.Result.Select(s =>
+                {
+                    s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
+                    s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
+                    if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
+                    {
+                        s.Vote.Vote = p;
+                    }
 
-                return s;
-            });
+                    return s;
+                }),
+                Count = retValTask.Result.Count
+            };
         }
 
         [HttpGet("{id:long}/purchaseDocuments")]
@@ -135,6 +159,12 @@ namespace Cloudents.Web.Api
             }
 
             await Task.WhenAll(retValTask, votesTask);
+
+            foreach (var item in retValTask.Result)
+            {
+                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+            }
+
             return retValTask.Result.Select(s =>
             {
                 s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
@@ -151,28 +181,28 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> FollowAsync(long id, [FromServices] ICommandBus commandBus, CancellationToken token)
+        public async Task<IActionResult> FollowAsync([FromBody] FollowRequest model, [FromServices] ICommandBus commandBus, CancellationToken token)
         {
             var user = _userManager.GetLongUserId(User);
-            if (id == user)
+            if (model.Id == user)
             {
                 return BadRequest();
             }
-            var command = new FollowUserCommand(id, user);
+            var command = new FollowUserCommand(model.Id, user);
             await commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
-        [HttpDelete("unFollow"), Authorize]
-        public async Task<IActionResult> UnFollowAsync(long id, [FromServices] ICommandBus commandBus, CancellationToken token)
+        [HttpDelete("unFollow/{id}"), Authorize]
+        public async Task<IActionResult> UnFollowAsync([FromRoute] UnFollowRequest model, [FromServices] ICommandBus commandBus, CancellationToken token)
         {
             var user = _userManager.GetLongUserId(User);
-            var command = new UnFollowUserCommand(id, user);
+            var command = new UnFollowUserCommand(model.Id, user);
             await commandBus.DispatchAsync(command, token);
             return Ok();
         }
 
-       
+
 
     }
 }

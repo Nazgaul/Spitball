@@ -116,36 +116,36 @@
   }
 }
 // generate classes for question card  based on user selected color, background and font color
-@colors: #ffffff,
-#6bc248,
-#a757db,
-#e5455d,
-#edaf2e,
-#7472ff,
-#3bbda4,
-#53a0fd,
-#a09c9c,
-#abb55e,
-#d251ae;
-@names: default, green, purple, red, yellow, blue, turquoise, lightblue, grey, olive, pink;
-@fontColors: rgba(0, 0, 0, 0.87), #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff;
-@length: length(@colors);
-.user-question-style(@names; @colors; @fontColors; @index) when (iscolor(extract(@colors, @index))) and (@index > 0) {
-  .user-question-style(@names; @colors; @fontColors; (@index - 1)); // decrement.
+// @colors: #ffffff,
+// #6bc248,
+// #a757db,
+// #e5455d,
+// #edaf2e,
+// #7472ff,
+// #3bbda4,
+// #53a0fd,
+// #a09c9c,
+// #abb55e,
+// #d251ae;
+// @names: default, green, purple, red, yellow, blue, turquoise, lightblue, grey, olive, pink;
+// @fontColors: rgba(0, 0, 0, 0.87), #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff;
+// @length: length(@colors);
+// .user-question-style(@names; @colors; @fontColors; @index) when (iscolor(extract(@colors, @index))) and (@index > 0) {
+//   .user-question-style(@names; @colors; @fontColors; (@index - 1)); // decrement.
 
-  @name: extract(@names, @index);
-  @color: extract(@colors, @index);
-  @fontColor: extract(@fontColors, @index);
+//   @name: extract(@names, @index);
+//   @color: extract(@colors, @index);
+//   @fontColor: extract(@fontColors, @index);
 
-  .sbf-card-@{name} {
-    background-color: @color;
-  }
+//   .sbf-card-@{name} {
+//     background-color: @color;
+//   }
 
-  .sbf-font-@{name} {
-    color: @fontColor!important;
-  }
-}
-.user-question-style(@names, @colors, @fontColors, @length );
+//   .sbf-font-@{name} {
+//     color: @fontColor!important;
+//   }
+// }
+// .user-question-style(@names, @colors, @fontColors, @length );
 //end function
 
 .placeholder-color(@color, @opacity:1, @fontWeight: 300, @fontSize: 14px ) {
@@ -252,12 +252,12 @@
 
 
 
-.item-page-width() {
-  max-width: 756px;
-  width: 100%;
-  padding: 0 8px;
-  margin: 0 auto !important;
-}
+// .item-page-width() {
+//   max-width: 756px;
+//   width: 100%;
+//   padding: 0 8px;
+//   margin: 0 auto !important;
+// }
 
 .clear-field-btn() { // Note: this is not supported by Firefox yet.
   &::-webkit-search-cancel-button {
@@ -300,7 +300,7 @@
 */
 @logoWidth: 239px;
 @cellWidth: 720px;
-
+@btnDialog: 140px;
 
 // Size constants
 @btnHeight : 40px;
@@ -323,57 +323,57 @@
 
 
 //fab animation
-@-webkit-keyframes fade {
-  0% {opacity: 0.25}
-  25% {opacity: 0.5}
-  50% {opacity: 0.75}
-  100% {opacity: 1}
-}
+// @-webkit-keyframes fade {
+//   0% {opacity: 0.25}
+//   25% {opacity: 0.5}
+//   50% {opacity: 0.75}
+//   100% {opacity: 1}
+// }
 
-@-moz-keyframes fade{
-  0% {opacity: 0.25}
-  25% {opacity: 0.5}
-  50% {opacity: 0.75}
-  100% {opacity:1}
-}
+// @-moz-keyframes fade{
+//   0% {opacity: 0.25}
+//   25% {opacity: 0.5}
+//   50% {opacity: 0.75}
+//   100% {opacity:1}
+// }
 
-@keyframes fade {
-  0% {opacity: 0.25}
-  25% {opacity: 0.5}
-  50% {opacity: 0.75}
-  100%{opacity: 1}
-}
-@-o-keyframes fade {
-  0% {opacity: 0.25}
-  25% {opacity: 0.5}
-  50% {opacity: 0.75}
-  100%{opacity: 1}
+// @keyframes fade {
+//   0% {opacity: 0.25}
+//   25% {opacity: 0.5}
+//   50% {opacity: 0.75}
+//   100%{opacity: 1}
+// }
+// @-o-keyframes fade {
+//   0% {opacity: 0.25}
+//   25% {opacity: 0.5}
+//   50% {opacity: 0.75}
+//   100%{opacity: 1}
 
-}
+// }
 
-@-webkit-keyframes fadeIn {
-  0% {opacity: 0.2}
-  50% {opacity: 0.75}
-  100% {opacity:1}
-}
+// @-webkit-keyframes fadeIn {
+//   0% {opacity: 0.2}
+//   50% {opacity: 0.75}
+//   100% {opacity:1}
+// }
 
-@-moz-keyframes fadeIn{
-  0% {opacity: 0.2}
-  50% {opacity: 0.75}
-  100% {opacity:1}
-}
+// @-moz-keyframes fadeIn{
+//   0% {opacity: 0.2}
+//   50% {opacity: 0.75}
+//   100% {opacity:1}
+// }
 
-@keyframes fadeIn {
-  0% {opacity: 0.2}
-  50% {opacity: 0.75}
-  100% {opacity:1}
-}
-@-o-keyframes fadeIn {
-  0% {opacity: 0.2}
-  50% {opacity: 0.75}
-  100% {opacity:1}
+// @keyframes fadeIn {
+//   0% {opacity: 0.2}
+//   50% {opacity: 0.75}
+//   100% {opacity:1}
+// }
+// @-o-keyframes fadeIn {
+//   0% {opacity: 0.2}
+//   50% {opacity: 0.75}
+//   100% {opacity:1}
 
-}
+// }
 
 .scrollBarStyle(@width: 6px, @colorParam: @color-main-purple, @trackBoxshadow:inset 0 0 2px rgba(0, 0, 0, 0.3), @thumbBoxshadow: inset 0 0 2px rgba(0, 0, 0, 0.5)){
   ::-webkit-scrollbar {

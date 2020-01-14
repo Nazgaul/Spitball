@@ -82,7 +82,7 @@ namespace Cloudents.Query.Tutor
                          s.Select(x => x.Id).WithAlias(() => tutorCardDtoAlias.UserId)
 
                              .Select(x => x.Name).WithAlias(() => tutorCardDtoAlias.Name)
-                             .Select(x => x.Image).WithAlias(() => tutorCardDtoAlias.Image)
+                             .Select(x => x.ImageName).WithAlias(() => tutorCardDtoAlias.Image)
                              .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
                              .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
                              .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)
@@ -105,7 +105,7 @@ namespace Cloudents.Query.Tutor
                     .SelectList(s =>
                         s.Select(x => x.Id).WithAlias(() => tutorCardDtoAlias.UserId)
                             .Select(x => x.Name).WithAlias(() => tutorCardDtoAlias.Name)
-                            .Select(x => x.Image).WithAlias(() => tutorCardDtoAlias.Image)
+                            .Select(x => x.ImageName).WithAlias(() => tutorCardDtoAlias.Image)
                             .Select(x => x.Courses).WithAlias(() => tutorCardDtoAlias.Courses)
                             .Select(x => x.Subjects).WithAlias(() => tutorCardDtoAlias.Subjects)
                             .Select(x => x.Price).WithAlias(() => tutorCardDtoAlias.Price)

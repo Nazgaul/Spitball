@@ -1,23 +1,28 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using System.Reflection;
+﻿using Microsoft.AspNetCore.Hosting;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 
-[assembly: AssemblyVersion("19.6.25.*")]
 namespace Cloudents.Web
 {
     public static class Program
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .ConfigureKestrel(f => f.AddServerHeader = false)
-                .UseApplicationInsights()
-                .UseStartup<Startup>();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.ConfigureKestrel(x => x.AddServerHeader = false);
+                    webBuilder.UseStartup<Startup>();
+                });
+
+        //.ConfigureKestrel(f => f.AddServerHeader = false)
+        // .UseStartup<Startup>();
 
         //.ConfigureLogging((hostingContext, logging) =>
         //{

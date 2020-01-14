@@ -2,7 +2,7 @@
     <div class="headlineSearchDesktop">
       <div class="headlineTitlesDesktop">
         <h1 class="hd-titleDesktop" v-language:inner="'homePage_hd_title'"/>
-        <h2 :class="['hd-subtitleDesktop','my-4']" v-language:inner="'homePage_hd_subtitle'"/>
+        <h2 :class="['hd-subtitleDesktop','my-6']" v-language:inner="'homePage_hd_subtitle'"/>
         <div class="hd-searchDesktop">
           <div class="search-input-cont">
             <v-text-field
@@ -27,12 +27,10 @@
 </template>
 
 <script>
-import headlineStatus from ".././headlineStatus.vue";
 import { LanguageService } from "../../../../services/language/languageService.js";
 import { mapGetters } from 'vuex';
 
 export default {
-  components: { headlineStatus },
   data() {
     return {
       search: "",
@@ -42,7 +40,7 @@ export default {
   methods: {
     searchQuery() {
       if (this.search) {
-        this.$router.push({ path: "/feed", query: { term: this.search } });
+        this.$router.push({ name: "feed", query: { term: this.search } });
       }
     }
   },
@@ -95,6 +93,7 @@ export default {
         padding-bottom: 70px;
       width: 50%;
       .hd-titleDesktop {
+        line-height: normal;
         font-size: 36px;
         font-weight: bold;
       }
@@ -131,12 +130,11 @@ export default {
                 .v-text-field__slot {
 
                   font-size: 18px;
-                  font-weight: normal;
-                  font-stretch: normal;
-                  font-style: normal;
-                  line-height: normal;
-                  letter-spacing: normal;
+               
                   color: #a1a3b0;
+                  input {
+                    height: 100%;
+                  }
                 }
               }
             }

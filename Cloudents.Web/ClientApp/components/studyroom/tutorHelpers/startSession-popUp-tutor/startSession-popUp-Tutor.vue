@@ -1,8 +1,8 @@
 <template>
-    <div class="tutor-start-wrap pb-3">
-        <v-layout row class="pt-3">
-            <v-flex xs12 class="text-xs-right px-3">
-                <v-icon class="caption cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
+    <div class="tutor-start-wrap pb-4">
+        <v-layout class="pt-4">
+            <v-flex xs12 class="text-right px-4">
+                <v-icon class="body-2 cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
             </v-flex>
         </v-layout>
     <v-layout column align-center>
@@ -10,16 +10,17 @@
             <v-progress-circular v-if="isStudentImage && studentImage" :width="2" indeterminate v-bind:size="35" color="#514f7d"/>
             <userAvatar v-else :user-name="studentName"  :userImageUrl="studentImage" :user-id="studentId" :size="'58'"/>
         </v-flex>
-        <v-flex xs12 class="pt-12">
-            <span class="subheading font-weight-bold" v-language:inner>tutor_start_dialog_your_student</span>
-            <span class="subheading font-weight-bold">&nbsp;{{studentName}}</span>
+        <v-flex xs12 class="pt-3">
+            <span class="tutor-start-wrap_title font-weight-bold" v-language:inner>tutor_start_dialog_your_student</span>
+            <span class="tutor-start-wrap_title font-weight-bold">&nbsp;{{studentName}}</span>
         </v-flex>
         
         <v-flex xs12 v-if="!sessionFinished" style="text-align: center;" class="pt-2">
             <span class="" v-language:inner="'tutor_can_be_recorded'"></span>
         </v-flex>
-        <v-flex xs12 v-if="showButton" class="pt-4">
-            <v-btn class="start-session-btn elevation-0 align-center justify-center"
+        <v-flex xs12 v-if="showButton" class="pt-5">
+            <v-btn height="48" class="start-session-btn ma-2 elevation-0 align-center justify-center"
+                    large
                     :loading="buttonLoader"
                     :disabled="buttonState"
                     @click="startSession()">
@@ -27,10 +28,10 @@
                 <span class="">{{roomStateText}}</span>
             </v-btn>
         </v-flex>
-        <v-flex class="font-weight-bold start-session-text" pt-4 v-else>
+        <v-flex class="font-weight-bold start-session-text" pt-6 v-else>
             {{roomStateText}}
         </v-flex>
-        <v-flex xs12 v-if="sessionFinished" class="pt-12">
+        <v-flex xs12 v-if="sessionFinished" class="pt-3">
             <span class="subheading" v-language:inner="'tutor_start_dialog_session_time'"></span>
             <span class="subheading">&nbsp;{{sessionTime}}</span>
         </v-flex>
@@ -142,6 +143,9 @@
         box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
         width: 356px;
         padding: 0 5px;
+        .tutor-start-wrap_title{
+            font-size: 16px;
+        }
         .start-session-btn{
             display: flex;
             height: 48px;
@@ -149,7 +153,9 @@
             color: @color-white;
             background-color: @BtnBackground!important;
             border-radius: 4px;
+            letter-spacing: inherit;
             text-transform: initial;
+            font-size: 14px !important;
             .timer-icon{
                 fill: @color-white;
                 max-width: 24px;

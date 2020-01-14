@@ -1,12 +1,12 @@
 <template>
     <div class="footer">
-        <v-layout row align-center justify-space-around class="footer-warp">
+        <v-layout align-center justify-space-around class="footer-warp">
             <ul v-if="links" class="footer-wrap-list w-list-unstyled">
                 <li  v-for="(link, index) in links" :key="index">
                     <a :href="link.url" class="footer-link">{{link.title}}</a>
                 </li>
             </ul>
-            <div class="footer-warp-divider mt-4"></div>
+            <div class="footer-warp-divider mt-6"></div>
             <div class="footer-contact-box">
                 <div class="tutor-list-footer-logo">
                     <logoComponent></logoComponent>
@@ -34,7 +34,7 @@
 import {LanguageService} from '../../../../services/language/languageService';
 import satelliteService from '../../../../services/satelliteService';
 import logoComponent from '../../../app/logo/logo.vue';
-import LOGO from './images/sp-logo.svg';
+//import LOGO from './images/sp-logo.svg';
 
     export default {
         name: "Footer",
@@ -140,6 +140,7 @@ import LOGO from './images/sp-logo.svg';
     max-width: 1200px;
     margin: 0 auto;
     height: inherit;
+    font-size: 14px;
     @media (max-width: @screen-sm) {
         flex-direction: column-reverse;
     }

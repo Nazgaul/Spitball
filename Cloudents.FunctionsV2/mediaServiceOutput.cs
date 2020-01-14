@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.FileProcessor;
 using Microsoft.Azure.WebJobs;
-using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json.Linq;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
 {
-    public static class mediaServiceOutput
+    public static class MediaServiceOutput
     {
         [FunctionName("media-service-event")]
         public static async Task Run(

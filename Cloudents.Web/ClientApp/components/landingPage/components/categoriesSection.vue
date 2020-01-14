@@ -78,7 +78,7 @@ export default {
     },
     update(name){
       this.UPDATE_SEARCH_LOADING(true)
-      this.$router.push({ path: '/feed', query: {term: name}})
+      this.$router.push({ name: 'feed', query: {term: name}})
     }
   },
   computed: {
@@ -156,6 +156,8 @@ export default {
         position: absolute;
         left: 14px;
         top: 8px;
+        font-size: 14px;
+        line-height: normal;
       }
     }
     .categories-chips {
@@ -175,6 +177,7 @@ export default {
         border-radius: 20px;
         border: solid 1px #4c59ff;
         color: #4c59ff
+        
       }
     }
   }
@@ -198,6 +201,7 @@ export default {
         padding: 16px 0 4px 0;
       }
       .banner-title {
+        line-height: normal;
         @media (max-width: @sbScreen-tablet) {
           text-align: center;
 
@@ -252,6 +256,8 @@ export default {
           position: absolute;
           left: 14px;
           top: 8px;
+          font-size: 14px;
+          line-height: normal;
         }
       }
     }

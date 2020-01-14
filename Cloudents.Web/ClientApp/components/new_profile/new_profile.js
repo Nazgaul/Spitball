@@ -1,40 +1,55 @@
 
+import profileUserBox from './components/profileUserBox/profileUserBox.vue';
+import profileDialogs from './components/profileDialogs/profileDialogs.vue';
+import profileUserSticky from './components/profileUserSticky/profileUserSticky.vue';
+import profileUserStickyMobile from './components/profileUserSticky/profileUserStickyMobile.vue';
+import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
+import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
+import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
+
+
+
+import analyticsService from '../../services/analytics.service';
+import { LanguageService } from "../../services/language/languageService";
+import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
+import storeService from '../../services/store/storeService';
+import couponStore from '../../store/couponStore';
+import chatService from '../../services/chatService.js';
+
 
 //old
 import questionCard from "../question/helpers/new-question-card/new-question-card.vue";
 import resultNote from "../results/ResultNote.vue";
 import userBlock from '../helpers/user-block/user-block.vue';
 import { mapActions, mapGetters } from 'vuex';
-import { LanguageService } from "../../services/language/languageService";
 import uploadDocumentBtn from "../results/helpers/uploadFilesBtn/uploadFilesBtn.vue";
 //old
 //new
-import profileBio from './profileHelpers/profileBio/profileBio.vue';
-import tutorAboutMe from './profileHelpers/profileAbout/tutorAboutMe.vue';
-import coursesCard from './profileHelpers/coursesCard/coursesCard.vue';
-import reviewsList from './profileHelpers/reviews/reviewsList.vue';
-import tutorInfoBlock from './profileHelpers/tutoringInfo/tutorInfoBlock.vue';
-import userInfoBlock from './profileHelpers/userInfoBlock/userInfoBlock.vue';
-import ctaBlock from './profileHelpers/ctaBlock/ctaBlock.vue';
-import courseEmptyState from './profileHelpers/courseEmptyState/courseEmptyState.vue';
+
+
+
 import calendarTab from '../calendar/calendarTab.vue';
 
 //new
 export default {
     name: "new_profile",
     components: {
+        profileUserBox,
+        profileDialogs,
+        profileUserSticky,
+        profileUserStickyMobile,
+        profileReviewsBox,
+        profileEarnMoney,
+        profileItemsBox,
+        sbDialog,
+
+
+
+
         questionCard,
         userBlock,
         resultNote,
         uploadDocumentBtn,
-        profileBio,
-        tutorAboutMe,
-        coursesCard,
-        reviewsList,
-        tutorInfoBlock,
-        userInfoBlock,
-        ctaBlock,
-        courseEmptyState,
         calendarTab
     },
     props: {
@@ -44,6 +59,35 @@ export default {
     },
     data() {
         return {
+            globalFunctions:{
+                openCoupon: this.openCoupon,
+                sendMessage: this.sendMessage,
+                openCalendar: this.openCalendar,
+                closeCalendar: this.closeCalendar,
+                openBecomeTutor: this.openBecomeTutor,
+                goTutorList: this.goTutorList,
+                openUpload: this.openUpload,
+                getItems: this.getItems,
+            },
+            coupon: '',
+            couponPlaceholder: LanguageService.getValueByKey('coupon_placeholder'),
+            disableApplyBtn: false,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             isRtl: global.isRtl,
             isEdgeRtl: global.isEdgeRtl,
             loadingContent: false,
@@ -78,26 +122,149 @@ export default {
     },
     methods: {
         ...mapActions([
+            'updateCouponDialog',
+            'updateLoginDialogState',
+            'updateCoupon',
+            'updateCurrTutor',
+            'setTutorRequestAnalyticsOpenedFrom',
+            'updateRequestDialog',
+            'setActiveConversationObj',
+            'openChatInterface',
+            'updateTutorDialog',
+            'setReturnToUpload',
+            'updateDialogState',
+            'updateProfileItemsByType',
+
+
+            
             'updateNewQuestionDialogState',
             'syncProfile',
             'getAnswers',
             'getQuestions',
-            'getDocuments',
+            // 'getDocuments',
             'resetProfileData',
             'getPurchasedDocuments',
             'setProfileByActiveTab',
-            'updateLoginDialogState',
             'updateToasterParams'
         ]),
+        closeCouponDialog() {
+            this.coupon = ''
+            this.updateCouponDialog(false);
+        },
+        openCoupon(){
+            if(global.isAuth) {
+            if(this.accountUser) {          
+                if(this.$route.params.id != this.accountUser.id) {
+                    this.updateCouponDialog(true)
+                    analyticsService.sb_unitedEvent('Tutor_Engagement', 'Click_Redeem_Coupon', `${this.$route.path}`);
+                }
+            }
+            } else {
+            this.updateLoginDialogState(true);
+            }
+        },
+        applyCoupon() {
+            if(this.isTutor) {
+                this.disableApplyBtn = true;
+                let tutorId = this.getProfile.user.id;
+                let coupon = this.coupon;
+                let self = this
+                this.updateCoupon({coupon, tutorId}).finally(() => {
+                self.coupon = ''
+                self.disableApplyBtn = false;
+                if(!self.getCouponError) {
+                    analyticsService.sb_unitedEvent('Tutor_Engagement', 'Redeem_Coupon_Success', `${this.$route.path}`);
+                }
+                })
+            }
+        },
+        sendMessage(){
+            if(this.isMyProfile) {return}
+            if(this.accountUser == null) {
+               analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:GUEST`);
+               let profile = this.getProfile
+               this.updateCurrTutor(profile.user)    
+               this.setTutorRequestAnalyticsOpenedFrom({
+                  component: 'profileContactBtn',
+                  path: this.$route.path
+               });
+               this.updateRequestDialog(true);
+            } else {
+               analyticsService.sb_unitedEvent('Request Tutor Submit', 'Send_Chat_Message', `${this.$route.path}`);
+               let currentProfile = this.getProfile;
+               let conversationObj = {
+                  userId: currentProfile.user.id,
+                  image: currentProfile.user.image,
+                  name: currentProfile.user.name,
+                  conversationId: chatService.createConversationId([currentProfile.user.id, this.accountUser.id]),
+               }
+               let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
+               this.setActiveConversationObj(currentConversationObj);
+               this.openChatInterface();                    
+            }
+         },
+        openBecomeTutor(){
+        this.updateTutorDialog(true)
+        },
+        goTutorList(){
+        this.$router.push({name:'tutorLandingPage'})
+        },
+        openUpload() {
+            let schoolName = this.getSchoolName;
+            if (this.accountUser == null) {
+              this.updateLoginDialogState(true);
+            } else if (!schoolName.length) {
+              this.$router.push({ name: "addUniversity" });
+              this.setReturnToUpload(true);
+            } else if (!this.getSelectedClasses.length) {
+              this.$router.push({ name: "addCourse" });
+              this.setReturnToUpload(true);
+            } else if (schoolName.length > 0 && this.getSelectedClasses.length > 0) {
+              this.updateDialogState(true);
+              this.setReturnToUpload(false);
+            }
+        },
+        getItems({type,page,pageSize}){
+            return this.updateProfileItemsByType({id:this.id,type,page,pageSize})
+        },
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         changeActiveTab(tabId) {
             this.activeTab = tabId;
         },
         fetchData() {
+            // let syncObj = {
+            //     id: this.id,
+            //     activeTab: this.activeTab
+            // };
             let syncObj = {
                 id: this.id,
-                activeTab: this.activeTab
-            };
+                type:'documents',
+                page: 0,
+                pageSize:this.$vuetify.breakpoint.xsOnly? 3 : 6,
+            }
             this.syncProfile(syncObj);
         },
         getInfoByTab() {
@@ -147,27 +314,27 @@ export default {
                 this.questions.isComplete = true;
             });
         },
-        loadDocuments() {
-            if (this.profileData.documents.length < this.itemsPerTab) {
-                this.documents.isComplete = true;
-                return;
-            }
-            this.documents.isLoading = true;
-            let documentsInfo = {
-                id: this.id,
-                page: this.documents.page,
-                user: this.profileData.user
-            };
-            this.getDocuments(documentsInfo).then((hasData) => {
-                if (!hasData) {
-                    this.documents.isComplete = true;
-                }
-                this.documents.isLoading = false;
-                this.documents.page++;
-            }, () => {
-                this.documents.isComplete = true;
-            });
-        },
+        // loadDocuments() {
+        //     if (this.profileData.documents.length < this.itemsPerTab) {
+        //         this.documents.isComplete = true;
+        //         return;
+        //     }
+        //     this.documents.isLoading = true;
+        //     let documentsInfo = {
+        //         id: this.id,
+        //         page: this.documents.page,
+        //         user: this.profileData.user
+        //     };
+        //     this.getDocuments(documentsInfo).then((hasData) => {
+        //         if (!hasData) {
+        //             this.documents.isComplete = true;
+        //         }
+        //         this.documents.isLoading = false;
+        //         this.documents.page++;
+        //     }, () => {
+        //         this.documents.isComplete = true;
+        //     });
+        // },
         loadPurchasedDocuments() {
             if (this.profileData.purchasedDocuments.length < this.itemsPerTab) {
                 this.purchasedDocuments.isComplete = true;
@@ -191,18 +358,82 @@ export default {
                 });
         },
         openCalendar() {
-            if(!this.accountUser) {
+            if(!!this.accountUser) {
+                this.activeTab = 5;
+            } else {
                 this.updateLoginDialogState(true);
                 setTimeout(()=>{
                     document.getElementById(`tab-${this.activeTab}`).lastChild.click();
                 },200);
-            } else {
-                this.activeTab = 6;
             }
+        },
+        closeCalendar(){
+            this.activeTab = null
         }
     },
     computed: {
-        ...mapGetters(["accountUser", "getProfile", "isTutorProfile"]),
+        ...mapGetters([
+            "accountUser",
+            'getCouponDialog',
+            'getCouponError',
+            'getSchoolName',
+            'getSelectedClasses',
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        "getProfile", "isTutorProfile"]),
+        isShowCouponDialog(){
+            if(this.getCouponDialog){
+                setTimeout(() => {
+                    document.querySelector('.profile-coupon_input').focus()
+                }, 100);
+            }
+            return this.getCouponDialog;
+        },
+        showReviewBox(){
+            if((!!this.getProfile && this.getProfile.user.isTutor) && (this.getProfile.user.tutorData.rate)){
+                return true;
+            }else{
+                return false
+            }
+        },
+        isTutor(){
+            return !!this.getProfile && this.getProfile.user.isTutor
+        },
+        isMyProfile(){
+            return !!this.getProfile && !!this.accountUser && this.accountUser.id == this.getProfile.user.id
+        },
+        showEarnMoney(){
+            return this.isMyProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
+        },
+        showItems(){
+            return !!this.getProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && this.uploadedDocuments.result.length;
+        },
+        isTutorPending(){
+            return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         xsColumn(){
             const xsColumn = {};
             if (this.$vuetify.breakpoint.xsOnly){
@@ -218,16 +449,7 @@ export default {
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
         },
-        isMyProfile() {
-            if (!!this.profileData) {
-                // return false
-                return this.accountUser && this.accountUser.id && this.profileData ? this.profileData.user.id == this.accountUser.id : false;
-            }
-        },
 
-        isEmptyCourses(){
-            return this.profileData && this.profileData.about && this.profileData.about.courses && !this.profileData.about.courses.length;
-        },
         emptyStateData() {
             let questions = {
                 text: LanguageService.getValueByKey("profile_emptyState_questions_text"),
@@ -256,12 +478,12 @@ export default {
                 btnText: LanguageService.getValueByKey("profile_emptyState_documents_btnText"),
                 btnUrl: 'note'
             };
-            if (this.activeTab === 2) {
-                return questions;
-            } else if (this.activeTab === 3) {
-                return answers;
-            } else if (this.activeTab === 4) {
+            if (this.activeTab === 1) {
                 return documents;
+            } else if (this.activeTab === 2) {
+                return answers;
+            } else if (this.activeTab === 3) {
+                return questions;
             }
         },
         showCalendar(){
@@ -298,6 +520,14 @@ export default {
     },
     watch: {
         '$route': function(val){
+
+
+
+
+
+
+
+            this.resetProfileData();
             if((val.params.id == this.accountUser.id) && this.accountUser.isTutorState === "pending"){
                 this.updateToasterParams({
                     toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
@@ -309,28 +539,84 @@ export default {
                     showToaster: false
                 }); 
             }
-            this.activeTab = 1;
-            document.getElementById(`tab-${1}`).lastChild.click();
             this.fetchData();
         },
 
         activeTab() {
+
+
+
+
+
+
+
+
+
             this.getInfoByTab();
         }
     },
     //reset profile data to prevent glitch in profile loading
     beforeRouteLeave(to, from, next) {
+
+
+
+
+
+
+
+
+
         this.updateToasterParams({
             showToaster: false
         });
         this.resetProfileData();
         next();
     },
+    beforeDestroy(){
 
+
+
+
+
+
+
+
+
+        this.closeCouponDialog();
+        storeService.unregisterModule(this.$store, 'couponStore');
+     },
     created() {
+
+
+
+
+
+
+
+
+
+
+
         this.fetchData();
+        storeService.registerModule(this.$store, 'couponStore', couponStore);
+        if(!!this.$route.query.coupon) {
+           setTimeout(() => {
+           this.openCoupon();
+           },200)
+        }
     },
     mounted() {
+
+
+
+
+
+
+
+
+
+
+
         if(this.$route.params && this.$route.params.tab){
             let tabNumber = this.$route.params.tab;
             setTimeout(()=>{
@@ -340,7 +626,7 @@ export default {
         if((this.$route.query && this.$route.query.calendar)){
             setTimeout(()=>{
                 if(this.getProfile.user.calendarShared){
-                    document.getElementById(`tab-6`).lastChild.click();
+                    document.getElementById(`tab-5`).lastChild.click();
                 }
             },200);
         }

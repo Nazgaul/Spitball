@@ -17,12 +17,12 @@ const clearLocalShape = function(){
         points: [],
         id: null
     });
-}
+};
 
 const startingMousePosition = {
     x:null,
     y:null
-}
+};
 
 let imageCache = {};
 
@@ -39,7 +39,7 @@ const init = function(){
     isEditing = false;
     startShapes = {};
     currentShapeEditing = null;
-}
+};
 
 const sizeProportion = 2;
 
@@ -54,14 +54,14 @@ const getImageDimensions = function(text, id){
             let imgObj = {
                 img,
                 text
-            }
-           imageCache[id] = imgObj;
+            };
+            imageCache[id] = imgObj;
            resolve({width: img.width, height:img.height}); 
-        }
+        };
         img.src = url;
     });
-   }) 
-}
+   });
+};
 
 
 const drawContext = function(svgText, textObj){
@@ -74,13 +74,13 @@ const drawContext = function(svgText, textObj){
         let imgObj = {
             img,
             text: textObj.text
-        }
+        };
         imageCache[textObj.id] = imgObj;
         self.context.drawImage(img, textObj.mouseX, textObj.mouseY, img.width*sizeProportion, img.height*sizeProportion);
         DOMURL.revokeObjectURL(url);
-     }
+     };
      img.src = url;
-}
+};
 
 const draw = function(textObj){
     //determin the stroke color
@@ -96,16 +96,16 @@ const draw = function(textObj){
         });
     }
     
-}
+};
 const liveDraw = function(textObj){
     draw.bind(this, textObj)();
-}
+};
 
 const hideHelperObj = function(){
     currentId = null;
     isEditing = false;
     whiteBoardService.hideHelper();
-}
+};
 
 const setHelperObj = function(e, selectedHelper){
     let currentX = selectedHelper ? selectedHelper.mouseX + e.target.offsetLeft : e.clientX;
@@ -116,16 +116,16 @@ const setHelperObj = function(e, selectedHelper){
         color: this.color.hex,
         text: selectedHelper ? selectedHelper.text : '',
         id: currentId
-    }
+    };
     helper.setEquationShape(helperObj);
     helper.showHelper();
-}
+};
 
 const changeTextActionObj = function(id, oldShapePoint, newShapePoint){
     this.id = id;
     this.oldText = oldShapePoint.text;
     this.newText = newShapePoint.text;
-}
+};
 
 const addGhostLocalShape = function(actionType, actionObj){
     let ghostLocalShape = createGhostShape({
@@ -135,17 +135,17 @@ const addGhostLocalShape = function(actionType, actionObj){
     });
     this.methods.addShape(ghostLocalShape);
     startShapes = {};
-}
+};
 
 const enterPressed = function(e){
     if(isWriting){
         mousedown.bind(this, e)();
     }
-}
+};
 
 const moveToSelectTool = function(){
     this.methods.selectDefaultTool();
-}
+};
 
 const mousedown = function(e){
     this.methods.hideColorPicker();
@@ -168,15 +168,15 @@ const mousedown = function(e){
                         eventName: 'start',
                         id: instancedId,
                         text: text.value
-                    })
+                    });
                     localShape.id = textObj.id;
                     localShape.points.push(textObj);
                     //draw
                     liveDraw.bind(this, textObj)();
                     this.methods.addShape(localShape, clearLocalShape);
                     whiteBoardService.redraw(this);
-                })
-                
+                });
+
             }else{
                 isEditing = false;
                 currentShapeEditing.points[0].text = text.value;
@@ -187,7 +187,7 @@ const mousedown = function(e){
                     addGhostLocalShape.bind(this, "changeText", textGhostObj)();
                     whiteBoardService.redraw(this);
                     moveToSelectTool.bind(this)();
-                })
+                });
             }
         }
         this.methods.addShape(null, clearLocalShape);
@@ -228,27 +228,26 @@ const mousedown = function(e){
         setTimeout(()=>{
             let textElm = document.getElementsByClassName(currentId)[0];
             textElm.focus();
-        })
+        });
     }
-}
+};
 const mousemove = function(){
-}
+};
 
 const defineEndPosition = function(){
-}
-
+};
 
 
 const mouseup = function(e){
-    console.log('mouseUp')
-    console.log('mouseupmouseup')
-    defineEndPosition.bind(this, e)()
-}
+    console.log('mouseUp');
+    console.log('mouseupmouseup');
+    defineEndPosition.bind(this, e)();
+};
 
 const mouseleave = function(e){
-    console.log('mouseLeave')
-    defineEndPosition.bind(this, e)()
-}
+    console.log('mouseLeave');
+    defineEndPosition.bind(this, e)();
+};
 
 export default{
     mousedown,

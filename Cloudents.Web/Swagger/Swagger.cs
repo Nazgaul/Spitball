@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.OpenApi.Models;
 
 namespace Cloudents.Web.Swagger
 {
@@ -14,13 +14,13 @@ namespace Cloudents.Web.Swagger
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Spitball Api", Version = "v1" });
+                c.SwaggerDoc("v1",new OpenApiInfo() { Title = "Spitball Api", Version = "v1" });/*, new Info { Title = "Spitball Api", Version = "v1" }*/
                 var basePath = AppContext.BaseDirectory;
                 var xmlPath = Path.Combine(basePath, "Cloudents.Web.xml");
                 c.IncludeXmlComments(xmlPath);
                 c.DescribeAllEnumsAsStrings();
                 c.DescribeAllParametersInCamelCase();
-                c.OperationFilter<FormFileOperationFilter>();
+                //c.OperationFilter<FormFileOperationFilter>();
                 c.ResolveConflictingActions(f =>
                 {
                     var descriptions = f.ToList();

@@ -1,8 +1,8 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace Cloudents.Core.DTOs
@@ -33,12 +33,10 @@ namespace Cloudents.Core.DTOs
     {
         [EntityBind(nameof(User.Id))]
         public long Id { get; set; }
-        [EntityBind(nameof(User.Name))]
+        [EntityBind(nameof(User.ImageName))]
         public string Name { get; set; }
-        [EntityBind(nameof(User.Image))]
+        [EntityBind(nameof(User.ImageName))]
         public string Image { get; set; }
-        [EntityBind(nameof(User.Score))]
-        public int Score { get; set; }
         public string UniversityName { get; set; }
         [EntityBind(nameof(User.Description))]
         public string Description { get; set; }
@@ -53,6 +51,11 @@ namespace Cloudents.Core.DTOs
         public string FirstName { get; set; }
         [EntityBind(nameof(User.LastName))]
         public string LastName { get; set; }
+
+        [EntityBind(nameof(User.Followers))]
+        public int Followers { get; set; }
+
+        public bool IsFollowing { get; set; }
 
         //If the user is a tutor and then delete then the first name and the last name stays
         public bool ShouldSerializeTutor()
@@ -84,6 +87,19 @@ namespace Cloudents.Core.DTOs
         public decimal? CouponValue { get; set; }
         public CouponType? CouponType { get; set; }
 
+        [EntityBind(nameof(ReadTutor.Bio))] 
+        public string Bio { get; set; }
+
+        [EntityBind(nameof(ReadTutor.AllSubjects))]
+        public IEnumerable<string> Subjects { get; set; }
+
+        [EntityBind(nameof(ReadTutor.Lessons))]
+        public int Lessons { get; set; }
+
+        public int Documents { get; set; }
+
+       // public int ResponseTime { get; set; }
+
     }
 
     public class UserAccountDto
@@ -104,10 +120,9 @@ namespace Cloudents.Core.DTOs
         public long Id { get; set; }
         [EntityBind(nameof(User.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(User.Image))]
+        [EntityBind(nameof(User.ImageName))]
         public string Image { get; set; }
-        [EntityBind(nameof(User.Score))]
-        public int Score { get; set; }
+        
         public ItemState? IsTutor { get; set; }
 
         [EntityBind(nameof(User.PaymentExists), nameof(User.Country))]
@@ -133,7 +148,7 @@ namespace Cloudents.Core.DTOs
         public long UserId { get; set; }
         [EntityBind(nameof(BaseUser.Name))]
         public string Name { get; set; }
-        [EntityBind(nameof(BaseUser.Image))]
+        [EntityBind(nameof(BaseUser.ImageName))]
         public string Image { get; set; }
 
         [EntityBind(nameof(ChatUser.Unread))]

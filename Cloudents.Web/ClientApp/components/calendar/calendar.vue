@@ -39,7 +39,7 @@
               <v-btn
                 :color="!isEventSent? 'white':'#4452fc'" 
                 @click="closeDialog" 
-                depressed round 
+                depressed rounded 
                 :class="[!isEventSent? 'cncl-btn': 'donebtn']">
                 <span v-language:inner="!isEventSent? 'calendar_add_event_cancel':'calendar_add_event_ok'"/>
               </v-btn>
@@ -47,7 +47,7 @@
               <v-btn v-if="!isEventSent"
                   @click="isNeedPayment? goPayment() : insertNewEvent()" 
                   :loading="isLoading" 
-                  depressed round 
+                  depressed rounded 
                   color="#4452fc" 
                   class="calbtn">
                 <span v-language:inner="isNeedPayment? 'calendar_add_event_ok' :'calendar_add_event_btn'"/>
@@ -66,7 +66,7 @@
             :interval-minutes="intervals.minutes"
             :interval-count="intervals.count"
             :interval-height="intervals.height">
-            <template v-slot:dayBody="{ date, hour, timeToY, minutesToPixels }">
+            <template v-slot:day-body="{ date, hour, timeToY, minutesToPixels }">
               <template v-for="event in eventsMap[date]">
                 <div v-if="event.time" :key="event.time+2" class="my-event with-time" v-html="event.time"
                   :style="{ top: timeToY(event.time) + 'px', height: minutesToPixels(60) + 'px' }">
@@ -88,14 +88,14 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import paymentDialog from '../studyroom/tutorHelpers/paymentDIalog/paymentDIalog.vue'
-import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
+//import paymentDialog from '../studyroom/tutorHelpers/paymentDIalog/paymentDIalog.vue'
+//import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
 import {LanguageService} from '../../services/language/languageService.js'
 import Schedule from './images/schedule.svg'
 export default {
     components:{
-      paymentDialog,
-      sbDialog,
+     // paymentDialog,
+     // sbDialog,
       Schedule
     },
     data() {
@@ -153,6 +153,8 @@ export default {
           } else{
             return `${month} ${year}`
           }
+        }else{
+          return false;
         }
       },
       isGoPrev(){
@@ -197,7 +199,7 @@ export default {
           let options = { weekday: this.isMobile? 'narrow':'short' };
           return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
         },
-        insertNewEvent(date,time){
+        insertNewEvent(){
           this.isLoading = true;
           let paramObj = {
             date: this.selectedDate,
@@ -207,7 +209,7 @@ export default {
               this.isEventSent = true
               this.calendarEvents.push(paramObj)
               this.isLoading = false;
-          },err=>{
+          },()=>{
             this.addEventDialog = false;
             this.isLoading = false;
             this.updateToasterParams({
@@ -255,7 +257,6 @@ export default {
           this.isEventSent = false;
           this.isLoading = false;
         },
-
         goPayment(){
           this.requestPaymentURL({ title: 'payme_title', name: this.tutorName });
         },
@@ -269,7 +270,7 @@ export default {
        this.$refs.calendar.scrollToTime('06:00')
     },
     watch: {
-      getCalendarEvents:function(val){
+      getCalendarEvents:function(){
         this.isReady = true
       },
       isMobile:function(val){
@@ -360,7 +361,7 @@ export default {
       }
       .v-btn__content{
         .v-icon{
-          font-size: 18px;
+          font-size: 18px !important;
         }
       }
 
@@ -447,6 +448,7 @@ display: flex;
         min-width: 140px;
         height: 40px !important;
         padding: 0px 32px !important;
+        margin: 6px 8px;
       }
       .cncl-btn{
         color: @global-blue;
@@ -492,20 +494,22 @@ display: flex;
           font-weight: bold;
           padding: 0;
         @media (max-width: @screen-xs) {
-            font-size: 10px;
+            font-size: 12px;
             text-align: center;
         }
         }
         .v-calendar-daily_head-day-label{
-          font-size:24px;
-          line-height: inherit;
-          padding: 0 0 6px 0;
-          @media (max-width: @screen-xs) {
-            font-size: 18px;
-            text-align: center;
-            line-height: 1.6;
-            padding: 0;
+          button {
+            font-size:24px;
+            line-height: inherit;
+            // padding: 0 0 6px 0;
+            @media (max-width: @screen-xs) {
+              font-size: 18px;
+              text-align: center;
+              line-height: 1.6;
+              padding: 0;
 
+            }
           }
         }
         &.v-present{
@@ -517,7 +521,9 @@ display: flex;
               color:@global-blue;
             }
             .v-calendar-daily_head-day-label{
-              color:@global-blue;
+              button {
+                color:@global-blue;
+              }
             }
         }
       }
@@ -556,7 +562,7 @@ display: flex;
 .my-event {
     text-align: center;
     font-size: 12px;
-    padding: 3px;
+    padding: 5px;
     padding-bottom: 0;
     margin-right: 8px;
     position: relative;

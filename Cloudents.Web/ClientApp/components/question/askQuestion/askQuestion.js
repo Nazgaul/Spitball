@@ -1,5 +1,5 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
+import userAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
 // import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
 import { LanguageService } from "../../../services/language/languageService";
 import { validationRules } from "../../../services/utilities/formValidationRules";
@@ -8,7 +8,7 @@ import analyticsService from "../../../services/analytics.service";
 
 export default {
     components: {
-        UserAvatar,
+        UserAvatar: userAvatar,
         // FileUpload
     },
     data() {
@@ -38,7 +38,7 @@ export default {
         },
         userName() {
             if(this.accountUser && this.accountUser.name) {
-                return this.accountUser.name
+                return this.accountUser.name;
             }
             return '';
         }

@@ -12,7 +12,6 @@ using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,11 +26,13 @@ namespace Cloudents.Web.Api
 
         private readonly ConfigurationService _versionService;
         private readonly IQueryBus _queryBus;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public HomePageController(ConfigurationService versionService, IQueryBus queryBus)
+        public HomePageController(ConfigurationService versionService, IQueryBus queryBus, IUrlBuilder urlBuilder)
         {
             _versionService = versionService;
             _queryBus = queryBus;
+            _urlBuilder = urlBuilder;
         }
 
         [HttpGet("version")]
@@ -57,8 +58,13 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var query = new TopTutorsQuery(profile.Country, count);
-            var retValTask = await _queryBus.QueryAsync(query, token);
-            return retValTask;
+            var result = await _queryBus.QueryAsync(query, token);
+            return result.Select(s =>
+            {
+                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
+                return s;
+            });
+           
         }
 
         /// <summary>
@@ -89,8 +95,14 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var query = new ReviewsQuery(profile.Country, count);
-            var retValTask = await _queryBus.QueryAsync(query, token);
-            return retValTask;
+            var result = await _queryBus.QueryAsync(query, token);
+
+            return result.Select(s =>
+            {
+                s.TutorImage = _urlBuilder.BuildUserImageEndpoint(s.TutorId, s.TutorImage);
+                return s;
+            });
+            
         }
 
         [HttpGet]
@@ -120,15 +132,16 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var query = new TopDocumentsQuery(profile.Country, count);
-            var retValTask = await _queryBus.QueryAsync(query, token);
+            var result = await _queryBus.QueryAsync(query, token);
 
-            return retValTask.Select(s =>
+            return result.Select(item =>
             {
-                s.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
-                s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
-                //s.Title = Path.GetFileNameWithoutExtension(s.Title);
-                return s;
+                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+                item.Preview = urlBuilder.BuildDocumentThumbnailEndpoint(item.Id);
+                item.Url = Url.DocumentUrl(item.Course, item.Id, item.Title);
+                return item;
             });
+           
         }
     }
 }

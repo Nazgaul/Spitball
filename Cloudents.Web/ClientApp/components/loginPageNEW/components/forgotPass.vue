@@ -16,7 +16,7 @@
 				name="email" type="email"/>
         <v-btn  :loading="isEmailLoading"
                 type="submit"
-                large round 
+                large rounded 
                 class="white--text btn-login">
                 <span v-language:inner="'loginRegister_forgot_btn'"></span>
                 </v-btn>
@@ -36,7 +36,7 @@ export default {
     computed: {
         ...mapGetters(['getEmail1','getErrorMessages','getGlobalLoading']),
         isEmailLoading(){
-		    return this.getGlobalLoading
+            return this.getGlobalLoading
         },
         errorMessages(){
             return this.getErrorMessages
@@ -61,7 +61,7 @@ export default {
         }
     },
     watch: {
-    email: function(val){
+    email: function(){
         this.setErrorMessages({})
     }
 	}

@@ -56,7 +56,7 @@ namespace Cloudents.Web.Services
                 try
                 {
 
-                    var result = await _ipToLocation.GetAsync(_httpContext.HttpContext.Connection.GetIpAddress(),
+                    var result = await _ipToLocation.GetAsync(_httpContext.HttpContext.GetIpAddress(),
                         token);
                     cookieValue = result?.CountryCode;
                 }

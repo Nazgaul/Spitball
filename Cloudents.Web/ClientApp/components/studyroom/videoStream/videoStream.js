@@ -9,7 +9,7 @@ import microphoneImage from '../images/outline-mic-none-24-px-copy-2.svg'
 import microphoneImageIgnore from '../images/mic-ignore.svg'
 import videoCameraImage from '../images/video-camera.svg'
 import videoCameraImageIgnore from '../images/camera-ignore.svg'
-import videoCameraImageIgnore2 from '../images/camera-ignore copy.svg'
+import videoCameraImageIgnore2 from '../images/camera-ignore-big.svg'
 import castIcon from "../images/cast.svg";
 export default {
     name: "videoStream",

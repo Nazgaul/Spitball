@@ -10,7 +10,7 @@
       <v-icon @click.stop="OriginalChatState" v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'" />
         <template v-if="state === 'messages'">
           <user-avatar :size="'32'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/> 
-          <div class="chat-header-name text-truncate pl-3">{{activeConversationObj.name}}</div>
+          <div class="chat-header-name text-truncate pl-4">{{activeConversationObj.name}}</div>
         </template>
         <template v-else>
             <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
@@ -35,9 +35,9 @@
 
 
 <script>
-import chatConversation from "./components/conversations.vue";
-import chatMessages from "./components/messages.vue";
-import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
+const chatConversation = () => import("./components/conversations.vue");
+const chatMessages = () => import("./components/messages.vue");
+const UserAvatar = () => import('../helpers/UserAvatar/UserAvatar.vue');
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 export default {
@@ -106,6 +106,7 @@ export default {
           return this.getActiveConversationObj.name;
         }
       }
+      return ''
     },
     errorTitle() {
       return LanguageService.getValueByKey("chat_error_messages");

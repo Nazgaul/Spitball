@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using Cloudents.Web.Controllers;
+using Cloudents.Web.Seo.Images;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NHibernate;
@@ -17,30 +19,36 @@ namespace Cloudents.Web.Seo
         private readonly IStatelessSession _session;
         private readonly LinkGenerator _linkGenerator;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public SeoTutorBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        public SeoTutorBuilder(IStatelessSession session, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor, IUrlBuilder urlBuilder)
         {
             _session = session;
             _linkGenerator = linkGenerator;
             _httpContextAccessor = httpContextAccessor;
+            _urlBuilder = urlBuilder;
         }
 
-        public IEnumerable<SitemapNode> GetUrls(int index)
+        public IEnumerable<SitemapNode> GetUrls(bool isFrymo, int index)
         {
-            var t = _session.Query<Tutor>()
-                .Fetch(f => f.User)
-                .Where(w => (!w.User.LockoutEnd.HasValue || DateTime.UtcNow >= w.User.LockoutEnd.Value))
-                .Where(w => w.State == ItemState.Ok && w.User.Country != Country.India.Name)
-                .Take(SiteMapController.PageSize)
-                .Skip(SiteMapController.PageSize * index)
-                .Select(s => new { s.Id, s.User.Name });
-
-            foreach (var item in t)
+            var t = _session.Query<ReadTutor>();
+            if (isFrymo)
             {
+                t = t.Where(w => w.Country == Country.India.Name);
+            }
+            else
+            {
+                t = t.Where(w => w.Country != Country.India.Name);
+            }
 
 
+            var tutors = t.Take(SiteMapController.PageSize)
+              .Skip(SiteMapController.PageSize * index)
+              .Select(s => new { s.Id, s.Name, s.ImageName });
 
-                var url =  _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Tutor, new
+            foreach (var item in tutors)
+            {
+                var url = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Tutor, new
                 {
                     item.Id,
                     item.Name
@@ -50,10 +58,31 @@ namespace Cloudents.Web.Seo
                 {
                     ChangeFrequency = ChangeFrequency.Daily,
                     Priority = 1,
-                    TimeStamp = DateTime.UtcNow
+                    TimeStamp = DateTime.UtcNow,
+                    Images = new List<SitemapImage>()
+                    {
+                        new SitemapImage(_urlBuilder.BuildUserImageEndpoint(item.Id,item.ImageName,item.Name, new
+                        {
+                            width= "214",
+                            height = "240"
+                        }))
+                        {
+                            Caption = $"{item.Name} profile image"
+                        }
+                    }
                 };
 
             }
+        }
+
+        private static bool FilterCountry(ReadTutor w, bool isFrymo)
+        {
+            if (isFrymo)
+            {
+                return w.Country == Country.India.Name;
+            }
+
+            return w.Country != Country.India.Name;
         }
     }
 }

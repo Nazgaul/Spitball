@@ -19,12 +19,14 @@ namespace Cloudents.Infrastructure.Test
         private readonly Mock<IQueryBus> _queryBus;
         private readonly Mock<ITutorSearch> _tutorSearch;
         private readonly Mock<IDocumentSearch> _documentSearch;
+        private readonly Mock<IUrlBuilder> _urlBuilder;
 
         public FeedSortTests()
         {
             _queryBus = new Mock<IQueryBus>();
             _tutorSearch = new Mock<ITutorSearch>();
             _documentSearch = new Mock<IDocumentSearch>();
+            _urlBuilder = new Mock<IUrlBuilder>();
         }
 
         [Fact]
@@ -39,7 +41,7 @@ namespace Cloudents.Infrastructure.Test
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync(tutorsFeed);
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync(itemsFeed);
 
-            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object);
+            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object, _urlBuilder.Object);
 
             var res = (await feedService.GetFeedAsync(new GetFeedQuery(162107, 0, null, "IL", null), default)).ToList();
 
@@ -52,7 +54,7 @@ namespace Cloudents.Infrastructure.Test
         [Fact]
         public async Task GetFeedAsync_Null_Exception()
         {
-            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object);
+            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object, _urlBuilder.Object);
             //GetFeedQuery query = null;
             //SearchFeedQuery searchQuery = null;
             await Assert.ThrowsAsync<ArgumentNullException>(() => feedService.GetFeedAsync((GetFeedQuery) null, default));
@@ -74,7 +76,7 @@ namespace Cloudents.Infrastructure.Test
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync(tutorsFeed);
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync(itemsFeed);
 
-            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object);
+            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object, _urlBuilder.Object);
 
             var res = (await feedService.GetFeedAsync(new GetFeedQuery(162107, 1, null, "IL", null), default)).ToList();
             res[6].GetType().Should().Be(typeof(TutorCardDto));
@@ -95,7 +97,7 @@ namespace Cloudents.Infrastructure.Test
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync(tutorsFeed);
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync(itemsFeed);
 
-            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object);
+            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object, _urlBuilder.Object);
 
             var res = (await feedService.GetFeedAsync(new GetFeedQuery(162107, 0, null, "IL", null), default)).ToList();
             res[2].GetType().Should().Be(typeof(TutorCardDto));
@@ -117,7 +119,7 @@ namespace Cloudents.Infrastructure.Test
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync(tutorsFeed);
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync(itemsFeed);
 
-            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object);
+            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object, _urlBuilder.Object);
 
             var res = (await feedService.GetFeedAsync(new GetFeedQuery(162107, 0, null, "IL", null), default)).ToList();
             res[0].GetType().Should().Be(typeof(TutorCardDto));
@@ -134,7 +136,7 @@ namespace Cloudents.Infrastructure.Test
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListByCourseQuery>(), default)).ReturnsAsync((IEnumerable<TutorCardDto>) null);
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync((IList<FeedDto>) null);
 
-            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object);
+            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object, _urlBuilder.Object);
 
             var res = (await feedService.GetFeedAsync(new GetFeedQuery(162107, 0, null, "IL", null), default))?.ToList();
             res.Should().BeNull();
@@ -157,7 +159,7 @@ namespace Cloudents.Infrastructure.Test
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync(tutorsFeed);
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync(itemsFeed);
 
-            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object);
+            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object, _urlBuilder.Object);
 
             var res = (await feedService.GetFeedAsync(new GetFeedQuery(162107, 0, null, "IL", null), default))?.ToList();
 
@@ -174,7 +176,7 @@ namespace Cloudents.Infrastructure.Test
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<TutorListQuery>(), default)).ReturnsAsync(tutorsFeed);
             _queryBus.Setup(s => s.QueryAsync(It.IsAny<FeedAggregateQuery>(), default)).ReturnsAsync(itemsFeed);
 
-            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object);
+            var feedService = new FeedService(_queryBus.Object, _tutorSearch.Object, _documentSearch.Object, _urlBuilder.Object);
 
             var res = (await feedService.GetFeedAsync(new GetFeedQuery(162107, 0, null, "IL", null), default))?.ToList();
 

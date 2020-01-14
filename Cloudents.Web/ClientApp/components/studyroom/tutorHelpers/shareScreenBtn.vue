@@ -1,16 +1,16 @@
 <template>
     <div class="share-screen-btn-wrap">
-        <v-flex class="text-xs-center">
+        <v-flex class="text-center">
             <div v-if="!isSharing" >
                 <v-tooltip top >
                     <template v-slot:activator="{on}">
                         <!--keep this div, due to tooltip not appearing on disabled btn bug of vuetify-->
-                        <!-- <div v-on="on"> -->
+                        <div v-on="on">
                             <button @click="showScreen" class="outline-btn-share" :disabled="(!roomIsActive && !isSafari) || (!roomIsActive && isSafari)">
                                 <castIcon class="cast-icon"></castIcon>
                                 <span v-language:inner="'tutor_btn_share_screen'"></span>
                             </button>
-                        <!-- </div> -->
+                        </div>
                     </template>
                     <span v-language:inner="isSafari? 'tutor_browser_not':'tutor_start_to_share'"/>
                 </v-tooltip>
@@ -38,12 +38,12 @@
                     <a
                             :href="extensionLink"
                             target="_blank"
-                            class="btn px-3 py-2 mr-3"
+                            class="btn px-3 py-2 mr-4"
                             @click="dialog = false"
                     >
                         <span v-language:inner="'tutor_chrome_ext_btn_install'"></span>
                     </a>
-                    <v-btn color="green darken-1" flat="flat" @click="extensionDialog = false">
+                    <v-btn color="green darken-1" text @click="extensionDialog = false">
                         <span v-language:inner="'tutor_chrome_ext_btn_cancel'"></span>
                     </v-btn>
                 </v-card-actions>
@@ -82,6 +82,8 @@
             accountUserID() {
                 if(this.accountUser && this.accountUser.id) {
                     return this.accountUser.id;
+                }else{
+                    return null;
                 }
             },
             roomIsActive() {
@@ -91,18 +93,6 @@
                 return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
             }
         },
-        watch: {
-            activeRoom(room) {
-                // console.log("active room changed", val);
-                //
-                // if(room.state == 'disconnected'){
-                //     return
-                // }else{
-                //     this.showScreen();
-                // }
-
-            },
-        },
         methods: {
             ...mapActions(["updateToasterParams", 'changeVideoTrack', 'setIsVideoActive']),
             ...mapState(["Toaster"]),
@@ -111,7 +101,7 @@
             },
             publishTrackToRoom(track) {
                 if(this.activeRoom) {
-                    this.activeRoom.localParticipant.videoTracks.forEach(LocalVideoTrackPublication =>{
+                    this.activeRoom.localParticipant.videoTracks.forEach((LocalVideoTrackPublication) => {
                         this.unPublishTrackfromRoom(LocalVideoTrackPublication.track.mediaStreamTrack);
                     })
                     this.activeRoom.localParticipant.publishTrack(track, {
@@ -122,7 +112,7 @@
                     this.setIsVideoActive(true);
                 }
             },
-            unPublishTrackfromRoom(track) {
+             unPublishTrackfromRoom(track) {
                 if(!track) return;
                 if(this.activeRoom) {
                     this.activeRoom.localParticipant.unpublishTrack(track);
@@ -180,7 +170,7 @@
         },
         created() {
             console.log('shareScreen init')
-            this.isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+            this.isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && global.safari.pushNotification));
         },
     };
 </script>

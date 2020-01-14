@@ -164,7 +164,7 @@ export default {
             self.getUserData(id)
                 .then((data) => {
                     if(data &&  data.id && data.id.value){
-                        this.userIdentifier = id;
+                        this.userIdentifier = data.id.value;
                         //let routerName = this.$route.name && this.$route.name !== 'userMainView' ? this.$route.name : 'userQuestions';
                         self.$router.push({name: 'userConversations', params: {userId: data.id.value}});
                     }

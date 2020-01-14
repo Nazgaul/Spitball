@@ -2,7 +2,7 @@
     <div class="headlineSearchMobile">
       <div class="headlineTitlesMobile">
         <h1 class="hd-titleMobile" v-language:inner="'homePage_hd_title_mobile'"/>
-        <h2 :class="['hd-subtitleMobile','mb-3']" v-language:inner="'homePage_hd_subtitle'"/>
+        <h2 :class="['hd-subtitleMobile','mb-4']" v-language:inner="'homePage_hd_subtitle'"/>
         <div class="hd-searchMobile">
           <div class="search-input-cont">
             <v-text-field
@@ -27,12 +27,10 @@
 </template>
 
 <script>
-import headlineStatus from ".././headlineStatus.vue";
 import { LanguageService } from "../../../../services/language/languageService.js";
 import { mapGetters } from 'vuex';
 
 export default {
-  components: { headlineStatus },
   data() {
     return {
       search: "",
@@ -42,7 +40,7 @@ export default {
   methods: {
     searchQuery() {
       if (this.search) {
-        this.$router.push({ path: "/feed", query: { term: this.search } });
+        this.$router.push({ name: "feed", query: { term: this.search } });
       }
     }
   },

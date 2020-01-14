@@ -32,6 +32,9 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync(uri);
 
             response.EnsureSuccessStatusCode();
+
+            var str = await response.Content.ReadAsStringAsync();
+            str.IsValidJson().Should().BeTrue();
         }
 
         [Theory]
@@ -54,7 +57,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync("api/wallet/balance");
 
             var str = await response.Content.ReadAsStringAsync();
-
+            str.IsValidJson().Should().BeTrue();
             var d = JArray.Parse(str);
 
             for (int i = 0; i < 3; i++)
@@ -79,7 +82,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.GetAsync("api/wallet/transaction?culture=en-US");
 
             var str = await response.Content.ReadAsStringAsync();
-
+            str.IsValidJson().Should().BeTrue();
             var d = JArray.Parse(str);
 
             var date = d[d.Count - 1]["date"]?.Value<DateTime?>();
@@ -115,7 +118,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             response.EnsureSuccessStatusCode();
 
             var str = await response.Content.ReadAsStringAsync();
-
+            str.IsValidJson().Should().BeTrue();
             var d = JObject.Parse(str);
 
             var link = d["link"]?.Value<string>();

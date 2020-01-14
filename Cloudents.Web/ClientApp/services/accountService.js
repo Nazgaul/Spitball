@@ -1,21 +1,111 @@
 import { connectivityModule } from "./connectivity.module";
 import searchService from "../services/searchService.js";
+function itemTypeChcker(type){
+    if(type.toLowerCase() === 'document'){
+       return 'Document';
+    }
+ }
 
+const User = {
+    Default:function(objInit){
+        this.id = objInit.id;
+        this.name = objInit.name;
+        this.image = objInit.image || '';
+    },
+    Profile:function(objInit){
+        return Object.assign(
+            new User.Default(objInit),
+            {
+                online: objInit.online || false,
+                universityName: objInit.universityName,
+                description: objInit.description || '',
+                calendarShared: objInit.calendarShared || false,
+                tutorData: objInit.tutor ? createTutorData(objInit.tutor) : createTutorData({}),
+                isTutor: objInit.hasOwnProperty('tutor') || false,
+                followers: objInit.followers || '',
+                
+                firstName: objInit.firstName || '',
+                lastName: objInit.lastName || '',
+                isFollowing: objInit.isFollowing,
+            }
+        )
+    },
+    Review:function(objInit){
+      this.reviewText = objInit.reviewText;
+      this.rate = objInit.rate;
+      this.date = objInit.created;
+      this.name = objInit.name;
+      this.id = objInit.id;
+      this.image = objInit.image;
+    },
+    Reviews:function(objInit){
+        this.reviews = objInit.reviews? objInit.reviews.map(review => new User.Review(review)) : null;
+        this.rates = new Array(5).fill(undefined).map((val, key) => {
+            if(!!objInit.rates[key]){
+                return objInit.rates[key];
+            }else{
+                return {rate: 0,users: 0}
+            }
+        })
+    },
+    // Item:function(objInit){
+
+    // },
+    Document:function(objInit){
+        this.id = objInit.id || null;
+        this.type = objInit.type || 'Document';
+        this.course = objInit.course; 
+        this.dateTime = objInit.dateTime; 
+        this.downloads = objInit.downloads; 
+        this.purchased = objInit.purchased; 
+        this.snippet = objInit.snippet;
+        this.title = objInit.title;
+        this.university = objInit.university;
+        this.url = objInit.url;
+        this.views = objInit.views;
+        this.price = objInit.price;
+        this.preview = objInit.preview;
+        this.documentType = objInit.documentType;
+        this.itemDuration = objInit.duration;
+        this.votes = !!objInit.vote ? objInit.vote.votes : null;
+        this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
+        this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
+        this.template = 'result-note';
+        this.user = objInit.user ? new User.Default(objInit.user) : '';
+    },
+}
+
+function createProfileItems(objInit){
+    return Object.assign(
+        {
+            result: objInit.data.result.map(objData => {
+                return new User[itemTypeChcker(objData.type)](objData)
+            }),
+            count: objInit.data.count,
+        }
+    )
+    
+}
+function createProfileReviews(objInit){
+    return new User.Reviews(objInit)
+}
 function AccountUser(objInit){
-    this.balance= objInit.balance;
-    this.email= objInit.email;
     this.id= objInit.id;
     this.name= objInit.name;
+    this.image = objInit.image || '';
+
+    this.online = objInit.online || false;
+    
+    this.balance= objInit.balance;
+    this.email= objInit.email;
     this.token= objInit.token;
     this.universityExists= objInit.universityExists;
     this.score = objInit.score;
     this.phoneNumber = objInit.phoneNumber;
     this.isTutor = objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok';
     this.isTutorState =  createIsTutorState(objInit.isTutor);// state of become tutor request, possible options ok, pending;
-    this.image = objInit.image || '';
-    this.online = objInit.online || false;
     this.needPayment = objInit.needPayment || false;
-    this.currencySymbol = objInit.currencySymbol
+    this.currencySymbol = objInit.currencySymbol;
 }
 function createIsTutorState(str){
     if(str && str.toLowerCase() === 'ok'){
@@ -27,69 +117,28 @@ function createIsTutorState(str){
     }
 }
  function TutorData(objInit) {
-     this.price = objInit.price || 0;
+     this.bio = objInit.bio;
      this.currency = objInit.currency;
+     this.documents = objInit.documents;
+     this.hasCoupon = objInit.hasCoupon;
+     this.lessons = objInit.lessons;
+     this.subjects = objInit.subjects;
+    //  this.courses = objInit.courses;
+     this.price = objInit.price || 0;
      this.rate = objInit.rate || 0;
      this.reviewCount = objInit.reviewCount || 0;
+     this.discountPrice = objInit.discountPrice;
+
      this.firstName = objInit.firstName || '';
      this.lastName = objInit.lastName  || '';
-     this.discountPrice = objInit.discountPrice;
-     this.hasCoupon = objInit.hasCoupon;
  }
 
  function createTutorData(objInit) {
      return new TutorData(objInit);
  }
  function createUserPersonalData(objInit) {
-     return new ProfilePersonalData(objInit);
+    return new User.Profile(objInit)   
  }
-function ProfilePersonalData(objInit){
-    this.id = objInit.id;
-    this.name = objInit.name  || '';
-    this.description = objInit.description || '';
-    this.score = objInit.score;
-    this.image = objInit.image || '';
-    this.universityName= objInit.universityName;
-    this.calendarShared = objInit.calendarShared || false;
-    this.isTutor= objInit.hasOwnProperty('tutor') || false;
-    this.tutorData = objInit.tutor ? createTutorData(objInit.tutor) : createTutorData({});
-    this.online = objInit.online || false;
-    this.firstName = objInit.firstName || '';
-    this.lastName = objInit.lastName || '';
-}
-
-function ReviewItem(objInit){
-    this.created = objInit.created;
-    this.image = objInit.image;
-    this.rate = objInit.rate;
-    this.reviewText = objInit.reviewText;
-    this.score = objInit.score;
-    this.name = objInit.name || '';
-    this.id = objInit.id|| '';
-}
-
-function createReviewItem(objInit) {
-    return new ReviewItem(objInit);
-
-}
-function CourseItem(objInit) {
-    this.name = objInit.name;
-}
-
-function createCourseItem(objInit) {
-    return new CourseItem(objInit);
-}
-
-function AboutItem(objInit) {
-    this.bio = objInit.bio;
-    this.courses = objInit.courses.map(createCourseItem);
-    this.reviews = objInit.reviews.map(createReviewItem);
-}
-
-function createAboutItem(objInit){
-     return new AboutItem(objInit);
-}
-
 
 function ProfileUserData(objInit){
     this.user= createUserPersonalData(objInit.data) ;
@@ -114,16 +163,6 @@ function ProfileAnswerData(arrInit){
 function ProfileDocumentData(arrInit){
    return arrInit.data.map(searchService.createDocumentItem) || [];
 }
-function ProfileAboutData(arrInit){
-    let structuredData = createAboutItem(arrInit[0].data);
-    let data = {
-        bio: structuredData.bio,
-        courses: structuredData.courses,
-        reviews: structuredData.reviews
-    };
-    return data;
-
-}
 export default {
     getAccount:() => {
        return connectivityModule.http.get("/Account").then(({data})=>{
@@ -145,11 +184,13 @@ export default {
     getProfile:(id) => {
         return connectivityModule.http.get(`/Profile/${id}`);
     },
+    getProfileReviews:(id) => {
+        return connectivityModule.http.get(`/Profile/${id}/about`).then(reviews=>{
+            return createProfileReviews(reviews.data)
+        });
+    },
     getNumberReffered:() => {
         return connectivityModule.http.get(`/Account/referrals`);
-    },
-    getProfileAbout:(id) => {
-        return connectivityModule.http.get(`Profile/${id}/about`);
     },
     getProfileQuestions:(id, page) => {
         let strPage = page ? `?page=${page}` : "";
@@ -159,10 +200,14 @@ export default {
         let strPage = page ? `?page=${page}` : "";
         return connectivityModule.http.get(`/Profile/${id}/answers/${strPage}`);
     },
-    getProfileDocuments:(id, page) => {
-        let strPage = page ? `?page=${page}` : "";
-        return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`);
+    getProfileDocuments:(id, page,pageSize) => {
+        let strPage = `?page=${page}&pageSize=${pageSize}`;
+        return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`).then(createProfileItems);
     },
+    // getProfileDocuments:(id, page) => {
+    //     let strPage = page ? `?page=${page}` : "";
+    //     return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`);
+    // },
     getProfilePurchasedDocuments:(id, page)=>{
         let strPage = page ? `?page=${page}` : "";
         return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`);
@@ -204,7 +249,10 @@ export default {
     createProfileDocumentData: (arrInit)=>{
         return new ProfileDocumentData(arrInit);
     },
-    createProfileAbout: (arrInit)=>{
-        return new ProfileAboutData(arrInit);
+    followProfile: (id)=>{
+        return connectivityModule.http.post(`/Profile/follow`,{id});
+    },
+    unfollowProfile: (id)=>{
+        return connectivityModule.http.delete(`/Profile/unFollow/${id}`);
     }
 }

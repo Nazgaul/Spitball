@@ -41,7 +41,7 @@ const actions = {
             if(doc) {
                 data.docs = [doc.details.feedItem];
             } else  {
-                data.docs = docs
+                data.docs = docs;
             }
 
             commit('StudyDocuments_updateDocumentVote', data);

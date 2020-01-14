@@ -104,8 +104,8 @@
 
           span {
             
-            font-size: 11px;
-            font-weight: 500;
+            font-size: 12px;
+            font-weight: 600;
             font-style: italic;
             color: #ffffff;
           }
@@ -119,12 +119,12 @@
     .document-header-small-sagment {
       display: flex;
       align-items: baseline;
-      margin-top: -16px;
+      margin-top: -8px;
+      margin-right: -16px;
       .price-area {
           font-size: 18px;
           font-weight: bold;
           color: #5158af;
-          margin-right: -10px;
         &.sold {
           color: rgba(0, 0, 0, 0.38);
         }
@@ -135,6 +135,8 @@
         @media (max-width: @screen-xs) {
           width: 24px;
         }
+      }
+      .menu-area-btn {
         i {
           font-size: 16px;
           color: @colorTypeDocDefault;
@@ -204,21 +206,19 @@
         position: relative;
         .videoType{
           /*rtl:ignore*/
+          align-items: center;
+          display: flex;
           position: absolute;
           background: rgba(0, 0, 0, 0.8);
           color: white;
           right: 4px;
-          bottom: 8px;
+          bottom: 12px;
           padding-left: 4px;
           padding-right: 4px;
           height: 16px;
-            .vidSvg{
-              margin-bottom: 1px;
-              margin-bottom: 3px;
-            }
             .vidTime{
                 font-size: 12px;
-                padding-left: 4px;
+                padding: 0 4px;
                 vertical-align: top;
             }
             /*rtl:ignore*/
@@ -276,49 +276,60 @@
       height: 100%;
       margin-right: 10px;
       .doc-snippet{
-          font-size: 14px;
-          font-weight: normal;
-          font-style: normal;
-          font-stretch: normal;
-          line-height: 1.57;
-          letter-spacing: normal;
-          color:@global-purple;
-          @media (max-width: @screen-xs) {
-            font-size: 12px;
-          }
-          .doc-snippet-span{
+          .doc-snippet-h6{
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.57;
+            color:@global-purple;
+            @media (max-width: @screen-xs) {
+              font-size: 12px;
+            }
             .giveMeEllipsis(2, 22);
             @media (max-width: @screen-xs) {
               .giveMeEllipsis(2, 16);
             }
           }
+          
       }
       .content-wrap {
         display: flex;
         flex-direction: column;
+        .item-title{
+          font-size: 14px;
+          font-weight: bold;
+          color: @global-purple;
+        }
+        .item-course{
+          line-height: 1.8;
+          color: @global-purple;
+          font-size: 14px;
+          font-weight: normal;
+          display: initial;
+          @media (max-width: @screen-xs) {
+            font-size: 12px;
+            line-height: 1.9; 
+          }
+        }
+        .item-university{
+          line-height: 1.4;
+          color: @global-purple;
+          font-size: 14px;
+          font-weight: normal;
+          display: initial;
+          @media (max-width: @screen-xs) {
+            line-height: 1.5;
+            font-size: 12px;
+          }
+        }
         span{
           color: @global-purple;
           font-size: 14px;
           @media (max-width: @screen-xs) {
             font-size: 12px;
           }
-          &.item-title{
-            font-size: 14px;
-            font-weight: bold;
-          }
-          &.item-course{
-            line-height: 1.8;
-            @media (max-width: @screen-xs) {
-              line-height: 1.9; 
-            }
 
-          }
-          &.item-university{
-            line-height: 1.4;
-            @media (max-width: @screen-xs) {
-              line-height: 1.5;
-            }
-          }
+          
+
         }
         &.type-lecture {
           background: fade(@colorTypeLecture, 12%)
@@ -391,7 +402,7 @@
         }
         .sb-doc-info {
           color: @colorBlackNew;
-          font-size: 11px;
+          font-size: 12px;
           opacity: 0.9;
           
           &.downloads {

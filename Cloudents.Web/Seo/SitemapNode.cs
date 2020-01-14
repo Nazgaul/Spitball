@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Cloudents.Web.Seo.Images;
-using Cloudents.Web.Seo.Translations;
-using Cloudents.Web.Seo.Videos;
 
 
 namespace Cloudents.Web.Seo
@@ -11,7 +9,7 @@ namespace Cloudents.Web.Seo
     /// <summary>
     /// Encloses all information about a specific URL.
     /// </summary>
-    [XmlRoot("url", Namespace = null)]
+    [XmlRoot("url")]
     public class SitemapNode
     {
 
@@ -84,11 +82,11 @@ namespace Cloudents.Web.Seo
         //public SitemapNews News { get; set; }
 
 
-        /// <summary>
-        /// Additional information about video content on the page.
-        /// </summary>
-        [XmlElement("video", Order = 7, Namespace = "http://www.google.com/schemas/sitemap-video/1.1")]
-        public SitemapVideo Video { get; set; }
+        ///// <summary>
+        ///// Additional information about video content on the page.
+        ///// </summary>
+        //[XmlElement("video", Order = 7, Namespace = "http://www.google.com/schemas/sitemap-video/1.1")]
+        //public SitemapVideo Video { get; set; }
 
 
         ///// <summary>
@@ -99,11 +97,11 @@ namespace Cloudents.Web.Seo
         //public SitemapMobile Mobile { get; set; }
 
 
-        /// <summary>
-        /// Alternative language versions of the URL
-        /// </summary>
-        [XmlElement("link", Order = 9, Namespace = "http://www.w3.org/1999/xhtml")]
-        public List<SitemapPageTranslation> Translations { get; set; }
+        ///// <summary>
+        ///// Alternative language versions of the URL
+        ///// </summary>
+        //[XmlElement("link", Order = 9, Namespace = "http://www.w3.org/1999/xhtml")]
+        //public List<SitemapPageTranslation> Translations { get; set; }
 
         /// <summary>
         /// Used for not serializing null values.
@@ -139,15 +137,15 @@ namespace Cloudents.Web.Seo
                 ns.Add("image", "http://www.google.com/schemas/sitemap-image/1.1");
             }
 
-            if (this.Video != null)
-            {
-                ns.Add("video", "http://www.google.com/schemas/sitemap-video/1.1");
-            }
+            //if (this.Video != null)
+            //{
+            //    ns.Add("video", "http://www.google.com/schemas/sitemap-video/1.1");
+            //}
 
-            if (this.Translations?.Count > 0)
-            {
-                ns.Add("xhtml", "http://www.w3.org/1999/xhtml");
-            }
+            //if (this.Translations?.Count > 0)
+            //{
+            //    ns.Add("xhtml", "http://www.w3.org/1999/xhtml");
+            //}
 
             return ns;
             //ns.Add("image", "http://www.google.com/schemas/sitemap-image/1.1");
