@@ -324,7 +324,6 @@ export default {
                 height: 144px;
             }
                 font-size: 16px;
-                color: #B3brgb;
                 .v-input{
                     margin: 0;
                     padding: 0;
