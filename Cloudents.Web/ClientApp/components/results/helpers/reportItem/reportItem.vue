@@ -37,10 +37,9 @@
 
                 </div>
             </v-flex>
-            <v-layout justify-center align-content-center wrap class="report-footer">
-                <button :disabled="isBtnDisabled" class="report-submit" @click="sendItemReport()" v-language:inner>
-                    reportItem_report_btn
-                </button>
+            <v-layout column justify-center align-content-center wrap class="report-footer">
+                <span v-if="errorText" class="text-center red--text" v-text="errorText"/>
+                <button class="report-submit" @click="sendItemReport()" v-language:inner="'reportItem_report_btn'"/>
             </v-layout>
           
         </v-layout>
@@ -61,6 +60,7 @@
         components: {},
         data() {
             return {
+                errorText: false,
                 reasons: [
                     {
                         title: LanguageService.getValueByKey("reportItem_reason_inappropriateContent"),
@@ -104,10 +104,17 @@
                 required: false
             }
         },
-        computed: {
-            isBtnDisabled() {
-                return !this.preDefinedReason && !this.customReason
+        watch: {
+            preDefinedReason(val){
+                if(val){
+                   this.errorText = false; 
+                }
             },
+            customReason(val){
+                if(val){
+                   this.errorText = false; 
+                }
+            }
         },
         methods: {
             ...mapActions(['Feeds_reportQuestion', 'reportDocument', 'Feeds_reportAnswer', 'answerRemoved']),
@@ -133,6 +140,10 @@
             },
             sendItemReport() {
                 let reasonToSend = this.preDefinedReason !== '' ? this.preDefinedReason : this.customReason;
+                if(!reasonToSend){
+                    this.errorText = LanguageService.getValueByKey("formErrors_unselected")
+                    return
+                }
                 let data = {
                     "id": this.itemId,
                     "flagReason": reasonToSend
@@ -145,11 +156,12 @@
                         self.answerRemoved(this.answerDelData);
                     }
                     self.closeReportPop()
-                    self.$router.push({name : '/feed' });
+                    self.$router.push({name : 'feed' });
                 })
 
             },
             closeReportPop() {
+                this.errorText = false;
                 this.closeReport();
             }
         },
