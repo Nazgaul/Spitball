@@ -72,6 +72,8 @@ import sbCarousel from "../../sbCarousel/sbCarousel.vue";
 import { LanguageService } from "../../../services/language/languageService.js";
 import { mapMutations } from 'vuex';
 
+import sbCarouselService from '../../sbCarousel/sbCarouselService';
+
 export default {
   components: {
     compSVG,
@@ -102,6 +104,13 @@ export default {
     update(name){
       this.UPDATE_SEARCH_LOADING(true)
       this.$router.push({ name: 'feed', query: {term: name}})
+    },
+    setCategorySlidesToShow(){
+      let containerElm1 = this.$refs.categoriesTop;
+      let containerElm2 = this.$refs.categoriesBottom;
+      let offset = 10;
+      this.categoryTop.itemsToShow = sbCarouselService.calculateItemsToShow(containerElm1, this.categoryTop.width, offset, this.categoryTop.maxItemsToShow)
+      this.categoryBottom.itemsToShow = sbCarouselService.calculateItemsToShow(containerElm2, this.categoryBottom.width, offset, this.categoryBottom.maxItemsToShow)
     }
   },
   computed: {
