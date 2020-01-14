@@ -1,21 +1,19 @@
 <template>
   <div class="myCalendar">
      <div class="myCalendar_top">
-        <v-btn :loading="isLoadingConnet" @click="openConnet" class="myCalendar_btns white--text" round depressed color="#4452fc">Connet Google Calendars</v-btn>
-        <v-btn @click="openAvailability" class="myCalendar_btns white--text" round depressed color="#4452fc">Change Availability</v-btn>
+        <v-btn :loading="isLoadingConnet" @click="openConnect" class="myCalendar_btns white--text mr-4" rounded depressed color="#4452fc">Connet Google Calendars</v-btn>
+        <v-btn @click="openAvailability" class="myCalendar_btns white--text" rounded depressed color="#4452fc">Change Availability</v-btn>
      </div>
-     <calendarTab class="myCalendar_calendar" v-if="!!accountUser && isReady"/>
+     <calendarTab class="myCalendar_calendar"/>
   </div>
 </template>
 
 <script>
-import calendar from '../../../calendar/calendar.vue';
 import calendarTab from '../../../calendar/calendarTab.vue';
 
 import { mapGetters, mapActions } from 'vuex';
 export default {
    components:{
-      calendar,
       calendarTab
    },
    props:{
@@ -38,7 +36,7 @@ export default {
    },
    methods: {
       ...mapActions(['getCalendarListAction','initCalendar']),
-      openConnet(){
+      openConnect(){
          this.isLoadingConnet = true;
          this.getCalendarListAction().then(()=>{
             this.isLoadingConnet = false;
@@ -47,19 +45,7 @@ export default {
       },
       openAvailability(){
          this.globalFunctions.openDialog('changeCalendarAvailability',{})
-         // changeCalendarAvailability
       }
-   },
-   mounted() {
-       let self = this;
-        this.$loadScript("https://apis.google.com/js/api.js").then(() => {
-           if(self.accountUser.isTutor){
-              let tutorId = self.accountUser.id
-               self.initCalendar(tutorId).then(()=>{
-                  self.isReady = true;
-               })
-           }
-        })
    },
 }
 </script>
@@ -68,8 +54,8 @@ export default {
 .myCalendar{
    width: fit-content;
    .myCalendar_top{
-      width: 620px;
-      padding-bottom: 20px;
+      width: 720px;
+      max-width: 720px;
       display: flex;
       justify-content: center;
       .myCalendar_btns{
@@ -77,6 +63,7 @@ export default {
       }
    }
    .myCalendar_calendar{
+      max-width: 720px;
       &.calendar-container{
          margin: unset;
          .calendar-header{
