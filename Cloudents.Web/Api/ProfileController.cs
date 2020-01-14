@@ -100,7 +100,7 @@ namespace Cloudents.Web.Api
 
         public async Task<WebResponseWithFacet<DocumentFeedDto>> GetDocumentsAsync(
             long id, int page,
-            CancellationToken token, int pageSize = 20)
+            int pageSize = 20, CancellationToken token = default)
         {
             var query = new UserDocumentsQuery(id, page, pageSize);
             var retValTask = _queryBus.QueryAsync(query, token);
