@@ -456,6 +456,8 @@ export default {
     },
     deleteDocument() {
       let id = this.item.id;
+      
+      
       documentService.deleteDoc(id).then(
         () => {
           this.updateToasterParams({
@@ -464,9 +466,13 @@ export default {
             ),
             showToaster: true
           });
+          if (this.$route.name === "document") {
+            this.$router.replace({name:"feed"});
+            return
+          }
           this.removeItemFromList(id);
           this.updateProfile(id);
-          let objToDelete = { id: parseInt(id) };
+          let objToDelete = { id };
           this.removeDocItemAction(objToDelete);
         },
         () => {
