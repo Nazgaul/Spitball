@@ -18,6 +18,7 @@ namespace Cloudents.Core.Entities
         protected TutorHours()
         {
         }
+
         public virtual Tutor Tutor { get; protected set; }
         public virtual DayOfWeek WeekDay { get; protected set; }
         //public virtual IEnumerable<TimeFrame> TimeFrames { get; protected set; }

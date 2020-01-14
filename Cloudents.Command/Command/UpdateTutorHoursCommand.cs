@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using static Cloudents.Command.Command.SetTutorHoursCommand;
+﻿using Cloudents.Core.DTOs;
+using System.Collections.Generic;
+using Cloudents.Core;
 
 namespace Cloudents.Command.Command
 {

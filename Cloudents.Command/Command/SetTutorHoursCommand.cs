@@ -1,5 +1,6 @@
-﻿using System;
+﻿using Cloudents.Core.DTOs;
 using System.Collections.Generic;
+using Cloudents.Core;
 
 namespace Cloudents.Command.Command
 {
@@ -12,28 +13,6 @@ namespace Cloudents.Command.Command
         }
         public long UserId { get; }
         public IEnumerable<TutorDailyHours> TutorDailyHoursObj { get; }
-
-
-        public class TutorDailyHours
-        {
-            public TutorDailyHours(DayOfWeek day, TimeSpan @from, TimeSpan to)
-            {
-                Day = day;
-                From = @from;
-                To = to;
-            }
-
-            public DayOfWeek Day { get; }
-
-            public TimeSpan From { get; }
-            public TimeSpan To { get; }
-            // public IList<TimeSpan> TimeFrames { get; protected set; }
-            //protected override IEnumerable<object> GetEqualityComponents()
-            //{
-            //    yield return Day;
-            //    yield return TimeFrames;
-            //}
-        }
     }
 
 

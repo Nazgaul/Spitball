@@ -428,7 +428,7 @@ namespace Cloudents.Web.Api
         {
 
             var userId = _userManager.GetLongUserId(User);
-            var command = new SetTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new SetTutorHoursCommand.TutorDailyHours(s.Day, s.From, s.To)));
+            var command = new SetTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new TutorDailyHours(s.Day, s.From, s.To)));
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
@@ -438,7 +438,7 @@ namespace Cloudents.Web.Api
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new UpdateTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new SetTutorHoursCommand.TutorDailyHours(s.Day, s.From, s.To)));
+            var command = new UpdateTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new TutorDailyHours(s.Day, s.From, s.To)));
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

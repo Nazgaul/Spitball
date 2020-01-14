@@ -18,11 +18,15 @@ namespace Cloudents.Command.CommandHandler
 
         public async Task ExecuteAsync(UpdateTutorHoursCommand message, CancellationToken token)
         {
-            var tutor = await _tutorRepository.GetAsync(message.UserId, token);
-            if (tutor == null) throw new ArgumentNullException(nameof(tutor));
+            var tutor = await _tutorRepository.LoadAsync(message.UserId, token);
 
-            tutor.UpdateTutorHours(message.TutorDailyHours.Select(s => new TutorHours(tutor, s.Day, s.From, s.To)));
-        
+            tutor.UpdateTutorHours(message.TutorDailyHours);
+            //tutor.DeleteTutorHours();
+            //foreach (var item in message.TutorDailyHours)
+            //{
+            //    tutor.AddTutorHours(item.Day, item.From, item.To);
+            //}
+            
             await _tutorRepository.UpdateAsync(tutor, token);
         }
     }

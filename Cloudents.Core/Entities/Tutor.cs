@@ -131,32 +131,38 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public virtual void AddTutorHours(DayOfWeek weekDay, TimeSpan from, TimeSpan to)
+        public virtual void UpdateTutorHours(IEnumerable<TutorDailyHours> tutorHours)
         {
-            _tutorHours.Add(new TutorHours(this, weekDay, from, to));
+            var newSet = new HashSet<TutorHours>(tutorHours.Select(s => new TutorHours(this, s.Day, s.From, s.To)));
+            _tutorHours.IntersectWith(newSet);
+
+            //newSet.ExceptWith(_tutorHours);
+            foreach (var hours in newSet)
+            {
+                _tutorHours.Add(hours);
+            }
+
+            //_tutorHours.Add(new TutorHours(this, tutorHour.Day, tutorHour.From, tutorHour.To));
         }
 
-        public virtual void UpdateTutorHours(IEnumerable<TutorHours> newTutorHours)
-        {
-            while (TutorHours.Count() > 0)
-            {
-                var item = _tutorHours.First();
-                _tutorHours.Remove(item);
-            }
-         
-            foreach (var item in newTutorHours)
-            {
-                _tutorHours.Add(new TutorHours(this, item.WeekDay, item.From, item.To));
-            }
-           
-        }
+        //public virtual void DeleteTutorHours()
+        //{
+        //    //var itemToRemove = _tutorHours.Where(w => w.WeekDay == weekDay).FirstOrDefault();
+        //    //if (itemToRemove != null)
+        //    //{
+        //    //    _tutorHours.Remove(itemToRemove);
+        //    //}
+        //    _tutorHours.Clear();
+
+        //}
+
 
         // ReSharper disable once InconsistentNaming Need to have due to mapping
         private readonly ICollection<TutorCalendar> _calendars = new List<TutorCalendar>();
         public virtual IEnumerable<TutorCalendar> Calendars => _calendars;
 
 
-        private readonly ISet<TutorHours> _tutorHours = new HashSet<TutorHours>();
+        private ISet<TutorHours> _tutorHours = new HashSet<TutorHours>();
         public virtual IEnumerable<TutorHours> TutorHours => _tutorHours;
         public virtual bool IsShownHomePage { get; protected set; }
 
