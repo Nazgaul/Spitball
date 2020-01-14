@@ -300,19 +300,24 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Get user calendars from google
         /// </summary>
-        /// <param name="calendarService"></param>
         /// <param name="token"></param>
         /// <returns>the names of google calendars</returns>
         [HttpGet("calendar/list"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(555)]
         [ProducesDefaultResponseType]
-        public async Task<IEnumerable<CalendarDto>> GetTutorCalendarAsync(
-            [FromServices] ICalendarService calendarService,
-            CancellationToken token)
+        public async Task<ActionResult<IEnumerable<CalendarDto>>> GetTutorCalendarAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var res = await calendarService.GetUserCalendarsAsync(userId, token);
-            return res;
+            try
+            {
+                var query = new CalendarListQuery(userId);
+                return (await _queryBus.QueryAsync(query, token)).ToList();
+            }
+            catch (NotFoundException)
+            {
+                return StatusCode(555, new { massege = "permission denied" });
+            }
         }
 
         [HttpPost("calendar/list"), Authorize]

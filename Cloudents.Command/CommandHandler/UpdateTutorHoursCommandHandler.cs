@@ -2,8 +2,7 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,11 +21,8 @@ namespace Cloudents.Command.CommandHandler
             var tutor = await _tutorRepository.GetAsync(message.UserId, token);
             if (tutor == null) throw new ArgumentNullException(nameof(tutor));
 
-            foreach (var tutorDailyHours in message.TutorDailyHoursObj)
-            {
-                tutor.UpdateTutorHours(tutorDailyHours.Day, tutorDailyHours.From, tutorDailyHours.To);
-            }
-
+            tutor.UpdateTutorHours(message.TutorDailyHours.Select(s => new TutorHours(tutor, s.Day, s.From, s.To)));
+        
             await _tutorRepository.UpdateAsync(tutor, token);
         }
     }
