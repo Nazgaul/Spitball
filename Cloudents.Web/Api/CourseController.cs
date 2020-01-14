@@ -137,5 +137,15 @@ namespace Cloudents.Web.Api
             await _signInManager.RefreshSignInAsync(user);
             return Ok();
         }
+
+        [HttpGet("subject"),AllowAnonymous]
+        public async Task<SubjectDto> GetSubjectAsync([FromQuery, Required] string courseName,
+            CancellationToken token)
+        {
+            var query = new CourseSubjectQuery(courseName);
+            var result  = await _queryBus.QueryAsync(query, token);
+            return result;
+
+        }
     }
 }

@@ -14,7 +14,6 @@
             <span class="tutor-start-wrap_title font-weight-bold" v-language:inner>tutor_start_dialog_your_student</span>
             <span class="tutor-start-wrap_title font-weight-bold">&nbsp;{{studentName}}</span>
         </v-flex>
-        
         <v-flex xs12 v-if="!sessionFinished" style="text-align: center;" class="pt-2">
             <span class="" v-language:inner="'tutor_can_be_recorded'"></span>
         </v-flex>
@@ -28,7 +27,7 @@
                 <span class="">{{roomStateText}}</span>
             </v-btn>
         </v-flex>
-        <v-flex class="font-weight-bold start-session-text" pt-6 v-else>
+        <v-flex class="font-weight-bold start-session-text" px-2 pt-6 v-else>
             {{roomStateText}}
         </v-flex>
         <v-flex xs12 v-if="sessionFinished" class="pt-3">

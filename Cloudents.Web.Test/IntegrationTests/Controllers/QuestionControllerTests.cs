@@ -6,29 +6,16 @@ using Xunit;
 namespace Cloudents.Web.Test.IntegrationTests.Controllers
 {
     [Collection(SbWebApplicationFactory.WebCollection)]
-    public class DocumentControllerTests
+    public class QuestionControllerTests
     {
         private readonly System.Net.Http.HttpClient _client;
 
-        public DocumentControllerTests(SbWebApplicationFactory factory)
+        public QuestionControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient(new WebApplicationFactoryClientOptions()
             {
                 AllowAutoRedirect = false
             });
-        }
-
-
-        //private UriBuilder _uri = new UriBuilder()
-        //{
-        //    Path = string.Empty
-        //};
-
-        [Fact]
-        public async Task GetAsync_OldDocument_OKAsync()
-        {
-            var response = await _client.GetAsync("document/Box%20Read%20for%20hotmail%20user/Load%20Stress%20Testing%20Multimi2.docx/457");
-            response.EnsureSuccessStatusCode();
         }
 
 
@@ -39,7 +26,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Controllers
         public async Task GetAsync_Document_OKAsync(string culture)
         {
 
-            var response = await _client.GetAsync($"document/פריוריטי-פיתוח/פריוריטי-בניית-דוחות/22?culture={culture}");
+            var response = await _client.GetAsync($"question/7315?culture={culture}");
             response.EnsureSuccessStatusCode();
         }
     }

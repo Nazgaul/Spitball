@@ -18,11 +18,11 @@ import chatService from '../../services/chatService.js';
 
 
 //old
-import questionCard from "../question/helpers/new-question-card/new-question-card.vue";
-import resultNote from "../results/ResultNote.vue";
-import userBlock from '../helpers/user-block/user-block.vue';
+// import questionCard from "../question/helpers/new-question-card/new-question-card.vue";
+// import resultNote from "../results/ResultNote.vue";
+// import userBlock from '../helpers/user-block/user-block.vue';
 import { mapActions, mapGetters } from 'vuex';
-import uploadDocumentBtn from "../results/helpers/uploadFilesBtn/uploadFilesBtn.vue";
+// import uploadDocumentBtn from "../results/helpers/uploadFilesBtn/uploadFilesBtn.vue";
 //old
 //new
 
@@ -46,10 +46,10 @@ export default {
 
 
 
-        questionCard,
-        userBlock,
-        resultNote,
-        uploadDocumentBtn,
+        // questionCard,
+        // userBlock,
+        // resultNote,
+        // uploadDocumentBtn,
         calendarTab
     },
     props: {
@@ -419,6 +419,18 @@ export default {
         },
         isTutorPending(){
             return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
+        },
+        showProfileCalendar(){
+            // debugger
+            if(this.isMyProfile){
+                return (this.isTutor)
+            }else{
+                if(this.isTutor){
+                    return (this.activeTab === 5)
+                }else{
+                    return false;
+                }
+            }
         },
 
 
