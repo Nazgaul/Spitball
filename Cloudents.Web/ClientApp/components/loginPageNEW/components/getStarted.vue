@@ -23,11 +23,11 @@
                         </div>
                         <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"/>
                 </div>
-                    <v-btn @click="goWithGoogle()" 
+                    <v-btn @click="goWithGoogle()" depressed
                         :loading="googleLoading" 
                         large rounded
                         sel="gmail"
-                        class="google elevation-5 btn-login">
+                        class="google btn-login">
                         <img src="../images/G icon@2x.png">
                         <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
                     </v-btn>
@@ -35,10 +35,9 @@
 
                 <span class="hidden-xs-only or" hidden-xs-only v-language:inner="'loginRegister_getstarted_or'"/>
 
-                <v-btn @click="goWithEmail()" 
+                <v-btn @click="goWithEmail()" class="email"
                     large text rounded 
-                    sel="email"
-                    class="email">
+                    sel="email">
                     <img src="../images/np_email@2x.png">
                     <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_email_signup':'loginRegister_getstarted_btn_email_signin'"/>
                 </v-btn>
@@ -276,8 +275,8 @@ export default {
                     font-size: 16px;
                     font-weight: normal;
                 }
-                background-color: rgba(68, 82, 252, 0.06);
-                border: solid 1px rgba(55, 81, 255, 0.29);
+                background-color:white;
+                border: solid 1px #3751ff;
                 .v-btn__content {
                     margin: 0;
                 }

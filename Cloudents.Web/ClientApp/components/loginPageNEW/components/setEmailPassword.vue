@@ -2,71 +2,61 @@
   <section class="setEmailPassword">
     <p v-language:inner="'loginRegister_setemailpass_title'"/>
     <form @submit.prevent="submit">
-      <v-layout wrap justify-space-between class="widther mb-6">
-        <v-flex xs6 class="pr-4">
-          <sb-input v-model="firstName"
-                    placeholder="loginRegister_setemailpass_first"
-                    :bottomError="true"
-                    :errorMessage="firstNameError"
-                    :autofocus="true"
-                    name="firstName"
-                    type="text"/>
+      <v-layout wrap justify-space-between class="widther">
+        <v-flex xs6 class="pr-2 mb-2">
+          <v-text-field class="input-fields" outlined height="50px" dense
+                        v-model="firstName"
+                        label="First Name" 
+                        :error-messages="firstNameError"
+                        placeholder=" "
+                        type="text"
+                        />
         </v-flex>
-        <v-flex xs6 class="pl-4">
-          <sb-input v-model="lastName"
-                    placeholder="loginRegister_setemailpass_last"
-                    :bottomError="true"
-                    :errorMessage="lastNameError"
-                    :autofocus="false"
-                    name="lastName" type="text"/>
+        <v-flex xs6 class="pl-2">
+          <v-text-field class="input-fields" outlined height="50px" dense
+                        v-model="lastName"
+                        label="Last Name" 
+                        :error-messages="lastNameError"
+                        placeholder=" "
+                        type="text"
+                        />
         </v-flex>
-                    <!-- :errorMessage="'errorMessages.email'" -->
       </v-layout>
-      <sb-input
-        class="widther"
-        v-model="email"
-        placeholder="loginRegister_setemailpass_input_email"
-        icon="sbf-email"
-        :bottomError="true"
-        :autofocus="false"
-        :errorMessage="errorMessages.email"
-        name="email"
-        type="email"
-      />
-
-      <sb-input
-        v-model="password"
-        :class="['mt-6', hintClass,'widther']"
-        :hint="passHint"
-        placeholder="loginRegister_setemailpass_input_pass"
-        :errorMessage="errorMessages.password"
-        :bottomError="true"
-        type="password"
-        name="pass"
-        :autofocus="false"
-      />
-
-      <sb-input
-        class="mt-6 widther"
-        :errorMessage="errorMessages.confirmPassword"
-        :bottomError="true"
-        v-model="confirmPassword"
-        placeholder="loginRegister_setemailpass_input_passconfirm"
-        name="confirm"
-        type="password"
-        :autofocus="false"
-      />
+      <v-text-field class="widther input-fields mb-2" outlined height="50" dense
+              v-model="email"
+              label="Email" 
+              :error-messages="errorMessages.email"
+              placeholder=" "
+              type="email"
+              />
+      <v-text-field outlined height="50" dense
+              v-model="password"
+              label="Password" 
+              :error-messages="errorMessages.password"
+              placeholder=" "
+              type="password"
+              :class="[hintClass,'widther','input-fields','mb-2']"
+              :hint="passHint"
+              />
+      <v-text-field outlined height="50" dense
+              v-model="confirmPassword"
+              label="Confirm Password" 
+              :error-messages="errorMessages.confirmPassword"
+              placeholder=" "
+              type="password"
+              class="widther input-fields"
+              />
 
       <vue-recaptcha
         size="invisible"
-        class="mt-6 captcha"
+        class="captcha"
         :sitekey="siteKey"
         ref="recaptcha"
         @verify="onVerify"
         @expired="onExpired()"
       />
 
-      <v-btn type="submit" :loading="isEmailLoading" 
+      <v-btn type="submit" :loading="isEmailLoading" depressed
              large rounded class="ctnBtn white--text btn-login">
 
         <span v-language:inner="'loginRegister_setemailpass_btn'"></span>
@@ -219,7 +209,7 @@ export default {
   p {
     .responsive-property(font-size, 28px, null, 22px);
     .responsive-property(letter-spacing, -0.51px, null, -0.4px);
-    .responsive-property(margin-bottom, 64px, null, 34px);
+    .responsive-property(margin-bottom, 50px, null, 34px);
     text-align: center;
     color: @color-login-text-title;
   }
@@ -260,7 +250,7 @@ export default {
     }
     .ctnBtn {
       .responsive-property(width, 100%, null, 72%);
-      margin: 48px 0 0 0;
+      margin: 10px 0 0 0;
       font-size: 16px;
       font-weight: 600;
       letter-spacing: -0.42px;
