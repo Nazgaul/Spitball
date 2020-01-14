@@ -60,10 +60,15 @@
       <div class="card-mobile-center">{{tutorData.bio}}</div>
 
       <!-- DO NOT REMOVE THIS WAITING SHIRAN -->
-      <div class="courses text-truncate">
-          <div class="courses-title" v-language:inner="'resultTutor_courses'"></div>
+      <div class="courses text-truncate" v-if="subjects">
+          <div class="courses-title font-weight-bold" v-language:inner="'resultTutor_study-area'"></div>
+          <div class="text-truncate">{{subjects}}</div>
+      </div> 
+      <div class="courses text-truncate" v-else>
+          <div class="courses-title font-weight-bold" v-language:inner="'resultTutor_courses'"></div>
           <div class="text-truncate">{{courses}}</div>
       </div> 
+
 
       <div class="card-mobile-footer">
           <v-btn class="btn-chat white--text text-truncate my-0" depressed rounded block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
@@ -147,6 +152,12 @@ export default {
     courses() {
       if (this.tutorData.courses) {
         return `${this.tutorData.courses.join(', ')}`
+      }
+      return '';
+    },
+    subjects() {
+      if (this.tutorData.subjects) {
+        return this.tutorData.subjects.join(', ');
       }
       return '';
     },
