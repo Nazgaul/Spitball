@@ -214,6 +214,10 @@ namespace Cloudents.Core.Entities
         public virtual Gender Gender { get; protected set; }
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
+        public virtual UserType? UserType { get; set; }
+        public virtual string ChildFirstName { get; set; }
+        public virtual string ChildLastName { get; set; }
+        public virtual short Grade { get; set; }
         public virtual void CreditCardReceived()
         {
             PaymentExists = PaymentStatus.Done;

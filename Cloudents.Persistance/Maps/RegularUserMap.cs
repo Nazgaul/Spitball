@@ -56,8 +56,10 @@ namespace Cloudents.Persistence.Maps
             });
             Map(z => z.PaymentExists).CustomType<PaymentStatus>();
             Map(z => z.Gender).CustomType<Gender>();
-
-
+            Map(x => x.UserType).CustomType<GenericEnumStringType<UserType>>().Nullable();
+            Map(x => x.ChildFirstName);
+            Map(x => x.ChildLastName);
+            Map(x => x.Grade);
             HasMany(x => x.UserCourses).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan()
                 .KeyColumn("UserId").Inverse().AsSet();
