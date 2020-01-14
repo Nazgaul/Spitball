@@ -49,7 +49,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("d/{id}", Name = "ShortDocumentLink2")]
-        public async Task<IActionResult> ShortUrl2(long id,
+        public async Task<IActionResult> ShortUrl2Async(long id,
             CancellationToken token)
         {
             //if (string.IsNullOrEmpty(base62))
@@ -82,7 +82,7 @@ namespace Cloudents.Web.Controllers
 
 
         [Route("document/{base62}", Name = "ShortDocumentLink")]
-        public async Task<IActionResult> ShortUrl(string base62,
+        public async Task<IActionResult> ShortUrlAsync(string base62,
             CancellationToken token)
         {
             if (string.IsNullOrEmpty(base62))
