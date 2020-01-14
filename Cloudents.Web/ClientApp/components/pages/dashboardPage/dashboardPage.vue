@@ -1,6 +1,6 @@
 <template>
    <div class="dashboardPage">
-      <component :dictionary="dictionary" :globalFunctions="globalFunctions" :is="component">
+      <component v-if="!!accountUser" :dictionary="dictionary" :globalFunctions="globalFunctions" :is="component">
          <template slot="tableEmptyState">
             <tableEmptyState/>
          </template>

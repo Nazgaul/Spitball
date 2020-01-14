@@ -1,13 +1,13 @@
 <template>
     <v-layout class="calendar-section mt-4">
-        <v-icon @click="globalFunctions.closeCalendar()" class="close-btn">sbf-close</v-icon>
+        <v-icon v-if="!!globalFunctions && !isDashboard && !isMyProfile" @click="globalFunctions.closeCalendar()" class="close-btn">sbf-close</v-icon>
         <v-flex xs12>
             <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"/>
-            <v-card class="elevation-0 caltab" v-if="isReady">
+            <v-card class="caltab" v-if="isReady">
                 <calendar v-if="getShowCalendar"/>
                 <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
             </v-card>
-            <v-card class="elevation-0 caltab safdsfsfd" v-show="studentEmptyState">
+            <v-card class="caltab safdsfsfd" v-show="studentEmptyState">
                 <span v-language:inner="'calendar_empty_state_student'"></span>
             </v-card>
         </v-flex>
@@ -27,7 +27,6 @@ export default {
     props:{
         globalFunctions:{
             type: Object,
-            required:true
         }
     },
     data() {
@@ -95,10 +94,12 @@ export default {
     left: 38%;
   }
         .caltab{
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
             padding: 40px 22px;
             @media (max-width: @screen-xs) {
+                  box-shadow: none;
                 padding: 10px;
-                margin-bottom: 40px;
+                // margin-bottom: 40px;
             }
         }
     }

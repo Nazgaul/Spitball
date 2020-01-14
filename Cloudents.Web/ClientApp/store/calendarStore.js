@@ -182,8 +182,11 @@ const actions ={
         commit('setNeedPayment',val);
     },
     updateCalendarStatus({state,getters,dispatch}){
-        let isSharedCalendar = getters.getProfile.user.calendarShared;
-        // let isDashboard = getters.accountUser.calendarShared;
+        let isSharedCalendar;
+        if(getters.getProfile){
+           isSharedCalendar = getters.getProfile.user.calendarShared;
+        }
+        
         if(isSharedCalendar){
             let tutorId = router.history.current.params.id;
            return dispatch('initCalendar',tutorId).then(()=>{

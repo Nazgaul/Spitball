@@ -34,7 +34,7 @@
                     <span class="start-session-btn_txt">{{roomStateText}}</span>
                 </v-btn>
             </v-flex>
-            <v-flex class="font-weight-bold start-session-text" v-else>
+            <v-flex class="font-weight-bold start-session-text" pt-6 px-2 v-else>
                 {{roomStateText}}
             </v-flex>
         </v-layout>
