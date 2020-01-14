@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="category2_name_1" xml:space="preserve">
-    <value>אלגברה</value>
+    <value>Algebra</value>
     <comment>dynamic</comment>
   </data>
   <data name="category2_name_2" xml:space="preserve">
-    <value>אנגלית</value>
+    <value>English</value>
     <comment>dynamic</comment>
   </data>
   <data name="category2_name_3" xml:space="preserve">
-    <value>שיטות מחקר</value>
+    <value>Scientific method</value>
     <comment>dynamic</comment>
   </data>
   <data name="category2_name_4" xml:space="preserve">
@@ -134,27 +134,27 @@
     <comment>dynamic</comment>
   </data>
   <data name="category2_name_5" xml:space="preserve">
-    <value>ביולוגיה</value>
+    <value>Economics</value>
     <comment>dynamic</comment>
   </data>
   <data name="category_name_1" xml:space="preserve">
-    <value>פיזיקה</value>
+    <value>Physics</value>
     <comment>dynamic</comment>
   </data>
   <data name="category_name_2" xml:space="preserve">
-    <value>מחשבים</value>
+    <value>Computer science</value>
     <comment>dynamic</comment>
   </data>
   <data name="category_name_3" xml:space="preserve">
-    <value>מתמטיקה</value>
+    <value>Math</value>
     <comment>dynamic</comment>
   </data>
   <data name="category_name_4" xml:space="preserve">
-    <value>סטטיסטיקה</value>
+    <value>Statistics</value>
     <comment>dynamic</comment>
   </data>
   <data name="category_name_5" xml:space="preserve">
-    <value>כימיה כללית</value>
+    <value>Chemistry</value>
     <comment>dynamic</comment>
   </data>
 </root>
