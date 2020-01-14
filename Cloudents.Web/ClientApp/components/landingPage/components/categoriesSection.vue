@@ -72,8 +72,6 @@ import sbCarousel from "../../sbCarousel/sbCarousel.vue";
 import { LanguageService } from "../../../services/language/languageService.js";
 import { mapMutations } from 'vuex';
 
-import sbCarouselService from '../../sbCarousel/sbCarouselService';
-
 export default {
   components: {
     compSVG,
