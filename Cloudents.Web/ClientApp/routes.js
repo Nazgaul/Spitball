@@ -256,19 +256,17 @@ redirect: { name: 'feed' }
         }
     },
 
-    // {
-    //     path: "/wallet",
-    //     components: {
-    //         default: wallet,
-    //         header: pageHeader,
-    //         banner: globalBanner,
-    //         sideMenu: sideMenu,
-    //     },
-    //     name: "wallet",
-    //     meta: {
-    //         requiresAuth: true
-    //     },
-    // },
+    {
+        path: "/wallet",
+        components: {
+            default: lazyComponent('wallet/wallet'),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
+        },
+        name: "wallet",
+        meta: {
+            requiresAuth: true
+        },
+    },
 
     {
         path: "/register",
@@ -368,11 +366,12 @@ redirect: { name: 'feed' }
             requiresAuth: true,
             showMobileFooter: true,
         },
+    },
+    {
         path:'*',
         redirect : () => {
             window.location = "/error/notfound?client=true";
         }
-
     }
 ];
 export const routes = routes2;

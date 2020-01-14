@@ -254,7 +254,7 @@ export default {
       if(name === "addUniversity"){
         this.$router.push({name:'addUniversity'})
       }
-      if(path === "my-calendar"){
+      if(name === "myCalendar"){
         this.$router.push({name: 'myCalendar'})
       }
       if(name === "editCourse"){
