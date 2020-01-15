@@ -216,7 +216,7 @@ import likeSVG from "./img//like.svg";
 import likeFilledSVG from "./img/like-filled.svg";
 import utilitiesService from "../../services/utilities/utilitiesService.js";
 import vidSVG from "./svg/vid.svg";
-import intersection from '../pages/global/intersection/intersection.vue';
+const intersection = () => import('../pages/global/intersection/intersection.vue');
 
 export default {
   components: {

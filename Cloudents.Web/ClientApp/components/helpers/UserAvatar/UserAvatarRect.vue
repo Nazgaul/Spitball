@@ -20,7 +20,7 @@
 </template>
 <script>
 import utilitiesService from '../../../services/utilities/utilitiesService';
-import intersection from '../../pages/global/intersection/intersection.vue';
+const intersection = () => import('../../pages/global/intersection/intersection.vue');
 
 export default {
     components: {intersection},
