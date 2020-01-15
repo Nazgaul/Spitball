@@ -5,7 +5,7 @@
                 <h1 v-language:inner="'calendar_calendar_hour_title'"/>
                 <h2 v-language:inner="'calendar_calendar_hour_subtitle'"/>
             </div>
-    <table style="">
+    <table>
         <tbody>
             <calendarDay v-for="day in days" :day="day" :key="day" @change.prevent="test()"/>
         </tbody>

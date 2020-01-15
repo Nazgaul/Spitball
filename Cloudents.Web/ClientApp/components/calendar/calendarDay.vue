@@ -86,7 +86,20 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getIntervalFirst']),
+        ...mapGetters(['getIntervalFirst','getCalendarAvailabilityState']),
+        availabilityDayState(){
+            if(this.getCalendarAvailabilityState !== null){
+                let calendarDayList = []
+                this.getCalendarAvailabilityState.forEach(calendarDay=>{
+                    if(calendarDay.day == this.day){
+                        calendarDayList.push(calendarDay)
+                    }
+                });
+                return calendarDayList.length? calendarDayList: null;
+            }else{
+                return null;
+            }
+        },
         dayName(){
             let options = { weekday: this.isMobile? 'short':'long' }
             let dayDate = new Date(`2017-01-0${this.day+1}`)
@@ -99,7 +112,13 @@ export default {
             return (this.selectedHourFrom == this.hoursList[0])
         },
         hoursToList(){
-            let start = this.selectedHourFrom +1;
+            const fullHour = 1;
+            let start;
+            if(this.availabilityDayState !== null && this.availabilityDayState !== undefined){
+                start = +this.availabilityDayState[0].from.split(':')[0]+fullHour;
+            }else{
+                start = this.selectedHourFrom +fullHour;
+            }
             let end = 24;    
             let difference = Math.abs(start-end);
             let rangeArray = new Array(difference + 1).fill(undefined).map((val, key) => {
@@ -151,7 +170,7 @@ export default {
         },
         timeFormatISO(time){
             let currentDate = new Date()
-            return new Date(`${currentDate.getFullYear(),currentDate.getMonth() , currentDate.getDay()}-01-15 ${this.timeFormat(time)}`).toISOString().slice(11,19)
+            return new Date(`${currentDate.getFullYear(),currentDate.getMonth() , currentDate.getDay()} ${this.timeFormat(time)}`).toISOString().slice(11,19)
         },
         closeAdditionalTime(){
             this.isAddTimeSlot = false;
@@ -160,13 +179,12 @@ export default {
         },
         updateAvailability(){
             let timeFrames = [   
-                this.timeFormatISO(this.selectedHourFrom-1),
+                this.timeFormatISO(this.selectedHourFrom),
                 this.timeFormatISO(this.selectedHourTo)
                 ]
-
             if(this.isAddTimeSlot){
                 let additionalHourTimeFrames = [
-                    this.timeFormatISO(this.selectedAdditionalHourFrom-1),
+                    this.timeFormatISO(this.selectedAdditionalHourFrom),
                     this.timeFormatISO(this.selectedAdditionalHourTo)
                 ]
                 timeFrames = [...timeFrames,...additionalHourTimeFrames]
@@ -184,7 +202,31 @@ export default {
                 return}
 
             this.updateAvailability()
-        }
+        },
+        initialHoursList(){
+            this.selectedHourFrom = LanguageService.getValueByKey("calendar_day_off");
+            if(this.availabilityDayState !== null){
+                let start = +this.availabilityDayState[0].from.split(':')[0];
+                let end = 24;    
+                let difference = Math.abs(start-end);
+                let rangeArray = new Array(difference + 1).fill(undefined).map((val, key) => {
+                    return start > end ? start - key : start + key;
+                })
+                rangeArray.unshift(LanguageService.getValueByKey("calendar_day_off"))
+                this.hoursList = rangeArray
+                this.selectedHourFrom = this.hoursList[1];
+                this.selectedHourTo = +this.availabilityDayState[0].to.split(':')[0]; 
+            }   
+        },
+        initialAdditionalHoursList(){
+            let from = +this.availabilityDayState[1].from.split(':')[0]
+            let to = +this.availabilityDayState[1].to.split(':')[0]
+            if(to === 0){
+                to = 24;
+            }
+            this.setSelectedAdditionalHourFrom(from)
+            this.setSelectedAdditionalHourTo(to)
+        },
     },
     watch: {
         isAddTimeSlot:function(val){
@@ -208,7 +250,11 @@ export default {
     },
     mounted() {
         this.runUpdate()
-        this.updateStateAvailabilityCalendar(this.availabilityDay) 
+        this.updateStateAvailabilityCalendar(this.availabilityDay)
+        this.initialHoursList()
+        // if(this.availabilityDayState !== null && this.availabilityDayState.length > 1){
+        //     this.initialAdditionalHoursList()
+        // }
     },
     updated() {
         this.runUpdate()

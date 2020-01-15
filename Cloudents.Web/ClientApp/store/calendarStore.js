@@ -13,7 +13,8 @@ const state = {
     showCalendar: false,
     calendarsList: null,
     selectedCalendarList:[],
-    tutorDailyHours:[]
+    tutorDailyHours:[],
+    tutorDailyHoursState:[],
 };
 
 const mutations ={
@@ -78,6 +79,7 @@ const getters ={
     getSelectedCalendarList: state => state.selectedCalendarList,
     getIntervalFirst: state => state.intervalFirst,
     getCalendarAvailabilityIsValid: state => (state.tutorDailyHours.length),
+    getCalendarAvailabilityState: state => state.tutorDailyHoursState,
 };
 
 const actions ={
@@ -190,8 +192,7 @@ const actions ={
         }else{
             calendarService.getAccountAvailabilityCalendar().then(res=>{
                 isSharedCalendar = res.calendarShared;
-                // debugger
-                // state.tutorDailyHours = res.tutorDailyHours
+                state.tutorDailyHoursState = res.tutorDailyHours
             })
         }
         setTimeout(() => {
