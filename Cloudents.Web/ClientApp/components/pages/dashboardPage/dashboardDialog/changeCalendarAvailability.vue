@@ -17,10 +17,10 @@ export default {
       }
    },
    methods: {
-      ...mapActions(['updateAvailabilityHours','updateToasterParams']),
+      ...mapActions(['updateAvailabilityCalendar','updateToasterParams']),
       change(){
          this.isLoading = true;
-         this.updateAvailabilityHours().then(()=>{
+         this.updateAvailabilityCalendar().then(()=>{
             this.isLoading = false;
             this.$emit('closeDialog')
             this.updateToasterParams({

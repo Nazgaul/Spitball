@@ -103,9 +103,6 @@ const actions ={
     updateAvailabilityCalendar({state}){
         return calendarService.postCalendarAvailability(state.tutorDailyHours);
     },
-    updateAvailabilityHours({state}){
-        return calendarService.postCalendarAvailabilityHours(state.tutorDailyHours);
-    },
     getEvents({commit,getters}){
         let tutorId; 
             if(getters.getProfile){

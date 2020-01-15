@@ -88,15 +88,10 @@ function postCalendarAvailability(paramsObj){
     let params = createCalendarHours(paramsObj);
     return connectivityModule.http.post(`Tutor/calendar/hours`,params);
 }
-function postCalendarAvailabilityHours(paramsObj){
-    let params = createCalendarHours(paramsObj);
-    return connectivityModule.http.post(`Tutor/calendar/updateHours`,params);
-}
 function addEvent(params){
     return connectivityModule.http.post(`Tutor/calendar/events`,params).then(()=>{
     });
 }
-
 function getAccountAvailabilityCalendar(){
     return connectivityModule.http.get(`Account/calendar`).then(({data})=>{
         return new Calendar.Account(data);
@@ -109,6 +104,5 @@ export default {
     getCalendarsList,
     postCalendarsList,
     postCalendarAvailability,
-    postCalendarAvailabilityHours,
     getAccountAvailabilityCalendar,
 }
