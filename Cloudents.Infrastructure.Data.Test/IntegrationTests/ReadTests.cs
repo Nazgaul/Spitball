@@ -88,7 +88,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new DocumentById(documentId, userId);
 
-            var result = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
 
@@ -115,7 +115,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserDocumentsQueryHandler_Ok()
         {
             var query = new UserDocumentsQuery(638, 0, 20);
-            var _ = await fixture.QueryBus.QueryAsync<ListWithCountDto<DocumentFeedDto>>(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
 
@@ -123,14 +123,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserQuestionFeedDtoQueryHandler_Ok()
         {
             var query = new UserDataPagingByIdQuery(638, 0);
-            var _ = await fixture.QueryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task UserAnswerFeedDtoQueryHandler_Ok()
         {
             var query = new UserAnswersByIdQuery(638, 0);
-            var _ = await fixture.QueryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
 
@@ -475,7 +475,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             
             var query = new SiteMapQuery(country);
-            var result = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Theory]
