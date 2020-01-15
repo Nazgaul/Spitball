@@ -1,17 +1,10 @@
 <template>
     <component v-if="!!userName" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId,name:userName}}:''">
-        <v-lazy
-            v-if="isImage"
-            v-model="isActive"
-            :options="{
-                threshold: .5
-            }"
-            transition="fade-transition"
-        >
+        <intersection v-if="isImage">
             <v-avatar tag="v-avatar" :size="size" :class="'user-avatar image'">
                 <img @error="onImgError" :src="imageUrl" alt="user avatar" class="user-avatar-img">
             </v-avatar>
-        </v-lazy>
+        </intersection>
         <v-avatar v-else tag="v-avatar" :size="size" :class="'user-avatar userColor' + strToACII % 11">
             <span class="white--text font-14">{{userName.slice(0,2).toUpperCase()}}</span>
         </v-avatar>
@@ -20,7 +13,10 @@
 </template>
 <script>
 import utilitiesService from '../../../services/utilities/utilitiesService';
+import intersection from '../../pages/global/intersection/intersection.vue';
+
     export default {
+        components: {intersection},
         props: {
             userId: Number,
             userName: {

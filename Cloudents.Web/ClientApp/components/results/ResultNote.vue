@@ -75,20 +75,14 @@
             <vidSVG  />
             <span class="vidTime">{{item.itemDuration}}</span>
           </span>
-          <v-lazy
-            v-model="isActive"
-            :options="{
-                threshold: .5
-            }"
-            transition="fade-transition"
-          >
+          <intersection>
             <img
               class="document-body-card-img"
               @load="isPreviewReady = true"
               :src="docPreviewImg"
               alt
             />
-          </v-lazy>
+          </intersection>
         </div>
       </template>
 
@@ -222,6 +216,7 @@ import likeSVG from "./img//like.svg";
 import likeFilledSVG from "./img/like-filled.svg";
 import utilitiesService from "../../services/utilities/utilitiesService.js";
 import vidSVG from "./svg/vid.svg";
+import intersection from '../pages/global/intersection/intersection.vue';
 
 export default {
   components: {
@@ -230,7 +225,8 @@ export default {
     userAvatar,
     likeSVG,
     likeFilledSVG,
-    vidSVG
+    vidSVG,
+    intersection
   },
   data() {
     return {

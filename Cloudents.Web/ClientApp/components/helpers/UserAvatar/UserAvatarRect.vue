@@ -2,13 +2,7 @@
     <component v-if="!!userName" class="user-avatar-rect" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId,name:userName}}:''">
         <div v-if="userImageUrl" class="user-avatar-image-wrap" :style="{width: `${width}px`, height: `${height}px`}">
             <v-progress-circular v-if="!isLoaded" indeterminate v-bind:size="50"></v-progress-circular>
-            <v-lazy
-                v-model="isActive"
-                :options="{
-                    threshold: .5
-                }"
-                transition="fade-transition"
-            >
+            <intersection>
                 <img 
                     draggable="false"
                     @load="loaded"
@@ -17,7 +11,7 @@
                     :alt="userName"
                     :style="{borderRadius: `${borderRadius}px`}"
                     class="user-avatar-rect-img">
-            </v-lazy>
+            </intersection>
         </div>
         <v-avatar v-else :tile="true" tag="v-avatar" :class="'user-avatar-rect-no-image userColor' + strToACII % 11" :style="{width: `${width}px`, height: `${height}px`, fontSize: `${fontSize}px`, borderRadius: `${borderRadius}px`}">
             <span class="white--text">{{userName.slice(0,2).toUpperCase()}}</span>
@@ -26,8 +20,10 @@
 </template>
 <script>
 import utilitiesService from '../../../services/utilities/utilitiesService';
+import intersection from '../../pages/global/intersection/intersection.vue';
 
 export default {
+    components: {intersection},
     props: {
         userId: Number,
         userName: {

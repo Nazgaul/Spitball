@@ -1,14 +1,8 @@
 <template>
     <router-link v-if="item.url" event @click.native.prevent="goToItem" :to="item.url" class="itemCarouselCard">
-        <v-lazy
-            v-model="isActive"
-            :options="{
-               threshold: .5
-            }"
-            transition="fade-transition"
-        >
+        <intersectoion>
             <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="">
-        </v-lazy>
+        </intersectoion>
         <span class="itemCarouselCard_videoType" v-if="showVideoDuration">
             <vidSVG class="vidSvg" />
             <span class="vidTime">{{item.itemDuration}}</span>
@@ -37,9 +31,10 @@
 <script>
 import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
 import vidSVG from "../../components/results/svg/vid.svg";
+import intersectoion from '../pages/global/intersection/intersection.vue';
 
 export default {
-    components:{UserAvatar, vidSVG},
+    components:{UserAvatar, vidSVG, intersectoion},
     props:{
         item:{
             type:Object,
