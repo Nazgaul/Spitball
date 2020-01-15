@@ -63,9 +63,8 @@ export default {
             width: 66px;
             height: 66px;
             object-fit: cover;
-            @media (max-width: @screen-xs) {
-                margin-top: 30px;
-            }
+             margin-top: 10px;
+          
         }
         p{
             margin-top: 8px;
