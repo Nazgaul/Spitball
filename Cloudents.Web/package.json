@@ -92,6 +92,7 @@
     "@egjs/vue-flicking": "^3.1.2",
     "cssnano": "^4.1.10",
     "fingerprintjs2": "^2.0.6",
+    "intersection-observer": "^0.7.0",
     "myscript": "^4.3.0",
     "remove-files-webpack-plugin": "^1.1.3",
     "timeago.js": "^4.0.0-beta.1",
