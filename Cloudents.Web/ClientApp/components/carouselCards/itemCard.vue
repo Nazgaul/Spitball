@@ -82,6 +82,8 @@ export default {
         border-bottom:  solid 1px #c1c3d2;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
+        width: 100%;
+        height: 100%;
     }
     .itemCarouselCard_videoType {
         /*rtl:ignore*/

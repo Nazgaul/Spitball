@@ -241,7 +241,7 @@ export default {
     },
     showMobileFooter() {
       return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && 
-             this.$route.name !== 'tutorLandingPage' || this.accountUser !== null;
+             this.$route.name !== 'tutorLandingPage' && this.accountUser !== null;
     }
   },
   updated: function() {

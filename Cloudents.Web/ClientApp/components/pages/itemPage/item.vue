@@ -67,7 +67,7 @@
                     @select="enterItemCard" 
                     :arrows="$vuetify.breakpoint.mdAndUp ? true : false"
                     :gap="20">
-                        <itemCard :fromCarousel="true" v-for="(item, index) in itemList" :item="item" :key="index"/>
+                        <itemCard class="itemCard-itemPage" :fromCarousel="true" v-for="(item, index) in itemList" :item="item" :key="index"/>
                 </sbCarousel>
             </div>
 
@@ -453,8 +453,8 @@ export default {
                     margin-bottom: 100px;
                 }
                 .carouselDocPreview {
-                    div {
-                        div {
+                    .itemCard-itemPage {
+                        .item-cont {
                             z-index: 3 !important; //flicking
                             @media (max-width: @screen-xs) {
                                 overflow: visible !important; //flicking
