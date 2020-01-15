@@ -129,11 +129,11 @@ export default {
         .tutorRequest-success-middle{
             padding: 46px 0 64px 0;
             height: 100%;
-            align-items: center; 
-            justify-content: center;
-            @media (max-width: @screen-xs) {
-              padding: 0;
-            }
+            //align-items: center; 
+            //justify-content: center;
+            //@media (max-width: @screen-xs) {
+            //  padding: 0;
+            //}
             .success-img{
                 width: 140px;
                 height: 88px;

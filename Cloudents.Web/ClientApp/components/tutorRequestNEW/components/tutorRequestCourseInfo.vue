@@ -230,7 +230,7 @@ export default {
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-        height: 100%;
+      //  height: 100%;
         form{
             width: 100%;
             margin-top: 34px;
@@ -282,6 +282,8 @@ export default {
             }
         }
     .tutorRequest-bottom{
+        display: flex;
+        justify-content: center;
         .v-btn{
             @media (max-width: @screen-xs) {
               min-width: 120px;  
@@ -322,7 +324,6 @@ export default {
                 height: 144px;
             }
                 font-size: 16px;
-                color: #b3brgb;
                 .v-input{
                     margin: 0;
                     padding: 0;

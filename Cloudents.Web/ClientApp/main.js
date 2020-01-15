@@ -16,6 +16,11 @@ import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import LoadScript from 'vue-plugin-load-script';
 
+// Intersection observer support
+if(!window.IntersectionObserver){
+    import('intersection-observer')   
+}
+
 // Filters
 import './filters/filters';
 
@@ -23,7 +28,7 @@ import VueNumeric from 'vue-numeric';
 import VueMathjax from 'vue-mathjax';
 import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
-import { VLazyImagePlugin } from "v-lazy-image";
+import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
 
 import intercomSettings from './services/intercomService';
 import VueFlicking from "@egjs/vue-flicking";

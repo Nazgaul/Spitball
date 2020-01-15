@@ -1,8 +1,10 @@
 <template>
     <component v-if="!!userName" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId,name:userName}}:''">
-        <v-avatar v-if="isImage"  tag="v-avatar" :size="size" :class="'user-avatar image'">
-            <img @error="onImgError" :src="imageUrl" alt="user avatar" class="user-avatar-img">
-        </v-avatar>
+        <intersection v-if="isImage">
+            <v-avatar tag="v-avatar" :size="size" :class="'user-avatar image'">
+                <img @error="onImgError" :src="imageUrl" alt="user avatar" class="user-avatar-img">
+            </v-avatar>
+        </intersection>
         <v-avatar v-else tag="v-avatar" :size="size" :class="'user-avatar userColor' + strToACII % 11">
             <span class="white--text font-14">{{userName.slice(0,2).toUpperCase()}}</span>
         </v-avatar>
@@ -11,7 +13,10 @@
 </template>
 <script>
 import utilitiesService from '../../../services/utilities/utilitiesService';
+const intersection = () => import('../../pages/global/intersection/intersection.vue');
+
     export default {
+        components: {intersection},
         props: {
             userId: Number,
             userName: {

@@ -61,7 +61,7 @@
                 <img :src="universityImage" slot="courseTitlePrefix" width="24" height="24" v-if="universityImage"/>
             </component>
         </template>
-        <template slot="rightSide">
+        <template slot="rightSide" v-if="showAdBlock">
             <slot name="rightSide">
                 <faq-block :isAsk="true" :isNotes="false" :name="currentSuggest" :text="userText"></faq-block>
             </slot>

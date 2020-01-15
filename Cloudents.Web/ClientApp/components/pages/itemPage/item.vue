@@ -27,12 +27,24 @@
                     </template>
                 </resultNote>
                 <template v-else>
-                    <div class="itemPage__main__document--loader">
-                        <v-progress-circular indeterminate v-bind:size="50" color="primary"></v-progress-circular>
-                    </div>
+                    <v-sheet
+                        color="#fff"
+                        class="pb-2 skeletonWarp"
+                    >
+                        <v-skeleton-loader
+                            max-width="250"
+                            type="list-item-avatar-two-line"
+                        >
+                        </v-skeleton-loader>
+                        <v-skeleton-loader
+                            max-width="500"
+                            type="list-item-three-line, list-item"
+                        >
+                        </v-skeleton-loader>
+                    </v-sheet>
                 </template>
             </div>
-
+                    
             <mainItem :isLoad="isLoad" :document="document"></mainItem>
 
             <template v-if="$vuetify.breakpoint.mdAndDown">    
@@ -127,7 +139,7 @@ export default {
         whyUs,
         mobileUnlockDownload,
         mainItem,
-        unlockDialog
+        unlockDialog,
     },
     props: {
         id: {
@@ -349,6 +361,11 @@ export default {
                         transform: none /*rtl:scaleX(-1)*/;
                         margin-right: 18px;
                         font-size: 20px;
+                    }
+                }
+                .skeletonWarp {
+                    .v-skeleton-loader__avatar {
+                        border-radius: 50%;
                     }
                 }
                 &__tutor {
