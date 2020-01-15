@@ -55,7 +55,6 @@ export default {
         return{
             isLoaded: false,
             imgError: false,
-            isActive: false,
         }
     },
     methods:{

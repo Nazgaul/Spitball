@@ -230,7 +230,6 @@ export default {
   },
   data() {
     return {
-      isActive: false,
       isPreviewReady: false,
       isLiked: false,
       loading: false,

@@ -35,7 +35,6 @@ import intersection from '../../pages/global/intersection/intersection.vue';
         data(){
             return{
                 imgError: false,
-                isActive: false,
             }
         },
         methods:{
