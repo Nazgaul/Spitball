@@ -35,7 +35,7 @@ export default {
       ...mapGetters(['accountUser'])
    },
    methods: {
-      ...mapActions(['getCalendarListAction','initCalendar']),
+      ...mapActions(['getCalendarListAction']),
       openConnect(){
          this.isLoadingConnet = true;
          this.getCalendarListAction().then(()=>{
