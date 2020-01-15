@@ -203,19 +203,21 @@
   </router-link>
 </template>
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
+
 import studyDocumentsStore from "../../store/studyDocuments_store";
 import storeService from "../../services/store/storeService";
-
-import userAvatar from "../helpers/UserAvatar/UserAvatar.vue";
-import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
-import reportItem from "./helpers/reportItem/reportItem.vue";
-import { mapGetters, mapActions, mapMutations } from "vuex";
-import { LanguageService } from "../../services/language/languageService";
 import documentService from "../../services/documentService";
-import likeSVG from "./img//like.svg";
-import likeFilledSVG from "./img/like-filled.svg";
-import utilitiesService from "../../services/utilities/utilitiesService.js";
-import vidSVG from "./svg/vid.svg";
+
+import { LanguageService } from "../../services/language/languageService";
+import utilitiesService from "../../services/utilities/utilitiesService.js"; // cannot async, js error
+
+import userAvatar from "../helpers/UserAvatar/UserAvatar.vue"; // there is a glitch in async import
+const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
+const reportItem = () => import("./helpers/reportItem/reportItem.vue");
+const likeSVG = () => import("./img//like.svg");
+const likeFilledSVG = () => import("./img/like-filled.svg");
+const vidSVG = () => import("./svg/vid.svg");
 const intersection = () => import('../pages/global/intersection/intersection.vue');
 
 export default {

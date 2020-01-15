@@ -19,7 +19,7 @@
     </component>
 </template>
 <script>
-import utilitiesService from '../../../services/utilities/utilitiesService';
+import utilitiesService from '../../../services/utilities/utilitiesService'; // cannot async, js error
 const intersection = () => import('../../pages/global/intersection/intersection.vue');
 
 export default {
