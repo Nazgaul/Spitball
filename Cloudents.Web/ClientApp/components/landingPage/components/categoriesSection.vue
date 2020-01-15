@@ -101,9 +101,11 @@ export default {
       console.log(require(`${path}`))
       return require(`${path}`);
     },
-    update(name){
-      this.UPDATE_SEARCH_LOADING(true)
-      this.$router.push({ name: 'feed', query: {term: name}})
+    update(name, isDragging){
+      if(!isDragging){
+        this.UPDATE_SEARCH_LOADING(true)
+        this.$router.push({ name: 'feed', query: {term: name}})
+      }
     },
     setCategorySlidesToShow(){
       let containerElm1 = this.$refs.categoriesTop;
