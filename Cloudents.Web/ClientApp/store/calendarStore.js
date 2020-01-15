@@ -190,6 +190,8 @@ const actions ={
         }else{
             calendarService.getAccountAvailabilityCalendar().then(res=>{
                 isSharedCalendar = res.calendarShared;
+                // debugger
+                // state.tutorDailyHours = res.tutorDailyHours
             })
         }
         setTimeout(() => {

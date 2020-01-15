@@ -150,7 +150,8 @@ export default {
             }
         },
         timeFormatISO(time){
-            return new Date(`2019-09-18 ${this.timeFormat(time)}`).toISOString().slice(11,19)
+            let currentDate = new Date()
+            return new Date(`${currentDate.getFullYear(),currentDate.getMonth() , currentDate.getDay()}-01-15 ${this.timeFormat(time)}`).toISOString().slice(11,19)
         },
         closeAdditionalTime(){
             this.isAddTimeSlot = false;
@@ -158,9 +159,9 @@ export default {
             this.selectedAdditionalHourTo = ''
         },
         updateAvailability(){
-            let timeFrames = [
-                    this.timeFormatISO(this.selectedHourFrom-1),
-                    this.timeFormatISO(this.selectedHourTo)
+            let timeFrames = [   
+                this.timeFormatISO(this.selectedHourFrom-1),
+                this.timeFormatISO(this.selectedHourTo)
                 ]
 
             if(this.isAddTimeSlot){
