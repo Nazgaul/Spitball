@@ -177,6 +177,10 @@ namespace Cloudents.Web.Controllers
                 ViewBag.jsonLd = jsonLd;
             }
 
+            ViewBag.ogImage = $"{retVal.Image}?width=1200&height=630";
+            ViewBag.ogImageWidth = 1200;
+            ViewBag.ogImageHeight = 630;
+
             return View();
         }
 
