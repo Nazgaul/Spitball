@@ -1,6 +1,14 @@
 <template>
     <router-link v-if="item.url" event @click.native.prevent="goToItem" :to="item.url" class="itemCarouselCard">
-        <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="">
+        <v-lazy
+            v-model="isActive"
+            :options="{
+               threshold: .5
+            }"
+            transition="fade-transition"
+        >
+            <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="">
+        </v-lazy>
         <span class="itemCarouselCard_videoType" v-if="showVideoDuration">
             <vidSVG class="vidSvg" />
             <span class="vidTime">{{item.itemDuration}}</span>
@@ -41,6 +49,11 @@ export default {
             type:Boolean,
             required: false,
             default: false
+        }
+    },
+    data() {
+        return {
+            isActive: false
         }
     },
     computed: {
