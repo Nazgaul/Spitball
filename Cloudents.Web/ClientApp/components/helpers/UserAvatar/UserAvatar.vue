@@ -1,8 +1,17 @@
 <template>
     <component v-if="!!userName" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId,name:userName}}:''">
-        <v-avatar v-if="isImage"  tag="v-avatar" :size="size" :class="'user-avatar image'">
-            <img @error="onImgError" :src="imageUrl" alt="user avatar" class="user-avatar-img">
-        </v-avatar>
+        <v-lazy
+            v-if="isImage"
+            v-model="isActive"
+            :options="{
+                threshold: .5
+            }"
+            transition="fade-transition"
+        >
+            <v-avatar tag="v-avatar" :size="size" :class="'user-avatar image'">
+                <img @error="onImgError" :src="imageUrl" alt="user avatar" class="user-avatar-img">
+            </v-avatar>
+        </v-lazy>
         <v-avatar v-else tag="v-avatar" :size="size" :class="'user-avatar userColor' + strToACII % 11">
             <span class="white--text font-14">{{userName.slice(0,2).toUpperCase()}}</span>
         </v-avatar>
@@ -30,6 +39,7 @@ import utilitiesService from '../../../services/utilities/utilitiesService';
         data(){
             return{
                 imgError: false,
+                isActive: false,
             }
         },
         methods:{

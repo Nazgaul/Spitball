@@ -75,12 +75,20 @@
             <vidSVG  />
             <span class="vidTime">{{item.itemDuration}}</span>
           </span>
-          <img
-            class="document-body-card-img"
-            @load="isPreviewReady = true"
-            :src="docPreviewImg"
-            alt
-          />
+          <v-lazy
+            v-model="isActive"
+            :options="{
+                threshold: .5
+            }"
+            transition="fade-transition"
+          >
+            <img
+              class="document-body-card-img"
+              @load="isPreviewReady = true"
+              :src="docPreviewImg"
+              alt
+            />
+          </v-lazy>
         </div>
       </template>
 
@@ -226,6 +234,7 @@ export default {
   },
   data() {
     return {
+      isActive: false,
       isPreviewReady: false,
       isLiked: false,
       loading: false,
