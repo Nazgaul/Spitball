@@ -3,9 +3,9 @@
         <div class="heading" v-if="$vuetify.breakpoint.smAndDown">
             <span class="heading-text" v-language:inner>marketingBox_title</span>
         </div>
-        <v-card tag="a" tile :ripple="false" :to="{name: 'tutorLandingPage'}" class="main-marketing-content transparent" @click="promotionOpen()">
+        <router-link :to="{name: 'tutorLandingPage'}" class="main-marketing-content transparent" @click.native="promotionOpen">
             <img :src="imgBySiteType" alt="Private lessons">
-        </v-card>
+        </router-link>
     </div>
 </template>
 
