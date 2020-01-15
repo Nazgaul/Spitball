@@ -443,13 +443,6 @@ namespace Cloudents.Web.Api
         //    return Ok();
         //}
 
-        [HttpGet("calendar/hours"), Authorize]
-        public async Task<IEnumerable<TutorDailyHoursDto>> GetTutorHours(CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var query = new TutorDailyHoursQuery(userId);
-            return await _queryBus.QueryAsync(query, token);
-        }
         //[HttpGet("phone")]
         //public async Task<string> GetPhoneNumberAsync(long tutorId, CancellationToken token)
         //{

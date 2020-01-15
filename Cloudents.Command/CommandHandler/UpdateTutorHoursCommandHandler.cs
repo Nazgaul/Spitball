@@ -19,12 +19,7 @@ namespace Cloudents.Command.CommandHandler
             var tutor = await _tutorRepository.LoadAsync(message.UserId, token);
 
             tutor.UpdateTutorHours(message.TutorDailyHours);
-            //tutor.DeleteTutorHours();
-            //foreach (var item in message.TutorDailyHours)
-            //{
-            //    tutor.AddTutorHours(item.Day, item.From, item.To);
-            //}
-            
+               
             await _tutorRepository.UpdateAsync(tutor, token);
         }
     }
