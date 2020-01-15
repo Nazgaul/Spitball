@@ -133,6 +133,9 @@ export default {
         },
         showSkelaton() {
             return this.getSearchLoading || this.loading || this.isLoad;
+        },
+        showAdBlock() {
+            return global.country === 'IL';
         }
     },
     methods: {
