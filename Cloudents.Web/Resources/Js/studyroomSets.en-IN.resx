@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Description" xml:space="preserve">
-    <value>{0}</value>
+  <data name="enable_note_txt" xml:space="preserve">
+    <value>To record you will need to share your screen with Frymo</value>
   </data>
-  <data name="TitleNoUniversity" xml:space="preserve">
-    <value>מורה פרטי {0} | ספיטבול</value>
+  <data name="watch-middle" xml:space="preserve">
+    <value>Now, you can automatically record and view your online lessons, free of charge. your private lessons will be stored in your Frymo account. Where you can access them from any web browser.</value>
   </data>
 </root>
