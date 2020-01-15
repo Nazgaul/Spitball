@@ -113,11 +113,11 @@ export default {
             return (this.selectedHourFrom == this.hoursList[0])
         },
         hoursToList(){
-            let start;
+            let start = this.selectedHourFrom +this.fullHour;
             // if(this.availabilityDayState !== null && this.availabilityDayState !== undefined){
             //     start = +this.availabilityDayState[0].from.split(':')[0]+this.fullHour;
             // }else{
-                start = this.selectedHourFrom +this.fullHour;
+                // start = this.selectedHourFrom +this.fullHour;
             // }
             let end = 24;    
             let difference = Math.abs(start-end);
@@ -213,7 +213,7 @@ export default {
                 })
                 rangeArray.unshift(LanguageService.getValueByKey("calendar_day_off"))
                 this.hoursList = rangeArray
-                this.selectedHourFrom = +this.availabilityDayState[0].from.split(':')[0];;
+                this.selectedHourFrom = +this.availabilityDayState[0].from.split(':')[0];
                 this.selectedHourTo = +this.availabilityDayState[0].to.split(':')[0]; 
             }else{
                 this.selectedHourFrom = LanguageService.getValueByKey("calendar_day_off");
