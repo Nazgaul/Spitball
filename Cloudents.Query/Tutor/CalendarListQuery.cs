@@ -16,7 +16,7 @@ namespace Cloudents.Query.Tutor
         {
             UserId = userId;
         }
-        public long UserId { get; set; }
+        private long UserId { get; }
 
         internal sealed class CalendarListQueryHandler : IQueryHandler<CalendarListQuery, IEnumerable<CalendarDto>>
         {
@@ -31,22 +31,22 @@ namespace Cloudents.Query.Tutor
 
             public async Task<IEnumerable<CalendarDto>> GetAsync(CalendarListQuery query, CancellationToken token)
             {
-                List<CalendarDto> res = (await _calendarService.GetUserCalendarsAsync(query.UserId, token)).ToList();
-                List<CalendarDto> shared = await _statelessSession.Query<TutorCalendar>()
-                    .Where(w => w.Tutor.Id == query.UserId)
-                    .Select(s => new CalendarDto(s.GoogleId, s.Name, true))
-                    .ToListAsync(token);
+                var taskGoogleCalendarResult = _calendarService.GetUserCalendarsAsync(query.UserId, token);
+                var taskSharedCalendarResult = _statelessSession.Query<TutorCalendar>()
+                     .Where(w => w.Tutor.Id == query.UserId)
+                     .Select(s => new { s.Calendar.GoogleId })
+                     .ToListAsync(token);
 
-                //var r =  res.Join(shared, res => res.Id, shared => shared.Id,
-                //        (res, shared) => new CalendarDto(res.Id, res.Name, shared.Id != null ? true : false)
-                //        );
+                await Task.WhenAll(taskSharedCalendarResult, taskGoogleCalendarResult);
 
-                foreach (var item in res)
+                var googleCalendarResult = taskGoogleCalendarResult.Result;
+                var sharedCalendarResult = taskSharedCalendarResult.Result;
+
+                return googleCalendarResult.Select(s =>
                 {
-                    item.IsShared = shared.Where(w => w.Id == item.Id).FirstOrDefault() == null ? false : true;
-                }
-
-                return res;
+                    s.IsShared = sharedCalendarResult.Any(a => a.GoogleId == s.Id);
+                    return s;
+                });
             }
         }
     }

@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cloudents.Query.Query.Admin;
+using NHibernate.Linq;
 using Xunit;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
@@ -83,7 +84,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         [Theory]
         [InlineData(50084, 638)]
-        [InlineData(45209,638)]
+        [InlineData(45209, 638)]
         public async Task DocumentById_Ok(long documentId, long? userId)
         {
             var query = new DocumentById(documentId, userId);
@@ -178,9 +179,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(638,0)]
-        [InlineData(11,0)]
-        [InlineData(605,638)]
+        [InlineData(638, 0)]
+        [InlineData(11, 0)]
+        [InlineData(605, 638)]
         [InlineData(36, 638)]
         [InlineData(36, 0)]
         [InlineData(160105, 638)]
@@ -190,7 +191,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(159039, 160634)]
         [InlineData(159039, 160468)]
         [InlineData(160336, 160468)]
-        [InlineData(1697,0)]
+        [InlineData(1697, 0)]
 
         public async Task UserProfileQuery_Ok(long id, long userId)
         {
@@ -343,7 +344,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserSalesByIdQuery_Ok(long id)
         {
             var query = new UserSalesByIdQuery(id);
-           var _ = await fixture.QueryBus.QueryAsync(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Theory]
@@ -363,8 +364,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new UserFollowersByIdQuery(userId);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
-        
-        
+
+
         [Theory]
         [InlineData(638)]
         [InlineData(159039)]
@@ -473,7 +474,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(false)]
         public async Task SiteMapQuery_Ok(bool country)
         {
-            
+
             var query = new SiteMapQuery(country);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
@@ -485,13 +486,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         {
             var query = new UserDataByIdQuery(userId);
             var _ = await fixture.QueryBus.QueryAsync<User>(query, default);
-            await fixture.QueryBus.QueryAsync<IEnumerable<TransactionDto>> (query, default);
+            await fixture.QueryBus.QueryAsync<IEnumerable<TransactionDto>>(query, default);
         }
 
         [Fact]
         public async Task CalendarEventsQuery_Ok()
         {
-            var query = new CalendarEventsQuery(159039, DateTime.UtcNow, DateTime.UtcNow.AddDays(5));
+            var userId = await fixture.StatelessSession.Query<GoogleTokens>().Select(s => s.Id).FirstAsync();
+
+            var query = new CalendarEventsQuery(long.Parse(userId), DateTime.UtcNow, DateTime.UtcNow.AddDays(5));
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 

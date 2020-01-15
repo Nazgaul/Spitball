@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Persistence.Maps
 {
     [UsedImplicitly]
-    public class TutorMap : ClassMap<Tutor>
+    public partial class TutorMap : ClassMap<Tutor>
     {
         public TutorMap()
         {
@@ -44,18 +44,6 @@ namespace Cloudents.Persistence.Maps
             OptimisticLock.Version();
             Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
 
-        }
-
-        public class TutorCalendarMap : ClassMap<TutorCalendar>
-        {
-            public TutorCalendarMap()
-            {
-                Id(x => x.Id);
-                Map(x => x.Name).Not.Nullable();
-                Map(x => x.GoogleId).Not.Nullable();
-
-                References(x => x.Tutor).Not.Nullable();
-            }
         }
     }
 }

@@ -359,12 +359,7 @@ namespace Cloudents.Selenium.Test
                 driver.Url.Should().Contain("course=");
             }
         }
-
-        public void Dispose()
-        {
-            // _driver.Close();
-            // _driver.Dispose();
-        }
+       
     }
 
 

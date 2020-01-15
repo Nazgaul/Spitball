@@ -33,7 +33,7 @@ namespace Cloudents.Command.CommandHandler
                 throw new ArgumentException("Slot is booked");
             }
             // Tutor hours
-            var appointments = await _calendarService.ReadCalendarEventsAsync(tutor.Id, tutor.Calendars.Select(s => s.GoogleId), message.From.AddHours(-1), message.To.AddHours(1), token);
+            var appointments = await _calendarService.ReadCalendarEventsAsync(tutor.Id, tutor.Calendars.Select(s => s.Calendar.GoogleId), message.From.AddHours(-1), message.To.AddHours(1), token);
             if (appointments.Any(a =>
             {
                 if (IsBetween(message.From, a.From, a.To))

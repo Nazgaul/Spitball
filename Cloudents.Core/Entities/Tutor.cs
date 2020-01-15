@@ -158,18 +158,27 @@ namespace Cloudents.Core.Entities
 
 
         // ReSharper disable once InconsistentNaming Need to have due to mapping
-        private readonly ICollection<TutorCalendar> _calendars = new List<TutorCalendar>();
+        private readonly ISet<TutorCalendar> _calendars = new HashSet<TutorCalendar>();
         public virtual IEnumerable<TutorCalendar> Calendars => _calendars;
 
 
-        private ISet<TutorHours> _tutorHours = new HashSet<TutorHours>();
+        private readonly ISet<TutorHours> _tutorHours = new HashSet<TutorHours>();
         public virtual IEnumerable<TutorHours> TutorHours => _tutorHours;
         public virtual bool IsShownHomePage { get; protected set; }
 
-        public virtual void AddCalendar(string id, string name)
+        public virtual void UpdateCalendar(IEnumerable<GoogleCalendar> calendars)
         {
-            var calendar = new TutorCalendar(id, name, this);
-            _calendars.Add(calendar);
+
+            var newSet = new HashSet<TutorCalendar>(calendars.Select(s => new TutorCalendar(s, this)));
+            _calendars.IntersectWith(newSet);
+
+            //newSet.ExceptWith(_tutorHours);
+            foreach (var hours in newSet)
+            {
+                _calendars.Add(hours);
+            }
+
+          
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Cloudents.Query.Tutor
             {
 
                 var calendarsFuture = _statelessSession.Query<TutorCalendar>().Where(w => w.Tutor.Id == query.Id)
-                    .Select(s => s.GoogleId).ToFuture();
+                    .Select(s => s.Calendar.GoogleId).ToFuture();
 
                 var availableFuture = _statelessSession.Query<TutorHours>()
                     .Where(w => w.Tutor.Id == query.Id)
