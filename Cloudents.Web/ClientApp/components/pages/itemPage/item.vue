@@ -27,10 +27,21 @@
                     </template>
                 </resultNote>
                 <template v-else>
-                    <skeletonLoader></skeletonLoader>
-                    <!-- <div class="itemPage__main__document--loader">
-                        <v-progress-circular indeterminate v-bind:size="50" color="primary"></v-progress-circular>
-                    </div> -->
+                    <v-sheet
+                        color="#fff"
+                        class="pb-2 skeletonWarp"
+                    >
+                        <v-skeleton-loader
+                            max-width="250"
+                            type="list-item-avatar-two-line"
+                        >
+                        </v-skeleton-loader>
+                        <v-skeleton-loader
+                            max-width="500"
+                            type="list-item-three-line, list-item"
+                        >
+                        </v-skeleton-loader>
+                    </v-sheet>
                 </template>
             </div>
                     
@@ -115,7 +126,6 @@ import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
 import whyUs from './components/whyUs/whyUs.vue';
 import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
 import unlockDialog from './components/dialog/unlockDialog.vue';
-import skeletonLoader from '../../pages/global/skeletonLoader/skeletonLoader.vue';
 
 export default {
     name: 'itemPage',
@@ -130,7 +140,6 @@ export default {
         mobileUnlockDownload,
         mainItem,
         unlockDialog,
-        skeletonLoader
     },
     props: {
         id: {
@@ -352,6 +361,11 @@ export default {
                         transform: none /*rtl:scaleX(-1)*/;
                         margin-right: 18px;
                         font-size: 20px;
+                    }
+                }
+                .skeletonWarp {
+                    .v-skeleton-loader__avatar {
+                        border-radius: 50%;
                     }
                 }
                 &__tutor {
