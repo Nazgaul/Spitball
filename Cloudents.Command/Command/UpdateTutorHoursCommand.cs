@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.DTOs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Cloudents.Core;
 
 namespace Cloudents.Command.Command

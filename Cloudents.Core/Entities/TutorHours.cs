@@ -6,12 +6,10 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernane proxy")]
     public class TutorHours : Entity<Guid>
     {
-        public TutorHours(Tutor tutor, DayOfWeek weekDay, TimeSpan from, TimeSpan to)
+        public TutorHours(Tutor tutor, TutorAvailabilitySlot availabilitySlot)
         {
             Tutor = tutor;
-            WeekDay = weekDay;
-            From = from;
-            To = to;
+            AvailabilitySlot = availabilitySlot;
             CreateTime = DateTime.UtcNow;
         }
 
@@ -20,19 +18,14 @@ namespace Cloudents.Core.Entities
         }
 
         public virtual Tutor Tutor { get; protected set; }
-        public virtual DayOfWeek WeekDay { get; protected set; }
-        //public virtual IEnumerable<TimeFrame> TimeFrames { get; protected set; }
-        public virtual TimeSpan From { get; protected set; }
-        public virtual TimeSpan To { get; protected set; }
+        public virtual TutorAvailabilitySlot AvailabilitySlot { get; protected set; }
 
         public virtual DateTime CreateTime { get; protected set; }
 
         protected bool Equals(TutorHours other)
         {
             return Tutor.Id.Equals(other.Tutor.Id)
-                && WeekDay.Equals(other.WeekDay)
-                && From.Equals(other.From)
-                && To.Equals(other.To);
+                && AvailabilitySlot.Equals(other.AvailabilitySlot);
         }
 
         public override bool Equals(object obj)
@@ -45,7 +38,7 @@ namespace Cloudents.Core.Entities
 
         public override int GetHashCode()
         {
-            var hashCode = Tutor.Id.GetHashCode() ^ WeekDay.GetHashCode() ^ From.GetHashCode() ^ To.GetHashCode();
+            var hashCode = Tutor.Id.GetHashCode() ^ AvailabilitySlot.GetHashCode();
             return hashCode;
         }
     }

@@ -133,7 +133,7 @@ namespace Cloudents.Core.Entities
 
         public virtual void UpdateTutorHours(IEnumerable<TutorAvailabilitySlot> tutorHours)
         {
-            var newSet = new HashSet<TutorHours>(tutorHours.Select(s => new TutorHours(this, s.Day, s.From, s.To)));
+            var newSet = new HashSet<TutorHours>(tutorHours.Select(s => new TutorHours(this, s)));
             _tutorHours.IntersectWith(newSet);
 
             //newSet.ExceptWith(_tutorHours);
