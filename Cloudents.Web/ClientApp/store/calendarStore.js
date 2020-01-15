@@ -103,11 +103,13 @@ const actions ={
     updateAvailabilityCalendar({state}){
         return calendarService.postCalendarAvailability(state.tutorDailyHours);
     },
-    updateAvailabilityHours({state}){
-        return calendarService.postCalendarAvailabilityHours(state.tutorDailyHours);
-    },
-    getEvents({commit}){
-        let tutorId = router.history.current.params.id;
+    getEvents({commit,getters}){
+        let tutorId; 
+            if(getters.getProfile){
+                tutorId = router.history.current.params.id;
+            }else{
+                tutorId = getters.accountUser.id;
+            }
         commit('setTutorId',tutorId);
         commit('setToDate',utilitiesService.IsoStringDateWithOffset(60));
         let paramsObj = {
@@ -185,18 +187,28 @@ const actions ={
         let isSharedCalendar;
         if(getters.getProfile){
            isSharedCalendar = getters.getProfile.user.calendarShared;
-        }
-        
-        if(isSharedCalendar){
-            let tutorId = router.history.current.params.id;
-           return dispatch('initCalendar',tutorId).then(()=>{
-                return Promise.resolve();
-           },(err)=>{
-                return Promise.reject(err);
-           });
         }else{
-            dispatch('gapiLoad',state.scope);
+            calendarService.getAccountAvailabilityCalendar().then(res=>{
+                isSharedCalendar = res.calendarShared;
+            })
         }
+        setTimeout(() => {
+            if(isSharedCalendar){
+                let tutorId; 
+                if(getters.getProfile){
+                    tutorId = router.history.current.params.id;
+                }else{
+                    tutorId = getters.accountUser.id;
+                }
+               return dispatch('initCalendar',tutorId).then(()=>{
+                    return Promise.resolve();
+               },(err)=>{
+                    return Promise.reject(err);
+               });
+            }else{
+                dispatch('gapiLoad',state.scope);
+            }
+        }, 100);
     }
 };
 

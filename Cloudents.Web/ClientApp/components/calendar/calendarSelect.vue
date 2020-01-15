@@ -1,6 +1,6 @@
 <template>
     <div class="calendarSelect">
-        <p class="calendarSelectP"  v-language:inner="isMobile?'becomeTutor_select_calendar_title_mobile':'becomeTutor_select_calendar_title'"/>
+        <p class="calendarSelectP"  v-language:inner="isMobile?'becomeTutor_select_calendar_title_mobile':'becomeTutor_select_calendar_title'"/>   
         <div class="calendarLines" :style="paddingScroll">
             <div v-for="calendar in calendarsList" :key="calendar.id">
                 <div class="singleCalendarLine">
@@ -8,7 +8,7 @@
                         <calendarSVG class="svg-calendar"/>
                         <span>{{calendar.name}}</span>
                     </div>
-                    <v-switch multiple v-model="selectedCalendars" :value="calendar" :ripple="false" color="#4452fc"/>
+                    <v-switch multiple :value="calendar" v-model="selectedCalendars" :ripple="false" color="#4452fc"/>
                 </div>
                 <v-divider class="divider-calendar"/>
             </div>
@@ -50,7 +50,15 @@ export default {
             this.updateStateSelectedCalendarList(val)
         }
     },
-    
+    created(){
+        if(this.calendarsList){
+            this.calendarsList.forEach((calendar)=>{
+                if(calendar.isShared){
+                    this.selectedCalendars.push(calendar)
+                } 
+            })
+        }
+    }
 }
 </script>
 

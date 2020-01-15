@@ -26,9 +26,9 @@ namespace Cloudents.Command.CommandHandler
             //TODO : need to check only one hour is booked
             //TODO : need to check if user have payment detail
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
-            if (!tutor.TutorHours.Any(a => a.WeekDay == message.From.DayOfWeek
-                                           && a.From < message.From.TimeOfDay
-                                           && message.To.TimeOfDay < a.To))
+            if (!tutor.TutorHours.Any(a => a.AvailabilitySlot.Day == message.From.DayOfWeek
+                                           && a.AvailabilitySlot.From < message.From.TimeOfDay
+                                           && message.To.TimeOfDay < a.AvailabilitySlot.To))
             {
                 throw new ArgumentException("Slot is booked");
             }

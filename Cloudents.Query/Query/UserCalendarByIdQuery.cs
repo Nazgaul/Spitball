@@ -32,7 +32,7 @@ namespace Cloudents.Query.Query
                 var googleCalendarFuture = _session.Query<GoogleTokens>().Where(w => w.Id == query.UserId.ToString()).ToFutureValue();
 
                 var tutorHoursFuture = _session.Query<TutorHours>().Where(w => w.Tutor.Id == query.UserId)
-                    .Select(s => new TutorAvailabilitySlot(s.WeekDay, s.From, s.To)).ToFuture();
+                    .Select(s => new TutorAvailabilitySlot(s.AvailabilitySlot.Day, s.AvailabilitySlot.From, s.AvailabilitySlot.To)).ToFuture();
 
                 var calendar = await googleCalendarFuture.GetValueAsync(token);
 

@@ -7,7 +7,7 @@
                 <calendar v-if="getShowCalendar"/>
                 <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
             </v-card>
-            <v-card class="caltab safdsfsfd" v-show="studentEmptyState">
+            <v-card class="caltab" v-show="studentEmptyState && !isDashboard">
                 <span v-language:inner="'calendar_empty_state_student'"></span>
             </v-card>
         </v-flex>
@@ -32,7 +32,6 @@ export default {
     data() {
         return {
             isReady: false,
-            showCalendar: this.isCalendar,
             studentEmptyState: false,
             isDashboard: this.$route.name == 'myCalendar'
         }

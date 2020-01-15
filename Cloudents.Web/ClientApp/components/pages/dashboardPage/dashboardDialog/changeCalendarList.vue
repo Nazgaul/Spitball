@@ -2,7 +2,7 @@
    <div class="changeCalendarList">
       <v-icon @click="$emit('closeDialog')" class="changeCalendarList_close" small>sbf-close</v-icon>
       <calendarSelect/>
-      <v-btn :loading="isLoading" @click="change" class="changeCalendarList_btn white--text" round depressed color="#4452fc">Select</v-btn>
+      <v-btn :loading="isLoading" @click="change" class="changeCalendarList_btn white--text" rounded depressed color="#4452fc">Select</v-btn>
    </div>
 </template>
 

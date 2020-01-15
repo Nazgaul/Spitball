@@ -2,7 +2,7 @@
    <div class="changeCalendarAvailability">
       <v-icon @click="$emit('closeDialog')" class="changeCalendarAvailability_close" small>sbf-close</v-icon>
       <calendarHours/>
-      <v-btn :loading="isLoading" @click="change" class="changeCalendarAvailability_btn white--text" round depressed color="#4452fc">Change</v-btn>
+      <v-btn :loading="isLoading" @click="change" class="changeCalendarAvailability_btn white--text" rounded depressed color="#4452fc">Change</v-btn>
    </div>
 </template>
 <script>
@@ -17,10 +17,10 @@ export default {
       }
    },
    methods: {
-      ...mapActions(['updateAvailabilityHours','updateToasterParams']),
+      ...mapActions(['updateAvailabilityCalendar','updateToasterParams']),
       change(){
          this.isLoading = true;
-         this.updateAvailabilityHours().then(()=>{
+         this.updateAvailabilityCalendar().then(()=>{
             this.isLoading = false;
             this.$emit('closeDialog')
             this.updateToasterParams({
