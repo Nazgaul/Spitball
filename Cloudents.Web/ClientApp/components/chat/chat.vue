@@ -238,7 +238,7 @@ export default {
     }
   }
   .general-chat-style {
-    height: ~"calc(100% - 48px)"
+    height: ~"calc( 100% - 48px)";
     width: 100%;
     @media (max-width: @screen-xs) {
       flex:2;
