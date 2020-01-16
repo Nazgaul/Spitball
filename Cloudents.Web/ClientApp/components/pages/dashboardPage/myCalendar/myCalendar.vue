@@ -1,6 +1,6 @@
 <template>
   <div class="myCalendar">
-     <div class="myCalendar_top">
+     <div class="myCalendar_top" v-if="getShowCalendar">
         <v-btn @click="openConnect" class="myCalendar_btns white--text mr-4" :loading="isLoadingConnet" rounded depressed color="#4452fc">
            <span v-language:inner="'dashboardCalendar_btn_connect'"/>
         </v-btn>
@@ -36,7 +36,7 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['accountUser'])
+      ...mapGetters(['accountUser','getShowCalendar'])
    },
    methods: {
       ...mapActions(['getCalendarListAction']),
