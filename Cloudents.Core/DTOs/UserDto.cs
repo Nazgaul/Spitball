@@ -128,6 +128,8 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(User.PaymentExists), nameof(User.Country))]
         public bool NeedPayment { get; set; }
 
+        public bool CalendarShared { get; set; }
+
         private string Country { get; set; }
         public string CurrencySymbol
         {

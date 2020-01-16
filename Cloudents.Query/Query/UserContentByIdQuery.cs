@@ -17,7 +17,7 @@ namespace Cloudents.Query.Query
             Id = id;
         }
 
-        public long Id { get; }
+        private long Id { get; }
 
         internal sealed class UserContentByIdQueryHandler : IQueryHandler<UserContentByIdQuery, IEnumerable<UserContentDto>>
         {

@@ -1,7 +1,5 @@
-﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Event;
+﻿using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using System;
 using System.Diagnostics.CodeAnalysis;

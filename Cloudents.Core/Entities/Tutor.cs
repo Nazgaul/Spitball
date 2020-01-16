@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Cloudents.Core.Entities
 {
@@ -130,14 +131,34 @@ namespace Cloudents.Core.Entities
 
         }
 
-        public virtual void AddTutorHours(DayOfWeek weekDay, TimeSpan from, TimeSpan to)
+        public virtual void UpdateTutorHours(IEnumerable<TutorAvailabilitySlot> tutorHours)
         {
-            _tutorHours.Add(new TutorHours(this, weekDay, from, to));
+            var newSet = new HashSet<TutorHours>(tutorHours.Select(s => new TutorHours(this, s)));
+            _tutorHours.IntersectWith(newSet);
+
+            //newSet.ExceptWith(_tutorHours);
+            foreach (var hours in newSet)
+            {
+                _tutorHours.Add(hours);
+            }
+
+            //_tutorHours.Add(new TutorHours(this, tutorHour.Day, tutorHour.From, tutorHour.To));
         }
+
+        //public virtual void DeleteTutorHours()
+        //{
+        //    //var itemToRemove = _tutorHours.Where(w => w.WeekDay == weekDay).FirstOrDefault();
+        //    //if (itemToRemove != null)
+        //    //{
+        //    //    _tutorHours.Remove(itemToRemove);
+        //    //}
+        //    _tutorHours.Clear();
+
+        //}
 
 
         // ReSharper disable once InconsistentNaming Need to have due to mapping
-        private readonly ICollection<TutorCalendar> _calendars = new List<TutorCalendar>();
+        private readonly ISet<TutorCalendar> _calendars = new HashSet<TutorCalendar>();
         public virtual IEnumerable<TutorCalendar> Calendars => _calendars;
 
 
@@ -145,10 +166,19 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<TutorHours> TutorHours => _tutorHours;
         public virtual bool IsShownHomePage { get; protected set; }
 
-        public virtual void AddCalendar(string id, string name)
+        public virtual void UpdateCalendar(IEnumerable<GoogleCalendar> calendars)
         {
-            var calendar = new TutorCalendar(id, name, this);
-            _calendars.Add(calendar);
+
+            var newSet = new HashSet<TutorCalendar>(calendars.Select(s => new TutorCalendar(s, this)));
+            _calendars.IntersectWith(newSet);
+
+            //newSet.ExceptWith(_tutorHours);
+            foreach (var hours in newSet)
+            {
+                _calendars.Add(hours);
+            }
+
+          
         }
     }
 }

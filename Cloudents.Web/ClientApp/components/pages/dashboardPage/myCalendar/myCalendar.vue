@@ -1,41 +1,79 @@
 <template>
   <div class="myCalendar">
-     <h1>My Calendar</h1>
-     <ul class="myCalendar_ul elevation-1">
-        <li class="myCalendar_li" v-for="(item, index) in 100" :key="index">
-           <v-layout class="myCalendar_div">
-              <v-flex xs4 sm2 class="myCalendar_div_day">Mon Aug 29</v-flex>
-              <v-flex xs3 sm2 >8:00am - 8:15am</v-flex>
-              <v-flex xs6 sm6>Plan this dayPlan this day Plan this day Plan this day Plan this day</v-flex>
-           </v-layout>
-        </li>
-     </ul>
+     <div class="myCalendar_top">
+        <v-btn :loading="isLoadingConnet" @click="openConnect" class="myCalendar_btns white--text mr-4" rounded depressed color="#4452fc">Connet Google Calendars</v-btn>
+        <v-btn @click="openAvailability" class="myCalendar_btns white--text" rounded depressed color="#4452fc">Change Availability</v-btn>
+     </div>
+     <calendarTab class="myCalendar_calendar"/>
   </div>
 </template>
 
 <script>
-export default {
+import calendarTab from '../../../calendar/calendarTab.vue';
 
+import { mapGetters, mapActions } from 'vuex';
+export default {
+   components:{
+      calendarTab
+   },
+   props:{
+      globalFunctions: {
+         type: Object,
+      },
+      dictionary:{
+         type: Object,
+         required: true
+      },
+   },
+   data() {
+      return {
+         isLoadingConnet:false,
+         isReady:false,
+      }
+   },
+   computed: {
+      ...mapGetters(['accountUser'])
+   },
+   methods: {
+      ...mapActions(['getCalendarListAction']),
+      openConnect(){
+         this.isLoadingConnet = true;
+         this.getCalendarListAction().then(()=>{
+            this.isLoadingConnet = false;
+            this.globalFunctions.openDialog('changeCalendarList',{})
+         })
+      },
+      openAvailability(){
+         this.globalFunctions.openDialog('changeCalendarAvailability',{})
+      }
+   },
 }
 </script>
 
 <style lang="less">
 .myCalendar{
-   
-   .myCalendar_ul{
-      background: white;
-      padding: 0;
-      max-height: calc(~"70vh - 100px");
-      overflow-y: scroll;
-      .myCalendar_li{
-         padding: 6px 10px;
-         border-bottom: 1px solid #818181;
+   width: fit-content;
+   .myCalendar_top{
+      width: 720px;
+      max-width: 720px;
+      display: flex;
+      justify-content: center;
+      .myCalendar_btns{
          text-transform: capitalize;
-         .myCalendar_div_day{
-            color: rgb(0, 0, 180);
-            font-weight: 600;
+      }
+   }
+   .myCalendar_calendar{
+      max-width: 720px;
+      &.calendar-container{
+         margin: unset;
+         .calendar-header{
+            display: none;
+         }
+         .my-event{
+            pointer-events: none;
          }
       }
    }
+   
 }
 </style>

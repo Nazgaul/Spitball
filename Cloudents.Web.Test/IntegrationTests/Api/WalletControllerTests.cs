@@ -25,7 +25,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("api/wallet/balance")]
         [InlineData("api/wallet/transaction")]
         [InlineData("api/wallet/GetPaymentLink")]
-        public async Task GetAsync_Wallet_Ok(string uri)
+        public async Task GetAsync_Wallet_OkAsync(string uri)
         {
             await _client.LogInAsync();
 
@@ -41,7 +41,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("api/wallet/balance")]
         [InlineData("api/wallet/transaction")]
         [InlineData("api/wallet/GetPaymentLink")]
-        public async Task GetAsync_Wallet_Unauthorized(string uri)
+        public async Task GetAsync_Wallet_UnauthorizedAsync(string uri)
         {
             var response = await _client.GetAsync(uri);
 
@@ -50,7 +50,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
 
         [Fact]
-        public async Task GetAsync_Balance()
+        public async Task GetAsync_BalanceAsync()
         {
             await _client.LogInAsync();
 
@@ -75,7 +75,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task GetAsync_Transaction()
+        public async Task GetAsync_TransactionAsync()
         {
             await _client.LogInAsync();
 
@@ -99,7 +99,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact(Skip = "This is not good - what you want to accomplish")]
-        public async Task PostAsync_Redeem()
+        public async Task PostAsync_RedeemAsync()
         {
             await _client.LogInAsync();
 
@@ -109,7 +109,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact(Skip = "This is not good - it is not the use case")]
-        public async Task GetAsync_PaymentLink()
+        public async Task GetAsync_PaymentLinkAsync()
         {
             await _client.LogInAsync();
 

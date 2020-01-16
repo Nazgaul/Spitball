@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Attributes;
 using System;
+using System.Collections.Generic;
 
 namespace Cloudents.Core.DTOs
 {
@@ -17,5 +18,13 @@ namespace Cloudents.Core.DTOs
         public string Email { get; set; }
         [EntityBind(nameof(Entities.User.PhoneNumber))]
         public string PhoneNumber { get; set; }
+    }
+
+
+    public class DashboardCalendarDto
+    {
+        public bool CalendarShared { get; set; }
+
+        public IEnumerable<TutorAvailabilitySlot> TutorDailyHours { get; set; }
     }
 }

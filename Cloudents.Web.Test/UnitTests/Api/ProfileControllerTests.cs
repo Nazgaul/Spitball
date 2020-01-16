@@ -35,7 +35,7 @@ namespace Cloudents.Web.Test.UnitTests.Api
         }
 
         [Fact]
-        public async Task GetDocumentsAsync_ReturnUrl()
+        public async Task GetDocumentsAsync_ReturnUrlAsync()
         {
 
             using (var mock = AutoMock.GetLoose())

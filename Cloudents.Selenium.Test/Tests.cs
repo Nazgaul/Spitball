@@ -10,14 +10,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using OpenQA.Selenium.Edge;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Remote;
 using Xunit;
 
 namespace Cloudents.Selenium.Test
 {
-    public class DriverFixture : IDisposable
+    public sealed class DriverFixture : IDisposable
     {
         private readonly Process _process;
 
@@ -362,12 +359,7 @@ namespace Cloudents.Selenium.Test
                 driver.Url.Should().Contain("course=");
             }
         }
-
-        public void Dispose()
-        {
-            // _driver.Close();
-            // _driver.Dispose();
-        }
+       
     }
 
 

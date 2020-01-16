@@ -44,7 +44,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/question/")]
-        public async Task GetAsync_Question_Ok(string uri)
+        public async Task GetAsync_Question_OkAsync(string uri)
         {
           
 
@@ -64,7 +64,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/question/")]
-        public async Task GetAsync_Question_NotFound(string uri)
+        public async Task GetAsync_Question_NotFoundAsync(string uri)
         {
 
             using (var conn = _fixture.DapperRepository.OpenConnection())
@@ -81,7 +81,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
 
         [Fact]
-        public async Task Ask_Course_Without_Uni()
+        public async Task Ask_Course_Without_UniAsync()
         {
             await _client.PostAsync("api/login", HttpClientExtensions.CreateJsonString(_credentials));
             var response = await _client.PostAsync("api/question", HttpClientExtensions.CreateJsonString(_question));
