@@ -31,10 +31,8 @@ export default {
                     let numberArr = [];
                     this.documentIds.forEach(id => {
                         let num = parseInt(id.trim());
-                        if (!!num) {
-                            return numberArr.push(num);
-                        }
-
+                        numberArr.push(num);
+                     
                     })
                     deleteDocument(numberArr)
                         .then(resp => {

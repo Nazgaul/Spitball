@@ -1,9 +1,11 @@
 import axios from 'axios'
+import qs from 'qs'
 
 const promiseReturn = function(response){
     return response.data;
 };
 const errorHandler = function(err){
+    debugger
     if (err.response.status == 403) {
         alert("You don't have access to this");
     }
@@ -31,9 +33,14 @@ export const connectivityModule = {
         },
         delete: function(path, ids){
             let uri = apiAddress + path;
-            return axios.delete(uri, ids)
+
+            return axios.delete(uri,{
+                params: ids,
+                paramsSerializer: params => {
+                  return qs.stringify(params, { arrayFormat: 'repeat' })
+                }})
           
             .then(promiseReturn).catch(errorHandler);
-        }
+         }
     }
 };
