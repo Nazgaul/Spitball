@@ -1,14 +1,16 @@
 <template>
     <component v-if="!!userName" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId,name:userName}}:''">
-        <intersection v-if="isImage">
-            <v-avatar tag="v-avatar" :size="size" :class="'user-avatar image'">
-                <img @error="onImgError" :src="imageUrl" alt="user avatar" class="user-avatar-img">
-            </v-avatar>
-        </intersection>
+        <div v-if="isImage" class="imageWrapper" :style="{width: `${size}px`, height: `${size}px`}">
+            <v-skeleton-loader v-if="!isLoaded" type="avatar"></v-skeleton-loader>
+            <intersection>
+                <v-avatar tag="v-avatar" :size="size" :class="'user-avatar image'">
+                    <v-img @error="onImgError" @load="loaded" :src="imageUrl" alt="user avatar" class="user-avatar-img"></v-img>
+                </v-avatar>
+            </intersection>
+        </div>
         <v-avatar v-else tag="v-avatar" :size="size" :class="'user-avatar userColor' + strToACII % 11">
             <span class="white--text font-14">{{userName.slice(0,2).toUpperCase()}}</span>
         </v-avatar>
-
     </component>
 </template>
 <script>
@@ -35,12 +37,16 @@ const intersection = () => import('../../pages/global/intersection/intersection.
         data(){
             return{
                 imgError: false,
+                isLoaded: false,
             }
         },
         methods:{
             onImgError(){
                 this.imgError = true;
-            }
+            },
+            loaded() {
+                this.isLoaded = true;
+            },
         },
         computed: {
             isImage(){
