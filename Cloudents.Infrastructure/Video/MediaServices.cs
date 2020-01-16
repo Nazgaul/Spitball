@@ -13,14 +13,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
+using Microsoft.Rest.Azure.OData;
 
 namespace Cloudents.Infrastructure.Video
 {
     public class MediaServices : IVideoService
     {
-       // public const string JobLabelImage = "image";
-       // public const string JobLabelShortVideo = "video-short";
-       // public const string JobLabelFullVideo = "video";
+        // public const string JobLabelImage = "image";
+        // public const string JobLabelShortVideo = "video-short";
+        // public const string JobLabelFullVideo = "video";
 
         private readonly AsyncLazy<AzureMediaServicesClient> _context;
         private ConfigWrapper _config;
@@ -182,7 +183,7 @@ namespace Cloudents.Infrastructure.Video
         {
             var v = await _context;
 
-          
+
             //TODO need to delete the jobs as well.
             //TODO need to delete this when the file is deleted
             var result = await v.StreamingLocators.ListAsync(_config.ResourceGroup, _config.AccountName, cancellationToken: token);
@@ -345,31 +346,95 @@ namespace Cloudents.Infrastructure.Video
 
         }
 
+        public async Task RemoveUnusedStreamingLocatorAsync(CancellationToken token)
+        {
+            var client = await _context;
+            var result = await client.StreamingLocators.ListAsync(_config.ResourceGroup,
+                _config.AccountName, cancellationToken: token);
+
+            var links = result
+                .Where(w => w.EndTime < DateTime.UtcNow);
+
+            var tasks = new List<Task>();
+            foreach (var streamingLocator in links)
+            {
+                var t = client.StreamingLocators.DeleteAsync(_config.ResourceGroup, _config.AccountName,
+                    streamingLocator.Name, cancellationToken: token);
+                tasks.Add(t);
+            }
+
+            await Task.WhenAll(tasks);
+        }
+
+        private async Task RemoveUnusedStreamingLocatorAsync(long videoId, CancellationToken token)
+        {
+            var client = await _context;
+            var str = videoId.ToString();
+
+            var assetName = BuildAssetName(videoId.ToString(), AssetType.Long);
+
+            var result = await client.StreamingLocators.ListAsync(_config.ResourceGroup,
+                _config.AccountName, cancellationToken: token);
+            var links = result
+                .Where(w => w.AssetName == assetName
+                            && w.EndTime < DateTime.UtcNow).Take(5);
+
+            var tasks = new List<Task>();
+            foreach (var streamingLocator in links)
+            {
+                var t= client.StreamingLocators.DeleteAsync(_config.ResourceGroup, _config.AccountName,
+                    streamingLocator.Name, cancellationToken: token);
+                tasks.Add(t);
+            }
+
+            await Task.WhenAll(tasks);
+        }
 
 
         public async Task<string> BuildUserStreamingLocatorAsync(long videoId, long userId, CancellationToken token)
         {
             var client = await _context;
-            var locatorName = $"{videoId}-{userId}-{Guid.NewGuid():N}";
-            try
+            var locatorName = $"{videoId}-{userId}";
+            var locator = await client.StreamingLocators.GetAsync(_config.ResourceGroup,
+                _config.AccountName,
+                locatorName,
+                token);
+            if (locator != null && locator.EndTime < DateTime.UtcNow)
             {
-                await client.StreamingLocators.CreateAsync(
+                await client.StreamingLocators.DeleteAsync(
                     _config.ResourceGroup,
-                    _config.AccountName,
-                    locatorName,
-                    new StreamingLocator
-                    {
-                        AssetName = $"video-{videoId}",
-                        StreamingPolicyName = PredefinedStreamingPolicy.ClearStreamingOnly,
-                        EndTime = DateTime.UtcNow.AddHours(1)
-                    }, token);
+                    _config.AccountName, locatorName, token);
 
-                return await GetStreamingUrlAsync(locatorName, token);
+                locator = null;
             }
-            catch (ApiErrorException e) when (e.Response.StatusCode == HttpStatusCode.BadRequest)
+            if (locator is null)
             {
-                return null;
+                try
+                {
+                    await client.StreamingLocators.CreateAsync(
+                        _config.ResourceGroup,
+                        _config.AccountName,
+                        locatorName,
+                        new StreamingLocator
+                        {
+                            AssetName = $"video-{videoId}",
+                            StreamingPolicyName = PredefinedStreamingPolicy.ClearStreamingOnly,
+                            EndTime = DateTime.UtcNow.AddHours(1)
+                        }, token);
+
+
+                }
+                catch (ApiErrorException e) when (e.Response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    return null;
+                }
+                catch (ApiErrorException e) when (e.Response.StatusCode == HttpStatusCode.Conflict)
+                {
+                    await RemoveUnusedStreamingLocatorAsync(videoId, token);
+                    return await BuildUserStreamingLocatorAsync(videoId, userId, token);
+                }
             }
+            return await GetStreamingUrlAsync(locatorName, token);
         }
 
         public async Task CreateShortStreamingLocator(long videoId, CancellationToken token)

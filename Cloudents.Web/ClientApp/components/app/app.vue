@@ -124,7 +124,7 @@
         <payment-dialog v-if="getShowPaymeDialog" />
       </sb-dialog>
 
-      <mobile-footer v-if="showMobileFooter"/>
+      <mobile-footer v-if="showMobileFooter" />
     </v-content>
     <v-snackbar
       absolute
@@ -241,7 +241,7 @@ export default {
     },
     showMobileFooter() {
       return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && 
-             this.$route.name !== 'tutorLandingPage' || this.accountUser !== null;
+             this.$route.name !== 'tutorLandingPage';
     }
   },
   updated: function() {

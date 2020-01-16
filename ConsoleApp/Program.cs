@@ -139,15 +139,17 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await Convert();
+            var x = _container.Resolve<IVideoService>();
+            await x.RemoveUnusedStreamingLocatorAsync(default);
+            //await Convert();
 
 
-            await ReduPreviewProcessingAsync();
+            //await ReduPreviewProcessingAsync();
 
-            var queryBus = _container.Resolve<IQueryBus>();
+            //var queryBus = _container.Resolve<IQueryBus>();
 
-            var query = new SiteMapQuery(true);
-            var result = await queryBus.QueryAsync(query, default);
+            //var query = new SiteMapQuery(true);
+            //var result = await queryBus.QueryAsync(query, default);
 
 
         }
