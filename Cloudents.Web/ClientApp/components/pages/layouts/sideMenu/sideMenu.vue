@@ -3,7 +3,7 @@
                          permanent
                          :temporary="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown"
                          class="sideMenu"
-                         width="276"
+                         width="220"
                          :value="getShowSchoolBlock"
                          @input="updateDrawerValue"
                          :mini-variant-width="62"
