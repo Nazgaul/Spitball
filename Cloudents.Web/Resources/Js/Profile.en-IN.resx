@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Description" xml:space="preserve">
-    <value>{0}</value>
+  <data name="become_title" xml:space="preserve">
+    <value>Teach On Frymo</value>
   </data>
-  <data name="TitleNoUniversity" xml:space="preserve">
-    <value>מורה פרטי {0} | ספיטבול</value>
+  <data name="earn_title" xml:space="preserve">
+    <value>Your study materials worth money on Frymo!</value>
+  </data>
+  <data name="find_tutors" xml:space="preserve">
+    <value>Find Tutors at Frymo</value>
+  </data>
+  <data name="why_learn" xml:space="preserve">
+    <value>Why Learn at Frymo</value>
   </data>
 </root>

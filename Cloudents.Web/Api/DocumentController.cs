@@ -102,7 +102,7 @@ namespace Cloudents.Web.Api
                 textTask = _blobProvider.DownloadTextAsync("text.txt", query.Id.ToString(), token);
             }
 
-            var files = await generatorIndex[model.Document.DocumentType].GeneratePreview(model, userId.GetValueOrDefault(-1), token);
+            var files = await generatorIndex[model.Document.DocumentType].GeneratePreviewAsync(model, userId.GetValueOrDefault(-1), token);
             await System.Threading.Tasks.Task.WhenAll(tQueue, textTask);
             model.Document.Url = Url.DocumentUrl(model.Document.Course, model.Document.Id, model.Document.Title);
             return new DocumentPreviewResponse(model, files, textTask.Result);

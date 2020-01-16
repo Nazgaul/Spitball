@@ -123,7 +123,7 @@
           <payment-dialog v-if="getShowPaymeDialog" />
         </sb-dialog>
 
-        <mobile-footer v-if="showMobileFooter"/>
+      <mobile-footer v-if="showMobileFooter" />
     </v-content>
     <v-snackbar
       absolute
