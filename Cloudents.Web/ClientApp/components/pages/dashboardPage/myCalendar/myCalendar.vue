@@ -1,10 +1,14 @@
 <template>
   <div class="myCalendar">
      <div class="myCalendar_top">
-        <v-btn :loading="isLoadingConnet" @click="openConnect" class="myCalendar_btns white--text mr-4" rounded depressed color="#4452fc">Connet Google Calendars</v-btn>
-        <v-btn @click="openAvailability" class="myCalendar_btns white--text" rounded depressed color="#4452fc">Change Availability</v-btn>
+        <v-btn @click="openConnect" class="myCalendar_btns white--text mr-4" :loading="isLoadingConnet" rounded depressed color="#4452fc">
+           <span v-language:inner="'dashboardCalendar_btn_connect'"/>
+        </v-btn>
+        <v-btn @click="openAvailability" class="myCalendar_btns white--text" rounded depressed color="#4452fc">
+           <span v-language:inner="'dashboardCalendar_btn_availability'"/>
+         </v-btn>
      </div>
-     <calendarTab class="myCalendar_calendar"/>
+      <calendarTab class="myCalendar_calendar"/>
   </div>
 </template>
 

@@ -1,8 +1,10 @@
 <template>
    <div class="changeCalendarList">
-      <v-icon @click="$emit('closeDialog')" class="changeCalendarList_close" small>sbf-close</v-icon>
+      <v-icon @click="$emit('closeDialog')" class="changeCalendarList_close" small v-text="'sbf-close'"/>
       <calendarSelect/>
-      <v-btn :loading="isLoading" @click="change" class="changeCalendarList_btn white--text" rounded depressed color="#4452fc">Select</v-btn>
+      <v-btn :loading="isLoading" @click="change" class="changeCalendarList_btn white--text" rounded depressed color="#4452fc">
+         <span v-language:inner="'dashboardCalendar_btn_select'"/>
+      </v-btn>
    </div>
 </template>
 
@@ -17,23 +19,27 @@ export default {
       }
    },
    methods: {
-      ...mapActions(['updateSelectedCalendarList','updateToasterParams']),
+      ...mapActions(['updateSelectedCalendarList']),
       change(){
          let self = this;
          self.isLoading = true;
          this.updateSelectedCalendarList().then(()=>{
             self.isLoading = false;
             self.$emit('closeDialog')
-            self.updateToasterParams({
-               toasterText: 'bla bla bla calendar connected',
-               showToaster: true
-            });
+            let snackBarObj = {
+               isOn:true,
+               color:'info',
+               dictionary:'dashboardCalendar_snack_connect'
+            }
+            self.$emit('updateSnackbar',snackBarObj)
          }).catch(()=>{
-            self.updateToasterParams({
-               toasterText: 'bla bla bla calendar connected',
-               showToaster: true,
-               toasterType: 'error-toaster'
-            });
+            self.$emit('closeDialog')
+            let snackBarObj = {
+               isOn:true,
+               color:'error',
+               dictionary:'dashboardCalendar_snack_connect_error'
+            }
+            self.$emit('updateSnackbar',snackBarObj)
          })
       }
    },
