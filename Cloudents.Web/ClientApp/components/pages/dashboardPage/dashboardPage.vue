@@ -19,7 +19,7 @@
             <changeCalendarAvailability @updateSnackbar="updateSnackbar" v-if="currentDialog === 'changeCalendarAvailability'" :dialogData="dialogData" @closeDialog="closeDialog"/>
       </sb-dialog>
 
-      <v-snackbar v-model="snackbar.isOn" :color="snackbar.color" :top="true" :timeout="5000">
+      <v-snackbar v-model="snackbar.isOn" :color="snackbar.color" :top="true" :timeout="50000">
          <span v-language:inner="snackbar.dictionary"></span>
       </v-snackbar>
    </div>
@@ -193,6 +193,9 @@ export default {
       padding-right: 6px;
       width: 100%;
       height: 100%;
+   }
+   .v-snack__content{
+      justify-content: center;
    }
 }
 .pop-dashboard-container {
