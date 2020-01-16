@@ -164,7 +164,7 @@ export default {
                 params:{
                     course: this.query.term
                 }
-            })
+            }).catch(() => {})
         },
         goPrevious(){
             this.showEmptyState = false;
@@ -176,7 +176,7 @@ export default {
                 params:{
                     course: this.query.term
                 }
-            })
+            }).catch(() => {})
         },
         goSelected(){
             this.showEmptyState = false;
@@ -188,7 +188,7 @@ export default {
                 params:{
                     course: this.query.term
                 }
-            })
+            }).catch(() => {})
         },
         openRequestTutor() {
             analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
