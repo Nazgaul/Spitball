@@ -118,27 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btn_availability" xml:space="preserve">
-    <value>Change Availability</value>
+    <value>שינוי זמינות</value>
   </data>
   <data name="btn_change" xml:space="preserve">
-    <value>Change</value>
+    <value>שינוי</value>
   </data>
   <data name="btn_connect" xml:space="preserve">
-    <value>Connet Google Calendars</value>
+    <value>חבר יומן גוגל</value>
   </data>
   <data name="btn_select" xml:space="preserve">
-    <value>Select</value>
+    <value>בחירה</value>
   </data>
   <data name="snack_availability" xml:space="preserve">
-    <value>Calendar hours changed</value>
+    <value>השעות ביומן השתנו</value>
   </data>
   <data name="snack_availability_error" xml:space="preserve">
-    <value>Calendar hours error</value>
+    <value>שגיאה בשינוי השעות ביומן</value>
   </data>
   <data name="snack_connect" xml:space="preserve">
-    <value>Calendar connected</value>
+    <value>התחברות ליומן הצליחה</value>
   </data>
   <data name="snack_connect_error" xml:space="preserve">
-    <value>Calendar connected error</value>
+    <value>שגיאה בחיבור ליומן</value>
   </data>
 </root>
