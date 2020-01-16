@@ -130,15 +130,15 @@
     <value>Select</value>
   </data>
   <data name="snack_availability" xml:space="preserve">
-    <value>bla bla bla calendar hours changed</value>
+    <value>Calendar hours changed</value>
   </data>
   <data name="snack_availability_error" xml:space="preserve">
-    <value>bla bla bla calendar hours error</value>
+    <value>Calendar hours error</value>
   </data>
   <data name="snack_connect" xml:space="preserve">
-    <value>bla bla bla calendar connected</value>
+    <value>Calendar connected</value>
   </data>
   <data name="snack_connect_error" xml:space="preserve">
-    <value>bla bla bla calendar connected error</value>
+    <value>Calendar connected error</value>
   </data>
 </root>
