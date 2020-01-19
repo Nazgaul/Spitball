@@ -2,13 +2,13 @@
     <form class="setPhone" @submit.prevent="sendSms">
         <p v-language:inner="'loginRegister_setphone_title'"/>
         <v-select 
-                class="widther"
+                class="widther countryCode"
                 v-model="localCode"
-                :label="localCode"
+                :label="countryCodeLabel"
                 :items="countryCodesList"
                 item-text="name"
-                solo text
-                :append-icon="'sbf-arrow-down'"
+                outlined
+                :append-icon="'sbf-triangle-arrow-down'"
                 item-value="callingCode">
             <template slot="selection" slot-scope="data">
                 <v-list-item-content>
@@ -20,29 +20,43 @@
             </template>
         </v-select>
 
-        <sb-input 
-                :errorMessage="errorMessages.phone"
-                v-model="phoneNumber"
-                class="phone widther"
-                icon="sbf-phone" 
-                :bottomError="true"
-                :autofocus="true" 
-                placeholder="loginRegister_setphone_input" 
-                name="phone" :type="'number'"
-                v-language:placeholder/>
+        <v-text-field
+            v-model="phoneNumber"
+            class="phone widther"
+            prepend-inner-icon="sbf-phone"
+            name=""
+            type="number"
+            :label="phoneNumberLabel"
+            placeholder=" "
+            outlined
+        ></v-text-field>
 
-        <v-btn  type="submit"
-                :loading="smsLoading" 
-                large rounded 
-                class="white--text btn-login" >
+        <!-- <sb-input 
+            :errorMessage="errorMessages.phone"
+            v-model="phoneNumber"
+            class="phone widther"
+            icon="sbf-phone" 
+            :bottomError="true"
+            :autofocus="true" 
+            outlined
+            :label="phoneNumberLabel"
+            name="phone" :type="'number'"
+        /> -->
+
+        <v-btn  
+            type="submit"
+            :loading="smsLoading"
+            large rounded
+            class="white--text btn-login">
                 <span v-language:inner="'loginRegister_setphone_btn'"></span>
-                </v-btn>
+        </v-btn>
     </form> 
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import SbInput from "../../question/helpers/sbInput/sbInput.vue";
+import { LanguageService } from '../../../services/language/languageService';
 
 export default {
     name: 'setPhone',
@@ -75,6 +89,12 @@ export default {
                 this.updateLocalCode(val)
             }
         },
+        countryCodeLabel() {
+            return LanguageService.getValueByKey('loginRegister_countryCode')
+        },
+        phoneNumberLabel() {
+            return LanguageService.getValueByKey('loginRegister_setphone_input') 
+        },
         smsLoading(){
             return this.getGlobalLoading
         }
@@ -101,11 +121,11 @@ export default {
 @import '../../../styles/colors.less';
 
 .setPhone{
-      @media (max-width: @screen-xs) {
+    @media (max-width: @screen-xs) {
         display: flex;
         flex-direction: column;
         align-items: center;
-      }
+    }
     p{
         .responsive-property(font-size, 28px, null, 22px);
         .responsive-property(letter-spacing, -0.51px, null, -0.4px);
@@ -114,34 +134,34 @@ export default {
         text-align: center;
         color: @color-login-text-title;
     }
-    .v-input{
-        margin-bottom: -5px;
-        .v-input__control{
-            .v-input__slot{
-                border-radius: 4px;
-                border: solid 1px rgba(55, 81, 255, 0.29);
-                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
-            }
+    .countryCode {
+        .v-list-item__title {
+            color: #43425d;
+            font-weight: 600;
+            line-height: normal;
+        }
+        i {
+            font-size: 8px;
+            color: #43425d;
         }
     }
     .phone{
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-        -webkit-appearance: none; 
-        margin: 0; 
-        }
-        input {
-        .login-inputs-style();
-        padding-left: 40px !important;
-            ~ i {
-                position: absolute;
-                top: 14px;
-                left: 12px;
+        .v-input__icon--prepend-inner {
+            i {
+                color: #4a4a4a;
             }
         }
     }
+    .widther {
+        .v-input__slot {
+            min-height: 50px;
+        }
+        .v-select__selections {
+            padding: 0 !important;
+        }
+    }
     button{
-        .responsive-property(margin, 66px 0 0, null, 48px);
+        .responsive-property(margin, 20px 0 0, null, 48px);
         .responsive-property(width, 100%, null, 72%);
         font-size: 16px;
         font-weight: 600;

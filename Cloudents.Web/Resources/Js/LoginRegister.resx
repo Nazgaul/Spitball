@@ -310,7 +310,7 @@
     <comment>1</comment>
   </data>
   <data name="setphone_input" xml:space="preserve">
-    <value>Enter phone number</value>
+    <value>Phone number</value>
     <comment>1</comment>
   </data>
   <data name="setphone_title" xml:space="preserve">
@@ -329,7 +329,7 @@
     <value>Change number &amp;amp; resend</value>
   </data>
   <data name="smsconfirm_input" xml:space="preserve">
-    <value>Enter confirmation code</value>
+    <value>Confirmation code</value>
     <comment>1</comment>
   </data>
   <data name="smsconfirm_phone_error" xml:space="preserve">

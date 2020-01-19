@@ -2,21 +2,32 @@
   <form class="smsConfirmation" @submit.prevent="verifyPhone">
     <div class="top">
       <p v-language:inner="'loginRegister_smsconfirm_title'"/>
-	  <span>
-		  <span v-language:inner="'loginRegister_smsconfirm_subtitle'"/>
-		  <span> {{userPhone}}</span>
-	  </span>
+		<span>
+			<span v-language:inner="'loginRegister_smsconfirm_subtitle'"/>
+			<span> {{userPhone}}</span>
+		</span>
     </div>
-	<sb-input 
+
+	<v-text-field
+		v-model="smsCode"
+		class="code widther"
+		prepend-inner-icon="sbf-keyCode"
+		name=""
+		:label="phoneNumberLabel"
+		placeholder=" "
+		outlined
+	></v-text-field>
+
+	<!-- <sb-input 
 			icon="sbf-key"
 			v-model="smsCode"
 			class="code widther"
 			:bottomError="true" 
 			:autofocus="true"
 			:errorMessage="errorMessages.code"
-			placeholder="loginRegister_smsconfirm_input" 
+			placeholder="" 
 			name="phone" :type="'number'"
-			v-language:placeholder/>
+			v-language:placeholder/> -->
 
     <v-btn 	:loading="isLoading"
         	type="submit"
@@ -35,6 +46,7 @@
 <script>
 import SbInput from "../../question/helpers/sbInput/sbInput.vue";
 import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { LanguageService } from '../../../services/language/languageService';
 
 export default {
 	name: 'VerifyPhone',
@@ -57,6 +69,9 @@ export default {
 		isLoading(){
 			return this.getGlobalLoading
 		},
+		phoneNumberLabel() {
+			return LanguageService.getValueByKey('loginRegister_smsconfirm_input')
+		}
 	},
 	methods: {
 		...mapActions(['smsCodeVerify','callWithCode','changeNumber']),
@@ -111,36 +126,40 @@ export default {
 		}
   }
     .code{
-		input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-        -webkit-appearance: none; 
-        margin: 0; 
+		.v-input__icon--prepend-inner {
+            i {
+				color: #4a4a4a;
+				font-size: 20px;
+			}
         }
-        input {
-        position: relative;
-        .login-inputs-style();
-        padding-left: 40px !important;
-            ~ i {
-                position: absolute;
-                top: 14px;
-                left: 12px;
-            }
-        }
+		// input[type=number]::-webkit-inner-spin-button, 
+        // input[type=number]::-webkit-outer-spin-button { 
+        // -webkit-appearance: none; 
+        // margin: 0; 
+        // }
+        // input {
+        // position: relative;
+        // .login-inputs-style();
+        // padding-left: 40px !important;
+        //     ~ i {
+        //         position: absolute;
+        //         top: 14px;
+        //         left: 12px;
+        //     }
+        // }
 	 }
 	button{
-		margin: 66px 0 48px;
-	@media (max-width: @screen-xs) {
-		margin: 48px 0 48px;
-
-
-	}
 		.responsive-property(width, 100%, null, 72%);
+		margin: 20px 0 48px;
 		font-size: 16px;
 		font-weight: 600;
 		letter-spacing: -0.42px;
 		text-align: center;
 		text-transform: none !important;
-	 }
+		@media (max-width: @screen-xs) {
+			margin: 48px 0 48px;
+		}
+	}
 	.bottom{
 		font-size: 14px;
 		letter-spacing: -0.37px;
@@ -152,7 +171,7 @@ export default {
 		span{
 			cursor: pointer;
 		}
-	 }
+	}
 }
 </style>
 

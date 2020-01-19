@@ -3,10 +3,10 @@
         <div class="top" v-language:inner="isRegisterPath? 'loginRegister_emailconfirm_title':'loginRegister_emailconfirm_title_reset'"/>
         <div class="middle" v-if="isRegisterPath">
             <span>
-                <span v-language:inner="'loginRegister_emailconfirm_to'"/>
-                <span class="font-weight-bold"> {{userEmail}}</span>
+                <!-- <span v-language:inner="'loginRegister_emailconfirm_to'"/> -->
+                <span class="email"> {{userEmail}}</span>
             </span>
-            <p class="font-weight-bold" @click="goToRegister()" v-language:inner="'loginRegister_emailconfirm_notyou'"/>
+            <p class="notYou font-weight-bold" @click="goToRegister()" v-language:inner="'loginRegister_emailconfirm_notyou'"/>
         </div>
         <div>
             <div class="bottom">
@@ -61,7 +61,7 @@ export default {
     .top{
         .responsive-property(font-size, 28px, null, 22px);
         .responsive-property(letter-spacing, -0.51px, null, -0.4px);
-        .responsive-property(margin-bottom, 64px, null, 38px);
+        .responsive-property(margin-bottom, 28px, null, 38px);
         text-align: center;
         color: @color-login-text-title;
     }
@@ -71,8 +71,11 @@ export default {
         align-items: center;
         color: #000000;
         font-size: 18px;
-        .responsive-property(margin-bottom, 50px, null, 42px);
-        p{
+        .responsive-property(margin-bottom, 85px, null, 42px);
+        .email {
+            color: #4d4b69;
+        }
+        .notYou {
             margin: 5px 0 0;
             font-size: 14px;
             color: @global-blue;
@@ -87,14 +90,14 @@ export default {
         font-size: 14px;
         letter-spacing: -0.37px;
         text-align: center;
-        color: #000000;
+        color: #4d4b69;
         line-height: 25px;
         .link{
             cursor: pointer;
-            color: @global-blue;
+            color: #5e68ff;
         }
         div{
-        .responsive-property(margin-top, inherit, null, 36px);
+            .responsive-property(margin-top, inherit, null, 36px);
         }
     }
 }
