@@ -1,6 +1,7 @@
 import calendarService from "../services/calendarService";
 import utilitiesService from '../services/utilities/utilitiesService.js'
 import {router} from '../main.js';
+import {LoadScript} from '../main.js';
 
 const state = {
     intervalFirst: 8,
@@ -212,6 +213,18 @@ const actions ={
                 dispatch('gapiLoad',state.scope);
             }
         }, 100);
+    },
+    updateCalendarStatusDashboard({dispatch,state}){
+        return calendarService.getAccountAvailabilityCalendar().then(res=>{
+            if(!res.calendarShared){
+                return Promise.resolve(false);
+            }else{
+                return dispatch('getCalendarListAction').then(()=>{
+                    state.tutorDailyHoursState = res.tutorDailyHours
+                    return Promise.resolve(true);
+                })
+            }
+        })
     }
 };
 
