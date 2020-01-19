@@ -205,7 +205,7 @@ export default {
         },
         initialHoursList(){
             if(this.availabilityDayState !== null){
-                let start = +this.availabilityDayState[0].from.split(':')[0];
+                let start = 8;
                 let end = 24;    
                 let difference = Math.abs(start-end);
                 let rangeArray = new Array(difference + 1).fill(undefined).map((val, key) => {
