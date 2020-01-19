@@ -37,11 +37,10 @@
 
                 </div>
             </v-flex>
-            <v-layout column justify-center align-content-center wrap class="report-footer">
-                <span v-if="errorText" class="text-center red--text" v-text="errorText"/>
+            <div class="report-footer text-center">
+                <div v-if="errorText" class="red--text" v-text="errorText"/>
                 <button class="report-submit" @click="sendItemReport()" v-language:inner="'reportItem_report_btn'"/>
-            </v-layout>
-          
+            </div> 
         </v-layout>
     </div>
 
@@ -277,7 +276,7 @@
         }
         .report-footer {
             padding-bottom: 32px;
-            justify-content: center;
+            margin: 0 auto;
         }
     }
 
