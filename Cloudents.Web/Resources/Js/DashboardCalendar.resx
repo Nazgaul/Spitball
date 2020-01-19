@@ -127,10 +127,10 @@
     <value>Update</value>
   </data>
   <data name="snack_availability" xml:space="preserve">
-    <value>Calendar hours changed</value>
+    <value>Your availability was updated</value>
   </data>
   <data name="snack_availability_error" xml:space="preserve">
-    <value>Calendar hours error</value>
+    <value>Availability update error</value>
   </data>
   <data name="snack_connect" xml:space="preserve">
     <value>Calendar connected</value>

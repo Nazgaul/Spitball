@@ -130,10 +130,10 @@
     <value>בחירה</value>
   </data>
   <data name="snack_availability" xml:space="preserve">
-    <value>השעות ביומן השתנו</value>
+    <value>הזמינות שלך ביומן השתנה</value>
   </data>
   <data name="snack_availability_error" xml:space="preserve">
-    <value>שגיאה בשינוי השעות ביומן</value>
+    <value>שגיאה בקביעת הזמינות שלך</value>
   </data>
   <data name="snack_connect" xml:space="preserve">
     <value>התחברות ליומן הצליחה</value>

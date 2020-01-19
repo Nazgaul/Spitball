@@ -3,10 +3,10 @@
         <h1 align="center">Delete Document by Id</h1>
         <v-layout align-center justify-center column fill-height>
         <div class="input-container">
-            <v-text-field solo class="user-input-text" v-model="documentId" placeholder="Insert document id..."/>
+            <v-text-field solo class="user-input-text" v-model="documentIdString" placeholder="example: 1245,6689,1123"/>
         </div>
         <div class="delete-button-container">
-            <v-btn :loading="loading" color="red" :disabled="lock" @click.prevent="deleteDocument(documentId)">Delete</v-btn>
+            <v-btn :loading="loading" color="red" :disabled="lock" @click.prevent="deleteDocuments">Delete</v-btn>
         </div>
     </v-layout>
     </div>
@@ -17,32 +17,41 @@ import {deleteDocument} from './documentDeleteService.js'
 export default {
     data(){
         return{
-            documentId: "",
+            documentIds: [],
+            documentIdString: '',
             lock: false,
             loading: false,
         }
     },
     methods:{
-        deleteDocument(id){
-            this.loading = true;
-            if(!id) return;
-            this.lock = true;
-            deleteDocument(id).then(resp => {
-                this.documentId = "";
-                this.$toaster.success('Document Deleted');
-                    this.loading = false;
-            },
-            (error) => {
-                this.$toaster.error('Something went wrong');
-                this.loading = false;
+        deleteDocuments(){
+                this.loading = true;
+                if (this.documentIdString.length > 0) {
+                    this.documentIds = this.documentIdString.split(',');
+                    let numberArr = [];
+                    this.documentIds.forEach(id => {
+                        let num = parseInt(id.trim());
+                        numberArr.push(num);
+                     
+                    })
+                    deleteDocument(numberArr)
+                        .then(resp => {
 
-            }).finally(()=>{
-                this.lock = false;
-                this.loading = false;
+                                this.$toaster.success(`Documents were deleted: ${this.documentIdString}`);
+                                this.documentIdString = '';
+                                this.documentIds = [];
+                                this.loading = false;
 
-            })
 
-        }
+                            },
+                            (error) => {
+
+                                this.$toaster.error('Something went wrong');
+                                this.loading = false;
+                            }
+                        )
+                }
+            }
     }
 }
 </script>
