@@ -104,4 +104,9 @@ namespace Cloudents.Core.Interfaces
     {
         Task<IEnumerable<TutorHours>> GetTutorHoursAsync(long TutorId, CancellationToken token);
     }
+
+    public interface IUniversityRepository : IRepository<University>
+    {
+        Task<University> GetUniversityByNameAndCountryAsync(string name, string country, CancellationToken token);
+    }
 }
