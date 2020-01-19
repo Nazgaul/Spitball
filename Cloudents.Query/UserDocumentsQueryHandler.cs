@@ -29,8 +29,11 @@ namespace Cloudents.Query
 
             if (query.DocumentType != null)
             {
-                r = r.Where(w => w.DocumentType == query.DocumentType);
-                count = count.Where(w => w.DocumentType == query.DocumentType);
+                r = r.Where(w => w.DocumentType == query.DocumentType || 
+                                (query.DocumentType == DocumentType.Document && w.DocumentType == null)
+                            );
+                count = count.Where(w => w.DocumentType == query.DocumentType ||
+                                (query.DocumentType == DocumentType.Document && w.DocumentType == null));
             }
             if (!string.IsNullOrEmpty(query.Course))
             {

@@ -93,7 +93,13 @@ namespace Cloudents.Web.Test.UnitTests.Api
                 sut.ControllerContext.HttpContext = new DefaultHttpContext();
 
 
-                var retVal = await sut.GetDocumentsAsync(id, page, pageSize, cancellationToken);
+                var retVal = await sut.GetDocumentsAsync(new Models.ProfileDocumentsRequest()
+                {
+                    Id = id, 
+                    Page = page, 
+                    PageSize = pageSize
+                },
+                    cancellationToken);
                 mock.Mock<IQueryBus>().Verify(x => x.QueryAsync(It.IsAny<UserDocumentsQuery>(), cancellationToken));
 
                 retVal.Result.First().Url.Should().NotBeNullOrEmpty();

@@ -96,14 +96,13 @@ namespace Cloudents.Web.Api
            
         }
 
-        [HttpGet("{id:long}/documents")]
+        [HttpGet("documents")]
         [ProducesResponseType(200)]
 
         public async Task<WebResponseWithFacet<DocumentFeedDto>> GetDocumentsAsync(
-            long id, int page, DocumentType? documentType, string course,
-            int pageSize = 20, CancellationToken token = default)
+            [FromQuery] ProfileDocumentsRequest request, CancellationToken token = default)
         {
-            var query = new UserDocumentsQuery(id, page, pageSize, documentType, course);
+            var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize, request.DocumentType, request.Course);
             var retValTask = _queryBus.QueryAsync(query, token);
 
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
