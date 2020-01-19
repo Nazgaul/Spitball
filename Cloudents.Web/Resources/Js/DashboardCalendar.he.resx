@@ -117,105 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="agree" xml:space="preserve">
-    <value>אני מסכים לתנאי השימוש של ספיטבול</value>
+  <data name="btn_availability" xml:space="preserve">
+    <value>שינוי זמינות</value>
   </data>
-  <data name="already_submitted" xml:space="preserve">
-    <value>החשבון שלך ממתין לאישור.</value>
+  <data name="btn_change" xml:space="preserve">
+    <value>שינוי</value>
   </data>
-  <data name="btn_add_courses_teach" xml:space="preserve">
-    <value>הוסף קורסים ללמד</value>
+  <data name="btn_connect" xml:space="preserve">
+    <value>חבר יומן גוגל</value>
   </data>
-  <data name="btn_back" xml:space="preserve">
-    <value>חזור</value>
+  <data name="btn_select" xml:space="preserve">
+    <value>בחירה</value>
   </data>
-  <data name="btn_cal_connect" xml:space="preserve">
-    <value>חיבור יומן גוגל שלך</value>
+  <data name="btn_update" xml:space="preserve">
+    <value>עדכון</value>
   </data>
-  <data name="btn_cancel" xml:space="preserve">
-    <value>בטל</value>
+  <data name="snack_availability" xml:space="preserve">
+    <value>הזמינות שלך ביומן השתנה</value>
   </data>
-  <data name="btn_done" xml:space="preserve">
-    <value>סיום</value>
+  <data name="snack_availability_error" xml:space="preserve">
+    <value>שגיאה בקביעת הזמינות שלך</value>
   </data>
-  <data name="btn_next" xml:space="preserve">
-    <value>הבא</value>
+  <data name="snack_connect" xml:space="preserve">
+    <value>חיבור יומנים הצליח</value>
   </data>
-  <data name="calendar" xml:space="preserve">
-    <value>חבר את היומן שלך</value>
+  <data name="snack_connect_error" xml:space="preserve">
+    <value>שגיאה בחיבור ליומן</value>
   </data>
-  <data name="cal_step" xml:space="preserve">
-    <value>התחבר ליומן גוגל על מנת להראות את הזמינות שלך</value>
-  </data>
-  <data name="connect_mobile" xml:space="preserve">
-    <value>חבר</value>
-  </data>
-  <data name="label_bio" xml:space="preserve">
-    <value>קצת עלי</value>
-  </data>
-  <data name="label_description" xml:space="preserve">
-    <value>משפט פתיחה</value>
-  </data>
-  <data name="oh" xml:space="preserve">
-    <value>מעולה!!</value>
-  </data>
-  <data name="personal_details" xml:space="preserve">
-    <value>פרטים אישיים</value>
-  </data>
-  <data name="placeholder_bio" xml:space="preserve">
-    <value>ספר על עצמך ומה הרקע שלך</value>
-  </data>
-  <data name="placeholder_description" xml:space="preserve">
-    <value>הקלד משפט מפתח על עצמך</value>
-  </data>
-  <data name="placeholder_first_name" xml:space="preserve">
-    <value>שם פרטי</value>
-  </data>
-  <data name="placeholder_last_name" xml:space="preserve">
-    <value>שם משפחה</value>
-  </data>
-  <data name="placeholder_price" xml:space="preserve">
-    <value>מחיר לשעה ב- {1}</value>
-  </data>
-  <data name="select_calendar_title" xml:space="preserve">
-    <value>בחר אילו יומנים לחבר עם מערכת זימון פגישות של ספיטבול</value>
-  </data>
-  <data name="select_calendar_title_mobile" xml:space="preserve">
-    <value>בחר אילו יומנים לחבר עם מערכת זימון פגישות של ספיטבול</value>
-  </data>
-  <data name="sharing_step_1" xml:space="preserve">
-    <value>שיתוף המידע שלך ישיג יותר תגובות מסטודנטים</value>
-  </data>
-  <data name="sharing_step_2" xml:space="preserve">
-    <value>שיתוף המידע והרקע שלך ישיג יותר תגובות מסטודנטים</value>
-  </data>
-  <data name="title_become" xml:space="preserve">
-    <value>הירשם כמורה פרטי</value>
-  </data>
-  <data name="tutor_now" xml:space="preserve">
-    <value>אתה מורה פרטי עכשיו</value>
-  </data>
-  <data name="upload_error" xml:space="preserve">
-    <value>יש להעלות תמונה כדי להמשיך</value>
-  </data>
-  <data name="upload_image" xml:space="preserve">
-    <value>הוסף תמונה שלך</value>
-  </data>
-  <data name="who" xml:space="preserve">
-    <value>מי אתה</value>
-  </data>
-  <data name="code_of_conduct" xml:space="preserve">
-    <value>ספיטבול בנתה מערכת כללים פשוטה על מנת לוודא כי המורים מקבלים את התשלום במלואו, להגן על פרטיות המורים והתלמידים והסטודנטים וכדי להפוך את השירות שלנו להוגן עבור כולם יש לציית לכללים אלו בזמן השימוש בספיטבול:
-כמורה עצמאי, אינך עובד של ספיטבול, אין באפשרותנו לאשר את דבר העסקתך בפני חברות אחרות ואתה אחראי על הגשת דיווחי המס והמע"מ שלך.
-מיסים ועמלות אחרות לא ינוכו מהתשלומים שלך מאחר שאינך עובד בספיטבול אלא עצמאי. 
-אין לקבל תשלום ישירות מתלמידים וסטודנטים. הדבר ימנע ממורים פרטיים להצליח בספיטבול.
-יש לבצע את כל התקשורת עם התלמידים וסטודנטים שלך דרך מערכת ההודעות של ספיטבול. אין להחליף כתובות דוא"ל אישיות עם התלמידים וסטודנטים שלך.
-על הסטודנט לרשום אמצעי תשלום לפני שתוכל לתת לו את מספר הטלפון שלך או להעביר לו שיעור. מדיניות זו מבטיחה כי תקבל תשלום עבור כל השיעורים.
-אתה קובע מה יהיה התעריף השעתי שלך במהלך תהליך הרישום. אל תדאג, תוכל לשנות את התעריף שלך גם לאחר יצירת פרופיל המורה הפרטי.
-התשלום מבוצע לאחר שכל שיעור מסתיים ולאחר שווידאנו את הפרטים אתך.
-התשלום יהיה 89% מהתעריף שלך עבור כל שיעור. ספיטבול גובה עמלה של 9% על השימוש בפלטפורמה ו-PayMe גובה עמלת עסקה של 2%.</value>
-  </data>
-  <data name="code_of_conduct_title" xml:space="preserve">
-    <value>קוד התנהגות למורה פרטי</value>
+  <data name="title_choose" xml:space="preserve">
+    <value>בחירת יומן</value>
   </data>
 </root>

@@ -1,13 +1,13 @@
 <template>
     <v-layout class="calendar-section mt-4">
-        <v-icon v-if="!!globalFunctions && !isDashboard && !isMyProfile" @click="globalFunctions.closeCalendar()" class="close-btn">sbf-close</v-icon>
+        <v-icon v-if="!isMyProfile" @click="globalFunctions.closeCalendar()" class="close-btn">sbf-close</v-icon>
         <v-flex xs12>
             <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"/>
             <v-card class="caltab" v-if="isReady">
                 <calendar v-if="getShowCalendar"/>
                 <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
             </v-card>
-            <v-card class="caltab" v-show="studentEmptyState && !isDashboard">
+            <v-card class="caltab" v-show="studentEmptyState">
                 <span v-language:inner="'calendar_empty_state_student'"></span>
             </v-card>
         </v-flex>
@@ -18,7 +18,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import calendar from './calendar.vue'
 import calendarEmptyState from './calendarEmptyState.vue'
-//import {LanguageService} from '../../services/language/languageService.js'
+
 export default {
     components:{
         calendar,
@@ -33,7 +33,6 @@ export default {
         return {
             isReady: false,
             studentEmptyState: false,
-            isDashboard: this.$route.name == 'myCalendar'
         }
     },
     computed: {
@@ -45,11 +44,11 @@ export default {
                return false;
         },
         showEmptyState(){
-            return ((this.isMyProfile || this.isDashboard) && !this.getShowCalendar)
+            return (this.isMyProfile && !this.getShowCalendar)
         },
     },
     methods: {
-        ...mapActions(['updateCalendarStatus','updateToasterParams'])
+        ...mapActions(['updateCalendarStatus'])
     },
     created() {
         let self = this;
