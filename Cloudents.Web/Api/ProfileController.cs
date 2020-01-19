@@ -96,7 +96,7 @@ namespace Cloudents.Web.Api
            
         }
 
-        [HttpGet("documents")]
+        [HttpGet("{id:long}/documents")]
         [ProducesResponseType(200)]
 
         public async Task<WebResponseWithFacet<DocumentFeedDto>> GetDocumentsAsync(

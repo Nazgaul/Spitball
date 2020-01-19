@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Enum;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,6 +17,7 @@ namespace Cloudents.Web.Models
         //    PageSize = pageSize;
         //}
         [Required]
+        [FromRoute]
         public long Id { get; set; }
         [Required]
         public int Page { get; set; }
