@@ -96,7 +96,15 @@
                 }
                 if(!this.isSelectCalendar && this.isSelectHours){
                     if(this.$route.name === 'myCalendar'){
-                        this.$emit('updateCalendar')
+                        this.isLoading = true;
+                        let self = this;
+                        this.updateSelectedCalendarList().then(()=>{
+                            self.updateAvailabilityCalendar().then(()=>{
+                                self.$emit('updateCalendar')
+                                self.isLoading = false;
+                            })
+                        })
+                        
                         return
                     }else{
                         this.initCalendar()
