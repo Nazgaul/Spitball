@@ -94,4 +94,14 @@ namespace Cloudents.Core.Interfaces
     {
         Task<Coupon> GetCouponAsync(string coupon, CancellationToken token);
     }
+
+    public interface ITutorCalendarRepository : IRepository<TutorCalendar>
+    {
+        Task<IEnumerable<TutorCalendar>> GetTutorCalendarsAsync(long TutorId, CancellationToken token);
+    }
+
+    public interface ITutorHoursRepository : IRepository<TutorHours>
+    {
+        Task<IEnumerable<TutorHours>> GetTutorHoursAsync(long TutorId, CancellationToken token);
+    }
 }

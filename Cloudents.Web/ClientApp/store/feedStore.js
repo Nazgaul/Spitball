@@ -1,18 +1,17 @@
-import { skeletonData } from '../components/results/consts';
+// import { skeletonData } from '../components/results/consts';
 import searchService from "../services/searchService";
 import reportService from "../services/cardActionService";
 
 const state = {
     queItems: [],
     items: {},
-    itemsSkeleton: skeletonData.ask,
     dataLoaded: false,
     tutors: [],
 };
 
 const getters = {
     Feeds_getItems: (state, {getIsLoading, getSearchLoading}) => {
-        return (getIsLoading || getSearchLoading) ? state.itemsSkeleton : state.items.data;
+        return (getIsLoading || getSearchLoading) ? state.dataLoaded : state.items.data;
     },
     Feeds_getTutors: (state) => state.tutors,
     Feeds_getNextPageUrl: (state) =>  state.items.nextPage,

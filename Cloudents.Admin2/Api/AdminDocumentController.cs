@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -97,12 +98,15 @@ namespace Cloudents.Admin2.Api
             };
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         [Authorize]
-        public async Task<IActionResult> Delete(long id, CancellationToken token)
+        public async Task<IActionResult> Delete([FromQuery(Name = "id"), MaxLength(200)] IEnumerable<long> ids, CancellationToken token)
         {
-            var command = new DeleteDocumentCommand(id);
-            await _commandBus.DispatchAsync(command, token);
+            foreach (var id in ids)
+            {
+                var command = new DeleteDocumentCommand(id);
+                await _commandBus.DispatchAsync(command, token);
+            }
             return Ok();
         }
 
