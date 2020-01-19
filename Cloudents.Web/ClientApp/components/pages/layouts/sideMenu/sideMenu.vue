@@ -103,7 +103,7 @@ export default {
         {name: LanguageService.getValueByKey('schoolBlock_my_followers'), key:'my-followers', route: 'myFollowers', icon:'sbf-follow',sel:'sd_followers'},
         {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'my-purchases', route: 'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
         {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', route: 'myContent', icon:'sbf-my-content',sel:'sd_content'},
-        {name: LanguageService.getValueByKey('schoolBlock_calendar'), key:'my-calendar',route: 'myCalendar', icon:'sbf-lessons',sel:'sd_calendar'},
+        {name: LanguageService.getValueByKey('schoolBlock_calendar'), key:'my-calendar',route: 'myCalendar', icon:'sbf-calendar',sel:'sd_calendar'},
         {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', route: 'roomSettings', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
         {name: LanguageService.getValueByKey('menuList_my_study_rooms'), key:'tutoring', route: 'tutoring', icon:'sbf-pc',sel:'menu_row'},
         {name: LanguageService.getValueByKey('menuList_changeUniversity'), key:'university', route: 'addUniversity', icon:'sbf-university',sel:'sd_studyroom'},
