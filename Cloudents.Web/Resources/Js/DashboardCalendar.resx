@@ -133,7 +133,7 @@
     <value>Availability update error</value>
   </data>
   <data name="snack_connect" xml:space="preserve">
-    <value>Calendar connected</value>
+    <value>Calendar connect succeeded</value>
   </data>
   <data name="snack_connect_error" xml:space="preserve">
     <value>Calendar connected error</value>
