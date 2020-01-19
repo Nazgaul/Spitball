@@ -29,6 +29,7 @@ export default {
 <style lang="less">
     @import '../../styles/mixin.less';
     .calendarHours{
+        text-align: initial;
         table {
         width:100%; 
         border-collapse: separate;  

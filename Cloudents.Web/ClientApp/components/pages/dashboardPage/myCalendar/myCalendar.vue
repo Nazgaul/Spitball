@@ -2,7 +2,7 @@
   <div class="myCalendar">
      <template v-if="isReady">
          <v-card class="myCalendar-container" v-if="isShowEmptyState">
-            <calendarEmptyState/>
+            <calendarEmptyState @updateCalendar="updateCalendar"/>
          </v-card>
          <template v-if="isShowCalendarSettings">
             <v-card class="myCalendar-container mb-2 mb-sm-3">
@@ -110,28 +110,36 @@ export default {
                dictionary:'dashboardCalendar_snack_connect_error'
             }
          })
+      },
+      updateCalendar(){
+         this.isReady = false;
+         this.isLoading = true;
+         this.updateCalendarDashboard()
+      },
+      updateCalendarDashboard(){
+         let self = this;
+         self.updateCalendarStatusDashboard()
+            .then(isSharedCalendar=>{
+               if(!isSharedCalendar){
+                  self.$loadScript("https://apis.google.com/js/api.js").then(() => {
+                     self.gapiLoad('calendar').then(()=>{
+                        self.showEmptyState = true;
+                        self.showCalendarSettings = false;
+                        self.isReady = true;
+                        self.isLoading = false;
+                     });
+                  })
+               }else{
+                  self.showCalendarSettings = true;
+                  self.showEmptyState = false;
+                  self.isReady = true;
+                  self.isLoading = false;
+               }
+            })
       }
    },
    created() {
-      let self = this;
-      self.updateCalendarStatusDashboard()
-         .then(isSharedCalendar=>{
-            if(!isSharedCalendar){
-               self.$loadScript("https://apis.google.com/js/api.js").then(() => {
-                  self.gapiLoad('calendar').then(()=>{
-                     self.showEmptyState = true;
-                     self.showCalendarSettings = false;
-                     self.isReady = true;
-                     self.isLoading = false;
-                  });
-               })
-            }else{
-               self.showCalendarSettings = true;
-               self.showEmptyState = false;
-               self.isReady = true;
-               self.isLoading = false;
-            }
-         })
+      this.updateCalendarDashboard()
    },
 }
 </script>
@@ -157,7 +165,8 @@ export default {
          margin-bottom: 14px;
       }
       .calendarAvailability{
-         text-align: initial;
+         text-align: initial !important;
+
       }
       .calendarList{
          max-width: 434px;

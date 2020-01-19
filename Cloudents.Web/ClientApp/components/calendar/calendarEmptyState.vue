@@ -95,8 +95,13 @@
                     return
                 }
                 if(!this.isSelectCalendar && this.isSelectHours){
-                    this.initCalendar()
-                    return
+                    if(this.$route.name === 'myCalendar'){
+                        this.$emit('updateCalendar')
+                        return
+                    }else{
+                        this.initCalendar()
+                        return
+                    }
                 }
             },
         },
