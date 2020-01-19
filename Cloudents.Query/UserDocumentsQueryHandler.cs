@@ -24,6 +24,7 @@ namespace Cloudents.Query
                 .Fetch(f => f.User)
                 .ThenFetch(f => f.University)
                 .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
+                .OrderByDescending(o => o.Boost).ThenByDescending(o => o.TimeStamp.UpdateTime)
                 .Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
@@ -50,7 +51,7 @@ namespace Cloudents.Query
                     Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
 
                 }
-                ).OrderByDescending(o => o.DateTime)
+                )
                 .Take(query.PageSize).Skip(query.Page * query.PageSize).ToFuture();
 
             var count = _session.Query<Document>().Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok).ToFuture();
