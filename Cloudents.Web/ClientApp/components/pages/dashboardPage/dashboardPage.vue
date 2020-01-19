@@ -15,13 +15,7 @@
          :content-class="'pop-dashboard-container'">
             <changeNameDialog v-if="currentDialog === 'rename'" :dialogData="dialogData" @closeDialog="closeDialog"/>
             <changePriceDialog v-if="currentDialog === 'changePrice'" :dialogData="dialogData" @closeDialog="closeDialog"/>
-            <changeCalendarList @updateSnackbar="updateSnackbar" v-if="currentDialog === 'changeCalendarList'" :dialogData="dialogData" @closeDialog="closeDialog"/>
-            <changeCalendarAvailability @updateSnackbar="updateSnackbar" v-if="currentDialog === 'changeCalendarAvailability'" :dialogData="dialogData" @closeDialog="closeDialog"/>
       </sb-dialog>
-
-      <v-snackbar v-model="snackbar.isOn" :color="snackbar.color" :top="true" :timeout="50000">
-         <span v-language:inner="snackbar.dictionary"></span>
-      </v-snackbar>
    </div>
 </template>
 
@@ -38,8 +32,6 @@ import tableEmptyState from './global/tableEmptyState.vue';
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
 import changePriceDialog from './dashboardDialog/changePriceDialog.vue';
-import changeCalendarList from './dashboardDialog/changeCalendarList.vue';
-import changeCalendarAvailability from './dashboardDialog/changeCalendarAvailability.vue';
 
 import { LanguageService } from '../../../services/language/languageService';
 import { mapGetters } from 'vuex';
@@ -108,8 +100,6 @@ export default {
       myFollowers,
       changeNameDialog,
       changePriceDialog,
-      changeCalendarList,
-      changeCalendarAvailability,
       sbDialog,
       tableEmptyState,
    },

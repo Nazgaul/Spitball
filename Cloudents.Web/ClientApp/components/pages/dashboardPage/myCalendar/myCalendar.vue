@@ -1,31 +1,29 @@
 <template>
   <div class="myCalendar">
-      <v-card class="myCalendar-container" v-if="isReady">
-         <calendarEmptyState v-if="isShowEmptyState"/>
+     <template v-if="isReady">
+         <v-card class="myCalendar-container" v-if="isShowEmptyState">
+            <calendarEmptyState/>
+         </v-card>
          <template v-if="isShowCalendarSettings">
-            <selectCalendar/>
-            <calendarHours class="my-3"/>
+            <v-card class="myCalendar-container mb-2 mb-sm-3">
+               <calendarHours class="calendarAvailability"/>
+               <v-btn :loading="isLoadingAvailability" @click="changeAvailability" class="btn white--text" rounded depressed color="#4452fc">
+                  <span v-language:inner="'dashboardCalendar_btn_update'"/>
+               </v-btn>
+            </v-card> 
+            <v-card class="myCalendar-container">
+               <p class="choose-title" v-language:inner="'dashboardCalendar_title_choose'"/>
+               <selectCalendar class="calendarList"/>
+               <v-btn :loading="isLoadingList" @click="changeList" class="btn white--text" rounded depressed color="#4452fc">
+                  <span v-language:inner="'dashboardCalendar_btn_update'"/>
+               </v-btn>
+            </v-card>
          </template>
-      </v-card>
-      <!-- <template v-if="isShowCalendarSettings">
-         <selectCalendar/>
-         <calendarHours class="my-3"/>
-      </template> -->
-
-
-     <div>
-      <!-- {{getCalendarsList}} -->
-     </div>
+     </template>
       <v-progress-circular class="progress-calendar" v-show="isLoading" indeterminate :size="300" width="3" color="#4c59ff"/>
-     <!-- <div class="myCalendar_top" v-if="getShowCalendar">
-        <v-btn @click="openConnect" class="myCalendar_btns white--text mr-4" :loading="isLoadingConnet" rounded depressed color="#4452fc">
-           <span v-language:inner="'dashboardCalendar_btn_connect'"/>
-        </v-btn>
-        <v-btn @click="openAvailability" class="myCalendar_btns white--text" rounded depressed color="#4452fc">
-           <span v-language:inner="'dashboardCalendar_btn_availability'"/>
-         </v-btn>
-     </div> -->
-      <!-- <calendarTab class="myCalendar_calendar"/> -->
+      <v-snackbar v-model="snackBarObj.isOn" :color="snackBarObj.color" :top="true" :timeout="3000">
+         <span v-language:inner="snackBarObj.dictionary"></span>
+      </v-snackbar>
   </div>
 </template>
 
@@ -53,11 +51,17 @@ export default {
    },
    data() {
       return {
-         isLoadingConnet:false,
          isLoading:true,
          isReady:false,
          showEmptyState:false,
          showCalendarSettings:false,
+         isLoadingAvailability:false,
+         isLoadingList:false,
+         snackBarObj:{
+            isOn:false,
+            color:'info',
+            dictionary:''
+         }
       }
    },
    computed: {
@@ -70,16 +74,42 @@ export default {
       }
    },
    methods: {
-      ...mapActions(['getCalendarListAction','updateCalendarStatusDashboard','gapiLoad']),
-      openConnect(){
-         this.isLoadingConnet = true;
-         this.getCalendarListAction().then(()=>{
-            this.isLoadingConnet = false;
-            this.globalFunctions.openDialog('changeCalendarList',{})
+      ...mapActions(['updateCalendarStatusDashboard','gapiLoad','updateAvailabilityCalendar','updateSelectedCalendarList']),
+      changeAvailability(){
+         this.isLoadingAvailability = true;
+         this.updateAvailabilityCalendar().then(()=>{
+            this.isLoadingAvailability = false;
+            this.snackBarObj = {
+               isOn:true,
+               color:'info',
+               dictionary:'dashboardCalendar_snack_availability'
+            }
+         }).catch(()=>{
+            this.isLoadingAvailability = false;
+            this.snackBarObj = {
+               isOn:true,
+               color:'error',
+               dictionary:'dashboardCalendar_snack_availability_error'
+            }
          })
       },
-      openAvailability(){
-         this.globalFunctions.openDialog('changeCalendarAvailability',{})
+      changeList(){
+         let self = this;
+         self.isLoadingList = true;
+         this.updateSelectedCalendarList().then(()=>{
+            self.isLoadingList = false;
+            this.snackBarObj = {
+               isOn:true,
+               color:'info',
+               dictionary:'dashboardCalendar_snack_connect'
+            }
+         }).catch(()=>{
+            this.snackBarObj = {
+               isOn:true,
+               color:'error',
+               dictionary:'dashboardCalendar_snack_connect_error'
+            }
+         })
       }
    },
    created() {
@@ -109,27 +139,43 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .myCalendar{
-   width: fit-content;
+   width: 100%;
+   max-width: 700px;
    .myCalendar-container{
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-      padding: 40px 22px;
+      padding: 14px 22px;
+      text-align: center;  
       @media (max-width: @screen-xs) {
          box-shadow: none;
          padding: 10px;
-            // margin-bottom: 40px;
       }
-   }
-   .myCalendar_top{
-      width: 720px;
-      max-width: 720px;
-      display: flex;
-      justify-content: center;
-      .myCalendar_btns{
+      .choose-title{
+         text-align: initial;
+         font-size: 16px;
+         font-weight: 600;
+         color: #4d4b69;
+         margin-bottom: 14px;
+      }
+      .calendarAvailability{
+         text-align: initial;
+      }
+      .calendarList{
+         max-width: 434px;
+         text-align: initial;
+      }
+      .btn{
+         margin-top: 40px;
+         @media (max-width: @screen-xs) {
+            margin-top: 30px;
+         }
+         height: 40px;
+         max-width: 140px;
+         width: 100%;
          text-transform: capitalize;
       }
    }
    .myCalendar_calendar{
-      max-width: 720px;
+      max-width: 700px;
       &.calendar-container{
          margin: unset;
          .calendar-header{
