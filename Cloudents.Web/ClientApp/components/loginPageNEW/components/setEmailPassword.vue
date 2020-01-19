@@ -4,7 +4,7 @@
     <form @submit.prevent="submit">
       <v-layout wrap justify-space-between class="widther">
         <v-flex xs6 class="pr-2 mb-2">
-          <v-text-field class="input-fields" outlined height="50px" dense
+          <v-text-field class="input-fields" outlined height="44" dense
                         v-model="firstName"
                         label="First Name" 
                         :error-messages="firstNameError"
@@ -13,7 +13,7 @@
                         />
         </v-flex>
         <v-flex xs6 class="pl-2">
-          <v-text-field class="input-fields" outlined height="50px" dense
+          <v-text-field class="input-fields" outlined height="44" dense
                         v-model="lastName"
                         label="Last Name" 
                         :error-messages="lastNameError"
@@ -22,14 +22,14 @@
                         />
         </v-flex>
       </v-layout>
-      <v-text-field class="widther input-fields mb-2" outlined height="50" dense
+      <v-text-field class="widther input-fields mb-2" outlined height="44" dense
               v-model="email"
               label="Email" 
               :error-messages="errorMessages.email"
               placeholder=" "
               type="email"
               />
-      <v-text-field outlined height="50" dense
+      <v-text-field outlined height="44" dense
               v-model="password"
               label="Password" 
               :error-messages="errorMessages.password"
@@ -38,7 +38,7 @@
               :class="[hintClass,'widther','input-fields','mb-2']"
               :hint="passHint"
               />
-      <v-text-field outlined height="50" dense
+      <v-text-field outlined height="44" dense
               v-model="confirmPassword"
               label="Confirm Password" 
               :error-messages="errorMessages.confirmPassword"

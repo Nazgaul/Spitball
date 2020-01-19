@@ -13,6 +13,8 @@
 		class="code widther"
 		prepend-inner-icon="sbf-keyCode"
 		name=""
+		dense
+		height="44"
 		:label="phoneNumberLabel"
 		placeholder=" "
 		outlined
@@ -129,7 +131,8 @@ export default {
 		.v-input__icon--prepend-inner {
             i {
 				color: #4a4a4a;
-				font-size: 20px;
+				font-size: 16px;
+				margin-top: 10px;
 			}
         }
 		// input[type=number]::-webkit-inner-spin-button, 

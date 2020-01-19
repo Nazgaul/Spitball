@@ -37,13 +37,6 @@ import { mapActions, mapGetters } from 'vuex'
 
 import logo from '../../app/logo/logo.vue';
 
-
-
-
-
-
-
-
 // globals
 import getStarted from '../../loginPageNEW/components/getStarted.vue'
 import EmailConfirmed from '../../loginPageNEW/components/EmailConfirmed.vue'
@@ -198,15 +191,15 @@ export default {
     .stepsSections{
         // width: 400px;
         width: 386px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 0 auto;
-        .input-fields{
-          .v-input__slot{
-            min-height: 50px !important;
-          }
-        }
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: center;
+        margin: 120px auto auto;
+        // .input-fields{
+        //   .v-input__slot{
+        //     min-height: 50px !important;
+        //   }
+        // }
         .widther {
           @media (max-width: @screen-xs) {
             width: 78%;

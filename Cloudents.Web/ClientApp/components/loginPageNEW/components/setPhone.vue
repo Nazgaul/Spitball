@@ -8,6 +8,8 @@
                 :items="countryCodesList"
                 item-text="name"
                 outlined
+                dense
+                height="44"
                 :append-icon="'sbf-triangle-arrow-down'"
                 item-value="callingCode">
             <template slot="selection" slot-scope="data">
@@ -26,6 +28,8 @@
             prepend-inner-icon="sbf-phone"
             name=""
             type="number"
+            dense
+            height="44"
             :label="phoneNumberLabel"
             placeholder=" "
             outlined
@@ -143,12 +147,14 @@ export default {
         i {
             font-size: 8px;
             color: #43425d;
+            margin-top: 10px;
         }
     }
     .phone{
         .v-input__icon--prepend-inner {
             i {
                 color: #4a4a4a;
+                margin-top: 10px;
             }
         }
     }
