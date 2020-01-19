@@ -5,6 +5,8 @@ import profileUserSticky from './components/profileUserSticky/profileUserSticky.
 import profileUserStickyMobile from './components/profileUserSticky/profileUserStickyMobile.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
+import profileBecomeTutor from './components/profileBecomeTutor/profileBecomeTutor.vue';
+import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 
 
@@ -40,6 +42,8 @@ export default {
         profileUserStickyMobile,
         profileReviewsBox,
         profileEarnMoney,
+        profileBecomeTutor,
+        profileFindTutor,
         profileItemsBox,
         sbDialog,
 
@@ -431,6 +435,12 @@ export default {
                     return false;
                 }
             }
+        },
+        showBecomeTutor(){
+            return this.isMyProfile && !this.isTutor && !this.isTutorPending;
+        },
+        showFindTutor(){
+            return true
         },
 
 
