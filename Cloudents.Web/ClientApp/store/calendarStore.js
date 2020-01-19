@@ -15,9 +15,13 @@ const state = {
     selectedCalendarList:[],
     tutorDailyHours:[],
     tutorDailyHoursState:[],
+    isCalendarShared:null,
 };
 
 const mutations ={
+    setIsCalendarShared(state,val){
+        state.isCalendarShared = val;
+    },
     setCalendarEvents(state,events){
         state.calendarEvents = events;
     },
@@ -80,6 +84,7 @@ const getters ={
     getIntervalFirst: state => state.intervalFirst,
     getCalendarAvailabilityIsValid: state => (state.tutorDailyHours.length),
     getCalendarAvailabilityState: state => state.tutorDailyHoursState,
+    getIsCalendarShared:state => state.isCalendarShared,
 };
 
 const actions ={
@@ -213,8 +218,9 @@ const actions ={
             }
         }, 100);
     },
-    updateCalendarStatusDashboard({dispatch,state}){
+    updateCalendarStatusDashboard({dispatch,commit,state}){
         return calendarService.getAccountAvailabilityCalendar().then(res=>{
+            commit('setIsCalendarShared',res.calendarShared)
             if(!res.calendarShared){
                 return Promise.resolve(false);
             }else{

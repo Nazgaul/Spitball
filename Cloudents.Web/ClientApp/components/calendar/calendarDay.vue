@@ -87,7 +87,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getIntervalFirst','getCalendarAvailabilityState']),
+        ...mapGetters(['getIsCalendarShared','getIntervalFirst','getCalendarAvailabilityState','accountUser','getProfile']),
         availabilityDayState(){
             if(this.getCalendarAvailabilityState !== null){
                 let calendarDayList = []
@@ -249,10 +249,12 @@ export default {
     mounted() {
         this.runUpdate()
         this.updateStateAvailabilityCalendar(this.availabilityDay)
-        this.initialHoursList()
-        if(this.availabilityDayState !== null && this.availabilityDayState.length > 1){
-            this.initialAdditionalHoursList()
-        }
+            if(this.getIsCalendarShared === true){
+                this.initialHoursList()
+                if(this.availabilityDayState !== null && this.availabilityDayState.length > 1){
+                    this.initialAdditionalHoursList()
+                }
+            }
     },
     updated() {
         this.runUpdate()
