@@ -170,7 +170,7 @@ export default {
         },
         timeFormatISO(time){
             let currentDate = new Date()
-            return new Date(`${currentDate.getFullYear(),currentDate.getMonth() , currentDate.getDay()} ${this.timeFormat(time)}`).toISOString().slice(11,19)
+            return new Date(currentDate.getFullYear(),currentDate.getMonth() , currentDate.getDay(), time,0,0,0).toISOString().slice(11,19)
         },
         closeAdditionalTime(){
             this.isAddTimeSlot = false;
