@@ -97,10 +97,18 @@ and uc.tutorId =  :profileId";
                 var future = _session.Query<ReadTutor>().Where(t => t.Id == query.Id)
                     .Select(s => s.AllSubjects).ToFutureValue();
 
+                var coursesFuture = _session.Query<UserCourse>()
+                    .Fetch(f => f.User).Fetch(f => f.Course)
+                    .Where(w => w.User.Id == query.Id)
+                    .Select(s => s.Course.Id)
+                    .ToFuture();
+
+
                
                 var result = await profileValue.GetValueAsync(token);
 
                 var couponResult = couponValue.Value;
+                var coursesRedult = await coursesFuture.GetEnumerableAsync(token);
 
                 if (result is null)
                 {
@@ -117,6 +125,8 @@ and uc.tutorId =  :profileId";
                        
                     }
                 }
+
+                result.Courses = coursesRedult;
 
                 result.Image = _urlBuilder.BuildUserImageEndpoint(result.Id, result.Image);
 
