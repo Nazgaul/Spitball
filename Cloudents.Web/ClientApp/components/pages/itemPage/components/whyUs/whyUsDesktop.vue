@@ -1,6 +1,6 @@
 <template>
-    <div :class="['itemPage__side',{'itemPage__sideActiveBanner':getBannerSatus}]">
-        <template v-if="showBlock && !isLoading">
+    <div v-if="showBlock" :class="['itemPage__side',{'itemPage__sideActiveBanner':getBannerSatus}]">
+        <template v-if="!isLoading">
             <template v-if="!zeroPrice && !isPurchased">
                 <div class="itemPage__side__top">
                     <div class="itemPage__side__top__price">{{priceWithComma}}</div>
