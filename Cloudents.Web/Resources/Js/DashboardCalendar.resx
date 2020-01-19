@@ -124,16 +124,16 @@
     <value>Change</value>
   </data>
   <data name="btn_connect" xml:space="preserve">
-    <value>Connet Google Calendars</value>
+    <value>Connect Google Calendars</value>
   </data>
   <data name="btn_select" xml:space="preserve">
     <value>Select</value>
   </data>
   <data name="snack_availability" xml:space="preserve">
-    <value>Calendar hours changed</value>
+    <value>Your availability was updated</value>
   </data>
   <data name="snack_availability_error" xml:space="preserve">
-    <value>Calendar hours error</value>
+    <value>Availability update error</value>
   </data>
   <data name="snack_connect" xml:space="preserve">
     <value>Calendar connected</value>
