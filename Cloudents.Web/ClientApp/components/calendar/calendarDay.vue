@@ -215,6 +215,8 @@ export default {
                 this.hoursList = rangeArray
                 this.selectedHourFrom = +this.availabilityDayState[0].from.split(':')[0];
                 this.selectedHourTo = +this.availabilityDayState[0].to.split(':')[0]; 
+            }else{
+                this.selectedHourFrom = LanguageService.getValueByKey("calendar_day_off")
             }
         },
         initialAdditionalHoursList(){
@@ -242,11 +244,7 @@ export default {
 
     },
     created() {
-        if(this.day === 6){
-            this.selectedHourFrom = this.hoursList[0]
-        } else{
-            this.selectedHourFrom = this.getIntervalFirst;
-        }
+        this.selectedHourFrom = this.getIntervalFirst;
     },
     mounted() {
         this.runUpdate()
