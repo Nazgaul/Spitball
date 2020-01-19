@@ -1,7 +1,6 @@
 import calendarService from "../services/calendarService";
 import utilitiesService from '../services/utilities/utilitiesService.js'
 import {router} from '../main.js';
-import {LoadScript} from '../main.js';
 
 const state = {
     intervalFirst: 8,
