@@ -161,7 +161,6 @@
 
             .v-btn{
                 min-width: 140px;
-                // width: 100%;
                 @media (max-width: @screen-xs) {
                   height: 46px;
               }  
