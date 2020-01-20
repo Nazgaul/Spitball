@@ -283,12 +283,7 @@ const actions = {
     //     if(!!context.state.profile && !!context.state.profile.user) {
     //         let id = context.state.profile.user.id;
 
-    //         if(activeTab === 1) {
-    //             return accountService.getProfileDocuments(id).then(vals => {
-    //                 let documents = accountService.createProfileDocumentData(vals);
-    //                 context.commit('setPorfileDocuments', documents);
-    //             });
-    //         }
+
     //         if(activeTab === 2) {
     //             return accountService.getProfileAnswers(id).then(vals => {
     //                 let answers = accountService.createProfileAnswerData(vals);
@@ -303,7 +298,7 @@ const actions = {
     //         }
     //         if(activeTab === 4) {
     //             return accountService.getProfilePurchasedDocuments(id).then(vals => {
-    //                 let purchasedDocuments = accountService.createProfileDocumentData(vals);
+    //                
     //                 context.commit('setPorfilePurchasedDocuments', purchasedDocuments);
     //             });
     //         }

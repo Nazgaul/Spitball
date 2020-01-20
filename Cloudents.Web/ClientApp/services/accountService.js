@@ -34,9 +34,6 @@ function ProfileQuestionData(arrInit){
 function ProfileAnswerData(arrInit){
     return arrInit.data.map(searchService.createQuestionItem) || [];
 }
-function ProfileDocumentData(arrInit){
-   return arrInit.data.map(searchService.createDocumentItem) || [];
-}
 export default {
     getAccount:() => {
        return connectivityModule.http.get("/Account").then(({data})=>{
@@ -97,8 +94,5 @@ export default {
     },
     createProfileAnswerData: (arrInit)=>{
         return new ProfileAnswerData(arrInit);
-    },
-    createProfileDocumentData: (arrInit)=>{
-        return new ProfileDocumentData(arrInit);
     },
 }
