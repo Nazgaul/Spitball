@@ -1,8 +1,8 @@
 // const IntercomStatus = !!global.Intercom;
 // const TwakStatus = global.Tawk_API !== "undefined"
 
-let intercom = global.Intercom || {};
-let tawk = global.Tawk_API || {};
+let intercom =  {};
+let tawk =  {};
 /*
 Note you need to implement  start stop showdialog
 */
@@ -17,12 +17,12 @@ function ctor() {
             language_override: global.lang,
         };
         if (global.Intercom) {
-            intercom('boot', { ...globalSettings, ...settings });
+            global.Intercom('boot', { ...globalSettings, ...settings });
         }
     }
     intercom.stop = function () {
         if (global.Intercom) {
-            intercom('shutdown');
+            global.Intercom('shutdown');
         }
     }
     intercom.showDialog = function () {
@@ -32,8 +32,8 @@ function ctor() {
     }
 
     tawk.start = function (settings) {
-        if (global.Tawk_API) {
-            tawk.setAttributes({
+        if (global.Tawk_API && global.Tawk_API.setAttributes) {
+            global.Tawk_API.setAttributes({
                 'id': settings.id,
                 email: settings.email,
                 name: settings.name
@@ -45,7 +45,7 @@ function ctor() {
     }
     tawk.showDialog = function () {
         if (global.Tawk_API) {
-            tawk.maximize();
+            global.Tawk_API.maximize();
         }
     }
 
