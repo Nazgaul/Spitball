@@ -392,9 +392,9 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("notes")]
-        public async Task<IEnumerable<UserNoteDto>> GetNotesAsync(long userId, CancellationToken token)
+        public async Task<IEnumerable<UserNoteDto>> GetNotesAsync([FromQuery] long id, CancellationToken token)
         {
-            var query = new AdminUserNotesQuery(userId);
+            var query = new AdminUserNotesQuery(id);
             return await _queryBus.QueryAsync(query, token);
         }
     }

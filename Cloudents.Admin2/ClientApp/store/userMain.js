@@ -16,7 +16,8 @@ const state = {
     MAX_ITEMS: 25,
     requestLock: false,
     currentIdRequest: '',
-    userSoldItems: []
+    userSoldItems: [],
+    userNotes: []
 };
 const mutations = {
 
@@ -30,6 +31,7 @@ const mutations = {
         state.userSessions = [];
         state.requestLock = false;
         state.currentIdRequest = '';
+        state.userNotes = [];
     },
     setShowLoader(state, val) {
         state.loader = val;
@@ -54,6 +56,15 @@ const mutations = {
     updateStatus(state, val) {
         if (state.userInfo && state.userInfo.status) {
             state.userInfo.status.value = val;
+        }
+    },
+    setUserNotes(state, data) {
+        if(data.length != state.userNotes.length){
+            if(state.userNotes.length){
+                state.userNotes.unshift(data);
+            }else{
+                state.userNotes = data;
+            }
         }
     },
     updateTutorSate(state, val){
@@ -88,6 +99,7 @@ const mutations = {
     setUserSessions(state, data) {
         state.userSessions = data;
     },
+
     removeQuestion(state, index) {
         state.userQuestions.splice(index, 1);
     },
@@ -121,7 +133,8 @@ const getters = {
     userConversations: (state) => state.userConversations,
     userSessions: (state) => state.userSessions,
     getRequestLock: (state) => state.requestLock,
-    userSoldDocItems: (state) => state.userSoldItems
+    userSoldDocItems: (state) => state.userSoldItems,
+    userNotes:(state) => state.userNotes
 };
 const actions = {
     updateFilterValue({commit}, val) {
@@ -145,6 +158,12 @@ const actions = {
     },
     setUserCurrentStatus({commit}, val) {
         commit('updateStatus', val);
+    },
+    addUserNote({commit}, data) {
+        return userMainService.addUserNote(data).then((res) => {
+            commit('setUserNotes', data);
+            return true;
+        }) 
     },
     updateUserData({commit}, data) {
         commit('setUserData', data);
@@ -310,18 +329,27 @@ const actions = {
     getUserSessions(context, idPageObj) {
         context.commit("setShowLoader", true);
         return userMainService.getUserSessions(idPageObj.id).then((data) => {
-                // if (data && data.length !== 0) {
+
                 context.commit('setUserSessions', data);
-                // }
+           
                 if (data.length < quantityPerPage) {
                     return true;
                 }
-                context.commit('setUserSessions', data);
+               
             },
             (error) => {
                 console.log(error, 'error');
             }
         ).finally(() => context.commit("setShowLoader", false));
+    },
+    getUserNotes(context, idPageObj){
+        context.commit("setShowLoader", true);
+        return userMainService.getUserNotes(idPageObj.id).then((data) => {
+            context.commit('setUserNotes', data);
+        },
+        (error) => {
+            console.log(error, 'error');
+        }).finally(() => context.commit("setShowLoader", false));
     },
     verifyUserPhone(context, verifyObj) {
         return userMainService.verifyPhone(verifyObj).then((resp) => {
