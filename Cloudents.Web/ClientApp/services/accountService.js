@@ -1,26 +1,6 @@
 import { connectivityModule } from "./connectivity.module";
-import {Item} from './Constructors/constructors.js'
-
 import searchService from "../services/searchService.js";
-function itemTypeChcker(type){
-    if(type.toLowerCase() === 'document'){
-       return 'Document';
-    }
-    if(type.toLowerCase() === 'video'){
-        return 'Video';
-    }
- }
 
-function createProfileItems(objInit){
-    return Object.assign(
-        {
-            result: objInit.data.result.map(objData => {
-                return new Item[itemTypeChcker(objData.documentType)](objData)
-            }),
-            count: objInit.data.count,
-        }
-    )
-}
 function AccountUser(objInit){
     this.id= objInit.id;
     this.name= objInit.name;
@@ -48,11 +28,9 @@ function createIsTutorState(str){
         return null;
     }
 }
-
 function ProfileQuestionData(arrInit){
     return arrInit.data.map(searchService.createQuestionItem) || [];
 }
-
 function ProfileAnswerData(arrInit){
     return arrInit.data.map(searchService.createQuestionItem) || [];
 }
@@ -88,14 +66,6 @@ export default {
         let strPage = page ? `?page=${page}` : "";
         return connectivityModule.http.get(`/Profile/${id}/answers/${strPage}`);
     },
-    getProfileDocuments:(id, page,pageSize) => {
-        let strPage = `?page=${page}&pageSize=${pageSize}`;
-        return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`).then(createProfileItems);
-    },
-    // getProfileDocuments:(id, page) => {
-    //     let strPage = page ? `?page=${page}` : "";
-    //     return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`);
-    // },
     getProfilePurchasedDocuments:(id, page)=>{
         let strPage = page ? `?page=${page}` : "";
         return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`);
@@ -119,9 +89,6 @@ export default {
         };
         return connectivityModule.http.post("/Account/settings", serverFormat);
     },
-    // createProfileData: (arrInit)=>{
-    //     return new ProfileData(arrInit);
-    // },
     becomeTutor: (data) => {
         return connectivityModule.http.post("/Account/becomeTutor", data);
     },
@@ -134,10 +101,4 @@ export default {
     createProfileDocumentData: (arrInit)=>{
         return new ProfileDocumentData(arrInit);
     },
-    followProfile: (id)=>{
-        return connectivityModule.http.post(`/Profile/follow`,{id});
-    },
-    unfollowProfile: (id)=>{
-        return connectivityModule.http.delete(`/Profile/unFollow/${id}`);
-    }
 }

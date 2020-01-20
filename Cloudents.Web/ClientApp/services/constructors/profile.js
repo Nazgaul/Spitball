@@ -23,10 +23,10 @@ export const Profile = {
    ProfileItems: function (objInit) {
       return Object.assign(
          {
-            result: objInit.data.result.map(objData => {
+            result: objInit.result.map(objData => {
                return new Item[objData.documentType](objData)
             }),
-            count: objInit.data.count,
+            count: objInit.count,
          }
       )
    },
