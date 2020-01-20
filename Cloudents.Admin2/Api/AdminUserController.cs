@@ -380,5 +380,15 @@ namespace Cloudents.Admin2.Api
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+        [HttpPost("note")]
+        public async Task<IActionResult> AddNoteAsync(CreateNoteRequest model,
+            CancellationToken token)
+        {
+            var adminEmail = User.Identity.Name;
+            var command = new CreateNoteCommand(model.UserId, model.Text, adminEmail);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
     }
 }

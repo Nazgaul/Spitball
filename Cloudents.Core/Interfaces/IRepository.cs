@@ -109,4 +109,9 @@ namespace Cloudents.Core.Interfaces
     {
         Task<University> GetUniversityByNameAndCountryAsync(string name, string country, CancellationToken token);
     }
+
+    public interface IAdminUserRepository : IRepository<AdminUser>
+    {
+        Task<AdminUser> GetAdminUserByEmailAsync(string email, CancellationToken token);
+    }
 }
