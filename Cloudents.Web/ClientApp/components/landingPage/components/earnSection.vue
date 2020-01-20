@@ -19,7 +19,7 @@ export default {
 
         href() {
             if(this.isFrymo) {
-                return 'https://help.frymo.com/en/article/making-your-teacher-profile';
+                return 'https://www.frymo.com/register';
             }
             return 'https://help.spitball.co/en/article/making-your-profile';
         }

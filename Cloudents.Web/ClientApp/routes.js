@@ -354,11 +354,24 @@ redirect: { name: 'feed' }
         },
     },
     {
+        path: "/my-calendar",
+        components: dashboardPages,
+        name: "myCalendar",
+        props: {
+            default: (route) => ({
+                component: route.name,
+            })
+        },
+        meta: {
+            requiresAuth: true,
+            showMobileFooter: true,
+        },
+    },
+    {
         path:'*',
         redirect : () => {
             window.location = "/error/notfound?client=true";
         }
-
     }
 ];
 export const routes = routes2;

@@ -157,7 +157,7 @@ namespace Cloudents.Infrastructure.Google
                     var result = await request.ExecuteAsync(cancellationToken);
 
                     return result.Items.Where(w => !w.Primary.GetValueOrDefault(false) && !w.Summary.Equals("Contacts", StringComparison.OrdinalIgnoreCase))
-                        .Select(s => new CalendarDto(s.Id, s.Summary));
+                        .Select(s => new CalendarDto(s.Id, s.Summary, false));
                 }
 
             }

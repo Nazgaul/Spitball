@@ -32,6 +32,7 @@ namespace Cloudents.Command.CommandHandler
                 //{
                 //    throw new DuplicateRowException();
                 //}
+           
                 var user = await _regularUserRepository.LoadAsync(message.UserId, token);
                 userTutor.Tutor.AddReview(message.Review, message.Rate, user);
             }

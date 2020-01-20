@@ -2,7 +2,7 @@
     <!-- <div> -->
         <v-bottom-navigation
                 height="62px"
-                :active.sync="activeTab"
+                :v-model="activeTab"
                 :value="activeTab"
                 fixed
                 grow

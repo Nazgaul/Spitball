@@ -117,65 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="courses" xml:space="preserve">
-    <value>9,575 Courses</value>
+  <data name="btn_availability" xml:space="preserve">
+    <value>שינוי זמינות</value>
   </data>
-  <data name="footer_links_about" xml:space="preserve">
-    <value>About Spitball</value>
+  <data name="btn_change" xml:space="preserve">
+    <value>שינוי</value>
   </data>
-  <data name="footer_links_ambassadors" xml:space="preserve">
-    <value>Ambassadors</value>
+  <data name="btn_connect" xml:space="preserve">
+    <value>חבר יומן גוגל</value>
   </data>
-  <data name="footer_links_blog" xml:space="preserve">
-    <value>Blog</value>
+  <data name="btn_select" xml:space="preserve">
+    <value>בחירה</value>
   </data>
-  <data name="footer_links_contact" xml:space="preserve">
-    <value>Contact us</value>
+  <data name="btn_update" xml:space="preserve">
+    <value>עדכון</value>
   </data>
-  <data name="footer_links_faq" xml:space="preserve">
-    <value>FAQ</value>
+  <data name="snack_availability" xml:space="preserve">
+    <value>הזמינות שלך ביומן השתנה</value>
   </data>
-  <data name="footer_links_feedback" xml:space="preserve">
-    <value>Feedback</value>
+  <data name="snack_availability_error" xml:space="preserve">
+    <value>שגיאה בקביעת הזמינות שלך</value>
   </data>
-  <data name="footer_links_partners" xml:space="preserve">
-    <value>Partnerships</value>
+  <data name="snack_connect" xml:space="preserve">
+    <value>חיבור יומנים הצליח</value>
   </data>
-  <data name="footer_links_pr" xml:space="preserve">
-    <value>Public Relationships</value>
+  <data name="snack_connect_error" xml:space="preserve">
+    <value>שגיאה בחיבור ליומן</value>
   </data>
-  <data name="footer_links_privacy" xml:space="preserve">
-    <value>Privacy Policy</value>
-  </data>
-  <data name="footer_links_terms" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
-  </data>
-  <data name="header_find_tutors" xml:space="preserve">
-    <value>Get 50 NIS discount on your first lesson</value>
-  </data>
-  <data name="header_get_lesson" xml:space="preserve">
-<<<<<<< HEAD
-    <value>Get private lessons  starting from ₪55</value>
-=======
-    <value>Professional private tutors that help you succeed</value>
->>>>>>> origin/develop
-  </data>
-  <data name="rates" xml:space="preserve">
-    <value>95%</value>
-  </data>
-  <data name="reviews" xml:space="preserve">
-    <value>reviews</value>
-  </data>
-  <data name="search_placeholder" xml:space="preserve">
-    <value>Enter a course to find relevant tutors</value>
-  </data>
-  <data name="topnav_btn_login" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="topnav_btn_signup" xml:space="preserve">
-    <value>Sign Up</value>
-  </data>
-  <data name="tutors" xml:space="preserve">
-    <value>827 Tutors</value>
+  <data name="title_choose" xml:space="preserve">
+    <value>בחירת יומן</value>
   </data>
 </root>

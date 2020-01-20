@@ -35,7 +35,7 @@
                 <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
                     <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({path:'/signin'})" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
                     <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$router.push({path:'/register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
-                    <a class="gH_i_lang" @click="changeLanguage()" v-if="!isFrymo && isHomePage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
+                    <a class="gH_i_lang" @click="changeLanguage()" v-if="showChangeLanguage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
                 <v-menu fixed close-on-content-click bottom offset-y :content-class="getBannerSatus? 'fixed-content-banner':'fixed-content'">
                     <template v-slot:activator="{on}">
@@ -146,6 +146,9 @@ export default {
             let hiddenRoutes = ['tutorLandingPage']
             return !hiddenRoutes.includes(this.currentRoute)
         },
+        showChangeLanguage() {
+            return global.country === 'IL' && this.isHomePage;
+        }
     },
     watch: {
     '$route'(){

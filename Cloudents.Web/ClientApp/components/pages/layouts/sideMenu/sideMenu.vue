@@ -3,7 +3,7 @@
                          permanent
                          :temporary="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown"
                          class="sideMenu"
-                         width="276"
+                         width="220"
                          :value="getShowSchoolBlock"
                          @input="updateDrawerValue"
                          :mini-variant-width="62"
@@ -42,7 +42,7 @@
             <v-list-item class="group_list_sideMenu_dash" v-for="(item, index) in dashboardList" :key="index"
               :to="{name: item.route}"
               event
-              @click.native.prevent="getShowSchoolBlock ? goTo(item.route) : openSideMenu()" :sel="item.sel">
+              @click.native.prevent="getShowSchoolBlock ? goTo(item.route) : openSideMenu()" :sel="item.sel" v-show="isShowItem(item.route)">
               <v-list-item-content> 
                 <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker(item.key)}]">
                   <v-icon class="group_list_icon_dash" v-html="item.icon"/>
@@ -78,10 +78,6 @@
               </v-list-item-content>
             </v-list-item>
           </v-list-group>
-
-        <!-- </v-list-group> -->
-        
-
       </v-list>
       </div>
     </v-navigation-drawer>
@@ -107,14 +103,15 @@ export default {
         {name: LanguageService.getValueByKey('schoolBlock_my_followers'), key:'my-followers', route: 'myFollowers', icon:'sbf-follow',sel:'sd_followers'},
         {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'my-purchases', route: 'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
         {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', route: 'myContent', icon:'sbf-my-content',sel:'sd_content'},
+        {name: LanguageService.getValueByKey('schoolBlock_calendar'), key:'my-calendar',route: 'myCalendar', icon:'sbf-calendar',sel:'sd_calendar'},
         {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', route: 'roomSettings', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
         {name: LanguageService.getValueByKey('menuList_my_study_rooms'), key:'tutoring', route: 'tutoring', icon:'sbf-pc',sel:'menu_row'},
         {name: LanguageService.getValueByKey('menuList_changeUniversity'), key:'university', route: 'addUniversity', icon:'sbf-university',sel:'sd_studyroom'},
         {name: LanguageService.getValueByKey('schoolBlock_courses'), key:'courses', route: 'editCourse', icon:'sbf-classes-icon'},
+
         // {name: LanguageService.getValueByKey('schoolBlock_lessons'), key:'lessons', icon:'sbf-lessons'},
         // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
         // {name: 'myCalendar', key:'myCalendar', icon:'sbf-cart',sel:'sd_calendar'},
-        // {name: 'myFollowers', key:'myFollowers', icon:'sbf-cart',sel:'sd_followers'},
       ],
       selectedCourse: "",
       lock: false,
@@ -218,6 +215,13 @@ export default {
         return this.$route.path.indexOf(pathName) > -1;
       }
     },
+    isShowItem(itemRoute){
+      if(itemRoute === 'myCalendar'){
+        return (!!this.accountUser && this.accountUser.isTutor)
+      }else{
+        return true;
+      }
+    },
     goTo(name){
       if (this.accountUser == null) {
         this.updateLoginDialogState(true);
@@ -252,6 +256,9 @@ export default {
       }
       if(name === "addUniversity"){
         this.$router.push({name:'addUniversity'})
+      }
+      if(name === "myCalendar"){
+        this.$router.push({name: 'myCalendar'})
       }
       if(name === "editCourse"){
         this.$router.push({name:'editCourse'})

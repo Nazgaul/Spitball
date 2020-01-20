@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
-using System;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -19,18 +18,27 @@ namespace Cloudents.Web.Test.IntegrationTests.Controllers
         }
 
 
-        private UriBuilder _uri = new UriBuilder()
-        {
-            Path = string.Empty
-        };
+        //private UriBuilder _uri = new UriBuilder()
+        //{
+        //    Path = string.Empty
+        //};
 
         [Fact]
-        public async Task GetAsync_OldDocument_OK()
+        public async Task GetAsync_OldDocument_OKAsync()
         {
-            _uri.Path = "document/Box%20Read%20for%20hotmail%20user/Load%20Stress%20Testing%20Multimi2.docx/457";
+            var response = await _client.GetAsync("document/Box%20Read%20for%20hotmail%20user/Load%20Stress%20Testing%20Multimi2.docx/457");
+            response.EnsureSuccessStatusCode();
+        }
 
-            var response = await _client.GetAsync(_uri.Path);
 
+        [Theory]
+        [InlineData("en")]
+        [InlineData("he")]
+        [InlineData("en-IN")]
+        public async Task GetAsync_Document_OKAsync(string culture)
+        {
+
+            var response = await _client.GetAsync($"document/פריוריטי-פיתוח/פריוריטי-בניית-דוחות/22?culture={culture}");
             response.EnsureSuccessStatusCode();
         }
     }

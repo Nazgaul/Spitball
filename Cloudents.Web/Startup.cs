@@ -148,6 +148,16 @@ namespace Cloudents.Web
             services.AddSingleton<ITelemetryInitializer, UserIdInitializer>();
             services.AddApplicationInsightsTelemetry();
 
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto 
+                                                   |ForwardedHeaders.XForwardedHost;
+                options.KnownNetworks.Clear(); //TODO: need to do
+                options.KnownProxies.Clear();//TODO: need to do
+                
+            });
             services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddDataProtection(o =>
             {
@@ -290,8 +300,9 @@ namespace Cloudents.Web
         [UsedImplicitly]
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+            AutofacContainer = app.ApplicationServices.GetAutofacRoot();
             app.UseHeaderRemover("X-HTML-Minification-Powered-By");
+            app.UseForwardedHeaders();
             app.UseClickJacking();
             app.UseResponseCompression();
             if (env.IsDevelopment())
@@ -357,10 +368,10 @@ namespace Cloudents.Web
             app.UseRouting();
             //This is for ip
             //https://stackoverflow.com/a/41335701/1235448
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.All
-            });
+            //app.UseForwardedHeaders(new ForwardedHeadersOptions
+            //{
+            //    ForwardedHeaders = ForwardedHeaders.All
+            //});
             app.UseAuthentication();
             app.UseAuthorization();
 

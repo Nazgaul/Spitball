@@ -1,5 +1,9 @@
 ﻿@model string
+@using Cloudents.Core.Entities
+@using Cloudents.Core.Extension
+@using Microsoft.ApplicationInsights.AspNetCore.Extensions
 @using Microsoft.AspNetCore.Http.Extensions
+@using Cloudents.Web.Extensions
 @{
 
     ViewBag.ogImage = ViewBag.ogImage ?? "https://" + Context.Request.Host + "/images/3rdParty/fbShare.jpg";
@@ -10,6 +14,7 @@
     const string themeColor = "#4190b";
 
     ViewBag.ogTitle = ViewBag.ogTitle ?? ViewBag.title;
+    ViewBag.ogDescription = ViewBag.ogDescription ?? ViewBag.metaDescription;
 }
 
 <meta name="theme-color" content="@themeColor">
@@ -23,7 +28,7 @@
 <meta property="og:image" content="@ViewBag.ogImage" />
 <meta property="og:image:width" content="@ViewBag.ogImageWidth" />
 <meta property="og:image:height" content="@ViewBag.ogImageHeight" />
-<meta property="og:description" content="@ViewBag.metaDescription" />
+<meta property="og:description" content="@ViewBag.ogDescription" />
 <meta property="og:title" content="@ViewBag.ogTitle" />
 <meta property="og:url" content="@Context.Request.GetEncodedUrl()" />
 <meta property="og:type" content="website" />
@@ -47,5 +52,18 @@
 <meta name="msapplication-itemColor" content="#ffffff">
 <meta name="msapplication-itemImage" content="@Model/images/favIcons/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+
+
+@{
+    string GetUrlBaseOnCulture(string culture)
+    {
+        var url = @Context.Request.GetUri().RemoveQueryStringByKey("culture");
+        var uriBuilder = new UriBuilder(url);
+        return uriBuilder.AddQuery(new { culture = culture }).ToString();
+    }
+}
+
+<link rel="alternate" hreflang="iw" href="@GetUrlBaseOnCulture(Language.Hebrew.Info.Name)" />
+<link rel="alternate" hreflang="en" href="@GetUrlBaseOnCulture(Language.English.Info.Name)" />
 
 

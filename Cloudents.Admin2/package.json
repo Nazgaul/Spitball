@@ -15,6 +15,7 @@
     "axios": "^0.18.0",
     "browserslist": "^4.7.0",
     "caniuse-lite": "^1.0.30000989",
+    "qs": "^6.9.1",
     "vue": "^2.5.17",
     "vue-class-component": "^6.2.0",
     "vue-clipboard2": "^0.2.1",

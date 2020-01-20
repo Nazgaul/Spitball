@@ -19,6 +19,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using NHibernate.Linq;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -192,7 +193,7 @@ namespace Cloudents.FunctionsV2
 
                         await item.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots, AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
                     }
-                  
+
                 }
             }
             catch (Exception ex)
@@ -206,14 +207,26 @@ namespace Cloudents.FunctionsV2
         }
 
 
-        [FunctionName("DocumentCalculateMd5")]
+        [FunctionName("RemoveOldLocatorsVideo")]
         public static async Task CalculateMd5Async(
             [TimerTrigger("0 0 1 * * *")] TimerInfo timer,
-            [Inject] IStatelessSession session,
-            IBinder binder,
-            ILogger log,
+            [Inject] IVideoService videoService,
             CancellationToken token
             )
+        {
+            await videoService.RemoveUnusedStreamingLocatorAsync(token);
+        }
+
+
+
+        [FunctionName("DocumentCalculateMd5")]
+        public static async Task CalculateMd5Async(
+          [TimerTrigger("0 0 1 * * *")] TimerInfo timer,
+          [Inject] IStatelessSession session,
+          IBinder binder,
+          ILogger log,
+          CancellationToken token
+          )
         {
             var continue2 = true;
             while (continue2)
@@ -237,7 +250,7 @@ namespace Cloudents.FunctionsV2
                     var blob = blobs.Results.OfType<CloudBlockBlob>().First(f =>
                         f.Name.StartsWith("file", StringComparison.OrdinalIgnoreCase));
 
-                  
+
                     var md5 = blob.Properties.ContentMD5;
                     if (string.IsNullOrEmpty(md5))
                     {

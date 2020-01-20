@@ -9,7 +9,6 @@ using Cloudents.Web.Seo.Images;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NHibernate;
-using NHibernate.Linq;
 
 namespace Cloudents.Web.Seo
 {

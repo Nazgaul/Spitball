@@ -10,14 +10,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using OpenQA.Selenium.Edge;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Remote;
 using Xunit;
 
 namespace Cloudents.Selenium.Test
 {
-    public class DriverFixture : IDisposable
+    public sealed class DriverFixture : IDisposable
     {
         private readonly Process _process;
 
@@ -201,11 +198,15 @@ namespace Cloudents.Selenium.Test
             {
                 var url = $"{_driver.SiteUrl.TrimEnd('/')}";
                 driver.Navigate().GoToUrl(url);
-                var logo = driver.FindElement(By.XPath("//*[@class='logo']"));
+
+                // Check that the element is exist
+                driver.FindElement(By.XPath("//*[@class='logo']"));
 
                 url = $"{_driver.SiteUrl.TrimEnd('/')}/{FrymoSiteUrl}";
                 driver.Navigate().GoToUrl(url);
-                logo = driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
+
+                // Check that the element is exist
+                driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
             }
 
         }
@@ -349,7 +350,9 @@ namespace Cloudents.Selenium.Test
                 driver.Manage().Window.Maximize();
                 LoginTest();
 
-                var wait = driver.FindElementByWait(By.XPath("//*[@sel='all_courses']"));
+                // Wait for element to load, so we know that the page was loaded
+                driver.FindElementByWait(By.XPath("//*[@sel='all_courses']"));
+
                 var courses = driver.FindElements(By.XPath("//*[@class='group_list_sideMenu_course v-list-item--active v-list-item v-list-item--link theme--light']"));
                 var search = driver.FindElementByWait(By.XPath("//*[@class='v-text-field__slot']//input"));
 
@@ -357,17 +360,15 @@ namespace Cloudents.Selenium.Test
                 courses[0].Click();
                 search.SendKeys("test");
                 search.SendKeys(Keys.Enter);
-                var marketingBox = driver.FindElementByWait(By.XPath("//*[@class='marketing-box-component']"));
+
+                // Wait for element to load, so we know that the page was loaded
+                driver.FindElementByWait(By.XPath("//*[@class='marketing-box-component']"));
+
                 driver.Url.Should().Contain("term=test");
                 driver.Url.Should().Contain("course=");
             }
         }
-
-        public void Dispose()
-        {
-            // _driver.Close();
-            // _driver.Dispose();
-        }
+       
     }
 
 

@@ -2,7 +2,8 @@
     <v-container class="tutor-landing-page-container">
         <v-layout :class="`${isMobile ? 'pt-2' : 'pt-1 pb-4'}`" px-6 class="tutor-landing-page-header" align-center justify-center column>
             <v-flex pt-6 pb-4>
-                <div class="tutor-landing-title" v-language:inner="'tutorListLanding_header_get_lesson'"></div>
+                <div v-if="subjectName" class="tutor-landing-title" v-text="$Ph('tutorListLanding_header_get_lesson_subject',subjectName)" />
+                <div v-else class="tutor-landing-title" v-language:inner="'tutorListLanding_header_get_lesson'"/>
             </v-flex>
             <v-flex pb-6>
                 <div class="tutor-landing-subtitle" v-language:inner="'tutorListLanding_header_find_tutors'"></div>
@@ -69,6 +70,7 @@ import tutorLandingPageService from './tutorLandingPageService';
 // import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
 import SuggestCard from '../results/suggestCard.vue';
 import analyticsService from '../../services/analytics.service.js';
+import courseService from '../../services/courseService.js';
 
 import sbCarousel from '../sbCarousel/sbCarousel.vue';
 import testimonialCard from '../carouselCards/testimonialCard.vue';
@@ -101,7 +103,8 @@ export default {
             topOffset: 0,
             itemsToShow:3,
             maxItems:3,
-            itemWidth: 285
+            itemWidth: 285,
+            subjectName: null,
         }
     },
     computed:{
@@ -152,6 +155,12 @@ export default {
                 self.items = data.result;
                 self.pagination.length = Math.ceil(data.count / self.query.pageSize)
                 self.showEmptyState = true;
+                self.subjectName = null;
+                if(this.query.term){
+                    courseService.getSubject({courseName: this.query.term}).then(res=>{
+                        self.subjectName = res.name;
+                    })
+                }
             })
         },
         goNext(){
@@ -164,7 +173,7 @@ export default {
                 params:{
                     course: this.query.term
                 }
-            })
+            }).catch(() => {})
         },
         goPrevious(){
             this.showEmptyState = false;
@@ -176,7 +185,7 @@ export default {
                 params:{
                     course: this.query.term
                 }
-            })
+            }).catch(() => {})
         },
         goSelected(){
             this.showEmptyState = false;
@@ -188,7 +197,7 @@ export default {
                 params:{
                     course: this.query.term
                 }
-            })
+            }).catch(() => {})
         },
         openRequestTutor() {
             analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
@@ -253,10 +262,12 @@ export default {
             }
         }
         .tutor-landing-subtitle{
+            
             font-size: 25px;
             font-weight: bold;
             color: #ffffff;
             @media (max-width: @screen-xs) {
+                text-align: center;
                 font-size: 16px;
             }
         }

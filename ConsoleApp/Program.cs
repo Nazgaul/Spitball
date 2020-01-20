@@ -24,11 +24,9 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
-using Cloudents.Command.Documents.ChangePrice;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudents.Query.Query;
 using Cloudmersive.APIClient.NET.DocumentAndDataConvert.Api;
@@ -141,15 +139,17 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await Convert();
+            var x = _container.Resolve<IVideoService>();
+            await x.RemoveUnusedStreamingLocatorAsync(default);
+            //await Convert();
 
 
-            await ReduPreviewProcessingAsync();
+            //await ReduPreviewProcessingAsync();
 
-            var queryBus = _container.Resolve<IQueryBus>();
+            //var queryBus = _container.Resolve<IQueryBus>();
 
-            var query = new SiteMapQuery(true);
-            var result = await queryBus.QueryAsync(query, default);
+            //var query = new SiteMapQuery(true);
+            //var result = await queryBus.QueryAsync(query, default);
 
 
         }
@@ -178,8 +178,9 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
 
             // Configure API key authorization: Apikey
-            Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "86afd89a-207c-4e7a-9ffc-da23fcb9d5b7");
-            Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.Timeout = int.MaxValue;
+            //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "86afd89a-207c-4e7a-9ffc-da23fcb9d5b7");
+            Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "c80224f2-2aa9-4a06-9a1c-6930141c446a");
+            //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000;
 
             var apiInstance = new ConvertDocumentApi();
             var apiInstance2 = new ConvertImageApi();

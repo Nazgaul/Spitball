@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'qs'
 
 const promiseReturn = function(response){
     return response.data;
@@ -31,9 +32,14 @@ export const connectivityModule = {
         },
         delete: function(path, ids){
             let uri = apiAddress + path;
-            return axios.delete(uri, ids)
+
+            return axios.delete(uri,{
+                params: ids,
+                paramsSerializer: params => {
+                  return qs.stringify(params, { arrayFormat: 'repeat' })
+                }})
           
             .then(promiseReturn).catch(errorHandler);
-        }
+         }
     }
 };
