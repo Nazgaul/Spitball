@@ -9,7 +9,7 @@
         </div>
         <div class="stepsSections">
             <div class="stepContainer">
-                <component :is="`${currentStep}`"/>
+                <component :is="`${'registerType'}`"/>
             </div>
         </div>
 
@@ -38,23 +38,34 @@ import { mapActions, mapGetters } from 'vuex'
 import logo from '../../app/logo/logo.vue';
 
 // globals
-import getStarted from '../../loginPageNEW/components/getStarted.vue'
-import EmailConfirmed from '../../loginPageNEW/components/EmailConfirmed.vue'
+const getStarted = () => import('../../loginPageNEW/components/getStarted.vue');
+const EmailConfirmed = () => import('../../loginPageNEW/components/EmailConfirmed.vue');
 
 // register
-import setEmailPassword from '../../loginPageNEW/components/setEmailPassword.vue'
-import setPhone from '../../loginPageNEW/components/setPhone.vue'
-import VerifyPhone from '../../loginPageNEW/components/VerifyPhone.vue'
-import congrats from '../../loginPageNEW/components/congrats.vue'
+const setEmailPassword = () => import('../../loginPageNEW/components/setEmailPassword.vue');
+const setPhone = () => import('../../loginPageNEW/components/setPhone.vue');
+const VerifyPhone = () => import('../../loginPageNEW/components/VerifyPhone.vue');
+const congrats = () => import('../../loginPageNEW/components/congrats.vue');
+
+const registerType = () => import('../../auth/register/registerType.vue');
+
+// register student high school
+
+// register student college
+
+// register parent
+
+// register teacher
+
 
 // login
-import setEmail from '../../loginPageNEW/components/setEmail.vue'
-import setPassword from '../../loginPageNEW/components/setPassword.vue'
+const setEmail = () => import('../../loginPageNEW/components/setEmail.vue');
+const setPassword = () => import('../../loginPageNEW/components/setPassword.vue');
 
 // reset password
-import forgotPass from '../../loginPageNEW/components/forgotPass.vue'
-import resetPassword from '../../loginPageNEW/components/resetPassword.vue'
-''
+const forgotPass = () => import('../../loginPageNEW/components/forgotPass.vue');
+const resetPassword = () => import('../../loginPageNEW/components/resetPassword.vue');
+
 //STORE
 import storeService from '../../../services/store/storeService';
 import loginRegister from '../../../store/loginRegister';
@@ -77,7 +88,9 @@ export default {
       setEmail,
       setPassword,
       forgotPass,
-      resetPassword
+      resetPassword,
+
+      registerType
       },
     computed: {
         ...mapGetters(['getCurrentLoginStep', 'isFrymo']),
@@ -190,9 +203,11 @@ export default {
       height: 100%;
     }
     .stepsSections{
-      height: 100%;
       margin: 120px auto auto;
+
       @media (max-width: @screen-xs) {
+          width: 100%;
+          height: 100%;
           margin: 0 auto;
           padding: 14px;
       }
