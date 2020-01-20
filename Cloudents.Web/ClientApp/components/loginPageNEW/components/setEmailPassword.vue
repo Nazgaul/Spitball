@@ -1,66 +1,102 @@
 <template>
-  <section class="setEmailPassword">
-    <p v-language:inner="'loginRegister_setemailpass_title'"/>
-    <form @submit.prevent="submit">
-      <v-layout wrap justify-space-between class="widther">
-        <v-flex xs6 class="pr-2 mb-2">
-          <v-text-field class="input-fields" outlined height="44" dense
-                        v-model="firstName"
-                        label="First Name" 
-                        :error-messages="firstNameError"
-                        placeholder=" "
-                        type="text"
-                        />
-        </v-flex>
-        <v-flex xs6 class="pl-2">
-          <v-text-field class="input-fields" outlined height="44" dense
-                        v-model="lastName"
-                        label="Last Name" 
-                        :error-messages="lastNameError"
-                        placeholder=" "
-                        type="text"
-                        />
-        </v-flex>
-      </v-layout>
-      <v-text-field class="widther input-fields mb-2" outlined height="44" dense
-              v-model="email"
-              label="Email" 
-              :error-messages="errorMessages.email"
+  <section class="setEmailPassword text-center">
+    <p v-language:inner="'loginRegister_setemailpass_title'"></p>
+    <form @submit.prevent="submit" class="form">
+      <div>
+        <v-layout wrap justify-space-between class="widther">
+          <v-flex xs12 sm6 class="mb-2 pr-sm-2">
+            <v-text-field 
+              class="input-fields" 
+              outlined 
+              height="44" 
+              dense
+              v-model="firstName"
+              label="First Name" 
+              :error-messages="firstNameError"
               placeholder=" "
-              type="email"
-              />
-      <v-text-field outlined height="44" dense
-              v-model="password"
-              label="Password" 
-              :error-messages="errorMessages.password"
+              type="text">
+            </v-text-field>
+          </v-flex>
+
+          <v-flex xs12 sm6 class="pl-sm-2">
+            <v-text-field 
+              v-model="lastName"
+              class="input-fields"
+              outlined
+              height="44"
+              dense
+              label="Last Name" 
+              :error-messages="lastNameError"
               placeholder=" "
-              type="password"
-              :class="[hintClass,'widther','input-fields','mb-2']"
-              :hint="passHint"
-              />
-      <v-text-field outlined height="44" dense
-              v-model="confirmPassword"
-              label="Confirm Password" 
-              :error-messages="errorMessages.confirmPassword"
-              placeholder=" "
-              type="password"
-              class="widther input-fields"
-              />
+              type="text">
+            </v-text-field>
+          </v-flex>
+        </v-layout>
 
-      <vue-recaptcha
-        size="invisible"
-        class="captcha"
-        :sitekey="siteKey"
-        ref="recaptcha"
-        @verify="onVerify"
-        @expired="onExpired()"
-      />
+        <v-text-field 
+          class="widther input-fields mb-2" 
+          outlined 
+          height="44" 
+          dense
+          v-model="email"
+          label="Email"
+          :error-messages="errorMessages.email"
+          placeholder=" "
+          type="email">
+        </v-text-field>
 
-      <v-btn type="submit" :loading="isEmailLoading" depressed
-             large rounded class="ctnBtn white--text btn-login">
+        <v-radio-group v-model="gendre" row class="radioActive mb-2" dense :mandatory="true">
+          <v-radio label="Male" value="male" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
+          <v-radio label="Female" value="female" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
+        </v-radio-group>
 
-        <span v-language:inner="'loginRegister_setemailpass_btn'"></span>
-      </v-btn>
+        <v-text-field 
+          outlined
+          height="44"
+          dense
+          v-model="password"
+          label="Password" 
+          :error-messages="errorMessages.password"
+          placeholder=" "
+          type="password"
+          :class="[hintClass,'widther','input-fields','mb-2']"
+          :hint="passHint">
+        </v-text-field>
+
+        <v-text-field 
+          outlined
+          height="44"
+          dense
+          v-model="confirmPassword"
+          label="Confirm Password"
+          :error-messages="errorMessages.confirmPassword"
+          placeholder=" "
+          type="password"
+          class="widther input-fields">
+        </v-text-field>
+
+        <vue-recaptcha
+          size="invisible"
+          class="captcha"
+          :sitekey="siteKey"
+          ref="recaptcha"
+          @verify="onVerify"
+          @expired="onExpired()"
+        />
+      </div>
+
+      <div>
+        <v-btn 
+          type="submit"
+          :loading="isEmailLoading"
+          depressed
+          large
+          rounded
+          class="ctnBtn white--text btn-login">
+            <span v-language:inner="'loginRegister_setemailpass_btn'"></span>
+        </v-btn>
+      </div>
+
     </form>
   </section>
 </template>
@@ -69,17 +105,14 @@
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { LanguageService} from "../../../services/language/languageService";
 
-import SbInput from "../../question/helpers/sbInput/sbInput.vue";
 import VueRecaptcha from "vue-recaptcha";
 
 export default {
   name: "setEmailPassword",
-  components: {
-    SbInput,
-    VueRecaptcha
-  },
+  components: { VueRecaptcha },
   data() {
     return {
+      gendre: "male",
       password: "",
       confirmPassword: "",
       score: {
@@ -117,7 +150,9 @@ export default {
       }
       this.updateName(fullNameObj)
     },
-    
+    // gendre() {
+    //   this.updateGendre(this.gendre);
+    // }
   },
   computed: {
     ...mapGetters(["getEmail1","getGlobalLoading","getErrorMessages","getPassScoreObj"]),
@@ -201,11 +236,6 @@ export default {
 @import "../../../styles/mixin.less";
 @import "../../../styles/colors.less";
 .setEmailPassword {
-  @media (max-width: @screen-xs) {
-    display: flex;
-    flex-direction: column;
-    align-content: flex-start;
-  }
   p {
     .responsive-property(font-size, 28px, null, 22px);
     .responsive-property(letter-spacing, -0.51px, null, -0.4px);
@@ -217,12 +247,24 @@ export default {
     @media (max-width: @screen-xs) {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      justify-content: space-between;
+      height: calc(100vh - 130px);
+    }
+    .input-fields {
+      width: 100%;
+      @media (max-width: @screen-xs) {
+        margin-bottom: 20px !important;
+      }
     }
     .captcha {
       @media (max-width: @screen-xs) {
-        // width: 92%;
+        .grecaptcha-badge {
+          bottom: 80px !important;
+        }
       }
+    }
+    .radioActive {
+      color: blue;
     }
     .input-wrapper {
       input[type="password"] {
@@ -249,7 +291,7 @@ export default {
       }
     }
     .ctnBtn {
-      .responsive-property(width, 100%, null, 72%);
+      .responsive-property(width, 100%, null, 100%);
       margin: 10px 0 0 0;
       font-size: 16px;
       font-weight: 600;

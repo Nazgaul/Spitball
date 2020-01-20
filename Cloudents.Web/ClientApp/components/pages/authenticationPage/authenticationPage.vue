@@ -3,7 +3,7 @@
          <button class="back-button">
             <v-icon right @click="updateDialog(true)">sbf-close</v-icon>
         </button>
-        <div class="leftSection" :class="{'reg_frymo': isFrymo}">
+        <div class="leftSection d-none d-sm-none d-md-none d-lg-flex" :class="{'reg_frymo': isFrymo}">
             <logo class="logo"/>
             <p class="text" v-language:inner="'loginRegister_main_txt'"></p>
         </div>
@@ -147,7 +147,7 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-
+    height: 100%;
    .leftSection{
       width: 508px;
       height: 100vh;
@@ -185,60 +185,23 @@ export default {
    }
     .stepContainer{
       @media (max-width: @screen-sm) {
-        width: 400px;
+        // width: 400px;
       }
     }
     .stepsSections{
-        // width: 400px;
-        width: 386px;
-        // display: flex;
-        // flex-direction: column;
-        // justify-content: center;
-        margin: 120px auto auto;
-        // .input-fields{
-        //   .v-input__slot{
-        //     min-height: 50px !important;
-        //   }
-        // }
-        .widther {
-          @media (max-width: @screen-xs) {
-            width: 78%;
-          }
-        }
-        @media (max-width: @screen-sm) {
-            align-items: center;
-            justify-content: start;
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
-            margin-left: 0;
-            padding: 30px 20px;
-            position: absolute;
-            background-color: white;
-            bottom: 0;
-            width: 100%;
-            height: 92%;
-            min-width:unset;
-        }
-        button{
-            &.btn-login{
-                background-color: @color-login-btn !important;
-            }
-        }
+      height: 100%;
+      width: 386px;
+      margin: 120px auto auto;
 
-        .stepContainer{
-        }
-        // .progressContainer{
-        //     font-size: 70px;
-        //     font-weight: bolder;
-        //     display: flex;
-        //     justify-content: center;
-        //     color: #d8d8d8;
-        //     span{
-        //         display: contents;
-        //         color: #7f7f7f;
-        //         font-size: 100px;
-        //     }
-        // }
+      @media (max-width: @screen-sm) {
+          margin: 42px auto auto;
+          padding: 14px;
+      }
+      button{
+          &.btn-login{
+              background-color: @color-login-btn !important;
+          }
+      }
    }
    .back-button {
     outline: none;
@@ -256,12 +219,11 @@ export default {
       color: black;
       @media (max-width: @screen-sm) {
         font-size: 14px;
-        color: white;
       }
     }
   }
   .registration-dialog {
-      z-index: 100;
+    z-index: 100;
     .pre-line{
       white-space: pre-line;
     }

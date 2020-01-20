@@ -1,5 +1,5 @@
 <template>
-    <v-layout column wrap class="getStartedContainer">
+    <v-layout column class="getStartedContainer">
         <div class="getStarted-actions">
             <div class="getStarted-top">
                 <p v-language:inner="isRegisterPath? 'loginRegister_getstarted_title':'loginRegister_getstarted_title_login'"/>
@@ -7,36 +7,38 @@
             </div>
             <div class="getStarted-form">
                 <div v-if="isRegisterPath" class="getStarted-terms">
-                        <div class="line-terms">
+                    <div class="line-terms">
 
-            <v-checkbox @click="checkBoxConfirm" :ripple="false" class="checkbox-userinfo" 
+                    <v-checkbox @click="checkBoxConfirm" :ripple="false" class="checkbox-userinfo" 
                         v-model="isTermsAgree" off-icon="sbf-check-box-un" sel="check"
                         on-icon="sbf-check-box-done" name="checkBox" id="checkBox"/>
-                            <label for="checkBox">
-                                <span>
-                                    <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
-                                    <a :href="isFrymo? 'https://help.frymo.com/en/article/terms': 'https://help.spitball.co/en/article/terms-of-service'" class="terms padding-helper" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
-                                    <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_and'"/>
-                                    <a :href="isFrymo? 'https://help.frymo.com/en/policies':'https://help.spitball.co/en/article/privacy-policy'" class="terms" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
-                                </span>
-                            </label>
-                        </div>
-                        <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"/>
+                        <label for="checkBox">
+                            <span>
+                                <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
+                                <a :href="isFrymo? 'https://help.frymo.com/en/article/terms': 'https://help.spitball.co/en/article/terms-of-service'" class="terms padding-helper" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
+                                <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_and'"/>
+                                <a :href="isFrymo? 'https://help.frymo.com/en/policies':'https://help.spitball.co/en/article/privacy-policy'" class="terms" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
+                            </span>
+                        </label>
+                    </div>
+                    <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"/>
                 </div>
-                    <v-btn @click="goWithGoogle()" depressed
-                        :loading="googleLoading" 
-                        large rounded
-                        sel="gmail"
-                        class="google btn-login">
-                        <img src="../images/G icon@2x.png">
-                        <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
-                    </v-btn>
-                        <span v-if="gmailError" class="errorMsg">{{gmailError}}</span>
+                
+                <v-btn @click="goWithGoogle()" depressed
+                    :loading="googleLoading" 
+                    large rounded
+                    sel="gmail"
+                    block
+                    class="google btn-login">
+                    <img src="../images/G icon@2x.png">
+                    <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
+                </v-btn>
+                <span v-if="gmailError" class="errorMsg">{{gmailError}}</span>
 
                 <span class="hidden-xs-only or" hidden-xs-only v-language:inner="'loginRegister_getstarted_or'"/>
 
                 <v-btn @click="goWithEmail()" class="email"
-                    large text rounded 
+                    large text rounded block 
                     sel="email">
                     <img src="../images/np_email@2x.png">
                     <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_email_signup':'loginRegister_getstarted_btn_email_signin'"/>
