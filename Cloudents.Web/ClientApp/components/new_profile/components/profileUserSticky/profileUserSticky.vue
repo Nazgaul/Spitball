@@ -9,7 +9,7 @@
                            :userImageUrl="getProfile.user.image" 
                            :user-name="getProfile.user.name"/>
                </div>
-               <div class="profileUserSticky_scrollHeader_user">
+               <div class="profileUserSticky_scrollHeader_user text-truncate">
                   <h6 class="profileUserSticky_scrollHeader_name text-truncate">
                      <span v-language:inner="'profile_tutor'"/>
                      {{getProfile.user.name}}
