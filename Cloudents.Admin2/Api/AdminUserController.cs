@@ -385,8 +385,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IActionResult> AddNoteAsync(CreateNoteRequest model,
             CancellationToken token)
         {
-            var adminEmail = User.Identity.Name;
-            var command = new CreateNoteCommand(model.UserId, model.Text, adminEmail);
+            var command = new CreateNoteCommand(model.UserId, model.Text, User.GetIdClaim());
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

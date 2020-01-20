@@ -1,16 +1,17 @@
-﻿
+﻿using System;
+
 namespace Cloudents.Command.Command.Admin
 {
     public class CreateNoteCommand : ICommand
     {
-        public CreateNoteCommand(long userId, string text, string adminEmail)
+        public CreateNoteCommand(long userId, string text, Guid adminId)
         {
             UserId = userId;
             Text = text;
-            AdminEmail = adminEmail;
+            AdminId = adminId;
         }
         public long UserId { get; }
         public string Text { get; }
-        public string AdminEmail { get; }
+        public Guid AdminId { get; }
     }
 }
