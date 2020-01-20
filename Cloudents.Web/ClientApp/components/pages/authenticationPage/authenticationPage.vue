@@ -183,18 +183,17 @@ export default {
          width: 100%
       }
    }
+    input {
+      padding-top: 12px; // global for all inputs in in authenticate pages
+    }
     .stepContainer{
-      @media (max-width: @screen-sm) {
-        // width: 400px;
-      }
+      height: 100%;
     }
     .stepsSections{
       height: 100%;
-      width: 386px;
       margin: 120px auto auto;
-
-      @media (max-width: @screen-sm) {
-          margin: 42px auto auto;
+      @media (max-width: @screen-xs) {
+          margin: 0 auto;
           padding: 14px;
       }
       button{
@@ -216,7 +215,7 @@ export default {
     }
     .sbf-close {
       font-size: 18px;
-      color: black;
+      color: #adadba;
       @media (max-width: @screen-sm) {
         font-size: 14px;
       }

@@ -1,7 +1,8 @@
 <template>
   <form class="smsConfirmation" @submit.prevent="verifyPhone">
+
     <div class="top">
-      <p v-language:inner="'loginRegister_smsconfirm_title'"/>
+      <p class="smsconfirm_title" v-language:inner="'loginRegister_smsconfirm_title'"></p>
 		<span>
 			<span v-language:inner="'loginRegister_smsconfirm_subtitle'"/>
 			<span> {{userPhone}}</span>
@@ -11,42 +12,35 @@
 	<v-text-field
 		v-model="smsCode"
 		class="code widther"
+		color="#304FFE"
+		height="44"
+		outlined
+		dense
 		prepend-inner-icon="sbf-keyCode"
 		name=""
-		dense
-		height="44"
 		:label="phoneNumberLabel"
 		placeholder=" "
-		outlined
 	></v-text-field>
 
-	<!-- <sb-input 
-			icon="sbf-key"
-			v-model="smsCode"
-			class="code widther"
-			:bottomError="true" 
-			:autofocus="true"
-			:errorMessage="errorMessages.code"
-			placeholder="" 
-			name="phone" :type="'number'"
-			v-language:placeholder/> -->
-
-    <v-btn 	:loading="isLoading"
-        	type="submit"
-			large rounded 
+	<div class="bottom">
+		<v-btn 	
+			:loading="isLoading"
+			type="submit"
+			large rounded
 			class="white--text btn-login">
-                <span v-language:inner="'loginRegister_smsconfirm_btn'"></span>
-                </v-btn>
+				<span v-language:inner="'loginRegister_smsconfirm_btn'"></span>
+		</v-btn>
 
-    <div class="bottom">
-      <span @click="phoneCall" class="top" v-language:inner="'loginRegister_smsconfirm_call'"/>
-      <span @click="numberChange" v-language:inner="'loginRegister_smsconfirm_change'"/>
-    </div>
+		<div class="actions">
+			<div class="mb-sm-2 mb-4" @click="phoneCall" v-language:inner="'loginRegister_smsconfirm_call'"></div>
+			<div @click="numberChange" v-language:inner="'loginRegister_smsconfirm_change'"></div>
+		</div>
+	</div>
+
   </form>
 </template>
 
 <script>
-import SbInput from "../../question/helpers/sbInput/sbInput.vue";
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { LanguageService } from '../../../services/language/languageService';
 
@@ -56,9 +50,6 @@ export default {
 		return {
 			smsCode: '',
 		}
-	},
-	components :{
-		SbInput
 	},
 	computed: {
 		...mapGetters(['getLocalCode','getPhone','getGlobalLoading','getErrorMessages']),
@@ -88,7 +79,7 @@ export default {
 			this.changeNumber()
 		}
 	},
-	  watch: {
+	watch: {
         smsCode: function(){
             this.setErrorMessages({})
 		}
@@ -102,17 +93,16 @@ export default {
 @import '../../../styles/colors.less';
 
 .smsConfirmation {
-	@media (max-width: @screen-xs) {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-	}
-  .top {
+	display: flex;
+	flex-direction: column;
+	height: inherit;
+  	.top {
+		margin-top: 48px;
 	  	display: flex;
 		flex-direction: column;
 		align-items: center;
 		.responsive-property(margin-bottom, 64px, null, 32px);
-		p {
+		.smsconfirm_title {
 			.responsive-property(font-size, 28px, null, 22px);
 			.responsive-property(letter-spacing, -0.51px, null, -0.4px);
 			line-height: 1.54;
@@ -126,8 +116,9 @@ export default {
 			text-align: center;
 			color: @color-login-text-subtitle;
 		}
-  }
+  	}
     .code{
+		flex-grow: 0;
 		.v-input__icon--prepend-inner {
             i {
 				color: #4a4a4a;
@@ -151,28 +142,39 @@ export default {
         //     }
         // }
 	 }
-	button{
-		.responsive-property(width, 100%, null, 72%);
-		margin: 20px 0 48px;
-		font-size: 16px;
-		font-weight: 600;
-		letter-spacing: -0.42px;
-		text-align: center;
-		text-transform: none !important;
+	.bottom {
 		@media (max-width: @screen-xs) {
-			margin: 48px 0 48px;
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			align-items: center;
+			justify-content: space-between;
 		}
-	}
-	.bottom{
-		font-size: 14px;
-		letter-spacing: -0.37px;
-		text-align: center;
-		color: @global-blue;
-		.top{
-			margin-bottom: 12px;
+		.btn-login{
+			.responsive-property(width, 100%, null, @btnDialog);
+			margin: 20px 0 48px;
+			font-size: 14px;
+			font-weight: 600;
+			letter-spacing: -0.42px;
+			text-align: center;
+			text-transform: none !important;
+			@media (max-width: @screen-xs) {
+				// margin: 48px 0 48px;
+				margin: 0;
+				order: 1;
+			}
 		}
-		span{
-			cursor: pointer;
+		.actions{
+			font-size: 14px;
+			letter-spacing: -0.37px;
+			text-align: center;
+			color: @global-blue;
+			.top{
+				margin-bottom: 12px;
+			}
+			span{
+				cursor: pointer;
+			}
 		}
 	}
 }

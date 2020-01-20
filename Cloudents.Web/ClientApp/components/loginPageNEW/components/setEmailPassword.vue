@@ -1,16 +1,17 @@
 <template>
   <section class="setEmailPassword text-center">
-    <p v-language:inner="'loginRegister_setemailpass_title'"></p>
+    <p class="setemailpass_title" v-language:inner="'loginRegister_setemailpass_title'"></p>
     <form @submit.prevent="submit" class="form">
       <div>
         <v-layout wrap justify-space-between class="widther">
-          <v-flex xs12 sm6 class="mb-2 pr-sm-2">
+          <v-flex xs12 sm6 class="mb-3 pr-sm-2">
             <v-text-field 
+              v-model="firstName"
               class="input-fields" 
+              color="#304FFE"
               outlined 
               height="44" 
               dense
-              v-model="firstName"
               label="First Name" 
               :error-messages="firstNameError"
               placeholder=" "
@@ -18,10 +19,11 @@
             </v-text-field>
           </v-flex>
 
-          <v-flex xs12 sm6 class="pl-sm-2">
+          <v-flex xs12 sm6 class="pl-sm-2 mb-3">
             <v-text-field 
               v-model="lastName"
               class="input-fields"
+              color="#304FFE"
               outlined
               height="44"
               dense
@@ -34,45 +36,48 @@
         </v-layout>
 
         <v-text-field 
-          class="widther input-fields mb-2" 
-          outlined 
+          v-model="email"
+          class="widther input-fields" 
+          color="#304FFE"
+          outlined
           height="44" 
           dense
-          v-model="email"
           label="Email"
           :error-messages="errorMessages.email"
           placeholder=" "
           type="email">
         </v-text-field>
 
-        <v-radio-group v-model="gendre" row class="radioActive mb-2" dense :mandatory="true">
+        <v-radio-group v-model="gendre" row class="radioActive mt-n1" dense :mandatory="true">
           <v-radio label="Male" value="male" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
           <v-radio label="Female" value="female" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
         </v-radio-group>
 
         <v-text-field 
+          v-model="password"
+          :class="[hintClass,'widther','input-fields','mb-3']"
+          color="#304FFE"
           outlined
           height="44"
           dense
-          v-model="password"
           label="Password" 
           :error-messages="errorMessages.password"
           placeholder=" "
           type="password"
-          :class="[hintClass,'widther','input-fields','mb-2']"
           :hint="passHint">
         </v-text-field>
 
         <v-text-field 
+          v-model="confirmPassword"
+          class="widther input-fields"
+          color="#304FFE"
           outlined
           height="44"
           dense
-          v-model="confirmPassword"
           label="Confirm Password"
           :error-messages="errorMessages.confirmPassword"
           placeholder=" "
-          type="password"
-          class="widther input-fields">
+          type="password">
         </v-text-field>
 
         <vue-recaptcha
@@ -236,25 +241,30 @@ export default {
 @import "../../../styles/mixin.less";
 @import "../../../styles/colors.less";
 .setEmailPassword {
-  p {
-    .responsive-property(font-size, 28px, null, 22px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .setemailpass_title {
+    .responsive-property(font-size, 28px, null, 18px);
     .responsive-property(letter-spacing, -0.51px, null, -0.4px);
     .responsive-property(margin-bottom, 50px, null, 34px);
+    font-weight: 600;
     text-align: center;
-    color: @color-login-text-title;
+    color: #43425d;
+     @media (max-width: @screen-xs) {
+       margin-top: 42px;
+    }
   }
   form {
+    height: inherit;
     @media (max-width: @screen-xs) {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      height: calc(100vh - 130px);
+      // height: calc(100vh - 130px);
     }
     .input-fields {
       width: 100%;
-      @media (max-width: @screen-xs) {
-        margin-bottom: 20px !important;
-      }
     }
     .captcha {
       @media (max-width: @screen-xs) {
@@ -262,9 +272,6 @@ export default {
           bottom: 80px !important;
         }
       }
-    }
-    .radioActive {
-      color: blue;
     }
     .input-wrapper {
       input[type="password"] {
@@ -291,9 +298,9 @@ export default {
       }
     }
     .ctnBtn {
-      .responsive-property(width, 100%, null, 100%);
+      .responsive-property(width, 100%, null, @btnDialog);
       margin: 10px 0 0 0;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
       letter-spacing: -0.42px;
       text-align: center;

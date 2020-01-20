@@ -143,13 +143,13 @@ export default {
         justify-content: space-between;
     }
     .getStarted-actions{
-
-   
-
     .getStarted-top{
         display: flex;
         flex-direction: column;
         padding-bottom: 64px;
+        @media (max-width: @screen-xs) {
+            margin-top: 42px;
+        }
         p{
             .responsive-property(font-size, 28px, null, 22px);
             .responsive-property(line-height, 1.54, null, 1.95);
@@ -291,7 +291,7 @@ export default {
     .getStarted-bottom{
         display: flex;
         justify-content: center;
-        .responsive-property(margin-top, 48px, null, 0px);
+        .responsive-property(margin-top, 48px, null, 10px);
         .responsive-property(font-size, 16px, null, 14px);
             .link{      
                 cursor: pointer;

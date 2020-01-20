@@ -1,17 +1,18 @@
 <template>
     <form class="setPhone" @submit.prevent="sendSms">
-        <p v-language:inner="'loginRegister_setphone_title'"/>
+        <p class="setphone_title" v-language:inner="'loginRegister_setphone_title'"></p>
         <v-select 
-                class="widther countryCode"
-                v-model="localCode"
-                :label="countryCodeLabel"
-                :items="countryCodesList"
-                item-text="name"
-                outlined
-                dense
-                height="44"
-                :append-icon="'sbf-triangle-arrow-down'"
-                item-value="callingCode">
+            v-model="localCode"
+            class="widther countryCode"
+            color="#304FFE"
+            outlined
+            height="44"
+            dense
+            :label="countryCodeLabel"
+            :items="countryCodesList"
+            :append-icon="'sbf-triangle-arrow-down'"
+            item-text="name"
+            item-value="callingCode">
             <template slot="selection" slot-scope="data">
                 <v-list-item-content>
                     <v-list-item-title>{{getCode(data.item)}}</v-list-item-title>
@@ -24,30 +25,19 @@
 
         <v-text-field
             v-model="phoneNumber"
-            class="phone widther"
+            class="phone"
+            color="#304FFE"
+            outlined
+            height="44"
+            dense
+            type="tel"
             prepend-inner-icon="sbf-phone"
             name=""
-            type="number"
-            dense
-            height="44"
             :label="phoneNumberLabel"
             placeholder=" "
-            outlined
         ></v-text-field>
 
-        <!-- <sb-input 
-            :errorMessage="errorMessages.phone"
-            v-model="phoneNumber"
-            class="phone widther"
-            icon="sbf-phone" 
-            :bottomError="true"
-            :autofocus="true" 
-            outlined
-            :label="phoneNumberLabel"
-            name="phone" :type="'number'"
-        /> -->
-
-        <v-btn  
+        <v-btn
             type="submit"
             :loading="smsLoading"
             large rounded
@@ -59,14 +49,10 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import SbInput from "../../question/helpers/sbInput/sbInput.vue";
 import { LanguageService } from '../../../services/language/languageService';
 
 export default {
     name: 'setPhone',
-    components:{
-        SbInput
-    },
     data() {
         return {
             phoneNumber: ''
@@ -125,20 +111,23 @@ export default {
 @import '../../../styles/colors.less';
 
 .setPhone{
+    height: inherit;
     @media (max-width: @screen-xs) {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-    p{
+    .setphone_title {
         .responsive-property(font-size, 28px, null, 22px);
         .responsive-property(letter-spacing, -0.51px, null, -0.4px);
         .responsive-property(margin-bottom, 56px, null, 38px);
+        .responsive-property(margin-top, null, null, 42px);
         padding: 0;
         text-align: center;
         color: @color-login-text-title;
     }
     .countryCode {
+        flex-grow: 0;
         .v-list-item__title {
             color: #43425d;
             font-weight: 600;
@@ -151,24 +140,24 @@ export default {
         }
     }
     .phone{
+        width: 100%;
         .v-input__icon--prepend-inner {
             i {
                 color: #4a4a4a;
                 margin-top: 10px;
+                margin-right: 10px;
             }
         }
     }
     .widther {
-        .v-input__slot {
-            min-height: 50px;
-        }
+        width: 100%;
         .v-select__selections {
             padding: 0 !important;
         }
     }
-    button{
-        .responsive-property(margin, 20px 0 0, null, 48px);
-        .responsive-property(width, 100%, null, 72%);
+    .btn-login{
+        .responsive-property(margin, 20px 0 0, null, null);
+        .responsive-property(width, 100%, null, @btnDialog);
         font-size: 16px;
         font-weight: 600;
         letter-spacing: -0.42px;

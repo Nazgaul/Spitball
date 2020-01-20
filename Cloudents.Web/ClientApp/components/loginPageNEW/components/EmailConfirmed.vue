@@ -62,6 +62,7 @@ export default {
         .responsive-property(font-size, 28px, null, 22px);
         .responsive-property(letter-spacing, -0.51px, null, -0.4px);
         .responsive-property(margin-bottom, 28px, null, 38px);
+        .responsive-property(margin-top, null, null, 42px);
         text-align: center;
         color: @color-login-text-title;
     }
