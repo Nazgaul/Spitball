@@ -8,6 +8,7 @@ using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
+using Cloudents.Query.Admin;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -388,6 +389,13 @@ namespace Cloudents.Admin2.Api
             var command = new CreateNoteCommand(model.UserId, model.Text, User.GetIdClaim());
             await _commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+        [HttpGet("notes")]
+        public async Task<IEnumerable<UserNoteDto>> GetNotesAsync(long userId, CancellationToken token)
+        {
+            var query = new AdminUserNotesQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
         }
     }
 }
