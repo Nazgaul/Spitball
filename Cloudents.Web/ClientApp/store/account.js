@@ -407,7 +407,7 @@ const actions = {
         });
     },
     logout({commit}) {
-        intercomeService.IntercomSettings.reset();
+        intercomeService.restrartService();
         commit("logout");
         global.location.replace("/logout");
 
@@ -415,14 +415,14 @@ const actions = {
     changeLastActiveRoute({commit}, route) {
         commit("setLastActiveRoute", route);
     },
-    userStatus({dispatch, commit, getters}, {isRequire, to}) {
+    userStatus({dispatch, commit, getters}, {isRequireAuth, to}) {
         commit("changeLoginStatus", global.isAuth);
         if(getters.isUser) {
             return;
         }
         if(global.isAuth) {
             accountService.getAccount().then((userAccount) => {
-                intercomeService.IntercomSettings.set(userAccount);
+                intercomeService.startService(userAccount);
                 commit("changeLoginStatus", true);
                 commit("updateUser", userAccount);
                 dispatch("syncUniData");
@@ -431,12 +431,14 @@ const actions = {
                 insightService.authenticate.set(userAccount.id);
                 initSignalRService();
             }, ()=>{
-                intercomeService.bootIntercom();
-                isRequire ? commit("updateFromPath", to) : '';
+                //TODO what is that....
+                intercomeService.restrartService();
+                isRequireAuth ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
             });
-        } else {
-            intercomeService.IntercomSettings.reset();
+        } 
+        else {
+            intercomeService.startService();
         }
     },
     saveCurrentPathOnPageChange({commit}, {currentRoute}) {

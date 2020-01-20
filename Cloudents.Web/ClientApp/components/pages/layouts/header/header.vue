@@ -89,7 +89,7 @@ import languagesLocales from "../../../../services/language/localeLanguage";
 import searchCMP from '../../global/search/search.vue';
 import UserAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
 import menuList from '../menuList/menuList.vue';
-
+import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
 import findSVG from './images/findSVG.svg'
 
@@ -109,7 +109,7 @@ export default {
         layoutClass: {}
     },
     computed: {
-        ...mapGetters(['accountUser','getTotalUnread','isFrymo','getBannerSatus']),
+        ...mapGetters(['accountUser','getTotalUnread','getBannerSatus']),
         isTablet(){
             return this.$vuetify.breakpoint.smAndDown;
         },
@@ -172,11 +172,7 @@ export default {
             this.drawer = !this.drawer;
         },       
         startIntercom() {
-            if(this.isFrymo){
-                window.open('mailto: support@frymo.com', '_blank');
-            }else{
-                Intercom("showNewMessage");
-            }
+            intercomService.showDialog();
         },  
         userBalance(balance){
             let balanceFixed = +balance.toFixed()

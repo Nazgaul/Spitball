@@ -30,115 +30,16 @@ import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
 import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
 
-import intercomSettings from './services/intercomService';
+
 import VueFlicking from "@egjs/vue-flicking";
 import '../ClientApp/myFont.font.js';
 Vue.use(VueFlicking);
 
-// import VueCodemirror from 'vue-codemirror'
-// import 'codemirror/lib/codemirror.css'
-// import 'code'
-
-// Vue.use(VueCodemirror);
-
-
-// import {
-//     VApp,
-//     VAvatar,
-//     VBottomNav,
-//     VBtn,
-//     VBtnToggle,
-//     VCard,
-//     VCarousel,
-//     VCheckbox,
-//     VChip,
-//     VCombobox,
-//     VDataTable,
-//     VDialog,
-//     VDivider,
-//     VExpansionPanel,
-//     VGrid,
-//     VIcon,
-//     VList,
-//     VMenu,
-//     VNavigationDrawer,
-//     VPagination,
-//     VProgressCircular,
-//     VProgressLinear,
-//     VSelect,
-//     VSnackbar,
-//     VStepper,
-//     VSubheader,
-//     VSwitch,
-//     VTabs,
-//     VTextarea,
-//     VTextField,
-//     VToolbar,
-//     VTooltip,
-//     VRating,
-//     VForm,
-//     VAutocomplete,
-//     VSheet,
-//     VCalendar,
-//     Vuetify
-// } from "vuetify";
 import * as route from "./routes";
-
-
-
-//NOTE: put changes in here in webpack vendor as well
-// const vuetifyComponents = {
-//     VApp,
-//     VGrid,
-//     VChip,
-//     VToolbar,
-//     VList,
-//     VExpansionPanel,
-//     VCard,
-//     VCarousel,
-//     VProgressCircular,
-//     VProgressLinear,
-//     VSubheader,
-//     VDivider,
-//     VDialog,
-//     VTextField,
-//     VSelect,
-//     VBtn,
-//     VBtnToggle,
-//     VTooltip,
-//     VMenu,
-//     VSwitch,
-//     VTabs,
-//     VIcon,
-//     VSnackbar,
-//     VNavigationDrawer,
-//     VAvatar,
-//     VPagination,
-//     VDataTable,
-//     VStepper,
-//     VCombobox,
-//     VCheckbox,
-//     VBottomNav,
-//     VTextarea,
-//     VRating,
-//     VForm,
-//     VAutocomplete,
-//     VSheet,
-//     VCalendar
-// };
-
 
 Vue.use(VueMathjax);
 Vue.use(VueRouter);
 Vue.use(LoadScript);
-
-// Vue.use(Vuetify, {
-//     directives: {
-//         Scroll,
-//         Touch
-//     },
-//     components: vuetifyComponents
-// });
 
 Vue.component("scroll-list", scrollComponent);
 Vue.component("general-page", GeneralPage);
@@ -282,22 +183,6 @@ router.beforeEach((to, from, next) => {
     } 
 
     store.dispatch('sendQueryToAnalytic', to);
-    intercomSettings.IntercomSettings.set({hideLauncher:true});
-
-    if (global.innerWidth < 600) {
-        intercomSettings.IntercomSettings.set({hideLauncher:true});
-    }
-    else {
-        intercomSettings.IntercomSettings.set({hideLauncher:false});
-    }
-    //if tutoring disable intercom
-    if (global.location.href.indexOf("studyroom") > -1) {
-        intercomSettings.IntercomSettings.set({hideLauncher:true});
-    }
-    //case 10995
-    if (global.appInsights) {
-        global.appInsights.trackPageView(to.fullPath);
-    }
     store.dispatch('changeLastActiveRoute', from);
     checkUserStatus(to, next);
 
@@ -311,7 +196,7 @@ const app = new Vue({
 });
 
 function checkUserStatus(to, next) {
-    store.dispatch('userStatus', {isRequire: to.meta.requiresAuth, to});
+    store.dispatch('userStatus', {isRequireAuth: to.meta.requiresAuth, to});
     if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
         next("/signin");
     } else {
