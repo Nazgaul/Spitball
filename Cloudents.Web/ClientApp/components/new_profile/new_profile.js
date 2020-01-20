@@ -271,12 +271,12 @@ export default {
             }
             this.syncProfile(syncObj);
         },
-        getInfoByTab() {
-            this.loadingContent = true;
-            this.setProfileByActiveTab(this.activeTab).then(() => {
-                this.loadingContent = false;
-            });
-        },
+        // getInfoByTab() {
+        //     this.loadingContent = true;
+        //     this.setProfileByActiveTab(this.activeTab).then(() => {
+        //         this.loadingContent = false;
+        //     });
+        // },
         loadAnswers() {
             if (this.profileData.answers.length < this.itemsPerTab) {
                 this.answers.isComplete = true;
@@ -563,9 +563,7 @@ export default {
             }
             this.fetchData();
         },
-
-        activeTab() {
-
+        // activeTab() {
 
 
 
@@ -574,8 +572,9 @@ export default {
 
 
 
-            this.getInfoByTab();
-        }
+
+        //     this.getInfoByTab();
+        // }
     },
     //reset profile data to prevent glitch in profile loading
     beforeRouteLeave(to, from, next) {

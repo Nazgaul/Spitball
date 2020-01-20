@@ -1,90 +1,25 @@
 import { connectivityModule } from "./connectivity.module";
+import {User,Item} from './constructors/constructors.js'
+
 import searchService from "../services/searchService.js";
 function itemTypeChcker(type){
     if(type.toLowerCase() === 'document'){
        return 'Document';
     }
+    if(type.toLowerCase() === 'video'){
+        return 'Video';
+    }
  }
-
-const User = {
-    Default:function(objInit){
-        this.id = objInit.id;
-        this.name = objInit.name;
-        this.image = objInit.image || '';
-    },
-    Profile:function(objInit){
-        return Object.assign(
-            new User.Default(objInit),
-            {
-                online: objInit.online || false,
-                universityName: objInit.universityName,
-                description: objInit.description || '',
-                calendarShared: objInit.calendarShared || false,
-                tutorData: objInit.tutor ? createTutorData(objInit.tutor) : createTutorData({}),
-                isTutor: objInit.hasOwnProperty('tutor') || false,
-                followers: objInit.followers || '',
-                
-                firstName: objInit.firstName || '',
-                lastName: objInit.lastName || '',
-                isFollowing: objInit.isFollowing,
-            }
-        )
-    },
-    Review:function(objInit){
-      this.reviewText = objInit.reviewText;
-      this.rate = objInit.rate;
-      this.date = objInit.created;
-      this.name = objInit.name;
-      this.id = objInit.id;
-      this.image = objInit.image;
-    },
-    Reviews:function(objInit){
-        this.reviews = objInit.reviews? objInit.reviews.map(review => new User.Review(review)) : null;
-        this.rates = new Array(5).fill(undefined).map((val, key) => {
-            if(!!objInit.rates[key]){
-                return objInit.rates[key];
-            }else{
-                return {rate: 0,users: 0}
-            }
-        })
-    },
-    // Item:function(objInit){
-
-    // },
-    Document:function(objInit){
-        this.id = objInit.id || null;
-        this.type = objInit.type || 'Document';
-        this.course = objInit.course; 
-        this.dateTime = objInit.dateTime; 
-        this.downloads = objInit.downloads; 
-        this.purchased = objInit.purchased; 
-        this.snippet = objInit.snippet;
-        this.title = objInit.title;
-        this.university = objInit.university;
-        this.url = objInit.url;
-        this.views = objInit.views;
-        this.price = objInit.price;
-        this.preview = objInit.preview;
-        this.documentType = objInit.documentType;
-        this.itemDuration = objInit.duration;
-        this.votes = !!objInit.vote ? objInit.vote.votes : null;
-        this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
-        this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
-        this.template = 'result-note';
-        this.user = objInit.user ? new User.Default(objInit.user) : '';
-    },
-}
 
 function createProfileItems(objInit){
     return Object.assign(
         {
             result: objInit.data.result.map(objData => {
-                return new User[itemTypeChcker(objData.type)](objData)
+                return new Item[itemTypeChcker(objData.documentType)](objData)
             }),
             count: objInit.data.count,
         }
     )
-    
 }
 function createProfileReviews(objInit){
     return new User.Reviews(objInit)
@@ -116,26 +51,9 @@ function createIsTutorState(str){
         return null;
     }
 }
- function TutorData(objInit) {
-     this.bio = objInit.bio;
-     this.currency = objInit.currency;
-     this.documents = objInit.documents;
-     this.hasCoupon = objInit.hasCoupon;
-     this.lessons = objInit.lessons;
-     this.subjects = objInit.subjects;
-    //  this.courses = objInit.courses;
-     this.price = objInit.price || 0;
-     this.rate = objInit.rate || 0;
-     this.reviewCount = objInit.reviewCount || 0;
-     this.discountPrice = objInit.discountPrice;
 
-     this.firstName = objInit.firstName || '';
-     this.lastName = objInit.lastName  || '';
- }
 
- function createTutorData(objInit) {
-     return new TutorData(objInit);
- }
+
  function createUserPersonalData(objInit) {
     return new User.Profile(objInit)   
  }
@@ -149,12 +67,6 @@ function ProfileUserData(objInit){
 }
 function ProfileQuestionData(arrInit){
     return arrInit.data.map(searchService.createQuestionItem) || [];
-    // return arrInit[1].data.map(searchService.createQuestionItem).map(item => {
-    //     return {
-    //         ...item,
-    //         user: arrInit[0].data,
-    //     }
-    // }) || [];
 }
 
 function ProfileAnswerData(arrInit){

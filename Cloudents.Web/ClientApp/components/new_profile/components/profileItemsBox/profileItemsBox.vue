@@ -1,7 +1,7 @@
 <template>
 <div id="profileItemsBox" v-if="items">
    <div class="profileItemsBox_title text-truncate" v-text="$Ph('profile_study_materials',userName)"/>
-   <!-- <div class="profileItemsBox_filters">
+   <div class="profileItemsBox_filters">
       <v-flex xs1 sm4 pr-4>
          <v-select class="profileItemsBox_filters_select"
             :append-icon="'sbf-arrow-fill'"
@@ -11,7 +11,7 @@
             height="36" dense hide-details solo>
          </v-select>
       </v-flex>
-      <v-flex xs11 sm9 d-none>
+      <v-flex xs11 sm9>
          <v-select class="profileItemsBox_filters_select"
             :append-icon="'sbf-arrow-fill'"
             :items="['Documents','Documents','Documents','Documents']"
@@ -19,8 +19,7 @@
             solo>
          </v-select>
       </v-flex>
-   </div> -->
-   <!-- {{items.length}} -->
+   </div>
    <div class="profileItemsBox_content" v-if="$vuetify.breakpoint.smAndUp">
       <itemCard v-for="(item, index) in items" :key="index" :item="item"/>
    </div>
@@ -61,11 +60,12 @@ export default {
          typeItems:[
             {name:'Document',value:'documents'},
             {name:'Video',value:'videos'},
-            {name:'Answer',value:'answers'},
-            {name:'Question',value:'questions'},
+            // {name:'Answer',value:'answers'},
+            // {name:'Question',value:'questions'},
          ],
          selectedTypeItem:'documents',
          query:{
+            documentType:'',
             type:'documents',
             page: 1,
             pageSize:6,
@@ -75,10 +75,12 @@ export default {
    computed: {
       ...mapGetters(['getProfile']),
       pageCount(){
-         return Math.ceil(this.getProfile[this.selectedTypeItem].count / this.query.pageSize);
+         // return Math.ceil(this.getProfile[this.selectedTypeItem].count / this.query.pageSize);
+         return Math.ceil(this.getProfile.documents.count / this.query.pageSize);
       },
       items(){
-         return this.getProfile[this.selectedTypeItem].result;
+         // return this.getProfile[this.selectedTypeItem].result;
+         return this.getProfile.documents.result;
       },
       userName(){
          return this.getProfile.user.firstName? this.getProfile.user.firstName : this.getProfile.user.name;
