@@ -1,5 +1,5 @@
 import { connectivityModule } from "./connectivity.module";
-import {User,Item} from './constructors/constructors.js'
+import {Item} from './Constructors/constructors.js'
 
 import searchService from "../services/searchService.js";
 function itemTypeChcker(type){
@@ -20,9 +20,6 @@ function createProfileItems(objInit){
             count: objInit.data.count,
         }
     )
-}
-function createProfileReviews(objInit){
-    return new User.Reviews(objInit)
 }
 function AccountUser(objInit){
     this.id= objInit.id;
@@ -52,19 +49,6 @@ function createIsTutorState(str){
     }
 }
 
-
-
- function createUserPersonalData(objInit) {
-    return new User.Profile(objInit)   
- }
-
-function ProfileUserData(objInit){
-    this.user= createUserPersonalData(objInit.data) ;
-    this.questions = [];
-    this.answers = [];
-    this.documents = [];
-    this.purchasedDocuments= [];
-}
 function ProfileQuestionData(arrInit){
     return arrInit.data.map(searchService.createQuestionItem) || [];
 }
@@ -92,14 +76,6 @@ export default {
     },
     uploadImage: (formData) => {
         return connectivityModule.http.post("/Account/image", formData);
-    },
-    getProfile:(id) => {
-        return connectivityModule.http.get(`/Profile/${id}`);
-    },
-    getProfileReviews:(id) => {
-        return connectivityModule.http.get(`/Profile/${id}/about`).then(reviews=>{
-            return createProfileReviews(reviews.data)
-        });
     },
     getNumberReffered:() => {
         return connectivityModule.http.get(`/Account/referrals`);
@@ -148,9 +124,6 @@ export default {
     // },
     becomeTutor: (data) => {
         return connectivityModule.http.post("/Account/becomeTutor", data);
-    },
-    createUserProfileData: (objInit)=>{
-        return new ProfileUserData(objInit);
     },
     createProfileQuestionData: (arrInit)=>{
         return new ProfileQuestionData(arrInit);

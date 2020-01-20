@@ -6,6 +6,7 @@ import initSignalRService from '../services/signalR/signalrEventService';
 import insightService from '../services/insightService';
 import { LanguageService } from '../services/language/languageService';
 import intercomeService from '../services/intercomService';
+import profileService from "../services/profileService";
 
 const state = {
     profileReviews:null,
@@ -246,21 +247,17 @@ const actions = {
     },
     syncProfile(context, {id,type,page,pageSize,/*activeTab*/}) {
         
-        //fetch all the data before returning the value to the component
-        accountService.getProfile(id).then(val => {
-            let profileUserData = accountService.createUserProfileData(val);
+        // //fetch all the data before returning the value to the component
+        profileService.getProfile(id).then(profileUserData=>{
             context.commit('setProfile', profileUserData);
-            // cause of multiple profile requests to server
-            // context.dispatch('setProfileByActiveTab', activeTab);  
             context.dispatch('updateProfileItemsByType', {id,type,page,pageSize});
             context.dispatch('setUserStatus', profileUserData.user);
             if(profileUserData.user.isTutor){
-                accountService.getProfileReviews(id).then(val=>{
+                profileService.getProfileReviews(id).then(val=>{
                     context.commit('setProfileReviews', val);
                 })
             }
         });
-        
     },
     getRefferedUsersNum(context, id) {
         accountService.getNumberReffered(id)
