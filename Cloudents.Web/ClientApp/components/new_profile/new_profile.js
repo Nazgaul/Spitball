@@ -440,7 +440,7 @@ export default {
             return this.isMyProfile && !this.isTutor && !this.isTutorPending;
         },
         showFindTutor(){
-            return true
+            return (!this.isMyProfile && !this.isTutor)
         },
 
 
