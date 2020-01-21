@@ -535,5 +535,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new CourseSubjectQuery(courseName);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
+
+        [Fact]
+        public async Task AdminFictivePendingQuestionEmptyQuery_Ok()
+        {
+            var query = new AdminFictivePendingQuestionEmptyQuery();
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
     }
 }
