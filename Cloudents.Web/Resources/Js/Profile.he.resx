@@ -324,6 +324,9 @@
   <data name="study_materials" xml:space="preserve">
     <value>חומרי הלימוד של {1}</value>
   </data>
+  <data name="study_materials_mobile" xml:space="preserve">
+    <value>התוכן של {1}</value>
+  </data>
   <data name="tutor" xml:space="preserve">
     <value>מורה פרטי</value>
   </data>
