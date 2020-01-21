@@ -5,6 +5,7 @@ using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Query;
+using Cloudents.Query.Admin;
 using Cloudents.Query.Query.Admin;
 using Dapper;
 using Microsoft.AspNetCore.Authorization;
@@ -160,7 +161,7 @@ namespace Cloudents.Admin2.Api
         [Authorize]
         public async Task<IEnumerable<string>> GetSubjects(CancellationToken token)
         {
-            var query = new AdminSubjectsQuery();
+            var query = new SubjectsQuery();
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }

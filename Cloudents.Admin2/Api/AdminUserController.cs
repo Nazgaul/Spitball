@@ -239,7 +239,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<UserQuestionsDto>> GetUserQuestionsDetails(long id, int page, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminUserQuestionsQuery(id, page, country);
+            var query = new UserQuestionsQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -247,7 +247,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<UserAnswersDto>> GetUserAnswersDetails(long id, int page, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminUserAnswersQuery(id, page, country);
+            var query = new UserAnswersQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -270,7 +270,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<UserPurchasedDocsDto>> GetUserPurchasedDocsDetails(long id, int page, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminUserPurchasedDocsQuery(id, page, country);
+            var query = new UserPurchasedDocsQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -292,7 +292,7 @@ namespace Cloudents.Admin2.Api
              CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminUserDocumentsQuery(id, page, country);
+            var query = new UserDocumentsQuery(id, page, country);
 
 
             var retVal = (await _queryBus.QueryAsync(query, token)).ToList();
@@ -325,7 +325,7 @@ namespace Cloudents.Admin2.Api
         public async Task<UsersFlagsResponse> GetFlags(int minFlags, int page, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminUserFlagsOthersQuery(minFlags, page, country);
+            var query = new UserFlagsOthersQuery(minFlags, page, country);
             var res = await _queryBus.QueryAsync(query, token);
             return new UsersFlagsResponse { Flags = res.Item1, Rows = res.Item2 };
         }

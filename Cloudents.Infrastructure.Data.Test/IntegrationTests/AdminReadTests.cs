@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task DocumentAggregateQuery_Ok()
         {
-            var query = new AdminUserAnswersQuery(638, 0, "IL");
+            var query = new UserAnswersQuery(638, 0, "IL");
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -132,7 +132,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminSubjectsQuery_Ok()
         {
-            var query = new AdminSubjectsQuery();
+            var query = new SubjectsQuery();
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -149,7 +149,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminUserAnswersQuery_Ok()
         {
-            var query = new AdminUserAnswersQuery(159039, 0, "IL");
+            var query = new UserAnswersQuery(159039, 0, "IL");
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -180,15 +180,15 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(159039, 0, null)]
         public async Task AdminUserDocumentsQuery_Ok(long userId, int page, string country)
         {
-            var query = new AdminUserDocumentsQuery(userId, page, country);
+            var query = new UserDocumentsQuery(userId, page, country);
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task AdminUserFlagsOthersQuery_Ok()
         {
-            var q1 = new AdminUserFlagsOthersQuery(3, 0, "IL");
-            var q2 = new AdminUserFlagsOthersQuery(2, 2, "IL");
+            var q1 = new UserFlagsOthersQuery(3, 0, "IL");
+            var q2 = new UserFlagsOthersQuery(2, 2, "IL");
             var t1 = _fixture.QueryBus.QueryAsync(q1, default);
             var t2 = _fixture.QueryBus.QueryAsync(q2, default);
             await Task.WhenAll(t1, t2);
@@ -197,14 +197,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminUserPurchasedDocsQuery_Ok()
         {
-            var query = new AdminUserPurchasedDocsQuery(159039, 0, "IL");
+            var query = new UserPurchasedDocsQuery(159039, 0, "IL");
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
         public async Task AdminUserQuestionsQuery_Ok()
         {
-            var query = new AdminUserQuestionsQuery(159039, 0, "IL");
+            var query = new UserQuestionsQuery(159039, 0, "IL");
             await _fixture.QueryBus.QueryAsync(query, default);
         }
         [Fact]
