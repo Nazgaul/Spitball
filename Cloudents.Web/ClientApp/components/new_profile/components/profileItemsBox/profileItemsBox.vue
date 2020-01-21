@@ -29,6 +29,8 @@
       <v-flex xs10 sm9 class="pr-2 pr-sm-0">
          <v-select class="profileItemsBox_filters_select"
             :append-icon="'sbf-arrow-fill'"
+            clearable
+            :clear-icon="'sbf-close'"
             v-model="selectedModel.itemCourse"
             :items="userCourses"
             @change="handleSelects()"
