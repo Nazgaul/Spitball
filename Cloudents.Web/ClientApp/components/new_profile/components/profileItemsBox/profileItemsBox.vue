@@ -7,15 +7,12 @@
          <v-menu offset-y>
             <template v-slot:activator="{ on }">
                <v-btn icon v-on="on" class="filters_menu_btn d-block d-sm-none">
-
                   <v-icon class="icon">sbf-sort</v-icon>
                </v-btn>
-               <!-- <button class="filters_menu_btn d-block d-sm-none" v-on="on">
-                  x</button> -->
             </template>
             <v-list>
                <v-list-item v-for="(item, index) in typeItems" :key="index" @click="menuSelect(item.value)">
-               <v-list-item-title>{{ item.name }}</v-list-item-title>
+               <v-list-item-title :class="{'font-weight-bold':selectChecker(item)}">{{ item }}</v-list-item-title>
                </v-list-item>
             </v-list>
          </v-menu>
@@ -32,6 +29,8 @@
       <v-flex xs10 sm9 class="pr-2 pr-sm-0">
          <v-select class="profileItemsBox_filters_select"
             :append-icon="'sbf-arrow-fill'"
+            clearable
+            :clear-icon="'sbf-close'"
             v-model="selectedModel.itemCourse"
             :items="userCourses"
             @change="handleSelects()"
@@ -154,6 +153,16 @@ export default {
          })
 
       },
+      selectChecker(item){
+         if(item.value === this.selectedModel.itemType){
+            return true;
+         }
+         if(typeof this.selectedModel.itemType == 'object' && this.selectedModel.itemType.value === item.value){
+            return true;
+         }
+         return false;
+      }
+
    },
    created() {
       this.query.pageSize = this.$vuetify.breakpoint.xsOnly? 3 : 6
