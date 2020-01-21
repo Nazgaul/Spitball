@@ -53,8 +53,7 @@
         data() {
             return {
                 dialog: false,
-                userNote: '',
-                loading: false
+                userNote: ''
             }
         },
         computed: {
@@ -65,9 +64,7 @@
             getUserNotesData() {
                 let id = this.userId;
                 let self = this;
-                self.loading = true;
                 self.getUserNotes({id}).then((isComplete) => {
-                    self.loading = false;
                 });
             },
             Submit() {
