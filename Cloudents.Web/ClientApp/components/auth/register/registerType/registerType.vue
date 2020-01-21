@@ -17,18 +17,18 @@
                     <span class="panel_title text-center" v-language:inner="'loginRegister_student'"></span>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content class="pt-4">
-                    <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" @click="goHighSchool">
+                    <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" @click="registerStep('registerStudentSchool')">
                         <span><collegeIcon /></span>
                         <span class="flex-grow-1 white--text">A High school Student</span>
                     </v-btn>
-                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" @click="goCollege">
+                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" @click="registerStep('registerStudentCollege')">
                         <span><highSchoolIcon /></span>
                         <span class="flex-grow-1 white--text">A College Student</span>
                     </v-btn>
                 </v-expansion-panel-content>
             </v-expansion-panel>
 
-            <v-expansion-panel class="panel panel_parent mb-5" readonly @click="goStudent">
+            <v-expansion-panel class="panel panel_parent mb-5" readonly @click="registerStep('registerParent')">
                 <v-expansion-panel-header class="px-4 py-2" expand-icon="">
                     <span class="flex-grow-0 mr-4"><parentIcon/></span>
                     <v-divider class="mr-4" vertical></v-divider>
@@ -36,7 +36,7 @@
                 </v-expansion-panel-header>
             </v-expansion-panel>
 
-            <v-expansion-panel class="panel panel_teacher" readonly @click="goTeacher">
+            <v-expansion-panel class="panel panel_teacher" readonly @click="openBecomeTutorDialog">
                 <v-expansion-panel-header class="px-4 py-2" expand-icon="">
                     <span class="flex-grow-0 mr-4"><teacherIcon/></span>
                     <v-divider class="mr-4" vertical></v-divider>
@@ -65,26 +65,15 @@ export default {
         highSchoolIcon
     },
     data:() => ({
-        panel: [],
-        currentTypeStep: ''
+        panel: []
     }),
     methods: {
-        goHighSchool() {
-            this.currentTypeStep = 'goHighSchool';
-            console.log('goHighSchool');
+        registerStep(step) {
+            this.$store.dispatch('updateRegisterCurrentStep', step)
         },
-        goCollege() {
-            this.currentTypeStep = 'goCollege';
-            console.log('goCollege');
-        },
-        goStudent() {
-            this.currentTypeStep = 'goStudent';
-            console.log('goStudent');
-        },
-        goTeacher() {
-            this.currentTypeStep = 'goTeacher';
-            console.log('goTeacher');
-        },
+        openBecomeTutorDialog() {
+            this.$store.dispatch('updateTutorDialog', true);
+        }
     },
 }
 </script>

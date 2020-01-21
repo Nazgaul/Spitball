@@ -20,6 +20,7 @@ function _analytics (params){
 
 const state = {
     currentStep: 'getStarted',
+    currentRegTypeStep: 'registerType',
     stepsHistory: [],
     toUrl: '',
 
@@ -49,6 +50,9 @@ const state = {
 };
 
 const mutations = {
+    setCurrentRegTypeStep(state, step){
+        state.currentRegTypeStep = step;
+    },
     setToUrl(state,url){
         state.toUrl = url;
     },
@@ -117,6 +121,7 @@ const mutations = {
 };
 
 const getters = {
+    getCurrentRegisterStep: state => state.currentRegTypeStep,
     getCurrentLoginStep: state => state.currentStep,
     getEmail1: state => state.email,
     getPhone: state => state.phone,
@@ -412,6 +417,9 @@ const actions = {
         // let url = state.toUrl || defaultSubmitRoute;
         commit('setResetState');
         router.push({path: `/`});
+    },
+    updateRegisterCurrentStep({commit}, regStep) {
+        commit('setCurrentRegTypeStep', regStep);
     }
 };
 

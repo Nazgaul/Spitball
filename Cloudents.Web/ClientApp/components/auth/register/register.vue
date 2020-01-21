@@ -1,7 +1,7 @@
 <template>
     <div id="registerFlow">
         <component :is="`${registerStep}`"></component>
-
+    
         <template v-if="showActions">
             <div class="actions text-center mt-10">
                 <v-btn @click="''" class="btn register_btn_back" color="#4452fc" depressed height="40" outlined rounded>
@@ -12,6 +12,7 @@
                 </v-btn>
             </div>
         </template>
+
     </div>
 </template>
 
@@ -20,7 +21,7 @@ const registerType = () => import('./registerType/registerType.vue');
 const registerStudentSchool = () => import('./student/registerStudentSchool.vue');
 const registerStudentCollege = () => import('./student/registerStudentCollege.vue');
 const registerParent = () => import('./parent/registerParent.vue');
-const registerTeacher = () => import('./teacher/registerTeacher.vue');
+// const registerTeacher = () => import('./teacher/registerTeacher.vue');
 
 export default {
     name: 'registerFlow',
@@ -29,14 +30,17 @@ export default {
         registerStudentSchool,
         registerStudentCollege,
         registerParent,
-        registerTeacher
+        // registerTeacher
     },
     data:() => ({
-        registerStep: 'registerType'
+        // registerStep: 'registerType'
     }),
     computed: {
         showActions() {
-            return this.step !== 'registerType' && this.step !== 'registerTeacher'
+            return this.registerStep !== 'registerType' && this.registerStep !== 'registerTeacher'
+        },
+        registerStep() {
+            return this.$store.getters.getCurrentRegisterStep;
         }
     }
 }
