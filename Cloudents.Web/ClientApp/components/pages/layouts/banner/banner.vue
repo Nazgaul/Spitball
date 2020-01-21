@@ -1,5 +1,5 @@
 <template>
-	<v-system-bar v-if="getBannerSatus" class="globalBanner" height="70" app fixed>
+	<v-system-bar class="globalBanner" height="70" app fixed>
 		<div class="banner_wrapper">
 			<div class="globalBanner_container">
 				<div class="globalBanner_title" v-if="titleText">       
@@ -40,7 +40,7 @@
 					</v-layout>
 				</div>
 			</div>  
-			<v-btn text icon class="banner_closeBtn" @click="updateBannerSatus(false)">
+			<v-btn text icon class="banner_closeBtn" @click="updateBannerStatus(false)">
 				<v-icon class="close_banner" v-html="'sbf-close'"/>
 			</v-btn>
 		</div>
@@ -62,7 +62,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters(['getBannerSatus','getBannerParams']),
+		...mapGetters(['getBannerParams']),
 		coupon(){
 			if(!!this.getBannerParams){
 				return this.getBannerParams.coupon;
@@ -90,7 +90,7 @@ export default {
         },
 	},
 	methods: {
-        ...mapActions(['updateBannerSatus']),
+        ...mapActions(['updateBannerStatus']),
         setParamsInterval(){
             this.interVal = setInterval(this.getNow, 200);
         },
@@ -105,7 +105,7 @@ export default {
 			this.time.seconds = Math.floor((distance % (1000 * 60)) / 1000).toLocaleString('en-US', {minimumIntegerDigits: 2});
 			if (distance < 0) {
 				clearInterval(this.interVal);
-				this.updateBannerSatus(false)
+				this.updateBannerStatus(false)
 			}
 		}
 	},

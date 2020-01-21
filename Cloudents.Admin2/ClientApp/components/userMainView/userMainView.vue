@@ -79,7 +79,7 @@
                 </v-tabs>
                 <div class="filters mb-2">
                     <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
-                           :color="filterValue === filter.value ? 'blue lighten-1' : ''  "
+                           :color="filterValue === filter.value ? 'grey lighten-1' : ''  "
                            :key="'filter_'+index">
                         {{filter.name}}
                     </v-btn>
@@ -234,7 +234,7 @@
 <style lang="less">
 
 .table-odd {
-    background: #B2DFDB;
+    background: #d2d2d2;
 }
 
 
