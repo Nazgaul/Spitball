@@ -1,20 +1,17 @@
 <template>
 <div>
     
-    <v-container fluid grid-list-sm>
-        <span style="cursor:pointer" lass="text-center"  @click="dialog = true">
-            
-    <v-btn rounded color="primary" dark> 
-        <v-icon medium color="green">
-            add
-        </v-icon>Add Note
-    </v-btn>
- 
-       
-    </span>
+    <v-container fluid grid-list-sm class="pl-2 pr-0">
+        <div class="text-xs-right">
+            <v-btn class="mr-0 mt-0 mb-2" color="info" @click="dialog = true"> 
+                <v-icon>add</v-icon>
+                Add Note
+            </v-btn>
+        </div>
+
         <v-layout row wrap v-if="userNotes.length">
             <v-flex xs12 v-for="(note, index) in userNotes" :key="index">
-                <note-item :note="note"></note-item>
+                <note-item class="mb-2" :note="note"></note-item>
             </v-flex>
         </v-layout>
     </v-container>
