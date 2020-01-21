@@ -348,7 +348,7 @@ export default {
     addUserNote : (data) => {
         let path = `AdminUser/note`;
         return connectivityModule.http.post(path, data).then((adminEmail) => {
-            return createNotesItem({text: data.text, adminUser: adminEmail, created: Date.now()});
+            return [createNotesItem({text: data.text, adminUser: adminEmail, created: Date.now()})];
         }, (err) => {
             return err;
         });
