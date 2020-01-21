@@ -59,12 +59,10 @@ const mutations = {
         }
     },
     setUserNotes(state, data) {
-        if(data.length != state.userNotes.length){
-            if(state.userNotes.length){
-                state.userNotes.unshift(data);
-            }else{
-                state.userNotes = data;
-            }
+        if(state.userNotes.length){
+            state.userNotes.unshift(data);
+        }else {
+        state.userNotes = data;
         }
     },
     updateTutorSate(state, val){
@@ -161,7 +159,7 @@ const actions = {
     },
     addUserNote({commit}, data) {
         return userMainService.addUserNote(data).then((res) => {
-            commit('setUserNotes', data);
+            commit('setUserNotes', res);
             return true;
         }) 
     },
@@ -343,13 +341,16 @@ const actions = {
         ).finally(() => context.commit("setShowLoader", false));
     },
     getUserNotes(context, idPageObj){
+        if(!state.userNotes.length) {
         context.commit("setShowLoader", true);
         return userMainService.getUserNotes(idPageObj.id).then((data) => {
             context.commit('setUserNotes', data);
+        
         },
         (error) => {
             console.log(error, 'error');
         }).finally(() => context.commit("setShowLoader", false));
+    }
     },
     verifyUserPhone(context, verifyObj) {
         return userMainService.verifyPhone(verifyObj).then((resp) => {

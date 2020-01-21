@@ -193,7 +193,7 @@ function NotesItem(objInit)
 {
     this.text = objInit.text;
     this.adminUser = objInit.adminUser;
-    this.created = new Date(objInit.created).toLocaleString('en-US');
+    this.created = new Date(objInit.created).toLocaleString();
 }
 function createNotesItem(objInit){
     return new NotesItem(objInit);
@@ -347,6 +347,10 @@ export default {
     },
     addUserNote : (data) => {
         let path = `AdminUser/note`;
-        return connectivityModule.http.post(path, data);
-    }
+        return connectivityModule.http.post(path, data).then((adminEmail) => {
+            return createNotesItem({text: data.text, adminUser: adminEmail, created: Date.now()});
+        }, (err) => {
+            return err;
+        });
+    }    
 }

@@ -388,7 +388,7 @@ namespace Cloudents.Admin2.Api
         {
             var command = new CreateNoteCommand(model.UserId, model.Text, User.GetIdClaim());
             await _commandBus.DispatchAsync(command, token);
-            return Ok();
+            return Ok(User.Identity.Name);
         }
 
         [HttpGet("notes")]
