@@ -252,15 +252,7 @@ module.exports = (env) => {
             })] : []
         },
         plugins: [
-            new RemovePlugin({
-                before: {
-                    // parameters.
-                    include: ['./wwwroot/dist']
-                },
-                after: {
-                    // parameters.
-                }
-            }),
+          
             
             new VueLoaderPlugin(),
             new webpack.DefinePlugin({
@@ -271,6 +263,15 @@ module.exports = (env) => {
             new VuetifyLoaderPlugin()
         ].concat(isDevBuild
             ? [
+                new RemovePlugin({
+                    before: {
+                        // parameters.
+                        include: ['./wwwroot/dist']
+                    },
+                    after: {
+                        // parameters.
+                    }
+                }),
                 // new BundleAnalyzerPlugin({
                 //    analyzerMode: 'disabled',
                 //    generateStatsFile: true,
