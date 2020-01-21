@@ -130,6 +130,11 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.css(\?|$)/,
+                    include: [
+                        path.resolve(__dirname, 'ClientApp'),
+                        path.resolve(__dirname, './node_modules/codemirror/addon'),
+                        path.resolve(__dirname,'./node_modules/vue-mathjax/dist/vue-mathjax.css')
+                    ],
                     use: 
                         isDevBuild ? ['vue-style-loader','rtl-css-loader']
                              :
@@ -149,6 +154,7 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.s[ac]ss$/i,
+                    include: path.resolve(__dirname, './node_modules/vuetify/src/'),
                     use:
                         isDevBuild ? ['vue-style-loader', 'rtl-css-loader', 
                         {
