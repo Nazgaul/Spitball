@@ -4,7 +4,7 @@
         <div class="profilePage_main profile-page-container">
             
             <profileUserBox/>
-            <calendarTab v-if="showProfileCalendar" class="mb-3" :globalFunctions="globalFunctions"/>
+            <calendarTab v-if="showProfileCalendar" class="mb-6" :globalFunctions="globalFunctions"/>
             <profileEarnMoney v-if="showEarnMoney" class="mb-3" :globalFunctions="globalFunctions"/>
             <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>
             <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>

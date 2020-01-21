@@ -12,7 +12,7 @@
             </template>
             <v-list>
                <v-list-item v-for="(item, index) in typeItems" :key="index" @click="menuSelect(item.value)">
-               <v-list-item-title :class="{'font-weight-bold':selectChecker(item)}">{{ item }}</v-list-item-title>
+               <v-list-item-title :class="{'font-weight-bold': selectChecker(item)}">{{ item.name }}</v-list-item-title>
                </v-list-item>
             </v-list>
          </v-menu>
