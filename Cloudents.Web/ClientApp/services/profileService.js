@@ -10,8 +10,8 @@ export default {
       let { data } = await Api.get.reviews(id)
       return new Profile.Reviews(data)
    },
-   async getProfileDocuments(id, page, pageSize) {
-      let { data } = await Api.get.documents(id, page, pageSize)
+   async getProfileDocuments(id,params) {
+      let { data } = await Api.get.documents(id,params)
       return new Profile.ProfileItems(data)
    },
    async followProfile(id) {

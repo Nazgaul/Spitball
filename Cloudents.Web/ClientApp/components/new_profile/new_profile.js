@@ -72,6 +72,7 @@ export default {
                 goTutorList: this.goTutorList,
                 openUpload: this.openUpload,
                 getItems: this.getItems,
+                scrollTo: this.scrollToElementId,
             },
             coupon: '',
             couponPlaceholder: LanguageService.getValueByKey('coupon_placeholder'),
@@ -228,8 +229,16 @@ export default {
               this.setReturnToUpload(false);
             }
         },
-        getItems({type,page,pageSize}){
-            return this.updateProfileItemsByType({id:this.id,type,page,pageSize})
+        getItems(type,params){
+            let dataObj = {
+                id: this.id,
+                type,
+                params
+            }
+            return this.updateProfileItemsByType(dataObj)
+        },
+        scrollToElementId(elementId){
+            document.getElementById(elementId).scrollIntoView({behavior: 'smooth',block: 'start'});
         },
 
         
@@ -266,8 +275,10 @@ export default {
             let syncObj = {
                 id: this.id,
                 type:'documents',
-                page: 0,
-                pageSize:this.$vuetify.breakpoint.xsOnly? 3 : 6,
+                params:{
+                    page: 0,
+                    pageSize:this.$vuetify.breakpoint.xsOnly? 3 : 6,
+                }
             }
             this.syncProfile(syncObj);
         },

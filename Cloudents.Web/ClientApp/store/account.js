@@ -245,12 +245,12 @@ const actions = {
         context.commit('changeIsUserTutor', val);
         context.commit('setIsTutorState', 'pending');
     },
-    syncProfile(context, {id,type,page,pageSize,/*activeTab*/}) {
+    syncProfile(context, {id,type,params,/*activeTab*/}) {
         
         // //fetch all the data before returning the value to the component
         profileService.getProfile(id).then(profileUserData=>{
             context.commit('setProfile', profileUserData);
-            context.dispatch('updateProfileItemsByType', {id,type,page,pageSize});
+            context.dispatch('updateProfileItemsByType', {id,type,params});
             context.dispatch('setUserStatus', profileUserData.user);
             if(profileUserData.user.isTutor){
                 profileService.getProfileReviews(id).then(val=>{
@@ -270,10 +270,10 @@ const actions = {
                             }
                       );
     },
-    updateProfileItemsByType({state,commit},{id,type,page,pageSize}){
+    updateProfileItemsByType({state,commit},{id,type,params}){
         if(!!state.profile && !!state.profile.user) {
             if(type == "documents"){
-                return profileService.getProfileDocuments(id,page,pageSize).then(documents => {
+                return profileService.getProfileDocuments(id,params).then(documents => {
                     commit('setPorfileDocuments', documents);
                 });
             }

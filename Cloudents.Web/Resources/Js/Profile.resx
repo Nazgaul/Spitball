@@ -341,4 +341,7 @@
   <data name="book_session_mobile_xs" xml:space="preserve">
     <value>Book</value>
   </data>
+  <data name="select_course" xml:space="preserve">
+    <value>Select Course</value>
+  </data>
 </root>
