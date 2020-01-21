@@ -86,7 +86,7 @@ import {mapActions, mapGetters, mapMutations} from 'vuex';
 import {LanguageChange, LanguageService } from "../../../../services/language/languageService";
 import languagesLocales from "../../../../services/language/localeLanguage";
 
-import searchCMP from '../../global/search/search.vue';
+const searchCMP = () => import('../../global/search/search.vue');
 import UserAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
 import menuList from '../menuList/menuList.vue';
 import intercomService from "../../../../services/intercomService";
