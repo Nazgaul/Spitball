@@ -23,8 +23,7 @@ const actions = {
     },
     updateBannerParams({commit}){
         bannerService.getBannerParams().then(params=>{ 
-            params == params || {};
-            if(params.id){
+            if(params?.id){
                 let localStorageList = JSON.parse(global.localStorage.getItem("sb_banner"));
                 if(localStorageList !== null && localStorageList.includes(params.id)){
                     commit('setBannerStatus',false);
