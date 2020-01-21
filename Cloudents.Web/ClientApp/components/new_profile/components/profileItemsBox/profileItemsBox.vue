@@ -1,11 +1,17 @@
 <template>
 <div id="profileItemsBox" v-if="items">
-   <div class="profileItemsBox_title text-truncate" v-text="$Ph('profile_study_materials',userName)"/>
+   <div class="profileItemsBox_title text-truncate" 
+   v-text="$Ph($vuetify.breakpoint.xsOnly? 'profile_study_materials_mobile':'profile_study_materials',userName)"/>   
    <div class="profileItemsBox_filters">
       <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" justify-end>
          <v-menu offset-y>
             <template v-slot:activator="{ on }">
-               <button class="filters_menu_btn d-block d-sm-none" v-on="on">x</button>
+               <v-btn icon v-on="on" class="filters_menu_btn d-block d-sm-none">
+
+                  <v-icon class="icon">sbf-sort</v-icon>
+               </v-btn>
+               <!-- <button class="filters_menu_btn d-block d-sm-none" v-on="on">
+                  x</button> -->
             </template>
             <v-list>
                <v-list-item v-for="(item, index) in typeItems" :key="index" @click="menuSelect(item.value)">
@@ -72,14 +78,14 @@ export default {
       return {
          selectPlaceholder: LanguageService.getValueByKey('profile_select_course'),
          typeItems:[
-            {name:'All Types',value:''},
-            {name:'Document',value:0},
-            {name:'Video',value:1},
+            {name: LanguageService.getValueByKey('profile_select_item_type_all'),value:''},
+            {name: LanguageService.getValueByKey('profile_select_item_type_docs'),value:0},
+            {name: LanguageService.getValueByKey('profile_select_item_type_videos'),value:1},
             // {name:'Answer',value:'answers'},
             // {name:'Question',value:'questions'},
          ],
          selectedModel:{
-            itemType:{name:'All Types',value:''},
+            itemType:{name: LanguageService.getValueByKey('profile_select_item_type_all'),value:''},
             itemCourse:''
          },
          query:{
@@ -180,12 +186,17 @@ export default {
          background: white;
       }
       .filters_menu_btn{
+         max-width: 44px;
+         max-height: 42px;
          width: 44px;
          height: 42px;
          border-radius: 8px;
          border: solid 1px #ced0dc;
          background-color: white;
-         outline: none;
+         color: #6f6e82;
+         .icon{
+            font-size: 16px;
+         }
       }
       .profileItemsBox_filters_select{
          color: #4d4b69;

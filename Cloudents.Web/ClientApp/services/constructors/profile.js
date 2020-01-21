@@ -21,14 +21,8 @@ export const Profile = {
       )
    },
    ProfileItems: function (objInit) {
-      return Object.assign(
-         {
-            result: objInit.result.map(objData => {
-               return new Item[objData.documentType](objData)
-            }),
-            count: objInit.count,
-         }
-      )
+      this.result = objInit.result.map(objData => new Item[objData.documentType](objData));
+      this.count = objInit.count;
    },
    Review: function (objInit) {
       return Object.assign(
@@ -43,11 +37,7 @@ export const Profile = {
    Reviews: function (objInit) {
       this.reviews = objInit.reviews ? objInit.reviews.map(review => new Profile.Review(review)) : null;
       this.rates = new Array(5).fill(undefined).map((val, key) => {
-         if (!!objInit.rates[key]) {
-            return objInit.rates[key];
-         } else {
-            return { rate: 0, users: 0 }
-         }
+         return !!objInit.rates[key]? objInit.rates[key] : { rate: 0, users: 0 };
       })
    },
    ProfileUserData: function (objInit) {
