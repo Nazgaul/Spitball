@@ -11,7 +11,6 @@ import VueClipboard from 'vue-clipboard2';
 // import Scroll from "vuetify/es5/directives/scroll";
 // import Touch from "vuetify/es5/directives/touch";
 import scrollComponent from './components/helpers/infinateScroll.vue';
-import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import LoadScript from 'vue-plugin-load-script';
@@ -42,7 +41,6 @@ Vue.use(VueRouter);
 Vue.use(LoadScript);
 
 Vue.component("scroll-list", scrollComponent);
-Vue.component("general-page", GeneralPage);
 
 const router = new VueRouter({
     mode: "history",
