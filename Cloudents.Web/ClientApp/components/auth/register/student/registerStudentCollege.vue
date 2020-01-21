@@ -1,8 +1,12 @@
 <template>
     <div id="registerStudentCollege">
-        <component :is="'registerUniversity'">
-            <template #studentCollege>
-                StudentCollege
+        <component :is="'registerCourse'">
+            <template #titleUniversity>
+                <div class="text-center university_title" v-language:inner="'register_university_title'"></div>
+            </template>
+
+            <template #titleCourse>
+                <div class="text-center courses_title" v-language:inner="'register_course_title'"></div>
             </template>
         </component>
     </div>
@@ -16,7 +20,7 @@ export default {
     name: 'registerStudentCollege',
     components: {
         registerUniversity,
-        registerCourse   
+        registerCourse
     }
 }
 </script>

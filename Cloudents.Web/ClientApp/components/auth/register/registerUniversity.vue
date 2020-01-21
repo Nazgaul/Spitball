@@ -1,11 +1,7 @@
 <template>
     <div id="registerUniversity">
-        <div class="text-center university_title" v-language:inner="'university_choose_title'"></div>
-
-        <slot name="studentCollege"></slot>
+        <slot name="titleUniversity"></slot>
         
-        <slot name="studentSchool"></slot>
-
         <university />
     </div>
 </template>

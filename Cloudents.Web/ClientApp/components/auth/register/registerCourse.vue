@@ -1,6 +1,6 @@
 <template>
     <div id="registerCourse">
-        <div class="text-center courses_title" v-language:inner="'courses_choose_title'"></div>
+        <slot name="titleCourse"></slot>
 
         <courses />
     </div>
