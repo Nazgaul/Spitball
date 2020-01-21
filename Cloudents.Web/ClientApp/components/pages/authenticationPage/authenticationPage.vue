@@ -12,7 +12,7 @@
 
         <div class="stepsSections">
             <div class="stepContainer">
-                <component :is="`${'registerParent'}`"/>
+                <component :is="`${'register'}`"/>
             </div>
         </div>
 
@@ -32,6 +32,7 @@
                 </v-card-text>
             </v-card>
         </v-dialog>
+
    </div>
 </template>
 
@@ -50,13 +51,7 @@ const setPhone = () => import('../../loginPageNEW/components/setPhone.vue');
 const VerifyPhone = () => import('../../loginPageNEW/components/VerifyPhone.vue');
 const congrats = () => import('../../loginPageNEW/components/congrats.vue');
 
-
-const registerType = () => import('../../auth/register/registerType.vue');
-const registerStudentSchool = () => import('../../auth/register/student/registerStudentSchool.vue')
-const registerStudentCollege = () => import('../../auth/register/student/registerStudentCollege.vue')
-const registerParent = () => import('../../auth/register/parent/registerParent.vue')
-const registerTeacher = () => import('../../auth/register/teacher/registerTeacher.vue')
-
+const register = () => import('../../auth/register/register.vue');
 
 // login
 const setEmail = () => import('../../loginPageNEW/components/setEmail.vue');
@@ -90,13 +85,7 @@ export default {
       forgotPass,
       resetPassword,
 
-      // registrUniversity,
-      // registerCourse
-      registerType,
-      registerStudentSchool,
-      registerStudentCollege,
-      registerParent,
-      registerTeacher
+      register,
     },
     computed: {
         ...mapGetters(['getCurrentLoginStep', 'isFrymo']),

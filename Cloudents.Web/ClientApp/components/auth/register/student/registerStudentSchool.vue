@@ -29,8 +29,8 @@
 </template>
 
 <script>
-const registerUniversity = () => import('../registerUniversity.vue')
-const registerCourse = () => import('../registerCourse.vue')
+const registerUniversity = () => import('../registerUniversity/registerUniversity.vue')
+const registerCourse = () => import('../registerCourse/registerCourse.vue')
 
 export default {
     name: 'registerStudentSchool',

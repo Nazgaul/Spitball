@@ -7,7 +7,7 @@
 </template>
 
 <script>
-const courses = () => import('../../courses/addCourses/addCourses.vue')
+const courses = () => import('../../../courses/addCourses/addCourses.vue')
 
 export default {
     name: 'registerCourse',

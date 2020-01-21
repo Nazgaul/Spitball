@@ -7,7 +7,7 @@
 </template>
 
 <script>
-const university = () => import('../../university/addUniversity/addUniversity.vue');
+const university = () => import('../../../university/addUniversity/addUniversity.vue');
 
 export default {
     name: 'registerUniversity',

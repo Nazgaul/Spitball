@@ -46,7 +46,7 @@
 </template>
 
 <script>
-const registerCourse = () => import('../registerCourse.vue')
+const registerCourse = () => import('../registerCourse/registerCourse.vue')
 
 export default {
     name: 'registerParent',
