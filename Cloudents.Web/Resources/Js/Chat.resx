@@ -139,10 +139,10 @@
     <value>Connection Error</value>
   </data>
   <data name="emptyState_message1" xml:space="preserve">
-    <value>Hey, I’m</value>
+    <value>Hi, Nice to meet you, I’m</value>
   </data>
   <data name="emptyState_message2" xml:space="preserve">
-    <value>Please let me know what kind of help you need and I’ll be happy to help you.</value>
+    <value>So how can I help this time?</value>
   </data>
   <data name="file_error" xml:space="preserve">
     <value>This file type is not supported</value>
