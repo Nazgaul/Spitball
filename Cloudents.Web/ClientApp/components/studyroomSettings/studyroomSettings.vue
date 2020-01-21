@@ -51,6 +51,8 @@ import storeService from '../../services/store/storeService';
 
 import tutoringMain from '../../store/studyRoomStore/tutoringMain.js';
 import studyroomSettings_store from '../../store/studyRoomStore/studyroomSettings_store.js';
+import intercomSettings from '../../services/intercomService';
+
 
 export default {
   components:{
@@ -79,7 +81,7 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['getStepHistory', 'isFrymo']),
+    ...mapGetters(['getStepHistory']),
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly;
     },
@@ -121,12 +123,7 @@ export default {
         this.currentStep = page;
     },
     showIntercom(){
-      if(this.isFrymo){
-        window.open('mailto: support@frymo.com', '_blank');
-      }else{
-        global.Intercom('show')
-        global.intercomSettings.hide_default_launcher = false;
-      }
+      intercomSettings.showDialog();
     },
   },
   async created(){

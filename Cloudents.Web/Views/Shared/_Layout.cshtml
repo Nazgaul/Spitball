@@ -40,18 +40,13 @@
     }
 
     @await RenderSectionAsync("styleSection", required: false)
-
-
     @try
     {
-        @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}HeadTags", cdnEndPoint)
-        ;
-
+        @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}HeadTags", cdnEndPoint);
     }
     catch (InvalidOperationException ex)
     {
-        @await Html.PartialAsync("_SpitballTags")
-        ;
+        @await Html.PartialAsync("_SpitballTags");
     }
 
     @*@Html.Raw(JavaScriptSnippet.FullScript)*@
@@ -74,10 +69,11 @@
     <div>
         @RenderBody()
     </div>
-    <div class="cdn-only"></div>
+<div class="cdn-only"></div>
+
     <script>
         window.version = '@VersionService.GetVersion()';
-        window.publicPath = '@cdnEndPoint' + '/dist/';// + '@result/';
+        window.publicPath = '@cdnEndPoint' + '/dist/';
         window.isAuth = @isAuth.ToString().ToLower();
         window.siteName = '@VersionService.GetSiteName().ToString("G").ToLowerInvariant()';
         window.applicationId = '@JavaScriptSnippetTelemetry.InstrumentationKey';
@@ -94,7 +90,5 @@
     {
         @await Html.PartialAsync("_SpitballTags");
     }
-
-
 </body>
 </html>

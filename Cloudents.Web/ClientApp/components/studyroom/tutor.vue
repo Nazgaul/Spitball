@@ -283,6 +283,8 @@ import snapshotDialog from './tutorHelpers/snapshotDialog/snapshotDialog.vue';
 import stopRecording from './images/stop-recording.svg';
 import beginRecording from './images/begain-recording.svg';
 
+import intercomSettings from '../../services/intercomService';
+
 //store
 import storeService from "../../services/store/storeService";
 import tutoringCanvas from '../../store/studyRoomStore/tutoringCanvas.js';
@@ -387,7 +389,6 @@ export default {
       "releaseFullVideoButton",
       "getActiveNavIndicator",
       "getRecorder",
-      "isFrymo",
       "getRecorderStream",
       "getIsRecording",
       "getShowAudioRecordingError",
@@ -638,12 +639,7 @@ watch: {
       }
     },
     showIntercom(){
-      if(this.isFrymo){
-        window.open('mailto: support@frymo.com', '_blank');
-      }else{
-        global.Intercom('show')
-        global.intercomSettings.hide_default_launcher = false;
-      }
+      intercomSettings.showDialog();
     },
     toggleRecord(){
       studyRoomRecordingService.toggleRecord(this.isTutor);

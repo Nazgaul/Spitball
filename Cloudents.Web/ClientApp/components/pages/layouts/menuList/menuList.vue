@@ -111,7 +111,7 @@ import satelliteService from '../../../../services/satelliteService';
 
 import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
 import logoComponent from '../../../app/logo/logo.vue';
-
+import intercomSettings from '../../../../services/intercomService';
 
 export default {
    components: { userAvatar,logoComponent},
@@ -145,7 +145,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["accountUser",'isFrymo']),
+    ...mapGetters(["accountUser"]),
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -175,11 +175,7 @@ export default {
       );
     },
     startIntercom() {
-      if(this.isFrymo){
-        window.open('mailto: support@frymo.com', '_blank');
-      }else{
-        Intercom("showNewMessage");
-      }
+      intercomSettings.showDialog();
     },
     openReferralDialog() {
       this.$emit('closeMenu')

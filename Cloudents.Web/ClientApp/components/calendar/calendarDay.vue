@@ -87,7 +87,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getIntervalFirst','getCalendarAvailabilityState']),
+        ...mapGetters(['getIsCalendarShared','getIntervalFirst','getCalendarAvailabilityState','accountUser','getProfile']),
         availabilityDayState(){
             if(this.getCalendarAvailabilityState !== null){
                 let calendarDayList = []
@@ -170,7 +170,7 @@ export default {
         },
         timeFormatISO(time){
             let currentDate = new Date()
-            return new Date(`${currentDate.getFullYear(),currentDate.getMonth() , currentDate.getDay()} ${this.timeFormat(time)}`).toISOString().slice(11,19)
+            return new Date(currentDate.getFullYear(),currentDate.getMonth() , currentDate.getDay(), time,0,0,0).toISOString().slice(11,19)
         },
         closeAdditionalTime(){
             this.isAddTimeSlot = false;
@@ -205,7 +205,7 @@ export default {
         },
         initialHoursList(){
             if(this.availabilityDayState !== null){
-                let start = +this.availabilityDayState[0].from.split(':')[0];
+                let start = 8;
                 let end = 24;    
                 let difference = Math.abs(start-end);
                 let rangeArray = new Array(difference + 1).fill(undefined).map((val, key) => {
@@ -216,7 +216,7 @@ export default {
                 this.selectedHourFrom = +this.availabilityDayState[0].from.split(':')[0];
                 this.selectedHourTo = +this.availabilityDayState[0].to.split(':')[0]; 
             }else{
-                this.selectedHourFrom = LanguageService.getValueByKey("calendar_day_off");
+                this.selectedHourFrom = LanguageService.getValueByKey("calendar_day_off")
             }
         },
         initialAdditionalHoursList(){
@@ -244,19 +244,17 @@ export default {
 
     },
     created() {
-        if(this.day === 6){
-            this.selectedHourFrom = this.hoursList[0]
-        } else{
-            this.selectedHourFrom = this.getIntervalFirst;
-        }
+        this.selectedHourFrom = this.getIntervalFirst;
     },
     mounted() {
         this.runUpdate()
         this.updateStateAvailabilityCalendar(this.availabilityDay)
-        this.initialHoursList()
-        if(this.availabilityDayState !== null && this.availabilityDayState.length > 1){
-            this.initialAdditionalHoursList()
-        }
+            if(this.getIsCalendarShared === true){
+                this.initialHoursList()
+                if(this.availabilityDayState !== null && this.availabilityDayState.length > 1){
+                    this.initialAdditionalHoursList()
+                }
+            }
     },
     updated() {
         this.runUpdate()

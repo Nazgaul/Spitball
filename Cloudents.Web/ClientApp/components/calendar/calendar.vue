@@ -187,7 +187,7 @@ export default {
         return this.getNeedPayment && Number(price) > 0;
       },
       isSelfTutor() {
-        if((!!this.getProfile && !!this.accountUser) && this.getProfile.user.id == this.accountUser.id) {
+        if((this.$route.name == 'myCalendar') || (!!this.getProfile && !!this.accountUser) && this.getProfile.user.id == this.accountUser.id) {
           return true
         }
         return false

@@ -24,7 +24,7 @@ namespace Cloudents.Query
                 .Fetch(f => f.User)
                 .ThenFetch(f => f.University)
                 .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
-
+                
             var count = _session.Query<Document>().Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok);
 
             if (query.DocumentType != null)
@@ -40,7 +40,7 @@ namespace Cloudents.Query
                 r = r.Where(w => w.Course.Id == query.Course);
                 count = count.Where(w => w.Course.Id == query.Course);
             }
-
+            r.OrderByDescending(o => o.Boost).ThenByDescending(o => o.TimeStamp.UpdateTime);
             var result = r.Select(s => new DocumentFeedDto()
             {
                 Id = s.Id,
@@ -67,16 +67,22 @@ namespace Cloudents.Query
                 Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument)
 
             }
-            ).OrderByDescending(o => o.DateTime)
+                )
             .Take(query.PageSize).Skip(query.Page * query.PageSize).ToFuture();
 
-           var countFuture = count.ToFuture();
+            var countFuture = count
+            .GroupBy(g => 1)
+.Select(s => s.Count()).ToFutureValue();
 
+
+            //var countFuture = count.ToFuture();
+
+            var futureResult = await result.GetEnumerableAsync(token);
 
             return new ListWithCountDto<DocumentFeedDto>()
             {
-                Result = await result.GetEnumerableAsync(token),
-                Count = (await countFuture.GetEnumerableAsync(token)).Count()
+                Result = futureResult,
+                Count =  countFuture.Value
             };
         }
     }

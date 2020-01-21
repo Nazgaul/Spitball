@@ -4,7 +4,7 @@ namespace Cloudents.Command.Command.Admin
 {
     public class CreateQuestionCommand : ICommand
     {
-        public CreateQuestionCommand(string courseName, Guid university,
+        public CreateQuestionCommand(string courseName, string university,
             string text, string country)
         {
             CourseName = courseName;
@@ -18,6 +18,6 @@ namespace Cloudents.Command.Command.Admin
 
 
         public string Country { get; }
-        public Guid University { get; }
+        public string University { get; }
     }
 }

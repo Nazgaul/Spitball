@@ -15,9 +15,13 @@ const state = {
     selectedCalendarList:[],
     tutorDailyHours:[],
     tutorDailyHoursState:[],
+    isCalendarShared:null,
 };
 
 const mutations ={
+    setIsCalendarShared(state,val){
+        state.isCalendarShared = val;
+    },
     setCalendarEvents(state,events){
         state.calendarEvents = events;
     },
@@ -80,6 +84,7 @@ const getters ={
     getIntervalFirst: state => state.intervalFirst,
     getCalendarAvailabilityIsValid: state => (state.tutorDailyHours.length),
     getCalendarAvailabilityState: state => state.tutorDailyHoursState,
+    getIsCalendarShared:state => state.isCalendarShared,
 };
 
 const actions ={
@@ -96,7 +101,7 @@ const actions ={
         commit('setSelectedCalendarList',selectedCalendarList);
     },
     updateSelectedCalendarList({state}){
-        if(state.selectedCalendarList.length){
+        if(state.selectedCalendarList){
             return calendarService.postCalendarsList(state.selectedCalendarList);
         }else{
             return Promise.resolve();
@@ -186,23 +191,11 @@ const actions ={
         commit('setNeedPayment',val);
     },
     updateCalendarStatus({state,getters,dispatch}){
-        let isSharedCalendar;
-        if(getters.getProfile){
-           isSharedCalendar = getters.getProfile.user.calendarShared;
-        }else{
-            calendarService.getAccountAvailabilityCalendar().then(res=>{
-                isSharedCalendar = res.calendarShared;
-                state.tutorDailyHoursState = res.tutorDailyHours
-            })
-        }
-        setTimeout(() => {
+        let isSharedCalendar = getters.getProfile.user.calendarShared;
+
+
             if(isSharedCalendar){
-                let tutorId; 
-                if(getters.getProfile){
-                    tutorId = router.history.current.params.id;
-                }else{
-                    tutorId = getters.accountUser.id;
-                }
+                let tutorId = router.history.current.params.id;
                return dispatch('initCalendar',tutorId).then(()=>{
                     return Promise.resolve();
                },(err)=>{
@@ -211,7 +204,19 @@ const actions ={
             }else{
                 dispatch('gapiLoad',state.scope);
             }
-        }, 100);
+    },
+    updateCalendarStatusDashboard({dispatch,commit,state}){
+        return calendarService.getAccountAvailabilityCalendar().then(res=>{
+            commit('setIsCalendarShared',res.calendarShared)
+            if(!res.calendarShared){
+                return Promise.resolve(false);
+            }else{
+                return dispatch('getCalendarListAction').then(()=>{
+                    state.tutorDailyHoursState = res.tutorDailyHours
+                    return Promise.resolve(true);
+                })
+            }
+        })
     }
 };
 
