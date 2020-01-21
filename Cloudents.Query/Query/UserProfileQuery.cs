@@ -99,7 +99,7 @@ and uc.tutorId =  :profileId";
 
                 var coursesFuture = _session.Query<Document>()
                     .Fetch(f => f.User).Fetch(f => f.Course)
-                    .Where(w => w.User.Id == query.Id)
+                    .Where(w => w.User.Id == query.Id && w.Status.State == Core.Enum.ItemState.Ok)
                     .Select(s => s.Course.Id).Distinct()
                     .ToFuture();
 
