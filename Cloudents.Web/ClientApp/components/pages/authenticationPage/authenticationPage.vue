@@ -1,15 +1,18 @@
 <template>
    <div class="authenticationPage">
-         <button class="back-button">
+
+        <button class="back-button">
             <v-icon right @click="updateDialog(true)">sbf-close</v-icon>
         </button>
+
         <div class="leftSection d-none d-sm-none d-md-none d-lg-flex" :class="{'reg_frymo': isFrymo}">
             <logo class="logo"/>
             <p class="text" v-language:inner="'loginRegister_main_txt'"></p>
         </div>
+
         <div class="stepsSections">
             <div class="stepContainer">
-                <component :is="`${'registerType'}`"/>
+                <component :is="`${'registerStudentCollege'}`"/>
             </div>
         </div>
 
@@ -47,15 +50,12 @@ const setPhone = () => import('../../loginPageNEW/components/setPhone.vue');
 const VerifyPhone = () => import('../../loginPageNEW/components/VerifyPhone.vue');
 const congrats = () => import('../../loginPageNEW/components/congrats.vue');
 
+
 const registerType = () => import('../../auth/register/registerType.vue');
-
-// register student high school
-
-// register student college
-
-// register parent
-
-// register teacher
+const registerStudentSchool = () => import('../../auth/register/student/registerStudentSchool.vue')
+const registerStudentCollege = () => import('../../auth/register/student/registerStudentCollege.vue')
+const registerParent = () => import('../../auth/register/parent/registerParent.vue')
+const registerTeacher = () => import('../../auth/register/teacher/registerTeacher.vue')
 
 
 // login
@@ -90,8 +90,14 @@ export default {
       forgotPass,
       resetPassword,
 
-      registerType
-      },
+      // registrUniversity,
+      // registerCourse
+      registerType,
+      registerStudentSchool,
+      registerStudentCollege,
+      registerParent,
+      registerTeacher
+    },
     computed: {
         ...mapGetters(['getCurrentLoginStep', 'isFrymo']),
         currentStep(){

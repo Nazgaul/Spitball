@@ -34,9 +34,6 @@
                     <v-divider class="mr-4" vertical></v-divider>
                     <span class="panel_title text-center pr-5" v-language:inner="'loginRegister_parent'"></span>
                 </v-expansion-panel-header>
-                <v-expansion-panel-content>
-
-                </v-expansion-panel-content>
             </v-expansion-panel>
 
             <v-expansion-panel class="panel panel_teacher" readonly @click="goTeacher">
@@ -45,9 +42,6 @@
                     <v-divider class="mr-4" vertical></v-divider>
                     <span class="panel_title text-center pr-5" v-language:inner="'loginRegister_teacher'"></span>
                 </v-expansion-panel-header>
-                <v-expansion-panel-content>
-
-                </v-expansion-panel-content>
             </v-expansion-panel>
         </v-expansion-panels>
 
@@ -72,18 +66,23 @@ export default {
     },
     data:() => ({
         panel: [],
+        currentTypeStep: ''
     }),
     methods: {
         goHighSchool() {
+            this.currentTypeStep = 'goHighSchool';
             console.log('goHighSchool');
         },
         goCollege() {
+            this.currentTypeStep = 'goCollege';
             console.log('goCollege');
         },
         goStudent() {
+            this.currentTypeStep = 'goStudent';
             console.log('goStudent');
         },
         goTeacher() {
+            this.currentTypeStep = 'goTeacher';
             console.log('goTeacher');
         },
     },

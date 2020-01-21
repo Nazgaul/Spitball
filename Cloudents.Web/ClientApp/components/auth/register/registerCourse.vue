@@ -1,0 +1,38 @@
+<template>
+    <div id="registerCourse">
+        <div class="text-center courses_title" v-language:inner="'courses_choose_title'"></div>
+
+        <courses />
+    </div>
+</template>
+
+<script>
+const courses = () => import('../../courses/addCourses/addCourses.vue')
+
+export default {
+    name: 'registerCourse',
+    components: { courses },
+    data: () => ({
+
+    })
+}
+</script>
+
+<style lang="less">
+
+#registerCourse {
+    .courses_title {
+        font-size: 26px;
+        font-weight: 600;
+        margin-bottom: 60px;
+    }
+
+    .add-courses-wrap {
+        width: 500px;
+        #search-classes-list {
+            max-height: 360px;
+        }
+    }
+}
+
+</style>
