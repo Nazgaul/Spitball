@@ -66,7 +66,7 @@ import uploadService from "../../../services/uploadService";
 import analyticsService from '../../../services/analytics.service';
 import { LanguageService } from "../../../services/language/languageService";
 
-import FileUpload from 'vue-upload-component/src';
+import FileUpload from 'vue-upload-component';
 import customChunkHandler from './customChunkHandler.js'
 
 export default {

@@ -37,7 +37,7 @@ import {mapGetters, mapActions, mapMutations} from 'vuex';
 
 import studyroomSettingsUtils from './studyroomSettingsUtils';
 import tutorService from '../studyroom/tutorService';
-import logo from '../../../wwwroot/Images/logo-spitball.svg'
+import logo from '../../components/app/logo/logo-spitball.svg';
 import intercomSVG from './image/icon-1-2.svg'
 
 import unableToConnetStep from './components/unableToConnetStep.vue';

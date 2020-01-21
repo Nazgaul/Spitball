@@ -8,7 +8,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin = require('terser-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
 module.exports = (env) => {
     const isDevBuild =  !(env && env.prod);
@@ -22,10 +22,11 @@ module.exports = (env) => {
             rules: [
                 {
                     test: /\.svg$/,
+                    include: path.resolve(__dirname, 'ClientApp'),
                     use:[
-                        {
-                            loader: 'babel-loader',
-                        },
+                        //{
+                        //    loader: 'babel-loader',
+                        //},
                         {
                             loader: "vue-svg-loader",
                         options: {
@@ -54,6 +55,7 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.(png|jpg|jpeg|gif)$/,
+                    include: path.resolve(__dirname, 'ClientApp'),
                     use: [
                         {
                             loader: "url-loader",
@@ -78,27 +80,28 @@ module.exports = (env) => {
 
                 },
                 {
-                    test: /\.font\.js/,
+                    test: path.resolve(__dirname,'./clientApp/myFont.font.js'),
+                    //include: path.resolve(__dirname, 'ClientApp'),
                     use: isDevBuild ? [
                         {
-                            loader: 'vue-style-loader',
+                            loader: 'vue-style-loader'
                         },
-                            {
-                                loader: 'rtl-css-loader',
-                            },
-                            {
-                                loader: 'webfonts-loader',
-                                options: {
-                                    publicPath: '/dist/'
-                                }
-                            }]
+                        {
+                            loader: 'rtl-css-loader'
+                        },
+                        {
+                            loader: 'webfonts-loader',
+                            options: {
+                                publicPath: '/dist/'
+                            }
+                        }]
                         :
                     [
                         {
-                            loader: MiniCssExtractPluginRtl.loader,
+                            loader: MiniCssExtractPluginRtl.loader
                         },
                         {
-                            loader: 'css-loader',
+                            loader: 'css-loader'
                         },
                         {
                             loader: 'webfonts-loader',
@@ -114,10 +117,16 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.js$/,
+                    include: path.resolve(__dirname, 'ClientApp'),
                     loader: "babel-loader"
                 },
                 {
-                    test: /\.vue$/,  loader: 'vue-loader',
+                    test: /\.vue$/,
+                    include: [
+                        path.resolve(__dirname, 'ClientApp'),
+                        //path.resolve(__dirname, "./node_modules/vue-upload-component/src/*.vue")
+                    ],
+                    loader: 'vue-loader',
                 },
                 {
                     test: /\.css(\?|$)/,
@@ -180,6 +189,7 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.less(\?|$)/,
+                    include: path.resolve(__dirname, 'ClientApp'),
                     use:
                         isDevBuild ? ['vue-style-loader', 'rtl-css-loader', 'less-loader']
                         :
