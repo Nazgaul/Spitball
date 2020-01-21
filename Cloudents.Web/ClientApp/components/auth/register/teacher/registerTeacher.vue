@@ -1,9 +1,5 @@
 <template>
-    <div id="registerTeacher">
-        <!-- <component :is="teacherStep"></component> -->
-
-        <button @click="openBecomeTutorDialog">click</button>
-    </div>
+    <div id="registerTeacher"></div>
 </template>
 
 <script>
@@ -14,9 +10,11 @@ export default {
     }),
     methods: {
         openBecomeTutorDialog() {
-            debugger
             this.$store.dispatch('updateTutorDialog',true)
         }
+    },
+    mounted() {
+        this.openBecomeTutorDialog();
     }
 }
 </script>

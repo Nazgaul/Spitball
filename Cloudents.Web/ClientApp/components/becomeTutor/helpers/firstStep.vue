@@ -133,7 +133,10 @@
                 return this.$vuetify.breakpoint.xsOnly;
             },
             currencySymbol() {
-                return this.accountUser.currencySymbol
+                if(this.accountUser) {
+                    return this.accountUser.currencySymbol
+                }
+                return '';
             },
         },
         methods: {

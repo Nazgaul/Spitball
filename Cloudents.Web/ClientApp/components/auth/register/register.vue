@@ -1,13 +1,13 @@
 <template>
     <div id="registerFlow">
-        <component :is="`${step}`"></component>
+        <component :is="`${registerStep}`"></component>
 
-        <template v-if="step !== 'registerType'">
+        <template v-if="showActions">
             <div class="actions text-center mt-10">
                 <v-btn @click="''" class="btn register_btn_back" color="#4452fc" depressed height="40" outlined rounded>
                     <span v-language:inner="'tutorRequest_back'"></span>
                 </v-btn>
-                <v-btn class="btn register_btn_next white--text" depressed rounded height="40" @click="''" color="#4452fc">
+                <v-btn @click="nextStep" class="btn register_btn_next white--text" depressed rounded height="40" color="#4452fc">
                     <span v-language:inner="'tutorRequest_next'"></span>
                 </v-btn>
             </div>
@@ -32,10 +32,12 @@ export default {
         registerTeacher
     },
     data:() => ({
-        step: 'registerTeacher'
+        registerStep: 'registerType'
     }),
-    methods: {
-
+    computed: {
+        showActions() {
+            return this.step !== 'registerType' && this.step !== 'registerTeacher'
+        }
     }
 }
 </script>
