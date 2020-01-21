@@ -33,18 +33,38 @@ namespace Cloudents.Query.Query
             {
                 const int pageSize = 50;
                 const string sql =
-                            @"select Name,
-	case when uc.CourseId is not null then 1 else null end as IsFollowing,
+                            @"declare @country nvarchar(2) = (select country from sb.[user] where id = @Id);
+with cte as 
+(
+select CourseId, count(1) as Students
+		from sb.UsersCourses uc1 
+		join sb.[user] u1 
+			on u1.Id = uc1.UserId 
+		join sb.University un
+			on un.Id = u1.UniversityId2
+		where un.Country = @Country
+		group by CourseId
+)
+
+select Name,
+	1 as IsFollowing,
 	c.count as Students
 from sb.Course c
-left join sb.UsersCourses uc
+join sb.UsersCourses uc
 	on c.Name = uc.CourseId and uc.UserId = @Id
-where  State = 'OK'
-order by case when uc.CourseId is not null
-        then 1 else null end desc,
+where State = 'OK'
+union
+select Name,
+	0 as IsFollowing,
+	c.count as Students
+from sb.Course c
+where State = 'OK'
+and c.Name in (select CourseId from cte where CourseId = c.Name)
+and c.Name not in (select uc.CourseId from sb.UsersCourses uc where c.Name = uc.CourseId and uc.UserId = @Id)
+order by IsFollowing desc,
 		c.count desc
-  OFFSET @PageSize * @Page ROWS
-  FETCH NEXT @PageSize ROWS ONLY;";
+OFFSET @PageSize * @Page ROWS
+FETCH NEXT @PageSize ROWS ONLY;";
                 using (var conn = _dapperRepository.OpenConnection())
                 {
                     return await conn.QueryAsync<CourseDto>(sql, new
