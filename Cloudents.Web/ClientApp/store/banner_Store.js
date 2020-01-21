@@ -1,38 +1,39 @@
 import bannerService from '../services/bannerService.js'
 
 const state = {
-    bannerSatus: false, 
+    bannerStatus: false, 
     bannerParams: null,
 };
 const mutations = {
-    setBannerSatus: (state,val) => state.bannerSatus = val,
+    setBannerStatus: (state,val) => state.bannerStatus = val,
     setBannerParams: (state,val) => state.bannerParams = val,
 };
 const getters = {
-    getBannerSatus: state => state.bannerSatus,
+    getBannerStatus: state => state.bannerStatus,
     getBannerParams: state => state.bannerParams,
 };
 const actions = {
-    updateBannerSatus({commit,state,dispatch},val){
+    updateBannerStatus({commit,state,dispatch},val){
         if(val){
             dispatch('updateBannerParams');
         }else{
             bannerService.bannerStorage(state.bannerParams.id);
-            commit('setBannerSatus',false);
+            commit('setBannerStatus',false);
         }
     },
     updateBannerParams({commit}){
         bannerService.getBannerParams().then(params=>{ 
+            debugger;
             if(!!params && params.id){
                 let localStorageList = JSON.parse(global.localStorage.getItem("sb_banner"));
                 if(localStorageList !== null && localStorageList.includes(params.id)){
-                    commit('setBannerSatus',false);
+                    commit('setBannerStatus',false);
                 }else{
-                    commit('setBannerSatus',true);
+                    commit('setBannerStatus',true);
                     commit('setBannerParams',params);
                 }
             }else{
-                commit('setBannerSatus',false);
+                commit('setBannerStatus',false);
             }
         });
     }

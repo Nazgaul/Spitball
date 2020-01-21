@@ -1,5 +1,5 @@
 <template>
-    <div v-if="showBlock" :class="['itemPage__side',{'itemPage__sideActiveBanner':getBannerSatus}]">
+    <div v-if="showBlock" :class="['itemPage__side',{'itemPage__sideActiveBanner':getBannerStatus}]">
         <template v-if="!isLoading">
             <template v-if="!zeroPrice && !isPurchased">
                 <div class="itemPage__side__top">
@@ -84,7 +84,7 @@ export default {
         secure,
     },
     computed: {
-        ...mapGetters(['accountUser', 'getBtnLoading','getBannerSatus']),
+        ...mapGetters(['accountUser', 'getBtnLoading','getBannerStatus']),
 
         showBlock() {
             if(this.isVideo) {
