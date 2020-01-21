@@ -80,7 +80,7 @@ module.exports = (env) => {
 
                 },
                 {
-                    test: path.resolve(__dirname,'./clientApp/myFont.font.js'),
+                    test: path.resolve(__dirname,'./ClientApp/myFont.font.js'),
                     //include: path.resolve(__dirname, 'ClientApp'),
                     use: isDevBuild ? [
                         {
