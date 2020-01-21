@@ -91,7 +91,7 @@ export default {
             course:'',
             documentType:'',
             page: 1,
-            pageSize:6,
+            pageSize: this.$vuetify.breakpoint.xsOnly? 3 : 6,
          }
       }
    },
@@ -147,9 +147,9 @@ export default {
             course: this.query.course,
          }
          Object.keys(params).forEach((key) => (params[key] === '') && delete params[key]);
-         let self = this;
          this.globalFunctions.getItems(type,params).then(()=>{
-            self.globalFunctions.scrollTo('profileItemsBox')
+            let scrollDiv = document.getElementById("profileItemsBox").offsetTop;
+            window.scrollTo({ top: scrollDiv, behavior: 'smooth'});
          })
 
       },
@@ -163,10 +163,7 @@ export default {
          return false;
       }
 
-   },
-   created() {
-      this.query.pageSize = this.$vuetify.breakpoint.xsOnly? 3 : 6
-   },
+   }
 }
 </script>
 
