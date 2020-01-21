@@ -1,6 +1,5 @@
 <template>
   <div>
-      <div>Hi ram {{getBannerStatus}}</div>
     <banner v-if="getBannerStatus"></banner>
   </div>
 </template>
