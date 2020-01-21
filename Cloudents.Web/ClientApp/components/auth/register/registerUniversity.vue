@@ -1,7 +1,7 @@
 <template>
     <div id="registerUniversity">
         <slot name="titleUniversity"></slot>
-        
+
         <university />
     </div>
 </template>
@@ -19,6 +19,7 @@ export default {
 
 <style lang="less">
 #registerUniversity {
+    max-width: 500px;
     .university_title {
         font-size: 26px;
         font-weight: 600;
@@ -27,7 +28,6 @@ export default {
 
     .add-university-wrap {
         width: 500px;
-
         .university-list {
             max-height: 360px;
         }

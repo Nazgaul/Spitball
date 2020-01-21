@@ -21,6 +21,7 @@ export default {
 <style lang="less">
 
 #registerCourse {
+    max-width: 500px;
     .courses_title {
         font-size: 26px;
         font-weight: 600;

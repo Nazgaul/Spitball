@@ -12,7 +12,7 @@
 
         <div class="stepsSections">
             <div class="stepContainer">
-                <component :is="`${'registerStudentCollege'}`"/>
+                <component :is="`${'registerParent'}`"/>
             </div>
         </div>
 
