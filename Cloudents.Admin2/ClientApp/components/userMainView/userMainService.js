@@ -189,6 +189,16 @@ function createSessionsItem(objInit){
     return new SessionsItem(objInit);
 };
 
+function NotesItem(objInit)
+{
+    this.text = objInit.text;
+    this.adminUser = objInit.adminUser;
+    this.created = new Date(objInit.created).toLocaleString();
+}
+function createNotesItem(objInit){
+    return new NotesItem(objInit);
+};
+
 export default {
     getUserData: (id) => {
         let path = `AdminUser/info?userIdentifier=${encodeURIComponent(id)}`;
@@ -286,6 +296,21 @@ export default {
         });
 
     },
+    getUserNotes:(id) => 
+    {
+        let path = `AdminUser/notes`;
+        return connectivityModule.http.get(`${path}?id=${id}`).then((newNotesList) => {
+            let arrNotesList = [];
+            if (newNotesList.length > 0) {
+                newNotesList.forEach((note) => {
+                    arrNotesList.push(createNotesItem(note));
+                });
+            }
+            return arrNotesList;
+        }, (err) => {
+            return err;
+        });
+    },
     verifyPhone: (data) => {
         let path = `AdminUser/verify`;
         return connectivityModule.http.post(path, data)
@@ -319,5 +344,13 @@ export default {
     },
     deletePayment: (id) => {
         return connectivityModule.http.delete(`AdminPayment/deletePayment?userId=${id}`);
-    }
+    },
+    addUserNote : (data) => {
+        let path = `AdminUser/note`;
+        return connectivityModule.http.post(path, data).then((adminEmail) => {
+            return createNotesItem({text: data.text, adminUser: adminEmail, created: Date.now()});
+        }, (err) => {
+            return err;
+        });
+    }    
 }
