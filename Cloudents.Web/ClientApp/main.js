@@ -24,7 +24,6 @@ if(!window.IntersectionObserver){
 import './filters/filters';
 
 import VueNumeric from 'vue-numeric';
-import VueMathjax from 'vue-mathjax';
 import utilitiesService from './services/utilities/utilitiesService';
 import VueAppInsights from 'vue-application-insights';
 import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
@@ -36,7 +35,6 @@ Vue.use(VueFlicking);
 
 import * as route from "./routes";
 
-Vue.use(VueMathjax);
 Vue.use(VueRouter);
 Vue.use(LoadScript);
 

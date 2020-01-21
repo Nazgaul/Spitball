@@ -9,8 +9,12 @@
 </template>
 
 <script>
+import {VueMathjax} from 'vue-mathjax'
 import * as MyScriptJS from 'myscript';
 export default {
+  components:{
+    VueMathjax
+  },
   data(){
     return{
       latexSyntax: '',
