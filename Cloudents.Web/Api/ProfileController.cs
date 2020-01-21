@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Cloudents.Web.Models;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Web.Api
 {
@@ -99,10 +100,9 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(200)]
 
         public async Task<WebResponseWithFacet<DocumentFeedDto>> GetDocumentsAsync(
-            long id, int page,
-            int pageSize = 20, CancellationToken token = default)
+            [FromQuery] ProfileDocumentsRequest request, CancellationToken token = default)
         {
-            var query = new UserDocumentsQuery(id, page, pageSize);
+            var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize, request.DocumentType, request.Course);
             var retValTask = _queryBus.QueryAsync(query, token);
 
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);

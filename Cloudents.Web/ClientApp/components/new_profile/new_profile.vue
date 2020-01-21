@@ -6,6 +6,8 @@
             <profileUserBox/>
             <calendarTab v-if="showProfileCalendar" class="mb-3" :globalFunctions="globalFunctions"/>
             <profileEarnMoney v-if="showEarnMoney" class="mb-3" :globalFunctions="globalFunctions"/>
+            <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>
+            <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>
             <profileItemsBox v-if="showItems" class="mb-3" :globalFunctions="globalFunctions"/>
 
             <!-- <v-layout wrap v-bind="xsColumn" align-start  justify-start>

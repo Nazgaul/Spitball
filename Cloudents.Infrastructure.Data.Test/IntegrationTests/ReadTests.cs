@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using Cloudents.Query.Query.Admin;
 using NHibernate.Linq;
 using Xunit;
+using Cloudents.Core.Enum;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -112,10 +113,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             result.Reviews.Should().BeInDescendingOrder(x => x.Created);
         }
 
-        [Fact]
-        public async Task UserDocumentsQueryHandler_Ok()
+        [Theory]
+        [InlineData(638, 0, 20, null, null)]
+        [InlineData(638, 0, 20, DocumentType.Document, null)]
+        [InlineData(638, 0, 20, null, "Temp")]
+        public async Task UserDocumentsQueryHandler_Ok(long userId, int page, int pageSize, DocumentType? documentType, string course)
         {
-            var query = new UserDocumentsQuery(638, 0, 20);
+            var query = new UserDocumentsQuery(userId, page, pageSize, documentType, course);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 

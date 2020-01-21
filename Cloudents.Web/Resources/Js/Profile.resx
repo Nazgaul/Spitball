@@ -341,4 +341,19 @@
   <data name="book_session_mobile_xs" xml:space="preserve">
     <value>Book</value>
   </data>
+  <data name="select_course" xml:space="preserve">
+    <value>Select Course</value>
+  </data>
+  <data name="select_item_type_all" xml:space="preserve">
+    <value>All Types</value>
+  </data>
+  <data name="select_item_type_docs" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="select_item_type_videos" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="study_materials_mobile" xml:space="preserve">
+    <value>Content by {1}</value>
+  </data>
 </root>

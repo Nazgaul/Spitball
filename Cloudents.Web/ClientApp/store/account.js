@@ -6,6 +6,7 @@ import initSignalRService from '../services/signalR/signalrEventService';
 import insightService from '../services/insightService';
 import { LanguageService } from '../services/language/languageService';
 import intercomeService from '../services/intercomService';
+import profileService from "../services/profileService";
 
 const state = {
     profileReviews:null,
@@ -201,13 +202,13 @@ const getters = {
 const actions = {
     toggleProfileFollower({state,commit},val){
         if(val){
-            return accountService.followProfile(state.profile.user.id).then(()=>{
+            return profileService.followProfile(state.profile.user.id).then(()=>{
                 commit('setProfileFollower',true)
 
                 return Promise.resolve()
             })
         }else{
-            return accountService.unfollowProfile(state.profile.user.id).then(()=>{
+            return profileService.unfollowProfile(state.profile.user.id).then(()=>{
                 commit('setProfileFollower',false)
                 return Promise.resolve()
             })
@@ -244,23 +245,19 @@ const actions = {
         context.commit('changeIsUserTutor', val);
         context.commit('setIsTutorState', 'pending');
     },
-    syncProfile(context, {id,type,page,pageSize,/*activeTab*/}) {
+    syncProfile(context, {id,type,params,/*activeTab*/}) {
         
-        //fetch all the data before returning the value to the component
-        accountService.getProfile(id).then(val => {
-            let profileUserData = accountService.createUserProfileData(val);
+        // //fetch all the data before returning the value to the component
+        profileService.getProfile(id).then(profileUserData=>{
             context.commit('setProfile', profileUserData);
-            // cause of multiple profile requests to server
-            // context.dispatch('setProfileByActiveTab', activeTab);  
-            context.dispatch('updateProfileItemsByType', {id,type,page,pageSize});
+            context.dispatch('updateProfileItemsByType', {id,type,params});
             context.dispatch('setUserStatus', profileUserData.user);
             if(profileUserData.user.isTutor){
-                accountService.getProfileReviews(id).then(val=>{
+                profileService.getProfileReviews(id).then(val=>{
                     context.commit('setProfileReviews', val);
                 })
             }
         });
-        
     },
     getRefferedUsersNum(context, id) {
         accountService.getNumberReffered(id)
@@ -273,45 +270,40 @@ const actions = {
                             }
                       );
     },
-    updateProfileItemsByType({state,commit},{id,type,page,pageSize}){
+    updateProfileItemsByType({state,commit},{id,type,params}){
         if(!!state.profile && !!state.profile.user) {
             if(type == "documents"){
-                return accountService.getProfileDocuments(id,page,pageSize).then(documents => {
+                return profileService.getProfileDocuments(id,params).then(documents => {
                     commit('setPorfileDocuments', documents);
                 });
             }
         }
     },
-    setProfileByActiveTab(context, activeTab) {
-        if(!!context.state.profile && !!context.state.profile.user) {
-            let id = context.state.profile.user.id;
+    // setProfileByActiveTab(context, activeTab) {
+    //     if(!!context.state.profile && !!context.state.profile.user) {
+    //         let id = context.state.profile.user.id;
 
-            if(activeTab === 1) {
-                return accountService.getProfileDocuments(id).then(vals => {
-                    let documents = accountService.createProfileDocumentData(vals);
-                    context.commit('setPorfileDocuments', documents);
-                });
-            }
-            if(activeTab === 2) {
-                return accountService.getProfileAnswers(id).then(vals => {
-                    let answers = accountService.createProfileAnswerData(vals);
-                    context.commit('setProfileAnswers', answers);
-                });
-            }
-            if(activeTab === 3) {
-                return accountService.getProfileQuestions(id).then(vals => {
-                    let profileData = accountService.createProfileQuestionData(vals);
-                    context.commit('setProfileQuestions', profileData);
-                });
-            }
-            if(activeTab === 4) {
-                return accountService.getProfilePurchasedDocuments(id).then(vals => {
-                    let purchasedDocuments = accountService.createProfileDocumentData(vals);
-                    context.commit('setPorfilePurchasedDocuments', purchasedDocuments);
-                });
-            }
-        }
-    },
+
+    //         if(activeTab === 2) {
+    //             return accountService.getProfileAnswers(id).then(vals => {
+    //                 let answers = accountService.createProfileAnswerData(vals);
+    //                 context.commit('setProfileAnswers', answers);
+    //             });
+    //         }
+    //         if(activeTab === 3) {
+    //             return accountService.getProfileQuestions(id).then(vals => {
+    //                 let profileData = accountService.createProfileQuestionData(vals);
+    //                 context.commit('setProfileQuestions', profileData);
+    //             });
+    //         }
+    //         if(activeTab === 4) {
+    //             return accountService.getProfilePurchasedDocuments(id).then(vals => {
+    //                
+    //                 context.commit('setPorfilePurchasedDocuments', purchasedDocuments);
+    //             });
+    //         }
+    //     }
+    // },
     removeItemFromProfile({commit}, data) {
         commit('deleteItemFromProfile', data);
     },
