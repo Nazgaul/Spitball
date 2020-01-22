@@ -1,5 +1,5 @@
 <template>
-<div id="profileItemsBox" v-if="items">
+<div id="profileItemsBox">
    <div class="profileItemsBox_title text-truncate" 
    v-text="$Ph($vuetify.breakpoint.xsOnly? 'profile_study_materials_mobile':'profile_study_materials',userName)"/>   
    <div class="profileItemsBox_filters">
@@ -38,20 +38,22 @@
          </v-select>
       </v-flex>
    </div>
-   <div class="profileItemsBox_content" v-if="$vuetify.breakpoint.smAndUp">
-      <itemCard v-for="(item, index) in items" :key="index" :item="item"/>
-   </div>
-   <div v-if="$vuetify.breakpoint.xsOnly" class="profileItemsBox_content_mobile">
-      <resultNote v-for="(item, index) in items" :key="index" :item="item" class="pa-3 mb-2"/>
-   </div>
-   <div class="profileItemBox_pagination" v-if="pageCount > 1">
-      <v-pagination
-         total-visible=7 
-         v-model="query.page" 
-         :length="pageCount"
-         :next-icon="`sbf-arrow-right-carousel`"
-         :prev-icon="`sbf-arrow-left-carousel`"/>
-   </div>
+   <template v-if="!!items && items.length">
+      <div class="profileItemsBox_content" v-if="$vuetify.breakpoint.smAndUp">
+         <itemCard v-for="(item, index) in items" :key="index" :item="item"/>
+      </div>
+      <div v-if="$vuetify.breakpoint.xsOnly" class="profileItemsBox_content_mobile">
+         <resultNote v-for="(item, index) in items" :key="index" :item="item" class="pa-3 mb-2"/>
+      </div>
+      <div class="profileItemBox_pagination mb-3" v-if="pageCount > 1">
+         <v-pagination
+            total-visible=7 
+            v-model="query.page" 
+            :length="pageCount"
+            :next-icon="`sbf-arrow-right-carousel`"
+            :prev-icon="`sbf-arrow-left-carousel`"/>
+      </div>
+   </template>
 </div>
 </template>
 
@@ -109,13 +111,13 @@ export default {
          return Math.ceil(this.getProfile.documents.count / this.query.pageSize);
       },
       items(){
-         return this.getProfile.documents.result;
+         return this.getProfile?.documents.result;
       },
       userName(){
-         return this.getProfile.user.firstName? this.getProfile.user.firstName : this.getProfile.user.name;
+         return this.getProfile?.user.firstName? this.getProfile.user.firstName : this.getProfile.user.name;
       },
       userCourses(){
-         return this.getProfile.user.courses;
+         return this.getProfile?.user.courses;
       }
    },
    methods: {

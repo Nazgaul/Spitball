@@ -356,4 +356,7 @@
   <data name="study_materials_mobile" xml:space="preserve">
     <value>Content by {1}</value>
   </data>
+  <data name="empty_title" xml:space="preserve">
+    <value>No files are currently available</value>
+  </data>
 </root>
