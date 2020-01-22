@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Cloudents.Core.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
@@ -23,6 +24,9 @@ namespace Cloudents.Web.Models
         [Required(ErrorMessage = "Required")]
         [Compare("Password", ErrorMessage = "PasswordNotMatch")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Required")]
+        public Gender Gender { get; set; }
 
         [Captcha]
         public string Captcha { get; set; }
