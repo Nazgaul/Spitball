@@ -8,7 +8,6 @@ import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import LoadScript from 'vue-plugin-load-script';
 import VueClipboard from 'vue-clipboard2';
-// import VueNumeric from 'vue-numeric';
 import VueAppInsights from 'vue-application-insights';
 import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
 import VueFlicking from "@egjs/vue-flicking";
@@ -36,7 +35,6 @@ import './filters/filters';
 Vue.use(VueFlicking);
 Vue.use(VueRouter);
 Vue.use(LoadScript);
-// Vue.use(VueNumeric);
 Vue.use(VLazyImagePlugin);
 Vue.use(VueClipboard);
 Vue.use(VueAnalytics, {
