@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
-    public class SetUserGradeCommandHandler : ICommandHandler<SetUserGradeCommand>
+    public class SetChildNameCommandHandler : ICommandHandler<SetChildNameCommand>
     {
         private readonly IRepository<User> _userRepository;
-        public SetUserGradeCommandHandler(IRepository<User> userRepository)
+        public SetChildNameCommandHandler(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public async Task ExecuteAsync(SetUserGradeCommand message, CancellationToken token)
+        public async Task ExecuteAsync(SetChildNameCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            if (user.UserType != UserType.University)
+            if (user.UserType == UserType.Parent)
             {
-                user.SetUserGrade(message.Grade);
+                user.SetChildName(message.FirstName, message.LasttName);
                 await _userRepository.UpdateAsync(user, token);
             }
         }

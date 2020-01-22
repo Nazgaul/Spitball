@@ -370,5 +370,11 @@ namespace Cloudents.Core.Entities
             Grade = grade;
         }
 
+        public virtual void SetChildName(string firstName, string lastName)
+        {
+            ChildFirstName = firstName;
+            ChildLastName = lastName;
+        }
+
     }
 }

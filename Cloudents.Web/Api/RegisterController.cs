@@ -303,5 +303,15 @@ namespace Cloudents.Web.Api
             await commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+        [HttpPost("childName")]
+        public async Task<IActionResult> SetChildNameAsync([FromBody] SetChildNameRequest model,
+            [FromServices] ICommandBus commandBus, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new SetChildNameCommand(userId, model.FirstName, model.lastName);
+            await commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
     }
 }
