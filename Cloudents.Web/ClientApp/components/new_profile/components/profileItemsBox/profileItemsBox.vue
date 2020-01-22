@@ -231,7 +231,6 @@ export default {
                .v-select__slot{
                   font-size: 14px;
                   .v-select__selections{
-                     .responsive-property(padding-left, 10px, null, 0);
                      ::placeholder{
                         font-size: 14px;
                         color: #4d4b69;
