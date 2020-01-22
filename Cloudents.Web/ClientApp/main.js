@@ -8,11 +8,14 @@ import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import LoadScript from 'vue-plugin-load-script';
 import VueClipboard from 'vue-clipboard2';
-import VueNumeric from 'vue-numeric';
+// import VueNumeric from 'vue-numeric';
 import VueAppInsights from 'vue-application-insights';
 import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
 import VueFlicking from "@egjs/vue-flicking";
 import '../ClientApp/myFont.font.js';
+if(!window.IntersectionObserver){ // Intersection observer support
+    import('intersection-observer')   
+}
 
 // Global Components
 import App from "./components/app/app.vue";
@@ -29,18 +32,30 @@ import './filters/filters';
 
 
 //import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
-// clip board copy text
-// import Scroll from "vuetify/es5/directives/scroll";
-// import Touch from "vuetify/es5/directives/touch";
-
-// Intersection observer support
-if(!window.IntersectionObserver){
-    import('intersection-observer')   
-}
 
 Vue.use(VueFlicking);
 Vue.use(VueRouter);
 Vue.use(LoadScript);
+// Vue.use(VueNumeric);
+Vue.use(VLazyImagePlugin);
+Vue.use(VueClipboard);
+Vue.use(VueAnalytics, {
+    id: 'UA-100723645-2',
+    disableScriptLoader: true,
+    router,
+    autoTracking: {
+        pageviewOnLoad: false,
+        pageviewTemplate(route) {
+            return {
+                page: route.path,
+                title: route.name ? route.name.charAt(0).toUpperCase() + route.name.slice(1) : '',
+                location: window.location.href
+            };
+        },
+        exception: true
+    }
+});
+
 Vue.component("scroll-list", scrollComponent);
 Vue.component("UserAvatar",UserAvatar);
 
@@ -67,42 +82,12 @@ const router = new VueRouter({
     }
 });
 
-Vue.use(VueClipboard);
-// Vue.use(lineClamp, {});
-Vue.use(VueNumeric);
-Vue.use(VLazyImagePlugin);
-Vue.use(VueAnalytics, {
-    id: 'UA-100723645-2',
-    disableScriptLoader: true,
-    router,
-    autoTracking: {
-        pageviewOnLoad: false,
-        //ignoreRoutes: ['result'],
-        // shouldRouterUpdate(to, from) {
-        //     return to.path != "/result";
-        // },
-        pageviewTemplate(route) {
-            return {
-                page: route.path,
-                title: route.name ? route.name.charAt(0).toUpperCase() + route.name.slice(1) : '',
-                location: window.location.href
-            };
-        },
-        exception: true
-    }
-});
-
-
 Vue.directive('language', Language);
-// Register a global custom directive called `v-focus`
 
-//is rtl
+
+
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
-//check if firefox for ellipsis, if yes use allipsis filter if false css multiline ellipsis
-// global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-//is country Israel
 global.isIsrael = global.country.toLowerCase() === "il";
-//check if Edge (using to fix position sticky bugs)
 global.isEdgeRtl = false;
 global.isEdge = false;
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {

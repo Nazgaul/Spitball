@@ -218,6 +218,7 @@ const likeSVG = () => import("./img//like.svg");
 const likeFilledSVG = () => import("./img/like-filled.svg");
 const vidSVG = () => import("./svg/vid.svg");
 const intersection = () => import('../pages/global/intersection/intersection.vue');
+import VueNumeric from 'vue-numeric'
 
 export default {
   components: {
@@ -226,7 +227,8 @@ export default {
     likeSVG,
     likeFilledSVG,
     vidSVG,
-    intersection
+    intersection,
+    VueNumeric
   },
   data() {
     return {
