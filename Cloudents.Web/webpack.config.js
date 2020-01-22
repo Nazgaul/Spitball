@@ -7,7 +7,6 @@ const webpackRtlPlugin = require("webpack-rtl-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin = require('terser-webpack-plugin');
-const RemovePlugin = require('remove-files-webpack-plugin');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
 module.exports = (env) => {
@@ -263,15 +262,15 @@ module.exports = (env) => {
             new VuetifyLoaderPlugin()
         ].concat(isDevBuild
             ? [
-                new RemovePlugin({
-                    before: {
-                        // parameters.
-                        include: ['./wwwroot/dist']
-                    },
-                    after: {
-                        // parameters.
-                    }
-                }),
+                //new RemovePlugin({
+                //    before: {
+                //        // parameters.
+                //        include: ['./wwwroot/dist']
+                //    },
+                //    after: {
+                //        // parameters.
+                //    }
+                //}),
                 // new BundleAnalyzerPlugin({
                 //    analyzerMode: 'disabled',
                 //    generateStatsFile: true,
