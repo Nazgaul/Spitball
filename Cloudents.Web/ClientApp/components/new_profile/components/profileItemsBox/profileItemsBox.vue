@@ -1,16 +1,16 @@
 <template>
-<div id="profileItemsBox" v-if="items">
+<div id="profileItemsBox">
    <div class="profileItemsBox_title text-truncate" 
    v-text="$Ph($vuetify.breakpoint.xsOnly? 'profile_study_materials_mobile':'profile_study_materials',userName)"/>   
    <div class="profileItemsBox_filters">
-      <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" justify-end>
+      <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" :class="{'filterbox':$vuetify.breakpoint.xsOnly}" justify-end>
          <v-menu offset-y>
             <template v-slot:activator="{ on }">
                <v-btn icon v-on="on" class="filters_menu_btn d-block d-sm-none">
                   <v-icon class="icon">sbf-sort</v-icon>
                </v-btn>
             </template>
-            <v-list>
+            <v-list class="px-2">
                <v-list-item v-for="(item, index) in typeItems" :key="index" @click="menuSelect(item.value)">
                <v-list-item-title :class="{'font-weight-bold': selectChecker(item)}">{{ item.name }}</v-list-item-title>
                </v-list-item>
@@ -26,7 +26,7 @@
             :height="$vuetify.breakpoint.xsOnly? 42 : 36" hide-details solo>
          </v-select>
       </v-flex>
-      <v-flex xs10 sm9 class="pr-2 pr-sm-0">
+      <v-flex xs10 sm9 class="pr-4 pr-sm-0" :class="{'filtercourse':$vuetify.breakpoint.xsOnly}">
          <v-select class="profileItemsBox_filters_select"
             :append-icon="'sbf-arrow-fill'"
             clearable
@@ -38,20 +38,22 @@
          </v-select>
       </v-flex>
    </div>
-   <div class="profileItemsBox_content" v-if="$vuetify.breakpoint.smAndUp">
-      <itemCard v-for="(item, index) in items" :key="index" :item="item"/>
-   </div>
-   <div v-if="$vuetify.breakpoint.xsOnly" class="profileItemsBox_content_mobile">
-      <resultNote v-for="(item, index) in items" :key="index" :item="item" class="pa-3 mb-2"/>
-   </div>
-   <div class="profileItemBox_pagination" v-if="pageCount > 1">
-      <v-pagination
-         total-visible=7 
-         v-model="query.page" 
-         :length="pageCount"
-         :next-icon="`sbf-arrow-right-carousel`"
-         :prev-icon="`sbf-arrow-left-carousel`"/>
-   </div>
+   <template v-if="!!items && items.length">
+      <div class="profileItemsBox_content" v-if="$vuetify.breakpoint.smAndUp">
+         <itemCard v-for="(item, index) in items" :key="index" :item="item"/>
+      </div>
+      <div v-if="$vuetify.breakpoint.xsOnly" class="profileItemsBox_content_mobile">
+         <resultNote v-for="(item, index) in items" :key="index" :item="item" class="pa-3 mb-2"/>
+      </div>
+      <div class="profileItemBox_pagination mb-3" v-if="pageCount > 1">
+         <v-pagination
+            total-visible=7 
+            v-model="query.page" 
+            :length="pageCount"
+            :next-icon="`sbf-arrow-right-carousel`"
+            :prev-icon="`sbf-arrow-left-carousel`"/>
+      </div>
+   </template>
 </div>
 </template>
 
@@ -109,13 +111,13 @@ export default {
          return Math.ceil(this.getProfile.documents.count / this.query.pageSize);
       },
       items(){
-         return this.getProfile.documents.result;
+         return this.getProfile?.documents.result;
       },
       userName(){
-         return this.getProfile.user.firstName? this.getProfile.user.firstName : this.getProfile.user.name;
+         return this.getProfile?.user.firstName? this.getProfile.user.firstName : this.getProfile.user.name;
       },
       userCourses(){
-         return this.getProfile.user.courses;
+         return this.getProfile?.user.courses;
       }
    },
    methods: {
@@ -191,6 +193,13 @@ export default {
          padding: 0 12px 8px 14px;
          background: white;
       }
+      .filterbox{
+         max-width: fit-content;
+      }
+      .filtercourse{
+         max-width: 100%;
+         flex-grow: 1;
+      }
       .filters_menu_btn{
          max-width: 44px;
          max-height: 42px;
@@ -213,7 +222,7 @@ export default {
             .responsive-property(height, 36px, null, 42px);
             .v-input__slot{
                border-radius: 8px;
-               box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
+               box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
                margin: 0;
                @media (max-width: @screen-xs) {
                   box-shadow: none;
@@ -222,7 +231,6 @@ export default {
                .v-select__slot{
                   font-size: 14px;
                   .v-select__selections{
-                     .responsive-property(padding-left, 10px, null, 0);
                      ::placeholder{
                         font-size: 14px;
                         color: #4d4b69;
@@ -230,10 +238,18 @@ export default {
                   }
                   .v-input__append-inner{
                      .v-input__icon{
+                        &.v-input__icon--append{
                            i{
                               font-size: 6px;
                               color: #43425d;
                            }
+                        }
+                        &.v-input__icon--clear{
+                           i{
+                              font-size: 10px;
+                              color: #43425d;
+                           }
+                        }
                      }
                   }
                }

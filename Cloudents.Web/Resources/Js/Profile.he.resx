@@ -216,6 +216,9 @@
   <data name="emptyState_questions_text" xml:space="preserve">
     <value>יש לך שאלה לגבי שיעורי הבית?</value>
   </data>
+  <data name="empty_title" xml:space="preserve">
+    <value>לא הועלו חומרי לימוד</value>
+  </data>
   <data name="expand_less" xml:space="preserve">
     <value>הצג פחות</value>
   </data>
@@ -295,10 +298,10 @@
     <value>הכל</value>
   </data>
   <data name="select_item_type_docs" xml:space="preserve">
-    <value>מסמך</value>
+    <value>מסמכים</value>
   </data>
   <data name="select_item_type_videos" xml:space="preserve">
-    <value>סרטון</value>
+    <value>סרטונים</value>
   </data>
   <data name="send_message" xml:space="preserve">
     <value>שלחו לי הודעה</value>

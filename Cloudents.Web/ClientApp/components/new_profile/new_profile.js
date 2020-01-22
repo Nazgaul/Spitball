@@ -8,6 +8,7 @@ import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue
 import profileBecomeTutor from './components/profileBecomeTutor/profileBecomeTutor.vue';
 import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
+import profileItemsEmpty from './components/profileItemsEmpty/profileItemsEmpty.vue';
 
 
 
@@ -45,6 +46,7 @@ export default {
         profileBecomeTutor,
         profileFindTutor,
         profileItemsBox,
+        profileItemsEmpty,
         sbDialog,
 
 
@@ -429,8 +431,11 @@ export default {
         showEarnMoney(){
             return this.isMyProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
         },
+        showItemsEmpty(){
+            return !this.isMyProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
+        },
         showItems(){
-            return !!this.getProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && this.uploadedDocuments.result.length;
+            return !!this.getProfile;
         },
         isTutorPending(){
             return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
