@@ -295,10 +295,10 @@
     <value>הכל</value>
   </data>
   <data name="select_item_type_docs" xml:space="preserve">
-    <value>מסמך</value>
+    <value>מסמכים</value>
   </data>
   <data name="select_item_type_videos" xml:space="preserve">
-    <value>סרטון</value>
+    <value>סרטונים</value>
   </data>
   <data name="send_message" xml:space="preserve">
     <value>שלחו לי הודעה</value>
