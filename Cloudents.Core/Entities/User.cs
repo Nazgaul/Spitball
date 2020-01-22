@@ -365,5 +365,10 @@ namespace Cloudents.Core.Entities
             UserType = userType;
         }
 
+        public virtual void SetUserGrade(short grade)
+        {
+            Grade = grade;
+        }
+
     }
 }

@@ -285,11 +285,21 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("userType")]
-        public async Task<IActionResult> SetUserTypeAsync([FromBody] UserType userType,
+        public async Task<IActionResult> SetUserTypeAsync([FromBody] SetUserTypeRequest model,
             [FromServices] ICommandBus commandBus, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new SetUserTypeCommand(userId, userType);
+            var command = new SetUserTypeCommand(userId, model.UserType);
+            await commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("grade")]
+        public async Task<IActionResult> SetUserGradeAsync([FromBody] SetUserGradeRequest model,
+            [FromServices] ICommandBus commandBus, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new SetUserGradeCommand(userId, model.Grade);
             await commandBus.DispatchAsync(command, token);
             return Ok();
         }
