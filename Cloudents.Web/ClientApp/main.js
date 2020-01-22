@@ -85,15 +85,11 @@ Vue.directive('language', Language);
 
 
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
-global.isIsrael = global.country.toLowerCase() === "il";
 global.isEdgeRtl = false;
-global.isEdge = false;
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
-    global.isEdge = true;
     if (global.isRtl) {
         global.isEdgeRtl = true;
     }
-
 }
 
 Vue.prototype.$loadStyle = function(url,id){
