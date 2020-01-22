@@ -239,10 +239,18 @@ export default {
                   }
                   .v-input__append-inner{
                      .v-input__icon{
+                        &.v-input__icon--append{
                            i{
                               font-size: 6px;
                               color: #43425d;
                            }
+                        }
+                        &.v-input__icon--clear{
+                           i{
+                              font-size: 10px;
+                              color: #43425d;
+                           }
+                        }
                      }
                   }
                }
