@@ -122,7 +122,7 @@
                     {text: 'Price', value: 'cashOutPrice'},
                     {text: 'User Email', value: 'userEmail'},
                     {text: 'Date', value: 'cashOutTime'},
-                    {text: 'Israel', value: 'country'},
+                    {text: 'Country', value: 'country'},
                     {text: 'Referrals', value: 'referCount'},
                     {text: 'Docs sold', value: 'soldDocument'},
                     {text: 'Ans Accept', value: 'correctAnswer'},
