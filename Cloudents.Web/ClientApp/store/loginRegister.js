@@ -331,7 +331,6 @@ const actions = {
                     commit('setGlobalLoading',false);
                     _analytics(['Login Email validation', 'email send']);
                     dispatch('updateStep','setPassword');
-                    router.push({name: 'setPassword'})
                 }, (error)=> {
                     commit('setGlobalLoading',false);
                     commit('setErrorMessages',{email: error.response.data["Email"] ? error.response.data["Email"][0] : ''});

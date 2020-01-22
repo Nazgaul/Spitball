@@ -7,37 +7,13 @@ export const registrationRoutes = [
         components: {
             default: lazyComponent('pages/authenticationPage/authenticationPage')
         },
-        children: [
-            {
-                path: '',
-                name: "login",
-                component: lazyComponent('loginPageNEW/components/getStarted')
-            },
-            // {
-            //     path: 'set-email',
-            //     name: "setEmail",
-            //     component: lazyComponent('loginPageNEW/components/setEmail')
-            // },
-            // {
-            //     path: 'set-password',
-            //     name: "setEmail",
-            //     component: lazyComponent('loginPageNEW/components/setEmail')
-            // },
-            // {
-            //     path: 'signin',
-            //     name: 'signin',
-            //     component: lazyComponent('auth/register/registerType/registerType')
-            // },
-            {
-                path: 'resetpassword',
-                name: 'resetpassword',
-                component: lazyComponent('pages/register/student/registerStudentSchool')
-            },
-            // {
-            //     path: '*',
-            //     redirect: 'login'
-            // },
-        ],
+        beforeEnter: (to, from, next) => {
+            if(global.isAuth) {
+                next(false);
+            } else {
+                next();
+            }
+        }
     },
 
     {

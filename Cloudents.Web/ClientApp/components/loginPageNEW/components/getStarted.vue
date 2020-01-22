@@ -106,7 +106,7 @@ export default {
                 }
             } else {
                 this.updateStep('setEmail')
-                this.$router.push({name: 'setEmail'})
+                // this.$router.push({name: 'setEmail'})
             }
         },
         redirectTo(toPath){

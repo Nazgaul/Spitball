@@ -11,8 +11,8 @@
 
         <div class="stepsSections">
             <div class="stepContainer">
-                <router-view></router-view>
-                <!-- <component :is="`${currentStep}`"/> -->
+                <component :is="currentStep" v-if="$route.name === 'login'"></component>
+                <router-view v-else></router-view>
             </div>
         </div>
 
