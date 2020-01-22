@@ -3,7 +3,7 @@
    <div class="profileItemsBox_title text-truncate" 
    v-text="$Ph($vuetify.breakpoint.xsOnly? 'profile_study_materials_mobile':'profile_study_materials',userName)"/>   
    <div class="profileItemsBox_filters">
-      <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" justify-end>
+      <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" :class="{'filterbox':$vuetify.breakpoint.xsOnly}" justify-end>
          <v-menu offset-y>
             <template v-slot:activator="{ on }">
                <v-btn icon v-on="on" class="filters_menu_btn d-block d-sm-none">
@@ -26,7 +26,7 @@
             :height="$vuetify.breakpoint.xsOnly? 42 : 36" hide-details solo>
          </v-select>
       </v-flex>
-      <v-flex xs10 sm9 class="pr-2 pr-sm-0">
+      <v-flex xs10 sm9 class="pr-4 pr-sm-0" :class="{'filtercourse':$vuetify.breakpoint.xsOnly}">
          <v-select class="profileItemsBox_filters_select"
             :append-icon="'sbf-arrow-fill'"
             clearable
@@ -193,6 +193,13 @@ export default {
          padding: 0 12px 8px 14px;
          background: white;
       }
+      .filterbox{
+         max-width: fit-content;
+      }
+      .filtercourse{
+         max-width: 100%;
+         flex-grow: 1;
+      }
       .filters_menu_btn{
          max-width: 44px;
          max-height: 42px;
@@ -215,7 +222,7 @@ export default {
             .responsive-property(height, 36px, null, 42px);
             .v-input__slot{
                border-radius: 8px;
-               box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
+               box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
                margin: 0;
                @media (max-width: @screen-xs) {
                   box-shadow: none;
@@ -232,10 +239,18 @@ export default {
                   }
                   .v-input__append-inner{
                      .v-input__icon{
+                        &.v-input__icon--append{
                            i{
                               font-size: 6px;
                               color: #43425d;
                            }
+                        }
+                        &.v-input__icon--clear{
+                           i{
+                              font-size: 10px;
+                              color: #43425d;
+                           }
+                        }
                      }
                   }
                }
