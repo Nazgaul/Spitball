@@ -1,7 +1,6 @@
 import { connectivityModule } from "./connectivity.module";
 
 function bannerStorage(bannerId){
-    debugger;
     let localStorageList = JSON.parse(global.localStorage.getItem("sb_banner"));
     if(localStorageList == null){
         localStorageList = JSON.stringify([bannerId]);
