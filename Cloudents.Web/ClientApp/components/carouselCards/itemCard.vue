@@ -76,7 +76,6 @@ export default {
     color: #43425d !important;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     position: relative;
     .itemCarouselImg{
         border-bottom:  solid 1px #c1c3d2;
