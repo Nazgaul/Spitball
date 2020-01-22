@@ -17,7 +17,6 @@
         name: "noteItem",
         props: {
             note: {
-                // type: Array,
                 required: true
             },
         },
