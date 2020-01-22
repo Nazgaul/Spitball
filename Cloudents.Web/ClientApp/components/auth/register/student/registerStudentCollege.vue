@@ -1,6 +1,6 @@
 <template>
     <div id="registerStudentCollege">
-        <component :is="'registerCourse'">
+        <!-- <component :is="studentCollegeStep">
             <template #titleUniversity>
                 <div class="text-center university_title" v-language:inner="'register_university_title'"></div>
             </template>
@@ -8,7 +8,17 @@
             <template #titleCourse>
                 <div class="text-center courses_title" v-language:inner="'register_course_title'"></div>
             </template>
-        </component>
+        </component> -->
+
+        <router-view>
+            <template #titleUniversity>
+                <div class="text-center university_title" v-language:inner="'register_university_title'"></div>
+            </template>
+
+            <template #titleCourse>
+                <div class="text-center courses_title" v-language:inner="'register_course_title'"></div>
+            </template>
+        </router-view>
     </div>
 </template>
 

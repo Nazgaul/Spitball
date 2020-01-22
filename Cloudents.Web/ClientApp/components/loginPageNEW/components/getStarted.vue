@@ -49,11 +49,13 @@
         <div class="getStarted-bottom">
             <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_signin_text':'loginRegister_getstarted_signup_text'"/>
              &nbsp;
-            <router-link 
-            to="" 
-            class="link" 
-            @click.native="redirectTo(isRegisterPath? 'signin':'register')" 
-            v-language:inner="isRegisterPath? 'loginRegister_getstarted_signin_link':'loginRegister_getstarted_signup_link'"/>
+             <router-link
+                :to="isRegisterPath ? 'login' : 'register'" 
+                exact
+                class="link" 
+                v-language:inner="isRegisterPath ? 'loginRegister_getstarted_signin_link':'loginRegister_getstarted_signup_link'"
+            >
+            </router-link>
         </div>
         
     </v-layout>
@@ -98,8 +100,14 @@ export default {
             if(this.isRegisterPath){
                 if(!this.isTermsAgree){
                     this.showError = true;
-                } else this.updateStep('setEmailPassword')
-            } else this.updateStep('setEmail')
+                } else  {
+                    this.updateStep('setEmailPassword')
+                    this.$router.push({name: 'setEmailPassword'})
+                }
+            } else {
+                this.updateStep('setEmail')
+                this.$router.push({name: 'setEmail'})
+            }
         },
         redirectTo(toPath){
             this.$router.push({path: `/${toPath}`});

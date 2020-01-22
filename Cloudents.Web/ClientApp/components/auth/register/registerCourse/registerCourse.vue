@@ -19,6 +19,7 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../styles/mixin.less';
 
 #registerCourse {
     max-width: 500px;
@@ -30,6 +31,10 @@ export default {
 
     .add-courses-wrap {
         width: 500px;
+
+        @media(max-width: @screen-xs) {
+            width: 100%;
+        }
         #search-classes-list {
             max-height: 360px;
         }

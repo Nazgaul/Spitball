@@ -1,6 +1,5 @@
 <template>
    <div class="authenticationPage">
-
         <button class="back-button">
             <v-icon right @click="updateDialog(true)">sbf-close</v-icon>
         </button>
@@ -12,7 +11,9 @@
 
         <div class="stepsSections">
             <div class="stepContainer">
-                <component :is="`${'register'}`"/>
+
+                <router-view></router-view>
+                <!-- <component :is="`${currentStep}`"/> -->
             </div>
         </div>
 
@@ -64,14 +65,15 @@ const resetPassword = () => import('../../loginPageNEW/components/resetPassword.
 //STORE
 import storeService from '../../../services/store/storeService';
 import loginRegister from '../../../store/loginRegister';
+
 export default {
-   name:'authenticationPage',
-   data() {
-      return {
-         showDialog: false,
-         from: ''
-      }
-   },
+  name:'authenticationPage',
+  data() {
+    return {
+        showDialog: false,
+        from: ''
+    }
+  },
    components:{
       logo,
       getStarted,

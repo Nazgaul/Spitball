@@ -17,18 +17,18 @@
                     <span class="panel_title text-center" v-language:inner="'loginRegister_student'"></span>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content class="pt-4">
-                    <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" @click="registerStep('registerStudentSchool')">
+                    <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" @click="registerStep('studentSchool')">
                         <span><collegeIcon /></span>
                         <span class="flex-grow-1 white--text">A High school Student</span>
                     </v-btn>
-                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" @click="registerStep('registerStudentCollege')">
+                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" @click="registerStep('studentCollege')">
                         <span><highSchoolIcon /></span>
                         <span class="flex-grow-1 white--text">A College Student</span>
                     </v-btn>
                 </v-expansion-panel-content>
             </v-expansion-panel>
 
-            <v-expansion-panel class="panel panel_parent mb-5" readonly @click="registerStep('registerParent')">
+            <v-expansion-panel class="panel panel_parent mb-5" readonly @click="registerStep('parent')">
                 <v-expansion-panel-header class="px-4 py-2" expand-icon="">
                     <span class="flex-grow-0 mr-4"><parentIcon/></span>
                     <v-divider class="mr-4" vertical></v-divider>
@@ -69,7 +69,8 @@ export default {
     }),
     methods: {
         registerStep(step) {
-            this.$store.dispatch('updateRegisterCurrentStep', step)
+            this.$router.push({name: step});
+            // this.$store.dispatch('updateRegisterCurrentStep', step)
         },
         openBecomeTutorDialog() {
             this.$store.dispatch('updateTutorDialog', true);
