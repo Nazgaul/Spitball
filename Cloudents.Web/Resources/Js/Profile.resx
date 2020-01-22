@@ -357,6 +357,6 @@
     <value>Content by {1}</value>
   </data>
   <data name="empty_title" xml:space="preserve">
-    <value>No files are currently available</value>
+    <value>Nothing posted yet</value>
   </data>
 </root>

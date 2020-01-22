@@ -216,6 +216,9 @@
   <data name="emptyState_questions_text" xml:space="preserve">
     <value>יש לך שאלה לגבי שיעורי הבית?</value>
   </data>
+  <data name="empty_title" xml:space="preserve">
+    <value>לא הועלו חומרי לימוד</value>
+  </data>
   <data name="expand_less" xml:space="preserve">
     <value>הצג פחות</value>
   </data>
