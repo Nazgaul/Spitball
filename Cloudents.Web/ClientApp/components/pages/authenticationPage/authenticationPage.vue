@@ -11,7 +11,6 @@
 
         <div class="stepsSections">
             <div class="stepContainer">
-
                 <router-view></router-view>
                 <!-- <component :is="`${currentStep}`"/> -->
             </div>
@@ -39,7 +38,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-
 import logo from '../../app/logo/logo.vue';
 
 // globals
@@ -52,7 +50,7 @@ const setPhone = () => import('../../loginPageNEW/components/setPhone.vue');
 const VerifyPhone = () => import('../../loginPageNEW/components/VerifyPhone.vue');
 const congrats = () => import('../../loginPageNEW/components/congrats.vue');
 
-const register = () => import('../../auth/register/register.vue');
+const register = () => import('./register/register.vue');
 
 // login
 const setEmail = () => import('../../loginPageNEW/components/setEmail.vue');

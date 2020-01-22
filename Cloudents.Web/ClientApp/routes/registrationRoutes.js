@@ -13,11 +13,16 @@ export const registrationRoutes = [
                 name: "login",
                 component: lazyComponent('loginPageNEW/components/getStarted')
             },
-            {
-                path: 'set-email',
-                name: "setEmail",
-                component: lazyComponent('loginPageNEW/components/setEmail')
-            },
+            // {
+            //     path: 'set-email',
+            //     name: "setEmail",
+            //     component: lazyComponent('loginPageNEW/components/setEmail')
+            // },
+            // {
+            //     path: 'set-password',
+            //     name: "setEmail",
+            //     component: lazyComponent('loginPageNEW/components/setEmail')
+            // },
             // {
             //     path: 'signin',
             //     name: 'signin',
@@ -26,7 +31,7 @@ export const registrationRoutes = [
             {
                 path: 'resetpassword',
                 name: 'resetpassword',
-                component: lazyComponent('auth/register/student/registerStudentSchool')
+                component: lazyComponent('pages/register/student/registerStudentSchool')
             },
             // {
             //     path: '*',
@@ -50,22 +55,22 @@ export const registrationRoutes = [
             {
                 path: 'type',
                 name: 'registerType',
-                component: lazyComponent('auth/register/registerType/registerType')
+                component: lazyComponent('pages/register/registerType/registerType')
             },
             {
                 path: 'student-school',
                 name: 'studentSchool',
-                component: lazyComponent('auth/register/student/registerStudentSchool')
+                component: lazyComponent('pages/register/student/registerStudentSchool')
             },
             {
                 path: 'student-college',
                 name: 'studentCollege',
-                component: lazyComponent('auth/register/student/registerStudentCollege')
+                component: lazyComponent('pages/register/student/registerStudentCollege')
             },
             {
                 path: 'parent',
                 name: 'parent',
-                component: lazyComponent('auth/register/parent/registerParent')
+                component: lazyComponent('pages/register/parent/registerParent')
             },
         ],
         beforeEnter: (to, from, next) => {

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-const courses = () => import('../../../courses/addCourses/addCourses.vue')
+const courses = () => import('../../../../courses/addCourses/addCourses.vue')
 
 export default {
     name: 'registerCourse',
@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../../styles/mixin.less';
+@import '../../../../../styles/mixin.less';
 
 #registerCourse {
     max-width: 500px;
