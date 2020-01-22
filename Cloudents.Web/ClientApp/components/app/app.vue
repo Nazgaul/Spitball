@@ -306,7 +306,7 @@ export default {
       "openChatInterface",
       "setTutorRequestAnalyticsOpenedFrom",
       "fireOptimizeActivate",
-      "updateBannerSatus"
+      "updateBannerStatus"
     ]),
     ...mapGetters(["getCookieAccepted"]),
 
@@ -355,7 +355,7 @@ export default {
         }, 170);
       }
     }
-    this.updateBannerSatus(true);
+    this.updateBannerStatus(true);
 
     if (this.$vuetify.breakpoint.xsOnly) {
       if (!!this.$route.query && this.$route.query.chat) {

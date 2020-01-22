@@ -154,7 +154,7 @@
       :popUpType="'reportDialog'"
       :content-class="`reportDialog` "
     >
-      <report-item :closeReport="closeReportDialog" :itemType="'Document'" :itemId="itemId"></report-item>
+      <report-item v-if="showReport" :closeReport="closeReportDialog" :itemType="'Document'" :itemId="itemId"></report-item>
     </sb-dialog>
     <sb-dialog
       :showDialog="priceDialog"
