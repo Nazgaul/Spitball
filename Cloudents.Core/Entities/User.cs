@@ -360,9 +360,10 @@ namespace Cloudents.Core.Entities
             PaymentExists = PaymentStatus.None;
         }
 
+        public virtual void SetUserType(UserType userType)
+        {
+            UserType = userType;
+        }
 
     }
-
-
-
 }

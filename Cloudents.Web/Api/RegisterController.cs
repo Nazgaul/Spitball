@@ -1,5 +1,8 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
@@ -278,6 +281,16 @@ namespace Cloudents.Web.Api
 
             TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             await GenerateEmailAsync(user, returnUrl, token);
+            return Ok();
+        }
+
+        [HttpPost("userType")]
+        public async Task<IActionResult> SetUserTypeAsync([FromBody] UserType userType,
+            [FromServices] ICommandBus commandBus, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new SetUserTypeCommand(userId, userType);
+            await commandBus.DispatchAsync(command, token);
             return Ok();
         }
     }
