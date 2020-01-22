@@ -253,7 +253,7 @@ export default {
     border-radius: 8px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     background-color: #ffffff;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     padding: 16px;
     @media (max-width: @screen-xs) {
         border-radius: 0;

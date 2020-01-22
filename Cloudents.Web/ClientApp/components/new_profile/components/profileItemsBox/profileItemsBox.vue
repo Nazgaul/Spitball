@@ -257,7 +257,7 @@ export default {
       grid-gap: 14px;
       padding-bottom: 10px;      
       grid-template-columns: repeat(auto-fill, 230px);
-      margin-top: 10px;
+      margin-top: 18px;
       .itemCarouselCard{
          border: 1px solid #e0e1e9;
          flex: 0 0 32%;
