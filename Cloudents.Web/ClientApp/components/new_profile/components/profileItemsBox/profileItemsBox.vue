@@ -222,7 +222,7 @@ export default {
             .responsive-property(height, 36px, null, 42px);
             .v-input__slot{
                border-radius: 8px;
-               box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
+               box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
                margin: 0;
                @media (max-width: @screen-xs) {
                   box-shadow: none;
