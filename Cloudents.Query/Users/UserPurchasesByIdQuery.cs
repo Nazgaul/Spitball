@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Users
 {
     public class UserPurchasesByIdQuery : IQuery<IEnumerable<UserPurchasDto>>
     {

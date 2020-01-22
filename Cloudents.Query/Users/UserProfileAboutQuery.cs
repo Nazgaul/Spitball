@@ -8,7 +8,7 @@ using NHibernate.Linq;
 using System;
 using Cloudents.Core.Interfaces;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Users
 {
     public class UserProfileAboutQuery : IQuery<UserProfileAboutDto>
     {

@@ -15,7 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Cloudents.Web.Models;
-using Cloudents.Core.Enum;
+using Cloudents.Query.Users;
 
 namespace Cloudents.Web.Api
 {

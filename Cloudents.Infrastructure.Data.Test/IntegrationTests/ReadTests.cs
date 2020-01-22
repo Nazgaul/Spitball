@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using NHibernate.Linq;
 using Xunit;
 using Cloudents.Core.Enum;
+using Cloudents.Query.Users;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {

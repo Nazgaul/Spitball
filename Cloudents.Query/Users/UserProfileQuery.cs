@@ -11,7 +11,7 @@ using Cloudents.Core.Interfaces;
 using NHibernate.Transform;
 using NHibernate.Linq;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Users
 {
     public class UserProfileQuery : IQuery<UserProfileDto>
     {

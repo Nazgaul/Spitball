@@ -7,7 +7,7 @@ using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Users
 {
     public class UserCalendarByIdQuery : IQuery<DashboardCalendarDto>
     {

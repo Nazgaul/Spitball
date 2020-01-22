@@ -2,7 +2,7 @@
 using Cloudents.Core.Entities;
 using System.Collections.Generic;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Users
 {
     public class UserDataByIdQuery : IQuery<User>,
         //IQuery<IEnumerable<BalanceDto>>,

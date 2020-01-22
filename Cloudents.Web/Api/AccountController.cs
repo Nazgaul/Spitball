@@ -29,6 +29,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Exceptions;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
+using Cloudents.Query.Users;
 
 namespace Cloudents.Web.Api
 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Users
 {
     public class UserCoursesQuery : IQuery<IEnumerable<CourseDto>>
     {

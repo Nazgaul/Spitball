@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.Entities;
-using Cloudents.Query.Query;
+using Cloudents.Query.Users;
 using NHibernate;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;

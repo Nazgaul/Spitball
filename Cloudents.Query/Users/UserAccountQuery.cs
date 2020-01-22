@@ -3,7 +3,7 @@ using Dapper;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Users
 {
     public class UserAccountQuery : IQuery<UserAccountDto>
     {

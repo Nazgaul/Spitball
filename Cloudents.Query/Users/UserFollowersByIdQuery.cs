@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Users
 {
     public class UserFollowersByIdQuery : IQuery<IEnumerable<FollowersDto>>
     {

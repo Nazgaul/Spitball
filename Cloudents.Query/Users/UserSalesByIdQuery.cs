@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using PaymentStatus = Cloudents.Core.DTOs.PaymentStatus;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Users
 {
     public class UserSalesByIdQuery : IQuery<IEnumerable<SaleDto>>
     {

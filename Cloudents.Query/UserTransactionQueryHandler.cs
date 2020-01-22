@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Query.Query;
+using Cloudents.Query.Users;
 using NHibernate;
 using NHibernate.Transform;
 using System.Collections.Generic;

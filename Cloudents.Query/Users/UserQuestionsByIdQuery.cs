@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.DTOs;
 using System.Collections.Generic;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Users
 {
     public class UserDataPagingByIdQuery : IQuery<IEnumerable<QuestionFeedDto>>
     {

@@ -5,7 +5,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Users;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
