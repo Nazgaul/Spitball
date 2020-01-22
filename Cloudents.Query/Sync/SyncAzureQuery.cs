@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.DTOs.SearchSync;
 using System.Collections.Generic;
 
-namespace Cloudents.Query.Query.Sync
+namespace Cloudents.Query.Sync
 {
     public class SyncAzureQuery //: System.IEquatable<SyncAzureQuery>
           : IQuery<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>,

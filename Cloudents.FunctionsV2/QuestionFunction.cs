@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Query;
+using Cloudents.Query.Questions;
 using Microsoft.Azure.WebJobs;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 

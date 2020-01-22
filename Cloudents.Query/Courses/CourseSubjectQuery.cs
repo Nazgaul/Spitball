@@ -6,7 +6,7 @@ using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Courses
 {
     public class CourseSubjectQuery : IQuery<SubjectDto>
     {

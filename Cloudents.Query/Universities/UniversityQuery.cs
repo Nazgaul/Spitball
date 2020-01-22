@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Universities
 {
     public class UniversityQuery : IQuery<UniversityDto>
     {

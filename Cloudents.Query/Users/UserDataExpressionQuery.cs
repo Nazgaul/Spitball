@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query
+namespace Cloudents.Query.Users
 {
     public class UserDataExpressionQuery : IQuery<User>
     {

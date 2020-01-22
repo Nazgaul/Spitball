@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.General;
 using Cloudents.Web.Controllers;
 using FluentAssertions;
 using Moq;

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query
+namespace Cloudents.Query.Questions
 {
     public class FictivePendingQuestionEmptyQuery : IQuery<IList<FictivePendingQuestionDto>>
     {

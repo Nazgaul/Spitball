@@ -8,7 +8,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
@@ -30,6 +29,7 @@ using Cloudents.Core.Exceptions;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 using Cloudents.Query.Users;
+using Cloudents.Query.Universities;
 
 namespace Cloudents.Web.Api
 {

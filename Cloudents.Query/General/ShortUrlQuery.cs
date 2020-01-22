@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.General
 {
     public class ShortUrlQuery : IQuery<ShortUrlDto>
     {

@@ -5,7 +5,6 @@ using Cloudents.Query.Chat;
 using Cloudents.Query.Documents;
 using Cloudents.Query.Email;
 using Cloudents.Query.HomePage;
-using Cloudents.Query.Query;
 using Cloudents.Query.SearchSync;
 using Cloudents.Query.Tutor;
 using FluentAssertions;
@@ -16,6 +15,10 @@ using NHibernate.Linq;
 using Xunit;
 using Cloudents.Core.Enum;
 using Cloudents.Query.Users;
+using Cloudents.Query.Universities;
+using Cloudents.Query.Courses;
+using Cloudents.Query.Questions;
+using Cloudents.Query.General;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {

@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Courses
 {
     public class CourseSearchQuery : IQuery<IEnumerable<CourseDto>>
     {

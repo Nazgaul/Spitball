@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query
+namespace Cloudents.Query.General
 {
     public class CountryByIpQuery : IQuery<string>
     {

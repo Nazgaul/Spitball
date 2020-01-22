@@ -7,7 +7,7 @@ using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
 
-namespace Cloudents.Query.Query
+namespace Cloudents.Query.Questions
 {
     public class QuestionDataByIdQuery : IQuery<QuestionDetailDto>
 
