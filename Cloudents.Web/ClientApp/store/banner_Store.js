@@ -22,10 +22,11 @@ const actions = {
         }
     },
     updateBannerParams({commit}){
-        bannerService.getBannerParams().then(params=>{ 
-            if(params?.id){
+        bannerService.getBannerParams().then(params => {
+            params = params || {};
+            if(params.id){
                 let localStorageList = JSON.parse(global.localStorage.getItem("sb_banner"));
-                if(localStorageList !== null && localStorageList.includes(params.id)){
+                if(localStorageList && localStorageList.includes(params.id)){
                     commit('setBannerStatus',false);
                 }else{
                     commit('setBannerStatus',true);
