@@ -5,7 +5,7 @@ const MiniCssExtractPluginRtl = require("mini-css-extract-plugin-with-rtl");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const webpackRtlPlugin = require("webpack-rtl-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin = require('terser-webpack-plugin');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
@@ -230,11 +230,11 @@ module.exports = (env) => {
                 }
             }),
             new VuetifyLoaderPlugin(),
-            new BundleAnalyzerPlugin({
-                analyzerMode: 'disabled',
-                generateStatsFile: true,
-                statsOptions: { source: false }
-            }),
+            //new BundleAnalyzerPlugin({
+            //    analyzerMode: 'disabled',
+            //    generateStatsFile: true,
+            //    statsOptions: { source: false }
+            //}),
         ].concat(isDevBuild
             ? [
                
