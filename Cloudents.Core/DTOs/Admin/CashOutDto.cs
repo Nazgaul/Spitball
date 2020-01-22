@@ -11,7 +11,7 @@ namespace Cloudents.Core.DTOs.Admin
 
         public bool? Approved { get; set; }
         public string DeclinedReason { get; set; }
-        public bool IsIsrael { get; set; }
+        public string Country { get; set; }
         public Guid TransactionId { get; set; }
 
         public int ReferCount { get; set; }

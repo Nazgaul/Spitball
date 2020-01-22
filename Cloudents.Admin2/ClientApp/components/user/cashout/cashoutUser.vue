@@ -30,7 +30,7 @@
                 <td class="text-xs-center">{{ props.item.userEmail }}</td>
                 <td class="text-xs-center">{{props.item.cashOutTime | dateFromISO}}</td>
 
-                <td class="text-xs-center">{{ props.item.isIsrael ? "Yes" : "--" }}</td>
+                <td class="text-xs-center">{{ props.item.country}}</td>
 
                 <td class="text-xs-center">{{ props.item.referCount }}</td>
                 <td class="text-xs-center">{{ props.item.soldDocument }}</td>
@@ -122,7 +122,7 @@
                     {text: 'Price', value: 'cashOutPrice'},
                     {text: 'User Email', value: 'userEmail'},
                     {text: 'Date', value: 'cashOutTime'},
-                    {text: 'Israel', value: 'isIsrael'},
+                    {text: 'Israel', value: 'country'},
                     {text: 'Referrals', value: 'referCount'},
                     {text: 'Docs sold', value: 'soldDocument'},
                     {text: 'Ans Accept', value: 'correctAnswer'},
