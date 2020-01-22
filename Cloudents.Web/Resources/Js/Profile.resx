@@ -348,12 +348,15 @@
     <value>All Types</value>
   </data>
   <data name="select_item_type_docs" xml:space="preserve">
-    <value>Document</value>
+    <value>Documents</value>
   </data>
   <data name="select_item_type_videos" xml:space="preserve">
-    <value>Video</value>
+    <value>Videos</value>
   </data>
   <data name="study_materials_mobile" xml:space="preserve">
     <value>Content by {1}</value>
+  </data>
+  <data name="empty_title" xml:space="preserve">
+    <value>Nothing posted yet</value>
   </data>
 </root>

@@ -121,12 +121,6 @@ export default {
             "updateTutorPrice",
             "removeCalender"
         ]),
-       
-        resetUserData() {
-            // reinit scrollfunc data and clear store ib new user data requested
-            this.clearUserState();
-
-        },
         showSuspendDialog() {
             this.setSuspendDialogState(true);
         },

@@ -55,6 +55,10 @@ namespace Cloudents.Query.HomePage
                     {
                         _cacheProvider.Set(query.Culture.Name, "Banner", "no", TimeSpan.FromMinutes(30), false);
                     }
+                    else
+                    {
+                        _cacheProvider.DeleteRegion("Banner");
+                    }
                     return res;
                 }
 
