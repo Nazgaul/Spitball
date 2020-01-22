@@ -9,7 +9,6 @@ using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
 using Cloudents.Query.Admin;
-using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -87,7 +86,7 @@ namespace Cloudents.Admin2.Api
         [Authorize]
         public async Task<IEnumerable<CashOutDto>> Get(CancellationToken token)
         {
-            var query = new AdminCashOutQuery(User.GetCountryClaim());
+            var query = new CashOutQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -225,7 +224,7 @@ namespace Cloudents.Admin2.Api
                 userIdentifier = $"+972{userIdentifier.Remove(0, 1)}";
             }
 
-            var query = new AdminUserDetailsQuery(userIdentifier, country);
+            var query = new UserDetailsQuery(userIdentifier, country);
 
             var res = await _queryBus.QueryAsync(query, token);
             if (res == null)
@@ -262,7 +261,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<SessionDto>> SessionsAsync(long id, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminSessionsQuery(id, country);
+            var query = new SessionsQuery(id, country);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -278,7 +277,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<UserSoldItemsDto>> GetUserSoldDocsDetails(long id, int page, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminUserSoldDocsQuery(id, page, country);
+            var query = new UserSoldDocsQuery(id, page, country);
             var res = (await _queryBus.QueryAsync(query, token)).ToList();
             foreach (var r in res)
             {
@@ -394,7 +393,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("notes")]
         public async Task<IEnumerable<UserNoteDto>> GetNotesAsync([FromQuery] long id, CancellationToken token)
         {
-            var query = new AdminUserNotesQuery(id);
+            var query = new UserNotesQuery(id);
             return await _queryBus.QueryAsync(query, token);
         }
     }

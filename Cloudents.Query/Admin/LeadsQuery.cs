@@ -7,28 +7,28 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
     //TODO: think about make this suitable for IN.
-    public class AdminLeadsQuery : IQueryAdmin<IEnumerable<LeadDto>>
+    public class LeadsQuery : IQueryAdmin<IEnumerable<LeadDto>>
     {
         public string Country { get; }
-        public AdminLeadsQuery(string country)
+        public LeadsQuery(string country)
         {
             Country = country;
         }
 
-        internal sealed class AdminLeadsQueryHandler : IQueryHandler<AdminLeadsQuery, IEnumerable<LeadDto>>
+        internal sealed class LeadsQueryHandler : IQueryHandler<LeadsQuery, IEnumerable<LeadDto>>
         {
             private readonly IStatelessSession _session;
 
 
-            public AdminLeadsQueryHandler(QuerySession session)
+            public LeadsQueryHandler(QuerySession session)
             {
                 _session = session.StatelessSession;
             }
 
-            public async Task<IEnumerable<LeadDto>> GetAsync(AdminLeadsQuery query, CancellationToken token)
+            public async Task<IEnumerable<LeadDto>> GetAsync(LeadsQuery query, CancellationToken token)
             {
                 //User userAlias = null;
                 //Lead leadAlias = null;

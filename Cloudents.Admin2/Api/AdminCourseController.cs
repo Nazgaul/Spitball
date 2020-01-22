@@ -6,7 +6,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Query;
 using Cloudents.Query.Admin;
-using Cloudents.Query.Query.Admin;
 using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -85,7 +84,7 @@ namespace Cloudents.Admin2.Api
         public async Task<CoursesResponse> GetAsync([FromQuery(Name = "course")]string course,
             CancellationToken token)
         {
-            var query = new AdminCourseSearchQuery(0, course, 0, User.GetCountryClaim());
+            var query = new CourseSearchQuery(0, course, 0, User.GetCountryClaim());
             //var query = new CourseSearchWithTermQuery(0, course, 0);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
@@ -100,7 +99,7 @@ namespace Cloudents.Admin2.Api
                 , CancellationToken token)
         {
 
-            var query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending),
+            var query = new CoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending),
                 User.GetCountryClaim(),
                 model.Filter);
             var retVal = await _queryBus.QueryAsync(query, token);

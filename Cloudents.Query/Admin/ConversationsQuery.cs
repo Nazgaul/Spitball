@@ -8,9 +8,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminConversationsQuery : IQueryAdmin<IEnumerable<ConversationDto>>
+    public class ConversationsQuery : IQueryAdmin<IEnumerable<ConversationDto>>
     {
         private int Page { get; }
         public string Country { get; }
@@ -19,7 +19,7 @@ namespace Cloudents.Query.Query.Admin
         private WaitingFor? ConversationStatus { get; }
 
 
-        public AdminConversationsQuery(long userId, int page, string country, ChatRoomStatus status, string assignTo, WaitingFor? conversationStatus)
+        public ConversationsQuery(long userId, int page, string country, ChatRoomStatus status, string assignTo, WaitingFor? conversationStatus)
         {
             UserId = userId;
             Page = page;
@@ -29,17 +29,17 @@ namespace Cloudents.Query.Query.Admin
             ConversationStatus = conversationStatus;
         }
         private long UserId { get; }
-        internal sealed class AdminAllConversationsQueryHandler : IQueryHandler<AdminConversationsQuery, IEnumerable<ConversationDto>>
+        internal sealed class AllConversationsQueryHandler : IQueryHandler<ConversationsQuery, IEnumerable<ConversationDto>>
         {
             private readonly IStatelessSession _statelessSession;
 
 
-            public AdminAllConversationsQueryHandler(QuerySession statelessSession)
+            public AllConversationsQueryHandler(QuerySession statelessSession)
             {
                 _statelessSession = statelessSession.StatelessSession;
             }
 
-            public async Task<IEnumerable<ConversationDto>> GetAsync(AdminConversationsQuery query, CancellationToken token)
+            public async Task<IEnumerable<ConversationDto>> GetAsync(ConversationsQuery query, CancellationToken token)
             {
 
                 var p = _statelessSession.Query<ViewConversation>();

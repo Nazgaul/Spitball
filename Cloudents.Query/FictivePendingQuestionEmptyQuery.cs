@@ -7,19 +7,19 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query
 {
-    public class AdminFictivePendingQuestionEmptyQuery : IQuery<IList<FictivePendingQuestionDto>>
+    public class FictivePendingQuestionEmptyQuery : IQuery<IList<FictivePendingQuestionDto>>
     {
-        internal sealed class AdminFictivePendingQuestionEmptyQueryHandler : IQueryHandler<AdminFictivePendingQuestionEmptyQuery, IList<FictivePendingQuestionDto>>
+        internal sealed class FictivePendingQuestionEmptyQueryHandler : IQueryHandler<FictivePendingQuestionEmptyQuery, IList<FictivePendingQuestionDto>>
         {
             private readonly IStatelessSession _session;
 
-            public AdminFictivePendingQuestionEmptyQueryHandler(QuerySession session)
+            public FictivePendingQuestionEmptyQueryHandler(QuerySession session)
             {
                 _session = session.StatelessSession;
             }
-            public async Task<IList<FictivePendingQuestionDto>> GetAsync(AdminFictivePendingQuestionEmptyQuery query, CancellationToken token)
+            public async Task<IList<FictivePendingQuestionDto>> GetAsync(FictivePendingQuestionEmptyQuery query, CancellationToken token)
             {
                 var counties = new[] { Country.India.Name, Country.Israel.Name, Country.UnitedStates.Name };
 

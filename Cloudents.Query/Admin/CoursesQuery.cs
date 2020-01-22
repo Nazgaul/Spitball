@@ -6,12 +6,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminCoursesQuery :
-            IQueryAdmin<IList<PendingCoursesDto>>
+    public class CoursesQuery : IQueryAdmin<IList<PendingCoursesDto>>
     {
-        public AdminCoursesQuery(string language, ItemState state, string country, string filter)
+        public CoursesQuery(string language, ItemState state, string country, string filter)
         {
             Language = language;
             State = state;
@@ -24,18 +23,18 @@ namespace Cloudents.Query.Query.Admin
         public string Filter { get;  }
     }
 
-    internal class AdminPendingCoursesQueryHandler : IQueryHandler<AdminCoursesQuery, IList<PendingCoursesDto>>
+    internal class PendingCoursesQueryHandler : IQueryHandler<CoursesQuery, IList<PendingCoursesDto>>
     {
 
         private readonly IDapperRepository _dapper;
 
 
-        public AdminPendingCoursesQueryHandler(IDapperRepository dapper)
+        public PendingCoursesQueryHandler(IDapperRepository dapper)
         {
             _dapper = dapper;
         }
 
-        public async Task<IList<PendingCoursesDto>> GetAsync(AdminCoursesQuery query, CancellationToken token)
+        public async Task<IList<PendingCoursesDto>> GetAsync(CoursesQuery query, CancellationToken token)
         {
             var sql = @"Select @Term = case when @Term is null then '""""' else '""*' + @Term + '*""' end 
                     select distinct top 100 c.Name

@@ -9,27 +9,25 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminPaymentsQuery : IQueryAdmin<IEnumerable<PaymentDto>>
+    public class PaymentsQuery : IQueryAdmin<IEnumerable<PaymentDto>>
     {
-        public AdminPaymentsQuery(string country)
+        public PaymentsQuery(string country)
         {
             Country = country;
         }
         public string Country { get; }
-        internal sealed class AdminPaymentsQueryHandler : IQueryHandler<AdminPaymentsQuery, IEnumerable<PaymentDto>>
+        internal sealed class PaymentsQueryHandler : IQueryHandler<PaymentsQuery, IEnumerable<PaymentDto>>
         {
-            //private readonly IDapperRepository _repository;
             private readonly IStatelessSession _session;
 
-
-            public AdminPaymentsQueryHandler(IStatelessSession session)
+            public PaymentsQueryHandler(IStatelessSession session)
             {
                 _session = session;
             }
 
-            public async Task<IEnumerable<PaymentDto>> GetAsync(AdminPaymentsQuery query, CancellationToken token)
+            public async Task<IEnumerable<PaymentDto>> GetAsync(PaymentsQuery query, CancellationToken token)
             {
                 StudyRoomSession studyRoomSessionAlias = null;
                 StudyRoom studyRoomAlias = null;

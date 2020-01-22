@@ -4,26 +4,26 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminPendingTutorsQuery : IQueryAdmin<IEnumerable<PendingTutorsDto>>
+    public class PendingTutorsQuery : IQueryAdmin<IEnumerable<PendingTutorsDto>>
     {
-        public AdminPendingTutorsQuery(string country)
+        public PendingTutorsQuery(string country)
         {
             Country = country;
         }
 
         public string Country { get; }
 
-        internal sealed class AdminPendingTutorsQueryHandler : IQueryHandler<AdminPendingTutorsQuery, IEnumerable<PendingTutorsDto>>
+        internal sealed class PendingTutorsQueryHandler : IQueryHandler<PendingTutorsQuery, IEnumerable<PendingTutorsDto>>
         {
             private readonly IDapperRepository _dapper;
-            public AdminPendingTutorsQueryHandler(IDapperRepository dapper)
+            public PendingTutorsQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }
 
-            public async Task<IEnumerable<PendingTutorsDto>> GetAsync(AdminPendingTutorsQuery query, CancellationToken token)
+            public async Task<IEnumerable<PendingTutorsDto>> GetAsync(PendingTutorsQuery query, CancellationToken token)
             {
                 const string sql = @"select u.Id, u.FirstName, u.LastName,
 u.Email, t.Bio, t.Price, t.Created, 

@@ -8,26 +8,26 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminAllUniversitiesQuery : IQueryAdmin<IList<AllUniversitiesDto>>
+    public class AllUniversitiesQuery : IQueryAdmin<IList<AllUniversitiesDto>>
     {
         public string Country { get; }
-        public AdminAllUniversitiesQuery(string country)
+        public AllUniversitiesQuery(string country)
         {
             Country = country;
         }
-        internal sealed class AdminAllUniversitiesEmptyQueryHandler : IQueryHandler<AdminAllUniversitiesQuery, IList<AllUniversitiesDto>>
+        internal sealed class AllUniversitiesEmptyQueryHandler : IQueryHandler<AllUniversitiesQuery, IList<AllUniversitiesDto>>
         {
             // private readonly DapperRepository _dapper;
             private readonly IStatelessSession _session;
 
-            public AdminAllUniversitiesEmptyQueryHandler(QuerySession session)
+            public AllUniversitiesEmptyQueryHandler(QuerySession session)
             {
                 _session = session.StatelessSession;
             }
 
-            public async Task<IList<AllUniversitiesDto>> GetAsync(AdminAllUniversitiesQuery query, CancellationToken token)
+            public async Task<IList<AllUniversitiesDto>> GetAsync(AllUniversitiesQuery query, CancellationToken token)
             {
                 var res = _session.Query<University>()
                     .Where(w => w.State == ItemState.Ok);

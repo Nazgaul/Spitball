@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminUserSoldDocsQuery : IQueryAdmin<IEnumerable<UserSoldItemsDto>>
+    public class UserSoldDocsQuery : IQueryAdmin<IEnumerable<UserSoldItemsDto>>
     {
-        public AdminUserSoldDocsQuery(long userId, int page, string country)
+        public UserSoldDocsQuery(long userId, int page, string country)
         {
             UserId = userId;
             Page = page;
@@ -22,17 +22,17 @@ namespace Cloudents.Query.Query.Admin
         public int Page { get; }
         public string Country { get; }
 
-        internal sealed class AdminUserSoldDocsQueryHandler : IQueryHandler<AdminUserSoldDocsQuery, IEnumerable<UserSoldItemsDto>>
+        internal sealed class UserSoldDocsQueryHandler : IQueryHandler<UserSoldDocsQuery, IEnumerable<UserSoldItemsDto>>
         {
             private readonly IStatelessSession _session;
 
 
-            public AdminUserSoldDocsQueryHandler(QuerySession session)
+            public UserSoldDocsQueryHandler(QuerySession session)
             {
                 _session = session.StatelessSession;
             }
 
-            public async Task<IEnumerable<UserSoldItemsDto>> GetAsync(AdminUserSoldDocsQuery query, CancellationToken token)
+            public async Task<IEnumerable<UserSoldItemsDto>> GetAsync(UserSoldDocsQuery query, CancellationToken token)
             {
                 const int pageSize = 20;
                 User userAlias = null;

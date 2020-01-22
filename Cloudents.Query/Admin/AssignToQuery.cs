@@ -6,22 +6,22 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminAssignToQuery : IQuery<IList<string>>
+    public class AssignToQuery : IQuery<IList<string>>
     {
 
-        internal sealed class AdminAssignToQueryHandler : IQueryHandler<AdminAssignToQuery, IList<string>>
+        internal sealed class AssignToQueryHandler : IQueryHandler<AssignToQuery, IList<string>>
         {
             private readonly IStatelessSession _session;
 
-            public AdminAssignToQueryHandler(QuerySession session)
+            public AssignToQueryHandler(QuerySession session)
             {
                 _session = session.StatelessSession;
             }
 
 
-            public async Task<IList<string>> GetAsync(AdminAssignToQuery query, CancellationToken token)
+            public async Task<IList<string>> GetAsync(AssignToQuery query, CancellationToken token)
             {
                 return await _session.Query<AdminUser>()
                     .Select(s => s.Email)

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminCourseSearchQuery : IQueryAdmin<IEnumerable<CourseDto>>
+    public class CourseSearchQuery : IQueryAdmin<IEnumerable<CourseDto>>
     {
-        public AdminCourseSearchQuery(long userId, string term, int page, string country)
+        public CourseSearchQuery(long userId, string term, int page, string country)
         {
             UserId = userId;
             if (!string.IsNullOrEmpty(term))
@@ -27,16 +27,16 @@ namespace Cloudents.Query.Query.Admin
 
 
 
-        internal sealed class AdminCourseSearchQueryHandler : IQueryHandler<AdminCourseSearchQuery, IEnumerable<CourseDto>>
+        internal sealed class CourseSearchQueryHandler : IQueryHandler<CourseSearchQuery, IEnumerable<CourseDto>>
         {
             private readonly IDapperRepository _dapperRepository;
 
-            public AdminCourseSearchQueryHandler(IDapperRepository dapperRepository)
+            public CourseSearchQueryHandler(IDapperRepository dapperRepository)
             {
                 _dapperRepository = dapperRepository;
             }
 
-            public async Task<IEnumerable<CourseDto>> GetAsync(AdminCourseSearchQuery query, CancellationToken token)
+            public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
             {
                 const int pageSize = 50;
                 const string sql =

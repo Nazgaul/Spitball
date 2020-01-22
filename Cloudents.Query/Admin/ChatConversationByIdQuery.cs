@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminChatConversationByIdQuery : IQueryAdmin<IEnumerable<ChatMessageDto>>
+    public class ChatConversationByIdQuery : IQueryAdmin<IEnumerable<ChatMessageDto>>
     {
-        public AdminChatConversationByIdQuery(string conversationId, int page, string country)
+        public ChatConversationByIdQuery(string conversationId, int page, string country)
         {
             ConversationId = conversationId;
             Page = page;
@@ -20,17 +20,17 @@ namespace Cloudents.Query.Query.Admin
         public string Country { get; set; }
 
 
-        internal sealed class AdminChatConversationByIdQueryHandler : IQueryHandler<AdminChatConversationByIdQuery, IEnumerable<ChatMessageDto>>
+        internal sealed class ChatConversationByIdQueryHandler : IQueryHandler<ChatConversationByIdQuery, IEnumerable<ChatMessageDto>>
         {
             private readonly IDapperRepository _repository;
 
-            public AdminChatConversationByIdQueryHandler(IDapperRepository repository)
+            public ChatConversationByIdQueryHandler(IDapperRepository repository)
             {
                 _repository = repository;
             }
 
 
-            public async Task<IEnumerable<ChatMessageDto>> GetAsync(AdminChatConversationByIdQuery query, CancellationToken token)
+            public async Task<IEnumerable<ChatMessageDto>> GetAsync(ChatConversationByIdQuery query, CancellationToken token)
             {
                 using (var conn = _repository.OpenConnection())
                 {

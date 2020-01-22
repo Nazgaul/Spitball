@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminTutorSessionsQuery : IQueryAdmin<IEnumerable<SessionBillDto>>
+    public class TutorSessionsQuery : IQueryAdmin<IEnumerable<SessionBillDto>>
     {
-        public AdminTutorSessionsQuery(long tutorId, string country)
+        public TutorSessionsQuery(long tutorId, string country)
         {
             TutorId = tutorId;
             Country = country;
@@ -16,16 +16,16 @@ namespace Cloudents.Query.Query.Admin
         public string Country { get; }
         public long TutorId { get; }
 
-        internal sealed class AdminTutorSessionsQueryHandler : IQueryHandler<AdminTutorSessionsQuery, IEnumerable<SessionBillDto>>
+        internal sealed class TutorSessionsQueryHandler : IQueryHandler<TutorSessionsQuery, IEnumerable<SessionBillDto>>
         {
             private readonly IDapperRepository _dapper;
 
-            public AdminTutorSessionsQueryHandler(IDapperRepository dapper)
+            public TutorSessionsQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }
 
-            public async Task<IEnumerable<SessionBillDto>> GetAsync(AdminTutorSessionsQuery query, CancellationToken token)
+            public async Task<IEnumerable<SessionBillDto>> GetAsync(TutorSessionsQuery query, CancellationToken token)
             {
                 var sql = @"select u.Name, u.PhoneNumberHash, u.Email, srs.Created, srs.Ended, 
                             DATEDIFF(MINUTE, srs.Created, srs.Ended) as 'Minutes',

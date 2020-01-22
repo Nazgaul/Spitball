@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminSessionsQuery : IQueryAdmin<IEnumerable<SessionDto>>
+    public class SessionsQuery : IQueryAdmin<IEnumerable<SessionDto>>
     {
-        public AdminSessionsQuery(long userId, string country)
+        public SessionsQuery(long userId, string country)
         {
             UserId = userId;
             Country = country;
@@ -16,17 +16,17 @@ namespace Cloudents.Query.Query.Admin
         private long UserId { get; }
         public string Country { get; }
 
-        internal sealed class AdminSessionsQueryHandler : IQueryHandler<AdminSessionsQuery, IEnumerable<SessionDto>>
+        internal sealed class SessionsQueryHandler : IQueryHandler<SessionsQuery, IEnumerable<SessionDto>>
         {
             private readonly IDapperRepository _dapper;
 
 
-            public AdminSessionsQueryHandler(IDapperRepository dapper)
+            public SessionsQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }
 
-            public async Task<IEnumerable<SessionDto>> GetAsync(AdminSessionsQuery query, CancellationToken token)
+            public async Task<IEnumerable<SessionDto>> GetAsync(SessionsQuery query, CancellationToken token)
             {
                 string sql = @"select cast (S.created as date) as Created,
 		                                    sum(s.DurationInMinutes) as Duration,

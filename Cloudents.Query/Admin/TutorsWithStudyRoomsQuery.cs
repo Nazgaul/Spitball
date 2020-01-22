@@ -4,26 +4,26 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminTutorsWithStudyRoomsQuery : IQueryAdmin<IEnumerable<TutorInfoDto>>
+    public class TutorsWithStudyRoomsQuery : IQueryAdmin<IEnumerable<TutorInfoDto>>
     {
-        public AdminTutorsWithStudyRoomsQuery(string country)
+        public TutorsWithStudyRoomsQuery(string country)
         {
             Country = country;
         }
         public string Country { get; }
 
-        internal sealed class AdminTutorsWithStudyRoomsQueryHandler : IQueryHandler<AdminTutorsWithStudyRoomsQuery, IEnumerable<TutorInfoDto>>
+        internal sealed class TutorsWithStudyRoomsQueryHandler : IQueryHandler<TutorsWithStudyRoomsQuery, IEnumerable<TutorInfoDto>>
         {
             private readonly IDapperRepository _dapper;
 
-            public AdminTutorsWithStudyRoomsQueryHandler(IDapperRepository dapper)
+            public TutorsWithStudyRoomsQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }
 
-            public async Task<IEnumerable<TutorInfoDto>> GetAsync(AdminTutorsWithStudyRoomsQuery query, CancellationToken token)
+            public async Task<IEnumerable<TutorInfoDto>> GetAsync(TutorsWithStudyRoomsQuery query, CancellationToken token)
             {
                 var sql = @"	select u.Id, u.Name, u.Email, u.PhoneNumberHash as PhoneNumber,
                             (select cast(sum(datediff(MINUTE, srs.created, srs.ended)) as float)/60

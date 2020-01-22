@@ -4,27 +4,27 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminStudyRoomQuery : IQueryAdmin<IEnumerable<StudyRoomDto>>
+    public class StudyRoomQuery : IQueryAdmin<IEnumerable<StudyRoomDto>>
     {
-        public AdminStudyRoomQuery(string country)
+        public StudyRoomQuery(string country)
         {
             Country = country;
         }
         public string Country { get; }
-        internal class AdminStudyRoomQueryHandler : IQueryHandler<AdminStudyRoomQuery, IEnumerable<StudyRoomDto>>
+        internal sealed class StudyRoomQueryHandler : IQueryHandler<StudyRoomQuery, IEnumerable<StudyRoomDto>>
         {
 
             private readonly IDapperRepository _dapper;
 
 
-            public AdminStudyRoomQueryHandler(IDapperRepository dapper)
+            public StudyRoomQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }
 
-            public async Task<IEnumerable<StudyRoomDto>> GetAsync(AdminStudyRoomQuery query, CancellationToken token)
+            public async Task<IEnumerable<StudyRoomDto>> GetAsync(StudyRoomQuery query, CancellationToken token)
             {
                 var sql = @"Select	S.Id as SessionId,
                                     T.[name] TutorName, 

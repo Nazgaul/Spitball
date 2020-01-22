@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
     public class FlaggedAnswerQuery : IQueryAdmin<IEnumerable<FlaggedAnswerDto>>
     {

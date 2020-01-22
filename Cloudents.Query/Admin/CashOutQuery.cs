@@ -5,27 +5,27 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminCashOutQuery : IQueryAdmin<IEnumerable<CashOutDto>>
+    public class CashOutQuery : IQueryAdmin<IEnumerable<CashOutDto>>
     {
-        public AdminCashOutQuery(string country)
+        public CashOutQuery(string country)
         {
             Country = country;
         }
         public string Country { get; }
-        internal sealed class AdminCashOutEmptyQueryHandler : IQueryHandler<AdminCashOutQuery, IEnumerable<CashOutDto>>
+        internal sealed class CashOutEmptyQueryHandler : IQueryHandler<CashOutQuery, IEnumerable<CashOutDto>>
         {
             private readonly IDapperRepository _session;
 
 
 
-            public AdminCashOutEmptyQueryHandler(IDapperRepository session)
+            public CashOutEmptyQueryHandler(IDapperRepository session)
             {
                 _session = session;
             }
 
-            public async Task<IEnumerable<CashOutDto>> GetAsync(AdminCashOutQuery query, CancellationToken token)
+            public async Task<IEnumerable<CashOutDto>> GetAsync(CashOutQuery query, CancellationToken token)
             {
                 var sql = @"select t.User_id as userId,
 t.price as CashoutPrice,

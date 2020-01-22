@@ -1,5 +1,5 @@
-﻿namespace Cloudents.Query.HomePage
-{
+﻿namespace Cloudents.Core.DTOs.Admin
+{ 
     public class StatsDto
     {
         //public StatsDto(int documents, int tutors, int students, float reviews)

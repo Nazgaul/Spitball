@@ -9,24 +9,24 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Admin
 {
-    public class AdminUserNotesQuery : IQuery<IEnumerable<UserNoteDto>>
+    public class UserNotesQuery : IQuery<IEnumerable<UserNoteDto>>
     {
-        public AdminUserNotesQuery(long userId)
+        public UserNotesQuery(long userId)
         {
             UserId = userId;
         }
         public long UserId { get; set; }
 
-        internal sealed class AdminUserNotesQueryHandler : IQueryHandler<AdminUserNotesQuery, IEnumerable<UserNoteDto>>
+        internal sealed class UserNotesQueryHandler : IQueryHandler<UserNotesQuery, IEnumerable<UserNoteDto>>
         {
             private readonly IStatelessSession _session;
 
-            public AdminUserNotesQueryHandler(QuerySession session)
+            public UserNotesQueryHandler(QuerySession session)
             {
                 _session = session.StatelessSession;
             }
 
-            public async Task<IEnumerable<UserNoteDto>> GetAsync(AdminUserNotesQuery query, CancellationToken token)
+            public async Task<IEnumerable<UserNoteDto>> GetAsync(UserNotesQuery query, CancellationToken token)
             {
                 return await _session.Query<AdminNote>()
                     .Fetch(f => f.AdminUser)

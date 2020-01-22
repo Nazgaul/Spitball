@@ -8,11 +8,11 @@ using Cloudents.Core.Enum;
 using NHibernate;
 using NHibernate.Linq;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminUserDetailsQuery : IQueryAdmin<UserDetailsDto>
+    public class UserDetailsQuery : IQueryAdmin<UserDetailsDto>
     {
-        public AdminUserDetailsQuery(string userId, string country)
+        public UserDetailsQuery(string userId, string country)
         {
             UserId = userId;
             Country = country;
@@ -21,17 +21,17 @@ namespace Cloudents.Query.Query.Admin
         private string UserId { get; }
         public string Country { get; }
 
-        internal sealed class AdminUserDetailsQueryHandler : IQueryHandler<AdminUserDetailsQuery, UserDetailsDto>
+        internal sealed class UserDetailsQueryHandler : IQueryHandler<UserDetailsQuery, UserDetailsDto>
         {
 
             private readonly IStatelessSession _session;
 
-            public AdminUserDetailsQueryHandler(QuerySession session)
+            public UserDetailsQueryHandler(QuerySession session)
             {
                 _session = session.StatelessSession;
             }
 
-            public async Task<UserDetailsDto> GetAsync(AdminUserDetailsQuery query, CancellationToken token)
+            public async Task<UserDetailsDto> GetAsync(UserDetailsQuery query, CancellationToken token)
             {
 
                 long.TryParse(query.UserId, out var tmpId);

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminConversationDetailsQuery : IQueryAdmin<IEnumerable<ConversationDetailsDto>>
+    public class ConversationDetailsQuery : IQueryAdmin<IEnumerable<ConversationDetailsDto>>
     {
-        public AdminConversationDetailsQuery(string id, string country)
+        public ConversationDetailsQuery(string id, string country)
         {
             Id = id;
             Country = country;
@@ -17,17 +17,17 @@ namespace Cloudents.Query.Query.Admin
         private string Id { get; }
         public string Country { get; }
 
-        internal sealed class AdminConversationDetailsQueryHandler : IQueryHandler<AdminConversationDetailsQuery, IEnumerable<ConversationDetailsDto>>
+        internal sealed class ConversationDetailsQueryHandler : IQueryHandler<ConversationDetailsQuery, IEnumerable<ConversationDetailsDto>>
         {
             private readonly IDapperRepository _dapper;
 
-            public AdminConversationDetailsQueryHandler(IDapperRepository dapper)
+            public ConversationDetailsQueryHandler(IDapperRepository dapper)
             {
                 _dapper = dapper;
             }
 
 
-            public async Task<IEnumerable<ConversationDetailsDto>> GetAsync(AdminConversationDetailsQuery query, CancellationToken token)
+            public async Task<IEnumerable<ConversationDetailsDto>> GetAsync(ConversationDetailsQuery query, CancellationToken token)
             {
                 string sql = @"with cte as (
 select u.Id as UserId, cr.Id as ChatRoomId, u.Name as UserName, u.Email, u.PhoneNumberHash as PhoneNumber, u.ImageName as Image,

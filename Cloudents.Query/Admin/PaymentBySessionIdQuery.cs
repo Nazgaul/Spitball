@@ -5,27 +5,27 @@ using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Entities;
 using Dapper;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminPaymentBySessionIdQuery : IQuery<PaymentDetailDto>
+    public class PaymentBySessionIdQuery : IQuery<PaymentDetailDto>
     {
-        public AdminPaymentBySessionIdQuery(Guid sessionId)
+        public PaymentBySessionIdQuery(Guid sessionId)
         {
             SessionId = sessionId;
         }
 
         private Guid SessionId { get; }
 
-        internal sealed class AdminPaymentBySessionIdQueryHandler : IQueryHandler<AdminPaymentBySessionIdQuery, PaymentDetailDto>
+        internal sealed class PaymentBySessionIdQueryHandler : IQueryHandler<PaymentBySessionIdQuery, PaymentDetailDto>
         {
             private readonly IDapperRepository _repository;
 
-            public AdminPaymentBySessionIdQueryHandler(IDapperRepository repository)
+            public PaymentBySessionIdQueryHandler(IDapperRepository repository)
             {
                 _repository = repository;
             }
 
-            public async Task<PaymentDetailDto> GetAsync(AdminPaymentBySessionIdQuery query, CancellationToken token)
+            public async Task<PaymentDetailDto> GetAsync(PaymentBySessionIdQuery query, CancellationToken token)
             {
                 //This query will not work in case there will be more then one student in a room.
                 const string sql = @"select srs.Id as StudyRoomSessionId,

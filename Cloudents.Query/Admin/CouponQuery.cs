@@ -7,21 +7,20 @@ using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminCouponQuery : IQuery<IEnumerable<CouponDto>>
+    public class CouponQuery : IQuery<IEnumerable<CouponDto>>
     {
-        internal sealed class
-            AdminAllConversationsQueryHandler : IQueryHandler<AdminCouponQuery, IEnumerable<CouponDto>>
+        internal sealed class AllConversationsQueryHandler : IQueryHandler<CouponQuery, IEnumerable<CouponDto>>
         {
             private readonly IStatelessSession _statelessSession;
 
-            public AdminAllConversationsQueryHandler(QuerySession statelessSession)
+            public AllConversationsQueryHandler(QuerySession statelessSession)
             {
                 _statelessSession = statelessSession.StatelessSession;
             }
 
-            public async Task<IEnumerable<CouponDto>> GetAsync(AdminCouponQuery query, CancellationToken token)
+            public async Task<IEnumerable<CouponDto>> GetAsync(CouponQuery query, CancellationToken token)
             {
                 return  await _statelessSession.Query<Coupon>()
                      .Select(s => new CouponDto()

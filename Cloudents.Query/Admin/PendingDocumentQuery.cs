@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
     public class PendingDocumentQuery : IQueryAdmin<IList<PendingDocumentDto>>
     {
@@ -21,12 +21,12 @@ namespace Cloudents.Query.Query.Admin
         public long? DocumentId { get; private set; }
         public string Country { get; set; }
 
-        internal sealed class PendingDocumentEmptyQueryHandler : IQueryHandler<PendingDocumentQuery, IList<PendingDocumentDto>>
+        internal sealed class PendingDocumentQueryHandler : IQueryHandler<PendingDocumentQuery, IList<PendingDocumentDto>>
         {
             private readonly IStatelessSession _session;
 
 
-            public PendingDocumentEmptyQueryHandler(QuerySession session)
+            public PendingDocumentQueryHandler(QuerySession session)
             {
                 _session = session.StatelessSession;
             }

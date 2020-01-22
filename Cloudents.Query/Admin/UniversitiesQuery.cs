@@ -8,11 +8,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Query.Admin
+namespace Cloudents.Query.Admin
 {
-    public class AdminUniversitiesQuery : IQueryAdmin<IList<PendingUniversitiesDto>>
+    public class UniversitiesQuery : IQueryAdmin<IList<PendingUniversitiesDto>>
     {
-        public AdminUniversitiesQuery(string country, ItemState state)
+        public UniversitiesQuery(string country, ItemState state)
         {
             Country = country;
             State = state;
@@ -21,18 +21,18 @@ namespace Cloudents.Query.Query.Admin
         public ItemState State { get; }
     }
 
-    internal class AdminPendingUniversitiesQueryHandler : IQueryHandler<AdminUniversitiesQuery, IList<PendingUniversitiesDto>>
+    internal sealed class PendingUniversitiesQueryHandler : IQueryHandler<UniversitiesQuery, IList<PendingUniversitiesDto>>
     {
 
         private readonly IStatelessSession _session;
 
 
-        public AdminPendingUniversitiesQueryHandler(QuerySession session)
+        public PendingUniversitiesQueryHandler(QuerySession session)
         {
             _session = session.StatelessSession;
         }
 
-        public async Task<IList<PendingUniversitiesDto>> GetAsync(AdminUniversitiesQuery query, CancellationToken token)
+        public async Task<IList<PendingUniversitiesDto>> GetAsync(UniversitiesQuery query, CancellationToken token)
         {
             var q = _session.Query<University>()
                 .Where(w => w.State == query.State);

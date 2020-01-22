@@ -13,7 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cloudents.Query.Query.Admin;
 using NHibernate.Linq;
 using Xunit;
 using Cloudents.Core.Enum;
@@ -516,12 +515,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task AdminCouponQuery_Ok()
-        {
-            var query = new AdminCouponQuery();
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+       
 
 
         [Fact]
@@ -543,7 +537,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminFictivePendingQuestionEmptyQuery_Ok()
         {
-            var query = new AdminFictivePendingQuestionEmptyQuery();
+            var query = new FictivePendingQuestionEmptyQuery();
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
     }
