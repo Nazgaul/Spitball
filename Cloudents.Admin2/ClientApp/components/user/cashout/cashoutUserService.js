@@ -13,7 +13,7 @@ function CashoutUser(objInit) {
     this.correctAnswer = objInit.correctAnswer;
     this.declinedReason = objInit.declinedReason;
     this.deletedCorrectAnswer = objInit.deletedCorrectAnswer;
-    this.country = objInit.country || false;
+    this.country = objInit.country;
     this.referCount = objInit.referCount;
     this.soldDeletedDocument = objInit.soldDeletedDocument;
     this.soldDocument = objInit.soldDocument;
