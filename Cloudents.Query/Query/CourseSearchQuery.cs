@@ -53,7 +53,7 @@ from sb.Course c
 join sb.UsersCourses uc
 	on c.Name = uc.CourseId and uc.UserId = @Id
 where State = 'OK'
-union
+union all
 select Name,
 	0 as IsFollowing,
 	c.count as Students

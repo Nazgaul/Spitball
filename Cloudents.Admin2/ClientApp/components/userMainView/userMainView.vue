@@ -39,20 +39,48 @@
                     <template v-for="(infoItem, name,index) in userInfo">
                         <v-list-tile :class="[ (index % 2 == 0) ? 'table-odd' : '' ]" :key="index">
                             <v-layout align-center justify-space-between>
+                                <div>
                                 <span><b>{{infoItem.label}}:</b></span>
-                                <v-btn small color='warning' @click="openNameDialog(userInfo.name.value)" v-if="infoItem.label == 'User Name'">Edit</v-btn>
-                                <v-btn small color='warning' @click="openPhoneDialog(userInfo.phoneNumber.value)" v-if="infoItem.label == 'Phone Number'">Edit</v-btn>
-                                <v-btn small color='warning' @click="openTutorPriceDialog(userInfo.tutorPrice.value)" v-if="infoItem.label == 'Tutor Price'" class="white--text">Edit</v-btn>
-                                <v-btn small color='red' class="white--text" @click="removePayment(userInfo.id.value)" v-if="infoItem.label == 'Has Payment' && infoItem.value">Delete</v-btn>
-                                <v-btn small color='red' class="white--text" @click="deleteTutor()" v-if="infoItem.label == 'Tutor State'">Delete</v-btn>
-
-                                <template v-if="infoItem.label == 'Tutor State'">
-                                    <v-btn small color='warning' class="white--text" @click="suspendTutor()" v-if="infoItem.value === 'ok'">suspend</v-btn>
-                                    <v-btn small color='red' class="white--text" @click="unSuspendTutor()" v-if="infoItem.value === 'flagged'">un suspend</v-btn>
-                                </template>
-
-                                <v-btn small color='red' class="white--text" @click="deleteCalender()" v-if="infoItem.label == 'Has Calendar' && infoItem.value === true">Delete</v-btn>
                                 <span>{{infoItem.value}}</span>
+                                </div>
+                                <div>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="openNameDialog(userInfo.name.value)" v-if="infoItem.label == 'User Name'"><v-icon>edit</v-icon></v-btn>
+                                        <span>Edit</span>
+                                    </v-tooltip>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="openPhoneDialog(userInfo.phoneNumber.value)" v-if="infoItem.label == 'Phone Number'"><v-icon>edit</v-icon></v-btn>
+                                        <span>Edit</span>
+                                    </v-tooltip>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="openTutorPriceDialog(userInfo.tutorPrice.value)" v-if="infoItem.label == 'Tutor Price'"><v-icon>edit</v-icon></v-btn>
+                                        <span>Edit</span>
+                                    </v-tooltip>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="removePayment(userInfo.id.value)" v-if="infoItem.label == 'Has Payment' && infoItem.value"><v-icon>delete</v-icon></v-btn>
+                                        <span>Delete</span>
+                                    </v-tooltip>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="deleteTutor()" v-if="infoItem.label == 'Tutor State'"><v-icon>delete</v-icon></v-btn>
+                                        <span>Delete</span>
+                                    </v-tooltip> 
+
+
+                                    <template v-if="infoItem.label == 'Tutor State'">
+                                        <v-tooltip top>
+                                            <v-btn slot="activator" class="ma-0" icon small @click="suspendTutor()" v-if="infoItem.value === 'ok'"><v-icon>block</v-icon></v-btn>
+                                            <span>Suspend</span>
+                                        </v-tooltip>
+                                        <v-tooltip top>
+                                            <v-btn slot="activator" class="ma-0" icon small @click="unSuspendTutor()" v-if="infoItem.value === 'flagged'"><v-icon>how_to_reg</v-icon></v-btn>
+                                            <span>un Suspend</span>
+                                        </v-tooltip>
+                                    </template>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="deleteCalender()" v-if="infoItem.label == 'Has Calendar' && infoItem.value === true"><v-icon>delete</v-icon></v-btn>
+                                        <span>Delete</span>
+                                    </v-tooltip> 
+                                </div>
                             </v-layout>
                         </v-list-tile>
                         <v-divider></v-divider>
@@ -73,7 +101,7 @@
                 </v-tabs>
                 <div class="filters mb-2">
                     <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
-                           :color="filterValue === filter.value ? 'blue lighten-1' : ''  "
+                           :color="filterValue === filter.value ? 'grey lighten-1' : ''  "
                            :key="'filter_'+index">
                         {{filter.name}}
                     </v-btn>
@@ -228,7 +256,7 @@
 <style lang="less">
 
 .table-odd {
-    background: #B2DFDB;
+    background: #d2d2d2;
 }
 
 

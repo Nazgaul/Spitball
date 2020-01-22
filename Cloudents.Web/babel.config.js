@@ -9,6 +9,7 @@ module.exports = function (api) {
     const plugins = [ 
         "syntax-dynamic-import",
         "transform-object-rest-spread",
+        "@babel/plugin-proposal-optional-chaining",
         [
             "transform-imports",
             {

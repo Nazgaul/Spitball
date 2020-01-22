@@ -1,5 +1,5 @@
 <template>
-    <v-flex class="right-sidebar" :class="{'bannerActive':getBannerSatus}">
+    <v-flex class="right-sidebar" :class="{'bannerActive':getBannerStatus}">
         <v-flex xs12 class="card-block">
             <marketing-box/>
         </v-flex>
@@ -35,7 +35,7 @@
             ...mapGetters({
                 accountUser: 'accountUser',
                 loginDialogState: 'loginDialogState',
-                getBannerSatus: 'getBannerSatus'
+                getBannerStatus: 'getBannerStatus'
 
             }),
 
