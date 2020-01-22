@@ -212,7 +212,6 @@ import documentService from "../../services/documentService";
 import { LanguageService } from "../../services/language/languageService";
 import utilitiesService from "../../services/utilities/utilitiesService.js"; // cannot async, js error
 
-import userAvatar from "../helpers/UserAvatar/UserAvatar.vue"; // there is a glitch in async import
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const reportItem = () => import("./helpers/reportItem/reportItem.vue");
 const likeSVG = () => import("./img//like.svg");
@@ -224,7 +223,6 @@ export default {
   components: {
     sbDialog,
     reportItem,
-    userAvatar,
     likeSVG,
     likeFilledSVG,
     vidSVG,

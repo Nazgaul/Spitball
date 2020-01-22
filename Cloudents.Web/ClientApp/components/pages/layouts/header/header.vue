@@ -87,14 +87,13 @@ import {LanguageChange, LanguageService } from "../../../../services/language/la
 import languagesLocales from "../../../../services/language/localeLanguage";
 
 import searchCMP from '../../global/search/search.vue';
-import UserAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
 import menuList from '../menuList/menuList.vue';
 import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
 import findSVG from './images/findSVG.svg'
 
 export default {
-    components: {searchCMP,UserAvatar,menuList,logoComponent,findSVG},
+    components: {searchCMP,menuList,logoComponent,findSVG},
     data() {
         return {
             drawer: false,

@@ -37,14 +37,12 @@
 <script>
 const chatConversation = () => import("./components/conversations.vue");
 const chatMessages = () => import("./components/messages.vue");
-const UserAvatar = () => import('../helpers/UserAvatar/UserAvatar.vue');
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 export default {
   components: {
     chatConversation,
     chatMessages,
-    UserAvatar
   },
   data() {
     return {

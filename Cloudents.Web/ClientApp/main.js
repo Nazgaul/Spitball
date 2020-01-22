@@ -1,44 +1,48 @@
+// Imports
 import Vue from "vue";
 import vuetify from './plugins/vuetify';
-import App from "./components/app/app.vue";
 import { sync } from 'vuex-router-sync';
+import * as route from "./routes";
 import store from "./store";
-import { Language } from "./services/language/langDirective";
-import { LanguageService } from './services/language/languageService';
-//import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
-// clip board copy text
-import VueClipboard from 'vue-clipboard2';
-// import Scroll from "vuetify/es5/directives/scroll";
-// import Touch from "vuetify/es5/directives/touch";
-import scrollComponent from './components/helpers/infinateScroll.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import LoadScript from 'vue-plugin-load-script';
+import VueClipboard from 'vue-clipboard2';
+import VueNumeric from 'vue-numeric';
+import VueAppInsights from 'vue-application-insights';
+import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
+import VueFlicking from "@egjs/vue-flicking";
+import '../ClientApp/myFont.font.js';
+
+// Global Components
+import App from "./components/app/app.vue";
+import scrollComponent from './components/helpers/infinateScroll.vue';
+import UserAvatar from './components/helpers/UserAvatar/UserAvatar.vue';
+
+// Global Services
+import { Language } from "./services/language/langDirective";
+import { LanguageService } from './services/language/languageService';
+import utilitiesService from './services/utilities/utilitiesService';
+
+// Filters
+import './filters/filters';
+
+
+//import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
+// clip board copy text
+// import Scroll from "vuetify/es5/directives/scroll";
+// import Touch from "vuetify/es5/directives/touch";
 
 // Intersection observer support
 if(!window.IntersectionObserver){
     import('intersection-observer')   
 }
 
-// Filters
-import './filters/filters';
-
-import VueNumeric from 'vue-numeric';
-import utilitiesService from './services/utilities/utilitiesService';
-import VueAppInsights from 'vue-application-insights';
-import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
-
-
-import VueFlicking from "@egjs/vue-flicking";
-import '../ClientApp/myFont.font.js';
 Vue.use(VueFlicking);
-
-import * as route from "./routes";
-
 Vue.use(VueRouter);
 Vue.use(LoadScript);
-
 Vue.component("scroll-list", scrollComponent);
+Vue.component("UserAvatar",UserAvatar);
 
 const router = new VueRouter({
     mode: "history",
