@@ -62,7 +62,8 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters(['getBannerParams']),
+        ...mapGetters(['getBannerStatus','getBannerParams']),
+        
 		coupon(){
 			if(!!this.getBannerParams){
 				return this.getBannerParams.coupon;
@@ -80,35 +81,53 @@ export default {
 				return this.getBannerParams.subTitle;
             }
             return null
-		}
+        }
+        // dateTime() {
+        //     if(!!this.getBannerParams){
+		// 		return this.getBannerParams.expirationDate;
+        //     }
+        //     return null
+        // }
+
     },
-    watch:{
-        getBannerParams(params){
-            if(!!params){
-                this.setParamsInterval()
-            }
-        },
-	},
+    // watch:{
+    //     dateTime(newValue,oldValue){
+    //         console.log(newValue,oldValue)
+    //         if(!!newValue){
+    //             this.setParamsInterval()
+    //         }
+    //     },
+	// },
 	methods: {
         ...mapActions(['updateBannerStatus']),
         setParamsInterval(){
-            this.interVal = setInterval(this.getNow, 200);
+            this.interVal = setInterval(this.getNow, 1000);
+            this.getNow();
         },
 		getNow() {
 			let countDownDate = new Date(this.getBannerParams.expirationDate).getTime();
 			let now = new Date();
-			let distance = countDownDate - now;
+            let distance = countDownDate - now;
+            
+            const second = 1000;
+            const minute = second * 60;
+            const hour = minute * 60;
+            const day = hour * 24;
+            
 
-			this.time.days = Math.floor(distance / (1000 * 60 * 60 * 24)).toLocaleString('en-US', {minimumIntegerDigits: 2});
-			this.time.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toLocaleString('en-US', {minimumIntegerDigits: 2});
-			this.time.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toLocaleString('en-US', {minimumIntegerDigits: 2});
-			this.time.seconds = Math.floor((distance % (1000 * 60)) / 1000).toLocaleString('en-US', {minimumIntegerDigits: 2});
+			this.time.days = Math.floor(distance / (day)).toLocaleString('en-US', {minimumIntegerDigits: 2});
+			this.time.hours = Math.floor((distance % (day)) / (hour)).toLocaleString('en-US', {minimumIntegerDigits: 2});
+			this.time.minutes = Math.floor((distance % (hour)) / (minute)).toLocaleString('en-US', {minimumIntegerDigits: 2});
+			this.time.seconds = Math.floor((distance % (minute)) / second).toLocaleString('en-US', {minimumIntegerDigits: 2});
 			if (distance < 0) {
 				clearInterval(this.interVal);
 				this.updateBannerStatus(false)
 			}
 		}
-	},
+    },
+    created() {
+        this.setParamsInterval();
+    }
 }
 </script>
 

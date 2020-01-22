@@ -1207,8 +1207,8 @@
       },
       "protobuf-net": {
         "type": "Transitive",
-        "resolved": "2.4.0",
-        "contentHash": "j37MD1p1s9NdX8P5+IaY2J9p2382xiL1VP3mxYu0g+G/kf2YM2grFa1jJPO+0WDJNl1XhNPO0Q5yBEcbX77hBQ==",
+        "resolved": "2.4.4",
+        "contentHash": "EYZyqfSlroeRVC2cvyONwjFE6ji50d+0gsGXFha+Ij/ZzIBLFd4HJmlytlabSyeqJFz1RCIDvhIoe9+AEyx3bg==",
         "dependencies": {
           "System.ServiceModel.Primitives": "4.5.3"
         }
@@ -2734,7 +2734,7 @@
           "Nager.Country": "1.0.4",
           "Nito.AsyncEx.Coordination": "5.0.0",
           "Twilio": "5.37.1",
-          "protobuf-net": "2.4.0"
+          "protobuf-net": "2.4.4"
         }
       },
       "cloudents.infrastructure.storage": {
