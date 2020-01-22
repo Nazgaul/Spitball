@@ -10,7 +10,6 @@ using Cloudents.Query.SearchSync;
 using Cloudents.Query.Tutor;
 using FluentAssertions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NHibernate.Linq;
@@ -127,7 +126,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task UserQuestionFeedDtoQueryHandler_Ok()
         {
-            var query = new UserDataPagingByIdQuery(638, 0);
+            var query = new UserQuestionsByIdQuery(638, 0);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -489,8 +488,17 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserDataByIdQuery_Ok(long userId)
         {
             var query = new UserDataByIdQuery(userId);
-            var _ = await fixture.QueryBus.QueryAsync<User>(query, default);
-            await fixture.QueryBus.QueryAsync<IEnumerable<TransactionDto>>(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+
+        [Theory]
+        [InlineData(159039)]
+        [InlineData(638)]
+        public async Task UserTransactionQuery_Ok(long userId)
+        {
+            var query = new UserTransactionQuery(userId);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]

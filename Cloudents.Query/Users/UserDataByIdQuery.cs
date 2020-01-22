@@ -1,12 +1,11 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
-using System.Collections.Generic;
+﻿using Cloudents.Core.Entities;
+using NHibernate;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Users
 {
-    public class UserDataByIdQuery : IQuery<User>,
-        //IQuery<IEnumerable<BalanceDto>>,
-        IQuery<IEnumerable<TransactionDto>>
+    public class UserDataByIdQuery : IQuery<User>
 
     {
         public UserDataByIdQuery(long id)
@@ -15,20 +14,20 @@ namespace Cloudents.Query.Users
         }
 
         public long Id { get; }
-    }
 
-
-
-    public class UserVotesByCategoryQuery :
-        IQuery<IEnumerable<UserVoteDocumentDto>>
-
-
-    {
-        public UserVotesByCategoryQuery(long userId)
+        internal sealed class UserDataByIdQueryHandler : IQueryHandler<UserDataByIdQuery, User>
         {
-            UserId = userId;
-        }
+            private readonly IStatelessSession _session;
 
-        public long UserId { get; }
+            public UserDataByIdQueryHandler(QuerySession session)
+            {
+                _session = session.StatelessSession;
+            }
+
+            public Task<User> GetAsync(UserDataByIdQuery query, CancellationToken token)
+            {
+                return _session.GetAsync<User>(query.Id, token);
+            }
+        }
     }
 }

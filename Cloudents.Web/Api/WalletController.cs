@@ -61,7 +61,7 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
 
-            var retVal = await _queryBus.QueryAsync<IEnumerable<TransactionDto>>(new UserDataByIdQuery(userId), token);
+            var retVal = await _queryBus.QueryAsync(new UserTransactionQuery(userId), token);
 
             return retVal;
         }
