@@ -113,7 +113,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IActionResult> ApproveCourse([FromBody] ApproveCourseRequest model,
                 CancellationToken token)
         {
-            var command = new ApproveCourseCommand(model.Course, model.Subject);
+            var command = new ApproveCourseCommand(model.Course, model.Subject, model.SchoolType);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

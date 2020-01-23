@@ -17,7 +17,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/sms/code")]
-        public async Task GetAsync_Sms_Ok(string uri)
+        public async Task GetAsync_Sms_OkAsync(string uri)
         {
             var response = await _client.GetAsync(uri);
 

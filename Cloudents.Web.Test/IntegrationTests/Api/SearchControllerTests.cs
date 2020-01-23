@@ -23,7 +23,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("/api/Search/documents?Format=none")]
         [InlineData("/api/search/document")]
         [InlineData("api/search/documents?query=>\"'><script>alert(72)<%2Fscript>&university=>\"'><script>alert(72)<%2Fscript>")]
-        public async Task SearchDocumentAsync_Not_Found(string url)
+        public async Task SearchDocumentAsync_Not_FoundAsync(string url)
         {
             var response = await _client.GetAsync(url);
 

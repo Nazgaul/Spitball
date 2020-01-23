@@ -130,7 +130,7 @@
     <value>חזור</value>
   </data>
   <data name="btn_cal_connect" xml:space="preserve">
-    <value>חבר את יומן גוגל שלך</value>
+    <value>חיבור יומן גוגל שלך</value>
   </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>בטל</value>

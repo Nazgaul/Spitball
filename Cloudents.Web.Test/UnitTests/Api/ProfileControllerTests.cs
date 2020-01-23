@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Moq;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,21 +35,26 @@ namespace Cloudents.Web.Test.UnitTests.Api
         }
 
         [Fact]
-        public async Task GetDocumentsAsync_ReturnUrl()
+        public async Task GetDocumentsAsync_ReturnUrlAsync()
         {
 
             using (var mock = AutoMock.GetLoose())
             {
                 var id = 159039L;
                 var page = 0;
+                var pageSize = 20;
                 var cancellationToken = CancellationToken.None;
-                var result = new[] {new DocumentFeedDto()
+                var result = new ListWithCountDto<DocumentFeedDto>()
                 {
-                    Id = 159039,
-                    University = "SOME UNIVERSITY",
-                    Course = "some course",
-                    Title = "some name"
-                }};
+                    Result = new[] {new DocumentFeedDto()
+                    {
+                        Id = 159039,
+                        University = "SOME UNIVERSITY",
+                        Course = "some course",
+                        Title = "some name"
+                    }},
+                    Count = 1
+                };
 
 
                 // The AutoMock class will inject a mock IDependency
@@ -81,7 +85,7 @@ namespace Cloudents.Web.Test.UnitTests.Api
                 //)).Returns("a/mock/url/for/testing").Verifiable();
 
                 mock.Mock<IQueryBus>()
-                    .Setup(s => s.QueryAsync<IEnumerable<DocumentFeedDto>>(It.IsAny<UserDataPagingByIdQuery>(), cancellationToken))
+                    .Setup(s => s.QueryAsync(It.IsAny<UserDocumentsQuery>(), cancellationToken))
                     .ReturnsAsync(result);
 
                 var sut = mock.Create<ProfileController>();
@@ -89,10 +93,16 @@ namespace Cloudents.Web.Test.UnitTests.Api
                 sut.ControllerContext.HttpContext = new DefaultHttpContext();
 
 
-                var retVal = await sut.GetDocumentsAsync(id, page, cancellationToken);
-                mock.Mock<IQueryBus>().Verify(x => x.QueryAsync<IEnumerable<DocumentFeedDto>>(It.IsAny<UserDataPagingByIdQuery>(), cancellationToken));
+                var retVal = await sut.GetDocumentsAsync(new Models.ProfileDocumentsRequest()
+                {
+                    Id = id, 
+                    Page = page, 
+                    PageSize = pageSize
+                },
+                    cancellationToken);
+                mock.Mock<IQueryBus>().Verify(x => x.QueryAsync(It.IsAny<UserDocumentsQuery>(), cancellationToken));
 
-                retVal.First().Url.Should().NotBeNullOrEmpty();
+                retVal.Result.First().Url.Should().NotBeNullOrEmpty();
 
             }
         }

@@ -10,7 +10,7 @@
   </v-container>-->
 
   <div>
-    <v-container fluid grid-list-sm>
+    <v-container class="pl-2 pr-0" fluid grid-list-sm>
       <v-layout row wrap>
         <v-flex xs12 v-for="(question, index) in filteredQuestions" :key="index">
           <question-item :question="question" :filterVal="filterValue"></question-item>

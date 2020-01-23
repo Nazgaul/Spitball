@@ -161,10 +161,13 @@
     <value>תנאי שימוש</value>
   </data>
   <data name="header_find_tutors" xml:space="preserve">
-    <value>למימוש קופון, בקרו בפרופיל המורה</value>
+    <value>שיעור ראשון חינם - במימוש קופון: חינם1</value>
   </data>
   <data name="header_get_lesson" xml:space="preserve">
     <value>מורים פרטיים מעולים שמחויבים להצלחה שלך</value>
+  </data>
+  <data name="header_get_lesson_subject" xml:space="preserve">
+    <value>מורים פרטיים מעולים ב{1} שמחויבים להצלחה שלך</value>
   </data>
   <data name="reviews" xml:space="preserve">
     <value>ביקורות</value>

@@ -20,6 +20,7 @@ function _analytics (params){
 
 const state = {
     currentStep: 'getStarted',
+    currentRegTypeStep: 'registerType',
     stepsHistory: [],
     toUrl: '',
 
@@ -49,6 +50,9 @@ const state = {
 };
 
 const mutations = {
+    setCurrentRegTypeStep(state, step){
+        state.currentRegTypeStep = step;
+    },
     setToUrl(state,url){
         state.toUrl = url;
     },
@@ -117,6 +121,7 @@ const mutations = {
 };
 
 const getters = {
+    getCurrentRegisterStep: state => state.currentRegTypeStep,
     getCurrentLoginStep: state => state.currentStep,
     getEmail1: state => state.email,
     getPhone: state => state.phone,
@@ -208,8 +213,10 @@ const actions = {
                 let nextStep = resp.data.step;
                 if(nextStep.toLowerCase() === "verifyphone" || nextStep.toLowerCase() === "enterphone"){
                     dispatch('updateStep','setPhone');
+                    router.push({name: 'setPhone'})
                 }else{
                     dispatch('updateStep',nextStep);
+                    router.push({name: nextStep})
                 }
                 _analytics(['Registration', 'Start']);
                 commit('setGlobalLoading',false);
@@ -255,6 +262,7 @@ const actions = {
                 commit('setGlobalLoading',false);
                 _analytics(['Registration', 'Phone Submitted']);
                 dispatch('updateStep','VerifyPhone');
+                router.push({name: 'VerifyPhone'})
             }, function (error){
                 commit('setGlobalLoading',false);
                 commit('setErrorMessages',{phone: error.response.data["PhoneNumber"]? error.response.data["PhoneNumber"][0]:'' });
@@ -284,7 +292,8 @@ const actions = {
                 data.fingerprint = murmur;
                 registrationService.smsCodeVerification(data)
                     .then(userId => {
-                            dispatch('updateStep','congrats');
+                            dispatch('updateStep','registerType');
+                            router.push({name: 'registerType'})
                             _analytics(['Registration', 'Phone Verified']);
                             if(!!userId){
                                 _analytics(['Registration', 'User Id', userId.data.id]);
@@ -326,6 +335,7 @@ const actions = {
                     commit('setGlobalLoading',false);
                     _analytics(['Login Email validation', 'email send']);
                     dispatch('updateStep','setPassword');
+                    router.push({name: 'setPassword'});
                 }, (error)=> {
                     commit('setGlobalLoading',false);
                     commit('setErrorMessages',{email: error.response.data["Email"] ? error.response.data["Email"][0] : ''});
@@ -412,6 +422,9 @@ const actions = {
         // let url = state.toUrl || defaultSubmitRoute;
         commit('setResetState');
         router.push({path: `/`});
+    },
+    updateRegisterCurrentStep({commit}, regStep) {
+        commit('setCurrentRegTypeStep', regStep);
     }
 };
 

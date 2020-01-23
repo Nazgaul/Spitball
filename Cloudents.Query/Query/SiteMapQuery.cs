@@ -1,15 +1,11 @@
-﻿using System;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using NHibernate;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Query.Stuff;
-using NHibernate.Criterion;
 
 namespace Cloudents.Query.Query
 {

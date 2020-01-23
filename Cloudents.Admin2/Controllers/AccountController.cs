@@ -45,13 +45,13 @@ namespace Cloudents.Admin2.Controllers
             [FromServices] IGoogleAuth service, CancellationToken cancellationToken)
         {
             var login = await service.LogInAsync(model.Token, cancellationToken);
-            if (login == null)
+            if (login is null)
             {
                 return BadRequest();
             }
             var query = new ValidateUserQuery(login.Email);
             var result = await _queryBus.QueryAsync(query, cancellationToken);
-            if (result == null)
+            if (result is null)
             {
                 return Unauthorized();
             }
@@ -59,7 +59,7 @@ namespace Cloudents.Admin2.Controllers
             {
                 new Claim(ClaimTypes.Name, login.Email),
                 new Claim("FullName", $"{login.FirstName} { login.LastName}"),
-
+                new Claim("UserId", result.Id.ToString()),
                 new Claim(ClaimsPrincipalExtensions.ClaimCountry, result.Country ?? "None"),
             };
             //foreach (var resultRole in result.Roles ?? Enumerable.Empty<string>())

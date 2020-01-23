@@ -57,6 +57,8 @@ namespace Cloudents.Core.DTOs
 
         public bool IsFollowing { get; set; }
 
+        public IEnumerable<string> Courses { get; set; }
+
         //If the user is a tutor and then delete then the first name and the last name stays
         public bool ShouldSerializeTutor()
         {
@@ -127,6 +129,8 @@ namespace Cloudents.Core.DTOs
 
         [EntityBind(nameof(User.PaymentExists), nameof(User.Country))]
         public bool NeedPayment { get; set; }
+
+        public bool CalendarShared { get; set; }
 
         private string Country { get; set; }
         public string CurrencySymbol

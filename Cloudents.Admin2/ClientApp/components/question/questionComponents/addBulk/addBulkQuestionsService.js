@@ -25,13 +25,12 @@ const getSubjectList = function(){
     });
 };
 
-const addQuestion = function(course, text, price, country, uni){
+const addQuestion = function(course, text, country, uni){
     let path = "AdminQuestion";
     let university = uni;
     let questionData = {
         course,
         text,
-        price,
         country,
         university
     };

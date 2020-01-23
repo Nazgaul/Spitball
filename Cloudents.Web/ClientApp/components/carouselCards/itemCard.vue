@@ -1,6 +1,8 @@
 <template>
     <router-link v-if="item.url" event @click.native.prevent="goToItem" :to="item.url" class="itemCarouselCard">
-        <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="">
+        <intersection>
+            <img draggable="false" :id="`${item.id}-img`" class="itemCarouselImg" :src="$proccessImageUrl(item.preview,240,152)" alt="">
+        </intersection>
         <span class="itemCarouselCard_videoType" v-if="showVideoDuration">
             <vidSVG class="vidSvg" />
             <span class="vidTime">{{item.itemDuration}}</span>
@@ -27,11 +29,12 @@
 </template>
 
 <script>
-import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
-import vidSVG from "../../components/results/svg/vid.svg";
+import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue'; // when change to lazy there is a glitch
+const vidSVG = () => import("../../components/results/svg/vid.svg");
+const intersection = () => import('../pages/global/intersection/intersection.vue');
 
 export default {
-    components:{UserAvatar, vidSVG},
+    components:{UserAvatar, vidSVG, intersection},
     props:{
         item:{
             type:Object,
@@ -74,10 +77,13 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
     .itemCarouselImg{
         border-bottom:  solid 1px #c1c3d2;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
+        width: 100%;
+        height: 100%;
     }
     .itemCarouselCard_videoType {
         /*rtl:ignore*/
@@ -103,27 +109,13 @@ export default {
             overflow: hidden !important;
             font-size: 14px;
             font-weight: bold;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: normal;
-            letter-spacing: normal;
         }
         .item-course{
             margin: 8px 0;
             font-size: 12px;
-            font-weight: normal;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: normal;
-            letter-spacing: normal;
         }
         .item-university{
             font-size: 12px;
-            font-weight: normal;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: normal;
-            letter-spacing: normal;
         }
         .item-user{
             margin-top: 30px;
@@ -135,11 +127,6 @@ export default {
             }
             .user-info{
                 font-size: 12px;
-                font-weight: normal;
-                font-stretch: normal;
-                font-style: normal;
-                line-height: normal;
-                letter-spacing: normal;
                 color: #43425d;
                 min-width: 0;
             }
@@ -151,19 +138,11 @@ export default {
             .item-purchases{
                 font-size: 12px;
                 font-weight: 600;
-                font-stretch: normal;
-                font-style: normal;
-                line-height: normal;
-                letter-spacing: normal;
                 color: #43425d;
             }
             .item-pts{
                 font-size: 14px;
                 font-weight: bold;
-                font-stretch: normal;
-                font-style: normal;
-                line-height: normal;
-                letter-spacing: normal;
             }
 
         }

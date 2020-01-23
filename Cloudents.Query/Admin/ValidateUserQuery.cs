@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.Entities;
 using NHibernate.Linq;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,7 +41,8 @@ namespace Cloudents.Query.Admin
                 return new UserRolesDto()
                 {
                     //Roles = result.Roles.Select(s => s.Role),
-                    Country = result.Country
+                    Country = result.Country,
+                    Id = result.Id
                 };
             }
         }
@@ -49,6 +51,7 @@ namespace Cloudents.Query.Admin
     public class UserRolesDto
     {
         // public IEnumerable<string> Roles { get; set; }
+        public Guid Id { get; set; }
         public string Country { get; set; }
     }
 }

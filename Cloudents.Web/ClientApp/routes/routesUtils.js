@@ -2,7 +2,7 @@ function lazyComponent(path) {
    return () => import(`../components/${path}.vue`);
 }
 const routesDefaults = {
-   banner: lazyComponent('pages/layouts/banner/banner'),
+   banner: lazyComponent('pages/layouts/banner/bannerWrapper'),
    header: lazyComponent('pages/layouts/header/header'),
    sideMenu: lazyComponent('pages/layouts/sideMenu/sideMenu'),
    footer: lazyComponent('pages/layouts/footer/footer')

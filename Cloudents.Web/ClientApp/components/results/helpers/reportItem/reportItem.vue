@@ -1,6 +1,7 @@
 <template>
     <div class="report-comp-container">
         <v-layout wrap>
+           
             <v-flex xs12>
                 <div class="report-head">
                     <v-icon class="flag-icon">sbf-flag</v-icon>
@@ -12,36 +13,34 @@
                         <span class="report-heading-text" v-language:inner>reportItem_report_subtitle</span>
                     </div>
                     <v-list>
-                        <template v-for="(reason, i) in reasons">
-                            <v-list-item :class="['reason-item', isSelected(reason.title) ? 'selected' : '']" :key="i">
-                                <v-list-item-content class="reason-item-content">
-                                    <v-list-item-title class="reason-name" @click="selectReason(reason.title)">{{
+                       <v-list-item-group>
+                            <v-list-item  v-for="(reason, i) in reasons"  :key="i">
+                                <v-list-item-content >
+                                    <v-list-item-title @click="selectReason(reason.title)">{{
                                         reason.title }}
                                     </v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
-                        </template>
-
+                       
                         <v-list-item class="reason-item" @click="toogleOtherInput()">
                             <v-list-item-content class="reason-item-content">
                                 <v-list-item-title class="reason-name" v-language:inner>reportItem_report_other
                                 </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
-
+</v-list-item-group>
                     </v-list>
                     <transition name="slide-y-transition">
-                        <v-text-field autofocus class="input-reason" solo v-show="isOtherInputVisible"
+                        <v-text-field autofocus solo v-show="isOtherInputVisible" class="mx-2"
                                       v-model="customReason"></v-text-field>
                     </transition>
 
                 </div>
             </v-flex>
-            <v-layout justify-center align-content-center xs12 class="report-footer">
-                <button :disabled="isBtnDisabled" class="report-submit" @click="sendItemReport()" v-language:inner>
-                    reportItem_report_btn
-                </button>
-            </v-layout>
+            <div class="report-footer text-center">
+                <div v-if="errorText" class="red--text" v-text="errorText"/>
+                <button class="report-submit" @click="sendItemReport()" v-language:inner="'reportItem_report_btn'"/>
+            </div> 
         </v-layout>
     </div>
 
@@ -60,6 +59,7 @@
         components: {},
         data() {
             return {
+                errorText: false,
                 reasons: [
                     {
                         title: LanguageService.getValueByKey("reportItem_reason_inappropriateContent"),
@@ -103,10 +103,17 @@
                 required: false
             }
         },
-        computed: {
-            isBtnDisabled() {
-                return !this.preDefinedReason && !this.customReason
+        watch: {
+            preDefinedReason(val){
+                if(val){
+                   this.errorText = false; 
+                }
             },
+            customReason(val){
+                if(val){
+                   this.errorText = false; 
+                }
+            }
         },
         methods: {
             ...mapActions(['Feeds_reportQuestion', 'reportDocument', 'Feeds_reportAnswer', 'answerRemoved']),
@@ -131,9 +138,12 @@
                 this.isOtherInputVisible = !this.isOtherInputVisible;
             },
             sendItemReport() {
-                let data;
                 let reasonToSend = this.preDefinedReason !== '' ? this.preDefinedReason : this.customReason;
-                data = {
+                if(!reasonToSend){
+                    this.errorText = LanguageService.getValueByKey("formErrors_unselected")
+                    return
+                }
+                let data = {
                     "id": this.itemId,
                     "flagReason": reasonToSend
                 };                
@@ -145,11 +155,12 @@
                         self.answerRemoved(this.answerDelData);
                     }
                     self.closeReportPop()
-                    self.$router.push('/feed');
+                    self.$router.push({name : 'feed' });
                 })
 
             },
             closeReportPop() {
+                this.errorText = false;
                 this.closeReport();
             }
         },
@@ -238,18 +249,18 @@
                     }
                 }
             }
-            .input-reason {
-                padding-top: 30px;
-                padding-left: 16px;
-                padding-right: 16px;
-                font-size: 13px;
-                color: @textColor;
-                .v-input__slot {
-                    box-shadow: none;
-                    border: 1px solid fade(@color-black, 12%);
-                    border-radius: 4px;
-                }
-            }
+            // .input-reason {
+            //     padding-top: 30px;
+            //     padding-left: 16px;
+            //     padding-right: 16px;
+            //     font-size: 13px;
+            //     color: @textColor;
+            //     .v-input__slot {
+            //         box-shadow: none;
+            //         border: 1px solid fade(@color-black, 12%);
+            //         border-radius: 4px;
+            //     }
+            // }
         }
         .report-submit {
             .sb-rounded-medium-btn();
@@ -265,7 +276,7 @@
         }
         .report-footer {
             padding-bottom: 32px;
-            justify-content: center;
+            margin: 0 auto;
         }
     }
 

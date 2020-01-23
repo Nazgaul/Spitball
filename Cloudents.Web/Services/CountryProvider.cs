@@ -37,18 +37,25 @@ namespace Cloudents.Web.Services
             var cookieValue = _httpContext.HttpContext.User.Claims.FirstOrDefault(f =>
                 string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
                     StringComparison.OrdinalIgnoreCase))?.Value;
-            if (cookieValue == null)
+            if (cookieValue != null)
             {
-                cookieValue = _httpContext.HttpContext.Request.Query["country"].FirstOrDefault();
-                if (cookieValue != null && !Regex.IsMatch(cookieValue, "[A-Za-z]"))
-                {
-                    cookieValue = null;
-                }
+                return cookieValue;
             }
+
+            cookieValue = _httpContext.HttpContext.Request.Query["country"].FirstOrDefault();
+            if (cookieValue != null && !Regex.IsMatch(cookieValue, "[A-Za-z]"))
+            {
+                cookieValue = null;
+            }
+
             if (cookieValue == null)
             {
 
                 cookieValue = _httpContext.HttpContext.Request.Cookies["country"];
+                if (cookieValue != null)
+                {
+                    return cookieValue;
+                }
             }
 
             if (cookieValue == null)
@@ -71,8 +78,9 @@ namespace Cloudents.Web.Services
                     _logger.Error("failed to extract country code");
                     return null;
                 }
-                _httpContext.HttpContext.Response.Cookies.Append("country", cookieValue);
+                
             }
+            _httpContext.HttpContext.Response.Cookies.Append("country", cookieValue);
             return cookieValue;
         }
 

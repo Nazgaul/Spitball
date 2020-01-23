@@ -7,6 +7,7 @@ namespace Cloudents.Core.Extension
     public static class ClaimsPrincipalExtensions
     {
         public const string ClaimCountry = "Country";
+        private const string CliamId = "UserId";
 
         public static string GetCountryClaim(this ClaimsPrincipal principal)
         {
@@ -14,5 +15,9 @@ namespace Cloudents.Core.Extension
             return country != "None" ? country : null;
         }
 
+        public static Guid GetIdClaim(this ClaimsPrincipal principal)
+        {
+            return Guid.Parse(principal.Claims.First(w => string.Equals(w.Type, CliamId, StringComparison.OrdinalIgnoreCase)).Value);
+        }
     }
 }

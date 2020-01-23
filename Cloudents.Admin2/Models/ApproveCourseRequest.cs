@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cloudents.Core.Enum;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Admin2.Models
@@ -8,6 +9,8 @@ namespace Cloudents.Admin2.Models
         [Required]
         public string Course { get; set; }
         public string Subject { get; set; }
+        [Required]
+        public SchoolType SchoolType { get; set; }
     }
 
     public class ApproveUniversityRequest

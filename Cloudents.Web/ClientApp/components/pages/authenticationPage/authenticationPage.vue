@@ -1,15 +1,18 @@
 <template>
    <div class="authenticationPage">
-         <button class="back-button">
+        <button class="back-button">
             <v-icon right @click="updateDialog(true)">sbf-close</v-icon>
         </button>
-        <div class="leftSection" :class="{'reg_frymo': isFrymo}">
+
+        <div class="leftSection d-none d-sm-none d-md-none d-lg-flex" :class="{'reg_frymo': isFrymo}">
             <logo class="logo"/>
             <p class="text" v-language:inner="'loginRegister_main_txt'"></p>
         </div>
+
         <div class="stepsSections">
             <div class="stepContainer">
-                <component :is="`${currentStep}`"/>
+                <!-- <component :is="currentStep" v-if="$route.name === 'login'"></component> -->
+                <router-view></router-view>
             </div>
         </div>
 
@@ -29,63 +32,56 @@
                 </v-card-text>
             </v-card>
         </v-dialog>
+
    </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-
 import logo from '../../app/logo/logo.vue';
 
-
-
-
-
-
-
-
 // globals
-import getStarted from '../../loginPageNEW/components/getStarted.vue'
-import EmailConfirmed from '../../loginPageNEW/components/EmailConfirmed.vue'
+const getStarted = () => import('../../loginPageNEW/components/getStarted.vue');
+// const EmailConfirmed = () => import('../../loginPageNEW/components/EmailConfirmed.vue');
 
 // register
-import setEmailPassword from '../../loginPageNEW/components/setEmailPassword.vue'
-import setPhone from '../../loginPageNEW/components/setPhone.vue'
-import VerifyPhone from '../../loginPageNEW/components/VerifyPhone.vue'
-import congrats from '../../loginPageNEW/components/congrats.vue'
+// const setEmailPassword = () => import('../../loginPageNEW/components/setEmailPassword.vue');
+// const setPhone = () => import('../../loginPageNEW/components/setPhone.vue');
+// const VerifyPhone = () => import('../../loginPageNEW/components/VerifyPhone.vue');
+// const congrats = () => import('../../loginPageNEW/components/congrats.vue');
+
+// const register = () => import('./register/register.vue');
 
 // login
-import setEmail from '../../loginPageNEW/components/setEmail.vue'
-import setPassword from '../../loginPageNEW/components/setPassword.vue'
+const setEmail = () => import('../../loginPageNEW/components/setEmail.vue');
+const setPassword = () => import('../../loginPageNEW/components/setPassword.vue');
 
 // reset password
-import forgotPass from '../../loginPageNEW/components/forgotPass.vue'
-import resetPassword from '../../loginPageNEW/components/resetPassword.vue'
-''
+const forgotPass = () => import('../../loginPageNEW/components/forgotPass.vue');
+const resetPassword = () => import('../../loginPageNEW/components/resetPassword.vue');
+
 //STORE
 import storeService from '../../../services/store/storeService';
 import loginRegister from '../../../store/loginRegister';
+
 export default {
-   name:'authenticationPage',
-   data() {
-      return {
-         showDialog: false,
-         from: ''
-      }
-   },
+  name:'authenticationPage',
+  data() {
+    return {
+        showDialog: false,
+        from: ''
+    }
+  },
    components:{
       logo,
       getStarted,
-      setEmailPassword,
-      EmailConfirmed,
-      setPhone,
-      VerifyPhone,
-      congrats,
       setEmail,
       setPassword,
       forgotPass,
-      resetPassword
-      },
+      resetPassword,
+
+      // register,
+    },
     computed: {
         ...mapGetters(['getCurrentLoginStep', 'isFrymo']),
         currentStep(){
@@ -154,7 +150,7 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-
+    height: 100%;
    .leftSection{
       width: 508px;
       height: 100vh;
@@ -190,62 +186,26 @@ export default {
          width: 100%
       }
    }
+    input {
+      padding-top: 12px; // global for all inputs in in authenticate pages
+    }
     .stepContainer{
-      @media (max-width: @screen-sm) {
-        width: 400px;
-      }
+      height: 100%;
     }
     .stepsSections{
-        // width: 400px;
-        width: 386px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 0 auto;
-        .input-fields{
-          .v-input__slot{
-            min-height: 50px !important;
-          }
-        }
-        .widther {
-          @media (max-width: @screen-xs) {
-            width: 78%;
-          }
-        }
-        @media (max-width: @screen-sm) {
-            align-items: center;
-            justify-content: start;
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
-            margin-left: 0;
-            padding: 30px 20px;
-            position: absolute;
-            background-color: white;
-            bottom: 0;
-            width: 100%;
-            height: 92%;
-            min-width:unset;
-        }
-        button{
-            &.btn-login{
-                background-color: @color-login-btn !important;
-            }
-        }
+      margin: 120px auto auto;
 
-        .stepContainer{
-        }
-        // .progressContainer{
-        //     font-size: 70px;
-        //     font-weight: bolder;
-        //     display: flex;
-        //     justify-content: center;
-        //     color: #d8d8d8;
-        //     span{
-        //         display: contents;
-        //         color: #7f7f7f;
-        //         font-size: 100px;
-        //     }
-        // }
+      @media (max-width: @screen-xs) {
+          width: 100%;
+          height: 100%;
+          margin: 0 auto;
+          padding: 14px;
+      }
+      button{
+          &.btn-login{
+              background-color: @color-login-btn !important;
+          }
+      }
    }
    .back-button {
     outline: none;
@@ -260,15 +220,14 @@ export default {
     }
     .sbf-close {
       font-size: 18px;
-      color: black;
+      color: #adadba;
       @media (max-width: @screen-sm) {
         font-size: 14px;
-        color: white;
       }
     }
   }
   .registration-dialog {
-      z-index: 100;
+    z-index: 100;
     .pre-line{
       white-space: pre-line;
     }

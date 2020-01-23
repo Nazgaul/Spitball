@@ -60,7 +60,7 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import chatImage from '../../images/outline-insert-photo.svg';
-    import FileUpload from 'vue-upload-component/src';
+    import FileUpload from 'vue-upload-component';
     import photoCamera from '../../images/photo-camera.svg';
 
     export default {

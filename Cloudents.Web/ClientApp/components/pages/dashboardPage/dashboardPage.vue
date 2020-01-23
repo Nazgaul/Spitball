@@ -1,6 +1,6 @@
 <template>
    <div class="dashboardPage">
-      <component :dictionary="dictionary" :globalFunctions="globalFunctions" :is="component">
+      <component v-if="!!accountUser" :dictionary="dictionary" :globalFunctions="globalFunctions" :is="component">
          <template slot="tableEmptyState">
             <tableEmptyState/>
          </template>
@@ -11,7 +11,7 @@
          :popUpType="'dashboardDialog'"
          :onclosefn="closeDialog"
          :activateOverlay="true"
-         :max-width="'438px'"
+         :max-width="'fit-content'"
          :content-class="'pop-dashboard-container'">
             <changeNameDialog v-if="currentDialog === 'rename'" :dialogData="dialogData" @closeDialog="closeDialog"/>
             <changePriceDialog v-if="currentDialog === 'changePrice'" :dialogData="dialogData" @closeDialog="closeDialog"/>
@@ -24,6 +24,7 @@ import mySales from './mySales/mySales.vue';
 import myContent from './myContent/myContent.vue';
 import myPurchases from './myPurchases/myPurchases.vue';
 import myStudyRooms from './myStudyRooms/myStudyRooms.vue';
+import myCalendar from './myCalendar/myCalendar.vue';
 import myFollowers from './myFollowers/myFollowers.vue';
 
 import tableEmptyState from './global/tableEmptyState.vue';
@@ -31,6 +32,7 @@ import tableEmptyState from './global/tableEmptyState.vue';
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
 import changePriceDialog from './dashboardDialog/changePriceDialog.vue';
+
 import { LanguageService } from '../../../services/language/languageService';
 import { mapGetters } from 'vuex';
 
@@ -81,7 +83,12 @@ export default {
             router: this.dynamicRouter,
             '$Ph': this.$Ph,
             strToACII: this.strToACII
-         }
+         },
+         snackbar:{
+            isOn:false,
+            color:'info',
+            dictionary:''
+         },
       }
    },
    components:{
@@ -89,8 +96,8 @@ export default {
       myContent,
       myPurchases,
       myStudyRooms,
+      myCalendar,
       myFollowers,
-
       changeNameDialog,
       changePriceDialog,
       sbDialog,
@@ -157,6 +164,11 @@ export default {
          }
          return sum % 11
       },
+      updateSnackbar({isOn,color,dictionary}){
+         this.snackbar.isOn = isOn;
+         this.snackbar.color = color;
+         this.snackbar.dictionary = dictionary;
+      }
    }
 
 }
@@ -171,6 +183,9 @@ export default {
       padding-right: 6px;
       width: 100%;
       height: 100%;
+   }
+   .v-snack__content{
+      justify-content: center;
    }
 }
 .pop-dashboard-container {

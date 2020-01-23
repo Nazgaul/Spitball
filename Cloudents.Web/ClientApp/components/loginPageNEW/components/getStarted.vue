@@ -1,5 +1,5 @@
 <template>
-    <v-layout column wrap class="getStartedContainer">
+    <v-layout column class="getStartedContainer">
         <div class="getStarted-actions">
             <div class="getStarted-top">
                 <p v-language:inner="isRegisterPath? 'loginRegister_getstarted_title':'loginRegister_getstarted_title_login'"/>
@@ -7,36 +7,38 @@
             </div>
             <div class="getStarted-form">
                 <div v-if="isRegisterPath" class="getStarted-terms">
-                        <div class="line-terms">
+                    <div class="line-terms">
 
-            <v-checkbox @click="checkBoxConfirm" :ripple="false" class="checkbox-userinfo" 
+                    <v-checkbox @click="checkBoxConfirm" :ripple="false" class="checkbox-userinfo" 
                         v-model="isTermsAgree" off-icon="sbf-check-box-un" sel="check"
                         on-icon="sbf-check-box-done" name="checkBox" id="checkBox"/>
-                            <label for="checkBox">
-                                <span>
-                                    <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
-                                    <a :href="isFrymo? 'https://help.frymo.com/en/article/terms': 'https://help.spitball.co/en/article/terms-of-service'" class="terms padding-helper" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
-                                    <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_and'"/>
-                                    <a :href="isFrymo? 'https://help.frymo.com/en/policies':'https://help.spitball.co/en/article/privacy-policy'" class="terms" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
-                                </span>
-                            </label>
-                        </div>
-                        <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"/>
+                        <label for="checkBox">
+                            <span>
+                                <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
+                                <a :href="isFrymo? 'https://help.frymo.com/en/article/terms': 'https://help.spitball.co/en/article/terms-of-service'" class="terms padding-helper" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
+                                <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_and'"/>
+                                <a :href="isFrymo? 'https://help.frymo.com/en/policies':'https://help.spitball.co/en/article/privacy-policy'" class="terms" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
+                            </span>
+                        </label>
+                    </div>
+                    <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"/>
                 </div>
-                    <v-btn @click="goWithGoogle()" depressed
-                        :loading="googleLoading" 
-                        large rounded
-                        sel="gmail"
-                        class="google btn-login">
-                        <img src="../images/G icon@2x.png">
-                        <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
-                    </v-btn>
-                        <span v-if="gmailError" class="errorMsg">{{gmailError}}</span>
+                
+                <v-btn @click="goWithGoogle()" depressed
+                    :loading="googleLoading" 
+                    large rounded
+                    sel="gmail"
+                    block
+                    class="google btn-login">
+                    <img src="../images/G icon@2x.png">
+                    <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
+                </v-btn>
+                <span v-if="gmailError" class="errorMsg">{{gmailError}}</span>
 
                 <span class="hidden-xs-only or" hidden-xs-only v-language:inner="'loginRegister_getstarted_or'"/>
 
                 <v-btn @click="goWithEmail()" class="email"
-                    large text rounded 
+                    large text rounded block 
                     sel="email">
                     <img src="../images/np_email@2x.png">
                     <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_email_signup':'loginRegister_getstarted_btn_email_signin'"/>
@@ -47,11 +49,13 @@
         <div class="getStarted-bottom">
             <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_signin_text':'loginRegister_getstarted_signup_text'"/>
              &nbsp;
-            <router-link 
-            to="" 
-            class="link" 
-            @click.native="redirectTo(isRegisterPath? 'signin':'register')" 
-            v-language:inner="isRegisterPath? 'loginRegister_getstarted_signin_link':'loginRegister_getstarted_signup_link'"/>
+             <router-link
+                :to="isRegisterPath ? 'login' : 'register'" 
+                exact
+                class="link" 
+                v-language:inner="isRegisterPath ? 'loginRegister_getstarted_signin_link':'loginRegister_getstarted_signup_link'"
+            >
+            </router-link>
         </div>
         
     </v-layout>
@@ -96,8 +100,14 @@ export default {
             if(this.isRegisterPath){
                 if(!this.isTermsAgree){
                     this.showError = true;
-                } else this.updateStep('setEmailPassword')
-            } else this.updateStep('setEmail')
+                } else  {
+                    this.updateStep('setEmailPassword')
+                    this.$router.push({name: 'step1'})
+                }
+            } else {
+                this.updateStep('setEmail')
+                this.$router.push({name: 'setEmail'})
+            }
         },
         redirectTo(toPath){
             this.$router.push({path: `/${toPath}`});
@@ -141,13 +151,13 @@ export default {
         justify-content: space-between;
     }
     .getStarted-actions{
-
-   
-
     .getStarted-top{
         display: flex;
         flex-direction: column;
         padding-bottom: 64px;
+        @media (max-width: @screen-xs) {
+            margin-top: 42px;
+        }
         p{
             .responsive-property(font-size, 28px, null, 22px);
             .responsive-property(line-height, 1.54, null, 1.95);
@@ -289,7 +299,7 @@ export default {
     .getStarted-bottom{
         display: flex;
         justify-content: center;
-        .responsive-property(margin-top, 48px, null, 0px);
+        .responsive-property(margin-top, 48px, null, 10px);
         .responsive-property(font-size, 16px, null, 14px);
             .link{      
                 cursor: pointer;
