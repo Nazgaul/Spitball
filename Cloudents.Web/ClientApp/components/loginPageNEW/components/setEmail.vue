@@ -65,11 +65,13 @@ export default {
 @import '../../../styles/mixin.less';
 @import '../../../styles/colors.less';
 .setEmail {
+    width: 400px;
 
       @media (max-width: @screen-xs) {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: auto;
       }
   p {
     .responsive-property(font-size, 28px, null, 22px);
