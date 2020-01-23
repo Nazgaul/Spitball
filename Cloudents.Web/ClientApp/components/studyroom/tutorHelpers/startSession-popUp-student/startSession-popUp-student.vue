@@ -116,7 +116,11 @@
             }
         },
         beforeDestroy(){
+            
+            console.warn('DEBUG: 42 startSessionPopUpStudent: setSesionClickedOnce beforeDestroy,false before ')
             this.setSesionClickedOnce(false);
+            console.warn('DEBUG: 42.1 startSessionPopUpStudent: setSesionClickedOnce beforeDestroy,false after ')
+
             global.onbeforeunload = function() {}
         }
     };

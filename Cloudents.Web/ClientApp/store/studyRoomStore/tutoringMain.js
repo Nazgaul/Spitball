@@ -189,7 +189,7 @@ const actions = {
         commit('setEndDialog', val);
     },
     setSesionClickedOnce({commit}, val) {
-        console.warn('DEBUG: 5 store: setSesionClickedOnce')
+        console.warn('DEBUG: 5 store: setSesionClickedOnce VAL:',val)
         commit('updateSessionClickedOnce', val);
     },
     setSesionEndClicked({commit}, val) {
@@ -245,7 +245,7 @@ const actions = {
         commit('setLocalStatus', val);
     },
     updateRemoteStatus({commit}, val) {
-        console.warn('DEBUG: 11 store: updateRemoteStatus')
+        console.warn('DEBUG: 11 store: updateRemoteStatus, VAL:',val)
 
         commit('setRemoteStatus', val);
     },
@@ -274,7 +274,7 @@ const actions = {
         commit('setStudentStartDialog', val);
     },
     updateTutorStartDialog({commit}, val) {
-        console.warn('DEBUG: 15 store: updateTutorStartDialog')
+        console.warn('DEBUG: 15 store: updateTutorStartDialog, VAL:',val)
 
         commit('setTutorStartDialog', val);
     },
