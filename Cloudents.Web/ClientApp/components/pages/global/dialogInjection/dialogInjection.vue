@@ -1,5 +1,5 @@
 <template>
-    <component v-if="query" :is="query"></component>
+    <component :is="query"></component>
 </template>
 
 <script>
@@ -20,7 +20,3 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-
-</style>

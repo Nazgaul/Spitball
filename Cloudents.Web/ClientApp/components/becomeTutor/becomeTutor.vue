@@ -1,4 +1,5 @@
 <template>
+    <v-dialog :value="true" persistent>
     <div class="become-tutor-wrap" >
         <v-stepper v-model="currentStep" class="elevation-0 stepper" :class="{'back-image': isLastStep}">
             <v-layout align-center justify-center class="become-header" v-show="!isLastStep">
@@ -36,6 +37,7 @@
             </v-stepper-items>
         </v-stepper>
     </div>
+    </v-dialog>
 </template>
 
 <script>

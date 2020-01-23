@@ -66,7 +66,7 @@
         <v-layout class="mt-4 px-1 btns-first"
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
 
-            <v-btn @click="closeDialog()" class="cancel-btn elevation-0" rounded outlined text>
+            <v-btn @click="closeDialog()"  class="cancel-btn elevation-0" rounded outlined text>
                 <span v-language:inner>becomeTutor_btn_cancel</span>
             </v-btn>
 
@@ -184,7 +184,8 @@
                 }
             },
             closeDialog() {
-                this.updateTutorDialog(false);
+                this.$router.replace({query: ''})
+                // this.updateTutorDialog(false);
             }
         },
     };
