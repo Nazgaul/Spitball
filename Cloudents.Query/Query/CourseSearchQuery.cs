@@ -33,17 +33,25 @@ namespace Cloudents.Query.Query
             {
                 const int pageSize = 50;
                 const string sql =
-                            @"select Name,
+                            @"
+declare @schoolType nvarchar(50) = (select case when UserType = 'University' then 'University'
+										when UserType is null then null
+										else 'HighSchool' end from sb.[user] where Id = @Id);
+								
+select Name,
 	case when uc.CourseId is not null then 1 else null end as IsFollowing,
 	c.count as Students
 from sb.Course c
 left join sb.UsersCourses uc
 	on c.Name = uc.CourseId and uc.UserId = @Id
 where  State = 'OK'
+	and ( c.SchoolType = @schoolType 
+	or (@schoolType = 'University' and c.SchoolType is null)
+	or @schoolType is null )
 order by case when uc.CourseId is not null
         then 1 else null end desc,
 		c.count desc
-  OFFSET @PageSize * @Page ROWS
+OFFSET @PageSize * @Page ROWS
   FETCH NEXT @PageSize ROWS ONLY;";
                 using (var conn = _dapperRepository.OpenConnection())
                 {
