@@ -1,4 +1,7 @@
 import { connectivityModule } from "./connectivity.module";
+// TODO clean it !!!
+import Api from './Api/homePage.js';
+import { Banner } from './Constructors/banner.js';
 import searchService from './searchService.js'
 
 function getHomePageTutors(count = 12){
@@ -63,7 +66,9 @@ export default {
     getHomePageItems,
     getHomePageSubjects,
     getHomePageStats,
-    getHomePageReviews
+    getHomePageReviews,
+    async getBannerParams() {
+      let { data } = await Api.get.banner()
+      return data === null? null : new Banner.Default(data);
+    },
 }
-
-
