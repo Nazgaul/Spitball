@@ -62,11 +62,14 @@ const printNetworkQuality = function (networkQualityLevel,networkQualityStats) {
 };
 
 const connectToRoom = function (token, options) {
+    console.warn('DEBUG: 27 tutorService: connectToRoom')
     // disconnect the user from room if they already joined
     insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_connectToRoom', {'token': token}, null);
     store.dispatch('leaveRoomIfJoined');
     Twilio.connect(token, options)
         .then((room) => {
+            console.warn('DEBUG: 28 tutorService: Twilio.connect')
+
             store.dispatch('setSessionTimeStart');
             insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioConnect', room, null);
             store.dispatch('updateRoomInstance', room);
@@ -84,21 +87,31 @@ const connectToRoom = function (token, options) {
             // printNetworkQuality(store.getters['localParticipant'].networkQualityLevel);
             let toasterParams = {};
             if (store.getters['getStudyRoomData'].isTutor) {
+                console.warn('DEBUG: 28.1 tutorService: istutor')
+
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_waiting_for_student_toaster');
                 toasterParams.timeout = 3600000;
                 store.dispatch('showRoomToasterMessage', toasterParams);
             } else {
+                console.warn('DEBUG: 28.2 tutorService: !istutor')
+
                 store.dispatch('hideRoomToasterMessage');
             }
 
             //close start dialogs after reload page (by refresh).
                 if (store.getters['getStudyRoomData'].isTutor) {
+                    console.warn('DEBUG: 28.3 tutorService: close start dialogs after reload page (by refresh) TUTOR')
+
                     if(room.participants.size > 0){
+                        console.warn('DEBUG: 28.4 tutorService: close start dialogs after reload page (by refresh) (room.participants.size > 0)')
+
                         if (store.getters['getTutorStartDialog']) {
                             store.dispatch('updateTutorStartDialog', false);
                         }
                     }
                 } else {
+                    console.warn('DEBUG: 28.5 tutorService: close start dialogs after reload page (by refresh) STUDENT')
+
                     if (store.getters['getStudentStartDialog']) {
                         store.dispatch('updateStudentStartDialog', false);
                     }
@@ -110,6 +123,7 @@ const connectToRoom = function (token, options) {
             
             //event of network quality change
             store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality);
+            
             // Attach the Tracks of all the remote Participants.
             store.getters['activeRoom'].participants.forEach((participant) => {
                 let previewContainer = document.getElementById('remoteTrack');
@@ -119,6 +133,7 @@ const connectToRoom = function (token, options) {
             });
             //disconnected room
             store.getters['activeRoom'].on('disconnected', (room, error) => {
+                console.warn('DEBUG: 28.6 tutorService: disconnected :ERROR: ',error)
                 if(!error) return;
                 store.dispatch('setSessionTimeEnd');
                 let errorCode = error.code;
@@ -164,12 +179,16 @@ const connectToRoom = function (token, options) {
             });
             //reconnecting room
             store.getters['activeRoom'].on('reconnecting', () => {
+                console.warn('DEBUG: 28.7 tutorService: reconnecting room')
+
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioReconnecting', null, null);
                 console.log("ROOM - RECONNECTING");
             });
             
             //reconnected room
             store.getters['activeRoom'].on('reconnected', () => {
+                console.warn('DEBUG: 28.8 tutorService: reconnected room')
+
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioReconnected', null, null);
                 console.log("ROOM - RECONNECTED");
                 /* Update the application UI here */
@@ -177,6 +196,8 @@ const connectToRoom = function (token, options) {
 
             // Attach the Participant's Media to a <div> element.
             store.getters['activeRoom'].on('participantConnected', participant => {
+                console.warn('DEBUG: 28.9 tutorService: Attach the Participant Media to a <div> element.')
+
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioParticipantConnected', participant, null);
                 console.log(`Participant "${participant.identity}" connected`);
                 store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.active);
@@ -291,14 +312,19 @@ const getRoomInformation = function (roomId) {
 };
 
 const enterRoom = function (roomId) {
+    
     return connectivityModule.http.post(`StudyRoom/${roomId}/enter`)
-        .then(() => {
+    .then(() => {
+        console.warn('DEBUG: 29 tutorService: enterRoom')
+
             return true;
         });
 };
 const endTutoringSession = function (roomId) {
     return connectivityModule.http.post(`StudyRoom/${roomId}/end`)
         .then(() => {
+            console.warn('DEBUG: 29 tutorService: endTutoringSession')
+
             return true;
         });
 };
