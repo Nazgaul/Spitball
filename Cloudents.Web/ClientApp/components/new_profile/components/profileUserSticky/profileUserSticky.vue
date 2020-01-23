@@ -111,7 +111,6 @@ import calendarIcon from './images/calendarIcon.svg';
 import { mapGetters, mapActions } from 'vuex';
 
 import userRating from '../../profileHelpers/profileBio/bioParts/userRating.vue';
-import userAvatar from '../../../helpers/UserAvatar/userAvatar.vue';
 
 export default {
    components:{
@@ -121,7 +120,6 @@ export default {
       chatIcon,
       calendarIcon,
       userRating,
-      userAvatar
    },
    props:{
       globalFunctions:{

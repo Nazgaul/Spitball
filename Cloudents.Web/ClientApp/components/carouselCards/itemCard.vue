@@ -29,12 +29,11 @@
 </template>
 
 <script>
-import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue'; // when change to lazy there is a glitch
 const vidSVG = () => import("../../components/results/svg/vid.svg");
 const intersection = () => import('../pages/global/intersection/intersection.vue');
 
 export default {
-    components:{UserAvatar, vidSVG, intersection},
+    components:{vidSVG, intersection},
     props:{
         item:{
             type:Object,

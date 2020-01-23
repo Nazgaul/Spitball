@@ -44,7 +44,7 @@
                         </div>
                 </v-flex>
                     <!--TODO V 20  SPITBALL-851 Remove the discussion board from question pages -->
-                <!--<v-flex v-if ="accountUser" class="chat-wrapper" :class="{'position-static': isEdgeRtl}">-->
+                <!--<v-flex v-if ="accountUser" class="chat-wrapper" >-->
                     <!--<div class="chat-title pa-2" v-language:inner>questionDetails_Discussion_Board</div>-->
                     <!--<div ref="chat-area" class="chat-container"></div>-->
 
