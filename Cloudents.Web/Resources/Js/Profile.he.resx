@@ -183,6 +183,9 @@
   <data name="earn_btn" xml:space="preserve">
     <value>אני רוצה להרוויח כסף</value>
   </data>
+  <data name="earn_desc" xml:space="preserve">
+    <value>האמינו כי העלאת מסמכי הלימוד שברשותכם יכולים לייצר הכנסה פסיבית.</value>
+  </data>
   <data name="earn_title" xml:space="preserve">
     <value>מסמכי הלימוד שלך שווים כסף בספיטבול!</value>
   </data>
@@ -212,6 +215,9 @@
   </data>
   <data name="emptyState_questions_text" xml:space="preserve">
     <value>יש לך שאלה לגבי שיעורי הבית?</value>
+  </data>
+  <data name="empty_title" xml:space="preserve">
+    <value>לא הועלו חומרי לימוד</value>
   </data>
   <data name="expand_less" xml:space="preserve">
     <value>הצג פחות</value>
@@ -285,6 +291,18 @@
   <data name="reviews" xml:space="preserve">
     <value>חוות דעת</value>
   </data>
+  <data name="select_course" xml:space="preserve">
+    <value>בחר קורס</value>
+  </data>
+  <data name="select_item_type_all" xml:space="preserve">
+    <value>הכל</value>
+  </data>
+  <data name="select_item_type_docs" xml:space="preserve">
+    <value>מסמכים</value>
+  </data>
+  <data name="select_item_type_videos" xml:space="preserve">
+    <value>סרטונים</value>
+  </data>
   <data name="send_message" xml:space="preserve">
     <value>שלחו לי הודעה</value>
   </data>
@@ -305,6 +323,12 @@
   </data>
   <data name="study" xml:space="preserve">
     <value>תחומי הוראה:</value>
+  </data>
+  <data name="study_materials" xml:space="preserve">
+    <value>חומרי הלימוד של {1}</value>
+  </data>
+  <data name="study_materials_mobile" xml:space="preserve">
+    <value>התוכן של {1}</value>
   </data>
   <data name="tutor" xml:space="preserve">
     <value>מורה פרטי</value>

@@ -6,6 +6,7 @@ import initSignalRService from '../services/signalR/signalrEventService';
 import insightService from '../services/insightService';
 import { LanguageService } from '../services/language/languageService';
 import intercomeService from '../services/intercomService';
+import profileService from "../services/profileService";
 
 const state = {
     profileReviews:null,
@@ -99,7 +100,7 @@ const mutations = {
                     reputationService.updateVoteCounter(question, type);
                 }
             });
-            state.profile.documents.forEach(question => {
+            state.profile.documents.result.forEach(question => {
                 if(question.id === id) {
                     reputationService.updateVoteCounter(question, type);
                 }
@@ -124,9 +125,9 @@ const mutations = {
                     state.profile.answers.splice(index, 1);
                 }
             });
-            state.profile.documents.forEach((item, index) => {
+            state.profile.documents.result.forEach((item, index) => {
                 if(item.id === id) {
-                    state.profile.documents.splice(index, 1);
+                    state.profile.documents.result.splice(index, 1);
                 }
             });
             state.profile.purchasedDocuments.forEach((item, index) => {
@@ -201,13 +202,13 @@ const getters = {
 const actions = {
     toggleProfileFollower({state,commit},val){
         if(val){
-            return accountService.followProfile(state.profile.user.id).then(()=>{
+            return profileService.followProfile(state.profile.user.id).then(()=>{
                 commit('setProfileFollower',true)
 
                 return Promise.resolve()
             })
         }else{
-            return accountService.unfollowProfile(state.profile.user.id).then(()=>{
+            return profileService.unfollowProfile(state.profile.user.id).then(()=>{
                 commit('setProfileFollower',false)
                 return Promise.resolve()
             })
@@ -244,21 +245,19 @@ const actions = {
         context.commit('changeIsUserTutor', val);
         context.commit('setIsTutorState', 'pending');
     },
-    syncProfile(context, {id, activeTab}) {
-        //fetch all the data before returning the value to the component
-        accountService.getProfile(id).then(val => {
-            let profileUserData = accountService.createUserProfileData(val);
+    syncProfile(context, {id,type,params,/*activeTab*/}) {
+        
+        // //fetch all the data before returning the value to the component
+        profileService.getProfile(id).then(profileUserData=>{
             context.commit('setProfile', profileUserData);
-            // cause of multiple profile requests to server
-            context.dispatch('setProfileByActiveTab', activeTab);
+            context.dispatch('updateProfileItemsByType', {id,type,params});
             context.dispatch('setUserStatus', profileUserData.user);
             if(profileUserData.user.isTutor){
-                accountService.getProfileReviews(id).then(val=>{
+                profileService.getProfileReviews(id).then(val=>{
                     context.commit('setProfileReviews', val);
                 })
             }
         });
-        
     },
     getRefferedUsersNum(context, id) {
         accountService.getNumberReffered(id)
@@ -271,36 +270,40 @@ const actions = {
                             }
                       );
     },
-    setProfileByActiveTab(context, activeTab) {
-        if(!!context.state.profile && !!context.state.profile.user) {
-            let id = context.state.profile.user.id;
-
-            if(activeTab === 1) {
-                return accountService.getProfileDocuments(id).then(vals => {
-                    let documents = accountService.createProfileDocumentData(vals);
-                    context.commit('setPorfileDocuments', documents);
-                });
-            }
-            if(activeTab === 2) {
-                return accountService.getProfileAnswers(id).then(vals => {
-                    let answers = accountService.createProfileAnswerData(vals);
-                    context.commit('setProfileAnswers', answers);
-                });
-            }
-            if(activeTab === 3) {
-                return accountService.getProfileQuestions(id).then(vals => {
-                    let profileData = accountService.createProfileQuestionData(vals);
-                    context.commit('setProfileQuestions', profileData);
-                });
-            }
-            if(activeTab === 4) {
-                return accountService.getProfilePurchasedDocuments(id).then(vals => {
-                    let purchasedDocuments = accountService.createProfileDocumentData(vals);
-                    context.commit('setPorfilePurchasedDocuments', purchasedDocuments);
+    updateProfileItemsByType({state,commit},{id,type,params}){
+        if(!!state.profile && !!state.profile.user) {
+            if(type == "documents"){
+                return profileService.getProfileDocuments(id,params).then(documents => {
+                    commit('setPorfileDocuments', documents);
                 });
             }
         }
     },
+    // setProfileByActiveTab(context, activeTab) {
+    //     if(!!context.state.profile && !!context.state.profile.user) {
+    //         let id = context.state.profile.user.id;
+
+
+    //         if(activeTab === 2) {
+    //             return accountService.getProfileAnswers(id).then(vals => {
+    //                 let answers = accountService.createProfileAnswerData(vals);
+    //                 context.commit('setProfileAnswers', answers);
+    //             });
+    //         }
+    //         if(activeTab === 3) {
+    //             return accountService.getProfileQuestions(id).then(vals => {
+    //                 let profileData = accountService.createProfileQuestionData(vals);
+    //                 context.commit('setProfileQuestions', profileData);
+    //             });
+    //         }
+    //         if(activeTab === 4) {
+    //             return accountService.getProfilePurchasedDocuments(id).then(vals => {
+    //                
+    //                 context.commit('setPorfilePurchasedDocuments', purchasedDocuments);
+    //             });
+    //         }
+    //     }
+    // },
     removeItemFromProfile({commit}, data) {
         commit('deleteItemFromProfile', data);
     },
@@ -351,28 +354,28 @@ const actions = {
             return false;
         });
     },
-    getDocuments(context, documentsInfo) {
-        let id = documentsInfo.id;
-        let page = documentsInfo.page;
-        let user = documentsInfo.user;
-        return accountService.getProfileDocuments(id, page).then(({data}) => {
-            let maximumElementsReceivedFromServer = 50;
-            if(data.length > 0) {
-                data.forEach(document => {
-                    //create answer Object and push it to the state
-                    let documentToPush = {
-                        ...document,
-                        user: user
-                    };
-                    context.state.profile.documents.push(documentToPush);
-                });
-            }
-            //return true if we can call to the server
-            return data.length === maximumElementsReceivedFromServer;
-        }, () => {
-            return false;
-        });
-    },
+    // getDocuments(context, documentsInfo) {
+    //     let id = documentsInfo.id;
+    //     let page = documentsInfo.page;
+    //     let user = documentsInfo.user;
+    //     return accountService.getProfileDocuments(id, page).then(({data}) => {
+    //         let maximumElementsReceivedFromServer = 50;
+    //         if(data.length > 0) {
+    //             data.forEach(document => {
+    //                 //create answer Object and push it to the state
+    //                 let documentToPush = {
+    //                     ...document,
+    //                     user: user
+    //                 };
+    //                 context.state.profile.documents.push(documentToPush);
+    //             });
+    //         }
+    //         //return true if we can call to the server
+    //         return data.length === maximumElementsReceivedFromServer;
+    //     }, () => {
+    //         return false;
+    //     });
+    // },
     getPurchasedDocuments(context, documentsInfo) {
         let id = documentsInfo.id;
         let page = documentsInfo.page;
@@ -396,7 +399,7 @@ const actions = {
         });
     },
     logout({commit}) {
-        intercomeService.IntercomSettings.reset();
+        intercomeService.restrartService();
         commit("logout");
         global.location.replace("/logout");
 
@@ -404,14 +407,14 @@ const actions = {
     changeLastActiveRoute({commit}, route) {
         commit("setLastActiveRoute", route);
     },
-    userStatus({dispatch, commit, getters}, {isRequire, to}) {
+    userStatus({dispatch, commit, getters}, {isRequireAuth, to}) {
         commit("changeLoginStatus", global.isAuth);
         if(getters.isUser) {
             return;
         }
         if(global.isAuth) {
             accountService.getAccount().then((userAccount) => {
-                intercomeService.IntercomSettings.set(userAccount);
+                intercomeService.startService(userAccount);
                 commit("changeLoginStatus", true);
                 commit("updateUser", userAccount);
                 dispatch("syncUniData");
@@ -420,12 +423,14 @@ const actions = {
                 insightService.authenticate.set(userAccount.id);
                 initSignalRService();
             }, ()=>{
-                intercomeService.bootIntercom();
-                isRequire ? commit("updateFromPath", to) : '';
+                //TODO what is that....
+                intercomeService.restrartService();
+                isRequireAuth ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
             });
-        } else {
-            intercomeService.IntercomSettings.reset();
+        } 
+        else {
+            intercomeService.startService();
         }
     },
     saveCurrentPathOnPageChange({commit}, {currentRoute}) {

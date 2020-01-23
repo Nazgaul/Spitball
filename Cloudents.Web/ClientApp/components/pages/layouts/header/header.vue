@@ -37,7 +37,7 @@
                     <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$router.push('/register')" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="!isFrymo && isHomePage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
-                <v-menu fixed close-on-content-click bottom offset-y :content-class="getBannerSatus? 'fixed-content-banner':'fixed-content'">
+                <v-menu fixed close-on-content-click bottom offset-y :content-class="getBannerStatus? 'fixed-content-banner':'fixed-content'">
                     <template v-slot:activator="{on}">
                         <div v-on="on" class="gH_i_r_menuList" sel="menu">
                             <div @click.prevent="drawer=!drawer">
@@ -86,10 +86,10 @@ import {mapActions, mapGetters, mapMutations} from 'vuex';
 import {LanguageChange, LanguageService } from "../../../../services/language/languageService";
 import languagesLocales from "../../../../services/language/localeLanguage";
 
-import searchCMP from '../../global/search/search.vue';
+const searchCMP = () => import('../../global/search/search.vue');
 import UserAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
 import menuList from '../menuList/menuList.vue';
-
+import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
 import findSVG from './images/findSVG.svg'
 
@@ -109,7 +109,7 @@ export default {
         layoutClass: {}
     },
     computed: {
-        ...mapGetters(['accountUser','getTotalUnread','isFrymo','getBannerSatus']),
+        ...mapGetters(['accountUser','getTotalUnread','getBannerStatus']),
         isTablet(){
             return this.$vuetify.breakpoint.smAndDown;
         },
@@ -146,6 +146,9 @@ export default {
             let hiddenRoutes = ['tutorLandingPage']
             return !hiddenRoutes.includes(this.currentRoute)
         },
+        showChangeLanguage() {
+            return global.country === 'IL' && this.isHomePage;
+        }
     },
     watch: {
     '$route'(){
@@ -169,11 +172,7 @@ export default {
             this.drawer = !this.drawer;
         },       
         startIntercom() {
-            if(this.isFrymo){
-                window.open('mailto: support@frymo.com', '_blank');
-            }else{
-                Intercom("showNewMessage");
-            }
+            intercomService.showDialog();
         },  
         userBalance(balance){
             let balanceFixed = +balance.toFixed()

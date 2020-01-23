@@ -409,5 +409,12 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new ValidateUserQuery("elad@cloudents.com");
             await _fixture.QueryBus.QueryAsync(query, default);
         }
+
+        [Fact]
+        public async Task AdminUserNotesQuery_Ok()
+        {
+            var query = new AdminUserNotesQuery(159039);
+            await _fixture.QueryBus.QueryAsync(query, default);
+        }
     }
 }

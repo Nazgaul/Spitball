@@ -51,7 +51,7 @@ namespace Cloudents.Web.Middleware
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                // Console.WriteLine(e);
                 //throw;

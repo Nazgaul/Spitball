@@ -2,14 +2,16 @@
     <component v-if="!!userName" class="user-avatar-rect" :is="userId?'router-link':'div'" :to="userId?{name:'profile',params:{id:userId,name:userName}}:''">
         <div v-if="userImageUrl" class="user-avatar-image-wrap" :style="{width: `${width}px`, height: `${height}px`}">
             <v-progress-circular v-if="!isLoaded" indeterminate v-bind:size="50"></v-progress-circular>
-            <img 
-                draggable="false"
-                @load="loaded"
-                @error="onImgError"
-                :src="imageUrl"
-                :alt="userName"
-                :style="{borderRadius: `${borderRadius}px`}"
-                class="user-avatar-rect-img">
+            <intersection>
+                <img 
+                    draggable="false"
+                    @load="loaded"
+                    @error="onImgError"
+                    :src="imageUrl"
+                    :alt="userName"
+                    :style="{borderRadius: `${borderRadius}px`}"
+                    class="user-avatar-rect-img">
+            </intersection>
         </div>
         <v-avatar v-else :tile="true" tag="v-avatar" :class="'user-avatar-rect-no-image userColor' + strToACII % 11" :style="{width: `${width}px`, height: `${height}px`, fontSize: `${fontSize}px`, borderRadius: `${borderRadius}px`}">
             <span class="white--text">{{userName.slice(0,2).toUpperCase()}}</span>
@@ -17,9 +19,11 @@
     </component>
 </template>
 <script>
-import utilitiesService from '../../../services/utilities/utilitiesService';
+import utilitiesService from '../../../services/utilities/utilitiesService'; // cannot async, js error
+const intersection = () => import('../../pages/global/intersection/intersection.vue');
 
 export default {
+    components: {intersection},
     props: {
         userId: Number,
         userName: {

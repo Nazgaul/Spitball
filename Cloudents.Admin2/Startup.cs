@@ -16,7 +16,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -50,6 +49,7 @@ namespace Cloudents.Admin2
 
                 .AddCookie(x =>
                 {
+                    x.Cookie.Name = "admin1";
                     x.Events.OnRedirectToLogin = context =>
                     {
                         if (context.Request.Path.StartsWithSegments("/api"))

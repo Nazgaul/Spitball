@@ -22,7 +22,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("api/university?term=uni")]
         [InlineData("api/university?term=univer&page=1")]
         [InlineData("api/university?term=univer&page=0&country=&7BIN%7D")]
-        public async Task GetAsync_University_OK(string uri)
+        public async Task GetAsync_University_OKAsync(string uri)
         {
             var response = await _client.GetAsync(uri);
 

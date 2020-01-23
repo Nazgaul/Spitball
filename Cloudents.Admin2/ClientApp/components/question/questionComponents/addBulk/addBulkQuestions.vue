@@ -86,9 +86,8 @@ export default {
                     return {
                         "course": item[0],
                         "text": item[1],
-                        "price": item[2],
-                        "country": item[3],
-                        "uni": item[4],
+                        "country": item[2],
+                        "uni": item[3],
 
                     }
                 })
@@ -108,7 +107,7 @@ export default {
             try{
                 if(questions && questions.length > 0){
                 questions.forEach((question)=>{
-                    addQuestion(question.course, question.text, question.price, question.country, question.uni).then(()=>{
+                    addQuestion(question.course, question.text, question.country, question.uni).then(()=>{
                         this.addedQuestions++; 
                         if(this.addedQuestions === this.questionsToUpload.length){
                             this.questionsToUpload = null;

@@ -29,7 +29,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Controllers
         }
 
         [Fact]
-        public async Task Logout_Redirect()
+        public async Task Logout_RedirectAsync()
         {
             await _client.LogInAsync();
 

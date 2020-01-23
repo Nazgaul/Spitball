@@ -73,7 +73,7 @@ namespace Cloudents.FunctionsV2.Di
             //            .Contains("Cloudents",
             //                StringComparison.OrdinalIgnoreCase))
             //    .Select(Assembly.Load).ToArray();
-
+            
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(
@@ -98,6 +98,11 @@ namespace Cloudents.FunctionsV2.Di
             builder.RegisterType<VideoProcessor>().AsSelf().As<IFileProcessor>()
                 .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
                     FileTypesExtension.Video.Extensions));
+
+
+            builder.RegisterType<PowerPointProcessor>().AsSelf().As<IFileProcessor>()
+                .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
+                    FileTypesExtension.PowerPoint.Extensions));
 
             builder.RegisterType<AudioProcessor>().AsSelf().As<IFileProcessor>()
                 .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,

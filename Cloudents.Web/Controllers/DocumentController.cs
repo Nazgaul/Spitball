@@ -49,7 +49,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("d/{id}", Name = "ShortDocumentLink2")]
-        public async Task<IActionResult> ShortUrl2(long id,
+        public async Task<IActionResult> ShortUrl2Async(long id,
             CancellationToken token)
         {
             //if (string.IsNullOrEmpty(base62))
@@ -82,7 +82,7 @@ namespace Cloudents.Web.Controllers
 
 
         [Route("document/{base62}", Name = "ShortDocumentLink")]
-        public async Task<IActionResult> ShortUrl(string base62,
+        public async Task<IActionResult> ShortUrlAsync(string base62,
             CancellationToken token)
         {
             if (string.IsNullOrEmpty(base62))
@@ -114,7 +114,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("document/{universityName}/{courseName}/{id:long}/{name}")]
-        public async Task<IActionResult> OldDocumentLinkRedirect2(long id, CancellationToken token)
+        public async Task<IActionResult> OldDocumentLinkRedirect2Async(long id, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new DocumentById(id, userId);
@@ -176,6 +176,15 @@ namespace Cloudents.Web.Controllers
                 };
                 ViewBag.jsonLd = jsonLd;
             }
+
+            ViewBag.ogImage = new Uri(_urlBuilder.BuildDocumentThumbnailEndpoint(model.Document.Id, new
+            {
+                width = 1200,
+                height = 630,
+                mode = "crop"
+            }));
+            ViewBag.ogImageWidth = 1200;
+            ViewBag.ogImageHeight = 630;
 
             return View();
         }

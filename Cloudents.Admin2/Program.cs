@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using System.Reflection;
 
 namespace Cloudents.Admin2
 {

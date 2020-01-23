@@ -36,7 +36,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task Post_Login_With_Email()
+        public async Task Post_Login_With_EmailAsync()
         {
             await _client.LogInAsync();
         }

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class PdfProcessor : IPreviewProvider, IDisposable //: Processor, IPreviewProvider
+    public sealed class PdfProcessor : IPreviewProvider, IDisposable //: Processor, IPreviewProvider
     {
 
         public PdfProcessor()

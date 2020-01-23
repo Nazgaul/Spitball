@@ -19,6 +19,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Interfaces;
 using NHibernate.Linq;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -144,14 +145,21 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("BlobPreviewGenerator")]
         public static async Task GeneratePreviewAsync(
-            [QueueTrigger("generate-blob-preview-v2")] string id,
+            [QueueTrigger("generate-blob-preview-v2")] string id, int dequeueCount,
             [Blob("spitball-files/files/{QueueTrigger}")]CloudBlobDirectory directory,
             [Inject] IFileProcessorFactory factory,
+            [Inject] IStatelessSession session,
+            IBinder binder,
             ILogger log,
             CancellationToken token)
         {
-
             log.LogInformation($"receive preview for {id}");
+            if (dequeueCount > 2)
+            {
+                log.LogInformation($"try to process more then 2 times");
+
+                return;
+            }
             var segment = await directory.ListBlobsSegmentedAsync(null);
             var originalBlob = (CloudBlockBlob)segment.Results.FirstOrDefault(f2 => f2.Uri.Segments.Last().StartsWith("file-"));
             if (originalBlob == null)
@@ -160,19 +168,65 @@ namespace Cloudents.FunctionsV2
             }
 
             var processor = factory.GetProcessor(originalBlob);
-            await processor.ProcessFileAsync(long.Parse(id), originalBlob, log, token);
+            if (processor is null)
+            {
+                log.LogError($"did not process id:{id}");
+                return;
+            }
+
+            try
+            {
+                await processor.ProcessFileAsync(long.Parse(id), originalBlob, binder, log, token);
+            }
+            catch (Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.ApiException ex)
+            {
+                if (ex.Message.Contains("virus"))
+                {
+                    await session.Query<Core.Entities.Document>().Where(w => w.Id == long.Parse(id))
+                        .UpdateBuilder()
+                        .Set(c => c.Status.State, x => ItemState.Deleted)
+                        .Set(c => c.Status.DeletedOn, x => DateTime.UtcNow)
+                        .Set(c => c.Status.FlagReason, x => "Virus")
+                        .UpdateAsync(token);
+                    foreach (var item in segment.Results.OfType<CloudBlockBlob>())
+                    {
+
+                        await item.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots, AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                originalBlob.Metadata["error"] = ex.Message;
+                await originalBlob.SetMetadataAsync();
+                throw;
+            }
+
             log.LogInformation("C# Blob trigger function Processed");
         }
 
 
-        [FunctionName("DocumentCalculateMd5")]
+        [FunctionName("RemoveOldLocatorsVideo")]
         public static async Task CalculateMd5Async(
             [TimerTrigger("0 0 1 * * *")] TimerInfo timer,
-            [Inject] IStatelessSession session,
-            IBinder binder,
-            ILogger log,
+            [Inject] IVideoService videoService,
             CancellationToken token
             )
+        {
+            await videoService.RemoveUnusedStreamingLocatorAsync(token);
+        }
+
+
+
+        [FunctionName("DocumentCalculateMd5")]
+        public static async Task CalculateMd5Async(
+          [TimerTrigger("0 0 1 * * *")] TimerInfo timer,
+          [Inject] IStatelessSession session,
+          IBinder binder,
+          ILogger log,
+          CancellationToken token
+          )
         {
             var continue2 = true;
             while (continue2)
@@ -196,7 +250,7 @@ namespace Cloudents.FunctionsV2
                     var blob = blobs.Results.OfType<CloudBlockBlob>().First(f =>
                         f.Name.StartsWith("file", StringComparison.OrdinalIgnoreCase));
 
-                  
+
                     var md5 = blob.Properties.ContentMD5;
                     if (string.IsNullOrEmpty(md5))
                     {

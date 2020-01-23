@@ -6,10 +6,11 @@ using Cloudents.Infrastructure.Stuff;
 using Cloudents.Persistence;
 using Cloudents.Query;
 using System;
+using NHibernate;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
-    public class DatabaseFixture : IDisposable
+    public sealed class DatabaseFixture : IDisposable
     {
         private IContainer Container { get; }
         public DatabaseFixture()
@@ -55,7 +56,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             DapperRepository = Container.Resolve<IDapperRepository>();
             TutorRepository = Container.Resolve<ITutorRepository>();
             ReadTutorRepository = Container.Resolve<IReadTutorRepository>();
-
+            StatelessSession = Container.Resolve<IStatelessSession>();
             // ... initialize data in the test database ...
         }
 
@@ -65,6 +66,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             // ... clean up test data from the database ...
         }
 
+        public IStatelessSession StatelessSession { get; }
         public IQueryBus QueryBus { get; }
         public IDapperRepository DapperRepository { get; }
         public ITutorRepository TutorRepository { get; }

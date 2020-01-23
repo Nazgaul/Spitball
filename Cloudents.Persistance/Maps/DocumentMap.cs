@@ -47,7 +47,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.DocumentType).Column("DocumentType");
             Map(x => x.Duration);//.CustomType<TimeAsTimeSpanType>();
             Map(e => e.IsShownHomePage);
-
+            Map(x => x.Boost);
             Component(x => x.Status);
         }
     }

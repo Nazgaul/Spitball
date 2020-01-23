@@ -8,6 +8,7 @@ using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
+using Cloudents.Query.Admin;
 using Cloudents.Query.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -379,6 +380,22 @@ namespace Cloudents.Admin2.Api
             var command = new DeleteGoogleTokenCommand(userId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+        [HttpPost("note")]
+        public async Task<IActionResult> AddNoteAsync(CreateNoteRequest model,
+            CancellationToken token)
+        {
+            var command = new CreateNoteCommand(model.UserId, model.Text, User.GetIdClaim());
+            await _commandBus.DispatchAsync(command, token);
+            return Ok(User.Identity.Name);
+        }
+
+        [HttpGet("notes")]
+        public async Task<IEnumerable<UserNoteDto>> GetNotesAsync([FromQuery] long id, CancellationToken token)
+        {
+            var query = new AdminUserNotesQuery(id);
+            return await _queryBus.QueryAsync(query, token);
         }
     }
 }

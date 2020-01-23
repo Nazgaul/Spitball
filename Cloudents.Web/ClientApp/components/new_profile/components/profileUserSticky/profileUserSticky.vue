@@ -1,5 +1,5 @@
 <template>
-   <div :class="['profileUserSticky',{'profileUserSticky_bannerActive':getBannerSatus}]" v-if="!!getProfile">
+   <div :class="['profileUserSticky',{'profileUserSticky_bannerActive':getBannerStatus}]" v-if="!!getProfile">
       <template v-if="isTutor">
          <transition name="fade">
             <div v-if="showScrollHeader" class="profileUserSticky_scrollHeader">
@@ -9,7 +9,7 @@
                            :userImageUrl="getProfile.user.image" 
                            :user-name="getProfile.user.name"/>
                </div>
-               <div class="profileUserSticky_scrollHeader_user">
+               <div class="profileUserSticky_scrollHeader_user text-truncate">
                   <h6 class="profileUserSticky_scrollHeader_name text-truncate">
                      <span v-language:inner="'profile_tutor'"/>
                      {{getProfile.user.name}}
@@ -136,7 +136,7 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['getBannerSatus','getProfile','accountUser','getCouponDialog','getCouponError']),
+      ...mapGetters(['getBannerStatus','getProfile','accountUser','getCouponDialog','getCouponError']),
       isTutor(){
          return !!this.getProfile && this.getProfile.user.isTutor
       },

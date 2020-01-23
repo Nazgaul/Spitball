@@ -73,6 +73,10 @@ namespace Cloudents.Core.Entities
             Subject = subject;
         }
 
+        public virtual void SetShcoolType(SchoolType schoolType)
+        {
+            SchoolType = schoolType;
+        }
         public virtual int Count { get; protected internal set; }
 
 
