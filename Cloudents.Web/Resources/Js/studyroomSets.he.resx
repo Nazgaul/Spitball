@@ -120,9 +120,6 @@
   <data name="continue-anyway" xml:space="preserve">
     <value>המשך ללא וידאו או שמע</value>
   </data>
-  <data name="enable_actions_no" xml:space="preserve">
-    <value>לא, תודה</value>
-  </data>
   <data name="enable_actions_yes" xml:space="preserve">
     <value>בסדר, הבנתי</value>
   </data>
