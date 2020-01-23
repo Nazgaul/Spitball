@@ -34,6 +34,21 @@ namespace Cloudents.Query.Query
                 const int pageSize = 50;
                 const string sql =
                             @"declare @country nvarchar(2) = (select country from sb.[user] where id = @Id);
+
+declare @schoolType nvarchar(50) = (select case when UserType = 'University' then 'University'
+										when UserType is null then null
+										else 'HighSchool' end from sb.[user] where Id = @Id);
+
+
+declare @cte2 table (CourseId nvarchar(255), Students int)
+insert into @cte2 (CourseId, Students)
+			(
+			select Name as CourseId, 0 as Students
+			from sb.Course c 
+			where name not in (select courseId 
+								from sb.UsersCourses 
+								where courseId = c.name)
+			);
 with cte as 
 (
 select CourseId, count(1) as Students
@@ -43,7 +58,7 @@ select CourseId, count(1) as Students
 		join sb.University un
 			on un.Id = u1.UniversityId2
 		where un.Country = @Country
-		group by CourseId
+group by CourseId
 )
 
 select Name,
@@ -59,7 +74,11 @@ select Name,
 	c.count as Students
 from sb.Course c
 where State = 'OK'
-and c.Name in (select CourseId from cte where CourseId = c.Name)
+and ( c.SchoolType = @schoolType 
+	or (@schoolType = 'University' and c.SchoolType is null)
+	or @schoolType is null )
+and (c.Name in (select CourseId from cte where CourseId = c.Name)
+or c.Name in (select CourseId from @cte2 where CourseId = c.Name))
 and c.Name not in (select uc.CourseId from sb.UsersCourses uc where c.Name = uc.CourseId and uc.UserId = @Id)
 order by IsFollowing desc,
 		c.count desc
