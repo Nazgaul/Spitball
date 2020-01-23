@@ -1,5 +1,8 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
@@ -80,7 +83,7 @@ namespace Cloudents.Web.Api
             }
 
             var country = await _countryProvider.GetUserCountryAsync(token);
-            user = new User(model.Email, model.FirstName, model.LastName, CultureInfo.CurrentCulture, country);
+            user = new User(model.Email, model.FirstName, model.LastName, CultureInfo.CurrentCulture, country, model.Gender);
             var p = await _userManager.CreateAsync(user, model.Password);
             if (p.Succeeded)
             {
@@ -278,6 +281,36 @@ namespace Cloudents.Web.Api
 
             TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             await GenerateEmailAsync(user, returnUrl, token);
+            return Ok();
+        }
+
+        [HttpPost("userType")]
+        public async Task<IActionResult> SetUserTypeAsync([FromBody] SetUserTypeRequest model,
+            [FromServices] ICommandBus commandBus, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new SetUserTypeCommand(userId, model.UserType);
+            await commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("grade")]
+        public async Task<IActionResult> SetUserGradeAsync([FromBody] SetUserGradeRequest model,
+            [FromServices] ICommandBus commandBus, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new SetUserGradeCommand(userId, model.Grade);
+            await commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("childName")]
+        public async Task<IActionResult> SetChildNameAsync([FromBody] SetChildNameRequest model,
+            [FromServices] ICommandBus commandBus, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new SetChildNameCommand(userId, model.FirstName, model.lastName);
+            await commandBus.DispatchAsync(command, token);
             return Ok();
         }
     }

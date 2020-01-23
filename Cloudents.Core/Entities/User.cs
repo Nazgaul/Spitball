@@ -13,7 +13,7 @@ namespace Cloudents.Core.Entities
     public class User : BaseUser
     {
         public User(string email, string firstName, string lastName,
-            Language language, string country) : this()
+            Language language, string country, Gender gender = Gender.None) : this()
         {
             Email = email;
             ChangeName(firstName, lastName);
@@ -21,6 +21,7 @@ namespace Cloudents.Core.Entities
             Language = language;
             Created = DateTime.UtcNow;
             Country = country;
+            Gender = gender;
         }
 
         //public User(string email, Language language) : this(email, null, null, language)
@@ -359,9 +360,21 @@ namespace Cloudents.Core.Entities
             PaymentExists = PaymentStatus.None;
         }
 
+        public virtual void SetUserType(UserType userType)
+        {
+            UserType = userType;
+        }
+
+        public virtual void SetUserGrade(short grade)
+        {
+            Grade = grade;
+        }
+
+        public virtual void SetChildName(string firstName, string lastName)
+        {
+            ChildFirstName = firstName;
+            ChildLastName = lastName;
+        }
 
     }
-
-
-
 }
