@@ -17,32 +17,36 @@
                     <span class="panel_title text-center" v-language:inner="'loginRegister_student'"></span>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content class="pt-4">
-                    <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" @click="registerStep('studentSchool')">
+                    <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" :to="{name: 'studentSchool'}">
                         <span><collegeIcon /></span>
                         <span class="flex-grow-1 white--text">A High school Student</span>
                     </v-btn>
-                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" @click="registerStep('studentCollege')">
+                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" :to="{name: 'studentCollege'}">
                         <span><highSchoolIcon /></span>
                         <span class="flex-grow-1 white--text">A College Student</span>
                     </v-btn>
                 </v-expansion-panel-content>
             </v-expansion-panel>
 
-            <v-expansion-panel class="panel panel_parent mb-5" readonly @click="registerStep('parent')">
-                <v-expansion-panel-header class="px-4 py-2" expand-icon="">
-                    <span class="flex-grow-0 mr-4"><parentIcon/></span>
-                    <v-divider class="mr-4" vertical></v-divider>
-                    <span class="panel_title text-center pr-5" v-language:inner="'loginRegister_parent'"></span>
-                </v-expansion-panel-header>
-            </v-expansion-panel>
+            <router-link :to="{name: 'parent'}">
+                <v-expansion-panel class="panel panel_parent mb-5" readonly>
+                    <v-expansion-panel-header class="px-4 py-2" expand-icon="">
+                        <span class="flex-grow-0 mr-4"><parentIcon/></span>
+                        <v-divider class="mr-4" vertical></v-divider>
+                        <span class="panel_title text-center pr-5" v-language:inner="'loginRegister_parent'"></span>
+                    </v-expansion-panel-header>
+                </v-expansion-panel>
+            </router-link>
 
-            <v-expansion-panel class="panel panel_teacher" readonly @click="openBecomeTutorDialog">
-                <v-expansion-panel-header class="px-4 py-2" expand-icon="">
-                    <span class="flex-grow-0 mr-4"><teacherIcon/></span>
-                    <v-divider class="mr-4" vertical></v-divider>
-                    <span class="panel_title text-center pr-5" v-language:inner="'loginRegister_teacher'"></span>
-                </v-expansion-panel-header>
-            </v-expansion-panel>
+            <router-link :to="{hash: '#becomeTutor'}">
+                <v-expansion-panel class="panel panel_teacher" readonly>
+                    <v-expansion-panel-header class="px-4 py-2" expand-icon="">
+                        <span class="flex-grow-0 mr-4"><teacherIcon/></span>
+                        <v-divider class="mr-4" vertical></v-divider>
+                        <span class="panel_title text-center pr-5" v-language:inner="'loginRegister_teacher'"></span>
+                    </v-expansion-panel-header>
+                </v-expansion-panel>
+            </router-link>
         </v-expansion-panels>
 
     </div>
@@ -67,15 +71,26 @@ export default {
     data:() => ({
         panel: []
     }),
+    watch: {
+        "$route.hash"(hash) {
+            if(hash) this.openBecomeTutorDialog();
+        }
+    },
     methods: {
         registerStep(step) {
             this.$router.push({name: step});
-            // this.$store.dispatch('updateRegisterCurrentStep', step)
         },
         openBecomeTutorDialog() {
             this.$store.dispatch('updateTutorDialog', true);
         }
     },
+    mounted() {
+        if(this.$route.hash) {
+            setTimeout(() => {
+                this.openBecomeTutorDialog();
+            }, 100)
+        }
+    }
 }
 </script>
 

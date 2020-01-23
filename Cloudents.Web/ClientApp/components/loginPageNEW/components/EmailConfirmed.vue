@@ -32,7 +32,7 @@ export default {
             return this.getEmail1
         },
         isRegisterPath(){
-            return (this.$route.path === '/register')
+            return (this.$route.matched[0].name === 'register')
         }
     },
     methods: {

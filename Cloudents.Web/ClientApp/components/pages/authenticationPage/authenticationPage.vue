@@ -11,8 +11,8 @@
 
         <div class="stepsSections">
             <div class="stepContainer">
-                <component :is="currentStep" v-if="$route.name === 'login'"></component>
-                <router-view v-else></router-view>
+                <!-- <component :is="currentStep" v-if="$route.name === 'login'"></component> -->
+                <router-view></router-view>
             </div>
         </div>
 
@@ -42,15 +42,15 @@ import logo from '../../app/logo/logo.vue';
 
 // globals
 const getStarted = () => import('../../loginPageNEW/components/getStarted.vue');
-const EmailConfirmed = () => import('../../loginPageNEW/components/EmailConfirmed.vue');
+// const EmailConfirmed = () => import('../../loginPageNEW/components/EmailConfirmed.vue');
 
 // register
-const setEmailPassword = () => import('../../loginPageNEW/components/setEmailPassword.vue');
-const setPhone = () => import('../../loginPageNEW/components/setPhone.vue');
-const VerifyPhone = () => import('../../loginPageNEW/components/VerifyPhone.vue');
-const congrats = () => import('../../loginPageNEW/components/congrats.vue');
+// const setEmailPassword = () => import('../../loginPageNEW/components/setEmailPassword.vue');
+// const setPhone = () => import('../../loginPageNEW/components/setPhone.vue');
+// const VerifyPhone = () => import('../../loginPageNEW/components/VerifyPhone.vue');
+// const congrats = () => import('../../loginPageNEW/components/congrats.vue');
 
-const register = () => import('./register/register.vue');
+// const register = () => import('./register/register.vue');
 
 // login
 const setEmail = () => import('../../loginPageNEW/components/setEmail.vue');
@@ -75,17 +75,12 @@ export default {
    components:{
       logo,
       getStarted,
-      setEmailPassword,
-      EmailConfirmed,
-      setPhone,
-      VerifyPhone,
-      congrats,
       setEmail,
       setPassword,
       forgotPass,
       resetPassword,
 
-      register,
+      // register,
     },
     computed: {
         ...mapGetters(['getCurrentLoginStep', 'isFrymo']),

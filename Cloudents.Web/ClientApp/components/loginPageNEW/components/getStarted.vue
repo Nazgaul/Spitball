@@ -102,11 +102,11 @@ export default {
                     this.showError = true;
                 } else  {
                     this.updateStep('setEmailPassword')
-                    this.$router.push({name: 'setEmailPassword'})
+                    this.$router.push({name: 'step1'})
                 }
             } else {
                 this.updateStep('setEmail')
-                // this.$router.push({name: 'setEmail'})
+                this.$router.push({name: 'setEmail'})
             }
         },
         redirectTo(toPath){

@@ -18,19 +18,18 @@
 </template>
 
 <script>
-const registerType = () => import('./registerType/registerType.vue');
-const registerStudentSchool = () => import('./student/registerStudentSchool.vue');
-const registerStudentCollege = () => import('./student/registerStudentCollege.vue');
-const registerParent = () => import('./parent/registerParent.vue');
+// const registerType = () => import('./registerType/registerType.vue');
+// const registerStudentSchool = () => import('./student/registerStudentSchool.vue');
+// const registerStudentCollege = () => import('./student/registerStudentCollege.vue');
+// const registerParent = () => import('./parent/registerParent.vue');
 // const registerTeacher = () => import('./teacher/registerTeacher.vue');
 
 export default {
-    name: 'registerFlow',
     components: {
-        registerType,
-        registerStudentSchool,
-        registerStudentCollege,
-        registerParent,
+        // registerType,
+        // registerStudentSchool,
+        // registerStudentCollege,
+        // registerParent,
         // registerTeacher
     },
     data:() => ({
