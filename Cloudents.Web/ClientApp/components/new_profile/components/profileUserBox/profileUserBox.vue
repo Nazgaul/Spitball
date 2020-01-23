@@ -16,7 +16,7 @@
                 </div>
                 <div class="profileUserBox_top_mobile_left">
                     <followBtn v-if="!isCurrentProfileUser"/>
-                    <editSVG class="profileUserBox_top_mobile_left_edit" v-if="isMobile && isCurrentProfileUser" @click="openEditInfo()"/>
+                    <editSVG sel="edit" class="profileUserBox_top_mobile_left_edit" v-if="isMobile && isCurrentProfileUser" @click="openEditInfo()"/>
                     <div class="profileUserBox_top_mobile_left_followers">
                         <span v-if="currentProfileUser.followers" class="defaultState_content_followers" 
                         v-text="$Ph(currentProfileUser.followers > 1 ? 'profile_tutor_followers':'profile_tutor_follower',currentProfileUser.followers)"/>
@@ -27,10 +27,10 @@
         <div class="profileUserBox_top">
             
             <v-flex v-bind="flexOrder" class="pUb_top_defaultState">
-                <editSVG class="pUb_edit_user mr-1" v-if="!isMobile && isCurrentProfileUser" @click="openEditInfo()"/>
+                <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="!isMobile && isCurrentProfileUser" @click="openEditInfo()"/>
                 <div class="pUb_defaultState_img">
                     <div class="pUb_dot" v-if="isOnline"/>
-                    <uploadImage class="pUb_edit_img" v-if="isCurrentProfileUser"/>
+                    <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser"/>
                     <userAvatarRect class="pUb_dS_img" 
                                     :userName="currentProfileUser.name" 
                                     :userImageUrl="currentProfileUser.image" 
@@ -88,7 +88,7 @@
         <v-flex v-if="currentProfileUser.description" sm9 xs12 class="profileUserBox_middle">
             <h3 class="pUb_middle_AboutMe" v-text="currentProfileUser.description"/>
             <template v-if="currentProfileUser.isTutor">
-                <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}<span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span><span v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'"/></h4>
+                <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}<span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span><span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'"/></h4>
             </template>
         </v-flex>
         <div class="profileUserBox_bottom" v-if="currentProfileUser.isTutor && currentProfileTutor.subjects.length">
