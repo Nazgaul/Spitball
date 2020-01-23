@@ -4,8 +4,8 @@ export default {
     googleRegistration: (data) => {
         return connectivityModule.http.post("/register/google", {token: data});
     },
-    emailRegistration: (firstName,lastName,email, recaptcha, password, confirmPassword) => {
-        return connectivityModule.http.post("Register", {firstName,lastName, email, captcha: recaptcha, password, confirmPassword }); // TODO add gendre
+    emailRegistration: ({firstName, lastName, email, gender, recaptcha, password, confirmPassword}) => {
+        return connectivityModule.http.post("Register", {firstName,lastName, email, gender, captcha: recaptcha, password, confirmPassword }); // TODO add gendre
     },
     emailResend: () => {
         return connectivityModule.http.post("Register/resend");

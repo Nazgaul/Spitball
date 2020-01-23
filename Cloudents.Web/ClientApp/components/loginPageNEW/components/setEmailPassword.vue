@@ -48,7 +48,7 @@
           type="email">
         </v-text-field>
 
-        <v-radio-group v-model="gendre" row class="radioActive mt-n1" dense :mandatory="true">
+        <v-radio-group v-model="gender" row class="radioActive mt-n1" dense :mandatory="true">
           <v-radio label="Male" value="male" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
           <v-radio label="Female" value="female" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
         </v-radio-group>
@@ -117,7 +117,7 @@ export default {
   components: { VueRecaptcha },
   data() {
     return {
-      gendre: "male",
+      gender: "male",
       password: "",
       confirmPassword: "",
       score: {
@@ -155,9 +155,9 @@ export default {
       }
       this.updateName(fullNameObj)
     },
-    // gendre() {
-    //   this.updateGendre(this.gendre);
-    // }
+    gender() {
+      this.updateGender(this.gender);
+    }
   },
   computed: {
     ...mapGetters(["getEmail1","getGlobalLoading","getErrorMessages","getPassScoreObj"]),
@@ -193,7 +193,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateEmail","emailSigning",'updateName']),
+    ...mapActions(["updateEmail","emailSigning",'updateName', 'updateGender']),
     ...mapMutations(['setErrorMessages']),
     onVerify(response) {
       this.recaptcha = response

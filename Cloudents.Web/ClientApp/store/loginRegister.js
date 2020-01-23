@@ -28,6 +28,7 @@ const state = {
     lastName:'',
     email: '',
     phone: '',
+    gender: 'male',
     localCode: '',
 
     globalLoading: false,
@@ -82,6 +83,9 @@ const mutations = {
     },
     setPhone(state,phoneNumber){
         state.phone = phoneNumber;
+    },
+    setGender(state, gender){
+        state.gender = gender;
     },
     setPhoneCode(state,localCode){
         state.localCode = localCode;
@@ -145,6 +149,9 @@ const actions = {
     updatePhone({commit},phoneNumber){
         commit('setPhone',phoneNumber);
     },    
+    updateGender({commit}, gender) {
+        commit('setGender', gender)
+    },
     updateLocalCode({commit},selectedLocalCode){
         if(selectedLocalCode){
             commit('setLocalCode',selectedLocalCode);
@@ -203,12 +210,12 @@ const actions = {
             
         });
     },
-    emailSigning({dispatch,state,commit},params){
-        let {recaptcha} = params;
-        let {password} = params;
-        let {confirmPassword} = params;
+    emailSigning({dispatch,state,commit}, params){
+        let { recaptcha, password, confirmPassword } = params;
+        let { firstName, lastName, email, gender } = state;
+        let emailRegObj = { firstName, lastName, email, gender, recaptcha, password, confirmPassword }
         commit('setGlobalLoading',true);
-        return registrationService.emailRegistration(state.firstName,state.lastName,state.email, recaptcha, password, confirmPassword)
+        return registrationService.emailRegistration(emailRegObj)
             .then((resp) => {
                 let nextStep = resp.data.step;
                 if(nextStep.toLowerCase() === "verifyphone" || nextStep.toLowerCase() === "enterphone"){
