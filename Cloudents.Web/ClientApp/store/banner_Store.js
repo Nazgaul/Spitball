@@ -3,15 +3,12 @@ import homePageService from '../services/homePageService.js'
 const BANNER_STORAGE_NAME = "sb_banner";
 
 const state = {
-    bannerStatus: false, 
     bannerParams: null,
 };
 const mutations = {
-    setBannerStatus: (state,val) => state.bannerStatus = val,
     setBannerParams: (state,val) => state.bannerParams = val,
 };
 const getters = {
-    getBannerStatus: state => state.bannerStatus,
     getBannerParams: state => state.bannerParams,
 };
 const actions = {
@@ -28,7 +25,7 @@ const actions = {
                 localStorageList = JSON.stringify(localStorageList.push(bannerId));
                 global.localStorage.setItem(BANNER_STORAGE_NAME,localStorageList); 
             }
-            commit('setBannerStatus',false);
+            commit('setBannerParams',null);
         }
     },
     updateBannerParams({commit}){
@@ -37,13 +34,12 @@ const actions = {
             if(params.id){
                 let localStorageList = JSON.parse(global.localStorage.getItem(BANNER_STORAGE_NAME));
                 if(localStorageList && localStorageList.includes(params.id)){
-                    commit('setBannerStatus',false);
+                    commit('setBannerParams',null);
                 }else{
-                    commit('setBannerStatus',true);
                     commit('setBannerParams',params);
                 }
             }else{
-                commit('setBannerStatus',false);
+                commit('setBannerParams',null);
             }
         });
     }

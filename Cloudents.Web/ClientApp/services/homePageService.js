@@ -69,6 +69,9 @@ export default {
     getHomePageReviews,
     async getBannerParams() {
       let { data } = await Api.get.banner()
-      return data === null? null : new Banner.Default(data);
+      let r = data === null? null : new Banner.Default(data);
+      return r
+    //   debugger
+    //   return data === null? null : new Banner.Default(data);
     },
 }
