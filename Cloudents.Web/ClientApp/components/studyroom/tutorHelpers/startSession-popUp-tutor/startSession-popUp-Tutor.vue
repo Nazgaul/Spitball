@@ -40,13 +40,12 @@
 
 <script>
     import {mapGetters, mapActions, mapState} from 'vuex';
-    import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
     import timerIcon from '../../images/timer.svg';
     import videoStreamService from "../../../../services/videoStreamService";
     import {LanguageService} from "../../../../services/language/languageService";
     export default {
         name: "startSession-popUp-tutor",
-        components: {userAvatar, timerIcon},
+        components: {timerIcon},
         props: {
             id: {
                 required:true

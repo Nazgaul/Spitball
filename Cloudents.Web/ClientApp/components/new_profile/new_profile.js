@@ -96,7 +96,6 @@ export default {
 
 
             isRtl: global.isRtl,
-            isEdgeRtl: global.isEdgeRtl,
             loadingContent: false,
             activeTab: 1,
             itemsPerTab: 50,

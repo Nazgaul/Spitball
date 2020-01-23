@@ -23,12 +23,11 @@
 </template>
 
 <script>
-import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
 import userRating from "../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 
 
 export default {
-    components:{UserAvatar,userRating},
+    components:{userRating},
     props:{
         item:{
             type:Object,

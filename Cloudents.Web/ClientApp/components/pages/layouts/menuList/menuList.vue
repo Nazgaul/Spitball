@@ -109,12 +109,11 @@ import languagesLocales from "../../../../services/language/localeLanguage";
 import { LanguageChange, LanguageService } from "../../../../services/language/languageService";
 import satelliteService from '../../../../services/satelliteService';
 
-import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
 import logoComponent from '../../../app/logo/logo.vue';
 import intercomSettings from '../../../../services/intercomService';
 
 export default {
-   components: { userAvatar,logoComponent},
+   components: {logoComponent},
   data() {
     return {
       languagesLocales,

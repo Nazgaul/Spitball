@@ -4,7 +4,7 @@
    v-text="$Ph($vuetify.breakpoint.xsOnly? 'profile_study_materials_mobile':'profile_study_materials',userName)"/>   
    <div class="profileItemsBox_filters">
       <v-flex xs2 sm4 class="pr-0 pr-sm-4 d-flex d-sm-block" :class="{'filterbox':$vuetify.breakpoint.xsOnly}" justify-end>
-         <v-menu offset-y>
+         <v-menu offset-y sel="filter_type">
             <template v-slot:activator="{ on }">
                <v-btn icon v-on="on" class="filters_menu_btn d-block d-sm-none">
                   <v-icon class="icon">sbf-sort</v-icon>
@@ -18,6 +18,7 @@
          </v-menu>
 
          <v-select class="profileItemsBox_filters_select d-none d-sm-flex"
+            sel="filter_type"
             :append-icon="'sbf-arrow-fill'"
             v-model="selectedModel.itemType"
             :items="typeItems"
@@ -28,6 +29,7 @@
       </v-flex>
       <v-flex xs10 sm9 class="pr-4 pr-sm-0" :class="{'filtercourse':$vuetify.breakpoint.xsOnly}">
          <v-select class="profileItemsBox_filters_select"
+            sel="filter_course"
             :append-icon="'sbf-arrow-fill'"
             clearable
             :clear-icon="'sbf-close'"

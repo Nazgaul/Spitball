@@ -30,7 +30,7 @@
             </v-flex>
          </div>
          <div class="profileUserSticky_btns">
-            <v-btn :disabled="isMyProfile" class="profileUserSticky_btn white--text" :class="{'isMyProfile':isMyProfile}" depressed rounded color="#4452fc" @click="globalFunctions.sendMessage">
+            <v-btn sel="send" :disabled="isMyProfile" class="profileUserSticky_btn white--text" :class="{'isMyProfile':isMyProfile}" depressed rounded color="#4452fc" @click="globalFunctions.sendMessage">
                <v-flex xs2 mr-1>
                   <chatIcon class="profileUserSticky_btn_icon"/>
                </v-flex>
@@ -41,7 +41,7 @@
                   
                </v-flex>
             </v-btn>
-            <v-btn :disabled="isMyProfile" v-if="getProfile.user.calendarShared" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isMyProfile}" class="profileUserSticky_btn profileUserSticky_btn_book white--text" depressed rounded color="white">
+            <v-btn sel="calendar" :disabled="isMyProfile" v-if="getProfile.user.calendarShared" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isMyProfile}" class="profileUserSticky_btn profileUserSticky_btn_book white--text" depressed rounded color="white">
                <v-flex xs2 mr-1>
                   <calendarIcon class="profileUserSticky_btn_icon"/>
                </v-flex>
@@ -71,7 +71,7 @@
                <span class="profileUserSticky_whyUs_row_text" v-language:inner="'documentPage_prepared_exams'"></span>
             </div>
          </div>
-         <button :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-language:inner="'coupon_apply_coupon'"/>
+         <button sel="coupon" :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-language:inner="'coupon_apply_coupon'"/>
       </template>
       <template v-else>         
          <div v-if="isMyProfile" class="profileUserSticky_title_become" v-language:inner="'profile_become_title'"/>
@@ -111,7 +111,6 @@ import calendarIcon from './images/calendarIcon.svg';
 import { mapGetters, mapActions } from 'vuex';
 
 import userRating from '../../profileHelpers/profileBio/bioParts/userRating.vue';
-import userAvatar from '../../../helpers/UserAvatar/userAvatar.vue';
 
 export default {
    components:{
@@ -121,7 +120,6 @@ export default {
       chatIcon,
       calendarIcon,
       userRating,
-      userAvatar
    },
    props:{
       globalFunctions:{
