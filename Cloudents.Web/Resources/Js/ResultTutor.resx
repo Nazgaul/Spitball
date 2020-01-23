@@ -126,15 +126,6 @@
   <data name="review_one" xml:space="preserve">
     <value>{1} Review</value>
   </data>
-  <data name="no_reviews_mobile" xml:space="preserve">
-    <value>Still collecting</value>
-  </data>
-  <data name="btn_more_doc" xml:space="preserve">
-    <value>More documents</value>
-  </data>
-  <data name="classes" xml:space="preserve">
-    <value>Lessons</value>
-  </data>
   <data name="courses" xml:space="preserve">
     <value>Course:</value>
     <comment>Duplicate</comment>
@@ -151,9 +142,6 @@
   <data name="private_tutor" xml:space="preserve">
     <value>Tutor {1}</value>
   </data>
-  <data name="title" xml:space="preserve">
-    <value>Tutors</value>
-  </data>
   <data name="no_hours_completed" xml:space="preserve">
     <value>Lessons coming soon</value>
   </data>
@@ -163,9 +151,6 @@
   <data name="message_me" xml:space="preserve">
     <value>me</value>
     <comment>זה אמור להיות אות אחת</comment>
-  </data>
-  <data name="class" xml:space="preserve">
-    <value>Lesson</value>
   </data>
   <data name="hour_completed" xml:space="preserve">
     <value>Lesson completed</value>

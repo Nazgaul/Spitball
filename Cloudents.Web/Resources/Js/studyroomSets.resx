@@ -120,9 +120,6 @@
   <data name="continue-anyway" xml:space="preserve">
     <value>Continue without audio or video</value>
   </data>
-  <data name="enable_actions_no" xml:space="preserve">
-    <value>No, thank you</value>
-  </data>
   <data name="enable_actions_yes" xml:space="preserve">
     <value>Ok, got it</value>
   </data>
