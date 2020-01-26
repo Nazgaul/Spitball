@@ -206,7 +206,11 @@ module.exports = (env) => {
             //},
             minimizer: !isDevBuild ? [
                 new TerserPlugin({
-                    drop_console :true
+                    terserOptions: {
+                        compress: {
+                            drop_console: true
+                        }
+                    }
                 }),
                 new OptimizeCssAssetsPlugin({
                     cssProcessor: require("cssnano"),
@@ -239,7 +243,7 @@ module.exports = (env) => {
             //}),
         ].concat(isDevBuild
             ? [
-               
+
                 new webpack.SourceMapDevToolPlugin({
                     filename: "[file].map", // Remove this line if you prefer inline source maps
                     moduleFilenameTemplate:
