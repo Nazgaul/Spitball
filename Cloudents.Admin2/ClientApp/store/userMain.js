@@ -365,12 +365,9 @@ const actions = {
             return false;
         });
     },
-    updateUserPhone({ commit, dispatch }, payload) {
+    updateUserPhone({dispatch }, payload) {
         return userMainService.updateUserPhone(payload).then(() => {
-            dispatch('getUserData', payload.userId);
-        },
-        () => {
-            return false;
+            return dispatch('getUserData', payload.userId);
         });
     },
     updateTutorPrice({commit}, priceObj) {
