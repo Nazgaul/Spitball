@@ -335,10 +335,10 @@ export default {
     updateUserPhone: ({ userId, newPhone }) => {
         let path = `AdminUser/phone`;
         let uri = apiAddress + path;
+        debugger;
+        //return axios.put(uri, { userId, newPhone });
         return axios.put(uri, { userId, newPhone }).then((message) => {
             return message;
-        }).catch((error) => {
-            throw error;
         });
     },
     updateTutorPrice: (priceOjb) => {

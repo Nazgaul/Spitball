@@ -369,8 +369,6 @@ const actions = {
     updateUserPhone({dispatch }, payload) {
         return userMainService.updateUserPhone(payload).then(() => {
             return dispatch('getUserData', payload.userId);
-        }).catch((err) => {
-            throw err;
         });
     },
     updateTutorPrice({commit}, priceObj) {
