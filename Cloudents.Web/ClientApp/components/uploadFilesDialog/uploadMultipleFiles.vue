@@ -83,7 +83,6 @@ export default {
             nextStepCalled: false,
             loading: false,
             disableBtn: false,
-            isEdge : global.isEdge,
             lock: false,
             chackValidation: false,
             termsLink: satelliteServie.getSatelliteUrlByName('terms')

@@ -1,16 +1,10 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import userAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
-// import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
 import { LanguageService } from "../../../services/language/languageService";
 import { validationRules } from "../../../services/utilities/formValidationRules";
 import questionService from "../../../services/questionService";
 import analyticsService from "../../../services/analytics.service";
 
 export default {
-    components: {
-        UserAvatar: userAvatar,
-        // FileUpload
-    },
     data() {
         return {
             questionCourse: '',

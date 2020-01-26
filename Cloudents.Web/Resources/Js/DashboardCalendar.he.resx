@@ -117,18 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btn_availability" xml:space="preserve">
-    <value>שינוי זמינות</value>
-  </data>
-  <data name="btn_change" xml:space="preserve">
-    <value>שינוי</value>
-  </data>
-  <data name="btn_connect" xml:space="preserve">
-    <value>חבר יומן גוגל</value>
-  </data>
-  <data name="btn_select" xml:space="preserve">
-    <value>בחירה</value>
-  </data>
   <data name="btn_update" xml:space="preserve">
     <value>עדכון</value>
   </data>

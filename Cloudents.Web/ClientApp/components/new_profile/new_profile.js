@@ -5,7 +5,10 @@ import profileUserSticky from './components/profileUserSticky/profileUserSticky.
 import profileUserStickyMobile from './components/profileUserSticky/profileUserStickyMobile.vue';
 import profileReviewsBox from './components/profileReviewsBox/profileReviewsBox.vue';
 import profileEarnMoney from './components/profileEarnMoney/profileEarnMoney.vue';
+import profileBecomeTutor from './components/profileBecomeTutor/profileBecomeTutor.vue';
+import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
+import profileItemsEmpty from './components/profileItemsEmpty/profileItemsEmpty.vue';
 
 
 
@@ -40,7 +43,10 @@ export default {
         profileUserStickyMobile,
         profileReviewsBox,
         profileEarnMoney,
+        profileBecomeTutor,
+        profileFindTutor,
         profileItemsBox,
+        profileItemsEmpty,
         sbDialog,
 
 
@@ -68,6 +74,7 @@ export default {
                 goTutorList: this.goTutorList,
                 openUpload: this.openUpload,
                 getItems: this.getItems,
+                scrollTo: this.scrollToElementId,
             },
             coupon: '',
             couponPlaceholder: LanguageService.getValueByKey('coupon_placeholder'),
@@ -89,7 +96,6 @@ export default {
 
 
             isRtl: global.isRtl,
-            isEdgeRtl: global.isEdgeRtl,
             loadingContent: false,
             activeTab: 1,
             itemsPerTab: 50,
@@ -224,8 +230,16 @@ export default {
               this.setReturnToUpload(false);
             }
         },
-        getItems({type,page,pageSize}){
-            return this.updateProfileItemsByType({id:this.id,type,page,pageSize})
+        getItems(type,params){
+            let dataObj = {
+                id: this.id,
+                type,
+                params
+            }
+            return this.updateProfileItemsByType(dataObj)
+        },
+        scrollToElementId(elementId){
+            document.getElementById(elementId).scrollIntoView({behavior: 'smooth',block: 'start'});
         },
 
         
@@ -262,17 +276,19 @@ export default {
             let syncObj = {
                 id: this.id,
                 type:'documents',
-                page: 0,
-                pageSize:this.$vuetify.breakpoint.xsOnly? 3 : 6,
+                params:{
+                    page: 0,
+                    pageSize:this.$vuetify.breakpoint.xsOnly? 3 : 6,
+                }
             }
             this.syncProfile(syncObj);
         },
-        getInfoByTab() {
-            this.loadingContent = true;
-            this.setProfileByActiveTab(this.activeTab).then(() => {
-                this.loadingContent = false;
-            });
-        },
+        // getInfoByTab() {
+        //     this.loadingContent = true;
+        //     this.setProfileByActiveTab(this.activeTab).then(() => {
+        //         this.loadingContent = false;
+        //     });
+        // },
         loadAnswers() {
             if (this.profileData.answers.length < this.itemsPerTab) {
                 this.answers.isComplete = true;
@@ -414,8 +430,11 @@ export default {
         showEarnMoney(){
             return this.isMyProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
         },
+        showItemsEmpty(){
+            return !this.isMyProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && !this.uploadedDocuments.result.length;
+        },
         showItems(){
-            return !!this.getProfile && !!this.uploadedDocuments && !!this.uploadedDocuments.result && this.uploadedDocuments.result.length;
+            return !!this.getProfile;
         },
         isTutorPending(){
             return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
@@ -431,6 +450,12 @@ export default {
                     return false;
                 }
             }
+        },
+        showBecomeTutor(){
+            return this.isMyProfile && !this.isTutor && !this.isTutorPending;
+        },
+        showFindTutor(){
+            return (!this.isMyProfile && !this.isTutor)
         },
 
 
@@ -553,9 +578,7 @@ export default {
             }
             this.fetchData();
         },
-
-        activeTab() {
-
+        // activeTab() {
 
 
 
@@ -564,8 +587,9 @@ export default {
 
 
 
-            this.getInfoByTab();
-        }
+
+        //     this.getInfoByTab();
+        // }
     },
     //reset profile data to prevent glitch in profile loading
     beforeRouteLeave(to, from, next) {

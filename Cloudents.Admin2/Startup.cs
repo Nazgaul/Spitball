@@ -49,6 +49,7 @@ namespace Cloudents.Admin2
 
                 .AddCookie(x =>
                 {
+                    x.Cookie.Name = "admin1";
                     x.Events.OnRedirectToLogin = context =>
                     {
                         if (context.Request.Path.StartsWithSegments("/api"))

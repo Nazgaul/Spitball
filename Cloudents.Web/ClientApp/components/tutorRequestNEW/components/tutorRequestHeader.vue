@@ -15,10 +15,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-const userAvatar = () => import('../../helpers/UserAvatar/UserAvatar.vue');
 
 export default {
-    components:{userAvatar},
     data() {
         return {
             isLoaded: false,

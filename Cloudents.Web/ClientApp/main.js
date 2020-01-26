@@ -1,145 +1,62 @@
+// Imports
 import Vue from "vue";
 import vuetify from './plugins/vuetify';
-import App from "./components/app/app.vue";
 import { sync } from 'vuex-router-sync';
+import * as route from "./routes";
 import store from "./store";
-import { Language } from "./services/language/langDirective";
-import { LanguageService } from './services/language/languageService';
-//import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
-// clip board copy text
-import VueClipboard from 'vue-clipboard2';
-// import Scroll from "vuetify/es5/directives/scroll";
-// import Touch from "vuetify/es5/directives/touch";
-import scrollComponent from './components/helpers/infinateScroll.vue';
-import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import LoadScript from 'vue-plugin-load-script';
+import VueClipboard from 'vue-clipboard2';
+import VueAppInsights from 'vue-application-insights';
+import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
 
-// Intersection observer support
-if(!window.IntersectionObserver){
+// import VueFlicking from "@egjs/vue-flicking";
+import '../ClientApp/myFont.font.js';
+if(!window.IntersectionObserver){ // Intersection observer support
     import('intersection-observer')   
 }
+
+// Global Components
+import App from "./components/app/app.vue";
+import scrollComponent from './components/helpers/infinateScroll.vue';
+import UserAvatar from './components/helpers/UserAvatar/UserAvatar.vue';
+
+// Global Services
+import { Language } from "./services/language/langDirective";
+import { LanguageService } from './services/language/languageService';
+import utilitiesService from './services/utilities/utilitiesService';
 
 // Filters
 import './filters/filters';
 
-import VueNumeric from 'vue-numeric';
-import VueMathjax from 'vue-mathjax';
-import utilitiesService from './services/utilities/utilitiesService';
-import VueAppInsights from 'vue-application-insights';
-import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
 
-import intercomSettings from './services/intercomService';
-import '../ClientApp/myFont.font.js';
+//import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
 
-// import VueCodemirror from 'vue-codemirror'
-// import 'codemirror/lib/codemirror.css'
-// import 'code'
-
-// Vue.use(VueCodemirror);
-
-
-// import {
-//     VApp,
-//     VAvatar,
-//     VBottomNav,
-//     VBtn,
-//     VBtnToggle,
-//     VCard,
-//     VCarousel,
-//     VCheckbox,
-//     VChip,
-//     VCombobox,
-//     VDataTable,
-//     VDialog,
-//     VDivider,
-//     VExpansionPanel,
-//     VGrid,
-//     VIcon,
-//     VList,
-//     VMenu,
-//     VNavigationDrawer,
-//     VPagination,
-//     VProgressCircular,
-//     VProgressLinear,
-//     VSelect,
-//     VSnackbar,
-//     VStepper,
-//     VSubheader,
-//     VSwitch,
-//     VTabs,
-//     VTextarea,
-//     VTextField,
-//     VToolbar,
-//     VTooltip,
-//     VRating,
-//     VForm,
-//     VAutocomplete,
-//     VSheet,
-//     VCalendar,
-//     Vuetify
-// } from "vuetify";
-import * as route from "./routes";
-
-
-
-//NOTE: put changes in here in webpack vendor as well
-// const vuetifyComponents = {
-//     VApp,
-//     VGrid,
-//     VChip,
-//     VToolbar,
-//     VList,
-//     VExpansionPanel,
-//     VCard,
-//     VCarousel,
-//     VProgressCircular,
-//     VProgressLinear,
-//     VSubheader,
-//     VDivider,
-//     VDialog,
-//     VTextField,
-//     VSelect,
-//     VBtn,
-//     VBtnToggle,
-//     VTooltip,
-//     VMenu,
-//     VSwitch,
-//     VTabs,
-//     VIcon,
-//     VSnackbar,
-//     VNavigationDrawer,
-//     VAvatar,
-//     VPagination,
-//     VDataTable,
-//     VStepper,
-//     VCombobox,
-//     VCheckbox,
-//     VBottomNav,
-//     VTextarea,
-//     VRating,
-//     VForm,
-//     VAutocomplete,
-//     VSheet,
-//     VCalendar
-// };
-
-
-Vue.use(VueMathjax);
+// Vue.use(VueFlicking);
 Vue.use(VueRouter);
 Vue.use(LoadScript);
-
-// Vue.use(Vuetify, {
-//     directives: {
-//         Scroll,
-//         Touch
-//     },
-//     components: vuetifyComponents
-// });
+Vue.use(VLazyImagePlugin);
+Vue.use(VueClipboard);
+Vue.use(VueAnalytics, {
+    id: 'UA-100723645-2',
+    disableScriptLoader: true,
+    router,
+    autoTracking: {
+        pageviewOnLoad: false,
+        pageviewTemplate(route) {
+            return {
+                page: route.path,
+                title: route.name ? route.name.charAt(0).toUpperCase() + route.name.slice(1) : '',
+                location: window.location.href
+            };
+        },
+        exception: true
+    }
+});
 
 Vue.component("scroll-list", scrollComponent);
-Vue.component("general-page", GeneralPage);
+Vue.component("UserAvatar",UserAvatar);
 
 const router = new VueRouter({
     mode: "history",
@@ -164,50 +81,16 @@ const router = new VueRouter({
     }
 });
 
-Vue.use(VueClipboard);
-// Vue.use(lineClamp, {});
-Vue.use(VueNumeric);
-Vue.use(VLazyImagePlugin);
-Vue.use(VueAnalytics, {
-    id: 'UA-100723645-2',
-    disableScriptLoader: true,
-    router,
-    autoTracking: {
-        pageviewOnLoad: false,
-        //ignoreRoutes: ['result'],
-        // shouldRouterUpdate(to, from) {
-        //     return to.path != "/result";
-        // },
-        pageviewTemplate(route) {
-            return {
-                page: route.path,
-                title: route.name ? route.name.charAt(0).toUpperCase() + route.name.slice(1) : '',
-                location: window.location.href
-            };
-        },
-        exception: true
-    }
-});
-
-
 Vue.directive('language', Language);
-// Register a global custom directive called `v-focus`
 
-//is rtl
+
+
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
-//check if firefox for ellipsis, if yes use allipsis filter if false css multiline ellipsis
-// global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-//is country Israel
-global.isIsrael = global.country.toLowerCase() === "il";
-//check if Edge (using to fix position sticky bugs)
 global.isEdgeRtl = false;
-global.isEdge = false;
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
-    global.isEdge = true;
     if (global.isRtl) {
         global.isEdgeRtl = true;
     }
-
 }
 
 Vue.prototype.$loadStyle = function(url,id){
@@ -280,22 +163,6 @@ router.beforeEach((to, from, next) => {
     } 
 
     store.dispatch('sendQueryToAnalytic', to);
-    intercomSettings.IntercomSettings.set({hideLauncher:true});
-
-    if (global.innerWidth < 600) {
-        intercomSettings.IntercomSettings.set({hideLauncher:true});
-    }
-    else {
-        intercomSettings.IntercomSettings.set({hideLauncher:false});
-    }
-    //if tutoring disable intercom
-    if (global.location.href.indexOf("studyroom") > -1) {
-        intercomSettings.IntercomSettings.set({hideLauncher:true});
-    }
-    //case 10995
-    if (global.appInsights) {
-        global.appInsights.trackPageView(to.fullPath);
-    }
     store.dispatch('changeLastActiveRoute', from);
     checkUserStatus(to, next);
 
@@ -309,7 +176,7 @@ const app = new Vue({
 });
 
 function checkUserStatus(to, next) {
-    store.dispatch('userStatus', {isRequire: to.meta.requiresAuth, to});
+    store.dispatch('userStatus', {isRequireAuth: to.meta.requiresAuth, to});
     if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
         next("/signin");
     } else {

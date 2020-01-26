@@ -98,7 +98,6 @@ export default {
   methods: {
     ...mapMutations(['UPDATE_SEARCH_LOADING']),
     getImg(path) {
-      console.log(require(`${path}`))
       return require(`${path}`);
     },
     update(name, isDragging){

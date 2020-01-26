@@ -29,43 +29,27 @@
                     <div class="mainItem__item__wrap">
                         <div :style="{height: `${dynamicWidthAndHeight.height}px`}">
                             <v-scroll-x-reverse-transition>
-                                <unlockItem  v-touch="{
-                                    left:() => handleSwipe(true),
-                                    right:() => handleSwipe(false)}"  
+                                <unlockItem v-touch="{
+                                    left:() => handleSwipe(false),
+                                    right:() => handleSwipe(true)}"  
                                     class="unlockItem_swipe" v-if="showUnlockPage" :type="document.documentType" :docLength="docPreview.length"/>
-                            </v-scroll-x-reverse-transition>
-                            
-                            <sbCarousel
-                                ref="itemPageChildComponent"
-                                :arrows="false"
-                                :items="docPreview"
-                                :itemsToShow="1"
-                                :itemsToSlide="1"
-                                :isCarouselReady="isReady"
-                                >
-                                <template v-slot:slide="{item}">
-                                    <div class="mainItem__item__wrap--img">
-                                    <v-lazy>
-                                        <lazyImage 
-                                        :src="item"
-                                        draggable="false"
-                                        :element="selector"
-                                        style="width:100%;"
-                                        >
-                                        </lazyImage>
-                                    </v-lazy>
-                                    </div>
-                                        <!-- <img draggable="false" class="mainItem__item__wrap--img" :src="doc" alt="" v-for="(doc, index) in docPreview" :key="index"> -->
-                                </template>
-                            </sbCarousel>
+                            </v-scroll-x-reverse-transition>     
+                            <v-carousel
+                                :touch="{left: () => handleSwipe(false),right: () => handleSwipe(true)}"
+                                :show-arrows="false" hide-delimiters 
+                                :height="dynamicWidthAndHeight.height" 
+                                v-model="docPage">
+                                <v-carousel-item v-for="(doc, index) in docPreview" :key="index">
+                                    <img :src="doc" draggable="false" class="mainItem__item__wrap--img">
+                                </v-carousel-item>
+                            </v-carousel>
                         </div>
                         <div class="mainItem__item__wrap__paging">
                             <v-layout class="mainItem__item__wrap__paging__actions">
                                 <button class="mainItem__item__wrap__paging__actions--left"  @click="prevDoc()" v-if="showDesktopButtons">
                                     <v-icon class="mainItem__item__wrap__paging__actions--img" v-html="'sbf-arrow-left-carousel'"/>
                                 </button>
-                                <div class="mx-4 mainItem__item__wrap__paging--text" v-html="$Ph('documentPage_docPage', [docPage, docPreview.length])"></div>            
-
+                                <div class="mx-4 mainItem__item__wrap__paging--text" v-html="$Ph('documentPage_docPage', [docPage + 1, docPreview.length])"></div>            
                                 <button class="mainItem__item__wrap__paging__actions--right" @click="nextDoc()" v-if="showDesktopButtons">
                                     <v-icon class="mainItem__item__wrap__paging__actions--img" v-html="'sbf-arrow-right-carousel'"/>
                                 </button>
@@ -80,20 +64,15 @@
 
 <script>
 import {  mapGetters } from 'vuex';
-
 import utillitiesService from "../../../../../services/utilities/utilitiesService";
 
-import sbCarousel from '../../../../sbCarousel/sbCarousel.vue';
-import sbVideoPlayer from '../../../../sbVideoPlayer/sbVideoPlayer.vue';
-import lazyImage from '../../../global/lazyImage/lazyImage.vue';
-import unlockItem from '../unlockItem/unlockItem.vue';
+const sbVideoPlayer = () => import('../../../../sbVideoPlayer/sbVideoPlayer.vue');
+const unlockItem = () => import('../unlockItem/unlockItem.vue');
 
 export default {
     name: 'mainItem',
     components: {
-        sbCarousel,
         sbVideoPlayer,
-        lazyImage,
         unlockItem,
     },
     props: {
@@ -106,10 +85,8 @@ export default {
     },
     data() {
         return {
-            // docPage: 1,
-            isRtl: global.isRtl,
+            docPage: 0,
             showAfterVideo:false,
-            isMounted:false
         }
     },
     watch:{
@@ -117,8 +94,7 @@ export default {
             //reset the document with the v-if, fixing issue that moving from video to document wont reset the video ELEMENT
             let self = this;
             this.isLoad = true;
-            this.isMounted = false;
-            // this.docPage = 1;
+            this.docPage = 0;
             setTimeout(()=>{
                 self.isLoad = false;
             })
@@ -127,8 +103,7 @@ export default {
     computed: {
         ...mapGetters(['getDocumentLoaded']),
         showUnlockPage(){
-            // touchmove 
-            return (this.docPage > 2 && !this.isPurchased)
+            return (this.docPage > 1 && !this.isPurchased)
         },
         showDesktopButtons() {
             if(this.docPreview) {
@@ -142,22 +117,6 @@ export default {
                 return this.document.details.isPurchased;
             }
             return false;
-        },
-
-        videoSrc:{
-            get(){
-                if(this.document && this.document.preview && this.document.preview.locator){
-                    return this.document.preview.locator;
-                }else{
-                    return null;
-                }
-            }, 
-            set(val){
-                this.document.preview.locator = val;
-            }
-        },
-        isVideo(){
-            return this.document.documentType === 'Video';
         },
         docPreview() {
             if(this.isVideo) return
@@ -177,6 +136,21 @@ export default {
                 return result;
             }
             return null
+        },
+        videoSrc:{
+            get(){
+                if(this.document && this.document.preview && this.document.preview.locator){
+                    return this.document.preview.locator;
+                }else{
+                    return null;
+                }
+            }, 
+            set(val){
+                this.document.preview.locator = val;
+            }
+        },
+        isVideo(){
+            return this.document.documentType === 'Video';
         },
         videoLoader() {
             if(this.getDocumentLoaded) {
@@ -229,48 +203,26 @@ export default {
             if(!element) return '';
             return element;
         },
-        docPage(){
-            if(this.isMounted){
-                let uniqueID = this.$refs.itemPageChildComponent.uniqueID;
-                return this.$refs.itemPageChildComponent.$refs[uniqueID].currentSlide + 1
-            }else{
-                return 1;
-            }
-        }
     },
     methods: {
-        setDocPage(){  
-            let uniqueID = this.$refs.itemPageChildComponent.uniqueID;
-            let currentIndex = this.$refs.itemPageChildComponent.$refs[uniqueID].getIndex();
-            this.docPage = currentIndex + 1;
-        },
         prevDoc() {
-            let uniqueID = this.$refs.itemPageChildComponent.uniqueID;
-            this.$refs.itemPageChildComponent.$refs[uniqueID].slidePrev();
+            this.docPage--;
         },
         nextDoc() {
-            let uniqueID = this.$refs.itemPageChildComponent.uniqueID;
-            this.$refs.itemPageChildComponent.$refs[uniqueID].slideNext();
+            if(this.docPage < this.docPreview.length -1){
+                this.docPage++;
+            }
         },
         updateAfterVideo(){
             this.showAfterVideo = true;
         },
-        isReady(){
-            this.isMounted = true;
-        },
         handleSwipe(dir){
-            dir = this.isRtl ? !dir : dir;
             if(dir){
-                this.nextDoc()
+                global.isRtl? this.nextDoc() : this.prevDoc();
             }else{
-                this.prevDoc()
+                global.isRtl? this.prevDoc() : this.nextDoc();
             }
-        },
-        onIntersect (entries) {
-            console.log(entries[0].isIntersecting)
-            console.log(entries[0].isVisible)
-            // console.log(observer)
-      },
+        }
     },
     
 }

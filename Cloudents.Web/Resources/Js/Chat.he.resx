@@ -121,10 +121,10 @@
     <value>לא קיבלת הודעות עדיין</value>
   </data>
   <data name="emptyState_message1" xml:space="preserve">
-    <value>היי, אני</value>
+    <value>היי, נעים מאוד שמי</value>
   </data>
   <data name="emptyState_message2" xml:space="preserve">
-    <value>ספר לי במה אתה צריך עזרה ואשמח לסייע לך</value>
+    <value>אז במה אוכל לעזור ולסייע הפעם?</value>
   </data>
   <data name="error_messages" xml:space="preserve">
     <value>שגיאה בחיבור רשת</value>

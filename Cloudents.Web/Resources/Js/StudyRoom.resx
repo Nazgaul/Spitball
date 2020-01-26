@@ -120,12 +120,6 @@
   <data name="alone_in_room" xml:space="preserve">
     <value>Waiting for other party to enter the Study Room</value>
   </data>
-  <data name="audio" xml:space="preserve">
-    <value>Audio</value>
-  </data>
-  <data name="become_tutor" xml:space="preserve">
-    <value>BECOME A TUTOR</value>
-  </data>
   <data name="boxs_bottom_add" xml:space="preserve">
     <value>To add files to the board, drag &amp;amp; drop here</value>
   </data>
@@ -141,17 +135,8 @@
   <data name="created" xml:space="preserve">
     <value>Created on</value>
   </data>
-  <data name="enter_room" xml:space="preserve">
-    <value>Get into room</value>
-  </data>
   <data name="equation_btn" xml:space="preserve">
     <value>Add equation to the board</value>
-  </data>
-  <data name="error_with" xml:space="preserve">
-    <value>Error with {1}</value>
-  </data>
-  <data name="help_others" xml:space="preserve">
-    <value>Help others with what you know best</value>
   </data>
   <data name="not_browser" xml:space="preserve">
     <value>Browser not supported</value>
@@ -170,9 +155,6 @@
   </data>
   <data name="video" xml:space="preserve">
     <value>Video</value>
-  </data>
-  <data name="video_&amp;_audio" xml:space="preserve">
-    <value>Video &amp; Audio</value>
   </data>
   <data name="waiting_for_student_toaster" xml:space="preserve">
     <value>Waiting for student to join the session</value>

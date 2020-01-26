@@ -120,7 +120,6 @@
                 isComplete: false,
                 page: 0,
                 term: '',
-                isEdge: global.isEdge,
                 classNamePlaceholder: LanguageService.getValueByKey(
                     "courses_placeholder_find"
                 ),

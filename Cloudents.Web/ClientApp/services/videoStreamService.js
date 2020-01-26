@@ -4,6 +4,8 @@ import store from '../store/index.js';
 import insightService from './insightService.js'
 
   function  createVideoSession() {
+    console.warn('DEBUG: 22 videoStreamService: createVideoSession')
+
         const self = this;
         // remove any remote track when joining a new room
         let clearEl = document.getElementById('remoteTrack');
@@ -13,6 +15,8 @@ import insightService from './insightService.js'
         self.addDevicesTotrack();
     }
    function enterRoom(){
+    console.warn('DEBUG: 23 videoStreamService: enterRoom')
+
        if (!store.getters['sessionStartClickedOnce']) {
         if (!!store.getters['accountUser'] && store.getters['getStudyRoomData'].needPayment && !store.getters['getStudyRoomData'].isTutor) {
             store.dispatch('requestPaymentURL', {title: 'payme_title', name: store.getters.getStudyRoomData.tutorName});
@@ -36,6 +40,8 @@ import insightService from './insightService.js'
     }
 
     function createTwillioTracks(audioDevice, videoDevice){
+        console.warn('DEBUG: 24 videoStreamService: createTwillioTracks')
+
         const token = store.getters['getJwtToken']; //get jwt from store
         let tracksCreated = [];
         !!videoDevice ? tracksCreated.push(videoDevice) : '';
@@ -56,6 +62,8 @@ import insightService from './insightService.js'
     }
 
    async function addDevicesTotrack(){
+    console.warn('DEBUG: 25 videoStreamService: addDevicesTotrack')
+
         let audioSetObj = store.getters['getLocalAudioTrack'];
         let videoSetObj = store.getters['getLocalVideoTrack'];
         let isVideoActive = store.getters['getIsVideoActive'];
@@ -67,6 +75,8 @@ import insightService from './insightService.js'
 
     //get try to get share stream via chrome extension
    function getUserScreen() {
+    console.warn('DEBUG: 26 videoStreamService: getUserScreen')
+
         let displayMediaOptions = {
             video:true,
             audio: false

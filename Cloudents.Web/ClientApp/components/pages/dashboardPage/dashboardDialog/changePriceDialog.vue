@@ -37,9 +37,10 @@ import documentService from '../../../../services/documentService.js';
 import { validationRules } from '../../../../services/utilities/formValidationRules';
 
 import { mapActions } from 'vuex';
-
+import VueNumeric from 'vue-numeric'
 export default {
    name: 'changePriceDialog',
+   components:{VueNumeric},
    props:['dialogData'],
    data() {
       return {

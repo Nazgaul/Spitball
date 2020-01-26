@@ -29,7 +29,6 @@ export default {
             showDialogSuggestQuestion: false,
             showDialogLogin: false,
             build: null,
-            isEdgeRtl : global.isEdgeRtl,
             cahceQuestion: {},
             submitLoader: false,
             hasData: false

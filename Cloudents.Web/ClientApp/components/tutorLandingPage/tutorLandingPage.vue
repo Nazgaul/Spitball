@@ -1,6 +1,6 @@
 <template>
     <v-container class="tutor-landing-page-container">
-        <v-layout :class="`${isMobile ? 'pt-2' : 'pt-1 pb-4'}`" px-6 class="tutor-landing-page-header" align-center justify-center column>
+        <v-layout class="pt-2 pt-sm-1 pb-sm-4 tutor-landing-page-header"  px-6 align-center justify-center column>
             <v-flex pt-6 pb-4>
                 <div v-if="subjectName" class="tutor-landing-title" v-text="$Ph('tutorListLanding_header_get_lesson_subject',subjectName)" />
                 <div v-else class="tutor-landing-title" v-language:inner="'tutorListLanding_header_get_lesson'"/>
@@ -10,7 +10,7 @@
             </v-flex>
             <!-- <v-flex class="pb-6">
                 <h3><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3> -->
-            <v-flex :class="{'pb-6': !isMobile}">
+            <v-flex class="pb-sm-6">
                 <span class="rating_tutorLanding">
                     <span class="mr-1">95%</span>&nbsp;<v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp;<span class="ml-1" v-language:inner="'tutorListLanding_reviews'"></span>
                 </span>
@@ -37,9 +37,7 @@
                     total-visible=7 
                     v-model="pagination.current" 
                     :length="pagination.length"
-                    @next="goNext"
                     @input="goSelected"
-                    @previous="goPrevious"
                     :next-icon="`sbf-arrow-right-carousel`"
                     :prev-icon="`sbf-arrow-left-carousel`"/>
         </div>
@@ -63,18 +61,20 @@
 </template>
 
 <script>
-import tutorResultCard from '../results/tutorCards/tutorResultCard/tutorResultCard.vue';
-import tutorResultCardMobile from '../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
-import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue';
+const tutorResultCard = () => import('../results/tutorCards/tutorResultCard/tutorResultCard.vue');
+const tutorResultCardMobile = () => import('../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
+const tutorSearchComponent = () => import('./components/tutorSearchInput/tutorSearchInput.vue');
+const SuggestCard = () => import('../results/suggestCard.vue');
+const sbCarousel = () => import('../sbCarousel/sbCarousel.vue');
+
+import testimonialCard from '../carouselCards/testimonialCard.vue'; // cant make it async ASK MAOR
 import tutorLandingPageService from './tutorLandingPageService';
-// import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
-import SuggestCard from '../results/suggestCard.vue';
 import analyticsService from '../../services/analytics.service.js';
 import courseService from '../../services/courseService.js';
 
-import sbCarousel from '../sbCarousel/sbCarousel.vue';
-import testimonialCard from '../carouselCards/testimonialCard.vue';
+
 import sbCarouselService from '../sbCarousel/sbCarouselService';
+// import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
 
 import { mapActions,mapGetters } from 'vuex'
 export default {
@@ -162,30 +162,6 @@ export default {
                     })
                 }
             })
-        },
-        goNext(){
-            this.showEmptyState = false;
-            this.$router.push({
-                path: `/tutor-list/${this.query.term}`,
-                query: {
-                    page: this.pagination.current -1,
-                },
-                params:{
-                    course: this.query.term
-                }
-            }).catch(() => {})
-        },
-        goPrevious(){
-            this.showEmptyState = false;
-             this.$router.push({
-                path: `/tutor-list/${this.query.term}`,
-                query: {
-                    page: this.pagination.current -1,
-                },
-                params:{
-                    course: this.query.term
-                }
-            }).catch(() => {})
         },
         goSelected(){
             this.showEmptyState = false;
