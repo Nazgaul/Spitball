@@ -152,7 +152,15 @@ const connectToRoom = function (token, options) {
                     console.error('Signaling reconnection attempts exhausted!');
                 } else if (errorCode === 53204) {
                     console.error('Signaling reconnection took too long!');
-                } else {
+                } else if (errorCode === 53205) {
+                    // TODO fix it with ram
+                    console.error('errorCode: 53205')
+                    setTimeout(() => {
+                        store.dispatch('updateTutorStartDialog', false);
+                        store.dispatch('setSesionClickedOnce',true)
+                    }, 1000);
+
+                }else {
                     console.error('final disconnect');
                 }
                 if (store.getters['getStudyRoomData'].isTutor) {
@@ -193,14 +201,14 @@ const connectToRoom = function (token, options) {
                 console.log("ROOM - RECONNECTING");
             });
             
-            //reconnected room
-            store.getters['activeRoom'].on('reconnected', () => {
-                console.warn('DEBUG: 28.8 tutorService: reconnected room')
+            // //reconnected room
+            // store.getters['activeRoom'].on('reconnected', () => {
+            //     console.warn('DEBUG: 28.8 tutorService: reconnected room')
 
-                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioReconnected', null, null);
-                console.log("ROOM - RECONNECTED");
-                /* Update the application UI here */
-            });
+            //     insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioReconnected', null, null);
+            //     console.log("ROOM - RECONNECTED");
+            //     /* Update the application UI here */
+            // });
 
             // Attach the Participant's Media to a <div> element.
             store.getters['activeRoom'].on('participantConnected', participant => {

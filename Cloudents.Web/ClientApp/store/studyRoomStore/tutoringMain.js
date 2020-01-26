@@ -467,8 +467,7 @@ const actions = {
         commit('setDeviceValidationError', val);
     },
     setTutorDialogState({commit}, val){
-        console.warn('DEBUG: 19 store: setTutorDialogState')
-
+        console.warn('DEBUG: 19 store: setTutorDialogState, VAL:',val)
         commit('setTutorDialogState', val);
     },
     setStudentDialogState({commit}, val){
