@@ -7,7 +7,7 @@ export const User = {
     Tutor: function (objInit) {
         this.bio = objInit.bio;
         this.currency = objInit.currency;
-        this.documents = objInit.documents;
+        this.contentCount = objInit.contentCount;
         this.hasCoupon = objInit.hasCoupon;
         this.lessons = objInit.lessons;
         this.subjects = objInit.subjects;
@@ -17,5 +17,6 @@ export const User = {
         this.discountPrice = objInit.discountPrice;
         this.firstName = objInit.firstName || '';
         this.lastName = objInit.lastName || '';
+        this.students = objInit.students || 0;
     },
 }

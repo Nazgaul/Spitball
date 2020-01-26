@@ -60,7 +60,12 @@ t.rate as Tutor_Rate,
 t.rateCount as Tutor_ReviewCount,
 t.Bio as Tutor_Bio,
 t.Lessons as Tutor_Lessons,
-(select count(*) from sb.document d where d.userid = u.id and d.state = 'Ok') as Tutor_Documents,
+(select count(*) from sb.document d where d.userid = u.id and d.state = 'Ok')
++ (select count(*) from sb.Question d where d.userid = u.id and d.state = 'Ok')
+as Tutor_ContentCount,
+(select count(distinct UserId) from sb.StudyRoom sr
+join sb.StudyRoomUser sru on sr.Id = sru.StudyRoomId
+where sr.TutorId = :profileId and sru.UserId != :profileId) as Tutor_Students,
 (select count(1) from sb.UsersRelationship where UserId = u.Id) as Followers,
 case when exists (select * from sb.UsersRelationship ur where ur.UserId = :profileId and ur.FollowerId = :userid) then cast(1 as bit) else cast(0 as bit) end as IsFollowing
 from sb.[user] u 
