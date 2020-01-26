@@ -18,10 +18,10 @@ export default {
     }),
     methods: {
         nextStep() {
-            console.log("nextStep");
+            this.$router.push({name: this.$route.meta.nextStep})
         },
         prevStep() {
-            console.log('prevStep');
+            this.$router.push({name: this.$route.meta.backStep})
         }
     }
 }

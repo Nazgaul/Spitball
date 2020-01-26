@@ -4,7 +4,6 @@
         <template #titleCourse>
             <div class="text-center mainTitle" v-language:inner="'register_school_title'"></div>
             <div class="text-center subtitle" v-language:inner="'register_school_subtitle'"></div>
-
             <div class="gradesWrap">
                 <v-select
                     v-model="grades"
@@ -28,9 +27,18 @@
 <script>
 export default {
     data: () => ({
-        grades: '',
         items: ['High school1', 'High school2', 'High school3', 'High school4']
-    })
+    }),
+    computed: {
+        grades: {
+            get() {
+                return this.$store.getters.getStudentGrade;
+            },
+            set(grade) {
+                this.$store.dispatch('updateStudentGrade', grade);
+            }
+        }
+    }
 }
 </script>
 

@@ -31,6 +31,8 @@ const state = {
     gender: 'male',
     localCode: '',
 
+    grade: '',
+    
     globalLoading: false,
     
     errorMessage: {
@@ -121,6 +123,9 @@ const mutations = {
     setName(state,fullNameObj){
         state.firstName = fullNameObj.firstName;
         state.lastName = fullNameObj.lastName;
+    },
+    setStudentGrade(state, grade) {
+        state.grade = grade;
     }
 };
 
@@ -133,7 +138,8 @@ const getters = {
     getLocalCode: state => state.localCode,
     getGlobalLoading: state => state.globalLoading,
     getErrorMessages: state => state.errorMessage,
-    getPassScoreObj: state => state.passScoreObj
+    getPassScoreObj: state => state.passScoreObj,
+    getStudentGrade: state => state.grade,
 };
 
 const actions = {
@@ -432,6 +438,9 @@ const actions = {
     },
     updateRegisterCurrentStep({commit}, regStep) {
         commit('setCurrentRegTypeStep', regStep);
+    },
+    updateStudentGrade({commit}, grade) {
+        commit('setStudentGrade', grade);
     }
 };
 

@@ -8,7 +8,7 @@
                 </div>
 
             </v-flex>
-            <v-flex shrink>
+            <v-flex shrink v-if="$route.name === 'addUniversity'">
                 <v-btn rounded class="elevation-0 done-btn mx-2 py-1 font-weight-bold my-0" @click="getOut()" sel="uni_done">
                     <span class="text-capitalize" v-language:inner>university_not_student_btn</span>
                 </v-btn>

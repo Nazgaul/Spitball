@@ -27,7 +27,7 @@
                 </v-expansion-panel-content>
             </v-expansion-panel>
 
-            <router-link :to="{name: 'parent'}">
+            <router-link :to="{name: 'registerCourseParent'}">
                 <v-expansion-panel class="panel panel_parent mb-5" readonly>
                     <v-expansion-panel-header class="px-4 py-2" expand-icon="">
                         <span class="flex-grow-0 mr-4"><parentIcon/></span>
