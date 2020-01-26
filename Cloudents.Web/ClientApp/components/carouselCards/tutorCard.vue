@@ -1,5 +1,5 @@
 <template>
-    <router-link event @click.native.prevent="goToProfile" :to="{name: 'profile', params: {id: tutor.userId, name:tutor.name}}" class="tutorCarouselCard">
+    <router-link event @click.native.prevent="goToProfile" :to="{name: 'profile', params: {id: tutor.id, name:tutor.name}}" class="tutorCarouselCard">
         <div class="tutorCarousel-top">
             <userAvatarRect draggable="false"
                 :userName="tutor.name" 
@@ -152,7 +152,7 @@ export default {
                 if(!this.contactClickedbtn){
                     this.$router.push({
                         name: 'profile',
-                        params: {id: this.tutor.userId, name: this.tutor.name}
+                        params: {id: this.tutor.id, name: this.tutor.name}
                     })
                 }else{
                     this.sendMessage(this.tutor)
@@ -160,7 +160,7 @@ export default {
             }
         },
         openCoupon() {
-            this.$router.push({name: 'profile', params: {id: this.tutor.userId, name: this.tutor.name},  query: {coupon: true}})
+            this.$router.push({name: 'profile', params: {id: this.tutor.id, name: this.tutor.name},  query: {coupon: true}})
         }
     },
 }
