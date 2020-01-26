@@ -198,24 +198,6 @@
   <data name="option_videoFull" xml:space="preserve">
     <value>הצג וידיאו</value>
   </data>
-  <data name="quality_allowed_looks_like" xml:space="preserve">
-    <value>לא הצלחנו לזהות מצלמה ו/או מיקרופון. ככל הנראה אחד מהמכשירים הנ״ל בשימוש על ידי תוכנה אחרת או מנותק בהגדרות המשתמש שלך.</value>
-  </data>
-  <data name="quality_allowed_press" xml:space="preserve">
-    <value> בבקשה רענן את הדף אחרי אישור הגישה </value>
-  </data>
-  <data name="quality_allowed_tip_one" xml:space="preserve">
-    <value>טיפ</value>
-  </data>
-  <data name="quality_allowed_tip_two" xml:space="preserve">
-    <value>ודא שהמצלמה והמיקרופון שלך מופעלים בהגדרות המערכת. סגור את כל החלונות והאפליקציות הפתוחות והתחבר מחדש.</value>
-  </data>
-  <data name="quality_allowed_title" xml:space="preserve">
-    <value>כדי ליצור קשר עם משתתף נוסף, אפשר לדפדפן שלך לגשת למצלמה והמיקרופון.</value>
-  </data>
-  <data name="quality_btn_done" xml:space="preserve">
-    <value>סיום</value>
-  </data>
   <data name="start_dialog_session_time" xml:space="preserve">
     <value>משך השיעור:</value>
   </data>
@@ -262,9 +244,6 @@
     <value>התחל שיעור</value>
   </data>
   <data name="stream_btn_start_session_student" xml:space="preserve">
-    <value>התחל שיעור</value>
-  </data>
-  <data name="stream_btn_start_student" xml:space="preserve">
     <value>התחל שיעור</value>
   </data>
   <data name="stream_btn_start_tutor" xml:space="preserve">

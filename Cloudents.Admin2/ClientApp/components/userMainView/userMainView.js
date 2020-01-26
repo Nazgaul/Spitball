@@ -121,12 +121,6 @@ export default {
             "updateTutorPrice",
             "removeCalender"
         ]),
-       
-        resetUserData() {
-            // reinit scrollfunc data and clear store ib new user data requested
-            this.clearUserState();
-
-        },
         showSuspendDialog() {
             this.setSuspendDialogState(true);
         },
@@ -282,8 +276,7 @@ export default {
             };
             this.updateUserPhone(phoneObj).then(() => {
                 this.$toaster.success(`SUCCESS: update user name`);
-            },
-            () => {
+            }).catch(() => {
                 this.$toaster.error(`ERROR: update user phone`);
             })
             .finally(() => {

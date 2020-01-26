@@ -153,33 +153,8 @@
   <data name="become_tutor_btn" xml:space="preserve">
     <value>Become a tutor</value>
   </data>
-  <data name="courses_can_help" xml:space="preserve">
-    <value>Courses I Can Help You With</value>
-  </data>
-  <data name="courses_empty_btn" xml:space="preserve">
-    <value>Select my courses</value>
-  </data>
-  <data name="courses_empty_select_courses" xml:space="preserve">
-    <value>Selecting your courses will help  you get personalized study materials and tutors</value>
-  </data>
-  <data name="courses_empty_state_title" xml:space="preserve">
-    <value>My Courses</value>
-  </data>
-  <data name="cta_section_title" xml:space="preserve">
-    <value>Become an achiever in no time!</value>
-  </data>
   <data name="edit_image_text" xml:space="preserve">
     <value>Edit</value>
-  </data>
-  <data name="expand_less" xml:space="preserve">
-    <value>Show Less</value>
-  </data>
-  <data name="expand_more_courses" xml:space="preserve">
-    <value>See all {1} courses</value>
-  </data>
-  <data name="hey_there" xml:space="preserve">
-    <value>Hey there, I’m</value>
-    <comment>Don't show this </comment>
   </data>
   <data name="points_hour" xml:space="preserve">
     <value>hour</value>
@@ -189,21 +164,6 @@
   </data>
   <data name="reviews" xml:space="preserve">
     <value>Reviews</value>
-  </data>
-  <data name="tutor_contact_btn" xml:space="preserve">
-    <value>Contact me</value>
-  </data>
-  <data name="tutor_sidebar_title" xml:space="preserve">
-    <value>Let me know what you need and i will be happy to help</value>
-  </data>
-  <data name="user_sidebar_text" xml:space="preserve">
-    <value>Help others with what you know best</value>
-  </data>
-  <data name="user_sidebar_title" xml:space="preserve">
-    <value>Earn</value>
-  </data>
-  <data name="who_am_i" xml:space="preserve">
-    <value>Bio</value>
   </data>
   <data name="aboutme" xml:space="preserve">
     <value>About me</value>
@@ -241,24 +201,14 @@
   <data name="pricing" xml:space="preserve">
     <value>Pricing</value>
   </data>
-  <data name="expand_more_single_course" xml:space="preserve">
-    <value>More Course</value>
-  </data>
   <data name="single_review" xml:space="preserve">
     <value>Review</value>
   </data>
   <data name="calendar" xml:space="preserve">
     <value>Calendar</value>
   </data>
-  <data name="courses" xml:space="preserve">
-    <value>Courses</value>
-  </data>
   <data name="tutor" xml:space="preserve">
     <value>Tutor</value>
-  </data>
-  <data name="no_students" xml:space="preserve">
-    <value>No Students yet</value>
-    <comment>Don't show this </comment>
   </data>
   <data name="resourses" xml:space="preserve">
     <value>{1} Contents</value>
@@ -279,7 +229,7 @@
     <value>Teach On Spitball</value>
   </data>
   <data name="become_txt" xml:space="preserve">
-    <value>Earn money by teaching what you know best. Access to the tools you need to create and sell education Content and teach online.</value>
+    <value>Earn money by teaching what you know best. Access to the tools you need to create and sell education content and teach online.</value>
   </data>
   <data name="book_session" xml:space="preserve">
     <value>Book a lesson with me</value>
@@ -312,7 +262,7 @@
     <value>Trust upload your documents/class notes that you already have and make passive income.</value>
   </data>
   <data name="earn_title" xml:space="preserve">
-    <value>Your study materials worth money on spitball!</value>
+    <value>Your study materials are worth money on Spitball!</value>
   </data>
   <data name="study" xml:space="preserve">
     <value>Study area:</value>
@@ -348,12 +298,15 @@
     <value>All Types</value>
   </data>
   <data name="select_item_type_docs" xml:space="preserve">
-    <value>Document</value>
+    <value>Documents</value>
   </data>
   <data name="select_item_type_videos" xml:space="preserve">
-    <value>Video</value>
+    <value>Videos</value>
   </data>
   <data name="study_materials_mobile" xml:space="preserve">
     <value>Content by {1}</value>
+  </data>
+  <data name="empty_title" xml:space="preserve">
+    <value>Nothing posted yet</value>
   </data>
 </root>

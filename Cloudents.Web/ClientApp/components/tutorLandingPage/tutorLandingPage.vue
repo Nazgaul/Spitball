@@ -1,5 +1,5 @@
 <template>
-    <v-container class="tutor-landing-page-container">
+    <div  class="tutor-landing-page-container">
         <v-layout class="pt-2 pt-sm-1 pb-sm-4 tutor-landing-page-header"  px-6 align-center justify-center column>
             <v-flex pt-6 pb-4>
                 <div v-if="subjectName" class="tutor-landing-title" v-text="$Ph('tutorListLanding_header_get_lesson_subject',subjectName)" />
@@ -22,16 +22,16 @@
             </div>
         </v-layout>
 
-        <v-layout column wrap class="tutor-landing-page-body">
-            <v-flex class="tutor-landing-page-empty-state">
-                <suggest-card v-if="items.length === 0 && query.term && showEmptyState" 
+        <div class="tutor-landing-page-body">
+            <div class="tutor-landing-page-empty-state" v-if="items.length === 0 && query.term && showEmptyState" >
+                <suggest-card 
                 @click.native="openRequestTutor()" :name="'tutor-list'"></suggest-card>  
-            </v-flex>
-            <v-flex class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
+            </div>
+            <div class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
                 <tutor-result-card v-if="!isMobile" class="mb-4 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
                 <tutor-result-card-mobile v-else class="mb-2 " :fromLandingPage="true" :tutorData="item"/>
-            </v-flex>   
-        </v-layout>
+            </div>   
+        </div>
         <div class="tutorLandingPage_pagination" v-if="items.length && pagination.length > 1">
             <v-pagination
                     total-visible=7 
@@ -55,7 +55,7 @@
                 </sbCarousel>
             </div>
         </v-layout>
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -311,7 +311,7 @@ export default {
         }
     }
     .tutor-landing-page-body{
-        .responsive-property(margin-top, 15px, null, 0px);
+        .responsive-property(margin-top, 86px, null, 50px);
 
         .tutor-landing-page-empty-state{
             max-width: 920px; 
@@ -325,7 +325,7 @@ export default {
         .tutor-landing-card-container{
             margin: 0 auto;
             width: 100%;
-            max-width: 920px;
+            max-width: 920px !important; //issue with reload
             @media (max-width: @screen-xs) {
                 padding: 0;
             }

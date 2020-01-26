@@ -27,7 +27,7 @@
       </div>
       <profileSingleReview v-for="(review, index) in reviews" :review="review" :key="index"/>
       <div class="profileReviewsBox_more" v-if="getProfileReviews.reviews.length > 2">
-         <button @click="isExpand = !isExpand">
+         <button sel="more_reviews" @click="isExpand = !isExpand">
             <span v-language:inner="isExpand?'reviewBox_see_less':'reviewBox_see_more'"/>
          </button>
       </div>

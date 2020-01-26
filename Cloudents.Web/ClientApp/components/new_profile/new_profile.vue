@@ -4,11 +4,12 @@
         <div class="profilePage_main profile-page-container">
             
             <profileUserBox/>
-            <calendarTab v-if="showProfileCalendar" class="mb-3" :globalFunctions="globalFunctions"/>
-            <profileEarnMoney v-if="showEarnMoney" class="mb-3" :globalFunctions="globalFunctions"/>
+            <calendarTab v-if="showProfileCalendar" class="mb-6" :globalFunctions="globalFunctions"/>
             <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>
             <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>
-            <profileItemsBox v-if="showItems" class="mb-3" :globalFunctions="globalFunctions"/>
+            <profileItemsBox v-if="showItems" :globalFunctions="globalFunctions"/>
+            <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" :globalFunctions="globalFunctions"/>
+            <profileItemsEmpty class="mt-0 mt-sm-5 mb-2 mb-sm-4" v-show="showItemsEmpty"/>
 
             <!-- <v-layout wrap v-bind="xsColumn" align-start  justify-start>
                 <v-flex sm12 :class="[isMyProfile && isTutorProfile ? '' : ''  ]">

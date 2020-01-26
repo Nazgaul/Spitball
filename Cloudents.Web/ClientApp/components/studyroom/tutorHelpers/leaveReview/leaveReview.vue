@@ -75,12 +75,11 @@
     import { LanguageService } from "../../../../services/language/languageService";
     import utilitiesService from "../../../../services/utilities/utilitiesService";
     import closeIcon from '../../../../font-icon/close.svg'
-    import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
     import { validationRules } from '../../../../services/utilities/formValidationRules';
 
 
     export default {
-        components: {userAvatar, closeIcon},
+        components: {closeIcon},
         name: "leaveReview",
         data() {
             return {

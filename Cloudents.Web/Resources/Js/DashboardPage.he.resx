@@ -187,9 +187,6 @@
   <data name="name" xml:space="preserve">
     <value>שם</value>
   </data>
-  <data name="of" xml:space="preserve">
-    <value>מתוך</value>
-  </data>
   <data name="paid" xml:space="preserve">
     <value>שולם</value>
   </data>

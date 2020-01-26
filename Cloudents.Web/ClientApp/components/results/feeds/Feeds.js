@@ -16,6 +16,7 @@ import tutorResultCard from '../tutorCards/tutorResultCard/tutorResultCard.vue';
 import tutorResultCardMobile from '../tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import marketingBox from "../../helpers/marketingBox/marketingBox.vue";
 import coursesTab from "../../pages/feedPage/components/coursesTab/coursesTab.vue";
+import generalPage from '../../helpers/generalPage.vue';
 
 // SVG
 import emptyState from "../svg/no-match-icon.svg";
@@ -39,7 +40,8 @@ export default {
         tutorResultCard,
         tutorResultCardMobile,
         marketingBox,
-        coursesTab
+        coursesTab,
+        generalPage
     },
     data() {
         return {

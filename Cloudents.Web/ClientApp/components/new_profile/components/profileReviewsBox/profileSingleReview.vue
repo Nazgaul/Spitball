@@ -32,13 +32,12 @@
 </template>
 
 <script>
-import userAvatar from '../../../helpers/UserAvatar/userAvatar.vue';
 import userRating from '../../profileHelpers/profileBio/bioParts/userRating.vue';
 import { mapGetters } from 'vuex';
 
 export default {
    name:'profileSingleReview',
-   components:{userAvatar,userRating},
+   components:{userRating},
    props:{
       review:{
          type: Object,

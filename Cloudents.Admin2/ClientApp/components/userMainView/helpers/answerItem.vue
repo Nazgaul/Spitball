@@ -1,39 +1,25 @@
 <template>
   <div class="item-wrap" data-app>
    
-    <v-card class="elevation-5">
-      <v-card-title>
-        <span>
-          <b>Answer Text:</b>
-        <br>
-        {{answer.text}}
-        <br>
-        </span>
-        &nbsp;&nbsp;&nbsp;
-        <span>
-          <b>Question Text:</b>
-        <br>
-        {{answer.questionText}}
-        </span>
-        
-        <v-spacer></v-spacer>
-        <v-btn
-          flat
-          v-if="!isOk && !isDeleted"
-          @click="approveAnswer(answer, index)"
-          :disabled="proccessedAnswers.includes(answer.id)"
-        >
-          <v-icon>check</v-icon>Accept
+    <v-card class="elevation-0 mb-2 answerItem">
+      <v-card-title class="justify-end grey lighten-2 py-0">
+        <v-btn flat v-if="!isOk && !isDeleted" @click="approveAnswer(answer, index)" :disabled="proccessedAnswers.includes(answer.id)">
+          <v-icon color="green">check</v-icon>
         </v-btn>
-        <v-btn
-          flat
-          v-if="!isDeleted"
-          :disabled="proccessedAnswers.includes(answer.id)"
-          @click="deleteAnswer(answer, index)"
-        >
-          <v-icon>delete</v-icon>Delete
+        <v-btn icon v-if="!isDeleted" :disabled="proccessedAnswers.includes(answer.id)" @click="deleteAnswer(answer, index)">
+          <v-icon>delete</v-icon>
         </v-btn>
       </v-card-title>
+      <v-card-text>
+        <div>
+          <b>Answer Text:</b>
+          <div class="mb-1">{{answer.text}}</div>
+        </div>
+        <div>
+          <b>Question Text:</b>
+          <div class="mb-1">{{answer.questionText}}</div>
+        </div>
+      </v-card-text>
     </v-card>
   </div>
 </template>
@@ -114,4 +100,9 @@ export default {
 </script>
 
 <style lang="less">
+.item-wrap{
+  .answerItem{
+    border: 1px solid #ccc !important;
+  }
+}
 </style>

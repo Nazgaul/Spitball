@@ -120,14 +120,8 @@
   <data name="back" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="btn_send_review" xml:space="preserve">
-    <value>Submit</value>
-  </data>
   <data name="emptyStarError" xml:space="preserve">
     <value>Required selecting stars rating</value>
-  </data>
-  <data name="error" xml:space="preserve">
-    <value>*error</value>
   </data>
   <data name="final_goTo" xml:space="preserve">
     <value>Go to your review</value>
@@ -137,9 +131,6 @@
   </data>
   <data name="noThanks" xml:space="preserve">
     <value>No, thanks</value>
-  </data>
-  <data name="press_star" xml:space="preserve">
-    <value>Overall rating for tutor</value>
   </data>
   <data name="review_placeholder" xml:space="preserve">
     <value>Type a review</value>
@@ -165,9 +156,6 @@
   <data name="star_5" xml:space="preserve">
     <value>Excellent</value>
   </data>
-  <data name="subtitle" xml:space="preserve">
-    <value>Tell the tutor what you thought about this session</value>
-  </data>
   <data name="sub_title_step1" xml:space="preserve">
     <value>Rate and review tutor {1} based on your session</value>
   </data>
@@ -182,8 +170,5 @@
   </data>
   <data name="title_step2" xml:space="preserve">
     <value>Thank you, your score was recorded</value>
-  </data>
-  <data name="write" xml:space="preserve">
-    <value>Write a review</value>
   </data>
 </root>

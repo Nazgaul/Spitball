@@ -120,7 +120,4 @@
   <data name="hour" xml:space="preserve">
     <value>hour</value>
   </data>
-  <data name="tutor_btn" xml:space="preserve">
-    <value>Contact</value>
-  </data>
 </root>

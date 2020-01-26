@@ -44,7 +44,7 @@
     {
         @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}HeadTags", cdnEndPoint);
     }
-    catch (InvalidOperationException ex)
+    catch (InvalidOperationException)
     {
         @await Html.PartialAsync("_SpitballTags");
     }
@@ -66,11 +66,7 @@
     </style>
 </head>
 <body lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
-    <div>
-        @RenderBody()
-    </div>
-<div class="cdn-only"></div>
-
+    @RenderBody()
     <script>
         window.version = '@VersionService.GetVersion()';
         window.publicPath = '@cdnEndPoint' + '/dist/';
@@ -86,9 +82,9 @@
         @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}Scripts");
 
     }
-    catch (InvalidOperationException ex)
+    catch (InvalidOperationException)
     {
-        @await Html.PartialAsync("_SpitballTags");
+        @await Html.PartialAsync("_SpitballScripts");
     }
 </body>
 </html>

@@ -40,13 +40,12 @@
 
 <script>
     import {mapGetters, mapActions, mapState} from 'vuex';
-    import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
     import timerIcon from '../../images/timer.svg';
     import videoStreamService from "../../../../services/videoStreamService";
     import {LanguageService} from "../../../../services/language/languageService";
     export default {
         name: "startSession-popUp-tutor",
-        components: {userAvatar, timerIcon},
+        components: {timerIcon},
         props: {
             id: {
                 required:true
@@ -124,7 +123,11 @@
             }
         },
         beforeDestroy(){
+            
+            console.warn('DEBUG: 43 startSessionPopUpTutor: setSesionClickedOnce beforeDestroy,false before ')
             this.setSesionClickedOnce(false);
+            console.warn('DEBUG: 43.1 startSessionPopUpTutor: setSesionClickedOnce beforeDestroy,false after ')
+
             global.onbeforeunload = function() {}
         }
     };

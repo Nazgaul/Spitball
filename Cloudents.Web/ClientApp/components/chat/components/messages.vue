@@ -58,7 +58,6 @@ export default {
     components:{
         message,
         addCircle,
-      //  UserAvatar,
         chatUploadFile,
       //  userOnlineStatus
     },
