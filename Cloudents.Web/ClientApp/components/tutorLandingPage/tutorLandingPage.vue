@@ -311,7 +311,7 @@ export default {
         }
     }
     .tutor-landing-page-body{
-        .responsive-property(margin-top, 15px, null, 0px);
+        .responsive-property(margin-top, 86px, null, 50px);
 
         .tutor-landing-page-empty-state{
             max-width: 920px; 
