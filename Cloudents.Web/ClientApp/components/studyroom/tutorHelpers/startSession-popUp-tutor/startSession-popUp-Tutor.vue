@@ -123,7 +123,11 @@
             }
         },
         beforeDestroy(){
+            
+            console.warn('DEBUG: 43 startSessionPopUpTutor: setSesionClickedOnce beforeDestroy,false before ')
             this.setSesionClickedOnce(false);
+            console.warn('DEBUG: 43.1 startSessionPopUpTutor: setSesionClickedOnce beforeDestroy,false after ')
+
             global.onbeforeunload = function() {}
         }
     };
