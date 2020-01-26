@@ -4,6 +4,7 @@
 @using Microsoft.ApplicationInsights.AspNetCore.Extensions
 @using Microsoft.AspNetCore.Http.Extensions
 @using Cloudents.Web.Extensions
+@using FluentNHibernate.Utils
 @{
 
     ViewBag.ogImage = ViewBag.ogImage ?? "https://" + Context.Request.Host + "/images/3rdParty/fbShare.jpg";
@@ -65,5 +66,7 @@
 
 <link rel="alternate" hreflang="iw" href="@GetUrlBaseOnCulture(Language.Hebrew.Info.Name)" />
 <link rel="alternate" hreflang="en" href="@GetUrlBaseOnCulture(Language.English.Info.Name)" />
+<meta property="og:locale:alternate" content="@Language.Hebrew.Info.Name" />
+<meta property="og:locale:alternate" content="@Language.English.Info.Name" />
 
 
