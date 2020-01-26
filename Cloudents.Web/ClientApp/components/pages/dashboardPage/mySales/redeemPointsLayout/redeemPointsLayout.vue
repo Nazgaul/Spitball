@@ -2,8 +2,7 @@
    <div class="elevation-1">
       <v-layout wrap class="redeemPointsLayout">
          <v-flex class="redeemPointsLayout_img_container" >
-            <img v-if="isFrymo" class="redeemPointsLayout_img" src="./image/cardRedeemPointsFrymo.jpg" alt="">
-            <img v-else class="redeemPointsLayout_img" src="./image/cardRedeemPoints.jpg" alt="">
+            <img class="redeemPointsLayout_img" :src="redeemImg" alt="">
          </v-flex>
          <v-flex class="redeemPointsLayout_action" text-center>
             <p class="redeemPointsLayout_title" v-text="$Ph('dashboardPage_my_sales_action_redeem',userPts)"/>
@@ -19,6 +18,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import walletService from '../../../../../services/walletService';
 import { LanguageService } from '../../../../../services/language/languageService';
+import paymentService from '../../../../../services/payment/paymentService.js'
 
 export default {
    name:"redeemPointsLayout",
@@ -30,6 +30,9 @@ export default {
    },
    computed: {
       ...mapGetters(['accountUser','isFrymo']),
+      redeemImg(){
+         return paymentService.getRedeemImg();
+      },
       userPts(){
          return Math.round(this.accountUser.balance).toLocaleString()
       },
@@ -52,7 +55,7 @@ export default {
                this.isLoading = false;
             },
                error => {
-                     console.error('error getting transactions:', error)
+                  console.error('error getting transactions:', error)
                });
 
       }
