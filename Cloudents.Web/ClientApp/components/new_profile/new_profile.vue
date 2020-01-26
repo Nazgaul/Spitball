@@ -10,7 +10,8 @@
             <profileItemsBox v-if="showItems" :globalFunctions="globalFunctions"/>
             <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" :globalFunctions="globalFunctions"/>
             <profileItemsEmpty class="mt-0 mt-sm-5 mb-2 mb-sm-4" v-show="showItemsEmpty"/>
-
+            {{$route.query}}
+            <v-btn color="success" @click="changeQ">text</v-btn>
 
             <!-- <v-layout wrap v-bind="xsColumn" align-start  justify-start>
                 <v-flex sm12 :class="[isMyProfile && isTutorProfile ? '' : ''  ]">
