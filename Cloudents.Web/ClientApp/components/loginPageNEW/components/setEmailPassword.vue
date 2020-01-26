@@ -113,7 +113,7 @@ import { LanguageService} from "../../../services/language/languageService";
 import VueRecaptcha from "vue-recaptcha";
 
 export default {
-  name: "setEmailPassword",
+  // name: "setEmailPassword",
   components: { VueRecaptcha },
   data() {
     return {

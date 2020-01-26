@@ -102,7 +102,7 @@ export default {
                     this.showError = true;
                 } else  {
                     this.updateStep('setEmailPassword')
-                    this.$router.push({name: 'step1'})
+                    this.$router.push({name: 'setEmailPassword'})
                 }
             } else {
                 this.updateStep('setEmail')

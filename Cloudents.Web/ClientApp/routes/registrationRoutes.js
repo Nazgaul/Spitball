@@ -23,6 +23,11 @@ export const registrationRoutes = [
                 name: 'setPassword',
                 component: lazyComponent('loginPageNEW/components/setPassword')
             },
+            {
+                path: 'forgot-password',
+                name: 'forgotPassword',
+                component: lazyComponent('loginPageNEW/components/forgotPass')
+            },
         ],
         beforeEnter: (to, from, next) => {
             if(global.isAuth) {
@@ -37,7 +42,7 @@ export const registrationRoutes = [
         path: '/register/',
         name: 'register',
         components: {
-            default: lazyComponent('pages/authenticationPage/authenticationPage')
+            default: lazyComponent('pages/authenticationPage/authenticationPage'),
         },
         children: [
             {
@@ -46,8 +51,8 @@ export const registrationRoutes = [
                 component: lazyComponent('loginPageNEW/components/getStarted')
             },
             {
-                path: 'step1',
-                name: 'step1',
+                path: 'personal-details',
+                name: 'setEmailPassword',
                 component: lazyComponent('loginPageNEW/components/setEmailPassword')
             },
             {
@@ -73,11 +78,15 @@ export const registrationRoutes = [
             {
                 path: 'student-school',
                 name: 'studentSchool',
-                component: lazyComponent('pages/authenticationPage/register/student/registerStudentSchool'),
+                components: {
+                    default: lazyComponent('pages/authenticationPage/register/student/registerStudentSchool'),
+                    registerButtons: lazyComponent('pages/authenticationPage/register/registerButtons/registerButtons'),
+                },
                 children: [
                     {
                         path: 'course',
                         name: 'registerCourse',
+                        component: lazyComponent('pages/authenticationPage/register/registerCourse/registerCourse')
                     },
                     {
                         path: '',
@@ -86,9 +95,12 @@ export const registrationRoutes = [
                 ]
             },
             {
-                path: 'student-college/',
+                path: 'student-college',
                 name: 'studentCollege',
-                component: lazyComponent('pages/authenticationPage/register/student/registerStudentCollege'),
+                components: {
+                    default: lazyComponent('pages/authenticationPage/register/student/registerStudentCollege'),
+                    registerButtons: lazyComponent('pages/authenticationPage/register/registerButtons/registerButtons'),
+                },
                 children: [
                     {
                         path: 'university',
@@ -110,32 +122,28 @@ export const registrationRoutes = [
             {
                 path: 'parent',
                 name: 'parent',
-                component: lazyComponent('pages/authenticationPage/register/parent/registerParent'),
+                components: {
+                    default: lazyComponent('pages/authenticationPage/register/parent/registerParent'),
+                    registerButtons: lazyComponent('pages/authenticationPage/register/registerButtons/registerButtons'),
+                },
                 children: [
                     {
                         path: 'student-college',
                         name: 'studentCollege',
                     },
                     {
-                        path: 'student-college',
-                        name: 'studentCollege',
+                        path: '',
+                        redirect: { name: 'studentCollege' } 
                     },
                 ]
             },
             {
                 path: 'teacher',
                 name: 'teacher',
-                component: lazyComponent('pages/authenticationPage/register/parent/registerTeacher'),
-                children: [
-                    {
-                        path: 'step1',
-                        name: 'step1',
-                    },
-                    {
-                        path: 'student-college',
-                        name: 'studentCollege',
-                    },
-                ]
+                components: {
+                    default: lazyComponent('pages/authenticationPage/register/parent/registerTeacher'),
+                    // registerButtons: lazyComponent('pages/authenticationPage/register/registerButtons/registerButtons'),
+                }
             },
         ],
         beforeEnter: (to, from, next) => {

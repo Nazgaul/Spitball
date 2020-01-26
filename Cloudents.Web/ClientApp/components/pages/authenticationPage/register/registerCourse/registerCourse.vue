@@ -1,7 +1,7 @@
 <template>
     <div id="registerCourse">
         <slot name="titleCourse"></slot>
-
+        
         <courses />
     </div>
 </template>
@@ -10,7 +10,7 @@
 const courses = () => import('../../../../courses/addCourses/addCourses.vue')
 
 export default {
-    name: 'registerCourse',
+    // name: 'registerCourse',
     components: { courses },
     data: () => ({
 

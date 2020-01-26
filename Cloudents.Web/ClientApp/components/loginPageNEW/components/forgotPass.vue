@@ -20,7 +20,9 @@
                 class="white--text btn-login">
                 <span v-language:inner="'loginRegister_forgot_btn'"></span>
                 </v-btn>
-        <span class="bottom" @click="goLogin" v-language:inner="'loginRegister_forgot_remember'"/>
+
+        <router-link class="bottom" :to="{name: 'setPassword'}" v-language:inner="'loginRegister_forgot_remember'"></router-link>
+        <!-- <span class="bottom" @click="goLogin" v-language:inner="'loginRegister_forgot_remember'"/> -->
     </form>
 </template>
 
@@ -29,7 +31,7 @@ import SbInput from "../../question/helpers/sbInput/sbInput.vue";
 import { mapActions, mapGetters,mapMutations } from 'vuex';
 
 export default {
-    name: 'forgotPass',
+    // name: 'forgotPass',
     components:{
         SbInput
     },

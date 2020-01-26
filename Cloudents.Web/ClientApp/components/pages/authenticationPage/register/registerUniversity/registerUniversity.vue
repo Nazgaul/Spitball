@@ -10,9 +10,12 @@
 const university = () => import('../../../../university/addUniversity/addUniversity.vue');
 
 export default {
-    name: 'registerUniversity',
     components: {
         university
+    },
+    created() {
+        console.log(this);
+        
     }
 }
 </script>

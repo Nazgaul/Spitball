@@ -1,6 +1,5 @@
 <template>
     <div id="registerType">
-        
         <div class="title text-center" v-language:inner="'loginRegister_welcome'"></div>
         <div class="subTitle text-center" v-language:inner="'loginRegister_know_better'"></div>
 
@@ -17,13 +16,13 @@
                     <span class="panel_title text-center" v-language:inner="'loginRegister_student'"></span>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content class="pt-4">
-                    <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" :to="{name: 'studentSchool'}">
+                    <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" :to="{name: 'registerCourse'}">
                         <span><collegeIcon /></span>
-                        <span class="flex-grow-1 white--text">A High school Student</span>
+                        <span class="flex-grow-1 text-center white--text">A High school Student</span>
                     </v-btn>
-                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" :to="{name: 'studentCollege'}">
+                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" :to="{name: 'registerUniversity'}">
                         <span><highSchoolIcon /></span>
-                        <span class="flex-grow-1 white--text">A College Student</span>
+                        <span class="flex-grow-1 text-center white--text">A College Student</span>
                     </v-btn>
                 </v-expansion-panel-content>
             </v-expansion-panel>

@@ -11,8 +11,8 @@
 
         <div class="stepsSections">
             <div class="stepContainer">
-                <!-- <component :is="currentStep" v-if="$route.name === 'login'"></component> -->
                 <router-view></router-view>
+                <router-view name="registerButtons"></router-view>
             </div>
         </div>
 
@@ -38,34 +38,18 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import logo from '../../app/logo/logo.vue';
+const logo = () => import('../../app/logo/logo.vue');
 
-// globals
-const getStarted = () => import('../../loginPageNEW/components/getStarted.vue');
-// const EmailConfirmed = () => import('../../loginPageNEW/components/EmailConfirmed.vue');
-
-// register
-// const setEmailPassword = () => import('../../loginPageNEW/components/setEmailPassword.vue');
-// const setPhone = () => import('../../loginPageNEW/components/setPhone.vue');
-// const VerifyPhone = () => import('../../loginPageNEW/components/VerifyPhone.vue');
-// const congrats = () => import('../../loginPageNEW/components/congrats.vue');
-
-// const register = () => import('./register/register.vue');
-
-// login
-const setEmail = () => import('../../loginPageNEW/components/setEmail.vue');
-const setPassword = () => import('../../loginPageNEW/components/setPassword.vue');
 
 // reset password
-const forgotPass = () => import('../../loginPageNEW/components/forgotPass.vue');
-const resetPassword = () => import('../../loginPageNEW/components/resetPassword.vue');
+// const forgotPass = () => import('../../loginPageNEW/components/forgotPass.vue');
+// const resetPassword = () => import('../../loginPageNEW/components/resetPassword.vue');
 
 //STORE
 import storeService from '../../../services/store/storeService';
 import loginRegister from '../../../store/loginRegister';
 
 export default {
-  name:'authenticationPage',
   data() {
     return {
         showDialog: false,
@@ -74,13 +58,6 @@ export default {
   },
    components:{
       logo,
-      getStarted,
-      setEmail,
-      setPassword,
-      forgotPass,
-      resetPassword,
-
-      // register,
     },
     computed: {
         ...mapGetters(['getCurrentLoginStep', 'isFrymo']),

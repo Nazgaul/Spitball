@@ -15,7 +15,7 @@
 <script>
 
 export default {
-    name: 'registerStudentCollege',
+    // name: 'registerStudentCollege',
 }
 </script>
 
