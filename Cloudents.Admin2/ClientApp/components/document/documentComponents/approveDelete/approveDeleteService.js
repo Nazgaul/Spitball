@@ -21,7 +21,8 @@ export default {
             });
     },
     deleteDocument: (id) => {
-        return connectivityModule.http.delete(`${url}/${id}`);
+        let ids = {'id': id};
+        return connectivityModule.http.delete(url, ids);
             
     },
 

@@ -157,7 +157,7 @@ export default {
   position: fixed;
   bottom: 0;
   right: 130px;
-  width: 320px;
+  width: 320px !important;
   height: 520px;
   z-index: 99;
   background: #fff;

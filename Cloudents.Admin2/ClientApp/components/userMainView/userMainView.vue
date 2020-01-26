@@ -202,6 +202,7 @@
                     <span class="headline">Edit phone</span>
                 </v-card-title>
                 <v-card-text>
+                    <span class = "subheading">Please insert a valid phone number with country code</span>
                     <v-container grid-list-md>
                         <v-layout wrap>
                             <v-flex xs12 sm12 md12>

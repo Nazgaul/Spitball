@@ -87,8 +87,12 @@ const getters = {
     pinnedCards: state => state.user.pinnedCards,
 
     getCookieAccepted: (state, getters, {route}) => {
-        if(route.name === 'tutoring') return true;
-        return state.cookieAccepted},
+        if(route.name === 'tutoring'){
+            console.warn('DEBUG: 3 getCookieAccepted route.name === tutoring')
+            return true
+        }
+        return state.cookieAccepted
+    },
     getUniversityName: state => {
         let obj = state.user.universityId || {};
         return obj.name;
@@ -145,7 +149,9 @@ const actions = {
         commit(USER.UPDATE_SORT, data);
     },
     signalR_TutorEnterStudyRoom({ dispatch, rootState }, notificationObj){
+        console.warn('DEBUG: 1 signalR_TutorEnterStudyRoom')
         if(rootState.route.name !== 'tutoring' && rootState.route.name !== 'roomSettings'){
+            console.warn('DEBUG: 2 route.name !== tutoring && route.name !== roomSettings')
             let id = notificationObj.studyRoomId;
             let userName = notificationObj.userName;
             let location = global.location.origin;
