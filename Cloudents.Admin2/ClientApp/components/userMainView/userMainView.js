@@ -276,8 +276,7 @@ export default {
             };
             this.updateUserPhone(phoneObj).then(() => {
                 this.$toaster.success(`SUCCESS: update user name`);
-            },
-            () => {
+            }).catch(() => {
                 this.$toaster.error(`ERROR: update user phone`);
             })
             .finally(() => {

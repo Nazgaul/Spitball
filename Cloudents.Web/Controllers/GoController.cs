@@ -1,10 +1,10 @@
 ﻿using System;
 using Cloudents.Query;
-using Cloudents.Query.Query;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
+using Cloudents.Query.General;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

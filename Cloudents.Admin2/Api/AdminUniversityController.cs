@@ -7,7 +7,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Admin;
 using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -72,7 +72,7 @@ namespace Cloudents.Admin2.Api
             if (string.IsNullOrEmpty(User.GetCountryClaim()) ||
                 User.GetCountryClaim().Equals(model.Country, StringComparison.CurrentCultureIgnoreCase))
             {
-                var query = new AdminUniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
+                var query = new UniversitiesQuery(model.Country, model.State.GetValueOrDefault(ItemState.Pending));
                 var retVal = await _queryBus.QueryAsync(query, token);
                 return retVal;
             }
@@ -86,7 +86,7 @@ namespace Cloudents.Admin2.Api
         [Authorize]
         public async Task<IEnumerable<AllUniversitiesDto>> GetAllUniversities(CancellationToken token)
         {
-            var query = new AdminAllUniversitiesQuery(User.GetCountryClaim());
+            var query = new AllUniversitiesQuery(User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }

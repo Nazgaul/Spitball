@@ -229,7 +229,7 @@
     <value>Teach On Spitball</value>
   </data>
   <data name="become_txt" xml:space="preserve">
-    <value>Earn money by teaching what you know best. Access to the tools you need to create and sell education Content and teach online.</value>
+    <value>Earn money by teaching what you know best. Access to the tools you need to create and sell education content and teach online.</value>
   </data>
   <data name="book_session" xml:space="preserve">
     <value>Book a lesson with me</value>
@@ -262,7 +262,7 @@
     <value>Trust upload your documents/class notes that you already have and make passive income.</value>
   </data>
   <data name="earn_title" xml:space="preserve">
-    <value>Your study materials worth money on spitball!</value>
+    <value>Your study materials are worth money on Spitball!</value>
   </data>
   <data name="study" xml:space="preserve">
     <value>Study area:</value>

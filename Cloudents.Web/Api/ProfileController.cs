@@ -4,7 +4,6 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,7 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Cloudents.Web.Models;
-using Cloudents.Core.Enum;
+using Cloudents.Query.Users;
 
 namespace Cloudents.Web.Api
 {
@@ -67,9 +66,9 @@ namespace Cloudents.Web.Api
 
         public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
         {
-            var query = new UserDataPagingByIdQuery(id, page);
+            var query = new UserQuestionsByIdQuery(id, page);
             
-            var res =  await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            var res =  await _queryBus.QueryAsync(query, token);
             return res.Select(item =>
             {
                 item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
@@ -85,7 +84,7 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<QuestionFeedDto>> GetAnswersAsync(long id, int page, CancellationToken token)
         {
             var query = new UserAnswersByIdQuery(id, page);
-            var res = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            var res = await _queryBus.QueryAsync(query, token);
             return res.Select(item =>
             {
                 item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);

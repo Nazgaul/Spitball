@@ -52,7 +52,7 @@ namespace Cloudents.Query.Documents
 
 
                 var futureValue = _session.QueryOver(() => documentAlias)
-                    .JoinAlias(x => x.University, () => universityAlias)
+                    .JoinAlias(x => x.University, () => universityAlias, JoinType.LeftOuterJoin)
                     .JoinAlias(x => x.User, () => userAlias)
                     .JoinEntityAlias(() => tutorAlias, () => documentAlias.User.Id == tutorAlias.Id, JoinType.LeftOuterJoin)
                     .Where(w => w.Id == query.Id && w.Status.State == ItemState.Ok)

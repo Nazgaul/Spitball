@@ -1,15 +1,14 @@
-import bannerService from '../services/bannerService.js'
+import homePageService from '../services/homePageService.js'
+
+const BANNER_STORAGE_NAME = "sb_banner";
 
 const state = {
-    bannerStatus: false, 
     bannerParams: null,
 };
 const mutations = {
-    setBannerStatus: (state,val) => state.bannerStatus = val,
     setBannerParams: (state,val) => state.bannerParams = val,
 };
 const getters = {
-    getBannerStatus: state => state.bannerStatus,
     getBannerParams: state => state.bannerParams,
 };
 const actions = {
@@ -17,23 +16,30 @@ const actions = {
         if(val){
             dispatch('updateBannerParams');
         }else{
-            bannerService.bannerStorage(state.bannerParams.id);
-            commit('setBannerStatus',false);
+            let bannerId = state.bannerParams.id;
+            let localStorageList = JSON.parse(global.localStorage.getItem(BANNER_STORAGE_NAME));
+            if(localStorageList == null){
+                localStorageList = JSON.stringify([bannerId]);
+                global.localStorage.setItem(BANNER_STORAGE_NAME,localStorageList);  
+            }else{
+                localStorageList = JSON.stringify(localStorageList.push(bannerId));
+                global.localStorage.setItem(BANNER_STORAGE_NAME,localStorageList); 
+            }
+            commit('setBannerParams',null);
         }
     },
     updateBannerParams({commit}){
-        bannerService.getBannerParams().then(params => {
+        homePageService.getBannerParams().then(params => {
             params = params || {};
             if(params.id){
-                let localStorageList = JSON.parse(global.localStorage.getItem("sb_banner"));
+                let localStorageList = JSON.parse(global.localStorage.getItem(BANNER_STORAGE_NAME));
                 if(localStorageList && localStorageList.includes(params.id)){
-                    commit('setBannerStatus',false);
+                    commit('setBannerParams',null);
                 }else{
-                    commit('setBannerStatus',true);
                     commit('setBannerParams',params);
                 }
             }else{
-                commit('setBannerStatus',false);
+                commit('setBannerParams',null);
             }
         });
     }

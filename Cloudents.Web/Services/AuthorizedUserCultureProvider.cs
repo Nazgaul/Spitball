@@ -1,6 +1,6 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Users;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
