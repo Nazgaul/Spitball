@@ -37,22 +37,7 @@ Vue.use(VueRouter);
 Vue.use(LoadScript);
 Vue.use(VLazyImagePlugin);
 Vue.use(VueClipboard);
-Vue.use(VueAnalytics, {
-    id: 'UA-100723645-2',
-    disableScriptLoader: true,
-    router,
-    autoTracking: {
-        pageviewOnLoad: false,
-        pageviewTemplate(route) {
-            return {
-                page: route.path,
-                title: route.name ? route.name.charAt(0).toUpperCase() + route.name.slice(1) : '',
-                location: window.location.href
-            };
-        },
-        exception: true
-    }
-});
+
 
 Vue.component("scroll-list", scrollComponent);
 Vue.component("UserAvatar",UserAvatar);
@@ -77,6 +62,23 @@ const router = new VueRouter({
                 resolve({x: 0, y: 0});
             }
         });
+    }
+});
+
+Vue.use(VueAnalytics, {
+    id: 'UA-100723645-2',
+    disableScriptLoader: true,
+    router,
+    autoTracking: {
+        pageviewOnLoad: false,
+        pageviewTemplate(route) {
+            return {
+                page: route.path,
+                title: route.name ? route.name.charAt(0).toUpperCase() + route.name.slice(1) : '',
+                location: window.location.href
+            };
+        },
+        exception: true
     }
 });
 
