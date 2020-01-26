@@ -57,7 +57,7 @@ namespace Cloudents.Query.Users
                     r = r.Where(w => w.Course.Id == query.Course);
                     count = count.Where(w => w.Course.Id == query.Course);
                 }
-                r.OrderByDescending(o => o.Boost).ThenByDescending(o => o.TimeStamp.UpdateTime);
+                r = r.OrderByDescending(o => o.Boost).ThenByDescending(o => o.TimeStamp.UpdateTime);
                 var result = r.Select(s => new DocumentFeedDto()
                 {
                     Id = s.Id,
