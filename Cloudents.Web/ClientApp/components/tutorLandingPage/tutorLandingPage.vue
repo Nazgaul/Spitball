@@ -325,7 +325,7 @@ export default {
         .tutor-landing-card-container{
             margin: 0 auto;
             width: 100%;
-            max-width: 920px;
+            max-width: 920px !important; //issue with reload
             @media (max-width: @screen-xs) {
                 padding: 0;
             }
