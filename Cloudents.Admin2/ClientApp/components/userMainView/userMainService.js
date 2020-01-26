@@ -1,5 +1,7 @@
 import { connectivityModule } from '../../services/connectivity.module'
+import axios from 'axios'
 
+const apiAddress = `${window.location.origin}/api/`;
 //function userData(objInit) {
 //    this.userInfo = createUserInfoItem(objInit.user);
 //    this.userAnswers = createAnswertItem(objInit.answers);
@@ -331,7 +333,13 @@ export default {
         return connectivityModule.http.put(`AdminUser/name`, {userId, firstName, lastName});
     },
     updateUserPhone: ({ userId, newPhone }) => {
-        return connectivityModule.http.put(`AdminUser/phone`, {userId, newPhone});
+        let path = `AdminUser/phone`;
+        let uri = apiAddress + path;
+        return axios.put(uri, { userId, newPhone }).then((message) => {
+            return message;
+        }).catch((error) => {
+            throw error;
+        });
     },
     updateTutorPrice: (priceOjb) => {
         return connectivityModule.http.post(`AdminTutor/price`, priceOjb);

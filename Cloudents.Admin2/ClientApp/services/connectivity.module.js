@@ -28,7 +28,7 @@ export const connectivityModule = {
         },
         put: function(path, body){
             let uri = apiAddress + path;
-            return axios.put(uri, body).then(promiseReturn).catch(errorHandler);
+            axios.put(uri, body);
         },
         delete: function(path, ids){
             let uri = apiAddress + path;
