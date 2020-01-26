@@ -89,12 +89,6 @@ const getters = {
     getCookieAccepted: (state, getters, {route}) => {
         if(route.name === 'tutoring') return true;
         return state.cookieAccepted},
-    // getRegistrationStep:
-    //     state => state.user.registrationStep,
-    // getUniversity: state => {
-    //     let obj = state.user.universityId || {};
-    //     return obj.id;
-    // },
     getUniversityName: state => {
         let obj = state.user.universityId || {};
         return obj.name;

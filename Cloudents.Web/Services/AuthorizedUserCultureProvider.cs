@@ -12,22 +12,6 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Web.Services
 {
-    public class FrymoCultureProvider : IRequestCultureProvider
-    {
-        public Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)
-        {
-            var configurationService = httpContext.RequestServices.GetService<ConfigurationService>();
-            var site = configurationService.GetSiteName();
-            if (site == ConfigurationService.Site.Frymo)
-            {
-                return Task.FromResult(new ProviderCultureResult("en-IN"));
-            }
-
-            return Task.FromResult<ProviderCultureResult>(null);
-            //throw new NotImplementedException();
-        }
-    }
-
     public class AuthorizedUserCultureProvider : IRequestCultureProvider
     {
         public async Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)
