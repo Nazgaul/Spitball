@@ -11,7 +11,7 @@ const errorHandler = function(err){
     if (err.response.status == 401) {
         window.location.reload();
     }
-    return Promise.reject(err);
+    throw err;
 };
 
 const apiAddress = `${window.location.origin}/api/`;
