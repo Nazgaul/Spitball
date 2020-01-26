@@ -9,7 +9,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -45,7 +45,7 @@ namespace Cloudents.Admin2.Api
                 p = Enumeration.FromValue<ChatRoomStatus>(request.Status.Value);
             }
 
-            var query = new AdminConversationsQuery(request.Id.GetValueOrDefault(), request.Page, User.GetCountryClaim(),
+            var query = new ConversationsQuery(request.Id.GetValueOrDefault(), request.Page, User.GetCountryClaim(),
                 p, request.AssignTo, request.AutoStatus);
             return await _queryBus.QueryAsync(query, token);
         }
@@ -58,7 +58,7 @@ namespace Cloudents.Admin2.Api
             CancellationToken token)
         {
 
-            var query = new AdminConversationDetailsQuery(identifier, User.GetCountryClaim());
+            var query = new ConversationDetailsQuery(identifier, User.GetCountryClaim());
             var res = await _queryBus.QueryAsync(query, token);
             return res.Select(item =>
              {
@@ -77,7 +77,7 @@ namespace Cloudents.Admin2.Api
             [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
-            var result = await _queryBus.QueryAsync(new AdminChatConversationByIdQuery(identifier, 0, User.GetCountryClaim()), token);
+            var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(identifier, 0, User.GetCountryClaim()), token);
             return result.Select(item =>
             {
                 item.Image = urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
@@ -140,7 +140,7 @@ namespace Cloudents.Admin2.Api
             return new
             {
                 Status = Enumeration.GetAll<ChatRoomStatus>().GroupBy(x => x.Group).ToDictionary(x => x.Key, y => y),// Enum.GetNames(typeof(ChatRoomStatus)).Select(s=> s.ToCamelCase()),
-                AssignTo = await _queryBus.QueryAsync(new AdminAssignToQuery(), token),
+                AssignTo = await _queryBus.QueryAsync(new AssignToQuery(), token),
                 WaitingFor = Enum.GetNames(typeof(WaitingFor)).Select(s => s.ToCamelCase())
             };
         }

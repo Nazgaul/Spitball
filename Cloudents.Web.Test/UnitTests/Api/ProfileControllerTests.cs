@@ -2,7 +2,7 @@
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Users;
 using Cloudents.Web.Api;
 using Cloudents.Web.Extensions;
 using FluentAssertions;

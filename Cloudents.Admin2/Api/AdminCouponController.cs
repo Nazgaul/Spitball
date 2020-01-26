@@ -9,7 +9,7 @@ using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;
-using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Admin;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -60,7 +60,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<CouponDto>> GetAsync(CancellationToken token)
         {
-            var query = new AdminCouponQuery();
+            var query = new CouponQuery();
 
             return await _queryBus.QueryAsync(query, token);
         }

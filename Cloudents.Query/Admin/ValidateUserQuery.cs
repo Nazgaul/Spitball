@@ -19,7 +19,7 @@ namespace Cloudents.Query.Admin
 
 
 
-        public sealed class CoursesByTermQueryHandler : IQueryHandler<ValidateUserQuery, UserRolesDto>
+        internal sealed class CoursesByTermQueryHandler : IQueryHandler<ValidateUserQuery, UserRolesDto>
         {
             private readonly QuerySession _session;
 

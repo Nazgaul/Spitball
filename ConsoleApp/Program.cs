@@ -28,7 +28,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using Cloudents.Query.Query;
 using Cloudmersive.APIClient.NET.DocumentAndDataConvert.Api;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]

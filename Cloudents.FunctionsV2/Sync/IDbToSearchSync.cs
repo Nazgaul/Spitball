@@ -1,4 +1,4 @@
-﻿using Cloudents.Query.Query.Sync;
+﻿using Cloudents.Query.Sync;
 using Microsoft.Azure.WebJobs;
 using System.Threading;
 using System.Threading.Tasks;

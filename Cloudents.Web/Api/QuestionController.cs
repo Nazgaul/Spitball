@@ -6,7 +6,6 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;
-using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Hubs;
 using Cloudents.Web.Models;
@@ -20,6 +19,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
+using Cloudents.Query.Questions;
 
 namespace Cloudents.Web.Api
 {
