@@ -154,12 +154,7 @@ const connectToRoom = function (token, options) {
                     console.error('Signaling reconnection took too long!');
                 } else if (errorCode === 53205) {
                     // TODO fix it with ram
-                    console.error('errorCode: 53205')
-                    setTimeout(() => {
-                        store.dispatch('updateTutorStartDialog', false);
-                        store.dispatch('setSesionClickedOnce',true)
-                    }, 1000);
-
+                    global.location.reload(true);
                 }else {
                     console.error('final disconnect');
                 }
