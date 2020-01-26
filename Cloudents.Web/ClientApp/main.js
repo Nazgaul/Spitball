@@ -30,6 +30,30 @@ import utilitiesService from './services/utilities/utilitiesService';
 import './filters/filters';
 
 
+
+
+const router = new VueRouter({
+    mode: "history",
+    routes: route.routes,
+    scrollBehavior(to, from, savedPosition) {
+        return new Promise((resolve) => {
+            if(to.hash){
+                resolve({selector: to.hash});
+            }
+            if (savedPosition) {
+                //firefox fix
+                if(global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+                    setTimeout(()=>{
+                        global.scrollTo(savedPosition.x,savedPosition.y);
+                    });
+                }
+                resolve({x: savedPosition.x, y: savedPosition.y});
+            } else {
+                resolve({x: 0, y: 0});
+            }
+        });
+    }
+});
 //import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
 
 Vue.use(VueFlicking);
@@ -57,28 +81,6 @@ Vue.use(VueAnalytics, {
 Vue.component("scroll-list", scrollComponent);
 Vue.component("UserAvatar",UserAvatar);
 
-const router = new VueRouter({
-    mode: "history",
-    routes: route.routes,
-    scrollBehavior(to, from, savedPosition) {
-        return new Promise((resolve) => {
-            if(to.hash){
-                resolve({selector: to.hash});
-            }
-            if (savedPosition) {
-                //firefox fix
-                if(global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
-                    setTimeout(()=>{
-                        global.scrollTo(savedPosition.x,savedPosition.y);
-                    });
-                }
-                resolve({x: savedPosition.x, y: savedPosition.y});
-            } else {
-                resolve({x: 0, y: 0});
-            }
-        });
-    }
-});
 
 Vue.directive('language', Language);
 

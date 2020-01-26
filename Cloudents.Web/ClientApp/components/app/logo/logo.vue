@@ -1,10 +1,7 @@
 <template>
     <div>
-
         <app-frymo v-if="isFrymo" class="logo frymo-logo"></app-frymo>
         <app-logo v-else class="logo"></app-logo>
-    
-    
     </div>
 </template>
 

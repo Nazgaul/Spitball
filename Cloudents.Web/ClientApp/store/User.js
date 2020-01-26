@@ -93,12 +93,6 @@ const getters = {
         }
         return state.cookieAccepted
     },
-    // getRegistrationStep:
-    //     state => state.user.registrationStep,
-    // getUniversity: state => {
-    //     let obj = state.user.universityId || {};
-    //     return obj.id;
-    // },
     getUniversityName: state => {
         let obj = state.user.universityId || {};
         return obj.name;
