@@ -22,16 +22,16 @@
             </div>
         </v-layout>
 
-        <v-layout wrap class="tutor-landing-page-body">
-            <v-flex xs12 class="tutor-landing-page-empty-state">
-                <suggest-card v-if="items.length === 0 && query.term && showEmptyState" 
+        <div class="tutor-landing-page-body">
+            <div class="tutor-landing-page-empty-state" v-if="items.length === 0 && query.term && showEmptyState" >
+                <suggest-card 
                 @click.native="openRequestTutor()" :name="'tutor-list'"></suggest-card>  
-            </v-flex>
-            <v-flex xs12 class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
+            </div>
+            <div class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
                 <tutor-result-card v-if="!isMobile" class="mb-4 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
                 <tutor-result-card-mobile v-else class="mb-2 " :fromLandingPage="true" :tutorData="item"/>
-            </v-flex>   
-        </v-layout>
+            </div>   
+        </div>
         <div class="tutorLandingPage_pagination" v-if="items.length && pagination.length > 1">
             <v-pagination
                     total-visible=7 
