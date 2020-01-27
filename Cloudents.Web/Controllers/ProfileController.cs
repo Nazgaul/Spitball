@@ -51,7 +51,7 @@ namespace Cloudents.Web.Controllers
         {
             var query = new UserProfileQuery(id, 0);
             var retVal = await _queryBus.QueryAsync(query, token);
-            if (retVal == null)
+            if (retVal is null)
             {
                 return NotFound();
             }

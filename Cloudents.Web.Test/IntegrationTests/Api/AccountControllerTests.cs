@@ -48,8 +48,10 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("api/account/courses")]
         [InlineData("api/account/university")]
         [InlineData("api/account/referrals")]
-        [InlineData("api/account/content")]
         [InlineData("api/account/sales")]
+        [InlineData("api/account/content")]
+        [InlineData("api/account/purchases")]
+        [InlineData("api/account/followers")]
         [InlineData("api/account/calendar")]
         public async Task AccountApiTestGet_LogIn_OkAsync(string api)
         {

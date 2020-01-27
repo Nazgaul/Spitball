@@ -3,7 +3,6 @@
 @using Cloudents.Core.Extension
 @using Microsoft.ApplicationInsights.AspNetCore.Extensions
 @using Microsoft.AspNetCore.Http.Extensions
-@using Cloudents.Web.Extensions
 @{
 
     ViewBag.ogImage = ViewBag.ogImage ?? "https://" + Context.Request.Host + "/images/3rdParty/fbShare.jpg";
@@ -57,13 +56,18 @@
 @{
     string GetUrlBaseOnCulture(string culture)
     {
-        var url = @Context.Request.GetUri().RemoveQueryStringByKey("culture");
-        var uriBuilder = new UriBuilder(url);
-        return uriBuilder.AddQuery(new { culture = culture }).ToString();
+        var queryString = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(Context.Request.QueryString.Value);
+        queryString.Remove("culture");
+        //var url = @Context.Request.GetUri().RemoveQueryStringByKey("culture");
+        var uriBuilder = new UriBuilder(Context.Request.GetUri());
+        return uriBuilder.AddQuery(new {  culture }).ToString();
     }
 }
 
 <link rel="alternate" hreflang="iw" href="@GetUrlBaseOnCulture(Language.Hebrew.Info.Name)" />
 <link rel="alternate" hreflang="en" href="@GetUrlBaseOnCulture(Language.English.Info.Name)" />
+<meta property="og:locale:alternate" content="@Language.Hebrew.Info.Name.Replace("-","_")" />
+<meta property="og:locale" content="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name.Replace("-","_")" />
+<meta property="og:locale:alternate" content="@Language.English.Info.Name.Replace("-","_")" />
 
 
