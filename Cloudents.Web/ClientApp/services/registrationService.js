@@ -45,5 +45,8 @@ export default {
         return connectivityModule.http.get(`LogIn/ValidateEmail?email=${email}`);
     },
     updateGrade: grade => axios.post(`Register/grade`, grade),
-    updateParentStudentName: fullname => axios.post(`Register/childName`, fullname)
+
+    updateParentStudentName: fullname => axios.post(`Register/childName`, fullname),
+    
+    updateUserRegisterType: type => axios.post('Register/userType', type),
 }

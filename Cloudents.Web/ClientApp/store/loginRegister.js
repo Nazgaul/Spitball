@@ -459,6 +459,9 @@ const actions = {
             }).catch(ex => {
                 console.log(ex);
             })
+    },
+    updateRegisterType(context, regType) {
+        return registrationService.updateUserRegisterType({ userType: regType })
     }
 };
 

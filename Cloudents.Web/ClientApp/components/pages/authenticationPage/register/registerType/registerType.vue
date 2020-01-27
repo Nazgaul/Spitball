@@ -16,36 +16,36 @@
                     <span class="panel_title text-center" v-language:inner="'loginRegister_student'"></span>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content class="pt-4">
-                    <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" :to="{name: 'registerCourse'}">
+                    <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" :to="{name: 'registerCourse'}" @click="sendRegisterType('HighSchool', {name: 'registerCourse'})">
                         <span><collegeIcon /></span>
                         <span class="flex-grow-1 text-center white--text">A High school Student</span>
                     </v-btn>
-                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" :to="{name: 'registerUniversity'}">
+                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" :to="{name: 'registerUniversity'}" @click="sendRegisterType('University', {name: 'registerUniversity'})">
                         <span><highSchoolIcon /></span>
                         <span class="flex-grow-1 text-center white--text">A College Student</span>
                     </v-btn>
                 </v-expansion-panel-content>
             </v-expansion-panel>
 
-            <router-link :to="{name: 'registerCourseParent'}">
-                <v-expansion-panel class="panel panel_parent mb-5" readonly>
+            <!-- <router-link :to="{name: 'registerCourseParent'}"> -->
+                <v-expansion-panel class="panel panel_parent mb-5" readonly @click="sendRegisterType('Parent', {name: 'registerCourseParent'})">
                     <v-expansion-panel-header class="px-4 py-2" expand-icon="">
                         <span class="flex-grow-0 mr-4"><parentIcon/></span>
                         <v-divider class="mr-4" vertical></v-divider>
                         <span class="panel_title text-center pr-5" v-language:inner="'loginRegister_parent'"></span>
                     </v-expansion-panel-header>
                 </v-expansion-panel>
-            </router-link>
+            <!-- </router-link> -->
 
-            <router-link :to="{query: {dialog: 'becomeTutor'}}">
-                <v-expansion-panel class="panel panel_teacher" readonly>
+            <!-- <router-link :to="{query: {dialog: 'becomeTutor'}}"> -->
+                <v-expansion-panel class="panel panel_teacher" readonly @click="sendRegisterType('Tutor', {query: {dialog: 'becomeTutor'}})">
                     <v-expansion-panel-header class="px-4 py-2" expand-icon="">
                         <span class="flex-grow-0 mr-4"><teacherIcon/></span>
                         <v-divider class="mr-4" vertical></v-divider>
                         <span class="panel_title text-center pr-5" v-language:inner="'loginRegister_teacher'"></span>
                     </v-expansion-panel-header>
                 </v-expansion-panel>
-            </router-link>
+            <!-- </router-link> -->
         </v-expansion-panels>
 
     </div>
@@ -68,9 +68,19 @@ export default {
         highSchoolIcon
     },
     data:() => ({
-        panel: []
+        panel: [],
+        showError: false
     }),
     methods: {
+        sendRegisterType(regType, route) {
+            this.$store.dispatch('updateRegisterType', regType).then(() => {
+                this.showError = false
+            }).catch(() => {
+                this.showError = true
+            }).finally(() => {
+                this.$router.push(route)
+            })
+        },
         fetchUser() {
             this.$store.dispatch('getUserAccountForRegister').catch(() => {
                 this.$router.push('/')                
