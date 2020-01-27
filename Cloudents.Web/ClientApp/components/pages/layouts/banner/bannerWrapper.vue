@@ -1,6 +1,6 @@
 <template>
   <div>
-    <banner v-if="getBannerStatus"></banner>
+    <banner v-if="getBannerParams"></banner>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
     banner
   },
   computed: {
-    ...mapGetters(["getBannerStatus"])
+    ...mapGetters(["getBannerParams"])
   }
 };
 </script>

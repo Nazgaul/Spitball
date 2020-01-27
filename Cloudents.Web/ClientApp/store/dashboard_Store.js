@@ -1,4 +1,5 @@
 import dashboardService from '../services/dashboardService.js';
+import walletService from '../services/walletService.js';
 
 const state = {
    salesItems: [],
@@ -70,7 +71,7 @@ const actions = {
       });
    },
    updateBalancesItems({commit}){
-      dashboardService.getBalancesItems().then(items=>{
+      walletService.getBalances().then(items=>{
          commit('setBalancesItems', items);
       });
    },

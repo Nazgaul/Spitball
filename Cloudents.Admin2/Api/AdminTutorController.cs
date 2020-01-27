@@ -5,7 +5,7 @@ using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -33,7 +33,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<PendingTutorsDto>> GetPendingTutorsAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
-            var query = new AdminPendingTutorsQuery(User.GetCountryClaim());
+            var query = new PendingTutorsQuery(User.GetCountryClaim());
             var res =  await _queryBus.QueryAsync(query, token);
             return res.Select(item =>
             {

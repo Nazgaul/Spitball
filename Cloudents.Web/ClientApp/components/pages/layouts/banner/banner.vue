@@ -62,7 +62,7 @@ export default {
 		}
 	},
 	computed: {
-        ...mapGetters(['getBannerStatus','getBannerParams']),
+        ...mapGetters(['getBannerParams']),
         
 		coupon(){
 			if(!!this.getBannerParams){

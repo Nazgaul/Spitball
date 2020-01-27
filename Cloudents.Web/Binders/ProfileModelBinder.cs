@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Models;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Users;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;

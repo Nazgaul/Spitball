@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Entities;
+﻿using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
 using System.Linq;

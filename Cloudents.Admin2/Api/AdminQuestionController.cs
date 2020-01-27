@@ -4,7 +4,7 @@ using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Extension;
 using Cloudents.Query;
-using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -83,7 +83,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<PendingQuestionDto>> Get(CancellationToken token)
         {
 
-            var query = new AdminPendingQuestionsQuery(User.GetCountryClaim());
+            var query = new PendingQuestionsQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 

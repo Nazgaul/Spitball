@@ -96,10 +96,7 @@ namespace Cloudents.FunctionsV2
             CancellationToken token)
         {
             var mutation = ImageMutation.FromQueryString(req.Query);
-            if (mutation.Width > 960 || mutation.Height > 540)
-            {
-                throw new ArgumentException();
-            }
+
             try
             {
                 using (var sr = await blob.OpenReadAsync())

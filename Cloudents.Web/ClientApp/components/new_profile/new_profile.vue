@@ -11,7 +11,6 @@
             <profileEarnMoney class="mt-0 mt-sm-5" v-if="showEarnMoney" :globalFunctions="globalFunctions"/>
             <profileItemsEmpty class="mt-0 mt-sm-5 mb-2 mb-sm-4" v-show="showItemsEmpty"/>
 
-
             <!-- <v-layout wrap v-bind="xsColumn" align-start  justify-start>
                 <v-flex sm12 :class="[isMyProfile && isTutorProfile ? '' : ''  ]">
                     <v-flex xs12 class="mt-3" :class="[$vuetify.breakpoint.xsOnly ? 'mb-2' : 'mb-4']">

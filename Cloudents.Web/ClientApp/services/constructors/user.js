@@ -1,6 +1,6 @@
 export const User = {
     Default: function (objInit) {
-        this.id = objInit.id;
+        this.id = objInit.id || objInit.userId;
         this.name = objInit.name;
         this.image = objInit.image || '';
     },

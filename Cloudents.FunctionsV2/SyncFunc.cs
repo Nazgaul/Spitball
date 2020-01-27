@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Cloudents.FunctionsV2.Sync;
-using Cloudents.Query.Query.Sync;
+using Cloudents.Query.Sync;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
