@@ -1,5 +1,5 @@
 <template>
-  <v-container
+  <div
     v-if="visible"
     py-0
     px-0
@@ -30,7 +30,7 @@
       <component :is="`chat-${state}`"></component>
     </v-layout>
     
-  </v-container>
+  </div>
 </template>
 
 
