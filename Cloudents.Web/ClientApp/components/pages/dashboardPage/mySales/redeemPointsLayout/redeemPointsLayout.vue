@@ -29,7 +29,7 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['accountUser','isFrymo']),
+      ...mapGetters(['accountUser']),
       redeemImg(){
          return paymentService.getRedeemImg();
       },
