@@ -11,9 +11,9 @@
                         <div class="sec-result" :class="[props.name ==='tutor' ? 'tutor-result'  : '']">
                             <slot name="main"></slot>
                         </div>
-                        <v-flex :class="['side-bar','hidden-md-and-down']" v-if="props.breakPointSideBar && props.name !== 'tutor'">
+                        <div :class="['side-bar','hidden-md-and-down']" v-if="props.breakPointSideBar && props.name !== 'tutor'">
                             <slot name="rightSide"></slot>
-                        </v-flex>
+                        </div>
                     </v-layout>
                 </v-layout>
             </v-container>
