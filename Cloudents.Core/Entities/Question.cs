@@ -120,6 +120,7 @@ namespace Cloudents.Core.Entities
         public virtual void Delete()
         {
             Status = ItemStatus.Delete();
+            _answers.Clear();
             AddEvent(new QuestionDeletedEvent(this));
 
         }

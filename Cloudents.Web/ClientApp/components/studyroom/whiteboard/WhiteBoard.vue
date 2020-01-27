@@ -3,9 +3,12 @@
         <div id="canvas-wrapper" class="canvas-wrapper" style="position:relative; overflow: auto;" :style="`width:${windowWidth}px;height:${windowHeight}px;`">
             <canvas id="canvas" :class="{'select-object': canvasData.objDetected}"></canvas>
             <!-- <whiteBoardLayers v-if="false" :canvasData="canvasData"></whiteBoardLayers> -->
-            <v-progress-circular v-if="getImgLoader" class="loader-img-canvas light-blue" 
+             <v-skeleton-loader v-if="getImgLoader" class="loader-img-canvas"
+                max-width="300" min-width="300"
+                type="image"></v-skeleton-loader>
+            <!-- <v-progress-circular v-if="getImgLoader" class="loader-img-canvas light-blue" 
                 indeterminate
-                :rotate="3" :size="100" :width="3" color="info"></v-progress-circular>
+                :rotate="3" :size="100" :width="3" color="info"></v-progress-circular> -->
         <svg class="helper" width="100%" height="100%" v-if="helperShow">
             <rect v-if="selectedOptionString === enumOptions.rectangle || selectedOptionString === enumOptions.select"
                   :x="helperStyle.x"
@@ -197,8 +200,10 @@
         }
         .loader-img-canvas{
             position: absolute;
-            top: 36%;
-            left: 47%;
+            top: 20%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
         }
         .helper {
             position: fixed;
