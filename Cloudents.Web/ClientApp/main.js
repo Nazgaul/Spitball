@@ -61,6 +61,12 @@ Vue.use(VueRouter);
 Vue.use(LoadScript);
 Vue.use(VLazyImagePlugin);
 Vue.use(VueClipboard);
+
+
+Vue.component("scroll-list", scrollComponent);
+Vue.component("UserAvatar",UserAvatar);
+
+
 Vue.use(VueAnalytics, {
     id: 'UA-100723645-2',
     disableScriptLoader: true,
@@ -77,10 +83,6 @@ Vue.use(VueAnalytics, {
         exception: true
     }
 });
-
-Vue.component("scroll-list", scrollComponent);
-Vue.component("UserAvatar",UserAvatar);
-
 
 Vue.directive('language', Language);
 
