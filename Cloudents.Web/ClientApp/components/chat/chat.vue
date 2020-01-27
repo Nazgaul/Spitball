@@ -1,11 +1,5 @@
 <template>
-  <div
-    v-if="visible"
-    py-0
-    px-0
-    class="sb-chat-container"
-    :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]"
-  >
+  <div class="sb-chat-container px-0 py-0" :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]">
     <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
       <v-icon @click.stop="OriginalChatState" v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'" />
         <template v-if="state === 'messages'">
@@ -50,22 +44,9 @@ export default {
       mobileHeaderHeight: 39,
     };
   },
-  watch: {
-    visible: function(val) {
-      if (!this.isMobile) {
-        return;
-      }
-      if (val) {
-        document.body.classList.add("noscroll");
-      } else {
-        document.body.classList.remove("noscroll");
-      }
-    }
-  },
   computed: {
     ...mapGetters([
       "getChatState",
-      "getIsChatVisible",
       "getIsChatMinimized",
       "getActiveConversationObj",
       "getIsChatLocked",
@@ -81,13 +62,6 @@ export default {
     },
     state() {
       return this.getChatState;
-    },
-    visible() {
-      if (this.accountUser === null) {
-        return false;
-      } else {
-        return this.getIsChatVisible;
-      }
     },
     isMinimized() {
       if (this.isMobile) {
