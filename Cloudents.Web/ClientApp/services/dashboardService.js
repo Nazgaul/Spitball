@@ -40,12 +40,6 @@ const Item = {
       this.name = objInit.tutorName || objInit.studentName;
       this.image = objInit.tutorImage || objInit.studentImage;
    },
-   Balances:function(objInit){
-      this.type = objInit.type;
-      this.points = objInit.points;
-      this.value = objInit.value;
-      this.symbol = objInit.symbol;
-   },
    StudyRoom:function(objInit){
       this.online = objInit.online;
       this.id = objInit.id;
@@ -90,9 +84,6 @@ function PurchasesItem(objInit){
       new Item[itemTypeChcker(objInit.type)](objInit)
    );
 }
-function BalancesItems(objInit){
-   return new Item.Balances(objInit);
-}
 function FollowersItem(objInit){
    return Object.assign(
       new Item.User(objInit),
@@ -114,11 +105,6 @@ function createPurchasesItems({data}) {
    data.map(item => purchasesItems.push(new PurchasesItem(item)));
    return purchasesItems;
 }
-function createBalancesItems({data}) {
-   let balancesItems = [];
-   data.map(item => balancesItems.push(new BalancesItems(item)));
-   return balancesItems;
-}
 function createStudyRoomItems({data}) {
    let studyRoomItems = [];
    data.map(item => studyRoomItems.push(new StudyRoomItem(item)));
@@ -138,9 +124,6 @@ function getContentItems(){
 function getPurchasesItems(){
    return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex);
 }
-function getBalancesItems(){
-   return connectivityModule.http.get('Wallet/balance').then(createBalancesItems).catch(ex => ex);
-}
 function getStudyRoomItems(){
    return connectivityModule.http.get('StudyRoom').then(createStudyRoomItems).catch(ex => ex);
 }
@@ -152,7 +135,6 @@ export default {
    getSalesItems,
    getContentItems,
    getPurchasesItems,
-   getBalancesItems,
    getStudyRoomItems,
    getFollowersItems
 }
