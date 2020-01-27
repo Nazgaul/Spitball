@@ -407,6 +407,14 @@ const actions = {
     changeLastActiveRoute({commit}, route) {
         commit("setLastActiveRoute", route);
     },
+    getUserAccountForRegister({commit}) {
+        accountService.getAccount().then((userAccount) => {
+            commit("updateUser", userAccount);
+            analyticsService.sb_setUserId(userAccount.id);
+        }, ()=>{
+            console.log("err in getting user in register route");
+        });
+    },
     userStatus({dispatch, commit, getters}, {isRequireAuth, to}) {
         commit("changeLoginStatus", global.isAuth);
         if(getters.isUser) {

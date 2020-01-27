@@ -2,7 +2,9 @@
     <div id="registerCourse">
         <slot name="titleCourse"></slot>
         
-        <courses />
+        <courses #fromRegister>
+            <span></span>
+        </courses>
     </div>
 </template>
 

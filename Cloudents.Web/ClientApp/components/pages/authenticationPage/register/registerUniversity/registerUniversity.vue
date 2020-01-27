@@ -2,7 +2,11 @@
     <div id="registerUniversity">
         <slot name="titleUniversity"></slot>
 
-        <university />
+        <university>
+            <template #fromRegister>
+                <span></span>
+            </template>
+        </university>
     </div>
 </template>
 
@@ -12,10 +16,6 @@ const university = () => import('../../../../university/addUniversity/addUnivers
 export default {
     components: {
         university
-    },
-    created() {
-        console.log(this);
-        
     }
 }
 </script>

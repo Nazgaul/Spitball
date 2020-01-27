@@ -70,25 +70,13 @@ export default {
     data:() => ({
         panel: []
     }),
-    watch: {
-        "$route.hash"(hash) {
-            if(hash) this.openBecomeTutorDialog();
-        }
-    },
     methods: {
-        registerStep(step) {
-            this.$router.push({name: step});
-        },
-        openBecomeTutorDialog() {
-            this.$store.dispatch('updateTutorDialog', true);
+        fetchUser() {
+            this.$store.dispatch('getUserAccountForRegister')
         }
     },
-    mounted() {
-        if(this.$route.hash) {
-            setTimeout(() => {
-                this.openBecomeTutorDialog();
-            }, 100)
-        }
+    created() {
+        this.fetchUser();
     }
 }
 </script>
