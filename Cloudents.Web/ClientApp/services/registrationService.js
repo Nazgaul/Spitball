@@ -1,4 +1,5 @@
 import { connectivityModule } from "./connectivity.module"
+import axios from "axios";
 
 export default {
     googleRegistration: (data) => {
@@ -41,6 +42,8 @@ export default {
         return connectivityModule.http.post("ForgotPassword/reset", {id, code, password, confirmPassword});
     },
     validateEmail: (email) => {
-        return connectivityModule.http.get(`LogIn/ValidateEmail?email=${email}`,);
+        return connectivityModule.http.get(`LogIn/ValidateEmail?email=${email}`);
     },
+    updateGrade: grade => axios.post(`Register/grade`, grade),
+    updateParentStudentName: fullname => axios.post(`Register/childName`, fullname)
 }

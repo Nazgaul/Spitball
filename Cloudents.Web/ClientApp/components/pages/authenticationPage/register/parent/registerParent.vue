@@ -4,42 +4,45 @@
         <div class="text-center mainTitle" v-language:inner="'register_school_title'"></div>
         <div class="text-center subtitle" v-language:inner="'register_parent_subtitle'"></div>
 
-        <v-row>
-            <v-col cols="12" sm="4" class="pb-0">
-                <v-text-field
-                    v-model="firstname"
-                    label="Outlined"
-                    placeholder="Placeholder"
-                    outlined
-                    height="44"
-                    dense
-                ></v-text-field>                        
-            </v-col>
-            <v-col cols="12" sm="4" class="pb-0">
-                <v-text-field
-                    v-model="lastname"
-                    label="Outlined"
-                    placeholder="Placeholder"
-                    outlined
-                    height="44"
-                    dense
-                ></v-text-field>                    
-            </v-col>
-            <v-col cols="12" sm="4" class="pb-0">
-                <v-select
-                    v-model="grade"
-                    :items="items"
-                    class="gradesWrap_select mb-2"
-                    outlined
-                    dense
-                    height="44"
-                    :menu-props="{ maxHeight: '400' }"
-                    label="What grade you are"
-                    placeholder=" "
-                    append-icon="sbf-triangle-arrow-down">
-                </v-select>
-            </v-col>
-        </v-row>
+        <form @submit.prevent="send">
+            <v-row>
+                <v-col cols="12" sm="4" class="pb-0">
+                    <v-text-field
+                        v-model="firstname"
+                        label="Student first name"
+                        placeholder=" "
+                        outlined
+                        height="44"
+                        dense
+                    ></v-text-field>                        
+                </v-col>
+                <v-col cols="12" sm="4" class="pb-0">
+                    <v-text-field
+                        v-model="lastname"
+                        label="Student Last name"
+                        placeholder=" "
+                        outlined
+                        height="44"
+                        dense
+                    ></v-text-field>                    
+                </v-col>
+                <v-col cols="12" sm="4" class="pb-0">
+                    <v-select
+                        v-model="grade"
+                        :items="grades"
+                        class="gradesWrap_select mb-2"
+                        outlined
+                        dense
+                        height="44"
+                        :menu-props="{ maxHeight: '400' }"
+                        label="Student grade"
+                        placeholder=" "
+                        append-icon="sbf-triangle-arrow-down">
+                    </v-select>
+                </v-col>
+            </v-row>
+            <v-btn cols="12" type="submit">send</v-btn>
+        </form>
 
         <registerCourse />
     </div>
@@ -49,16 +52,26 @@
 const registerCourse = () => import('../registerCourse/registerCourse.vue')
 
 export default {
-    name: 'registerParent',
+    // name: 'registerParent',
     components: {
         registerCourse
     },
     data: () => ({
         firstname: '',
         lastname: '',
-        grade: '',
-        items: ['High school1', 'High school2', 'High school3', 'High school4']
-    })
+        grade: null,
+        grades: [1, 2, 3, 4]
+    }),
+    methods: {
+        send() {
+            let parentObj = {
+                firstname: this.firstname,
+                lastname: this.lastname,
+                grade: this.grade
+            }
+            this.$store.dispatch('parentRegister', parentObj)
+        }
+    }
 }
 </script>
 

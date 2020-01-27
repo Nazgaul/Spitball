@@ -440,7 +440,25 @@ const actions = {
         commit('setCurrentRegTypeStep', regStep);
     },
     updateStudentGrade({commit}, grade) {
-        commit('setStudentGrade', grade);
+        return registrationService.updateGrade({grade}).then(() => {
+            commit('setStudentGrade', grade);
+        })
+    },
+    updateParentStudent(context, fullname) {
+        return registrationService.updateParentStudentName(fullname)
+    },
+    parentRegister({dispatch}, {grade, firstname, lastname}) {
+        let promiseGrade = registrationService.updateGrade({grade})
+        let promiseStudentParent = dispatch('updateParentStudent', {firstname, lastname})
+
+        Promise.all([promiseGrade, promiseStudentParent])
+            .then(() => {
+                console.log('grade call success');
+            }).then(() => {
+                console.log('child name call success');
+            }).catch(ex => {
+                console.log(ex);
+            })
     }
 };
 

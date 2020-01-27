@@ -1,5 +1,6 @@
 import { connectivityModule } from "./connectivity.module";
 import searchService from "../services/searchService.js";
+import axios from 'axios';
 
 function AccountUser(objInit){
     this.id= objInit.id;
@@ -35,14 +36,17 @@ function ProfileAnswerData(arrInit){
     return arrInit.data.map(searchService.createQuestionItem) || [];
 }
 export default {
+    // getAccount:() => {
+    //    return connectivityModule.http.get("/Account").then(({data})=>{
+    //        let userAccount = new AccountUser(data);
+    //        return userAccount;
+    //    },(err)=>{
+    //        return err;
+    //    });
+    // },
     getAccount:() => {
-       return connectivityModule.http.get("/Account").then(({data})=>{
-           let userAccount = new AccountUser(data);
-           return userAccount;
-       },(err)=>{
-           return err;
-       });
-    },
+        return axios.get("/Account").then(({data}) => new AccountUser(data))
+     },
     setUserName: (data) => {
         return connectivityModule.http.post("/Account/userName", {name: data});
     },

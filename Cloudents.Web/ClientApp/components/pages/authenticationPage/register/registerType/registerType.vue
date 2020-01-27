@@ -72,7 +72,9 @@ export default {
     }),
     methods: {
         fetchUser() {
-            this.$store.dispatch('getUserAccountForRegister')
+            this.$store.dispatch('getUserAccountForRegister').catch(() => {
+                this.$router.push('/')                
+            })
         }
     },
     created() {
