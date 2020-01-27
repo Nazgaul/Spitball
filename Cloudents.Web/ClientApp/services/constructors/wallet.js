@@ -1,14 +1,17 @@
 import { LanguageService } from "../language/languageService";
 
+const balanceNameByType = {
+    'Earned': LanguageService.getValueByKey(`wallet_earned`),
+    'Spent': LanguageService.getValueByKey(`wallet_spent`),
+    'Total': LanguageService.getValueByKey(`wallet_total`),
+}
+
 export const Wallet = {
     Balance: function (objInit) {
         this.points = objInit.points;
         this.symbol = objInit.symbol;
         this.type = objInit.type;
         this.value = objInit.value;
-        this.name = LanguageService.getValueByKey(`wallet_${objInit.type.toLowerCase()}`);
+        this.name = balanceNameByType[objInit.type];
     },
-    Balances: function(objInit){
-        this.Balances = objInit.map(item=> new Wallet.Balance(item))
-    }
 }

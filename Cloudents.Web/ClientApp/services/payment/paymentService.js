@@ -1,24 +1,37 @@
 
 let country = global.country;
+let siteName = global.siteName;
 
-const IL = {
-   country: 'IL',
-   redeemImg:require('./images/redeemPointsIL.jpg'),
+class CountryPayment {
+   constructor(code, img) {
+      this.countryCode = code;
+      this.redeemImg = img;
+   }
+   getRedeemImg() {
+      return this.redeemImg
+   }
 }
-const IN = {
-   country: 'IN',
-   redeemImg:require('./images/redeemPointsFrymo.jpg'),
+const IL = new CountryPayment('IL', require('./images/redeemPointsIL.jpg'));
+const IN = new CountryPayment('IN', require('./images/redeemPointsFrymo.jpg'));
+const US = new CountryPayment('US', require('./images/redeemPointsUS.png'));
+const services = [US, IL, IN]
+
+
+function getTheRightService() {
+   let currentService = null;
+   services.forEach(countryPayment=>{
+      if(countryPayment.countryCode === country){
+         currentService = countryPayment;
+      }
+      if(siteName === 'frymo'){
+         currentService = IN;
+      }
+   })
+   return currentService || US;
 }
-const US = {
-   country: 'US',
-   redeemImg:require('./images/redeemPointsUS.png'),
-}
-// redeem func?
-// buy points func?
-const services = [IL,IN,US]
 
 function getRedeemImg(){
-   return services.find(item=>item.country == country).redeemImg
+   return getTheRightService().getRedeemImg()
 }
 
 export default {

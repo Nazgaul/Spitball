@@ -25,7 +25,7 @@
                <template v-slot:item="props">
                   <tr class="mySales_table_tr">
                      <td class="text-left">
-                        <span>{{dictionary.types[props.item.type]}}</span>
+                        <span>{{props.item.name}}</span>
                      </td>
                      <td class="text-center">
                         <span>{{formatBalancePts(props.item.points)}}</span>

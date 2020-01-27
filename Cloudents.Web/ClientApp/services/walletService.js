@@ -4,7 +4,7 @@ import { Wallet } from './Constructors/wallet.js';
 export default {
     async getBalances() {
         let { data } = await Api.get.balance()
-        return new Wallet.Balances(data)
+        return data.map(item=> new Wallet.Balance(item))
     },
     async getPaymeLink() {
         return await Api.get.paymentLink()
