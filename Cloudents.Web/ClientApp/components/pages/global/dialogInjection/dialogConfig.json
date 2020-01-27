@@ -1,0 +1,10 @@
+{
+    "becomeTutor": {
+        "loggedPremission": true,
+        "path": "becomeTutor/becomeTutor"
+    },
+    "login": {
+        "loggedPremission": false,
+        "path": "pages/authenticationPage/login/exitRegisterDialog"
+    }
+}

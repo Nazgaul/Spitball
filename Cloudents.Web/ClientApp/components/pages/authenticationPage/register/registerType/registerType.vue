@@ -37,7 +37,7 @@
                 </v-expansion-panel>
             </router-link>
 
-            <router-link :to="{hash: '#becomeTutor'}">
+            <router-link :to="{query: {dialog: 'becomeTutor'}}">
                 <v-expansion-panel class="panel panel_teacher" readonly>
                     <v-expansion-panel-header class="px-4 py-2" expand-icon="">
                         <span class="flex-grow-0 mr-4"><teacherIcon/></span>

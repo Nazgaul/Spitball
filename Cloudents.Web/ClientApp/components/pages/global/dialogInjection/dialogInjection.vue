@@ -1,22 +1,24 @@
 <template>
-    <component :is="query"></component>
+    <component :is="component"></component>
 </template>
 
 <script>
-
-const becomeTutor = () => import('../../../becomeTutor/becomeTutor.vue');
+import dialogComponents, {dialogConfig} from './import.js'
 
 export default {
-    components: {
-        becomeTutor
-    },
+    mixins: [dialogComponents],
     data: () => ({
-        query: ''
+        component: ''
     }),
     watch: {
-        "$route.query.dialog"(query) {
-            this.query = query ? query : '';
+        "$route.query.dialog": "openDialog"
+    },
+    methods: {
+        openDialog(component) {
+            this.component = component ? dialogConfig[component].loggedPremission ? component : 'login' : ''
         }
     }
 }
 </script>
+
+
