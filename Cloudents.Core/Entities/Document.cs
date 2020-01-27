@@ -138,6 +138,7 @@ namespace Cloudents.Core.Entities
         {
             Status = ItemStatus.Delete();
             _votes.Clear();
+            DocumentDownloads.Clear();
             AddEvent(new DocumentDeletedEvent(this));
         }
 
