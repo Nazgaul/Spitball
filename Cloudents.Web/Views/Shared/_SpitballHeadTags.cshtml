@@ -31,6 +31,12 @@
 <meta property="og:title" content="@ViewBag.ogTitle" />
 <meta property="og:url" content="@Context.Request.GetEncodedUrl()" />
 <meta property="og:type" content="website" />
+<meta property="og:locale:alternate" content="@Language.Hebrew.Info.Name.Replace("-","_")" />
+<meta property="og:locale" content="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name.Replace("-","_")" />
+<meta property="og:locale:alternate" content="@Language.English.Info.Name.Replace("-","_")" />
+
+
+
 <link href="https://plus.google.com/116999550356569810034" rel="publisher" />
 
 
@@ -60,14 +66,12 @@
         queryString.Remove("culture");
         //var url = @Context.Request.GetUri().RemoveQueryStringByKey("culture");
         var uriBuilder = new UriBuilder(Context.Request.GetUri());
-        return uriBuilder.AddQuery(new {  culture }).ToString();
+        return uriBuilder.AddQuery(new { culture }).ToString();
     }
 }
 
 <link rel="alternate" hreflang="iw" href="@GetUrlBaseOnCulture(Language.Hebrew.Info.Name)" />
 <link rel="alternate" hreflang="en" href="@GetUrlBaseOnCulture(Language.English.Info.Name)" />
-<meta property="og:locale:alternate" content="@Language.Hebrew.Info.Name.Replace("-","_")" />
-<meta property="og:locale" content="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name.Replace("-","_")" />
-<meta property="og:locale:alternate" content="@Language.English.Info.Name.Replace("-","_")" />
+
 
 

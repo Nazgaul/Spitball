@@ -66,7 +66,7 @@ Vue.use(VueClipboard);
 Vue.component("scroll-list", scrollComponent);
 Vue.component("UserAvatar",UserAvatar);
 
-
+//this need to be below the configuration of vue router
 Vue.use(VueAnalytics, {
     id: 'UA-100723645-2',
     disableScriptLoader: true,
