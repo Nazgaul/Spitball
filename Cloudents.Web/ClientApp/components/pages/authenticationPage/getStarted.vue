@@ -1,27 +1,35 @@
 <template>
-    <v-layout column class="getStartedContainer">
-        <div class="getStarted-actions">
-            <div class="getStarted-top">
-                <p v-language:inner="isRegisterPath? 'loginRegister_getstarted_title':'loginRegister_getstarted_title_login'"/>
-                <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_subtitle': '' "/>
+    <div class="getStartedContainer text-center">
+        <div class="getStartedActions">
+            <div class="getStartedTop">
+                <p class="getStartedTitle" v-language:inner="isRegisterPath? 'loginRegister_getstarted_title':'loginRegister_getstarted_title_login'"></p>
+                <span class="getStartedSubtitle" v-language:inner="isRegisterPath? 'loginRegister_getstarted_subtitle': '' "></span>
             </div>
-            <div class="getStarted-form">
-                <div v-if="isRegisterPath" class="getStarted-terms">
-                    <div class="line-terms">
-
-                    <v-checkbox @click="checkBoxConfirm" :ripple="false" class="checkbox-userinfo" 
-                        v-model="isTermsAgree" off-icon="sbf-check-box-un" sel="check"
-                        on-icon="sbf-check-box-done" name="checkBox" id="checkBox"/>
+            <div class="getStartedForm">
+                <div v-if="isRegisterPath" class="getStartedTerms">
+                    <div class="lineTerms">
+                        <v-checkbox
+                            v-model="isTermsAgree"
+                            @click="checkBoxConfirm"
+                            class="checkboxUserinfo"
+                            :ripple="false"
+                            name="checkBox"
+                            sel="check"
+                            off-icon="sbf-check-box-un"
+                            on-icon="sbf-check-box-done"
+                            id="checkBox"
+                        >
+                        </v-checkbox>
                         <label for="checkBox">
                             <span>
-                                <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_i_agree'"/>
-                                <a :href="isFrymo? 'https://help.frymo.com/en/article/terms': 'https://help.spitball.co/en/article/terms-of-service'" class="terms padding-helper" v-language:inner="'loginRegister_getstarted_terms_terms'"/>
-                                <span class="padding-helper" v-language:inner="'loginRegister_getstarted_terms_and'"/>
-                                <a :href="isFrymo? 'https://help.frymo.com/en/policies':'https://help.spitball.co/en/article/privacy-policy'" class="terms" v-language:inner="'loginRegister_getstarted_terms_privacy'"/>
+                                <span class="paddingHelper" v-language:inner="'loginRegister_getstarted_terms_i_agree'"></span>
+                                <a :href="isFrymo ? 'https://help.frymo.com/en/article/terms' : 'https://help.spitball.co/en/article/terms-of-service'" class="terms paddingHelper" v-language:inner="'loginRegister_getstarted_terms_terms'"></a>
+                                    <span class="paddingHelper" v-language:inner="'loginRegister_getstarted_terms_and'"></span>
+                                <a :href="isFrymo ? 'https://help.frymo.com/en/policies' : 'https://help.spitball.co/en/article/privacy-policy'" class="terms" v-language:inner="'loginRegister_getstarted_terms_privacy'"></a>
                             </span>
                         </label>
                     </div>
-                    <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"/>
+                    <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"></span>
                 </div>
                 
                 <v-btn 
@@ -31,43 +39,48 @@
                     large rounded
                     sel="gmail"
                     block
-                    class="google btn-login">
-                        <img src="./images/G icon@2x.png">
-                        <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
+                    class="google btn-login"
+                >
+                        <img src="./images/G icon@2x.png" />
+                        <span class="btnText" v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"></span>
                 </v-btn>
+
                 <span v-if="gmailError" class="errorMsg">{{gmailError}}</span>
 
-                <span class="hidden-xs-only or" hidden-xs-only v-language:inner="'loginRegister_getstarted_or'"/>
+                <span class="or d-none d-sm-flex" v-language:inner="'loginRegister_getstarted_or'"></span>
 
-                <v-btn @click="goWithEmail()" class="email"
-                    large text rounded block 
-                    sel="email">
+                <v-btn 
+                    @click="goWithEmail()"
+                    class="email"
+                    large
+                    text
+                    rounded
+                    block
+                    sel="email"
+                >
                     <img src="./images/np_email@2x.png">
-                    <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_email_signup':'loginRegister_getstarted_btn_email_signin'"/>
+                    <span class="btnText" v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_email_signup' : 'loginRegister_getstarted_btn_email_signin'"></span>
                 </v-btn>
-
             </div>
         </div>
-        <div class="getStarted-bottom">
-            <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_signin_text':'loginRegister_getstarted_signup_text'"/>
-             &nbsp;
+        <div class="getStartedBottom">
+            <span class="needAccount" v-language:inner="isRegisterPath ? 'loginRegister_getstarted_signin_text' : 'loginRegister_getstarted_signup_text'"></span>
+            &nbsp;
             <router-link
                 :to="{name: isRegisterPath ? 'login' : 'register'}" 
                 exact
                 class="link" 
-                v-language:inner="isRegisterPath ? 'loginRegister_getstarted_signin_link':'loginRegister_getstarted_signup_link'"
+                v-language:inner="isRegisterPath ? 'loginRegister_getstarted_signin_link' : 'loginRegister_getstarted_signup_link'"
             >
             </router-link>
         </div>
         
-    </v-layout>
+    </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import insightService from '../../../services/insightService';
-
-// let auth2;
 
 export default {
     data() {
@@ -100,20 +113,16 @@ export default {
                 if(!this.isTermsAgree){
                     this.showError = true;
                 } else  {
-                    this.updateStep('setEmailPassword')
                     this.$router.push({name: 'setEmailPassword'})
                 }
             } else {
-                this.updateStep('setEmail')
                 this.$router.push({name: 'setEmail'})
             }
-        },
-        redirectTo(toPath){
-            this.$router.push({path: `/${toPath}`});
         }
     },
     computed: {
         ...mapGetters(['getErrorMessages','isFrymo']),
+
         isError(){
             return !this.isTermsAgree && this.showError
         },
@@ -136,129 +145,112 @@ export default {
                 // });
             })
         });
-    },
+    }
 }
 </script>
 
 <style lang="less">
 @import '../../../styles/mixin.less';
 @import '../../../styles/colors.less';
+
 .getStartedContainer{
-    justify-content: center;
-    @media (max-width: @screen-xs) {
-        height: -webkit-fill-available;
-        justify-content: space-between;
-    }
-    .getStarted-actions{
-    .getStarted-top{
-        display: flex;
-        flex-direction: column;
-        padding-bottom: 64px;
-        @media (max-width: @screen-xs) {
-            margin-top: 42px;
-        }
-        p{
-            .responsive-property(font-size, 28px, null, 22px);
-            .responsive-property(line-height, 1.54, null, 1.95);
-            .responsive-property(letter-spacing, -0.51px, null, -0.4px);
-            margin: 0;
-            text-align: center;
-            color: @color-login-text-title;
-        }
-        span{
-            .responsive-property(font-size, 16px, null, 14px);
-            .responsive-property(padding-top,  8px, null, 0px);
-            letter-spacing: -0.42px;
-            text-align: center;
-            color: @color-login-text-subtitle;
-        }
-    }
-    .getStarted-form{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        .getStarted-terms{
-            margin-bottom: 34px;
-            display: flex;
-            align-items: inherit;
-            flex-direction: column;
-            .responsive-property(margin-bottom, 34px, null, 66px);
-                    .errorMsg{
-                        display: block; 
-                        font-weight: normal;
-                        color:red; 
-                        text-align: center;
-                        font-size: 14px;
-                        letter-spacing: -0.36px;
-                    }
-            .line-terms{
-                .checkbox-userinfo{
-                .v-input__slot{
-                    display: flex;
-                    align-items: unset;
-                    margin-bottom: 6px;
-                    .v-icon{
-                        color: @global-blue !important;
-                    }
-                    .v-messages{
-                        display: none;
-                    }
-                }
+    .getStartedActions{
+        .getStartedTop {
+            padding-bottom: 64px;
+            @media (max-width: @screen-xs) {
+                margin-top: 42px;
             }
+            .getStartedTitle {
+                .responsive-property(font-size, 28px, null, 22px);
+                .responsive-property(line-height, 1.54, null, 1.95);
+                color: @color-login-text-title;
+            }
+            .getStartedSubtitle {
+                .responsive-property(font-size, 16px, null, 14px);
+                .responsive-property(padding-top,  8px, null, 0px);
+                color: @color-login-text-subtitle;
+            }
+        }
+        .getStartedForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .getStartedTerms{
+                margin-bottom: 34px;
                 display: flex;
                 align-items: inherit;
-                input{
-                    padding-left: 12px;
-                    width: 25px;
-                    height: 25px;
-                }
-                span{
-                    &.padding-helper{
-                        padding-right: 2px;
+                flex-direction: column;
+                .responsive-property(margin-bottom, 34px, null, 66px);
+                        .errorMsg{
+                            display: block; 
+                            font-weight: normal;
+                            color:red; 
+                            text-align: center;
+                            font-size: 14px;
+                            letter-spacing: -0.36px;
+                        }
+                .lineTerms {
+                    display: flex;
+                    align-items: inherit;
+                    .checkboxUserinfo {
+                        .v-input__slot {
+                            display: flex;
+                            align-items: unset;
+                            margin-bottom: 6px;
+                            .v-icon{
+                                color: @global-blue !important;
+                            }
+                            .v-messages{
+                                display: none;
+                            }
+                        }
                     }
-                    padding: 0;
-                    color:#212121;
-                    .responsive-property(font-size, 13px, null, 12px);
-                    letter-spacing: -0.34px;
-                    line-height: 1.23;
-                    font-weight: initial;
-                    .terms{
-                    cursor: pointer;
-                    color: @global-blue; 
-                    letter-spacing: -0.28px;
-                    text-decoration: underline;
+                    input{
+                        padding-left: 12px;
+                        width: 25px;
+                        height: 25px;
+                    }
+                    span {
+                        padding: 0;
+                        color:#212121;
+                        .responsive-property(font-size, 13px, null, 12px);
+                        font-weight: initial;
+                        &.paddingHelper{
+                            padding-right: 2px;
+                        }
+                        .terms {
+                            color: @global-blue; 
+                            text-decoration: underline;
+                        }
                     }
                 }
             }
-        }
-        span{
-            &.or{
-                padding: 15px 0;
-            }
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: -0.36px;
-            text-align: center;
-            color: @color-login-text-subtitle;
-            &.errorMsg{
-                display: block; 
-                color:red; 
+            .or{
+                    padding: 15px 0;
+                }
+                font-size: 12px;
+                font-weight: bold;
+                letter-spacing: -0.36px;
                 text-align: center;
+                color: @color-login-text-subtitle;
+                &.errorMsg{
+                    display: block; 
+                    color:red; 
+                    text-align: center;
+                }
             }
-        }
-        button{
-            margin: 0;
-            text-transform: none !important;
-            .responsive-property(width, 100%, null, 72%);
-                &.google{
+            button{
+                margin: 0;
+                text-transform: none !important;
+                .responsive-property(width, 100%, null, 72%);
+                &.google {
+                    .responsive-property(margin-bottom, 0px, null, 20px);
+                    color: white;
                     img{
                         width: 48px;
                         height: 48px;  
                     }
-                    .responsive-property(margin-bottom, 0px, null, 20px);
-                    color: white;
-                    
-                    span{
+                    .btnText{
                         font-size: 16px;
                         color: white;
                         font-weight: 600;
@@ -270,46 +262,36 @@ export default {
                     .v-btn__content {
                         margin: 0;
                     }
-            }
-            &.email{
-                img{
-                    width: 32px;
-                    height: 32px;
                 }
-                color: @global-blue;
-                span{
-                    
-                    margin: 0 34px 0 13px;
+                &.email{
                     color: @global-blue;
-                    font-size: 16px;
-                    font-weight: normal;
-                }
-                background-color:white;
-                border: solid 1px #3751ff;
-                .v-btn__content {
-                    margin: 0;
+                    background-color:white;
+                    border: solid 1px #3751ff;
+                    img{
+                        width: 32px;
+                        height: 32px;
+                    }
+                    .btnText{
+                        margin: 0 34px 0 13px;
+                        color: @global-blue;
+                        font-size: 16px;
+                        font-weight: normal;
+                    }
+                    .v-btn__content {
+                        margin: 0;
+                    }
                 }
             }
-            
         }
-    }
-     }
-
-    .getStarted-bottom{
-        display: flex;
-        justify-content: center;
-        .responsive-property(margin-top, 48px, null, 10px);
-        .responsive-property(font-size, 16px, null, 14px);
-            .link{      
-                cursor: pointer;
-                letter-spacing: -0.37px;
-                color: @global-blue !important;
+        .getStartedBottom {
+            .responsive-property(margin, 48px auto, null, 10px auto);
+            .responsive-property(font-size, 16px, null, 14px);
+                .link{      
+                    color: @global-blue;
+                }
+            .needAccount {
+                color: @color-login-text-subtitle;
             }
-        span {
-            letter-spacing: -0.42px;
-            color: @color-login-text-subtitle;
         }
     }
- 
-}
 </style>
