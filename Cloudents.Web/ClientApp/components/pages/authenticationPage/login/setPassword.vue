@@ -86,10 +86,13 @@ export default {
 @import '../../../../styles/colors.less';
 
     .setPassword{
+        width: 400px;
         @media (max-width: @screen-xs) {
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: auto;
+            margin: 0 auto;
         }
         text-align: center;
         p {

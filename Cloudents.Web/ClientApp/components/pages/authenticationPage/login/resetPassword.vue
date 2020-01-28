@@ -99,13 +99,15 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 @import '../../../../styles/colors.less';
-    .resetPassword{
-                      @media (max-width: @screen-xs) {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-    text-align: center;
+    .resetPassword {
+        .responsive-property(width, 400px, null, auto);
+        @media (max-width: @screen-xs) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+        }
+        text-align: center;
         p {
         .responsive-property(font-size, 28px, null, 22px);
         .responsive-property(letter-spacing, -0.51px, null, -0.4px);
