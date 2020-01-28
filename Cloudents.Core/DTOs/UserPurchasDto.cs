@@ -29,6 +29,7 @@ namespace Cloudents.Core.DTOs
 
     public class PurchasedBuyPointsDto : UserPurchasDto
     {
+        public Guid Id { get; set; }
         public override ContentType Type => ContentType.BuyPoints;
     }
 }

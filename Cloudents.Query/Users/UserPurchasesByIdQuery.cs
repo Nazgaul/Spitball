@@ -70,6 +70,7 @@ namespace Cloudents.Query.Users
                     .Where(w => w.User.Id == query.Id)
                     .Select(s => new PurchasedBuyPointsDto()
                     { 
+                        Id = s.Id,
                         Price = s.Price,
                         Date = s.Created
                     }).ToFuture<UserPurchasDto>();

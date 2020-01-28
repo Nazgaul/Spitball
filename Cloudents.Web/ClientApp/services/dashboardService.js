@@ -10,6 +10,9 @@ function itemTypeChcker(type){
    if(type.toLowerCase() === 'tutoringsession'){
       return 'Session';
    }
+   if(type.toLowerCase() === 'buypoints'){
+      return 'BuyPoints';
+   }
    return console.error('type:',type,'is not defined');
 }
 
@@ -45,6 +48,10 @@ const Item = {
       this.id = objInit.id;
       this.conversationId = objInit.conversationId;
       this.lastSession = objInit.lastSession;
+   },
+   BuyPoints: function(objInit){
+      this.price = objInit.price;
+      this.image = require('../components/pages/dashboardPage/mySales/buyPointsLayout/image/cardBuyPoints.jpg');
    },
    User:function(objInit){
       this.name = objInit.name;

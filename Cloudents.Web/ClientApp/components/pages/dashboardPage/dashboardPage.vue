@@ -51,6 +51,7 @@ export default {
                'Document': LanguageService.getValueByKey('dashboardPage_document'),
                'Video': LanguageService.getValueByKey('dashboardPage_video'),
                'TutoringSession': LanguageService.getValueByKey('dashboardPage_tutor_session'),
+               'BuyPoints':'BuyPoints'
             },
             headers:{
                'preview': {text: '', align:'left', sortable: false, value:'preview'},
@@ -147,7 +148,7 @@ export default {
             price = Math.abs(price)
          }
          price = Math.round(+price).toLocaleString();
-         if(type === 'Document' || type === 'Video'){
+         if(type === 'Document' || type === 'Video' || type === 'BuyPoints'){
             return `${price} ${LanguageService.getValueByKey('dashboardPage_pts')}`
          }
          if(type === 'TutoringSession'){
