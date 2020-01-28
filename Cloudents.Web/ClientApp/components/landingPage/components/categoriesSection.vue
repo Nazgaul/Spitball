@@ -11,7 +11,7 @@
           :class="{'hidden-md-and-down': index+1 == categoriesCardsCarousel.length}"
           :style="{'backgroundImage': `url(${getImg(card.img)}`}"
         >
-          <span class="card-title">{{card.name}}</span>
+          <span class="card-title card-title-img">{{card.name}}</span>
         </router-link>
       </sbCarousel>
       <div v-else class="categories-chips">
@@ -158,6 +158,10 @@ export default {
         top: 8px;
         font-size: 14px;
         line-height: normal;
+        &.card-title-img{
+          font-size: 18px;
+          font-weight: 600;
+        }
       }
     }
     .categories-chips {
@@ -256,8 +260,9 @@ export default {
           position: absolute;
           left: 14px;
           top: 8px;
-          font-size: 14px;
           line-height: normal;
+          font-size: 18px;
+          font-weight: 600;
         }
       }
     }
