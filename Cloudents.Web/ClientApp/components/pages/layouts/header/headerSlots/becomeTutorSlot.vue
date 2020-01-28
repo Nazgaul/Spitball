@@ -1,7 +1,5 @@
 <template>
-   <div class="becomeTutorSlot">
-      Become a Tutor
-   </div>
+   <a target="_blank" href="https://teach.spitball.co/" class="becomeTutorSlot mr-3 mr-sm-7" v-language:inner="'profile_become_title'"/>
 </template>
 
 <script>
@@ -11,10 +9,11 @@ export default {
 </script>
 
 <style lang="less">
-.becomeTutorSlot{
-   cursor: pointer;
-   font-size: 22px;
-   color: #43425d;
-   font-weight: 600;
+a{
+   &.becomeTutorSlot{
+      font-size: 16px;
+      font-weight: 600;
+      color: #43425d;
+   }
 }
 </style>

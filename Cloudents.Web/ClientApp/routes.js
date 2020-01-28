@@ -53,9 +53,9 @@ let routes2 = [
             {
                 path: '',
                 component: lazyComponent('landingPage/pages/homePage'),
-                // meta: {
-                //     headerSlot:'becomeTutorSlot',
-                // }
+                meta:{
+                    headerSlot: (global.siteName === 'frymo')? '': 'becomeTutorSlot',
+                }
             },
             {
                 path: "/tutor-list/:course?",
