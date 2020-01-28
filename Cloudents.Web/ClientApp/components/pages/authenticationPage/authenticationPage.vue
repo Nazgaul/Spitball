@@ -1,6 +1,6 @@
 <template>
     <div class="authenticationPage">
-        <router-link class="back-button" :to="{query: {dialog: 'login'}}">
+        <router-link class="backButton" :to="{query: {dialog: 'login'}}">
             <close class="closeIcon" />
         </router-link>
 
@@ -30,51 +30,14 @@ const close = () => import('../../../font-icon/close.svg');
 
 export default {
   components:{ logo, close },
-  data() {
-    return {
-      from: ''
-    }
-  },
   computed: {
     ...mapGetters(['isFrymo']),
-  },
-  beforeRouteEnter (to, from, next) {
-    next((vm) => {
-        vm.from = from;
-    });
   },
   beforeDestroy(){
     storeService.unregisterModule(this.$store, 'loginRegister');
   },
   created() {
-    storeService.registerModule(this.$store, 'loginRegister', loginRegister);
-
-    // TODO: need to check if we need this code below
-
-    // global.onpopstate = () => {
-    //   this.goBackStep()
-    // }; 
-
-    // let path = this.$route.path.toLowerCase();
-
-    // this.$nextTick(() => {
-    //   this.updateToUrl({path: this.from.fullPath});
-    // })
-    
-    // if (!!this.$route.query.returnUrl) {
-    //   this.updateToUrl({ path: `${this.$route.query.returnUrl}`, query: { term: '' } })
-    // }
-
-    // if (path === '/resetpassword'){
-    //   this.updateStep('resetPassword')
-    // }
-    // if (this.$route.query && this.$route.query.step) {
-    //   if(this.$route.query.step === 'EnterPhone'){
-    //       this.updateStep('setPhone')
-    //   }else if (this.$route.query.step === 'VerifyPhone'){
-    //       this.updateStep('VerifyPhone')
-    //   }
-    // } 
+    storeService.registerModule(this.$store, 'loginRegister', loginRegister); 
   }
 }
 </script>
@@ -140,7 +103,7 @@ export default {
         }
       }
    }
-   .back-button {
+   .backButton {
     outline: none;
     position: absolute;
     top: 40px;
