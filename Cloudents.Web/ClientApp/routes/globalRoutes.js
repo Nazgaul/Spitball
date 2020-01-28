@@ -1,8 +1,13 @@
+import { lazyComponent } from "./routesUtils";
+import notFound from  "./../components/notFound.vue";
+
 export const globalRoutes = [
     {
         path:'*',
-        redirect : () => {
-            window.location = "/error/notfound?client=true";
-        }
+        component: notFound// lazyComponent("notFound")
+        // redirect : () => {
+        //     debugger;
+        //   //  window.location = "/error/notfound?client=true";
+        // }
     }
 ]

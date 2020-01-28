@@ -2,7 +2,7 @@ import {lazyComponent, staticComponents} from './routesUtils.js';
 
 export const registrationRoutes = [
     {
-        path: '/login/',
+        path: '/signin/',
         name: 'login',
         components: {
             default: lazyComponent('pages/authenticationPage/authenticationPage')
@@ -35,6 +35,7 @@ export const registrationRoutes = [
             },
         ],
         beforeEnter: (to, from, next) => {
+            //TODO why do we need this
             if(global.isAuth) {
                 next(false);
             } else {
@@ -155,6 +156,7 @@ export const registrationRoutes = [
         ],
         beforeEnter: (to, from, next) => {
             if(global.isAuth) {
+                //TODO why do we need this
                 next(false);
             } else {
                 next();
