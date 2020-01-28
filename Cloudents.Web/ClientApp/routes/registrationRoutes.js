@@ -2,8 +2,7 @@ import {lazyComponent, staticComponents} from './routesUtils.js';
 
 export const registrationRoutes = [
     {
-        path: '/signin/',
-       // name: 'login',
+        path: '/signin',
         components: {
             default: lazyComponent('pages/authenticationPage/authenticationPage')
         },
@@ -45,8 +44,7 @@ export const registrationRoutes = [
     },
 
     {
-        path: '/register/',
-       // name: 'register',
+        path: '/register',
         components: {
             default: lazyComponent('pages/authenticationPage/authenticationPage'),
         },
