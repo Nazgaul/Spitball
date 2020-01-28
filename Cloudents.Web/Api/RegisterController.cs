@@ -88,7 +88,7 @@ namespace Cloudents.Web.Api
             if (p.Succeeded)
             {
                 await GenerateEmailAsync(user, returnUrl, token);
-                return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
+                return new ReturnSignUserResponse(RegistrationStep.RegisterEmailConfirmed);
             }
             ModelState.AddIdentityModelError(p);
             return BadRequest(ModelState);
@@ -106,7 +106,8 @@ namespace Cloudents.Web.Api
                 if (isExternal)
                 {
                     await _signInManager.SignInAsync(user, false);
-                    return new ReturnSignUserResponse(false);
+                    return ReturnSignUserResponse.SignIn();
+                   // return new ReturnSignUserResponse(false);
                 }
 
                 throw new ArgumentException();
@@ -118,17 +119,17 @@ namespace Cloudents.Web.Api
                 var t2 = _client.SendSmsAsync(user, token);
 
                 await Task.WhenAll(t1, t2);
-                return new ReturnSignUserResponse(NextStep.VerifyPhone, true);
+                return new ReturnSignUserResponse(RegistrationStep.RegisterVerifyPhone);
             }
 
             if (user.EmailConfirmed)
             {
                 await _signInManager.TempSignIn(user);
-                return new ReturnSignUserResponse(NextStep.EnterPhone, true);
+                return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
             }
 
             await GenerateEmailAsync(user, returnUrl, token);
-            return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
+            return new ReturnSignUserResponse(RegistrationStep.RegisterEmailConfirmed);
         }
 
 
@@ -155,7 +156,8 @@ namespace Cloudents.Web.Api
             var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
             if (result2.Succeeded)
             {
-                return new ReturnSignUserResponse(false);
+                return ReturnSignUserResponse.SignIn();
+                //return new ReturnSignUserResponse(false);
             }
 
             if (result2.IsLockedOut)
