@@ -51,8 +51,8 @@
         <div class="getStarted-bottom">
             <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_signin_text':'loginRegister_getstarted_signup_text'"/>
              &nbsp;
-             <router-link
-                :to="isRegisterPath ? 'login' : 'register'" 
+            <router-link
+                :to="{name: isRegisterPath ? 'login' : 'register'}" 
                 exact
                 class="link" 
                 v-language:inner="isRegisterPath ? 'loginRegister_getstarted_signin_link':'loginRegister_getstarted_signup_link'"
@@ -70,7 +70,6 @@ import insightService from '../../../services/insightService';
 // let auth2;
 
 export default {
-    // name: 'getStarted',
     data() {
         return {
             isTermsAgree: false,
@@ -87,16 +86,14 @@ export default {
         },
         goWithGoogle(){
             if(this.isRegisterPath && !this.isTermsAgree){
-                
-                    this.showError = true;
-                    return;
+                this.showError = true;
+                return;
             }
-                    this.googleLoading = true;
-                    this.googleSigning().then(()=>{},err=>{
-                        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'signInWithGoogle', err);
-                        this.googleLoading = false
-                        })
-                    
+            this.googleLoading = true;
+            this.googleSigning().then(() => {}, err => {
+                insightService.track.event(insightService.EVENT_TYPES.ERROR, 'signInWithGoogle', err);
+                this.googleLoading = false
+            })
         },
         goWithEmail(){
             if(this.isRegisterPath){
@@ -124,7 +121,7 @@ export default {
             return this.getErrorMessages.gmail
         },
         isRegisterPath(){
-            return (this.$route.path === '/register')
+            return (this.$route.name === 'register')
         }
     },
     mounted() {
