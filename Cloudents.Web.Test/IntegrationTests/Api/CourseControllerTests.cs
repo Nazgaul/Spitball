@@ -143,7 +143,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
 
         [Fact]
-        public async Task GetSubjectAsync_Ok()
+        public async Task GetSubjectAsync_OkAsync()
         {
             var response = await _client.GetAsync("api/course/subject?course=31010-אנגלית רמה A למדעי הרוח");
             response.Should().NotBeNull();
