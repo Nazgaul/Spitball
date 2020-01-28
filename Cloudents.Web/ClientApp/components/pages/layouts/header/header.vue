@@ -17,7 +17,7 @@
                 <template v-if="!isMobile" >
                     <v-tooltip bottom>
                         <template v-slot:activator="{on}">
-                            <v-icon @click="startIntercom" v-on="on" v-if="!$vuetify.breakpoint.smAndDown" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" v-html="'sbf-help'"/>
+                            <helpIcon @click="startIntercom" v-on="on" v-if="!$vuetify.breakpoint.smAndDown" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" />
                         </template>
                         <span v-language:inner="'header_tooltip_help'"/>
                     </v-tooltip>
@@ -25,7 +25,7 @@
                     <v-tooltip bottom v-if="loggedIn">
                         <template v-slot:activator="{on}">
                             <div v-on="on" class="gH_i_r_chat">
-                                <v-icon class="gH_i_r_chat_i" @click="openChatWindow" v-html="'sbf-forum-icon'"/>
+                                <chatIcon class="gH_i_r_chat_i" @click="openChatWindow"/>
                                 <span @click="openChatWindow" class="unread_circle_nav" v-show="totalUnread > 0" :class="[totalUnread > 9 ? 'longer_nav' :'']">{{totalUnread}}</span>
                             </div>
                         </template>
@@ -52,13 +52,13 @@
                                     <span class="ur_greets" v-html="$Ph('header_greets', accountUser.name)"/>
                                     <div class="ur_balance">
                                         <span v-html="$Ph('header_balance', userBalance(accountUser.balance))"/>
-                                        <v-icon v-if="!isMobile" class="ur_balance_drawer ml-2" color="#43425d" v-html="'sbf-arrow-fill'"/>
+                                        <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ml-2"/>
                                     </div>
                                 </div>
                             </template>
                             <template>
                                 <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
-                                    <v-icon small v-html="'sbf-menu'"/>
+                                    <hamburgerIcon class="hamburgerIcon"/>
                                 </v-btn>
                             </template>
                         </div>
@@ -91,9 +91,13 @@ import menuList from '../menuList/menuList.vue';
 import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
 import findSVG from './images/findSVG.svg'
+import helpIcon from './images/helpIcon.svg';
+import chatIcon from './images/chatIcon.svg';
+import arrowDownIcon from './images/arrowDownIcon.svg';
+import hamburgerIcon from './images/hamburgerIcon.svg';
 
 export default {
-    components: {searchCMP,menuList,logoComponent,findSVG},
+    components: {searchCMP,menuList,logoComponent,findSVG,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
     data() {
         return {
             drawer: false,
@@ -388,8 +392,8 @@ export default {
             }
             .gH_i_r_intercom{
                 cursor: pointer;
-                color: #bdc0d1;
-                font-size: 22px;
+                fill: #bdc0d1;
+                width: 22px;
                 padding-top: 4px;
                 margin-right: 26px;
 
@@ -399,12 +403,14 @@ export default {
                 }
             }
             .gH_i_r_chat{
+                cursor: pointer;
                 position: relative;
                 margin-right: 26px;
                 .gH_i_r_chat_i{
-                    color: #bdc0d1;
-                    font-size: 22px;
+                    fill: #bdc0d1;
+                    width: 22px;
                     padding-top: 8px;
+                    vertical-align: bottom;
                 }
                 .unread_circle_nav{
                     position: absolute;
@@ -432,6 +438,9 @@ export default {
                     }
                 }
             }
+            .hamburgerIcon{
+                fill: rgba(0, 0, 0, 0.54)
+            }
             .gh_i_r_userInfo{
                 margin-left: 12px;
                 color: #43425d;
@@ -452,9 +461,8 @@ export default {
                         top: 50px !important;
                     }
                     .ur_balance_drawer{
-                        font-size: 6px;
-                        vertical-align: baseline;
                         cursor: pointer;
+                        width: 11px;
                     }
                 }
             }
