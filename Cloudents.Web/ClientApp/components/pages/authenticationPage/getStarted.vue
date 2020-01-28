@@ -24,14 +24,16 @@
                     <span v-if="isError" class="errorMsg" v-language:inner="'login_please_agree'"/>
                 </div>
                 
-                <v-btn @click="goWithGoogle()" depressed
-                    :loading="googleLoading" 
+                <v-btn 
+                    @click="goWithGoogle()"
+                    depressed
+                    :loading="googleLoading"
                     large rounded
                     sel="gmail"
                     block
                     class="google btn-login">
-                    <img src="./images/G icon@2x.png">
-                    <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
+                        <img src="./images/G icon@2x.png">
+                        <span v-language:inner="isRegisterPath? 'loginRegister_getstarted_btn_google_signup':'loginRegister_getstarted_btn_google_signin'"/>
                 </v-btn>
                 <span v-if="gmailError" class="errorMsg">{{gmailError}}</span>
 
