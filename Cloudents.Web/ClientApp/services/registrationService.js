@@ -5,14 +5,14 @@ const authInstance = axios.create({
     baseURL: '/api',
 });
 
-axios.interceptors.request.use((config) => {
+authInstance.interceptors.request.use((config) => {
     store.commit('setGlobalLoading', true);
     return config;
 }, (error) => {
     return Promise.reject(error);
 });
 
-axios.interceptors.response.use((config) => {
+authInstance.interceptors.response.use((config) => {
     store.commit('setGlobalLoading', false);
     return config;
 }, (error) => {
