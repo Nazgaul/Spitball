@@ -61,7 +61,7 @@ export const registrationRoutes = [
             },
             {
                 path: 'email-confirmed',
-                name: 'EmailConfirmed',
+                name: 'emailConfirmed',
                 component: lazyComponent('pages/authenticationPage/register/emailConfirmed/EmailConfirmed')
             },
             {
@@ -71,7 +71,7 @@ export const registrationRoutes = [
             },
             {
                 path: 'verify-phone',
-                name: 'VerifyPhone',
+                name: 'verifyPhone',
                 component: lazyComponent('pages/authenticationPage/register/verifyPhone/VerifyPhone')
             },
             {
