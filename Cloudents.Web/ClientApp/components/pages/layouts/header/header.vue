@@ -76,9 +76,9 @@
             </div>
         </template>
     </v-app-bar>
-            <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
-                             fixed app v-if="$vuetify.breakpoint.xsOnly" class="drawerIndex"
-                             width="280">
+        <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
+                        fixed app v-if="$vuetify.breakpoint.xsOnly" class="drawerIndex"
+                        width="280">
             <menuList @closeMenu="closeDrawer"/>
         </v-navigation-drawer>
     </div>
@@ -94,14 +94,15 @@ import menuList from '../menuList/menuList.vue';
 import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
 import findSVG from './images/findSVG.svg'
-const phoneNumberSlot = () => import('./headerSlots/phoneNumberSlot.vue');
-// const becomeTutorSlot = () => import('./headerSlots/becomeTutorSlot.vue');
 import helpIcon from './images/helpIcon.svg';
 import chatIcon from './images/chatIcon.svg';
 import arrowDownIcon from './images/arrowDownIcon.svg';
 import hamburgerIcon from './images/hamburgerIcon.svg';
+const phoneNumberSlot = () => import('./headerSlots/phoneNumberSlot.vue');
+const becomeTutorSlot = () => import('./headerSlots/becomeTutorSlot.vue');
+
 export default {
-components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
+components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTutorSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
     data() {
         return {
             drawer: false,
