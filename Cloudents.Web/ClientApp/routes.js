@@ -52,7 +52,10 @@ let routes2 = [
         children:[
             {
                 path: '',
-                component: lazyComponent('landingPage/pages/homePage')
+                component: lazyComponent('landingPage/pages/homePage'),
+                // meta: {
+                //     headerSlot:'becomeTutorSlot',
+                // }
             },
             {
                 path: "/tutor-list/:course?",
@@ -61,7 +64,8 @@ let routes2 = [
                     default: lazyComponent('tutorLandingPage/tutorLandingPage')
                 },
                 meta: {
-                    showMobileFooter: true, 
+                    showMobileFooter: true,
+                    headerSlot: (global.country == 'US')? '':'phoneNumberSlot',
                 }
             }
             
