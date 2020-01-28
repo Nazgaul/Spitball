@@ -25,9 +25,9 @@ namespace Cloudents.Web.Controllers
         internal const string Signin = "SignIn";
 
         // GET
-        [Route("register", Name = RegisterRouteName)]
-        [Route("signin", Name = Signin)]
-        public async Task<IActionResult> Index(NextStep? step, CancellationToken token)
+        [Route("register/{**page}", Name = RegisterRouteName)]
+        [Route("signin/{**page}", Name = Signin)]
+        public async Task<IActionResult> IndexAsync(string page, NextStep? step, CancellationToken token)
         {
 
 
@@ -36,7 +36,7 @@ namespace Cloudents.Web.Controllers
                 return Redirect("/");
             }
 
-            if (!step.HasValue) return View();
+            if (!step.HasValue) return View("Index");
             switch (step.Value)
             {
                 case NextStep.EmailConfirmed:
@@ -71,7 +71,7 @@ namespace Cloudents.Web.Controllers
 
                     break;
             }
-            return View();
+            return View("Index");
         }
     }
 }

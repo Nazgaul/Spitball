@@ -2,15 +2,15 @@ import {lazyComponent, staticComponents} from './routesUtils.js';
 
 export const registrationRoutes = [
     {
-        path: '/login/',
-        name: 'login',
+        path: '/signin/',
+       // name: 'login',
         components: {
             default: lazyComponent('pages/authenticationPage/authenticationPage')
         },
         children: [
             {
                 path: '',
-                name: 'getStarted',
+                name: 'login',
                 component: lazyComponent('pages/authenticationPage/getStarted')
             },
             {
@@ -35,6 +35,7 @@ export const registrationRoutes = [
             },
         ],
         beforeEnter: (to, from, next) => {
+            //TODO why do we need this
             if(global.isAuth) {
                 next(false);
             } else {
@@ -45,14 +46,14 @@ export const registrationRoutes = [
 
     {
         path: '/register/',
-        name: 'register',
+       // name: 'register',
         components: {
             default: lazyComponent('pages/authenticationPage/authenticationPage'),
         },
         children: [
             {
                 path: '',
-                name: 'getStarted',
+                name: 'register',
                 component: lazyComponent('pages/authenticationPage/getStarted')
             },
             {
@@ -155,6 +156,7 @@ export const registrationRoutes = [
         ],
         beforeEnter: (to, from, next) => {
             if(global.isAuth) {
+                //TODO why do we need this
                 next(false);
             } else {
                 next();
