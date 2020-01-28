@@ -71,17 +71,17 @@
                     <starSVG/>
                     <span class="pUb_t_ts_list_span pUb_t_ts_list_span_review" @click="isMobile? scrollToReviews():''" v-text="tutorStateRate(currentProfileTutor)"/>
                 </div>
-                <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.documents}]">
+                <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.contentCount}]">
                     <resxSVG/>
-                    <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.documents,'profile_resourses','profile_resourse'),currentProfileTutor.documents)"/>
+                    <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.contentCount,'profile_resourses','profile_resourse'),currentProfileTutor.contentCount)"/>
                 </div>
                 <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.lessons}]">
                     <clockSVG/>
                     <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.lessons,'profile_sessions','profile_session'),currentProfileTutor.lessons)"/>
                 </div>
-                <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileUser.followers}]">
+                <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.students}]">
                     <studensSVG/>
-                    <span class="pUb_t_ts_list_span ml-1" v-text="$Ph(dynamicDictionay(currentProfileUser.followers,'profile_students','profile_student'),currentProfileUser.followers)"/>
+                    <span class="pUb_t_ts_list_span ml-1" v-text="$Ph(dynamicDictionay(currentProfileTutor.students,'profile_students','profile_student'),currentProfileTutor.students)"/>
                 </div>
             </v-flex>
         </div>
