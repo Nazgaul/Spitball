@@ -98,9 +98,10 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(ReadTutor.Lessons))]
         public int Lessons { get; set; }
 
-        public int Documents { get; set; }
+        public int ContentCount { get; set; }
+        public int Students { get; set; }
 
-       // public int ResponseTime { get; set; }
+        // public int ResponseTime { get; set; }
 
     }
 

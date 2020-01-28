@@ -1,11 +1,11 @@
 ﻿<template>
   <v-app>
-      <router-view name="banner"></router-view>
-      <router-view name="header"></router-view>
-      <router-view v-if="showSideMenu" name="sideMenu"></router-view>
+    <router-view name="banner"></router-view>
+    <router-view name="header"></router-view>
+    <router-view v-if="showSideMenu" name="sideMenu"></router-view>
 
       <v-content class="site-content" :class="{'loading':getIsLoading}">
-        <chat></chat>
+        <chat v-if="visible"/>
 
         <router-view name="verticals"></router-view>
         <router-view class="main-container"></router-view>
@@ -199,7 +199,8 @@ export default {
       "getRequestTutorDialog",
       "getShowPaymeDialog",
       "isFrymo",
-      "getShowSchoolBlock"
+      "getShowSchoolBlock",
+      "getIsChatVisible",
     ]),
     showSideMenu() {
       if (this.$vuetify.breakpoint.xsOnly) {
@@ -224,7 +225,14 @@ export default {
     },
     showMobileFooter() {
       return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage';
-    }
+    },
+    visible() {
+      if (this.accountUser === null) {
+        return false;
+      } else {
+        return this.getIsChatVisible;
+      }
+    },
   },
   updated: function() {
     this.$nextTick(function() {
@@ -283,6 +291,16 @@ export default {
       this.$nextTick(() => {
         this.fireOptimizeActivate();
       });
+    },
+    visible: function(val) {
+      if (!this.isMobile) {
+        return;
+      }
+      if (val) {
+        document.body.classList.add("noscroll");
+      } else {
+        document.body.classList.remove("noscroll");
+      }
     }
   },
   methods: {

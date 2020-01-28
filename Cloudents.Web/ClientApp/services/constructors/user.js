@@ -16,12 +16,13 @@ export const User = {
         return Object.assign(
             new User.TutorDefault(objInit),
             {
-                documents: objInit.documents,
+                contentCount: objInit.contentCount,
                 hasCoupon: objInit.hasCoupon,
                 rate: objInit.rate || 0,
                 reviewCount: objInit.reviewCount || 0,
                 firstName: objInit.firstName || '',
                 lastName: objInit.lastName || '',
+                students: objInit.students || 0,
             }
         )
 
