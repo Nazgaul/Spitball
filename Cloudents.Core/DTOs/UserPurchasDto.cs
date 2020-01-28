@@ -26,4 +26,9 @@ namespace Cloudents.Core.DTOs
         public long TutorId { get; set; }
         public override ContentType Type => ContentType.TutoringSession;
     }
+
+    public class PurchasedBuyPointsDto : UserPurchasDto
+    {
+        public override ContentType Type => ContentType.BuyPoints;
+    }
 }

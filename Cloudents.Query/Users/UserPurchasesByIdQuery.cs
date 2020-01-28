@@ -65,11 +65,20 @@ namespace Cloudents.Query.Users
                         TutorImage = _urlBuilder.BuildUserImageEndpoint(s.StudyRoom.Tutor.Id, s.StudyRoom.Tutor.User.ImageName, s.StudyRoom.Tutor.User.Name, null)
                     }).ToFuture<UserPurchasDto>();
 
+                var buyPointsFuture = _session.Query<BuyPointsTransaction>()
+                    .Fetch(s => s.User)
+                    .Where(w => w.User.Id == query.Id)
+                    .Select(s => new PurchasedBuyPointsDto()
+                    { 
+                        Price = s.Price,
+                        Date = s.Created
+                    }).ToFuture<UserPurchasDto>();
 
                 IEnumerable<UserPurchasDto> documentResult = await documentFuture.GetEnumerableAsync(token);
                 IEnumerable<UserPurchasDto> sessionResult = await sessionFuture.GetEnumerableAsync(token);
+                IEnumerable<UserPurchasDto> buyPointsResult = await buyPointsFuture.GetEnumerableAsync(token);
 
-                return documentResult.Union(sessionResult).OrderByDescending(o => o.Date);
+                return documentResult.Union(sessionResult).Union(buyPointsResult).OrderByDescending(o => o.Date);
             }
         }
     }
