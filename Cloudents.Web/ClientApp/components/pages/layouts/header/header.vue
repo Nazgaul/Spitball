@@ -10,6 +10,9 @@
             </div>
             <v-spacer v-else></v-spacer>
             <div class="globalHeader_items_right">
+                <div v-if="$route.meta.headerSlot">
+                    <component :is="$route.meta.headerSlot"/>
+                </div>
                 <router-link v-show="!isMobile && shouldShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
                     <findSVG/>
                     <span v-language:inner="'header_find_tutors'"/>
@@ -91,9 +94,11 @@ import menuList from '../menuList/menuList.vue';
 import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
 import findSVG from './images/findSVG.svg'
+const phoneNumberSlot = () => import('./headerSlots/phoneNumberSlot.vue');
+// const becomeTutorSlot = () => import('./headerSlots/becomeTutorSlot.vue');
 
 export default {
-    components: {searchCMP,menuList,logoComponent,findSVG},
+    components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot},
     data() {
         return {
             drawer: false,
