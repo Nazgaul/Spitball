@@ -11,22 +11,27 @@ export const registrationRoutes = [
             {
                 path: '',
                 name: 'getStarted',
-                component: lazyComponent('loginPageNEW/components/getStarted')
+                component: lazyComponent('pages/authenticationPage/getStarted')
             },
             {
                 path: 'set-email',
                 name: 'setEmail',
-                component: lazyComponent('loginPageNEW/components/setEmail')
+                component: lazyComponent('pages/authenticationPage/login/setEmail')
             },
             {
                 path: 'set-password',
                 name: 'setPassword',
-                component: lazyComponent('loginPageNEW/components/setPassword')
+                component: lazyComponent('pages/authenticationPage/login/setPassword')
             },
             {
                 path: 'forgot-password',
                 name: 'forgotPassword',
-                component: lazyComponent('loginPageNEW/components/forgotPass')
+                component: lazyComponent('pages/authenticationPage/login/forgotPass')
+            },
+            {
+                path: 'reset-password',
+                name: 'resetPassword',
+                component: lazyComponent('pages/authenticationPage/login/resetPassword')
             },
         ],
         beforeEnter: (to, from, next) => {
@@ -48,27 +53,27 @@ export const registrationRoutes = [
             {
                 path: '',
                 name: 'getStarted',
-                component: lazyComponent('loginPageNEW/components/getStarted')
+                component: lazyComponent('pages/authenticationPage/getStarted')
             },
             {
                 path: 'personal-details',
                 name: 'setEmailPassword',
-                component: lazyComponent('loginPageNEW/components/setEmailPassword')
+                component: lazyComponent('pages/authenticationPage/register/setEmailPassword/setEmailPassword')
             },
             {
                 path: 'email-confirmed',
                 name: 'EmailConfirmed',
-                component: lazyComponent('loginPageNEW/components/EmailConfirmed')
+                component: lazyComponent('pages/authenticationPage/register/emailConfirmed/EmailConfirmed')
             },
             {
                 path: 'set-phone',
                 name: 'setPhone',
-                component: lazyComponent('loginPageNEW/components/setPhone')
+                component: lazyComponent('pages/authenticationPage/register/setPhone/setPhone')
             },
             {
                 path: 'verify-phone',
                 name: 'VerifyPhone',
-                component: lazyComponent('loginPageNEW/components/VerifyPhone')
+                component: lazyComponent('pages/authenticationPage/register/verifyPhone/VerifyPhone')
             },
             {
                 path: 'register-type',

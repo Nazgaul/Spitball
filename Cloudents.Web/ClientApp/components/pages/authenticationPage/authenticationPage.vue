@@ -1,7 +1,10 @@
 <template>
    <div class="authenticationPage">
         <button class="back-button">
-            <v-icon right @click="updateDialog(true)">sbf-close</v-icon>
+            <!-- <v-icon right @click="updateDialog(true)">sbf-close</v-icon> -->
+            <router-link :to="{query: {dialog: 'login'}}">
+              <v-icon right>sbf-close</v-icon>
+            </router-link>
         </button>
 
         <div class="leftSection d-none d-sm-none d-md-none d-lg-flex" :class="{'reg_frymo': isFrymo}">

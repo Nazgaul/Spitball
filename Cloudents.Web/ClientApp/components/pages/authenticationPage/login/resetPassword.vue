@@ -31,10 +31,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import SbInput from "../../question/helpers/sbInput/sbInput.vue";
+import SbInput from "../../../question/helpers/sbInput/sbInput.vue";
 
 export default {
-    // name: 'resetPassword',
+    name: 'resetPassword',
     components:{
         SbInput
     },
@@ -97,8 +97,8 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../styles/mixin.less';
-@import '../../../styles/colors.less';
+@import '../../../../styles/mixin.less';
+@import '../../../../styles/colors.less';
     .resetPassword{
                       @media (max-width: @screen-xs) {
         display: flex;

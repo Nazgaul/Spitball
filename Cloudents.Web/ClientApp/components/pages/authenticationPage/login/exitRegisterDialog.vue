@@ -1,17 +1,30 @@
 <template>
-  <v-dialog :value="true" max-width="480px" :fullscreen="$vuetify.breakpoint.xsOnly">
+  <v-dialog :value="true" max-width="480px" :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
     <div class="exitRegisterDialog">
         <div class="text-wrap">
             <div class="dialog-title" v-language:inner="'login_are_you_sure_you_want_to_exit'"/>
             <div class="dialog-text" v-language:inner="'login_exiting_information1'"/>
         </div>
         <div class="btns-wrap">
-            <v-btn class="dialog-btn white--text" height="40" rounded depressed color="#4c59ff" v-language:inner="'login_Exit'"></v-btn>
-            <v-btn class="dialog-btn btn-cancel" color="white" height="40" rounded depressed>text</v-btn>
+            <v-btn @click="exit" class="dialog-btn white--text" height="40" rounded depressed color="#4c59ff" v-language:inner="'login_Exit'"></v-btn>
+            <v-btn @click="closeDialog" class="dialog-btn btn-cancel" color="white" height="40" rounded depressed v-language:inner="'login_text'"></v-btn>
         </div>
     </div>
    </v-dialog>
 </template>
+
+<script>
+import dialogMixin from '../../../../mixins/dialogMixin'
+
+export default {
+  mixins: [dialogMixin],
+  methods: {
+    exit() {
+      this.$router.push({name: 'feed'})
+    }
+  }
+}
+</script>
 
 <style lang="less">
 @import '../../../../styles/mixin.less';

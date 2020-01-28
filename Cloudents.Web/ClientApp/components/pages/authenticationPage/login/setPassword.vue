@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import SbInput from "../../question/helpers/sbInput/sbInput.vue";
+import SbInput from "../../../question/helpers/sbInput/sbInput.vue";
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
@@ -82,8 +82,8 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../../styles/mixin.less';
-@import '../../../styles/colors.less';
+@import '../../../../styles/mixin.less';
+@import '../../../../styles/colors.less';
 
     .setPassword{
         @media (max-width: @screen-xs) {

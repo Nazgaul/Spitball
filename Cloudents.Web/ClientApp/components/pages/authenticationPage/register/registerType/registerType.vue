@@ -52,14 +52,14 @@
 </template>
 
 <script>
-const studentIcon = () => import('../images/student.svg');
-const parentIcon = () => import('../images/parent.svg');
-const teacherIcon = () => import('../images/teacher.svg');
-const collegeIcon = () => import('../images/college.svg');
-const highSchoolIcon = () => import('../images/highSchool.svg');
+const studentIcon = () => import('../../images/student.svg');
+const parentIcon = () => import('../../images/parent.svg');
+const teacherIcon = () => import('../../images/teacher.svg');
+const collegeIcon = () => import('../../images/college.svg');
+const highSchoolIcon = () => import('../../images/highSchool.svg');
 
 export default {
-    name: '',
+    // name: '',
     components: {
         studentIcon,
         parentIcon,

@@ -14,9 +14,6 @@
 
 <script>
 
-export default {
-    // name: 'registerStudentCollege',
-}
 </script>
 
 <style lang="less">

@@ -1,6 +1,6 @@
 // GLOBALS:
 import {router} from '../main.js';
-import codesJson from '../components/loginPageNEW/helpers/CountryCallingCodes';
+import codesJson from '../components/pages/authenticationPage/CountryCallingCodes';
 const defaultSubmitRoute = {path: '/feed'};
 
 const Fingerprint2 = require('fingerprintjs2');
