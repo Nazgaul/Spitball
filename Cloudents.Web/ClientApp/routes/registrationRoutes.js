@@ -3,14 +3,14 @@ import {lazyComponent, staticComponents} from './routesUtils.js';
 export const registrationRoutes = [
     {
         path: '/signin/',
-        name: 'login',
+       // name: 'login',
         components: {
             default: lazyComponent('pages/authenticationPage/authenticationPage')
         },
         children: [
             {
                 path: '',
-                name: 'getStarted',
+                name: 'login',
                 component: lazyComponent('pages/authenticationPage/getStarted')
             },
             {
@@ -46,14 +46,14 @@ export const registrationRoutes = [
 
     {
         path: '/register/',
-        name: 'register',
+       // name: 'register',
         components: {
             default: lazyComponent('pages/authenticationPage/authenticationPage'),
         },
         children: [
             {
                 path: '',
-                name: 'getStarted',
+                name: 'register',
                 component: lazyComponent('pages/authenticationPage/getStarted')
             },
             {
