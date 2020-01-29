@@ -80,7 +80,7 @@ export default {
             'getSearchLoading',
             'Feeds_getNextPageUrl'
         ]),
-        ...mapGetters({universityImage: 'getUniversityImage', university: 'getUniversity', items:'Feeds_getItems'}),
+        ...mapGetters({university: 'getUniversity', items:'Feeds_getItems'}),
 
         filterCondition() {
             return this.filterSelection.length || (this.filterObject && this.page);
