@@ -1,5 +1,7 @@
 import {lazyComponent, staticComponents} from './routesUtils.js';
+import * as routename from "./RouteName.js";
 
+//const RegiserEmailConfirmed = 'emailConfirmed';
 export const registrationRoutes = [
     {
         path: '/signin',
@@ -61,7 +63,7 @@ export const registrationRoutes = [
             },
             {
                 path: 'email-confirmed',
-                name: 'emailConfirmed',
+                name: routename.RegiserEmailConfirmed,
                 component: lazyComponent('pages/authenticationPage/register/emailConfirmed/EmailConfirmed')
             },
             {

@@ -23,6 +23,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { RegiserEmailConfirmed }from '../../../../../routes/RouteName'
 
 export default {
     // name: 'EmailConfirmed',
@@ -32,7 +33,8 @@ export default {
             return this.getEmail1
         },
         isRegisterPath(){
-            return (this.$route.matched[0].name === 'register')
+            debugger
+            return (this.$route.name === RegiserEmailConfirmed)
         }
     },
     methods: {

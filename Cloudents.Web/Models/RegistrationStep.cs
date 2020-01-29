@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using Cloudents.Core;
-using Cloudents.Core.Attributes;
 using Newtonsoft.Json;
 
 namespace Cloudents.Web.Models
@@ -26,7 +24,8 @@ namespace Cloudents.Web.Models
         [JsonProperty("name")]
         public string RouteName { get; }
 
-        private string RoutePath { get; }
+        [JsonIgnore]
+        public string RoutePath { get; }
 
 
         private RegistrationStep(string routeName, string routePath)
@@ -44,10 +43,10 @@ namespace Cloudents.Web.Models
 
 
 
-        public override string ToString()
-        {
-            return RouteName;
-        }
+        //public override string ToString()
+        //{
+        //    return RouteName;
+        //}
 
 
         public static RegistrationStep GetStepByUrl(string step)

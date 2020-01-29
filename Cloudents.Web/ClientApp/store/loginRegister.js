@@ -1,7 +1,7 @@
 // GLOBALS:
 import { router } from '../main.js';
 import codesJson from '../components/pages/authenticationPage/CountryCallingCodes';
-const defaultSubmitRoute = { path: '/feed' };
+const defaultSubmitRoute = { path: '/feed' }; //TODO change to name
 
 const Fingerprint2 = require('fingerprintjs2');
 
@@ -228,13 +228,13 @@ const actions = {
                 let nextStep = data.step.name;
                 console.log('nextStep - ', nextStep);
                 
-                if(nextStep.toLowerCase() === "verifyphone" || nextStep.toLowerCase() === "enterphone"){
-                    // dispatch('updateStep','setPhone');
-                    dispatch('updateRouterStep', 'setPhone')
-                }else{
+                // if(nextStep.toLowerCase() === "verifyphone" || nextStep.toLowerCase() === "enterphone"){
+                //     // dispatch('updateStep','setPhone');
+                //     dispatch('updateRouterStep', 'setPhone')
+                // }else{
                     // dispatch('updateStep',nextStep);
                     dispatch('updateRouterStep', nextStep)
-                }
+                //}
                 _analytics(['Registration', 'Start']);
                 // updateRouterStep(nextStep) 
             },  (error) => {

@@ -40,7 +40,7 @@ namespace Cloudents.Web.Controllers
             }
             model.Code = System.Net.WebUtility.UrlDecode(model.Code);
             var user = await _userManager.FindByIdAsync(model.Id.ToString());
-            if (user == null)
+            if (user is null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{model.Id}'.");
             }
@@ -61,7 +61,7 @@ namespace Cloudents.Web.Controllers
                     new
                     {
                         //There was an extra step in here
-                        step = RegistrationStep.RegisterSetEmailPassword
+                        page = RegistrationStep.RegisterSetEmailPassword
                     });
             }
 
@@ -75,12 +75,13 @@ namespace Cloudents.Web.Controllers
         private async Task<RedirectToRouteResult> GoToStepAsync(User user, RegistrationStep step, string returnUrl)
         {
             await _signInManager.TempSignIn(user);
-            return RedirectToRoute(RegisterController.RegisterRouteName,
+            var v =  RedirectToRoute(RegisterController.RegisterRouteName,
                 new
                 {
-                    path = step.RouteName,
+                    page = step.RoutePath,
                     returnUrl = Url.IsLocalUrl(returnUrl) ? returnUrl : null
                 });
+            return v;
         }
     }
 }

@@ -26,10 +26,15 @@ namespace Cloudents.Web.Controllers
         internal const string Signin = "SignIn";
 
         // GET
+        
         [Route("register/{page?}", Name = RegisterRouteName)]
         [Route("signin/{page?}", Name = Signin)]
+
+
         public async Task<IActionResult> IndexAsync(string page, /*NextStep? step,*/ CancellationToken token)
         {
+
+
             if (User.Identity.IsAuthenticated)
             {
                 return Redirect("/feed");
@@ -49,7 +54,7 @@ namespace Cloudents.Web.Controllers
                 var val = TempData.Peek(Api.RegisterController.Email);
                 if (val is null)
                 {
-                    return RedirectToRoute(RegisterRouteName);
+                    return RedirectToRouteWithoutStep();
                 }
             }
 
@@ -58,7 +63,7 @@ namespace Cloudents.Web.Controllers
                 var userVerified = await _signInManager.GetTwoFactorAuthenticationUserAsync();
                 if (userVerified is null)
                 {
-                    return RedirectToRoute(RegisterRouteName);
+                    return RedirectToRouteWithoutStep();
                 }
             }
 
@@ -67,7 +72,7 @@ namespace Cloudents.Web.Controllers
                 var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
                 if (user is null)
                 {
-                    return RedirectToRoute(RegisterRouteName);
+                    return RedirectToRouteWithoutStep();
                 }
 
                 if (user.PhoneNumber != null && !user.PhoneNumberConfirmed)
@@ -75,12 +80,20 @@ namespace Cloudents.Web.Controllers
                     await _client.SendSmsAsync(user, token);
                     return RedirectToRoute(RegisterRouteName, new
                     {
-                        page = RegistrationStep.RegisterVerifyPhone.RouteName
+                        page = RegistrationStep.RegisterVerifyPhone.RoutePath
                     });
                 }
             }
 
             return View("Index");
+        }
+
+        private IActionResult RedirectToRouteWithoutStep()
+        {
+            return RedirectToRoute(RegisterRouteName, new
+            {
+                page = (string) null
+            });
         }
     }
 }
