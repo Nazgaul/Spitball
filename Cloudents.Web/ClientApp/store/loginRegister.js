@@ -1,7 +1,7 @@
 // GLOBALS:
 import { router } from '../main.js';
 import codesJson from '../components/pages/authenticationPage/CountryCallingCodes';
-const defaultSubmitRoute = { path: '/feed' }; //TODO change to name
+const defaultSubmitRoute = { name: 'feed' };
 
 const Fingerprint2 = require('fingerprintjs2');
 
@@ -205,9 +205,9 @@ const actions = {
                 } else {
                     _analytics(['Login', 'Start Google']);
                     global.isAuth = true;
-                    let lastRoute = !!state.toUrl.path ? state.toUrl.path : defaultSubmitRoute.path;
-                    router.push({path: `${lastRoute}`});
-                    // dispatch('updateRouterStep', ) //TODO: need to check what i get
+                    // let lastRoute = !!state.toUrl.path ? state.toUrl.path : defaultSubmitRoute.name;
+                    // router.push({path: `${lastRoute}`});
+                    dispatch('updateRouterStep', 'feed')
                 }
                 return Promise.reject();
             }, (error) => {
@@ -329,11 +329,10 @@ const actions = {
                 commit('setErrorMessages',{email: error.response.data["Email"] ? error.response.data["Email"][0] : ''});
             });
     },
-    logIn({commit,state},password) {
+    logIn({dispatch, commit, state}, password) {
         let data = {
             email: state.email,
             password: password,
-            //fingerprint: ""
         };
 
         Fingerprint2.getPromise({})
@@ -346,8 +345,17 @@ const actions = {
                         _analytics(['Login', 'Start']);
                         global.isAuth = true;
                         global.country = response.data.country;
-                        let url = !!state.toUrl.path ? state.toUrl : defaultSubmitRoute;
-                        router.push({ path: `${url.path}` });
+
+                        if(global.country) {
+                            dispatch('updateRouterStep', 'feed');
+                        } else {
+                            //TODO: what error resource should i need here??
+                            dispatch('updateToasterParams', {
+                                toasterText: LanguageService.getValueByKey("loginRegister_country_error"),
+                                showToaster: true,
+                                toasterType: 'error-toaster'
+                            });
+                        }
                     },error =>{
                         commit('setErrorMessages',{email: error.response.data["Password"] ? error.response.data["Password"][0] : ''});
                     });
@@ -358,7 +366,7 @@ const actions = {
             .then(() =>{
                 _analytics(['Forgot Password', 'Reset email send']);
                 // dispatch('updateStep','EmailConfirmed');
-                dispatch('updateRouterStep', 'EmailConfirmed');
+                dispatch('updateRouterStep', 'emailConfirmed');
             },error =>{
                 commit('setErrorMessages',{email: error.response.data["ForgotPassword"] ? error.response.data["ForgotPassword"][0] : error.response.data["Email"][0]});
             });
