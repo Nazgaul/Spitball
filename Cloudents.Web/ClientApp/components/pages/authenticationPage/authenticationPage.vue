@@ -61,7 +61,7 @@ export default {
 
 .authenticationPage{
     display: flex; 
-    background-color: #ffffff;
+    background-color: #ffffff !important; //main-container class overide color in general page
     height: 100%;
     .leftSection{
       width: 508px;
@@ -100,7 +100,7 @@ export default {
       padding-top: 12px; // global for all inputs in authenticate pages
     }
     .stepContainer {
-      width: 400px; // global width for all components
+      width: 500px; // global width for all components
       max-width: 500px;
       height: 100%;
       @media (max-width: @screen-xs) {
