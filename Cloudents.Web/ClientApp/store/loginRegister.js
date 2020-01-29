@@ -167,8 +167,9 @@ const actions = {
     updateRouterStep(context, name) {
         router.push({name: name});
     },
-    resetState({commit}){
+    resetState({commit, dispatch}){
         commit('setResetState');
+        dispatch('updateRouterStep', 'register')
     },
     updateRegisterType(context, regType) {
         return registrationService.updateUserRegisterType({ userType: regType })
@@ -229,7 +230,8 @@ const actions = {
             .then(({data}) => {
                 let nextStep = data.step.name;
                 _analytics(['Registration', 'Start']);
-                dispatch('updateRouterStep', nextStep)
+                dispatch('updateRouterStep', 'registerEmailConfirmed')
+                // dispatch('updateRouterStep', nextStep)
             },  (error) => {
                 commit('setErrorMessages',{
                     email: error.response.data["Email"] ? error.response.data["Email"][0] : '',
