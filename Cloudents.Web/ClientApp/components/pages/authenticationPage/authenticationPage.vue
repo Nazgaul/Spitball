@@ -30,14 +30,27 @@ const close = () => import('../../../font-icon/close.svg');
 
 export default {
   components:{ logo, close },
+  data: () => ({
+    from: ''
+  }),
   computed: {
     ...mapGetters(['isFrymo']),
+  },
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+        vm.from = from;
+    });
   },
   beforeDestroy(){
     storeService.unregisterModule(this.$store, 'loginRegister');
   },
   created() {
-    storeService.registerModule(this.$store, 'loginRegister', loginRegister); 
+    storeService.registerModule(this.$store, 'loginRegister', loginRegister);
+
+    this.$nextTick(() => {
+      this.$store.dispatch('updateToUrl', this.from.path);
+    })
+    
   }
 }
 </script>

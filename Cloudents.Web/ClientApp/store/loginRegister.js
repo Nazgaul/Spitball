@@ -94,8 +94,8 @@ const mutations = {
         let lastStep = state.stepsHistory.pop();
         state.currentStep = lastStep;
     },
-    setStepHistory(state) {
-        state.stepsHistory.push(state.currentStep);
+    setStepHistory(state, step) {
+        state.stepsHistory.push(step);
     },
     setResetStepHistory(state) {
         state.stepsHistory = [];
@@ -174,6 +174,9 @@ const actions = {
     updateRegisterType(context, regType) {
         return registrationService.updateUserRegisterType({ userType: regType })
     },
+    updateHistoryStep({commit}, stepName) {
+        commit('setStepHistory', stepName);
+    },
     // updateStep({commit,state},stepName){
     //     let specialSteps = ["setphone", "verifyphone", "resetpassword"];
 
@@ -202,14 +205,13 @@ const actions = {
                 let newUser = resp.data.isNew;
                 if (newUser) {
                     _analytics(['Registration', 'Start Google']);
-                    // dispatch('updateStep','setPhone');
+                    dispatch('updateHistoryStep', 'setPhone');
                     dispatch('updateRouterStep', 'setPhone')
                 } else {
                     _analytics(['Login', 'Start Google']);
                     global.isAuth = true;
-                    // let lastRoute = !!state.toUrl.path ? state.toUrl.path : defaultSubmitRoute.name;
-                    // router.push({path: `${lastRoute}`});
-                    dispatch('updateRouterStep', 'feed')
+
+                    state.toUrl ? router.push(state.toUrl) : dispatch('updateRouterStep', 'feed');
                 }
                 return Promise.reject();
             }, (error) => {
@@ -228,7 +230,6 @@ const actions = {
         return registrationService.emailRegistration(emailRegObj)
             .then(({data}) => {
                 let nextStep = data.step.name;
-                console.log('nextStep - ', nextStep);
                 
                 // if(nextStep.toLowerCase() === "verifyphone" || nextStep.toLowerCase() === "enterphone"){
                 //     // dispatch('updateStep','setPhone');
@@ -343,13 +344,13 @@ const actions = {
                 let murmur = Fingerprint2.x64hash128(values.join(''), 31);
                 data.fingerprint = murmur;
                 registrationService.signIn(data)
-                    .then(response =>{
+                    .then(response => {
                         _analytics(['Login', 'Start']);
                         global.isAuth = true;
                         global.country = response.data.country;
-
+                        
                         if(global.country) {
-                            dispatch('updateRouterStep', 'feed');
+                            state.toUrl ? router.push(state.toUrl) : dispatch('updateRouterStep', 'feed');
                         } else {
                             //TODO: what error resource should i need here??
                             dispatch('updateToasterParams', {
