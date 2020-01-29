@@ -25,9 +25,24 @@
 </template>
 
 <script>
+import { LanguageService } from '../../../../../services/language/languageService';
+
 export default {
     data: () => ({
-        items: [1, 2, 3, 4],
+        items: [
+            LanguageService.getValueByKey('register_grade1'),
+            LanguageService.getValueByKey('register_grade2'),
+            LanguageService.getValueByKey('register_grade3'),
+            LanguageService.getValueByKey('register_grade4'),
+            LanguageService.getValueByKey('register_grade5'),
+            LanguageService.getValueByKey('register_grade6'),
+            LanguageService.getValueByKey('register_grade7'),
+            LanguageService.getValueByKey('register_grade8'),
+            LanguageService.getValueByKey('register_grade9'),
+            LanguageService.getValueByKey('register_grade10'),
+            LanguageService.getValueByKey('register_grade11'),
+            LanguageService.getValueByKey('register_grade12')
+        ],
         showGradeError: false
     }),
     computed: {
