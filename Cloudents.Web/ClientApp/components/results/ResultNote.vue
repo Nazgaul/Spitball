@@ -389,7 +389,6 @@ export default {
   },
   methods: {
     ...mapMutations({
-      updateLoading: "UPDATE_LOADING",
       updateSearchLoading: "UPDATE_SEARCH_LOADING"
     }),
     ...mapActions([

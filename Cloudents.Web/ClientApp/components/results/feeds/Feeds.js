@@ -59,10 +59,8 @@ export default {
     },
     //use basic sort and filter functionality( same for book details and result page)
     mixins: [sortAndFilterMixin],
-    //When route has been updated(query,filter,vertical) 1-%%%
-    beforeRouteUpdate(to, from, next) {
-        this.updatePageData(to, from, next);
-    },
+
+
 
     computed: {
         ...mapGetters([
@@ -260,6 +258,16 @@ export default {
             console.error(reason);
             this.UPDATE_SEARCH_LOADING(false);
         });
-    }
+    },
 
+
+
+
+
+
+
+    // INFO:  #1 When route has been updated(query,filter,course)
+    beforeRouteUpdate(to, from, next) {
+        this.updatePageData(to, from, next);
+    },
 };

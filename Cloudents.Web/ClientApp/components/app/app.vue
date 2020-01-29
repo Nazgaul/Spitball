@@ -2,12 +2,12 @@
   <v-app>
     <router-view name="banner"></router-view>
     <router-view name="header"></router-view>
-    <router-view v-if="showSideMenu" name="sideMenu"></router-view>
-
-      <v-content class="site-content" :class="{'loading':getIsLoading}">
+    <router-view name="sideMenu" v-if="showSideMenu"></router-view>
+    <v-content class="site-content">
         <chat v-if="visible"/>
-
+        <!-- TODO remove -->
         <router-view name="verticals"></router-view>
+        <!-- TODO remove -->
         <router-view class="main-container"></router-view>
       
         <div class="s-cookie-container" v-if="!cookiesShow">
@@ -170,7 +170,6 @@ export default {
   computed: {
     ...mapGetters([
       "getReferralDialog",
-      "getIsLoading",
       "accountUser",
       "loginDialogState",
       "newQuestionDialogSate",

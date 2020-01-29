@@ -61,17 +61,6 @@ export default {
       this.$router.push(route).catch(() => {
         this.UPDATE_LOADING(false);
       });
-      // this.UPDATE_SEARCH_LOADING(true);
-      // this.UPDATE_LOADING(true);
-      // if(this.search){
-      //     this.$router.push({ name: "feed", query: { term: this.search } })
-      //     .catch(() => {
-      //       this.UPDATE_LOADING(false);
-      //     }); // the catch is for prevent navigation duplicate
-      //   }
-      // else  {
-      //     this.$router.push({ name: "feed"});  
-      // }
       this.$nextTick(() => {
         setTimeout(()=>{
             this.UPDATE_SEARCH_LOADING(false);
