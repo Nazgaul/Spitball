@@ -206,13 +206,13 @@ namespace Cloudents.Web.Identity
 
         public Task SetTwoFactorEnabledAsync(User user, bool enabled, CancellationToken cancellationToken)
         {
-            user.TwoFactorEnabled = enabled;
+            //user.TwoFactorEnabled = enabled;
             return Task.CompletedTask;
         }
 
         public Task<bool> GetTwoFactorEnabledAsync(User user, CancellationToken cancellationToken)
         {
-            return Task.FromResult(user.TwoFactorEnabled);
+            return Task.FromResult(true);
         }
 
         public Task SetAuthenticatorKeyAsync(User user, string key, CancellationToken cancellationToken)
