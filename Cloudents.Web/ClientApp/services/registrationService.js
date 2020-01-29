@@ -16,6 +16,7 @@ authInstance.interceptors.response.use((config) => {
     store.commit('setGlobalLoading', false);
     return config;
 }, (error) => {
+    store.commit('setGlobalLoading', false);
     return Promise.reject(error);
 });
 
