@@ -19,8 +19,6 @@
         },
         data() {
             return {
-
-                faqList: null,
                 suggestList,
                 showDialogLogin: false
             }

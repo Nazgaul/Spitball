@@ -1,4 +1,4 @@
-// import { skeletonData } from '../components/results/consts';
+
 import searchService from "../services/searchService";
 import reportService from "../services/cardActionService";
 
@@ -6,17 +6,14 @@ const state = {
     queItems: [],
     items: {},
     dataLoaded: false,
-    tutors: [],
 };
 
 const getters = {
     Feeds_getItems: (state, {getIsLoading, getSearchLoading}) => {
         return (getIsLoading || getSearchLoading) ? state.dataLoaded : state.items.data;
     },
-    Feeds_getTutors: (state) => state.tutors,
     Feeds_getNextPageUrl: (state) =>  state.items.nextPage,
     Feeds_getShowQuestionToaster: (state) => !!state.queItems ? state.queItems.length > 0 : false,
-    Feeds_isDataLoaded: (state) => state.dataLoaded,
 };
 
 const mutations = {
@@ -29,9 +26,6 @@ const mutations = {
     Feeds_UpdateItems(state, data) {
         state.items.data = state.items.data.concat(data.data);
         state.items.nextPage = data.nextPage;
-    },
-    Feeds_UpdateTutors(state, data) {
-        state.tutors = data;
     },
     Feeds_ResetQue(state) {
         state.queItems = [];
@@ -93,16 +87,6 @@ const actions = {
     },
     Feeds_fetchingData({state, commit, dispatch}, {name, params, page}) {
         dispatch('Feeds_updateDataLoaded', false);
-        // let verticalItems = state.items;
-        // let skip = (!!verticalItems && !!verticalItems.data && verticalItems.data.length > 0) ? skipLoad : false;
-        // if ((!!verticalItems && !!verticalItems.data && (verticalItems.data.length > 0 && verticalItems.data.length < 150) && !getters.getSearchLoading) || skip) {
-        //     if (state.queItems.length) {
-        //         commit('Feeds_injectQuestion')
-        //     }
-        //     update(verticalItems);
-        //     return verticalItems;
-        // } else {
-            
         commit('Feeds_ResetQue');
 
         let paramsList = {...state.search, ...params, page};
@@ -115,8 +99,6 @@ const actions = {
         }, (err) => {
             return Promise.reject(err);
         });
-
-        // }
         function update(data) {
             let sortData = !!data.sort ? data.sort : null;
             let filtersData = !!data.filters ? searchService.createFilters(data.filters) : null;
@@ -125,14 +107,6 @@ const actions = {
             dispatch('Feeds_updateDataLoaded', true);
         }
     },
-    // Feeds_getTutors({ commit }, courseName) {
-    //     searchService.activateFunction.tutor().then(res => {
-    //         console.log(res);
-    //         commit('Feeds_UpdateTutors', res.data);
-    //     }).catch(ex => {
-    //         return [];
-    //     })
-    // },
     addQuestionItemAction({commit, getters}, notificationQuestionObject) {
         let questionToSend = {
             user: getters.accountUser,
@@ -141,7 +115,6 @@ const actions = {
         commit('Feeds_AddQuestion', questionToSend);
     },
     removeQuestionItemAction({commit, state}, notificationQuestionObject) {
-        // let questionObj = searchService.createQuestionItem(notificationQuestionObject);
         if (!!state.items && !!state.items.data && state.items.data.length > 0) {
             for (let questionIndex = 0; questionIndex < state.items.data.length; questionIndex++) {
                 let currentQuestion = state.items.data[questionIndex];

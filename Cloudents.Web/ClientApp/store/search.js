@@ -1,5 +1,4 @@
 ﻿import { SEARCH } from "./mutation-types";
-import { skeletonData } from '../components/results/consts';
 import searchService from "./../services/searchService";
 
 const state = {
@@ -21,11 +20,6 @@ const state = {
         //note: [],
         tutor: []
     },
-    itemsSkeletonPerVertical: {
-        //ask: skeletonData.ask,
-        //note: skeletonData.note,
-        tutor: skeletonData.tutor
-    }
 };
 
 const mutations = {
