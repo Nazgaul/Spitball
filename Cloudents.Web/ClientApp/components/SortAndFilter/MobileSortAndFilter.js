@@ -23,7 +23,7 @@ export default {
         sortVal: {}
     },
     computed:{
-        ...mapGetters(['getFilters', 'getSort']),
+        ...mapGetters(['getSort']),
         filterList(){
             return this.filterOptions.filterChunkList;
         }

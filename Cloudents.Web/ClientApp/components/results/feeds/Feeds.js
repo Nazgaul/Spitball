@@ -59,14 +59,6 @@ export default {
     },
     //use basic sort and filter functionality( same for book details and result page)
     mixins: [sortAndFilterMixin],
-    //when trying to go back to '/'
-    beforeRouteLeave(to, from, next) {
-        if (to.name && to.name === 'home') {
-            //clear filters boxes
-            this.cleanData();
-        }
-        next();
-    },
     //When route has been updated(query,filter,vertical) 1-%%%
     beforeRouteUpdate(to, from, next) {
         this.updatePageData(to, from, next);
@@ -77,7 +69,6 @@ export default {
             'getFilters', 
             'accountUser', 
             'Feeds_getShowQuestionToaster', 
-            'getSearchLoading',
             'Feeds_getNextPageUrl'
         ]),
         ...mapGetters({university: 'getUniversity', items:'Feeds_getItems'}),
@@ -132,10 +123,7 @@ export default {
         },
         userText() {
             return this.query.term;
-        },
-        showSkelaton() {
-            return this.getSearchLoading || this.loading || this.isLoad;
-        },
+        },  
         showAdBlock() {
             return global.country === 'IL';
         }
@@ -144,7 +132,6 @@ export default {
         ...mapActions([
             'Feeds_fetchingData',
             'setFilteredCourses',
-            'cleanData',
             'updateLoginDialogState',
             'updateNewQuestionDialogState',
             'Feeds_nextPage',
@@ -152,7 +139,7 @@ export default {
             'updateRequestDialog',
             'setTutorRequestAnalyticsOpenedFrom'
         ]),
-        ...mapMutations(["UPDATE_SEARCH_LOADING", "Feeds_injectQuestion"]),
+        ...mapMutations(["UPDATE_SEARCH_LOADING", "Feeds_injectQuestion",'UPDATE_LOADING']),
 
         loadNewQuestions(){
             this.Feeds_injectQuestion();
@@ -216,14 +203,6 @@ export default {
                 this.scrollBehaviour.isComplete = false;
             });
         },
-        reloadContentOfPage(){
-            let noop = function (){};
-            let to = this.$route;
-            let from = this.$route;
-            this.UPDATE_SEARCH_LOADING(true);
-            this.UPDATE_LOADING(true);
-            this.updateContentOfPage(to, from, noop);
-        },
         //Function for update the filter object(when term or vertical change)
         $_updateFilterObject() {
             this.filterObject = this.getFilters;
@@ -240,21 +219,6 @@ export default {
             if (!isFilterUpdate) {
                 this.$_updateFilterObject();
             }
-        },
-        //removes filter from selected filter
-        $_removeFilter({filterId:value, filterType:key}) {
-            this.UPDATE_SEARCH_LOADING(true);
-            let updatedList = this.query[key];
-            updatedList = [].concat(updatedList).filter(i => i.toString() !== value.toString());
-            if(key === 'course'){
-                this.setFilteredCourses(updatedList)
-            }
-            this.$router.push({path: this.name, query: {...this.query, [key]: updatedList}});
-        },
-
-        //The presentation functionality for the selected filter(course=>take course name,known list=>take the terms from the const name,else=>the given name)
-        $_showSelectedFilter({value}) {
-            return value;
         },
 
         openRequestTutor() {

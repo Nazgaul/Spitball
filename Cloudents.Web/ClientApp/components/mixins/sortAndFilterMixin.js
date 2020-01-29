@@ -8,7 +8,6 @@ export default {
     data() {
         return {
             filter: '',
-            filtersDefault: {}
         };
     },
     components: {SortAndFilter: sortAndFilter, MobileSortAndFilter: mobileSortAndFilter},
@@ -30,7 +29,6 @@ export default {
         sort() {
             return this.query.sort;
         },
-
         filterSelection() {
             /**
              * return {

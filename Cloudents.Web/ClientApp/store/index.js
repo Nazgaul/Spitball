@@ -36,7 +36,6 @@ const store = new Vuex.Store({
     modules: {
         Search,
         User,
-        // LuisData,
         Account,
         Question,
         Toaster,

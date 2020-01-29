@@ -59,7 +59,6 @@
             ...mapActions([
                               "updateLoginDialogState",
                               'updateDialogState',
-                              'changeSelectPopUpUniState',
                               'setReturnToUpload'
                           ]),
             ...mapGetters(['getSchoolName', 'getAllSteps']),

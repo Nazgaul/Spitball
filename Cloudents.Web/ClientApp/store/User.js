@@ -3,9 +3,6 @@ import { USER } from './mutation-types'
 import {LanguageService} from '../services/language/languageService';
 
 const state = {
-    user: {
-        location: null,
-    },
     cookieAccepted: global.localStorage.getItem("sb-acceptedCookies") === 'true',
     filters: "",
     sort: "",
