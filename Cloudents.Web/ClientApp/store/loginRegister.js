@@ -200,9 +200,8 @@ const actions = {
 
         return authInstance.signIn().then((googleUser) => {
             let idToken = googleUser.getAuthResponse().id_token;
-            return registrationService.googleRegistration(idToken).then((resp) => {
-                let newUser = resp.data.isNew;
-                if (newUser) {
+            return registrationService.googleRegistration(idToken).then(({data}) => {
+                if (!data.isSignedIn) {
                     _analytics(['Registration', 'Start Google']);
                     dispatch('updateHistoryStep', 'setPhone');
                     dispatch('updateRouterStep', 'setPhone')
@@ -381,7 +380,7 @@ const actions = {
             registrationService.updatePassword(password, confirmPassword, id, code) //TODO: send object instead
                 .then(() => {
                     global.isAuth = true;
-                    
+
                     _analytics(['Forgot Password', 'Updated password']);
                     dispatch('updateRouterStep', 'feed')
                 }, (error) => {
