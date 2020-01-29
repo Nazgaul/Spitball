@@ -18,11 +18,11 @@
                 <v-expansion-panel-content class="pt-4">
                     <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" :to="{name: 'registerCourse'}" @click="sendRegisterType('HighSchool', {name: 'registerCourse'})">
                         <span><collegeIcon /></span>
-                        <span class="flex-grow-1 text-center white--text">A High school Student</span>
+                        <span class="flex-grow-1 text-center white--text" v-language:inner="'loginRegister_highSchool'"></span>
                     </v-btn>
                     <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" :to="{name: 'registerUniversity'}" @click="sendRegisterType('University', {name: 'registerUniversity'})">
                         <span><highSchoolIcon /></span>
-                        <span class="flex-grow-1 text-center white--text">A College Student</span>
+                        <span class="flex-grow-1 text-center white--text" v-language:inner="'loginRegister_college'"></span>
                     </v-btn>
                 </v-expansion-panel-content>
             </v-expansion-panel>
