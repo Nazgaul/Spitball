@@ -224,7 +224,7 @@ const actions = {
         commit('setGlobalLoading', true);
         return registrationService.emailRegistration(emailRegObj)
             .then((resp) => {
-                let nextStep = resp.data.step;
+                let nextStep = resp.data.step.name;
                 if (nextStep.toLowerCase() === "verifyphone" || nextStep.toLowerCase() === "enterphone") {
                     dispatch('updateStep', 'setPhone');
                     router.push({ name: 'setPhone' })

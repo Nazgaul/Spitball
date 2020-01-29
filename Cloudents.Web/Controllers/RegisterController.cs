@@ -26,8 +26,8 @@ namespace Cloudents.Web.Controllers
         internal const string Signin = "SignIn";
 
         // GET
-        [Route("register/{**page}", Name = RegisterRouteName)]
-        [Route("signin/{**page}", Name = Signin)]
+        [Route("register/{page?}", Name = RegisterRouteName)]
+        [Route("signin/{page?}", Name = Signin)]
         public async Task<IActionResult> IndexAsync(string page, /*NextStep? step,*/ CancellationToken token)
         {
             if (User.Identity.IsAuthenticated)
@@ -37,10 +37,10 @@ namespace Cloudents.Web.Controllers
 
 
 
-            var step = RegistrationStep.GetByStep(page);
+            var step = RegistrationStep.GetStepByUrl(page);
             if (step is null)
             {
-                return Redirect("/");
+                return View("Index");
 
             }
 

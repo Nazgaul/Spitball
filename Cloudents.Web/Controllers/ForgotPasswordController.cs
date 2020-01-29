@@ -16,7 +16,7 @@ namespace Cloudents.Web.Controllers
         }
 
         // GET
-        [Route("reset-password", Name = "ResetPassword")]
+        [Route("signin/reset-password", Name = "ResetPassword")]
         public async Task<IActionResult> IndexAsync(long id, string code)
         {
             if (User.Identity.IsAuthenticated)

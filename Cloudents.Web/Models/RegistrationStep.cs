@@ -26,17 +26,21 @@ namespace Cloudents.Web.Models
         [JsonProperty("name")]
         public string RouteName { get; }
 
+        private string RoutePath { get; }
 
-        private RegistrationStep(string routeName)
+
+        private RegistrationStep(string routeName, string routePath)
         {
             RouteName = routeName;
+            RoutePath = routePath;
         }
 
-        public static readonly RegistrationStep LoginSetPassword = new RegistrationStep("setPassword");
-        public static readonly RegistrationStep RegisterSetEmailPassword = new RegistrationStep("setEmailPassword");
-        public static readonly RegistrationStep RegisterEmailConfirmed = new RegistrationStep("emailConfirmed");
-        public static readonly RegistrationStep RegisterVerifyPhone = new RegistrationStep("verifyPhone");
-        public static readonly RegistrationStep RegisterSetPhone = new RegistrationStep("setPhone");
+        public static readonly RegistrationStep LoginSetPassword = new RegistrationStep("setPassword", "set-password");
+        public static readonly RegistrationStep RegisterSetEmailPassword = new RegistrationStep("setEmailPassword", "personal-details");
+        public static readonly RegistrationStep RegisterEmailConfirmed = new RegistrationStep("emailConfirmed", "email-confirmed");
+        public static readonly RegistrationStep RegisterVerifyPhone = new RegistrationStep("verifyPhone", "verify-phone");
+        public static readonly RegistrationStep RegisterSetPhone = new RegistrationStep("setPhone", "set-phone");
+
 
 
 
@@ -46,7 +50,7 @@ namespace Cloudents.Web.Models
         }
 
 
-        public static RegistrationStep GetByStep(string step)
+        public static RegistrationStep GetStepByUrl(string step)
         {
             if (string.IsNullOrEmpty(step))
             {
@@ -56,7 +60,7 @@ namespace Cloudents.Web.Models
             return typeof(RegistrationStep).GetFields(BindingFlags.Public | BindingFlags.Static)
                             .Where(w => !w.IsLiteral)
                             .Select(s => (RegistrationStep)s.GetValue(null))
-                            .FirstOrDefault(f => f.ToString().Equals(step, StringComparison.OrdinalIgnoreCase));
+                            .FirstOrDefault(f => f.RoutePath.Equals(step, StringComparison.OrdinalIgnoreCase));
 
 
         }
