@@ -117,46 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="are_you_sure_you_want_to_exit" xml:space="preserve">
-    <value>Are you sure you want to exit?</value>
+  <data name="parent_subtitle" xml:space="preserve">
+    <value>Fill in details about the child so we can best fit a teacher. Do not worry we will not use the data in any other form</value>
   </data>
-  <data name="continue" xml:space="preserve">
-    <value>Continue</value>
+  <data name="school_subtitle" xml:space="preserve">
+    <value>Let's get started</value>
   </data>
-  <data name="continue_registration" xml:space="preserve">
-    <value>Continue with registration</value>
-  </data>
-  <data name="email_sent" xml:space="preserve">
-    <value>An email sent, check your email.</value>
-  </data>
-  <data name="Exit" xml:space="preserve">
-    <value>Exit</value>
-  </data>
-  <data name="exiting_information1" xml:space="preserve">
-    <value>Exiting from this process will delete all your progress and information</value>
-  </data>
-  <data name="password_indication_strong" xml:space="preserve">
-    <value>Strong</value>
-  </data>
-  <data name="password_indication_strongest" xml:space="preserve">
-    <value>Strongest</value>
-  </data>
-  <data name="password_indication_weak" xml:space="preserve">
-    <value>Weak</value>
-  </data>
-  <data name="please_agree" xml:space="preserve">
-    <value>To register you must check the box above</value>
-  </data>
-  <data name="verification_code_sent_to_phone" xml:space="preserve">
-    <value>A verification code was sent to your phone</value>
-  </data>
-  <data name="call_code" xml:space="preserve">
-    <value>You wil get a call shortly</value>
-  </data>
-  <data name="error_not_matched" xml:space="preserve">
-    <value>Passwords must match</value>
-  </data>
-  <data name="text" xml:space="preserve">
-    <value>Cancel</value>
+  <data name="university_title" xml:space="preserve">
+    <value>Choose your school</value>
   </data>
 </root>

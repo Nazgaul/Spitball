@@ -216,8 +216,14 @@
   <data name="getstarted_title_login" xml:space="preserve">
     <value>ברוכים השבים. התחברו בבקשה</value>
   </data>
+  <data name="know_better" xml:space="preserve">
+    <value>We would like to know you better</value>
+  </data>
   <data name="main_txt" xml:space="preserve">
     <value>להצליח במבחנים בעזרת מיטב הסיכומים והמורים הפרטיים</value>
+  </data>
+  <data name="parent" xml:space="preserve">
+    <value>Parent</value>
   </data>
   <data name="resetpass_btn" xml:space="preserve">
     <value>המשך</value>
@@ -308,5 +314,14 @@
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
     <value>הכנסת קוד כניסה</value>
+  </data>
+  <data name="student" xml:space="preserve">
+    <value>Student</value>
+  </data>
+  <data name="teacher" xml:space="preserve">
+    <value>Teacher</value>
+  </data>
+  <data name="welcome" xml:space="preserve">
+    <value>Welcome to Spitball</value>
   </data>
 </root>
