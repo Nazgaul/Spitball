@@ -27,7 +27,11 @@ html {
   background-color: #2196f3 !important;
   border-color: #2196f3 !important;
 }
-
+ //we have an issue with fieldset on vuetify on rtl - this solve the issue
+html[dir="rtl"] fieldset+.v-text-field__slot > label  {
+  /*rtl:ignore */
+  left :inherit !important ;
+}
 
 
 

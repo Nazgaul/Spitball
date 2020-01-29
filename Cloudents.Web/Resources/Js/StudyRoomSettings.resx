@@ -127,7 +127,7 @@
     <value>Speaker:</value>
   </data>
   <data name="audio_select_label" xml:space="preserve">
-    <value>Select Audio</value>
+    <value>Select Audio:</value>
   </data>
   <data name="audio_stop_sound" xml:space="preserve">
     <value>Stop Sound</value>
