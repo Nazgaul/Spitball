@@ -3,6 +3,8 @@
     <p class="setemailpass_title" v-language:inner="'loginRegister_setemailpass_title'"></p>
     <form @submit.prevent="submit" class="form">
       <div>
+        <!-- autocomplete because chrome address -->
+        <!-- placeholder for the legend -->
         <v-layout wrap class="widther">
           <v-flex xs12 sm6 class="mb-3 pr-sm-2">
             <v-text-field
@@ -15,6 +17,7 @@
               :label="labels['fname']"
               :error-messages="firstNameError"
               placeholder=" "
+              autocomplete="nope"
               type="text">
             </v-text-field>
           </v-flex>
@@ -30,6 +33,7 @@
               :label="labels['lname']"
               :error-messages="lastNameError"
               placeholder=" "
+              autocomplete="nope"
               type="text">
             </v-text-field>
           </v-flex>
