@@ -367,4 +367,19 @@ tutors</value>
   <data name="setemailpass_last" xml:space="preserve">
     <value>Enter Last Name</value>
   </data>
+  <data name="know_better" xml:space="preserve">
+    <value>We would like to know you better</value>
+  </data>
+  <data name="parent" xml:space="preserve">
+    <value>Parent</value>
+  </data>
+  <data name="student" xml:space="preserve">
+    <value>Student</value>
+  </data>
+  <data name="teacher" xml:space="preserve">
+    <value>Teacher</value>
+  </data>
+  <data name="welcome" xml:space="preserve">
+    <value>Welcome to Spitball</value>
+  </data>
 </root>
