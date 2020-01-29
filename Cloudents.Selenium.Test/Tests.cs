@@ -28,6 +28,9 @@ namespace Cloudents.Selenium.Test
             }
 
             var applicationPath = Path.Combine(directoryName, "Cloudents.Web");
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("--headless");
+            options.AcceptInsecureCertificates = true;
 
 
              _process = new Process
@@ -45,11 +48,11 @@ namespace Cloudents.Selenium.Test
             //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             Drivers = new IWebDriver[]
             {
-                new ChromeDriver(Directory.GetCurrentDirectory(),
-                    new ChromeOptions()
+                new ChromeDriver(Directory.GetCurrentDirectory(),options
+                    /*new ChromeOptions()
                     {
                         AcceptInsecureCertificates = true
-                    },TimeSpan.FromMinutes(20)),
+                    },TimeSpan.FromMinutes(20)*/),
                 //new FirefoxDriver(Directory.GetCurrentDirectory(), new FirefoxOptions()
                 //{
                 //    PageLoadStrategy = PageLoadStrategy.None,

@@ -45,13 +45,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import userAvatar from '../../../helpers/UserAvatar/userAvatar.vue';
 import chatIcon from './images/chatIcon_mobile.svg';
 import calendarIcon from './images/calendarIcon_mobile.svg';
 
 export default {
    components:{
-      userAvatar,calendarIcon,chatIcon
+      calendarIcon,chatIcon
    },
    props:{
       globalFunctions:{

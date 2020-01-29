@@ -139,7 +139,7 @@
     <value>Minimum number of characters is</value>
   </data>
   <data name="phone" xml:space="preserve">
-    <value>Phone Number must be valid</value>
+    <value>Enter valid phone number</value>
   </data>
   <data name="positive_only" xml:space="preserve">
     <value>Minimum value is</value>

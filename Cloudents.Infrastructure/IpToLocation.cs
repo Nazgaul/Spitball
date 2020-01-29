@@ -3,6 +3,7 @@ using Cloudents.Core.Attributes;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Query;
+using Cloudents.Query.General;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System;

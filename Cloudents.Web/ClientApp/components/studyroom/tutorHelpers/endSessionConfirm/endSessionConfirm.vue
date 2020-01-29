@@ -27,12 +27,11 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
-    import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
     import stopIcon from '../../images/stop-icon.svg';
     import tutorService from "../../tutorService";
     export default {
         name: "endSessionConfirm",
-        components: {userAvatar, stopIcon},
+        components: {stopIcon},
         data() {
             return {};
         },

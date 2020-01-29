@@ -143,12 +143,22 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
 
         [Fact]
-        public async Task GetSubjectAsync_Ok()
+        public async Task GetSubjectAsync_OkAsync()
         {
             var response = await _client.GetAsync("api/course/subject?course=31010-אנגלית רמה A למדעי הרוח");
             response.Should().NotBeNull();
             var str = await response.Content.ReadAsStringAsync();
             str.IsValidJson().Should().BeTrue("the invalid string is {0}", str);
+        }
+
+        [Theory]
+        [InlineData("api/course/search")]
+        [InlineData("api/course/subject?courseName=Economics")]
+        public async Task GetAsync_Course_OKAsync(string url)
+        {
+            var response = await _client.GetAsync(url);
+
+            response.EnsureSuccessStatusCode();
         }
 
     }

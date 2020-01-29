@@ -1,21 +1,46 @@
 export const User = {
     Default: function (objInit) {
-        this.id = objInit.id;
+        this.id = objInit.id || objInit.userId;
         this.name = objInit.name;
         this.image = objInit.image || '';
     },
-    Tutor: function (objInit) {
-        this.bio = objInit.bio;
-        this.currency = objInit.currency;
-        this.documents = objInit.documents;
-        this.hasCoupon = objInit.hasCoupon;
-        this.lessons = objInit.lessons;
-        this.subjects = objInit.subjects;
+    TutorDefault: function(objInit){
         this.price = objInit.price || 0;
-        this.rate = objInit.rate || 0;
-        this.reviewCount = objInit.reviewCount || 0;
+        this.currency = objInit.currency;
+        this.bio = objInit.bio || '';
+        this.lessons = objInit.lessons || 0;
         this.discountPrice = objInit.discountPrice;
-        this.firstName = objInit.firstName || '';
-        this.lastName = objInit.lastName || '';
+        this.subjects = objInit.subjects || [];
     },
+    Tutor: function (objInit) {
+        return Object.assign(
+            new User.TutorDefault(objInit),
+            {
+                contentCount: objInit.contentCount,
+                hasCoupon: objInit.hasCoupon,
+                rate: objInit.rate || 0,
+                reviewCount: objInit.reviewCount || 0,
+                firstName: objInit.firstName || '',
+                lastName: objInit.lastName || '',
+                students: objInit.students || 0,
+            }
+        )
+
+    },
+    TutorItem: function(objInit){
+        return Object.assign(
+            new User.Default(objInit),
+            new User.TutorDefault(objInit),
+            {
+                courses: objInit.courses || [],
+                country: objInit.country,
+                rating:  objInit.rate ? Number(objInit.rate.toFixed(2)): null,
+                reviews: objInit.reviewsCount || 0,
+                template: 'tutor-result-card',
+                university: objInit.university || '',
+                classes: objInit.classes || 0,
+                isTutor: true,
+            }
+        )
+    }
 }

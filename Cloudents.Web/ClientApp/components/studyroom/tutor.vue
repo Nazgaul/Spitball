@@ -475,6 +475,8 @@ watch: {
       "stopTracks"
     ]),
     initStartSession(){
+        console.warn('DEBUG: 29 store: initStartSession')
+
       let isNotStudyRoomTest = this.$route.params ? this.$route.params.id : null;
       if(isNotStudyRoomTest) {
         if(this.isTutor){
@@ -660,7 +662,11 @@ watch: {
   beforeDestroy(){
     this.stopTracks();
     this.hideRoomToasterMessage();
+    
+    console.warn('DEBUG: 30 : beforeDestroy before updateTutorStartDialog(false)')
     this.updateTutorStartDialog(false);
+    console.warn('DEBUG: 31 : beforeDestroy after updateTutorStartDialog(false)')
+
     this.updateStudentStartDialog(false);
     document.removeEventListener('fullscreenchange',this.closeFullScreen);
     storeService.unregisterModule(this.$store,'tutoringCanvas');

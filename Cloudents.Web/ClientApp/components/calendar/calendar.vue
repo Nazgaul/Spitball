@@ -10,11 +10,11 @@
             </div>
         </div>
         <div class="navigation-btns-calendar">
-          <v-btn :disabled="isGoPrev" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.prev()">
+          <v-btn sel="calendar_previous" :disabled="isGoPrev" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.prev()">
             <v-icon>sbf-arrow-left-carousel</v-icon>
           </v-btn>
           <span class="title-calendar">{{calendarMonth}}</span>
-          <v-btn :disabled="isGoNext" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.next()">
+          <v-btn sel="calendar_next" :disabled="isGoNext" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.next()">
             <v-icon dark>sbf-arrow-right-carousel</v-icon>
           </v-btn>
         </div>

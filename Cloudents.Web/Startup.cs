@@ -339,6 +339,7 @@ namespace Cloudents.Web
                 o.RequestCultureProviders.Clear();
                 o.RequestCultureProviders.Add(new FrymoCultureProvider());
                 o.RequestCultureProviders.Add(new QueryStringRequestCultureProvider());
+                o.RequestCultureProviders.Add(new FacebookQueryStringRequestCultureProvider());
                 o.RequestCultureProviders.Add(new CookieRequestCultureProvider());
                 o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
                 o.RequestCultureProviders.Add(new CountryCultureProvider());

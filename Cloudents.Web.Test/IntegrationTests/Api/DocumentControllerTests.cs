@@ -166,5 +166,15 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
+
+        [Theory]
+        [InlineData("api/document/29106")]
+        [InlineData("api/document/similar?documentId=29106")]
+        public async Task GetAsync_Document_OKAsync(string url)
+        {
+            var response = await _client.GetAsync(url);
+
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

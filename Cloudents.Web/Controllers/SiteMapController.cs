@@ -3,7 +3,6 @@ using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
-using Cloudents.Query.Query;
 using Cloudents.Web.Framework;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +14,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using Cloudents.Web.Seo;
 using Cloudents.Web.Services;
-
+using Cloudents.Query.General;
 
 namespace Cloudents.Web.Controllers
 {
