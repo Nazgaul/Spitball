@@ -27,10 +27,16 @@ html {
   background-color: #2196f3 !important;
   border-color: #2196f3 !important;
 }
- //we have an issue with fieldset on vuetify on rtl - this solve the issue
-html[dir="rtl"] fieldset+.v-text-field__slot > label  {
-  /*rtl:ignore */
-  left :inherit !important ;
+ //we have an issue with fieldset and labels on input on vuetify on rtl - this solve the issue
+html[dir="rtl"] {
+  .v-text-field__slot >  label { 
+    /*rtl:ignore */
+    left: unset !important;
+  }
+   fieldset+.v-text-field__slot > label  {
+    /*rtl:ignore */
+    left :inherit !important ;
+  }
 }
 
 
@@ -241,15 +247,6 @@ html[dir="rtl"] fieldset+.v-text-field__slot > label  {
   }
 }
 
-//label on inputs rtl support
-.v-input__slot {
-    .v-text-field__slot {
-        label {
-            // left: unset !important;
-            // right: unset !important;
-        }
-    }
-}
 
 
 //fab animation
