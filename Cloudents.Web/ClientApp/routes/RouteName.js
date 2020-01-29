@@ -1,1 +1,1 @@
-export const RegiserEmailConfirmed = 'emailConfirmed';
+export const RegiserEmailConfirmed = 'registerEmailConfirmed';

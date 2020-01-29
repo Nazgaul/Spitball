@@ -23,7 +23,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { RegiserEmailConfirmed }from '../../../../../routes/RouteName'
+import { RegiserEmailConfirmed }from '../../../../../routes/routeName'
 
 export default {
     // name: 'EmailConfirmed',
