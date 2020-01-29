@@ -382,4 +382,13 @@ tutors</value>
   <data name="welcome" xml:space="preserve">
     <value>Welcome to Spitball</value>
   </data>
+  <data name="setemailpass_female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="setemailpass_male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="countryCode" xml:space="preserve">
+    <value>Country code</value>
+  </data>
 </root>

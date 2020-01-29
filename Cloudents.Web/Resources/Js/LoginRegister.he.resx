@@ -129,6 +129,9 @@
   <data name="congrats_title" xml:space="preserve">
     <value>מזל טוב!</value>
   </data>
+  <data name="countryCode" xml:space="preserve">
+    <value>Country code</value>
+  </data>
   <data name="emailconfirm_bottom" xml:space="preserve">
     <value>רק לאחר אישור האימייל תוכל להרשם לספיטבול</value>
   </data>
@@ -240,6 +243,9 @@
   <data name="setemailpass_btn" xml:space="preserve">
     <value>המשך</value>
   </data>
+  <data name="setemailpass_female" xml:space="preserve">
+    <value>Female</value>
+  </data>
   <data name="setemailpass_first" xml:space="preserve">
     <value>הכנס שם פרטי</value>
   </data>
@@ -254,6 +260,9 @@
   </data>
   <data name="setemailpass_last" xml:space="preserve">
     <value>הכנס שם משפחה</value>
+  </data>
+  <data name="setemailpass_male" xml:space="preserve">
+    <value>Male</value>
   </data>
   <data name="setemailpass_title" xml:space="preserve">
     <value>הכנס פרטים אישיים</value>
