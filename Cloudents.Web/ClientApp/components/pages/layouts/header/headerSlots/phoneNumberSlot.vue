@@ -19,7 +19,7 @@ export default {
          country:{
             IL:{
                previewNumber:'052-736-8268',
-               fullNumber:'927527368268',
+               fullNumber:'972527368268',
                text: LanguageService.getValueByKey(`headerSlots_phoneNumberSlot_text`),
             },
             IN:{
