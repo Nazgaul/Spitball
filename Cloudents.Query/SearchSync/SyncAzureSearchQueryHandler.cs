@@ -1,5 +1,5 @@
 ﻿using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.Query.Query.Sync;
+using Cloudents.Query.Sync;
 using Cloudents.Query.Stuff;
 using NHibernate;
 using System;

@@ -43,14 +43,13 @@
 
 <script>
     import { mapActions, mapGetters, mapState } from 'vuex';
-    import userAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
     import timerIcon from '../../images/timer.svg';
     import videoStreamService from "../../../../services/videoStreamService";
     import {LanguageService} from "../../../../services/language/languageService";
 
     export default {
         name: "startSession-popUp-student",
-        components: {userAvatar, timerIcon},
+        components: {timerIcon},
         data() {
             return {
                 clickedOnce: false
@@ -117,7 +116,11 @@
             }
         },
         beforeDestroy(){
+            
+            console.warn('DEBUG: 42 startSessionPopUpStudent: setSesionClickedOnce beforeDestroy,false before ')
             this.setSesionClickedOnce(false);
+            console.warn('DEBUG: 42.1 startSessionPopUpStudent: setSesionClickedOnce beforeDestroy,false after ')
+
             global.onbeforeunload = function() {}
         }
     };

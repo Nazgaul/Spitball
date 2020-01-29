@@ -1,4 +1,4 @@
-﻿using Cloudents.Query.Query.Sync;
+﻿using Cloudents.Query.Sync;
 using System;
 
 namespace Cloudents.FunctionsV2.Sync

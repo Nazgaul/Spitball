@@ -29,7 +29,6 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import userAvatar from "../../../../helpers/UserAvatar/UserAvatar.vue";
 import analyticsService from "../../../../../services/analytics.service";
 
 import aQuestion from "./image/aQuestion.svg";
@@ -38,7 +37,7 @@ import uStudy from "./image/uStudy.svg";
 
 export default {
   name: "requestActions",
-  components: { userAvatar, uStudy, rTutor, aQuestion },
+  components: {uStudy, rTutor, aQuestion },
   computed: {
     ...mapGetters(["accountUser", "getSchoolName", "getSelectedClasses"]),
     userImageUrl() {

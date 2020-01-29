@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Users;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
@@ -51,7 +51,7 @@ namespace Cloudents.Web.Controllers
         {
             var query = new UserProfileQuery(id, 0);
             var retVal = await _queryBus.QueryAsync(query, token);
-            if (retVal == null)
+            if (retVal is null)
             {
                 return NotFound();
             }

@@ -1,48 +1,36 @@
+// Imports
 import Vue from "vue";
 import vuetify from './plugins/vuetify';
-import App from "./components/app/app.vue";
 import { sync } from 'vuex-router-sync';
+import * as route from "./routes";
 import store from "./store";
-import { Language } from "./services/language/langDirective";
-import { LanguageService } from './services/language/languageService';
-//import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
-// clip board copy text
-import VueClipboard from 'vue-clipboard2';
-// import Scroll from "vuetify/es5/directives/scroll";
-// import Touch from "vuetify/es5/directives/touch";
-import scrollComponent from './components/helpers/infinateScroll.vue';
-import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import LoadScript from 'vue-plugin-load-script';
-
-// Intersection observer support
-if(!window.IntersectionObserver){
+import VueClipboard from 'vue-clipboard2';
+import VueAppInsights from 'vue-application-insights';
+import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
+import VueFlicking from "@egjs/vue-flicking";
+import '../ClientApp/myFont.font.js';
+if(!window.IntersectionObserver){ // Intersection observer support
     import('intersection-observer')   
 }
+
+// Global Components
+import App from "./components/app/app.vue";
+import scrollComponent from './components/helpers/infinateScroll.vue';
+import UserAvatar from './components/helpers/UserAvatar/UserAvatar.vue';
+
+// Global Services
+import { Language } from "./services/language/langDirective";
+import { LanguageService } from './services/language/languageService';
+import utilitiesService from './services/utilities/utilitiesService';
 
 // Filters
 import './filters/filters';
 
-import VueNumeric from 'vue-numeric';
-import VueMathjax from 'vue-mathjax';
-import utilitiesService from './services/utilities/utilitiesService';
-import VueAppInsights from 'vue-application-insights';
-import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
 
 
-import VueFlicking from "@egjs/vue-flicking";
-import '../ClientApp/myFont.font.js';
-Vue.use(VueFlicking);
-
-import * as route from "./routes";
-
-Vue.use(VueMathjax);
-Vue.use(VueRouter);
-Vue.use(LoadScript);
-
-Vue.component("scroll-list", scrollComponent);
-Vue.component("general-page", GeneralPage);
 
 const router = new VueRouter({
     mode: "history",
@@ -66,21 +54,25 @@ const router = new VueRouter({
         });
     }
 });
+//import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
 
-Vue.use(VueClipboard);
-// Vue.use(lineClamp, {});
-Vue.use(VueNumeric);
+Vue.use(VueFlicking);
+Vue.use(VueRouter);
+Vue.use(LoadScript);
 Vue.use(VLazyImagePlugin);
+Vue.use(VueClipboard);
+
+
+Vue.component("scroll-list", scrollComponent);
+Vue.component("UserAvatar",UserAvatar);
+
+//this need to be below the configuration of vue router
 Vue.use(VueAnalytics, {
     id: 'UA-100723645-2',
     disableScriptLoader: true,
     router,
     autoTracking: {
         pageviewOnLoad: false,
-        //ignoreRoutes: ['result'],
-        // shouldRouterUpdate(to, from) {
-        //     return to.path != "/result";
-        // },
         pageviewTemplate(route) {
             return {
                 page: route.path,
@@ -92,25 +84,16 @@ Vue.use(VueAnalytics, {
     }
 });
 
-
 Vue.directive('language', Language);
-// Register a global custom directive called `v-focus`
 
-//is rtl
+
+
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
-//check if firefox for ellipsis, if yes use allipsis filter if false css multiline ellipsis
-// global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-//is country Israel
-global.isIsrael = global.country.toLowerCase() === "il";
-//check if Edge (using to fix position sticky bugs)
 global.isEdgeRtl = false;
-global.isEdge = false;
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
-    global.isEdge = true;
     if (global.isRtl) {
         global.isEdgeRtl = true;
     }
-
 }
 
 Vue.prototype.$loadStyle = function(url,id){

@@ -120,10 +120,4 @@
   <data name="Cashed" xml:space="preserve">
     <value>Coupon will be sent via email within 2 business days</value>
   </data>
-  <data name="Redeem" xml:space="preserve">
-    <value>Redeem</value>
-  </data>
-  <data name="SBL" xml:space="preserve">
-    <value>Pts</value>
-  </data>
 </root>

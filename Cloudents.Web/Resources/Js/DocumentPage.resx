@@ -132,17 +132,11 @@
   <data name="money_back" xml:space="preserve">
     <value>100% Money Back Guarantee</value>
   </data>
-  <data name="more_tutors" xml:space="preserve">
-    <value>More Tutors for this course</value>
-  </data>
   <data name="need_help1" xml:space="preserve">
     <value>Need help with this subject?</value>
   </data>
   <data name="need_help2" xml:space="preserve">
     <value>{1} can Tutor you</value>
-  </data>
-  <data name="online_tutor" xml:space="preserve">
-    <value>Get online tutoring and all the study  materials to master your studies</value>
   </data>
   <data name="points" xml:space="preserve">
     <value>Pts</value>
@@ -156,27 +150,11 @@
   <data name="secure_payment" xml:space="preserve">
     <value>Secure payment processing</value>
   </data>
-  <data name="student_learn" xml:space="preserve">
-    <value>Students learn from students</value>
-  </data>
-  <data name="table_course" xml:space="preserve">
-    <value>Course:</value>
-    <comment>Duplicate</comment>
-  </data>
-  <data name="table_university" xml:space="preserve">
-    <value>School:</value>
-  </data>
-  <data name="table_uploaded" xml:space="preserve">
-    <value>Uploaded by:</value>
-  </data>
   <data name="unlock_document" xml:space="preserve">
     <value>Credit the uploader with points to unlock</value>
   </data>
   <data name="unlock_document_btn" xml:space="preserve">
     <value>Unlock document</value>
-  </data>
-  <data name="unlock_document_unregister" xml:space="preserve">
-    <value>To unlock this document, please register</value>
   </data>
   <data name="unlock_video" xml:space="preserve">
     <value>You are watching a 30 sec. preview.&lt;br&gt;Credit the uploader with points to unlock the full movie</value>
@@ -186,12 +164,6 @@
   </data>
   <data name="why_spitball" xml:space="preserve">
     <value>Why Spitball</value>
-  </data>
-  <data name="unlock_btn" xml:space="preserve">
-    <value>Open</value>
-  </data>
-  <data name="unlock_place_btn" xml:space="preserve">
-    <value>Unlock document</value>
   </data>
   <data name="unlock_subtitle" xml:space="preserve">
     <value>Want to read all {1} pages?</value>

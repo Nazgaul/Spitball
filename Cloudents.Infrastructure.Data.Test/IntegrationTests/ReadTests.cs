@@ -5,18 +5,20 @@ using Cloudents.Query.Chat;
 using Cloudents.Query.Documents;
 using Cloudents.Query.Email;
 using Cloudents.Query.HomePage;
-using Cloudents.Query.Query;
 using Cloudents.Query.SearchSync;
 using Cloudents.Query.Tutor;
 using FluentAssertions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cloudents.Query.Query.Admin;
 using NHibernate.Linq;
 using Xunit;
 using Cloudents.Core.Enum;
+using Cloudents.Query.Users;
+using Cloudents.Query.Universities;
+using Cloudents.Query.Courses;
+using Cloudents.Query.Questions;
+using Cloudents.Query.General;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
@@ -127,7 +129,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task UserQuestionFeedDtoQueryHandler_Ok()
         {
-            var query = new UserDataPagingByIdQuery(638, 0);
+            var query = new UserQuestionsByIdQuery(638, 0);
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -489,8 +491,17 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task UserDataByIdQuery_Ok(long userId)
         {
             var query = new UserDataByIdQuery(userId);
-            var _ = await fixture.QueryBus.QueryAsync<User>(query, default);
-            await fixture.QueryBus.QueryAsync<IEnumerable<TransactionDto>>(query, default);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
+        }
+
+
+        [Theory]
+        [InlineData(159039)]
+        [InlineData(638)]
+        public async Task UserTransactionQuery_Ok(long userId)
+        {
+            var query = new UserTransactionQuery(userId);
+            var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
         [Fact]
@@ -516,12 +527,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-        [Fact]
-        public async Task AdminCouponQuery_Ok()
-        {
-            var query = new AdminCouponQuery();
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
-        }
+       
 
 
         [Fact]
@@ -543,7 +549,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminFictivePendingQuestionEmptyQuery_Ok()
         {
-            var query = new AdminFictivePendingQuestionEmptyQuery();
+            var query = new FictivePendingQuestionEmptyQuery();
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
     }

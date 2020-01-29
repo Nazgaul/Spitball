@@ -1,11 +1,5 @@
 <template>
-  <v-container
-    v-if="visible"
-    py-0
-    px-0
-    class="sb-chat-container"
-    :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]"
-  >
+  <div class="sb-chat-container px-0 py-0" :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]">
     <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
       <v-icon @click.stop="OriginalChatState" v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'" />
         <template v-if="state === 'messages'">
@@ -30,21 +24,19 @@
       <component :is="`chat-${state}`"></component>
     </v-layout>
     
-  </v-container>
+  </div>
 </template>
 
 
 <script>
 const chatConversation = () => import("./components/conversations.vue");
 const chatMessages = () => import("./components/messages.vue");
-const UserAvatar = () => import('../helpers/UserAvatar/UserAvatar.vue');
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 export default {
   components: {
     chatConversation,
     chatMessages,
-    UserAvatar
   },
   data() {
     return {
@@ -52,22 +44,9 @@ export default {
       mobileHeaderHeight: 39,
     };
   },
-  watch: {
-    visible: function(val) {
-      if (!this.isMobile) {
-        return;
-      }
-      if (val) {
-        document.body.classList.add("noscroll");
-      } else {
-        document.body.classList.remove("noscroll");
-      }
-    }
-  },
   computed: {
     ...mapGetters([
       "getChatState",
-      "getIsChatVisible",
       "getIsChatMinimized",
       "getActiveConversationObj",
       "getIsChatLocked",
@@ -83,13 +62,6 @@ export default {
     },
     state() {
       return this.getChatState;
-    },
-    visible() {
-      if (this.accountUser === null) {
-        return false;
-      } else {
-        return this.getIsChatVisible;
-      }
     },
     isMinimized() {
       if (this.isMobile) {

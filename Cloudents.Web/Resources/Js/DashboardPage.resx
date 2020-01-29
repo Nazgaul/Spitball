@@ -190,9 +190,6 @@
   <data name="name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="of" xml:space="preserve">
-    <value>out of</value>
-  </data>
   <data name="paid" xml:space="preserve">
     <value>Paid</value>
   </data>

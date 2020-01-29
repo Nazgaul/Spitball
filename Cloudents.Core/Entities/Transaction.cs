@@ -122,7 +122,7 @@ namespace Cloudents.Core.Entities
             new SortedSet<string>(StringComparer.OrdinalIgnoreCase)
             {
                 //"US", "CA", "AU" , "GB", "IE",
-                "IL",
+                "IL","US"
                 //"NZ", "MX", "SE" ,
                 //"NO", "DK", "FI", "NL", "BE","LU","DE","CH","AT","ZA"
             };

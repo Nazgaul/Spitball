@@ -127,7 +127,7 @@
     <value>Cancel</value>
   </data>
   <data name="class_placeholder" xml:space="preserve">
-    <value>In what course you want to post this to?</value>
+    <value>Select course</value>
   </data>
   <data name="error_general" xml:space="preserve">
     <value>Something went wrong, try again.</value>

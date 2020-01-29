@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Infrastructure.Mail;
 using Cloudents.Query;
+using Cloudents.Query.Users;
 
 namespace Cloudents.Web.Identity
 {

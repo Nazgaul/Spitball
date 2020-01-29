@@ -1,16 +1,16 @@
 ﻿<template>
   <v-app>
-      <router-view name="banner"></router-view>
-      <router-view name="header"></router-view>
-      <router-view v-if="showSideMenu" name="sideMenu"></router-view>
+    <router-view name="banner"></router-view>
+    <router-view name="header"></router-view>
+    <router-view v-if="showSideMenu" name="sideMenu"></router-view>
 
       <v-content class="site-content" :class="{'loading':getIsLoading}">
-        <chat></chat>
+        <chat v-if="visible"/>
 
         <router-view name="verticals"></router-view>
         <router-view class="main-container"></router-view>
       
-        <div class="s-cookie-container" :class="{'s-cookie-hide': cookiesShow}">
+        <div class="s-cookie-container" v-if="!cookiesShow">
           <span v-language:inner>app_cookie_toaster_text</span> &nbsp;
           <span class="cookie-approve">
             <button
@@ -203,7 +203,8 @@ export default {
       "getRequestTutorDialog",
       "getShowPaymeDialog",
       "isFrymo",
-      "getShowSchoolBlock"
+      "getShowSchoolBlock",
+      "getIsChatVisible",
     ]),
     showSideMenu() {
       if (this.$vuetify.breakpoint.xsOnly) {
@@ -215,13 +216,6 @@ export default {
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
-    // showFeed() {
-    //   if (this.$vuetify.breakpoint.smAndDown && this.getMobileFooterState) {
-    //     return this.showMobileFeed;
-    //   } else {
-    //     return true;
-    //   }
-    // },
     cookiesShow() {
       if (global.country === "IL") return true;
       if (!this.accountUser) {
@@ -235,7 +229,14 @@ export default {
     },
     showMobileFooter() {
       return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage';
-    }
+    },
+    visible() {
+      if (this.accountUser === null) {
+        return false;
+      } else {
+        return this.getIsChatVisible;
+      }
+    },
   },
   updated: function() {
     this.$nextTick(function() {
@@ -294,6 +295,16 @@ export default {
       this.$nextTick(() => {
         this.fireOptimizeActivate();
       });
+    },
+    visible: function(val) {
+      if (!this.isMobile) {
+        return;
+      }
+      if (val) {
+        document.body.classList.add("noscroll");
+      } else {
+        document.body.classList.remove("noscroll");
+      }
     }
   },
   methods: {

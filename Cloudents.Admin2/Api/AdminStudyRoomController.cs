@@ -4,7 +4,7 @@ using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Extension;
 using Cloudents.Query;
-using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -29,7 +29,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<StudyRoomDto>> StudyRoomAsync(CancellationToken token)
         {
-            var query = new AdminStudyRoomQuery(User.GetCountryClaim());
+            var query = new StudyRoomQuery(User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
@@ -37,7 +37,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("tutors")]
         public async Task<IEnumerable<TutorInfoDto>> TutorsAsync(CancellationToken token)
         {
-            var query = new AdminTutorsWithStudyRoomsQuery(User.GetCountryClaim());
+            var query = new TutorsWithStudyRoomsQuery(User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
@@ -45,7 +45,7 @@ namespace Cloudents.Admin2.Api
         [HttpGet("bills")]
         public async Task<IEnumerable<SessionBillDto>> BillsAsync(long id, CancellationToken token)
         {
-            var query = new AdminTutorSessionsQuery(id, User.GetCountryClaim());
+            var query = new TutorSessionsQuery(id, User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
