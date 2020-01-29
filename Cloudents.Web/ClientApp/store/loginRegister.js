@@ -1,7 +1,6 @@
 // GLOBALS:
 import { router } from '../main.js';
 import codesJson from '../components/pages/authenticationPage/CountryCallingCodes';
-const defaultSubmitRoute = { name: 'feed' };
 
 const Fingerprint2 = require('fingerprintjs2');
 
@@ -230,16 +229,8 @@ const actions = {
         return registrationService.emailRegistration(emailRegObj)
             .then(({data}) => {
                 let nextStep = data.step.name;
-                
-                // if(nextStep.toLowerCase() === "verifyphone" || nextStep.toLowerCase() === "enterphone"){
-                //     // dispatch('updateStep','setPhone');
-                //     dispatch('updateRouterStep', 'setPhone')
-                // }else{
-                    // dispatch('updateStep',nextStep);
-                    dispatch('updateRouterStep', nextStep)
-                //}
                 _analytics(['Registration', 'Start']);
-                // updateRouterStep(nextStep) 
+                dispatch('updateRouterStep', nextStep)
             },  (error) => {
                 commit('setErrorMessages',{
                     email: error.response.data["Email"] ? error.response.data["Email"][0] : '',
@@ -368,8 +359,7 @@ const actions = {
         registrationService.forgotPasswordReset(state.email)
             .then(() =>{
                 _analytics(['Forgot Password', 'Reset email send']);
-                // dispatch('updateStep','EmailConfirmed');
-                dispatch('updateRouterStep', 'emailConfirmed');
+                dispatch('updateRouterStep', 'loginEmailConfirmed');
             },error =>{
                 commit('setErrorMessages',{email: error.response.data["ForgotPassword"] ? error.response.data["ForgotPassword"][0] : error.response.data["Email"][0]});
             });
@@ -390,9 +380,9 @@ const actions = {
         if(isValid){
             registrationService.updatePassword(password, confirmPassword, id, code) //TODO: send object instead
                 .then(() => {
-                    _analytics(['Forgot Password', 'Updated password']);
                     global.isAuth = true;
-                    // router.push({path: defaultSubmitRoute.path});
+                    
+                    _analytics(['Forgot Password', 'Updated password']);
                     dispatch('updateRouterStep', 'feed')
                 }, (error) => {
                     commit('setErrorMessages',{
