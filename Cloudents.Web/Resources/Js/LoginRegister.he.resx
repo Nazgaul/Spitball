@@ -244,7 +244,7 @@
     <value>המשך</value>
   </data>
   <data name="setemailpass_female" xml:space="preserve">
-    <value>Female</value>
+    <value>נקבה</value>
   </data>
   <data name="setemailpass_first" xml:space="preserve">
     <value>הכנס שם פרטי</value>
@@ -262,7 +262,7 @@
     <value>הכנס שם משפחה</value>
   </data>
   <data name="setemailpass_male" xml:space="preserve">
-    <value>Male</value>
+    <value>זכר</value>
   </data>
   <data name="setemailpass_title" xml:space="preserve">
     <value>הכנס פרטים אישיים</value>
