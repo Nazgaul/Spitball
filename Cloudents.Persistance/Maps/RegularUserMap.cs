@@ -26,7 +26,7 @@ namespace Cloudents.Persistence.Maps
                 .Inverse()
                 .Cascade.AllDeleteOrphan();
 
-            Map(e => e.TwoFactorEnabled);
+            //Map(e => e.TwoFactorEnabled);
 
             Component(x => x.Transactions, y =>
             {

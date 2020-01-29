@@ -17,7 +17,9 @@ namespace Cloudents.Core.Entities
         {
             Email = email;
             ChangeName(firstName, lastName);
-            TwoFactorEnabled = true;
+            FirstName = firstName;
+            LastName = lastName;
+            //TwoFactorEnabled = true;
             Language = language;
             Created = DateTime.UtcNow;
             Country = country;
