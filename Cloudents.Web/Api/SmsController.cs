@@ -68,7 +68,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> SetUserPhoneNumber(
+        public async Task<IActionResult> SetUserPhoneNumberAsync(
             [FromBody]PhoneNumberRequest model,
             CancellationToken token)
         {
@@ -151,15 +151,15 @@ namespace Cloudents.Web.Api
             if (v.Succeeded)
             {
                 agent = agent.Substring(0, Math.Min(agent.Length, 255));
-                return await FinishRegistrationAsync(token, user, country, model.FingerPrint, agent);
+                return await FinishRegistrationAsync(user, country, model.FingerPrint, agent, token);
             }
             _logger.Warning($"userid: {user.Id} is not verified reason: {v}");
             ModelState.AddIdentityModelError(v);
             return BadRequest(ModelState);
         }
 
-        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, User user, string country,
-            string fingerPrint, string userAgent)
+        private async Task<IActionResult> FinishRegistrationAsync(User user, string country, string fingerPrint,
+            string userAgent, CancellationToken token)
         {
             if (TempData[HomeController.Referral] != null)
             {
