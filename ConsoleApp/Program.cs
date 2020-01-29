@@ -95,7 +95,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Prod;
+            var env = EnvironmentSettings.Dev;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -505,10 +505,15 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
         private static async Task HadarMethod()
         {
-            var queryBus = _container.Resolve<IQueryBus>();
+            //var t = new PlaylistUpdates();
+            //t.Create();
 
-            var query = new UserStudyRoomQuery(159039);
-            var t = await queryBus.QueryAsync(query, default);
+            var s = new UploadVideo();
+            s.Upload();
+            //var queryBus = _container.Resolve<IQueryBus>();
+
+            //var query = new UserStudyRoomQuery(159039);
+            //var t = await queryBus.QueryAsync(query, default);
             //await PopulateUsersImageName();
             //await commandBus.DispatchAsync(command2, default);
             //var deleteCommand = new SessionReconnectedCommand(id);
