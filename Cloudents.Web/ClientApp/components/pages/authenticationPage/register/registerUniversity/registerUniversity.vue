@@ -22,7 +22,6 @@ export default {
 
 <style lang="less">
 #registerUniversity {
-    max-width: 500px;
     .university_title {
         font-size: 26px;
         font-weight: 600;

@@ -99,8 +99,31 @@ export default {
     input {
       padding-top: 12px; // global for all inputs in authenticate pages
     }
-    .stepContainer{
+    .stepContainer {
+      width: 400px; // global width for all components
+      max-width: 500px;
       height: 100%;
+      @media (max-width: @screen-xs) {
+        width: 100%;
+        max-width: 100%;
+      }
+      .maintitle {
+        font-size: 26px;
+        color: @global-purple;
+        margin-bottom: 10px;
+      }
+      .subtitle {
+        font-size: 16px;
+        color: @global-purple;
+        margin-bottom: 40px;
+      }
+      .gradesWrap {
+        width: 250px;
+        i {
+          font-size: 8px;
+          color: @global-purple;
+        }
+      }
     }
     .stepsSections{
       margin: 120px auto auto;

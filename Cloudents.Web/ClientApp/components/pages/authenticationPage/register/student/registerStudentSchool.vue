@@ -2,7 +2,7 @@
     <div id="registerStudentSchool">
         <router-view>
             <template #titleCourse>
-                <div class="text-center mainTitle" v-language:inner="'register_school_title'"></div>
+                <div class="text-center maintitle" v-language:inner="'register_school_title'"></div>
                 <div class="text-center subtitle" v-language:inner="'register_school_subtitle'"></div>
                 <div class="gradesWrap">
                     <v-select
@@ -51,28 +51,3 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-@color: #43425d;
-
-#registerStudentSchool {
-
-    .mainTitle {
-        font-size: 26px;
-        color: @color;
-        margin-bottom: 10px;
-    }
-    .subtitle {
-        font-size: 16px;
-        color: @color;
-        margin-bottom: 46px;
-    }
-    .gradesWrap {
-        width: 250px;
-        i {
-            font-size: 8px;
-            color: @color;
-        }
-    }
-}
-</style>

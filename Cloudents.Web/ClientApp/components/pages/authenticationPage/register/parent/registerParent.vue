@@ -1,7 +1,7 @@
 <template>
     <div id="registerParent">
 
-        <div class="text-center mainTitle" v-language:inner="'register_school_title'"></div>
+        <div class="text-center maintitle" v-language:inner="'register_school_title'"></div>
         <div class="text-center subtitle" v-language:inner="'register_parent_subtitle'"></div>
 
         <form @submit.prevent="send">
@@ -52,7 +52,6 @@
 const registerCourse = () => import('../registerCourse/registerCourse.vue')
 
 export default {
-    // name: 'registerParent',
     components: {
         registerCourse
     },
@@ -74,29 +73,3 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-@color: #43425d;
-
-#registerParent {
-    max-width: 500px;
-    .mainTitle {
-        font-size: 26px;
-        color: @color;
-        margin-bottom: 10px;
-    }
-    .subtitle {
-        font-size: 16px;
-        color: @color;
-        margin-bottom: 40px;
-    }
-
-    .gradesWrap_select {
-        i {
-            font-size: 8px;
-            color: @color;
-        }
-    }
-}
-
-</style>

@@ -152,13 +152,14 @@ export const registrationRoutes = [
                     },
                 ]
             },
-            {
-                path: 'teacher',
-                name: 'teacher',
-                components: {
-                    default: lazyComponent('pages/authenticationPage/register/parent/registerTeacher'),
-                }
-            },
+            // V2 register  teacher
+            // {
+            //     path: 'teacher',
+            //     name: 'teacher',
+            //     components: {
+            //         default: lazyComponent('pages/authenticationPage/register/parent/registerTeacher'),
+            //     }
+            // },
         ],
         beforeEnter: (to, from, next) => {
             if(global.isAuth) {

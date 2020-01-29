@@ -35,16 +35,12 @@ export default {
     .actions {
         .btn {
             min-width: 140px;
-
             @media(max-width: @screen-xs) {
                 min-width: 120px;
             }
         }
         .register_btn_back {
             margin-right: 10px;
-        }
-        .register_btn_next {
-
         }
     }
 }
