@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
+using WebMarkupMin.Core;
 
 namespace Cloudents.Web.Controllers
 {
@@ -27,50 +28,58 @@ namespace Cloudents.Web.Controllers
         // GET
         [Route("register/{**page}", Name = RegisterRouteName)]
         [Route("signin/{**page}", Name = Signin)]
-        public async Task<IActionResult> IndexAsync(string page, NextStep? step, CancellationToken token)
+        public async Task<IActionResult> IndexAsync(string page, /*NextStep? step,*/ CancellationToken token)
         {
-
-
             if (User.Identity.IsAuthenticated)
             {
-                return Redirect("/");
+                return Redirect("/feed");
             }
 
-            if (!step.HasValue) return View("Index");
-            switch (step.Value)
+
+
+            var step = RegistrationStep.GetByStep(page);
+            if (step is null)
             {
-                case NextStep.EmailConfirmed:
-                    var val = TempData.Peek(Api.RegisterController.Email);
-                    if (val == null)
-                    {
-                        return RedirectToRoute(RegisterRouteName);
-                    }
-                    break;
-                case NextStep.VerifyPhone:
-                    var userVerified = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-                    if (userVerified == null)
-                    {
-                        return RedirectToRoute(RegisterRouteName);
-                    }
+                return Redirect("/");
 
-
-
-                    break;
-                case NextStep.EnterPhone:
-                    var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-                    if (user == null)
-                    {
-                        return RedirectToRoute(RegisterRouteName);
-                    }
-
-                    if (user.PhoneNumber != null && !user.PhoneNumberConfirmed)
-                    {
-                        await _client.SendSmsAsync(user, token);
-                        return RedirectToRoute(RegisterRouteName, new { step = NextStep.VerifyPhone });
-                    }
-
-                    break;
             }
+
+            if (step.Equals(RegistrationStep.RegisterEmailConfirmed))
+            {
+                var val = TempData.Peek(Api.RegisterController.Email);
+                if (val is null)
+                {
+                    return RedirectToRoute(RegisterRouteName);
+                }
+            }
+
+            if (step.Equals(RegistrationStep.RegisterVerifyPhone))
+            {
+                var userVerified = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+                if (userVerified is null)
+                {
+                    return RedirectToRoute(RegisterRouteName);
+                }
+            }
+
+            if (step.Equals(RegistrationStep.RegisterSetPhone))
+            {
+                var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+                if (user is null)
+                {
+                    return RedirectToRoute(RegisterRouteName);
+                }
+
+                if (user.PhoneNumber != null && !user.PhoneNumberConfirmed)
+                {
+                    await _client.SendSmsAsync(user, token);
+                    return RedirectToRoute(RegisterRouteName, new
+                    {
+                        page = RegistrationStep.RegisterVerifyPhone.RouteName
+                    });
+                }
+            }
+
             return View("Index");
         }
     }

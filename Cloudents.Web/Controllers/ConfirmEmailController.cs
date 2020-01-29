@@ -27,7 +27,7 @@ namespace Cloudents.Web.Controllers
         }
 
         // GET
-        public async Task<IActionResult> Index(ConfirmEmailRequest model, CancellationToken token)
+        public async Task<IActionResult> IndexAsync(ConfirmEmailRequest model, CancellationToken token)
         {
             if (!ModelState.IsValid)
             {
@@ -51,28 +51,34 @@ namespace Cloudents.Web.Controllers
             }
             if (user.EmailConfirmed)
             {
-                return await GoToStep(user, NextStep.EnterPhone, false, model.ReturnUrl);
+                return await GoToStepAsync(user, RegistrationStep.RegisterSetPhone, model.ReturnUrl);
             }
             var result = await _userManager.ConfirmEmailAsync(user, model.Code);
             if (!result.Succeeded)
             {
                 _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}, User: {user}");
-                return RedirectToRoute(RegisterController.RegisterRouteName, new { step = NextStep.ExpiredStep });
+                return RedirectToRoute(RegisterController.RegisterRouteName,
+                    new
+                    {
+                        //There was an extra step in here
+                        step = RegistrationStep.RegisterSetEmailPassword
+                    });
             }
 
             TempData[HomeController.Referral] = model.Referral;
 
-            return await GoToStep(user, NextStep.EnterPhone, true, model.ReturnUrl);
+            return await GoToStepAsync(user,
+                RegistrationStep.RegisterSetPhone,
+                model.ReturnUrl);
         }
 
-        private async Task<RedirectToRouteResult> GoToStep(User user, NextStep step, bool isNew, string returnUrl)
+        private async Task<RedirectToRouteResult> GoToStepAsync(User user, RegistrationStep step, string returnUrl)
         {
             await _signInManager.TempSignIn(user);
             return RedirectToRoute(RegisterController.RegisterRouteName,
                 new
                 {
-                    step,
-                    isNew,
+                    path = step.RouteName,
                     returnUrl = Url.IsLocalUrl(returnUrl) ? returnUrl : null
                 });
         }

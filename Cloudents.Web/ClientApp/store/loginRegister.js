@@ -1,7 +1,7 @@
 // GLOBALS:
-import {router} from '../main.js';
+import { router } from '../main.js';
 import codesJson from '../components/pages/authenticationPage/CountryCallingCodes';
-const defaultSubmitRoute = {path: '/feed'};
+const defaultSubmitRoute = { path: '/feed' };
 
 const Fingerprint2 = require('fingerprintjs2');
 
@@ -11,10 +11,10 @@ import registrationService from '../services/registrationService.js'
 import { LanguageService } from "../services/language/languageService.js";
 
 // FUNCTIONS:
-function _dictionary(key){
+function _dictionary(key) {
     return LanguageService.getValueByKey(key);
 }
-function _analytics (params){
+function _analytics(params) {
     analyticsService.sb_unitedEvent(...params);
 }
 
@@ -23,17 +23,17 @@ const state = {
     stepsHistory: [],
     toUrl: '',
 
-    firstName:'',
-    lastName:'',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
     gender: 'male',
     localCode: '',
 
     grade: '',
-    
+
     globalLoading: false,
-    
+
     errorMessage: {
         phone: "",
         code: "",
@@ -43,11 +43,11 @@ const state = {
         gmail: ""
     },
     passScoreObj: {
-        0: {name: _dictionary("login_password_indication_weak"), className: "bad"},
-        1: {name: _dictionary("login_password_indication_weak"),className: "bad"},
-        2: {name: _dictionary("login_password_indication_strong"),className: "good"},
-        3: {name: _dictionary("login_password_indication_strong"),className: "good"},
-        4: {name: _dictionary("login_password_indication_strongest"),className: "best"}
+        0: { name: _dictionary("login_password_indication_weak"), className: "bad" },
+        1: { name: _dictionary("login_password_indication_weak"), className: "bad" },
+        2: { name: _dictionary("login_password_indication_strong"), className: "good" },
+        3: { name: _dictionary("login_password_indication_strong"), className: "good" },
+        4: { name: _dictionary("login_password_indication_strongest"), className: "best" }
     }
 };
 
@@ -55,7 +55,7 @@ const mutations = {
     setToUrl(state,url){
         state.toUrl = url;
     },
-    setResetState(state){
+    setResetState(state) {
         state.currentStep = 'getStarted';
         state.stepsHistory = [];
 
@@ -76,47 +76,47 @@ const mutations = {
             gmail: ""
         };
     },
-    setEmail(state,email){
+    setEmail(state, email) {
         state.email = email;
     },
-    setPhone(state,phoneNumber){
+    setPhone(state, phoneNumber) {
         state.phone = phoneNumber;
     },
-    setGender(state, gender){
+    setGender(state, gender) {
         state.gender = gender;
     },
-    setPhoneCode(state,localCode){
+    setPhoneCode(state, localCode) {
         state.localCode = localCode;
     },
-    setBackStep(state){
+    setBackStep(state) {
         let lastStep = state.stepsHistory.pop();
         state.currentStep = lastStep;
     },
-    setStepHistory(state){
+    setStepHistory(state) {
         state.stepsHistory.push(state.currentStep);
     },
-    setResetStepHistory(state){
+    setResetStepHistory(state) {
         state.stepsHistory = [];
     },
-    setCurrentStep(state,stepName){
+    setCurrentStep(state, stepName) {
         state.currentStep = stepName;
     },
 
-    setGlobalLoading(state,value){
+    setGlobalLoading(state, value) {
         state.globalLoading = value;
     },
-    setErrorMessages(state,errorMessagesObj){
-        state.errorMessage.gmail = (errorMessagesObj.gmail)? errorMessagesObj.gmail : '';
-        state.errorMessage.phone = (errorMessagesObj.phone)? errorMessagesObj.phone : '';
-        state.errorMessage.code = (errorMessagesObj.code)? errorMessagesObj.code : '';
-        state.errorMessage.email = (errorMessagesObj.email)? errorMessagesObj.email : '';
-        state.errorMessage.password = (errorMessagesObj.password)? errorMessagesObj.password : '';
-        state.errorMessage.confirmPassword = (errorMessagesObj.confirmPassword)? errorMessagesObj.confirmPassword : '';
+    setErrorMessages(state, errorMessagesObj) {
+        state.errorMessage.gmail = (errorMessagesObj.gmail) ? errorMessagesObj.gmail : '';
+        state.errorMessage.phone = (errorMessagesObj.phone) ? errorMessagesObj.phone : '';
+        state.errorMessage.code = (errorMessagesObj.code) ? errorMessagesObj.code : '';
+        state.errorMessage.email = (errorMessagesObj.email) ? errorMessagesObj.email : '';
+        state.errorMessage.password = (errorMessagesObj.password) ? errorMessagesObj.password : '';
+        state.errorMessage.confirmPassword = (errorMessagesObj.confirmPassword) ? errorMessagesObj.confirmPassword : '';
     },
-    setLocalCode(state,localCode){
+    setLocalCode(state, localCode) {
         state.localCode = localCode;
     },
-    setName(state,fullNameObj){
+    setName(state, fullNameObj) {
         state.firstName = fullNameObj.firstName;
         state.lastName = fullNameObj.lastName;
     },
@@ -158,8 +158,9 @@ const actions = {
         if(selectedLocalCode){
             commit('setLocalCode',selectedLocalCode);
         } else {
-            registrationService.getLocalCode().then(({data}) => {
-                commit('setLocalCode',data.code)});
+            registrationService.getLocalCode().then(({ data }) => {
+                commit('setLocalCode', data.code)
+            });
         }
     },
     updateRouterStep(context, name) {
@@ -209,11 +210,11 @@ const actions = {
                     // dispatch('updateRouterStep', ) //TODO: need to check what i get
                 }
                 return Promise.reject();
-                }, (error) => {
-                    commit('setErrorMessages',{gmail: error.response.data["Google"] ? error.response.data["Google"][0] : ''});
-                    return Promise.reject(error);
-                });
-        },error=>{
+            }, (error) => {
+                commit('setErrorMessages', { gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' });
+                return Promise.reject(error);
+            });
+        }, error => {
             return Promise.reject(error);
         });
     },
@@ -332,11 +333,11 @@ const actions = {
         let data = {
             email: state.email,
             password: password,
-            fingerprint: ""
+            //fingerprint: ""
         };
 
         Fingerprint2.getPromise({})
-            .then(components =>{
+            .then(components => {
                 let values = components.map(component => component.value);
                 let murmur = Fingerprint2.x64hash128(values.join(''), 31);
                 data.fingerprint = murmur;
@@ -352,11 +353,12 @@ const actions = {
                     });
             });
     },
-    resetPassword({dispatch,state,commit}){
+    resetPassword({dispatch, state, commit}){
         registrationService.forgotPasswordReset(state.email)
             .then(() =>{
                 _analytics(['Forgot Password', 'Reset email send']);
                 // dispatch('updateStep','EmailConfirmed');
+                dispatch('updateRouterStep', 'EmailConfirmed');
             },error =>{
                 commit('setErrorMessages',{email: error.response.data["ForgotPassword"] ? error.response.data["ForgotPassword"][0] : error.response.data["Email"][0]});
             });
@@ -384,18 +386,19 @@ const actions = {
                 }, (error) => {
                     commit('setErrorMessages',{
                         password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
-                        confirmPassword: error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : ''});
+                        confirmPassword: error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : ''
+                    });
                 });
-        }else{
-            commit('setErrorMessages',{confirmPassword: _dictionary('login_error_not_matched') });
+        } else {
+            commit('setErrorMessages', { confirmPassword: _dictionary('login_error_not_matched') });
         }
     },
     exit({dispatch, commit}){
         commit('setResetState');
         dispatch('updateRouterStep', 'feed');
     },
-    updateStudentGrade({commit}, grade) {
-        return registrationService.updateGrade({grade}).then(() => {
+    updateStudentGrade({ commit }, grade) {
+        return registrationService.updateGrade({ grade }).then(() => {
             commit('setStudentGrade', grade);
         })
     },
