@@ -5,6 +5,8 @@
             <span v-language:inner="'loginRegister_forgot_subtitle'"/>
         </div>
 
+        Ram
+
         <sb-input 
                 v-model="email"
                 class="widther"
