@@ -36,7 +36,7 @@ namespace Cloudents.Web.Models
 
         public static readonly RegistrationStep LoginSetPassword = new RegistrationStep("setPassword", "set-password");
         public static readonly RegistrationStep RegisterSetEmailPassword = new RegistrationStep("setEmailPassword", "personal-details");
-        public static readonly RegistrationStep RegisterEmailConfirmed = new RegistrationStep("emailConfirmed", "email-confirmed");
+        public static readonly RegistrationStep RegisterEmailConfirmed = new RegistrationStep("registerEmailConfirmed", "email-confirmed");
         public static readonly RegistrationStep RegisterVerifyPhone = new RegistrationStep("verifyPhone", "verify-phone");
         public static readonly RegistrationStep RegisterSetPhone = new RegistrationStep("setPhone", "set-phone");
 
