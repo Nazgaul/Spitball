@@ -121,6 +121,9 @@
     <value>Fill in details about the child so we can best fit a teacher. Do not worry we will not use the data in any other form</value>
   </data>
   <data name="school_subtitle" xml:space="preserve">
+    <value>In order for us to find you a teacher that fits your needs or study materials please fill out the info below</value>
+  </data>
+  <data name="school_title" xml:space="preserve">
     <value>Let's get started</value>
   </data>
   <data name="university_title" xml:space="preserve">
