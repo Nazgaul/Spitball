@@ -3,16 +3,16 @@
     <p class="setemailpass_title" v-language:inner="'loginRegister_setemailpass_title'"></p>
     <form @submit.prevent="submit" class="form">
       <div>
-        <v-layout wrap justify-space-between class="widther">
+        <v-layout wrap class="widther">
           <v-flex xs12 sm6 class="mb-3 pr-sm-2">
-            <v-text-field 
+            <v-text-field
               v-model="firstName"
-              class="input-fields" 
+              class="input-fields"
               color="#304FFE"
-              outlined 
-              height="44" 
+              outlined
+              height="44"
               dense
-              label="First Name" 
+              :label="labels['fname']"
               :error-messages="firstNameError"
               placeholder=" "
               type="text">
@@ -20,14 +20,14 @@
           </v-flex>
 
           <v-flex xs12 sm6 class="pl-sm-2 mb-3">
-            <v-text-field 
+            <v-text-field
               v-model="lastName"
               class="input-fields"
               color="#304FFE"
               outlined
               height="44"
               dense
-              label="Last Name" 
+              :label="labels['lname']"
               :error-messages="lastNameError"
               placeholder=" "
               type="text">
@@ -42,15 +42,15 @@
           outlined
           height="44" 
           dense
-          label="Email"
+          :label="labels['email']"
           :error-messages="errorMessages.email"
           placeholder=" "
           type="email">
         </v-text-field>
 
         <v-radio-group v-model="gender" row class="radioActive mt-n1" dense :mandatory="true">
-          <v-radio label="Male" value="male" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
-          <v-radio label="Female" value="female" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
+          <v-radio :label="labels['genderMale']" value="male" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
+          <v-radio :label="labels['genderFemale']" value="female" on-icon="sbf-radioOn" off-icon="sbf-radioOff"></v-radio>
         </v-radio-group>
 
         <v-text-field 
@@ -60,7 +60,7 @@
           outlined
           height="44"
           dense
-          label="Password" 
+          :label="labels['password']"
           :error-messages="errorMessages.password"
           placeholder=" "
           type="password"
@@ -74,7 +74,7 @@
           outlined
           height="44"
           dense
-          label="Confirm Password"
+          :label="labels['confirmPassword']"
           :error-messages="errorMessages.confirmPassword"
           placeholder=" "
           type="password">
@@ -108,7 +108,7 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
-import { LanguageService} from "../../../../../services/language/languageService";
+import { LanguageService } from "../../../../../services/language/languageService";
 
 import VueRecaptcha from "vue-recaptcha";
 
@@ -130,6 +130,16 @@ export default {
       lastName:'',
       firstNameError:'',
       lastNameError:'',
+
+      labels: {
+        fname: LanguageService.getValueByKey('loginRegister_setemailpass_first'),
+        lname: LanguageService.getValueByKey('loginRegister_setemailpass_last'),
+        email: LanguageService.getValueByKey('loginRegister_setemailpass_input_email'),
+        genderMale: LanguageService.getValueByKey('loginRegister_setemailpass_male'),
+        genderFemale: LanguageService.getValueByKey('loginRegister_setemailpass_female'),
+        password: LanguageService.getValueByKey('loginRegister_setemailpass_input_pass'),
+        confirmPassword: LanguageService.getValueByKey('loginRegister_setemailpass_input_passconfirm'),
+      }
     };
   },
   watch: {
@@ -230,6 +240,7 @@ export default {
     }
   },
   created() {
+    
     this.$loadScript("https://unpkg.com/zxcvbn@4.4.2/dist/zxcvbn.js");
     let captchaLangCode = global.lang === "he" ? "iw" : "en";
     this.$loadScript(`https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit&hl=${captchaLangCode}`);
