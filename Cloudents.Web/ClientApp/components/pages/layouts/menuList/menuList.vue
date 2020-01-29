@@ -7,8 +7,8 @@
           <div class="userMenu_logo"><logoComponent/></div>
             <div class="uM_noLogin_txt" v-language:inner="'menuList_txt_out'"/>
             <div class="uM_noLogin_btns">
-              <v-btn rounded depressed class="uM_noLogin_btns_in" color="white" :to="{ path: '/signin'}" v-language:inner="'menuList_Login'"/>
-              <v-btn rounded depressed class="uM_noLogin_btns_up" color="#4c59ff" :to="{ name: 'registration'}" v-language:inner="'menuList_Sign_up'"/>
+              <v-btn rounded depressed class="uM_noLogin_btns_in" color="white" :to="{ name: 'login'}" v-language:inner="'menuList_Login'"/>
+              <v-btn rounded depressed class="uM_noLogin_btns_up" color="#4c59ff" :to="{ name: 'register'}" v-language:inner="'menuList_Sign_up'"/>
             </div>
         </div>
         <div class="userMenu_top" v-if="isLoggedIn">
