@@ -64,6 +64,8 @@ const mutations = {
         state.localCode = '';
         state.firstName = '';
         state.lastName = '';
+        state.gender = 'male',
+        state.grade = ''
 
         state.globalLoading = false;
 

@@ -20,7 +20,8 @@ export default {
   mixins: [dialogMixin],
   methods: {
     exit() {
-      this.$router.push({name: 'feed'})
+      this.$store.dispatch('exit')
+      this.$router.push({name: 'feed'}).catch(() => {})
     }
   }
 }
