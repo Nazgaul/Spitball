@@ -33,7 +33,6 @@ export default {
             return this.getEmail1
         },
         isRegisterPath(){
-            debugger
             return (this.$route.name === RegiserEmailConfirmed)
         }
     },
