@@ -32,6 +32,7 @@ const state = {
     grade: '',
 
     globalLoading: false,
+    stepValidation: false,
 
     errorMessage: {
         phone: "",
@@ -123,6 +124,9 @@ const mutations = {
     },
     setStudentGrade(state, grade) {
         state.grade = grade;
+    },
+    setStepValidation(state, val) {
+        state.stepValidation = val;
     }
 };
 
@@ -137,6 +141,7 @@ const getters = {
     getErrorMessages: state => state.errorMessage,
     getPassScoreObj: state => state.passScoreObj,
     getStudentGrade: state => state.grade,
+    getStepValidation: state => state.stepValidation,
 };
 
 const actions = {
@@ -159,7 +164,7 @@ const actions = {
         if(selectedLocalCode){
             commit('setLocalCode',selectedLocalCode);
         } else {
-            registrationService.getLocalCode().then(({ data }) => {
+        registrationService.getLocalCode().then(({ data }) => {
                 commit('setLocalCode', data.code)
             });
         }
@@ -176,6 +181,9 @@ const actions = {
     },
     updateHistoryStep({commit}, stepName) {
         commit('setStepHistory', stepName);
+    },
+    updateStepValidation({commit, state}, val) {
+        commit('setStepValidation', val);
     },
     // updateStep({commit,state},stepName){
     //     let specialSteps = ["setphone", "verifyphone", "resetpassword"];
@@ -360,7 +368,7 @@ const actions = {
         registrationService.forgotPasswordReset(state.email)
             .then(() =>{
                 _analytics(['Forgot Password', 'Reset email send']);
-                dispatch('updateRouterStep', 'loginEmailConfirmed');
+                dispatch('updateRouterStep', 'emailConfirmed');
             },error =>{
                 commit('setErrorMessages',{email: error.response.data["ForgotPassword"] ? error.response.data["ForgotPassword"][0] : error.response.data["Email"][0]});
             });
