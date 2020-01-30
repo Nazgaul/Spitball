@@ -76,25 +76,23 @@ const actions = {
     Feeds_updateData({commit}, data) {
         commit('Feeds_UpdateItems', data);
     },
-    Feeds_fetchingData({state, commit, dispatch}, {name, params, page}) {
+    Feeds_fetchingData({state, commit, dispatch}, {params}) {
         dispatch('Feeds_updateDataLoaded', false);
+        commit('UPDATE_LOADING',true);
         commit('Feeds_ResetQue');
 
-        debugger
-        // check why we have this state.search here:
-        let paramsList = {...state.search, ...params, page};
-        let route = name.toLowerCase();
-        
-        return searchService.activateFunction[route](paramsList).then((data) => {
-            update(data);
+        let paramsList = {...params};
+        return searchService.activateFunction.feed(paramsList).then((data) => {
+            dispatch('Feeds_updateDataLoaded', true)
             dispatch('Feeds_setDataItems', data);
             return data;
         }, (err) => {
             return Promise.reject(err);
+        }).finally(()=>{
+            commit('UPDATE_LOADING',false);
+            commit('UPDATE_SEARCH_LOADING',false);
+            return
         });
-        function update(data) {
-            dispatch('Feeds_updateDataLoaded', true);
-        }
     },
     addQuestionItemAction({commit, getters}, notificationQuestionObject) {
         let questionToSend = {
