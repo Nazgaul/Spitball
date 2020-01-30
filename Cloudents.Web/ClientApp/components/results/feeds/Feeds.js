@@ -1,3 +1,24 @@
+import feedSkeleton from '../../pages/feedPage/components/feedSkeleton/feedSkeleton.vue';
+import feedFaqBlock from '../../pages/feedPage/components/feedFaqBlock/feedFaqBlock.vue';
+import feedItemList from '../../pages/feedPage/components/feedItemList/feedItemList.vue';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 // SERVICES
 import { verticalsName } from "../../../services/navigation/vertical-navigation/nav";
@@ -7,14 +28,12 @@ import resultItem from '../ResultItem.vue';
 import resultAsk from "../ResultAsk.vue";
 import resultNote from "../ResultNote.vue";
 import suggestCard from '../suggestCard.vue';
-import faqBlock from '../helpers/faq-block/faq-block.vue';
 import resultFilter from '../helpers/resultFilter/resultFilter.vue';
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue';
 
 import requestBox from '../../pages/feedPage/components/requestActions/requestActions.vue';
 import tutorResultCard from '../tutorCards/tutorResultCard/tutorResultCard.vue';
 import tutorResultCardMobile from '../tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
-import marketingBox from "../../helpers/marketingBox/marketingBox.vue";
 import coursesTab from "../../pages/feedPage/components/coursesTab/coursesTab.vue";
 import generalPage from '../../helpers/generalPage.vue';
 
@@ -28,9 +47,17 @@ import feedStore from '../../../store/feedStore';
 
 export default {
     components: {
+        feedSkeleton,
+        feedItemList,
+        feedFaqBlock,
+
+
+
+
+
+
         emptyState,
         SuggestCard: suggestCard,
-        faqBlock,
         ResultAsk: resultAsk,
         ResultNote: resultNote,
         ResultItem: resultItem,
@@ -39,7 +66,6 @@ export default {
         requestBox,
         tutorResultCard,
         tutorResultCardMobile,
-        marketingBox,
         coursesTab,
         generalPage
     },
@@ -47,7 +73,6 @@ export default {
         return {
             pageData: '',
             filterObject: null,
-            showFilters: false,
             showFilterNotApplied: false,
             isLoad: false,
             scrollBehaviour:{
@@ -66,17 +91,12 @@ export default {
         ...mapGetters([
             'getFilters', 
             'accountUser', 
-            'Feeds_getShowQuestionToaster', 
             'Feeds_getNextPageUrl'
         ]),
         ...mapGetters({university: 'getUniversity', items:'Feeds_getItems'}),
 
-        filterCondition() {
-            return this.filterSelection.length || (this.filterObject && this.page);
-        },
-        showQuestionToaster(){
-            return this.Feeds_getShowQuestionToaster;
-        },
+        // ( filterObject && this.page);
+
         content: {
             get() {               
                 return this.pageData;
@@ -137,11 +157,7 @@ export default {
             'updateRequestDialog',
             'setTutorRequestAnalyticsOpenedFrom'
         ]),
-        ...mapMutations(["UPDATE_SEARCH_LOADING", "Feeds_injectQuestion",'UPDATE_LOADING']),
-
-        loadNewQuestions(){
-            this.Feeds_injectQuestion();
-        },
+        ...mapMutations(["UPDATE_SEARCH_LOADING",'UPDATE_LOADING']),
         goToAskQuestion(){
              if(this.accountUser == null){
                 this.updateLoginDialogState(true);

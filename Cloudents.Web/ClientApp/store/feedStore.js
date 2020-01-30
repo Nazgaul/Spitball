@@ -13,7 +13,6 @@ const getters = {
         return (getIsLoading || getSearchLoading) ? state.dataLoaded : state.items.data;
     },
     Feeds_getNextPageUrl: (state) =>  state.items.nextPage,
-    Feeds_getShowQuestionToaster: (state) => !!state.queItems ? state.queItems.length > 0 : false,
 };
 
 const mutations = {
@@ -55,18 +54,7 @@ const mutations = {
     Feeds_markQuestionAsCorrect(state, questionObj) {
         state.items.data[questionObj.questionIndex].hasCorrectAnswer = true;
         state.items.data[questionObj.questionIndex].correctAnswerId = questionObj.answerId;
-    },
-    Feeds_injectQuestion(state) {
-        //check if ask Tab was loaded at least once
-        if (state.queItems.length > 0) {
-            state.queItems.forEach((itemToAdd) => {
-                if (!!state.items.data && state.items.data.length > 0) {
-                    state.items.data.unshift(itemToAdd);
-                }
-            });
-            state.queItems = [];
-        }
-    },
+    }
 };
 
 const actions = {

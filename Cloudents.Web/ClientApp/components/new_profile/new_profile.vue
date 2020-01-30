@@ -73,34 +73,34 @@
                             </div>
                             <a class="ask-question" @click="emptyStateData.btnUrl()">{{emptyStateData.btnText}}</a>
                         </div>
-                        <scroll-list v-if="activeTab === 1" :scrollFunc="loadDocuments" :isLoading="documents.isLoading"
+                        < v-if="activeTab === 1" :scrollFunc="loadDocuments" :isLoading="documents.isLoading"
                                         :isComplete="documents.isComplete">
                             <div 
                                             v-for="(document ,index) in uploadedDocuments"
                                             :key="index" class="mb-3">
                                 <result-note :item="document" class="pa-3 "></result-note>
                             </div>
-                        </scroll-list>
+                        </>
 
 
-                        <scroll-list v-if="activeTab === 2" :scrollFunc="loadAnswers" :isLoading="answers.isLoading"
+                        < v-if="activeTab === 2" :scrollFunc="loadAnswers" :isLoading="answers.isLoading"
                                         :isComplete="answers.isComplete">
                             <div 
                                             v-for="(answerData,index) in answerDocuments"
                                             :key="index" class="mb-3">
                                 <question-card :cardData="answerData"></question-card>
                             </div>
-                        </scroll-list>
+                        </>
 
-                        <scroll-list v-if="activeTab === 3" :scrollFunc="loadQuestions" :isLoading="questions.isLoading"
+                        < v-if="activeTab === 3" :scrollFunc="loadQuestions" :isLoading="questions.isLoading"
                                         :isComplete="questions.isComplete">
                                             <div class="mb-3"  v-for="(questionData,index) in questionDocuments" :key="index">
                                 <question-card :cardData="questionData"></question-card>
                                 </div>
 
-                        </scroll-list>
+                        </>
 
-                        <scroll-list v-if="activeTab === 4 && isMyProfile" :scrollFunc="loadPurchasedDocuments"
+                        < v-if="activeTab === 4 && isMyProfile" :scrollFunc="loadPurchasedDocuments"
                                         :isLoading="purchasedDocuments.isLoading"
                                         :isComplete="purchasedDocuments.isComplete">
                             <div 
@@ -108,14 +108,14 @@
                                             :key="index" class="mb-3">
                                 <result-note :item="document" class="pa-3 "></result-note>
                             </div>
-                        </scroll-list>
-                        <scroll-list v-if="activeTab === 5" :scrollFunc="(()=>{})"
+                        </>
+                        < v-if="activeTab === 5" :scrollFunc="(()=>{})"
                                         :isLoading="calendar.isLoading"
                                         :isComplete="calendar.isComplete">
                             <div class="mb-3">
                                 <calendarTab></calendarTab>
                             </div>
-                        </scroll-list>                            
+                        </>                            
                     </v-flex>
                 </v-flex>
                 <v-flex sm3 xs12 v-if="isMyProfile || isTutorProfile">
