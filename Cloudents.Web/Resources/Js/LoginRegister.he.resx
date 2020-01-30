@@ -133,7 +133,7 @@
     <value>מזל טוב!</value>
   </data>
   <data name="countryCode" xml:space="preserve">
-    <value>Country code</value>
+    <value>קוד מדינה</value>
   </data>
   <data name="emailconfirm_bottom" xml:space="preserve">
     <value>רק לאחר אישור האימייל תוכל להרשם לספיטבול</value>
