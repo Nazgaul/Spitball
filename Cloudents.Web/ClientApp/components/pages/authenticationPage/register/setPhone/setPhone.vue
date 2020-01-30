@@ -34,6 +34,7 @@
             prepend-inner-icon="sbf-phone"
             name=""
             :label="phoneNumberLabel"
+            :error-messages="errorMessages.phone"
             placeholder=" "
         ></v-text-field>
 
