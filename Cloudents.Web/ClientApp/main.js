@@ -12,7 +12,7 @@ import VueAppInsights from 'vue-application-insights';
 import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
 import VueFlicking from "@egjs/vue-flicking";
 import '../ClientApp/myFont.font.js';
-import i18n from './plugins/i18n'
+import {i18n, loadLanguageAsync } from './plugins/t-i18n'
 if(!window.IntersectionObserver){ // Intersection observer support
     import('intersection-observer')   
 }
@@ -168,7 +168,18 @@ router.beforeEach((to, from, next) => {
 
     store.dispatch('sendQueryToAnalytic', to);
     store.dispatch('changeLastActiveRoute', from);
-    checkUserStatus(to, next);
+    
+    store.dispatch('userStatus', {isRequireAuth: to.meta.requiresAuth, to});
+    if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
+        next("/signin");
+        return;
+    } 
+
+    
+    loadLanguageAsync().then(() => {
+       next();
+    });
+    
 
 });
 const app = new Vue({
@@ -180,14 +191,7 @@ const app = new Vue({
     render: h => h(App),
 });
 
-function checkUserStatus(to, next) {
-    store.dispatch('userStatus', {isRequireAuth: to.meta.requiresAuth, to});
-    if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
-        next("/signin");
-    } else {
-        next();
-    }
-}
+
 
 global.isMobileAgent = function () {
     let check = false;
