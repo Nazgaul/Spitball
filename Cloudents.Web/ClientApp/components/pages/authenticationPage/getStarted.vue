@@ -2,7 +2,9 @@
     <div class="getStartedContainer text-center">
         <div class="getStartedActions">
             <div class="getStartedTop">
-                <p class="getStartedTitle" v-language:inner="isRegisterPath? 'loginRegister_getstarted_title':'loginRegister_getstarted_title_login'"></p>
+
+                <!-- <p class="getStartedTitle" v-language:inner="isRegisterPath? 'loginRegister_getstarted_title':'loginRegister_getstarted_title_login'"></p> -->
+                <p class="getStartedTitle">{{$t(isRegisterPath? 'loginRegister_getstarted_title' : 'loginRegister_getstarted_title_login')}}</p>
                 <span class="getStartedSubtitle" v-language:inner="isRegisterPath? 'loginRegister_getstarted_subtitle': '' "></span>
             </div>
             <div class="getStartedForm">
