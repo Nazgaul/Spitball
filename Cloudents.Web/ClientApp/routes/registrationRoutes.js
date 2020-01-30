@@ -161,14 +161,15 @@ export const registrationRoutes = [
             //     }
             // },
         ],
-        beforeEnter: (to, from, next) => {
-            if(global.isAuth) {
-                //TODO why do we need this
-                next(false);
-            } else {
-                next();
-            }
-        }
+        // beforeEnter: (to, from, next) => {
+        //     debugger
+        //     if(global.isAuth) {
+        //         //TODO why do we need this
+        //         next(false);
+        //     } else {
+        //         next();
+        //     }
+        // }
     },
 
     {
