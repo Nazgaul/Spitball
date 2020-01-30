@@ -5,6 +5,7 @@ namespace Cloudents.Core.Enum
     {
         University,
         HighSchool,
-        Parent
+        Parent,
+        Tutor
     }
 }
