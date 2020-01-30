@@ -36,7 +36,7 @@
                     </v-tooltip>
                 </template>
                 <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
-                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({path:'/signin'})" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="goLogin" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
                     <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$router.push({path:'/register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
                     <a class="gH_i_lang" @click="changeLanguage()" v-if="showChangeLanguage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
@@ -197,6 +197,10 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
             }
         );
         },
+        goLogin(){
+            window.dispatchEvent( new Event('native.showkeyboard') );           
+            this.$router.push({path:'/signin'});
+        }
     },
     created() {
         this.$root.$on("closeDrawer", ()=>{
