@@ -34,11 +34,11 @@ namespace Cloudents.Web.Controllers
         public async Task<IActionResult> IndexAsync(string page, /*NextStep? step,*/ CancellationToken token)
         {
 
-            return View("Index");
-            if (User.Identity.IsAuthenticated)
-            {
-                return Redirect("/feed");
-            }
+            //return View("Index");
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    return Redirect("/feed");
+            //}
 
 
 
