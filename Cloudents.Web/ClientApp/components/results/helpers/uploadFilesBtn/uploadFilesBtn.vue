@@ -61,7 +61,7 @@
                               'updateDialogState',
                               'setReturnToUpload'
                           ]),
-            ...mapGetters(['getSchoolName', 'getAllSteps']),
+            ...mapGetters(['getSchoolName']),
             openUploaderDialog() {
                 let schoolName = this.getSchoolName();
                 if(this.accountUser == null) {

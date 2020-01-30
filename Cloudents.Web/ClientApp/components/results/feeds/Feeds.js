@@ -41,8 +41,6 @@ import generalPage from '../../helpers/generalPage.vue';
 
 // SVG
 import emptyState from "../svg/no-match-icon.svg";
-// MIXIN
-import sortAndFilterMixin from '../../mixins/sortAndFilterMixin';
 // STORE
 import storeService from "../../../services/store/storeService";
 import feedStore from '../../../store/feedStore';
@@ -100,11 +98,6 @@ export default {
             },
         };
     },
-    //use basic sort and filter functionality( same for book details and result page)
-    mixins: [sortAndFilterMixin],
-
-
-
     computed: {
         ...mapGetters([
             'accountUser', 

@@ -77,10 +77,11 @@ const actions = {
         commit('Feeds_UpdateItems', data);
     },
     Feeds_fetchingData({state, commit, dispatch}, {name, params, page}) {
-        // debugger
         dispatch('Feeds_updateDataLoaded', false);
         commit('Feeds_ResetQue');
-// check why we have this state.search here:
+
+        debugger
+        // check why we have this state.search here:
         let paramsList = {...state.search, ...params, page};
         let route = name.toLowerCase();
         
@@ -92,8 +93,6 @@ const actions = {
             return Promise.reject(err);
         });
         function update(data) {
-            let sortData = !!data.sort ? data.sort : null;
-            dispatch('updateSort', sortData);
             dispatch('Feeds_updateDataLoaded', true);
         }
     },

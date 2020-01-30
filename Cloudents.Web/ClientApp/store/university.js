@@ -25,8 +25,6 @@ const getters = {
     // the sorting is moved to the cmp
     getSelectedClasses: state => state.selectedClasses,
     getSelectedClassesCache: state => state.selectedClassesCache,
-    getAllSteps: state => state.stepsEnum,
-    getCurrentStep: state => state.currentStep,
     createDialogVisibility: state => state.createDialog,
     creationVerified: state => state.creationVerified,
     getCreateDialogVisibility: state => state.createUniDialog,
@@ -90,12 +88,6 @@ const mutations = {
     deleteFromCachedList(state, val){
         let index = state.selectedClassesCache.indexOf(val);
         state.selectedClassesCache.splice(index, 1);
-    },
-    setSelectUniState() {
-        // state.showSelectUniInterface = val;
-    },
-    setCurrentStep(state, val) {
-        state.currentStep = val;
     },
     openResultLockForSchoolNameChange(state) {
         state.resultLockForSchoolNameChange = true;
@@ -267,11 +259,6 @@ const actions = {
             dispatch('setSelectedClasses', [].concat(state.selectedClassesCache));
         }
     },
-    updateCurrentStep({commit, state}, val) {
-        if(state.stepArr.indexOf(val) > -1) {
-            commit("setCurrentStep", val);
-        }
-    },
     releaseResultLock({commit}, val) {
         if(val === "uni") {
             commit('openResultLockForSchoolNameChange');
@@ -282,9 +269,6 @@ const actions = {
     },
     updateSelectForTheFirstTime({commit}, val) {
         commit('setSelectForTheFirstTime', val);
-    },
-    closeSelectUniFromNav({commit}) {
-        commit('setSelectUniState', false);
     },
     changeCreateDialogState({commit}, val) {
         commit('updateCreateDialogState', val);

@@ -4,12 +4,8 @@ import {LanguageService} from '../services/language/languageService';
 
 const state = {
     cookieAccepted: global.localStorage.getItem("sb-acceptedCookies") === 'true',
-    sort: "",
 };
 const mutations = {
-    [USER.UPDATE_SORT](state, payload) {
-        state.sort = payload;
-    },
     [USER.ACCEPTED_COOKIE](state){
         state.cookieAccepted = true;
     }
@@ -21,17 +17,11 @@ const getters = {
         }
         return state.cookieAccepted
     },
-    getSort(state){
-        return state.sort;
-    }
 };
 const actions = {
     setCookieAccepted({ commit }){
         global.localStorage.setItem("sb-acceptedCookies", true);
         commit(USER.ACCEPTED_COOKIE);
-    },
-    updateSort({ commit }, data) {
-        commit(USER.UPDATE_SORT, data);
     },
     signalR_TutorEnterStudyRoom({ dispatch, rootState }, notificationObj){
         if(rootState.route.name !== 'tutoring' && rootState.route.name !== 'roomSettings'){

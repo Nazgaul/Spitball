@@ -156,16 +156,9 @@ Vue.prototype.$chatMessage = function (message) {
 
 router.beforeEach((to, from, next) => {
     store.dispatch('setRouteStack', to.name);
-    if (!to.query || !to.query.university) {
-        if (!!from.query && !!from.query.university) {
-            store.dispatch('closeSelectUniFromNav');
-        }
-    } 
-
     store.dispatch('sendQueryToAnalytic', to);
     store.dispatch('changeLastActiveRoute', from);
     checkUserStatus(to, next);
-
 });
 const app = new Vue({
     //el: "#app",
