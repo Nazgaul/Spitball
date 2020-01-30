@@ -129,7 +129,7 @@ namespace Cloudents.Core.Entities
             //{
             //    throw new OverflowException();
             //}
-            
+
         }
 
         public virtual void ChangeCountry(string country)
@@ -217,10 +217,8 @@ namespace Cloudents.Core.Entities
         public virtual Gender Gender { get; protected set; }
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
-        public virtual UserType? UserType { get; set; }
-        public virtual string ChildFirstName { get; set; }
-        public virtual string ChildLastName { get; set; }
-        public virtual short Grade { get; set; }
+        //public virtual UserType? UserType { get; set; }
+
         public virtual void CreditCardReceived()
         {
             PaymentExists = PaymentStatus.Done;
@@ -245,11 +243,11 @@ namespace Cloudents.Core.Entities
             LastOnline = DateTime.UtcNow;
         }
 
-        public virtual void DeleteFirstAndLastName()
-        {
-            FirstName = null;
-            LastName = null;
-        }
+        //public virtual void DeleteFirstAndLastName()
+        //{
+        //    FirstName = null;
+        //    LastName = null;
+        //}
 
         public virtual void ChangeName(string firstName, [CanBeNull] string lastName)
         {
@@ -364,19 +362,137 @@ namespace Cloudents.Core.Entities
 
         public virtual void SetUserType(UserType userType)
         {
-            UserType = userType;
+            switch (userType)
+            {
+                case UserType.UniversityStudent:
+                    Extend = new CollegeStudent(this);
+                    break;
+                case UserType.HighSchoolStudent:
+                    Extend = new HighSchoolStudent(this);
+
+                    break;
+                case UserType.Parent:
+                    Extend = new Parent(this);
+
+                    break;
+                case UserType.Teacher:
+                    Extend = new Teacher(this);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(userType), userType, null);
+            }
         }
 
-        public virtual void SetUserGrade(short grade)
+        protected internal virtual ICollection<UserComponent> UserComponents { get; set; }
+
+        public virtual UserComponent Extend
         {
+            get => UserComponents.SingleOrDefault();
+            set
+            {
+                UserComponents.Clear();
+                UserComponents.Add(value);
+                
+            }
+        }
+    }
+
+    public abstract class UserComponent
+    {
+
+
+        protected UserComponent(UserType type, User user)
+        {
+            Type = type;
+            User = user;
+        }
+
+        protected UserComponent()
+        {
+
+        }
+        public virtual Guid Id { get; set; }
+        public virtual UserType Type { get; protected set; }
+
+        public virtual User User { get; set; }
+    }
+
+    public class Parent : UserComponent
+    {
+        public Parent(User user)
+            : base(UserType.Parent, user)
+        {
+           
+        }
+        public Parent(User user, string childFirstName, string childLastName, short grade)
+            : base(UserType.Parent, user)
+        {
+            ChildFirstName = childFirstName;
+            ChildLastName = childLastName;
             Grade = grade;
         }
 
-        public virtual void SetChildName(string firstName, string lastName)
+        protected Parent()
+        {
+
+        }
+        public virtual string ChildFirstName { get; protected set; }
+        public virtual string ChildLastName { get; protected set; }
+        public virtual short Grade { get;protected set; }
+
+
+        
+
+        public virtual void SetChildData(string firstName, string lastName, short grade)
         {
             ChildFirstName = firstName;
             ChildLastName = lastName;
+            Grade = grade;
         }
 
+        //public override UserType Type { get; protected set; }
     }
+
+
+    public class HighSchoolStudent : UserComponent
+    {
+        public HighSchoolStudent(User user) : base(UserType.HighSchoolStudent, user)
+        {
+        }
+
+        protected HighSchoolStudent()
+        {
+
+        }
+        public override UserType Type { get; protected set; }
+    }
+
+    public class CollegeStudent : UserComponent
+    {
+        public CollegeStudent(User user) : base(UserType.UniversityStudent, user)
+        {
+        }
+
+        protected CollegeStudent()
+        {
+
+        }
+        public override UserType Type { get; protected set; }
+    }
+
+    public class Teacher : UserComponent
+    {
+        public Teacher(User user) : base(UserType.Teacher, user)
+        {
+        }
+
+        protected Teacher()
+        {
+
+        }
+        public override UserType Type { get; protected set; }
+    }
+    //public virtual Tutor Tutor { get; set; }
+
+
 }

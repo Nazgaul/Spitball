@@ -296,22 +296,13 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("grade")]
-        public async Task<IActionResult> SetUserGradeAsync([FromBody] SetUserGradeRequest model,
-            [FromServices] ICommandBus commandBus, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var command = new SetUserGradeCommand(userId, model.Grade);
-            await commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
 
         [HttpPost("childName")]
         public async Task<IActionResult> SetChildNameAsync([FromBody] SetChildNameRequest model,
             [FromServices] ICommandBus commandBus, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new SetChildNameCommand(userId, model.FirstName, model.lastName);
+            var command = new SetChildNameCommand(userId, model.FirstName, model.LastName, model.Grade);
             await commandBus.DispatchAsync(command, token);
             return Ok();
         }

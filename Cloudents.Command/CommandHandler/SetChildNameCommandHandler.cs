@@ -1,4 +1,5 @@
-﻿using Cloudents.Command.Command;
+﻿using System;
+using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
@@ -18,11 +19,21 @@ namespace Cloudents.Command.CommandHandler
         public async Task ExecuteAsync(SetChildNameCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            if (user.UserType == UserType.Parent)
+
+            if (user.Extend is Parent p)
             {
-                user.SetChildName(message.FirstName, message.LasttName);
+                p.SetChildData(message.FirstName, message.LastName, message.Grade);
                 await _userRepository.UpdateAsync(user, token);
             }
+            else
+            {
+                throw new ArgumentException();
+            }
+            //if (user.Extend.Type == UserType.Parent)
+            //{
+            //    user.SetChildName(message.FirstName, message.LasttName);
+            //    await _userRepository.UpdateAsync(user, token);
+            //}
         }
     }
 }
