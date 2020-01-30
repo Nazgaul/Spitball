@@ -121,43 +121,43 @@
     <value>Choose your courses</value>
   </data>
   <data name="grade1" xml:space="preserve">
-    <value>grade1</value>
+    <value>1st grade</value>
   </data>
   <data name="grade10" xml:space="preserve">
-    <value>grade10</value>
+    <value>10th grade</value>
   </data>
   <data name="grade11" xml:space="preserve">
-    <value>grade11</value>
+    <value>11th grade</value>
   </data>
   <data name="grade12" xml:space="preserve">
-    <value>grade12</value>
+    <value>12th grade</value>
   </data>
   <data name="grade2" xml:space="preserve">
-    <value>grade2</value>
+    <value>2nd grade</value>
   </data>
   <data name="grade3" xml:space="preserve">
-    <value>grade3</value>
+    <value>3rd grade</value>
   </data>
   <data name="grade4" xml:space="preserve">
-    <value>grade4</value>
+    <value>4th grade</value>
   </data>
   <data name="grade5" xml:space="preserve">
-    <value>grade5</value>
+    <value>5th grade</value>
   </data>
   <data name="grade6" xml:space="preserve">
-    <value>grade6</value>
+    <value>6th grade</value>
   </data>
   <data name="grade7" xml:space="preserve">
-    <value>grade7</value>
+    <value>7th grade</value>
   </data>
   <data name="grade8" xml:space="preserve">
-    <value>grade8</value>
+    <value>8th grade</value>
   </data>
   <data name="grade9" xml:space="preserve">
-    <value>grade9</value>
+    <value>9th grade</value>
   </data>
   <data name="parent_subtitle" xml:space="preserve">
-    <value>Fill in details about the child so we can best fit a teacher. Do not worry we will not use the data in any other form</value>
+    <value>choose</value>
   </data>
   <data name="school_subtitle" xml:space="preserve">
     <value>In order for us to find you a teacher that fits your needs or study materials please fill out the info below</value>

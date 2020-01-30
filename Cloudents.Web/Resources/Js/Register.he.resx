@@ -118,57 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="course_title" xml:space="preserve">
-    <value>בחר את הקורסים שלך</value>
+    <value>בחרו את הקורסים שאתם לומדים</value>
   </data>
   <data name="grade1" xml:space="preserve">
-    <value>grade1</value>
+    <value>כיתה א</value>
   </data>
   <data name="grade10" xml:space="preserve">
-    <value>grade10</value>
+    <value>כיתה י</value>
   </data>
   <data name="grade11" xml:space="preserve">
-    <value>grade11</value>
+    <value>כיתה יא</value>
   </data>
   <data name="grade12" xml:space="preserve">
-    <value>grade12</value>
+    <value>כיתה יב</value>
   </data>
   <data name="grade2" xml:space="preserve">
-    <value>grade2</value>
+    <value>כיתה ב</value>
   </data>
   <data name="grade3" xml:space="preserve">
-    <value>grade3</value>
+    <value>כיתה ג</value>
   </data>
   <data name="grade4" xml:space="preserve">
-    <value>grade4</value>
+    <value>כיתה ד</value>
   </data>
   <data name="grade5" xml:space="preserve">
-    <value>grade5</value>
+    <value>כיתה ה</value>
   </data>
   <data name="grade6" xml:space="preserve">
-    <value>grade6</value>
+    <value>כיתה ו</value>
   </data>
   <data name="grade7" xml:space="preserve">
-    <value>grade7</value>
+    <value>כיתה ז</value>
   </data>
   <data name="grade8" xml:space="preserve">
-    <value>grade8</value>
+    <value>כיתה ח</value>
   </data>
   <data name="grade9" xml:space="preserve">
-    <value>grade9</value>
+    <value>כיתה ט</value>
   </data>
   <data name="parent_subtitle" xml:space="preserve">
-    <value>Fill in details about the child so we can best fit a teacher. Do not worry we will not use the data in any other form</value>
+    <value>אנא מלאו פרטים על ילדכם כך שנוכל להתאים מורה באופן מיטבי. אל דאגה, לא נעשה כל שימוש במידע זה בכל מקום אחר</value>
   </data>
   <data name="school_subtitle" xml:space="preserve">
-    <value>In order for us to find you a teacher that fits your needs or study materials please fill out the info below</value>
+    <value>בכדי שנוכל למצוא לכם מורה או חומרי לימוד מתאימים, אנא מלאו את הפרטים הבאים</value>
   </data>
   <data name="school_title" xml:space="preserve">
-    <value>Let's get started</value>
+    <value>בואו נתחיל</value>
   </data>
   <data name="university_title" xml:space="preserve">
-    <value>Choose your school</value>
+    <value>בחרו את מוסד הלימודים שלכם</value>
   </data>
   <data name="what_grade" xml:space="preserve">
-    <value>What grade?</value>
+    <value>איזה כיתה?</value>
   </data>
 </root>
