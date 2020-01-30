@@ -26,7 +26,6 @@ import { mapActions, mapGetters } from 'vuex'
 import { RegiserEmailConfirmed }from '../../../../../routes/routeName'
 
 export default {
-    // name: 'EmailConfirmed',
     computed: {
         ...mapGetters(['getEmail1']),
         userEmail(){

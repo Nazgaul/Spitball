@@ -3,22 +3,6 @@
 </template>
 
 <script>
-export default {
-    name: 'registerTeacher',
-    data: () => ({
-        
-    }),
-    methods: {
-        openBecomeTutorDialog() {
-            this.$store.dispatch('updateTutorDialog',true)
-        }
-    },
-    mounted() {
-        this.openBecomeTutorDialog();
-    }
-}
+// this is register v2
+
 </script>
-
-<style lang="less">
-
-</style>

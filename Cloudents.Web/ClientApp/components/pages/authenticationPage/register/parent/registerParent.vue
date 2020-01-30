@@ -1,7 +1,7 @@
 <template>
     <div id="registerParent">
 
-        <div class="text-center mainTitle" v-language:inner="'register_school_title'"></div>
+        <div class="text-center maintitle" v-language:inner="'register_school_title'"></div>
         <div class="text-center subtitle" v-language:inner="'register_parent_subtitle'"></div>
 
         <form @submit.prevent="send">
@@ -49,10 +49,11 @@
 </template>
 
 <script>
-const registerCourse = () => import('../registerCourse/registerCourse.vue')
+import { LanguageService } from '../../../../../services/language/languageService';
+
+const registerCourse = () => import('../registerCourse/registerCourse.vue');
 
 export default {
-    // name: 'registerParent',
     components: {
         registerCourse
     },
@@ -60,7 +61,25 @@ export default {
         firstname: '',
         lastname: '',
         grade: null,
-        grades: [1, 2, 3, 4]
+        grades: [
+            LanguageService.getValueByKey('register_grade1'),
+            LanguageService.getValueByKey('register_grade2'),
+            LanguageService.getValueByKey('register_grade3'),
+            LanguageService.getValueByKey('register_grade4'),
+            LanguageService.getValueByKey('register_grade5'),
+            LanguageService.getValueByKey('register_grade6'),
+            LanguageService.getValueByKey('register_grade7'),
+            LanguageService.getValueByKey('register_grade8'),
+            LanguageService.getValueByKey('register_grade9'),
+            LanguageService.getValueByKey('register_grade10'),
+            LanguageService.getValueByKey('register_grade11'),
+            LanguageService.getValueByKey('register_grade12')
+        ],
+        label: {
+            fname: LanguageService.getValueByKey('register_student_parent_fname'),
+            lname: LanguageService.getValueByKey('register_student_parent_lname'),
+            grade: LanguageService.getValueByKey('register_student_parent_grade'),
+        }
     }),
     methods: {
         send() {
@@ -74,29 +93,3 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-@color: #43425d;
-
-#registerParent {
-    max-width: 500px;
-    .mainTitle {
-        font-size: 26px;
-        color: @color;
-        margin-bottom: 10px;
-    }
-    .subtitle {
-        font-size: 16px;
-        color: @color;
-        margin-bottom: 40px;
-    }
-
-    .gradesWrap_select {
-        i {
-            font-size: 8px;
-            color: @color;
-        }
-    }
-}
-
-</style>

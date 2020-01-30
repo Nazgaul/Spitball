@@ -391,4 +391,10 @@ tutors</value>
   <data name="countryCode" xml:space="preserve">
     <value>Country code</value>
   </data>
+  <data name="college" xml:space="preserve">
+    <value>A College Student</value>
+  </data>
+  <data name="highSchool" xml:space="preserve">
+    <value>A High school Student</value>
+  </data>
 </root>
