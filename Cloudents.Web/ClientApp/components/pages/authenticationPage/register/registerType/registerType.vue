@@ -16,11 +16,11 @@
                     <span class="panel_title text-center" v-language:inner="'loginRegister_student'"></span>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content class="pt-4">
-                    <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" :to="{name: 'registerCourse'}" @click="sendRegisterType('HighSchool', {name: 'registerCourse'})">
+                    <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" @click="sendRegisterType('HighSchoolStudent', {name: 'registerCourse'})">
                         <span><collegeIcon /></span>
                         <span class="flex-grow-1 text-center white--text" v-language:inner="'loginRegister_highSchool'"></span>
                     </v-btn>
-                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" :to="{name: 'registerUniversity'}" @click="sendRegisterType('University', {name: 'registerUniversity'})">
+                    <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" @click="sendRegisterType('UniversityStudent', {name: 'registerUniversity'})">
                         <span><highSchoolIcon /></span>
                         <span class="flex-grow-1 text-center white--text" v-language:inner="'loginRegister_college'"></span>
                     </v-btn>
@@ -35,7 +35,7 @@
                 </v-expansion-panel-header>
             </v-expansion-panel>
 
-            <v-expansion-panel class="panel panel_teacher" readonly @click="sendRegisterType('Tutor', {query: {dialog: 'becomeTutor'}})">
+            <v-expansion-panel class="panel panel_teacher" readonly @click="sendRegisterType('Teacher', {query: {dialog: 'becomeTutor'}})">
                 <v-expansion-panel-header class="px-4 py-2" expand-icon="">
                     <span class="flex-grow-0 mr-4"><teacherIcon/></span>
                     <v-divider class="mr-4" vertical></v-divider>
@@ -68,6 +68,7 @@ export default {
     }),
     methods: {
         sendRegisterType(regType, route) {
+            debugger
             this.$store.dispatch('updateRegisterType', regType).then(() => {
                 this.showError = false
             }).catch(() => {
