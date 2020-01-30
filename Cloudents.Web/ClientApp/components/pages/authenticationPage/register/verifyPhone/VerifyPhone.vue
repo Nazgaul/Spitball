@@ -18,6 +18,7 @@
 		dense
 		prepend-inner-icon="sbf-keyCode"
 		name=""
+		:error-messages="errorMessages.code"
 		:label="phoneNumberLabel"
 		placeholder=" "
 	></v-text-field>
