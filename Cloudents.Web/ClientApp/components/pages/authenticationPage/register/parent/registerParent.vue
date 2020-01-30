@@ -30,7 +30,7 @@
                     <v-select
                         v-model="grade"
                         :items="grades"
-                        class="gradesWrap_select mb-2"
+                        class="gradesWrap mb-2"
                         outlined
                         dense
                         height="44"
@@ -41,7 +41,6 @@
                     </v-select>
                 </v-col>
             </v-row>
-            <v-btn cols="12" type="submit">send</v-btn>
         </form>
 
         <registerCourse />
@@ -58,22 +57,55 @@ export default {
         registerCourse
     },
     data: () => ({
-        firstname: '',
-        lastname: '',
-        grade: null,
         grades: [
-            LanguageService.getValueByKey('register_grade1'),
-            LanguageService.getValueByKey('register_grade2'),
-            LanguageService.getValueByKey('register_grade3'),
-            LanguageService.getValueByKey('register_grade4'),
-            LanguageService.getValueByKey('register_grade5'),
-            LanguageService.getValueByKey('register_grade6'),
-            LanguageService.getValueByKey('register_grade7'),
-            LanguageService.getValueByKey('register_grade8'),
-            LanguageService.getValueByKey('register_grade9'),
-            LanguageService.getValueByKey('register_grade10'),
-            LanguageService.getValueByKey('register_grade11'),
-            LanguageService.getValueByKey('register_grade12')
+            {
+                text: LanguageService.getValueByKey('register_grade1'),
+                value: 1
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade2'),
+                value: 2
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade3'),
+                value: 3
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade4'),
+                value: 4
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade5'),
+                value: 5
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade6'),
+                value: 6
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade7'),
+                value: 7
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade8'),
+                value: 8
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade9'),
+                value: 9
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade10'),
+                value: 10
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade11'),
+                value: 11
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade12'),
+                value: 12
+            }
         ],
         label: {
             fname: LanguageService.getValueByKey('register_student_parent_fname'),
@@ -81,15 +113,32 @@ export default {
             grade: LanguageService.getValueByKey('register_student_parent_grade'),
         }
     }),
-    methods: {
-        send() {
-            let parentObj = {
-                firstname: this.firstname,
-                lastname: this.lastname,
-                grade: this.grade
+
+    computed: {
+        firstname: {
+            get() {
+                return this.$store.getters.getFirstName
+            },
+            set(firstname) {
+                this.$store.dispatch('updateFirstName', firstname)
             }
-            this.$store.dispatch('parentRegister', parentObj)
-        }
+        },
+        lastname: {
+            get() {
+                return this.$store.getters.getLastName
+            },
+            set(lastname) {
+                this.$store.dispatch('updateLastName', lastname)
+            }
+        },
+        grade: {
+            get() {
+                return this.$store.getters.getStudentGrade
+            },
+            set(grade) {
+                this.$store.dispatch('updateGrade', grade)
+            }
+        },
     }
 }
 </script>

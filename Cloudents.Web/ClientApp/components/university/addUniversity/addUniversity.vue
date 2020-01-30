@@ -153,10 +153,8 @@
                 this.changeUniCreateDialogState(true);
             },
             getOut() {
-                if(this.isFromRegister) {
-                    let classesSet = this.getSelectedClasses && this.getSelectedClasses.length > 0;
-                    classesSet ? this.$router.push({name: 'feed'}) : this.$router.push({name: 'editCourse'});
-                }
+                let classesSet = this.getSelectedClasses && this.getSelectedClasses.length > 0;
+                classesSet ? this.$router.push({name: 'feed'}) : this.$router.push({name: 'editCourse'});
             },
             loadUniversities(paramObj){
                 let self = this;
@@ -233,13 +231,20 @@
                     //new if changed
                     this.updateSchoolName(objToSend)
                         .then(() => {
+                            if(!this.isFromRegister) {
+                                this.$store.dispatch('updateStepValidation', true);
+                            } else {
                                 this.UPDATE_SEARCH_LOADING(true);
                                 this.getOut();
-                              },
-                              (error) => {
-                                  console.log('error', error);
-                              }
-                        );
+                            }
+                            },
+                            (error) => {
+                                console.log('error', error);
+                                if(!this.isFromRegister) {
+                                    this.$store.dispatch('updateStepValidation', false);
+                                }
+                            }
+                        )
                 } else {
                     //skip if not
                     this.getOut();

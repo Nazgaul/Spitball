@@ -21,7 +21,7 @@ export default {
   methods: {
     exit() {
       this.$store.dispatch('exit')
-      this.$router.push({name: 'feed'}).catch(() => {})
+      this.$router.push({path: '/'}).catch(() => {})
     }
   }
 }

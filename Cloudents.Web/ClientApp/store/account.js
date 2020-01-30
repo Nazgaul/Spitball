@@ -223,8 +223,11 @@ const actions = {
     updateEditDialog(context, val){
         context.commit('setEditDialog', val);
     },
-    updateUniExists(context, val){
-        context.commit("setUniExists", val);
+    updateUniExists({commit, state}, val){
+        //TODO: why do we need this
+        if(state?.user) {
+            commit("setUniExists", val);
+        }
     },
     updateEditedProfile(context, newdata) {
         context.commit("updateEditedData", newdata);

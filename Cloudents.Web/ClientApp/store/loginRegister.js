@@ -122,6 +122,12 @@ const mutations = {
         state.firstName = fullNameObj.firstName;
         state.lastName = fullNameObj.lastName;
     },
+    setFirstName(state, firstName) {
+        state.firstName = firstName;
+    },
+    setLastName(state, lastName) {
+        state.lastName = lastName;
+    },
     setStudentGrade(state, grade) {
         state.grade = grade;
     },
@@ -142,11 +148,19 @@ const getters = {
     getPassScoreObj: state => state.passScoreObj,
     getStudentGrade: state => state.grade,
     getStepValidation: state => state.stepValidation,
+    getFirstName: state => state.firstName,
+    getLastName: state => state.lastName,
 };
 
 const actions = {
     updateToUrl({commit}, url) {
         commit('setToUrl',url);
+    },
+    updateFirstName({commit}, firstName) {
+        commit('setFirstName', firstName)
+    },
+    updateLastName({commit}, lastName) {
+        commit('setLastName', lastName)
     },
     updateName({commit}, fullNameObj) {
         commit('setName',fullNameObj);
@@ -160,6 +174,9 @@ const actions = {
     updateGender({commit}, gender) {
         commit('setGender', gender)
     },
+    updateGrade({commit}, grade) {
+        commit('setStudentGrade', grade);
+    }, 
     updateLocalCode({commit}, selectedLocalCode) {
         if(selectedLocalCode){
             commit('setLocalCode',selectedLocalCode);
@@ -182,28 +199,9 @@ const actions = {
     updateHistoryStep({commit}, stepName) {
         commit('setStepHistory', stepName);
     },
-    updateStepValidation({commit, state}, val) {
+    updateStepValidation({commit}, val) {       
         commit('setStepValidation', val);
     },
-    // updateStep({commit,state},stepName){
-    //     let specialSteps = ["setphone", "verifyphone", "resetpassword"];
-
-    //     if(specialSteps.includes(stepName.toLowerCase())){
-    //         commit('setResetStepHistory');
-    //         commit('setCurrentStep',stepName);
-    //         _analytics(['Registration', 'Email Verified']);
-    //         return;
-    //     }
-    //     if(!stepName){
-    //         commit('setResetState');
-    //     }else if(state.stepsHistory.includes(stepName)){
-    //         commit('setBackStep');
-    //     }else {
-    //         history.pushState({}, null);
-    //         commit('setStepHistory');
-    //         commit('setCurrentStep',stepName);
-    //     }
-    // },
     googleSigning({dispatch, commit, state}) {
         let authInstance = gapi.auth2.getAuthInstance();
 
@@ -235,11 +233,9 @@ const actions = {
         let emailRegObj = { firstName, lastName, email, gender, recaptcha, password, confirmPassword }
 
         return registrationService.emailRegistration(emailRegObj)
-            .then(({data}) => {
-                let nextStep = data.step.name;
+            .then(() => {
                 _analytics(['Registration', 'Start']);
                 dispatch('updateRouterStep', 'registerEmailConfirmed')
-                // dispatch('updateRouterStep', nextStep)
             },  (error) => {
                 commit('setErrorMessages',{
                     email: error.response.data["Email"] ? error.response.data["Email"][0] : '',
@@ -407,25 +403,34 @@ const actions = {
         commit('setResetState');
         dispatch('updateRouterStep', 'feed');
     },
-    updateStudentGrade({ commit }, grade) {
-        return registrationService.updateGrade({ grade }).then(() => {
-            commit('setStudentGrade', grade);
-        })
+    updateStudentGrade({ commit, dispatch }) {
+        let grade = state.grade
+        if(grade) {
+            return registrationService.updateGrade({ grade }).then(() => {
+                commit('setStudentGrade', grade);
+                dispatch('updateRouterStep', 'feed');
+            })
+        }
     },
     updateParentStudent(context, fullname) {
         return registrationService.updateParentStudentName(fullname);
     },
-    parentRegister({dispatch}, {grade, firstname, lastname}) {
+    parentRegister({state, dispatch}) {
+        let grade = state.grade
+        let firstname = state.firstName;
+        let lastname = state.lastName
+        if(!grade || !firstname || !lastname) {
+            dispatch('updateStepValidation', false)
+            return
+        }
         let promiseGrade = registrationService.updateGrade({grade});
         let promiseStudentParent = dispatch('updateParentStudent', {firstname, lastname});
 
         Promise.all([promiseGrade, promiseStudentParent])
             .then(() => {
-                console.log('grade call success');
-            }).then(() => {
-                console.log('child name call success');
-            }).catch(ex => {
-                console.log(ex);
+                dispatch('updateRouterStep', 'feed');
+            }).catch(() => {
+                dispatch('updateStepValidation', false)
             })
     }
 };
