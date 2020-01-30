@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 namespace Cloudents.Persistence.Maps
 {
     [UsedImplicitly]
-    public partial class TutorMap : ClassMap<Tutor>
+    public class TutorMap : ClassMap<Tutor>
     {
         public TutorMap()
         {

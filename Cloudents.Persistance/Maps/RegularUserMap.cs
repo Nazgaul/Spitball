@@ -75,8 +75,8 @@ namespace Cloudents.Persistence.Maps
                 .KeyColumn("UserId").Inverse();
 
             //We are using cascade all because we need to save the tutor in Become Tutor command handler
-            HasOne(x => x.Tutor).Cascade.All();
-
+            //HasOne(x => x.Tutor).Cascade.All();
+            References(x => x.Tutor).Cascade.All().Unique();
         }
     }
 }
