@@ -13,12 +13,29 @@
 
 <script>
 export default {
-    data:() => ({
-        
-    }),
+    computed: {
+        isValid() {
+            return this.$store.getters.getStepValidation
+        },
+        isParentRegistration() {
+            return this.$route.name === 'registerCourseParent'
+        },
+        isHighSchoolRegistration() {
+            return this.$route.name === 'registerCourse'
+        }
+    },
     methods: {
         nextStep() {
-            this.$router.push({name: this.$route.meta.nextStep})
+            if(this.isParentRegistration) {
+                this.$store.dispatch('parentRegister');
+            } else if(this.isHighSchoolRegistration) {
+                this.$store.dispatch('updateStudentGrade')
+            } else {
+                if(this.isValid) {
+                    this.$router.push({name: this.$route.meta.nextStep})
+                    this.$store.dispatch('updateStepValidation', false);
+                }
+            }
         },
         prevStep() {
             this.$router.push({name: this.$route.meta.backStep})

@@ -55,7 +55,6 @@ const collegeIcon = () => import('../../images/college.svg');
 const highSchoolIcon = () => import('../../images/highSchool.svg');
 
 export default {
-    // name: '',
     components: {
         studentIcon,
         parentIcon,
@@ -77,15 +76,7 @@ export default {
                 this.$router.push(route)
             })
         },
-        fetchUser() {
-            this.$store.dispatch('getUserAccountForRegister').catch(() => {
-                this.$router.push('/')                
-            })
-        }
     },
-    created() {
-        this.fetchUser();
-    }
 }
 </script>
 

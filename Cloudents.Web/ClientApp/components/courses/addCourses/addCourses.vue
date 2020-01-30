@@ -286,7 +286,11 @@
                 this.removeFromCached(classToDelete);
                 let paramObj = {term: this.search, page: 0};
                 if(this.isFromRegister) {
-                    return this.removeClasses(classToDelete, paramObj)
+                    this.removeClasses(classToDelete, paramObj)
+                    if(!this.localSelectedClasses.length) {
+                        this.$store.dispatch('updateStepValidation', false)
+                    }
+                    return
                 } 
                 this.loadCourses(paramObj);
 
@@ -311,7 +315,10 @@
                 this.addClass(className);
                 this.changeClassesToCachedClasses();
                 this.assignClasses(className.text).then(() => {
-                    if(this.isFromRegister) return;
+                    if(this.isFromRegister) {
+                        this.$store.dispatch('updateStepValidation', true);
+                        return
+                    }
                     if(this.isTutor){
                             this.localSelectedClasses.forEach(course=>{
                                 universityService.teachCourse(course.text).then(()=>{

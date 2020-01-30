@@ -8,7 +8,7 @@
                     <v-select
                         v-model="grade"
                         :items="grades"
-                        class="gradesWrap_select mb-2"
+                        class="gradesWrap mb-2"
                         outlined
                         dense
                         height="44"
@@ -30,18 +30,54 @@ import { LanguageService } from '../../../../../services/language/languageServic
 export default {
     data: () => ({
         grades: [
-            LanguageService.getValueByKey('register_grade1'),
-            LanguageService.getValueByKey('register_grade2'),
-            LanguageService.getValueByKey('register_grade3'),
-            LanguageService.getValueByKey('register_grade4'),
-            LanguageService.getValueByKey('register_grade5'),
-            LanguageService.getValueByKey('register_grade6'),
-            LanguageService.getValueByKey('register_grade7'),
-            LanguageService.getValueByKey('register_grade8'),
-            LanguageService.getValueByKey('register_grade9'),
-            LanguageService.getValueByKey('register_grade10'),
-            LanguageService.getValueByKey('register_grade11'),
-            LanguageService.getValueByKey('register_grade12')
+            {
+                text: LanguageService.getValueByKey('register_grade1'),
+                value: 1
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade2'),
+                value: 2
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade3'),
+                value: 3
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade4'),
+                value: 4
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade5'),
+                value: 5
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade6'),
+                value: 6
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade7'),
+                value: 7
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade8'),
+                value: 8
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade9'),
+                value: 9
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade10'),
+                value: 10
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade11'),
+                value: 11
+            },
+            {
+                text: LanguageService.getValueByKey('register_grade12'),
+                value: 12
+            }
         ],
         showGradeError: false
     }),
@@ -51,20 +87,11 @@ export default {
                 return this.$store.getters.getStudentGrade;
             },
             set(grade) {
-                this.setGrade(grade)
+                this.$store.dispatch('updateGrade', grade)
             }
         },
         label() {
             return LanguageService.getValueByKey('register_what_grade')
-        }
-    },
-    methods: {
-        setGrade(grade) {
-            this.$store.dispatch('updateStudentGrade', grade).then(() => {
-                this.showGradeError = false
-            }).catch(() => {
-                this.showGradeError = true
-            })
         }
     }
 }
