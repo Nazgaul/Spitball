@@ -49,7 +49,9 @@
 </template>
 
 <script>
-const registerCourse = () => import('../registerCourse/registerCourse.vue')
+import { LanguageService } from '../../../../../services/language/languageService';
+
+const registerCourse = () => import('../registerCourse/registerCourse.vue');
 
 export default {
     components: {
@@ -59,7 +61,25 @@ export default {
         firstname: '',
         lastname: '',
         grade: null,
-        grades: [1, 2, 3, 4]
+        grades: [
+            LanguageService.getValueByKey('register_grade1'),
+            LanguageService.getValueByKey('register_grade2'),
+            LanguageService.getValueByKey('register_grade3'),
+            LanguageService.getValueByKey('register_grade4'),
+            LanguageService.getValueByKey('register_grade5'),
+            LanguageService.getValueByKey('register_grade6'),
+            LanguageService.getValueByKey('register_grade7'),
+            LanguageService.getValueByKey('register_grade8'),
+            LanguageService.getValueByKey('register_grade9'),
+            LanguageService.getValueByKey('register_grade10'),
+            LanguageService.getValueByKey('register_grade11'),
+            LanguageService.getValueByKey('register_grade12')
+        ],
+        label: {
+            fname: LanguageService.getValueByKey('register_student_parent_fname'),
+            lname: LanguageService.getValueByKey('register_student_parent_lname'),
+            grade: LanguageService.getValueByKey('register_student_parent_grade'),
+        }
     }),
     methods: {
         send() {

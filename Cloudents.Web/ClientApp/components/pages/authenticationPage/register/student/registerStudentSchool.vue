@@ -6,14 +6,14 @@
                 <div class="text-center subtitle" v-language:inner="'register_school_subtitle'"></div>
                 <div class="gradesWrap">
                     <v-select
-                        v-model="grades"
-                        :items="items"
+                        v-model="grade"
+                        :items="grades"
                         class="gradesWrap_select mb-2"
                         outlined
                         dense
                         height="44"
                         :menu-props="{ maxHeight: '400' }"
-                        label="What grade you are"
+                        :label="label"
                         placeholder=" "
                         append-icon="sbf-triangle-arrow-down"
                         hide-details>
@@ -29,7 +29,7 @@ import { LanguageService } from '../../../../../services/language/languageServic
 
 export default {
     data: () => ({
-        items: [
+        grades: [
             LanguageService.getValueByKey('register_grade1'),
             LanguageService.getValueByKey('register_grade2'),
             LanguageService.getValueByKey('register_grade3'),
@@ -46,13 +46,16 @@ export default {
         showGradeError: false
     }),
     computed: {
-        grades: {
+        grade: {
             get() {
                 return this.$store.getters.getStudentGrade;
             },
             set(grade) {
                 this.setGrade(grade)
             }
+        },
+        label() {
+            return LanguageService.getValueByKey('register_what_grade')
         }
     },
     methods: {
