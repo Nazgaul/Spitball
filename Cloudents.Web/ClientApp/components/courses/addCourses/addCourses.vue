@@ -3,10 +3,12 @@
         <v-layout :class="[$vuetify.breakpoint.smAndUp ? 'py-6 px-6': 'grey-backgound pa-2']" align-center justify-center>
             <v-flex grow xs12>
                 <div class="d-inline-flex justify-center shrink add-courses-wrap-title">
-                    <slot name="fromRegister">
+                    <slot name="fromRegisterBtn">
                         <v-icon @click="goToEditCourses()" class="course-back-btn mr-4">sbf-arrow-back</v-icon>
                     </slot>
-                    <span class="font-weight-bold" v-language:inner="'courses_join'"></span>
+                    <slot name="fromRegisterTitle">
+                        <span class="font-weight-bold" v-language:inner="'courses_join'"></span>
+                    </slot>
                     <span class="subtitle-1 font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
                 </div>
             </v-flex>

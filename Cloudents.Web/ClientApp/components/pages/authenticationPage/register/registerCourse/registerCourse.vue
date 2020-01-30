@@ -2,8 +2,16 @@
     <div id="registerCourse">
         <slot name="titleCourse"></slot>
         
-        <courses #fromRegister>
-            <span></span>
+        <courses>
+            <template #fromRegisterBtn>
+                <span></span>
+            </template>
+
+            <template #fromRegisterTitle>
+                <span class="font-weight-bold">
+                    {{$t('register_addCourse_title')}}
+                </span>
+            </template>
         </courses>
     </div>
 </template>
@@ -12,7 +20,6 @@
 const courses = () => import('../../../../courses/addCourses/addCourses.vue')
 
 export default {
-    // name: 'registerCourse',
     components: { courses },
     data: () => ({
 
