@@ -127,21 +127,6 @@ export default {
 				margin-top: 10px;
 			}
         }
-		// input[type=number]::-webkit-inner-spin-button, 
-        // input[type=number]::-webkit-outer-spin-button { 
-        // -webkit-appearance: none; 
-        // margin: 0; 
-        // }
-        // input {
-        // position: relative;
-        // .login-inputs-style();
-        // padding-left: 40px !important;
-        //     ~ i {
-        //         position: absolute;
-        //         top: 14px;
-        //         left: 12px;
-        //     }
-        // }
 	 }
 	.bottom {
 		@media (max-width: @screen-xs) {
@@ -160,22 +145,16 @@ export default {
 			text-align: center;
 			text-transform: none !important;
 			@media (max-width: @screen-xs) {
-				// margin: 48px 0 48px;
 				margin: 0;
 				order: 1;
 			}
 		}
 		.actions{
+			cursor: pointer;
 			font-size: 14px;
 			letter-spacing: -0.37px;
 			text-align: center;
 			color: @global-blue;
-			.top{
-				margin-bottom: 12px;
-			}
-			span{
-				cursor: pointer;
-			}
 		}
 	}
 }
