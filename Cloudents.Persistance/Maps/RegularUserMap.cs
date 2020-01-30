@@ -58,7 +58,7 @@ namespace Cloudents.Persistence.Maps
             });
             Map(z => z.PaymentExists).CustomType<PaymentStatus>();
             Map(z => z.Gender).CustomType<Gender>().Nullable();
-            //Map(x => x.UserType).CustomType<GenericEnumStringType<UserType>>().Nullable();
+            Map(x => x.UserType2).Column("UserType").CustomType<GenericEnumStringType<UserType>>().Nullable();
             //Map(x => x.ChildFirstName).Nullable();
             //Map(x => x.ChildLastName).Nullable();
             //Map(x => x.Grade).Nullable();

@@ -217,7 +217,7 @@ namespace Cloudents.Core.Entities
         public virtual Gender Gender { get; protected set; }
         public virtual PaymentStatus PaymentExists { get; protected set; }
 
-        //public virtual UserType? UserType { get; set; }
+        public virtual UserType? UserType2 { get; protected set; }
 
         public virtual void CreditCardReceived()
         {
@@ -381,6 +381,8 @@ namespace Cloudents.Core.Entities
                 default:
                     throw new ArgumentOutOfRangeException(nameof(userType), userType, null);
             }
+
+            UserType2 = userType;
         }
 
         protected internal virtual ICollection<UserComponent> UserComponents { get; set; }

@@ -225,7 +225,8 @@ const actions = {
     },
     updateUniExists({commit, state}, val){
         //TODO: why do we need this
-        if(state?.user) {
+        
+        if( state.user) {
             commit("setUniExists", val);
         }
     },
