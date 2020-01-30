@@ -19,9 +19,9 @@ namespace Cloudents.Web.Filters
         public SignInWithTokenAttribute() : base(typeof(SignInToSystemImpl))
         {
         }
-        private class SignInToSystemImpl : ActionFilterAttribute
+        public class SignInToSystemImpl : ActionFilterAttribute
         {
-            private const string TokenQueryParam = "token";
+            public const string TokenQueryParam = "token";
             private readonly SignInManager<User> _signInManager;
             private readonly UserManager<User> _userManager;
             private readonly IDataProtect _dataProtect;
