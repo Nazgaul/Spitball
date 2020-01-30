@@ -54,12 +54,15 @@ const mutations = {
     Feeds_markQuestionAsCorrect(state, questionObj) {
         state.items.data[questionObj.questionIndex].hasCorrectAnswer = true;
         state.items.data[questionObj.questionIndex].correctAnswerId = questionObj.answerId;
-    }
+    },
+    Feeds_updateAnswersCounter(state, {counter,questionIndex}) {
+        state.items.data[questionIndex].answers += counter;
+    },
 };
 
 const actions = {
-    Feeds_nextPage({dispatch}, {url, vertical}) {
-        return searchService.nextPage({url, vertical}).then((data) => {
+    Feeds_nextPage({dispatch}, {url}) {
+        return searchService.nextPage({url}).then((data) => {
             dispatch('Feeds_updateData', data);
             return data;
         });
@@ -89,9 +92,7 @@ const actions = {
         });
         function update(data) {
             let sortData = !!data.sort ? data.sort : null;
-            let filtersData = !!data.filters ? searchService.createFilters(data.filters) : null;
             dispatch('updateSort', sortData);
-            dispatch('updateFilters', filtersData);
             dispatch('Feeds_updateDataLoaded', true);
         }
     },
@@ -144,8 +145,8 @@ const actions = {
             for (let questionIndex = 0; questionIndex < state.items.data.length; questionIndex++) {
                 let currentQuestion = state.items.data[questionIndex];
                 if (currentQuestion.id === questionId) {
-                    let val = (addAnswersCounter) ? 1 : -1;
-                    commit('Feeds_updateAnswersCounter', val);
+                    let counter = (addAnswersCounter) ? 1 : -1;
+                    commit('Feeds_updateAnswersCounter', {counter,questionIndex});
                 }
             }
         }

@@ -4,13 +4,9 @@ import {LanguageService} from '../services/language/languageService';
 
 const state = {
     cookieAccepted: global.localStorage.getItem("sb-acceptedCookies") === 'true',
-    filters: "",
     sort: "",
 };
 const mutations = {
-    [USER.UPDATE_FILTERS](state, payload) {
-        state.filters = payload;
-    },
     [USER.UPDATE_SORT](state, payload) {
         state.sort = payload;
     },
@@ -25,9 +21,6 @@ const getters = {
         }
         return state.cookieAccepted
     },
-    getFilters (state) {
-      return  state.filters;
-    },
     getSort(state){
         return state.sort;
     }
@@ -36,9 +29,6 @@ const actions = {
     setCookieAccepted({ commit }){
         global.localStorage.setItem("sb-acceptedCookies", true);
         commit(USER.ACCEPTED_COOKIE);
-    },
-    updateFilters({ commit }, data) {
-        commit(USER.UPDATE_FILTERS, data);
     },
     updateSort({ commit }, data) {
         commit(USER.UPDATE_SORT, data);

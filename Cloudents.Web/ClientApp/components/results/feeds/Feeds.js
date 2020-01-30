@@ -71,10 +71,14 @@ export default {
         coursesTab,
         generalPage
     },
+    props:{
+        params: {type: Object},
+        name: {type: String},
+        query: {type: Object},
+    },
     data() {
         return {
             pageData: '',
-            filterObject: null,
             showFilterNotApplied: false,
             isLoad: false,
             scrollBehaviour:{
@@ -104,13 +108,10 @@ export default {
 
     computed: {
         ...mapGetters([
-            'getFilters', 
             'accountUser', 
             'Feeds_getNextPageUrl'
         ]),
         ...mapGetters({university: 'getUniversity', items:'Feeds_getItems'}),
-        // ( filterObject);
-
         content: {
             get() {               
                 return this.pageData;
@@ -193,7 +194,7 @@ export default {
 
             if(!nextPageUrl) return this.scrollBehaviour.isLoading = false;
 
-            this.Feeds_nextPage({vertical: this.pageData.vertical, url: nextPageUrl})
+            this.Feeds_nextPage({url: nextPageUrl})
                 .then((res) => {
                     if (res.data && res.data.length) {
                         this.scrollBehaviour.isLoading = false;
@@ -218,7 +219,7 @@ export default {
                 .then((data) => {
                     //update data for this page
                     this.showFilterNotApplied = false;
-                    this.updateData.call(this, {...data, vertical: toName});
+                    this.updateData.call(this, {...data});
                     next();
                 }).catch(() => {
                 //when error from fetching data remove the loader
@@ -231,29 +232,20 @@ export default {
             }).finally(()=>{
                 //error handler
                 this.UPDATE_SEARCH_LOADING(false);
-                this.isLoad = false;
                 this.UPDATE_LOADING(false);
+                this.isLoad = false;
                 //scroll handler
                 this.scrollBehaviour.isLoading = false;
                 this.scrollBehaviour.isComplete = false;
             });
         },
-        //Function for update the filter object(when term or vertical change)
-        $_updateFilterObject() {
-            this.filterObject = this.getFilters;
-        },
 
         //   4-%%%
-        updateData(data, isFilterUpdate = false) {
+        updateData(data) {
             this.pageData = {};
             this.content = data;
-            this.filter = this.filterSelection;
             this.UPDATE_SEARCH_LOADING(false);
             (this.isLoad) ? this.isLoad = false : this.UPDATE_LOADING(false);
-            //if the vertical or search term has been changed update the filters according
-            if (!isFilterUpdate) {
-                this.$_updateFilterObject();
-            }
         },
 
         openRequestTutor() {
@@ -290,7 +282,7 @@ export default {
             params: {...this.query, ...this.params, term: this.userText},
             skipLoad: this.$route.path.indexOf("question") > -1
         }).then((data) => {            
-            this.updateData.call(this, {...data, vertical: this.name});
+            this.updateData.call(this, {...data});
         }).catch(reason => {
             console.error(reason);
             this.UPDATE_SEARCH_LOADING(false);

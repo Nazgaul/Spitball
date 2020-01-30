@@ -161,39 +161,6 @@ const transferAnswerItem = ({ data }) => {
     return data.map(createTutorItem);
 };
 
-
-function FilterItem(objInit) {
-    this.key = objInit.key;
-    this.value = objInit.value;
-}
-
-function FilterChunk(objInit) {
-    this.id = objInit.id;
-    this.title = objInit.title;
-    this.data = [];
-    this.dictionaryData = {};
-    objInit.data.forEach((filterItem) => {
-        if(filterItem.key !== null){
-            this.data.push(new FilterItem(filterItem));
-            this.dictionaryData[filterItem.key] = filterItem.value;
-        }
-    });
-}
-
-function Filters(objInit) {
-    this.filterChunkList = [];
-    this.filterChunkDictionary = [];
-    objInit.forEach((filterChunk) => {
-        let createdFilterChunk = new FilterChunk(filterChunk);
-        this.filterChunkList.push(createdFilterChunk);
-        this.filterChunkDictionary[createdFilterChunk.id] = createdFilterChunk;
-    });
-}
-
-function createFilters (objInit) {
-    return new Filters(objInit);
-}
-
 export default {
     activateFunction: {
         feed(params) {
@@ -212,7 +179,6 @@ export default {
     getTutorsByCourse, 
     createQuestionItem,
     createAnswerItem,
-    createFilters,
     createTutorItem,
     createDocumentItem,
 }

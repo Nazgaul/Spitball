@@ -5,9 +5,6 @@
     <router-view name="sideMenu" v-if="showSideMenu"></router-view>
     <v-content class="site-content">
         <chat v-if="visible"/>
-        <!-- TODO remove -->
-        <router-view name="verticals"></router-view>
-        <!-- TODO remove -->
         <router-view class="main-container"></router-view>
       
         <div class="s-cookie-container" v-if="!cookiesShow">
@@ -36,7 +33,7 @@
           :max-width="'510px'"
           :content-class="'question-request-dialog'"
         >
-          <Add-Question v-if="newQuestionDialogSate"></Add-Question>
+          <AddQuestion v-if="newQuestionDialogSate"></AddQuestion>
         </sb-dialog>
 
         <sb-dialog

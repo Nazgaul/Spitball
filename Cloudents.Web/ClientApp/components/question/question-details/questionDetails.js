@@ -46,10 +46,10 @@ export default {
             "updateLoginDialogState",
             'setQuestion'
         ]),
-        ...mapMutations({updateSearchLoading:'UPDATE_SEARCH_LOADING'}),
+        ...mapMutations(['UPDATE_SEARCH_LOADING']),
         ...mapGetters(["getQuestion"]),
         resetSearch(){
-            this.updateSearchLoading(true);
+            this.UPDATE_SEARCH_LOADING(true);
             this.$router.push({name: "feed"});
         },
         submitAnswer() {
