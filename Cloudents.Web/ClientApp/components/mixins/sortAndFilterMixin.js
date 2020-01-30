@@ -1,5 +1,4 @@
 import { mapGetters, mapMutations } from "vuex";
-import { page } from "../../services/navigation/vertical-navigation/nav";
 import mobileSortAndFilter from '../SortAndFilter/MobileSortAndFilter.vue';
 import sortAndFilter from '../SortAndFilter/SortAndFilter.vue';
 
@@ -23,9 +22,6 @@ export default {
             'getFilters': 'getFilters',
             'getSort': 'getSort'
             }),
-        page() {
-            return page[this.name];
-        },
         sort() {
             return this.query.sort;
         },

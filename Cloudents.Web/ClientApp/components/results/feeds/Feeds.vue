@@ -3,7 +3,6 @@
         <div slot="main" class="feedWrap">
             <coursesTab/>
             <request-box class="request-box mb-0"/>
-            <!-- <feedItemList class="mt-5" v-if="items"/> -->
             <div class="results-section mt-5" v-if="items">
                 <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                     <v-container class="ma-0 results-wrapper pa-0">
@@ -21,7 +20,7 @@
                                     </component>
                             </v-flex>
                             <v-flex class="suggestCard result-cell mb-4 xs-12 order-xs4">
-                                <suggest-card :name="currentSuggest" @click.native="openRequestTutor()"></suggest-card>   
+                                <suggest-card @click.native="openRequestTutor()"></suggest-card>   
                             </v-flex>
                         </v-layout>
                     </v-container>

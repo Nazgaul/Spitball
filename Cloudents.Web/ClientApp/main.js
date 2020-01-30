@@ -18,7 +18,6 @@ if(!window.IntersectionObserver){ // Intersection observer support
 
 // Global Components
 import App from "./components/app/app.vue";
-import scrollComponent from './components/helpers/infinateScroll.vue';
 import UserAvatar from './components/helpers/UserAvatar/UserAvatar.vue';
 
 // Global Services
@@ -62,8 +61,6 @@ Vue.use(LoadScript);
 Vue.use(VLazyImagePlugin);
 Vue.use(VueClipboard);
 
-
-Vue.component("scroll-list", scrollComponent);
 Vue.component("UserAvatar",UserAvatar);
 
 //this need to be below the configuration of vue router

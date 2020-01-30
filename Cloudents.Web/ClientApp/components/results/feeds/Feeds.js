@@ -1,7 +1,15 @@
 import feedSkeleton from '../../pages/feedPage/components/feedSkeleton/feedSkeleton.vue';
 import feedFaqBlock from '../../pages/feedPage/components/feedFaqBlock/feedFaqBlock.vue';
-import feedItemList from '../../pages/feedPage/components/feedItemList/feedItemList.vue';
 
+import scrollList from '../../helpers/infinateScroll.vue';
+// cards:
+import tutorResultCardMobile from '../tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
+import resultItem from '../ResultItem.vue';
+import resultAsk from "../ResultAsk.vue";
+import resultNote from "../ResultNote.vue";
+import tutorResultCard from '../tutorCards/tutorResultCard/tutorResultCard.vue';
+import suggestCard from '../suggestCard.vue';
+import emptyStateCard from '../emptyStateCard/emptyStateCard.vue';
 
 
 
@@ -21,19 +29,13 @@ import feedItemList from '../../pages/feedPage/components/feedItemList/feedItemL
 
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 // SERVICES
-import { verticalsName } from "../../../services/navigation/vertical-navigation/nav";
 import analyticsService from '../../../services/analytics.service';
 // COMPONENTS 
-import resultItem from '../ResultItem.vue';
-import resultAsk from "../ResultAsk.vue";
-import resultNote from "../ResultNote.vue";
-import suggestCard from '../suggestCard.vue';
+
+
 import resultFilter from '../helpers/resultFilter/resultFilter.vue';
-import emptyStateCard from '../emptyStateCard/emptyStateCard.vue';
 
 import requestBox from '../../pages/feedPage/components/requestActions/requestActions.vue';
-import tutorResultCard from '../tutorCards/tutorResultCard/tutorResultCard.vue';
-import tutorResultCardMobile from '../tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import coursesTab from "../../pages/feedPage/components/coursesTab/coursesTab.vue";
 import generalPage from '../../helpers/generalPage.vue';
 
@@ -48,24 +50,24 @@ import feedStore from '../../../store/feedStore';
 export default {
     components: {
         feedSkeleton,
-        feedItemList,
         feedFaqBlock,
 
 
 
+        scrollList,
+        tutorResultCardMobile,
+        ResultItem: resultItem,
+        ResultAsk: resultAsk,
+        ResultNote: resultNote,
+        tutorResultCard,
+        SuggestCard: suggestCard,
 
 
 
         emptyState,
-        SuggestCard: suggestCard,
-        ResultAsk: resultAsk,
-        ResultNote: resultNote,
-        ResultItem: resultItem,
         resultFilter,
         emptyStateCard,
         requestBox,
-        tutorResultCard,
-        tutorResultCardMobile,
         coursesTab,
         generalPage
     },
@@ -79,6 +81,19 @@ export default {
                 isLoading: false,
                 isComplete: false,
                 page: 1
+            },
+
+
+
+
+
+
+            feedGlobalProps:{
+                scrollFunc: this.scrollFunc,
+                scrollBehaviour: this.getScrollBehaviour,
+                openRequestTutor: this.openRequestTutor,
+                goToAskQuestion: this.goToAskQuestion,
+                userText: this.userText,
             },
         };
     },
@@ -94,8 +109,7 @@ export default {
             'Feeds_getNextPageUrl'
         ]),
         ...mapGetters({university: 'getUniversity', items:'Feeds_getItems'}),
-
-        // ( filterObject && this.page);
+        // ( filterObject);
 
         content: {
             get() {               
@@ -136,9 +150,6 @@ export default {
                 }
             }
         },
-        currentSuggest() {
-            return verticalsName.filter(i => i !== this.name)[(Math.floor(Math.random() * (verticalsName.length - 2)))];
-        },
         userText() {
             return this.query.term;
         },  
@@ -148,6 +159,9 @@ export default {
     },
     methods: {
         ...mapActions([
+
+
+
             'Feeds_fetchingData',
             'setFilteredCourses',
             'updateLoginDialogState',
@@ -158,6 +172,13 @@ export default {
             'setTutorRequestAnalyticsOpenedFrom'
         ]),
         ...mapMutations(["UPDATE_SEARCH_LOADING",'UPDATE_LOADING']),
+
+
+        getScrollBehaviour(){
+            return this.scrollBehaviour;
+        },
+
+
         goToAskQuestion(){
              if(this.accountUser == null){
                 this.updateLoginDialogState(true);
