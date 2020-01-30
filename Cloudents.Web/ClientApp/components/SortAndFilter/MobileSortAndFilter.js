@@ -42,7 +42,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['setFilteredCourses', 'updateSort']),
+        ...mapActions(['updateSort']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
 
         initFilters(filters = []) {

@@ -187,7 +187,7 @@ export default {
   },
   methods: {
     ...mapActions(['resetSearch',"updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
-    ...mapMutations(["UPDATE_SEARCH_LOADING", "UPDATE_LOADING"]),
+    ...mapMutations(["UPDATE_SEARCH_LOADING"]),
     openPersonalizeUniversity() {
       if (this.accountUser == null) {
         this.updateLoginDialogState(true);
@@ -361,7 +361,6 @@ export default {
     },
     updateFilter() {
       this.UPDATE_SEARCH_LOADING(true);
-      this.UPDATE_LOADING(true);
       let newQueryObject = {
         Course: this.selectedCourse
       };

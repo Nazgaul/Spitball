@@ -45,7 +45,7 @@ export default {
     ...mapGetters(['getSearchStatus'])
   },
   methods: {
-    ...mapMutations(['UPDATE_SEARCH_LOADING', 'UPDATE_LOADING']),
+    ...mapMutations(['UPDATE_SEARCH_LOADING']),
     searchQuery() {
       let route = {
         name : "feed"
@@ -53,19 +53,11 @@ export default {
       if(this.search){
         route.query = { term: this.search };
       }
-
       this.UPDATE_SEARCH_LOADING(true);
-      this.UPDATE_LOADING(true);
-
-
       this.$router.push(route).catch(() => {
-        this.UPDATE_LOADING(false);
+        this.UPDATE_SEARCH_LOADING(false);
       });
-      this.$nextTick(() => {
-        setTimeout(()=>{
-            this.UPDATE_SEARCH_LOADING(false);
-        }, 200);
-      });
+
     }
   }
 };

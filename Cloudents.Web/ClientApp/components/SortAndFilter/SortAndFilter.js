@@ -40,7 +40,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['setFilteredCourses', 'updateCurrentStep']),
+        ...mapActions(['updateCurrentStep']),
         ...mapMutations(['UPDATE_SEARCH_LOADING']),
         ...mapGetters(['getAllSteps', 'getSchoolName']),
         updateSort(val) {
@@ -77,9 +77,6 @@ export default {
             }
             if (val === 'inPerson' && isChecked) {
                 query.sort = "price";
-            }
-            if (id.toLowerCase() === 'course') {
-                this.setFilteredCourses(query.course);
             }
             this.$router.push({query});
         },

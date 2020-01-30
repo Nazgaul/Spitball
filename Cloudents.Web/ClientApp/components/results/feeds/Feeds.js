@@ -79,7 +79,6 @@ export default {
     data() {
         return {
             pageData: '',
-            showFilterNotApplied: false,
             isLoad: false,
             scrollBehaviour:{
                 isLoading: false,
@@ -109,47 +108,11 @@ export default {
     computed: {
         ...mapGetters([
             'accountUser', 
-            'Feeds_getNextPageUrl'
+            'Feeds_getNextPageUrl',
+            'Feeds_getItems'
         ]),
-        ...mapGetters({university: 'getUniversity', items:'Feeds_getItems'}),
-        content: {
-            get() {               
-                return this.pageData;
-            },
-            set(val) {
-                if (val) {
-                    this.pageData = val;
-                    this.$nextTick(() => {
-                        if (this.items !== undefined && this.items !== null && !this.items.length) {
-                            // gaby: according to my understanding this code exists in order to notify
-                            // google analytics that we have no questions in the page
-                            Promise.resolve(() => {
-                                let filters = {};
-                                Object.entries(this.query).forEach(([key, currentVal]) => {
-                                    if (key !== "sort" && key !== "q" && currentVal) {
-                                        filters[key] = currentVal;
-                                    }
-                                });
-                                return filters;
-                            })
-                                .then(filters => {
-                                    let myFilters = filters();
-                                    let extraContent = "";
-                                    if (myFilters && Object.keys(myFilters).length) {
-                                        extraContent = "#";
-                                        Object.entries(myFilters).forEach(([key, currentVal]) => {
-                                            extraContent += `${key}:[${currentVal}]`;
-                                        });
-                                        extraContent += "#";
-                                    }
-                                    this.$ga.event("Empty_State", this.name, extraContent + this.userText);
-                                });
-                        }
-                        this.UPDATE_LOADING(false);
-                        this.UPDATE_SEARCH_LOADING(false);
-                    });
-                }
-            }
+        items(){
+            return this.Feeds_getItems
         },
         userText() {
             return this.query.term;
@@ -164,7 +127,6 @@ export default {
 
 
             'Feeds_fetchingData',
-            'setFilteredCourses',
             'updateLoginDialogState',
             'updateNewQuestionDialogState',
             'Feeds_nextPage',
@@ -184,7 +146,6 @@ export default {
              if(this.accountUser == null){
                 this.updateLoginDialogState(true);
             }else{
-                //ab test original do not delete
                  this.updateNewQuestionDialogState(true);
             }
         },
@@ -207,7 +168,11 @@ export default {
         },
         //   2-%%%
         updatePageData(to, from, next) {
-            (to.path === from.path && to.q === from.q) ? this.isLoad = true : this.UPDATE_LOADING(true);
+            if(to.path === from.path && to.q === from.q){
+                this.isLoad = true
+            }else{
+                this.UPDATE_LOADING(true);
+            }
             this.updateContentOfPage(to, from, next);
         },
         //    3-%%%   fetching data and calling updateData func
@@ -217,20 +182,14 @@ export default {
             let params=  {...to.query, ...to.params, term: to.query.term};
             this.Feeds_fetchingData({name: toName, params}, true)
                 .then((data) => {
-                    //update data for this page
-                    this.showFilterNotApplied = false;
-                    this.updateData.call(this, {...data});
+                    this.pageData = data;
                     next();
-                }).catch(() => {
-                //when error from fetching data remove the loader
-                if (to.path === from.path && to.query.term === from.query.term) {
-                    this.showFilterNotApplied = true;
-                }
-                else {
+                }).catch((err) => {
+                    console.log(err)
                     next();
-                }
             }).finally(()=>{
                 //error handler
+
                 this.UPDATE_SEARCH_LOADING(false);
                 this.UPDATE_LOADING(false);
                 this.isLoad = false;
@@ -238,14 +197,6 @@ export default {
                 this.scrollBehaviour.isLoading = false;
                 this.scrollBehaviour.isComplete = false;
             });
-        },
-
-        //   4-%%%
-        updateData(data) {
-            this.pageData = {};
-            this.content = data;
-            this.UPDATE_SEARCH_LOADING(false);
-            (this.isLoad) ? this.isLoad = false : this.UPDATE_LOADING(false);
         },
 
         openRequestTutor() {
@@ -270,23 +221,22 @@ export default {
         }
     },
     created() {
-        //register Feeds Store
         storeService.lazyRegisterModule(this.$store, 'feeds', feedStore);
-        //If query have courses save those courses
-        // if (this.query.course) this.setFilteredCourses(this.query.course);
         
         this.UPDATE_LOADING(true);
-        //fetch data with the params
-        this.Feeds_fetchingData({
+        let objParams = {
             name: this.name,
             params: {...this.query, ...this.params, term: this.userText},
             skipLoad: this.$route.path.indexOf("question") > -1
-        }).then((data) => {            
-            this.updateData.call(this, {...data});
-        }).catch(reason => {
-            console.error(reason);
-            this.UPDATE_SEARCH_LOADING(false);
-        });
+        }
+        this.Feeds_fetchingData(objParams).then((data) => {  
+            this.pageData = data;          
+            }).catch(reason => {
+                console.error(reason);
+            }).finally(()=>{
+                this.UPDATE_LOADING(false);
+                this.UPDATE_SEARCH_LOADING(false);
+            });
     },
 
 

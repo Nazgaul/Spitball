@@ -189,13 +189,6 @@ const getters = {
         return state.user;
     },
     lastActiveRoute: state => state.lastActiveRoute,
-    getUniversity: state => {
-        if(!!state.user && !!state.user.universityExists) {
-            return true;
-        } else {
-            return false;
-        }
-    },
     getShowEditDataDialog: state => state.showEditDataDialog,
 };
 

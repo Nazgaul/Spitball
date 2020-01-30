@@ -77,9 +77,10 @@ const actions = {
         commit('Feeds_UpdateItems', data);
     },
     Feeds_fetchingData({state, commit, dispatch}, {name, params, page}) {
+        // debugger
         dispatch('Feeds_updateDataLoaded', false);
         commit('Feeds_ResetQue');
-
+// check why we have this state.search here:
         let paramsList = {...state.search, ...params, page};
         let route = name.toLowerCase();
         
