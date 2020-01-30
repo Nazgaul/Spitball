@@ -37,7 +37,8 @@ namespace Cloudents.Query.Courses
 
 declare @schoolType nvarchar(50) = (select case when UserType = 'University' then 'University'
 										when UserType is null then null
-										else 'HighSchool' end from sb.[user] where Id = @Id);
+										else 'HighSchool' end 
+                                        from sb.[user] where Id = @Id);
 
 
 declare @cte2 table (CourseId nvarchar(255), Students int)

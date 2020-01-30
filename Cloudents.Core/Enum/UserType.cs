@@ -3,9 +3,9 @@ namespace Cloudents.Core.Enum
 {
     public enum UserType
     {
-        University,
-        HighSchool,
+        UniversityStudent,
+        HighSchoolStudent,
         Parent,
-        Tutor
+        Teacher
     }
 }

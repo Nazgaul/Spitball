@@ -2,14 +2,17 @@
 {
     public class SetChildNameCommand : ICommand
     {
-        public SetChildNameCommand(long userId, string firstName, string lastName)
+        public SetChildNameCommand(long userId, string firstName, string lastName, short grade)
         {
             UserId = userId;
             FirstName = firstName;
-            LasttName = lastName;
+            LastName = lastName;
+            Grade = grade;
         }
-        public long UserId { get; set; }
-        public string FirstName { get; set; }
-        public string LasttName { get; set; }
+        public long UserId { get;  }
+        public string FirstName { get;  }
+        public string LastName { get; }
+
+        public short Grade { get;  }
     }
 }

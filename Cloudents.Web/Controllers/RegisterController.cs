@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
-using WebMarkupMin.Core;
 
 namespace Cloudents.Web.Controllers
 {
@@ -31,14 +30,14 @@ namespace Cloudents.Web.Controllers
         [Route("signin/{page?}", Name = Signin)]
 
 
-        public async Task<IActionResult> IndexAsync(string page, /*NextStep? step,*/ CancellationToken token)
+        public async Task<IActionResult> IndexAsync(string page, CancellationToken token)
         {
 
-            return View("Index");
-            if (User.Identity.IsAuthenticated)
-            {
-                return Redirect("/feed");
-            }
+            //return View("Index");
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    return Redirect("/feed");
+            //}
 
 
 

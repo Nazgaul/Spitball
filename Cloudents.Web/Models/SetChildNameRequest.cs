@@ -9,6 +9,10 @@ namespace Cloudents.Web.Models
         public string FirstName { get; set; }
         [Required]
         [MaxLength(255)]
-        public string lastName { get; set; }
+        public string LastName { get; set; }
+
+        [Required]
+        [Range(1, 12)]
+        public short Grade { get; set; }
     }
 }
