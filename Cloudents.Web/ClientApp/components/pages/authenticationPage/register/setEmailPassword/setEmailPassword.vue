@@ -3,6 +3,7 @@
     <p class="setemailpass_title" v-language:inner="'loginRegister_setemailpass_title'"></p>
     <form @submit.prevent="submit" class="form">
       <div>
+        {{$t('message')}}
         <!-- autocomplete because chrome address -->
         <!-- placeholder for the legend -->
         <v-layout wrap class="widther">

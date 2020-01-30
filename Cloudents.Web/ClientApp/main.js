@@ -12,6 +12,7 @@ import VueAppInsights from 'vue-application-insights';
 import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
 import VueFlicking from "@egjs/vue-flicking";
 import '../ClientApp/myFont.font.js';
+import i18n from './plugins/i18n'
 if(!window.IntersectionObserver){ // Intersection observer support
     import('intersection-observer')   
 }
@@ -175,6 +176,7 @@ const app = new Vue({
     router: router,
     store,
     vuetify,
+    i18n,
     render: h => h(App),
 });
 
