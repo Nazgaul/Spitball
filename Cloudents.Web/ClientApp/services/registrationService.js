@@ -32,7 +32,7 @@ export default {
     updatePassword: (password, confirmPassword, id, code) => authInstance.post("ForgotPassword/reset", {id, code, password, confirmPassword}),
     validateEmail: email => authInstance.get(`LogIn/ValidateEmail?email=${email}`),
     updateGrade: grade => authInstance.post(`Register/grade`, grade),
-    updateParentStudentName: fullname => authInstance.post(`Register/childName`, fullname),
+    updateParentStudentName: parentObj => authInstance.post(`Register/childName`, parentObj),
     updateUserRegisterType: type => authInstance.post('Register/userType', type),
     emailResend: () => authInstance.post("Register/resend"),
     emailRegistration: ({firstName, lastName, email, gender, recaptcha, password, confirmPassword}) => {

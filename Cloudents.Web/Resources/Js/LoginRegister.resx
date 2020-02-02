@@ -275,7 +275,7 @@
     <comment>1</comment>
   </data>
   <data name="setemailpass_title" xml:space="preserve">
-    <value>Enter personal details</value>
+    <value>Personal details</value>
     <comment>1</comment>
   </data>
   <data name="setemail_btn" xml:space="preserve">
@@ -345,7 +345,7 @@
     <comment>1</comment>
   </data>
   <data name="smsconfirm_subtitle" xml:space="preserve">
-    <value>sent to this number</value>
+    <value>Sent to this number</value>
     <comment>1</comment>
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
@@ -362,22 +362,22 @@ tutors</value>
     <value>Welcome back. Please login</value>
   </data>
   <data name="setemailpass_first" xml:space="preserve">
-    <value>Enter First Name</value>
+    <value>First Name</value>
   </data>
   <data name="setemailpass_last" xml:space="preserve">
-    <value>Enter Last Name</value>
+    <value>Last Name</value>
   </data>
   <data name="know_better" xml:space="preserve">
     <value>We would like to know you better</value>
   </data>
   <data name="parent" xml:space="preserve">
-    <value>Parent</value>
+    <value>Parents</value>
   </data>
   <data name="student" xml:space="preserve">
-    <value>Student</value>
+    <value>Students</value>
   </data>
   <data name="teacher" xml:space="preserve">
-    <value>Teacher</value>
+    <value>Teachers</value>
   </data>
   <data name="welcome" xml:space="preserve">
     <value>Welcome to Spitball</value>
@@ -395,6 +395,6 @@ tutors</value>
     <value>A College Student</value>
   </data>
   <data name="highSchool" xml:space="preserve">
-    <value>A High school Student</value>
+    <value>A High school student</value>
   </data>
 </root>

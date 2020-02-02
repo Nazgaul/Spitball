@@ -131,12 +131,12 @@
     <comment>1</comment>
   </data>
   <data name="setemailpass_first" xml:space="preserve">
-    <value>Enter First Name</value>
+    <value>First Name</value>
   </data>
   <data name="setemailpass_last" xml:space="preserve">
-    <value>Enter Last Name</value>
+    <value>Last Name</value>
   </data>
   <data name="setemailpass_title" xml:space="preserve">
-    <value>Enter personal details</value>
+    <value>Personal details</value>
   </data>
 </root>

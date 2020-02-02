@@ -67,8 +67,7 @@ export default {
         showError: false
     }),
     methods: {
-        sendRegisterType(regType, route) {
-            debugger
+        sendRegisterType(regType, route) {            
             this.$store.dispatch('updateRegisterType', regType).then(() => {
                 this.showError = false
             }).catch(() => {

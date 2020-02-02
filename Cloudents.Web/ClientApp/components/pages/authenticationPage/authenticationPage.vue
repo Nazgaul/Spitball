@@ -12,7 +12,6 @@
         <div class="stepsSections">
             <div class="stepContainer">
                 <router-view></router-view>
-                <!-- <router-view name="registerButtons"></router-view> -->
             </div>
         </div>
     </div>
@@ -124,6 +123,25 @@ export default {
           font-size: 8px;
           color: @global-purple;
         }
+      }
+      #registerButtons {
+        .actions {
+          .btn {
+              min-width: 140px;
+              @media(max-width: @screen-xs) {
+                  min-width: 120px;
+              }
+          }
+          .register_btn_back {
+              margin-right: 10px;
+          }
+        }
+      }
+      .v-select__selection--comma {
+        line-height: normal; //v-select, text was off from input
+      }
+      .v-input__append-inner {
+        margin-top: 12px !important; // center icon, cuz custom height
       }
     }
     .stepsSections{
