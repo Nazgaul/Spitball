@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="addCourse_title" xml:space="preserve">
+    <value>Subject areas</value>
+  </data>
   <data name="course_title" xml:space="preserve">
     <value>Choose your courses</value>
   </data>
@@ -160,7 +163,7 @@
     <value>choose</value>
   </data>
   <data name="school_subtitle" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="school_title" xml:space="preserve">
     <value>Let's get started</value>
