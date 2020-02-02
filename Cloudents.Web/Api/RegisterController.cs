@@ -303,7 +303,7 @@ namespace Cloudents.Web.Api
             [FromServices] ICommandBus commandBus, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new SetChildNameCommand(userId, model.FirstName, model.LastName, model.Grade);
+            var command = new SetChildNameCommand(userId, model.FirstName, model.Grade);
             await commandBus.DispatchAsync(command, token);
             return Ok();
         }

@@ -426,11 +426,10 @@ namespace Cloudents.Core.Entities
         {
 
         }
-        public Parent(User user, string childFirstName, string childLastName, short grade)
+        public Parent(User user, string childFirstName,  short grade)
             : base(UserType.Parent, user)
         {
             ChildFirstName = childFirstName;
-            ChildLastName = childLastName;
             Grade = grade;
         }
 
@@ -439,16 +438,14 @@ namespace Cloudents.Core.Entities
 
         }
         public virtual string ChildFirstName { get; protected set; }
-        public virtual string ChildLastName { get; protected set; }
         public virtual short Grade { get; protected set; }
 
 
 
 
-        public virtual void SetChildData(string firstName, string lastName, short grade)
+        public virtual void SetChildData(string firstName,  short grade)
         {
             ChildFirstName = firstName;
-            ChildLastName = lastName;
             Grade = grade;
         }
 
