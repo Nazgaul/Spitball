@@ -9,7 +9,7 @@
                 <v-col cols="12" sm="4" class="pb-0">
                     <v-text-field
                         v-model="firstname"
-                        label="Student first name"
+                        :label="$t('register_student_firstname')"
                         placeholder=" "
                         outlined
                         :rules="[rules.required, rules.minimumChars]"
@@ -20,7 +20,7 @@
                 <v-col cols="12" sm="4" class="pb-0">
                     <v-text-field
                         v-model="lastname"
-                        label="Student Last name"
+                        :label="$t('register_student_lastname')"
                         placeholder=" "
                         outlined
                         :rules="[rules.required, rules.minimumChars]"
@@ -33,12 +33,12 @@
                         v-model="grade"
                         :items="grades"
                         class="gradesWrap mb-2"
+                        :label="$t('register_student_grade')"
                         outlined
                         :rules="[rules.required]"
                         dense
                         height="44"
                         :menu-props="{ maxHeight: '400' }"
-                        label="Student grade"
                         placeholder=" "
                         append-icon="sbf-triangle-arrow-down">
                     </v-select>
@@ -173,3 +173,9 @@ export default {
     }
 }
 </script>
+
+<style lang="less">
+    #registerParent {
+        width: 500px;
+    }
+</style>
