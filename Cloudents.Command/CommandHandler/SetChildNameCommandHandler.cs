@@ -22,7 +22,7 @@ namespace Cloudents.Command.CommandHandler
 
             if (user.Extend is Parent p)
             {
-                p.SetChildData(message.FirstName, message.LastName, message.Grade);
+                p.SetChildData(message.FirstName, message.Grade);
                 await _userRepository.UpdateAsync(user, token);
             }
             else
