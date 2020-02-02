@@ -59,7 +59,7 @@ namespace Cloudents.Web.Api
             _countryProvider = countryProvider;
         }
 
-        [HttpPost, ValidateRecaptcha("6LfyBqwUAAAAALL7JiC0-0W_uWX1OZvBY4QS_OfL")]
+        [HttpPost, ValidateRecaptcha("6LfyBqwUAAAAALL7JiC0-0W_uWX1OZvBY4QS_OfL"), ValidateEmail]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
