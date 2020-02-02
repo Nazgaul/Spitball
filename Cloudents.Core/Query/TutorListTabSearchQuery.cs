@@ -1,4 +1,6 @@
-﻿namespace Cloudents.Core.Query
+﻿using Cloudents.Core.Enum;
+
+namespace Cloudents.Core.Query
 {
     public class TutorListTabSearchQuery
     {

@@ -234,11 +234,16 @@ and (q.CourseId in (select courseId from sb.usersCourses where userid = cte.user
   ) R,
   cte
 order by
+<<<<<<< HEAD
 case when R.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 0 else DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())*2 end +
 case when R.UniversityId = cte.UniversityId or R.UniversityId is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
 DATEDiff(hour, R.DateTime, GetUtcDATE()) +
 case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
 case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
+=======
+case when R.UniversityId = cte.UniversityId then 3 else 0 end  +
+cast(1 as float)/ISNULL(nullif( DATEDIFF(minute, R.DateTime, GETUTCDATE()   ),0),1) desc
+>>>>>>> origin/feature-feedSortRefactoring
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
 

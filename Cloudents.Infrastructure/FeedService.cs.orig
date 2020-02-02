@@ -43,7 +43,8 @@ namespace Cloudents.Infrastructure
             {
                 return itemsFeed;
             }
-           
+<<<<<<< HEAD
+
             foreach (var item in itemsFeed)
             {
                 if (item is DocumentFeedDto d)
@@ -69,11 +70,21 @@ namespace Cloudents.Infrastructure
 
             var tutorLocationPageZero = new[] { 2, 12, 19 };
             var tutorLocationPage = new[] { 6, 13, 20 };
+=======
+           
+            var tutorlocationPageZero = new[] { 2, 12, 19 };
+            var tutorlocationPage = new[] { 6, 13, 20 };
+>>>>>>> origin/feature-feedSortRefactoring
 
             var locations = new[] { tutorLocationPageZero, tutorLocationPage };
 
+<<<<<<< HEAD
             var pageLocations = locations.ElementAtOrDefault(page) ?? tutorLocationPage;
+
+=======
+            var pageLocations = locations.ElementAtOrDefault(page) ?? tutorlocationPage;
             
+>>>>>>> origin/feature-feedSortRefactoring
 
             foreach (var item in pageLocations)
             {
@@ -91,13 +102,49 @@ namespace Cloudents.Infrastructure
 
         private Task<IEnumerable<TutorCardDto>> GetTutorsFeedAsync(long userId, string country, int page, string course, int tutorPageSize, CancellationToken token)
         {
+            Task<IEnumerable<TutorCardDto>> tutorsTask;
+
+            if (string.IsNullOrEmpty(course))
+            {
+                var tutorQuery = new TutorListQuery(userId, country, page, tutorPageSize);
+                tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
+            }
+            else
+            {
+                var tutorQuery = new TutorListByCourseQuery(course, userId, country, tutorPageSize, page);
+                tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
+            }
+            return tutorsTask;
+        }
+
+        public async Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedQuery query, CancellationToken token)
+        {
+            if (query is null)
+            {
+                throw new ArgumentNullException(nameof(query));
+            }
+
+<<<<<<< HEAD
             var feedQuery = new FeedAggregateQuery(query.UserId, query.Page, query.Filter, query.Country, query.Course, ItemPageSize);
             var itemsTask = _queryBus.QueryAsync(feedQuery, token);
 
             //Task<ListWithCountDto<TutorCardDto>> tutorsTask = Task.FromResult<ListWithCountDto<TutorCardDto>>(null);
-
-            if (string.IsNullOrEmpty(course))
+=======
+            if (query.Filter == null)
             {
+                var feedQuery = new FeedAggregateQuery(query.UserId, query.Page, new string[] { }, query.Country, query.Course, _itemPageSize);
+
+                Task<IEnumerable<TutorCardDto>> tutorsTask = GetTutorsFeedAsync(query.UserId, query.Country, query.Page, query.Course, _tutorPageSize, token);
+               
+                var itemsTask = _queryBus.QueryAsync(feedQuery, token);
+                await Task.WhenAll(itemsTask, tutorsTask);
+                return SortFeed(itemsTask.Result?.ToList(), tutorsTask.Result?.ToList(), query.Page);
+            }
+>>>>>>> origin/feature-feedSortRefactoring
+
+            if (query.Filter == Core.Enum.FeedType.Tutor)
+            {
+<<<<<<< HEAD
                 var tutorQuery = new TutorListQuery(query.UserId, query.Country, query.Page, TutorPageSize);
                 var task  = _queryBus.QueryAsync(tutorQuery, token);
                 await Task.WhenAll(itemsTask, task);
@@ -111,32 +158,14 @@ namespace Cloudents.Infrastructure
             {
                 var tutorQuery = new TutorListByCourseQuery(query.Course, query.UserId, query.Country, TutorPageSize, query.Page);
                 var tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
-            return tutorsTask;
-        }
 
-        public async Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedQuery query, CancellationToken token)
-        {
-            if (query is null)
-            {
-                throw new ArgumentNullException(nameof(query));
-            }
-
-            if (query.Filter == null)
-            {
-                var feedQuery = new FeedAggregateQuery(query.UserId, query.Page, new string[] { }, query.Country, query.Course, _itemPageSize);
-
-                Task<IEnumerable<TutorCardDto>> tutorsTask = GetTutorsFeedAsync(query.UserId, query.Country, query.Page, query.Course, _tutorPageSize, token);
-               
                 await Task.WhenAll(itemsTask, tutorsTask);
 
                 return SortFeed(itemsTask.Result?.ToList(),
                     tutorsTask.Result.ToList(),
                     query.Page);
             }
-            }
-
-            if (query.Filter == Core.Enum.FeedType.Tutor)
-            {
+=======
                 Task<IEnumerable<TutorCardDto>> tutorsTask = GetTutorsFeedAsync(query.UserId, query.Country, query.Page, query.Course, 21, token);
                 await Task.WhenAll(tutorsTask);
                 return tutorsTask.Result;
@@ -162,6 +191,7 @@ namespace Cloudents.Infrastructure
             return null;
             
             
+>>>>>>> origin/feature-feedSortRefactoring
         }
 
 
@@ -181,21 +211,35 @@ namespace Cloudents.Infrastructure
             {
                 termToQuery = query.Term.Trim();
             }
+<<<<<<< HEAD
             var feedQuery = new DocumentQuery(query.Profile, query.Term, query.Course, ItemPageSize, query.Filter?.Where(w => !string.IsNullOrEmpty(w)))
+=======
+
             if (query.Filter == null)
+>>>>>>> origin/feature-feedSortRefactoring
             {
                 var feedQuery = new DocumentQuery(query.Profile, termToQuery, query.Course, _itemPageSize, query.Filter)
                 {
                     Page = query.Page,
                 };
 
+<<<<<<< HEAD
             var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, TutorPageSize);
+            var tutorTask = _tutorSearch.SearchAsync(tutorQuery, token);
+            var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
+
+
+            await Task.WhenAll(resultTask, tutorTask);
+            var result = SortFeed(resultTask.Result?.ToList(), tutorTask.Result?.Result?.ToList(), query.Page);
+            return result;
+=======
+                var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, _tutorPageSize);
                 var tutorTask = _tutorSearch.SearchAsync(tutorQuery, token);
                 var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
 
 
                 await Task.WhenAll(resultTask, tutorTask);
-            var result = SortFeed(resultTask.Result?.ToList(), tutorTask.Result?.Result?.ToList(), query.Page);
+                var result = SortFeed(resultTask.Result?.ToList(), tutorTask.Result?.ToList(), query.Page);
                 return result;
             }
 
@@ -220,6 +264,7 @@ namespace Cloudents.Infrastructure
             }
 
             return Enumerable.Empty<FeedDto>();
+>>>>>>> origin/feature-feedSortRefactoring
         }
     }
 }

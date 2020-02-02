@@ -148,7 +148,7 @@ namespace Cloudents.Infrastructure.Test
         [Fact]
         public async Task GetFeedAsync_First_Page_1_Tutor_Ok()
         {
-
+          
             IList<FeedDto> itemsFeed = Enumerable.Range(0, 18).Select(s => new DocumentFeedDto()).ToList<FeedDto>();
             ListWithCountDto<TutorCardDto> tutorsFeed = new ListWithCountDto<TutorCardDto>()
             {
