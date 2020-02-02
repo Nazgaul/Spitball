@@ -12,7 +12,6 @@
         <div class="stepsSections">
             <div class="stepContainer">
                 <router-view></router-view>
-                <!-- <router-view name="registerButtons"></router-view> -->
             </div>
         </div>
     </div>
@@ -123,6 +122,19 @@ export default {
         i {
           font-size: 8px;
           color: @global-purple;
+        }
+      }
+      #registerButtons {
+        .actions {
+          .btn {
+              min-width: 140px;
+              @media(max-width: @screen-xs) {
+                  min-width: 120px;
+              }
+          }
+          .register_btn_back {
+              margin-right: 10px;
+          }
         }
       }
     }

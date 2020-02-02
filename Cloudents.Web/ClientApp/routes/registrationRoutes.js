@@ -89,10 +89,7 @@ export const registrationRoutes = [
             {
                 path: 'student-school',
                 name: routeName.RegisterStudentSchool,
-                components: {
-                    default: lazyComponent('pages/authenticationPage/register/student/registerStudentSchool'),
-                    registerButtons: lazyComponent('pages/authenticationPage/register/registerButtons/registerButtons'),
-                },
+                component: lazyComponent('pages/authenticationPage/register/student/registerStudentSchool'),
                 children: [
                     {
                         path: 'course',
@@ -109,10 +106,7 @@ export const registrationRoutes = [
             {
                 path: 'student-college',
                 name: routeName.RegisterStudentCollege,
-                components: {
-                    default: lazyComponent('pages/authenticationPage/register/student/registerStudentCollege'),
-                    registerButtons: lazyComponent('pages/authenticationPage/register/registerButtons/registerButtons'),
-                },
+                component: lazyComponent('pages/authenticationPage/register/student/registerStudentCollege'),
                 children: [
                     {
                         path: 'university',
@@ -135,10 +129,7 @@ export const registrationRoutes = [
             {
                 path: 'parent',
                 name: routeName.RegisterParent,
-                components: {
-                    default: lazyComponent('pages/authenticationPage/register/parent/registerParent'),
-                    registerButtons: lazyComponent('pages/authenticationPage/register/registerButtons/registerButtons'),
-                },
+                component: lazyComponent('pages/authenticationPage/register/parent/registerParent'),
                 children: [
                     {
                         path: 'course',
