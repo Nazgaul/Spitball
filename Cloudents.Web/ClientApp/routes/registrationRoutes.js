@@ -1,7 +1,6 @@
 import {lazyComponent, staticComponents} from './routesUtils.js';
 import * as routeName from "./routeName.js";
 
-//const RegiserEmailConfirmed = 'emailConfirmed';
 export const registrationRoutes = [
     {
         path: '/signin',
@@ -11,33 +10,33 @@ export const registrationRoutes = [
         children: [
             {
                 path: '',
-                name: 'login',
+                name: routeName.Login,
                 component: lazyComponent('pages/authenticationPage/getStarted')
             },
             {
                 path: 'set-email',
-                name: 'setEmail',
+                name: routeName.LoginSetEmail,
                 component: lazyComponent('pages/authenticationPage/login/setEmail')
             },
             {
                 path: 'set-password',
-                name: 'setPassword',
+                name: routeName.LoginSetPassword,
                 component: lazyComponent('pages/authenticationPage/login/setPassword')
             },
             {
                 path: 'email-confirmed',
-                name: 'emailConfirmed',
+                name: routeName.LoginEmailConfirmed,
                 component: lazyComponent('pages/authenticationPage/register/emailConfirmed/EmailConfirmed'),
 
             },
             {
                 path: 'forgot-password',
-                name: 'forgotPassword',
+                name: routeName.LoginForgotPassword,
                 component: lazyComponent('pages/authenticationPage/login/forgotPass')
             },
             {
                 path: 'reset-password',
-                name: 'resetPassword',
+                name: routeName.LoginResetPassword,
                 component: lazyComponent('pages/authenticationPage/login/resetPassword')
             },
         ],
@@ -59,37 +58,37 @@ export const registrationRoutes = [
         children: [
             {
                 path: '',
-                name: 'register',
+                name: routeName.Register,
                 component: lazyComponent('pages/authenticationPage/getStarted')
             },
             {
                 path: 'personal-details',
-                name: 'setEmailPassword',
+                name: routeName.RegisterSetEmailPassword,
                 component: lazyComponent('pages/authenticationPage/register/setEmailPassword/setEmailPassword')
             },
             {
                 path: 'email-confirmed',
-                name: routeName.RegiserEmailConfirmed,
-                component: lazyComponent('pages/authenticationPage/register/emailConfirmed/EmailConfirmed')
+                name: routeName.RegisterEmailConfirmed,
+                component: lazyComponent('pages/authenticationPage/register/emailConfirmed/emailConfirmed')
             },
             {
                 path: 'set-phone',
-                name: 'setPhone',
+                name: routeName.RegisterSetPhone,
                 component: lazyComponent('pages/authenticationPage/register/setPhone/setPhone')
             },
             {
                 path: 'verify-phone',
-                name: 'verifyPhone',
-                component: lazyComponent('pages/authenticationPage/register/verifyPhone/VerifyPhone')
+                name: routeName.RegisterVerifyPhone,
+                component: lazyComponent('pages/authenticationPage/register/verifyPhone/verifyPhone')
             },
             {
                 path: 'register-type',
-                name: 'registerType',
+                name: routeName.RegisterType,
                 component: lazyComponent('pages/authenticationPage/register/registerType/registerType')
             },
             {
                 path: 'student-school',
-                name: 'studentSchool',
+                name: routeName.RegisterStudentSchool,
                 components: {
                     default: lazyComponent('pages/authenticationPage/register/student/registerStudentSchool'),
                     registerButtons: lazyComponent('pages/authenticationPage/register/registerButtons/registerButtons'),
@@ -97,19 +96,19 @@ export const registrationRoutes = [
                 children: [
                     {
                         path: 'course',
-                        name: 'registerCourse',
-                        meta: {nextStep: 'feed', backStep: 'registerType'},
+                        name: routeName.RegisterCourse,
+                        meta: {nextStep: 'feed', backStep: routeName.RegisterType},
                         component: lazyComponent('pages/authenticationPage/register/registerCourse/registerCourse')
                     },
                     {
                         path: '',
-                        redirect: { name: 'registerCourse' } 
+                        redirect: { name: routeName.RegisterCourse } 
                     },
                 ]
             },
             {
                 path: 'student-college',
-                name: 'studentCollege',
+                name: routeName.RegisterStudentCollege,
                 components: {
                     default: lazyComponent('pages/authenticationPage/register/student/registerStudentCollege'),
                     registerButtons: lazyComponent('pages/authenticationPage/register/registerButtons/registerButtons'),
@@ -117,14 +116,14 @@ export const registrationRoutes = [
                 children: [
                     {
                         path: 'university',
-                        name: 'registerUniversity',
-                        meta: {nextStep: 'registerCourseCollege', backStep: 'registerType'},
+                        name: routeName.RegisterUniversity,
+                        meta: {nextStep: routeName.RegisterCourseCollege, backStep: routeName.RegisterType},
                         component: lazyComponent('pages/authenticationPage/register/registerUniversity/registerUniversity'),
                     },
                     {
                         path: 'course',
-                        name: 'registerCourseCollege',
-                        meta: {nextStep: 'feed', backStep: 'registerUniversity'},
+                        name: routeName.RegisterCourseCollege,
+                        meta: {nextStep: 'feed', backStep: routeName.RegisterUniversity},
                         component: lazyComponent('pages/authenticationPage/register/registerCourse/registerCourse')
                     },
                     {
@@ -135,7 +134,7 @@ export const registrationRoutes = [
             },
             {
                 path: 'parent',
-                name: 'parent',
+                name: routeName.RegisterParent,
                 components: {
                     default: lazyComponent('pages/authenticationPage/register/parent/registerParent'),
                     registerButtons: lazyComponent('pages/authenticationPage/register/registerButtons/registerButtons'),
@@ -143,8 +142,8 @@ export const registrationRoutes = [
                 children: [
                     {
                         path: 'course',
-                        name: 'registerCourseParent',
-                        meta: {nextStep: 'feed', backStep: 'registerType'},
+                        name: routeName.RegisterCourseParent,
+                        meta: {nextStep: 'feed', backStep: routeName.RegisterType},
                     },
                     {
                         path: '',
