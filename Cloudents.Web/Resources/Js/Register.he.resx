@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="addCourse_title" xml:space="preserve">
-    <value>הקורסים שאתם לומדים</value>
-  </data>
   <data name="course_title" xml:space="preserve">
     <value>בחרו את הקורסים שאתם לומדים</value>
   </data>
@@ -161,9 +158,6 @@
   </data>
   <data name="parent_subtitle" xml:space="preserve">
     <value>אנא מלאו פרטים על ילדכם כך שנוכל להתאים מורה באופן מיטבי. אל דאגה, לא נעשה כל שימוש במידע זה בכל מקום אחר</value>
-  </data>
-  <data name="school_subtitle" xml:space="preserve">
-    <value>בכדי שנוכל למצוא לכם מורה או חומרי לימוד מתאימים, אנא מלאו את הפרטים הבאים</value>
   </data>
   <data name="school_title" xml:space="preserve">
     <value>בואו נתחיל</value>
