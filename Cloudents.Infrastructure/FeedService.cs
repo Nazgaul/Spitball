@@ -43,7 +43,7 @@ namespace Cloudents.Infrastructure
             {
                 return itemsFeed;
             }
-           
+
             foreach (var item in itemsFeed)
             {
                 if (item is DocumentFeedDto d)
@@ -54,7 +54,7 @@ namespace Cloudents.Infrastructure
                     }
                 }
                 else if (item is QuestionFeedDto q)
-                { 
+                {
                     q.User.Image = _urlBuilder.BuildUserImageEndpoint(q.User.Id, q.User.Image);
                     if (q.FirstAnswer != null)
                     {
@@ -73,7 +73,7 @@ namespace Cloudents.Infrastructure
             var locations = new[] { tutorLocationPageZero, tutorLocationPage };
 
             var pageLocations = locations.ElementAtOrDefault(page) ?? tutorLocationPage;
-            
+
 
             foreach (var item in pageLocations)
             {
@@ -89,29 +89,31 @@ namespace Cloudents.Infrastructure
             return itemsFeed;
         }
 
-        private Task<IEnumerable<TutorCardDto>> GetTutorsFeedAsync(long userId, string country, int page, string course, int tutorPageSize, CancellationToken token)
+        private async Task<IEnumerable<TutorCardDto>> GetTutorsFeedAsync(long userId, string country, int page, string course, int tutorPageSize, CancellationToken token)
         {
-            var feedQuery = new FeedAggregateQuery(query.UserId, query.Page, query.Filter, query.Country, query.Course, ItemPageSize);
-            var itemsTask = _queryBus.QueryAsync(feedQuery, token);
+            return null;
+            //var feedQuery = new FeedAggregateQuery(userId, page, query.Filter, country, course, ItemPageSize);
+            //var itemsTask = _queryBus.QueryAsync(feedQuery, token);
 
-            //Task<ListWithCountDto<TutorCardDto>> tutorsTask = Task.FromResult<ListWithCountDto<TutorCardDto>>(null);
+            ////Task<ListWithCountDto<TutorCardDto>> tutorsTask = Task.FromResult<ListWithCountDto<TutorCardDto>>(null);
 
-            if (string.IsNullOrEmpty(course))
-            {
-                var tutorQuery = new TutorListQuery(query.UserId, query.Country, query.Page, TutorPageSize);
-                var task  = _queryBus.QueryAsync(tutorQuery, token);
-                await Task.WhenAll(itemsTask, task);
+            //if (string.IsNullOrEmpty(course))
+            //{
+            //    var tutorQuery = new TutorListQuery(query.UserId, query.Country, query.Page, TutorPageSize);
+            //    var task = _queryBus.QueryAsync(tutorQuery, token);
+            //    await Task.WhenAll(itemsTask, task);
 
-                return SortFeed(itemsTask.Result?.ToList(),
-                    task.Result?.Result?.ToList(),
-                    query.Page);
-            }
-        
-            else
-            {
-                var tutorQuery = new TutorListByCourseQuery(query.Course, query.UserId, query.Country, TutorPageSize, query.Page);
-                var tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
-            return tutorsTask;
+            //    return SortFeed(itemsTask.Result?.ToList(),
+            //        task.Result?.Result?.ToList(),
+            //        query.Page);
+            //}
+
+            //else
+            //{
+            //    var tutorQuery = new TutorListByCourseQuery(query.Course, query.UserId, query.Country, TutorPageSize, query.Page);
+            //    var tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
+            //    return tutorsTask;
+            //}
         }
 
         public async Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedQuery query, CancellationToken token)
@@ -123,17 +125,17 @@ namespace Cloudents.Infrastructure
 
             if (query.Filter == null)
             {
-                var feedQuery = new FeedAggregateQuery(query.UserId, query.Page, new string[] { }, query.Country, query.Course, _itemPageSize);
+                var feedQuery = new FeedAggregateQuery(query.UserId, query.Page, new string[] { }, query.Country, query.Course, ItemPageSize);
 
-                Task<IEnumerable<TutorCardDto>> tutorsTask = GetTutorsFeedAsync(query.UserId, query.Country, query.Page, query.Course, _tutorPageSize, token);
-               
-                await Task.WhenAll(itemsTask, tutorsTask);
+                Task<IEnumerable<TutorCardDto>> tutorsTask = GetTutorsFeedAsync(query.UserId, query.Country, query.Page, query.Course, TutorPageSize, token);
 
-                return SortFeed(itemsTask.Result?.ToList(),
+                await Task.WhenAll( tutorsTask);
+
+                return SortFeed(null,
                     tutorsTask.Result.ToList(),
                     query.Page);
             }
-            }
+
 
             if (query.Filter == Core.Enum.FeedType.Tutor)
             {
@@ -158,10 +160,10 @@ namespace Cloudents.Infrastructure
                 return itemsFeed;
             }
 
-          
+
             return null;
-            
-            
+
+
         }
 
 
@@ -181,45 +183,45 @@ namespace Cloudents.Infrastructure
             {
                 termToQuery = query.Term.Trim();
             }
-            var feedQuery = new DocumentQuery(query.Profile, query.Term, query.Course, ItemPageSize, query.Filter?.Where(w => !string.IsNullOrEmpty(w)))
-            if (query.Filter == null)
-            {
-                var feedQuery = new DocumentQuery(query.Profile, termToQuery, query.Course, _itemPageSize, query.Filter)
-                {
-                    Page = query.Page,
-                };
-
+            var feedQuery = new DocumentQuery(query.Profile, query.Term, query.Course, ItemPageSize, query.Filter);
+            //if (query.Filter == null)
+            //{
+            //    var feedQuery = new DocumentQuery(query.Profile, termToQuery, query.Course, ItemPageSize, query.Filter)
+            //    {
+            //        Page = query.Page,
+            //    };
+            //}
             var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, TutorPageSize);
-                var tutorTask = _tutorSearch.SearchAsync(tutorQuery, token);
-                var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
+            var tutorTask = _tutorSearch.SearchAsync(tutorQuery, token);
+            var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
 
 
-                await Task.WhenAll(resultTask, tutorTask);
+            await Task.WhenAll(resultTask, tutorTask);
             var result = SortFeed(resultTask.Result?.ToList(), tutorTask.Result?.Result?.ToList(), query.Page);
-                return result;
-            }
+            return result;
 
-            if (query.Filter == Core.Enum.FeedType.Tutor)
-            {
-                var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, 21);
-                var tutorsTask = _tutorSearch.SearchAsync(tutorQuery, token);
-                await Task.WhenAll(tutorsTask);
-                return tutorsTask.Result;
-            }
 
-            if (query.Filter == Core.Enum.FeedType.Document || query.Filter == Core.Enum.FeedType.Video)
-            {
-                var feedQuery = new DocumentQuery(query.Profile, termToQuery, query.Course, 21, query.Filter)
-                {
-                    Page = query.Page,
-                };
-                var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
-                await Task.WhenAll(resultTask);
-                //Query docs/video
-                return resultTask.Result;
-            }
+            //if (query.Filter == Core.Enum.FeedType.Tutor)
+            //{
+            //    var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, 21);
+            //    var tutorsTask = _tutorSearch.SearchAsync(tutorQuery, token);
+            //    await Task.WhenAll(tutorsTask);
+            //    return tutorsTask.Result;
+            //}
 
-            return Enumerable.Empty<FeedDto>();
+            //if (query.Filter == Core.Enum.FeedType.Document || query.Filter == Core.Enum.FeedType.Video)
+            //{
+            //    var feedQuery = new DocumentQuery(query.Profile, termToQuery, query.Course, 21, query.Filter)
+            //    {
+            //        Page = query.Page,
+            //    };
+            //    var resultTask = _searchProvider.SearchDocumentsAsync(feedQuery, token);
+            //    await Task.WhenAll(resultTask);
+            //    //Query docs/video
+            //    return resultTask.Result;
+            //}
+
+            //return Enumerable.Empty<FeedDto>();
         }
     }
 }
