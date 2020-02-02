@@ -35,7 +35,11 @@ html[dir="rtl"] {
   }
    fieldset+.v-text-field__slot > label  {
     /*rtl:ignore */
-    left :inherit !important ;
+    left :unset !important ;
+  }
+  .v-input__prepend-inner+fieldset+.v-text-field__slot>label {
+     /*rtl:ignore */
+    right: -27px !important;
   }
 }
 
