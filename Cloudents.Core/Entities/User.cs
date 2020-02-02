@@ -394,7 +394,7 @@ namespace Cloudents.Core.Entities
             {
                 UserComponents.Clear();
                 UserComponents.Add(value);
-                
+
             }
         }
     }
@@ -424,7 +424,7 @@ namespace Cloudents.Core.Entities
         public Parent(User user)
             : base(UserType.Parent, user)
         {
-           
+
         }
         public Parent(User user, string childFirstName, string childLastName, short grade)
             : base(UserType.Parent, user)
@@ -440,10 +440,10 @@ namespace Cloudents.Core.Entities
         }
         public virtual string ChildFirstName { get; protected set; }
         public virtual string ChildLastName { get; protected set; }
-        public virtual short Grade { get;protected set; }
+        public virtual short Grade { get; protected set; }
 
 
-        
+
 
         public virtual void SetChildData(string firstName, string lastName, short grade)
         {
@@ -460,6 +460,7 @@ namespace Cloudents.Core.Entities
     {
         public HighSchoolStudent(User user) : base(UserType.HighSchoolStudent, user)
         {
+            
         }
 
         protected HighSchoolStudent()
@@ -467,6 +468,13 @@ namespace Cloudents.Core.Entities
 
         }
         public override UserType Type { get; protected set; }
+
+        public virtual void SetGrade(short grade)
+        {
+            Grade = grade;
+        }
+
+        public virtual short Grade { get; protected set; }
     }
 
     public class CollegeStudent : UserComponent

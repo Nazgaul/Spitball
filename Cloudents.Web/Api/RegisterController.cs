@@ -306,5 +306,15 @@ namespace Cloudents.Web.Api
             await commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+        [HttpPost("grade")]
+        public async Task<IActionResult> SetUserGradeAsync([FromBody] UserGradeRequest model,
+            [FromServices] ICommandBus commandBus, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new SetUserGradeCommand(userId, model.Grade);
+            await commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
     }
 }
