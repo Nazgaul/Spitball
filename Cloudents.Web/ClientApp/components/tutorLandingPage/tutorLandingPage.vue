@@ -67,7 +67,6 @@ const sbCarousel = () => import('../sbCarousel/sbCarousel.vue');
 import testimonialCard from '../carouselCards/testimonialCard.vue'; // cant make it async ASK MAOR
 import tutorLandingPageService from './tutorLandingPageService';
 import courseService from '../../services/courseService.js';
-// import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
 
 import { mapActions,mapGetters } from 'vuex'
 export default {
@@ -75,7 +74,6 @@ export default {
         tutorResultCard,
         tutorResultCardMobile,
         tutorSearchComponent,
-        // emptyStateCard,
         suggestCard,
         sbCarousel,
         testimonialCard

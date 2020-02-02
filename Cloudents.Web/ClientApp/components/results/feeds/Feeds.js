@@ -9,7 +9,7 @@ import resultNote from "../ResultNote.vue";
 import tutorResultCard from '../tutorCards/tutorResultCard/tutorResultCard.vue';
 import suggestCard from '../suggestCard.vue';
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue';
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import resultFilter from '../helpers/resultFilter/resultFilter.vue';
 import requestBox from '../../pages/feedPage/components/requestActions/requestActions.vue';
 import coursesTab from "../../pages/feedPage/components/coursesTab/coursesTab.vue";
@@ -47,7 +47,6 @@ export default {
     data() {
         return {
             showAdBlock: global.country === 'IL',
-            pageData: '',
             scrollBehaviour:{
                 isLoading: false,
                 isComplete: false,
@@ -56,29 +55,13 @@ export default {
         };
     },
     computed: {
-        ...mapGetters([
-            'accountUser', 
-            'Feeds_getNextPageUrl',
-            'Feeds_getItems'
-        ]),
+        ...mapGetters(['Feeds_getNextPageUrl','Feeds_getItems']),
         items(){
             return this.Feeds_getItems
-        },
-        userText() {
-            return this.query.term;
-    },  
+        }
     },
     methods: {
-        ...mapActions([
-            'Feeds_fetchingData',
-            'updateLoginDialogState',
-            'updateNewQuestionDialogState',
-            'Feeds_nextPage',
-
-        ]),
-        goToAskQuestion(){
-            (this.accountUser == null)? this.updateLoginDialogState(true) : this.updateNewQuestionDialogState(true);
-        },
+        ...mapActions(['Feeds_fetchingData','Feeds_nextPage']),
         scrollFunc(){
             this.scrollBehaviour.isLoading = true;
             let nextPageUrl = this.Feeds_getNextPageUrl;
@@ -106,21 +89,27 @@ export default {
                 }
             }
             return template;
+        },
+        fetchData(objParams){
+            return this.Feeds_fetchingData(objParams)
         }
     },
     created() {
         storeService.lazyRegisterModule(this.$store, 'feeds', feedStore); 
+        let userText = this.query.term;
         let objParams = {
-            params: {...this.query, ...this.params, term: this.userText},
+            params: {...this.query, ...this.params, term: userText},
         }
-        this.Feeds_fetchingData(objParams)
+        this.fetchData(objParams)
     },
 
     beforeRouteUpdate(to, from, next) {
         this.scrollBehaviour.isComplete = true;
-        let params = {...to.query, ...to.params, term: to.query.term};
+        let objParams = {
+            params: {...to.query, ...to.params, term: to.query.term}
+        }
         //TODO check about scrolling?? 
-        this.Feeds_fetchingData({params}).finally(()=>{
+        this.fetchData(objParams).finally(()=>{
             this.scrollBehaviour.isLoading = false;
             this.scrollBehaviour.isComplete = false;
             next();

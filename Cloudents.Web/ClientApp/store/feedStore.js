@@ -80,7 +80,7 @@ const actions = {
         dispatch('Feeds_updateDataLoaded', false);
         commit('UPDATE_LOADING',true);
         commit('Feeds_ResetQue');
-
+        
         let paramsList = {...params};
         return searchService.activateFunction.feed(paramsList).then((data) => {
             dispatch('Feeds_updateDataLoaded', true)

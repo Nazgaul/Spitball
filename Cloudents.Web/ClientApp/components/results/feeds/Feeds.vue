@@ -25,7 +25,7 @@
                         </v-layout>
                     </v-container>
                 </scroll-list>
-                <empty-state-card v-else :userText="userText" :helpAction="goToAskQuestion"/>
+                <emptyStateCard v-else/>
             </div>
             <feedSkeleton v-else v-for="n in 5" :key="n"/>
         </div>
