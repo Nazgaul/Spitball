@@ -12,7 +12,7 @@
         <div class="stepsSections">
             <div class="stepContainer">
                 <router-view></router-view>
-                <router-view name="registerButtons"></router-view>
+                <!-- <router-view name="registerButtons"></router-view> -->
             </div>
         </div>
     </div>

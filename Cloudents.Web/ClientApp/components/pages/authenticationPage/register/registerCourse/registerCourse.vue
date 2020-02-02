@@ -18,12 +18,8 @@
 
 <script>
 const courses = () => import('../../../../courses/addCourses/addCourses.vue')
-
 export default {
-    components: { courses },
-    data: () => ({
-
-    })
+    components: { courses }
 }
 </script>
 
@@ -31,7 +27,6 @@ export default {
 @import '../../../../../styles/mixin.less';
 
 #registerCourse {
-    max-width: 500px;
     .courses_title {
         font-size: 26px;
         font-weight: 600;
@@ -39,8 +34,6 @@ export default {
     }
 
     .add-courses-wrap {
-        width: 500px;
-
         @media(max-width: @screen-xs) {
             width: 100%;
         }

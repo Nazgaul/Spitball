@@ -1,5 +1,5 @@
 <template>
-    <div id="registerStudentSchool">
+    <v-form id="registerStudentSchool" lazy-validation v-model="valid" action="." ref="form">
         <router-view>
             <template #titleCourse>
                 <div class="text-center maintitle" v-language:inner="'register_school_title'"></div>
@@ -12,16 +12,26 @@
                         outlined
                         dense
                         height="44"
+                        :rules="[v => v || $t('register_school_grade_error')]"
                         :menu-props="{ maxHeight: '400' }"
                         :label="label"
                         placeholder=" "
-                        append-icon="sbf-triangle-arrow-down"
-                        hide-details>
+                        append-icon="sbf-triangle-arrow-down">
                     </v-select>
                 </div>
             </template>
         </router-view>
-    </div>
+        <div id="registerButtons">
+            <div class="actions text-center mt-10">
+                <v-btn @click="prevStep" class="btn register_btn_back" color="#4452fc" depressed height="40" outlined rounded>
+                    <span v-language:inner="'tutorRequest_back'"></span>
+                </v-btn>
+                <v-btn @click="nextStep" class="btn register_btn_next white--text" depressed rounded height="40" color="#4452fc">
+                    <span v-language:inner="'tutorRequest_next'"></span>
+                </v-btn>
+            </div>
+        </div>
+    </v-form>
 </template>
 
 <script>
@@ -29,6 +39,7 @@ import { LanguageService } from '../../../../../services/language/languageServic
 
 export default {
     data: () => ({
+        valid: true,
         grades: [
             {
                 text: LanguageService.getValueByKey('register_grade1'),
@@ -93,6 +104,18 @@ export default {
         label() {
             return LanguageService.getValueByKey('register_what_grade')
         }
-    }
+    },
+    methods: {
+        nextStep() {
+            let form = this.$refs.form;
+
+            if(form.validate()) {
+                this.$store.dispatch('updateStudentGrade')
+            }
+        },
+        prevStep() {
+            this.$router.push({name: this.$route.meta.backStep})
+        }
+    },
 }
 </script>
