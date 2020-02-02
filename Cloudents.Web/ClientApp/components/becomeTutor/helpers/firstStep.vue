@@ -47,8 +47,13 @@
                                 class="font-weight-bold price-input"
                                 :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
                                 v-model="price"
-                                type="number"
-                                :label="$Ph('becomeTutor_placeholder_price', currencySymbol)"/>
+                                type="number">
+
+                                <template v-slot:label>
+                                    <span>{{$t('becomeTutor_placeholder_price')}}</span>
+                                    {{ $n(null,'currency') }}
+                                </template>
+                            </v-text-field>
 
                             <!-- <v-select
                                 v-model="gender"
@@ -132,12 +137,12 @@
             isMobile(){
                 return this.$vuetify.breakpoint.xsOnly;
             },
-            currencySymbol() {
-                if(this.accountUser) {
-                    return this.accountUser.currencySymbol
-                }
-                return '';
-            },
+            // currencySymbol() {
+            //     if(this.accountUser) {
+            //         return this.accountUser.currencySymbol
+            //     }
+            //     return '';
+            // },
         },
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog', 'updateToasterParams']),
