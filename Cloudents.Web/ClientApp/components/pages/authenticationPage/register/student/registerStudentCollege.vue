@@ -23,9 +23,14 @@
 </template>
 
 <script>
+import { RegisterCourseCollege } from '../../../../../routes/routeName'
+
 export default {
     methods: {
         nextStep() {
+            if(this.$route.name == RegisterCourseCollege) {
+                global.isAuth = true;
+            }
             this.$router.push({name: this.$route.meta.nextStep})
         },
         prevStep() {

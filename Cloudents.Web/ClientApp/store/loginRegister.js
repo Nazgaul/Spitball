@@ -322,11 +322,6 @@ const actions = {
         dispatch('updateRouterStep', 'setPhone');
         // dispatch('updateStep','setPhone');
     },
-    finishRegister({dispatch}) {
-        global.isAuth = true;
-        _analytics(['Registration', 'Congrats']); //TODO: no more congrats. what analytic need to send???
-        dispatch('updateRouterStep', 'studentTutor');
-    },
     emailValidate({dispatch, commit, state}) {
         registrationService.validateEmail(encodeURIComponent(state.email))
             .then(() => {
@@ -415,6 +410,7 @@ const actions = {
         let grade = state.grade
         if(grade) {
             return registrationService.updateGrade({ grade }).then(() => {
+                global.isAuth = true;
                 commit('setStudentGrade', grade);
                 dispatch('updateRouterStep', 'feed');
             })
@@ -426,6 +422,7 @@ const actions = {
             fullname: state.studentParentFullName
         }
         return registrationService.updateParentStudentName(parentObj).then(() => {
+            global.isAuth = true;
             dispatch('updateRouterStep', 'feed');
         }).catch(ex => {
             console.log(ex);

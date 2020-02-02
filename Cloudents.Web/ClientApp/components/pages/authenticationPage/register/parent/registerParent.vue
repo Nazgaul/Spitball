@@ -156,7 +156,7 @@ export default {
         // firstname: {
         //     get() {
         //         return this.$store.getters.getFirstName
-        //     },
+    //     },
         //     set(firstname) {
         //         this.$store.dispatch('updateFirstName', firstname)
         //     }
