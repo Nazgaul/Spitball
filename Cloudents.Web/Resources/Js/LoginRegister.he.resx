@@ -325,7 +325,7 @@
     <value>נא לנסות שוב</value>
   </data>
   <data name="smsconfirm_subtitle" xml:space="preserve">
-    <value>נא לשלוח למספר הזה</value>
+    <value>נשלח למספר הזה</value>
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
     <value>הכנסת קוד כניסה</value>

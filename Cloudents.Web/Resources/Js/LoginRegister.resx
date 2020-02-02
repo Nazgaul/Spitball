@@ -345,7 +345,7 @@
     <comment>1</comment>
   </data>
   <data name="smsconfirm_subtitle" xml:space="preserve">
-    <value>sent to this number</value>
+    <value>Sent to this number</value>
     <comment>1</comment>
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
