@@ -235,15 +235,16 @@ const actions = {
             return Promise.reject(error);
         });
     },
-    emailSigning({dispatch, state, commit}, params) {
+    emailSigning({state, commit}, params) {
         let { recaptcha, password, confirmPassword } = params;
         let { firstName, lastName, email, gender } = state;
         let emailRegObj = { firstName, lastName, email, gender, recaptcha, password, confirmPassword }
 
         return registrationService.emailRegistration(emailRegObj)
-            .then(() => {
+            .then(({data}) => {
                 _analytics(['Registration', 'Start']);
-                dispatch('updateRouterStep', 'registerEmailConfirmed')
+                router.push(data.step);
+               // dispatch('updateRouterStep', 'registerEmailConfirmed')
             },  (error) => {
                 commit('setErrorMessages',{
                     email: error.response.data["Email"] ? error.response.data["Email"][0] : '',
