@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AspNetCore.Http; //using Microsoft.AspNetCore.Http.Internal;
 
 namespace Cloudents.Web.Middleware
@@ -43,7 +44,8 @@ namespace Cloudents.Web.Middleware
                         using var stream = new StreamReader(request.Body);
                         var v = await stream.ReadToEndAsync();
 
-                        _context.TrackTrace($"Log of parameters: {v}");
+                        _context.TrackTrace($"Log of parameters: {v}",SeverityLevel.Error);
+                        _context.Flush();
                     }
                     catch (ObjectDisposedException)
                     {

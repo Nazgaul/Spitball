@@ -25,6 +25,7 @@ using System.Net.Http;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 
 namespace Cloudents.Web.Api
@@ -286,7 +287,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("userType")]
+        [HttpPost("userType"), Authorize]
         public async Task<IActionResult> SetUserTypeAsync([FromBody] SetUserTypeRequest model,
             [FromServices] ICommandBus commandBus, CancellationToken token)
         {
@@ -297,7 +298,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("childName")]
+        [HttpPost("childName"),Authorize]
         public async Task<IActionResult> SetChildNameAsync([FromBody] SetChildNameRequest model,
             [FromServices] ICommandBus commandBus, CancellationToken token)
         {
@@ -307,7 +308,7 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("grade")]
+        [HttpPost("grade"), Authorize]
         public async Task<IActionResult> SetUserGradeAsync([FromBody] UserGradeRequest model,
             [FromServices] ICommandBus commandBus, CancellationToken token)
         {
