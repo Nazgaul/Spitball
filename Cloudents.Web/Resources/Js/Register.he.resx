@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="addCourse_title" xml:space="preserve">
+    <value>הקורסים שאתם לומדים</value>
+  </data>
   <data name="course_title" xml:space="preserve">
     <value>בחרו את הקורסים שאתם לומדים</value>
   </data>
