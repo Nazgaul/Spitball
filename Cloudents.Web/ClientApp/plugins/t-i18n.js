@@ -19,10 +19,36 @@ Vue.use(VueI18n)
 // }
 const lang = `${global.lang}-${global.country}`;
 
+
+const numberFormats = {
+  'en': {
+    currency: {
+      style: 'currency', currency: 'USD'
+    }
+  },
+  'en-IL': {
+    currency: {
+      style: 'currency', currency: 'ILS'
+    }
+  },
+  'he-IL': {
+    currency: {
+      style: 'currency', currency: 'ILS'
+    }
+  },
+  'en-IN': {
+    currency: {
+      style: 'currency', currency: 'INR'
+    }
+  }
+}
+
+
 export const i18n =  new VueI18n({
   locale:  lang,
   fallbackLocale: 'en',
-  messages : {}
+  messages : {},
+  numberFormats
   //messages: loadLocaleMessages()
 })
 

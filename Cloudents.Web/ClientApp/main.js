@@ -182,6 +182,7 @@ router.beforeEach((to, from, next) => {
     
 
 });
+sync(store, router);
 const app = new Vue({
     //el: "#app",
     router: router,
@@ -227,7 +228,7 @@ if(touchSupported){
 //This is for cdn fallback do not touch
 
 //injects the route to the store via the rootState.route
-sync(store, router);
+
 utilitiesService.init();
 
 
