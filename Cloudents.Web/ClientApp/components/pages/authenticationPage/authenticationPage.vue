@@ -10,7 +10,7 @@
     </div>
 
     <div class="stepsSections">
-      <div class="gap"></div>
+      <div class="gap d-none d-sm-flex"></div>
       <div class="stepContainer">
         <router-view></router-view>
       </div>
@@ -103,7 +103,7 @@ export default {
       //max-width: 500px;
       margin: 0 auto;
       max-width: 100%;
-     // height: 100%;
+      height: 100%;
      //@media (max-width: @screen-xs) {
         //width: 100%;
        
