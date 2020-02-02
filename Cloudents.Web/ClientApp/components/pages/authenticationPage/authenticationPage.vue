@@ -137,6 +137,12 @@ export default {
           }
         }
       }
+      .v-select__selection--comma {
+        line-height: normal; //v-select, text was off from input
+      }
+      .v-input__append-inner {
+        margin-top: 12px !important; // center icon, cuz custom height
+      }
     }
     .stepsSections{
       margin: 120px auto auto;
