@@ -308,10 +308,17 @@ namespace Cloudents.Web.Api
             return Ok();
         }
 
-        [HttpPost("grade"), Authorize]
+        [HttpPost("grade")]
         public async Task<IActionResult> SetUserGradeAsync([FromBody] UserGradeRequest model,
-            [FromServices] ICommandBus commandBus, CancellationToken token)
+            [FromServices] ICommandBus commandBus,
+            [FromServices] TelemetryClient client,
+            CancellationToken token)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                client.TrackEvent("HomePageRequested");
+                return BadRequest();
+            }
             var userId = _userManager.GetLongUserId(User);
             var command = new SetUserGradeCommand(userId, model.Grade);
             await commandBus.DispatchAsync(command, token);
