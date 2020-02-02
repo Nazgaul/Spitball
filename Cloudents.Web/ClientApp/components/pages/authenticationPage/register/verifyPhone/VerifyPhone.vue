@@ -1,5 +1,5 @@
 <template>
-  <form class="smsConfirmation" @submit.prevent="verifyPhone">
+  <form class="smsConfirmation" @submit.prevent="verifyPhone" autocomplete="off">
 
     <div class="top">
       <p class="smsconfirm_title" v-language:inner="'loginRegister_smsconfirm_title'"></p>
