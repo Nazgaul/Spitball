@@ -29,7 +29,7 @@ export default {
     }
 
     .add-university-wrap {
-        width: 500px;
+        width: inherit;
         .university-list {
             max-height: 360px;
         }
