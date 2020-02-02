@@ -198,7 +198,6 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
         );
         },
         goLogin(){
-            window.dispatchEvent( new Event('native.showkeyboard') );           
             this.$router.push({path:'/signin'});
         }
     },
