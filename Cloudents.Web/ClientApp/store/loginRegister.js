@@ -412,26 +412,17 @@ const actions = {
             })
         }
     },
-    updateParentStudent(context, fullname) {
-        return registrationService.updateParentStudentName(fullname);
-    },
-    parentRegister({state, dispatch}) {
-        let grade = state.grade
-        let firstname = state.firstName;
-        let lastname = state.lastName
-        if(!grade || !firstname || !lastname) {
-            dispatch('updateStepValidation', false)
-            return
+    updateParentStudent({dispatch, state}) {
+        let parentObj = {
+            grade: state.grade,
+            firstname: state.firstName,
+            lastname: state.lastName
         }
-        let promiseGrade = registrationService.updateGrade({grade});
-        let promiseStudentParent = dispatch('updateParentStudent', {firstname, lastname});
-
-        Promise.all([promiseGrade, promiseStudentParent])
-            .then(() => {
-                dispatch('updateRouterStep', 'feed');
-            }).catch(() => {
-                dispatch('updateStepValidation', false)
-            })
+        return registrationService.updateParentStudentName(parentObj).then(() => {
+            dispatch('updateRouterStep', 'feed');
+        }).catch(ex => {
+            console.log(ex);
+        })
     }
 };
 
