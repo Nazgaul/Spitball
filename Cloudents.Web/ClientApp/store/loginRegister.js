@@ -30,6 +30,7 @@ const state = {
     localCode: '',
 
     grade: '',
+    studentParentFullName: '',
 
     globalLoading: false,
     stepValidation: false,
@@ -122,12 +123,15 @@ const mutations = {
         state.firstName = fullNameObj.firstName;
         state.lastName = fullNameObj.lastName;
     },
-    setFirstName(state, firstName) {
-        state.firstName = firstName;
+    setFullName(state, fullname) {
+        state.studentParentFullName = fullname
     },
-    setLastName(state, lastName) {
-        state.lastName = lastName;
-    },
+    // setFirstName(state, firstName) {
+    //     state.firstName = firstName;
+    // },
+    // setLastName(state, lastName) {
+    //     state.lastName = lastName;
+    // },
     setStudentGrade(state, grade) {
         state.grade = grade;
     },
@@ -148,19 +152,23 @@ const getters = {
     getPassScoreObj: state => state.passScoreObj,
     getStudentGrade: state => state.grade,
     getStepValidation: state => state.stepValidation,
-    getFirstName: state => state.firstName,
-    getLastName: state => state.lastName,
+    getStudentParentFullName: state => state.studentParentFullName
+    // getFirstName: state => state.firstName,
+    // getLastName: state => state.lastName,
 };
 
 const actions = {
     updateToUrl({commit}, url) {
         commit('setToUrl',url);
     },
-    updateFirstName({commit}, firstName) {
-        commit('setFirstName', firstName)
-    },
-    updateLastName({commit}, lastName) {
-        commit('setLastName', lastName)
+    // updateFirstName({commit}, firstName) {
+    //     commit('setFirstName', firstName)
+    // },
+    // updateLastName({commit}, lastName) {
+    //     commit('setLastName', lastName)
+    // },
+    updateFullName({commit}, fullname) {
+        commit('setFullName', fullname)
     },
     updateName({commit}, fullNameObj) {
         commit('setName',fullNameObj);
@@ -415,8 +423,7 @@ const actions = {
     updateParentStudent({dispatch, state}) {
         let parentObj = {
             grade: state.grade,
-            firstname: state.firstName,
-            lastname: state.lastName
+            fullname: state.studentParentFullName
         }
         return registrationService.updateParentStudentName(parentObj).then(() => {
             dispatch('updateRouterStep', 'feed');

@@ -6,8 +6,17 @@
 
         <v-form lazy-validation v-model="valid" ref="form">
             <v-row>
-                <v-col cols="12" sm="4" class="pb-0">
+                <v-col cols="12" sm="6" class="pb-0">
                     <v-text-field
+                        v-model="fullname"
+                        :label="$t('register_student_fullname')"
+                        placeholder=" "
+                        outlined
+                        :rules="[rules.required, rules.minimumChars]"
+                        height="44"
+                        dense
+                    ></v-text-field> 
+                    <!-- <v-text-field
                         v-model="firstname"
                         :label="$t('register_student_firstname')"
                         placeholder=" "
@@ -16,8 +25,8 @@
                         height="44"
                         dense
                     ></v-text-field>                        
-                </v-col>
-                <v-col cols="12" sm="4" class="pb-0">
+                </v-col> -->
+                <!-- <v-col cols="12" sm="4" class="pb-0">
                     <v-text-field
                         v-model="lastname"
                         :label="$t('register_student_lastname')"
@@ -26,9 +35,9 @@
                         :rules="[rules.required, rules.minimumChars]"
                         height="44"
                         dense
-                    ></v-text-field>                    
+                    ></v-text-field>                     -->
                 </v-col>
-                <v-col cols="12" sm="4" class="pb-0">
+                <v-col cols="12" sm="6" class="pb-0">
                     <v-select
                         v-model="grade"
                         :items="grades"
@@ -136,22 +145,30 @@ export default {
         }
     }),
     computed: {
-        firstname: {
+        fullname: {
             get() {
-                return this.$store.getters.getFirstName
+                return this.$store.getters.getStudentParentFullName;
             },
-            set(firstname) {
-                this.$store.dispatch('updateFirstName', firstname)
+            set(fullname) {
+                this.$store.dispatch('updateFullName', fullname);
             }
         },
-        lastname: {
-            get() {
-                return this.$store.getters.getLastName
-            },
-            set(lastname) {
-                this.$store.dispatch('updateLastName', lastname)
-            }
-        },
+        // firstname: {
+        //     get() {
+        //         return this.$store.getters.getFirstName
+        //     },
+        //     set(firstname) {
+        //         this.$store.dispatch('updateFirstName', firstname)
+        //     }
+        // },
+        // lastname: {
+        //     get() {
+        //         return this.$store.getters.getLastName
+        //     },
+        //     set(lastname) {
+        //         this.$store.dispatch('updateLastName', lastname)
+        //     }
+        // },
         grade: {
             get() {
                 return this.$store.getters.getStudentGrade
