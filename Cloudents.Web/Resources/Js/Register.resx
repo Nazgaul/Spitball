@@ -168,6 +168,12 @@
   <data name="school_title" xml:space="preserve">
     <value>Let's get started</value>
   </data>
+  <data name="student_fullname" xml:space="preserve">
+    <value>Student's full name</value>
+  </data>
+  <data name="student_grade" xml:space="preserve">
+    <value>Student's grade</value>
+  </data>
   <data name="university_title" xml:space="preserve">
     <value>Choose your school</value>
   </data>
