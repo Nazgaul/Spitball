@@ -1,5 +1,5 @@
 <template>
-    <form class="setPhone" @submit.prevent="sendSms">
+    <v-form class="setPhone" @submit.prevent="sendSms" ref="form" lazy-validation>
         <p class="setphone_title" v-language:inner="'loginRegister_setphone_title'"></p>
         <v-select 
             v-model="localCode"
@@ -33,6 +33,7 @@
             type="tel"
             prepend-inner-icon="sbf-phone"
             name=""
+            :rules="[rules.phone]"
             :label="phoneNumberLabel"
             :error-messages="errorMessages.phone"
             placeholder=" "
@@ -45,18 +46,21 @@
             class="white--text btn-login">
                 <span v-language:inner="'loginRegister_setphone_btn'"></span>
         </v-btn>
-    </form> 
+    </v-form> 
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { LanguageService } from '../../../../../services/language/languageService';
+import { validationRules } from '../../../../../services/utilities/formValidationRules';
 
 export default {
-    // name: 'setPhone',
     data() {
         return {
-            phoneNumber: ''
+            phoneNumber: '',
+            rules: {
+                phone: phone => validationRules.phone(phone)
+            }
         }
     },
     watch: {
@@ -94,8 +98,11 @@ export default {
         ...mapActions(['updatePhone','updateLocalCode','sendSMScode']),
         ...mapMutations(['setErrorMessages']),
         sendSms(){
-            this.updatePhone(this.phoneNumber)
-            this.sendSMScode()
+            let validate = this.$refs.form.validate()
+            if(validate) {
+                this.updatePhone(this.phoneNumber)
+                this.sendSMScode()
+            }
         },
         getCode(item){
             return global.isRtl? `(${item.callingCode}) ${item.name}` : `${item.name} (${item.callingCode})`;

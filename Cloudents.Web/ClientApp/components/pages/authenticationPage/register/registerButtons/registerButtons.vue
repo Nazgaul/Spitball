@@ -26,6 +26,11 @@ export default {
     },
     methods: {
         nextStep() {
+            let form = this.$refs.form
+            if(!form.validate()) {
+                console.log('not valid');
+            }
+            
             if(this.isParentRegistration) {
                 this.$store.dispatch('parentRegister');
             } else if(this.isHighSchoolRegistration) {

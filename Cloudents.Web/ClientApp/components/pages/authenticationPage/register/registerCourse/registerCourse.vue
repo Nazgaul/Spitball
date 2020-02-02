@@ -2,21 +2,24 @@
     <div id="registerCourse">
         <slot name="titleCourse"></slot>
         
-        <courses #fromRegister>
-            <span></span>
+        <courses>
+            <template #fromRegisterBtn>
+                <span></span>
+            </template>
+
+            <template #fromRegisterTitle>
+                <span class="font-weight-bold">
+                    {{$t('register_addCourse_title')}}
+                </span>
+            </template>
         </courses>
     </div>
 </template>
 
 <script>
 const courses = () => import('../../../../courses/addCourses/addCourses.vue')
-
 export default {
-    // name: 'registerCourse',
-    components: { courses },
-    data: () => ({
-
-    })
+    components: { courses }
 }
 </script>
 
@@ -24,7 +27,6 @@ export default {
 @import '../../../../../styles/mixin.less';
 
 #registerCourse {
-    max-width: 500px;
     .courses_title {
         font-size: 26px;
         font-weight: 600;
@@ -32,8 +34,6 @@ export default {
     }
 
     .add-courses-wrap {
-        width: 500px;
-
         @media(max-width: @screen-xs) {
             width: 100%;
         }

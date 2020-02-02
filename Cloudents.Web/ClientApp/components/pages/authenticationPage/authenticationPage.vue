@@ -12,7 +12,7 @@
         <div class="stepsSections">
             <div class="stepContainer">
                 <router-view></router-view>
-                <router-view name="registerButtons"></router-view>
+                <!-- <router-view name="registerButtons"></router-view> -->
             </div>
         </div>
     </div>
@@ -100,8 +100,9 @@ export default {
       padding-top: 12px; // global for all inputs in authenticate pages
     }
     .stepContainer {
-      width: 500px; // global width for all components
-      max-width: 500px;
+      width: 400px; // global width for all components
+      max-width: 400px;
+      margin: 0 auto;
       height: 100%;
       @media (max-width: @screen-xs) {
         width: 100%;

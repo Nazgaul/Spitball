@@ -29,7 +29,7 @@ html {
 }
  //we have an issue with fieldset and labels on input on vuetify on rtl - this solve the issue
 html[dir="rtl"] {
-  .v-text-field__slot >  label { 
+  .v-text-field__slot >  label, .v-select__slot > label { 
     /*rtl:ignore */
     left: unset !important;
   }
