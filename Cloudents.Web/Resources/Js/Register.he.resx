@@ -166,7 +166,10 @@
     <value>בואו נתחיל</value>
   </data>
   <data name="student_fullname" xml:space="preserve">
-    <value>השם המלא של הסטודנט</value>
+    <value>השם המלא של התלמיד</value>
+  </data>
+  <data name="student_grade" xml:space="preserve">
+    <value>הכיתה של התלמיד</value>
   </data>
   <data name="university_title" xml:space="preserve">
     <value>בחרו את מוסד הלימודים שלכם</value>
