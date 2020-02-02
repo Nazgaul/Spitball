@@ -24,8 +24,7 @@
 
         <div class="tutor-landing-page-body">
             <div class="tutor-landing-page-empty-state" v-if="items.length === 0 && query.term && showEmptyState" >
-                <suggest-card 
-                @click.native="openRequestTutor()" :name="'tutor-list'"></suggest-card>  
+                <suggestCard/>
             </div>
             <div class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
                 <tutor-result-card v-if="!isMobile" class="mb-4 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
@@ -62,12 +61,11 @@
 const tutorResultCard = () => import('../results/tutorCards/tutorResultCard/tutorResultCard.vue');
 const tutorResultCardMobile = () => import('../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
 const tutorSearchComponent = () => import('./components/tutorSearchInput/tutorSearchInput.vue');
-const SuggestCard = () => import('../results/suggestCard.vue');
+const suggestCard = () => import('../results/suggestCard.vue');
 const sbCarousel = () => import('../sbCarousel/sbCarousel.vue');
 
 import testimonialCard from '../carouselCards/testimonialCard.vue'; // cant make it async ASK MAOR
 import tutorLandingPageService from './tutorLandingPageService';
-import analyticsService from '../../services/analytics.service.js';
 import courseService from '../../services/courseService.js';
 // import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
 
@@ -78,7 +76,7 @@ export default {
         tutorResultCardMobile,
         tutorSearchComponent,
         // emptyStateCard,
-        SuggestCard,
+        suggestCard,
         sbCarousel,
         testimonialCard
     },
@@ -136,7 +134,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['setTutorRequestAnalyticsOpenedFrom','updateRequestDialog','updateHPReviews']),
+        ...mapActions(['updateHPReviews']),
         updateList(){            
             this.showEmptyState = false;
             let self = this;
@@ -164,14 +162,6 @@ export default {
                 }
             }).catch(() => {})
         },
-        openRequestTutor() {
-            analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
-            this.setTutorRequestAnalyticsOpenedFrom({
-                component: 'suggestCard',
-                path: this.$route.path
-            });
-            this.updateRequestDialog(true);
-        }
     },
     mounted() {
         if(!!this.$route.query && !!this.$route.query.size){

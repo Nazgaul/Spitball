@@ -20,7 +20,7 @@
                                     </component>
                             </v-flex>
                             <v-flex class="suggestCard result-cell mb-4 xs-12 order-xs4">
-                                <suggest-card @click.native="openRequestTutor()"></suggest-card>   
+                                <suggestCard/>   
                             </v-flex>
                         </v-layout>
                     </v-container>

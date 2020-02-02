@@ -10,7 +10,6 @@ import tutorResultCard from '../tutorCards/tutorResultCard/tutorResultCard.vue';
 import suggestCard from '../suggestCard.vue';
 import emptyStateCard from '../emptyStateCard/emptyStateCard.vue';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import analyticsService from '../../../services/analytics.service';
 import resultFilter from '../helpers/resultFilter/resultFilter.vue';
 import requestBox from '../../pages/feedPage/components/requestActions/requestActions.vue';
 import coursesTab from "../../pages/feedPage/components/coursesTab/coursesTab.vue";
@@ -67,7 +66,7 @@ export default {
         },
         userText() {
             return this.query.term;
-        },  
+    },  
     },
     methods: {
         ...mapActions([
@@ -75,9 +74,7 @@ export default {
             'updateLoginDialogState',
             'updateNewQuestionDialogState',
             'Feeds_nextPage',
-            'analyticsService',
-            'updateRequestDialog',
-            'setTutorRequestAnalyticsOpenedFrom'
+
         ]),
         goToAskQuestion(){
             (this.accountUser == null)? this.updateLoginDialogState(true) : this.updateNewQuestionDialogState(true);
@@ -97,14 +94,6 @@ export default {
             }).catch(() => {
                 this.scrollBehaviour.isComplete = true;
             });
-        },
-        openRequestTutor() {
-            analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
-            this.setTutorRequestAnalyticsOpenedFrom({
-                component: 'suggestCard',
-                path: this.$route.path
-            });
-            this.updateRequestDialog(true);
         },
         setTemplate(template) {
             if(template === 'tutor-result-card') {
@@ -130,6 +119,7 @@ export default {
     beforeRouteUpdate(to, from, next) {
         this.scrollBehaviour.isComplete = true;
         let params = {...to.query, ...to.params, term: to.query.term};
+        //TODO check about scrolling?? 
         this.Feeds_fetchingData({params}).finally(()=>{
             this.scrollBehaviour.isLoading = false;
             this.scrollBehaviour.isComplete = false;
