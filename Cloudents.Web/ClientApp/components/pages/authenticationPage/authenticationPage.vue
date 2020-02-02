@@ -1,57 +1,57 @@
 <template>
-    <div class="authenticationPage">
-        <router-link class="backButton" :to="{query: {dialog: 'login'}}">
-            <close class="closeIcon" />
-        </router-link>
+  <div class="authenticationPage">
+    <router-link class="backButton" :to="{query: {dialog: 'login'}}">
+      <close class="closeIcon" />
+    </router-link>
 
-        <div class="leftSection d-none d-sm-none d-md-none d-lg-flex" :class="{'reg_frymo': isFrymo}">
-            <logo class="logo" />
-            <p class="text text-center white--text" v-language:inner="'loginRegister_main_txt'"></p>
-        </div>
-
-        <div class="stepsSections">
-            <div class="stepContainer">
-                <router-view></router-view>
-            </div>
-        </div>
+    <div class="leftSection d-none d-sm-none d-md-none d-lg-flex" :class="{'reg_frymo': isFrymo}">
+      <logo class="logo" />
+      <p class="text text-center white--text" v-language:inner="'loginRegister_main_txt'"></p>
     </div>
+
+    <div class="stepsSections">
+      <div class="gap"></div>
+      <div class="stepContainer">
+        <router-view></router-view>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 //STORE
-import storeService from '../../../services/store/storeService';
-import loginRegister from '../../../store/loginRegister';
+import storeService from "../../../services/store/storeService";
+import loginRegister from "../../../store/loginRegister";
 
-const logo = () => import('../../app/logo/logo.vue');
-const close = () => import('../../../font-icon/close.svg');
+const logo = () => import("../../app/logo/logo.vue");
+const close = () => import("../../../font-icon/close.svg");
 
 export default {
-  components:{ logo, close },
+  components: { logo, close },
   data: () => ({
-    from: ''
+    from: ""
   }),
   computed: {
-    ...mapGetters(['isFrymo']),
+    ...mapGetters(["isFrymo"])
   },
-  beforeRouteEnter (to, from, next) {
-    next((vm) => {
-        vm.from = from;
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.from = from;
     });
   },
-  beforeDestroy(){
-    storeService.unregisterModule(this.$store, 'loginRegister');
+  beforeDestroy() {
+    storeService.unregisterModule(this.$store, "loginRegister");
   },
   created() {
-    storeService.registerModule(this.$store, 'loginRegister', loginRegister);
+    storeService.registerModule(this.$store, "loginRegister", loginRegister);
 
     this.$nextTick(() => {
-      this.$store.dispatch('updateToUrl', this.from.path);
-    })
-    
+      this.$store.dispatch("updateToUrl", this.from.path);
+    });
   }
-}
+};
 </script>
 
 <style lang="less">
@@ -100,13 +100,14 @@ export default {
     }
     .stepContainer {
       width: 400px; // global width for all components
-      max-width: 400px;
+      //max-width: 500px;
       margin: 0 auto;
-      height: 100%;
-      @media (max-width: @screen-xs) {
-        width: 100%;
-        max-width: 100%;
-      }
+      max-width: 100%;
+     // height: 100%;
+     //@media (max-width: @screen-xs) {
+        //width: 100%;
+       
+      //}
       .maintitle {
         font-size: 26px;
         color: @global-purple;
@@ -145,11 +146,22 @@ export default {
       }
     }
     .stepsSections{
-      margin: 120px auto auto;
+          display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    /* justify-content: center; */
+    height: 100vh;
+    max-width: 100%;
+      .gap {
+        height: 120px;
+        flex-shrink: 1;
+    }
+      
+     // margin: 120px auto auto;
       @media (max-width: @screen-xs) {
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
+      //  width: 100%;
+        //height: 100%;
+        //margin: 0 auto;
         padding: 14px;
       }
       button{

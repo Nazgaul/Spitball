@@ -82,7 +82,7 @@ export const registrationRoutes = [
                 component: lazyComponent('pages/authenticationPage/register/verifyPhone/verifyPhone')
             },
             {
-                path: 'register-type',
+                path: 'type',
                 name: routeName.RegisterType,
                 component: lazyComponent('pages/authenticationPage/register/registerType/registerType')
             },

@@ -194,5 +194,7 @@ export default {
 <style lang="less">
     #registerParent {
         width: 500px;
+        max-width: 100%;
     }
+
 </style>
