@@ -232,7 +232,7 @@
     <value>להצליח במבחנים בעזרת מיטב הסיכומים והמורים הפרטיים</value>
   </data>
   <data name="parent" xml:space="preserve">
-    <value>Parent</value>
+    <value>הורה</value>
   </data>
   <data name="resetpass_btn" xml:space="preserve">
     <value>המשך</value>
@@ -331,10 +331,10 @@
     <value>הכנסת קוד כניסה</value>
   </data>
   <data name="student" xml:space="preserve">
-    <value>Student</value>
+    <value>תלמידים/סטודנטים</value>
   </data>
   <data name="teacher" xml:space="preserve">
-    <value>Teacher</value>
+    <value>מורה</value>
   </data>
   <data name="welcome" xml:space="preserve">
     <value>ברוך הבא לספיטבול</value>
