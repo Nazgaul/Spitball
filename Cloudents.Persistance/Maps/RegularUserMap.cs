@@ -110,7 +110,7 @@ namespace Cloudents.Persistence.Maps
         {
             Table("UserParent");
 
-            Map(x => x.ChildFirstName).Nullable();
+            Map(x => x.Name).Column("ChildFirstName").Nullable();
             Map(x => x.Grade).Nullable();
         }
     }

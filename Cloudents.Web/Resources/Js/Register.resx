@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="addCourse_title" xml:space="preserve">
-    <value>Subject areas</value>
+    <value>School subjects</value>
   </data>
   <data name="course_title" xml:space="preserve">
     <value>Choose your courses</value>
@@ -127,13 +127,13 @@
     <value>1st grade</value>
   </data>
   <data name="grade10" xml:space="preserve">
-    <value>10th grade</value>
+    <value>10th grade (Sophomore Year)</value>
   </data>
   <data name="grade11" xml:space="preserve">
-    <value>11th grade</value>
+    <value>11th grade (Junior Year)</value>
   </data>
   <data name="grade12" xml:space="preserve">
-    <value>12th grade</value>
+    <value>12th grade (Senior Year)</value>
   </data>
   <data name="grade2" xml:space="preserve">
     <value>2nd grade</value>
@@ -157,7 +157,7 @@
     <value>8th grade</value>
   </data>
   <data name="grade9" xml:space="preserve">
-    <value>9th grade</value>
+    <value>9th grade (Freshman Year)</value>
   </data>
   <data name="parent_subtitle" xml:space="preserve">
     <value>choose</value>
@@ -169,15 +169,15 @@
     <value>Let's get started</value>
   </data>
   <data name="student_fullname" xml:space="preserve">
-    <value>Student's full name</value>
+    <value>Student's name</value>
   </data>
   <data name="student_grade" xml:space="preserve">
     <value>Student's grade</value>
   </data>
   <data name="university_title" xml:space="preserve">
-    <value>Choose your school</value>
+    <value>Tell us where you go to school</value>
   </data>
   <data name="what_grade" xml:space="preserve">
-    <value>What grade?</value>
+    <value>What grade are in?</value>
   </data>
 </root>

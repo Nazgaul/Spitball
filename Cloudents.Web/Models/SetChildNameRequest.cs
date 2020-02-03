@@ -6,7 +6,7 @@ namespace Cloudents.Web.Models
     {
         [Required]
         [MaxLength(255)]
-        public string FirstName { get; set; }
+        public string Name { get; set; }
       
 
         [Required]

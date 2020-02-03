@@ -50,11 +50,10 @@
                                 type="number">
 
                                 <template v-slot:label>
-                                    <span>{{$t('becomeTutor_placeholder_price')}}</span>
-                                    {{ $n(null,'currency') }}
+                                    <span>{{$t('becomeTutor_placeholder_price', {'0' : getSymbol})}}</span>
                                 </template>
                             </v-text-field>
-
+                           
                             <!-- <v-select
                                 v-model="gender"
                                 :items="genderItems"
@@ -121,6 +120,10 @@
             };
         },
         computed: {
+            getSymbol() {
+              let v =   this.$n(1,'currency');
+              return v.replace(/\d|[.,]/g,'').trim();
+            },
             ...mapGetters(['becomeTutorData', 'accountUser', 'isFrymo']),
             btnDisabled() {
                 return false
