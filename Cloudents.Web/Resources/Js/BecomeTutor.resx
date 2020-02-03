@@ -173,7 +173,7 @@ must Connect your Google Calendar</value>
     <value>Price per hour {1}</value>
   </data>
   <data name="sharing_step_2" xml:space="preserve">
-    <value>Sharing Your information and background will get more response from students</value>
+    <value></value>
   </data>
   <data name="title_become" xml:space="preserve">
     <value>Become a tutor</value>
@@ -197,7 +197,7 @@ must Connect your Google Calendar</value>
     <value>Select gender</value>
   </data>
   <data name="sharing_step_1" xml:space="preserve">
-    <value>Sharing your information and you will get more response from students</value>
+    <value></value>
   </data>
   <data name="upload_error" xml:space="preserve">
     <value>Upload image to continue</value>

@@ -211,7 +211,7 @@
     <value>אני מקבל את </value>
   </data>
   <data name="getstarted_terms_privacy" xml:space="preserve">
-    <value>ומדיניות הפרטיות</value>
+    <value>מדיניות הפרטיות</value>
   </data>
   <data name="getstarted_terms_terms" xml:space="preserve">
     <value>תנאי השימוש </value>
@@ -259,7 +259,7 @@
     <value>אימייל </value>
   </data>
   <data name="setemailpass_input_pass" xml:space="preserve">
-    <value>בחר סיסמא (לפחות 8 תווים)</value>
+    <value>סיסמה</value>
   </data>
   <data name="setemailpass_input_passconfirm" xml:space="preserve">
     <value>אשר סיסמא</value>
@@ -325,7 +325,7 @@
     <value>נא לנסות שוב</value>
   </data>
   <data name="smsconfirm_subtitle" xml:space="preserve">
-    <value>נשלח למספר הזה</value>
+    <value>נשלח למספר הזה:</value>
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
     <value>הכנסת קוד כניסה</value>
