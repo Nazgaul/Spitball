@@ -1,5 +1,5 @@
 import {lazyComponent, staticComponents} from './routesUtils.js';
-import * as routeName from "./routeName.js";
+import * as routeName from "./RouteName.js";
 
 export const registrationRoutes = [
     {
@@ -79,7 +79,7 @@ export const registrationRoutes = [
             {
                 path: 'verify-phone',
                 name: routeName.RegisterVerifyPhone,
-                component: lazyComponent('pages/authenticationPage/register/verifyPhone/verifyPhone')
+                component: () => import(`../components/pages/authenticationPage/register/verifyPhone/VerifyPhone.vue`) //lazyComponent('Pages/authenticationPage/register/verifyPhone/verifyPhone')
             },
             {
                 path: 'type',

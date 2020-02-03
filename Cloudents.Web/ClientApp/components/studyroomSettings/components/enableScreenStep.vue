@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import studyRoomRecordingService from '../../studyRoom/studyRoomRecordingService';
+import studyRoomRecordingService from '../../studyroom/studyRoomRecordingService';
 export default {
   props:{
     nextStep:{

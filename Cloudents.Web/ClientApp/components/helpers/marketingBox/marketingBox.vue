@@ -26,7 +26,7 @@
             },
             imgBySiteType(){
                 if(global.lang.toLowerCase() === 'he'){
-                    return require('./images/Banner_Sept_he.jpg');
+                    return require('./images/Banner_Sept_HE.jpg');
                 }else{
                     return this.isFrymo ? require('./images/Frymo_Promotion.jpg') : require('./images/Banner_Sept_en.jpg');
                 }

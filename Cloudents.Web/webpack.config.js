@@ -8,6 +8,7 @@ const VueLoaderPlugin = require("vue-loader/lib/plugin");
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin = require("terser-webpack-plugin");
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
+var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -236,6 +237,7 @@ module.exports = (env) => {
                 }
             }),
             new VuetifyLoaderPlugin(),
+            new CaseSensitivePathsPlugin()
             //new BundleAnalyzerPlugin({
             //    analyzerMode: 'disabled',
             //    generateStatsFile: true,
