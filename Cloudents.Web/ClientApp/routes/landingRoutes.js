@@ -1,23 +1,23 @@
-import {lazyComponent,staticComponents} from './routesUtils.js';
+import {staticComponents} from './routesUtils.js';
 
 export const landingRoutes = [
     {
         path: "/",
         name: "landingPage",
         components: {
-            default: lazyComponent('pages/landingPage/landingPage'),
+            default: () => import(`../components/pages/landingPage/landingPage.vue`),
             ...staticComponents(['banner', 'header', 'footer']),
         },
         children:[
             {
                 path: '',
-                component: lazyComponent('landingPage/pages/homePage')
+                component: () => import(`../components/landingPage/pages/homePage.vue`)
             },
             {
                 path: "/tutor-list/:course?",
                 name: "tutorLandingPage",
                 components: {
-                    default: lazyComponent('tutorLandingPage/tutorLandingPage')
+                    default: () => import(`../components/tutorLandingPage/tutorLandingPage.vue`)
                 },
                 meta: {
                     showMobileFooter: true, 
