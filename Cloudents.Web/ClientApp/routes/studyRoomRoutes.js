@@ -1,13 +1,9 @@
-import {lazyComponent} from './routesUtils.js';
-
-
-
 export const studyRoomRoutes = [
     {
         path: "/studyroomSettings/:id?",
         name: 'roomSettings',
         components: {
-            default: lazyComponent('studyroomSettings/studyroomSettings')
+            default: () => import(`../components/studyroomSettings/studyroomSettings.vue`),
         },
         header: () => ({
             submitRoute: '/tutoring'
@@ -22,7 +18,7 @@ export const studyRoomRoutes = [
         path: "/studyroom/:id?",
         name: 'tutoring',
         components: {
-            default: lazyComponent('studyroom/tutor')
+            default: () => import(`../components/studyroom/tutor.vue`),
         },
         props: {
             default: (route) => ({
