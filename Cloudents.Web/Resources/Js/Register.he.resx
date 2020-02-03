@@ -166,7 +166,7 @@
     <value>בואו נתחיל</value>
   </data>
   <data name="student_fullname" xml:space="preserve">
-    <value>השם המלא של התלמיד</value>
+    <value>שם התלמיד</value>
   </data>
   <data name="student_grade" xml:space="preserve">
     <value>הכיתה של התלמיד</value>
