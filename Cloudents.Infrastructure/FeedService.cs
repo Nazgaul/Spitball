@@ -1,7 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Models;
 using Cloudents.Core.Query;
 using Cloudents.Core.Query.Feed;
 using Cloudents.Query;
@@ -35,11 +33,11 @@ namespace Cloudents.Infrastructure
 
         private IEnumerable<FeedDto> SortFeed(IList<FeedDto> itemsFeed, IList<TutorCardDto> tutorsFeed, int page)
         {
-            if (itemsFeed == null)
+            if (itemsFeed is null)
             {
                 return tutorsFeed;
             }
-            if (tutorsFeed == null)
+            if (tutorsFeed is null)
             {
                 return itemsFeed;
             }
@@ -89,31 +87,21 @@ namespace Cloudents.Infrastructure
             return itemsFeed;
         }
 
-        private async Task<IEnumerable<TutorCardDto>> GetTutorsFeedAsync(long userId, string country, int page, string course, int tutorPageSize, CancellationToken token)
+        private Task<IEnumerable<TutorCardDto>> GetTutorsFeedAsync(long userId, string country, int page, string course, int tutorPageSize, CancellationToken token)
         {
-            return null;
-            //var feedQuery = new FeedAggregateQuery(userId, page, query.Filter, country, course, ItemPageSize);
-            //var itemsTask = _queryBus.QueryAsync(feedQuery, token);
+            Task<IEnumerable<TutorCardDto>> tutorsTask;
 
-            ////Task<ListWithCountDto<TutorCardDto>> tutorsTask = Task.FromResult<ListWithCountDto<TutorCardDto>>(null);
-
-            //if (string.IsNullOrEmpty(course))
-            //{
-            //    var tutorQuery = new TutorListQuery(query.UserId, query.Country, query.Page, TutorPageSize);
-            //    var task = _queryBus.QueryAsync(tutorQuery, token);
-            //    await Task.WhenAll(itemsTask, task);
-
-            //    return SortFeed(itemsTask.Result?.ToList(),
-            //        task.Result?.Result?.ToList(),
-            //        query.Page);
-            //}
-
-            //else
-            //{
-            //    var tutorQuery = new TutorListByCourseQuery(query.Course, query.UserId, query.Country, TutorPageSize, query.Page);
-            //    var tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
-            //    return tutorsTask;
-            //}
+            if (string.IsNullOrEmpty(course))
+            {
+                var tutorQuery = new TutorListQuery(userId, country, page, tutorPageSize);
+                tutorsTask = _queryBus.QueryAsync(tutorQuery, token).ContinueWith(r => r.Result.Result, token);
+            }
+            else
+            {
+                var tutorQuery = new TutorListByCourseQuery(course, userId, country, tutorPageSize, page);
+                tutorsTask = _queryBus.QueryAsync(tutorQuery, token);
+            }
+            return tutorsTask;
         }
 
         public async Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedQuery query, CancellationToken token)
@@ -123,15 +111,15 @@ namespace Cloudents.Infrastructure
                 throw new ArgumentNullException(nameof(query));
             }
 
-            if (query.Filter == null)
+            if (query.Filter is null)
             {
                 var feedQuery = new FeedAggregateQuery(query.UserId, query.Page, new string[] { }, query.Country, query.Course, ItemPageSize);
+                var itemsTask = _queryBus.QueryAsync(feedQuery, token);
+                var tutorsTask = GetTutorsFeedAsync(query.UserId, query.Country, query.Page, query.Course, TutorPageSize, token);
 
-                Task<IEnumerable<TutorCardDto>> tutorsTask = GetTutorsFeedAsync(query.UserId, query.Country, query.Page, query.Course, TutorPageSize, token);
+                await Task.WhenAll(itemsTask, tutorsTask);
 
-                await Task.WhenAll( tutorsTask);
-
-                return SortFeed(null,
+                return SortFeed(itemsTask.Result.ToList(),
                     tutorsTask.Result.ToList(),
                     query.Page);
             }
@@ -139,9 +127,9 @@ namespace Cloudents.Infrastructure
 
             if (query.Filter == Core.Enum.FeedType.Tutor)
             {
-                Task<IEnumerable<TutorCardDto>> tutorsTask = GetTutorsFeedAsync(query.UserId, query.Country, query.Page, query.Course, 21, token);
-                await Task.WhenAll(tutorsTask);
-                return tutorsTask.Result;
+                return await GetTutorsFeedAsync(query.UserId, query.Country, query.Page, query.Course, 21, token);
+                //await Task.WhenAll(tutorsTask);
+                //return tutorsTask.Result;
             }
 
             if (query.Filter == Core.Enum.FeedType.Document || query.Filter == Core.Enum.FeedType.Video)
