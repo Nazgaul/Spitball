@@ -26,7 +26,7 @@ export const registrationRoutes = [
             {
                 path: 'email-confirmed',
                 name: routeName.LoginEmailConfirmed,
-                component: lazyComponent('pages/authenticationPage/register/emailConfirmed/emailConfirmed'),
+                component:() => import(`../components/pages/authenticationPage/register/emailConfirmed/EmailConfirmed.vue`) //lazyComponent('pages/authenticationPage/register/emailConfirmed/emailConfirme21234234234d'),
 
             },
             {
