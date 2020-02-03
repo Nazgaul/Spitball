@@ -3,8 +3,8 @@
         <div slot="main" class="feedWrap">
             <coursesTab/>
             <request-box class="request-box mb-0"/>
-            <v-flex xs4>
-                <v-select class="mt-3 filters_select"
+            <v-flex xs12 sm4 class="select-feed mt-3">
+                <v-select class=" filters_select"
                     sel="feed_filter"
                     :append-icon="'sbf-arrow-fill'"
                     v-model="query.filter"
@@ -18,7 +18,7 @@
                     </template>
                 </v-select>
             </v-flex>
-            <div class="results-section mt-5" v-if="items">
+            <div class="results-section mt-3 mt-sm-5" v-if="items">
                 <scrollList v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                     <v-container class="ma-0 results-wrapper pa-0">
                         <v-layout column>              
@@ -63,6 +63,11 @@
             }
         }
     }
+    .select-feed{
+      @media (max-width: @screen-xs) {
+         padding: 8px 12px 8px 14px;
+         background: white;
+      }
       .filters_select{
          color: #4d4b69;
          .responsive-property(height, 36px, null, 42px);
@@ -72,9 +77,12 @@
             .responsive-property(height, 36px, null, 42px);
             .v-input__slot{
                border-radius: 8px;
-
                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
                margin: 0;
+               @media (max-width: @screen-xs) {
+                  box-shadow: none;
+                  border: solid 1px #ced0dc;
+               }
                .v-select__slot{
                   font-size: 14px;
                   .v-select__selections{
@@ -103,5 +111,7 @@
             }
          }
       }
+    }
+
 }
 </style>

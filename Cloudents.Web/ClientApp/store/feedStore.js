@@ -99,6 +99,9 @@ const actions = {
         commit('Feeds_ResetQue');
         
         let paramsList = {...params};
+        if(paramsList.filter.key){
+            delete paramsList.filter;
+        }
         return searchService.activateFunction.feed(paramsList).then((data) => {
             dispatch('Feeds_updateDataLoaded', true)
             dispatch('Feeds_setDataItems', data);
