@@ -1,5 +1,5 @@
 import { staticComponents} from './routesUtils.js';
-import * as routeName from "./routeName.js";
+import * as routeName from "./routeNames.js";
 
 export const registrationRoutes = [
     {
