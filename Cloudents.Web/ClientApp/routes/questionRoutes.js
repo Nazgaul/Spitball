@@ -1,10 +1,10 @@
-import {lazyComponent,staticComponents} from './routesUtils.js';
+import {staticComponents} from './routesUtils.js';
 
 export const questionRoutes = [
     {
         path: "/question/:id",
         components: {
-            default: lazyComponent('question/question-details/questionDetails'),
+            default: () => import(`../components/question/question-details/questionDetails.vue`),
             ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         name: "question",
