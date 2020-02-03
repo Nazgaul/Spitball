@@ -76,7 +76,15 @@ export default {
                 this.$router.push(route)
             })
         },
+        resetGradeField() {
+        if(this.$store.getters.getStudentGrade) {
+            this.$store.dispatch('updateGrade', '');
+            }
+        }
     },
+    created() {
+        this.resetGradeField();
+    }
 }
 </script>
 
