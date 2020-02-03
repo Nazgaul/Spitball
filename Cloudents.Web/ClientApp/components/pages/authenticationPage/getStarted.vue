@@ -66,12 +66,10 @@
             </div>
         </div>
         <div class="getStartedBottom">
-            <span class="needAccount" v-language:inner="isRegisterPath ? 'loginRegister_getstarted_signin_text' : 'loginRegister_getstarted_signup_text'"></span>
-            &nbsp;
-            <router-link
+            <span class="needAccount" v-language:inner="isRegisterPath ? 'loginRegister_getstarted_signin_text' : 'loginRegister_getstarted_signup_text'"></span><router-link
                 :to="{name: isRegisterPath ? 'login' : 'register'}" 
                 exact
-                class="link" 
+                class="link ml-1" 
                 v-language:inner="isRegisterPath ? 'loginRegister_getstarted_signin_link' : 'loginRegister_getstarted_signup_link'"
             >
             </router-link>
