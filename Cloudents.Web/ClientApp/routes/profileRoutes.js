@@ -1,4 +1,4 @@
-import {lazyComponent,staticComponents} from './routesUtils.js';
+import {staticComponents} from './routesUtils.js';
 
 export const profileRoutes = [
     {
@@ -8,7 +8,7 @@ export const profileRoutes = [
     {
         path: "/profile/:id/:name",
         components: {
-            default: lazyComponent('new_profile/new_profile'),
+            default: () => import(`../components/new_profile/new_profile.vue`),
             ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         name: "profile",
