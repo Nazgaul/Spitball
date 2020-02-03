@@ -107,7 +107,7 @@ namespace Cloudents.Web.Api
                 {
                     await _signInManager.SignInAsync(user, false);
                     return ReturnSignUserResponse.SignIn();
-                   // return new ReturnSignUserResponse(false);
+                    // return new ReturnSignUserResponse(false);
                 }
 
                 throw new ArgumentException();
@@ -119,7 +119,10 @@ namespace Cloudents.Web.Api
                 var t2 = _client.SendSmsAsync(user, token);
 
                 await Task.WhenAll(t1, t2);
-                return new ReturnSignUserResponse(RegistrationStep.RegisterVerifyPhone);
+                return new ReturnSignUserResponse(RegistrationStep.RegisterVerifyPhone, new
+                {
+                    phoneNumber = user.PhoneNumber
+                });
             }
 
             if (user.EmailConfirmed)
@@ -191,7 +194,7 @@ namespace Cloudents.Web.Api
                     {
                         using var httpClient = clientFactory.CreateClient();
                         var message = await httpClient.GetAsync(result.Picture, cancellationToken);
-                        using var sr = await message.Content.ReadAsStreamAsync();
+                        await using var sr = await message.Content.ReadAsStreamAsync();
                         var mimeType = message.Content.Headers.ContentType;
                         try
                         {
@@ -297,7 +300,7 @@ namespace Cloudents.Web.Api
         }
 
 
-        [HttpPost("childName"),Authorize]
+        [HttpPost("childName"), Authorize]
         public async Task<IActionResult> SetChildNameAsync([FromBody] SetChildNameRequest model,
             [FromServices] ICommandBus commandBus, CancellationToken token)
         {

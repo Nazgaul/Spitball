@@ -5,7 +5,7 @@
       <p class="smsconfirm_title" v-language:inner="'loginRegister_smsconfirm_title'"></p>
 		<span>
 			<span v-language:inner="'loginRegister_smsconfirm_subtitle'"/>
-			<span> {{userPhone}}</span>
+			<bdi> {{userPhone}}</bdi>
 		</span>
     </div>
 
@@ -58,7 +58,12 @@ export default {
 			return this.getErrorMessages
 		},
 		userPhone(){
-			return global.isRtl? `${this.getPhone} (${this.getLocalCode}+)` : `(+${this.getLocalCode}) ${this.getPhone}`
+			if (this.getLocalCode) {
+				//todo this can be simplify due the use of bdi
+				return global.isRtl? `${this.getPhone} (${this.getLocalCode}+)` : `(+${this.getLocalCode}) ${this.getPhone}`
+			}
+			//this can happen when getting the info from the server
+			return this.getPhone;
 		},
 		isLoading(){
 			return this.getGlobalLoading
