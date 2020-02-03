@@ -148,7 +148,6 @@ export default {
             i {
                 font-size: 8px;
                 color: #43425d;
-                margin-top: 10px;
             }
         }
         .phone{
