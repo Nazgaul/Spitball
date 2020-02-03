@@ -10,11 +10,10 @@ namespace Cloudents.Query.Documents
 {
     public class FeedAggregateQuery : IQuery<IEnumerable<FeedDto>>
     {
-        public FeedAggregateQuery(long userId, int page, string[] filter, string country, string course, int pageSize)
+        public FeedAggregateQuery(long userId, int page, string country, string course, int pageSize)
         {
             Page = page;
             UserId = userId;
-            Filter = filter;
             Country = country;
             Course = course;
             PageSize = pageSize;
@@ -23,7 +22,7 @@ namespace Cloudents.Query.Documents
         private int Page { get; }
 
         private long UserId { get; }
-        private string[] Filter { get; }
+        
 
         private string Country { get; }
 

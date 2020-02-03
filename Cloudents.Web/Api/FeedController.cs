@@ -31,7 +31,7 @@ namespace Cloudents.Web.Api
         private readonly IFeedService _feedService;
 
 
-        public FeedController( UserManager<User> userManager, 
+        public FeedController(UserManager<User> userManager,
              IStringLocalizer<DocumentController> localizer, IUrlBuilder urlBuilder,
              IFeedService feedService)
         {
@@ -52,26 +52,34 @@ namespace Cloudents.Web.Api
 
             _userManager.TryGetLongUserId(User, out var userId);
 
-            var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, page, request.Filter, profile.Country, null), token);
-            return GenerateResult(result, new
-            {
-                page = ++page,
-                filter = request.Filter
-            });
+            var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, page, request.Filter, profile.Country), token);
+            return GenerateResult(result,
+                new List<string>()
+                {
+                    FeedType.Document.ToString("G"),
+                    FeedType.Video.ToString("G"),
+                    FeedType.Question.ToString("G"),
+                    FeedType.Tutor.ToString("G")
+                }
+                , new
+                {
+                    page = ++page,
+                    filter = request.Filter
+                });
         }
 
 
 
         private WebResponseWithFacet<FeedDto> GenerateResult(
-            IEnumerable<FeedDto> result, object nextPageParams)
+            IEnumerable<FeedDto> result, IEnumerable<string> filters, object nextPageParams)
         {
-            var filters = new List<IFilters>();
+            //var filters = new List<IFilters>();
 
-            var filter = new Filters<string>(nameof(DocumentRequestAggregate.Filter),
-                _localizer["TypeFilterTitle"],
-                EnumExtension.GetValues<FeedType>().Select(s =>
-                    new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())));
-            filters.Add(filter);
+            //var filter = new Filters<string>(nameof(DocumentRequestAggregate.Filter),
+            //    _localizer["TypeFilterTitle"],
+            //    EnumExtension.GetValues<FeedType>().Select(s =>
+            //        new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())));
+            //filters.Add(filter);
 
 
 
@@ -83,14 +91,10 @@ namespace Cloudents.Web.Api
                     {
                         p.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(p.Id);
                         p.Url = Url.DocumentUrl(p.Course, p.Id, p.Title);
-                       // p.Title = Path.GetFileNameWithoutExtension(p.Title);
                     }
-                    //TODO add question
-
-
                     return s;
                 }),
-                Filters = filters ?? filters,
+                Filters = filters,
                 NextPageLink = Url.RouteUrl("Documents", nextPageParams)
             };
         }
@@ -103,9 +107,17 @@ namespace Cloudents.Web.Api
         {
             _userManager.TryGetLongUserId(User, out var userId);
 
-            var result = await _feedService.GetFeedAsync(new GetFeedQuery(userId, request.Page, request.Filter, profile.Country, request.Course), token);
+            var result = await _feedService.GetFeedAsync(new GetFeedWithCourseQuery(userId, request.Page, request.Filter, profile.Country, request.Course), token);
 
-            return GenerateResult(result, new { page = ++request.Page, request.Course, request.Filter });
+            return GenerateResult(result,
+                new List<string>()
+                {
+                    FeedType.Document.ToString("G"),
+                    FeedType.Video.ToString("G"),
+                    FeedType.Question.ToString("G"),
+                    FeedType.Tutor.ToString("G")
+                },
+                new { page = ++request.Page, request.Course, request.Filter });
         }
 
 
@@ -116,37 +128,47 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            var resultTask = _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, request.Course), token);
-            await Task.WhenAll(resultTask);
+            var result = await _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, request.Course), token);
 
-            return GenerateResult(resultTask.Result, new
-            {
-                page = ++request.Page,
-                request.Course,
-                request.Term,
-                request.Filter
-            });
+            return GenerateResult(result,
+                new List<string>()
+                {
+                    FeedType.Document.ToString("G"),
+                    FeedType.Video.ToString("G"),
+                    FeedType.Tutor.ToString("G")
+                },
+
+                new
+                {
+                    page = ++request.Page,
+                    request.Course,
+                    request.Term,
+                    request.Filter
+                });
         }
 
         //this is search
 
         [HttpGet]
         public async Task<WebResponseWithFacet<FeedDto>> SearchInSpitballAsync(
-          [RequiredFromQuery]  DocumentRequestSearch request,
-
+            [RequiredFromQuery]  DocumentRequestSearch request,
             [ProfileModelBinder(ProfileServiceQuery.UniversityId | ProfileServiceQuery.Country | ProfileServiceQuery.Course)] UserProfile profile,
             CancellationToken token)
         {
-            var resultTask = _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, null), token);
-
-            await Task.WhenAll(resultTask);
-
-            return GenerateResult(resultTask.Result, new
-            {
-                page = ++request.Page,
-                request.Term,
-                request.Filter
-            });
+            var result = await _feedService.GetFeedAsync(new SearchFeedQuery(profile, request.Term, request.Page, request.Filter, profile.Country, null), token);
+            return GenerateResult(result,
+                new List<string>()
+                {
+                    FeedType.Document.ToString("G"),
+                    FeedType.Video.ToString("G"),
+                    FeedType.Tutor.ToString("G")
+                },
+                new
+                {
+                    page = ++request.Page,
+                    request.Term,
+                    request.Filter
+                });
         }
 
     }

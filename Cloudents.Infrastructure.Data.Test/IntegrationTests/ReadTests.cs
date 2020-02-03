@@ -63,17 +63,16 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(638, 0, null, "IL", null)]
-        [InlineData(638, 0, new[] { "x", "y" }, "IL", null)]
-        [InlineData(638, 0, new[] { "בסיסי נתונים" }, "IL", null)]
-        [InlineData(0, 0, new[] { "x", "y" }, "IL", null)]
-        [InlineData(0, 0, new[] { "x", "y" }, "IL", "economics")]
-        [InlineData(638, 0, new[] { "x", "y" }, "IL", "economics")]
-        [InlineData(638, 1, new[] { "x", "y" }, "IL", null)]
+        [InlineData(638, 0, "IL", null)]
+        [InlineData(638, 0, "IL", "")]
+        [InlineData(0, 0, "IL", null)]
+        [InlineData(0, 0, "IL", "economics")]
+        [InlineData(638, 0, "IL", "economics")]
+        [InlineData(638, 1, "IL", null)]
 
-        public async Task DocumentAggregateQuery_Ok(long userId, int page, string[] filter, string country, string course)
+        public async Task DocumentAggregateQuery_Ok(long userId, int page, string country, string course)
         {
-            var query = new FeedAggregateQuery(userId, page, filter, country, course, 18);
+            var query = new FeedAggregateQuery(userId, page, country, course, 18);
 
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             result.Should().NotBeNullOrEmpty();
@@ -88,7 +87,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(0, 638, FeedType.Document, "IL", null, 20)]
         [InlineData(0, 638, FeedType.Document, "IL", "Economics", 20)]
-        public async Task DocumentFeedWithFliterQuery_Document_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
+        public async Task DocumentFeedWithFilterQuery_Document_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
         {
             var query = new DocumentFeedWithFliterQuery(page, userId, filter, country, course, pageSize);
             var result = await fixture.QueryBus.QueryAsync(query, default);
@@ -571,7 +570,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
 
-       
+
 
 
         [Fact]

@@ -10,15 +10,15 @@ namespace Cloudents.Core.Query.Feed
             Profile = profile;
             Term = term;
             Page = page;
-            Filter = filter;
+            Filter = filter ?? FeedType.All;
             Country = country;
             Course = course;
         }
-        public UserProfile Profile { get; set; }
-        public string Term { get; set; }
-        public int Page { get; set; }
-        public FeedType? Filter { get; set; }
-        public string Country { get; set; }
-        public string Course { get; set; }
+        public UserProfile Profile { get; }
+        public string Term { get;  }
+        public int Page { get; }
+        public FeedType Filter { get; }
+        public string Country { get; }
+        public string Course { get; }
     }
 }

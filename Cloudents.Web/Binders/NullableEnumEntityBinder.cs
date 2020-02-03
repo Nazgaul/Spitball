@@ -37,27 +37,4 @@ namespace Cloudents.Web.Binders
     }
 
 
-    //public class EmailEntityBinder : IModelBinder
-    //{
-    //    private readonly IMailProvider _mailProvider;
-
-    //    public EmailEntityBinder(IMailProvider mailProvider)
-    //    {
-    //        _mailProvider = mailProvider;
-    //    }
-
-    //    public async Task BindModelAsync(ModelBindingContext bindingContext)
-    //    {
-    //        var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-
-    //        var t = await _mailProvider.ValidateEmailAsync(valueProviderResult.FirstValue, bindingContext.HttpContext.RequestAborted);
-    //        if (t)
-    //        {
-    //            bindingContext.Result = ModelBindingResult.Success(valueProviderResult.FirstValue);
-    //            return;
-    //        }
-
-    //        bindingContext.Result = ModelBindingResult.Failed();
-    //    }
-    //}
 }

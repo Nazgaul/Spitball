@@ -10,14 +10,14 @@ namespace Cloudents.Core.Query
             string term,
             string course,
             int pageSize,
-            FeedType? filter) :
+            DocumentType? filter) :
             base(userProfile, term, course)
         {
             Filter = filter;
             PageSize = pageSize;
         }
 
-        public FeedType? Filter { get; }
+        public DocumentType? Filter { get; }
         public int PageSize { get; }
     }
 

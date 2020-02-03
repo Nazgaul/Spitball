@@ -13,7 +13,8 @@ namespace Cloudents.Query.Documents
 {
    public class DocumentFeedWithFliterQuery : IQuery<IEnumerable<DocumentFeedDto>>
     {
-        public DocumentFeedWithFliterQuery(int page, long userId, FeedType? filter, string country, string course, int pageSize)
+        public DocumentFeedWithFliterQuery(int page, long userId, FeedType? filter, 
+            string country, string course, int pageSize)
         {
             Page = page;
             UserId = userId;
