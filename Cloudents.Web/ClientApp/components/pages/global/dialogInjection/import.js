@@ -2,7 +2,7 @@
 import dialogConfig from './dialogConfig.json';
 
 const becomeTutor = () => import('../../../becomeTutor/becomeTutor.vue')
-const exitRegisterDialog = () => import('../../authenticationPage/login/exitRegisterDialog.vue')
+const login = () => import('../../authenticationPage/login/exitRegisterDialog.vue')
 
 // function initDialogComponents() {
 //     let dialogs = {}, dialogIndex;
@@ -20,6 +20,6 @@ export { dialogConfig }
 export default {
     components: {
         becomeTutor,
-        exitRegisterDialog
+        login
     }
 }
