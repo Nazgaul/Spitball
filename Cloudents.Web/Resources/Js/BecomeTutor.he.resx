@@ -175,7 +175,7 @@
     <value>שם משפחה</value>
   </data>
   <data name="placeholder_price" xml:space="preserve">
-    <value>מחיר לשעה ב- {1}</value>
+    <value>מחיר לשעה ב- {0}</value>
   </data>
   <data name="select_calendar_title" xml:space="preserve">
     <value>בחר אילו יומנים לחבר עם מערכת זימון פגישות של ספיטבול</value>
