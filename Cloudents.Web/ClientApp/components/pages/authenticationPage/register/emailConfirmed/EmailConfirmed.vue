@@ -24,7 +24,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import { RegisterEmailConfirmed } from '../../../../../routes/RouteName'
+import { RegisterEmailConfirmed } from '../../../../../routes/routeName'
 
 export default {
     computed: {

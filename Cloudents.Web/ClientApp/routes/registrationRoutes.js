@@ -1,5 +1,5 @@
 import { staticComponents} from './routesUtils.js';
-import * as routeName from "./RouteName.js";
+import * as routeName from "./routeName.js";
 
 export const registrationRoutes = [
     {
@@ -26,7 +26,7 @@ export const registrationRoutes = [
             {
                 path: 'email-confirmed',
                 name: routeName.LoginEmailConfirmed,
-                component:() => import(`../components/pages/authenticationPage/register/emailConfirmed/EmailConfirmed.vue`) //() => import(`../components/${path}.vue`)('pages/authenticationPage/register/emailConfirmed/emailConfirme21234234234d'),
+                component:() => import(`../components/pages/authenticationPage/register/emailConfirmed/emailConfirmed.vue`) //() => import(`../components/${path}.vue`)('pages/authenticationPage/register/emailConfirmed/emailConfirme21234234234d'),
 
             },
             {
@@ -69,7 +69,7 @@ export const registrationRoutes = [
             {
                 path: 'email-confirmed',
                 name: routeName.RegisterEmailConfirmed,
-                component: () => import(`../components/pages/authenticationPage/register/emailConfirmed/EmailConfirmed.vue`)
+                component: () => import(`../components/pages/authenticationPage/register/emailConfirmed/emailConfirmed.vue`)
             },
             {
                 path: 'set-phone',
@@ -79,7 +79,7 @@ export const registrationRoutes = [
             {
                 path: 'verify-phone',
                 name: routeName.RegisterVerifyPhone,
-                component: () => import(`../components/pages/authenticationPage/register/verifyPhone/VerifyPhone.vue`) //() => import(`../components/${path}.vue`)('Pages/authenticationPage/register/verifyPhone/verifyPhone')
+                component: () => import(`../components/pages/authenticationPage/register/verifyPhone/verifyPhone.vue`) //() => import(`../components/${path}.vue`)('Pages/authenticationPage/register/verifyPhone/verifyPhone')
             },
             {
                 path: 'type',
