@@ -1,7 +1,7 @@
 <template>
    <a :href="`https://wa.me/${fullNumber}?text=${text?encodeURIComponent(text) : encodeURIComponent(' ') }`"
-   target="_blank" class="phoneNumberSlot d-flex pr-1 pr-sm-3 pr-md-6">
-      <whatsAppIcon class="whatsApp-icon mr-1 mr-sm-2"/>
+   target="_blank" class="phoneNumberSlot pr-1 pr-sm-3 pr-md-6">
+      <whatsAppIcon class="whatsApp-icon mr-1"/>
       <span class="text-phone">{{previewNumber}}</span>
    </a>
 </template>
@@ -58,6 +58,7 @@ export default {
    .whatsApp-icon{
       width: 24px;
       fill: #43425d;
+      vertical-align: sub;
       @media (max-width: @screen-xs) {
          width: 20px;
       }
