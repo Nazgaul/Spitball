@@ -31,7 +31,7 @@
                 <v-expansion-panel-header class="px-4 py-2" expand-icon="">
                     <span class="flex-grow-0 mr-4"><parentIcon/></span>
                     <v-divider class="mr-4" vertical></v-divider>
-                    <span class="panel_title text-center pr-5" v-language:inner="'loginRegister_parent'"></span>
+                    <span class="panel_title text-center pr-6" v-language:inner="'loginRegister_parent'"></span>
                 </v-expansion-panel-header>
             </v-expansion-panel>
 
@@ -39,7 +39,7 @@
                 <v-expansion-panel-header class="px-4 py-2" expand-icon="">
                     <span class="flex-grow-0 mr-4"><teacherIcon/></span>
                     <v-divider class="mr-4" vertical></v-divider>
-                    <span class="panel_title text-center pr-5" v-language:inner="'loginRegister_teacher'"></span>
+                    <span class="panel_title text-center pr-6" v-language:inner="'loginRegister_teacher'"></span>
                 </v-expansion-panel-header>
             </v-expansion-panel>
 

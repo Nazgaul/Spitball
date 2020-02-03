@@ -420,7 +420,7 @@ const actions = {
     updateParentStudent({dispatch, state}) {
         let parentObj = {
             grade: state.grade,
-            fullname: state.studentParentFullName
+            name: state.studentParentFullName
         }
         return registrationService.updateParentStudentName(parentObj).then(() => {
             global.isAuth = true;

@@ -2,13 +2,13 @@
     <v-form id="registerStudentSchool" lazy-validation v-model="valid" action="." ref="form">
         <router-view>
             <template #titleCourse>
-                <div class="text-center maintitle" v-language:inner="'register_school_title'"></div>
-                <div class="text-center subtitle" v-language:inner="'register_school_subtitle'"></div>
+                <div class="text-center maintitle">{{$t('register_school_title')}}</div>
+                <div class="text-center subtitle">{{$t('register_school_subtitle')}}</div>
                 <div class="gradesWrap">
                     <v-select
                         v-model="grade"
                         :items="grades"
-                        class="gradesWrap mb-2"
+                        class="gradesWrap_select mb-2"
                         outlined
                         dense
                         height="44"
@@ -24,10 +24,10 @@
         <div id="registerButtons">
             <div class="actions text-center mt-10">
                 <v-btn @click="prevStep" class="btn register_btn_back" color="#4452fc" depressed height="40" outlined rounded>
-                    <span v-language:inner="'tutorRequest_back'"></span>
+                    <span>{{$t('tutorRequest_back')}}</span>
                 </v-btn>
                 <v-btn @click="nextStep" class="btn register_btn_next white--text" depressed rounded height="40" color="#4452fc">
-                    <span v-language:inner="'tutorRequest_next'"></span>
+                    <span>{{$t('tutorRequest_next')}}</span>
                 </v-btn>
             </div>
         </div>
@@ -119,3 +119,23 @@ export default {
     },
 }
 </script>
+
+<style lang="less">
+    @import '../../../../../styles/mixin.less';
+
+    #registerStudentSchool {
+        @media(max-width: @screen-xs) {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .gradesWrap_select {
+            width: 250px;
+            @media(max-width: @screen-xs) {
+                width: 100%;
+            } 
+        }
+    }
+</style>
