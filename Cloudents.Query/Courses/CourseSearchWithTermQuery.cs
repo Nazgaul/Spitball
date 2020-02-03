@@ -33,7 +33,7 @@ namespace Cloudents.Query.Courses
 
             public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchWithTermQuery query, CancellationToken token)
             {
-                const int pageSize = 50;
+                const int pageSize = 30;
                 const string sql =
                             @"     
 declare @schoolType nvarchar(50) = (select case when UserType = 'University' then 'University'
