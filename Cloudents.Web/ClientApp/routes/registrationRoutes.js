@@ -118,7 +118,7 @@ export const registrationRoutes = [
                         path: 'course',
                         name: routeName.RegisterCourseCollege,
                         meta: {nextStep: 'feed', backStep: routeName.RegisterUniversity},
-                        component: () => import(`../components/pages/authenticationPage/register/registerUniversity/registerUniversity.vue`)
+                        component: () => import(`../components/pages/authenticationPage/register/registerCourse/registerCourse.vue`)
                     },
                     {
                         path: '',
