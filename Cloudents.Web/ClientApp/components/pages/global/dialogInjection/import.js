@@ -1,15 +1,25 @@
-import { lazyComponent } from '../../../../routes/routesUtils';
+// import { lazyComponent } from '../../../../routes/routesUtils';
 import dialogConfig from './dialogConfig.json';
 
-function initDialogComponents() {
-    let dialogs = {}, dialogIndex;
+const becomeTutor = () => import('../../../becomeTutor/becomeTutor.vue')
+const exitRegisterDialog = () => import('../../authenticationPage/login/exitRegisterDialog.vue')
 
-    for (dialogIndex in dialogConfig) {
-        dialogs[dialogIndex] = lazyComponent(dialogConfig[dialogIndex].path)
-    }
+// function initDialogComponents() {
+//     let dialogs = {}, dialogIndex;
+
+//     for (dialogIndex in dialogConfig) {
+//         dialogs[dialogIndex] = lazyComponent(dialogConfig[dialogIndex].path)
+//     }
     
-    return dialogs;
-}
+//     return dialogs;
+// }
 
 export { dialogConfig }
-export default { components: initDialogComponents() }
+// export default { components: initDialogComponents() }
+
+export default {
+    components: {
+        becomeTutor,
+        exitRegisterDialog
+    }
+}
