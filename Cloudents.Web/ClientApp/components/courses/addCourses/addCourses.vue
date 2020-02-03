@@ -124,7 +124,7 @@
                 term: '',
                 classNamePlaceholder: LanguageService.getValueByKey("courses_placeholder_find"),
                 localSelectedClasses: [],
-                selectedClass: '',
+                // selectedClass: '',
                 doneButtonLoading: false
             };
         },

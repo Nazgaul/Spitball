@@ -26,10 +26,6 @@ function Course(objInit) {
 
 }
 
-function ServerCourse(name) {
-    this.name = name;
-}
-
 const getUni = (val) => {
     return connectivityModule.http.get(`university?term=${val.term}&page=${val.page}`).then(({data}) => {
         let result = [];
