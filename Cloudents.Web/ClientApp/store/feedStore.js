@@ -1,7 +1,7 @@
 
 import searchService from "../services/searchService";
 import reportService from "../services/cardActionService";
-
+const emptyStateSelection = {key:'Empty',value:''};
 const state = {
     queItems: [],
     items: {},
@@ -13,6 +13,23 @@ const getters = {
         return (getIsLoading || getSearchLoading) ? state.dataLoaded : state.items.data;
     },
     Feeds_getNextPageUrl: (state) =>  state.items.nextPage,
+    Feeds_getFilters: (state) => {
+        let x = state.items.filters || [];
+        let y =  x[0] || [];
+        let arrayFilters = y.data;
+        if(arrayFilters){
+            arrayFilters.unshift(emptyStateSelection)
+        }
+        return arrayFilters;
+    },
+    Feeds_getCurrentQuery (state, getters, rootState, rootGetters)   {
+        let route = rootState.route;
+        return {
+            filter : route.query.filter || emptyStateSelection,
+            course : route.query.Course,
+            term: route.query.term
+        };
+    }
 };
 
 const mutations = {

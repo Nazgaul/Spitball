@@ -1,6 +1,20 @@
 import feedSkeleton from '../../pages/feedPage/components/feedSkeleton/feedSkeleton.vue';
 import feedFaqBlock from '../../pages/feedPage/components/feedFaqBlock/feedFaqBlock.vue';
 import scrollList from '../../helpers/infinateScroll.vue';
+
+
+
+
+
+
+
+
+
+
+
+
+import { LanguageService } from "../../../services/language/languageService";
+
 // cards:
 import tutorResultCardMobile from '../tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import resultItem from '../ResultItem.vue';
@@ -17,9 +31,6 @@ import generalPage from '../../helpers/generalPage.vue';
 
 // SVG
 import emptyState from "../svg/no-match-icon.svg";
-// STORE
-import storeService from "../../../services/store/storeService";
-import feedStore from '../../../store/feedStore';
 
 export default {
     components: {
@@ -39,25 +50,48 @@ export default {
         coursesTab,
         generalPage
     },
-    props:{
-        params: {type: Object},
-        name: {type: String},
-        query: {type: Object},
-    },
     data() {
         return {
             showAdBlock: global.country === 'IL',
+            query:{
+                filter:this.$route.query.filter,
+            },
             scrollBehaviour:{
                 isLoading: false,
                 isComplete: false,
                 page: 1
+            },
+            dictionary:{
+                'Document':LanguageService.getValueByKey('feed_select_document'),
+                'Video':LanguageService.getValueByKey('feed_select_video'),
+                'Question':LanguageService.getValueByKey('feed_select_question'),
+                'Tutor':LanguageService.getValueByKey('feed_select_tutor'),
+                'Empty':LanguageService.getValueByKey('feed_select_all'),
             }
         };
     },
     computed: {
-        ...mapGetters(['Feeds_getNextPageUrl','Feeds_getItems']),
+        ...mapGetters(['Feeds_getNextPageUrl','Feeds_getItems','Feeds_getFilters','Feeds_getCurrentQuery']),
         items(){
             return this.Feeds_getItems
+        },
+        filters(){
+            return this.Feeds_getFilters;
+        },
+    },
+    watch: {
+        Feeds_getCurrentQuery:{
+            immediate:true,
+            handler(newVal,oldVal){
+                this.query.filter = this.Feeds_getCurrentQuery.filter
+                if(JSON.stringify(newVal) !== JSON.stringify(oldVal)){
+                    this.scrollBehaviour.isComplete = true;
+                    this.fetchData({params:newVal}).finally(()=>{
+                        this.scrollBehaviour.isLoading = false;
+                        this.scrollBehaviour.isComplete = false;
+                    });
+                }
+            }
         }
     },
     methods: {
@@ -92,27 +126,17 @@ export default {
         },
         fetchData(objParams){
             return this.Feeds_fetchingData(objParams)
+        },
+        handleSelects(){
+            let objParams = {
+                ...this.$route.query,
+                ...this.query,
+            }
+            this.$router.push({name:'feed',query:{...objParams}})
+        },
+        getSelectedName(item){
+            return this.dictionary[item.key]
+            // console.log(e)
         }
-    },
-    created() {
-        storeService.lazyRegisterModule(this.$store, 'feeds', feedStore); 
-        let userText = this.query.term;
-        let objParams = {
-            params: {...this.query, ...this.params, term: userText},
-        }
-        this.fetchData(objParams)
-    },
-
-    beforeRouteUpdate(to, from, next) {
-        this.scrollBehaviour.isComplete = true;
-        let objParams = {
-            params: {...to.query, ...to.params, term: to.query.term}
-        }
-        //TODO check about scrolling?? 
-        this.fetchData(objParams).finally(()=>{
-            this.scrollBehaviour.isLoading = false;
-            this.scrollBehaviour.isComplete = false;
-            next();
-        });
     },
 };

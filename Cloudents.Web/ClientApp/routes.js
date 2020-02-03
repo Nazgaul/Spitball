@@ -17,20 +17,6 @@ function staticComponents(components) {
     return defaultRoutes;
 }
 
-function dynamicPropsFn(route) {
-    let newName = route.path.slice(1);
-
-    return {
-        name: newName,
-        query: route.query,
-        params: route.params
-    };
-}
-
-const resultProps = {
-    default: dynamicPropsFn,
-};
-
 const feedPage = {
     default: lazyComponent('results/feeds/Feeds'),
     ...staticComponents(['banner', 'header', 'sideMenu'])
@@ -76,7 +62,6 @@ let routes2 = [
         path: "/" + 'feed',
         name: "feed",
         components: feedPage,
-        props: resultProps,
         meta: {
             isAcademic: true,
             showMobileFooter: true,

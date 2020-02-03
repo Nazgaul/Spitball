@@ -334,7 +334,6 @@ export default {
               this.selectedCourse = "";
             }else{
               this.lock = false;
-              // return;
             }
           }else{
             this.selectedCourse = ""
@@ -373,7 +372,12 @@ export default {
         if(this.$route.path === `/feed` && this.$route.fullPath === '/feed'){
           newQueryObject.reloaded = '';
         }
-        this.$router.push({ query: newQueryObject });
+        let queryObj = {
+          Course: this.selectedCourse,
+          term: this.$route.query.term,
+          filter: this.$route.query.filter,
+        }
+        this.$router.push({ query: queryObj });
       }
     },
     openPersonalizeCourse() {
@@ -393,12 +397,7 @@ export default {
     this.sideMenulistElm.removeEventListener('click', this.clickEventMiniMenuOpen);
   },
   mounted(){
-    // debugger
     this.sideMenulistElm = document.querySelector('.sideMenu');
-    // if(this.$vuetify.breakpoint)
-    // let marginTop = this.sideMenulistElm.style.marginTop;
-    // marginTop = +marginTop.slice(0,marginTop.length - 2)+1;
-    // this.sideMenulistElm.style.marginTop = marginTop + 'px'
     this.sideMenulistElm.addEventListener('click', this.clickEventMiniMenuOpen);
   },
   created() {

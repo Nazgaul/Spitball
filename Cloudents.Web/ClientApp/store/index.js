@@ -31,6 +31,8 @@ import utils_Store from './utils_Store'
 import banner_Store from './banner_Store.js'
 import dashboard_Store from './dashboard_Store.js'
 
+import feed from './feedStore.js'
+
 Vue.use(Vuex);
 const store = new Vuex.Store({
     modules: {
@@ -43,6 +45,7 @@ const store = new Vuex.Store({
         newQuestionDialog,
         University,
         uploadFiles,
+        feed,
         // document,
         // homeLanding,
         // homeworkHelpStore,

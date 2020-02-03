@@ -1,10 +1,25 @@
 <template>
-    <general-page :mdAndDown="$vuetify.breakpoint.mdAndDown" :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="name">
+    <general-page :mdAndDown="$vuetify.breakpoint.mdAndDown" :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="$route.name">
         <div slot="main" class="feedWrap">
             <coursesTab/>
             <request-box class="request-box mb-0"/>
+            <v-flex xs4>
+                <v-select class="mt-3 filters_select"
+                    sel="feed_filter"
+                    :append-icon="'sbf-arrow-fill'"
+                    v-model="query.filter"
+                    :value="Feeds_getCurrentQuery.filter"
+                    :items="filters"
+                    :item-text="getSelectedName"
+                    @change="handleSelects()"
+                    :height="$vuetify.breakpoint.xsOnly? 42 : 36" hide-details solo>
+                    <template v-slot:item="{item}">
+                        {{dictionary[item.key]}}
+                    </template>
+                </v-select>
+            </v-flex>
             <div class="results-section mt-5" v-if="items">
-                <scroll-list v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
+                <scrollList v-if="items.length" :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete">
                     <v-container class="ma-0 results-wrapper pa-0">
                         <v-layout column>              
                             <v-flex class="result-cell" xs-12 v-for="(item,index) in items" :key="index"
@@ -24,7 +39,7 @@
                             </v-flex>
                         </v-layout>
                     </v-container>
-                </scroll-list>
+                </scrollList>
                 <emptyStateCard v-else/>
             </div>
             <feedSkeleton v-else v-for="n in 5" :key="n"/>
@@ -48,5 +63,45 @@
             }
         }
     }
+      .filters_select{
+         color: #4d4b69;
+         .responsive-property(height, 36px, null, 42px);
+         .v-input__control{
+            min-height: auto !important;
+            display: unset;
+            .responsive-property(height, 36px, null, 42px);
+            .v-input__slot{
+               border-radius: 8px;
+
+               box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+               margin: 0;
+               .v-select__slot{
+                  font-size: 14px;
+                  .v-select__selections{
+                     ::placeholder{
+                        font-size: 14px;
+                        color: #4d4b69;
+                     }
+                  }
+                  .v-input__append-inner{
+                     .v-input__icon{
+                        &.v-input__icon--append{
+                           i{
+                              font-size: 6px;
+                              color: #43425d;
+                           }
+                        }
+                        &.v-input__icon--clear{
+                           i{
+                              font-size: 10px;
+                              color: #43425d;
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
 }
 </style>

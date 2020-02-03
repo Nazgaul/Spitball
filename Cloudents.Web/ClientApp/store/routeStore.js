@@ -17,6 +17,11 @@ const mutations = {
 };
 
 const actions = {
+    // updateByRoute({commit,dispatch,state},{from,to}){
+    //     if(to.name === FEED){
+    //         // dispatch()
+    //     }
+    // },
     setRouteStack({commit}, val){
         commit('setRouteStack', val);
     },

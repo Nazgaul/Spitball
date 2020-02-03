@@ -32,29 +32,32 @@ export default {
   },
   data() {
     return {
-      search: "",
+      search: this.$route.query.term,
       searchBtnText: LanguageService.getValueByKey('search_search_btn')
     };
   },
   watch: {
     getSearchStatus(){
-        this.search = ""
+      this.search = ""
+    },
+    Feeds_getCurrentQuery(val){
+      this.search = val.term || ''
     }
   },
   computed: {
-    ...mapGetters(['getSearchStatus'])
+    ...mapGetters(['getSearchStatus','Feeds_getCurrentQuery']),
   },
   methods: {
     ...mapMutations(['UPDATE_SEARCH_LOADING']),
     searchQuery() {
-      let route = {
-        name : "feed"
-      };
+      let searchQuery = {name:'feed', query:{...this.$route.query}}
       if(this.search){
-        route.query = { term: this.search };
+        searchQuery.query.term = this.search;
+      }else{
+        searchQuery.query = '';
       }
       this.UPDATE_SEARCH_LOADING(true);
-      this.$router.push(route).catch(() => {
+      this.$router.push(searchQuery).catch(() => {
         this.UPDATE_SEARCH_LOADING(false);
       });
 
