@@ -164,7 +164,6 @@ export default {
                 analyticsService.sb_unitedEvent('Action Box', 'Ask_Q', `USER_ID:${this.accountUser.id}, Q_COURSE:${serverQuestionObj.course}`);
                 questionService.postQuestion(serverQuestionObj).then(() => {
                     // let val = self.selectedPrice || this.price;
-                    // this.updateUserBalance(-val);
                     //close dialog after question submitted
                     this.requestNewQuestionDialogClose(false);
                     this.$router.push({

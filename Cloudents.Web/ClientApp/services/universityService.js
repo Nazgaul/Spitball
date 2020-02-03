@@ -82,24 +82,6 @@ const assaignCourse = (arrCourses) => {
     return connectivityModule.http.post("Course/set", courses);
 };
 
-const getProfileUniversity = () => {
-    return connectivityModule.http.get("account/university").then(({data}) => {
-        let result = new University(data);
-        return result;
-    });
-};
-
-const getProfileCourses = () => {
-    return connectivityModule.http.get("account/courses").then(({data}) => {
-        let result = [];
-        if(!!data && data.length > 0) {
-            data.forEach((course) => {
-                result.push(new Course(course));
-            });
-        }
-        return result;
-    });
-};
 const deleteCourse = (name) => {
     return connectivityModule.http.delete(`course?name=${encodeURIComponent(name)}`).then((resp)=>{
         return resp;
@@ -138,8 +120,6 @@ export default {
     assaignUniversity,
     getCourse,
     assaignCourse,
-    getProfileUniversity,
-    getProfileCourses,
     deleteCourse,
     createCourse,
     createUni,

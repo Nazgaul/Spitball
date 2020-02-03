@@ -1,6 +1,5 @@
 ﻿import { transformLocation } from './resources';
 import { connectivityModule } from "./connectivity.module"
-// import { getUniversity, course } from './resources';
 
 
 const getUni = (params) => {

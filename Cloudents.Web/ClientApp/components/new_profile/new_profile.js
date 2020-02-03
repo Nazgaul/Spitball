@@ -96,7 +96,6 @@ export default {
 
 
             isRtl: global.isRtl,
-            loadingContent: false,
             activeTab: 1,
             itemsPerTab: 50,
             answers: {
@@ -142,15 +141,8 @@ export default {
             'updateProfileItemsByType',
 
 
-            
-            'updateNewQuestionDialogState',
             'syncProfile',
-            'getAnswers',
-            'getQuestions',
-            // 'getDocuments',
             'resetProfileData',
-            'getPurchasedDocuments',
-            'setProfileByActiveTab',
             'updateToasterParams'
         ]),
         closeCouponDialog() {
@@ -269,10 +261,6 @@ export default {
             this.activeTab = tabId;
         },
         fetchData() {
-            // let syncObj = {
-            //     id: this.id,
-            //     activeTab: this.activeTab
-            // };
             let syncObj = {
                 id: this.id,
                 type:'documents',
@@ -282,96 +270,6 @@ export default {
                 }
             }
             this.syncProfile(syncObj);
-        },
-        // getInfoByTab() {
-        //     this.loadingContent = true;
-        //     this.setProfileByActiveTab(this.activeTab).then(() => {
-        //         this.loadingContent = false;
-        //     });
-        // },
-        loadAnswers() {
-            if (this.profileData.answers.length < this.itemsPerTab) {
-                this.answers.isComplete = true;
-                return;
-            }
-            this.answers.isLoading = true;
-            let answersInfo = {
-                id: this.id,
-                page: this.answers.page
-            };
-            this.getAnswers(answersInfo).then((hasData) => {
-                if (!hasData) {
-                    this.answers.isComplete = true;
-                }
-                this.answers.isLoading = false;
-                this.answers.page++;
-            }, () => {
-                this.answers.isComplete = true;
-            });
-        },
-        loadQuestions() {
-            if (this.profileData.questions.length < this.itemsPerTab) {
-                this.questions.isComplete = true;
-                return;
-            }
-            this.questions.isLoading = true;
-            let questionsInfo = {
-                id: this.id,
-                page: this.questions.page,
-                user: this.profileData.user
-            };
-            this.getQuestions(questionsInfo).then((hasData) => {
-                if (!hasData) {
-                    this.questions.isComplete = true;
-                }
-                this.questions.isLoading = false;
-                this.questions.page++;
-            }, () => {
-                this.questions.isComplete = true;
-            });
-        },
-        // loadDocuments() {
-        //     if (this.profileData.documents.length < this.itemsPerTab) {
-        //         this.documents.isComplete = true;
-        //         return;
-        //     }
-        //     this.documents.isLoading = true;
-        //     let documentsInfo = {
-        //         id: this.id,
-        //         page: this.documents.page,
-        //         user: this.profileData.user
-        //     };
-        //     this.getDocuments(documentsInfo).then((hasData) => {
-        //         if (!hasData) {
-        //             this.documents.isComplete = true;
-        //         }
-        //         this.documents.isLoading = false;
-        //         this.documents.page++;
-        //     }, () => {
-        //         this.documents.isComplete = true;
-        //     });
-        // },
-        loadPurchasedDocuments() {
-            if (this.profileData.purchasedDocuments.length < this.itemsPerTab) {
-                this.purchasedDocuments.isComplete = true;
-                return;
-            }
-            this.purchasedDocuments.isLoading = true;
-            let documentsInfo = {
-                id: this.id,
-                page: this.purchasedDocuments.page,
-                user: this.profileData.user
-            };
-            this.getPurchasedDocuments(documentsInfo).then((hasData) => {
-                    if (!hasData) {
-                        this.purchasedDocuments.isComplete = true;
-                    }
-                    this.purchasedDocuments.isLoading = false;
-                    this.purchasedDocuments.page++;
-                },
-                () => {
-                    this.purchasedDocuments.isComplete = true;
-                });
         },
         openCalendar() {
             if(!!this.accountUser) {
@@ -440,7 +338,6 @@ export default {
             return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
         },
         showProfileCalendar(){
-            // debugger
             if(this.isMyProfile){
                 return (this.isTutor)
             }else{
@@ -485,43 +382,6 @@ export default {
         },
         isMobile() {
             return this.$vuetify.breakpoint.xsOnly;
-        },
-
-        emptyStateData() {
-            let questions = {
-                text: LanguageService.getValueByKey("profile_emptyState_questions_text"),
-                boldText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
-                btnText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
-                btnUrl: () => {
-                    if(this.accountUser == null) {
-                        this.updateLoginDialogState(true);
-                        return;
-                    }
-                    let obj = {
-                        status: true,
-                        from: 5
-                    };
-                    this.updateNewQuestionDialogState(obj);
-                }
-            };
-            let answers = {
-                text: LanguageService.getValueByKey("profile_emptyState_answers_text"),
-                btnText: LanguageService.getValueByKey("profile_emptyState_answers_btnText"),
-                btnUrl: 'ask'
-            };
-            let documents = {
-                text: LanguageService.getValueByKey("profile_emptyState_documents_text"),
-                //TODO feel free to remove this after redesign, will not be used, using reusable component instead
-                btnText: LanguageService.getValueByKey("profile_emptyState_documents_btnText"),
-                btnUrl: 'note'
-            };
-            if (this.activeTab === 1) {
-                return documents;
-            } else if (this.activeTab === 2) {
-                return answers;
-            } else if (this.activeTab === 3) {
-                return questions;
-            }
         },
         showCalendar(){
             if(!this.getProfile) return;

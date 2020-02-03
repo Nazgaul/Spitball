@@ -394,7 +394,6 @@ export default {
     this.sideMenulistElm.removeEventListener('click', this.clickEventMiniMenuOpen);
   },
   mounted(){
-    // debugger
     this.sideMenulistElm = document.querySelector('.sideMenu');
     // if(this.$vuetify.breakpoint)
     // let marginTop = this.sideMenulistElm.style.marginTop;

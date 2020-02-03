@@ -45,35 +45,33 @@
                     <v-flex class="web-content">
 
                         <div class="empty-state doc-empty-state"
-                                v-if="activeTab === 1 && isMyProfile && !uploadedDocuments.length && !loadingContent">
+                                v-if="activeTab === 1 && isMyProfile && !uploadedDocuments.length && !">
                             <div class="text-block">
-                                <p v-html="emptyStateData.text"></p>
-                                <b>{{emptyStateData.boldText}}</b>
+                         
                             </div>
                             <div class="upload-btn-wrap">
                                 <upload-document-btn></upload-document-btn>
                             </div>
                         </div>
                         <div class="empty-state"
-                                v-else-if="activeTab === 2 && isMyProfile && !answerDocuments.length && !loadingContent">
+                                v-else-if="activeTab === 2 && isMyProfile && !answerDocuments.length && !">
                             <div class="text-block">
-                                <p v-html="emptyStateData.text"></p>
-                                <b>{{emptyStateData.boldText}}</b>
+                               
+                                
                             </div>
-                            <router-link class="ask-question" :to="{name: emptyStateData.btnUrl}">
-                                {{emptyStateData.btnText}}
+                            <router-link class="ask-question" 
+                           
                             </router-link>
                         </div>
 
                         <div class="empty-state"
-                                v-if="activeTab === 3 && isMyProfile && !questionDocuments.length && !loadingContent">
+                                v-if="activeTab === 3 && isMyProfile && !questionDocuments.length && !">
                             <div class="text-block">
-                                <p v-html="emptyStateData.text"></p>
-                                <b>{{emptyStateData.boldText}}</b>
+                              
                             </div>
-                            <a class="ask-question" @click="emptyStateData.btnUrl()">{{emptyStateData.btnText}}</a>
+                            <a class="ask-question" 
                         </div>
-                        <scroll-list v-if="activeTab === 1" :scrollFunc="loadDocuments" :isLoading="documents.isLoading"
+                        <scroll-list v-if="activeTab === 1" :scrollFunc="" :isLoading="documents.isLoading"
                                         :isComplete="documents.isComplete">
                             <div 
                                             v-for="(document ,index) in uploadedDocuments"
@@ -83,7 +81,7 @@
                         </scroll-list>
 
 
-                        <scroll-list v-if="activeTab === 2" :scrollFunc="loadAnswers" :isLoading="answers.isLoading"
+                        <scroll-list v-if="activeTab === 2" :scrollFunc="" :isLoading="answers.isLoading"
                                         :isComplete="answers.isComplete">
                             <div 
                                             v-for="(answerData,index) in answerDocuments"
@@ -92,7 +90,7 @@
                             </div>
                         </scroll-list>
 
-                        <scroll-list v-if="activeTab === 3" :scrollFunc="loadQuestions" :isLoading="questions.isLoading"
+                        <scroll-list v-if="activeTab === 3" :scrollFunc="" :isLoading="questions.isLoading"
                                         :isComplete="questions.isComplete">
                                             <div class="mb-3"  v-for="(questionData,index) in questionDocuments" :key="index">
                                 <question-card :cardData="questionData"></question-card>
@@ -100,7 +98,7 @@
 
                         </scroll-list>
 
-                        <scroll-list v-if="activeTab === 4 && isMyProfile" :scrollFunc="loadPurchasedDocuments"
+                        <scroll-list v-if="activeTab === 4 && isMyProfile" :scrollFunc=""
                                         :isLoading="purchasedDocuments.isLoading"
                                         :isComplete="purchasedDocuments.isComplete">
                             <div 

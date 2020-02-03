@@ -144,33 +144,16 @@ const actions = {
     clearClassesCahce({commit}){
         commit('clearClassesCahce');
     },
-    syncUniData({commit, dispatch}) {
+    syncUniData({commit, dispatch},{courses ,university}) {
         dispatch('setLock_selectedClass', true);
-        universityService.getProfileUniversity().then((university) => {
-            commit('setSchoolName', university.text);
-            setTimeout(() => {
+        commit('setSchoolName', university.text);
+        dispatch('setSelectedClasses', courses);
+        dispatch('assignSelectedClassesCache', courses);
+
+        setTimeout(() => {
             dispatch('releaseResultLock', "uni");
-            }, 2000); 
-        });
-        universityService.getProfileCourses().then((courses) => {
-                dispatch('setSelectedClasses', courses);
-                dispatch('assignSelectedClassesCache', courses);
-                setTimeout(() => {
-                    dispatch('releaseResultLock', "class");
-                }, 2000);
-        });
-    },
-    //to sync courses only
-    syncCoursesData({dispatch}) {
-        universityService.getProfileCourses().then((courses) => {
-            if(courses.length > 0) {
-                dispatch('setSelectedClasses', courses);
-                dispatch('assignSelectedClassesCache', courses);
-                setTimeout(() => {
-                    dispatch('releaseResultLock', "class");
-                }, 2000);
-            }
-        });
+            dispatch('releaseResultLock', "class");
+        }, 2000);
     },
     createCourse({dispatch}, courseToCreate) {
         universityService.createCourse(courseToCreate).then((course) => {

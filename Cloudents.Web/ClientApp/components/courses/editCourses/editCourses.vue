@@ -128,7 +128,6 @@
         },
         methods: {
             ...mapActions(["updateClasses",
-                              "syncCoursesData",
                               "deleteClass",
                               "updateSelectedClasses",
                               "pushClassToSelectedClasses",

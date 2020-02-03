@@ -12,7 +12,6 @@ const state = {
     profileReviews:null,
     login: false,
     user: null,
-    fromPath: null,
     lastActiveRoute: null,
     profile: null,
     usersReferred: 0,
@@ -56,17 +55,8 @@ const mutations = {
     setProfileReviews(state,val){
         state.profileReviews = val;
     },
-    setProfileQuestions(state, val) {
-        state.profile.questions = val;
-    },
-    setProfileAnswers(state, val) {
-        state.profile.answers = val;
-    },
     setPorfileDocuments(state, val) {
         state.profile.documents = val;
-    },
-    setPorfilePurchasedDocuments(state, val) {
-        state.profile.purchasedDocuments = val;
     },
     resetProfile(state) {
         state.profile = null;
@@ -78,12 +68,8 @@ const mutations = {
         state.user = val;
     },
     logout(state) {
-        state.fromPath = null;
         state.login = false;
         state.user = null;
-    },
-    updateFromPath(state, val) {
-        state.fromPath = val;
     },
     setLastActiveRoute(state, val) {
         state.lastActiveRoute = val;
@@ -181,7 +167,6 @@ const getters = {
     },
     getProfile: state => state.profile,
     getProfileReviews: state => state.profileReviews,
-    fromPath: state => state.fromPath,
     loginStatus: state => state.login,
     isUser: state => state.user !== null,
     usersReffered: state => state.usersReferred,
@@ -217,12 +202,10 @@ const actions = {
     updateProfileImageLoader(context, val){
         context.commit('setProfileImageLoading', val);
     },
-    updateIsTutorState(context, val){
-        context.commit('setIsTutorState', val);
-    },
     updateEditDialog(context, val){
         context.commit('setEditDialog', val);
     },
+    // TODO 
     updateUniExists(context, val){
         context.commit("setUniExists", val);
     },
@@ -279,124 +262,11 @@ const actions = {
             }
         }
     },
-    // setProfileByActiveTab(context, activeTab) {
-    //     if(!!context.state.profile && !!context.state.profile.user) {
-    //         let id = context.state.profile.user.id;
-
-
-    //         if(activeTab === 2) {
-    //             return accountService.getProfileAnswers(id).then(vals => {
-    //                 let answers = accountService.createProfileAnswerData(vals);
-    //                 context.commit('setProfileAnswers', answers);
-    //             });
-    //         }
-    //         if(activeTab === 3) {
-    //             return accountService.getProfileQuestions(id).then(vals => {
-    //                 let profileData = accountService.createProfileQuestionData(vals);
-    //                 context.commit('setProfileQuestions', profileData);
-    //             });
-    //         }
-    //         if(activeTab === 4) {
-    //             return accountService.getProfilePurchasedDocuments(id).then(vals => {
-    //                
-    //                 context.commit('setPorfilePurchasedDocuments', purchasedDocuments);
-    //             });
-    //         }
-    //     }
-    // },
     removeItemFromProfile({commit}, data) {
         commit('deleteItemFromProfile', data);
     },
     resetProfileData(context) {
         context.commit('resetProfile');
-    },
-    getAnswers(context, answersInfo) {
-        let id = answersInfo.id;
-        let page = answersInfo.page;
-        return accountService.getProfileAnswers(id, page).then(({data}) => {
-            let maximumElementsRecivedFromServer = 50;
-            if(data.length > 0) {
-                data.forEach(answer => {
-                    //create answer Object and push it to the state
-                    let answerToPush = {
-                        ...answer,
-                        filesNum: answer.files
-                    };
-                    context.state.profile.answers.push(answerToPush);
-                });
-            }
-            //return true if we can call to the server
-            return data.length === maximumElementsRecivedFromServer;
-        }, () => {
-            return false;
-        });
-    },
-    getQuestions(context, questionsInfo) {
-        let id = questionsInfo.id;
-        let page = questionsInfo.page;
-        let user = questionsInfo.user;
-        return accountService.getProfileQuestions(id, page).then(({data}) => {
-            let maximumElementsRecivedFromServer = 50;
-            if(data.length > 0) {
-                data.forEach(question => {
-                    //create answer Object and push it to the state
-                    let questionToPush = {
-                        ...question,
-                        user: user,
-                        filesNum: question.files
-                    };
-                    context.state.profile.questions.push(questionToPush);
-                });
-            }
-            //return true if we can call to the server
-            return data.length === maximumElementsRecivedFromServer;
-        }, () => {
-            return false;
-        });
-    },
-    // getDocuments(context, documentsInfo) {
-    //     let id = documentsInfo.id;
-    //     let page = documentsInfo.page;
-    //     let user = documentsInfo.user;
-    //     return accountService.getProfileDocuments(id, page).then(({data}) => {
-    //         let maximumElementsReceivedFromServer = 50;
-    //         if(data.length > 0) {
-    //             data.forEach(document => {
-    //                 //create answer Object and push it to the state
-    //                 let documentToPush = {
-    //                     ...document,
-    //                     user: user
-    //                 };
-    //                 context.state.profile.documents.push(documentToPush);
-    //             });
-    //         }
-    //         //return true if we can call to the server
-    //         return data.length === maximumElementsReceivedFromServer;
-    //     }, () => {
-    //         return false;
-    //     });
-    // },
-    getPurchasedDocuments(context, documentsInfo) {
-        let id = documentsInfo.id;
-        let page = documentsInfo.page;
-        let user = documentsInfo.user;
-        return accountService.getProfilePurchasedDocuments(id, page).then(({data}) => {
-            let maximumElementsReceivedFromServer = 50;
-            if(data.length > 0) {
-                data.forEach(document => {
-                    //create answer Object and push it to the state
-                    let documentToPush = {
-                        ...document,
-                        user: user
-                    };
-                    context.state.profile.purchasedDocuments.push(documentToPush);
-                });
-            }
-            //return true if we can call to the server
-            return data.length === maximumElementsReceivedFromServer;
-        }, () => {
-            return false;
-        });
     },
     logout({commit}) {
         intercomeService.restrartService();
@@ -407,8 +277,9 @@ const actions = {
     changeLastActiveRoute({commit}, route) {
         commit("setLastActiveRoute", route);
     },
-    userStatus({dispatch, commit, getters}, {isRequireAuth, to}) {
+    userStatus({dispatch, commit, getters}) {
         commit("changeLoginStatus", global.isAuth);
+        // TODO check
         if(getters.isUser) {
             return;
         }
@@ -417,7 +288,7 @@ const actions = {
                 intercomeService.startService(userAccount);
                 commit("changeLoginStatus", true);
                 commit("updateUser", userAccount);
-                dispatch("syncUniData");
+                dispatch("syncUniData",userAccount);
                 dispatch("getAllConversations");
                 analyticsService.sb_setUserId(userAccount.id);
                 insightService.authenticate.set(userAccount.id);
@@ -425,16 +296,12 @@ const actions = {
             }, ()=>{
                 //TODO what is that....
                 intercomeService.restrartService();
-                isRequireAuth ? commit("updateFromPath", to) : '';
                 commit("changeLoginStatus", false);
             });
         } 
         else {
             intercomeService.startService();
         }
-    },
-    saveCurrentPathOnPageChange({commit}, {currentRoute}) {
-        commit("updateFromPath", currentRoute);
     },
     updateUserBalance() {
         return;
