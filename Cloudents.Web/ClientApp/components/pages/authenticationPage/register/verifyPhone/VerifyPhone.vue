@@ -102,6 +102,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	height: inherit;
+	.phoneGapFooterFix();
   	.top {
 		margin-top: 48px;
 	  	display: flex;

@@ -33,7 +33,7 @@ namespace Cloudents.Web.Controllers
         public async Task<IActionResult> IndexAsync(string page, CancellationToken token)
         {
 
-            return View("Index");
+            // return View("Index");
             //if (User.Identity.IsAuthenticated)
             //{
             //    return Redirect("/feed");

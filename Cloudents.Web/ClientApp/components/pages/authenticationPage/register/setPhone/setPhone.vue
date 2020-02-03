@@ -118,7 +118,6 @@ export default {
 <style lang='less'>
 @import '../../../../../styles/mixin.less';
 @import '../../../../../styles/colors.less';
-
 .setPhone{
 
     // height: inherit;
@@ -127,7 +126,7 @@ export default {
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-        height: 100%;
+        .phoneGapFooterFix();
     }
     .setPhoneWrap {
         .setphone_title {
@@ -169,15 +168,15 @@ export default {
                 padding: 0 !important;
             }
         }
-        .btn-login{
-            .responsive-property(margin, 20px 0 0, null, null);
-            .responsive-property(width, 100%, null, @btnDialog);
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: -0.42px;
-            text-align: center;
-            text-transform: none !important;
-        }
+    }
+    .btn-login{
+        .responsive-property(margin, 20px 0 0, null, null);
+        .responsive-property(width, 100%, null, @btnDialog);
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -0.42px;
+        text-align: center;
+        text-transform: none !important;
     }
 }
 
