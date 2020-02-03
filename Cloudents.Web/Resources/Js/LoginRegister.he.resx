@@ -193,7 +193,7 @@
     <value>כניסה</value>
   </data>
   <data name="getstarted_signin_text" xml:space="preserve">
-    <value>כבר נרשמת? </value>
+    <value>כבר נרשמת?</value>
   </data>
   <data name="getstarted_signup_link" xml:space="preserve">
     <value>יצירת חשבון</value>
