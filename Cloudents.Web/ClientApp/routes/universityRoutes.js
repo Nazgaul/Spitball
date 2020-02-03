@@ -1,4 +1,4 @@
-import {lazyComponent,staticComponents} from './routesUtils.js';
+import {staticComponents} from './routesUtils.js';
 
 export const universityRoutes = [
     {
@@ -15,7 +15,7 @@ export const universityRoutes = [
             {
                 path: 'add',
                 name: 'addUniversity',
-                component: lazyComponent('university/addUniversity/addUniversity'),
+                component: () => import(`../components/university/addUniversity/addUniversity.vue`),
                 meta: {
                     requiresAuth: true
                 }
@@ -29,7 +29,7 @@ export const universityRoutes = [
             }
         ],
         components: {
-            default: lazyComponent('university/university'),
+            default: () => import(`../components/university/university.vue`),
             ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         meta: {
