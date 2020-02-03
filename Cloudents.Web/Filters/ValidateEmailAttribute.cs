@@ -44,7 +44,9 @@ namespace Cloudents.Web.Filters
                         {
                             error = new LocalizedString("EmailAddress", "This email is not valid");
                         }
+                        //this is due to different implementation on client side registration and request tutor
                         context.ModelState.AddModelError("error", error);
+                        context.ModelState.AddModelError("Email", error);
                         context.Result = new BadRequestObjectResult(context.ModelState);
                     }
 
