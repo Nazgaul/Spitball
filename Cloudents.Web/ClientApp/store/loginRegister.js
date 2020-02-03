@@ -244,7 +244,7 @@ const actions = {
         return registrationService.emailRegistration(emailRegObj)
             .then(({data}) => {
                 _analytics(['Registration', 'Start']);
-                if (data.param.phoneNumber) {
+                if (data.param && data.param.phoneNumber) {
                     commit('setPhone',data.param.phoneNumber);
                     commit('setPhoneCode')
                 }
@@ -290,7 +290,6 @@ const actions = {
                     showToaster: true,
                 });
                 _analytics(['Registration', 'Phone Submitted']);
-                // dispatch('updateStep','VerifyPhone');
                 dispatch('updateRouterStep', 'verifyPhone');
             }, function (error){
                 commit('setErrorMessages', {phone: error.response.data["PhoneNumber"] ? error.response.data["PhoneNumber"][0] : '' });
