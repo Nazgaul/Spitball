@@ -1,4 +1,4 @@
-// import {lazyComponent,staticComponents} from './routesUtils.js';
+import {staticComponents} from './routesUtils.js';
 
 function dynamicPropsFn(route) {
     let newName = route.path.slice(1);
@@ -14,9 +14,8 @@ const resultProps = {
 };
 const feedPage = {
     default: () => import('../components/results/feeds/Feeds.vue'),
-    banner: () => import('../components/pages/layouts/banner/bannerWrapper.vue'),
-    header: () => import('../components/pages/layouts/header/header.vue'),
-    sideMenu: () => import('../components/pages/layouts/sideMenu/sideMenu.vue'),
+    ...staticComponents(['banner', 'header', 'sideMenu'])
+
 };
 export const feedRoutes = [
     {

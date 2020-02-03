@@ -12,6 +12,7 @@
 	<v-text-field
 		v-model="smsCode"
 		class="code widther"
+		
 		color="#304FFE"
 		height="44"
 		outlined

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { RegisterCourseCollege } from '../../../../../routes/RouteName'
+import { RegisterCourseCollege } from '../../../../../routes/routeNames'
 
 export default {
     methods: {
