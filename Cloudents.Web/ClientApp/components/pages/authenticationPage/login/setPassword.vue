@@ -1,33 +1,33 @@
 <template>
     <form class="setPassword" @submit.prevent="login">
-		<p v-language:inner="'loginRegister_setemail_title'"/>
+		<p>{{$t('loginRegister_setemail_title')}}</p>
         <sb-input 
-                class="widther"
-				v-model="email"
-				placeholder="loginRegister_setpass_input_email"
-				icon="sbf-email" 
-				:bottomError="true"
-				:autofocus="false" 
-                :errorMessage="errorMessages.email"
-				name="email" type="email"/>
+            class="widther"
+            v-model="email"
+            placeholder="loginRegister_setpass_input_email"
+            icon="sbf-email" 
+            :bottomError="true"
+            :autofocus="false" 
+            :errorMessage="errorMessages.email"
+            name="email" type="email"/>
 
 		<sb-input 
-                class="mt-4 widther"
-                icon="sbf-key"
-				v-model="password"
-				placeholder="loginRegister_setpass_input_pass"  
-				:bottomError="true" 
-				type="password" name="pass"
-				:autofocus="true"/>
+            class="mt-4 widther"
+            icon="sbf-key"
+            v-model="password"
+            placeholder="loginRegister_setpass_input_pass"  
+            :bottomError="true" 
+            type="password" name="pass"
+            :autofocus="true"/>
         <v-btn  
-                type="submit"
-                :loading="isEmailLoading"
-                large rounded 
-                class="white--text btn-login">
-                <span v-language:inner="'loginRegister_setpass_btn'"></span>
-                </v-btn>
+            type="submit"
+            :loading="isEmailLoading"
+            large rounded 
+            class="white--text btn-login">
+                <span>{{$t('loginRegister_setpass_btn')}}</span>
+        </v-btn>
 
-        <router-link :to="{name: 'forgotPassword'}" class="bottom" v-language:inner="'loginRegister_setpass_forgot'"/>
+        <router-link :to="{name: 'forgotPassword'}" class="bottom">{{$t('loginRegister_setpass_forgot')}}</router-link>
     </form>    
 </template>
 
@@ -36,10 +36,7 @@ import SbInput from "../../../question/helpers/sbInput/sbInput.vue";
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
-    // name: 'setPassword',
-    components:{
-        SbInput
-    },
+    components:{ SbInput },
     data() {
         return {
             password: '',

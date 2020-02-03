@@ -1,6 +1,6 @@
 <template>
     <form class="resetPassword" @submit.prevent="change">
-        <p v-language:inner="'loginRegister_resetpass_title'"/>
+        <p>{{$t('loginRegister_resetpass_title')}}</p>
         <sb-input
                 :errorMessage="errorMessages.password"
                 :hint="passHint"
@@ -12,20 +12,21 @@
 				name="pass" type="password"/>
 
 		<sb-input 
-                :errorMessage="errorMessages.confirmPassword"
-                v-model="confirmPassword"
-                class="mt-4 widther"
-				placeholder="loginRegister_resetpass_input_confirm"  
-				:bottomError="true" 
-				type="password" name="pass"
-				:autofocus="false"/>
+            :errorMessage="errorMessages.confirmPassword"
+            v-model="confirmPassword"
+            class="mt-4 widther"
+            placeholder="loginRegister_resetpass_input_confirm"  
+            :bottomError="true" 
+            type="password" name="pass"
+            :autofocus="false"/>
 
-        <v-btn  type="submit"
-                :loading="loading"
-                large rounded 
-                class="white--text btn-login">
-                <span v-language:inner="'loginRegister_resetpass_btn'"></span>
-                </v-btn>
+        <v-btn  
+            type="submit"
+            :loading="loading"
+            large rounded 
+            class="white--text btn-login">
+                <span>{{$t('loginRegister_resetpass_btn')}}</span>
+        </v-btn>
     </form>
 </template>
 

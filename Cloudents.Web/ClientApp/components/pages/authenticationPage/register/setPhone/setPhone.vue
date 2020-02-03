@@ -1,7 +1,7 @@
 <template>
     <v-form class="setPhone text-center" @submit.prevent="sendSms" ref="form" lazy-validation>
         <div class="setPhoneWrap">
-            <p class="setphone_title" v-language:inner="'loginRegister_setphone_title'"></p>
+            <p class="setphone_title">{{$t('loginRegister_setphone_title')}}</p>
             <v-select 
                 v-model="localCode"
                 class="widther countryCode"
@@ -45,7 +45,7 @@
             :loading="smsLoading"
             large rounded
             class="white--text btn-login">
-                <span v-language:inner="'loginRegister_setphone_btn'"></span>
+                <span>{{$t('loginRegister_setphone_btn')}}</span>
         </v-btn>
     </v-form> 
 </template>

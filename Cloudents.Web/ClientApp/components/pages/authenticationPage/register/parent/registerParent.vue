@@ -1,8 +1,8 @@
 <template>
     <div id="registerParent">
 
-        <div class="text-center maintitle" v-language:inner="'register_school_title'"></div>
-        <div class="text-center subtitle" v-language:inner="'register_parent_subtitle'"></div>
+        <div class="text-center maintitle">{{$t('register_school_title')}}</div>
+        <div class="text-center subtitle">{{$t('register_parent_subtitle')}}</div>
 
         <v-form lazy-validation v-model="valid" ref="form">
             <v-row>
@@ -15,27 +15,7 @@
                         :rules="[rules.required, rules.minimumChars]"
                         height="44"
                         dense
-                    ></v-text-field> 
-                    <!-- <v-text-field
-                        v-model="firstname"
-                        :label="$t('register_student_firstname')"
-                        placeholder=" "
-                        outlined
-                        :rules="[rules.required, rules.minimumChars]"
-                        height="44"
-                        dense
-                    ></v-text-field>                        
-                </v-col> -->
-                <!-- <v-col cols="12" sm="4" class="pb-0">
-                    <v-text-field
-                        v-model="lastname"
-                        :label="$t('register_student_lastname')"
-                        placeholder=" "
-                        outlined
-                        :rules="[rules.required, rules.minimumChars]"
-                        height="44"
-                        dense
-                    ></v-text-field>                     -->
+                    ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" class="pb-0">
                     <v-select
@@ -59,10 +39,10 @@
             <div id="registerButtons">
                 <div class="actions text-center mt-10">
                     <v-btn @click="prevStep" class="btn register_btn_back" color="#4452fc" depressed height="40" outlined rounded>
-                        <span v-language:inner="'tutorRequest_back'"></span>
+                        <span>{{$t('tutorRequest_back')}}</span>
                     </v-btn>
                     <v-btn @click="nextStep" class="btn register_btn_next white--text" depressed rounded height="40" color="#4452fc">
-                        <span v-language:inner="'tutorRequest_next'"></span>
+                        <span>{{$t('tutorRequest_next')}}</span>
                     </v-btn>
                 </div>
             </div>

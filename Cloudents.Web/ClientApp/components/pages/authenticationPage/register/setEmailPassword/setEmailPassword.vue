@@ -1,6 +1,6 @@
 <template>
   <section class="setEmailPassword text-center">
-    <p class="setemailpass_title" v-language:inner="'loginRegister_setemailpass_title'"></p>
+    <p class="setemailpass_title">{{$t('loginRegister_setemailpass_title')}}</p>
     <form @submit.prevent="submit" class="form">
       <div>
         <!-- autocomplete because chrome address -->
@@ -102,7 +102,7 @@
           large
           rounded
           class="ctnBtn white--text btn-login">
-            <span v-language:inner="'loginRegister_setemailpass_btn'"></span>
+            <span>{{$t('loginRegister_setemailpass_btn')}}</span>
         </v-btn>
       </div>
 
