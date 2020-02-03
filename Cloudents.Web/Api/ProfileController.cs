@@ -1,4 +1,5 @@
-﻿using Cloudents.Command;
+﻿using System;
+using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
@@ -61,6 +62,8 @@ namespace Cloudents.Web.Api
         }
 
         // GET
+        [Obsolete]
+
         [HttpGet("{id:long}/questions")]
         [ProducesResponseType(200)]
 
@@ -78,6 +81,8 @@ namespace Cloudents.Web.Api
         }
 
         // GET
+        [Obsolete]
+
         [HttpGet("{id:long}/answers")]
         [ProducesResponseType(200)]
 
@@ -139,6 +144,7 @@ namespace Cloudents.Web.Api
             };
         }
 
+        [Obsolete]
         [HttpGet("{id:long}/purchaseDocuments")]
         [ProducesResponseType(200)]
 

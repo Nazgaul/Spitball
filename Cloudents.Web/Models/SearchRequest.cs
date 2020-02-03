@@ -28,31 +28,4 @@ namespace Cloudents.Web.Models
         [RequiredPropertyForQuery]
         public string Course { get; set; }
     }
-
-
-    //public abstract class VerticalRequest : IPaging
-    //{
-    //    /// <summary>
-    //    /// User courses id
-    //    /// </summary>
-    //    public string Course { get; set; }
-
-    //    [FromQuery(Name = "Uni")]
-    //    public string University { get; set; }
-
-    //    [IgnoreNextPageLink]
-    //    public bool NeedUniversity => !string.IsNullOrEmpty(University);
-    //    /// <inheritdoc />
-    //    /// <summary>
-    //    /// Page for paging
-    //    /// </summary>
-    //    public int Page { get; set; }
-
-    //    /// <summary>
-    //    /// The term of search
-    //    /// </summary>
-    //    public string Term { get; set; }
-
-
-    //}
 }
