@@ -2,7 +2,6 @@
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
@@ -303,7 +302,7 @@ namespace Cloudents.Web.Api
             [FromServices] ICommandBus commandBus, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var command = new SetChildNameCommand(userId, model.FirstName, model.Grade);
+            var command = new SetChildNameCommand(userId, model.Name, model.Grade);
             await commandBus.DispatchAsync(command, token);
             return Ok();
         }
