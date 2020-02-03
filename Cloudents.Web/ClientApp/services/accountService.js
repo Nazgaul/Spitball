@@ -10,9 +10,7 @@ function AccountUser(objInit){
     
     this.balance= objInit.balance;
     this.email= objInit.email;
-    this.token= objInit.token;
     this.universityExists= objInit.universityExists;
-    this.score = objInit.score;
     this.phoneNumber = objInit.phoneNumber;
     this.isTutor = objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok';
     this.isTutorState =  createIsTutorState(objInit.isTutor);// state of become tutor request, possible options ok, pending;

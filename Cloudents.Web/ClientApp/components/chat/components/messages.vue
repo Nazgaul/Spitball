@@ -59,7 +59,6 @@ export default {
         message,
         addCircle,
         chatUploadFile,
-      //  userOnlineStatus
     },
     data(){
         return{

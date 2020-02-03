@@ -88,11 +88,6 @@
                 }
                 return -1;
             },
-            // profUserBal() {
-            //     if (this.getProfile && this.getProfile.user) {
-            //         return this.getProfile.user.score
-            //     }
-            // }
         },
     }
 </script>
