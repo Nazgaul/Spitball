@@ -183,7 +183,6 @@ const actions = {
         return universityService.assaignUniversity(uniId).then(() => {
             commit('setSchoolName', uniName);
             //update profile data with new university
-            //let currentProfID = this.getters.accountUser.id;
             dispatch('updateUniExists', true);
             return true;
         });

@@ -1,49 +1,27 @@
-import {User} from './Dto/user.js';
 import axios from 'axios'
+import {User} from './Dto/user.js';
 
 const accountInstance = axios.create({
     baseURL:'/api/account'
 })
-
-import { connectivityModule } from "./connectivity.module";
-
 export default {
     async getAccount(){ 
         let {data} = await accountInstance.get()
         return new User.Account(data)
     },
-    setUserName: (data) => {
-        return connectivityModule.http.post("/Account/userName", {name: data});
+    async getNumberReffered(){ 
+        return await accountInstance.get('/referrals')
     },
-    getUserName: () => {
-        return connectivityModule.http.get("/Account/userName");
+    async saveUserInfo(params){ 
+        return await accountInstance.post('/settings',params)
     },
-    uploadImage: (formData) => {
-        return connectivityModule.http.post("/Account/image", formData);
+    async becomeTutor(params){ 
+        return await accountInstance.post('/becomeTutor',params)
     },
-    getNumberReffered:() => {
-        return connectivityModule.http.get(`/Account/referrals`);
+    async uploadImage(params){ 
+        return await accountInstance.post('/image',params)
     },
-    saveTutorInfo: (data)=> {
-        let serverFormat= {
-            firstName: data.firstName,
-            description: data.description,
-            lastName: data.lastName,
-            bio: data.bio,
-            price: data.price
-        };
-        return connectivityModule.http.post("/Account/settings", serverFormat);
-    },
-    saveUserInfo: (data)=> {
-        let serverFormat= {
-                firstName: data.firstName,
-                lastName: data.lastName,
-                description: data.description
-
-        };
-        return connectivityModule.http.post("/Account/settings", serverFormat);
-    },
-    becomeTutor: (data) => {
-        return connectivityModule.http.post("/Account/becomeTutor", data);
-    },
+    async applyCoupon(params){ 
+        return await accountInstance.post('/coupon',params)
+    }
 }

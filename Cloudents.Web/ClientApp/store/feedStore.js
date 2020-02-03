@@ -193,15 +193,12 @@ const actions = {
         return reportService.reportQuestion(data).then(() => {
             let objToRemove = { id: data.id };
             dispatch('removeQuestionItemAction', objToRemove);
-            dispatch('removeItemFromProfile', objToRemove);
         }, (error) => {
             console.log(error, 'error report question');
         });
     },
-    Feeds_reportAnswer({dispatch}, data) {
-        let objToRemove = { id: data.id };
+    Feeds_reportAnswer({}, data) {
         return reportService.reportAnswer(data).then(() => {
-            dispatch('removeItemFromProfile', objToRemove);
         }, (error) => {
             console.log(error, 'error report answer');
         });

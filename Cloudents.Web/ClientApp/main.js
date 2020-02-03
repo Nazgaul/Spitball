@@ -166,7 +166,6 @@ router.beforeEach((to, from, next) => {
     } 
 
     store.dispatch('sendQueryToAnalytic', to);
-    store.dispatch('changeLastActiveRoute', from);
     checkUserStatus(to, next);
 
 });
