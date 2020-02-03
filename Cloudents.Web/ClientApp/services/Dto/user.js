@@ -70,7 +70,7 @@ export const User = {
 
                 // university: new School.University(objInit.university),
                 // courses: objInit.courses.map((course) => new School.Course(course)),
-
+                // TODO remove it when ram push updates!
                 university: new School.University(DummyUni),
                 courses: DummyCourses.map((course) => new School.Course(course)),
             }

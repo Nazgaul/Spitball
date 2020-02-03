@@ -127,7 +127,7 @@ const actions = {
         context.commit('setIsTutorState', 'pending');
     },
 
-    // TODO 
+    // TODO remove it when ram push updates
     updateUniExists(context, val) {
         context.commit("setUniExists", val);
     },
