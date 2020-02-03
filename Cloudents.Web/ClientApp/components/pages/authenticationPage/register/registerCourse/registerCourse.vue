@@ -17,7 +17,9 @@
 </template>
 
 <script>
+//Async causes a minor glitch but we dont care atm
 const courses = () => import('../../../../courses/addCourses/addCourses.vue')
+//import courses from '../../../../courses/addCourses/addCourses.vue';
 export default {
     components: { courses }
 }
@@ -38,7 +40,8 @@ export default {
             width: 100%;
         }
         #search-classes-list {
-            max-height: 360px;
+            min-height: 260px;
+            max-height: 260px;
         }
     }
 }
