@@ -1,10 +1,8 @@
-// import {lazyComponent,staticComponents} from './routesUtils.js';
+import { staticComponents } from './routesUtils.js';
 
 const dashboardPages = {
    default: () => import('../components/pages/dashboardPage/dashboardPage.vue'),
-   banner: () => import('../components/pages/layouts/banner/bannerWrapper.vue'),
-   header: () => import('../components/pages/layouts/header/header.vue'),
-   sideMenu: () => import('../components/pages/layouts/sideMenu/sideMenu.vue'),
+   ...staticComponents(['banner', 'header', 'sideMenu'])
 };
 
 export const dashboardRoutes = [
@@ -82,9 +80,8 @@ export const dashboardRoutes = [
         path: "/wallet",
         components: {
             default: () => import('../components/wallet/wallet.vue'),
-            banner: () => import('../components/pages/layouts/banner/bannerWrapper.vue'),
-            header: () => import('../components/pages/layouts/header/header.vue'),
-            sideMenu: () => import('../components/pages/layouts/sideMenu/sideMenu.vue'),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
+
         },
         name: "wallet",
         meta: {
