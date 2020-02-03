@@ -41,10 +41,14 @@ export default {
 </script>
 
 <style lang="less">
+    @import '../../../../../styles/mixin.less';
+
     #registerStudentCollege {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: 100%;   
+        @media (max-width: @screen-xs) {
+            height: 100%;   
+        }
     }
 </style>
