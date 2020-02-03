@@ -100,16 +100,12 @@ export default {
     }
     .stepContainer {
       width: 400px; // global width for all components
-      //max-width: 500px;
       margin: 0 auto;
       max-width: 100%;
       height: 100%;
-     //@media (max-width: @screen-xs) {
-        //width: 100%;
-       
-      //}
       .maintitle {
         font-size: 26px;
+        font-weight: 600;
         color: @global-purple;
         margin-bottom: 10px;
       }
@@ -119,7 +115,6 @@ export default {
         margin-bottom: 40px;
       }
       .gradesWrap {
-        width: 250px;
         i {
           font-size: 8px;
           color: @global-purple;
@@ -146,22 +141,17 @@ export default {
       }
     }
     .stepsSections{
-          display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    /* justify-content: center; */
-    height: 100vh;
-    max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+      height: 100vh;
+      max-width: 100%;
       .gap {
         height: 120px;
         flex-shrink: 1;
-    }
+      }
       
-     // margin: 120px auto auto;
       @media (max-width: @screen-xs) {
-      //  width: 100%;
-        //height: 100%;
-        //margin: 0 auto;
         padding: 14px;
       }
       button{
