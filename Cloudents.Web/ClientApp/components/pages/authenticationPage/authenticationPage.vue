@@ -10,7 +10,7 @@
     </div>
 
     <div class="stepsSections">
-      <div class="gap d-none d-sm-flex"></div>
+      <div class="gap"></div>
       <div class="stepContainer">
         <router-view></router-view>
       </div>
@@ -149,6 +149,9 @@ export default {
       .gap {
         height: 120px;
         flex-shrink: 1;
+        @media (max-width: @screen-xs) {
+          height: 40px;
+        }
       }
       
       @media (max-width: @screen-xs) {

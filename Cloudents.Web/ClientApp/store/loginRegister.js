@@ -85,12 +85,13 @@ const mutations = {
     setPhone(state, phoneNumber) {
         state.phone = phoneNumber;
     },
-    setGender(state, gender) {
-        state.gender = gender;
-    },
     setPhoneCode(state, localCode) {
         state.localCode = localCode;
     },
+    setGender(state, gender) {
+        state.gender = gender;
+    },
+    
     setBackStep(state) {
         let lastStep = state.stepsHistory.pop();
         state.currentStep = lastStep;
@@ -243,6 +244,16 @@ const actions = {
         return registrationService.emailRegistration(emailRegObj)
             .then(({data}) => {
                 _analytics(['Registration', 'Start']);
+                if (data.param.phoneNumber) {
+                    commit('setPhone',data.param.phoneNumber);
+                    commit('setPhoneCode')
+                }
+                // setPhone(state, phoneNumber) {
+                //     state.phone = phoneNumber;
+                // },
+                // setPhoneCode(state, localCode) {
+                //     state.localCode = localCode;
+                // },
                 router.push(data.step);
                // dispatch('updateRouterStep', 'registerEmailConfirmed')
             },  (error) => {

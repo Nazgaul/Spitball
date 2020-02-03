@@ -31,7 +31,7 @@ namespace Cloudents.Query.Courses
 
             public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchQuery query, CancellationToken token)
             {
-                const int pageSize = 50;
+                const int pageSize = 30;
                 const string sql =
                             @"declare @country nvarchar(2) = (select country from sb.[user] where id = @Id);
 

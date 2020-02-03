@@ -17,9 +17,10 @@
 
     public class ReturnSignUserResponse
     {
-        public ReturnSignUserResponse(RegistrationStep step)
+        public ReturnSignUserResponse(RegistrationStep step, object param = null)
         {
             Step = step;
+            Param = param;
         }
 
         private ReturnSignUserResponse()
@@ -27,7 +28,8 @@
             
         }
 
-        public RegistrationStep Step { get; set; }
+        public RegistrationStep Step { get;  }
+        public object Param { get; }
 
         public bool IsSignedIn { get; set; }
 
