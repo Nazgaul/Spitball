@@ -262,16 +262,15 @@ export default {
   .setemailpass_title {
     .responsive-property(font-size, 28px, null, 18px);
     .responsive-property(letter-spacing, -0.51px, null, -0.4px);
-    .responsive-property(margin-bottom, 50px, null, 34px);
+    .responsive-property(margin-bottom, 50px, null, 20px);
     font-weight: 600;
     text-align: center;
     color: #43425d;
      @media (max-width: @screen-xs) {
-       margin-top: 42px;
+       margin-top: 20px;
     }
   }
   form {
-    height: inherit;
     @media (max-width: @screen-xs) {
       display: flex;
       flex-direction: column;
