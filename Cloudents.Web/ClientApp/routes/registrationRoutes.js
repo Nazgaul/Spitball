@@ -151,14 +151,15 @@ export const registrationRoutes = [
             //     }
             // },
         ],
-        beforeEnter: (to, from, next) => {
-            if(global.isAuth) {
-                //TODO why do we need this
-                next('/feed');
-            } else {
-                next();
-            }
-        }
+        // removed restriction to register routes
+        // beforeEnter: (to, from, next) => {
+        //     if(global.isAuth) {
+        //         //TODO why do we need this
+        //         next('/feed');
+        //     } else {
+        //         next();
+        //     }
+        // }
     },
 
     {
