@@ -74,7 +74,7 @@ const sattelites = {
     blog:{
         title: LanguageService.getValueByKey('tutorListLanding_footer_links_blog'),
          url:{
-            en:'https://www.blog.spitball.co',
+            en:'https://www.blog.spitball.co/blog-1/categories/english',
             he:"https://www.blog.spitball.co"
         } 
     }
