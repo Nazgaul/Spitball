@@ -75,7 +75,21 @@ export const dashboardRoutes = [
            requiresAuth: true,
            showMobileFooter: true,
        },
-   },
+    },
+    {
+        path: "/my-calendar",
+        components: dashboardPages,
+        name: "myCalendar",
+        props: {
+            default: (route) => ({
+                component: route.name,
+            })
+        },
+        meta: {
+            requiresAuth: true,
+            showMobileFooter: true,
+        },
+    },
     {
         path: "/wallet",
         components: {
