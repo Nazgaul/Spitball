@@ -152,7 +152,7 @@
             removeClass(classDelete) {
                 classDelete.isLoading = true;
                 this.removingActive = true;
-                this.deleteClass(classDelete).then(() => {
+                this.deleteClass(classDelete.text).then(() => {
                     classDelete.isLoading = false;
 
                 }, () => {
@@ -160,7 +160,7 @@
                     this.removingActive = false;
                 }).finally(() => {
                     classDelete.isLoading = false;
-                    this.removingActive = false;
+                    this.removingActive = false;                   
                 });
             },
             goToAddMore() {

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 using Twilio;
 using Twilio.Http;
 using Twilio.Jwt.AccessToken;
@@ -96,7 +97,7 @@ namespace Cloudents.Infrastructure.Mail
         }
 
 
-        public async Task CreateRoomAsync(string id, bool needRecord, Uri callBack, StudyRoomType studyRoomType)
+        public async Task CreateRoomAsync(string id, Country country,  bool needRecord, Uri callBack, StudyRoomType studyRoomType)
         {
             var type = RoomResource.RoomTypeEnum.PeerToPeer;
             //switch (studyRoomType)
@@ -117,7 +118,7 @@ namespace Cloudents.Infrastructure.Mail
                  statusCallback: callBack,
                  statusCallbackMethod: HttpMethod.Post,
                  recordParticipantsOnConnect: needRecord,
-                 mediaRegion: "de1"
+                 mediaRegion: country.TwilioMediaRegion
                  );
         }
 

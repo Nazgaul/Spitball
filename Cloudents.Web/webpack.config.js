@@ -271,6 +271,7 @@ module.exports = (env) => {
             path: path.join(__dirname, bundleOutputDir),
             publicPath: "dist/",
             filename: isDevBuild ? "[name].js" : "[name].[chunkhash].js",
+            crossOriginLoading: 'anonymous'
         }
     };
 };
