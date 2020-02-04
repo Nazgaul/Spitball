@@ -31,5 +31,10 @@ export const validationRules = {
     phone: (value) =>{
         let regex = /^\d{8,13}$/;
         return regex.test(value) || LanguageService.getValueByKey("formErrors_phone");
+    },
+    //this is a validation phone number only for tutorRequest
+    phoneValidate: (value) =>{
+        let regex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.0-9]+$/;
+        return regex.test(value) || LanguageService.getValueByKey("formErrors_phone");
     }
 };

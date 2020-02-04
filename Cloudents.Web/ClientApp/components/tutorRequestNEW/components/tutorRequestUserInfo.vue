@@ -77,7 +77,7 @@ export default {
             rules: {
                 required: (value) => validationRules.required(value),
                 email: (value) => validationRules.email(value),
-                phone: (value) => validationRules.phone(value),
+                phone: (value) => validationRules.phoneValidate(value),
                 notSpaces: (value) => validationRules.notSpaces(value),
             },
             isLoading: false,
