@@ -374,7 +374,7 @@ tutors</value>
     <value>I'm a parent</value>
   </data>
   <data name="student" xml:space="preserve">
-    <value>I'm a student</value>
+    <value>I'm a pupil</value>
   </data>
   <data name="teacher" xml:space="preserve">
     <value>I'm a teacher</value>
