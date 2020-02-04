@@ -12,7 +12,7 @@
                         outlined
                         dense
                         height="44"
-                        :rules="[v => v || $t('register_school_grade_error')]"
+                        :rules="[v => !!v || $t('register_school_grade_error')]"
                         :menu-props="{ maxHeight: '400' }"
                         :label="label"
                         placeholder=" "

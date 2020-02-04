@@ -6,7 +6,7 @@
 
     <div class="leftSection d-none d-sm-none d-md-none d-lg-flex" :class="{'reg_frymo': isFrymo}">
       <logo class="logo" />
-      <p class="text text-center white--text" v-language:inner="'loginRegister_main_txt'"></p>
+      <p class="text text-center white--text">{{$t('loginRegister_main_txt')}}</p>
     </div>
 
     <div class="stepsSections">

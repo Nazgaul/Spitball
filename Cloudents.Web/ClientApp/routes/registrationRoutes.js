@@ -43,7 +43,7 @@ export const registrationRoutes = [
         beforeEnter: (to, from, next) => {
             //TODO why do we need this
             if(global.isAuth) {
-                next(false);
+                next('/feed');
             } else {
                 next();
             }
@@ -118,7 +118,7 @@ export const registrationRoutes = [
                         path: 'course',
                         name: routeName.RegisterCourseCollege,
                         meta: {nextStep: 'feed', backStep: routeName.RegisterUniversity},
-                        component: () => import(`../components/pages/authenticationPage/register/registerUniversity/registerUniversity.vue`)
+                        component: () => import(`../components/pages/authenticationPage/register/registerCourse/registerCourse.vue`)
                     },
                     {
                         path: '',
@@ -151,15 +151,14 @@ export const registrationRoutes = [
             //     }
             // },
         ],
-        // beforeEnter: (to, from, next) => {
-        //     debugger
-        //     if(global.isAuth) {
-        //         //TODO why do we need this
-        //         next(false);
-        //     } else {
-        //         next();
-        //     }
-        // }
+        beforeEnter: (to, from, next) => {
+            if(global.isAuth) {
+                //TODO why do we need this
+                next('/feed');
+            } else {
+                next();
+            }
+        }
     },
 
     {

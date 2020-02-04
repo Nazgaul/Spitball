@@ -139,4 +139,7 @@
   <data name="setemailpass_title" xml:space="preserve">
     <value>Personal details</value>
   </data>
+  <data name="welcome" xml:space="preserve">
+    <value>Welcome to Frymo</value>
+  </data>
 </root>

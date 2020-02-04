@@ -1,27 +1,28 @@
 <template>
     <form class="forgotPass" @submit.prevent="resetPass">
         <div class="top">
-            <p v-language:inner="'loginRegister_forgot_title'"/>
-            <span v-language:inner="'loginRegister_forgot_subtitle'"/>
+            <p>{{$t('loginRegister_forgot_title')}}</p>
+            <span>{{$t('loginRegister_forgot_subtitle')}}</span>
         </div>
 
         <sb-input 
-                v-model="email"
-                class="widther"
-                :errorMessage="errorMessages.email"
-				placeholder="loginRegister_setpass_input_email"
-				icon="sbf-email" 
-				:bottomError="true"
-				:autofocus="true" 
-				name="email" type="email"/>
-        <v-btn  :loading="isEmailLoading"
-                type="submit"
-                large rounded 
-                class="white--text btn-login">
-                <span v-language:inner="'loginRegister_forgot_btn'"></span>
-                </v-btn>
+            v-model="email"
+            class="widther"
+            :errorMessage="errorMessages.email"
+            placeholder="loginRegister_setpass_input_email"
+            icon="sbf-email" 
+            :bottomError="true"
+            :autofocus="true" 
+            name="email" type="email"/>
+        <v-btn  
+            :loading="isEmailLoading"
+            type="submit"
+            large rounded 
+            class="white--text btn-login">
+                <span>{{$t('loginRegister_forgot_btn')}}</span>
+        </v-btn>
 
-        <router-link class="bottom" :to="{name: 'setPassword'}" v-language:inner="'loginRegister_forgot_remember'"></router-link>
+        <router-link class="bottom" :to="{name: 'setPassword'}">{{$t('loginRegister_forgot_remember')}}</router-link>
         <!-- <span class="bottom" @click="goLogin" v-language:inner="'loginRegister_forgot_remember'"/> -->
     </form>
 </template>

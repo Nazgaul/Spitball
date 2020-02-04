@@ -2,9 +2,9 @@
   <form class="smsConfirmation" @submit.prevent="verifyPhone" autocomplete="off">
 
     <div class="top">
-      <p class="smsconfirm_title" v-language:inner="'loginRegister_smsconfirm_title'"></p>
+      <p class="smsconfirm_title">{{$t('loginRegister_smsconfirm_title')}}</p>
 		<span>
-			<span v-language:inner="'loginRegister_smsconfirm_subtitle'"/>
+			<span>{{$t('loginRegister_smsconfirm_subtitle')}}</span>
 			<bdi> {{userPhone}}</bdi>
 		</span>
     </div>
@@ -30,12 +30,12 @@
 			type="submit"
 			large rounded
 			class="white--text btn-login">
-				<span v-language:inner="'loginRegister_smsconfirm_btn'"></span>
+				<span>{{$t('loginRegister_smsconfirm_btn')}}</span>
 		</v-btn>
 
 		<div class="actions">
-			<div class="mb-sm-2 mb-4" @click="phoneCall" v-language:inner="'loginRegister_smsconfirm_call'"></div>
-			<div @click="numberChange" v-language:inner="'loginRegister_smsconfirm_change'"></div>
+			<div class="mb-sm-2 mb-4" @click="phoneCall">{{$t('loginRegister_smsconfirm_call')}}</div>
+			<div @click="numberChange">{{$t('loginRegister_smsconfirm_change')}}</div>
 		</div>
 	</div>
 
@@ -61,7 +61,8 @@ export default {
 		userPhone(){
 			if (this.getLocalCode) {
 				//todo this can be simplify due the use of bdi
-				return global.isRtl? `${this.getPhone} (${this.getLocalCode}+)` : `(+${this.getLocalCode}) ${this.getPhone}`
+				return `${this.getPhone} (${this.getLocalCode}+)`
+				// return global.isRtl? `${this.getPhone} (${this.getLocalCode}+)` : `(+${this.getLocalCode}) ${this.getPhone}`
 			}
 			//this can happen when getting the info from the server
 			return this.getPhone;

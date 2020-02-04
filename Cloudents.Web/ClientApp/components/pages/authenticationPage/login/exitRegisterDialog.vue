@@ -2,12 +2,12 @@
   <v-dialog :value="true" max-width="480px" :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
     <div class="exitRegisterDialog">
         <div class="text-wrap">
-            <div class="dialog-title" v-language:inner="'login_are_you_sure_you_want_to_exit'"/>
-            <div class="dialog-text" v-language:inner="'login_exiting_information1'"/>
+            <div class="dialog-title">{{$t('login_are_you_sure_you_want_to_exit')}}</div>
+            <div class="dialog-text">{{$t('login_exiting_information1')}}</div>
         </div>
         <div class="btns-wrap">
-            <v-btn @click="exit" class="dialog-btn white--text" height="40" rounded depressed color="#4c59ff" v-language:inner="'login_Exit'"></v-btn>
-            <v-btn @click="closeDialog" class="dialog-btn btn-cancel" color="white" height="40" rounded depressed v-language:inner="'login_text'"></v-btn>
+            <v-btn @click="exit" class="dialog-btn white--text" height="40" rounded depressed color="#4c59ff">{{$t('login_Exit')}}</v-btn>
+            <v-btn @click="closeDialog" class="dialog-btn btn-cancel" color="white" height="40" rounded depressed>{{$t('login_text')}}</v-btn>
         </div>
     </div>
    </v-dialog>
