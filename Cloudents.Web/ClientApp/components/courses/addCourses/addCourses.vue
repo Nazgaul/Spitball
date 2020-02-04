@@ -320,22 +320,21 @@
                 if(className.isFollowing) return;
                 this.addClass(className);
                 this.changeClassesToCachedClasses();
+                let self = this;
                 this.assignClasses(className.text).then(() => {
-                    if(this.isFromRegister) {
-                        this.$store.dispatch('updateStepValidation', true);
+                    if(self.isFromRegister) {
+                        self.$store.dispatch('updateStepValidation', true);
                         return
                     }
-                    if(this.isTutor){
-                            this.localSelectedClasses.forEach(course=>{
+                    if(self.isTutor){
+                            self.localSelectedClasses.forEach(course=>{
                                 universityService.teachCourse(course.text).then(()=>{
                                     course.isTeaching = true;
-                                    this.doneButtonLoading = false;
-                                    this.$router.push({name: 'editCourse'});
+                                    self.doneButtonLoading = false;
                                 })
                             });
                     }else{
-                        this.doneButtonLoading = false;
-                        this.$router.push({name: 'editCourse'});
+                        self.doneButtonLoading = false;
                     }
                 });
             },
