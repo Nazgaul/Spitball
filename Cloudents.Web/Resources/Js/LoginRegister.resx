@@ -326,7 +326,7 @@
     <comment>1</comment>
   </data>
   <data name="smsconfirm_change" xml:space="preserve">
-    <value>Change number &amp;amp; resend</value>
+    <value>Change number &amp; resend</value>
   </data>
   <data name="smsconfirm_input" xml:space="preserve">
     <value>Confirmation code</value>
