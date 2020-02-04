@@ -316,11 +316,6 @@ namespace Cloudents.Web.Api
             [FromServices] TelemetryClient client,
             CancellationToken token)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                client.TrackEvent("HomePageRequested");
-                return BadRequest();
-            }
             var userId = _userManager.GetLongUserId(User);
             var command = new SetUserGradeCommand(userId, model.Grade);
             await commandBus.DispatchAsync(command, token);
