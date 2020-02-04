@@ -141,6 +141,7 @@ export default {
   &.chat-studyRoom {
     right: 0 ;
     left: unset;
+    z-index: 201;
   }
   @media (max-width: @screen-xs) {
     width: 100%;
