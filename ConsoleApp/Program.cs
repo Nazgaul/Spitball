@@ -509,13 +509,21 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
         //    await uof.CommitAsync(default);
 
         //}
+     
+
+        
 
         private static async Task HadarMethod()
         {
-            var queryBus = _container.Resolve<IQueryBus>();
 
-            var query = new UserStudyRoomQuery(159039);
-            var t = await queryBus.QueryAsync(query, default);
+            var dapper = _container.Resolve<DapperRepository>();
+            var client = _container.Resolve<HttpClient>();
+            var deleteUni = new DeleteUniversityImage(dapper, client);
+            await deleteUni.DeleteBrokenUniversityImageAsync(default);
+            //var queryBus = _container.Resolve<IQueryBus>();
+
+            //var query = new UserStudyRoomQuery(159039);
+            //var t = await queryBus.QueryAsync(query, default);
             //await PopulateUsersImageName();
             //await commandBus.DispatchAsync(command2, default);
             //var deleteCommand = new SessionReconnectedCommand(id);
