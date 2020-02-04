@@ -50,5 +50,13 @@ export default {
         @media (max-width: @screen-xs) {
             height: 100%;   
         }
+
+
+        #registerButtons {
+            margin-bottom: 20px;
+            @media (max-width: @screen-xs) {
+                margin-bottom: unset;   
+            }
+        }
     }
 </style>

@@ -11,7 +11,7 @@
 
     <div class="stepsSections">
       <div class="gap d-none d-sm-flex"></div>
-      <div class="stepContainer">
+      <div class="stepContainer" :class="{'maxWidthCourseUni': dynamicClass}">
         <router-view></router-view>
       </div>
     </div>
@@ -34,7 +34,11 @@ export default {
     from: ""
   }),
   computed: {
-    ...mapGetters(["isFrymo"])
+    ...mapGetters(["isFrymo"]),
+
+    dynamicClass() {
+      return this.$route.meta.dynamicClass
+    }
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -139,6 +143,10 @@ export default {
       .v-input__append-inner {
         margin-top: 12px !important; // center icon, cuz custom height
       }
+
+      &.maxWidthCourseUni {
+        width: 746px;
+      }
     }
     .stepsSections{
       display: flex;
@@ -152,7 +160,7 @@ export default {
       }
       
       @media (max-width: @screen-xs) {
-        padding: 14px;
+        padding: 40px 14px 14px;
       }
       button{
         &.btn-login{

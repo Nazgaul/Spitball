@@ -142,7 +142,6 @@ export default {
             flex-grow: 0;
             .v-list-item__title {
                 color: #43425d;
-                font-weight: 600;
                 line-height: normal;
             }
             i {

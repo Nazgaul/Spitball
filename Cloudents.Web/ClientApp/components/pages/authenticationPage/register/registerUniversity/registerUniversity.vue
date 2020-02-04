@@ -21,11 +21,17 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../../../../styles/mixin';
+
 #registerUniversity {
     .university_title {
         font-size: 26px;
         font-weight: 600;
         margin-bottom: 60px;
+
+        @media (max-width: @screen-xs) {
+            margin-bottom: 30px;
+        }
     }
 
     .add-university-wrap {
