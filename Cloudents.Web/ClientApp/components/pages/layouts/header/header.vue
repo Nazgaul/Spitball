@@ -197,6 +197,9 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
             }
         );
         },
+        goLogin(){
+            this.$router.push({path:'/signin'});
+        }
     },
     created() {
         this.$root.$on("closeDrawer", ()=>{

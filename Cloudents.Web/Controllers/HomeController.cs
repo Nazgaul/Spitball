@@ -15,6 +15,8 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Cloudents.Web.Controllers
 {
@@ -23,10 +25,12 @@ namespace Cloudents.Web.Controllers
     {
         internal const string Referral = "referral";
         private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
-        public HomeController(SignInManager<User> signInManager)
+        public HomeController(SignInManager<User> signInManager, UserManager<User> userManager)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         //Any got issue with auth vs no auth. need to fix this.
@@ -143,6 +147,37 @@ namespace Cloudents.Web.Controllers
                 logger.TrackTrace("Credit Card Process Failed", values);
             }
             return View("Processing", model);
+        }
+
+
+        [Route("google")]
+        public async Task<IActionResult> GoogleSigninAndroidAsync(string token,
+            [FromServices] IGoogleAuth service,
+            [FromServices] IDataProtectionProvider dataProtectProvider,
+            CancellationToken cancellationToken
+            )
+        {
+            var result = await service.LogInAsync(token, cancellationToken);
+            if (result == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
+
+            var user2 = await _userManager.FindByEmailAsync(result.Email);
+            var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
+            var code = dataProtector.Protect(user2.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+
+            return Ok(new
+            {
+                url = Url.Action("Index", new
+                {
+                    token = code
+                })
+            });
+
+
         }
     }
 }

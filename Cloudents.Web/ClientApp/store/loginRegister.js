@@ -212,6 +212,10 @@ const actions = {
         commit('setStepValidation', val);
     },
     googleSigning({dispatch, commit, state}) {
+        if (Android) {
+            Android.onLogin();
+            return;
+        }
         let authInstance = gapi.auth2.getAuthInstance();
 
         return authInstance.signIn().then((googleUser) => {
