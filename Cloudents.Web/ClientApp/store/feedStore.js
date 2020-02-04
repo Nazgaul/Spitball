@@ -23,7 +23,7 @@ const getters = {
         }
         return filters;
     },
-    Feeds_getCurrentQuery (state, getters, rootState, rootGetters)   {
+    Feeds_getCurrentQuery (rootState)   {
         let route = rootState.route;
         return {
             filter : route.query.filter || emptyStateSelection,
@@ -93,7 +93,7 @@ const actions = {
     Feeds_updateData({commit}, data) {
         commit('Feeds_UpdateItems', data);
     },
-    Feeds_fetchingData({state, commit, dispatch}, {params}) {
+    Feeds_fetchingData({commit, dispatch}, {params}) {
         dispatch('Feeds_updateDataLoaded', false);
         commit('UPDATE_LOADING',true);
         commit('Feeds_ResetQue');
