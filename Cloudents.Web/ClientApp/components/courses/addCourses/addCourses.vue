@@ -263,7 +263,11 @@
                 });
             },
             goEditCourse() {
-                this.$router.push({name: 'editCourse'});
+                if(this.localSelectedClasses.length) {
+                    this.$router.push({name: 'editCourse'});
+                } else {
+                    this.$router.push({name: 'feed'});
+                }
             },
             // submitAndGo() {
             //     //assign all saved in cached list to classes list
