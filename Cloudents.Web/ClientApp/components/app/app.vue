@@ -18,6 +18,8 @@
           </span>
         </div>
 
+        <dialogInjection class="dialogInjection" />
+
         <sb-dialog
           :showDialog="loginDialogState"
           :popUpType="'loginPop'"
@@ -129,6 +131,7 @@
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 
+const dialogInjection = () => import('../pages/global/dialogInjection/dialogInjection.vue');
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const loginToAnswer = () => import("../question/helpers/loginToAnswer/login-answer.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
@@ -156,7 +159,8 @@ export default {
     buyTokenFrymo,
     becomeTutor,
     tutorRequest,
-    paymentDialog
+    paymentDialog,
+    dialogInjection
   },
   data() {
     return {

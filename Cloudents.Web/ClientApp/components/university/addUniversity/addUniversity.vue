@@ -8,11 +8,13 @@
                 </div>
 
             </v-flex>
-            <v-flex shrink>
-                <v-btn rounded class="elevation-0 done-btn mx-2 py-1 font-weight-bold my-0" @click="getOut()" sel="uni_done">
-                    <span class="text-capitalize" v-language:inner>university_not_student_btn</span>
-                </v-btn>
-            </v-flex>
+            <slot name="fromRegister">
+                <v-flex shrink>
+                    <v-btn rounded class="elevation-0 done-btn mx-2 py-1 font-weight-bold my-0" @click="getOut()" sel="uni_done">
+                        <span class="text-capitalize" v-language:inner>university_not_student_btn</span>
+                    </v-btn>
+                </v-flex>
+            </slot>
         </v-layout>
         <v-layout column :class="{'px-4' : $vuetify.breakpoint.smAndUp}">
             <v-flex>
@@ -37,9 +39,9 @@
             <v-flex v-if="showBox">
                 <div class="university-list" id="university-list">
                     <div class="list-item subtitle-1 cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
-                         v-for="(singleUni, index) in universities"
-                         @click="selectUniversity(singleUni)" 
-                         :key="index">
+                        v-for="(singleUni, index) in universities"
+                        @click="selectUniversity(singleUni)" 
+                        :key="index">
                         <v-layout shrink>
                             <v-flex xs1  >
                                 <span class="uni-logo">
@@ -127,6 +129,9 @@
                     this.universityModel = newValue;
                     this.setSchoolName(newValue)
                 }
+            },
+            isFromRegister() {
+                return this.$route.name === 'addUniversity';
             }
         },
         methods: {
@@ -226,13 +231,20 @@
                     //new if changed
                     this.updateSchoolName(objToSend)
                         .then(() => {
+                            if(!this.isFromRegister) {
+                                this.$store.dispatch('updateStepValidation', true);
+                            } else {
                                 this.UPDATE_SEARCH_LOADING(true);
                                 this.getOut();
-                              },
-                              (error) => {
-                                  console.log('error', error);
-                              }
-                        );
+                            }
+                            },
+                            (error) => {
+                                console.log('error', error);
+                                if(!this.isFromRegister) {
+                                    this.$store.dispatch('updateStepValidation', false);
+                                }
+                            }
+                        )
                 } else {
                     //skip if not
                     this.getOut();
@@ -279,6 +291,7 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
     .add-university-wrap {
+        width: 746px;
         .scrollBarStyle(6px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
         .rounded {
             border-radius: 50%;
@@ -339,6 +352,7 @@
             max-height: 664px;
             padding-left: 0;
             overflow-y: auto;
+
         }
         .students-enrolled {
             color: rgba(128, 128, 128, 0.87);
@@ -369,6 +383,10 @@
             font-size: 8px !important;
             margin-bottom: 3px;
             margin-left: 8px;
+        }
+
+        &.fromRegister {
+            width: 440px;
         }
     }
 

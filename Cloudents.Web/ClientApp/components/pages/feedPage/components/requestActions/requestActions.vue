@@ -39,7 +39,7 @@ export default {
   name: "requestActions",
   components: {uStudy, rTutor, aQuestion },
   computed: {
-    ...mapGetters(["accountUser", "getSchoolName", "getSelectedClasses"]),
+    ...mapGetters(["accountUser", "getSelectedClasses"]),
     userImageUrl() {
       if (this.accountUser && this.accountUser.image.length > 1) {
         return `${this.accountUser.image}`;
@@ -78,16 +78,14 @@ export default {
       }
     },
     openUpload() {
-      let schoolName = this.getSchoolName;
       if (this.accountUser == null) {
         this.updateLoginDialogState(true);
-      } else if (!schoolName.length) {
-        this.$router.push({ name: "addUniversity" });
-        this.setReturnToUpload(true);
-      } else if (!this.getSelectedClasses.length) {
+      } 
+      else if (!this.getSelectedClasses.length) {
         this.$router.push({ name: "addCourse" });
         this.setReturnToUpload(true);
-      } else if (schoolName.length > 0 && this.getSelectedClasses.length > 0) {
+      } 
+      else if (this.getSelectedClasses.length > 0) {
         this.updateDialogState(true);
         this.setReturnToUpload(false);
       }
@@ -101,15 +99,11 @@ export default {
         });
         this.updateRequestDialog(true);
       } else {
-        // if (this.getSelectedClasses.length) {
         this.setTutorRequestAnalyticsOpenedFrom({
           component: "actionBox",
           path: this.$route.path
         });
         this.updateRequestDialog(true);
-        // } else {
-        //   this.$router.push({ name: "addCourse" });
-        // }
       }
     }
   }

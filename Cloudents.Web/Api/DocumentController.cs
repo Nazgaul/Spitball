@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Web.Resources.Resources;
 using Wangkanai.Detection;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
@@ -144,7 +145,6 @@ namespace Cloudents.Web.Api
         [ProducesDefaultResponseType]
         public async Task<IActionResult> VoteAsync([FromBody]
             AddVoteDocumentRequest model,
-            [FromServices] IStringLocalizer<SharedResource> resource,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
@@ -159,12 +159,7 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), "Cannot vote twice");
                 return BadRequest(ModelState);
             }
-            catch (NoEnoughScoreException)
-            {
-                string voteMessage = resource[$"{model.VoteType:G}VoteError"];
-                ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), voteMessage);
-                return BadRequest(ModelState);
-            }
+          
             catch (UnauthorizedAccessException)
             {
                 ModelState.AddModelError(nameof(AddVoteDocumentRequest.Id), _localizer["VoteCantVote"]);

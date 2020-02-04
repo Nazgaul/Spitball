@@ -1,45 +1,54 @@
 <template>
     <div class="add-courses-wrap">
-        <v-layout :class="[$vuetify.breakpoint.smAndUp ? 'py-6 px-6': 'grey-backgound pa-2']" align-center
-                  justify-center>
-            <v-flex grow xs8>
+        <v-layout :class="[$vuetify.breakpoint.smAndUp ? 'py-6 px-6': 'grey-backgound pa-2']" align-center justify-center>
+            <v-flex grow xs12>
                 <div class="d-inline-flex justify-center shrink add-courses-wrap-title">
-                    <v-icon @click="goToEditCourses()" class="course-back-btn mr-4">sbf-arrow-back</v-icon>
-                    <span class="font-weight-bold" v-language:inner>courses_join</span>
+                    <slot name="fromRegisterBtn">
+                        <v-icon @click="goToEditCourses()" class="course-back-btn mr-4">sbf-arrow-back</v-icon>
+                    </slot>
+                    <slot name="fromRegisterTitle">
+                        <span class="font-weight-bold" v-language:inner="'courses_join'"></span>
+                    </slot>
                     <span class="subtitle-1 font-weight-bold" v-if="quantatySelected">&nbsp;({{quantatySelected}})</span>
                 </div>
+            </v-flex>
 
-            </v-flex>
-            <v-flex xs4 shrink class="d-flex justify-end">
+            <!-- THIS IS THE "DONE" button -->
+            <!-- <v-flex xs4 shrink class="d-flex justify-end">
                 <v-btn sel="done_add_courses" depressed rounded :disabled="localSelectedClasses.length === 0" :loading="doneButtonLoading" class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
-                    <span v-language:inner>courses_btn_done</span>
+                    <span v-language:inner="'courses_btn_done'"></span>
                 </v-btn>
-            </v-flex>
+            </v-flex> -->
         </v-layout>
+
         <v-layout column :class="{'px-3' : $vuetify.breakpoint.smAndUp}">
             <v-flex>
-                <v-text-field id="classes_input" sel="course_search"
-                              v-model="search"
-                              class="class-input"
-                              ref="classInput"
-                              solo
-                              prepend-inner-icon="sbf-search"
-                              :placeholder="classNamePlaceholder"
-                              autocomplete="off"
-                              autofocus
-                              spellcheck="true"
-                              hide-details
-
+                <v-text-field 
+                    id="classes_input"
+                    sel="course_search"
+                    v-model="search"
+                    class="class-input"
+                    ref="classInput"
+                    solo
+                    prepend-inner-icon="sbf-search"
+                    :placeholder="classNamePlaceholder"
+                    autocomplete="off"
+                    autofocus
+                    spellcheck="true"
+                    hide-details
                 ></v-text-field>
             </v-flex>
             <v-flex v-show="quantatySelected" transition="fade-transition" style="position: relative">
-                <div :class="['selected-classes-container', showBox ? 'mt-0': 'spaceTop' ]">
+                <div class="selected-classes-container mt-0">
                     <div class="class-list selected-classes-list pa-4"
                          ref="listCourse">
-                        <div class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-4 pr-1  py-1 mr-2"
-                             v-for="(selectedClass, index) in localSelectedClasses" :key="index">
+                        <div 
+                            class="selected-class-item d-inline-flex text-truncate font-weight-bold align-center justify-center pl-4 pr-1 py-1 mr-2"
+                            v-for="(selectedClass, index) in localSelectedClasses"
+                            :key="index"
+                        >
                             <span class="text-truncate">{{selectedClass.text}}</span>
-                            <span class="delete-class cursor-pointer pr-4" @click="deleteClass(selectedClass, selectedClasses)">
+                            <span class="delete-class cursor-pointer pr-4" @click="deleteSelectedClass(selectedClass, selectedClasses)">
                                 <v-icon color="white">sbf-close</v-icon>
                             </span>
                         </div>
@@ -47,16 +56,19 @@
                 </div>
             </v-flex>
         </v-layout>
+
         <v-layout align-center class="mt-4 px-2" wrap>
             <v-flex v-if="!classes && !classes.length" xs12 class="text-center">
-                <div>
-                    <v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>
-                </div>
+                <div><v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular></div>
             </v-flex>
-            <v-flex v-if="showBox">
+            <v-flex>
                 <div class="class-list search-classes-list" id="search-classes-list">
-                    <div class="list-item subtitle-1 search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
-                         v-for="(singleClass, index) in classes" :key="index" @click="singleClass.isSelected ? deleteClass(singleClass, selectedClasses) : addClass(singleClass, classes)">
+                    <div 
+                        class="list-item subtitle-1 search-class-item cursor-pointer mx-2 justify-space-between align-center font-weight-regular"
+                         v-for="(singleClass, index) in classes"
+                         :key="index"
+                         @click="singleClass.isSelected ? deleteSelectedClass(singleClass, selectedClasses) : submitCourse(singleClass)"
+                    >
                         <v-layout column class="pl-4 limit-width">
                             <v-flex shrink class="course-name-wrap">
                                 <div v-html="$options.filters.boldText(singleClass.text, search)">
@@ -65,44 +77,34 @@
                             </v-flex>
                             <v-flex class="students-enrolled pt-1">
                                 {{singleClass.students}}
-                                <span class="students-enrolled" v-language:inner>courses_students</span>
+                                <span class="students-enrolled" v-language:inner="'courses_students'"></span>
                             </v-flex>
                         </v-layout>
+
                         <v-layout align-center justify-end class="minimize-width">
                             <div v-if="!singleClass.isFollowing">
                                 <v-flex shrink v-if="singleClass.isSelected" class="d-flex align-center">
-                                    <span class="light-purple caption font-weight-medium mr-2"
-                                          v-html="$Ph('courses_joined')"></span>
-                                    <span>
-
-                                     <v-icon class="checked-icon">sbf-check-circle</v-icon>
-                                   </span>
+                                    <span class="light-purple caption font-weight-medium mr-2" v-html="$Ph('courses_joined')"></span>
+                                    <span><v-icon class="checked-icon">sbf-check-circle</v-icon></span>
                                 </v-flex>
                                 <v-flex shrink v-else class="d-flex align-center">
-                                    <span class="light-purple caption font-weight-medium mr-2"
-                                          v-html="$Ph('courses_join')"></span>
-                                    <span>
-
-                                     <v-icon class="cursor-pointer add-sbf-icon">sbf-plus-circle</v-icon>
-                                   </span>
+                                    <span class="light-purple caption font-weight-medium mr-2" v-html="$Ph('courses_join')"></span>
+                                    <span><v-icon class="cursor-pointer add-sbf-icon">sbf-plus-circle</v-icon></span>
                                 </v-flex>
                             </div>
                             <v-flex v-else shrink class="d-flex align-end">
-                                <span class="light-purple caption font-weight-medium mr-2"
-                                      v-html="$Ph('courses_joined')"></span>
+                                <span class="light-purple caption font-weight-medium mr-2" v-html="$Ph('courses_joined')"></span>
                             </v-flex>
                         </v-layout>
                     </div>
                     <!--create new course-->
-                    <v-flex class="text-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer"
-                            @click="openCreateDialog(true)">
-                        <span v-language:inner>courses_cant_find</span>
-                        <span class="pl-1 add-item" v-language:inner>courses_create_new</span>
+                    <v-flex class="text-center align-center justify-center cant-find py-2 px-2 caption cursor-pointer" @click="openCreateDialog(true)">
+                        <span v-language:inner="'courses_cant_find'"></span>
+                        <span class="pl-1 add-item" v-language:inner="'courses_create_new'"></span>
                     </v-flex>
                 </div>
             </v-flex>
         </v-layout>
-
     </div>
 </template>
 
@@ -120,15 +122,12 @@
                 isComplete: false,
                 page: 0,
                 term: '',
-                classNamePlaceholder: LanguageService.getValueByKey(
-                    "courses_placeholder_find"
-                ),
-                global: global,
+                classNamePlaceholder: LanguageService.getValueByKey("courses_placeholder_find"),
                 localSelectedClasses: [],
+                // selectedClass: '',
                 doneButtonLoading: false
             };
         },
-
         watch: {
             search: debounce(function (val) {
                 let searchVal = '';
@@ -141,23 +140,20 @@
             }, 500)
         },
         computed: {
-            ...mapGetters(["getSelectedClasses", "accountUser"]),
+            ...mapGetters(["getSelectedClasses", "accountUser", "getClasses"]),
+
             isTutor(){
-                return this.accountUser.isTutor;
+                return this.accountUser?.isTutor;
             },
             quantatySelected() {
                 return this.selectedClasses.length;
             },
-
-            showBox() {
-                return true
-                    // return !!this.search && this.search.length > 0;
-            },
             classes() {
-                let classesList = this.getClasses();
+                let classesList = this.getClasses;
                 if(this.localSelectedClasses.length > 0) {
                     this.localSelectedClasses.forEach((item) => {
-                        for (let i = 0; i < classesList.length; i++) {
+                        let i;
+                        for (i = 0; i < classesList.length; i++) {
                             if(classesList[i].text === item.text) {
                                 classesList[i]['isSelected'] = true;
                             }
@@ -165,7 +161,6 @@
                     });
                 }
                 return classesList;
-
             },
             selectedClasses: {
                 get() {
@@ -176,7 +171,7 @@
                     if(val.length > 0) {
                         arrValidData = val.filter(singleClass => {
                             if(singleClass.text) {
-                                return singleClass.text.length > 3;
+                                return singleClass.text.lengtth > 3;
                             } else {
                                 return singleClass.length > 3;
                             }
@@ -185,22 +180,24 @@
                     this.localSelectedClasses.push(arrValidData);
                     this.updateSelectedClasses(arrValidData);
                 }
+            },
+            isFromRegister() {
+                return this.$route.name !== 'addUniversity'
             }
         },
         methods: {
             ...mapActions([
-                              "updateClasses",
-                              "updateSelectedClasses",
-                              "assignClasses",
-                              "pushClassToSelectedClasses",
-                              "changeClassesToCachedClasses",
-                              "addToCachedClasses",
-                              "changeCreateDialogState",
-                              "removeFromCached",
-                              "addClasses",
-                              "clearClassesCahce"
-                          ]),
-            ...mapGetters(["getClasses"]),
+                "updateClasses",
+                "updateSelectedClasses",
+                "assignClasses",
+                "changeClassesToCachedClasses",
+                "addToCachedClasses",
+                "changeCreateDialogState",
+                "removeFromCached",
+                "addClasses",
+                "clearClassesCahce",
+                "deleteClass"
+            ]),
             ...mapMutations(['UPDATE_SEARCH_LOADING','setSearchedCourse']),
             openCreateDialog(val){
                 this.setSearchedCourse(this.search)
@@ -264,11 +261,66 @@
                     self.isComplete = true;
                 });
             },
-            submitAndGo() {
-                //assign all saved in cached list to classes list
+            // submitAndGo() {
+            //     //assign all saved in cached list to classes list
+            //     this.changeClassesToCachedClasses();
+            //     this.doneButtonLoading = true;
+            //     this.assignClasses(this.localSelectedClasses).then(() => {
+            //         if(this.isTutor){
+            //                 this.localSelectedClasses.forEach(course=>{
+            //                     universityService.teachCourse(course.text).then(()=>{
+            //                         course.isTeaching = true;
+            //                         this.doneButtonLoading = false;
+            //                         this.$router.push({name: 'editCourse'});
+            //                     })
+            //                 });
+            //         }else{
+            //             this.doneButtonLoading = false;
+            //             this.$router.push({name: 'editCourse'});
+            //         }
+                    
+            //     });
+            // },
+            deleteSelectedClass(classToDelete, from) {
+                let index = from.indexOf(classToDelete);
+                from.splice(index, 1);
+                //clean from cached list and request new list, and refresh data
+                this.removeFromCached(classToDelete);
+                let paramObj = {term: this.search, page: 0};
+                if(this.isFromRegister) {
+                    this.removeClasses(classToDelete, paramObj)
+                    if(!this.localSelectedClasses.length) {
+                        this.$store.dispatch('updateStepValidation', false)
+                    }
+                    return
+                } 
+                this.loadCourses(paramObj);
+
+            },
+            checkAsSelected(classToCheck, from) {
+                let index = from.indexOf(classToCheck);
+                from[index].isSelected = true;
+            },
+            addClass(className) {
+                this.localSelectedClasses.push(className);
+                //add to cached list
+                this.addToCachedClasses(className);
+                setTimeout(() => {
+                    let inputElm = this.$refs.classInput;
+                    // inputElm.value = "";
+                    inputElm.focus();
+                }, 200);
+                this.checkAsSelected(className, this.classes);
+            },
+            submitCourse(className) {
+                if(className.isFollowing) return;
+                this.addClass(className);
                 this.changeClassesToCachedClasses();
-                this.doneButtonLoading = true;
-                this.assignClasses(this.localSelectedClasses).then(() => {
+                this.assignClasses(className.text).then(() => {
+                    if(this.isFromRegister) {
+                        this.$store.dispatch('updateStepValidation', true);
+                        return
+                    }
                     if(this.isTutor){
                             this.localSelectedClasses.forEach(course=>{
                                 universityService.teachCourse(course.text).then(()=>{
@@ -281,34 +333,13 @@
                         this.doneButtonLoading = false;
                         this.$router.push({name: 'editCourse'});
                     }
-                    
                 });
             },
-            deleteClass(classToDelete, from) {
-                let index = from.indexOf(classToDelete);
-                from.splice(index, 1);
-                //clean from cached list and request new list, and refresh data
-                this.removeFromCached(classToDelete);
-                let paramObj = {term: this.search, page: 0};
-                this.loadCourses(paramObj);
-
-            },
-            checkAsSelected(classToCheck, from) {
-                let index = from.indexOf(classToCheck);
-                from[index].isSelected = true;
-            },
-            addClass(className) {
-                if(className.isFollowing)return;
-                this.localSelectedClasses.push(className);
-                //add to cached list
-                this.addToCachedClasses(className);
-                setTimeout(() => {
-                    let inputElm = this.$refs.classInput;
-                    // inputElm.value = "";
-                    inputElm.focus();
-                }, 200);
-                this.checkAsSelected(className, this.classes);
-            },
+            removeClasses(className, paramObj) {
+                this.deleteClass(className.text).then(() => {
+                    this.loadCourses(paramObj);
+                })
+            }
         },
         created() {
             let paramObj = {term: this.term, page: 0};

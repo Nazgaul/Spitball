@@ -134,7 +134,7 @@
     <comment>1</comment>
   </data>
   <data name="emailconfirm_bottom" xml:space="preserve">
-    <value>You will be able to log in to Spitball only after email activation</value>
+    <value>Once you verify your email address, you'll be able to access Spitball services</value>
     <comment>1</comment>
   </data>
   <data name="emailconfirm_bottom_reset" xml:space="preserve">
@@ -158,7 +158,7 @@
     <comment>1</comment>
   </data>
   <data name="emailconfirm_title" xml:space="preserve">
-    <value>We sent you an activation email</value>
+    <value>We have sent you an activation email to:</value>
     <comment>1</comment>
   </data>
   <data name="emailconfirm_title_reset" xml:space="preserve">
@@ -240,7 +240,7 @@
     <comment>1</comment>
   </data>
   <data name="getstarted_title" xml:space="preserve">
-    <value>Register now to Spitball</value>
+    <value>Get started absolutly for free</value>
     <comment>1</comment>
   </data>
   <data name="resetpass_btn" xml:space="preserve">
@@ -263,11 +263,11 @@
     <comment>1</comment>
   </data>
   <data name="setemailpass_input_email" xml:space="preserve">
-    <value>Enter your email</value>
+    <value>Email address</value>
     <comment>1</comment>
   </data>
   <data name="setemailpass_input_pass" xml:space="preserve">
-    <value>Create password ( Use 8 characters or more )</value>
+    <value>Password</value>
     <comment>1</comment>
   </data>
   <data name="setemailpass_input_passconfirm" xml:space="preserve">
@@ -275,7 +275,7 @@
     <comment>1</comment>
   </data>
   <data name="setemailpass_title" xml:space="preserve">
-    <value>Enter personal details</value>
+    <value>Personal details</value>
     <comment>1</comment>
   </data>
   <data name="setemail_btn" xml:space="preserve">
@@ -283,7 +283,7 @@
     <comment>1</comment>
   </data>
   <data name="setemail_input" xml:space="preserve">
-    <value>Enter your email</value>
+    <value>Email address</value>
     <comment>1</comment>
   </data>
   <data name="setemail_title" xml:space="preserve">
@@ -298,7 +298,7 @@
     <comment>1</comment>
   </data>
   <data name="setpass_input_email" xml:space="preserve">
-    <value>Enter your email</value>
+    <value>Email address</value>
     <comment>1</comment>
   </data>
   <data name="setpass_input_pass" xml:space="preserve">
@@ -310,11 +310,11 @@
     <comment>1</comment>
   </data>
   <data name="setphone_input" xml:space="preserve">
-    <value>Enter phone number</value>
+    <value>Phone number</value>
     <comment>1</comment>
   </data>
   <data name="setphone_title" xml:space="preserve">
-    <value>Get SMS confirmation code</value>
+    <value>Account recovery</value>
     <comment>1</comment>
   </data>
   <data name="smsconfirm_btn" xml:space="preserve">
@@ -329,7 +329,7 @@
     <value>Change number &amp;amp; resend</value>
   </data>
   <data name="smsconfirm_input" xml:space="preserve">
-    <value>Enter confirmation code</value>
+    <value>Confirmation code</value>
     <comment>1</comment>
   </data>
   <data name="smsconfirm_phone_error" xml:space="preserve">
@@ -345,11 +345,11 @@
     <comment>1</comment>
   </data>
   <data name="smsconfirm_subtitle" xml:space="preserve">
-    <value>sent to this number</value>
+    <value>A verification code was sent to your phone:</value>
     <comment>1</comment>
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
-    <value>Enter confirmation code</value>
+    <value>Secure your number !</value>
     <comment>1</comment>
   </data>
   <data name="main_txt" xml:space="preserve">
@@ -362,9 +362,39 @@ tutors</value>
     <value>Welcome back. Please login</value>
   </data>
   <data name="setemailpass_first" xml:space="preserve">
-    <value>Enter First Name</value>
+    <value>First Name</value>
   </data>
   <data name="setemailpass_last" xml:space="preserve">
-    <value>Enter Last Name</value>
+    <value>Last Name</value>
+  </data>
+  <data name="know_better" xml:space="preserve">
+    <value>We would like to know you better</value>
+  </data>
+  <data name="parent" xml:space="preserve">
+    <value>I'm a parent</value>
+  </data>
+  <data name="student" xml:space="preserve">
+    <value>I'm a student</value>
+  </data>
+  <data name="teacher" xml:space="preserve">
+    <value>I'm a teacher</value>
+  </data>
+  <data name="welcome" xml:space="preserve">
+    <value>Welcome to Spitball</value>
+  </data>
+  <data name="setemailpass_female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="setemailpass_male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="countryCode" xml:space="preserve">
+    <value>Country code</value>
+  </data>
+  <data name="college" xml:space="preserve">
+    <value>A College Student</value>
+  </data>
+  <data name="highSchool" xml:space="preserve">
+    <value>A High school student</value>
   </data>
 </root>

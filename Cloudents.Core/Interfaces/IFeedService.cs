@@ -8,7 +8,6 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IFeedService
     {
-        //IEnumerable<FeedDto> SortFeed(IList<FeedDto> itemsFeed, IList<TutorCardDto> tutorsFeed, int page);
         Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedQuery query, CancellationToken token);
 
         Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedWithCourseQuery query, CancellationToken token);

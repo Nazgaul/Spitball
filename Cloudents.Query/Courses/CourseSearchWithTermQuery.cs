@@ -33,9 +33,12 @@ namespace Cloudents.Query.Courses
 
             public async Task<IEnumerable<CourseDto>> GetAsync(CourseSearchWithTermQuery query, CancellationToken token)
             {
-                const int pageSize = 50;
+                const int pageSize = 30;
                 const string sql =
                             @"     
+declare @schoolType nvarchar(50) = (select case when UserType = 'University' then 'University'
+										when UserType is null then null
+										else 'HighSchool' end from sb.[user] where Id = @Id);
 Select @Term =  '""*' + @Term+ '*""'; 
 
 select Name,
@@ -46,6 +49,9 @@ select Name,
 	                            on c.Name = uc.CourseId and uc.UserId = @Id
                              where Contains(Name,  @Term)
 							and State = 'OK'
+							and ( c.SchoolType = @schoolType 
+							or (@schoolType = 'University' and c.SchoolType is null)
+							or @schoolType is null )
                             order by case when uc.CourseId is not null
                                     then 1 else null end desc,
 									c.count desc

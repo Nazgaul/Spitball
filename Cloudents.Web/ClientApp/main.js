@@ -12,6 +12,7 @@ import VueAppInsights from 'vue-application-insights';
 import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
 import VueFlicking from "@egjs/vue-flicking";
 import '../ClientApp/myFont.font.js';
+import {i18n, loadLanguageAsync } from './plugins/t-i18n'
 if(!window.IntersectionObserver){ // Intersection observer support
     import('intersection-observer')   
 }
@@ -158,24 +159,28 @@ router.beforeEach((to, from, next) => {
     store.dispatch('setRouteStack', to.name);
     store.dispatch('sendQueryToAnalytic', to);
     store.dispatch('changeLastActiveRoute', from);
-    checkUserStatus(to, next);
+    store.dispatch('userStatus', {isRequireAuth: to.meta.requiresAuth, to});
+    if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
+        next("/signin");
+        return;
+    } 
+
+    
+    loadLanguageAsync().then(() => {
+       next();
+    });
 });
+sync(store, router);
 const app = new Vue({
     //el: "#app",
     router: router,
     store,
     vuetify,
+    i18n,
     render: h => h(App),
 });
 
-function checkUserStatus(to, next) {
-    store.dispatch('userStatus', {isRequireAuth: to.meta.requiresAuth, to});
-    if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
-        next("/signin");
-    } else {
-        next();
-    }
-}
+
 
 global.isMobileAgent = function () {
     let check = false;
@@ -211,7 +216,7 @@ if(touchSupported){
 //This is for cdn fallback do not touch
 
 //injects the route to the store via the rootState.route
-sync(store, router);
+
 utilitiesService.init();
 
 
