@@ -12,6 +12,10 @@
                     {{$t('register_addCourse_title')}}
                 </span>
             </template>
+
+            <template #fromRegisterDoneBtn>
+                <span></span>
+            </template>
         </courses>
     </div>
 </template>
