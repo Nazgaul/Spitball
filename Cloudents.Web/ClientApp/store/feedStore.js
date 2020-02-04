@@ -12,7 +12,6 @@ const getters = {
     Feeds_getItems: (state, {getIsLoading, getSearchLoading}) => {
         return (getIsLoading || getSearchLoading) ? state.dataLoaded : state.items.data;
     },
-    Feeds_getNextPageUrl: (state) =>  state.items.nextPage,
     Feeds_getFilters: (state) => {
         let x = state.items.filters || [];
         let filters = x || [];
@@ -43,7 +42,6 @@ const mutations = {
     },
     Feeds_UpdateItems(state, data) {
         state.items.data = state.items.data.concat(data.data);
-        state.items.nextPage = data.nextPage;
     },
     Feeds_ResetQue(state) {
         state.queItems = [];

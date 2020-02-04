@@ -71,7 +71,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(['Feeds_getNextPageUrl','Feeds_getItems','Feeds_getFilters','Feeds_getCurrentQuery']),
+        ...mapGetters(['Feeds_getItems','Feeds_getFilters','Feeds_getCurrentQuery']),
         items(){
             return this.Feeds_getItems
         },
@@ -83,6 +83,7 @@ export default {
         Feeds_getCurrentQuery:{
             immediate:true,
             handler(newVal,oldVal){
+                this.scrollBehaviour.page = 1;
                 this.query.filter = this.Feeds_getCurrentQuery.filter
                 if(JSON.stringify(newVal) !== JSON.stringify(oldVal)){
                     this.scrollBehaviour.isComplete = true;
@@ -98,8 +99,8 @@ export default {
         ...mapActions(['Feeds_fetchingData','Feeds_nextPage']),
         scrollFunc(){
             this.scrollBehaviour.isLoading = true;
-            let nextPageUrl = this.Feeds_getNextPageUrl;
-
+            let nextPageQuery = {...this.$route.query,page: this.scrollBehaviour.page}
+            let nextPageUrl = 'api/feed?'+ Object.keys(nextPageQuery).map(key => key + '=' + nextPageQuery[key]).join('&')
             if(!nextPageUrl) return this.scrollBehaviour.isLoading = false;
 
             this.Feeds_nextPage({url: nextPageUrl}).then((res) => {
@@ -108,6 +109,7 @@ export default {
                 } else {
                     this.scrollBehaviour.isComplete = true;
                 }
+                this.scrollBehaviour.page++
             }).catch(() => {
                 this.scrollBehaviour.isComplete = true;
             });
@@ -133,10 +135,10 @@ export default {
                 ...this.query,
             }
             this.$router.push({name:'feed',query:{...objParams}})
+            this.scrollBehaviour.page = 1;
         },
         getSelectedName(item){
             return this.dictionary[item.key]
-            // console.log(e)
         }
     },
 };

@@ -146,10 +146,8 @@ let transferResult = ({data}) => {
     });
 
     return {
-        sort: data.sort || '',
         filters: data.filters,
         data: documents,
-        nextPage: data.nextPageLink
     };
 };
 
