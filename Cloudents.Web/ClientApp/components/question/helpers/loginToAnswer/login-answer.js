@@ -6,7 +6,7 @@ export default {
     data: function () {
         return {};
     },
-    computed: {
+computed: {
         ...mapGetters({
             loginDialogState: 'loginDialogState',
         })
@@ -19,13 +19,11 @@ export default {
         },
         goToRegister(){
             this.requestDialogClose();
-            this.$router.push({path: '/register', query:{returnUrl : this.$route.path}});
-
+            this.$router.push({name: 'register', query:{returnUrl : this.$route.path}});
         },
         goToSignIn(){
             this.requestDialogClose();
-            this.$router.push({path: '/signin', query:{returnUrl : this.$route.path}});
-
+            this.$router.push({name: 'login', query:{returnUrl : this.$route.path}});
         }
     },
 

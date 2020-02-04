@@ -27,6 +27,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
+using Cloudents.Command.Command;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudmersive.APIClient.NET.DocumentAndDataConvert.Api;
 
@@ -54,7 +55,8 @@ namespace ConsoleApp
                     {
                         SiteEndPoint = { SpitballSite = "https://dev.spitball.co" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
-                            ConfigurationManager.AppSettings["Redis"], DbConnectionString.DataBaseIntegration.None),
+                            ConfigurationManager.AppSettings["Redis"], 
+                            DbConnectionString.DataBaseIntegration.None),
                         MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                         Search = new SearchServiceCredentials(
 
@@ -95,7 +97,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Prod;
+            var env = EnvironmentSettings.Dev;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -138,8 +140,13 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var x = _container.Resolve<IVideoService>();
-            await x.RemoveUnusedStreamingLocatorAsync(default);
+            var x = _container.Resolve<ISession>();
+            var commandBus = _container.Resolve<ICommandBus>();
+
+            var command = new SetUserTypeCommand(638,UserType.HighSchoolStudent);
+            await commandBus.DispatchAsync(command, default);
+
+            //await x.RemoveUnusedStreamingLocatorAsync(default);
             //await Convert();
 
 
@@ -502,13 +509,21 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
         //    await uof.CommitAsync(default);
 
         //}
+     
+
+        
 
         private static async Task HadarMethod()
         {
-            var queryBus = _container.Resolve<IQueryBus>();
 
-            var query = new UserStudyRoomQuery(159039);
-            var t = await queryBus.QueryAsync(query, default);
+            var dapper = _container.Resolve<DapperRepository>();
+            var client = _container.Resolve<HttpClient>();
+            var deleteUni = new DeleteUniversityImage(dapper, client);
+            await deleteUni.DeleteBrokenUniversityImageAsync(default);
+            //var queryBus = _container.Resolve<IQueryBus>();
+
+            //var query = new UserStudyRoomQuery(159039);
+            //var t = await queryBus.QueryAsync(query, default);
             //await PopulateUsersImageName();
             //await commandBus.DispatchAsync(command2, default);
             //var deleteCommand = new SessionReconnectedCommand(id);

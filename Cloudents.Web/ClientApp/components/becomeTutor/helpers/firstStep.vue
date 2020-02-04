@@ -47,9 +47,13 @@
                                 class="font-weight-bold price-input"
                                 :rules="[rules.required, rules.minimum, rules.maximum,rules.integer]"
                                 v-model="price"
-                                type="number"
-                                :label="$Ph('becomeTutor_placeholder_price', currencySymbol)"/>
+                                type="number">
 
+                                <template v-slot:label>
+                                    <span>{{$t('becomeTutor_placeholder_price', {'0' : getSymbol})}}</span>
+                                </template>
+                            </v-text-field>
+                           
                             <!-- <v-select
                                 v-model="gender"
                                 :items="genderItems"
@@ -66,7 +70,7 @@
         <v-layout class="mt-4 px-1 btns-first"
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
 
-            <v-btn @click="closeDialog()" class="cancel-btn elevation-0" rounded outlined text>
+            <v-btn @click="closeDialog()"  class="cancel-btn elevation-0" rounded outlined text>
                 <span v-language:inner>becomeTutor_btn_cancel</span>
             </v-btn>
 
@@ -116,6 +120,10 @@
             };
         },
         computed: {
+            getSymbol() {
+              let v =   this.$n(1,'currency');
+              return v.replace(/\d|[.,]/g,'').trim();
+            },
             ...mapGetters(['becomeTutorData', 'accountUser', 'isFrymo']),
             btnDisabled() {
                 return false
@@ -132,9 +140,12 @@
             isMobile(){
                 return this.$vuetify.breakpoint.xsOnly;
             },
-            currencySymbol() {
-                return this.accountUser.currencySymbol
-            },
+            // currencySymbol() {
+            //     if(this.accountUser) {
+            //         return this.accountUser.currencySymbol
+            //     }
+            //     return '';
+            // },
         },
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateTutorDialog', 'updateToasterParams']),
@@ -181,7 +192,8 @@
                 }
             },
             closeDialog() {
-                this.updateTutorDialog(false);
+                this.$router.replace({query: ''})
+                // this.updateTutorDialog(false);
             }
         },
     };
