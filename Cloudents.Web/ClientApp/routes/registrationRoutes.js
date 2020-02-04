@@ -43,7 +43,7 @@ export const registrationRoutes = [
         beforeEnter: (to, from, next) => {
             //TODO why do we need this
             if(global.isAuth) {
-                next(false);
+                next('/feed');
             } else {
                 next();
             }
@@ -151,15 +151,14 @@ export const registrationRoutes = [
             //     }
             // },
         ],
-        // beforeEnter: (to, from, next) => {
-        //     debugger
-        //     if(global.isAuth) {
-        //         //TODO why do we need this
-        //         next(false);
-        //     } else {
-        //         next();
-        //     }
-        // }
+        beforeEnter: (to, from, next) => {
+            if(global.isAuth) {
+                //TODO why do we need this
+                next('/feed');
+            } else {
+                next();
+            }
+        }
     },
 
     {
