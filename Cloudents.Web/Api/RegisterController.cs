@@ -313,7 +313,6 @@ namespace Cloudents.Web.Api
         [HttpPost("grade")]
         public async Task<IActionResult> SetUserGradeAsync([FromBody] UserGradeRequest model,
             [FromServices] ICommandBus commandBus,
-            [FromServices] TelemetryClient client,
             CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
