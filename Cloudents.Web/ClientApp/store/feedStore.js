@@ -15,12 +15,14 @@ const getters = {
     Feeds_getNextPageUrl: (state) =>  state.items.nextPage,
     Feeds_getFilters: (state) => {
         let x = state.items.filters || [];
-        let y =  x[0] || [];
-        let arrayFilters = y.data;
-        if(arrayFilters){
-            arrayFilters.unshift(emptyStateSelection)
+        let filters = x || [];
+        if(filters){
+            filters = filters.map(filter=>{
+                return {key: filter,value: filter}
+            })
+            filters.unshift(emptyStateSelection)
         }
-        return arrayFilters;
+        return filters;
     },
     Feeds_getCurrentQuery (state, getters, rootState, rootGetters)   {
         let route = rootState.route;
