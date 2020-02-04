@@ -89,12 +89,6 @@ export default {
         font-weight: 600;
       }
 
-      &.reg_frymo {
-        background-image: url('./images/group-3_frymo.png') !important;
-        @media (max-width: @screen-sm) {
-          background-image: url('./images/group-3@3x_frymo.png') !important;
-        }
-      }
       @media (max-width: @screen-sm) {
         width: 100%
       }
