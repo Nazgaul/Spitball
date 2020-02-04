@@ -55,8 +55,8 @@ const mutations = {
     },
     //end dialogs mutations
     deleteCourse(state, val) {
-        let index = state.selectedClasses.indexOf(val);
-        state.selectedClasses.splice(index, 1);
+        let index = state.selectedClasses.filter(v => v.text !== val);
+        state.selectedClasses = index
     },
     
     setUniversities(state, val) {
