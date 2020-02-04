@@ -10,7 +10,7 @@ namespace Cloudents.Infrastructure.Cache
     public sealed class CacheProvider : ICacheProvider, IDisposable
     {
         private ICacheManager<object> _distributedCache;
-        private ICacheManager<object> _inMemory;
+        private readonly ICacheManager<object> _inMemory;
         private readonly ILogger _logger;
         private bool _distributedEnabled = true;
         readonly ConnectionMultiplexer _multiplexer;
@@ -44,10 +44,6 @@ namespace Cloudents.Infrastructure.Cache
 
         private void TryReconnect()
         {
-            //try
-            //{
-            //sb-dev.redis.cache.windows.net:6380,password=SggEokcdmQnaS5RFkkl5js4nV0LLXjvXEypeEEFCAo8=,ssl=True,abortConnect=False
-            //sb-dev2.redis.cache.windows.net:6380,password=SggEokcdmQnaS5RFkkl5js4nV0LLXjvXEypeEEFCAo8=,ssl=True,abortConnect=False
 
             try
             {
@@ -67,34 +63,8 @@ namespace Cloudents.Infrastructure.Cache
                 _distributedEnabled = false;
                 _logger.Exception(e);
             }
-
-
-            // .WithExpiration(ExpirationMode.Sliding, TimeSpan.FromSeconds(5)));
-
-            //_cache = CacheFactory.Build(settings =>
-            //{
-            //    var key = keys.Redis;
-            //    settings
-            //        .WithRedisConfiguration("redis", key)
-            //        .WithJsonSerializer()
-            //        .WithMaxRetries(1000)
-            //        .WithRetryTimeout(100)
-            //        .WithRedisBackplane("redis")
-            //        .WithRedisCacheHandle("redis");
-            //});
-            //}
-            //catch (Exception e)
-            //{
-            // _distributedEnabled = false;
-            //_logger.Exception(e);
-            //}
         }
-
-        //public CacheProvider(ICacheManager<object> cache, ILogger logger)
-        //{
-        //    _cache = cache;
-        //    _logger = logger;
-        //}
+      
 
         private ICacheManager<object> Cache
         {
@@ -168,6 +138,11 @@ namespace Cloudents.Infrastructure.Cache
                     return;
                 }
 
+                if (!_distributedEnabled && expire > TimeSpan.FromMinutes(5))
+                {
+                    expire = TimeSpan.FromMinutes(5);
+                }
+
                 var cacheItem = new CacheItem<object>(key, region, obj,
                     slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
                     expire);
@@ -199,41 +174,20 @@ namespace Cloudents.Infrastructure.Cache
 
             //return obj;
         }
-
-        //public void Set<T>(string key, string region, T value, int expire, bool slideExpiration)
-        //{
-        //    if (_distributedEnabled)
-        //    {
-        //        var obj = ConvertEnumerableToList(value);
-        //        if (obj == null)
-        //        {
-        //            return;
-        //        }
-
-        //        var cacheItem = new CacheItem<T>(key, region, value,
-        //            slideExpiration ? ExpirationMode.Sliding : ExpirationMode.Absolute,
-        //            TimeSpan.FromSeconds(expire));
-
-        //        _cache.Put(cacheItem);
-        //    }
-
-        //    //return obj;
-        //}
+        
 
         public void DeleteRegion(string region)
         {
-            // if (_distributedEnabled)
-            //{
+         
             Cache.ClearRegion(region);
-            //}
+           
         }
 
         public void DeleteKey(string region, string key)
         {
-            // if (_distributedEnabled)
-            // {
+          
             Cache.Remove(key, region);
-            // }
+           
         }
 
         /// <summary>
