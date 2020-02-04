@@ -1,5 +1,5 @@
 import Api from './Api/profile.js';
-import { Profile } from './Constructors/profile.js';
+import { Profile } from './constructors/profile.js';
 
 export default {
    async getProfile(id) {

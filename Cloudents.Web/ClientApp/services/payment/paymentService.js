@@ -12,7 +12,7 @@ class CountryPayment {
    }
 }
 const IL = new CountryPayment('IL', require('./images/redeemPointsIL.jpg'));
-const IN = new CountryPayment('IN', require('./images/redeemPointsFrymo.jpg'));
+const IN = new CountryPayment('IN', require('./images/redeemPointsFRYMO.jpg'));
 const US = new CountryPayment('US', require('./images/redeemPointsUS.png'));
 const services = [US, IL, IN]
 

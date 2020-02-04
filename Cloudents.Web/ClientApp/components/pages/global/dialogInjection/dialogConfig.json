@@ -1,0 +1,8 @@
+{
+    "becomeTutor": {
+        "loggedPremission": true
+    },
+    "login": {
+        "loggedPremission": false
+    }
+}

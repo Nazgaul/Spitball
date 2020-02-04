@@ -31,7 +31,7 @@
 <script>
 import {mapGetters} from 'vuex';
 import satelliteService from '../../../services/satelliteService';
-import studyRoomRecordingService from '../../studyRoom/studyRoomRecordingService';
+import studyRoomRecordingService from '../../studyroom/studyRoomRecordingService';
 export default {
   props:{
     nextStep:{

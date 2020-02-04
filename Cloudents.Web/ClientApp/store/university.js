@@ -249,8 +249,7 @@ const actions = {
         commit('setClasses', []);
     },
     deleteClass({commit}, val) {
-        let name = val.text;
-        return universityService.deleteCourse(name).then((resp) => {
+        return universityService.deleteCourse(val).then((resp) => {
             commit('deleteCourse', val);
             //clean cached list
             commit('deleteFromCachedList', val);
@@ -267,9 +266,10 @@ const actions = {
     pushClassToSelectedClasses({commit}, val) {
         commit('pushClass', val);
     },
-    assignClasses({state, dispatch}, courses) {
-        let coursesToSend = courses ? courses : state.selectedClasses;
-        return universityService.assaignCourse(coursesToSend).then(() => {
+    assignClasses({dispatch}, course) {
+        let courseName = [{name: course}]
+        // let coursesToSend = courses ? courses : state.selectedClasses;
+        return universityService.assaignCourse(courseName).then(() => {
             //Update Filters in note page
             dispatch('changeReflectChangeToPage');
             Promise.resolve(true);

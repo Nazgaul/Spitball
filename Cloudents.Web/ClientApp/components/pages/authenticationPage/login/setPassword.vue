@@ -1,0 +1,135 @@
+<template>
+    <form class="setPassword" @submit.prevent="login">
+		<p>{{$t('loginRegister_setemail_title')}}</p>
+        <sb-input 
+            class="widther"
+            v-model="email"
+            placeholder="loginRegister_setpass_input_email"
+            icon="sbf-email" 
+            :bottomError="true"
+            :autofocus="false" 
+            :errorMessage="errorMessages.email"
+            name="email" type="email"/>
+
+		<sb-input 
+            class="mt-4 widther"
+            icon="sbf-key"
+            v-model="password"
+            placeholder="loginRegister_setpass_input_pass"  
+            :bottomError="true" 
+            type="password" name="pass"
+            :autofocus="true"/>
+        <v-btn  
+            type="submit"
+            :loading="isEmailLoading"
+            large rounded 
+            class="white--text btn-login">
+                <span>{{$t('loginRegister_setpass_btn')}}</span>
+        </v-btn>
+
+        <router-link :to="{name: 'forgotPassword'}" class="bottom">{{$t('loginRegister_setpass_forgot')}}</router-link>
+    </form>    
+</template>
+
+<script>
+import SbInput from "../../../question/helpers/sbInput/sbInput.vue";
+import { mapGetters, mapActions, mapMutations } from 'vuex';
+
+export default {
+    components:{ SbInput },
+    data() {
+        return {
+            password: '',
+        }
+    },
+    watch: {
+        password: function(){
+            this.setErrorMessages({})
+        },
+    },
+    computed: {
+        ...mapGetters(['getEmail1','getErrorMessages','getGlobalLoading']),
+        isEmailLoading(){
+		    return this.getGlobalLoading
+        },
+        errorMessages(){
+            return this.getErrorMessages
+        },
+        email:{
+			get(){
+                return this.getEmail1
+            },
+			set(val){
+                this.updateEmail(val)
+                this.setErrorMessages({})
+            }
+        }
+    },
+    methods: {
+        ...mapActions(['updateEmail','logIn','updateStep']),
+        ...mapMutations(['setErrorMessages']),
+        login(){
+            this.logIn(this.password)
+        },
+        goForgotPassword(){
+            this.updateStep('forgotPass')
+        }
+    },
+}
+</script>
+
+<style lang="less">
+@import '../../../../styles/mixin.less';
+@import '../../../../styles/colors.less';
+
+    .setPassword{
+        width: 400px;
+        @media (max-width: @screen-xs) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: auto;
+            margin: 0 auto;
+        }
+        text-align: center;
+        p {
+        .responsive-property(font-size, 28px, null, 22px);
+        .responsive-property(letter-spacing, -0.51px, null, -0.4px);
+        line-height: 1.54;
+        color: @color-login-text-title;
+        }
+        .input-wrapper {
+        .responsive-property(margin-top, 62px, null, 16px);
+            input {
+            .login-inputs-style();
+            padding-left: 54px !important;
+            }
+            i {
+            position: absolute;
+            left: 16px;
+            top: 17px;
+            font-size: 18px;
+            }
+        }
+        button{
+            margin: 66px 0 48px;
+      @media (max-width: @screen-xs) {
+        margin: 45px 0 48px;
+      }
+        .responsive-property(width, 100%, null, 72%);
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -0.42px;
+        text-align: center;
+        text-transform: none !important;
+        }
+        .bottom{
+            cursor: pointer;
+            font-size: 14px;
+		    letter-spacing: -0.37px;
+		    color: @global-blue;
+        }
+    }
+
+</style>
+

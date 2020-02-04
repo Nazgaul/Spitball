@@ -153,6 +153,9 @@
   <data name="please_agree" xml:space="preserve">
     <value>כדי להירשם עליך לאשר את תנאי השימוש באתר </value>
   </data>
+  <data name="text" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
   <data name="verification_code_sent_to_phone" xml:space="preserve">
     <value>קוד אימות נשלח לטלפון</value>
   </data>

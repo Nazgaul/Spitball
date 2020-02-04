@@ -223,8 +223,12 @@ const actions = {
     updateEditDialog(context, val){
         context.commit('setEditDialog', val);
     },
-    updateUniExists(context, val){
-        context.commit("setUniExists", val);
+    updateUniExists({commit, state}, val){
+        //TODO: why do we need this
+        
+        if( state.user) {
+            commit("setUniExists", val);
+        }
     },
     updateEditedProfile(context, newdata) {
         context.commit("updateEditedData", newdata);
@@ -406,6 +410,12 @@ const actions = {
     },
     changeLastActiveRoute({commit}, route) {
         commit("setLastActiveRoute", route);
+    },
+    getUserAccountForRegister({commit}) {
+        return accountService.getAccount().then((userAccount) => {
+            commit("updateUser", userAccount);
+            analyticsService.sb_setUserId(userAccount.id);
+        })
     },
     userStatus({dispatch, commit, getters}, {isRequireAuth, to}) {
         commit("changeLoginStatus", global.isAuth);
