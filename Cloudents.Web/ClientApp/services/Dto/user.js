@@ -68,11 +68,8 @@ export const User = {
                 isTutor: objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok',
                 isTutorState: _createIsTutorState(objInit.isTutor),
 
-                // university: new School.University(objInit.university),
-                // courses: objInit.courses.map((course) => new School.Course(course)),
-                // TODO remove it when ram push updates!
-                university: new School.University(DummyUni),
-                courses: DummyCourses.map((course) => new School.Course(course)),
+                university: new School.University(objInit.university) || false,
+                courses: objInit.courses.map((course) => new School.Course(course)),
             }
         )
     }
