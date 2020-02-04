@@ -1,35 +1,34 @@
 <template>
   	<form class="setEmail" @submit.prevent="validate">
-		<p v-language:inner="'loginRegister_setemail_title'"/>
+        <p>{{$t('loginRegister_setemail_title')}}</p>
 
-		<sb-input
-      class="widther"
-      v-model="email"
-			placeholder="loginRegister_setemail_input"
-      :errorMessage="errorMessages.email"
-			icon="sbf-email"
-			bottomError
-			:autofocus="true"
-			name="email"
-			type="email"/>
-      
-		<v-btn
-      :loading="isEmailLoading"
-      type="submit"
-			large
-			rounded
-			class="white--text btn-login">
-                <span v-language:inner="'loginRegister_setemail_btn'"></span>
-                </v-btn>
+        <sb-input
+            class="widther"
+            v-model="email"
+            placeholder="loginRegister_setemail_input"
+            :errorMessage="errorMessages.email"
+            icon="sbf-email"
+            bottomError
+            :autofocus="true"
+            name="email"
+            type="email"/>
+        
+        <v-btn
+            :loading="isEmailLoading"
+            type="submit"
+            large
+            rounded
+            class="white--text btn-login">
+                  <span>{{$t('loginRegister_setemail_btn')}}</span>
+        </v-btn>
   	</form>
 </template>
 
 <script>
 import SbInput from "../../../question/helpers/sbInput/sbInput.vue";
-import { mapGetters, mapActions,mapMutations } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
-  // name: "setEmail",
   components: {
     SbInput
   },

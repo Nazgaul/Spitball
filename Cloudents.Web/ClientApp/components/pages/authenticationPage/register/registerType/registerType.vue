@@ -1,7 +1,7 @@
 <template>
     <div id="registerType">
-        <div class="maintitle text-center" v-language:inner="'loginRegister_welcome'"></div>
-        <div class="subtitle text-center" v-language:inner="'loginRegister_know_better'"></div>
+        <div class="maintitle text-center">{{$t('loginRegister_welcome')}}</div>
+        <div class="subtitle text-center">{{$t('loginRegister_know_better')}}</div>
 
         <v-expansion-panels
             v-model="panel"
@@ -13,16 +13,16 @@
                 <v-expansion-panel-header class="px-4 py-2" expand-icon="sbf-triangle-arrow-down">
                     <span class="flex-grow-0 mr-4"><studentIcon/></span>
                     <v-divider class="mr-4" vertical></v-divider>
-                    <span class="panel_title text-center" v-language:inner="'loginRegister_student'"></span>
+                    <span class="panel_title text-center">{{$t('loginRegister_student')}}</span>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content class="pt-4">
                     <v-btn class="mb-4 btn_student" large block color="#43425d" depressed height="50" @click="sendRegisterType('HighSchoolStudent', {name: 'registerCourse'})">
                         <span><collegeIcon /></span>
-                        <span class="flex-grow-1 text-center white--text" v-language:inner="'loginRegister_highSchool'"></span>
+                        <span class="flex-grow-1 text-center white--text">{{$t('loginRegister_highSchool')}}</span>
                     </v-btn>
                     <v-btn class="btn_student" large block color="#4c59ff" depressed height="50" @click="sendRegisterType('UniversityStudent', {name: 'registerUniversity'})">
                         <span><highSchoolIcon /></span>
-                        <span class="flex-grow-1 text-center white--text" v-language:inner="'loginRegister_college'"></span>
+                        <span class="flex-grow-1 text-center white--text">{{$t('loginRegister_college')}}</span>
                     </v-btn>
                 </v-expansion-panel-content>
             </v-expansion-panel>
@@ -31,7 +31,7 @@
                 <v-expansion-panel-header class="px-4 py-2" expand-icon="">
                     <span class="flex-grow-0 mr-4"><parentIcon/></span>
                     <v-divider class="mr-4" vertical></v-divider>
-                    <span class="panel_title text-center pr-6" v-language:inner="'loginRegister_parent'"></span>
+                    <span class="panel_title text-center pr-6">{{$t('loginRegister_parent')}}</span>
                 </v-expansion-panel-header>
             </v-expansion-panel>
 
@@ -39,7 +39,7 @@
                 <v-expansion-panel-header class="px-4 py-2" expand-icon="">
                     <span class="flex-grow-0 mr-4"><teacherIcon/></span>
                     <v-divider class="mr-4" vertical></v-divider>
-                    <span class="panel_title text-center pr-6" v-language:inner="'loginRegister_teacher'"></span>
+                    <span class="panel_title text-center pr-6">{{$t('loginRegister_teacher')}}</span>
                 </v-expansion-panel-header>
             </v-expansion-panel>
 
