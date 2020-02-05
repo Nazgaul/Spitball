@@ -34,10 +34,6 @@ const mutations = {
     setAccountPicture(state, imageUrl) {
         state.user = { ...state.user, image: imageUrl };
     },
-
-    setUniExists(state, val) {
-        state.user.universityExists = val;
-    },
 };
 
 const getters = {
@@ -131,11 +127,6 @@ const actions = {
     updateAccountUserToTutor(context, val) {
         context.commit('changeIsUserTutor', val);
         context.commit('setIsTutorState', 'pending');
-    },
-
-    // TODO remove it when ram push updates
-    updateUniExists(context, val) {
-        context.commit("setUniExists", val);
     },
 };
 

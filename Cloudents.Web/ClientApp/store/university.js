@@ -148,15 +148,13 @@ const actions = {
     changeReflectChangeToPage({commit}) {
         commit('setReflectChangeToPage');
     },
-    updateSchoolName({commit, dispatch}, val) {
+    updateSchoolName({commit}, val) {
         if (!val) return;
             
         let uniId = val.id;
         let uniName = val.name;
         return universityService.assaignUniversity(uniId).then(() => {
             commit('setSchoolName', uniName);
-            //update profile data with new university
-            dispatch('updateUniExists', true);
             return true;
         });
     },

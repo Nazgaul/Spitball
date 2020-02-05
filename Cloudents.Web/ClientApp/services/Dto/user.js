@@ -54,14 +54,11 @@ export const User = {
             {
                 balance: objInit.balance,
                 email: objInit.email,
-                phoneNumber: objInit.phoneNumber,
                 currencySymbol: objInit.currencySymbol,
                 needPayment: objInit.needPayment,
-                universityExists: objInit.universityExists,
                 isTutor: objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok',
                 isTutorState: _createIsTutorState(objInit.isTutor),
-
-                university: new School.University(objInit.university) || false,
+                university: new School.University(objInit.university),
                 courses: objInit.courses.map((course) => new School.Course(course)),
             }
         )
