@@ -237,7 +237,14 @@ module.exports = (env) => {
                 }
             }),
             new VuetifyLoaderPlugin(),
-            new CaseSensitivePathsPlugin()
+            new CaseSensitivePathsPlugin(),
+            new RetryChunkLoadPlugin({
+                // optional stringified function to get the cache busting query string appended to the script src
+                // if not set will default to appending the string `?cache-bust=true`
+                //cacheBust: `function() {
+                //        return Date.now();
+                //    }`
+            })
             //new BundleAnalyzerPlugin({
             //    analyzerMode: 'disabled',
             //    generateStatsFile: true,
