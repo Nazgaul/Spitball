@@ -15,7 +15,7 @@ namespace Cloudents.Persistence
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UnitOfWorkFactorySpitball>()
-                .SingleInstance();
+                .SingleInstance().As<IStartable>();
 
             builder.RegisterType<PublishEventsListener>().AsSelf().SingleInstance();
 
