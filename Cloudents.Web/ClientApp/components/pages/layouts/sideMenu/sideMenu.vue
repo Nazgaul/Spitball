@@ -313,6 +313,7 @@ export default {
       return (!!this.$route.query && !!this.$route.query.term) || (!!this.$route.query && (!!this.$route.query.Filter || !!this.$route.query.Source))
     },
     selectCourse(item, isDefault) {
+      debugger;
       if(item.isDefault){
         isDefault = true;
       }
@@ -359,9 +360,10 @@ export default {
         return this.$route.name !== 'feed';
     },
     updateFilter() {
+      debugger
       this.UPDATE_SEARCH_LOADING(true);
       let newQueryObject = {
-        Course: this.selectedCourse
+        Course: this.selectedCourse || undefined
       };
       if (this.selectedCourse === "") {
         delete newQueryObject.Course;
@@ -373,11 +375,12 @@ export default {
           newQueryObject.reloaded = '';
         }
         let queryObj = {
-          Course: this.selectedCourse,
+          Course: this.selectedCourse || undefined, // remove the select course
           term: this.$route.query.term,
           filter: this.$route.query.filter,
         }
-        this.$router.push({ query: queryObj });
+      
+        this.$router.push({ query: queryObj }).catch(() => {});
       }
     },
     openPersonalizeCourse() {
