@@ -93,7 +93,6 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import coursesEmptyState from '../coursesEmptyState/coursesEmptyState.vue';
-    import universityService from '../../../services/universityService';
     import finishBtn from  '../helpers/finishBtn.vue';
     export default {
         name: "selectedCourses",
