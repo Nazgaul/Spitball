@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'qs';
 
 let subjectInstance = axios.create({
     baseURL: '/api/AdminSubject',
@@ -27,5 +28,5 @@ export default {
     getSubject: () => subjectInstance.get().then(({data}) => createSubject(data)),
     addSubject: params => subjectInstance.post('', params),
     editSubject: params => subjectInstance.put('', params),
-    deleteSubject: () => subjectInstance.delete(),
+    deleteSubject: id => subjectInstance.delete(`${id}`),
 }

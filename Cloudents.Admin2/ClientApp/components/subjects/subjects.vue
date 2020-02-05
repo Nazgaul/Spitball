@@ -37,7 +37,7 @@
                 </v-card>
             </v-dialog>
         </v-toolbar>
-        {{editedIndex}}
+
         <v-data-table
             :headers="headers"
             :items="items"
@@ -50,7 +50,7 @@
                 <td>{{ props.item.enName}}</td>
                 <td class="justify-center layout px-0">
                     <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
-                    <v-icon small @click="deleteItem()">delete</v-icon>
+                    <v-icon small @click="deleteItem(props.item)">delete</v-icon>
                 </td>
             </template>
             <template v-slot:no-data>
@@ -100,8 +100,15 @@ export default {
             this.dialog = true
         },
 
-        deleteItem() {
-            console.log('deleteItem');
+        deleteItem(item) {
+
+            confirm(`Are you sure you want to delete this ${item.id}?`) && 
+            subjectService.deleteSubject(item.id).then(res => {   
+                let index = this.items.indexOf(item)
+                this.items.splice(index, 1)
+            }).catch(ex => {
+                console.warn(ex);
+            })
         },
 
         save() {
