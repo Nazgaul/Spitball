@@ -107,7 +107,6 @@ const actions = {
         commit('setRequestTutor');
     },
     sendTutorRequest({commit, dispatch},serverObj){
-        debugger;
         dispatch('sendAnalyticEvent',false);
         return tutorService.requestTutor(serverObj)
                 .then((response) =>{
