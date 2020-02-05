@@ -46,7 +46,7 @@ namespace Cloudents.Infrastructure.Google
             _factory = new GoogleAnalyticsRequestFactory("UA-100723645-2");
         }
 
-        
+
 
 
         //public GoogleService(GoogleDataStore googleDataStore)
@@ -59,31 +59,43 @@ namespace Cloudents.Infrastructure.Google
 
             var settings = new GoogleJsonWebSignature.ValidationSettings
             {
-                Audience = new[] { "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com" }
+                Audience = new[]
+                {
+                    "341737442078-ajaf5f42pajkosgu9p3i1bcvgibvicbq.apps.googleusercontent.com", // Web site
+                   // "99716345448-jpnpb70puka5m3fiuu12rc7cgqrd52kc.apps.googleusercontent.com",
+                    "99716345448-73b697k11joufrvkqtc18ep2j36trgci.apps.googleusercontent.com" // Android
+                }
             };
-            var result = await GoogleJsonWebSignature.ValidateAsync(jwt, settings);
+            try
+            {
+                var result = await GoogleJsonWebSignature.ValidateAsync(jwt, settings);
 
 
-            if (result == null)
+                if (result == null)
+                {
+                    return null;
+                }
+
+                if (!result.EmailVerified)
+                {
+                    return null;
+                }
+
+                return new ExternalAuthDto()
+                {
+                    Id = result.Subject,
+                    FirstName = result.GivenName,
+                    LastName = result.FamilyName,
+                    Email = result.Email,
+                    Language = result.Locale,
+                    Name = result.Name,
+                    Picture = result.Picture
+                };
+            }
+            catch (InvalidJwtException)
             {
                 return null;
             }
-
-            if (!result.EmailVerified)
-            {
-                return null;
-            }
-
-            return new ExternalAuthDto()
-            {
-                Id = result.Subject,
-                FirstName = result.GivenName,
-                LastName = result.FamilyName,
-                Email = result.Email,
-                Language = result.Locale,
-                Name = result.Name,
-                Picture = result.Picture
-            };
         }
 
 
