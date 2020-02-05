@@ -9,6 +9,7 @@ const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
 var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const { RetryChunkLoadPlugin } = require('webpack-retry-chunk-load-plugin');
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -237,7 +238,14 @@ module.exports = (env) => {
                 }
             }),
             new VuetifyLoaderPlugin(),
-            new CaseSensitivePathsPlugin()
+            new CaseSensitivePathsPlugin(),
+            new RetryChunkLoadPlugin({
+                // optional stringified function to get the cache busting query string appended to the script src
+                // if not set will default to appending the string `?cache-bust=true`
+                //cacheBust: `function() {
+                //        return Date.now();
+                //    }`
+            })
             //new BundleAnalyzerPlugin({
             //    analyzerMode: 'disabled',
             //    generateStatsFile: true,

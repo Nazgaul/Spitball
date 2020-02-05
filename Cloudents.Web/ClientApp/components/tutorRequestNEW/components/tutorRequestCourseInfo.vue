@@ -137,9 +137,11 @@ export default {
                         this.suggestsCourses.forEach(course=>{
                             if(course.text === this.tutorCourse){
                                 this.tutorCourse = course
+                                this.updateSelectedCourse(this.tutorCourse)
                             }}) 
                     } else {
                         this.tutorCourse = term
+                        this.updateSelectedCourse(this.tutorCourse)
                     }
                 })
             }
