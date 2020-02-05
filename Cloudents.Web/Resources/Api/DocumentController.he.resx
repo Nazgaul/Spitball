@@ -123,9 +123,6 @@
   <data name="SomeOnePurchased" xml:space="preserve">
     <value>מסמך נקנה. אי אפשר למחוק</value>
   </data>
-  <data name="TypeFilterTitle" xml:space="preserve">
-    <value>סוגי מסמכים</value>
-  </data>
   <data name="VoteCantVote" xml:space="preserve">
     <value>לא ניתן להצביע בעד המסמך שלך</value>
   </data>

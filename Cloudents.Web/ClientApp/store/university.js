@@ -6,7 +6,6 @@ const state = {
     schoolName: '',
     selectedClasses: [],
     selectedClassesCache: [],
-    showSelectUniPopUpInterface: false,
     resultLockForSchoolNameChange: false,
     resultLockForClassesChange: false,
     selectForTheFirstTime: false,
@@ -26,10 +25,6 @@ const getters = {
     // the sorting is moved to the cmp
     getSelectedClasses: state => state.selectedClasses,
     getSelectedClassesCache: state => state.selectedClassesCache,
-    getShowSelectUniPopUpInterface: state => state.showSelectUniPopUpInterface,
-    getAllSteps: state => state.stepsEnum,
-    getCurrentStep: state => state.currentStep,
-    getUniversityPopStorage: state => state.universityPopStorage,
     createDialogVisibility: state => state.createDialog,
     creationVerified: state => state.creationVerified,
     getCreateDialogVisibility: state => state.createUniDialog,
@@ -93,22 +88,6 @@ const mutations = {
     deleteFromCachedList(state, val){
         let index = state.selectedClassesCache.indexOf(val);
         state.selectedClassesCache.splice(index, 1);
-    },
-    setSelectUniState() {
-        // state.showSelectUniInterface = val;
-    },
-    setCurrentStep(state, val) {
-        state.currentStep = val;
-    },
-    setSelectPopUpUniState(state, val) {
-        state.showSelectUniPopUpInterface = val;
-    },
-    setUniversityPopStorage(state, val) {
-        window.sessionStorage.setItem('sb_uniSelectPoped_s', true);
-        window.localStorage.setItem('sb_uniSelectPoped_l', val);
-        state.universityPopStorage.session = true;
-        state.universityPopStorage.local = val;
-
     },
     openResultLockForSchoolNameChange(state) {
         state.resultLockForSchoolNameChange = true;
@@ -183,14 +162,8 @@ const actions = {
             commit('setSchoolName', uni);
         });
     },
-
-
     changeReflectChangeToPage({commit}) {
         commit('setReflectChangeToPage');
-    },
-
-    changeSelectPopUpUniState({commit}, val) {
-        commit('setSelectPopUpUniState', val);
     },
     updateSchoolName({commit, dispatch}, val) {
         if (!val) return;
@@ -286,18 +259,6 @@ const actions = {
             dispatch('setSelectedClasses', [].concat(state.selectedClassesCache));
         }
     },
-    updateCurrentStep({commit, state}, val) {
-        if(state.stepArr.indexOf(val) > -1) {
-            commit("setCurrentStep", val);
-        }
-    },
-    setUniversityPopStorage_session({commit, state}) {
-        let localPopedItem = state.universityPopStorage.local;
-        if(localPopedItem < 3) {
-            localPopedItem++;
-            commit('setUniversityPopStorage', localPopedItem);
-        }
-    },
     releaseResultLock({commit}, val) {
         if(val === "uni") {
             commit('openResultLockForSchoolNameChange');
@@ -308,9 +269,6 @@ const actions = {
     },
     updateSelectForTheFirstTime({commit}, val) {
         commit('setSelectForTheFirstTime', val);
-    },
-    closeSelectUniFromNav({commit}) {
-        commit('setSelectUniState', false);
     },
     changeCreateDialogState({commit}, val) {
         commit('updateCreateDialogState', val);

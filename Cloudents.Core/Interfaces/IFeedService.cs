@@ -10,6 +10,18 @@ namespace Cloudents.Core.Interfaces
     {
         Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedQuery query, CancellationToken token);
 
+        Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedWithCourseQuery query, CancellationToken token);
+
         Task<IEnumerable<FeedDto>> GetFeedAsync(SearchFeedQuery query, CancellationToken token);
+    }
+
+
+    public interface IFeedTypeService
+    {
+        Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedQuery query, CancellationToken token);
+        Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedWithCourseQuery query, CancellationToken token);
+
+        Task<IEnumerable<FeedDto>> GetFeedAsync(SearchFeedQuery query, CancellationToken token);
+       
     }
 }

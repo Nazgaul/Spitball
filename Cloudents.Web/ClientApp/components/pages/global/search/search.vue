@@ -32,51 +32,35 @@ export default {
   },
   data() {
     return {
-      search: "",
+      search: this.$route.query.term,
       searchBtnText: LanguageService.getValueByKey('search_search_btn')
     };
   },
   watch: {
     getSearchStatus(){
-        this.search = ""
+      this.search = ""
+    },
+    Feeds_getCurrentQuery(val){
+      this.search = val.term || ''
     }
   },
   computed: {
-    ...mapGetters(['getSearchStatus'])
+    ...mapGetters(['getSearchStatus','Feeds_getCurrentQuery']),
   },
   methods: {
-    ...mapMutations(['UPDATE_SEARCH_LOADING', 'UPDATE_LOADING']),
+    ...mapMutations(['UPDATE_SEARCH_LOADING']),
     searchQuery() {
-      let route = {
-        name : "feed"
-      };
+      let searchQuery = {name:'feed', query:{...this.$route.query}}
       if(this.search){
-        route.query = { term: this.search };
+        searchQuery.query.term = this.search;
+      }else{
+        searchQuery.query = '';
       }
-
       this.UPDATE_SEARCH_LOADING(true);
-      this.UPDATE_LOADING(true);
-
-
-      this.$router.push(route).catch(() => {
-        this.UPDATE_LOADING(false);
+      this.$router.push(searchQuery).catch(() => {
+        this.UPDATE_SEARCH_LOADING(false);
       });
-      // this.UPDATE_SEARCH_LOADING(true);
-      // this.UPDATE_LOADING(true);
-      // if(this.search){
-      //     this.$router.push({ name: "feed", query: { term: this.search } })
-      //     .catch(() => {
-      //       this.UPDATE_LOADING(false);
-      //     }); // the catch is for prevent navigation duplicate
-      //   }
-      // else  {
-      //     this.$router.push({ name: "feed"});  
-      // }
-      this.$nextTick(() => {
-        setTimeout(()=>{
-            this.UPDATE_SEARCH_LOADING(false);
-        }, 200);
-      });
+
     }
   }
 };

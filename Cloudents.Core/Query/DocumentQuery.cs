@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Models;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Models;
 using System.Collections.Generic;
 
 namespace Cloudents.Core.Query
@@ -9,14 +10,14 @@ namespace Cloudents.Core.Query
             string term,
             string course,
             int pageSize,
-            IEnumerable<string> filters) :
+            DocumentType? filter) :
             base(userProfile, term, course)
         {
-            Filters = filters;
+            Filter = filter;
             PageSize = pageSize;
         }
 
-        public IEnumerable<string> Filters { get; }
+        public DocumentType? Filter { get; }
         public int PageSize { get; }
     }
 

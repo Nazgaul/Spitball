@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="select_all" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="select_document" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="select_question" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="select_tutor" xml:space="preserve">
+    <value>Tutor</value>
+  </data>
+  <data name="select_video" xml:space="preserve">
+    <value>Video</value>
+  </data>
 </root>

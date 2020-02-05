@@ -19,7 +19,6 @@ if(!window.IntersectionObserver){ // Intersection observer support
 
 // Global Components
 import App from "./components/app/app.vue";
-import scrollComponent from './components/helpers/infinateScroll.vue';
 import UserAvatar from './components/helpers/UserAvatar/UserAvatar.vue';
 
 // Global Services
@@ -63,8 +62,6 @@ Vue.use(LoadScript);
 Vue.use(VLazyImagePlugin);
 Vue.use(VueClipboard);
 
-
-Vue.component("scroll-list", scrollComponent);
 Vue.component("UserAvatar",UserAvatar);
 
 //this need to be below the configuration of vue router
@@ -160,15 +157,8 @@ Vue.prototype.$chatMessage = function (message) {
 
 router.beforeEach((to, from, next) => {
     store.dispatch('setRouteStack', to.name);
-    if (!to.query || !to.query.university) {
-        if (!!from.query && !!from.query.university) {
-            store.dispatch('closeSelectUniFromNav');
-        }
-    } 
-
     store.dispatch('sendQueryToAnalytic', to);
     store.dispatch('changeLastActiveRoute', from);
-    
     store.dispatch('userStatus', {isRequireAuth: to.meta.requiresAuth, to});
     if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
         next("/signin");
@@ -179,8 +169,6 @@ router.beforeEach((to, from, next) => {
     loadLanguageAsync().then(() => {
        next();
     });
-    
-
 });
 sync(store, router);
 const app = new Vue({

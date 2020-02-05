@@ -19,6 +19,13 @@ namespace Cloudents.Infrastructure
             builder.RegisterType<DocumentSearch>().As<IDocumentSearch>();
             builder.RegisterType<FeedService>().As<IFeedService>();
 
+
+            builder.RegisterType<DocumentFeedService>().AsSelf().Keyed<IFeedTypeService>(Core.Enum.FeedType.Document);
+            builder.RegisterType<TutorFeedService>().AsSelf().Keyed<IFeedTypeService>(Core.Enum.FeedType.Tutor);
+            builder.RegisterType<QuestionFeedService>().Keyed<IFeedTypeService>(Core.Enum.FeedType.Question);
+            builder.RegisterType<DocumentFeedService>().AsSelf().Keyed<IFeedTypeService>(Core.Enum.FeedType.Video);
+            builder.RegisterType<AggregateFeedService>().Keyed<IFeedTypeService>(Core.Enum.FeedType.All);
+
             builder.RegisterType<IpToLocation>().As<IIpToLocation>().EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(CacheResultInterceptor));
 

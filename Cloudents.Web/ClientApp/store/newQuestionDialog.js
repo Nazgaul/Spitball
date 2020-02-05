@@ -10,7 +10,6 @@ const mutations = {
 };
 const getters = {
     newQuestionDialogSate: (state) => state.newQuestionDialog,
-
 };
 const actions = {
     updateNewQuestionDialogState({commit}, data) {

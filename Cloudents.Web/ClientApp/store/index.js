@@ -30,7 +30,7 @@ import dialog_Store from './dialogStore/dialog_Store.js'
 import utils_Store from './utils_Store'
 import banner_Store from './banner_Store.js'
 import dashboard_Store from './dashboard_Store.js'
-
+import feed from './feedStore.js'
 
 
 // const onModuleAValueChange= (store) => {
@@ -62,7 +62,6 @@ const store = new Vuex.Store({
     modules: {
         Search,
         User,
-        // LuisData,
         Account,
         Question,
         Toaster,
@@ -70,6 +69,7 @@ const store = new Vuex.Store({
         newQuestionDialog,
         University,
         uploadFiles,
+        feed,
         // document,
         // homeLanding,
         // homeworkHelpStore,
