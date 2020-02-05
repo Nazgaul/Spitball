@@ -86,7 +86,7 @@ const actions = {
             analyticsService.sb_setUserId(userAccount.id);
         })
     },
-    userStatus({dispatch, commit, getters}, {isRequireAuth, to}) {
+    userStatus({dispatch, commit, getters}) {
         commit("changeLoginStatus", global.isAuth);
         // TODO check
         if (getters.isUser) {

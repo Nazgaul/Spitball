@@ -184,7 +184,7 @@ const actions = {
             console.log(error, 'error report question');
         });
     },
-    Feeds_reportAnswer({}, data) {
+    Feeds_reportAnswer(context, data) {
         return reportService.reportAnswer(data).then(() => {
         }, (error) => {
             console.log(error, 'error report answer');

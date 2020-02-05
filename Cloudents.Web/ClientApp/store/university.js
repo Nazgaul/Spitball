@@ -118,7 +118,7 @@ const mutations = {
 };
 
 const actions = {
-    updateTeachCourse({},courseName){
+    updateTeachCourse(context,courseName){
         return courseService.teachCourse(courseName)
     },
     updateTeachingClasses({commit}){
