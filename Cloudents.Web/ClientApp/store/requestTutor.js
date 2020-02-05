@@ -115,12 +115,16 @@ const actions = {
                     }
                     dispatch('updateTutorReqStep','tutorRequestSuccess');
                 }).catch((err)=>{
+                   
+                    //Same converntaion as the server
+                    let serverResponse = err.response.data || { error : [LanguageService.getValueByKey("tutorRequest_request_error")]};
+                    let errorMsg = serverResponse[Object.keys(serverResponse)[0]][0];
                     dispatch('updateToasterParams',{
-                        toasterText: !!err.response.data.error ? err.response.data.error[0] : LanguageService.getValueByKey("tutorRequest_request_error"),
+                        toasterText: errorMsg,
                         showToaster: true,
                         toasterType: 'error-toaster'
                     });
-                    return Promise.reject();
+                   throw err;
                 });
     },
     sendAnalyticEvent({state,getters},beforeSubmit){
