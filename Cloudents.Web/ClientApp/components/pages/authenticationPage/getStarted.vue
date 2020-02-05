@@ -96,7 +96,7 @@ export default {
             isTermsAgree: false,
             showError: false,
             googleLoading: false,
-            snackbar: true,
+            snackbar: false,
         }
     },
     methods: {
