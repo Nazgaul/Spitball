@@ -51,7 +51,7 @@ namespace Cloudents.Core
 
     }
 
-    public class FileTypesExtensions
+    public static class FileTypesExtensions
     {
         public static IEnumerable<string> GetFormats()
         {

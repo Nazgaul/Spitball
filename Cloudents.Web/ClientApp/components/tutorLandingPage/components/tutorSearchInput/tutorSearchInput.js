@@ -16,7 +16,6 @@ export default {
     },
     data: () => ({
         autoSuggestList: [],
-        isFirst: true,
         showSuggestions: false,
         originalMsg: '',
         msg:"",

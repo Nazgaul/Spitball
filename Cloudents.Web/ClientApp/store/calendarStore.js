@@ -101,7 +101,7 @@ const actions ={
         commit('setSelectedCalendarList',selectedCalendarList);
     },
     updateSelectedCalendarList({state}){
-        if(state.selectedCalendarList){
+        if(state.selectedCalendarList.length){
             return calendarService.postCalendarsList(state.selectedCalendarList);
         }else{
             return Promise.resolve();

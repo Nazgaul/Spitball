@@ -10,11 +10,10 @@ namespace Cloudents.Query.Documents
 {
     public class FeedAggregateQuery : IQuery<IEnumerable<FeedDto>>
     {
-        public FeedAggregateQuery(long userId, int page, string[] filter, string country, string course, int pageSize)
+        public FeedAggregateQuery(long userId, int page, string country, string course, int pageSize)
         {
             Page = page;
             UserId = userId;
-            Filter = filter;
             Country = country;
             Course = course;
             PageSize = pageSize;
@@ -23,12 +22,12 @@ namespace Cloudents.Query.Documents
         private int Page { get; }
 
         private long UserId { get; }
-        private string[] Filter { get; }
+        
 
         private string Country { get; }
 
         private string Course { get; }
-        public int PageSize { get; }
+        private int PageSize { get; }
 
         internal sealed class DocumentAggregateQueryHandler : IQueryHandler<FeedAggregateQuery, IEnumerable<FeedDto>>
         {
@@ -37,11 +36,13 @@ namespace Cloudents.Query.Documents
 
             private readonly IDapperRepository _dapperRepository;
             private readonly IJsonSerializer _jsonSerializer;
+            private readonly IUrlBuilder _urlBuilder;
 
-            public DocumentAggregateQueryHandler(IDapperRepository dapperRepository, IJsonSerializer jsonSerializer)
+            public DocumentAggregateQueryHandler(IDapperRepository dapperRepository, IJsonSerializer jsonSerializer, IUrlBuilder urlBuilder)
             {
                 _dapperRepository = dapperRepository;
                 _jsonSerializer = jsonSerializer;
+                _urlBuilder = urlBuilder;
             }
 
 
@@ -188,6 +189,7 @@ join cte on un.country = cte.country or u.country = cte.country
 where
     d.UpdateTime > GETUTCDATE() - 182
 and d.State = 'Ok'
+and (d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
 
 union all
 
@@ -229,6 +231,7 @@ where
 and un.country = cte.country
 
 and q.State = 'Ok'
+and (q.CourseId in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
   ) R,
   cte
 order by
@@ -266,12 +269,29 @@ FETCH NEXT @pageSize ROWS ONLY";
                             {
 
                                 case "q":
-                                    var questions = _jsonSerializer.Deserialize<IEnumerable<QuestionFeedDto>>(v);
-                                    result.Add(questions.First());
+                                    var question = _jsonSerializer.Deserialize<IEnumerable<QuestionFeedDto>>(v).First();
+                                    if (question.User.Image != null)
+                                    {
+                                        question.User.Image =
+                                            _urlBuilder.BuildUserImageEndpoint(question.User.Id, question.User.Image);
+                                    }
+
+                                    if (question.FirstAnswer?.User.Image != null)
+                                    {
+                                        question.FirstAnswer.User.Image = _urlBuilder.BuildUserImageEndpoint(question.FirstAnswer.User.Id, question.FirstAnswer.User.Image);
+                                    }
+
+                                    result.Add(question);
                                     break;
                                 case "d":
-                                    var documents = _jsonSerializer.Deserialize<IEnumerable<DocumentFeedDto>>(v, JsonConverterTypes.TimeSpan);
-                                    result.Add(documents.First());
+                                    var document = _jsonSerializer.Deserialize<IEnumerable<DocumentFeedDto>>(v, JsonConverterTypes.TimeSpan).First();
+                                    if (document.User.Image != null)
+                                    {
+                                        document.User.Image =
+                                            _urlBuilder.BuildUserImageEndpoint(document.User.Id, document.User.Image);
+                                    }
+
+                                    result.Add(document);
                                     break;
                             }
                         } while (reader.Read());

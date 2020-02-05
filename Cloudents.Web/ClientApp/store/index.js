@@ -30,8 +30,35 @@ import dialog_Store from './dialogStore/dialog_Store.js'
 import utils_Store from './utils_Store'
 import banner_Store from './banner_Store.js'
 import dashboard_Store from './dashboard_Store.js'
-
+import feed from './feedStore.js'
 import profile from './profile.js';
+
+
+
+// const onModuleAValueChange= (store) => {
+//     store.watch(
+//         state => state.route,
+//         (val, oldVal) => {
+//             // Don't do anything on init state
+//             if (!oldVal) return;
+// console.log(val,oldVal);
+//             // // This will trigger all refresh actions on all store. But you can add anything here
+//             // // Essentially does: 
+//             // // store.dispatch(`moduleA/refresh`); 
+//             // // store.dispatch(`moduleB/refresh`); 
+//             // // store.dispatch(`moduleC/refresh`);
+//             // for (let state in store.state) {
+//             //     const action = `${state}/refresh`;
+//             //     // If the store does not have an refresh action ignore
+//             //     if (store._actions[action]) store.dispatch(`${state}/refresh`);
+//             // }
+
+//             // // Additional action 
+//             // store.dispatch(`moduleC/moduleC_Action`);
+//         }
+//     );
+// };
+
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -45,6 +72,7 @@ const store = new Vuex.Store({
         newQuestionDialog,
         University,
         uploadFiles,
+        feed,
         // document,
         // homeLanding,
         // homeworkHelpStore,
@@ -73,7 +101,8 @@ const store = new Vuex.Store({
         banner_Store,
         dashboard_Store,
         profile,
-    }
+    },
+   // plugins: [onModuleAValueChange]
 });
 
 export default store;

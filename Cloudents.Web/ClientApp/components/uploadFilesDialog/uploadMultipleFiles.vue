@@ -140,7 +140,6 @@ export default {
     },
     methods: {
         ...mapActions([
-            'changeSelectPopUpUniState',
             'updateDialogState',
             'resetUploadData',
             'setReturnToUpload',

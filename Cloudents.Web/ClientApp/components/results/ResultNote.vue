@@ -203,7 +203,7 @@
   </router-link>
 </template>
 <script>
-import { mapGetters, mapActions, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 import studyDocumentsStore from "../../store/studyDocuments_store";
 import storeService from "../../services/store/storeService";
@@ -385,10 +385,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({
-      updateLoading: "UPDATE_LOADING",
-      updateSearchLoading: "UPDATE_SEARCH_LOADING"
-    }),
     ...mapActions([
       "updateLoginDialogState",
       "updateToasterParams",

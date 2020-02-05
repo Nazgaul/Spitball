@@ -2,12 +2,9 @@
   <v-app>
     <router-view name="banner"></router-view>
     <router-view name="header"></router-view>
-    <router-view v-if="showSideMenu" name="sideMenu"></router-view>
-
-      <v-content class="site-content" :class="{'loading':getIsLoading}">
+    <router-view name="sideMenu" v-if="showSideMenu"></router-view>
+    <v-content class="site-content">
         <chat v-if="visible"/>
-
-        <router-view name="verticals"></router-view>
         <router-view class="main-container"></router-view>
       
         <div class="s-cookie-container" v-if="!cookiesShow">
@@ -21,6 +18,8 @@
           </span>
         </div>
 
+        <dialogInjection class="dialogInjection" />
+
         <sb-dialog
           :showDialog="loginDialogState"
           :popUpType="'loginPop'"
@@ -29,17 +28,6 @@
         >
           <login-to-answer v-if="loginDialogState"></login-to-answer>
         </sb-dialog>
-
-        <sb-dialog
-          :showDialog="universitySelectPopup"
-          :popUpType="'universitySelectPopup'"
-          :onclosefn="closeUniPopDialog"
-          :activateOverlay="true"
-          :content-class="'pop-uniselect-container'"
-        >
-          <uni-Select-pop v-if="universitySelectPopup" :showDialog="universitySelectPopup" :popUpType="'universitySelectPopup'"></uni-Select-pop>
-        </sb-dialog>
-
         <sb-dialog
           :isPersistent="true"
           :showDialog="newQuestionDialogSate"
@@ -47,7 +35,7 @@
           :max-width="'510px'"
           :content-class="'question-request-dialog'"
         >
-          <Add-Question v-if="newQuestionDialogSate"></Add-Question>
+          <AddQuestion v-if="newQuestionDialogSate"></AddQuestion>
         </sb-dialog>
 
         <sb-dialog
@@ -143,6 +131,7 @@
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 
+const dialogInjection = () => import('../pages/global/dialogInjection/dialogInjection.vue');
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const loginToAnswer = () => import("../question/helpers/loginToAnswer/login-answer.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
@@ -170,7 +159,8 @@ export default {
     buyTokenFrymo,
     becomeTutor,
     tutorRequest,
-    paymentDialog
+    paymentDialog,
+    dialogInjection
   },
   data() {
     return {
@@ -181,11 +171,9 @@ export default {
   computed: {
     ...mapGetters([
       "getReferralDialog",
-      "getIsLoading",
       "accountUser",
       "loginDialogState",
       "newQuestionDialogSate",
-      "getShowSelectUniPopUpInterface",
       "getDialogState",
       "getShowToaster",
       "getShowToasterType",
@@ -219,9 +207,6 @@ export default {
       } else {
         return true;
       }
-    },
-    universitySelectPopup() {
-      return this.getShowSelectUniPopUpInterface;
     },
     showMobileFooter() {
       return this.$vuetify.breakpoint.xsOnly && this.getMobileFooterState && !this.hideFooter && this.$route.name !== 'tutorLandingPage';
@@ -309,7 +294,6 @@ export default {
       "updateToasterParams",
       "updateLoginDialogState",
       "updateNewQuestionDialogState",
-      "changeSelectPopUpUniState",
       "updateDialogState",
       "setCookieAccepted",
       "updateShowBuyDialog",
@@ -329,9 +313,6 @@ export default {
     },
     removeCookiesPopup: function() {
       this.setCookieAccepted();
-    },
-    closeUniPopDialog() {
-      this.changeSelectPopUpUniState(false);
     },
     setUploadDialogState() {
       this.updateDialogState(false);

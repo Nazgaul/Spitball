@@ -1,7 +1,6 @@
 ﻿import { transformLocation } from './resources';
 import { connectivityModule } from "./connectivity.module"
 
-
 const getUni = (params) => {
     return connectivityModule.http.get("university", { params: transformLocation(params) });
 };

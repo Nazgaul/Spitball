@@ -26,10 +26,6 @@ function Course(objInit) {
 
 }
 
-function ServerCourse(name) {
-    this.name = name;
-}
-
 const getUni = (val) => {
     return connectivityModule.http.get(`university?term=${val.term}&page=${val.page}`).then(({data}) => {
         let result = [];
@@ -70,16 +66,8 @@ const getCourse = (val) => {
     });
 };
 
-const assaignCourse = (arrCourses) => {
-    let courses = [];
-    arrCourses.forEach(course => {
-        if(typeof course === 'object') {
-            courses.push(new ServerCourse(course.text));
-        } else {
-            courses.push(new ServerCourse(course));
-        }
-    });
-    return connectivityModule.http.post("Course/set", courses);
+const assaignCourse = (courseName) => {
+    return connectivityModule.http.post("Course/set", courseName);
 };
 
 const deleteCourse = (name) => {

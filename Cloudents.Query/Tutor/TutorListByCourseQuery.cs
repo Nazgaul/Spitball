@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Tutor
 {
@@ -40,9 +41,11 @@ namespace Cloudents.Query.Tutor
         {
 
             private readonly IStatelessSession _session;
+            private readonly IUrlBuilder _urlBuilder;
 
-            public TutorListByCourseQueryHandler(QuerySession session)
+            public TutorListByCourseQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
             {
+                _urlBuilder = urlBuilder;
                 _session = session.StatelessSession;
             }
 
@@ -124,7 +127,12 @@ namespace Cloudents.Query.Tutor
                 var tutors2 = await futureCourse2.GetEnumerableAsync(token);
 
                 return tutors.Union(tutors2).Skip(query.Page * query.Count).Take(query.Count)
-                    .Distinct(TutorCardDto.UserIdComparer).ToList();
+                    .Distinct(TutorCardDto.UserIdComparer)
+                    .Select(s =>
+                    {
+                        s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
+                        return s;
+                    });
             }
         }
     }

@@ -45,7 +45,7 @@ export default {
     },
     props: {
         id: {
-            Number
+            // Number
         }
     },
     data() {
@@ -161,7 +161,7 @@ export default {
             }
         },
         openBecomeTutor(){
-            this.updateTutorDialog(true)
+            this.$router.push({query:{dialog:'becomeTutor'}})
         },
         goTutorList(){
             this.$router.push({name:'tutorLandingPage'})
@@ -303,20 +303,24 @@ export default {
         },
     },
     watch: {
-        '$route': function(val){
-            this.resetProfileData();
-            if((val.params.id == this.accountUser.id) && this.accountUser.isTutorState === "pending"){
-                this.updateToasterParams({
-                    toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
-                    showToaster: true,
-                    toasterTimeout: 3600000
-                });
-            }else{
-                this.updateToasterParams({
-                    showToaster: false
-                }); 
+        "$route.params.id": function(val, oldVal){ 
+            let old = Number(oldVal,10);
+            let newVal = Number(val,10);
+            if (newVal !== old) {
+                this.resetProfileData();
+                if((newVal == this.accountUser.id) && this.accountUser.isTutorState === "pending"){
+                    this.updateToasterParams({
+                        toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                        showToaster: true,
+                        toasterTimeout: 3600000
+                    });
+                }else{
+                    this.updateToasterParams({
+                        showToaster: false
+                    }); 
+                }
+                this.fetchData();
             }
-            this.fetchData();
         },
     },
     beforeRouteLeave(to, from, next) {

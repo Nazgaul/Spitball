@@ -84,7 +84,13 @@ const actions = {
         commit("logout");
         global.location.replace("/logout");
     },
-    userStatus({ dispatch, commit, getters }) {
+    getUserAccountForRegister({commit}) {
+        return accountService.getAccount().then((userAccount) => {
+            commit("updateUser", userAccount);
+            analyticsService.sb_setUserId(userAccount.id);
+        })
+    },
+    userStatus({dispatch, commit, getters}, {isRequireAuth, to}) {
         commit("changeLoginStatus", global.isAuth);
         // TODO check
         if (getters.isUser) {

@@ -187,7 +187,7 @@ export default {
   },
   methods: {
     ...mapActions(['resetSearch',"updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
-    ...mapMutations(["UPDATE_SEARCH_LOADING", "UPDATE_LOADING"]),
+    ...mapMutations(["UPDATE_SEARCH_LOADING"]),
     openPersonalizeUniversity() {
       if (this.accountUser == null) {
         this.updateLoginDialogState(true);
@@ -334,7 +334,6 @@ export default {
               this.selectedCourse = "";
             }else{
               this.lock = false;
-              // return;
             }
           }else{
             this.selectedCourse = ""
@@ -361,7 +360,6 @@ export default {
     },
     updateFilter() {
       this.UPDATE_SEARCH_LOADING(true);
-      this.UPDATE_LOADING(true);
       let newQueryObject = {
         Course: this.selectedCourse
       };
@@ -374,7 +372,12 @@ export default {
         if(this.$route.path === `/feed` && this.$route.fullPath === '/feed'){
           newQueryObject.reloaded = '';
         }
-        this.$router.push({ query: newQueryObject });
+        let queryObj = {
+          Course: this.selectedCourse,
+          term: this.$route.query.term,
+          filter: this.$route.query.filter,
+        }
+        this.$router.push({ query: queryObj });
       }
     },
     openPersonalizeCourse() {
@@ -395,10 +398,6 @@ export default {
   },
   mounted(){
     this.sideMenulistElm = document.querySelector('.sideMenu');
-    // if(this.$vuetify.breakpoint)
-    // let marginTop = this.sideMenulistElm.style.marginTop;
-    // marginTop = +marginTop.slice(0,marginTop.length - 2)+1;
-    // this.sideMenulistElm.style.marginTop = marginTop + 'px'
     this.sideMenulistElm.addEventListener('click', this.clickEventMiniMenuOpen);
   },
   created() {

@@ -46,10 +46,10 @@ export default {
             "updateLoginDialogState",
             'setQuestion'
         ]),
-        ...mapMutations({updateLoading: "UPDATE_LOADING", updateSearchLoading:'UPDATE_SEARCH_LOADING'}),
+        ...mapMutations(['UPDATE_SEARCH_LOADING']),
         ...mapGetters(["getQuestion"]),
         resetSearch(){
-            this.updateSearchLoading(true);
+            this.UPDATE_SEARCH_LOADING(true);
             this.$router.push({name: "feed"});
         },
         submitAnswer() {
@@ -68,7 +68,6 @@ export default {
                 };
                 return;
             }
-            // this.updateLoading(true);
             var self = this;
             if(this.hasDuplicatiedAnswer(self.textAreaValue, self.questionData.answers)) {
                 console.log("duplicated answer detected");
@@ -85,13 +84,13 @@ export default {
                     .then(function () {                       
                         analyticsService.sb_unitedEvent("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
-                        // self.updateLoading(false);
+                    
                         //self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                     }, (error) => {
                         console.log(error);
                         // self.errorHasAnswer = error.response.data["Text"] ? error.response.data["Text"][0] : '';
                         self.submitForm(false);
-                        // self.updateLoading(true);
+                      
                     }).finally(()=>{
                         this.submitLoader = false;
                     });

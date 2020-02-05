@@ -5,7 +5,12 @@
 @colorTypeDocThirdParty: rgba(0, 0, 0, 0.54);
 
 //use the class to prevent transition
-
+@mobileXiamoiFooterGap: 50px;
+.phoneGapFooterFix() {
+  @media (max-width: @screen-xs) {
+    height: calc(100% - @mobileXiamoiFooterGap);
+  }
+}
 
 .inTheMiddle() {
   display: flex;

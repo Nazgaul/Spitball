@@ -1,13 +1,14 @@
 ﻿const path = require("path");
 const webpack = require("webpack");
 const bundleOutputDir = "./wwwroot/dist";
-const MiniCssExtractPluginRtl = require("mini-css-extract-plugin-with-rtl");
+const MiniCssExtractPluginRtl = require("@automattic/mini-css-extract-plugin-with-rtl");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const webpackRtlPlugin = require("webpack-rtl-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin = require("terser-webpack-plugin");
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
+var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
@@ -236,6 +237,7 @@ module.exports = (env) => {
                 }
             }),
             new VuetifyLoaderPlugin(),
+            new CaseSensitivePathsPlugin()
             //new BundleAnalyzerPlugin({
             //    analyzerMode: 'disabled',
             //    generateStatsFile: true,
@@ -269,6 +271,7 @@ module.exports = (env) => {
             path: path.join(__dirname, bundleOutputDir),
             publicPath: "dist/",
             filename: isDevBuild ? "[name].js" : "[name].[chunkhash].js",
+            crossOriginLoading: 'anonymous'
         }
     };
 };
