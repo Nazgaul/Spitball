@@ -1,7 +1,7 @@
 <template>
     <v-container id="subjects">
           <v-toolbar flat color="white">
-            <v-toolbar-title>My CRUD</v-toolbar-title>
+            <v-toolbar-title>Subjects</v-toolbar-title>
             <v-divider
                 class="mx-2"
                 inset
@@ -37,7 +37,7 @@
                 </v-card>
             </v-dialog>
         </v-toolbar>
-
+        {{editedIndex}}
         <v-data-table
             :headers="headers"
             :items="items"
@@ -93,39 +93,41 @@ export default {
         initialize() {
             this.getSubjects();
         },
+
         editItem(item) {
             this.editedIndex = this.items.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
+
         deleteItem() {
             console.log('deleteItem');
         },
+
         save() {
+            this.btnSaveLoading = true;
             let sendToServerObj = {
                 enSubjectName: this.editedItem.enName,
                 heSubjectName: this.editedItem.heName,
             }
-            this.btnSaveLoading = true;
             if (this.editedIndex > -1) {
+                sendToServerObj.subjectId = this.editedItem.id
                 //edit item
-                Object.assign(this.items[this.editedIndex], this.editedItem)
-                subjectService.editSubject(sendToServerObj).then(res => {
-                    console.log(res);
+                let self = this
+                subjectService.editSubject(sendToServerObj).then(res => {      
+                    Object.assign(self.items[self.editedIndex], self.editedItem)
                 }).catch(ex => {
                     console.warn(ex);
+                }).finally(() => {
+                    this.close()
                 })
             } else {
                 //add item
                 this.items.push(this.editedItem)
-                subjectService.addSubject(sendToServerObj).then(res => {
-                    console.log(res);
-                }).catch(ex => {
-                    console.warn(ex);
-                })
+                subjectService.addSubject(sendToServerObj).finally(() => this.close())
             }
-            this.close()
         },
+
         close() {
             this.dialog = false
             this.btnSaveLoading = false;
@@ -134,6 +136,7 @@ export default {
                 this.editedIndex = -1
             }, 300)
         },
+        
         getSubjects() {
             this.formLoading = true;
             subjectService.getSubjects().then((subjects) => {

@@ -2,13 +2,6 @@ import axios from 'axios';
 
 let subjectInstance = axios.create({
     baseURL: '/api/AdminSubject',
-    requestInterceptor: (config, { store }) => {
-        let qs = require('qs')
-        config.paramsSerializer = (params) => {
-          return qs.stringify(params, { arrayFormat: 'brackets' })
-        }
-        return config
-    }
 })
 
 function Subject(objInit) {
