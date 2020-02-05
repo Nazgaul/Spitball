@@ -9,14 +9,11 @@ namespace Cloudents.Command.CommandHandler.Admin
     public class CreateSubjectCommandHandler : ICommandHandler<CreateSubjectCommand>
     {
         private readonly IRepository<CourseSubject> _subjectRepository;
-        private readonly IRepository<CourseSubjectTranslation> _subjectTranslationRepository;
         private readonly IAdminLanguageRepository _adminLanguageRepository;
         public CreateSubjectCommandHandler(IRepository<CourseSubject> subjectRepository,
-            IRepository<CourseSubjectTranslation> subjectTranslationRepository,
             IAdminLanguageRepository adminLanguageRepository)
         {
             _subjectRepository = subjectRepository;
-            _subjectTranslationRepository = subjectTranslationRepository;
             _adminLanguageRepository = adminLanguageRepository;
         }
 

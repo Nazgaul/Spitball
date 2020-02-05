@@ -40,10 +40,19 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSubjectAsync([FromBody] CreateSubjectRequest request,
+        public async Task<IActionResult> CreateAsync([FromBody] CreateSubjectRequest request,
             CancellationToken token)
         {
             var command = new CreateSubjectCommand(request.EnSubjectName, request.HeSubjectName);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditAsync([FromBody] EditSubjectRequest request,
+            CancellationToken token)
+        {
+            var command = new EditSubjectCommand(request.SubjectId, request.EnSubjectName, request.HeSubjectName);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

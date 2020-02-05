@@ -12,7 +12,7 @@ namespace Cloudents.Core.Entities
         protected CourseSubject()
         {
         }
-        public virtual string Name { get; set; }
+        public virtual string Name { get; protected set; }
         //public virtual string EnglishName { get; set; }
         private readonly ISet<CourseSubjectTranslation> _translations = new HashSet<CourseSubjectTranslation>();
         public virtual IEnumerable<CourseSubjectTranslation> Translations => _translations.ToList();
@@ -22,6 +22,16 @@ namespace Cloudents.Core.Entities
         public virtual void AddTranslation(CourseSubjectTranslation translation)
         {
             _translations.Add(translation);
+        }
+
+        public virtual void ChangeName(string newName)
+        {
+            Name = newName;
+        }
+
+        public virtual void DeleteTranslation(CourseSubjectTranslation translation)
+        {
+            _translations.Remove(translation);
         }
     }
 }

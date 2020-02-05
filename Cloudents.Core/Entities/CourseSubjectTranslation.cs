@@ -17,6 +17,11 @@ namespace Cloudents.Core.Entities
         public virtual AdminLanguage Language { get; protected set; }
         public virtual string NameTranslation { get; protected set; }
 
+        public virtual void ChangeName(string name)
+        {
+            NameTranslation = name;
+        }
+
         public virtual bool Equals(CourseSubjectTranslation other)
         {
             if (ReferenceEquals(null, other)) return false;
