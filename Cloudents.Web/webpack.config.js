@@ -9,6 +9,7 @@ const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
 var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const { RetryChunkLoadPlugin } = require('webpack-retry-chunk-load-plugin');
 
 module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
