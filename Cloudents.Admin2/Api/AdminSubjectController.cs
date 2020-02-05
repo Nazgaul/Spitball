@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
+using Cloudents.Query.Admin;
 
 namespace Cloudents.Admin2.Api
 {
@@ -35,6 +36,7 @@ namespace Cloudents.Admin2.Api
                 return null;
             }
             var query = new SubjectsTranslationQuery();
+            return await _queryBus.QueryAsync(query, token);
         }
     }
 }
