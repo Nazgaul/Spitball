@@ -134,6 +134,7 @@ export default {
                 ...this.$route.query,
                 ...this.query,
             }
+            Object.keys(objParams).forEach((key) => (objParams[key] === '') && delete objParams[key]);
             this.$router.push({name:'feed',query:{...objParams}})
             this.scrollBehaviour.page = 1;
         },
