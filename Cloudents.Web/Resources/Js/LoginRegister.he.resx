@@ -222,6 +222,9 @@
   <data name="getstarted_title_login" xml:space="preserve">
     <value>ברוכים השבים. התחברו בבקשה</value>
   </data>
+  <data name="google_signin_error" xml:space="preserve">
+    <value>נראה כי הדפדפן שלך לא מאפשר שימוש בעוגיות אינטרנט (Cookies). יש לאפשר את השימוש כדי להירשם עם גוגל</value>
+  </data>
   <data name="highSchool" xml:space="preserve">
     <value>בתי ספר</value>
   </data>
