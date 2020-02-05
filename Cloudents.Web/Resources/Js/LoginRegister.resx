@@ -134,7 +134,7 @@
     <comment>1</comment>
   </data>
   <data name="emailconfirm_bottom" xml:space="preserve">
-    <value>Once you verify your email address, you'll be able to access Spitball services</value>
+    <value>Once you verify your email address, you'll be able to access Spitball's services</value>
     <comment>1</comment>
   </data>
   <data name="emailconfirm_bottom_reset" xml:space="preserve">
@@ -220,7 +220,7 @@
     <value>Need an account?</value>
   </data>
   <data name="getstarted_subtitle" xml:space="preserve">
-    <value>100% Free. No credit card needed.</value>
+    <value>No commitment. No credit card needed.</value>
     <comment>1</comment>
   </data>
   <data name="getstarted_terms_and" xml:space="preserve">
@@ -240,7 +240,7 @@
     <comment>1</comment>
   </data>
   <data name="getstarted_title" xml:space="preserve">
-    <value>Get started absolutly for free</value>
+    <value>Get started for free!</value>
     <comment>1</comment>
   </data>
   <data name="resetpass_btn" xml:space="preserve">
@@ -349,7 +349,7 @@
     <comment>1</comment>
   </data>
   <data name="smsconfirm_title" xml:space="preserve">
-    <value>Secure your number !</value>
+    <value>Confirm your phone number!</value>
     <comment>1</comment>
   </data>
   <data name="main_txt" xml:space="preserve">
