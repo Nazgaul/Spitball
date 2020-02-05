@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="select_all" xml:space="preserve">
-    <value>All</value>
+    <value>הכל</value>
   </data>
   <data name="select_document" xml:space="preserve">
-    <value>Documents</value>
+    <value>מסמכים</value>
   </data>
   <data name="select_question" xml:space="preserve">
-    <value>Questions</value>
+    <value>שאלות</value>
   </data>
   <data name="select_tutor" xml:space="preserve">
-    <value>Tutors</value>
+    <value>מורים פרטיים</value>
   </data>
   <data name="select_video" xml:space="preserve">
-    <value>Videos</value>
+    <value>סרטונים</value>
   </data>
 </root>
