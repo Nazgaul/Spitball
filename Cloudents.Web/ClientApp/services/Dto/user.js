@@ -4,13 +4,6 @@ function _createIsTutorState(str){
     else if(str && str.toLowerCase() === 'pending')return 'pending';
     else return null;
 }
-let DummyUni = {id: "80b226ae-94a1-4240-8796-a98200e81a54",
-name: "האוניברסיטה הפתוחה",
-country: "IL",
-image: "https://az32006.vo.msecnd.net/universities/920.jpg",
-usersCount: 27962}
-let DummyCourses = [{"name":"Economics","students":162,"isTeaching":true},{"name":"Physics","students":103,"isTeaching":true},{"name":"Computer Science 😀","students":72,"isTeaching":true},{"name":"Computer science notes 2","students":72,"isTeaching":true},{"name":"Temp","students":53,"isTeaching":true},{"name":"ג'נוסייד - רצח עם","students":9,"isTeaching":true},{"name":"Something","students":1,"isTeaching":true},{"name":"10664 ג'נוסייד - רצח עם‎‏‏","students":1,"isTeaching":true},{"name":"asdfasf33","students":1,"isTeaching":true}]
-
 export const User = {
     Default: function (objInit) {
         this.id = objInit.id || objInit.userId;
