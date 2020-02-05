@@ -1,4 +1,5 @@
 import universityService from '../services/universityService';
+import courseService from '../services/courseService';
 
 const state = {
     universities: [],
@@ -117,6 +118,9 @@ const mutations = {
 };
 
 const actions = {
+    updateTeachCourse({},courseName){
+        return courseService.teachCourse(courseName)
+    },
     updateTeachingClasses({commit}){
         commit('setAllClassesTeaching');
     },
@@ -135,7 +139,7 @@ const actions = {
         }, 2000);
     },
     createCourse({dispatch}, courseToCreate) {
-        universityService.createCourse(courseToCreate).then((course) => {
+        courseService.createCourse(courseToCreate).then((course) => {
             dispatch('pushClassToSelectedClasses', course);
         });
     },
@@ -183,14 +187,14 @@ const actions = {
         commit('setUniversities', []);
     },
     updateClasses({commit}, val) {
-     return  universityService.getCourse(val).then(data => {
+     return  courseService.getCourse(val).then(data => {
             commit('setClasses', data);
             return data;
      });
     },
     addClasses({commit}, val){
         if(val || val === ''){
-            return universityService.getCourse(val).then(data => {
+            return courseService.getCourse(val).then(data => {
                 commit('addClasses', data);
                 return data;
             }, () => {
@@ -202,7 +206,7 @@ const actions = {
         commit('setClasses', []);
     },
     deleteClass({commit}, val) {
-        return universityService.deleteCourse(val).then((resp) => {
+        return courseService.deleteCourse(val).then((resp) => {
             commit('deleteCourse', val);
             //clean cached list
             commit('deleteFromCachedList', val);
@@ -221,8 +225,7 @@ const actions = {
     },
     assignClasses({dispatch}, course) {
         let courseName = [{name: course}]
-        // let coursesToSend = courses ? courses : state.selectedClasses;
-        return universityService.assaignCourse(courseName).then(() => {
+        return courseService.assaignCourse(courseName).then(() => {
             //Update Filters in note page
             dispatch('changeReflectChangeToPage');
             Promise.resolve(true);

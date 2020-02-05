@@ -15,16 +15,6 @@ function University(objInit) {
         this.image = objInit.image || '';
     }
 }
-function Course(objInit) {
-    this.text = objInit.name;
-    this.isFollowing = objInit.isFollowing || false;
-    this.isTeaching = objInit.isTeaching || false;
-    this.students = objInit.students || 10;
-    this.isPending = objInit.isPending || false;
-    this.isLoading =  false;
-
-
-}
 
 const getUni = (val) => {
     return connectivityModule.http.get(`university?term=${val.term}&page=${val.page}`).then(({data}) => {
@@ -51,65 +41,14 @@ const assaignUniversity = (uniName) => {
     });
 };
 
-const getCourse = (val) => {
-    let path = val ? `course/search?term=${val.term}&page=${val.page}` : `course/search`;
-    return connectivityModule.http.get(`${path}`).then(({data}) => {
-        let result = [];
-        if(!!data.courses && data.courses.length > 0) {
-            data.courses.forEach((course) => {
-                result.push(new Course(course));
-            });
-        }
-        return result;
-    }, (err) => {
-        return Promise.reject(err);
-    });
-};
-
-const assaignCourse = (courseName) => {
-    return connectivityModule.http.post("Course/set", courseName);
-};
-
-const deleteCourse = (name) => {
-    return connectivityModule.http.delete(`course?name=${encodeURIComponent(name)}`).then((resp)=>{
-        return resp;
-    });
-};
-const createCourse = (course) => {
-    return connectivityModule.http.post("course/create", course).then((resp) => {
-        // return resp
-        let createdCourse ={
-            name: resp.data.name,
-            isFollowing :true,
-            isTeaching :  false,
-            isPending: true,
-        };
-        return new Course(createdCourse);
-    });
-};
 const createUni = (uni) => {
     return connectivityModule.http.post("university/create", {name: uni}).then(() => {
-        // return resp
-        // let createdUniversity ={
-        //     name: resp.data.name,
-        // };
         return uni;
-    });
-};
-
-const teachCourse = (course) => {
-    return connectivityModule.http.post("course/teach", {name: course}).then((resp) => {
-        return resp;
     });
 };
 
 export default {
     getUni,
     assaignUniversity,
-    getCourse,
-    assaignCourse,
-    deleteCourse,
-    createCourse,
     createUni,
-    teachCourse,
 };

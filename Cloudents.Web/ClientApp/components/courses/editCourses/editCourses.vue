@@ -131,19 +131,16 @@
                               "deleteClass",
                               "updateSelectedClasses",
                               "pushClassToSelectedClasses",
+                              'updateTeachCourse'
                           ]),
             teachCourseToggle(course) {
                 this.teachingActive = true;
                 course.isLoading = true;
-                universityService.teachCourse(course.text)
-                                 .then(() => {
-                                     course.isLoading = false;
-                                     this.teachingActive = false;
-                                     return course.isTeaching = !course.isTeaching;
-                                 }, () => {
-                                     course.isLoading = false;
-                                     this.teachingActive = false;
-                                 }).finally(() => {
+                this.updateTeachCourse(course.text).then(() => {
+                    course.isLoading = false;
+                    this.teachingActive = false;
+                    return course.isTeaching = !course.isTeaching;
+                }).finally(() => {
                     course.isLoading = false;
                     this.teachingActive = false;
                 });

@@ -94,7 +94,6 @@ export default {
             'updateRequestDialog',
             'setActiveConversationObj',
             'openChatInterface',
-            'updateTutorDialog',
             'setReturnToUpload',
             'updateDialogState',
             'updateProfileItemsByType',

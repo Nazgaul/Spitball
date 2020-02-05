@@ -197,7 +197,8 @@
                 "removeFromCached",
                 "addClasses",
                 "clearClassesCahce",
-                "deleteClass"
+                "deleteClass",
+                'updateTeachCourse'
             ]),
             ...mapMutations(['UPDATE_SEARCH_LOADING','setSearchedCourse']),
             openCreateDialog(val){
@@ -276,7 +277,7 @@
             //     this.assignClasses(this.localSelectedClasses).then(() => {
             //         if(this.isTutor){
             //                 this.localSelectedClasses.forEach(course=>{
-            //                     universityService.teachCourse(course.text).then(()=>{
+            //                     .(course.text).then(()=>{
             //                         course.isTeaching = true;
             //                         this.doneButtonLoading = false;
             //                         this.$router.push({name: 'editCourse'});
@@ -331,12 +332,12 @@
                         return
                     }
                     if(self.isTutor){
-                            self.localSelectedClasses.forEach(course=>{
-                                universityService.teachCourse(course.text).then(()=>{
-                                    course.isTeaching = true;
-                                    self.doneButtonLoading = false;
-                                })
-                            });
+                        self.localSelectedClasses.forEach(course=>{
+                            self.updateTeachCourse(course.text).then(()=>{
+                                course.isTeaching = true;
+                                self.doneButtonLoading = false;
+                            })
+                        });
                     }else{
                         self.doneButtonLoading = false;
                     }
