@@ -23,7 +23,7 @@ const getters = {
         }
         return filters;
     },
-    Feeds_getCurrentQuery (rootState)   {
+    Feeds_getCurrentQuery (state, getters, rootState)   {
         let route = rootState.route;
         return {
             filter : route.query.filter || emptyStateSelection,
