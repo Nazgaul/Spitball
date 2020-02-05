@@ -27,7 +27,7 @@ namespace Cloudents.Query.Documents
         private string Country { get; }
 
         private string Course { get; }
-        public int PageSize { get; }
+        private int PageSize { get; }
 
         internal sealed class DocumentAggregateQueryHandler : IQueryHandler<FeedAggregateQuery, IEnumerable<FeedDto>>
         {
@@ -36,11 +36,13 @@ namespace Cloudents.Query.Documents
 
             private readonly IDapperRepository _dapperRepository;
             private readonly IJsonSerializer _jsonSerializer;
+            private readonly IUrlBuilder _urlBuilder;
 
-            public DocumentAggregateQueryHandler(IDapperRepository dapperRepository, IJsonSerializer jsonSerializer)
+            public DocumentAggregateQueryHandler(IDapperRepository dapperRepository, IJsonSerializer jsonSerializer, IUrlBuilder urlBuilder)
             {
                 _dapperRepository = dapperRepository;
                 _jsonSerializer = jsonSerializer;
+                _urlBuilder = urlBuilder;
             }
 
 
@@ -271,8 +273,14 @@ FETCH NEXT @pageSize ROWS ONLY";
                                     result.Add(questions.First());
                                     break;
                                 case "d":
-                                    var documents = _jsonSerializer.Deserialize<IEnumerable<DocumentFeedDto>>(v, JsonConverterTypes.TimeSpan);
-                                    result.Add(documents.First());
+                                    var document = _jsonSerializer.Deserialize<IEnumerable<DocumentFeedDto>>(v, JsonConverterTypes.TimeSpan).First();
+                                    if (document.User?.Image != null)
+                                    {
+                                        document.User.Image =
+                                            _urlBuilder.BuildUserImageEndpoint(document.Id, document.User.Image);
+                                    }
+
+                                    result.Add(document);
                                     break;
                             }
                         } while (reader.Read());

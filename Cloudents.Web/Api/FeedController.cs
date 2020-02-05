@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Core.Query.Feed;
@@ -26,17 +25,15 @@ namespace Cloudents.Web.Api
     public class FeedController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        private readonly IStringLocalizer<DocumentController> _localizer;
         private readonly IUrlBuilder _urlBuilder;
         private readonly IFeedService _feedService;
 
 
         public FeedController(UserManager<User> userManager,
-             IStringLocalizer<DocumentController> localizer, IUrlBuilder urlBuilder,
+              IUrlBuilder urlBuilder,
              IFeedService feedService)
         {
             _userManager = userManager;
-            _localizer = localizer;
             _urlBuilder = urlBuilder;
             _feedService = feedService;
         }
@@ -60,26 +57,15 @@ namespace Cloudents.Web.Api
                     FeedType.Video.ToString("G"),
                     FeedType.Question.ToString("G"),
                     FeedType.Tutor.ToString("G")
-                }
-                , new
-                {
-                    page = ++page,
-                    filter = request.Filter
                 });
         }
 
 
 
         private WebResponseWithFacet<FeedDto> GenerateResult(
-            IEnumerable<FeedDto> result, IEnumerable<string> filters, object nextPageParams)
+            IEnumerable<FeedDto> result, IEnumerable<string> filters)
         {
-            //var filters = new List<IFilters>();
-
-            //var filter = new Filters<string>(nameof(DocumentRequestAggregate.Filter),
-            //    _localizer["TypeFilterTitle"],
-            //    EnumExtension.GetValues<FeedType>().Select(s =>
-            //        new KeyValuePair<string, string>(s.ToString("G"), s.GetEnumLocalization())));
-            //filters.Add(filter);
+          
 
 
 
@@ -94,8 +80,7 @@ namespace Cloudents.Web.Api
                     }
                     return s;
                 }),
-                Filters = filters,
-                NextPageLink = Url.RouteUrl("Documents", nextPageParams)
+                Filters = filters
             };
         }
 
@@ -116,8 +101,7 @@ namespace Cloudents.Web.Api
                     FeedType.Video.ToString("G"),
                     FeedType.Question.ToString("G"),
                     FeedType.Tutor.ToString("G")
-                },
-                new { page = ++request.Page, request.Course, request.Filter });
+                });
         }
 
 
@@ -136,14 +120,6 @@ namespace Cloudents.Web.Api
                     FeedType.Document.ToString("G"),
                     FeedType.Video.ToString("G"),
                     FeedType.Tutor.ToString("G")
-                },
-
-                new
-                {
-                    page = ++request.Page,
-                    request.Course,
-                    request.Term,
-                    request.Filter
                 });
         }
 
@@ -162,12 +138,6 @@ namespace Cloudents.Web.Api
                     FeedType.Document.ToString("G"),
                     FeedType.Video.ToString("G"),
                     FeedType.Tutor.ToString("G")
-                },
-                new
-                {
-                    page = ++request.Page,
-                    request.Term,
-                    request.Filter
                 });
         }
 

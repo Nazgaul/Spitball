@@ -18,7 +18,6 @@ using Cloudents.Query;
 using Cloudents.Query.Documents;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
-using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -31,7 +30,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Resources.Resources;
 using Wangkanai.Detection;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
@@ -39,6 +37,8 @@ namespace Cloudents.Web.Api
 {
     [Produces("application/json")]
     [Route("api/[controller]"), ApiController]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "this is what we want")]
+
     public class DocumentController : UploadControllerBase
     {
         private readonly IQueryBus _queryBus;
@@ -261,7 +261,7 @@ namespace Cloudents.Web.Api
 
 
         [HttpPost("dropBox"), Authorize]
-        public async Task<UploadStartResponse> UploadDropBox([FromBody] DropBoxRequest model,
+        public async Task<UploadStartResponse> UploadDropBoxAsync([FromBody] DropBoxRequest model,
            [FromServices] IRestClient client,
            [FromServices] IDocumentDirectoryBlobProvider documentDirectoryBlobProvider,
            CancellationToken token)
