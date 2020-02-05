@@ -8,13 +8,13 @@
                 vertical
             ></v-divider>
             <v-spacer></v-spacer>
-            <v-dialog v-model="dialog" v-if="dialog" max-width="500px">
+            <v-dialog v-model="dialog" max-width="500px">
                 <template slot="activator">
-                    <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+                    <v-btn color="primary" dark class="mb-2">New Item</v-btn>
                 </template>
                 <v-card>
                 <v-card-title>
-                    <span class="headline">{{ formTitle }}</span>
+                    <!-- <span class="headline">{{ formTitle }}</span> -->
                 </v-card-title>
 
                 <v-card-text>
@@ -53,7 +53,8 @@
             class="elevation-1"
         >
             <template slot="items" slot-scope="props">
-                <td>{{ props }}</td>
+                <td>{{ props.item.heName }}</td>
+                <td>{{ props.item.enName}}</td>
                 <td class="justify-center layout px-0">
                     <v-icon
                         small
@@ -84,8 +85,8 @@ export default {
     data: () => ({
         dialog: false,
         headers: [
-            // { text: 'ID', value: 'id' },
-            { text: 'Name', value: 'name' },
+            { text: 'HE', value: 'he' },
+            { text: 'EN', value: 'en' },
             { text: 'Actions', value: 'actions', sortable: false }
         ],
         editedIndex: -1,
@@ -100,8 +101,20 @@ export default {
     methods: {
         initialize() {
             console.log("initialize");
+        },
+        editItem() {
+            console.log('editItem');
+        },
+        deleteItem() {
+            console.log('deleteItem');
+        },
+        save() {
+            console.log("save");
+        },
+        close() {
+            console.log("close");
         }
-    },
+    }, 
     created() {
         subjectService.getSubjects().then((subjects) => {
             this.items = subjects;

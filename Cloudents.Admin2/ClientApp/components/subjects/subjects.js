@@ -24,10 +24,7 @@ function createSubjects({data}) {
     return subjectsObj;
 }
 
-function getSubjects(){
-    return subjectInstance.get().then(createSubjects)
-}
-
 export default {
-    getSubjects: () => subjectInstance.get().then(createSubjects)
+    getSubjects: () => subjectInstance.get().then(createSubjects),
+    
 }
