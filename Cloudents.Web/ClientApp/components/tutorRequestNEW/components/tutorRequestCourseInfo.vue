@@ -198,6 +198,9 @@ export default {
         if(this.getCourseDescription){
             this.description = this.getCourseDescription;
         }
+        if(this.getSelectedCourse){
+            this.tutorCourse = this.getSelectedCourse;
+        }
         if(this.$route.params && this.$route.params.course){
             let queryCourse = this.$route.params.course;
             this.tutorCourse = queryCourse
