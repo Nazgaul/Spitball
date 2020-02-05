@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import {getSubjects } from './subjects';
+import subjectService from './subjects';
 
 export default {
     data: () => ({
@@ -103,8 +103,8 @@ export default {
         }
     },
     created() {
-        getSubjects().then(({data}) => {
-            this.items = data;
+        subjectService.getSubjects().then((subjects) => {
+            this.items = subjects;
         }).catch(ex => {
             console.warn(ex);
         })
