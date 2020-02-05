@@ -151,7 +151,7 @@ namespace Cloudents.Web.Controllers
 
 
         [Route("google")]
-        public async Task<RedirectToRouteResult> GoogleSigninAndroidAsync(string token,
+        public async Task<RedirectToActionResult> GoogleSigninAndroidAsync(string token,
             [FromServices] IGoogleAuth service,
             [FromServices] IDataProtectionProvider dataProtectProvider,
             CancellationToken cancellationToken
@@ -160,7 +160,7 @@ namespace Cloudents.Web.Controllers
             var result = await service.LogInAsync(token, cancellationToken);
             if (result == null)
             {
-                return RedirectToRoute("Index");
+                return RedirectToAction("Index");
             }
 
             var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
@@ -168,7 +168,7 @@ namespace Cloudents.Web.Controllers
             var user2 = await _userManager.FindByEmailAsync(result.Email);
             var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
             var code = dataProtector.Protect(user2.ToString(), DateTimeOffset.UtcNow.AddDays(5));
-            return RedirectToRoute("Index", new
+            return RedirectToAction("Index", new
             {
                 token = code
             });
