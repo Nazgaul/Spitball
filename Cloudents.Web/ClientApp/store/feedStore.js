@@ -25,8 +25,15 @@ const getters = {
     },
     Feeds_getCurrentQuery (state, getters, rootState)   {
         let route = rootState.route;
+        function getFilter(){
+            if(route.query.filter === 'Question' && route.query.term){
+                return emptyStateSelection
+            }else{
+                return route.query.filter || emptyStateSelection
+            }
+        }
         return {
-            filter : route.query.filter || emptyStateSelection,
+            filter : getFilter(),
             course : route.query.Course,
             term: route.query.term
         };
@@ -99,7 +106,7 @@ const actions = {
         commit('Feeds_ResetQue');
         
         let paramsList = {...params};
-        if(paramsList.filter.key){
+        if(paramsList.filter?.key || paramsList.filter === 'Question' && paramsList.term){
             delete paramsList.filter;
         }
         return searchService.activateFunction.feed(paramsList).then((data) => {
