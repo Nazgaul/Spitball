@@ -77,7 +77,8 @@
 
         <v-snackbar
             v-model="snackbar"
-            :timeout="5006666660"
+            class="error-toaster"
+            :timeout="5000"
             top
             >
                 <div class="text-center flex-grow-1">{{ $t('loginRegister_google_signin_error') }}</div>
