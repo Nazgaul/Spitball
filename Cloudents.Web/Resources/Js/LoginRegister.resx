@@ -397,4 +397,7 @@ tutors</value>
   <data name="highSchool" xml:space="preserve">
     <value>A High school student</value>
   </data>
+  <data name="google_signin_error" xml:space="preserve">
+    <value>Your browser seems to have cookies disabled,. Enable cookies to sign in with Google</value>
+  </data>
 </root>
