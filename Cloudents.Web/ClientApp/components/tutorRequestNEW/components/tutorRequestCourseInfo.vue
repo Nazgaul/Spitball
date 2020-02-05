@@ -23,11 +23,10 @@
                     class="text-truncate"
                     flat hide-no-data
                     :append-icon="''"
+                    @keyup="onCourseChange"
                     v-model="tutorCourse"
                     :items="getSelectedClasses"/>
             </fieldset>
-            
-
             <v-checkbox v-if="isTutor" :ripple="false" class="checkbox-userinfo"
                         :label="$Ph('tutorRequest_more_tutors',this.getCurrTutor.name)" 
                         v-model="moreTutors" off-icon="sbf-check-box-un" 
@@ -134,10 +133,14 @@ export default {
             if(!!term){
                 universityService.getCourse({term, page:0}).then(data=>{
                     this.suggestsCourses = data;
-                    this.suggestsCourses.forEach(course=>{
-                        if(course.text === this.tutorCourse){
-                            this.tutorCourse = course
-                        }}) 
+                    if(this.suggestsCourses.length) {
+                        this.suggestsCourses.forEach(course=>{
+                            if(course.text === this.tutorCourse){
+                                this.tutorCourse = course
+                            }}) 
+                    } else {
+                        this.tutorCourse = term
+                    }
                 })
             }
         },300),
@@ -147,7 +150,6 @@ export default {
                 this.updateSelectedCourse(this.tutorCourse)
                 this.updateMoreTutors(this.moreTutors)
                 this.updateTutorReqStep('tutorRequestUserInfo')
-
             let analyticsObject = {
                 userId: this.isLoggedIn ? this.accountUser.id : 'GUEST',
                 course: this.tutorCourse,
@@ -187,6 +189,9 @@ export default {
                     this.updateSelectedCourse(this.tutorCourse)
                 })
             }
+        },
+        onCourseChange(e) {
+            this.tutorCourse = e.target.value;
         }
     },
     mounted() {
