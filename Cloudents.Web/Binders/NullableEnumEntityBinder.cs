@@ -16,7 +16,7 @@ namespace Cloudents.Web.Binders
             }
 
             var strValue = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-            if (strValue.FirstValue == null)
+            if (string.IsNullOrEmpty(strValue.FirstValue))
             {
                 bindingContext.Result = ModelBindingResult.Success(null);
                 return Task.CompletedTask;
