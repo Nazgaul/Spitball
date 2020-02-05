@@ -10,30 +10,20 @@
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
                 <template slot="activator">
-                    <v-btn color="primary" dark class="mb-2">New Item</v-btn>
+                    <v-btn color="primary" dark class="mb-2">Add Subject</v-btn>
                 </template>
                 <v-card>
                 <v-card-title>
-                    <!-- <span class="headline">{{ formTitle }}</span> -->
+                    <span class="headline">{{ formTitle }}</span>
                 </v-card-title>
-
                 <v-card-text>
                     <v-container grid-list-md>
                         <v-layout wrap>
-                            <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
+                            <v-flex xs12>
+                                <v-text-field v-model="editedItem.enName" label="English"></v-text-field>
                             </v-flex>
-                            <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
-                            </v-flex>
-                            <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
-                            </v-flex>
-                            <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-                            </v-flex>
-                            <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
+                            <v-flex xs12>
+                                <v-text-field v-model="editedItem.heName" label="Hebrew"></v-text-field>
                             </v-flex>
                         </v-layout>
                     </v-container>
@@ -42,33 +32,25 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-                    <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+                    <v-btn color="blue darken-1" :loading="btnSaveLoading" flat @click="save">Save</v-btn>
                 </v-card-actions>
                 </v-card>
             </v-dialog>
         </v-toolbar>
+
         <v-data-table
             :headers="headers"
             :items="items"
             class="elevation-1"
+            :loading="formLoading"
+            :rows-per-page-items="[5, 10, 25,{text: 'All', value:-1}]"
         >
             <template slot="items" slot-scope="props">
                 <td>{{ props.item.heName }}</td>
                 <td>{{ props.item.enName}}</td>
                 <td class="justify-center layout px-0">
-                    <v-icon
-                        small
-                        class="mr-2"
-                        @click="editItem()"
-                    >
-                        edit
-                    </v-icon>
-                    <v-icon
-                        small
-                        @click="deleteItem()"
-                    >
-                        delete
-                    </v-icon>
+                    <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
+                    <v-icon small @click="deleteItem()">delete</v-icon>
                 </td>
             </template>
             <template v-slot:no-data>
@@ -83,44 +65,88 @@ import subjectService from './subjects';
 
 export default {
     data: () => ({
+        btnSaveLoading: false,
+        formLoading: false,
         dialog: false,
+        editedIndex: -1,
+        items: [],
         headers: [
             { text: 'HE', value: 'he' },
             { text: 'EN', value: 'en' },
             { text: 'Actions', value: 'actions', sortable: false }
         ],
-        editedIndex: -1,
-        items: [],
         editedItem: {
-            name: '',
+            enName: '',
+            heName: ''
         },
         defaultItem: {
-            name: '',
+            enName: '',
+            heName: ''
         }
     }),
+    computed: {
+      formTitle () {
+        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      }
+    },
     methods: {
         initialize() {
-            console.log("initialize");
+            this.getSubjects();
         },
-        editItem() {
-            console.log('editItem');
+        editItem(item) {
+            this.editedIndex = this.items.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.dialog = true
         },
         deleteItem() {
             console.log('deleteItem');
         },
         save() {
-            console.log("save");
+            let sendToServerObj = {
+                enSubjectName: this.editedItem.enName,
+                heSubjectName: this.editedItem.heName,
+            }
+            this.btnSaveLoading = true;
+            if (this.editedIndex > -1) {
+                //edit item
+                Object.assign(this.items[this.editedIndex], this.editedItem)
+                subjectService.editSubject(sendToServerObj).then(res => {
+                    console.log(res);
+                }).catch(ex => {
+                    console.warn(ex);
+                })
+            } else {
+                //add item
+                this.items.push(this.editedItem)
+                subjectService.addSubject(sendToServerObj).then(res => {
+                    console.log(res);
+                }).catch(ex => {
+                    console.warn(ex);
+                })
+            }
+            this.close()
         },
         close() {
-            console.log("close");
+            this.dialog = false
+            this.btnSaveLoading = false;
+            setTimeout(() => {
+                this.editedItem = Object.assign({}, this.defaultItem)
+                this.editedIndex = -1
+            }, 300)
+        },
+        getSubjects() {
+            this.formLoading = true;
+            subjectService.getSubjects().then((subjects) => {
+                this.items = subjects;
+            }).catch(ex => {
+                console.warn(ex);
+            }).finally(() => {
+                this.formLoading = false;
+            })
         }
     }, 
     created() {
-        subjectService.getSubjects().then((subjects) => {
-            this.items = subjects;
-        }).catch(ex => {
-            console.warn(ex);
-        })
+        this.getSubjects();
     }
 }
 </script>
