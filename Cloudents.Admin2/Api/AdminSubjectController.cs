@@ -3,13 +3,13 @@ using Cloudents.Core.DTOs.Admin;
 using Cloudents.Query;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Extension;
 using Cloudents.Query.Admin;
+using Cloudents.Admin2.Models;
+using Cloudents.Command.Command.Admin;
 
 namespace Cloudents.Admin2.Api
 {
@@ -37,6 +37,15 @@ namespace Cloudents.Admin2.Api
             }
             var query = new SubjectsTranslationQuery();
             return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateSubjectAsync([FromBody] CreateSubjectRequest request,
+            CancellationToken token)
+        {
+            var command = new CreateSubjectCommand(request.EnSubjectName, request.HeSubjectName);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
         }
     }
 }
