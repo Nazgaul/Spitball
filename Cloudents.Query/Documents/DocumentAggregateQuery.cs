@@ -269,15 +269,26 @@ FETCH NEXT @pageSize ROWS ONLY";
                             {
 
                                 case "q":
-                                    var questions = _jsonSerializer.Deserialize<IEnumerable<QuestionFeedDto>>(v);
-                                    result.Add(questions.First());
+                                    var question = _jsonSerializer.Deserialize<IEnumerable<QuestionFeedDto>>(v).First();
+                                    if (question.User.Image != null)
+                                    {
+                                        question.User.Image =
+                                            _urlBuilder.BuildUserImageEndpoint(question.User.Id, question.User.Image);
+                                    }
+
+                                    if (question.FirstAnswer?.User.Image != null)
+                                    {
+                                        question.FirstAnswer.User.Image = _urlBuilder.BuildUserImageEndpoint(question.FirstAnswer.User.Id, question.FirstAnswer.User.Image);
+                                    }
+
+                                    result.Add(question);
                                     break;
                                 case "d":
                                     var document = _jsonSerializer.Deserialize<IEnumerable<DocumentFeedDto>>(v, JsonConverterTypes.TimeSpan).First();
-                                    if (document.User?.Image != null)
+                                    if (document.User.Image != null)
                                     {
                                         document.User.Image =
-                                            _urlBuilder.BuildUserImageEndpoint(document.Id, document.User.Image);
+                                            _urlBuilder.BuildUserImageEndpoint(document.User.Id, document.User.Image);
                                     }
 
                                     result.Add(document);
