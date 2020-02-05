@@ -86,6 +86,8 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(0, 638, FeedType.Document, "IL", null, 20)]
         [InlineData(0, 638, FeedType.Document, "IL", "Economics", 20)]
+        [InlineData(0, 638, FeedType.Video, "IL", null, 20)]
+        [InlineData(0, 638, FeedType.Video, "IL", "Economics", 20)]
         public async Task DocumentFeedWithFilterQuery_Document_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
         {
             var query = new DocumentFeedWithFliterQuery(page, userId, filter, country, course, pageSize);
@@ -97,20 +99,20 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
                 result.Should().OnlyContain(c => c.Course == course);
             }
         }
-        [Theory]
-        [InlineData(0, 638, FeedType.Video, "IL", null, 20)]
-        [InlineData(0, 638, FeedType.Video, "IL", "Economics", 20)]
-        public async Task DocumentFeedWithFilterQuery_Video_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
-        {
-            var query = new DocumentFeedWithFliterQuery(page, userId, filter, country, course, pageSize);
-            var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
-            result.Should().NotBeNullOrEmpty();
-            result.Should().OnlyContain(c => c.DocumentType == DocumentType.Video);
-            if (!string.IsNullOrEmpty(course))
-            {
-                result.Should().OnlyContain(c => c.Course == course);
-            }
-        }
+        //[Theory]
+        //[InlineData(0, 638, FeedType.Video, "IL", null, 20)]
+        //[InlineData(0, 638, FeedType.Video, "IL", "Economics", 20)]
+        //public async Task DocumentFeedWithFilterQuery_Video_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
+        //{
+        //    var query = new DocumentFeedWithFliterQuery(page, userId, filter, country, course, pageSize);
+        //    var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
+        //    result.Should().NotBeNullOrEmpty();
+        //    result.Should().OnlyContain(c => c.DocumentType == DocumentType.Video);
+        //    if (!string.IsNullOrEmpty(course))
+        //    {
+        //        result.Should().OnlyContain(c => c.Course == course);
+        //    }
+        //}
 
         [Theory]
         [InlineData(0, 638, "IL", null, 20)]
