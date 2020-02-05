@@ -141,6 +141,9 @@
   <data name="footer_links_about" xml:space="preserve">
     <value>About Spitball</value>
   </data>
+  <data name="footer_links_blog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
   <data name="footer_links_contact" xml:space="preserve">
     <value>Contact us</value>
   </data>

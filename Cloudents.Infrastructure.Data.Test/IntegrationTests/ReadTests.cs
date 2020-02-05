@@ -215,11 +215,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(638, "ארה\"ב", 0)]
-        [InlineData(638, "ממ\"", 0)]
-        [InlineData(638, "אלגברה ל", 0)]
-        public async Task CourseSearchWithTermQuery_Ok(long userId, string term, int page)
+        [InlineData("ארה\"ב", 0)]
+        [InlineData("ממ\"", 0)]
+        [InlineData("אלגברה ל", 0)]
+        public async Task CourseSearchWithTermQuery_Ok(string term, int page)
         {
+            var userId = await fixture.StatelessSession.Query<User>().Where(w => w.Country == "IL").Select(s => s.Id).FirstAsync();
+
             var query = new CourseSearchWithTermQuery(userId, term, page);
 
             var _ = await fixture.QueryBus.QueryAsync(query, default);

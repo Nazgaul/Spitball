@@ -1,7 +1,7 @@
 <template>
     <div class="add-courses-wrap">
         <v-layout :class="[$vuetify.breakpoint.smAndUp ? 'py-6 px-6': 'grey-backgound pa-2']" align-center justify-center>
-            <v-flex grow xs12>
+            <v-flex grow :class="isFromRegister ? 'xs12' : 'xs6'">
                 <div class="d-inline-flex justify-center shrink add-courses-wrap-title">
                     <slot name="fromRegisterBtn">
                         <v-icon @click="goToEditCourses()" class="course-back-btn mr-4">sbf-arrow-back</v-icon>
@@ -13,12 +13,13 @@
                 </div>
             </v-flex>
 
-            <!-- THIS IS THE "DONE" button -->
-            <!-- <v-flex xs4 shrink class="d-flex justify-end">
-                <v-btn sel="done_add_courses" depressed rounded :disabled="localSelectedClasses.length === 0" :loading="doneButtonLoading" class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="submitAndGo()">
-                    <span v-language:inner="'courses_btn_done'"></span>
-                </v-btn>
-            </v-flex> -->
+            <slot name="fromRegisterDoneBtn">
+                <v-flex xs6 shrink class="d-flex justify-end">
+                    <v-btn sel="done_add_courses" depressed rounded class="elevation-0 done-btn py-1 font-weight-bold my-0 text-capitalize" @click="goEditCourse()">
+                        <span v-language:inner="'courses_btn_done'"></span>
+                    </v-btn>
+                </v-flex>
+            </slot>
         </v-layout>
 
         <v-layout column :class="{'px-3' : $vuetify.breakpoint.smAndUp}">
@@ -182,7 +183,7 @@
                 }
             },
             isFromRegister() {
-                return this.$route.name !== 'addUniversity'
+                return this.$route.name !== 'addCourse'
             }
         },
         methods: {
@@ -261,6 +262,13 @@
                     self.isComplete = true;
                 });
             },
+            goEditCourse() {
+                if(this.localSelectedClasses.length) {
+                    this.$router.push({name: 'editCourse'});
+                } else {
+                    this.$router.push({name: 'feed'});
+                }
+            },
             // submitAndGo() {
             //     //assign all saved in cached list to classes list
             //     this.changeClassesToCachedClasses();
@@ -316,22 +324,21 @@
                 if(className.isFollowing) return;
                 this.addClass(className);
                 this.changeClassesToCachedClasses();
+                let self = this;
                 this.assignClasses(className.text).then(() => {
-                    if(this.isFromRegister) {
-                        this.$store.dispatch('updateStepValidation', true);
+                    if(self.isFromRegister) {
+                        self.$store.dispatch('updateStepValidation', true);
                         return
                     }
-                    if(this.isTutor){
-                            this.localSelectedClasses.forEach(course=>{
+                    if(self.isTutor){
+                            self.localSelectedClasses.forEach(course=>{
                                 universityService.teachCourse(course.text).then(()=>{
                                     course.isTeaching = true;
-                                    this.doneButtonLoading = false;
-                                    this.$router.push({name: 'editCourse'});
+                                    self.doneButtonLoading = false;
                                 })
                             });
                     }else{
-                        this.doneButtonLoading = false;
-                        this.$router.push({name: 'editCourse'});
+                        self.doneButtonLoading = false;
                     }
                 });
             },

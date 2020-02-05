@@ -326,7 +326,7 @@
     <comment>1</comment>
   </data>
   <data name="smsconfirm_change" xml:space="preserve">
-    <value>Change number &amp;amp; resend</value>
+    <value>Change number &amp; resend</value>
   </data>
   <data name="smsconfirm_input" xml:space="preserve">
     <value>Confirmation code</value>
@@ -374,7 +374,7 @@ tutors</value>
     <value>I'm a parent</value>
   </data>
   <data name="student" xml:space="preserve">
-    <value>I'm a student</value>
+    <value>I'm a pupil</value>
   </data>
   <data name="teacher" xml:space="preserve">
     <value>I'm a teacher</value>

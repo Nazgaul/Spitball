@@ -94,7 +94,7 @@ export const registrationRoutes = [
                     {
                         path: 'course',
                         name: routeName.RegisterCourse,
-                        meta: {nextStep: 'feed', backStep: routeName.RegisterType},
+                        meta: {nextStep: 'feed', backStep: routeName.RegisterType, dynamicClass: true},
                         component: () => import(`../components/pages/authenticationPage/register/registerCourse/registerCourse.vue`)
                     },
                     {
@@ -111,13 +111,13 @@ export const registrationRoutes = [
                     {
                         path: 'university',
                         name: routeName.RegisterUniversity,
-                        meta: {nextStep: routeName.RegisterCourseCollege, backStep: routeName.RegisterType},
+                        meta: {nextStep: routeName.RegisterCourseCollege, backStep: routeName.RegisterType, dynamicClass: true},
                         component: () => import(`../components/pages/authenticationPage/register/registerUniversity/registerUniversity.vue`),
                     },
                     {
                         path: 'course',
                         name: routeName.RegisterCourseCollege,
-                        meta: {nextStep: 'feed', backStep: routeName.RegisterUniversity},
+                        meta: {nextStep: 'feed', backStep: routeName.RegisterUniversity, dynamicClass: true},
                         component: () => import(`../components/pages/authenticationPage/register/registerCourse/registerCourse.vue`)
                     },
                     {
@@ -134,7 +134,7 @@ export const registrationRoutes = [
                     {
                         path: 'course',
                         name: routeName.RegisterCourseParent,
-                        meta: {nextStep: 'feed', backStep: routeName.RegisterType},
+                        meta: {nextStep: 'feed', backStep: routeName.RegisterType, dynamicClass: true},
                     },
                     {
                         path: '',
@@ -151,14 +151,15 @@ export const registrationRoutes = [
             //     }
             // },
         ],
-        beforeEnter: (to, from, next) => {
-            if(global.isAuth) {
-                //TODO why do we need this
-                next('/feed');
-            } else {
-                next();
-            }
-        }
+        // removed restriction to register routes
+        // beforeEnter: (to, from, next) => {
+        //     if(global.isAuth) {
+        //         //TODO why do we need this
+        //         next('/feed');
+        //     } else {
+        //         next();
+        //     }
+        // }
     },
 
     {

@@ -4,7 +4,7 @@
     <div class="top">
       <p class="smsconfirm_title">{{$t('loginRegister_smsconfirm_title')}}</p>
 		<span>
-			<span>{{$t('loginRegister_smsconfirm_subtitle')}}</span>
+			<div>{{$t('loginRegister_smsconfirm_subtitle')}}</div>
 			<bdi> {{userPhone}}</bdi>
 		</span>
     </div>

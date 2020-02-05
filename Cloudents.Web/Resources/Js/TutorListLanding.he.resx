@@ -142,6 +142,9 @@
   <data name="footer_links_about" xml:space="preserve">
     <value>אודות ספיטבול</value>
   </data>
+  <data name="footer_links_blog" xml:space="preserve">
+    <value>בלוג</value>
+  </data>
   <data name="footer_links_contact" xml:space="preserve">
     <value>צור קשר</value>
   </data>

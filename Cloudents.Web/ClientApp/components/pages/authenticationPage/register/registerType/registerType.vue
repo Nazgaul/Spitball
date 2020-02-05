@@ -48,11 +48,11 @@
 </template>
 
 <script>
-const studentIcon = () => import('../../images/student.svg');
-const parentIcon = () => import('../../images/parent.svg');
-const teacherIcon = () => import('../../images/teacher.svg');
-const collegeIcon = () => import('../../images/college.svg');
-const highSchoolIcon = () => import('../../images/highSchool.svg');
+import studentIcon from '../../images/student.svg'
+import parentIcon from '../../images/parent.svg';
+import teacherIcon from '../../images/teacher.svg';
+import collegeIcon from '../../images/college.svg';
+import highSchoolIcon from '../../images/highSchool.svg';
 
 export default {
     components: {
