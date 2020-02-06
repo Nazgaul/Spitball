@@ -289,28 +289,6 @@ namespace Cloudents.Selenium.Test
             }
         }
 
-        [Fact(Skip = "not using selenium tags")]
-        public void CourseListTest()
-        {
-            foreach (var driver in this._driver.Drivers)
-            {
-
-                driver.Manage().Window.Maximize();
-
-                foreach (var profile in GetProfileUrls())
-                {
-                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/{profile}";
-                    driver.Navigate().GoToUrl(url);
-                    //var wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 5));
-                    var course = driver.FindElement(By.XPath("//*[@class='layout row wrap']//a"));
-                    var courseTerm = course.GetAttribute("href");
-                    //course.Click();
-                    //wait.Until(x => x.FindElement(By.XPath("//*[@class='flex side-bar']")));
-                    courseTerm.Should().Be($"{_driver.SiteUrl.TrimEnd('/')}/?Course={course.Text}");
-                }
-            }
-        }
-
         [Fact]
         public void MenuListItemsTest()
         {
