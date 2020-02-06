@@ -9,7 +9,6 @@ import VueAnalytics from "vue-analytics";
 import LoadScript from 'vue-plugin-load-script';
 import VueClipboard from 'vue-clipboard2';
 import VueAppInsights from 'vue-application-insights';
-import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
 import VueFlicking from "@egjs/vue-flicking";
 import '../ClientApp/myFont.font.js';
 import {i18n, loadLanguageAsync } from './plugins/t-i18n'
@@ -59,7 +58,6 @@ const router = new VueRouter({
 Vue.use(VueFlicking);
 Vue.use(VueRouter);
 Vue.use(LoadScript);
-Vue.use(VLazyImagePlugin);
 Vue.use(VueClipboard);
 
 Vue.component("UserAvatar",UserAvatar);
