@@ -36,8 +36,8 @@ namespace Cloudents.Query.Courses
                             @"declare @country nvarchar(2) = (select country from sb.[user] where id = @Id);
 
 declare @schoolType nvarchar(50) = (select case when UserType = 'UniversityStudent' then 'University'
-										when UserType is null then null
-										else 'HighSchool' end 
+										when UserType in ('HighSchoolStudent', 'Parent') then 'HighSchool'  
+										else null end
                                         from sb.[user] where Id = @Id);
 
 
