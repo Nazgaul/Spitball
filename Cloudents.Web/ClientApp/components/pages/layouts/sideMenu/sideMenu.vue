@@ -152,7 +152,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['resetSearch',"updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
+    ...mapActions(["updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
     currentCourseChecker(item){
       if(item.isDefault){
         return this.selectedCourse === '';
@@ -188,7 +188,6 @@ export default {
       this.closeSideMenu();
     },
     resetItems(){
-      this.resetSearch()
       this.openSideMenu();
       this.$router.push('/')
     },

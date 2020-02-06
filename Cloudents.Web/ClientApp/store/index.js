@@ -2,7 +2,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import Search from "./search";
 import User from "./User";
 import Question from "./question";
 import Account from "./account";
@@ -60,7 +59,6 @@ import feed from './feedStore.js'
 Vue.use(Vuex);
 const store = new Vuex.Store({
     modules: {
-        Search,
         User,
         Account,
         Question,

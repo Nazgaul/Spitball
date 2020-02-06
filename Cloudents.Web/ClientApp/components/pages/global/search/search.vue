@@ -37,15 +37,12 @@ export default {
     };
   },
   watch: {
-    getSearchStatus(){
-      this.search = ""
-    },
     Feeds_getCurrentQuery(val){
       this.search = val.term || ''
     }
   },
   computed: {
-    ...mapGetters(['getSearchStatus','Feeds_getCurrentQuery']),
+    ...mapGetters(['Feeds_getCurrentQuery']),
   },
   methods: {
     searchQuery() {
