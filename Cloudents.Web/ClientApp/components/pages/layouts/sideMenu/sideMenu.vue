@@ -313,7 +313,6 @@ export default {
       return (!!this.$route.query && !!this.$route.query.term) || (!!this.$route.query && (!!this.$route.query.Filter || !!this.$route.query.Source))
     },
     selectCourse(item, isDefault) {
-      debugger;
       if(item.isDefault){
         isDefault = true;
       }
@@ -360,7 +359,6 @@ export default {
         return this.$route.name !== 'feed';
     },
     updateFilter() {
-      debugger
       this.UPDATE_SEARCH_LOADING(true);
       let newQueryObject = {
         Course: this.selectedCourse || undefined
