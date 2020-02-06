@@ -326,7 +326,7 @@ namespace Cloudents.Infrastructure
                 //default:
                 //    //throw new ArgumentOutOfRangeException();
             }
-            var documentQuery = new DocumentQuery(query.Profile, query.Term, query.Course, _pageSize, filter);
+            var documentQuery = new DocumentQuery(query.Profile, query.Term, query.Course,query.Page , _pageSize, filter);
             return await _searchProvider.SearchDocumentsAsync(documentQuery, token);
         }
     }
