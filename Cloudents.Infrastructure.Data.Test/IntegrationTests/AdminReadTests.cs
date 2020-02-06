@@ -422,5 +422,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new CouponQuery();
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
+
+        [Fact]
+        public async Task SubjectsTranslationQuery_Ok()
+        {
+            var query = new SubjectsTranslationQuery();
+            var _ = await _fixture.QueryBus.QueryAsync(query, default);
+        }
+
     }
 }
