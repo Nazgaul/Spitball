@@ -109,4 +109,14 @@ namespace Cloudents.Core.Interfaces
     {
         Task<University> GetUniversityByNameAndCountryAsync(string name, string country, CancellationToken token);
     }
+
+    public interface IAdminLanguageRepository : IRepository<AdminLanguage>
+    {
+        Task<AdminLanguage> GetLanguageByNameAsync(string name, CancellationToken token);
+    }
+
+    public interface ICourseRepository : IRepository<Course>
+    {
+        Task<IEnumerable<Course>> GetCoursesBySubjectIdAsync(long subjectId, CancellationToken token);
+    }
 }
