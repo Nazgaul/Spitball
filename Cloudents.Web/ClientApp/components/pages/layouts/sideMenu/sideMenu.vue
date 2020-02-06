@@ -1,22 +1,18 @@
 <template>
-    <v-navigation-drawer touchless
-                         permanent
+    <v-navigation-drawer touchless permanent app clipped :right="isRtl" width="220" mini-variant-width="62"
                          :temporary="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown"
                          class="sideMenu"
-                         width="220"
                          :value="getShowSchoolBlock"
                          @input="updateDrawerValue"
-                         :mini-variant-width="62"
                          :mini-variant.sync="isMiniSideMenu"
-                         :right="isRtl" 
                          :class="[{'higherIndex':!isMiniSideMenu && $vuetify.breakpoint.mdAndDown}]"
-                         app
-                         clipped>
+>
       <div class="sideMenu_cont">
         <div @click="toggleMiniSideMenu" v-if="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown" class="sideMenu_btn"/>
+        
         <v-list class="sideMenu_list_cont" dense>
 
-          <v-list-group active-class="''" :prepend-icon="'sbf-home-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="resetItems">
+          <v-list-group @click="resetItems" class="sideMenu_group" :prepend-icon="'sbf-home-sideMenu'" no-action :append-icon="''" active-class="''">
             <template v-slot:activator>
               <v-list-item class="sideMenu_list">
                 <v-list-item-content>
@@ -28,7 +24,7 @@
             </template>
           </v-list-group>
 
-          <v-list-group v-model="dashboardModel" active-class="''" v-if="dashboardList" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
+          <v-list-group v-model="dashboardModel" v-if="dashboardList" @click="openSideMenu" class="sideMenu_group" active-class="''" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action>
             <template v-slot:activator>
               <v-list-item class="sideMenu_list">
                 <v-list-item-content>
@@ -67,7 +63,7 @@
             <v-list-item
               class="group_list_sideMenu_course" v-for="(item, index) in selectedClasses" :key="index" 
               color="#fff"
-              :to="{name: $route.name}"
+              :to="{name: $route.name,query:{Course: (!item.isDefault)? item.text : undefined}}"
               event
               @click.native.prevent="getShowSchoolBlock ? selectCourse(item) : openSideMenu()" :sel="item.isDefault? 'all_courses' : ''">
               <v-list-item-content>
@@ -78,16 +74,14 @@
               </v-list-item-content>
             </v-list-item>
           </v-list-group>
-      </v-list>
+        </v-list>
       </div>
     </v-navigation-drawer>
 </template>
 
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
-
 import arrowSVG from './image/left-errow.svg';
-
 import {LanguageService} from "../../../../services/language/languageService";
 
 export default {
@@ -98,7 +92,6 @@ export default {
       sideMenulistElm: null,
       dashboardList:[
         {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', route: 'profile', icon:'sbf-user', sel:'sd_profile'},
-        // {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', route: 'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
         {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'my-sales', route: 'mySales', icon:'sbf-cart',sel:'sd_sales'},
         {name: LanguageService.getValueByKey('schoolBlock_my_followers'), key:'my-followers', route: 'myFollowers', icon:'sbf-follow',sel:'sd_followers'},
         {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'my-purchases', route: 'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
@@ -108,10 +101,6 @@ export default {
         {name: LanguageService.getValueByKey('menuList_my_study_rooms'), key:'tutoring', route: 'tutoring', icon:'sbf-pc',sel:'menu_row'},
         {name: LanguageService.getValueByKey('menuList_changeUniversity'), key:'university', route: 'addUniversity', icon:'sbf-university',sel:'sd_studyroom'},
         {name: LanguageService.getValueByKey('schoolBlock_courses'), key:'courses', route: 'editCourse', icon:'sbf-classes-icon'},
-
-        // {name: LanguageService.getValueByKey('schoolBlock_lessons'), key:'lessons', icon:'sbf-lessons'},
-        // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
-        // {name: 'myCalendar', key:'myCalendar', icon:'sbf-cart',sel:'sd_calendar'},
       ],
       selectedCourse: "",
       lock: false,
@@ -132,7 +121,6 @@ export default {
       "accountUser",
       "getSearchLoading",
       "getShowSchoolBlock",
-      "getShowBuyDialog",
     ]),
     dashboardModel(){
       return this.$route.name !== 'feed' && this.$route.name !== 'document'
@@ -162,7 +150,6 @@ export default {
           text: this.dictionary.allCourses,
           isDefault: true
         }
-
         selectedClasses.unshift(defaultCourse);
         return selectedClasses;
     },
@@ -188,17 +175,6 @@ export default {
   methods: {
     ...mapActions(['resetSearch',"updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
     ...mapMutations(["UPDATE_SEARCH_LOADING"]),
-    openPersonalizeUniversity() {
-      if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
-      } else {
-        this.$router.push({ name: "addUniversity" });
-        this.closeSideMenu()
-      }
-    },
-    courseSelectClick(){
-      !!this.accountUser ? this.selectCourse(null, true) : this.openPersonalizeCourse();
-    },
     currentCourseChecker(item){
       if(item.isDefault){
         return this.selectedCourse === '';
@@ -209,9 +185,7 @@ export default {
     currentPageChecker(pathName){
       if(pathName == "studyRooms") {
         return this.$route.path.indexOf('study-rooms') > -1;
-      } else if(pathName == 'getPoint' && this.getShowBuyDialog) {
-        return true;
-      } else{        
+      }else{        
         return this.$route.path.indexOf(pathName) > -1;
       }
     },
@@ -227,52 +201,18 @@ export default {
         this.updateLoginDialogState(true);
         return
       }
-      if(name === "profile"){
-        this.$router.push({name:'profile',params:{id:this.accountUser.id,name:this.accountUser.name}})
-      }
-      if(name === "wallet"){
-        this.$router.push({name:'wallet'})
-      }
       if(name === "roomSettings"){
-          this.$router.push({name:'myStudyRooms'})
+        this.$router.push({name:'myStudyRooms'})
+        return
       }
-      if(name === "tutoring"){
-          this.$router.push({name:'tutoring'})
-      }
-      if(name === "lessons"){
-        // this.$router.push({name:'lessons'})
-      }
-      if(name === "posts"){
-        // this.$router.push({name:'posts'})
-      }
-      if(name === "mySales"){
-        this.$router.push({name: 'mySales'})
-      }
-      if(name === "myFollowers"){
-        this.$router.push({name: 'myFollowers'})
-      }
-      if(name === "myContent"){
-        this.$router.push({name: 'myContent'})
-      }
-      if(name === "addUniversity"){
-        this.$router.push({name:'addUniversity'})
-      }
-      if(name === "myCalendar"){
-        this.$router.push({name: 'myCalendar'})
-      }
-      if(name === "editCourse"){
-        this.$router.push({name:'editCourse'})
-      }
-      if(name === "myPurchases"){
-        this.$router.push({name:'myPurchases'})
-      }
+      this.$router.push({name})
       this.closeSideMenu();
     },
     resetItems(){
       this.resetSearch()
       this.openSideMenu();
       this.UPDATE_SEARCH_LOADING(true);
-      this.$router.push('/');
+      this.$router.push('/')
         this.$nextTick(() => {
         setTimeout(()=>{
             this.UPDATE_SEARCH_LOADING(false);
@@ -298,7 +238,6 @@ export default {
         this.toggleShowSchoolBlock(false);
       }
     },
-
     updateDrawerValue(val){
       if(this.isMiniSideMenu) {
         this.toggleShowSchoolBlock(!val);
@@ -306,7 +245,6 @@ export default {
         //this is required to set the current drawer state on the store, because when the 
         //created event is getting called again (during route change)
         //we need the last updated drawer state to be considered as default.
-        // console.log(`drawer value is ${val}`);
       
     },
     isInSearchMode(){
@@ -360,12 +298,7 @@ export default {
     },
     updateFilter() {
       this.UPDATE_SEARCH_LOADING(true);
-      let newQueryObject = {
-        Course: this.selectedCourse
-      };
-      if (this.selectedCourse === "") {
-        delete newQueryObject.Course;
-      }
+      let newQueryObject = {Course: this.selectedCourse || undefined};
       if(this.isOutsideFeed()){
           this.$router.push({name: 'feed', query: newQueryObject });
       }else{
@@ -379,13 +312,6 @@ export default {
         }
         this.$router.push({ query: queryObj });
       }
-    },
-    openPersonalizeCourse() {
-      if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
-        return;
-      }
-      this.$router.push({name: 'editCourse'});
     },
     clickEventMiniMenuOpen(e){
       if(e.target.classList.contains('v-navigation-drawer--mini-variant')){
