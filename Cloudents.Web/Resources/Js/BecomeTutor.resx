@@ -127,7 +127,7 @@
     <value>Back</value>
   </data>
   <data name="btn_cal_connect" xml:space="preserve">
-    <value>t</value>
+    <value>Connect your Google Calendar</value>
   </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>Cancel</value>
