@@ -210,6 +210,18 @@ namespace Cloudents.Selenium.Test
 
                 // Check that the element is exist
                 driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
+
+                url = $"{_driver.SiteUrl.TrimEnd('/')}/studyroomsettings";
+                driver.Navigate().GoToUrl(url);
+
+                // Check that the element is exist
+                driver.FindElement(By.XPath("//*[@class='logo']"));
+
+                url = $"{_driver.SiteUrl.TrimEnd('/')}/studyroomsettings?site=frymo";
+                driver.Navigate().GoToUrl(url);
+                
+                // Check that the element is exist
+                driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
             }
 
         }
