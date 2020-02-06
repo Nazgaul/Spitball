@@ -396,5 +396,13 @@ namespace Cloudents.Admin2.Api
             var query = new UserNotesQuery(id);
             return await _queryBus.QueryAsync(query, token);
         }
+
+        [HttpPost("type")]
+        public async Task<IActionResult> SetUserTypeAsync([FromBody] SetUserTypeRequest request, CancellationToken token)
+        {
+            var command = new SetUserTypeCommand(request.UserId, request.UserType);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
     }
 }
