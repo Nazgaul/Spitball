@@ -35,31 +35,28 @@ namespace Cloudents.Query.Courses
                 const string sql =
                             @"declare @country nvarchar(2) = (select country from sb.[user] where id = @Id);
 
-declare @schoolType nvarchar(50) = (select case when UserType = 'University' then 'University'
+declare @schoolType nvarchar(50) = (select case when UserType = 'UniversityStudent' then 'University'
 										when UserType is null then null
 										else 'HighSchool' end 
                                         from sb.[user] where Id = @Id);
 
 
-declare @cte2 table (CourseId nvarchar(255), Students int)
-insert into @cte2 (CourseId, Students)
-			(
-			select Name as CourseId, 0 as Students
-			from sb.Course c 
-			where name not in (select courseId 
-								from sb.UsersCourses 
-								where courseId = c.name)
-			);
 with cte as 
 (
-select CourseId, count(1) as Students
+select distinct CourseId
 		from sb.UsersCourses uc1 
 		join sb.[user] u1 
 			on u1.Id = uc1.UserId 
 		join sb.University un
 			on un.Id = u1.UniversityId2
 		where un.Country = @Country
-group by CourseId
+union all
+select distinct Name as CourseId
+from sb.Course c 
+where name not in (select courseId 
+					from sb.UsersCourses 
+					where courseId = c.name)
+		and c.State = 'ok'
 )
 
 select Name,
@@ -75,12 +72,12 @@ select Name,
 	c.count as Students
 from sb.Course c
 where State = 'OK'
-and ( c.SchoolType = @schoolType 
+and ( @schoolType is null
 	or (@schoolType = 'University' and c.SchoolType is null)
-	or @schoolType is null )
-and (c.Name in (select CourseId from cte where CourseId = c.Name)
-or c.Name in (select CourseId from @cte2 where CourseId = c.Name))
+	or c.SchoolType = @schoolType  )
+and c.Name in (select CourseId from cte where CourseId = c.Name)
 and c.Name not in (select uc.CourseId from sb.UsersCourses uc where c.Name = uc.CourseId and uc.UserId = @Id)
+and (c.Country is null or c.Country = (select COuntry from sb.[user] where Id = @Id))
 order by IsFollowing desc,
 		c.count desc
 OFFSET @PageSize * @Page ROWS
