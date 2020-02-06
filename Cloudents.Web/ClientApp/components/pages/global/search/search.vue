@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import {LanguageService } from "../../../../services/language/languageService";
 
 export default {
@@ -48,7 +48,6 @@ export default {
     ...mapGetters(['getSearchStatus','Feeds_getCurrentQuery']),
   },
   methods: {
-    ...mapMutations(['UPDATE_SEARCH_LOADING']),
     searchQuery() {
       let searchQuery = {name:'feed', query:{...this.$route.query}}
       if(this.search){
@@ -56,11 +55,7 @@ export default {
       }else{
         searchQuery.query = '';
       }
-      this.UPDATE_SEARCH_LOADING(true);
-      this.$router.push(searchQuery).catch(() => {
-        this.UPDATE_SEARCH_LOADING(false);
-      });
-
+      this.$router.push(searchQuery)
     }
   }
 };

@@ -168,12 +168,10 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
     },
     methods: {
         ...mapActions(['openChatInterface']),
-        ...mapMutations(['UPDATE_SEARCH_LOADING']),
         openChatWindow(){
             this.openChatInterface();
         },
         resetItems(){
-            this.UPDATE_SEARCH_LOADING(true);
             this.$router.push('/');
         },
         closeDrawer() {

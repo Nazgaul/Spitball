@@ -1,4 +1,4 @@
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionCard from "./../helpers/new-question-card/new-question-card.vue";
@@ -46,10 +46,8 @@ export default {
             "updateLoginDialogState",
             'setQuestion'
         ]),
-        ...mapMutations(['UPDATE_SEARCH_LOADING']),
         ...mapGetters(["getQuestion"]),
         resetSearch(){
-            this.UPDATE_SEARCH_LOADING(true);
             this.$router.push({name: "feed"});
         },
         submitAnswer() {
