@@ -1,5 +1,4 @@
 import axios from 'axios';
-import qs from 'qs';
 
 let subjectInstance = axios.create({
     baseURL: '/api/AdminSubject',
@@ -17,16 +16,18 @@ function createSubject(subject) {
 
 function createSubjects({data}) {
     let subjectsObj = [], i;
+
     for (i = 0; i < data.length; i++) {
         subjectsObj.push(createSubject(data[i]));
     }
+    
     return subjectsObj;
 }
 
 export default {
-    getSubjects: () => subjectInstance.get().then(createSubjects),
-    getSubject: () => subjectInstance.get().then(({data}) => createSubject(data)),
     addSubject: params => subjectInstance.post('', params),
+    getSubjects: () => subjectInstance.get().then(createSubjects),
+    // getSubject: () => subjectInstance.get().then(({data}) => createSubject(data)),
     editSubject: params => subjectInstance.put('', params),
     deleteSubject: id => subjectInstance.delete(`${id}`),
 }

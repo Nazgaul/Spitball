@@ -2,11 +2,7 @@
     <v-container id="subjects">
           <v-toolbar flat color="white">
             <v-toolbar-title>Subjects</v-toolbar-title>
-            <v-divider
-                class="mx-2"
-                inset
-                vertical
-            ></v-divider>
+            <v-divider class="mx-2" inset vertical></v-divider>
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
                 <template slot="activator">
@@ -53,15 +49,15 @@
                     <v-icon small @click="deleteItem(props.item)">delete</v-icon>
                 </td>
             </template>
-            <template v-slot:no-data>
-                <v-btn color="primary" @click="initialize">Reset</v-btn>
-            </template>
         </v-data-table>
+        <v-snackbar v-model="snackbar" :color="snackColor" :timeout="5000" top>
+            {{ snackText }}
+        </v-snackbar>
     </v-container>
 </template>
 
 <script>
-import subjectService from './subjects';
+import subjectService from './subjectService';
 
 export default {
     data: () => ({
@@ -82,7 +78,10 @@ export default {
         defaultItem: {
             enName: '',
             heName: ''
-        }
+        },
+        snackbar: false,
+        snackText: '',
+        snackColor: '',
     }),
     computed: {
       formTitle () {
@@ -93,24 +92,22 @@ export default {
         initialize() {
             this.getSubjects();
         },
-
         editItem(item) {
             this.editedIndex = this.items.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
-
         deleteItem(item) {
-
             confirm(`Are you sure you want to delete this ${item.id}?`) && 
-            subjectService.deleteSubject(item.id).then(res => {   
-                let index = this.items.indexOf(item)
-                this.items.splice(index, 1)
+            subjectService.deleteSubject(item.id).then(res => {
+                this.showSnackBar(true, `Success: delete ${item.id}`)
+                this.getSubjects()
             }).catch(ex => {
-                console.warn(ex);
+                this.showSnackBar(true, `Error: delete ${item.id}`)
+            }).finally(() => {
+                this.snackbar = true;
             })
         },
-
         save() {
             this.btnSaveLoading = true;
             let sendToServerObj = {
@@ -118,23 +115,28 @@ export default {
                 heSubjectName: this.editedItem.heName,
             }
             if (this.editedIndex > -1) {
-                sendToServerObj.subjectId = this.editedItem.id
                 //edit item
-                let self = this
+                sendToServerObj.subjectId = this.editedItem.id
                 subjectService.editSubject(sendToServerObj).then(res => {      
-                    Object.assign(self.items[self.editedIndex], self.editedItem)
+                    this.showSnackBar(true, `Success: edit ${this.editedItem.id}`)
+                    this.getSubjects()
                 }).catch(ex => {
-                    console.warn(ex);
+                    this.showSnackBar(true, `Error: edit ${this.editedItem.id}`)
                 }).finally(() => {
                     this.close()
                 })
             } else {
                 //add item
-                this.items.push(this.editedItem)
-                subjectService.addSubject(sendToServerObj).finally(() => this.close())
+                subjectService.addSubject(sendToServerObj).then(() => {
+                    this.showSnackBar(true, `Success: add ${this.editedItem.id}`)
+                    this.getSubjects()
+                }).catch(ex => {
+                    this.showSnackBar(true, `Error: add ${this.editedItem.id}`)
+                }).finally(() => {
+                    this.close()
+                })
             }
         },
-
         close() {
             this.dialog = false
             this.btnSaveLoading = false;
@@ -143,7 +145,6 @@ export default {
                 this.editedIndex = -1
             }, 300)
         },
-        
         getSubjects() {
             this.formLoading = true;
             subjectService.getSubjects().then((subjects) => {
@@ -153,6 +154,11 @@ export default {
             }).finally(() => {
                 this.formLoading = false;
             })
+        },
+        showSnackBar(err, text) {
+            this.snackColor = !err ? 'red' : 'green';
+            this.snackbar = true;
+            this.snackText = text
         }
     }, 
     created() {
@@ -160,7 +166,3 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-    
-</style>
