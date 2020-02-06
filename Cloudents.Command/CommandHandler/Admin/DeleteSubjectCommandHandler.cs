@@ -8,16 +8,25 @@ namespace Cloudents.Command.CommandHandler.Admin
 {
     public class DeleteSubjectCommandHandler : ICommandHandler<DeleteSubjectCommand>
     {
-        private readonly IRepository<CourseSubject> _courseRepository;
-        public DeleteSubjectCommandHandler(IRepository<CourseSubject> courseRepository)
+        private readonly IRepository<CourseSubject> _subjectRepository;
+        private readonly ICourseRepository _courseRepository;
+        public DeleteSubjectCommandHandler(IRepository<CourseSubject> subjectRepository,
+            ICourseRepository courseRepository)
         {
+            _subjectRepository = subjectRepository;
             _courseRepository = courseRepository;
         }
 
         public async Task ExecuteAsync(DeleteSubjectCommand message, CancellationToken token)
         {
-            var course = await _courseRepository.GetAsync(message.SubjectId, token);
-            await _courseRepository.DeleteAsync(course, token);
+            var courses = await _courseRepository.GetCoursesBySubjectIdAsync(message.SubjectId, token);
+            foreach (var course in courses)
+            {
+                course.SetSubject(null);
+                await _courseRepository.UpdateAsync(course, token);
+            }
+            var subject = await _subjectRepository.GetAsync(message.SubjectId, token);
+            await _subjectRepository.DeleteAsync(subject, token);
         }
     }
 }
