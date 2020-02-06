@@ -49,6 +49,7 @@ insert into @cte2 (CourseId, Students)
 			where name not in (select courseId 
 								from sb.UsersCourses 
 								where courseId = c.name)
+                and c.State = 'ok'
 			);
 with cte as 
 (
