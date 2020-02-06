@@ -332,10 +332,8 @@
                     if(self.isTutor){
                             self.localSelectedClasses.forEach(course=>{
                                 if(course.isTeaching) return;
-                                universityService.teachCourse(course.text).then(()=>{
-                                    course.isTeaching = true;
-                                    self.doneButtonLoading = false;
-                                })
+                                course.isTeaching = true;
+                                self.doneButtonLoading = false;
                             });
                     }else{
                         self.doneButtonLoading = false;
