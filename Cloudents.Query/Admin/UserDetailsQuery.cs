@@ -68,7 +68,8 @@ namespace Cloudents.Query.Admin
                     TutorState = s.Tutor.State,
                     PaymentExists = s.PaymentExists == PaymentStatus.Done,
                     TutorPrice = s.Tutor.Price.SubsidizedPrice ?? s.Tutor.Price.Price,
-                    CalendarExists = _session.Query<GoogleTokens>().Any(w => w.Id == s.Id.ToString())
+                    CalendarExists = _session.Query<GoogleTokens>().Any(w => w.Id == s.Id.ToString()),
+                    UserType = s.UserType2
                 }).SingleOrDefaultAsync(token);
                 //                string sql = @"select U.Id, U.Name, Email, PhoneNumberHash as PhoneNumber, Un.Name as University, U.Country, U.Score, 
                 //		(select count(1) from sb.[Transaction] T where  U.Id = T.[User_id] and T.[Action] = 'ReferringUser')  as ReferredCount,

@@ -72,6 +72,8 @@ function UserInfo(objInit) {
          buttonText: "delete"
 
     };
+
+    this.userType = { value: objInit.userType ? objInit.userType : '', label: 'User Type' };
 }
 
 function createUserInfoItem(data) {
