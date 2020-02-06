@@ -77,7 +77,7 @@
 
         <v-snackbar
             v-model="snackbar"
-            class="error-toaster"
+            class="error-toaster getStartedToaster"
             :timeout="5000"
             top
             >
@@ -303,6 +303,12 @@ export default {
                 }
             .needAccount {
                 color: @color-login-text-subtitle;
+            }
+        }
+        //TODO: temporary solution for long text in snackbar, need think on new convention
+        .getStartedToaster {
+            .v-snack__content {
+                height: unset;
             }
         }
     }
