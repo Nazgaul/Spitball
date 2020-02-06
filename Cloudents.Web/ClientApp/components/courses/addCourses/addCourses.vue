@@ -113,7 +113,6 @@
     import { mapActions, mapGetters, mapMutations } from "vuex";
     import { LanguageService } from "../../../services/language/languageService";
     import debounce from "lodash/debounce";
-    import universityService from '../../../services/universityService';
 
     export default {
         data() {
