@@ -124,7 +124,6 @@
                 term: '',
                 classNamePlaceholder: LanguageService.getValueByKey("courses_placeholder_find"),
                 localSelectedClasses: [],
-                // selectedClass: '',
                 doneButtonLoading: false
             };
         },
@@ -296,12 +295,6 @@
                 this.removeFromCached(classToDelete);
                 let paramObj = {term: this.search, page: 0};
                 this.removeClasses(classToDelete, paramObj)
-                // if(this.isFromRegister) {
-                //     if(!this.localSelectedClasses.length) {
-                //         this.$store.dispatch('updateStepValidation', false)
-                //     }
-                //     return
-                // } 
                 this.loadCourses(paramObj);
             },
             checkAsSelected(classToCheck, from) {
@@ -325,10 +318,6 @@
                 this.changeClassesToCachedClasses();
                 let self = this;
                 this.assignClasses(className.text).then(() => {
-                    // if(self.isFromRegister) {
-                    //     self.$store.dispatch('updateStepValidation', true);
-                    //     return
-                    // }
                     if(self.isTutor){
                             self.localSelectedClasses.forEach(course=>{
                                 if(course.isTeaching) return;
