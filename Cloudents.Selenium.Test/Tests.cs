@@ -16,7 +16,7 @@ namespace Cloudents.Selenium.Test
 {
     public sealed class DriverFixture : IDisposable
     {
-        private readonly Process _process;
+       // private readonly Process _process;
 
         public DriverFixture()
         {
@@ -33,18 +33,19 @@ namespace Cloudents.Selenium.Test
             options.AcceptInsecureCertificates = true;
 
 
-             _process = new Process
-            {
-                StartInfo =
-                {
-                    FileName = "dotnet",
-                    Arguments = "run",
-                    UseShellExecute = false,
-                    WorkingDirectory = applicationPath
-                }
-            };
-            _process.Start();
-            SiteUrl = "https://localhost:53217/";
+            // _process = new Process
+            //{
+            //    StartInfo =
+            //    {
+            //        FileName = "dotnet",
+            //        Arguments = "run",
+            //        UseShellExecute = false,
+            //        WorkingDirectory = applicationPath
+            //    }
+            //};
+            //_process.Start();
+            //SiteUrl = "https://localhost:53217/";
+            SiteUrl = "https://dev.spitball.co";
             //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             Drivers = new IWebDriver[]
             {
@@ -71,9 +72,9 @@ namespace Cloudents.Selenium.Test
                 webDriver.Quit();
                 webDriver.Dispose();
 
-                _process.CloseMainWindow();
-                _process.Close();
-                _process.Dispose();
+                //_process.CloseMainWindow();
+                //_process.Close();
+                //_process.Dispose();
             }
 
             // ... clean up test data from the database ...

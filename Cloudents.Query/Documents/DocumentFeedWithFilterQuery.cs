@@ -90,7 +90,7 @@ where
 un.country = cte.country
 and d.State = 'Ok'
 and d.courseName = @course
-and d.DocumentType = @documentType
+and COALESCE(d.DocumentType,'Document') = @documentType
 order by
 case when d.UniversityId = cte.UniversityId then 3 else 0 end  +
 cast(1 as float)/ISNULL(nullif(DATEDiff(minute, d.UpdateTime, GetUtcDATE()   ),0),1) desc
@@ -138,7 +138,7 @@ where
     d.UpdateTime > GETUTCDATE() - 182
 and un.country = cte.country
 and d.State = 'Ok'
-and d.DocumentType = @documentType
+and COALESCE(d.DocumentType,'Document') = @documentType
 order by
 case when d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) then 4 else 0 end +
 case when d.UniversityId = cte.UniversityId then 3 else 0 end  +
@@ -163,7 +163,6 @@ FETCH NEXT @pageSize ROWS ONLY";
                 {
                     if (reader.Read())
                     {
-                        var col = reader.GetOrdinal("type");
                         var colJson = reader.GetOrdinal("JsonArray");
                         do
                         {
