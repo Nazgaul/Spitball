@@ -4,5 +4,8 @@
     },
     "login": {
         "loggedPremission": false
+    },
+    "upload": {
+        "loggedPremission": true
     }
 }
