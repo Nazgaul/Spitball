@@ -137,9 +137,11 @@ export default {
                         this.suggestsCourses.forEach(course=>{
                             if(course.text === this.tutorCourse){
                                 this.tutorCourse = course
+                                this.updateSelectedCourse(this.tutorCourse)
                             }}) 
                     } else {
                         this.tutorCourse = term
+                        this.updateSelectedCourse(this.tutorCourse)
                     }
                 })
             }
@@ -197,6 +199,9 @@ export default {
     mounted() {
         if(this.getCourseDescription){
             this.description = this.getCourseDescription;
+        }
+        if(this.getSelectedCourse){
+            this.tutorCourse = this.getSelectedCourse;
         }
         if(this.$route.params && this.$route.params.course){
             let queryCourse = this.$route.params.course;

@@ -28,6 +28,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Query.Sync;
+using Cloudents.Search.Document;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudmersive.APIClient.NET.DocumentAndDataConvert.Api;
 
@@ -55,7 +58,7 @@ namespace ConsoleApp
                     {
                         SiteEndPoint = { SpitballSite = "https://dev.spitball.co" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
-                            ConfigurationManager.AppSettings["Redis"], 
+                            ConfigurationManager.AppSettings["Redis"],
                             DbConnectionString.DataBaseIntegration.None),
                         MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                         Search = new SearchServiceCredentials(
@@ -140,11 +143,30 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var x = _container.Resolve<ISession>();
-            var commandBus = _container.Resolve<ICommandBus>();
+            var x = _container.Resolve<IQueryBus>();
+            var searchWrite = _container.Resolve<DocumentSearchWrite>();
+            var i = 0;
+            while (true)
+            {
+                var query = new SyncAzureQuery(0, i);
+                var z = await x.QueryAsync<(IEnumerable<DocumentSearchDto>, IEnumerable<string>, long)>(query, default);
 
-            var command = new SetUserTypeCommand(638,UserType.HighSchoolStudent);
-            await commandBus.DispatchAsync(command, default);
+                var document = z.Item1.FirstOrDefault(w => w.ItemId == 6897);
+                if (document != null)
+                {
+                    Console.WriteLine("here");
+                   var item = Cloudents.Search.Entities.Document.FromDto(document);
+                   await searchWrite.UpdateDataAsync(new[] {item}, default);
+                }
+
+                _container.Resolve<DocumentSearchWrite>();
+
+                i++;
+            }
+            //var commandBus = _container.Resolve<ICommandBus>();
+
+            //var command = new SetUserTypeCommand(638,UserType.HighSchoolStudent);
+            //await commandBus.DispatchAsync(command, default);
 
             //await x.RemoveUnusedStreamingLocatorAsync(default);
             //await Convert();
@@ -509,9 +531,9 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
         //    await uof.CommitAsync(default);
 
         //}
-     
 
-        
+
+
 
         private static async Task HadarMethod()
         {

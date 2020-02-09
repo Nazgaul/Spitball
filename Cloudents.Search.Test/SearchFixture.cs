@@ -10,7 +10,7 @@ using System;
 
 namespace Cloudents.Search.Test
 {
-    public class SearchFixture : IDisposable
+    public sealed class SearchFixture : IDisposable
     {
         private IContainer Container { get; }
 
@@ -33,7 +33,6 @@ namespace Cloudents.Search.Test
 
             builder.Register(c =>
             {
-               /// var configuration2 = c.Resolve<IConfigurationKeys>().Search;
                 return new SearchService("5B0433BFBBE625C9D60F7330CFF103F0", "cloudents", true);
             }).AsSelf().As<ISearchService>().SingleInstance();
            

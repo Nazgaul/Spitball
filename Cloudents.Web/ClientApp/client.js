@@ -54,9 +54,6 @@ let mainComponenet = new Promise((resolve) => {
 
 
 
-// }).catch(err => {
-//     errorHandling(err);
-// });
 
 Promise.all([dicPromise, mainComponenet]).then((val) => {
     try {
@@ -74,28 +71,5 @@ Promise.all([dicPromise, mainComponenet]).then((val) => {
         errorHandling(err);
     }
 })
-//GetDictionary().then(() => {
-    // function getComponent() {
-    //     return import("./main").catch(err => {
-    //         errorHandling(err);
-    //     });
-    // }
 
-    // // dynamic import the main component
-    // getComponent().then(component => {
-    //     try {
-    //         component.router.onReady(() => {
-    //             const matchedComponents = component.router.getMatchedComponents();
-    //             // no matched routes, reject with 404
-    //             if (!matchedComponents.length) {
-    //                 window.location = "/error/notfound?client=true";
-    //             }
-    //             component.app.$mount("#app");
-    //         });
-    //     }
-    //     catch (err) {
-    //         errorHandling(err);
-    //     }
-    // });
-//});
 
