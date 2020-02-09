@@ -40,12 +40,15 @@ export default {
   #dashboard {
     margin: 24px 34px;
     display: flex;
-
     @media (max-width: @screen-xs) {
       margin: 0
     }
+    @media (max-width: @screen-sm) {
+      justify-content: center;
+    }
     .dashboardMain {
       width: 100%;
+      max-width: 670px;
     }
     .dashboardSide {
       width: 100%;
