@@ -89,7 +89,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(0, 638, FeedType.Video, "IL", "Economics", 20)]
         public async Task DocumentFeedWithFilterQuery_Document_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
         {
-            var query = new DocumentFeedWithFliterQuery(page, userId, filter, country, course, pageSize);
+            var query = new DocumentFeedWithFilterQuery(page, userId, filter, country, course, pageSize);
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             result.Should().NotBeNullOrEmpty();
             result.Should().OnlyContain(c => c.DocumentType == DocumentType.Document);

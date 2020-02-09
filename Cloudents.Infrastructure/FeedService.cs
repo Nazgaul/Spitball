@@ -18,21 +18,11 @@ namespace Cloudents.Infrastructure
 {
     public class FeedService : IFeedService
     {
-        private readonly IQueryBus _queryBus;
-        private readonly ITutorSearch _tutorSearch;
-        private readonly IDocumentSearch _searchProvider;
-        private readonly IUrlBuilder _urlBuilder;
-        private const int TutorPageSize = 3;
-        private const int ItemPageSize = 18;
 
         private readonly IIndex<FeedType, IFeedTypeService> _services;
 
-        public FeedService(IQueryBus queryBus, ITutorSearch tutorSearch, IDocumentSearch searchProvider, IUrlBuilder urlBuilder, IIndex<FeedType, IFeedTypeService> services)
+        public FeedService( IIndex<FeedType, IFeedTypeService> services)
         {
-            _queryBus = queryBus;
-            _tutorSearch = tutorSearch;
-            _searchProvider = searchProvider;
-            _urlBuilder = urlBuilder;
             _services = services;
         }
 
@@ -307,7 +297,7 @@ namespace Cloudents.Infrastructure
 
         public async Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedWithCourseQuery query, CancellationToken token)
         {
-            var feedQuery = new DocumentFeedWithFliterQuery(query.Page, query.UserId, query.Filter,
+            var feedQuery = new DocumentFeedWithFilterQuery(query.Page, query.UserId, query.Filter,
                 query.Country, query.Course, _pageSize);
             return await _queryBus.QueryAsync(feedQuery, token);
         }
@@ -372,7 +362,7 @@ namespace Cloudents.Infrastructure
                 termToQuery = query.Term.Trim();
             }
             var tutorQuery = new TutorListTabSearchQuery(termToQuery, query.Country, query.Page, _pageSize);
-            return await _tutorSearch.SearchAsync(tutorQuery, token).ContinueWith(r => r.Result.Result, token); ;
+            return await _tutorSearch.SearchAsync(tutorQuery, token).ContinueWith(r => r.Result.Result, token);
         }
     }
 

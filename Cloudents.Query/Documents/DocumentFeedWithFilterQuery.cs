@@ -33,7 +33,7 @@ namespace Cloudents.Query.Documents
         private string Course { get; }
         private int PageSize { get; }
 
-        internal sealed class DocumentFeedWithFilterQueryHandler : IQueryHandler<DocumentFeedWithFliterQuery, IEnumerable<DocumentFeedDto>>
+        internal sealed class DocumentFeedWithFilterQueryHandler : IQueryHandler<DocumentFeedWithFilterQuery, IEnumerable<DocumentFeedDto>>
         {
 
             private readonly IDapperRepository _dapperRepository;
@@ -45,7 +45,7 @@ namespace Cloudents.Query.Documents
                 _jsonSerializer = jsonSerializer;
             }
 
-            public async Task<IEnumerable<DocumentFeedDto>> GetAsync(DocumentFeedWithFliterQuery query, CancellationToken token)
+            public async Task<IEnumerable<DocumentFeedDto>> GetAsync(DocumentFeedWithFilterQuery query, CancellationToken token)
             {
                 const string sqlWithCourse = @"with cte as (
 select top 1 * from(select 1 as o, u2.Id as UniversityId, COALESCE(u2.country, u.country) as Country, u.id as userid
