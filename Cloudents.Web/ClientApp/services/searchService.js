@@ -4,18 +4,10 @@ const getFeeds = (params) => {
     return connectivityModule.http.get("/feed", { params });
 };
 
-const getTutor = (params) => {
-    return connectivityModule.http.get("tutor/search", { params });
-};
-
 const getNextPage = ({ url }) => {
     return connectivityModule.http.get(url, { baseURL: "" });
 };
 
-const getTutorsByCourse = (courseName) => {
-    let path = courseName ? `tutor?course=${encodeURIComponent(courseName)}` : 'tutor';
-    return connectivityModule.http.get(path);
-};
 
 function FirstAnswerItem(objInit) {
     this.date = objInit.dateTime || null;
@@ -155,26 +147,15 @@ let transferNextPage = (res) => {
     return transferResult(res);    
 };
 
-const transferAnswerItem = ({ data }) => {    
-    return data.map(createTutorItem);
-};
-
 export default {
     activateFunction: {
         feed(params) {
             return getFeeds(params).then(transferResult);
         },
-        tutor(params) {          
-            return getTutor(params).then(transferResult);
-        },
-        getTutors(params) {
-            return getTutorsByCourse(params).then(transferAnswerItem);
-        }
     },
     nextPage: (params) => {
         return getNextPage(params).then(transferNextPage);
     },
-    getTutorsByCourse, 
     createQuestionItem,
     createAnswerItem,
     createTutorItem,
