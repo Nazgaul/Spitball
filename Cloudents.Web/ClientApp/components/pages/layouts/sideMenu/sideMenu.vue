@@ -102,7 +102,6 @@ export default {
       ],
       selectedCourse: "",
       isRtl: global.isRtl,
-      items: [],
       dashboardModel: this.$route.name !== 'feed' && this.$route.name !== 'document',
     };
   },
