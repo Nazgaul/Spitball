@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Documents
 {
-   public class DocumentFeedWithFliterQuery : IQuery<IEnumerable<DocumentFeedDto>>
+   public class DocumentFeedWithFilterQuery : IQuery<IEnumerable<DocumentFeedDto>>
     {
-        public DocumentFeedWithFliterQuery(int page, long userId, FeedType? filter, 
+        public DocumentFeedWithFilterQuery(int page, long userId, FeedType? filter, 
             string country, string course, int pageSize)
         {
             Page = page;
@@ -31,15 +31,15 @@ namespace Cloudents.Query.Documents
         private string Country { get; }
 
         private string Course { get; }
-        public int PageSize { get; }
+        private int PageSize { get; }
 
-        internal sealed class DocumentFeedWithFliterQueryHandler : IQueryHandler<DocumentFeedWithFliterQuery, IEnumerable<DocumentFeedDto>>
+        internal sealed class DocumentFeedWithFilterQueryHandler : IQueryHandler<DocumentFeedWithFliterQuery, IEnumerable<DocumentFeedDto>>
         {
 
             private readonly IDapperRepository _dapperRepository;
             private readonly IJsonSerializer _jsonSerializer;
 
-            public DocumentFeedWithFliterQueryHandler(IDapperRepository dapperRepository, IJsonSerializer jsonSerializer)
+            public DocumentFeedWithFilterQueryHandler(IDapperRepository dapperRepository, IJsonSerializer jsonSerializer)
             {
                 _dapperRepository = dapperRepository;
                 _jsonSerializer = jsonSerializer;
@@ -87,8 +87,7 @@ join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId
 ,cte
 where
-    d.UpdateTime > GETUTCDATE() - 182
-and un.country = cte.country
+un.country = cte.country
 and d.State = 'Ok'
 and d.courseName = @course
 and d.DocumentType = @documentType
