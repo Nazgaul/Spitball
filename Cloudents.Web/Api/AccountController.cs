@@ -30,6 +30,7 @@ using static Microsoft.AspNetCore.Http.StatusCodes;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 using Cloudents.Query.Users;
 using Cloudents.Query.Universities;
+using Cloudents.Query.Tutor;
 
 namespace Cloudents.Web.Api
 {
@@ -340,6 +341,14 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        [HttpGet("stats")]
+        public async Task<IEnumerable<TutorStatsDto>> GetTutorStatsAsync(int days, CancellationToken token) 
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new TutorStatsQuery(userId, days);
+            var result = await _queryBus.QueryAsync(query, token);
+            return result;
+        }
 
         //[HttpGet("recording")]
         //public async Task<IEnumerable<SessionRecordingDto>> GetSessionRecordingAsync(CancellationToken token)
