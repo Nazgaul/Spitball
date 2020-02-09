@@ -6,7 +6,7 @@
         <marketingTools></marketingTools>
         <uploadContent v-if="$vuetify.breakpoint.smAndUp"></uploadContent>
         <spitballTips v-if="$vuetify.breakpoint.mdAndUp"></spitballTips>
-        <answerStudent v-if="$vuetify.breakpoint.mdAndDown"></answerStudent>
+        <answerStudent v-if="$vuetify.breakpoint.smAndDown"></answerStudent>
       </div>
       <div class="dashboardSide" v-if="$vuetify.breakpoint.mdAndUp">
         <img class="mb-2" src="./images/group-16.png" alt="">
