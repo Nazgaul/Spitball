@@ -116,7 +116,8 @@
                 },
                 isLoaded: false,
                 gender: LanguageService.getValueByKey("becomeTutor_gender_male"),
-                genderItems:[LanguageService.getValueByKey("becomeTutor_gender_male"),LanguageService.getValueByKey("becomeTutor_gender_female")]
+                genderItems:[LanguageService.getValueByKey("becomeTutor_gender_male"),LanguageService.getValueByKey("becomeTutor_gender_female")],
+                isFrymo: global.siteName === 'frymo',
             };
         },
         computed: {
@@ -124,7 +125,7 @@
               let v =   this.$n(1,'currency');
               return v.replace(/\d|[.,]/g,'').trim();
             },
-            ...mapGetters(['becomeTutorData', 'accountUser', 'isFrymo']),
+            ...mapGetters(['becomeTutorData', 'accountUser']),
             btnDisabled() {
                 return false
                 // return !this.firstName || !this.lastName || !this.price || !this.imageExists;

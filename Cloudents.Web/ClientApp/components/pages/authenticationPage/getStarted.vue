@@ -97,6 +97,7 @@ export default {
             showError: false,
             googleLoading: false,
             snackbar: false,
+            isFrymo: global.siteName === 'frymo',
         }
     },
     methods: {
@@ -133,8 +134,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getErrorMessages','isFrymo']),
-
+        ...mapGetters(['getErrorMessages']),
         isError(){
             return !this.isTermsAgree && this.showError
         },

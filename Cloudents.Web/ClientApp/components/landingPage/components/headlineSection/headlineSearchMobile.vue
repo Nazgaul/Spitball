@@ -28,7 +28,6 @@
 
 <script>
 import { LanguageService } from "../../../../services/language/languageService.js";
-import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -45,7 +44,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isFrymo']),
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly;
     },
@@ -53,7 +51,7 @@ export default {
       return global.isRtl? require('../../images/bg_he.png') : require('../../images/bg_en.jpg')
     },
     handImg(){
-      if(this.isFrymo){
+      if(global.siteName === 'frymo'){
         return require('../../images/Hand_Frymo.png')
       }else{
         if(global.isRtl){

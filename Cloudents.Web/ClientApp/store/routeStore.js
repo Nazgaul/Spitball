@@ -2,12 +2,10 @@ import analyticsService from '../services/analytics.service'
 
 const state = {
     routeStack: [],
-    isFrymo: global.siteName === 'frymo'
 };
 
 const getters = {
     getRouteStack: state => state.routeStack,
-    isFrymo: state => state.isFrymo
 };
 
 const mutations = {
@@ -17,11 +15,6 @@ const mutations = {
 };
 
 const actions = {
-    // updateByRoute({commit,dispatch,state},{from,to}){
-    //     if(to.name === FEED){
-    //         // dispatch()
-    //     }
-    // },
     setRouteStack({commit}, val){
         commit('setRouteStack', val);
     },

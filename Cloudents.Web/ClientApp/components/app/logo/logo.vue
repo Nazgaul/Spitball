@@ -6,17 +6,18 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
 import AppLogo from "./logo-spitball.svg";
 // import AppFrymo from "../../../../wwwroot/Images/frymo.svg";\
 import AppFrymo from "./frymo-logo.svg";
 export default {
+    data() {
+        return {
+            isFrymo: global.siteName === 'frymo',
+        }
+    },
     components:{
         AppLogo,
         AppFrymo
-    },
-    computed:{
-        ...mapGetters(['isFrymo']),
     }
 }
 </script>

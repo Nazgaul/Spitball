@@ -165,7 +165,8 @@ export default {
   data() {
     return {
       hideFooter: false,
-      toasterTimeoutObj: null
+      toasterTimeoutObj: null,
+      isFrymo: global.siteName === 'frymo',
     };
   },
   computed: {
@@ -186,7 +187,6 @@ export default {
       "becomeTutorDialog",
       "getRequestTutorDialog",
       "getShowPaymeDialog",
-      "isFrymo",
       "getShowSchoolBlock",
       "getIsChatVisible",
     ]),

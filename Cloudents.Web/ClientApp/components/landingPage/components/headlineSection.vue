@@ -10,7 +10,6 @@ import headlineSearchDesktop from './headlineSection/headlineSearchDesktop.vue';
 import headlineSearchMobile from './headlineSection/headlineSearchMobile.vue';
 import headlineStatus from "./headlineStatus.vue";
 import { LanguageService } from "../../../services/language/languageService.js";
-import { mapGetters } from 'vuex';
 
 export default {
   components: { headlineStatus, headlineSearchDesktop, headlineSearchMobile },
@@ -20,7 +19,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isFrymo']),
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly;
     },

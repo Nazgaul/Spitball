@@ -124,7 +124,8 @@ export default {
              url: satelliteService.getSatelliteUrlByName('privacy') 
          },
                     
-      ]
+      ],
+      isFrymo: global.siteName === 'frymo',
     };
   },
   computed: {
@@ -140,9 +141,6 @@ export default {
     },
     showChangeLanguage() {
       return global.country === 'IL';
-    },
-    isFrymo(){
-      return global.siteName === 'frymo';
     },
     isTutorList(){
       return this.$route.name === 'tutorLandingPage'

@@ -1,8 +1,8 @@
 ﻿// import { connectivityModule } from "./connectivity.module";
 import {LanguageService} from './language/languageService';
-import store from '../store/index';
 // let cacheControl = `?v=${global.version}&l=${global.lang}`;
-const isFrymo = store.getters['isFrymo'];
+const isFrymo = global.siteName === 'frymo';
+
 
 
 

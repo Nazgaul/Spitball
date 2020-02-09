@@ -28,7 +28,6 @@
 
 <script>
 import { LanguageService } from "../../../../services/language/languageService.js";
-import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -45,9 +44,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isFrymo']),
     handImg(){
-      if(this.isFrymo){
+      if(global.siteName === 'frymo'){
         return require('../../images/Hand_Frymo.png')
       }else{
         if(global.isRtl){
