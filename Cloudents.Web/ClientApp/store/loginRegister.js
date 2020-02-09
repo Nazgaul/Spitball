@@ -212,7 +212,7 @@ const actions = {
         commit('setStepValidation', val);
     },
     googleSigning({dispatch, commit, state}) {
-        if (Android) {
+        if (window.Android) {
             Android.onLogin();
             return;
         }

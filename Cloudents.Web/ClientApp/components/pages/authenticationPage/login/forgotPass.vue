@@ -23,7 +23,6 @@
         </v-btn>
 
         <router-link class="bottom" :to="{name: 'setPassword'}">{{$t('loginRegister_forgot_remember')}}</router-link>
-        <!-- <span class="bottom" @click="goLogin" v-language:inner="'loginRegister_forgot_remember'"/> -->
     </form>
 </template>
 
@@ -32,7 +31,6 @@ import SbInput from "../../../question/helpers/sbInput/sbInput.vue";
 import { mapActions, mapGetters,mapMutations } from 'vuex';
 
 export default {
-    // name: 'forgotPass',
     components:{
         SbInput
     },
@@ -54,20 +52,20 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateStep','updateEmail','resetPassword']),
+        ...mapActions(['updateEmail', 'resetPassword']),
         ...mapMutations(['setErrorMessages']),
-        goLogin(){
-            this.updateStep('setPassword')
-        },
         resetPass(){
             this.resetPassword()
         }
     },
     watch: {
-    email: function(){
+        email: function(){
+            this.setErrorMessages({})
+        }
+    },
+    mounted() {
         this.setErrorMessages({})
     }
-	}
 }
 </script>
 
@@ -75,49 +73,49 @@ export default {
 @import '../../../../styles/mixin.less';
 @import '../../../../styles/colors.less';
     .forgotPass{
-              @media (max-width: @screen-xs) {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
         text-align: center;
+        @media (max-width: @screen-xs) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .top{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 30px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 30px;
             p{
-            .responsive-property(font-size, 28px, null, 22px);
-            .responsive-property(letter-spacing, -0.51px, null, -0.4px);
-            margin: 0;
-            line-height: 1.54;
-            color: @color-login-text-title;
+                .responsive-property(font-size, 28px, null, 22px);
+                .responsive-property(letter-spacing, -0.51px, null, -0.4px);
+                margin: 0;
+                line-height: 1.54;
+                color: @color-login-text-title;
             }
-            span{
-            cursor: initial;
-            .responsive-property(font-size, 16px, null, 14px);
-			.responsive-property(letter-spacing, -0.42px, null, -0.37px);
-            padding-top: 8px;
-            color: @color-login-text-subtitle;
+            span {
+                cursor: initial;
+                .responsive-property(font-size, 16px, null, 14px);
+                .responsive-property(letter-spacing, -0.42px, null, -0.37px);
+                padding-top: 8px;
+                color: @color-login-text-subtitle;
             }
         }
         .input-wrapper {
             input {
-            .login-inputs-style();
-            padding-left: 54px !important;
+                .login-inputs-style();
+                padding-left: 54px !important;
             }
             i {
-            position: absolute;
-            left: 16px;
-            top: 17px;
-            font-size: 18px;
+                position: absolute;
+                left: 16px;
+                top: 17px;
+                font-size: 18px;
             }
         }
         button{
             margin: 66px 0 48px;
-                 @media (max-width: @screen-xs) {
-        margin: 45px 0 48px;
-      }
+            @media (max-width: @screen-xs) {
+                margin: 45px 0 48px;
+            }
             .responsive-property(width, 100%, null, 72%);
             font-size: 16px;
             font-weight: 600;
@@ -125,7 +123,7 @@ export default {
             text-align: center;
             text-transform: none !important;
         }
-        .bottom{
+        .bottom {
             cursor: pointer;
             font-size: 14px;
 		    letter-spacing: -0.37px;

@@ -116,8 +116,8 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(User.PhoneNumber))]
         public string PhoneNumber { get; set; }
 
-        [EntityBind(nameof(User.University.Id))]
-        public bool UniversityExists { get; set; }
+        //[EntityBind(nameof(User.University.Id))]
+        //public bool UniversityExists { get; set; }
 
         [EntityBind(nameof(User.Id))]
         public long Id { get; set; }
@@ -126,14 +126,18 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(User.ImageName))]
         public string Image { get; set; }
         
-        public ItemState? IsTutor { get; set; }
+        public string IsTutor { get; set; }
 
         [EntityBind(nameof(User.PaymentExists), nameof(User.Country))]
         public bool NeedPayment { get; set; }
 
         public bool CalendarShared { get; set; }
 
-        private string Country { get; set; }
+        public string Country { get; set; }
+
+        public IEnumerable<CourseDto> Courses { get; set; }
+        public UniversityDto University { get; set; }
+
         public string CurrencySymbol
         {
             get

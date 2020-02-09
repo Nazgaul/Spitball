@@ -1,5 +1,4 @@
-﻿// import { help } from './resources';
-// import { connectivityModule } from "./connectivity.module";
+﻿// import { connectivityModule } from "./connectivity.module";
 import {LanguageService} from './language/languageService';
 import store from '../store/index';
 // let cacheControl = `?v=${global.version}&l=${global.lang}`;

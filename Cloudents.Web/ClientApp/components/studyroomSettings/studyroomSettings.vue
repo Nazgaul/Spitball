@@ -37,7 +37,8 @@ import {mapGetters, mapActions} from 'vuex';
 
 import studyroomSettingsUtils from './studyroomSettingsUtils';
 import tutorService from '../studyroom/tutorService';
-import logo from '../../components/app/logo/logo-spitball.svg';
+// import logo from '../../components/app/logo/logo-spitball.svg';
+import logo from '../../components/app/logo/logo.vue'
 import intercomSVG from './image/icon-1-2.svg'
 
 import unableToConnetStep from './components/unableToConnetStep.vue';
@@ -171,7 +172,9 @@ export default {
     .settingsTopLogoWrap{
       display: flex;
       .settingsTopLogo{
-        fill: white;
+        svg {
+          fill: white;
+        }
       }
     }
     .settingsTopIntercom{

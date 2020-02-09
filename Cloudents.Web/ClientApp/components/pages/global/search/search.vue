@@ -47,11 +47,7 @@ export default {
   methods: {
     searchQuery() {
       let searchQuery = {name:'feed', query:{...this.$route.query}}
-      if(this.search){
-        searchQuery.query.term = this.search;
-      }else{
-        searchQuery.query = '';
-      }
+      searchQuery.query.term = this.search || undefined;
       this.$router.push(searchQuery)
     }
   }
