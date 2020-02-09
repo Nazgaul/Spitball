@@ -4,6 +4,7 @@ using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
@@ -403,6 +404,12 @@ namespace Cloudents.Admin2.Api
             var command = new SetUserTypeCommand(request.UserId, request.UserType);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+        [HttpGet("types")]
+        public IEnumerable<string> GetAllTypes()
+        {
+            return Enum.GetNames(typeof(UserType)).Select(s => s.ToCamelCase());
         }
     }
 }
