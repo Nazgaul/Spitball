@@ -1,10 +1,10 @@
 <template>
     <v-row class="teacherTasks mx-0 mb-2 mb-sm-4" dense>
         <v-col class="imageWrap flex-grow-0">
-            <div class="image"></div>
+            <userAvatar :size="'60'" :user-name="user.name" :user-id="user.id" :userImageUrl="user.image"/> 
         </v-col>
         <v-col class="taskCompleted  pl-4" align-self="center">
-            <div class="mb-1 completedTitle">{{taskCompleted}}</div>
+            <div class="mb-1 completedTitle">{{taksNumberCompleted}} {{$t('dashboard_task_completed')}}</div>
             <v-progress-linear
               active
               :background-opacity="0.3"
@@ -19,31 +19,31 @@
             <div class="d-flex align-center">
               <assignmentIcon class="assignIcon" />
               <div class="taskText pl-3">
-                Book an unbording session
+                {{$t('dashboard_book_session')}}
               </div>
             </div>
             <arrowRight class="arrowRight d-flex d-sm-none" />
-            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">book</v-btn>
+            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboard_book_btn')}}</v-btn>
         </v-col>
         <v-col cols="12" class="taskCol py-4 d-flex justify-space-between">
             <div class="d-flex align-center">
               <assignmentIcon class="assignIcon" />
               <div class="taskText pl-3">
-                Connect your calendar
+                {{$t('dashboard_connect_calendar')}}
               </div>
             </div>
             <arrowRight class="arrowRight d-flex d-sm-none" />
-            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">Connect</v-btn>
+            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboard_connect_btn')}}</v-btn>
         </v-col>
         <v-col cols="12" class="taskCol pb-0 py-4 d-flex justify-space-between">
             <div class="d-flex align-center">
               <assignmentIcon class="assignIcon" />
                 <div class="taskText pl-3">
-                  Set your work hours
+                  {{$t('dashboard_work_hours')}}
                 </div>
             </div>
             <arrowRight class="arrowRight d-flex d-sm-none" />
-            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">Update</v-btn>
+            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboard_works_btn')}}</v-btn>
         </v-col>
     </v-row>
 </template>
@@ -58,9 +58,14 @@ export default {
     arrowRight
   },
   data: () => ({
-    taskCompleted: '3/6 Task completed',
-    value: 50
-  })
+    taksNumberCompleted: '3/6',
+    value: 60
+  }),
+  computed: {
+    user() {
+      return this.$store.getters?.accountUser ? this.$store.getters?.accountUser : null
+    }
+  }
 }
 </script>
 <style lang="less">
