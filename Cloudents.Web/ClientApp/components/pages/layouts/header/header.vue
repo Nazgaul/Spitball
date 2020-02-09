@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapMutations} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 import {LanguageChange, LanguageService } from "../../../../services/language/languageService";
 import languagesLocales from "../../../../services/language/localeLanguage";
 
