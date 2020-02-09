@@ -31,6 +31,7 @@ namespace Cloudents.Query.Users
                           case when u.UniversityId2 is null then 0 else 1 end as UniversityExists,
                           u.PhoneNumberHash,
                 u.Country,
+                u.UserType,
                           t.State as IsTutor,
                             coalesce(
                                 iif(u.PaymentExists != 0 , 0, null),

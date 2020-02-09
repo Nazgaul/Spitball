@@ -132,7 +132,7 @@ namespace Cloudents.Core.DTOs
         public bool NeedPayment { get; set; }
 
         public bool CalendarShared { get; set; }
-
+        public UserType? UserType { get; set; }
         private string Country { get; set; }
         public string CurrencySymbol
         {
