@@ -1,22 +1,17 @@
 <template>
-    <v-navigation-drawer touchless
-                         permanent
+    <v-navigation-drawer touchless permanent app clipped :right="isRtl" width="220" mini-variant-width="62"
                          :temporary="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown"
                          class="sideMenu"
-                         width="220"
                          :value="getShowSchoolBlock"
                          @input="updateDrawerValue"
-                         :mini-variant-width="62"
                          :mini-variant.sync="isMiniSideMenu"
-                         :right="isRtl" 
-                         :class="[{'higherIndex':!isMiniSideMenu && $vuetify.breakpoint.mdAndDown}]"
-                         app
-                         clipped>
+                         :class="[{'higherIndex':!isMiniSideMenu && $vuetify.breakpoint.mdAndDown}]">
       <div class="sideMenu_cont">
         <div @click="toggleMiniSideMenu" v-if="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown" class="sideMenu_btn"/>
+        
         <v-list class="sideMenu_list_cont" dense>
 
-          <v-list-group active-class="''" :prepend-icon="'sbf-home-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="resetItems">
+          <v-list-group @click="resetItems" class="sideMenu_group" :prepend-icon="'sbf-home-sideMenu'" no-action :append-icon="''" active-class="''">
             <template v-slot:activator>
               <v-list-item class="sideMenu_list">
                 <v-list-item-content>
@@ -28,7 +23,7 @@
             </template>
           </v-list-group>
 
-          <v-list-group v-model="dashboardModel" active-class="''" v-if="dashboardList" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
+          <v-list-group v-model="dashboardModel" v-if="dashboardList" @click="openSideMenu" class="sideMenu_group" active-class="''" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action>
             <template v-slot:activator>
               <v-list-item class="sideMenu_list">
                 <v-list-item-content>
@@ -44,7 +39,7 @@
               event
               @click.native.prevent="getShowSchoolBlock ? goTo(item.route) : openSideMenu()" :sel="item.sel" v-show="isShowItem(item.route)">
               <v-list-item-content> 
-                <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker(item.key)}]">
+                <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker(item.route)}]">
                   <v-icon class="group_list_icon_dash" v-html="item.icon"/>
                   <span class="group_list_title_dash ml-3">{{item.name}}</span>
                 </v-list-item-title>
@@ -58,7 +53,7 @@
               <v-list-item class="sideMenu_list">
                 <v-list-item-content>
                   <v-list-item-title>
-                    <span class="sideMenu_list_title" v-text="courseSelectText"/>
+                    <span class="sideMenu_list_title" v-text="$t('schoolBlock_my')"/>
                     </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
@@ -67,28 +62,25 @@
             <v-list-item
               class="group_list_sideMenu_course" v-for="(item, index) in selectedClasses" :key="index" 
               color="#fff"
-              :to="{name: $route.name}"
+              :to="{name: $route.name,query:{Course: (!item.isDefault)? item.text : undefined}}"
               event
               @click.native.prevent="getShowSchoolBlock ? selectCourse(item) : openSideMenu()" :sel="item.isDefault? 'all_courses' : ''">
               <v-list-item-content>
                 <v-list-item-title :class="['group_list_titles_course',{'active_link_course': currentCourseChecker(item)}]">
                   <arrowSVG v-if="currentCourseChecker(item)" class="arrow_course"/>
-                  <span :class="['group_list_title_course text-truncate',currentCourseChecker(item)? 'padding_current_course':'ml-4']" v-text="item.text ? item.text : dictionary.allCourses"/>
+                  <span :class="['group_list_title_course text-truncate',currentCourseChecker(item)? 'padding_current_course':'ml-4']" v-text="item.text ? item.text : $t('schoolBlock_allCourses')"/>
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list-group>
-      </v-list>
+        </v-list>
       </div>
     </v-navigation-drawer>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from "vuex";
-
+import { mapGetters, mapActions } from "vuex";
 import arrowSVG from './image/left-errow.svg';
-
-import {LanguageService} from "../../../../services/language/languageService";
 
 export default {
   name: "sideMenu",
@@ -97,46 +89,29 @@ export default {
     return {
       sideMenulistElm: null,
       dashboardList:[
-        {name: LanguageService.getValueByKey('schoolBlock_profile'), key:'profile', route: 'profile', icon:'sbf-user', sel:'sd_profile'},
-        // {name: LanguageService.getValueByKey('schoolBlock_wallet'), key:'wallet', route: 'wallet', icon:'sbf-wallet' ,sel:'sd_wallet'},
-        {name: LanguageService.getValueByKey('schoolBlock_my_sales'), key:'my-sales', route: 'mySales', icon:'sbf-cart',sel:'sd_sales'},
-        {name: LanguageService.getValueByKey('schoolBlock_my_followers'), key:'my-followers', route: 'myFollowers', icon:'sbf-follow',sel:'sd_followers'},
-        {name: LanguageService.getValueByKey('schoolBlock_purchases'), key:'my-purchases', route: 'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
-        {name: LanguageService.getValueByKey('schoolBlock_my_content'), key:'my-content', route: 'myContent', icon:'sbf-my-content',sel:'sd_content'},
-        {name: LanguageService.getValueByKey('schoolBlock_calendar'), key:'my-calendar',route: 'myCalendar', icon:'sbf-calendar',sel:'sd_calendar'},
-        {name: LanguageService.getValueByKey('schoolBlock_study'), key:'studyRooms', route: 'roomSettings', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
-        {name: LanguageService.getValueByKey('menuList_my_study_rooms'), key:'tutoring', route: 'tutoring', icon:'sbf-pc',sel:'menu_row'},
-        {name: LanguageService.getValueByKey('menuList_changeUniversity'), key:'university', route: 'addUniversity', icon:'sbf-university',sel:'sd_studyroom'},
-        {name: LanguageService.getValueByKey('schoolBlock_courses'), key:'courses', route: 'editCourse', icon:'sbf-classes-icon'},
-
-        // {name: LanguageService.getValueByKey('schoolBlock_lessons'), key:'lessons', icon:'sbf-lessons'},
-        // {name: LanguageService.getValueByKey('schoolBlock_posts'), key:'posts', icon:'sbf-studyroom-icon'},
-        // {name: 'myCalendar', key:'myCalendar', icon:'sbf-cart',sel:'sd_calendar'},
+        {name: this.$t('schoolBlock_profile'), key:'profile', route: 'profile', icon:'sbf-user', sel:'sd_profile'},
+        {name: this.$t('schoolBlock_my_sales'), key:'my-sales', route: 'mySales', icon:'sbf-cart',sel:'sd_sales'},
+        {name: this.$t('schoolBlock_my_followers'), key:'my-followers', route: 'myFollowers', icon:'sbf-follow',sel:'sd_followers'},
+        {name: this.$t('schoolBlock_purchases'), key:'my-purchases', route: 'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
+        {name: this.$t('schoolBlock_my_content'), key:'my-content', route: 'myContent', icon:'sbf-my-content',sel:'sd_content'},
+        {name: this.$t('schoolBlock_calendar'), key:'my-calendar',route: 'myCalendar', icon:'sbf-calendar',sel:'sd_calendar'},
+        {name: this.$t('schoolBlock_study'), key:'studyRooms', route: 'roomSettings', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
+        {name: this.$t('menuList_my_study_rooms'), key:'tutoring', route: 'tutoring', icon:'sbf-pc',sel:'menu_row'},
+        {name: this.$t('menuList_changeUniversity'), key:'university', route: 'addUniversity', icon:'sbf-university',sel:'sd_studyroom'},
+        {name: this.$t('schoolBlock_courses'), key:'courses', route: 'editCourse', icon:'sbf-classes-icon'},
       ],
       selectedCourse: "",
-      lock: false,
       isRtl: global.isRtl,
-      dictionary:{
-        myCourses: LanguageService.getValueByKey('schoolBlock_my'),
-        addcourses: LanguageService.getValueByKey('schoolBlock_add_your_courses'),
-        allCourses: LanguageService.getValueByKey('schoolBlock_allCourses'),
-      },
-      inUniselect: this.$route.path.indexOf('courses') > -1 || this.$route.path.indexOf('university') > -1,
-      inStudyRoomLobby: this.$route.path.indexOf('study-rooms') > -1,
-      items: [],
+      dashboardModel: this.$route.name !== 'feed' && this.$route.name !== 'document',
     };
   },
   computed: {
     ...mapGetters([
       "getSelectedClasses",
       "accountUser",
-      "getSearchLoading",
       "getShowSchoolBlock",
-      "getShowBuyDialog",
+      'Feeds_getIsLoading'
     ]),
-    dashboardModel(){
-      return this.$route.name !== 'feed' && this.$route.name !== 'document'
-    },
     isMiniSideMenu: {
       get() {
       return (this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly) && !this.getShowSchoolBlock
@@ -144,9 +119,6 @@ export default {
       set(val) {
         this.updateDrawerValue(val)
       }
-    },
-    courseSelectText(){
-      return !!this.accountUser ? this.dictionary.myCourses : this.dictionary.addcourses;
     },
     selectedClasses(){
         let selectedClasses = JSON.parse(JSON.stringify(this.getSelectedClasses))
@@ -159,23 +131,16 @@ export default {
           isSelected: true,
           isTeaching: false,
           students: 0,
-          text: this.dictionary.allCourses,
+          text: this.$t('schoolBlock_allCourses'),
           isDefault: true
         }
-
         selectedClasses.unshift(defaultCourse);
         return selectedClasses;
     },
   },
   watch: {
-    getSearchLoading(val) {
-      if (!val) {
-        this.lock = false;
-      }
-    },
-    $route(val) {
-      this.inUniselect = val.path.indexOf('courses') > -1 || val.path.indexOf('university') > -1;
-      this.inStudyRoomLobby = val.path.indexOf('study-rooms') > -1;
+    $route() {
+      this.dashboardModel = this.$route.name !== 'feed' && this.$route.name !== 'document'
       if (!!this.$route.query) {
         if (!this.$route.query.Course) {
           this.selectedCourse = "";
@@ -186,33 +151,20 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['resetSearch',"updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
-    ...mapMutations(["UPDATE_SEARCH_LOADING"]),
-    openPersonalizeUniversity() {
-      if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
-      } else {
-        this.$router.push({ name: "addUniversity" });
-        this.closeSideMenu()
-      }
-    },
-    courseSelectClick(){
-      !!this.accountUser ? this.selectCourse(null, true) : this.openPersonalizeCourse();
-    },
+    ...mapActions(["updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
     currentCourseChecker(item){
       if(item.isDefault){
         return this.selectedCourse === '';
       }else{
-        return item.text ? item.text.toLowerCase() === this.selectedCourse.toLowerCase() : item === this.selectedCourse;
+        return item.text.toLowerCase() === this.selectedCourse.toLowerCase();
       }
     },
     currentPageChecker(pathName){
-      if(pathName == "studyRooms") {
-        return this.$route.path.indexOf('study-rooms') > -1;
-      } else if(pathName == 'getPoint' && this.getShowBuyDialog) {
+      if(this.$route.name === 'myStudyRooms' && pathName === 'roomSettings'){
+        return true
+      }
+      if(this.$route.name === pathName){
         return true;
-      } else{        
-        return this.$route.path.indexOf(pathName) > -1;
       }
     },
     isShowItem(itemRoute){
@@ -227,64 +179,23 @@ export default {
         this.updateLoginDialogState(true);
         return
       }
-      if(name === "profile"){
-        this.$router.push({name:'profile',params:{id:this.accountUser.id,name:this.accountUser.name}})
-      }
-      if(name === "wallet"){
-        this.$router.push({name:'wallet'})
-      }
       if(name === "roomSettings"){
-          this.$router.push({name:'myStudyRooms'})
+        this.$router.push({name:'myStudyRooms'})
+        return
       }
-      if(name === "tutoring"){
-          this.$router.push({name:'tutoring'})
-      }
-      if(name === "lessons"){
-        // this.$router.push({name:'lessons'})
-      }
-      if(name === "posts"){
-        // this.$router.push({name:'posts'})
-      }
-      if(name === "mySales"){
-        this.$router.push({name: 'mySales'})
-      }
-      if(name === "myFollowers"){
-        this.$router.push({name: 'myFollowers'})
-      }
-      if(name === "myContent"){
-        this.$router.push({name: 'myContent'})
-      }
-      if(name === "addUniversity"){
-        this.$router.push({name:'addUniversity'})
-      }
-      if(name === "myCalendar"){
-        this.$router.push({name: 'myCalendar'})
-      }
-      if(name === "editCourse"){
-        this.$router.push({name:'editCourse'})
-      }
-      if(name === "myPurchases"){
-        this.$router.push({name:'myPurchases'})
-      }
+      this.$router.push({name})
       this.closeSideMenu();
     },
     resetItems(){
-      this.resetSearch()
       this.openSideMenu();
-      this.UPDATE_SEARCH_LOADING(true);
-      this.$router.push('/');
-        this.$nextTick(() => {
-        setTimeout(()=>{
-            this.UPDATE_SEARCH_LOADING(false);
-        }, 200);
-      });
+      this.$router.push('/')
     },
     toggleMiniSideMenu(){
-        if(this.isMiniSideMenu){
-          this.openSideMenu();
-        }else{
-          this.closeSideMenu();
-        } 
+      if(this.isMiniSideMenu){
+        this.openSideMenu();
+      }else{
+        this.closeSideMenu();
+      } 
     },
     openSideMenu(){
       if(this.$vuetify.breakpoint.xsOnly || this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly){
@@ -298,95 +209,34 @@ export default {
         this.toggleShowSchoolBlock(false);
       }
     },
-
     updateDrawerValue(val){
       if(this.isMiniSideMenu) {
         this.toggleShowSchoolBlock(!val);
       }
-        //this is required to set the current drawer state on the store, because when the 
-        //created event is getting called again (during route change)
-        //we need the last updated drawer state to be considered as default.
-        // console.log(`drawer value is ${val}`);
-      
     },
-    isInSearchMode(){
-      return (!!this.$route.query && !!this.$route.query.term) || (!!this.$route.query && (!!this.$route.query.Filter || !!this.$route.query.Source))
-    },
-    selectCourse(item, isDefault) {
-      if(item.isDefault){
-        isDefault = true;
-      }
-      if(!item && isDefault){
-        this.updateFilter();
-        this.$router.push('/');
-        return;
-      }
-      if((this.inUniselect || this.inStudyRoomLobby) && !item){
-        this.updateFilter();
-        return;
-      }
-      if (!this.lock) {
-        this.lock = true;
-        
-        if(!!isDefault){
-          if(!this.selectedCourse){
-            if(this.isInSearchMode()){
-              this.selectedCourse = "";
-            }else{
-              this.lock = false;
-            }
-          }else{
-            this.selectedCourse = ""
-          }
+    selectCourse(item) {
+      if(!this.Feeds_getIsLoading){
+        if(item.isDefault){
+          this.selectedCourse = "";
         }else{
-          let text = item.text ? item.text : item;
-          if (this.selectedCourse === text) {
-            if(this.isInSearchMode()){
-              this.selectedCourse = text;
-            }else{
-              this.lock = false;
-              return;
-            }
-          } else {
-            this.selectedCourse = text;
-          }
-        }        
+          this.selectedCourse = item.text;
+        }
         this.updateFilter();
         this.toggleMiniSideMenu()
       }
     },
-    isOutsideFeed(){
-        return this.$route.name !== 'feed';
-    },
     updateFilter() {
-      this.UPDATE_SEARCH_LOADING(true);
-      let newQueryObject = {
-        Course: this.selectedCourse || undefined
-      };
-      if (this.selectedCourse === "") {
-        delete newQueryObject.Course;
-      }
-      if(this.isOutsideFeed()){
+      let newQueryObject = {Course: this.selectedCourse || undefined};
+      if(this.$route.name !== 'feed'){
           this.$router.push({name: 'feed', query: newQueryObject });
       }else{
-        if(this.$route.path === `/feed` && this.$route.fullPath === '/feed'){
-          newQueryObject.reloaded = '';
-        }
         let queryObj = {
-          Course: this.selectedCourse || undefined, // remove the select course
+          Course: this.selectedCourse || undefined,
           term: this.$route.query.term,
           filter: this.$route.query.filter,
         }
-      
-        this.$router.push({ query: queryObj }).catch(() => {});
+        this.$router.push({ query: queryObj })
       }
-    },
-    openPersonalizeCourse() {
-      if (this.accountUser == null) {
-        this.updateLoginDialogState(true);
-        return;
-      }
-      this.$router.push({name: 'editCourse'});
     },
     clickEventMiniMenuOpen(e){
       if(e.target.classList.contains('v-navigation-drawer--mini-variant')){

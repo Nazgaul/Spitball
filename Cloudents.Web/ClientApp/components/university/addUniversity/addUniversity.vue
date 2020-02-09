@@ -145,7 +145,7 @@
                               "updateSchoolName",
                               "changeUniCreateDialogState"
                           ]),
-            ...mapMutations(['UPDATE_SEARCH_LOADING','setSchoolName']),
+            ...mapMutations(['setSchoolName']),
             // eslint-disable-next-line no-unused-vars
             clearData(search, university) {
                 search = '';
@@ -237,7 +237,6 @@
                             if(!this.isFromRegister) {
                                 this.$store.dispatch('updateStepValidation', true);
                             } else {
-                                this.UPDATE_SEARCH_LOADING(true);
                                 this.getOut();
                             }
                             },

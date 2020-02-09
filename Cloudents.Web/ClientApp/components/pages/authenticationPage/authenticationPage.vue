@@ -35,7 +35,7 @@ export default {
   }),
   computed: {
     ...mapGetters(["isFrymo"]),
-
+    
     dynamicClass() {
       return this.$route.meta.dynamicClass
     }

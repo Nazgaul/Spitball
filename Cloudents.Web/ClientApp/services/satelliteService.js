@@ -6,6 +6,7 @@ const isFrymo = store.getters['isFrymo'];
 
 
 
+
 function websitePrefix(){
     return `${isFrymo ? 'frymo.com':'spitball.co'}`;
 }
