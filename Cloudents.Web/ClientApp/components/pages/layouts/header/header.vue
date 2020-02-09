@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapMutations} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 import {LanguageChange, LanguageService } from "../../../../services/language/languageService";
 import languagesLocales from "../../../../services/language/localeLanguage";
 
@@ -168,12 +168,10 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
     },
     methods: {
         ...mapActions(['openChatInterface']),
-        ...mapMutations(['UPDATE_SEARCH_LOADING']),
         openChatWindow(){
             this.openChatInterface();
         },
         resetItems(){
-            this.UPDATE_SEARCH_LOADING(true);
             this.$router.push('/');
         },
         closeDrawer() {

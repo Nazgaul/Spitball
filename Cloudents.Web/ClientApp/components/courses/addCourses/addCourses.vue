@@ -113,7 +113,6 @@
     import { mapActions, mapGetters, mapMutations } from "vuex";
     import { LanguageService } from "../../../services/language/languageService";
     import debounce from "lodash/debounce";
-    import universityService from '../../../services/universityService';
 
     export default {
         data() {
@@ -197,16 +196,16 @@
                 "removeFromCached",
                 "addClasses",
                 "clearClassesCahce",
-                "deleteClass"
+                "deleteClass",
+                'updateTeachCourse'
             ]),
-            ...mapMutations(['UPDATE_SEARCH_LOADING','setSearchedCourse']),
+            ...mapMutations(['setSearchedCourse']),
             openCreateDialog(val){
                 this.setSearchedCourse(this.search)
                 this.changeCreateDialogState(val)
             },
             goToEditCourses() {
                 if(this.getSelectedClasses.length === 0 && this.quantatySelected === 0){
-                    this.UPDATE_SEARCH_LOADING(true);
                     this.$router.push({name: 'feed'})
                 }else{
                     this.clearClassesCahce();
@@ -276,7 +275,7 @@
             //     this.assignClasses(this.localSelectedClasses).then(() => {
             //         if(this.isTutor){
             //                 this.localSelectedClasses.forEach(course=>{
-            //                     universityService.teachCourse(course.text).then(()=>{
+            //                     .(course.text).then(()=>{
             //                         course.isTeaching = true;
             //                         this.doneButtonLoading = false;
             //                         this.$router.push({name: 'editCourse'});
@@ -295,15 +294,14 @@
                 //clean from cached list and request new list, and refresh data
                 this.removeFromCached(classToDelete);
                 let paramObj = {term: this.search, page: 0};
-                if(this.isFromRegister) {
-                    this.removeClasses(classToDelete, paramObj)
-                    if(!this.localSelectedClasses.length) {
-                        this.$store.dispatch('updateStepValidation', false)
-                    }
-                    return
-                } 
+                this.removeClasses(classToDelete, paramObj)
+                // if(this.isFromRegister) {
+                //     if(!this.localSelectedClasses.length) {
+                //         this.$store.dispatch('updateStepValidation', false)
+                //     }
+                //     return
+                // } 
                 this.loadCourses(paramObj);
-
             },
             checkAsSelected(classToCheck, from) {
                 let index = from.indexOf(classToCheck);
@@ -326,16 +324,15 @@
                 this.changeClassesToCachedClasses();
                 let self = this;
                 this.assignClasses(className.text).then(() => {
-                    if(self.isFromRegister) {
-                        self.$store.dispatch('updateStepValidation', true);
-                        return
-                    }
+                    // if(self.isFromRegister) {
+                    //     self.$store.dispatch('updateStepValidation', true);
+                    //     return
+                    // }
                     if(self.isTutor){
                             self.localSelectedClasses.forEach(course=>{
-                                universityService.teachCourse(course.text).then(()=>{
-                                    course.isTeaching = true;
-                                    self.doneButtonLoading = false;
-                                })
+                                if(course.isTeaching) return;
+                                course.isTeaching = true;
+                                self.doneButtonLoading = false;
                             });
                     }else{
                         self.doneButtonLoading = false;

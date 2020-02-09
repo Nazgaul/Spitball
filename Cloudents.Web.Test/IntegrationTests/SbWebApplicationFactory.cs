@@ -26,7 +26,8 @@ namespace Cloudents.Web.Test.IntegrationTests
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            //builder.UseEnvironment(Startup.IntegrationTestEnvironmentName);
+            //builder.ConfigureAppConfiguration(x=> x.Configuration["xxx"] = "Validate")
+            //builder.UseEnvironment("Staging");
             //builder.ConfigureAppConfiguration()
         }
 

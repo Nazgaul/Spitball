@@ -139,11 +139,11 @@
     <value>Next</value>
   </data>
   <data name="calendar" xml:space="preserve">
-    <value>Connect your Calendar</value>
+    <value>Connect your calendar</value>
   </data>
   <data name="cal_step" xml:space="preserve">
     <value>To show your availability, you
-must Connect your Google Calendar</value>
+must connect your Google Calendar</value>
   </data>
   <data name="label_bio" xml:space="preserve">
     <value>Bio</value>
@@ -161,7 +161,7 @@ must Connect your Google Calendar</value>
     <value>Type a short paragraph about your background and who you are</value>
   </data>
   <data name="placeholder_description" xml:space="preserve">
-    <value>Type a Key sentence about yourself</value>
+    <value>Type a key sentence about yourself</value>
   </data>
   <data name="placeholder_first_name" xml:space="preserve">
     <value>First Name</value>
@@ -214,7 +214,7 @@ with your Spitball booking system</value>
 connect with your Spitball booking system</value>
   </data>
   <data name="agree" xml:space="preserve">
-    <value>I agree to Spitball's Terms of Services</value>
+    <value>I agree to Spitball's Terms of Service</value>
   </data>
   <data name="code_of_conduct" xml:space="preserve">
     <value>Spitball has built a simple set of rules to ensure that tutors get paid in full, protect the privacy of tutors and students and to make our service fair for everyone. Please follow these rules when you use Spitball:

@@ -2,7 +2,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import Search from "./search";
 import User from "./User";
 import Question from "./question";
 import Account from "./account";
@@ -15,7 +14,6 @@ import mobileFooter from './mobileFooter';
 import buyTokens from './buyTokens';
 import chatStore from './chatStore';
 import becomeTutor from './becomeTutor';
-import tutorList from './tutorList';
 import userOnlineStatus from './userOnlineStatus';
 import leaveReview from './leaveReview';
 import requestTutor from './requestTutor';
@@ -31,6 +29,8 @@ import utils_Store from './utils_Store'
 import banner_Store from './banner_Store.js'
 import dashboard_Store from './dashboard_Store.js'
 import feed from './feedStore.js'
+import profile from './profile.js';
+
 
 
 // const onModuleAValueChange= (store) => {
@@ -57,10 +57,10 @@ import feed from './feedStore.js'
 //     );
 // };
 
+
 Vue.use(Vuex);
 const store = new Vuex.Store({
     modules: {
-        Search,
         User,
         Account,
         Question,
@@ -80,7 +80,6 @@ const store = new Vuex.Store({
         buyTokens,
         chatStore,
         becomeTutor,
-        tutorList,
         leaveReview,
         userOnlineStatus,
         requestTutor,
@@ -97,6 +96,7 @@ const store = new Vuex.Store({
         utils_Store,
         banner_Store,
         dashboard_Store,
+        profile,
     },
    // plugins: [onModuleAValueChange]
 });

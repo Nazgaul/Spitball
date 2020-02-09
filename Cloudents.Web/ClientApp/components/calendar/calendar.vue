@@ -182,9 +182,11 @@ export default {
         return this.$vuetify.breakpoint.xsOnly;
       },
       isNeedPayment(){
-        let price = this.getProfile.user.tutorData.price + ''
-        price.slice(1, this.getProfile.user.tutorData.price.length);        
-        return this.getNeedPayment && Number(price) > 0;
+        // debugger
+        // let price = this.getProfile.user.tutorData.price + ''
+        // price.slice(1, this.getProfile.user.tutorData.price.length);        
+        // return this.getNeedPayment && Number(price) > 0;
+        return this.getNeedPayment;
       },
       isSelfTutor() {
         if((this.$route.name == 'myCalendar') || (!!this.getProfile && !!this.accountUser) && this.getProfile.user.id == this.accountUser.id) {

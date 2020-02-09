@@ -149,8 +149,13 @@
                         firstName,
                         lastName,
                         };
+                    let serverFormat = {
+                        description: this.editedDescription,
+                        firstName,
+                        lastName
+                    };
                     this.btnLoading = true;
-                    accountService.saveUserInfo(editsData).then(() => {
+                    accountService.saveUserInfo(serverFormat).then(() => {
                         this.updateEditedProfile(editsData);
                         this.btnLoading = false;
                         this.closeDialog();

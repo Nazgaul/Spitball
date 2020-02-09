@@ -9,7 +9,6 @@ function createTutorList(objInit){
 
 function TutorList(objInit){
     this.count = objInit.count;
-    this.nextPageLink = objInit.nextPageLink;
     this.result = objInit.result.map(searchService.createTutorItem);
 }
 const getTutorList = (params) => {
