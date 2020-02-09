@@ -57,6 +57,7 @@ import studyRoomSession from './components/studyRoom/studyRoomComponents/session
 
 import leads from './components/leads/leads.vue';
 import coupon from './components/coupon/coupon.vue';
+import subjects from './components/subjects/subjects.vue';
 
 export const routes = [
     {
@@ -352,9 +353,14 @@ export const routes = [
       component: coupon
     },
     {
+      path: '/subjects',
+      name: 'subjects',
+      component: subjects
+    },
+    {
          path: '/*',
          redirect: '/home'
-       }
+    }
 ];
 
   

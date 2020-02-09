@@ -68,7 +68,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual void AddSubject(CourseSubject subject)
+        public virtual void SetSubject(CourseSubject subject)
         {
             Subject = subject;
         }

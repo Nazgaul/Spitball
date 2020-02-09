@@ -36,6 +36,11 @@ namespace Cloudents.Query
                         throw new OperationCanceledException("on query", e);
                     }
 
+                    if (e.Message.Contains("Operation cancelled by user."))
+                    {
+                        throw new OperationCanceledException("on query", e);
+                    }
+
                     throw;
                 }
             }
