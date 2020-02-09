@@ -86,11 +86,11 @@ namespace Cloudents.Selenium.Test
 
     }
 
-    
-    
 
 
-        [Collection("Database collection")]
+
+
+    [Collection("Database collection")]
     public class Tests : IClassFixture<DriverFixture>
     {
         //private readonly IWebDriver _driver = new ChromeDriver(Directory.GetCurrentDirectory());
@@ -111,7 +111,7 @@ namespace Cloudents.Selenium.Test
             // _autoMock = AutoMock.GetLoose();
         }
 
-       // const string SiteMainUrl = "https://dev.spitball.co";
+        // const string SiteMainUrl = "https://dev.spitball.co";
         const string FrymoSiteUrl = "?site=frymo";
 
         private static readonly IEnumerable<string> Cultures = new[]
@@ -219,7 +219,7 @@ namespace Cloudents.Selenium.Test
 
                 url = $"{_driver.SiteUrl.TrimEnd('/')}/studyroomsettings?site=frymo";
                 driver.Navigate().GoToUrl(url);
-                
+
                 // Check that the element is exist
                 driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
             }
@@ -302,7 +302,7 @@ namespace Cloudents.Selenium.Test
                 var listItems = driver.FindElements(By.XPath("//*[@sel='menu_row']//a"));
                 //var _wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 5));
                 //_wait.Until(driver => driver.FindElement(By.XPath("//*[@sel='menu']")));
-               
+
                 listItems.Count.Should().Be(8);
             }
 
@@ -349,7 +349,7 @@ namespace Cloudents.Selenium.Test
                 var courses = driver.FindElements(By.XPath("//*[@class='group_list_sideMenu_course v-list-item--active v-list-item v-list-item--link theme--light']"));
                 var search = driver.FindElementByWait(By.XPath("//*[@class='v-text-field__slot']//input"));
 
-                
+
                 courses[0].Click();
                 search.SendKeys("test");
                 search.SendKeys(Keys.Enter);
@@ -361,9 +361,26 @@ namespace Cloudents.Selenium.Test
                 driver.Url.Should().Contain("course=");
             }
         }
-       
-    }
 
+        [Fact]
+        public void WhatsppHeaderTest()
+        {
+            foreach(var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                var url = $"{_driver.SiteUrl.TrimEnd('/')}/tutor-list";
+                driver.Navigate().GoToUrl(url);
+
+                // Make sure this element is exist for unregistered user
+                driver.FindElementByWait(By.XPath("//a[contains(@class,'phoneNumberSlot')]"));
+
+                LoginTest();
+                driver.Navigate().GoToUrl(url);
+                // Make sure this element is exist for registered user
+                driver.FindElementByWait(By.XPath("//a[contains(@class, 'phoneNumberSlot')]"));
+            }
+        }
+    }
 
     public static class SeleniumExtensions
     {
