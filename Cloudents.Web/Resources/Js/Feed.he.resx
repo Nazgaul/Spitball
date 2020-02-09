@@ -117,118 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="already_submitted" xml:space="preserve">
-    <value>Your profile is pending approval</value>
+  <data name="select_all" xml:space="preserve">
+    <value>הכל</value>
   </data>
-  <data name="btn_add_courses_teach" xml:space="preserve">
-    <value>Add courses to teach</value>
+  <data name="select_document" xml:space="preserve">
+    <value>מסמכים</value>
   </data>
-  <data name="btn_back" xml:space="preserve">
-    <value>Back</value>
+  <data name="select_question" xml:space="preserve">
+    <value>שאלות</value>
   </data>
-  <data name="btn_cal_connect" xml:space="preserve">
-    <value>Connect your Google Calendar</value>
+  <data name="select_tutor" xml:space="preserve">
+    <value>מורים פרטיים</value>
   </data>
-  <data name="btn_cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="btn_done" xml:space="preserve">
-    <value>Done</value>
-  </data>
-  <data name="btn_next" xml:space="preserve">
-    <value>Next</value>
-  </data>
-  <data name="calendar" xml:space="preserve">
-    <value>Connect your calendar</value>
-  </data>
-  <data name="cal_step" xml:space="preserve">
-    <value>To show your availability, you
-must connect your Google Calendar</value>
-  </data>
-  <data name="label_bio" xml:space="preserve">
-    <value>Bio</value>
-  </data>
-  <data name="label_description" xml:space="preserve">
-    <value>Opening sentence</value>
-  </data>
-  <data name="oh" xml:space="preserve">
-    <value>Oh Yeah!!</value>
-  </data>
-  <data name="personal_details" xml:space="preserve">
-    <value>Personal details</value>
-  </data>
-  <data name="placeholder_bio" xml:space="preserve">
-    <value>Type a short paragraph about your background and who you are</value>
-  </data>
-  <data name="placeholder_description" xml:space="preserve">
-    <value>Type a key sentence about yourself</value>
-  </data>
-  <data name="placeholder_first_name" xml:space="preserve">
-    <value>First Name</value>
-  </data>
-  <data name="placeholder_last_name" xml:space="preserve">
-    <value>Last Name</value>
-  </data>
-  <data name="placeholder_price" xml:space="preserve">
-    <value>Price per hour {0}</value>
-  </data>
-  <data name="sharing_step_2" xml:space="preserve">
-    <value></value>
-  </data>
-  <data name="title_become" xml:space="preserve">
-    <value>Become a tutor</value>
-  </data>
-  <data name="tutor_now" xml:space="preserve">
-    <value>You are a tutor now</value>
-  </data>
-  <data name="upload_image" xml:space="preserve">
-    <value>Upload Your Photo</value>
-  </data>
-  <data name="who" xml:space="preserve">
-    <value>Who are you</value>
-  </data>
-  <data name="gender_female" xml:space="preserve">
-    <value>Female</value>
-  </data>
-  <data name="gender_male" xml:space="preserve">
-    <value>Male</value>
-  </data>
-  <data name="placeholder_select_gender" xml:space="preserve">
-    <value>Select gender</value>
-  </data>
-  <data name="sharing_step_1" xml:space="preserve">
-    <value></value>
-  </data>
-  <data name="upload_error" xml:space="preserve">
-    <value>Upload image to continue</value>
-  </data>
-  <data name="connect_mobile" xml:space="preserve">
-    <value>Connect Now</value>
-  </data>
-  <data name="select_calendar_title" xml:space="preserve">
-    <value>Please indicate which of the following calendars to connect
-with your Spitball booking system</value>
-  </data>
-  <data name="select_calendar_title_mobile" xml:space="preserve">
-    <value>Please indicate which of the following calendars to
-connect with your Spitball booking system</value>
-  </data>
-  <data name="agree" xml:space="preserve">
-    <value>I agree to Spitball's Terms of Service</value>
-  </data>
-  <data name="code_of_conduct" xml:space="preserve">
-    <value>Spitball has built a simple set of rules to ensure that tutors get paid in full, protect the privacy of tutors and students and to make our service fair for everyone. Please follow these rules when you use Spitball:
-As an independent tutor, you are not a Spitball employee, we are not able to verify your employment to other companies and you are responsible for filing your tax reports and VAT.
-Taxes and other fees will not be withheld from your payments since tutors listed on Spitball are independent.  
-Accepting payment directly from students is not allowed, and will prevent tutors from being successful on Spitball.
-All communication with your students must take place through Spitball’s messaging system. Do not exchange personal email addresses with your students.
-You determine your hourly rate during the registration process. Don’t worry, you rate can be adjusted even after creating the tutor profile. 
-Payment is made after each session is completed and we verified the details with you.
-The payment will be 89% of you rate for each session. Spitball will retain a 9% platform fee and PayMe charges a 2% transaction fee.
-A student must register a form of payment before you can give him your phone number or have a session with him. This policy ensures that you get paid for all lessons.
-Please note that tutors who violate these rules may be removed from Spitball’s marketplace.</value>
-  </data>
-  <data name="code_of_conduct_title" xml:space="preserve">
-    <value>Tutor Code of Conduct</value>
+  <data name="select_video" xml:space="preserve">
+    <value>סרטונים</value>
   </data>
 </root>

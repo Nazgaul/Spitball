@@ -131,15 +131,20 @@ export default {
                 this.updateLoginDialogState(true);
             }
         },
-
+        goToAnswer(hash) {
+            this.$vuetify.goTo(hash)
+            // let elem = this.$refs.answers;
+            // elem.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
     },
     watch: {
         textAreaValue(){
             this.errorLength = {};
         },
         hasData(val) {
-            if(this.$route.hash && val) {
-                this.goToAnswer();
+            let hash = this.$route.hash
+            if(hash && val) {
+                this.goToAnswer(hash);
             }
         },
         //watch route(url query) update, and het question data from server
@@ -162,10 +167,6 @@ export default {
             }
             return null;
         },
-        goToAnswer() {            
-            let elem = this.$refs.answers;
-            elem.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        }
     },
     created() {               
         this.getData();

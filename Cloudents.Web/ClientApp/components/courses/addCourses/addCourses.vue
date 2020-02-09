@@ -113,7 +113,6 @@
     import { mapActions, mapGetters, mapMutations } from "vuex";
     import { LanguageService } from "../../../services/language/languageService";
     import debounce from "lodash/debounce";
-    import universityService from '../../../services/universityService';
 
     export default {
         data() {
@@ -295,15 +294,14 @@
                 //clean from cached list and request new list, and refresh data
                 this.removeFromCached(classToDelete);
                 let paramObj = {term: this.search, page: 0};
-                if(this.isFromRegister) {
-                    this.removeClasses(classToDelete, paramObj)
-                    if(!this.localSelectedClasses.length) {
-                        this.$store.dispatch('updateStepValidation', false)
-                    }
-                    return
-                } 
+                this.removeClasses(classToDelete, paramObj)
+                // if(this.isFromRegister) {
+                //     if(!this.localSelectedClasses.length) {
+                //         this.$store.dispatch('updateStepValidation', false)
+                //     }
+                //     return
+                // } 
                 this.loadCourses(paramObj);
-
             },
             checkAsSelected(classToCheck, from) {
                 let index = from.indexOf(classToCheck);
@@ -326,16 +324,15 @@
                 this.changeClassesToCachedClasses();
                 let self = this;
                 this.assignClasses(className.text).then(() => {
-                    if(self.isFromRegister) {
-                        self.$store.dispatch('updateStepValidation', true);
-                        return
-                    }
+                    // if(self.isFromRegister) {
+                    //     self.$store.dispatch('updateStepValidation', true);
+                    //     return
+                    // }
                     if(self.isTutor){
                             self.localSelectedClasses.forEach(course=>{
-                                universityService.teachCourse(course.text).then(()=>{
-                                    course.isTeaching = true;
-                                    self.doneButtonLoading = false;
-                                })
+                                if(course.isTeaching) return;
+                                course.isTeaching = true;
+                                self.doneButtonLoading = false;
                             });
                     }else{
                         self.doneButtonLoading = false;
