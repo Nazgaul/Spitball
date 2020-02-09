@@ -96,7 +96,10 @@ export const dashboardRoutes = [
         components: {
             default: () => import('../components/pages/global/dashboardLayout/dashboard.vue'),
             ...staticComponents(['banner', 'header', 'sideMenu'])
-        } 
+        },
+        meta: {
+            showMobileFooter: true, 
+        }
     },
     {
         path: "/wallet",
