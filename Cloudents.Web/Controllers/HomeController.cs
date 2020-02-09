@@ -167,7 +167,7 @@ namespace Cloudents.Web.Controllers
 
             var user2 = await _userManager.FindByEmailAsync(result.Email);
             var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
-            var code = dataProtector.Protect(user2.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+            var code = dataProtector.Protect(user2.Id.ToString(), DateTimeOffset.UtcNow.AddDays(5));
             return RedirectToAction("Index", new
             {
                 token = code
