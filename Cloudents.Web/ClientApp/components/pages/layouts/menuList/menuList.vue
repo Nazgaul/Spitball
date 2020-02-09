@@ -124,12 +124,11 @@ export default {
              url: satelliteService.getSatelliteUrlByName('privacy') 
          },
                     
-      ],
-      isFrymo: global.siteName === 'frymo',
+      ]
     };
   },
   computed: {
-    ...mapGetters(["accountUser"]),
+    ...mapGetters(["accountUser",'isFrymo']),
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },

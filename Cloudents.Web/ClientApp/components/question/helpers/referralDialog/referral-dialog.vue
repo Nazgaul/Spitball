@@ -168,12 +168,12 @@
             }
         },
         computed: {
-            ...mapGetters(['usersReffered', 'getSchoolName', 'accountUser']),
+            ...mapGetters(['isFrymo','usersReffered', 'getSchoolName', 'accountUser']),
             isUploadReferral() {
                 return this.referralType === 'uploadReffer';
             },
             userReferralLink() {
-            let site = global.siteName === 'frymo' ? 'frymo.com' : 'spitball.co';
+            let site = this.isFrymo ? 'frymo.com' : 'spitball.co';
             return `http://www.${site}/?referral=${Base62.encode(this.accountUser.id)}&promo=referral`;
             }
 

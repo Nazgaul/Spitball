@@ -11,11 +11,13 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex';
 export default {
     computed: {
+        ...mapGetters(['isFrymo']),
+
         href() {
-            if(global.siteName === 'frymo') {
+            if(this.isFrymo) {
                 return 'https://www.frymo.com/register';
             }
             return 'https://help.spitball.co/en/article/making-your-profile';

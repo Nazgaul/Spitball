@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 
 //STORE
 import storeService from "../../../services/store/storeService";
@@ -30,10 +31,11 @@ const close = () => import("../../../font-icon/close.svg");
 export default {
   components: { logo, close },
   data: () => ({
-    from: "",
-    isFrymo: global.siteName === 'frymo',
+    from: ""
   }),
   computed: {
+    ...mapGetters(["isFrymo"]),
+    
     dynamicClass() {
       return this.$route.meta.dynamicClass
     }

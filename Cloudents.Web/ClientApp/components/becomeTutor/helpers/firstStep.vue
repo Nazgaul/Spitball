@@ -124,7 +124,7 @@
               let v =   this.$n(1,'currency');
               return v.replace(/\d|[.,]/g,'').trim();
             },
-            ...mapGetters(['becomeTutorData', 'accountUser','isFrymo']),
+            ...mapGetters(['becomeTutorData', 'accountUser', 'isFrymo']),
             btnDisabled() {
                 return false
                 // return !this.firstName || !this.lastName || !this.price || !this.imageExists;

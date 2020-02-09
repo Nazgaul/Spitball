@@ -28,7 +28,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getCurrTutor']),
+        ...mapGetters(['getCurrTutor', 'isFrymo']),
         
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
@@ -37,7 +37,7 @@ export default {
             return !! this.getCurrTutor
         },
         defaultImage() {
-            if(global.siteName === 'frymo') {
+            if(this.isFrymo) {
                 return require('../images/indiaGuy.jpeg');
             }
             return require('../images/yaniv.jpg');

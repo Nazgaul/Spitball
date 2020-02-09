@@ -137,12 +137,11 @@
                     integer: (value) => validationRules.integer(value)
                 },
                 valid: false,
-                btnLoading: false,
-                isFrymo: global.siteName === 'frymo'
+                btnLoading: false
             };
         },
         computed: {
-            ...mapGetters(['getProfile','accountUser']),
+            ...mapGetters(['getProfile','accountUser', 'isFrymo']),
             bio: {
                 get() {
                     return this.getProfile.user.tutorData.bio
