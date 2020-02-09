@@ -1,34 +1,36 @@
 <template>
     <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4" dense>
         <v-col class="space" :cols="isXSMobile ? '7' : '8'">
-            <div class="text">Your Analytics Overview</div>
+            <div class="text">{{$t('dashboard_analytic_title')}}</div>
         </v-col>
         <v-col class="menuWrap mb-6" :cols="isXSMobile ? '5' : '4'">
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <div v-on="on">
-                        <span class="pr-2 selectedItem">{{selectedItem}}</span>
+                        <span class="pr-2 selectedItem">{{$t(`dashboard_${selectedItem.key}`)}}</span>
                         <arrowDownIcon class="arrowDown" />
                     </div>
                 </template>
                 <v-list dense>
                     <v-list-item v-for="(item, index) in items" :key="index" @click="getData(item)">
-                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                      <v-list-item-title>{{ $t(`dashboard_${item.key}`) }}</v-list-item-title>
                     </v-list-item>
                 </v-list>
             </v-menu>
         </v-col>
+
         <v-col cols="12" class="pa-0"></v-col> <!-- keep it empty for make wrap -->
+
         <v-col
           v-for="(data, index) in results"
           :key="index"
           :cols="isMobile ? 6 : 3"
           class="box pa-0 text-center">
             <div class="boxWrap ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
-              <div class="type">{{data.type}}</div>
+              <div class="type">{{ $t(`dashboard_${data.type}`) }}</div>
               <div class="result my-0 my-sm-1">{{data.result}}</div>
               <div class="rate font-weight-bold">
-                <v-icon :color="data.down ? '#eb3134' : '#42bc46'">{{data.down ? 'mdi-menu-down' : 'mdi-menu-up'}}</v-icon>
+                <arrowDownIcon class="arrow" :class="[data.down ? 'arrowDown' : 'arrowUp']" />
                 <div class="precent" :class="{'down': data.down}">{{data.precent}}</div>
               </div>
             </div>
@@ -44,14 +46,12 @@ export default {
     arrowDownIcon
   },
   data: () => ({
-    closeOnClick: true,
-    selectIcon: false,
-    selectedItem: 'Last 7 days',
+    selectedItem: {title: 'Last 7 days', key: '7days'},
     items: [
-      { title: 'Last 7 days' },
-      { title: '2 Day' },
-      { title: '3 Day' },
-      { title: '4 Day' }
+      { title: 'Last 7 days', key: '7days' },
+      { title: '2 Day', key: '2days' },
+      { title: '3 Day', key: '3days' },
+      { title: '4 Day', key: '4days' }
     ],
     results: [
       {
@@ -81,6 +81,9 @@ export default {
     ]
   }),
   computed: {
+    textSelectedItem() {
+      return this.$t(`dashboard_${this.selectedItem.key}`);
+    },
     isMobile() {
       return this.$vuetify.breakpoint.width < 600;
     },
@@ -90,8 +93,7 @@ export default {
   },
   methods: {
     getData(item) {
-      this.selectedItem = item.title
-      console.log(item);
+      this.selectedItem = item
     }
   },
 }
@@ -169,6 +171,17 @@ export default {
 
             &.down {
               color: #eb3134;
+            }
+          }
+          .arrow {
+            width: 10px;
+            margin: 2px 4px 0;
+            &.arrowDown {
+              fill: #eb3134;
+            }
+            &.arrowUp {
+              fill: #42bc46;
+              transform: scaleY(-1);
             }
           }
         }
