@@ -2,7 +2,7 @@
 
 import debounce from "lodash/debounce";
 import { LanguageService } from "../../../../services/language/languageService";
-import universityService from "../../../../services/universityService";
+import courseService from "../../../../services/courseService";
 import analyticsService from '../../../../services/analytics.service';
 
 export default {
@@ -68,7 +68,7 @@ export default {
             }
         },
         getSuggestionList(term){
-            universityService.getCourse({term, page:0}).then(data=>{
+            courseService.getCourse({term, page:0}).then(data=>{
                 this.suggests = data;
             }).finally(()=>{
                 this.openSuggestions();

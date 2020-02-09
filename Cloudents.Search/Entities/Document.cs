@@ -17,7 +17,7 @@ namespace Cloudents.Search.Entities
         public const string CourseNameField = "Course2";
         public const string UniversityIdFieldName = "University";
         public const string TypeFieldName = "TypeFieldName";
-        public const string TypeName = "Type";
+      //  public const string TypeName = "Type";
 
         public static Document FromDto(DocumentSearchDto obj)
         {

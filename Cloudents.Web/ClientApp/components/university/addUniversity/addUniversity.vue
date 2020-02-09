@@ -210,7 +210,7 @@
             },
             checkBeforeNextStep(universityName) {
                 let user = this.accountUser;
-                if(!!user && user.universityExists) {
+                if(!!user && user.university?.text) {
                     //compare previous and current school name, if different show popup
                     let previousSchoolName = this.getSchoolName;
                     let currentSchoolName = universityName;

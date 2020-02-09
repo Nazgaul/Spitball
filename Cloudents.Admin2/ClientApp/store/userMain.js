@@ -17,7 +17,8 @@ const state = {
     requestLock: false,
     currentIdRequest: '',
     userSoldItems: [],
-    userNotes: []
+    userNotes: [],
+    userTypes: []
 };
 const mutations = {
 
@@ -32,6 +33,7 @@ const mutations = {
         state.requestLock = false;
         state.currentIdRequest = '';
         state.userNotes = [];
+        state.userTypes = [];
     },
     setShowLoader(state, val) {
         state.loader = val;
@@ -75,6 +77,12 @@ const mutations = {
     },
     setUserInfo(state, data) {
         state.userInfo = data;
+    },
+    setUserTypes(state, data) {
+        state.userTypes = data;
+    },
+    setUserType(state, data){
+        state.userInfo.userType.value = data;
     },
     setUserQuestions(state, data) {
         state.userQuestions = data;
@@ -174,6 +182,19 @@ const actions = {
                     return data;
                 }
             });
+    },
+    getUserTypes(context, id){
+        return userMainService.getUserTypes(id)
+        .then((data) => {
+                    context.commit('setUserTypes', data);
+                    return data;
+            });
+    },
+    updateUserType(context, {userId,userType}){
+        return userMainService.updateUserType({userId,userType}).then(() => {
+            context.commit('setUserType', userType);
+
+        })
     },
     removeTutor(context, id) {
         return userMainService.removeTutor(id)

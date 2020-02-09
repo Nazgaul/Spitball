@@ -361,7 +361,7 @@ export default {
     updateFilter() {
       this.UPDATE_SEARCH_LOADING(true);
       let newQueryObject = {
-        Course: this.selectedCourse
+        Course: this.selectedCourse || undefined
       };
       if (this.selectedCourse === "") {
         delete newQueryObject.Course;
@@ -373,11 +373,12 @@ export default {
           newQueryObject.reloaded = '';
         }
         let queryObj = {
-          Course: this.selectedCourse,
+          Course: this.selectedCourse || undefined, // remove the select course
           term: this.$route.query.term,
           filter: this.$route.query.filter,
         }
-        this.$router.push({ query: queryObj });
+      
+        this.$router.push({ query: queryObj }).catch(() => {});
       }
     },
     openPersonalizeCourse() {

@@ -51,11 +51,7 @@ export default {
     ...mapMutations(['UPDATE_SEARCH_LOADING']),
     searchQuery() {
       let searchQuery = {name:'feed', query:{...this.$route.query}}
-      if(this.search){
-        searchQuery.query.term = this.search;
-      }else{
-        searchQuery.query = '';
-      }
+      searchQuery.query.term = this.search || undefined;
       this.UPDATE_SEARCH_LOADING(true);
       this.$router.push(searchQuery).catch(() => {
         this.UPDATE_SEARCH_LOADING(false);

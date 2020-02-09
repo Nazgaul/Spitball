@@ -1,3 +1,9 @@
+import {School} from './school.js';
+function _createIsTutorState(str){
+    if(str && str.toLowerCase() === 'ok')return 'ok';
+    else if(str && str.toLowerCase() === 'pending')return 'pending';
+    else return null;
+}
 export const User = {
     Default: function (objInit) {
         this.id = objInit.id || objInit.userId;
@@ -25,7 +31,6 @@ export const User = {
                 students: objInit.students || 0,
             }
         )
-
     },
     TutorItem: function(objInit){
         return Object.assign(
@@ -40,6 +45,21 @@ export const User = {
                 university: objInit.university || '',
                 classes: objInit.classes || 0,
                 isTutor: true,
+            }
+        )
+    },
+    Account: function(objInit){
+        return Object.assign(
+            new User.Default(objInit),
+            {
+                balance: objInit.balance,
+                email: objInit.email,
+                currencySymbol: objInit.currencySymbol,
+                needPayment: objInit.needPayment,
+                isTutor: objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok',
+                isTutorState: _createIsTutorState(objInit.isTutor),
+                university: new School.University(objInit.university),
+                courses: objInit.courses.map((course) => new School.Course(course)),
             }
         )
     }
