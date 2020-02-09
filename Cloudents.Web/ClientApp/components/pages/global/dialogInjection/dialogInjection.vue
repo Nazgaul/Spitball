@@ -15,8 +15,17 @@ export default {
     },
     methods: {
         openDialog(component) {
-            //TODO : this code is not understandable
-            this.component = component ? dialogConfig[component].loggedPremission ? component : 'login' : ''
+            let c;
+            if(component) {
+                if(dialogConfig[component].loggedPremission) {
+                    c = component;
+                } else {
+                    c = 'login';
+                }
+            } else {
+                c = '';
+            }
+            this.component = c;
         }
     }
 }
