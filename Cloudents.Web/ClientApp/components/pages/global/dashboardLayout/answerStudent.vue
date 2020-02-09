@@ -1,7 +1,7 @@
 <template>
     <v-row class="answerStudent mt-2 mb-4 mx-0" dense>
         <v-col cols="12" class="answerTitle text-center mb-4">
-            Answer student questions
+            {{$t('dashboard_answer_title')}}
         </v-col>
 
         <v-col class="answerList pr-3">
@@ -10,7 +10,7 @@
                 <div class="middle pl-4 pb-4">
                     <div class="top d-flex justify-space-between">
                         <div class="name mb-1 pr-4 text-truncate">{{answer.name}}</div>
-                        <div class="date">{{answer.date}}</div>
+                        <div class="date">{{ $d(new Date(), 'short') }}</div>
                     </div>
                     <div class="text">{{answer.text}}</div>
                 </div>
