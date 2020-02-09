@@ -379,7 +379,7 @@ const actions = {
         }
         return registrationService.updateParentStudentName(parentObj).then(() => {
             global.isAuth = true;
-            router.push({name: 'feed'});
+            router.push({name: 'feed',query:{filter:'Tutor'}});
         }).catch(ex => {
             console.log(ex);
         })

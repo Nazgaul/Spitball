@@ -46,7 +46,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateTutorDialog','updateAccountUserToTutor','sendBecomeTutorData','updateTeachingClasses','updateToasterParams']),
+        ...mapActions(['getUserAccountForRegister','updateTutorDialog','updateAccountUserToTutor','sendBecomeTutorData','updateTeachingClasses','updateToasterParams']),
         goToPreviousStep() {
             this.$root.$emit('becomeTutorStep', 3);
         },
@@ -55,14 +55,23 @@ export default {
             this.isLoading = true;
             this.sendBecomeTutorData().then(
                 () => {
-                    self.$root.$emit('becomeTutorStep', 5);
-                    self.updateAccountUserToTutor(true);
                     self.updateToasterParams({
                         toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
                         showToaster: true,
                         toasterTimeout: 5000
                     });
-                    self.updateTeachingClasses();
+
+                    if(self.$route.name === 'registerType'){
+                        global.isAuth = true;
+                        self.getUserAccountForRegister().then(()=>{
+                            self.$router.push({name: 'feed',query:{filter:'Question'}})
+                            self.updateAccountUserToTutor(true);
+                        })
+                    }else{
+                        self.$root.$emit('becomeTutorStep', 5);
+                        self.updateAccountUserToTutor(true);
+                        self.updateTeachingClasses();
+                    }
                 },(error) => {
                     let isConflict = error.response.status === 409;
                     if(isConflict) {
