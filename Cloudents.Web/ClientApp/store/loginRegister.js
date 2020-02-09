@@ -305,7 +305,20 @@ const actions = {
                         global.country = response.data.country;
                         
                         if(global.country) {
-                            state.toUrl ? router.push(state.toUrl) : router.push({name: 'feed'});
+                            dispatch('getUserAccountForRegister').then(({userType})=>{
+                                let pathObj = {
+                                    name:'feed',
+                                    query:{}
+                                }
+
+                                if(userType === 'Parent'){
+                                    pathObj.query.filter = 'Tutor'
+                                }
+                                if(userType === 'Teacher'){
+                                    pathObj.query.filter = 'Question'
+                                }
+                                state.toUrl === '/' ? router.push(pathObj) : router.push(state.toUrl)
+                            })
                         } else {
                             //TODO: what error resource should i need here??
                             dispatch('updateToasterParams', {

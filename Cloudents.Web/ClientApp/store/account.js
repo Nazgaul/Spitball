@@ -84,6 +84,7 @@ const actions = {
         return accountService.getAccount().then((userAccount) => {
             commit("updateUser", userAccount);
             analyticsService.sb_setUserId(userAccount.id);
+            return userAccount;
         })
     },
     userStatus({dispatch, commit, getters}) {
