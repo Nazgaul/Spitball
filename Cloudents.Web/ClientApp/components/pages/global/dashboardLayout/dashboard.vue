@@ -2,7 +2,7 @@
   <div id="dashboard">
       <div class="dashboardMain mr-md-6">
         <analyticOverview></analyticOverview>
-        <teacherTasks v-if="$vuetify.breakpoint.mdAndDown"></teacherTasks>
+        <teacherTasks v-if="$vuetify.breakpoint.smAndDown"></teacherTasks>
         <marketingTools></marketingTools>
         <uploadContent v-if="$vuetify.breakpoint.smAndUp"></uploadContent>
         <spitballTips v-if="$vuetify.breakpoint.mdAndUp"></spitballTips>
