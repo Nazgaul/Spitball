@@ -37,20 +37,21 @@ export default {
 }
 </script>
 <style lang="less">
-@color: #43425d;
+@import '../../../../styles/mixin.less';
+@import '../../../../styles/colors.less';
 
 .marketingTools {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   background: white;
 
-  @media (max-width: 599px) {
+  @media (max-width: @screen-xs) {
     box-shadow: none;
     background: none;
   }
   .marketingCol {
     padding: 12px 16px 16px;
-    @media (max-width: 599px) {
+    @media (max-width: @screen-xs) {
       background: white;
     }
     .icon {
@@ -59,16 +60,16 @@ export default {
     &.marketingTitle {
       font-size: 18px;
       font-weight: 600;
-      color: @color;
+      color: @global-purple;
     }
     &.social {
       border-right: 1px solid #dddddd;
-      @media (max-width: 599px) {
+      @media (max-width: @screen-xs) {
         border-right: none;
       }
     }
     .bottom {
-      color: @color;
+      color: @global-purple;
       .marketingbtn {
         text-transform: initial;
         font-weight: 600;

@@ -21,7 +21,8 @@ export default {
 }
 </script>
 <style lang="less">
-@color: #43425d;
+@import '../../../../styles/mixin.less';
+@import '../../../../styles/colors.less';
 
 .uploadContent {
   padding: 16px 12px;
@@ -29,12 +30,12 @@ export default {
   border-radius: 8px;
   background: white;
 
-  @media (max-width: 599px) {
+  @media (max-width: @screen-xs) {
     box-shadow: none;
   }
 
   .uploadCol {
-    color: @color;
+    color: @global-purple;
     .uploadIcon {
       width: 240px;
     }

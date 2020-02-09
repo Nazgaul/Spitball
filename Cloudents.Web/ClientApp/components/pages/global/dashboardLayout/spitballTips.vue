@@ -18,18 +18,20 @@ export default {
 }
 </script>
 <style lang="less">
+@import '../../../../styles/mixin.less';
+@import '../../../../styles/colors.less';
 .spitballTips {
   padding: 12px 16px;
   background: white;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   border-radius: 8px;
 
-  @media (max-width: 599px) {
+  @media (max-width: @screen-xs) {
     box-shadow: none;
   }
 
   .tipTitle {
-    color: #43425d;
+    color: @global-purple;
     font-weight: 600;
     font-size: 16px;
   }

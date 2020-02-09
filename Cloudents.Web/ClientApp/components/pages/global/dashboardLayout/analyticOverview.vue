@@ -1,5 +1,5 @@
 <template>
-    <v-row class="dashboardTeacher mt-sm-0 mt-2 mb-2 mb-sm-4" dense>
+    <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4" dense>
         <v-col class="space" :cols="isXSMobile ? '7' : '8'">
             <div class="text">Your Analytics Overview</div>
         </v-col>
@@ -24,7 +24,7 @@
           :key="index"
           :cols="isMobile ? 6 : 3"
           class="box pa-0 text-center">
-            <div class="boxWrap ma-2 ma-sm-0 pt-2 pt-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
+            <div class="boxWrap ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
               <div class="type">{{data.type}}</div>
               <div class="result my-0 my-sm-1">{{data.result}}</div>
               <div class="rate font-weight-bold">
@@ -39,7 +39,7 @@
 import arrowDownIcon from '../../layouts/header/images/arrowDownIcon.svg';
 
 export default {
-  name: "dashboardTeacher",
+  name: "analyticOverview",
   components: {
     arrowDownIcon
   },
@@ -97,33 +97,35 @@ export default {
 }
 </script>
 <style lang="less">
-  @color: #43425d;
-  .dashboardTeacher {
+  @import '../../../../styles/mixin.less';
+  @import '../../../../styles/colors.less';
+
+  .analyticOverview {
     padding: 10px 14px;
     background: white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     border-radius: 8px;
 
-    @media (max-width: 599px) {
+    @media (max-width: @screen-xs) {
       box-shadow: none;
     }
     .space {
       .text {
-        color: @color;
+        color: @global-purple;
         font-weight: 600;
         font-size: 18px;
-        @media (max-width: 599px) {
+        @media (max-width: @screen-xs) {
           font-size: 16px;
         }
       }
-      @media (max-width: 375px) {
+      @media (max-width: @screen-xss) {
         flex-basis: 100%;
         max-width: 100%;
       }
     }
     .menuWrap {
       text-align: right;
-      @media (max-width: 375px) {
+      @media (max-width: @screen-xss) {
         text-align: left;
       }
       .selectedItem {
@@ -145,16 +147,16 @@ export default {
           border: 1px solid #e6e6e6;
         }
         .type {
-          color: @color;
-          @media (max-width: 600px) {
+          color: @global-purple;
+          @media (max-width: @screen-xs) {
             font-size: 12px;
           }
         }
         .result {
           font-size: 30px;
-          color: @color;
+          color: @global-purple;
           font-weight: 600;
-          @media (max-width: 600px) {
+          @media (max-width: @screen-xs) {
             font-size: 24px;
           }
         }

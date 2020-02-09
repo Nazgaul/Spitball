@@ -82,19 +82,20 @@ export default {
 }
 </script>
 <style lang="less">
-@color: #43425d;
+@import '../../../../styles/mixin.less';
+@import '../../../../styles/colors.less';
 .answerStudent {
   padding: 12px 16px;
   background: white;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   border-radius: 8px;
 
-  @media (max-width: 599px) {
+  @media (max-width: @screen-xs) {
     box-shadow: none;
   }
 
   .answerTitle {
-    color: @color;
+    color: @global-purple;
     font-weight: 600;
     font-size: 18px;
   }
@@ -112,13 +113,13 @@ export default {
       }
       .middle {
         border-bottom: 1px solid #dddddd;
-        color: @color;
+        color: @global-purple;
         min-width: 0;
         width: 100%;
         .top {
 
           .name {
-            color: @color;
+            color: @global-purple;
             font-weight: bold;
           }
           .date {
@@ -136,14 +137,5 @@ export default {
       }
     }
   }
-}
-.giveMeEllipsis(@lines, @line-height,@type:px) {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: @lines; /* number of lines to show */
-  line-height: unit(@line-height, @type); /* fallback */
-  max-height: unit((@lines*@line-height), @type); /* fallback */
 }
 </style>

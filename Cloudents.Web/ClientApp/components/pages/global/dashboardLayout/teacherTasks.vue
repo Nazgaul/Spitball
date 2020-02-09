@@ -64,7 +64,8 @@ export default {
 }
 </script>
 <style lang="less">
-@color: #43425d;
+@import '../../../../styles/mixin.less';
+@import '../../../../styles/colors.less';
 
 .teacherTasks {
   padding: 12px 16px;
@@ -72,7 +73,7 @@ export default {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   border-radius: 8px;
 
-  @media (max-width: 599px) {
+  @media (max-width: @screen-xs) {
     box-shadow: none;
   }
   .imageWrap {
@@ -86,7 +87,7 @@ export default {
   .taskCompleted {
 
     .completedTitle {
-      color: @color;
+      color: @global-purple;
       font-weight: 600;
     }
   }
@@ -94,7 +95,7 @@ export default {
     border-bottom: 1px solid #dddddd;
 
     .taskText {
-      color: @color;
+      color: @global-purple;
       font-weight: 600;
     }
     .taskAction {

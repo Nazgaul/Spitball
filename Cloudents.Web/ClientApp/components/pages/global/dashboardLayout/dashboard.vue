@@ -9,7 +9,7 @@
         <answerStudent v-if="$vuetify.breakpoint.smAndDown"></answerStudent>
       </div>
       <div class="dashboardSide" v-if="$vuetify.breakpoint.mdAndUp">
-        <img class="mb-2" src="./images/group-16.png" alt="">
+        <img class="mb-2" src="./images/group-16.png" alt="image">
         <teacherTasks v-if="$vuetify.breakpoint.mdAndUp"></teacherTasks>
         <answerStudent v-if="$vuetify.breakpoint.mdAndUp"></answerStudent>
     </div>
@@ -24,7 +24,6 @@ import answerStudent from './answerStudent.vue';
 import teacherTasks from './teacherTasks.vue';
 
 export default {
-  name: "",
   components: {
     analyticOverview,
     marketingTools,
@@ -32,18 +31,17 @@ export default {
     spitballTips,
     answerStudent,
     teacherTasks
-  },
-  data: () => ({
-
-  })
+  }
 }
 </script>
 <style lang="less">
+  @import '../../../../styles/mixin.less';
+
   #dashboard {
     margin: 24px 34px;
     display: flex;
 
-    @media (max-width: 599px) {
+    @media (max-width: @screen-xs) {
       margin: 0
     }
     .dashboardMain {
@@ -52,7 +50,6 @@ export default {
     .dashboardSide {
       width: 100%;
       max-width: 408px;
-      // flex: 1;
     }
   }
 </style>
