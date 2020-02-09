@@ -80,12 +80,6 @@ const actions = {
         commit("logout");
         global.location.replace("/logout");
     },
-    getUserAccountForRegister({commit}) {
-        return accountService.getAccount().then((userAccount) => {
-            commit("updateUser", userAccount);
-            analyticsService.sb_setUserId(userAccount.id);
-        })
-    },
     userStatus({dispatch, commit, getters}) {
         commit("changeLoginStatus", global.isAuth);
         // TODO check
