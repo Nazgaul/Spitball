@@ -18,8 +18,6 @@ function _analytics(params) {
 }
 
 const state = {
-    currentStep: 'getStarted',
-    stepsHistory: [],
     toUrl: '',
 
     firstName: '',
@@ -33,7 +31,6 @@ const state = {
     studentParentFullName: '',
 
     globalLoading: false,
-    stepValidation: false,
 
     errorMessage: {
         phone: "",
@@ -57,8 +54,6 @@ const mutations = {
         state.toUrl = url;
     },
     setResetState(state) {
-        state.currentStep = 'getStarted';
-        state.stepsHistory = [];
 
         state.email = '';
         state.phone = '';
@@ -91,21 +86,6 @@ const mutations = {
     setGender(state, gender) {
         state.gender = gender;
     },
-    
-    setBackStep(state) {
-        let lastStep = state.stepsHistory.pop();
-        state.currentStep = lastStep;
-    },
-    setStepHistory(state, step) {
-        state.stepsHistory.push(step);
-    },
-    setResetStepHistory(state) {
-        state.stepsHistory = [];
-    },
-    setCurrentStep(state, stepName) {
-        state.currentStep = stepName;
-    },
-
     setGlobalLoading(state, value) {
         state.globalLoading = value;
     },
@@ -130,16 +110,9 @@ const mutations = {
     setStudentGrade(state, grade) {
         state.grade = grade;
     },
-    setStepValidation(state, val) {
-        state.stepValidation = val;
-    }
 };
 
-const getters = {
-    getCurrentRegisterStep: state => state.currentRegTypeStep,
-    getCurrentLoginStep: state => state.currentStep,
-    getStepValidation: state => state.stepValidation,
-    
+const getters = {    
     getEmail1: state => state.email,
     getPhone: state => state.phone,
     getCountryCodesList: () => codesJson.sort((a, b) => a.name.localeCompare(b.name)),
@@ -189,14 +162,8 @@ const actions = {
     updateRegisterType(context, regType) {
         return registrationService.updateUserRegisterType({ userType: regType })
     },
-    updateHistoryStep({commit}, stepName) {
-        commit('setStepHistory', stepName);
-    },
-    updateStepValidation({commit}, val) {       
-        commit('setStepValidation', val);
-    },
-    googleSigning({dispatch, commit, state}) {
-        if (Android) {
+    googleSigning({commit, state}) {
+        if (window.Android) {
             Android.onLogin();
             return;
         }
@@ -207,7 +174,6 @@ const actions = {
             return registrationService.googleRegistration(idToken).then(({data}) => {
                 if (!data.isSignedIn) {
                     _analytics(['Registration', 'Start Google']);
-                    dispatch('updateHistoryStep', 'setPhone');
                     router.push({name: 'setPhone'});
                 } else {
                     _analytics(['Login', 'Start Google']);

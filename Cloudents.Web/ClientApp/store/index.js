@@ -31,6 +31,8 @@ import utils_Store from './utils_Store'
 import banner_Store from './banner_Store.js'
 import dashboard_Store from './dashboard_Store.js'
 import feed from './feedStore.js'
+import profile from './profile.js';
+
 
 
 // const onModuleAValueChange= (store) => {
@@ -56,6 +58,7 @@ import feed from './feedStore.js'
 //         }
 //     );
 // };
+
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -97,6 +100,7 @@ const store = new Vuex.Store({
         utils_Store,
         banner_Store,
         dashboard_Store,
+        profile,
     },
    // plugins: [onModuleAValueChange]
 });

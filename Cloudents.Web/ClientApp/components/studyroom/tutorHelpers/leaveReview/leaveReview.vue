@@ -218,7 +218,6 @@
                     this.hoverIndex = this.genHoverIndex(e, i);
                     self.ratingScore = this.hoverIndex;
                 });
-                    console.log(self.ratingScore)
                 }
             })
             this.$nextTick(function(){
@@ -227,7 +226,6 @@
                         self.$refs.hahahahau.hoverIndex = -1
                         self.ratingScore = self.$refs.hahahahau.hoverIndex;
                     });
-                    console.log(self.ratingScore)
                 }
             })   
         }

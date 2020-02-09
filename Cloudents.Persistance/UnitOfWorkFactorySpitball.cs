@@ -10,11 +10,12 @@ using NHibernate.Tool.hbm2ddl;
 using System;
 using System.Linq;
 using System.Reflection;
+using Autofac;
 using ForeignKey = FluentNHibernate.Conventions.Helpers.ForeignKey;
 
 namespace Cloudents.Persistence
 {
-    public class UnitOfWorkFactorySpitball
+    public class UnitOfWorkFactorySpitball : IStartable
     {
         private readonly PublishEventsListener _publisher;
         private readonly ISessionFactory _factory;
@@ -124,6 +125,11 @@ namespace Cloudents.Persistence
                     config.DataBaseIntegration(dbi => dbi.SchemaAction = SchemaAutoAction.Update);
                     break;
             }
+        }
+
+        public void Start()
+        {
+            //Do nothing
         }
     }
 

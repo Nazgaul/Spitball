@@ -74,7 +74,15 @@
             >
             </router-link>
         </div>
-        
+
+        <v-snackbar
+            v-model="snackbar"
+            class="error-toaster getStartedToaster"
+            :timeout="5000"
+            top
+            >
+                <div class="text-center flex-grow-1">{{ $t('loginRegister_google_signin_error') }}</div>
+        </v-snackbar>
     </div>
 </template>
 
@@ -87,7 +95,8 @@ export default {
         return {
             isTermsAgree: false,
             showError: false,
-            googleLoading: false
+            googleLoading: false,
+            snackbar: false,
         }
     },
     methods: {
@@ -104,6 +113,9 @@ export default {
             }
             this.googleLoading = true;
             this.googleSigning().then(() => {}, err => {
+                if(err) {
+                    this.snackbar = true;
+                }
                 insightService.track.event(insightService.EVENT_TYPES.ERROR, 'signInWithGoogle', err);
                 this.googleLoading = false
             })
@@ -291,6 +303,12 @@ export default {
                 }
             .needAccount {
                 color: @color-login-text-subtitle;
+            }
+        }
+        //TODO: temporary solution for long text in snackbar, need think on new convention
+        .getStartedToaster {
+            .v-snack__content {
+                height: unset;
             }
         }
     }

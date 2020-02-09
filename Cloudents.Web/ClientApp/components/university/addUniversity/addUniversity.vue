@@ -210,7 +210,7 @@
             },
             checkBeforeNextStep(universityName) {
                 let user = this.accountUser;
-                if(!!user && user.universityExists) {
+                if(!!user && user.university?.text) {
                     //compare previous and current school name, if different show popup
                     let previousSchoolName = this.getSchoolName;
                     let currentSchoolName = universityName;
@@ -234,18 +234,14 @@
                     //new if changed
                     this.updateSchoolName(objToSend)
                         .then(() => {
-                            if(!this.isFromRegister) {
-                                this.$store.dispatch('updateStepValidation', true);
-                            } else {
+
+                            if(this.isFromRegister) {
                                 this.UPDATE_SEARCH_LOADING(true);
                                 this.getOut();
                             }
                             },
                             (error) => {
                                 console.log('error', error);
-                                if(!this.isFromRegister) {
-                                    this.$store.dispatch('updateStepValidation', false);
-                                }
                             }
                         )
                 } else {

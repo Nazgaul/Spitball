@@ -90,7 +90,7 @@ namespace Cloudents.Search.Document
 
             if (query.Filter != null)
             {
-                var filterStr = $"{Entities.Document.TypeName} eq {(int)query.Filter}";
+                var filterStr = $"{Entities.Document.TypeFieldName} eq '{query.Filter.Value:G}'";
                 if (!string.IsNullOrWhiteSpace(filterStr))
                 {
                     filters.Add($"({filterStr})");

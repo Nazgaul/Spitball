@@ -124,12 +124,12 @@
     <value>Documents</value>
   </data>
   <data name="select_question" xml:space="preserve">
-    <value>Question</value>
+    <value>Questions</value>
   </data>
   <data name="select_tutor" xml:space="preserve">
-    <value>Tutor</value>
+    <value>Tutors</value>
   </data>
   <data name="select_video" xml:space="preserve">
-    <value>Video</value>
+    <value>Videos</value>
   </data>
 </root>

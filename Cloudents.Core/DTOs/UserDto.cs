@@ -133,7 +133,11 @@ namespace Cloudents.Core.DTOs
 
         public bool CalendarShared { get; set; }
         public UserType? UserType { get; set; }
-        private string Country { get; set; }
+        public string Country { get; set; }
+
+        public IEnumerable<CourseDto> Courses { get; set; }
+        public UniversityDto University { get; set; }
+
         public string CurrencySymbol
         {
             get

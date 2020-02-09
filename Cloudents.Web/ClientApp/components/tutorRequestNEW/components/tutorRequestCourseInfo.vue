@@ -47,7 +47,7 @@
 <script>
 import {LanguageService} from '../../../services/language/languageService.js'
 import {validationRules} from '../../../services/utilities/formValidationRules.js'
-import universityService from '../../../services/universityService.js'
+import courseService from '../../../services/courseService.js'
 import debounce from "lodash/debounce";
 import analyticsService from '../../../services/analytics.service'
 import { mapActions, mapGetters } from 'vuex';
@@ -131,15 +131,17 @@ export default {
                 return 
             }
             if(!!term){
-                universityService.getCourse({term, page:0}).then(data=>{
+                courseService.getCourse({term, page:0}).then(data=>{
                     this.suggestsCourses = data;
                     if(this.suggestsCourses.length) {
                         this.suggestsCourses.forEach(course=>{
                             if(course.text === this.tutorCourse){
                                 this.tutorCourse = course
+                                this.updateSelectedCourse(this.tutorCourse)
                             }}) 
                     } else {
                         this.tutorCourse = term
+                        this.updateSelectedCourse(this.tutorCourse)
                     }
                 })
             }
@@ -197,6 +199,9 @@ export default {
     mounted() {
         if(this.getCourseDescription){
             this.description = this.getCourseDescription;
+        }
+        if(this.getSelectedCourse){
+            this.tutorCourse = this.getSelectedCourse;
         }
         if(this.$route.params && this.$route.params.course){
             let queryCourse = this.$route.params.course;

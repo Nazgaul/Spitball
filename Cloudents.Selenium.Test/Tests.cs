@@ -210,6 +210,18 @@ namespace Cloudents.Selenium.Test
 
                 // Check that the element is exist
                 driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
+
+                url = $"{_driver.SiteUrl.TrimEnd('/')}/studyroomsettings";
+                driver.Navigate().GoToUrl(url);
+
+                // Check that the element is exist
+                driver.FindElement(By.XPath("//*[@class='logo']"));
+
+                url = $"{_driver.SiteUrl.TrimEnd('/')}/studyroomsettings?site=frymo";
+                driver.Navigate().GoToUrl(url);
+                
+                // Check that the element is exist
+                driver.FindElement(By.XPath("//*[@class='logo frymo-logo']"));
             }
 
         }
@@ -274,28 +286,6 @@ namespace Cloudents.Selenium.Test
                 loginButton = driver.FindElement(By.XPath("//*[@type='submit']"));
                 passwordInput.SendKeys("123456789");
                 loginButton.Click();
-            }
-        }
-
-        [Fact(Skip = "not using selenium tags")]
-        public void CourseListTest()
-        {
-            foreach (var driver in this._driver.Drivers)
-            {
-
-                driver.Manage().Window.Maximize();
-
-                foreach (var profile in GetProfileUrls())
-                {
-                    var url = $"{_driver.SiteUrl.TrimEnd('/')}/{profile}";
-                    driver.Navigate().GoToUrl(url);
-                    //var wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 5));
-                    var course = driver.FindElement(By.XPath("//*[@class='layout row wrap']//a"));
-                    var courseTerm = course.GetAttribute("href");
-                    //course.Click();
-                    //wait.Until(x => x.FindElement(By.XPath("//*[@class='flex side-bar']")));
-                    courseTerm.Should().Be($"{_driver.SiteUrl.TrimEnd('/')}/?Course={course.Text}");
-                }
             }
         }
 
