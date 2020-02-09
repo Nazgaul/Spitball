@@ -91,6 +91,14 @@ export const dashboardRoutes = [
         },
     },
     {
+        path: '/dashboard',
+        name: 'dashboardTeacher',
+        components: {
+            default: () => import('../components/pages/global/dashboardLayout/dashboard.vue'),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
+        } 
+    },
+    {
         path: "/wallet",
         components: {
             default: () => import('../components/wallet/wallet.vue'),
