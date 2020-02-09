@@ -45,7 +45,6 @@ const actions = {
             }
 
             commit('StudyDocuments_updateDocumentVote', data);
-            dispatch('profileVote', data);
         }, (err) => {
             let errorObj = {
                 toasterText: err.response.data.Id[0],
@@ -65,7 +64,6 @@ const actions = {
                 id: data.id
             };
             dispatch('removeDocItemAction', objToRemove);
-            dispatch('removeItemFromProfile', objToRemove);
         });
     },
     removeItemFromList({dispatch}, itemId) {

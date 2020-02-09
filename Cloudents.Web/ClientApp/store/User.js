@@ -1,5 +1,4 @@
-﻿//import settingsService from './../services/settingsService'
-import { USER } from './mutation-types'
+﻿import { USER } from './mutation-types'
 import {LanguageService} from '../services/language/languageService';
 
 const state = {

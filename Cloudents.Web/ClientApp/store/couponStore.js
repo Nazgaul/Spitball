@@ -1,4 +1,4 @@
-import couponService from "../services/couponService";
+import accountService from '../services/accountService.js';
 
 const state = {
     couponError: false,
@@ -20,7 +20,7 @@ const mutations = {
 
 const actions = {
     updateCoupon({commit, getters}, couponObj){
-        return couponService.applyCoupon(couponObj).then(({data}) => {
+        return accountService.applyCoupon(couponObj).then(({data}) => {
             let tutorUser = getters.getProfile.user.tutorData;
             if(data.price === 0) {
                 tutorUser.discountPrice = tutorUser.price;

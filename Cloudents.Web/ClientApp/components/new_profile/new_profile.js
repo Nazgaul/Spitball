@@ -1,3 +1,11 @@
+import { mapActions, mapGetters } from 'vuex';
+
+import analyticsService from '../../services/analytics.service';
+import { LanguageService } from "../../services/language/languageService";
+import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
+import storeService from '../../services/store/storeService';
+import couponStore from '../../store/couponStore';
+import chatService from '../../services/chatService.js';
 
 import profileUserBox from './components/profileUserBox/profileUserBox.vue';
 import profileDialogs from './components/profileDialogs/profileDialogs.vue';
@@ -9,31 +17,16 @@ import profileBecomeTutor from './components/profileBecomeTutor/profileBecomeTut
 import profileFindTutor from './components/profileFindTutor/profileFindTutor.vue';
 import profileItemsBox from './components/profileItemsBox/profileItemsBox.vue';
 import profileItemsEmpty from './components/profileItemsEmpty/profileItemsEmpty.vue';
+import calendarTab from '../calendar/calendarTab.vue';
 
 
 
-import analyticsService from '../../services/analytics.service';
-import { LanguageService } from "../../services/language/languageService";
-import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
-import storeService from '../../services/store/storeService';
-import couponStore from '../../store/couponStore';
-import chatService from '../../services/chatService.js';
 
 
-//old
 // import questionCard from "../question/helpers/new-question-card/new-question-card.vue";
 // import resultNote from "../results/ResultNote.vue";
 // import userBlock from '../helpers/user-block/user-block.vue';
-import { mapActions, mapGetters } from 'vuex';
-// import uploadDocumentBtn from "../results/helpers/uploadFilesBtn/uploadFilesBtn.vue";
-//old
-//new
 
-
-
-import calendarTab from '../calendar/calendarTab.vue';
-
-//new
 export default {
     name: "new_profile",
     components: {
@@ -47,16 +40,8 @@ export default {
         profileFindTutor,
         profileItemsBox,
         profileItemsEmpty,
+        calendarTab,
         sbDialog,
-
-
-
-
-        // questionCard,
-        // userBlock,
-        // resultNote,
-        // uploadDocumentBtn,
-        calendarTab
     },
     props: {
         id: {
@@ -95,35 +80,8 @@ export default {
 
 
 
-            isRtl: global.isRtl,
-            loadingContent: false,
+
             activeTab: 1,
-            itemsPerTab: 50,
-            answers: {
-                isLoading: false,
-                isComplete: false,
-                page: 1
-            },
-            questions: {
-                isLoading: false,
-                isComplete: false,
-                page: 1
-            },
-            documents: {
-                isLoading: false,
-                isComplete: false,
-                page: 1
-            },
-            purchasedDocuments: {
-                isLoading: false,
-                isComplete: false,
-                page: 1
-            },
-            calendar: {
-                isLoading: false,
-                isComplete: false,
-                page: 1
-            }
         };
     },
     methods: {
@@ -136,21 +94,13 @@ export default {
             'updateRequestDialog',
             'setActiveConversationObj',
             'openChatInterface',
-            'updateTutorDialog',
             'setReturnToUpload',
             'updateDialogState',
             'updateProfileItemsByType',
 
 
-            
-            'updateNewQuestionDialogState',
             'syncProfile',
-            'getAnswers',
-            'getQuestions',
-            // 'getDocuments',
             'resetProfileData',
-            'getPurchasedDocuments',
-            'setProfileByActiveTab',
             'updateToasterParams'
         ]),
         closeCouponDialog() {
@@ -208,13 +158,12 @@ export default {
                this.setActiveConversationObj(currentConversationObj);
                this.openChatInterface();                    
             }
-         },
+        },
         openBecomeTutor(){
             this.$router.push({query:{dialog:'becomeTutor'}})
-        // this.updateTutorDialog(true)
         },
         goTutorList(){
-        this.$router.push({name:'tutorLandingPage'})
+            this.$router.push({name:'tutorLandingPage'})
         },
         openUpload() {
             let schoolName = this.getSchoolName;
@@ -242,38 +191,7 @@ export default {
         scrollToElementId(elementId){
             document.getElementById(elementId).scrollIntoView({behavior: 'smooth',block: 'start'});
         },
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        changeActiveTab(tabId) {
-            this.activeTab = tabId;
-        },
         fetchData() {
-            // let syncObj = {
-            //     id: this.id,
-            //     activeTab: this.activeTab
-            // };
             let syncObj = {
                 id: this.id,
                 type:'documents',
@@ -283,96 +201,6 @@ export default {
                 }
             }
             this.syncProfile(syncObj);
-        },
-        // getInfoByTab() {
-        //     this.loadingContent = true;
-        //     this.setProfileByActiveTab(this.activeTab).then(() => {
-        //         this.loadingContent = false;
-        //     });
-        // },
-        loadAnswers() {
-            if (this.profileData.answers.length < this.itemsPerTab) {
-                this.answers.isComplete = true;
-                return;
-            }
-            this.answers.isLoading = true;
-            let answersInfo = {
-                id: this.id,
-                page: this.answers.page
-            };
-            this.getAnswers(answersInfo).then((hasData) => {
-                if (!hasData) {
-                    this.answers.isComplete = true;
-                }
-                this.answers.isLoading = false;
-                this.answers.page++;
-            }, () => {
-                this.answers.isComplete = true;
-            });
-        },
-        loadQuestions() {
-            if (this.profileData.questions.length < this.itemsPerTab) {
-                this.questions.isComplete = true;
-                return;
-            }
-            this.questions.isLoading = true;
-            let questionsInfo = {
-                id: this.id,
-                page: this.questions.page,
-                user: this.profileData.user
-            };
-            this.getQuestions(questionsInfo).then((hasData) => {
-                if (!hasData) {
-                    this.questions.isComplete = true;
-                }
-                this.questions.isLoading = false;
-                this.questions.page++;
-            }, () => {
-                this.questions.isComplete = true;
-            });
-        },
-        // loadDocuments() {
-        //     if (this.profileData.documents.length < this.itemsPerTab) {
-        //         this.documents.isComplete = true;
-        //         return;
-        //     }
-        //     this.documents.isLoading = true;
-        //     let documentsInfo = {
-        //         id: this.id,
-        //         page: this.documents.page,
-        //         user: this.profileData.user
-        //     };
-        //     this.getDocuments(documentsInfo).then((hasData) => {
-        //         if (!hasData) {
-        //             this.documents.isComplete = true;
-        //         }
-        //         this.documents.isLoading = false;
-        //         this.documents.page++;
-        //     }, () => {
-        //         this.documents.isComplete = true;
-        //     });
-        // },
-        loadPurchasedDocuments() {
-            if (this.profileData.purchasedDocuments.length < this.itemsPerTab) {
-                this.purchasedDocuments.isComplete = true;
-                return;
-            }
-            this.purchasedDocuments.isLoading = true;
-            let documentsInfo = {
-                id: this.id,
-                page: this.purchasedDocuments.page,
-                user: this.profileData.user
-            };
-            this.getPurchasedDocuments(documentsInfo).then((hasData) => {
-                    if (!hasData) {
-                        this.purchasedDocuments.isComplete = true;
-                    }
-                    this.purchasedDocuments.isLoading = false;
-                    this.purchasedDocuments.page++;
-                },
-                () => {
-                    this.purchasedDocuments.isComplete = true;
-                });
         },
         openCalendar() {
             if(!!this.accountUser) {
@@ -395,18 +223,7 @@ export default {
             'getCouponError',
             'getSchoolName',
             'getSelectedClasses',
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        "getProfile", "isTutorProfile"]),
+            "getProfile"]),
         isShowCouponDialog(){
             if(this.getCouponDialog){
                 setTimeout(() => {
@@ -441,7 +258,6 @@ export default {
             return this.isMyProfile && (!!this.accountUser && this.accountUser.isTutorState === "pending")
         },
         showProfileCalendar(){
-            // debugger
             if(this.isMyProfile){
                 return (this.isTutor)
             }else{
@@ -472,76 +288,11 @@ export default {
 
 
 
-        xsColumn(){
-            const xsColumn = {};
-            if (this.$vuetify.breakpoint.xsOnly){
-                xsColumn.column = true;
-            }
-            return xsColumn;
-        },
+
         profileData() {
             if (!!this.getProfile) {
                 return this.getProfile;
             }
-        },
-        isMobile() {
-            return this.$vuetify.breakpoint.xsOnly;
-        },
-
-        emptyStateData() {
-            let questions = {
-                text: LanguageService.getValueByKey("profile_emptyState_questions_text"),
-                boldText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
-                btnText: LanguageService.getValueByKey("profile_emptyState_questions_btnText"),
-                btnUrl: () => {
-                    if(this.accountUser == null) {
-                        this.updateLoginDialogState(true);
-                        return;
-                    }
-                    let obj = {
-                        status: true,
-                        from: 5
-                    };
-                    this.updateNewQuestionDialogState(obj);
-                }
-            };
-            let answers = {
-                text: LanguageService.getValueByKey("profile_emptyState_answers_text"),
-                btnText: LanguageService.getValueByKey("profile_emptyState_answers_btnText"),
-                btnUrl: 'ask'
-            };
-            let documents = {
-                text: LanguageService.getValueByKey("profile_emptyState_documents_text"),
-                //TODO feel free to remove this after redesign, will not be used, using reusable component instead
-                btnText: LanguageService.getValueByKey("profile_emptyState_documents_btnText"),
-                btnUrl: 'note'
-            };
-            if (this.activeTab === 1) {
-                return documents;
-            } else if (this.activeTab === 2) {
-                return answers;
-            } else if (this.activeTab === 3) {
-                return questions;
-            }
-        },
-        showCalendar(){
-            if(!this.getProfile) return;
-            let isTutorSharedCalendar = this.getProfile.user.calendarShared;
-            if(this.isTutorProfile && (this.isMyProfile || isTutorSharedCalendar)){
-                return true;
-            }
-        },
-        questionDocuments() {
-            if(this.profileData && this.profileData.questions) {
-                return this.profileData.questions;
-            }
-            return [];
-        },
-        answerDocuments() {
-            if(this.profileData && this.profileData.answers) {
-                return this.profileData.answers;
-            }
-            return [];
         },
         uploadedDocuments() {
             if(this.profileData && this.profileData.documents) {
@@ -549,12 +300,6 @@ export default {
             }
             return [];
         },
-        purchasedsDocuments() {
-            if(this.profileData && this.profileData.purchasedDocuments) {
-                return this.profileData.purchasedDocuments;
-            }
-            return [];
-        }
     },
     watch: {
         "$route.params.id": function(val, oldVal){ 
@@ -576,31 +321,8 @@ export default {
                 this.fetchData();
             }
         },
-      
-        // activeTab() {
-
-
-
-
-
-
-
-
-
-        //     this.getInfoByTab();
-        // }
     },
-    //reset profile data to prevent glitch in profile loading
     beforeRouteLeave(to, from, next) {
-
-
-
-
-
-
-
-
-
         this.updateToasterParams({
             showToaster: false
         });
@@ -608,63 +330,19 @@ export default {
         next();
     },
     beforeDestroy(){
-
-
-
-
-
-
-
-
-
         this.closeCouponDialog();
         storeService.unregisterModule(this.$store, 'couponStore');
      },
     created() {
-
-
-
-
-
-
-
-
-
-
-
         this.fetchData();
         storeService.registerModule(this.$store, 'couponStore', couponStore);
         if(!!this.$route.query.coupon) {
-           setTimeout(() => {
-           this.openCoupon();
-           },200)
+            setTimeout(() => {
+                this.openCoupon();
+            },200)
         }
     },
     mounted() {
-
-
-
-
-
-
-
-
-
-
-
-        if(this.$route.params && this.$route.params.tab){
-            let tabNumber = this.$route.params.tab;
-            setTimeout(()=>{
-                document.getElementById(`tab-${tabNumber}`).lastChild.click();
-            },200);
-        }
-        if((this.$route.query && this.$route.query.calendar)){
-            setTimeout(()=>{
-                if(this.getProfile.user.calendarShared){
-                    document.getElementById(`tab-5`).lastChild.click();
-                }
-            },200);
-        }
         setTimeout(()=>{
             if((this.$route.params && this.$route.params.id) && 
                (this.$route.params.id == this.accountUser.id) && 
@@ -678,4 +356,3 @@ export default {
         },200);
     }
 }
-

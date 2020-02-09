@@ -196,7 +196,8 @@
                 "removeFromCached",
                 "addClasses",
                 "clearClassesCahce",
-                "deleteClass"
+                "deleteClass",
+                'updateTeachCourse'
             ]),
             ...mapMutations(['UPDATE_SEARCH_LOADING','setSearchedCourse']),
             openCreateDialog(val){
@@ -275,7 +276,7 @@
             //     this.assignClasses(this.localSelectedClasses).then(() => {
             //         if(this.isTutor){
             //                 this.localSelectedClasses.forEach(course=>{
-            //                     universityService.teachCourse(course.text).then(()=>{
+            //                     .(course.text).then(()=>{
             //                         course.isTeaching = true;
             //                         this.doneButtonLoading = false;
             //                         this.$router.push({name: 'editCourse'});

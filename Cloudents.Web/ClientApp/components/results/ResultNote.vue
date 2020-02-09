@@ -301,9 +301,6 @@ export default {
       }
       return "";
     },
-    isProfile() {
-      return this.$route.name === "profile";
-    },
     isPurchased() {
       return this.item.isPurchased;
     },
@@ -391,7 +388,6 @@ export default {
     ...mapActions([
       "updateLoginDialogState",
       "updateToasterParams",
-      "removeItemFromProfile",
       "documentVote",
       "removeItemFromList",
       "removeDocItemAction"
@@ -450,12 +446,6 @@ export default {
       this.itemId = this.item.id;
       this.showReport = !this.showReport;
     },
-    //check if profile and refetch data after doc deleted
-    updateProfile(id) {
-      if (this.isProfile) {
-        this.removeItemFromProfile({ id: id });
-      }
-    },
     deleteDocument() {
       let id = this.item.id;
       
@@ -473,7 +463,6 @@ export default {
             return
           }
           this.removeItemFromList(id);
-          this.updateProfile(id);
           let objToDelete = { id };
           this.removeDocItemAction(objToDelete);
         },

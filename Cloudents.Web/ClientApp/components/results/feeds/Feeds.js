@@ -2,19 +2,6 @@ import feedSkeleton from '../../pages/feedPage/components/feedSkeleton/feedSkele
 import feedFaqBlock from '../../pages/feedPage/components/feedFaqBlock/feedFaqBlock.vue';
 import scrollList from '../../helpers/infinateScroll.vue';
 
-
-
-
-
-
-
-
-
-
-
-
-import { LanguageService } from "../../../services/language/languageService";
-
 // cards:
 import tutorResultCardMobile from '../tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
 import resultItem from '../ResultItem.vue';
@@ -62,11 +49,11 @@ export default {
                 page: 1
             },
             dictionary:{
-                'Document':LanguageService.getValueByKey('feed_select_document'),
-                'Video':LanguageService.getValueByKey('feed_select_video'),
-                'Question':LanguageService.getValueByKey('feed_select_question'),
-                'Tutor':LanguageService.getValueByKey('feed_select_tutor'),
-                'Empty':LanguageService.getValueByKey('feed_select_all'),
+                'Document':this.$t('feed_select_document'),
+                'Video':this.$t('feed_select_video'),
+                'Question':this.$t('feed_select_question'),
+                'Tutor':this.$t('feed_select_tutor'),
+                'Empty':this.$t('feed_select_all'),
             }
         };
     },

@@ -1,8 +1,8 @@
 import Api from './Api/homePage.js';
-import { Banner } from './constructors/banner.js';
-import { HomePage } from './constructors/homePage.js';
-import { Item } from './constructors/item.js';
-import { User } from './constructors/user.js';
+import { Banner } from './Dto/banner.js';
+import { HomePage } from './Dto/homePage.js';
+import { Item } from './Dto/item.js';
+import { User } from './Dto/user.js';
 
 export default {
     async getHomePageTutors(count = 12) {
