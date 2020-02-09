@@ -323,10 +323,10 @@ namespace Cloudents.Infrastructure
                 case FeedType.Video:
                     filter = DocumentType.Video;
                     break;
-                //default:
-                //    //throw new ArgumentOutOfRangeException();
+                    //default:
+                    //    //throw new ArgumentOutOfRangeException();
             }
-            var documentQuery = new DocumentQuery(query.Profile, query.Term, query.Course,query.Page , _pageSize, filter);
+            var documentQuery = new DocumentQuery(query.Profile, query.Term, query.Course, query.Page, _pageSize, filter);
             return await _searchProvider.SearchDocumentsAsync(documentQuery, token);
         }
     }
@@ -356,7 +356,7 @@ namespace Cloudents.Infrastructure
 
         public async Task<IEnumerable<FeedDto>> GetFeedAsync(GetFeedWithCourseQuery query, CancellationToken token)
         {
-            var tutorQuery = new TutorListByCourseQuery(query.Course, query.UserId, query.Country, query.Page, _pageSize);
+            var tutorQuery = new TutorListByCourseQuery(query.Course, query.UserId, query.Country, _pageSize, query.Page);
             return await _queryBus.QueryAsync(tutorQuery, token);
         }
 

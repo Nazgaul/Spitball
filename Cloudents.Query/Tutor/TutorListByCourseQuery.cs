@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Criterion;
@@ -51,6 +52,10 @@ namespace Cloudents.Query.Tutor
 
             public async Task<IEnumerable<TutorCardDto>> GetAsync(TutorListByCourseQuery query, CancellationToken token)
             {
+                if (query.Count == 0)
+                {
+                    throw  new ArgumentException("query count cannot be 0");
+                }
                 //TODO maybe we can fix this query
                 ReadTutor tutorAlias = null;
                 UserCourse userCourseAlias = null;
