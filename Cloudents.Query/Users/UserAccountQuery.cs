@@ -6,6 +6,7 @@ using NHibernate.Transform;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Query.Stuff;
 
 namespace Cloudents.Query.Users
 {
@@ -32,8 +33,8 @@ namespace Cloudents.Query.Users
             {
                 //TODO: to nhibernate
                 const string sql = @"select u.Id, U.Balance, u.Name, u.ImageName as Image, u.Email, 
-                          u.PhoneNumberHash as PhoneNumber,
-                u.Country,
+                            u.PhoneNumberHash as PhoneNumber,
+                            u.Country,
                           t.State as IsTutor,
                             coalesce(
                                 cast(iif(u.PaymentExists != 0 , 0, null) as bit),
@@ -48,7 +49,7 @@ namespace Cloudents.Query.Users
 
                 var userSqlQuery = _session.CreateSQLQuery(sql);
                 userSqlQuery.SetInt64("Id", query.Id);
-                var userFuture = userSqlQuery.SetResultTransformer(Transformers.AliasToBean<UserAccountDto>()).FutureValue<UserAccountDto>();
+                var userFuture = userSqlQuery.SetResultTransformer(new SbAliasToBeanResultTransformer<UserAccountDto>()).FutureValue<UserAccountDto>();
 
 
                 const string coursesSql = @"select CourseId as [Name], 
