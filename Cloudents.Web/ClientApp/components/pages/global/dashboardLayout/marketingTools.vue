@@ -8,7 +8,8 @@
             <div class="bottom">
                 <div class="text1">{{$t('dashboard_share_post')}}</div>
                 <div class="text2 mb-3">{{$t('dashboard_stand_out')}}</div>
-                <v-btn class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboard_lets_go')}}</v-btn>
+                <!-- <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboard_lets_go')}}</v-btn> -->
+                <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboard_coming_soon')}}</v-btn>
             </div>
         </v-col>
         <v-col cols="12" sm="6" class="marketingCol pb-sm-0">
@@ -16,7 +17,8 @@
           <div class="bottom">
               <div class="text1">{{$t('dashboard_create_coupon')}}</div>
               <div class="text2 mb-3">{{$t('dashboard_costume_coupon')}}</div>
-              <v-btn class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboard_get_started')}}</v-btn>
+              <!-- <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboard_get_started')}}</v-btn> -->
+              <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboard_coming_soon')}}</v-btn>
           </div>
         </v-col>
     </v-row>
