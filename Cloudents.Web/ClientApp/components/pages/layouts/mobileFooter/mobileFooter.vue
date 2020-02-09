@@ -17,7 +17,11 @@
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_tutors'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account-group'"/>
             </v-btn>
-            <v-btn :ripple="false" class="mF_btns" text value='upload' @click="openUpload">
+            <!-- <v-btn :ripple="false" class="mF_btns" text value='upload' @click="openUpload">
+                <span class="mF_title" v-language:inner="'mobileFooter_btn_upload'"/>
+                <v-icon class="mF_icon" v-html="'sbf-button-add'" />
+            </v-btn> -->
+            <v-btn :ripple="false" class="mF_btns" text value='upload' :to="{query: { dialog: 'upload' }}">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_upload'"/>
                 <v-icon class="mF_icon" v-html="'sbf-button-add'" />
             </v-btn>

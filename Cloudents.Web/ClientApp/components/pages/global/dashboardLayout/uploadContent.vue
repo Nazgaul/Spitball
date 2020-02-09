@@ -4,7 +4,7 @@
             <uploadIcon class="mb-3 uploadIcon" />
             <div class="text1">{{$t('dashboard_upload_content')}}</div>
             <div class="text2 mb-3">{{$t('dashboard_earn_money')}}</div>
-            <v-btn class="uploadBtn" color="#4c59ff" outlined rounded>{{$t('dashboard_upload')}}</v-btn>
+            <v-btn class="uploadBtn" color="#4c59ff" :to="{query: { dialog: 'upload' }}" outlined rounded>{{$t('dashboard_upload')}}</v-btn>
         </v-col>
     </v-row>
 </template>
