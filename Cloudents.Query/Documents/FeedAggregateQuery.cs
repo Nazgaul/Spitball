@@ -15,7 +15,11 @@ namespace Cloudents.Query.Documents
             Page = page;
             UserId = userId;
             Country = country;
-            Course = course;
+            if (!string.IsNullOrEmpty(course))
+            {
+                Course = course;
+            }
+
             PageSize = pageSize;
         }
 
@@ -242,6 +246,7 @@ case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE(
 case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
+
 
 
                 var sql = query.Course == null ? sqlWithoutCourse : sqlWithCourse;

@@ -20,7 +20,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             {
                 AllowAutoRedirect = false
             });
-            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
         [Theory]

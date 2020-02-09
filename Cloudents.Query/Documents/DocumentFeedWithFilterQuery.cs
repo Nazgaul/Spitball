@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Documents
 {
-   public class DocumentFeedWithFliterQuery : IQuery<IEnumerable<DocumentFeedDto>>
+   public class DocumentFeedWithFilterQuery : IQuery<IEnumerable<DocumentFeedDto>>
     {
-        public DocumentFeedWithFliterQuery(int page, long userId, FeedType? filter, 
+        public DocumentFeedWithFilterQuery(int page, long userId, FeedType? filter, 
             string country, string course, int pageSize)
         {
             Page = page;
@@ -31,21 +31,21 @@ namespace Cloudents.Query.Documents
         private string Country { get; }
 
         private string Course { get; }
-        public int PageSize { get; }
+        private int PageSize { get; }
 
-        internal sealed class DocumentFeedWithFliterQueryHandler : IQueryHandler<DocumentFeedWithFliterQuery, IEnumerable<DocumentFeedDto>>
+        internal sealed class DocumentFeedWithFilterQueryHandler : IQueryHandler<DocumentFeedWithFilterQuery, IEnumerable<DocumentFeedDto>>
         {
 
             private readonly IDapperRepository _dapperRepository;
             private readonly IJsonSerializer _jsonSerializer;
 
-            public DocumentFeedWithFliterQueryHandler(IDapperRepository dapperRepository, IJsonSerializer jsonSerializer)
+            public DocumentFeedWithFilterQueryHandler(IDapperRepository dapperRepository, IJsonSerializer jsonSerializer)
             {
                 _dapperRepository = dapperRepository;
                 _jsonSerializer = jsonSerializer;
             }
 
-            public async Task<IEnumerable<DocumentFeedDto>> GetAsync(DocumentFeedWithFliterQuery query, CancellationToken token)
+            public async Task<IEnumerable<DocumentFeedDto>> GetAsync(DocumentFeedWithFilterQuery query, CancellationToken token)
             {
                 const string sqlWithCourse = @"with cte as (
 select top 1 * from(select 1 as o, u2.Id as UniversityId, COALESCE(u2.country, u.country) as Country, u.id as userid
@@ -87,11 +87,10 @@ join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId
 ,cte
 where
-    d.UpdateTime > GETUTCDATE() - 182
-and un.country = cte.country
+un.country = cte.country
 and d.State = 'Ok'
 and d.courseName = @course
-and d.DocumentType = @documentType
+and COALESCE(d.DocumentType,'Document') = @documentType
 order by
 case when d.UniversityId = cte.UniversityId then 3 else 0 end  +
 cast(1 as float)/ISNULL(nullif(DATEDiff(minute, d.UpdateTime, GetUtcDATE()   ),0),1) desc
@@ -139,7 +138,7 @@ where
     d.UpdateTime > GETUTCDATE() - 182
 and un.country = cte.country
 and d.State = 'Ok'
-and d.DocumentType = @documentType
+and COALESCE(d.DocumentType,'Document') = @documentType
 order by
 case when d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) then 4 else 0 end +
 case when d.UniversityId = cte.UniversityId then 3 else 0 end  +
@@ -164,7 +163,6 @@ FETCH NEXT @pageSize ROWS ONLY";
                 {
                     if (reader.Read())
                     {
-                        var col = reader.GetOrdinal("type");
                         var colJson = reader.GetOrdinal("JsonArray");
                         do
                         {

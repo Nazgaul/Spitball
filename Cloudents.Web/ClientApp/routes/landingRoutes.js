@@ -11,7 +11,10 @@ export const landingRoutes = [
         children:[
             {
                 path: '',
-                component: () => import(`../components/landingPage/pages/homePage.vue`)
+                component: () => import(`../components/landingPage/pages/homePage.vue`),
+                meta:{
+                    headerSlot: (global.siteName === 'frymo')? '': 'becomeTutorSlot',
+                }
             },
             {
                 path: "/tutor-list/:course?",
@@ -21,6 +24,7 @@ export const landingRoutes = [
                 },
                 meta: {
                     showMobileFooter: true, 
+                    headerSlot: (global.country == 'US')? '':'phoneNumberSlot',
                 }
             }
             

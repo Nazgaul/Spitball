@@ -131,23 +131,23 @@ namespace Cloudents.Web.Api
         /// <param name="profile"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet]
-        [ResponseCache(Duration = TimeConst.Minute * 5, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
-        public async Task<ListWithCountDto<TutorCardDto>> GetTutorsAsync(
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
-            CancellationToken token)
-        {
-            _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListQuery(userId, profile.Country, 0);
-            var result = await _queryBus.QueryAsync(query, token);
-            result.Result = result.Result.Select(s =>
-            {
-                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
-                return s;
-            });
+        //[HttpGet]
+        //[ResponseCache(Duration = TimeConst.Minute * 5, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
+        //public async Task<ListWithCountDto<TutorCardDto>> GetTutorsAsync(
+        //    [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+        //    CancellationToken token)
+        //{
+        //    _userManager.TryGetLongUserId(User, out var userId);
+        //    var query = new TutorListQuery(userId, profile.Country, 0);
+        //    var result = await _queryBus.QueryAsync(query, token);
+        //    result.Result = result.Result.Select(s =>
+        //    {
+        //        s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
+        //        return s;
+        //    });
            
-            return result;
-        }
+        //    return result;
+        //}
 
         /// <summary>
         /// Return relevant tutors base on user course - on specific course tab - feed

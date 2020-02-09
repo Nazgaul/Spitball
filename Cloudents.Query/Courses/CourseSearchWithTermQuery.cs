@@ -36,9 +36,10 @@ namespace Cloudents.Query.Courses
                 const int pageSize = 30;
                 const string sql =
                             @"     
-declare @schoolType nvarchar(50) = (select case when UserType = 'University' then 'University'
-										when UserType is null then null
-										else 'HighSchool' end from sb.[user] where Id = @Id);
+declare @schoolType nvarchar(50) = (select case when UserType = 'UniversityStudent' then 'University'
+										when UserType in ('HighSchoolStudent', 'Parent') then 'HighSchool'  
+										else null end
+                                        from sb.[user] where Id = @Id);
 Select @Term =  '""*' + @Term+ '*""'; 
 
 select Name,
