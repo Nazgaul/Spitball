@@ -4,7 +4,7 @@
             Marketing Tools
         </v-col>
         <v-col cols="12" sm="6" class="marketingCol social mb-2 mb-sm-0 pb-sm-0">
-            <socialIcon class="mb-3" />
+            <shareIcon class="mb-3 icon" />
             <div class="bottom">
                 <div class="text1">Share a social post</div>
                 <div class="text2 mb-3">Stand out on Facebook & Instagram</div>
@@ -12,7 +12,7 @@
             </div>
         </v-col>
         <v-col cols="12" sm="6" class="marketingCol pb-sm-0">
-          <couponIcon class="mb-3" />
+          <couponIcon class="mb-3 icon" />
           <div class="bottom">
               <div class="text1">Create a coupon</div>
               <div class="text2 mb-3">Create your own costume coupon</div>
@@ -22,12 +22,13 @@
     </v-row>
 </template>
 <script>
-import socialIcon from './images/group-3.svg';
-import couponIcon from './images/group-17.svg';
+
+import shareIcon from './images/shareIcon.svg';
+import couponIcon from './images/couponIcon.svg';
 export default {
   name: "marketingTools",
   components: {
-    socialIcon,
+    shareIcon,
     couponIcon
   },
   data: () => ({
@@ -51,6 +52,9 @@ export default {
     padding: 12px 16px 16px;
     @media (max-width: 599px) {
       background: white;
+    }
+    .icon {
+      width: 144px;
     }
     &.marketingTitle {
       font-size: 18px;
