@@ -1,9 +1,9 @@
 <template>
     <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4" dense>
-        <v-col class="space" :cols="isXSMobile ? '7' : '8'">
+        <v-col class="space" cols="6">
             <div class="text">{{$t('dashboard_analytic_title')}}</div>
         </v-col>
-        <v-col class="menuWrap mb-6" :cols="isXSMobile ? '5' : '4'">
+        <v-col class="menuWrap mb-6" cols="6">
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <div v-on="on">
