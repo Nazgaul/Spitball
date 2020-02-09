@@ -22,7 +22,8 @@
                 Book an unbording session
               </div>
             </div>
-            <v-btn class="taskAction" rounded outlined color="#4c59ff">book</v-btn>
+            <arrowRight class="arrowRight d-flex d-sm-none" />
+            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">book</v-btn>
         </v-col>
         <v-col cols="12" class="taskCol py-4 d-flex justify-space-between">
             <div class="d-flex align-center">
@@ -31,7 +32,8 @@
                 Connect your calendar
               </div>
             </div>
-            <v-btn class="taskAction" rounded outlined color="#4c59ff">Connect</v-btn>
+            <arrowRight class="arrowRight d-flex d-sm-none" />
+            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">Connect</v-btn>
         </v-col>
         <v-col cols="12" class="taskCol pb-0 py-4 d-flex justify-space-between">
             <div class="d-flex align-center">
@@ -40,17 +42,20 @@
                   Set your work hours
                 </div>
             </div>
-            <v-btn class="taskAction" rounded outlined color="#4c59ff">Update</v-btn>
+            <arrowRight class="arrowRight d-flex d-sm-none" />
+            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">Update</v-btn>
         </v-col>
     </v-row>
 </template>
 <script>
 import assignmentIcon from './images/assignment.svg';
+import arrowRight from './images/arrow-right-copy-6.svg';
 
 export default {
   name: "teacherTasks",
   components: {
-    assignmentIcon
+    assignmentIcon,
+    arrowRight
   },
   data: () => ({
     taskCompleted: '3/6 Task completed',
@@ -100,6 +105,9 @@ export default {
     }
     .assignIcon {
       width: 20px;
+    }
+    .arrowRight {
+      width: 10px;
     }
     &:last-child{
       border-bottom: none;
