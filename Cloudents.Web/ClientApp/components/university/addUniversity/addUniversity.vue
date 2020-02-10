@@ -83,7 +83,6 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex';
     import debounce from "lodash/debounce";
-    import { LanguageService } from "../../../services/language/languageService";
     import emptyUniLogo from '../images/empty-uni-logo.svg';
 
     export default {
@@ -96,7 +95,7 @@
                 term: '',
                 universityModel: '',
                 search: '',
-                schoolNamePlaceholder: LanguageService.getValueByKey('university_create_uni_placeholder'),
+                schoolNamePlaceholder: this.$t('university_create_uni_placeholder'),
                 globalHeight: global.innerHeight,
             };
         },
@@ -143,7 +142,8 @@
                               "addUniversities",
                               "clearUniversityList",
                               "updateSchoolName",
-                              "changeUniCreateDialogState"
+                              "changeUniCreateDialogState",
+                              'updateToasterParams'
                           ]),
             ...mapMutations(['setSchoolName']),
             // eslint-disable-next-line no-unused-vars
@@ -240,6 +240,11 @@
                             },
                             (error) => {
                                 console.log('error', error);
+                                this.updateToasterParams({
+                                toasterText: this.$t("globalErrors_something"),
+                                showToaster: true,
+                                toasterType: 'error-toaster'
+                            });
                             }
                         )
                 } else {
