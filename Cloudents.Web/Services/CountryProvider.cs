@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
+using Microsoft.Extensions.Logging;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Services
@@ -15,16 +16,19 @@ namespace Cloudents.Web.Services
     {
         private readonly IIpToLocation _ipToLocation;
         private readonly IHttpContextAccessor _httpContext;
-        private readonly ILogger _logger;
+        private readonly ICountryProvider _conCountryProvider;
+        private readonly ILogger<CountryService> _logger;
         private readonly ConfigurationService _configurationService;
+        private const string CookieName = "country";
 
         public CountryService(IIpToLocation ipToLocation, IHttpContextAccessor httpContext,
-            ILogger logger, ConfigurationService configurationService)
+            ILogger<CountryService> logger, ConfigurationService configurationService, ICountryProvider conCountryProvider)
         {
             _ipToLocation = ipToLocation;
             _httpContext = httpContext;
             _logger = logger;
             _configurationService = configurationService;
+            _conCountryProvider = conCountryProvider;
         }
 
         public async Task<string> GetUserCountryAsync(CancellationToken token)
@@ -51,10 +55,15 @@ namespace Cloudents.Web.Services
             if (cookieValue == null)
             {
 
-                cookieValue = _httpContext.HttpContext.Request.Cookies["country"];
+                cookieValue = _httpContext.HttpContext.Request.Cookies[CookieName];
                 if (cookieValue != null)
                 {
-                    return cookieValue;
+                    if (_conCountryProvider.ValidateCountryCode(cookieValue))
+                    {
+                        return cookieValue;
+                    }
+
+                    cookieValue = null;
                 }
             }
 
@@ -69,18 +78,18 @@ namespace Cloudents.Web.Services
                 }
                 catch (Exception e)
                 {
-                    _logger.Exception(e);
+                    _logger.LogError(e, $"on ip location service ip is: {_httpContext.HttpContext.GetIpAddress()}");
                 }
 
 
                 if (cookieValue == null)
                 {
-                    _logger.Error("failed to extract country code");
+                    _logger.LogError("failed to extract country code");
                     return null;
                 }
                 
             }
-            _httpContext.HttpContext.Response.Cookies.Append("country", cookieValue);
+            _httpContext.HttpContext.Response.Cookies.Append(CookieName, cookieValue);
             return cookieValue;
         }
 
