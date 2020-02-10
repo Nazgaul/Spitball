@@ -81,14 +81,6 @@ export default {
   @media (max-width: @screen-xs) {
     box-shadow: none;
   }
-  .imageWrap {
-    .image {
-      width: 60px;
-      height: 60px;
-      background: blue;
-      border-radius: 50%;
-    }
-  }
   .taskCompleted {
 
     .completedTitle {

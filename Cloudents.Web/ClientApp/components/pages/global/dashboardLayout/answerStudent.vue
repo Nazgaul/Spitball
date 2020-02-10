@@ -61,12 +61,6 @@ export default {
     max-height: 260px;
     .answerItem {
       display: flex;
-      .fakeImage {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        background: blue;
-      }
       .middle {
         border-bottom: 1px solid #dddddd;
         color: @global-purple;
