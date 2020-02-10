@@ -9,7 +9,7 @@
         <answerStudent v-if="$vuetify.breakpoint.smAndDown"></answerStudent>
       </div>
       <div class="dashboardSide" v-if="$vuetify.breakpoint.mdAndUp">
-        <img class="mb-2" src="./images/group-16.png" alt="image">
+        <img class="mb-2 blockImage" src="./images/group-16.png" alt="image">
         <teacherTasks v-if="$vuetify.breakpoint.mdAndUp"></teacherTasks>
         <answerStudent v-if="$vuetify.breakpoint.mdAndUp"></answerStudent>
     </div>
@@ -53,6 +53,9 @@ export default {
     .dashboardSide {
       width: 100%;
       max-width: 408px;
+      .blockImage {
+        width: inherit;
+      }
     }
   }
 </style>
