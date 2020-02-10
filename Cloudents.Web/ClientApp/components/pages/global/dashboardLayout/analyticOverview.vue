@@ -79,7 +79,8 @@ export default {
       return stats1 / stats2 * 100 - 100;
     },
     percentage(key) {
-      return this.deltaCalc(key) || '';
+      let delta = this.deltaCalc(key) ? this.deltaCalc(key).toFixed(1) : ''
+      return delta;
     },
     showIcon(key) {
       let delta = this.deltaCalc(key);
