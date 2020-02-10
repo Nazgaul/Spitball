@@ -134,7 +134,6 @@ export default {
     },
     computed: {
         ...mapGetters(['getErrorMessages','isFrymo']),
-
         isError(){
             return !this.isTermsAgree && this.showError
         },

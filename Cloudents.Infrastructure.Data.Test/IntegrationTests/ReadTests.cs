@@ -85,11 +85,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Theory]
         [InlineData(0, 638, FeedType.Document, "IL", null, 20)]
         [InlineData(0, 638, FeedType.Document, "IL", "Economics", 20)]
-        [InlineData(0, 638, FeedType.Video, "IL", null, 20)]
-        [InlineData(0, 638, FeedType.Video, "IL", "Economics", 20)]
         public async Task DocumentFeedWithFilterQuery_Document_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
         {
-            var query = new DocumentFeedWithFliterQuery(page, userId, filter, country, course, pageSize);
+            var query = new DocumentFeedWithFilterQuery(page, userId, filter, country, course, pageSize);
             var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             result.Should().NotBeNullOrEmpty();
             result.Should().OnlyContain(c => c.DocumentType == DocumentType.Document);
@@ -98,20 +96,20 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
                 result.Should().OnlyContain(c => c.Course == course);
             }
         }
-        //[Theory]
-        //[InlineData(0, 638, FeedType.Video, "IL", null, 20)]
-        //[InlineData(0, 638, FeedType.Video, "IL", "Economics", 20)]
-        //public async Task DocumentFeedWithFilterQuery_Video_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
-        //{
-        //    var query = new DocumentFeedWithFliterQuery(page, userId, filter, country, course, pageSize);
-        //    var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
-        //    result.Should().NotBeNullOrEmpty();
-        //    result.Should().OnlyContain(c => c.DocumentType == DocumentType.Video);
-        //    if (!string.IsNullOrEmpty(course))
-        //    {
-        //        result.Should().OnlyContain(c => c.Course == course);
-        //    }
-        //}
+        [Theory]
+        [InlineData(0, 638, FeedType.Video, "IL", null, 20)]
+        [InlineData(0, 638, FeedType.Video, "IL", "Temp", 20)]
+        public async Task DocumentFeedWithFilterQuery_Video_Ok(int page, long userId, FeedType? filter, string country, string course, int pageSize)
+        {
+            var query = new DocumentFeedWithFilterQuery(page, userId, filter, country, course, pageSize);
+            var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
+            result.Should().NotBeNullOrEmpty();
+            result.Should().OnlyContain(c => c.DocumentType == DocumentType.Video);
+            if (!string.IsNullOrEmpty(course))
+            {
+                result.Should().OnlyContain(c => c.Course == course);
+            }
+        }
 
         [Theory]
         [InlineData(0, 638, "IL", null, 20)]
@@ -224,9 +222,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
             var query = new CourseSearchWithTermQuery(userId, term, page);
 
-            var _ = await fixture.QueryBus.QueryAsync(query, default);
+            var z =  await fixture.QueryBus.QueryAsync(query, default);
 
-            _.Should().HaveCountGreaterOrEqualTo(1);
+            z.Should().HaveCountGreaterOrEqualTo(1);
         }
 
         [Theory]
@@ -235,7 +233,6 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [InlineData(605, 638)]
         [InlineData(36, 638)]
         [InlineData(36, 0)]
-        [InlineData(160105, 638)]
         [InlineData(150713, 638)]
         [InlineData(160446, 638)]
         [InlineData(161238, 638)]
@@ -246,6 +243,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         public async Task UserProfileQuery_Ok(long id, long userId)
         {
+            
             var query = new UserProfileQuery(id, userId);
 
             var result = await fixture.QueryBus.QueryAsync(query, default);

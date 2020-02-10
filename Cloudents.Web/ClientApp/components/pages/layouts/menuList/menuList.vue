@@ -128,7 +128,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["accountUser"]),
+    ...mapGetters(["accountUser",'isFrymo']),
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -140,9 +140,6 @@ export default {
     },
     showChangeLanguage() {
       return global.country === 'IL';
-    },
-    isFrymo(){
-      return global.siteName === 'frymo';
     },
     isTutorList(){
       return this.$route.name === 'tutorLandingPage'

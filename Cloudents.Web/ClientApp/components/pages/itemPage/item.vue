@@ -160,7 +160,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(['accountUser', 'getDocumentDetails', 'getRelatedDocuments', 'getRouteStack', 'getPurchaseConfirmation', 'getSearchLoading', 'getShowItemToaster']),
+        ...mapGetters(['accountUser', 'getDocumentDetails', 'getRelatedDocuments', 'getRouteStack', 'getPurchaseConfirmation', 'getShowItemToaster']),
 
         snackbar: {
             get() {

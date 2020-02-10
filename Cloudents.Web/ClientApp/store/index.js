@@ -2,7 +2,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import Search from "./search";
 import User from "./User";
 import Question from "./question";
 import Account from "./account";
@@ -15,7 +14,6 @@ import mobileFooter from './mobileFooter';
 import buyTokens from './buyTokens';
 import chatStore from './chatStore';
 import becomeTutor from './becomeTutor';
-import tutorList from './tutorList';
 import userOnlineStatus from './userOnlineStatus';
 import leaveReview from './leaveReview';
 import requestTutor from './requestTutor';
@@ -63,7 +61,6 @@ import profile from './profile.js';
 Vue.use(Vuex);
 const store = new Vuex.Store({
     modules: {
-        Search,
         User,
         Account,
         Question,
@@ -83,7 +80,6 @@ const store = new Vuex.Store({
         buyTokens,
         chatStore,
         becomeTutor,
-        tutorList,
         leaveReview,
         userOnlineStatus,
         requestTutor,

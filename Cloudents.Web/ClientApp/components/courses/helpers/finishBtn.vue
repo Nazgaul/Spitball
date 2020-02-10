@@ -5,18 +5,10 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
     export default {
         name: "finishBtn",
-        data() {
-            return {
-
-            }
-        },
         methods: {
-            ...mapMutations(['UPDATE_SEARCH_LOADING']),
             finish(){
-                this.UPDATE_SEARCH_LOADING(true);
                 this.$router.push({name: 'feed'})
             }
         },

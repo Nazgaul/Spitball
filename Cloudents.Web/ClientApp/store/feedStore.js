@@ -6,11 +6,13 @@ const state = {
     queItems: [],
     items: {},
     dataLoaded: false,
+    isFeedLoading: false,
 };
 
 const getters = {
-    Feeds_getItems: (state, {getIsLoading, getSearchLoading}) => {
-        return (getIsLoading || getSearchLoading) ? state.dataLoaded : state.items.data;
+    Feeds_getIsLoading: state => state.isFeedLoading,
+    Feeds_getItems: (state) => {
+        return (state.isFeedLoading) ? state.dataLoaded : state.items.data;
     },
     Feeds_getFilters: (state) => {
         let x = state.items.filters || [];
@@ -41,6 +43,9 @@ const getters = {
 };
 
 const mutations = {
+    Feeds_SetLoading(state, data){
+        state.isFeedLoading = data;
+    },
     Feeds_SetItems(state, data) {
         state.items = data;
     },
@@ -85,6 +90,9 @@ const mutations = {
 };
 
 const actions = {
+    Feeds_UpdateLoading({commit},loadingStatus){
+        commit('Feeds_SetLoading',loadingStatus)
+    },
     Feeds_nextPage({dispatch}, {url}) {
         return searchService.nextPage({url}).then((data) => {
             dispatch('Feeds_updateData', data);
@@ -102,7 +110,7 @@ const actions = {
     },
     Feeds_fetchingData({commit, dispatch}, {params}) {
         dispatch('Feeds_updateDataLoaded', false);
-        commit('UPDATE_LOADING',true);
+        dispatch('Feeds_UpdateLoading',true)
         commit('Feeds_ResetQue');
         
         let paramsList = {...params};
@@ -116,8 +124,7 @@ const actions = {
         }, (err) => {
             return Promise.reject(err);
         }).finally(()=>{
-            commit('UPDATE_LOADING',false);
-            commit('UPDATE_SEARCH_LOADING',false);
+            dispatch('Feeds_UpdateLoading',false)
             return
         });
     },

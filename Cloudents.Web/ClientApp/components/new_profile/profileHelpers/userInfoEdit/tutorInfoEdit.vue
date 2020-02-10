@@ -138,7 +138,6 @@
                 },
                 valid: false,
                 btnLoading: false
-
             };
         },
         computed: {

@@ -198,14 +198,13 @@
                 "deleteClass",
                 'updateTeachCourse'
             ]),
-            ...mapMutations(['UPDATE_SEARCH_LOADING','setSearchedCourse']),
+            ...mapMutations(['setSearchedCourse']),
             openCreateDialog(val){
                 this.setSearchedCourse(this.search)
                 this.changeCreateDialogState(val)
             },
             goToEditCourses() {
                 if(this.getSelectedClasses.length === 0 && this.quantatySelected === 0){
-                    this.UPDATE_SEARCH_LOADING(true);
                     this.$router.push({name: 'feed'})
                 }else{
                     this.clearClassesCahce();
