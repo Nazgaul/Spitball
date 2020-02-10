@@ -15,8 +15,8 @@
     "build": "npm run client",
     "start": "dotnet build && dotnet run",
     "all": "npm run build && npm run start",
-    "lint": "node node_modules/eslint/bin/eslint.js clientApp/**/*.{js,vue}",
-    "stylelint": "node node_modules/stylelint/bin/stylelint.js clientApp/**/*.{vue,less}"
+    "lint": "node node_modules/eslint/bin/eslint.js ClientApp/**/*.{js,vue}",
+    "stylelint": "node node_modules/stylelint/bin/stylelint.js ClientApp/**/*.{vue,less}"
   },
   "devDependencies": {
     "@automattic/mini-css-extract-plugin-with-rtl": "^0.8.0",
