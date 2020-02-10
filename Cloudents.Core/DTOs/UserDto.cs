@@ -115,10 +115,6 @@ namespace Cloudents.Core.DTOs
         public string Email { get; set; }
         [EntityBind(nameof(User.PhoneNumber))]
         public string PhoneNumber { get; set; }
-
-        [EntityBind(nameof(User.University.Id))]
-        public bool UniversityExists { get; set; }
-
         [EntityBind(nameof(User.Id))]
         public long Id { get; set; }
         [EntityBind(nameof(User.Name))]
