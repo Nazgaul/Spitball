@@ -68,21 +68,14 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         }
 
         [Theory]
-        [InlineData(159039, 7)]
-        [InlineData(159039, 30)]
-        public async Task TutorStatsQuery_Ok(long userId, int days)
+        [InlineData(159039)]
+        [InlineData(638)]
+        public async Task TutorActionsQuery_Ok(long userId)
         {
-            var query = new TutorStatsQuery(userId, days);
+            var query = new TutorActionsQuery(userId);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
             result.Should().NotBeNull();
-            result.Count().Should().Be(2);
         }
-
-
-
-
-
-
     }
 
     [Collection("Database collection")]

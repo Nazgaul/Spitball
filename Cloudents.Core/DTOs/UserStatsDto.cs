@@ -1,6 +1,6 @@
 ﻿namespace Cloudents.Core.DTOs
 {
-    public class TutorStatsDto
+    public class UserStatsDto
     {
         public decimal Revenue { get; set; }
         public int Sales { get; set; }
