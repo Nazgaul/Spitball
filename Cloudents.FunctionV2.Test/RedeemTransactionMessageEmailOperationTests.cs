@@ -30,7 +30,7 @@ namespace Cloudents.FunctionsV2.Test
         }
 
 
-        [Fact]
+        [Xunit]
         public async Task DoOperationAsync_Hebrew()
         {
             var queryResult = new RedeemEmailDto()
