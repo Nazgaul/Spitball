@@ -154,7 +154,6 @@ Vue.prototype.$chatMessage = function (message) {
 };
 
 router.beforeEach((to, from, next) => {
-    debugger;
     store.dispatch('setRouteStack', to.name);
     store.dispatch('sendQueryToAnalytic', to);
     store.dispatch('userStatus');
