@@ -6,11 +6,11 @@
 
         <v-col class="answerList pr-3">
             <div class="answerItem pb-3"  v-for="(answer, index) in answers" :key="index">
-                <div class="fakeImage"></div>
+                <UserAvatar :size="'34'" :user-name="answer.user.name" :user-id="answer.user.id" :userImageUrl="answer.user.image" /> 
                 <div class="middle pl-4 pb-4">
                     <div class="top d-flex justify-space-between">
-                        <div class="name mb-1 pr-4 text-truncate">{{answer.name}}</div>
-                        <div class="date">{{ $d(new Date(), 'short') }}</div>
+                        <div class="name mb-1 pr-4 text-truncate">{{answer.user.name}}</div>
+                        <div class="date">{{ $d(new Date(answer.dateTime), 'short') }}</div>
                     </div>
                     <div class="text">{{answer.text}}</div>
                 </div>
@@ -19,66 +19,22 @@
     </v-row>
 </template>
 <script>
+
 export default {
   name: "answerStudent",
   data: () => ({
-    answers: [
-      {
-        image: '',
-        name: 'Jone smith',
-        text: 'How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on',
-        date: new Date().toLocaleDateString("en-IL",{ year: 'numeric', month: 'short', day: 'numeric' })
-      },
-      {
-        image: '',
-        name: 'Jone smith',
-        text: 'How can i get a conversation going or as a fun way to pass the time with friends or loved on',
-        date: new Date().toLocaleDateString("en-IL",{ year: 'numeric', month: 'short', day: 'numeric' })
-      },
-      {
-        image: '',
-        name: 'Jone smith',
-        text: 'How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on',
-        date: new Date().toLocaleDateString("en-IL",{ year: 'numeric', month: 'short', day: 'numeric' })
-      },
-      {
-        image: '',
-        name: 'Jone smith',
-        text: 'How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on',
-        date: new Date().toLocaleDateString("en-IL",{ year: 'numeric', month: 'short', day: 'numeric' })
-      },
-      {
-        image: '',
-        name: 'Jone smith',
-        text: 'How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on',
-        date: new Date().toLocaleDateString("en-IL",{ year: 'numeric', month: 'short', day: 'numeric' })
-      },
-      {
-        image: '',
-        name: 'Jone smith',
-        text: 'How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on',
-        date: new Date().toLocaleDateString("en-IL",{ year: 'numeric', month: 'short', day: 'numeric' })
-      },
-      {
-        image: '',
-        name: 'Jone smith',
-        text: 'How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on',
-        date: new Date().toLocaleDateString("en-IL",{ year: 'numeric', month: 'short', day: 'numeric' })
-      },
-      {
-        image: '',
-        name: 'Jone smith',
-        text: 'How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on',
-        date: new Date().toLocaleDateString("en-IL",{ year: 'numeric', month: 'short', day: 'numeric' })
-      },
-      {
-        image: '',
-        name: 'Jone smith',
-        text: 'How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on How can i get a conversation going or as a fun way to pass the time with friends or loved on',
-        date: new Date().toLocaleDateString("en-IL",{ year: 'numeric', month: 'short', day: 'numeric' })
-      },
-    ]
-  })
+    answers: []
+  }),
+  methods: {
+    getStudentsAnswers() {
+      this.$store.dispatch('updateStudnetsAnswersQuestion').then(({data}) => {
+        this.answers = data
+      })
+    }
+  },
+  created() {
+    this.getStudentsAnswers()
+  }
 }
 </script>
 <style lang="less">
