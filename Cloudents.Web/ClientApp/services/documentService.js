@@ -1,11 +1,10 @@
 import axios from 'axios'
 import {Item} from './Dto/item.js';
+import searchService from './searchService'
 
 const documentInstance = axios.create({
     baseURL:'/api/Document'
 })
-
-import searchService from './searchService'
 
 function documentUserItem(ObjInit){
     this.name = ObjInit.uploaderName;
@@ -35,6 +34,7 @@ function createDocumentItem(ObjInit) {
     return new DocumentItem(ObjInit);
 }
 
+// TODO do it with skeleton!
 function createDocumentPreview(itemPreview){
     if (!itemPreview || itemPreview.length === 0) {
         let location = require("../components/images/doc-preview-empty.png");
@@ -87,6 +87,4 @@ export default {
         let {data} = await documentInstance.get(`${id}`)
         return new createDocumentObj(data)
     },
-
-    createDocumentItem
 }
