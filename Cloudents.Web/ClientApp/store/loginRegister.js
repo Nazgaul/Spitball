@@ -266,7 +266,6 @@ const actions = {
                 data.fingerprint = murmur;
                 registrationService.smsCodeVerification(data)
                     .then(userId => {
-                        
                             router.push({name: routeNames.RegisterType});
                             _analytics(['Registration', 'Phone Verified']);
                             if(!!userId){
@@ -406,7 +405,7 @@ const actions = {
         }
         return registrationService.updateParentStudentName(parentObj).then(() => {
             global.isAuth = true;
-            router.push({name: routeNames.Feed ,query:{filter:'Tutor'}});
+            return
         }).catch(ex => {
             console.log(ex);
         })

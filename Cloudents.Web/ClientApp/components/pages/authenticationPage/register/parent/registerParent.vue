@@ -145,7 +145,10 @@ export default {
     methods: {
         nextStep() {
             if(this.$refs.form.validate()) {
-                this.$store.dispatch('updateParentStudent');
+                let self = this
+                this.$store.dispatch('updateParentStudent').then(()=>{
+                    self.$router.push(self.$route.meta.nextStep)
+                });
             }
         },
         prevStep() {
