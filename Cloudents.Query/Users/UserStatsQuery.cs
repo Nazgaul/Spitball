@@ -63,7 +63,7 @@ namespace Cloudents.Query.Users
                                 select sum([Views]) as [Views] from sb.Document where [State] = 'ok' and UserId = @UserId
                                 )[Views]
 
-                                union
+                                union all
 
                                 select 2 as [Period], tPrice.Price + sPrice.Price as Revenue, tPrice.Sales, Followers.Followers, [Views].[Views] as Views
                                 from

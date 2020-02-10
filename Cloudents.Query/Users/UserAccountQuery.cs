@@ -41,8 +41,6 @@ namespace Cloudents.Query.Users
 								cast(iif(u.Country != 'IL', 0 , null) as bit),
                                 cast(1 as bit)
                             )as NeedPayment,
-case when u.Id in (select Id from sb.GoogleTokens where Id = u.Id) then 1 else 0 end as CalendarShared,
-case when u.Id in (select TutorId from sb.TutorHours where TutorId = u.Id) then 1 else 0 end as HaveHours,
 case when u.Id in (select UserId from sb.Document where UserId = u.Id and State = 'ok') then 1 else 0 end as HaveDocs
                       from sb.[user] u
                       left join sb.Tutor t
