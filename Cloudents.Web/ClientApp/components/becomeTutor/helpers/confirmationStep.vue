@@ -46,7 +46,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['getUserAccountForRegister','updateTutorDialog','updateAccountUserToTutor','sendBecomeTutorData','updateTeachingClasses','updateToasterParams']),
+        ...mapActions(['updateTutorDialog','updateAccountUserToTutor','sendBecomeTutorData','updateTeachingClasses','updateToasterParams']),
         goToPreviousStep() {
             this.$root.$emit('becomeTutorStep', 3);
         },
@@ -63,10 +63,8 @@ export default {
 
                     if(self.$route.name === routeNames.RegisterType){
                         global.isAuth = true;
-                        self.getUserAccountForRegister().then(()=>{
-                            self.$router.push({name: routeNames.Feed,query:{filter:'Question'}})
-                            self.updateAccountUserToTutor(true);
-                        })
+                        self.$router.push({name: routeNames.Feed,query:{filter:'Question'}})
+                        self.updateAccountUserToTutor(true);
                     }else{
                         self.$root.$emit('becomeTutorStep', 5);
                         self.updateAccountUserToTutor(true);
