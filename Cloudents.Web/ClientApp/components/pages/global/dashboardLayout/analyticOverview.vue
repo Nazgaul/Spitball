@@ -12,7 +12,7 @@
                     </div>
                 </template>
                 <v-list dense>
-                    <v-list-item v-for="(item, index) in items" :key="index" @click="getData(item)">
+                    <v-list-item v-for="(item, index) in items" :key="index" @click="changeDays(item)">
                       <v-list-item-title>{{ $t(`dashboard_${item.key}`) }}</v-list-item-title>
                     </v-list-item>
                 </v-list>
@@ -22,16 +22,16 @@
         <v-col cols="12" class="pa-0"></v-col> <!-- keep it empty for make wrap -->
 
         <v-col
-          v-for="(data, index) in results"
+          v-for="(val, key, index) in results[0]"
           :key="index"
           :cols="isMobile ? 6 : 3"
           class="box pa-0 text-center">
             <div class="boxWrap ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
-              <div class="type">{{ $t(`dashboard_${data.type}`) }}</div>
-              <div class="result my-0 my-sm-1">{{data.result}}</div>
+              <div class="type">{{ $t(`dashboard_${key}`) }}</div>
+              <div class="result my-0 my-sm-1">{{$n(val, key === 'revenue' ? 'currency' : '')}}</div>
               <div class="rate font-weight-bold">
-                <arrowDownIcon class="arrow" :class="[data.down ? 'arrowDown' : 'arrowUp']" />
-                <div class="precent" :class="{'down': data.down}">{{data.precent}}</div>
+                <arrowDownIcon class="arrow" v-show="!showIcon(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
+                <div class="precent" :class="{'down': showIcon(key)}">{{percentage(key)}}</div>
               </div>
             </div>
         </v-col>
@@ -46,56 +46,49 @@ export default {
     arrowDownIcon
   },
   data: () => ({
-    selectedItem: {title: 'Last 7 days', key: '7days'},
+    selectedItem: {title: 'Last 7 days', value: 7, key: '7days'},
     items: [
-      { title: 'Last 7 days', key: '7days' },
-      { title: '2 Day', key: '2days' },
-      { title: '3 Day', key: '3days' },
-      { title: '4 Day', key: '4days' }
+      { title: 'Last 7 days', value: 7,  key: '7days' },
+      { title: 'Last 30 Day', value: 30,  key: '30days' },
+      { title: 'Last 90 Day', value: 90,  key: '90days' },
     ],
-    results: [
-      {
-        type: 'Revenue',
-        result:  '1500$',
-        precent: '7.5 %',
-        down: false
-      },
-      {
-        type: 'Sales',
-        result: '658',
-        precent: '13.5 %',
-        down: false
-      },
-      {
-        type: 'Visitors',
-        result: '500',
-        precent: '1.3 %',
-        down: true
-      },
-      {
-        type: 'Followers',
-        result: '56',
-        precent: '2.4 %',
-        down: false
-      },
-    ]
+    results: [],
+    negative: false,
   }),
   computed: {
-    textSelectedItem() {
-      return this.$t(`dashboard_${this.selectedItem.key}`);
-    },
     isMobile() {
       return this.$vuetify.breakpoint.width < 600;
     },
-    isXSMobile() {
-      return this.$vuetify.breakpoint.width < 375;
-    }
   },
   methods: {
-    getData(item) {
-      this.selectedItem = item
+    changeDays(item) {
+      this.selectedItem = item;
+      this.getData();
+    },
+    getData() {
+      this.$store.dispatch('updateUserStats', this.selectedItem.value).then((data) => {
+        this.results = data;
+      }).catch(ex => {
+        console.log(ex);
+      })
+    },
+    deltaCalc(key) {
+      let stats1 = this.results[0][key];
+      let stats2 = this.results[1][key];
+      if(!stats2) return 0;
+      return stats1 / stats2 * 100 - 100;
+    },
+    percentage(key) {
+      return this.deltaCalc(key) || '';
+    },
+    showIcon(key) {
+      let delta = this.deltaCalc(key);
+      return isNaN(delta) || !delta;
     }
   },
+  created() {
+    this.getData();
+  }
 }
 </script>
 <style lang="less">

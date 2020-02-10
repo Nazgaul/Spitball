@@ -62,5 +62,11 @@ export const User = {
                 courses: objInit.courses.map((course) => new School.Course(course)),
             }
         )
+    },
+    Stats: function(objInit){
+        this.revenue = objInit.revenue
+        this.sales = objInit.sales
+        this.views = objInit.views
+        this.followers = objInit.followers
     }
 }
