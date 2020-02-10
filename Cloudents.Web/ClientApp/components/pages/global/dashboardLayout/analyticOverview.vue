@@ -66,6 +66,7 @@ export default {
       this.getData();
     },
     getData() {
+      console.log(this.selectedItem);
       this.$store.dispatch('updateUserStats', this.selectedItem.value).then((data) => {
         this.results = data;
       }).catch(ex => {
@@ -131,6 +132,7 @@ export default {
       .arrowDown {
         cursor: pointer;
         width: 12px;
+        color: @global-purple;
       }
     }
     .box {

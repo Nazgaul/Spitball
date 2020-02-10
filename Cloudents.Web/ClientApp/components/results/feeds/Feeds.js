@@ -15,6 +15,7 @@ import resultFilter from '../helpers/resultFilter/resultFilter.vue';
 import requestBox from '../../pages/feedPage/components/requestActions/requestActions.vue';
 import coursesTab from "../../pages/feedPage/components/coursesTab/coursesTab.vue";
 import generalPage from '../../helpers/generalPage.vue';
+import analyticOverview from '../../pages/global/dashboardLayout/analyticOverview.vue'
 
 // SVG
 import emptyState from "../svg/no-match-icon.svg";
@@ -35,7 +36,8 @@ export default {
         emptyStateCard,
         requestBox,
         coursesTab,
-        generalPage
+        generalPage,
+        analyticOverview
     },
     data() {
         return {
@@ -65,6 +67,10 @@ export default {
         filters(){
             return this.Feeds_getFilters;
         },
+        showAnalyticStats() {
+            let user = this.$store.getters.accountUser;
+            return user && user.haveDocs;
+        }
     },
     watch: {
         Feeds_getCurrentQuery:{
