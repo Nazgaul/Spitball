@@ -21,20 +21,35 @@
 
         <v-col cols="12" class="pa-0"></v-col> <!-- keep it empty for make wrap -->
 
-        <v-col
-          v-for="(val, key, index) in results[0]"
-          :key="index"
-          :cols="isMobile ? 6 : 3"
-          class="box pa-0 text-center">
-            <div class="boxWrap ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
-              <div class="type">{{ $t(`dashboard_${key}`) }}</div>
-              <div class="result my-0 my-sm-1">{{$n(val, key === 'revenue' ? 'currency' : '')}}</div>
-              <div class="rate font-weight-bold">
-                <arrowDownIcon class="arrow" v-show="!showIcon(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
-                <div class="precent" :class="{'down': showIcon(key)}">{{percentage(key)}}</div>
-              </div>
-            </div>
-        </v-col>
+        <template v-if="results.length">
+            <v-col
+              v-for="(val, key, index) in results[0]"
+              :key="index"
+              :cols="isMobile ? 6 : 3"
+              class="box pa-0 text-center">
+                <div class="boxWrap ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
+                  <div class="type">{{ $t(`dashboard_${key}`) }}</div>
+                  <div class="result my-0 my-sm-1">{{$n(val, key === 'revenue' ? 'currency' : '')}}</div>
+                  <div class="rate font-weight-bold">
+                      <arrowDownIcon class="arrow" v-show="!showIcon(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
+                      <div class="precent" :class="{'down': showIcon(key)}">{{percentage(key)}}</div>
+                  </div>
+                </div>
+            </v-col>
+        </template>
+        <template v-else>
+            <v-col
+              v-for="n in 4"
+              :key="n"
+              :cols="isMobile ? 6 : 3"
+              class="analyticLoader mb-2">
+                <v-skeleton-loader
+                  class="mx-auto load "
+                  height=""
+                  type="image"
+                ></v-skeleton-loader>
+            </v-col>
+        </template>
     </v-row>
 </template>
 <script>
@@ -53,7 +68,6 @@ export default {
       { title: 'Last 90 Day', value: 90,  key: '90days' },
     ],
     results: [],
-    negative: false,
   }),
   computed: {
     isMobile() {
@@ -184,6 +198,12 @@ export default {
       }
       &:last-child .borderSide {
         border-right: none;
+      }
+    }
+    .analyticLoader {
+      height: 100px;
+      .load {
+        height: 100px;
       }
     }
   }
