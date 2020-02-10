@@ -6,9 +6,9 @@
         <v-col class="menuWrap mb-6" cols="6">
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
-                    <div v-on="on">
+                    <div v-on="on" class="menuDropDown">
                         <span class="pr-2 selectedItem">{{$t(`dashboard_${selectedItem.key}`)}}</span>
-                        <arrowDownIcon class="arrowDown" />
+                        <div class="arrow-down"></div>
                     </div>
                 </template>
                 <v-list dense>
@@ -147,6 +147,18 @@ export default {
         cursor: pointer;
         width: 12px;
         color: @global-purple;
+      }
+      .menuDropDown {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .arrow-down {
+          width: 0;
+          height: 0;
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+          border-top: 6px solid @global-purple;
+        }
       }
     }
     .box {
