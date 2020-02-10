@@ -313,7 +313,7 @@ namespace Cloudents.Web.Api
 
         [HttpGet("stats")]
         [ResponseCache(Duration = TimeConst.Month, Location = ResponseCacheLocation.Client)]
-        public async Task<IEnumerable<TutorStatsDto>> GetTutorStatsAsync(int days, CancellationToken token) 
+        public async Task<IEnumerable<UserStatsDto>> GetTutorStatsAsync(int days, CancellationToken token) 
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserStatsQuery(userId, days);
