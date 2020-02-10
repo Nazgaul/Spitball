@@ -60,7 +60,16 @@ export const User = {
                 isTutorState: _createIsTutorState(objInit.isTutor),
                 university: new School.University(objInit.university),
                 courses: objInit.courses.map((course) => new School.Course(course)),
+                calendarShared: objInit.calendarShared,
+                haveHours: objInit.haveHours,
+                haveDocs: objInit.haveDocs,
             }
         )
+    },
+    Stats: function(objInit){
+        this.revenue = objInit.revenue
+        this.sales = objInit.sales
+        this.views = objInit.views
+        this.followers = objInit.followers
     }
 }

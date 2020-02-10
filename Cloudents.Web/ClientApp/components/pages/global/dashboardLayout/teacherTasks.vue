@@ -63,7 +63,7 @@ export default {
   }),
   computed: {
     user() {
-      return this.$store.getters?.accountUser ? this.$store.getters?.accountUser : null
+      return this.$store.getters.accountUser ? this.$store.getters.accountUser : {}
     }
   }
 }

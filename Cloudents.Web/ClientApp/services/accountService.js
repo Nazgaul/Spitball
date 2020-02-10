@@ -4,6 +4,7 @@ import {User} from './Dto/user.js';
 const accountInstance = axios.create({
     baseURL:'/api/account'
 })
+
 export default {
     async getAccount(){ 
         let {data} = await accountInstance.get()
@@ -23,5 +24,9 @@ export default {
     },
     async applyCoupon(params){ 
         return await accountInstance.post('/coupon',params)
+    },
+    async getAccountStats(params){ 
+        let {data} = await accountInstance.get('/stats', params)
+        return data.map(stats => new User.Stats(stats))
     }
 }

@@ -122,6 +122,10 @@ const actions = {
         context.commit('changeIsUserTutor', val);
         context.commit('setIsTutorState', 'pending');
     },
+    updateUserStats(context, lastDays) {
+        let params = { params: lastDays}
+        return accountService.getAccountStats(params)
+    }
 };
 
 

@@ -23,23 +23,23 @@ const lang = `${global.lang}-${global.country}`;
 const numberFormats = {
   'en': {
     currency: {
-      style: 'currency', currency: 'USD'
-    }
+      style: 'currency', currency: 'USD', minimumFractionDigits: 0
+    },
   },
   'en-IL': {
     currency: {
-      style: 'currency', currency: 'ILS'
-    }
+      style: 'currency', currency: 'ILS', minimumFractionDigits: 0
+    },
   },
   'he-IL': {
     currency: {
-      style: 'currency', currency: 'ILS'
-    }
+      style: 'currency', currency: 'ILS', minimumFractionDigits: 0
+    },
   },
   'en-IN': {
     currency: {
-      style: 'currency', currency: 'INR'
-    }
+      style: 'currency', currency: 'INR', minimumFractionDigits: 0
+    },
   }
 }
 
@@ -48,37 +48,21 @@ const dateTimeFormats = {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
-    // long: {
-    //   year: 'numeric', month: 'short', day: 'numeric',
-    //   weekday: 'short', hour: 'numeric', minute: 'numeric'
-    // }
   },
   'en-IL': {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
-    // long: {
-    //   year: 'numeric', month: 'short', day: 'numeric',
-    //   weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: true
-    // }
   },
   'he-IL': {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
-    // long: {
-    //   year: 'numeric', month: 'short', day: 'numeric',
-    //   weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: true
-    // }
   },
   'en-IN': {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
-    // long: {
-    //   year: 'numeric', month: 'short', day: 'numeric',
-    //   weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: true
-    // }
   }
 }
 

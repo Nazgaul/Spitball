@@ -3,6 +3,9 @@
         <div slot="main" class="feedWrap">
             <coursesTab/>
             <request-box class="request-box mb-0"/>
+            <v-flex xs12 class="mt-3 analyticWrapper" v-if="showAnalyticStats">
+                <analyticOverview/>
+            </v-flex>
             <v-flex xs12 sm4 class="select-feed mt-3">
                 <v-select class=" filters_select"
                     sel="feed_filter"
@@ -62,6 +65,12 @@
                 .responsive-property(margin-bottom, 16px, null, 8px);
             }
         }
+    }
+    .analyticWrapper {
+        .analyticOverview {
+            max-width: 720px;
+            margin: auto;
+        }   
     }
     .select-feed{
       @media (max-width: @screen-xs) {
