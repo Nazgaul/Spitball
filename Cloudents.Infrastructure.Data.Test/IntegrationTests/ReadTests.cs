@@ -595,5 +595,16 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new FictivePendingQuestionEmptyQuery();
             var _ = await fixture.QueryBus.QueryAsync(query, default);
         }
+
+        [Theory]
+        [InlineData(159039, 7)]
+        [InlineData(159039, 30)]
+        public async Task TutorStatsQuery_Ok(long userId, int days)
+        {
+            var query = new UserStatsQuery(userId, days);
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNull();
+            result.Count().Should().Be(2);
+        }
     }
 }

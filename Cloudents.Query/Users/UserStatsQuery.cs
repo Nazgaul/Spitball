@@ -4,26 +4,26 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudents.Query.Tutor
+namespace Cloudents.Query.Users
 {
-    public class TutorStatsQuery : IQuery<IEnumerable<TutorStatsDto>>
+    public class UserStatsQuery : IQuery<IEnumerable<TutorStatsDto>>
     {
-        public TutorStatsQuery(long userId, int days)
+        public UserStatsQuery(long userId, int days)
         {
             UserId = userId;
             Days = days;
         }
         public long UserId { get; }
         public int Days { get; }
-        internal sealed class TutorStatsQueryHandler : IQueryHandler<TutorStatsQuery, IEnumerable<TutorStatsDto>>
+        internal sealed class UserStatsQueryHandler : IQueryHandler<UserStatsQuery, IEnumerable<TutorStatsDto>>
         {
             private readonly IDapperRepository _dapperRepository;
-            public TutorStatsQueryHandler(IDapperRepository dapperRepository)
+            public UserStatsQueryHandler(IDapperRepository dapperRepository)
             {
                 _dapperRepository = dapperRepository;
             }
 
-            public async Task<IEnumerable<TutorStatsDto>> GetAsync(TutorStatsQuery query, CancellationToken token)
+            public async Task<IEnumerable<TutorStatsDto>> GetAsync(UserStatsQuery query, CancellationToken token)
             {
                 const string sql = @"with cte as (
                                 select d.Id, max(dh.[Views]) as [Views]
