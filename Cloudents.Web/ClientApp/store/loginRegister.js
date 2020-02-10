@@ -8,6 +8,7 @@ const Fingerprint2 = require('fingerprintjs2');
 import analyticsService from '../services/analytics.service.js'
 import registrationService from '../services/registrationService.js'
 import { LanguageService } from "../services/language/languageService.js";
+import * as routeNames from '../routes/routeNames.js';
 
 // FUNCTIONS:
 function _dictionary(key) {
@@ -157,12 +158,12 @@ const actions = {
     },
     resetState({commit}){
         commit('setResetState');
-        router.push({name: 'register'});
+        router.push({name: routeNames.Register});
     },
     updateRegisterType(context, regType) {
         return registrationService.updateUserRegisterType({ userType: regType })
     },
-    googleSigning({commit, state}) {
+    googleSigning({dispatch,commit, state}) {
         if (window.Android) {
             Android.onLogin();
             return;
@@ -174,12 +175,25 @@ const actions = {
             return registrationService.googleRegistration(idToken).then(({data}) => {
                 if (!data.isSignedIn) {
                     _analytics(['Registration', 'Start Google']);
-                    router.push({name: 'setPhone'});
+                    router.push({name: routeNames.RegisterSetPhone});
                 } else {
                     _analytics(['Login', 'Start Google']);
                     global.isAuth = true;
+                    
+                    dispatch('getUserAccountForRegister').then(({userType})=>{
+                        let pathObj = {
+                            name: routeNames.Feed,
+                            query:{}
+                        }
 
-                    state.toUrl ? router.push(state.toUrl) : router.push({name: 'feed'});
+                        if(userType === 'Parent'){
+                            pathObj.query.filter = 'Tutor'
+                        }
+                        if(userType === 'Teacher'){
+                            pathObj.query.filter = 'Question'
+                        }
+                        state.toUrl === '/' ? router.push(pathObj) : router.push(state.toUrl)
+                    })
                 }
                 return Promise.reject();
             }, (error) => {
@@ -237,7 +251,7 @@ const actions = {
                     showToaster: true,
                 });
                 _analytics(['Registration', 'Phone Submitted']);
-                router.push({name: 'verifyPhone'});
+                router.push({name: routeNames.RegisterVerifyPhone});
             }, function (error){
                 commit('setErrorMessages', {phone: error.response.data["PhoneNumber"] ? error.response.data["PhoneNumber"][0] : '' });
             });
@@ -252,7 +266,8 @@ const actions = {
                 data.fingerprint = murmur;
                 registrationService.smsCodeVerification(data)
                     .then(userId => {
-                            router.push({name: 'registerType'});
+                        
+                            router.push({name: routeNames.RegisterType});
                             _analytics(['Registration', 'Phone Verified']);
                             if(!!userId){
                                 _analytics(['Registration', 'User Id', userId.data.id]);
@@ -276,13 +291,13 @@ const actions = {
     },
     changeNumber({commit}) {
         commit('setResetState');
-        router.push({name: 'setPhone'});
+        router.push({name: routeNames.RegisterSetPhone});
     },
     emailValidate({commit, state}) {
         registrationService.validateEmail(encodeURIComponent(state.email))
             .then(() => {
                 _analytics(['Login Email validation', 'email send']);
-                router.push({name: 'setPassword'});
+                router.push({name: routeNames.LoginSetPassword});
             }, (error)=> {
                 commit('setErrorMessages',{email: error.response.data["Email"] ? error.response.data["Email"][0] : ''});
             });
@@ -307,7 +322,7 @@ const actions = {
                         if(global.country) {
                             dispatch('getUserAccountForRegister').then(({userType})=>{
                                 let pathObj = {
-                                    name:'feed',
+                                    name: routeNames.Feed,
                                     query:{}
                                 }
 
@@ -336,7 +351,7 @@ const actions = {
         registrationService.forgotPasswordReset(state.email)
             .then(() =>{
                 _analytics(['Forgot Password', 'Reset email send']);
-                router.push({name: 'emailConfirmed'});
+                router.push({name: routeNames.LoginEmailConfirmed});
             },error =>{
                 commit('setErrorMessages',{email: error.response.data["ForgotPassword"] ? error.response.data["ForgotPassword"][0] : error.response.data["Email"][0]});
             });
@@ -358,9 +373,8 @@ const actions = {
             registrationService.updatePassword(password, confirmPassword, id, code) //TODO: send object instead
                 .then(() => {
                     global.isAuth = true;
-
                     _analytics(['Forgot Password', 'Updated password']);
-                    router.push({name: 'feed'});
+                    router.push({name: routeNames.Feed});
                 }, (error) => {
                     commit('setErrorMessages',{
                         password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
@@ -373,7 +387,7 @@ const actions = {
     },
     exit({commit}){
         commit('setResetState');
-        router.push({name: 'feed'});
+        router.push({name: routeNames.Feed});
     },
     updateStudentGrade({ commit }) {
         let grade = state.grade
@@ -381,7 +395,7 @@ const actions = {
             return registrationService.updateGrade({ grade }).then(() => {
                 global.isAuth = true;
                 commit('setStudentGrade', grade);
-                router.push({name: 'feed'});
+                router.push({name: routeNames.Feed});
             })
         }
     },
@@ -392,7 +406,7 @@ const actions = {
         }
         return registrationService.updateParentStudentName(parentObj).then(() => {
             global.isAuth = true;
-            router.push({name: 'feed',query:{filter:'Tutor'}});
+            router.push({name: routeNames.Feed ,query:{filter:'Tutor'}});
         }).catch(ex => {
             console.log(ex);
         })
