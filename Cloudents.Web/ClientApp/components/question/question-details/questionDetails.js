@@ -149,7 +149,7 @@ export default {
         '$route': 'getData'
     },
     computed: {
-        ...mapGetters(["accountUser", "chatAccount", "getCorrectAnswer", "isDeletedAnswer", "loginDialogState", "isCardOwner"]),
+        ...mapGetters(["accountUser", "chatAccount", "getCorrectAnswer", "loginDialogState", "isCardOwner"]),
         questionData(){
             return this.getQuestion();
         },

@@ -1,41 +1,7 @@
 import { connectivityModule } from "./connectivity.module"
 
 export default {
-    calculateRankByScore: (score) => {
-        const scoreRange= {
-            first: 4,
-            second: 10,
-            third: 20
-        };
-        if (score <= scoreRange.first) {
-            return 0;
-        } else if (score > scoreRange.first && score <= scoreRange.second) {
-            return 1;
-        } else if (score > scoreRange.second && score <= scoreRange.third) {
-            return 2;
-        } else if (score > scoreRange.third) {
-            return 3;
-        }
-    },
-
-    voteQuestion:(id, voteType) => {
-        //vote types can be [down, none, up]
-        var data = {
-            id,
-            voteType
-        };
-        return connectivityModule.http.post("Question/vote", data);
-    },
-    voteAnswer:(id, voteType) => {
-        //vote types can be [down, none, up]
-        var data = {
-            id,
-            voteType
-        };
-        return connectivityModule.http.post("Answer/vote", data);
-    },
     voteDocument:(id, voteType) => {
-        //vote types can be [down, none, up]
         var data = {
             id,
             voteType
