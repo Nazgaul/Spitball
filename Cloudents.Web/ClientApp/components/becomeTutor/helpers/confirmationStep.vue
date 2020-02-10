@@ -30,7 +30,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { LanguageService } from "../../../services/language/languageService";
+import * as routeNames from '../../../routes/routeNames.js';
 
 export default {
     name: "confirmationStep",
@@ -56,15 +56,15 @@ export default {
             this.sendBecomeTutorData().then(
                 () => {
                     self.updateToasterParams({
-                        toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                        toasterText: this.$t("becomeTutor_already_submitted"),
                         showToaster: true,
                         toasterTimeout: 5000
                     });
 
-                    if(self.$route.name === 'registerType'){
+                    if(self.$route.name === routeNames.RegisterType){
                         global.isAuth = true;
                         self.getUserAccountForRegister().then(()=>{
-                            self.$router.push({name: 'feed',query:{filter:'Question'}})
+                            self.$router.push({name: routeNames.Feed,query:{filter:'Question'}})
                             self.updateAccountUserToTutor(true);
                         })
                     }else{
@@ -76,7 +76,7 @@ export default {
                     let isConflict = error.response.status === 409;
                     if(isConflict) {
                         self.updateToasterParams({
-                            toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                            toasterText: this.$t("becomeTutor_already_submitted"),
                             showToaster: true,
                             toasterTimeout: 5000
                         });
