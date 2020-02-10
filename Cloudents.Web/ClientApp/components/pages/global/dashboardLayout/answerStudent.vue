@@ -72,6 +72,7 @@ export default {
         color: @global-purple;
         min-width: 0;
         width: 100%;
+        min-height: 84px;
         .top {
 
           .name {
