@@ -387,7 +387,7 @@ namespace Cloudents.Infrastructure
             return await _queryBus.QueryAsync(feedQuery, token);
         }
 
-        public async Task<IEnumerable<FeedDto>> GetFeedAsync(SearchFeedQuery query, CancellationToken token)
+        public Task<IEnumerable<FeedDto>> GetFeedAsync(SearchFeedQuery query, CancellationToken token)
         {
             throw new NotImplementedException("At the moment we not support this");
         }
