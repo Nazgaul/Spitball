@@ -143,26 +143,26 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var x = _container.Resolve<IQueryBus>();
-            var searchWrite = _container.Resolve<DocumentSearchWrite>();
-            var i = 0;
-            while (true)
-            {
-                var query = new SyncAzureQuery(0, i);
-                var z = await x.QueryAsync<(IEnumerable<DocumentSearchDto>, IEnumerable<string>, long)>(query, default);
+            var x = _container.Resolve<IRestClient>();
+            //var searchWrite = _container.Resolve<DocumentSearchWrite>();
+            //var i = 0;
+            //while (true)
+            //{
+            //    var query = new SyncAzureQuery(0, i);
+            //    var z = await x.QueryAsync<(IEnumerable<DocumentSearchDto>, IEnumerable<string>, long)>(query, default);
 
-                var document = z.Item1.FirstOrDefault(w => w.ItemId == 6897);
-                if (document != null)
-                {
-                    Console.WriteLine("here");
-                   var item = Cloudents.Search.Entities.Document.FromDto(document);
-                   await searchWrite.UpdateDataAsync(new[] {item}, default);
-                }
+            //    var document = z.Item1.FirstOrDefault(w => w.ItemId == 6897);
+            //    if (document != null)
+            //    {
+            //        Console.WriteLine("here");
+            //       var item = Cloudents.Search.Entities.Document.FromDto(document);
+            //       await searchWrite.UpdateDataAsync(new[] {item}, default);
+            //    }
 
-                _container.Resolve<DocumentSearchWrite>();
+            //    _container.Resolve<DocumentSearchWrite>();
 
-                i++;
-            }
+            //    i++;
+            //}
             //var commandBus = _container.Resolve<ICommandBus>();
 
             //var command = new SetUserTypeCommand(638,UserType.HighSchoolStudent);

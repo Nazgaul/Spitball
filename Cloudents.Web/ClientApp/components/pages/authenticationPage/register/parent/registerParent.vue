@@ -133,22 +133,6 @@ export default {
                 this.$store.dispatch('updateFullName', fullname);
             }
         },
-        // firstname: {
-        //     get() {
-        //         return this.$store.getters.getFirstName
-    //     },
-        //     set(firstname) {
-        //         this.$store.dispatch('updateFirstName', firstname)
-        //     }
-        // },
-        // lastname: {
-        //     get() {
-        //         return this.$store.getters.getLastName
-        //     },
-        //     set(lastname) {
-        //         this.$store.dispatch('updateLastName', lastname)
-        //     }
-        // },
         grade: {
             get() {
                 return this.$store.getters.getStudentGrade
@@ -161,7 +145,10 @@ export default {
     methods: {
         nextStep() {
             if(this.$refs.form.validate()) {
-                this.$store.dispatch('updateParentStudent');
+                let self = this
+                this.$store.dispatch('updateParentStudent').then(()=>{
+                    self.$router.push(self.$route.meta.nextStep)
+                });
             }
         },
         prevStep() {
