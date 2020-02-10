@@ -52,6 +52,7 @@ const getters = {
 };
 
 const actions = {
+    
     uploadAccountImage(context, obj) {
         return accountService.uploadImage(obj).then((resp) => {
             let imageUrl = resp.data;
@@ -79,13 +80,21 @@ const actions = {
         commit("logout");
         global.location.replace("/logout");
     },
-    getUserAccountForRegister({commit}) {
+    getUserAccountForRegister({dispatch}) {
         return accountService.getAccount().then((userAccount) => {
-            commit("updateUser", userAccount);
-            analyticsService.sb_setUserId(userAccount.id);
-            commit("changeLoginStatus", true);
+            dispatch('updateAccountUser',userAccount)
             return userAccount;
         })
+    },
+    updateAccountUser({commit,dispatch},userAccount){
+        intercomeService.startService(userAccount);
+        commit("updateUser", userAccount);
+        dispatch("syncUniData", userAccount);
+        dispatch("getAllConversations");
+        analyticsService.sb_setUserId(userAccount.id);
+        insightService.authenticate.set(userAccount.id);
+        initSignalRService();
+        commit("changeLoginStatus", true);
     },
     userStatus({state,dispatch, commit}) {
         if(state.user !== null && state.user.hasOwnProperty('id')){
@@ -94,14 +103,7 @@ const actions = {
         
         if (global.isAuth) {
             accountService.getAccount().then((userAccount) => {
-                intercomeService.startService(userAccount);
-                commit("updateUser", userAccount);
-                dispatch("syncUniData", userAccount);
-                dispatch("getAllConversations");
-                analyticsService.sb_setUserId(userAccount.id);
-                insightService.authenticate.set(userAccount.id);
-                initSignalRService();
-                commit("changeLoginStatus", true);
+                dispatch('updateAccountUser',userAccount)
             }, () => {
                 //TODO what is that....
                 intercomeService.restrartService();
