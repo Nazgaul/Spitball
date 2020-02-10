@@ -130,8 +130,6 @@ export const connectivityModule = {
         },
         invoke: function (connection, message, data) {
             return connection.invoke(message, data).then(() => {
-            }, (err) => {
-                return Promise.reject(err);
             });
         }
     }

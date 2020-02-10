@@ -15,6 +15,7 @@ namespace Cloudents.Core.Interfaces
     public interface ICountryProvider
     {
         string GetCallingCode(string countryCode);
+        bool ValidateCountryCode(string countryCode);
 
         //decimal ConvertPointsToLocalCurrency(string countryCode, decimal points);
         //string ConvertPointsToLocalCurrencyWithSymbol(string countryCode, decimal points);
