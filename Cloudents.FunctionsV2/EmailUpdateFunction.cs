@@ -191,45 +191,39 @@ namespace Cloudents.FunctionsV2
             return uriBuilderImage.ToString();
         }
 
-        //private static string BuildHash(IBinarySerializer binarySerializer, Uri previewUri)
+        
+
+        //[FunctionName("EmailUpdateFunction_TimerStart")]
+        //public static async Task TimerStart(
+        //    [TimerTrigger("0 0 8 * * *")] TimerInfo myTimer,
+        //    [OrchestrationClient]DurableOrchestrationClient starter,
+        //    ILogger log)
         //{
-        //    var properties = new ImageProperties(previewUri);
-        //    var byteHash = binarySerializer.Serialize(properties);
-        //    var hash = Base64UrlTextEncoder.Encode(byteHash);
-        //    return hash;
+        //    const string instanceName = "UpdateEmail";
+        //    var existingInstance = await starter.GetStatusAsync(instanceName);
+        //    if (existingInstance == null)
+        //    {
+        //        await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
+        //        return;
+        //    }
+
+        //    var types = new[] { OrchestrationRuntimeStatus.Running, OrchestrationRuntimeStatus.Pending };
+        //    if (types.Contains(existingInstance.RuntimeStatus))
+        //    {
+        //        if (existingInstance.LastUpdatedTime < DateTime.UtcNow.AddHours(-6))
+        //        {
+        //            await starter.TerminateAsync(instanceName, "Taking too long ");
+        //        }
+        //        else
+        //        {
+        //            log.LogInformation($"{instanceName} is in status {existingInstance.RuntimeStatus}");
+        //            return;
+        //        }
+        //    }
+
+
+        //    await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
         //}
-
-        [FunctionName("EmailUpdateFunction_TimerStart")]
-        public static async Task TimerStart(
-            [TimerTrigger("0 0 8 * * *")] TimerInfo myTimer,
-            [OrchestrationClient]DurableOrchestrationClient starter,
-            ILogger log)
-        {
-            const string instanceName = "UpdateEmail";
-            var existingInstance = await starter.GetStatusAsync(instanceName);
-            if (existingInstance == null)
-            {
-                await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
-                return;
-            }
-
-            var types = new[] { OrchestrationRuntimeStatus.Running, OrchestrationRuntimeStatus.Pending };
-            if (types.Contains(existingInstance.RuntimeStatus))
-            {
-                if (existingInstance.LastUpdatedTime < DateTime.UtcNow.AddHours(-6))
-                {
-                    await starter.TerminateAsync(instanceName, "Taking too long ");
-                }
-                else
-                {
-                    log.LogInformation($"{instanceName} is in status {existingInstance.RuntimeStatus}");
-                    return;
-                }
-            }
-
-
-            await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
-        }
 
 
 
