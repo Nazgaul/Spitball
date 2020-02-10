@@ -1,4 +1,10 @@
-import { connectivityModule } from "./connectivity.module"
+import axios from 'axios'
+import {Item} from './Dto/item.js';
+
+const documentInstance = axios.create({
+    baseURL:'/api/Document'
+})
+
 import searchService from './searchService'
 
 function documentUserItem(ObjInit){
@@ -18,12 +24,11 @@ function DocumentItem(obj) {
     this.user = !!ObjInit.user ? searchService.createTutorItem(ObjInit.user) : new documentUserItem(ObjInit);
     this.views = ObjInit.views || 0;
     this.pages = ObjInit.pages || 0;
-    this.isPlaceholder = ObjInit.isPlaceholder || false;
     this.price = ObjInit.price || 0;
     this.isPurchased = obj.isPurchased || false;
     this.uploaderName = ObjInit.uploaderName;
     this.tutor = ObjInitTutor ? searchService.createTutorItem(ObjInitTutor) : null;
-    this.feedItem = searchService.createDocumentItem(ObjInit);
+    this.feedItem = new Item[ObjInit.documentType](ObjInit);
 }
 
 function createDocumentItem(ObjInit) {
@@ -39,11 +44,6 @@ function createDocumentPreview(itemPreview){
     return itemPreview;
 }
 
-function createDocumentContentType(itemPreview){
-    let arrPreview = createDocumentPreview(itemPreview);
-    let postfix = arrPreview[0].split('?')[0].split('.');
-    return postfix[postfix.length - 1];
-}
 function createVideoPreview(objInit){
     return new VideoPreview(objInit);
 }
@@ -54,48 +54,39 @@ function VideoPreview(objInit){
 function DocumentObject(objInit){
     this.details = createDocumentItem(objInit.details);
     this.preview = objInit.details.document.documentType === 'Video'? createVideoPreview(objInit.preview):createDocumentPreview(objInit.preview);
-    // this.content = objInit.document.content || '';
-    this.contentType = objInit.details.document.documentType === 'Video'? '': createDocumentContentType(objInit.preview);
     this.documentType = objInit.details.document.documentType || '';
-    // this.user = searchService.createDocumentItem(objInit.details.user);
 }
 
 function createDocumentObj(ObjInit) {
     return new DocumentObject(ObjInit);
 }
-
-function createDocumentsObj(docs) {
-    if(docs.length <= 0 ) return [];
-
-    let items = [];
-
-    docs.forEach(doc => {
-        return items.push(searchService.createDocumentItem(doc));
-    });
-
-    return items;
-}
-
-function getDocument(id){
-    return connectivityModule.http.get(`/Document/${id}`).then(({data})=>{
-        return createDocumentObj(data);
-    });
-
-}
-
-function getStudyDocuments(obj) {
-    return connectivityModule.http.get(`/Document/similar?course=${obj.course}&documentId=${obj.id}`).then(({data}) => {
-        return createDocumentsObj(data);
-    });
-}
-
 export default {
-    sendDocumentData: (data) => connectivityModule.http.post("/Document", data),
-    deleteDoc: (id) => connectivityModule.http.delete(`/Document/${id}`),
-    purchaseDocument: (id) => connectivityModule.http.post("/Document/purchase", {id}),
-    changeDocumentPrice: (data) => connectivityModule.http.post("/Document/price", data),
-    changeDocumentName: (data) => connectivityModule.http.post("/Document/rename", data),
-    getStudyDocuments,
-    getDocument,
+    async voteDocument(id, voteType){ 
+        return await documentInstance.post('vote',{id,voteType})
+    },
+    async changeDocumentName(data){ 
+        return await documentInstance.post('rename',data)
+    },
+    async changeDocumentPrice(data){ 
+        return await documentInstance.post('price',data)
+    },
+    async deleteDoc(id){ 
+        return await documentInstance.delete(`${id}`)
+    },
+    async sendDocumentData(data){ 
+        return await documentInstance.post('',data)
+    },
+    async purchaseDocument(id){ 
+        return await documentInstance.post('purchase',{id})
+    },
+    async getStudyDocuments(params){ 
+        let {data} = await documentInstance.get('similar',{params})
+        return data.map(doc=> new Item[doc.documentType](doc))
+    },
+    async getDocument(id){ 
+        let {data} = await documentInstance.get(`${id}`)
+        return new createDocumentObj(data)
+    },
+
     createDocumentItem
 }
