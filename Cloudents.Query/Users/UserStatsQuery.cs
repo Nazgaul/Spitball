@@ -94,15 +94,25 @@ namespace Cloudents.Query.Users
                 //dictionary.Add("F)
 
 
-                const string sql = @"with cte as (
-                                select d.Id, max(dh.[Views]) as [Views]
+                const string sql = @"with cteLast as (
+select d.Id, max(dh.[Views]) as [MaxViews], min(dh.[Views]) as [MinViews]
+from [sb].[DocumentHistory] dh
+join sb.Document d
+    on d.Id = dh.Id and d.State = 'ok'
+where d.UserId = @UserId
+and dh.EndDate < GETUTCDATE() - @days and dh.BeginDate > GETUTCDATE() - @days*2
+group by d.Id
+),
+cteThis as (
+ select d.Id, max(dh.[Views]) as [MaxViews], min(dh.[Views]) as [MinViews]
                                 from [sb].[DocumentHistory] dh
                                 join sb.Document d
                                  on d.Id = dh.Id and d.State = 'ok'
                                 where d.UserId = @UserId
-                                and dh.EndDate < GETUTCDATE() - @days
+                                and dh.BeginDate > GETUTCDATE() - @days
                                 group by d.Id
-                                )
+)
+
 
 
                                 select 1 as [Period], tPrice.Price as tRevenue, 
@@ -131,7 +141,7 @@ namespace Cloudents.Query.Users
                                 where UserId = @UserId
                                 )Followers,
                                 (
-                                select sum([Views]) as [Views] from sb.Document where [State] = 'ok' and UserId = @UserId
+                               select sum([MaxViews]) - sum(MinViews) as [Views] from cteThis
                                 )[Views]
 
                                 union all
@@ -164,11 +174,11 @@ namespace Cloudents.Query.Users
                                 where UserId = @UserId and (Created < GETUTCDATE() - @days or Created is null)
                                 )Followers,
                                 (
-                                select sum([Views]) as [Views] from cte
+                                select sum([MaxViews]) - sum(MinViews) as [Views] from cteLast
                                 ) [Views]
                                 order by [Period];
 
-                        select country from sb.[user] where Id = @UserId ";
+                        select country from sb.[user] where Id = @UserId";
                 using (var conn = _dapperRepository.OpenConnection())
                 {
                     using (var multi = conn.QueryMultiple(sql, new { query.Days, query.UserId }))
