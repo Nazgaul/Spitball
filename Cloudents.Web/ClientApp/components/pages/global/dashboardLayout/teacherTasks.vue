@@ -33,7 +33,7 @@
               </div>
             </div>
             <arrowRight class="arrowRight d-flex d-sm-none" />
-            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_connect_btn')}}</v-btn>
+            <v-btn class="taskAction d-none d-sm-flex" @click="connectCalender" :loading="btnLoading" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_connect_btn')}}</v-btn>
         </v-col>
         <v-col cols="12" class="taskCol pb-0 py-4 d-flex justify-space-between">
             <div class="d-flex align-center">
@@ -59,12 +59,31 @@ export default {
   },
   data: () => ({
     taksNumberCompleted: '3/6',
-    value: 60
+    value: 60,
+    btnLoading: false,
   }),
   computed: {
     user() {
       return this.$store.getters.accountUser ? this.$store.getters.accountUser : {}
     }
+  },
+  methods: {
+    connectCalender() {
+      this.btnLoading = true;
+      this.$store.dispatch('gapiSignIn').then(()=>{
+        console.log("connect calender");
+      }, () => {
+        this.btnLoading = false;
+      })
+    }
+  },
+  created() {
+    let self = this
+    this.$loadScript("https://apis.google.com/js/api.js").then(() => {
+      setTimeout(() => {
+        self.$store.dispatch('gapiLoad',['calendar']);
+      });
+    })
   }
 }
 </script>

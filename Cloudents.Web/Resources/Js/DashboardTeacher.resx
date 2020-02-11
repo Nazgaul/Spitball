@@ -195,8 +195,8 @@
   <data name="upload_content" xml:space="preserve">
     <value>Upload content</value>
   </data>
-  <data name="visiters" xml:space="preserve">
-    <value>Visiters</value>
+  <data name="views" xml:space="preserve">
+    <value>Views</value>
   </data>
   <data name="works_btn" xml:space="preserve">
     <value>Update</value>
