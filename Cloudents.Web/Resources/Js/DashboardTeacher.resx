@@ -129,6 +129,9 @@
   <data name="analytic_title" xml:space="preserve">
     <value>Your Analytics Overview</value>
   </data>
+  <data name="answer_title" xml:space="preserve">
+    <value>Answer student questions</value>
+  </data>
   <data name="book_btn" xml:space="preserve">
     <value>Book</value>
   </data>
