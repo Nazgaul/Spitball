@@ -174,8 +174,14 @@
   <data name="sales" xml:space="preserve">
     <value>Sales</value>
   </data>
+  <data name="see_all" xml:space="preserve">
+    <value>See all</value>
+  </data>
   <data name="share_post" xml:space="preserve">
     <value>Share a social post</value>
+  </data>
+  <data name="spitball_tips" xml:space="preserve">
+    <value>Tips from spitball blog</value>
   </data>
   <data name="stand_out" xml:space="preserve">
     <value>Stand out on Facebook &amp; Instagram</value>
