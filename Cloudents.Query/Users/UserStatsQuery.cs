@@ -113,21 +113,19 @@ cteThis as (
                                 group by d.Id
 )
 
-
-
-                                select 1 as [Period], tPrice.Price as tRevenue, 
+     select 1 as [Period], tPrice.Price as tRevenue, 
 								sPrice.Price as sRevenue,
-								tPrice.Sales, Followers.Followers, [Views].[Views] as Views
+								tPrice.Sales + sPrice.Sales as Sales, Followers.Followers, [Views].[Views] as Views
                                 from
                                 (
                                 select sum(price) as price, count(1) as Sales
                                 from sb.[Transaction] t
-                                where [user_Id] = @UserId and [type] = 'Earned'
+                                where [user_Id] = @UserId and [action] in ('SoldDocument','ReferringUser')
                                 and Created > GETUTCDATE() - @days
                                 ) tPrice
                                 ,
                                 (
-                                select sum(Price) as price
+                                select sum(Price) as price, count(1) as Sales
                                 from sb.StudyRoom sr
                                 join sb.StudyRoomSession srs
                                  on sr.Id = srs.StudyRoomId
@@ -148,17 +146,17 @@ cteThis as (
 
                                 select 2 as [Period], tPrice.Price as tRevenue, 
 								sPrice.Price as sRevenue,
-								tPrice.Sales, Followers.Followers, [Views].[Views] as Views
+								tPrice.Sales + sPrice.Sales as Sales, Followers.Followers, [Views].[Views] as Views
                                 from
                                 (
                                 select sum(price) as price, count(1) as Sales
                                 from sb.[Transaction] t
-                                where [user_Id] = @UserId and [type] = 'Earned'
+                                where [user_Id] = @UserId and [action] in ('SoldDocument','ReferringUser')
                                 and Created > (GETUTCDATE() - (@days*2)) and Created < GETUTCDATE() - @days
                                 ) tPrice
                                 ,
                                 (
-                                select sum(Price) as price
+                                select sum(Price) as price, count(1) as Sales
                                 from sb.StudyRoom sr
                                 join sb.StudyRoomSession srs
                                  on sr.Id = srs.StudyRoomId
