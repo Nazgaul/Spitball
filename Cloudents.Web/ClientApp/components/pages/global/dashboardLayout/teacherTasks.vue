@@ -4,7 +4,7 @@
             <userAvatar :size="'60'" :user-name="user.name" :user-id="user.id" :userImageUrl="user.image"/> 
         </v-col>
         <v-col class="taskCompleted  pl-4" align-self="center">
-            <div class="mb-1 completedTitle">{{taksNumberCompleted}} {{$t('dashboardTeacher_task_completed')}}</div>
+            <div class="mb-1 completedTitle">{{taksNumberCompleted}}/{{totalTasks}} {{$t('dashboardTeacher_task_completed')}}</div>
             <v-progress-linear
               active
               :background-opacity="0.3"
@@ -25,7 +25,7 @@
             <arrowRight class="arrowRight d-flex d-sm-none" />
             <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_book_btn')}}</v-btn>
         </v-col>
-        <v-col cols="12" class="taskCol py-4 d-flex justify-space-between">
+        <v-col cols="12" class="taskCol py-4 d-flex justify-space-between" v-if="!calendarShared">
             <div class="d-flex align-center">
               <assignmentIcon class="assignIcon" />
               <div class="taskText pl-3">
@@ -35,7 +35,7 @@
             <arrowRight class="arrowRight d-flex d-sm-none" />
             <v-btn class="taskAction d-none d-sm-flex" @click="connectCalender" :loading="btnLoading" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_connect_btn')}}</v-btn>
         </v-col>
-        <v-col cols="12" class="taskCol pb-0 py-4 d-flex justify-space-between">
+        <v-col cols="12" class="taskCol pb-0 py-4 d-flex justify-space-between" v-if="!haveHours">
             <div class="d-flex align-center">
               <assignmentIcon class="assignIcon" />
                 <div class="taskText pl-3">
@@ -58,26 +58,49 @@ export default {
     arrowRight
   },
   data: () => ({
-    taksNumberCompleted: '3/6',
-    value: 60,
+    totalTasks: 6,
+    taksNumberCompleted: 3,
+    value: 40,
     btnLoading: false,
+    calendarShared: false,
+    haveHours: false,
   }),
   computed: {
     user() {
       return this.$store.getters.accountUser ? this.$store.getters.accountUser : {}
-    }
+    },
   },
   methods: {
     connectCalender() {
       this.btnLoading = true;
       this.$store.dispatch('gapiSignIn').then(()=>{
-        console.log("connect calender");
+        console.log("connect calendar");
       }, () => {
         this.btnLoading = false;
       })
+    },
+    getTutorActions() {
+      this.$store.dispatch('updateTutorActions').then(res => {
+        this.calendarShared = res.calendarShared;
+        this.haveHours = res.haveHours;
+        this.updateTaksNumberCompleted()
+      }).catch(ex => {
+        console.log(ex);
+      })
+    },
+    updateTaksNumberCompleted() {
+      if(this.calendarShared) {
+        this.taksNumberCompleted++;
+        this.value += 20
+      }
+      if(this.haveHours) {
+        this.taksNumberCompleted++;
+        this.value += 20
+      }
     }
   },
   created() {
+    this.getTutorActions()
     let self = this
     this.$loadScript("https://apis.google.com/js/api.js").then(() => {
       setTimeout(() => {

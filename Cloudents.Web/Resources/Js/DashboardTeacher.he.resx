@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="30days" xml:space="preserve">
-    <value>30 ימים אחרונים</value>
+    <value>30 הימים האחרונים</value>
   </data>
   <data name="7days" xml:space="preserve">
-    <value>7 ימים אחרונים</value>
+    <value>7 הימים האחרונים</value>
   </data>
   <data name="90days" xml:space="preserve">
-    <value>90 ימים אחרונים</value>
+    <value>90 הימים האחרונים</value>
   </data>
   <data name="analytic_title" xml:space="preserve">
-    <value>ניתוח הנתונים שלך</value>
+    <value>סקירה כללית</value>
   </data>
   <data name="answer_title" xml:space="preserve">
     <value>Answer student questions</value>
@@ -169,7 +169,7 @@
     <value>Marketing Tools</value>
   </data>
   <data name="revenue" xml:space="preserve">
-    <value>פדיון</value>
+    <value>הכנסות</value>
   </data>
   <data name="sales" xml:space="preserve">
     <value>מכירות</value>

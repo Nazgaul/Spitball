@@ -19,6 +19,7 @@
     "AzureWebJobsServiceBus": "Endpoint=sb://spitball-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CACOBTEeKVemCY7ScVBHYXBwDkClQcCKUW7QGq8dNfA=",
     "Local": "UseDevelopmentStorage=true",
     "Prod": "DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==",
-    "EventHubConnectionAppSetting": "Endpoint=sb://spitball-dev2.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=EWBm3pK6ia4eBBPRz6tjduByCo+eiYsW8AHKnHLeu3Q="
+    "EventHubConnectionAppSetting": "Endpoint=sb://spitball-dev2.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=EWBm3pK6ia4eBBPRz6tjduByCo+eiYsW8AHKnHLeu3Q=",
+    "FUNCTIONS_V2_COMPATIBILITY_MODE":  "true" 
   }
 }
