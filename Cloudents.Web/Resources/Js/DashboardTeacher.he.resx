@@ -127,7 +127,7 @@
     <value>90 ימים אחרונים</value>
   </data>
   <data name="analytic_title" xml:space="preserve">
-    <value>Your Analytics Overview</value>
+    <value>ניתוח הנתונים שלך</value>
   </data>
   <data name="answer_title" xml:space="preserve">
     <value>Answer student questions</value>
@@ -194,6 +194,9 @@
   </data>
   <data name="upload_content" xml:space="preserve">
     <value>Upload content</value>
+  </data>
+  <data name="views" xml:space="preserve">
+    <value>צפיות</value>
   </data>
   <data name="visiters" xml:space="preserve">
     <value>Visiters</value>
