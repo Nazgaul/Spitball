@@ -202,7 +202,7 @@ export default {
 
         .tutor-landing-title{
             text-align: center;
-            color: #5158af;
+            color: rgb(199, 88, 219) !important;
             font-size: 35px;
             font-weight: bold;
             @media (max-width: @screen-xs) {

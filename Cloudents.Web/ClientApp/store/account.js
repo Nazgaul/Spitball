@@ -7,7 +7,7 @@ import { LanguageService } from '../services/language/languageService';
 import intercomeService from '../services/intercomService';
 
 const state = {
-    login: false,
+    isUserLoggedIn:false,
     user: null,
     usersReferred: 0,
 };
@@ -22,14 +22,14 @@ const mutations = {
         state.usersReferred = data;
     },
     logout(state) {
-        state.login = false;
+        state.isUserLoggedIn = false;
         state.user = null;
     },
     updateUser(state, val) {
         state.user = val;
     },
     changeLoginStatus(state, val) {
-        state.login = val;
+        state.isUserLoggedIn = val;
     },
     setAccountPicture(state, imageUrl) {
         state.user = { ...state.user, image: imageUrl };
@@ -44,8 +44,7 @@ const getters = {
             return false;
         }
     },
-    loginStatus: state => state.login,
-    isUser: state => state.user !== null,
+    getUserLoggedInStatus: state => state.isUserLoggedIn,
     usersReffered: state => state.usersReferred,
     accountUser: (state) => {
         return state.user;
@@ -53,6 +52,7 @@ const getters = {
 };
 
 const actions = {
+    
     uploadAccountImage(context, obj) {
         return accountService.uploadImage(obj).then((resp) => {
             let imageUrl = resp.data;
@@ -80,22 +80,30 @@ const actions = {
         commit("logout");
         global.location.replace("/logout");
     },
-    userStatus({dispatch, commit, getters}) {
-        commit("changeLoginStatus", global.isAuth);
-        // TODO check
-        if (getters.isUser) {
-            return;
+    getUserAccountForRegister({dispatch}) {
+        return accountService.getAccount().then((userAccount) => {
+            dispatch('updateAccountUser',userAccount)
+            return userAccount;
+        })
+    },
+    updateAccountUser({commit,dispatch},userAccount){
+        intercomeService.startService(userAccount);
+        commit("updateUser", userAccount);
+        dispatch("syncUniData", userAccount);
+        dispatch("getAllConversations");
+        analyticsService.sb_setUserId(userAccount.id);
+        insightService.authenticate.set(userAccount.id);
+        initSignalRService();
+        commit("changeLoginStatus", true);
+    },
+    userStatus({state,dispatch, commit}) {
+        if(state.user !== null && state.user.hasOwnProperty('id')){
+            return
         }
+        
         if (global.isAuth) {
             accountService.getAccount().then((userAccount) => {
-                intercomeService.startService(userAccount);
-                commit("changeLoginStatus", true);
-                commit("updateUser", userAccount);
-                dispatch("syncUniData", userAccount);
-                dispatch("getAllConversations");
-                analyticsService.sb_setUserId(userAccount.id);
-                insightService.authenticate.set(userAccount.id);
-                initSignalRService();
+                dispatch('updateAccountUser',userAccount)
             }, () => {
                 //TODO what is that....
                 intercomeService.restrartService();

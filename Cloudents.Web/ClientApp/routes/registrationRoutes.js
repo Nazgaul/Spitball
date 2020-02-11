@@ -134,7 +134,7 @@ export const registrationRoutes = [
                     {
                         path: 'course',
                         name: routeName.RegisterCourseParent,
-                        meta: {nextStep: 'feed', backStep: routeName.RegisterType, dynamicClass: true},
+                        meta: {nextStep: {name: routeName.Feed,query:{filter:'Tutor'}}, backStep: routeName.RegisterType, dynamicClass: true},
                     },
                     {
                         path: '',

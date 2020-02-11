@@ -157,7 +157,7 @@ router.beforeEach((to, from, next) => {
     store.dispatch('setRouteStack', to.name);
     store.dispatch('sendQueryToAnalytic', to);
     store.dispatch('userStatus');
-    if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
+    if (!store.getters.getUserLoggedInStatus && to.meta && to.meta.requiresAuth) {
         next("/signin");
         return;
     } 

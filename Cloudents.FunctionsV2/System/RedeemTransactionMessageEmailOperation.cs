@@ -39,7 +39,7 @@ namespace Cloudents.FunctionsV2.System
                 culture = new CultureInfo("en-IN");
 
             }
-            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.CurrentCulture = CultureInfo.DefaultThreadCurrentCulture = culture;
             var emailTo = ResourceWrapper.GetString("email_support");
 
             message.AddTo(emailTo);
