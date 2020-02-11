@@ -21,7 +21,6 @@ namespace Cloudents.Query.Documents
     internal sealed class SimilarDocumentsQueryHandler : IQueryHandler<SimilarDocumentsQuery, IEnumerable<DocumentFeedDto>>
     {
         private readonly IStatelessSession _session;
-        //private readonly IDapperRepository _dapper;
         private readonly IUrlBuilder _urlBuilder;
 
         public SimilarDocumentsQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
@@ -74,63 +73,6 @@ namespace Cloudents.Query.Documents
                 s.User.Image = _urlBuilder.BuildUserImageEndpoint(s.User.Id, s.User.Image);
                 return s;
             });
-            //using (var conn = _dapper.OpenConnection())
-            //{
-            //    var res = await conn.QueryAsync<DocumentFeedDto, VoteDto, DocumentUserDto, DocumentFeedDto>(sql,
-            //        (documentDto, voteDto, userDto) =>
-            //        {
-            //            documentDto.Vote = voteDto;
-            //            documentDto.User = userDto;
-            //            return documentDto;
-            //        },
-            //        new { Id = query.DocumentId }, 
-            //        splitOn: "Id, Votes, Id");
-
-            //    return res.Select(s => {
-            //        s.User.Image = _urlBuilder.BuildUserImageEndpoint(s.User.Id, s.User.Image);
-            //        return s;
-            //        });
-            //}
-
-
-            //var t = await _session.Query<Document>()
-            //    .Fetch(f => f.User)
-            //    .Where(w => w.Course.Id ==
-            //                _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.Course.Id).Single())
-            //    .Where(w => w.User.Country == 
-            //                _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.User.Country).Single())
-            //    .Where(w => w.Id != query.DocumentId
-            //                && w.Status.State == ItemState.Ok)
-            //    .OrderByDescending(o => o.University.Id == _session.Query<Document>().Where(w2 => w2.Id == query.DocumentId).Select(s => s.University.Id).Single())
-            //    .ThenByDescending(o => o.DocumentType).ThenByDescending(o => o.TimeStamp.UpdateTime)
-            //    .Select(s => new DocumentFeedDto()
-            //    {
-            //        Id = s.Id,
-            //        User = new DocumentUserDto
-            //        {
-            //            Id = s.User.Id,
-            //            Name = s.User.Name,
-            //            Image = _urlBuilder.BuildUserImageEndpoint(s.User.Id, s.User.ImageName),
-            //        },
-            //        DateTime = s.TimeStamp.UpdateTime,
-            //        Course = s.Course.Id,
-            //        Title = s.Name,
-            //        Snippet = s.Description ?? s.MetaContent,
-            //        Views = s.Views,
-            //        Downloads = s.Downloads,
-            //        University = s.University.Name,
-            //        Price = s.Price,
-            //        Purchased = _session.Query<DocumentTransaction>().Count(x => x.Document.Id == s.Id && x.Action == TransactionActionType.SoldDocument),
-            //        DocumentType = s.DocumentType ?? DocumentType.Document,
-            //        Duration = s.Duration,
-            //        Vote = new VoteDto()
-            //        {
-            //            Votes = s.VoteCount
-            //        }
-            //    })
-            //    .Take(10).ToListAsync(token);
-
-            //return t;
         }
     }
 }
