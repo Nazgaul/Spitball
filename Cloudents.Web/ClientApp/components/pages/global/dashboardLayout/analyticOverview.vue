@@ -31,7 +31,7 @@
                   <div class="type">{{ $t(`dashboardTeacher_${key}`) }}</div>
                   <div class="result my-0 my-sm-1">{{$n(val, key === 'revenue' ? 'currency' : '')}}</div>
                   <div class="rate font-weight-bold">
-                      <arrowDownIcon class="arrow" v-show="!showIcon(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
+                      <arrowDownIcon class="arrow" v-show="percentage(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
                       <div class="precent" :class="{'down': showIcon(key)}">{{percentage(key)}}</div>
                   </div>
                 </div>
@@ -100,7 +100,7 @@ export default {
     },
     showIcon(key) {
       let delta = this.deltaCalc(key);
-      return isNaN(delta) || !delta;
+      return (isNaN(delta) || delta <= 0);
     }
   },
   created() {
