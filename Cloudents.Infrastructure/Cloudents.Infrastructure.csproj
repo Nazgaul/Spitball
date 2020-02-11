@@ -33,7 +33,7 @@
     <!--<PackageReference Include="Microsoft.Azure.CognitiveServices.Language.TextAnalytics" Version="4.0.0" />-->
     <PackageReference Include="Nager.Country" Version="1.0.4" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
-    <PackageReference Include="Twilio" Version="5.37.4" />
+    <PackageReference Include="Twilio" Version="5.37.1" />
     <PackageReference Include="protobuf-net" Version="2.4.4" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.0" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.Face" Version="2.5.0-preview.1" />
