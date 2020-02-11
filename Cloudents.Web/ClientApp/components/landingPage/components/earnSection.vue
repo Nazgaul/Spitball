@@ -15,12 +15,16 @@ import { mapGetters } from 'vuex';
 export default {
     computed: {
         ...mapGetters(['isFrymo']),
-
         href() {
             if(this.isFrymo) {
                 return 'https://www.frymo.com/register';
+            }else{
+                if(global.isRtl){
+                    return 'https://www.teach.spitball.co/?lang=he'
+                }else{
+                    return 'https://www.teach.spitball.co';
+                }
             }
-            return 'https://help.spitball.co/en/article/making-your-profile';
         }
     }
 }
