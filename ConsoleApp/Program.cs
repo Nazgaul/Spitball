@@ -4,7 +4,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Infrastructure.Video;
 using Cloudents.Persistence;
@@ -24,15 +23,18 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.ServiceModel.Syndication;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Extension;
 using Cloudents.Query.Sync;
 using Cloudents.Search.Document;
+using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using Cloudmersive.APIClient.NET.DocumentAndDataConvert.Api;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -104,7 +106,8 @@ namespace ConsoleApp
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
-            builder.RegisterAssemblyModules(Assembly.Load("Cloudents.Infrastructure.Framework"),
+            builder.RegisterAssemblyModules(
+                //Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Persistence"),
                 Assembly.Load("Cloudents.Infrastructure"),
@@ -113,7 +116,7 @@ namespace ConsoleApp
             builder.RegisterType<MediaServices>().AsSelf().SingleInstance()
                 .As<IVideoService>().WithParameter("isDevelop", env == EnvironmentSettings.Dev);
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
-            builder.RegisterModule<ModuleFile>();
+            //builder.RegisterModule<ModuleFile>();
             builder.RegisterType<MLRecommendation>().AsSelf();
 
 
@@ -143,8 +146,9 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var x = _container.Resolve<IRestClient>();
-            //var searchWrite = _container.Resolve<DocumentSearchWrite>();
+            
+            var searchWrite = _container.Resolve<IBlogProvider>();
+            var z = await searchWrite.GetBlogAsync(Country.Israel, default);
             //var i = 0;
             //while (true)
             //{
@@ -207,7 +211,7 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
             // Configure API key authorization: Apikey
             //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "86afd89a-207c-4e7a-9ffc-da23fcb9d5b7");
-            Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "c80224f2-2aa9-4a06-9a1c-6930141c446a");
+            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "c80224f2-2aa9-4a06-9a1c-6930141c446a");
             //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000;
 
             var apiInstance = new ConvertDocumentApi();
@@ -328,7 +332,8 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
                         continue;
                     }
                     var fileDir = container.GetDirectoryReference($"files/{id}");
-                    var blobs = fileDir.ListBlobs(false, BlobListingDetails.Metadata).ToList();
+                    
+                    var blobs = (await fileDir.ListBlobsSegmentedAsync(false, BlobListingDetails.Metadata,null,null,null,null)).Results.ToList();
 
                     var fileItem = (CloudBlockBlob)blobs.First(a => a.Uri.AbsoluteUri.Contains("file-"));
                     var extension = Path.GetExtension(fileItem.Name);
