@@ -30,6 +30,7 @@ using static Microsoft.AspNetCore.Http.StatusCodes;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 using Cloudents.Query.Users;
 using Cloudents.Query.Tutor;
+using Cloudents.Query.Questions;
 
 namespace Cloudents.Web.Api
 {
@@ -326,6 +327,15 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new TutorActionsQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpGet("questions")]
+        public async Task<IEnumerable<AccountQustionDto>> GetQuestionsAsync([ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile, 
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new AccountQuestionsQuery(userId, profile.Country);
             return await _queryBus.QueryAsync(query, token);
         }
 
