@@ -2,9 +2,9 @@
     <v-row class="uploadContent mb-2 mb-sm-4" dense>
         <v-col class="text-center uploadCol pb-sm-0">
             <uploadIcon class="mb-3 uploadIcon" />
-            <div class="text1">{{$t('dashboard_upload_content')}}</div>
-            <div class="text2 mb-3">{{$t('dashboard_earn_money')}}</div>
-            <v-btn class="uploadBtn" color="#4c59ff" :to="{query: { dialog: 'upload' }}" outlined rounded>{{$t('dashboard_upload')}}</v-btn>
+            <div class="text1">{{$t('dashboardTeacher_upload_content')}}</div>
+            <div class="text2 mb-3">{{$t('dashboardTeacher_earn_money')}}</div>
+            <v-btn class="uploadBtn" color="#4c59ff" :to="{query: { dialog: 'upload' }}" outlined rounded>{{$t('dashboardTeacher_upload')}}</v-btn>
         </v-col>
     </v-row>
 </template>

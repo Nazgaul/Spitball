@@ -1,24 +1,24 @@
 <template>
     <v-row class="text-center marketingTools mb-2 mb-sm-4 px-0 py-0 px-sm-4 py-sm-3" align="end" dense>
         <v-col cols="12" class="marketingCol marketingTitle d-none d-sm-block pa-0 mb-4">
-            {{$t('dashboard_marketing_title')}}
+            {{$t('dashboardTeacher_marketing_title')}}
         </v-col>
         <v-col cols="12" sm="6" class="marketingCol social mb-2 mb-sm-0 pb-sm-0">
             <shareIcon class="mb-3 icon" />
             <div class="bottom">
-                <div class="text1">{{$t('dashboard_share_post')}}</div>
-                <div class="text2 mb-3">{{$t('dashboard_stand_out')}}</div>
-                <!-- <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboard_lets_go')}}</v-btn> -->
-                <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboard_coming_soon')}}</v-btn>
+                <div class="text1">{{$t('dashboardTeacher_share_post')}}</div>
+                <div class="text2 mb-3">{{$t('dashboardTeacher_stand_out')}}</div>
+                <!-- <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboardTeacher_lets_go')}}</v-btn> -->
+                <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboardTeacher_coming_soon')}}</v-btn>
             </div>
         </v-col>
         <v-col cols="12" sm="6" class="marketingCol pb-sm-0">
           <couponIcon class="mb-3 icon" />
           <div class="bottom">
-              <div class="text1">{{$t('dashboard_create_coupon')}}</div>
-              <div class="text2 mb-3">{{$t('dashboard_costume_coupon')}}</div>
-              <!-- <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboard_get_started')}}</v-btn> -->
-              <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboard_coming_soon')}}</v-btn>
+              <div class="text1">{{$t('dashboardTeacher_create_coupon')}}</div>
+              <div class="text2 mb-3">{{$t('dashboardTeacher_costume_coupon')}}</div>
+              <!-- <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboardTeacher_get_started')}}</v-btn> -->
+              <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboardTeacher_coming_soon')}}</v-btn>
           </div>
         </v-col>
     </v-row>

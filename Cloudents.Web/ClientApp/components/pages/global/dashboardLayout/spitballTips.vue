@@ -1,8 +1,8 @@
 <template>
     <v-row class="spitballTips" dense>
         <v-col cols="12" class="pa-0 mb-4 d-flex justify-space-between">
-            <div class="tipTitle">{{$t('dashboard_spitball_tips')}}</div>
-            <router-link class="seeAll" :to="{ name: 'routeName'}">{{$t('dashboard_see_all')}}</router-link>
+            <div class="tipTitle">{{$t('dashboardTeacher_spitball_tips')}}</div>
+            <router-link class="seeAll" :to="{ name: 'routeName'}">{{$t('dashboardTeacher_see_all')}}</router-link>
         </v-col>
         <v-col class="tipsList d-flex" cols="12">
             <div class="tipsListBox" v-for="(tip, index) in tips" :key="index">

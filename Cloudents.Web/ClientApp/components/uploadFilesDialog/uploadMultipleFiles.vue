@@ -199,7 +199,8 @@ export default {
             //reset return to upload
             this.setReturnToUpload(false);
             //close
-            this.updateDialogState(false);
+            this.closeDialog();
+            // this.updateDialogState(false);
         },
         nextStep() {
             if (this.currentStep === this.steps) {

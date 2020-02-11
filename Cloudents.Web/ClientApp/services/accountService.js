@@ -25,8 +25,8 @@ export default {
     async applyCoupon(params){ 
         return await accountInstance.post('/coupon',params)
     },
-    async getAccountStats(params){ 
-        let {data} = await accountInstance.get('/stats', params)
+    async getAccountStats(days){
+        let {data} = await accountInstance.get('/stats', {params: {days}})
         return data.map(stats => new User.Stats(stats))
     }
 }
