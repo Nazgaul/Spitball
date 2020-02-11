@@ -86,7 +86,7 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex';
-import {LanguageChange, LanguageService } from "../../../../services/language/languageService";
+import {LanguageChange } from "../../../../services/language/languageService";
 import languagesLocales from "../../../../services/language/localeLanguage";
 
 const searchCMP = () => import('../../global/search/search.vue');
@@ -117,7 +117,10 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
         layoutClass: {}
     },
     computed: {
-        ...mapGetters(['accountUser','getTotalUnread','getBannerParams']),
+        ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus']),
+        loggedIn() {
+            return this.getUserLoggedInStatus;
+        },
         isTablet(){
             return this.$vuetify.breakpoint.smAndDown;
         },
@@ -125,13 +128,10 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
             return this.$vuetify.breakpoint.xsOnly;
         },
         userImageUrl(){
-            return this.accountUser && this.accountUser.image.length > 1 ? this.accountUser.image : '';
+            return this.loggedIn && this.accountUser.image.length > 1 ? this.accountUser.image : '';
         },
         userName(){
-            return this.accountUser && this.accountUser.name ? this.accountUser.name : '';
-        },
-        loggedIn() {
-            return this.accountUser !== null;
+            return this.loggedIn && this.accountUser.name ? this.accountUser.name : '';
         },
         totalUnread(){
             return this.getTotalUnread;
@@ -141,7 +141,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
             return filteredRoutes.indexOf(this.$route.name) > -1 && this.$vuetify.breakpoint.xsOnly;
         },
         searchPlaceholder(){
-            return this.isTablet ? LanguageService.getValueByKey(`header_placeholder_search`) : LanguageService.getValueByKey(`header_placeholder_search_m`);
+            return this.isTablet ? this.$t(`header_placeholder_search`) : this.$t(`header_placeholder_search_m`);
         },
         showSearch(){
             let showRoutes = ['feed'];

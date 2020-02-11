@@ -39,26 +39,24 @@ export default {
   name: "requestActions",
   components: {uStudy, rTutor, aQuestion },
   computed: {
-    ...mapGetters(["accountUser", "getSelectedClasses"]),
+    ...mapGetters(["accountUser", "getSelectedClasses",'getUserLoggedInStatus']),
     userImageUrl() {
-      if (this.accountUser && this.accountUser.image.length > 1) {
+      if(this.getUserLoggedInStatus && this.accountUser.image.length > 1) {
         return `${this.accountUser.image}`;
       }
       return "";
     },
     userName() {
-      if (this.accountUser && this.accountUser.name.length > 1) {
-        return `, ${this.accountUser.name}?`;
-      } 
-      //Ram dont want John doe
-      return '?';//LanguageService.getValueByKey('requestActions_anonymous')
-      
+      if(this.getUserLoggedInStatus){
+          return `, ${this.accountUser.name}?`;
+      }
+      return '?';
     },
     userID() {
-      if (this.accountUser && this.accountUser.id) {
+      if(this.getUserLoggedInStatus){
         return this.accountUser.id;
       }
-      return null
+      return null;
     }
   },
   methods: {

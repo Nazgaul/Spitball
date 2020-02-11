@@ -19,6 +19,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.SchoolType).CustomType<GenericEnumStringType<SchoolType>>().Nullable();
             HasMany(x => x.Users)
                 .KeyColumn("CourseId").ForeignKeyConstraintName("Courses_User").Inverse().Cascade.AllDeleteOrphan().AsSet();
+            Map(x => x.Country);
             DynamicUpdate();
             OptimisticLock.Version();
             Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
