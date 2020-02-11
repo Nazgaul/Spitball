@@ -150,6 +150,9 @@
   <data name="create_coupon" xml:space="preserve">
     <value>Create a coupon</value>
   </data>
+  <data name="earn_money" xml:space="preserve">
+    <value>Earn money by selling education content</value>
+  </data>
   <data name="followers" xml:space="preserve">
     <value>Followers</value>
   </data>
@@ -176,6 +179,12 @@
   </data>
   <data name="task_completed" xml:space="preserve">
     <value>Task completed</value>
+  </data>
+  <data name="upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="upload_content" xml:space="preserve">
+    <value>Upload content</value>
   </data>
   <data name="visiters" xml:space="preserve">
     <value>Visiters</value>
