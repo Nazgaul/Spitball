@@ -255,12 +255,10 @@ namespace Cloudents.FunctionsV2
                     if (string.IsNullOrEmpty(md5))
                     {
                         log.LogInformation("no md5 calculating");
-                        using (var sr = await blob.OpenReadAsync())
-                        {
-                            md5 = CalculateMd5(sr);
-                            blob.Properties.ContentMD5 = md5;
-                            await blob.SetPropertiesAsync();
-                        }
+                        await using var sr = await blob.OpenReadAsync();
+                        md5 = CalculateMd5(sr);
+                        blob.Properties.ContentMD5 = md5;
+                        await blob.SetPropertiesAsync();
 
                     }
 
@@ -274,12 +272,10 @@ namespace Cloudents.FunctionsV2
 
         private static string CalculateMd5(Stream stream)
         {
-            using (var md5 = MD5.Create())
-            {
-                var hash = md5.ComputeHash(stream);
-                var base64String = Convert.ToBase64String(hash);
-                return base64String;
-            }
+            using var md5 = MD5.Create();
+            var hash = md5.ComputeHash(stream);
+            var base64String = Convert.ToBase64String(hash);
+            return base64String;
         }
 
 
