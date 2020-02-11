@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="30days" xml:space="preserve">
-    <value>Last 30 days</value>
+    <value>30 ימים אחרונים</value>
   </data>
   <data name="7days" xml:space="preserve">
-    <value>Last 7 days</value>
+    <value>7 ימים אחרונים</value>
   </data>
   <data name="90days" xml:space="preserve">
-    <value>Last 90 days</value>
+    <value>90 ימים אחרונים</value>
   </data>
   <data name="analytic_title" xml:space="preserve">
     <value>Your Analytics Overview</value>
@@ -157,7 +157,7 @@
     <value>Earn money by selling education content</value>
   </data>
   <data name="followers" xml:space="preserve">
-    <value>Followers</value>
+    <value>עוקבים</value>
   </data>
   <data name="get_started" xml:space="preserve">
     <value>Get started</value>
@@ -169,10 +169,10 @@
     <value>Marketing Tools</value>
   </data>
   <data name="revenue" xml:space="preserve">
-    <value>Revenue</value>
+    <value>פדיון</value>
   </data>
   <data name="sales" xml:space="preserve">
-    <value>Sales</value>
+    <value>מכירות</value>
   </data>
   <data name="see_all" xml:space="preserve">
     <value>See all</value>
