@@ -1,9 +1,9 @@
 <template>
     <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4" dense>
-        <v-col class="space" cols="6">
+        <v-col class="space pa-0 mb-1 mb-sm-0" cols="7">
             <div class="text">{{$t('dashboardTeacher_analytic_title')}}</div>
         </v-col>
-        <v-col class="menuWrap mb-6" cols="6">
+        <v-col class="menuWrap mb-2 mb-sm-6" cols="5">
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <div v-on="on" class="menuDropDown">
@@ -32,7 +32,7 @@
                   <div class="result my-0 my-sm-1">{{$n(val, key === 'revenue' ? 'currency' : '')}}</div>
                   <div class="rate font-weight-bold">
                       <arrowDownIcon class="arrow" v-show="percentage(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
-                      <bdi class="precent" :class="{'down': showIcon(key)}">{{percentage(key)}} <span v-show="percentage(key)">&#37;</span></bdi>
+                      <bdi class="precent mr-1" :class="{'down': showIcon(key)}">{{percentage(key)}} <span v-show="percentage(key)">&#37;</span></bdi>
                   </div>
                 </div>
             </v-col>
@@ -113,13 +113,14 @@ export default {
   @import '../../../../styles/colors.less';
 
   .analyticOverview {
-    padding: 10px 14px;
+    padding: 16px;
     background: white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     border-radius: 8px;
 
     @media (max-width: @screen-xs) {
       box-shadow: none;
+      padding: 14px;
     }
     .space {
       .text {
@@ -151,8 +152,11 @@ export default {
       }
       .menuDropDown {
         display: flex;
-        justify-content: flex-end;
         align-items: center;
+        justify-content: flex-end;
+        @media (max-width: @screen-xss) {
+          justify-content: normal;
+        }
         .arrow-down {
           width: 0;
           height: 0;
@@ -178,11 +182,14 @@ export default {
           }
         }
         .result {
-          font-size: 30px;
+          font-size: 28px;
           color: @global-purple;
           font-weight: 600;
-          @media (max-width: @screen-xs) {
+          @media (max-width: @screen-md) {
             font-size: 24px;
+          }
+          @media (max-width: @screen-xs) {
+            font-size: 26px;
           }
         }
         .rate {
@@ -211,6 +218,12 @@ export default {
       }
       &:last-child .borderSide {
         border-right: none;
+      }
+      &:nth-child(odd) .boxWrap {
+        margin-right: 0 !important;
+      }
+      &:nth-child(even) .boxWrap {
+        margin-left: 0 !important;
       }
     }
     .analyticLoader {
