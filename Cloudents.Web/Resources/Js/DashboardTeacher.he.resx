@@ -195,6 +195,9 @@
   <data name="upload_content" xml:space="preserve">
     <value>Upload content</value>
   </data>
+  <data name="views" xml:space="preserve">
+    <value>צפיות</value>
+  </data>
   <data name="visiters" xml:space="preserve">
     <value>Visiters</value>
   </data>
