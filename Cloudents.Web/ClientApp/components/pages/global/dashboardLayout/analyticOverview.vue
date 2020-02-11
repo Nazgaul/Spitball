@@ -62,12 +62,12 @@ export default {
   },
   data: () => ({
     selectedItem: {title: 'Last 7 days', value: 7, key: '7days'},
+    results: [],
     items: [
       { title: 'Last 7 days', value: 7,  key: '7days' },
       { title: 'Last 30 Day', value: 30,  key: '30days' },
       { title: 'Last 90 Day', value: 90,  key: '90days' },
     ],
-    results: [],
   }),
   computed: {
     isMobile() {
@@ -76,11 +76,12 @@ export default {
   },
   methods: {
     changeDays(item) {
+      if(this.selectedItem.value === item.value) return
+      // this.results = []; if we want to activate the skeleton loader on each call
       this.selectedItem = item;
       this.getData();
     },
     getData() {
-      console.log(this.selectedItem);
       this.$store.dispatch('updateUserStats', this.selectedItem.value).then((data) => {
         this.results = data;
       }).catch(ex => {
