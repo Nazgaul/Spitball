@@ -1,5 +1,6 @@
 import dashboardService from '../services/dashboardService.js';
 import walletService from '../services/walletService.js';
+import searchService from '../services/searchService';
 
 const state = {
    salesItems: [],
@@ -113,6 +114,15 @@ const actions = {
          });
          return;
       }
+   },
+   updateStudnetsAnswersQuestion() {
+      return searchService.activateFunction.feed({filter: "Question"}).then((data) => {
+         return data;
+     }, (err) => {
+         return Promise.reject(err);
+     }).finally(()=>{
+         return
+     });
    }
 };
 

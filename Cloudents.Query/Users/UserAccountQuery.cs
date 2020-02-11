@@ -41,7 +41,8 @@ namespace Cloudents.Query.Users
                                 cast(iif(u.PaymentExists != 0 , 0, null) as bit),
 								cast(iif(u.Country != 'IL', 0 , null) as bit),
                                 cast(1 as bit)
-                            )as NeedPayment
+                            )as NeedPayment,
+case when u.Id in (select UserId from sb.Document where UserId = u.Id and State = 'ok' and Price > 0) then 1 else 0 end as HaveDocs
                       from sb.[user] u
                       left join sb.Tutor t
                      on u.Id = t.Id 

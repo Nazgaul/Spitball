@@ -1,8 +1,9 @@
 // import { lazyComponent } from '../../../../routes/routesUtils';
 import dialogConfig from './dialogConfig.json';
 
-const becomeTutor = () => import('../../../becomeTutor/becomeTutor.vue')
-const login = () => import('../../authenticationPage/login/exitRegisterDialog.vue')
+const becomeTutor = () => import('../../../becomeTutor/becomeTutor.vue');
+const login = () => import('../../authenticationPage/login/exitRegisterDialog.vue');
+const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue');
 
 // function initDialogComponents() {
 //     let dialogs = {}, dialogIndex;
@@ -15,11 +16,10 @@ const login = () => import('../../authenticationPage/login/exitRegisterDialog.vu
 // }
 
 export { dialogConfig }
-// export default { components: initDialogComponents() }
-
 export default {
     components: {
         becomeTutor,
-        login
+        login,
+        upload
     }
 }

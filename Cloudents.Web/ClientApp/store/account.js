@@ -130,6 +130,9 @@ const actions = {
         context.commit('changeIsUserTutor', val);
         context.commit('setIsTutorState', 'pending');
     },
+    updateUserStats(context, lastDays) {
+        return accountService.getAccountStats(lastDays)
+    }
 };
 
 

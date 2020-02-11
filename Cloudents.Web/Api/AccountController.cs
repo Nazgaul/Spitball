@@ -29,6 +29,8 @@ using Cloudents.Core.Exceptions;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 using Cloudents.Query.Users;
+using Cloudents.Query.Tutor;
+using Cloudents.Query.Questions;
 
 namespace Cloudents.Web.Api
 {
@@ -310,6 +312,32 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        [HttpGet("stats")]
+        [ResponseCache(Duration = TimeConst.Month, Location = ResponseCacheLocation.Client)]
+        public async Task<IEnumerable<UserStatsDto>> GetTutorStatsAsync([FromQuery] UserStatsRequest request, CancellationToken token) 
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserStatsQuery(userId, request.Days);
+            var result = await _queryBus.QueryAsync(query, token);
+            return result;
+        }
+
+        [HttpGet("tutorActions")]
+        public async Task<TutorActionsDto> GetTutorActionsAsync(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new TutorActionsQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpGet("questions")]
+        public async Task<IEnumerable<AccountQustionDto>> GetQuestionsAsync([ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile, 
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new AccountQuestionsQuery(userId, profile.Country);
+            return await _queryBus.QueryAsync(query, token);
+        }
 
         //[HttpGet("recording")]
         //public async Task<IEnumerable<SessionRecordingDto>> GetSessionRecordingAsync(CancellationToken token)

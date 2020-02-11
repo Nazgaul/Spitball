@@ -15,8 +15,18 @@ export default {
     },
     methods: {
         openDialog(component) {
-            //TODO : this code is not understandable
-            this.component = component ? dialogConfig[component].loggedPremission ? component : 'login' : ''
+            let c;
+            if(component) {
+                let user = this.$store.getters.accountUser                
+                if(dialogConfig[component].loggedPremission && user) {
+                    c = component;
+                } else {
+                    c = 'login';
+                }
+            } else {
+                c = '';
+            }
+            this.component = c;
         }
     }
 }

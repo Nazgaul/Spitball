@@ -381,6 +381,22 @@ namespace Cloudents.Selenium.Test
                 driver.FindElementByWait(By.XPath("//a[contains(@class, 'phoneNumberSlot')]"));
             }
         }
+
+        [Fact]
+        public void AnalyticTest()
+        {
+            foreach(var driver in this._driver.Drivers)
+            {
+                driver.Manage().Window.Maximize();
+                LoginTest();
+
+                // Make sure this element is exist
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'analyticWrapper')]"));
+                
+                var divs = driver.FindElements(By.CssSelector(".box pa-0 text-center col col-3"));
+                divs.Count.Should().Be(4);
+            }
+        }
     }
 
     public static class SeleniumExtensions

@@ -23,23 +23,46 @@ const lang = `${global.lang}-${global.country}`;
 const numberFormats = {
   'en': {
     currency: {
-      style: 'currency', currency: 'USD'
-    }
+      style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2
+    },
   },
   'en-IL': {
     currency: {
-      style: 'currency', currency: 'ILS'
-    }
+      style: 'currency', currency: 'ILS', minimumFractionDigits: 0, maximumFractionDigits: 2
+    },
   },
   'he-IL': {
     currency: {
-      style: 'currency', currency: 'ILS'
-    }
+      style: 'currency', currency: 'ILS', minimumFractionDigits: 0, maximumFractionDigits: 2
+    },
   },
   'en-IN': {
     currency: {
-      style: 'currency', currency: 'INR'
-    }
+      style: 'currency', currency: 'INR', minimumFractionDigits: 0, maximumFractionDigits: 2
+    },
+  }
+}
+
+const dateTimeFormats = {
+  'en': {
+    short: {
+      year: 'numeric', month: 'short', day: 'numeric'
+    },
+  },
+  'en-IL': {
+    short: {
+      year: 'numeric', month: 'short', day: 'numeric'
+    },
+  },
+  'he-IL': {
+    short: {
+      year: 'numeric', month: 'short', day: 'numeric'
+    },
+  },
+  'en-IN': {
+    short: {
+      year: 'numeric', month: 'short', day: 'numeric'
+    },
   }
 }
 
@@ -48,7 +71,8 @@ export const i18n =  new VueI18n({
   locale:  lang,
   fallbackLocale: 'en',
   messages : {},
-  numberFormats
+  numberFormats,
+  dateTimeFormats
   //messages: loadLocaleMessages()
 })
 
