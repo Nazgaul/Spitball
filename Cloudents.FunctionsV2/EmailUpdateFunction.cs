@@ -191,7 +191,7 @@ namespace Cloudents.FunctionsV2
             return uriBuilderImage.ToString();
         }
 
-        
+
 
         //[FunctionName("EmailUpdateFunction_TimerStart")]
         //public static async Task TimerStart(

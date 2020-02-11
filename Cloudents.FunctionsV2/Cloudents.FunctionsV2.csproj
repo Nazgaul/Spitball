@@ -22,7 +22,7 @@
     <PackageReference Include="shortid" Version="2.0.0" />
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0007" />
     <PackageReference Include="SixLabors.Shapes.Text" Version="1.0.0-beta0009" />
-    <PackageReference Include="Twilio" Version="5.37.4" />
+    <PackageReference Include="Twilio" Version="5.37.1" />
     <PackageReference Include="Willezone.Azure.WebJobs.Extensions.DependencyInjection" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
