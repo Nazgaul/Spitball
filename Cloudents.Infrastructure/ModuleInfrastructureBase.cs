@@ -19,13 +19,11 @@ namespace Cloudents.Infrastructure
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(BaseTaskInterceptor<>));
             builder.RegisterType<RestClient>().As<IRestClient>()
-                //.SingleInstance()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(typeof(LogInterceptor));
 
 
             builder.RegisterType<PayMePaymentProvider>().As<IPayment>();
-            //builder.RegisterType<AzureTextAnalysisProvider>().As<ITextAnalysis>().SingleInstance();
             builder.RegisterType<BinarySerializer>().As<IBinarySerializer>();
             builder.RegisterType<SbJsonSerializer>().As<IJsonSerializer>();
             builder.RegisterType<MailProvider>().As<IMailProvider>();
