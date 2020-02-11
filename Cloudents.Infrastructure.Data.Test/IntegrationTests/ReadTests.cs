@@ -606,5 +606,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             result.Should().NotBeNull();
             result.Count().Should().Be(2);
         }
+
+        [Fact]
+        public async Task AccountQuestionsQuery_Ok()
+        {
+            var query = new AccountQuestionsQuery(159039, "IL");
+            var result = await fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNull();
+        }
     }
 }
