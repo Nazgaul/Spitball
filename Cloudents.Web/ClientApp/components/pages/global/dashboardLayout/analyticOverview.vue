@@ -1,19 +1,19 @@
 <template>
     <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4" dense>
         <v-col class="space" cols="6">
-            <div class="text">{{$t('dashboard_analytic_title')}}</div>
+            <div class="text">{{$t('dashboardTeacher_analytic_title')}}</div>
         </v-col>
         <v-col class="menuWrap mb-6" cols="6">
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <div v-on="on" class="menuDropDown">
-                        <span class="pr-2 selectedItem">{{$t(`dashboard_${selectedItem.key}`)}}</span>
+                        <span class="pr-2 selectedItem">{{$t(`dashboardTeacher_${selectedItem.key}`)}}</span>
                         <div class="arrow-down"></div>
                     </div>
                 </template>
                 <v-list dense>
                     <v-list-item v-for="(item, index) in items" :key="index" @click="changeDays(item)">
-                      <v-list-item-title>{{ $t(`dashboard_${item.key}`) }}</v-list-item-title>
+                      <v-list-item-title>{{ $t(`dashboardTeacher_${item.key}`) }}</v-list-item-title>
                     </v-list-item>
                 </v-list>
             </v-menu>
@@ -28,7 +28,7 @@
               :cols="isMobile ? 6 : 3"
               class="box pa-0 text-center">
                 <div class="boxWrap ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
-                  <div class="type">{{ $t(`dashboard_${key}`) }}</div>
+                  <div class="type">{{ $t(`dashboardTeacher_${key}`) }}</div>
                   <div class="result my-0 my-sm-1">{{$n(val, key === 'revenue' ? 'currency' : '')}}</div>
                   <div class="rate font-weight-bold">
                       <arrowDownIcon class="arrow" v-show="!showIcon(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
