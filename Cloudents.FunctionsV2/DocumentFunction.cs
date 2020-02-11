@@ -208,7 +208,7 @@ namespace Cloudents.FunctionsV2
 
 
         [FunctionName("RemoveOldLocatorsVideo")]
-        public static async Task CalculateMd5Async(
+        public static async Task RemoveOldLocatorsVideoAsync(
             [TimerTrigger("0 0 1 * * *")] TimerInfo timer,
             [Inject] IVideoService videoService,
             CancellationToken token
