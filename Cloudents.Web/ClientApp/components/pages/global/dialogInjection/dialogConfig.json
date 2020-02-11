@@ -1,9 +1,12 @@
 {
-    "becomeTutor": {
-        "loggedPremission": true
-    },
     "login": {
         "loggedPremission": false
+    },
+    "exitRegisterDialog": {
+        "loggedPremission": false
+    },
+    "becomeTutor": {
+        "loggedPremission": true
     },
     "upload": {
         "loggedPremission": true

@@ -1,8 +1,8 @@
 <template>
-    <v-dialog :value="true" persistent :maxWidth="'716'" :content-class="'upload-dialog'">
+    <!-- <v-dialog :value="true" persistent :maxWidth="'716'" :content-class="'upload-dialog'"> -->
         <v-flex xs12>
-            <!-- <v-icon @click="closeUpload()" class="uf-close" v-html="'sbf-close'" /> -->
-            <v-icon @click="closeDialog" class="uf-close" v-html="'sbf-close'"></v-icon>
+            <v-icon @click="closeUpload()" class="uf-close" v-html="'sbf-close'" />
+            <!-- <v-icon @click="closeDialog" class="uf-close" v-html="'sbf-close'"></v-icon> -->
             <v-card class="uf-main elevation-0">
                 <v-stepper class="uf-mStepper elevation-0" v-model="currentStep" >
                     
@@ -46,7 +46,7 @@
             </div>
             </v-card>  
         </v-flex>
-    </v-dialog>
+    <!-- </v-dialog> -->
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
@@ -199,8 +199,8 @@ export default {
             //reset return to upload
             this.setReturnToUpload(false);
             //close
-            this.closeDialog();
-            // this.updateDialogState(false);
+            // this.closeDialog();
+            this.updateDialogState(false);
         },
         nextStep() {
             if (this.currentStep === this.steps) {
