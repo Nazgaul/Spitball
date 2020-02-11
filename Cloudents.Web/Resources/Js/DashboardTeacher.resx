@@ -129,8 +129,38 @@
   <data name="analytic_title" xml:space="preserve">
     <value>Your Analytics Overview</value>
   </data>
+  <data name="book_btn" xml:space="preserve">
+    <value>Book</value>
+  </data>
+  <data name="book_session" xml:space="preserve">
+    <value>Book an unbording session</value>
+  </data>
+  <data name="coming_soon" xml:space="preserve">
+    <value>Coming soon</value>
+  </data>
+  <data name="connect_btn" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="connect_calendar" xml:space="preserve">
+    <value>Connect your calendar</value>
+  </data>
+  <data name="costume_coupon" xml:space="preserve">
+    <value>Create your own costume coupon</value>
+  </data>
+  <data name="create_coupon" xml:space="preserve">
+    <value>Create a coupon</value>
+  </data>
   <data name="followers" xml:space="preserve">
     <value>Followers</value>
+  </data>
+  <data name="get_started" xml:space="preserve">
+    <value>Get started</value>
+  </data>
+  <data name="lets_go" xml:space="preserve">
+    <value>Let’s go</value>
+  </data>
+  <data name="marketing_title" xml:space="preserve">
+    <value>Marketing Tools</value>
   </data>
   <data name="revenue" xml:space="preserve">
     <value>Revenue</value>
@@ -138,7 +168,22 @@
   <data name="sales" xml:space="preserve">
     <value>Sales</value>
   </data>
+  <data name="share_post" xml:space="preserve">
+    <value>Share a social post</value>
+  </data>
+  <data name="stand_out" xml:space="preserve">
+    <value>Stand out on Facebook &amp; Instagram</value>
+  </data>
+  <data name="task_completed" xml:space="preserve">
+    <value>Task completed</value>
+  </data>
   <data name="visiters" xml:space="preserve">
     <value>Visiters</value>
+  </data>
+  <data name="works_btn" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="work_hours" xml:space="preserve">
+    <value>Set your work hours</value>
   </data>
 </root>

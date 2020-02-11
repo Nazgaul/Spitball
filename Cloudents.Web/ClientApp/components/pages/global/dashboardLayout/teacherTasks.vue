@@ -4,7 +4,7 @@
             <userAvatar :size="'60'" :user-name="user.name" :user-id="user.id" :userImageUrl="user.image"/> 
         </v-col>
         <v-col class="taskCompleted  pl-4" align-self="center">
-            <div class="mb-1 completedTitle">{{taksNumberCompleted}} {{$t('dashboard_task_completed')}}</div>
+            <div class="mb-1 completedTitle">{{taksNumberCompleted}} {{$t('dashboardTeacher_task_completed')}}</div>
             <v-progress-linear
               active
               :background-opacity="0.3"
@@ -19,31 +19,31 @@
             <div class="d-flex align-center">
               <assignmentIcon class="assignIcon" />
               <div class="taskText pl-3">
-                {{$t('dashboard_book_session')}}
+                {{$t('dashboardTeacher_book_session')}}
               </div>
             </div>
             <arrowRight class="arrowRight d-flex d-sm-none" />
-            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboard_book_btn')}}</v-btn>
+            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_book_btn')}}</v-btn>
         </v-col>
         <v-col cols="12" class="taskCol py-4 d-flex justify-space-between">
             <div class="d-flex align-center">
               <assignmentIcon class="assignIcon" />
               <div class="taskText pl-3">
-                {{$t('dashboard_connect_calendar')}}
+                {{$t('dashboardTeacher_connect_calendar')}}
               </div>
             </div>
             <arrowRight class="arrowRight d-flex d-sm-none" />
-            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboard_connect_btn')}}</v-btn>
+            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_connect_btn')}}</v-btn>
         </v-col>
         <v-col cols="12" class="taskCol pb-0 py-4 d-flex justify-space-between">
             <div class="d-flex align-center">
               <assignmentIcon class="assignIcon" />
                 <div class="taskText pl-3">
-                  {{$t('dashboard_work_hours')}}
+                  {{$t('dashboardTeacher_work_hours')}}
                 </div>
             </div>
             <arrowRight class="arrowRight d-flex d-sm-none" />
-            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboard_works_btn')}}</v-btn>
+            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_works_btn')}}</v-btn>
         </v-col>
     </v-row>
 </template>
