@@ -28,6 +28,8 @@ import utilitiesService from './services/utilities/utilitiesService';
 // Filters
 import './filters/filters';
 
+// Directives
+import { openDialog } from './directives/openDialog.js'
 
 
 
@@ -81,6 +83,7 @@ Vue.use(VueAnalytics, {
 });
 
 Vue.directive('language', Language);
+Vue.directive('openDialog',openDialog);
 
 
 
@@ -93,7 +96,7 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
 }
 
 Vue.prototype.$openDialog = function(dialogName){
-    this.$router.push({query:{...this.$route.query,dialog:dialogName}})
+    router.push({query:{...router.currentRoute.query,dialog:dialogName}})
 }
 Vue.prototype.$closeDialog = function(){
     this.$router.push({query:{...this.$route.query,dialog:undefined}})
