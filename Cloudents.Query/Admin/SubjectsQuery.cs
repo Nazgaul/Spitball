@@ -28,7 +28,8 @@ namespace Cloudents.Query.Admin
                                         from sb.CourseSubject cs
                                         left join sb.SubjectTranslation st
 	                                        on cs.Id = st.SubjectId 
-	                                        and st.LanguageId = (select LanguageId from sb.AdminUser where Id = @Id)";
+	                                        and st.LanguageId = (select LanguageId from sb.AdminUser where Id = @Id)
+                                            order by COALESCE(st.NameTranslation, cs.Name)";
 
                 using (var conn = _dapperRepository.OpenConnection())
                 {
