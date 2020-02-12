@@ -90,12 +90,12 @@ export default {
       if(country === "IL") {
         name = 'test-test';
         id = "160634";
-      } else if(country === "US") {
-        id = "488449";
-        name = 'David Hughes';
       } else if(country === "IN") {
         name = 'Bhaskar Patel';
         id = "461552";
+      } else {
+        id = "488449";
+        name = 'David Hughes';
       }
       this.$router.push({name: 'profile', params: {id, name, openCalendar: true}})
     },
