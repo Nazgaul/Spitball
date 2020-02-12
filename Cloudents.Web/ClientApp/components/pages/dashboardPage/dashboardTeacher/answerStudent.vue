@@ -7,13 +7,13 @@
         <v-col class="answerList pr-3 pa-0">
             <div class="answerItem pb-3"  v-for="(answer, index) in answers" :key="index">
                 <UserAvatar :size="'34'" :user-name="answer.user.name" :user-id="answer.user.id" :userImageUrl="answer.user.image" /> 
-                <div class="middle pl-4 pb-4">
+                <router-link class="middle pl-4 pb-4" :to="{name: 'question', params: {id: answer.id}}">
                     <div class="top d-flex justify-space-between">
                         <div class="name mb-1 pr-4 text-truncate">{{answer.user.name}}</div>
                         <div class="date">{{ $d(new Date(answer.dateTime), 'short') }}</div>
                     </div>
                     <div class="text">{{answer.text}}</div>
-                </div>
+                </router-link>
             </div>
         </v-col>
     </v-row>
