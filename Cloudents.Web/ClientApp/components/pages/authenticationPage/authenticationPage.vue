@@ -1,6 +1,6 @@
 <template>
   <div class="authenticationPage">
-    <router-link class="backButton" :to="{query: {dialog: 'login'}}">
+    <router-link class="backButton" :to="{query: {dialog: 'exitRegisterDialog'}}">
       <close class="closeIcon" />
     </router-link>
 

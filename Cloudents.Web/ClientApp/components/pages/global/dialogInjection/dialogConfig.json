@@ -3,7 +3,7 @@
         "loggedPremission": false
     },
     "exitRegisterDialog": {
-        "loggedPremission": false
+        "loggedPremission": true
     },
     "becomeTutor": {
         "loggedPremission": true
