@@ -29,10 +29,11 @@ export default {
   }),
   methods: {
     getSpitballBlogs() {
+      let self = this;
       this.$store.dispatch('updateSpitballBlogs').then(blog => {
-        this.tips = blog;
+        self.tips = blog;
       }).catch(ex => {
-        console.log(ex);
+        self.$appInsights.trackException({exception: new Error(ex)});
       })
     }
   },
