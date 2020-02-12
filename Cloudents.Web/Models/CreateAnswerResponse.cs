@@ -1,6 +1,4 @@
-﻿using Cloudents.Core;
-
-namespace Cloudents.Web.Models
+﻿namespace Cloudents.Web.Models
 {
     //public class CreateAnswerResponse
     //{

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Questions
 {
-    public class AccountQuestionsQuery : IQuery<IEnumerable<AccountQustionDto>>
+    public class AccountQuestionsQuery : IQuery<IEnumerable<AccountQuestionDto>>
     {
         public AccountQuestionsQuery(long id, string country)
         {
@@ -19,7 +19,7 @@ namespace Cloudents.Query.Questions
         public long Id { get; }
         public string Country { get; }
 
-        internal sealed class AccountQuestionsQueryHandler : IQueryHandler<AccountQuestionsQuery, IEnumerable<AccountQustionDto>>
+        internal sealed class AccountQuestionsQueryHandler : IQueryHandler<AccountQuestionsQuery, IEnumerable<AccountQuestionDto>>
         {
             private readonly IStatelessSession _session;
             private readonly IUrlBuilder _urlBuilder;
@@ -29,7 +29,7 @@ namespace Cloudents.Query.Questions
                 _urlBuilder = urlBuilder;
             }
 
-            public async Task<IEnumerable<AccountQustionDto>> GetAsync(AccountQuestionsQuery query, CancellationToken token)
+            public async Task<IEnumerable<AccountQuestionDto>> GetAsync(AccountQuestionsQuery query, CancellationToken token)
             {
                 const string sql = @"with cte as (
                                 select top 1 * from (select 1 as o, u2.Id as UniversityId, COALESCE(u2.country,u.country) as Country, u.id as userid
@@ -62,8 +62,8 @@ namespace Cloudents.Query.Questions
                 var res = await _session.CreateSQLQuery(sql)
                     .SetInt64("userid", query.Id)
                     .SetString("country", query.Country)
-                    .SetResultTransformer(new DeepTransformer<AccountQustionDto>('.', new SbAliasToBeanResultTransformer<AccountQustionDto>()))
-                    .ListAsync<AccountQustionDto>(token);
+                    .SetResultTransformer(new DeepTransformer<AccountQuestionDto>('.', new SbAliasToBeanResultTransformer<AccountQuestionDto>()))
+                    .ListAsync<AccountQuestionDto>(token);
 
                 return res.Select(s =>
                 {

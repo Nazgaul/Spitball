@@ -8,7 +8,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Web.Resources.Resources;
 
 namespace Cloudents.Web.Filters
 {

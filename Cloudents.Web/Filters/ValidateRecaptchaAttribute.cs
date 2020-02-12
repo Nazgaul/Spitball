@@ -21,7 +21,7 @@ namespace Cloudents.Web.Filters
 
         public ValidateRecaptchaAttribute(string secretKey) : base(typeof(ValidateRecaptchaImpl))
         {
-            this.Arguments = new object[] { secretKey };
+            Arguments = new object[] { secretKey };
 
             //SecretKey = secretKey;
         }

@@ -88,13 +88,13 @@ namespace Cloudents.Web.Seo
             }
         }
 
-        private static bool CountryFilter(UserCourse userCourse, Tutor tutor, bool isFrymo)
-        {
-            if (isFrymo)
-            {
-                return userCourse.IsTeach && tutor.User.Country == Country.India.Name;
-            }
-            return userCourse.IsTeach && tutor.User.Country != Country.India.Name;
-        }
+        //private static bool CountryFilter(UserCourse userCourse, Tutor tutor, bool isFrymo)
+        //{
+        //    if (isFrymo)
+        //    {
+        //        return userCourse.IsTeach && tutor.User.Country == Country.India.Name;
+        //    }
+        //    return userCourse.IsTeach && tutor.User.Country != Country.India.Name;
+        //}
     }
 }
