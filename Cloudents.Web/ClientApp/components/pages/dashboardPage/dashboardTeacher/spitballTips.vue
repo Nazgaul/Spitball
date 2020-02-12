@@ -2,10 +2,10 @@
     <v-row class="spitballTips" dense>
         <v-col cols="12" class="pa-0 mb-4 d-flex justify-space-between">
             <div class="tipTitle">{{$t('dashboardTeacher_spitball_tips')}}</div>
-            <router-link class="seeAll" :to="{ name: 'routeName'}">{{$t('dashboardTeacher_see_all')}}</router-link>
+            <a class="seeAll" href="https://www.blog.spitball.co/blog-1/categories/english" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
         </v-col>
-        <v-col class="tipsList d-flex pa-0" cols="12">
-            <router-link class="tipsListBox" v-for="(tip, index) in tips" :key="index" :to="tip.url">
+        <v-col class="tipsList d-flex pa-0" cols="4" v-for="(tip, index) in tips" :key="index">
+            <router-link class="tipsListBox" :to="tip.url">
                 <div class="top">
                     <img :src="$proccessImageUrl(tip.image, 202, 101)" alt="image" />
                 </div>
@@ -20,6 +20,7 @@
         </v-col>
     </v-row>
 </template>
+
 <script>
 export default {
   name: "spitballTips",
@@ -40,6 +41,7 @@ export default {
   }
 }
 </script>
+
 <style lang="less">
 @import '../../../../styles/mixin.less';
 @import '../../../../styles/colors.less';
@@ -63,14 +65,6 @@ export default {
   }
   .tipsList {
     .tipsListBox {
-      flex: 1;
-      margin: 0 10px;
-      &:first-child {
-        margin-left: 0;
-      }
-      &:last-child {
-        margin-right: 0;
-      }
       .top {
         display: flex;
         img {
@@ -94,6 +88,15 @@ export default {
           }
         }
       }
+    }
+    &:nth-child(2) .tipsListBox {
+      margin-right: 8px
+    }
+    &:nth-child(3) .tipsListBox {
+      margin: 0 4px;
+    }
+    &:nth-child(4) .tipsListBox {
+      margin-left: 8px;
     }
   }
 }
