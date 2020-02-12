@@ -115,6 +115,16 @@ function createFollowersItems({data}) {
    data.map(item => followersItems.push(new FollowersItem(item)));
    return followersItems;
 }
+
+function TutorActions(objInit) {
+   this.calendarShared = objInit.calendarShared;
+   this.haveHours = objInit.haveHours;
+}
+
+function createTutorActions({data}) {
+   return new TutorActions(data);
+}
+
 function getSalesItems(){
    return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex);
 }
@@ -130,11 +140,15 @@ function getStudyRoomItems(){
 function getFollowersItems(){
    return connectivityModule.http.get('/Account/followers').then(createFollowersItems).catch(ex => ex);
 }
+function getTutorActions(){
+   return connectivityModule.http.get('/Account/tutorActions').then(createTutorActions).catch(ex => ex);
+}
 
 export default {
    getSalesItems,
    getContentItems,
    getPurchasesItems,
    getStudyRoomItems,
-   getFollowersItems
+   getFollowersItems,
+   getTutorActions
 }

@@ -123,6 +123,9 @@ const actions = {
      }).finally(()=>{
          return
      });
+   },
+   updateTutorActions() {
+      return dashboardService.getTutorActions()
    }
 };
 
