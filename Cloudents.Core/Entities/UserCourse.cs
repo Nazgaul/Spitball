@@ -79,7 +79,7 @@ namespace Cloudents.Core.Entities
 
         private readonly List<IEvent> _domainEvents = new List<IEvent>();
 
-        public virtual IReadOnlyList<IEvent> DomainEvents { get; }
+        public virtual IReadOnlyList<IEvent> DomainEvents => _domainEvents;
         public virtual void ClearEvents()
         {
             _domainEvents.Clear();
