@@ -17,8 +17,8 @@ export default {
         openDialog(component) {
             let c;
             if(component) {
-                let user = this.$store.getters.accountUser                
-                if(dialogConfig[component].loggedPremission && user) {
+                // let user = this.$store.getters.accountUser                
+                if(dialogConfig[component].loggedPremission) {
                     c = component;
                 } else {
                     c = 'login';
