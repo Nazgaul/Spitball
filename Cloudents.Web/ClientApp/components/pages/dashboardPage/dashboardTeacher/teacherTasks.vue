@@ -4,16 +4,26 @@
             <userAvatar :size="'60'" :user-name="user.name" :user-id="user.id" :userImageUrl="user.image"/> 
         </v-col>
         <v-col class="taskCompleted  pl-4" align-self="center">
-            <div class="mb-1 completedTitle">{{taksNumberCompleted}}/{{totalTasks}} {{$t('dashboardTeacher_task_completed')}}</div>
-            <v-progress-linear
-              active
-              :background-opacity="0.3"
-              background-color="#dddddd"
-              height="6"
-              rounded
-              :value="value"
-              color="#5bbdb7"
-            ></v-progress-linear>
+            <template v-if="taksNumberCompleted !== 6">
+              <div class="hasTask">
+                <div class="mb-1 completedTitle">{{taksNumberCompleted}}/{{totalTasks}} {{$t('dashboardTeacher_task_completed')}}</div>
+                <v-progress-linear
+                  active
+                  :background-opacity="0.3"
+                  background-color="#dddddd"
+                  height="6"
+                  rounded
+                  :value="value"
+                  color="#5bbdb7"
+                ></v-progress-linear>
+              </div>
+            </template>
+            <template v-else>
+              <div class="noTask">
+                <div class="completedTitle">{{$t('dashboardTeacher_no_task')}}</div>
+                <checkCircle />
+              </div>
+            </template>
         </v-col>
         <v-col cols="12" class="taskCol py-4 d-flex justify-space-between">
             <div class="d-flex align-center">
@@ -33,7 +43,7 @@
               </div>
             </div>
             <arrowRight class="arrowRight d-flex d-sm-none" />
-            <v-btn class="taskAction d-none d-sm-flex" @click="connectCalender" :loading="btnLoading" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_connect_btn')}}</v-btn>
+            <v-btn class="taskAction d-none d-sm-flex" :to="{name: 'myCalendar'}" :loading="btnLoading" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_connect_btn')}}</v-btn>
         </v-col>
         <v-col cols="12" class="taskCol pb-0 py-4 d-flex justify-space-between" v-if="!haveHours">
             <div class="d-flex align-center">
@@ -43,19 +53,22 @@
                 </div>
             </div>
             <arrowRight class="arrowRight d-flex d-sm-none" />
-            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_works_btn')}}</v-btn>
+            <v-btn class="taskAction d-none d-sm-flex" :to="{name: 'myCalendar'}" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_works_btn')}}</v-btn>
         </v-col>
     </v-row>
 </template>
+
 <script>
 import assignmentIcon from './images/assignment.svg';
 import arrowRight from './images/arrow-right-copy-6.svg';
+import checkCircle from './images/check-circle.svg';
 
 export default {
   name: "teacherTasks",
   components: {
     assignmentIcon,
-    arrowRight
+    arrowRight,
+    checkCircle
   },
   data: () => ({
     totalTasks: 6,
@@ -71,21 +84,22 @@ export default {
     },
   },
   methods: {
-    connectCalender() {
-      this.btnLoading = true;
-      this.$store.dispatch('gapiSignIn').then(()=>{
-        console.log("connect calendar");
-      }, () => {
-        this.btnLoading = false;
-      })
-    },
+    // connectCalender() {
+    //   this.btnLoading = true;
+    //   this.$store.dispatch('gapiSignIn').then(()=>{
+    //     console.log("connect calendar");
+    //   }, () => {
+    //     this.btnLoading = false;
+    //   })
+    // },
     getTutorActions() {
+      let self = this;
       this.$store.dispatch('updateTutorActions').then(res => {
         this.calendarShared = res.calendarShared;
         this.haveHours = res.haveHours;
         this.updateTaksNumberCompleted()
       }).catch(ex => {
-        console.log(ex);
+        self.$appInsights.trackException({exception: new Error(ex)});
       })
     },
     updateTaksNumberCompleted() {
@@ -101,12 +115,6 @@ export default {
   },
   created() {
     this.getTutorActions()
-    let self = this
-    this.$loadScript("https://apis.google.com/js/api.js").then(() => {
-      setTimeout(() => {
-        self.$store.dispatch('gapiLoad',['calendar']);
-      });
-    })
   }
 }
 </script>
@@ -124,7 +132,11 @@ export default {
     box-shadow: none;
   }
   .taskCompleted {
-
+    .noTask {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
     .completedTitle {
       color: @global-purple;
       font-weight: 600;
