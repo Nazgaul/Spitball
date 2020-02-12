@@ -15,7 +15,7 @@ import resultFilter from '../helpers/resultFilter/resultFilter.vue';
 import requestBox from '../../pages/feedPage/components/requestActions/requestActions.vue';
 import coursesTab from "../../pages/feedPage/components/coursesTab/coursesTab.vue";
 import generalPage from '../../helpers/generalPage.vue';
-const analyticOverview = () => import('../../pages/global/dashboardLayout/analyticOverview.vue');
+const analyticOverview = () => import('../../pages/global/analyticOverview/analyticOverview.vue');
 
 // SVG
 import emptyState from "../svg/no-match-icon.svg";
