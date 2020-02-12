@@ -85,16 +85,19 @@ export default {
   },
   methods: {
     bookSession() {
-      let id;
+      let id, name;
       let country = global.country;
       if(country === "IL") {
-        id = 456373;
+        name = 'test-test';
+        id = "160634";
       } else if(country === "US") {
-        id = 488449;
+        id = "488449";
+        name = 'David Hughes';
       } else if(country === "IN") {
-        id = 461552;
+        name = 'Bhaskar Patel';
+        id = "461552";
       }
-      this.$router.push({name: 'profile', params: { id }})
+      this.$router.push({name: 'profile', params: {id, name, openCalendar: true}})
     },
     getTutorActions() {
       let self = this;
