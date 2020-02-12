@@ -1,8 +1,8 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
-using Dapper;
+using NHibernate;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,232 +21,193 @@ namespace Cloudents.Query.Users
 
         internal sealed class UserStatsQueryHandler : IQueryHandler<UserStatsQuery, IEnumerable<UserStatsDto>>
         {
-            //private readonly IStatelessSession _session;
-            private readonly IDapperRepository _dapperRepository;
-            public UserStatsQueryHandler(IDapperRepository dapperRepository)
+            private readonly IStatelessSession _session;
+            public UserStatsQueryHandler(QuerySession session)
             {
-                _dapperRepository = dapperRepository;
+                _session = session.StatelessSession;
             }
+
+
+            const string tRevenue = "tRevenue";
+            const string sRevenue = "sRevenue";
+            const string tSales = "tSales";
+            const string sSales = "sSales";
+            const string followers = "followers";
+            const string views = "views";
+                
 
             public async Task<IEnumerable<UserStatsDto>> GetAsync(UserStatsQuery query, CancellationToken token)
             {
+                
 
-                //const string tRevenueSQL = @"select sum(price) as price
-                //                    from sb.[Transaction] t
-                //                    where [user_Id] = :UserId and [type] = 'Earned'
-                //                    and Created between GETUTCDATE() - :startDays and GETUTCDATE() - :endDays;";
+            const string tRevenueSQL = @"select cast(isnull(sum(price), 0) as int) as price
+                                    from sb.[Transaction] t
+                                    where [user_Id] = :UserId and [action] in ('SoldDocument','ReferringUser')
+                                    and Created between :from and :to;";
 
-                //const string sRevenueSQL = @"select sum(Price) as price
-                //                            from sb.StudyRoom sr
-                //                            join sb.StudyRoomSession srs
-                //                             on sr.Id = srs.StudyRoomId
-                //                            where sr.TutorId = :UserId and srs.Ended is not null 
-                //                            and srs.Created between GETUTCDATE() - :startDays and GETUTCDATE() - :endDays;";
+                const string sRevenueSQL = @"select cast(isnull(sum(Price), 0) as int) as price
+                                            from sb.StudyRoom sr
+                                            join sb.StudyRoomSession srs
+                                                on sr.Id = srs.StudyRoomId
+                                            where sr.TutorId = :UserId and srs.Ended is not null 
+                                            and srs.Created between :from and :to;";
 
-                //const string salesSQL = @"select count(1) as Sales
-                //                    from sb.[Transaction] t
-                //                    where [user_Id] = :UserId and [type] = 'Earned'
-                //                    and Created between GETUTCDATE() - :startDays and GETUTCDATE() - :endDays;";
+                const string tSalesSQL = @"select count(1) as Sales
+                                    from sb.[Transaction] t
+                                    where [user_Id] = :UserId and [action] in ('SoldDocument','ReferringUser')
+                                    and Created between :from and :to;";
 
-                //const string followersSQL = @"select count(1) as Followers
-                //            from sb.UsersRelationship
-                //            where UserId = :UserId and Created < GETUTCDATE() - :endDays;";
+                const string sSalesSQL = @"select count(1) as Sales
+                                            from sb.StudyRoom sr
+                                            join sb.StudyRoomSession srs
+                                                on sr.Id = srs.StudyRoomId
+                                            where sr.TutorId = :UserId and srs.Ended is not null 
+                                            and srs.Created between :from and :to;";
 
-
-                //const string viewsSQL = @"select sum([Views]) as [Views] from sb.Document where [State] = 'ok' and UserId = :UserId;";
-
-                //const string viewsHistorySQL = @"with cte as (
-                //                            select d.Id, max(dh.[Views]) as [Views]
-                //                            from [sb].[DocumentHistory] dh
-                //                            join sb.Document d
-                //                             on d.Id = dh.Id and d.State = 'ok'
-                //                            where d.UserId = :UserId
-                //                            and dh.EndDate < GETUTCDATE() - :startDays
-                //                            group by d.Id
-                //                            )
-                //                            select sum([Views]) as [Views] from cte;";
-                //var period = new Period(query.Days);
-
-
-                //var sqlQueries = new Dictionary<string, >
-
-                //CreateSqlQuery()
-
-                //var tRevenueFirstFuture = _session.CreateSQLQuery(tRevenueSQL)
-                //                .SetInt64("UserId", query.UserId)
-                //                .SetInt32("startDays", query.Days)
-                //                .SetInt32("endDays", 0)
-                //                .FutureValue<int>();
-
-                //var sRevenueFirstFuture = _session.CreateSQLQuery(sRevenueSQL)
-                //                .SetInt64("UserId", query.UserId)
-                //                .SetInt32("startDays", query.Days)
-                //                .SetInt32("endDays", 0)
-                //                .FutureValue<int>();
-
-                //var thisPeriod = { 0, 7 };
-                //var lastPeriod = { 7, 14 };
+                const string followersSQL = @"select count(1) as Followers
+                                            from sb.UsersRelationship
+                                            where UserId = :UserId and Created < :to;";
 
 
 
 
-                //var dictionary = new Dictionary<string, string>();
-                //dictionary.Add("F)
+                const string viewsSQL = @"with cte as (
+                                            select d.Id, max(dh.[Views]) as [MaxViews], min(dh.[Views]) as [MinViews]
+                                            from [sb].[DocumentHistory] dh
+                                            join sb.Document d
+                                                on d.Id = dh.Id and d.State = 'ok'
+                                            where d.UserId = :UserId
+                                            and dh.EndDate < :to and dh.BeginDate > :from
+                                            group by d.Id
+                                            )
+                                            select cast(isnull(sum([MaxViews]), 0) - isnull(sum(MinViews), 0) as int) as [Views] from cte;";
 
+                const string countrySQL = @"select country from sb.[user] where Id = :UserId";
 
-                const string sql = @"with cteLast as (
-select d.Id, max(dh.[Views]) as [MaxViews], min(dh.[Views]) as [MinViews]
-from [sb].[DocumentHistory] dh
-join sb.Document d
-    on d.Id = dh.Id and d.State = 'ok'
-where d.UserId = @UserId
-and dh.EndDate < GETUTCDATE() - @days and dh.BeginDate > GETUTCDATE() - @days*2
-group by d.Id
-),
-cteThis as (
- select d.Id, max(dh.[Views]) as [MaxViews], min(dh.[Views]) as [MinViews]
-                                from [sb].[DocumentHistory] dh
-                                join sb.Document d
-                                 on d.Id = dh.Id and d.State = 'ok'
-                                where d.UserId = @UserId
-                                and dh.BeginDate > GETUTCDATE() - @days
-                                group by d.Id
-)
+                var period = new Period(query.Days, query.UserId);
 
-     select 1 as [Period], tPrice.Price as tRevenue, 
-								sPrice.Price as sRevenue,
-								tPrice.Sales + sPrice.Sales as Sales, Followers.Followers, [Views].[Views] as Views
-                                from
-                                (
-                                select sum(price) as price, count(1) as Sales
-                                from sb.[Transaction] t
-                                where [user_Id] = @UserId and [action] in ('SoldDocument','ReferringUser')
-                                and Created > GETUTCDATE() - @days
-                                ) tPrice
-                                ,
-                                (
-                                select sum(Price) as price, count(1) as Sales
-                                from sb.StudyRoom sr
-                                join sb.StudyRoomSession srs
-                                 on sr.Id = srs.StudyRoomId
-                                where sr.TutorId = @UserId and srs.Ended is not null and srs.Created > GETUTCDATE() - @days
-                                )
-                                sPrice
-                                ,
-                                (
-                                select count(1) as Followers
-                                from sb.UsersRelationship
-                                where UserId = @UserId
-                                )Followers,
-                                (
-                               select sum([MaxViews]) - sum(MinViews) as [Views] from cteThis
-                                )[Views]
-
-                                union all
-
-                                select 2 as [Period], tPrice.Price as tRevenue, 
-								sPrice.Price as sRevenue,
-								tPrice.Sales + sPrice.Sales as Sales, Followers.Followers, [Views].[Views] as Views
-                                from
-                                (
-                                select sum(price) as price, count(1) as Sales
-                                from sb.[Transaction] t
-                                where [user_Id] = @UserId and [action] in ('SoldDocument','ReferringUser')
-                                and Created > (GETUTCDATE() - (@days*2)) and Created < GETUTCDATE() - @days
-                                ) tPrice
-                                ,
-                                (
-                                select sum(Price) as price, count(1) as Sales
-                                from sb.StudyRoom sr
-                                join sb.StudyRoomSession srs
-                                 on sr.Id = srs.StudyRoomId
-                                where sr.TutorId = @UserId and srs.Ended is not null 
-                                and srs.Created > GETUTCDATE() - (@days*2)
-                                and srs.Created < GETUTCDATE() - @days
-                                )
-                                sPrice
-                                ,
-                                (
-                                select count(1) as Followers
-                                from sb.UsersRelationship
-                                where UserId = @UserId and (Created < GETUTCDATE() - @days or Created is null)
-                                )Followers,
-                                (
-                                select sum([MaxViews]) - sum(MinViews) as [Views] from cteLast
-                                ) [Views]
-                                order by [Period];
-
-                        select country from sb.[user] where Id = @UserId";
-                using (var conn = _dapperRepository.OpenConnection())
+                
+                var sqlQueries = new Dictionary<string, string>
                 {
-                    using (var multi = conn.QueryMultiple(sql, new { query.Days, query.UserId }))
+                    { tRevenue, tRevenueSQL },
+                    { sRevenue, sRevenueSQL },
+                    { tSales, tSalesSQL },
+                    { sSales, sSalesSQL },
+                    { followers, followersSQL },
+                    { views, viewsSQL }
+                };
+
+                var futureQueries = new Dictionary<string, (IFutureValue<int> current, IFutureValue<int> previous)>();
+
+                foreach (var sql in sqlQueries)
+                {
+                    if (sql.Key == followers)
                     {
-                        var resObj = await multi.ReadAsync<TempUserStats>();
-                        var countryRes = await multi.ReadFirstAsync<string>();
-                        Country country = countryRes;
-                        return resObj.Select(s => new UserStatsDto() {
-                            Followers = s.Followers,
-                            Views = s.Views,
-                            Sales = s.Sales,
-                            Revenue = country.ConversationRate * s.tRevenue + s.sRevenue
-                        });
+                        futureQueries.Add(sql.Key, CreateSqlFollowersQuery(sql.Value, period));
                     }
+                    else
+                    {
+                        futureQueries.Add(sql.Key, CreateSqlQuery(sql.Value, period));
+                    }
+                }
+                var countryFuture = _session.CreateSQLQuery(countrySQL)
+                    .SetInt64("UserId", query.UserId)
+                    .FutureValue<string>();
+                var resDictionary = new Dictionary<string, (int current, int previous)>();
+
+                foreach (var item in futureQueries)
+                {
+                    var cueerntRes = await item.Value.current.GetValueAsync(token);
+                    var previousRes = await item.Value.previous.GetValueAsync(token);
+                    resDictionary.Add(item.Key, (cueerntRes, previousRes));
+                }
+
+                var countryRes = await countryFuture.GetValueAsync(token);
+                Country country = countryRes;
+
+                var cueerntResult = new UserStatsDto();
+                var previousResult = new UserStatsDto();
+
+                cueerntResult.Revenue = country.ConversationRate * resDictionary[tRevenue].current + resDictionary[sRevenue].current;
+                cueerntResult.Sales = resDictionary[tSales].current + resDictionary[sSales].current;
+                cueerntResult.Followers = resDictionary[followers].current;
+                cueerntResult.Views = resDictionary[views].current;
+
+                previousResult.Revenue = country.ConversationRate * resDictionary["tRevenue"].previous + resDictionary["sRevenue"].previous;
+                previousResult.Sales = resDictionary[tSales].previous + resDictionary[sSales].previous;
+                previousResult.Followers = resDictionary[followers].previous;
+                previousResult.Views = resDictionary[views].previous;
+
+                return new List<UserStatsDto>()
+                {
+                    cueerntResult,
+                    previousResult
+                };
+            }
+       
+
+            private class Period
+            {
+                public Period(int days, long userId)
+                {
+                    From = DateTime.UtcNow.AddDays(-days);
+                    To = DateTime.UtcNow;
+                    Days = days;
+                    UserId = userId;
+                }
+
+                private Period(Period currentPeriod)
+                {
+                    To = currentPeriod.From;
+                    From = To.AddDays(-currentPeriod.Days);
+                    UserId = currentPeriod.UserId;
+                }
+
+                private int Days { get; }
+                public long UserId { get; }
+                public DateTime From { get; }
+
+                public DateTime To { get; set; }
+
+                public Period NextPeriod()
+                {
+                    return new Period(this);
                 }
             }
 
-            private class TempUserStats
+            private (IFutureValue<int> current, IFutureValue<int> previous) CreateSqlQuery(string sql, Period query)
             {
-                public decimal tRevenue { get; set; }
-                public decimal sRevenue { get; set; }
-                public int Sales { get; set; }
-                public int Views { get; set; }
-                public int Followers { get; set; }
+                var x = CreateSqlQuery2(sql, query);
+                var y = CreateSqlQuery2(sql, query.NextPeriod());
+
+                return (x, y);
             }
 
-            //private class Period
-            //{
-            //    public Period(int days)
-            //    {
-            //        From = DateTime.UtcNow;
-            //        To = DateTime.UtcNow.AddDays(-days);
-            //        Days = days;
-            //    }
+            private IFutureValue<int> CreateSqlQuery2(string sql, Period query)
+            {
 
-            //    private Period(Period currentPeriod)
-            //    {
-            //        From = currentPeriod.To;
-            //        To = From.AddDays(-Days);
-            //    }
+                return _session.CreateSQLQuery(sql)
+                                   .SetInt64("UserId", query.UserId)
+                                   .SetDateTime("from", query.From)
+                                   .SetDateTime("to", query.To)
+                                   .FutureValue<int>();
+            }
 
-            //    private int Days { get; }
+            private (IFutureValue<int> current, IFutureValue<int> previous) CreateSqlFollowersQuery(string sql, Period query)
+            {
+                var x = CreateSqlFollowersQuery2(sql, query);
+                var y = CreateSqlFollowersQuery2(sql, query.NextPeriod());
 
-            //    public DateTime From { get; }
+                return (x, y);
+            }
 
-            //    public DateTime To { get; set; }
-
-            //    public Period NextPeriod()
-            //    {
-            //        return new Period(this);
-            //    }
-            //}
-
-            //private (IFutureValue<int> current, IFutureValue<int> previous) CreateSqlQuery(string sql, Period query)
-            //{
-            //    var x = CreateSqlQuery2(sql, query);
-            //    var y = CreateSqlQuery2(sql, query.NextPeriod());
-
-            //    return (x, y);
-            //}
-
-            //private IFutureValue<int>  CreateSqlQuery2(string sql, Period query)
-            //{
-
-            // return   _session.CreateSQLQuery(sql)
-            //                    .SetInt64("UserId", query.UserId)
-            //                    .SetInt32("startDays", query.Days)
-            //                    .SetInt32("endDays", 0)
-            //                    .FutureValue<int>();
-            //}
+            private IFutureValue<int> CreateSqlFollowersQuery2(string sql, Period query)
+            {
+                return _session.CreateSQLQuery(sql)
+                                      .SetInt64("UserId", query.UserId)
+                                      .SetDateTime("to", query.To)
+                                      .FutureValue<int>();
+            }
         }
     }
 }
