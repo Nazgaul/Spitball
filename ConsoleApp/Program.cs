@@ -29,6 +29,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Command.Courses;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Extension;
 using Cloudents.Query.Sync;
@@ -147,8 +148,11 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             
-            var searchWrite = _container.Resolve<IBlogProvider>();
-            var z = await searchWrite.GetBlogAsync(Country.Israel, default);
+            var searchWrite = _container.Resolve<ICommandBus>();
+            await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
+            Console.WriteLine("add");
+            await searchWrite.DispatchAsync(new UserJoinCoursesCommand(new[] {"Statistics" }, 638),default);
+
             //var i = 0;
             //while (true)
             //{
