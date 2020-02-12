@@ -125,13 +125,13 @@ namespace Cloudents.Query.Users
                 var countryRes = await countryFuture.GetValueAsync(token);
                 Country country = countryRes;
 
-                var cueerntResult = new UserStatsDto();
+                var currentResult = new UserStatsDto();
                 var previousResult = new UserStatsDto();
 
-                cueerntResult.Revenue = country.ConversationRate * resDictionary[tRevenue].current + resDictionary[sRevenue].current;
-                cueerntResult.Sales = resDictionary[tSales].current + resDictionary[sSales].current;
-                cueerntResult.Followers = resDictionary[followers].current;
-                cueerntResult.Views = resDictionary[views].current;
+                currentResult.Revenue = country.ConversationRate * resDictionary[tRevenue].current + resDictionary[sRevenue].current;
+                currentResult.Sales = resDictionary[tSales].current + resDictionary[sSales].current;
+                currentResult.Followers = resDictionary[followers].current;
+                currentResult.Views = resDictionary[views].current;
 
                 previousResult.Revenue = country.ConversationRate * resDictionary["tRevenue"].previous + resDictionary["sRevenue"].previous;
                 previousResult.Sales = resDictionary[tSales].previous + resDictionary[sSales].previous;
@@ -140,7 +140,7 @@ namespace Cloudents.Query.Users
 
                 return new List<UserStatsDto>()
                 {
-                    cueerntResult,
+                    currentResult,
                     previousResult
                 };
             }
