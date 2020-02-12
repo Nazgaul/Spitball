@@ -1,9 +1,9 @@
 <template>
-    <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4" dense>
-        <v-col class="space pa-0 mb-1 mb-sm-0" cols="7">
+    <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4 pb-2 pb-sm-0" dense>
+        <v-col class="space pa-0 mb-2 mb-sm-0" cols="7">
             <div class="text">{{$t('dashboardTeacher_analytic_title')}}</div>
         </v-col>
-        <v-col class="menuWrap mb-2 mb-sm-6" cols="5">
+        <v-col class="menuWrap mb-2 mb-sm-7 pa-0" cols="5">
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <div v-on="on" class="menuDropDown">
@@ -11,7 +11,7 @@
                         <div class="arrow-down"></div>
                     </div>
                 </template>
-                <v-list dense>
+                <v-list>
                     <v-list-item v-for="(item, index) in items" :key="index" @click="changeDays(item)">
                       <v-list-item-title>{{ $t(`dashboardTeacher_${item.key}`) }}</v-list-item-title>
                     </v-list-item>
@@ -27,9 +27,9 @@
               :key="index"
               :cols="isMobile ? 6 : 3"
               class="box pa-0 text-center">
-                <div class="boxWrap ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
+                <div class="boxWrap mb-0 mb-sm-2 ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
                   <div class="type">{{ $t(`dashboardTeacher_${key}`) }}</div>
-                  <div class="result my-0 my-sm-1">{{$n(val, key === 'revenue' ? 'currency' : '')}}</div>
+                  <div class="result my-0 my-sm-1">{{$n(Math.round(val), key === 'revenue' ? 'currency' : '')}}</div>
                   <div class="rate font-weight-bold">
                       <arrowDownIcon class="arrow" v-show="percentage(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
                       <bdi class="precent mr-1" :class="{'down': showIcon(key)}">{{percentage(key)}} <span v-show="percentage(key)">&#37;</span></bdi>
@@ -121,6 +121,7 @@ export default {
     @media (max-width: @screen-xs) {
       box-shadow: none;
       padding: 14px;
+      border-radius: 0;
     }
     .space {
       .text {
@@ -224,6 +225,9 @@ export default {
       }
       &:nth-child(even) .boxWrap {
         margin-left: 0 !important;
+      }
+      &:nth-last-child(-n+3) {
+        margin-bottom: 8px;
       }
     }
     .analyticLoader {
