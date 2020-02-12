@@ -34,13 +34,10 @@ namespace Cloudents.Query.General
                 University universityAlias = null;
                 BaseUser userAlias = null;
 
-                //var methodInfo = typeof(Restrictions).GetMethod("EqProperty", BindingFlags.Static | BindingFlags.Public);
                 var documentCountFutureQuery = _session.QueryOver<Document>()
                     .Left.JoinAlias(x => x.University, () => universityAlias)
                     .JoinAlias(x => x.User, () => userAlias)
                     .Where(w => w.Status.State == ItemState.Ok);
-                //.Where(() =>  universityAlias.Country.IfNull(userAlias.Country) == "IN")
-                //.Where(FilterQuery(universityAlias,userAlias, query.IsFrymo));
                 if (query.IsFrymo)
                 {
                     documentCountFutureQuery.Where(() => universityAlias.Country.IfNull(userAlias.Country) == "IN");
@@ -67,18 +64,7 @@ namespace Cloudents.Query.General
                     questionCountFutureQuery.Where(() => universityAlias.Country.IfNull(userAlias.Country) != "IN");
 
                 }
-
-                //.Where(FilterQuery(universityAlias, userAlias,query.IsFrymo))
-
-                //.Where(w => w.Status.State == ItemState.Ok)
-                //.And(
-                //    Restrictions.EqProperty(
-                //        Projections.SqlFunction(
-                //            "COALESCE",
-                //            NHibernateUtil.String,
-                //            Projections.Property(() => universityAlias.Country),
-                //            Projections.Property(() => userAlias.Country)),
-                //        Projections.Constant("IN")))
+                
                 var questionCountFuture = questionCountFutureQuery.ToRowCountQuery().FutureValue<int>();
 
                 var tutorCountFutureQuery = _session.QueryOver<ReadTutor>();
@@ -92,19 +78,14 @@ namespace Cloudents.Query.General
                     tutorCountFutureQuery.Where(w => w.Country != "IN");
 
                 }
-                //.Where(w => w.Country == "IN")
                 var tutorCountFuture = tutorCountFutureQuery.ToRowCountQuery().FutureValue<int>();
 
                 UserCourse userCourseAlias = null;
-                Core.Entities.ReadTutor tutorAlias = null;
-
-
-
-
+                ReadTutor tutorAlias = null;
 
                 var tutorCoursesFutureQuery = _session.QueryOver(() => tutorAlias)
                     .JoinEntityAlias(() => userCourseAlias, () => tutorAlias.Id == userCourseAlias.User.Id)
-                    .Where(() => userCourseAlias.CanTeach)
+                    .Where(() => userCourseAlias.IsTeach)
                     .SelectList(t => t.SelectCountDistinct(() => userCourseAlias.Course.Id));
                 if (query.IsFrymo)
                 {

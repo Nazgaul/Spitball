@@ -45,7 +45,7 @@ namespace Cloudents.Web.Seo
                      course
                  })
                  .Where(w => w.tutor.State == ItemState.Ok)
-                 .Where(w => w.course.CanTeach);
+                 .Where(w => w.course.IsTeach);
 
             if (isFrymo)
             {
@@ -92,9 +92,9 @@ namespace Cloudents.Web.Seo
         {
             if (isFrymo)
             {
-                return userCourse.CanTeach && tutor.User.Country == Country.India.Name;
+                return userCourse.IsTeach && tutor.User.Country == Country.India.Name;
             }
-            return userCourse.CanTeach && tutor.User.Country != Country.India.Name;
+            return userCourse.IsTeach && tutor.User.Country != Country.India.Name;
         }
     }
 }
