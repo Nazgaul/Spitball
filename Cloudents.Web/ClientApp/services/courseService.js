@@ -25,7 +25,7 @@ export default {
       return new School.Course(createdCourse);
    },
    async deleteCourse(courseName) {
-      return await courseInstance.delete('',{params: {name: encodeURIComponent(courseName)}})
+      return await courseInstance.delete('',{params: {name: courseName}});
    },
    async teachCourse(name) {
       return await courseInstance.post('teach',{name})
