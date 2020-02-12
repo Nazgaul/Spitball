@@ -4,6 +4,7 @@ import dialogConfig from './dialogConfig.json';
 const becomeTutor = () => import('../../../becomeTutor/becomeTutor.vue');
 const login = () => import('../../authenticationPage/login/exitRegisterDialog.vue');
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue');
+const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 
 // function initDialogComponents() {
 //     let dialogs = {}, dialogIndex;
@@ -20,6 +21,7 @@ export default {
     components: {
         becomeTutor,
         login,
-        upload
+        upload,
+        createCoupon,
     }
 }

@@ -92,6 +92,12 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
     }
 }
 
+Vue.prototype.$openDialog = function(dialogName){
+    this.$router.push({query:{...this.$route.query,dialog:dialogName}})
+}
+Vue.prototype.$closeDialog = function(){
+    this.$router.push({query:{...this.$route.query,dialog:undefined}})
+}
 Vue.prototype.$loadStyle = function(url,id){
     return new Promise((resolve) => {
         if (document.querySelector(id)) return resolve();

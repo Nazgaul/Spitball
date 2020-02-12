@@ -1,6 +1,7 @@
 <template>
     <general-page :mdAndDown="$vuetify.breakpoint.mdAndDown" :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="$route.name">
         <div slot="main" class="feedWrap">
+            <v-btn @click="$openDialog('createCoupon')" color="success">text</v-btn>
             <coursesTab/>
             <request-box class="request-box mb-0"/>
             <v-flex xs12 class="mt-3 analyticWrapper" v-if="showAnalyticStats">

@@ -2,7 +2,7 @@
     <v-dialog :value="true" persistent :maxWidth="'716'" :content-class="'upload-dialog'">
         <v-flex xs12>
             <!-- <v-icon @click="closeUpload()" class="uf-close" v-html="'sbf-close'" /> -->
-            <v-icon @click="closeDialog" class="uf-close" v-html="'sbf-close'"></v-icon>
+            <v-icon @click="$closeDialog()" class="uf-close" v-html="'sbf-close'"></v-icon>
             <v-card class="uf-main elevation-0">
                 <v-stepper class="uf-mStepper elevation-0" v-model="currentStep" >
                     
@@ -62,8 +62,6 @@ import fileCardError from './components/fileCardError.vue';
 
 import satelliteServie from "../../services/satelliteService";
 
-import dialogMixin from '../../mixins/dialogMixin';
-
 export default {
     name: "uploadMultipleFiles",
     components: {
@@ -71,7 +69,6 @@ export default {
         uploadStep_2,
         fileCardError
     },
-    mixins: [dialogMixin],
     data() {
         return {
             selectCoursePlaceholder: LanguageService.getValueByKey("upload_multiple_select_course_placeholder"),
@@ -146,7 +143,6 @@ export default {
     },
     methods: {
         ...mapActions([
-            'updateDialogState',
             'resetUploadData',
             'setReturnToUpload',
             'updateStep',
@@ -181,7 +177,6 @@ export default {
                             showToaster: true
                         });
                         this.closeUpload()
-                        // self.goToNextStep()
                     },
                         () => {
                             fileObj.error = true;
@@ -196,11 +191,8 @@ export default {
         },
         closeUpload() {
             this.resetUploadData();
-            //reset return to upload
             this.setReturnToUpload(false);
-            //close
-            this.closeDialog();
-            // this.updateDialogState(false);
+            this.$closeDialog();
         },
         nextStep() {
             if (this.currentStep === this.steps) {
