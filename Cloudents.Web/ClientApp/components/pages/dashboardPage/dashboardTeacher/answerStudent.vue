@@ -27,7 +27,7 @@ export default {
   }),
   methods: {
     getStudentsAnswers() {
-      this.$store.dispatch('updateStudnetsAnswersQuestion').then(({data}) => {
+      this.$store.dispatch('updateStudentsAnswersQuestion').then(({data}) => {
         this.answers = data
       })
     }

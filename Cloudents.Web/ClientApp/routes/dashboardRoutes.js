@@ -90,17 +90,17 @@ export const dashboardRoutes = [
             showMobileFooter: true,
         },
     },
-    // {
-    //     path: '/dashboard',
-    //     name: 'dashboardTeacher',
-    //     components: {
-    //         default: () => import('../components/pages/global/dashboardLayout/dashboard.vue'),
-    //         ...staticComponents(['banner', 'header', 'sideMenu'])
-    //     },
-    //     meta: {
-    //         showMobileFooter: true, 
-    //     }
-    // },
+    {
+        path: '/dashboard',
+        name: 'dashboardTeacher',
+        components: {
+            default: () => import('../components/pages/dashboardPage/dashboardTeacher/dashboard.vue'),
+            ...staticComponents(['banner', 'header', 'sideMenu'])
+        },
+        meta: {
+            showMobileFooter: true, 
+        }
+    },
     {
         path: "/wallet",
         components: {
