@@ -5,7 +5,7 @@
             <a class="seeAll" href="https://www.blog.spitball.co/blog-1/categories/english" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
         </v-col>
         <v-col class="tipsList d-flex pa-0" cols="4" v-for="(tip, index) in tips" :key="index">
-            <router-link class="tipsListBox" :to="tip.url">
+            <a class="tipsListBox" :href="tip.url" target="_blank">
                 <div class="top">
                     <img :src="$proccessImageUrl(tip.image, 202, 101)" alt="image" />
                 </div>
@@ -16,7 +16,7 @@
                         <div class="date">{{$d(tip.date, 'short')}}</div>
                     </div>
                 </div>
-            </router-link>
+            </a>
         </v-col>
     </v-row>
 </template>
