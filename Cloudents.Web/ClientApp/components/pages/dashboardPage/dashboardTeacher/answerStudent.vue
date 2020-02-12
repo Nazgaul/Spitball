@@ -64,6 +64,7 @@ export default {
   .answerList {
     overflow-y: scroll;
     max-height: 260px;
+    // .scrollBarStyle(0px, #0085D1) !important;
     .answerItem {
       display: flex;
       .middle {
