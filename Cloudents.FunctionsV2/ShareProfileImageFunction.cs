@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
+using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -36,6 +37,7 @@ namespace Cloudents.FunctionsV2
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "share/profile/{id:long}")] HttpRequest req, long id,
             [Blob("spitball/share-placeholder")] IEnumerable<CloudBlockBlob> directoryBlobs,
+
             [HttpClientFactory] HttpClient client,
             [Inject] IQueryBus queryBus,
             ILogger log,
@@ -51,9 +53,9 @@ namespace Cloudents.FunctionsV2
             {
                 return new BadRequestResult();
             }
-            
 
-            var uriBuilder = new UriBuilder(req.Scheme,req.Host.Host,req.Host.Port.Value)
+
+            var uriBuilder = new UriBuilder(req.Scheme, req.Host.Host, req.Host.Port.Value)
             {
                 Path = "api/" + UrlConst.ImageFunctionUserRoute.Inject(new
                 {
@@ -69,21 +71,47 @@ namespace Cloudents.FunctionsV2
             await using var profileImageStream = await client.GetStreamAsync(uriBuilder.Uri);
             //foreach (var cloudBlockBlob in directoryBlobs)
             //{
+            var fontBlob = directoryBlobs.Single(s => s.Name == "share-placeholder/OpenSans-Regular.ttf");
+            await using var fontStream = await fontBlob.OpenReadAsync();
 
+            var fontCollection = new FontCollection();
+            fontCollection.Install(fontStream);
+            //var fontDescription = FontDescription.LoadDescription(fontStream);
+            //FontDescription description = null;
+            //using (var fs = File.OpenReader("Font.ttf"))
+            //{
+            //    description = FontDescription.Load(fs); // once it has loaded the data the stream is no longer required and can be disposed of
+            //}
             //}
             //var v = directoryBlobs.ToList();
-
+            //var x = new FontFamily("xxx",new FontCollection().Install())
+            //var font = new Font()
             // var bgBlob = $"share-placeholder/bg-profile-{(result.Country.MainLanguage.Info.TextInfo.IsRightToLeft ? "rtl" : "ltr")}.jpg";
             var bgBlob = $"share-placeholder/bg-profile-ltr.jpg";
             var blob = directoryBlobs.Single(s => s.Name == bgBlob);
 
+
             await using var bgBlobStream = await blob.OpenReadAsync();
             var image = Image.Load<Rgba32>(bgBlobStream);
-
+            
             using var profileImage = Image.Load<Rgba32>(profileImageStream);
-           
-            profileImage.Mutate(x=>x.ApplyRoundedCorners(245f/2));
-            image.Mutate(x=>x.DrawImage(profileImage, new Point(148,135),GraphicsOptions.Default));
+
+            profileImage.Mutate(x => x.ApplyRoundedCorners(245f / 2));
+            image.Mutate(x=>x.DrawText(
+                new TextGraphicsOptions()
+                {
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    WrapTextWidth = 330f
+                },
+                result.Name,
+                fontCollection.CreateFont("open sans", 32, FontStyle.Regular),
+                Color.White,
+                new PointF(105f,423)));
+            //image.Mutate(x => x.DrawText( new TextGraphicsOptions(true)
+            //{
+               
+            //},  result.Name fontCollection.CreateFont("open sans", 32, FontStyle.Regular), Color.White, new Point(105, 423)));
+            image.Mutate(x => x.DrawImage(profileImage, new Point(148, 135), GraphicsOptions.Default));
             //using (var logoImage = Image.Load<Rgba32>(logoStream))
             //{
 

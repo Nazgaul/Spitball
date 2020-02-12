@@ -36,6 +36,7 @@ namespace Cloudents.Query.Tutor
                         CountryStr = s.Country,
                         Image = s.ImageName,
                         Name = s.Name,
+                        Rate = s.Rate.GetValueOrDefault()
                     }).FirstOrDefaultAsync(token);
             }
         }
