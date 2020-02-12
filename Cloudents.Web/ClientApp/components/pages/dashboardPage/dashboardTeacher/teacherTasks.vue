@@ -4,7 +4,7 @@
             <userAvatar :size="'60'" :user-name="user.name" :user-id="user.id" :userImageUrl="user.image"/> 
         </v-col>
         <v-col class="taskCompleted  pl-4" align-self="center">
-            <template v-if="taksNumberCompleted !== 6">
+            <template v-if="taksNumberCompleted !== totalTasks">
               <div class="hasTask">
                 <div class="mb-1 completedTitle">{{taksNumberCompleted}}/{{totalTasks}} {{$t('dashboardTeacher_task_completed')}}</div>
                 <v-progress-linear
@@ -33,7 +33,7 @@
               </div>
             </div>
             <arrowRight class="arrowRight d-flex d-sm-none" />
-            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_book_btn')}}</v-btn>
+            <v-btn class="taskAction d-none d-sm-flex" @click="bookSession" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_book_btn')}}</v-btn>
         </v-col>
         <v-col cols="12" class="taskCol py-4 d-flex justify-space-between px-0" v-if="!calendarShared">
             <div class="d-flex align-center">
@@ -84,14 +84,18 @@ export default {
     },
   },
   methods: {
-    // connectCalender() {
-    //   this.btnLoading = true;
-    //   this.$store.dispatch('gapiSignIn').then(()=>{
-    //     console.log("connect calendar");
-    //   }, () => {
-    //     this.btnLoading = false;
-    //   })
-    // },
+    bookSession() {
+      let id;
+      let country = global.country;
+      if(country === "IL") {
+        id = 456373;
+      } else if(country === "US") {
+        id = 488449;
+      } else if(country === "IN") {
+        id = 461552;
+      }
+      this.$router.push({name: 'profile', params: { id }})
+    },
     getTutorActions() {
       let self = this;
       this.$store.dispatch('updateTutorActions').then(res => {
