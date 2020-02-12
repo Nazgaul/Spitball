@@ -89,7 +89,7 @@ export default {
     return {
       sideMenulistElm: null,
       dashboardList:[
-        {name: this.$t('schoolBlock_dashboard'), key:'dashboard', route: 'dashboardTeacher', icon:'sbf-cart', sel:'sd_dashboard', premission: 'tutor'},
+        {name: this.$t('schoolBlock_dashboard'), key:'dashboard', route: 'dashboardTeacher', icon:'sbf-eye', sel:'sd_dashboard', premission: 'tutor'},
         {name: this.$t('schoolBlock_profile'), key:'profile', route: 'profile', icon:'sbf-user', sel:'sd_profile', },
         {name: this.$t('schoolBlock_my_sales'), key:'my-sales', route: 'mySales', icon:'sbf-cart',sel:'sd_sales'},
         {name: this.$t('schoolBlock_my_followers'), key:'my-followers', route: 'myFollowers', icon:'sbf-follow',sel:'sd_followers'},
