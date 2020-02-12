@@ -160,8 +160,6 @@ namespace Cloudents.Query.Users
                 {
                     To = currentPeriod.From;
                     From = To.AddDays(-currentPeriod.Days);
-                    //From = currentPeriod.To;
-                    //To = From.AddDays(-Days);
                     UserId = currentPeriod.UserId;
                 }
 
