@@ -27,8 +27,11 @@ export default {
   }),
   methods: {
     getStudentsAnswers() {
-      this.$store.dispatch('updateStudnetsAnswersQuestion').then(({data}) => {
-        this.answers = data
+      let self = this;
+      this.$store.dispatch('updateStudentsAnswersQuestion').then(({data}) => {
+        self.answers = data
+      }).catch(ex => {
+        self.$appInsights.trackException({exception: new Error(ex)});
       })
     }
   },

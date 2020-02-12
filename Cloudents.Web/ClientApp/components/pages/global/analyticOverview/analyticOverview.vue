@@ -82,10 +82,11 @@ export default {
       this.getData();
     },
     getData() {
+      let self = this
       this.$store.dispatch('updateUserStats', this.selectedItem.value).then((data) => {
-        this.results = data;
+        self.results = data;
       }).catch(ex => {
-        console.log(ex);
+        self.$appInsights.trackException({exception: new Error(ex)});
       })
     },
     deltaCalc(key) {

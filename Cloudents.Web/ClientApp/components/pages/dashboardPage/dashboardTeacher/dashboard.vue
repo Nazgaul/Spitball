@@ -16,7 +16,7 @@
   </div>
 </template>
 <script>
-import analyticOverview from './analyticOverview.vue';
+import analyticOverview from '../../global/analyticOverview/analyticOverview.vue';
 import marketingTools from './marketingTools.vue';
 import uploadContent from './uploadContent.vue';
 import spitballTips from './spitballTips.vue';
