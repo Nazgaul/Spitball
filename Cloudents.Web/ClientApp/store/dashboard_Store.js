@@ -115,7 +115,7 @@ const actions = {
          return;
       }
    },
-   updateStudnetsAnswersQuestion() {
+   updateStudentsAnswersQuestion() {
       return searchService.activateFunction.feed({filter: "Question"}).then((data) => {
          return data;
      }, (err) => {
@@ -126,6 +126,9 @@ const actions = {
    },
    updateTutorActions() {
       return dashboardService.getTutorActions()
+   },
+   updateSpitballBlogs() {
+      return dashboardService.getSpitballBlogs()
    }
 };
 

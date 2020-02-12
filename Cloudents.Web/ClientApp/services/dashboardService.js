@@ -125,6 +125,18 @@ function createTutorActions({data}) {
    return new TutorActions(data);
 }
 
+function SpitballBlog(objInit) {
+   this.image = objInit.image
+   this.url = objInit.url
+   this.title = objInit.title
+   this.uploader = objInit.uploader
+   this.create = objInit.create
+}
+
+function createSpitballBlogs({data}) {
+   return data.map(item => new SpitballBlog(item))
+}
+
 function getSalesItems(){
    return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex);
 }
@@ -143,6 +155,10 @@ function getFollowersItems(){
 function getTutorActions(){
    return connectivityModule.http.get('/Account/tutorActions').then(createTutorActions).catch(ex => ex);
 }
+function getSpitballBlogs(){
+   return connectivityModule.http.get('/blog').then(createSpitballBlogs).catch(ex => ex);
+}
+
 
 export default {
    getSalesItems,
@@ -150,5 +166,6 @@ export default {
    getPurchasesItems,
    getStudyRoomItems,
    getFollowersItems,
-   getTutorActions
+   getTutorActions,
+   getSpitballBlogs
 }

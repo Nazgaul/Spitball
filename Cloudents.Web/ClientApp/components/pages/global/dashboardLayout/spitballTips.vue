@@ -4,19 +4,19 @@
             <div class="tipTitle">{{$t('dashboardTeacher_spitball_tips')}}</div>
             <router-link class="seeAll" :to="{ name: 'routeName'}">{{$t('dashboardTeacher_see_all')}}</router-link>
         </v-col>
-        <v-col class="tipsList d-flex" cols="12">
-            <div class="tipsListBox" v-for="(tip, index) in tips" :key="index">
+        <v-col class="tipsList d-flex pa-0" cols="12">
+            <router-link class="tipsListBox" v-for="(tip, index) in tips" :key="index" :to="tip.url">
                 <div class="top">
-                    <img src="./images/group-16.png" alt="" >
+                    <img :src="$proccessImageUrl(tip.image, 202, 101)" alt="image" />
                 </div>
                 <div class="bottom">
-                    <div class="text mb-3">{{tip.text}}</div>
+                    <div class="text mb-3">{{tip.title}}</div>
                     <div class="nameDate d-flex justify-space-between">
-                        <div class="name">{{tip.name}}</div>
+                        <div class="name text-truncate">{{tip.uploader}}</div>
                         <div class="date">{{$d(tip.date, 'short')}}</div>
                     </div>
                 </div>
-            </div>
+            </router-link>
         </v-col>
     </v-row>
 </template>
@@ -24,27 +24,20 @@
 export default {
   name: "spitballTips",
   data: () => ({
-    tips: [
-      {
-        image: './images/group-16.png',
-        text: 'Learn to Succeed: Tips to help you speak English Learn to Succeed: Tips to help you speak English',
-        name: 'Keren tzor',
-        date: new Date()
-      },
-      {
-        image: './images/group-16.png',
-        text: 'Learn to Succeed: Tips to help you speak English',
-        name: 'Keren tzor',
-        date: new Date()
-      },
-      {
-        image: './images/group-16.png',
-        text: 'Learn to Succeed: Tips to help you speak English Learn to Succeed: Tips to help you speak English Learn to Succeed: Tips to help you speak English Learn to Succeed: Tips to help you speak English',
-        name: 'Keren tzor',
-        date: new Date()
-      },
-    ]
-  })
+    tips: []
+  }),
+  methods: {
+    getSpitballBlogs() {
+      this.$store.dispatch('updateSpitballBlogs').then(blog => {
+        this.tips = blog;
+      }).catch(ex => {
+        console.log(ex);
+      })
+    }
+  },
+  created() {
+    this.getSpitballBlogs()
+  }
 }
 </script>
 <style lang="less">
@@ -98,9 +91,6 @@ export default {
           font-size: 12px;
           .name {
             color: @global-purple;
-          }
-          .date {
-
           }
         }
       }
