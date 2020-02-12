@@ -51,7 +51,7 @@ namespace Cloudents.Query.Questions
                                 join sb.[user] u
 	                                on u.Id = q.UserId
                                 ,cte
-                                where not exists (select Id from sb.Answer where QuestionId = q.Id and State = 'Ok'and UserId = :userId) 
+                                where not exists (select Id from sb.Answer where QuestionId = q.Id and State = 'Ok'and UserId = :userid) 
                                 and q.Updated > GETUTCDATE() - 182
                                 and q.State = 'Ok'
                                 order by
