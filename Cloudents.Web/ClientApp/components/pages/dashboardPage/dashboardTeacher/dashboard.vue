@@ -9,19 +9,21 @@
         <answerStudent v-if="$vuetify.breakpoint.smAndDown"></answerStudent>
       </div>
       <div class="dashboardSide" v-if="$vuetify.breakpoint.mdAndUp">
-        <img class="mb-2 blockImage" src="./images/group-16.png" alt="image">
+        <img class="mb-2 blockImage" src="./images/group-16.png" alt="image" @click="startIntercom">
         <teacherTasks v-if="$vuetify.breakpoint.mdAndUp"></teacherTasks>
         <answerStudent v-if="$vuetify.breakpoint.mdAndUp"></answerStudent>
-    </div>
+      </div>
   </div>
 </template>
 <script>
-import analyticOverview from '../../global/analyticOverview/analyticOverview.vue';
-import marketingTools from './marketingTools.vue';
-import uploadContent from './uploadContent.vue';
-import spitballTips from './spitballTips.vue';
-import answerStudent from './answerStudent.vue';
-import teacherTasks from './teacherTasks.vue';
+import intercomService from "../../../../services/intercomService";
+
+const analyticOverview = () => import('../../global/analyticOverview/analyticOverview.vue');
+const marketingTools = () => import('./marketingTools.vue');
+const uploadContent = () => import('./uploadContent.vue');
+const spitballTips = () => import('./spitballTips.vue');
+const answerStudent = () => import('./answerStudent.vue');
+const teacherTasks = () => import('./teacherTasks.vue');
 
 export default {
   components: {
@@ -31,6 +33,11 @@ export default {
     spitballTips,
     answerStudent,
     teacherTasks
+  },
+  methods: {
+    startIntercom() {
+      intercomService.showDialog();
+    },  
   }
 }
 </script>
@@ -54,6 +61,7 @@ export default {
       width: 100%;
       max-width: 408px;
       .blockImage {
+        cursor: pointer;
         width: inherit;
       }
     }
