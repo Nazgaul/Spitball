@@ -35,13 +35,10 @@ export default {
     teacherTasks
   },
   watch: {
-    isTutor: {
-      immediate: true,
-      handler(newVal) {
+    isTutor(newVal) {
         if(!newVal) {
           this.$router.push({name: 'feed'});
         }
-      }
     }
   },
   computed: {
