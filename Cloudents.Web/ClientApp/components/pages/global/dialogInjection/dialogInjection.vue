@@ -12,25 +12,25 @@ export default {
     }),
     watch: {
         "$route.query.dialog": "openDialog",
-        getUserLoggedInStatus: {
-            immediate: true,
-            handler(newVal) {
-                if(newVal && this.$route.query.dialog) {
-                    this.openDialog(this.$route.query.dialog)
-                }
-            }
-        }
+        // getUserLoggedInStatus: {
+        //     immediate: true,
+        //     handler(newVal) {
+        //         if(newVal && this.$route.query.dialog) {
+        //             this.openDialog(this.$route.query.dialog)
+        //         }
+        //     }
+        // }
     },
-    computed: {
-        getUserLoggedInStatus() {
-            return this.$store.getters.getUserLoggedInStatus
-        }
-    },
+    // computed: {
+    //     getUserLoggedInStatus() {
+    //         return this.$store.getters.getUserLoggedInStatus
+    //     }
+    // },
     methods: {
         openDialog(component) {
             let dialogName;
             if(component) {
-                if(dialogConfig[component].loggedPremission && this.getUserLoggedInStatus) {
+                if(dialogConfig[component].loggedPremission) {
                     dialogName = component;
                 } else {
                     dialogName = 'login';
