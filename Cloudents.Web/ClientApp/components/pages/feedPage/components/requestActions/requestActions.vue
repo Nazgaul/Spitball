@@ -16,7 +16,7 @@
           <uStudy class="rA_i mr-1" />
           <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_upload_mob':'requestActions_btn_upload'"/>
         </v-btn> -->
-        <v-btn :ripple="false" text block :to="{query: { dialog: 'upload' }}" sel="upload">
+        <v-btn :ripple="false" text block @click="openUpload()" sel="upload">
           <uStudy class="rA_i mr-1" />
           <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_upload_mob':'requestActions_btn_upload'"/>
         </v-btn>

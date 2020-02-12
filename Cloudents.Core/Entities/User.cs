@@ -73,14 +73,9 @@ namespace Cloudents.Core.Entities
 
         public virtual void AssignCourses(IEnumerable<Course> courses)
         {
-            var isTutor = Tutor != null;
             foreach (var course in courses)
             {
-
-                var p = new UserCourse(this, course)
-                {
-                    CanTeach = isTutor
-                };
+                var p = new UserCourse(this, course);
                 if (_userCourses.Add(p))
                 {
                     course.Count++;
@@ -172,9 +167,10 @@ namespace Cloudents.Core.Entities
         public virtual void CanTeachCourse(string courseName)
         {
             var course = UserCourses.AsQueryable().First(w => w.Course.Id == courseName);
-            course.CanTeach = !course.CanTeach;
-            LastOnline = DateTime.UtcNow; // this is for trigger the event
-            AddEvent(new CanTeachCourseEvent(course));
+            course.ToggleCanTeach();
+            //course.CanTeach = !course.CanTeach;
+            //LastOnline = DateTime.UtcNow; // this is for trigger the event
+            //AddEvent(new CanTeachCourseEvent(course));
         }
 
         public virtual void SetUniversity(University university)
@@ -192,7 +188,7 @@ namespace Cloudents.Core.Entities
             ChangeName(firstName, lastName);
             foreach (var userCourse in UserCourses)
             {
-                userCourse.CanTeach = true;
+                userCourse.CanTeach();
             }
         }
 

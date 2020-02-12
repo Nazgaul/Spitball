@@ -392,9 +392,6 @@ namespace Cloudents.Selenium.Test
 
                 // Make sure this element is exist
                 driver.FindElementByWait(By.XPath("//*[contains(@class, 'analyticWrapper')]"));
-                
-                var divs = driver.FindElements(By.CssSelector(".box pa-0 text-center col col-3"));
-                divs.Count.Should().Be(4);
             }
         }
     }
