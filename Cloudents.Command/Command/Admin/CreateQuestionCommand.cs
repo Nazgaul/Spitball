@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Cloudents.Command.Command.Admin
+﻿namespace Cloudents.Command.Command.Admin
 {
     public class CreateQuestionCommand : ICommand
     {

@@ -1,8 +1,6 @@
-﻿using System;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
-using FluentNHibernate.Utils;
 using JetBrains.Annotations;
 
 namespace Cloudents.Persistence.Maps
@@ -84,7 +82,7 @@ namespace Cloudents.Persistence.Maps
             //    .IdentityType<Guid>()
 
 
-            HasMany<UserComponent>(x => x.UserComponents).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
+            HasMany(x => x.UserComponents).Inverse().Cascade.AllDeleteOrphan();//.Inverse();
             //Component(x => x.UserComponent);
         }
     }
