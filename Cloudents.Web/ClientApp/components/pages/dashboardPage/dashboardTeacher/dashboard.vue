@@ -34,11 +34,27 @@ export default {
     answerStudent,
     teacherTasks
   },
+  watch: {
+    isTutor: {
+      immediate: true,
+      handler(newVal) {
+        if(!newVal) {
+          this.$router.push({name: 'feed'});
+        }
+      }
+    }
+  },
+  computed: {
+    isTutor() {
+      let user = this.$store.getters.accountUser
+      return user && user.isTutor;
+    }
+  },
   methods: {
     startIntercom() {
       intercomService.showDialog();
     },  
-  }
+  },
 }
 </script>
 <style lang="less">
