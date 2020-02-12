@@ -34,7 +34,8 @@ namespace Cloudents.Query.Tutor
                     .Select(s => new ShareProfileImageDto()
                     {
                         CountryStr = s.Country,
-                        Image = s.ImageName
+                        Image = s.ImageName,
+                        Name = s.Name,
                     }).FirstOrDefaultAsync(token);
             }
         }
