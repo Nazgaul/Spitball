@@ -1,6 +1,6 @@
 <template>
     <v-row class="uploadContent mb-2 mb-sm-4" dense>
-        <v-col class="text-center uploadCol pb-sm-0">
+        <v-col class="text-center uploadCol pa-0">
             <uploadIcon class="mb-3 uploadIcon" />
             <div class="text1">{{$t('dashboardTeacher_upload_content')}}</div>
             <div class="text2 mb-3">{{$t('dashboardTeacher_earn_money')}}</div>
@@ -33,7 +33,7 @@ export default {
 @import '../../../../styles/colors.less';
 
 .uploadContent {
-  padding: 16px 12px;
+  padding: 16px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   background: white;

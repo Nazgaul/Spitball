@@ -1,9 +1,9 @@
 <template>
-    <v-row class="text-center marketingTools mb-2 mb-sm-4 px-0 py-0 px-sm-4 py-sm-3" align="end" dense>
+    <v-row class="text-center marketingTools mb-2 mb-sm-4 px-0 py-0 px-sm-4 py-sm-4" align="end" dense>
         <v-col cols="12" class="marketingCol marketingTitle d-none d-sm-block pa-0 mb-4">
             {{$t('dashboardTeacher_marketing_title')}}
         </v-col>
-        <v-col cols="12" sm="6" class="marketingCol social mb-2 mb-sm-0 pb-sm-0">
+        <v-col cols="12" sm="6" class="marketingCol social mb-2 mb-sm-0 pb-sm-0 pt-4 pt-sm-0">
             <shareIcon class="mb-3 icon" />
             <div class="bottom">
                 <div class="text1">{{$t('dashboardTeacher_share_post')}}</div>
@@ -12,7 +12,7 @@
                 <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboardTeacher_coming_soon')}}</v-btn>
             </div>
         </v-col>
-        <v-col cols="12" sm="6" class="marketingCol pb-sm-0">
+        <v-col cols="12" sm="6" class="marketingCol pb-sm-0 pt-0 pt-4 pt-sm-0">
           <couponIcon class="mb-3 icon" />
           <div class="bottom">
               <div class="text1">{{$t('dashboardTeacher_create_coupon')}}</div>
@@ -78,6 +78,7 @@ export default {
       .text1 {
         font-size: 16px;
         font-weight: 600;
+        margin-bottom: 2px;
       }
       .text2 {
         font-size: 12px;

@@ -1,6 +1,6 @@
 <template>
     <v-row class="teacherTasks mx-0 mb-2 mb-sm-4" dense>
-        <v-col class="imageWrap flex-grow-0">
+        <v-col class="imageWrap flex-grow-0 pa-0">
             <userAvatar :size="'60'" :user-name="user.name" :user-id="user.id" :userImageUrl="user.image"/> 
         </v-col>
         <v-col class="taskCompleted  pl-4" align-self="center">
@@ -25,7 +25,7 @@
               </div>
             </template>
         </v-col>
-        <v-col cols="12" class="taskCol py-4 d-flex justify-space-between">
+        <v-col cols="12" class="taskCol py-4 d-flex justify-space-between px-0 mt-3">
             <div class="d-flex align-center">
               <assignmentIcon class="assignIcon" />
               <div class="taskText pl-3">
@@ -35,7 +35,7 @@
             <arrowRight class="arrowRight d-flex d-sm-none" />
             <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_book_btn')}}</v-btn>
         </v-col>
-        <v-col cols="12" class="taskCol py-4 d-flex justify-space-between" v-if="!calendarShared">
+        <v-col cols="12" class="taskCol py-4 d-flex justify-space-between px-0" v-if="!calendarShared">
             <div class="d-flex align-center">
               <assignmentIcon class="assignIcon" />
               <div class="taskText pl-3">
@@ -45,7 +45,7 @@
             <arrowRight class="arrowRight d-flex d-sm-none" />
             <v-btn class="taskAction d-none d-sm-flex" :to="{name: 'myCalendar'}" :loading="btnLoading" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_connect_btn')}}</v-btn>
         </v-col>
-        <v-col cols="12" class="taskCol pb-0 py-4 d-flex justify-space-between" v-if="!haveHours">
+        <v-col cols="12" class="taskCol pb-0 py-4 d-flex justify-space-between px-0" v-if="!haveHours">
             <div class="d-flex align-center">
               <assignmentIcon class="assignIcon" />
                 <div class="taskText pl-3">
@@ -123,13 +123,14 @@ export default {
 @import '../../../../styles/colors.less';
 
 .teacherTasks {
-  padding: 12px 16px;
+  padding: 16px;
   background: white;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   border-radius: 8px;
 
   @media (max-width: @screen-xs) {
     box-shadow: none;
+    border-radius: 0;
   }
   .taskCompleted {
     .noTask {

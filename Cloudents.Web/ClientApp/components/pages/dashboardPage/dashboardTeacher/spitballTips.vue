@@ -47,7 +47,7 @@ export default {
 @import '../../../../styles/mixin.less';
 @import '../../../../styles/colors.less';
 .spitballTips {
-  padding: 12px 16px;
+  padding: 16px;
   background: white;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   border-radius: 8px;
@@ -79,6 +79,7 @@ export default {
         .text {
           color: @global-purple;
           font-size: 13px;
+          font-weight: 600;
           .giveMeEllipsis(2, 18);
         }
         .nameDate {
