@@ -35,8 +35,9 @@ namespace Cloudents.FunctionsV2
     public static class ShareProfileImageFunction
     {
 
-        private static Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
+        private static readonly Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
         private static List<CloudBlockBlob> _blobs;
+        private static FontCollection _fontCollection = new FontCollection();
 
 
         [FunctionName("ShareProfileImageFunction")]
@@ -49,8 +50,18 @@ namespace Cloudents.FunctionsV2
             ILogger log,
             CancellationToken token)
         {
-            _blobs = directoryBlobs.ToList();
-            //if (backgroundStream == null) throw new ArgumentNullException(nameof(backgroundStream));
+            if (_blobs is null)
+            {
+                _blobs = directoryBlobs.ToList();
+
+                foreach (var fontBlob in _blobs.Where(w => w.Name.EndsWith(".ttf")))
+                {
+                    await using var fontStream = await fontBlob.OpenReadAsync();
+                    _fontCollection.Install(fontStream);
+
+                }
+            }
+
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             var query = new ShareProfileImageQuery(id);
@@ -76,24 +87,6 @@ namespace Cloudents.FunctionsV2
             });
 
             await using var profileImageStream = await client.GetStreamAsync(uriBuilder.Uri);
-            //foreach (var cloudBlockBlob in directoryBlobs)
-            //{
-            var fontBlob = _blobs.Single(s => s.Name == "share-placeholder/OpenSans-Regular.ttf");
-            await using var fontStream = await fontBlob.OpenReadAsync();
-
-            var fontCollection = new FontCollection();
-            fontCollection.Install(fontStream);
-            //var fontDescription = FontDescription.LoadDescription(fontStream);
-            //FontDescription description = null;
-            //using (var fs = File.OpenReader("Font.ttf"))
-            //{
-            //    description = FontDescription.Load(fs); // once it has loaded the data the stream is no longer required and can be disposed of
-            //}
-            //}
-            //var v = directoryBlobs.ToList();
-            //var x = new FontFamily("xxx",new FontCollection().Install())
-            //var font = new Font()
-            // var bgBlob = $"share-placeholder/bg-profile-{(result.Country.MainLanguage.Info.TextInfo.IsRightToLeft ? "rtl" : "ltr")}.jpg";
             var bgBlob = $"share-placeholder/bg-profile-ltr.jpg";
             var blob = _blobs.Single(s => s.Name == bgBlob);
 
@@ -103,24 +96,23 @@ namespace Cloudents.FunctionsV2
 
             using var profileImage = Image.Load<Rgba32>(profileImageStream);
             profileImage.Mutate(x => x.ApplyRoundedCorners(245f / 2));
-            image.Mutate(x => x.DrawImage(profileImage, new Point(148, 135), GraphicsOptions.Default));
-
-            image.Mutate(x => x.DrawText(
-                new TextGraphicsOptions()
-                {
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    WrapTextWidth = 330f
-                },
-                result.Name,
-                fontCollection.CreateFont("open sans", 32, FontStyle.Regular),
-                Color.White,
-                new PointF(105f, 423)));
-
-            result.Rate = 3.5;
-
+            image.Mutate(context =>
+            {
+                context.DrawImage(profileImage, new Point(148, 135), GraphicsOptions.Default);
+                context.DrawText(
+                    new TextGraphicsOptions()
+                    {
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        WrapTextWidth = 330f
+                    },
+                    result.Name,
+                    _fontCollection.CreateFont("open sans", 32, FontStyle.Regular),
+                    Color.White,
+                    new PointF(105f, 423));
+            });
+            
             for (var i = 1; i <= 5; i++)
             {
-
                 byte[] byteArr;
                 if (result.Rate >= i)
                 {
@@ -143,24 +135,45 @@ namespace Cloudents.FunctionsV2
                 const int stateWidth = 43;
                 var point = new Point(148 + (i - 1) * (stateWidth + marginBetweenState), 475);
                 image.Mutate(x => x.DrawImage(starImage, point, GraphicsOptions.Default));
-
-
             }
-            //image.Mutate(x => x.DrawText( new TextGraphicsOptions(true)
-            //{
-
-            //},  result.Name fontCollection.CreateFont("open sans", 32, FontStyle.Regular), Color.White, new Point(105, 423)));
-
-            //using (var logoImage = Image.Load<Rgba32>(logoStream))
-            //{
 
 
-            //    image.Mutate(x => x.DrawImage(logoImage, new Point(139, 39), GraphicsOptions.Default));
-            //}
-            //if (result.Country == Country.Israel.Name)
-            //{
-            //    image.Mutate(x => x.Flip(FlipMode.Horizontal));
-            //}
+            await using var quoteSr = await _blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
+
+
+            var descriptionImage = new Image<Rgba32>(675, 295);
+
+            descriptionImage.Mutate(context =>
+            {
+                var quoteImage = Image.Load(quoteSr);
+                var middle = descriptionImage.Width / 2 - quoteImage.Width / 2;
+                context.DrawImage(quoteImage, new Point(middle, 0), GraphicsOptions.Default);
+                var font = _fontCollection.CreateFont("Open Sans Semibold", 38, FontStyle.Bold);
+                var rendererOptions = new RendererOptions(font)
+                {
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    WrappingWidth = 675f,
+                };
+                const int marginBetweenQuote = 28;
+                var textSize = TextMeasurer.Measure(result.Description, rendererOptions);
+                var location = new PointF(0, quoteImage.Height + marginBetweenQuote);
+
+                context.DrawText(new TextGraphicsOptions()
+                {
+                    WrapTextWidth = descriptionImage.Width,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    
+                }, result.Description, font, Color.FromHex("43425d"), location);
+
+                context.Crop(675, (int) (textSize.Height + location.Y));
+            });
+
+
+            var middleY = image.Height / 2 - descriptionImage.Height / 2;
+
+            image.Mutate(x => x.DrawImage(descriptionImage, new Point(493, middleY), GraphicsOptions.Default));
+
+           
 
             //image.Mutate(x=>x.DrawImage());
             return new ImageResult(image, TimeSpan.Zero);

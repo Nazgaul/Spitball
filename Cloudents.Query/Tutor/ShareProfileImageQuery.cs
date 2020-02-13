@@ -30,13 +30,15 @@ namespace Cloudents.Query.Tutor
             public async Task<ShareProfileImageDto> GetAsync(ShareProfileImageQuery query, CancellationToken token)
             {
                 return  await _statelessSession.Query<ReadTutor>()
-                    .Where(w => w.Id == query.Id)
+                    .Join(_statelessSession.Query<User>(),x=>x.Id,x=>x.Id,((tutor, user) => new  {tutor,user}))
+                    .Where(w => w.tutor.Id == query.Id)
                     .Select(s => new ShareProfileImageDto()
                     {
-                        CountryStr = s.Country,
-                        Image = s.ImageName,
-                        Name = s.Name,
-                        Rate = s.Rate.GetValueOrDefault()
+                        CountryStr = s.tutor.Country,
+                        Image = s.tutor.ImageName,
+                        Name = s.tutor.Name,
+                        Rate = s.tutor.Rate.GetValueOrDefault(),
+                        Description = s.user.Description
                     }).FirstOrDefaultAsync(token);
             }
         }

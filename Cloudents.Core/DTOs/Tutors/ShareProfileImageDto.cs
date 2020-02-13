@@ -13,5 +13,6 @@ namespace Cloudents.Core.DTOs.Tutors
         public Country Country => CountryStr;
         public string Name { get; set; }
         public double Rate { get; set; }
+        public string Description { get; set; }
     }
 }
