@@ -85,11 +85,12 @@ export default {
   },
   methods: {
     bookSession() {
+      //TODO: fix convention
       let id, name;
       let country = global.country;
       if(country === "IL") {
-        name = 'test-test';
-        id = "160634";
+        name = 'יניב-מדריך';
+        id = "456373";
       } else if(country === "IN") {
         name = 'Bhaskar Patel';
         id = "461552";

@@ -56,7 +56,8 @@ export default {
 </script>
 <style lang="less">
   @import '../../../../styles/mixin.less';
-
+  @mainBlock: 670px;
+  @sideBlock: 410px;
   #dashboard {
     margin: 24px 34px;
     display: flex;
@@ -68,14 +69,13 @@ export default {
     }
     .dashboardMain {
       width: 100%;
-      max-width: 670px;
+      max-width: @mainBlock;
     }
     .dashboardSide {
       width: 100%;
-      max-width: 408px;
+      max-width: @sideBlock;
       .blockImage {
         cursor: pointer;
-        width: inherit;
       }
     }
   }

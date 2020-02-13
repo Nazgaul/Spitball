@@ -98,8 +98,10 @@ export const dashboardRoutes = [
             ...staticComponents(['banner', 'header', 'sideMenu'])
         },
         meta: {
-            showMobileFooter: true, 
-        }
+            showMobileFooter: true,
+            requiresAuth: true,
+
+        },
     },
     {
         path: "/wallet",
