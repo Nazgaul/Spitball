@@ -159,6 +159,11 @@ export default {
       color: @global-purple;
       font-weight: 600;
     }
+    .hasTask {
+      .v-progress-linear__background {
+        width: 100% !important;
+      }
+    }
   }
   .taskCol {
     border-bottom: 1px solid #dddddd;

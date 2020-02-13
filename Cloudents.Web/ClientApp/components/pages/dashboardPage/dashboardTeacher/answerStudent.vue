@@ -44,7 +44,7 @@ export default {
 @import '../../../../styles/mixin.less';
 @import '../../../../styles/colors.less';
 .answerStudent {
-  padding: 12px 16px;
+  padding: 16px;
   background: white;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   border-radius: 8px;
@@ -65,6 +65,10 @@ export default {
     overflow-y: scroll;
     max-height: 260px;
     // .scrollBarStyle(0px, #0085D1) !important;
+    ::-webkit-scrollbar-thumb {
+      color: #f5f5f5;
+      border-radius: 8px;
+    }
     .answerItem {
       display: flex;
       .middle {
