@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Documents;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;
 using Cloudents.Query;

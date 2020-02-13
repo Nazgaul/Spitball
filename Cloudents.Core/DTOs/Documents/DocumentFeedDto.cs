@@ -4,7 +4,7 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
 using System;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Core.DTOs.Documents
 {
     public class DocumentFeedDto : FeedDto
     {

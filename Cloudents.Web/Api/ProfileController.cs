@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Http;
 using Cloudents.Web.Models;
 using Cloudents.Query.Users;
 using Cloudents.Core.DTOs.Users;
+using Cloudents.Core.DTOs.Documents;
 
 namespace Cloudents.Web.Api
 {

@@ -1,11 +1,11 @@
-﻿using Cloudents.Core.DTOs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 using Cloudents.Query.Stuff;
+using Cloudents.Core.DTOs.Documents;
 
 namespace Cloudents.Query.Documents
 {
