@@ -391,7 +391,7 @@ namespace Cloudents.Selenium.Test
                 LoginTest();
 
                 // Make sure this element is exist
-                driver.FindElementByWait(By.XPath("//*[contains(@class, 'analyticWrapper')]"));
+                driver.FindElementByWait(By.XPath("//*[contains(@class, 'analyticOverview')]"));
             }
         }
     }
