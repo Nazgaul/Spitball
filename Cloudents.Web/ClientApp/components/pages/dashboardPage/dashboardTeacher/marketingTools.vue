@@ -74,6 +74,10 @@ export default {
         font-weight: 600;
         min-width: 120px;
         letter-spacing: normal;
+
+        span {
+          margin-bottom: 2px;
+        }
       }
       .text1 {
         font-size: 16px;
