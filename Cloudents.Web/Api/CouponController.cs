@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -46,9 +47,17 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest("This coupon already exists");
             }
-            catch(SqlConstraintViolationException)
+            catch (SqlConstraintViolationException)
             {
                 return BadRequest("User need to be a tutor");
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return BadRequest("Inavlid Value");
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest("Value can not be more then 100%");
             }
             return Ok();
         }
