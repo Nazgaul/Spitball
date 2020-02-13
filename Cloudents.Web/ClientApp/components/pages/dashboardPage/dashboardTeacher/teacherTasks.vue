@@ -32,7 +32,9 @@
                 {{$t('dashboardTeacher_book_session')}}
               </div>
             </div>
-            <arrowRight class="arrowRight d-flex d-sm-none" @click="bookSession" />
+            <div>
+                <arrowRight class="arrowRight d-sm-none" @click="bookSession" /> 
+            </div>
             <v-btn class="taskAction d-none d-sm-flex" @click="bookSession" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_book_btn')}}</v-btn>
         </v-col>
         <v-col cols="12" class="taskCol py-4 d-flex justify-space-between px-0" v-if="!calendarShared">
@@ -42,7 +44,7 @@
                 {{$t('dashboardTeacher_connect_calendar')}}
               </div>
             </div>
-            <router-link :to="{name: 'myCalendar'}"><arrowRight class="arrowRight d-flex d-sm-none" /></router-link>
+            <router-link  :to="{name: 'myCalendar'}"><arrowRight class="arrowRight d-sm-none" /></router-link> <!-- wrap router-link svg cuz safari issue --> 
             <v-btn class="taskAction d-none d-sm-flex" :to="{name: 'myCalendar'}" :loading="btnLoading" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_connect_btn')}}</v-btn>
         </v-col>
         <v-col cols="12" class="taskCol pb-0 py-4 d-flex justify-space-between px-0" v-if="!haveHours">
@@ -52,7 +54,7 @@
                   {{$t('dashboardTeacher_work_hours')}}
                 </div>
             </div>
-            <router-link :to="{name: 'myCalendar'}"><arrowRight class="arrowRight d-flex d-sm-none" /></router-link>
+            <router-link :to="{name: 'myCalendar'}"><arrowRight class="arrowRight d-sm-none" /></router-link>
             <v-btn class="taskAction d-none d-sm-flex" :to="{name: 'myCalendar'}" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_works_btn')}}</v-btn>
         </v-col>
     </v-row>
@@ -176,6 +178,7 @@ export default {
     }
     .arrowRight {
       transform: none /*rtl:scaleX(-1)*/;
+      vertical-align: bottom;
       width: 10px;
     }
     &:last-child{

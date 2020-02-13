@@ -52,7 +52,7 @@ export default {
     background: none;
   }
   .marketingCol {
-    padding: 12px 16px 16px;
+    padding: 16px !important; // override
     @media (max-width: @screen-xs) {
       background: white;
     }

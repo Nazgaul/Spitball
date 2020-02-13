@@ -8,7 +8,7 @@
             <v-col class="tipsList d-flex pa-0" cols="4" v-for="(tip, index) in tips" :key="index">
                 <a class="tipsListBox" :href="tip.url" target="_blank">
                     <div class="top">
-                        <img :src="$proccessImageUrl(tip.image, 202, 101)" alt="image" />
+                        <img :src="tip.image" alt="image" width="200" height="100" />
                     </div>
                     <div class="bottom">
                         <div class="text mb-3">{{tip.title}}</div>
