@@ -5,7 +5,6 @@ const state = {
     showDialog: false,
     customFileName: '',
     uploadFullMobile: true,
-    returnToUpload: false,
     uploadStep: 1,
     uploadState: false
 };
@@ -46,9 +45,6 @@ const mutations = {
     clearUploadData(state) {
         state.fileData.length = 0;
     },
-    updateReturnToUpload(state, val) {
-        state.returnToUpload = val;
-    },
     setUploadStep(state, val) {
         state.uploadStep = val;
     },
@@ -70,7 +66,6 @@ const getters = {
     getFileData: (state) => state.fileData.sort((a, b)=> b.error-a.error),
     getDialogState: (state) => state.showDialog,
     getCustomFileName: (state) => state.customFileName,
-    getReturnToUpload: (state) => state.returnToUpload,
     getIsValid: (state) => state.fileData.some(file=>(file.course))
 };
 const actions = {
@@ -100,9 +95,6 @@ const actions = {
     },
     updateDialogState({commit}, val) {
         commit('setDialogUploadState', val);
-    },
-    setReturnToUpload({commit}, val) {
-        commit('updateReturnToUpload', val);
     },
     setAllPrice({commit}, price){
         commit('updatePriceToAll', price);

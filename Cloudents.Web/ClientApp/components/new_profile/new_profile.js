@@ -94,7 +94,6 @@ export default {
             'updateRequestDialog',
             'setActiveConversationObj',
             'openChatInterface',
-            'setReturnToUpload',
             'updateDialogState',
             'updateProfileItemsByType',
 
@@ -171,13 +170,10 @@ export default {
               this.updateLoginDialogState(true);
             } else if (!schoolName.length) {
               this.$router.push({ name: "addUniversity" });
-              this.setReturnToUpload(true);
             } else if (!this.getSelectedClasses.length) {
               this.$router.push({ name: "addCourse" });
-              this.setReturnToUpload(true);
             } else if (schoolName.length > 0 && this.getSelectedClasses.length > 0) {
               this.updateDialogState(true);
-              this.setReturnToUpload(false);
             }
         },
         getItems(type,params){

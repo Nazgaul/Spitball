@@ -3,7 +3,8 @@
 </template>
 
 <script>
-import dialogComponents, {dialogConfig} from './import.js'
+import dialogComponents from './import.js'
+import dialogConfing from './dialogConfing'
 
 export default {
     mixins: [dialogComponents],
@@ -15,21 +16,18 @@ export default {
     },
     methods: {
         openDialog(component) {
-            let c;
-            if(component) {
-                // let user = this.$store.getters.accountUser                
-                if(dialogConfig[component].loggedPremission) {
-                    c = component;
-                } else {
-                    c = 'login';
-                }
-            } else {
-                c = '';
+            let dialogName = dialogConfing.getDialog(component);
+            if(typeof dialogName === 'object'){
+                this.$router.push(dialogName);
+                return
             }
-            this.component = c;
+            if(dialogName){
+                dialogName !== component? this.$openDialog(dialogName) : this.component = dialogName;
+            }else{
+                this.$closeDialog()
+                this.component = ''
+            }
         }
     }
 }
 </script>
-
-

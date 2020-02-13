@@ -22,7 +22,6 @@ export default {
         this.$store.dispatch('updateLoginDialogState', true);
       } else {
         this.$store.dispatch('updateDialogState', true);
-        this.$store.dispatch('setReturnToUpload', false);
       }
     },
   }
