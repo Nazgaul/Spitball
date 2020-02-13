@@ -133,7 +133,7 @@
     <value>Manage Courses</value>
   </data>
   <data name="dashboard" xml:space="preserve">
-    <value>Overview</value>
+    <value>Dashboard</value>
   </data>
   <data name="home" xml:space="preserve">
     <value>Home</value>
@@ -155,6 +155,9 @@
   </data>
   <data name="my_study_rooms" xml:space="preserve">
     <value>My study rooms</value>
+  </data>
+  <data name="overview" xml:space="preserve">
+    <value>Overview</value>
   </data>
   <data name="posts" xml:space="preserve">
     <value>My Posts</value>

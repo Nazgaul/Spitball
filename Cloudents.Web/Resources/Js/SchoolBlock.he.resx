@@ -133,7 +133,7 @@
     <value>ניהול קורסים</value>
   </data>
   <data name="dashboard" xml:space="preserve">
-    <value>סקירה כללית</value>
+    <value>כלי ניהול</value>
   </data>
   <data name="home" xml:space="preserve">
     <value>דף הבית</value>
@@ -155,6 +155,9 @@
   </data>
   <data name="my_study_rooms" xml:space="preserve">
     <value>חדרי הלימוד שלי</value>
+  </data>
+  <data name="overview" xml:space="preserve">
+    <value>סקירה כללית</value>
   </data>
   <data name="posts" xml:space="preserve">
     <value>ההודעות שלי</value>
