@@ -4,7 +4,8 @@
             {{$t('dashboardTeacher_marketing_title')}}
         </v-col>
         <v-col cols="12" sm="6" class="marketingCol social mb-2 mb-sm-0 pb-sm-0 pt-4 pt-sm-0">
-            <shareIcon class="mb-3 icon" />
+            <img class="mb-3 icon" src="./images/share.png" alt="">
+            <!-- <shareIcon class="mb-3 icon" /> -->
             <div class="bottom">
                 <div class="text1">{{$t('dashboardTeacher_share_post')}}</div>
                 <div class="text2 mb-3">{{$t('dashboardTeacher_stand_out')}}</div>
@@ -13,7 +14,8 @@
             </div>
         </v-col>
         <v-col cols="12" sm="6" class="marketingCol pb-sm-0 pt-0 pt-4 pt-sm-0">
-          <couponIcon class="mb-3 icon" />
+          <img class="mb-3 icon" src="./images/coupon.png" alt="">
+          <!-- <couponIcon class="mb-3 icon" /> -->
           <div class="bottom">
               <div class="text1">{{$t('dashboardTeacher_create_coupon')}}</div>
               <div class="text2 mb-3">{{$t('dashboardTeacher_costume_coupon')}}</div>
@@ -25,14 +27,15 @@
 </template>
 <script>
 
-import shareIcon from './images/shareIcon.svg';
-import couponIcon from './images/couponIcon.svg';
+// import shareIcon from './images/shareIcon.svg';
+// import couponIcon from './images/couponIcon.svg';
+
 export default {
   name: "marketingTools",
-  components: {
-    shareIcon,
-    couponIcon
-  }
+  // components: {
+  //   shareIcon,
+  //   couponIcon
+  // }
 }
 </script>
 <style lang="less">
