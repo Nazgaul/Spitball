@@ -1,5 +1,5 @@
 <template>
-    <v-row class="teacherTasks mx-0 mb-2 mb-sm-4" dense>
+    <v-row class="teacherTasks  mb-2 mb-sm-4" dense>
         <v-col class="imageWrap flex-grow-0 pa-0">
             <userAvatar :size="'60'" :user-name="user.name" :user-id="user.id" :userImageUrl="user.image"/> 
         </v-col>
