@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -33,6 +34,9 @@ namespace Cloudents.FunctionsV2
 {
     public static class ShareProfileImageFunction
     {
+
+       private static Dictionary<Star,byte[]> StarDictionary = new Dictionary<Star, byte[]>();
+
         [FunctionName("ShareProfileImageFunction")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "share/profile/{id:long}")] HttpRequest req, long id,
@@ -43,6 +47,7 @@ namespace Cloudents.FunctionsV2
             ILogger log,
             CancellationToken token)
         {
+            var blobs = directoryBlobs.ToList();
             //if (backgroundStream == null) throw new ArgumentNullException(nameof(backgroundStream));
             log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -71,7 +76,7 @@ namespace Cloudents.FunctionsV2
             await using var profileImageStream = await client.GetStreamAsync(uriBuilder.Uri);
             //foreach (var cloudBlockBlob in directoryBlobs)
             //{
-            var fontBlob = directoryBlobs.Single(s => s.Name == "share-placeholder/OpenSans-Regular.ttf");
+            var fontBlob = blobs.Single(s => s.Name == "share-placeholder/OpenSans-Regular.ttf");
             await using var fontStream = await fontBlob.OpenReadAsync();
 
             var fontCollection = new FontCollection();
@@ -88,7 +93,7 @@ namespace Cloudents.FunctionsV2
             //var font = new Font()
             // var bgBlob = $"share-placeholder/bg-profile-{(result.Country.MainLanguage.Info.TextInfo.IsRightToLeft ? "rtl" : "ltr")}.jpg";
             var bgBlob = $"share-placeholder/bg-profile-ltr.jpg";
-            var blob = directoryBlobs.Single(s => s.Name == bgBlob);
+            var blob = blobs.Single(s => s.Name == bgBlob);
 
 
             await using var bgBlobStream = await blob.OpenReadAsync();
@@ -107,6 +112,22 @@ namespace Cloudents.FunctionsV2
                 fontCollection.CreateFont("open sans", 32, FontStyle.Regular),
                 Color.White,
                 new PointF(105f,423)));
+
+            
+            for (var i = 1; i <= 5; i++)
+            {
+                
+                if (result.Rate >= i)
+                {
+                    //StarDictionary.TryGetValue(Star.Full,out var v)
+                    //StarDictionary.GetOrAdd(Star.Full, star =>
+                    //{
+                    //    var blob = blobs.Single(s=>s.Name == "share-placeholder/star-full.png");
+                    //    var bytes = new byte[blob.Properties.Length];
+                    //    blob.DownloadToByteArrayAsync(bytes, 0);
+                    //})
+                }
+            }
             //image.Mutate(x => x.DrawText( new TextGraphicsOptions(true)
             //{
                
@@ -184,6 +205,14 @@ namespace Cloudents.FunctionsV2
 
             return new PathCollection(cornerTopLeft, cornerBottomLeft, cornerTopRight, cornerBottomRight);
         }
+
+    }
+
+    public enum Star
+    {
+        None,
+        Half,
+        Full
 
     }
 }
