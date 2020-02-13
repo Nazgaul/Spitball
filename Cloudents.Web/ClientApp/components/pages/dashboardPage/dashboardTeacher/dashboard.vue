@@ -48,7 +48,6 @@ export default {
       return user && user.isTutor;
     },
     showBanner() {
-      debugger
       return global.lang !== 'he' ? './images/group-16' : './images/banner-he';
     }
   },
