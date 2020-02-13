@@ -1,19 +1,16 @@
 ﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Command.Item.Commands.FlagItem;
-using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;
 using Cloudents.Web.Extensions;
-using Cloudents.Web.Hubs;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Threading;
@@ -50,7 +47,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model,
-            [FromServices] IHubContext<SbHub> hubContext,
+            //[FromServices] IHubContext<SbHub> hubContext,
             CancellationToken token)
         {
          
@@ -74,13 +71,13 @@ namespace Cloudents.Web.Api
                 //throw;
             }
 
-            await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
-            {
-                new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
-                    {
-                        text = toasterMessage.Value
-                    }
-                )}, token);
+            //await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
+            //{
+            //    new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
+            //        {
+            //            text = toasterMessage.Value
+            //        }
+            //    )}, token);
             return Ok();
         }
 

@@ -106,7 +106,7 @@ namespace Cloudents.Core.Entities
             if (Status == null || Status == Pending)
             {
                 Status = Public;
-                AddEvent(new QuestionCreatedEvent(this));
+                //AddEvent(new QuestionCreatedEvent(this));
             }
         }
 

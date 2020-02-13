@@ -2,15 +2,13 @@
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Core.EventHandler
 {
     public class SignalrQuestionEventHandler
-        : IEventHandler<QuestionCreatedEvent>,
-            IEventHandler<QuestionDeletedEvent>,
+        : IEventHandler<QuestionDeletedEvent>,
             IEventHandler<QuestionDeletedAdminEvent>,
             IEventHandler<AnswerCreatedEvent>, IEventHandler<AnswerDeletedEvent>,
             IEventHandler<TransactionEvent>
@@ -23,30 +21,30 @@ namespace Cloudents.Core.EventHandler
         }
 
 
-        public async Task HandleAsync(QuestionCreatedEvent eventMessage, CancellationToken token)
-        {
-            var dto = new QuestionFeedDto
-            {
+        //public async Task HandleAsync(QuestionCreatedEvent eventMessage, CancellationToken token)
+        //{
+        //    var dto = new QuestionFeedDto
+        //    {
                 
 
-                Id = eventMessage.Question.Id,
-                // ReSharper disable once ConstantConditionalAccessQualifier this is later stuff - we still have null courses
-                Course = eventMessage.Question.Course?.Id,
-                Text = eventMessage.Question.Text,
-                Answers = 0,
-                DateTime = DateTime.UtcNow,
-                User = new QuestionUserDto()
-                {
-                    Id = eventMessage.Question.User.Id,
-                    Name = eventMessage.Question.User.Name,
-                    Image = eventMessage.Question.User.Image
-                }
-                // UserId = eventMessage.Question.User.Id
-            };
+        //        Id = eventMessage.Question.Id,
+        //        // ReSharper disable once ConstantConditionalAccessQualifier this is later stuff - we still have null courses
+        //        Course = eventMessage.Question.Course?.Id,
+        //        Text = eventMessage.Question.Text,
+        //        Answers = 0,
+        //        DateTime = DateTime.UtcNow,
+        //        User = new QuestionUserDto()
+        //        {
+        //            Id = eventMessage.Question.User.Id,
+        //            Name = eventMessage.Question.User.Name,
+        //            Image = eventMessage.Question.User.Image
+        //        }
+        //        // UserId = eventMessage.Question.User.Id
+        //    };
 
-            await _queueProvider.InsertMessageAsync(
-                new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), $"country_{eventMessage.Question.User.Country.ToLowerInvariant()}", token);
-        }
+        //    await _queueProvider.InsertMessageAsync(
+        //        new SignalRTransportType(SignalRType.Question, SignalRAction.Add, dto), $"country_{eventMessage.Question.User.Country.ToLowerInvariant()}", token);
+        //}
 
 
         public async Task HandleAsync(QuestionDeletedEvent eventMessage, CancellationToken token)
