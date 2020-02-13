@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Core.DTOs.Users
 {
     public class UserProfileAboutDto
     {

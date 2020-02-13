@@ -1,5 +1,4 @@
 ﻿using System;
-using Cloudents.Core.DTOs;
 using Cloudents.Query.Stuff;
 using NHibernate;
 using System.Diagnostics.CodeAnalysis;
@@ -10,6 +9,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using NHibernate.Transform;
 using NHibernate.Linq;
+using Cloudents.Core.DTOs.Users;
 
 namespace Cloudents.Query.Users
 {

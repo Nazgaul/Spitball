@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Core.DTOs.Users
 {
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto")]
     public class ProfileDto

@@ -7,6 +7,7 @@ using NHibernate;
 using NHibernate.Linq;
 using System;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.DTOs.Users;
 
 namespace Cloudents.Query.Users
 {

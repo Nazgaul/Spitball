@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cloudents.Core.DTOs.Users;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 

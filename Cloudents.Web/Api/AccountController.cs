@@ -30,6 +30,7 @@ using static Microsoft.AspNetCore.Http.StatusCodes;
 using Cloudents.Query.Users;
 using Cloudents.Query.Tutor;
 using Cloudents.Query.Questions;
+using Cloudents.Core.DTOs.Users;
 
 namespace Cloudents.Web.Api
 {
