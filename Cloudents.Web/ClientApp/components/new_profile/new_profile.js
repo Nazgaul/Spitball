@@ -57,7 +57,6 @@ export default {
                 closeCalendar: this.closeCalendar,
                 openBecomeTutor: this.openBecomeTutor,
                 goTutorList: this.goTutorList,
-                openUpload: this.openUpload,
                 getItems: this.getItems,
                 scrollTo: this.scrollToElementId,
             },
@@ -94,7 +93,6 @@ export default {
             'updateRequestDialog',
             'setActiveConversationObj',
             'openChatInterface',
-            'updateDialogState',
             'updateProfileItemsByType',
 
 
@@ -164,18 +162,6 @@ export default {
         goTutorList(){
             this.$router.push({name:'tutorLandingPage'})
         },
-        openUpload() {
-            let schoolName = this.getSchoolName;
-            if (this.accountUser == null) {
-              this.updateLoginDialogState(true);
-            } else if (!schoolName.length) {
-              this.$router.push({ name: "addUniversity" });
-            } else if (!this.getSelectedClasses.length) {
-              this.$router.push({ name: "addCourse" });
-            } else if (schoolName.length > 0 && this.getSelectedClasses.length > 0) {
-              this.updateDialogState(true);
-            }
-        },
         getItems(type,params){
             let dataObj = {
                 id: this.id,
@@ -217,8 +203,6 @@ export default {
             "accountUser",
             'getCouponDialog',
             'getCouponError',
-            'getSchoolName',
-            'getSelectedClasses',
             "getProfile"]),
         isShowCouponDialog(){
             if(this.getCouponDialog){
@@ -270,21 +254,6 @@ export default {
         showFindTutor(){
             return (!this.isMyProfile && !this.isTutor)
         },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         profileData() {
             if (!!this.getProfile) {
                 return this.getProfile;
