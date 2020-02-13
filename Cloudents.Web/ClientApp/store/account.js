@@ -44,7 +44,10 @@ const getters = {
             return false;
         }
     },
+    //TODO need to change this to accountretive
     getUserLoggedInStatus: state => state.isUserLoggedIn,
+    getUserLoggedInStatus2: state=> state.isUserLoggedIn || global.isAuth,
+
     usersReffered: state => state.usersReferred,
     accountUser: (state) => {
         return state.user;
@@ -103,6 +106,7 @@ const actions = {
         
         if (global.isAuth) {
             accountService.getAccount().then((userAccount) => {
+
                 dispatch('updateAccountUser',userAccount)
             }, () => {
                 //TODO what is that....
