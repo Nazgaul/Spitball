@@ -1,4 +1,4 @@
-using Cloudents.Core.DTOs;
+using Cloudents.Core.DTOs.Tutors;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.Query;
 using Cloudents.Query.SearchSync;

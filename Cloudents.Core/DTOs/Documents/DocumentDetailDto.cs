@@ -1,4 +1,6 @@
-﻿namespace Cloudents.Core.DTOs.Documents
+﻿using Cloudents.Core.DTOs.Tutors;
+
+namespace Cloudents.Core.DTOs.Documents
 {
     public class DocumentDetailDto
     {

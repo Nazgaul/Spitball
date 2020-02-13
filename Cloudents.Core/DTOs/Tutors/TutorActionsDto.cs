@@ -1,5 +1,5 @@
 ﻿
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Core.DTOs.Tutors
 {
     public class TutorActionsDto
     {

@@ -2,6 +2,7 @@
 using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.DTOs.Documents;
+using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
 using Cloudents.Query;

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Cloudents.Core.DTOs;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Entities;
@@ -8,6 +7,7 @@ using NHibernate.Linq;
 using System;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.DTOs.Users;
+using Cloudents.Core.DTOs.Tutors;
 
 namespace Cloudents.Query.Users
 {

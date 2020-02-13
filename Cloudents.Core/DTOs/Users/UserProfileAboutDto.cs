@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Cloudents.Core.DTOs.Tutors;
+using System.Collections.Generic;
 
 namespace Cloudents.Core.DTOs.Users
 {

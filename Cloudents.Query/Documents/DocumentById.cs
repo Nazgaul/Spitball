@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Query.Stuff;
 using NHibernate;
@@ -12,6 +11,7 @@ using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs.Documents;
+using Cloudents.Core.DTOs.Tutors;
 
 namespace Cloudents.Query.Documents
 {
