@@ -1,5 +1,6 @@
 import { LanguageService } from "../language/languageService";
 
+// TODO clean!
 const balanceNameByType = {
     'Earned': LanguageService.getValueByKey(`wallet_earned`),
     'Spent': LanguageService.getValueByKey(`wallet_spent`),
