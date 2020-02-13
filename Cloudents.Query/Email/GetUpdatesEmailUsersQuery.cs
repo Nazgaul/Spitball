@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs.Email;
 using Dapper;
 using System;
 using System.Collections.Generic;
