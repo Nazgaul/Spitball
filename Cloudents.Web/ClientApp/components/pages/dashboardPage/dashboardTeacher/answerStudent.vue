@@ -64,11 +64,7 @@ export default {
   .answerList {
     overflow-y: scroll;
     max-height: 260px;
-    // .scrollBarStyle(0px, #0085D1) !important;
-    ::-webkit-scrollbar-thumb {
-      color: #f5f5f5;
-      border-radius: 8px;
-    }
+
     .answerItem {
       display: flex;
       .middle {
