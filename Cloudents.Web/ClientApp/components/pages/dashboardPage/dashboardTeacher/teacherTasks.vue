@@ -25,7 +25,7 @@
               </div>
             </template>
         </v-col>
-        <v-col cols="12" class="taskCol py-4 d-flex justify-space-between px-0 mt-3">
+        <v-col cols="12" class="taskCol py-4 d-flex justify-space-between px-0 mt-3" v-if="!bookedSession">
             <div class="d-flex align-center">
               <assignmentIcon class="assignIcon" />
               <div class="taskText pl-3">
@@ -77,6 +77,7 @@ export default {
     btnLoading: false,
     calendarShared: false,
     haveHours: false,
+    bookedSession: false,
   }),
   computed: {
     user() {
@@ -105,6 +106,7 @@ export default {
       this.$store.dispatch('updateTutorActions').then(res => {
         this.calendarShared = res.calendarShared;
         this.haveHours = res.haveHours;
+        this.bookedSession = res.bookedSession;
         this.updateTaksNumberCompleted()
       }).catch(ex => {
         self.$appInsights.trackException({exception: new Error(ex)});
@@ -119,6 +121,11 @@ export default {
         this.taksNumberCompleted++;
         this.value += 20
       }
+      if(this.bookedSession) {
+        this.taksNumberCompleted++;
+        this.value += 20
+      }
+      
     }
   },
   created() {
