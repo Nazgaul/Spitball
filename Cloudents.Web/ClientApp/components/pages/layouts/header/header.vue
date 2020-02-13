@@ -151,6 +151,7 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
             return this.currentRoute === undefined;
         },
         shouldShowFindTutor(){ 
+            if(this.accountUser?.isTutor) return false
             let hiddenRoutes = ['tutorLandingPage']
             return !hiddenRoutes.includes(this.currentRoute)
         },

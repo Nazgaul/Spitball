@@ -38,7 +38,7 @@ namespace Cloudents.Infrastructure
                     Uploader = s.ElementExtensions
                         .ReadElementExtensions<string>("creator", "http://purl.org/dc/elements/1.1/").FirstOrDefault(),
                     Create = s.PublishDate
-                });
+                }).OrderByDescending(o => o.Create).Take(3);
             return Task.FromResult(result);
 
 

@@ -186,7 +186,7 @@ export default {
         .result {
           font-size: 28px;
           color: @global-purple;
-          font-weight: 600;
+          font-weight: 600 /*rtl:500*/;
           @media (max-width: @screen-md) {
             font-size: 24px;
           }

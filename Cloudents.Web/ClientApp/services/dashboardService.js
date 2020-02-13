@@ -119,6 +119,7 @@ function createFollowersItems({data}) {
 function TutorActions(objInit) {
    this.calendarShared = objInit.calendarShared;
    this.haveHours = objInit.haveHours;
+   this.bookedSession = objInit.bookedSession;
 }
 
 function createTutorActions({data}) {

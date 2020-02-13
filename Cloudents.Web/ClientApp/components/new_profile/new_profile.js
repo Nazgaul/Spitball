@@ -341,6 +341,9 @@ export default {
                 this.openCoupon();
             },200)
         }
+        if(this.$route.params.openCalendar) {
+            this.openCalendar();
+        }
     },
     mounted() {
         setTimeout(()=>{
