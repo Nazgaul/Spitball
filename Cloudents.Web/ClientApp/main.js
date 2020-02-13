@@ -97,10 +97,10 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
 }
 
 Vue.prototype.$openDialog = function(dialogName){
-    router.push({query:{...router.currentRoute.query,dialog:dialogName}})
+    router.push({query:{...router.currentRoute.query,dialog:dialogName}}).catch(()=>{})
 }
 Vue.prototype.$closeDialog = function(){
-    router.push({query:{...router.currentRoute.query,dialog:undefined}})
+    router.push({query:{...router.currentRoute.query,dialog:undefined}}).catch(()=>{})
 }
 Vue.prototype.$loadStyle = function(url,id){
     return new Promise((resolve) => {
