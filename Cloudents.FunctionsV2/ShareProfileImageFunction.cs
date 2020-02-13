@@ -35,7 +35,9 @@ namespace Cloudents.FunctionsV2
     public static class ShareProfileImageFunction
     {
 
-       private static Dictionary<Star,byte[]> StarDictionary = new Dictionary<Star, byte[]>();
+        private static Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
+        private static List<CloudBlockBlob> _blobs;
+
 
         [FunctionName("ShareProfileImageFunction")]
         public static async Task<IActionResult> Run(
@@ -47,7 +49,7 @@ namespace Cloudents.FunctionsV2
             ILogger log,
             CancellationToken token)
         {
-            var blobs = directoryBlobs.ToList();
+            _blobs = directoryBlobs.ToList();
             //if (backgroundStream == null) throw new ArgumentNullException(nameof(backgroundStream));
             log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -76,7 +78,7 @@ namespace Cloudents.FunctionsV2
             await using var profileImageStream = await client.GetStreamAsync(uriBuilder.Uri);
             //foreach (var cloudBlockBlob in directoryBlobs)
             //{
-            var fontBlob = blobs.Single(s => s.Name == "share-placeholder/OpenSans-Regular.ttf");
+            var fontBlob = _blobs.Single(s => s.Name == "share-placeholder/OpenSans-Regular.ttf");
             await using var fontStream = await fontBlob.OpenReadAsync();
 
             var fontCollection = new FontCollection();
@@ -93,16 +95,17 @@ namespace Cloudents.FunctionsV2
             //var font = new Font()
             // var bgBlob = $"share-placeholder/bg-profile-{(result.Country.MainLanguage.Info.TextInfo.IsRightToLeft ? "rtl" : "ltr")}.jpg";
             var bgBlob = $"share-placeholder/bg-profile-ltr.jpg";
-            var blob = blobs.Single(s => s.Name == bgBlob);
+            var blob = _blobs.Single(s => s.Name == bgBlob);
 
 
             await using var bgBlobStream = await blob.OpenReadAsync();
             var image = Image.Load<Rgba32>(bgBlobStream);
-            
-            using var profileImage = Image.Load<Rgba32>(profileImageStream);
 
+            using var profileImage = Image.Load<Rgba32>(profileImageStream);
             profileImage.Mutate(x => x.ApplyRoundedCorners(245f / 2));
-            image.Mutate(x=>x.DrawText(
+            image.Mutate(x => x.DrawImage(profileImage, new Point(148, 135), GraphicsOptions.Default));
+
+            image.Mutate(x => x.DrawText(
                 new TextGraphicsOptions()
                 {
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -111,28 +114,43 @@ namespace Cloudents.FunctionsV2
                 result.Name,
                 fontCollection.CreateFont("open sans", 32, FontStyle.Regular),
                 Color.White,
-                new PointF(105f,423)));
+                new PointF(105f, 423)));
 
-            
+            result.Rate = 3.5;
+
             for (var i = 1; i <= 5; i++)
             {
-                
+
+                byte[] byteArr;
                 if (result.Rate >= i)
                 {
-                    //StarDictionary.TryGetValue(Star.Full,out var v)
-                    //StarDictionary.GetOrAdd(Star.Full, star =>
-                    //{
-                    //    var blob = blobs.Single(s=>s.Name == "share-placeholder/star-full.png");
-                    //    var bytes = new byte[blob.Properties.Length];
-                    //    blob.DownloadToByteArrayAsync(bytes, 0);
-                    //})
+                    byteArr = await GetStarAsync(Star.Full);
                 }
+
+                else if (Math.Abs(Math.Round((i - result.Rate) * 2, MidpointRounding.AwayFromZero) / 2 - 0.5) < 0.01)
+                {
+                    byteArr = await GetStarAsync(Star.Half);
+                }
+                else
+                {
+                    byteArr = await GetStarAsync(Star.None);
+                }
+
+                var starImage = Image.Load(byteArr);
+
+                //var z = i - 1;
+                const int marginBetweenState = 8;
+                const int stateWidth = 43;
+                var point = new Point(148 + (i - 1) * (stateWidth + marginBetweenState), 475);
+                image.Mutate(x => x.DrawImage(starImage, point, GraphicsOptions.Default));
+
+
             }
             //image.Mutate(x => x.DrawText( new TextGraphicsOptions(true)
             //{
-               
+
             //},  result.Name fontCollection.CreateFont("open sans", 32, FontStyle.Regular), Color.White, new Point(105, 423)));
-            image.Mutate(x => x.DrawImage(profileImage, new Point(148, 135), GraphicsOptions.Default));
+
             //using (var logoImage = Image.Load<Rgba32>(logoStream))
             //{
 
@@ -206,13 +224,43 @@ namespace Cloudents.FunctionsV2
             return new PathCollection(cornerTopLeft, cornerBottomLeft, cornerTopRight, cornerBottomRight);
         }
 
+
+        private static async Task<byte[]> GetStarAsync(Star star)
+        {
+            if (StarDictionary.TryGetValue(star, out var v))
+            {
+                return v;
+            }
+
+            var blob = _blobs.Single(s => s.Name == star.BlobPath);
+            //using (var ms = new MemoryStream())
+            //{
+            //    blob.DownloadToStreamAsync(ms);
+            //}
+            var bytes = new byte[blob.Properties.Length];
+            await blob.DownloadToByteArrayAsync(bytes, 0);
+
+            StarDictionary[star] = bytes;
+
+            return bytes;
+        }
     }
 
-    public enum Star
+    public class Star : Enumeration
     {
-        None,
-        Half,
-        Full
+        public string BlobPath { get; }
+        private Star(int id, string name, string blobPath) : base(id, name)
+        {
+            BlobPath = $"share-placeholder/{blobPath}";
+
+        }
+
+        public static readonly Star Full = new Star(1, "Full", "star-full.png");
+        public static readonly Star Half = new Star(2, "Half", "star-half.png");
+        public static readonly Star None = new Star(3, "Empty", "star-empty.png");
+        //None,
+        //Half,
+        //Full
 
     }
 }
