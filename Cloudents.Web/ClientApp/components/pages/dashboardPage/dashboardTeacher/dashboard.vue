@@ -8,8 +8,9 @@
         <spitballTips v-if="$vuetify.breakpoint.mdAndUp"></spitballTips>
         <answerStudent v-if="$vuetify.breakpoint.smAndDown"></answerStudent>
       </div>
+      
       <div class="dashboardSide" v-if="$vuetify.breakpoint.mdAndUp">
-        <img class="mb-2 blockImage" src="./images/group-16.png" alt="image" @click="startIntercom">
+        <img class="mb-2 blockImage" :src="require(`${showBanner}.png`)" alt="image" @click="startIntercom">
         <teacherTasks v-if="$vuetify.breakpoint.mdAndUp"></teacherTasks>
         <answerStudent v-if="$vuetify.breakpoint.mdAndUp"></answerStudent>
       </div>
@@ -45,6 +46,9 @@ export default {
     isTutor() {
       let user = this.$store.getters.accountUser
       return user && user.isTutor;
+    },
+    showBanner() {
+      return global.lang !== 'IL' ? './images/group-16' : './images/banner-he';
     }
   },
   methods: {
