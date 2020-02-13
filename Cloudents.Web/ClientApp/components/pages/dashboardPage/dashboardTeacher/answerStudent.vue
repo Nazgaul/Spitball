@@ -1,5 +1,5 @@
 <template>
-    <v-row class="answerStudent mt-2 mb-4 mx-0" dense>
+    <v-row class="answerStudent mt-2 mb-4 mx-md-0" dense>
         <v-col cols="12" class="answerTitle text-center pa-0">
             {{$t('dashboardTeacher_answer_title')}}
         </v-col>
