@@ -99,6 +99,10 @@ export default {
           .name {
             color: @global-purple;
           }
+          .date { 
+            flex-grow: 0;
+            flex-shrink: 0;
+          }
         }
       }
     }
