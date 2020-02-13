@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.Enum;
+﻿using Cloudents.Core.DTOs.Feed;
+using Cloudents.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

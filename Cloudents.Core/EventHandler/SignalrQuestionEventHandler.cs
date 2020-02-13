@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs.Feed;
+using Cloudents.Core.DTOs.Questions;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;

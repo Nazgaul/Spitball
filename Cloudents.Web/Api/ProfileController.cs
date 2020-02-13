@@ -1,7 +1,6 @@
 ﻿using System;
 using Cloudents.Command;
 using Cloudents.Command.Command;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
@@ -18,6 +17,7 @@ using Cloudents.Web.Models;
 using Cloudents.Query.Users;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.DTOs.Documents;
+using Cloudents.Core.DTOs.Feed;
 
 namespace Cloudents.Web.Api
 {

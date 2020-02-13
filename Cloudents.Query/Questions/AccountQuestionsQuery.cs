@@ -1,4 +1,4 @@
-﻿using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs.Questions;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query.Stuff;
 using NHibernate;

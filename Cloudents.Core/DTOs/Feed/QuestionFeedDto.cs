@@ -4,7 +4,7 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using System;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Core.DTOs.Feed
 {
     public abstract class FeedDto
     {

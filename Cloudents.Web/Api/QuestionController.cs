@@ -2,7 +2,6 @@
 using Cloudents.Command.Command;
 using Cloudents.Command.Item.Commands.FlagItem;
 using Cloudents.Core;
-using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;
@@ -20,6 +19,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query.Questions;
+using Cloudents.Core.DTOs.Questions;
 
 namespace Cloudents.Web.Api
 {

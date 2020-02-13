@@ -32,6 +32,7 @@ using Cloudents.Query.Tutor;
 using Cloudents.Query.Questions;
 using Cloudents.Core.DTOs.Users;
 using Cloudents.Core.DTOs.Tutors;
+using Cloudents.Core.DTOs.Questions;
 
 namespace Cloudents.Web.Api
 {

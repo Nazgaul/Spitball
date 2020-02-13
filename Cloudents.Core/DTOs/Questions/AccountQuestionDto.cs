@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Cloudents.Core.DTOs.Feed;
+using System;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Core.DTOs.Questions
 {
     public class AccountQuestionDto
     {

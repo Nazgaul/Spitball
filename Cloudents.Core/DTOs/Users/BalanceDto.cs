@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Cloudents.Core.DTOs
+namespace Cloudents.Core.DTOs.Users
 {
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Dto - json")]
     public class BalanceDto

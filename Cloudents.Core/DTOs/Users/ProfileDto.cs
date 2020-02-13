@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Cloudents.Core.DTOs.Feed;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.DTOs.Users
