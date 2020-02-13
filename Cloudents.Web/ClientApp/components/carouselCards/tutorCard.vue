@@ -1,5 +1,5 @@
 <template>
-    <router-link event @click.native.prevent="goToProfile" :to="{name: 'profile', params: {id: tutor.userId, name:tutor.name}}" class="tutorCarouselCard">
+    <router-link event @click.native.prevent="goToProfile" :to="{name: 'profile', params: {id: tutor.id, name:tutor.name}}" class="tutorCarouselCard">
         <div class="tutorCarousel-top">
             <userAvatarRect draggable="false"
                 :userName="tutor.name" 
@@ -41,9 +41,9 @@
                         <span v-if="isDiscount" class="ts-price-discount font-weight-bold">{{tutor.discountPrice | currencyFormat(tutor.currency)}}</span>
                         <span class="ts-price-original font-weight-bold" v-else>{{tutor.price | currencyFormat(tutor.currency)}}</span>
                     </template>
-                    <span class="caption">
-                        <span class="">/</span>
-                        <span class="" v-language:inner="'tutorCardCarousel_hour'"></span>
+                    <span>
+                        <span>/</span>
+                        <span v-language:inner="'tutorCardCarousel_hour'"></span>
                     </span>
                     <div class="striked ml-2" v-if="isDiscount">{{tutor.price | currencyFormat(tutor.currency)}}</div>
                 </div>
@@ -152,7 +152,7 @@ export default {
                 if(!this.contactClickedbtn){
                     this.$router.push({
                         name: 'profile',
-                        params: {id: this.tutor.userId, name: this.tutor.name}
+                        params: {id: this.tutor.id, name: this.tutor.name}
                     })
                 }else{
                     this.sendMessage(this.tutor)
@@ -160,7 +160,7 @@ export default {
             }
         },
         openCoupon() {
-            this.$router.push({name: 'profile', params: {id: this.tutor.userId, name: this.tutor.name},  query: {coupon: true}})
+            this.$router.push({name: 'profile', params: {id: this.tutor.id, name: this.tutor.name},  query: {coupon: true}})
         }
     },
 }
@@ -175,7 +175,7 @@ export default {
     background: white;
     border-radius: 8px;
     border: solid 1px #c1c3d2;
-    color: #43425d;
+    color: #43425d !important; //vuetify
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -233,7 +233,7 @@ export default {
     }
     }
     .tutorCarousel-bottom {
-        // margin-top: 10px;
+        line-height: normal;
         padding: 0 8px 8px 8px;
     .ts_subjects {
         font-size: 13px;
@@ -268,7 +268,7 @@ export default {
             font-size: 12px;
             font-weight: normal;
             line-height: 1;
-            align-items: flex-end;
+            align-items: baseline;
             &-original {
                 font-size: 18px;
             }

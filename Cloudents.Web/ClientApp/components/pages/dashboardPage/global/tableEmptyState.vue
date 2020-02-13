@@ -10,6 +10,7 @@
    justify-content: center;
    align-items: center;
    padding: 20px;
+   margin-bottom: 0;
    .tableEmptyState_text{
       padding-left: 12px;
       color: white;

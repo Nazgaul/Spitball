@@ -1,6 +1,6 @@
 <template>
     <div class="user-consent-dialog-wrap pb-3">
-        <v-layout row class="pt-3">
+        <v-layout class="pt-3">
             <v-flex xs12 class="text-xs-right px-3">
                 <v-icon class="caption cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
             </v-flex>

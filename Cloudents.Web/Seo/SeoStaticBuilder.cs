@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 
 namespace Cloudents.Web.Seo
 {
@@ -14,7 +13,7 @@ namespace Cloudents.Web.Seo
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IEnumerable<SitemapNode> GetUrls(int index)
+        public IEnumerable<SitemapNode> GetUrls(bool isFrymo, int index)
         {
             yield return new SitemapNode(GetBaseUrl())
             {

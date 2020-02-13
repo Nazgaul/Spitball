@@ -5,7 +5,7 @@
             <span class="change-title pr-1" v-language:inner="'resultNote_change_for'"></span>
             <span class="change-title">&nbsp;"{{dialogData.name}}"</span>
          </div>
-         <div class="input-wrap d-flex row align-center justify-center">
+         <div class="input-wrap d-flex align-center justify-center">
             <div :class="['price-wrap']">
             <vue-numeric
                :currency="currentCurrency"
@@ -37,9 +37,10 @@ import documentService from '../../../../services/documentService.js';
 import { validationRules } from '../../../../services/utilities/formValidationRules';
 
 import { mapActions } from 'vuex';
-
+import VueNumeric from 'vue-numeric'
 export default {
    name: 'changePriceDialog',
+   components:{VueNumeric},
    props:['dialogData'],
    data() {
       return {
@@ -91,6 +92,7 @@ export default {
 }
 //price-change dialog
 .priceD-change-wrap {
+   width: 438px;
     padding: 12px 0 0 0;
     position: relative;
     .price-wrap {

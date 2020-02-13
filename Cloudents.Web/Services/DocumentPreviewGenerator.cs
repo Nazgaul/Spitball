@@ -25,7 +25,7 @@ namespace Cloudents.Web.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public Task<object> GeneratePreview(DocumentDetailDto model, long userId, CancellationToken token)
+        public Task<object> GeneratePreviewAsync(DocumentDetailDto model, long userId, CancellationToken token)
         {
             var result = Enumerable.Range(0, model.Pages).Select(i =>
             {
@@ -34,9 +34,9 @@ namespace Cloudents.Web.Services
                 if (!model.IsPurchased)
                 {
                     effect = ImageProperties.BlurEffect.All;
-                    if (i == 0)
+                    if (i == 0 || i == 1)
                     {
-                        effect = ImageProperties.BlurEffect.Part;
+                        effect = ImageProperties.BlurEffect.None;
                     }
 
                 }
@@ -66,7 +66,7 @@ namespace Cloudents.Web.Services
             _urlBuilder = urlBuilder;
         }
 
-        public async Task<object> GeneratePreview(DocumentDetailDto model, long userId, CancellationToken token)
+        public async Task<object> GeneratePreviewAsync(DocumentDetailDto model, long userId, CancellationToken token)
         {
             string locator;
             if (model.IsPurchased)
@@ -87,6 +87,6 @@ namespace Cloudents.Web.Services
 
     public interface IDocumentGenerator
     {
-        Task<object> GeneratePreview(DocumentDetailDto model, long userId, CancellationToken token);
+        Task<object> GeneratePreviewAsync(DocumentDetailDto model, long userId, CancellationToken token);
     }
 }

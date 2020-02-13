@@ -141,6 +141,9 @@
   <data name="footer_links_about" xml:space="preserve">
     <value>About Spitball</value>
   </data>
+  <data name="footer_links_blog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
   <data name="footer_links_contact" xml:space="preserve">
     <value>Contact us</value>
   </data>
@@ -160,10 +163,13 @@
     <value>Terms &amp; Conditions</value>
   </data>
   <data name="header_find_tutors" xml:space="preserve">
-    <value>Get 50 NIS discount on your first lesson</value>
+    <value>Try your first lesson for free with coupon: 1free</value>
   </data>
   <data name="header_get_lesson" xml:space="preserve">
     <value>Professional private tutors that help you succeed</value>
+  </data>
+  <data name="header_get_lesson_subject" xml:space="preserve">
+    <value>Professional private tutors in {1} that help you succeed</value>
   </data>
   <data name="reviews" xml:space="preserve">
     <value>reviews</value>

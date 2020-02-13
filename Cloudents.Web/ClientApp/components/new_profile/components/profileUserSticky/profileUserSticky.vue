@@ -1,5 +1,5 @@
 <template>
-   <div :class="['profileUserSticky',{'profileUserSticky_bannerActive':getBannerSatus}]" v-if="!!getProfile">
+   <div :class="['profileUserSticky',{'profileUserSticky_bannerActive':getBannerParams}]" v-if="!!getProfile">
       <template v-if="isTutor">
          <transition name="fade">
             <div v-if="showScrollHeader" class="profileUserSticky_scrollHeader">
@@ -9,7 +9,7 @@
                            :userImageUrl="getProfile.user.image" 
                            :user-name="getProfile.user.name"/>
                </div>
-               <div class="profileUserSticky_scrollHeader_user">
+               <div class="profileUserSticky_scrollHeader_user text-truncate">
                   <h6 class="profileUserSticky_scrollHeader_name text-truncate">
                      <span v-language:inner="'profile_tutor'"/>
                      {{getProfile.user.name}}
@@ -22,7 +22,7 @@
             </div>
          </transition>
          <div class="profileUserSticky_pricing">
-            <v-flex class="profileUserSticky_pricing_discount" v-if="tutorDiscountPrice">
+            <v-flex class="profileUserSticky_pricing_discount" v-if="isDiscount">
                {{tutorPrice ? tutorPrice : tutorDiscountPrice | currencyFormat(getProfile.user.tutorData.currency)}}
             </v-flex>
             <v-flex class="profileUserSticky_pricing_price">
@@ -30,7 +30,7 @@
             </v-flex>
          </div>
          <div class="profileUserSticky_btns">
-            <v-btn :disabled="isMyProfile" class="profileUserSticky_btn white--text" :class="{'isMyProfile':isMyProfile}" depressed round color="#4452fc" @click="globalFunctions.sendMessage">
+            <v-btn sel="send" :disabled="isMyProfile" class="profileUserSticky_btn white--text" :class="{'isMyProfile':isMyProfile}" depressed rounded color="#4452fc" @click="globalFunctions.sendMessage">
                <v-flex xs2 mr-1>
                   <chatIcon class="profileUserSticky_btn_icon"/>
                </v-flex>
@@ -41,7 +41,7 @@
                   
                </v-flex>
             </v-btn>
-            <v-btn :disabled="isMyProfile" v-if="getProfile.user.calendarShared" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isMyProfile}" class="profileUserSticky_btn profileUserSticky_btn_book white--text" depressed round color="white">
+            <v-btn sel="calendar" :disabled="isMyProfile" v-if="getProfile.user.calendarShared" @click="globalFunctions.openCalendar" :class="{'isMyProfile':isMyProfile}" class="profileUserSticky_btn profileUserSticky_btn_book white--text" depressed rounded color="white">
                <v-flex xs2 mr-1>
                   <calendarIcon class="profileUserSticky_btn_icon"/>
                </v-flex>
@@ -71,7 +71,7 @@
                <span class="profileUserSticky_whyUs_row_text" v-language:inner="'documentPage_prepared_exams'"></span>
             </div>
          </div>
-         <button :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-language:inner="'coupon_apply_coupon'"/>
+         <button sel="coupon" :class="{'isMyProfileCoupon':isMyProfile}" class="profileUserSticky_coupon" @click="globalFunctions.openCoupon" v-language:inner="'coupon_apply_coupon'"/>
       </template>
       <template v-else>         
          <div v-if="isMyProfile" class="profileUserSticky_title_become" v-language:inner="'profile_become_title'"/>
@@ -92,7 +92,7 @@
          </div>
          <div class="profileUserSticky_title_become_text" v-else v-language:inner="'profile_become_txt'"/>
          <div class="profileUserSticky_btns why_learn_user_btn mt-3">
-            <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed round color="#4452fc" @click="isMyProfile? globalFunctions.openBecomeTutor() : globalFunctions.goTutorList()">
+            <v-btn class="profileUserSticky_btn profileUserSticky_btn_find white--text" depressed rounded color="#4452fc" @click="isMyProfile? globalFunctions.openBecomeTutor() : globalFunctions.goTutorList()">
                <div class="profileUserSticky_btn_txt" v-language:inner="isMyProfile? 'profile_become_tutor_btn':'profile_find_tutors'"/>
             </v-btn>
          </div>
@@ -111,7 +111,6 @@ import calendarIcon from './images/calendarIcon.svg';
 import { mapGetters, mapActions } from 'vuex';
 
 import userRating from '../../profileHelpers/profileBio/bioParts/userRating.vue';
-import userAvatar from '../../../helpers/UserAvatar/userAvatar.vue';
 
 export default {
    components:{
@@ -121,7 +120,6 @@ export default {
       chatIcon,
       calendarIcon,
       userRating,
-      userAvatar
    },
    props:{
       globalFunctions:{
@@ -136,7 +134,7 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['getBannerSatus','getProfile','accountUser','getCouponDialog','getCouponError']),
+      ...mapGetters(['getBannerParams','getProfile','accountUser','getCouponDialog','getCouponError']),
       isTutor(){
          return !!this.getProfile && this.getProfile.user.isTutor
       },

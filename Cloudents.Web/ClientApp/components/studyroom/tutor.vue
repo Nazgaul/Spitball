@@ -40,7 +40,7 @@
           
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px; margin-left:30px;" vertical></v-divider>
 
-            <v-btn flat icon @click="toggleRecord" class="recording_btn" :ripple="false">
+            <v-btn text icon @click="toggleRecord" class="recording_btn tutoringNavigationBtn" :ripple="false">
               <span v-if="!getIsRecording" class="mt-1 d-flex">
                 <beginRecording class="white-btn mr-1"></beginRecording>
                 <span class="recording_btn_text" v-language:inner="'tutor_begain_recording'"></span>
@@ -53,8 +53,8 @@
            
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
             
-            <div class="d-flex">
-              <v-btn sel="help_draw" flat icon @click="showIntercom">
+            <div class="d-flex tutoringNavigationBtn">
+              <v-btn text icon @click="showIntercom" sel="help_draw">
                 <intercomSVG class="network-icon"/>
               </v-btn>
             </div> 
@@ -63,7 +63,7 @@
 
             <v-divider color="#000000" inset style="opacity: 0.12; height: 30px;" vertical></v-divider>
             
-            <v-btn sel="setting_draw" flat icon @click="changeSettingsDialogState(true)">
+            <v-btn class="tutoringNavigationBtn" text icon @click="changeSettingsDialogState(true)" sel="setting_draw">
               <v-icon class="white-btn">sbf-settings</v-icon>
             </v-btn>
             
@@ -157,7 +157,7 @@
         :showDialog="getReviewDialogState"
         :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition'"
         :popUpType="'reviewDilaog'"
-        :maxWidth="'596'"
+        :maxWidth="'523'"
         :onclosefn="closeReviewDialog"
         :activateOverlay="false"
         :isPersistent="$vuetify.breakpoint.smAndUp"
@@ -283,6 +283,8 @@ import snapshotDialog from './tutorHelpers/snapshotDialog/snapshotDialog.vue';
 import stopRecording from './images/stop-recording.svg';
 import beginRecording from './images/begain-recording.svg';
 
+import intercomSettings from '../../services/intercomService';
+
 //store
 import storeService from "../../services/store/storeService";
 import tutoringCanvas from '../../store/studyRoomStore/tutoringCanvas.js';
@@ -387,7 +389,6 @@ export default {
       "releaseFullVideoButton",
       "getActiveNavIndicator",
       "getRecorder",
-      "isFrymo",
       "getRecorderStream",
       "getIsRecording",
       "getShowAudioRecordingError",
@@ -439,13 +440,11 @@ export default {
   },
 
 watch: {
-  showDeviceValidationError: function(val){
-      if(val) {
-        setTimeout(function() {
-          document.querySelector('.device-dialog-unsupport').parentNode.style.zIndex=999;
-        },1000)
-      }
+  getStudyRoomData(val){
+    if(!!val){
+      this.initStartSession();
     }
+  }
 },
 
   methods: {
@@ -468,13 +467,24 @@ watch: {
       "setVideoDevice",
       "setAudioDevice",
       "initLocalMediaTracks",
-      "UPDATE_SEARCH_LOADING",
       "setShowAudioRecordingError",
       "hideRoomToasterMessage",
       "setShowUserConsentDialog",
       "setSnapshotDialog",
       "stopTracks"
     ]),
+    initStartSession(){
+        console.warn('DEBUG: 29 store: initStartSession')
+
+      let isNotStudyRoomTest = this.$route.params ? this.$route.params.id : null;
+      if(isNotStudyRoomTest) {
+        if(this.isTutor){
+          this.updateTutorStartDialog(true);
+        }else{
+          this.updateStudentStartDialog(true);
+        }
+      }
+    },
     // ...mapGetters(['getDevicesObj']),
     closeFullScreen(){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
@@ -554,6 +564,10 @@ watch: {
       let _roomProps = this.getStudyRoomData;
       if(_roomProps){
         initSignalRService(`studyRoomHub?studyRoomId=${id}`);
+        setTimeout(()=>{
+          this.initStartSession();
+        })
+        
       }else{
         await tutorService.getRoomInformation(id).then((RoomProps) => {
           _roomProps = RoomProps;
@@ -621,17 +635,11 @@ watch: {
     resetItems(){
       let isExit = confirm(LanguageService.getValueByKey("login_are_you_sure_you_want_to_exit"),)
       if(isExit){
-        this.UPDATE_SEARCH_LOADING(true);
         this.$router.push('/');
       }
     },
     showIntercom(){
-      if(this.isFrymo){
-        window.open('mailto: support@frymo.com', '_blank');
-      }else{
-        global.Intercom('show')
-        global.intercomSettings.hide_default_launcher = false;
-      }
+      intercomSettings.showDialog();
     },
     toggleRecord(){
       studyRoomRecordingService.toggleRecord(this.isTutor);
@@ -645,19 +653,6 @@ watch: {
   },
   mounted() {
     document.addEventListener("fullscreenchange",this.closeFullScreen);
-    let isNotStudyRoomTest = this.$route.params ? this.$route.params.id : null;
-    if(isNotStudyRoomTest) {
-      let self = this;
-      this.$nextTick(function(){
-        setTimeout(()=>{
-          if(self.isTutor){
-            self.updateTutorStartDialog(true);
-          }else{
-            self.updateStudentStartDialog(true);
-          }
-        }, 1500)
-      })
-    }
   },
   destroyed(){
     global.onbeforeunload = function() { };
@@ -665,7 +660,11 @@ watch: {
   beforeDestroy(){
     this.stopTracks();
     this.hideRoomToasterMessage();
+    
+    console.warn('DEBUG: 30 : beforeDestroy before updateTutorStartDialog(false)')
     this.updateTutorStartDialog(false);
+    console.warn('DEBUG: 31 : beforeDestroy after updateTutorStartDialog(false)')
+
     this.updateStudentStartDialog(false);
     document.removeEventListener('fullscreenchange',this.closeFullScreen);
     storeService.unregisterModule(this.$store,'tutoringCanvas');

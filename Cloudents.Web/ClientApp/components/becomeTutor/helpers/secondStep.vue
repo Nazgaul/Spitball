@@ -5,12 +5,12 @@
                 <v-flex xs12 class="mb-4 span-cont">
                     <span class="sharing-text" v-language:inner="'becomeTutor_sharing_step_2'"></span>
                 </v-flex>
-                <v-flex xs12 class="mb-2" :class="{'mt-3' : $vuetify.breakpoint.xsOnly}">
+                <v-flex xs12 class="mb-2" :class="{'mt-4' : $vuetify.breakpoint.xsOnly}">
                     <v-textarea
                             :height="$vuetify.breakpoint.xsOnly? 134 :100"
                             rows="2"
                             class="sb-text-area"
-                            outline
+                            outlined
                             no-resize
                             v-model="description"
                             name="input-about"
@@ -25,7 +25,7 @@
                             no-resize
                             class="sb-text-area"
                             rows="5"
-                            outline
+                            outlined
                             :rules="[rules.maximumChars, rules.descriptionMinChars]"
                             v-model="bio"
                             name="input-bio"
@@ -37,13 +37,13 @@
         </div>
         <div class="mt-2 px-1 btns-second"
                   :class="[$vuetify.breakpoint.smAndUp ? 'align-end justify-end' : 'align-center justify-center']">
-            <v-btn @click="goToPreviousStep()" class="cancel-btn elevation-0" round outline flat>
+            <v-btn @click="goToPreviousStep()" class="cancel-btn elevation-0" rounded outline text>
                 <span v-language:inner>becomeTutor_btn_back</span>
             </v-btn>
             <v-btn
                     color="#4452FC"
                     class="white-text elevation-0"
-                    round
+                    rounded
                     :loading="btnLoading"
                     @click="submitData()">
                 <span v-language:inner>becomeTutor_btn_next</span>
@@ -118,6 +118,7 @@
                 align-items: flex-start;
                 }
             .v-btn {
+                margin: 6px 8px;
                 @media (max-width: @screen-xs) {
                   height: 40px;
                   padding: 0 20px;

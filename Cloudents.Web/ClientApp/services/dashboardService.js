@@ -40,26 +40,26 @@ const Item = {
       this.name = objInit.tutorName || objInit.studentName;
       this.image = objInit.tutorImage || objInit.studentImage;
    },
-   Balances:function(objInit){
-      this.type = objInit.type;
-      this.points = objInit.points;
-      this.value = objInit.value;
-      this.symbol = objInit.symbol;
-   },
    StudyRoom:function(objInit){
+      this.online = objInit.online;
+      this.id = objInit.id;
+      this.conversationId = objInit.conversationId;
+      this.lastSession = objInit.lastSession;
+   },
+   User:function(objInit){
       this.name = objInit.name;
       this.image = objInit.image;
       this.userId = objInit.userId;
-      this.online = objInit.online;
-      this.id = objInit.id;
-      this.date = objInit.dateTime;
-      this.conversationId = objInit.conversationId;
-      this.lastSession = objInit.lastSession;
+      this.date = objInit.dateTime || objInit.created;
+   },
+   Follower:function(objInit){
+      this.email = objInit.email;
+      this.phoneNumber = objInit.phoneNumber;
    }
 };
-
 function StudyRoomItem(objInit){
    return Object.assign(
+      new Item.User(objInit),
       new Item.StudyRoom(objInit)
    );
 }
@@ -84,8 +84,11 @@ function PurchasesItem(objInit){
       new Item[itemTypeChcker(objInit.type)](objInit)
    );
 }
-function BalancesItems(objInit){
-   return new Item.Balances(objInit);
+function FollowersItem(objInit){
+   return Object.assign(
+      new Item.User(objInit),
+      new Item.Follower(objInit)
+   )
 }
 function createSalesItems({data}) {
    let salesItems = [];
@@ -102,16 +105,38 @@ function createPurchasesItems({data}) {
    data.map(item => purchasesItems.push(new PurchasesItem(item)));
    return purchasesItems;
 }
-function createBalancesItems({data}) {
-   let balancesItems = [];
-   data.map(item => balancesItems.push(new BalancesItems(item)));
-   return balancesItems;
-}
 function createStudyRoomItems({data}) {
    let studyRoomItems = [];
    data.map(item => studyRoomItems.push(new StudyRoomItem(item)));
    return studyRoomItems;
 }
+function createFollowersItems({data}) {
+   let followersItems = [];
+   data.map(item => followersItems.push(new FollowersItem(item)));
+   return followersItems;
+}
+
+function TutorActions(objInit) {
+   this.calendarShared = objInit.calendarShared;
+   this.haveHours = objInit.haveHours;
+}
+
+function createTutorActions({data}) {
+   return new TutorActions(data);
+}
+
+function SpitballBlog(objInit) {
+   this.image = objInit.image
+   this.url = objInit.url
+   this.title = objInit.title
+   this.uploader = objInit.uploader
+   this.create = objInit.create
+}
+
+function createSpitballBlogs({data}) {
+   return data.map(item => new SpitballBlog(item))
+}
+
 function getSalesItems(){
    return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex);
 }
@@ -121,17 +146,26 @@ function getContentItems(){
 function getPurchasesItems(){
    return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex);
 }
-function getBalancesItems(){
-   return connectivityModule.http.get('Wallet/balance').then(createBalancesItems).catch(ex => ex);
-}
 function getStudyRoomItems(){
    return connectivityModule.http.get('StudyRoom').then(createStudyRoomItems).catch(ex => ex);
 }
+function getFollowersItems(){
+   return connectivityModule.http.get('/Account/followers').then(createFollowersItems).catch(ex => ex);
+}
+function getTutorActions(){
+   return connectivityModule.http.get('/Account/tutorActions').then(createTutorActions).catch(ex => ex);
+}
+function getSpitballBlogs(){
+   return connectivityModule.http.get('/blog').then(createSpitballBlogs).catch(ex => ex);
+}
+
 
 export default {
    getSalesItems,
    getContentItems,
    getPurchasesItems,
-   getBalancesItems,
    getStudyRoomItems,
+   getFollowersItems,
+   getTutorActions,
+   getSpitballBlogs
 }

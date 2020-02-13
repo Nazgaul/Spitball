@@ -1,16 +1,10 @@
 <template>
-  <v-container
-    v-if="visible"
-    py-0
-    px-0
-    class="sb-chat-container"
-    :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]"
-  >
+  <div class="sb-chat-container px-0 py-0" :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]">
     <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
       <v-icon @click.stop="OriginalChatState" v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'" />
         <template v-if="state === 'messages'">
           <user-avatar :size="'32'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/> 
-          <div class="chat-header-name text-truncate pl-3">{{activeConversationObj.name}}</div>
+          <div class="chat-header-name text-truncate pl-4">{{activeConversationObj.name}}</div>
         </template>
         <template v-else>
             <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
@@ -30,21 +24,19 @@
       <component :is="`chat-${state}`"></component>
     </v-layout>
     
-  </v-container>
+  </div>
 </template>
 
 
 <script>
-import chatConversation from "./components/conversations.vue";
-import chatMessages from "./components/messages.vue";
-import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
+const chatConversation = () => import("./components/conversations.vue");
+const chatMessages = () => import("./components/messages.vue");
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 export default {
   components: {
     chatConversation,
     chatMessages,
-    UserAvatar
   },
   data() {
     return {
@@ -52,22 +44,9 @@ export default {
       mobileHeaderHeight: 39,
     };
   },
-  watch: {
-    visible: function(val) {
-      if (!this.isMobile) {
-        return;
-      }
-      if (val) {
-        document.body.classList.add("noscroll");
-      } else {
-        document.body.classList.remove("noscroll");
-      }
-    }
-  },
   computed: {
     ...mapGetters([
       "getChatState",
-      "getIsChatVisible",
       "getIsChatMinimized",
       "getActiveConversationObj",
       "getIsChatLocked",
@@ -83,13 +62,6 @@ export default {
     },
     state() {
       return this.getChatState;
-    },
-    visible() {
-      if (this.accountUser === null) {
-        return false;
-      } else {
-        return this.getIsChatVisible;
-      }
     },
     isMinimized() {
       if (this.isMobile) {
@@ -169,6 +141,7 @@ export default {
   &.chat-studyRoom {
     right: 0 ;
     left: unset;
+    z-index: 201;
   }
   @media (max-width: @screen-xs) {
     width: 100%;
@@ -238,7 +211,7 @@ export default {
     }
   }
   .general-chat-style {
-    height: 90%;
+    height: ~"calc( 100% - 48px)";
     width: 100%;
     @media (max-width: @screen-xs) {
       flex:2;

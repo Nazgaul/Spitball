@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Cloudents.Web.Seo.Images;
-using Cloudents.Web.Seo.Translations;
-using Cloudents.Web.Seo.Videos;
 
 
 namespace Cloudents.Web.Seo
@@ -11,7 +9,7 @@ namespace Cloudents.Web.Seo
     /// <summary>
     /// Encloses all information about a specific URL.
     /// </summary>
-    [XmlRoot("url", Namespace = null)]
+    [XmlRoot("url")]
     public class SitemapNode
     {
 
@@ -134,7 +132,7 @@ namespace Cloudents.Web.Seo
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
             ns.Add("", "http://www.sitemaps.org/schemas/sitemap/0.9");
 
-            if (this.Images?.Count > 0)
+            if (Images?.Count > 0)
             {
                 ns.Add("image", "http://www.google.com/schemas/sitemap-image/1.1");
             }

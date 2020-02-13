@@ -1,4 +1,6 @@
 import dashboardService from '../services/dashboardService.js';
+import walletService from '../services/walletService.js';
+import searchService from '../services/searchService';
 
 const state = {
    salesItems: [],
@@ -6,6 +8,7 @@ const state = {
    purchasesItems: [],
    balancesItems: [],
    studyRoomItems: [],
+   followersItems: [],
 };
 
 const mutations = {
@@ -23,6 +26,9 @@ const mutations = {
    },
    setStudyRoomItems(state,val) {
       state.studyRoomItems = val;
+   },
+   setFollowersItems(state,val) {
+      state.followersItems = val;
    },
    dashboard_setPrice(state,{newPrice,itemId}){
       state.contentItems.forEach(item =>{
@@ -46,6 +52,7 @@ const getters = {
    getPurchasesItems: state => state.purchasesItems,
    getBalancesItems: state => state.balancesItems,
    getStudyRoomItems: state => state.studyRoomItems,
+   getFollowersItems: state => state.followersItems,
 };
 
 const actions = {
@@ -65,13 +72,18 @@ const actions = {
       });
    },
    updateBalancesItems({commit}){
-      dashboardService.getBalancesItems().then(items=>{
+      walletService.getBalances().then(items=>{
          commit('setBalancesItems', items);
       });
    },
    updateStudyRoomItems({commit}){
       dashboardService.getStudyRoomItems().then(items=>{
          commit('setStudyRoomItems', items);
+      });
+   },
+   updateFollowersItems({commit}){
+      dashboardService.getFollowersItems().then(items=>{
+         commit('setFollowersItems', items);
       });
    },
    dashboard_updatePrice({commit},paramObj){
@@ -102,6 +114,21 @@ const actions = {
          });
          return;
       }
+   },
+   updateStudentsAnswersQuestion() {
+      return searchService.activateFunction.feed({filter: "Question"}).then((data) => {
+         return data;
+     }, (err) => {
+         return Promise.reject(err);
+     }).finally(()=>{
+         return
+     });
+   },
+   updateTutorActions() {
+      return dashboardService.getTutorActions()
+   },
+   updateSpitballBlogs() {
+      return dashboardService.getSpitballBlogs()
    }
 };
 

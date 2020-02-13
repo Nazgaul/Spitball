@@ -16,41 +16,31 @@
                         <v-icon class="has-correct">sbf-check-circle</v-icon>
                     </div>
                     <div class="menu-area">
-
-                        <v-menu class="menu-area" lazy bottom left content-class="card-user-actions">
-                            <v-btn :depressed="true" @click.prevent slot="activator" icon>
-                            <v-icon>sbf-3-dot</v-icon>
-                            </v-btn>
+                        <v-menu class="menu-area" bottom left content-class="card-user-actions">
+                            <template v-slot:activator="{ on }">
+                                <v-btn :depressed="true" @click.prevent icon v-on="on">
+                                    <v-icon>sbf-3-dot</v-icon>
+                                </v-btn>
+                            </template>
                             <v-list>
-                            <v-list-tile v-show="item.isVisible" class="report-list-item" :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
-                                <v-list-tile-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-tile-title>
-                            </v-list-tile>
+                            <v-list-item v-show="item.isVisible" class="report-list-item" :disabled="item.isDisabled()" v-for="(item, i) in actions" :key="i">
+                                <v-list-item-title style="cursor:pointer;" @click="item.action()">{{ item.title }}</v-list-item-title>
+                            </v-list-item>
                             </v-list>
                         </v-menu>
-
                     </div>
                 </div>
             </div>
-            <div class="question-body-container" :class="{'ml-5': !$vuetify.breakpoint.xsOnly}">
+            <div class="question-body-container" :class="{'ml-12': !$vuetify.breakpoint.xsOnly}">
                 <div class="question-right-body-container">
-                    <!-- <v-layout align-center justify-start class="question-body-header-container">
-                        <div class="question-subject">{{cardData.course}}</div>
-                        <div v-show="!!cardData.course && !!cardData.subject" class="question-course"> 
-                            <span class="dot"></span>  
-                            <span class="lineClamp">{{cardData.subject}}</span>
-                        </div>
-                    </v-layout> -->
                     <div class="question-body-content-container mt-2 mb-1" :class="{'question-ellipsis': $route.name === 'feed'}">
                         <div class="question-text">{{cardData.text}}</div>
                     </div>
-                    <div class="question-body-course-container" :class="[answers ? 'mb-3' : 'mb-0']">
-                        <!-- <div class="question-body-course text-truncate" v-html="$Ph('resultNote_course',[cardData.course])"></div> -->
+                    <div class="question-body-course-container" :class="[answers ? 'mb-4' : 'mb-0']">
                         <div class="question-body-course_name text-truncate">
                             <span class="question-body-course_name_span" v-language:inner="'resultNote_course'"></span>
                             <h2 class="question-body-course_name_h2"> {{cardData.course}}</h2>
                         </div>
-                        <!-- <div class="mr-1" v-language:inner="'resultTutor_courses'"></div> -->
-                        <!-- <div class="question-subject text-truncate">{{cardData.course}}</div> -->
                     </div>
                     <div class="gallery" v-if="cardData.files && cardData.files.length">
                         <v-carousel 
@@ -73,13 +63,13 @@
                     <img :src="selectedImage" alt="" height="auto" width="100%" class="zoomed-image">
                 </v-dialog>
             </div>
-            <div class="question-footer-container" :class="{'ml-5': !$vuetify.breakpoint.xsOnly}">
+            <div class="question-footer-container" :class="{'ml-12': !$vuetify.breakpoint.xsOnly}">
                 <div class="answer-display-container">
                     <div class="user_answer_wrap" v-if="answers">
                         <div class="user_answer_body mb-1">
                             <div class="d-flex mb-2 user_answer_aligment">
                                 <user-avatar
-                                    class="avatar-area" 
+                                    class="avatar-area"
                                     :user-name="answers.user.name"
                                     :userImageUrl="answers.user.image"
                                     :user-id="answers.user.id"
@@ -93,7 +83,7 @@
                         <div class="user_answer">{{answers.text}}</div>
                     </div>
                     <div v-if="cardData.answers > 1" class="more-answers" v-html="$Ph(moreAnswersDictionary, answersCount -1)"></div>
-                    <div v-else class="mt-3"></div>
+                    <div v-else class="mt-4"></div>
                 </div>
 
                 <!-- <div class="answers-info-container">
@@ -103,7 +93,7 @@
                     </div>
                 </div> -->
             </div>
-            <div v-if="!hideAnswerInput" class="question-bottom-section" :class="[{'mx-5': !$vuetify.breakpoint.xsOnly}, answersCount > 1 ? 'mt-0' : 'mt-4']">
+            <div v-if="!hideAnswerInput" class="question-bottom-section" :class="[{'mx-12': !$vuetify.breakpoint.xsOnly}, answersCount > 1 ? 'mt-0' : 'mt-6']">
                 <div class="question-input-container d-flex">
                     <user-avatar class="avatar-area mr-2" :user-name="accountUser.name" :userImageUrl="accountUser.image" :user-id="accountUser.id" v-if="accountUser" />
                     <user-avatar class="avatar-area mr-2" :user-name="'JD'" :userImageUrl="''" v-else />

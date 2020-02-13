@@ -42,7 +42,7 @@ namespace Cloudents.Query.Tutor
             {
 
                 var calendarsFuture = _statelessSession.Query<TutorCalendar>().Where(w => w.Tutor.Id == query.Id)
-                    .Select(s => s.GoogleId).ToFuture();
+                    .Select(s => s.Calendar.GoogleId).ToFuture();
 
                 var availableFuture = _statelessSession.Query<TutorHours>()
                     .Where(w => w.Tutor.Id == query.Id)
@@ -55,14 +55,14 @@ namespace Cloudents.Query.Tutor
 
                 var result = DateTimeHelpers.EachHour(query.From, query.To).Where(w =>
                 {
-                    var freeSlot = available.Where(w2 => w.ToUniversalTime().DayOfWeek == w2.WeekDay);
+                    var freeSlot = available.Where(w2 => w.ToUniversalTime().DayOfWeek == w2.AvailabilitySlot.Day);
 
                     if (googleBusySlot.Any(a => a.From <= w && w < a.To))
                     {
                         return true;
                     }
                     //if (busySlots.Count >0)
-                    if (freeSlot.Any(a => a.From < w.ToUniversalTime().TimeOfDay && w.ToUniversalTime().TimeOfDay < a.To))
+                    if (freeSlot.Any(a => a.AvailabilitySlot.From < w.ToUniversalTime().TimeOfDay && w.ToUniversalTime().TimeOfDay < a.AvailabilitySlot.To))
                     {
 
                         // Im not busy busy

@@ -22,8 +22,8 @@
       <div v-if="isTutor" class="actions-terms">
         <span class="actions-terms-bold-text" v-language:inner="'studyroomSets_watch_actions_user_consent'"/> 
       </div>
-      <v-btn class="actions-yes" depressed round color="#4452fc" @click="gotoNextPage"><span v-language:inner="'studyroomSets_watch_actions_yes'"/></v-btn>
-      <v-btn class="actions-no" depressed round @click="skipToStudyRoom"><span v-language:inner="'studyroomSets_watch_actions_no'"/></v-btn>
+      <v-btn class="actions-yes" depressed rounded color="#4452fc" @click="gotoNextPage"><span v-language:inner="'studyroomSets_watch_actions_yes'"/></v-btn>
+      <v-btn class="actions-no" depressed rounded @click="skipToStudyRoom"><span v-language:inner="'studyroomSets_watch_actions_no'"/></v-btn>
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@
 <script>
 import {mapGetters} from 'vuex';
 import satelliteService from '../../../services/satelliteService';
-import studyRoomRecordingService from '../../studyRoom/studyRoomRecordingService';
+import studyRoomRecordingService from '../../studyroom/studyRoomRecordingService';
 export default {
   props:{
     nextStep:{
@@ -145,9 +145,11 @@ export default {
       font-weight: 600;
     }
     .actions-yes{
+      margin: 6px 8px;
       color: white !important;
     }
     .actions-no{
+      margin: 6px 8px;
       color: #4452fc;
       border: 1px solid #4452fc !important;
     }

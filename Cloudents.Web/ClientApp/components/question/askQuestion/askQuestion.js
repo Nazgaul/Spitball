@@ -1,16 +1,10 @@
-import { mapActions, mapGetters, mapMutations } from 'vuex';
-import userAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
-// import FileUpload from 'vue-upload-component/src'; //docs here https://lian-yue.github.io/vue-upload-component
+import { mapActions, mapGetters } from 'vuex';
 import { LanguageService } from "../../../services/language/languageService";
 import { validationRules } from "../../../services/utilities/formValidationRules";
 import questionService from "../../../services/questionService";
 import analyticsService from "../../../services/analytics.service";
 
 export default {
-    components: {
-        UserAvatar: userAvatar,
-        // FileUpload
-    },
     data() {
         return {
             questionCourse: '',
@@ -29,7 +23,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(['accountUser', 'getSelectedClasses', 'newQuestionDialogSate']),
+        ...mapGetters(['accountUser', 'getSelectedClasses']),
         userImageUrl() {
             if(this.accountUser && this.accountUser.image.length > 1) {
                 return `${this.accountUser.image}`;
@@ -45,7 +39,6 @@ export default {
     },
     methods: {
         ...mapActions(['updateNewQuestionDialogState']),
-        ...mapMutations(['UPDATE_LOADING']),
         requestAskClose() {
             this.updateNewQuestionDialogState(false);
         },
@@ -53,7 +46,6 @@ export default {
             let self = this;
             if(self.$refs.questionForm.validate()) {
                 self.btnQuestionLoading =true;
-                self.UPDATE_LOADING(true);
                 let serverQuestionObj = {
                     text: self.questionText,
                     course: self.questionCourse.text ? self.questionCourse.text : self.questionCourse,
@@ -64,14 +56,12 @@ export default {
                     //close dialog after question submitted
                     self.requestAskClose(false);
                     self.$router.push({path: '/'});
-                    self.UPDATE_LOADING(false);
                 }, (error) => {                    
                     let errorMessage = LanguageService.getValueByKey('addQuestion_error_general');
                     if (error && error.response && error.response.data && error.response.data[""] && error.response.data[""][0]) {
                         errorMessage = error.response.data[""][0];
                     }
                     self.errorMessage = errorMessage;
-                    self.UPDATE_LOADING(false);
                     console.error(error);
                 }).finally(()=>{
                     self.btnQuestionLoading =false;

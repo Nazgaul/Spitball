@@ -1,4 +1,4 @@
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import questionThread from "./questionThread.vue";
 import extendedTextArea from "../helpers/extended-text-area/extendedTextArea.vue";
 import questionCard from "./../helpers/new-question-card/new-question-card.vue";
@@ -29,9 +29,9 @@ export default {
             showDialogSuggestQuestion: false,
             showDialogLogin: false,
             build: null,
-            isEdgeRtl : global.isEdgeRtl,
             cahceQuestion: {},
             submitLoader: false,
+            hasData: false
         };
     },
     beforeRouteLeave(to, from, next) {
@@ -46,11 +46,9 @@ export default {
             "updateLoginDialogState",
             'setQuestion'
         ]),
-        ...mapMutations({updateLoading: "UPDATE_LOADING", updateSearchLoading:'UPDATE_SEARCH_LOADING'}),
         ...mapGetters(["getQuestion"]),
         resetSearch(){
-            this.updateSearchLoading(true);
-            this.$router.push({path:"/feed"});
+            this.$router.push({name: "feed"});
         },
         submitAnswer() {
             
@@ -68,7 +66,6 @@ export default {
                 };
                 return;
             }
-            // this.updateLoading(true);
             var self = this;
             if(this.hasDuplicatiedAnswer(self.textAreaValue, self.questionData.answers)) {
                 console.log("duplicated answer detected");
@@ -85,13 +82,13 @@ export default {
                     .then(function () {                       
                         analyticsService.sb_unitedEvent("Submit_answer", "Homwork help");
                         self.textAreaValue = "";
-                        // self.updateLoading(false);
+                    
                         //self.getData(true);//TODO: remove this line when doing the client side data rendering (make sure to handle delete as well)
                     }, (error) => {
                         console.log(error);
                         // self.errorHasAnswer = error.response.data["Text"] ? error.response.data["Text"][0] : '';
                         self.submitForm(false);
-                        // self.updateLoading(true);
+                      
                     }).finally(()=>{
                         this.submitLoader = false;
                     });
@@ -119,7 +116,9 @@ export default {
                 if (updateViewer) {
                     this.cahceQuestion = {...this.questionData};
                 }
-            });
+            }).finally(() => {
+                this.hasData = true
+            })
         },
         showAnswerField() {            
             if (this.accountUser) {
@@ -130,11 +129,21 @@ export default {
                 this.updateLoginDialogState(true);
             }
         },
-
+        goToAnswer(hash) {
+            this.$vuetify.goTo(hash)
+            // let elem = this.$refs.answers;
+            // elem.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
     },
     watch: {
         textAreaValue(){
             this.errorLength = {};
+        },
+        hasData(val) {
+            let hash = this.$route.hash
+            if(hash && val) {
+                this.goToAnswer(hash);
+            }
         },
         //watch route(url query) update, and het question data from server
         '$route': 'getData'
@@ -159,7 +168,7 @@ export default {
     },
     created() {               
         this.getData();
-        
+
         this.$root.$on('closePopUp', (name) => {
             if (name === 'suggestions') {
                 this.showDialogSuggestQuestion = false;

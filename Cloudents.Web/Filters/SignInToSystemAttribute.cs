@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
-using Cloudents.Core.Interfaces;
 using Cloudents.Web.Services;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +10,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Cloudents.Web.Filters
 {
@@ -19,16 +19,16 @@ namespace Cloudents.Web.Filters
         public SignInWithTokenAttribute() : base(typeof(SignInToSystemImpl))
         {
         }
-        private class SignInToSystemImpl : ActionFilterAttribute
+        public class SignInToSystemImpl : ActionFilterAttribute
         {
-            private const string TokenQueryParam = "token";
+            public const string TokenQueryParam = "token";
             private readonly SignInManager<User> _signInManager;
             private readonly UserManager<User> _userManager;
             private readonly IDataProtect _dataProtect;
-            private readonly ILogger _logger;
+            private readonly ILogger<SignInToSystemImpl> _logger;
 
             public SignInToSystemImpl(SignInManager<User> signInManager, UserManager<User> userManager,
-                IDataProtect dataProtect, ILogger logger)
+                IDataProtect dataProtect, ILogger<SignInToSystemImpl> logger)
             {
                 _signInManager = signInManager;
                 _userManager = userManager;
@@ -55,6 +55,11 @@ namespace Cloudents.Web.Filters
                     try
                     {
                         var userId = _dataProtect.Unprotect(token);
+                        if (!long.TryParse(userId, out _))
+                        {
+                            _logger.LogError("the token url is not a number {0}", userId);
+                            context.Result = new RedirectResult(GetUrlWithoutTokenQuery(context));
+                        }
                         var user = await _userManager.FindByIdAsync(userId);
                         if (user == null)
                         {
@@ -97,7 +102,7 @@ namespace Cloudents.Web.Filters
                     {
                         //We just log the exception. user open the email too later and we can't sign it.
                         //If we see this persist then maybe we need to increase the amount of time
-                        _logger.Exception(ex);
+                        _logger.LogError(ex, "on trying to log with old token ");
                     }
                     //var result = await SignInUserAsync(token,c);
 
@@ -125,58 +130,6 @@ namespace Cloudents.Web.Filters
                     context.HttpContext.Request.GetUri().AbsolutePath, queryStringDictionary);
                 return url;
             }
-
-            //private async Task<string> SignInUserAsync(string code, CommunicationChannel communicationChannel)
-            //{
-            //    try
-            //    {
-
-            //        var userId = _dataProtect.Unprotect(code);
-            //        var user = await _userManager.FindByIdAsync(userId);
-            //        if (user == null)
-            //        {
-            //            return false;
-            //        }
-
-
-
-            //        switch (communicationChannel)
-            //        {
-            //            case CommunicationChannel.None:
-            //                break;
-            //            case CommunicationChannel.Phone:
-            //                user.PhoneNumberConfirmed = true;
-            //                await _userManager.UpdateAsync(user);
-            //                break;
-            //            case CommunicationChannel.Email:
-            //                user.EmailConfirmed = true;
-            //                await _userManager.UpdateAsync(user);
-            //                break;
-            //        }
-
-            //        if (user.PasswordHash == null && !_userManager.SupportsUserLogin)
-            //        {
-            //            var code2 = await _userManager.GeneratePasswordResetTokenAsync(user);
-            //            code2 = UrlEncoder.Default.Encode(code);
-
-            //            //Need to change user to enter password
-            //        }
-
-            //        //TODO: we need to take care verified the phone number /or email
-            //        //TODO: need to redirect to create password page.
-            //        //ViewBag.Auth = true;
-
-            //        await _signInManager.SignInAsync(user, false);
-            //        return true;
-            //    }
-            //    catch (CryptographicException ex)
-            //    {
-            //        //We just log the exception. user open the email too later and we can't sign it.
-            //        //If we see this persist then maybe we need to increase the amount of time
-            //        _logger.Exception(ex);
-            //    }
-            //    return false;
-            //}
         }
 
     }

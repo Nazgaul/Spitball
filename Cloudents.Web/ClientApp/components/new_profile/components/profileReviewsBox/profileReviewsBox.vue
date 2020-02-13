@@ -27,7 +27,7 @@
       </div>
       <profileSingleReview v-for="(review, index) in reviews" :review="review" :key="index"/>
       <div class="profileReviewsBox_more" v-if="getProfileReviews.reviews.length > 2">
-         <button @click="isExpand = !isExpand">
+         <button sel="more_reviews" @click="isExpand = !isExpand">
             <span v-language:inner="isExpand?'reviewBox_see_less':'reviewBox_see_more'"/>
          </button>
       </div>
@@ -176,8 +176,16 @@ export default {
                   .v-progress-linear{
                      margin: 10px 0;
                      .v-progress-linear__background{
+                        display: none;
+                     }
+                     .v-progress-linear__buffer{
                         background-color: #bdc0d1 !important;
                         border-color: #bdc0d1 !important;
+                        opacity: .3;
+                     }
+                     .v-progress-linear__determinate{
+                        position: relative;
+                        z-index: 2;
                      }
                   }
                }

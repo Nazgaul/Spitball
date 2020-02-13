@@ -49,7 +49,7 @@ namespace Cloudents.Web.Api
 
         // GET: api/<controller>
         [HttpGet]
-        public async Task<IEnumerable<ChatUserDto>> Get(CancellationToken token)
+        public async Task<IEnumerable<ChatUserDto>> GetAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var result = await _queryBus.QueryAsync(new ChatConversationsQuery(userId), token);
@@ -71,7 +71,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<ChatUserDto>> GetConversation(string id, CancellationToken token)
+        public async Task<ActionResult<ChatUserDto>> GetConversationAsync(string id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var result = await _queryBus.QueryAsync(new ChatConversationQuery(id, userId), token);
@@ -86,7 +86,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpGet("{id}")]
-        public async Task<IEnumerable<ChatMessageDto>> Get(string id, int page,
+        public async Task<IEnumerable<ChatMessageDto>> GetAsync(string id, int page,
             CancellationToken token)
         {
             //specific conversation
@@ -112,7 +112,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> Post([FromBody]ChatMessageRequest model, CancellationToken token)
+        public async Task<IActionResult> PostAsync([FromBody]ChatMessageRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             if (userId == model.OtherUser)
@@ -128,7 +128,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> ResetUnread(ChatResetRequest model, CancellationToken token)
+        public async Task<IActionResult> ResetUnreadAsync(ChatResetRequest model, CancellationToken token)
         {
             try
             {
@@ -170,7 +170,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("uploadForm")]
-        public async Task<ActionResult<UploadStartResponse>> UploadSingleFile(
+        public async Task<ActionResult<UploadStartResponse>> UploadSingleFileAsync(
             [FromForm] long otherUser,
             [Required] IFormFile file, CancellationToken token)
         {

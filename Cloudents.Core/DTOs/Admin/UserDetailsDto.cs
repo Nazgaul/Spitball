@@ -45,5 +45,6 @@ namespace Cloudents.Core.DTOs.Admin
         public bool PaymentExists { get; set; }
         public bool CalendarExists { get; set; }
         public decimal? TutorPrice { get; set; }
+        public UserType? UserType { get; set; }
     }
 }

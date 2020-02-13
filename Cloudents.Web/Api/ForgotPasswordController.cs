@@ -40,7 +40,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> Post(ForgotPasswordRequest model, [FromHeader] CancellationToken token)
+        public async Task<IActionResult> PostAsync(ForgotPasswordRequest model, [FromHeader] CancellationToken token)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -78,7 +78,7 @@ namespace Cloudents.Web.Api
             TempData[EmailTempDictionaryKey] = user.Email;
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
             code = UrlEncoder.Default.Encode(code);
-            var link = Url.Link("ResetPassword", new { user.Id, code });
+            var link = Url.Link(Controllers.ForgotPasswordController.ResetPasswordRouteName, new { user.Id, code });
             var message = new ResetPasswordEmail(user.Email, link, CultureInfo.CurrentUICulture);
             await _queueProvider.InsertMessageAsync(message, token);
         }
@@ -111,7 +111,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordRequest model, [FromHeader(Name = "referer")] Uri referer, CancellationToken token)
+        public async Task<IActionResult> ResetPasswordAsync([FromBody]ResetPasswordRequest model, [FromHeader(Name = "referer")] Uri referer, CancellationToken token)
         {
             var queryString = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(referer.Query);
             if (queryString.TryGetValue("id", out var id) &&
@@ -156,7 +156,7 @@ namespace Cloudents.Web.Api
                     //return BadRequest(ModelState);
 
                 }
-               //TODO: Localize
+                //TODO: Localize
                 ModelState.AddIdentityModelError(nameof(model.Password), result);
                 return BadRequest(ModelState);
             }

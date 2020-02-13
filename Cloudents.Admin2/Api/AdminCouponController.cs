@@ -1,11 +1,15 @@
-﻿using Cloudents.Command;
+﻿using System.Collections.Generic;
+using Cloudents.Command;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Admin2.Models;
 using Cloudents.Command.Command.Admin;
+using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Exceptions;
+using Cloudents.Query;
+using Cloudents.Query.Admin;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,10 +21,12 @@ namespace Cloudents.Admin2.Api
     public class AdminCouponController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
+        private readonly IQueryBus _queryBus;
 
-        public AdminCouponController(ICommandBus commandBus)
+        public AdminCouponController(ICommandBus commandBus, IQueryBus queryBus)
         {
             _commandBus = commandBus;
+            _queryBus = queryBus;
         }
 
      
@@ -49,6 +55,14 @@ namespace Cloudents.Admin2.Api
                 return BadRequest("This coupon already exists");
             }
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<CouponDto>> GetAsync(CancellationToken token)
+        {
+            var query = new CouponQuery();
+
+            return await _queryBus.QueryAsync(query, token);
         }
 
      

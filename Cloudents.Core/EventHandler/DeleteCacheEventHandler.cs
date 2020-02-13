@@ -6,7 +6,10 @@ using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.EventHandler
 {
-    public class DeleteCacheEventHandler : IEventHandler<TransactionEvent>, IEventHandler<DocumentPriceChangeEvent>, IEventHandler<DocumentFlaggedEvent>
+    public class DeleteCacheEventHandler : IEventHandler<TransactionEvent>,
+        IEventHandler<DocumentPriceChangeEvent>, 
+        IEventHandler<DocumentFlaggedEvent>,
+        IEventHandler<DocumentDeletedEvent>
     {
         private readonly ICacheProvider _cacheProvider;
 
@@ -19,7 +22,7 @@ namespace Cloudents.Core.EventHandler
         {
             if (eventMessage.Transaction is DocumentTransaction _)
             {
-                _cacheProvider.DeleteRegion("document-by-id");
+                return RemoveDocumentFromCacheAsync();
             }
 
             return Task.CompletedTask;
@@ -27,11 +30,20 @@ namespace Cloudents.Core.EventHandler
 
         public Task HandleAsync(DocumentPriceChangeEvent eventMessage, CancellationToken token)
         {
-            _cacheProvider.DeleteRegion("document-by-id");
-            return Task.CompletedTask;
+            return RemoveDocumentFromCacheAsync();
         }
 
         public Task HandleAsync(DocumentFlaggedEvent eventMessage, CancellationToken token)
+        {
+            return RemoveDocumentFromCacheAsync();
+        }
+
+        public Task HandleAsync(DocumentDeletedEvent eventMessage, CancellationToken token)
+        {
+            return RemoveDocumentFromCacheAsync();
+        }
+
+        private Task RemoveDocumentFromCacheAsync()
         {
             _cacheProvider.DeleteRegion("document-by-id");
             return Task.CompletedTask;

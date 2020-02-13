@@ -89,6 +89,20 @@ namespace Cloudents.Core.Entities
 
         public virtual int VoteCount { get; protected set; }
 
+        protected internal virtual ISet<UserDownloadDocument> DocumentDownloads { get; set; }
+
+        public virtual short Boost { get; set; }
+
+        public virtual void AddDownload(BaseUser user)
+        {
+            if (!User.Equals(user))
+            {
+                var download = new UserDownloadDocument(user, this);
+                DocumentDownloads.Add(download);
+            }
+        }
+
+
         public virtual void Vote(VoteType type, User user)
         {
             if (type == VoteType.Down)
@@ -124,6 +138,7 @@ namespace Cloudents.Core.Entities
         {
             Status = ItemStatus.Delete();
             _votes.Clear();
+            DocumentDownloads.Clear();
             AddEvent(new DocumentDeletedEvent(this));
         }
 
@@ -184,5 +199,7 @@ namespace Cloudents.Core.Entities
         //This is only for video
         public virtual TimeSpan? Duration { get; set; }
         public virtual bool IsShownHomePage { get; protected set; }
+
+        public virtual string Md5 { get; set; }
     }
 }

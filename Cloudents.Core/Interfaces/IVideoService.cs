@@ -38,6 +38,7 @@ namespace Cloudents.Core.Interfaces
         Task<string> BuildUserStreamingLocatorAsync(long videoId, long userId, CancellationToken token);
         Task CreateAudioPreviewJobAsync(long id, string url, CancellationToken token);
         Task CreateStudyRoomSessionEncoding(string id, string url, CancellationToken token);
+        Task RemoveUnusedStreamingLocatorAsync(CancellationToken token);
     }
 
     public class AssetType

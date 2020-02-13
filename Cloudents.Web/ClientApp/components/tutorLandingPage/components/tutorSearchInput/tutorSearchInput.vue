@@ -17,11 +17,11 @@
             <!-- <div class="menu-toggler" v-show="showSuggestions" @click="closeSuggestions"></div> -->
                 <v-list class="search-menu" v-show="showSuggestions">
                     <template v-for="(item, index) in suggests">
-                        <v-list-tile class="suggestion" @click="selectors(item)" :key="index" :class="{'list__tile--highlighted': index === focusedIndex}">
-                            <v-list-tile-content>
-                                <v-list-tile-title>{{item.text}}</v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
+                        <v-list-item class="suggestion" @click="selectors(item)" :key="index" :class="{'list__tile--highlighted': index === focusedIndex}">
+                            <v-list-item-content>
+                                <v-list-item-title>{{item.text}}</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
                     </template>
                 </v-list>
         </div>

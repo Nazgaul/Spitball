@@ -3,9 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Questions;
 using Cloudents.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Schema.NET;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -16,15 +17,17 @@ namespace Cloudents.Web.Controllers
     public class QuestionController : Controller
     {
         private readonly IQueryBus _queryBus;
+        private readonly IStringLocalizer<QuestionController> _localizer;
 
-        public QuestionController(IQueryBus queryBus)
+        public QuestionController(IQueryBus queryBus, IStringLocalizer<QuestionController> localizer)
         {
             _queryBus = queryBus;
+            _localizer = localizer;
         }
 
         [Route("question/{id:long}", Name = SeoTypeString.Question), SignInWithToken]
         // GET: /<controller>/
-        public async Task<IActionResult> Index(long id, CancellationToken token)
+        public async Task<IActionResult> IndexAsync(long id, CancellationToken token)
         {
             var query = new QuestionDataByIdQuery(id);
             var retVal = await _queryBus.QueryAsync(query, token);
@@ -32,9 +35,10 @@ namespace Cloudents.Web.Controllers
             {
                 return NotFound();
             }
+            ViewBag.title = _localizer["Title", retVal.Course];
+            ViewBag.metaDescription = _localizer["Description", retVal.Course];
 
-
-            if (!retVal.Answers.Any()) return View();
+            if (!retVal.Answers.Any()) return View("Index");
             var jsonLd = new QAPage()
             {
                 MainEntity = new Question
@@ -63,7 +67,7 @@ namespace Cloudents.Web.Controllers
             };
             ViewBag.jsonLd = jsonLd;
 
-            return View();
+            return View("Index");
         }
     }
 }

@@ -1,15 +1,15 @@
 <template>
     <v-card class="creation-wrap">
-        <v-layout class="close-toolbar limit-height pl-4 pr-3" style="width:100%;" align-center justify-end>
+        <v-layout class="close-toolbar limit-height pl-4 pr-4" style="width:100%;" align-center justify-end>
             <v-flex grow>
                 <span class="font-weight-bold dialog-heading" v-language:inner>courses_new_title</span>
             </v-flex>
             <v-flex shrink class="mr-2">
-                <v-icon @click="closeDialog()" class="subheading course-close-icon">sbf-close</v-icon>
+                <v-icon @click="closeDialog()" class="subtitle-1 course-close-icon">sbf-close</v-icon>
             </v-flex>
         </v-layout>
         <v-layout shrink align-center justify-center class="px-4 mt-4 mb-1">
-            <v-flex xs12 sm12  class="text-xs-center">
+            <v-flex xs12 sm12  class="text-center">
                 <v-form ref="courseForm"  v-model="validCourseForm">
                 <v-text-field v-model="courseName"
                               class="course-input"
@@ -24,20 +24,20 @@
             </v-flex>
         </v-layout>
         <v-layout align-start justify-start shrink column class="px-4">
-            <v-flex xs12  sm6 class="text-xs-center mb-1">
+            <v-flex xs12  sm6 class="text-center mb-1">
                 <span class="caption helper-text" v-language:inner>courses_minimum</span>
             </v-flex>
-            <v-flex xs12  sm6 class="text-xs-center mb-1">
+            <v-flex xs12  sm6 class="text-center mb-1">
                 <span class="caption helper-text" v-language:inner>courses_meaningfull</span>
 
             </v-flex>
-            <v-flex xs12  sm6 class="text-xs-center mb-1">
+            <v-flex xs12  sm6 class="text-center mb-1">
                 <span class="caption helper-text" v-language:inner>courses_third_tip</span>
 
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center shrink class="pb-5 pt-4">
-            <v-flex shrink class="text-xs-center">
+            <v-flex shrink class="text-center">
                 <button @click="createNewCourse()" :disabled="!validCourseForm"
                         class="cursor-pointer create-btn min-width solid d-flex align-center justify-center py-2 px-3">
                     <span class="font-weight-bold text-uppercase btn-text" v-language:inner>courses_create_course</span>

@@ -5,19 +5,18 @@
                 v-if="isCurrentTutor && isLoaded" :size="'66'" 
                 :user-name="getCurrTutor.name"  
                 :userImageUrl="getCurrTutor.image"/>
-
-        <img v-else v-show="isLoaded" class="tutorRequest-img" @load="loaded" :src="defaultImage" alt="../images/yaniv.jpg">
-        <p class="text-xs-center" v-if="!getCurrTutor" v-language:inner="'tutorRequest_send_msg_yaniv'"/>
-        <p class="text-xs-center" v-else v-html="$Ph(isMobile? 'tutorRequest_send_msg_tutor_mobile' :'tutorRequest_send_msg_tutor',getCurrTutor.name)" />
+       
+            <img v-else  class="tutorRequest-img" v-show="isLoaded"  @load="loaded" :src="defaultImage" alt="Yaniv Image" width="66" height="66">
+      
+        <p class="text-center" v-if="!getCurrTutor" v-language:inner="'tutorRequest_send_msg_yaniv'"/>
+        <p class="text-center" v-else v-html="$Ph(isMobile? 'tutorRequest_send_msg_tutor_mobile' :'tutorRequest_send_msg_tutor', getCurrTutor.name)" />
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import userAvatar from '../../helpers/UserAvatar/UserAvatar.vue'
 
 export default {
-    components:{userAvatar},
     data() {
         return {
             isLoaded: false,
@@ -50,18 +49,20 @@ export default {
 <style lang="less">
 @import '../../../styles/mixin.less';
     .tutorRequest-top{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+       // display: flex;
+       // flex-direction: column;
+       // align-items: center;
         width: 100%;
+       // line-height: normal;
         .tutorRequest-img{
+            display: block; //to honor the margin
+            margin: 0 auto;
             border-radius: 50%;
             width: 66px;
             height: 66px;
             object-fit: cover;
-            @media (max-width: @screen-xs) {
-                margin-top: 30px;
-            }
+             margin-top: 10px;
+          
         }
         p{
             margin-top: 8px;

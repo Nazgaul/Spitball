@@ -22,15 +22,15 @@
         public string Code { get; set; }
     }
 
-    public enum NextStep
-    {
-        EmailConfirmed,
-        VerifyPhone,
-        EnterPhone,
-        EmailPassword,
-        ExpiredStep,
-        // ReSharper disable once IdentifierTypo - this is because client sucks
-        Loginstep,
-        StartStep
-    }
+    //public enum NextStep
+    //{
+    //    EmailConfirmed,
+    //    VerifyPhone,
+    //    EnterPhone,
+    //    EmailPassword,
+    //    ExpiredStep,
+    //    // ReSharper disable once IdentifierTypo - this is because client sucks
+    //    Loginstep,
+    //    StartStep
+    //}
 }

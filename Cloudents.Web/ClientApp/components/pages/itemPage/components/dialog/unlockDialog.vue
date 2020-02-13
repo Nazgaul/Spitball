@@ -21,10 +21,10 @@
             </div>
             </div>
             <div class="purchase-actions">
-            <v-btn flat class="cancel" @click.native="updatePurchaseConfirmation(false)">
+            <v-btn text class="cancel" @click.native="updatePurchaseConfirmation(false)">
                 <span v-language:inner>preview_cancel</span>
             </v-btn>
-            <v-btn round class="submit-purchase" @click.native="unlockDocument">
+            <v-btn rounded class="submit-purchase" @click.native="unlockDocument">
                 <span class="hidden-xs-only" v-language:inner>preview_buy_btn</span>
                 <span
                 class="hidden-sm-and-up text-uppercase"

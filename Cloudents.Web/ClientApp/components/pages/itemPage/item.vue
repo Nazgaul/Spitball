@@ -20,19 +20,31 @@
                                 <div class="itemPage__main__document__tutor__link--title1" v-language:inner="'documentPage_need_help1'" @click="moveDownToTutorItem"></div>
                                 <div class="itemPage__main__document__tutor__link--title2" v-html="$Ph('documentPage_need_help2', firstName)"></div>
                             </div>
-                            <v-btn class="itemPage__main__document__tutor--btn ma-0" depressed round @click="sendMessage">
+                            <v-btn v-if="!isMyProfile" class="itemPage__main__document__tutor--btn ma-0" depressed rounded @click="sendMessage">
                                 <div v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
                             </v-btn>
                         </div>
                     </template>
                 </resultNote>
                 <template v-else>
-                    <div class="itemPage__main__document--loader">
-                        <v-progress-circular indeterminate v-bind:size="50" color="primary"></v-progress-circular>
-                    </div>
+                    <v-sheet
+                        color="#fff"
+                        class="pb-2 skeletonWarp"
+                    >
+                        <v-skeleton-loader
+                            max-width="250"
+                            type="list-item-avatar-two-line"
+                        >
+                        </v-skeleton-loader>
+                        <v-skeleton-loader
+                            max-width="500"
+                            type="list-item-three-line, list-item"
+                        >
+                        </v-skeleton-loader>
+                    </v-sheet>
                 </template>
             </div>
-
+                    
             <mainItem :isLoad="isLoad" :document="document"></mainItem>
 
             <template v-if="$vuetify.breakpoint.mdAndDown">    
@@ -47,6 +59,7 @@
                         v-language:inner="'documentPage_full_list'"
                         :to="{name: 'feed', query: {Course: courseName}}"
                         class="itemPage__main__carousel__header--seeAll"
+                        color="#4c59ff"
                     ></router-link>
                 </div>
                 <sbCarousel 
@@ -54,7 +67,7 @@
                     @select="enterItemCard" 
                     :arrows="$vuetify.breakpoint.mdAndUp ? true : false"
                     :gap="20">
-                        <itemCard :fromCarousel="true" v-for="(item, index) in itemList" :item="item" :key="index"/>
+                        <itemCard class="itemCard-itemPage" :fromCarousel="true" v-for="(item, index) in itemList" :item="item" :key="index"/>
                 </sbCarousel>
             </div>
 
@@ -69,6 +82,23 @@
         <whyUsDesktop v-if="$vuetify.breakpoint.lgAndUp" :document="document"></whyUsDesktop>
         <mobileUnlockDownload v-if="$vuetify.breakpoint.xsOnly" :document="document"></mobileUnlockDownload>
         <unlockDialog :document="document"></unlockDialog>
+        <v-snackbar
+            v-model="snackbar"
+            :top="true"
+            :timeout="8000"
+        >
+            <div>
+                <span v-language:inner="'resultNote_unsufficient_fund'"></span>
+            </div>
+            <v-btn
+                class="px-4"
+                outlined
+                rounded
+                @click="openBuyTokenDialog"
+            >
+                <span v-language:inner="'dashboardPage_my_sales_action_need_btn'"></span>
+            </v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -109,7 +139,7 @@ export default {
         whyUs,
         mobileUnlockDownload,
         mainItem,
-        unlockDialog
+        unlockDialog,
     },
     props: {
         id: {
@@ -127,11 +157,19 @@ export default {
             this.clearDocument();
             this.documentRequest(this.id);        
             this.getStudyDocuments({course: this.$route.params.courseName , id: this.id})
-        }
+        },
     },
     computed: {
-        ...mapGetters(['accountUser', 'getDocumentDetails', 'getRelatedDocuments', 'getRouteStack', 'getPurchaseConfirmation', 'getSearchLoading']),
+        ...mapGetters(['accountUser', 'getDocumentDetails', 'getRelatedDocuments', 'getRouteStack', 'getPurchaseConfirmation', 'getShowItemToaster']),
 
+        snackbar: {
+            get() {
+                return this.getShowItemToaster
+            },
+            set(val) {
+                this.updateItemToaster(val)
+            }
+        },
         document() {
             if(this.getDocumentDetails) {
                 return this.getDocumentDetails;
@@ -181,7 +219,13 @@ export default {
                 return this.document.details.course;
             }
             return null
-        }
+        },
+        isMyProfile(){
+            if(!!this.docTutor && !!this.accountUser){
+                return (this.docTutor.isTutor && this.docTutor.userId == this.accountUser.id)
+            }
+            return false;
+        },
     },
         methods: {
         ...mapActions([
@@ -193,6 +237,8 @@ export default {
             'updateRequestDialog',
             'setActiveConversationObj',
             'openChatInterface',
+            'updateItemToaster',
+            'updateShowBuyDialog',
         ]),
         
         enterItemCard(vueElm){
@@ -217,7 +263,7 @@ export default {
             if (routeStackLength > 1 && beforeLastRoute && beforeLastRoute !== regRoute && beforeLastRoute !== 'document') {
                 this.$router.back();
             } else {
-                this.$router.push({ path: "/feed" });
+                this.$router.push({ name: "feed" });
             }
         },
         sendMessage() {
@@ -248,6 +294,10 @@ export default {
         moveDownToTutorItem() {
             let elem = this.$el.querySelector('.itemPage__main__tutorCard');
             elem.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        },
+        openBuyTokenDialog() {
+            this.updateItemToaster(false);
+            this.updateShowBuyDialog(true)
         }
     },
     beforeDestroy(){
@@ -313,12 +363,17 @@ export default {
                         font-size: 20px;
                     }
                 }
+                .skeletonWarp {
+                    .v-skeleton-loader__avatar {
+                        border-radius: 50%;
+                    }
+                }
                 &__tutor {
                     display: flex;
                     align-items: center;
                     flex-wrap: wrap;
                     font-weight: 600;
-
+                    font-size: 14px;
                     &__link {
                         @media (max-width: @screen-md) {
                             margin-bottom: 6px;
@@ -390,19 +445,25 @@ export default {
                         font-weight: 700;                       
                     }
                     &--seeAll {
-                        color: #4c59ff;
+                        color: #4c59ff !important;
+                        font-size: 14px;
                     }
                 }
                 &--margin {
                     margin-bottom: 100px;
                 }
                 .carouselDocPreview {
-                    div {
-                        div {
+                    .itemCard-itemPage {
+                        .item-cont {
                             z-index: 3 !important; //flicking
                             @media (max-width: @screen-xs) {
                                 overflow: visible !important; //flicking
                             }
+                        }
+                    }
+                    .sbCarousel_btn {
+                        i {
+                            font-size: 18px;
                         }
                     }
                 }

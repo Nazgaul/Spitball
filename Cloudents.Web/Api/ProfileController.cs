@@ -1,10 +1,10 @@
-﻿using Cloudents.Command;
+﻿using System;
+using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Query;
 using Cloudents.Web.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Cloudents.Web.Models;
+using Cloudents.Query.Users;
 
 namespace Cloudents.Web.Api
 {
@@ -57,24 +58,20 @@ namespace Cloudents.Web.Api
         {
             var query = new UserProfileAboutQuery(id);
             var res = await _queryBus.QueryAsync(query, token);
-
-            foreach (var review in res.Reviews)
-            {
-                review.Image = _urlBuilder.BuildUserImageEndpoint(review.Id, review.Image);
-            }
-            
             return res;
         }
 
         // GET
+        [Obsolete]
+
         [HttpGet("{id:long}/questions")]
         [ProducesResponseType(200)]
 
         public async Task<IEnumerable<QuestionFeedDto>> GetQuestionsAsync(long id, int page, CancellationToken token)
         {
-            var query = new UserDataPagingByIdQuery(id, page);
+            var query = new UserQuestionsByIdQuery(id, page);
             
-            var res =  await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
+            var res =  await _queryBus.QueryAsync(query, token);
             return res.Select(item =>
             {
                 item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
@@ -84,71 +81,32 @@ namespace Cloudents.Web.Api
         }
 
         // GET
-        [HttpGet("{id:long}/answers")]
-        [ProducesResponseType(200)]
+        //[Obsolete]
 
-        public async Task<IEnumerable<QuestionFeedDto>> GetAnswersAsync(long id, int page, CancellationToken token)
-        {
-            var query = new UserAnswersByIdQuery(id, page);
-            var res = await _queryBus.QueryAsync<IEnumerable<QuestionFeedDto>>(query, token);
-            return res.Select(item =>
-            {
-                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
-                item.FirstAnswer.User.Image =
-                    _urlBuilder.BuildUserImageEndpoint(item.FirstAnswer.User.Id, item.FirstAnswer.User.Image);
-                return item;
-            });
+        //[HttpGet("{id:long}/answers")]
+        //[ProducesResponseType(200)]
+
+        //public async Task<IEnumerable<QuestionFeedDto>> GetAnswersAsync(long id, int page, CancellationToken token)
+        //{
+        //    var query = new UserAnswersByIdQuery(id, page);
+        //    var res = await _queryBus.QueryAsync(query, token);
+        //    return res.Select(item =>
+        //    {
+        //        item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+        //        item.FirstAnswer.User.Image =
+        //            _urlBuilder.BuildUserImageEndpoint(item.FirstAnswer.User.Id, item.FirstAnswer.User.Image);
+        //        return item;
+        //    });
            
-        }
+        //}
 
         [HttpGet("{id:long}/documents")]
         [ProducesResponseType(200)]
 
-        public async Task<IEnumerable<DocumentFeedDto>> GetDocumentsAsync(
-            long id, int page,
-
-            CancellationToken token)
+        public async Task<WebResponseWithFacet<DocumentFeedDto>> GetDocumentsAsync(
+            [FromQuery] ProfileDocumentsRequest request, CancellationToken token = default)
         {
-            var query = new UserDataPagingByIdQuery(id, page);
-            var retValTask = _queryBus.QueryAsync<IEnumerable<DocumentFeedDto>>(query, token);
-
-            var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = _userManager.GetLongUserId(User);
-                var queryTags = new UserVotesByCategoryQuery(userId);
-                votesTask = _queryBus.QueryAsync(queryTags, token)
-                    .ContinueWith(
-                        t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
-            }
-
-            await Task.WhenAll(retValTask, votesTask);
-            foreach (var item in retValTask.Result)
-            {
-                if (item.User != null)
-                {
-                    item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
-                }
-            }
-            return retValTask.Result.Select(s =>
-            {
-                s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
-                s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
-                if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
-                {
-                    s.Vote.Vote = p;
-                }
-
-                return s;
-            });
-        }
-
-        [HttpGet("{id:long}/purchaseDocuments")]
-        [ProducesResponseType(200)]
-
-        public async Task<IEnumerable<DocumentFeedDto>> GetPurchaseDocumentsAsync(long id, int page, CancellationToken token)
-        {
-            var query = new UserPurchaseDocumentByIdQuery(id, page);
+            var query = new UserDocumentsQuery(request.Id, request.Page, request.PageSize, request.DocumentType, request.Course);
             var retValTask = _queryBus.QueryAsync(query, token);
 
             var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
@@ -162,23 +120,67 @@ namespace Cloudents.Web.Api
             }
 
             await Task.WhenAll(retValTask, votesTask);
-
-            foreach (var item in retValTask.Result)
+            foreach (var item in retValTask.Result.Result)
             {
-                item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
-            }
-
-            return retValTask.Result.Select(s =>
-            {
-                s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
-                s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
-                if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
+                if (item.User != null)
                 {
-                    s.Vote.Vote = p;
+                    item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
                 }
-                return s;
-            });
+            }
+            return new WebResponseWithFacet<DocumentFeedDto>()
+            {
+                Result = retValTask.Result.Result.Select(s =>
+                {
+                    s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
+                    s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
+                    if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
+                    {
+                        s.Vote.Vote = p;
+                    }
+
+                    return s;
+                }),
+                Count = retValTask.Result.Count
+            };
         }
+
+        //[Obsolete]
+        //[HttpGet("{id:long}/purchaseDocuments")]
+        //[ProducesResponseType(200)]
+
+        //public async Task<IEnumerable<DocumentFeedDto>> GetPurchaseDocumentsAsync(long id, int page, CancellationToken token)
+        //{
+        //    var query = new UserPurchaseDocumentByIdQuery(id, page);
+        //    var retValTask = _queryBus.QueryAsync(query, token);
+
+        //    var votesTask = Task.FromResult<Dictionary<long, VoteType>>(null);
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        var userId = _userManager.GetLongUserId(User);
+        //        var queryTags = new UserVotesByCategoryQuery(userId);
+        //        votesTask = _queryBus.QueryAsync(queryTags, token)
+        //            .ContinueWith(
+        //                t2 => { return t2.Result.ToDictionary(x => x.Id, s => s.Vote); }, token);
+        //    }
+
+        //    await Task.WhenAll(retValTask, votesTask);
+
+        //    foreach (var item in retValTask.Result)
+        //    {
+        //        item.User.Image = _urlBuilder.BuildUserImageEndpoint(item.User.Id, item.User.Image);
+        //    }
+
+        //    return retValTask.Result.Select(s =>
+        //    {
+        //        s.Url = Url.DocumentUrl(s.Course, s.Id, s.Title);
+        //        s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
+        //        if (votesTask.Result != null && votesTask.Result.TryGetValue(s.Id, out var p))
+        //        {
+        //            s.Vote.Vote = p;
+        //        }
+        //        return s;
+        //    });
+        //}
 
         [HttpPost("follow"), Authorize]
         [ProducesResponseType(200)]

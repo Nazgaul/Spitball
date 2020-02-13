@@ -2,7 +2,7 @@
   <div class="settingsNotAllowed">
       <h1 class="unable-title" v-language:inner="'studyroomSets_error_with_video_and_audio'"/>
       <div class="unable-middle">
-        <img :src="gifImg" alt="">
+        <img src="../image/unblock-permissions-rtl.gif" alt="">
         <div>
             <p class="unable-middle-txt" v-language:inner="'studyroomSets_to_communicate'"/>
             <p class="unable-middle-txt settingsUnable_blue-color" v-language:inner="'studyroomSets_refresh'"/>
@@ -10,7 +10,7 @@
         
       </div>
       <div class="unable-actions">
-        <v-btn class="actions-try" depressed round color="#4452fc" @click="nextPage"><span v-language:inner="'studyroomSets_continue-anyway'"/></v-btn>
+        <v-btn class="actions-try" depressed rounded color="#4452fc" @click="nextPage"><span v-language:inner="'studyroomSets_continue-anyway'"/></v-btn>
       </div>
   </div>
 </template>
@@ -23,16 +23,16 @@ export default {
       required: true
     }
   },
-computed:{
- gifImg(){
-   let isRtl = global.isRtl;
-   if(isRtl){
-    return require('../image/unblock-permissions-rtl.gif');
-   }else{
-    return require('../image/unblock-permissions.gif');
-   }
- }
-},
+// computed:{
+//  gifImg(){
+//   // let isRtl = global.isRtl;
+//   // if(isRtl){
+//     return require('../image/unblock-permissions-rtl.gif');
+//    //}else{
+//    // return require('../image/unblock-permissions.gif');
+//    //}
+//  }
+// },
 methods:{
   nextPage(){
   if(tutorService.isRecordingSupported()){

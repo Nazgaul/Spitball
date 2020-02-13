@@ -16,7 +16,7 @@
                 </div>
                 <div class="profileUserBox_top_mobile_left">
                     <followBtn v-if="!isCurrentProfileUser"/>
-                    <editSVG class="profileUserBox_top_mobile_left_edit" v-if="isMobile && isCurrentProfileUser" @click="openEditInfo()"/>
+                    <editSVG sel="edit" class="profileUserBox_top_mobile_left_edit" v-if="isMobile && isCurrentProfileUser" @click="openEditInfo()"/>
                     <div class="profileUserBox_top_mobile_left_followers">
                         <span v-if="currentProfileUser.followers" class="defaultState_content_followers" 
                         v-text="$Ph(currentProfileUser.followers > 1 ? 'profile_tutor_followers':'profile_tutor_follower',currentProfileUser.followers)"/>
@@ -27,10 +27,10 @@
         <div class="profileUserBox_top">
             
             <v-flex v-bind="flexOrder" class="pUb_top_defaultState">
-                <editSVG class="pUb_edit_user mr-1" v-if="!isMobile && isCurrentProfileUser" @click="openEditInfo()"/>
+                <editSVG sel="edit" class="pUb_edit_user mr-1" v-if="!isMobile && isCurrentProfileUser" @click="openEditInfo()"/>
                 <div class="pUb_defaultState_img">
                     <div class="pUb_dot" v-if="isOnline"/>
-                    <uploadImage class="pUb_edit_img" v-if="isCurrentProfileUser"/>
+                    <uploadImage sel="photo" class="pUb_edit_img" v-if="isCurrentProfileUser"/>
                     <userAvatarRect class="pUb_dS_img" 
                                     :userName="currentProfileUser.name" 
                                     :userImageUrl="currentProfileUser.image" 
@@ -71,24 +71,24 @@
                     <starSVG/>
                     <span class="pUb_t_ts_list_span pUb_t_ts_list_span_review" @click="isMobile? scrollToReviews():''" v-text="tutorStateRate(currentProfileTutor)"/>
                 </div>
-                <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.documents}]">
+                <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.contentCount}]">
                     <resxSVG/>
-                    <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.documents,'profile_resourses','profile_resourse'),currentProfileTutor.documents)"/>
+                    <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.contentCount,'profile_resourses','profile_resourse'),currentProfileTutor.contentCount)"/>
                 </div>
                 <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.lessons}]">
                     <clockSVG/>
                     <span class="pUb_t_ts_list_span" v-text="$Ph(dynamicDictionay(currentProfileTutor.lessons,'profile_sessions','profile_session'),currentProfileTutor.lessons)"/>
                 </div>
-                <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileUser.followers}]">
+                <div class="pUb_top_tS_list" :class="[{'visibility_hidden':!currentProfileTutor.students}]">
                     <studensSVG/>
-                    <span class="pUb_t_ts_list_span ml-1" v-text="$Ph(dynamicDictionay(currentProfileUser.followers,'profile_students','profile_student'),currentProfileUser.followers)"/>
+                    <span class="pUb_t_ts_list_span ml-1" v-text="$Ph(dynamicDictionay(currentProfileTutor.students,'profile_students','profile_student'),currentProfileTutor.students)"/>
                 </div>
             </v-flex>
         </div>
         <v-flex v-if="currentProfileUser.description" sm9 xs12 class="profileUserBox_middle">
             <h3 class="pUb_middle_AboutMe" v-text="currentProfileUser.description"/>
             <template v-if="currentProfileUser.isTutor">
-                <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}<span v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-text="isOpen? 'Read less' : 'Read more'"/></h4>
+                <h4 v-if="currentProfileTutor.bio" class="pUb_middle_bio">{{currentProfileTutor.bio | truncate(isOpen, '...', textLimit)}}<span class="d-none">{{currentProfileTutor.bio | restOfText(isOpen, '...', textLimit)}}</span><span sel="bio_more" v-if="readMoreVisible" @click="isOpen = !isOpen" class="pUb_middle_bio_readMore" v-language:inner="isOpen?'profile_read_less':'profile_read_more'"/></h4>
             </template>
         </v-flex>
         <div class="profileUserBox_bottom" v-if="currentProfileUser.isTutor && currentProfileTutor.subjects.length">
@@ -218,9 +218,6 @@ export default {
                 block: 'center',
             }
             document.querySelector('.profileReviewsBox').scrollIntoView(scrollIntoViewOptions);
-            setTimeout(() => {
-                document.querySelector('.profileReviewsBox').scrollIntoView(scrollIntoViewOptions);   
-            }, 2000);
         },
         dynamicDictionay(number,multipleDictionay,singleDictionay){
             return number > 1 ? multipleDictionay : singleDictionay;
@@ -229,12 +226,20 @@ export default {
     filters: {
         truncate(val, isOpen, suffix, textLimit){
             if (val.length > textLimit && !isOpen) {
-                return val.substring(0, textLimit) + suffix;
+                return val.substring(0, textLimit) +  suffix + ' ';
             } 
             if (val.length > textLimit && isOpen) {
-                return val + suffix;
+                return val + ' ';
             }
             return val;
+        },
+        restOfText(val, isOpen, suffix, textLimit){
+            if (val.length > textLimit && !isOpen) {
+                return val.substring(textLimit) ;
+            }
+            if (val.length > textLimit && isOpen) {
+                return '';
+            }
         }
     },
 }
@@ -248,13 +253,15 @@ export default {
     border-radius: 8px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     background-color: #ffffff;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     padding: 16px;
     @media (max-width: @screen-xs) {
         border-radius: 0;
         box-shadow: none;
         padding: 0;
         padding-top: 14px;
+        margin-bottom: 8px;
+
     }
     .visibility_hidden{
         visibility: hidden;
@@ -487,6 +494,7 @@ export default {
             font-stretch: normal;
             font-style: normal;
             letter-spacing: normal;
+                word-break: break-word;
             @media (max-width: @screen-xs) {
                 font-size: 16px;
                 line-height: 1.4;
@@ -507,6 +515,7 @@ export default {
             font-style: normal;
             line-height: 1.57;
             letter-spacing: normal;
+                word-break: break-word;
             .pUb_middle_bio_readMore{
                 font-weight: 600;
                 cursor: pointer;

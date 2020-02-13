@@ -2,7 +2,7 @@
 
 import debounce from "lodash/debounce";
 import { LanguageService } from "../../../../services/language/languageService";
-import universityService from "../../../../services/universityService";
+import courseService from "../../../../services/courseService";
 import analyticsService from '../../../../services/analytics.service';
 
 export default {
@@ -16,7 +16,6 @@ export default {
     },
     data: () => ({
         autoSuggestList: [],
-        isFirst: true,
         showSuggestions: false,
         originalMsg: '',
         msg:"",
@@ -42,7 +41,9 @@ export default {
                 analyticsService.sb_unitedEvent("Tutor_Engagement", "Search", this.msg);
             }
 
-            this.$router.push({ path: `/tutor-list/${this.msg}` }).catch(() => {});
+            //this.$router.push({ path: `/tutor-list/${encodeURIComponent(this.msg)}` }).catch(() => {});
+            this.$router.push({ name: 'tutorLandingPage', params: {course: this.msg} }).catch(() => {});
+            
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
@@ -67,7 +68,7 @@ export default {
             }
         },
         getSuggestionList(term){
-            universityService.getCourse({term, page:0}).then(data=>{
+            courseService.getCourse({term, page:0}).then(data=>{
                 this.suggests = data;
             }).finally(()=>{
                 this.openSuggestions();

@@ -12,7 +12,7 @@
 
         public string Term { get; }
         public int Page { get; }
-        public int PageSize { get; set; }
+        public int PageSize { get; }
 
         public string Country { get; }
     }

@@ -120,10 +120,4 @@
   <data name="Cashed" xml:space="preserve">
     <value>קופון ישלח בדוא"ל בתוך שני ימי עסקים</value>
   </data>
-  <data name="Redeem" xml:space="preserve">
-    <value>מימוש</value>
-  </data>
-  <data name="SBL" xml:space="preserve">
-    <value>נק'</value>
-  </data>
 </root>

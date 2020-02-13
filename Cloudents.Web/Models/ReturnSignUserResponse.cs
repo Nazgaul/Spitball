@@ -1,32 +1,47 @@
 ﻿namespace Cloudents.Web.Models
 {
+    //public class ReturnSignUserResponse
+    //{
+    //    public ReturnSignUserResponse(NextStep step)
+    //    {
+    //        Step = step;
+    //    }
+
+
+
+    //    public NextStep? Step { get; set; }
+
+    //    public string ReturnUrl { get; set; }
+
+    //}
+
     public class ReturnSignUserResponse
     {
-        public ReturnSignUserResponse(NextStep step, bool isNew)
+        public ReturnSignUserResponse(RegistrationStep step, object param = null)
         {
             Step = step;
-            IsNew = isNew;
+            Param = param;
         }
 
-        public ReturnSignUserResponse(bool isNew)
+        private ReturnSignUserResponse()
         {
-            IsNew = isNew;
+            
         }
 
-        public NextStep? Step { get; set; }
-        public bool IsNew { get; set; }
+        public RegistrationStep Step { get;  }
+        public object Param { get; }
 
-        public string ReturnUrl { get; set; }
+        public bool IsSignedIn { get; set; }
 
-    }
 
-    public class CheckUserStatusResponse
-    {
-        public CheckUserStatusResponse(NextStep step)
+        public static ReturnSignUserResponse SignIn()
         {
-            Step = step;
+            return new ReturnSignUserResponse()
+            {
+                IsSignedIn =  true
+            };
         }
 
-        public NextStep Step { get; set; }
+
     }
 }

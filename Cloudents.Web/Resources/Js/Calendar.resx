@@ -130,7 +130,7 @@
     <value>In order to book a lesson, you need to add a payment method</value>
   </data>
   <data name="add_event_sent" xml:space="preserve">
-    <value>A request was sent to the tutor. Please check your Email for the tutor update.</value>
+    <value>Your request sent to the tutor. Check your email for booking confirmation.</value>
   </data>
   <data name="add_event_thank" xml:space="preserve">
     <value>Thank you!</value>
@@ -160,7 +160,7 @@
     <value>My calendar is not available at the moment. Massage me directly to schedule a session.</value>
   </data>
   <data name="error_create_event" xml:space="preserve">
-    <value>Booking failed please refresh the page!</value>
+    <value>Booking failed, please refresh the page!</value>
   </data>
   <data name="header" xml:space="preserve">
     <value>Book a lesson with me</value>

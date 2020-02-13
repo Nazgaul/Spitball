@@ -1,12 +1,12 @@
 <template>
     <div class="footer">
-        <v-layout row align-center justify-space-around class="footer-warp">
+        <v-layout align-center justify-space-around class="footer-warp">
             <ul v-if="links" class="footer-wrap-list w-list-unstyled">
                 <li  v-for="(link, index) in links" :key="index">
-                    <a :href="link.url" class="footer-link">{{link.title}}</a>
+                    <a :href="link.url" v-if="isShowBlog(link)" class="footer-link">{{link.title}}</a>
                 </li>
             </ul>
-            <div class="footer-warp-divider mt-4"></div>
+            <div class="footer-warp-divider mt-6"></div>
             <div class="footer-contact-box">
                 <div class="tutor-list-footer-logo">
                     <logoComponent></logoComponent>
@@ -46,39 +46,57 @@ import logoComponent from '../../../app/logo/logo.vue';
                 courseTerm:'',
                 socialMedias: satelliteService.getSocialMedias(),
                 links:[
-                    {
+                    {   
+                        name:'about',
                         title: LanguageService.getValueByKey('tutorListLanding_footer_links_about'), 
                         url: satelliteService.getSatelliteUrlByName('about')
                     },
                     {
+                        name:'feedback',
                         title: LanguageService.getValueByKey('tutorListLanding_footer_links_feedback'),
                         url: satelliteService.getSatelliteUrlByName('feedback')
                     },
                     {
+                        name:'terms',
                         title: LanguageService.getValueByKey('tutorListLanding_footer_links_terms'),
                         url: satelliteService.getSatelliteUrlByName('terms')
                     },
                     {
+                        name:'privacy',
                         title: LanguageService.getValueByKey('tutorListLanding_footer_links_privacy'),
                         url: satelliteService.getSatelliteUrlByName('privacy')
                     },
                     {
+                        name:'faq',
                         title: LanguageService.getValueByKey('tutorListLanding_footer_links_faq'),
                         url: satelliteService.getSatelliteUrlByName('faq')
                     },
                     {
+                        name:'contact',
                         title: LanguageService.getValueByKey('tutorListLanding_footer_links_contact'),
                         url: satelliteService.getSatelliteUrlByName('contact')
                     },
-                ]
+                    {
+                        name:'blog',
+                        title: LanguageService.getValueByKey('tutorListLanding_footer_links_blog'),
+                        url: satelliteService.getSatelliteUrlByName('blog')
+                    }
+                ],
             }
         },
         computed: {
             isTutorList(){
                 return this.$route.name === 'tutorLandingPage';
-            }
+            },
         },
         methods: {
+            isShowBlog(link){
+                if(link.name == 'blog' && global.siteName =='frymo'){
+                    return false;
+                }else{
+                    return true;
+                }
+            },
             footerLinksRoute(link) {
                 if(link === 'blog') {
                     window.open('https://medium.com/@spitballstudy')
@@ -140,6 +158,7 @@ import logoComponent from '../../../app/logo/logo.vue';
     max-width: 1200px;
     margin: 0 auto;
     height: inherit;
+    font-size: 14px;
     @media (max-width: @screen-sm) {
         flex-direction: column-reverse;
     }

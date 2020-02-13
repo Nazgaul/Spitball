@@ -1,15 +1,15 @@
 <template>
-    <v-card class="user-edit-wrap pb-3">
+    <v-card class="user-edit-wrap pb-4">
         <v-form v-model="validUserForm" ref="formUser" @submit.prevent>
-        <v-layout class="header pa-3 mb-3">
+        <v-layout class="header pa-4 pt-3 mb-4">
             <v-flex>
                 <v-icon class="edit-icon mr-2">sbf-edit-icon</v-icon>
                 <span v-language:inner>profile_edit_user_profile_title</span>
             </v-flex>
         </v-layout>
     
-            <v-layout class="px-3 mt-3" row wrap>
-                <v-flex xs12 sm6  :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
+            <v-layout class="px-3 mt-3" wrap>
+                <v-flex xs12 sm6 :class="{'pr-2': $vuetify.breakpoint.smAndUp}">
                     <v-layout column>
                         <v-flex xs12 sm6  class="pl-2 mb-2">
                             <span class="subtitle" v-language:inner>profile_personal_details</span>
@@ -61,12 +61,12 @@
         </v-layout>
         <v-layout  align-center class="px-3" :class="[$vuetify.breakpoint.xsOnly ? 'justify-space-between ' : 'justify-end']">
             <v-flex xs5 sm2  >
-                <v-btn class="shallow-blue ml-0" round outline primary @click="closeDialog">
+                <v-btn class="shallow-blue ml-0" rounded outline primary @click="closeDialog">
                     <span v-language:inner>profile_btn_cancel</span>
                 </v-btn>
             </v-flex>
-            <v-flex xs5 sm2  :class="{'mr-3': $vuetify.breakpoint.smAndUp}">
-                <v-btn class="blue-btn  ml-0" round @click="saveChanges()" :loading="btnLoading">
+            <v-flex xs5 sm2  :class="{'mr-4': $vuetify.breakpoint.smAndUp}">
+                <v-btn class="blue-btn  ml-0" rounded @click="saveChanges()" :loading="btnLoading">
                     <span v-language:inner>profile_btn_save_changes</span>
                 </v-btn>
             </v-flex>
@@ -149,8 +149,13 @@
                         firstName,
                         lastName,
                         };
+                    let serverFormat = {
+                        description: this.editedDescription,
+                        firstName,
+                        lastName
+                    };
                     this.btnLoading = true;
-                    accountService.saveUserInfo(editsData).then(() => {
+                    accountService.saveUserInfo(serverFormat).then(() => {
                         this.updateEditedProfile(editsData);
                         this.btnLoading = false;
                         this.closeDialog();

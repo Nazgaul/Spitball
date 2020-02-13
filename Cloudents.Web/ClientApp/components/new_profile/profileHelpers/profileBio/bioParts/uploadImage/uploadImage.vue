@@ -23,10 +23,9 @@
     export default {
         name: "uploadImage",
         methods: {
-            ...mapActions(['uploadAccountImage', 'updateProfileImageLoader', 'updateToasterParams']),
+            ...mapActions(['uploadAccountImage', 'updateToasterParams']),
             uploadProfilePicture() {
                 let self = this;
-                self.updateProfileImageLoader(true);
                 let formData = new FormData();
                 let file = self.$refs.profileImage.files[0];
                 formData.append("file", file);

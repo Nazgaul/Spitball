@@ -1,5 +1,7 @@
 import { connectivityModule } from '../../services/connectivity.module'
+import axios from 'axios'
 
+const apiAddress = `${window.location.origin}/api/`;
 //function userData(objInit) {
 //    this.userInfo = createUserInfoItem(objInit.user);
 //    this.userAnswers = createAnswertItem(objInit.answers);
@@ -70,6 +72,8 @@ function UserInfo(objInit) {
          buttonText: "delete"
 
     };
+
+    this.userType = { value: objInit.userType ? objInit.userType : '', label: 'User Type' };
 }
 
 function createUserInfoItem(data) {
@@ -189,6 +193,17 @@ function createSessionsItem(objInit){
     return new SessionsItem(objInit);
 };
 
+function NotesItem(objInit)
+{
+    this.text = objInit.text;
+    this.adminUser = objInit.adminUser;
+    this.created = new Date(objInit.created).toLocaleString();
+}
+function createNotesItem(objInit){
+    return new NotesItem(objInit);
+};
+
+
 export default {
     getUserData: (id) => {
         let path = `AdminUser/info?userIdentifier=${encodeURIComponent(id)}`;
@@ -286,6 +301,31 @@ export default {
         });
 
     },
+    getUserNotes:(id) => 
+    {
+        let path = `AdminUser/notes`;
+        return connectivityModule.http.get(`${path}?id=${id}`).then((newNotesList) => {
+            let arrNotesList = [];
+            if (newNotesList.length > 0) {
+                newNotesList.forEach((note) => {
+                    arrNotesList.push(createNotesItem(note));
+                });
+            }
+            return arrNotesList;
+        }, (err) => {
+            return err;
+        });
+    },
+    getUserTypes: (id) => {
+        let path = `AdminUser/types`;
+        return connectivityModule.http.get(path).then((newTypesList) => {
+            return newTypesList;  
+        });
+    },
+    updateUserType:(data) => {
+        let path = `AdminUser/type`;
+        return connectivityModule.http.post(path, data);
+    },
     verifyPhone: (data) => {
         let path = `AdminUser/verify`;
         return connectivityModule.http.post(path, data)
@@ -306,7 +346,13 @@ export default {
         return connectivityModule.http.put(`AdminUser/name`, {userId, firstName, lastName});
     },
     updateUserPhone: ({ userId, newPhone }) => {
-        return connectivityModule.http.put(`AdminUser/phone`, {userId, newPhone});
+        let path = `AdminUser/phone`;
+        let uri = apiAddress + path;
+        debugger;
+        //return axios.put(uri, { userId, newPhone });
+        return axios.put(uri, { userId, newPhone }).then((message) => {
+            return message;
+        });
     },
     updateTutorPrice: (priceOjb) => {
         return connectivityModule.http.post(`AdminTutor/price`, priceOjb);
@@ -319,5 +365,13 @@ export default {
     },
     deletePayment: (id) => {
         return connectivityModule.http.delete(`AdminPayment/deletePayment?userId=${id}`);
-    }
+    },
+    addUserNote : (data) => {
+        let path = `AdminUser/note`;
+        return connectivityModule.http.post(path, data).then((adminEmail) => {
+            return createNotesItem({text: data.text, adminUser: adminEmail, created: Date.now()});
+        }, (err) => {
+            return err;
+        });
+    }    
 }

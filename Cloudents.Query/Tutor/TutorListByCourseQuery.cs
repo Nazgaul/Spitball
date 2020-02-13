@@ -1,4 +1,5 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Criterion;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Tutor
 {
@@ -40,14 +42,20 @@ namespace Cloudents.Query.Tutor
         {
 
             private readonly IStatelessSession _session;
+            private readonly IUrlBuilder _urlBuilder;
 
-            public TutorListByCourseQueryHandler(QuerySession session)
+            public TutorListByCourseQueryHandler(QuerySession session, IUrlBuilder urlBuilder)
             {
+                _urlBuilder = urlBuilder;
                 _session = session.StatelessSession;
             }
 
             public async Task<IEnumerable<TutorCardDto>> GetAsync(TutorListByCourseQuery query, CancellationToken token)
             {
+                if (query.Count == 0)
+                {
+                    throw  new ArgumentException("query count cannot be 0");
+                }
                 //TODO maybe we can fix this query
                 ReadTutor tutorAlias = null;
                 UserCourse userCourseAlias = null;
@@ -56,7 +64,7 @@ namespace Cloudents.Query.Tutor
                 var relevantTutorByCourse = QueryOver.Of(() => tutorAlias)
                     .JoinEntityAlias(() => userCourseAlias,
                         () => userCourseAlias.User.Id == tutorAlias.Id)
-                    .Where(() => userCourseAlias.CanTeach)
+                    .Where(() => userCourseAlias.IsTeach)
                     .And(() => userCourseAlias.Course.Id == query.CourseId)
                     .Select(s => s.Id)
                     .Take(query.Count);
@@ -66,7 +74,7 @@ namespace Cloudents.Query.Tutor
                     .JoinEntityAlias(() => userCourseAlias,
                         () => userCourseAlias.User.Id == tutorAlias.Id)
                     .JoinAlias(() => userCourseAlias.Course, () => courseAlias)
-                    .Where(() => userCourseAlias.CanTeach)
+                    .Where(() => userCourseAlias.IsTeach)
                     .WithSubquery.WhereProperty(() => courseAlias.Subject.Id).Eq(
                         QueryOver.Of<Course>().Where(w => w.Id == query.CourseId)
                             .Select(s => s.Subject.Id))
@@ -124,7 +132,12 @@ namespace Cloudents.Query.Tutor
                 var tutors2 = await futureCourse2.GetEnumerableAsync(token);
 
                 return tutors.Union(tutors2).Skip(query.Page * query.Count).Take(query.Count)
-                    .Distinct(TutorCardDto.UserIdComparer).ToList();
+                    .Distinct(TutorCardDto.UserIdComparer)
+                    .Select(s =>
+                    {
+                        s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
+                        return s;
+                    });
             }
         }
     }

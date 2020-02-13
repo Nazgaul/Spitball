@@ -3,7 +3,6 @@ using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -27,10 +26,10 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("api/profile/159489")]
         [InlineData("api/profile/159489/about")]
         [InlineData("api/profile/159489/questions")]
-        [InlineData("api/profile/159489/answers")]
+        //[InlineData("api/profile/159489/answers")]
         [InlineData("api/profile/159489/documents")]
-        [InlineData("api/profile/159489/purchaseDocuments")]
-        public async Task GetAsync_Profile_Ok(string uri)
+        //[InlineData("api/profile/159489/purchaseDocuments")]
+        public async Task GetAsync_Profile_OkAsync(string uri)
         {
             var response = await _client.GetAsync(uri);
 
@@ -40,7 +39,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task GetAsync_ImageIsValid()
+        public async Task GetAsync_ImageIsValidAsync()
         {
             var response = await _client.GetAsync("api/profile/159039");
 
@@ -54,7 +53,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("/api/profile/1")]
-        public async Task GetAsync_Profile_NotFound(string uri)
+        public async Task GetAsync_Profile_NotFoundAsync(string uri)
         {
             var response = await _client.GetAsync(uri);
 

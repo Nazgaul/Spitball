@@ -16,11 +16,9 @@ namespace Cloudents.Infrastructure.Framework
         public ExcelProcessor()
 
         {
-            using (var sr = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Framework.Aspose.Total.lic"))
-            {
-                var license = new License();
-                license.SetLicense(sr);
-            }
+            using var sr = Assembly.GetExecutingAssembly().GetManifestResourceStream("Cloudents.Infrastructure.Framework.Aspose.Total.lic");
+            var license = new License();
+            license.SetLicense(sr);
         }
 
         private static void ScalePageSetupToFitPage(Worksheet workSheet)
@@ -73,7 +71,7 @@ namespace Cloudents.Infrastructure.Framework
                 var sr = new SheetRender(wb, imgOptions);
                 using (var img = sr.ToImage(0))
                 {
-                    if (img == null)
+                    if (img is null)
                     {
                         continue;
                     }

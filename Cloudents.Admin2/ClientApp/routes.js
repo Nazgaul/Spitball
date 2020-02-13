@@ -36,7 +36,7 @@ import userPurchasedDocuments from './components/userMainView/userPurchasedDocum
 // import userConversations from './components/userMainView/userConversations/userConversations.vue';
 import userSessions from './components/userMainView/userSessions/userSessions.vue';
 import userSoldItems from './components/userMainView/userSoldItems/userSoldItems.vue';
-
+import userNotes from './components/userMainView/userNotes/userNotes.vue';
 
 import management from './components/management/Management.vue';
 import coursesPending from './components/management/coursesPending/coursesPending.vue';
@@ -57,6 +57,7 @@ import studyRoomSession from './components/studyRoom/studyRoomComponents/session
 
 import leads from './components/leads/leads.vue';
 import coupon from './components/coupon/coupon.vue';
+import subjects from './components/subjects/subjects.vue';
 
 export const routes = [
     {
@@ -99,6 +100,11 @@ export const routes = [
               name:'userSessions',
               path:'userSessions',
               component: userSessions
+            },
+            {
+              name: 'userNotes',
+              path: 'userNotes',
+              component: userNotes
             }
             // {
             //     path:'userDownvotes',
@@ -347,9 +353,14 @@ export const routes = [
       component: coupon
     },
     {
+      path: '/subjects',
+      name: 'subjects',
+      component: subjects
+    },
+    {
          path: '/*',
          redirect: '/home'
-       }
+    }
 ];
 
   

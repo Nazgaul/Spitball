@@ -77,7 +77,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         [InlineData("api/document/similar", "Economics", 50413L, false)]
         [InlineData("api/document/similar", "Economics", 50413L, true)]
-        public async Task GetSimilarDocuments_Ok(string url, string course, long documentId, bool authUser)
+        public async Task GetSimilarDocuments_OkAsync(string url, string course, long documentId, bool authUser)
         {
             var endPoint = $"{url}?course={course}&documentId={documentId}";
             if (authUser)
@@ -93,7 +93,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task PostAsync_Upload_Regular_FileName()
+        public async Task PostAsync_Upload_Regular_FileNameAsync()
         {
             await _client.LogInAsync();
 
@@ -103,7 +103,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task PostAsync_Upload_FileName_With_Space()
+        public async Task PostAsync_Upload_FileName_With_SpaceAsync()
         {
             await _client.LogInAsync();
 
@@ -113,7 +113,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task PostAsync_Upload_Hebrew_FileName()
+        public async Task PostAsync_Upload_Hebrew_FileNameAsync()
         {
             await _client.LogInAsync();
 
@@ -123,7 +123,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task PostAsync_Upload_Without_File_Extension()
+        public async Task PostAsync_Upload_Without_File_ExtensionAsync()
         {
             await _client.LogInAsync();
 
@@ -134,7 +134,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("document/המסלול-האקדמי-המכללה-למנהל")]
-        public async Task ShortUrl_Invalid_404(string url)
+        public async Task ShortUrl_Invalid_404Async(string url)
         {
             var response = await _client.GetAsync(url);
 
@@ -145,8 +145,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/document/2999")]
-        [InlineData("api/document/8371")]
-        public async Task Valid_Url_200(string url)
+        public async Task Valid_Url_200Async(string url)
         {
             var response = await _client.GetAsync(url);
 
@@ -157,7 +156,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task Upload_Doc_Without_Uni()
+        public async Task Upload_Doc_Without_UniAsync()
         {
             await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_credentials));
 
@@ -166,6 +165,16 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var response = await _client.PostAsync(_uri.Path, HttpClientExtensions.CreateJsonString(_upload));
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
+
+        [Theory]
+        [InlineData("api/document/29106")]
+        [InlineData("api/document/similar?documentId=29106")]
+        public async Task GetAsync_Document_OKAsync(string url)
+        {
+            var response = await _client.GetAsync(url);
+
+            response.EnsureSuccessStatusCode();
         }
     }
 }

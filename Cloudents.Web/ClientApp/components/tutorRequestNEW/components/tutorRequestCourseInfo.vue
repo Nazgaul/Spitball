@@ -1,7 +1,7 @@
 <template>
     <div class="tutorRequest-middle-courseInfo" v-if="isReady">
     <v-form v-model="validRequestTutorForm" ref="tutorRequestForm" :class="{'tutorProfile':isTutor}">
-            <fieldset class="fieldset-textArea mb-4 px-2 py-1">
+            <fieldset class="fieldset-textArea mb-6 px-2 py-1">
                 <legend v-language:inner="'tutorRequest_type_legend'"/>
                   <v-textarea 
                     :rows="isMobile?6:3"
@@ -23,25 +23,22 @@
                     class="text-truncate"
                     flat hide-no-data
                     :append-icon="''"
+                    @keyup="onCourseChange"
                     v-model="tutorCourse"
                     :items="getSelectedClasses"/>
             </fieldset>
-            
-
             <v-checkbox v-if="isTutor" :ripple="false" class="checkbox-userinfo"
                         :label="$Ph('tutorRequest_more_tutors',this.getCurrTutor.name)" 
                         v-model="moreTutors" off-icon="sbf-check-box-un" 
                         on-icon="sbf-check-box-done"/>
     </v-form>
-        <div class="tutorRequest-bottom" :class="{'mt-4': !getCurrTutor}">
-            <v-btn sel="cancel_tutor_request" @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed round>
-            <span v-language:inner="'tutorRequest_cancel'"/>
+        <div class="tutorRequest-bottom" :class="{'mt-6': !getCurrTutor}">
+            <v-btn @click="tutorRequestDialogClose" class="tutorRequest-btn-back" color="white" depressed rounded sel="cancel_tutor_request">
+                <span v-language:inner="'tutorRequest_cancel'"/>
             </v-btn>
-            <v-btn sel="submit_tutor_request" :loading="isLoading" class="tutorRequest-btn-next" depressed round 
-                @click="!isLoggedIn? next() : sumbit()" color="#4452fc" >
-
-            <span v-if="!isLoggedIn" v-language:inner="'tutorRequest_next'"/> 
-            <span v-else v-language:inner="'tutorRequest_submit'"/>
+            <v-btn :loading="isLoading" class="tutorRequest-btn-next" depressed rounded sel="submit_tutor_request" @click="!isLoggedIn? next() : sumbit()" color="#4452fc">
+                <span v-if="!isLoggedIn" v-language:inner="'tutorRequest_next'"/> 
+                <span v-else v-language:inner="'tutorRequest_submit'"/>
             </v-btn>
         </div>
     </div>
@@ -50,7 +47,7 @@
 <script>
 import {LanguageService} from '../../../services/language/languageService.js'
 import {validationRules} from '../../../services/utilities/formValidationRules.js'
-import universityService from '../../../services/universityService.js'
+import courseService from '../../../services/courseService.js'
 import debounce from "lodash/debounce";
 import analyticsService from '../../../services/analytics.service'
 import { mapActions, mapGetters } from 'vuex';
@@ -134,12 +131,18 @@ export default {
                 return 
             }
             if(!!term){
-                universityService.getCourse({term, page:0}).then(data=>{
+                courseService.getCourse({term, page:0}).then(data=>{
                     this.suggestsCourses = data;
-                    this.suggestsCourses.forEach(course=>{
-                        if(course.text === this.tutorCourse){
-                            this.tutorCourse = course
-                        }}) 
+                    if(this.suggestsCourses.length) {
+                        this.suggestsCourses.forEach(course=>{
+                            if(course.text === this.tutorCourse){
+                                this.tutorCourse = course
+                                this.updateSelectedCourse(this.tutorCourse)
+                            }}) 
+                    } else {
+                        this.tutorCourse = term
+                        this.updateSelectedCourse(this.tutorCourse)
+                    }
                 })
             }
         },300),
@@ -149,7 +152,6 @@ export default {
                 this.updateSelectedCourse(this.tutorCourse)
                 this.updateMoreTutors(this.moreTutors)
                 this.updateTutorReqStep('tutorRequestUserInfo')
-
             let analyticsObject = {
                 userId: this.isLoggedIn ? this.accountUser.id : 'GUEST',
                 course: this.tutorCourse,
@@ -189,11 +191,17 @@ export default {
                     this.updateSelectedCourse(this.tutorCourse)
                 })
             }
+        },
+        onCourseChange(e) {
+            this.tutorCourse = e.target.value;
         }
     },
     mounted() {
         if(this.getCourseDescription){
             this.description = this.getCourseDescription;
+        }
+        if(this.getSelectedCourse){
+            this.tutorCourse = this.getSelectedCourse;
         }
         if(this.$route.params && this.$route.params.course){
             let queryCourse = this.$route.params.course;
@@ -232,7 +240,7 @@ export default {
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-        height: 100%;
+      //  height: 100%;
         form{
             width: 100%;
             margin-top: 34px;
@@ -284,6 +292,8 @@ export default {
             }
         }
     .tutorRequest-bottom{
+        display: flex;
+        justify-content: center;
         .v-btn{
             @media (max-width: @screen-xs) {
               min-width: 120px;  
@@ -294,11 +304,13 @@ export default {
             text-transform: capitalize  !important;
         }
         .tutorRequest-btn-back{
+            margin: 6px 8px;
             color: @global-blue;
             font-weight: 600;
             border: 1px solid @global-blue !important;
         }
         .tutorRequest-btn-next{
+            margin: 6px 8px;
             color: white !important;
             font-size: 14px;
             font-weight: 600;
@@ -322,7 +334,6 @@ export default {
                 height: 144px;
             }
                 font-size: 16px;
-                color: #b3brgb;
                 .v-input{
                     margin: 0;
                     padding: 0;

@@ -1,25 +1,21 @@
-import { connectivityModule } from "./connectivity.module"
-import { LanguageService } from "./language/languageService";
-
-
-function BalanceDetails(objInit){
-    this.points = objInit.points;
-    this.symbol = objInit.symbol;
-    this.type = objInit.type;
-    this.value = objInit.value;
-    this.name = LanguageService.getValueByKey(`wallet_${objInit.type.toLowerCase()}`);
-}
+import Api from './Api/wallet';
+import { Wallet } from './Dto/wallet.js';
 
 export default {
-    getBalances: () => {
-        return connectivityModule.http.get("/Wallet/balance").then(({data})=>{
-            return data.map((item)=>{
-                return new BalanceDetails(item);
-            });
-        });
+    async getBalances() {
+        let { data } = await Api.get.balance()
+        return data.map(item=> new Wallet.Balance(item))
     },
-    getTransactions: () => connectivityModule.http.get("/Wallet/transaction"),
-    buyTokens: (points) => connectivityModule.http.post("/Wallet/buyTokens", points),
-    redeem: (amount) => connectivityModule.http.post("/Wallet/redeem", {amount}),
-    getPaymeLink: () => connectivityModule.http.get("/Wallet/getPaymentLink")
+    async getPaymeLink() {
+        return await Api.get.paymentLink()
+    },
+    async redeem(amount) {
+        return await Api.post.redeem(amount)
+    },
+    async buyTokens(points) {
+        return await Api.post.buyTokens(points)
+    },
+    async getTransactions() {
+        return await Api.get.taransactions()
+    },
 }

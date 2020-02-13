@@ -1,6 +1,6 @@
 <template>
     <div class="share-screen-btn-wrap">
-        <v-flex class="text-xs-center">
+        <v-flex class="text-center">
             <div v-if="!isSharing" >
                 <v-tooltip top >
                     <template v-slot:activator="{on}">
@@ -38,12 +38,12 @@
                     <a
                             :href="extensionLink"
                             target="_blank"
-                            class="btn px-3 py-2 mr-3"
+                            class="btn px-3 py-2 mr-4"
                             @click="dialog = false"
                     >
                         <span v-language:inner="'tutor_chrome_ext_btn_install'"></span>
                     </a>
-                    <v-btn color="green darken-1" flat="flat" @click="extensionDialog = false">
+                    <v-btn color="green darken-1" text @click="extensionDialog = false">
                         <span v-language:inner="'tutor_chrome_ext_btn_cancel'"></span>
                     </v-btn>
                 </v-card-actions>
@@ -121,8 +121,10 @@
             //screen share start
             showScreen() {
                 let self = this;
+                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_ShareScreenBtn_Click', {id: self.getStudyRoomData.roomId}, null);
                 videoService.getUserScreen().then(
                     stream => {
+                        insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_ShareScreenBtn_Accepted', {id: self.getStudyRoomData.roomId}, null);
                         stream.removeEventListener('ended', () => self.stopSharing());
                         stream.addEventListener('ended', () => self.stopSharing());
                         store.dispatch('setLocalVideoTrack', stream);
@@ -132,6 +134,11 @@
                     },
                     error => {
                         error = error || {};
+                        let d = {...{
+                            errorMessage:error.message,
+                            errorname:  error.name},
+                             ...{id: self.getStudyRoomData.roomId}};
+                        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_ShareScreenBtn_showScreen', d, null);
                         if(error === "noExtension") {
                             self.extensionDialog = true;
                             return;
@@ -153,8 +160,6 @@
                                                      showToaster: true,
                                                      toasterType: "error-toaster" //c
                                                  });
-
-                        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_ShareScreenBtn_showScreen', error, null);
                         console.error("error sharing screen", error);
                     }
                 );

@@ -1,7 +1,5 @@
-﻿using Cloudents.Core.Entities;
-using Cloudents.Core.Event;
+﻿using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -32,13 +30,13 @@ namespace Cloudents.Core.EventHandler
             return Task.CompletedTask;
         }
 
-        private Task SendEmailAsync(User user, CancellationToken token)
-        {
-            var invisibleTime = _random.Next(10, 20);
-            return SendEmail(
-                new QuestionDeletedEmail(user.Email, user.Language),
-                TimeSpan.FromMinutes(invisibleTime), token);
-        }
+        //private Task SendEmailAsync(User user, CancellationToken token)
+        //{
+        //    var invisibleTime = _random.Next(10, 20);
+        //    return SendEmail(
+        //        new QuestionDeletedEmail(user.Email, user.Language),
+        //        TimeSpan.FromMinutes(invisibleTime), token);
+        //}
 
         //public Task HandleAsync(QuestionRejectEvent eventMessage, CancellationToken token)
         //{

@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.Query;
-using Cloudents.Query.Query.Sync;
+using Cloudents.Query.Sync;
 using Cloudents.Search.University;
 using Microsoft.Azure.WebJobs;
 using System;

@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Extension;
 using Cloudents.Query;
-using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace Cloudents.Admin2.Api
         //[Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<LeadDto>> LeadAsync(CancellationToken token)
         {
-            var query = new AdminLeadsQuery( User.GetCountryClaim());
+            var query = new LeadsQuery( User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
         

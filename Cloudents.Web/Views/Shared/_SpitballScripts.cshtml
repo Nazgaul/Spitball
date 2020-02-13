@@ -1,37 +1,34 @@
-﻿
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-<style>
-    .async-hide {
-        opacity: 0 !important
-    }
-</style>
+@*Traffic manager script*@
+@*<script src="//atmrum.net/rum.js" onload="rum.start('613a73ef3eca77a6bb53477bc494c321");'></script>*@
+@*<script>rum.start("613a73ef3eca77a6bb53477bc494c321");</script>*@
 <environment exclude="Development">
     <script>
-    (function (a, s, y, n, c, h, i, d, e) {
-        s.className += ' ' + y; h.start = 1 * new Date;
-        h.end = i = function () { s.className = s.className.replace(RegExp(' ?' + y), '') };
-        (a[n] = a[n] || []).hide = h; setTimeout(function () { i(); h.end = null }, c); h.timeout = c;
-    })(window, document.documentElement, 'async-hide', 'dataLayer', 4000,
-        { 'GTM-NN2LHCV': true });</script>
-    <!-- Modified Analytics tracking code with Optimize plugin -->
+        (function (a, s, y, n, c, h, i, d, e) {
+            s.className += ' ' + y; h.start = 1 * new Date;
+            h.end = i = function () { s.className = s.className.replace(RegExp(' ?' + y), '') };
+            (a[n] = a[n] || []).hide = h; setTimeout(function () { i(); h.end = null }, c); h.timeout = c;
+        })(window, document.documentElement, 'async-hide', 'dataLayer', 4000,
+            { 'GTM-NN2LHCV': true });</script>
+    @*Modified Analytics tracking code with Optimize plugin*@
 
     <script type="text/javascript"
             src="//www.googleadservices.com/pagead/conversion_async.js">
     </script>
-    <!-- Google Tag Manager -->
+    @*Google Tag Manager*@
     <script async>
-    (function (w, d, s, l, i) {
-        w[l] = w[l] || []; w[l].push({
-            'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-        }); var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-M2BGS2G');</script>
-    <!-- End Google Tag Manager -->
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-M2BGS2G');</script>
+    @* End Google Tag Manager *@
 </environment>
 <script>
     (function (i, s, o, g, r, a, m) {
@@ -44,12 +41,9 @@
     ga('create', 'UA-100723645-2', 'auto');
     ga('require', 'GTM-NN2LHCV');
 </script>
-<script type="text/javascript"
-        src="//www.googleadservices.com/pagead/conversion_async.js">
-</script>
 
 @*Intercom*@
-<script async>
+<script defer>
     (function () {
         window.intercomSettings = {
             app_id: "njmpgayv",
@@ -62,6 +56,5 @@
                 var x = d.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
             } if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); }
         }
-        //Intercom('boot', { app_id: 'njmpgayv' })
     })()
 </script>

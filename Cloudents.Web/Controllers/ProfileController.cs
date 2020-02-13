@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Users;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +26,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("profile/{id:long}")]
-        public async Task<IActionResult> OldIndex(long id, CancellationToken token)
+        public async Task<IActionResult> OldIndexAsync(long id, CancellationToken token)
         {
             //not really need it in here
             var query = new UserProfileQuery(id, 0);
@@ -47,11 +47,11 @@ namespace Cloudents.Web.Controllers
         // GET: /<controller>/
         [Route("profile/{id:long}/{name}", Name = SeoTypeString.Tutor)]
         [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true), SignInWithToken]
-        public async Task<IActionResult> Index(long id, string name, CancellationToken token)
+        public async Task<IActionResult> IndexAsync(long id, string name, CancellationToken token)
         {
             var query = new UserProfileQuery(id, 0);
             var retVal = await _queryBus.QueryAsync(query, token);
-            if (retVal == null)
+            if (retVal is null)
             {
                 return NotFound();
             }
@@ -59,7 +59,7 @@ namespace Cloudents.Web.Controllers
             if (retVal.Tutor is null)
             {
                 Response.Headers.Add("X-Robots-Tag", "noindex");
-                return View();
+                return View("Index");
             }
             //if (string.IsNullOrEmpty(retVal.UniversityName))
             //{
@@ -71,8 +71,6 @@ namespace Cloudents.Web.Controllers
             if (retVal.Image != null)
             {
                 ViewBag.ogImage = $"{retVal.Image}?width=1200&height=630";
-
-
                 ViewBag.ogImageWidth = 1200;
                 ViewBag.ogImageHeight = 630;
             }
@@ -95,7 +93,7 @@ namespace Cloudents.Web.Controllers
             //    Url = Request.GetUri()
             //};
             //ViewBag.jsonLd = jsonLd;
-            return View();
+            return View("Index");
         }
     }
 }

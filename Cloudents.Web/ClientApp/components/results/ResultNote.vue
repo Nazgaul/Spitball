@@ -30,29 +30,30 @@
 
         <v-menu
           class="menu-area"
-          lazy
           bottom
           left
           content-class="card-user-actions"
           v-model="showMenu"
         >
-          <v-btn
-            :depressed="true"
-            @click.native.stop.prevent="showReportOptions()"
-            slot="activator"
-            icon
-          >
-            <v-icon>sbf-3-dot</v-icon>
-          </v-btn>
+          <template v-slot:activator="{  }">  
+            <v-btn
+              class="menu-area-btn"
+              :depressed="true"
+              @click.native.stop.prevent="showReportOptions()"
+              icon
+            >
+              <v-icon>sbf-3-dot</v-icon>
+            </v-btn>
+          </template>
           <v-list>
-            <v-list-tile
+            <v-list-item
               v-for="(prop, i) in actions"
               v-show="prop.isVisible(prop.visible)"
               :disabled="prop.isDisabled()"
               :key="i"
             >
-              <v-list-tile-title style="cursor:pointer;" @click="prop.action()">{{ prop.title }}</v-list-tile-title>
-            </v-list-tile>
+              <v-list-item-title style="cursor:pointer;" @click="prop.action()">{{ prop.title }}</v-list-item-title>
+            </v-list-item>
           </v-list>
         </v-menu>
       </div>
@@ -71,15 +72,17 @@
         />
         <div class="document-body-card">
           <span v-show="(isVideo && item.itemDuration) && isPreviewReady" class="videoType">
-            <vidSVG class="vidSvg" />
+            <vidSVG  />
             <span class="vidTime">{{item.itemDuration}}</span>
           </span>
-          <img
-            class="document-body-card-img"
-            @load="isPreviewReady = true"
-            :src="docPreviewImg"
-            alt
-          />
+          <intersection>
+            <img
+              class="document-body-card-img"
+              @load="isPreviewReady = true"
+              :src="docPreviewImg"
+              alt
+            />
+          </intersection>
         </div>
       </template>
 
@@ -151,7 +154,7 @@
       :popUpType="'reportDialog'"
       :content-class="`reportDialog` "
     >
-      <report-item :closeReport="closeReportDialog" :itemType="'Document'" :itemId="itemId"></report-item>
+      <report-item v-if="showReport" :closeReport="closeReportDialog" :itemType="'Document'" :itemId="itemId"></report-item>
     </sb-dialog>
     <sb-dialog
       :showDialog="priceDialog"
@@ -168,7 +171,7 @@
             <span class="change-title" v-language:inner>resultNote_change_for</span>
             <span class="change-title" style="max-width: 150px;">&nbsp;"{{item.title}}"</span>
           </div>
-          <div class="input-wrap row align-center justify-center">
+          <div class="input-wrap align-center justify-center">
             <div class="price-wrap">
               <vue-numeric
                 :currency="currentCurrency"
@@ -200,28 +203,32 @@
   </router-link>
 </template>
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 import studyDocumentsStore from "../../store/studyDocuments_store";
 import storeService from "../../services/store/storeService";
-
-import userAvatar from "../helpers/UserAvatar/UserAvatar.vue";
-import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
-import reportItem from "./helpers/reportItem/reportItem.vue";
-import { mapGetters, mapActions, mapMutations } from "vuex";
-import { LanguageService } from "../../services/language/languageService";
 import documentService from "../../services/documentService";
-import likeSVG from "./img//like.svg";
-import likeFilledSVG from "./img/like-filled.svg";
-import utilitiesService from "../../services/utilities/utilitiesService.js";
-import vidSVG from "./svg/vid.svg";
+
+import { LanguageService } from "../../services/language/languageService";
+import utilitiesService from "../../services/utilities/utilitiesService.js"; // cannot async, js error
+
+const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
+const reportItem = () => import("./helpers/reportItem/reportItem.vue");
+const likeSVG = () => import("./img//like.svg");
+const likeFilledSVG = () => import("./img/like-filled.svg");
+const vidSVG = () => import("./svg/vid.svg");
+const intersection = () => import('../pages/global/intersection/intersection.vue');
+import VueNumeric from 'vue-numeric'
 
 export default {
   components: {
     sbDialog,
     reportItem,
-    userAvatar,
     likeSVG,
     likeFilledSVG,
-    vidSVG
+    vidSVG,
+    intersection,
+    VueNumeric
   },
   data() {
     return {
@@ -293,9 +300,6 @@ export default {
         return `${this.item.user.image}`;
       }
       return "";
-    },
-    isProfile() {
-      return this.$route.name === "profile";
     },
     isPurchased() {
       return this.item.isPurchased;
@@ -381,15 +385,9 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({
-      updateLoading: "UPDATE_LOADING",
-      updateSearchLoading: "UPDATE_SEARCH_LOADING"
-    }),
     ...mapActions([
       "updateLoginDialogState",
       "updateToasterParams",
-      "removeItemFromProfile",
-      "syncProfile",
       "documentVote",
       "removeItemFromList",
       "removeDocItemAction"
@@ -448,14 +446,10 @@ export default {
       this.itemId = this.item.id;
       this.showReport = !this.showReport;
     },
-    //check if profile and refetch data after doc deleted
-    updateProfile(id) {
-      if (this.isProfile) {
-        this.removeItemFromProfile({ id: id });
-      }
-    },
     deleteDocument() {
       let id = this.item.id;
+      
+      
       documentService.deleteDoc(id).then(
         () => {
           this.updateToasterParams({
@@ -464,9 +458,12 @@ export default {
             ),
             showToaster: true
           });
+          if (this.$route.name === "document") {
+            this.$router.replace({name:"feed"});
+            return
+          }
           this.removeItemFromList(id);
-          this.updateProfile(id);
-          let objToDelete = { id: parseInt(id) };
+          let objToDelete = { id };
           this.removeDocItemAction(objToDelete);
         },
         () => {

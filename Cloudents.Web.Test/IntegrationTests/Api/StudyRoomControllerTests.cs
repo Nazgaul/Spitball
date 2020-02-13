@@ -21,7 +21,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/studyRoom/")]
-        public async Task GetAsync_StudyRoom_Ok(string uri)
+        public async Task GetAsync_StudyRoom_OkAsync(string uri)
         {
             await _client.LogInAsync();
 
@@ -45,7 +45,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/studyRoom")]
-        public async Task GetAsync_StudyRoom_Unauthorized(string uri)
+        public async Task GetAsync_StudyRoom_UnauthorizedAsync(string uri)
         {
             var response = await _client.GetAsync(uri);
 

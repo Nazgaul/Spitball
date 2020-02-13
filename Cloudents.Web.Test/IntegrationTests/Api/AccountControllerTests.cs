@@ -34,10 +34,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/account")]
-        [InlineData("api/account/courses")]
-        [InlineData("api/account/university")]
         [InlineData("api/account/referrals")]
-        public async Task AccountApiTestGet_NotLogIn_Unauthorized(string api)
+        public async Task AccountApiTestGet_NotLogIn_UnauthorizedAsync(string api)
         {
             var response = await _client.GetAsync(api);
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);            
@@ -45,12 +43,13 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/account")]
-        [InlineData("api/account/courses")]
-        [InlineData("api/account/university")]
         [InlineData("api/account/referrals")]
-        [InlineData("api/account/content")]
         [InlineData("api/account/sales")]
-        public async Task AccountApiTestGet_LogIn_Ok(string api)
+        [InlineData("api/account/content")]
+        [InlineData("api/account/purchases")]
+        [InlineData("api/account/followers")]
+        [InlineData("api/account/calendar")]
+        public async Task AccountApiTestGet_LogIn_OkAsync(string api)
         {
             await _client.LogInAsync();
             var response = await _client.GetAsync(api);
@@ -67,7 +66,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         
 
         [Fact]
-        public async Task PostAsync_settings_OK()
+        public async Task PostAsync_settings_OKAsync()
         {
            //_uri.Path = "api/account/settings";
 
@@ -99,7 +98,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task GetAsync_sales_OK()
+        public async Task GetAsync_sales_OKAsync()
         {
             await _client.LogInAsync();
 

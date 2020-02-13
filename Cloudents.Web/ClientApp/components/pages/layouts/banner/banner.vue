@@ -1,5 +1,5 @@
 <template>
-	<v-system-bar v-if="getBannerSatus" class="globalBanner" height="70" app fixed>
+	<v-system-bar class="globalBanner" height="70" app fixed>
 		<div class="banner_wrapper">
 			<div class="globalBanner_container">
 				<div class="globalBanner_title" v-if="titleText">       
@@ -17,7 +17,7 @@
 				</div>
 				<div class="globalBanner_timer" v-if="$vuetify.breakpoint.mdAndUp && !!getBannerParams">
 					<span class="globalBanner_timer_title" v-language:inner="'banner_offer'"/>
-					<v-layout row class="globalBanner_timer_container mt-1">
+					<v-layout class="globalBanner_timer_container mt-1">
 						<v-flex xs2 class="globalBanner_timer_box">
 							<h1 class="globalBanner_timer_box_time" v-html="time.days"/>
 							<span class="globalBanner_timer_box_text" v-language:inner="'banner_days'"/>
@@ -40,7 +40,7 @@
 					</v-layout>
 				</div>
 			</div>  
-			<v-btn flat icon class="banner_closeBtn" @click="updateBannerSatus(false)">
+			<v-btn text icon class="banner_closeBtn" @click="updateBannerStatus(false)">
 				<v-icon class="close_banner" v-html="'sbf-close'"/>
 			</v-btn>
 		</div>
@@ -62,7 +62,8 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters(['getBannerSatus','getBannerParams']),
+        ...mapGetters(['getBannerParams']),
+        
 		coupon(){
 			if(!!this.getBannerParams){
 				return this.getBannerParams.coupon;
@@ -80,50 +81,68 @@ export default {
 				return this.getBannerParams.subTitle;
             }
             return null
-		}
+        }
+        // dateTime() {
+        //     if(!!this.getBannerParams){
+		// 		return this.getBannerParams.expirationDate;
+        //     }
+        //     return null
+        // }
+
     },
-    watch:{
-        getBannerParams(params){
-            if(!!params){
-                this.setParamsInterval()
-            }
-        },
-	},
+    // watch:{
+    //     dateTime(newValue,oldValue){
+    //         console.log(newValue,oldValue)
+    //         if(!!newValue){
+    //             this.setParamsInterval()
+    //         }
+    //     },
+	// },
 	methods: {
-        ...mapActions(['updateBannerSatus']),
+        ...mapActions(['updateBannerStatus']),
         setParamsInterval(){
-            this.interVal = setInterval(this.getNow, 200);
+            this.interVal = setInterval(this.getNow, 1000);
+            this.getNow();
         },
 		getNow() {
 			let countDownDate = new Date(this.getBannerParams.expirationDate).getTime();
 			let now = new Date();
-			let distance = countDownDate - now;
+            let distance = countDownDate - now;
+            
+            const second = 1000;
+            const minute = second * 60;
+            const hour = minute * 60;
+            const day = hour * 24;
+            
 
-			this.time.days = Math.floor(distance / (1000 * 60 * 60 * 24)).toLocaleString('en-US', {minimumIntegerDigits: 2});
-			this.time.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toLocaleString('en-US', {minimumIntegerDigits: 2});
-			this.time.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toLocaleString('en-US', {minimumIntegerDigits: 2});
-			this.time.seconds = Math.floor((distance % (1000 * 60)) / 1000).toLocaleString('en-US', {minimumIntegerDigits: 2});
+			this.time.days = Math.floor(distance / (day)).toLocaleString('en-US', {minimumIntegerDigits: 2});
+			this.time.hours = Math.floor((distance % (day)) / (hour)).toLocaleString('en-US', {minimumIntegerDigits: 2});
+			this.time.minutes = Math.floor((distance % (hour)) / (minute)).toLocaleString('en-US', {minimumIntegerDigits: 2});
+			this.time.seconds = Math.floor((distance % (minute)) / second).toLocaleString('en-US', {minimumIntegerDigits: 2});
 			if (distance < 0) {
 				clearInterval(this.interVal);
-				this.updateBannerSatus(false)
+				this.updateBannerStatus(false)
 			}
 		}
-	},
+    },
+    created() {
+        this.setParamsInterval();
+    }
 }
 </script>
 
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .globalBanner{
-    z-index: 20;
+    z-index: 20 !important;
     background-image: linear-gradient(to bottom, #7072fb -20%, #1a2b87 96%);
     .banner_wrapper{
         position: relative;
         width: 100%;
         .banner_closeBtn{
             position: absolute;
-            top: -10px;
-            right: -16px;
+            top: 0;
+            right: -10px;
             .close_banner{
                 color: white !important;
                 opacity: 0.57;

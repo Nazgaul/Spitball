@@ -1,6 +1,6 @@
 <template>
   <div class="elevation-1 mb-2 empty-state-container" xs-12>
-    <v-layout column class="pa-3 empty-state-top-layout">
+    <v-layout column class="pa-4 empty-state-top-layout">
       <v-flex>
         <div class="mb-1 user-search-text-container text-truncate" v-show="userText">
           <span v-language:inner>result_no_result_found_for</span>&nbsp;
@@ -21,7 +21,7 @@
         </v-flex>
       </v-flex>
     </v-layout>
-    <v-layout column class="pa-3 empty-state-bottom-layout" v-show="helpAction">
+    <v-layout column class="pa-4 empty-state-bottom-layout" v-show="helpAction">
       <v-flex>
         <div class="mb-1 user-search-cant-find-text">
           <span v-language:inner>result_still_cant_find</span>
@@ -35,25 +35,28 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 export default {
     data() {
         return {
             isCourse: false,
         };
     },
-  props: {
-    userText: {
-      type: String,
-      default: ""
-    },
-    helpAction:{
-      type: Function,
-      default:null
-    }
-  },
   created() {
     if(this.$route.query && this.$route.query.Course){
       this.isCourse = true
+    }
+  },
+  computed: {
+    ...mapGetters(['accountUser']),
+    userText() {
+      return this.$route.query.term;
+    },  
+  },
+  methods: {
+    ...mapActions(['updateLoginDialogState','updateNewQuestionDialogState']),
+    helpAction(){
+      (this.accountUser == null)? this.updateLoginDialogState(true) : this.updateNewQuestionDialogState(true);
     }
   },
 };

@@ -19,7 +19,7 @@
                 ></v-select>
         </div>
         
-        <v-flex xs12  class="mt-3 mb-4 studyRoom-video-settings-video-container">
+        <v-flex xs12  class="mt-4 mb-4 studyRoom-video-settings-video-container">
             <div id="local-video-test-track"></div>
         </v-flex>
     </div>
@@ -115,6 +115,7 @@ export default {
         display:flex;
         justify-content: space-between;
         .studyRoom-video-settings-label{
+            font-size: 14px;
             min-width: 100px;
         }
         .v-input__control{

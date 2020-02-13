@@ -48,10 +48,41 @@ namespace Cloudents.Web.Controllers
             _urlBuilder = urlBuilder;
         }
 
-        
+        [Route("d/{id}", Name = "ShortDocumentLink2")]
+        public async Task<IActionResult> ShortUrl2Async(long id,
+            CancellationToken token)
+        {
+            //if (string.IsNullOrEmpty(base62))
+            //{
+            //    return NotFound();
+            //}
+
+            ////if (!long.TryParse(base62, out var id))
+            ////{
+            //if (!Base62.TryParse(base62, out var id))
+            //{
+            //    return NotFound();
+            //}
+
+            _userManager.TryGetLongUserId(User, out var userId);
+            var query = new DocumentById(id, userId);
+            var model = await _queryBus.QueryAsync(query, token);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            var t = RedirectToRoutePermanent(SeoTypeString.Document, new
+            {
+                courseName = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Course),
+                id,
+                name = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Title)
+            });
+            return t;
+        }
+
 
         [Route("document/{base62}", Name = "ShortDocumentLink")]
-        public async Task<IActionResult> ShortUrl(string base62,
+        public async Task<IActionResult> ShortUrlAsync(string base62,
             CancellationToken token)
         {
             if (string.IsNullOrEmpty(base62))
@@ -83,7 +114,7 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("document/{universityName}/{courseName}/{id:long}/{name}")]
-        public async Task<IActionResult> OldDocumentLinkRedirect2(long id, CancellationToken token)
+        public async Task<IActionResult> OldDocumentLinkRedirect2Async(long id, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new DocumentById(id, userId);
@@ -116,6 +147,15 @@ namespace Cloudents.Web.Controllers
                 return NotFound();
             }
 
+            if (model.DuplicateId.HasValue && id != model.DuplicateId)
+            {
+
+                var url = Url.RouteUrl("ShortDocumentLink2",
+                    new { id = model.DuplicateId.Value}, "https");
+
+                Response.Headers.Add("Link", $"<{url}>; rel=\"canonical\"");
+            }
+
             ViewBag.title = _localizer["Title", model.Document.Course, model.Document.Title];
             ViewBag.metaDescription = _localizer["Description", model.Document.Course];
             if (model.Document.DocumentType == DocumentType.Video && !string.IsNullOrEmpty(model.Document.Snippet))
@@ -136,6 +176,15 @@ namespace Cloudents.Web.Controllers
                 };
                 ViewBag.jsonLd = jsonLd;
             }
+
+            ViewBag.ogImage = new Uri(_urlBuilder.BuildDocumentThumbnailEndpoint(model.Document.Id, new
+            {
+                width = 1200,
+                height = 630,
+                mode = "crop"
+            }));
+            ViewBag.ogImageWidth = 1200;
+            ViewBag.ogImageHeight = 630;
 
             return View();
         }
@@ -175,7 +224,8 @@ namespace Cloudents.Web.Controllers
             //blob.core.windows.net/spitball-files/files/6160/file-82925b5c-e3ba-4f88-962c-db3244eaf2b2-advanced-linux-programming.pdf
             if (item.Document.User.Id != user)
             {
-                var command = new FollowUserCommand(item.Document.User.Id, user);
+                var command = new DownloadDocumentCommand(item.Document.Id, user);
+                //var command = new FollowUserCommand(item.Document.User.Id, user);
                 followTask = commandBus.DispatchAsync(command, token);
             }
             var messageTask = _queueProvider.InsertMessageAsync(new UpdateDocumentNumberOfDownloads(id), token);

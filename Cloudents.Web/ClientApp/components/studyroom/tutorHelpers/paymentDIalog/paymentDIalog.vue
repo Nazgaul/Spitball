@@ -1,9 +1,9 @@
 <template>
     <v-layout column class="payme-popup">
         <v-icon class="exit-btn cursor-pointer" @click="closePaymentDialog()">sbf-close</v-icon>
-        <div class="payme-popup-top pt-3" v-if="getTutorName">
+        <div class="payme-popup-top pt-4" v-if="getTutorName">
             <div class="payme-top-title" v-language:inner="'payme_top_title'"/>
-            <v-layout row wrap :class="['payme-content',isMobile? 'pt-3 pb-2':'pt-5 pb-4']">
+            <v-layout wrap :class="['payme-content',isMobile? 'pt-4 pb-2':'pt-5 pb-4']">
                 <v-flex xs12 sm3 :class="['payme-content-div']">
                     <img :class="['payme-content-img']" src="./images/timer.png">
                     <span :class="['payme-content-txt',{'pt-2':!isMobile}]" v-language:inner="'payme_content_txt_time'"/>
@@ -62,7 +62,7 @@ export default {
         position: absolute;
         top: 16px;
         right: 16px;
-        font-size: 12px;
+        font-size: 12px !important;
         color: rgba(0, 0, 0, 0.541);
     }
     .payment-iframe{

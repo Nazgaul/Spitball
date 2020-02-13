@@ -1,30 +1,19 @@
 import documentService from "../services/documentService";
 import analyticsService from '../services/analytics.service';
-import searchService from '../services/searchService';
 import { LanguageService } from "../services/language/languageService";
 
 const state = {
     document: {},
-    tutorList: [],
     itemsList:[],
     btnLoading: false,
     showPurchaseConfirmation: false,
     documentLoaded: false,
+    toaster: false,
 };
 
 const getters = {
+    getShowItemToaster: state => state.toaster,
     getDocumentDetails: state => state.document,
-    getTutorList: (state) => {
-        if(!!state.document.details){
-            let uploaderId = state.document.details.user.userId;
-            let filteredTutorList = state.tutorList.filter((tutor)=>{
-                return tutor.userId !== uploaderId;
-            });
-            return filteredTutorList;
-        }else{
-            return state.tutorList;
-        }
-    },
     getBtnLoading: state => state.btnLoading,
     getPurchaseConfirmation: state => state.showPurchaseConfirmation,
     getDocumentLoaded: state => state.documentLoaded,
@@ -34,7 +23,6 @@ const getters = {
 const mutations = {
     resetState(state){
         state.document = {};
-        state.tutorList.length = 0;
         state.btnLoading = false;
         state.showPurchaseConfirmation = false;
         state.documentLoaded = false;
@@ -49,15 +37,15 @@ const mutations = {
     setRelatedDocs(state, payload) {
         state.itemsList = payload;
     },
-    setTutorsList(state, payload) {
-        state.tutorList = payload;
-    },
     setNewDocumentPrice(state, price){
         state.document.details.price = price;
     },
     setBtnLoading(state, payload) {
         state.btnLoading = payload;
     },
+    setShowItemToaster(state, val) {
+        state.toaster = val
+    }
 };
 
 const actions = {
@@ -81,7 +69,14 @@ const actions = {
 
         analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}, DOC_COURSE:${course}`);
     },
-    purchaseDocument({commit, dispatch, state}, item) {
+    purchaseDocument({commit, dispatch, state, getters}, item) {
+        let cantBuyItem = getters.accountUser.balance < item.price;
+
+        if(cantBuyItem) {
+            dispatch('updateItemToaster', true);
+            return
+        }
+
         commit('setBtnLoading', true);
             return documentService.purchaseDocument(item.id).then((resp) => {
                 state.document.isPurchased = true;
@@ -101,11 +96,6 @@ const actions = {
                 }, 500);
             });
     },
-    getTutorListCourse({ commit }, courseName) {
-        searchService.activateFunction.getTutors(courseName).then(res => {
-            commit('setTutorsList', res);
-        });
-    },
     getStudyDocuments({commit}, docObj) {
         documentService.getStudyDocuments(docObj).then(items => {
             commit('setRelatedDocs', items);
@@ -121,7 +111,9 @@ const actions = {
     clearDocument({commit}){
         commit('resetState');
     },
-    
+    updateItemToaster({commit}, val){
+        commit('setShowItemToaster', val);
+    },
 };
 
 export default {

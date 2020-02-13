@@ -4,11 +4,12 @@ using Cloudents.Command.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -86,7 +87,7 @@ namespace Cloudents.Admin2.Api
         [Authorize]
         public async Task<IEnumerable<CashOutDto>> Get(CancellationToken token)
         {
-            var query = new AdminCashOutQuery(User.GetCountryClaim());
+            var query = new CashOutQuery(User.GetCountryClaim());
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -224,7 +225,7 @@ namespace Cloudents.Admin2.Api
                 userIdentifier = $"+972{userIdentifier.Remove(0, 1)}";
             }
 
-            var query = new AdminUserDetailsQuery(userIdentifier, country);
+            var query = new UserDetailsQuery(userIdentifier, country);
 
             var res = await _queryBus.QueryAsync(query, token);
             if (res == null)
@@ -238,7 +239,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<UserQuestionsDto>> GetUserQuestionsDetails(long id, int page, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminUserQuestionsQuery(id, page, country);
+            var query = new UserQuestionsQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -246,7 +247,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<UserAnswersDto>> GetUserAnswersDetails(long id, int page, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminUserAnswersQuery(id, page, country);
+            var query = new UserAnswersQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -261,7 +262,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<SessionDto>> SessionsAsync(long id, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminSessionsQuery(id, country);
+            var query = new SessionsQuery(id, country);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -269,7 +270,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<UserPurchasedDocsDto>> GetUserPurchasedDocsDetails(long id, int page, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminUserPurchasedDocsQuery(id, page, country);
+            var query = new UserPurchasedDocsQuery(id, page, country);
             return await _queryBus.QueryAsync(query, token);
         }
 
@@ -277,7 +278,7 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<UserSoldItemsDto>> GetUserSoldDocsDetails(long id, int page, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminUserSoldDocsQuery(id, page, country);
+            var query = new UserSoldDocsQuery(id, page, country);
             var res = (await _queryBus.QueryAsync(query, token)).ToList();
             foreach (var r in res)
             {
@@ -291,7 +292,7 @@ namespace Cloudents.Admin2.Api
              CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminUserDocumentsQuery(id, page, country);
+            var query = new UserDocumentsQuery(id, page, country);
 
 
             var retVal = (await _queryBus.QueryAsync(query, token)).ToList();
@@ -324,7 +325,7 @@ namespace Cloudents.Admin2.Api
         public async Task<UsersFlagsResponse> GetFlags(int minFlags, int page, CancellationToken token)
         {
             var country = User.GetCountryClaim();
-            var query = new AdminUserFlagsOthersQuery(minFlags, page, country);
+            var query = new UserFlagsOthersQuery(minFlags, page, country);
             var res = await _queryBus.QueryAsync(query, token);
             return new UsersFlagsResponse { Flags = res.Item1, Rows = res.Item2 };
         }
@@ -350,12 +351,27 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpPut("name")]
-        public async Task<IActionResult> UpdatePhoneAsync(
+        public async Task<IActionResult> UpdateNameAsync(
                 [FromBody]UpdateNameRequest model, CancellationToken token)
         {
             var command = new UpdateNameCommand(model.UserId, model.FirstName, model.LastName);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+        [HttpPut("email")]
+        public async Task<IActionResult> UpdateEmailAsync([FromBody]UpdateEmailRequest model, CancellationToken token)
+        {
+            try
+            {
+                var command = new UpdateEmailCommand(model.UserId, model.Email);
+                await _commandBus.DispatchAsync(command, token);
+                return Ok();
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("calendar")]
@@ -364,6 +380,36 @@ namespace Cloudents.Admin2.Api
             var command = new DeleteGoogleTokenCommand(userId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
+        }
+
+        [HttpPost("note")]
+        public async Task<IActionResult> AddNoteAsync(CreateNoteRequest model,
+            CancellationToken token)
+        {
+            var command = new CreateNoteCommand(model.UserId, model.Text, User.GetIdClaim());
+            await _commandBus.DispatchAsync(command, token);
+            return Ok(User.Identity.Name);
+        }
+
+        [HttpGet("notes")]
+        public async Task<IEnumerable<UserNoteDto>> GetNotesAsync([FromQuery] long id, CancellationToken token)
+        {
+            var query = new UserNotesQuery(id);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpPost("type")]
+        public async Task<IActionResult> SetUserTypeAsync([FromBody] SetUserTypeRequest request, CancellationToken token)
+        {
+            var command = new SetUserTypeCommand(request.UserId, request.UserType);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpGet("types")]
+        public IEnumerable<string> GetAllTypes()
+        {
+            return Enum.GetNames(typeof(UserType)).Select(s => s.ToCamelCase());
         }
     }
 }

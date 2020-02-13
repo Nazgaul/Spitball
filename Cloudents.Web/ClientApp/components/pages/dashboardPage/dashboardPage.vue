@@ -1,9 +1,6 @@
 <template>
    <div class="dashboardPage">
-      <component :dictionary="dictionary" :globalFunctions="globalFunctions" :is="component">
-         <template slot="tableFooter">
-            <tableFooter/>
-         </template>
+      <component v-if="!!accountUser" :dictionary="dictionary" :globalFunctions="globalFunctions" :is="component">
          <template slot="tableEmptyState">
             <tableEmptyState/>
          </template>
@@ -14,7 +11,7 @@
          :popUpType="'dashboardDialog'"
          :onclosefn="closeDialog"
          :activateOverlay="true"
-         :max-width="'438px'"
+         :max-width="'fit-content'"
          :content-class="'pop-dashboard-container'">
             <changeNameDialog v-if="currentDialog === 'rename'" :dialogData="dialogData" @closeDialog="closeDialog"/>
             <changePriceDialog v-if="currentDialog === 'changePrice'" :dialogData="dialogData" @closeDialog="closeDialog"/>
@@ -27,13 +24,15 @@ import mySales from './mySales/mySales.vue';
 import myContent from './myContent/myContent.vue';
 import myPurchases from './myPurchases/myPurchases.vue';
 import myStudyRooms from './myStudyRooms/myStudyRooms.vue';
+import myCalendar from './myCalendar/myCalendar.vue';
+import myFollowers from './myFollowers/myFollowers.vue';
 
 import tableEmptyState from './global/tableEmptyState.vue';
-import tableFooter from './global/tableFooter.vue';
 
 import sbDialog from '../../wrappers/sb-dialog/sb-dialog.vue';
 import changeNameDialog from './dashboardDialog/changeNameDialog.vue';
 import changePriceDialog from './dashboardDialog/changePriceDialog.vue';
+
 import { LanguageService } from '../../../services/language/languageService';
 import { mapGetters } from 'vuex';
 
@@ -52,9 +51,6 @@ export default {
                'Document': LanguageService.getValueByKey('dashboardPage_document'),
                'Video': LanguageService.getValueByKey('dashboardPage_video'),
                'TutoringSession': LanguageService.getValueByKey('dashboardPage_tutor_session'),
-               'Earned': LanguageService.getValueByKey('wallet_earned'),
-               'Spent': LanguageService.getValueByKey('wallet_spent'),
-               'Total': LanguageService.getValueByKey('wallet_total'),
             },
             headers:{
                'preview': {text: '', align:'left', sortable: false, value:'preview'},
@@ -73,6 +69,8 @@ export default {
                'student_tutor': {text: LanguageService.getValueByKey('dashboardPage_student_tutor'), align:'left', sortable: true, value:'name'},
                'created': {text: LanguageService.getValueByKey('studyRoom_created'), align:'left', sortable: true, value:'date'},
                'last_date': {text: LanguageService.getValueByKey('dashboardPage_last_date'), align:'left', sortable: true, value:'lastSession'},
+               'joined': {text: LanguageService.getValueByKey('dashboardPage_joined'), align:'left', sortable: true, value:'date'},
+               'name': {text: LanguageService.getValueByKey('dashboardPage_name'), align:'left', sortable: true, value:'name'},
             }
          },
          globalFunctions:{
@@ -82,7 +80,12 @@ export default {
             router: this.dynamicRouter,
             '$Ph': this.$Ph,
             strToACII: this.strToACII
-         }
+         },
+         snackbar:{
+            isOn:false,
+            color:'info',
+            dictionary:''
+         },
       }
    },
    components:{
@@ -90,12 +93,12 @@ export default {
       myContent,
       myPurchases,
       myStudyRooms,
-
+      myCalendar,
+      myFollowers,
       changeNameDialog,
       changePriceDialog,
       sbDialog,
       tableEmptyState,
-      tableFooter
    },
    computed: {
       ...mapGetters(['accountUser'])
@@ -122,6 +125,9 @@ export default {
             return {name: 'profile',params: {id: item.id, name: item.name}}
          }
          if(item.conversationId){
+            return {name: 'profile',params: {id: item.userId, name: item.name}}
+         }
+         if(item.userId && !item.conversationId && !item.type){
             return {name: 'profile',params: {id: item.userId, name: item.name}}
          }
       },
@@ -155,6 +161,11 @@ export default {
          }
          return sum % 11
       },
+      updateSnackbar({isOn,color,dictionary}){
+         this.snackbar.isOn = isOn;
+         this.snackbar.color = color;
+         this.snackbar.dictionary = dictionary;
+      }
    }
 
 }
@@ -169,6 +180,9 @@ export default {
       padding-right: 6px;
       width: 100%;
       height: 100%;
+   }
+   .v-snack__content{
+      justify-content: center;
    }
 }
 .pop-dashboard-container {

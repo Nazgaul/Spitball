@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Web.Services;
@@ -106,11 +105,11 @@ namespace Cloudents.Web.Api
             {
                 var query = new TutorListTabSearchQuery(term, profile.Country, page, pageSize);
                 var result = await tutorSearch.SearchAsync(query, token);
-                result.Result = result.Result.Select(s =>
-                {
-                    s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
-                    return s;
-                });
+                //result.Result = result.Result.Select(s =>
+                //{
+                //    s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
+                //    return s;
+                //});
                
                 return new WebResponseWithFacet<TutorCardDto>
                 {
@@ -126,29 +125,6 @@ namespace Cloudents.Web.Api
 
 
 
-        /// <summary>
-        /// Return relevant tutors base on user courses -on all courses tab - feed
-        /// </summary>
-        /// <param name="profile"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [ResponseCache(Duration = TimeConst.Minute * 5, Location = ResponseCacheLocation.Client, VaryByQueryKeys = new[] { "*" })]
-        public async Task<ListWithCountDto<TutorCardDto>> GetTutorsAsync(
-            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
-            CancellationToken token)
-        {
-            _userManager.TryGetLongUserId(User, out var userId);
-            var query = new TutorListQuery(userId, profile.Country, 0);
-            var result = await _queryBus.QueryAsync(query, token);
-            result.Result = result.Result.Select(s =>
-            {
-                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
-                return s;
-            });
-           
-            return result;
-        }
 
         /// <summary>
         /// Return relevant tutors base on user course - on specific course tab - feed
@@ -331,19 +307,24 @@ namespace Cloudents.Web.Api
         /// <summary>
         /// Get user calendars from google
         /// </summary>
-        /// <param name="calendarService"></param>
         /// <param name="token"></param>
         /// <returns>the names of google calendars</returns>
         [HttpGet("calendar/list"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(555)]
         [ProducesDefaultResponseType]
-        public async Task<IEnumerable<CalendarDto>> GetTutorCalendarAsync(
-            [FromServices] ICalendarService calendarService,
-            CancellationToken token)
+        public async Task<ActionResult<IEnumerable<CalendarDto>>> GetTutorCalendarAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var res = await calendarService.GetUserCalendarsAsync(userId, token);
-            return res;
+            try
+            {
+                var query = new CalendarListQuery(userId);
+                return (await _queryBus.QueryAsync(query, token)).ToList();
+            }
+            catch (NotFoundException)
+            {
+                return StatusCode(555, new { massege = "permission denied" });
+            }
         }
 
         [HttpPost("calendar/list"), Authorize]
@@ -424,10 +405,20 @@ namespace Cloudents.Web.Api
         {
 
             var userId = _userManager.GetLongUserId(User);
-            var command = new SetTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new SetTutorHoursCommand.TutorDailyHours(s.Day, s.From, s.To)));
+            var command = new UpdateTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new TutorAvailabilitySlot(s.Day, s.From, s.To)));
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
+
+        //[HttpPost("calendar/updateHours")]
+        //public async Task<IActionResult> UpdateTutorHoursAsync([FromBody] TutorHoursRequest model,
+        //    CancellationToken token)
+        //{
+        //    var userId = _userManager.GetLongUserId(User);
+        //    var command = new UpdateTutorHoursCommand(userId, model.TutorDailyHours.Select(s => new TutorDailyHours(s.Day, s.From, s.To)));
+        //    await _commandBus.DispatchAsync(command, token);
+        //    return Ok();
+        //}
 
         //[HttpGet("phone")]
         //public async Task<string> GetPhoneNumberAsync(long tutorId, CancellationToken token)

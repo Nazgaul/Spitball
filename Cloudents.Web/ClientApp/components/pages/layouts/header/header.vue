@@ -1,6 +1,6 @@
 ﻿<template>
     <div v-if="!isHideHeader">
-    <v-toolbar :class="{'homePageWrapper': isHomePage}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
+    <v-app-bar :class="{'homePageWrapper': isHomePage}" class="globalHeader elevation-0" color="white" :height="isMobile? 60 : 70" app fixed clipped-left clipped-right>
         <router-link @click.prevent="resetItems()" to="/" class="globalHeader_logo">
             <logoComponent/>
         </router-link>
@@ -10,6 +10,9 @@
             </div>
             <v-spacer v-else></v-spacer>
             <div class="globalHeader_items_right">
+                <div v-if="$route.meta.headerSlot">
+                    <component :is="$route.meta.headerSlot"/>
+                </div>
                 <router-link v-show="!isMobile && shouldShowFindTutor" :to="{name:'tutorLandingPage'}" class="gH_i_r_findTutor" >
                     <findSVG/>
                     <span v-language:inner="'header_find_tutors'"/>
@@ -17,7 +20,7 @@
                 <template v-if="!isMobile" >
                     <v-tooltip bottom>
                         <template v-slot:activator="{on}">
-                            <v-icon @click="startIntercom" v-on="on" v-if="!$vuetify.breakpoint.smAndDown" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" v-html="'sbf-help'"/>
+                            <helpIcon @click="startIntercom" v-on="on" v-if="!$vuetify.breakpoint.smAndDown" class="gH_i_r_intercom" :class="{'gH_i_r_intercom--margin': !loggedIn}" />
                         </template>
                         <span v-language:inner="'header_tooltip_help'"/>
                     </v-tooltip>
@@ -25,7 +28,7 @@
                     <v-tooltip bottom v-if="loggedIn">
                         <template v-slot:activator="{on}">
                             <div v-on="on" class="gH_i_r_chat">
-                                <v-icon class="gH_i_r_chat_i" @click="openChatWindow" v-html="'sbf-forum-icon'"/>
+                                <chatIcon class="gH_i_r_chat_i" @click="openChatWindow"/>
                                 <span @click="openChatWindow" class="unread_circle_nav" v-show="totalUnread > 0" :class="[totalUnread > 9 ? 'longer_nav' :'']">{{totalUnread}}</span>
                             </div>
                         </template>
@@ -33,30 +36,35 @@
                     </v-tooltip>
                 </template>
                 <template v-if="!$vuetify.breakpoint.smAndDown && !loggedIn">
-                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({path:'/signin'})" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
-                    <button class="gH_i_r_btns gH_i_r_btn_up mr-3" @click="$router.push({path:'/register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
-                    <a class="gH_i_lang" @click="changeLanguage()" v-if="!isFrymo && isHomePage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_in mr-2" @click="$router.push({name :'login'})" v-language:inner="'tutorListLanding_topnav_btn_login'"/>
+                    <button class="gH_i_r_btns gH_i_r_btn_up mr-4" @click="$router.push({name :'register'})" v-language:inner="'tutorListLanding_topnav_btn_signup'"/>
+                    <a class="gH_i_lang" @click="changeLanguage()" v-if="showChangeLanguage" sel="language" v-html="currLanguage !== languageChoisesAval.id? languageChoisesAval.title : ''"/>
                 </template>
-                <v-menu fixed close-on-content-click bottom right offset-y :content-class="getBannerSatus? 'fixed-content-banner':'fixed-content'" sel="menu">
-                    <template v-if="loggedIn" slot="activator">
-                        <user-avatar  
-                        @click.native="drawer=!drawer" 
-                        size="40" 
-                        :userImageUrl="userImageUrl" 
-                        :user-name="accountUser.name"/>
-                        
-                        <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
-                            <span class="ur_greets" v-html="$Ph('header_greets', accountUser.name)"/>
-                            <div class="ur_balance">
-                                <span v-html="$Ph('header_balance', userBalance(accountUser.balance))"/>
-                                <v-icon v-if="!isMobile" class="ur_balance_drawer ml-2" color="#43425d" v-html="'sbf-arrow-fill'"/>
+                <v-menu fixed close-on-content-click bottom offset-y :content-class="getBannerParams? 'fixed-content-banner':'fixed-content'">
+                    <template v-slot:activator="{on}">
+                        <div v-on="on" class="gH_i_r_menuList" sel="menu">
+                            <div @click.prevent="drawer=!drawer">
+                                <user-avatar
+                                    size="40"
+                                    :userImageUrl="userImageUrl"
+                                    :user-name="userName"
+                                />
                             </div>
+                            <template v-if="loggedIn">
+                                <div v-if="!$vuetify.breakpoint.mdAndDown" class="gh_i_r_userInfo text-truncate" @click.prevent="drawer=!drawer">
+                                    <span class="ur_greets" v-html="$Ph('header_greets', accountUser.name)"/>
+                                    <div class="ur_balance">
+                                        <span v-html="$Ph('header_balance', userBalance(accountUser.balance))"/>
+                                        <arrowDownIcon v-if="!isMobile" class="ur_balance_drawer ml-2"/>
+                                    </div>
+                                </div>
+                            </template>
+                            <template>
+                                <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
+                                    <hamburgerIcon class="hamburgerIcon"/>
+                                </v-btn>
+                            </template>
                         </div>
-                    </template>
-                    <template slot="activator">
-                        <v-btn :class="[{'hidden-md-and-up': isHomePage},{'d-none':!isHomePage && loggedIn}]" :ripple="false" icon @click.native="drawer = !drawer">
-                            <v-icon small v-html="'sbf-menu'"/>
-                        </v-btn>
                     </template>
                     <menuList v-if="!$vuetify.breakpoint.xsOnly"/>
                 </v-menu>
@@ -67,29 +75,34 @@
                 <searchCMP :placeholder="searchPlaceholder"/>
             </div>
         </template>
-    </v-toolbar>
-            <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
-                             fixed app v-if="$vuetify.breakpoint.xsOnly" class="drawerIndex"
-                             width="280">
+    </v-app-bar>
+        <v-navigation-drawer temporary v-model="drawer" light :right="!isRtl"
+                        fixed app v-if="$vuetify.breakpoint.xsOnly" class="drawerIndex"
+                        width="280">
             <menuList @closeMenu="closeDrawer"/>
         </v-navigation-drawer>
     </div>
 </template>
 
 <script>
-import {mapActions, mapGetters, mapMutations} from 'vuex';
-import {LanguageChange, LanguageService } from "../../../../services/language/languageService";
+import {mapActions, mapGetters} from 'vuex';
+import {LanguageChange } from "../../../../services/language/languageService";
 import languagesLocales from "../../../../services/language/localeLanguage";
 
-import searchCMP from '../../global/search/search.vue';
-import UserAvatar from '../../../helpers/UserAvatar/UserAvatar.vue';
+const searchCMP = () => import('../../global/search/search.vue');
 import menuList from '../menuList/menuList.vue';
-
+import intercomService from "../../../../services/intercomService";
 import logoComponent from '../../../app/logo/logo.vue';
 import findSVG from './images/findSVG.svg'
+import helpIcon from './images/helpIcon.svg';
+import chatIcon from './images/chatIcon.svg';
+import arrowDownIcon from './images/arrowDownIcon.svg';
+import hamburgerIcon from './images/hamburgerIcon.svg';
+const phoneNumberSlot = () => import('./headerSlots/phoneNumberSlot.vue');
+const becomeTutorSlot = () => import('./headerSlots/becomeTutorSlot.vue');
 
 export default {
-    components: {searchCMP,UserAvatar,menuList,logoComponent,findSVG},
+components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTutorSlot,helpIcon,chatIcon,arrowDownIcon,hamburgerIcon},
     data() {
         return {
             drawer: false,
@@ -104,7 +117,10 @@ export default {
         layoutClass: {}
     },
     computed: {
-        ...mapGetters(['accountUser','getTotalUnread','isFrymo','getBannerSatus']),
+        ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus']),
+        loggedIn() {
+            return this.getUserLoggedInStatus;
+        },
         isTablet(){
             return this.$vuetify.breakpoint.smAndDown;
         },
@@ -112,10 +128,10 @@ export default {
             return this.$vuetify.breakpoint.xsOnly;
         },
         userImageUrl(){
-            return this.accountUser.image.length > 1 ? `${this.accountUser.image}` : '';
+            return this.loggedIn && this.accountUser.image.length > 1 ? this.accountUser.image : '';
         },
-        loggedIn() {
-            return this.accountUser !== null;
+        userName(){
+            return this.loggedIn && this.accountUser.name ? this.accountUser.name : '';
         },
         totalUnread(){
             return this.getTotalUnread;
@@ -125,7 +141,7 @@ export default {
             return filteredRoutes.indexOf(this.$route.name) > -1 && this.$vuetify.breakpoint.xsOnly;
         },
         searchPlaceholder(){
-            return this.isTablet ? LanguageService.getValueByKey(`header_placeholder_search`) : LanguageService.getValueByKey(`header_placeholder_search_m`);
+            return this.isTablet ? this.$t(`header_placeholder_search`) : this.$t(`header_placeholder_search_m`);
         },
         showSearch(){
             let showRoutes = ['feed'];
@@ -138,11 +154,13 @@ export default {
             let hiddenRoutes = ['tutorLandingPage']
             return !hiddenRoutes.includes(this.currentRoute)
         },
+        showChangeLanguage() {
+            return global.country === 'IL' && this.isHomePage;
+        }
     },
     watch: {
     '$route'(){
       this.$nextTick(()=>{
-          console.log(this.$route.name)
             this.drawer = false;
             this.currentRoute = this.$route.name
       })
@@ -150,23 +168,17 @@ export default {
     },
     methods: {
         ...mapActions(['openChatInterface']),
-        ...mapMutations(['UPDATE_SEARCH_LOADING']),
         openChatWindow(){
             this.openChatInterface();
         },
         resetItems(){
-            this.UPDATE_SEARCH_LOADING(true);
             this.$router.push('/');
         },
         closeDrawer() {
             this.drawer = !this.drawer;
         },       
         startIntercom() {
-            if(this.isFrymo){
-                window.open('mailto: support@frymo.com', '_blank');
-            }else{
-                Intercom("showNewMessage");
-            }
+            intercomService.showDialog();
         },  
         userBalance(balance){
             let balanceFixed = +balance.toFixed()
@@ -183,6 +195,9 @@ export default {
             }
         );
         },
+        goLogin(){
+            this.$router.push({path:'/signin'});
+        }
     },
     created() {
         this.$root.$on("closeDrawer", ()=>{
@@ -204,21 +219,19 @@ export default {
 <style lang="less">
 @import '../../../../styles/mixin.less';
 .globalHeader{
-    border: solid 1px #dadada !important;
-    z-index: 200;
-    //&.homePageWrapper{
-        // max-width: 1500px; 
-        // margin: 0 auto !important;
-    //}
+    z-index: 200 !important;
     .v-toolbar__extension{
-    @media (max-width: @screen-xs) {
-      padding: 0 8px
-    }
+        @media (max-width: @screen-xs) {
+            padding: 0 8px;
+            border-bottom: solid 1px #dadada;
+        }
     }
     .v-toolbar__content{
-        padding-left: 16px;
+        border-bottom: solid 1px #dadada;
+        padding: 0 24px 0 16px;
         @media (max-width: @screen-xs) {
-            padding: 0 8px 0 4px;      
+            padding: 0 8px 0 4px;
+            border-bottom: none;
         }  
     }
     .globalHeader_logo{
@@ -248,9 +261,9 @@ export default {
             }
             .v-text-field__slot{
                 color: #6a697f !important;
-                input{
+                // input{
 
-                }
+                // }
             }
             .v-text-field{
                 input{
@@ -345,6 +358,7 @@ export default {
                 font-size: 16px;
                 color: #43425d;
                 font-weight: bold;
+                margin-bottom: 1px;
             }
             .gH_i_r_btns{
                 text-align: center;
@@ -372,34 +386,37 @@ export default {
                 padding: 2px 10px 3px 4px;
                 svg{
                     fill: white !important;
-                    vertical-align: text-bottom;
+                    vertical-align: middle;
                 }
                 span{
                     font-size: 14px;
                     font-weight: normal;
                     color: white;
-                    vertical-align: super;
+                    vertical-align: middle;
                     padding-left: 2px;
                 }
             }
             .gH_i_r_intercom{
                 cursor: pointer;
-                color: #bdc0d1;
-                font-size: 22px;
+                fill: #bdc0d1;
+                width: 22px;
                 padding-top: 4px;
                 margin-right: 26px;
 
                 &--margin {
                     margin-right: 20px;
+                    margin-bottom: 1px;
                 }
             }
             .gH_i_r_chat{
+                cursor: pointer;
                 position: relative;
                 margin-right: 26px;
                 .gH_i_r_chat_i{
-                    color: #bdc0d1;
-                    font-size: 22px;
+                    fill: #bdc0d1;
+                    width: 22px;
                     padding-top: 8px;
+                    vertical-align: bottom;
                 }
                 .unread_circle_nav{
                     position: absolute;
@@ -427,6 +444,9 @@ export default {
                     }
                 }
             }
+            .hamburgerIcon{
+                fill: rgba(0, 0, 0, 0.54)
+            }
             .gh_i_r_userInfo{
                 margin-left: 12px;
                 color: #43425d;
@@ -447,11 +467,14 @@ export default {
                         top: 50px !important;
                     }
                     .ur_balance_drawer{
-                        font-size: 6px;
-                        vertical-align: baseline;
                         cursor: pointer;
+                        width: 11px;
                     }
                 }
+            }
+            .gH_i_r_menuList {
+                display: flex;
+                cursor: pointer;
             }
         }
     }

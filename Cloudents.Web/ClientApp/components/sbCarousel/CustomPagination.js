@@ -6,7 +6,6 @@ var CustomPagination = function (container){
   
     return {
       update: function (flicking) {
-        // debugger
         let prevLength = length;
         length = flicking.getPanelCount();
   

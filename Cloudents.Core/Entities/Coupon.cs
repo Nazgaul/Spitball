@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Extension;
 using JetBrains.Annotations;
 
@@ -12,6 +13,7 @@ namespace Cloudents.Core.Entities
 
     }
 
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
     public class Coupon
     {
         public const int MinimumLength = 5, MaxLength = 12;
@@ -73,8 +75,9 @@ namespace Cloudents.Core.Entities
 
         public virtual string Owner { get; protected set; }
 
-        private readonly ISet<UserCoupon> _userCoupon = new HashSet<UserCoupon>();
-        public virtual IEnumerable<UserCoupon> UserCoupon => _userCoupon;
+        protected internal virtual ISet<UserCoupon> UserCoupon { get; set; }
+    
+        
 
 
         public virtual bool CanApplyCoupon()
@@ -84,7 +87,7 @@ namespace Cloudents.Core.Entities
                 throw new ArgumentException("invalid coupon");
             }
 
-            if (AmountOfUsers.HasValue && AmountOfUsers.Value <= _userCoupon.Count)
+            if (AmountOfUsers.HasValue && AmountOfUsers.Value <= UserCoupon.Count)
             {
                 throw new OverflowException();
             }

@@ -3,24 +3,33 @@
 @using Cloudents.Web.Services
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
+@using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Configuration
-@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+@inject Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration JavaScriptSnippetTelemetry
 @inject IWebHostEnvironment Environment
 @inject WebPackChunkName Provider
 @inject IConfiguration Configuration
 @inject ConfigurationService VersionService
+@inject IViewLocalizer Localizer
 
 @{
-    var p = Provider.GetVendorTag();
+    //var p = Provider.GetVendorTag();
     var cdnEndPoint = Constants.GetCdnEndpoint(Configuration);
     var isAuth = User.Identity.IsAuthenticated;
     var result = System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
+
+
+    ViewBag.title = ViewBag.title ?? Localizer["Title"];
+    ViewBag.metaDescription = ViewBag.metaDescription ?? Localizer["MetaDescription"];
 }
 <!DOCTYPE html>
 
 
 <html dir="@result" lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
 <head>
+    <title>@ViewBag.title</title>
+    <meta name="title" content="@ViewBag.title" />
+    <meta name="description" content="@ViewBag.metaDescription" />
     <meta charset="utf-8">
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -30,27 +39,18 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap">
     }
 
-    <link rel="stylesheet" href="@cdnEndPoint/dist/@p.GetCss()"
-          asp-fallback-href="~/dist/@p.GetCss()"
-          asp-fallback-test-class="cdn-only" asp-fallback-test-property="position" asp-append-version="true"
-          asp-fallback-test-value="absolute" 
-          />
-
     @await RenderSectionAsync("styleSection", required: false)
-    
-
     @try
     {
-        @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}HeadTags",cdnEndPoint);
-
+        @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}HeadTags", cdnEndPoint);
     }
-    catch (InvalidOperationException ex)
+    catch (InvalidOperationException)
     {
         @await Html.PartialAsync("_SpitballTags");
     }
 
-    @Html.Raw(JavaScriptSnippet.FullScript)
-    @Html.Raw(ClickJackingTagHelper.FullScript)
+    @*@Html.Raw(JavaScriptSnippet.FullScript)*@
+    @*@Html.Raw(ClickJackingTagHelper.FullScript)*@
 
     @if (ViewBag.jsonLd != null)
     {
@@ -58,35 +58,21 @@
             @Html.Raw(ViewBag.jsonLd.ToHtmlEscapedString())
         </script>
     }
+
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
 </head>
 <body lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
-    <div>
-        @RenderBody()
-    </div>
-    <div class="cdn-only"></div>
-
-    <environment include="Development">
-        <script src="~/dist/@p.Js" asp-append-version="true"></script>
-    </environment>
-
-    <environment exclude="Development">
-        <script src="@cdnEndPoint/dist/@p.Js" crossorigin="anonymous"
-                asp-fallback-src="~/dist/@p.Js"
-                asp-fallback-test="window.vendor">
-        </script>
-    </environment>
-
-
-
+    @RenderBody()
     <script>
         window.version = '@VersionService.GetVersion()';
-
-
-        window.publicPath = '@cdnEndPoint' + '/dist/';// + '@result/';
+        window.publicPath = '@cdnEndPoint' + '/dist/';
         window.isAuth = @isAuth.ToString().ToLower();
         window.siteName = '@VersionService.GetSiteName().ToString("G").ToLowerInvariant()';
-
-
+        window.applicationId = '@JavaScriptSnippetTelemetry.InstrumentationKey';
     </script>
     @await Component.InvokeAsync("Country")
     @await RenderSectionAsync("scripts", required: false)
@@ -96,11 +82,9 @@
         @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}Scripts");
 
     }
-    catch (InvalidOperationException ex)
+    catch (InvalidOperationException)
     {
-        @await Html.PartialAsync("_SpitballTags");
+        @await Html.PartialAsync("_SpitballScripts");
     }
-
-
 </body>
 </html>

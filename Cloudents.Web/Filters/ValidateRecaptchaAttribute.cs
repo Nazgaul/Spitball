@@ -1,17 +1,12 @@
 ﻿using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Specialized;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,40 +15,20 @@ using Microsoft.Extensions.Hosting;
 
 namespace Cloudents.Web.Filters
 {
-
-
-    public class ApiNotFoundFilter : ActionFilterAttribute
-    {
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            if (context.HttpContext.Request.Path.StartsWithSegments(new PathString("/api"),
-                StringComparison.OrdinalIgnoreCase))
-            {
-                context.Result = new NotFoundResult();
-                return;
-            }
-            base.OnActionExecuting(context);
-            // do something before the action executes
-        }
-
-
-    }
-
-
     public sealed class ValidateRecaptchaAttribute : TypeFilterAttribute
     {
         //private string SecretKey { get; }
 
         public ValidateRecaptchaAttribute(string secretKey) : base(typeof(ValidateRecaptchaImpl))
         {
-            this.Arguments = new object[] { secretKey };
+            Arguments = new object[] { secretKey };
 
             //SecretKey = secretKey;
         }
 
 
 
-        private class ValidateRecaptchaImpl : ActionFilterAttribute
+        private sealed class ValidateRecaptchaImpl : ActionFilterAttribute
         {
             private readonly string _secretKey;
             private readonly IRestClient _httpClient;

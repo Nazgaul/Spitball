@@ -6,10 +6,11 @@ using Cloudents.Infrastructure.Stuff;
 using Cloudents.Persistence;
 using Cloudents.Query;
 using System;
+using NHibernate;
 
 namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 {
-    public class DatabaseFixture : IDisposable
+    public sealed class DatabaseFixture : IDisposable
     {
         private IContainer Container { get; }
         public DatabaseFixture()
@@ -45,6 +46,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             builder.RegisterType<GoogleService>().AsSelf()
               .As<ICalendarService>().SingleInstance();
 
+            builder.RegisterType<DummyCacheProvider>().As<ICacheProvider>();
             builder.RegisterType<GoogleDataStore>()
                 .AsSelf().InstancePerDependency();
             builder.RegisterModule<ModuleCore>();
@@ -54,7 +56,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             DapperRepository = Container.Resolve<IDapperRepository>();
             TutorRepository = Container.Resolve<ITutorRepository>();
             ReadTutorRepository = Container.Resolve<IReadTutorRepository>();
-
+            StatelessSession = Container.Resolve<IStatelessSession>();
             // ... initialize data in the test database ...
         }
 
@@ -64,9 +66,48 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             // ... clean up test data from the database ...
         }
 
+        public IStatelessSession StatelessSession { get; }
         public IQueryBus QueryBus { get; }
         public IDapperRepository DapperRepository { get; }
         public ITutorRepository TutorRepository { get; }
         public IReadTutorRepository ReadTutorRepository { get; }
+    }
+
+    public class DummyCacheProvider : ICacheProvider
+    {
+        public object Get(string key, string region)
+        {
+            return null;
+        }
+
+        public T Get<T>(string key, string region)
+        {
+            return default;
+        }
+
+        public void Set(string key, string region, object value, int expire, bool slideExpiration)
+        {
+            
+        }
+
+        public void Set(string key, string region, object value, TimeSpan expire, bool slideExpiration)
+        {
+            
+        }
+
+        public bool Exists(string key, string region)
+        {
+            return false;
+        }
+
+        public void DeleteRegion(string region)
+        {
+           
+        }
+
+        public void DeleteKey(string region, string key)
+        {
+            
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Cloudents.Persistence.Maps
                 $"{nameof(HiLoGenerator.TableName)}='{nameof(Document)}'");
 
             Map(x => x.Name).Length(150).Not.Nullable();
-            References(x => x.University).Not.Nullable().Column("UniversityId").ForeignKey("Document_University");
+            References(x => x.University).Nullable().Column("UniversityId").ForeignKey("Document_University");
             
             Component(x => x.TimeStamp);
 
@@ -24,6 +24,7 @@ namespace Cloudents.Persistence.Maps
             Map(x => x.PageCount).Nullable();
             Map(x => x.Description).Nullable();
             Map(x => x.MetaContent).Nullable();
+            Map(x => x.Md5).Nullable();
             Map(x => x.Price).Not.Nullable().CustomSqlType("smallmoney");
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
             HasMany(x => x.Transactions)
@@ -39,11 +40,14 @@ namespace Cloudents.Persistence.Maps
                 .Inverse().Cascade.AllDeleteOrphan();
             Map(m => m.VoteCount);
 
+            HasMany(x => x.DocumentDownloads)
+             .Cascade.AllDeleteOrphan()
+             .KeyColumn("DocumentId").Inverse().AsSet();
 
             Map(x => x.DocumentType).Column("DocumentType");
             Map(x => x.Duration);//.CustomType<TimeAsTimeSpanType>();
             Map(e => e.IsShownHomePage);
-
+            Map(x => x.Boost);
             Component(x => x.Status);
         }
     }

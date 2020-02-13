@@ -1,30 +1,30 @@
 <template>
-    <div class="snapshot_dialog_wrap pb-3">
-        <v-layout row class="pt-3">
-            <v-flex xs12 class="text-xs-right px-3">
-                <v-icon class="caption cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
+    <div class="snapshot_dialog_wrap pb-6">
+        <v-layout class="pt-4">
+            <v-flex xs12 class="text-right px-4">
+                <v-icon class="body-2 cursor-pointer" @click="closeDialog()">sbf-close</v-icon>
             </v-flex>
         </v-layout>
-        <v-layout column align-center>
-            <v-flex xs12 class="pt-12">
-                <span class="subheading font-weight-bold" v-language:inner="'tutor_take_snapshot_title'"></span>
+        <v-layout wrap align-center>
+            <v-flex xs12 class="pt-3 text-center">
+                <span class="snapshot_dialog_wrap_title font-weight-bold" v-language:inner="'tutor_take_snapshot_title'"></span>
             </v-flex>
-            <v-flex xs12 style="text-align: center;" class="pt-2">
+            <v-flex xs12 class="pt-2 text-center">
                 <span v-language:inner="'tutor_take_snapshot_message'"></span>
             </v-flex>
-            <v-flex class="snapshot_video_container pt-2" v-show="!noCameraError" id="videoElementContainer" xs12 style="text-align: center;">
+            <v-flex class="snapshot_video_container pt-2 text-center" v-show="!noCameraError" id="videoElementContainer" xs12>
                <video autoplay="true" id="videoElement" style="width:640px; height:480px; display:none;"></video>
                <div id="snapshot-container" :style="{width: width +'px', height: height+'px', display:'none'}"></div>
             </v-flex>
-            <v-flex v-show="noCameraError" xs12 style="text-align: center;" class="snapshot_video_container snapshot_no_camera_error pt-2">
+            <v-flex v-show="noCameraError" xs12 class="snapshot_video_container snapshot_no_camera_error pt-2 text-center">
                <img :src="require(`./img/noCamera-${lang}.png`)" alt="">
             </v-flex>
-            <v-flex xs12 class="pt-4">
+            <!-- <v-flex xs12 class="pt-6"> -->
                 <!-- <input type="text" v-model="width">
                 <input type="text" v-model="height"> -->
                 <!-- <input type="text" v-model="scale"> -->
-            </v-flex>
-            <v-flex xs12 class="pt-4">
+            <!-- </v-flex> -->
+            <v-flex xs12 class="pt-6">
                 <v-btn :disabled="noCameraError" class="snapshot_accept_consent_btn elevation-0 align-center justify-center" @click="takeSnapshot()">
                     <span class="text-capitalize">{{snapshotBtnText}}</span>
                     <!-- <span class="text-capitalize" v-show="timerCountdown">&nbsp;({{timerCountdown}})</span> -->
@@ -148,9 +148,9 @@
 <style lang="less">
     @import '../../../../styles/mixin.less';
 
-    .pt-12 {
-        padding-top: 12px;
-    }
+    // .pt-12 {
+    //     padding-top: 12px;
+    // }
 .studyroom-snapshot-dialog{
     background: @color-white;
         border-radius: 4px;
@@ -160,9 +160,20 @@
         border-radius: 4px;
         width: 100%;
         padding: 0 5px;
+        .snapshot_dialog_wrap_title{
+            font-size: 16px;
+        }
         .snapshot_video_container{
-            min-width:640px; 
-            min-height:480px;
+           // min-width:640px; 
+          //  min-height:480px;
+          video {
+               display: block;
+  max-width:~"calc(100vw - 100px)";
+  max-height:~"calc(100vh - 300px)";
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+          }
         }
         .snapshot_accept_consent_btn {
             display: flex;
@@ -170,14 +181,23 @@
             color: @color-white;
             background-color: @BtnBackground!important;
             border-radius: 4px;
+            margin: 0 auto;
         }
         .snapshot_no_camera_error{
             text-align: center;
-            min-width: 640px;
-            min-height: 480px;
+            //min-width: 640px;
+            //min-height: 480px;
             justify-content: center;
             align-items: center;
             display: flex;
+            img {
+                        display: block;
+  max-width:~"calc(100vw - 100px)";
+  max-height:~"calc(100vh - 300px)";
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+            }
         }
     }
 }

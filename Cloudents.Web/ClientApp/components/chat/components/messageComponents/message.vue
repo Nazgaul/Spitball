@@ -47,6 +47,7 @@ export default {
 <style lang='less'>
 .message_wrap{
     margin-bottom: 14px;
+    font-size: 14px;
     .message-wrapper{
         max-width: 70%;
         width: max-content; // firefox fallback

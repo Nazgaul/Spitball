@@ -3,7 +3,7 @@ using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Users;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -121,7 +121,7 @@ namespace Cloudents.Web.Identity
         public Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             var p = long.Parse(userId);
-            return _queryBus.QueryAsync<User>(new UserDataByIdQuery(p), cancellationToken);
+            return _queryBus.QueryAsync(new UserDataByIdQuery(p), cancellationToken);
             //return _session.LoadAsync<RegularUser>(p, cancellationToken);
         }
 
@@ -206,13 +206,13 @@ namespace Cloudents.Web.Identity
 
         public Task SetTwoFactorEnabledAsync(User user, bool enabled, CancellationToken cancellationToken)
         {
-            user.TwoFactorEnabled = enabled;
+            //user.TwoFactorEnabled = enabled;
             return Task.CompletedTask;
         }
 
         public Task<bool> GetTwoFactorEnabledAsync(User user, CancellationToken cancellationToken)
         {
-            return Task.FromResult(user.TwoFactorEnabled);
+            return Task.FromResult(true);
         }
 
         public Task SetAuthenticatorKeyAsync(User user, string key, CancellationToken cancellationToken)

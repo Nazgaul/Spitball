@@ -1,14 +1,19 @@
 ﻿using System;
-using JetBrains.Annotations;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
 {
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernane proxy")]
+
     public class TutorCalendar : Entity<Guid>
     {
-        public TutorCalendar([NotNull] string googleId, [NotNull] string name, Tutor tutor)
+        public TutorCalendar(GoogleCalendar calendar, Tutor tutor)
         {
-            GoogleId = googleId ?? throw new ArgumentNullException(nameof(googleId));
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            //GoogleId = googleId ?? throw new ArgumentNullException(nameof(googleId));
+            //Name = name ?? throw new ArgumentNullException(nameof(name));
+
+            Calendar = calendar;
             Tutor = tutor;
         }
 
@@ -16,9 +21,10 @@ namespace Cloudents.Core.Entities
         {
         }
 
+        public virtual GoogleCalendar Calendar { get; protected set; }
 
-        public virtual string GoogleId { get; protected set; }
-        public virtual string Name { get; protected set; }
+        // public virtual string GoogleId { get; protected set; }
+        // public virtual string Name { get; protected set; }
         public virtual Tutor Tutor { get; protected set; }
 
 
@@ -47,7 +53,8 @@ namespace Cloudents.Core.Entities
         //}
         protected bool Equals(TutorCalendar other)
         {
-            return string.Equals(GoogleId, other.GoogleId, StringComparison.OrdinalIgnoreCase) && Tutor.Id.Equals(other.Tutor.Id);
+            return Calendar.Equals(other.Calendar) &&
+                   Tutor.Id.Equals(other.Tutor.Id);
         }
 
         public override bool Equals(object obj)
@@ -63,10 +70,30 @@ namespace Cloudents.Core.Entities
             unchecked
             {
 
-                var hashCode = StringComparer.OrdinalIgnoreCase.GetHashCode(GoogleId);
+                var hashCode = Calendar.GetHashCode();
                 hashCode = (hashCode * 397) ^ Tutor.Id.GetHashCode();
                 return hashCode;
             }
+        }
+    }
+
+    public class GoogleCalendar : ValueObject
+    {
+        protected GoogleCalendar()
+        {
+            
+        }
+        public GoogleCalendar(string googleId, string name)
+        {
+            GoogleId = googleId;
+            Name = name;
+        }
+
+        public string GoogleId { get; protected set; }
+        public string Name { get; protected set; }
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return GoogleId;
         }
     }
 }

@@ -10,7 +10,7 @@
     "SearchServiceName": "cloudents",
     "SendgridKey": "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",
     "SiteEndPoint": "https://dev.spitball.co",
-    "IndiaSiteEndPoint":  "https://dev.spitball.co?site=frymo", 
+    "IndiaSiteEndPoint": "https://dev.spitball.co?site=frymo",
     "TempConnectionDev": "DefaultEndpointsProtocol=https;AccountName=spitballdev;AccountKey=fEzJ1MJZyIQMCoGRK/8lnwCHRLm3A3g0+ZnvoIxed7Bl5MlWw/FkbPKrDhCIlWzasWVCK6q0U4HQZ3qCLnXelg==;EndpointSuffix=core.windows.net",
     "TwilioSid": "AC1796f09281da07ec03149db53b55db8d",
     "TwilioToken": "c4cdf14c4f6ca25c345c3600a72e8b49",
@@ -18,6 +18,8 @@
     "AzureSignalRConnectionString": "Endpoint=https://spitball-dev.service.signalr.net;AccessKey=dLvXKNqY9g4zunBuSCQvo1xTz4EotBnDoA7YwwXY0gw=;Version=1.0;",
     "AzureWebJobsServiceBus": "Endpoint=sb://spitball-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CACOBTEeKVemCY7ScVBHYXBwDkClQcCKUW7QGq8dNfA=",
     "Local": "UseDevelopmentStorage=true",
-    "EventHubConnectionAppSetting": "Endpoint=sb://spitball-dev2.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=EWBm3pK6ia4eBBPRz6tjduByCo+eiYsW8AHKnHLeu3Q="
+    "Prod": "DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==",
+    "EventHubConnectionAppSetting": "Endpoint=sb://spitball-dev2.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=EWBm3pK6ia4eBBPRz6tjduByCo+eiYsW8AHKnHLeu3Q=",
+    "FUNCTIONS_V2_COMPATIBILITY_MODE":  "true" 
   }
 }

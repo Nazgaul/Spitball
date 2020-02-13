@@ -3,14 +3,14 @@
         <v-layout column class="messages-wrapper">
 
             <div class="messages-header">
-                <div class="messages-study-room" :class="{'join-room': studyRoomExists || isStudyRoom, 'create-room': !studyRoomExists && isRoomTutor}" v-if="showStudyRoomInteraction || isStudyRoom" @click="createRoom">
+                <div class="messages-study-room" :class="{'join-room': studyRoomExists || isStudyRoom, 'create-room': !studyRoomExists && isRoomTutor}" v-if="!isRouteStudyRoom && showStudyRoomInteraction || isStudyRoom" @click="createRoom">
                     <button v-if="studyRoomExists || isStudyRoom">
-                        <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
+                        <v-icon style="font-size:16px !important; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
                         <span v-language:inner="'chat_studyRoom_enter'"></span>
                     </button>
 
                     <v-btn v-if="(!studyRoomExists && isRoomTutor) && !isStudyRoom " 
-                           flat class="white--text messages-study-room-btn-create" 
+                           text class="white--text messages-study-room-btn-create" 
                            :loading="loader">
                         <add-circle />&nbsp;&nbsp;&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span>
                     </v-btn>
@@ -58,9 +58,7 @@ export default {
     components:{
         message,
         addCircle,
-      //  UserAvatar,
         chatUploadFile,
-      //  userOnlineStatus
     },
     data(){
         return{
@@ -104,6 +102,10 @@ export default {
         },
         isStudyRoom(){
             return this.getshowStudentStudyRoom
+        },
+        isRouteStudyRoom() {
+            let route = this.$route;
+            return (route.name === 'tutoring' || route.name === 'roomSettings') && route.params?.id;
         }
     },
     methods:{
@@ -160,7 +162,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
+    @import "../../../styles/mixin.less";
     .messages-container{
         width: 100%;
         height: 100%;

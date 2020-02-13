@@ -12,10 +12,10 @@
             :borderRadius="4"
           />
           <div class="card-mobile-header-content">
-              <h3 class="text-truncate body-2 font-weight-bold" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+              <h3 class="text-truncate font-weight-bold card-mobile-tutor-name" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
 
               <template>
-                <h4 class="text-truncate university mt-1 font-weight-light" v-if="tutorData.university">{{tutorData.university}}</h4>
+                <h4 class="text-truncate university font-weight-light" v-if="tutorData.university">{{tutorData.university}}</h4>
               </template>
 
               <template>
@@ -60,15 +60,20 @@
       <div class="card-mobile-center">{{tutorData.bio}}</div>
 
       <!-- DO NOT REMOVE THIS WAITING SHIRAN -->
-      <div class="courses text-truncate">
-          <div class="courses-title" v-language:inner="'resultTutor_courses'"></div>
+      <div class="courses text-truncate" v-if="subjects">
+          <div class="courses-title font-weight-bold" v-language:inner="'resultTutor_study-area'"></div>
+          <div class="text-truncate">{{subjects}}</div>
+      </div> 
+      <div class="courses text-truncate" v-else>
+          <div class="courses-title font-weight-bold" v-language:inner="'resultTutor_courses'"></div>
           <div class="text-truncate">{{courses}}</div>
       </div> 
 
+
       <div class="card-mobile-footer">
-          <v-btn class="btn-chat white--text text-truncate my-0" depressed round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
-                <iconChat class="chat-icon-btn" />
-                <div class="text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
+          <v-btn class="btn-chat white--text text-truncate my-0" depressed rounded block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
+                <iconChat class="chat_icon_btn" />
+                <div class="text-truncate text_icon_btn" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
       </div>
 
@@ -85,7 +90,7 @@ import analyticsService from "../../../../services/analytics.service";
 import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
 
-import iconChat from '../tutorResultCardOther/icon-chat.svg';
+import iconChat from '../icon-chat.svg';
 import star from '../stars-copy.svg';
 
 export default {
@@ -125,6 +130,8 @@ export default {
             path: this.$route.path
           });
           this.updateRequestDialog(true);
+      } else if(user.isTutor && user.userId == this.accountUser.id) { // this is my profile
+          return
       } else {
           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
           let conversationObj = {
@@ -145,6 +152,12 @@ export default {
     courses() {
       if (this.tutorData.courses) {
         return `${this.tutorData.courses.join(', ')}`
+      }
+      return '';
+    },
+    subjects() {
+      if (this.tutorData.subjects) {
+        return this.tutorData.subjects.join(', ');
       }
       return '';
     },
@@ -183,10 +196,16 @@ export default {
         display: flex;
         .card-mobile-header-content {
           min-width: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          .card-mobile-tutor-name {
+            font-size: 14px;
+          }
         }
         .user-rate {
             display: inline-flex;
-            margin-top: 6px;
+            // margin-top: 6px;
             .reviews {
                 font-size: 12px;
                 letter-spacing: normal;
@@ -213,10 +232,10 @@ export default {
           display: flex;
           align-items: flex-end;
           flex: .5;
-          margin: 4px 0 1px 0;
+          // margin: 4px 0 1px 0;
           .price_oneline {
             display: flex;
-            align-items: flex-end;
+            align-items: baseline;
             color: #5158af;
 
             &--count {
@@ -235,7 +254,7 @@ export default {
           color: #4c59ff;
           font-weight: 600;
           font-size: 12px;
-          margin-top: 6px;
+          // margin-top: 6px;
         }
     }
     .card-mobile-center {
@@ -251,10 +270,7 @@ export default {
             position:unset;
           }
           .v-btn__content{
-            .chat-icon-btn{
-              // position: absolute;
-              // top: 0;
-              // left: 0;
+            .chat_icon_btn{
               align-self: flex-end;
             }
             :last-child {
@@ -263,10 +279,8 @@ export default {
           }
           text-transform: inherit;
           border-radius: 7.5px;
-          div {
-            div {
-              padding-left: 10px;
-            }
+          .text_icon_btn {
+            padding-left: 10px;
           }
         }
     }

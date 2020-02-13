@@ -1,7 +1,7 @@
 <template>
     <div>
     <v-icon @click="drawer = !drawer" medium class="pl-3 pt-2 hidden-lg-and-up">menu</v-icon>
-    <v-navigation-drawer app value="true" class="drawer" v-model="drawer">
+    <v-navigation-drawer  app value="true" class="drawer" v-model="drawer">
         <v-list>
             <div v-for="(singleNav, i) in nav" :key="i">
                 <v-list-group no-action value="">
@@ -139,6 +139,12 @@
                             { name: 'Create', link: '/coupon', icon: 'ticket-percent' },
                         ]
                     },
+                    {
+                        setting: {
+                            title: 'subjects',
+                            path: '/subjects',
+                        }
+                    },
                 ]
             }
         },
@@ -147,6 +153,6 @@
 
 <style lang="less">
     .drawer {
-        z-index: 2
+        z-index: 5
     }
 </style>

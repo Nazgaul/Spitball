@@ -3,7 +3,6 @@
         <v-layout class="conversations-wrapper"
         @click="openConversation(conversation)"
         justify-start
-        row
         v-for="conversation in converations"
         :key="conversation.conversationId">
             <conversation-comp :conversation="conversation"></conversation-comp>

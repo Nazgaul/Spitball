@@ -10,11 +10,11 @@
             </div>
         </div>
         <div class="navigation-btns-calendar">
-          <v-btn :disabled="isGoPrev" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.prev()">
+          <v-btn sel="calendar_previous" :disabled="isGoPrev" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.prev()">
             <v-icon>sbf-arrow-left-carousel</v-icon>
           </v-btn>
           <span class="title-calendar">{{calendarMonth}}</span>
-          <v-btn :disabled="isGoNext" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.next()">
+          <v-btn sel="calendar_next" :disabled="isGoNext" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.next()">
             <v-icon dark>sbf-arrow-right-carousel</v-icon>
           </v-btn>
         </div>
@@ -39,7 +39,7 @@
               <v-btn
                 :color="!isEventSent? 'white':'#4452fc'" 
                 @click="closeDialog" 
-                depressed round 
+                depressed rounded 
                 :class="[!isEventSent? 'cncl-btn': 'donebtn']">
                 <span v-language:inner="!isEventSent? 'calendar_add_event_cancel':'calendar_add_event_ok'"/>
               </v-btn>
@@ -47,7 +47,7 @@
               <v-btn v-if="!isEventSent"
                   @click="isNeedPayment? goPayment() : insertNewEvent()" 
                   :loading="isLoading" 
-                  depressed round 
+                  depressed rounded 
                   color="#4452fc" 
                   class="calbtn">
                 <span v-language:inner="isNeedPayment? 'calendar_add_event_ok' :'calendar_add_event_btn'"/>
@@ -66,7 +66,7 @@
             :interval-minutes="intervals.minutes"
             :interval-count="intervals.count"
             :interval-height="intervals.height">
-            <template v-slot:dayBody="{ date, hour, timeToY, minutesToPixels }">
+            <template v-slot:day-body="{ date, hour, timeToY, minutesToPixels }">
               <template v-for="event in eventsMap[date]">
                 <div v-if="event.time" :key="event.time+2" class="my-event with-time" v-html="event.time"
                   :style="{ top: timeToY(event.time) + 'px', height: minutesToPixels(60) + 'px' }">
@@ -182,19 +182,21 @@ export default {
         return this.$vuetify.breakpoint.xsOnly;
       },
       isNeedPayment(){
-        let price = this.getProfile.user.tutorData.price + ''
-        price.slice(1, this.getProfile.user.tutorData.price.length);        
-        return this.getNeedPayment && Number(price) > 0;
+        // debugger
+        // let price = this.getProfile.user.tutorData.price + ''
+        // price.slice(1, this.getProfile.user.tutorData.price.length);        
+        // return this.getNeedPayment && Number(price) > 0;
+        return this.getNeedPayment;
       },
       isSelfTutor() {
-        if((!!this.getProfile && !!this.accountUser) && this.getProfile.user.id == this.accountUser.id) {
+        if((this.$route.name == 'myCalendar') || (!!this.getProfile && !!this.accountUser) && this.getProfile.user.id == this.accountUser.id) {
           return true
         }
         return false
       }
     },
     methods: {
-        ...mapActions(['updateToasterParams','initCalendar','btnClicked','insertEvent','updateNeedPayment','requestPaymentURL']),
+        ...mapActions(['updateToasterParams','btnClicked','insertEvent','updateNeedPayment','requestPaymentURL']),
         format(day){
           let options = { weekday: this.isMobile? 'narrow':'short' };
           return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
@@ -244,7 +246,10 @@ export default {
           }
         },
         formatTimeString(){
-          let endTime = new Date(`${this.selectedDate} ${this.selectedTime}`).getHours()+1;
+          let hour = +this.selectedTime.split(':')[0];
+          let dateHour = new Date(this.selectedDate)
+          dateHour.setHours(hour)
+          let endTime = dateHour.getHours()+1;
           let ampm = endTime < 12? 'am' : 'pm'
           if(endTime < 10) {endTime = `0${endTime}:00`}
           else {endTime = `${endTime}:00`;}
@@ -361,7 +366,7 @@ export default {
       }
       .v-btn__content{
         .v-icon{
-          font-size: 18px;
+          font-size: 18px !important;
         }
       }
 
@@ -448,6 +453,7 @@ display: flex;
         min-width: 140px;
         height: 40px !important;
         padding: 0px 32px !important;
+        margin: 6px 8px;
       }
       .cncl-btn{
         color: @global-blue;
@@ -498,15 +504,17 @@ display: flex;
         }
         }
         .v-calendar-daily_head-day-label{
-          font-size:24px;
-          line-height: inherit;
-          padding: 0 0 6px 0;
-          @media (max-width: @screen-xs) {
-            font-size: 18px;
-            text-align: center;
-            line-height: 1.6;
-            padding: 0;
+          button {
+            font-size:24px;
+            line-height: inherit;
+            // padding: 0 0 6px 0;
+            @media (max-width: @screen-xs) {
+              font-size: 18px;
+              text-align: center;
+              line-height: 1.6;
+              padding: 0;
 
+            }
           }
         }
         &.v-present{
@@ -518,7 +526,9 @@ display: flex;
               color:@global-blue;
             }
             .v-calendar-daily_head-day-label{
-              color:@global-blue;
+              button {
+                color:@global-blue;
+              }
             }
         }
       }
@@ -557,7 +567,7 @@ display: flex;
 .my-event {
     text-align: center;
     font-size: 12px;
-    padding: 3px;
+    padding: 5px;
     padding-bottom: 0;
     margin-right: 8px;
     position: relative;

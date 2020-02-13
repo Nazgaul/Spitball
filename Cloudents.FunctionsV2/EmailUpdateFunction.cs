@@ -6,9 +6,7 @@ using Cloudents.Core.Message.Email;
 using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using Cloudents.Query.Email;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SendGrid.Helpers.Mail;
 using System;
@@ -18,7 +16,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Cloudents.FunctionsV2
 {
@@ -192,45 +189,39 @@ namespace Cloudents.FunctionsV2
             return uriBuilderImage.ToString();
         }
 
-        private static string BuildHash(IBinarySerializer binarySerializer, Uri previewUri)
-        {
-            var properties = new ImageProperties(previewUri);
-            var byteHash = binarySerializer.Serialize(properties);
-            var hash = Base64UrlTextEncoder.Encode(byteHash);
-            return hash;
-        }
-
-        [FunctionName("EmailUpdateFunction_TimerStart")]
-        public static async Task TimerStart(
-            [TimerTrigger("0 0 8 * * *")] TimerInfo myTimer,
-            [OrchestrationClient]DurableOrchestrationClient starter,
-            ILogger log)
-        {
-            const string instanceName = "UpdateEmail";
-            var existingInstance = await starter.GetStatusAsync(instanceName);
-            if (existingInstance == null)
-            {
-                await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
-                return;
-            }
-
-            var types = new[] { OrchestrationRuntimeStatus.Running, OrchestrationRuntimeStatus.Pending };
-            if (types.Contains(existingInstance.RuntimeStatus))
-            {
-                if (existingInstance.LastUpdatedTime < DateTime.UtcNow.AddHours(-6))
-                {
-                    await starter.TerminateAsync(instanceName, "Taking too long ");
-                }
-                else
-                {
-                    log.LogInformation($"{instanceName} is in status {existingInstance.RuntimeStatus}");
-                    return;
-                }
-            }
 
 
-            await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
-        }
+        //[FunctionName("EmailUpdateFunction_TimerStart")]
+        //public static async Task TimerStart(
+        //    [TimerTrigger("0 0 8 * * *")] TimerInfo myTimer,
+        //    [OrchestrationClient]DurableOrchestrationClient starter,
+        //    ILogger log)
+        //{
+        //    const string instanceName = "UpdateEmail";
+        //    var existingInstance = await starter.GetStatusAsync(instanceName);
+        //    if (existingInstance == null)
+        //    {
+        //        await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
+        //        return;
+        //    }
+
+        //    var types = new[] { OrchestrationRuntimeStatus.Running, OrchestrationRuntimeStatus.Pending };
+        //    if (types.Contains(existingInstance.RuntimeStatus))
+        //    {
+        //        if (existingInstance.LastUpdatedTime < DateTime.UtcNow.AddHours(-6))
+        //        {
+        //            await starter.TerminateAsync(instanceName, "Taking too long ");
+        //        }
+        //        else
+        //        {
+        //            log.LogInformation($"{instanceName} is in status {existingInstance.RuntimeStatus}");
+        //            return;
+        //        }
+        //    }
+
+
+        //    await starter.StartNewAsync("EmailUpdateFunction", "UpdateEmail", null);
+        //}
 
 
 

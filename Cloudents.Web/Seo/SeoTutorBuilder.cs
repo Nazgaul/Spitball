@@ -9,7 +9,6 @@ using Cloudents.Web.Seo.Images;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NHibernate;
-using NHibernate.Linq;
 
 namespace Cloudents.Web.Seo
 {
@@ -29,17 +28,24 @@ namespace Cloudents.Web.Seo
             _urlBuilder = urlBuilder;
         }
 
-        public IEnumerable<SitemapNode> GetUrls(int index)
+        public IEnumerable<SitemapNode> GetUrls(bool isFrymo, int index)
         {
-            var t = _session.Query<Tutor>()
-                .Fetch(f => f.User)
-                .Where(w => (!w.User.LockoutEnd.HasValue || DateTime.UtcNow >= w.User.LockoutEnd.Value))
-                .Where(w => w.State == ItemState.Ok && w.User.Country != Country.India.Name)
-                .Take(SiteMapController.PageSize)
-                .Skip(SiteMapController.PageSize * index)
-                .Select(s => new { s.Id, s.User.Name, s.User.ImageName });
+            var t = _session.Query<ReadTutor>();
+            if (isFrymo)
+            {
+                t = t.Where(w => w.Country == Country.India.Name);
+            }
+            else
+            {
+                t = t.Where(w => w.Country != Country.India.Name);
+            }
 
-            foreach (var item in t)
+
+            var tutors = t.Take(SiteMapController.PageSize)
+              .Skip(SiteMapController.PageSize * index)
+              .Select(s => new { s.Id, s.Name, s.ImageName });
+
+            foreach (var item in tutors)
             {
                 var url = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.Tutor, new
                 {
@@ -67,5 +73,15 @@ namespace Cloudents.Web.Seo
 
             }
         }
+
+        //private static bool FilterCountry(ReadTutor w, bool isFrymo)
+        //{
+        //    if (isFrymo)
+        //    {
+        //        return w.Country == Country.India.Name;
+        //    }
+
+        //    return w.Country != Country.India.Name;
+        //}
     }
 }

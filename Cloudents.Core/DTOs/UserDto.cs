@@ -57,6 +57,8 @@ namespace Cloudents.Core.DTOs
 
         public bool IsFollowing { get; set; }
 
+        public IEnumerable<string> Courses { get; set; }
+
         //If the user is a tutor and then delete then the first name and the last name stays
         public bool ShouldSerializeTutor()
         {
@@ -96,9 +98,10 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(ReadTutor.Lessons))]
         public int Lessons { get; set; }
 
-        public int Documents { get; set; }
+        public int ContentCount { get; set; }
+        public int Students { get; set; }
 
-       // public int ResponseTime { get; set; }
+        // public int ResponseTime { get; set; }
 
     }
 
@@ -112,10 +115,6 @@ namespace Cloudents.Core.DTOs
         public string Email { get; set; }
         [EntityBind(nameof(User.PhoneNumber))]
         public string PhoneNumber { get; set; }
-
-        [EntityBind(nameof(User.University.Id))]
-        public bool UniversityExists { get; set; }
-
         [EntityBind(nameof(User.Id))]
         public long Id { get; set; }
         [EntityBind(nameof(User.Name))]
@@ -128,7 +127,13 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(User.PaymentExists), nameof(User.Country))]
         public bool NeedPayment { get; set; }
 
-        private string Country { get; set; }
+        public bool HaveDocs { get; set; }
+        public UserType? UserType { get; set; }
+        public string Country { get; set; }
+
+        public IEnumerable<CourseDto> Courses { get; set; }
+        public UniversityDto University { get; set; }
+
         public string CurrencySymbol
         {
             get

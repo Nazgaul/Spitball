@@ -1,13 +1,8 @@
 import walletService from '../../services/walletService';
-import { cashOutCards } from './consts';
-import cashOutCard from './cashOutCard/cashOutCard.vue';
 import { mapGetters } from 'vuex';
 import { LanguageService } from "../../services/language/languageService";
 
 export default {
-    components: {
-        cashOutCard
-    },
     props: {},
     data() {
         return {
@@ -41,7 +36,7 @@ export default {
                     align: 'left',
                     value: 'type',
                     sortable: false,
-                    showOnMobile: false
+                    showOnMobile: true
                 },
                 {
                     text: LanguageService.getValueByKey('wallet_Amount'),
@@ -55,7 +50,7 @@ export default {
                     align: 'left',
                     value: 'balance',
                     sortable: false,
-                    showOnMobile: false
+                    showOnMobile: true
                 }
             ],
             allBalanceHeaders: [{
@@ -82,7 +77,6 @@ export default {
                 transactions: []
             },
             items: [],
-            cashOutOptions: cashOutCards,
             walletData: []
         };
     },
@@ -122,6 +116,10 @@ export default {
         recalculate(){
             this.getBalances();
             this.cashOut = false;
+        },
+        cutsomFilter() {
+            console.log("dasdsafjksdnhfidfnidfi");
+            
         }
     },
     computed: {

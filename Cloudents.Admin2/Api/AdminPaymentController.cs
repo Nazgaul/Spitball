@@ -5,7 +5,7 @@ using Cloudents.Core;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Extension;
 using Cloudents.Query;
-using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Admin;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -38,13 +38,14 @@ namespace Cloudents.Admin2.Api
         [HttpGet]
         public async Task<IEnumerable<PaymentResponse>> GetPayments(CancellationToken token)
         {
-            var query = new AdminPaymentsQuery(User.GetCountryClaim());
+            var query = new PaymentsQuery(User.GetCountryClaim());
             var result = await _queryBus.QueryAsync(query, token);
             return result.Select(s => new PaymentResponse()
             {
                 StudyRoomSessionId = s.StudyRoomSessionId,
                 Price = s.Price,
-                CantPay = s.CantPay,
+                IsSellerKeyExists = s.IsSellerKeyExists,
+                IsPaymentKeyExists = s.IsPaymentKeyExists,
                 TutorId = s.TutorId,
                 TutorName = s.TutorName,
                 UserId = s.UserId,
@@ -58,7 +59,7 @@ namespace Cloudents.Admin2.Api
         public async Task<PaymentDetailDto> GetPayment(Guid id, CancellationToken token)
         {
 
-            var query = new AdminPaymentBySessionIdQuery(id);
+            var query = new PaymentBySessionIdQuery(id);
             return await _queryBus.QueryAsync(query, token);
         }
 

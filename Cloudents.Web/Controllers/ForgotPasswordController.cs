@@ -8,6 +8,7 @@ namespace Cloudents.Web.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class ForgotPasswordController : Controller
     {
+        internal const string ResetPasswordRouteName = "ResetPassword";
         private readonly UserManager<User> _userManager;
 
         public ForgotPasswordController(UserManager<User> userManager)
@@ -16,8 +17,8 @@ namespace Cloudents.Web.Controllers
         }
 
         // GET
-        [Route("resetPassword", Name = "ResetPassword")]
-        public async Task<IActionResult> Index(long id, string code)
+        [Route("signin/reset-password", Name = ResetPasswordRouteName)]
+        public async Task<IActionResult> IndexAsync(long id, string code)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -34,7 +35,7 @@ namespace Cloudents.Web.Controllers
             {
                 return RedirectToRoute(RegisterController.Signin);
             }
-            return View();
+            return View("Index");
         }
     }
 }

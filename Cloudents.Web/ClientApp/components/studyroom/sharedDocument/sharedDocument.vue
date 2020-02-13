@@ -1,6 +1,6 @@
 <template>
     <div class="shared-document-container">
-        <v-layout row>
+        <v-layout>
             <v-flex>
                 <div class="iframe-container">
                     <iframe v-if="sharedDocUrl" :src="sharedDocUrl" frameborder="0"></iframe>

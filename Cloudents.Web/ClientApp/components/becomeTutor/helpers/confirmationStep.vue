@@ -13,14 +13,14 @@
 
         <v-layout class="px-1 btns-confirmation-step"
                 :class="[isMobile ? 'align-end justify-end' : 'align-center justify-center']">
-            <v-btn class="cancel-btn-step elevation-0" round outline flat @click="goToPreviousStep">
+            <v-btn class="cancel-btn-step elevation-0" rounded outlined text @click="goToPreviousStep">
                 <span v-language:inner="'becomeTutor_btn_back'"/>
             </v-btn>
             <v-btn  color="#4452FC"
                     :loading="isLoading"
                     :disabled="!isAgree"
                     @click="submit"
-                    round
+                    rounded
                     class="white-text elevation-0">
                     <span v-language:inner="'becomeTutor_btn_done'"/>
             </v-btn>
@@ -30,7 +30,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { LanguageService } from "../../../services/language/languageService";
+import * as routeNames from '../../../routes/routeNames.js';
 
 export default {
     name: "confirmationStep",
@@ -55,19 +55,26 @@ export default {
             this.isLoading = true;
             this.sendBecomeTutorData().then(
                 () => {
-                    self.$root.$emit('becomeTutorStep', 5);
-                    self.updateAccountUserToTutor(true);
                     self.updateToasterParams({
-                        toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                        toasterText: this.$t("becomeTutor_already_submitted"),
                         showToaster: true,
                         toasterTimeout: 5000
                     });
-                    self.updateTeachingClasses();
+
+                    if(self.$route.name === routeNames.RegisterType){
+                        global.isAuth = true;
+                        self.$router.push({name: routeNames.Feed,query:{filter:'Question'}})
+                        self.updateAccountUserToTutor(true);
+                    }else{
+                        self.$root.$emit('becomeTutorStep', 5);
+                        self.updateAccountUserToTutor(true);
+                        self.updateTeachingClasses();
+                    }
                 },(error) => {
                     let isConflict = error.response.status === 409;
                     if(isConflict) {
                         self.updateToasterParams({
-                            toasterText: LanguageService.getValueByKey("becomeTutor_already_submitted"),
+                            toasterText: this.$t("becomeTutor_already_submitted"),
                             showToaster: true,
                             toasterTimeout: 5000
                         });

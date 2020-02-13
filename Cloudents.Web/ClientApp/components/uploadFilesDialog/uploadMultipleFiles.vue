@@ -1,49 +1,52 @@
 <template>
-    <v-flex xs12>         
-        <v-icon @click="closeUpload()" class="uf-close" v-html="'sbf-close'" />
-        <v-card class="uf-main elevation-0">
-            <v-stepper class="uf-mStepper elevation-0" v-model="currentStep" >
-                
-                <v-stepper-header :class="['uf-mHeader','elevation-0',isMobile?'pt-2' :'pl-3']">
-                    <template>
-                        <img v-if="!isMobile" class="uf-mImg" :src="userImage" alt="">
-                        <h2 :class="['uf-mTitle',{'ml-3':!isMobile}]" v-language:inner="'upload_uf_mTitle'"/>
-                    </template>
-                </v-stepper-header>
+    <!-- <v-dialog :value="true" persistent :maxWidth="'716'" :content-class="'upload-dialog'"> -->
+        <v-flex xs12>
+            <v-icon @click="closeUpload()" class="uf-close" v-html="'sbf-close'" />
+            <!-- <v-icon @click="closeDialog" class="uf-close" v-html="'sbf-close'"></v-icon> -->
+            <v-card class="uf-main elevation-0">
+                <v-stepper class="uf-mStepper elevation-0" v-model="currentStep" >
+                    
+                    <v-stepper-header :class="['uf-mHeader','elevation-0',isMobile?'pt-2' :'pl-4']">
+                        <template>
+                            <img v-if="!isMobile" class="uf-mImg" :src="userImage" alt="">
+                            <h2 :class="['uf-mTitle',{'ml-4':!isMobile}]" v-language:inner="'upload_uf_mTitle'"/>
+                        </template>
+                    </v-stepper-header>
 
-                <v-stepper-items class="uf-items">
-                    <div v-if="errorFile && errorFile.name" class="px-3">
-                        <fileCardError :fileItem="errorFile" :singleFileIndex="0"/>
-                    </div>
-                    <v-stepper-content :class="['uf-mStepper-content', `step-${n}`]"
-                                       v-for="n in steps"
-                                       :key="`${n}-content`"
-                                       :step="n">
+                    <v-stepper-items class="uf-items">
+                        <div v-if="errorFile && errorFile.name" class="px-4">
+                            <fileCardError :fileItem="errorFile" :singleFileIndex="0"/>
+                        </div>
+                        <v-stepper-content :class="['uf-mStepper-content', `step-${n}`]"
+                                        v-for="n in steps"
+                                        :key="`${n}-content`"
+                                        :step="n">
 
-                        <upload-files-start 
-                            v-show="n===1" 
-                            :curStep="1" 
-                            :callBackmethods="callBackmethods">
-                        </upload-files-start>
-                            <transition name="slide">
-                                <uploadStep_2 :chackValidation="chackValidation" v-show="n===2" :curStep="2" :callBackmethods="callBackmethods"></uploadStep_2>
-                            </transition>
-                    </v-stepper-content>
-                </v-stepper-items>
-            </v-stepper>
-        <div class="uf-sEdit-bottm pb-3 pt-3" v-if="currentStep == 2">
-            <v-btn :loading="loading" @click="send()" class="uf-sEdit-bottm-btn mb-2" depressed round color="#4452fc">
-                <span v-language:inner="'upload_uf_sEdit_bottm_btn'"/>
-            </v-btn>             
-            <span class="uf-sEdit-terms">
-                <span v-language:inner="'upload_uf_sEdit_terms_by'"/>
-                <a :href="termsLink" target="_blank">  
-                    <span class="uf-sEdit-terms-link" v-language:inner="'upload_uf_sEdit_terms_link'"/>
-                </a>
-            </span>
-        </div>
-        </v-card>  
-    </v-flex>
+                            <upload-files-start 
+                                v-show="n===1" 
+                                :curStep="1" 
+                                :callBackmethods="callBackmethods">
+                            </upload-files-start>
+                                <transition name="slide">
+                                    <uploadStep_2 :chackValidation="chackValidation" v-show="n===2" :curStep="2" :callBackmethods="callBackmethods"></uploadStep_2>
+                                </transition>
+                        </v-stepper-content>
+                    </v-stepper-items>
+                </v-stepper>
+            <div class="uf-sEdit-bottm pb-4 pt-4" v-if="currentStep == 2">
+                <v-btn :loading="loading" @click="send()" class="uf-sEdit-bottm-btn" depressed rounded color="#4452fc">
+                    <span v-language:inner="'upload_uf_sEdit_bottm_btn'"/>
+                </v-btn>             
+                <span class="uf-sEdit-terms">
+                    <span v-language:inner="'upload_uf_sEdit_terms_by'"/>
+                    <a :href="termsLink" target="_blank">  
+                        <span class="uf-sEdit-terms-link" v-language:inner="'upload_uf_sEdit_terms_link'"/>
+                    </a>
+                </span>
+            </div>
+            </v-card>  
+        </v-flex>
+    <!-- </v-dialog> -->
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
@@ -59,13 +62,16 @@ import fileCardError from './components/fileCardError.vue';
 
 import satelliteServie from "../../services/satelliteService";
 
+import dialogMixin from '../../mixins/dialogMixin';
+
 export default {
+    name: "uploadMultipleFiles",
     components: {
         uploadFilesStart,
         uploadStep_2,
         fileCardError
     },
-    name: "uploadMultipleFiles",
+    mixins: [dialogMixin],
     data() {
         return {
             selectCoursePlaceholder: LanguageService.getValueByKey("upload_multiple_select_course_placeholder"),
@@ -83,7 +89,6 @@ export default {
             nextStepCalled: false,
             loading: false,
             disableBtn: false,
-            isEdge : global.isEdge,
             lock: false,
             chackValidation: false,
             termsLink: satelliteServie.getSatelliteUrlByName('terms')
@@ -141,7 +146,6 @@ export default {
     },
     methods: {
         ...mapActions([
-            'changeSelectPopUpUniState',
             'updateDialogState',
             'resetUploadData',
             'setReturnToUpload',
@@ -195,6 +199,7 @@ export default {
             //reset return to upload
             this.setReturnToUpload(false);
             //close
+            // this.closeDialog();
             this.updateDialogState(false);
         },
         nextStep() {
@@ -268,6 +273,7 @@ export default {
             margin-right: 0;
         }
         .uf-sEdit-bottm-btn{
+            margin: 6px 8px;
             color: white;
             border: 1px solid @global-blue !important;
             font-size: 14px;

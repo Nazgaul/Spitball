@@ -74,12 +74,16 @@ namespace Cloudents.Web.Api
             }
             catch (InvalidOperationException e)
             {
-                client.TrackException(e,new Dictionary<string, string>()
+                client.TrackException(e, new Dictionary<string, string>()
                 {
                     ["UserId"] = model.UserId.ToString(),
                     ["tutorId"] = tutorId.ToString()
                 });
                 return BadRequest();
+            }
+            catch
+            {
+                return BadRequest("User equals tutor");
             }
         }
 
@@ -277,11 +281,12 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> CreateReview([FromBody] ReviewRequest model,
+        public async Task<IActionResult> CreateReviewAsync([FromBody] ReviewRequest model,
             [FromServices] UserManager<User> userManager,
             CancellationToken token)
         {
             var userId = userManager.GetLongUserId(User);
+
 
             var command = new AddTutorReviewCommand(model.RoomId, model.Review, model.Rate, userId);
             try
@@ -289,6 +294,10 @@ namespace Cloudents.Web.Api
                 await _commandBus.DispatchAsync(command, token);
             }
             catch (DuplicateRowException)
+            {
+                return BadRequest();
+            }
+            catch (ArgumentException)
             {
                 return BadRequest();
             }

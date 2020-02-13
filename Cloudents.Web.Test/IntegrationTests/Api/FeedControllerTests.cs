@@ -20,7 +20,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             {
                 AllowAutoRedirect = false
             });
-            //_client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
         }
 
         [Theory]
@@ -29,7 +28,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("nice123", true, 0)]
         [InlineData("physics 20II", true, 0)]
 
-        public async Task GetAsync_Search_Without_Results(string course, bool logIn, int page)
+        public async Task GetAsync_Search_Without_ResultsAsync(string course, bool logIn, int page)
         {
 
             if (logIn)
@@ -48,7 +47,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData(true, 0)]
         [InlineData(false, 10000)]
         [InlineData(true, 10000)]
-        public async Task GetAsync_AggregateAllCourses_Ok(bool logIn, int page)
+        public async Task GetAsync_AggregateAllCourses_OkAsync(bool logIn, int page)
         {
             if (logIn)
             {
@@ -75,7 +74,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("econ", true, 0)]
         [InlineData("this is a long term without results", false, 0)]
         [InlineData("this is a long term without results", true, 0)]
-        public async Task GetAsync_Search_WithTerm_Ok(string term, bool logIn, int page)
+        public async Task GetAsync_Search_WithTerm_OkAsync(string term, bool logIn, int page)
         {
             if (logIn)
             {
@@ -91,7 +90,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("econ", "Economics", true, 0)]
         [InlineData("this is a long term without results", "nice123", false, 0)]
         [InlineData("this is a long term without results", "nice123", true, 0)]
-        public async Task GetAsync_Search_WithTermAndCourse_Ok(string term, string course, bool logIn, int page)
+        public async Task GetAsync_Search_WithTermAndCourse_OkAsync(string term, string course, bool logIn, int page)
         {
             if (logIn)
             {
@@ -111,7 +110,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("/api/feed?page=1", false)]
         [InlineData("api/feed", true)]
         [InlineData("/api/feed?page=1", true)]
-        public async Task GetAsync_OK(string url, bool authUser)
+        public async Task GetAsync_OKAsync(string url, bool authUser)
         {
             if (authUser)
             {

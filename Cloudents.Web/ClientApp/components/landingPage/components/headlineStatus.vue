@@ -4,7 +4,6 @@
       class="landing-headelien-headlineStatus-container px-2"
       align-center
       justify-space-between
-      row
       wrap
     >
       <template v-if="stats.documents">
@@ -14,7 +13,7 @@
         </span>
         <v-flex class="landing-headelien-headlineStatus-stars">
           <span>95%</span>
-          <v-layout class="landing-headelien-headlineStatus-startsrating" align-center row wrap>
+          <v-layout class="landing-headelien-headlineStatus-startsrating" align-center wrap>
             <v-flex class="star" v-for="(star, index) in 5" :key="index"></v-flex>
           </v-layout>
           <span v-language:inner="'landingPage_main_stats_reviews'"></span>

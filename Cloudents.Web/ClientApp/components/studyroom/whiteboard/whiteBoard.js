@@ -1,3 +1,4 @@
+import {VueMathjax} from 'vue-mathjax'
 
 import whiteBoardService from './whiteBoardService';
 import helperUtil from './utils/helper';
@@ -21,6 +22,7 @@ export default {
         pencilSVG,
         uploadSVG,
         iinkDrawer,
+        VueMathjax
         // whiteBoardLayers
     },
     data() {

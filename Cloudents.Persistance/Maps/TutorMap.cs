@@ -28,7 +28,7 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.Calendars).Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan().Inverse().AsSet();
             HasMany(x => x.TutorHours).Access.CamelCaseField(Prefix.Underscore)
-                .Inverse().Cascade.All().AsSet();
+                .Inverse().Cascade.AllDeleteOrphan().AsSet();
 
             HasMany(x => x.StudyRooms)/*.Access.CamelCaseField(Prefix.Underscore)*/
                 .Cascade.AllDeleteOrphan().Inverse().AsSet();
@@ -44,18 +44,6 @@ namespace Cloudents.Persistence.Maps
             OptimisticLock.Version();
             Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
 
-        }
-
-        public class TutorCalendarMap : ClassMap<TutorCalendar>
-        {
-            public TutorCalendarMap()
-            {
-                Id(x => x.Id);
-                Map(x => x.Name).Not.Nullable();
-                Map(x => x.GoogleId).Not.Nullable();
-
-                References(x => x.Tutor).Not.Nullable();
-            }
         }
     }
 }

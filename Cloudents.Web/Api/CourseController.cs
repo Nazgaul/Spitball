@@ -4,7 +4,7 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Courses;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -136,6 +136,16 @@ namespace Cloudents.Web.Api
             var user = await _userManager.GetUserAsync(User);
             await _signInManager.RefreshSignInAsync(user);
             return Ok();
+        }
+
+        [HttpGet("subject"),AllowAnonymous]
+        public async Task<SubjectDto> GetSubjectAsync([FromQuery, Required] string courseName,
+            CancellationToken token)
+        {
+            var query = new CourseSubjectQuery(courseName);
+            var result  = await _queryBus.QueryAsync(query, token);
+            return result;
+
         }
     }
 }

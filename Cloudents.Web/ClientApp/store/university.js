@@ -1,4 +1,5 @@
 import universityService from '../services/universityService';
+import courseService from '../services/courseService';
 
 const state = {
     universities: [],
@@ -6,7 +7,6 @@ const state = {
     schoolName: '',
     selectedClasses: [],
     selectedClassesCache: [],
-    showSelectUniPopUpInterface: false,
     resultLockForSchoolNameChange: false,
     resultLockForClassesChange: false,
     selectForTheFirstTime: false,
@@ -26,10 +26,6 @@ const getters = {
     // the sorting is moved to the cmp
     getSelectedClasses: state => state.selectedClasses,
     getSelectedClassesCache: state => state.selectedClassesCache,
-    getShowSelectUniPopUpInterface: state => state.showSelectUniPopUpInterface,
-    getAllSteps: state => state.stepsEnum,
-    getCurrentStep: state => state.currentStep,
-    getUniversityPopStorage: state => state.universityPopStorage,
     createDialogVisibility: state => state.createDialog,
     creationVerified: state => state.creationVerified,
     getCreateDialogVisibility: state => state.createUniDialog,
@@ -55,8 +51,8 @@ const mutations = {
     },
     //end dialogs mutations
     deleteCourse(state, val) {
-        let index = state.selectedClasses.indexOf(val);
-        state.selectedClasses.splice(index, 1);
+        let index = state.selectedClasses.filter(v => v.text !== val);
+        state.selectedClasses = index
     },
     
     setUniversities(state, val) {
@@ -94,22 +90,6 @@ const mutations = {
         let index = state.selectedClassesCache.indexOf(val);
         state.selectedClassesCache.splice(index, 1);
     },
-    setSelectUniState() {
-        // state.showSelectUniInterface = val;
-    },
-    setCurrentStep(state, val) {
-        state.currentStep = val;
-    },
-    setSelectPopUpUniState(state, val) {
-        state.showSelectUniPopUpInterface = val;
-    },
-    setUniversityPopStorage(state, val) {
-        window.sessionStorage.setItem('sb_uniSelectPoped_s', true);
-        window.localStorage.setItem('sb_uniSelectPoped_l', val);
-        state.universityPopStorage.session = true;
-        state.universityPopStorage.local = val;
-
-    },
     openResultLockForSchoolNameChange(state) {
         state.resultLockForSchoolNameChange = true;
     },
@@ -138,42 +118,28 @@ const mutations = {
 };
 
 const actions = {
+    updateTeachCourse(context,courseName){
+        return courseService.teachCourse(courseName)
+    },
     updateTeachingClasses({commit}){
         commit('setAllClassesTeaching');
     },
     clearClassesCahce({commit}){
         commit('clearClassesCahce');
     },
-    syncUniData({commit, dispatch}) {
+    syncUniData({commit, dispatch},{courses ,university}) {
         dispatch('setLock_selectedClass', true);
-        universityService.getProfileUniversity().then((university) => {
-            commit('setSchoolName', university.text);
-            setTimeout(() => {
+        commit('setSchoolName', university.text);
+        dispatch('setSelectedClasses', courses);
+        dispatch('assignSelectedClassesCache', courses);
+
+        setTimeout(() => {
             dispatch('releaseResultLock', "uni");
-            }, 2000); 
-        });
-        universityService.getProfileCourses().then((courses) => {
-                dispatch('setSelectedClasses', courses);
-                dispatch('assignSelectedClassesCache', courses);
-                setTimeout(() => {
-                    dispatch('releaseResultLock', "class");
-                }, 2000);
-        });
-    },
-    //to sync courses only
-    syncCoursesData({dispatch}) {
-        universityService.getProfileCourses().then((courses) => {
-            if(courses.length > 0) {
-                dispatch('setSelectedClasses', courses);
-                dispatch('assignSelectedClassesCache', courses);
-                setTimeout(() => {
-                    dispatch('releaseResultLock', "class");
-                }, 2000);
-            }
-        });
+            dispatch('releaseResultLock', "class");
+        }, 2000);
     },
     createCourse({dispatch}, courseToCreate) {
-        universityService.createCourse(courseToCreate).then((course) => {
+        courseService.createCourse(courseToCreate).then((course) => {
             dispatch('pushClassToSelectedClasses', course);
         });
     },
@@ -183,26 +149,16 @@ const actions = {
             commit('setSchoolName', uni);
         });
     },
-
-
     changeReflectChangeToPage({commit}) {
         commit('setReflectChangeToPage');
     },
-
-    changeSelectPopUpUniState({commit}, val) {
-        commit('setSelectPopUpUniState', val);
-    },
-    updateSchoolName({commit, dispatch}, val) {
+    updateSchoolName({commit}, val) {
         if (!val) return;
             
         let uniId = val.id;
         let uniName = val.name;
         return universityService.assaignUniversity(uniId).then(() => {
             commit('setSchoolName', uniName);
-            //update profile data with new university
-            //let currentProfID = this.getters.accountUser.id;
-            dispatch('updateUniExists', true);
-            //dispatch("syncProfile", currentProfID);
             return true;
         });
     },
@@ -231,14 +187,14 @@ const actions = {
         commit('setUniversities', []);
     },
     updateClasses({commit}, val) {
-     return  universityService.getCourse(val).then(data => {
+     return  courseService.getCourse(val).then(data => {
             commit('setClasses', data);
             return data;
      });
     },
     addClasses({commit}, val){
         if(val || val === ''){
-            return universityService.getCourse(val).then(data => {
+            return courseService.getCourse(val).then(data => {
                 commit('addClasses', data);
                 return data;
             }, () => {
@@ -250,8 +206,7 @@ const actions = {
         commit('setClasses', []);
     },
     deleteClass({commit}, val) {
-        let name = val.text;
-        return universityService.deleteCourse(name).then((resp) => {
+        return courseService.deleteCourse(val).then((resp) => {
             commit('deleteCourse', val);
             //clean cached list
             commit('deleteFromCachedList', val);
@@ -268,9 +223,9 @@ const actions = {
     pushClassToSelectedClasses({commit}, val) {
         commit('pushClass', val);
     },
-    assignClasses({state, dispatch}, courses) {
-        let coursesToSend = courses ? courses : state.selectedClasses;
-        return universityService.assaignCourse(coursesToSend).then(() => {
+    assignClasses({dispatch}, course) {
+        let courseName = [{name: course}]
+        return courseService.assaignCourse(courseName).then(() => {
             //Update Filters in note page
             dispatch('changeReflectChangeToPage');
             Promise.resolve(true);
@@ -287,18 +242,6 @@ const actions = {
             dispatch('setSelectedClasses', [].concat(state.selectedClassesCache));
         }
     },
-    updateCurrentStep({commit, state}, val) {
-        if(state.stepArr.indexOf(val) > -1) {
-            commit("setCurrentStep", val);
-        }
-    },
-    setUniversityPopStorage_session({commit, state}) {
-        let localPopedItem = state.universityPopStorage.local;
-        if(localPopedItem < 3) {
-            localPopedItem++;
-            commit('setUniversityPopStorage', localPopedItem);
-        }
-    },
     releaseResultLock({commit}, val) {
         if(val === "uni") {
             commit('openResultLockForSchoolNameChange');
@@ -309,9 +252,6 @@ const actions = {
     },
     updateSelectForTheFirstTime({commit}, val) {
         commit('setSelectForTheFirstTime', val);
-    },
-    closeSelectUniFromNav({commit}) {
-        commit('setSelectUniState', false);
     },
     changeCreateDialogState({commit}, val) {
         commit('updateCreateDialogState', val);

@@ -11,7 +11,7 @@
           :class="{'hidden-md-and-down': index+1 == categoriesCardsCarousel.length}"
           :style="{'backgroundImage': `url(${getImg(card.img)}`}"
         >
-          <span class="card-title">{{card.name}}</span>
+          <span class="card-title card-title-img">{{card.name}}</span>
         </router-link>
       </sbCarousel>
       <div v-else class="categories-chips">
@@ -62,7 +62,6 @@ import pplSVG from "../images/ppl.svg";
 import vidSVG from "../images/vid.svg";
 import sbCarousel from "../../sbCarousel/sbCarousel.vue";
 import { LanguageService } from "../../../services/language/languageService.js";
-import { mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -72,13 +71,11 @@ export default {
     sbCarousel
   },
   methods: {
-    ...mapMutations(['UPDATE_SEARCH_LOADING']),
     getImg(path) {
       return require(`${path}`);
     },
     update(name){
-      this.UPDATE_SEARCH_LOADING(true)
-      this.$router.push({ path: '/feed', query: {term: name}})
+      this.$router.push({ name: 'feed', query: {term: name}})
     }
   },
   computed: {
@@ -156,6 +153,12 @@ export default {
         position: absolute;
         left: 14px;
         top: 8px;
+        font-size: 14px;
+        line-height: normal;
+        &.card-title-img{
+          font-size: 18px;
+          font-weight: 600;
+        }
       }
     }
     .categories-chips {
@@ -175,6 +178,7 @@ export default {
         border-radius: 20px;
         border: solid 1px #4c59ff;
         color: #4c59ff
+        
       }
     }
   }
@@ -198,6 +202,7 @@ export default {
         padding: 16px 0 4px 0;
       }
       .banner-title {
+        line-height: normal;
         @media (max-width: @sbScreen-tablet) {
           text-align: center;
 
@@ -252,6 +257,9 @@ export default {
           position: absolute;
           left: 14px;
           top: 8px;
+          line-height: normal;
+          font-size: 18px;
+          font-weight: 600;
         }
       }
     }

@@ -6,8 +6,8 @@
               <img :src="voiceErrorImg" alt="">
           </v-layout>
           <v-layout class="ewar-btns-container">
-              <v-btn @click="tryAgain" depressed round class="actions-try"><span v-language:inner="'tutor_ewar-try-again'"></span></v-btn>
-              <v-btn @click="ignoreError" depressed round class="actions-continue"><span v-language:inner="'tutor_ewar-continue-without-audio'"></span></v-btn>
+              <v-btn @click="tryAgain" depressed rounded class="actions-try"><span v-language:inner="'tutor_ewar-try-again'"></span></v-btn>
+              <v-btn @click="ignoreError" depressed rounded class="actions-continue"><span v-language:inner="'tutor_ewar-continue-without-audio'"></span></v-btn>
           </v-layout>
       </v-container>
   </div>

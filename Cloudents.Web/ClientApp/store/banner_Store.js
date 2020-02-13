@@ -1,38 +1,45 @@
-import bannerService from '../services/bannerService.js'
+import homePageService from '../services/homePageService.js'
+
+const BANNER_STORAGE_NAME = "sb_banner";
 
 const state = {
-    bannerSatus: false, 
     bannerParams: null,
 };
 const mutations = {
-    setBannerSatus: (state,val) => state.bannerSatus = val,
     setBannerParams: (state,val) => state.bannerParams = val,
 };
 const getters = {
-    getBannerSatus: state => state.bannerSatus,
     getBannerParams: state => state.bannerParams,
 };
 const actions = {
-    updateBannerSatus({commit,state,dispatch},val){
+    updateBannerStatus({commit,state,dispatch},val){
         if(val){
             dispatch('updateBannerParams');
         }else{
-            bannerService.bannerStorage(state.bannerParams.id);
-            commit('setBannerSatus',false);
+            let bannerId = state.bannerParams.id;
+            let localStorageList = JSON.parse(global.localStorage.getItem(BANNER_STORAGE_NAME));
+            if(localStorageList == null){
+                localStorageList = JSON.stringify([bannerId]);
+                global.localStorage.setItem(BANNER_STORAGE_NAME,localStorageList);  
+            }else{
+                localStorageList = JSON.stringify(localStorageList.push(bannerId));
+                global.localStorage.setItem(BANNER_STORAGE_NAME,localStorageList); 
+            }
+            commit('setBannerParams',null);
         }
     },
     updateBannerParams({commit}){
-        bannerService.getBannerParams().then(params=>{ 
-            if(!!params && params.id){
-                let localStorageList = JSON.parse(global.localStorage.getItem("sb_banner"));
-                if(localStorageList !== null && localStorageList.includes(params.id)){
-                    commit('setBannerSatus',false);
+        homePageService.getBannerParams().then(params => {
+            params = params || {};
+            if(params.id){
+                let localStorageList = JSON.parse(global.localStorage.getItem(BANNER_STORAGE_NAME));
+                if(localStorageList && localStorageList.includes(params.id)){
+                    commit('setBannerParams',null);
                 }else{
-                    commit('setBannerSatus',true);
                     commit('setBannerParams',params);
                 }
             }else{
-                commit('setBannerSatus',false);
+                commit('setBannerParams',null);
             }
         });
     }

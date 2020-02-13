@@ -175,24 +175,6 @@ Try connecting from a computer browser</value>
   <data name="option_videoFull" xml:space="preserve">
     <value>Full Video</value>
   </data>
-  <data name="quality_allowed_looks_like" xml:space="preserve">
-    <value>We were not able to access your camera and/or your microphone. It looks like one of your devices is in use by another application, or is disabled in your system settings.</value>
-  </data>
-  <data name="quality_allowed_press" xml:space="preserve">
-    <value> Press Refresh after allowing access.</value>
-  </data>
-  <data name="quality_allowed_tip_one" xml:space="preserve">
-    <value>Tip</value>
-  </data>
-  <data name="quality_allowed_tip_two" xml:space="preserve">
-    <value>Make sure your camera and microphone are enabled in your system settings, close any other tabs or applications, and reconnect.</value>
-  </data>
-  <data name="quality_allowed_title" xml:space="preserve">
-    <value>To communicate with the other participant, allow your web browser to access the camera and microphone.</value>
-  </data>
-  <data name="quality_btn_done" xml:space="preserve">
-    <value>Done</value>
-  </data>
   <data name="start_dialog_your_student" xml:space="preserve">
     <value>Your student is</value>
   </data>
@@ -225,9 +207,6 @@ Try connecting from a computer browser</value>
   </data>
   <data name="stream_btn_start_session_student" xml:space="preserve">
     <value>Join Session</value>
-  </data>
-  <data name="stream_btn_start_student" xml:space="preserve">
-    <value>Start Session</value>
   </data>
   <data name="stream_btn_start_tutor" xml:space="preserve">
     <value>Start Session</value>

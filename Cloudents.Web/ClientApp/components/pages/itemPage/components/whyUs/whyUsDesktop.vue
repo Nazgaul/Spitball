@@ -1,48 +1,63 @@
 <template>
-    <div :class="['itemPage__side',{'itemPage__sideActiveBanner':getBannerSatus}]" v-if="showBlock">
-        <template v-if="!zeroPrice && !isPurchased">
-            <div class="itemPage__side__top">
-                <div class="itemPage__side__top__price">{{priceWithComma}}</div>
-                <span class="itemPage__side__top__pts" v-language:inner="'documentPage_points'"></span>
+    <div v-if="showBlock" :class="['itemPage__side',{'itemPage__sideActiveBanner':getBannerParams}]">
+        <template v-if="!isLoading">
+            <template v-if="!zeroPrice && !isPurchased">
+                <div class="itemPage__side__top">
+                    <div class="itemPage__side__top__price">{{priceWithComma}}</div>
+                    <span class="itemPage__side__top__pts" v-language:inner="'documentPage_points'"></span>
+                </div>
+                <div class="itemPage__side__credit" v-language:inner="'documentPage_credit_uploader'"></div>
+            </template>
+            <v-btn 
+                class="itemPage__side__btn white--text"
+                depressed
+                block
+                rounded
+                large
+                :loading="isLoading"
+                @click="openPurchaseDialog"
+                v-if="!isPurchased || isVideo"
+                color="#4c59ff">
+                    <span v-if="isVideo" v-language:inner="'documentPage_unlock_video_btn'"></span>
+                    <span v-else v-language:inner="'documentPage_unlock_document_btn'"></span>
+            </v-btn>
+            <v-btn
+                v-else
+                large
+                tag="a"
+                :href="`${$route.path}/download`"
+                target="_blank"
+                :loading="isLoading"
+                class="itemPage__side__btn white--text"
+                depressed block rounded @click="downloadDoc" color="#4c59ff">
+                <span v-language:inner="'documentPage_download_btn'"></span>
+            </v-btn>
+            <div class="itemPage__side__bottom">
+                <div class="itemPage__side__bottom__cont mb-3">
+                    <shield class="itemPage__side__bottom__cont__icon"></shield>
+                    <span class="itemPage__side__bottom__cont__span" v-language:inner="'documentPage_money_back'"></span>
+                </div>
+                <div class="itemPage__side__bottom__cont mb-3">
+                    <secure class="itemPage__side__bottom__cont__icon"></secure>
+                    <span class="itemPage__side__bottom__cont__span" v-language:inner="'documentPage_secure_payment'"></span>
+                </div>
+                <div class="itemPage__side__bottom__cont mb-3">
+                    <exams class="itemPage__side__bottom__cont__icon"></exams>
+                    <span class="itemPage__side__bottom__cont__span" v-language:inner="'documentPage_prepared_exams'"></span>
+                </div>
             </div>
-            <div class="itemPage__side__credit" v-language:inner="'documentPage_credit_uploader'"></div>
         </template>
-        <v-btn 
-            class="itemPage__side__btn white--text"
-            depressed
-            block
-            round
-            :loading="isLoading"
-            @click="openPurchaseDialog"
-            v-if="!isPurchased || isVideo"
-            color="#4c59ff">
-                <span v-if="isVideo" v-language:inner="'documentPage_unlock_video_btn'"></span>
-                <span v-else v-language:inner="'documentPage_unlock_document_btn'"></span>
-        </v-btn>
-        <v-btn
-            v-else
-            tag="a"
-            :href="`${$route.path}/download`"
-            target="_blank"
-            :loading="isLoading"
-            class="itemPage__side__btn white--text"
-            depressed block round @click="downloadDoc" color="#4c59ff">
-            <span v-language:inner="'documentPage_download_btn'"></span>
-        </v-btn>
-        <div class="itemPage__side__bottom">
-            <div class="itemPage__side__bottom__cont mb-3">
-                <shield class="itemPage__side__bottom__cont__icon"></shield>
-                <span class="itemPage__side__bottom__cont__span" v-language:inner="'documentPage_money_back'"></span>
-            </div>
-            <div class="itemPage__side__bottom__cont mb-3">
-                <secure class="itemPage__side__bottom__cont__icon"></secure>
-                <span class="itemPage__side__bottom__cont__span" v-language:inner="'documentPage_secure_payment'"></span>
-            </div>
-            <div class="itemPage__side__bottom__cont mb-3">
-                <exams class="itemPage__side__bottom__cont__icon"></exams>
-                <span class="itemPage__side__bottom__cont__span" v-language:inner="'documentPage_prepared_exams'"></span>
-            </div>
-        </div>
+
+        <template v-else>
+            <v-sheet color="#fff" class="skeletonWrap">
+                <v-skeleton-loader class="ml-auto mb-2" type="text" max-width="40"></v-skeleton-loader>
+                <v-skeleton-loader class="mx-auto mb-2" type="text" max-width="200"></v-skeleton-loader>
+                <v-skeleton-loader class="skeletonButton mb-4" type="button"></v-skeleton-loader>
+                <v-skeleton-loader class="mb-2" type="text"></v-skeleton-loader>
+                <v-skeleton-loader class="mb-2" type="text" max-width="200"></v-skeleton-loader>
+                <v-skeleton-loader class="mb-2" type="text" max-width="200"></v-skeleton-loader>
+            </v-sheet>
+        </template>
         <!-- TODO: apply coupon -->
         <!-- <div></div> -->
     </div>
@@ -69,7 +84,7 @@ export default {
         secure,
     },
     computed: {
-        ...mapGetters(['accountUser', 'getBtnLoading','getBannerSatus']),
+        ...mapGetters(['accountUser', 'getBtnLoading','getBannerParams']),
 
         showBlock() {
             if(this.isVideo) {
@@ -194,7 +209,7 @@ export default {
             margin-bottom: 25px;
             text-transform: initial;
             font-weight: 600;
-            font-size: 20px;
+            font-size: 20px !important;
 
             div {
                 margin-bottom: 2px;
@@ -228,6 +243,14 @@ export default {
                     font-style: normal;
                     line-height: 1.62;
                     letter-spacing: normal;
+                }
+            }
+        }
+        .skeletonWrap {
+            .skeletonButton {
+                .v-skeleton-loader__button {
+                    width: 100%;
+                    border-radius: 20px;
                 }
             }
         }

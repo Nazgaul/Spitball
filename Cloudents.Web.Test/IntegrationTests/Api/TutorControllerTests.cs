@@ -18,26 +18,26 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
 
-        [Theory]
-        [InlineData(false)]
-        [InlineData(true)]
-        public async Task GetAsync_ReturnResult_OK(bool logIn)
-        {
-            if (logIn)
-            {
-                await _client.LogInAsync();
-            }
-            var response = await _client.GetAsync("api/tutor");
-            response.EnsureSuccessStatusCode();
-            var str = await response.Content.ReadAsStringAsync();
-            str.IsValidJson().Should().BeTrue();
-        }
+        //[Theory]
+        //[InlineData(false)]
+        //[InlineData(true)]
+        //public async Task GetAsync_ReturnResult_OKAsync(bool logIn)
+        //{
+        //    if (logIn)
+        //    {
+        //        await _client.LogInAsync();
+        //    }
+        //    var response = await _client.GetAsync("api/tutor");
+        //    response.EnsureSuccessStatusCode();
+        //    var str = await response.Content.ReadAsStringAsync();
+        //    str.IsValidJson().Should().BeTrue();
+        //}
 
 
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
-        public async Task GetAsyncWithCourse_ReturnResult_OK(bool logIn)
+        public async Task GetAsyncWithCourse_ReturnResult_OKAsync(bool logIn)
         {
             if (logIn)
             {
@@ -60,7 +60,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [InlineData("Math", true, 0)]
         [InlineData("", true, 0)]
         [InlineData("", true, 1)]
-        public async Task GetAsync_Search_Without_Results(string term, bool logIn, int page)
+        public async Task GetAsync_Search_Without_ResultsAsync(string term, bool logIn, int page)
         {
 
             if (logIn)
@@ -77,12 +77,12 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Theory]
-        [InlineData("api/tutor")]
+        //[InlineData("api/tutor")]
         [InlineData("api/tutor/search")]
         [InlineData("api/tutor/search?term=ram")]
         [InlineData("api/tutor/search?term=saul%20goodman")]
         [InlineData("api/tutor/reviews")]
-        public async Task GetAsync_Tutor_Ok(string uri)
+        public async Task GetAsync_Tutor_OkAsync(string uri)
         {
             var response = await _client.GetAsync(uri);
 
@@ -94,7 +94,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         [InlineData("api/tutor/calendar/list")]
         [InlineData("api/tutor/calendar/events?from=2019-11-18T05:48:47.649Z&to=2019-11-18T07:48:47.649Z")]
-        public async Task GetAsync_Tutor_Unauthorized(string uri)
+        public async Task GetAsync_Tutor_UnauthorizedAsync(string uri)
         {
             var response = await _client.GetAsync(uri);
 
@@ -104,7 +104,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         [Theory]
         [InlineData("api/tutor/calendar/list")]
         [InlineData("api/tutor/calendar/events?from=2019-11-18T05:48:47.649Z&to=2019-11-18T07:48:47.649Z&tutorid=159489")]
-        public async Task GetAsync_Tutor_Calendar_OK(string uri)
+        public async Task GetAsync_Tutor_Calendar_OKAsync(string uri)
         {
             await _client.LogInAsync();
 
@@ -116,7 +116,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         }
 
         [Fact]
-        public async Task GetAsync_Tutor_Search_Count()
+        public async Task GetAsync_Tutor_Search_CountAsync()
         {
             var response = await _client.GetAsync("api/tutor/search?page=0&pageSize=10&term=");
             response.StatusCode.Should().Be(HttpStatusCode.OK);

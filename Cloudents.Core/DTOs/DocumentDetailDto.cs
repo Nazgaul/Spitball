@@ -6,6 +6,10 @@
         public DocumentFeedDto Document{ get; set; }
         public int Pages { get; set; }
         public bool IsPurchased { get; set; }
+
+        public long? DuplicateId { get; set; }
+
+        public bool ShouldSerializeDuplicateId() => false;
     }
 
     //public class DocumentUserDto 

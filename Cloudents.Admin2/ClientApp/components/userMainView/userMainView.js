@@ -50,7 +50,8 @@ export default {
             dialogs: {
                 name: false,
                 phone: false,
-                price: false
+                price: false,
+                type: false
             },
             currentFirstName: '',
             currentLastName: '',
@@ -67,7 +68,9 @@ export default {
             valid: true,
             requiredRules: [
                 v => !!v || 'Name is required'
-            ]
+            ],
+            userTypes: [],
+            selectedType:''
         };
     },
 
@@ -106,6 +109,8 @@ export default {
             "setTokensDialogState",
             "setSuspendDialogState",
             "getUserData",
+            "getUserTypes",
+            "updateUserType",
             "setUserCurrentStatus",
             "verifyUserPhone",
             "getUserPurchasedDocuments",
@@ -121,12 +126,6 @@ export default {
             "updateTutorPrice",
             "removeCalender"
         ]),
-       
-        resetUserData() {
-            // reinit scrollfunc data and clear store ib new user data requested
-            this.clearUserState();
-
-        },
         showSuspendDialog() {
             this.setSuspendDialogState(true);
         },
@@ -164,7 +163,7 @@ export default {
             self.getUserData(id)
                 .then((data) => {
                     if(data &&  data.id && data.id.value){
-                        this.userIdentifier = id;
+                        this.userIdentifier = data.id.value;
                         //let routerName = this.$route.name && this.$route.name !== 'userMainView' ? this.$route.name : 'userQuestions';
                         self.$router.push({name: 'userConversations', params: {userId: data.id.value}});
                     }
@@ -282,8 +281,7 @@ export default {
             };
             this.updateUserPhone(phoneObj).then(() => {
                 this.$toaster.success(`SUCCESS: update user name`);
-            },
-            () => {
+            }).catch(() => {
                 this.$toaster.error(`ERROR: update user phone`);
             })
             .finally(() => {
@@ -314,8 +312,29 @@ export default {
             }).catch(() => {
                 this.$toaster.error(`Error: delete user payment`);
             });
+        },
+        openEditUserTypeDialog(id){
+            let self = this;
+            if(self.userTypes.length == 0){
+            self.getUserTypes(id).then((data) =>{
+                self.dialogs.type = true;
+                self.userIdentifier = id;
+                self.userTypes = data;
+            });
+            } else { 
+                self.dialogs.type = true;
+            }
+        },
+        editUserType(){
+            this.updateUserType({userId: this.userIdentifier, userType: this.selectedType}).then(() =>{
+                this.dialogs.type = false;
+                this.$toaster.success(`Success: edit user type`)
+                }).catch(() => {
+                    this.$toaster.error(`Error: edit user type`);
+                });
         }
     },
+
     created() {
         this.getRouteParams();
     },

@@ -47,7 +47,7 @@ namespace Cloudents.Web.Extensions
         /// <returns>link</returns>
         public static string NextPageLink(this IUrlHelper urlHelper, string routeName, object routeValue, IPaging queryString)
         {
-            queryString.Page = queryString.Page + 1;
+            queryString.Page += 1;
             return Link(urlHelper, routeName, routeValue, queryString);
         }
 
@@ -129,6 +129,27 @@ namespace Cloudents.Web.Extensions
             });
         }
     }
+
+    //public static class UriExtensions
+    //{
+    //    public static string RemoveQueryStringByKey(this Uri uri, string key)
+    //    {
+
+    //        var newQueryString = QueryHelpers.ParseQuery(uri.Query);
+    //        // this gets all the query string key value pairs as a collection
+    //        //var newQueryString = HttpUtility.ParseQueryString(uri.Query);
+
+    //        // this removes the key if exists
+    //        newQueryString.Remove(key);
+
+    //        // this gets the page path from root without QueryString
+    //        string pagePathWithoutQueryString = uri.GetLeftPart(UriPartial.Path);
+
+    //        return newQueryString.Count > 0
+    //            ? String.Format("{0}?{1}", pagePathWithoutQueryString, newQueryString)
+    //            : pagePathWithoutQueryString;
+    //    }
+    //}
 
     public sealed class IgnoreNextPageLinkAttribute : Attribute
     {

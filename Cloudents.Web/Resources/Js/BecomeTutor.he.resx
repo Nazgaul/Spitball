@@ -130,7 +130,7 @@
     <value>חזור</value>
   </data>
   <data name="btn_cal_connect" xml:space="preserve">
-    <value>חבר את יומן גוגל שלך</value>
+    <value>חיבור יומן גוגל שלך</value>
   </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>בטל</value>
@@ -175,7 +175,7 @@
     <value>שם משפחה</value>
   </data>
   <data name="placeholder_price" xml:space="preserve">
-    <value>מחיר לשעה ב- {1}</value>
+    <value>מחיר לשעה ב- {0}</value>
   </data>
   <data name="select_calendar_title" xml:space="preserve">
     <value>בחר אילו יומנים לחבר עם מערכת זימון פגישות של ספיטבול</value>
@@ -185,9 +185,6 @@
   </data>
   <data name="sharing_step_1" xml:space="preserve">
     <value>שיתוף המידע שלך ישיג יותר תגובות מסטודנטים</value>
-  </data>
-  <data name="sharing_step_2" xml:space="preserve">
-    <value>שיתוף המידע והרקע שלך ישיג יותר תגובות מסטודנטים</value>
   </data>
   <data name="title_become" xml:space="preserve">
     <value>הירשם כמורה פרטי</value>

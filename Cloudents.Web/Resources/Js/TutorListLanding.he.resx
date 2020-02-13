@@ -142,6 +142,9 @@
   <data name="footer_links_about" xml:space="preserve">
     <value>אודות ספיטבול</value>
   </data>
+  <data name="footer_links_blog" xml:space="preserve">
+    <value>בלוג</value>
+  </data>
   <data name="footer_links_contact" xml:space="preserve">
     <value>צור קשר</value>
   </data>
@@ -161,10 +164,13 @@
     <value>תנאי שימוש</value>
   </data>
   <data name="header_find_tutors" xml:space="preserve">
-    <value>למימוש קופון, בקרו בפרופיל המורה</value>
+    <value>שיעור ראשון חינם - במימוש קופון: חינם1</value>
   </data>
   <data name="header_get_lesson" xml:space="preserve">
     <value>מורים פרטיים מעולים שמחויבים להצלחה שלך</value>
+  </data>
+  <data name="header_get_lesson_subject" xml:space="preserve">
+    <value>מורים פרטיים מעולים ב{1} שמחויבים להצלחה שלך</value>
   </data>
   <data name="reviews" xml:space="preserve">
     <value>ביקורות</value>

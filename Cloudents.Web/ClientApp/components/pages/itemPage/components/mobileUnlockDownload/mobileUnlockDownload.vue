@@ -10,7 +10,8 @@
                 class="mobileUnlockDownload__action__btn"
                 depressed
                 block
-                round
+                large
+                rounded
                 :loading="isLoading"
                 @click="openPurchaseDialog"
                 v-if="!isPurchased || isVideo"
@@ -21,13 +22,14 @@
             <v-btn
                 v-else
                 tag="a"
+                large
                 :href="`${$route.path}/download`"
                 target="_blank"
                 class="mobileUnlockDownload__action__btn"
                 depressed
                 :loading="isLoading"
                 block
-                round
+                rounded
                 @click="downloadDoc" color="#4c59ff">
                     <span v-language:inner="'documentPage_download_btn'"></span>
             </v-btn>
@@ -136,7 +138,6 @@ export default {
     background: white;
     width: 100%;
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.22);
-    height: 84px;
     color: #4d4b69;
     position: fixed;
     bottom: 0;
@@ -144,7 +145,7 @@ export default {
     right: 0;
     padding: 8px 0;
     text-align: center;
-    z-index: 4;
+    z-index: 10;
     margin-top: 20px;
     
     &--sticky {

@@ -4,7 +4,7 @@
         <div class="testimonialCard-top">
             <img class="quote-card" src="./image/quote.png" alt="">
             <p class="testimonialCard-txt">{{item.text}}</p>
-            <h1 class="t-name text-truncate">{{item.userName}}</h1>
+            <div class="t-name text-truncate">{{item.userName}}</div>
         </div>
         <div class="tutorInfoT">
             <UserAvatar class="tutorImg-t" :size="'54'" 
@@ -23,12 +23,11 @@
 </template>
 
 <script>
-import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
 import userRating from "../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
 
 
 export default {
-    components:{UserAvatar,userRating},
+    components:{userRating},
     props:{
         item:{
             type:Object,

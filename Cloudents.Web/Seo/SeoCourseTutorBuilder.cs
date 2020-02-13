@@ -24,7 +24,7 @@ namespace Cloudents.Web.Seo
         }
 
 
-        public IEnumerable<SitemapNode> GetUrls(int index)
+        public IEnumerable<SitemapNode> GetUrls(bool isFrymo, int index)
         {
             var urlBase = _linkGenerator.GetUriByRouteValues(_httpContextAccessor.HttpContext, SeoTypeString.TutorList, new
             {
@@ -37,13 +37,35 @@ namespace Cloudents.Web.Seo
             };
 
             const int pageSize = 50;
-            var query = from tutor in _session.Query<Tutor>().Fetch(f => f.User)
-                        join userCourse in _session.Query<UserCourse>() on tutor.Id equals userCourse.User.Id
-                        where tutor.State == ItemState.Ok
-                              && userCourse.CanTeach && tutor.User.Country != Country.India.Name
-                        group userCourse by userCourse.Course.Id
-                into newGroup
-                        select new { Course = newGroup.Key, Count = newGroup.Count() };
+
+            var t = _session.Query<Tutor>().Fetch(f => f.User)
+                 .Join(_session.Query<UserCourse>(), x => x.Id, z => z.User.Id, (tutor, course) => new
+                 {
+                     tutor,
+                     course
+                 })
+                 .Where(w => w.tutor.State == ItemState.Ok)
+                 .Where(w => w.course.IsTeach);
+
+            if (isFrymo)
+            {
+                t = t.Where(w => w.tutor.User.Country == Country.India.Name);
+            }
+            else
+            {
+                t = t.Where(w => w.tutor.User.Country != Country.India.Name);
+            }
+
+            var query = t.GroupBy(x => x.course.Course.Id).Select(s => new { Course = s.Key, Count = s.Count() });
+
+
+            //var query = from tutor in _session.Query<Tutor>().Fetch(f => f.User)
+            //            join userCourse in _session.Query<UserCourse>() on tutor.Id equals userCourse.User.Id
+            //            where tutor.State == ItemState.Ok
+            //            where CountryFilter(userCourse, tutor, isFrymo)
+            //            group userCourse by userCourse.Course.Id
+            //    into newGroup
+            //            select new { Course = newGroup.Key, Count = newGroup.Count() };
             foreach (var group in query)
             {
                 for (var i = 0; i <= group.Count / pageSize; i++)
@@ -61,9 +83,18 @@ namespace Cloudents.Web.Seo
                         TimeStamp = DateTime.UtcNow
                     };
                 }
-                
-               
+
+
             }
         }
+
+        //private static bool CountryFilter(UserCourse userCourse, Tutor tutor, bool isFrymo)
+        //{
+        //    if (isFrymo)
+        //    {
+        //        return userCourse.IsTeach && tutor.User.Country == Country.India.Name;
+        //    }
+        //    return userCourse.IsTeach && tutor.User.Country != Country.India.Name;
+        //}
     }
 }

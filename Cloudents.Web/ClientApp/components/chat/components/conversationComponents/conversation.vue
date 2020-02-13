@@ -27,14 +27,12 @@
 </template>
 
 <script>
-import UserAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import userOnlineStatus from "../../../helpers/userOnlineStatus/userOnlineStatus.vue";
 import timeAgoService from '../../../../services/language/timeAgoService';
 
 export default {
   components: {
-    UserAvatar,
     userOnlineStatus
   },
   props: {

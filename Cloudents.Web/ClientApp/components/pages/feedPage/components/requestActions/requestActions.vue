@@ -4,21 +4,25 @@
       <userAvatar :size="'34'" :userImageUrl="userImageUrl" :user-name="userName" :user-id="userID"/>
       <span @click="openAskQuestion()" class="rA_txt text-truncate" v-html="$Ph('requestActions_title',userName)" />
     </div>
-    <v-layout row class="rA_bottom">
+    <v-layout class="rA_bottom">
       <v-flex xs4 class="rA_btn">
-        <v-btn :ripple="false" depressed flat block @click="openRequestTutor()" sel="request">
+        <v-btn :ripple="false" depressed text block @click="openRequestTutor()" sel="request">
           <rTutor class="rA_i" />
           <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_tutor_mob':'requestActions_btn_tutor'"/>
         </v-btn>
       </v-flex>
       <v-flex xs4 class="rA_btn">
-        <v-btn :ripple="false" flat block @click="openUpload()" sel="upload">
+        <!-- <v-btn :ripple="false" text block @click="openUpload()" sel="upload">
+          <uStudy class="rA_i mr-1" />
+          <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_upload_mob':'requestActions_btn_upload'"/>
+        </v-btn> -->
+        <v-btn :ripple="false" text block @click="openUpload()" sel="upload">
           <uStudy class="rA_i mr-1" />
           <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_upload_mob':'requestActions_btn_upload'"/>
         </v-btn>
       </v-flex>
       <v-flex xs4 class="rA_btn">
-        <v-btn :ripple="false" flat block @click="openAskQuestion()" sel="ask">
+        <v-btn :ripple="false" text block @click="openAskQuestion()" sel="ask">
           <aQuestion class="rA_i" />
           <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_ask_mob':'requestActions_btn_ask'"/>
         </v-btn>
@@ -29,7 +33,6 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import userAvatar from "../../../../helpers/UserAvatar/UserAvatar.vue";
 import analyticsService from "../../../../../services/analytics.service";
 
 import aQuestion from "./image/aQuestion.svg";
@@ -38,28 +41,26 @@ import uStudy from "./image/uStudy.svg";
 
 export default {
   name: "requestActions",
-  components: { userAvatar, uStudy, rTutor, aQuestion },
+  components: {uStudy, rTutor, aQuestion },
   computed: {
-    ...mapGetters(["accountUser", "getSchoolName", "getSelectedClasses"]),
+    ...mapGetters(["accountUser", "getSelectedClasses",'getUserLoggedInStatus']),
     userImageUrl() {
-      if (this.accountUser && this.accountUser.image.length > 1) {
+      if(this.getUserLoggedInStatus && this.accountUser.image.length > 1) {
         return `${this.accountUser.image}`;
       }
       return "";
     },
     userName() {
-      if (this.accountUser && this.accountUser.name.length > 1) {
-        return `, ${this.accountUser.name}?`;
-      } 
-      //Ram dont want John doe
-      return '?';//LanguageService.getValueByKey('requestActions_anonymous')
-      
+      if(this.getUserLoggedInStatus){
+          return `, ${this.accountUser.name}?`;
+      }
+      return '?';
     },
     userID() {
-      if (this.accountUser && this.accountUser.id) {
+      if(this.getUserLoggedInStatus){
         return this.accountUser.id;
       }
-      return null
+      return null;
     }
   },
   methods: {
@@ -79,16 +80,14 @@ export default {
       }
     },
     openUpload() {
-      let schoolName = this.getSchoolName;
       if (this.accountUser == null) {
         this.updateLoginDialogState(true);
-      } else if (!schoolName.length) {
-        this.$router.push({ name: "addUniversity" });
-        this.setReturnToUpload(true);
-      } else if (!this.getSelectedClasses.length) {
+      } 
+      else if (!this.getSelectedClasses.length) {
         this.$router.push({ name: "addCourse" });
         this.setReturnToUpload(true);
-      } else if (schoolName.length > 0 && this.getSelectedClasses.length > 0) {
+      } 
+      else if (this.getSelectedClasses.length > 0) {
         this.updateDialogState(true);
         this.setReturnToUpload(false);
       }
@@ -102,15 +101,11 @@ export default {
         });
         this.updateRequestDialog(true);
       } else {
-        if (this.getSelectedClasses.length) {
-          this.setTutorRequestAnalyticsOpenedFrom({
-            component: "actionBox",
-            path: this.$route.path
-          });
-          this.updateRequestDialog(true);
-        } else {
-          this.$router.push({ name: "addCourse" });
-        }
+        this.setTutorRequestAnalyticsOpenedFrom({
+          component: "actionBox",
+          path: this.$route.path
+        });
+        this.updateRequestDialog(true);
       }
     }
   }

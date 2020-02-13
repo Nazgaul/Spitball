@@ -1,7 +1,9 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System.Linq;
+using Cloudents.Core.DTOs;
 using Dapper;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Query.Tutor
 {
@@ -19,22 +21,24 @@ namespace Cloudents.Query.Tutor
         private long UserId { get; }
         private string Country { get; }
         private int Page { get; }
-        public int PageSize { get; set; }
+        private int PageSize { get;  }
 
         internal sealed class TutorListQueryHandler : IQueryHandler<TutorListQuery, ListWithCountDto<TutorCardDto>>
         {
             private readonly IDapperRepository _dapper;
+            private readonly IUrlBuilder _urlBuilder;
 
-            public TutorListQueryHandler(IDapperRepository dapper)
+            public TutorListQueryHandler(IDapperRepository dapper, IUrlBuilder urlBuilder)
             {
                 _dapper = dapper;
+                _urlBuilder = urlBuilder;
             }
 
-            //TODO: review query 
             public async Task<ListWithCountDto<TutorCardDto>> GetAsync(TutorListQuery query, CancellationToken token)
             {
-                const string sql = @"Select rt.Id as UserId, rt.Name as 'Name', rt.ImageName as 'Image', rt.Courses, rt.Subjects, rt.Price,
-rt.Rate, rt.RateCount as ReviewsCount, rt.Bio, rt.University, rt.Lessons, rt.Country, rt.SubsidizedPrice
+                const string sql = @"Select rt.Id as UserId,
+rt.Name as 'Name', rt.ImageName as 'Image', rt.Courses, rt.Subjects, rt.Price,
+rt.Rate, rt.RateCount as ReviewsCount, rt.Bio, rt.University, rt.Lessons, rt.Country, rt.SubsidizedPrice as DiscountPrice
 from sb.ReadTutor rt
 where rt.Country = coalesce(@country, (select country from sb.[user] where Id = @userId))
 and rt.Id != @userId
@@ -68,7 +72,11 @@ and rt.Id != @userid;";
                     return new ListWithCountDto<TutorCardDto>()
                     {
                         Count = count,
-                        Result = tutor
+                        Result = tutor.Select(s =>
+                        {
+                            s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId,s.Image);
+                            return s;
+                        })
                     };
                 }
             }

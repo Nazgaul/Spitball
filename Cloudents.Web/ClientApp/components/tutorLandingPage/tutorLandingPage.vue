@@ -1,14 +1,19 @@
 <template>
-    <v-container class="tutor-landing-page-container">
-        <v-layout :class="`${isMobile ? 'pt-2 pb-5' : 'pt-1 pb-3'}`" px-4 class="tutor-landing-page-header" align-center justify-center column>
-            <v-flex pt-4 pb-3>
-                <h1 v-language:inner="'tutorListLanding_header_get_lesson'"></h1>
+    <div  class="tutor-landing-page-container">
+        <v-layout class="pt-2 pt-sm-1 pb-sm-4 tutor-landing-page-header"  px-6 align-center justify-center column>
+            <v-flex pt-6 pb-4>
+                <div v-if="subjectName" class="tutor-landing-title" v-text="$Ph('tutorListLanding_header_get_lesson_subject',subjectName)" />
+                <div v-else class="tutor-landing-title" v-language:inner="'tutorListLanding_header_get_lesson'"/>
             </v-flex>
-            <v-flex pb-4>
-                <h2 v-language:inner="'tutorListLanding_header_find_tutors'"></h2>
+            <v-flex pb-6>
+                <div class="tutor-landing-subtitle" v-language:inner="'tutorListLanding_header_find_tutors'"></div>
             </v-flex>
-            <v-flex :class="{'pb-4': !isMobile}">
-                <h3><span>95%</span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3>
+            <!-- <v-flex class="pb-6">
+                <h3><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3> -->
+            <v-flex class="pb-sm-6">
+                <span class="rating_tutorLanding">
+                    <span class="mr-1">95%</span>&nbsp;<v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp;<span class="ml-1" v-language:inner="'tutorListLanding_reviews'"></span>
+                </span>
             </v-flex>
         </v-layout>
         <v-layout class="tutor-landing-page-search" :class="{'sticky-active': activateSticky}" align-center justify-center>
@@ -17,28 +22,27 @@
             </div>
         </v-layout>
 
-        <v-layout column wrap class="tutor-landing-page-body">
-            <v-flex class="tutor-landing-page-empty-state">
-                <suggest-card v-if="items.length === 0 && query.term && showEmptyState" 
-                @click.native="openRequestTutor()" :name="'tutor-list'"></suggest-card>  
-            </v-flex>
-            <v-flex class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
-                <tutor-result-card v-if="!isMobile" class="mb-3 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
+        <div class="tutor-landing-page-body">
+            <div class="tutor-landing-page-empty-state" v-if="items.length === 0 && query.term && showEmptyState" >
+                <suggestCard/>
+            </div>
+            <div class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
+                <tutor-result-card v-if="!isMobile" class="mb-4 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
                 <tutor-result-card-mobile v-else class="mb-2 " :fromLandingPage="true" :tutorData="item"/>
-            </v-flex>   
-        </v-layout>
+            </div>   
+        </div>
         <div class="tutorLandingPage_pagination" v-if="items.length && pagination.length > 1">
             <v-pagination
                     total-visible=7 
                     v-model="pagination.current" 
                     :length="pagination.length"
-                    @next="goNext"
                     @input="goSelected"
-                    @previous="goPrevious"
                     :next-icon="`sbf-arrow-right-carousel`"
                     :prev-icon="`sbf-arrow-left-carousel`"/>
         </div>
-        <v-layout align-center py-5 justify-space-around class="tutor-landing-status-row">
+        <!-- <v-layout align-center py-12 justify-space-around class="tutor-landing-status-row">
+            <span class="hidden-xs-only"><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></span> -->
+        <v-layout align-center py-12 justify-space-around class="tutor-landing-status-row">
             <span class="hidden-xs-only"><span>95%</span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></span>
             <span class="hidden-xs-only" v-language:inner="'tutorListLanding_courses'"></span>
             <span v-language:inner="'tutorListLanding_tutors'"></span>
@@ -50,20 +54,19 @@
                 </sbCarousel>
             </div>
         </v-layout>
-    </v-container>
+    </div>
 </template>
 
 <script>
-import tutorResultCard from '../results/tutorCards/tutorResultCard/tutorResultCard.vue';
-import tutorResultCardMobile from '../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
-import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue';
-import tutorLandingPageService from './tutorLandingPageService';
-// import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
-import SuggestCard from '../results/suggestCard.vue';
-import analyticsService from '../../services/analytics.service.js';
+const tutorResultCard = () => import('../results/tutorCards/tutorResultCard/tutorResultCard.vue');
+const tutorResultCardMobile = () => import('../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
+const tutorSearchComponent = () => import('./components/tutorSearchInput/tutorSearchInput.vue');
+const suggestCard = () => import('../results/suggestCard.vue');
+const sbCarousel = () => import('../sbCarousel/sbCarousel.vue');
 
-import sbCarousel from '../sbCarousel/sbCarousel.vue';
-import testimonialCard from '../carouselCards/testimonialCard.vue';
+import testimonialCard from '../carouselCards/testimonialCard.vue'; // cant make it async ASK MAOR
+import tutorLandingPageService from './tutorLandingPageService';
+import courseService from '../../services/courseService.js';
 
 import { mapActions,mapGetters } from 'vuex'
 export default {
@@ -71,8 +74,7 @@ export default {
         tutorResultCard,
         tutorResultCardMobile,
         tutorSearchComponent,
-        // emptyStateCard,
-        SuggestCard,
+        suggestCard,
         sbCarousel,
         testimonialCard
     },
@@ -89,7 +91,8 @@ export default {
                 pageSize: 10,
             },
             showEmptyState: false,
-            topOffset: 0
+            topOffset: 0,
+            subjectName: null,
         }
     },
     computed:{
@@ -129,7 +132,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['setTutorRequestAnalyticsOpenedFrom','updateRequestDialog','updateHPReviews']),
+        ...mapActions(['updateHPReviews']),
         updateList(){            
             this.showEmptyState = false;
             let self = this;
@@ -137,29 +140,11 @@ export default {
                 self.items = data.result;
                 self.pagination.length = Math.ceil(data.count / self.query.pageSize)
                 self.showEmptyState = true;
-            })
-        },
-        goNext(){
-            this.showEmptyState = false;
-            this.$router.push({
-                path: `/tutor-list/${this.query.term}`,
-                query: {
-                    page: this.pagination.current -1,
-                },
-                params:{
-                    course: this.query.term
-                }
-            })
-        },
-        goPrevious(){
-            this.showEmptyState = false;
-             this.$router.push({
-                path: `/tutor-list/${this.query.term}`,
-                query: {
-                    page: this.pagination.current -1,
-                },
-                params:{
-                    course: this.query.term
+                self.subjectName = null;
+                if(this.query.term){
+                    courseService.getSubject({courseName: this.query.term}).then(res=>{
+                        self.subjectName = res.name;
+                    })
                 }
             })
         },
@@ -173,16 +158,8 @@ export default {
                 params:{
                     course: this.query.term
                 }
-            })
+            }).catch(() => {})
         },
-        openRequestTutor() {
-            analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
-            this.setTutorRequestAnalyticsOpenedFrom({
-                component: 'suggestCard',
-                path: this.$route.path
-            });
-            this.updateRequestDialog(true);
-        }
     },
     mounted() {
         if(!!this.$route.query && !!this.$route.query.size){
@@ -210,33 +187,44 @@ export default {
     padding: 0;
     margin: 0;
     .tutor-landing-page-star{
-        color:#ffca54;
+        color:#ffca54 !important;
         font-size: 20px;
+        line-height: normal;
     }
     .tutor-landing-page-header{
         position: relative;
         background-color: #1b2441;
-        h1{
+        padding-bottom:40px;
+        @media (max-width: @screen-xs) {
+            padding-bottom:48px;
+        }
+
+
+        .tutor-landing-title{
             text-align: center;
-            color: #5158af;
+            color: rgb(199, 88, 219) !important;
             font-size: 35px;
             font-weight: bold;
             @media (max-width: @screen-xs) {
                 font-size: 32px;
             }
         }
-        h2{
+        .tutor-landing-subtitle{
+            
             font-size: 25px;
             font-weight: bold;
             color: #ffffff;
             @media (max-width: @screen-xs) {
+                text-align: center;
                 font-size: 16px;
             }
         }
-        h3{
+        .rating_tutorLanding{
             font-size: 18px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.87);
+            display: inline-flex;
+            align-items: flex-end;
             @media (max-width: @screen-xs) {
                 font-size: 16px;
             }
@@ -276,11 +264,11 @@ export default {
                 box-shadow: unset;
                 border: 1px solid #b4b4b4;
             }
-            @media (max-width: @screen-xs) {
-                &.strech{
-                //    width: 100%;
-                }
-            }
+            // @media (max-width: @screen-xs) {
+            //     &.strech{
+            //     //    width: 100%;
+            //     }
+            // }
         }
     }
     .tutorLandingPage_pagination{
@@ -311,7 +299,7 @@ export default {
         }
     }
     .tutor-landing-page-body{
-        .responsive-property(margin-top, 15px, null, 0px);
+        .responsive-property(margin-top, 86px, null, 50px);
 
         .tutor-landing-page-empty-state{
             max-width: 920px; 
@@ -325,7 +313,7 @@ export default {
         .tutor-landing-card-container{
             margin: 0 auto;
             width: 100%;
-            max-width: 920px;
+            max-width: 920px !important; //issue with reload
             @media (max-width: @screen-xs) {
                 padding: 0;
             }
@@ -334,6 +322,8 @@ export default {
     .tutor-landing-status-row{
         background-color:#FFF;
         padding: 0 290px;
+        line-height: normal;
+        font-size: 14px;
         @media (max-width: @screen-md) {
             padding: 0;
         }

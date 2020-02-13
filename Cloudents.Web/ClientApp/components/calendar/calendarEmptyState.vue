@@ -11,7 +11,7 @@
             <calendarHoursCMP v-if="!isSelectCalendar && isSelectHours" class="my-3"/>
 
 
-            <v-btn color="#4452FC" round :loading='isLoading'
+            <v-btn color="#4452FC" rounded :loading='isLoading'
                     class="white--text elevation-0 calbtnshare"
                     @click="emptyStateFunctions">
                 <span v-language:inner="emptyStateResources"/>
@@ -95,8 +95,21 @@
                     return
                 }
                 if(!this.isSelectCalendar && this.isSelectHours){
-                    this.initCalendar()
-                    return
+                    if(this.$route.name === 'myCalendar'){
+                        this.isLoading = true;
+                        let self = this;
+                        this.updateSelectedCalendarList().then(()=>{
+                            self.updateAvailabilityCalendar().then(()=>{
+                                self.$emit('updateCalendar')
+                                self.isLoading = false;
+                            })
+                        })
+                        
+                        return
+                    }else{
+                        this.initCalendar()
+                        return
+                    }
                 }
             },
         },
@@ -147,6 +160,7 @@
 
 
             .v-btn{
+                min-width: 140px;
                 @media (max-width: @screen-xs) {
                   height: 46px;
               }  
