@@ -1,27 +1,21 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Di;
-using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
-using Newtonsoft.Json;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
@@ -37,7 +31,7 @@ namespace Cloudents.FunctionsV2
 
         private static readonly Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
         private static List<CloudBlockBlob> _blobs;
-        private static FontCollection _fontCollection = new FontCollection();
+        private static readonly FontCollection _fontCollection = new FontCollection();
 
 
         [FunctionName("ShareProfileImageFunction")]
@@ -96,6 +90,8 @@ namespace Cloudents.FunctionsV2
 
             using var profileImage = Image.Load<Rgba32>(profileImageStream);
             profileImage.Mutate(x => x.ApplyRoundedCorners(245f / 2));
+
+
             image.Mutate(context =>
             {
                 context.DrawImage(profileImage, new Point(148, 135), GraphicsOptions.Default);
@@ -103,14 +99,14 @@ namespace Cloudents.FunctionsV2
                     new TextGraphicsOptions()
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
-                        WrapTextWidth = 330f
+                        WrapTextWidth = 330f,
                     },
                     result.Name,
                     _fontCollection.CreateFont("open sans", 32, FontStyle.Regular),
                     Color.White,
                     new PointF(105f, 423));
             });
-            
+
             for (var i = 1; i <= 5; i++)
             {
                 byte[] byteArr;
@@ -140,32 +136,52 @@ namespace Cloudents.FunctionsV2
 
             await using var quoteSr = await _blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
 
+            const int descriptionSize = 255;
+            const int marginBetweenQuote = 28;
+            var quoteImage = Image.Load(quoteSr);
 
-            var descriptionImage = new Image<Rgba32>(675, 295);
-
+            var descriptionImage = new Image<Rgba32>(675, descriptionSize + marginBetweenQuote + quoteImage.Height);
+            result.Description =
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
             descriptionImage.Mutate(context =>
             {
-                var quoteImage = Image.Load(quoteSr);
-                var middle = descriptionImage.Width / 2 - quoteImage.Width / 2;
+                ReadOnlySpan<char> description = result.Description;
+                context.BackgroundColor(Color.Bisque);
+
+                var size = context.GetCurrentSize();
+
+                var middle = size.Width / 2 - quoteImage.Width / 2;
                 context.DrawImage(quoteImage, new Point(middle, 0), GraphicsOptions.Default);
                 var font = _fontCollection.CreateFont("Open Sans Semibold", 38, FontStyle.Bold);
+
                 var rendererOptions = new RendererOptions(font)
                 {
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    WrappingWidth = 675f,
+                    WrappingWidth = size.Width,
                 };
-                const int marginBetweenQuote = 28;
-                var textSize = TextMeasurer.Measure(result.Description, rendererOptions);
+                SizeF textSize;
+                while (true)
+                {
+                    textSize = TextMeasurer.Measure(description, rendererOptions);
+                    if (textSize.Height < descriptionSize)
+                    {
+                        break;
+                    }
+                    description = description.Slice(0, description.LastIndexOf(' '));
+                }
+
                 var location = new PointF(0, quoteImage.Height + marginBetweenQuote);
 
                 context.DrawText(new TextGraphicsOptions()
                 {
-                    WrapTextWidth = descriptionImage.Width,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    
-                }, result.Description, font, Color.FromHex("43425d"), location);
+                    WrapTextWidth = size.Width,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                }, description.ToString(), font, Color.FromHex("43425d"), location);
 
-                context.Crop(675, (int) (textSize.Height + location.Y));
+                var endHeight = textSize.Height + location.Y;
+                if (endHeight < size.Height)
+                {
+                    context.Crop(size.Width, (int)endHeight);
+                }
             });
 
 
@@ -173,7 +189,7 @@ namespace Cloudents.FunctionsV2
 
             image.Mutate(x => x.DrawImage(descriptionImage, new Point(493, middleY), GraphicsOptions.Default));
 
-           
+
 
             //image.Mutate(x=>x.DrawImage());
             return new ImageResult(image, TimeSpan.Zero);
