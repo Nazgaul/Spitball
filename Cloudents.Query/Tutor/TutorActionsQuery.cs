@@ -24,7 +24,8 @@ namespace Cloudents.Query.Tutor
             {
             456373,
             488449,
-            461552
+            461552,
+            159039
             };
             private readonly IStatelessSession _session;
             public TutorActionsQueryHandler(QuerySession session)
