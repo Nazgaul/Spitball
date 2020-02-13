@@ -3,11 +3,9 @@
 </template>
 
 <script>
-import dialogComponents from './import.js'
-import dialogConfing from './dialogConfing'
-
+import dialogMixin from './dialogMixin.js'
 export default {
-    mixins: [dialogComponents],
+    mixins: [dialogMixin],
     data: () => ({
         component: ''
     }),
@@ -15,18 +13,26 @@ export default {
         "$route.query.dialog": "openDialog"
     },
     methods: {
-        openDialog(component) {
-            let dialogName = dialogConfing.getDialog(component);
-            if(typeof dialogName === 'object'){
-                this.$router.push(dialogName);
-                return
-            }
-            if(dialogName){
-                dialogName !== component? this.$openDialog(dialogName) : this.component = dialogName;
-            }else{
-                this.$closeDialog()
+        openDialog(dialogNameFromRoute){
+            if(!dialogNameFromRoute){
                 this.component = ''
-            }
+                this.$closeDialog()
+                return;
+            }else{
+                let currentDialogPremissionList = this.dialogsPremissions[dialogNameFromRoute];
+                for(let premissionType of currentDialogPremissionList){
+                    let result = this.dialogHandlerByType(premissionType,dialogNameFromRoute)
+                    if(result === 'break'){
+                        this.component = 'break'
+                        break;
+                    }
+                }
+                if(this.component === 'break'){
+                    this.component = ''
+                }else{
+                    this.component = dialogNameFromRoute
+                }
+            }   
         }
     }
 }
