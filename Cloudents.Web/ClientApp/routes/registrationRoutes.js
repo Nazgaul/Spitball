@@ -161,21 +161,4 @@ export const registrationRoutes = [
         //     }
         // }
     },
-
-    {
-        path: "/student-or-tutor",
-        components: {
-            default: () => import(`../components/studentOrTutor/studentOrTutor.vue`),
-            ...staticComponents(['banner', 'header', 'sideMenu'])
-        },
-        name: "studentTutor",
-        meta: {
-            requiresAuth: true
-        },
-        props: {
-            default: (route) => ({
-                id: route.params.id
-            })
-        }
-    },
 ]

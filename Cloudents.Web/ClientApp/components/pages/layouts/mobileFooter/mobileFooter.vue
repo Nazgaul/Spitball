@@ -17,11 +17,7 @@
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_tutors'"/>
                 <v-icon class="mF_icon" v-html="'sbf-account-group'"/>
             </v-btn>
-            <!-- <v-btn :ripple="false" class="mF_btns" text value='upload' @click="openUpload">
-                <span class="mF_title" v-language:inner="'mobileFooter_btn_upload'"/>
-                <v-icon class="mF_icon" v-html="'sbf-button-add'" />
-            </v-btn> -->
-            <v-btn :ripple="false" class="mF_btns" text value='upload' :to="{query: { dialog: 'upload' }}">
+            <v-btn :ripple="false" class="mF_btns" text value='upload' v-openDialog="'upload'">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_upload'"/>
                 <v-icon class="mF_icon" v-html="'sbf-button-add'" />
             </v-btn>
@@ -50,7 +46,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getSelectedClasses','getTotalUnread', 'accountUser','getSchoolName']),
+        ...mapGetters(['getTotalUnread', 'accountUser']),
         totalUnread(){
             return this.getTotalUnread
         },
@@ -89,27 +85,12 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateDialogState','setReturnToUpload', 'updateLoginDialogState','openChatInterface']),
+        ...mapActions(['updateLoginDialogState','openChatInterface']),
         openChat(){
             if (this.accountUser == null) {
                 this.updateLoginDialogState(true);
             }else{
                 this.openChatInterface();
-            }
-        },
-        openUpload(){
-            let schoolName = this.getSchoolName;
-            if(this.accountUser == null) {
-                this.updateLoginDialogState(true);
-            } else if(!schoolName.length) {
-                this.$router.push({name: 'addUniversity'});
-                this.setReturnToUpload(true);
-            } else if(!this.getSelectedClasses.length) {
-                this.$router.push({name: 'addCourse'});
-                this.setReturnToUpload(true);
-            } else if(schoolName.length > 0 && this.getSelectedClasses.length > 0) {
-                this.updateDialogState(true);
-                this.setReturnToUpload(false);
             }
         },
         changeActiveTab(tabName){

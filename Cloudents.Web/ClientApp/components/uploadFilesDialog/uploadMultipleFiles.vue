@@ -1,5 +1,5 @@
 <template>
-    <v-dialog :value="true" persistent :maxWidth="'716'" :content-class="'upload-dialog'">
+    <v-dialog :value="true" persistent :maxWidth="'716'" :fullscreen="$vuetify.breakpoint.xsOnly" :content-class="'upload-dialog'">
         <v-flex xs12>
             <v-icon v-closeDialog class="uf-close" v-html="'sbf-close'" />
             <v-card class="uf-main elevation-0">
@@ -92,11 +92,9 @@ export default {
     },
     computed: {
         ...mapGetters({
-            getIsValid: 'getIsValid',
             accountUser: 'accountUser',
             getSelectedClasses: 'getSelectedClasses',
             getFileData: 'getFileData',
-            getDialogState: 'getDialogState',
         }),
         isError(){
             return this.getFileData.every(item=>item.error)
@@ -122,9 +120,6 @@ export default {
         },
         lastStep() {
             return this.currentStep === this.steps;
-        },
-        showUploadDialog() {
-            return this.getDialogState
         },
         isNameExists(){
             let result = this.getFileData.every((item) => {

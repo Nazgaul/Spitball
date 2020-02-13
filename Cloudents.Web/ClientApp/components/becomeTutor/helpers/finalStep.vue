@@ -23,15 +23,11 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
     export default {
         name: "finalStep",
         methods: {
-            ...mapActions(['updateTutorDialog']),
             goToCourses() {
                 this.$router.push({name: 'editCourse'});
-                this.updateTutorDialog(false)
-
             }
         },
     };

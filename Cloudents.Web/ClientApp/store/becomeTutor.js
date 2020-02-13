@@ -8,27 +8,19 @@ const state = {
         price: 50,
         description: '',
         bio: ''
-    },
-    tutorDialog: false,
+    }
 };
 
 const getters = {
     becomeTutorData: state => state.becomeTutorObj,
-    becomeTutorDialog: state => state.tutorDialog,
 };
 const mutations = {
-    changeDialogState(state, val) {
-        state.tutorDialog = val;
-    },
     assignFields(state, val) {
         state.becomeTutorObj = {...state.becomeTutorObj, ...val};
     }
 };
 
 const actions = {
-    updateTutorDialog({commit}, val) {
-        commit('changeDialogState', val);
-    },
     updateTutorInfo({commit}, val) {
         commit('assignFields', val);
     },
