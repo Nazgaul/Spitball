@@ -24,29 +24,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             Name = "Economics"
         };
 
-        //private readonly object _newCourse = new
-        //{
-        //    name = "NewCourse1"
-        //};
-
-        //private readonly object _upload = new
-        //{
-        //    blobName = "My_Doc.docx",
-        //    name = "My Document",
-        //    type = "Document",
-        //    course = "Economics",
-        //    tags = new { },
-        //    professor = "Mr. Elad",
-        //    price = 0M
-        //};
-
-        //private UriBuilder _uri = new UriBuilder()
-        //{
-        //    Path = "api/login"
-        //};
-
-
-
         public CourseControllerTests(SbWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
@@ -73,15 +50,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
         public async Task Teach_CourseAsync()
         {
             await _client.PostAsync("api/login", HttpClientExtensions.CreateJsonString(_credentials));
-
-          
-
             await _client.PostAsync("api/course/set", HttpClientExtensions.CreateJsonString(_course));
-
-            
-
             var response = await _client.PostAsync("api/course/teach", HttpClientExtensions.CreateJsonString(_course));
-
             response.EnsureSuccessStatusCode();
         }
 
@@ -143,7 +113,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
 
         [Fact]
-        public async Task GetSubjectAsync_Ok()
+        public async Task GetSubjectAsync_OkAsync()
         {
             var response = await _client.GetAsync("api/course/subject?course=31010-אנגלית רמה A למדעי הרוח");
             response.Should().NotBeNull();

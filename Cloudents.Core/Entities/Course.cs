@@ -68,7 +68,7 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual void AddSubject(CourseSubject subject)
+        public virtual void SetSubject(CourseSubject subject)
         {
             Subject = subject;
         }
@@ -94,6 +94,7 @@ namespace Cloudents.Core.Entities
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
-        public virtual SchoolType? SchoolType { get; set; }
+        public virtual SchoolType? SchoolType { get; protected set; }
+        public virtual string Country { get; protected set; }
     }
 }

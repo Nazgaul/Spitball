@@ -35,25 +35,28 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 export default {
     data() {
         return {
             isCourse: false,
         };
     },
-  props: {
-    userText: {
-      type: String,
-      default: ""
-    },
-    helpAction:{
-      type: Function,
-      default:null
-    }
-  },
   created() {
     if(this.$route.query && this.$route.query.Course){
       this.isCourse = true
+    }
+  },
+  computed: {
+    ...mapGetters(['accountUser']),
+    userText() {
+      return this.$route.query.term;
+    },  
+  },
+  methods: {
+    ...mapActions(['updateLoginDialogState','updateNewQuestionDialogState']),
+    helpAction(){
+      (this.accountUser == null)? this.updateLoginDialogState(true) : this.updateNewQuestionDialogState(true);
     }
   },
 };

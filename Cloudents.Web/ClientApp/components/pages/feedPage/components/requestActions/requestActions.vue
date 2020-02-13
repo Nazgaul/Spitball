@@ -12,6 +12,10 @@
         </v-btn>
       </v-flex>
       <v-flex xs4 class="rA_btn">
+        <!-- <v-btn :ripple="false" text block @click="openUpload()" sel="upload">
+          <uStudy class="rA_i mr-1" />
+          <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_upload_mob':'requestActions_btn_upload'"/>
+        </v-btn> -->
         <v-btn :ripple="false" text block @click="openUpload()" sel="upload">
           <uStudy class="rA_i mr-1" />
           <span v-language:inner="$vuetify.breakpoint.smAndDown ?'requestActions_btn_upload_mob':'requestActions_btn_upload'"/>
@@ -39,26 +43,24 @@ export default {
   name: "requestActions",
   components: {uStudy, rTutor, aQuestion },
   computed: {
-    ...mapGetters(["accountUser", "getSchoolName", "getSelectedClasses"]),
+    ...mapGetters(["accountUser", "getSelectedClasses",'getUserLoggedInStatus']),
     userImageUrl() {
-      if (this.accountUser && this.accountUser.image.length > 1) {
+      if(this.getUserLoggedInStatus && this.accountUser.image.length > 1) {
         return `${this.accountUser.image}`;
       }
       return "";
     },
     userName() {
-      if (this.accountUser && this.accountUser.name.length > 1) {
-        return `, ${this.accountUser.name}?`;
-      } 
-      //Ram dont want John doe
-      return '?';//LanguageService.getValueByKey('requestActions_anonymous')
-      
+      if(this.getUserLoggedInStatus){
+          return `, ${this.accountUser.name}?`;
+      }
+      return '?';
     },
     userID() {
-      if (this.accountUser && this.accountUser.id) {
+      if(this.getUserLoggedInStatus){
         return this.accountUser.id;
       }
-      return null
+      return null;
     }
   },
   methods: {
@@ -78,16 +80,14 @@ export default {
       }
     },
     openUpload() {
-      let schoolName = this.getSchoolName;
       if (this.accountUser == null) {
         this.updateLoginDialogState(true);
-      } else if (!schoolName.length) {
-        this.$router.push({ name: "addUniversity" });
-        this.setReturnToUpload(true);
-      } else if (!this.getSelectedClasses.length) {
+      } 
+      else if (!this.getSelectedClasses.length) {
         this.$router.push({ name: "addCourse" });
         this.setReturnToUpload(true);
-      } else if (schoolName.length > 0 && this.getSelectedClasses.length > 0) {
+      } 
+      else if (this.getSelectedClasses.length > 0) {
         this.updateDialogState(true);
         this.setReturnToUpload(false);
       }
@@ -101,15 +101,11 @@ export default {
         });
         this.updateRequestDialog(true);
       } else {
-        // if (this.getSelectedClasses.length) {
         this.setTutorRequestAnalyticsOpenedFrom({
           component: "actionBox",
           path: this.$route.path
         });
         this.updateRequestDialog(true);
-        // } else {
-        //   this.$router.push({ name: "addCourse" });
-        // }
       }
     }
   }

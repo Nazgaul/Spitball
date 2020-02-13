@@ -39,14 +39,14 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> Post(
+        public async Task<ActionResult> PostAsync(
             [ModelBinder(typeof(CountryModelBinder))] string country,
             [FromBody]LoginRequest model,
             [FromHeader(Name = "User-Agent")] string agent,
             CancellationToken token)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
+            if (user is null)
             {
                 ModelState.AddModelError(nameof(model.Password), _localizer["BadLogin"]);
                 return BadRequest(ModelState);
@@ -98,10 +98,11 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<CheckUserStatusResponse>> CheckUserStatus([FromQuery] EmailValidateRequest model)
+        public async Task<ActionResult<ReturnSignUserResponse>> CheckUserStatusAsync(
+            [FromQuery] EmailValidateRequest model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
+            if (user is null)
             {
                 ModelState.AddModelError(nameof(model.Email), _localizer["EmailNotFound"]);
                 return BadRequest(ModelState);
@@ -111,18 +112,17 @@ namespace Cloudents.Web.Api
             {
                 if (user.OldUser.GetValueOrDefault())
                 {
-                    return new CheckUserStatusResponse(NextStep.StartStep);
+                    return new ReturnSignUserResponse(RegistrationStep.RegisterSetEmailPassword);
                 }
                 ModelState.AddModelError(nameof(model.Email), _localizer["EmailNotFound"]);
                 return BadRequest(ModelState);
             }
 
-            if (user.PasswordHash == null)
+            if (user.PasswordHash is null)
             {
-                return new CheckUserStatusResponse(NextStep.EmailPassword);
+                return new ReturnSignUserResponse(RegistrationStep.RegisterSetEmailPassword);
             }
-
-            return new CheckUserStatusResponse(NextStep.Loginstep);
+            return new ReturnSignUserResponse(RegistrationStep.LoginSetPassword);
         }
     }
 }

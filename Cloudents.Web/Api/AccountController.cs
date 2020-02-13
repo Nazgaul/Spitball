@@ -27,9 +27,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Exceptions;
 using static Microsoft.AspNetCore.Http.StatusCodes;
-using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 using Cloudents.Query.Users;
-using Cloudents.Query.Universities;
+using Cloudents.Query.Tutor;
+using Cloudents.Query.Questions;
 
 namespace Cloudents.Web.Api
 {
@@ -98,35 +98,6 @@ namespace Cloudents.Web.Api
             await _commandBus.DispatchAsync(command, token);
 
             return Ok();
-        }
-
-
-        /// <summary>
-        /// Perform course search per user
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns>list of courses for a user</returns>
-        [HttpGet("courses")]
-        public async Task<IEnumerable<CourseDto>> GetCoursesAsync(CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-
-            var query = new UserCoursesQuery(userId);
-            var result = await _queryBus.QueryAsync(query, token);
-            return result;
-        }
-
-        [HttpGet("University")]
-        public async Task<UniversityDto> GetUniversityAsync(
-            [ClaimModelBinder(AppClaimsPrincipalFactory.University)] Guid? universityId,
-            CancellationToken token)
-        {
-            if (!universityId.HasValue)
-            {
-                return null;
-            }
-            var query = new UniversityQuery(universityId.Value);
-            return await _queryBus.QueryAsync(query, token);
         }
 
         [HttpGet("referrals")]
@@ -340,6 +311,32 @@ namespace Cloudents.Web.Api
             return result;
         }
 
+        [HttpGet("stats")]
+        [ResponseCache(Duration = TimeConst.Month, Location = ResponseCacheLocation.Client)]
+        public async Task<IEnumerable<UserStatsDto>> GetTutorStatsAsync([FromQuery] UserStatsRequest request, CancellationToken token) 
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new UserStatsQuery(userId, request.Days);
+            var result = await _queryBus.QueryAsync(query, token);
+            return result;
+        }
+
+        [HttpGet("tutorActions")]
+        public async Task<TutorActionsDto> GetTutorActionsAsync(CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new TutorActionsQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
+        }
+
+        [HttpGet("questions")]
+        public async Task<IEnumerable<AccountQuestionDto>> GetQuestionsAsync([ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile, 
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var query = new AccountQuestionsQuery(userId, profile.Country);
+            return await _queryBus.QueryAsync(query, token);
+        }
 
         //[HttpGet("recording")]
         //public async Task<IEnumerable<SessionRecordingDto>> GetSessionRecordingAsync(CancellationToken token)

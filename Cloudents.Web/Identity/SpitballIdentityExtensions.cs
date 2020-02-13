@@ -16,6 +16,7 @@ namespace Cloudents.Web.Identity
             services.AddScoped<IUserStore<User>, UserStore>();
 
 
+
             //services.Configure<IdentityOptions>(options =>
             //{
             //    options.SignIn.RequireConfirmedEmail = false;

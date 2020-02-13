@@ -4,7 +4,6 @@ using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
-using Cloudents.Infrastructure.Framework;
 using Cloudents.Infrastructure.Storage;
 using Cloudents.Infrastructure.Video;
 using Cloudents.Persistence;
@@ -24,11 +23,19 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.ServiceModel.Syndication;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Command.Courses;
+using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Extension;
+using Cloudents.Query.Sync;
+using Cloudents.Search.Document;
+using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
-using Cloudmersive.APIClient.NET.DocumentAndDataConvert.Api;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -54,7 +61,8 @@ namespace ConsoleApp
                     {
                         SiteEndPoint = { SpitballSite = "https://dev.spitball.co" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
-                            ConfigurationManager.AppSettings["Redis"], DbConnectionString.DataBaseIntegration.None),
+                            ConfigurationManager.AppSettings["Redis"],
+                            DbConnectionString.DataBaseIntegration.None),
                         MailGunDb = ConfigurationManager.ConnectionStrings["MailGun"].ConnectionString,
                         Search = new SearchServiceCredentials(
 
@@ -99,7 +107,8 @@ namespace ConsoleApp
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
-            builder.RegisterAssemblyModules(Assembly.Load("Cloudents.Infrastructure.Framework"),
+            builder.RegisterAssemblyModules(
+                //Assembly.Load("Cloudents.Infrastructure.Framework"),
                 Assembly.Load("Cloudents.Infrastructure.Storage"),
                 Assembly.Load("Cloudents.Persistence"),
                 Assembly.Load("Cloudents.Infrastructure"),
@@ -108,7 +117,7 @@ namespace ConsoleApp
             builder.RegisterType<MediaServices>().AsSelf().SingleInstance()
                 .As<IVideoService>().WithParameter("isDevelop", env == EnvironmentSettings.Dev);
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
-            builder.RegisterModule<ModuleFile>();
+            //builder.RegisterModule<ModuleFile>();
             builder.RegisterType<MLRecommendation>().AsSelf();
 
 
@@ -138,8 +147,36 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var x = _container.Resolve<IVideoService>();
-            await x.RemoveUnusedStreamingLocatorAsync(default);
+            
+            var searchWrite = _container.Resolve<ICommandBus>();
+            await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
+            Console.WriteLine("add");
+            await searchWrite.DispatchAsync(new UserJoinCoursesCommand(new[] {"Statistics" }, 638),default);
+
+            //var i = 0;
+            //while (true)
+            //{
+            //    var query = new SyncAzureQuery(0, i);
+            //    var z = await x.QueryAsync<(IEnumerable<DocumentSearchDto>, IEnumerable<string>, long)>(query, default);
+
+            //    var document = z.Item1.FirstOrDefault(w => w.ItemId == 6897);
+            //    if (document != null)
+            //    {
+            //        Console.WriteLine("here");
+            //       var item = Cloudents.Search.Entities.Document.FromDto(document);
+            //       await searchWrite.UpdateDataAsync(new[] {item}, default);
+            //    }
+
+            //    _container.Resolve<DocumentSearchWrite>();
+
+            //    i++;
+            //}
+            //var commandBus = _container.Resolve<ICommandBus>();
+
+            //var command = new SetUserTypeCommand(638,UserType.HighSchoolStudent);
+            //await commandBus.DispatchAsync(command, default);
+
+            //await x.RemoveUnusedStreamingLocatorAsync(default);
             //await Convert();
 
 
@@ -178,7 +215,7 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
             // Configure API key authorization: Apikey
             //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "86afd89a-207c-4e7a-9ffc-da23fcb9d5b7");
-            Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "c80224f2-2aa9-4a06-9a1c-6930141c446a");
+            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "c80224f2-2aa9-4a06-9a1c-6930141c446a");
             //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000;
 
             var apiInstance = new ConvertDocumentApi();
@@ -299,7 +336,8 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
                         continue;
                     }
                     var fileDir = container.GetDirectoryReference($"files/{id}");
-                    var blobs = fileDir.ListBlobs(false, BlobListingDetails.Metadata).ToList();
+                    
+                    var blobs = (await fileDir.ListBlobsSegmentedAsync(false, BlobListingDetails.Metadata,null,null,null,null)).Results.ToList();
 
                     var fileItem = (CloudBlockBlob)blobs.First(a => a.Uri.AbsoluteUri.Contains("file-"));
                     var extension = Path.GetExtension(fileItem.Name);
@@ -503,6 +541,9 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
         //}
 
+
+
+
         private static async Task HadarMethod()
         {
             //var t = new PlaylistUpdates();
@@ -512,6 +553,8 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
             s.Upload();
             //var queryBus = _container.Resolve<IQueryBus>();
 
+            //var query = new UserStudyRoomQuery(159039);
+            //var t = await queryBus.QueryAsync(query, default);
             //var query = new UserStudyRoomQuery(159039);
             //var t = await queryBus.QueryAsync(query, default);
             //await PopulateUsersImageName();

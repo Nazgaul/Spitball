@@ -182,9 +182,11 @@ export default {
         return this.$vuetify.breakpoint.xsOnly;
       },
       isNeedPayment(){
-        let price = this.getProfile.user.tutorData.price + ''
-        price.slice(1, this.getProfile.user.tutorData.price.length);        
-        return this.getNeedPayment && Number(price) > 0;
+        // debugger
+        // let price = this.getProfile.user.tutorData.price + ''
+        // price.slice(1, this.getProfile.user.tutorData.price.length);        
+        // return this.getNeedPayment && Number(price) > 0;
+        return this.getNeedPayment;
       },
       isSelfTutor() {
         if((this.$route.name == 'myCalendar') || (!!this.getProfile && !!this.accountUser) && this.getProfile.user.id == this.accountUser.id) {
@@ -244,7 +246,10 @@ export default {
           }
         },
         formatTimeString(){
-          let endTime = new Date(`${this.selectedDate} ${this.selectedTime}`).getHours()+1;
+          let hour = +this.selectedTime.split(':')[0];
+          let dateHour = new Date(this.selectedDate)
+          dateHour.setHours(hour)
+          let endTime = dateHour.getHours()+1;
           let ampm = endTime < 12? 'am' : 'pm'
           if(endTime < 10) {endTime = `0${endTime}:00`}
           else {endTime = `${endTime}:00`;}

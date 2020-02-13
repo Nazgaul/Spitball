@@ -41,7 +41,7 @@ export default {
       }
    },
    methods: {
-      ...mapActions(['updateToasterParams','updateUserBalance','updateBalancesItems']),
+      ...mapActions(['updateToasterParams','updateBalancesItems']),
       redeem(amount){
          this.isLoading = true;
          walletService.redeem(amount)
@@ -50,7 +50,6 @@ export default {
                      toasterText: LanguageService.getValueByKey('cashoutcard_Cashed'),
                      showToaster: true,
                });
-               this.updateUserBalance(-amount);
                this.updateBalancesItems();
                this.isLoading = false;
             },

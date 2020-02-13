@@ -17,15 +17,16 @@ namespace Cloudents.Web.Filters
         {
         }
 
-        private class ValidateEmailImpl : ActionFilterAttribute
+        private sealed class ValidateEmailImpl : ActionFilterAttribute
         {
             private readonly IMailProvider _mailProvider;
-            private readonly IStringLocalizer<DataAnnotationSharedResource> _localizer;
+            private readonly IStringLocalizer _localizer;
 
-            public ValidateEmailImpl(IMailProvider mailProvider, IStringLocalizer<DataAnnotationSharedResource> localizer)
+            public ValidateEmailImpl(IMailProvider mailProvider, IStringLocalizerFactory factory)
             {
                 _mailProvider = mailProvider;
-                _localizer = localizer;
+                var assemblyName = new AssemblyName(typeof(DataAnnotationSharedResource).GetTypeInfo().Assembly.FullName);
+                _localizer = factory.Create("DataAnnotationSharedResource", assemblyName.Name);
 
             }
 
@@ -44,7 +45,9 @@ namespace Cloudents.Web.Filters
                         {
                             error = new LocalizedString("EmailAddress", "This email is not valid");
                         }
+                        //this is due to different implementation on client side registration and request tutor
                         context.ModelState.AddModelError("error", error);
+                        context.ModelState.AddModelError("Email", error);
                         context.Result = new BadRequestObjectResult(context.ModelState);
                     }
 

@@ -9,16 +9,15 @@ import VueAnalytics from "vue-analytics";
 import LoadScript from 'vue-plugin-load-script';
 import VueClipboard from 'vue-clipboard2';
 import VueAppInsights from 'vue-application-insights';
-import { VLazyImagePlugin } from "v-lazy-image"; // TODO: check if need it
 import VueFlicking from "@egjs/vue-flicking";
 import '../ClientApp/myFont.font.js';
+import {i18n, loadLanguageAsync } from './plugins/t-i18n'
 if(!window.IntersectionObserver){ // Intersection observer support
     import('intersection-observer')   
 }
 
 // Global Components
 import App from "./components/app/app.vue";
-import scrollComponent from './components/helpers/infinateScroll.vue';
 import UserAvatar from './components/helpers/UserAvatar/UserAvatar.vue';
 
 // Global Services
@@ -59,11 +58,8 @@ const router = new VueRouter({
 Vue.use(VueFlicking);
 Vue.use(VueRouter);
 Vue.use(LoadScript);
-Vue.use(VLazyImagePlugin);
 Vue.use(VueClipboard);
 
-
-Vue.component("scroll-list", scrollComponent);
 Vue.component("UserAvatar",UserAvatar);
 
 //this need to be below the configuration of vue router
@@ -94,6 +90,14 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
     if (global.isRtl) {
         global.isEdgeRtl = true;
     }
+}
+
+Vue.prototype.$openDialog = function(dialogName){
+    this.$router.push({query:{...this.$route.query,dialog:dialogName}})
+}
+
+Vue.prototype.$closeDialog = function(){
+    this.$router.push({query:{...this.$route.query,dialog:undefined}})
 }
 
 Vue.prototype.$loadStyle = function(url,id){
@@ -159,33 +163,29 @@ Vue.prototype.$chatMessage = function (message) {
 
 router.beforeEach((to, from, next) => {
     store.dispatch('setRouteStack', to.name);
-    if (!to.query || !to.query.university) {
-        if (!!from.query && !!from.query.university) {
-            store.dispatch('closeSelectUniFromNav');
-        }
+    store.dispatch('sendQueryToAnalytic', to);
+    store.dispatch('userStatus');
+    if (!store.getters.getUserLoggedInStatus && to.meta && to.meta.requiresAuth) {
+        next("/signin");
+        return;
     } 
 
-    store.dispatch('sendQueryToAnalytic', to);
-    store.dispatch('changeLastActiveRoute', from);
-    checkUserStatus(to, next);
-
+    
+    loadLanguageAsync().then(() => {
+       next();
+    });
 });
+sync(store, router);
 const app = new Vue({
     //el: "#app",
     router: router,
     store,
     vuetify,
+    i18n,
     render: h => h(App),
 });
 
-function checkUserStatus(to, next) {
-    store.dispatch('userStatus', {isRequireAuth: to.meta.requiresAuth, to});
-    if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
-        next("/signin");
-    } else {
-        next();
-    }
-}
+
 
 global.isMobileAgent = function () {
     let check = false;
@@ -221,7 +221,7 @@ if(touchSupported){
 //This is for cdn fallback do not touch
 
 //injects the route to the store via the rootState.route
-sync(store, router);
+
 utilitiesService.init();
 
 

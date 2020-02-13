@@ -1,5 +1,5 @@
 import Api from './Api/wallet';
-import { Wallet } from './Constructors/wallet.js';
+import { Wallet } from './Dto/wallet.js';
 
 export default {
     async getBalances() {

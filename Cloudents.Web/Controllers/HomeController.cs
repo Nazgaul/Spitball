@@ -15,6 +15,8 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Cloudents.Web.Controllers
 {
@@ -23,14 +25,18 @@ namespace Cloudents.Web.Controllers
     {
         internal const string Referral = "referral";
         private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
-        public HomeController(SignInManager<User> signInManager)
+        public HomeController(SignInManager<User> signInManager, UserManager<User> userManager)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         //Any got issue with auth vs no auth. need to fix this.
-        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new[] { "*" })]
+        // [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new[] { "*" })]
+        //this is due to issue with log in state
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         [SignInWithToken]
         [ApiNotFoundFilter]
         public IActionResult Index(
@@ -141,6 +147,31 @@ namespace Cloudents.Web.Controllers
                 logger.TrackTrace("Credit Card Process Failed", values);
             }
             return View("Processing", model);
+        }
+
+
+        [Route("google")]
+        public async Task<RedirectToActionResult> GoogleSigninAndroidAsync(string token,
+            [FromServices] IGoogleAuth service,
+            [FromServices] IDataProtectionProvider dataProtectProvider,
+            CancellationToken cancellationToken
+            )
+        {
+            var result = await service.LogInAsync(token, cancellationToken);
+            if (result == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
+
+            var user2 = await _userManager.FindByEmailAsync(result.Email);
+            var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
+            var code = dataProtector.Protect(user2.Id.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+            return RedirectToAction("Index", new
+            {
+                token = code
+            });
         }
     }
 }

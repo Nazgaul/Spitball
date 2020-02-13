@@ -34,8 +34,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/account")]
-        [InlineData("api/account/courses")]
-        [InlineData("api/account/university")]
         [InlineData("api/account/referrals")]
         public async Task AccountApiTestGet_NotLogIn_UnauthorizedAsync(string api)
         {
@@ -45,8 +43,6 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         [Theory]
         [InlineData("api/account")]
-        [InlineData("api/account/courses")]
-        [InlineData("api/account/university")]
         [InlineData("api/account/referrals")]
         [InlineData("api/account/sales")]
         [InlineData("api/account/content")]

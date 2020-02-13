@@ -131,7 +131,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         [Fact]
         public async Task AdminSubjectsQuery_Ok()
         {
-            var query = new SubjectsQuery();
+            var query = new SubjectsQuery(Guid.Parse("6942483C-4CEF-4256-B9A1-0CAE272C54B4"));
             await _fixture.QueryBus.QueryAsync(query, default);
         }
 
@@ -422,5 +422,13 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
             var query = new CouponQuery();
             var _ = await _fixture.QueryBus.QueryAsync(query, default);
         }
+
+        [Fact]
+        public async Task SubjectsTranslationQuery_Ok()
+        {
+            var query = new SubjectsTranslationQuery();
+            var _ = await _fixture.QueryBus.QueryAsync(query, default);
+        }
+
     }
 }

@@ -93,7 +93,6 @@
 <script>
     import { mapActions, mapGetters } from 'vuex';
     import coursesEmptyState from '../coursesEmptyState/coursesEmptyState.vue';
-    import universityService from '../../../services/universityService';
     import finishBtn from  '../helpers/finishBtn.vue';
     export default {
         name: "selectedCourses",
@@ -128,23 +127,19 @@
         },
         methods: {
             ...mapActions(["updateClasses",
-                              "syncCoursesData",
                               "deleteClass",
                               "updateSelectedClasses",
                               "pushClassToSelectedClasses",
+                              'updateTeachCourse'
                           ]),
             teachCourseToggle(course) {
                 this.teachingActive = true;
                 course.isLoading = true;
-                universityService.teachCourse(course.text)
-                                 .then(() => {
-                                     course.isLoading = false;
-                                     this.teachingActive = false;
-                                     return course.isTeaching = !course.isTeaching;
-                                 }, () => {
-                                     course.isLoading = false;
-                                     this.teachingActive = false;
-                                 }).finally(() => {
+                this.updateTeachCourse(course.text).then(() => {
+                    course.isLoading = false;
+                    this.teachingActive = false;
+                    return course.isTeaching = !course.isTeaching;
+                }).finally(() => {
                     course.isLoading = false;
                     this.teachingActive = false;
                 });
@@ -152,7 +147,7 @@
             removeClass(classDelete) {
                 classDelete.isLoading = true;
                 this.removingActive = true;
-                this.deleteClass(classDelete).then(() => {
+                this.deleteClass(classDelete.text).then(() => {
                     classDelete.isLoading = false;
 
                 }, () => {
@@ -160,7 +155,7 @@
                     this.removingActive = false;
                 }).finally(() => {
                     classDelete.isLoading = false;
-                    this.removingActive = false;
+                    this.removingActive = false;                   
                 });
             },
             goToAddMore() {

@@ -7,8 +7,8 @@
           <div class="userMenu_logo"><logoComponent/></div>
             <div class="uM_noLogin_txt" v-language:inner="'menuList_txt_out'"/>
             <div class="uM_noLogin_btns">
-              <v-btn rounded depressed class="uM_noLogin_btns_in" color="white" :to="{ path: '/signin'}" v-language:inner="'menuList_Login'"/>
-              <v-btn rounded depressed class="uM_noLogin_btns_up" color="#4c59ff" :to="{ name: 'registration'}" v-language:inner="'menuList_Sign_up'"/>
+              <v-btn rounded depressed class="uM_noLogin_btns_in" color="white" :to="{ name: 'login'}" v-language:inner="'menuList_Login'"/>
+              <v-btn rounded depressed class="uM_noLogin_btns_up" color="#4c59ff" :to="{ name: 'register'}" v-language:inner="'menuList_Sign_up'"/>
             </div>
         </div>
         <div class="userMenu_top" v-if="isLoggedIn">
@@ -18,38 +18,6 @@
             <h2 class="uM_subtitle" v-html="$Ph('menuList_balance', userBalance(user.balance))"/>
           </div>
         </div>
-        <!-- <div class="userMenu_userList" v-if="isLoggedIn"> -->
-          <!-- <v-list-item @click="openSblToken">
-            <v-list-item-action>
-              <getPointsSVG class="userMenu_icons"></getPointsSVG>
-              </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title class="subheading userMenu_titles" v-language:inner="'menuList_points'"/>
-              </v-list-item-content>
-          </v-list-item> -->
-          <!-- <v-list-item @click.native.prevent="openPersonalizeCourse()" :to="{name: 'editCourse'}">
-            <v-list-item-action><classesIcon class="userMenu_icons"/></v-list-item-action>
-            <v-list-item-content><v-list-item-title class="subheading userMenu_titles" v-language:inner="'menuList_changeCourse'"/></v-list-item-content>
-          </v-list-item>  -->
-          <!-- <v-list-item @click.native.prevent="openPersonalizeUniversity()" :to="{name: 'addUniversity'}">
-            <v-list-item-action><v-icon class="userMenu_icons" v-html="'sbf-university'"/></v-list-item-action>
-            <v-list-item-content><v-list-item-title class="subheading userMenu_titles" v-language:inner="'menuList_changeUniversity'"/></v-list-item-content>
-            <v-list-item-action><span class="edit-text"><v-icon class="edit-after-icon" v-html="'sbf-edit-icon'"/></span></v-list-item-action>
-          </v-list-item> -->
-            <!-- <v-list-item
-              :to="{ name: 'tutoring'}"
-              target="_blank"
-              sel="menu_row"
-            >
-              <v-list-item-action>
-                <v-icon class="userMenu_icons">sbf-studyroom-icon</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title class="subheading userMenu_titles" v-language:inner>menuList_my_study_rooms</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item> -->
-        <!-- </div> -->
-
         <div class="userMenu_actionsList">
           <template v-if="showChangeLanguage">
             <v-list-item v-for="singleLang in languageChoisesAval" :key="singleLang.name" @click="changeLanguage(singleLang.id)" sel="menu_row">
@@ -57,6 +25,22 @@
               <v-list-item-content><v-list-item-title class="subheading userMenu_titles">{{singleLang.title}}</v-list-item-title></v-list-item-content>
             </v-list-item>
           </template>
+
+          <v-list-item v-if="!isTutorList" :to="{name:'tutorLandingPage'}">
+            <v-list-item-action><v-icon class="userMenu_icons" v-html="'sbf-account-group'"></v-icon></v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title><span class="userMenu_titles" v-language:inner="'header_find_tutors'"></span></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item v-if="!isFrymo" href="https://teach.spitball.co/" target="_blank">
+            <v-list-item-action>
+              <v-icon v-html="'sbf-find'" class="userMenu_icons"/>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title><span class="userMenu_titles" v-language:inner="'profile_become_title'"></span></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
 
           <v-list-item :to="{ name: 'tutoring'}">
             <v-list-item-action><v-icon class="userMenu_icons" v-html="'sbf-pc'"></v-icon></v-list-item-action>
@@ -144,7 +128,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["accountUser"]),
+    ...mapGetters(["accountUser",'isFrymo']),
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -156,16 +140,13 @@ export default {
     },
     showChangeLanguage() {
       return global.country === 'IL';
+    },
+    isTutorList(){
+      return this.$route.name === 'tutorLandingPage'
     }
   },
   methods: {           
-    ...mapActions(['updateReferralDialog','updateShowBuyDialog',"logout","updateLoginDialogState",]),
-    // openSblToken(){
-    //   this.$emit('closeMenu')
-
-    //   analyticsService.sb_unitedEvent("BUY_POINTS", "ENTER");
-    //   this.updateShowBuyDialog(true);
-    // },  
+    ...mapActions(['updateReferralDialog',"logout",]),
     changeLanguage(id) {
       LanguageChange.setUserLanguage(id).then(
         () => {
@@ -186,22 +167,6 @@ export default {
       let balanceFixed = +balance.toFixed()
       return balanceFixed.toLocaleString(`${global.lang}`)
     }
-    // openPersonalizeUniversity() {
-    //   if (!this.isLoggedIn) {
-    //     this.updateLoginDialogState(true);
-    //   } else {
-    //     this.$router.push({ name: "addUniversity" });
-    //     this.$root.$emit("closeDrawer");
-    //   }
-    // },
-    // openPersonalizeCourse() {
-    //   if (!this.isLoggedIn) {
-    //     this.updateLoginDialogState(true);
-    //   } else {
-    //     this.$router.push({ name: "editCourse" });
-    //     this.$root.$emit("closeDrawer");
-    //   }
-    // },
   },
 
   created() {

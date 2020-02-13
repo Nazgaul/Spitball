@@ -17,7 +17,7 @@ namespace Cloudents.FunctionsV2.Binders
         public void Initialize(ExtensionConfigContext context)
         {
             var bindingAttributeBindingRule = context.AddBindingRule<HttpClientFactoryAttribute>();
-            bindingAttributeBindingRule.BindToInput<HttpClient>((httpClientFactoryAttribute) =>
+            bindingAttributeBindingRule.BindToInput((httpClientFactoryAttribute) =>
             {
                 return _httpClientFactory.CreateClient();
             });

@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Entities
 {
-    public class UserCourse : IEquatable<UserCourse>
+    public class UserCourse : IEntity, IEquatable<UserCourse>
     {
 
 
@@ -16,13 +19,26 @@ namespace Cloudents.Core.Entities
         public UserCourse(User user, Course course)
         {
             User = user;
+            IsTeach = user.Tutor != null;
             Course = course;
         }
 
         public virtual User User { get; protected set; }
         public virtual Course Course { get; protected set; }
 
-        public virtual bool CanTeach { get; set; }
+        public virtual bool IsTeach { get; protected set; }
+
+        public virtual void ToggleCanTeach()
+        {
+            IsTeach = !IsTeach;
+            _domainEvents.Add(new CanTeachCourseEvent(this));
+        }
+
+        public virtual void CanTeach()
+        {
+            IsTeach = true;
+            //_domainEvents.Add(new CanTeachCourseEvent(this));
+        }
 
         public virtual bool Equals(UserCourse other)
         {
@@ -60,5 +76,13 @@ namespace Cloudents.Core.Entities
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
+
+        private readonly List<IEvent> _domainEvents = new List<IEvent>();
+
+        public virtual IReadOnlyList<IEvent> DomainEvents => _domainEvents;
+        public virtual void ClearEvents()
+        {
+            _domainEvents.Clear();
+        }
     }
 }

@@ -467,7 +467,6 @@ watch: {
       "setVideoDevice",
       "setAudioDevice",
       "initLocalMediaTracks",
-      "UPDATE_SEARCH_LOADING",
       "setShowAudioRecordingError",
       "hideRoomToasterMessage",
       "setShowUserConsentDialog",
@@ -636,7 +635,6 @@ watch: {
     resetItems(){
       let isExit = confirm(LanguageService.getValueByKey("login_are_you_sure_you_want_to_exit"),)
       if(isExit){
-        this.UPDATE_SEARCH_LOADING(true);
         this.$router.push('/');
       }
     },

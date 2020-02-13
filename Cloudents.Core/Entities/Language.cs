@@ -91,6 +91,11 @@ namespace Cloudents.Core.Entities
         public RegionInfo RegionInfo { get; }
         public decimal ConversationRate { get; }
 
+        /// <summary>
+        /// Taken from https://www.twilio.com/blog/2017/12/introducing-gll-for-group-rooms.html
+        /// </summary>
+        //public string TwilioMediaRegion { get; }
+
         public override string ToString()
         {
             return RegionInfo.TwoLetterISORegionName;
@@ -100,6 +105,7 @@ namespace Cloudents.Core.Entities
         private Country(string info, decimal conversationRate, int id) : base(id, info)
         {
             ConversationRate = conversationRate;
+           // TwilioMediaRegion = twilioMediaRegion;
             RegionInfo = new RegionInfo(info.ToUpperInvariant());
         }
 

@@ -117,7 +117,6 @@ export default {
         ...mapActions({
             'delete': 'deleteQuestion',
             correctAnswer: 'correctAnswer',
-            updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved',

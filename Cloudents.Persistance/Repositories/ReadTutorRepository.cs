@@ -39,7 +39,7 @@ namespace Cloudents.Persistence.Repositories
             var coursesFuture = Session.Query<UserCourse>()
                 .Fetch(f => f.Course)
                 .ThenFetch(f => f.Subject)
-                .Where(w => w.CanTeach && w.User.Id == userId)
+                .Where(w => w.IsTeach && w.User.Id == userId)
                 .Select(s => new
                 {
                     CourseName = s.Course.Id,

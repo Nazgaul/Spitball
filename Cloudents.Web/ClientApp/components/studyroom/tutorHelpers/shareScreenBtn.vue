@@ -121,8 +121,10 @@
             //screen share start
             showScreen() {
                 let self = this;
+                insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_ShareScreenBtn_Click', {id: self.getStudyRoomData.roomId}, null);
                 videoService.getUserScreen().then(
                     stream => {
+                        insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_ShareScreenBtn_Accepted', {id: self.getStudyRoomData.roomId}, null);
                         stream.removeEventListener('ended', () => self.stopSharing());
                         stream.addEventListener('ended', () => self.stopSharing());
                         store.dispatch('setLocalVideoTrack', stream);
@@ -132,6 +134,11 @@
                     },
                     error => {
                         error = error || {};
+                        let d = {...{
+                            errorMessage:error.message,
+                            errorname:  error.name},
+                             ...{id: self.getStudyRoomData.roomId}};
+                        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_ShareScreenBtn_showScreen', d, null);
                         if(error === "noExtension") {
                             self.extensionDialog = true;
                             return;
@@ -153,8 +160,6 @@
                                                      showToaster: true,
                                                      toasterType: "error-toaster" //c
                                                  });
-
-                        insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_ShareScreenBtn_showScreen', error, null);
                         console.error("error sharing screen", error);
                     }
                 );

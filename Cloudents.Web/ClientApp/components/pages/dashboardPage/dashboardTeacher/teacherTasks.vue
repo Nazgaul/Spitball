@@ -1,0 +1,169 @@
+<template>
+    <v-row class="teacherTasks mx-0 mb-2 mb-sm-4" dense>
+        <v-col class="imageWrap flex-grow-0">
+            <userAvatar :size="'60'" :user-name="user.name" :user-id="user.id" :userImageUrl="user.image"/> 
+        </v-col>
+        <v-col class="taskCompleted  pl-4" align-self="center">
+            <template v-if="taksNumberCompleted !== 6">
+              <div class="hasTask">
+                <div class="mb-1 completedTitle">{{taksNumberCompleted}}/{{totalTasks}} {{$t('dashboardTeacher_task_completed')}}</div>
+                <v-progress-linear
+                  active
+                  :background-opacity="0.3"
+                  background-color="#dddddd"
+                  height="6"
+                  rounded
+                  :value="value"
+                  color="#5bbdb7"
+                ></v-progress-linear>
+              </div>
+            </template>
+            <template v-else>
+              <div class="noTask">
+                <div class="completedTitle">{{$t('dashboardTeacher_no_task')}}</div>
+                <checkCircle />
+              </div>
+            </template>
+        </v-col>
+        <v-col cols="12" class="taskCol py-4 d-flex justify-space-between">
+            <div class="d-flex align-center">
+              <assignmentIcon class="assignIcon" />
+              <div class="taskText pl-3">
+                {{$t('dashboardTeacher_book_session')}}
+              </div>
+            </div>
+            <arrowRight class="arrowRight d-flex d-sm-none" />
+            <v-btn class="taskAction d-none d-sm-flex" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_book_btn')}}</v-btn>
+        </v-col>
+        <v-col cols="12" class="taskCol py-4 d-flex justify-space-between" v-if="!calendarShared">
+            <div class="d-flex align-center">
+              <assignmentIcon class="assignIcon" />
+              <div class="taskText pl-3">
+                {{$t('dashboardTeacher_connect_calendar')}}
+              </div>
+            </div>
+            <arrowRight class="arrowRight d-flex d-sm-none" />
+            <v-btn class="taskAction d-none d-sm-flex" :to="{name: 'myCalendar'}" :loading="btnLoading" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_connect_btn')}}</v-btn>
+        </v-col>
+        <v-col cols="12" class="taskCol pb-0 py-4 d-flex justify-space-between" v-if="!haveHours">
+            <div class="d-flex align-center">
+              <assignmentIcon class="assignIcon" />
+                <div class="taskText pl-3">
+                  {{$t('dashboardTeacher_work_hours')}}
+                </div>
+            </div>
+            <arrowRight class="arrowRight d-flex d-sm-none" />
+            <v-btn class="taskAction d-none d-sm-flex" :to="{name: 'myCalendar'}" rounded outlined color="#4c59ff">{{$t('dashboardTeacher_works_btn')}}</v-btn>
+        </v-col>
+    </v-row>
+</template>
+
+<script>
+import assignmentIcon from './images/assignment.svg';
+import arrowRight from './images/arrow-right-copy-6.svg';
+import checkCircle from './images/check-circle.svg';
+
+export default {
+  name: "teacherTasks",
+  components: {
+    assignmentIcon,
+    arrowRight,
+    checkCircle
+  },
+  data: () => ({
+    totalTasks: 6,
+    taksNumberCompleted: 3,
+    value: 40,
+    btnLoading: false,
+    calendarShared: false,
+    haveHours: false,
+  }),
+  computed: {
+    user() {
+      return this.$store.getters.accountUser ? this.$store.getters.accountUser : {}
+    },
+  },
+  methods: {
+    // connectCalender() {
+    //   this.btnLoading = true;
+    //   this.$store.dispatch('gapiSignIn').then(()=>{
+    //     console.log("connect calendar");
+    //   }, () => {
+    //     this.btnLoading = false;
+    //   })
+    // },
+    getTutorActions() {
+      let self = this;
+      this.$store.dispatch('updateTutorActions').then(res => {
+        this.calendarShared = res.calendarShared;
+        this.haveHours = res.haveHours;
+        this.updateTaksNumberCompleted()
+      }).catch(ex => {
+        self.$appInsights.trackException({exception: new Error(ex)});
+      })
+    },
+    updateTaksNumberCompleted() {
+      if(this.calendarShared) {
+        this.taksNumberCompleted++;
+        this.value += 20
+      }
+      if(this.haveHours) {
+        this.taksNumberCompleted++;
+        this.value += 20
+      }
+    }
+  },
+  created() {
+    this.getTutorActions()
+  }
+}
+</script>
+<style lang="less">
+@import '../../../../styles/mixin.less';
+@import '../../../../styles/colors.less';
+
+.teacherTasks {
+  padding: 12px 16px;
+  background: white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+
+  @media (max-width: @screen-xs) {
+    box-shadow: none;
+  }
+  .taskCompleted {
+    .noTask {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .completedTitle {
+      color: @global-purple;
+      font-weight: 600;
+    }
+  }
+  .taskCol {
+    border-bottom: 1px solid #dddddd;
+
+    .taskText {
+      color: @global-purple;
+      font-weight: 600;
+    }
+    .taskAction {
+      min-width: 120px;
+      text-transform: initial;
+      letter-spacing: normal;
+      font-weight: 600;
+    }
+    .assignIcon {
+      width: 20px;
+    }
+    .arrowRight {
+      width: 10px;
+    }
+    &:last-child{
+      border-bottom: none;
+    }
+  }
+}
+</style>

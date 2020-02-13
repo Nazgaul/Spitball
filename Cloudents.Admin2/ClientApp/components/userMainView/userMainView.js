@@ -50,7 +50,8 @@ export default {
             dialogs: {
                 name: false,
                 phone: false,
-                price: false
+                price: false,
+                type: false
             },
             currentFirstName: '',
             currentLastName: '',
@@ -67,7 +68,9 @@ export default {
             valid: true,
             requiredRules: [
                 v => !!v || 'Name is required'
-            ]
+            ],
+            userTypes: [],
+            selectedType:''
         };
     },
 
@@ -106,6 +109,8 @@ export default {
             "setTokensDialogState",
             "setSuspendDialogState",
             "getUserData",
+            "getUserTypes",
+            "updateUserType",
             "setUserCurrentStatus",
             "verifyUserPhone",
             "getUserPurchasedDocuments",
@@ -307,8 +312,29 @@ export default {
             }).catch(() => {
                 this.$toaster.error(`Error: delete user payment`);
             });
+        },
+        openEditUserTypeDialog(id){
+            let self = this;
+            if(self.userTypes.length == 0){
+            self.getUserTypes(id).then((data) =>{
+                self.dialogs.type = true;
+                self.userIdentifier = id;
+                self.userTypes = data;
+            });
+            } else { 
+                self.dialogs.type = true;
+            }
+        },
+        editUserType(){
+            this.updateUserType({userId: this.userIdentifier, userType: this.selectedType}).then(() =>{
+                this.dialogs.type = false;
+                this.$toaster.success(`Success: edit user type`)
+                }).catch(() => {
+                    this.$toaster.error(`Error: edit user type`);
+                });
         }
     },
+
     created() {
         this.getRouteParams();
     },

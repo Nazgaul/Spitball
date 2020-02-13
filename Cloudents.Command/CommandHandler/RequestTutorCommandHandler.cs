@@ -15,21 +15,18 @@ namespace Cloudents.Command.CommandHandler
         private readonly IChatRoomRepository _chatRoomRepository;
         private readonly IRegularUserRepository _userRepository;
         private readonly IRepository<ChatMessage> _chatMessageRepository;
-        private readonly IRepository<Course> _courseRepository;
         private readonly ILeadRepository _leadRepository;
 
         public RequestTutorCommandHandler(ITutorRepository tutorRepository,
             IChatRoomRepository chatRoomRepository,
             IRegularUserRepository userRepository,
             IRepository<ChatMessage> chatMessageRepository,
-            IRepository<Course> courseRepository,
             ILeadRepository leadRepository)
         {
             _tutorRepository = tutorRepository;
             _chatRoomRepository = chatRoomRepository;
             _userRepository = userRepository;
             _chatMessageRepository = chatMessageRepository;
-            _courseRepository = courseRepository;
             _leadRepository = leadRepository;
         }
 
@@ -46,7 +43,6 @@ namespace Cloudents.Command.CommandHandler
                 tutor = await _tutorRepository.LoadAsync(message.TutorId.Value, token);
             }
 
-           // var course = await _courseRepository.LoadAsync(message.Course, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
             var lead = new Lead(message.Course, message.LeadText,

@@ -8,11 +8,13 @@
                 </div>
 
             </v-flex>
-            <v-flex shrink>
-                <v-btn rounded class="elevation-0 done-btn mx-2 py-1 font-weight-bold my-0" @click="getOut()" sel="uni_done">
-                    <span class="text-capitalize" v-language:inner>university_not_student_btn</span>
-                </v-btn>
-            </v-flex>
+            <slot name="fromRegister">
+                <v-flex shrink>
+                    <v-btn rounded class="elevation-0 done-btn mx-2 py-1 font-weight-bold my-0" @click="getOut()" sel="uni_done">
+                        <span class="text-capitalize" v-language:inner>university_not_student_btn</span>
+                    </v-btn>
+                </v-flex>
+            </slot>
         </v-layout>
         <v-layout column :class="{'px-4' : $vuetify.breakpoint.smAndUp}">
             <v-flex>
@@ -37,13 +39,16 @@
             <v-flex v-if="showBox">
                 <div class="university-list" id="university-list">
                     <div class="list-item subtitle-1 cursor-pointer py-2 mx-2 justify-space-between align-center font-weight-regular"
-                         v-for="(singleUni, index) in universities"
-                         @click="selectUniversity(singleUni)" 
-                         :key="index">
+                        v-for="(singleUni, index) in universities"
+                        @click="selectUniversity(singleUni)" 
+                        :key="index">
                         <v-layout shrink>
                             <v-flex xs1  >
                                 <span class="uni-logo">
-                                    <img v-if="singleUni.image" :src="singleUni.image" alt="university logo" class="rounded uni-img">
+                                    <img v-if="singleUni.image" :src="singleUni.image" 
+                                    @error="singleUni.image = ''"
+                                    alt="university logo" 
+                                    class="rounded uni-img">
                                     <span v-else>
                                     <empty-uni-logo></empty-uni-logo>
                                     </span>
@@ -78,7 +83,6 @@
 <script>
     import { mapActions, mapGetters, mapMutations } from 'vuex';
     import debounce from "lodash/debounce";
-    import { LanguageService } from "../../../services/language/languageService";
     import emptyUniLogo from '../images/empty-uni-logo.svg';
 
     export default {
@@ -91,7 +95,7 @@
                 term: '',
                 universityModel: '',
                 search: '',
-                schoolNamePlaceholder: LanguageService.getValueByKey('university_create_uni_placeholder'),
+                schoolNamePlaceholder: this.$t('university_create_uni_placeholder'),
                 globalHeight: global.innerHeight,
             };
         },
@@ -127,6 +131,9 @@
                     this.universityModel = newValue;
                     this.setSchoolName(newValue)
                 }
+            },
+            isFromRegister() {
+                return this.$route.name === 'addUniversity';
             }
         },
         methods: {
@@ -135,9 +142,10 @@
                               "addUniversities",
                               "clearUniversityList",
                               "updateSchoolName",
-                              "changeUniCreateDialogState"
+                              "changeUniCreateDialogState",
+                              'updateToasterParams'
                           ]),
-            ...mapMutations(['UPDATE_SEARCH_LOADING','setSchoolName']),
+            ...mapMutations(['setSchoolName']),
             // eslint-disable-next-line no-unused-vars
             clearData(search, university) {
                 search = '';
@@ -202,7 +210,7 @@
             },
             checkBeforeNextStep(universityName) {
                 let user = this.accountUser;
-                if(!!user && user.universityExists) {
+                if(!!user && user.university?.text) {
                     //compare previous and current school name, if different show popup
                     let previousSchoolName = this.getSchoolName;
                     let currentSchoolName = universityName;
@@ -226,13 +234,19 @@
                     //new if changed
                     this.updateSchoolName(objToSend)
                         .then(() => {
-                                this.UPDATE_SEARCH_LOADING(true);
+                            if(this.isFromRegister) {
                                 this.getOut();
-                              },
-                              (error) => {
-                                  console.log('error', error);
-                              }
-                        );
+                            } 
+                            },
+                            (error) => {
+                                console.log('error', error);
+                                this.updateToasterParams({
+                                toasterText: this.$t("globalErrors_something"),
+                                showToaster: true,
+                                toasterType: 'error-toaster'
+                            });
+                            }
+                        )
                 } else {
                     //skip if not
                     this.getOut();
@@ -279,6 +293,7 @@
 <style lang="less">
     @import '../../../styles/mixin.less';
     .add-university-wrap {
+        width: 746px;
         .scrollBarStyle(6px, #a2a2a9, inset 0 0 0px,  inset 0 0 0px);
         .rounded {
             border-radius: 50%;
@@ -339,6 +354,7 @@
             max-height: 664px;
             padding-left: 0;
             overflow-y: auto;
+
         }
         .students-enrolled {
             color: rgba(128, 128, 128, 0.87);
@@ -369,6 +385,10 @@
             font-size: 8px !important;
             margin-bottom: 3px;
             margin-left: 8px;
+        }
+
+        &.fromRegister {
+            width: 440px;
         }
     }
 

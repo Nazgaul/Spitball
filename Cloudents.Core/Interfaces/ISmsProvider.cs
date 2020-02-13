@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Interfaces
 {
@@ -13,7 +14,7 @@ namespace Cloudents.Core.Interfaces
 
     public interface IVideoProvider
     {
-        Task CreateRoomAsync(string id, bool needRecord, Uri callbackUri, StudyRoomType studyRoomType);
+        Task CreateRoomAsync(string id, Country country, bool needRecord, Uri callBack, StudyRoomType studyRoomType);
         Task CloseRoomAsync(string id);
 
         Task<bool> GetRoomAvailableAsync(string id);

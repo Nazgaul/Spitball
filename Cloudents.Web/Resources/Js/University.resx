@@ -145,9 +145,9 @@
     <value>Done</value>
   </data>
   <data name="uni_error" xml:space="preserve">
-    <value>Error creating university</value>
+    <value>Error creating college</value>
   </data>
   <data name="uni_success" xml:space="preserve">
-    <value>Success creating university</value>
+    <value>Success creating college</value>
   </data>
 </root>
