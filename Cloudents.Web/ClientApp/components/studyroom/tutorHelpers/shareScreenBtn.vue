@@ -58,7 +58,6 @@
     import castIcon from "../images/cast.svg";
     import insightService from '../../../services/insightService';
     import store from '../../../store/index.js';
-    import { LanguageService } from "../../../services/language/languageService.js";
     export default {
         name: "shareScreenBtn",
         components: {castIcon},
