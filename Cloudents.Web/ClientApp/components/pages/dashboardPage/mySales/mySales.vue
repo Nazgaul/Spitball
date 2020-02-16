@@ -25,7 +25,7 @@
                <template v-slot:item="props">
                   <tr class="mySales_table_tr">
                      <td class="text-left">
-                        <span>{{props.item.name}}</span>
+                        <span>{{wallet[props.item.type]}}</span>
                      </td>
                      <td class="text-center">
                         <span>{{formatBalancePts(props.item.points)}}</span>
@@ -148,7 +148,12 @@ export default {
             this.dictionary.headers['preview'],
             this.dictionary.headers['points'],
             this.dictionary.headers['value'],
-         ]
+         ],
+         wallet:{
+            'Earned': this.$t(`wallet_earned`),
+            'Spent': this.$t(`wallet_spent`),
+            'Total': this.$t(`wallet_total`),
+         }
       }
    },
    computed: {

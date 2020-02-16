@@ -29,6 +29,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Command.Courses;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Extension;
 using Cloudents.Query.Sync;
@@ -147,8 +148,11 @@ namespace ConsoleApp
         private static async Task RamMethod()
         {
             
-            var searchWrite = _container.Resolve<IBlogProvider>();
-            var z = await searchWrite.GetBlogAsync(Country.Israel, default);
+            var searchWrite = _container.Resolve<ICommandBus>();
+            await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
+            Console.WriteLine("add");
+            await searchWrite.DispatchAsync(new UserJoinCoursesCommand(new[] {"Statistics" }, 638),default);
+
             //var i = 0;
             //while (true)
             //{
@@ -542,13 +546,15 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
         private static async Task HadarMethod()
         {
+            //var t = new PlaylistUpdates();
+            //t.Create();
 
-            var dapper = _container.Resolve<DapperRepository>();
-            var client = _container.Resolve<HttpClient>();
-            var deleteUni = new DeleteUniversityImage(dapper, client);
-            await deleteUni.DeleteBrokenUniversityImageAsync(default);
+            var s = new UploadVideo();
+            s.Upload();
             //var queryBus = _container.Resolve<IQueryBus>();
 
+            //var query = new UserStudyRoomQuery(159039);
+            //var t = await queryBus.QueryAsync(query, default);
             //var query = new UserStudyRoomQuery(159039);
             //var t = await queryBus.QueryAsync(query, default);
             //await PopulateUsersImageName();

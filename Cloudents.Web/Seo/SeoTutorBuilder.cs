@@ -74,14 +74,14 @@ namespace Cloudents.Web.Seo
             }
         }
 
-        private static bool FilterCountry(ReadTutor w, bool isFrymo)
-        {
-            if (isFrymo)
-            {
-                return w.Country == Country.India.Name;
-            }
+        //private static bool FilterCountry(ReadTutor w, bool isFrymo)
+        //{
+        //    if (isFrymo)
+        //    {
+        //        return w.Country == Country.India.Name;
+        //    }
 
-            return w.Country != Country.India.Name;
-        }
+        //    return w.Country != Country.India.Name;
+        //}
     }
 }

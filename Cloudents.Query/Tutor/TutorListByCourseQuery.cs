@@ -64,7 +64,7 @@ namespace Cloudents.Query.Tutor
                 var relevantTutorByCourse = QueryOver.Of(() => tutorAlias)
                     .JoinEntityAlias(() => userCourseAlias,
                         () => userCourseAlias.User.Id == tutorAlias.Id)
-                    .Where(() => userCourseAlias.CanTeach)
+                    .Where(() => userCourseAlias.IsTeach)
                     .And(() => userCourseAlias.Course.Id == query.CourseId)
                     .Select(s => s.Id)
                     .Take(query.Count);
@@ -74,7 +74,7 @@ namespace Cloudents.Query.Tutor
                     .JoinEntityAlias(() => userCourseAlias,
                         () => userCourseAlias.User.Id == tutorAlias.Id)
                     .JoinAlias(() => userCourseAlias.Course, () => courseAlias)
-                    .Where(() => userCourseAlias.CanTeach)
+                    .Where(() => userCourseAlias.IsTeach)
                     .WithSubquery.WhereProperty(() => courseAlias.Subject.Id).Eq(
                         QueryOver.Of<Course>().Where(w => w.Id == query.CourseId)
                             .Select(s => s.Subject.Id))

@@ -34,7 +34,7 @@
               </v-list-item>
             </template>
 
-            <v-list-item class="group_list_sideMenu_dash" v-for="(item, index) in dashboardList" :key="index"
+            <v-list-item class="group_list_sideMenu_dash" v-for="(item, index) in dashboardListFiltered" :key="index"
               :to="{name: item.route}"
               event
               @click.native.prevent="getShowSchoolBlock ? goTo(item.route) : openSideMenu()" :sel="item.sel" v-show="isShowItem(item.route)">
@@ -89,7 +89,8 @@ export default {
     return {
       sideMenulistElm: null,
       dashboardList:[
-        {name: this.$t('schoolBlock_profile'), key:'profile', route: 'profile', icon:'sbf-user', sel:'sd_profile'},
+        {name: this.$t('schoolBlock_overview'), key:'dashboard', route: 'dashboardTeacher', icon:'sbf-eye', sel:'sd_dashboard', premission: 'tutor'},
+        {name: this.$t('schoolBlock_profile'), key:'profile', route: 'profile', icon:'sbf-user', sel:'sd_profile', },
         {name: this.$t('schoolBlock_my_sales'), key:'my-sales', route: 'mySales', icon:'sbf-cart',sel:'sd_sales'},
         {name: this.$t('schoolBlock_my_followers'), key:'my-followers', route: 'myFollowers', icon:'sbf-follow',sel:'sd_followers'},
         {name: this.$t('schoolBlock_purchases'), key:'my-purchases', route: 'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
@@ -112,6 +113,11 @@ export default {
       "getShowSchoolBlock",
       'Feeds_getIsLoading'
     ]),
+    dashboardListFiltered() {
+      return this.dashboardList.filter(list => {
+        return list.premission !== 'tutor' || this.isTutor;
+      })
+    },
     isMiniSideMenu: {
       get() {
       return (this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly) && !this.getShowSchoolBlock
@@ -137,6 +143,9 @@ export default {
         selectedClasses.unshift(defaultCourse);
         return selectedClasses;
     },
+    isTutor() {
+      return this.accountUser?.isTutor
+    }
   },
   watch: {
     $route() {

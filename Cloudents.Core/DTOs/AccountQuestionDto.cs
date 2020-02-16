@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cloudents.Core.DTOs
 {
-    public class AccountQustionDto
+    public class AccountQuestionDto
     {
         public long Id { get; set; }
         public string Text { get; set; }

@@ -20,7 +20,7 @@
             <v-btn :ripple="false" class="mF_btns" text value='upload' v-openDialog="'upload'">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_upload'"/>
                 <v-icon class="mF_icon" v-html="'sbf-button-add'" />
-            </v-btn>
+            </v-btn> -->
             <v-btn :ripple="false" class="mF_btns" text value="chat" @click="openChat">
                 <span class="mF_title" v-language:inner="'mobileFooter_btn_chat'"/>
                 <span class="mF_chat">

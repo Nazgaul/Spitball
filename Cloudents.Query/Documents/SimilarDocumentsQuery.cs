@@ -71,6 +71,7 @@ namespace Cloudents.Query.Documents
             return res.Select(s =>
             {
                 s.User.Image = _urlBuilder.BuildUserImageEndpoint(s.User.Id, s.User.Image);
+                s.Preview = _urlBuilder.BuildDocumentThumbnailEndpoint(s.Id);
                 return s;
             });
         }

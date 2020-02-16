@@ -136,7 +136,7 @@
     <value>Book</value>
   </data>
   <data name="book_session" xml:space="preserve">
-    <value>Book an unbording session</value>
+    <value>Book an onbording session</value>
   </data>
   <data name="coming_soon" xml:space="preserve">
     <value>Coming soon</value>
@@ -148,7 +148,7 @@
     <value>Connect your calendar</value>
   </data>
   <data name="costume_coupon" xml:space="preserve">
-    <value>Create your own costume coupon</value>
+    <value>Create your own custom coupon</value>
   </data>
   <data name="create_coupon" xml:space="preserve">
     <value>Create a coupon</value>
@@ -168,6 +168,9 @@
   <data name="marketing_title" xml:space="preserve">
     <value>Marketing Tools</value>
   </data>
+  <data name="no_task" xml:space="preserve">
+    <value>You’re all cought up</value>
+  </data>
   <data name="revenue" xml:space="preserve">
     <value>Revenue</value>
   </data>
@@ -181,7 +184,7 @@
     <value>Share a social post</value>
   </data>
   <data name="spitball_tips" xml:space="preserve">
-    <value>Tips from spitball blog</value>
+    <value>Tips from Spitball blog</value>
   </data>
   <data name="stand_out" xml:space="preserve">
     <value>Stand out on Facebook &amp; Instagram</value>

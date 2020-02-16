@@ -1,6 +1,5 @@
 import questionService from '../services/questionService'
 import searchService from '../services/searchService'
-import reputationService from '../services/reputationService'
 
 const state = {
     deletedAnswer: false,
@@ -33,18 +32,6 @@ const mutations = {
         state.question.hasCorrectAnswer = true;
         state.question.correctAnswerId = answerId;
     },
-    updateAnswerVotes(state, {id, type}){
-        state.question.answers.forEach((answer) => {
-            if(answer.id === id){
-                reputationService.updateVoteCounter(answer, type);
-            }
-        });
-    },
-    updateInnerQuestionVotes(state, {id, type}){
-        if(!!state.question && state.question.id === id){
-            reputationService.updateVoteCounter(state.question, type);
-        }
-    }
 };
 const getters = {
     getCorrectAnswer: (state) => {
@@ -109,20 +96,6 @@ const actions = {
             commit('removeAnswer', answerId);
          }         
     },
-    answerVote({commit, dispatch}, data){
-        reputationService.voteAnswer(data.id, data.type).then(()=>{
-            commit('updateAnswerVotes', data);
-        }, (err) => {
-            let errorObj = {
-                toasterText:err.response.data.Id[0],
-                showToaster: true,
-            };
-            dispatch('updateToasterParams', errorObj);
-        });
-    },
-    innerQuestionVote({commit}, data){
-        commit('updateInnerQuestionVotes', data);
-    }
 };
 export default {
     actions, state, mutations, getters

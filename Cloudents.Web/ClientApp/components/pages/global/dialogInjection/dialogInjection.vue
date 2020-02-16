@@ -10,8 +10,21 @@ export default {
         component: ''
     }),
     watch: {
-        "$route.query.dialog": "openDialog"
+        "$route.query.dialog": "openDialog",
+        // getUserLoggedInStatus: {
+        //     immediate: true,
+        //     handler(newVal) {
+        //         if(newVal && this.$route.query.dialog) {
+        //             this.openDialog(this.$route.query.dialog)
+        //         }
+        //     }
+        // }
     },
+    // computed: {
+    //     getUserLoggedInStatus() {
+    //         return this.$store.getters.getUserLoggedInStatus
+    //     }
+    // },
     methods: {
         openDialog(dialogNameFromRoute){
             if(!dialogNameFromRoute){

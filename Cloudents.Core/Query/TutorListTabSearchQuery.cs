@@ -1,6 +1,4 @@
-﻿using Cloudents.Core.Enum;
-
-namespace Cloudents.Core.Query
+﻿namespace Cloudents.Core.Query
 {
     public class TutorListTabSearchQuery
     {
@@ -14,7 +12,7 @@ namespace Cloudents.Core.Query
 
         public string Term { get; }
         public int Page { get; }
-        public int PageSize { get; set; }
+        public int PageSize { get; }
 
         public string Country { get; }
     }

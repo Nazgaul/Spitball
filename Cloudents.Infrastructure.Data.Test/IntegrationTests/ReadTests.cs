@@ -381,6 +381,9 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         [Theory]
         [InlineData(1L)]
+        [InlineData(50039L)]
+        [InlineData(50864)]
+        
         public async Task SimilarDocumentsQuery_Ok(long documentId)
         {
             var query = new SimilarDocumentsQuery(documentId);
