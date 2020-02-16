@@ -1,7 +1,7 @@
 <template>
    <div class="shareContent">
       <div class="share-icon-container">
-         <span @click="shareOnSocialMedia('facebook')" class="share-btn facebook-share-btn mb-1">
+         <span @click="shareOnSocialMedia('facebook')" class="share-btn facebook-share-btn mb-1 mr-1">
             <v-icon class="share-icon">sbf-facebook-share</v-icon>
             <span class="share-text" v-language:inner>referralDialog_share_facebook</span>
          </span>
@@ -9,7 +9,7 @@
             <v-icon class="share-icon referral-twitter-icon">sbf-tweeter-share</v-icon>
             <span class="share-text referral-twitter" v-language:inner>referralDialog_share_tweeter</span>
          </span>    
-         <span @click="shareOnSocialMedia('gmail')" class="share-btn gmail-share-btn mb-1">
+         <span @click="shareOnSocialMedia('gmail')" class="share-btn gmail-share-btn mr-1">
             <v-icon class="share-icon referral-gmail-icon">sbf-google-share</v-icon>
             <span class="share-text" v-language:inner>referralDialog_share_google</span>
          </span>
@@ -71,8 +71,9 @@ export default {
    font-size: 14px;
    color: #43425d;
        .share-icon-container {
+          display: flex;
+          flex-wrap: wrap;
       width: 100%;
-      justify-content: space-around;
       .v-icon{
 
         &.share-icon {
@@ -99,12 +100,11 @@ export default {
         }
       }
       .share-btn{
+        width: 48%;
         border-radius: 4px;
         display: flex;
         align-items: center;
-        width: 80px;
         padding: 4px 12px 4px 8px;
-        margin-right: 8px;
         &:last-child{
           margin-right: 0;
         }
