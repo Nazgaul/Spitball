@@ -144,6 +144,9 @@
   <data name="not_screen" xml:space="preserve">
     <value>There was an error sharing your screen</value>
   </data>
+  <data name="premission_denied" xml:space="preserve">
+    <value>The operating system is blocking go to &lt;a href="https://www.spitball.co" target="_Blank"&gt;here&lt;/a&gt;</value>
+  </data>
   <data name="session_ended" xml:space="preserve">
     <value>Session ended</value>
   </data>

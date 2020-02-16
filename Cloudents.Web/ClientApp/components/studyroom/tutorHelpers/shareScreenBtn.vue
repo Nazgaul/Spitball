@@ -145,7 +145,7 @@
                         }
                         if(error === "notBrowser") {
                             self.updateToasterParams({
-                                toasterText: LanguageService.getValueByKey("studyRoom_not_browser"),
+                                toasterText: this.$t("studyRoom_not_browser"),
                                 showToaster: true,
                                 toasterType: "error-toaster" //c
                             });
@@ -156,24 +156,24 @@
                                 //user press cancel.
                                 return;
                             };
-                            debugger;
+                            // debugger;
                             if (error.message === "Permission denied by system") {
                                  self.updateToasterParams({
-                                                     toasterText: 'The operating system is blocking go to <a href="https://www.spitball.co" target="_Blank">here</a>', //LanguageService.getValueByKey("studyRoom_not_screen"),
-                                                     showToaster: true,
-                                                     toasterType: "error-toaster" //c
-                                                 });
+                                    toasterText: this.$t('studyRoom_premission_denied'),
+                                    // toasterText: 'The operating system is blocking go to <a href="https://www.spitball.co" target="_Blank">here</a>', //this.$t("studyRoom_not_screen"),
+                                    showToaster: true,
+                                    toasterType: "error-toaster" //c
+                                });
                             }
-
                             return
 
                            
                         }
                         self.updateToasterParams({
-                                                     toasterText: LanguageService.getValueByKey("studyRoom_not_screen"),
-                                                     showToaster: true,
-                                                     toasterType: "error-toaster" //c
-                                                 });
+                            toasterText: this.$t("studyRoom_not_screen"),
+                            showToaster: true,
+                            toasterType: "error-toaster" //c
+                        });
                         console.error("error sharing screen", error);
                     }
                 );
