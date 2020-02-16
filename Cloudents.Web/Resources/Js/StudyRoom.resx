@@ -145,7 +145,7 @@
     <value>There was an error sharing your screen</value>
   </data>
   <data name="premission_denied" xml:space="preserve">
-    <value>The operating system is blocking go to &lt;a href="{0}" target="_Blank"&gt;here&lt;/a&gt;</value>
+    <value>You need to update your settings to enable screen sharing - &lt;a style="color:black" href="{0}" target="_Blank"&gt;more info&lt;/a&gt;</value>
   </data>
   <data name="session_ended" xml:space="preserve">
     <value>Session ended</value>
