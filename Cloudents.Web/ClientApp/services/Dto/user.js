@@ -49,6 +49,8 @@ export const User = {
         )
     },
     Account: function(objInit){
+        objInit.courses = objInit.courses || [];
+        objInit.isTutor  = objInit.isTutor  ||'';
         return Object.assign(
             new User.Default(objInit),
             {
@@ -57,7 +59,7 @@ export const User = {
                 email: objInit.email,
                 currencySymbol: objInit.currencySymbol,
                 needPayment: objInit.needPayment,
-                isTutor: objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok',
+                isTutor: objInit.isTutor.toLowerCase() === 'ok',
                 isTutorState: _createIsTutorState(objInit.isTutor),
                 university: new School.University(objInit.university),
                 courses: objInit.courses.map((course) => new School.Course(course)),

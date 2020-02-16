@@ -152,8 +152,22 @@
                             return;
                         }
                         if(error.name === "NotAllowedError") {
-                            //user press cancel.
-                            return;
+                            if (error.message === "Permission denied") {
+                                //user press cancel.
+                                return;
+                            };
+                            debugger;
+                            if (error.message === "Permission denied by system") {
+                                 self.updateToasterParams({
+                                                     toasterText: 'The operating system is blocking go to <a href="https://www.spitball.co" target="_Blank">here</a>', //LanguageService.getValueByKey("studyRoom_not_screen"),
+                                                     showToaster: true,
+                                                     toasterType: "error-toaster" //c
+                                                 });
+                            }
+
+                            return
+
+                           
                         }
                         self.updateToasterParams({
                                                      toasterText: LanguageService.getValueByKey("studyRoom_not_screen"),
