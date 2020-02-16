@@ -43,6 +43,10 @@
         </v-btn>
       </div>
     </div>
+
+    <v-snackbar v-model="snackbar" :timeout="3000" top>
+      <div class="text-center flex-grow-1">{{ $t('coupon_toaster_copy') }}</div>
+    </v-snackbar>
   </v-dialog>
 </template>
 
@@ -72,6 +76,7 @@ export default {
       },
       loadingBtn:false,
       showSuccess:false,
+      snackbar:false,
     }
   },
   watch: {
@@ -96,6 +101,7 @@ export default {
       this.loadingBtn = true;
       this.$copyText(this.couponCode).then(() => {
           self.loadingBtn = false;
+          self.snackbar = true;
       })
     },
     createMyCoupon() {
