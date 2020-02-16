@@ -546,13 +546,15 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
         private static async Task HadarMethod()
         {
+            //var t = new PlaylistUpdates();
+            //t.Create();
 
-            var dapper = _container.Resolve<DapperRepository>();
-            var client = _container.Resolve<HttpClient>();
-            var deleteUni = new DeleteUniversityImage(dapper, client);
-            await deleteUni.DeleteBrokenUniversityImageAsync(default);
+            var s = new UploadVideo();
+            s.Upload();
             //var queryBus = _container.Resolve<IQueryBus>();
 
+            //var query = new UserStudyRoomQuery(159039);
+            //var t = await queryBus.QueryAsync(query, default);
             //var query = new UserStudyRoomQuery(159039);
             //var t = await queryBus.QueryAsync(query, default);
             //await PopulateUsersImageName();
