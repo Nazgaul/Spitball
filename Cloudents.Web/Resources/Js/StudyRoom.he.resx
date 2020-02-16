@@ -145,7 +145,7 @@
     <value>לא ניתן לשתף את המסך - אנא נסה מאוחר יותר</value>
   </data>
   <data name="premission_denied" xml:space="preserve">
-    <value>בכדי לאשר שיתוף מסך, יש לעדכן את ההגדרות - &lt;a href="{0}" target="_Blank"&gt;למידע נוסף&lt;/a&gt;</value>
+    <value>בכדי לאשר שיתוף מסך, יש לעדכן את ההגדרות - &lt;a style="color:black" href="{0}" target="_Blank"&gt;למידע נוסף&lt;/a&gt;</value>
   </data>
   <data name="session_ended" xml:space="preserve">
     <value>השיעור הסתיים</value>
