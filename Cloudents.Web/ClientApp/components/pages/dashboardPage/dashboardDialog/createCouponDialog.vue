@@ -27,7 +27,7 @@
           </v-form>
         </template>
         <template v-else>
-          <div class="succes-title pb-9 pb-sm-12 pt-0 pt-sm-6">You have succesesfuly created a coupon code</div>
+          <div class="succes-title pb-9 pb-sm-12 pt-2 pt-sm-6">You have succesesfuly created a coupon code</div>
           <div class="coupon-box">
             <img class="coupon-box_img" src="./images/b.png" alt="">
             <span class="coupon-box_code" v-text="couponCode"/>            
@@ -189,7 +189,7 @@ export default {
       text-align: center;
       position: relative;
       border-radius: 4px;
-      border: dashed 1.5px #b8c0d1;
+      border: dashed 2px #b8c0d1;
       padding: 8px 18px 10px;
       @media (max-width: @screen-xs) {
         padding: 10px 18px;
@@ -200,11 +200,11 @@ export default {
           transform: scaleX(1) /*rtl:append:scaleX(-1)*/;
           position: absolute;
           top: -16px;
-          left: 4px;
+          left: 8px;
       }
       .coupon-box_code{
         font-size: 24px;
-        font-weight: bold;
+        font-weight: 600;
         text-align: center;
         line-height: 1.2;
         letter-spacing: 1.2px;
@@ -229,7 +229,7 @@ export default {
               @media (max-width: @screen-xs) {
                 font-size: 6px;
               }
-                font-size: 8px;
+                font-size: 6px;
                 color: #43425d;
             }
       }
