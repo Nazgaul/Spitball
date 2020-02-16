@@ -31,7 +31,7 @@ namespace Cloudents.FunctionsV2
 
         private static readonly Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
         private static List<CloudBlockBlob> _blobs;
-        private static readonly FontCollection _fontCollection = new FontCollection();
+        private static readonly FontCollection FontCollection = new FontCollection();
 
 
         [FunctionName("ShareProfileImageFunction")]
@@ -51,7 +51,7 @@ namespace Cloudents.FunctionsV2
                 foreach (var fontBlob in _blobs.Where(w => w.Name.EndsWith(".ttf")))
                 {
                     await using var fontStream = await fontBlob.OpenReadAsync();
-                    _fontCollection.Install(fontStream);
+                    FontCollection.Install(fontStream);
 
                 }
             }
@@ -59,20 +59,18 @@ namespace Cloudents.FunctionsV2
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             var query = new ShareProfileImageQuery(id);
-            var result = await queryBus.QueryAsync(query, token);
+            var dbResult = await queryBus.QueryAsync(query, token);
 
-            if (result.Image is null)
+            if (dbResult.Image is null)
             {
                 return new BadRequestResult();
             }
-
-
-            var uriBuilder = new UriBuilder(req.Scheme, req.Host.Host, req.Host.Port.Value)
+            var uriBuilder = new UriBuilder(req.Scheme, req.Host.Host, req.Host.Port.GetValueOrDefault(443))
             {
                 Path = "api/" + UrlConst.ImageFunctionUserRoute.Inject(new
                 {
                     id,
-                    file = result.Image
+                    file = dbResult.Image
                 }),
             }.AddQuery(new
             {
@@ -101,8 +99,8 @@ namespace Cloudents.FunctionsV2
                         HorizontalAlignment = HorizontalAlignment.Center,
                         WrapTextWidth = 330f,
                     },
-                    result.Name,
-                    _fontCollection.CreateFont("open sans", 32, FontStyle.Regular),
+                    dbResult.Name,
+                    FontCollection.CreateFont("open sans", 32, FontStyle.Regular),
                     Color.White,
                     new PointF(105f, 423));
             });
@@ -110,12 +108,12 @@ namespace Cloudents.FunctionsV2
             for (var i = 1; i <= 5; i++)
             {
                 byte[] byteArr;
-                if (result.Rate >= i)
+                if (dbResult.Rate >= i)
                 {
                     byteArr = await GetStarAsync(Star.Full);
                 }
 
-                else if (Math.Abs(Math.Round((i - result.Rate) * 2, MidpointRounding.AwayFromZero) / 2 - 0.5) < 0.01)
+                else if (Math.Abs(Math.Round((i - dbResult.Rate) * 2, MidpointRounding.AwayFromZero) / 2 - 0.5) < 0.01)
                 {
                     byteArr = await GetStarAsync(Star.Half);
                 }
@@ -136,24 +134,22 @@ namespace Cloudents.FunctionsV2
 
             await using var quoteSr = await _blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
 
-            const int descriptionSize = 255;
+            const int descriptionSize = 225;
             const int marginBetweenQuote = 28;
             var quoteImage = Image.Load(quoteSr);
 
             var descriptionImage = new Image<Rgba32>(675, descriptionSize + marginBetweenQuote + quoteImage.Height);
-            result.Description =
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+            //dbResult.Description =
+            //    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
             descriptionImage.Mutate(context =>
             {
-                ReadOnlySpan<char> description = result.Description;
-                context.BackgroundColor(Color.Bisque);
-
+                //var description = new Span<char>(result.Description.ToCharArray());
+                ReadOnlySpan<char> description = dbResult.Description;
                 var size = context.GetCurrentSize();
-
                 var middle = size.Width / 2 - quoteImage.Width / 2;
                 context.DrawImage(quoteImage, new Point(middle, 0), GraphicsOptions.Default);
-                var font = _fontCollection.CreateFont("Open Sans Semibold", 38, FontStyle.Bold);
-
+                var font = FontCollection.CreateFont("Open Sans Semibold", 38, FontStyle.Bold);
+                
                 var rendererOptions = new RendererOptions(font)
                 {
                     WrappingWidth = size.Width,
@@ -170,11 +166,13 @@ namespace Cloudents.FunctionsV2
                 }
 
                 var location = new PointF(0, quoteImage.Height + marginBetweenQuote);
-
                 context.DrawText(new TextGraphicsOptions()
                 {
                     WrapTextWidth = size.Width,
-                    HorizontalAlignment = HorizontalAlignment.Center
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    
+                   // DpiY = 72*1.5f
+                    
                 }, description.ToString(), font, Color.FromHex("43425d"), location);
 
                 var endHeight = textSize.Height + location.Y;
