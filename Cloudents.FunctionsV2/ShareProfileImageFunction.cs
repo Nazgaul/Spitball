@@ -52,6 +52,7 @@ namespace Cloudents.FunctionsV2
                 {
                     await using var fontStream = await fontBlob.OpenReadAsync();
                     FontCollection.Install(fontStream);
+                    
 
                 }
             }
@@ -93,14 +94,23 @@ namespace Cloudents.FunctionsV2
             image.Mutate(context =>
             {
                 context.DrawImage(profileImage, new Point(148, 135), GraphicsOptions.Default);
+
+                const float nameMaxWidth = 330f;
+                var font = FontCollection.CreateFont("open sans", 32, FontStyle.Regular);
+                var rendererOptions = new RendererOptions(font)
+                {
+                    WrappingWidth = nameMaxWidth,
+                };
+                var textSize = TextMeasurer.Measure(dbResult.Name, rendererOptions);
+
                 context.DrawText(
                     new TextGraphicsOptions()
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
-                        WrapTextWidth = 330f,
+                        WrapTextWidth = nameMaxWidth,
                     },
                     dbResult.Name,
-                    FontCollection.CreateFont("open sans", 32, FontStyle.Regular),
+                    font,
                     Color.White,
                     new PointF(105f, 423));
             });
