@@ -123,6 +123,7 @@ export default {
 <style lang="less">
 @import "../../../../styles/mixin.less";
 .myFollowers{
+   max-width: 1334px;
    .myFollowers_title{
       font-size: 22px;
       color: #43425d;
