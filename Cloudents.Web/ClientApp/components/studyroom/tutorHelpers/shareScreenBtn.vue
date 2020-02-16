@@ -154,7 +154,7 @@
                             if (error.message === "Permission denied") {
                                 //user press cancel.
                                 return;
-                            };
+                            }
                             if (error.message === "Permission denied by system") {
                                  let url = 'https://support.apple.com/en-il/guide/mac-help/mchld6aa7d23/mac'
                                  self.updateToasterParams({
