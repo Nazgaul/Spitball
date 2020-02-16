@@ -2,6 +2,7 @@ using Cloudents.FunctionsV2.Sync;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 
 namespace Cloudents.FunctionsV2
 {
@@ -9,7 +10,7 @@ namespace Cloudents.FunctionsV2
     {
         [FunctionName("UniversitySearchSync")]
         public static async Task RunQuestionSearchAsync([TimerTrigger("0 0,30 * * * *")] TimerInfo myTimer,
-            [OrchestrationClient] DurableOrchestrationClient starter,
+            [DurableClient]IDurableOrchestrationClient starter,
             ILogger log)
         {
             log.LogInformation("UniversitySearchSync started");
