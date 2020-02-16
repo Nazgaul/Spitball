@@ -1,32 +1,22 @@
 <template>
    <div class="shareContent">
       <div class="share-icon-container">
-         <v-list>
-            <v-list-tile>
-               <span @click="shareOnSocialMedia('facebook')" class="share-btn facebook-share-btn mb-1">
-                  <v-icon class="share-icon">sbf-facebook-share</v-icon>
-                  <span class="share-text" v-language:inner>referralDialog_share_facebook</span>
-               </span>
-            </v-list-tile>
-            <v-list-tile>
-               <span @click="shareOnSocialMedia('twitter')" class="share-btn twitter-share-btn mb-1">
-                  <v-icon class="share-icon referral-twitter-icon">sbf-tweeter-share</v-icon>
-                  <span class="share-text referral-twitter" v-language:inner>referralDialog_share_tweeter</span>
-               </span>    
-            </v-list-tile>
-            <v-list-tile>
-               <span @click="shareOnSocialMedia('gmail')" class="share-btn gmail-share-btn mb-1">
-                  <v-icon class="share-icon referral-gmail-icon">sbf-google-share</v-icon>
-                  <span class="share-text" v-language:inner>referralDialog_share_google</span>
-               </span>
-            </v-list-tile>
-            <v-list-tile>
-               <span @click="shareOnSocialMedia('whatsApp')" class="share-btn whatsup-share-btn">
-                  <v-icon class="share-icon">sbf-whatsup-share</v-icon>
-                  <span class="share-text" v-language:inner>referralDialog_share_whatsup</span>
-               </span>
-            </v-list-tile>
-         </v-list>
+         <span @click="shareOnSocialMedia('facebook')" class="share-btn facebook-share-btn mb-1">
+            <v-icon class="share-icon">sbf-facebook-share</v-icon>
+            <span class="share-text" v-language:inner>referralDialog_share_facebook</span>
+         </span>
+         <span @click="shareOnSocialMedia('twitter')" class="share-btn twitter-share-btn mb-1">
+            <v-icon class="share-icon referral-twitter-icon">sbf-tweeter-share</v-icon>
+            <span class="share-text referral-twitter" v-language:inner>referralDialog_share_tweeter</span>
+         </span>    
+         <span @click="shareOnSocialMedia('gmail')" class="share-btn gmail-share-btn mb-1">
+            <v-icon class="share-icon referral-gmail-icon">sbf-google-share</v-icon>
+            <span class="share-text" v-language:inner>referralDialog_share_google</span>
+         </span>
+         <span @click="shareOnSocialMedia('whatsApp')" class="share-btn whatsup-share-btn">
+            <v-icon class="share-icon">sbf-whatsup-share</v-icon>
+            <span class="share-text" v-language:inner>referralDialog_share_whatsup</span>
+         </span>
       </div>
    </div>
 </template>
@@ -46,7 +36,7 @@ export default {
                global.open(`https://web.whatsapp.com/send?text=${msg.url}`, "_blank");
                break;
             case 'facebook':
-               global.open(`https://www.facebook.com/sharer.php?href=${encodeURIComponent(msg.url)}`, "_blank");
+               global.open(`https://www.facebook.com/sharer.php?u=${encodeURIComponent(msg.url)}`, "_blank");
                break;
             case 'linkedin':
                global.open(`https://www.linkedin.com/shareArticle?mini=true&url=${msg.url}&title=${msg.title}&summary=${msg.text}`, "_blank");
@@ -81,9 +71,6 @@ export default {
    font-size: 14px;
    color: #43425d;
        .share-icon-container {
-      order: 1;
-      display: flex;
-      max-width: 372px;
       width: 100%;
       justify-content: space-around;
       .v-icon{
