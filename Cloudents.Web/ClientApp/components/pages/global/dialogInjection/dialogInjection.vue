@@ -11,20 +11,7 @@ export default {
     }),
     watch: {
         "$route.query.dialog": "openDialog",
-        // getUserLoggedInStatus: {
-        //     immediate: true,
-        //     handler(newVal) {
-        //         if(newVal && this.$route.query.dialog) {
-        //             this.openDialog(this.$route.query.dialog)
-        //         }
-        //     }
-        // }
     },
-    // computed: {
-    //     getUserLoggedInStatus() {
-    //         return this.$store.getters.getUserLoggedInStatus
-    //     }
-    // },
     methods: {
         openDialog(dialogNameFromRoute){
             if(!dialogNameFromRoute){
@@ -33,18 +20,30 @@ export default {
                 return;
             }else{
                 let currentDialogPremissionList = this.dialogsPremissions[dialogNameFromRoute];
-                for(let premissionType of currentDialogPremissionList){
-                    let result = this.dialogHandlerByType(premissionType,dialogNameFromRoute)
-                    if(result === 'break'){
-                        this.component = 'break'
-                        break;
+                let self = this;
+                this.$nextTick(()=>{
+                    for(let premissionType of currentDialogPremissionList){
+                        let result = self.dialogHandlerByType(premissionType,dialogNameFromRoute)
+                        if(result === 'break'){
+                            self.component = 'break';
+                            break;
+                        }
+                        if(self.component){
+                            break;
+                        }
                     }
-                }
-                if(this.component === 'break'){
-                    this.component = ''
-                }else{
-                    this.component = dialogNameFromRoute
-                }
+
+                    if(self.component === 'break'){
+                        self.component = ''
+                        return
+                    }
+                    if(self.component){
+                        return
+                    }else{
+                        self.component = dialogNameFromRoute
+                        return
+                    }
+                })
             }   
         }
     }

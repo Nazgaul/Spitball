@@ -37,14 +37,11 @@ export default {
         dialogHandlerByType(premissionType,dialogNameFromRoute){
             let dialogChekerName = `check_${premissionType}`;
             // TODO make it Promise!!
-            this.$nextTick().then(()=>{
                 return this[dialogChekerName](dialogNameFromRoute);
-            })
         },
         check_auth(){
             if(!this.getUserLoggedInStatus && !global.isAuth){
                 this.component = 'login';
-                return 'break'
             }
         },
         check_tutor(){
