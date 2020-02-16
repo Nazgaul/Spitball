@@ -15,6 +15,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
@@ -26,7 +27,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName("EmailUpdateFunction")]
         public static async Task RunOrchestrator(
-            [OrchestrationTrigger] DurableOrchestrationContext context,
+            [OrchestrationTrigger] IDurableOrchestrationContext context,
             CancellationToken token)
         {
             var timeSince = DateTime.UtcNow.AddDays(-1);

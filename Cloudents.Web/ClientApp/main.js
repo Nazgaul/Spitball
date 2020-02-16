@@ -99,18 +99,16 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
 router.beforeEach((to, from, next) => {
     store.dispatch('setRouteStack', to.name);
     store.dispatch('sendQueryToAnalytic', to);
-    store.dispatch('userStatus');
-
     let isLogged = store.getters.getUserLoggedInStatus2;
     
     if (!isLogged && to.meta && to.meta.requiresAuth) {
         next("/signin");
         return;
     }
-
-    loadLanguageAsync().then(() => {
+    let getAccountUser = store.dispatch('userStatus');
+    Promise.all([getAccountUser,loadLanguageAsync()]).then(()=>{
        next();
-    });
+    })
 });
 
 sync(store, router);
