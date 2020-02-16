@@ -2,35 +2,44 @@
   <v-dialog :value="true" max-width="550px" max-height="310px" :fullscreen="$vuetify.breakpoint.xsOnly" persistent>
     <div class="createCouponDialog">
       <v-icon class="close-dialog" v-text="'sbf-close'" v-closeDialog />
-      <div v-if="!showSuccess" class="text-wrap pt-4 pt-sm-0">
-        <div class="dialog-title pb-10 pb-sm-11">Create a special offer</div>
-        <v-form v-model="validCreateCoupon" ref="validCreateCoupon">
-          <v-layout justify-space-between wrap class="inputs-coupon pr-0 pr-sm-4">
-              <v-flex xs12 pb-1 pb-sm-3>
-                <v-text-field autofocus :rules="[rules.required,rules.notSpaces,rules.minimumChars,rules.maximumChars]"
-                  v-model="couponCode" :label="$t('coupon_label_code')" placeholder=" " autocomplete="nope"
-                  dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
-              </v-flex>
-              <v-flex xs12 sm9 pr-0 pr-sm-4 pb-1 pb-sm-0> 
-                <v-select v-model="couponType" class="coupon-type" color="#304FFE" :items="couponTypesList"
-                  outlined :height="$vuetify.breakpoint.xsOnly?50: 44" item-text="key" :append-icon="'sbf-triangle-arrow-down'" dense
-                  :label="$t('coupon_label_type')" :rules="[rules.required]" placeholder=" "/>
+      <div class="text-wrap pt-4 pt-sm-0">
+        <template v-if="!showSuccess">
+          <div class="dialog-title pb-10 pb-sm-11">Create a special offer</div>
+          <v-form v-model="validCreateCoupon" ref="validCreateCoupon">
+            <v-layout justify-space-between wrap class="inputs-coupon pr-0 pr-sm-4">
+                <v-flex xs12 pb-1 pb-sm-3>
+                  <v-text-field autofocus :rules="[rules.required,rules.notSpaces,rules.minimumChars,rules.maximumChars]"
+                    v-model="couponCode" :label="$t('coupon_label_code')" placeholder=" " autocomplete="nope"
+                    dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
+                </v-flex>
+                <v-flex xs12 sm9 pr-0 pr-sm-4 pb-1 pb-sm-0> 
+                  <v-select v-model="couponType" class="coupon-type" color="#304FFE" :items="couponTypesList"
+                    outlined :height="$vuetify.breakpoint.xsOnly?50: 44" item-text="key" :append-icon="'sbf-triangle-arrow-down'" dense
+                    :label="$t('coupon_label_type')" :rules="[rules.required]" placeholder=" "/>
 
-              </v-flex>
-              <v-flex xs5 sm3>
-                <v-text-field v-model="couponValue" :label="$t('coupon_label_value')"
-                  placeholder=" " autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
-                  dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
-              </v-flex>
-          </v-layout>
-        </v-form>
+                </v-flex>
+                <v-flex xs5 sm3>
+                  <v-text-field v-model="couponValue" :label="$t('coupon_label_value')"
+                    placeholder=" " autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
+                    dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
+                </v-flex>
+            </v-layout>
+          </v-form>
+        </template>
+        <template v-else>
+          <div class="succes-title pb-9 pb-sm-12 pt-0 pt-sm-6">You have succesesfuly created a coupon code</div>
+          <div class="coupon-box">
+            <img class="coupon-box_img" src="./images/b.png" alt="">
+            <span class="coupon-box_code" v-text="couponCode"/>            
+          </div>
+        </template>
       </div>
       <div class="btns-wrap">
         <v-btn v-closeDialog class="dialog-btn btn-cancel mr-1 mr-sm-3" color="white" height="40" rounded depressed>
-          <span v-t="'coupon_btn_cancel'"/>
+          <span v-t="showSuccess?'coupon_btn_exit':'coupon_btn_cancel'"/>
         </v-btn>
-        <v-btn :loading="loadingBtn" @click="createMyCoupon" class="ml-1 ml-sm-0 dialog-btn white--text" height="40" rounded depressed color="#4c59ff">
-          <span v-t="'coupon_btn_submit'"/>
+        <v-btn :loading="loadingBtn" @click="showSuccess? copyCode() : createMyCoupon()" class="ml-1 ml-sm-0 dialog-btn white--text" height="40" rounded depressed color="#4c59ff">
+          <span v-t="showSuccess?'coupon_btn_copy':'coupon_btn_submit'"/>
         </v-btn>
       </div>
     </div>
@@ -82,6 +91,13 @@ export default {
   },
   methods: {
     ...mapActions(['createCoupon']),
+    copyCode(){
+      let self = this;
+      this.loadingBtn = true;
+      this.$copyText(this.couponCode).then(() => {
+          self.loadingBtn = false;
+      })
+    },
     createMyCoupon() {
       if(this.$refs.validCreateCoupon.validate()){
         this.loadingBtn = true;
@@ -148,6 +164,44 @@ export default {
       @media (max-width: @screen-xs) {
         text-align: center;
         letter-spacing: -0.34px;
+      }
+    }
+    .succes-title{
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.45px;
+      text-align: center;
+      max-width: 340px;
+      margin: 0 auto;
+      @media (max-width: @screen-xs) {
+        font-size: 20px;
+        letter-spacing: -0.38px;
+      }
+
+    }
+    .coupon-box{
+      text-align: center;
+      position: relative;
+      border-radius: 4px;
+      border: dashed 1.5px #b8c0d1;
+      padding: 8px 18px 10px;
+      @media (max-width: @screen-xs) {
+        padding: 10px 18px;
+      }
+      max-width: 256px;
+      margin: 0 auto;
+      .coupon-box_img{
+          transform: scaleX(1) /*rtl:append:scaleX(-1)*/;
+          position: absolute;
+          top: -16px;
+          left: 4px;
+      }
+      .coupon-box_code{
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 1.2;
+        letter-spacing: 1.2px;
       }
     }
     .inputs-coupon {

@@ -129,6 +129,12 @@
   <data name="btn_cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="btn_copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="btn_exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
   <data name="btn_submit" xml:space="preserve">
     <value>Submit</value>
   </data>
