@@ -121,7 +121,7 @@ namespace Cloudents.Web.Identity
         public Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             var p = long.Parse(userId);
-            return _queryBus.QueryAsync<User>(new UserDataByIdQuery(p), cancellationToken);
+            return _queryBus.QueryAsync(new UserDataByIdQuery(p), cancellationToken);
             //return _session.LoadAsync<RegularUser>(p, cancellationToken);
         }
 

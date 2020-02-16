@@ -41,7 +41,7 @@ namespace Cloudents.Admin2
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-
+            services.AddApplicationInsightsTelemetry();
             services.AddAuthorization();
             services.AddAuthentication(o =>
                 {
@@ -184,7 +184,6 @@ namespace Cloudents.Admin2
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(routes =>
             {
                 routes.MapControllerRoute(

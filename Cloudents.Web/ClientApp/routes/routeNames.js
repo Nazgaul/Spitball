@@ -25,3 +25,6 @@ export const Profile = 'profile';
 
 // Feed:
 export const Feed = 'feed';
+
+// Dashboard:
+export const Dashboard = 'dashboardTeacher';

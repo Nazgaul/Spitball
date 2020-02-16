@@ -190,7 +190,7 @@ const actions = {
                             pathObj.query.filter = 'Tutor'
                         }
                         if(userType === 'Teacher'){
-                            pathObj.query.filter = 'Question'
+                            pathObj.name = routeNames.Dashboard;
                         }
                         state.toUrl === '/' ? router.push(pathObj) : router.push(state.toUrl)
                     })
@@ -324,12 +324,11 @@ const actions = {
                                     name: routeNames.Feed,
                                     query:{}
                                 }
-
                                 if(userType === 'Parent'){
                                     pathObj.query.filter = 'Tutor'
                                 }
                                 if(userType === 'Teacher'){
-                                    pathObj.query.filter = 'Question'
+                                    pathObj.name = routeNames.Dashboard;
                                 }
                                 state.toUrl === '/' ? router.push(pathObj) : router.push(state.toUrl)
                             })

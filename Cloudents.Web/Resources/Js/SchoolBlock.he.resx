@@ -156,6 +156,9 @@
   <data name="my_study_rooms" xml:space="preserve">
     <value>חדרי הלימוד שלי</value>
   </data>
+  <data name="overview" xml:space="preserve">
+    <value>סקירה כללית</value>
+  </data>
   <data name="posts" xml:space="preserve">
     <value>ההודעות שלי</value>
   </data>

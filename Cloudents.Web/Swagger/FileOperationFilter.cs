@@ -1,5 +1,5 @@
-﻿namespace Cloudents.Web.Swagger
-{
+﻿//namespace Cloudents.Web.Swagger
+//{
     //internal class FormFileOperationFilter : IOperationFilter
     //{
     //    private struct ContainerParameterData
@@ -99,8 +99,4 @@
     //        }
     //    }
     //}
-
-
-
-
-}
+//}
