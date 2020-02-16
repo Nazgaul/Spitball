@@ -236,7 +236,7 @@ export default {
         position: -ms-sticky;
         position: -o-sticky;
         position: sticky;
-        // z-index: 240;
+        z-index: 11;
         @media (max-width: @screen-xs) {
             z-index: unset;
         }

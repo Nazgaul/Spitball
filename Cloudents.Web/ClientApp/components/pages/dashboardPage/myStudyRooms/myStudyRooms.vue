@@ -146,6 +146,7 @@ export default {
 
 <style lang="less">
 .myStudyRooms{
+   max-width: 1334px;
    .myStudyRooms_title{
       font-size: 22px;
       color: #43425d;
