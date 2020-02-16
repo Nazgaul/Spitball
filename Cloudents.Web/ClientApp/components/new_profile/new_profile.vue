@@ -12,8 +12,12 @@
             <profileReviewsBox v-if="showReviewBox"/>
             <profileUserStickyMobile :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.mdAndDown"/>
         </div>
-        
+        <div>
         <profileUserSticky :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.lgAndUp && !isTutorPending"/>
+        <shareContent class="mt-3"/>
+        
+        </div>
+        
 
 
 
