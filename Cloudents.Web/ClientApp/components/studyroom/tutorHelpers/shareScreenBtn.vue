@@ -159,7 +159,7 @@
                                  let url = 'https://support.apple.com/en-il/guide/mac-help/mchld6aa7d23/mac'
                                  self.updateToasterParams({
                                     toasterText: self.$t('studyRoom_premission_denied',[url]),
-                                    // toasterText: 'The operating system is blocking go to <a href="https://www.spitball.co" target="_Blank">here</a>', //this.$t("studyRoom_not_screen"),
+                                    toasterTimeout: 30000,
                                     showToaster: true,
                                     toasterType: "error-toaster" //c
                                 });
