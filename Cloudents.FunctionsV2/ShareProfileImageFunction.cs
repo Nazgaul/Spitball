@@ -143,13 +143,13 @@ namespace Cloudents.FunctionsV2
             //    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
             descriptionImage.Mutate(context =>
             {
-                //var description = new Span<char>(result.Description.ToCharArray());
-                ReadOnlySpan<char> description = dbResult.Description;
+                var description = new Span<char>(dbResult.Description.ToCharArray());
+                //ReadOnlySpan<char> description = dbResult.Description.Trim();
                 var size = context.GetCurrentSize();
                 var middle = size.Width / 2 - quoteImage.Width / 2;
                 context.DrawImage(quoteImage, new Point(middle, 0), GraphicsOptions.Default);
                 var font = FontCollection.CreateFont("Open Sans Semibold", 38, FontStyle.Bold);
-                
+
                 var rendererOptions = new RendererOptions(font)
                 {
                     WrappingWidth = size.Width,
@@ -162,7 +162,8 @@ namespace Cloudents.FunctionsV2
                     {
                         break;
                     }
-                    description = description.Slice(0, description.LastIndexOf(' '));
+                    description = description.Slice(0, description.LastIndexOf(' ') + 3);
+                    description[^3..].Fill('.');
                 }
 
                 var location = new PointF(0, quoteImage.Height + marginBetweenQuote);
@@ -170,9 +171,9 @@ namespace Cloudents.FunctionsV2
                 {
                     WrapTextWidth = size.Width,
                     HorizontalAlignment = HorizontalAlignment.Center,
-                    
-                   // DpiY = 72*1.5f
-                    
+
+                    // DpiY = 72*1.5f
+
                 }, description.ToString(), font, Color.FromHex("43425d"), location);
 
                 var endHeight = textSize.Height + location.Y;
