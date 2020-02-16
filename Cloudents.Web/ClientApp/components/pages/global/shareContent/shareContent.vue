@@ -46,7 +46,7 @@ export default {
                global.open(`https://web.whatsapp.com/send?text=${msg.url}`, "_blank");
                break;
             case 'facebook':
-               global.open(`https://www.facebook.com/sharer.php?u=${msg.url}`, "_blank");
+               global.open(`https://www.facebook.com/sharer.php?href=${encodeURIComponent(msg.url)}`, "_blank");
                break;
             case 'linkedin':
                global.open(`https://www.linkedin.com/shareArticle?mini=true&url=${msg.url}&title=${msg.title}&summary=${msg.text}`, "_blank");
