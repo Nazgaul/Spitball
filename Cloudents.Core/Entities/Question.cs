@@ -85,7 +85,6 @@ namespace Cloudents.Core.Entities
         {
             var answer = new Answer(this, text, user);
             _answers.Add(answer);
-            AddEvent(new AnswerCreatedEvent(answer));
             return answer;
         }
 
@@ -113,15 +112,12 @@ namespace Cloudents.Core.Entities
         public virtual void DeleteQuestionAdmin()
         {
             Delete();
-
-            AddEvent(new QuestionDeletedAdminEvent(this));
         }
 
         public virtual void Delete()
         {
             Status = ItemStatus.Delete();
             _answers.Clear();
-            AddEvent(new QuestionDeletedEvent(this));
 
         }
 
