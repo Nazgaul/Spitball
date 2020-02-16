@@ -185,6 +185,7 @@ namespace Cloudents.Core.Entities
 
             Tutor = new Tutor(bio, this, price);
             Description = description;
+            UserType2 = UserType.Teacher;
             ChangeName(firstName, lastName);
             foreach (var userCourse in UserCourses)
             {
