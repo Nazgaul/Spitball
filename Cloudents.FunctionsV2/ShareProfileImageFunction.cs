@@ -51,6 +51,7 @@ namespace Cloudents.FunctionsV2
 
             log.LogInformation("C# HTTP trigger function processed a request.");
 
+            bool.TryParse(req.Query["rtl"].ToString(), out var isRtl);
             var query = new ShareProfileImageQuery(id);
             var dbResult = await queryBus.QueryAsync(query, token);
 
@@ -72,7 +73,7 @@ namespace Cloudents.FunctionsV2
             });
 
             await using var profileImageStream = await client.GetStreamAsync(uriBuilder.Uri);
-            var bgBlobName = $"share-placeholder/bg-profile-ltr.jpg";
+            var bgBlobName = $"share-placeholder/bg-profile-{(isRtl ? "rtl" : "ltr")}.jpg";
             var bgBlob = _blobs.Single(s => s.Name == bgBlobName);
 
 
@@ -86,8 +87,8 @@ namespace Cloudents.FunctionsV2
 
             image.Mutate(context =>
             {
-                DrawProfileImage(context, profileImage);
-                DrawProfileName(context, dbResult.Name);
+                DrawProfileImage(context, profileImage, isRtl);
+                DrawProfileName(context, dbResult.Name, isRtl);
             });
 
             for (var i = 1; i <= 5; i++)
@@ -109,14 +110,48 @@ namespace Cloudents.FunctionsV2
 
                 var starImage = Image.Load(byteArr);
 
-                //var z = i - 1;
-                const int marginBetweenState = 8;
-                const int stateWidth = 43;
-                var point = new Point(148 + (i - 1) * (stateWidth + marginBetweenState), 475);
-                image.Mutate(x => x.DrawImage(starImage, point, GraphicsOptions.Default));
+                var y = i;
+                image.Mutate(context =>
+                {
+                    
+                    const int marginBetweenState = 8;
+                    var pointX = 132 + (y - 1) * (starImage.Width + marginBetweenState);
+                    if (isRtl)
+                    {
+                        pointX = context.GetCurrentSize().Width - pointX - starImage.Width;
+                    }
+
+                    var point = new Point(pointX, 475);
+                    context.DrawImage(starImage, point, GraphicsOptions.Default);
+                });
             }
 
 
+            var descriptionImage = await BuildDescriptionImage(dbResult.Description);
+
+
+            var middleY = image.Height / 2 - descriptionImage.Height / 2;
+
+            image.Mutate(x =>
+            {
+                var pointX = 493;
+                if (isRtl)
+                {
+                    pointX = x.GetCurrentSize().Width - 493 - descriptionImage.Width;
+                }
+
+                x.DrawImage(descriptionImage, new Point(pointX, middleY), GraphicsOptions.Default);
+            });
+
+
+
+            //image.Mutate(x=>x.DrawImage());
+            return new ImageResult(image, TimeSpan.Zero);
+
+        }
+
+        private static async Task<Image<Rgba32>> BuildDescriptionImage(string description)
+        {
             await using var quoteSr = await _blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
 
             const int descriptionSize = 225;
@@ -124,8 +159,6 @@ namespace Cloudents.FunctionsV2
             var quoteImage = Image.Load(quoteSr);
 
             var descriptionImage = new Image<Rgba32>(675, descriptionSize + marginBetweenQuote + quoteImage.Height);
-            dbResult.Description =
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
             descriptionImage.Mutate(context =>
             {
                 var size = context.GetCurrentSize();
@@ -133,7 +166,8 @@ namespace Cloudents.FunctionsV2
                 context.DrawImage(quoteImage, new Point(middle, 0), GraphicsOptions.Default);
                 var font = FontCollection.CreateFont("assistant SemiBold", 38, FontStyle.Regular);
 
-                var descriptionToDraw = CropTextToFixToRectangle(font, dbResult.Description, new SizeF(size.Width, descriptionSize),true);
+                var descriptionToDraw =
+                    CropTextToFixToRectangle(font, description, new SizeF(size.Width, descriptionSize), true);
                 var rendererOptions = new RendererOptions(font)
                 {
                     WrappingWidth = size.Width,
@@ -153,25 +187,20 @@ namespace Cloudents.FunctionsV2
                     context.Crop(size.Width, (int)(endHeight + 0.5));
                 }
             });
-
-
-            var middleY = image.Height / 2 - descriptionImage.Height / 2;
-
-            image.Mutate(x => x.DrawImage(descriptionImage, new Point(493, middleY), GraphicsOptions.Default));
-
-
-
-            //image.Mutate(x=>x.DrawImage());
-            return new ImageResult(image, TimeSpan.Zero);
-
+            return descriptionImage;
         }
 
-        private static void DrawProfileName(IImageProcessingContext context, string name)
+        private static void DrawProfileName(IImageProcessingContext context, string name, bool isRtl)
         {
             const float nameMaxWidth = 330f;
             var font = FontCollection.CreateFont("assistant", 32, FontStyle.Regular);
-            name = name + "Lorem Ipsum this is a large";
             var nameToDraw = CropTextToFixToRectangle(font, name, new SizeF(nameMaxWidth, 40f));
+
+            var pointX = 79f;
+            if (isRtl)
+            {
+                pointX = context.GetCurrentSize().Width - pointX - 330f;
+            }
 
             context.DrawTextWithHebrew(
             new TextGraphicsOptions()
@@ -182,7 +211,7 @@ namespace Cloudents.FunctionsV2
             nameToDraw,
             font,
             Color.White,
-            new PointF(105f, 419));
+            new PointF(pointX, 419));
         }
 
         private static string CropTextToFixToRectangle(Font font, string text, SizeF rectangle, bool threeDots = false)
@@ -200,7 +229,7 @@ namespace Cloudents.FunctionsV2
                 {
                     break;
                 }
-               
+
                 if (threeDots)
                 {
                     spanOfText = spanOfText.Slice(0, spanOfText.LastIndexOf(' ') + 3);
@@ -215,10 +244,16 @@ namespace Cloudents.FunctionsV2
             return spanOfText.ToString();
         }
 
-        private static void DrawProfileImage(IImageProcessingContext context, Image<Rgba32> profileImage)
+        private static void DrawProfileImage(IImageProcessingContext context, Image<Rgba32> profileImage, bool isRtl)
         {
+            const int offsetOfImage = 135;
+            var pointX = offsetOfImage;
+            if (isRtl)
+            {
+                pointX = context.GetCurrentSize().Width - offsetOfImage - profileImage.Width;
+            }
             profileImage.Mutate(x => x.ApplyRoundedCorners(SquareProfileImageDimension / 2f));
-            context.DrawImage(profileImage, new Point(148, 135), GraphicsOptions.Default);
+            context.DrawImage(profileImage, new Point(pointX, 135), GraphicsOptions.Default);
         }
 
         private static async Task InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
