@@ -106,9 +106,9 @@ router.beforeEach((to, from, next) => {
         return;
     }
     let getAccountUser = store.dispatch('userStatus');
-    Promise.all([getAccountUser,loadLanguageAsync()]).then(()=>{
+    Promise.all([getAccountUser,loadLanguageAsync()]).then(() => {
        next();
-    })
+    });
 });
 
 sync(store, router);

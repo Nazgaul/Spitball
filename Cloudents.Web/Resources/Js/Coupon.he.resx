@@ -126,6 +126,12 @@
   <data name="apply_error" xml:space="preserve">
     <value>קוד הקופון אינו תקין. יתכן והזנת קוד קופון שגוי?</value>
   </data>
+  <data name="btn_calendar_cancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="btn_calendar_ok" xml:space="preserve">
+    <value>אישור</value>
+  </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>ביטול</value>
   </data>
@@ -146,6 +152,9 @@
   </data>
   <data name="label_code" xml:space="preserve">
     <value>קוד קופון</value>
+  </data>
+  <data name="label_date" xml:space="preserve">
+    <value>קופון תקף עד:</value>
   </data>
   <data name="label_type" xml:space="preserve">
     <value>סוג קופון</value>
