@@ -49,19 +49,6 @@
         </sb-dialog>
 
         <sb-dialog
-          :showDialog="getDialogState"
-          :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
-          :popUpType="'uploadDialog'"
-          :maxWidth="'716'"
-          :onclosefn="setUploadDialogState"
-          :activateOverlay="false"
-          :isPersistent="$vuetify.breakpoint.smAndUp"
-          :content-class="'upload-dialog'"
-        >
-          <upload-multiple-files v-if="getDialogState"></upload-multiple-files>
-        </sb-dialog>
-
-        <sb-dialog
           v-if="!!accountUser"
           :showDialog="getReferralDialog"
           :popUpType="'referralPop'"
@@ -75,21 +62,6 @@
             :popUpType="'referralPop'"
           ></referral-dialog>
         </sb-dialog>
-
-        <sb-dialog
-          :showDialog="becomeTutorDialog"
-          :transitionAnimation="$vuetify.breakpoint.smAndUp ? 'slide-y-transition' : 'slide-y-reverse-transition' "
-          :popUpType="'becomeTutorDialog'"
-          :maxWidth="'840'"
-          :maxHeight="'588'"
-          :onclosefn="setUploadDialogState"
-          :activateOverlay="false"
-          :isPersistent="$vuetify.breakpoint.smAndUp"
-          :content-class="'become-tutor'"
-        >
-          <become-tutor v-if="becomeTutorDialog"></become-tutor>
-        </sb-dialog>
-
         <sb-dialog
           :showDialog="getShowBuyDialog"
           :popUpType="'buyTokens'"
@@ -135,13 +107,11 @@ const dialogInjection = () => import('../pages/global/dialogInjection/dialogInje
 const sbDialog = () => import("../wrappers/sb-dialog/sb-dialog.vue");
 const loginToAnswer = () => import("../question/helpers/loginToAnswer/login-answer.vue");
 const AddQuestion = () => import("../question/askQuestion/askQuestion.vue");
-const uploadMultipleFiles = () => import("../uploadFilesDialog/uploadMultipleFiles.vue");
 const walletService = () => import("../../services/walletService");
 const mobileFooter = () => import("../pages/layouts/mobileFooter/mobileFooter.vue");
 const buyTokens = () => import("../dialogs/buyTokens/buyTokens.vue");
 const buyTokenFrymo = () => import("../dialogs/buyTokenFrymo/buyTokenFrymo.vue");
 const chat = () => import("../chat/chat.vue");
-const becomeTutor = () => import("../becomeTutor/becomeTutor.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
 const paymentDialog = () => import("../studyroom/tutorHelpers/paymentDIalog/paymentDIalog.vue");
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
@@ -154,10 +124,8 @@ export default {
     loginToAnswer,
     chat,
     mobileFooter,
-    uploadMultipleFiles,
     buyTokens,
     buyTokenFrymo,
-    becomeTutor,
     tutorRequest,
     paymentDialog,
     dialogInjection
@@ -174,7 +142,6 @@ export default {
       "accountUser",
       "loginDialogState",
       "newQuestionDialogSate",
-      "getDialogState",
       "getShowToaster",
       "getShowToasterType",
       "getToasterTimeout",
@@ -183,7 +150,6 @@ export default {
       "showLeaderBoard",
       // "showMobileFeed",
       "getShowBuyDialog",
-      "becomeTutorDialog",
       "getRequestTutorDialog",
       "getShowPaymeDialog",
       "isFrymo",
@@ -303,7 +269,6 @@ export default {
       "updateToasterParams",
       "updateLoginDialogState",
       "updateNewQuestionDialogState",
-      "updateDialogState",
       "setCookieAccepted",
       "updateShowBuyDialog",
       "updateRequestDialog",
@@ -322,9 +287,6 @@ export default {
     },
     removeCookiesPopup: function() {
       this.setCookieAccepted();
-    },
-    setUploadDialogState() {
-      this.updateDialogState(false);
     },
     tryBuyTokens(transactionObjectError) {
       walletService.buyTokens(transactionObjectError).then(

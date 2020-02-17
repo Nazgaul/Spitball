@@ -1,13 +1,7 @@
 const state = {
     fileData: [],
     courseSelected : '',
-    uploadProgressArr: [],
-    showDialog: false,
-    customFileName: '',
-    uploadFullMobile: true,
-    returnToUpload: false,
     uploadStep: 1,
-    uploadState: false
 };
 const mutations = {
     setUploadProgress(state, val) {
@@ -37,17 +31,8 @@ const mutations = {
     updateCourse(state, course){
         state.courseSelected = course;
     },
-    setDialogUploadState(state, val) {
-        state.showDialog = val;
-    },
-    setFileName(state, data) {
-        state.customFileName = data;
-    },
     clearUploadData(state) {
         state.fileData.length = 0;
-    },
-    updateReturnToUpload(state, val) {
-        state.returnToUpload = val;
     },
     setUploadStep(state, val) {
         state.uploadStep = val;
@@ -66,12 +51,9 @@ const mutations = {
     }
 
 };
+
 const getters = {
     getFileData: (state) => state.fileData.sort((a, b)=> b.error-a.error),
-    getDialogState: (state) => state.showDialog,
-    getCustomFileName: (state) => state.customFileName,
-    getReturnToUpload: (state) => state.returnToUpload,
-    getIsValid: (state) => state.fileData.some(file=>(file.course))
 };
 const actions = {
     deleteFileByIndex({commit}, index){
@@ -86,9 +68,6 @@ const actions = {
     resetUploadData({commit}) {
         commit('clearUploadData');
     },
-    updateFileName({commit}, data) {
-        commit('setFileName', data);
-    },
     updateFile({commit}, data) {
         commit('addFile', data);
     },
@@ -97,12 +76,6 @@ const actions = {
     },
     stopUploadProgress({commit}, val) {
         commit('setUploadProgress', val);
-    },
-    updateDialogState({commit}, val) {
-        commit('setDialogUploadState', val);
-    },
-    setReturnToUpload({commit}, val) {
-        commit('updateReturnToUpload', val);
     },
     setAllPrice({commit}, price){
         commit('updatePriceToAll', price);
@@ -116,8 +89,6 @@ const actions = {
     setFileBlobNameById({commit}, fileIdName){
         commit('updateBlobName', fileIdName);
     }
-
-
 };
 
 export default {

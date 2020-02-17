@@ -121,10 +121,10 @@
     <value>הועתק</value>
   </data>
   <data name="copy" xml:space="preserve">
-    <value>העתק</value>
+    <value>העתקה ללוח</value>
   </data>
   <data name="copy_link" xml:space="preserve">
-    <value>העתק קישור</value>
+    <value>העתקת קישור</value>
   </data>
   <data name="dialog_bottom_text" xml:space="preserve">
     <value>ככל שתשיגו יותר חברים בספיטבול, ככה הציונים של כולם יהיו יותר טובים!</value>

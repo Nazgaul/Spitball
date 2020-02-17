@@ -7,17 +7,14 @@
         </div>
         <div class="btns-wrap">
             <v-btn @click="exit" class="dialog-btn white--text" height="40" rounded depressed color="#4c59ff">{{$t('login_Exit')}}</v-btn>
-            <v-btn @click="closeDialog" class="dialog-btn btn-cancel" color="white" height="40" rounded depressed>{{$t('login_text')}}</v-btn>
+            <v-btn v-closeDialog class="dialog-btn btn-cancel" color="white" height="40" rounded depressed>{{$t('login_text')}}</v-btn>
         </div>
     </div>
    </v-dialog>
 </template>
 
 <script>
-import dialogMixin from '../../../../mixins/dialogMixin'
-
 export default {
-  mixins: [dialogMixin],
   methods: {
     exit() {
       this.$store.dispatch('exit')
