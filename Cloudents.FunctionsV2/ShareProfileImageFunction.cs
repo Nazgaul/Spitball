@@ -30,8 +30,8 @@ namespace Cloudents.FunctionsV2
     {
 
         private static readonly Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
-        private static List<CloudBlockBlob> _blobs;
-        private static readonly FontCollection FontCollection = new FontCollection();
+        internal static List<CloudBlockBlob> _blobs;
+        internal static readonly FontCollection FontCollection = new FontCollection();
 
         public const int SquareProfileImageDimension = 245;
 
@@ -260,7 +260,7 @@ namespace Cloudents.FunctionsV2
             context.DrawImage(profileImage, new Point(pointX, 135), GraphicsOptions.Default);
         }
 
-        private static async Task InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
+        internal static async Task InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
         {
             if (_blobs is null)
             {
