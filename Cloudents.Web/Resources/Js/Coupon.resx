@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="already_exists" xml:space="preserve">
+    <value>This coupon already exists</value>
+  </data>
   <data name="apply_btn" xml:space="preserve">
     <value>Apply</value>
   </data>
@@ -125,6 +128,12 @@
   </data>
   <data name="apply_error" xml:space="preserve">
     <value>The coupon code entered is not valid. Perhaps you used the wrong coupon code?</value>
+  </data>
+  <data name="btn_calendar_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="btn_calendar_ok" xml:space="preserve">
+    <value>Ok</value>
   </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -146,6 +155,9 @@
   </data>
   <data name="label_code" xml:space="preserve">
     <value>Coupon code</value>
+  </data>
+  <data name="label_date" xml:space="preserve">
+    <value>Expiration date</value>
   </data>
   <data name="label_type" xml:space="preserve">
     <value>Coupon type</value>

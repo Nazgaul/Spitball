@@ -40,7 +40,7 @@ namespace Cloudents.Web.Api
             var userId = _userManager.GetLongUserId(User);
             try
             {
-                var command = new CreateCouponCommand(model.Code, model.CouponType, userId, model.Value);
+                var command = new CreateCouponCommand(model.Code, model.CouponType, userId, model.Value, model.Expiration);
                 await _commandBus.DispatchAsync(command, token);
             }
             catch (DuplicateRowException)

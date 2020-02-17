@@ -128,6 +128,11 @@ namespace Cloudents.Core.DTOs
         public bool NeedPayment { get; set; }
 
         public bool HaveDocs { get; set; }
+        public bool HaveDocsWithPrice { get; set; }
+        public bool IsPurchased { get; set; }
+        public bool IsSold { get; set; }
+        public bool HaveStudyRoom { get; set; }
+        public bool HaveFollowers { get; set; }
         public UserType? UserType { get; set; }
         public string Country { get; set; }
 
