@@ -1,7 +1,7 @@
 <template>
   <div class="requestActions">
     <div class="rA_top text-truncate">
-      <userAvatar :size="'34'" :userImageUrl="userImageUrl" :user-name="userName" :user-id="userID"/>
+      <userAvatar :size="'34'" :userImageUrl="userImageUrl" :user-name="previewName" :user-id="userID"/>
       <span @click="openAskQuestion()" class="rA_txt text-truncate" v-html="$Ph('requestActions_title',userName)" />
     </div>
     <v-layout class="rA_bottom">
@@ -45,6 +45,13 @@ export default {
         return `${this.accountUser.image}`;
       }
       return "";
+    },
+    previewName(){
+      if(this.getUserLoggedInStatus){
+        return this.accountUser.name;
+      }else{
+        return ''
+      }
     },
     userName() {
       if(this.getUserLoggedInStatus){
