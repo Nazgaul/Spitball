@@ -9,6 +9,15 @@ const getters = {
 const mutations = {
     setIsSignalRConnected(state, val){
         state.isConnected = val;
+    },
+    signalR_emit() {
+        return
+    },
+    signalR_reconnect() {
+        return
+    },
+    signalR_disconnect() {
+        return
     }
 };
 

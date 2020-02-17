@@ -30,7 +30,7 @@ import banner_Store from './banner_Store.js'
 import dashboard_Store from './dashboard_Store.js'
 import feed from './feedStore.js'
 import profile from './profile.js';
-
+import signalRPlugin from '../plugins/signalRPlugin';
 
 
 // const onModuleAValueChange= (store) => {
@@ -98,6 +98,7 @@ const store = new Vuex.Store({
         dashboard_Store,
         profile,
     },
+    plugins: [signalRPlugin({hubPath:'/sbhub'})]
    // plugins: [onModuleAValueChange]
 });
 

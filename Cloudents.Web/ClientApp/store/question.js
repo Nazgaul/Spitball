@@ -88,19 +88,6 @@ const actions = {
             console.log(ex);
         });
     },
-    updateQuestionItemCorrect({commit, state}, question){
-        if(!!state.question && state.question.id == question.questionId){
-            commit('markAsCorrect', question.answerId);
-        }
-    },
-    answerAdded({commit, state}, notifyObj){
-        let questionId = notifyObj.questionId;
-        let answerObj = searchService.createAnswerItem(notifyObj.answer);
-        //update question in case user is in the question page
-        if(!!state.question && state.question.id === questionId){
-           commit('addAnswer', answerObj);
-        }
-    },
     answerRemoved({commit}, notifyObj){
         let questionId = notifyObj.questionId;
         let answerId = notifyObj.answer.id;
