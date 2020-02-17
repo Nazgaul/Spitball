@@ -138,6 +138,12 @@
   <data name="btn_submit" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="create_succes" xml:space="preserve">
+    <value>You have succesesfuly created a coupon code</value>
+  </data>
+  <data name="create_title" xml:space="preserve">
+    <value>Create a special offer</value>
+  </data>
   <data name="label_code" xml:space="preserve">
     <value>Coupon code</value>
   </data>

@@ -4,7 +4,7 @@
       <v-icon class="close-dialog" v-text="'sbf-close'" v-closeDialog />
       <div class="text-wrap pt-4 pt-sm-0">
         <template v-if="!showSuccess">
-          <div class="dialog-title pb-10 pb-sm-11">Create a special offer</div>
+          <div class="dialog-title pb-10 pb-sm-11">{{$t('coupon_create_title')}}</div>
           <v-form v-model="validCreateCoupon" ref="validCreateCoupon">
             <v-layout justify-space-between wrap class="inputs-coupon pr-0 pr-sm-4">
                 <v-flex xs12 pb-1 pb-sm-3>
@@ -27,7 +27,7 @@
           </v-form>
         </template>
         <template v-else>
-          <div class="succes-title pb-9 pb-sm-12 pt-2 pt-sm-6">You have succesesfuly created a coupon code</div>
+          <div class="succes-title pb-9 pb-sm-12 pt-2 pt-sm-6">{{$t('coupon_create_succes')}}</div>
           <div class="coupon-box">
             <img class="coupon-box_img" src="./images/b.png" alt="">
             <span class="coupon-box_code" v-text="couponCode"/>            
