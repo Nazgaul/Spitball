@@ -126,10 +126,46 @@
   <data name="apply_error" xml:space="preserve">
     <value>The coupon code entered is not valid. Perhaps you used the wrong coupon code?</value>
   </data>
+  <data name="btn_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="btn_copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="btn_exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="btn_submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="create_succes" xml:space="preserve">
+    <value>You have succesesfuly created a coupon code</value>
+  </data>
+  <data name="create_title" xml:space="preserve">
+    <value>Create a special offer</value>
+  </data>
+  <data name="label_code" xml:space="preserve">
+    <value>Coupon code</value>
+  </data>
+  <data name="label_type" xml:space="preserve">
+    <value>Coupon type</value>
+  </data>
+  <data name="label_value" xml:space="preserve">
+    <value>Amount</value>
+  </data>
   <data name="placeholder" xml:space="preserve">
     <value>Enter Coupon Code</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>Claim your discount</value>
+  </data>
+  <data name="toaster_copy" xml:space="preserve">
+    <value>Link copied to clipboard</value>
+  </data>
+  <data name="type_flat" xml:space="preserve">
+    <value>Flat discount</value>
+  </data>
+  <data name="type_percentage" xml:space="preserve">
+    <value>Percentage</value>
   </data>
 </root>

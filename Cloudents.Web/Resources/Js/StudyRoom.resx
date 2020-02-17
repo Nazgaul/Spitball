@@ -144,6 +144,9 @@
   <data name="not_screen" xml:space="preserve">
     <value>There was an error sharing your screen</value>
   </data>
+  <data name="premission_denied" xml:space="preserve">
+    <value>You need to update your settings to enable screen sharing - &lt;a style="color:black" href="{0}" target="_Blank"&gt;more info&lt;/a&gt;</value>
+  </data>
   <data name="session_ended" xml:space="preserve">
     <value>Session ended</value>
   </data>

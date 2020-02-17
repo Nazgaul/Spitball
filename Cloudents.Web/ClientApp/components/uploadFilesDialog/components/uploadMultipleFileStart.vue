@@ -121,7 +121,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateFile', 'updateFileName', 'stopUploadProgress', 'setFileBlobNameById', 'updateFileErrorById', 'deleteFileByIndex']),
+        ...mapActions(['updateFile', 'stopUploadProgress', 'setFileBlobNameById', 'updateFileErrorById', 'deleteFileByIndex']),
         loadDropBoxSrc() {
             // if exists prevent duplicate loading
             let isDbExists = !!document.getElementById('dropboxjs');
