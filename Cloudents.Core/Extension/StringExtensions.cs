@@ -31,6 +31,8 @@ namespace Cloudents.Core.Extension
             {
                 return source;
             }
+
+            source = source.Trim();
             var list = new List<char>();
             var j = 0;
             bool IsRtlLetter(char c)
@@ -70,30 +72,22 @@ namespace Cloudents.Core.Extension
                     continue;
                 }
 
-                if (char.IsPunctuation(c))
+                if (char.IsPunctuation(c) || char.IsDigit(c))
                 {
                     j = lastAction.Invoke(c, j);
-                    //if (IsRtlLetter(source[i - 1]))
-                    //{
-                    //    list.Insert(j, c);
-                    //}
-                    //else
-                    //{
-                    //    AddToList(c);
-                    //}
                     continue;
-
                 }
+               
 
                 if (c == ' ')
                 {
-                    if (IsRtlLetter(source[i + 1]) && IsRtlLetter(source[i - 1]))
-                    {
-                        lastAction = actionInsertToList;
-                        j = lastAction.Invoke(c, j);
-                        continue;
-                    }
-                    lastAction = actionAddToList;
+                    //if (IsRtlLetter(source[i + 1]) && lastAction == actionInsertToList)
+                    //{
+                    //    lastAction = actionInsertToList;
+                    //    j = lastAction.Invoke(c, j);
+                    //    continue;
+                    //}
+                    //lastAction = actionAddToList;
                     j = lastAction.Invoke(c, j);
                     //j = lastAction.Invoke(c, j);
                     continue;

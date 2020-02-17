@@ -36,6 +36,10 @@ using Cloudents.Query.Sync;
 using Cloudents.Search.Document;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
+using Cloudmersive.APIClient.NETCore.ImageRecognition.Api;
+using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -147,11 +151,11 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            
-            var searchWrite = _container.Resolve<ICommandBus>();
-            await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
-            Console.WriteLine("add");
-            await searchWrite.DispatchAsync(new UserJoinCoursesCommand(new[] {"Statistics" }, 638),default);
+            await Convert();
+            //var searchWrite = _container.Resolve<ICommandBus>();
+            //await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
+            //Console.WriteLine("add");
+            //await searchWrite.DispatchAsync(new UserJoinCoursesCommand(new[] {"Statistics" }, 638),default);
 
             //var i = 0;
             //while (true)
@@ -215,23 +219,45 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
             // Configure API key authorization: Apikey
             //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "86afd89a-207c-4e7a-9ffc-da23fcb9d5b7");
-            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "c80224f2-2aa9-4a06-9a1c-6930141c446a");
+            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
+            Cloudmersive.APIClient.NETCore.ImageRecognition.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
             //Cloudmersive.APIClient.NET.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000;
-
+            var apiInstance3 = new EditApi();
             var apiInstance = new ConvertDocumentApi();
             var apiInstance2 = new ConvertImageApi();
 
             var inputFile = new FileStream("C:\\Users\\Ram\\Downloads\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
 
+            var image = new Image<Rgba32>(500, 500);
+            var ms = new MemoryStream();
+            image.SaveAsPng(ms);
             try
             {
+
+                //var request = new DrawTextRequest();
+                //byte[] result2 = apiInstance3.EditDrawText(request);
                 var sw = new Stopwatch();
                 sw.Start();
+                var bytes = ms.ToArray();
+                var result = apiInstance3.EditDrawText(
+                    new DrawTextRequest(
+                        BaseImageBytes: bytes,
+                        TextToDraw: new List<DrawTextInstance>()
+                {
+                    new DrawTextInstance(
+                        "Hi Ram",
+                        FontFamilyName: "Open Sans",
+                        FontSize:20,
+                        Color:"black",0,0,250,100
+                        )
+                }));
+
+                File.WriteAllBytes(@"c:\Users\Ram\Downloads\ram.png",result);
                 //var v = apiInstance.ConvertDocumentDocxToTxt(inputFile);
                 //inputFile.Seek(0, SeekOrigin.Begin);
 
                 //var f = apiInstance.ConvertDocumentAutodetectGetInfo(inputFile);
-                var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
+               // var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
 
                 //apiInstance.ConvertDocumentAutodetectGetInfo()
                 //var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
