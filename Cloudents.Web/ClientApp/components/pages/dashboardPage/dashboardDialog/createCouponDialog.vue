@@ -9,13 +9,13 @@
             <v-layout justify-space-between wrap class="inputs-coupon pr-0 pr-sm-4">
                 <v-flex xs12 pb-1 pb-sm-3>
                   <v-text-field autofocus :rules="[rules.required,rules.notSpaces,rules.minimumChars,rules.maximumChars]"
-                    v-model="couponCode" :label="$t('coupon_label_code')" placeholder=" " autocomplete="nope"
+                    v-model="couponCode" :label="$t('coupon_label_code')" :placeholder="placeHoldersEmpty" autocomplete="nope"
                     dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
                 </v-flex>
                 <v-flex xs12 sm9 pr-0 pr-sm-4 pb-1 pb-sm-0> 
                   <v-select v-model="couponType" class="coupon-type" color="#304FFE" :items="couponTypesList"
                     outlined :height="$vuetify.breakpoint.xsOnly?50: 44" item-text="key" :append-icon="'sbf-triangle-arrow-down'" dense
-                    :label="$t('coupon_label_type')" :rules="[rules.required]" placeholder=" ">
+                    :label="$t('coupon_label_type')" :rules="[rules.required]" :placeholder="placeHoldersEmpty">
                     <template slot="item" slot-scope="data">
                      <span class="subtitle-1">{{data.item.key}}</span>
                     </template>
@@ -24,7 +24,7 @@
                 </v-flex>
                 <v-flex xs5 sm3>
                   <v-text-field v-model="couponValue" :label="$t('coupon_label_value')"
-                    placeholder=" " autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
+                    :placeholder="placeHoldersEmpty" autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
                     dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
                 </v-flex>
             </v-layout>
@@ -81,6 +81,7 @@ export default {
       loadingBtn:false,
       showSuccess:false,
       snackbar:false,
+      placeHoldersEmpty:''
     }
   },
   watch: {
@@ -124,6 +125,9 @@ export default {
 
       }
     }
+  },
+  mounted() {
+    this.placeHoldersEmpty = ' '
   },
     beforeDestroy(){
       storeService.unregisterModule(this.$store, 'couponStore');
