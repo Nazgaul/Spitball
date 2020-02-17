@@ -148,10 +148,10 @@
     <value>Coupon code</value>
   </data>
   <data name="label_type" xml:space="preserve">
-    <value>Discount type</value>
+    <value>Coupon type</value>
   </data>
   <data name="label_value" xml:space="preserve">
-    <value>Value</value>
+    <value>Amount</value>
   </data>
   <data name="placeholder" xml:space="preserve">
     <value>Enter Coupon Code</value>
@@ -160,10 +160,10 @@
     <value>Claim your discount</value>
   </data>
   <data name="toaster_copy" xml:space="preserve">
-    <value>###put some text</value>
+    <value>Link copied to clipboard</value>
   </data>
   <data name="type_flat" xml:space="preserve">
-    <value>Flat</value>
+    <value>Flat discount</value>
   </data>
   <data name="type_percentage" xml:space="preserve">
     <value>Percentage</value>
