@@ -215,10 +215,14 @@ export default {
       .v-text-field__details{
         padding: 0 !important;
       }
+      .v-select__selection--comma{
+        line-height: initial;
+      }
       .coupon-type{
         .v-list-item__title {
                 color: #43425d;
-                line-height: normal;
+                color: red;
+                // line-height: normal;
             }
             .v-input__append-inner{
               margin-top: 10px !important;
@@ -227,9 +231,6 @@ export default {
               }
             }
             i {
-              @media (max-width: @screen-xs) {
-                font-size: 6px;
-              }
                 font-size: 6px;
                 color: #43425d;
             }
