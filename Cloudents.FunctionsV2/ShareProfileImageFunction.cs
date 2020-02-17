@@ -35,6 +35,7 @@ namespace Cloudents.FunctionsV2
         private static List<CloudBlockBlob> _blobs;
         private static readonly FontCollection FontCollection = new FontCollection();
 
+        public const int SquareProfileImageDimension = 245;
 
         [FunctionName("ShareProfileImageFunction")]
         public static async Task<IActionResult> Run(
@@ -65,26 +66,26 @@ namespace Cloudents.FunctionsV2
                 }),
             }.AddQuery(new
             {
-                width = 245,
-                height = 245
+                width = SquareProfileImageDimension,
+                height = SquareProfileImageDimension
             });
 
             await using var profileImageStream = await client.GetStreamAsync(uriBuilder.Uri);
-            var bgBlob = $"share-placeholder/bg-profile-ltr.jpg";
-            var blob = _blobs.Single(s => s.Name == bgBlob);
+            var bgBlobName = $"share-placeholder/bg-profile-ltr.jpg";
+            var bgBlob = _blobs.Single(s => s.Name == bgBlobName);
 
             
 
-            await using var bgBlobStream = await blob.OpenReadAsync();
+            await using var bgBlobStream = await bgBlob.OpenReadAsync();
             var image = Image.Load<Rgba32>(bgBlobStream);
 
             using var profileImage = Image.Load<Rgba32>(profileImageStream);
-            profileImage.Mutate(x => x.ApplyRoundedCorners(245f / 2));
+          
 
 
             image.Mutate(context =>
             {
-                context.DrawImage(profileImage, new Point(148, 135), GraphicsOptions.Default);
+                DrawProfileImage(context, profileImage);
 
                 const float nameMaxWidth = 330f;
                 
@@ -195,6 +196,12 @@ namespace Cloudents.FunctionsV2
 
         }
 
+        private static void DrawProfileImage(IImageProcessingContext context, Image<Rgba32> profileImage)
+        {
+            profileImage.Mutate(x => x.ApplyRoundedCorners(SquareProfileImageDimension / 2f));
+            context.DrawImage(profileImage, new Point(148, 135), GraphicsOptions.Default);
+        }
+
         private static async Task InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
         {
             if (_blobs is null)
@@ -230,41 +237,7 @@ namespace Cloudents.FunctionsV2
 
         // This method can be seen as an inline implementation of an `IImageProcessor`:
         // (The combination of `IImageOperations.Apply()` + this could be replaced with an `IImageProcessor`)
-        private static IImageProcessingContext ApplyRoundedCorners(this IImageProcessingContext ctx, float cornerRadius)
-        {
-            Size size = ctx.GetCurrentSize();
-            IPathCollection corners = BuildCorners(size.Width, size.Height, cornerRadius);
-
-            var graphicOptions = new GraphicsOptions(true)
-            {
-                AlphaCompositionMode = PixelAlphaCompositionMode.DestOut // enforces that any part of this shape that has color is punched out of the background
-            };
-            // mutating in here as we already have a cloned original
-            // use any color (not Transparent), so the corners will be clipped
-            return ctx.Fill(graphicOptions, Rgba32.LimeGreen, corners);
-        }
-
-        private static IPathCollection BuildCorners(int imageWidth, int imageHeight, float cornerRadius)
-        {
-            // first create a square
-            var rect = new RectangularPolygon(-0.5f, -0.5f, cornerRadius, cornerRadius);
-
-            // then cut out of the square a circle so we are left with a corner
-            IPath cornerTopLeft = rect.Clip(new EllipsePolygon(cornerRadius - 0.5f, cornerRadius - 0.5f, cornerRadius));
-
-            // corner is now a corner shape positions top left
-            //lets make 3 more positioned correctly, we can do that by translating the original around the center of the image
-
-            float rightPos = imageWidth - cornerTopLeft.Bounds.Width + 1;
-            float bottomPos = imageHeight - cornerTopLeft.Bounds.Height + 1;
-
-            // move it across the width of the image - the width of the shape
-            IPath cornerTopRight = cornerTopLeft.RotateDegree(90).Translate(rightPos, 0);
-            IPath cornerBottomLeft = cornerTopLeft.RotateDegree(-90).Translate(0, bottomPos);
-            IPath cornerBottomRight = cornerTopLeft.RotateDegree(180).Translate(rightPos, bottomPos);
-
-            return new PathCollection(cornerTopLeft, cornerBottomLeft, cornerTopRight, cornerBottomRight);
-        }
+        
 
 
         private static async Task<byte[]> GetStarAsync(Star star)
@@ -303,9 +276,6 @@ namespace Cloudents.FunctionsV2
         public static readonly Star Full = new Star(1, "Full", "star-full.png");
         public static readonly Star Half = new Star(2, "Half", "star-half.png");
         public static readonly Star None = new Star(3, "Empty", "star-empty.png");
-        //None,
-        //Half,
-        //Full
 
     }
 }
