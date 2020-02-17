@@ -7,9 +7,9 @@
           <div class="dialog-title pb-10 pb-sm-11">{{$t('coupon_create_title')}}</div>
           <v-form v-model="validCreateCoupon" ref="validCreateCoupon">
             <v-layout justify-space-between wrap class="inputs-coupon pr-0 pr-sm-4">
-              
+                
               <v-flex xs12 sm9 pr-0 pr-sm-4 pb-1 pb-sm-0>
-                <v-text-field autofocus :rules="[rules.required,rules.notSpaces,rules.minimumChars,rules.maximumChars]"
+                <v-text-field :error-messages="couponErr" autofocus :rules="[rules.required,rules.notSpaces,rules.minimumChars,rules.maximumChars]"
                     v-model="couponCode" :label="$t('coupon_label_code')" :placeholder="placeHoldersEmpty" autocomplete="nope"
                     dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
               </v-flex>
@@ -128,11 +128,13 @@ export default {
       datePickerMenu:false,
       date: new Date().toISOString().substr(0, 10),
       dateFormatted: '',
+      couponErr:''
     }
   },
   watch: {
     couponCode(val){
       this.couponCode = val.replace(/\s/g,''); 
+      this.couponErr = '';
     },
     couponType(val){
       if(val === 'percentage'){
@@ -171,6 +173,10 @@ export default {
         this.createCoupon(params).then(()=>{
           self.loadingBtn = false;
           self.showSuccess = true;
+          self.couponErr = '';
+        }).catch(()=>{
+          self.couponErr = this.$t('coupon_already_exists');
+          self.loadingBtn = false;
         })
       }
     },
