@@ -150,6 +150,7 @@ export default {
     padding: 10px 14px 14px;
   }
   .close-dialog {
+    cursor: pointer;
     position: absolute;
     right: 0;
     font-size: 12px;
