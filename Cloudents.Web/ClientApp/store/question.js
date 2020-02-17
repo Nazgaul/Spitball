@@ -1,5 +1,4 @@
 import questionService from '../services/questionService'
-import searchService from '../services/searchService'
 import reputationService from '../services/reputationService'
 
 const state = {
