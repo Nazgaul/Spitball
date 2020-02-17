@@ -124,41 +124,28 @@ namespace Cloudents.FunctionsV2
             var quoteImage = Image.Load(quoteSr);
 
             var descriptionImage = new Image<Rgba32>(675, descriptionSize + marginBetweenQuote + quoteImage.Height);
-            //dbResult.Description =
-            //    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+            dbResult.Description =
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
             descriptionImage.Mutate(context =>
             {
-                var description = new Span<char>(dbResult.Description.ToCharArray());
                 var size = context.GetCurrentSize();
                 var middle = size.Width / 2 - quoteImage.Width / 2;
                 context.DrawImage(quoteImage, new Point(middle, 0), GraphicsOptions.Default);
                 var font = FontCollection.CreateFont("assistant SemiBold", 38, FontStyle.Regular);
 
+                var descriptionToDraw = CropTextToFixToRectangle(font, dbResult.Description, new SizeF(size.Width, descriptionSize),true);
                 var rendererOptions = new RendererOptions(font)
                 {
                     WrappingWidth = size.Width,
                 };
-                SizeF textSize;
-                while (true)
-                {
-                    textSize = TextMeasurer.Measure(description, rendererOptions);
-                    if (textSize.Height < descriptionSize)
-                    {
-                        break;
-                    }
-                    description = description.Slice(0, description.LastIndexOf(' ') + 3);
-                    description[^3..].Fill('.');
-                }
+                var textSize = TextMeasurer.Measure(descriptionToDraw, rendererOptions);
 
                 var location = new PointF(0, quoteImage.Height + marginBetweenQuote);
                 context.DrawTextWithHebrew(new TextGraphicsOptions()
                 {
                     WrapTextWidth = size.Width,
                     HorizontalAlignment = HorizontalAlignment.Center,
-
-                    // DpiY = 72*1.5f
-
-                }, description.ToString(), font, Color.FromHex("43425d"), location);
+                }, descriptionToDraw, font, Color.FromHex("43425d"), location);
 
                 var endHeight = textSize.Height + location.Y;
                 if (endHeight < size.Height)

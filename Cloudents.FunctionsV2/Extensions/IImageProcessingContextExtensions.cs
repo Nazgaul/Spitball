@@ -73,7 +73,8 @@ namespace Cloudents.FunctionsV2.Extensions
             var result = new StringBuilder();
 
             
-            for (int i = arrSplit.Length - 1; i >= 0; i--)
+            for (var i =0 ;i < arrSplit.Length ; i++)
+            //for (int i = arrSplit.Length - 1; i >= 0; i--)
             {
                 if (arrSplit[i] == "")
                 {
