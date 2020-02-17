@@ -1,13 +1,15 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Di;
+using Cloudents.FunctionsV2.Extensions;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Microsoft.AspNetCore.Mvc;
@@ -38,24 +40,12 @@ namespace Cloudents.FunctionsV2
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "share/profile/{id:long}")] HttpRequest req, long id,
             [Blob("spitball/share-placeholder")] IEnumerable<CloudBlockBlob> directoryBlobs,
-
             [HttpClientFactory] HttpClient client,
             [Inject] IQueryBus queryBus,
             ILogger log,
             CancellationToken token)
         {
-            if (_blobs is null)
-            {
-                _blobs = directoryBlobs.ToList();
-
-                foreach (var fontBlob in _blobs.Where(w => w.Name.EndsWith(".ttf")))
-                {
-                    await using var fontStream = await fontBlob.OpenReadAsync();
-                    FontCollection.Install(fontStream);
-                    
-
-                }
-            }
+            await InitData(directoryBlobs);
 
             log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -83,6 +73,7 @@ namespace Cloudents.FunctionsV2
             var bgBlob = $"share-placeholder/bg-profile-ltr.jpg";
             var blob = _blobs.Single(s => s.Name == bgBlob);
 
+            
 
             await using var bgBlobStream = await blob.OpenReadAsync();
             var image = Image.Load<Rgba32>(bgBlobStream);
@@ -96,14 +87,13 @@ namespace Cloudents.FunctionsV2
                 context.DrawImage(profileImage, new Point(148, 135), GraphicsOptions.Default);
 
                 const float nameMaxWidth = 330f;
-                var font = FontCollection.CreateFont("open sans", 32, FontStyle.Regular);
+                
+                var font = FontCollection.CreateFont("rubik", 32, FontStyle.Regular);
                 var rendererOptions = new RendererOptions(font)
                 {
                     WrappingWidth = nameMaxWidth,
                 };
-                var textSize = TextMeasurer.Measure(dbResult.Name, rendererOptions);
-
-                context.DrawText(
+                context.DrawTextWithHebrew(
                     new TextGraphicsOptions()
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
@@ -158,7 +148,7 @@ namespace Cloudents.FunctionsV2
                 var size = context.GetCurrentSize();
                 var middle = size.Width / 2 - quoteImage.Width / 2;
                 context.DrawImage(quoteImage, new Point(middle, 0), GraphicsOptions.Default);
-                var font = FontCollection.CreateFont("Open Sans Semibold", 38, FontStyle.Bold);
+                var font = FontCollection.CreateFont("rubik Medium", 38, FontStyle.Regular);
 
                 var rendererOptions = new RendererOptions(font)
                 {
@@ -177,7 +167,7 @@ namespace Cloudents.FunctionsV2
                 }
 
                 var location = new PointF(0, quoteImage.Height + marginBetweenQuote);
-                context.DrawText(new TextGraphicsOptions()
+                context.DrawTextWithHebrew(new TextGraphicsOptions()
                 {
                     WrapTextWidth = size.Width,
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -203,6 +193,20 @@ namespace Cloudents.FunctionsV2
             //image.Mutate(x=>x.DrawImage());
             return new ImageResult(image, TimeSpan.Zero);
 
+        }
+
+        private static async Task InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
+        {
+            if (_blobs is null)
+            {
+                _blobs = directoryBlobs.ToList();
+
+                foreach (var fontBlob in _blobs.Where(w => w.Name.EndsWith(".ttf")))
+                {
+                    await using var fontStream = await fontBlob.OpenReadAsync();
+                    FontCollection.Install(fontStream);
+                }
+            }
         }
 
         public class ImageProperties
@@ -282,6 +286,9 @@ namespace Cloudents.FunctionsV2
 
             return bytes;
         }
+
+
+       
     }
 
     public class Star : Enumeration
