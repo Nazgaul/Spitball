@@ -23,7 +23,7 @@ namespace Cloudents.Command.CommandHandler
         {
             var tutor = await _tutorRepository.LoadAsync(message.TutorId, token);
             var coupon = new Coupon(message.Code, message.CouponType, tutor, message.Value,
-                null, 1, null, description, null);
+                null, 1, message.Expiration, description, null);
 
             await _couponRepository.AddAsync(coupon, token);
         }
