@@ -165,7 +165,7 @@ export default {
           value: this.couponValue,
           code: this.couponCode,
           couponType: this.couponType,
-          couponDate: new Date(this.date).toISOString()
+          expiration: new Date(this.date).toISOString()
         }
         let self = this;
         this.createCoupon(params).then(()=>{
