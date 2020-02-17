@@ -22,7 +22,7 @@ namespace Cloudents.FunctionsV2.Extensions
             Color color,
             PointF location)
         {
-            return source.DrawText(options,ReverseOnlyHebrew(text), font, color, location);
+            return source.DrawText(options, ReverseOnlyHebrew(text), font, color, location);
         }
 
         public static IImageProcessingContext ApplyRoundedCorners(this IImageProcessingContext ctx, float cornerRadius)
@@ -59,6 +59,55 @@ namespace Cloudents.FunctionsV2.Extensions
             IPath cornerBottomRight = cornerTopLeft.RotateDegree(180).Translate(rightPos, bottomPos);
 
             return new PathCollection(cornerTopLeft, cornerBottomLeft, cornerTopRight, cornerBottomRight);
+        }
+
+
+        public static string ReverseOnlyHebrew3(string t)
+        {
+            var aa = new List<string>();
+            foreach (var s in t.Split(' ', StringSplitOptions.RemoveEmptyEntries))
+            {
+                aa.Add(ReverseOnlyHebrew(s));
+            }
+
+            return string.Join(" ", aa);
+        }
+
+        public static string ReverseOnlyHebrew2(string t)
+        {
+           
+            char[] charArray = t.ToCharArray();
+            string a = "";
+            int last = 0;
+            for (int i = 0; i <= charArray.Length - 1; i++)
+            {
+                
+                if (!IsHebrew(charArray[i]))
+                {
+                    List<char> temp = new List<char>();
+
+                    for (; last < i; last++)
+                    {
+                        int k = 0;
+                        temp.Insert(0, charArray[last]);
+                    }
+
+                    foreach (char g in temp)
+                    {
+                        a += g.ToString();
+                    }
+                    a += charArray[i];
+                    last += 1;
+                }
+            }
+
+            return a;
+        }
+        private const char FirstHebChar = (char)1488; //א
+        private const char LastHebChar = (char)1514; //ת
+        private static bool IsHebrew(char c)
+        {
+            return c >= FirstHebChar && c <= LastHebChar;
         }
 
 
