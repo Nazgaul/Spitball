@@ -362,4 +362,7 @@ Voice Recording?</value>
   <data name="size_label" xml:space="preserve">
     <value>Size</value>
   </data>
+  <data name="microphone_blocked" xml:space="preserve">
+    <value>To record, you must allow your browser to access your microphone</value>
+  </data>
 </root>

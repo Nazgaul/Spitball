@@ -360,4 +360,7 @@
   <data name="size_label" xml:space="preserve">
     <value>גודל</value>
   </data>
+  <data name="microphone_blocked" xml:space="preserve">
+    <value>כדי להקליט, עליך לאפשר לדפדפן גישה למיקרופון שלך.</value>
+  </data>
 </root>

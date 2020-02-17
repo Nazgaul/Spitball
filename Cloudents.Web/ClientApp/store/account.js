@@ -99,13 +99,13 @@ const actions = {
     },
     userStatus({state,dispatch, commit}) {
         if(state.user !== null && state.user.hasOwnProperty('id')){
-            return
+            return Promise.resolve()
         }
         
         if (global.isAuth) {
-            accountService.getAccount().then((userAccount) => {
-
-                dispatch('updateAccountUser',userAccount)
+           return accountService.getAccount().then((userAccount) => {
+                dispatch('updateAccountUser',userAccount);
+                return Promise.resolve(userAccount)
             }, () => {
                 //TODO what is that....
                 intercomeService.restrartService();
@@ -114,6 +114,7 @@ const actions = {
         }
         else {
             intercomeService.startService();
+            return Promise.resolve()
         }
     },
     signalR_SetBalance({ commit, state, dispatch, getters }, newBalance) {

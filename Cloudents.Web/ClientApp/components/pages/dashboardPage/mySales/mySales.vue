@@ -221,6 +221,7 @@ export default {
       }
    }
    .mySales_table{
+      max-width: 1334px;
       thead {
          tr{
             height: auto;

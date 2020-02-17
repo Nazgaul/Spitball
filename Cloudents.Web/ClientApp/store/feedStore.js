@@ -139,11 +139,10 @@ const actions = {
         }
     },
     removeDocItemAction({commit, state}, notificationDocItemObject) {
-        let documentToRemove = searchService.createDocumentItem(notificationDocItemObject);
         if (!!state.items && !!state.items.data && state.items.data.length > 0) {
             for (let documentIndex = 0; documentIndex < state.items.data.length; documentIndex++) {
                 let currentDocument = state.items.data[documentIndex];
-                if (currentDocument.id === documentToRemove.id) {
+                if (currentDocument.id === notificationDocItemObject.id) {
                     commit('Feeds_removeDocItem',documentIndex);
                 }
             }

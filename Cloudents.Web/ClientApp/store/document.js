@@ -96,8 +96,8 @@ const actions = {
                 }, 500);
             });
     },
-    getStudyDocuments({commit}, docObj) {
-        documentService.getStudyDocuments(docObj).then(items => {
+    getStudyDocuments({commit}, {course,id}) {
+        documentService.getStudyDocuments({course, documentId: id}).then(items => {
             commit('setRelatedDocs', items);
         }).catch(ex => {
             console.log(ex);

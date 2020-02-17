@@ -1,4 +1,5 @@
 ﻿import { connectivityModule } from "./connectivity.module"
+import {Item} from './Dto/item.js';
 
 const getFeeds = (params) => {
     return connectivityModule.http.get("/feed", { params });
@@ -73,41 +74,8 @@ function createTutorItem(objInit) {
     return new TutorItem(objInit);
 }
 
-function DocumentItemUser(objInit){
-    this.id = objInit.id;
-    this.image = objInit.image || '';
-    this.name = objInit.name || '';
-}
-
-function createDocumentItemUser(objInit) {
-    return new DocumentItemUser(objInit);
-}
-
-function DocumentItem(objInit) {
-    this.id = objInit.id || null; 
-    this.course = objInit.course; 
-    this.dateTime = objInit.dateTime; 
-    this.downloads = objInit.downloads; 
-    this.purchased = objInit.purchased; 
-    this.snippet = objInit.snippet;
-    this.title = objInit.title;
-    this.university = objInit.university;
-    this.url = objInit.url;
-    this.user = objInit.user ? createDocumentItemUser(objInit.user) : '';
-    this.views = objInit.views;
-    this.template = 'result-note';
-    this.price = objInit.price;
-    this.votes = !!objInit.vote ? objInit.vote.votes : null;
-    this.upvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "up" ? true : false) : false) : null;
-    this.downvoted = !!objInit.vote ? (!!objInit.vote.vote ? (objInit.vote.vote.toLowerCase() === "down" ? true : false) : false) : null;
-    this.preview = objInit.preview;
-    this.type = objInit.type || 'Document';
-    this.documentType = objInit.documentType;
-    this.itemDuration = objInit.duration;
-}
-
 function createDocumentItem(objInit) {
-    return new DocumentItem(objInit);
+    return new Item[objInit.documentType](objInit)
 }
 
 

@@ -2,6 +2,8 @@ import store from '../../store/index';
 // import tutorService from './tutorService';
 import {Decoder, tools, Reader} from 'ts-ebml';
 import insightService from '../../services/insightService';
+import { LanguageService } from '../../services/language/languageService';
+
 
 const MIME_TYPE = getBestMimeType();
 
@@ -202,6 +204,14 @@ function stopRecord(cancelled){
 
 async function toggleRecord(isTutor){
     if(!store.getters.getIsRecording){
+      if(global.location.pathname === '/studyroom'){
+        let userMedia = await getUserMedia();
+        if(!userMedia){
+          let msg = LanguageService.getValueByKey('tutor_microphone_blocked')
+          alert(msg)
+          return
+        }  
+      }
       if(isTutor){
         store.dispatch('setShowUserConsentDialog', true);
       }else{

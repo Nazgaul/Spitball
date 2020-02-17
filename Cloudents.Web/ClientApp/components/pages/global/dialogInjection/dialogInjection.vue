@@ -3,45 +3,58 @@
 </template>
 
 <script>
-import dialogComponents, {dialogConfig} from './import.js'
-
+import dialogMixin from './dialogMixin.js'
 export default {
-    mixins: [dialogComponents],
+    mixins: [dialogMixin],
     data: () => ({
         component: ''
     }),
     watch: {
         "$route.query.dialog": "openDialog",
-        // getUserLoggedInStatus: {
-        //     immediate: true,
-        //     handler(newVal) {
-        //         if(newVal && this.$route.query.dialog) {
-        //             this.openDialog(this.$route.query.dialog)
-        //         }
-        //     }
-        // }
-    },
-    // computed: {
-    //     getUserLoggedInStatus() {
-    //         return this.$store.getters.getUserLoggedInStatus
-    //     }
-    // },
-    methods: {
-        openDialog(component) {
-            let dialogName;
-            if(component) {
-                if(dialogConfig[component].loggedPremission) {
-                    dialogName = component;
-                } else {
-                    dialogName = 'login';
+        component(val){
+            if (val) {
+                if (this.$vuetify.breakpoint.xs) {
+                    document.getElementsByTagName("body")[0].className = "noscroll";
                 }
             } else {
-                dialogName = '';
+                document.body.removeAttribute("class", "noscroll");
             }
-            this.component = dialogName;
+        }
+    },
+    methods: {
+        openDialog(dialogNameFromRoute){
+            if(!dialogNameFromRoute){
+                this.component = ''
+                this.$closeDialog()
+                return;
+            }else{
+                let currentDialogPremissionList = this.dialogsPremissions[dialogNameFromRoute];
+                let self = this;
+                this.$nextTick(()=>{
+                    for(let premissionType of currentDialogPremissionList){
+                        let result = self.dialogHandlerByType(premissionType,dialogNameFromRoute)
+                        if(result === 'break'){
+                            self.component = 'break';
+                            break;
+                        }
+                        if(self.component){
+                            break;
+                        }
+                    }
+
+                    if(self.component === 'break'){
+                        self.component = ''
+                        return
+                    }
+                    if(self.component){
+                        return
+                    }else{
+                        self.component = dialogNameFromRoute
+                        return
+                    }
+                })
+            }   
         }
     }
 }
 </script>
-
-

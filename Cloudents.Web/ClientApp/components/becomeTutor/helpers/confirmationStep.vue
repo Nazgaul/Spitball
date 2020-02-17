@@ -46,7 +46,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateTutorDialog','updateAccountUserToTutor','sendBecomeTutorData','updateTeachingClasses','updateToasterParams']),
+        ...mapActions(['updateAccountUserToTutor','sendBecomeTutorData','updateTeachingClasses','updateToasterParams']),
         goToPreviousStep() {
             this.$root.$emit('becomeTutorStep', 3);
         },
@@ -78,7 +78,7 @@ export default {
                             showToaster: true,
                             toasterTimeout: 5000
                         });
-                        self.updateTutorDialog(false);
+                        self.$closeDialog();
                     }
                 }).finally(() => {                      
                     self.isLoading = false;
