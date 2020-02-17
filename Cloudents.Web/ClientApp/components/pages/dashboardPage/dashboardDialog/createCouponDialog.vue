@@ -15,7 +15,11 @@
                 <v-flex xs12 sm9 pr-0 pr-sm-4 pb-1 pb-sm-0> 
                   <v-select v-model="couponType" class="coupon-type" color="#304FFE" :items="couponTypesList"
                     outlined :height="$vuetify.breakpoint.xsOnly?50: 44" item-text="key" :append-icon="'sbf-triangle-arrow-down'" dense
-                    :label="$t('coupon_label_type')" :rules="[rules.required]" placeholder=" "/>
+                    :label="$t('coupon_label_type')" :rules="[rules.required]" placeholder=" ">
+                    <template slot="item" slot-scope="data">
+                     <span class="subtitle-1">{{data.item.key}}</span>
+                    </template>
+                  </v-select>
 
                 </v-flex>
                 <v-flex xs5 sm3>
@@ -215,15 +219,13 @@ export default {
       .v-text-field__details{
         padding: 0 !important;
       }
-      .v-select__selection--comma{
-        line-height: initial;
-      }
       .coupon-type{
+        .v-select__selection--comma{
+          line-height: initial;
+        }
         .v-list-item__title {
-                color: #43425d;
-                color: red;
-                // line-height: normal;
-            }
+          color: #43425d;
+        }
             .v-input__append-inner{
               margin-top: 10px !important;
               @media (max-width: @screen-xs) {
