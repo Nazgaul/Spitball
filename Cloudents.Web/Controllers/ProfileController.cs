@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,11 +19,13 @@ namespace Cloudents.Web.Controllers
     {
         private readonly IStringLocalizer<ProfileController> _localizer;
         private readonly IQueryBus _queryBus;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public ProfileController(IStringLocalizer<ProfileController> localizer, IQueryBus queryBus)
+        public ProfileController(IStringLocalizer<ProfileController> localizer, IQueryBus queryBus, IUrlBuilder urlBuilder)
         {
             _localizer = localizer;
             _queryBus = queryBus;
+            _urlBuilder = urlBuilder;
         }
 
         [Route("profile/{id:long}")]
@@ -70,7 +73,11 @@ namespace Cloudents.Web.Controllers
             ViewBag.metaDescription = _localizer["Description", retVal.Description];
             if (retVal.Image != null)
             {
-                ViewBag.ogImage = $"{retVal.Image}?width=1200&height=630";
+                ViewBag.ogImage = _urlBuilder.BuildUserImageProfileShareEndpoint(retVal.Id, new
+                {
+                    width = 1200,
+                    height = 630
+                });
                 ViewBag.ogImageWidth = 1200;
                 ViewBag.ogImageHeight = 630;
             }

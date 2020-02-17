@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core;
-using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Di;
@@ -24,7 +22,6 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
-using SixLabors.Shapes;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
@@ -52,6 +49,9 @@ namespace Cloudents.FunctionsV2
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             bool.TryParse(req.Query["rtl"].ToString(), out var isRtl);
+
+            int.TryParse(req.Query["width"].ToString(), out var width);
+            int.TryParse(req.Query["height"].ToString(), out var height);
             var query = new ShareProfileImageQuery(id);
             var dbResult = await queryBus.QueryAsync(query, token);
 
@@ -143,6 +143,10 @@ namespace Cloudents.FunctionsV2
                 x.DrawImage(descriptionImage, new Point(pointX, middleY), GraphicsOptions.Default);
             });
 
+            if (width > 0 && height > 0)
+            {
+                image.Mutate(m=>m.Crop(width,height));
+            }
 
 
             //image.Mutate(x=>x.DrawImage());
