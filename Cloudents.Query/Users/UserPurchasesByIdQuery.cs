@@ -31,6 +31,8 @@ namespace Cloudents.Query.Users
 
             public async Task<IEnumerable<UserPurchasDto>> GetAsync(UserPurchasesByIdQuery query, CancellationToken token)
             {
+
+                //TODO: need to return Document with state = archive
                 var documentFuture = _session.Query<DocumentTransaction>()
                     .Fetch(f => f.User)
                     .Fetch(f => f.Document)
