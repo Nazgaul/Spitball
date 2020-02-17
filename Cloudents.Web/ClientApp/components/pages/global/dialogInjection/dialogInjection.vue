@@ -11,6 +11,15 @@ export default {
     }),
     watch: {
         "$route.query.dialog": "openDialog",
+        component(val){
+            if (val) {
+                if (this.$vuetify.breakpoint.xs) {
+                    document.getElementsByTagName("body")[0].className = "noscroll";
+                }
+            } else {
+                document.body.removeAttribute("class", "noscroll");
+            }
+        }
     },
     methods: {
         openDialog(dialogNameFromRoute){
