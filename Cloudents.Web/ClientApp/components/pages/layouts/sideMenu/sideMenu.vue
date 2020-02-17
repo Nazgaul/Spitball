@@ -11,44 +11,33 @@
         
         <v-list class="sideMenu_list_cont" dense>
 
-          <v-list-group @click="resetItems" class="sideMenu_group" :prepend-icon="'sbf-home-sideMenu'" no-action :append-icon="''" active-class="''">
-            <template v-slot:activator>
-              <v-list-item class="sideMenu_list">
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <span class="sideMenu_list_title" v-language:inner="'schoolBlock_home'"/>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
-          </v-list-group>
+          <sideMenuHome @click="resetItems"/>
+          <sideMenuDashboard @click="openSideMenu" :dashboardProps="{
+                              model:dashboardModel,
+                              showSchoolBlock:getShowSchoolBlock,
+                              goTo:goTo,
+                              openSideMenu:openSideMenu,
+                              isShowItem:isShowItem,
+                              currentPageChecker:currentPageChecker}"/>
 
-          <v-list-group v-model="dashboardModel" v-if="dashboardList" @click="openSideMenu" class="sideMenu_group" active-class="''" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action>
-            <template v-slot:activator>
-              <v-list-item class="sideMenu_list">
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <span class="sideMenu_list_title" v-language:inner="'schoolBlock_dashboard'"/>
-                    </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
+          <sideMenuSetting @click="openSideMenu" :settingProps="{
+                              model:settingModel,
+                              showSchoolBlock: getShowSchoolBlock,
+                              goTo:goTo,
+                              openSideMenu:openSideMenu,
+                              isShowItem:isShowItem,
+                              currentPageChecker:currentPageChecker,}"/>
+<!-- 
+          <sideMenuCourses @click="openSideMenu" :coursesProps="{
+                              model:settingModel,
+                              showSchoolBlock: getShowSchoolBlock,
+                              goTo:goTo,
+                              openSideMenu:openSideMenu,
+                              isShowItem:isShowItem,
+                              currentPageChecker:currentPageChecker,}"/> /> -->
 
-            <v-list-item class="group_list_sideMenu_dash" v-for="(item, index) in dashboardListFiltered" :key="index"
-              :to="{name: item.route}"
-              event
-              @click.native.prevent="getShowSchoolBlock ? goTo(item.route) : openSideMenu()" :sel="item.sel" v-show="isShowItem(item.route)">
-              <v-list-item-content> 
-                <v-list-item-title :class="['group_list_titles_dash',{'active_list_dash':currentPageChecker(item.route)}]">
-                  <v-icon class="group_list_icon_dash" v-html="item.icon"/>
-                  <span class="group_list_title_dash ml-3">{{item.name}}</span>
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-
-          </v-list-group>
           
-          <v-list-group :value="!dashboardModel" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
+            <v-list-group v-model="coursesModel" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
             <template v-slot:activator>
               <v-list-item class="sideMenu_list">
                 <v-list-item-content>
@@ -82,28 +71,21 @@
 import { mapGetters, mapActions } from "vuex";
 import arrowSVG from './image/left-errow.svg';
 
+import sideMenuSetting from './sideMenuSetting.vue';
+import sideMenuHome from './sideMenuHome.vue';
+import sideMenuDashboard from './sideMenuDashboard.vue'
+
 export default {
   name: "sideMenu",
-  components:{arrowSVG},
+  components:{arrowSVG,sideMenuSetting,sideMenuHome,sideMenuDashboard},
   data() {
     return {
       sideMenulistElm: null,
-      dashboardList:[
-        {name: this.$t('schoolBlock_overview'), key:'dashboard', route: 'dashboardTeacher', icon:'sbf-eye', sel:'sd_dashboard', premission: 'tutor'},
-        {name: this.$t('schoolBlock_profile'), key:'profile', route: 'profile', icon:'sbf-user', sel:'sd_profile', },
-        {name: this.$t('schoolBlock_my_sales'), key:'my-sales', route: 'mySales', icon:'sbf-cart',sel:'sd_sales'},
-        {name: this.$t('schoolBlock_my_followers'), key:'my-followers', route: 'myFollowers', icon:'sbf-follow',sel:'sd_followers'},
-        {name: this.$t('schoolBlock_purchases'), key:'my-purchases', route: 'myPurchases', icon:'sbf-cart',sel:'sd_purchases'},
-        {name: this.$t('schoolBlock_my_content'), key:'my-content', route: 'myContent', icon:'sbf-my-content',sel:'sd_content'},
-        {name: this.$t('schoolBlock_calendar'), key:'my-calendar',route: 'myCalendar', icon:'sbf-calendar',sel:'sd_calendar'},
-        {name: this.$t('schoolBlock_study'), key:'studyRooms', route: 'roomSettings', icon:'sbf-studyroom-icon',sel:'sd_studyroom'},
-        {name: this.$t('menuList_my_study_rooms'), key:'tutoring', route: 'tutoring', icon:'sbf-pc',sel:'menu_row'},
-        {name: this.$t('menuList_changeUniversity'), key:'university', route: 'addUniversity', icon:'sbf-university',sel:'sd_studyroom'},
-        {name: this.$t('schoolBlock_courses'), key:'courses', route: 'editCourse', icon:'sbf-classes-icon'},
-      ],
       selectedCourse: "",
       isRtl: global.isRtl,
-      dashboardModel: this.$route.name !== 'feed' && this.$route.name !== 'document',
+      dashboardModel: false,
+      settingModel:false,
+      coursesModel:false,
     };
   },
   computed: {
@@ -113,11 +95,6 @@ export default {
       "getShowSchoolBlock",
       'Feeds_getIsLoading'
     ]),
-    dashboardListFiltered() {
-      return this.dashboardList.filter(list => {
-        return list.premission !== 'tutor' || this.isTutor;
-      })
-    },
     isMiniSideMenu: {
       get() {
       return (this.$vuetify.breakpoint.mdOnly || this.$vuetify.breakpoint.smOnly) && !this.getShowSchoolBlock
@@ -149,7 +126,7 @@ export default {
   },
   watch: {
     $route() {
-      this.dashboardModel = this.$route.name !== 'feed' && this.$route.name !== 'document'
+      this.checkRoutes()
       if (!!this.$route.query) {
         if (!this.$route.query.Course) {
           this.selectedCourse = "";
@@ -161,6 +138,15 @@ export default {
   },
   methods: {
     ...mapActions(["updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
+    checkRoutes(){
+      let nonCoursesRoutes = ['editCourse','myCalendar','addUniversity','profile','dashboardTeacher','mySales','myFollowers','myPurchases','myContent','myStudyRooms'];
+      let nonDashboardRoutes = ['feed','document','editCourse','myCalendar','addUniversity'];
+      let nonSettingRoutes = ['feed','document','profile','dashboardTeacher','mySales','myFollowers','myPurchases','myContent','myStudyRooms'];
+
+      this.dashboardModel = nonDashboardRoutes.every(route=>route !== this.$route.name)
+      this.settingModel = nonSettingRoutes.every(route=>route !== this.$route.name)
+      this.coursesModel = nonCoursesRoutes.every(route=>route !== this.$route.name)
+    },
     currentCourseChecker(item){
       if(item.isDefault){
         return this.selectedCourse === '';
@@ -261,6 +247,7 @@ export default {
     this.sideMenulistElm.addEventListener('click', this.clickEventMiniMenuOpen);
   },
   created() {
+      this.checkRoutes()
     if (!!this.$route.query.Course) {
       this.selectedCourse = this.$route.query.Course;
     }
