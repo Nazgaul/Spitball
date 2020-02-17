@@ -38,7 +38,7 @@ namespace Cloudents.Query.Tutor
                         Name = s.tutor.Name,
                         Rate = s.tutor.Rate.GetValueOrDefault(),
                         Description = s.user.Description
-                    }).FirstOrDefaultAsync(token);
+                    }).SingleOrDefaultAsync(token);
             }
         }
     }

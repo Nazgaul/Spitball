@@ -26,7 +26,8 @@ using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
 {
-    public static class ShareProfileImageFunction
+  
+    public static class ShareProfileImageFunction 
     {
 
         private static readonly Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
@@ -55,7 +56,7 @@ namespace Cloudents.FunctionsV2
             var query = new ShareProfileImageQuery(id);
             var dbResult = await queryBus.QueryAsync(query, token);
 
-            if (dbResult.Image is null)
+            if (dbResult?.Image is null)
             {
                 return new BadRequestResult();
             }
@@ -145,12 +146,12 @@ namespace Cloudents.FunctionsV2
 
             if (width > 0 && height > 0)
             {
-                image.Mutate(m=>m.Crop(width,height));
+                image.Mutate(m=>m.Resize(width,height));
             }
 
 
             //image.Mutate(x=>x.DrawImage());
-            return new ImageResult(image, TimeSpan.Zero);
+            return new ImageResult(image, TimeSpan.FromDays(365));
 
         }
 
@@ -218,7 +219,16 @@ namespace Cloudents.FunctionsV2
             new PointF(pointX, 419));
         }
 
-        private static string CropTextToFixToRectangle(Font font, string text, SizeF rectangle, bool threeDots = false)
+        internal static async Task<Image<Rgba32>> GetImageFromBlobAsync(string blobName)
+        {
+            var blobNameWithDirectory = $"share-placeholder/{blobName}";
+            var blob = ShareProfileImageFunction._blobs.Single(s => s.Name == blobNameWithDirectory);
+            await using var stream = await blob.OpenReadAsync();
+            return Image.Load<Rgba32>(stream);
+
+        }
+
+        internal static string CropTextToFixToRectangle(Font font, string text, SizeF rectangle, bool threeDots = false)
         {
             var spanOfText = new Span<char>(text.ToCharArray());
             var rendererOptions = new RendererOptions(font)
