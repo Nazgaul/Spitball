@@ -8,6 +8,8 @@ export const User = {
     Default: function (objInit) {
         this.id = objInit.id || objInit.userId;
         this.name = objInit.name;
+        this.firstName = objInit.firstName;
+        this.lastName = objInit.lastName;
         this.image = objInit.image || '';
     },
     TutorDefault: function(objInit){

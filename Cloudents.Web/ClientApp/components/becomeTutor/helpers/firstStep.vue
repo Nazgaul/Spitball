@@ -31,7 +31,6 @@
                             v-model="firstName"
                             :rules="[rules.required, rules.notSpaces, rules.minimumChars]"
                             class="become-tutor-edit-firstname"
-                            :placeholder="placeFirstName" 
                             :label="placeFirstName"/>
                         </v-flex>
                         <v-flex xs12 class="mb-2">
@@ -39,7 +38,6 @@
                                 v-model="lastName"
                                 :rules="[rules.required, rules.notSpaces, rules.minimumChars]"
                                 class="become-tutor-edit-lastname"
-                                :placeholder="placeLastName" 
                                 :label="placeLastName"/>
                         </v-flex>
                         <v-flex xs12 class="mt-2 first-selects" v-if="!isFrymo">
@@ -100,8 +98,8 @@
                 placeFirstName: LanguageService.getValueByKey("becomeTutor_placeholder_first_name"),
                 placeLastName: LanguageService.getValueByKey("becomeTutor_placeholder_last_name"),
                 selectGender: LanguageService.getValueByKey("becomeTutor_placeholder_select_gender"),
-                firstName: '',
-                lastName: '',
+                firstname: '',
+                lastname: '',
                 price: 50,
                 imageAdded: false,
                 errorUpload: false,
@@ -140,6 +138,22 @@
             isMobile(){
                 return this.$vuetify.breakpoint.xsOnly;
             },
+            firstName: {
+                get() {
+                    return this.$store.getters?.accountUser.firstName;
+                },
+                set(firstName) {
+                    this.saveFirstName(firstName);
+                }
+            },
+            lastName: {
+                get() {
+                    return this.$store.getters?.accountUser.lastName;
+                },
+                set(lastName) {
+                    this.saveLastName(lastName);
+                }
+            }
         },
         methods: {
             ...mapActions(['updateTutorInfo', 'uploadAccountImage', 'updateToasterParams']),
@@ -177,14 +191,20 @@
                     
                     let data = {
                         image: this.userImage,
-                        firstName: this.firstName,
-                        lastName: this.lastName,
+                        firstName: this.firstname || this.firstName,
+                        lastName: this.lastname || this.lastName,
                         price: this.price
                     };
                     this.updateTutorInfo(data);
                     this.$root.$emit('becomeTutorStep', 2);
                 }
             },
+            saveFirstName(name) {
+                this.firstname = name;
+            },
+            saveLastName(name) {
+                this.lastname = name;
+            }
         },
     };
 </script>
