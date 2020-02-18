@@ -235,6 +235,7 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
             var query = new UserCouponsQuery(userId);
+            return await _queryBus.QueryAsync(query, token);
         }
 
         [HttpGet("sales")]
