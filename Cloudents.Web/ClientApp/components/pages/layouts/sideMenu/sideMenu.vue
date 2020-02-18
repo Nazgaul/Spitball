@@ -10,7 +10,14 @@
         <div @click="toggleMiniSideMenu" v-if="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown" class="sideMenu_btn"/>
         
         <v-list class="sideMenu_list_cont" dense>
-          <sideMenuHome @click.native="resetItems"/>
+          <template v-if="showHome" >
+            <sideMenuHome :homeProps="{
+                              model:coursesModel,
+                              toggleMiniSideMenu:toggleMiniSideMenu,
+                              getShowSchoolBlock:getShowSchoolBlock,
+                              openSideMenu:openSideMenu,
+                            }"/>
+          </template>
 
           <sideMenuDashboard @click="openSideMenu" :dashboardProps="{
                               model:dashboardModel,
@@ -23,32 +30,6 @@
                               showSchoolBlock: getShowSchoolBlock,
                               goTo:goTo,
                               openSideMenu:openSideMenu}"/>
-          
-            <v-list-group v-model="coursesModel" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
-            <template v-slot:activator>
-              <v-list-item class="sideMenu_list">
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <span class="sideMenu_list_title" v-text="$t('schoolBlock_my')"/>
-                    </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </template>
-
-            <v-list-item
-              class="group_list_sideMenu_course" v-for="(item, index) in selectedClasses" :key="index" 
-              color="#fff"
-              :to="{name: $route.name,query:{Course: (!item.isDefault)? item.text : undefined}}"
-              event
-              @click.native.prevent="getShowSchoolBlock ? selectCourse(item) : openSideMenu()" :sel="item.isDefault? 'all_courses' : ''">
-              <v-list-item-content>
-                <v-list-item-title :class="['group_list_titles_course',{'active_link_course': currentCourseChecker(item)}]">
-                  <arrowSVG v-if="currentCourseChecker(item)" class="arrow_course"/>
-                  <span :class="['group_list_title_course text-truncate',currentCourseChecker(item)? 'padding_current_course':'ml-4']" v-text="item.text ? item.text : $t('schoolBlock_allCourses')"/>
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-group>
         </v-list>
       </div>
     </v-navigation-drawer>
@@ -56,7 +37,6 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import arrowSVG from './image/left-errow.svg';
 
 import sideMenuHome from './sideMenuHome.vue';
 import sideMenuDashboard from './sideMenuDashboard.vue'
@@ -66,11 +46,10 @@ import * as feedFilters from '../../../../routes/consts/feedFilters.js';
 
 export default {
   name: "sideMenu",
-  components:{arrowSVG,sideMenuSetting,sideMenuHome,sideMenuDashboard},
+  components:{sideMenuSetting,sideMenuHome,sideMenuDashboard},
   data() {
     return {
       sideMenulistElm: null,
-      selectedCourse: "",
       isRtl: global.isRtl,
       dashboardModel: false,
       settingModel:false,
@@ -79,10 +58,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "getSelectedClasses",
       "accountUser",
       "getShowSchoolBlock",
-      'Feeds_getIsLoading'
     ]),
     isMiniSideMenu: {
       get() {
@@ -92,34 +69,13 @@ export default {
         this.updateDrawerValue(val)
       }
     },
-    selectedClasses(){
-        let selectedClasses = JSON.parse(JSON.stringify(this.getSelectedClasses))
-        
-        selectedClasses = selectedClasses.sort((a, b) => a.text.toLowerCase() > b.text.toLowerCase() ? 1 : -1);
-        let defaultCourse = {
-          isFollowing: true,
-          isLoading: false,
-          isPending: false,
-          isSelected: true,
-          isTeaching: false,
-          students: 0,
-          text: this.$t('schoolBlock_allCourses'),
-          isDefault: true
-        }
-        selectedClasses.unshift(defaultCourse);
-        return selectedClasses;
+    showHome(){
+      return !this.accountUser?.isTutor
     },
   },
   watch: {
     $route() {
       this.checkRoutes()
-      if (!!this.$route.query) {
-        if (!this.$route.query.Course) {
-          this.selectedCourse = "";
-        }
-      } else {
-        this.selectedCourse = "";
-      }
     }
   },
   methods: {
@@ -138,13 +94,6 @@ export default {
         this.dashboardModel = true;
       }
     },
-    currentCourseChecker(item){
-      if(item.isDefault){
-        return this.selectedCourse === '';
-      }else{
-        return item.text.toLowerCase() === this.selectedCourse.toLowerCase();
-      }
-    },
     goTo(name){
       if (this.accountUser == null) {
         this.updateLoginDialogState(true);
@@ -156,10 +105,6 @@ export default {
       }
       this.$router.push({name})
       this.closeSideMenu();
-    },
-    resetItems(){
-      this.openSideMenu();
-      this.$router.push('/')
     },
     toggleMiniSideMenu(){
       if(this.isMiniSideMenu){
@@ -185,30 +130,6 @@ export default {
         this.toggleShowSchoolBlock(!val);
       }
     },
-    selectCourse(item) {
-      if(!this.Feeds_getIsLoading){
-        if(item.isDefault){
-          this.selectedCourse = "";
-        }else{
-          this.selectedCourse = item.text;
-        }
-        this.updateFilter();
-        this.toggleMiniSideMenu()
-      }
-    },
-    updateFilter() {
-      let newQueryObject = {Course: this.selectedCourse || undefined};
-      if(this.$route.name !== routeNames.Feed){
-          this.$router.push({name: routeNames.Feed, query: newQueryObject });
-      }else{
-        let queryObj = {
-          Course: this.selectedCourse || undefined,
-          term: this.$route.query.term,
-          filter: this.$route.query.filter,
-        }
-        this.$router.push({ query: queryObj })
-      }
-    },
     clickEventMiniMenuOpen(e){
       if(e.target.classList.contains('v-navigation-drawer--mini-variant')){
         this.openSideMenu();
@@ -224,9 +145,6 @@ export default {
   },
   created() {
       this.checkRoutes()
-    if (!!this.$route.query.Course) {
-      this.selectedCourse = this.$route.query.Course;
-    }
   },
 };
 </script>
