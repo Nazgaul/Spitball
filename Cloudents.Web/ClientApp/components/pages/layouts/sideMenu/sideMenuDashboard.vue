@@ -26,6 +26,10 @@
          <sideMenuListItem :dashboardProps="dashboardProps" :item="myContentItem"/>
       </template>
 
+      <template v-if="showOverview">
+         <sideMenuListItem :dashboardProps="dashboardProps" :item="myQuestionsItem"/>
+      </template>
+
       <template v-if="showMyPurchases">
          <sideMenuListItem :dashboardProps="dashboardProps" :item="myPurchasesItem"/>
       </template>
@@ -52,11 +56,12 @@ export default {
    data() {
       return {
          overviewItem:{name: this.$t('schoolBlock_overview'),route: routeNames.Dashboard, icon:'sbf-eye', sel:'sd_dashboard'},
-         mySalesItem:{name: this.$t('schoolBlock_my_sales'),route: routeNames.MySales, icon:'sbf-cart', sel:'sd_sales'},
+         mySalesItem:{name: this.$t('schoolBlock_my_sales'),route: routeNames.MySales, icon:'sbf-my-sales', sel:'sd_sales'},
          myFollowersItem:{name: this.$t('schoolBlock_my_followers'),route: routeNames.MyFollowers, icon:'sbf-follow', sel:'sd_followers'},
          myPurchasesItem:{name: this.$t('schoolBlock_purchases'),route: routeNames.MyPurchases, icon:'sbf-cart', sel:'sd_purchases'},
          myContentItem:{name: this.$t('schoolBlock_my_content'),route: routeNames.MyContent, icon:'sbf-my-content', sel:'sd_content'},
          myStudyRoomsItem:{name: this.$t('schoolBlock_study'),route: routeNames.MyStudyRooms, icon:'sbf-studyroom-icon', sel:'sd_studyroom'},
+         myQuestionsItem:{name: this.$t('schoolBlock_my_Questions'),route:'myQuestions',icon:'sbf-my-questions',sel:'sd_questions'}
       }
    },
    computed: {
@@ -70,11 +75,11 @@ export default {
       showMyFollowers(){
          return this.accountUser?.haveFollowers;
       },
-      showMyPurchases(){
-         return this.accountUser?.isPurchased;
-      },
       showMyContent(){
          return this.accountUser?.haveDocs;
+      },
+      showMyPurchases(){
+         return this.accountUser?.isPurchased;
       },
       showMyStudyRooms(){
          return this.accountUser?.haveStudyRoom;

@@ -73,6 +73,8 @@ import arrowSVG from './image/left-errow.svg';
 import sideMenuSetting from './sideMenuSetting.vue';
 import sideMenuHome from './sideMenuHome.vue';
 import sideMenuDashboard from './sideMenuDashboard.vue'
+import * as routeNames from '../../../../routes/routeNames.js';
+import * as feedFilters from '../../../../routes/consts/feedFilters.js';
 
 export default {
   name: "sideMenu",
@@ -138,9 +140,10 @@ export default {
   methods: {
     ...mapActions(["updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
     checkRoutes(){
+      // make it is instead non
       let nonCoursesRoutes = ['editCourse','myCalendar','addUniversity','profile','dashboardTeacher','mySales','myFollowers','myPurchases','myContent','myStudyRooms'];
-      let nonDashboardRoutes = ['feed','document','editCourse','myCalendar','addUniversity'];
-      let nonSettingRoutes = ['feed','document','profile','dashboardTeacher','mySales','myFollowers','myPurchases','myContent','myStudyRooms'];
+      let nonDashboardRoutes = [routeNames.Feed,'document','profile','editCourse','myCalendar','addUniversity'];
+      let nonSettingRoutes = [routeNames.Feed,'document','profile','dashboardTeacher','mySales','myFollowers','myPurchases','myContent','myStudyRooms'];
 
       this.dashboardModel = nonDashboardRoutes.every(route=>route !== this.$route.name)
       this.settingModel = nonSettingRoutes.every(route=>route !== this.$route.name)
@@ -173,8 +176,8 @@ export default {
         this.updateLoginDialogState(true);
         return
       }
-      if(name === "roomSettings"){
-        this.$router.push({name:'myStudyRooms'})
+      if(name === "myQuestions"){
+        this.$router.push({name: routeNames.Feed,query:{filter:feedFilters.Question}})
         return
       }
       this.$router.push({name})
@@ -221,8 +224,8 @@ export default {
     },
     updateFilter() {
       let newQueryObject = {Course: this.selectedCourse || undefined};
-      if(this.$route.name !== 'feed'){
-          this.$router.push({name: 'feed', query: newQueryObject });
+      if(this.$route.name !== routeNames.Feed){
+          this.$router.push({name: routeNames.Feed, query: newQueryObject });
       }else{
         let queryObj = {
           Course: this.selectedCourse || undefined,
