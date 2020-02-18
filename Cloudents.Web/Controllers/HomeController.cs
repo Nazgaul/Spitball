@@ -43,6 +43,7 @@ namespace Cloudents.Web.Controllers
             [FromQuery, CanBeNull] string referral,
             [FromQuery] string open
             )
+
         {
             if (!string.IsNullOrEmpty(referral))
             {
