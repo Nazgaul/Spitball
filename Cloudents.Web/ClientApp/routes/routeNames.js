@@ -28,3 +28,6 @@ export const Feed = 'feed';
 
 // Dashboard:
 export const Dashboard = 'dashboardTeacher';
+
+// Marketing:
+export const Marketing = 'marketing';
