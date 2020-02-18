@@ -33,7 +33,7 @@ namespace Cloudents.Query.Users
             public async Task<UserAccountDto> GetAsync(UserAccountQuery query, CancellationToken token)
             {
                 //TODO: to nhibernate
-                const string sql = @"select u.Id, U.Balance, u.Name, u.ImageName as Image, u.Email, 
+                const string sql = @"select u.Id, U.Balance, u.Name, u.FirstName, u.LastName, u.ImageName as Image, u.Email, 
                             u.PhoneNumberHash as PhoneNumber,
                             u.Country,
                 u.UserType,
