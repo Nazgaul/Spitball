@@ -73,11 +73,12 @@ namespace Cloudents.Web.Controllers
             ViewBag.metaDescription = _localizer["Description", retVal.Description];
             if (retVal.Image != null)
             {
-                ViewBag.ogImage = _urlBuilder.BuildUserImageProfileShareEndpoint(retVal.Id, new
-                {
-                    width = 1200,
-                    height = 630
-                });
+                ViewBag.ogImage = $"{retVal.Image}?width=1200&height=630";
+                //ViewBag.ogImage = _urlBuilder.BuildUserImageProfileShareEndpoint(retVal.Id, new
+                //{
+                //    width = 1200,
+                //    height = 630
+                //});
                 ViewBag.ogImageWidth = 1200;
                 ViewBag.ogImageHeight = 630;
             }

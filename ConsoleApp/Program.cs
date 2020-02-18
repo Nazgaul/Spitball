@@ -40,6 +40,7 @@ using Cloudmersive.APIClient.NETCore.ImageRecognition.Api;
 using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -229,8 +230,9 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
             var inputFile = new FileStream("C:\\Users\\Ram\\Downloads\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
 
             var image = new Image<Rgba32>(500, 500);
+            image.Mutate(c=>c.BackgroundColor(Color.Aqua));
             var ms = new MemoryStream();
-            image.SaveAsPng(ms);
+            image.SaveAsJpeg(ms);
             try
             {
 
@@ -239,20 +241,22 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
                 var sw = new Stopwatch();
                 sw.Start();
                 var bytes = ms.ToArray();
+                //apiInstance3.EditDrawText(new DrawTextRequest())
                 var result = apiInstance3.EditDrawText(
                     new DrawTextRequest(
                         BaseImageBytes: bytes,
                         TextToDraw: new List<DrawTextInstance>()
                 {
+                    
                     new DrawTextInstance(
-                        "Hi Ram",
-                        FontFamilyName: "Open Sans",
-                        FontSize:20,
-                        Color:"black",0,0,250,100
+                        "בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים :) (אפילו אם כרגע זה נראה בלתי אפשרי). בעל ניסיון של 6 שנים!",
+                        FontFamilyName: "Georgia",
+                        FontSize:32,
+                        Color:"black",0,0,500,500
                         )
                 }));
 
-                File.WriteAllBytes(@"c:\Users\Ram\Downloads\ram.png",result);
+                File.WriteAllBytes(@"c:\Users\Ram\Downloads\ram1.jpg",result);
                 //var v = apiInstance.ConvertDocumentDocxToTxt(inputFile);
                 //inputFile.Seek(0, SeekOrigin.Begin);
 
