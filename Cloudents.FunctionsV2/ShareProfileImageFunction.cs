@@ -31,7 +31,7 @@ namespace Cloudents.FunctionsV2
     {
 
         private static readonly Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
-        internal static List<CloudBlockBlob> _blobs;
+        internal static List<CloudBlockBlob> Blobs;
         internal static readonly FontCollection FontCollection = new FontCollection();
 
         public const int SquareProfileImageDimension = 245;
@@ -75,7 +75,7 @@ namespace Cloudents.FunctionsV2
 
             await using var profileImageStream = await client.GetStreamAsync(uriBuilder.Uri);
             var bgBlobName = $"share-placeholder/bg-profile-{(isRtl ? "rtl" : "ltr")}.jpg";
-            var bgBlob = _blobs.Single(s => s.Name == bgBlobName);
+            var bgBlob = Blobs.Single(s => s.Name == bgBlobName);
 
 
 
@@ -157,7 +157,7 @@ namespace Cloudents.FunctionsV2
 
         private static async Task<Image<Rgba32>> BuildDescriptionImage(string description)
         {
-            await using var quoteSr = await _blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
+            await using var quoteSr = await Blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
 
             const int descriptionSize = 225;
             const int marginBetweenQuote = 28;
@@ -173,20 +173,20 @@ namespace Cloudents.FunctionsV2
 
                 var descriptionToDraw =
                     CropTextToFixToRectangle(font, description, new SizeF(size.Width, descriptionSize), true);
-                var rendererOptions = new RendererOptions(font)
-                {
-                    WrappingWidth = size.Width,
-                };
-                var textSize = TextMeasurer.Measure(descriptionToDraw, rendererOptions);
+                //var rendererOptions = new RendererOptions(font)
+                //{
+                //    WrappingWidth = size.Width,
+                //};
+                //var textSize = TextMeasurer.Measure(descriptionToDraw, rendererOptions);
 
                 var location = new PointF(0, quoteImage.Height + marginBetweenQuote);
                 context.DrawTextWithHebrew(new TextGraphicsOptions()
                 {
                     WrapTextWidth = size.Width,
                     HorizontalAlignment = HorizontalAlignment.Center,
-                }, descriptionToDraw, font, Color.FromHex("43425d"), location);
+                }, descriptionToDraw.text, font, Color.FromHex("43425d"), location);
 
-                var endHeight = textSize.Height + location.Y;
+                var endHeight = descriptionToDraw.size.Height + location.Y;
                 if (endHeight < size.Height)
                 {
                     context.Crop(size.Width, (int)(endHeight + 0.5));
@@ -213,7 +213,7 @@ namespace Cloudents.FunctionsV2
                 HorizontalAlignment = HorizontalAlignment.Center,
                 WrapTextWidth = nameMaxWidth,
             },
-            nameToDraw,
+            nameToDraw.text,
             font,
             Color.White,
             new PointF(pointX, 419));
@@ -222,13 +222,13 @@ namespace Cloudents.FunctionsV2
         internal static async Task<Image<Rgba32>> GetImageFromBlobAsync(string blobName)
         {
             var blobNameWithDirectory = $"share-placeholder/{blobName}";
-            var blob = ShareProfileImageFunction._blobs.Single(s => s.Name == blobNameWithDirectory);
+            var blob = Blobs.Single(s => s.Name == blobNameWithDirectory);
             await using var stream = await blob.OpenReadAsync();
             return Image.Load<Rgba32>(stream);
 
         }
 
-        internal static string CropTextToFixToRectangle(Font font, string text, SizeF rectangle, bool threeDots = false)
+        internal static (string text,SizeF size) CropTextToFixToRectangle(Font font, string text, SizeF rectangle, bool threeDots = false)
         {
             var spanOfText = new Span<char>(text.ToCharArray());
             var rendererOptions = new RendererOptions(font)
@@ -255,7 +255,7 @@ namespace Cloudents.FunctionsV2
                 }
             }
 
-            return spanOfText.ToString();
+            return (spanOfText.ToString(),textSize);
         }
 
         private static void DrawProfileImage(IImageProcessingContext context, Image<Rgba32> profileImage, bool isRtl)
@@ -272,11 +272,11 @@ namespace Cloudents.FunctionsV2
 
         internal static async Task InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
         {
-            if (_blobs is null)
+            if (Blobs is null)
             {
-                _blobs = directoryBlobs.ToList();
+                Blobs = directoryBlobs.ToList();
 
-                foreach (var fontBlob in _blobs.Where(w => w.Name.EndsWith(".ttf")))
+                foreach (var fontBlob in Blobs.Where(w => w.Name.EndsWith(".ttf")))
                 {
                     await using var fontStream = await fontBlob.OpenReadAsync();
                     FontCollection.Install(fontStream);
@@ -321,7 +321,7 @@ namespace Cloudents.FunctionsV2
                 return v;
             }
 
-            var blob = _blobs.Single(s => s.Name == star.BlobPath);
+            var blob = Blobs.Single(s => s.Name == star.BlobPath);
             //using (var ms = new MemoryStream())
             //{
             //    blob.DownloadToStreamAsync(ms);
