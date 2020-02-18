@@ -7,26 +7,48 @@
           <div class="dialog-title pb-10 pb-sm-11">{{$t('coupon_create_title')}}</div>
           <v-form v-model="validCreateCoupon" ref="validCreateCoupon">
             <v-layout justify-space-between wrap class="inputs-coupon pr-0 pr-sm-4">
-                <v-flex xs12 pb-1 pb-sm-3>
-                  <v-text-field autofocus :rules="[rules.required,rules.notSpaces,rules.minimumChars,rules.maximumChars]"
+                
+              <v-flex xs12 sm9 pr-0 pr-sm-4 pb-1 pb-sm-0>
+                <v-text-field :error-messages="couponErr" autofocus :rules="[rules.required,rules.notSpaces,rules.minimumChars,rules.maximumChars]"
                     v-model="couponCode" :label="$t('coupon_label_code')" :placeholder="placeHoldersEmpty" autocomplete="nope"
                     dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
-                </v-flex>
-                <v-flex xs12 sm9 pr-0 pr-sm-4 pb-1 pb-sm-0> 
-                  <v-select v-model="couponType" class="coupon-type" color="#304FFE" :items="couponTypesList"
+              </v-flex>
+              <v-flex sm3 v-if="!$vuetify.breakpoint.xsOnly">
+                <v-text-field v-model="couponValue" :label="$t('coupon_label_value')"
+                  :placeholder="placeHoldersEmpty" autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
+                  dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
+              </v-flex>
+
+              <v-flex xs12 sm8 pr-0 pr-sm-0 pb-1 pb-sm-0>
+                <v-select v-model="couponType" class="coupon-type" color="#304FFE" :items="couponTypesList"
                     outlined :height="$vuetify.breakpoint.xsOnly?50: 44" item-text="key" :append-icon="'sbf-triangle-arrow-down'" dense
                     :label="$t('coupon_label_type')" :rules="[rules.required]" :placeholder="placeHoldersEmpty">
                     <template slot="item" slot-scope="data">
                      <span class="subtitle-1">{{data.item.key}}</span>
                     </template>
-                  </v-select>
+                </v-select>
+              </v-flex>
 
-                </v-flex>
-                <v-flex xs5 sm3>
-                  <v-text-field v-model="couponValue" :label="$t('coupon_label_value')"
-                    :placeholder="placeHoldersEmpty" autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
-                    dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
-                </v-flex>
+              <v-flex xs6 pr-2 pr-sm-0 v-if="$vuetify.breakpoint.xsOnly">
+                <v-text-field v-model="couponValue" :label="$t('coupon_label_value')"
+                  :placeholder="placeHoldersEmpty" autocomplete="nope" :rules="[rules.required,rules.integer,rules.minimum,rules.maximum]"
+                  dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44"/>
+              </v-flex>
+
+              <v-flex xs6 sm4 pl-2 pl-sm-4>
+                <v-menu ref="datePickerMenu" v-model="datePickerMenu" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290px" min-width="290px">
+                  <template v-slot:activator="{ on }">
+                      <v-text-field class="date-input" :rules="[rules.required]" :label="$t('coupon_label_date')" autocomplete="nope"
+                      v-model="dateFormatted" prepend-inner-icon="sbf-calendar" @blur="date = parseDate(dateFormatted)"
+                      dense color="#304FFE" outlined type="text" :height="$vuetify.breakpoint.xsOnly?50: 44" v-on="on" />
+                  </template>                  
+                  <v-date-picker color="#4C59FF" class="date-picker-coupon" :next-icon="isRtl?'sbf-arrow-left-carousel':'sbf-arrow-right-carousel'" :prev-icon="isRtl?'sbf-arrow-right-carousel':'sbf-arrow-left-carousel'" v-model="date" no-title @input="datePickerMenu = false">
+                    <v-spacer></v-spacer>
+                    <v-btn text class="font-weight-bold" color="#4C59FF" @click="datePickerMenu = false">{{$t('coupon_btn_calendar_cancel')}}</v-btn>
+                    <v-btn text class="font-weight-bold" color="#4C59FF" @click="$refs.datePickerMenu.save(date)">{{$t('coupon_btn_calendar_ok')}}</v-btn>
+                  </v-date-picker>
+                </v-menu>
+              </v-flex>
             </v-layout>
           </v-form>
         </template>
@@ -81,12 +103,18 @@ export default {
       loadingBtn:false,
       showSuccess:false,
       snackbar:false,
-      placeHoldersEmpty:''
+      placeHoldersEmpty:'',
+      datePickerMenu:false,
+      date: new Date().toISOString().substr(0, 10),
+      dateFormatted: '',
+      couponErr:'',
+      isRtl: global.isRtl,
     }
   },
   watch: {
     couponCode(val){
       this.couponCode = val.replace(/\s/g,''); 
+      this.couponErr = '';
     },
     couponType(val){
       if(val === 'percentage'){
@@ -97,7 +125,10 @@ export default {
       if(this.couponValue){
         this.$refs.validCreateCoupon.validate()
       }
-    }
+    },
+    date () {
+      this.dateFormatted = this.formatDate(this.date)
+    },
   },
   methods: {
     ...mapActions(['createCoupon']),
@@ -115,19 +146,37 @@ export default {
         let params = {
           value: this.couponValue,
           code: this.couponCode,
-          couponType: this.couponType
+          couponType: this.couponType,
+          expiration: new Date(this.date).toISOString()
         }
         let self = this;
         this.createCoupon(params).then(()=>{
           self.loadingBtn = false;
           self.showSuccess = true;
+          self.couponErr = '';
+        }).catch(()=>{
+          self.couponErr = this.$t('coupon_already_exists');
+          self.loadingBtn = false;
         })
-
       }
-    }
+    },
+    formatDate (date) {
+      if (!date) return null
+
+      const [year, month, day] = date.split('-')
+      return `${month}/${day}/${year}`
+    },
+    parseDate (date) {
+      if (!date) return null
+      const [month, day, year] = date.split('/')
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    },
   },
   mounted() {
     this.placeHoldersEmpty = ' '
+    setTimeout(()=>{
+      this.dateFormatted = this.formatDate(new Date().toISOString().substr(0, 10))
+    })
   },
     beforeDestroy(){
       storeService.unregisterModule(this.$store, 'couponStore');
@@ -141,7 +190,20 @@ export default {
 
 <style lang="less">
 @import "../../../../styles/mixin.less";
-
+.date-picker-coupon{
+  .v-date-picker-table{
+    .v-btn{
+      .v-btn--active{
+        color:white;
+      } 
+    }
+  } 
+  .v-btn__content{
+    .v-icon{
+      font-size: 16px;
+    }
+  }
+}
 .createCouponDialog {
   background-color: white;
   border-radius: 6px;
@@ -192,7 +254,6 @@ export default {
         font-size: 20px;
         letter-spacing: -0.38px;
       }
-
     }
     .coupon-box{
       text-align: center;
@@ -220,6 +281,32 @@ export default {
       }
     }
     .inputs-coupon {
+      margin: 0 auto;
+      @media (max-width: @screen-xs) {
+        max-width: 292px;
+      }
+      .date-input{
+        .v-label{
+          left: initial !important;
+          right: 14px !important;
+          @media (max-width: @screen-xs) {
+            right: 2px !important;
+          }
+        }
+        input[type="text"] {
+          padding: 8px 0 0 2px !important;
+        }
+        .v-input__icon--prepend-inner {
+          i {
+              font-size: 20px;
+              color: #4a4a4a;
+            @media (max-width: @screen-xs) {
+              margin-top: 14px;
+            }
+              margin-top: 10px;
+          }
+        }
+      }
       .v-text-field__details{
         padding: 0 !important;
       }
@@ -230,19 +317,16 @@ export default {
         .v-list-item__title {
           color: #43425d;
         }
-            .v-input__append-inner{
-              margin-top: 10px !important;
-              @media (max-width: @screen-xs) {
-                margin-top: 12px !important;
-              }
-            }
-            i {
-                font-size: 6px;
-                color: #43425d;
-            }
-      }
-      input[type="text"] {
-        padding: 10px !important;
+        .v-input__append-inner{
+          margin-top: 10px !important;
+          @media (max-width: @screen-xs) {
+            margin-top: 12px !important;
+          }
+          i{
+              font-size: 6px;
+              color: #43425d;
+          }
+        }
       }
       .input-fields {
         width: 100%;
@@ -253,10 +337,9 @@ export default {
     text-align: center;
     .dialog-btn {
       min-width: 140px;
-  @media (max-width: @screen-xs) {
-          min-width: 120px;
-
-  }
+      @media (max-width: @screen-xs) {
+        min-width: 120px;
+      }
       text-transform: capitalize;
       font-size: 14px;
       font-weight: 600;

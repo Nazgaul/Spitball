@@ -1,4 +1,5 @@
 ﻿using Cloudents.Core.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
@@ -22,5 +23,8 @@ namespace Cloudents.Web.Models
         /// </summary>
         [Required]
         public CouponType CouponType { get; set; }
+
+        [Required]
+        public DateTime Expiration { get; set; }
     }
 }
