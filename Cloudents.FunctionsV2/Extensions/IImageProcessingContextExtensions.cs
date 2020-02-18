@@ -23,7 +23,8 @@ namespace Cloudents.FunctionsV2.Extensions
             Color color,
             PointF location)
         {
-            return source.DrawText(options,text.ReverseOnlyHebrew(), font, color, location);
+            var textToApply = text;
+            return source.DrawText(options, textToApply, font, color, location);
         }
 
         public static IImageProcessingContext ApplyRoundedCorners(this IImageProcessingContext ctx, float cornerRadius)

@@ -1,11 +1,11 @@
-﻿using Cloudents.Core.Message.System;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Message.System;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.Search.Document;
 using Microsoft.Azure.WebJobs;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Cloudents.FunctionsV2.System
+namespace Cloudents.FunctionsV2.Operations
 {
     public class DocumentSyncOperation : ISystemOperation<DocumentSearchMessage>
     {

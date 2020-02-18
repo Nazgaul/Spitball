@@ -9,6 +9,7 @@ using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Di;
 using Cloudents.FunctionsV2.Extensions;
+using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +27,8 @@ using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
 {
-  
-    public static class ShareProfileImageFunction 
+
+    public static class ShareProfileImageFunction
     {
 
         private static readonly Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
@@ -114,7 +115,7 @@ namespace Cloudents.FunctionsV2
                 var y = i;
                 image.Mutate(context =>
                 {
-                    
+
                     const int marginBetweenState = 8;
                     var pointX = 132 + (y - 1) * (starImage.Width + marginBetweenState);
                     if (isRtl)
@@ -146,7 +147,7 @@ namespace Cloudents.FunctionsV2
 
             if (width > 0 && height > 0)
             {
-                image.Mutate(m=>m.Resize(width,height));
+                image.Mutate(m => m.Resize(width, height));
             }
 
 
@@ -157,6 +158,8 @@ namespace Cloudents.FunctionsV2
 
         private static async Task<Image<Rgba32>> BuildDescriptionImage(string description)
         {
+            description = "בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים";
+            //description = "this is some test of test and on test with test to test";
             await using var quoteSr = await Blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
 
             const int descriptionSize = 225;
@@ -171,26 +174,33 @@ namespace Cloudents.FunctionsV2
                 context.DrawImage(quoteImage, new Point(middle, 0), GraphicsOptions.Default);
                 var font = FontCollection.CreateFont("assistant SemiBold", 38, FontStyle.Regular);
 
-                var descriptionToDraw =
-                    CropTextToFixToRectangle(font, description, new SizeF(size.Width, descriptionSize), true);
-                //var rendererOptions = new RendererOptions(font)
+
+                var textRenderer = new TextToImageGdi();
+                var image = textRenderer.Convert(description, font, "#43425d", new Size(size.Width, descriptionSize));
+
+
+                //var descriptionToDraw =
+                //    CropTextToFixToRectangle(font, description, new SizeF(size.Width, descriptionSize), true);
+                ////var rendererOptions = new RendererOptions(font)
+                ////{
+                ////    WrappingWidth = size.Width,
+                ////};
+                ////var textSize = TextMeasurer.Measure(descriptionToDraw, rendererOptions);
+
+                var location = new Point(0, quoteImage.Height + marginBetweenQuote);
+                context.DrawImage(image, location, GraphicsOptions.Default);
+                //context.DrawImage(image, location)
+                //context.DrawTextWithHebrew(new TextGraphicsOptions()
                 //{
-                //    WrappingWidth = size.Width,
-                //};
-                //var textSize = TextMeasurer.Measure(descriptionToDraw, rendererOptions);
+                //    WrapTextWidth = size.Width,
+                //    HorizontalAlignment = HorizontalAlignment.Center,
+                //}, descriptionToDraw.text, font, Color.FromHex("43425d"), location);
 
-                var location = new PointF(0, quoteImage.Height + marginBetweenQuote);
-                context.DrawTextWithHebrew(new TextGraphicsOptions()
-                {
-                    WrapTextWidth = size.Width,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                }, descriptionToDraw.text, font, Color.FromHex("43425d"), location);
-
-                var endHeight = descriptionToDraw.size.Height + location.Y;
-                if (endHeight < size.Height)
-                {
-                    context.Crop(size.Width, (int)(endHeight + 0.5));
-                }
+                //var endHeight = descriptionToDraw.size.Height + location.Y;
+                //if (endHeight < size.Height)
+                //{
+                //    context.Crop(size.Width, (int)(endHeight + 0.5));
+                //}
             });
             return descriptionImage;
         }
@@ -228,9 +238,9 @@ namespace Cloudents.FunctionsV2
 
         }
 
-        internal static (string text,SizeF size) CropTextToFixToRectangle(Font font, string text, SizeF rectangle, bool threeDots = false)
+        internal static (string text, SizeF size) CropTextToFixToRectangle(Font font, string text, SizeF rectangle, bool threeDots = false)
         {
-            var spanOfText = new Span<char>(text.ToCharArray());
+            var spanOfText = new Span<char>(text.ReverseOnlyHebrew().ToCharArray());
             var rendererOptions = new RendererOptions(font)
             {
                 WrappingWidth = rectangle.Width,
@@ -255,7 +265,7 @@ namespace Cloudents.FunctionsV2
                 }
             }
 
-            return (spanOfText.ToString(),textSize);
+            return (spanOfText.ToString(), textSize);
         }
 
         private static void DrawProfileImage(IImageProcessingContext context, Image<Rgba32> profileImage, bool isRtl)
