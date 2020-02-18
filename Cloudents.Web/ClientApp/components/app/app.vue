@@ -2,7 +2,7 @@
   <v-app>
     <router-view name="banner"></router-view>
     <router-view name="header"></router-view>
-    <router-view name="sideMenu" v-if="showSideMenu && getUserLoggedInStatus"></router-view>
+    <router-view name="sideMenu" v-if="showSideMenu && !hideSideMenu"></router-view>
     <v-content :class="['site-content',{'hidden-sideMenu':hideSideMenu}]">
         <chat v-if="visible"/>
         <router-view class="main-container"></router-view>
@@ -158,7 +158,7 @@ export default {
       'getUserLoggedInStatus'
     ]),
     hideSideMenu(){
-      if(this.getUserLoggedInStatus){
+      if(this.getUserLoggedInStatus && this.accountUser?.userType !== 'Parent'){
         return false;
       }else{
         let routesNames = ['feed','document','question','profile']
