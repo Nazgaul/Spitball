@@ -10,31 +10,19 @@
         <div @click="toggleMiniSideMenu" v-if="!isMiniSideMenu && $vuetify.breakpoint.mdAndDown" class="sideMenu_btn"/>
         
         <v-list class="sideMenu_list_cont" dense>
+          <sideMenuHome @click.native="resetItems"/>
 
-          <sideMenuHome @click="resetItems"/>
           <sideMenuDashboard @click="openSideMenu" :dashboardProps="{
                               model:dashboardModel,
                               showSchoolBlock:getShowSchoolBlock,
                               goTo:goTo,
-                              openSideMenu:openSideMenu,
-                              currentPageChecker:currentPageChecker}"/>
+                              openSideMenu:openSideMenu}"/>
 
           <sideMenuSetting @click="openSideMenu" :settingProps="{
                               model:settingModel,
                               showSchoolBlock: getShowSchoolBlock,
                               goTo:goTo,
-                              openSideMenu:openSideMenu,
-                              isShowItem:isShowItem,
-                              currentPageChecker:currentPageChecker,}"/>
-<!-- 
-          <sideMenuCourses @click="openSideMenu" :coursesProps="{
-                              model:settingModel,
-                              showSchoolBlock: getShowSchoolBlock,
-                              goTo:goTo,
-                              openSideMenu:openSideMenu,
-                              isShowItem:isShowItem,
-                              currentPageChecker:currentPageChecker,}"/> /> -->
-
+                              openSideMenu:openSideMenu}"/>
           
             <v-list-group v-model="coursesModel" active-class="''" :prepend-icon="'sbf-courses-icon'" :append-icon="''" no-action class="sideMenu_group" @click="openSideMenu">
             <template v-slot:activator>
@@ -70,9 +58,9 @@
 import { mapGetters, mapActions } from "vuex";
 import arrowSVG from './image/left-errow.svg';
 
-import sideMenuSetting from './sideMenuSetting.vue';
 import sideMenuHome from './sideMenuHome.vue';
 import sideMenuDashboard from './sideMenuDashboard.vue'
+import sideMenuSetting from './sideMenuSetting.vue';
 import * as routeNames from '../../../../routes/routeNames.js';
 import * as feedFilters from '../../../../routes/consts/feedFilters.js';
 
@@ -121,9 +109,6 @@ export default {
         selectedClasses.unshift(defaultCourse);
         return selectedClasses;
     },
-    isTutor() {
-      return this.accountUser?.isTutor
-    }
   },
   watch: {
     $route() {
@@ -154,21 +139,6 @@ export default {
         return this.selectedCourse === '';
       }else{
         return item.text.toLowerCase() === this.selectedCourse.toLowerCase();
-      }
-    },
-    currentPageChecker(pathName){
-      if(this.$route.name === 'myStudyRooms' && pathName === 'roomSettings'){
-        return true
-      }
-      if(this.$route.name === pathName){
-        return true;
-      }
-    },
-    isShowItem(itemRoute){
-      if(itemRoute === 'myCalendar'){
-        return (!!this.accountUser && this.accountUser.isTutor)
-      }else{
-        return true;
       }
     },
     goTo(name){
