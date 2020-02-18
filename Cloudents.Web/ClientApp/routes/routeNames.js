@@ -28,3 +28,8 @@ export const Feed = 'feed';
 
 // Dashboard:
 export const Dashboard = 'dashboardTeacher';
+export const MySales = 'mySales';
+export const MyFollowers = 'myFollowers';
+export const MyPurchases = 'myPurchases';
+export const MyContent = 'myContent';
+export const MyStudyRooms = 'myStudyRooms';
