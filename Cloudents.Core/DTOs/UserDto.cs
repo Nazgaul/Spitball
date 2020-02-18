@@ -119,6 +119,11 @@ namespace Cloudents.Core.DTOs
         public long Id { get; set; }
         [EntityBind(nameof(User.Name))]
         public string Name { get; set; }
+        [EntityBind(nameof(User.FirstName))]
+        public string FirstName { get; set; }
+        [EntityBind(nameof(User.LastName))]
+        public string LastName { get; set; }
+
         [EntityBind(nameof(User.ImageName))]
         public string Image { get; set; }
         
