@@ -69,7 +69,7 @@ export default {
         },
         showAnalyticStats() {
             let user = this.$store.getters.accountUser;
-            return user && user.haveDocs;
+            return user && user.haveDocsWithPrice;
         }
     },
     watch: {

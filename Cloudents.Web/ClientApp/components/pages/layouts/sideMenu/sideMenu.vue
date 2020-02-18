@@ -17,7 +17,6 @@
                               showSchoolBlock:getShowSchoolBlock,
                               goTo:goTo,
                               openSideMenu:openSideMenu,
-                              isShowItem:isShowItem,
                               currentPageChecker:currentPageChecker}"/>
 
           <sideMenuSetting @click="openSideMenu" :settingProps="{

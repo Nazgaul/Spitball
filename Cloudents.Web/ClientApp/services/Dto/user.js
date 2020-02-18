@@ -63,7 +63,12 @@ export const User = {
                 isTutorState: _createIsTutorState(objInit.isTutor),
                 university: new School.University(objInit.university),
                 courses: objInit.courses.map((course) => new School.Course(course)),
+                haveDocsWithPrice: objInit.haveDocsWithPrice,
                 haveDocs: objInit.haveDocs,
+                isPurchased: objInit.isPurchased,
+                isSold: objInit.isSold,
+                haveStudyRoom: objInit.haveStudyRoom,
+                haveFollowers: objInit.haveFollowers
             }
         )
     },
