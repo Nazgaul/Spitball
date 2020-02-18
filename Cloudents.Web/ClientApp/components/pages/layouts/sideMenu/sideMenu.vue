@@ -125,14 +125,18 @@ export default {
   methods: {
     ...mapActions(["updateLoginDialogState","toggleShowSchoolBlock","setShowSchoolBlockMobile"]),
     checkRoutes(){
-      // make it is instead non
-      let nonCoursesRoutes = ['editCourse','myCalendar','addUniversity','profile','dashboardTeacher','mySales','myFollowers','myPurchases','myContent','myStudyRooms'];
-      let nonDashboardRoutes = [routeNames.Feed,'document','profile','editCourse','myCalendar','addUniversity'];
-      let nonSettingRoutes = [routeNames.Feed,'document','profile','dashboardTeacher','mySales','myFollowers','myPurchases','myContent','myStudyRooms'];
+      let dashboardRoutes = [routeNames.Dashboard,routeNames.MySales,routeNames.MyFollowers,routeNames.MyPurchases,routeNames.MyContent,routeNames.MyStudyRooms];
+      let settingRoutes = [routeNames.EditCourse,routeNames.MyCalendar,routeNames.EditUniversity,routeNames.Profile];
+      let coursesRoutes = [routeNames.Document,routeNames.Question,routeNames.Feed];
 
-      this.dashboardModel = nonDashboardRoutes.every(route=>route !== this.$route.name)
-      this.settingModel = nonSettingRoutes.every(route=>route !== this.$route.name)
-      this.coursesModel = nonCoursesRoutes.every(route=>route !== this.$route.name)
+      this.dashboardModel = [...settingRoutes,...coursesRoutes].every(route=>route !== this.$route.name);
+      this.settingModel = [...dashboardRoutes,...coursesRoutes].every(route=>route !== this.$route.name);
+      this.coursesModel = [...settingRoutes,...dashboardRoutes].every(route=>route !== this.$route.name);
+      
+      if(this.$route.name === routeNames.Feed && this.$route.query.filter === feedFilters.Question){
+        this.coursesModel = false;
+        this.dashboardModel = true;
+      }
     },
     currentCourseChecker(item){
       if(item.isDefault){

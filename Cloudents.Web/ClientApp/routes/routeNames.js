@@ -43,3 +43,9 @@ export const EditUniversity = 'addUniversity';
 
 // Study Room:
 export const StudyRoom = 'tutoring';
+
+// Document:
+export const Document = 'document';
+
+// Question:
+export const Question = 'question'

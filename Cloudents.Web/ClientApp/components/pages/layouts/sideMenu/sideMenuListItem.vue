@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import * as routeNames from '../../../../routes/routeNames.js';
+import * as feedFilters from '../../../../routes/consts/feedFilters.js';
 export default {
    props:{
       dashboardProps:{
@@ -22,6 +24,10 @@ export default {
    },
    methods: {
       currentPageChecker(pathName){
+         let isMyQuestions = (this.$route.name === routeNames.Feed && this.$route.query?.filter === feedFilters.Question)
+         if(pathName === 'myQuestions' && isMyQuestions){
+            return true;
+         }
          if(this.$route.name === pathName){
             return true;
          }
