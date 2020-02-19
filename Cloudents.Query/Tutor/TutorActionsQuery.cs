@@ -20,13 +20,13 @@ namespace Cloudents.Query.Tutor
 
         internal sealed class TutorActionsQueryHandler : IQueryHandler<TutorActionsQuery, TutorActionsDto>
         {
-            private readonly List<long> adminList = new List<long>() 
-            {
-            456373,
-            488449,
-            461552,
-            159039
-            };
+            //private readonly List<long> adminList = new List<long>() 
+            //{
+            //456373,
+            //488449,
+            //461552,
+            //159039
+            //};
             private readonly IStatelessSession _session;
             public TutorActionsQueryHandler(QuerySession session)
             {
@@ -47,14 +47,19 @@ namespace Cloudents.Query.Tutor
                 StudyRoom studyRoomAlias = null;
                 StudyRoomUser studyRoomUserAlias = null;
                 User userAlias = null;
+                Core.Entities.Tutor tutorAlias = null;
+                AdminTutor adminTutorAlias = null;
 
                 
 
                 var bookedSessionFuture = _session.QueryOver(() => studyRoomAlias)
-                   .JoinEntityAlias(() => studyRoomUserAlias, () => studyRoomUserAlias.Room.Id == studyRoomAlias.Id)
+                   .JoinAlias(f => f.Users, () => studyRoomUserAlias)
                    .JoinEntityAlias(() => userAlias, () => userAlias.Id == studyRoomUserAlias.User.Id)
-                   .WhereRestrictionOn(() => studyRoomAlias.Tutor.Id).IsIn(adminList)
+                   .JoinEntityAlias(() => tutorAlias, () => studyRoomAlias.Tutor.Id == tutorAlias.Id)
+                   .JoinEntityAlias(() => adminTutorAlias, () => tutorAlias.Id == adminTutorAlias.Tutor.Id)
+                   //.WhereRestrictionOn(() => studyRoomAlias.Tutor.Id).IsIn(adminList)
                     .Where(w => userAlias.Id == query.UserId)
+                    .Where(w =>adminTutorAlias.Id != null)
                     .Select(s => s.Id)
                     .Take(1)
                     .FutureValue<Guid?>();
