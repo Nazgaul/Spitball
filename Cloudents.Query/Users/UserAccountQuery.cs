@@ -156,24 +156,28 @@ namespace Cloudents.Query.Users
 
 
                 var result = await userFuture.GetValueAsync(token);
+                if (result is null)
+                {
+                    return null;
+                }
 
                 result.Courses = await coursesFuture.GetEnumerableAsync(token);
                 result.University = await universityFuture.GetValueAsync(token);
                 result.HaveContent = (await haveDocsFuture.GetEnumerableAsync(token)).Any()
-                                    || (await haveQuestionsFuture.GetEnumerableAsync(token)).Any() ? true : false;
+                                     || (await haveQuestionsFuture.GetEnumerableAsync(token)).Any();
 
-                result.HaveDocsWithPrice = (await haveDocsWithPriceFuture.GetEnumerableAsync(token)).Any() ? true : false;
+                result.HaveDocsWithPrice = (await haveDocsWithPriceFuture.GetEnumerableAsync(token)).Any();
 
                 result.IsPurchased = (await purchasedDocsFuture.GetEnumerableAsync(token)).Any()
-                                    || (await purchasedSessionsFuture.GetEnumerableAsync(token)).Any() ? true : false;
+                                     || (await purchasedSessionsFuture.GetEnumerableAsync(token)).Any();
 
-                result.HaveStudyRoom = (await haveStudyRoomFuture.GetEnumerableAsync(token)).Any() ? true : false;
+                result.HaveStudyRoom = (await haveStudyRoomFuture.GetEnumerableAsync(token)).Any();
 
                 result.IsSold = (await isSoldDocumentFuture.GetEnumerableAsync(token)).Any()
-                    || (await isSoldQuestionFuture.GetEnumerableAsync(token)).Any()
-                    || (await isSoldSessionFuture.GetEnumerableAsync(token)).Any() ? true : false;
+                                || (await isSoldQuestionFuture.GetEnumerableAsync(token)).Any()
+                                || (await isSoldSessionFuture.GetEnumerableAsync(token)).Any();
 
-                result.HaveFollowers = (await haveFollowersFuture.GetEnumerableAsync(token)).Any() ? true : false;
+                result.HaveFollowers = (await haveFollowersFuture.GetEnumerableAsync(token)).Any();
                 return result;
             }
         }
