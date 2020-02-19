@@ -1,5 +1,7 @@
 ﻿using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
 using Image = SixLabors.ImageSharp.Image;
 using Size = SixLabors.Primitives.Size;
@@ -45,24 +47,29 @@ namespace Cloudents.FunctionsV2.Services
 
     public class TextToImageGdi : ITextToImage
     {
-        public Image Convert(string text, SixLabors.Fonts.Font font, string hexRgb, Size rectangle)
+        public Image Convert(string text,  int size, string hexRgb, Size rectangle)
         {
-            using var myBitmap = new Bitmap(rectangle.Width, rectangle.Height);
-            
+            using var myBitmap = new Bitmap(rectangle.Width, rectangle.Height + 10);
+
+          
+
+            //pfcoll.AddFontFile(Server.MapPath("~/Fonts/" + fontName));
+            //FontFamily ff = pfcoll.Families[0];
+
             using (Graphics g = Graphics.FromImage(myBitmap))
             {
-                var color = System.Drawing.ColorTranslator.FromHtml(hexRgb);
-                var brush = new System.Drawing.SolidBrush(color);
-                //var text = "בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים";
-                //g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                g.TextRenderingHint = TextRenderingHint.AntiAlias;
+                var color = ColorTranslator.FromHtml(hexRgb);
+                var brush = new SolidBrush(color);
                 g.DrawString(text,
-                    new Font(font.Name, font.Size),
+                    new Font("Calibri", size, FontStyle.Regular, GraphicsUnit.Pixel),
                     brush,
-                    new System.Drawing.RectangleF(0, 0, myBitmap.Width, myBitmap.Height),
+                    new RectangleF(0, 0, rectangle.Width, rectangle.Height),
                     new StringFormat()
                     {
                         Alignment = StringAlignment.Center,
-                        Trimming = StringTrimming.EllipsisWord
+                        Trimming = StringTrimming.EllipsisWord,
 
                     });
                 //g.DrawString("My Text very very nice",
@@ -72,16 +79,16 @@ namespace Cloudents.FunctionsV2.Services
             }
 
             using var ms = new MemoryStream();
-            myBitmap.Save(ms, ImageFormat.Bmp);
-            var image =  Image.Load(ms.ToArray());
+            myBitmap.Save(ms, ImageFormat.Png);
+            var image = Image.Load(ms.ToArray());
             for (int i = myBitmap.Width - 1; i >= 0; i--)
             {
                 for (int j = myBitmap.Height - 1; j >= 0; j--)
                 {
-                    
+
                 }
-               
-                
+
+
             }
 
             return image;
@@ -93,6 +100,6 @@ namespace Cloudents.FunctionsV2.Services
 
     public interface ITextToImage
     {
-        Image Convert(string text, SixLabors.Fonts.Font font, string hexRgb, Size rectangle);
+        Image Convert(string text,  int size, string hexRgb, Size rectangle);
     }
 }

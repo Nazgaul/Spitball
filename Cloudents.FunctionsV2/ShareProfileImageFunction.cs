@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -34,6 +35,7 @@ namespace Cloudents.FunctionsV2
         private static readonly Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
         internal static List<CloudBlockBlob> Blobs;
         internal static readonly FontCollection FontCollection = new FontCollection();
+        internal static readonly Dictionary<string, string> FontLocation = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         public const int SquareProfileImageDimension = 245;
 
@@ -158,7 +160,7 @@ namespace Cloudents.FunctionsV2
 
         private static async Task<Image<Rgba32>> BuildDescriptionImage(string description)
         {
-            description = "בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים";
+            //description = "בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים";
             //description = "this is some test of test and on test with test to test";
             await using var quoteSr = await Blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
 
@@ -172,11 +174,13 @@ namespace Cloudents.FunctionsV2
                 var size = context.GetCurrentSize();
                 var middle = size.Width / 2 - quoteImage.Width / 2;
                 context.DrawImage(quoteImage, new Point(middle, 0), GraphicsOptions.Default);
-                var font = FontCollection.CreateFont("assistant SemiBold", 38, FontStyle.Regular);
+                //var font = FontCollection.CreateFont("assistant SemiBold", 38, FontStyle.Regular);
 
 
-                var textRenderer = new TextToImageGdi();
-                var image = textRenderer.Convert(description, font, "#43425d", new Size(size.Width, descriptionSize));
+                //var locationOfFont = FontLocation["Assistant-SemiBold.ttf"];
+
+                //var textRenderer = new TextToImageGdi();
+                //var image = textRenderer.Convert(description, locationOfFont, 38, "#43425d", new Size(size.Width, descriptionSize));
 
 
                 //var descriptionToDraw =
@@ -186,9 +190,11 @@ namespace Cloudents.FunctionsV2
                 ////    WrappingWidth = size.Width,
                 ////};
                 ////var textSize = TextMeasurer.Measure(descriptionToDraw, rendererOptions);
-
                 var location = new Point(0, quoteImage.Height + marginBetweenQuote);
-                context.DrawImage(image, location, GraphicsOptions.Default);
+
+                context.DrawText(description, 38, "#43425d", new Size(size.Width, descriptionSize), location);
+                context.CropBottomEdge();
+                //context.DrawImage(image, location, GraphicsOptions.Default);
                 //context.DrawImage(image, location)
                 //context.DrawTextWithHebrew(new TextGraphicsOptions()
                 //{
@@ -207,26 +213,27 @@ namespace Cloudents.FunctionsV2
 
         private static void DrawProfileName(IImageProcessingContext context, string name, bool isRtl)
         {
-            const float nameMaxWidth = 330f;
-            var font = FontCollection.CreateFont("assistant", 32, FontStyle.Regular);
-            var nameToDraw = CropTextToFixToRectangle(font, name, new SizeF(nameMaxWidth, 40f));
+            const int nameMaxWidth = 330;
+            //var font = FontCollection.CreateFont("assistant", 32, FontStyle.Regular);
+            //var nameToDraw = CropTextToFixToRectangle(font, name, new SizeF(nameMaxWidth, 40f));
 
-            var pointX = 79f;
+            var pointX = 79;
             if (isRtl)
             {
-                pointX = context.GetCurrentSize().Width - pointX - 330f;
+                pointX = context.GetCurrentSize().Width - pointX - 330;
             }
 
-            context.DrawTextWithHebrew(
-            new TextGraphicsOptions()
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                WrapTextWidth = nameMaxWidth,
-            },
-            nameToDraw.text,
-            font,
-            Color.White,
-            new PointF(pointX, 419));
+            context.DrawText(name, 32, "#fff", new Size(nameMaxWidth, 40), new Point(pointX,419));
+            //context.DrawTextWithHebrew(
+            //new TextGraphicsOptions()
+            //{
+            //    HorizontalAlignment = HorizontalAlignment.Center,
+            //    WrapTextWidth = nameMaxWidth,
+            //},
+            //nameToDraw.text,
+            //font,
+            //Color.White,
+            //new PointF(pointX, 419));
         }
 
         internal static async Task<Image<Rgba32>> GetImageFromBlobAsync(string blobName)
@@ -290,6 +297,14 @@ namespace Cloudents.FunctionsV2
                 {
                     await using var fontStream = await fontBlob.OpenReadAsync();
                     FontCollection.Install(fontStream);
+
+                    var dirToRemove = fontBlob.Parent;
+                    var blobWithoutFolder = fontBlob.Name.Replace(dirToRemove.Prefix, string.Empty);
+                    var tempFileName = Path.Combine(Path.GetTempPath(), blobWithoutFolder);
+
+                    await fontBlob.DownloadToFileAsync(tempFileName, FileMode.Create);
+
+                    FontLocation[blobWithoutFolder] = tempFileName;
                 }
 
                 //foreach (var fontBlob in _blobs.Where(w => w.Name.EndsWith(".otf")))
