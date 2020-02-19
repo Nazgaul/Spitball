@@ -29,7 +29,6 @@
 <script>
 import { mapGetters } from "vuex";
 import * as routeNames from '../../../../routes/routeNames.js';
-import * as feedFilters from '../../../../routes/consts/feedFilters.js';
 import arrowSVG from './image/left-errow.svg';
 
 export default {
