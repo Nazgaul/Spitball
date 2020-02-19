@@ -151,7 +151,7 @@
     <value>My Followers</value>
   </data>
   <data name="my_Questions" xml:space="preserve">
-    <value>My Questions</value>
+    <value>Opportunities</value>
   </data>
   <data name="my_sales" xml:space="preserve">
     <value>My Sales</value>
@@ -160,7 +160,7 @@
     <value>My Site</value>
   </data>
   <data name="my_study_rooms" xml:space="preserve">
-    <value>My study rooms</value>
+    <value>My Study Rooms</value>
   </data>
   <data name="overview" xml:space="preserve">
     <value>Overview</value>
@@ -178,7 +178,7 @@
     <value>Settings</value>
   </data>
   <data name="study" xml:space="preserve">
-    <value>My Study rooms</value>
+    <value>My Study Rooms</value>
   </data>
   <data name="wallet" xml:space="preserve">
     <value>Wallet</value>

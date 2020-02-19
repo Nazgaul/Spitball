@@ -36,6 +36,7 @@ using Cloudents.Command.Courses;
 using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Extension;
 using Cloudents.Query.Sync;
+using Cloudents.Query.Users;
 using Cloudents.Search.Document;
 using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
@@ -127,7 +128,7 @@ namespace ConsoleApp
 
 
 
-           // _container = builder.Build();
+            _container = builder.Build();
 
             if (Environment.UserName == "Ram")
             {
@@ -161,7 +162,9 @@ namespace ConsoleApp
             //myBitmap.S
            
             // await Convert();
-            //var searchWrite = _container.Resolve<ICommandBus>();
+            var queryBus = _container.Resolve<IQueryBus>();
+            var query = new UserAccountQuery(182297);
+            var user = await queryBus.QueryAsync(query, default);
             //await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
             //Console.WriteLine("add");
             //await searchWrite.DispatchAsync(new UserJoinCoursesCommand(new[] {"Statistics" }, 638),default);

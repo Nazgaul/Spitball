@@ -100,7 +100,7 @@ and uc.tutorId =  :profileId";
 
 
                 var future = _session.Query<ReadTutor>().Where(t => t.Id == query.Id)
-                    .Select(s => s.AllSubjects).ToFutureValue();
+                    .Select(s => s.Subjects).ToFutureValue();
 
                 var coursesFuture = _session.Query<Document>()
                     .Fetch(f => f.User).Fetch(f => f.Course)

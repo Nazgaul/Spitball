@@ -27,12 +27,6 @@ namespace Cloudents.Command.CommandHandler
 
             if (studyRoom.Users.Any(a => a.User.Id == message.UserId))
             {
-                //Room can be null because of fake reviews
-                //if (userTutor.Tutor.Reviews.Any(w => w.Room?.Id == message.RoomId))
-                //{
-                //    throw new DuplicateRowException();
-                //}
-           
                 var user = await _regularUserRepository.LoadAsync(message.UserId, token);
                 tutor.AddReview(message.Review, message.Rate, user);
             }
