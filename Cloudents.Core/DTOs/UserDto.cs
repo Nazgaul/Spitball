@@ -119,6 +119,11 @@ namespace Cloudents.Core.DTOs
         public long Id { get; set; }
         [EntityBind(nameof(User.Name))]
         public string Name { get; set; }
+        [EntityBind(nameof(User.FirstName))]
+        public string FirstName { get; set; }
+        [EntityBind(nameof(User.LastName))]
+        public string LastName { get; set; }
+
         [EntityBind(nameof(User.ImageName))]
         public string Image { get; set; }
         
@@ -133,7 +138,22 @@ namespace Cloudents.Core.DTOs
         public bool IsSold { get; set; }
         public bool HaveStudyRoom { get; set; }
         public bool HaveFollowers { get; set; }
-        public UserType? UserType { get; set; }
+        private UserType? _userType;
+        public UserType? UserType 
+        {
+            get
+            {
+                if (IsTutor is null && _userType == Enum.UserType.Teacher)
+                {
+                    return Enum.UserType.UniversityStudent;
+                }
+                return _userType;
+            }
+            set
+            {
+                _userType = value;
+            }
+        }
         public string Country { get; set; }
 
         public IEnumerable<CourseDto> Courses { get; set; }

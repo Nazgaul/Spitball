@@ -7,6 +7,7 @@
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Cloudmersive.APIClient.NETCore.DocumentAndDataConvert" Version="1.8.9" />
+    <PackageReference Include="Cloudmersive.APIClient.NETCore.ImageRecognition" Version="1.7.3" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.10.0" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.AzureStorage" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.Extensions" Version="2.2.0" />
