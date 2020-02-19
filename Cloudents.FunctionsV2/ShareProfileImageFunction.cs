@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -10,7 +9,6 @@ using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Di;
 using Cloudents.FunctionsV2.Extensions;
-using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +17,6 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
-using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -35,7 +32,7 @@ namespace Cloudents.FunctionsV2
         private static readonly Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
         internal static List<CloudBlockBlob> Blobs;
 
-        public const int SquareProfileImageDimension = 245;
+        private const int SquareProfileImageDimension = 245;
 
         [FunctionName("ShareProfileImageFunction")]
         public static async Task<IActionResult> Run(
@@ -46,7 +43,7 @@ namespace Cloudents.FunctionsV2
             ILogger log,
             CancellationToken token)
         {
-            await InitData(directoryBlobs);
+            InitData(directoryBlobs);
 
             log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -89,6 +86,7 @@ namespace Cloudents.FunctionsV2
 
             image.Mutate(context =>
             {
+                // ReSharper disable once AccessToDisposedClosure mutation happen right await
                 DrawProfileImage(context, profileImage, isRtl);
                 DrawProfileName(context, dbResult.Name, isRtl);
             });
@@ -158,8 +156,6 @@ namespace Cloudents.FunctionsV2
 
         private static async Task<Image<Rgba32>> BuildDescriptionImage(string description)
         {
-            //description = "בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים";
-            //description = "this is some test of test and on test with test to test";
             await using var quoteSr = await Blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
 
             const int descriptionSize = 225;
@@ -172,39 +168,11 @@ namespace Cloudents.FunctionsV2
                 var size = context.GetCurrentSize();
                 var middle = size.Width / 2 - quoteImage.Width / 2;
                 context.DrawImage(quoteImage, new Point(middle, 0), GraphicsOptions.Default);
-                //var font = FontCollection.CreateFont("assistant SemiBold", 38, FontStyle.Regular);
-
-
-                //var locationOfFont = FontLocation["Assistant-SemiBold.ttf"];
-
-                //var textRenderer = new TextToImageGdi();
-                //var image = textRenderer.Convert(description, locationOfFont, 38, "#43425d", new Size(size.Width, descriptionSize));
-
-
-                //var descriptionToDraw =
-                //    CropTextToFixToRectangle(font, description, new SizeF(size.Width, descriptionSize), true);
-                ////var rendererOptions = new RendererOptions(font)
-                ////{
-                ////    WrappingWidth = size.Width,
-                ////};
-                ////var textSize = TextMeasurer.Measure(descriptionToDraw, rendererOptions);
                 var location = new Point(0, quoteImage.Height + marginBetweenQuote);
 
                 context.DrawText(description, 38, "#43425d", new Size(size.Width, descriptionSize), location);
                 context.CropBottomEdge();
-                //context.DrawImage(image, location, GraphicsOptions.Default);
-                //context.DrawImage(image, location)
-                //context.DrawTextWithHebrew(new TextGraphicsOptions()
-                //{
-                //    WrapTextWidth = size.Width,
-                //    HorizontalAlignment = HorizontalAlignment.Center,
-                //}, descriptionToDraw.text, font, Color.FromHex("43425d"), location);
-
-                //var endHeight = descriptionToDraw.size.Height + location.Y;
-                //if (endHeight < size.Height)
-                //{
-                //    context.Crop(size.Width, (int)(endHeight + 0.5));
-                //}
+                
             });
             return descriptionImage;
         }
@@ -212,26 +180,12 @@ namespace Cloudents.FunctionsV2
         private static void DrawProfileName(IImageProcessingContext context, string name, bool isRtl)
         {
             const int nameMaxWidth = 330;
-            //var font = FontCollection.CreateFont("assistant", 32, FontStyle.Regular);
-            //var nameToDraw = CropTextToFixToRectangle(font, name, new SizeF(nameMaxWidth, 40f));
-
             var pointX = 79;
             if (isRtl)
             {
                 pointX = context.GetCurrentSize().Width - pointX - 330;
             }
-
             context.DrawText(name, 32, "#fff", new Size(nameMaxWidth, 40), new Point(pointX,419));
-            //context.DrawTextWithHebrew(
-            //new TextGraphicsOptions()
-            //{
-            //    HorizontalAlignment = HorizontalAlignment.Center,
-            //    WrapTextWidth = nameMaxWidth,
-            //},
-            //nameToDraw.text,
-            //font,
-            //Color.White,
-            //new PointF(pointX, 419));
         }
 
         internal static async Task<Image<Rgba32>> GetImageFromBlobAsync(string blobName)
@@ -242,36 +196,7 @@ namespace Cloudents.FunctionsV2
             return Image.Load<Rgba32>(stream);
 
         }
-
-        //internal static (string text, SizeF size) CropTextToFixToRectangle(Font font, string text, SizeF rectangle, bool threeDots = false)
-        //{
-        //    var spanOfText = new Span<char>(text.ReverseOnlyHebrew().ToCharArray());
-        //    var rendererOptions = new RendererOptions(font)
-        //    {
-        //        WrappingWidth = rectangle.Width,
-        //    };
-        //    SizeF textSize;
-        //    while (true)
-        //    {
-        //        textSize = TextMeasurer.Measure(spanOfText, rendererOptions);
-        //        if (textSize.Height < rectangle.Height)
-        //        {
-        //            break;
-        //        }
-
-        //        if (threeDots)
-        //        {
-        //            spanOfText = spanOfText.Slice(0, spanOfText.LastIndexOf(' ') + 3);
-        //            spanOfText[^3..].Fill('.');
-        //        }
-        //        else
-        //        {
-        //            spanOfText = spanOfText.Slice(0, spanOfText.LastIndexOf(' '));
-        //        }
-        //    }
-
-        //    return (spanOfText.ToString(), textSize);
-        //}
+        
 
         private static void DrawProfileImage(IImageProcessingContext context, Image<Rgba32> profileImage, bool isRtl)
         {
@@ -285,56 +210,13 @@ namespace Cloudents.FunctionsV2
             context.DrawImage(profileImage, new Point(pointX, 135), GraphicsOptions.Default);
         }
 
-        internal static async Task InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
+        internal static void InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
         {
             if (Blobs is null)
             {
                 Blobs = directoryBlobs.ToList();
-
-                //foreach (var fontBlob in Blobs.Where(w => w.Name.EndsWith(".ttf")))
-                //{
-                //    await using var fontStream = await fontBlob.OpenReadAsync();
-                //    FontCollection.Install(fontStream);
-
-                //    var dirToRemove = fontBlob.Parent;
-                //    var blobWithoutFolder = fontBlob.Name.Replace(dirToRemove.Prefix, string.Empty);
-                //    var tempFileName = Path.Combine(Path.GetTempPath(), blobWithoutFolder);
-
-                //    await fontBlob.DownloadToFileAsync(tempFileName, FileMode.Create);
-
-                //    FontLocation[blobWithoutFolder] = tempFileName;
-                //}
-
-                //foreach (var fontBlob in _blobs.Where(w => w.Name.EndsWith(".otf")))
-                //{
-                //    await using var fontStream = await fontBlob.OpenReadAsync();
-                //    FontCollection.Install(fontStream);
-                //}
             }
         }
-
-        //public class ImageProperties
-        //{
-        //    public ImageProperties(string backgroundImage)
-        //    {
-        //        BackgroundImage = backgroundImage;
-        //    }
-
-        //    public string BackgroundImage { get; set; }
-        //}
-
-        //public static Dictionary<bool, ImageProperties> ImageDictionary2 = new Dictionary<bool, ImageProperties>()
-        //{
-        //    [true] = new ImageProperties("share-placeholder/bg-profile-rtl.jpg"),
-        //    [false] = new ImageProperties("share-placeholder/bg-profile-ltr.jpg")
-        //};
-
-
-
-
-        // This method can be seen as an inline implementation of an `IImageProcessor`:
-        // (The combination of `IImageOperations.Apply()` + this could be replaced with an `IImageProcessor`)
-
 
 
         private static async Task<byte[]> GetStarAsync(Star star)
@@ -345,10 +227,6 @@ namespace Cloudents.FunctionsV2
             }
 
             var blob = Blobs.Single(s => s.Name == star.BlobPath);
-            //using (var ms = new MemoryStream())
-            //{
-            //    blob.DownloadToStreamAsync(ms);
-            //}
             var bytes = new byte[blob.Properties.Length];
             await blob.DownloadToByteArrayAsync(bytes, 0);
 
@@ -356,9 +234,6 @@ namespace Cloudents.FunctionsV2
 
             return bytes;
         }
-
-
-
     }
 
     public class Star : Enumeration
