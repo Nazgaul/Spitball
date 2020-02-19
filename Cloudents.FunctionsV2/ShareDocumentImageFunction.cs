@@ -101,37 +101,28 @@ namespace Cloudents.FunctionsV2
                 using var documentImage = Image.Load<Rgba32>(documentPreviewStream);
                 image.Mutate(context =>
                 {
-                    var font = ShareProfileImageFunction.FontCollection.CreateFont("assistant", 30, FontStyle.Regular);
-                    var nameToDraw =
-                        ShareProfileImageFunction.CropTextToFixToRectangle(font, dbResult.Name, new SizeF(860, 40f));
-                    context.DrawTextWithHebrew(
-                        new TextGraphicsOptions()
-                        {
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            WrapTextWidth = 860,
-                        },
-                        nameToDraw.text,
-                        font,
-                        Color.White,
-                        new PointF(170, 66));
 
-                    var fontCourse =
-                        ShareProfileImageFunction.FontCollection.CreateFont("assistant", 26, FontStyle.Regular);
-                    var courseToDraw =
-                        ShareProfileImageFunction.CropTextToFixToRectangle(font, dbResult.CourseName,
-                            new SizeF(860, 40f));
-                    context.DrawTextWithHebrew(
-                        new TextGraphicsOptions()
-                        {
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            WrapTextWidth = 860,
-                        },
-                        courseToDraw.text,
-                        fontCourse,
-                        Color.White,
-                        new PointF(170, 107));
+                    context.DrawText(dbResult.Name, 30, "#FFFFFF", new Size(860, 40), new Point(170, 66));
 
-                    context.DrawImage(documentImage, new Point(170, 159), GraphicsOptions.Default);
+                    context.DrawText(dbResult.CourseName, 26, "#ffffff", new Size(860, 40), new Point(170, 107));
+
+                    //var fontCourse =
+                    //    ShareProfileImageFunction.FontCollection.CreateFont("assistant", 26, FontStyle.Regular);
+                    //var courseToDraw =
+                    //    ShareProfileImageFunction.CropTextToFixToRectangle(font, dbResult.CourseName,
+                    //        new SizeF(860, 40f));
+                    //context.DrawTextWithHebrew(
+                    //    new TextGraphicsOptions()
+                    //    {
+                    //        HorizontalAlignment = HorizontalAlignment.Center,
+                    //        WrapTextWidth = 860,
+                    //    },
+                    //    courseToDraw.text,
+                    //    fontCourse,
+                    //    Color.White,
+                    //    new PointF(170, 107));
+
+                    //context.DrawImage(documentImage, new Point(170, 159), GraphicsOptions.Default);
 
                 });
             }

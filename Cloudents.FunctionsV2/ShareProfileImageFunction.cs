@@ -34,8 +34,6 @@ namespace Cloudents.FunctionsV2
 
         private static readonly Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
         internal static List<CloudBlockBlob> Blobs;
-        internal static readonly FontCollection FontCollection = new FontCollection();
-        internal static readonly Dictionary<string, string> FontLocation = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         public const int SquareProfileImageDimension = 245;
 
@@ -293,19 +291,19 @@ namespace Cloudents.FunctionsV2
             {
                 Blobs = directoryBlobs.ToList();
 
-                foreach (var fontBlob in Blobs.Where(w => w.Name.EndsWith(".ttf")))
-                {
-                    await using var fontStream = await fontBlob.OpenReadAsync();
-                    FontCollection.Install(fontStream);
+                //foreach (var fontBlob in Blobs.Where(w => w.Name.EndsWith(".ttf")))
+                //{
+                //    await using var fontStream = await fontBlob.OpenReadAsync();
+                //    FontCollection.Install(fontStream);
 
-                    var dirToRemove = fontBlob.Parent;
-                    var blobWithoutFolder = fontBlob.Name.Replace(dirToRemove.Prefix, string.Empty);
-                    var tempFileName = Path.Combine(Path.GetTempPath(), blobWithoutFolder);
+                //    var dirToRemove = fontBlob.Parent;
+                //    var blobWithoutFolder = fontBlob.Name.Replace(dirToRemove.Prefix, string.Empty);
+                //    var tempFileName = Path.Combine(Path.GetTempPath(), blobWithoutFolder);
 
-                    await fontBlob.DownloadToFileAsync(tempFileName, FileMode.Create);
+                //    await fontBlob.DownloadToFileAsync(tempFileName, FileMode.Create);
 
-                    FontLocation[blobWithoutFolder] = tempFileName;
-                }
+                //    FontLocation[blobWithoutFolder] = tempFileName;
+                //}
 
                 //foreach (var fontBlob in _blobs.Where(w => w.Name.EndsWith(".otf")))
                 //{
