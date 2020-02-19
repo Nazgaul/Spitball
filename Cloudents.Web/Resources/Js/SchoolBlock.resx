@@ -156,6 +156,9 @@
   <data name="my_sales" xml:space="preserve">
     <value>My Sales</value>
   </data>
+  <data name="my_site" xml:space="preserve">
+    <value>My Site</value>
+  </data>
   <data name="my_study_rooms" xml:space="preserve">
     <value>My study rooms</value>
   </data>
@@ -166,7 +169,7 @@
     <value>My Posts</value>
   </data>
   <data name="profile" xml:space="preserve">
-    <value>Profile</value>
+    <value>My Profile</value>
   </data>
   <data name="purchases" xml:space="preserve">
     <value>My Purchases</value>
