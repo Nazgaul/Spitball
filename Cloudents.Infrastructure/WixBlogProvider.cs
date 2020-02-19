@@ -8,18 +8,20 @@ using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
+using Cloudents.Core.Query;
 
 namespace Cloudents.Infrastructure
 {
     public class WixBlogProvider : IBlogProvider
     {
-        public Task<IEnumerable<DashboardBlogDto>> GetBlogAsync(Country country, CancellationToken token)
+        public Task<IEnumerable<DashboardBlogDto>> GetBlogAsync(BlogQuery query,
+            CancellationToken token)
         {
-            var blogName = "English";
-            if (country == Country.Israel)
-            {
-                blogName = "Hebrew";
-            }
+            //var blogName = "English";
+            //if (country == Country.Israel)
+            //{
+            //    blogName = "Hebrew";
+            //}
 
             using var reader = XmlReader.Create("https://www.blog.spitball.co/blog-feed.xml");
             var formatter = new Rss20FeedFormatter();
@@ -28,7 +30,7 @@ namespace Cloudents.Infrastructure
             token.ThrowIfCancellationRequested();
 
             var result = items
-                .Where(w => w.Categories.Any(a => a.Name == "Teachers") && w.Categories.Any(a => a.Name == blogName))
+                .Where(w => w.Categories.Any(a => a.Name == query.Category) && w.Categories.Any(a => a.Name == query.BlogName))
                 .Select(s => new DashboardBlogDto
                 {
                     Image = s.Links.Where(w => w.RelationshipType == "enclosure").Select(s2 => s2.Uri).First()
@@ -38,7 +40,7 @@ namespace Cloudents.Infrastructure
                     Uploader = s.ElementExtensions
                         .ReadElementExtensions<string>("creator", "http://purl.org/dc/elements/1.1/").FirstOrDefault(),
                     Create = s.PublishDate
-                }).OrderByDescending(o => o.Create).Take(3);
+                }).OrderByDescending(o => o.Create).Take(query.Amount);
             return Task.FromResult(result);
 
 
