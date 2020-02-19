@@ -19,13 +19,13 @@
                             }"/>
           </template>
 
-          <sideMenuDashboard @click="openSideMenu" :dashboardProps="{
+          <sideMenuDashboard :dashboardProps="{
                               model:dashboardModel,
                               showSchoolBlock:getShowSchoolBlock,
                               goTo:goTo,
                               openSideMenu:openSideMenu}"/>
 
-          <sideMenuSetting @click="openSideMenu" :settingProps="{
+          <sideMenuSetting :settingProps="{
                               model:settingModel,
                               showSchoolBlock: getShowSchoolBlock,
                               goTo:goTo,

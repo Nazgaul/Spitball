@@ -1,5 +1,5 @@
 <template>
-   <v-list-group v-model="dashboardProps.model" class="sideMenu_group" active-class="''" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action>
+   <v-list-group v-if="!hideDashboardGroup" @click="dashboardProps.openSideMenu()" v-model="dashboardProps.model" class="sideMenu_group" active-class="''" :prepend-icon="'sbf-dashboard-sideMenu'" :append-icon="''" no-action>
       <template v-slot:activator>
          <v-list-item class="sideMenu_list">
             <v-list-item-content>
@@ -84,6 +84,10 @@ export default {
       showMyStudyRooms(){
          return this.accountUser?.haveStudyRoom;
       },
+      hideDashboardGroup(){
+         let itemList = [this.showOverview,this.showMySales,this.showMyFollowers,this.showMyContent,this.showMyPurchases,this.showMyPurchases,this.showMyStudyRooms]
+         return itemList.every(item=>(!item))
+      }
    },
 }
 </script>

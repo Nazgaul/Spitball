@@ -1,5 +1,5 @@
 <template>
-   <v-list-group v-model="settingProps.model" class="sideMenu_group" active-class="''" :prepend-icon="'sbf-settings'" :append-icon="''" no-action>
+   <v-list-group @click="settingProps.openSideMenu()" v-model="settingProps.model" class="sideMenu_group" active-class="''" :prepend-icon="'sbf-settings'" :append-icon="''" no-action>
       <template v-slot:activator>
          <v-list-item class="sideMenu_list">
             <v-list-item-content>
