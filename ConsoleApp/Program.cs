@@ -19,6 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -38,9 +41,6 @@ using Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Api;
 using CloudBlockBlob = Microsoft.WindowsAzure.Storage.Blob.CloudBlockBlob;
 using Cloudmersive.APIClient.NETCore.ImageRecognition.Api;
 using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -127,7 +127,7 @@ namespace ConsoleApp
 
 
 
-            _container = builder.Build();
+           // _container = builder.Build();
 
             if (Environment.UserName == "Ram")
             {
@@ -152,7 +152,15 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            await Convert();
+           
+
+           // var sr = new MemoryStream();
+            //myBitmap.Save(sr,ImageFormat.Jpeg);
+            //File.WriteAllBytes(@"C:\Users\Ram\Download\blank.bmp",sr.ToArray());
+
+            //myBitmap.S
+           
+            // await Convert();
             //var searchWrite = _container.Resolve<ICommandBus>();
             //await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
             //Console.WriteLine("add");
@@ -229,53 +237,53 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
             var inputFile = new FileStream("C:\\Users\\Ram\\Downloads\\file-52936bce-e08a-4138-9639-4971c22640ba-142339.pptx", System.IO.FileMode.Open); // System.IO.Stream | Input file to perform the operation on.
 
-            var image = new Image<Rgba32>(500, 500);
-            image.Mutate(c=>c.BackgroundColor(Color.Aqua));
-            var ms = new MemoryStream();
-            image.SaveAsJpeg(ms);
-            try
-            {
+            //var image = new Image<Rgba32>(500, 500);
+            //image.Mutate(c=>c.BackgroundColor(Color.Aqua));
+            //var ms = new MemoryStream();
+            //image.SaveAsJpeg(ms);
+            //try
+            //{
 
-                //var request = new DrawTextRequest();
-                //byte[] result2 = apiInstance3.EditDrawText(request);
-                var sw = new Stopwatch();
-                sw.Start();
-                var bytes = ms.ToArray();
-                //apiInstance3.EditDrawText(new DrawTextRequest())
-                var result = apiInstance3.EditDrawText(
-                    new DrawTextRequest(
-                        BaseImageBytes: bytes,
-                        TextToDraw: new List<DrawTextInstance>()
-                {
+            //    //var request = new DrawTextRequest();
+            //    //byte[] result2 = apiInstance3.EditDrawText(request);
+            //    var sw = new Stopwatch();
+            //    sw.Start();
+            //    var bytes = ms.ToArray();
+            //    //apiInstance3.EditDrawText(new DrawTextRequest())
+            //    var result = apiInstance3.EditDrawText(
+            //        new DrawTextRequest(
+            //            BaseImageBytes: bytes,
+            //            TextToDraw: new List<DrawTextInstance>()
+            //    {
                     
-                    new DrawTextInstance(
-                        "בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים :) (אפילו אם כרגע זה נראה בלתי אפשרי). בעל ניסיון של 6 שנים!",
-                        FontFamilyName: "Georgia",
-                        FontSize:32,
-                        Color:"black",0,0,500,500
-                        )
-                }));
+            //        new DrawTextInstance(
+            //            "בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים :) (אפילו אם כרגע זה נראה בלתי אפשרי). בעל ניסיון של 6 שנים!",
+            //            FontFamilyName: "Georgia",
+            //            FontSize:32,
+            //            Color:"black",0,0,500,500
+            //            )
+            //    }));
 
-                File.WriteAllBytes(@"c:\Users\Ram\Downloads\ram1.jpg",result);
-                //var v = apiInstance.ConvertDocumentDocxToTxt(inputFile);
-                //inputFile.Seek(0, SeekOrigin.Begin);
+            //    File.WriteAllBytes(@"c:\Users\Ram\Downloads\ram1.jpg",result);
+            //    //var v = apiInstance.ConvertDocumentDocxToTxt(inputFile);
+            //    //inputFile.Seek(0, SeekOrigin.Begin);
 
-                //var f = apiInstance.ConvertDocumentAutodetectGetInfo(inputFile);
-               // var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
+            //    //var f = apiInstance.ConvertDocumentAutodetectGetInfo(inputFile);
+            //   // var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
 
-                //apiInstance.ConvertDocumentAutodetectGetInfo()
-                //var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
+            //    //apiInstance.ConvertDocumentAutodetectGetInfo()
+            //    //var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
 
-                // Word DOCX to PDF
-                //Object result = apiInstance.ConvertDocumentDocxToPdf(inputFile);
-                sw.Stop();
+            //    // Word DOCX to PDF
+            //    //Object result = apiInstance.ConvertDocumentDocxToPdf(inputFile);
+            //    sw.Stop();
 
-                Debug.WriteLine(result);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling ConvertDocumentApi.ConvertDocumentDocxToPdf: " + e.Message);
-            }
+            //    Debug.WriteLine(result);
+            //}
+            //catch (Exception e)
+            //{
+            //    Debug.Print("Exception when calling ConvertDocumentApi.ConvertDocumentDocxToPdf: " + e.Message);
+            //}
         }
 
         private static async Task ResetVideo()

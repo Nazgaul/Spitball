@@ -25,88 +25,88 @@ namespace Cloudents.Core.Extension
 
         }
 
-        public static string ReverseOnlyHebrew(this string source)
-        {
-            if (string.IsNullOrWhiteSpace(source))
-            {
-                return source;
-            }
+        //public static string ReverseOnlyHebrew(this string source)
+        //{
+        //    if (string.IsNullOrWhiteSpace(source))
+        //    {
+        //        return source;
+        //    }
 
-            source = source.Trim();
-            var list = new List<char>();
-            var j = 0;
-            bool IsRtlLetter(char c)
-            {
-                return c >= 1488 && c <= 1514;
-            }
+        //    source = source.Trim();
+        //    var list = new List<char>();
+        //    var j = 0;
+        //    bool IsRtlLetter(char c)
+        //    {
+        //        return c >= 1488 && c <= 1514;
+        //    }
 
-            var actionAddToList = new Func<char,int,int>((c, i) =>
-            {
-                list.Add(c);
-                i++;
-                return i;
-            });
-            var actionInsertToList = new Func<char, int, int>((c,i) =>
-            {
-                list.Insert(i,c);
-                //i++;
-                return i;
-            });
+        //    var actionAddToList = new Func<char,int,int>((c, i) =>
+        //    {
+        //        list.Add(c);
+        //        i++;
+        //        return i;
+        //    });
+        //    var actionInsertToList = new Func<char, int, int>((c,i) =>
+        //    {
+        //        list.Insert(i,c);
+        //        //i++;
+        //        return i;
+        //    });
 
-            Func<char, int, int> lastAction = actionAddToList;
-            //void AddToList(char c)
-            //{
-            //    list.Add(c);
-            //    j++;
-            //}
-            //var hebrewLetterRange = [1488..1514];
+        //    Func<char, int, int> lastAction = actionAddToList;
+        //    //void AddToList(char c)
+        //    //{
+        //    //    list.Add(c);
+        //    //    j++;
+        //    //}
+        //    //var hebrewLetterRange = [1488..1514];
 
-            for (int i = 0; i < source.Length; i++)
-            {
-                var c = source[i];
-                if (IsRtlLetter(c))
-                {
-                    lastAction = actionInsertToList;
-                    j = lastAction.Invoke(c, j);
-                    //list.Insert(j, c);
-                    continue;
-                }
+        //    for (int i = 0; i < source.Length; i++)
+        //    {
+        //        var c = source[i];
+        //        if (IsRtlLetter(c))
+        //        {
+        //            lastAction = actionInsertToList;
+        //            j = lastAction.Invoke(c, j);
+        //            //list.Insert(j, c);
+        //            continue;
+        //        }
 
-                if (char.IsPunctuation(c) || char.IsDigit(c))
-                {
-                    j = lastAction.Invoke(c, j);
-                    continue;
-                }
+        //        if (char.IsPunctuation(c) || char.IsDigit(c))
+        //        {
+        //            j = lastAction.Invoke(c, j);
+        //            continue;
+        //        }
                
 
-                if (c == ' ')
-                {
-                    //if (IsRtlLetter(source[i + 1]) && lastAction == actionInsertToList)
-                    //{
-                    //    lastAction = actionInsertToList;
-                    //    j = lastAction.Invoke(c, j);
-                    //    continue;
-                    //}
-                    //lastAction = actionAddToList;
-                    j = lastAction.Invoke(c, j);
-                    //j = lastAction.Invoke(c, j);
-                    continue;
+        //        if (c == ' ')
+        //        {
+        //            //if (IsRtlLetter(source[i + 1]) && lastAction == actionInsertToList)
+        //            //{
+        //            //    lastAction = actionInsertToList;
+        //            //    j = lastAction.Invoke(c, j);
+        //            //    continue;
+        //            //}
+        //            //lastAction = actionAddToList;
+        //            j = lastAction.Invoke(c, j);
+        //            //j = lastAction.Invoke(c, j);
+        //            continue;
                    
-                    //else
-                    //{
-                    //    AddToList(c);
-                    //}
-                    //continue;
-                }
-                lastAction = actionAddToList;
-                j = lastAction.Invoke(c, j);
-                //AddToList(c);
+        //            //else
+        //            //{
+        //            //    AddToList(c);
+        //            //}
+        //            //continue;
+        //        }
+        //        lastAction = actionAddToList;
+        //        j = lastAction.Invoke(c, j);
+        //        //AddToList(c);
 
-            }
+        //    }
 
-            var result =  new string(list.ToArray());
-            return result;
-        }
+        //    var result =  new string(list.ToArray());
+        //    return result;
+        //}
 
         //public static bool TryToEnum<TEnum>(this string value, out TEnum result) where TEnum : struct
         //{
