@@ -49,3 +49,6 @@ export const Document = 'document';
 
 // Question:
 export const Question = 'question'
+
+// Tutor List:
+export const TutorList = 'tutorLandingPage'
