@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 
 namespace Cloudents.Core.Query
 {
