@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -50,8 +51,23 @@ namespace Cloudents.FunctionsV2.Extensions
 
             using var myBitmap = new Bitmap(size.Width, size.Height + 10);
 
+            var x = new Span<char>(text.ToCharArray());
 
+            for (int i = x.Length - 1; i >= 0; i--)
+            {
+                if (char.IsPunctuation(x[i]) || char.IsSeparator(x[i]))
+                {
+                    x = x.Slice(0, i);
 
+                }
+                else
+                {
+                    break;
+
+                }
+            }
+
+            var textToDraw = new string(x);
             //pfcoll.AddFontFile(Server.MapPath("~/Fonts/" + fontName));
             //FontFamily ff = pfcoll.Families[0];
             var colorToWorkWith = ColorTranslator.FromHtml(color);
@@ -64,14 +80,14 @@ namespace Cloudents.FunctionsV2.Extensions
 
 
                 var brush = new System.Drawing.SolidBrush(colorToWorkWith);
-                g.DrawString(text,
+                g.DrawString(textToDraw,
                     new System.Drawing.Font("Calibri", fontSize, System.Drawing.FontStyle.Regular, GraphicsUnit.Pixel),
                     brush,
                     new System.Drawing.RectangleF(0, 0, size.Width, size.Height),
                     new StringFormat()
                     {
                         Alignment = StringAlignment.Center,
-                        Trimming = StringTrimming.EllipsisWord,
+                        Trimming = StringTrimming.Word,
 
                     });
                 //g.DrawString("My Text very very nice",
@@ -150,6 +166,6 @@ namespace Cloudents.FunctionsV2.Extensions
         }
 
 
-       
+
     }
 }
