@@ -13,8 +13,8 @@
             <profileUserStickyMobile :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.mdAndDown"/>
         </div>
         <div>
-          <profileUserSticky :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.lgAndUp && !isTutorPending"/>
-          <shareContent v-if="$vuetify.breakpoint.lgAndUp" class="mt-3"/>
+          <profileUserSticky class="mb-3" :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.lgAndUp && !isTutorPending"/>
+          <shareContent v-if="$vuetify.breakpoint.lgAndUp"/>
         </div>
         <sb-dialog
             :onclosefn="closeCouponDialog"
