@@ -1,5 +1,5 @@
 <template>
-   <div :class="['profileUserSticky',{'profileUserSticky_bannerActive':getBannerParams}]" v-if="!!getProfile">
+   <div class="profileUserSticky" v-if="!!getProfile">
       <template v-if="isTutor">
          <transition name="fade">
             <div v-if="showScrollHeader" class="profileUserSticky_scrollHeader">
@@ -134,7 +134,7 @@ export default {
       }
    },
    computed: {
-      ...mapGetters(['getBannerParams','getProfile','accountUser','getCouponDialog','getCouponError']),
+      ...mapGetters(['getProfile','accountUser','getCouponDialog','getCouponError']),
       isTutor(){
          return !!this.getProfile && this.getProfile.user.isTutor
       },
@@ -206,8 +206,6 @@ export default {
 @import '../../../../styles/mixin.less';
 .profileUserSticky{
    padding: 12px;
-   position: sticky;
-   top: 80px;
    min-width: 292px;
    width: 292px;
    height: max-content;
@@ -223,9 +221,6 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-   &.profileUserSticky_bannerActive{
-      top: 150px;
-   }
    .profileUserSticky_scrollHeader{
       display: flex;
       text-align: initial;

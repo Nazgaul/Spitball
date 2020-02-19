@@ -224,7 +224,8 @@ export default {
             'getCouponError',
             'getSchoolName',
             'getSelectedClasses',
-            "getProfile"]),
+            "getProfile",
+            'getBannerParams',]),
         isShowCouponDialog(){
             if(this.getCouponDialog){
                 setTimeout(() => {

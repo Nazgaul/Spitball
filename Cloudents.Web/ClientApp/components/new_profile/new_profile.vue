@@ -12,7 +12,7 @@
             <profileReviewsBox v-if="showReviewBox"/>
             <profileUserStickyMobile :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.mdAndDown"/>
         </div>
-        <div>
+        <div :class="['profile-sticky',{'profileUserSticky_bannerActive':getBannerParams}]">
           <profileUserSticky class="mb-3" :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.lgAndUp && !isTutorPending"/>
           <shareContent v-if="$vuetify.breakpoint.lgAndUp"/>
         </div>
@@ -68,6 +68,14 @@
         margin-bottom: 40px;
         display: block;
     }
+    .profile-sticky{
+      position: sticky;
+      height: fit-content;
+      top: 80px;
+      &.profileUserSticky_bannerActive{
+        top: 150px;
+      }
+    }
     .profilePage_main {
         max-width: 720px;
         width: 100%;
@@ -112,6 +120,7 @@
     max-width: 760px;
   }
 }
+
 
 
 
