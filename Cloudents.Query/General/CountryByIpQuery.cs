@@ -27,10 +27,11 @@ namespace Cloudents.Query.General
 
             public async Task<string> GetAsync(CountryByIpQuery query, CancellationToken token)
             {
+
                 return await _session.Query<UserLocation>()
                     .Fetch(f => f.User)
                     .Where(w => w.Ip == query.Ip).Select(s => s.Country)
-                    .FirstOrDefaultAsync(token);
+                    .SingleOrDefaultAsync(token);
             }
         }
     }

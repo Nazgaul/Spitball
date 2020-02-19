@@ -196,7 +196,7 @@ namespace Cloudents.FunctionsV2
 
         //[FunctionName("EmailUpdateFunction_TimerStart")]
         //public static async Task TimerStart(
-        //    [TimerTrigger("0 0 8 * * *", RunOnStartup = true)] TimerInfo myTimer,
+        //    [TimerTrigger("0 0 8 * * *")] TimerInfo myTimer,
         //    [DurableClient]IDurableOrchestrationClient starter,
         //    ILogger log)
         //{
