@@ -78,11 +78,10 @@ const dateTimeFormats = {
   }
 }
 
-
 export const i18n =  new VueI18n({
   locale:  lang,
   fallbackLocale: 'en',
-  messages : {},
+  messages:{},
   numberFormats,
   dateTimeFormats
   //messages: loadLocaleMessages()

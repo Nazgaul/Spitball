@@ -10,7 +10,7 @@
 
 <script>
 const marketingActions = () => import('./marketingActions/marketingActions.vue');
-const spitballTips = () => import('../dashboardPage/dashboardTeacher/spitballTips.vue');
+const spitballTips = () => import('./marketingBlogs/marketingBlogs.vue');
 const tableCoupon = () => import('./tableCoupon/tableCoupon.vue');
 
 export default {

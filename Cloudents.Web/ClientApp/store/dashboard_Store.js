@@ -118,17 +118,20 @@ const actions = {
    updateStudentsAnswersQuestion() {
       return searchService.activateFunction.feed({filter: "Question"}).then((data) => {
          return data;
-     }, (err) => {
+      }, (err) => {
          return Promise.reject(err);
-     }).finally(()=>{
+      }).finally(()=>{
          return
-     });
+      });
    },
    updateTutorActions() {
       return dashboardService.getTutorActions()
    },
    updateSpitballBlogs() {
       return dashboardService.getSpitballBlogs()
+   },
+   updateMarketingBlogs() {
+      return dashboardService.getMarketingBlogs()
    }
 };
 

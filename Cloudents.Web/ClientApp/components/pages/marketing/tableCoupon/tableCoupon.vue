@@ -1,11 +1,12 @@
 <template>
     <v-row class="tableCoupon mt-4 pa-4 pb-2 pb-sm-0" dense>
         <v-col cols="12" class="pa-0">
-            <div>{{$t('tableCoupon_title')}}</div>
+            <div class="mainTitle">{{$t('tableCoupon_title')}}</div>
         </v-col>
         <v-data-table
             :headers="headers"
             :items="coupons"
+            class="dataTable"
             sort-by
             :loading="tableLoading"
             :mobile-breakpoint="0"
@@ -13,12 +14,27 @@
               showFirstLastPage: false,
               prevIcon: 'sbf-arrow-left-carousel',
               nextIcon: 'sbf-arrow-right-carousel',
-              itemsPerPageText: $t('tableCoupon_rows_per_page'),
-              pageText: `{1} ${$t('tableCoupon_of')} {2}`,
-              itemsPerPageOptions: [5,10,15,[$t('marketing_all')]]
-            }"
-            class="dataTable">
+            }">
 
+            <template v-slot:header.code="{header}">
+                {{$t(header.text)}}
+            </template>
+            <template v-slot:header.couponType="{header}">
+                {{$t(header.text)}}
+            </template>
+            <template v-slot:header.value="{header}">
+                {{$t(header.text)}}
+            </template>
+            <template v-slot:header.amountUsers="{header}">
+                {{$t(header.text)}}
+            </template>
+            <template v-slot:header.createTime="{header}">
+                {{$t(header.text)}}
+            </template>
+            <template v-slot:header.expiration="{header}">
+                {{$t(header.text)}}
+            </template>              
+                
             <template v-slot:item.createTime="{value}">
                 {{$d(new Date(value), 'tableDate')}}
             </template>
@@ -96,7 +112,7 @@ export default {
         }).finally(() => {
             self.tableLoading = false;
         })
-      }
+      },
     },
     beforeDestroy(){
       storeService.unregisterModule(this.$store, 'couponStore');
@@ -118,6 +134,11 @@ export default {
     
         @media (max-width: @screen-xs) {
             box-shadow: none;
+        }
+        .mainTitle {
+            font-weight: 600;
+            font-size: 16px;
+            color: @global-purple;
         }
         .dataTable {
             width: 100%;
@@ -142,9 +163,10 @@ export default {
                 }
                 .v-data-footer__icons-before,
                 .v-data-footer__icons-after {
-                    i {
-                        font-size: 18px;
+                    .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
+                        transform: none /*rtl:rotate(180deg)*/;
                         color: @global-purple !important; //vuetify
+                        font-size: 14px;
                     }
                 }
             }
