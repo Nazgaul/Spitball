@@ -4,13 +4,13 @@ using Cloudents.Core;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
-using Cloudents.Identity;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Cloudents.Web.Resources;
 using Cloudents.Web.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -19,7 +19,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using SbUserManager = Cloudents.Web.Identity.SbUserManager;
 
 namespace Cloudents.Web.Api
 {
@@ -59,7 +59,7 @@ namespace Cloudents.Web.Api
 
             [FromServices] IIpToLocation service, CancellationToken token)
         {
-            var result = await service.GetAsync(HttpContext.Connection.GetIpAddress(), token);
+            var result = await service.GetAsync(HttpContext.GetIpAddress(), token);
             return new CallingCallResponse(result?.CallingCode);
         }
 
@@ -68,7 +68,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> SetUserPhoneNumber(
+        public async Task<IActionResult> SetUserPhoneNumberAsync(
             [FromBody]PhoneNumberRequest model,
             CancellationToken token)
         {
@@ -151,15 +151,15 @@ namespace Cloudents.Web.Api
             if (v.Succeeded)
             {
                 agent = agent.Substring(0, Math.Min(agent.Length, 255));
-                return await FinishRegistrationAsync(token, user, country, model.FingerPrint, agent);
+                return await FinishRegistrationAsync(user, country, model.FingerPrint, agent, token);
             }
             _logger.Warning($"userid: {user.Id} is not verified reason: {v}");
             ModelState.AddIdentityModelError(v);
             return BadRequest(ModelState);
         }
 
-        private async Task<IActionResult> FinishRegistrationAsync(CancellationToken token, User user, string country,
-            string fingerPrint, string userAgent)
+        private async Task<IActionResult> FinishRegistrationAsync(User user, string country, string fingerPrint,
+            string userAgent, CancellationToken token)
         {
             if (TempData[HomeController.Referral] != null)
             {
@@ -183,7 +183,7 @@ namespace Cloudents.Web.Api
             }
             TempData.Clear();
 
-            var command2 = new AddUserLocationCommand(user, country, HttpContext.Connection.GetIpAddress(), fingerPrint, userAgent);
+            var command2 = new AddUserLocationCommand(user, country, HttpContext.GetIpAddress(), fingerPrint, userAgent);
             var registrationBonusCommand = new FinishRegistrationCommand(user.Id);
             var t1 = _commandBus.DispatchAsync(command2, token);
             var t2 = _signInManager.SignInAsync(user, false);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Admin2.Models
 {
@@ -16,7 +15,7 @@ namespace Cloudents.Admin2.Models
         [Required]
         [MinLength(15)]
         public string Text { get; set; }
-       
+
         /// <summary>
         /// the country of the question - can be us or il
         /// </summary>
@@ -24,10 +23,10 @@ namespace Cloudents.Admin2.Models
         public Country Country { get; set; }
 
         [Required]
-        public Guid University { get; set; }
+        [MaxLength(255)]
+        public string University { get; set; }
 
-        [MaxLength(4)]
-        public string[] Files { get; set; }
+
     }
 
     public enum Country

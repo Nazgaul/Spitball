@@ -1,6 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Persistence.Maps
 {
@@ -13,9 +13,9 @@ namespace Cloudents.Persistence.Maps
             DynamicUpdate();
             Id(x => x.Id).GeneratedBy.GuidComb();
             Map(x => x.Text).Length(Answer.MaxLength);
-            Map(x => x.Attachments).Nullable();
+            //Map(x => x.Attachments).Nullable();
             Map(x => x.Created).Not.Nullable();
-            Map(x => x.Language).Length(10);
+            //Map(x => x.Language).Length(10);
 
             References(x => x.User).Column("UserId").ForeignKey("Answer_User").Not.Nullable();
             References(x => x.Question).Column("QuestionId").ForeignKey("Answer_Question").Not.Nullable();
@@ -23,20 +23,19 @@ namespace Cloudents.Persistence.Maps
             Component(x => x.Status);
             //References(x => x.FlaggedUser).Column("FlaggedUserId").ForeignKey("AnswerFlagged_User");
             //DO NOT PUT ANY CASCADE WE HANDLE THIS ON CODE - TAKE A LOOK AT ADMIN COMMAND AND REGULAR COMMAND
-            HasMany(x => x.Transactions)
-                //.Cascade()
-                .LazyLoad()
-                .Inverse();
+            //HasMany(x => x.Transactions)
+            //    //.Cascade()
+            //    .LazyLoad()
+            //    .Inverse();
 
-            HasMany(x => x.Votes)
-                .Access.CamelCaseField(Prefix.Underscore)
-                .KeyColumns.Add("AnswerId")
-                .Inverse().Cascade.AllDeleteOrphan();
-            Map(x => x.VoteCount);
-            SchemaAction.Validate();
+            //HasMany(x => x.Votes)
+            //    .Access.CamelCaseField(Prefix.Underscore)
+            //    .KeyColumns.Add("AnswerId")
+            //    .Inverse().Cascade.AllDeleteOrphan();
+            //Map(x => x.VoteCount);
             //DiscriminateSubClassesOnColumn("State");
         }
 
-        
+
     }
 }

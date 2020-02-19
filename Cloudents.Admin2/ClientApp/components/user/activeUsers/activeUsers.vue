@@ -125,7 +125,7 @@
 
 </script>
 
-<style lang="scss">
+<style lang="less">
     //overwrite vuetify css to narrow the table
     table.v-table tbody td:first-child, table.v-table tbody td:not(:first-child), table.v-table tbody th:first-child, table.v-table tbody th:not(:first-child),
     table.v-table thead td:first-child, table.v-table thead td:not(:first-child), table.v-table thead th:first-child, table.v-table thead th:not(:first-child) {

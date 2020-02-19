@@ -195,7 +195,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .add-question-container {
             margin: 0 auto;
         span.select-subject{

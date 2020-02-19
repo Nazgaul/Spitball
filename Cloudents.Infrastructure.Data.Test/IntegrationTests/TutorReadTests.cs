@@ -1,4 +1,5 @@
-﻿using Cloudents.Query.Tutor;
+﻿using System.Linq;
+using Cloudents.Query.Tutor;
 using FluentAssertions;
 using System.Threading.Tasks;
 using Xunit;
@@ -17,31 +18,64 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         }
 
-        [Fact]
-        public async Task TutorListByCourseQuery_Ok()
+        [Theory]
+        [InlineData("xxx", 0, "IL", 5)]
+        [InlineData("Economics", 638, "IL", 5)]
+        [InlineData("Economics", 0, "IL", 100)]
+        [InlineData("Economics", 638, "IN", 5)]
+        [InlineData("xxx", 0, "IN", 5)]
+
+        public async Task TutorListByCourseQuery_Ok(string course, long userId, string country, int count)
         {
-            var query = new TutorListByCourseQuery("xxx", 0, 5);
-            var _ = await _fixture.QueryBus.QueryAsync(query, default);
 
-
-        }
-
-
-        [Fact]
-        public async Task TutorListQuery_Ok()
-        {
-            var query = new TutorListQuery(0, "IL",0);
+            var query = new TutorListByCourseQuery(course, userId, country, count);
             var result = await _fixture.QueryBus.QueryAsync(query, default);
-            result.Should().NotBeEmpty();
-
-            var query2 = new TutorListQuery(638, null, 0);
-            result = await _fixture.QueryBus.QueryAsync(query2, default);
-            result.Should().NotBeEmpty();
-
+            foreach (var tutorCardDto in result)
+            {
+                tutorCardDto.Country.Should().BeEquivalentTo(country);
+            }
         }
 
-        
-  
+
+        [Theory]
+        [InlineData(0, "IL", 0)]
+        [InlineData(0, "IN", 0)]
+        [InlineData(638, null, 0)]
+
+        public async Task TutorListQuery_Ok(long userId, string country, int page)
+        {
+            var query = new TutorListQuery(userId, country, page);
+            var result = await _fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNull();
+            result.Count.Should().BeGreaterThan(0);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(638)]
+
+        public async Task TutorListQuery_PageCountOk(long userId)
+        {
+            var query = new TutorListQuery(userId, "IL",0,int.MaxValue);
+            var result = await _fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNull();
+            var count = result.Count;
+            result.Count.Should().Be(result.Result.Count());
+
+            var query2 = new TutorListQuery(userId, "IL", 0, 20);
+            var result2 = await _fixture.QueryBus.QueryAsync(query2, default);
+            result2.Count.Should().Be(count);
+        }
+
+        [Theory]
+        [InlineData(159039)]
+        [InlineData(638)]
+        public async Task TutorActionsQuery_Ok(long userId)
+        {
+            var query = new TutorActionsQuery(userId);
+            var result = await _fixture.QueryBus.QueryAsync(query, default);
+            result.Should().NotBeNull();
+        }
     }
 
     [Collection("Database collection")]

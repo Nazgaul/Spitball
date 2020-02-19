@@ -120,11 +120,26 @@
   <data name="courses" xml:space="preserve">
     <value>9,575 Courses</value>
   </data>
+  <data name="footer_h1" xml:space="preserve">
+    <value>Private lessons online: Find private teachers in a variety of courses and subjects</value>
+  </data>
+  <data name="footer_h1_course" xml:space="preserve">
+    <value>Private {1} lessons online: Find {2} teachers online in a variety of courses and subjects</value>
+  </data>
+  <data name="footer_h2" xml:space="preserve">
+    <value>Find your next private tutor and arrange a video meeting where you’ll learn online lessons according to your needs.</value>
+  </data>
+  <data name="footer_h2_course" xml:space="preserve">
+    <value>Find your next private {1} tutor and arrange a video meeting where you’ll learn online math lessons according to your needs.</value>
+  </data>
+  <data name="footer_h3" xml:space="preserve">
+    <value>Professional private teachers who are committed to your success</value>
+  </data>
+  <data name="footer_h3_course" xml:space="preserve">
+    <value>Professional private teachers who are committed to your success in {1}</value>
+  </data>
   <data name="footer_links_about" xml:space="preserve">
     <value>About Spitball</value>
-  </data>
-  <data name="footer_links_ambassadors" xml:space="preserve">
-    <value>Ambassadors</value>
   </data>
   <data name="footer_links_blog" xml:space="preserve">
     <value>Blog</value>
@@ -138,9 +153,6 @@
   <data name="footer_links_feedback" xml:space="preserve">
     <value>Feedback</value>
   </data>
-  <data name="footer_links_partners" xml:space="preserve">
-    <value>Partnerships</value>
-  </data>
   <data name="footer_links_pr" xml:space="preserve">
     <value>Public Relationships</value>
   </data>
@@ -151,13 +163,13 @@
     <value>Terms &amp; Conditions</value>
   </data>
   <data name="header_find_tutors" xml:space="preserve">
-    <value>Find tutors who have experience teaching your course online</value>
+    <value>Try your first lesson for free with coupon: 1free</value>
   </data>
   <data name="header_get_lesson" xml:space="preserve">
-    <value>Get a 1-on-1 lesson from ₪55/hr</value>
+    <value>Professional private tutors that help you succeed</value>
   </data>
-  <data name="rates" xml:space="preserve">
-    <value>95%</value>
+  <data name="header_get_lesson_subject" xml:space="preserve">
+    <value>Professional private tutors in {1} that help you succeed</value>
   </data>
   <data name="reviews" xml:space="preserve">
     <value>reviews</value>

@@ -20,22 +20,22 @@ const LanguageService = {
             //placeholder numbers starts with 1
             let placeHolderNum = index + 1;
             key = key.replace(`{${placeHolderNum}}`, placeHolder);
-        })
+        });
         return key;
     }    
 };
 
 const LanguageChange = {
     setUserLanguage: (locale) => {
-        return connectivityModule.http.post("/Account/language", {culture: locale})
+        return connectivityModule.http.post("/Account/language", {culture: locale});
     },
 };
 
 const GetDictionary = (type) => {
-    let dictionaryType = `?v=${global.version}&l=${global.lang}`;
+    let dictionaryType = `?v=${global.version}&culture=${global.lang}-${global.country}`;
     if(!!type){
         //version is for anti caching ability
-        dictionaryType += `&resource=${type}`
+        dictionaryType += `&resource=${type}`;
     }else{
         dictionaryType += '';
     }
@@ -47,8 +47,8 @@ const GetDictionary = (type) => {
         return Promise.resolve(true);
     }, (err)=>{
         return Promise.reject(err);
-    })
-}
+    });
+};
 
 const GetVersion = () => {
     return connectivityModule.http.get(`/homepage/version`).then( (response) =>{
@@ -56,21 +56,21 @@ const GetVersion = () => {
         return Promise.resolve(version);
     }, (err)=>{
         return Promise.reject(err);
-    })
-}
+    });
+};
 
 //debug purposes
 global.dictionaryFindKey = function(value){
     for(let key in locale){
         if(locale[key] === value){
-            console.log(key)
+            console.log(key);
         }
     }
 };
 global.dictionaryContainsKey = function(value){
     for(let key in locale){
         if(locale[key].indexOf(value) > -1){
-            console.log(key)
+            console.log(key);
         }
     }
 };
@@ -79,5 +79,5 @@ export{
     LanguageService,
     LanguageChange,
     GetDictionary,
-    GetVersion
+    GetVersion,
 }

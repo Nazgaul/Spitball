@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cloudents.Core;
+using Cloudents.Core.Extension;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -7,13 +9,11 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text.RegularExpressions;
-using Cloudents.Core;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Web.Api
 {
-    [Route("api/[controller]"), ApiController]
-    public class LocaleController : ControllerBase
+    [Route("api/[controller]")]
+    public class LocaleController : Controller
     {
         private static readonly ConcurrentDictionary<(CultureInfo, string), Dictionary<string, string>> CacheDictionary = new ConcurrentDictionary<(CultureInfo, string), Dictionary<string, string>>();
 

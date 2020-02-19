@@ -34,5 +34,5 @@ namespace Cloudents.Core.Enum
         Buy,
     }
 
-    
+
 }

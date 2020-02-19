@@ -1,10 +1,11 @@
 ﻿using System;
+using System.IO;
 
 namespace Cloudents.Command.StudyRooms
 {
     public class EndStudyRoomSessionCommand : ICommand
     {
-        public EndStudyRoomSessionCommand(Guid studyRoomId,  long userId)
+        public EndStudyRoomSessionCommand(Guid studyRoomId, long userId)
         {
             StudyRoomId = studyRoomId;
             UserId = userId;
@@ -14,6 +15,35 @@ namespace Cloudents.Command.StudyRooms
 
         public long UserId { get; }
     }
+
+    public class UploadStudyRoomVideoCommand : ICommand
+    {
+        public UploadStudyRoomVideoCommand(Guid studyRoomId, long userId, Stream videoStream)
+        {
+            StudyRoomId = studyRoomId;
+            UserId = userId;
+            VideoStream = videoStream;
+        }
+        public Guid StudyRoomId { get; }
+
+
+        public long UserId { get; }
+
+        public Stream VideoStream { get; }
+    }
+
+    //public class StudyRoomVideoReadyCommand : ICommand
+    //{
+    //    public StudyRoomVideoReadyCommand(string sessionIdentifier, Guid studyRoomId)
+    //    {
+    //        SessionIdentifier = sessionIdentifier;
+    //        StudyRoomId = studyRoomId;
+    //    }
+
+    //    public string SessionIdentifier { get; }
+
+    //    public Guid StudyRoomId { get; }
+    //}
 
 
     public class EndStudyRoomSessionTwilioCommand : ICommand

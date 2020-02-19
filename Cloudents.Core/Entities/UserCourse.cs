@@ -1,42 +1,58 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Event;
+using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Core.Entities
 {
-    public class UserCourse : IEquatable<UserCourse>
+    public class UserCourse : IEntity, IEquatable<UserCourse>
     {
-       
+
 
         protected UserCourse()
         {
-            
+
         }
 
         [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
         public UserCourse(User user, Course course)
         {
             User = user;
+            IsTeach = user.Tutor != null;
             Course = course;
         }
 
         public virtual User User { get; protected set; }
         public virtual Course Course { get; protected set; }
 
-        public virtual bool CanTeach { get; set; }
+        public virtual bool IsTeach { get; protected set; }
+
+        public virtual void ToggleCanTeach()
+        {
+            IsTeach = !IsTeach;
+            _domainEvents.Add(new CanTeachCourseEvent(this));
+        }
+
+        public virtual void CanTeach()
+        {
+            IsTeach = true;
+            //_domainEvents.Add(new CanTeachCourseEvent(this));
+        }
 
         public virtual bool Equals(UserCourse other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(User, other.User) && Equals(Course, other.Course);
+            return Equals(User.Id, other.User.Id) && Equals(Course.Id, other.Course.Id);
         }
 
-        public  override bool Equals(object obj)
+        public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((UserCourse) obj);
+            return Equals((UserCourse)obj);
         }
 
         [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode", Justification = "Nhibernate")]
@@ -44,7 +60,7 @@ namespace Cloudents.Core.Entities
         {
             unchecked
             {
-                return ((User != null ? User.GetHashCode() : 0) * 397) ^ (Course != null ? Course.GetHashCode() : 0);
+                return ((User != null ? User.Id.GetHashCode() : 0) * 397) ^ (Course != null ? Course.Id.GetHashCode() : 0);
             }
         }
 
@@ -60,5 +76,13 @@ namespace Cloudents.Core.Entities
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
+
+        private readonly List<IEvent> _domainEvents = new List<IEvent>();
+
+        public virtual IReadOnlyList<IEvent> DomainEvents => _domainEvents;
+        public virtual void ClearEvents()
+        {
+            _domainEvents.Clear();
+        }
     }
 }

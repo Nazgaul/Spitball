@@ -24,7 +24,7 @@ function createRouter() {
 
 
 export function createApp() {
-    const router = createRouter()
+    const router = createRouter();
     // const store = createStore()
     // sync(store, router)
 
@@ -35,6 +35,6 @@ export function createApp() {
         render: h => h(App),
         //store
     });
-    return { app, router }
+    return { app, router };
 }
 

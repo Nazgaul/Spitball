@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Cloudents.Web.Services;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Threading.Tasks;
-using Cloudents.Web.Services;
 
 namespace Cloudents.Web.Binders
 {
     public class CountryModelBinder : IModelBinder
     {
-        private readonly ICountryProvider _ipToLocation;
+        private readonly ICountryService _ipToLocation;
 
 
-        public CountryModelBinder(ICountryProvider ipToLocation)
+        public CountryModelBinder(ICountryService ipToLocation)
         {
             _ipToLocation = ipToLocation;
         }
@@ -24,7 +24,7 @@ namespace Cloudents.Web.Binders
                 return;
             }
             bindingContext.Result = ModelBindingResult.Success(result);
-            
+
         }
     }
 }

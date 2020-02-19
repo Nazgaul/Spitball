@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.Votes.Commands.AddVoteDocument
 {
@@ -23,13 +23,13 @@ namespace Cloudents.Command.Votes.Commands.AddVoteDocument
         public async Task ExecuteAsync(AddVoteDocumentCommand message, CancellationToken token)
         {
             var user = await _userRepository.LoadAsync(message.UserId, token);
-            
+
             var document = await _repository.LoadAsync(message.DocumentId, token);
-            document.Vote(message.VoteType,user);
+            document.Vote(message.VoteType, user);
             await _repository.UpdateAsync(document, token);
-           
+
         }
 
-       
+
     }
 }

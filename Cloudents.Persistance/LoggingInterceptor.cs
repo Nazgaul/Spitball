@@ -1,7 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using NHibernate;
+﻿using NHibernate;
 using NHibernate.SqlCommand;
+using System;
+using System.Diagnostics;
 
 namespace Cloudents.Persistence
 {
@@ -13,7 +13,5 @@ namespace Cloudents.Persistence
             Debug.WriteLine(sql, "nhibernate");
             return base.OnPrepareStatement(sql);
         }
-
-
     }
 }

@@ -1,15 +1,15 @@
 using Autofac;
+using Cloudents.Core.Message.System;
+using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.System;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Message.System;
-using Cloudents.Core.Storage;
-using Microsoft.Azure.WebJobs.Extensions.SignalRService;
-using Newtonsoft.Json.Linq;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
@@ -29,49 +29,28 @@ namespace Cloudents.FunctionsV2
                 TypeNameHandling = TypeNameHandling.All
             });
 
-            var handlerType =
-                typeof(ISystemOperation<>).MakeGenericType(message.GetType());
+            var handlerType = typeof(ISystemOperation<>).MakeGenericType(message.GetType());
+            var handlerCollectionType = typeof(IEnumerable<>).MakeGenericType(handlerType);
+
             using (var child = lifetimeScope.BeginLifetimeScope())
             {
-                dynamic operation = child.Resolve(handlerType);
-                await operation.DoOperationAsync((dynamic)message, binder, token);
+
+                if (child.Resolve(handlerCollectionType) is IEnumerable handlersCollection)
+                {
+                    foreach (var handler in handlersCollection)
+                    {
+                        try
+                        {
+                            dynamic operation = child.Resolve(handler.GetType());
+                            await operation.DoOperationAsync((dynamic)message, binder, token);
+                        }
+                        catch (Exception e)
+                        {
+                            log.LogInformation(e.Message);
+                        }
+                    }
+                }
             }
-        }
-
-        [FunctionName("SignalRMessage")]
-        public static async Task Run2(
-            [ServiceBusTrigger("signalr", Connection = "AzureWebJobsServiceBus")]
-            string receivedMessage,
-            IDictionary<string, object> userProperties,
-            [SignalR(HubName = "SbHub")] IAsyncCollector<SignalRMessage> outMessage,
-            ILogger log,
-            CancellationToken token
-            )
-        {
-            var msg = JObject.Parse(receivedMessage);
-            log.LogInformation($"Receive signalr message {msg}");
-
-            
-            
-
-
-            var p = new SignalRMessage
-            {
-                Target = "Message",
-                Arguments = new object[] { msg },
-
-            };
-            if (userProperties.TryGetValue("userId",out var userId))
-            {
-                p.UserId = userId?.ToString();
-            }
-            if (userProperties.TryGetValue("group", out var group))
-            {
-                p.GroupName = group?.ToString();
-            }
-
-
-            await outMessage.AddAsync(p, token);
         }
     }
 }

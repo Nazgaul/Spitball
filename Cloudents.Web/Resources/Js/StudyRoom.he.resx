@@ -118,10 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="alone_in_room" xml:space="preserve">
-    <value>ממתין לצד השני שיכנס לחדר</value>
-  </data>
-  <data name="become_tutor" xml:space="preserve">
-    <value>הירשם כמורה פרטי</value>
+    <value>ממתין לצד השני שיכנס לחדר הלימוד</value>
   </data>
   <data name="boxs_bottom_add" xml:space="preserve">
     <value>להוספת מסמכים ללוח, גרור ושחרר את הקבצים כאן</value>
@@ -138,28 +135,34 @@
   <data name="created" xml:space="preserve">
     <value>נוצר ב-</value>
   </data>
-  <data name="enter_room" xml:space="preserve">
-    <value>היכנס לחדר</value>
-  </data>
   <data name="equation_btn" xml:space="preserve">
     <value>הוסף משוואה ללוח</value>
   </data>
-  <data name="help_others" xml:space="preserve">
-    <value>עזור לאחרים באמצעות הידע שלך</value>
+  <data name="not_browser" xml:space="preserve">
+    <value>דפדפן זה אינו נתמך - השתמש בכרום או פיירפוקס</value>
+  </data>
+  <data name="not_screen" xml:space="preserve">
+    <value>לא ניתן לשתף את המסך - אנא נסה מאוחר יותר</value>
+  </data>
+  <data name="premission_denied" xml:space="preserve">
+    <value>בכדי לאשר שיתוף מסך, יש לעדכן את ההגדרות - &lt;a style="color:black" href="{0}" target="_Blank"&gt;למידע נוסף&lt;/a&gt;</value>
   </data>
   <data name="session_ended" xml:space="preserve">
     <value>השיעור הסתיים</value>
   </data>
   <data name="student_entered_room" xml:space="preserve">
-    <value>הסטודנט נכנס לחדר</value>
+    <value>הסטודנט נכנס לחדר הלימוד</value>
   </data>
   <data name="tutor_entered_room" xml:space="preserve">
-    <value>המורה הפרטי נכנס לחדר</value>
+    <value>המורה הפרטי נכנס לחדר הלימוד</value>
+  </data>
+  <data name="video" xml:space="preserve">
+    <value>וידאו</value>
   </data>
   <data name="waiting_for_student_toaster" xml:space="preserve">
     <value>ממתין לסטודנט שיצטרף לשיעור</value>
   </data>
   <data name="waiting_for_tutor_toaster" xml:space="preserve">
-    <value>ממתין למורה הפרטי שיתחיל את השיעור</value>
+    <value>ממתין למורה שיתחיל את השיעור</value>
   </data>
 </root>

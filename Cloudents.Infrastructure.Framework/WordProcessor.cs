@@ -7,11 +7,10 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class WordProcessor : IPreviewProvider2
+    public class WordProcessor : IPreviewProvider
     {
         public WordProcessor()
         {
@@ -22,7 +21,6 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        public static readonly string[] Extensions = FormatDocumentExtensions.Word;
 
 
         private static string ExtractDocumentText(Document doc)
@@ -64,7 +62,7 @@ namespace Cloudents.Infrastructure.Framework
                     Scale = 1.2F,
                     PageCount = 1,
                 };
-                
+
                 var word = _word.Value;
                 var diff = Enumerable.Range(0, word.PageCount);
                 diff = diff.Except(previewDelta);

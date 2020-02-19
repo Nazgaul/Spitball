@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Castle.DynamicProxy;
+using System;
 using System.Threading.Tasks;
-using Castle.DynamicProxy;
 
 namespace Cloudents.Infrastructure.Interceptor
 {
@@ -25,7 +25,7 @@ namespace Cloudents.Infrastructure.Interceptor
                 if (typeof(Task).IsAssignableFrom(invocation.Method.ReturnType))
                 {
                     var x = InterceptAsync((dynamic)invocation.ReturnValue, invocation);
-                    ;
+
                     invocation.ReturnValue = x;// InterceptAsync((dynamic)invocation.ReturnValue, invocation);
                 }
             }

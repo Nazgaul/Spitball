@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core.Entities
 {
-    public class ShortUrl :Entity<Guid>
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nHibernate proxy")]
+    public class ShortUrl : Entity<Guid>
     {
         public ShortUrl(string identifier, string destination, DateTime? expiration)
         {
@@ -13,13 +15,13 @@ namespace Cloudents.Core.Entities
 
         protected ShortUrl()
         {
-            
+
         }
 
         public virtual string Identifier { get; set; }
         public virtual string Destination { get; set; }
 
         public virtual DateTime? Expiration { get; set; }
-        
+
     }
 }

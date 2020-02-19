@@ -2,14 +2,14 @@ const EVENT_TYPES = {
     LOG: 'LOG',
     ERROR: 'ERROR',
     TRACK: 'TRACK',
-}
+};
 
 function createEventName(type, name){
     return `${type}_${name}`;
 }
 
 const track={
-    exception: function(exception, handledAt = null, properties, measurements, severityLevel){
+    exception: function(exception, properties, measurements, severityLevel){
         /*
         Gaby: use this only in a TRY CATCH expression otherwise use the track Event function
         exception - An Error from a catch clause.
@@ -29,13 +29,14 @@ const track={
         */
         global.appInsights.trackEvent(eventName, properties, measurements);
     },
-}
+};
 const authenticate= {
     set: function(userId){
+        let x = userId || '';
+        global.appInsights.setAuthenticatedUserContext(x);
         
-        global.appInsights.setAuthenticatedUserContext(userId.toString());
     }
-}
+};
 
 
 export default{

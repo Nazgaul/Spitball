@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Cloudents.Core.Entities
 {
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
-    public class UserLogin 
+    public class UserLogin
     {
         public UserLogin(string loginProvider, string providerKey, string providerDisplayName,
             User user)
@@ -36,7 +36,7 @@ namespace Cloudents.Core.Entities
         public override int GetHashCode()
         {
             var hashCode = 1582216818;
-            
+
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LoginProvider);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ProviderKey);
             return hashCode;

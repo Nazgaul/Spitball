@@ -49,14 +49,18 @@ export default {
             ],
             dialogs: {
                 name: false,
-                phone: false
+                phone: false,
+                price: false,
+                type: false
             },
             currentFirstName: '',
             currentLastName: '',
+            currentPhone: '',
+            currentPrice: '',
             newFirstName: '',
             newLastName: '',
-            currentPhone: '',
             newPhone: '',
+            newPrice: '',
             suspendDialog: false,
             userComponentsShow: false,
             activeUserComponent: '',
@@ -64,7 +68,9 @@ export default {
             valid: true,
             requiredRules: [
                 v => !!v || 'Name is required'
-            ]
+            ],
+            userTypes: [],
+            selectedType:''
         };
     },
 
@@ -103,6 +109,8 @@ export default {
             "setTokensDialogState",
             "setSuspendDialogState",
             "getUserData",
+            "getUserTypes",
+            "updateUserType",
             "setUserCurrentStatus",
             "verifyUserPhone",
             "getUserPurchasedDocuments",
@@ -110,15 +118,14 @@ export default {
             "updateFilterValue",
             "setNeedPaging",
             "removeTutor",
+            "updateSuspendTutor",
+            "updateUnSuspendTutor",
             "updateUserPhone",
-            "updateUserName"
+            "updateUserName",
+            "deletePayment",
+            "updateTutorPrice",
+            "removeCalender"
         ]),
-       
-        resetUserData() {
-            // reinit scrollfunc data and clear store ib new user data requested
-            this.clearUserState();
-
-        },
         showSuspendDialog() {
             this.setSuspendDialogState(true);
         },
@@ -156,12 +163,12 @@ export default {
             self.getUserData(id)
                 .then((data) => {
                     if(data &&  data.id && data.id.value){
-                        this.userIdentifier = id;
+                        this.userIdentifier = data.id.value;
                         //let routerName = this.$route.name && this.$route.name !== 'userMainView' ? this.$route.name : 'userQuestions';
                         self.$router.push({name: 'userConversations', params: {userId: data.id.value}});
                     }
                 }, () => {
-                    if(id > 0 || this.userIdentifier != '') {
+                    if(id > 0 || this.userIdentifier !== '') {
                         self.$toaster.error(`Error can't find user with given identifier`);
                     }
                 });
@@ -175,6 +182,35 @@ export default {
             },
             () => {
                 self.$toaster.error(`ERROR: failed to delete tutor ${id}`);
+            });
+        },
+        suspendTutor() {
+            let id = this.$route.params.userId;
+
+            this.updateSuspendTutor(id).then(() => {
+                this.$toaster.success(`tutor been suspend ${id}`);
+            }, () => {
+                this.$toaster.error(`ERROR: failed to suspend tutor ${id}`);
+            });
+        },
+        unSuspendTutor() {
+            let id = this.$route.params.userId;
+
+            this.updateUnSuspendTutor(id).then(() => {
+                this.$toaster.success(`tutor been suspend ${id}`);
+            }, () => {
+                this.$toaster.error(`ERROR: failed to suspend tutor ${id}`);
+            });
+        },
+        deleteCalender(){
+            var self = this;
+            var id = self.$route.params.userId;
+            self.removeCalender(id)
+            .then(() => {
+                self.$toaster.success(`calender been deleted ${id}`);
+            },
+            () => {
+                self.$toaster.error(`ERROR: failed to delete calender ${id}`);
             });
         },
 
@@ -216,6 +252,10 @@ export default {
             this.dialogs.phone = true;
             this.currentPhone = phone;
         },
+        openTutorPriceDialog(price) {           
+            this.dialogs.price = true;
+            this.currentPrice = price.toString();
+        },
         editName() {
             let nameObj = {
                 firstName: this.newFirstName,
@@ -241,34 +281,77 @@ export default {
             };
             this.updateUserPhone(phoneObj).then(() => {
                 this.$toaster.success(`SUCCESS: update user name`);
-            },
-            () => {
+            }).catch(() => {
                 this.$toaster.error(`ERROR: update user phone`);
             })
             .finally(() => {
                 this.newPhone = '';
                 this.dialogs.phone = false;
             });
+        },
+        editPrice() {
+            if(!this.userIdentifier) return;
+
+            let priceObj = {
+                price: parseInt(this.newPrice),
+                tutorId: this.userIdentifier
+            };
+            this.updateTutorPrice(priceObj).then(() => {
+                this.$toaster.success(`SUCCESS: update tutor price`);
+            }).catch(() => {
+                this.$toaster.error(`Error: update tutor price`);
+            })
+            .finally(() => {
+                this.dialogs.price = false;
+                this.newPrice = '';
+            });            
+        },
+        removePayment(id) {
+            this.deletePayment(id).then(() => {
+                this.$toaster.success(`Success: delete user payment`);
+            }).catch(() => {
+                this.$toaster.error(`Error: delete user payment`);
+            });
+        },
+        openEditUserTypeDialog(id){
+            let self = this;
+            if(self.userTypes.length == 0){
+            self.getUserTypes(id).then((data) =>{
+                self.dialogs.type = true;
+                self.userIdentifier = id;
+                self.userTypes = data;
+            });
+            } else { 
+                self.dialogs.type = true;
+            }
+        },
+        editUserType(){
+            this.updateUserType({userId: this.userIdentifier, userType: this.selectedType}).then(() =>{
+                this.dialogs.type = false;
+                this.$toaster.success(`Success: edit user type`)
+                }).catch(() => {
+                    this.$toaster.error(`Error: edit user type`);
+                });
         }
     },
+
     created() {
-        console.log(this.$route);
         this.getRouteParams();
     },
     mounted() {
         let self = this;
-            window.addEventListener("scroll",() => {
-                let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
-                if (bottomOfWindow) {
-                    self.needScroll = true;
-                }
-                else {
-                    self.needScroll = false;
-                }
-            });
+        window.addEventListener("scroll",() => {
+            let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+            if (bottomOfWindow) {
+                self.needScroll = true;
+            }
+            else {
+                self.needScroll = false;
+            }
+        });
     },
-        beforeDestroy() {
-            //let containerElm = document.querySelector('.item-wrap');
-            window.removeEventListener('scroll', this.handleScroll);
-        }
+    beforeDestroy() {
+        //let containerElm = document.querySelector('.item-wrap');
+        window.removeEventListener('scroll', this.handleScroll);
+    }
 }

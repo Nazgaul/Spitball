@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using Cloudents.Web.Resources;
+using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.RegularExpressions;
-using Cloudents.Web.Resources;
-using Microsoft.Extensions.Localization;
 
 namespace Cloudents.Web.Models
 {
     public class PhoneNumberRequest : IValidatableObject
     {
-        private static readonly Regex PhoneNumberRegex = new Regex(@"^\+?[1-9]\d{1,14}$", RegexOptions.Compiled);
+        private static readonly Regex PhoneNumberRegex = new Regex(@"^\+{1}?[1-9]\d{1,14}$", RegexOptions.Compiled);
 
 
         [Required(ErrorMessage = "Required")]

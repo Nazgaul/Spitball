@@ -1,51 +1,54 @@
-﻿-- need to update  iv_DocumentSearch
+﻿--create table sb.AdminLanguage (Id uniqueidentifier primary key, [Name] nvarchar(15))
 
 
+--insert into sb.AdminLanguage values (newId(), 'en')
+--insert into sb.AdminLanguage values (newId(), 'en-IN')
+--insert into sb.AdminLanguage values (newId(), 'he')
 
-populate ReadTutor
-insert into sb.ReadTutor (Id, Name, Image, Subjects, AllSubjects, Courses, AllCourses, Price, Rate, RateCount, Bio, University, Lessons, Rating)
 
-Select
-t.id as Id,
-u.name as Name,
-u.image as Image,
-	(select cs.Name as 'name' 
-	from sb.CourseSubject cs where cs.Id 
-	in (
-	select top 3 c.SubjectId from sb.Course c where c.SubjectId <> 39 
-	and c.Name in (
-	select uc.CourseId as Courses from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id )
-	) order by cs.Name for json PATH) as Subjects,
+--alter table sb.AdminUser
+--add LanguageId uniqueidentifier
+--GO
 
-	(select cs.Name as 'name' 
-	from sb.CourseSubject cs where cs.Id 
-	in (
-	select c.SubjectId from sb.Course c where c.SubjectId <> 39 
-	and c.Name in (
-	select uc.CourseId as Courses from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id )
-	) order by cs.Name for json PATH) as AllSubjects,
+--ALTER TABLE [sb].AdminUser  WITH CHECK ADD  CONSTRAINT [FK_user_language] FOREIGN KEY(LanguageId)
+--REFERENCES [sb].AdminLanguage ([Id])
+--GO
 
-(Select top 3 uc.courseid as 'name' 
-   from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id order by uc.courseid for json PATH) as Courses,
-(Select uc.courseid as 'name' 
-   from sb.UsersCourses uc where uc.CanTeach = 1 and uc.UserId = t.id order by uc.courseid for json PATH) as AllCourses,
-t.Price,
-reviews.Rate ,
-reviews.sumCount as RateCount,
-t.bio as Bio,
-u2.Name as University,
-iif(sr.lessonsCount < reviews.sumCount, reviews.sumCount, sr.lessonsCount) as Lessons,
-((isnull(reviews.Rate, 0) * reviews.sumCount) + ((select AVG(Rate) from sb.TutorReview) * 12) + 
-(case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end * isnull(reviews.Rate, 0))) / 
-(reviews.sumCount + 12 + case when sr.lessonsCount < reviews.sumCount then reviews.sumCount else sr.lessonsCount end)as Rating
-from sb.tutor t
-join sb.[user] u on t.id = u.id
-left join sb.University u2 on u.UniversityId2 = u2.Id
-cross apply (
-select Avg(tr.Rate) as Rate,count(*) as sumCount from sb.TutorReview tr where tr.TutorId = t.id 
-) as reviews
-cross apply (
-select count(*) as lessonsCount from sb.StudyRoomSession srs 
-join sb.StudyRoom sr on srs.StudyRoomId  = sr.id  and srs.Duration > 6000000000 and sr.TutorId = t.id
-) as sr 
-where t.State = 'Ok'
+select * from sb.AdminUser
+select * from sb.AdminLanguage
+
+update sb.AdminUser set LanguageId = '5798F442-7878-448A-8394-38D450449AC9' where Id = '3DEE0C2D-7121-41C6-BE73-1815D6DB79F4'
+
+--update sb.AdminUser set LanguageId = '5798F442-7878-448A-8394-38D450449AC9'
+--where Id = '916AFEFA-37C5-437C-B99E-D2F2B535826F'
+
+
+--update sb.AdminUser
+--set LanguageId = '088AEC7A-58A8-4170-8C77-DBA7DC977639'
+--where Country = 'IL' or Country is null
+
+--update sb.AdminUser
+--set LanguageId = 'C84FB796-EE22-4AC0-A799-7772F83964FE'
+--where Country = 'IN'
+
+--update sb.AdminUser
+--set LanguageId = '5798F442-7878-448A-8394-38D450449AC9'
+--where Country = 'US'
+
+
+--select * from sb.CourseSubject
+
+--create table sb.SubjectTranslation (Id uniqueidentifier primary key, 
+--SubjectId bigint, LanguageId uniqueidentifier, NameTranslation nvarchar(300))
+--go
+
+--ALTER TABLE [sb].SubjectTranslation  WITH CHECK ADD  CONSTRAINT [FK_subject_translation] FOREIGN KEY(SubjectId)
+--REFERENCES [sb].CourseSubject ([Id])
+--GO
+
+--ALTER TABLE [sb].SubjectTranslation  WITH CHECK ADD  CONSTRAINT [FK_language_translation] FOREIGN KEY(LanguageId)
+--REFERENCES [sb].AdminLanguage ([Id])
+--GO
+
+
+--insert into [sb].SubjectTranslation values(newId(),1,'5798F442-7878-448A-8394-38D450449AC9','Math')

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Data;
-using System.Data.Common;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using NHibernate;
 using NHibernate.Engine;
 using NHibernate.SqlTypes;
 using NHibernate.UserTypes;
+using System;
+using System.Data;
+using System.Data.Common;
 
 namespace Cloudents.Persistence
 {
@@ -19,7 +19,7 @@ namespace Cloudents.Persistence
 
         bool IUserType.Equals(object x, object y)
         {
-            if (object.ReferenceEquals(x, y))
+            if (ReferenceEquals(x, y))
                 return true;
 
             if (x == null || y == null)
@@ -41,7 +41,7 @@ namespace Cloudents.Persistence
             if (names.Length == 0)
                 throw new ArgumentException("Expecting at least one column");
 
-            var id = (int?)NHibernateUtil.Int32.NullSafeGet(rs, names[0],session);
+            var id = (int?)NHibernateUtil.Int32.NullSafeGet(rs, names[0], session);
 
             if (id.HasValue)
             {
@@ -95,7 +95,7 @@ namespace Cloudents.Persistence
             return value;
         }
 
-        public SqlType[] SqlTypes => new SqlType[] { new SqlType(DbType.Int32) };
+        public SqlType[] SqlTypes => new[] { new SqlType(DbType.Int32) };
         public Type ReturnedType => typeof(int);
         public bool IsMutable => false;
     }

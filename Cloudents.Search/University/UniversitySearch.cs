@@ -31,7 +31,7 @@ namespace Cloudents.Search.University
             _client = client.GetClient(UniversitySearchWrite.IndexName);
         }
 
-        public async Task<UniversitySearchDto> SearchAsync(string term, int page,[CanBeNull] string country,
+        public async Task<UniversitySearchDto> SearchAsync(string term, int page, [CanBeNull] string country,
             CancellationToken token)
         {
             string CountryFilter(string country1)

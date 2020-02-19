@@ -1,11 +1,8 @@
-﻿using NHibernate.Transform;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//using NHibernate.Transform;
 
-namespace Cloudents.Query.Stuff
-{
-    public interface IJsonArrayToEnumerableTransforme<TEntity> : IResultTransformer
-    {
-    }
-}
+//namespace Cloudents.Query.Stuff
+//{
+//    public interface IJsonArrayToEnumerableTransforme<TEntity> : IResultTransformer
+//    {
+//    }
+//}

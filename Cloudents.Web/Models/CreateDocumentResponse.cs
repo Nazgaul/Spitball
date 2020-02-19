@@ -2,14 +2,12 @@
 {
     public class CreateDocumentResponse
     {
-        public CreateDocumentResponse(string url, bool published)
+        public CreateDocumentResponse(bool published)
         {
-            Url = url;
             Published = published;
         }
 
-        public string Url { get; set; }
 
-        public bool Published { get;private set; }
+        public bool Published { get; private set; }
     }
 }

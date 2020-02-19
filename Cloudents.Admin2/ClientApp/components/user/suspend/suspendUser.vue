@@ -18,7 +18,7 @@
 
 <script>
 import {suspendUser, releaseUser} from './suspendUserService';
-import {mapActions} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
     data(){
@@ -42,6 +42,9 @@ export default {
     },
     props: {
         userIds: null
+    },
+    computed: {
+        ...mapGetters(['userInfo'])
     },
     methods:{
         ...mapActions([
@@ -90,11 +93,12 @@ export default {
                     this.lock = false;
                     return;
                 }
+                let self = this
                 this.suspendLoading = true;
                 suspendUser(this.serverIds, this.reason).then((email)=>{
-                    this.$toaster.success(`user got suspended, email is: ${email}`)
+                    this.$toaster.success(`user got suspended, email is: ${self.userInfo.email.value}`)
                     this.showSuspendedDetails = true;
-                    this.suspendedMail = email;
+                    this.suspendedMail = self.userInfo.email.value;
                     this.suspendLoading = false;
                     this.reason = null;
                     this.ids = null;
@@ -115,7 +119,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .suspend-container{
     .suspend-input-container{
         justify-content: center;

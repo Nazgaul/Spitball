@@ -3,17 +3,15 @@ using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
 using Cloudents.Query;
-using Cloudents.Query.Query;
-using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Admin;
 using Dapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using System.Linq;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
@@ -32,14 +30,6 @@ namespace Cloudents.Admin2.Api
             _commandBus = commandBus;
             _dapperRepository = dapperRepository;
         }
-
-        //[HttpGet("courses")]
-        //public async Task<IEnumerable<NewCourseDto>> Get(CancellationToken token)
-        //{
-        //    var query = new AdminEmptyQuery();
-        //    var retVal = await _queryBus.QueryAsync<IList<NewCourseDto>>(query, token);
-        //    return retVal;
-        //}
 
         //TODO: Fix this and make it work in proper CQRS architecture
         [HttpPost("migrate")]
@@ -94,8 +84,8 @@ namespace Cloudents.Admin2.Api
         public async Task<CoursesResponse> GetAsync([FromQuery(Name = "course")]string course,
             CancellationToken token)
         {
-            //TODO: fix the query to have only Admin and add country filter
-            var query = new CourseSearchQuery(0, course, 0);
+            var query = new CourseSearchQuery(0, course, 0, User.GetCountryClaim());
+            //var query = new CourseSearchWithTermQuery(0, course, 0);
             var result = await _queryBus.QueryAsync(query, token);
             return new CoursesResponse
             {
@@ -104,31 +94,26 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("newCourses")]
-        [Authorize(/*Policy = Policy.IsraelUser*/)]
+        [Authorize]
         public async Task<IEnumerable<PendingCoursesDto>> GetNewCourses([FromQuery]CoursesRequest model
                 , CancellationToken token)
         {
-            
-            var query = new AdminCoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending),User.GetCountryClaim());
+
+            var query = new CoursesQuery(model.Language, model.State.GetValueOrDefault(ItemState.Pending),
+                User.GetCountryClaim(),
+                model.Filter);
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
 
-        [HttpGet("allCourses")]
-        [Authorize(/*Policy = Policy.IsraelUser*/)]
-        public async Task<IEnumerable<string>> GetAllCourses(CancellationToken token)
-        {
-            var query = new AdminAllCoursesEmptyQuery();
-            var retVal = await _queryBus.QueryAsync(query, token);
-            return retVal;
-        }
+      
 
 
         [HttpPost("approve")]
         public async Task<IActionResult> ApproveCourse([FromBody] ApproveCourseRequest model,
                 CancellationToken token)
         {
-            var command = new ApproveCourseCommand(model.Course, model.Subject);
+            var command = new ApproveCourseCommand(model.Course, model.Subject, model.SchoolType);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
@@ -172,17 +157,17 @@ namespace Cloudents.Admin2.Api
 
 
         [HttpGet("subject")]
-        [Authorize(/*Policy = Policy.IsraelUser*/)]
+        [Authorize]
         public async Task<IEnumerable<string>> GetSubjects(CancellationToken token)
         {
-            var query = new AdminSubjectsQuery();
+            var query = new SubjectsQuery(User.GetIdClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             return retVal;
         }
-    
+
 
         [HttpDelete("{name}")]
-        [Authorize(/*Roles = Roles.Admin*/)]
+        [Authorize]
         public async Task<IActionResult> DeleteCourse(string name,
                 CancellationToken token)
         {

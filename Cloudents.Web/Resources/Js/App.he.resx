@@ -126,7 +126,4 @@
   <data name="currency_dynamic" xml:space="preserve">
     <value>נק'</value>
   </data>
-  <data name="payme_toaster_text" xml:space="preserve">
-    <value>לחץ כאן להכניס פרטי כרטיס אשראי</value>
-  </data>
 </root>

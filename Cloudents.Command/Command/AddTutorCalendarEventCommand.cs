@@ -8,13 +8,13 @@ namespace Cloudents.Command.Command
         {
             UserId = userId;
             TutorId = tutorId;
-            From = @from;
-            To = to;
+            From = @from.ToUniversalTime();
+            To = to.ToUniversalTime();
         }
 
-        public long UserId { get;  }
-        public long TutorId { get;  }
-        public DateTime From { get;  }
-        public DateTime To { get;  }
+        public long UserId { get; }
+        public long TutorId { get; }
+        public DateTime From { get; }
+        public DateTime To { get; }
     }
 }

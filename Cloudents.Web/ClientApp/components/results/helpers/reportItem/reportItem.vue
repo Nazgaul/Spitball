@@ -1,6 +1,7 @@
 <template>
     <div class="report-comp-container">
-        <v-layout row wrap>
+        <v-layout wrap>
+           
             <v-flex xs12>
                 <div class="report-head">
                     <v-icon class="flag-icon">sbf-flag</v-icon>
@@ -12,36 +13,34 @@
                         <span class="report-heading-text" v-language:inner>reportItem_report_subtitle</span>
                     </div>
                     <v-list>
-                        <template v-for="(reason, i) in reasons">
-                            <v-list-tile :class="['reason-tile', isSelected(reason.title) ? 'selected' : '']" :key="i">
-                                <v-list-tile-content class="reason-tile-content">
-                                    <v-list-tile-title class="reason-name" @click="selectReason(reason.title)">{{
+                       <v-list-item-group>
+                            <v-list-item  v-for="(reason, i) in reasons"  :key="i">
+                                <v-list-item-content >
+                                    <v-list-item-title @click="selectReason(reason.title)">{{
                                         reason.title }}
-                                    </v-list-tile-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
-                        </template>
-
-                        <v-list-tile class="reason-tile" @click="toogleOtherInput()">
-                            <v-list-tile-content class="reason-tile-content">
-                                <v-list-tile-title class="reason-name" v-language:inner>reportItem_report_other
-                                </v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
-
+                                    </v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                       
+                        <v-list-item class="reason-item" @click="toogleOtherInput()">
+                            <v-list-item-content class="reason-item-content">
+                                <v-list-item-title class="reason-name" v-language:inner>reportItem_report_other
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+</v-list-item-group>
                     </v-list>
                     <transition name="slide-y-transition">
-                        <v-text-field autofocus class="input-reason" solo v-show="isOtherInputVisible"
+                        <v-text-field autofocus solo v-show="isOtherInputVisible" class="mx-2"
                                       v-model="customReason"></v-text-field>
                     </transition>
 
                 </div>
             </v-flex>
-            <v-layout justify-center align-content-center xs12 class="report-footer">
-                <button :disabled="isBtnDisabled" class="report-submit" @click="sendItemReport()" v-language:inner>
-                    reportItem_report_btn
-                </button>
-            </v-layout>
+            <div class="report-footer text-center">
+                <div v-if="errorText" class="red--text" v-text="errorText"/>
+                <button class="report-submit" @click="sendItemReport()" v-language:inner="'reportItem_report_btn'"/>
+            </div> 
         </v-layout>
     </div>
 
@@ -51,12 +50,16 @@
 <script>
     import { mapActions } from 'vuex';
     import { LanguageService } from "../../../../services/language/languageService";
+    
+    import storeService from "../../../../services/store/storeService";
+    import feedStore from '../../../../store/feedStore';
 
     export default {
         name: "reportItem",
         components: {},
         data() {
             return {
+                errorText: false,
                 reasons: [
                     {
                         title: LanguageService.getValueByKey("reportItem_reason_inappropriateContent"),
@@ -100,21 +103,27 @@
                 required: false
             }
         },
-        computed: {
-            isBtnDisabled() {
-                return !this.preDefinedReason && !this.customReason
+        watch: {
+            preDefinedReason(val){
+                if(val){
+                   this.errorText = false; 
+                }
             },
+            customReason(val){
+                if(val){
+                   this.errorText = false; 
+                }
+            }
         },
         methods: {
-            ...mapActions(['HomeworkHelp_reportQuestion', 'reportDocument', 'HomeworkHelp_reportAnswer', 'answerRemoved']),
+            ...mapActions(['Feeds_reportQuestion', 'reportDocument', 'Feeds_reportAnswer', 'answerRemoved']),
             callRelevantAction(type, data) {
                 let actions = {
-                    "ask": this.HomeworkHelp_reportQuestion,
-                    "note": this.reportDocument,
-                    "answer": this.HomeworkHelp_reportAnswer
+                    "Question": this.Feeds_reportQuestion,
+                    "Document": this.reportDocument,
+                    "answer": this.Feeds_reportAnswer
                 };
                 return actions[type](data);
-
             },
             isSelected(reason) {
                 return (this.preDefinedReason === reason) && !this.isOtherInputVisible
@@ -129,28 +138,35 @@
                 this.isOtherInputVisible = !this.isOtherInputVisible;
             },
             sendItemReport() {
-                let data;
                 let reasonToSend = this.preDefinedReason !== '' ? this.preDefinedReason : this.customReason;
-                data = {
+                if(!reasonToSend){
+                    this.errorText = LanguageService.getValueByKey("formErrors_unselected")
+                    return
+                }
+                let data = {
                     "id": this.itemId,
                     "flagReason": reasonToSend
-                };
+                };                
                 let self = this;
-                this.callRelevantAction(this.itemType, data).then(() => {
+                this.callRelevantAction(this.itemType, data).then(() => {                    
                     //in case answer is flaged
-                    if (this.itemType === "answer") {
+                    if (self.itemType === "answer") {
                         //after successfull flag remove answer from client side
                         self.answerRemoved(this.answerDelData);
                     }
                     self.closeReportPop()
-                    if(this.$route.name === 'document') this.$router.push('/note')
+                    self.$router.push({name : 'feed' });
                 })
 
             },
             closeReportPop() {
+                this.errorText = false;
                 this.closeReport();
             }
         },
+        created() {
+            storeService.lazyRegisterModule(this.$store, 'feeds', feedStore);
+        }
     }
 </script>
 
@@ -201,7 +217,7 @@
                     color: @textColor;
                 }
             }
-            .reason-tile {
+            .reason-item {
                 border-bottom: 1px solid fade(@newGreyColor, 12%);
                 cursor: pointer;
                 &:hover {
@@ -210,7 +226,7 @@
                 &.selected {
                     // background-color: @color-blue-new;
                     .v-list__tile {
-                        .reason-tile-content {
+                        .reason-item-content {
                             .reason-name {
                                 color: @color-blue-new;
                             }
@@ -223,7 +239,7 @@
                 .v-list__tile {
                     padding-left: 0;
                     padding-right: 0;
-                    .reason-tile-content {
+                    .reason-item-content {
                         .reason-name {
                             font-size: 16px;
                             letter-spacing: -0.3px;
@@ -233,18 +249,18 @@
                     }
                 }
             }
-            .input-reason {
-                padding-top: 30px;
-                padding-left: 16px;
-                padding-right: 16px;
-                font-size: 13px;
-                color: @textColor;
-                .v-input__slot {
-                    box-shadow: none;
-                    border: 1px solid fade(@color-black, 12%);
-                    border-radius: 4px;
-                }
-            }
+            // .input-reason {
+            //     padding-top: 30px;
+            //     padding-left: 16px;
+            //     padding-right: 16px;
+            //     font-size: 13px;
+            //     color: @textColor;
+            //     .v-input__slot {
+            //         box-shadow: none;
+            //         border: 1px solid fade(@color-black, 12%);
+            //         border-radius: 4px;
+            //     }
+            // }
         }
         .report-submit {
             .sb-rounded-medium-btn();
@@ -260,7 +276,7 @@
         }
         .report-footer {
             padding-bottom: 32px;
-            justify-content: center;
+            margin: 0 auto;
         }
     }
 

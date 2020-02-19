@@ -4,7 +4,6 @@ using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,15 +13,13 @@ namespace Cloudents.Command.CommandHandler
     public class DeleteQuestionCommandHandler : ICommandHandler<DeleteQuestionCommand>
     {
         private readonly IRepository<Question> _repository;
-        private readonly IRepository<Transaction> _transactionRepository;
         private readonly IRepository<User> _userRepository;
 
 
         public DeleteQuestionCommandHandler(IRepository<Question> repository,
-            IRepository<Transaction> transactionRepository, IRepository<User> userRepository)
+            IRepository<User> userRepository)
         {
             _repository = repository;
-            _transactionRepository = transactionRepository;
             _userRepository = userRepository;
         }
 
@@ -45,22 +42,22 @@ namespace Cloudents.Command.CommandHandler
                 throw new InvalidOperationException("user is not the one who wrote the question");
             }
 
-            if (question.Answers.Count(w => w.Status.State == ItemState.Ok) > 0)
-            {
-                throw new InvalidOperationException("cannot delete question with answers");
-            }
+            //if (question.Answers.Count(w => w.Status.State == ItemState.Ok) > 0)
+            //{
+            //    throw new InvalidOperationException("cannot delete question with answers");
+            //}
 
             if (!(question.User.Actual is User user))
             {
                 throw new InvalidOperationException("cannot delete fictive user");
             }
 
-            foreach (var transaction in question.Transactions)
-            {
-                transaction.Question = null;
-                await _transactionRepository.UpdateAsync(transaction, token);
-            }
-            
+            //foreach (var transaction in question.Transactions)
+            //{
+            //    transaction.Question = null;
+            //    await _transactionRepository.UpdateAsync(transaction, token);
+            //}
+
             await _userRepository.UpdateAsync(user, token);
             await _repository.DeleteAsync(question, token);
 

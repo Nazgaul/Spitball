@@ -126,11 +126,26 @@
   <data name="Answers" xml:space="preserve">
     <value>תשובות</value>
   </data>
+  <data name="become_title" xml:space="preserve">
+    <value>למד בספיטבול</value>
+  </data>
   <data name="become_tutor_btn" xml:space="preserve">
     <value>הירשם כמורה פרטי</value>
   </data>
+  <data name="become_txt" xml:space="preserve">
+    <value>למד בספיטבול ותרוויח. לרשותכם כל הכלים הדרושים לכם ללמד או לשתף חומרי לימוד.</value>
+  </data>
   <data name="bio_label" xml:space="preserve">
     <value>הניסיון שלי</value>
+  </data>
+  <data name="book_session" xml:space="preserve">
+    <value>הזמינו איתי שיעור</value>
+  </data>
+  <data name="book_session_mobile" xml:space="preserve">
+    <value>הזמנת שיעור</value>
+  </data>
+  <data name="book_session_mobile_xs" xml:space="preserve">
+    <value>הזמנה</value>
   </data>
   <data name="btn_cancel" xml:space="preserve">
     <value>ביטול</value>
@@ -139,28 +154,22 @@
     <value>שמור שינויים</value>
   </data>
   <data name="calendar" xml:space="preserve">
-    <value>לוח שנה</value>
-  </data>
-  <data name="courses_can_help" xml:space="preserve">
-    <value>קורסים שאני יכול לעזור לך איתם</value>
-  </data>
-  <data name="courses_empty_btn" xml:space="preserve">
-    <value>בחירת הקורסים שלי</value>
-  </data>
-  <data name="courses_empty_select_courses" xml:space="preserve">
-    <value>בחירת הקורסים שלך תעזור ליצור חומרי לימוד ומרצים מתאימים לצרכיך</value>
-  </data>
-  <data name="courses_empty_state_title" xml:space="preserve">
-    <value>הקורסים שלי</value>
-  </data>
-  <data name="cta_section_title" xml:space="preserve">
-    <value>השג תוצאות במהירות!</value>
+    <value>יומן פגישות</value>
   </data>
   <data name="description_label" xml:space="preserve">
     <value>כותרת</value>
   </data>
   <data name="documents" xml:space="preserve">
     <value>מסמכים שהועלו</value>
+  </data>
+  <data name="earn_btn" xml:space="preserve">
+    <value>אני רוצה להרוויח כסף</value>
+  </data>
+  <data name="earn_desc" xml:space="preserve">
+    <value>האמינו כי העלאת מסמכי הלימוד שברשותכם יכולים לייצר הכנסה פסיבית.</value>
+  </data>
+  <data name="earn_title" xml:space="preserve">
+    <value>מסמכי הלימוד שלך שווים כסף בספיטבול!</value>
   </data>
   <data name="edit_image_text" xml:space="preserve">
     <value>ערוך</value>
@@ -189,20 +198,20 @@
   <data name="emptyState_questions_text" xml:space="preserve">
     <value>יש לך שאלה לגבי שיעורי הבית?</value>
   </data>
-  <data name="expand_less" xml:space="preserve">
-    <value>הצג פחות</value>
+  <data name="empty_title" xml:space="preserve">
+    <value>לא הועלו חומרי לימוד</value>
   </data>
-  <data name="expand_more_courses" xml:space="preserve">
-    <value>קורסים נוספים</value>
-  </data>
-  <data name="expand_more_single_course" xml:space="preserve">
-    <value>קורס נוסף</value>
+  <data name="find_tutors" xml:space="preserve">
+    <value>מצא מורים בספיטבול</value>
   </data>
   <data name="firstName_label" xml:space="preserve">
     <value>שם פרטי</value>
   </data>
-  <data name="hey_there" xml:space="preserve">
-    <value>שלום, אני</value>
+  <data name="follow" xml:space="preserve">
+    <value>לעקוב</value>
+  </data>
+  <data name="following" xml:space="preserve">
+    <value>עוקב/ת</value>
   </data>
   <data name="lastName_label" xml:space="preserve">
     <value>שם משפחה</value>
@@ -225,34 +234,79 @@
   <data name="Questions" xml:space="preserve">
     <value>שאלות</value>
   </data>
+  <data name="read_less" xml:space="preserve">
+    <value>הסתר</value>
+  </data>
   <data name="read_more" xml:space="preserve">
-    <value>קרא עוד ...</value>
+    <value>קרא עוד</value>
+  </data>
+  <data name="resourse" xml:space="preserve">
+    <value>{1} חומר לימוד</value>
+  </data>
+  <data name="resourses" xml:space="preserve">
+    <value>{1} חומרי לימוד</value>
+  </data>
+  <data name="response" xml:space="preserve">
+    <value>זמן תגובה</value>
+  </data>
+  <data name="response_hour" xml:space="preserve">
+    <value>{1} שעה</value>
+  </data>
+  <data name="response_hours" xml:space="preserve">
+    <value>{1} שעות</value>
   </data>
   <data name="reviews" xml:space="preserve">
     <value>חוות דעת</value>
   </data>
+  <data name="select_course" xml:space="preserve">
+    <value>בחר קורס</value>
+  </data>
+  <data name="select_item_type_all" xml:space="preserve">
+    <value>הכל</value>
+  </data>
+  <data name="select_item_type_docs" xml:space="preserve">
+    <value>מסמכים</value>
+  </data>
+  <data name="select_item_type_videos" xml:space="preserve">
+    <value>סרטונים</value>
+  </data>
+  <data name="send_message" xml:space="preserve">
+    <value>שלחו לי הודעה</value>
+  </data>
+  <data name="session" xml:space="preserve">
+    <value>{1} שיעור</value>
+  </data>
+  <data name="sessions" xml:space="preserve">
+    <value>{1} שיעורים</value>
+  </data>
   <data name="single_review" xml:space="preserve">
     <value>חוות דעת</value>
   </data>
-  <data name="subjects" xml:space="preserve">
-    <value>נושאים</value>
+  <data name="student" xml:space="preserve">
+    <value>{1} סטודנט</value>
   </data>
-  <data name="tutor_contact_btn" xml:space="preserve">
-    <value>צור איתי קשר</value>
+  <data name="students" xml:space="preserve">
+    <value>{1} תלמידים</value>
   </data>
-  <data name="tutor_sidebar_title" xml:space="preserve">
-    <value>ספר לי מה אתה צריך ואשמח לעזור לך</value>
+  <data name="study" xml:space="preserve">
+    <value>תחומי הוראה:</value>
   </data>
-  <data name="user_name_label" xml:space="preserve">
-    <value>שם משתמש</value>
+  <data name="study_materials" xml:space="preserve">
+    <value>חומרי הלימוד של {1}</value>
   </data>
-  <data name="user_sidebar_text" xml:space="preserve">
-    <value>עזור לאחרים באמצעות הידע שלך</value>
+  <data name="study_materials_mobile" xml:space="preserve">
+    <value>התוכן של {1}</value>
   </data>
-  <data name="user_sidebar_title" xml:space="preserve">
-    <value>בוא להרוויח</value>
+  <data name="tutor" xml:space="preserve">
+    <value>מורה פרטי</value>
   </data>
-  <data name="who_am_i" xml:space="preserve">
-    <value>הניסיון שלי</value>
+  <data name="tutor_follower" xml:space="preserve">
+    <value>{1} עוקב</value>
+  </data>
+  <data name="tutor_followers" xml:space="preserve">
+    <value>{1} עוקבים</value>
+  </data>
+  <data name="why_learn" xml:space="preserve">
+    <value>למה כדאי ללמוד בספיטבול</value>
   </data>
 </root>

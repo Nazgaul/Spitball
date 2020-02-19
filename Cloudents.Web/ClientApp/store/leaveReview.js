@@ -26,25 +26,25 @@ const mutations = {
         state.review.rate = val;
     },
     setAllowReview(state, val){
-        state.allowReview = val
+        state.allowReview = val;
     }
 
 };
 
 const actions = {
-    updateAllowReview({commit, state}, val){
-        commit('setAllowReview', val)
+    updateAllowReview({commit}, val){
+        commit('setAllowReview', val);
     },
-    updateReviewDialog({commit, state}, val) {
+    updateReviewDialog({commit}, val) {
         commit('changeReviewDialogState', val);
     },
-    updateReviewStars({commit, state}, val) {
+    updateReviewStars({commit}, val) {
         commit('setReviewStars', val);
     },
-    updateReview({commit, state}, reviewData) {
+    updateReview({commit}, reviewData) {
         commit('setReview', reviewData);
     },
-    submitReview({commit, state}, reviewData) {
+    submitReview({commit}, reviewData) {
         commit('setReview', reviewData);
         return reviewService.sendReview(reviewData)
                             .then((resp) => {
@@ -53,7 +53,7 @@ const actions = {
                                   },
                                   (error) => {
                                       console.log('errorsend review', error);
-                                        return error
+                                        return error;
                                   });
     }
 };

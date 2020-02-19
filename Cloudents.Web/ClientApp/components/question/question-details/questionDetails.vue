@@ -2,32 +2,30 @@
 <transition name="fade">
     <div class="answer-question" v-if="questionData">
         <!-- Web version -->
-        <div class="pt-3 question-wrap" v-if="!$vuetify.breakpoint.smAndDown"
+        <div class="pt-4 question-wrap" v-if="!$vuetify.breakpoint.smAndDown"
              :class="{'my-question': cardOwner}">
             <v-flex xs12 class="breadcrumbs">
                 <a style="cursor:pointer;" @click="resetSearch()" v-language:inner>questionDetails_Ask_question</a>
                 <span class="question-category"> <span v-language:inner>questionDetails_question_dash</span>{{questionData.subject}}</span>
             </v-flex>
-            <v-layout row>
+            <v-layout>
                 <v-flex style="width:inherit;" class="question-data">
-                    <question-thread v-if="questionData" :questionData="questionData"
-                                     :cardOwner="cardOwner"
-                                     :showDialogSuggestQuestion="showDialogSuggestQuestion"
-                                     :hasCorrectAnswer="getCorrectAnswer">
-                        
-                        
-                        <div slot="currently-watching">
-                            <!-- <div class="viewers-container">{{questionData}} watching now</div> -->
-                        </div>
+                    <question-thread 
+                        v-if="questionData" 
+                        :questionData="questionData"
+                        :cardOwner="cardOwner"
+                        :showDialogSuggestQuestion="showDialogSuggestQuestion"
+                        :hasCorrectAnswer="getCorrectAnswer">
+                            <div slot="currently-watching"></div>
                     </question-thread>
-                    <div v-if="enableAnswer" slot="answer-form" class="mb-3" style="width:inherit;">
+                    <div slot="answer-form" class="mb-4" style="width:inherit;" v-if="!cardOwner && !userAnswered">
                             <div style="position:relative;width:inherit;" v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)" key="one">
-                                <extended-text-area uploadUrl="/api/question/ask"
-                                                    v-model="textAreaValue"
-                                                    :error="errorTextArea"
-                                                    @addFile="addFile"
-                                                    :openNewBaller="openNewBaller"
-                                                    @removeFile="removeFile">
+                                <extended-text-area 
+                                    uploadUrl="/api/question/ask"
+                                    v-model="textAreaValue"
+                                    :error="errorTextArea"
+                                    @addFile="addFile"
+                                    @removeFile="removeFile">
                                 </extended-text-area>
                                 <div class="has-answer-error-wrapper">
                                     <span v-if="errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
@@ -35,7 +33,7 @@
                                 </div>
                                 <v-btn block color="primary"
                                        @click="submitAnswer()"
-                                       :disabled="submitted"
+                                       :loading="submitLoader"
                                        class="add_answer"><span v-language:inner>questionDetails_Add_answer</span> 
                                 </v-btn>
                             </div>
@@ -46,7 +44,7 @@
                         </div>
                 </v-flex>
                     <!--TODO V 20  SPITBALL-851 Remove the discussion board from question pages -->
-                <!--<v-flex v-if ="accountUser" class="chat-wrapper" :class="{'position-static': isEdgeRtl}">-->
+                <!--<v-flex v-if ="accountUser" class="chat-wrapper" >-->
                     <!--<div class="chat-title pa-2" v-language:inner>questionDetails_Discussion_Board</div>-->
                     <!--<div ref="chat-area" class="chat-container"></div>-->
 
@@ -69,19 +67,20 @@
                                              :hasCorrectAnswer="getCorrectAnswer">
                                 
                             </question-thread>
-                            <div slot="answer-form" class="answer-form mb-3" v-if="enableAnswer" >
-                                    <div v-if="(accountUser&&!questionData.answers.length) || (questionData.answers.length && showForm)">
-                                        <extended-text-area uploadUrl="/api/question/ask"
-                                                            v-model="textAreaValue"
-                                                            :openNewBaller="openNewBaller"
-                                                            :error="errorTextArea"
-                                                            @addFile="addFile"
-                                                            @removeFile="removeFile"></extended-text-area>
+                            <div slot="answer-form" class="answer-form mb-4" v-if="!cardOwner && !userAnswered">
+                                    <div v-if="(accountUser && !questionData.answers.length) || (questionData.answers.length && showForm)">
+                                        <extended-text-area 
+                                            uploadUrl="/api/question/ask"
+                                            v-model="textAreaValue"
+                                            :error="errorTextArea"
+                                            @addFile="addFile"
+                                            @removeFile="removeFile">
+                                        </extended-text-area>
                                         <div class="has-answer-error-wrapper">
                                             <span v-if="errorHasAnswer.length" class="error-message  has-answer-error">{{errorHasAnswer}}</span>
                                         </div>
                                         <v-btn color="primary" @click="submitAnswer()"
-                                               :disabled="submitted"
+                                               :loading="submitLoader"
                                                class="add_answer"><span  v-language:inner>questionDetails_Add_answer</span> 
                                         </v-btn>
                                     </div>
@@ -99,21 +98,13 @@
                 <!--</v-tab-item>-->
             </v-tabs>
         </div>
-        <sb-dialog :showDialog="showDialogSuggestQuestion" :popUpType="'suggestions'" :content-class="'question-suggest'">
+        <!-- <sb-dialog :showDialog="showDialogSuggestQuestion" :popUpType="'suggestions'" :content-class="'question-suggest'">
                 <question-suggest-pop-up  :user="questionData.user" :cardList="cardList"></question-suggest-pop-up>
-        </sb-dialog>
+        </sb-dialog> -->
 
-        <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'"  :content-class="'login-popup'">
+        <!-- <sb-dialog :showDialog="loginDialogState" :popUpType="'loginPop'"  :content-class="'login-popup'">
                 <login-to-answer></login-to-answer>
-        </sb-dialog>
-
-        <sb-dialog :showDialog="newBallerDialog"
-                       :popUpType="'newBallerDialog'"
-                       :content-class="'new-baller'"
-                       :maxWidth="'700px'"
-                       :isPersistent="$vuetify.breakpoint.smAndUp">
-                <new-baller></new-baller>
-        </sb-dialog>
+        </sb-dialog> -->
 
     </div>
 </transition>

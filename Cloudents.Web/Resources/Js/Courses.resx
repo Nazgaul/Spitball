@@ -154,7 +154,7 @@
     <value>Find similar course names</value>
   </data>
   <data name="invite_classmates" xml:space="preserve">
-    <value>Invite classmates</value>
+    <value>Invite students</value>
   </data>
   <data name="join" xml:space="preserve">
     <value>Join courses</value>
@@ -166,7 +166,7 @@
     <value>Link copied</value>
   </data>
   <data name="meaningfull" xml:space="preserve">
-    <value>Meaningfull Name</value>
+    <value>Meaningful Name</value>
   </data>
   <data name="minimum" xml:space="preserve">
     <value>Minimum Characters</value>

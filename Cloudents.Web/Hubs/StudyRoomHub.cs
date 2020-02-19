@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Command;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.Hubs
 {
@@ -12,7 +12,7 @@ namespace Cloudents.Web.Hubs
     {
         private readonly ICommandBus _commandBus;
         private const string QueryStringName = "studyRoomId";
-
+      
         public StudyRoomHub(ICommandBus commandBus)
         {
             _commandBus = commandBus;
@@ -23,17 +23,28 @@ namespace Cloudents.Web.Hubs
             var httpContext = Context.GetHttpContext();
             var request = httpContext.Request;
             var cookieVal = request.Query[QueryStringName].ToString();
-            if (cookieVal == null)
+            if (string.IsNullOrEmpty(cookieVal))
             {
-              return;
+                return;
             }
-            
+
             var roomId = Guid.Parse(cookieVal);
             var userId = long.Parse(Context.UserIdentifier);
-            
+
+
+           
+
             var command = new ChangeStudyRoomOnlineStatusCommand(userId, true, roomId);
+
+           
+
+
+            await Clients.All.SendAsync("Online", userId);
             await Groups.AddToGroupAsync(Context.ConnectionId, cookieVal);
             await _commandBus.DispatchAsync(command, default);
+
+
+           
             await base.OnConnectedAsync();
 
 
@@ -49,6 +60,7 @@ namespace Cloudents.Web.Hubs
             var userId = long.Parse(Context.UserIdentifier);
             var command = new ChangeStudyRoomOnlineStatusCommand(userId, false, roomId);
             await _commandBus.DispatchAsync(command, default);
+            await Clients.All.SendAsync("Offlie", userId);
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, cookieVal);
             await base.OnDisconnectedAsync(exception);
         }

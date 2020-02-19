@@ -10,7 +10,6 @@
             scrollFunc: {
                 type:Function,
                 required: true,
-                default:false
             },
             isLoading: {
                 type:Boolean,

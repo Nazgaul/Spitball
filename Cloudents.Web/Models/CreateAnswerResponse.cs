@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using Cloudents.Core.DTOs;
-
-namespace Cloudents.Web.Models
+﻿namespace Cloudents.Web.Models
 {
-    public class CreateAnswerResponse
-    {
-        public IEnumerable<QuestionFeedDto> NextQuestions { get; set; }
-    }
+    //public class CreateAnswerResponse
+    //{
+    //    public IEnumerable<QuestionFeedDto> NextQuestions { get; set; }
+    //}
 
 
     //public class CoursesCreateResponse
@@ -25,15 +22,15 @@ namespace Cloudents.Web.Models
         public string Code { get; set; }
     }
 
-    public enum NextStep
-    {
-        EmailConfirmed,
-        VerifyPhone,
-        EnterPhone,
-        EmailPassword,
-        ExpiredStep,
-        // ReSharper disable once IdentifierTypo - this is because client sucks
-        Loginstep,
-        StartStep
-    }
+    //public enum NextStep
+    //{
+    //    EmailConfirmed,
+    //    VerifyPhone,
+    //    EnterPhone,
+    //    EmailPassword,
+    //    ExpiredStep,
+    //    // ReSharper disable once IdentifierTypo - this is because client sucks
+    //    Loginstep,
+    //    StartStep
+    //}
 }

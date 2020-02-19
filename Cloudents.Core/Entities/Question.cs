@@ -1,14 +1,11 @@
 ﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Event;
-using Cloudents.Core.Exceptions;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Linq;
-using JetBrains.Annotations;
 using static Cloudents.Core.Entities.ItemStatus;
-using static Cloudents.Core.Entities.Vote;
 
 //[assembly: InternalsVisibleTo("Cloudents.Infrastructure")]
 
@@ -19,13 +16,12 @@ namespace Cloudents.Core.Entities
     [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "Nhibernate")]
     public class Question : Entity<long>, IAggregateRoot, ISoftDelete
     {
-        public Question(string text,  int attachments,
+        public Question(string text,
             User user,
-             CultureInfo language,  [NotNull] Course course,  University university)
+            [NotNull] Course course, University university)
         : this()
         {
             Text = text?.Trim();
-            Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
 
@@ -38,24 +34,19 @@ namespace Cloudents.Core.Entities
 
             Status = status;
             Course = course ?? throw new ArgumentException();
-            University = university ;
-            Language = language ?? new CultureInfo("en");
+            University = university;
         }
 
-        public Question(Course course, string text, int attachments,
-            SystemUser user,
-             CultureInfo language, University university)
+        public Question(Course course, string text, SystemUser user,
+             University university)
             : this()
         {
             Course = course;
             Text = text?.Trim();
-            Attachments = attachments;
             User = user;
             Updated = Created = DateTime.UtcNow;
 
             Status = Pending;
-            //ChangeState(ItemState.Pending);
-            Language = language ?? new CultureInfo("en");
             University = university;
 
         }
@@ -63,14 +54,13 @@ namespace Cloudents.Core.Entities
         protected Question()
         {
             _answers = _answers ?? new List<Answer>();
-            _votes = _votes ?? new List<Vote>();
+            //_votes = _votes ?? new List<Vote>();
         }
 
         public virtual ItemStatus Status { get; protected set; }
 
         public virtual string Text { get; protected set; }
 
-        public virtual int Attachments { get; protected set; }
 
         public virtual BaseUser User { get; protected set; }
 
@@ -81,76 +71,34 @@ namespace Cloudents.Core.Entities
         public virtual Course Course { get; set; }
         public virtual University University { get; set; }
 
-        public virtual Answer CorrectAnswer { get; set; }
+        //public virtual Answer CorrectAnswer { get; set; }
 
         private readonly IList<Answer> _answers = new List<Answer>();
 
         public virtual IReadOnlyList<Answer> Answers => _answers.ToList();
 
 
-        public virtual IList<QuestionTransaction> Transactions { get; protected set; }
+        //public virtual IList<QuestionTransaction> Transactions { get; protected set; }
 
 
-        public virtual Answer AddAnswer(string text, int attachments, User user, CultureInfo language)
+        public virtual Answer AddAnswer(string text, User user)
         {
-            var answer = new Answer(this, text, attachments, user, language);
+            var answer = new Answer(this, text, user);
             _answers.Add(answer);
             AddEvent(new AnswerCreatedEvent(answer));
             return answer;
         }
 
-        public virtual void RemoveAnswer(Answer answer, bool admin = false)
+        public virtual void RemoveAnswer(Answer answer)
         {
             _answers.Remove(answer);
-            if (admin)
-            {
-                Transactions.Clear();
-                AddEvent(new AnswerDeletedEvent(answer));
-                if (CorrectAnswer != null)
-                {
-                    if (answer == CorrectAnswer)
-                    {
-                        CorrectAnswer = null;
-                    }
-                }
-            }
+
         }
 
-        public virtual void Vote(VoteType type, User user)
-        {
-            if (Status != Public)
-            {
-                throw new NotFoundException();
-            }
-            if (User == user)
-            {
-                throw new UnauthorizedAccessException("you cannot vote you own question");
-            }
-            var vote = Votes.FirstOrDefault(w => w.User == user && w.Answer == null);
-            if (vote == null)
-            {
-                vote = new Vote(user, this, type);
-                _votes.Add(vote);
+        
 
-            }
-
-            vote.VoteType = type;
-            VoteCount = Votes.Where(w => w.Answer == null).Sum(s => (int)s.VoteType);
-            if (VoteCount < VoteCountToFlag)
-            {
-                Status = Status.Flag(TooManyVotesReason, user);
-            }
-        }
-
-        [NotNull]
-        public virtual CultureInfo Language { get; protected set; }
-
-        private readonly IList<Vote> _votes = new List<Vote>();
-
-        public virtual IReadOnlyCollection<Vote> Votes => _votes.ToList();
-
-        public virtual int VoteCount { get; protected set; }
-
+        //[NotNull]
+        //public virtual CultureInfo Language { get; protected set; }
 
         public virtual void MakePublic()
         {
@@ -165,31 +113,19 @@ namespace Cloudents.Core.Entities
         public virtual void DeleteQuestionAdmin()
         {
             Delete();
-            foreach (var tran in Transactions)
-            {
-                tran.Question = null;
-            }
+
             AddEvent(new QuestionDeletedAdminEvent(this));
         }
 
         public virtual void Delete()
         {
             Status = ItemStatus.Delete();
-            _votes.Clear();
+            _answers.Clear();
             AddEvent(new QuestionDeletedEvent(this));
 
         }
 
-        public virtual void AcceptAnswer(Answer answer)
-        {
-            if (CorrectAnswer != null)
-            {
-                throw new InvalidOperationException("Already have correct answer");
-            }
 
-            CorrectAnswer = answer;
-            AddEvent(new MarkAsCorrectEvent(answer));
-        }
 
 
 
@@ -211,11 +147,11 @@ namespace Cloudents.Core.Entities
                 throw new ArgumentException();
             }
 
-            if (Status.FlagReason?.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase) == true)
-            {
-                _votes.Clear();
-                VoteCount = 0;
-            }
+            //if (Status.FlagReason?.Equals(TooManyVotesReason, StringComparison.CurrentCultureIgnoreCase) == true)
+            //{
+            //    //_votes.Clear();
+            //    //VoteCount = 0;
+            //}
             Status = Public;
         }
     }

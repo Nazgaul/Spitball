@@ -148,7 +148,7 @@ namespace Cloudents.Infrastructure
             return t.IsSuccessStatusCode;
         }
 
-        public async Task<TU> PostJsonAsync<T, TU>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
+        public async Task<Tu> PostJsonAsync<T, Tu>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)
         {
             var response = await TransferJsonBodyAsync(HttpMethod.Post, url, obj, headers, token);
             if (!response.IsSuccessStatusCode)
@@ -164,11 +164,11 @@ namespace Cloudents.Infrastructure
                         ["obj"] = JsonConvert.SerializeObject(obj),
                         ["headers"] = JsonConvert.SerializeObject(headers)
                     }
-                    
+
                 };
                 throw v;
             }
-           
+
             //response.EnsureSuccessStatusCode();
             using (var s = await response.Content.ReadAsStreamAsync())
             using (var sr = new StreamReader(s))
@@ -178,11 +178,11 @@ namespace Cloudents.Infrastructure
                 {
                     DefaultValueHandling = DefaultValueHandling.Ignore
                 };
-                return serializer.Deserialize<TU>(reader);
+                return serializer.Deserialize<Tu>(reader);
             }
         }
 
-        
+
 
         //[Log]
         //public async Task<bool> PutJsonAsync<T>(Uri url, T obj, IEnumerable<KeyValuePair<string, string>> headers, CancellationToken token)

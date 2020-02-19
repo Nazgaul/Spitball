@@ -21,18 +21,25 @@ const getSubjects = function () {
     });
 };
 
-const getCourseList = function (language, state) {
-    return connectivityModule.http.get(`${path}newCourses?Language=${language}&State=${state}`).then((newCourseList) => {
-        let arrCourseList = [];
-        if (newCourseList.length > 0) {
-            newCourseList.forEach((ci) => {
-                arrCourseList.push(createCourseItem(ci));
-            });
-        }
-        return Promise.resolve(arrCourseList);
-    }, (err) => {
-        return Promise.reject(err);
-    });
+const getCourseList = function (language, state, filter) {
+    language = language === '' ? null : language;
+    let query = `?Language=${language}&State=${state}`;
+
+    if(filter){
+        query += `&Filter=${filter}`;
+    }
+        return connectivityModule.http.get(`${path}newCourses${query}`).then((newCourseList) => {
+            let arrCourseList = [];
+            if (newCourseList.length > 0) {
+                newCourseList.forEach((ci) => {
+                    arrCourseList.push(createCourseItem(ci));
+                });
+            }
+            return Promise.resolve(arrCourseList);
+        }, (err) => {
+            return Promise.reject(err);
+        });
+
 };
 
 const migrateCourses = function (newCourse, oldCourse) {
@@ -46,8 +53,8 @@ const migrateCourses = function (newCourse, oldCourse) {
         });
 };
 
-const approve = function (course) {
-    return connectivityModule.http.post(`${path}approve`, { "Course": course.name.name, "Subject": course.subject != "N/A" ? course.subject : null })
+const approve = function ({course, schoolType}) {
+    return connectivityModule.http.post(`${path}approve`, { "Course": course.name.name, "Subject": course.subject !== "N/A" ? course.subject : null, schoolType })
         .then((resp) => {
             console.log(resp, 'post doc success');
             return Promise.resolve(resp);
@@ -69,7 +76,7 @@ const rename = function (course, newName) {
 };
 
 const deleteCourse = function (course) {
-    return connectivityModule.http.delete(`${path}${course.name}`)
+    return connectivityModule.http.delete(`${path}${encodeURIComponent(course.name)}`)
         .then((resp) => {
             console.log(resp, 'post doc success');
             return Promise.resolve(resp);

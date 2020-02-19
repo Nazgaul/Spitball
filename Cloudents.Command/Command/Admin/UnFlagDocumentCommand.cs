@@ -4,8 +4,8 @@ namespace Cloudents.Command.Command.Admin
 {
     public class UnFlagDocumentCommand : ICommand
     {
-     
-       
+
+
 
         public UnFlagDocumentCommand(IEnumerable<long> documentIds)
         {

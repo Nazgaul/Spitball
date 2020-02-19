@@ -1,11 +1,11 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command.Command.Admin;
+﻿using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
@@ -31,7 +31,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             {
                 throw new ArgumentException("answer doesn't exits");
             }
-            answer.Question.RemoveAnswer(answer,true);
+            answer.Question.RemoveAnswer(answer);
             await _repository.DeleteAsync(answer, token);
             //await DeleteAnswerAsync(answer, token);
         }

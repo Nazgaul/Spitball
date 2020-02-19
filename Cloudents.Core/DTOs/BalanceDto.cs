@@ -1,20 +1,23 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global",Justification = "Dto - json")]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Dto - json")]
     public class BalanceDto
     {
-        public BalanceDto(TransactionType transaction, decimal points)
+        public BalanceDto(string transaction, decimal points, decimal value, string symbol)
         {
-            Name = transaction;
-            Type = transaction.ToString("G");
+            Type = transaction;
             Points = points;
+            Value = value;
+            Symbol = symbol;
         }
 
         public string Type { get; }
-        public TransactionType Name { get; }
         public decimal Points { get; }
+
+        public decimal Value { get; }
+
+        public string Symbol { get; set; }
     }
 }

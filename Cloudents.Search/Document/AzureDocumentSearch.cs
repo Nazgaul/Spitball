@@ -81,43 +81,35 @@ namespace Cloudents.Search.Document
         public async Task<(IEnumerable<DocumentSearchResultWithScore> result, IEnumerable<string> facetSubject)>
             SearchAsync(DocumentQuery query, UserProfile userProfile, CancellationToken token)
         {
-            var filters = new List<string>();
+            var filters = new List<string> {$"{nameof(Entities.Document.Country)} eq '{userProfile.Country}'"};
             if (query.Course != null)
             {
                 var filterStr = $"{Entities.Document.CourseNameField} eq '{query.Course.ToUpperInvariant().Replace("'", "''")}'";
                 filters.Add($"({filterStr})");
             }
 
-            if (query.FilterByUniversity)
+            if (query.Filter != null)
             {
-                var universityStr = $"{Entities.Document.UniversityIdFieldName} eq '{userProfile.UniversityId.GetValueOrDefault().ToString()}'";
-                filters.Add($"({universityStr})");
-            }
-
-            if (query.Filters != null)
-            {
-                var filterStr = string.Join(" or ", query.Filters.Select(s =>
-                     $"{Entities.Document.TypeFieldName} eq '{s.Replace("'", "''")}'"));
+                var filterStr = $"{Entities.Document.TypeFieldName} eq '{query.Filter.Value:G}'";
                 if (!string.IsNullOrWhiteSpace(filterStr))
                 {
                     filters.Add($"({filterStr})");
                 }
             }
 
-            const int pageSize = 20;
             var searchParameter = new SearchParameters
             {
                 Filter = string.Join(" and ", filters),
                 Select = new[] { nameof(Entities.Document.Id) },
-                Top = pageSize,
-                Skip = query.Page * pageSize,
+                Top = query.PageSize,
+                Skip = query.Page * query.PageSize,
                 OrderBy = new List<string> { "search.score() desc", $"{nameof(Entities.Document.DateTime)} desc" },
                 ScoringProfile = DocumentSearchWrite.ScoringProfile,
                 ScoringParameters = new[]
                              {
                                  TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsUniversityParameter,userProfile.UniversityId?.ToString()),
                                  TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCourseParameter,userProfile.Courses),
-                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCountryParameter,userProfile.Country)
+                                 TagScoringParameter.GenerateTagScoringParameter(DocumentSearchWrite.TagsCountryParameter,(string)null)
                 },
                 Facets = new[]
                 {

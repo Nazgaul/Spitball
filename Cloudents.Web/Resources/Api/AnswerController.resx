@@ -120,25 +120,8 @@
   <data name="Answer does not exists" xml:space="preserve">
     <value>Answer does not exists</value>
   </data>
-  <data name="CreatePending" xml:space="preserve">
-    <value>Your answer is pending approval, please do not resubmit the answer</value>
-  </data>
-  <data name="DuplicateAnswer" xml:space="preserve">
-    <value>This question already have that answer</value>
-    <comment>new</comment>
-  </data>
-  <data name="More then one answer" xml:space="preserve">
-    <value>You already answered this question</value>
-    <comment>new</comment>
-  </data>
   <data name="QuestionNotExists" xml:space="preserve">
     <value>Question not exists</value>
-  </data>
-  <data name="This question have correct answer" xml:space="preserve">
-    <value>This question have correct answer</value>
-  </data>
-  <data name="VoteCantVote" xml:space="preserve">
-    <value>You can not upvote / downvote your own answer</value>
   </data>
   <data name="You exceed your quota of answers" xml:space="preserve">
     <value>You already submitted 3 answers to other questions.

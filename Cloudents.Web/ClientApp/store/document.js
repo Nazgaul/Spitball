@@ -1,111 +1,107 @@
 import documentService from "../services/documentService";
 import analyticsService from '../services/analytics.service';
-import searchService from '../services/searchService';
 import { LanguageService } from "../services/language/languageService";
-import { Promise } from "q";
 
 const state = {
     document: {},
-    tutorList: [],
+    itemsList:[],
     btnLoading: false,
     showPurchaseConfirmation: false,
+    documentLoaded: false,
+    toaster: false,
 };
 
 const getters = {
+    getShowItemToaster: state => state.toaster,
     getDocumentDetails: state => state.document,
-    getTutorList: (state) => {
-        if(!!state.document.details){
-            let uploaderId = state.document.details.user.userId;
-            let filteredTutorList = state.tutorList.filter((tutor)=>{
-                return tutor.userId !== uploaderId;
-            })
-            return filteredTutorList;
-        }else{
-            return state.tutorList;
-        }
-    },
     getBtnLoading: state => state.btnLoading,
     getPurchaseConfirmation: state => state.showPurchaseConfirmation,
+    getDocumentLoaded: state => state.documentLoaded,
+    getRelatedDocuments: state => state.itemsList,
 };
 
 const mutations = {
     resetState(state){
         state.document = {};
-        state.tutorList.length = 0;
         state.btnLoading = false;
         state.showPurchaseConfirmation = false;
+        state.documentLoaded = false;
     },
     setPurchaseConfirmation(state,val){
-        state.showPurchaseConfirmation = val
+        state.showPurchaseConfirmation = val;
     },
     setDocument(state, payload) {
-        state.document = payload;        
+        state.document = payload;    
+        state.documentLoaded = true;    
     },
-    setTutorsList(state, payload) {
-        state.tutorList = payload;
+    setRelatedDocs(state, payload) {
+        state.itemsList = payload;
     },
     setNewDocumentPrice(state, price){
         state.document.details.price = price;
     },
     setBtnLoading(state, payload) {
-        state.btnLoading = payload
+        state.btnLoading = payload;
+    },
+    setShowItemToaster(state, val) {
+        state.toaster = val
     }
 };
 
 const actions = {
     updatePurchaseConfirmation({commit},val){
-        commit('setPurchaseConfirmation',val)
+        commit('setPurchaseConfirmation',val);
     },
     documentRequest({commit}, id) {
         return documentService.getDocument(id).then((DocumentObj) => {
-            commit('setDocument', DocumentObj)
-            return true
+            commit('setDocument', DocumentObj);
+            return true;
         }, (err) => {
-            return err
-        })
+            return err;
+        });
     },
-    downloadDocument({commit, getters, dispatch}, item) {
-        let user = getters.accountUser
-        
-        if(!user) return dispatch('updateLoginDialogState', true)
+    downloadDocument({getters, dispatch}, item) {
+        let user = getters.accountUser;
+
+        if(!user) return dispatch('updateLoginDialogState', true);
 
         let {id, course} = item;     
 
         analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_DOWNLOAD', `USER_ID: ${user.id}, DOC_ID: ${id}, DOC_COURSE:${course}`);
     },
-    purchaseDocument({commit, getters, dispatch}, item) {
-        commit('setBtnLoading', true);
-        let userBalance = 0;
-        let id = item.id ? item.id : '';
-        if(!!getters.accountUser && getters.accountUser.balance){
-            userBalance = getters.accountUser.balance
+    purchaseDocument({commit, dispatch, state, getters}, item) {
+        let cantBuyItem = getters.accountUser.balance < item.price;
+
+        if(cantBuyItem) {
+            dispatch('updateItemToaster', true);
+            return
         }
-        
-        if(userBalance >= item.price) {
+
+        commit('setBtnLoading', true);
             return documentService.purchaseDocument(item.id).then((resp) => {
+                state.document.isPurchased = true;
                 console.log('purchased success', resp);
                 analyticsService.sb_unitedEvent('STUDY_DOCS', 'DOC_PURCHASED', item.price);
                 dispatch('documentRequest', item.id);
                 },
                 (error) => {
                     console.log('purchased Error', error);
+                    dispatch('updateToasterParams', {
+                        toasterText: LanguageService.getValueByKey("resultNote_unsufficient_fund"),
+                        showToaster: true,
+                    });
             }).finally(() => {
                 setTimeout(() => {
                     commit('setBtnLoading', false);
-                }, 500)
-            })
-        } else {
-            commit('setBtnLoading', false);
-            dispatch('updateToasterParams', {
-                toasterText: LanguageService.getValueByKey("resultNote_unsufficient_fund"),
-                showToaster: true,
+                }, 500);
             });
-        }
     },
-    getTutorListCourse({ commit, state }, courseName) {
-        searchService.activateFunction.getTutors(courseName).then(res => {
-            commit('setTutorsList', res)
-        })
+    getStudyDocuments({commit}, {course,id}) {
+        documentService.getStudyDocuments({course, documentId: id}).then(items => {
+            commit('setRelatedDocs', items);
+        }).catch(ex => {
+            console.log(ex);
+        });
     },
     setNewDocumentPrice({ commit }, price) {
         if(!!state.document && !!state.document.details){
@@ -114,7 +110,10 @@ const actions = {
     },
     clearDocument({commit}){
         commit('resetState');
-    }
+    },
+    updateItemToaster({commit}, val){
+        commit('setShowItemToaster', val);
+    },
 };
 
 export default {

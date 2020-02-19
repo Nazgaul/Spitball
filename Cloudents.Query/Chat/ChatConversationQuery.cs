@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs;
+﻿using Cloudents.Core.DTOs;
 using Dapper;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Query.Chat
 {
@@ -14,7 +14,7 @@ namespace Cloudents.Query.Chat
         }
 
         private string Id { get; }
-        private long UserId { get;  }
+        private long UserId { get; }
 
 
         internal sealed class
@@ -33,7 +33,7 @@ namespace Cloudents.Query.Chat
                 using (var conn = _dapper.OpenConnection())
                 {
                     return await conn.QueryFirstOrDefaultAsync<ChatUserDto>(@"
-Select u.Name,u.Id as UserId,u.Image,u.Online,cu.Unread, cr.Identifier as ConversationId, cr.UpdateTime as DateTime
+Select u.Name,u.Id as UserId,u.ImageName as Image,u.Online,cu.Unread, cr.Identifier as ConversationId, cr.UpdateTime as DateTime
  from sb.ChatUser cu
 join sb.ChatRoom cr on cu.ChatRoomId = cr.Id
 join sb.ChatUser cu2 on cu2.ChatRoomId = cr.Id and cu2.Id <> cu.Id

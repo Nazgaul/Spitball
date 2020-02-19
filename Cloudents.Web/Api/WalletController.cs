@@ -2,12 +2,16 @@
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Users;
+using Cloudents.Web.Controllers;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,9 +22,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
-using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -49,7 +50,7 @@ namespace Cloudents.Web.Api
         public async Task<IEnumerable<BalanceDto>> GetBalanceAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
-            var retVal = await _queryBus.QueryAsync<IEnumerable<BalanceDto>>(new UserDataByIdQuery(userId), token);
+            var retVal = await _queryBus.QueryAsync(new UserBalanceQuery(userId), token);
 
             return retVal;
         }
@@ -60,29 +61,19 @@ namespace Cloudents.Web.Api
         {
             var userId = _userManager.GetLongUserId(User);
 
-            var retVal = await _queryBus.QueryAsync<IEnumerable<TransactionDto>>(new UserDataByIdQuery(userId), token);
+            var retVal = await _queryBus.QueryAsync(new UserTransactionQuery(userId), token);
 
             return retVal;
         }
 
-        [HttpPost("BuyTokens")]
-        public async Task<IActionResult> BuyTokensAsync(PayPalTransactionRequest model,
-            [FromServices] IPayPal payPal, CancellationToken token)
-        {
-            var userId = _userManager.GetLongUserId(User);
-            var result = await payPal.GetPaymentAsync(model.Id);
-            var command = new TransferMoneyToPointsCommand(userId, result.Amount, result.PayPalId);
-            await _commandBus.DispatchAsync(command, token);
-            return Ok();
-        }
+
 
 
         [HttpPost("redeem")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> RedeemAsync([FromBody]CreateRedeemRequest model,
-        CancellationToken token)
+        public async Task<IActionResult> RedeemAsync(CancellationToken token)
         {
             try
             {
@@ -94,7 +85,6 @@ namespace Cloudents.Web.Api
             {
                 _logger.Exception(e, new Dictionary<string, string>()
                 {
-                    ["model"] = model.ToString(),
                     ["user"] = _userManager.GetUserId(User)
                 });
                 return BadRequest();
@@ -102,6 +92,29 @@ namespace Cloudents.Web.Api
         }
 
         #region PayMe
+
+        [HttpPost("BuyTokens")]
+        public async Task<SaleResponse> BuyTokensAsync(BuyPointsRequest model, CancellationToken token)
+        {
+
+            var user = await _userManager.GetUserAsync(User);
+            var urlReturn = Url.RouteUrl(HomeController.PaymeCallbackRouteName2, new
+            {
+                userId = user.Id,
+                points = model.Points
+            }, "https");
+
+            var result = await _payment.Value.BuyTokens(PointBundle.Parse(model.Points), urlReturn, token);
+            var saleUrl = new UriBuilder(result.SaleUrl);
+            saleUrl.AddQuery(new NameValueCollection()
+            {
+                ["first_name"] = user.FirstName,
+                ["last_name"] = user.LastName,
+                ["phone"] = user.PhoneNumber,
+                ["email"] = user.Email,
+            });
+            return new SaleResponse(saleUrl.Uri);
+        }
 
         /// <summary>
         /// Generate a buyer for - don't forget to run ngrok if you run it locally
@@ -117,8 +130,33 @@ namespace Cloudents.Web.Api
         {
             try
             {
-                var result = await GenerateLinkAsync(token);
-                return new SaleResponse(result);
+                var user = await _userManager.GetUserAsync(User);
+                if (user.BuyerPayment != null && user.BuyerPayment.IsValid())
+                {
+                    throw new ArgumentException();
+                }
+
+                var url = Url.RouteUrl("PayMeCallback", new
+                {
+                    userId = user.Id
+                }, "https");
+
+
+                var urlReturn = Url.RouteUrl(HomeController.PaymeCallbackRouteName, new
+                {
+                    userId = user.Id
+                }, "https");
+
+                var result = await _payment.Value.CreateBuyerAsync(url, urlReturn, token);
+                var saleUrl = new UriBuilder(result.SaleUrl);
+                saleUrl.AddQuery(new NameValueCollection()
+                {
+                    ["first_name"] = user.FirstName,
+                    ["last_name"] = user.LastName,
+                    ["phone"] = user.PhoneNumber,
+                    ["email"] = user.Email,
+                });
+                return new SaleResponse(saleUrl.Uri);
             }
             catch (ArgumentException)
             {
@@ -129,11 +167,16 @@ namespace Cloudents.Web.Api
         [HttpPost("PayMe", Name = "PayMeCallback"), AllowAnonymous, ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> PayMeCallbackAsync([FromQuery]long userId,
             [FromForm] PayMeBuyerCallbackRequest model,
+            [FromServices] TelemetryClient client,
             CancellationToken token)
         {
             var paymentKeyExpiration = DateTime.ParseExact(model.BuyerCardExp, "MMyy", CultureInfo.InvariantCulture);
             paymentKeyExpiration = paymentKeyExpiration.AddMonths(1).AddMinutes(-1);
-
+            client.TrackTrace("Receive credit card details", new Dictionary<string, string>()
+            {
+                ["userId"] = userId.ToString(),
+                ["data"] = model.ToString()
+            });
             var command = new AddBuyerTokenCommand(userId, model.BuyerKey, paymentKeyExpiration, model.BuyerCardMask);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
@@ -165,46 +208,10 @@ namespace Cloudents.Web.Api
                 ));
                 return Ok();
             }
-
-            return BadRequest();
         }
 
-        private async Task<Uri> GenerateLinkAsync(
-             CancellationToken token)
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user.BuyerPayment != null && user.BuyerPayment.IsValid())
-            {
-                throw new ArgumentException();
-            }
-
-            var url = Url.RouteUrl("PayMeCallback", new
-            {
-                userId = user.Id
-            }, "https");
 
 
-            var urlReturn = Url.RouteUrl("ReturnUrl", new
-            {
-                userId = user.Id
-            }, "https");
-
-           
-
-
-            var result = await _payment.Value.CreateBuyerAsync(url, urlReturn, token);
-            var saleUrl = new UriBuilder(result.SaleUrl);
-            saleUrl.AddQuery(new NameValueCollection()
-            {
-                ["first_name"] = user.FirstName,
-                ["last_name"] = user.LastName,
-                ["phone"] = user.PhoneNumber,
-                ["email"] = user.Email,
-                //["sale_return_url"] = urlReturn
-            });
-            return saleUrl.Uri;
-        }
-       
 
         #endregion
     }

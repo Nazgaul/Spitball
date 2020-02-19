@@ -1,7 +1,7 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using JetBrains.Annotations;
 
 namespace Cloudents.Core.DTOs.Admin
 {
@@ -11,8 +11,8 @@ namespace Cloudents.Core.DTOs.Admin
 
 
         public long Id { get; set; }
-       
-        public string  Text { get; set; }
+
+        public string Text { get; set; }
 
         public string Url { get; set; }
 

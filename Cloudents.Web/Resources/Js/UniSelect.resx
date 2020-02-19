@@ -117,40 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="create" xml:space="preserve">
-    <value>Create</value>
-  </data>
-  <data name="done" xml:space="preserve">
-    <value>Done</value>
-  </data>
-  <data name="from" xml:space="preserve">
-    <value>From</value>
-  </data>
-  <data name="keep_typing" xml:space="preserve">
-    <value>Keep typing we are searching for you</value>
-  </data>
-  <data name="next" xml:space="preserve">
-    <value>Next</value>
-  </data>
   <data name="pop_later" xml:space="preserve">
     <value>I’ll do it later</value>
   </data>
   <data name="pop_setting_up_explain" xml:space="preserve">
-    <value>By setting this up you will get the best questions &amp; study info fit for your shool &amp; classes</value>
+    <value>By setting this up you will get the best questions &amp; study info fit for your school &amp; classes</value>
   </data>
   <data name="pop_set_school" xml:space="preserve">
     <value>Set your school &amp; classes</value>
-  </data>
-  <data name="select_class" xml:space="preserve">
-    <value>Select course</value>
   </data>
   <data name="select_school" xml:space="preserve">
     <value>Select school</value>
   </data>
   <data name="select_school_placeholder" xml:space="preserve">
     <value>Select your school</value>
-  </data>
-  <data name="show_all_schools" xml:space="preserve">
-    <value>Show all schools</value>
   </data>
 </root>

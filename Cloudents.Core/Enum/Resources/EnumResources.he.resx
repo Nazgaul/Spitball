@@ -153,22 +153,10 @@
   <data name="ActionTypeSoldDocument" xml:space="preserve">
     <value>מכירת מסמך</value>
   </data>
-  <data name="QuestionFilterAnswered" xml:space="preserve">
-    <value>שאלות שנענו</value>
-  </data>
-  <data name="QuestionFilterSold" xml:space="preserve">
-    <value>תשובה התקבלה</value>
-  </data>
-  <data name="QuestionFilterUnanswered" xml:space="preserve">
-    <value>שאלות שלא נענו</value>
-  </data>
   <data name="TransactionTypeEarned" xml:space="preserve">
     <value>הכנסה</value>
   </data>
   <data name="TransactionTypeSpent" xml:space="preserve">
     <value>הוצאה</value>
-  </data>
-  <data name="TransactionTypeStake" xml:space="preserve">
-    <value>במשמורת</value>
   </data>
 </root>

@@ -1,12 +1,12 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command.Command.Admin;
+﻿using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
-   public class UnFlagQuestionCommandHandler : ICommandHandler<UnFlagQuestionCommand>
+    public class UnFlagQuestionCommandHandler : ICommandHandler<UnFlagQuestionCommand>
     {
         private readonly IRepository<Question> _questionRepository;
 
@@ -16,7 +16,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         }
         public async Task ExecuteAsync(UnFlagQuestionCommand message, CancellationToken token)
         {
-           
+
             var question = await _questionRepository.LoadAsync(message.QuestionId, token);
 
             question.UnFlag();
@@ -30,7 +30,7 @@ namespace Cloudents.Command.CommandHandler.Admin
             //}
             //question.MakePublic();
             //question.VoteCount = question.Votes.Count;
-            
+
             await _questionRepository.UpdateAsync(question, token);
         }
     }

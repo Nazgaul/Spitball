@@ -1,9 +1,9 @@
 ﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -23,7 +23,7 @@ namespace Cloudents.Command.CommandHandler
             user.Description = message.Description;
             if (user.Tutor != null && user.Tutor.State == ItemState.Ok)
             {
-                user.Tutor.UpdateSettings(message.Bio, message.Price.GetValueOrDefault());
+                user.Tutor.UpdateSettings(message.Bio, message.Price);
             }
             await _userRepository.UpdateAsync(user, token);
         }

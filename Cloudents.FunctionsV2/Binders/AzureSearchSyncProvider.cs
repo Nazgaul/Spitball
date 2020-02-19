@@ -1,7 +1,7 @@
-﻿using System.Collections.Concurrent;
-using Microsoft.Azure.Search;
+﻿using Microsoft.Azure.Search;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host.Config;
+using System.Collections.Concurrent;
 
 namespace Cloudents.FunctionsV2.Binders
 {
@@ -21,7 +21,7 @@ namespace Cloudents.FunctionsV2.Binders
         }
 
 
-        private IAsyncCollector<AzureSearchSyncOutput> CreateCollector(AzureSearchSyncAttribute attribute)
+        private static IAsyncCollector<AzureSearchSyncOutput> CreateCollector(AzureSearchSyncAttribute attribute)
         {
             if (_client == null)
             {

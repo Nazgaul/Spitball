@@ -1,11 +1,11 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command.Command;
+﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -37,11 +37,11 @@ namespace Cloudents.Command.CommandHandler
             {
                 throw new InvalidOperationException("user is not the one who wrote the answer");
             }
-            if (answer.Question.CorrectAnswer?.Id == message.Id)
-            {
-                throw new ArgumentException("this is answer is correct answer");
-            }
-            
+            //if (answer.Question.CorrectAnswer?.Id == message.Id)
+            //{
+            //    throw new ArgumentException("this is answer is correct answer");
+            //}
+
             await _repository.DeleteAsync(answer, token);
         }
     }

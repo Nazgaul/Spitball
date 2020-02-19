@@ -117,23 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accept" xml:space="preserve">
-    <value>Accept</value>
-  </data>
   <data name="Answer" xml:space="preserve">
     <value>Answer</value>
   </data>
   <data name="Answer_placeholder" xml:space="preserve">
     <value>Answer...</value>
   </data>
-  <data name="Currency" xml:space="preserve">
-    <value>Pts</value>
-  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
-  </data>
-  <data name="Earn" xml:space="preserve">
-    <value>Earn</value>
   </data>
   <data name="error_delete" xml:space="preserve">
     <value>Something went wrong, try again</value>
@@ -141,10 +132,10 @@
   <data name="Report" xml:space="preserve">
     <value>Report this item</value>
   </data>
-  <data name="Sold" xml:space="preserve">
-    <value>Answer acccpted</value>
+  <data name="Answers" xml:space="preserve">
+    <value>{1} More answers</value>
   </data>
-  <data name="Someone_answering" xml:space="preserve">
-    <value>Someone is answering now…</value>
+  <data name="Answer_one" xml:space="preserve">
+    <value>{1} More answer</value>
   </data>
 </root>

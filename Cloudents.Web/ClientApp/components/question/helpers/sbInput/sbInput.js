@@ -54,22 +54,22 @@ export default {
     data: function () {
         return {
             isReadOnly: !this.editable
-        }
+        };
     },
     watch: {
-        focus(newVal, oldVal) {
+        focus(newVal) {
             if (newVal) {
                 this.isReadOnly = false;
-                this.$el.querySelector('.input-field').focus()
+                this.$el.querySelector('.input-field').focus();
             }
         },
     },
     computed:{
         errorTextStr:{
             get(){
-                return this.errorMessage
+                return this.errorMessage;
             },
-            set(val){
+            set(){
             }
         }
     },
@@ -83,7 +83,7 @@ export default {
     },
     mounted() {
         if(this.autofocus){
-            this.$el.querySelectorAll('.input-field')[0].focus() 
+            this.$el.querySelectorAll('.input-field')[0].focus();
         }
     },
 

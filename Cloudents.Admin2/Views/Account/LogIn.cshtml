@@ -5,9 +5,11 @@
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<div style="display:flex;justify-content: center;align-items: center;max-width: 600px;margin: 100px auto;flex-direction: column;padding:60px;box-shadow:0px 5px 6px -3px rgba(0, 0, 0, 0.2), 0px 9px 12px 1px rgba(0, 0, 0, 0.14), 0px 3px 16px 2px rgba(0, 0, 0, 0.12)">
+    <h2>Welcome to admin dashboard</h2>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+</div>
 
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
 
 @section head
 {
@@ -35,4 +37,5 @@
             }));
         }
     </script>
+    
 }

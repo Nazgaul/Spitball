@@ -1,15 +1,19 @@
 <template>
-    
-    <v-container class="tutor-landing-page-container">
-        <v-layout :class="`${isMobile ? 'pt-2 pb-5' : 'pt-1 pb-3'}`" px-4 class="tutor-landing-page-header" align-center justify-center column>
-            <v-flex pt-4 pb-3>
-                <h1 v-language:inner="'tutorListLanding_header_get_lesson'"></h1>
+    <div  class="tutor-landing-page-container">
+        <v-layout class="pt-2 pt-sm-1 pb-sm-4 tutor-landing-page-header"  px-6 align-center justify-center column>
+            <v-flex pt-6 pb-4>
+                <div v-if="subjectName" class="tutor-landing-title" v-text="$Ph('tutorListLanding_header_get_lesson_subject',subjectName)" />
+                <div v-else class="tutor-landing-title" v-language:inner="'tutorListLanding_header_get_lesson'"/>
             </v-flex>
-            <v-flex pb-4>
-                <h2 v-language:inner="'tutorListLanding_header_find_tutors'"></h2>
+            <v-flex pb-6>
+                <div class="tutor-landing-subtitle" v-language:inner="'tutorListLanding_header_find_tutors'"></div>
             </v-flex>
-            <v-flex :class="{'pb-4': !isMobile}">
-                <h3><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3>
+            <!-- <v-flex class="pb-6">
+                <h3><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></h3> -->
+            <v-flex class="pb-sm-6">
+                <span class="rating_tutorLanding">
+                    <span class="mr-1">95%</span>&nbsp;<v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp;<span class="ml-1" v-language:inner="'tutorListLanding_reviews'"></span>
+                </span>
             </v-flex>
         </v-layout>
         <v-layout class="tutor-landing-page-search" :class="{'sticky-active': activateSticky}" align-center justify-center>
@@ -17,135 +21,161 @@
                 <tutor-search-component></tutor-search-component>
             </div>
         </v-layout>
-        <scroll-list :scrollFunc="scrollFunc" :isLoading="scrollBehaviour.isLoading" :isComplete="scrollBehaviour.isComplete" class="layout column tutor-landing-page-body" >
-            <v-flex class="tutor-landing-page-empty-state">
-                <suggest-card v-if="items.length === 0 && query.term && showEmptyState" 
-                @click.native="openRequestTutor()" :name="'tutor-list'"></suggest-card>  
-            </v-flex>
-            <v-flex class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
-                <tutor-result-card v-if="!isMobile" class="mb-3 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
+
+        <div class="tutor-landing-page-body">
+            <div class="tutor-landing-page-empty-state" v-if="items.length === 0 && query.term && showEmptyState" >
+                <suggestCard/>
+            </div>
+            <div class="tutor-landing-card-container" v-for="(item, index) in items" :key="index">
+                <tutor-result-card v-if="!isMobile" class="mb-4 " :fromLandingPage="true" :tutorData="item"></tutor-result-card>
                 <tutor-result-card-mobile v-else class="mb-2 " :fromLandingPage="true" :tutorData="item"/>
-            </v-flex>   
-        </scroll-list>
-        <v-layout align-center py-5 justify-space-around class="tutor-landing-status-row">
-            <span class="hidden-xs-only"><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></span>
+            </div>   
+        </div>
+        <div class="tutorLandingPage_pagination" v-if="items.length && pagination.length > 1">
+            <v-pagination
+                    total-visible=7 
+                    v-model="pagination.current" 
+                    :length="pagination.length"
+                    @input="goSelected"
+                    :next-icon="`sbf-arrow-right-carousel`"
+                    :prev-icon="`sbf-arrow-left-carousel`"/>
+        </div>
+        <!-- <v-layout align-center py-12 justify-space-around class="tutor-landing-status-row">
+            <span class="hidden-xs-only"><span v-language:inner="'tutorListLanding_rates'"></span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></span> -->
+        <v-layout align-center py-12 justify-space-around class="tutor-landing-status-row">
+            <span class="hidden-xs-only"><span>95%</span>&nbsp; <v-icon v-for="n in 5" :key="n" class="tutor-landing-page-star">sbf-star-rating-full</v-icon>&nbsp; <span v-language:inner="'tutorListLanding_reviews'"></span></span>
             <span class="hidden-xs-only" v-language:inner="'tutorListLanding_courses'"></span>
             <span v-language:inner="'tutorListLanding_tutors'"></span>
         </v-layout>
-        <v-layout class="tutor-landing-card-bottom">
-            <findTutorCarousel></findTutorCarousel>
+        <v-layout class="tutor-landing-card-bottom" v-if="getHPReviews.length">
+            <div class="testimonialCarousel-tutorList" :style="{'pointer-events':$vuetify.breakpoint.smAndDown?'':'none'}">
+                <sbCarousel :slideStep="1" :overflow="true" :arrows="!isMobile">
+                    <testimonialCard v-for="(item, index) in getHPReviews" :item="item" :key="index"/>
+                </sbCarousel>
+            </div>
         </v-layout>
-        <Footer></Footer>
-    </v-container>
+    </div>
 </template>
 
 <script>
-import tutorResultCard from '../results/tutorCards/tutorResultCard/tutorResultCard.vue';
-import tutorResultCardMobile from '../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue';
-import tutorSearchComponent from './components/tutorSearchInput/tutorSearchInput.vue';
-import tutorLandingPageService from './tutorLandingPageService';
-import emptyStateCard from '../results/emptyStateCard/emptyStateCard.vue';
-import findTutorCarousel from './components/findTutorCarousel/FindTutor-carousel.vue'
-import SuggestCard from '../results/suggestCard.vue'
-import analyticsService from '../../services/analytics.service.js'
+const tutorResultCard = () => import('../results/tutorCards/tutorResultCard/tutorResultCard.vue');
+const tutorResultCardMobile = () => import('../results/tutorCards/tutorResultCardMobile/tutorResultCardMobile.vue');
+const tutorSearchComponent = () => import('./components/tutorSearchInput/tutorSearchInput.vue');
+const suggestCard = () => import('../results/suggestCard.vue');
+const sbCarousel = () => import('../sbCarousel/sbCarousel.vue');
 
-import { mapActions } from 'vuex'
+import testimonialCard from '../carouselCards/testimonialCard.vue'; // cant make it async ASK MAOR
+import tutorLandingPageService from './tutorLandingPageService';
+import courseService from '../../services/courseService.js';
+
+import { mapActions,mapGetters } from 'vuex'
 export default {
     components:{
         tutorResultCard,
         tutorResultCardMobile,
         tutorSearchComponent,
-        emptyStateCard,
-        findTutorCarousel,
-        SuggestCard
+        suggestCard,
+        sbCarousel,
+        testimonialCard
     },
     data(){
         return {
+            pagination:{
+                length:0,
+                current:1
+            },
             items: [],
             query: {
                 term: '',
-                page: 0
+                page: 0,
+                pageSize: 10,
             },
             showEmptyState: false,
-            scrollBehaviour:{
-                isLoading: false,
-                isComplete: false,
-                MAX_ITEMS: 20
-            },
-            topOffset: 0
+            topOffset: 0,
+            subjectName: null,
         }
     },
     computed:{
+        ...mapGetters(['getHPReviews']),
         isMobile(){
             return this.$vuetify.breakpoint.xsOnly;
         },
         activateSticky(){
             if(!this.isMobile){
-                return this.topOffset > 270;
+                return this.topOffset > 240;
+            }else{
+                return false
             }
         },
         activateStickyMobile(){
             if(this.isMobile){
                 return this.topOffset > 280;
+            }else{
+                return false
             }
         }
     },
     watch:{
         '$route'(val){
-            // console.log(val.query.term)
-            this.query.term = val.query.term;
-            this.query.page = 0;
+            if(!!val.query && !!val.query.size){
+            this.query.pageSize = val.query.size;
+            }
+            if(!!val.params && !!val.params.course){
+                this.query.term = (!!val.params && !!val.params.course) ? val.params.course : '';
+            }
+            if(!!val.query){
+                this.query.page = val.query.page || 0;
+                this.pagination.current = +val.query.page+1 || 1
+                this.query.term = (!!val.params && !!val.params.course) ? val.params.course : '';
+            }
             this.updateList();
         }
     },
     methods:{
-        ...mapActions(['setTutorRequestAnalyticsOpenedFrom','updateRequestDialog']),
-        updateList(){
+        ...mapActions(['updateHPReviews']),
+        updateList(){            
             this.showEmptyState = false;
+            let self = this;
             tutorLandingPageService.getTutorList(this.query).then(data=>{
-                if(data.length < this.scrollBehaviour.MAX_ITEMS){
-                    this.scrollBehaviour.isComplete = true;
+                self.items = data.result;
+                self.pagination.length = Math.ceil(data.count / self.query.pageSize)
+                self.showEmptyState = true;
+                self.subjectName = null;
+                if(this.query.term){
+                    courseService.getSubject({courseName: this.query.term}).then(res=>{
+                        self.subjectName = res.name;
+                    })
                 }
-                if (this.query.page === 0) {
-                    this.scrollBehaviour.isComplete = false;
-                    this.items = data;
-                }
-                else {
-                    this.items = this.items.concat(data);
-                }
-                this.showEmptyState = true;
-                this.scrollBehaviour.isLoading = false;
             })
         },
-        scrollFunc(){
-            this.scrollBehaviour.isLoading = true;
-            this.query.page = this.query.page + 1;
-            this.updateList();
+        goSelected(){
+            this.showEmptyState = false;
+            this.$router.push({
+                path: `/tutor-list/${this.query.term}`,
+                query: {
+                    page: this.pagination.current -1,
+                },
+                params:{
+                    course: this.query.term
+                }
+            }).catch(() => {})
         },
-        setTopOffset(){
-            this.topOffset = window.pageYOffset || document.documentElement.scrollTop;
-        },
-        openRequestTutor() {
-            analyticsService.sb_unitedEvent('Tutor_Engagement', 'request_box');
-            this.setTutorRequestAnalyticsOpenedFrom({
-                component: 'suggestCard',
-                path: this.$route.path
-            });
-            this.updateRequestDialog(true);
+    },
+    mounted() {
+        if(!!this.$route.query && !!this.$route.query.size){
+            this.query.pageSize = this.$route.query.size;
         }
     },
     created(){
-        this.query.term = !!this.$route.query && !!this.$route.query.term ? this.$route.query.term : '';
-        this.updateList();
-        
-    },
-    beforeMount(){
-        if (window) {
-           window.addEventListener('scroll', this.setTopOffset);
+        if(!!this.$route.params && !!this.$route.params.course){
+            this.query.term = (!!this.$route.params && !!this.$route.params.course) ? this.$route.params.course : '';
         }
-    },
-    destroyed(){
-        window.removeEventListener('scroll', this.setTopOffset);
+        if(!!this.$route.query){
+            this.query.page = this.$route.query.page || 0;
+            this.pagination.current = +this.$route.query.page+1 || 1
+        }
+        this.updateList();
+        this.updateHPReviews()
     }
 }
 </script>
@@ -157,32 +187,44 @@ export default {
     padding: 0;
     margin: 0;
     .tutor-landing-page-star{
-        color:#ffca54;
+        color:#ffca54 !important;
         font-size: 20px;
+        line-height: normal;
     }
     .tutor-landing-page-header{
         position: relative;
         background-color: #1b2441;
-        h1{
-            color: #3dc2ba;
+        padding-bottom:40px;
+        @media (max-width: @screen-xs) {
+            padding-bottom:48px;
+        }
+
+
+        .tutor-landing-title{
+            text-align: center;
+            color: rgb(199, 88, 219) !important;
             font-size: 35px;
             font-weight: bold;
             @media (max-width: @screen-xs) {
                 font-size: 32px;
             }
         }
-        h2{
+        .tutor-landing-subtitle{
+            
             font-size: 25px;
             font-weight: bold;
             color: #ffffff;
             @media (max-width: @screen-xs) {
+                text-align: center;
                 font-size: 16px;
             }
         }
-        h3{
+        .rating_tutorLanding{
             font-size: 18px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.87);
+            display: inline-flex;
+            align-items: flex-end;
             @media (max-width: @screen-xs) {
                 font-size: 16px;
             }
@@ -194,12 +236,17 @@ export default {
         position: -ms-sticky;
         position: -o-sticky;
         position: sticky;
+        z-index: 11;
+        @media (max-width: @screen-xs) {
+            z-index: unset;
+        }
 
-
-        top:30px;
-        z-index: 99;
+        // top:30px;
+        // top:30px;
+        // z-index: 99;
         &.sticky-active{
-            top:0;
+            position: fixed;
+            top:70px;
             background: #fff;
             width: 100%;
             height: 70px;
@@ -217,16 +264,42 @@ export default {
                 box-shadow: unset;
                 border: 1px solid #b4b4b4;
             }
-            @media (max-width: @screen-xs) {
-                &.strech{
-                   width: 100%;
-                }
+            // @media (max-width: @screen-xs) {
+            //     &.strech{
+            //     //    width: 100%;
+            //     }
+            // }
+        }
+    }
+    .tutorLandingPage_pagination{
+        padding: 20px 0;
+        text-align: center;
+        button{
+            outline: none;
+        }
+        .v-pagination__item{
+            background-color: initial !important;
+            box-shadow: none !important;
+            &.v-pagination__item--active{
+                color: initial !important;
+                background-color: initial !important;
+                border: none !important;
+                border: 1px solid rgb(68, 82, 252) !important;
+            }
+        }
+
+        .v-pagination__navigation{
+            background-color: initial !important;
+            box-shadow: none !important;
+            i{
+                transform: scaleX(1)/*rtl:scaleX(-1)*/; 
+                color: rgb(68, 82, 252) !important;
+                font-size: 16px;
             }
         }
     }
-    
     .tutor-landing-page-body{
-        .responsive-property(margin-top, 15px, null, 0px);
+        .responsive-property(margin-top, 86px, null, 50px);
 
         .tutor-landing-page-empty-state{
             max-width: 920px; 
@@ -239,9 +312,9 @@ export default {
         }
         .tutor-landing-card-container{
             margin: 0 auto;
-            // padding: 0 500px;
+            width: 100%;
+            max-width: 920px !important; //issue with reload
             @media (max-width: @screen-xs) {
-                margin: 0 8px;
                 padding: 0;
             }
         }
@@ -249,6 +322,8 @@ export default {
     .tutor-landing-status-row{
         background-color:#FFF;
         padding: 0 290px;
+        line-height: normal;
+        font-size: 14px;
         @media (max-width: @screen-md) {
             padding: 0;
         }
@@ -260,6 +335,7 @@ export default {
         }
     }
     .tutor-landing-card-bottom {
+        overflow: -webkit-paged-y;
         height: 528px;
         padding: 0 385px;
         display: flex;
@@ -274,12 +350,17 @@ export default {
             height: auto;
         }
         @media (max-width: @screen-sm) {
-            padding: 0 50px;
+            padding: 0 30px;
             height: auto;
         }
         @media (max-width: @screen-xs) {
             padding: 0 20px;
             height: auto;
+        }
+        .testimonialCarousel-tutorList{
+            .responsiveLandingPage(928px,20px);
+            width: 100%;
+            padding: 40px 0;
         }
     }
 }

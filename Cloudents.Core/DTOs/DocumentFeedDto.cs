@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
+using System;
 
 namespace Cloudents.Core.DTOs
 {
-    public class DocumentFeedWithFacetDto
+    public class DocumentFeedDto : FeedDto
     {
-        public IEnumerable<DocumentFeedDto> Result { get; set; }
-        public IEnumerable<string> Facet { get; set; }
-    }
-
-    public class DocumentFeedDto
-    {
+        [EntityBind(nameof(Document.Id))]
         public long Id { get; set; }
+        private TimeSpan? _duration;
+        public override FeedType Type => FeedType.Document;
         public string University { get; set; }
         public string Course { get; set; }
         public string Snippet { get; set; }
@@ -24,26 +23,43 @@ namespace Cloudents.Core.DTOs
 
         public string Url { get; set; }
 
-        //public string Source { get; set; }
 
         public DateTime? DateTime { get; set; }
 
-         public VoteDto Vote { get; set; }
+        public VoteDto Vote { get; set; }
 
         public decimal? Price { get; set; }
         public string Preview { get; set; }
         public int Purchased { get; set; }
 
+        public DocumentType DocumentType { get; set; }
+
+        public TimeSpan? Duration
+        {
+            get
+            {
+                if (_duration.HasValue)
+                {
+                    return _duration.Value.StripMilliseconds();
+                }
+
+                return _duration;
+
+            }
+            set => _duration = value;
+        }
     }
 
     public class DocumentUserDto
     {
 
+        [EntityBind(nameof(Document.User.Id))]
         public long Id { get; set; }
+        [EntityBind(nameof(Document.User.Name))]
         public string Name { get; set; }
+        [EntityBind(nameof(Document.User.ImageName))]
         public string Image { get; set; }
-        public int Score { get; set; }
-        public bool IsTutor { get; set; }
+
     }
 
     public class VoteDto
@@ -60,20 +76,21 @@ namespace Cloudents.Core.DTOs
 
     public class UserVoteDocumentDto : UserVoteDto<long>
     {
-     
-    }
-
-    public class UserVoteQuestionDto : UserVoteDto<long>
-    {
 
     }
 
-    public class UserVoteAnswerDto : UserVoteDto<Guid>
+    public class SessionRecordingDto
     {
-        public UserVoteAnswerDto(Guid? id, VoteType vote)
-        {
-            Id = id ?? default;
-            Vote = vote;
-        }
+        //Session
+        public Guid Id { get; set; }
+        //Session
+        //public DateTime DateTime { get; set; }
+        public long TutorId { get; set; }
+        public string TutorName { get; set; }
+        public string TutorImage { get; set; }
+
+        public TimeSpan Duration { get; set; }//Session
+
+        public string Url { get; set; }
     }
 }

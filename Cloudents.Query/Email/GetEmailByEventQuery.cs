@@ -1,8 +1,8 @@
 ﻿using Cloudents.Core.DTOs;
+using Dapper;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Dapper;
 
 namespace Cloudents.Query.Email
 {
@@ -56,8 +56,8 @@ namespace Cloudents.Query.Email
                          return emailDto;
                      }, new
                      {
-                        e = query.Event,
-                    }, splitOn: "SocialShare,Title,Title");
+                         e = query.Event,
+                     }, splitOn: "SocialShare,Title,Title");
                 return flatRes;
             }
         }

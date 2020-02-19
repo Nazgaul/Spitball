@@ -1,27 +1,22 @@
 <template>
     <div class="item-wrap" data-app>
-        <v-card class="elevation-5">
-                <v-card-title class="question-text-title" @click="openQuestion(question.url)">
-                    {{question.text}}
-               
-                <v-spacer></v-spacer>
-
-                <span>{{question.create | dateFromISO}}&nbsp;&nbsp;</span>
-
-                <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span>
-                 
-                 
-                
-                    <v-btn flat v-if="!isOk && !isDeleted" @click="isFlagged ? unflagSingleQuestion(question, index) : approveSingleQuestion(question, index)"
-                                   :disabled="proccessedQuestions.includes(question.id)">
-                                    <v-icon>check</v-icon>
-                                    Accept
-            </v-btn>
-            <v-btn  flat v-if="!isDeleted" :disabled="proccessedQuestions.includes(question.id)"  @click="deleteQuestion(question, index)">
-                 <v-icon>delete</v-icon>
-                 Delete
-            </v-btn>
+        <v-card class="elevation-0 qCard mb-2">
+            <v-card-title class="question-text-title justify-space-between grey lighten-2" @click="openQuestion(question.url)">
+                <div><b>Created: </b><span>{{question.create | dateFromISO}}</span></div>
+                <div>
+                    <v-btn icon v-if="!isOk && !isDeleted" @click="isFlagged ? unflagSingleQuestion(question, index) : approveSingleQuestion(question, index)"
+                    :disabled="proccessedQuestions.includes(question.id)">
+                    <v-icon color="green">check</v-icon>
+                    </v-btn>
+                    <v-btn icon v-if="!isDeleted" :disabled="proccessedQuestions.includes(question.id)"  @click="deleteQuestion(question, index)">
+                        <v-icon>delete</v-icon>
+                    </v-btn>
+                </div>
             </v-card-title>
+            <v-card-text>
+                <b>Text: </b>{{question.text}}
+            </v-card-text>
+            <!-- <span title="Fictive Or Original Question ">{{question.isFictive ? 'Fictive' : 'Original'}}</span> -->
         </v-card>
     </div>
 </template>
@@ -119,7 +114,13 @@
     }
 </script>
 
-<style  lang="scss">
-
-
+<style  lang="less">
+.item-wrap{
+    .qCard{
+        border: 1px solid #ccc !important;
+        .question-text-title{
+            padding: 0px 16px;
+        }
+    }
+}
 </style>

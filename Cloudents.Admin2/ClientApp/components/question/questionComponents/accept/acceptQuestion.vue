@@ -60,7 +60,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .accept-question-container {
   margin: 0 auto;
   .wrap {

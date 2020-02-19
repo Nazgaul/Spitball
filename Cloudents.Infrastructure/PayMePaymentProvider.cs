@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query.Payment;
-using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -19,7 +18,7 @@ namespace Cloudents.Infrastructure
         private readonly HttpClient _client;
         private readonly PayMeCredentials _credentials;
 
-        public PayMePaymentProvider(HttpClient client, [NotNull] PayMeCredentials credentials)
+        public PayMePaymentProvider(HttpClient client,  PayMeCredentials credentials)
         {
             _client = client;
             _credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
@@ -40,6 +39,13 @@ namespace Cloudents.Infrastructure
         public async Task<GenerateSaleResponse> TransferPaymentAsync(string sellerKey, string buyerKey, decimal price, CancellationToken token)
         {
             var generateSale = GenerateSale.TransferMoney(sellerKey, buyerKey, price);
+
+            return await GenerateSaleAsync(token, generateSale);
+        }
+
+        public async Task<GenerateSaleResponse> BuyTokens(PointBundle price, string successRedirect, CancellationToken token)
+        {
+            var generateSale = GenerateSale.BuyTokens(price, successRedirect, _credentials.SellerId);
 
             return await GenerateSaleAsync(token, generateSale);
         }
@@ -84,13 +90,26 @@ namespace Cloudents.Infrastructure
                 {
                     SellerPaymeId = sellerId,
                     SalePrice = (int)(price * 100),
-                    BuyerKey = buyerId
+                    BuyerKey = buyerId,
+                    ProductName = "עבור שיעורים פרטיים בספיטבול"
                 };
             }
 
             private GenerateSale()
             {
 
+            }
+
+            public static GenerateSale BuyTokens(PointBundle price, string saleReturnUrl, string sellerId)
+            {
+                return new GenerateSale()
+                {
+                    CaptureBuyer = 0,
+                    SalePrice = (price.Price * 100),
+                    SaleReturnUrl = saleReturnUrl,
+                    SellerPaymeId = sellerId,
+                    ProductName = "עבור קניית נקודות בספיטבול"
+                };
             }
 
             public static GenerateSale CreateBuyer(string saleCallbackUrl, string saleReturnUrl, string sellerId)
@@ -102,16 +121,20 @@ namespace Cloudents.Infrastructure
                     CaptureBuyer = 1,
                     SaleType = "token",
                     SaleReturnUrl = saleReturnUrl,
-                    SaleCallbackUrl = saleCallbackUrl
+                    SaleCallbackUrl = saleCallbackUrl,
+                    ProductName = "עבור שיעורים פרטיים בספיטבול"
 
                 };
             }
 
+
+
             public string SellerPaymeId { get; private set; }
 
             public int SalePrice { get; private set; }
+            [SuppressMessage("ReSharper", "UnusedMember.Local",Justification = "Used for serialize")] 
             public string Currency => "ILS";
-            public string ProductName => "עבור שיעורים פרטיים בספיטבול";
+            public string ProductName { get; private set; }
             public int? CaptureBuyer { get; private set; }
             public string SaleType { get; private set; }
             public string SaleCallbackUrl { get; private set; }
@@ -122,6 +145,8 @@ namespace Cloudents.Infrastructure
 
         }
     }
+
+
 
     public static class StreamExtensions
     {

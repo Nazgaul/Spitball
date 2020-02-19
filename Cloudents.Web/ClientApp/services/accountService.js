@@ -1,202 +1,32 @@
-import { connectivityModule } from "./connectivity.module";
-import searchService from "../services/searchService.js";
-function AccountUser(objInit){
-    this.balance= objInit.balance;
-    this.email= objInit.email;
-    this.id= objInit.id;
-    this.name= objInit.name;
-    this.token= objInit.token;
-    this.universityExists= objInit.universityExists;
-    this.score = objInit.score;
-    this.phoneNumber = objInit.phoneNumber;
-    this.isTutor = objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok';
-    this.isTutorState =  createIsTutorState(objInit.isTutor);// state of become tutor request, possible options ok, pending;
-    this.image = objInit.image || '';
-    this.online = objInit.online || false;
-    this.needPayment = objInit.needPayment || false;
-}
-function createIsTutorState(str){
-    if(str && str.toLowerCase() === 'ok'){
-        return 'ok';
-    }else if(str && str.toLowerCase() === 'pending'){
-        return 'pending';
-    }else{
-        return null;
-    }
-}
- function TutorData(objInit) {
-     this.price= objInit.price || 0;
-     this.rate = objInit.rate || 0;
-     this.reviewCount = objInit.reviewCount || 0;
-     this.firstName = objInit.firstName || '';
-     this.lastName = objInit.lastName  || '';
- }
+import axios from 'axios'
+import {User} from './Dto/user.js';
 
- function createTutorData(objInit) {
-     return new TutorData(objInit);
- }
- function createUserPersonalData(objInit) {
-     return new ProfilePersonalData(objInit);
- }
-function ProfilePersonalData(objInit){
-    this.id = objInit.id;
-    this.name = objInit.name  || '';
-    this.description = objInit.description || '';
-    this.score = objInit.score;
-    this.image = objInit.image || '';
-    this.universityName= objInit.universityName;
-    this.calendarShared = objInit.calendarShared || false;
-    this.isTutor= objInit.hasOwnProperty('tutor') || false;
-    this.tutorData = objInit.tutor ? createTutorData(objInit.tutor) : createTutorData({});
-    this.online = objInit.online || false;
-}
+const accountInstance = axios.create({
+    baseURL:'/api/account'
+})
 
-function ReviewItem(objInit){
-    this.created = objInit.created;
-    this.image = objInit.image;
-    this.rate = objInit.rate;
-    this.reviewText = objInit.reviewText;
-    this.score = objInit.score;
-    this.name = objInit.name || '';
-    this.id = objInit.id|| '';
-}
-
-function createReviewItem(objInit) {
-    return new ReviewItem(objInit);
-
-}
-function CourseItem(objInit) {
-    this.name = objInit.name;
-}
-
-function createCourseItem(objInit) {
-    return new CourseItem(objInit);
-}
-
-function AboutItem(objInit) {
-    this.bio = objInit.bio;
-    this.courses = objInit.courses.map(createCourseItem);
-    this.reviews = objInit.reviews.map(createReviewItem);
-}
-
-function createAboutItem(objInit){
-     return new AboutItem(objInit);
-}
-
-
-function profileUserData(objInit){
-    this.user= createUserPersonalData(objInit.data) ;
-    this.questions = [];
-    this.answers = [];
-    this.documents = [];
-    this.purchasedDocuments= [];
-}
-function profileQuestionData(arrInit){
-    return arrInit.data.map(searchService.createQuestionItem) || [];
-    // return arrInit[1].data.map(searchService.createQuestionItem).map(item => {
-    //     return {
-    //         ...item,
-    //         user: arrInit[0].data,
-    //     }
-    // }) || [];
-}
-
-function profileAnswerData(arrInit){
-    return arrInit.data.map(searchService.createQuestionItem) || [];
-}
-function profileDocumentData(arrInit){
-   return arrInit.data.map(searchService.createDocumentItem) || [];
-}
-function profileAboutData(arrInit){
-    let structuredData = createAboutItem(arrInit[0].data);
-    let data = {
-        bio: structuredData.bio,
-        courses: structuredData.courses,
-        reviews: structuredData.reviews
-    };
-    return data;
-
-}
 export default {
-    getAccount:() => {
-       return connectivityModule.http.get("/Account").then(({data})=>{
-           let userAccount = new AccountUser(data);
-           return userAccount;
-       },(err)=>{
-           return err;
-       });
+    async getAccount(){ 
+        let {data} = await accountInstance.get()
+        return new User.Account(data)
     },
-    setUserName: (data) => {
-        return connectivityModule.http.post("/Account/userName", {name: data});
+    async getNumberReffered(){ 
+        return await accountInstance.get('/referrals')
     },
-    getUserName: () => {
-        return connectivityModule.http.get("/Account/userName");
+    async saveUserInfo(params){ 
+        return await accountInstance.post('/settings',params)
     },
-    uploadImage: (formData) => {
-        return connectivityModule.http.post("/Account/image", formData);
+    async becomeTutor(params){ 
+        return await accountInstance.post('/becomeTutor',params)
     },
-    getProfile:(id) => {
-        return connectivityModule.http.get(`/Profile/${id}`);
+    async uploadImage(params){ 
+        return await accountInstance.post('/image',params)
     },
-    getNumberReffered:() => {
-        return connectivityModule.http.get(`/Account/referrals`);
+    async applyCoupon(params){ 
+        return await accountInstance.post('/coupon',params)
     },
-    getProfileAbout:(id) => {
-        return connectivityModule.http.get(`Profile/${id}/about/`);
-    },
-    getProfileQuestions:(id, page) => {
-        let strPage = page ? `?page=${page}` : "";
-        return connectivityModule.http.get(`Profile/${id}/questions/${strPage}`);
-    },
-    getProfileAnswers:(id, page) => {
-        let strPage = page ? `?page=${page}` : "";
-        return connectivityModule.http.get(`/Profile/${id}/answers/${strPage}`);
-    },
-    getProfileDocuments:(id, page) => {
-        let strPage = page ? `?page=${page}` : "";
-        return connectivityModule.http.get(`/Profile/${id}/documents/${strPage}`);
-    },
-    getProfilePurchasedDocuments:(id, page)=>{
-        let strPage = page ? `?page=${page}` : "";
-        return connectivityModule.http.get(`/Profile/${id}/purchaseDocuments/${strPage}`);
-    },
-    saveTutorInfo: (data)=> {
-        let serverFormatt= {
-            firstName: data.name,
-            description: data.description,
-            lastName: data.lastName,
-            bio: data.bio,
-            price: data.price
-        };
-        return connectivityModule.http.post("/Account/settings", serverFormatt);
-    },
-    saveUserInfo: (data)=> {
-        let serverFormatt= {
-                firstName: data.name,
-                description: data.description
-
-        };
-        return connectivityModule.http.post("/Account/settings", serverFormatt);
-    },
-    // createProfileData: (arrInit)=>{
-    //     return new ProfileData(arrInit);
-    // },
-    becomeTutor: (data) => {
-        return connectivityModule.http.post("/Account/becomeTutor", data);
-    },
-    createUserProfileData: (objInit)=>{
-        return new profileUserData(objInit);
-    },
-    createProfileQuestionData: (arrInit)=>{
-        return new profileQuestionData(arrInit);
-    },
-    createProfileAnswerData: (arrInit)=>{
-        return new profileAnswerData(arrInit);
-    },
-    createProfileDocumentData: (arrInit)=>{
-        return new profileDocumentData(arrInit);
-    },
-    createProfileAbout: (arrInit)=>{
-        return new profileAboutData(arrInit);
+    async getAccountStats(days){
+        let {data} = await accountInstance.get('/stats', {params: {days}})
+        return data.map(stats => new User.Stats(stats))
     }
 }

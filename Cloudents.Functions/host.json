@@ -4,5 +4,4 @@
     "batchSize": 1,
     "maxDequeueCount": 3
   }
- 
 }

@@ -153,22 +153,10 @@
   <data name="ActionTypeSoldDocument" xml:space="preserve">
     <value>Sold Document</value>
   </data>
-  <data name="QuestionFilterAnswered" xml:space="preserve">
-    <value>Answered</value>
-  </data>
-  <data name="QuestionFilterSold" xml:space="preserve">
-    <value>Answer accepted</value>
-  </data>
-  <data name="QuestionFilterUnanswered" xml:space="preserve">
-    <value>Unanswered</value>
-  </data>
   <data name="TransactionTypeEarned" xml:space="preserve">
     <value>Earned</value>
   </data>
   <data name="TransactionTypeSpent" xml:space="preserve">
     <value>Spent</value>
-  </data>
-  <data name="TransactionTypeStake" xml:space="preserve">
-    <value>Stake</value>
   </data>
 </root>

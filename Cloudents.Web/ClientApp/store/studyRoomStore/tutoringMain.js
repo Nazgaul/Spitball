@@ -1,5 +1,7 @@
 import videoStreamService from '../../services/videoStreamService';
 import { LanguageService } from '../../services/language/languageService';
+import tutorService from '../../components/studyroom/tutorService';
+
 
 const state = {
     isRoomFull: false,
@@ -15,8 +17,6 @@ const state = {
     isFirepadLoadedOnce: false,
     qualityDialogVisibility: false,
     browserSupportDialog: false,
-    notAllowedDevices: false,
-    notAvaliableDevices: false,
     studyRoomData: null,
     roomStateEnum: {
         pending: "pending",
@@ -24,6 +24,15 @@ const state = {
         loading: "loading",
         active: "active"
     },
+    startSessionDialogStateEnum:{
+        start: 'start',
+        waiting: 'waiting',
+        needPayment: 'needPayment',
+        disconnected: 'disconnected',
+        finished: 'finished'
+    },
+    tutorDialogState:'start',
+    studentDialogState:'waiting',
     sessionStartClickedOnce: false,
     sessionEndClicked: false,
     currentRoomState: "pending",
@@ -31,7 +40,14 @@ const state = {
     studentStartDialog: false,
     tutorStartDialog: false,
     endDialog: false,
-    activeNavIndicator: 'white-board'
+    settingsDialogState: false,
+    activeNavIndicator: 'white-board',
+    deviceValidationError:false,
+    DevicesObject: tutorService.createDevicesObj(),
+    sessionTimeStart: null,
+    sessionTimeEnd: null,
+    showUserConsentDialog: false,
+    snapshotDialog: false,    
 };
 const getters = {
     getIsRoomFull: state => state.isRoomFull,
@@ -45,8 +61,6 @@ const getters = {
     roomLoading: state => state.isRoomLoading,
     firepadLoadedOnce: state => state.isFirepadLoadedOnce,
     qualityDialog: state => state.qualityDialogVisibility,
-    getNotAllowedDevices: state => state.notAllowedDevices,
-    getNotAvaliableDevices: state => state.notAvaliableDevices,
     getCurrentRoomState: state => state.currentRoomState,
     getStudyRoomData: state => state.studyRoomData,
     getJwtToken: state => state.jwtToken,
@@ -57,7 +71,16 @@ const getters = {
     getEndDialog: state => state.endDialog,
     getSessionEndClicked: state => state.sessionEndClicked,
     getBrowserSupportDialog: state => state.browserSupportDialog,
+    getStudyRoomSettingsDialog: state => state.settingsDialogState,
+    showDeviceValidationError: state => state.deviceValidationError,
+    getDevicesObj: state=> state.DevicesObject,
     getActiveNavIndicator: state => state.activeNavIndicator,
+    getTutorDialogState: state => state.tutorDialogState,
+    getStudentDialogState: state => state.studentDialogState,
+    getSessionTimeStart: state => state.sessionTimeStart,
+    getSessionTimeEnd: state => state.sessionTimeEnd,
+    getShowUserConsentDialog: state => state.showUserConsentDialog,
+    getSnapshotDialog: state => state.snapshotDialog,
 };
 
 const mutations = {
@@ -73,17 +96,11 @@ const mutations = {
     updateSessionEndClicked(state, val) {
         state.sessionEndClicked = val;
     },
-    updateAllowedDevices(state, val) {
-        state.notAllowedDevices = val;
-    },
     setStudentStartDialog(state, val) {
         state.studentStartDialog = val;
     },
     setTutorStartDialog(state, val) {
         state.tutorStartDialog = val;
-    },
-    updateAvaliableDevices(state, val) {
-        state.notAvaliableDevices = val;
     },
     setStudyRoomProps(state, val) {
         state.studyRoomData = val;
@@ -137,148 +154,262 @@ const mutations = {
     setBrowserSupportDialog(state, val){
       state.browserSupportDialog = val;
     },
+    setStudyRoomSettingsDialog(state, val){
+        state.settingsDialogState = val;
+    },
     setActiveNavIndicator(state,{activeNav}){
-        state.activeNavIndicator = activeNav
-    }
+        state.activeNavIndicator = activeNav;
+    },
+    setDeviceValidationError(state, val){
+        state.deviceValidationError = val;
+    },
+    setTutorDialogState(state, val){
+        state.tutorDialogState = val;
+    },
+    setStudentDialogState(state, val){
+        state.studentDialogState = val;
+    },
+    setSessionTimeStart(state, val){
+        state.sessionTimeStart = val;
+    },
+    setSessionTimeEnd(state, val){
+        state.sessionTimeEnd = val;
+    },
+    setShowUserConsentDialog(state, val){
+        state.showUserConsentDialog = val;
+    },
+    setSnapshotDialog(state, val){
+        state.snapshotDialog = val;
+    },
 };
 
 const actions = {
-    updateEndDialog({commit, state}, val){
+    updateEndDialog({commit}, val){
+        console.warn('DEBUG: 4 store: updateEndDialog')
         commit('setEndDialog', val);
     },
-    setSesionClickedOnce({commit, state}, val) {
+    setSesionClickedOnce({commit}, val) {
+        console.warn('DEBUG: 5 store: setSesionClickedOnce VAL:',val)
         commit('updateSessionClickedOnce', val);
     },
-    setSesionEndClicked({commit, state}, val) {
+    setSesionEndClicked({commit}, val) {
+        console.warn('DEBUG: 6 store: setSesionEndClicked')
         commit('updateSessionEndClicked', val);
     },
-    setAvaliableDevicesStatus({commit, state}, val) {
+    setAvaliableDevicesStatus({commit}, val) {
         commit('updateAvaliableDevices', val);
     },
-    setAllowedDevicesStatus({commit, state}, val) {
+    setAllowedDevicesStatus({commit}, val) {
         commit('updateAllowedDevices', val);
     },
-    updateStudyRoomProps({dispatch,commit,state}, val) {
+    updateStudyRoomProps({dispatch,commit}, val) {
+        console.warn('DEBUG: 7 store: updateStudyRoomProps')
         //update leaveReview store, to prevent leaving of multiple reviews
         dispatch('updateAllowReview',  val.allowReview);
         commit('setStudyRoomProps', val);
         if(!val.isTutor && val.needPayment){
             setTimeout(()=>{
+                console.warn('DEBUG: 7.1 store: !val.isTutor && val.needPayment')
+
                 videoStreamService.enterRoom();
             }, 500);
         }
     },
-    updateTestDialogState({commit, state}, val) {
+    updateTestDialogState({commit}, val) {
         commit('setqualityDialogState', val);
     },
-    updateLocalParticipant({commit, state}, val) {
+    updateLocalParticipant({commit}, val) {
         commit('setlocalParticipantObj', val);
     },
-    updateLocalParticipantsNetworkQuality({commit, state}, val) {
+    updateLocalParticipantsNetworkQuality({commit}, val) {
         commit('setNetworkQuality', val);
     },
-    updateCodeLoadedOnce({commit, state}, val) {
+    updateCodeLoadedOnce({commit}, val) {
         commit('changeFirepadLoaded', val);
     },
-    updateRoomLoading({commit, state}, val) {
+    updateRoomLoading({commit}, val) {
+        console.warn('DEBUG: 8 store: updateRoomLoading')
+
         commit('setRoomLoading', val);
     },
     leaveRoomIfJoined({commit}) {
+        console.warn('DEBUG: 9 store: leaveRoomIfJoined')
+
         commit('leaveIfJoinedRoom');
     },
-    updateRoomInstance({commit, state}, data) {
+    updateRoomInstance({commit}, data) {
         commit('setRoomInstance', data);
     },
-    updateLocalStatus({commit, state}, val) {
+    updateLocalStatus({commit}, val) {
+        console.warn('DEBUG: 10 store: updateLocalStatus')
         commit('setLocalStatus', val);
     },
-    updateRemoteStatus({commit, state}, val) {
+    updateRemoteStatus({commit}, val) {
+        console.warn('DEBUG: 11 store: updateRemoteStatus, VAL:',val)
+
         commit('setRemoteStatus', val);
     },
-    updateRoomStatus({commit, state}, val) {
+    updateRoomStatus({commit}, val) {
+        console.warn('DEBUG: 12 store: updateRoomStatus')
         commit('setRoomStatus', val);
     },
-    updateUserIdentity({commit, state}, val) {
+    updateUserIdentity({commit}, val) {
         commit('setUserIdentity', val);
     },
-    updateCurrentRoomState({commit}, val) {
+    updateCurrentRoomState({commit, state, dispatch}, val) {
+        console.warn('DEBUG: 13 store: updateCurrentRoomState')
+
         commit('setCurrentRoomState', val);
+        if(state.roomStateEnum[val] === state.roomStateEnum['active']){
+            
+            setTimeout(()=>{
+                console.warn('DEBUG: 13.1 store: state.roomStateEnum[val] === state.roomStateEnum[1active1]')
+                dispatch('hideRoomToasterMessage');
+            }, 3000);
+        }
     },
     updateStudentStartDialog({commit}, val) {
+        console.warn('DEBUG: 14 store: updateStudentStartDialog')
+
         commit('setStudentStartDialog', val);
     },
     updateTutorStartDialog({commit}, val) {
+        console.warn('DEBUG: 15 store: updateTutorStartDialog, VAL:',val)
+
         commit('setTutorStartDialog', val);
     },
-    signalR_UpdateState({commit, dispatch, state}, notificationObj) {
+    signalR_UpdateState({commit, dispatch, state, getters}, notificationObj) {
+        console.warn('DEBUG: 16 store: signalR_UpdateState')
+
         //TODO Update state according to the singnalR data
         let onlineCount = notificationObj.onlineCount;
-        if(onlineCount === 2){
-            commit('setIsRoomFull',true);
-        } else{
-            commit('setIsRoomFull',false);
-        }
+        // if(onlineCount === 2){
+        //     commit('setIsRoomFull',true);
+        // } else{
+        //     commit('setIsRoomFull',false);
+        // }
 
         let totalOnline = notificationObj.totalOnline;
         let jwtToken = notificationObj.jwtToken;
         let isTutor = state.studyRoomData.isTutor;
         let toasterParams = {};
         if(jwtToken){
-            //reconnect
+        console.warn('DEBUG: 16.1 store: if(jwtToken)')
+            
             commit('setJwtToken', jwtToken);
             dispatch('updateCurrentRoomState', state.roomStateEnum.active);
             videoStreamService.createVideoSession();
             if(isTutor){
+                console.warn('DEBUG: 16.2 store: if(isTutor)')
+
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_student_entered_room');
                 dispatch('showRoomToasterMessage', toasterParams);
             }else{
+                console.warn('DEBUG: 16.3 store: if(!isTutor)')
+
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
                 dispatch('showRoomToasterMessage', toasterParams);
             }
         }else{
+            console.warn('DEBUG: 17 store: if(!jwtToken)')
+
             if(isTutor) {
+                console.warn('DEBUG: 17.1 store: if(isTutor)')
+
                 if(onlineCount == totalOnline) {
+                    console.warn('DEBUG: 17.2 store: onlineCount == totalOnline')
+
                     dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_student_entered_room');
                     dispatch('showRoomToasterMessage', toasterParams);
                     //show tutor start session
                     if(!state.studyRoomData.needPayment){
-                        dispatch("updateTutorStartDialog", true);
+                        console.warn('DEBUG: 17.3 store: !state.studyRoomData.needPayment')
+
+                        dispatch("setTutorDialogState", state.startSessionDialogStateEnum.start);
+                        // dispatch("updateTutorStartDialog", true);
+                    }else{
+                        console.warn('DEBUG: 17.4 store: state.studyRoomData.needPayment')
+
+                        dispatch("setTutorDialogState", state.startSessionDialogStateEnum.needPayment);
                     }
                 } else {
-                    dispatch("updateTutorStartDialog", false);
+                    console.warn('DEBUG: 17.5 store: onlineCount !== totalOnline')
+
+                    if(state.currentRoomState !== state.roomStateEnum.active){
+                        console.warn('DEBUG: 17.6 store: state.currentRoomState !== state.roomStateEnum.active')
+
+                        dispatch("setTutorDialogState", state.startSessionDialogStateEnum.waiting);
+                    }else{
+                        console.warn('DEBUG: 17.7 store: state.currentRoomState === state.roomStateEnum.active')
+
+                        dispatch("setTutorDialogState", state.startSessionDialogStateEnum.disconnected);
+                    }
+                    dispatch('updateTutorStartDialog', true);
+                    // dispatch("updateTutorStartDialog", false);
                     toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                     toasterParams.timeout = 3600000;
                     dispatch('showRoomToasterMessage', toasterParams);
                     dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
                 }
             } else {
-            // if is student
+                console.warn('DEBUG: 17.8 store: if(!isTutor)')
+            // if is STUDENT
             if(onlineCount == totalOnline) {
+                console.warn('DEBUG: 17.9 store: onlineCount == totalOnline')
+
                 // toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
                 // dispatch('showRoomToasterMessage', toasterParams);
+                if(!state.studyRoomData.needPayment){
+                    console.warn('DEBUG: 17.9.1 store: !state.studyRoomData.needPayment')
+
+                    dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
+                }else{
+                    console.warn('DEBUG: 17.9.2 store: state.studyRoomData.needPayment')
+
+                    dispatch("setStudentDialogState", state.startSessionDialogStateEnum.needPayment);
+                }
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_waiting_for_tutor_toaster');
                 toasterParams.timeout = 3600000;
                 dispatch('showRoomToasterMessage', toasterParams);
             } else {
+                console.warn('DEBUG: 17.9.2 store: onlineCount !== totalOnline')
+
+                if(!state.studyRoomData.needPayment){
+                    console.warn('DEBUG: 17.9.3 store: !state.studyRoomData.needPayment')
+
+                    console.log(state.currentRoomState);
+                    if(state.currentRoomState === state.roomStateEnum.pending){
+                        console.warn('DEBUG: 17.9.4 store: state.currentRoomState === state.roomStateEnum.pending')
+
+                        dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
+                    }else{
+                        console.warn('DEBUG: 17.9.5 store: state.currentRoomState !== state.roomStateEnum.pending')
+
+                        dispatch("setStudentDialogState", state.startSessionDialogStateEnum.disconnected);
+                    }
+                }else{
+                    console.warn('DEBUG: 17.9.6 store: state.studyRoomData.needPayment')
+
+                    dispatch("setStudentDialogState", state.startSessionDialogStateEnum.needPayment);
+                }
+                if(!getters.getReviewDialogState){
+                    console.warn('DEBUG: 17.9.7 store: !getters.getReviewDialogState')
+
+                    dispatch('updateStudentStartDialog', true);
+                }
                 dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
                 toasterParams.timeout = 3600000;
                 dispatch('showRoomToasterMessage', toasterParams);
                 //hide student start se3ssion
-                dispatch("updateStudentStartDialog", false);
+                // dispatch("updateStudentStartDialog", false);
             }
         }
         }
     },
-    showRoomToasterMessage({dispatch}, toasterParams) {
-        let toasterObj = {
-            toasterText: toasterParams.text,
-            showToaster: true,
-            toasterType: toasterParams.type ? toasterParams.type : '',
-            toasterTimeout: toasterParams.timeout
-        };
-        dispatch('updateToasterParams', toasterObj);
+    showRoomToasterMessage() {
+        return;
     },
     hideRoomToasterMessage({dispatch}) {
         let toasterObj = {
@@ -287,27 +418,40 @@ const actions = {
         dispatch('updateToasterParams', toasterObj);
     },
     signalR_SetJwtToken({commit, dispatch, state}, sessionInformation) {
+        console.warn('DEBUG: 18 store: signalR_SetJwtToken')
+
         let token = sessionInformation.data.jwtToken;
         let isTutor = state.studyRoomData.isTutor;
         commit('setJwtToken', token);
         if(!isTutor) {
+            console.warn('DEBUG: 18.1 store: if(!isTutor)')
+
             //show student start se3ssion
             // SPITBALL-1197 Tutoring - Session stuck on start (fix)
             setTimeout(()=>{
                 dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
-                dispatch("updateStudentStartDialog", true);
+                dispatch("setStudentDialogState", state.startSessionDialogStateEnum.start);
+                // dispatch("updateStudentStartDialog", true);
                 dispatch('hideRoomToasterMessage');
             }, 3000);
+        }else{
+            console.warn('DEBUG: 18.2 store: if(isTutor)')
 
+            setTimeout(()=>{
+                dispatch("setTutorDialogState", state.startSessionDialogStateEnum.waiting);
+            }, 2500);
+            
         }
     },
     releasePaymeStatus_studyRoom({dispatch,state}){
         state.studyRoomData.needPayment = false;
         let isTutor = state.studyRoomData.isTutor;
         if(isTutor) {
-            dispatch("updateTutorStartDialog", true);
+            dispatch("setTutorDialogState", state.startSessionDialogStateEnum.start);
+            // dispatch("updateTutorStartDialog", true);
         }else{
-            dispatch("updatePaymentDialog", false);
+            dispatch("updatePaymentDialogState", false);
+            dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
         }
     },
     setRoomId({commit}, val) {
@@ -315,6 +459,35 @@ const actions = {
     },
     setBrowserSupportDialog({commit}, val){
       commit('setBrowserSupportDialog', val);
+    },
+    setStudyRoomSettingsDialog({commit}, val){
+        commit('setStudyRoomSettingsDialog', val);
+    },
+    setDeviceValidationError({commit}, val){
+        commit('setDeviceValidationError', val);
+    },
+    setTutorDialogState({commit}, val){
+        console.warn('DEBUG: 19 store: setTutorDialogState, VAL:',val)
+        commit('setTutorDialogState', val);
+    },
+    setStudentDialogState({commit}, val){
+        console.warn('DEBUG: 20 store: setStudentDialogState')
+
+        commit('setStudentDialogState', val);
+    },
+    setSessionTimeStart({commit}){
+        commit('setSessionTimeStart', Date.now());
+    },
+    setSessionTimeEnd({commit}){
+        commit('setSessionTimeEnd', Date.now());
+    },
+    setShowUserConsentDialog({commit}, val){
+        console.warn('DEBUG: 21 store: setShowUserConsentDialog')
+
+        commit('setShowUserConsentDialog', val);
+    },
+    setSnapshotDialog({commit}, val){
+        commit('setSnapshotDialog', val);
     },
 };
 export default {

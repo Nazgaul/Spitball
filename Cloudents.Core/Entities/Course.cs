@@ -2,7 +2,6 @@ using Cloudents.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Cloudents.Persistence")]
@@ -69,19 +68,25 @@ namespace Cloudents.Core.Entities
             }
         }
 
-        public virtual void AddSubject(CourseSubject subject)
+        public virtual void SetSubject(CourseSubject subject)
         {
             Subject = subject;
         }
 
+        public virtual void SetShcoolType(SchoolType schoolType)
+        {
+            SchoolType = schoolType;
+        }
         public virtual int Count { get; protected internal set; }
 
 
 
         public virtual DateTime Created { get; protected set; }
 
-        private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
-        public virtual IEnumerable<UserCourse> Users => _users;
+        //private readonly ISet<UserCourse> _users = new HashSet<UserCourse>();
+        //public virtual IEnumerable<UserCourse> Users => _users;
+
+        protected internal virtual ISet<UserCourse> Users { get; set; }
 
 
         public virtual ItemState State { get; protected set; }
@@ -89,5 +94,7 @@ namespace Cloudents.Core.Entities
 
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "nhibernate proxy")]
         public virtual byte[] Version { get; protected set; }
+        public virtual SchoolType? SchoolType { get; protected set; }
+        public virtual string Country { get; protected set; }
     }
 }

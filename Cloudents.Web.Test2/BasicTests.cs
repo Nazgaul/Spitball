@@ -1,5 +1,5 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Cloudents.Admin.Test

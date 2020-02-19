@@ -1,11 +1,11 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.Item.Commands.FlagItem
 {
-    public class FlagQuestionCommandHandler :  ICommandHandler<FlagQuestionCommand>
+    public class FlagQuestionCommandHandler : ICommandHandler<FlagQuestionCommand>
     {
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Question> _repository;

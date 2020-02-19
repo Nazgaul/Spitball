@@ -27,13 +27,8 @@ export const signlaREvents = {
                 }
                 questionActions[action.type](action.data);
             });
-        },
-        addviewr: function(question){
-            store.dispatch("HomeworkHelp_addQuestionViewer", question);
-        },
-        removeviewer: function(question){
-            store.dispatch("HomeworkHelp_removeQuestionViewer", question);
-        },
+        }
+        
     },
     answer:{
         add: function(arrEventObj){
@@ -46,7 +41,7 @@ export const signlaREvents = {
                     questionId: addedAnswerObj.questionId,
                     addCounter: true
                 };
-                store.dispatch('HomeworkHelp_updateCounter', actionObj);
+                store.dispatch('Feeds_updateCounter', actionObj);
             });
         },
         delete: function(arrEventObj){
@@ -59,16 +54,16 @@ export const signlaREvents = {
                     questionId: removedAnswerObj.questionId,
                     addCounter: false
                 };
-                 store.dispatch('HomeworkHelp_updateCounter', actionObj);
+                 store.dispatch('Feeds_updateCounter', actionObj);
             });
         }
     },
     user:{
         update:function(arrEventObj){
             arrEventObj.forEach((user)=>{
-                if(typeof user.balance !== undefined){
+                
                     store.dispatch('signalR_SetBalance', user.balance);
-                }
+                
             });
 
         },
@@ -80,8 +75,11 @@ export const signlaREvents = {
                 onlinestatus: function(data){
                     store.dispatch("setUserStatus", data);
                 },
-                paymentreceived: function(data){
+                paymentreceived: function(){
                     store.dispatch("signalR_ReleasePaymeStatus");
+                },
+                enterstudyroom: function(data){
+                    store.dispatch("signalR_TutorEnterStudyRoom", data);
                 }
             };  
             arrEventObj.forEach((action)=>{

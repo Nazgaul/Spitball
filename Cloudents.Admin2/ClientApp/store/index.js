@@ -1,12 +1,10 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import vue from "vue";
+import vuex from "vuex";
 
-import devStore from './devStore'
 import userMain from './userMain';
-Vue.use(Vuex);
-const store = new Vuex.Store({
+vue.use(vuex);
+const store = new vuex.Store({
     modules: {
-        devStore,
         userMain
     }
 });

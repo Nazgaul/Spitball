@@ -129,11 +129,8 @@
   <data name="btn_stop_sharing" xml:space="preserve">
     <value>הפסק שיתוף מסך</value>
   </data>
-  <data name="btn_system_check" xml:space="preserve">
-    <value>בדיקת מערכת</value>
-  </data>
-  <data name="btn_waiting_for_tutor" xml:space="preserve">
-    <value>ממתין למורה</value>
+  <data name="can_be_recorded" xml:space="preserve">
+    <value>יתכן והשיעור יוקלט על ידי התלמיד</value>
   </data>
   <data name="chrome_ext_btn_cancel" xml:space="preserve">
     <value>ביטול</value>
@@ -159,8 +156,26 @@
   <data name="end_session" xml:space="preserve">
     <value>סיימת את השיעור?</value>
   </data>
-  <data name="entered_room" xml:space="preserve">
-    <value>ממתין להתחלת השיעור</value>
+  <data name="enter_text" xml:space="preserve">
+    <value>הכנס טקסט</value>
+  </data>
+  <data name="ewar-continue-without-audio" xml:space="preserve">
+    <value>המשך ללא קול</value>
+  </data>
+  <data name="ewar-continue-without-recording" xml:space="preserve">
+    <value>בטוח שברצונך להמשיך ללא הקלטה קולית?</value>
+  </data>
+  <data name="ewar-try-again" xml:space="preserve">
+    <value>נסה שוב</value>
+  </data>
+  <data name="fontSize_large" xml:space="preserve">
+    <value>גדול</value>
+  </data>
+  <data name="fontSize_normal" xml:space="preserve">
+    <value>רגיל</value>
+  </data>
+  <data name="fontSize_small" xml:space="preserve">
+    <value>קטן</value>
   </data>
   <data name="nav_canvas" xml:space="preserve">
     <value>לוח</value>
@@ -183,74 +198,14 @@
   <data name="option_videoFull" xml:space="preserve">
     <value>הצג וידיאו</value>
   </data>
-  <data name="quality_access_device" xml:space="preserve">
-    <value>גישה למערכת</value>
-  </data>
-  <data name="quality_allowed_looks_like" xml:space="preserve">
-    <value>לא הצלחנו לזהות מצלמה ו/או מיקרופון. ככל הנראה אחד מהמכשירים הנ״ל בשימוש על ידי תוכנה אחרת או מנותק בהגדרות המשתמש שלך.</value>
-  </data>
-  <data name="quality_allowed_press" xml:space="preserve">
-    <value> בבקשה רענן את הדף אחרי אישור הגישה </value>
-  </data>
-  <data name="quality_allowed_tip_one" xml:space="preserve">
-    <value>טיפ</value>
-  </data>
-  <data name="quality_allowed_tip_two" xml:space="preserve">
-    <value>ודא שהמצלמה והמיקרופון שלך מופעלים בהגדרות המערכת. סגור את כל החלונות והאפליקציות הפתוחות והתחבר מחדש.</value>
-  </data>
-  <data name="quality_allowed_title" xml:space="preserve">
-    <value>כדי ליצור קשר עם משתתף נוסף, אפשר לדפדפן שלך לגשת למצלמה והמיקרופון.</value>
-  </data>
-  <data name="quality_audio_test_in" xml:space="preserve">
-    <value>בדיקת מיקרופון</value>
-  </data>
-  <data name="quality_audio_test_out" xml:space="preserve">
-    <value>בדיקת רמקול</value>
-  </data>
-  <data name="quality_btn_continue" xml:space="preserve">
-    <value>המשך</value>
-  </data>
-  <data name="quality_btn_done" xml:space="preserve">
-    <value>סיום</value>
-  </data>
-  <data name="quality_btn_got" xml:space="preserve">
-    <value>הבנתי</value>
-  </data>
-  <data name="quality_camera_placeholder" xml:space="preserve">
-    <value>בחר בבקשה מצלמה</value>
-  </data>
-  <data name="quality_input_title" xml:space="preserve">
-    <value>בדיקת איכות הקול במיקרופון</value>
-  </data>
-  <data name="quality_mic_placeholder" xml:space="preserve">
-    <value>בבקשה בחר מיקרופון</value>
-  </data>
-  <data name="quality_out_title" xml:space="preserve">
-    <value>בדיקת איכות הקול ברמקול</value>
-  </data>
-  <data name="quality_permission" xml:space="preserve">
-    <value> הרשאות דפדפן</value>
-  </data>
-  <data name="quality_title" xml:space="preserve">
-    <value>בדיקת מצלמה וקול - </value>
-  </data>
-  <data name="quality_unable" xml:space="preserve">
-    <value>לא מזהה מצלמה או מיקרופון</value>
-  </data>
-  <data name="quality_video_test_title" xml:space="preserve">
-    <value>בדיקת וידיאו</value>
-  </data>
-  <data name="quality_video_title" xml:space="preserve">
-    <value>בדיקת איכות וידיאו</value>
-  </data>
-  <data name="session_finished" xml:space="preserve">
-    <value>סיימת את השיעור?</value>
+  <data name="start_dialog_session_time" xml:space="preserve">
+    <value>משך השיעור:</value>
   </data>
   <data name="start_dialog_your_student" xml:space="preserve">
-    <value>הסטודנט שלך</value>
+    <value>הסטודנט שלך הוא</value>
   </data>
   <data name="start_dialog_your_tutor" xml:space="preserve">
-    <value>המורה הפרטי שלך</value>
+    <value>המורה הפרטי שלך הוא</value>
   </data>
   <data name="start_to_share" xml:space="preserve">
     <value>זמין במהלך השיעור</value>
@@ -258,26 +213,62 @@
   <data name="stream_btn_add_payment" xml:space="preserve">
     <value>הוסף פרטי כרטיס אשראי</value>
   </data>
+  <data name="stream_btn_disconnected_student" xml:space="preserve">
+    <value>הקשר נותק. אנחנו מנסים להתחבר חזרה</value>
+  </data>
+  <data name="stream_btn_disconnected_tutor" xml:space="preserve">
+    <value>הקשר נותק. אנחנו מנסים להתחבר חזרה</value>
+  </data>
   <data name="stream_btn_end_session" xml:space="preserve">
     <value>סיים שיעור</value>
+  </data>
+  <data name="stream_btn_finished_student" xml:space="preserve">
+    <value>השיעור הסתיים</value>
+  </data>
+  <data name="stream_btn_finished_tutor" xml:space="preserve">
+    <value>השיעור הסתיים</value>
   </data>
   <data name="stream_btn_join_session" xml:space="preserve">
     <value>התחל שיעור</value>
   </data>
+  <data name="stream_btn_needPayment_student" xml:space="preserve">
+    <value>הוסף פרטי כרטיס אשראי</value>
+  </data>
+  <data name="stream_btn_needPayment_tutor" xml:space="preserve">
+    <value>ממתין לסטודנט</value>
+  </data>
   <data name="stream_btn_pending_tutor" xml:space="preserve">
-    <value>ממתין שהסטודנט יכניס פרטי תשלום</value>
+    <value>ממתין לסטודנט</value>
   </data>
   <data name="stream_btn_start_session" xml:space="preserve">
+    <value>התחל שיעור</value>
+  </data>
+  <data name="stream_btn_start_session_student" xml:space="preserve">
+    <value>התחל שיעור</value>
+  </data>
+  <data name="stream_btn_start_tutor" xml:space="preserve">
     <value>התחל שיעור</value>
   </data>
   <data name="stream_btn_waiting" xml:space="preserve">
     <value>ממתין לסטודנט</value>
   </data>
-  <data name="stream_guest" xml:space="preserve">
-    <value>אורח</value>
+  <data name="stream_btn_waiting_student" xml:space="preserve">
+    <value>ממתין למורה</value>
+  </data>
+  <data name="stream_btn_waiting_tutor" xml:space="preserve">
+    <value>ממתין לסטודנט</value>
   </data>
   <data name="tab" xml:space="preserve">
     <value>לשונית</value>
+  </data>
+  <data name="take_snapshot_btn" xml:space="preserve">
+    <value>צילום תמונה</value>
+  </data>
+  <data name="take_snapshot_message" xml:space="preserve">
+    <value>קובץ התמונה ירד באופן אוטומטי לאחר הצילום</value>
+  </data>
+  <data name="take_snapshot_title" xml:space="preserve">
+    <value>צלם תמונה מהירה</value>
   </data>
   <data name="tooltip_circle" xml:space="preserve">
     <value>עיגול</value>
@@ -303,6 +294,9 @@
   <data name="tooltip_eraser" xml:space="preserve">
     <value>מחק</value>
   </data>
+  <data name="tooltip_iink" xml:space="preserve">
+    <value>כתב יד</value>
+  </data>
   <data name="tooltip_line" xml:space="preserve">
     <value>קו</value>
   </data>
@@ -324,6 +318,9 @@
   <data name="tooltip_square" xml:space="preserve">
     <value>מלבן</value>
   </data>
+  <data name="tooltip_takeSnapshot" xml:space="preserve">
+    <value>צילום מהיר</value>
+  </data>
   <data name="tooltip_text" xml:space="preserve">
     <value>טקסט</value>
   </data>
@@ -338,5 +335,32 @@
   </data>
   <data name="tooltip_video_resume" xml:space="preserve">
     <value>הפעל</value>
+  </data>
+  <data name="user_consent_dialog_accept" xml:space="preserve">
+    <value>התחל הקלטה</value>
+  </data>
+  <data name="user_consent_dialog_message" xml:space="preserve">
+    <value>אתה צריך את הסכמת התלמיד בכדי להקליט את השיעור</value>
+  </data>
+  <data name="user_consent_dialog_title" xml:space="preserve">
+    <value>שים לב</value>
+  </data>
+  <data name="waiting_in_studyRoom" xml:space="preserve">
+    <value>מחכה לך</value>
+  </data>
+  <data name="waiting_in_studyRoom_link" xml:space="preserve">
+    <value>בחדר הלימוד</value>
+  </data>
+  <data name="stop_recording" xml:space="preserve">
+    <value>עצור הקלטה</value>
+  </data>
+  <data name="begain_recording" xml:space="preserve">
+    <value>הקלט</value>
+  </data>
+  <data name="size_label" xml:space="preserve">
+    <value>גודל</value>
+  </data>
+  <data name="microphone_blocked" xml:space="preserve">
+    <value>כדי להקליט, עליך לאפשר לדפדפן גישה למיקרופון שלך.</value>
   </data>
 </root>

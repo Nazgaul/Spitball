@@ -32,15 +32,7 @@ namespace Cloudents.Core.Interfaces
     {
         Task<decimal> UserBalanceAsync(long userId, CancellationToken token);
         Task<User> GetUserByEmailAsync(string userEmail, CancellationToken token);
-    }
-
- 
-
-   
-
-    public interface ITagRepository : IRepository<Tag>
-    {
-        Task<Tag> GetOrAddAsync(string name, CancellationToken token);
+        Task<IEnumerable<User>> GetExpiredCreditCardsAsync(CancellationToken token);
     }
 
     public interface IDocumentRepository : IRepository<Document>
@@ -51,7 +43,6 @@ namespace Cloudents.Core.Interfaces
 
     public interface IQuestionRepository : IRepository<Question>
     {
-        Task<IList<Question>> GetOldQuestionsAsync(CancellationToken token);
         Task<bool> GetSimilarQuestionAsync(string text, CancellationToken token);
     }
 
@@ -66,7 +57,7 @@ namespace Cloudents.Core.Interfaces
     {
         Task<ChatRoom> GetChatRoomAsync(IEnumerable<long> usersId, CancellationToken token);
 
-        Task<ChatRoom> GetOrAddChatRoomAsync(IList<long> userIds , CancellationToken token);
+        Task<ChatRoom> GetOrAddChatRoomAsync(IList<long> userIds, CancellationToken token);
         Task<ChatRoom> GetChatRoomAsync(string identifier, CancellationToken token);
         Task UpdateNonDayOldConversationToActiveAsync(CancellationToken token);
     }
@@ -74,10 +65,9 @@ namespace Cloudents.Core.Interfaces
     public interface ITutorRepository : IRepository<Tutor>
     {
         Task<IList<long>> GetTutorsByCourseAsync(string course, long userId, string country, CancellationToken token);
-        Task DeleteTutorAsync(long tutorId, CancellationToken token);
     }
 
-   
+
 
     public interface ITransactionRepository : IRepository<Transaction>
     {
@@ -98,6 +88,35 @@ namespace Cloudents.Core.Interfaces
     public interface IReadTutorRepository : IRepository<ReadTutor>
     {
         Task<ReadTutor> GetReadTutorAsync(long userId, CancellationToken token);
-        Task UpdateReadTutorRating(CancellationToken token);
+    }
+
+    public interface ICouponRepository : IRepository<Coupon>
+    {
+        Task<Coupon> GetCouponAsync(string coupon, CancellationToken token);
+    }
+
+    public interface ITutorCalendarRepository : IRepository<TutorCalendar>
+    {
+        Task<IEnumerable<TutorCalendar>> GetTutorCalendarsAsync(long TutorId, CancellationToken token);
+    }
+
+    public interface ITutorHoursRepository : IRepository<TutorHours>
+    {
+        Task<IEnumerable<TutorHours>> GetTutorHoursAsync(long TutorId, CancellationToken token);
+    }
+
+    public interface IUniversityRepository : IRepository<University>
+    {
+        Task<University> GetUniversityByNameAndCountryAsync(string name, string country, CancellationToken token);
+    }
+
+    public interface IAdminLanguageRepository : IRepository<AdminLanguage>
+    {
+        Task<AdminLanguage> GetLanguageByNameAsync(string name, CancellationToken token);
+    }
+
+    public interface ICourseRepository : IRepository<Course>
+    {
+        Task<IEnumerable<Course>> GetCoursesBySubjectIdAsync(long subjectId, CancellationToken token);
     }
 }

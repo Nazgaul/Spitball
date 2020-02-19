@@ -1,64 +1,70 @@
 // GLOBALS:
-import {router} from '../main.js';
-import codesJson from '../components/loginPageNEW/helpers/CountryCallingCodes';
-const isIl = global.country.toLowerCase() === 'il';
-const defaultSubmitRoute = isIl ? {path: '/note'} : {path: '/ask'};
+import { router } from '../main.js';
+import codesJson from '../components/pages/authenticationPage/CountryCallingCodes';
+
 const Fingerprint2 = require('fingerprintjs2');
 
 // SERVICES:
 import analyticsService from '../services/analytics.service.js'
 import registrationService from '../services/registrationService.js'
 import { LanguageService } from "../services/language/languageService.js";
+import * as routeNames from '../routes/routeNames.js';
 
 // FUNCTIONS:
-function _dictionary(key){
-    return LanguageService.getValueByKey(key) 
+function _dictionary(key) {
+    return LanguageService.getValueByKey(key);
 }
-function _analytics (params){
+function _analytics(params) {
     analyticsService.sb_unitedEvent(...params);
 }
 
 const state = {
-    currentStep: 'getStarted',
-    stepsHistory: [],
     toUrl: '',
 
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
+    gender: 'male',
     localCode: '',
 
+    grade: '',
+    studentParentFullName: '',
+
     globalLoading: false,
-    
+
     errorMessage: {
         phone: "",
         code: "",
         email: "",
         password: "",
         confirmPassword: "",
-        gmail: "",
+        gmail: ""
     },
     passScoreObj: {
-        0: {name: _dictionary("login_password_indication_weak"), className: "bad"},
-        1: {name: _dictionary("login_password_indication_weak"),className: "bad"},
-        2: {name: _dictionary("login_password_indication_strong"),className: "good"},
-        3: {name: _dictionary("login_password_indication_strong"),className: "good"},
-        4: {name: _dictionary("login_password_indication_strongest"),className: "best"}
-    },
-}
+        0: { name: _dictionary("login_password_indication_weak"), className: "bad" },
+        1: { name: _dictionary("login_password_indication_weak"), className: "bad" },
+        2: { name: _dictionary("login_password_indication_strong"), className: "good" },
+        3: { name: _dictionary("login_password_indication_strong"), className: "good" },
+        4: { name: _dictionary("login_password_indication_strongest"), className: "best" }
+    }
+};
 
 const mutations = {
     setToUrl(state,url){
-        state.toUrl = url
+        state.toUrl = url;
     },
-    setResetState(state){
-        state.currentStep = 'getStarted'
-        state.stepsHistory = []
+    setResetState(state) {
 
-        state.email = ''
-        state.phone = ''
-        state.localCode = ''
+        state.email = '';
+        state.phone = '';
+        state.localCode = '';
+        state.firstName = '';
+        state.lastName = '';
+        state.gender = 'male',
+        state.grade = ''
 
-        state.globalLoading = false
+        state.globalLoading = false;
 
         state.errorMessage = {
             phone: "",
@@ -66,50 +72,48 @@ const mutations = {
             email: "",
             password: "",
             confirmPassword: "",
-            gmail: "",
-        }
+            gmail: ""
+        };
     },
-    setEmail(state,email){
-        state.email = email
+    setEmail(state, email) {
+        state.email = email;
     },
-    setPhone(state,phoneNumber){
+    setPhone(state, phoneNumber) {
         state.phone = phoneNumber;
     },
-    setPhoneCode(state,localCode){
+    setPhoneCode(state, localCode) {
         state.localCode = localCode;
     },
-    setBackStep(state){
-        let lastStep = state.stepsHistory.pop()
-        state.currentStep = lastStep
+    setGender(state, gender) {
+        state.gender = gender;
     },
-    setStepHistory(state){
-        state.stepsHistory.push(state.currentStep);
+    setGlobalLoading(state, value) {
+        state.globalLoading = value;
     },
-    setResetStepHistory(state){
-        state.stepsHistory = []
+    setErrorMessages(state, errorMessagesObj) {
+        state.errorMessage.gmail = (errorMessagesObj.gmail) ? errorMessagesObj.gmail : '';
+        state.errorMessage.phone = (errorMessagesObj.phone) ? errorMessagesObj.phone : '';
+        state.errorMessage.code = (errorMessagesObj.code) ? errorMessagesObj.code : '';
+        state.errorMessage.email = (errorMessagesObj.email) ? errorMessagesObj.email : '';
+        state.errorMessage.password = (errorMessagesObj.password) ? errorMessagesObj.password : '';
+        state.errorMessage.confirmPassword = (errorMessagesObj.confirmPassword) ? errorMessagesObj.confirmPassword : '';
     },
-    setCurrentStep(state,stepName){
-        state.currentStep = stepName
+    setLocalCode(state, localCode) {
+        state.localCode = localCode;
     },
+    setName(state, fullNameObj) {
+        state.firstName = fullNameObj.firstName;
+        state.lastName = fullNameObj.lastName;
+    },
+    setFullName(state, fullname) {
+        state.studentParentFullName = fullname
+    },
+    setStudentGrade(state, grade) {
+        state.grade = grade;
+    },
+};
 
-    setGlobalLoading(state,value){
-        state.globalLoading = value
-    },
-    setErrorMessages(state,errorMessagesObj){
-        state.errorMessage.gmail = (errorMessagesObj.gmail)? errorMessagesObj.gmail : ''
-        state.errorMessage.phone = (errorMessagesObj.phone)? errorMessagesObj.phone : ''
-        state.errorMessage.code = (errorMessagesObj.code)? errorMessagesObj.code : ''
-        state.errorMessage.email = (errorMessagesObj.email)? errorMessagesObj.email : ''
-        state.errorMessage.password = (errorMessagesObj.password)? errorMessagesObj.password : ''
-        state.errorMessage.confirmPassword = (errorMessagesObj.confirmPassword)? errorMessagesObj.confirmPassword : ''
-    },
-    setLocalCode(state,localCode){
-        state.localCode = localCode
-    },
-}
-
-const getters = {
-    getCurrentLoginStep: state => state.currentStep,
+const getters = {    
     getEmail1: state => state.email,
     getPhone: state => state.phone,
     getCountryCodesList: () => codesJson.sort((a, b) => a.name.localeCompare(b.name)),
@@ -117,292 +121,295 @@ const getters = {
     getGlobalLoading: state => state.globalLoading,
     getErrorMessages: state => state.errorMessage,
     getPassScoreObj: state => state.passScoreObj,
-}
+    getStudentGrade: state => state.grade,
+    getStudentParentFullName: state => state.studentParentFullName
+};
 
 const actions = {
-    updateToUrl({commit},url){
-        commit('setToUrl',url)
+    updateToUrl({commit}, url) {
+        commit('setToUrl',url);
     },
-    updateEmail({commit},email){
-        commit('setEmail',email)
+    updateFullName({commit}, fullname) {
+        commit('setFullName', fullname)
     },
-    updatePhone({commit},phoneNumber){
-        commit('setPhone',phoneNumber)
+    updateName({commit}, fullNameObj) {
+        commit('setName',fullNameObj);
+    },
+    updateEmail({commit}, email) {
+        commit('setEmail',email);
+    },
+    updatePhone({commit}, phoneNumber) {
+        commit('setPhone',phoneNumber);
     },    
-    updateLocalCode({commit},selectedLocalCode){
+    updateGender({commit}, gender) {
+        commit('setGender', gender)
+    },
+    updateGrade({commit}, grade) {
+        commit('setStudentGrade', grade);
+    }, 
+    updateLocalCode({commit}, selectedLocalCode) {
         if(selectedLocalCode){
-            commit('setLocalCode',selectedLocalCode)
+            commit('setLocalCode',selectedLocalCode);
         } else {
-            registrationService.getLocalCode().then(({data}) => {
-                commit('setLocalCode',data.code)});
+        registrationService.getLocalCode().then(({ data }) => {
+                commit('setLocalCode', data.code)
+            });
         }
     },
-    updateStep({commit,state},stepName){
-        let specialSteps = ["setphone", "verifyphone", "resetpassword"];
-
-        if(specialSteps.includes(stepName.toLowerCase())){
-            commit('setResetStepHistory')
-            commit('setCurrentStep',stepName)
-            _analytics(['Registration', 'Email Verified'])
-            return
-        }
-        if(!stepName){
-            commit('setResetState')
-        }else if(state.stepsHistory.includes(stepName)){
-            commit('setBackStep')
-        }else {
-            history.pushState({}, null);
-            commit('setStepHistory')
-            commit('setCurrentStep',stepName)
-        }
+    resetState({commit}){
+        commit('setResetState');
+        router.push({name: routeNames.Register});
     },
-    goBackStep({dispatch,state}){
-        let stepIndex = state.stepsHistory.length - 1
-        let lastStep = state.stepsHistory[stepIndex]
-        dispatch('updateStep',lastStep)
+    updateRegisterType(context, regType) {
+        return registrationService.updateUserRegisterType({ userType: regType })
     },
-    googleSigning({dispatch,commit}){
+    googleSigning({dispatch,commit, state}) {
+        if (window.Android) {
+            Android.onLogin();
+            return;
+        }
         let authInstance = gapi.auth2.getAuthInstance();
 
         return authInstance.signIn().then((googleUser) => {
             let idToken = googleUser.getAuthResponse().id_token;
-            return registrationService.googleRegistration(idToken).then((resp) => {
-                let newUser = resp.data.isNew;
-                if (newUser) {
-                    _analytics(['Registration', 'Start Google'])
-                    dispatch('updateStep','setPhone')
+            return registrationService.googleRegistration(idToken).then(({data}) => {
+                if (!data.isSignedIn) {
+                    _analytics(['Registration', 'Start Google']);
+                    router.push({name: routeNames.RegisterSetPhone});
                 } else {
-                    _analytics(['Login', 'Start Google'])
+                    _analytics(['Login', 'Start Google']);
                     global.isAuth = true;
-                    router.push({path: `${defaultSubmitRoute.path}`});
+                    
+                    dispatch('getUserAccountForRegister').then(({userType})=>{
+                        let pathObj = {
+                            name: routeNames.Feed,
+                            query:{}
+                        }
+
+                        if(userType === 'Parent'){
+                            pathObj.query.filter = 'Tutor'
+                        }
+                        if(userType === 'Teacher'){
+                            pathObj.name = routeNames.Dashboard;
+                        }
+                        state.toUrl === '/' ? router.push(pathObj) : router.push(state.toUrl)
+                    })
                 }
+                return Promise.reject();
+            }, (error) => {
+                commit('setErrorMessages', { gmail: error.response.data["Google"] ? error.response.data["Google"][0] : '' });
                 return Promise.reject(error);
-                }, (error) => {
-                    commit('setErrorMessages',{gmail: error.response.data["Google"] ? error.response.data["Google"][0] : ''})
-                    return Promise.reject(error);
-                });
-        },error=>{
+            });
+        }, error => {
             return Promise.reject(error);
-            
         });
     },
-    emailSigning({dispatch,state,commit},params){
-        let {recaptcha} = params
-        let {password} = params
-        let {confirmPassword} = params
-        commit('setGlobalLoading',true)
-        return registrationService.emailRegistration(state.email, recaptcha, password, confirmPassword)
-            .then((resp) => {
-                let nextStep = resp.data.step;
-                if(nextStep.toLowerCase() === "verifyphone" || nextStep.toLowerCase() === "enterphone"){
-                    dispatch('updateStep','setPhone')
-                }else{
-                    dispatch('updateStep',nextStep)
+    emailSigning({state, commit}, params) {
+        let { recaptcha, password, confirmPassword } = params;
+        let { firstName, lastName, email, gender } = state;
+        let emailRegObj = { firstName, lastName, email, gender, recaptcha, password, confirmPassword }
+
+        return registrationService.emailRegistration(emailRegObj)
+            .then(({data}) => {
+                _analytics(['Registration', 'Start']);
+                if (data.param && data.param.phoneNumber) {
+                    commit('setPhone',data.param.phoneNumber);
+                    commit('setPhoneCode')
                 }
-                _analytics(['Registration', 'Start'])
-                commit('setGlobalLoading',false)
+                router.push(data.step);
             },  (error) => {
-                commit('setGlobalLoading',false)
                 commit('setErrorMessages',{
                     email: error.response.data["Email"] ? error.response.data["Email"][0] : '',
                     password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
-                    confirmPassword: error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : '',
-                })
+                    confirmPassword: error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : ''
+                });
                 return Promise.reject(error);
             });
     },
-    resendEmail({dispatch}){
-        _analytics(['Registration', 'Resend Email'])
+    resendEmail({dispatch}) {
+        _analytics(['Registration', 'Resend Email']);
         registrationService.emailResend()
-            .then(response => {
+            .then(() => {
                 dispatch('updateToasterParams', {
                     toasterText: _dictionary("login_email_sent"),
                     showToaster: true,
                 });
-                },
-                error => {
-                    dispatch('updateToasterParams', {
-                        toasterText: LanguageService.getValueByKey("put some error"),
-                        showToaster: true,
-                        toasterType: 'error-toaster'
-                    });
-                })
+            }, () => {
+                dispatch('updateToasterParams', {
+                    toasterText: LanguageService.getValueByKey("put some error"),
+                    showToaster: true,
+                    toasterType: 'error-toaster'
+                });
+            });
     },
-    resetState({commit}){
-        commit('setResetState')
-    },
-    sendSMScode({dispatch,commit,state}){
-        commit('setGlobalLoading',true)
+    sendSMScode({dispatch, commit, state}) {
         registrationService.smsRegistration(state.localCode,state.phone)
-            .then(function (resp){
-                commit('setErrorMessages',{})
+            .then(function (){
+                commit('setErrorMessages', {});
                 dispatch('updateToasterParams',{
                     toasterText: _dictionary("login_verification_code_sent_to_phone"),
                     showToaster: true,
-                })
-                commit('setGlobalLoading',false)
-                _analytics(['Registration', 'Phone Submitted'])
-                dispatch('updateStep','VerifyPhone')
+                });
+                _analytics(['Registration', 'Phone Submitted']);
+                router.push({name: routeNames.RegisterVerifyPhone});
             }, function (error){
-                commit('setGlobalLoading',false)
-                commit('setErrorMessages',{phone: error.response.data["PhoneNumber"]? error.response.data["PhoneNumber"][0]:'' })
-
-                // if(error.response.data["PhoneNumber"] && error.response.data["PhoneNumber"][0]){
-                //     if(error.response.data["PhoneNumber"][0] === "InvalidPhoneNumber"){
-                //         commit('setErrorMessages',{phone: _dictionary("loginRegister_smsconfirm_phone_error_invalid")})
-                //     } else {
-                //         commit('setErrorMessages',{phone: _dictionary("loginRegister_smsconfirm_phone_error")})
-                //     }
-                // }else{
-                //     commit('setErrorMessages',{phone: _dictionary("loginRegister_smsconfirm_phone_error_tryagain")}) 
-                // }
-            })
+                commit('setErrorMessages', {phone: error.response.data["PhoneNumber"] ? error.response.data["PhoneNumber"][0] : '' });
+            });
     },
-    smsCodeVerify({dispatch,commit},smsCode) {
-        let data = {
-            code: smsCode,
-            fingerprint: ""
-        };
-        commit('setGlobalLoading',true)
+    smsCodeVerify({commit}, smsCode) {
+        let data = { code: smsCode, fingerprint: "" };
 
         Fingerprint2.getPromise({})
             .then(components => {
-                let values = components.map(component => component.value)
-                let murmur = Fingerprint2.x64hash128(values.join(''), 31)
+                let values = components.map(component => component.value);
+                let murmur = Fingerprint2.x64hash128(values.join(''), 31);
                 data.fingerprint = murmur;
                 registrationService.smsCodeVerification(data)
                     .then(userId => {
-                            dispatch('updateStep','congrats')
-                            _analytics(['Registration', 'Phone Verified'])
+                            router.push({name: routeNames.RegisterType});
+                            _analytics(['Registration', 'Phone Verified']);
                             if(!!userId){
-                                _analytics(['Registration', 'User Id', userId.data.id])
+                                _analytics(['Registration', 'User Id', userId.data.id]);
                             }
-                            commit('setGlobalLoading',false)
-                    }, error =>{
-                        commit('setGlobalLoading',false)
-                        commit('setErrorMessages',{code: "Invalid code"}) 
-                    })
-            })     
+                    }, () => {
+                        commit('setErrorMessages',{code: "Invalid code"});
+                    });
+            });
     },
-    callWithCode({dispatch,commit}){
-        commit('setGlobalLoading',false)
-        _analytics(['Registration', 'Call Voice SMS'])
+    callWithCode({dispatch, commit}) {
+        _analytics(['Registration', 'Call Voice SMS']);
         registrationService.voiceConfirmation()
-            .then((success) => {
-                commit('setGlobalLoading',false)                  
+            .then(() => {
                 dispatch('updateToasterParams',{
                     toasterText: _dictionary("login_call_code"),
                     showToaster: true,
-                })
-            },error => {
-                commit('setErrorMessages',{code: error.text})
-            })
-    },
-    changeNumber({dispatch,commit}){
-        commit('setResetState')
-        dispatch('updateStep','setPhone')
-    },
-    finishRegister(){
-        _analytics(['Registration', 'Congrats'])
-        global.isAuth = true;
-        router.push({name:'studentTutor'})
-    },
-    emailValidate({dispatch,commit,state}) {
-        commit('setGlobalLoading',true)
-            registrationService.validateEmail(encodeURIComponent(state.email))
-                .then((response) => {
-                    commit('setGlobalLoading',false)
-                    _analytics(['Login Email validation', 'email send'])
-                    dispatch('updateStep','setPassword')
-                }, (error)=> {
-                    commit('setGlobalLoading',false)
-                    commit('setErrorMessages',{email: error.response.data["Email"] ? error.response.data["Email"][0] : ''})
                 });
+            }, error => {
+                commit('setErrorMessages',{code: error.text});
+            });
     },
-    logIn({commit,state},password){
-        commit('setGlobalLoading',true)
+    changeNumber({commit}) {
+        commit('setResetState');
+        router.push({name: routeNames.RegisterSetPhone});
+    },
+    emailValidate({commit, state}) {
+        registrationService.validateEmail(encodeURIComponent(state.email))
+            .then(() => {
+                _analytics(['Login Email validation', 'email send']);
+                router.push({name: routeNames.LoginSetPassword});
+            }, (error)=> {
+                commit('setErrorMessages',{email: error.response.data["Email"] ? error.response.data["Email"][0] : ''});
+            });
+    },
+    logIn({dispatch, commit, state}, password) {
         let data = {
             email: state.email,
             password: password,
-            fingerprint: ""
-        }
+        };
 
         Fingerprint2.getPromise({})
-            .then(components =>{
-                let values = components.map(component => component.value)
-                let murmur = Fingerprint2.x64hash128(values.join(''), 31)
+            .then(components => {
+                let values = components.map(component => component.value);
+                let murmur = Fingerprint2.x64hash128(values.join(''), 31);
                 data.fingerprint = murmur;
                 registrationService.signIn(data)
-                    .then(response =>{
-                        commit('setGlobalLoading',false)
-                        _analytics(['Login', 'Start'])
+                    .then(response => {
+                        _analytics(['Login', 'Start']);
                         global.isAuth = true;
                         global.country = response.data.country;
-                        let url = state.toUrl || defaultSubmitRoute;
-                        router.push({ path: `${url.path}` });
+                        
+                        if(global.country) {
+                            dispatch('getUserAccountForRegister').then(({userType})=>{
+                                let pathObj = {
+                                    name: routeNames.Feed,
+                                    query:{}
+                                }
+                                if(userType === 'Parent'){
+                                    pathObj.query.filter = 'Tutor'
+                                }
+                                if(userType === 'Teacher'){
+                                    pathObj.name = routeNames.Dashboard;
+                                }
+                                state.toUrl === '/' ? router.push(pathObj) : router.push(state.toUrl)
+                            })
+                        } else {
+                            //TODO: what error resource should i need here??
+                            dispatch('updateToasterParams', {
+                                toasterText: LanguageService.getValueByKey("loginRegister_country_error"),
+                                showToaster: true,
+                                toasterType: 'error-toaster'
+                            });
+                        }
                     },error =>{
-                        commit('setGlobalLoading',false)
-                        commit('setErrorMessages',{email: error.response.data["Password"] ? error.response.data["Password"][0] : ''}) 
-                    })
-            })
+                        commit('setErrorMessages',{email: error.response.data["Password"] ? error.response.data["Password"][0] : ''});
+                    });
+            });
     },
-    resetPassword({dispatch,state,commit}){
-        commit('setGlobalLoading',true)
+    resetPassword({state, commit}){
         registrationService.forgotPasswordReset(state.email)
-            .then(response =>{
-                commit('setGlobalLoading',false)
-                _analytics(['Forgot Password', 'Reset email send'])
-                dispatch('updateStep','EmailConfirmed')
+            .then(() =>{
+                _analytics(['Forgot Password', 'Reset email send']);
+                router.push({name: routeNames.LoginEmailConfirmed});
             },error =>{
-                commit('setGlobalLoading',false)
-                commit('setErrorMessages',{email: error.response.data["ForgotPassword"] ? error.response.data["ForgotPassword"][0] : error.response.data["Email"][0]}) 
-            })
+                commit('setErrorMessages',{email: error.response.data["ForgotPassword"] ? error.response.data["ForgotPassword"][0] : error.response.data["Email"][0]});
+            });
     },
-    resendEmailPassword({dispatch,commit}){
-        commit('setGlobalLoading',true)
-        _analytics(['Registration', 'Resend Email'])
+    resendEmailPassword({dispatch}){
+        _analytics(['Registration', 'Resend Email']);
         registrationService.EmailforgotPasswordResend()
-            .then(response => {
-                commit('setGlobalLoading',false)
+            .then(() => {
                 dispatch('updateToasterParams',{
                     toasterText: _dictionary("login_email_sent"),
                     showToaster: true,
-                })
-            },error => {
-                commit('setGlobalLoading',false)
-            })
+                });
+            });
     },
-    changePassword({state,commit},params) {
-        let {id} = params
-        let {code} = params
-        let {password} = params
-        let {confirmPassword} = params
-        let isValid = (password === confirmPassword)
+    changePassword({commit},params) {
+        let {id, code, password, confirmPassword} = params;
+        let isValid = (password === confirmPassword);
         if(isValid){
-            commit('setGlobalLoading',true)
-            registrationService.updatePassword(password, confirmPassword, id, code)
-                .then((response) => {
-                    _analytics(['Forgot Password', 'Updated password'])
+            registrationService.updatePassword(password, confirmPassword, id, code) //TODO: send object instead
+                .then(() => {
                     global.isAuth = true;
-                    commit('setGlobalLoading',false)
-                    let url = state.toUrl || defaultSubmitRoute;
-                    router.push({path: `${url.path }`});
+                    _analytics(['Forgot Password', 'Updated password']);
+                    router.push({name: routeNames.Feed});
                 }, (error) => {
-                    commit('setGlobalLoading',false)
                     commit('setErrorMessages',{
                         password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
-                        confirmPassword: error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : ''}) 
+                        confirmPassword: error.response.data["ConfirmPassword"] ? error.response.data["ConfirmPassword"][0] : ''
+                    });
                 });
-        }else{
-            commit('setErrorMessages',{confirmPassword: _dictionary('login_error_not_matched') })
+        } else {
+            commit('setErrorMessages', { confirmPassword: _dictionary('login_error_not_matched') });
         }
     },
     exit({commit}){
-        // let url = state.toUrl || defaultSubmitRoute;
-        commit('setResetState')
-        router.push({path: `/`});
+        commit('setResetState');
+        router.push({name: routeNames.Feed});
+    },
+    updateStudentGrade({ commit }) {
+        let grade = state.grade
+        if(grade) {
+            return registrationService.updateGrade({ grade }).then(() => {
+                global.isAuth = true;
+                commit('setStudentGrade', grade);
+                router.push({name: routeNames.Feed});
+            })
+        }
+    },
+    updateParentStudent({state}) {
+        let parentObj = {
+            grade: state.grade,
+            name: state.studentParentFullName
+        }
+        return registrationService.updateParentStudentName(parentObj).then(() => {
+            global.isAuth = true;
+            return
+        }).catch(ex => {
+            console.log(ex);
+        })
     }
-}
+};
 
 export default {
     state,

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Event;
@@ -14,6 +9,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.WebUtilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Web.EventHandler
 {
@@ -24,14 +24,18 @@ namespace Cloudents.Web.EventHandler
         private readonly IBinarySerializer _binarySerializer;
         private readonly LinkGenerator _linkGenerator;
         private readonly IHttpContextAccessor _httpContextAccessor;
+       // private readonly IUrlBuilder _urlBuilder;
 
-        public WebSocketChatMessageEventHandler(IHubContext<SbHub> hubContext, IChatDirectoryBlobProvider blobProvider, IBinarySerializer binarySerializer, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
+        public WebSocketChatMessageEventHandler(IHubContext<SbHub> hubContext, IChatDirectoryBlobProvider blobProvider, 
+            IBinarySerializer binarySerializer, LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor
+            )
         {
             _hubContext = hubContext;
             _blobProvider = blobProvider;
             _binarySerializer = binarySerializer;
             _linkGenerator = linkGenerator;
             _httpContextAccessor = httpContextAccessor;
+           // _urlBuilder = urlBuilder;
         }
 
         public async Task HandleAsync(ChatMessageEvent eventMessage, CancellationToken token)
@@ -44,14 +48,14 @@ namespace Cloudents.Web.EventHandler
                     message = BuildChatMessage((dynamic)chatMessage)
                 });
 
-            List<string> users = BuildUserList((dynamic) chatMessage);
+            List<string> users = BuildUserList((dynamic)chatMessage);
             await _hubContext.Clients.Users(users).SendAsync(SbHub.MethodName, message, token);
         }
 
         private List<string> BuildUserList(ChatTextMessage chatMessage)
         {
             return chatMessage.ChatRoom.Users.Where(w => w.User.Id != chatMessage.User.Id).Select(s => s.User.Id.ToString()).ToList();
-            
+
         }
         private List<string> BuildUserList(ChatAttachmentMessage chatMessage)
         {
@@ -66,7 +70,7 @@ namespace Cloudents.Web.EventHandler
                 Text = chatMessage.Message,
                 DateTime = DateTime.UtcNow,
                 Name = chatMessage.User.Name,
-                Image = chatMessage.User.Image
+               // Image = _urlBuilder.BuildUserImageEndpoint(chatMessage.User.Id, chatMessage.User.ImageName)
             };
         }
 

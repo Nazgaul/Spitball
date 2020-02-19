@@ -11,8 +11,8 @@ namespace Cloudents.Command.Command
             Expiration = expiration;
         }
 
-        public string Identifier { get;  }
-        public string Destination { get;  }
-        public DateTime? Expiration { get;  }
+        public string Identifier { get; }
+        public string Destination { get; }
+        public DateTime? Expiration { get; }
     }
 }

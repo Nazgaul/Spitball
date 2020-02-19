@@ -33,7 +33,7 @@
             </template>
             
             <label for="chat-file" class="chat-upload-file">
-                <add-file-img class="chat-attach-file"></add-file-img>
+                <v-icon class="chat-attach-file">sbf-attach</v-icon>
                 <file-upload  chunk-enabled
                     :chunk="{
                         action: uploadUrl,
@@ -59,14 +59,16 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
-    import addFileImg from '../../../../font-icon/attach.svg';
     import chatImage from '../../images/outline-insert-photo.svg';
-    import FileUpload from 'vue-upload-component/src';
+    import FileUpload from 'vue-upload-component';
     import photoCamera from '../../images/photo-camera.svg';
 
     export default {
         name: "chatUploadFile",
-        components: { FileUpload, addFileImg, chatImage, photoCamera },
+        components: { 
+            FileUpload, 
+            chatImage, 
+            photoCamera },
         props: {
             typing: {
                 type: Boolean,
@@ -144,7 +146,7 @@
 
                 this.uploadCapturedImage(formData).then(()=> {
                     
-                }).catch(ex => {
+                }).catch(() => {
                     this.updateFileError(true)
                 }).finally(() => {
                     this.updateChatUploadLoading(false)
@@ -197,6 +199,9 @@
                 z-index: 5;
                 transform: rotate(90deg);
                 width: 22px;
+                .chat-attach-file{
+                    color: #848bbc;
+                }
                 .responsive-property(right, 6px, null, 6px);
                 .file-uploads{
                     position: absolute;

@@ -2,7 +2,6 @@
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,9 +25,8 @@ namespace Cloudents.Command.StudyRooms
                 throw new ArgumentException();
             }
 
-            var sessionName = $"{message.StudyRoomId}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
-            var lastSession = room.Sessions.LastOrDefault();
-            if (lastSession != null && lastSession.Ended == null)
+            var lastSession = room.GetCurrentSession();
+            if (lastSession != null)
             {
                 var roomAvailable = await _videoProvider.GetRoomAvailableAsync(lastSession.SessionId);
                 if (roomAvailable)
@@ -37,7 +35,13 @@ namespace Cloudents.Command.StudyRooms
                     return;
                 }
             }
-            await _videoProvider.CreateRoomAsync(sessionName, message.RecordVideo, message.CallbackUrl, room.Type.GetValueOrDefault(StudyRoomType.PeerToPeer));
+            var sessionName = $"{message.StudyRoomId}_{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
+
+            await _videoProvider.CreateRoomAsync(sessionName,room.Tutor.User.Country,
+                message.RecordVideo,
+                message.CallbackUrl,
+                room.Type.GetValueOrDefault(StudyRoomType.PeerToPeer)
+                );
             var session = new StudyRoomSession(room, sessionName);
             room.AddSession(session);
         }

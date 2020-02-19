@@ -21,15 +21,15 @@ const init = function(){
         this.focus();
         return this.value;
       };
-}
+};
 
-const proccessImageURL = function(url, width, height, mode){
+const proccessImageUrl = function(url, width, height, mode){
   let usedMode = mode ? mode : 'crop';
   if(url){
       let returnedUrl = `${url}?&width=${width}&height=${height}&mode=${usedMode}`;
       return returnedUrl;
   }else{
-      return ''
+      return '';
   }
 };
 
@@ -39,17 +39,17 @@ const dateFormater = function(dateTime){
   let date = new Date(dateTime);
   let options = { year: "numeric", month: "short", day: "2-digit" };
   return new Intl.DateTimeFormat(lang, options).format(date);
-}
+};
 
-function IsoStringDateWithOffset(days){
+function isoStringDateWithOffset(days){
   let ourDate = new Date();
   let pastDate = ourDate.getDate() + days;
   ourDate.setDate(pastDate);
-  return ourDate.toISOString()
+  return ourDate.toISOString();
 }
 export default {
     init,
-    proccessImageURL,
+    proccessImageURL: proccessImageUrl,
     dateFormater,
-    IsoStringDateWithOffset
+    IsoStringDateWithOffset: isoStringDateWithOffset
 }

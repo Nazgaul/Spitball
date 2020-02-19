@@ -2,13 +2,18 @@
 using Cloudents.Command.Command;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
+using Cloudents.Query.Chat;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,10 +21,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Query.Chat;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Localization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,24 +33,31 @@ namespace Cloudents.Web.Api
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
-
+        private readonly IUrlBuilder _urlBuilder;
         public ChatController(ICommandBus commandBus, UserManager<User> userManager, IQueryBus queryBus,
             IChatDirectoryBlobProvider blobProvider,
             ITempDataDictionaryFactory tempDataDictionaryFactory,
-            IStringLocalizer<UploadControllerBase> localizer)
+            IStringLocalizer<UploadControllerBase> localizer,
+            IUrlBuilder urlBuilder)
         : base(blobProvider, tempDataDictionaryFactory, localizer)
         {
             _commandBus = commandBus;
             _userManager = userManager;
             _queryBus = queryBus;
+            _urlBuilder = urlBuilder;
         }
 
         // GET: api/<controller>
         [HttpGet]
-        public async Task<IEnumerable<ChatUserDto>> Get(CancellationToken token)
+        public async Task<IEnumerable<ChatUserDto>> GetAsync(CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var result = await _queryBus.QueryAsync(new ChatConversationsQuery(userId), token);
+            result = result.Select(s =>
+            {
+                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
+                return s;
+            });
             return result;
         }
 
@@ -63,7 +71,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<ChatUserDto>> GetConversation(string id, CancellationToken token)
+        public async Task<ActionResult<ChatUserDto>> GetConversationAsync(string id, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             var result = await _queryBus.QueryAsync(new ChatConversationQuery(id, userId), token);
@@ -71,17 +79,21 @@ namespace Cloudents.Web.Api
             {
                 return BadRequest();
             }
+
+            result.Image = _urlBuilder.BuildUserImageEndpoint(result.UserId, result.Image);
+
             return result;
         }
 
         [HttpGet("{id}")]
-        public async Task<IEnumerable<ChatMessageDto>> Get(string id, int page,
+        public async Task<IEnumerable<ChatMessageDto>> GetAsync(string id, int page,
             CancellationToken token)
         {
             //specific conversation
             var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(id, page), token);
             return result.Select(s =>
             {
+                s.Image = _urlBuilder.BuildUserImageEndpoint(s.UserId, s.Image);
                 if (!(s is ChatAttachmentDto p)) return s;
                 var url = BlobProvider.GetBlobUrl($"{p.ChatRoomId}/{p.Id}/{p.Attachment}");
                 p.Src = Url.ImageUrl(new ImageProperties(url));
@@ -100,7 +112,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> Post([FromBody]ChatMessageRequest model, CancellationToken token)
+        public async Task<IActionResult> PostAsync([FromBody]ChatMessageRequest model, CancellationToken token)
         {
             var userId = _userManager.GetLongUserId(User);
             if (userId == model.OtherUser)
@@ -116,7 +128,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> ResetUnread(ChatResetRequest model, CancellationToken token)
+        public async Task<IActionResult> ResetUnreadAsync(ChatResetRequest model, CancellationToken token)
         {
             try
             {
@@ -158,7 +170,7 @@ namespace Cloudents.Web.Api
         }
 
         [HttpPost("uploadForm")]
-        public async Task<ActionResult<UploadStartResponse>> UploadSingleFile(
+        public async Task<ActionResult<UploadStartResponse>> UploadSingleFileAsync(
             [FromForm] long otherUser,
             [Required] IFormFile file, CancellationToken token)
         {

@@ -22,6 +22,8 @@ namespace Cloudents.Command.CommandHandler
             var doc = await _documentRepository.LoadAsync(message.Id, token);
             doc.PageCount = message.PageCount;
             doc.MetaContent = message.Snippet;
+            doc.DocumentType = message.DocumentType;
+            doc.Duration = message.Duration;
             await _documentRepository.UpdateAsync(doc, token);
         }
     }

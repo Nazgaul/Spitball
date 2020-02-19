@@ -1,9 +1,7 @@
-﻿using Cloudents.Core.Enum;
-
-namespace Cloudents.Admin2.Models
+﻿namespace Cloudents.Admin2.Models
 {
     public class ChangeConversationAssignRequest
     {
-        public ChatRoomAssign AssignTo { get; set; }
+        public string AssignTo { get; set; }
     }
 }

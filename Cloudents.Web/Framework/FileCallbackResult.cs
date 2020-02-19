@@ -1,11 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace Cloudents.Web.Framework
 {
@@ -84,7 +85,14 @@ namespace Cloudents.Web.Framework
 
             public Task ExecuteAsync(ActionContext context, FileCallbackResult result)
             {
+                //https://github.com/aspnet/AspNetCore/issues/7644
+                var syncIoFeature = context.HttpContext.Features.Get<IHttpBodyControlFeature>();
+                if (syncIoFeature != null)
+                {
+                    syncIoFeature.AllowSynchronousIO = true;
+                }
                 SetHeadersAndLog(context, result, null, true);
+                
                 return result.Callback(context.HttpContext.Response.Body, context);
                 //await context.HttpContext.Response.Body.FlushAsync();
             }

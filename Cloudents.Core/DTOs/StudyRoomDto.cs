@@ -1,24 +1,34 @@
-﻿using System;
+﻿using Cloudents.Core.Attributes;
+using Cloudents.Core.Entities;
+using System;
 
 namespace Cloudents.Core.DTOs
 {
     public class StudyRoomDto
     {
-       
-        public string OnlineDocument { get; set; }
-        public string ConversationId { get; set; }
-        public long TutorId { get; set; }
-        public string TutorImage { get; set; }
-        public string TutorName { get; set; }
-        public long StudentId { get; set; }
-        public string StudentImage { get; set; }
-        public string StudentName { get; set; }
-        public bool AllowReview => true;
 
-        public bool CardEnter { get; set; }
+        [EntityBind(nameof(StudyRoom.OnlineDocumentUrl))]
+        public string OnlineDocument { get; set; }
+        [EntityBind(nameof(ChatRoom.Id))]
+        public string ConversationId { get; set; }
+        [EntityBind(nameof(Tutor.Id))]
+        public long TutorId { get; set; }
+        [EntityBind(nameof(User.ImageName))]
+        public string TutorImage { get; set; }
+        [EntityBind(nameof(User.Name))]
+        public string TutorName { get; set; }
+        [EntityBind(nameof(User.Id))]
+        public long StudentId { get; set; }
+        [EntityBind(nameof(User.ImageName))]
+        public string StudentImage { get; set; }
+        [EntityBind(nameof(User.Name))]
+        public string StudentName { get; set; }
+
+
+        [EntityBind(nameof(User.PaymentExists), nameof(User.BuyerPayment.PaymentKeyExpiration))]
         public bool NeedPayment { get; set; }
     };
-       
+
 
 
     public class UserStudyRoomDto
@@ -31,7 +41,7 @@ namespace Cloudents.Core.DTOs
         public DateTime DateTime { get; set; }
 
         public string ConversationId { get; set; }
+        public DateTime LastSession { get; set; }
 
-        
     }
 }

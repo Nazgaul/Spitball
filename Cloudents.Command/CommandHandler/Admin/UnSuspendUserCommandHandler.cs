@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Command.Command.Admin;
+﻿using Cloudents.Command.Command.Admin;
 using Cloudents.Core.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
@@ -16,7 +16,7 @@ namespace Cloudents.Command.CommandHandler.Admin
         }
         public async Task ExecuteAsync(UnSuspendUserCommand message, CancellationToken token)
         {
-            var user = await _userRepository.LoadAsync(message.Id,  token);
+            var user = await _userRepository.LoadAsync(message.Id, token);
             user.UnSuspendUser();
             await _userRepository.UpdateAsync(user, token);
         }

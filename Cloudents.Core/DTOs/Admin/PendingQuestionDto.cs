@@ -10,7 +10,8 @@ namespace Cloudents.Core.DTOs.Admin
         public string Text { get; set; }
         public string Email { get; set; }
 
-        public int ImagesCount { get; set; }
+        //TODO - need to remove in admin client
+        public int ImagesCount => 0;
     }
 
     public class PendingDocumentDto
@@ -29,7 +30,7 @@ namespace Cloudents.Core.DTOs.Admin
             Id = id;
         }
 
-        public long Id { get;  }
+        public long Id { get; }
     }
 
     //public class PendingAnswerDto

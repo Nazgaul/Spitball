@@ -1,56 +1,56 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Cloudents.Core;
+using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
-using Swashbuckle.AspNetCore.Swagger;
-using System;
-using System.IO;
-using System.Reflection;
-using Cloudents.Core;
-using Cloudents.Core.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
+using System.IO;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
-using Microsoft.Extensions.Options;
-using Cloudents.Admin2.Models;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 
 namespace Cloudents.Admin2
 {
     //Client secret from azure: JPJAvY3Dk]q:EsGA]5REfUt*bkDAuy51
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             HostingEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
-        private IHostingEnvironment HostingEnvironment { get; }
+        private IWebHostEnvironment HostingEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-
+            services.AddApplicationInsightsTelemetry();
             services.AddAuthorization();
             services.AddAuthentication(o =>
                 {
                     o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 })
-                
+
                 .AddCookie(x =>
                 {
+                    x.Cookie.Name = "admin1";
                     x.Events.OnRedirectToLogin = context =>
                     {
                         if (context.Request.Path.StartsWithSegments("/api"))
@@ -60,10 +60,10 @@ namespace Cloudents.Admin2
                         }
                         else
                         {
-                            context.Response.Redirect("/account/LogIn"); 
+                            context.Response.Redirect("/account/LogIn");
                             return Task.CompletedTask;
                         }
-                      
+
                     };
                     x.Events.OnRedirectToAccessDenied = context =>
                     {
@@ -72,7 +72,7 @@ namespace Cloudents.Admin2
                     };
                 });
 
-          
+
 
             services.AddDataProtection(o =>
             {
@@ -83,20 +83,19 @@ namespace Cloudents.Admin2
 
             //services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddMvc(config =>
-            {
-               
+                {
+
                     var policy = new AuthorizationPolicyBuilder()
                         .RequireAuthenticatedUser()
                         .Build();
                     config.Filters.Add(new AuthorizeFilter(policy));
-            }).AddJsonOptions(options =>
+                }).AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                    options.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter { NamingStrategy = new CamelCaseNamingStrategy() });
                 })
-                .AddDataAnnotationsLocalization()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .AddDataAnnotationsLocalization();
 
             if (HostingEnvironment.IsDevelopment())
             {
@@ -109,8 +108,9 @@ namespace Cloudents.Admin2
 
             services.AddAuthorization(options =>
             {
-                //options.AddPolicy(Policy.IsraelUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IL"));
-                //options.AddPolicy(Policy.IndiaUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IN"));
+                // options.AddPolicy(Policy.IsraelUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IL"));
+                // options.AddPolicy(Policy.IndiaUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "IN"));
+                // options.AddPolicy(Policy.GlobalUser, policy => policy.RequireClaim(ClaimsPrincipalExtensions.ClaimCountry, "None"));
             });
 
             var assembliesOfProgram = new[]
@@ -129,9 +129,10 @@ namespace Cloudents.Admin2
                 var val = c.Resolve<IOptionsMonitor<PayMeCredentials>>();
                 return val.CurrentValue;
             }).AsSelf();
-            var keys = new ConfigurationKeys(Configuration["Site"])
+            var keys = new ConfigurationKeys()
             {
-                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"]),
+                SiteEndPoint = { SpitballSite = Configuration["Site"], FunctionSite = Configuration["functionCdnEndpoint"] },
+                Db = new DbConnectionString(Configuration.GetConnectionString("DefaultConnection"), Configuration["Redis"], DbConnectionString.DataBaseIntegration.Validate),
                 Search = new SearchServiceCredentials(Configuration["AzureSearch:SearchServiceName"],
                        Configuration["AzureSearch:SearchServiceAdminApiKey"],
                     !HostingEnvironment.IsProduction()
@@ -155,7 +156,7 @@ namespace Cloudents.Admin2
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -179,19 +180,20 @@ namespace Cloudents.Admin2
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-           
+            app.UseRouting();
             app.UseCookiePolicy();
             app.UseAuthentication();
-
-            app.UseMvc(routes =>
+            app.UseAuthorization();
+            app.UseEndpoints(routes =>
             {
-                routes.MapRoute(
+                routes.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                routes.MapFallbackToController("Index", "Home");
+                //routes.MapSpaFallbackRoute(
+                //    name: "spa-fallback",
+                //    defaults: new { controller = "Home", action = "Index" });
             });
         }
 
@@ -201,7 +203,7 @@ namespace Cloudents.Admin2
             services.AddSwaggerGen(c =>
             {
 
-                c.SwaggerDoc("v1", new Info { Title = "Admin Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Admin Api", Version = "v1" });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);

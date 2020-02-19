@@ -133,13 +133,13 @@
     <value>סיימתי</value>
   </data>
   <data name="cant_find" xml:space="preserve">
-    <value>לא יכול למצוא את הקורס שלך?</value>
+    <value>לא מוצא את הקורס שלך?</value>
   </data>
   <data name="check_mistakes" xml:space="preserve">
     <value>לחפש שגיאות כתיב</value>
   </data>
   <data name="copy_link" xml:space="preserve">
-    <value>העתק קישור של הקורס</value>
+    <value>העתקת קישור של הקורס</value>
   </data>
   <data name="create_course" xml:space="preserve">
     <value>צור קורס</value>

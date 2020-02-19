@@ -120,14 +120,23 @@
   <data name="about_spitball" xml:space="preserve">
     <value>אודות ספיטבול</value>
   </data>
+  <data name="balance" xml:space="preserve">
+    <value>היתרה שלך: {1} נק'</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>עריכה</value>
+  </data>
   <data name="changeCourse" xml:space="preserve">
     <value>קורסים</value>
   </data>
   <data name="changeUniversity" xml:space="preserve">
-    <value>אוניברסיטה</value>
+    <value>מוסד לימוד</value>
   </data>
   <data name="feedback" xml:space="preserve">
     <value>משוב</value>
+  </data>
+  <data name="greets" xml:space="preserve">
+    <value>{1}</value>
   </data>
   <data name="help" xml:space="preserve">
     <value>עזרה</value>
@@ -136,27 +145,14 @@
     <value>כניסה</value>
     <comment>צריך להיות התחבר</comment>
   </data>
-  <data name="login_l" xml:space="preserve">
-    <value>היכנס</value>
-    <comment>צריך להיות התחבר</comment>
-  </data>
   <data name="logout" xml:space="preserve">
     <value>התנתק מהמערכת</value>
   </data>
-  <data name="messages" xml:space="preserve">
-    <value>הודעות</value>
+  <data name="my_study_rooms" xml:space="preserve">
+    <value>בדיקת חדר לימוד</value>
   </data>
-  <data name="my_profile" xml:space="preserve">
-    <value>הפרופיל שלי</value>
-  </data>
-  <data name="my_wallet" xml:space="preserve">
-    <value>הארנק שלי</value>
-  </data>
-  <data name="or" xml:space="preserve">
-    <value>או</value>
-  </data>
-  <data name="Please" xml:space="preserve">
-    <value>אנא</value>
+  <data name="points" xml:space="preserve">
+    <value>קבל נקודות</value>
   </data>
   <data name="privacy_policy" xml:space="preserve">
     <value>מדיניות הפרטיות</value>
@@ -167,16 +163,11 @@
   <data name="Sign_up" xml:space="preserve">
     <value>הרשמה</value>
   </data>
-  <data name="sign_up_l" xml:space="preserve">
-    <value>הרשם</value>
-  </data>
   <data name="terms_of_service" xml:space="preserve">
     <value>תנאי שירות</value>
   </data>
-  <data name="Change" xml:space="preserve">
-    <value>עריכה</value>
-  </data>
-  <data name="my_study_rooms" xml:space="preserve">
-    <value>בדיקת חדר לימוד</value>
+  <data name="txt_out" xml:space="preserve">
+    <value>קבל גישה לאלפי מסמכי לימוד
+ומורים אונליין</value>
   </data>
 </root>

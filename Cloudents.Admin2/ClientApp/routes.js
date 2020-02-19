@@ -1,7 +1,6 @@
 //import Home from './components/Home.vue';
 
 import question from './components/question/question.vue';
-import qMark from './components/question/questionComponents/mark/markQuestion.vue';
 import qDelete from './components/question/questionComponents/delete/deleteQuestion.vue';
 import qAdd from './components/question/questionComponents/add/addQuestion.vue';
 import qAddBulk from './components/question/questionComponents/addBulk/addBulkQuestions.vue';
@@ -20,15 +19,14 @@ import uCashout from './components/user/cashout/cashoutUser.vue';
 import uSuspend from './components/user/suspend/suspendUser.vue';
 import activeUsers from './components/user/activeUsers/activeUsers.vue';
 import payments from './components/user/payments/paymentUser.vue';
+import changeCountry from './components/user/changeCountry/changeCountry.vue';
 
 import document from './components/document/document.vue';
 import approveDelete from './components/document/documentComponents/approveDelete/approveDelete.vue';
 import documentDelete from './components/document/documentComponents/documentDelete/documentDelete.vue';
 import flaggedDocument from './components/document/documentComponents/flaggedDocument/flaggedDocument.vue';
 
-import dev from './components/dev/dev.vue';
-import uChangeCountry from './components/dev/changeCountry/changeCountry.vue';
-import uDelete from './components/dev/deleteUser/deleteUser.vue';
+
 
 import userMain from './components/userMainView/userMainView.vue';
 import userQuestions from './components/userMainView/userQuestions/userQuestions.vue';
@@ -37,6 +35,8 @@ import userDocuments from './components/userMainView/userDocuments/userDocuments
 import userPurchasedDocuments from './components/userMainView/userPurchasedDocuments/userPurchasedDocuments.vue';
 // import userConversations from './components/userMainView/userConversations/userConversations.vue';
 import userSessions from './components/userMainView/userSessions/userSessions.vue';
+import userSoldItems from './components/userMainView/userSoldItems/userSoldItems.vue';
+import userNotes from './components/userMainView/userNotes/userNotes.vue';
 
 import management from './components/management/Management.vue';
 import coursesPending from './components/management/coursesPending/coursesPending.vue';
@@ -45,16 +45,19 @@ import shortUrl from './components/management/shortUrl/shortUrl.vue';
 
 import conversation from './components/conversation/conversation.vue';
 import conversations from './components/conversation/conversationComponent/conversationDetalis/conversationDetails.vue';
-import startConversations from './components/conversation/startconversation.vue'
+import startConversations from './components/conversation/startconversation.vue';
 // import conversationMessages from './components/conversation/conversationComponent/conversationMessages/conversationMessages.vue';
 
 import tutors from './components/tutor/tutor.vue';
 import pendingTutors from './components/tutor/pendingTutors/pendingTutor.vue';
 import deleteTutors from './components/tutor/tutorDelete/tutorDelete.vue';
+import paymentSession from './components/tutor/paymentSession/paymentSession.vue';
 import studyRoom from './components/studyRoom/studyRoom.vue';
 import studyRoomSession from './components/studyRoom/studyRoomComponents/sessions/studyRoomsSessions.vue';
 
-import leads from './components/leads/leads.vue'
+import leads from './components/leads/leads.vue';
+import coupon from './components/coupon/coupon.vue';
+import subjects from './components/subjects/subjects.vue';
 
 export const routes = [
     {
@@ -84,6 +87,11 @@ export const routes = [
                 component: userPurchasedDocuments
             },
             {
+                name:'userSoldItems',
+                path:'userSoldItems',
+                component: userSoldItems
+            },
+            {
               name:'userConversations',
               path:'userConversations',
               component: conversations
@@ -92,6 +100,11 @@ export const routes = [
               name:'userSessions',
               path:'userSessions',
               component: userSessions
+            },
+            {
+              name: 'userNotes',
+              path: 'userNotes',
+              component: userNotes
             }
             // {
             //     path:'userDownvotes',
@@ -109,19 +122,22 @@ export const routes = [
         component: tutors,
         children: [
             {
-                path: '',
-                redirect: 'pendingTutors'
+              path: '',
+              redirect: 'pendingTutors'
             },
             {
-            path: 'pendingTutors',
-            component: pendingTutors
+              path: 'pendingTutors',
+              component: pendingTutors
             },
             {
               path: 'deleteTutors',
               component: deleteTutors
-              }
-            ]
-
+            },
+            {
+              path: 'paymentSession',
+              component: paymentSession
+            }
+        ]
     },
     {
         path: '/question',
@@ -134,11 +150,7 @@ export const routes = [
         children: [
           {
             path: '',
-            redirect: 'mark'
-          },
-          {
-            path: 'mark',
-            component: qMark
+            redirect: 'pendingQuestions'
           },
           {
             path:'delete',
@@ -166,7 +178,7 @@ export const routes = [
           },
           {
             path: '*',
-            redirect: 'mark'
+            redirect: 'pendingQuestions'
           }
         ]
     },
@@ -222,20 +234,25 @@ export const routes = [
             path:'suspend',
             component: uSuspend
           },
-            {
-                path:'active-users',
-                component: activeUsers
-            },
-            {
-                path: 'payments',
-                component: payments},
+          {
+            path:'active-users',
+            component: activeUsers
+          },
+          {
+            path: 'payments',
+            component: payments
+          },
+          {
+            path: 'change-country',
+            component: changeCountry
+          },
           {
             path: '*',
             redirect: 'token'
           }
         ]
-     },
-    {
+      },
+      {
         path: '/document',
         name: 'document',
         component: document,
@@ -325,39 +342,25 @@ export const routes = [
             }
             ]
     },
-
-     {
-      path: '/dev',
-      name: 'dev',
-      component: dev,
-      children: [
-        {
-          path: '',
-          redirect: 'change-country'
-        },
-        {
-          path:'change-country',
-          component: uChangeCountry
-        },
-        {
-          path:'delete-user',
-          component: uDelete
-        },
-        {
-          path: '*',
-          redirect: 'change-country'
-        }
-      ]
-    },
     {
       path: '/leads',
       name: 'leads',
       component: leads
     },
     {
+      path: '/coupon',
+      name: 'coupon',
+      component: coupon
+    },
+    {
+      path: '/subjects',
+      name: 'subjects',
+      component: subjects
+    },
+    {
          path: '/*',
          redirect: '/home'
-       }
+    }
 ];
 
   

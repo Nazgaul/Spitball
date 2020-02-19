@@ -1,25 +1,27 @@
 import chatService from '../services/chatService';
 import { LanguageService } from '../services/language/languageService';
+import analyticsService from '../services/analytics.service';
+import studyRoomsService from '../services/studyRoomsService'
+
 
 const state = {
     fileError: false,
     conversations: {},
     messages: {},
-    unreadMessages:{},
-    enumChatState:{
-        conversation:"conversation",
-        messages:"messages"
+    enumChatState: {
+        conversation: "conversation",
+        messages: "messages"
     },
-    chatState:"conversation",
+    chatState: "conversation",
     activeConversationObj: chatService.createActiveConversationObj({}), //points to conversation Obj
-    isVisible: global.innerWidth < 600 ? false : false,
+    isVisible: false,// global.innerWidth < 600 ? false : false,
     isMinimized: true,
     totalUnread: 0,
     chatLocked: false,
     chatLoader: false,
     emptyState: [],
     isSyncing: true,
-    showStudentStudyRoom: false,
+    showStudentStudyRoom: false
 };
 const getters = {
     getFileError: state => state.fileError,
@@ -29,7 +31,7 @@ const getters = {
     getEnumChatState:state=>state.enumChatState,
     getConversations: (state)=>{
         let conversations = Object.keys(state.conversations).map((prop)=>{
-            return state.conversations[prop]
+            return state.conversations[prop];
         });
         return conversations.sort(function(a,b){
             return new Date(b.dateTime) - new Date(a.dateTime);
@@ -50,8 +52,9 @@ const getters = {
                         name: state.activeConversationObj.name,
                         text: `${LanguageService.getValueByKey('chat_emptyState_message1')} ${state.activeConversationObj.name}`,
                         type: "text",
+                        isDummy: true,
                         userId: state.activeConversationObj.userId
-                    }, state.activeConversationObj.conversationId)
+                    }, state.activeConversationObj.conversationId);
                     state.emptyState.push(messageObject);
                     messageObject = chatService.createMessage({
                         dateTime: null,
@@ -59,8 +62,9 @@ const getters = {
                         name: state.activeConversationObj.name,
                         text: `${LanguageService.getValueByKey('chat_emptyState_message2')}`,
                         type: "text",
+                        isDummy: true,
                         userId: state.activeConversationObj.userId
-                    }, state.activeConversationObj.conversationId)
+                    }, state.activeConversationObj.conversationId);
                     state.emptyState.push(messageObject);
                     return state.emptyState;
                 }
@@ -85,15 +89,15 @@ const getters = {
     getActiveConversationObj:state=>state.activeConversationObj,
     getTotalUnread: state=>state.totalUnread,
     getIsChatLocked: state=>state.chatLocked,
-    getshowStudentStudyRoom: state => state.showStudentStudyRoom,
+    getshowStudentStudyRoom: state => state.showStudentStudyRoom
 };
 
 const mutations = {
     setFileError(state,val){
-        state.fileError = val
+        state.fileError = val;
     },
     addConversationUnread:(state, message)=>{
-        state.conversations[message.conversationId].unread++
+        state.conversations[message.conversationId].unread++;
         if(message.type === 'text'){
             state.conversations[message.conversationId].lastMessage = message.text;
         }
@@ -146,10 +150,10 @@ const mutations = {
         state.isMinimized = false;
     },
     closeChat:(state)=>{
-        state.isVisible = false
+        state.isVisible = false;
     },
     openChat:(state)=>{
-        state.isVisible = true
+        state.isVisible = true;
     },
     clearUnreadFromConversation:(state, conversationId)=>{
         state.conversations[conversationId].unread = 0;
@@ -168,21 +172,21 @@ const mutations = {
         state.isSyncing = val;
     },
     setShowStudentStudyRoom(state){
-        state.showStudentStudyRoom = true
+        state.showStudentStudyRoom = true;
     }
 };
 
 const actions = {
     updateFileError({commit},val){
-        commit('setFileError',val)
+        commit('setFileError',val);
         setTimeout(() => {
-            commit('setFileError',!val)
+            commit('setFileError',!val);
         }, 3000);
     },
     updateChatUploadLoading({commit}, val){
         commit('activateLoader', val);
     },
-    addMessage:({commit, state, dispatch}, message)=>{
+    addMessage:({commit, state, getters, dispatch}, message)=>{
         //check if inside conversation
         let isInConversation = state.chatState == state.enumChatState.messages;
         let conversationExists = !!state.conversations[message.conversationId];
@@ -197,17 +201,17 @@ const actions = {
                     if(state.isMinimized && message.fromSignalR){
                         //in tutor room the conversation is auto loaded, so in case of refresh
                         //we dont want to update the total unread unless signalR message arrives
-                        commit('addConversationUnread', message)
+                        commit('addConversationUnread', message);
                         commit('updateTotalUnread', 1);
                     }
                 }else{
                         //update unread conversations
-                        commit('addConversationUnread', message)
+                        commit('addConversationUnread', message);
                         commit('updateTotalUnread', 1);
                 }
             }else{
                     //update unread conversations
-                    commit('addConversationUnread', message)
+                    commit('addConversationUnread', message);
                     commit('updateTotalUnread', 1);
             }
         }else{
@@ -215,10 +219,12 @@ const actions = {
                 if(state.activeConversationObj.conversationId === message.conversationId){
                     // message here will be sent by local user
                     //if in conversation and is the first message then create a conversation before adding the message
-                    let ConversationObj = chatService.createConversation(message);
-                    ConversationObj.userId = state.activeConversationObj.userId
-                    commit('addConversation', ConversationObj);
-                    commit('addMessage', message)
+                    let conversationObj = chatService.createConversation(message);
+                    conversationObj.userId = state.activeConversationObj.userId;
+                    commit('addConversation', conversationObj);
+                    commit('addMessage', message);
+
+                    analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${getters.accountUser.id}`);
                 }else{
                     // message here will be sent by remote user
                     dispatch('getChatById', message.conversationId).then(({data})=>{
@@ -226,11 +232,11 @@ const actions = {
                         if(message.type === 'text') {
                             newData = {...data, lastMessage:message.text};
                         }
-                        let ConversationObj = chatService.createConversation(newData);
-                        commit('addConversation', ConversationObj);
-                        commit('addConversationUnread', message)
+                        let conversationObj = chatService.createConversation(newData);
+                        commit('addConversation', conversationObj);
+                        commit('addConversationUnread', message);
                         commit('updateTotalUnread', 1);
-                    })
+                    });
                 }
             }else{
                 //conversationId should be added to the current conversation
@@ -242,7 +248,7 @@ const actions = {
                     let ConversationObj = chatService.createConversation(newData);
                     commit('addConversation', ConversationObj);
                     commit('updateTotalUnread', 1);
-                })
+                });
             }
         }
     },
@@ -250,7 +256,7 @@ const actions = {
         return chatService.getChatById(conversationId);
     },
     setTotalUnread:({commit}, totalUnread)=>{
-        commit('updateTotalUnread', totalUnread)
+        commit('updateTotalUnread', totalUnread);
     },
     clearUnread:({commit, state}, conversationId)=>{
         if(state.isMinimized) return; //when inside study room and activating chat dont clear unread unless chat is maximized
@@ -259,7 +265,7 @@ const actions = {
         }
         if(state.conversations[conversationId]){
             let otherUserId = state.conversations[conversationId].userId;
-            if(state.totalUnread > 0) {
+            if(state.totalUnread > 0 && state.conversations[conversationId].unread > 0) {
                 chatService.clearUnread(otherUserId);
             }
             let unreadNumber = state.conversations[conversationId].unread * -1;
@@ -271,31 +277,30 @@ const actions = {
         if(messageObj.message.type === 'file') {
             messageObj.message.unread = true;
         }
-        let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId, true);
-        dispatch('addMessage', MessageObj);
+        let messageObj2 = chatService.createMessage(messageObj.message, messageObj.conversationId, true);
+        dispatch('addMessage', messageObj2);
         dispatch('openChatInterface');
     },
-    signalRAddRoomInformationMessage({commit, dispatch, state}, roomInfo){
-        console.log('yesssss in studentd')
-        let messageObj ={
-            message: {
-                userId: roomInfo.userId,
-                text: `${LanguageService.getValueByKey('chat_room_created')} ${global.location.origin}/studyroom/${roomInfo.id}`,
-                type: 'text'
-            },
-            //TODO signalR should return Conversation ID
-            conversationId: state.activeConversationObj.conversationId,
-        }
-        let MessageObj = chatService.createMessage(messageObj.message, messageObj.conversationId);
-        dispatch('addMessage', MessageObj);
+    signalRAddRoomInformationMessage({commit}, roomInfo){
+        // let messageObj ={
+        //     message: {
+        //         userId: roomInfo.userId,
+        //         text: `${LanguageService.getValueByKey('chat_room_created')} ${global.location.origin}/studyroom/${roomInfo.id}`,
+        //         type: 'text'
+        //     },
+        //     //TODO signalR should return Conversation ID
+        //     conversationId: state.activeConversationObj.conversationId
+        // };
+        // let messageObj2 = chatService.createMessage(messageObj.message, messageObj.conversationId);
+        // dispatch('addMessage', messageObj2);
         commit('setActiveConversationStudyRoom', roomInfo.id);
-        commit('setShowStudentStudyRoom')
+        commit('setShowStudentStudyRoom');
     },
-    setActiveConversationObj:({commit, dispatch, state}, Obj)=>{
+    setActiveConversationObj:({commit, dispatch, state}, obj)=>{
         commit('setSyncStatus', true);
-        commit('setActiveConversationObj', Obj);
+        commit('setActiveConversationObj', obj);
         dispatch('syncMessagesByConversationId');
-        dispatch('clearUnread', Obj.conversationId);
+        dispatch('clearUnread', obj.conversationId);
         dispatch('updateChatState', state.enumChatState.messages);
         
     },
@@ -303,19 +308,19 @@ const actions = {
         if(!getters.accountUser) {
             commit('closeChat');
             return;
-        };
+        }
         chatService.getAllConversations().then(({data})=>{
             if(data.length > 0){
                 data.forEach(conversation => {
-                    let ConversationObj = chatService.createConversation(conversation);
-                        commit('addConversation', ConversationObj);
-                        commit('updateTotalUnread', ConversationObj.unread);
+                    let conversationObj = chatService.createConversation(conversation);
+                        commit('addConversation', conversationObj);
+                        commit('updateTotalUnread', conversationObj.unread);
                         let userStatus = {
-                            id: ConversationObj.userId,
-                            online: ConversationObj.online
-                        }
+                            id: conversationObj.userId,
+                            online: conversationObj.online
+                        };
                         dispatch('setUserStatus', userStatus);
-                })
+                });
                 if(global.innerWidth > 600){
                     state.isVisible = true;
                 }
@@ -327,10 +332,10 @@ const actions = {
         let id = null;
         if(!state.activeConversationObj.conversationId) {
             //try to get conversation ID
-            let conversationId = getters.getConversationIdCurrentUserId
+            let conversationId = getters.getConversationIdCurrentUserId;
             if(!!conversationId){
                 id = conversationId;
-                commit('setActiveConversationId', id)
+                commit('setActiveConversationId', id);
             }
         }else{
             id = state.activeConversationObj.conversationId;
@@ -342,9 +347,9 @@ const actions = {
                 data.reverse().forEach(message => {
                     let MessageObj = chatService.createMessage(message, id);
                     dispatch('addMessage', MessageObj);
-                })
+                });
                 commit('setSyncStatus', false);
-            })
+            });
         }else if(state.messages[id] && (!!state.conversations[id] && state.conversations[id].unread > 0)){
             // clean messages before getting all messages from server 
             chatService.getMessageById(id).then(({data})=>{
@@ -353,9 +358,9 @@ const actions = {
                 data.reverse().forEach(message => {
                     let MessageObj = chatService.createMessage(message, id);
                     dispatch('addMessage', MessageObj);
-                })
+                });
                 commit('setSyncStatus', false);
-            })
+            });
         }else{
             commit('setSyncStatus', false);
         }
@@ -363,7 +368,7 @@ const actions = {
     updateChatState:({commit}, val)=>{
         commit('changeChatState', val);
     },
-    sendChatMessage:({state, dispatch, commit, getters}, message)=>{
+    sendChatMessage:({state, dispatch, getters}, message)=>{
         //send message to server.
         let messageObj = chatService.createServerMessageObj({
             message: message,
@@ -383,26 +388,26 @@ const actions = {
             fromSignalR:true,
             image: state.activeConversationObj.image,
             unreadMessage: true
-        }
+        };
         localMessageObj = chatService.createMessage(localMessageObj, id);
-        dispatch('addMessage', localMessageObj)
+        dispatch('addMessage', localMessageObj);
 
     },
     toggleChatMinimize:({commit, state, dispatch})=>{
         if(!state.isMinimized){
-            commit('collapseChat')
+            commit('collapseChat');
         }else{
-            commit('expandChat')
+            commit('expandChat');
             if(state.chatState === state.enumChatState.messages){
                 dispatch('clearUnread');
             }
         }
     },
     closeChat:({commit})=>{
-        commit('closeChat')
+        commit('closeChat');
     },
     openChat:({commit})=>{
-        commit('openChat')
+        commit('openChat');
     },
     openChatInterface:({commit, dispatch, state})=>{
         commit('expandChat');
@@ -414,17 +419,20 @@ const actions = {
     lockChat:({commit})=>{
         commit('lockChat');
     },
-    checkUnreadMessageFromSignalR({commit, dispatch, state}, obj) {
-        let currentConversation = state.activeConversationObj.conversationId === obj.conversationId
+    checkUnreadMessageFromSignalR({state}, obj) {
+        let currentConversation = state.activeConversationObj.conversationId === obj.conversationId;
         if(currentConversation) {
             let messages = state.messages[obj.conversationId];
             messages.forEach((message) => {
                 message.unreadMessage = false;   
-            })
+            });
         }
     },
     uploadCapturedImage(context, formData) {
-        return chatService.uploadCapturedImage(formData)
+        return chatService.uploadCapturedImage(formData);
+    },
+    createStudyRoom(context, userId){
+        return studyRoomsService.createRoom(userId);
     },
 };
 

@@ -14,7 +14,7 @@ export default {
 
 
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .answer-content {
         padding: 5px;
         width: 100%;

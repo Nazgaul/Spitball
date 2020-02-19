@@ -17,16 +17,13 @@ namespace Cloudents.Core.DTOs
 
         public CultureInfo CultureInfo { get; set; }
 
-        public IList<EmailBlockDto> Blocks { get;private set; }
+        public IList<EmailBlockDto> Blocks { get; private set; }
     }
 
-
-    //public class EmailPaymentDto
-    //{
-    //    public long Id { get; set; }
-    //    public string Email { get; set; }
-    //    public string TutorName { get; set; }
-    //    [EntityBind(nameof(User.Language))]
-    //    public string Language { get; set; }
-    //}
+    public class RedeemEmailDto
+    {
+        public long UserId { get; set; }
+        public string Country { get; set; }
+        public decimal Amount { get; set; }
+    }
 }

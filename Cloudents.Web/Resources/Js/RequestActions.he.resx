@@ -117,25 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="anonymous" xml:space="preserve">
+    <value>ישראל ישראלי</value>
+  </data>
   <data name="btn_ask" xml:space="preserve">
-    <value>יצירת שאלה</value>
+    <value>לשאול שאלה</value>
   </data>
   <data name="btn_ask_mob" xml:space="preserve">
     <value>שאלה</value>
   </data>
   <data name="btn_tutor" xml:space="preserve">
-    <value>רוצה מורה פרטי</value>
+    <value>מצא מורה</value>
   </data>
   <data name="btn_tutor_mob" xml:space="preserve">
     <value>תרגול</value>
   </data>
   <data name="btn_upload" xml:space="preserve">
-    <value>העלאת מסמכים</value>
+    <value>להעלות תוכן</value>
   </data>
   <data name="btn_upload_mob" xml:space="preserve">
     <value>העלאה</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>מה היית רוצה לעשות עכשיו?</value>
+    <value>מה היית רוצה לעשות עכשיו{1}</value>
   </data>
 </root>

@@ -117,14 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btn_attachment" xml:space="preserve">
-    <value>Attachment</value>
+  <data name="back" xml:space="preserve">
+    <value>Back</value>
   </data>
-  <data name="btn_close" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="btn_submit" xml:space="preserve">
-    <value>Submit Request</value>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="email" xml:space="preserve">
     <value>Email</value>
@@ -132,37 +129,76 @@
   <data name="invalid" xml:space="preserve">
     <value>Invalid course name</value>
   </data>
-  <data name="label_add" xml:space="preserve">
-    <value>Add</value>
+  <data name="message_success_btn_noThanks" xml:space="preserve">
+    <value>No, Thanks</value>
+  </data>
+  <data name="message_success_btn_showMe" xml:space="preserve">
+    <value>Show me</value>
+  </data>
+  <data name="message_success_btn_whatsapp" xml:space="preserve">
+    <value>Whatsapp</value>
+  </data>
+  <data name="message_success_tutor_1" xml:space="preserve">
+    <value>Your message was sent to</value>
+  </data>
+  <data name="message_success_tutor_2" xml:space="preserve">
+    <value>He will respond to you through SMS and Email, 
+but it might take him some time to respond.</value>
+  </data>
+  <data name="message_success_tutor_3" xml:space="preserve">
+    <value>Would you like to contact him directly on WhatsApp?</value>
+  </data>
+  <data name="message_success_yaniv_1" xml:space="preserve">
+    <value>Your message was sent.
+</value>
+  </data>
+  <data name="message_success_yaniv_2" xml:space="preserve">
+    <value>You will get a response through SMS and email.</value>
+  </data>
+  <data name="message_success_yaniv_3" xml:space="preserve">
+    <value>In the meantime, would you like to see other tutors that teach this course?</value>
+  </data>
+  <data name="more_tutors" xml:space="preserve">
+    <value>I would like to hear from 2-3 other Tutors like {1}</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="no_course" xml:space="preserve">
-    <value>Please add courses</value>
+  <data name="next" xml:space="preserve">
+    <value>Next</value>
   </data>
   <data name="phoneNumber" xml:space="preserve">
     <value>Phone</value>
   </data>
   <data name="request_error" xml:space="preserve">
-    <value>Opps .... something went wrong - please try again</value>
-  </data>
-  <data name="request_received" xml:space="preserve">
-    <value>We successfully received your request, tutors will contact you shortly</value>
+    <value>Something went wrong, please try again</value>
   </data>
   <data name="select_course_placeholder" xml:space="preserve">
     <value>In what course ?</value>
   </data>
-  <data name="title" xml:space="preserve">
-    <value>Request a Tutor</value>
+  <data name="send" xml:space="preserve">
+    <value>Send</value>
   </data>
-  <data name="title_tutor_list" xml:space="preserve">
-    <value>Send a Message To</value>
+  <data name="send_msg_tutor" xml:space="preserve">
+    <value>Send a message to {1}</value>
   </data>
-  <data name="topic_placeholder" xml:space="preserve">
-    <value>I need help with this topic...</value>
+  <data name="send_msg_tutor_mobile" xml:space="preserve">
+    <value>Send a message to
+{1}</value>
   </data>
-  <data name="university" xml:space="preserve">
-    <value>University</value>
+  <data name="send_msg_yaniv" xml:space="preserve">
+    <value>Yaniv from Spitball will help you find a tutor</value>
+  </data>
+  <data name="submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="tell_tutor" xml:space="preserve">
+    <value>Tell {1} how he can reach you</value>
+  </data>
+  <data name="type_legend" xml:space="preserve">
+    <value>What can i help you with?</value>
+  </data>
+  <data name="yaniv" xml:space="preserve">
+    <value>Yaniv</value>
   </data>
 </root>

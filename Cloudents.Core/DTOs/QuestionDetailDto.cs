@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Core.DTOs
 {
@@ -14,18 +12,11 @@ namespace Cloudents.Core.DTOs
         public string Text { get; set; }
 
         public string Course { get; set; }
-        public UserDto User { get; set; }
-        public IEnumerable<QuestionDetailAnswerDto> Answers { get; set; }
+        public QuestionUserDto User { get; set; }
+        public IList<QuestionDetailAnswerDto> Answers { get; set; }
 
         public DateTime Create { get; set; }
 
-        public IEnumerable<Uri> Files { get; set; }
-
-        public Guid? CorrectAnswerId { get; set; }
-
-        public bool IsRtl { get; set; }
-
-        public VoteDto Vote { get; set; }
     }
 
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Dto class")]
@@ -34,30 +25,22 @@ namespace Cloudents.Core.DTOs
         public QuestionDetailAnswerDto() { }
 
 
-        public QuestionDetailAnswerDto(Guid id, string text, UserDto user, DateTime create, VoteDto vote,
-            CultureInfo culture)
+        public QuestionDetailAnswerDto(Guid id, string text, UserDto user,
+            DateTime create)
         {
             Id = id;
             Text = text;
             User = user;
             Create = create;
-            Vote = vote;
-            IsRtl = culture?.TextInfo.IsRightToLeft ?? false;
         }
-       
 
-       
+
+
         public Guid Id { get; set; }
 
         public string Text { get; set; }
 
         public UserDto User { get; set; }
         public DateTime Create { get; set; }
-
-        public IEnumerable<Uri> Files { get; set; }
-
-        public VoteDto Vote { get; set; }
-
-        public bool IsRtl { get; set; }
     }
 }

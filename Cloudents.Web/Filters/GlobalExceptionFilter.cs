@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Cloudents.Web.Filters
 {
-    public class GlobalExceptionFilter : ExceptionFilterAttribute
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Mvc Filter")]
+    public sealed class GlobalExceptionFilter : ExceptionFilterAttribute
     {
         public GlobalExceptionFilter()
         {
@@ -28,10 +30,10 @@ namespace Cloudents.Web.Filters
                     try
                     {
                         context.HttpContext.Request.Body.Seek(0, SeekOrigin.Begin);
-                        var sr = new StreamReader(context.HttpContext.Request.Body);
-                        //{
-                         body = await sr.ReadToEndAsync();
-                        //}
+                        using (var sr = new StreamReader(context.HttpContext.Request.Body))
+                        {
+                            body = await sr.ReadToEndAsync();
+                        }
                     }
                     catch (ObjectDisposedException)
                     {
@@ -40,12 +42,12 @@ namespace Cloudents.Web.Filters
                 }
             }
             var telemetry = new TelemetryClient();
-            telemetry.TrackException(context.Exception,new Dictionary<string, string>()
+            telemetry.TrackException(context.Exception, new Dictionary<string, string>()
             {
                 ["body"] = body
             });
         }
 
-        
+
     }
 }

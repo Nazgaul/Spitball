@@ -1,155 +1,90 @@
-﻿@using System.Reflection
-@using Cloudents.Web.Api
+﻿
 @using Cloudents.Web.Middleware
 @using Cloudents.Web.Services
 @using Cloudents.Web.Views
 @using Microsoft.AspNetCore.Hosting
+@using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Configuration
-@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
-@inject IHostingEnvironment Environment
+@inject Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration JavaScriptSnippetTelemetry
+@inject IWebHostEnvironment Environment
 @inject WebPackChunkName Provider
 @inject IConfiguration Configuration
+@inject ConfigurationService VersionService
+@inject IViewLocalizer Localizer
 
 @{
-    var p = Provider.GetTag("vendor");
-    var main = Provider.GetTag("main");
+    //var p = Provider.GetVendorTag();
     var cdnEndPoint = Constants.GetCdnEndpoint(Configuration);
     var isAuth = User.Identity.IsAuthenticated;
+    var result = System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
+
+
+    ViewBag.title = ViewBag.title ?? Localizer["Title"];
+    ViewBag.metaDescription = ViewBag.metaDescription ?? Localizer["MetaDescription"];
 }
 <!DOCTYPE html>
 
 
-<html dir="@(System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr")" lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
+<html dir="@result" lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
 <head>
+    <title>@ViewBag.title</title>
+    <meta name="title" content="@ViewBag.title" />
+    <meta name="description" content="@ViewBag.metaDescription" />
     <meta charset="utf-8">
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <base href="~/" />
     @if (!string.Equals(@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, "he", StringComparison.OrdinalIgnoreCase))
     {
-        <link href="https://fonts.googleapis.com/css?family=Fira+Sans|Open+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap">
     }
-    <environment include="Development">
-        <link rel="stylesheet" href="~/dist/@p.GetCss()" />
-        <link rel="stylesheet" href="~/dist/@main.GetCss()" />
-    </environment>
 
-    <environment exclude="Development">
-        <link rel="stylesheet" href="@cdnEndPoint/dist/@p.GetCss()"
-              asp-fallback-href="~/dist/@p.GetCss()"
-              asp-fallback-test-class="cdn-only" asp-fallback-test-property="position" asp-append-version="true"
-              asp-fallback-test-value="absolute" />
-
-        <link rel="stylesheet" href="@cdnEndPoint/dist/@main.GetCss()"
-              asp-fallback-href="~/dist/@main.GetCss()"
-              asp-fallback-test-class="cdn-only2" asp-fallback-test-property="position" asp-append-version="true"
-              asp-fallback-test-value="absolute" />
-    </environment>
     @await RenderSectionAsync("styleSection", required: false)
-    <partial name="_HeaderTags" model="cdnEndPoint" />
+    @try
+    {
+        @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}HeadTags", cdnEndPoint);
+    }
+    catch (InvalidOperationException)
+    {
+        @await Html.PartialAsync("_SpitballTags");
+    }
 
-    @Html.Raw(JavaScriptSnippet.FullScript)
-    @Html.Raw(ClickJackingTagHelper.FullScript)
+    @*@Html.Raw(JavaScriptSnippet.FullScript)*@
+    @*@Html.Raw(ClickJackingTagHelper.FullScript)*@
+
+    @if (ViewBag.jsonLd != null)
+    {
+        <script type="application/ld+json">
+            @Html.Raw(ViewBag.jsonLd.ToHtmlEscapedString())
+        </script>
+    }
+
     <style>
-        .async-hide {
-            opacity: 0 !important
+        body {
+            margin: 0;
         }
     </style>
-    <environment exclude="Development">
-        <script>
-            (function (a, s, y, n, c, h, i, d, e) {
-                s.className += ' ' + y; h.start = 1 * new Date;
-                h.end = i = function () { s.className = s.className.replace(RegExp(' ?' + y), '') };
-                (a[n] = a[n] || []).hide = h; setTimeout(function () { i(); h.end = null }, c); h.timeout = c;
-            })(window, document.documentElement, 'async-hide', 'dataLayer', 4000,
-                { 'GTM-NN2LHCV': true });</script>
-        <!-- Modified Analytics tracking code with Optimize plugin -->
-
-        <script type="text/javascript"
-                src="//www.googleadservices.com/pagead/conversion_async.js">
-        </script>
-        <!-- Google Tag Manager -->
-        <script async>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || []; w[l].push({
-                    'gtm.start':
-                        new Date().getTime(), event: 'gtm.js'
-                }); var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-M2BGS2G');</script>
-        <!-- End Google Tag Manager -->
-    </environment>
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-100723645-2', 'auto');
-        ga('require', 'GTM-NN2LHCV');
-        //ga('send', 'pageview');
-    </script>
-    <script type="text/javascript"
-            src="//www.googleadservices.com/pagead/conversion_async.js">
-    </script>
 </head>
 <body lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
-    <div>
-        @RenderBody()
-    </div>
-    <div class="cdn-only"></div>
-
-    <environment include="Development">
-        <script src="~/dist/@p.Js" asp-append-version="true"></script>
-    </environment>
-
-    <environment exclude="Development">
-        <script src="@cdnEndPoint/dist/@p.Js" crossorigin="anonymous"
-                asp-fallback-src="~/dist/@p.Js"
-                asp-fallback-test="window.vendor">
-        </script>
-    </environment>
-
-
-
+    @RenderBody()
     <script>
-    window.version = '@typeof(HomePageController).Assembly.GetName().Version.ToString(4)';
-            window.publicPath = '@cdnEndPoint' + '/dist/';
-            window.isAuth = @isAuth.ToString().ToLower();
-    window.paypalEnv = '@(Environment.IsProduction() ? "production" : "sandbox")';
-
-
-
-    @*window.appInsight = '@Configuration["ApplicationInsights:InstrumentationKey"]'*@
+        window.version = '@VersionService.GetVersion()';
+        window.publicPath = '@cdnEndPoint' + '/dist/';
+        window.isAuth = @isAuth.ToString().ToLower();
+        window.siteName = '@VersionService.GetSiteName().ToString("G").ToLowerInvariant()';
+        window.applicationId = '@JavaScriptSnippetTelemetry.InstrumentationKey';
     </script>
-    @*@if (Environment.IsDevelopment())
-    {
-    <script>
-        appInsights.config.enableDebug = true
-    </script>
-   }*@
     @await Component.InvokeAsync("Country")
     @await RenderSectionAsync("scripts", required: false)
 
+    @try
+    {
+        @await Html.PartialAsync($"_{VersionService.GetSiteName().ToString("G")}Scripts");
 
-    <script async>
-        (function () {
-            window.intercomSettings = {
-                app_id: "njmpgayv",
-                hide_default_launcher: true
-            };
-            var w = window; var ic = w.Intercom; if (typeof ic === "function") { ic('reattach_activator'); ic('update', intercomSettings); } else {
-                var d = document; var i = function () { i.c(arguments) }; i.q = []; i.c = function (args) { i.q.push(args) }; w.Intercom = i; function l() {
-                    var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true;
-                    s.src = 'https://widget.intercom.io/widget/njmpgayv';
-                    var x = d.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
-                } if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); }
-            }
-            //Intercom('boot', { app_id: 'njmpgayv' })
-        })()
-    </script>
+    }
+    catch (InvalidOperationException)
+    {
+        @await Html.PartialAsync("_SpitballScripts");
+    }
 </body>
 </html>

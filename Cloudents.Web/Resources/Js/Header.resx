@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>Login</value>
+  <data name="balance" xml:space="preserve">
+    <value>Balance: {1} Pts</value>
   </data>
-  <data name="placeholder_ask" xml:space="preserve">
-    <value>Search in questions...</value>
+  <data name="find_tutors" xml:space="preserve">
+    <value>Find Tutors</value>
   </data>
-  <data name="sbl" xml:space="preserve">
-    <value>Pts</value>
+  <data name="greets" xml:space="preserve">
+    <value>{1}</value>
   </data>
-  <data name="sign_up" xml:space="preserve">
-    <value>Sign Up</value>
-  </data>
-  <data name="placeholder_note" xml:space="preserve">
-    <value>Find study documents...</value>
-  </data>
-  <data name="placeholder_tutor" xml:space="preserve">
-    <value>Find a tutor...</value>
-  </data>
-  <data name="Search" xml:space="preserve">
+  <data name="placeholder_search" xml:space="preserve">
     <value>Search</value>
+  </data>
+  <data name="placeholder_search_m" xml:space="preserve">
+    <value>Search online tutors or class materials</value>
+  </data>
+  <data name="tooltip_chat" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="tooltip_help" xml:space="preserve">
+    <value>Help</value>
   </data>
 </root>

@@ -9,11 +9,10 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class PdfProcessor : IPreviewProvider2, IDisposable //: Processor, IPreviewProvider
+    public sealed class PdfProcessor : IPreviewProvider, IDisposable //: Processor, IPreviewProvider
     {
 
         public PdfProcessor()
@@ -41,7 +40,7 @@ namespace Cloudents.Infrastructure.Framework
         {
             var t = _doc.Value;
             var txt = ExtractPdfText(t);
-            return (txt , t.Pages.Count);
+            return (txt, t.Pages.Count);
         }
 
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
@@ -95,15 +94,14 @@ namespace Cloudents.Infrastructure.Framework
 
         }
 
-        public static readonly string[] Extensions = FormatDocumentExtensions.Pdf;
 
         public void Dispose()
         {
-            if (_doc.IsValueCreated)
+            if (_doc != null && _doc.IsValueCreated)
             {
                 _doc?.Value?.Dispose();
             }
         }
-       
+
     }
 }

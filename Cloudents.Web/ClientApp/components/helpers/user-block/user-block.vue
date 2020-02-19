@@ -1,7 +1,6 @@
 <template>
     <div>
         <div v-if="showExtended || cardData && cardData.subject">
-            <!-- question userBlock -->
             <div class="user-block" :class="classType">
                 <slot name="icon">
                     <user-avatar class="avatar-circle" :user-name="user.name"  :userImageUrl="user.image" :user-id="user.id"/>
@@ -13,8 +12,7 @@
                     <template v-else>{{name}}</template>
                 <slot></slot>
                 </span>
-                        <span class="name" v-line-clamp="1">{{user.name}}</span>
-                        <user-rank style="margin: 15px auto;" :score="user.score"></user-rank>
+                        <span class="name">{{user.name}}</span>
                         <p class="last-msg" v-if="text">{{text}}</p>
                         <p class="university" v-if="user.universityName">{{user.universityName}}</p>
                     </div>
@@ -22,7 +20,6 @@
             </div>
         </div>
         <div v-else>
-            <!-- answer userBlock -->
             <div class="user-block" :class="classType">
                 <div style="margin-top:15px;">
                     <slot name="icon">

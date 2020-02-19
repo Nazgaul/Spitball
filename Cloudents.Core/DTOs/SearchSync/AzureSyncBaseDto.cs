@@ -2,8 +2,8 @@
 
 namespace Cloudents.Core.DTOs.SearchSync
 {
-   [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Name of db column - easy to use")]
-   public class AzureSyncBaseDto<T>
+    [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Name of db column - easy to use")]
+    public class AzureSyncBaseDto<T>
     {
         public string Id { get; set; }
 

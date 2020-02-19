@@ -9,7 +9,7 @@
             string leadText,
 
             long? tutorId,
-            string utmSource)
+            string utmSource, bool moreTutors)
         {
             Course = course;
             ChatText = chatText;
@@ -21,6 +21,7 @@
             LeadText = leadText;
             TutorId = tutorId;
             UtmSource = utmSource;
+            MoreTutors = moreTutors;
         }
 
         public string Course { get; }
@@ -30,5 +31,9 @@
         public string LeadText { get; }
         public long? TutorId { get; }
         public string UtmSource { get; }
+
+        public bool MoreTutors { get; }
     }
+
+
 }

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Host.Config;
+using System;
 using System.Collections.Concurrent;
 using System.Linq;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host.Config;
 using Twilio.Clients;
 using Twilio.Rest.Api.V2010.Account;
 
@@ -20,7 +20,7 @@ namespace Cloudents.FunctionsV2.Binders
         private string _defaultAccountSid;
         private string _defaultAuthToken;
 
-        public TwilioExtensionConfigProvider( INameResolver nameResolver)
+        public TwilioExtensionConfigProvider(INameResolver nameResolver)
         {
             _nameResolver = nameResolver;
         }
@@ -44,8 +44,8 @@ namespace Cloudents.FunctionsV2.Binders
 
         private void ValidateBinding(TwilioCallAttribute attribute, Type type)
         {
-            string accountSid = new [] { attribute.AccountSidSetting, _defaultAccountSid}.FirstOrDefault(f=>!string.IsNullOrEmpty(f));
-            string authToken = new[] { attribute.AuthTokenSetting, _defaultAuthToken }.FirstOrDefault(f => !string.IsNullOrEmpty(f)); 
+            string accountSid = new[] { attribute.AccountSidSetting, _defaultAccountSid }.FirstOrDefault(f => !string.IsNullOrEmpty(f));
+            string authToken = new[] { attribute.AuthTokenSetting, _defaultAuthToken }.FirstOrDefault(f => !string.IsNullOrEmpty(f));
             if (string.IsNullOrEmpty(accountSid))
             {
                 throw new ArgumentException();
@@ -66,11 +66,11 @@ namespace Cloudents.FunctionsV2.Binders
             TwilioRestClient client = _twilioClientCache.GetOrAdd(new Tuple<string, string>(accountSid, authToken), t => new TwilioRestClient(t.Item1, t.Item2));
 
             var context = new TwilioCallMessageAsyncCollector(client);
-            
+
 
             return context;
         }
 
-       
+
     }
 }

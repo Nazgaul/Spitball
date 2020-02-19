@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Cloudents.Web.Binders
 {
@@ -16,7 +16,7 @@ namespace Cloudents.Web.Binders
             }
 
             var strValue = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-            if (strValue.FirstValue == null)
+            if (string.IsNullOrEmpty(strValue.FirstValue))
             {
                 bindingContext.Result = ModelBindingResult.Success(null);
                 return Task.CompletedTask;
@@ -37,27 +37,4 @@ namespace Cloudents.Web.Binders
     }
 
 
-    //public class EmailEntityBinder : IModelBinder
-    //{
-    //    private readonly IMailProvider _mailProvider;
-
-    //    public EmailEntityBinder(IMailProvider mailProvider)
-    //    {
-    //        _mailProvider = mailProvider;
-    //    }
-
-    //    public async Task BindModelAsync(ModelBindingContext bindingContext)
-    //    {
-    //        var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-
-    //        var t = await _mailProvider.ValidateEmailAsync(valueProviderResult.FirstValue, bindingContext.HttpContext.RequestAborted);
-    //        if (t)
-    //        {
-    //            bindingContext.Result = ModelBindingResult.Success(valueProviderResult.FirstValue);
-    //            return;
-    //        }
-
-    //        bindingContext.Result = ModelBindingResult.Failed();
-    //    }
-    //}
 }

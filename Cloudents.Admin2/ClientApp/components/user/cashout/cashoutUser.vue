@@ -30,7 +30,7 @@
                 <td class="text-xs-center">{{ props.item.userEmail }}</td>
                 <td class="text-xs-center">{{props.item.cashOutTime | dateFromISO}}</td>
 
-                <td class="text-xs-center">{{ props.item.isIsrael ? "Yes" : "--" }}</td>
+                <td class="text-xs-center">{{ props.item.country}}</td>
 
                 <td class="text-xs-center">{{ props.item.referCount }}</td>
                 <td class="text-xs-center">{{ props.item.soldDocument }}</td>
@@ -122,7 +122,7 @@
                     {text: 'Price', value: 'cashOutPrice'},
                     {text: 'User Email', value: 'userEmail'},
                     {text: 'Date', value: 'cashOutTime'},
-                    {text: 'Israel', value: 'isIsrael'},
+                    {text: 'Country', value: 'country'},
                     {text: 'Referrals', value: 'referCount'},
                     {text: 'Docs sold', value: 'soldDocument'},
                     {text: 'Ans Accept', value: 'correctAnswer'},
@@ -215,7 +215,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="less">
     //overwrite vuetify css to narrow the table
     table.v-table tbody td:first-child, table.v-table tbody td:not(:first-child), table.v-table tbody th:first-child, table.v-table tbody th:not(:first-child), table.v-table thead td:first-child, table.v-table thead td:not(:first-child), table.v-table thead th:first-child, table.v-table thead th:not(:first-child) {
         padding: 0 4px !important;

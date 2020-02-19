@@ -1,46 +1,49 @@
-﻿using Cloudents.Core.Models;
-using System.Collections.Generic;
+﻿using Cloudents.Core.Enum;
+using Cloudents.Core.Models;
 
 namespace Cloudents.Core.Query
 {
-    public class DocumentQuery : VerticalQuery
+    public class DocumentQuery 
     {
-        public DocumentQuery(UserProfile userProfile,
-            string term,
-            string course,
-            bool filterByUniversity,
-            IEnumerable<string> filters) :
-            base(userProfile, term, course, filterByUniversity)
+        public DocumentQuery(UserProfile userProfile, string term, string course, int page, int pageSize, DocumentType? filter)
         {
-            Filters = filters;
-        }
-
-        public IEnumerable<string> Filters { get; }
-
-    }
-
-    public abstract class VerticalQuery
-    {
-
-
-        protected VerticalQuery(UserProfile userProfile, string term, string course, bool filterByUniversity)
-        {
-            UserProfile = userProfile;
+            Filter = filter;
+            PageSize = pageSize;
             Term = term;
             Course = course;
-            FilterByUniversity = filterByUniversity;
-
-            // Profile = profile;
+            Page = page;
+            UserProfile = userProfile;
         }
+
+        public DocumentType? Filter { get; }
+        public int PageSize { get; }
 
         public string Term { get; }
         public string Course { get; }
-        public bool FilterByUniversity { get; }
 
         public int Page { get; set; }
 
         public UserProfile UserProfile { get; }
-
-
     }
+
+    //public abstract class VerticalQuery
+    //{
+
+
+    //    protected VerticalQuery(UserProfile userProfile, string term, string course)
+    //    {
+    //        UserProfile = userProfile;
+    //        Term = term;
+    //        Course = course;
+    //    }
+
+    //    public string Term { get; }
+    //    public string Course { get; }
+
+    //    public int Page { get; set; }
+
+    //    public UserProfile UserProfile { get; }
+
+
+    //}
 }

@@ -83,9 +83,6 @@ namespace Cloudents.Core.Entities
             return new ItemStatus(ItemState.Deleted, DateTime.UtcNow, null, null);
         }
 
-        //public static implicit operator ItemState(ItemState2 state)
-        //{
-        //    return state.State;
-        //}
+
     }
 }

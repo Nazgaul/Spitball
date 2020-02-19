@@ -133,33 +133,39 @@
     <value>שנה מחיר</value>
   </data>
   <data name="course" xml:space="preserve">
-    <value>קורס: {1}</value>
+    <value>קורס:</value>
   </data>
   <data name="deleted_success" xml:space="preserve">
-    <value>המסמך נמחק</value>
+    <value>הקובץ נמחק</value>
   </data>
   <data name="download" xml:space="preserve">
+    <value>הורדה</value>
+  </data>
+  <data name="downloads" xml:space="preserve">
     <value>הורדות</value>
   </data>
   <data name="error_delete" xml:space="preserve">
     <value>לא ניתן למחוק מסמך, נסה שנית מאוחר יותר</value>
   </data>
-  <data name="free" xml:space="preserve">
-    <value>חינם</value>
-  </data>
-  <data name="privet" xml:space="preserve">
-    <value>מורה פרטי/ת {1}</value>
-  </data>
   <data name="purchased" xml:space="preserve">
+    <value>רכישה</value>
+  </data>
+  <data name="purchaseds" xml:space="preserve">
     <value>רכישות</value>
   </data>
   <data name="university" xml:space="preserve">
-    <value>אוניברסיטה: {1}</value>
+    <value>מוסד לימוד:</value>
   </data>
   <data name="unsufficient_fund" xml:space="preserve">
-    <value>אין לך מספיק נקודות</value>
+    <value>אין מספיק נקודות</value>
+  </data>
+  <data name="view" xml:space="preserve">
+    <value>צפייה</value>
   </data>
   <data name="views" xml:space="preserve">
     <value>צפיות</value>
+  </data>
+  <data name="action_apply_name" xml:space="preserve">
+    <value>שנה שם</value>
   </data>
 </root>

@@ -133,7 +133,7 @@
     <value>מימוש</value>
   </data>
   <data name="currency" xml:space="preserve">
-    <value>$</value>
+    <value>₪</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>תאריך</value>
@@ -142,7 +142,7 @@
     <value>טוען...</value>
   </data>
   <data name="My_Wallet" xml:space="preserve">
-    <value>הארנק שלי</value>
+    <value>הארנק שלי - עבור תכנים במערכת</value>
   </data>
   <data name="SBL" xml:space="preserve">
     <value>נק'</value>
@@ -150,8 +150,9 @@
   <data name="Tokens" xml:space="preserve">
     <value>נקודות</value>
   </data>
-  <data name="Total" xml:space="preserve">
+  <data name="total" xml:space="preserve">
     <value>סך הכל</value>
+    <comment>dynamic</comment>
   </data>
   <data name="Transaction" xml:space="preserve">
     <value>עסקאות</value>
@@ -160,12 +161,24 @@
     <value>סוג</value>
   </data>
   <data name="Value" xml:space="preserve">
-    <value>שווי ב-$</value>
+    <value>שווי</value>
   </data>
   <data name="You_have" xml:space="preserve">
     <value>יש לך </value>
   </data>
   <data name="you_have_redeemable_sbl" xml:space="preserve">
     <value>שניתן לפדות אותן</value>
+  </data>
+  <data name="earned" xml:space="preserve">
+    <value>הכנסה</value>
+    <comment>dynamic</comment>
+  </data>
+  <data name="spent" xml:space="preserve">
+    <value>הוצאה</value>
+    <comment>dynamic</comment>
+  </data>
+  <data name="stake" xml:space="preserve">
+    <value>במשמורת</value>
+    <comment>dynamic</comment>
   </data>
 </root>

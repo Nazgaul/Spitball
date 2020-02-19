@@ -1,11 +1,13 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Criterion;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Persistence.Repositories
 {
@@ -32,7 +34,7 @@ namespace Cloudents.Persistence.Repositories
         }
 
 
-       
+
 
         public Task<decimal> UserBalanceAsync(long userId, CancellationToken token)
         {
@@ -40,7 +42,7 @@ namespace Cloudents.Persistence.Repositories
                 .SingleOrDefaultAsync<decimal>(token);
         }
 
-        public  Task<User> GetUserByEmailAsync(string userEmail, CancellationToken token)
+        public Task<User> GetUserByEmailAsync(string userEmail, CancellationToken token)
         {
             return
                 Session.QueryOver<User>()
@@ -48,6 +50,13 @@ namespace Cloudents.Persistence.Repositories
                     .SingleOrDefaultAsync(token);
         }
 
+        public async Task<IEnumerable<User>> GetExpiredCreditCardsAsync(CancellationToken token)
+        {
+            return await Session.QueryOver<User>()
+                .Where(w => w.BuyerPayment.PaymentKeyExpiration < DateTime.UtcNow)
+                .ListAsync<User>(token);
+
+        }
 
         /*  public Task<decimal> UserBalanceAsync(long userId, CancellationToken token)
         {
@@ -59,7 +68,7 @@ namespace Cloudents.Persistence.Repositories
 
         //internal IQueryOver<Transaction, Transaction> UserBalanceByType(long userId, TransactionType type)
         //{
-   
+
         //    return
         //      Session.QueryOver<Transaction>()
         //          .Where(w => w.User.Id == userId)
@@ -72,9 +81,9 @@ namespace Cloudents.Persistence.Repositories
             return
               Session.QueryOver<Transaction>()
                   .Where(w => w.User.Id == userId)
-                  .Where(w => w.Type == TransactionType.Earned || w.Type == TransactionType.Stake)
+                  .Where(w => w.Type == TransactionType.Earned)
                   .Select(Projections.Sum<Transaction>(x => x.Price));
         }
-       
+
     }
 }

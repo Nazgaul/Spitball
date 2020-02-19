@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Admin2.Models;
+﻿using Cloudents.Admin2.Models;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query;
 using Cloudents.Query.Admin;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Admin2.Controllers
 {
@@ -47,13 +45,13 @@ namespace Cloudents.Admin2.Controllers
             [FromServices] IGoogleAuth service, CancellationToken cancellationToken)
         {
             var login = await service.LogInAsync(model.Token, cancellationToken);
-            if (login == null)
+            if (login is null)
             {
                 return BadRequest();
             }
             var query = new ValidateUserQuery(login.Email);
             var result = await _queryBus.QueryAsync(query, cancellationToken);
-            if (result == null)
+            if (result is null)
             {
                 return Unauthorized();
             }
@@ -61,13 +59,13 @@ namespace Cloudents.Admin2.Controllers
             {
                 new Claim(ClaimTypes.Name, login.Email),
                 new Claim("FullName", $"{login.FirstName} { login.LastName}"),
-
+                new Claim("UserId", result.Id.ToString()),
                 new Claim(ClaimsPrincipalExtensions.ClaimCountry, result.Country ?? "None"),
             };
-            foreach (var resultRole in result.Roles ?? Enumerable.Empty<string>())
-            {
-                claims.Add(new Claim(ClaimTypes.Role, resultRole));
-            }
+            //foreach (var resultRole in result.Roles ?? Enumerable.Empty<string>())
+            //{
+            //    claims.Add(new Claim(ClaimTypes.Role, resultRole));
+            //}
 
             var claimsIdentity = new ClaimsIdentity(
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);

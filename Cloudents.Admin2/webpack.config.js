@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const bundleOutputDir = './wwwroot/dist';
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -28,8 +27,7 @@ module.exports = (env) => {
                                    
                                 }
                             },
-                                scss: ['vue-style-loader', 'css-loader', 'sass-loader'],
-                                sass: ['vue-style-loader', 'css-loader', 'sass-loader']
+                                less: ['vue-style-loader', 'css-loader', 'less-loader']
                             }
                     }
                 },
@@ -37,7 +35,7 @@ module.exports = (env) => {
                     test: /\.js$/,
                     loader: 'babel-loader'
                 },
-                { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+                { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] },
                 { test: /\.css$/, use: isDevBuild ? ['style-loader', 'css-loader'] : [MiniCssExtractPlugin.loader, 'css-loader'] },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
             ]
@@ -50,7 +48,6 @@ module.exports = (env) => {
         devtool: isDevBuild ? 'inline-source-map' : 'source-map',
         plugins: [
             new VueLoaderPlugin(),
-            new CheckerPlugin(),
             new webpack.DefinePlugin({
                 'process.env': {
                     NODE_ENV: JSON.stringify(isDevBuild ? 'development' : 'production')

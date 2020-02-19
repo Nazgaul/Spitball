@@ -1,4 +1,7 @@
-﻿using Cloudents.Core.Entities;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core.DTOs;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Core.Storage;
@@ -8,18 +11,22 @@ using Cloudents.Web.Filters;
 using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using JetBrains.Annotations;
+using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Net.Http;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Identity;
-using Cloudents.Core.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -34,13 +41,13 @@ namespace Cloudents.Web.Api
         private readonly IStringLocalizer<RegisterController> _localizer;
         private readonly IStringLocalizer<LogInController> _loginLocalizer;
         private readonly ILogger _logger;
+        private readonly ICountryService _countryProvider;
 
         internal const string Email = "email2";
         private const string EmailTime = "EmailTime";
 
         public RegisterController(UserManager<User> userManager, SbSignInManager signInManager,
-             IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger
-            )
+             IQueueProvider queueProvider, ISmsSender client, IStringLocalizer<RegisterController> localizer, IStringLocalizer<LogInController> loginLocalizer, ILogger logger, ICountryService countryProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -49,13 +56,14 @@ namespace Cloudents.Web.Api
             _localizer = localizer;
             _loginLocalizer = loginLocalizer;
             _logger = logger;
+            _countryProvider = countryProvider;
         }
 
-        [HttpPost, ValidateRecaptcha("6LfyBqwUAAAAALL7JiC0-0W_uWX1OZvBY4QS_OfL")]
+        [HttpPost, ValidateRecaptcha("6LfyBqwUAAAAALL7JiC0-0W_uWX1OZvBY4QS_OfL"), ValidateEmail]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<ReturnSignUserResponse>> Post(
+        public async Task<ActionResult<ReturnSignUserResponse>> PostAsync(
             [FromBody] RegisterRequest model,
             [CanBeNull] ReturnUrlRequest returnUrl,
             CancellationToken token)
@@ -65,7 +73,7 @@ namespace Cloudents.Web.Api
             {
                 try
                 {
-                    return await MakeDecision(user, false, returnUrl, token);
+                    return await MakeDecisionAsync(user, false, returnUrl, token);
                 }
                 catch (ArgumentException)
                 {
@@ -74,29 +82,33 @@ namespace Cloudents.Web.Api
                 ModelState.AddModelError(nameof(model.Email), _localizer["UserExists"]);
                 return BadRequest(ModelState);
             }
-            user = new User(model.Email, CultureInfo.CurrentCulture);
+
+            var country = await _countryProvider.GetUserCountryAsync(token);
+            user = new User(model.Email, model.FirstName, model.LastName, CultureInfo.CurrentCulture, country, model.Gender);
             var p = await _userManager.CreateAsync(user, model.Password);
             if (p.Succeeded)
             {
                 await GenerateEmailAsync(user, returnUrl, token);
-                return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
+                return new ReturnSignUserResponse(RegistrationStep.RegisterEmailConfirmed);
             }
             ModelState.AddIdentityModelError(p);
             return BadRequest(ModelState);
         }
 
 
-        private async Task<ReturnSignUserResponse> MakeDecision(User user,
+        private async Task<ReturnSignUserResponse> MakeDecisionAsync(User user,
             bool isExternal,
             [CanBeNull] ReturnUrlRequest returnUrl,
             CancellationToken token)
         {
+
             if (user.PhoneNumberConfirmed)
             {
                 if (isExternal)
                 {
                     await _signInManager.SignInAsync(user, false);
-                    return new ReturnSignUserResponse(false);
+                    return ReturnSignUserResponse.SignIn();
+                    // return new ReturnSignUserResponse(false);
                 }
 
                 throw new ArgumentException();
@@ -108,17 +120,20 @@ namespace Cloudents.Web.Api
                 var t2 = _client.SendSmsAsync(user, token);
 
                 await Task.WhenAll(t1, t2);
-                return new ReturnSignUserResponse(NextStep.VerifyPhone, true);
+                return new ReturnSignUserResponse(RegistrationStep.RegisterVerifyPhone, new
+                {
+                    phoneNumber = user.PhoneNumber
+                });
             }
 
             if (user.EmailConfirmed)
             {
                 await _signInManager.TempSignIn(user);
-                return new ReturnSignUserResponse(NextStep.EnterPhone, true);
+                return new ReturnSignUserResponse(RegistrationStep.RegisterSetPhone);
             }
 
             await GenerateEmailAsync(user, returnUrl, token);
-            return new ReturnSignUserResponse(NextStep.EmailConfirmed, true);
+            return new ReturnSignUserResponse(RegistrationStep.RegisterEmailConfirmed);
         }
 
 
@@ -126,11 +141,14 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync([FromBody] GoogleTokenRequest model,
+        public async Task<ActionResult<ReturnSignUserResponse>> GoogleSignInAsync(
+            [FromBody] GoogleTokenRequest model,
             [FromServices] IGoogleAuth service,
-            [FromServices] IRestClient client,
             [FromServices] IUserDirectoryBlobProvider blobProvider,
+           
+           
             [FromServices] TelemetryClient logClient,
+            [FromServices] IHttpClientFactory clientFactory,
             CancellationToken cancellationToken)
         {
             var result = await service.LogInAsync(model.Token, cancellationToken);
@@ -145,50 +163,64 @@ namespace Cloudents.Web.Api
             var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
             if (result2.Succeeded)
             {
-                return new ReturnSignUserResponse(false);
+                return ReturnSignUserResponse.SignIn();
+                //return new ReturnSignUserResponse(false);
             }
+
             if (result2.IsLockedOut)
             {
                 logClient.TrackTrace("user is locked out");
                 ModelState.AddModelError("Google", _loginLocalizer["LockOut"]);
                 return BadRequest(ModelState);
-
             }
 
             var user = await _userManager.FindByEmailAsync(result.Email);
-
+            if (result2.IsNotAllowed && user != null && await _userManager.IsLockedOutAsync(user))
+            {
+                ModelState.AddModelError("Google", _loginLocalizer["LockOut"]);
+                return BadRequest(ModelState);
+            }
             if (user == null)
             {
+                var country = await _countryProvider.GetUserCountryAsync(cancellationToken);
                 user = new User(result.Email,
                     result.FirstName, result.LastName,
-                    result.Language)
+                    result.Language, country)
                 {
                     EmailConfirmed = true
                 };
-               
-           
+
+
                 var result3 = await _userManager.CreateAsync(user);
                 if (result3.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(result.Picture))
                     {
-                        var (stream, _) = await client.DownloadStreamAsync(new Uri(result.Picture), cancellationToken);
+                        using var httpClient = clientFactory.CreateClient();
+                        var message = await httpClient.GetAsync(result.Picture, cancellationToken);
+                        await using var sr = await message.Content.ReadAsStreamAsync();
+                        var mimeType = message.Content.Headers.ContentType;
                         try
                         {
-                            var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, stream, token: cancellationToken);
+                            var uri = await blobProvider.UploadImageAsync(user.Id, result.Picture, sr,
+                                mimeType.ToString(), cancellationToken);
                             var imageProperties = new ImageProperties(uri, ImageProperties.BlurEffect.None);
                             var url = Url.ImageUrl(imageProperties);
-                            user.Image = url;
+                            var fileName = uri.AbsolutePath.Split('/').LastOrDefault();
+                            user.UpdateUserImage(url, fileName);
                         }
-                        catch (ArgumentException)
+                        catch (ArgumentException e)
                         {
-                            
+                            logClient.TrackException(e, new Dictionary<string, string>()
+                            {
+                                ["FromGoogle"] = result.Picture
+                            });
                         }
                     }
                     await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-                    return await MakeDecision(user, true, null, cancellationToken);
+                    return await MakeDecisionAsync(user, true, null, cancellationToken);
                 }
-                logClient.TrackTrace($"failed to register {string.Join(", ",result3.Errors)}");
+                logClient.TrackTrace($"failed to register {string.Join(", ", result3.Errors)}");
 
                 ModelState.AddModelError("Google", _localizer["GoogleUserRegisteredWithEmail"]);
                 return BadRequest(ModelState);
@@ -198,12 +230,13 @@ namespace Cloudents.Web.Api
                 user.EmailConfirmed = true;
                 await _userManager.UpdateAsync(user);
             }
+
             await _userManager.AddLoginAsync(user, new UserLoginInfo("Google", result.Id, result.Name));
-            return await MakeDecision(user, true, null, cancellationToken);
+            return await MakeDecisionAsync(user, true, null, cancellationToken);
         }
 
 
-       
+
 
         private async Task GenerateEmailAsync(User user, [CanBeNull] ReturnUrlRequest returnUrl, CancellationToken token)
         {
@@ -257,6 +290,38 @@ namespace Cloudents.Web.Api
 
             TempData[EmailTime] = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             await GenerateEmailAsync(user, returnUrl, token);
+            return Ok();
+        }
+
+        [HttpPost("userType"), Authorize]
+        public async Task<IActionResult> SetUserTypeAsync([FromBody] SetUserTypeRequest model,
+            [FromServices] ICommandBus commandBus, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new SetUserTypeCommand(userId, model.UserType);
+            await commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+
+        [HttpPost("childName"), Authorize]
+        public async Task<IActionResult> SetChildNameAsync([FromBody] SetChildNameRequest model,
+            [FromServices] ICommandBus commandBus, CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new SetChildNameCommand(userId, model.Name, model.Grade);
+            await commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("grade")]
+        public async Task<IActionResult> SetUserGradeAsync([FromBody] UserGradeRequest model,
+            [FromServices] ICommandBus commandBus,
+            CancellationToken token)
+        {
+            var userId = _userManager.GetLongUserId(User);
+            var command = new SetUserGradeCommand(userId, model.Grade);
+            await commandBus.DispatchAsync(command, token);
             return Ok();
         }
     }

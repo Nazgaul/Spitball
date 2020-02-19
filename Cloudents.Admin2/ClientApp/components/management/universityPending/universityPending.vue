@@ -50,7 +50,7 @@
             </template>
         </v-data-table>
 
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog persistent v-model="dialog" max-width="500px">
             <v-card>
                 <v-card-title>
                     <span v-show="radios === 'merge'" class="headline">{{ editedItem.name }}</span>
@@ -61,8 +61,11 @@
                         <v-layout wrap>
                             <v-flex xs12>
                                 <v-radio-group v-model="radios">
+                                    
                                     <v-radio label="Rename" value="rename"></v-radio>
-                                    <v-radio label="Delete" value="delete"></v-radio>
+                                    <v-radio :label="!editedItem.canBeDeleted ? 'Can\'t delete please try marge first' : 'Delete'" value="delete" :disabled="!editedItem.canBeDeleted">
+                                        
+                                    </v-radio>
                                     <v-radio label="Approve" value="approve"></v-radio>
                                     <v-radio label="Merge" value="merge"></v-radio>
                                 </v-radio-group>
@@ -124,7 +127,7 @@
                 editedIndex: -1,
                 radios: 'approve',
                 search: '',
-                countries: ["all","il", "us"],
+                countries: ["all","il", "in", "us"],
                 country: '',
                 states: ["Pending", "Ok"],
                 state: 'Pending',
@@ -286,7 +289,7 @@
 
 </script>
 
-<style lang="scss">
+<style lang="less">
     //overwrite vuetify css to narrow the table
     table.v-table tbody td:first-child, table.v-table tbody td:not(:first-child), table.v-table tbody th:first-child, table.v-table tbody th:not(:first-child), table.v-table thead td:first-child, table.v-table thead td:not(:first-child), table.v-table thead th:first-child, table.v-table thead th:not(:first-child) {
         padding: 0 4px !important;

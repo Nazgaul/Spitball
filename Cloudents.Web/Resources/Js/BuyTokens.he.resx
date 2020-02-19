@@ -126,14 +126,8 @@
   <data name="bottom_2" xml:space="preserve">
     <value>רכישת נקודות היא אך ורק עבור גישה למסמכי לימוד באתר ספיטבול.</value>
   </data>
-  <data name="buy_points_button" xml:space="preserve">
-    <value>קבל נקודות</value>
-  </data>
   <data name="choose" xml:space="preserve">
     <value>בחר</value>
-  </data>
-  <data name="currency" xml:space="preserve">
-    <value>$</value>
   </data>
   <data name="earn_answer" xml:space="preserve">
     <value>תן תשובות נכונות</value>
@@ -145,7 +139,7 @@
     <value>העלה מסמכים שלך</value>
   </data>
   <data name="failed_transaction" xml:space="preserve">
-    <value>הטרנזקציה נכשלה, נסה לרענן את הדף!</value>
+    <value>הפעולה נכשלה, נסה לרענן את הדף!</value>
   </data>
   <data name="get_points" xml:space="preserve">
     <value>קבל נקודות</value>
@@ -166,7 +160,7 @@
     <value>נק'</value>
   </data>
   <data name="secure_payment" xml:space="preserve">
-    <value> תשלום מאובטח עם </value>
+    <value>לרכישת {1} נקודות</value>
   </data>
   <data name="success_transaction" xml:space="preserve">
     <value>הקנייה הצליחה!</value>

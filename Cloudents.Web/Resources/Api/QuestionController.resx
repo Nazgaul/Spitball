@@ -117,22 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FilterTypeTitle" xml:space="preserve">
-    <value>Type</value>
+  <data name="PostedQuestionToasterCourseNotExists" xml:space="preserve">
+    <value>This course does not exists</value>
   </data>
-  <data name="InSufficientFunds" xml:space="preserve">
-    <value>You do not have sufficient SBL, Earn more SBL by answering questions</value>
+  <data name="PostedQuestionToasterDuplicate" xml:space="preserve">
+    <value>This question already exists</value>
   </data>
   <data name="PostedQuestionToasterOk" xml:space="preserve">
     <value>Thanks, we will notify you as soon as you get an answer!</value>
-  </data>
-  <data name="PostedQuestionToasterPending" xml:space="preserve">
-    <value>Your question is pending approval, please do not resubmit this question. </value>
-  </data>
-  <data name="QuestionFlood" xml:space="preserve">
-    <value>You need to wait before asking a new question</value>
-  </data>
-  <data name="VoteCantVote" xml:space="preserve">
-    <value>You can not upvote / downvote your own question</value>
   </data>
 </root>

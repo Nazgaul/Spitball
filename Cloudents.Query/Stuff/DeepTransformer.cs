@@ -1,23 +1,20 @@
-﻿using NHibernate.Transform;
+﻿using Cloudents.Core.Extension;
+using NHibernate.Transform;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Query.Stuff
 {
     public class DeepTransformer<TEntity> : IResultTransformer
-    where TEntity : class
+        where TEntity : class
     {
         private readonly char _complexChar;
         private readonly IResultTransformer _baseTransformer;
-        public DeepTransformer(char complexChar = '.')
+        public DeepTransformer(char complexChar = '.') : this(complexChar, Transformers.AliasToBean<TEntity>())
         {
-            _complexChar = complexChar;
-            _baseTransformer = Transformers
-                .AliasToBean<TEntity>();
 
         }
 
@@ -37,11 +34,11 @@ namespace Cloudents.Query.Stuff
 
             for (var i = 0; i < list.Count; i++)
             {
-                var aliase = list[i];
+                var alias = list[i];
                 // Aliase with the '.' represents complex IPersistentEntity chain
-                if (aliase.Contains(_complexChar))
+                if (alias.Contains(_complexChar))
                 {
-                    complexAliases.Add(aliase);
+                    complexAliases.Add(alias);
                     propertyAliases[i] = null;
                 }
             }
@@ -112,18 +109,7 @@ namespace Cloudents.Query.Stuff
                 }
                 else
                 {
-                    //if (propertyInfo.PropertyType.IsEnum && value is string str)
-                    //{
-                    //    var e = Enum.Parse(propertyInfo.PropertyType, str, true);
-                    //    propertyInfo.SetValue(currentObject, e);
-                    //}
-                    //else
-                    //{
-                    //    propertyInfo.SetValue(currentObject, Convert.ChangeType(value, propertyInfo.PropertyType));
-                    //}
-                    //CustomDeepTransformer.SetProperty(aliase, value,currentObject);
                     propertyInfo.SetValueExtension(currentObject, value);
-                    //propertyInfo.SetValue(currentObject, value);
                 }
             }
         }
@@ -131,7 +117,31 @@ namespace Cloudents.Query.Stuff
         // convert to DISTINCT list with populated Fields
         public IList TransformList(IList collection)
         {
-            return Transformers.AliasToBean<TEntity>().TransformList(collection);
+            return _baseTransformer.TransformList(collection);
+        }
+
+
+        public bool Equals(DeepTransformer<TEntity> other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return Equals(other._complexChar, _complexChar) && Equals(other._baseTransformer, _baseTransformer);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as DeepTransformer<TEntity>);
+        }
+
+        public override int GetHashCode()
+        {
+            return _complexChar.GetHashCode() * 23 ^ _baseTransformer.GetHashCode() * 73;
         }
     }
 }

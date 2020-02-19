@@ -1,5 +1,6 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.Query;
@@ -16,7 +17,6 @@ using System.Threading.Tasks;
 
 namespace Cloudents.FunctionsV2.System
 {
-
     public class DocumentPurchasedEmailOperation : ISystemOperation<DocumentPurchasedMessage>
     {
         private readonly IQueryBus _queryBus;
@@ -33,6 +33,7 @@ namespace Cloudents.FunctionsV2.System
         //DocumentPurchasedMessage
         public async Task DoOperationAsync(DocumentPurchasedMessage msg, IBinder binder, CancellationToken token)
         {
+            //We wait for the db to persist. 
             await Task.Delay(TimeSpan.FromSeconds(30), token);
             var query = new GetDocumentPurchasedEmailQuery(msg.TransactionId);
             var data = await _queryBus.QueryAsync(query, token);
@@ -64,8 +65,8 @@ namespace Cloudents.FunctionsV2.System
 
         }
 
-        public static async Task<EmailObjectDto> GetEmail(string @event, 
-            Language language,IQueryBus queryBus, CancellationToken token)
+        private static async Task<EmailObjectDto> GetEmail(string @event,
+            Language language, IQueryBus queryBus, CancellationToken token)
         {
 
             var query = new GetEmailByEventQuery(@event);
@@ -76,7 +77,7 @@ namespace Cloudents.FunctionsV2.System
                 return null;
             }
 
-            
+
             CultureInfo info = language;
             var emailObjects = template2.ToList();
             while (info != null)
@@ -94,12 +95,12 @@ namespace Cloudents.FunctionsV2.System
                 info = info.Parent;
             }
 
-            var z = (CultureInfo) Language.English;
+            var z = (CultureInfo)Language.English;
             var template = emailObjects.FirstOrDefault(f => f.CultureInfo.Equals(z));
             return template;
         }
 
-        public static async Task BuildEmail(string toAddress, Language language, IBinder binder,
+        private static async Task BuildEmail(string toAddress, Language language, IBinder binder,
             TemplateData templateData,
             string category,
             CancellationToken token)
@@ -107,15 +108,20 @@ namespace Cloudents.FunctionsV2.System
             var emailProvider = await binder.BindAsync<IAsyncCollector<SendGridMessage>>(new SendGridAttribute()
             {
                 ApiKey = "SendgridKey",
-                From = "Spitball <no-reply @spitball.co>"
+                //From = "Spitball <no-reply @spitball.co>"
             }, token);
 
 
             var message = new SendGridMessage
             {
                 Asm = new ASM { GroupId = UnsubscribeGroup.Update },
-                TemplateId = language == Language.English ? "d-91a839096c8547f9a028134744e78ecb" : "d-a9cd8623ad034007bb397f59477d81d2"
+                TemplateId = "d-91a839096c8547f9a028134744e78ecb" 
             };
+            if (language.Info.Equals(Language.EnglishIndia.Info))
+            {
+                message.TemplateId = "d-91a839096c8547f9a028134744e78ecb";
+            }
+            message.AddFromResource(language.Info);
             templateData.To = toAddress;
             var personalization = new Personalization
             {
@@ -141,9 +147,5 @@ namespace Cloudents.FunctionsV2.System
             message.AddTo(toAddress);
             await emailProvider.AddAsync(message, token);
         }
-
-
-
     }
-
 }

@@ -14,7 +14,7 @@ export default {
 
 
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .studyRoom-content {
         padding: 5px;
         display: flex;

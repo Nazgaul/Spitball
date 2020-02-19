@@ -131,7 +131,7 @@
     };
 </script>
 
-<!--<style lang="scss" scoped>
+<!--<style lang="less" scoped>
 .panding-tutor-container {
   margin: 0 auto;
   .user-id,

@@ -31,7 +31,8 @@ export default {
     },
     deleteDocument: (id) => {
         let url = 'AdminDocument';
-        return connectivityModule.http.delete(`${url}/${id}`)
+        let ids = {'id': id};
+        return connectivityModule.http.delete(url, ids)
             .then((resp) => {
                 console.log(resp, 'delete success');
                 return Promise.resolve(resp);

@@ -1,6 +1,6 @@
 ﻿namespace Cloudents.Command.Command
 {
-    public class IncrementDocumentNumberOfViewsCommand  :ICommand
+    public class IncrementDocumentNumberOfViewsCommand : ICommand
     {
         public IncrementDocumentNumberOfViewsCommand(long id)
         {

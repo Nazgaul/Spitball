@@ -9,13 +9,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class PowerPoint2007Processor : IPreviewProvider2, IDisposable
+    public class PowerPoint2007Processor : IPreviewProvider, IDisposable
     {
-        
+
         public PowerPoint2007Processor()
         {
             SetLicense();
@@ -30,7 +29,6 @@ namespace Cloudents.Infrastructure.Framework
             }
         }
 
-        public static readonly string[] Extensions = FormatDocumentExtensions.PowerPoint;
 
         private static string ExtractStringFromPpt(Presentation ppt)
         {
@@ -42,13 +40,13 @@ namespace Cloudents.Infrastructure.Framework
 
                 //Loop through the Array of TextFrames
                 foreach (ITextFrame t in SlideUtil.GetAllTextFrames(ppt, false))
-                foreach (var para in t.Paragraphs)
-                    //Loop through portions in the current Paragraph
-                foreach (var port in para.Portions)
-                {
-                    //Display text in the current portion
-                    sb.Append(port.Text);
-                }
+                    foreach (var para in t.Paragraphs)
+                        //Loop through portions in the current Paragraph
+                        foreach (var port in para.Portions)
+                        {
+                            //Display text in the current portion
+                            sb.Append(port.Text);
+                        }
 
                 return sb.ToString();
             }
@@ -62,11 +60,11 @@ namespace Cloudents.Infrastructure.Framework
 
         public void Init(Func<Stream> stream)
         {
-            _pptx = new Lazy<Presentation>(() =>  new Presentation(stream(),new LoadOptions()
+            _pptx = new Lazy<Presentation>(() => new Presentation(stream(), new LoadOptions()
             {
                 OnlyLoadDocumentProperties = true
             }));
-            
+
         }
         public void Init(Func<string> stream)
         {
@@ -83,7 +81,7 @@ namespace Cloudents.Infrastructure.Framework
             return (txt, _pptx.Value.Slides.Count);
         }
 
-       
+
 
         public async Task ProcessFilesAsync(IEnumerable<int> previewDelta, Func<Stream, string, Task> pagePreviewCallback,
             CancellationToken token)
@@ -112,7 +110,7 @@ namespace Cloudents.Infrastructure.Framework
 
         public void Dispose()
         {
-            if (_pptx.IsValueCreated)
+            if (_pptx != null && _pptx.IsValueCreated)
             {
                 _pptx?.Value?.Dispose();
             }

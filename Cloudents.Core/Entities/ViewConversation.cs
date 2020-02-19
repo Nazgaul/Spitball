@@ -1,5 +1,5 @@
-﻿using System;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
+using System;
 
 namespace Cloudents.Core.Entities
 {
@@ -7,7 +7,7 @@ namespace Cloudents.Core.Entities
     {
         protected ViewConversation()
         {
-            
+
         }
         public virtual string Id { get; set; }
         public virtual DateTime LastMessage { get; set; }
@@ -21,7 +21,7 @@ namespace Cloudents.Core.Entities
         public virtual string TutorEmail { get; set; }
         public virtual long TutorId { get; set; }
         public virtual ChatRoomStatus Status { get; set; }
-        public virtual ChatRoomAssign? AssignTo { get; set; }
+        public virtual string AssignTo { get; set; }
         public virtual string RequestFor { get; set; }
         public virtual int ConversationStatus { get; set; }
         public virtual bool StudyRoomExists { get; set; }

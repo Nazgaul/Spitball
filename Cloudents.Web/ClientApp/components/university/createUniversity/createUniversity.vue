@@ -1,17 +1,17 @@
 <template>
     <v-card class="uni-creation-wrap">
-        <v-layout class="close-toolbar limit-height pl-4 pr-3" style="width:100%;" align-center justify-end>
+        <v-layout class="close-toolbar limit-height pl-4 pr-4" style="width:100%;" align-center justify-end>
             <v-flex grow>
                 <span class="font-weight-bold dialog-heading" v-language:inner>university_create_new_title</span>
             </v-flex>
             <v-flex shrink class="mr-2">
-                <v-icon @click="closeDialog()" class="subheading course-close-icon">sbf-close</v-icon>
+                <v-icon @click="closeDialog()" class="subtitle-1 course-close-icon">sbf-close</v-icon>
             </v-flex>
         </v-layout>
         <v-layout shrink align-center justify-center class="px-4 mt-4 mb-1">
-            <v-flex xs12   class="text-xs-center">
+            <v-flex xs12   class="text-center">
                 <v-form  ref="uniForm"  v-model="validUniForm">
-                <v-text-field v-model="universityName"
+                <v-text-field v-model="university"
                               class="uni-input"
                               outline
                               prepend-inner-icon=""
@@ -24,20 +24,20 @@
             </v-flex>
         </v-layout>
         <v-layout align-start justify-start shrink column class="px-4">
-            <v-flex xs12  sm6 class="text-xs-center mb-1">
+            <v-flex xs12  sm6 class="text-center mb-1">
                 <span class="caption helper-text" v-language:inner>courses_minimum</span>
             </v-flex>
-            <v-flex xs12  sm6 class="text-xs-center mb-1">
+            <v-flex xs12  sm6 class="text-center mb-1">
                 <span class="caption helper-text" v-language:inner>courses_meaningfull</span>
 
             </v-flex>
-            <v-flex xs12  sm6 class="text-xs-center mb-1">
+            <v-flex xs12  sm6 class="text-center mb-1">
                 <!-- <span class="caption helper-text" v-language:inner>university_third_tip_for_creating</span> -->
 
             </v-flex>
         </v-layout>
         <v-layout align-center justify-center shrink class="pb-5 pt-4">
-            <v-flex shrink class="text-xs-center">
+            <v-flex shrink class="text-center">
                 <button @click="createNewUniversite()" :disabled="!universityName"
                         class="cursor-pointer create-btn min-width solid d-flex align-center justify-center py-2 px-3">
                     <span class="font-weight-bold text-uppercase btn-text" v-language:inner>university_btn_create_university</span>
@@ -66,23 +66,38 @@
             };
         },
         computed: {
-            ...mapGetters(['getSelectedClasses'])
+            ...mapGetters(['getSelectedClasses','getSchoolName']),
+            university: {
+                get(){
+                    return this.universityName || this.getSchoolName
+                },
+                set(newValue) {
+                    this.universityName = newValue;
+                }
+            }
         },
         methods: {
-            ...mapActions(['createUniversity', 'changeUniCreateDialogState', 'updateUniVerification']),
+            ...mapActions(['createUniversity', 'changeUniCreateDialogState', 'updateUniVerification', 'updateToasterParams']),
             createNewUniversite() {
                 if (this.$refs.uniForm.validate()) {
                     let self = this;
                     let university = self.universityName;
                     let classesSet =  self.getSelectedClasses && self.getSelectedClasses.length > 0;
+                    let toasterText;
                     //create new uni add action in store needed
-                    self.createUniversity(university).then((success)=>{
+
+                    self.createUniversity(university).then(()=>{
                         self.changeUniCreateDialogState(false);
-                        classesSet ?  self.$router.push({name: 'note'})  : self.$router.push({name: 'editCourse'});
-                    }, (error)=>{
-                        console.log('error create university', error)
-                    }).finally(()=>{
-                        console.log('done creation')
+                        classesSet ?  self.$router.push({name: 'feed'})  : self.$router.push({name: 'editCourse'});
+                        toasterText = LanguageService.getValueByKey("university_uni_success");
+                    }, ()=>{
+                        toasterText = LanguageService.getValueByKey("university_uni_error");
+                    }).finally(() => {
+                        self.updateToasterParams({
+                            showToaster: true,
+                            toasterText,
+                            toasterTimeout: 5000
+                        });
                     })
                 }
 
@@ -90,6 +105,11 @@
             closeDialog(){
                 this.changeUniCreateDialogState(false);
                 this.updateUniVerification(false);
+            }
+        },
+        mounted() {
+            if(this.getSchoolName){
+                this.universityName = this.getSchoolName
             }
         },
     };
@@ -151,6 +171,9 @@
                     font-weight: 600;
                     font-size: 16px;
                 }
+            }
+            .v-messages__message{
+                line-height: 1.4;
             }
         }
     }

@@ -45,7 +45,7 @@ export default {
     }
 }
 </script>
-<style lang="scss">
+<style lang="less">
     .tutorDelete{
         width: 100%;
     }

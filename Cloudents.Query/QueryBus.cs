@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Autofac;
+using JetBrains.Annotations;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
-using JetBrains.Annotations;
 
 namespace Cloudents.Query
 {
@@ -32,6 +32,11 @@ namespace Cloudents.Query
                 catch (InvalidOperationException e) //db return this type of exception and not cancellation token
                 {
                     if (token.IsCancellationRequested)
+                    {
+                        throw new OperationCanceledException("on query", e);
+                    }
+
+                    if (e.Message.Contains("Operation cancelled by user."))
                     {
                         throw new OperationCanceledException("on query", e);
                     }

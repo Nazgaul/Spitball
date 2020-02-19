@@ -23,10 +23,9 @@
     export default {
         name: "uploadImage",
         methods: {
-            ...mapActions(['uploadAccountImage', 'updateProfileImageLoader', 'updateToasterParams']),
+            ...mapActions(['uploadAccountImage', 'updateToasterParams']),
             uploadProfilePicture() {
                 let self = this;
-                self.updateProfileImageLoader(true);
                 let formData = new FormData();
                 let file = self.$refs.profileImage.files[0];
                 formData.append("file", file);
@@ -38,6 +37,7 @@
                         });
                     }
                 })
+                document.querySelector('#profile-picture').value = ''
             }
         },
     }
@@ -48,14 +48,14 @@
     .profile-upload-wrap {
         display: flex;
         padding: 4px 4px;
+        letter-spacing: normal;
         cursor: pointer;
         label[for=profile-picture]{
             display: flex;
             flex-direction: column;
         }
         .image-edit-text{
-            font-family: @fontOpenSans;
-            font-size: 11px;
+            font-size: 12px;
             color: @color-black;
         }
         .profile-image-input-container {

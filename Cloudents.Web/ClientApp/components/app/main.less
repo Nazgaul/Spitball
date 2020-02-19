@@ -4,19 +4,12 @@ html {
     -webkit-text-size-adjust: 100%;
 }
 
-body {
-    background-color: @Site-Background;
-    font-family: 'Open Sans', sans-serif;
-    .application {
-        font-family: 'Open Sans', sans-serif;
-        line-height: normal;
-    }
+* {
+
+
     &:lang(he) {
         font-family: 'Ariel', sans-serif;
-        .application {
-            font-family: 'Ariel', sans-serif;
-            line-height: normal;
-        }
+        // line-height: normal !important; // not sure if we need it
     }
 }
 
@@ -80,13 +73,11 @@ button {
 @color-light-gray: #ddd;
 @color-marketplace: #3532d5;
 @color-ask: #3532d5;
-@color-note: #3532d5;
-@color-tutor: #3532d5;
 @color-blue: #3293f6;
 @color-dark-blue:#302eb5;
 @color-green: #7ed321;
 @color-transparent: transparent;
-@list-colors: light-gray,marketplace,ask,note,tutor,blue,green,dark-blue,transparent;
+@list-colors: light-gray,marketplace,ask,blue,green,dark-blue,transparent;
 
 
 .loop2(@index2) when (@index2 <= length(@list-colors)) {
@@ -127,11 +118,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 .full-height {
     height: 100%;
-}
-
-
-.cdn-only {
-    position:absolute;
 }
 
 .notransition {

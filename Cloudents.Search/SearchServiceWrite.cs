@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Index = Microsoft.Azure.Search.Models.Index;
 using ISearchObject = Cloudents.Search.Interfaces.ISearchObject;
 
 namespace Cloudents.Search
@@ -16,7 +17,7 @@ namespace Cloudents.Search
         protected readonly ISearchIndexClient IndexClient;
 
         private readonly ILogger _logger;
-        
+
 
         protected SearchServiceWrite(SearchService client, ISearchIndexClient indexClient, ILogger logger)
         {

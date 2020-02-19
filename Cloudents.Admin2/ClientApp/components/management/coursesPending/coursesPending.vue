@@ -9,20 +9,21 @@
                 <v-select :items="states"
                           label="state"
                           v-model="state"
-                          @change="getCourseList(language, state)"></v-select>
+                          @change="getCourseList(language, state, search)"></v-select>
             </v-flex>   
             <v-flex xs3 offset-xs2>
                 <v-select :items="languages"
                           label="language"
                           v-model="language"
-                          @change="getCourseList(language, state)"></v-select>
+                          @change="getCourseList(language, state, search)"></v-select>
             </v-flex>
                 <v-flex xs4 sm4 md4 offset-xs2>
                     <v-text-field v-model="search"
                                   append-icon="search"
                                   label="Search"
                                   single-line
-                                  hide-details>
+                                  hide-details
+                                  @keyup.enter.native="getCourseList(language, state, search)">
                     </v-text-field>
                 </v-flex>
 
@@ -31,8 +32,7 @@
         <v-data-table :headers="headers"
                       :items="newCourseList"
                       class="cash-out-table"
-                      disable-initial-sort
-                      :search="search">
+                      disable-initial-sort>
             <template slot="items" slot-scope="props">
                 <td class="text-xs-center">{{ props.item.name }}</td>
 
@@ -50,7 +50,7 @@
             </template>
         </v-data-table>
 
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog persistent v-model="dialog" max-width="500px">
             <v-card>
                 <v-card-title>
                     <span v-show="radios === 'merge' || radios === 'rename'" class="headline">{{ editedItem.name }}</span>
@@ -67,15 +67,24 @@
                                     <v-radio label="Merge" value="merge"></v-radio>
                                 </v-radio-group>
                                 <!--<v-text-field v-show="radios === 'merge'" v-model="newItem.course" label="New course"></v-text-field>-->
-                                <div class="select-type-container">
-                                    <v-select v-show="radios === 'approve'"
-                                              class="select-type-input"
-                                              v-model="subject"
-                                              :items="subjects"
-                                              :loading="isLoading"
-                                               label="Select subjects"
-                                          ></v-select>
-                            </div>
+
+                                <template v-if="radios === 'approve'">
+                                    <div class="select-type-container">
+                                        <v-select
+                                            class="select-type-input"
+                                            v-model="subject"
+                                            :items="subjects"
+                                            :loading="isLoading"
+                                            label="Select subjects"
+                                        ></v-select>
+                                        <v-select 
+                                            class="select-type-input"
+                                            v-model="schoolType"
+                                            :items="schoolTypes"
+                                            label="Select school type"
+                                        ></v-select>
+                                    </div>
+                                </template>
 
                                 <search-Component :context="adminAPI" 
                                                   :contextCallback="setadminAPI" 
@@ -128,7 +137,7 @@
                 showNoResult: false,
                 editedIndex: -1,
                 radios: 'delete',
-                search: '',
+                search: null,
                 languages: ["All", "He", "En"],
                 language: 'All',
                 states: ["Pending", "Ok"],
@@ -145,6 +154,8 @@
                     { text: 'Pending Courses', value: 'name' },
                     { text: 'Actions', value: 'actions' },
                 ],
+                schoolTypes: ['University', 'Highschool'],
+                schoolType: '',
             }
         },
         computed: {
@@ -210,7 +221,8 @@
             },
             approve(item) {
                 const index = this.newCourseList.indexOf(item.name);
-                approve(item).then((resp) => {
+                let schoolType = this.schoolType;
+                approve({course: item, schoolType}).then((resp) => {
                     console.log('got migration resp success')
                     this.$toaster.success(`Approved Course ${item.name.name}`);
                     this.newCourseList.splice(index, 1);
@@ -245,8 +257,8 @@
                 )
             },
    
-            getCourseList(language, state) {
-                getCourseList(language, state).then((list) => {
+            getCourseList(language, state, filter) {
+                getCourseList(language, state, filter).then((list) => {
                     this.newCourseList = [];
                     if (list.length === 0) {
                         this.showNoResult = true;
@@ -260,7 +272,7 @@
             }
         },
         created() {
-            getCourseList('', 'Pending').then((list) => {
+            getCourseList('', 'Pending', this.search).then((list) => {
                 if (list.length === 0) {
                     this.showNoResult = true;
                 } else {
@@ -288,7 +300,7 @@
 
 </script>
 
-<style lang="scss">
+<style lang="less">
     //overwrite vuetify css to narrow the table
     table.v-table tbody td:first-child, table.v-table tbody td:not(:first-child), table.v-table tbody th:first-child, table.v-table tbody th:not(:first-child), table.v-table thead td:first-child, table.v-table thead td:not(:first-child), table.v-table thead th:first-child, table.v-table thead th:not(:first-child) {
         padding: 0 4px !important;

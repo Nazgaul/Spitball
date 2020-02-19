@@ -117,13 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="nav_name_ask" xml:space="preserve">
-    <value>Homework Help</value>
-  </data>
-  <data name="nav_name_note" xml:space="preserve">
-    <value>Study Documents</value>
-  </data>
-  <data name="nav_name_tutor" xml:space="preserve">
-    <value>Tutors</value>
+  <data name="nav_name_feed" xml:space="preserve">
+    <value>Feed</value>
   </data>
 </root>

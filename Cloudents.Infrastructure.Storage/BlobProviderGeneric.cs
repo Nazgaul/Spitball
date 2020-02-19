@@ -1,4 +1,6 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using Cloudents.Core.Extension;
+using Cloudents.Core.Storage;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
@@ -8,17 +10,11 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
-using Cloudents.Core.Storage;
 
 namespace Cloudents.Infrastructure.Storage
 {
     public class BlobProviderContainer : IBlobProvider,
-        
-        IQuestionsDirectoryBlobProvider,
         IChatDirectoryBlobProvider
-        
-
     {
         protected readonly CloudBlobDirectory _blobDirectory;
         private readonly CloudBlobContainer _cloudContainer;
@@ -30,9 +26,6 @@ namespace Cloudents.Infrastructure.Storage
         public BlobProviderContainer(ICloudStorageProvider storageProvider)
         {
             _client = storageProvider.GetBlobClient();
-            //_cloudContainer = client.GetContainerReference(_container.Container.Name.ToLowerInvariant());
-
-            //_blobDirectory = _cloudContainer.GetDirectoryReference(_container.Container.RelativePath ?? string.Empty);
         }
 
         public BlobProviderContainer(ICloudStorageProvider storageProvider, StorageContainer container)
@@ -59,17 +52,17 @@ namespace Cloudents.Infrastructure.Storage
 
         private CloudBlockBlob GetBlob(Uri blobUrl)
         {
-            
+
             return new CloudBlockBlob(blobUrl, _client.Credentials);
         }
 
-        private CloudBlockBlob GetBlob(string blobName)
+        protected CloudBlockBlob GetBlob(string blobName)
         {
             return _blobDirectory.GetBlockBlobReference(blobName);
         }
 
 
-        public Task UploadStreamAsync(string blobName, Stream fileContent,
+        public virtual Task UploadStreamAsync(string blobName, Stream fileContent,
             string mimeType = null, TimeSpan? cacheControlSeconds = null, CancellationToken token = default)
         {
             var blob = GetBlob(blobName);
@@ -127,7 +120,10 @@ namespace Cloudents.Infrastructure.Storage
                 blob.Metadata["fileName"] = originalFileName;
             }
 
-            return blob.PutBlockListAsync(indexes.Select(ToBase64));
+            return blob.PutBlockListAsync(indexes.Select(ToBase64), AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions()
+            {
+                StoreBlobContentMD5 = true
+            }, null, token);
         }
 
         private static string ToBase64(int blockIndex)
@@ -137,27 +133,27 @@ namespace Cloudents.Infrastructure.Storage
         }
 
 
-       
 
 
-        public async Task<string> DownloadTextAsync(string name, string directory, CancellationToken token)
-        {
-            try
-            {
-                var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
-                var blob = destinationDirectory.GetBlockBlobReference(name);
 
-                return await blob.DownloadTextAsync();
-            }
-            catch (StorageException e)
-            {
-                if (e.RequestInformation.HttpStatusCode == (int) HttpStatusCode.NotFound)
-                {
-                    return null;
-                }
-                throw;
-            }
-        }
+        //public async Task<string> DownloadTextAsync(string name, string directory, CancellationToken token)
+        //{
+        //    try
+        //    {
+        //        var destinationDirectory = _blobDirectory.GetDirectoryReference(directory);
+        //        var blob = destinationDirectory.GetBlockBlobReference(name);
+
+        //        return await blob.DownloadTextAsync();
+        //    }
+        //    catch (StorageException e)
+        //    {
+        //        if (e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
+        //        {
+        //            return null;
+        //        }
+        //        throw;
+        //    }
+        //}
 
         public Task<bool> ExistsAsync(string blobName, CancellationToken token)
         {
@@ -174,7 +170,10 @@ namespace Cloudents.Infrastructure.Storage
             var destinationDirectory = _blobDirectory.GetDirectoryReference(destinationContainerName);
             var sourceBlob = GetBlob(blobName);
             var destinationBlob = destinationDirectory.GetBlockBlobReference(blobName);
-            await destinationBlob.StartCopyAsync(sourceBlob, AccessCondition.GenerateIfExistsCondition(), AccessCondition.GenerateEmptyCondition(), null, null, token);
+            await destinationBlob.StartCopyAsync(sourceBlob, AccessCondition.GenerateIfExistsCondition(), AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions()
+            {
+                StoreBlobContentMD5 = true
+            }, null, token);
             while (destinationBlob.CopyState.Status != CopyStatus.Success)
             {
                 await Task.Delay(TimeSpan.FromSeconds(0.2), token);
@@ -183,7 +182,25 @@ namespace Cloudents.Infrastructure.Storage
             await sourceBlob.DeleteAsync();
         }
 
-        public async Task DeleteDirectoryAsync(string id,CancellationToken token)
+
+        //public async Task MoveBlobAsync(MoveBlob source, MoveBlob destination, CancellationToken token)
+        //{
+        //    var sourceContainer = _client.GetContainerReference(source.ContainerName);
+        //    var sourceBlob = sourceContainer.GetBlockBlobReference(source.FileName);
+        //    var link = this.GenerateDownloadLink(sourceBlob.Uri, TimeSpan.FromDays(1));
+
+        //    var destinationContainer = _client.GetContainerReference(destination.ContainerName);
+        //    var destinationBlob = destinationContainer.GetBlockBlobReference(destination.FileName);
+
+        //    await destinationBlob.StartCopyAsync(link);
+        //    while (destinationBlob.CopyState.Status != CopyStatus.Success)
+        //    {
+        //        await Task.Delay(TimeSpan.FromSeconds(0.2), token);
+        //        await destinationBlob.ExistsAsync();
+        //    }
+        //}
+
+        public async Task DeleteDirectoryAsync(string id, CancellationToken token)
         {
             var directory = _blobDirectory.GetDirectoryReference(id);
             var blobs = await directory.ListBlobsSegmentedAsync(null);
@@ -195,13 +212,34 @@ namespace Cloudents.Infrastructure.Storage
                 if (blob is CloudBlockBlob p)
                 {
 
-                    var t = p.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots,AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
+                    var t = p.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots, AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
                     l.Add(t);
                 }
             }
 
             await Task.WhenAll(l);
 
+        }
+
+        public async Task UndeleteDirectoryAsync(string id, CancellationToken token)
+        {
+            var directory = _blobDirectory.GetDirectoryReference(id);
+            var blobs = await directory.ListBlobsSegmentedAsync(useFlatBlobListing: true, blobListingDetails: BlobListingDetails.Deleted, null, new BlobContinuationToken(), new BlobRequestOptions(),
+                new OperationContext(), token);
+            var l = new List<Task>();
+            foreach (var blob in blobs.Results)
+            {
+
+
+                if (blob is CloudBlockBlob p)
+                {
+
+                    var t = p.UndeleteAsync(AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext(), token);
+                    l.Add(t);
+                }
+            }
+
+            await Task.WhenAll(l);
         }
 
         public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string directory, CancellationToken token)
@@ -218,21 +256,10 @@ namespace Cloudents.Infrastructure.Storage
         public async Task<IEnumerable<Uri>> FilesInDirectoryAsync(string prefix, string directory, CancellationToken token)
         {
             var path = $"{_container.RelativePath}/{directory}/{prefix}";
-            var result = await _cloudContainer.ListBlobsSegmentedAsync(path, true, 
+            var result = await _cloudContainer.ListBlobsSegmentedAsync(path, true,
                 BlobListingDetails.None, 1000, null, null, null, token);
             return result.Results.Select(s => s.Uri);
         }
-
-        //public async Task<Stream> DownloadFileAsync(string blobUrl, CancellationToken token)
-        //{
-        //    var blob = GetBlob(blobUrl);
-        //    var ms = new MemoryStream();
-        //    await blob.DownloadToStreamAsync(ms);
-        //    ms.Seek(0, SeekOrigin.Begin);
-        //    return ms;
-        //}
-
-
 
         public Uri GeneratePreviewLink(Uri blobUrl, TimeSpan expirationTime)
         {

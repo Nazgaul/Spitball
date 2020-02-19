@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Cloudents.Command.Command;
+using Cloudents.Core.Interfaces;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command.Command;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
 
 namespace Cloudents.Command.CommandHandler
 {
@@ -24,10 +23,8 @@ namespace Cloudents.Command.CommandHandler
             {
                 throw new ArgumentException("user is already a tutor");
             }
-            user.Tutor = new Tutor(message.Bio, user, message.Price);
-            user.Description = message.Description;
-            user.CanTeachAllCourses();
-            user.ChangeName(message.FirstName,message.LastName);
+            user.BecomeTutor(message.Bio, message.Price, message.Description, message.FirstName, message.LastName);
+
             await _userRepository.UpdateAsync(user, token);
         }
     }

@@ -117,22 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FilterTypeTitle" xml:space="preserve">
-    <value>סוגי שאלות</value>
+  <data name="PostedQuestionToasterCourseNotExists" xml:space="preserve">
+    <value>קורס זה לא קיים</value>
   </data>
-  <data name="InSufficientFunds" xml:space="preserve">
-    <value>אין לך מספיק נקודות,  קבל עוד נקודות על ידי מתן תשובות לשאלות.</value>
+  <data name="PostedQuestionToasterDuplicate" xml:space="preserve">
+    <value>שאלה זו כבר קיימת במערכת</value>
   </data>
   <data name="PostedQuestionToasterOk" xml:space="preserve">
-    <value>תודה, נעדכן אותך מייד ברגע שתתקבל תשובה</value>
-  </data>
-  <data name="PostedQuestionToasterPending" xml:space="preserve">
-    <value>השאלה שלך ממתינה לאישור, נא לא לשלוח שאלה זו שוב.</value>
-  </data>
-  <data name="QuestionFlood" xml:space="preserve">
-    <value>יש להמתין לפני שאילת שאלה חדשה</value>
-  </data>
-  <data name="VoteCantVote" xml:space="preserve">
-    <value>לא ניתן להצביע בעד / נגד השאלה שלך</value>
+    <value>תודה, נעדכן אותך מיד ברגע שתתקבל תשובה</value>
   </data>
 </root>

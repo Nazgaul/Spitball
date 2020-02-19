@@ -10,9 +10,7 @@
                                   type="text"
                                   required
                                   :rules="requiredRules"
-                                  placeholder="Insert user identifier..." 
-                                  @keyup.enter="submitUserData()"/>
-                                  
+                                  placeholder="Insert user identifier..."/>
                     <v-btn color="success" @click="submitUserData()">
                         Get User
                     </v-btn>
@@ -41,11 +39,52 @@
                     <template v-for="(infoItem, name,index) in userInfo">
                         <v-list-tile :class="[ (index % 2 == 0) ? 'table-odd' : '' ]" :key="index">
                             <v-layout align-center justify-space-between>
+                                <div>
                                 <span><b>{{infoItem.label}}:</b></span>
-                                <v-btn small color='warning' @click="openNameDialog(userInfo.name.value)" v-if="infoItem.label == 'User Name'">Edit</v-btn>
-                                <v-btn small color='warning' @click="openPhoneDialog(userInfo.phoneNumber.value)" v-if="infoItem.label == 'Phone Number'">Edit</v-btn>
-                                <v-btn small color='red' @click="deleteTutor()" v-if="infoItem.label == 'Tutor State' && infoItem.value != 'Not a tutor'">Delete</v-btn>
                                 <span>{{infoItem.value}}</span>
+                                </div>
+                                <div>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="openNameDialog(userInfo.name.value)" v-if="infoItem.label == 'User Name'"><v-icon>edit</v-icon></v-btn>
+                                        <span>Edit</span>
+                                    </v-tooltip>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="openPhoneDialog(userInfo.phoneNumber.value)" v-if="infoItem.label == 'Phone Number'"><v-icon>edit</v-icon></v-btn>
+                                        <span>Edit</span>
+                                    </v-tooltip>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="openTutorPriceDialog(userInfo.tutorPrice.value)" v-if="infoItem.label == 'Tutor Price'"><v-icon>edit</v-icon></v-btn>
+                                        <span>Edit</span>
+                                    </v-tooltip>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="removePayment(userInfo.id.value)" v-if="infoItem.label == 'Has Payment' && infoItem.value"><v-icon>delete</v-icon></v-btn>
+                                        <span>Delete</span>
+                                    </v-tooltip>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="deleteTutor()" v-if="infoItem.label == 'Tutor State'"><v-icon>delete</v-icon></v-btn>
+                                        <span>Delete</span>
+                                    </v-tooltip> 
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="openEditUserTypeDialog(userInfo.id.value)" v-if="infoItem.label == 'User Type'"><v-icon>edit</v-icon></v-btn>
+                                        <span>Edit</span>
+                                    </v-tooltip> 
+
+
+                                    <template v-if="infoItem.label == 'Tutor State'">
+                                        <v-tooltip top>
+                                            <v-btn slot="activator" class="ma-0" icon small @click="suspendTutor()" v-if="infoItem.value === 'ok'"><v-icon>block</v-icon></v-btn>
+                                            <span>Suspend</span>
+                                        </v-tooltip>
+                                        <v-tooltip top>
+                                            <v-btn slot="activator" class="ma-0" icon small @click="unSuspendTutor()" v-if="infoItem.value === 'flagged'"><v-icon>how_to_reg</v-icon></v-btn>
+                                            <span>un Suspend</span>
+                                        </v-tooltip>
+                                    </template>
+                                    <v-tooltip top> 
+                                        <v-btn slot="activator" class="ma-0" icon small @click="deleteCalender()" v-if="infoItem.label == 'Has Calendar' && infoItem.value === true"><v-icon>delete</v-icon></v-btn>
+                                        <span>Delete</span>
+                                    </v-tooltip> 
+                                </div>
                             </v-layout>
                         </v-list-tile>
                         <v-divider></v-divider>
@@ -59,12 +98,14 @@
                     <v-tab :to="{name: 'userAnswers', params:{userId: userId}}">Answers</v-tab>
                     <v-tab :to="{name: 'userDocuments', params:{userId: userId}}">Documents</v-tab>
                     <v-tab :to="{name: 'userPurchasedDocuments', params:{userId: userId}}">Purchased Documents</v-tab>
+                    <v-tab :to="{name: 'userSoldItems', params:{userId: userId}}">Sold Items</v-tab>
                     <v-tab :to="{name: 'userConversations', params:{userId: userId}}">Conversations</v-tab>
                     <v-tab :to="{name: 'userSessions', params:{userId: userId}}">Sessions</v-tab>
+                    <v-tab :to="{name: 'userNotes', params:{userId: userId}}">Notes</v-tab>
                 </v-tabs>
                 <div class="filters mb-2">
                     <v-btn v-for="(filter, index) in filters" @click="updateFilter(filter.value)"
-                           :color="filterValue === filter.value ? 'blue lighten-1' : ''  "
+                           :color="filterValue === filter.value ? 'grey lighten-1' : ''  "
                            :key="'filter_'+index">
                         {{filter.name}}
                     </v-btn>
@@ -165,6 +206,7 @@
                     <span class="headline">Edit phone</span>
                 </v-card-title>
                 <v-card-text>
+                    <span class = "subheading">Please insert a valid phone number with country code</span>
                     <v-container grid-list-md>
                         <v-layout wrap>
                             <v-flex xs12 sm12 md12>
@@ -184,6 +226,60 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-dialog v-model="dialogs.price" persistent max-width="600px" lazy v-if="dialogs.price">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Edit price</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container grid-list-md>
+                        <v-layout wrap>
+                            <v-flex xs12 sm12 md12>
+                                <v-text-field
+                                    v-model="newPrice"
+                                    label="Tutor Price"
+                                    :placeholder="currentPrice"
+                                ></v-text-field>
+                                <v-btn @click="editPrice()">Send</v-btn>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click="dialogs.price = false">Close</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+<!-- new -->
+        <v-dialog v-model="dialogs.type" persistent max-width="600px" lazy v-if="dialogs.type">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Edit user type</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container grid-list-md>
+                        <v-layout wrap>
+                            <v-flex xs12 sm12 md12>
+                                <v-select
+                                :items="userTypes"
+                                label="Select user type"
+                                v-model="selectedType"
+                                ></v-select>
+                               
+                                <v-btn @click="editUserType()">Send</v-btn>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click="dialogs.type = false">Close</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
     </v-container>
 </template>
 
@@ -191,10 +287,10 @@
 
 </script>
 
-<style lang="scss">
+<style lang="less">
 
 .table-odd {
-    background: #B2DFDB;
+    background: #d2d2d2;
 }
 
 

@@ -1,5 +1,5 @@
-﻿using System;
-using Cloudents.Core.Message.System;
+﻿using Cloudents.Core.Message.System;
+using System;
 
 namespace Cloudents.Core.Message.Email
 {
@@ -10,22 +10,16 @@ namespace Cloudents.Core.Message.Email
             TransactionId = transactionId;
         }
 
-
         public Guid TransactionId { get; private set; }
     }
 
-    public class AnswerAcceptedMessage : ISystemQueueMessage
+    public class RequestTutorMessage : ISystemQueueMessage
     {
-        public AnswerAcceptedMessage(long questionId)
+        public RequestTutorMessage(Guid leadId)
         {
-            QuestionId = questionId;
+            LeadId = leadId;
         }
 
-
-        public long QuestionId { get; private set; }
+        public Guid LeadId{ get; private set; }
     }
-
-
-   
-
 }

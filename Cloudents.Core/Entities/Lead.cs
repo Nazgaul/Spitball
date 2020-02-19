@@ -1,13 +1,16 @@
-﻿using System;
-using Cloudents.Core.Enum;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core.Event;
 
 namespace Cloudents.Core.Entities
 {
-    public class Lead :Entity<Guid>
+    [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor", Justification = "nhibernate proxy")]
+    public class Lead : Entity<Guid>
     {
-        public Lead(Course course, string text,  string referer,
-            [CanBeNull] User user,  Tutor tutor, string utmSource)
+        public Lead(string course, string text, string referer,
+            [CanBeNull] User user, Tutor tutor, string utmSource)
         {
             Course = course;
             Text = text;
@@ -16,16 +19,18 @@ namespace Cloudents.Core.Entities
             Tutor = tutor;
             UtmSource = utmSource;
             CreationTime = DateTime.UtcNow;
+
+            AddEvent(new LeadEvent(this));
         }
 
-      
+
         protected Lead()
         {
         }
 
         [CanBeNull]
-        public virtual User User { get;protected set; }
-        public virtual Course Course { get; protected set; }
+        public virtual User User { get; protected set; }
+        public virtual string Course { get; protected set; }
 
         public virtual string Text { get; protected set; }
         public virtual string Referer { get; protected set; }
@@ -34,16 +39,10 @@ namespace Cloudents.Core.Entities
 
         public virtual string UtmSource { get; protected set; }
 
-        public virtual DateTime CreationTime { get; set; }
+        public virtual DateTime? CreationTime { get; set; }
+  
 
-        public virtual ItemState? Status { get; protected set; }
-        public virtual void ChangeState(ItemState status)
-        {
-            Status = status;
-            if (Status == ItemState.Pending)
-            {
-                throw new ArgumentOutOfRangeException(nameof(status), status, null);
-            }
-        }
+        //private readonly ISet<ChatRoomAdmin> _chatRoomsAdmin = new HashSet<ChatRoomAdmin>();
+        protected internal virtual ISet<ChatRoomAdmin> ChatRoomsAdmin { get; set; }
     }
 }

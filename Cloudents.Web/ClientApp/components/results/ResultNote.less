@@ -1,96 +1,19 @@
 @import "../../styles/mixin.less";
+@import "../dialogs/changePrice/changePrice.less";
 
 @colorUploadDate: rgba(0, 0, 0, 0.38);
 @placeholderGrey: rgba(74, 74, 74, 0.25);
 @colorPrice: rgba(74, 74, 74, 0.87);
 .relative-pos {
   position: relative;
-}
-
-
-
-//price-change dialog
-.price-change-wrap {
-  padding: 12px 0 0 0;
-  position: relative;
-  .price-wrap {
+  .input-wrap {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
     bottom: -12px;
-    background: @color-white;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    max-width: 164px;
-    min-width: 164px;
-    border-radius: 4px;
-    border: 1px solid rgba(0, 0, 0, .25);
-    justify-content: center;
-    &.reversed {
-      flex-direction: row-reverse;
-    }
-    &:focus-within {
-      .glowingBorderFocused();
-    }
-    .sb-input-upload-price {
-      max-width: 76px;
-      height: 44px;
-      order: 1;
-      outline: none;
-      .input-field {
-        .placeholder-color(@placeholderGrey, 1);
-        font-size: 16px;
-        color: @colorPrice;
-        text-align: center;
-        height: 100%;
-        width: 100%;
-        &:focus {
-          outline: none;
-        }
-      }
-    }
-  }
-
-
-  .title-wrap {
-    padding-top: 16px;
-    padding-bottom: 48px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    .change-title {
-      font-family: @fontOpenSans;
-      font-size: 16px;
-      letter-spacing: -0.4px;
-      color: @textColor;
-
-    }
-  }
-  .change-price-actions {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 0 16px 0;
-    background: #f7f7f7;
-    .change-price {
-      .sb-rounded-btn();
-      padding: 8px 20px 8px 20px;
-      font-size: 14px;
-      font-weight: 400;
-    }
-    .cancel {
-      border-radius: 16px;
-      border: 1px solid #979797;
-      color: @colorBlackNew;
-      display: flex;
-      align-items: center;
-      padding: 6px 22px 6px 22px;
-      outline: none;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -0.4px;
-    }
+    right: 0; 
   }
 }
 
@@ -99,15 +22,19 @@
   min-height: auto;
   // box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
   //background: @color-white;
-  border-radius: 4px;
+  border-radius: 8px;
   //width: 100%;
   cursor: pointer;
   //padding: 14px 16px !important;
 
+  &.no-cursor {
+    cursor: text;
+  }
+
   .doc-type-text {
     font-size: 13px;
     font-weight: 600;
-    font-family: @fontFiraSans;
+    
     color: @color-blue-new;
   }
 
@@ -131,17 +58,25 @@
     display: flex;
     flex-direction: row;
     line-height: 35px;
+    justify-content: space-between;
     white-space: nowrap;
     .document-header-large-sagment {
       display: flex;
-      width: 90%;
+      // width: 90%;
+      min-width: 0;
       flex-grow: 1;
       align-items: end;
+
+      &--arrow {
+        align-self: center;
+        color: #69687d;
+      }
 
       .document-header-name-container {
         display: flex;
         flex-direction: column;
         margin-left: 12px;
+        min-width: 0;
         .document-header-name {
           line-height: normal;
             font-size: 14px;
@@ -150,7 +85,6 @@
         }
         .date-area {
           line-height: normal;
-          font-family: @fontOpenSans;
           font-size: 13px;
           color: #a0a0a0;
         }
@@ -169,9 +103,9 @@
           justify-content: space-around;
 
           span {
-            font-family: @fontFiraSans;
-            font-size: 11px;
-            font-weight: 500;
+            
+            font-size: 12px;
+            font-weight: 600;
             font-style: italic;
             color: #ffffff;
           }
@@ -185,12 +119,12 @@
     .document-header-small-sagment {
       display: flex;
       align-items: baseline;
-      margin-top: -16px;
+      margin-top: -8px;
+      margin-right: -16px;
       .price-area {
           font-size: 18px;
           font-weight: bold;
           color: #5158af;
-          margin-right: -10px;
         &.sold {
           color: rgba(0, 0, 0, 0.38);
         }
@@ -201,6 +135,8 @@
         @media (max-width: @screen-xs) {
           width: 24px;
         }
+      }
+      .menu-area-btn {
         i {
           font-size: 16px;
           color: @colorTypeDocDefault;
@@ -218,6 +154,7 @@
     color: #848bbc;
     padding-top: 6px;
     @media (max-width: @screen-xs) {
+      padding-top: 10px;
       justify-content: initial;
       align-items: flex-end;
     }
@@ -264,23 +201,34 @@
       align-items: flex-start;
       padding-top: 18px;
       @media (max-width: @screen-xs) {
-        flex-direction: column-reverse;
-        align-items: center;
-        padding-top: 12px;
       }
       .document-body-card{
+        position: relative;
+        .videoType{
+          /*rtl:ignore*/
+          align-items: center;
+          display: flex;
+          position: absolute;
+          background: rgba(0, 0, 0, 0.8);
+          color: white;
+          right: 4px;
+          bottom: 12px;
+          padding-left: 4px;
+          padding-right: 4px;
+          height: 16px;
+            .vidTime{
+                font-size: 12px;
+                padding: 0 4px;
+                vertical-align: top;
+            }
+            /*rtl:ignore*/
+        }
         @media (max-width: @screen-xs) {
-          padding-top: 12px;
-          width: 100%;
         }
         .document-body-card-img{
-          width: 164px;
-          height: 130px;
           object-fit: cover;
           border: 1px solid #d8d8d8;
           @media (max-width: @screen-xs) {
-            width: 100%;
-            height: 108px;
             object-position: top;
           }
             
@@ -291,8 +239,13 @@
         display: flex;
         flex-direction: column;
         padding-left: 12px;
+        min-width: 0;
         @media (max-width: @screen-xs) {
-          width: 100%;
+          padding-left: 8px;
+          // width: 100%;
+          // padding-left: 0;
+        }
+        &--noPadding {
           padding-left: 0;
         }
       }
@@ -321,42 +274,62 @@
       display: flex;
       flex-direction: column;
       height: 100%;
-      max-width: 420px;
+      margin-right: 10px;
       .doc-snippet{
-          font-size: 14px;
-          font-weight: normal;
-          font-style: normal;
-          font-stretch: normal;
-          line-height: 1.57;
-          letter-spacing: normal;
-          color:@global-purple;
+          .doc-snippet-h6{
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.57;
+            color:@global-purple;
+            @media (max-width: @screen-xs) {
+              font-size: 12px;
+            }
+            .giveMeEllipsis(2, 22);
+            @media (max-width: @screen-xs) {
+              .giveMeEllipsis(2, 16);
+            }
+          }
+          
       }
       .content-wrap {
         display: flex;
         flex-direction: column;
+        .item-title{
+          font-size: 14px;
+          font-weight: bold;
+          color: @global-purple;
+        }
+        .item-course{
+          line-height: 1.8;
+          color: @global-purple;
+          font-size: 14px;
+          font-weight: normal;
+          display: initial;
+          @media (max-width: @screen-xs) {
+            font-size: 12px;
+            line-height: 1.9; 
+          }
+        }
+        .item-university{
+          line-height: 1.4;
+          color: @global-purple;
+          font-size: 14px;
+          font-weight: normal;
+          display: initial;
+          @media (max-width: @screen-xs) {
+            line-height: 1.5;
+            font-size: 12px;
+          }
+        }
         span{
           color: @global-purple;
           font-size: 14px;
           @media (max-width: @screen-xs) {
             font-size: 12px;
           }
-          &.item-title{
-            font-size: 16px;
-            font-weight: bold;
-          }
-          &.item-course{
-            line-height: 1.8;
-            @media (max-width: @screen-xs) {
-              line-height: 1.9; 
-            }
 
-          }
-          &.item-university{
-            line-height: 1.4;
-            @media (max-width: @screen-xs) {
-              line-height: 1.5;
-            }
-          }
+          
+
         }
         &.type-lecture {
           background: fade(@colorTypeLecture, 12%)
@@ -429,9 +402,9 @@
         }
         .sb-doc-info {
           color: @colorBlackNew;
-          font-size: 11px;
+          font-size: 12px;
           opacity: 0.9;
-          font-family: @fontFiraSans;
+          
           &.downloads {
             margin-right: 12px;
           }

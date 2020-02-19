@@ -13,7 +13,7 @@ namespace Cloudents.Web.EventHandler
     public class WebSocketStudyRoomSessionCreatedEventHandler
         : IEventHandler<StudyRoomSessionCreatedEvent>,
             IEventHandler<StudyRoomSessionRejoinEvent>
-             //IEventHandler<StudyRoomOnlineChangeEvent>
+    //IEventHandler<StudyRoomOnlineChangeEvent>
     {
         private readonly IHubContext<StudyRoomHub> _hubContext;
         private readonly IVideoProvider _videoProvider;

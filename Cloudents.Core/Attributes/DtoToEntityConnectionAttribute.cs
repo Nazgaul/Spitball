@@ -5,7 +5,7 @@ namespace Cloudents.Core.Attributes
 {
     public class EntityBindAttribute : Attribute
     {
-        public EntityBindAttribute(string entityName): this()
+        public EntityBindAttribute(string entityName) : this()
         {
             EntityNames.Add(entityName);
         }
@@ -18,7 +18,7 @@ namespace Cloudents.Core.Attributes
         {
             EntityNames = new List<string>();
         }
-        
+
         public IList<string> EntityNames { get; set; }
     }
 }

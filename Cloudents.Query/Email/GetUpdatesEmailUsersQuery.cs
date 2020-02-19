@@ -1,10 +1,10 @@
 ﻿using Cloudents.Core.DTOs;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using Dapper;
 
 namespace Cloudents.Query.Email
 {
@@ -35,7 +35,11 @@ namespace Cloudents.Query.Email
             public async Task<IEnumerable<UpdateUserEmailDto>> GetAsync(GetUpdatesEmailUsersQuery query, CancellationToken token)
             {
 
-                const string sql = @"Select distinct u.Name as UserName,u.Email as ToEmailAddress,u.Language,u.Id as UserId from sb.[user] u
+                const string sql = @"Select distinct u.Name as UserName,
+u.Email as ToEmailAddress,
+u.Language,
+u.Id as UserId 
+from sb.[user] u
 join sb.UsersCourses uc on u.id = uc.UserId
 join
  (Select d.UniversityId as UniversityId,d.CourseName  from sb.Document  d
@@ -48,8 +52,9 @@ and q.Created > @Since
 ) t
 on u.UniversityId2 = t.UniversityId and t.CourseName  = uc.CourseId
 where u.EmailConfirmed = 1
+and u.country = 'IL'
 --Temp for now of emails
-and (email like '%cloudents%' or email like '%spitball%')
+and u.LastOnline > getUtcDate()-90
 order by id
      OFFSET @pageSize * @PageNumber ROWS
                 FETCH NEXT @pageSize ROWS ONLY;";

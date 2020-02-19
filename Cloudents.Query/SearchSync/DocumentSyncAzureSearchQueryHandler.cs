@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Cloudents.Core.DTOs.SearchSync;
+﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Enum;
-using Cloudents.Query.Query.Sync;
+using Cloudents.Query.Sync;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cloudents.Query.SearchSync
 {
     public class DocumentSyncAzureSearchQueryHandler : SyncAzureSearchQueryHandler<DocumentSearchDto>,
     IQueryHandler<SyncAzureQuery, (IEnumerable<DocumentSearchDto> update, IEnumerable<string> delete, long version)>
     {
-      
+
 
         public DocumentSyncAzureSearchQueryHandler(QuerySession session) : base(session)
         {
@@ -23,10 +23,9 @@ namespace Cloudents.Query.SearchSync
 	                            d.Name as Name,
 	                            d.CourseName as Course,
 	                            d.UniversityId as UniversityId,
-	                            d.Type as Type,
+	                            d.DocumentType as Type,
 	                            d.State as State,
 	                            d.UpdateTime as DateTime, 
-	                            (select STRING_AGG(dt.TagId, ', ') FROM sb.DocumentsTags dt where d.Id = dt.DocumentId) AS Tags,
 	                            u.Country as Country,
 								u.Name as UniversityName,
 	                            c.* 
@@ -40,7 +39,7 @@ namespace Cloudents.Query.SearchSync
                 return res;
             }
         }
-        
+
 
         protected override string FirstQuery
         {
@@ -53,11 +52,9 @@ select d.Id as ItemId,
                 d.Name as Name,	               
 				d.CourseName as Course,	               
 				d.UniversityId as UniversityId,	                  
-				d.Type as Type,						                 
+				d.DocumentType as Type,						                 
 				d.State as State,				
 				d.UpdateTime as DateTime, 	                   
-				(select STRING_AGG(dt.TagId, ', ')		
-				FROM sb.DocumentsTags dt where d.Id = dt.DocumentId) AS Tags	 ,
 				u.Country as Country,							
 				u.Name as UniversityName	     		
 				From sb.[Document] d  

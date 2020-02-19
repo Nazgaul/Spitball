@@ -124,10 +124,10 @@
     <value>Cash Out</value>
   </data>
   <data name="currency" xml:space="preserve">
-    <value>$</value>
+    <value>₪</value>
   </data>
   <data name="My_Wallet" xml:space="preserve">
-    <value>My Wallet</value>
+    <value>My Wallet - Only for content sold on the site</value>
   </data>
   <data name="SBL" xml:space="preserve">
     <value>Pts</value>
@@ -162,10 +162,23 @@
   <data name="Value" xml:space="preserve">
     <value>Value</value>
   </data>
-  <data name="Total" xml:space="preserve">
+  <data name="total" xml:space="preserve">
     <value>Total</value>
+    <comment>dynamic</comment>
   </data>
   <data name="you_have_redeemable_sbl" xml:space="preserve">
     <value>to redeem</value>
+  </data>
+  <data name="earned" xml:space="preserve">
+    <value>Earned</value>
+    <comment>dynamic</comment>
+  </data>
+  <data name="spent" xml:space="preserve">
+    <value>Spent</value>
+    <comment>dynamic</comment>
+  </data>
+  <data name="stake" xml:space="preserve">
+    <value>Stake</value>
+    <comment>dynamic</comment>
   </data>
 </root>

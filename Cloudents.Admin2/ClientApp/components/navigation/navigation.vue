@@ -1,16 +1,15 @@
 <template>
     <div>
     <v-icon @click="drawer = !drawer" medium class="pl-3 pt-2 hidden-lg-and-up">menu</v-icon>
-    <v-navigation-drawer app value="true" class="drawer" v-model="drawer">
+    <v-navigation-drawer  app value="true" class="drawer" v-model="drawer">
         <v-list>
-            <div v-for="(singleNav, i) in nav">
+            <div v-for="(singleNav, i) in nav" :key="i">
                 <v-list-group no-action value="">
-                    <v-list-tile slot="activator" :to="singleNav.setting.path" @click="">
+                    <v-list-tile slot="activator" :to="singleNav.setting.path">
                         <v-list-tile-title>{{singleNav.setting.title}}</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile v-for="child in singleNav.childrens"
                                 :key="`child-link-${child.name}`"
-                                @click=""
                                 :to="child.link">
                         <v-list-tile-title v-text="child.name">{{child}}</v-list-tile-title>
                         <v-list-tile-action>
@@ -39,10 +38,6 @@
                             title: 'Home',
                             path: '/home'
                         },
-                        // /*childrens: [
-                        //     {name: 'Management', link: '', icon: 'people_outline'},
-                        // ]
-
                     },
                     {
                         setting: {
@@ -50,7 +45,6 @@
                             path: '/question'
                         },
                         childrens: [
-                            { name: 'Mark as correct', link: '/question/mark', icon: 'people_outline' },
                             {
                                 name: 'Pending Questions',
                                 link: '/question/pendingQuestions',
@@ -85,6 +79,7 @@
                             { name: 'Cashout List', link: '/user/cashout', icon: 'attach_money' },
                             { name: 'Users who flagged', link: '/user/active-users', icon: '' },
                             { name: 'Sessions payments', link: '/user/payments', icon: '' },
+                            { name: 'Change country', link: '/user/change-country', icon: '' },
                             // {name: 'Suspend User', link: '/user/suspend', icon: 'block'},
                         ]
                     },
@@ -94,9 +89,7 @@
                             path: '/management'
                         },
                         childrens: [
-                            /*{ name: 'Course', link: '/management/courseMigration', icon: 'people_outline' },*/
                             { name: 'Pending Courses', link: '/management/coursesPending', icon: 'people_outline' },
-                            /*{ name: 'University', link: '/management/universityMigration', icon: 'people_outline' },*/
                             { name: 'Pending Universities', link: '/management/universityPending', icon: 'people_outline' },
                             { name: 'Short Url', link: '/management/shortUrl', icon: 'people_outline' }
                         ]
@@ -128,6 +121,7 @@
                         childrens: [
                             { name: 'Pending Tutors', link: '/tutor/pendingTutors', icon: '' },
                             { name: 'Delete Tutor', link: '/tutor/deleteTutors', icon: 'delete_outline' },
+                            { name: 'Payment Session', link: '/tutor/paymentSession', icon: '' },
                         ]
                     },
                     {
@@ -138,12 +132,18 @@
                     },
                     {
                         setting: {
-                            title: 'Dev Actions',
-                            path: '/dev'
+                            title: 'Coupon',
+                            path: '/coupon',
                         },
                         childrens: [
-                            { name: 'Management', link: '', icon: 'people_outline' },
+                            { name: 'Create', link: '/coupon', icon: 'ticket-percent' },
                         ]
+                    },
+                    {
+                        setting: {
+                            title: 'subjects',
+                            path: '/subjects',
+                        }
                     },
                 ]
             }
@@ -151,8 +151,8 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="less">
     .drawer {
-        z-index: 2
+        z-index: 5
     }
 </style>

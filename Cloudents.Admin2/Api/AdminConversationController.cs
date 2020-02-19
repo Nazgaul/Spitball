@@ -6,17 +6,17 @@ using Cloudents.Core;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Enum;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Chat;
-using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Extension;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Cloudents.Admin2.Api
 {
@@ -45,7 +45,7 @@ namespace Cloudents.Admin2.Api
                 p = Enumeration.FromValue<ChatRoomStatus>(request.Status.Value);
             }
 
-            var query = new AdminConversationsQuery(request.Id.GetValueOrDefault(), request.Page, User.GetCountryClaim(),
+            var query = new ConversationsQuery(request.Id.GetValueOrDefault(), request.Page, User.GetCountryClaim(),
                 p, request.AssignTo, request.AutoStatus);
             return await _queryBus.QueryAsync(query, token);
         }
@@ -54,22 +54,35 @@ namespace Cloudents.Admin2.Api
         //[Authorize(Policy = Policy.IsraelUser)]
         public async Task<IEnumerable<ConversationDetailsDto>> ConversationDetailAsync(
            [FromRoute] string identifier,
+           [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
 
-            var query = new AdminConversationDetailsQuery(identifier, User.GetCountryClaim());
-            return await _queryBus.QueryAsync(query, token);
+            var query = new ConversationDetailsQuery(identifier, User.GetCountryClaim());
+            var res = await _queryBus.QueryAsync(query, token);
+            return res.Select(item =>
+             {
+                 item.Image = urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
+                 return item;
+             });
         }
 
 
         [HttpGet("{identifier}")]
         //[Authorize(Policy = Policy.IsraelUser)]
+        //[Authorize(Policy = Policy.GlobalUser)]
+
         //        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new []{ "*" })]
         public async Task<IEnumerable<ChatMessageDto>> Get(string identifier,
+            [FromServices] IUrlBuilder urlBuilder,
             CancellationToken token)
         {
-            var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(identifier, 0), token);
-            return result;
+            var result = await _queryBus.QueryAsync(new ChatConversationByIdQuery(identifier, 0, User.GetCountryClaim()), token);
+            return result.Select(item =>
+            {
+                item.Image = urlBuilder.BuildUserImageEndpoint(item.UserId, item.Image);
+                return item;
+            });
         }
 
         [HttpPost("{identifier}/status")]
@@ -122,12 +135,12 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet("params")]
-        public object GetParams()
+        public async Task<object> GetParams(CancellationToken token)
         {
-            return new 
+            return new
             {
-                Status = Enumeration.GetAll<ChatRoomStatus>().GroupBy(x=>x.Group).ToDictionary(x=>x.Key,y=>y),// Enum.GetNames(typeof(ChatRoomStatus)).Select(s=> s.ToCamelCase()),
-                AssignTo = Enum.GetNames(typeof(ChatRoomAssign)).Select(s => s.ToCamelCase()),
+                Status = Enumeration.GetAll<ChatRoomStatus>().GroupBy(x => x.Group).ToDictionary(x => x.Key, y => y),// Enum.GetNames(typeof(ChatRoomStatus)).Select(s=> s.ToCamelCase()),
+                AssignTo = await _queryBus.QueryAsync(new AssignToQuery(), token),
                 WaitingFor = Enum.GetNames(typeof(WaitingFor)).Select(s => s.ToCamelCase())
             };
         }

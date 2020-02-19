@@ -1,145 +1,57 @@
 import Vue from "vue";
-import App from "./components/app/app.vue";
+import vuetify from './plugins/vuetify';
 import { sync } from 'vuex-router-sync';
+import * as route from "./routes";
 import store from "./store";
-import { Language } from "./services/language/langDirective";
-import { LanguageService } from './services/language/languageService';
-//import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
-// clip board copy text
-import VueClipboard from 'vue-clipboard2';
-import lineClamp from 'vue-line-clamp';
-import Scroll from "vuetify/es5/directives/scroll";
-import Touch from "vuetify/es5/directives/touch";
-import scrollComponent from './components/helpers/infinateScroll.vue';
-import GeneralPage from './components/helpers/generalPage.vue';
 import VueRouter from "vue-router";
 import VueAnalytics from "vue-analytics";
 import LoadScript from 'vue-plugin-load-script';
-
-import VueNumeric from 'vue-numeric';
-import VueMathjax from 'vue-mathjax';
-import utilitiesService from './services/utilities/utilitiesService';
+import VueClipboard from 'vue-clipboard2';
 import VueAppInsights from 'vue-application-insights';
-import { VLazyImagePlugin } from "v-lazy-image";
-
-// import VueCodemirror from 'vue-codemirror'
-// import 'codemirror/lib/codemirror.css'
-// import 'code'
-
-
-// Vue.use(VueCodemirror);
-
-
-import {
-    VApp,
-    VAvatar,
-    VBottomNav,
-    VBtn,
-    VBtnToggle,
-    VCard,
-    VCarousel,
-    //VCheckbox,
-    VChip,
-    VCombobox,
-    VDataTable,
-    VDialog,
-    VDivider,
-    VExpansionPanel,
-    VGrid,
-    VIcon,
-    VList,
-    VMenu,
-    VNavigationDrawer,
-    VPagination,
-    VProgressCircular,
-    VProgressLinear,
-    VSelect,
-    VSnackbar,
-    VStepper,
-    VSubheader,
-    VSwitch,
-    VTabs,
-    VTextarea,
-    VTextField,
-    VToolbar,
-    VTooltip,
-    VRating,
-    VForm,
-    VAutocomplete,
+import VueFlicking from "@egjs/vue-flicking";
+import {i18n, loadLanguageAsync } from './plugins/t-i18n';
     VSheet,
     VCalendar,
-    Vuetify
-} from "vuetify";
-import * as route from "./routes";
 
+// Global Components
+import App from "./components/app/app.vue";
+import UserAvatar from './components/helpers/UserAvatar/UserAvatar.vue';
 
+// Global Services
+import { Language } from "./services/language/langDirective";
+import utilitiesService from './services/utilities/utilitiesService';
 
-//NOTE: put changes in here in webpack vendor as well
-const vuetifyComponents = {
-    VApp,
-    VGrid,
-    VChip,
-    VToolbar,
-    VList,
-    VExpansionPanel,
-    VCard,
-    VCarousel,
-    VProgressCircular,
-    VProgressLinear,
-    VSubheader,
-    VDivider,
-    VDialog,
-    VTextField,
-    VSelect,
-    VBtn,
-    VBtnToggle,
-    VTooltip,
-    VMenu,
-    VSwitch,
-    VTabs,
-    VIcon,
-    VSnackbar,
-    VNavigationDrawer,
-    VAvatar,
-    VPagination,
-    VDataTable,
-    VStepper,
-    VCombobox,
-    //VCheckbox,
-    VBottomNav,
-    VTextarea,
-    VRating,
-    VForm,
-    VAutocomplete,
-    VSheet,
-    VCalendar
-};
+// Fonts
+import '../ClientApp/myFont.font.js'; 
 
+// Vue Prototypes
+import './prototypes/prototypes.js'; 
 
-Vue.use(VueMathjax);
-Vue.use(VueRouter);
-Vue.use(LoadScript);
+// Filters
+import './filters/filters';
 
-Vue.use(Vuetify, {
-    directives: {
-        Scroll,
-        Touch
-    },
-    components: vuetifyComponents
-});
+// Directives
+import { openDialog,closeDialog } from './directives/dialog.js';
 
-Vue.component("scroll-list", scrollComponent);
-Vue.component("general-page", GeneralPage);
+if(!window.IntersectionObserver){ // Intersection observer support
+    import('intersection-observer');
+}
 
 const router = new VueRouter({
     mode: "history",
     routes: route.routes,
     scrollBehavior(to, from, savedPosition) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             if(to.hash){
-                resolve({selector: to.hash})
+                resolve({selector: to.hash});
             }
             if (savedPosition) {
+                //firefox fix
+                if(global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+                    setTimeout(()=>{
+                        global.scrollTo(savedPosition.x,savedPosition.y);
+                    });
+                }
                 resolve({x: savedPosition.x, y: savedPosition.y});
             } else {
                 resolve({x: 0, y: 0});
@@ -147,21 +59,22 @@ const router = new VueRouter({
         });
     }
 });
+//import initSignalRService from './services/signalR/signalrEventService'; only logged in users will connect to the signalR
 
+Vue.use(VueFlicking);
+Vue.use(VueRouter);
+Vue.use(LoadScript);
 Vue.use(VueClipboard);
-Vue.use(lineClamp, {});
-Vue.use(VueNumeric);
-Vue.use(VLazyImagePlugin);
+
+Vue.component("UserAvatar",UserAvatar);
+
+//this need to be below the configuration of vue router
 Vue.use(VueAnalytics, {
     id: 'UA-100723645-2',
     disableScriptLoader: true,
     router,
     autoTracking: {
         pageviewOnLoad: false,
-        //ignoreRoutes: ['result'],
-        // shouldRouterUpdate(to, from) {
-        //     return to.path != "/result";
-        // },
         pageviewTemplate(route) {
             return {
                 page: route.path,
@@ -173,205 +86,43 @@ Vue.use(VueAnalytics, {
     }
 });
 
-
 Vue.directive('language', Language);
-// Register a global custom directive called `v-focus`
+Vue.directive('openDialog',openDialog);
+Vue.directive('closeDialog',closeDialog);
 
-//#region yifat
-Vue.filter('capitalize',
-    function (value) {
-        if (!value) return '';
-        value = value.toString();
-        var values = value.split("/");
-        for (var v in values) {
-            var tempVal = values[v];
-            values[v] = tempVal.charAt(0).toUpperCase() + tempVal.slice(1);
-        }
-        return values.join(" ");
-        //return value.charAt(0).toUpperCase() + value.slice(1);
-    });
-//#endregion
-//is rtl
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
-//check if firefox for ellipsis, if yes use allipsis filter if false css multiline ellipsis
-global.isFirefox = global.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-//is country Israel
-global.isIsrael = global.country.toLowerCase() === "il";
-//check if Edge (using to fix position sticky bugs)
 global.isEdgeRtl = false;
-global.isEdge = false;
 if (document.documentMode || /Edge/.test(navigator.userAgent)) {
-    global.isEdge = true;
     if (global.isRtl) {
         global.isEdgeRtl = true;
     }
-
 }
-
-Vue.filter('ellipsis',
-    function (value, characters, datailedView) {
-        value = value || '';
-        if (value.length <= characters || datailedView || !global.isFirefox) {
-            return value;
-        } else {
-            return value.substr(0, characters) + '...';
-
-        }
-    });
-Vue.filter('bolder',
-    function (value, query) {
-        if (query.length) {
-            query.map((item) => {
-                value = value.replace(item, '<span class="bolder">' + item + '</span>')
-            });
-        }
-        return value
-    });
-
-Vue.filter('fixedPoints', function (value) {
-    if (!value) return 0;
-    if (value.toString().indexOf('.') === -1) return value;
-    return parseFloat(value).toFixed(2);
-});
-
-Vue.filter('dollarVal', function (value) {
-    if (!value) return 0;
-    return parseFloat(value / 100).toFixed(2);
-});
-
-
-// 10/12/2018
-Vue.filter('dateFromISO', function (value) {
-    let d = new Date(value);
-    //return load if no data
-    if (!value) {
-        return LanguageService.getValueByKey('wallet_Loading');
-    }
-    return `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
-});
-
-// Nov 14, 2018 :: MDN Global_Objects/Date/toLocaleDateString
-Vue.filter('fullMonthDate', function (value) {
-    let date = new Date(value);
-    //return load if no data
-    if (!value) {
-        return ''
-    }
-// request a weekday along with a long month
-    let options = {year: 'numeric', month: 'short', day: 'numeric'};
-    let languageDate = `${global.lang.toLowerCase()}-${global.country.toUpperCase()}`;
-    return date.toLocaleDateString(languageDate, options);
-});
-
-
-Vue.prototype.$Ph = function (key, placeholders) {
-    let rawKey = LanguageService.getValueByKey(key);
-    //if no placeholders return the Key without the replace
-    if (!placeholders) {
-        //console.error(`${key} have no placeholders to replace`)
-        return rawKey
-    }
-
-    let argumentsToSend = [];
-    //placeholders must be an array
-    if (Array.isArray(placeholders)) {
-        argumentsToSend = placeholders;
-    } else {
-        argumentsToSend = [placeholders];
-    }
-    return LanguageService.changePlaceHolders(rawKey, argumentsToSend)
-}
-
-Vue.prototype.$chatMessage = function (message) {
-    if(message.type === 'text'){
-        //text and convert links to url's
-        let linkTest = /(ftp:\/\/|www\.|https?:\/\/){1}[a-zA-Z0-9u00a1-\\uffff0-]{2,}\.[a-zA-Z0-9u00a1-\\uffff0-]{2,}(\S*)/g;
-        let modifiedText = message.text;
-        let matchedResults = modifiedText.match(linkTest);
-
-        if(!!matchedResults){
-            matchedResults.forEach(result=>{
-                let prefix = result.toLowerCase().indexOf('http') === -1 &&
-                result.toLowerCase().indexOf('ftp') === -1 ? '//' : ''
-                modifiedText = modifiedText.replace(result, `<a href="${prefix}${result}" target="_blank">${result}</a>`);
-            })
-        } 
-        return modifiedText;
-    }else{
-        let src = utilitiesService.proccessImageURL(message.src, 190, 140, 'crop');
-        return `<a href="${message.href}" target="_blank"><img src="${src}"/></a>`;
-    }
-}
-
-// filter for numbers, format numbers to local formats. Read more: 'toLocaleString'
-Vue.filter('currencyLocalyFilter', function (value, hideCurrrency) {
-    let amount = Number(value);
-    let sblCurrency = LanguageService.getValueByKey('wallet_SBL');
-    let result = amount && amount.toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }) || '0';
-    if (hideCurrrency) {
-        return result
-    } else {
-        if (amount < 0 && global.isRtl) {
-          return `${result.substr(1,result.length)}${result.slice(0,1)} ${sblCurrency}`
-        }
-        return result + " " + sblCurrency;
-    }
-
-});
-
-Vue.filter('commasFilter', function (value) {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-});
-
 
 router.beforeEach((to, from, next) => {
     store.dispatch('setRouteStack', to.name);
-    if (!to.query || !to.query.university) {
-        if (!!from.query && !!from.query.university) {
-            store.dispatch('closeSelectUniFromNav')
-        }
-    } 
-
-    store.dispatch('sendQueryToAnalytic', to)
-
-    if (global.innerWidth < 600) {
-        intercomSettings.hide_default_launcher = true;
+    store.dispatch('sendQueryToAnalytic', to);
+    let isLogged = store.getters.getUserLoggedInStatus2;
+    
+    if (!isLogged && to.meta && to.meta.requiresAuth) {
+        next("/signin");
+        return;
     }
-    else {
-        intercomSettings.hide_default_launcher = false;
-    }
-    //if tutoring disable intercom
-    if (global.location.href.indexOf("studyroom") > -1) {
-        console.log('studyroom disable intercom');
-        intercomSettings.hide_default_launcher = true;
-    }
-    //case 10995
-    if (global.appInsights) {
-        appInsights.trackPageView(to.fullPath);
-    }
-    store.dispatch('changeLastActiveRoute', from);
-    checkUserStatus(to, next);
-
+    let getAccountUser = store.dispatch('userStatus');
+    Promise.all([getAccountUser,loadLanguageAsync()]).then(() => {
+       next();
+    });
 });
+
+sync(store, router);
+
 const app = new Vue({
     //el: "#app",
     router: router,
-    render: h => h(App),
     store,
-
+    vuetify,
+    i18n,
+    render: h => h(App),
 });
-
-function checkUserStatus(to, next) {
-    store.dispatch('userStatus', {isRequire: to.meta.requiresAuth, to})
-    if (!store.getters.loginStatus && to.meta && to.meta.requiresAuth) {
-        next("/signin");
-    } else {
-        next();
-    }
-}
 
 global.isMobileAgent = function () {
     let check = false;
@@ -383,18 +134,36 @@ global.isMobileAgent = function () {
     return check;
 };
 
+let touchSupported = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+
+if(touchSupported){
+    global.addEventListener('touchstart', function(){
+        store.dispatch('setIsTouchEnd', false);
+        store.dispatch('setIsTouchMove', false);
+        store.dispatch('setIsTouchStarted', true);
+    });
+    global.addEventListener('touchmove', function(){
+        store.dispatch('setIsTouchMove', true);
+    });
+    global.addEventListener('touchend', function(){
+        store.dispatch('setIsTouchStarted', false);
+        store.dispatch('setIsTouchMove', false);
+        store.dispatch('setIsTouchEnd', true);
+    });
+}
+
 //initSignalRService();
 
 //app.$mount("#app");
 //This is for cdn fallback do not touch
 
 //injects the route to the store via the rootState.route
-sync(store, router);
+
 utilitiesService.init();
 
-
 Vue.use(VueAppInsights, {
-    appInsights: global.appInsights,
+    //appInsights: global.appInsights,
+    id : global.applicationId,
     router
 });
 

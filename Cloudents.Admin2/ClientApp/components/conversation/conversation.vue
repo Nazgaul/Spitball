@@ -14,9 +14,8 @@ export default {
 
 
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .conversation-content {
-        padding: 5px;
         width: 100%;
     }
 </style>

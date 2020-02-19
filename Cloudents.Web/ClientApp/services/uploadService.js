@@ -1,45 +1,38 @@
 import { connectivityModule } from "./connectivity.module"
 
 
-function FileData(ObjInit){
-        this.id = ObjInit.id || '';
-        this.blobName = ObjInit.blobName || '';
-        this.name= ObjInit.name || '';
-        this.type= ObjInit.type || '';
-        this.course= ObjInit.course || '';
-        this.tags = ObjInit.tags || [];
-        this.professor= ObjInit.professor || '';
-        this.price = ObjInit.price || '';
-        this.progress = ObjInit.progress || 100;
-        this.link  = ObjInit.link || '';
-        this.size  = ObjInit.bytes || 0;
-        this.error = ObjInit.error || false;
-        this.errorText = ObjInit.errorText || ''
+function FileData(objInit){
+        this.id = objInit.id || '';
+        this.blobName = objInit.blobName || '';
+        this.name= objInit.name || '';
+        this.course= objInit.course || '';
+        this.price = objInit.price || '';
+        this.progress = objInit.progress || 100;
+        this.link  = objInit.link || '';
+        this.size  = objInit.bytes || 0;
+        this.error = objInit.error || false;
+        this.errorText = objInit.errorText || '';
+        this.description = objInit.description || '';
+}
+
+function ServerFormatFileData(objInit) {
+    this.id = objInit.id || '';
+    this.blobName = objInit.blobName || '';
+    this.name= objInit.name || '';
+    this.course= objInit.course || '';
+    this.price = objInit.price || '';
+    this.link  = objInit.link || '';
+    this.size  = objInit.bytes || 0;
+    this.description = objInit.description || '';
+}
+
+function createServerFileData(objInit){
+    return new ServerFormatFileData(objInit);
 }
 
 
-function  ServerFormatFileData(ObjInit) {
-    this.id = ObjInit.id || '';
-    this.blobName = ObjInit.blobName || '';
-    this.name= ObjInit.name || '';
-    this.type= ObjInit.type || '';
-    this.course= ObjInit.course || '';
-    this.tags = ObjInit.tags || [];
-    this.professor= ObjInit.professor || '';
-    this.price = ObjInit.price || '';
-    this.link  = ObjInit.link || '';
-    this.size  = ObjInit.bytes || 0;
-
-}
-
-
-function createServerFileData(ObjInit){
-    return new ServerFormatFileData(ObjInit)
-}
-
-
-function createFileData(ObjInit){
-    return new FileData(ObjInit)
+function createFileData(objInit){
+    return new FileData(objInit);
 }
 
 

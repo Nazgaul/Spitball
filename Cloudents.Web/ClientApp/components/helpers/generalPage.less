@@ -1,76 +1,51 @@
 ﻿@import "../../styles/mixin.less";
 .main-container{
-  background-color: @systemBackgroundColor;
+  background-color: #f5f5f5;
+  @media (max-width: @screen-xs) {
+    background-color: #E6E6E6;
+    overflow: hidden;
+  }
   .p-result {    
     .limited-width();
-    .first-grid {
-      .flexSameSize();
+    @media(max-width: @screen-md) and (min-width: @screen-xs) {
+      margin-left: 10px;
     }
+  }
+  .p-result-layout {
+    justify-content: center;
   }
 }
 
 @marginTop: 24px;
 .main-section {
   min-width: 0;
-  margin-top: @marginTop;
+  margin-top: 24px;
+  @media (max-width: @screen-sm) {
+    margin-right: 20px;
+  }
   @media (max-width: @screen-xs) {
+    margin-right: 0;
     margin-top: 0;
     margin-left: unset;
   }
   @media (min-width: (@screen-xs+1)) {
-    margin-top: 16px;
-  }
-  @media (min-width: (@screen-sm)) {
-    margin-top: @marginTop;
+    margin-top: 24px;
   }
 }
 
 .sec-result {
+  min-width: 0;
   max-width: @cellWidth;
   width: 100%;
   &.tutor-result{
-    max-width: 904px;
-    //margin-top: 48px;
-    @media(max-width: @screen-xs){
-      //margin-top: 32px;
-    }
-  }
-  a.ask-question-mob {
-    width: 100%;
-    max-width: 400px;
-    @media (min-width: (@screen-md)) {
-      display: none;
-    }
-    @media (max-width: (@screen-md)) {
-      display: block;
-    }
-    @media (max-width: (@screen-xs)) {
-      display: block;
-      margin: 10px 32px 10px 64px;
-      width: 80%;
-      &.no-filter-btn {
-        margin: 16px 48px;
-      }
-    }
-    @media (max-width: (@screen-sm)) {
-      display: block;
-    }
-    font-size: 18px;
-    line-height: 40px;
-    border-radius: 4px;
-    background-color: @color-main-purple;
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-    color: @color-white;
-    font-weight: bold;
-    letter-spacing: -0.5px;
-    text-align: center;
-    margin: 0 auto 16px;
-    left: 0;
-    right: 0;
-
+    max-width: 720px;
   }
   .result-cell {
+    margin-bottom: 16px;
     border-radius: 4px;
+    @media (max-width: @screen-xs) {
+      border-radius: 0px;
+    }
     position: relative;
     width: 100%;
     max-width: @cellWidth;
@@ -79,12 +54,12 @@
       pointer-events: none;
       background-color: @color-blue-new;
       border-color: @color-blue-new;
-      .cellActionBtnMixin();
+       .cellActionBtnMixin();
     }
 
     .question-viewer {
       pointer-events: none;
-      .cellActionViewerMixin();
+       .cellActionViewerMixin();
     }
 
     .cell-video,
@@ -119,9 +94,9 @@
     }
 
     &:hover {
-      .question-viewer {
-        animation: fade-in-animation .8s forwards;
-      }
+      // .question-viewer {
+      //   animation: fade-in-animation .8s forwards;
+      // }
     }
   }
 
@@ -137,6 +112,9 @@
         border-color: #fff !important;
         padding: 12px;
       }
+      @media (max-width: @screen-xs) {
+        border-radius: 0px;
+      }
     
   }
 
@@ -145,23 +123,6 @@
     align-items: center;
     .v-btn__content {
       flex-direction: row-reverse;
-      .counter {
-        color: white;
-        width: 28px;
-        height: 28px;
-        text-align: center;
-        border-radius: 100%;
-        line-height: 24px;
-        margin-right: -12px;
-        border: 2px solid;
-        font-size: 12px;
-        border-color: #eee !important;
-      }
-      .fixedLocation {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-      }
     }
     //remove the eliptic shape when clicking the sort ans filter button on mobile
     .v-btn:before {
@@ -177,9 +138,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @media (max-width: @screen-sm) {
-      padding-top: 6px;
-    }
+    margin-bottom: 16px;
     
     .result-filter-text{
         margin-left: 5px;
@@ -200,64 +159,19 @@
       margin-left: auto;
     }
   }
-  .mobile-filter-icon-btn {
-    .v-btn__content{
-      i{
-        color:@global-purple;
-        font-size: 17px;
-      }
-    }
-  }
 }
 
 .side-bar {
   @upperSpace: @navBarHeightMdAndUp + @marginTop; //TODO: check why content--wrap containes margin of -8 pixels
   //position: -webkit-sticky;
   //position: sticky;
-  max-height: ~"calc(100vh - @{upperSpace} - 16px)"; //container padding from bottom is 16
+  // max-height: ~"calc(100vh - @{upperSpace} - 16px)"; //container padding from bottom is 16
   top: @upperSpace;
-  margin-left: 32px;
+  margin: 0 32px;
   max-width: 320px;
   width: 100%;
   .edgeStatic();
   .side-bar-wrapper {
     max-width: 300px;
   }
-}
-
-
-.v-chip.filter-chip {
-  margin: 0 8px 8px 0;
-  border: none;
-
-  &:focus {
-    box-shadow: none;
-
-    &:after {
-      content: none;
-    }
-  }
-  
-  
-  .v-chip__content {
-    padding: 0 4px 0 8px;
-    letter-spacing: -0.8px;
-    min-width: 102px;
-    border-radius: 4px;
-    background: white;
-    color: @color-grey;
-    z-index: 0;
-  }
-
-  i {
-    cursor: pointer;
-    padding: 4px;
-    margin: 0 0 0 12px;
-    font-size: 10px;
-    color: #bbb;
-  }
-}
-
-.loading-skeleton .show-btn {
-  display: none !important;
 }

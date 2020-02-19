@@ -1,23 +1,22 @@
-﻿using Cloudents.Core;
+﻿using Cloudents.Command;
+using Cloudents.Command.Command;
+using Cloudents.Core;
 using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
 using Cloudents.Web.Filters;
 using Cloudents.Web.Hubs;
+using Cloudents.Web.Models;
 using JetBrains.Annotations;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Command;
-using Cloudents.Command.Command;
-using Cloudents.Web.Models;
-using Microsoft.ApplicationInsights;
-using Wangkanai.Detection;
+using Cloudents.Core.Interfaces;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Cloudents.Web.Controllers
 {
@@ -26,20 +25,21 @@ namespace Cloudents.Web.Controllers
     {
         internal const string Referral = "referral";
         private readonly SignInManager<User> _signInManager;
-        private readonly ILogger _logger;
+        private readonly UserManager<User> _userManager;
 
-        public HomeController(SignInManager<User> signInManager, ILogger logger)
+        public HomeController(SignInManager<User> signInManager, UserManager<User> userManager)
         {
             _signInManager = signInManager;
-            _logger = logger;
+            _userManager = userManager;
         }
 
-        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true), SignInWithToken]
+        //Any got issue with auth vs no auth. need to fix this.
+        // [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, VaryByQueryKeys = new[] { "*" })]
+        //this is due to issue with log in state
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        [SignInWithToken]
         [ApiNotFoundFilter]
-        //[Route("", Name = RootRoute)]
         public IActionResult Index(
-            [FromServices] Lazy<ICrawlerResolver> crawlerResolver,
-            [FromHeader(Name = "User-Agent")] string userAgent,
             [FromQuery, CanBeNull] string referral,
             [FromQuery] string open
             )
@@ -47,22 +47,6 @@ namespace Cloudents.Web.Controllers
             if (!string.IsNullOrEmpty(referral))
             {
                 TempData[Referral] = referral;
-            }
-
-            try
-            {
-                if (crawlerResolver.Value.Crawler?.Type == CrawlerType.LinkedIn)
-                {
-                    ViewBag.fbImage = ViewBag.imageSrc = "/images/3rdParty/linkedinShare.png";
-                }
-            }
-            catch (Exception ex)
-            {
-
-                _logger.Exception(ex, new Dictionary<string, string>()
-                {
-                    ["userAgent"] = userAgent
-                });
             }
 
             if (_signInManager.IsSignedIn(User))
@@ -122,9 +106,10 @@ namespace Cloudents.Web.Controllers
                 $"{configuration["functionCdnEndpoint"]}/api/image/{hash}{val}");
         }
 
-
-        [Route("PaymentProcessing", Name = "ReturnUrl")]
-        public async Task<IActionResult> Processing( PaymeSuccessCallback model,
+        internal const string PaymeCallbackRouteName = "ReturnUrl";
+        internal const string PaymeCallbackRouteName2 = "ReturnUrl2";
+        [Route("PaymentProcessing", Name = PaymeCallbackRouteName)]
+        public async Task<IActionResult> Processing(PaymeSuccessCallback model,
             [FromServices] ICommandBus commandBus,
             [FromServices] TelemetryClient logger,
             CancellationToken token)
@@ -137,7 +122,7 @@ namespace Cloudents.Web.Controllers
             else
             {
                 var values = Request.Form.ToDictionary(s => s.Key, x => x.Value.ToString());
-                values.Add("userId",model.UserId.ToString());
+                values.Add("userId", model.UserId.ToString());
                 logger.TrackTrace("Credit Card Process Failed", values);
             }
             return View("Processing", model);
@@ -149,5 +134,49 @@ namespace Cloudents.Web.Controllers
         }
 
 
+        [Route("PaymentProcessing2", Name = PaymeCallbackRouteName2)]
+        public async Task<IActionResult> BuyTokensProcessing(PaymeSuccessCallback model, [FromQuery]int points,
+            [FromServices] ICommandBus commandBus,
+            [FromServices] TelemetryClient logger,
+            CancellationToken token)
+        {
+            if (model.Status.Equals("success", StringComparison.OrdinalIgnoreCase))
+            {
+                var command = new TransferMoneyToPointsCommand(model.UserId, points, model.TransactionId);
+                await commandBus.DispatchAsync(command, token);
+            }
+            else
+            {
+                var values = Request.Form.ToDictionary(s => s.Key, x => x.Value.ToString());
+                values.Add("userId", model.UserId.ToString());
+                logger.TrackTrace("Credit Card Process Failed", values);
+            }
+            return View("Processing", model);
+        }
+
+
+        [Route("google")]
+        public async Task<RedirectToActionResult> GoogleSigninAndroidAsync(string token,
+            [FromServices] IGoogleAuth service,
+            [FromServices] IDataProtectionProvider dataProtectProvider,
+            CancellationToken cancellationToken
+            )
+        {
+            var result = await service.LogInAsync(token, cancellationToken);
+            if (result == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var result2 = await _signInManager.ExternalLoginSignInAsync("Google", result.Id, true, true);
+
+            var user2 = await _userManager.FindByEmailAsync(result.Email);
+            var dataProtector = dataProtectProvider.CreateProtector("Spitball").ToTimeLimitedDataProtector();
+            var code = dataProtector.Protect(user2.Id.ToString(), DateTimeOffset.UtcNow.AddDays(5));
+            return RedirectToAction("Index", new
+            {
+                token = code
+            });
+        }
     }
 }

@@ -120,21 +120,22 @@
   <data name="bottom" xml:space="preserve">
     <value>We do not store credit card information on our servers. Credit card info is sent directly to a credit card processing system (Payme). When the session ends, we instruct PayMe to charge the credit card (without knowing the card details).</value>
   </data>
-  <data name="confirm-cancel" xml:space="preserve">
-    <value>Back To Payment Details</value>
+  <data name="content_txt_hands" xml:space="preserve">
+    <value>Love your lesson, or stop it without a charge</value>
   </data>
-  <data name="confirm-exit" xml:space="preserve">
-    <value>Lesson Payment notice&lt;br&gt;&lt;br&gt;
-We recommend that you add your payment details now. Don’t worry we will never charge you before your lesson has ended.&lt;br&gt;&lt;br&gt;
-If you are having trouble in adding your payment details, click on the Pay Later button, and one of us will contact you later to help you through the process</value>
+  <data name="content_txt_sheild" xml:space="preserve">
+    <value>Secure payment processing</value>
   </data>
-  <data name="confirm-yes" xml:space="preserve">
-    <value>Pay Later</value>
+  <data name="content_txt_time" xml:space="preserve">
+    <value>Pay only once your lesson is complete</value>
   </data>
-  <data name="title_1" xml:space="preserve">
-    <value>The payment for the tutoring session with </value>
+  <data name="title" xml:space="preserve">
+    <value>The payment for the tutoring session with {1}  will be done after the session ends, and an invoice will be sent via email to you.</value>
   </data>
-  <data name="title_2" xml:space="preserve">
-    <value> will be done after the session ends, and an invoice will be sent via email to you.</value>
+  <data name="top_desc" xml:space="preserve">
+    <value>Lessons are charged by each tutor’s hourly rate plus a 9% service fee.</value>
+  </data>
+  <data name="top_title" xml:space="preserve">
+    <value>Convenient, cashless payments</value>
   </data>
 </root>

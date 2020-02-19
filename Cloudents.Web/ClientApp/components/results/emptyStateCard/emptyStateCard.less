@@ -4,7 +4,6 @@
   background: #fff;
   border-radius: 3px;
   color: rgba(0, 0, 0, 0.54);
-  font-family: @fontOpenSans;
   font-size: 18px;
   margin: 0;
   max-width: @cellWidth;
@@ -14,19 +13,13 @@
   }
   .empty-state-top-layout {
     background-image: url('./img/empty-state-picture.png');
-    background-position: 350px bottom;
+    background-position: 350px bottom /*rtl:50px bottom*/;
     background-size: 220px;
     padding-bottom: 45px !important;
-    &.rtl-background{
-      background-position: 50px bottom;
-    }
     @media (max-width: @screen-xs) {
+      background-position: 140px bottom  /*rtl:20px bottom*/;;
       padding-bottom: 30px !important;
       height: 270px;
-      background-position: 140px bottom;
-      &.rtl-background{
-        background-position: 20px bottom;
-      }
     }
     .user-search-text-container {
       font-size: 18px;
@@ -69,7 +62,6 @@
   }
   .empty-state-bottom-layout{
     .user-search-cant-find-text{
-      font-family: @fontOpenSans;
       font-size: 16px;
       font-weight: 600;
       letter-spacing: -0.4px;

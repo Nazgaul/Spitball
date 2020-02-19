@@ -7,6 +7,6 @@ namespace Cloudents.Admin2.Models
         public long UserId { get; set; }
         public long TutorId { get; set; }
 
-        [Required]public string Message { get; set; }
+        [Required] public string Message { get; set; }
     }
 }

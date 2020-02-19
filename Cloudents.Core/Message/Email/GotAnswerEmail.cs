@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Extension;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Core.Message.Email
 {
@@ -29,12 +29,13 @@ namespace Cloudents.Core.Message.Email
         }
 
         public override string Campaign => "You got an answer";
-        public override UnsubscribeGroup UnsubscribeGroup =>UnsubscribeGroup.Update;
+        public override UnsubscribeGroup UnsubscribeGroup => UnsubscribeGroup.Update;
 
         protected override IDictionary<CultureInfo, string> Templates => new Dictionary<CultureInfo, string>()
         {
             { Language.Hebrew,"63d3a53b-1836-403e-9a29-90e937c33616"},
-            {Language.English ,"73ce9f9a-990e-4dd7-b3f5-108a961b8464" }
+            {Language.English ,"73ce9f9a-990e-4dd7-b3f5-108a961b8464" },
+            {Language.EnglishIndia,"d32617b8-e0eb-4ed1-a318-9bf4f8c049f7" }
         };
     }
 }

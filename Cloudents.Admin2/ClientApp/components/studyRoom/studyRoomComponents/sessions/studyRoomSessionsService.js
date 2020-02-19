@@ -1,5 +1,7 @@
 ﻿import { connectivityModule } from '../../../../services/connectivity.module';
 
+const path = 'AdminStudyRoom/';
+
 function createSessionItem(objInit) {
     return new CreateSessionItem(objInit);
 }
@@ -11,9 +13,12 @@ function CreateSessionItem(objInit) {
     this.duration = objInit.duration;
     this.tutorId = objInit.tutorId;
     this.userId = objInit.userId;
+    this.sessionId = objInit.sessionId;
 }
 
-const path = 'AdminStudyRoom/';
+const updateSessionEdit = (session) => {
+    return connectivityModule.http.post(`${path}update`, session)
+}
 
 const getSessions = function () {
     return connectivityModule.http.get(`${path}`).then((newSessionsList) => {
@@ -30,5 +35,6 @@ const getSessions = function () {
 };
 
 export {
-    getSessions
+    getSessions,
+    updateSessionEdit
 };

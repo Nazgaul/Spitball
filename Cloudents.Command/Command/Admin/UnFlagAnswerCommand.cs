@@ -6,9 +6,9 @@ namespace Cloudents.Command.Command.Admin
     {
         public UnFlagAnswerCommand(Guid answerId)
         {
-            AnswerId =  answerId;
+            AnswerId = answerId;
         }
-        
+
         public Guid AnswerId { get; }
     }
 }

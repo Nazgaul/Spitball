@@ -97,26 +97,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="menu_item_about_spitball" xml:space="preserve">
-    <value>אודות Spitball</value>
-  </data>
-  <data name="menu_item_feedback" xml:space="preserve">
-    <value>משוב</value>
-  </data>
-  <data name="menu_item_help" xml:space="preserve">
-    <value>עזרה</value>
-  </data>
-  <data name="menu_item_privacy_policy" xml:space="preserve">
-    <value>מדיניות פרטיות</value>
-  </data>
-  <data name="menu_item_terms" xml:space="preserve">
-    <value>תנאי השירות</value>
-  </data>
   <data name="my_courses" xml:space="preserve">
     <value>הקורסים שלי</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>הגדרות</value>
   </data>
   <data name="university_choose" xml:space="preserve">
     <value>בחירת מוסד לימודים</value>

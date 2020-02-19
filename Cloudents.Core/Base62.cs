@@ -20,9 +20,9 @@ namespace Cloudents.Core
             {
                 _stringValue = null;
                 return;
-                
+
             }
-           
+
             var count = 0;
 
             for (var i = value.Length - 1; i >= 0; i--)

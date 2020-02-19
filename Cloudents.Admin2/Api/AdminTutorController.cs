@@ -2,16 +2,16 @@
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
+using Cloudents.Core.Extension;
+using Cloudents.Core.Interfaces;
 using Cloudents.Query;
-using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Principal;
-using System.Linq;
-using Cloudents.Core.Extension;
 
 namespace Cloudents.Admin2.Api
 {
@@ -22,7 +22,7 @@ namespace Cloudents.Admin2.Api
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryBus _queryBus;
-       
+
 
         public AdminTutorController(ICommandBus commandBus, IQueryBus queryBus)
         {
@@ -31,14 +31,19 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PendingTutorsDto>> GetPendingTutorsAsync(CancellationToken token)
+        public async Task<IEnumerable<PendingTutorsDto>> GetPendingTutorsAsync([FromServices] IUrlBuilder urlBuilder, CancellationToken token)
         {
-            var query = new AdminPendingTutorsQuery(User.GetCountryClaim());
-            return await _queryBus.QueryAsync(query, token);
+            var query = new PendingTutorsQuery(User.GetCountryClaim());
+            var res =  await _queryBus.QueryAsync(query, token);
+            return res.Select(item =>
+            {
+                item.Image = urlBuilder.BuildUserImageEndpoint(item.Id, item.Image);
+                return item;
+            });
         }
 
         [HttpPost("approve")]
-        public async Task<IActionResult> ApproveTutor([FromBody] ApproveTutorRequest model,
+        public async Task<IActionResult> ApproveTutorAsync([FromBody] ApproveTutorRequest model,
         CancellationToken token)
         {
             var command = new ApproveTutorCommand(model.Id);
@@ -47,11 +52,37 @@ namespace Cloudents.Admin2.Api
         }
 
         [HttpDelete("{id}")]
-        [Authorize(/*Roles = Roles.Admin*/)]
-        public async Task<IActionResult> DeleteTutor(long id,
+        [Authorize]
+        public async Task<IActionResult> DeleteTutorAsync(long id,
                 CancellationToken token)
         {
             var command = new DeleteTutorCommand(id);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("Price")]
+        public async Task<IActionResult> ChangePriceAsync([FromBody] ChangePriceRequest model, CancellationToken token)
+        {
+            var command = new ChangeTutorPriceCommand(model.TutorId, model.Price);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("suspend")]
+        [Authorize]
+        public async Task<IActionResult> SuspendTutorAsync([FromBody] SuspendTutorRequest model, CancellationToken token)
+        {
+            var command = new SuspendTutorCommand(model.TutorId);
+            await _commandBus.DispatchAsync(command, token);
+            return Ok();
+        }
+
+        [HttpPost("unsuspend")]
+        [Authorize]
+        public async Task<IActionResult> SuspendTutorAsync([FromBody] UnSuspendTutorRequest model, CancellationToken token)
+        {
+            var command = new UnSuspendTutorCommand(model.TutorId);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }

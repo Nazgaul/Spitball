@@ -1,5 +1,4 @@
-﻿using Cloudents.Core.Interfaces;
-using Cloudents.Core.Storage;
+﻿using Cloudents.Core.Storage;
 using System;
 using System.IO;
 using System.Linq;
@@ -8,21 +7,19 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Infrastructure.Storage
 {
-    public class UserDirectoryBlobProvider: BlobProviderContainer, IUserDirectoryBlobProvider
+    public class UserDirectoryBlobProvider : BlobProviderContainer, IUserDirectoryBlobProvider
     {
-        private readonly IBinarySerializer _serializer;
-        public UserDirectoryBlobProvider(ICloudStorageProvider storageProvider, IBinarySerializer serializer)
+        public UserDirectoryBlobProvider(ICloudStorageProvider storageProvider)
             : base(storageProvider, StorageContainer.User)
         {
-            _serializer = serializer;
         }
-     
+
         public async Task<Uri> UploadImageAsync(long userId, string file,
                          Stream stream, string contentType, CancellationToken token)
         {
             var extension = Path.GetExtension(file);
-            string[] supportedImages = { ".jpg", ".png", ".gif", ".jpeg", ".bmp" };
-            if (!supportedImages.Contains(extension, StringComparer.OrdinalIgnoreCase))
+            string[] supportedImages = { "image/jpg", "image/png", "image/gif", "image/jpeg", "image/bmp" };
+            if (!supportedImages.Contains(contentType, StringComparer.OrdinalIgnoreCase))
             {
                 throw new ArgumentException();
             }

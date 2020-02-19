@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.FunctionsV2.Binders;
+using Cloudents.Query;
+using Cloudents.Query.Sync;
+using Cloudents.Search.University;
+using Microsoft.Azure.WebJobs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.DTOs.SearchSync;
-using Cloudents.FunctionsV2.Binders;
-using Cloudents.Query;
-using Cloudents.Query.Query.Sync;
-using Cloudents.Search.University;
-using Microsoft.Azure.WebJobs;
 
 namespace Cloudents.FunctionsV2.Sync
 {
@@ -24,7 +24,7 @@ namespace Cloudents.FunctionsV2.Sync
 
         public async Task<SyncResponse> DoSyncAsync(SyncAzureQuery query, IBinder binder, CancellationToken token)
         {
-           
+
             var (update, delete, version) =
                 await _bus.QueryAsync<(IEnumerable<UniversitySearchDto> update, IEnumerable<string> delete, long version)>(query, token);
 
@@ -73,7 +73,7 @@ namespace Cloudents.FunctionsV2.Sync
             }
 
             await syncService.FlushAsync(token);
-         
+
             return new SyncResponse(version, needContinue);
         }
     }

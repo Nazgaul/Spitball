@@ -4,7 +4,7 @@ using System.Linq;
 namespace Cloudents.Core.Enum
 {
 
-    public enum PaymentStatus
+    public enum PaymentStatus :int
     {
         None,
         Done,
@@ -36,7 +36,7 @@ namespace Cloudents.Core.Enum
 
     //}
 
-    public class ChatRoomStatus: Enumeration
+    public class ChatRoomStatus : Enumeration
     {
         public string Group { get; }
         private const string CNew = "New";
@@ -73,24 +73,25 @@ namespace Cloudents.Core.Enum
         {
             return GetAll<ChatRoomStatus>().Where(w => w.Group == CActive || w.Group == CNew);
         }
-        
+
 
     }
 
-   
 
-    public enum ChatRoomAssign
-    {
-        All,
-        Unassigned,
-        Eidan,
-        Jaron,
-        Yaniv,
-        Almog,
-        Ron,
-        Shira
-        
-    }
+
+    //public enum ChatRoomAssign
+    //{
+    //    All,
+    //    Unassigned,
+    //    Eidan,
+    //    Jaron,
+    //    Yaniv,
+    //    Almog,
+    //    Ron,
+    //    Shira
+    //    Gilad
+
+    //}
 
     public enum WaitingFor
     {
@@ -104,5 +105,13 @@ namespace Cloudents.Core.Enum
     {
         SmallGroup,
         PeerToPeer
+    }
+
+
+    public enum StudyRoomMediaRegion
+    {
+        UsaEast,
+        Germany,
+        India
     }
 }

@@ -15,21 +15,18 @@ namespace Cloudents.Command.CommandHandler
         private readonly IChatRoomRepository _chatRoomRepository;
         private readonly IRegularUserRepository _userRepository;
         private readonly IRepository<ChatMessage> _chatMessageRepository;
-        private readonly IRepository<Course> _courseRepository;
         private readonly ILeadRepository _leadRepository;
 
         public RequestTutorCommandHandler(ITutorRepository tutorRepository,
             IChatRoomRepository chatRoomRepository,
             IRegularUserRepository userRepository,
             IRepository<ChatMessage> chatMessageRepository,
-            IRepository<Course> courseRepository,
             ILeadRepository leadRepository)
         {
             _tutorRepository = tutorRepository;
             _chatRoomRepository = chatRoomRepository;
             _userRepository = userRepository;
             _chatMessageRepository = chatMessageRepository;
-            _courseRepository = courseRepository;
             _leadRepository = leadRepository;
         }
 
@@ -45,21 +42,24 @@ namespace Cloudents.Command.CommandHandler
                 }
                 tutor = await _tutorRepository.LoadAsync(message.TutorId.Value, token);
             }
-            var needToSendToMoreTutors = await _leadRepository.NeedToSendMoreTutorsAsync(message.UserId, token);
 
-            var course = await _courseRepository.LoadAsync(message.Course, token);
             var user = await _userRepository.LoadAsync(message.UserId, token);
 
-            var lead = new Lead(course, message.LeadText,
+            var lead = new Lead(message.Course, message.LeadText,
                  message.Referer, user,
                 tutor, message.UtmSource);
             await _leadRepository.AddAsync(lead, token);
 
             var tutorsIds = new List<long>();
-            if (needToSendToMoreTutors)
+            if (message.MoreTutors)
             {
-                var t = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId, user.Country, token);
-                tutorsIds.AddRange(t);
+                var needToSendToMoreTutors = await _leadRepository.NeedToSendMoreTutorsAsync(message.UserId, token);
+                if (needToSendToMoreTutors)
+                {
+                    var t = await _tutorRepository.GetTutorsByCourseAsync(message.Course, message.UserId, user.Country,
+                        token);
+                    tutorsIds.AddRange(t);
+                }
             }
 
             if (tutor != null)

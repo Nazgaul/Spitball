@@ -1,4 +1,4 @@
-import UserMainService from '../components/userMainView/userMainService';
+import userMainService from '../components/userMainView/userMainService';
 
 const quantityPerPage = 200;
 const state = {
@@ -12,8 +12,13 @@ const state = {
     userConversations: [],
     userSessions: [],
     filterVal: 'ok',
-    loader : false
-
+    loader : false,
+    MAX_ITEMS: 25,
+    requestLock: false,
+    currentIdRequest: '',
+    userSoldItems: [],
+    userNotes: [],
+    userTypes: []
 };
 const mutations = {
 
@@ -25,6 +30,10 @@ const mutations = {
         state.userPurchasedDocs = [];
         state.userConversations = [];
         state.userSessions = [];
+        state.requestLock = false;
+        state.currentIdRequest = '';
+        state.userNotes = [];
+        state.userTypes = [];
     },
     setShowLoader(state, val) {
         state.loader = val;
@@ -51,12 +60,29 @@ const mutations = {
             state.userInfo.status.value = val;
         }
     },
+    setUserNotes(state, data) {
+        if(state.userNotes.length) {
+            state.userNotes.unshift(data);
+        }else {
+            state.userNotes = data;
+        }
+    },
     updateTutorSate(state, val){
         //state.userInfo.isTutor = val;
         state.userInfo.isTutor.value = val;
     },
+    updateCalenderSate()
+    {
+        state.userInfo.calendarExists.value = !state.userInfo.calendarExists.value;
+    },
     setUserInfo(state, data) {
         state.userInfo = data;
+    },
+    setUserTypes(state, data) {
+        state.userTypes = data;
+    },
+    setUserType(state, data){
+        state.userInfo.userType.value = data;
     },
     setUserQuestions(state, data) {
         state.userQuestions = data;
@@ -67,6 +93,9 @@ const mutations = {
     setUserPurchasedDocs(state, data) {
         state.userPurchasedDocs = data;
     },
+    setUserSoldItems(state,data){
+        state.userSoldItems = data;
+    },
     setUserDocuments(state, data) {
         state.userDocuments = data;
     },
@@ -76,6 +105,7 @@ const mutations = {
     setUserSessions(state, data) {
         state.userSessions = data;
     },
+
     removeQuestion(state, index) {
         state.userQuestions.splice(index, 1);
     },
@@ -87,6 +117,12 @@ const mutations = {
     },
     setFilterStr(state, strVal) {
         state.filterVal = strVal;
+    },
+    setLockRequestCall(state, val) {
+        state.requestLock = val;
+    },
+    setCurrentIdRequest(state, id) {
+        state.currentIdRequest = id;
     }
 };
 const getters = {
@@ -101,7 +137,10 @@ const getters = {
     userDocuments: (state) => state.userDocuments,
     userPurchasedDocuments: (state) => state.userPurchasedDocs,
     userConversations: (state) => state.userConversations,
-    userSessions: (state) => state.userSessions
+    userSessions: (state) => state.userSessions,
+    getRequestLock: (state) => state.requestLock,
+    userSoldDocItems: (state) => state.userSoldItems,
+    userNotes:(state) => state.userNotes
 };
 const actions = {
     updateFilterValue({commit}, val) {
@@ -126,26 +165,64 @@ const actions = {
     setUserCurrentStatus({commit}, val) {
         commit('updateStatus', val);
     },
+    addUserNote({commit}, data) {
+        return userMainService.addUserNote(data).then((res) => {
+            commit('setUserNotes', res);
+        }) 
+    },
     updateUserData({commit}, data) {
         commit('setUserData', data);
     },
     getUserData(context, id) {
-        return UserMainService.getUserData(id)
+        context.commit('clearUserData');
+        return userMainService.getUserData(id)
         .then((data) => {
                 if (data) {
                     context.commit('setUserInfo', data);
                     return data;
-                }else{
-                    context.commit('clearUserData');
                 }
             });
     },
-    removeTutor(context, id) {
-        return UserMainService.removeTutor(id)
-        .then(() => {
-                    context.commit('updateTutorSate', null);
-                
+    getUserTypes(context, id){
+        return userMainService.getUserTypes(id)
+        .then((data) => {
+                    context.commit('setUserTypes', data);
+                    return data;
             });
+    },
+    updateUserType(context, {userId,userType}){
+        return userMainService.updateUserType({userId,userType}).then(() => {
+            context.commit('setUserType', userType);
+
+        })
+    },
+    removeTutor(context, id) {
+        return userMainService.removeTutor(id)
+        .then(() => {
+            context.commit('updateTutorSate', 'Not a tutor');
+        });
+    },
+    updateSuspendTutor({commit, state}, id) {      
+        let suspendObj = {tutorId: id};
+        return userMainService.suspendTutor(suspendObj).then(() => {
+            state.userInfo.isTutor.value = 'flagged';
+        }, (ex) => {
+            console.log(ex);
+        });
+    },
+    updateUnSuspendTutor({commit, state}, id) {
+        let suspendObj = {tutorId: id};
+        return userMainService.unSuspendTutor(suspendObj).then(() => {
+            state.userInfo.isTutor.value = 'ok';
+        }, (ex) => {
+            console.log(ex);
+        });
+    },
+    removeCalender(context, id) {
+        return userMainService.removeCalender(id)
+        .then(() => {
+            context.commit('updateCalenderSate');
+        });
     },
 
     deleteQuestionItem({commit}, index) {
@@ -160,7 +237,7 @@ const actions = {
 
     getUserQuestions(context, idPageObj) {
         context.commit("setShowLoader", true);
-        return UserMainService.getUserQuestions(idPageObj.id, idPageObj.page).then((data) => {
+        return userMainService.getUserQuestions(idPageObj.id, idPageObj.page).then((data) => {
                 if (data && data.length !== 0) {
                     context.commit('setUserQuestions', data);
                 }
@@ -176,7 +253,7 @@ const actions = {
     },
     getUserAnswers(context, idPageObj) {
         context.commit("setShowLoader", true);
-        return UserMainService.getUserAnswers(idPageObj.id, idPageObj.page).then((data) => {
+        return userMainService.getUserAnswers(idPageObj.id, idPageObj.page).then((data) => {
                 if (data && data.length !== 0) {
                     context.commit('setUserAnswers', data);
                 }
@@ -193,7 +270,7 @@ const actions = {
     },
     getUserPurchasedDocuments(context, idPageObj) {
         context.commit("setShowLoader", true);
-        return UserMainService.getPurchasedDocs(idPageObj.id, idPageObj.page).then((data) => {
+        return userMainService.getPurchasedDocs(idPageObj.id, idPageObj.page).then((data) => {
                 if (data && data.length !== 0) {
                     context.commit('setUserPurchasedDocs', data);
                 }
@@ -206,17 +283,44 @@ const actions = {
             }
         ).finally(() => context.commit("setShowLoader", false));
     },
-    getUserDocuments(context, idPageObj) {
+    getUserSoldItems(context,idPageObj){
         context.commit("setShowLoader", true);
-        return UserMainService.getUserDocuments(idPageObj.id, idPageObj.page).then((data) => {
-                if (data && data.length !== 0) {
-                    context.commit('setUserDocuments', data);
+
+        return userMainService.getSoldItems(idPageObj.id, idPageObj.page).then((data) => {
+            if (data && data.length !== 0) {
+                context.commit('setUserSoldItems', data);
+            }
+        },
+        (error) => {
+            console.log(error, 'error');
+        }
+    ).finally(() => context.commit("setShowLoader", false));
+    },
+    getUserDocuments(context, idPageObj) {
+        let currentDocs;
+        context.commit("setShowLoader", true);
+        return userMainService.getUserDocuments(idPageObj.id, idPageObj.page).then((data) => {
+                if(data.length < context.state.MAX_ITEMS) {
+                    context.commit('setLockRequestCall', true);
+                } else {
+                    context.commit('setLockRequestCall', false);
                 }
+
+                if(idPageObj.id !== context.state.currentIdRequest) {
+                    context.commit('setCurrentIdRequest', idPageObj.id);
+                    currentDocs = data;
+                } else {
+                    currentDocs = [...context.state.userDocuments, ...data];
+                }
+
+                if (data && data.length !== 0) {
+                    context.commit('setUserDocuments', currentDocs);
+                }
+                
                 if (data.length < quantityPerPage) {
                     return true;
                 }
                 context.commit('setUserDocuments', data);
-
             },
             (error) => {
                 console.log(error, 'error');
@@ -225,7 +329,7 @@ const actions = {
     },
     getUserConversations(context, idPageObj) {
         context.commit("setShowLoader", true);
-        return UserMainService.getUserConversations(idPageObj.id).then((data) => {
+        return userMainService.getUserConversations(idPageObj.id).then((data) => {
                 if (data && data.length !== 0) {
                     context.commit('setUserConversations', data);
                 }
@@ -241,40 +345,64 @@ const actions = {
     },
     getUserSessions(context, idPageObj) {
         context.commit("setShowLoader", true);
-        return UserMainService.getUserSessions(idPageObj.id).then((data) => {
-                if (data && data.length !== 0) {
-                    context.commit('setUserSessions', data);
-                }
+        return userMainService.getUserSessions(idPageObj.id).then((data) => {
+
+                context.commit('setUserSessions', data);
+           
                 if (data.length < quantityPerPage) {
                     return true;
                 }
-                context.commit('setUserSessions', data);
+               
             },
             (error) => {
                 console.log(error, 'error');
             }
         ).finally(() => context.commit("setShowLoader", false));
     },
+    getUserNotes(context, idPageObj){
+        if(!state.userNotes.length)
+        {
+        context.commit("setShowLoader", true);
+        return userMainService.getUserNotes(idPageObj.id).then((data) => {
+            context.commit('setUserNotes', data);
+        
+        },
+        (error) => {
+            console.log(error, 'error');
+        }).finally(() => context.commit("setShowLoader", false));
+        }
+    },
     verifyUserPhone(context, verifyObj) {
-        return UserMainService.verifyPhone(verifyObj).then((resp) => {
+        return userMainService.verifyPhone(verifyObj).then((resp) => {
             context.commit('setPhoneConfirmStatus');
             return resp;
         });
     },
     updateUserName({ commit, dispatch }, payload) {
-        return UserMainService.updateUserName(payload).then(() => {
+        return userMainService.updateUserName(payload).then(() => {
             dispatch('getUserData', payload.userId);
         },
         () => {
             return false;
         });
     },
-    updateUserPhone({ commit, dispatch }, payload) {
-        return UserMainService.updateUserPhone(payload).then(res => {
-            dispatch('getUserData', payload.userId);
-        },
-        () => {
-            return false;
+    updateUserPhone({dispatch }, payload) {
+        return userMainService.updateUserPhone(payload).then(() => {
+            return dispatch('getUserData', payload.userId);
+        });
+    },
+    updateTutorPrice({commit}, priceObj) {
+        return userMainService.updateTutorPrice(priceObj).then(() => {
+             state.userInfo.tutorPrice.value = priceObj.price;
+        }).catch(ex => {
+            return ex;
+        });
+    },
+    deletePayment({commit, dispatch, state}, id) {
+        return userMainService.deletePayment(id).then(() => {
+            state.userInfo.payment.value = false;
+        }).catch(ex => {
+            return ex;
         });
     }
 };

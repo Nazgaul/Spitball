@@ -1,13 +1,14 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core;
+﻿using Cloudents.Core;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Users;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,17 +19,20 @@ namespace Cloudents.Web.Controllers
     {
         private readonly IStringLocalizer<ProfileController> _localizer;
         private readonly IQueryBus _queryBus;
+        private readonly IUrlBuilder _urlBuilder;
 
-        public ProfileController(IStringLocalizer<ProfileController> localizer, IQueryBus queryBus)
+        public ProfileController(IStringLocalizer<ProfileController> localizer, IQueryBus queryBus, IUrlBuilder urlBuilder)
         {
             _localizer = localizer;
             _queryBus = queryBus;
+            _urlBuilder = urlBuilder;
         }
 
         [Route("profile/{id:long}")]
-        public async Task<IActionResult> OldIndex(long id, CancellationToken token)
+        public async Task<IActionResult> OldIndexAsync(long id, CancellationToken token)
         {
-            var query = new UserProfileQuery(id);
+            //not really need it in here
+            var query = new UserProfileQuery(id, 0);
             var retVal = await _queryBus.QueryAsync(query, token);
 
             if (retVal == null)
@@ -46,28 +50,58 @@ namespace Cloudents.Web.Controllers
         // GET: /<controller>/
         [Route("profile/{id:long}/{name}", Name = SeoTypeString.Tutor)]
         [ResponseCache(Location = ResponseCacheLocation.Client, Duration = TimeConst.Hour, NoStore = true), SignInWithToken]
-        public async Task<IActionResult> Index(long id,string name, CancellationToken token)
+        public async Task<IActionResult> IndexAsync(long id, string name, CancellationToken token)
         {
-            var query = new UserProfileQuery(id);
+            var query = new UserProfileQuery(id, 0);
             var retVal = await _queryBus.QueryAsync(query, token);
-            if (retVal == null)
+            if (retVal is null)
             {
                 return NotFound();
             }
 
-            if (retVal.Tutor == null)
+            if (retVal.Tutor is null)
             {
                 Response.Headers.Add("X-Robots-Tag", "noindex");
+                return View("Index");
             }
-            var localizerSuffix = string.Empty;
-            if (string.IsNullOrEmpty(retVal.UniversityName))
+            //if (string.IsNullOrEmpty(retVal.UniversityName))
+            //{
+            //    localizerSuffix = "NoUniversity";
+
+            //}
+            ViewBag.title = _localizer["TitleNoUniversity", retVal.Name];
+            ViewBag.metaDescription = _localizer["Description", retVal.Description];
+            if (retVal.Image != null)
             {
-                localizerSuffix = "NoUniversity";
-                
+                ViewBag.ogImage = $"{retVal.Image}?width=1200&height=630";
+                //ViewBag.ogImage = _urlBuilder.BuildUserImageProfileShareEndpoint(retVal.Id, new
+                //{
+                //    width = 1200,
+                //    height = 630
+                //});
+                ViewBag.ogImageWidth = 1200;
+                ViewBag.ogImageHeight = 630;
             }
-            ViewBag.title = _localizer[$"Title{localizerSuffix}", retVal.Name,retVal.UniversityName];
-            ViewBag.metaDescription = _localizer[$"Description{localizerSuffix}", retVal.Name, retVal.UniversityName];
-            return View();
+
+            //var jsonLd = new ProfilePage()
+            //{
+            //    SourceOrganization = new Organization
+            //    {
+            //        Logo = new Uri($"{_configuration["site"].TrimEnd('/')}/images/favicons/android-icon-192x192.png"),
+            //        Url = Request.GetUri()
+            //    },
+            //    About = new Person()
+            //    {
+            //        Name = retVal.Name,
+            //        GivenName = retVal.FirstName,
+            //        FamilyName = retVal.LastName,
+            //        Image = new Uri($"{_configuration["site"].TrimEnd('/')}{retVal.Image}"), // TODO should be fixed
+            //        Description = retVal.Description,
+            //    },
+            //    Url = Request.GetUri()
+            //};
+            //ViewBag.jsonLd = jsonLd;
+            return View("Index");
         }
     }
 }

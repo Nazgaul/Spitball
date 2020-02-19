@@ -1,20 +1,20 @@
 <template>
     <v-layout class="calendar-container">
-        <sb-dialog :isPersistent="true"
-                   :fullscreen="$vuetify.breakpoint.xsOnly"
-                   :content-class="'payme-popup'"
-                   :popUpType="'payme-popup'"
-                   :showDialog="showPaymentDialog"
-                   >
-          <paymentDialog/> 
-        </sb-dialog>
       <v-flex :class="{'sheet-loading':!isReady}">
+        <div class="calendar-header">
+            <h2 v-language:inner="'calendar_header'"></h2>
+            <h3 v-language:inner="'calendar_title'"></h3>
+            <div class="calendar-header-time">
+              <Schedule />
+              <div v-language:inner="'calendar_time'"></div>
+            </div>
+        </div>
         <div class="navigation-btns-calendar">
-          <v-btn :disabled="isGoPrev" small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.prev()">
+          <v-btn sel="calendar_previous" :disabled="isGoPrev" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.prev()">
             <v-icon>sbf-arrow-left-carousel</v-icon>
           </v-btn>
           <span class="title-calendar">{{calendarMonth}}</span>
-          <v-btn :disabled="isGoNext" small :class="['white--text','elevation-0',{'rtl': isRtl}]" color="#4452fc" @click="$refs.calendar.next()">
+          <v-btn sel="calendar_next" :disabled="isGoNext" small :class="['white--text','elevation-0']" color="#4452fc" @click="$refs.calendar.next()">
             <v-icon dark>sbf-arrow-right-carousel</v-icon>
           </v-btn>
         </div>
@@ -39,15 +39,15 @@
               <v-btn
                 :color="!isEventSent? 'white':'#4452fc'" 
                 @click="closeDialog" 
-                depressed round 
+                depressed rounded 
                 :class="[!isEventSent? 'cncl-btn': 'donebtn']">
-                <span v-language:inner="!isEventSent? 'calendar_add_event_cancel':'calendar_add_event_done'"/>
+                <span v-language:inner="!isEventSent? 'calendar_add_event_cancel':'calendar_add_event_ok'"/>
               </v-btn>
 
               <v-btn v-if="!isEventSent"
                   @click="isNeedPayment? goPayment() : insertNewEvent()" 
                   :loading="isLoading" 
-                  depressed round 
+                  depressed rounded 
                   color="#4452fc" 
                   class="calbtn">
                 <span v-language:inner="isNeedPayment? 'calendar_add_event_ok' :'calendar_add_event_btn'"/>
@@ -66,7 +66,7 @@
             :interval-minutes="intervals.minutes"
             :interval-count="intervals.count"
             :interval-height="intervals.height">
-            <template v-slot:dayBody="{ date, hour, timeToY, minutesToPixels }">
+            <template v-slot:day-body="{ date, hour, timeToY, minutesToPixels }">
               <template v-for="event in eventsMap[date]">
                 <div v-if="event.time" :key="event.time+2" class="my-event with-time" v-html="event.time"
                   :style="{ top: timeToY(event.time) + 'px', height: minutesToPixels(60) + 'px' }">
@@ -75,7 +75,7 @@
             </template>
             
             <template v-slot:interval="{date,time,past}">
-              <div :class="['my-event',past? 'without-time-past':'without-time']">
+              <div :class="['my-event',past? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]">
                 <button @click="addEvent($event, date,time)" v-html="cellTime(date,time)"></button> 
               </div>
           </template>
@@ -88,13 +88,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import paymentDialog from '../tutor/tutorHelpers/paymentDIalog/paymentDIalog.vue'
-import sbDialog from '../wrappers/sb-dialog/sb-dialog.vue'
 import {LanguageService} from '../../services/language/languageService.js'
+import Schedule from './images/schedule.svg'
 export default {
     components:{
-      paymentDialog,
-      sbDialog
+      Schedule
     },
     data() {
         return {
@@ -107,7 +105,7 @@ export default {
           selectedTime: '',
           today: new Date().toISOString().substr(0, 10),
           intervals:{
-            first: 8,
+            first: this.getIntervalFirst || 8,
             minutes: 60,
             count: 16,
             height:  36,
@@ -115,12 +113,9 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getCalendarType','getCalendarEvents','getProfile','accountUser','getShowPaymentDialog','getNeedPayment']),
-        showPaymentDialog(){
-          return this.getShowPaymentDialog
-        },
+        ...mapGetters(['getIntervalFirst','getCalendarType','getCalendarEvents','getProfile','accountUser','getNeedPayment']),
         tutorName(){
-          return this.getProfile.user.tutorData.firstName.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+          return this.getProfile.user.firstName.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
         },
         calendarType(){
             return this.getCalendarType
@@ -154,11 +149,13 @@ export default {
           } else{
             return `${month} ${year}`
           }
+        }else{
+          return false;
         }
       },
       isGoPrev(){
         let calendarMonth = Date.parse(new Date(this.today));
-
+        
         let dd = String(new Date().getDate()).padStart(2, '0');
         let mm = String(new Date().getMonth() + 1).padStart(2, '0');
         let yyyy = new Date().getFullYear()
@@ -168,14 +165,11 @@ export default {
 
       },
       isGoNext(){
-        let calendarMonth = Date.parse(new Date(this.today));
-        let dd = String(new Date().getDate()).padStart(2, '0');
-        let mm = String(new Date().getMonth() + 3).padStart(2, '0');
-        let yyyy = new Date().getFullYear()
-        let currentMonth = Date.parse(new Date(yyyy + '-' + mm + '-' + dd))
-
-        return (currentMonth <= calendarMonth)
-
+        let lastDate = Object.keys(this.eventsMap).map((key)=>key)
+        lastDate = lastDate[lastDate.length-1]
+        let lastDateStemp = new Date(`${lastDate}`).getTime()
+        let currentDateStemp = new Date(`${this.today}`).getTime()
+        return (currentDateStemp >= lastDateStemp)
       },
       isRtl(){
         return  global.isRtl
@@ -184,16 +178,26 @@ export default {
         return this.$vuetify.breakpoint.xsOnly;
       },
       isNeedPayment(){
-        return this.getNeedPayment
+        // debugger
+        // let price = this.getProfile.user.tutorData.price + ''
+        // price.slice(1, this.getProfile.user.tutorData.price.length);        
+        // return this.getNeedPayment && Number(price) > 0;
+        return this.getNeedPayment;
+      },
+      isSelfTutor() {
+        if((this.$route.name == 'myCalendar') || (!!this.getProfile && !!this.accountUser) && this.getProfile.user.id == this.accountUser.id) {
+          return true
+        }
+        return false
       }
     },
     methods: {
-        ...mapActions(['btnClicked','insertEvent','requestPaymentURL','updateNeedPayment','updateToasterParams']),
+        ...mapActions(['updateToasterParams','btnClicked','insertEvent','updateNeedPayment','requestPaymentURL']),
         format(day){
           let options = { weekday: this.isMobile? 'narrow':'short' };
           return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
         },
-        insertNewEvent(date,time){
+        insertNewEvent(){
           this.isLoading = true;
           let paramObj = {
             date: this.selectedDate,
@@ -203,7 +207,7 @@ export default {
               this.isEventSent = true
               this.calendarEvents.push(paramObj)
               this.isLoading = false;
-          },err=>{
+          },()=>{
             this.addEventDialog = false;
             this.isLoading = false;
             this.updateToasterParams({
@@ -214,8 +218,7 @@ export default {
           })
         },
         addEvent(ev,date,time){
-          if((!!this.getProfile && !!this.accountUser) 
-          && this.getProfile.user.id == this.accountUser.id) return
+          if(this.isSelfTutor) return
 
           ev.stopImmediatePropagation();
           if(this.addEventDialog)return
@@ -239,7 +242,10 @@ export default {
           }
         },
         formatTimeString(){
-          let endTime = new Date(`${this.selectedDate} ${this.selectedTime}`).getHours()+1;
+          let hour = +this.selectedTime.split(':')[0];
+          let dateHour = new Date(this.selectedDate)
+          dateHour.setHours(hour)
+          let endTime = dateHour.getHours()+1;
           let ampm = endTime < 12? 'am' : 'pm'
           if(endTime < 10) {endTime = `0${endTime}:00`}
           else {endTime = `${endTime}:00`;}
@@ -253,14 +259,19 @@ export default {
           this.isLoading = false;
         },
         goPayment(){
-          this.requestPaymentURL()
+          this.requestPaymentURL({ title: 'payme_title', name: this.tutorName });
+        },
+        isSelected(date,time){
+          if(date === this.selectedDate && time === this.selectedTime){
+            return true;
+          }
         }
     },
     mounted() {
        this.$refs.calendar.scrollToTime('06:00')
     },
     watch: {
-      getCalendarEvents:function(val){
+      getCalendarEvents:function(){
         this.isReady = true
       },
       isMobile:function(val){
@@ -295,12 +306,39 @@ export default {
   .sheet-loading{
     opacity: 0.2;
   }
+  .calendar-header {
+    padding: 0 8px;
+    text-align: center;
+    h2 {
+      color: #4452fc;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+    h3 {
+      color: #43425d;
+      margin-bottom: 26px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .calendar-header-time {
+      margin-bottom: 22px;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px 0;
+      div {
+        margin-left: 8px
+      }
+    }
+  }
   .navigation-btns-calendar{
 
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 22px;
+    margin-bottom: 40px;
     .title-calendar{
 
       font-size: 20px;
@@ -312,26 +350,23 @@ export default {
       }
     }
     .v-btn{
+      transform: none /*rtl:rotate(180deg)*/ ;
       min-width: auto !important;
       width: 40px;
       height: 30px;
+      border-radius: 3px;
       @media (max-width: @screen-xs) {
         width: 34px;
         height: 28px;
         margin: 0;
       }
-
-      border-radius: 3px;
       .v-btn__content{
         .v-icon{
-          font-size: 18px;
+          font-size: 18px !important;
         }
       }
 
     }
-      .rtl{
-        transform: rotate(180deg);
-      }
   }
 
 .v-sheet{
@@ -414,6 +449,7 @@ display: flex;
         min-width: 140px;
         height: 40px !important;
         padding: 0px 32px !important;
+        margin: 6px 8px;
       }
       .cncl-btn{
         color: @global-blue;
@@ -459,20 +495,22 @@ display: flex;
           font-weight: bold;
           padding: 0;
         @media (max-width: @screen-xs) {
-            font-size: 10px;
+            font-size: 12px;
             text-align: center;
         }
         }
         .v-calendar-daily_head-day-label{
-          font-size:24px;
-          line-height: inherit;
-          padding: 0 0 6px 0;
-          @media (max-width: @screen-xs) {
-            font-size: 18px;
-            text-align: center;
-            line-height: 1.6;
-            padding: 0;
+          button {
+            font-size:24px;
+            line-height: inherit;
+            // padding: 0 0 6px 0;
+            @media (max-width: @screen-xs) {
+              font-size: 18px;
+              text-align: center;
+              line-height: 1.6;
+              padding: 0;
 
+            }
           }
         }
         &.v-present{
@@ -484,7 +522,9 @@ display: flex;
               color:@global-blue;
             }
             .v-calendar-daily_head-day-label{
-              color:@global-blue;
+              button {
+                color:@global-blue;
+              }
             }
         }
       }
@@ -510,14 +550,20 @@ display: flex;
         }
       }
     }
+    .cursor-none {
+      pointer-events: none;
+    }
   }
 
 
-
+.selectedEvent{
+  background-color: @global-blue;
+  color: white !important;
+}
 .my-event {
     text-align: center;
     font-size: 12px;
-    padding: 3px;
+    padding: 5px;
     padding-bottom: 0;
     margin-right: 8px;
     position: relative;

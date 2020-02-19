@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="type_your_answer" xml:space="preserve">
-    <value>הקלד את תשובתך...</value>
-  </data>
-  <data name="type_your_question" xml:space="preserve">
-    <value>הקלד את שאלתך...</value>
+    <value>כתוב את תשובתך כאן...</value>
   </data>
 </root>

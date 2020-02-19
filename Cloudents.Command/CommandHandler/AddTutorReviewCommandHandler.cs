@@ -1,7 +1,7 @@
-﻿using System;
-using Cloudents.Command.Command;
+﻿using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,6 +32,7 @@ namespace Cloudents.Command.CommandHandler
                 //{
                 //    throw new DuplicateRowException();
                 //}
+           
                 var user = await _regularUserRepository.LoadAsync(message.UserId, token);
                 userTutor.Tutor.AddReview(message.Review, message.Rate, user);
             }

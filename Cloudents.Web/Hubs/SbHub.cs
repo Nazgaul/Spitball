@@ -1,16 +1,16 @@
-﻿using Cloudents.Core.Extension;
+﻿using Cloudents.Core;
+using Cloudents.Core.Extension;
+using Cloudents.Query;
+using Dapper;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cloudents.Core;
-using Cloudents.Identity;
-using Cloudents.Query;
-using Dapper;
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.DataContracts;
+using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Hubs
 {
@@ -53,7 +53,7 @@ namespace Cloudents.Web.Hubs
                     const string sql = @"update sb.[user] set Online = @IsOnline, LastOnline = GETUTCDATE() where Id = @Id";
                     using (var connection = _dapper.OpenConnection())
                     {
-                         await connection.ExecuteAsync(sql, new { Id = currentUserId, IsOnline = isOnline });
+                        await connection.ExecuteAsync(sql, new { Id = currentUserId, IsOnline = isOnline });
                     }
                 }
             }
@@ -83,7 +83,7 @@ namespace Cloudents.Web.Hubs
             var currentUserId = long.Parse(Context.UserIdentifier);
             if (!header.ToString().Contains(originsAllow, StringComparison.OrdinalIgnoreCase))
             {
-                _logger.Value.TrackTrace("Investigate online ",SeverityLevel.Warning, new Dictionary<string, string>()
+                _logger.Value.TrackTrace("Investigate online ", SeverityLevel.Warning, new Dictionary<string, string>()
                 {
                     ["userId"] = currentUserId.ToString(),
                     ["header"] = header
@@ -92,7 +92,7 @@ namespace Cloudents.Web.Hubs
             //if (header.ToString().Contains("spi"))
 
             var country = Context.User.Claims.FirstOrDefault(f =>
-                string.Equals(f.Type, AppClaimsPrincipalFactory.Country.ToString(),
+                string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
                     StringComparison.OrdinalIgnoreCase))?.Value;
 
             Connections.Add(currentUserId, Context.ConnectionId);
@@ -110,7 +110,7 @@ namespace Cloudents.Web.Hubs
                 });
                 //_logger.Value.Warning($"Investigate online {currentUserId}");
             }
-           
+
             if (country != null)
             {
 
@@ -122,7 +122,7 @@ namespace Cloudents.Web.Hubs
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             var country = Context.User.Claims.FirstOrDefault(f =>
-                string.Equals(f.Type, AppClaimsPrincipalFactory.Country.ToString(),
+                string.Equals(f.Type, AppClaimsPrincipalFactory.Country,
                     StringComparison.OrdinalIgnoreCase))?.Value;
             if (country != null)
             {

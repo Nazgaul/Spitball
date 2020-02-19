@@ -1,25 +1,25 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Models;
 using Cloudents.Query;
+using Cloudents.Query.Users;
+using Cloudents.Web.Extensions;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Cloudents.Identity;
-using Cloudents.Query.Query;
-using Cloudents.Web.Extensions;
+using AppClaimsPrincipalFactory = Cloudents.Web.Identity.AppClaimsPrincipalFactory;
 
 namespace Cloudents.Web.Binders
 {
     public class ProfileModelBinder : IModelBinder
     {
         private readonly IQueryBus _queryBus;
-        private readonly ICountryProvider _countryProvider;
+        private readonly ICountryService _countryProvider;
         private readonly UserManager<User> _userManager;
 
-        public ProfileModelBinder(IQueryBus queryBus, ICountryProvider countryProvider, UserManager<User> userManager)
+        public ProfileModelBinder(IQueryBus queryBus, ICountryService countryProvider, UserManager<User> userManager)
         {
             _queryBus = queryBus;
             _countryProvider = countryProvider;

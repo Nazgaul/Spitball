@@ -93,7 +93,7 @@ namespace Cloudents.Search.University
         //public  Task DeleteOldDataAsync(DateTime timeToDelete, CancellationToken token)
         //{
         //    return DeleteOldDataAsync(nameof(Entities.University.InsertDate), timeToDelete, token);
-           
+
         //}
 
     }

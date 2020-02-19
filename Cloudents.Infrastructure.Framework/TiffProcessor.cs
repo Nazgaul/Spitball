@@ -10,11 +10,10 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {
-    public class TiffProcessor : IPreviewProvider2, IDisposable
+    public class TiffProcessor : IPreviewProvider, IDisposable
     {
         public TiffProcessor()
 
@@ -75,7 +74,6 @@ namespace Cloudents.Infrastructure.Framework
             await Task.WhenAll(t);
         }
 
-        public static readonly string[] Extensions = FormatDocumentExtensions.Tiff;
 
 
         public void Dispose()

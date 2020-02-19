@@ -1,32 +1,37 @@
 <template>
-        <v-layout class="calendar-section mt-3">
-            <v-flex xs12>
-                <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"></v-progress-circular>
-                <v-card class="elevation-0 caltab" v-if="isReady">
-                    <calendar v-if="getShowCalendar"/>
-                    <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
-                </v-card>
-                <v-card class="elevation-0 caltab safdsfsfd" v-show="studentEmptyState">
-                    <span v-language:inner="'calendar_empty_state_student'"></span>
-                </v-card>
-            </v-flex>
-        </v-layout>
+    <v-layout class="calendar-section mt-4">
+        <v-icon v-if="!isMyProfile" @click="globalFunctions.closeCalendar()" class="close-btn">sbf-close</v-icon>
+        <v-flex xs12>
+            <v-progress-circular class="progress-calendar" v-show="!isReady && !studentEmptyState" indeterminate :size="150" width="3" color="info"/>
+            <v-card class="caltab" v-if="isReady">
+                <calendar v-if="getShowCalendar"/>
+                <calendarEmptyState v-if="showEmptyState && !getShowCalendar"/>
+            </v-card>
+            <v-card class="caltab" v-show="studentEmptyState">
+                <span v-language:inner="'calendar_empty_state_student'"></span>
+            </v-card>
+        </v-flex>
+    </v-layout>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import calendar from './calendar.vue'
 import calendarEmptyState from './calendarEmptyState.vue'
-import {LanguageService} from '../../services/language/languageService.js'
+
 export default {
     components:{
         calendar,
         calendarEmptyState
     },
+    props:{
+        globalFunctions:{
+            type: Object,
+        }
+    },
     data() {
         return {
             isReady: false,
-            showCalendar: this.isCalendar,
             studentEmptyState: false,
         }
     },
@@ -43,7 +48,7 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['updateCalendarStatus','updateToasterParams'])
+        ...mapActions(['updateCalendarStatus'])
     },
     created() {
         let self = this;
@@ -63,6 +68,17 @@ export default {
 <style lang="less">
     @import '../../styles/mixin.less';
     .calendar-section {
+        
+        .close-btn{
+            cursor: pointer;
+            position: absolute;
+            font-size: 12px !important;
+            z-index: 6;
+            right: 0;
+            padding-right: 16px;
+            padding-top: 16px;
+        }
+
         @media (max-width: @screen-xs) {
             box-shadow: none;
             border-radius: 4px;
@@ -76,10 +92,12 @@ export default {
     left: 38%;
   }
         .caltab{
-            padding: 22px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+            padding: 40px 22px;
             @media (max-width: @screen-xs) {
+                  box-shadow: none;
                 padding: 10px;
-                margin-bottom: 40px;
+                // margin-bottom: 40px;
             }
         }
     }

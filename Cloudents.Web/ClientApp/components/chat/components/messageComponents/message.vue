@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex';
+import {mapGetters} from 'vuex';
 import doubleCheck from '../../images/group-2.svg';
 import timeAgoService from '../../../../services/language/timeAgoService';
 
@@ -29,11 +29,6 @@ export default {
             type: Object
         },
         lastMsgIndex: {}
-    },
-    data() {
-        return {
-            rtl: global.isRtl
-        }
     },
     computed:{
         ...mapGetters(['accountUser','getChatLoader']),
@@ -52,6 +47,7 @@ export default {
 <style lang='less'>
 .message_wrap{
     margin-bottom: 14px;
+    font-size: 14px;
     .message-wrapper{
         max-width: 70%;
         width: max-content; // firefox fallback
@@ -110,7 +106,7 @@ export default {
         align-items: center;
         .message-text-date {
             color: rgba(0, 0, 0, 0.38);
-            font-size: 11px;
+            font-size: 12px;
             display: flex;
             margin-right: 6px;
             margin-top: 2px;

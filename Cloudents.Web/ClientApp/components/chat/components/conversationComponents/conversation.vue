@@ -27,14 +27,12 @@
 </template>
 
 <script>
-import UserAvatar from "../../../helpers/UserAvatar/UserAvatar.vue";
 import utilitiesService from "../../../../services/utilities/utilitiesService";
 import userOnlineStatus from "../../../helpers/userOnlineStatus/userOnlineStatus.vue";
 import timeAgoService from '../../../../services/language/timeAgoService';
 
 export default {
   components: {
-    UserAvatar,
     userOnlineStatus
   },
   props: {
@@ -87,7 +85,7 @@ export default {
         display: flex;
         align-items: center;
         .conversation-name{
-          max-width: 170px;
+          max-width: 160px;
           font-size: 14px;
           font-weight: bold;
           color: #43425d;
@@ -148,7 +146,7 @@ export default {
           display: inline-block;
           text-align: center;
           vertical-align: middle;
-          font-size: 11px;
+          font-size: 12px;
         }
       }
     }

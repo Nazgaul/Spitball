@@ -118,30 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btn_create_university" xml:space="preserve">
-    <value>Create University</value>
+    <value>Create School</value>
   </data>
   <data name="cant_find" xml:space="preserve">
-    <value>Can't find your university ?</value>
+    <value>Can't find your school?</value>
   </data>
   <data name="choose_title" xml:space="preserve">
-    <value>Choose your university</value>
+    <value>Choose your school</value>
   </data>
   <data name="create_new" xml:space="preserve">
     <value>Create new</value>
   </data>
   <data name="create_new_title" xml:space="preserve">
-    <value>Create New University</value>
+    <value>Create New School</value>
   </data>
   <data name="create_uni_placeholder" xml:space="preserve">
-    <value>Type a university name</value>
+    <value>Type a school name</value>
   </data>
   <data name="find_similar" xml:space="preserve">
-    <value>Find similar university name</value>
+    <value>Find similar school name</value>
   </data>
   <data name="new_title" xml:space="preserve">
-    <value>Before Creating a New UniversityTry:</value>
+    <value>Before Creating a New School Try:</value>
   </data>
   <data name="not_student_btn" xml:space="preserve">
     <value>Done</value>
+  </data>
+  <data name="uni_error" xml:space="preserve">
+    <value>Error creating college</value>
+  </data>
+  <data name="uni_success" xml:space="preserve">
+    <value>Success creating college</value>
   </data>
 </root>

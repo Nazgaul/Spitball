@@ -2,7 +2,7 @@
 
 import debounce from "lodash/debounce";
 import { LanguageService } from "../../../../services/language/languageService";
-import universityService from "../../../../services/universityService";
+import courseService from "../../../../services/courseService";
 import analyticsService from '../../../../services/analytics.service';
 
 export default {
@@ -16,10 +16,8 @@ export default {
     },
     data: () => ({
         autoSuggestList: [],
-        isFirst: true,
         showSuggestions: false,
         originalMsg: '',
-        isRtl: global.isRtl,
         msg:"",
         suggests: [],
         term: '',
@@ -36,12 +34,16 @@ export default {
         search(text) {
             if(!!text){
                 this.msg = text;
+            }else if(!this.msg) {
+                this.msg = '';
             }
             if(!!this.msg){
                 analyticsService.sb_unitedEvent("Tutor_Engagement", "Search", this.msg);
             }
-            let query = {...this.$route.query, term: this.msg}
-            this.$router.push({path: 'tutor-list', query})
+
+            //this.$router.push({ path: `/tutor-list/${encodeURIComponent(this.msg)}` }).catch(() => {});
+            this.$router.push({ name: 'tutorLandingPage', params: {course: this.msg} }).catch(() => {});
+            
             this.closeSuggestions();
             // to remove keyboard on mobile
             this.$nextTick(() => {
@@ -60,18 +62,18 @@ export default {
         }, 250),
         closeSuggestions() {
             if(this.showSuggestions) {
-                this.focusedIndex = -1
+                this.focusedIndex = -1;
                 this.originalMsg = "";
                 this.showSuggestions = false;
             }
         },
         getSuggestionList(term){
-            universityService.getCourse({term, page:0}).then(data=>{
+            courseService.getCourse({term, page:0}).then(data=>{
                 this.suggests = data;
             }).finally(()=>{
                 this.openSuggestions();
-            })
-            
+            });
+
         },
         selectors(item){
             this.search(item.text);
@@ -116,7 +118,7 @@ export default {
 
             if(direction > 0) {
                 if(this.suggests.length -1 === this.focusedIndex) {
-                    return
+                    return;
                 }
                 this.focusedIndex = this.focusedIndex + direction;
             }  else { 
@@ -133,7 +135,7 @@ export default {
             if(searchMenu){
                 this.focusOnSelectedElm(searchMenu, direction);
             } else {
-                return
+                return;
             }
             
             // Out of bounds - set index to be -1:
@@ -143,7 +145,7 @@ export default {
         }
     },
     created() {
-        this.msg = !!this.$route.query && !!this.$route.query.term ? this.$route.query.term : '';
+        this.msg = !!this.$route.params && !!this.$route.params.course ? this.$route.params.course : '';
     }
 
 };

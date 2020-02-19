@@ -117,13 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DownVoteError" xml:space="preserve">
-    <value>אופס, לא ניתן להצביע עדיין. לפתיחת ההצבעה נגד, נדרש מינימום של נקודות</value>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>שדה {0} אינו כתובת דוא"ל חוקית.</value>
   </data>
   <data name="Spitball" xml:space="preserve">
     <value>Spitball2</value>
-  </data>
-  <data name="UpVoteError" xml:space="preserve">
-    <value>אופס, לא ניתן להצביע עדיין. לפתיחת ההצבעה בעד, נדרש מינימום של נקודות</value>
   </data>
 </root>

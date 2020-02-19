@@ -117,32 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="agree" xml:space="preserve">
-    <value>I agree to Spitball's</value>
-  </data>
-  <data name="already_have_account" xml:space="preserve">
-    <value>Do you already have an account?</value>
-  </data>
-  <data name="already_have_password" xml:space="preserve">
-    <value>I already have a password</value>
-  </data>
-  <data name="and" xml:space="preserve">
-    <value>and</value>
-  </data>
-  <data name="an_activation_email_has_been_sent_to" xml:space="preserve">
-    <value>An activation email has been sent to</value>
-  </data>
   <data name="are_you_sure_you_want_to_exit" xml:space="preserve">
     <value>Are you sure you want to exit?</value>
-  </data>
-  <data name="Change" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="click_here_to_send" xml:space="preserve">
-    <value>Resend a code</value>
-  </data>
-  <data name="congrats" xml:space="preserve">
-    <value>CONGRATS!</value>
   </data>
   <data name="continue" xml:space="preserve">
     <value>Continue</value>
@@ -150,51 +126,14 @@
   <data name="continue_registration" xml:space="preserve">
     <value>Continue with registration</value>
   </data>
-  <data name="didnt_get_an_email" xml:space="preserve">
-    <value>Didn't get an Email?</value>
-  </data>
   <data name="email_sent" xml:space="preserve">
-    <value>Email sent</value>
-  </data>
-  <data name="end_privacy_policy" xml:space="preserve">
-    <value>.</value>
-    <comment>do not translate to english</comment>
+    <value>An email sent, check your email.</value>
   </data>
   <data name="Exit" xml:space="preserve">
     <value>Exit</value>
   </data>
   <data name="exiting_information1" xml:space="preserve">
     <value>Exiting from this process will delete all your progress and information</value>
-  </data>
-  <data name="forgot_password_link" xml:space="preserve">
-    <value>Forgot password?</value>
-  </data>
-  <data name="happens_to_best" xml:space="preserve">
-    <value>Don’t be ashamed. It happens to the best.</value>
-  </data>
-  <data name="lets_start" xml:space="preserve">
-    <value>Let's Start</value>
-  </data>
-  <data name="login" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="login_click_here_to_send" xml:space="preserve">
-    <value>Click here to resend.</value>
-  </data>
-  <data name="need_account_link" xml:space="preserve">
-    <value>Sign up</value>
-  </data>
-  <data name="need_account_text" xml:space="preserve">
-    <value>Need an account?</value>
-  </data>
-  <data name="or" xml:space="preserve">
-    <value>or</value>
-  </data>
-  <data name="password_email_confirmed_resend_action" xml:space="preserve">
-    <value>Click here to resend</value>
-  </data>
-  <data name="password_email_confirmed_resend_text" xml:space="preserve">
-    <value>Didn't receive the email? Check your spam folder or </value>
   </data>
   <data name="password_indication_strong" xml:space="preserve">
     <value>Strong</value>
@@ -205,96 +144,19 @@
   <data name="password_indication_weak" xml:space="preserve">
     <value>Weak</value>
   </data>
-  <data name="placeholder_choose_password" xml:space="preserve">
-    <value>Choose password ( Use 8 characters or more )</value>
-  </data>
-  <data name="placeholder_confirm_password" xml:space="preserve">
-    <value>Confirm password</value>
-  </data>
-  <data name="placeholder_email" xml:space="preserve">
-    <value>Enter your email</value>
-  </data>
-  <data name="placeholder_enter_confirmation_code" xml:space="preserve">
-    <value>Enter confirmation code</value>
-  </data>
-  <data name="placeholder_enter_new_password" xml:space="preserve">
-    <value>Enter new password</value>
-  </data>
-  <data name="placeholder_enter_password" xml:space="preserve">
-    <value>Enter password</value>
-  </data>
-  <data name="placeholder_enter_phone" xml:space="preserve">
-    <value>Enter phone number</value>
-  </data>
   <data name="please_agree" xml:space="preserve">
     <value>To register you must check the box above</value>
-  </data>
-  <data name="privacy_policy" xml:space="preserve">
-    <value>Privacy Policy</value>
-  </data>
-  <data name="register" xml:space="preserve">
-    <value>Register</value>
-  </data>
-  <data name="remember_now" xml:space="preserve">
-    <value>I remember now</value>
-  </data>
-  <data name="sbl" xml:space="preserve">
-    <value>Pts</value>
-  </data>
-  <data name="select_your_country_code" xml:space="preserve">
-    <value>Select your country code</value>
-  </data>
-  <data name="signin_your_email" xml:space="preserve">
-    <value>Sign In with Email</value>
-  </data>
-  <data name="signup_your_email" xml:space="preserve">
-    <value>Sign Up with Email</value>
-  </data>
-  <data name="sign_in" xml:space="preserve">
-    <value>Sign in</value>
-  </data>
-  <data name="sign_in_with_google" xml:space="preserve">
-    <value>Sign In with Google</value>
-  </data>
-  <data name="sign_up" xml:space="preserve">
-    <value>Sign up</value>
-  </data>
-  <data name="sign_up_with_google" xml:space="preserve">
-    <value>Sign Up with Google</value>
-  </data>
-  <data name="sure_exit_mobile" xml:space="preserve">
-    <value>Are you sure 
-you want
-to &lt;b&gt;exit&lt;/b&gt;?</value>
-  </data>
-  <data name="terms_of_services" xml:space="preserve">
-    <value>Terms of Services</value>
-  </data>
-  <data name="until_activate_account" xml:space="preserve">
-    <value>You will not be able to log in to Spitball.co until you activate your account</value>
   </data>
   <data name="verification_code_sent_to_phone" xml:space="preserve">
     <value>A verification code was sent to your phone</value>
   </data>
-  <data name="Your" xml:space="preserve">
-    <value>Your</value>
-  </data>
   <data name="call_code" xml:space="preserve">
     <value>You wil get a call shortly</value>
   </data>
-  <data name="click_here_to_call" xml:space="preserve">
-    <value>Call me with a code</value>
-  </data>
-  <data name="click_here_to_send_email" xml:space="preserve">
-    <value>Click here to resend</value>
-  </data>
-  <data name="error_min_chars" xml:space="preserve">
-    <value>Password needs minimum 8 characters</value>
-  </data>
-  <data name="error_phone" xml:space="preserve">
-    <value>Please try again</value>
-  </data>
   <data name="error_not_matched" xml:space="preserve">
     <value>Passwords must match</value>
+  </data>
+  <data name="text" xml:space="preserve">
+    <value>Cancel</value>
   </data>
 </root>

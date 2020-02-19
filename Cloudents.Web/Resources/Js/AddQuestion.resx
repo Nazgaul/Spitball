@@ -118,13 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add_button" xml:space="preserve">
-    <value>Submit Question</value>
+    <value>Post</value>
   </data>
   <data name="ask_your_question_placeholder" xml:space="preserve">
     <value>My question is…</value>
   </data>
+  <data name="cancel_button" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="class_placeholder" xml:space="preserve">
-    <value>In what course?</value>
+    <value>Select course</value>
   </data>
   <data name="error_general" xml:space="preserve">
     <value>Something went wrong, try again.</value>
@@ -142,6 +145,6 @@
     <value>Select the subject</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>Add a question</value>
+    <value>Create a post</value>
   </data>
 </root>

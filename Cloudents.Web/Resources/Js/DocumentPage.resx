@@ -120,50 +120,58 @@
   <data name="credit_uploader" xml:space="preserve">
     <value>Credit the uploader with points to unlock</value>
   </data>
+  <data name="docPage" xml:space="preserve">
+    <value>Page {1} out of {2}</value>
+  </data>
   <data name="download_btn" xml:space="preserve">
     <value>Download</value>
   </data>
   <data name="full_list" xml:space="preserve">
-    <value>View full list</value>
+    <value>See all</value>
   </data>
-  <data name="more_tutors" xml:space="preserve">
-    <value>More Tutors for this course</value>
+  <data name="money_back" xml:space="preserve">
+    <value>100% Money Back Guarantee</value>
   </data>
-  <data name="online_tutor" xml:space="preserve">
-    <value>Get online tutoring and all the study  materials to master your studies</value>
+  <data name="need_help1" xml:space="preserve">
+    <value>Need help with this subject?</value>
   </data>
-  <data name="see_all" xml:space="preserve">
-    <value>See All</value>
+  <data name="need_help2" xml:space="preserve">
+    <value>{1} can Tutor you</value>
   </data>
-  <data name="student_learn" xml:space="preserve">
-    <value>Students learn from students</value>
+  <data name="points" xml:space="preserve">
+    <value>Pts</value>
   </data>
-  <data name="student_uploaded" xml:space="preserve">
-    <value>Uploaded by a student</value>
+  <data name="prepared_exams" xml:space="preserve">
+    <value>Better prepared for your exams</value>
   </data>
-  <data name="student_views_documents" xml:space="preserve">
-    <value>View all uploaded documents</value>
+  <data name="related_content" xml:space="preserve">
+    <value>Related Content</value>
   </data>
-  <data name="table_course" xml:space="preserve">
-    <value>Course:</value>
-    <comment>Duplicate</comment>
-  </data>
-  <data name="table_type" xml:space="preserve">
-    <value>Type:</value>
-  </data>
-  <data name="table_university" xml:space="preserve">
-    <value>University:</value>
-  </data>
-  <data name="table_uploaded" xml:space="preserve">
-    <value>Uploaded by:</value>
-  </data>
-  <data name="unlock_btn" xml:space="preserve">
-    <value>Unlock</value>
+  <data name="secure_payment" xml:space="preserve">
+    <value>Secure payment processing</value>
   </data>
   <data name="unlock_document" xml:space="preserve">
     <value>Credit the uploader with points to unlock</value>
   </data>
-  <data name="unlock_document_unregister" xml:space="preserve">
-    <value>To unlock this document, please register</value>
+  <data name="unlock_document_btn" xml:space="preserve">
+    <value>Unlock document</value>
+  </data>
+  <data name="unlock_video" xml:space="preserve">
+    <value>You are watching a 30 sec. preview.&lt;br&gt;Credit the uploader with points to unlock the full movie</value>
+  </data>
+  <data name="unlock_video_btn" xml:space="preserve">
+    <value>Unlock video</value>
+  </data>
+  <data name="why_spitball" xml:space="preserve">
+    <value>Why Spitball</value>
+  </data>
+  <data name="unlock_subtitle" xml:space="preserve">
+    <value>Want to read all {1} pages?</value>
+  </data>
+  <data name="unlock_title" xml:space="preserve">
+    <value>You’ve reached the end of your free preview</value>
+  </data>
+  <data name="unlock_video_subtitle" xml:space="preserve">
+    <value>Want to see the full Video?</value>
   </data>
 </root>

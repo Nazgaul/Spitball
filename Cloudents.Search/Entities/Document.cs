@@ -1,7 +1,9 @@
 ﻿using Cloudents.Core.DTOs.SearchSync;
+using Cloudents.Core.Enum;
 using Cloudents.Search.Interfaces;
 using Microsoft.Azure.Search;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -15,6 +17,7 @@ namespace Cloudents.Search.Entities
         public const string CourseNameField = "Course2";
         public const string UniversityIdFieldName = "University";
         public const string TypeFieldName = "TypeFieldName";
+      //  public const string TypeName = "Type";
 
         public static Document FromDto(DocumentSearchDto obj)
         {
@@ -29,7 +32,6 @@ namespace Cloudents.Search.Entities
                 Id = obj.ItemId.ToString(),
                 Name = obj.Name,
                 Type = obj.Type,
-                Tags = obj.TagsArray
             };
         }
 
@@ -58,7 +60,8 @@ namespace Cloudents.Search.Entities
         [IsSortable, IsFilterable]
         public DateTimeOffset? DateTime { get; set; }
         [IsFilterable, IsFacetable, JsonProperty(TypeFieldName)]
-        public string Type { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public DocumentType Type { get; set; }
 
     }
 }

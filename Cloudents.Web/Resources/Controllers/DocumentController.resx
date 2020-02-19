@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>מאגר סיכומים ב{0} - {1} | Spitball - פלטפורמה המיועדת למורים וסטודנטים שמאפשרת לשתף ידע אקדמי, למצוא סיכומים אקדמאיים ומורים פרטיים במגוון נושאים.</value>
-    <comment>At the moment we focus on hebrew seo</comment>
+    <value>Find academic papers and private teachers on {0} on Spitball - a platform designed for teachers and students that allows them to share academic knowledge.</value>
+    
   </data>
   <data name="Title" xml:space="preserve">
-    <value>סיכומים אקדמיים ב{0}: - {1}  | Spitball 2.0</value>
-    <comment>At the moment we focus on hebrew seo</comment>
+    <value>Summary in {0} – {1} | Spitball</value>
+    
   </data>
 </root>

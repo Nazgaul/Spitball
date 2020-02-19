@@ -1,109 +1,122 @@
 <template>
-  <router-link class="tutor-result-card-mobile pa-2 ma-2 pr-4 justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
-      <div class="card-mobile-header mb-4">
-        <div v-if="!isLoaded" class="mr-2 user-image tutor-card-loader">
-              <v-progress-circular indeterminate v-bind:size="50"></v-progress-circular>
-            </div>
-          <img v-show="isLoaded" class="mr-2 user-image" @error="onImageLoadError" @load="loaded" :src="userImageUrl" :alt="tutorData.name">
-          <div>
-              <h3 class="text-truncate subheading font-weight-bold mb-2" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
-              
+  <router-link class="tutor-result-card-mobile justify-space-between" @click.native.prevent="tutorCardClicked" :to="{name: 'profile', params: {id: tutorData.userId,name:tutorData.name}}">
+      <div class="card-mobile-header">
+          <user-avatar-rect
+            :userName="tutorData.name"
+            :userImageUrl="tutorData.image"
+            class="mr-2"
+            :userId="tutorData.userId"
+            :width="102"
+            :height="116"
+            :fontSize="24"
+            :borderRadius="4"
+          />
+          <div class="card-mobile-header-content">
+              <h3 class="text-truncate font-weight-bold card-mobile-tutor-name" v-html="$Ph('resultTutor_private_tutor', tutorData.name)"></h3>
+
+              <template>
+                <h4 class="text-truncate university font-weight-light" v-if="tutorData.university">{{tutorData.university}}</h4>
+              </template>
+
               <template>
                   <div class="user-rate align-center" v-if="tutorData.reviews > 0">
                     <user-rating :rating="tutorData.rating" :showRateNumber="false" :size="'18'" class="mr-2" />
-                    <span class="reviews" v-html="$Ph(`resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
+                    <span class="reviews" v-html="$Ph(tutorData.reviews === 1 ? 'resultTutor_review_one' : `resultTutor_reviews_many`, reviewsPlaceHolder(tutorData.reviews))"></span>
                   </div>
                   <div class="user-rate align-center" v-else>
-                    <star class="mr-2" />
-                    <span class="reviews" v-html="$Ph(`resultTutor_no_reviews`, reviewsPlaceHolder(tutorData.reviews))"></span>
+                    <star class="mr-1 icon-star" />
+                    <span class="reviews" v-html="$Ph(`resultTutor_collecting_review`, reviewsPlaceHolder(tutorData.reviews))"></span>
                   </div>
               </template>
 
-              <template>
-                  <h4 class="text-truncate mb-1 font-weight-light university" v-if="isUniversity">{{university}}</h4>
-                  <h4 class="text-truncate mb-1 font-weight-light university" v-else></h4>
-              </template>
-              
-              <div class="courses text-truncate">
-                  <span class="font-weight-bold mr-1" v-language:inner="'resultTutor_courses'"></span>
-                  <span class="text-truncate">{{courses}}</span>
+              <div class="price align-center">
+                  <div class="price_oneline">
+                      <template>
+                          <span v-if="isDiscount" class="price_oneline--count font-weight-bold">{{tutorData.discountPrice | currencyFormat(tutorData.currency)}}</span>
+                          <span v-else class="price_oneline--count font-weight-bold">{{tutorData.price | currencyFormat(tutorData.currency)}}</span>
+                          <span>/</span>
+                      </template>
+                      <span class="caption" v-language:inner="'resultTutor_hour'"></span>
+                  </div>
+                  <div class="striked ml-3" v-if="isDiscount">{{tutorData.price | currencyFormat(tutorData.currency)}}</div>
               </div>
+
+              <router-link class="applyCoupon" :to="{name: 'profile', params: {id: tutorData.userId, name:tutorData.name},  query: {coupon: true}}" v-language:inner="'resultTutor_apply_coupon'"></router-link>
+              
+              <!-- DO NOT REMOVE THIS WAITING SHIRAN -->
+              <!-- <div class="courses text-truncate">
+                  <div class="" v-language:inner="'resultTutor_courses'"></div>
+                  <div class="text-truncate">{{courses}}</div>
+              </div>  -->
+
+              <!-- <template>
+                <h4 class="text-truncate mb-1 university font-weight-light" v-if="isUniversity" v-html="$Ph('resultNote_university',[tutorData.university])"/>
+                <h4 class="text-truncate mb-1 university" v-else></h4>
+              </template>  -->
+
           </div>
       </div>
 
-      <div class="card-mobile-center" v-html="ellipsizeTextBox(tutorData.bio)">{{tutorData.bio}}</div>
+      <div class="card-mobile-center">{{tutorData.bio}}</div>
 
-      <div class="card-mobile-footer mt-2">
-          <v-btn class="btn-chat white--text text-truncate my-0" round block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
-                <iconChat class="chat-icon-btn"/>
-                <div class="font-weight-bold text-truncate" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
+      <!-- DO NOT REMOVE THIS WAITING SHIRAN -->
+      <div class="courses text-truncate" v-if="subjects">
+          <div class="courses-title font-weight-bold" v-language:inner="'resultTutor_study-area'"></div>
+          <div class="text-truncate">{{subjects}}</div>
+      </div> 
+      <div class="courses text-truncate" v-else>
+          <div class="courses-title font-weight-bold" v-language:inner="'resultTutor_courses'"></div>
+          <div class="text-truncate">{{courses}}</div>
+      </div> 
+
+
+      <div class="card-mobile-footer">
+          <v-btn class="btn-chat white--text text-truncate my-0" depressed rounded block color="#4452fc" @click.prevent.stop="sendMessage(tutorData)">
+                <iconChat class="chat_icon_btn" />
+                <div class="text-truncate text_icon_btn" v-html="$Ph('resultTutor_send_button', showFirstName)"></div>
           </v-btn>
-          <div class="price ml-4 align-center" >
-              <div class="striked" v-if="showStriked"> &#8362;{{tutorData.price}}</div>
-              <template>
-                <span v-if="showStriked" class="title font-weight-bold">&#8362;{{discountedPrice}}</span>
-                <span v-else class="title font-weight-bold">&#8362;{{tutorData.price}}</span>
-              </template>
-              <span class="caption" v-language:inner="'resultTutor_hour'"></span>
-          </div>
       </div>
 
   </router-link>
 </template>
 
 <script>
-import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
+import { mapActions, mapGetters } from "vuex";
+
 import { LanguageService } from "../../../../services/language/languageService.js";
 import chatService from '../../../../services/chatService';
-import utilitiesService from "../../../../services/utilities/utilitiesService";
 import analyticsService from "../../../../services/analytics.service";
-import { mapActions, mapGetters } from "vuex";
-import commentSVG from './commentSVG.svg';
-import iconChat from '../tutorResultCardOther/icon-chat.svg';
+
+import userRating from "../../../new_profile/profileHelpers/profileBio/bioParts/userRating.vue";
+import userAvatarRect from '../../../helpers/UserAvatar/UserAvatarRect.vue';
+
+import iconChat from '../icon-chat.svg';
 import star from '../stars-copy.svg';
 
 export default {
   name: "tutorCard",
   components: {
     userRating,
-    commentSVG,
+    userAvatarRect,
     iconChat,
     star
   },
-  data() {
-    return {
-      isLoaded: false,
-      minimumPrice: 55,
-      discountAmount: 70
-    };
-  },
   props: {
     tutorData: {},
-    isInTutorList: {
-      type: Boolean,
-      default: false
-    },
     fromLandingPage: {
       type: Boolean,
       default: false
     }
   },
   methods: {
-    ...mapActions(["updateRequestDialog",'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom','openChatInterface','setActiveConversationObj']),
+    ...mapActions(["updateRequestDialog", 'updateCurrTutor', 'setTutorRequestAnalyticsOpenedFrom', 'openChatInterface', 'setActiveConversationObj']),
 
-
-    loaded() {
-      this.isLoaded = true;
-    },
     tutorCardClicked() {
       if(this.fromLandingPage){
           analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_landing_page");
       }else{
           analyticsService.sb_unitedEvent("Tutor_Engagement", "tutor_page");
       }
-    },
-    onImageLoadError(event) {
-      event.target.src = "../../../images/placeholder-profile.png";
     },
     reviewsPlaceHolder(reviews) {
       return reviews === 0 ? reviews.toString() : reviews
@@ -117,6 +130,8 @@ export default {
             path: this.$route.path
           });
           this.updateRequestDialog(true);
+      } else if(user.isTutor && user.userId == this.accountUser.id) { // this is my profile
+          return
       } else {
           analyticsService.sb_unitedEvent('Tutor_Engagement', 'contact_BTN_profile_page', `userId:${this.accountUser.id}`);
           let conversationObj = {
@@ -127,61 +142,27 @@ export default {
           }
           let currentConversationObj = chatService.createActiveConversationObj(conversationObj)
           this.setActiveConversationObj(currentConversationObj);
-          let isMobile = this.$vuetify.breakpoint.smAndDown;
           this.openChatInterface();                    
       }
-    },
-    ellipsizeTextBox(text) {
-      let maxChars = 110;
-      let showBlock = text.length > maxChars;
-      let newText = showBlock ? text.slice(0, maxChars) + '...' : text;
-      let hideText = showBlock ? `<span style="display:none">${text.slice(maxChars)}</span>` : '';
-      return `${newText} ${hideText}`;
     }
   },
   computed: {
-    ...mapGetters(['accountUser', 'getActivateTutorDiscounts']),
-    userImageUrl() {
-      if (this.tutorData.image) {
-        let size = [67, 87];
-        return utilitiesService.proccessImageURL(
-          this.tutorData.image,
-          ...size,
-          "crop"
-        );
-      } else {
-        return "../../../images/placeholder-profile.png";
-      }
-    },
-    showStriked() {
-      if(!this.getActivateTutorDiscounts) return false;
-      let price = this.tutorData.price;
-      return price > this.minimumPrice;
-    },
-    discountedPrice() {
-      let price = this.tutorData.price;
-      let discountedAmount = price - this.discountAmount;
-      return discountedAmount > this.minimumPrice
-        ? discountedAmount.toFixed(0)
-        : this.minimumPrice;
-    },
+    ...mapGetters(['accountUser']),
+
     courses() {
       if (this.tutorData.courses) {
-        return `${this.tutorData.courses}`
+        return `${this.tutorData.courses.join(', ')}`
       }
       return '';
     },
-    isTutorData() {
-      return this.tutorData ? true : false;
-    },
-    isUserImage() {
-      return this.isTutorData && this.tutorData.image ? true : false;
+    subjects() {
+      if (this.tutorData.subjects) {
+        return this.tutorData.subjects.join(', ');
+      }
+      return '';
     },
     isUniversity() {
       return (this.tutorData && this.tutorData.university) ? true : false;
-    },
-    university() {
-      return this.tutorData.university;
     },
     showFirstName() {
       let maxChar = 5;
@@ -191,6 +172,9 @@ export default {
       }
       return name;
     },
+    isDiscount() {
+      return this.tutorData.discountPrice !== undefined;
+    }
   }
 };
 </script>
@@ -200,6 +184,7 @@ export default {
 @purple: #43425d;
 
 .tutor-result-card-mobile {
+    padding: 12px;
     border-radius: 4px;
     background: #fff;
     display: flex;
@@ -209,83 +194,103 @@ export default {
     }
     .card-mobile-header {
         display: flex;
-        .tutor-card-loader{
+        .card-mobile-header-content {
+          min-width: 0;
           display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .user-image{
-            border-radius: 4px;
-            width: 67px;
-            height: 95px;
+          flex-direction: column;
+          justify-content: space-between;
+          .card-mobile-tutor-name {
+            font-size: 14px;
+          }
         }
         .user-rate {
             display: inline-flex;
+            // margin-top: 6px;
             .reviews {
                 font-size: 12px;
-                font-weight: bold;
                 letter-spacing: normal;
                 color: #43425d;
             }
+            .icon-star {
+              width: 18px;
+            }
         }
         .courses {
-          .widthMinMax(200px);
+            font-size: 12px;
+            div {
+              display: inline;
+            }
         }
         .university {
-          line-height: 30px;
-          .heightMinMax(23px);
-        }
-    }
-    .card-mobile-center {
-      margin-bottom: 20px;
-      .giveEllipsisUpdated(14px, 1.38, 2, 90px);
-      // .heightMinMax(34px);
-      .read-more {
-        position: absolute;
-        bottom: 68px;
-        color: #4452fc;
-      }
-    }
+          font-size: 12px;
 
-    .card-mobile-footer {
-        display: inherit;
-        .btn-chat {
-          .v-btn__content{
-            .chat-icon-btn{
-              position: absolute;
-              top: 0;
-              left: 10px;
-            }
-          }
-          position: relative;
-          .widthMinMax(220px);
-          text-transform: inherit;
-          border-radius: 7.5px;
-          div {
-            div {
-              padding-left: 10px;
-            }
+          &.no-field {
+            .heightMinMax(16px);
           }
         }
         .price {
-          align-self: flex-end;
-          .striked {
-              max-width: max-content;
-              position: relative;
-              color: @colorBlackNew;
-              font-size: 14px;
-              font-weight: normal;
-              &:after {
-                  content: "";
-                  width: 100%;
-                  border-bottom: solid 1px @colorBlackNew;
-                  position: absolute;
-                  left: 0;
-                  top: 50%;
-                  z-index: 1;
-              }
+          display: flex;
+          align-items: flex-end;
+          flex: .5;
+          // margin: 4px 0 1px 0;
+          .price_oneline {
+            display: flex;
+            align-items: baseline;
+            color: #5158af;
+
+            &--count {
+              font-size: 20px;
+            }
           }
+          .striked {
+                margin: 0 0 0 auto;
+                max-width: max-content;
+                color: #a0a4be;
+                font-size: 14px;
+                text-decoration: line-through;
+            }
        }
+       .applyCoupon {
+          color: #4c59ff;
+          font-weight: 600;
+          font-size: 12px;
+          // margin-top: 6px;
+        }
+    }
+    .card-mobile-center {
+      margin: 10px 0;
+      .giveMeEllipsis(2,20px);
+    }
+    .card-mobile-footer {
+        display: inherit;
+        .btn-chat {
+          position: unset;
+          font-weight: 600;
+          &:before{
+            position:unset;
+          }
+          .v-btn__content{
+            .chat_icon_btn{
+              align-self: flex-end;
+            }
+            :last-child {
+              margin-bottom: 2px;
+            }
+          }
+          text-transform: inherit;
+          border-radius: 7.5px;
+          .text_icon_btn {
+            padding-left: 10px;
+          }
+        }
+    }
+    .courses {
+      display: flex;
+      font-size: 12px;
+      margin-bottom: 10px;
+      &-title {
+        margin-right: 4px;
+      }
     }
 }
 </style>

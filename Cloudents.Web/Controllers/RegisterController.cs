@@ -1,10 +1,10 @@
-﻿using Cloudents.Web.Models;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Web.Models;
 using Cloudents.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
 
 namespace Cloudents.Web.Controllers
 {
@@ -25,53 +25,74 @@ namespace Cloudents.Web.Controllers
         internal const string Signin = "SignIn";
 
         // GET
-        [Route("register", Name = RegisterRouteName)]
-        [Route("signin", Name = Signin)]
-        public async Task<IActionResult> Index(NextStep? step, CancellationToken token)
+        
+        [Route("register/{page?}", Name = RegisterRouteName)]
+        [Route("signin/{page?}", Name = Signin)]
+
+
+        public async Task<IActionResult> IndexAsync(string page, CancellationToken token)
         {
 
+            // return View("Index");
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    return Redirect("/feed");
+            //}
 
-            if (User.Identity.IsAuthenticated)
+
+
+            var step = RegistrationStep.GetStepByUrl(page);
+            if (step is null)
             {
-                return Redirect("/");
+                return View("Index");
+
             }
 
-            if (!step.HasValue) return View();
-            switch (step.Value)
+            if (step.Equals(RegistrationStep.RegisterEmailConfirmed))
             {
-                case NextStep.EmailConfirmed:
-                    var val = TempData.Peek(Api.RegisterController.Email);
-                    if (val == null)
-                    {
-                        return RedirectToRoute(RegisterRouteName);
-                    }
-                    break;
-                case NextStep.VerifyPhone:
-                    var userVerified = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-                    if (userVerified == null)
-                    {
-                        return RedirectToRoute(RegisterRouteName);
-                    }
-
-                    
-
-                    break;
-                case NextStep.EnterPhone:
-                    var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-                    if (user == null)
-                    {
-                        return RedirectToRoute(RegisterRouteName);
-                    }
-
-                    if (user.PhoneNumber != null && !user.PhoneNumberConfirmed)
-                    {
-                        await _client.SendSmsAsync(user, token);
-                        return RedirectToRoute(RegisterRouteName, new { step = NextStep.VerifyPhone });
-                    }
-
-                    break;
+                var val = TempData.Peek(Api.RegisterController.Email);
+                if (val is null)
+                {
+                    return RedirectToRouteWithoutStep();
+                }
             }
-            return View();
+
+            if (step.Equals(RegistrationStep.RegisterVerifyPhone))
+            {
+                var userVerified = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+                if (userVerified is null)
+                {
+                    return RedirectToRouteWithoutStep();
+                }
+            }
+
+            if (step.Equals(RegistrationStep.RegisterSetPhone))
+            {
+                var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+                if (user is null)
+                {
+                    return RedirectToRouteWithoutStep();
+                }
+
+                if (user.PhoneNumber != null && !user.PhoneNumberConfirmed)
+                {
+                    await _client.SendSmsAsync(user, token);
+                    return RedirectToRoute(RegisterRouteName, new
+                    {
+                        page = RegistrationStep.RegisterVerifyPhone.RoutePath
+                    });
+                }
+            }
+
+            return View("Index");
+        }
+
+        private IActionResult RedirectToRouteWithoutStep()
+        {
+            return RedirectToRoute(RegisterRouteName, new
+            {
+                page = (string) null
+            });
         }
     }
 }

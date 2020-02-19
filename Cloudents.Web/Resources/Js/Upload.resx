@@ -117,115 +117,82 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="multiple_error_extensions_support" xml:space="preserve">
-    <value>supported files:</value>
-  </data>
   <data name="multiple_error_extension_title" xml:space="preserve">
-    <value>Oops! this file type is not supported</value>
+    <value>This file type is not supported</value>
   </data>
   <data name="multiple_error_upload_something_wrong" xml:space="preserve">
-    <value>Something went wrong, please try again</value>
-  </data>
-  <data name="multiple_files_btn_desktop" xml:space="preserve">
-    <value>Computer</value>
-  </data>
-  <data name="multiple_files_btn_dropBox" xml:space="preserve">
-    <value>Dropbox</value>
-  </data>
-  <data name="multiple_files_btn_phone" xml:space="preserve">
-    <value>Your Phone</value>
-  </data>
-  <data name="multiple_files_header_title" xml:space="preserve">
-    <value>Upload Files</value>
-  </data>
-  <data name="multiple_confirm_btn_cancel" xml:space="preserve">
-    <value>Resume</value>
-  </data>
-  <data name="multiple_confirm_btn_close" xml:space="preserve">
-    <value>Stop upload</value>
-  </data>
-  <data name="multiple_confirm_stop_title" xml:space="preserve">
-    <value>Stop Uploading</value>
-  </data>
-  <data name="multiple_confirm_text" xml:space="preserve">
-    <value>Are you sure you want to end the uploading process?</value>
-  </data>
-  <data name="multiple_files_type_default" xml:space="preserve">
-    <value>Document</value>
-  </data>
-  <data name="multiple_files_dopHere" xml:space="preserve">
-    <value>Drag &amp; Drop Files Here</value>
-  </data>
-  <data name="multiple_keywords_optional" xml:space="preserve">
-    <value>Keywords</value>
-  </data>
-  <data name="multiple_or_browse_label" xml:space="preserve">
-    <value>Or Browse</value>
-  </data>
-  <data name="multiple_placeholder_doctype_all" xml:space="preserve">
-    <value>Set document type to all</value>
-  </data>
-  <data name="multiple_placeholder_setAll" xml:space="preserve">
-    <value>Set price to all 0.00</value>
-  </data>
-  <data name="multiple_price_placeholder" xml:space="preserve">
-    <value>price 0.00 Points</value>
-  </data>
-  <data name="multiple_professor_placeholder" xml:space="preserve">
-    <value>Professor Name</value>
-  </data>
-  <data name="multiple_selected_class_label" xml:space="preserve">
-    <value>Class</value>
-  </data>
-  <data name="multiple_select_filetype" xml:space="preserve">
-    <value>Tag Document</value>
-  </data>
-  <data name="multiple_btn_upload" xml:space="preserve">
-    <value>Upload</value>
-  </data>
-  <data name="multiple_label_icon_text" xml:space="preserve">
-    <value>Upload</value>
-  </data>
-  <data name="multiple_or_browse_label_mobile" xml:space="preserve">
-    <value>Browse</value>
+    <value>File is not supported</value>
   </data>
   <data name="files_file_upload" xml:space="preserve">
     <value>Upload a file</value>
   </data>
-  <data name="multiple_files_referral_title" xml:space="preserve">
-    <value>Thanks for uploading your documents!</value>
-  </data>
   <data name="CreateOk" xml:space="preserve">
     <value>Your file was uploaded successfully! You will be able to view shortly.</value>
-  </data>
-  <data name="CreatePending" xml:space="preserve">
-    <value>Your document is pending approval, please do not resubmit this document</value>
-  </data>
-  <data name="multiple_help_and_make" xml:space="preserve">
-    <value>You're on a roll, now help your classmates (and earn points) by sharing the link to this file.</value>
-  </data>
-  <data name="multiple_error_upload_single_file" xml:space="preserve">
-    <value>This file will not be uploaded</value>
   </data>
   <data name="multiple_select_course_placeholder" xml:space="preserve">
     <value>Please select course</value>
   </data>
-  <data name="multiple_bnt_apply" xml:space="preserve">
-    <value>Apply</value>
-  </data>
   <data name="multiple_fileName_placeholder" xml:space="preserve">
     <value>File name</value>
   </data>
-  <data name="multiple_btn_uploading" xml:space="preserve">
-    <value>Uploading...</value>
+  <data name="uf_mTitle" xml:space="preserve">
+    <value>Upload files</value>
   </data>
-  <data name="multiple_legal_text" xml:space="preserve">
-    <value>By uploading this content you agree to Spitball's terms and conditions</value>
+  <data name="uf_sDrop_btn_dropbox" xml:space="preserve">
+    <value>Dropbox</value>
   </data>
-  <data name="multiple_legal one" xml:space="preserve">
-    <value>By uploading this content you agree to Spitball's</value>
+  <data name="uf_sDrop_btn_local" xml:space="preserve">
+    <value>My computer</value>
   </data>
-  <data name="multiple_legal two_terms_conditions" xml:space="preserve">
-    <value>terms and conditions</value>
+  <data name="uf_sDrop_drop" xml:space="preserve">
+    <value>Drop files here</value>
+  </data>
+  <data name="uf_sDrop_or" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="uf_sDrop_title" xml:space="preserve">
+    <value>Drop files to instantly upload them to spitball</value>
+  </data>
+  <data name="uf_sEdit_items_error" xml:space="preserve">
+    <value>In order to upload files please remove or replace file that is not supported</value>
+  </data>
+  <data name="uf_sEdit_terms_by" xml:space="preserve">
+    <value>By uploading this materials you agree to</value>
+  </data>
+  <data name="uf_sEdit_terms_link" xml:space="preserve">
+    <value>spitball’s terms and conditions</value>
+  </data>
+  <data name="uf_sEdit_top_btn" xml:space="preserve">
+    <value>Apply to all</value>
+  </data>
+  <data name="ufItem_error_btn" xml:space="preserve">
+    <value>Replace file</value>
+  </data>
+  <data name="ufItem_error_remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="uf_course_name" xml:space="preserve">
+    <value>Course name</value>
+  </data>
+  <data name="uf_desc" xml:space="preserve">
+    <value>Write a few words to describe the file</value>
+  </data>
+  <data name="uf_price" xml:space="preserve">
+    <value>Price (in Points)</value>
+  </data>
+  <data name="uf_sEdit_bottm_btn" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="uf_price_pts" xml:space="preserve">
+    <value>Pts</value>
+  </data>
+  <data name="uf_sDrop_btn_local_mobile" xml:space="preserve">
+    <value>My Phone</value>
+  </data>
+  <data name="uf-take-time" xml:space="preserve">
+    <value>it may take a few minutes</value>
+  </data>
+  <data name="uf-uploading" xml:space="preserve">
+    <value>Uploading file(s). Please wait</value>
   </data>
 </root>

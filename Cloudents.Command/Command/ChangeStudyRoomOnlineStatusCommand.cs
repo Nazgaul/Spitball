@@ -14,5 +14,7 @@ namespace Cloudents.Command.Command
         public long UserId { get; }
         public bool Status { get; }
         public Guid StudyRoomId { get; }
+
+
     }
 }

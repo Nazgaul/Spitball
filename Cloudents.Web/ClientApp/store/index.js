@@ -2,71 +2,84 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import Search from "./search";
 import User from "./User";
 import Question from "./question";
-import LuisData from "./luisData";
 import Account from "./account";
 import Toaster from "./Toaster";
-import MarketingCampaign from './marketingCampaigns'
 import loginDialog from './loginDialog'
 import newQuestionDialog from './newQuestionDialog'
-// import document from './document';
 import uploadFiles from  "./uploadFiles";
 import University from "./university";
-// import homeLanding from "./homeLanding"
-// import homeworkHelpStore from './homeworkHelp_store';
-// import studyDocumentsStore from './studyDocuments_store';
-// import tutorsStore from './tutors_store';
-import marketingBox from './marketingBox'
-//import leaderBoard from './leaderBoard'
 import mobileFooter from './mobileFooter';
-//import onBoardGuide from './onBoardGuide';
 import buyTokens from './buyTokens';
 import chatStore from './chatStore';
 import becomeTutor from './becomeTutor';
-import studyRoomsStore from './studyRoomsStore';
-import tutorList from './tutorList';
 import userOnlineStatus from './userOnlineStatus';
 import leaveReview from './leaveReview';
 import requestTutor from './requestTutor';
 import signalRStore from './signalRStore';
-// import studyRoomStore from './studyRoomStore/index';
-// import loginRegister from './loginRegister';
 import routeStore from './routeStore';
 import calendarStore from './calendarStore'
 import gapiStore from './gapiStore';
 import paymetStore from './paymetStore.js'
+import homePage_store from './homePage_store.js'
+import sideMenu_Store from './sideMenu_Store'
+import dialog_Store from './dialogStore/dialog_Store.js'
+import utils_Store from './utils_Store'
+import banner_Store from './banner_Store.js'
+import dashboard_Store from './dashboard_Store.js'
+import feed from './feedStore.js'
+import profile from './profile.js';
+
+
+
+// const onModuleAValueChange= (store) => {
+//     store.watch(
+//         state => state.route,
+//         (val, oldVal) => {
+//             // Don't do anything on init state
+//             if (!oldVal) return;
+// console.log(val,oldVal);
+//             // // This will trigger all refresh actions on all store. But you can add anything here
+//             // // Essentially does: 
+//             // // store.dispatch(`moduleA/refresh`); 
+//             // // store.dispatch(`moduleB/refresh`); 
+//             // // store.dispatch(`moduleC/refresh`);
+//             // for (let state in store.state) {
+//             //     const action = `${state}/refresh`;
+//             //     // If the store does not have an refresh action ignore
+//             //     if (store._actions[action]) store.dispatch(`${state}/refresh`);
+//             // }
+
+//             // // Additional action 
+//             // store.dispatch(`moduleC/moduleC_Action`);
+//         }
+//     );
+// };
 
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
     modules: {
-        Search,
         User,
-        LuisData,
         Account,
         Question,
         Toaster,
-        MarketingCampaign,
         loginDialog,
         newQuestionDialog,
         University,
         uploadFiles,
+        feed,
         // document,
         // homeLanding,
         // homeworkHelpStore,
         // studyDocumentsStore,
-        // tutorsStore,
-        marketingBox,
         //leaderBoard,
         mobileFooter,
         //onBoardGuide,
         buyTokens,
         chatStore,
         becomeTutor,
-        studyRoomsStore,
-        tutorList,
         leaveReview,
         userOnlineStatus,
         requestTutor,
@@ -76,8 +89,16 @@ const store = new Vuex.Store({
         routeStore,
         calendarStore,
         gapiStore,
-        paymetStore
-    }
+        paymetStore,
+        homePage_store,
+        sideMenu_Store,
+        dialog_Store,
+        utils_Store,
+        banner_Store,
+        dashboard_Store,
+        profile,
+    },
+   // plugins: [onModuleAValueChange]
 });
 
 export default store;

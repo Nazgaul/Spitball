@@ -3,12 +3,15 @@
         <v-layout column class="messages-wrapper">
 
             <div class="messages-header">
-                <div class="messages-study-room" :class="{'join-room': studyRoomExists || isStudyRoom, 'create-room': !studyRoomExists && isRoomTutor}" v-if="showStudyRoomInteraction || isStudyRoom" @click="createRoom">
+                <div class="messages-study-room" :class="{'join-room': studyRoomExists || isStudyRoom, 'create-room': !studyRoomExists && isRoomTutor}" v-if="!isRouteStudyRoom && showStudyRoomInteraction || isStudyRoom" @click="createRoom">
                     <button v-if="studyRoomExists || isStudyRoom">
-                        <v-icon style="font-size:16px; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
+                        <v-icon style="font-size:16px !important; color:#fff; margin: 0 8px 0 0;">sbf-enter-icon</v-icon>&nbsp;
                         <span v-language:inner="'chat_studyRoom_enter'"></span>
                     </button>
-                    <v-btn flat class="white--text messages-study-room-btn-create" v-if="!studyRoomExists && isRoomTutor" :loading="loader">
+
+                    <v-btn v-if="(!studyRoomExists && isRoomTutor) && !isStudyRoom " 
+                           text class="white--text messages-study-room-btn-create" 
+                           :loading="loader">
                         <add-circle />&nbsp;&nbsp;&nbsp;<span v-language:inner="'chat_studyRoom_create'"></span>
                     </v-btn>
                 </div>
@@ -43,23 +46,19 @@
 <script>
 import message from "./messageComponents/message.vue"
 import chatUploadFile from './messageComponents/chatUploadFile.vue';
-
-import UserAvatar from '../../helpers/UserAvatar/UserAvatar.vue';
-import userOnlineStatus from '../../helpers/userOnlineStatus/userOnlineStatus.vue';
-
 import {mapGetters, mapActions} from 'vuex';
 import { LanguageService } from '../../../services/language/languageService';
-import chatService from '../../../services/chatService';
+
 import addCircle from '../images/add-circle-outline.svg';
+
+import analyticsService from '../../../services/analytics.service';
 
 
 export default {
     components:{
         message,
         addCircle,
-        UserAvatar,
         chatUploadFile,
-        userOnlineStatus
     },
     data(){
         return{
@@ -90,18 +89,23 @@ export default {
             if(this.activeConversationObj && this.activeConversationObj.studyRoomId){
                 return this.activeConversationObj.studyRoomId.length > 1
             }
+            return false
         },
         showStudyRoomInteraction(){
             return this.messages &&  this.messages.length > 0;
         },
         isRoomTutor(){
-            return this.isTutor && this.messages &&  this.messages.length > 0 && this.messages[0].userId !== this.accountUser.id;
+            return this.isTutor && this.messages &&  this.messages.length > 0 && this.messages[0].userId !== this.accountUser.id && !this.messages[0].isDummy;
         },
         typing() {
             return !!this.messageText;
         },
         isStudyRoom(){
             return this.getshowStudentStudyRoom
+        },
+        isRouteStudyRoom() {
+            let route = this.$route;
+            return (route.name === 'tutoring' || route.name === 'roomSettings') && route.params?.id;
         }
     },
     methods:{
@@ -123,21 +127,30 @@ export default {
                 }
             })
         },
-        createRoom(){
+        createRoom(){         
+            if((this.$route && this.$route.params && this.$route.params.id) &&
+                (!!this.activeConversationObj && this.activeConversationObj.studyRoomId)){
+                let paramId = this.$route.params.id;
+                let studyRoomId = this.activeConversationObj.studyRoomId
+                if(paramId == studyRoomId) return;
+            }
+            
             let conversationObj = this.activeConversationObj;
             this.loader = true;
             if(!!this.activeConversationObj.studyRoomId){
                 let routeData = this.$router.resolve({
-                    name: 'tutoring',
+                    name: 'roomSettings',
                     params: {
                         id: this.activeConversationObj.studyRoomId
                     }
                 });
-                global.open(routeData.href, '_blank');
+                global.open(routeData.href, '_self');
+                // this.$router.push(routeData.href);
             }else{
                 if(!this.alreadyCreated){
                     let userId = conversationObj.userId;
                     this.createStudyRoom(userId).then(() => {
+                      analyticsService.sb_unitedEvent('study_room', 'created', `tutorName: ${this.accountUser.name} tutorId: ${this.accountUser.id}`);
                       this.loader = false
                     });
                     this.alreadyCreated = true;
@@ -149,7 +162,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../../styles/mixin.less";
+    @import "../../../styles/mixin.less";
     .messages-container{
         width: 100%;
         height: 100%;
@@ -254,6 +267,7 @@ export default {
                     i { 
                         //Do not put it last because then the remark are gone
                         transform: rotateY(0deg)/*rtl:rotateY(180deg)*/; 
+                        /*rtl:append:transform: rotateY(180deg);*/;
                         color: #FFF;
                         font-size: 12px;
                         background-color: @global-blue;
@@ -261,7 +275,6 @@ export default {
                         border-radius: 70%;
                         width: 30px;
                         height: 30px;
-                        /*rtl:append:transform: rotateY(180deg);*/;
                     }
                 }
                 &.messages-input-disabled{

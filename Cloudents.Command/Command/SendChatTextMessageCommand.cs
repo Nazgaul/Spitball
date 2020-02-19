@@ -14,7 +14,7 @@
         {
             Message = message;
             UserSendingId = userSendingId;
-            ToUsersId =  toUsersId ;
+            ToUsersId = toUsersId;
         }
 
         // public Guid? ChatRoomId { get;  }

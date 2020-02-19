@@ -117,15 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DownVoteError" xml:space="preserve">
-    <value>Oops you can't downvote yet, unlock downvoting from 250 Points</value>
-    <comment>TODO: Vote should be parameter</comment>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>The {0} field is not a valid e-mail address.</value>
+    <comment>{0} - field name</comment>
   </data>
   <data name="Spitball" xml:space="preserve">
     <value>Spitball2</value>
-  </data>
-  <data name="UpVoteError" xml:space="preserve">
-    <value>Oops you can't upvote yet, unlock upvoting from 200 Points</value>
-    <comment>TODO: Vote should be parameter</comment>
   </data>
 </root>

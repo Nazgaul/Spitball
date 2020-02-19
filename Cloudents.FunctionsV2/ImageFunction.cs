@@ -1,5 +1,6 @@
 using Cloudents.Core;
 using Cloudents.Core.DTOs;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
 using Cloudents.FunctionsV2.Di;
@@ -9,134 +10,130 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
+using SixLabors.Shapes;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
-using static Cloudents.Core.TimeConst;
+using Path = System.IO.Path;
 
 namespace Cloudents.FunctionsV2
 {
     public static class ImageFunction
     {
-        private static readonly Dictionary<string, ImageExtensionConvert> Extension;
-        static ImageFunction()
-        {
-            Extension = GetContainers().SelectMany(s => s.FileExtension, (convert, s) => new { convert, s })
-                .ToDictionary(x => x.s, y => y.convert);
-        }
-
-        private static IEnumerable<ImageExtensionConvert> GetContainers()
-        {
-            // return Enum.GetValues(typeof(StorageContainer)).Cast<StorageContainer>();
-            foreach (var field in typeof(ImageExtensionConvert).GetFields(BindingFlags.Public | BindingFlags.Static))
-            {
-                if (field.IsLiteral)
-                {
-                    continue;
-                }
-                yield return (ImageExtensionConvert)field.GetValue(null);
-            }
-        }
-
-
-
-        [SuppressMessage("ReSharper", "UnusedMember.Local", Justification = "Using reflection")]
-        private class ImageExtensionConvert
-        {
-            protected bool Equals(ImageExtensionConvert other)
-            {
-                return string.Equals(Name, other.Name, StringComparison.OrdinalIgnoreCase);
-            }
-
-            public override bool Equals(object obj)
-            {
-                if (ReferenceEquals(null, obj)) return false;
-                if (ReferenceEquals(this, obj)) return true;
-                if (obj.GetType() != GetType()) return false;
-                return Equals((ImageExtensionConvert)obj);
-            }
-
-            public override int GetHashCode()
-            {
-                return StringComparer.OrdinalIgnoreCase.GetHashCode(Name);
-            }
-
-            public static bool operator ==(ImageExtensionConvert left, ImageExtensionConvert right)
-            {
-                return Equals(left, right);
-            }
-
-            public static bool operator !=(ImageExtensionConvert left, ImageExtensionConvert right)
-            {
-                return !Equals(left, right);
-            }
-
-            public string DefaultThumbnail { get; }
-            public string Name { get; }
-
-            public string[] FileExtension { get; }
-
-            private ImageExtensionConvert(string defaultThumbnail, string[] extension, string name)
-            {
-                DefaultThumbnail = defaultThumbnail;
-                FileExtension = extension;
-                Name = name;
-            }
-
-            public static ImageExtensionConvert Text = new ImageExtensionConvert("Icons_720_txt.png", FormatDocumentExtensions.Text, nameof(Text));
-            public static ImageExtensionConvert Excel = new ImageExtensionConvert("Icons_720_excel.png", FormatDocumentExtensions.Excel, nameof(Excel));
-            public static ImageExtensionConvert Image = new ImageExtensionConvert("Icons_720_image.png", FormatDocumentExtensions.Image, nameof(Image));
-            public static ImageExtensionConvert Pdf = new ImageExtensionConvert("Icons_720_pdf.png", FormatDocumentExtensions.Pdf, nameof(Pdf));
-            public static ImageExtensionConvert PowerPoint = new ImageExtensionConvert("Icons_720_power.png", FormatDocumentExtensions.PowerPoint, nameof(PowerPoint));
-            public static ImageExtensionConvert Tiff = new ImageExtensionConvert("Icons_720_image.png", FormatDocumentExtensions.Tiff, nameof(Tiff));
-            public static ImageExtensionConvert Word = new ImageExtensionConvert("Icons_720_doc.png", FormatDocumentExtensions.Word, nameof(Word));
-        }
-
         [FunctionName("ImageFunctionUser")]
         public static async Task<IActionResult> RunUserImageAsync(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image/user/{id}/{file}")]
-            HttpRequest req, long id,string file,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = UrlConst.ImageFunctionUserRoute)]
+            HttpRequest req, long id, string file,
             [Blob("spitball-user/profile/{id}/{file}")]CloudBlockBlob blob,
             Microsoft.Extensions.Logging.ILogger logger
         )
         {
+            var regex = new Regex(@"[\d]*[.]\D{3,4}");
+            var isBlob = regex.IsMatch(file);
             var mutation = ImageMutation.FromQueryString(req.Query);
+            if (isBlob)
+            {
+                try
+                {
+
+                    mutation.CenterCords = await GetCenterCordsFromBlob(blob);
+                    await using var sr = await blob.OpenReadAsync();
+                    var image = ProcessImage(sr, mutation);
+                    return new ImageResult(image, TimeSpan.FromDays(365));
+                }
+                catch (ImageFormatException ex)
+                {
+                    logger.LogError(ex, $"id: {id} file {file}");
+                    return new RedirectResult(blob.Uri.AbsoluteUri);
+                }
+                catch (StorageException e)
+                {
+                    if (e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.NotFound)
+                    {
+                        return GenerateImageFromName();
+                    }
+
+                    throw;
+                }
+            }
+
+            return GenerateImageFromName();
+
+            IActionResult GenerateImageFromName()
+            {
+                var image = GenerateImageFromText(file, new Size(mutation.Width, mutation.Height));
+                return new ImageResult(image, TimeSpan.FromDays(30));
+
+
+            }
+        }
+
+
+        [FunctionName("ImageFunctionDocument")]
+        public static async Task<IActionResult> RunDocumentImageAsync(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = UrlConst.ImageFunctionDocumentRoute)]
+            HttpRequest req, long id,
+            IBinder binder,
+            //collector search duplicate so i added some search 3 to solve this
+            [Queue("generate-blob-preview")] IAsyncCollector<string> collectorSearch3,
+            Microsoft.Extensions.Logging.ILogger logger,
+            [Blob("spitball-files/files/{id}/preview-0.jpg")]CloudBlockBlob blob,
+            CancellationToken token)
+        {
+            var mutation = ImageMutation.FromQueryString(req.Query);
+
             try
             {
-                using (var sr = await blob.OpenReadAsync())
-                {
-                    return ProcessImage(sr, mutation);
-                }
+                await using var sr = await blob.OpenReadAsync();
+                var image = ProcessImage(sr, mutation);
+                return new ImageResult(image, TimeSpan.FromDays(365));
             }
             catch (ImageFormatException ex)
             {
-                logger.LogError(ex, $"id: {id} file {file}");
+                logger.LogError(ex, id.ToString());
                 return new RedirectResult(blob.Uri.AbsoluteUri);
             }
             catch (StorageException e)
             {
-                if (e.RequestInformation.HttpStatusCode == (int) HttpStatusCode.NotFound)
+                if (e.RequestInformation.HttpStatusCode != (int)HttpStatusCode.NotFound) throw;
+                var t1 = collectorSearch3.AddAsync(id.ToString(), token);
+
+
+                var directoryBlobs = await
+                    binder.BindAsync<IEnumerable<ICloudBlob>>(new BlobAttribute($"spitball-files/files/{id}"), token);
+                var blobPath = "spitball-user/DefaultThumbnail/doc-preview-empty.png";
+                var fileBlob = directoryBlobs.FirstOrDefault(f => f.Name.Contains("/file-"));
+                var blobExtension = Path.GetExtension(fileBlob?.Name)?.ToLower();
+
+                if (blobExtension != null && FileTypesExtensions.FileExtensionsMapping.TryGetValue(blobExtension, out var val))
                 {
-                    return new NotFoundResult();
+                    blobPath = $"spitball-user/DefaultThumbnail/{val.DefaultThumbnail}";
+
                 }
 
-                throw;
+                var t2 = binder.BindAsync<Stream>(new BlobAttribute(blobPath, FileAccess.Read),
+                    token);
+                await Task.WhenAll(t1, t2);
+                using (t2.Result)
+                {
+                    var image = ProcessImage(t2.Result, mutation);
+                    return new ImageResult(image, TimeSpan.Zero);
+                }
             }
         }
-
 
         [FunctionName("ImageFunction")]
         public static async Task<IActionResult> Run(
@@ -164,25 +161,28 @@ namespace Cloudents.FunctionsV2
             var blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(properties.Path, FileAccess.Read),
                 token);
 
-            var path = Path.GetExtension(blob.Name)?.ToLower();
-            if (path != null && Extension.TryGetValue(path, out var val))
+            var blobExtension = Path.GetExtension(blob.Name)?.ToLower();
+            if (blobExtension != null && FileTypesExtensions.FileExtensionsMapping.TryGetValue(blobExtension, out var val))
             {
-                if (val != ImageExtensionConvert.Image)
+                //This is for chat
+                //if (blob.Container.Name == StorageContainer.Chat.Name && )
+                if (val.DefaultThumbnail != FileTypesExtension.Image.DefaultThumbnail)
                 {
                     var blobPath = $"spitball-user/DefaultThumbnail/{val.DefaultThumbnail}";
                     blob = await binder.BindAsync<CloudBlockBlob>(new BlobAttribute(blobPath, FileAccess.Read),
                         token);
-                    //mode = ResizeMode.BoxPad;
                 }
             }
 
             mutation.BlurEffect = properties.Blur.GetValueOrDefault();
-            //var mutation = new ImageMutation(width,height,mode,properties.Blur.GetValueOrDefault());
             try
             {
+
                 using (var sr = await blob.OpenReadAsync())
                 {
-                    return ProcessImage(sr, mutation);
+                    mutation.CenterCords = await GetCenterCordsFromBlob(blob);
+                    var image = ProcessImage(sr, mutation);
+                    return new ImageResult(image, TimeSpan.FromDays(365));
                 }
             }
             catch (ImageFormatException ex)
@@ -204,7 +204,8 @@ namespace Cloudents.FunctionsV2
                     await Task.WhenAll(t1, t2);
                     using (t2.Result)
                     {
-                        return ProcessImage(t2.Result, mutation);
+                        var image = ProcessImage(t2.Result, mutation);
+                        return new ImageResult(image, TimeSpan.Zero);
                     }
 
 
@@ -214,25 +215,69 @@ namespace Cloudents.FunctionsV2
             }
         }
 
-        private static IActionResult ProcessImage(Stream sr, ImageMutation mutation)
+
+        private static async Task<float[]> GetCenterCordsFromBlob(CloudBlob blob)
         {
-            var image = Image.Load<Rgba32>(sr);
-            image.Mutate(x => x.AutoOrient());
-            image.Mutate(x => x.Resize(new ResizeOptions()
+            await blob.FetchAttributesAsync();
+            if (blob.Metadata.TryGetValue("face", out var faceStr))
+
             {
-                Mode = mutation.Mode,
-                Size = new Size(mutation.Width, mutation.Height),
-                Position = mutation.Position
-            }));
+                var arr = faceStr.Split(',').Select(s =>
+                    new { valid = int.TryParse(s, out var v), result = v })
+                    .Where(w => w.valid)
+                    .ToArray();
+
+                if (arr.Length != 2)
+                {
+                    return null;
+                }
+                return new float[] { arr[0].result, arr[1].result };
+                //mutation.CenterCords = new float[] { arr[0].result, arr[1].result };
+            }
+            return null;
+
+
+
+            //if (blob.Metadata.TryGetValue("face-top", out var faceTopStr) &&
+            //    int.TryParse(faceTopStr, out var faceTop))
+            //{
+            //    centerPoint.Y = faceTop;
+            //}
+
+            //if (!centerPoint.IsEmpty)
+            //{
+            //    mutation.CenterCords = new float[] { centerPoint.X, centerPoint.Y };
+            //}
+        }
+
+        private static Image ProcessImage(Stream input, ImageMutation mutation)
+        {
+            var image = Image.Load<Rgba32>(input);
+            image.Mutate(x => x.AutoOrient());
+
+            image.Mutate(x =>
+            {
+                var v = new ResizeOptions()
+                {
+                    Mode = mutation.Mode,
+                    Size = new Size(mutation.Width, mutation.Height),
+                    Position = mutation.Position,
+
+                };
+                if (mutation.CenterCords?.Length == 2)
+                    v.CenterCoordinates = new[]
+                        {mutation.CenterCords[0] / image.Width, mutation.CenterCords[1] / image.Height};
+                x.Resize(v);
+            });
+
             image.Mutate(x => x.BackgroundColor(Rgba32.White));
             switch (mutation.BlurEffect)
             {
                 case ImageProperties.BlurEffect.None:
                     break;
                 case ImageProperties.BlurEffect.Part:
-                    //image.Mutate(x => x.BoxBlur(5));
-
-                    image.Mutate(x => x.BoxBlur(5, new Rectangle(0, mutation.Height / 2, mutation.Width, mutation.Height / 2)));
+                    image.Mutate(x => x.BoxBlur(5,
+                        new Rectangle(0, mutation.Height / 2, mutation.Width, mutation.Height / 2)));
                     break;
                 case ImageProperties.BlurEffect.All:
                     image.Mutate(x => x.BoxBlur(5));
@@ -241,15 +286,66 @@ namespace Cloudents.FunctionsV2
                     throw new ArgumentOutOfRangeException();
             }
 
-           //
-            return new FileCallbackResult("image/jpg", (stream, context) =>
+            return image;
+
+        }
+
+        private static readonly Rgba32[] Colors = {
+            Rgba32.FromHex("64A9F8"),
+            Rgba32.FromHex("ff9853"),
+            Rgba32.FromHex("e775ce"),
+            Rgba32.FromHex("10b2c1"),
+            Rgba32.FromHex("848fa6"),
+            Rgba32.FromHex("f36f6e"),
+            Rgba32.FromHex("f76446"),
+            Rgba32.FromHex("73b435"),
+            Rgba32.FromHex("a55fff"),
+            Rgba32.FromHex("a27c22"),
+            Rgba32.FromHex("4faf61"),
+        };
+
+        private static string GetTwoLetters(string text)
+        {
+            var output = text.Truncate(2);
+            if (RegEx.RtlLetters.IsMatch(output))
             {
-                context.HttpContext.Response.Headers.Add("Cache-Control",
-                    $"public, max-age={Year}, s-max-age={Year}");
-                image.SaveAsJpeg(stream);
-                image?.Dispose();
-                return Task.CompletedTask;
-            });
+                return new string(output.Reverse().ToArray());
+            }
+
+            return output;
+        }
+
+        private static Image GenerateImageFromText(string text, Size targetSize)
+        {
+            var fam = SystemFonts.Find("Arial");
+            var font = new Font(fam, 100); // size doesn't matter too much as we will be scaling shortly anyway
+            var style = new RendererOptions(font, 72); // again dpi doesn't overlay matter as this code genreates a vector
+
+            // this is the important line, where we render the glyphs to a vector instead of directly to the image
+            // this allows further vector manipulation (scaling, translating) etc without the expensive pixel operations.
+
+            var glyphs = TextBuilder.GenerateGlyphs(GetTwoLetters(text), style);
+
+            var widthScale = (targetSize.Width / glyphs.Bounds.Width);
+            var heightScale = (targetSize.Height / glyphs.Bounds.Height);
+            var minScale = Math.Min(widthScale, heightScale) * .5f;
+
+            // scale so that it will fit exactly in image shape once rendered
+            glyphs = glyphs.Scale(minScale);
+
+            // move the vectorised glyph so that it touchs top and left edges 
+            // could be tweeked to center horizontaly & vertically here
+            glyphs = glyphs.Translate(-glyphs.Bounds.Location);
+            glyphs = glyphs.Translate((targetSize.Width - glyphs.Bounds.Width) / 2, (targetSize.Height - glyphs.Bounds.Height) / 2);
+
+            var img = new Image<Rgba32>(targetSize.Width, targetSize.Height);
+
+            var v = text.Select(Convert.ToInt32).Sum() % Colors.Length;
+            img.Mutate(i => i.BackgroundColor(Colors[v]));
+
+            img.Mutate(i => i.Fill(new GraphicsOptions(true), Rgba32.White, glyphs));
+            //       img.SaveAsJpeg(streamSaveLocation);
+            return img;
         }
 
 
@@ -279,30 +375,26 @@ namespace Cloudents.FunctionsV2
                 height = 50;
             }
 
-            return new ImageMutation(width,height,mode, position);
+            //var centerCords = query["center"].ToArray()?.Select(s => float.Parse(s));
+
+            return new ImageMutation(width, height, mode, position/*, centerCords?.ToArray()*/);
         }
 
-        private ImageMutation(int width, int height, ResizeMode mode, AnchorPositionMode position)
+        private ImageMutation(int width, int height, ResizeMode mode, AnchorPositionMode position/*, float[] centerCords*/)
         {
             Width = width;
             Height = height;
             Mode = mode;
             Position = position;
+            //CenterCords = centerCords ?? Array.Empty<float>();
+
         }
 
-        //public ImageMutation(int width, int height, ResizeMode mode, ImageProperties.BlurEffect blurEffect, AnchorPositionMode position)
-        //{
-        //    Width = width;
-        //    Height = height;
-        //    Mode = mode;
-        //    BlurEffect = blurEffect;
-        //    Position = position;
-        //}
+        public float[] CenterCords { get; set; } = Array.Empty<float>();
+        public int Width { get; }
+        public int Height { get; }
 
-        public int Width { get;  }
-        public int Height { get;  }
-
-        public ResizeMode Mode { get;  }
+        public ResizeMode Mode { get; }
 
         public ImageProperties.BlurEffect BlurEffect { get; set; }
         public AnchorPositionMode Position { get; }

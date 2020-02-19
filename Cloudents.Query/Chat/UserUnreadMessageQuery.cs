@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Cloudents.Core.Entities;
+using NHibernate.Criterion;
+using NHibernate.Transform;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using NHibernate.Criterion;
-using NHibernate.Transform;
 
 namespace Cloudents.Query.Chat
 {
@@ -46,9 +46,11 @@ namespace Cloudents.Query.Chat
                 var result = await z.SelectList(s =>
 
                         s.Select(() => userAlias.PhoneNumber).WithAlias(() => resultAlias.PhoneNumber)
+                        .Select(() => userAlias.Email).WithAlias(() => resultAlias.Email)
                             .Select(() => userAlias.Id).WithAlias(() => resultAlias.UserId)
                             .Select(x => x.Version).WithAlias(() => resultAlias.Version)
                             .Select(() => userAlias.Language).WithAlias(() => resultAlias.CultureInfo)
+                            .Select(() => userAlias.Country).WithAlias(() => resultAlias.Country)
                             .SelectSubQuery(QueryOver.Of<ChatMessage>()
                                 .Where(w => w.ChatRoom.Id == chatUserAlias.ChatRoom.Id)
                                 .ToRowCountQuery()
@@ -72,12 +74,20 @@ namespace Cloudents.Query.Chat
 
     public class UnreadMessageDto
     {
+        public override string ToString()
+        {
+            return $"{nameof(UserId)}: {UserId}, {nameof(CultureInfo)}: {CultureInfo}, {nameof(Country)}: {Country}, {nameof(IsTutor)}: {IsTutor}, {nameof(ChatUserId)}: {ChatUserId}, {nameof(ChatMessagesCount)}: {ChatMessagesCount}";
+        }
+
+        public string Email{ get; set; }
         public string PhoneNumber { get; set; }
         public long UserId { get; set; }
 
         public byte[] Version { get; set; }
 
         public CultureInfo CultureInfo { get; set; }
+
+        public string Country { get; set; }
 
         public bool IsTutor => UserId != ChatUserId;
 
@@ -87,10 +97,7 @@ namespace Cloudents.Query.Chat
 
         public long VersionAsLong => BitConverter.ToInt64(Version.Reverse().ToArray(), 0);
 
-        public override string ToString()
-        {
-            return $"{nameof(UserId)}: {UserId}, {nameof(IsTutor)}: {IsTutor}, {nameof(ChatUserId)}: {ChatUserId}, {nameof(ChatMessagesCount)}: {ChatMessagesCount}, {nameof(VersionAsLong)}: {VersionAsLong}";
-        }
+      
 
         private sealed class UserIdEqualityComparer : IEqualityComparer<UnreadMessageDto>
         {

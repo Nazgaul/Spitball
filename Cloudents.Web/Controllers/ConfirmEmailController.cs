@@ -1,12 +1,12 @@
-﻿using Cloudents.Web.Models;
+﻿using Cloudents.Core.Entities;
+using Cloudents.Core.Interfaces;
+using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Interfaces;
-using Cloudents.Identity;
+using SbSignInManager = Cloudents.Web.Identity.SbSignInManager;
 
 namespace Cloudents.Web.Controllers
 {
@@ -27,7 +27,7 @@ namespace Cloudents.Web.Controllers
         }
 
         // GET
-        public async Task<IActionResult> Index(ConfirmEmailRequest model, CancellationToken token)
+        public async Task<IActionResult> IndexAsync(ConfirmEmailRequest model, CancellationToken token)
         {
             if (!ModelState.IsValid)
             {
@@ -40,7 +40,7 @@ namespace Cloudents.Web.Controllers
             }
             model.Code = System.Net.WebUtility.UrlDecode(model.Code);
             var user = await _userManager.FindByIdAsync(model.Id.ToString());
-            if (user == null)
+            if (user is null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{model.Id}'.");
             }
@@ -51,30 +51,37 @@ namespace Cloudents.Web.Controllers
             }
             if (user.EmailConfirmed)
             {
-                return await GoToStep(user, NextStep.EnterPhone, false, model.ReturnUrl);
+                return await GoToStepAsync(user, RegistrationStep.RegisterSetPhone, model.ReturnUrl);
             }
             var result = await _userManager.ConfirmEmailAsync(user, model.Code);
             if (!result.Succeeded)
             {
                 _logger.Error($"Error confirming email for user with ID '{model.Id}': {result}, User: {user}");
-                return RedirectToRoute(RegisterController.RegisterRouteName, new { step = NextStep.ExpiredStep });
+                return RedirectToRoute(RegisterController.RegisterRouteName,
+                    new
+                    {
+                        //There was an extra step in here
+                        page = RegistrationStep.RegisterSetEmailPassword
+                    });
             }
-          
+
             TempData[HomeController.Referral] = model.Referral;
 
-            return await GoToStep(user, NextStep.EnterPhone, true, model.ReturnUrl);
+            return await GoToStepAsync(user,
+                RegistrationStep.RegisterSetPhone,
+                model.ReturnUrl);
         }
 
-        private async Task<RedirectToRouteResult> GoToStep(User user, NextStep step, bool isNew, string returnUrl)
+        private async Task<RedirectToRouteResult> GoToStepAsync(User user, RegistrationStep step, string returnUrl)
         {
             await _signInManager.TempSignIn(user);
-            return RedirectToRoute(RegisterController.RegisterRouteName,
+            var v =  RedirectToRoute(RegisterController.RegisterRouteName,
                 new
                 {
-                    step,
-                    isNew,
+                    page = step.RoutePath,
                     returnUrl = Url.IsLocalUrl(returnUrl) ? returnUrl : null
                 });
+            return v;
         }
     }
 }

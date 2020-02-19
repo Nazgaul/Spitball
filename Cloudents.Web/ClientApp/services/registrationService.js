@@ -1,46 +1,47 @@
-import { connectivityModule } from "./connectivity.module"
+import store from '../store/';
+import axios from "axios";
+
+const authInstance = axios.create({ 
+    baseURL: '/api',
+});
+
+authInstance.interceptors.request.use((config) => {
+    store.commit('setGlobalLoading', true);
+    return config;
+}, (error) => {
+    return Promise.reject(error);
+});
+
+authInstance.interceptors.response.use((config) => {
+    store.commit('setGlobalLoading', false);
+    return config;
+}, (error) => {
+    store.commit('setGlobalLoading', false);
+    return Promise.reject(error);
+});
 
 export default {
-    googleRegistration: (data) => {
-        return connectivityModule.http.post("/register/google", {token: data});
-    },
-    emailRegistration: (email, recaptcha, password, confirmPassword) => {
-        return connectivityModule.http.post("Register", { email, captcha: recaptcha, password, confirmPassword });
-    },
-    emailResend: () => {
-        return connectivityModule.http.post("Register/resend");
+    googleRegistration: data => authInstance.post("/register/google", {token: data}),
+    smsCodeVerification: data => authInstance.post("/sms/verify", {number: data.code, fingerprint: data.fingerprint}),
+    signIn: data => authInstance.post("LogIn", { email: data.email, password: data.password, fingerprint: data.fingerprint }),
+    resendCode: () => authInstance.post("/sms/resend"),
+    voiceConfirmation: () => authInstance.post("/sms/call"),
+    getLocalCode: () => authInstance.get("/sms/code"),
+    forgotPasswordReset: email => authInstance.post("ForgotPassword", {email}),
+    EmailforgotPasswordResend: () => authInstance.post("ForgotPassword/resend"),
+    updatePassword: (password, confirmPassword, id, code) => authInstance.post("ForgotPassword/reset", {id, code, password, confirmPassword}),
+    validateEmail: email => authInstance.get(`LogIn/ValidateEmail?email=${email}`),
+    updateGrade: grade => authInstance.post(`Register/grade`, grade),
+    updateParentStudentName: parentObj => authInstance.post(`Register/childName`, parentObj),
+    updateUserRegisterType: type => authInstance.post('Register/userType', type),
+    emailResend: () => authInstance.post("Register/resend"),
+    emailRegistration: ({firstName, lastName, email, gender, recaptcha, password, confirmPassword}) => {
+        return authInstance.post("Register", {firstName,lastName, email, gender, captcha: recaptcha, password, confirmPassword });
     },
     smsRegistration: (code, phoneNumber) => {
-        return connectivityModule.http.post("/sms", {
+        return authInstance.post("/sms", {
             "countryCode": code,
             "phoneNumber": phoneNumber
         });
-    },
-    smsCodeVerification: (data) => {
-        return connectivityModule.http.post("/sms/verify", {number: data.code, fingerprint: data.fingerprint});
-    },
-    signIn: (data) => {
-        return connectivityModule.http.post("LogIn", { email: data.email, password: data.password, fingerprint: data.fingerprint });
-    },
-    resendCode: () => {
-        return connectivityModule.http.post("/sms/resend");
-    },
-    voiceConfirmation: () => {
-        return connectivityModule.http.post("/sms/call");
-    },
-    getLocalCode: () => {
-        return connectivityModule.http.get("/sms/code");
-    },
-    forgotPasswordReset: (email) => {
-        return connectivityModule.http.post("ForgotPassword", {email});
-    },
-    EmailforgotPasswordResend: () => {
-        return connectivityModule.http.post("ForgotPassword/resend");
-    },
-    updatePassword: (password, confirmPassword, id, code) => {
-        return connectivityModule.http.post("ForgotPassword/reset", {id, code, password, confirmPassword});
-    },
-    validateEmail: (email) => {
-        return connectivityModule.http.get(`LogIn/ValidateEmail?email=${email}`,);
     },
 }

@@ -1,9 +1,11 @@
-﻿using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Cloudents.Web.Test.IntegrationTests
@@ -17,25 +19,59 @@ namespace Cloudents.Web.Test.IntegrationTests
         // ICollectionFixture<> interfaces.
     }
 
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "XUnit")]
     public class SbWebApplicationFactory : WebApplicationFactory<Startup>
     {
         public const string WebCollection = "WebCollection";
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            //builder.UseEnvironment(Startup.IntegrationTestEnvironmentName);
+            //builder.ConfigureAppConfiguration(x=> x.Configuration["xxx"] = "Validate")
+            //builder.UseEnvironment("Staging");
+            //builder.ConfigureAppConfiguration()
         }
 
 
 
     }
 
-    public static class HttpClient
+    public static class StringExtensions
     {
-        public static async Task LogInAsync(this System.Net.Http.HttpClient client)
+        public static bool IsValidJson(this string stringValue)
         {
-            await client.PostAsync("api/LogIn", new StringContent(TestUser.GetTestUser(),
+            if (string.IsNullOrWhiteSpace(stringValue))
+            {
+                return false;
+            }
+
+            var value = stringValue.Trim();
+
+            if ((value.StartsWith("{") && value.EndsWith("}")) || //For object
+                (value.StartsWith("[") && value.EndsWith("]"))) //For array
+            {
+                try
+                {
+                    JToken.Parse(value);
+                    return true;
+                }
+                catch (JsonReaderException)
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    public static class HttpClientExtensions
+    {
+        public static async Task LogInAsync(this HttpClient client)
+        {
+            var response = await client.PostAsync("api/LogIn", new StringContent(TestUser.GetTestUser(),
                  Encoding.UTF8, "application/json"));
+
+            response.EnsureSuccessStatusCode();
         }
 
         public static StringContent CreateString(string str)
@@ -49,9 +85,8 @@ namespace Cloudents.Web.Test.IntegrationTests
             return new StringContent(str, Encoding.UTF8, "application/json");
         }
 
-        //public string User => TestUser.GetTestUser();
 
-
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local", Justification = "Json serializer")]
         private class TestUser
         {
             private TestUser()
@@ -73,6 +108,6 @@ namespace Cloudents.Web.Test.IntegrationTests
                 return JsonConvert.SerializeObject(user);
             }
         }
-               
+
     }
 }

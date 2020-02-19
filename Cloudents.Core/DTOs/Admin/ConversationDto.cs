@@ -1,7 +1,7 @@
 ﻿using Cloudents.Core.Attributes;
 using Cloudents.Core.Entities;
-using System;
 using Cloudents.Core.Enum;
+using System;
 
 namespace Cloudents.Core.DTOs.Admin
 {
@@ -21,7 +21,7 @@ namespace Cloudents.Core.DTOs.Admin
         public string UserEmail { get; set; }
         [EntityBind(nameof(BaseUser.Name))]
         public string TutorName { get; set; }
-        
+
         [EntityBind(nameof(User.PhoneNumber))]
         public string TutorPhoneNumber { get; set; }
         [EntityBind(nameof(User.Email))]
@@ -30,7 +30,7 @@ namespace Cloudents.Core.DTOs.Admin
         public ChatRoomStatus Status { get; set; }
 
         public int ConversationStatus { get; set; }
-        public ChatRoomAssign? AssignTo { get; set; }
+        public string AssignTo { get; set; }
 
         public long UserId { get; set; }
         public long TutorId { get; set; }
@@ -61,13 +61,15 @@ namespace Cloudents.Core.DTOs.Admin
 
     public class ConversationDetailsDto
     {
+        [EntityBind(nameof(BaseUser.Id))]
+        public long UserId { get; set; }
         [EntityBind(nameof(BaseUser.Name))]
         public string UserName { get; set; }
         [EntityBind(nameof(BaseUser.Email))]
         public string Email { get; set; }
         [EntityBind(nameof(User.PhoneNumber))]
         public string PhoneNumber { get; set; }
-        [EntityBind(nameof(User.Image))]
+        [EntityBind(nameof(User.ImageName))]
         public string Image { get; set; }
     }
 }

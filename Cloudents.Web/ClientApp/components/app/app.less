@@ -1,4 +1,5 @@
 ﻿@import "../../styles/mixin.less";
+
 html {
   overflow-y: auto;
 }
@@ -6,87 +7,63 @@ html {
   display: none;
 }
 
-
-.set-class-dropdown-container {
-  .v-chip__content {
-    cursor: pointer !important;
-  }
+.v-tooltip__content{
+  z-index: 202 !important;
 }
 
-//TODO do we need this.
-.onboard-guide-container {
-  min-width: 100%;
-  min-height: 100%;
-  height: 100vh;
-}
-
-// .v-tour {
-//   .v-step {
-//     z-index: 103;
-//     box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.35);
-//     background-image: linear-gradient(93deg, #4b8ffe, #4452fc) !important;
-//     text-align: left !important;
-//     .v-step__header {
-//       background-color: none !important;
-//       font-size: 16px;
-//       margin-left: 0;
-//       padding-left: 0;
-//       padding-top: 1.5rem;
-//     }
-//     .v-step__content {
-//       font-size: 13px;
-//       font-weight: 100;
-//     }
-//     .v-step__buttons {
-//       text-align: right;
-//       .v-step__button {
-//         margin: 0 3px;
-//         color: @color-blue-new;
-//         background-color: #ffffff;
-//         border-radius: 12px;
-//         padding: 0.35rem 1.4rem;
-//         &.regular_step_button {
-//           background: none;
-//           border: .05rem solid #ffffff;
-//           color: white;
-//         }
-//       }
-//     }
-//     &[x-placement^="top"] {
-//       top: -10px !important;
-//       .v-step__arrow {
-//         border-width: .8rem .8rem 0 !important;
-//         bottom: -.8rem !important;
-//         .v-step__arrow--dark {
-//           border-color: #4870fd !important;
-//         }
-//       }
-//     }
-//     &[x-placement^="bottom"] {
-//       top: 10px !important;
-//       .v-step__arrow {
-//         border-width: 0px 0.8rem 0.8rem !important;
-//         top: -.8rem !important;
-//         .v-step__arrow--dark {
-//           border-color: #4870fd !important;
-//         }
-//       }
-//     }
+// .set-class-dropdown-container {
+//   .v-chip__content {
+//     cursor: pointer !important;
 //   }
 // }
 
+//Section to get stuff from vuetify theme since we disabled it
+.v-application .error--text {
+  color: #ff5252 !important;
+  caret-color: #ff5252 !important;
+}
+
+.v-application .info {
+  background-color: #2196f3 !important;
+  border-color: #2196f3 !important;
+}
+ //we have an issue with fieldset and labels on input on vuetify on rtl - this solve the issue
+html[dir="rtl"] {
+  .v-text-field__slot >  label, .v-select__slot > label { 
+    /*rtl:ignore */
+    left: unset !important;
+  }
+   fieldset+.v-text-field__slot > label  {
+    /*rtl:ignore */
+    left :unset !important ;
+  }
+  .v-input__prepend-inner+fieldset+.v-text-field__slot>label {
+     /*rtl:ignore */
+    right: -27px !important;
+  }
+}
+
+
+
+.v-menu__content{
+  .v-list__tile__content{
+    .v-list__tile__mask{
+      color: rgba(0, 0, 0, 1);
+      font-weight: bold;
+      background: unset;
+    }
+  }
+}
 .voted {
   color: #FBB205 !important;
 }
 
 .site-content {
-  background-color: @systemBackgroundColor;
-  //&.gridBackground{
-  //  background-size: 40px 40px;
-  //  background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
-  //  background-repeat: initial;
-  //  background-blend-mode: color-burn;
-  //}
+  transition: none !important;
+  background-color: #f5f5f5;
+  @media (max-width: @screen-xs) {
+    background-color: #E6E6E6;
+  }
 }
 
 .loader {
@@ -106,12 +83,6 @@ html {
   overflow-x: hidden;
   overflow-y: hidden;
   width: 100%;
-}
-
-.loading {
-  .left-side-bar, .side-bar {
-    opacity: 0;
-  }
 }
 
 .flex-fix {
@@ -140,7 +111,7 @@ html {
   justify-content: center;
   align-items: center;
   padding: 10px;
-  z-index: 5;
+  z-index: 12;
 
   animation: slide-up-animation .8s ease-in-out;
 
@@ -153,10 +124,6 @@ html {
     outline: none;
     min-width: 80px;
   }
-}
-
-.s-cookie-hide {
-  display: none;
 }
 
 @-webkit-keyframes slide-up-animation {
@@ -213,7 +180,7 @@ html {
 }
 
 .v-snack__content {
-  width: 616px;
+  // width: 616px;
   height: 48px;
   background-image: linear-gradient(93deg, #4b8ffe, #4452fc);
   font-size: 16px;
@@ -222,6 +189,7 @@ html {
   color: #ffffff;
   
   .text-wrap {
+    padding: 0 20px;
     width: 100%;
     text-align: center;
   }
@@ -236,7 +204,7 @@ html {
     margin-right: -10px;
     i {
       color: @color-white;
-      font-size: 14px;
+      font-size: 14px !important;
     }
   }
   a {
@@ -277,12 +245,57 @@ html {
   }
 }
 
-//label on inputs rtl support
-.v-input__slot {
-    .v-text-field__slot {
-        label {
-            left: unset !important;
-            right: unset !important;
-        }
-    }
+
+
+//fab animation
+@-webkit-keyframes fade {
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100% {opacity: 1}
+}
+
+@-moz-keyframes fade{
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+
+@keyframes fade {
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100%{opacity: 1}
+}
+@-o-keyframes fade {
+  0% {opacity: 0.25}
+  25% {opacity: 0.5}
+  50% {opacity: 0.75}
+  100%{opacity: 1}
+
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+
+@-moz-keyframes fadeIn{
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+}
+@-o-keyframes fadeIn {
+  0% {opacity: 0.2}
+  50% {opacity: 0.75}
+  100% {opacity:1}
+
 }

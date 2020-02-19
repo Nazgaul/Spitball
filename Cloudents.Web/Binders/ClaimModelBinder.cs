@@ -17,7 +17,7 @@ namespace Cloudents.Web.Binders
             }
 
             var result = bindingContext.HttpContext.User.Claims.FirstOrDefault(f =>
-                string.Equals(f.Type, claim.ToString(), StringComparison.OrdinalIgnoreCase));
+                string.Equals(f.Type, claim, StringComparison.OrdinalIgnoreCase));
             if (result == null)
             {
                 bindingContext.Result = ModelBindingResult.Failed();
@@ -57,7 +57,7 @@ namespace Cloudents.Web.Binders
             return Task.CompletedTask;
         }
 
-        
+
 
     }
 }

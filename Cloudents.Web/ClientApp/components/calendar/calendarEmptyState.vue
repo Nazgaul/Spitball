@@ -1,36 +1,66 @@
 <template>
     <div class="calendar-step-wrap" :class="[$vuetify.breakpoint.smAndUp ? 'px-0' : '']">
-        <v-layout column wrap align-center justify-center class="calendar-step-wrap-cont">
-            <img src="./images/calendar.png" alt="">
-            <p v-language:inner="'becomeTutor_cal_step'"/>
-            <v-btn  color="#4452FC"
-                    round
-                    :loading='isLoading'
+        <v-layout  column wrap align-center justify-center class="calendar-step-wrap-cont">
+            <template v-if="!isSelectCalendar && !isSelectHours">
+                <img src="./images/calendar.png" alt="">
+                <p class="pEmptyCalendar" v-language:inner="'becomeTutor_cal_step'"/>
+            </template>
+
+            <selectCalendarCMP v-if="isSelectCalendar  && !isSelectHours"/>
+
+            <calendarHoursCMP v-if="!isSelectCalendar && isSelectHours" class="my-3"/>
+
+
+            <v-btn color="#4452FC" rounded :loading='isLoading'
                     class="white--text elevation-0 calbtnshare"
-                    @click="shareCalendar()">
-                <span v-language:inner="'becomeTutor_btn_cal_connect'"/>
+                    @click="emptyStateFunctions">
+                <span v-language:inner="emptyStateResources"/>
             </v-btn>
         </v-layout>
     </div>
 </template>
-
 <script>
-    import { mapActions, mapMutations} from 'vuex';
+    import { mapActions} from 'vuex';
     import {LanguageService} from '../../services/language/languageService.js'
+    import selectCalendarCMP from './calendarSelect.vue';
+    import calendarHoursCMP from './calendarHours.vue'
+
     export default {
         name: "calendarEmptyState",
+        components:{selectCalendarCMP,calendarHoursCMP},
         data() {
             return {
-                isLoading: false
+                isLoading: false,
+                isSelectCalendar: false,
+                isSelectHours:false
+            }
+        },
+        computed: {
+            isMobile() {
+                return this.$vuetify.breakpoint.smAndDown;
+            },
+            emptyStateResources(){
+                if(!this.isSelectCalendar && !this.isSelectHours){
+                    return `becomeTutor_btn_cal_connect`
+                }
+                if(this.isSelectCalendar && !this.isSelectHours){
+                    return `becomeTutor_btn_next`
+                }
+                if(!this.isSelectCalendar && this.isSelectHours){
+                    return `becomeTutor_connect_mobile`
+                }
+                return '';
             }
         },
         methods: {
-            ...mapActions(['gapiSignIn','updateToasterParams']),
+            ...mapActions(['gapiSignIn','updateToasterParams','updateSelectedCalendarList','getEvents','updateAvailabilityCalendar']),
             shareCalendar(){
                 this.isLoading = true;
                 let self = this
-                this.gapiSignIn().then((res)=>{
+                this.gapiSignIn().then(()=>{
+                    self.isSelectCalendar = true
                     this.isLoading = false;
+                    
                 },(err)=>{
                     this.isLoading = false;
                     if(err.error) return 
@@ -40,6 +70,47 @@
                         toasterType: "error-toaster"
                     });
                 })
+            },
+            initCalendar(){ 
+                let self = this;
+                this.isLoading = true;
+                this.updateSelectedCalendarList().then(()=>{
+                    self.updateAvailabilityCalendar().then(()=>{
+                        self.getEvents()
+                    })
+                })
+            },
+            goSelectHour(){
+                this.isLoading = false;
+                this.isSelectCalendar = false;
+                this.isSelectHours = true;
+            },
+            emptyStateFunctions(){
+                if(!this.isSelectCalendar && !this.isSelectHours){
+                    this.shareCalendar()
+                    return
+                }
+                if(this.isSelectCalendar && !this.isSelectHours){
+                    this.goSelectHour()
+                    return
+                }
+                if(!this.isSelectCalendar && this.isSelectHours){
+                    if(this.$route.name === 'myCalendar'){
+                        this.isLoading = true;
+                        let self = this;
+                        this.updateSelectedCalendarList().then(()=>{
+                            self.updateAvailabilityCalendar().then(()=>{
+                                self.$emit('updateCalendar')
+                                self.isLoading = false;
+                            })
+                        })
+                        
+                        return
+                    }else{
+                        this.initCalendar()
+                        return
+                    }
+                }
             },
         },
     };
@@ -54,7 +125,7 @@
             flex-direction: column;
             align-items: center;
             padding: 0 !important;
-            overflow: hidden;
+            overflow: visible;
             justify-content: space-between;
             height: inherit
         }
@@ -71,9 +142,9 @@
                     padding-bottom: 32px;
                 }
             }
-            p{
+            .pEmptyCalendar{
                 margin: 0;
-                font-size: 20px;
+                font-size: 16px;
                 line-height: 1.5;
                 letter-spacing: -0.51px;
                 color: @global-purple;
@@ -82,11 +153,14 @@
                 text-align: center;
                 @media (max-width: @screen-xs) {
                     padding: 0 0 20px;
-
+                    font-size: 16px;
+                    width: 100%;
                 }
-
             }
+
+
             .v-btn{
+                min-width: 140px;
                 @media (max-width: @screen-xs) {
                   height: 46px;
               }  

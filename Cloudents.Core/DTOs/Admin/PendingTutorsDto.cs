@@ -17,9 +17,9 @@ namespace Cloudents.Core.DTOs.Admin
         [EntityBind(nameof(Tutor.Price))]
         public decimal Price { get; set; }
         [EntityBind(nameof(BaseUser.Email))]
-        public string Email{ get; set; }
+        public string Email { get; set; }
 
-        [EntityBind(nameof(BaseUser.Image))]
+        [EntityBind(nameof(BaseUser.ImageName))]
         public string Image { get; set; }
         public string Courses { get; set; }
         [EntityBind(nameof(Tutor.Created))]

@@ -1,17 +1,16 @@
 import userBlock from "./../../../helpers/user-block/user-block.vue";
-import userRank from "../../../helpers/UserRank/UserRank.vue";
 import sbDialog from '../../../wrappers/sb-dialog/sb-dialog.vue';
 import reportItem from "../../../results/helpers/reportItem/reportItem.vue"
 import disableForm from "../../../mixins/submitDisableMixin"
 import { mapGetters, mapActions } from 'vuex'
-import timeago from 'timeago.js';
+// import timeago from 'timeago.js';
+import timeAgoService from '../../../../services/language/timeAgoService';
 import { LanguageService } from "../../../../services/language/languageService";
 
 export default {
     mixins: [disableForm],
     components: {
         userBlock,
-        userRank,
         sbDialog,
         reportItem
     },
@@ -78,8 +77,6 @@ export default {
             src: '',
             selectedImage: '',
             showDialog: false,
-            isFirefox: false,
-            isRtl: global.isRtl
         };
     },
     computed: {
@@ -111,17 +108,18 @@ export default {
         },
         cardAnswers() {
             return this.cardData.answers;
+        },
+        date() {           
+            return timeAgoService.timeAgoFormat(this.cardData.create);
         }
     },
     methods: {
         ...mapActions({
             'delete': 'deleteQuestion',
             correctAnswer: 'correctAnswer',
-            updateBalance: 'updateUserBalance',
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved',
-            answerVote: 'answerVote',
             updateLoginDialogState: 'updateLoginDialogState'
         }),
         ...mapGetters(['accountUser']),
@@ -160,40 +158,6 @@ export default {
         },
         closeReportDialog() {
             this.showReport = false;
-        },
-        isAuthUser() {
-            let user = this.accountUser();
-            if (user == null) {
-                this.updateLoginDialogState(true);
-                return false;
-            }
-            return true;
-        },
-        upvoteAnswer() {
-            if (this.isAuthUser()) {
-                let type = "up";
-                if (!!this.cardData.upvoted) {
-                    type = "none";
-                }
-                let data = {
-                    type,
-                    id: this.cardData.id
-                };
-                this.answerVote(data);
-            }
-        },
-        downvoteAnswer() {
-            if (this.isAuthUser()) {
-                let type = "down";
-                if (!!this.cardData.downvoted) {
-                    type = "none";
-                }
-                let data = {
-                    type,
-                    id: this.cardData.id
-                };
-                this.answerVote(data);
-            }
         },
         getQuestionColor() {
             if (!!this.cardData && !this.cardData.color) {
@@ -246,41 +210,43 @@ export default {
                     }
                 );
         },
-        renderQuestionTime(className) {
-            const hebrewLang = function (number, index) {
-                return [
-                    ['זה עתה', 'עכשיו'],
-                    ['לפני %s שניות', 'בעוד %s שניות'],
-                    ['לפני דקה', 'בעוד דקה'],
-                    ['לפני %s דקות', 'בעוד %s דקות'],
-                    ['לפני שעה', 'בעוד שעה'],
-                    ['לפני %s שעות', 'בעוד %s שעות'],
-                    ['אתמול', 'מחר'],
-                    ['לפני %s ימים', 'בעוד %s ימים'],
-                    ['לפני שבוע', 'בעוד שבוע'],
-                    ['לפני %s שבועות', 'בעוד %s שבועות'],
-                    ['לפני חודש', 'בעוד חודש'],
-                    ['לפני %s חודשים', 'בעוד %s חודשים'],
-                    ['לפני שנה', 'בעוד שנה'],
-                    ['לפני %s שנים', 'בעוד %s שנים']
-                ][index];
-            };
-            timeago.register('he', hebrewLang);
-            let timeAgoRef = timeago();
-            let locale = global.lang.toLowerCase() === 'he' ? 'he' : '';
-            timeAgoRef.render(document.querySelectorAll(className), locale);
-        }
+        // renderQuestionTime(className) {
+        //     const hebrewLang = function (number, index) {
+        //         return [
+        //             ['זה עתה', 'עכשיו'],
+        //             ['לפני %s שניות', 'בעוד %s שניות'],
+        //             ['לפני דקה', 'בעוד דקה'],
+        //             ['לפני %s דקות', 'בעוד %s דקות'],
+        //             ['לפני שעה', 'בעוד שעה'],
+        //             ['לפני %s שעות', 'בעוד %s שעות'],
+        //             ['אתמול', 'מחר'],
+        //             ['לפני %s ימים', 'בעוד %s ימים'],
+        //             ['לפני שבוע', 'בעוד שבוע'],
+        //             ['לפני %s שבועות', 'בעוד %s שבועות'],
+        //             ['לפני חודש', 'בעוד חודש'],
+        //             ['לפני %s חודשים', 'בעוד %s חודשים'],
+        //             ['לפני שנה', 'בעוד שנה'],
+        //             ['לפני %s שנים', 'בעוד %s שנים']
+        //         ][index];
+        //     };
+        //     timeago.register('he', hebrewLang);
+        //     let timeAgoRef = timeago();
+        //     let locale = global.lang.toLowerCase() === 'he' ? 'he' : '';
+        //     timeAgoRef.render(document.querySelectorAll(className), locale);
+        // }
     },
     created() {
         this.getQuestionColor();
     },
     mounted() {
-        this.renderQuestionTime('.timeago');
         // use render method to render nodes in real time
+        // this.renderQuestionTime('.timeago');
     },
     updated() {
         // when signalR adds a question we want the time to be rerendered to show correct time
         // thats why we have same function on mounted and updated
-        this.renderQuestionTime('.timeago');
+        // this.renderQuestionTime('.timeago');
+
+
     }
 }

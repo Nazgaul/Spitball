@@ -1,10 +1,14 @@
 {
   "version": "2.0"
-  //"functions": [
-  //  "EmailUpdateFunction",
-  //  "EmailUpdateFunction_UserQuery",
-  //  "EmailUpdateFunction_Process",
-  //  "EmailUpdateFunction_TimerStart"
-  //]
-  //"functions": [ "UniversitySearchSync", "SearchSync", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
+  //"functions": [ "ShareProfileImageFunction", "ImageFunctionUser" ]
+ 
+
+
+    //"functions": [
+    //  "EmailUpdateFunction",
+    //  "EmailUpdateFunction_UserQuery",
+    //  "EmailUpdateFunction_Process",
+    //  "EmailUpdateFunction_TimerStart"
+    //]
+    //"functions": [ "UniversitySearchSync", "SearchSync", "SearchSyncSync", "SearchSyncGetProgress", "SearchSyncSetProgress" ]
 }

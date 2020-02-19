@@ -6,10 +6,10 @@
 
         public override void MakeTransaction(Transaction transaction)
         {
-           //we do nothing
+            //we do nothing
         }
 
-        
+
 
         public override decimal Balance => 0;
     }

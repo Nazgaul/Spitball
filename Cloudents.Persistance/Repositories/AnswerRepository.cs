@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Entities;
+﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
 using NHibernate;
 using NHibernate.Linq;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Persistence.Repositories
 {
@@ -16,7 +16,7 @@ namespace Cloudents.Persistence.Repositories
         {
         }
 
-       
+
         //public Task<Answer> GetUserAnswerInQuestion(long questionId, long userId, CancellationToken token)
         //{
         //    return Session.Query<Answer>()
@@ -30,8 +30,7 @@ namespace Cloudents.Persistence.Repositories
             return Session.Query<Answer>()
                 .Fetch(f => f.Question)
                 .Where(w => w.User.Id == userId)
-                .Where(w => w.Question.CorrectAnswer.Id == null 
-                            && w.Question.Created > DateTime.UtcNow.AddDays(-7) && w.Status.State == ItemState.Ok)
+                .Where(w => w.Question.Created > DateTime.UtcNow.AddDays(-7) && w.Status.State == ItemState.Ok)
                 .CountAsync(token);
 
         }

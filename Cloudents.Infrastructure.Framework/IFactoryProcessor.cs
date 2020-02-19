@@ -2,6 +2,6 @@
 {
     public interface IFactoryProcessor
     {
-        IPreviewProvider2 PreviewFactory(string blobName);
+        IPreviewProvider PreviewFactory(string blobName);
     }
 }

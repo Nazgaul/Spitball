@@ -41,13 +41,13 @@ onlineDocumentUrl as OnlineDocument,
 sr.identifier as ConversationId,
 sr.tutorId,
 u.Name as TutorName,
-u.Image as TutorImage,
-u1.Id as StudentId, u1.Name as StudentName, u1.Image as StudentImage,
+u.ImageName as TutorImage,
+u1.Id as StudentId, u1.Name as StudentName, u1.ImageName as StudentImage,
 
  coalesce (
 	case when t.price = 0 then 0 else null end,
-	case when (t.id = @UserId and u1.PaymentExists = 2) then 0 else null end,
 	case when u1.PaymentExists = 1 then 0 else null end,
+    case when u1.Country != 'IL' then 0 else null end,
 	1
 ) as NeedPayment
 from sb.StudyRoom sr 

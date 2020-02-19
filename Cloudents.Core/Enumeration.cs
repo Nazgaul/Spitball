@@ -9,7 +9,7 @@ namespace Cloudents.Core
     {
         public string Name { get; }
 
-        public int Id { get;  }
+        public int Id { get; }
 
         protected Enumeration(int id, string name)
         {
@@ -54,13 +54,19 @@ namespace Cloudents.Core
             var matchingItem = Parse<T, int>(value, "value", item => item.Id == value);
             return matchingItem;
         }
+        public static T FromDisplayName<T>(string displayName) where T : Enumeration
+        {
+            var matchingItem = Parse<T, string>(displayName, "display name", item =>
+                string.Equals(item.Name, displayName, StringComparison.OrdinalIgnoreCase));
+            return matchingItem;
+        }
 
         private static T Parse<T, K>(K value, string description, Func<T, bool> predicate) where T : Enumeration
         {
             var matchingItem = GetAll<T>().FirstOrDefault(predicate);
 
-            if (matchingItem == null)
-                throw new InvalidOperationException($"'{value}' is not a valid {description} in {typeof(T)}");
+            //if (matchingItem == null)
+            //    throw new InvalidOperationException($"'{value}' is not a valid {description} in {typeof(T)}");
 
             return matchingItem;
         }

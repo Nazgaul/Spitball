@@ -1,11 +1,11 @@
-import tutorService from "../components/tutor/tutorService";
+import tutorService from "../components/studyroom/tutorService";
 const extensionId = 'jaimgihanebafnbcpckdkilkeoomkpik'; // dev && prod
 import store from '../store/index.js';
-import { createLocalTracks } from 'twilio-video';
-import walletService from "./walletService";
-let availableDevices = [];
+import insightService from './insightService.js'
 
   function  createVideoSession() {
+    console.warn('DEBUG: 22 videoStreamService: createVideoSession')
+
         const self = this;
         // remove any remote track when joining a new room
         let clearEl = document.getElementById('remoteTrack');
@@ -15,24 +15,38 @@ let availableDevices = [];
         self.addDevicesTotrack();
     }
    function enterRoom(){
+    console.warn('DEBUG: 23 videoStreamService: enterRoom')
+
        if (!store.getters['sessionStartClickedOnce']) {
         if (!!store.getters['accountUser'] && store.getters['getStudyRoomData'].needPayment && !store.getters['getStudyRoomData'].isTutor) {
-            store.dispatch('requestPaymentURL')
+            store.dispatch('requestPaymentURL', {title: 'payme_title', name: store.getters.getStudyRoomData.tutorName});
             return;
         }
         //leave this action here so that people that fills the 'pay me' wont get a loading button
-        store.dispatch('setSesionClickedOnce', true);
-        //if blocked or not available  use of media devices do not allow session start
-        if (store.getters['getNotAllowedDevices'] && store.getters['getNotAvaliableDevices'] ) {
-            store.dispatch('updateTestDialogState', true);
-            return;
-        }
+        console.warn('DEBUG: 44 videoStreamService: setSesionClickedOnce,true before ')
         
+        store.dispatch('setSesionClickedOnce', true);
+        console.warn('DEBUG: 44.1 videoStreamService: setSesionClickedOnce,true after ')
+
+            // store.dispatch('setSesionClickedOnce', true);
             if (store.getters['getStudyRoomData'].isTutor) {
+                console.warn('DEBUG: 44.2 videoStreamService: (store.getters[getStudyRoomData].isTutor) ')
+                
+                console.warn('DEBUG: 44.3 videoStreamService: updateCurrentRoomState before')
                 store.dispatch('updateCurrentRoomState', 'loading');
+                console.warn('DEBUG: 44.4 videoStreamService: updateCurrentRoomState after')
+
+                
+                console.warn('DEBUG: 44.5 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) before')
                 tutorService.enterRoom(store.getters['getRoomId']).then(() => {
+                    console.warn('DEBUG: 44.6 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) then')
+
                     setTimeout(() => {
+                        console.warn('DEBUG: 44.7 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) Settimeout')
+
                         this.createVideoSession();
+                        console.warn('DEBUG: 44.8 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) Settimeout after')
+
                     }, 1000);
                 });
             } else {
@@ -42,86 +56,43 @@ let availableDevices = [];
     }
 
     function createTwillioTracks(audioDevice, videoDevice){
-        let connectOptions;
+        console.warn('DEBUG: 24 videoStreamService: createTwillioTracks')
+
         const token = store.getters['getJwtToken']; //get jwt from store
-        createLocalTracks({
-            audio: audioDevice,
-            video:videoDevice
-        }).then((tracksCreated) => {
-            for(let track of tracksCreated){
-                if(track.kind === 'audio'){
-                    store.commit('setLocalAudioTrack',track)                    
-                }
-                if(track.kind === 'video'){
-                    store.commit('setLocalVideoTrack',track)
-                }
-            }
-            // let localMediaContainer = document.getElementById('localTrack');
-            //clear before attach
-            // localMediaContainer.innerHTML = "";
-            //attach tracks
-            // tutorService.attachTracks(tracksCreated, localMediaContainer);
-            self.localTrackAval = true;
-            //add datatrack, after created audio and or video tracks
-            tracksCreated.push(tutorService.dataTrack);
-            connectOptions = {
-                logLevel :'debug',
-                tracks: tracksCreated,
-                networkQuality: {
-                    local: 3, // LocalParticipant's Network Quality verbosity [1 - 3]
-                    remote: 3 // RemoteParticipants' Network Quality verbosity [0 - 3]
-                  }
-            };
-            tutorService.connectToRoom(token, connectOptions);
-            if (!store.getters['getStudyRoomData'].isTutor) {
-                store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.active);
-                // store.dispatch('setSesionClickedOnce', false)
-            }
-
-        }, (error) => {
-            store.dispatch('updateToasterParams', {
-                toasterText: "We having trouble connection you to the room",
-                showToaster: true,
-                toasterType: 'error-toaster'
-            });
-            store.dispatch('setSesionClickedOnce', false)
-
-        });
+        let tracksCreated = [];
+        !!videoDevice ? tracksCreated.push(videoDevice) : '';
+        !!audioDevice ? tracksCreated.push(audioDevice) : '';
+        tracksCreated.push(tutorService.dataTrack);
+        let connectOptions = {
+            logLevel :'debug',
+            tracks: tracksCreated,
+            networkQuality: {
+                local: 3, // LocalParticipant's Network Quality verbosity [1 - 3]
+                remote: 3 // RemoteParticipants' Network Quality verbosity [0 - 3]
+              }
+        };
+        tutorService.connectToRoom(token, connectOptions);
+        if (!store.getters['getStudyRoomData'].isTutor) {
+            store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.active);            
+        }
     }
 
    async function addDevicesTotrack(){
-    let self = this;
-        availableDevices.length = 0;
-    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-        console.log("enumerateDevices() not supported.");
-        return;
-    }
+    console.warn('DEBUG: 25 videoStreamService: addDevicesTotrack')
 
-    // List cameras and microphones.
-    let devices = await navigator.mediaDevices.enumerateDevices();
-    devices.forEach(function (device) {
-        console.log(device.kind + ": " + device.label +
-            " id = " + device.deviceId);
-        availableDevices.push(device.kind);
-    });
-    //create local track with custom names
-    let audioTrackName = `audio_${store.getters['getStudyRoomData'].isTutor ? 'tutor' : 'student'}_${store.getters['accountUser'].id}`;
-    let videoTrackName = `video_${store.getters['getStudyRoomData'].isTutor ? 'tutor' : 'student'}_${store.getters['accountUser'].id}`;
-    let audioSetObj = {
-        audio: availableDevices.includes('audioinput'),
-        name: audioTrackName
-    };
-    let videoSetObj = {
-        video: availableDevices.includes('videoinput'),
-        name: videoTrackName
-    };
-    let audioDevice = await navigator.mediaDevices.getUserMedia({ audio: true }).then(y => audioSetObj, z => false);
-    let videoDevice = await navigator.mediaDevices.getUserMedia({ video: true }).then(y => videoSetObj, z => false);
-   createTwillioTracks(audioDevice, videoDevice);
+        let audioSetObj = store.getters['getLocalAudioTrack'];
+        let videoSetObj = store.getters['getLocalVideoTrack'];
+        let isVideoActive = store.getters['getIsVideoActive'];
+        let isAudioActive = store.getters['getIsAudioActive'];
+        let audioDevice = audioSetObj && isAudioActive ? audioSetObj : false;
+        let videoDevice = videoSetObj && isVideoActive ? videoSetObj : false;
+        createTwillioTracks(audioDevice, videoDevice);
     }
 
     //get try to get share stream via chrome extension
    function getUserScreen() {
+    console.warn('DEBUG: 26 videoStreamService: getUserScreen')
+
         let displayMediaOptions = {
             video:true,
             audio: false
@@ -132,37 +103,9 @@ let availableDevices = [];
             });
         }
         catch(err) {
+            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_VideoStream_notBrowser', err);
             return Promise.reject("notBrowser");
         }
-        // if (chrome.runtime) {
-        //     return new Promise((resolve, reject) => {
-        //         const request = { sources: ['window', 'screen', 'tab'] };
-        //         chrome.runtime.sendMessage(extensionId, request, response => {
-        //             //none installed return error string code
-        //             if (!response) {
-        //                 let error = 'noExtension';
-        //                 console.log('Extension not installed');
-        //                 reject(error);
-        //             }
-        //             if (response && response.type === 'success') {
-        //                 resolve({ streamId: response.streamId });
-        //             } else {
-        //                 reject(new Error('Could not get stream'));
-        //             }
-        //         });
-        //     }).then(async response => {
-        //         const stream = await navigator.mediaDevices.getUserMedia({
-        //             video: {
-        //                 mandatory: {
-        //                     chromeMediaSource: 'desktop',
-        //                     chromeMediaSourceId: response.streamId
-        //                 }
-        //             }
-        //         });
-        //         return stream.getVideoTracks()[0];
-        //     });
-        // }
-        
     }
 export default {
     extensionId,

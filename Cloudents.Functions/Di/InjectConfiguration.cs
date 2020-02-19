@@ -25,44 +25,28 @@ namespace Cloudents.Functions.Di
         }
         private static void RegisterServices(ContainerBuilder builder)
         {
-            //var keys = new ConfigurationKeys(
-            //    GetEnvironmentVariable("SiteEndPoint") ?? "https://www.spitball.co")
-            //{
-            //    Db = new DbConnectionString(GetEnvironmentVariable("ConnectionString"), GetEnvironmentVariable("Redis")),
-            //    Redis = GetEnvironmentVariable("Redis"),
-            //    Search = new SearchServiceCredentials(
-            //        GetEnvironmentVariable("SearchServiceName"),
-            //        GetEnvironmentVariable("SearchServiceAdminApiKey"),
-            //        bool.Parse(GetEnvironmentVariable("IsDevelop"))
-            //        ),
-            //    MailGunDb = GetEnvironmentVariable("MailGunConnectionString"),
-            //    BlockChainNetwork = GetEnvironmentVariable("BlockChainNetwork"),
-            //    Storage = GetEnvironmentVariable("AzureWebJobsStorage")
-            //};
-
-            //builder.Register(_ => keys).As<IConfigurationKeys>();
-
             builder.RegisterModule<ModuleFile>();
-            //builder.RegisterSystemModules(
-            //    Core.Enum.System.Function,
-            //    Assembly.Load("Cloudents.Infrastructure.Framework"));
+            //builder.RegisterType<FileProcessorFactory>().AsImplementedInterfaces();
 
 
+            //builder.RegisterType<VideoProcessor>().As<IFileProcessor>()
+            //    .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
+            //        FormatDocumentExtensions.Video));
 
 
+            //builder.RegisterType<DocumentProcessor>().As<IFileProcessor>()
+            //    .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
+            //        FormatDocumentExtensions.Word
+            //            .Union(FormatDocumentExtensions.Excel)
+            //            .Union(FormatDocumentExtensions.Tiff)
+            //            .Union(FormatDocumentExtensions.Image)
+            //            .Union(FormatDocumentExtensions.PowerPoint)
+            //            .Union(FormatDocumentExtensions.Text)
+            //            .Union(FormatDocumentExtensions.Pdf)
+            //            .Union(FormatDocumentExtensions.Tiff)));
 
-            //AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
         }
-
-        //private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        //{
-        //    return AppDomain.CurrentDomain
-        //        .GetAssemblies().FirstOrDefault(a => a.FullName == args.Name);
-        //}
-
-        //public static string GetEnvironmentVariable(string name)
-        //{
-        //    return Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
-        //}
     }
+
+
 }

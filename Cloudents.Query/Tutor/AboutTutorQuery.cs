@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Query.Tutor
 {
-    public class AboutTutorQuery: IQuery<IEnumerable<AboutTutorDto>>
+    public class AboutTutorQuery : IQuery<IEnumerable<AboutTutorDto>>
     {
         internal sealed class TutorListByCourseQueryHandler : IQueryHandler<AboutTutorQuery, IEnumerable<AboutTutorDto>>
         {
@@ -20,7 +20,7 @@ namespace Cloudents.Query.Tutor
 
             public async Task<IEnumerable<AboutTutorDto>> GetAsync(AboutTutorQuery query, CancellationToken token)
             {
-                const string sql = @"select top 10 u.Name, u.Image, tr.Rate, tr.Review
+                const string sql = @"select top 10 u.Id as UserId, u.Name, u.ImageName as Image, tr.Rate, tr.Review
                                         from sb.TutorReview tr
                                         join sb.Tutor t
 	                                        on tr.TutorId = t.Id

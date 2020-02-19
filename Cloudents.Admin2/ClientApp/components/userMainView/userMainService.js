@@ -1,5 +1,7 @@
 import { connectivityModule } from '../../services/connectivity.module'
+import axios from 'axios'
 
+const apiAddress = `${window.location.origin}/api/`;
 //function userData(objInit) {
 //    this.userInfo = createUserInfoItem(objInit.user);
 //    this.userAnswers = createAnswertItem(objInit.answers);
@@ -18,16 +20,21 @@ function UserInfo(objInit) {
         showButton: !objInit.phoneNumberConfirmed,
         buttonText: "verify Phone"
     };
+    this.payment = {
+        value: objInit.paymentExists,
+        label: 'Has Payment',
+        showButton: true,
+        buttonText: "delete"
+    };
     this.phoneNumberConfirmed = {value: objInit.phoneNumberConfirmed ? 'Yes' : 'No', label: "Phone Confirmed"};
     this.university = {value: objInit.university || '', label: 'University'};
     this.country = {value: objInit.country || '', label: 'Country'};
-    this.score = {value: objInit.score || 0, label: 'Score'};
-    this.fraudScore = {value: objInit.fraudScore || 0, label: 'Fraud Score'};
     this.referredCount = {value: objInit.referredCount || 0, label: 'People Referred'};
     this.balance = {value: objInit.balance || 0, label: 'Balance'};
     this.status = {value: objInit.isActive ? false : true, label: 'Suspended'};
     this.lockoutReason = { value: objInit.lockoutReason ? objInit.lockoutReason : '', label: 'Lockout Reason' };
     this.wasSuspended = { value: objInit.wasSuspended ? true : false, label: 'Was Suspended' };
+    this.tutorPrice = { value: objInit.tutorPrice || null, label: 'Tutor Price' };
     if (objInit.joined !== null) {
         this.joined =
             {
@@ -58,7 +65,15 @@ function UserInfo(objInit) {
         value: objInit.tutorState ? objInit.tutorState : 'Not a tutor',
         label: 'Tutor State'
     };
-    
+    this.calendarExists = {
+        value: objInit.calendarExists,
+        label: 'Has Calendar',
+         showButton: true,
+         buttonText: "delete"
+
+    };
+
+    this.userType = { value: objInit.userType ? objInit.userType : '', label: 'User Type' };
 }
 
 function createUserInfoItem(data) {
@@ -123,6 +138,30 @@ function createPurchasedDocItem(data) {
         return new PurchasedDocItem(item);
     });
 }
+function createSoldItems(data){
+    return data.map((item)=>{
+        return new SoldItem(item);
+    });
+}
+function SoldItem(objInit){
+    this.itemId = objInit.itemId;
+    this.itemName = objInit.itemName;
+    this.purchasedUserName = objInit.purchasedUserName;
+    this.itemType = objInit.itemType;
+    this.itemCourse = objInit.itemCourse;
+    this.transactionPrice =  Math.abs(objInit.transactionPrice);
+    this.transactionTime = formatTime(objInit.transactionTime);
+    this.purchasedUserBalance = objInit.purchasedUserBalance;
+    this.purchasedUserEmail = objInit.purchasedUserEmail;
+    this.itemState = objInit.itemState;
+    this.itemCreated = formatTime(objInit.itemCreated);
+    this.url = objInit.url;
+}
+
+function formatTime(isoTime){
+    let date = new Date(isoTime);
+    return `${date.getUTCMonth() + 1}/${date.getUTCDate()}/${date.getUTCFullYear({})}`; 
+}
 
 function ConversationItem(objInit) {
     this.id = objInit.id;
@@ -153,6 +192,17 @@ function SessionsItem(objInit) {
 function createSessionsItem(objInit){
     return new SessionsItem(objInit);
 };
+
+function NotesItem(objInit)
+{
+    this.text = objInit.text;
+    this.adminUser = objInit.adminUser;
+    this.created = new Date(objInit.created).toLocaleString();
+}
+function createNotesItem(objInit){
+    return new NotesItem(objInit);
+};
+
 
 export default {
     getUserData: (id) => {
@@ -211,6 +261,17 @@ export default {
                 return error;
             });
     },
+    getSoldItems: (id, page) => {
+        let path = `AdminUser/sold?id=${id}&page=${page}`;
+        return connectivityModule.http.get(path)
+            .then((resp) => {
+                return createSoldItems(resp);
+
+            }, (error) => {
+                console.log(error, 'error get 20 docs');
+                return error;
+            });
+    },
     getUserConversations:(id) => {
         const path = `AdminConversation`;
         return connectivityModule.http.get(`${path}?id=${id}&page=0`).then((newConversationList) => {
@@ -240,6 +301,31 @@ export default {
         });
 
     },
+    getUserNotes:(id) => 
+    {
+        let path = `AdminUser/notes`;
+        return connectivityModule.http.get(`${path}?id=${id}`).then((newNotesList) => {
+            let arrNotesList = [];
+            if (newNotesList.length > 0) {
+                newNotesList.forEach((note) => {
+                    arrNotesList.push(createNotesItem(note));
+                });
+            }
+            return arrNotesList;
+        }, (err) => {
+            return err;
+        });
+    },
+    getUserTypes: (id) => {
+        let path = `AdminUser/types`;
+        return connectivityModule.http.get(path).then((newTypesList) => {
+            return newTypesList;  
+        });
+    },
+    updateUserType:(data) => {
+        let path = `AdminUser/type`;
+        return connectivityModule.http.post(path, data);
+    },
     verifyPhone: (data) => {
         let path = `AdminUser/verify`;
         return connectivityModule.http.post(path, data)
@@ -250,13 +336,42 @@ export default {
                 return error;
             });
     },
+    suspendTutor: (id) => {
+        return connectivityModule.http.post(`AdminTutor/suspend`, id);
+    },
+    unSuspendTutor: (id) => {
+        return connectivityModule.http.post(`AdminTutor/unsuspend`, id);
+    },
     updateUserName: ({ userId, firstName, lastName }) => {
         return connectivityModule.http.put(`AdminUser/name`, {userId, firstName, lastName});
     },
     updateUserPhone: ({ userId, newPhone }) => {
-        return connectivityModule.http.put(`AdminUser/phone`, {userId, newPhone});
+        let path = `AdminUser/phone`;
+        let uri = apiAddress + path;
+        debugger;
+        //return axios.put(uri, { userId, newPhone });
+        return axios.put(uri, { userId, newPhone }).then((message) => {
+            return message;
+        });
+    },
+    updateTutorPrice: (priceOjb) => {
+        return connectivityModule.http.post(`AdminTutor/price`, priceOjb);
     },
     removeTutor: (id) => {
         return connectivityModule.http.delete(`AdminTutor/${id}`);
-    }
+    },
+    removeCalender: (id) => {
+        return connectivityModule.http.delete(`AdminUser/calendar/?id=${id}`);
+    },
+    deletePayment: (id) => {
+        return connectivityModule.http.delete(`AdminPayment/deletePayment?userId=${id}`);
+    },
+    addUserNote : (data) => {
+        let path = `AdminUser/note`;
+        return connectivityModule.http.post(path, data).then((adminEmail) => {
+            return createNotesItem({text: data.text, adminUser: adminEmail, created: Date.now()});
+        }, (err) => {
+            return err;
+        });
+    }    
 }

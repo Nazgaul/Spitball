@@ -11,10 +11,10 @@ axios.defaults.baseURL = '/api';
 const promiseReturn = function (data) {
     // "this" is bound to the timerObject
     let endTime = new Date().getTime();
-    analyticsService.sb_fireTimingAnalytic(this.requestMethod, this.path, endTime - this.startTime, "SUCCESS")
+    analyticsService.sb_fireTimingAnalytic(this.requestMethod, this.path, endTime - this.startTime, "SUCCESS");
 
     return data;
-}
+};
 
 const errorHandler = function (err) {
     // "this" is bound to the timerObject
@@ -51,7 +51,7 @@ export const connectivityModule = {
             } else {
                 return axios.get(path, params)
                 // return axios.get(path, params)
-                            .then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
+                            .then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps));
             }
         },
         post: function (path, body, callback) {
@@ -64,7 +64,7 @@ export const connectivityModule = {
                 });
             } else {
                 return axios.post(path, body)
-                    .then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
+                    .then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps));
             }
         },
         put: function (path, body, callback) {
@@ -77,7 +77,7 @@ export const connectivityModule = {
                 });
             } else {
                 return axios.put(path, body)
-                    .then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
+                    .then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps));
             }
         },
         patch: function (path, body, callback) {
@@ -89,7 +89,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             } else {
-                return axios.patch(path, body).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
+                return axios.patch(path, body).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps));
             }
         },
         delete: function (path, callback) {
@@ -101,7 +101,7 @@ export const connectivityModule = {
                     callback(err, true);
                 });
             } else {
-                return axios.delete(path).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps))
+                return axios.delete(path).then(promiseReturn.bind(timeProps)).catch(errorHandler.bind(timeProps));
             }
         }
     },
@@ -129,12 +129,10 @@ export const connectivityModule = {
             connection.on(message, callback);
         },
         invoke: function (connection, message, data) {
-            return connection.connection.invoke(message, data).then(() => {
-            }, (err) => {
-                return Promise.reject(err);
+            return connection.invoke(message, data).then(() => {
             });
         }
     }
 
 
-}
+};

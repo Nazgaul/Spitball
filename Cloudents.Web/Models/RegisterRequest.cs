@@ -1,9 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Cloudents.Core.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloudents.Web.Models
 {
     public class RegisterRequest
     {
+        [Required(ErrorMessage = "Required")]
+        [StringLength(100,MinimumLength = 2,ErrorMessage = "StringLength")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Required")]
+        [StringLength(100, MinimumLength = 2, ErrorMessage = "StringLength")]
+        public string LastName { get; set; }
+
         [EmailAddress(ErrorMessage = "EmailAddress"), Required(ErrorMessage = "Required")]
         public string Email { get; set; }
 
@@ -15,5 +24,11 @@ namespace Cloudents.Web.Models
         [Required(ErrorMessage = "Required")]
         [Compare("Password", ErrorMessage = "PasswordNotMatch")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Required")]
+        public Gender Gender { get; set; }
+
+        [Captcha]
+        public string Captcha { get; set; }
     }
 }

@@ -10,18 +10,6 @@
             <div class="full-width-flex">
                 <div>
                     <user-block class="q-user-block" :cardData="cardData" :user="cardData.user"></user-block>
-                    <div class="answer-body-container">
-            <span class="answer-raputation upvote-arrow" @click.prevent="upvoteAnswer()">
-              <v-icon :class="{'voted': cardData.upvoted}">sbf-arrow-up</v-icon>
-            </span>
-                        <span
-                                class="answer-raputation answer-score"
-                                :dir="isRtl ? `ltr` : ''"
-                        >{{cardData.votes}}</span>
-                        <span class="answer-raputation downvote-arrow" @click.prevent="downvoteAnswer()">
-              <v-icon :class="{'voted': cardData.downvoted}">sbf-arrow-down</v-icon>
-            </span>
-                    </div>
                 </div>
 
                 <div class="full-width-flex" :class="{'column-direction': gallery && gallery.length}">
@@ -31,54 +19,42 @@
                             <div class="text">
                                 <div class="answer-header-left-container">
                                     <span class="user-date" v-language:inner>questionCard_Answer</span>
-                                    <user-rank
-                                            style="margin-top: 1px; margin-left: 12px; margin-right: 8px;"
-                                            :score="cardData.user.score"
-                                    ></user-rank>
-                                    <span class="timeago" :datetime="cardData.dateTime||cardData.create"></span>
-                                    <span v-if="typeAnswer" class="q-answer">
-                    <button
-                            class="accept-btn right"
-                            @click="markAsCorrect"
-                            v-if="showApproveButton && !flaggedAsCorrect && !hasAnswer">
-                        <v-icon>sbf-check-circle</v-icon>
-                      <span v-language:inner>questionCard_Accept</span>
-                    </button>
-                  </span>                                    <span class="choosen-answer right" v-if="flaggedAsCorrect">
-                    <v-icon>sbf-check-circle</v-icon>
-                  </span>
+                                    <span class="timeago ml-2" :datetime="cardData.dateTime||cardData.create">{{date}}</span>
+                                    <span class="choosen-answer right" v-if="flaggedAsCorrect">
+                                        <v-icon>sbf-check-circle</v-icon>
+                                    </span>
                                 </div>
                                 <v-spacer></v-spacer>
                                 <div class="menu-area">
                                     <v-menu bottom left content-class="card-user-actions">
-                                        <v-btn :depressed="true" @click.prevent slot="activator" icon>
-                                            <v-icon>sbf-3-dot</v-icon>
-                                        </v-btn>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn :depressed="true" @click.prevent v-on="on" icon>
+                                                <v-icon small>sbf-3-dot</v-icon>
+                                            </v-btn>
+                                        </template>
                                         <v-list>
-                                            <v-list-tile
+                                            <v-list-item
                                                     v-show="item.isVisible"
                                                     :disabled="item.isDisabled()"
                                                     v-for="(item, i) in actions"
                                                     :key="i"
                                             >
-                                                <v-list-tile-title @click="item.action()">{{ item.title }}
-                                                </v-list-tile-title>
-                                            </v-list-tile>
+                                                <v-list-item-title @click="item.action()">{{ item.title }}
+                                                </v-list-item-title>
+                                            </v-list-item>
                                         </v-list>
                                     </v-menu>
                                 </div>
                             </div>
-
-                            <p
-                                    class="q-text"
-                                    :class="[`align-switch-${cardData.isRtl ? isRtl ? 'l' : 'r' : isRtl ? 'r' : 'l'}`, {'answer': typeAnswer}]"
-                            >{{cardData.text}}</p>
+                            
+                            <p :class="['q-text',{'answer': typeAnswer}]">{{cardData.text}}</p>
                         </div>
                     </div>
+                    <!-- TODO CLEAN IT! -->
                     <div class="gallery fixed-margin" v-if="gallery && gallery.length">
                         <v-carousel
-                                :prev-icon="isRtl ? 'sbf-arrow-right rigth' : 'sbf-arrow-right left'"
-                                :next-icon="isRtl ?  'sbf-arrow-right left': 'sbf-arrow-right right'"
+                                :prev-icon="'sbf-arrow-right'"
+                                :next-icon="'sbf-arrow-right'"
                                 interval="600000"
                                 cycle
                                 full-screen
@@ -93,6 +69,7 @@
                             ></v-carousel-item>
                         </v-carousel>
                     </div>
+                    <!-- TODO CLEAN IT! -->
                 </div>
             </div>
             <v-dialog
@@ -109,7 +86,7 @@
                 :showDialog="showReport"
                 :maxWidth="'438px'"
                 :popUpType="'reportDialog'"
-                :content-class="`reportDialog ${isRtl? 'rtl': ''}` "
+                :content-class="`reportDialog`"
         >
             <report-item
                     :closeReport="closeReportDialog"

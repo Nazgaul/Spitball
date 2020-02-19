@@ -29,6 +29,7 @@ namespace Cloudents.Core.DTOs.Admin
         public string Name { get; set; }
         [EntityBind(nameof(University.RowDetail.CreationTime))]
         public DateTime Created { get; set; }
+        public bool CanBeDeleted { get; set; }
     }
 
     public class AllUniversitiesDto

@@ -1,16 +1,15 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.DTOs.SearchSync;
+﻿using Cloudents.Core.DTOs.SearchSync;
 using Cloudents.Core.Event;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.System;
 using Cloudents.Core.Storage;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cloudents.Core.EventHandler
 {
     public class SyncSearchDocumentEventHandler : IEventHandler<DocumentCreatedEvent>,
-        IEventHandler<DocumentDeletedEvent>
+        IEventHandler<DocumentDeletedEvent>, IEventHandler<DocumentUndeletedEvent>
     {
         private readonly IQueueProvider _queueProvider;
 
@@ -28,10 +27,9 @@ namespace Cloudents.Core.EventHandler
                 Country = eventMessage.Document.University.Country.ToUpperInvariant(),
                 Course = eventMessage.Document.Course.Id.ToUpperInvariant(),
                 DateTime = eventMessage.Document.TimeStamp.UpdateTime,
-                ItemId =  eventMessage.Document.Id,
+                ItemId = eventMessage.Document.Id,
                 Name = eventMessage.Document.Name,
-                TagsArray = eventMessage.Document.Tags.Select(s => s.Name.ToUpperInvariant()).ToArray(),
-                Type = eventMessage.Document.Type
+                Type = eventMessage.Document.DocumentType.GetValueOrDefault()
             };
             return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, true), token);
         }
@@ -43,6 +41,22 @@ namespace Cloudents.Core.EventHandler
                 ItemId = eventMessage.Document.Id
             };
             return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, false), token);
+        }
+
+        public Task HandleAsync(DocumentUndeletedEvent eventMessage, CancellationToken token)
+        {
+            var doc = new DocumentSearchDto
+            {
+                UniversityId = eventMessage.Document.University.Id,
+                UniversityName = eventMessage.Document.University.Name,
+                Country = eventMessage.Document.University.Country.ToUpperInvariant(),
+                Course = eventMessage.Document.Course.Id.ToUpperInvariant(),
+                DateTime = eventMessage.Document.TimeStamp.UpdateTime,
+                ItemId = eventMessage.Document.Id,
+                Name = eventMessage.Document.Name,
+                Type = eventMessage.Document.DocumentType.GetValueOrDefault()
+            };
+            return _queueProvider.InsertMessageAsync(new DocumentSearchMessage(doc, true), token);
         }
     }
 }

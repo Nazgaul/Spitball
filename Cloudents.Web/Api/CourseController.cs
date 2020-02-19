@@ -1,20 +1,22 @@
-﻿using System;
-using Cloudents.Command;
+﻿using Cloudents.Command;
 using Cloudents.Command.Courses;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
+using Cloudents.Core.Exceptions;
 using Cloudents.Query;
-using Cloudents.Query.Query;
+using Cloudents.Query.Courses;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Exceptions;
-using Microsoft.AspNetCore.Http;
 
 namespace Cloudents.Web.Api
 {
@@ -48,20 +50,29 @@ namespace Cloudents.Web.Api
         /// <returns>list of courses filter by input</returns>
         [Route("search")]
         [HttpGet, AllowAnonymous]
-      
+
         public async Task<CoursesResponse> GetAsync(
            [FromQuery] CourseSearchRequest request,
             CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
-            var query = new CourseSearchQuery(userId, request.Term, request.Page);
-            var result = await _queryBus.QueryAsync(query, token);
+            IEnumerable<CourseDto> temp;
+            if (!string.IsNullOrEmpty(request.Term))
+            {
+                var query = new CourseSearchWithTermQuery(userId, request.Term, request.Page);
+                temp = await _queryBus.QueryAsync(query, token);
+            }
+            else
+            {
+                var query = new CourseSearchQuery(userId, request.Page);
+                temp = await _queryBus.QueryAsync(query, token);
+            }
             return new CoursesResponse
             {
-                Courses = result
+                Courses = temp
             };
         }
-       
+
 
         [HttpPost("set")]
         public async Task<IActionResult> SetCoursesAsync([FromBody] SetCourseRequest[] model, CancellationToken token)
@@ -112,7 +123,7 @@ namespace Cloudents.Web.Api
             }
             catch (InvalidOperationException)
             {
-                ModelState.AddModelError("x","Not such course");
+                ModelState.AddModelError("x", "Not such course");
                 return BadRequest();
             }
         }
@@ -125,6 +136,16 @@ namespace Cloudents.Web.Api
             var user = await _userManager.GetUserAsync(User);
             await _signInManager.RefreshSignInAsync(user);
             return Ok();
+        }
+
+        [HttpGet("subject"),AllowAnonymous]
+        public async Task<SubjectDto> GetSubjectAsync([FromQuery, Required] string courseName,
+            CancellationToken token)
+        {
+            var query = new CourseSubjectQuery(courseName);
+            var result  = await _queryBus.QueryAsync(query, token);
+            return result;
+
         }
     }
 }

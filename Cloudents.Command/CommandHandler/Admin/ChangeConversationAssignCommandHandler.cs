@@ -1,9 +1,8 @@
 ﻿using Cloudents.Command.Command.Admin;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Core.Entities;
-using Cloudents.Core.Enum;
 
 namespace Cloudents.Command.CommandHandler.Admin
 {
@@ -24,7 +23,7 @@ namespace Cloudents.Command.CommandHandler.Admin
                 chatRoom.Extra = new ChatRoomAdmin(chatRoom);
             }
 
-            if (message.AssignTo == ChatRoomAssign.Unassigned)
+            if (string.IsNullOrEmpty(message.AssignTo))
             {
                 chatRoom.Extra.AssignTo = null;
             }

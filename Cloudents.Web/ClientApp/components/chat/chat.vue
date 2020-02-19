@@ -1,20 +1,10 @@
 <template>
-  <v-container
-    v-if="visible"
-    py-0
-    px-0
-    class="sb-chat-container"
-    :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]"
-  >
+  <div class="sb-chat-container px-0 py-0" :class="[ $route.name == 'tutoring' ?  'chat-studyRoom': '', {'minimized': isMinimized}]">
     <v-layout @click="toggleMinimizeChat" class="chat-header" :class="{'new-messages': hasUnread}">
-      <v-icon
-        :class="{'rtl':isRtl}"
-        @click.stop="OriginalChatState"
-      >{{inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'}}</v-icon>
-
+      <v-icon @click.stop="OriginalChatState" v-html="inConversationState ? 'sbf-message-icon' : 'sbf-arrow-back-chat'" />
         <template v-if="state === 'messages'">
           <user-avatar :size="'32'" :user-name="activeConversationObj.name" :user-id="activeConversationObj.userId" :userImageUrl="activeConversationObj.image"/> 
-          <div class="chat-header-name text-truncate pl-3">{{activeConversationObj.name}}</div>
+          <div class="chat-header-name text-truncate pl-4">{{activeConversationObj.name}}</div>
         </template>
         <template v-else>
             <span class="chat-header-text">{{getIsSignalRConnected ? headerTitle : errorTitle}}</span>
@@ -30,49 +20,33 @@
 
     </v-layout>
 
-    <v-layout v-show="!isMinimized" class="general-chat-style">
+    <v-layout v-if="!isMinimized" class="general-chat-style">
       <component :is="`chat-${state}`"></component>
     </v-layout>
     
-  </v-container>
+  </div>
 </template>
 
 
 <script>
-import chatConversation from "./components/conversations.vue";
-import chatMessages from "./components/messages.vue";
-import UserAvatar from '../helpers/UserAvatar/UserAvatar.vue';
+const chatConversation = () => import("./components/conversations.vue");
+const chatMessages = () => import("./components/messages.vue");
 import { mapGetters, mapActions } from "vuex";
 import { LanguageService } from "../../services/language/languageService";
 export default {
   components: {
     chatConversation,
     chatMessages,
-    UserAvatar
   },
   data() {
     return {
       enumChatState: this.getEnumChatState(),
       mobileHeaderHeight: 39,
-      isRtl: global.isRtl
     };
-  },
-  watch: {
-    visible: function(val) {
-      if (!this.isMobile) {
-        return;
-      }
-      if (val) {
-        document.body.classList.add("noscroll");
-      } else {
-        document.body.classList.remove("noscroll");
-      }
-    }
   },
   computed: {
     ...mapGetters([
       "getChatState",
-      "getIsChatVisible",
       "getIsChatMinimized",
       "getActiveConversationObj",
       "getIsChatLocked",
@@ -89,13 +63,6 @@ export default {
     state() {
       return this.getChatState;
     },
-    visible() {
-      if (this.accountUser === null) {
-        return false;
-      } else {
-        return this.getIsChatVisible;
-      }
-    },
     isMinimized() {
       if (this.isMobile) {
         return false;
@@ -111,6 +78,7 @@ export default {
           return this.getActiveConversationObj.name;
         }
       }
+      return ''
     },
     errorTitle() {
       return LanguageService.getValueByKey("chat_error_messages");
@@ -165,7 +133,7 @@ export default {
   right: 130px;
   width: 320px;
   height: 520px;
-  z-index: 3;
+  z-index: 99;
   background: #fff;
   border-radius: 10px 10px 0 0;
   box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.3);
@@ -173,6 +141,7 @@ export default {
   &.chat-studyRoom {
     right: 0 ;
     left: unset;
+    z-index: 201;
   }
   @media (max-width: @screen-xs) {
     width: 100%;
@@ -206,7 +175,6 @@ export default {
       border-radius: unset;
     }
     .chat-header-text {
-      font-family: @fontOpenSans;
       font-size: 14px;
       color: #ffffff;
       word-break: break-all;
@@ -221,12 +189,10 @@ export default {
       margin: 4px 10px 0 4px;
       z-index: 2;
       &.sbf-arrow-back-chat {
+        transform: scaleX(1) /*rtl:append:scaleX(-1)*/;
         width: 24px;
         height: 24px;
         display: flex;
-        &.rtl {
-          transform: rotate(180deg);
-        }
       }
     }
     .chat-header-name, .other-side {
@@ -245,7 +211,7 @@ export default {
     }
   }
   .general-chat-style {
-    height: 90%;
+    height: ~"calc( 100% - 48px)";
     width: 100%;
     @media (max-width: @screen-xs) {
       flex:2;

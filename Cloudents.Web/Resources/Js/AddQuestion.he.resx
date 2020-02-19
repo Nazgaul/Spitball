@@ -121,7 +121,10 @@
     <value>שליחת שאלה</value>
   </data>
   <data name="ask_your_question_placeholder" xml:space="preserve">
-    <value>השאלה שלי...</value>
+    <value>...</value>
+  </data>
+  <data name="cancel_button" xml:space="preserve">
+    <value>ביטול</value>
   </data>
   <data name="class_placeholder" xml:space="preserve">
     <value>עבור איזה קורס?</value>
@@ -142,6 +145,6 @@
     <value>בחר נושא</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>יצירת שאלה</value>
+    <value>מה השאלה שלך?</value>
   </data>
 </root>

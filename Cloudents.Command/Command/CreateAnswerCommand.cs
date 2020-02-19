@@ -1,19 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Command.Command
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global", Justification = "Automapper Initialize")]
     public class CreateAnswerCommand : ICommand
     {
-        public CreateAnswerCommand(long questionId, string text, long userId, 
-            [CanBeNull] IEnumerable<string> files)
+        public CreateAnswerCommand(long questionId, string text, long userId)
         {
             QuestionId = questionId;
             Text = text;
             UserId = userId;
-            Files = files;
+
         }
 
         public long QuestionId { get; }
@@ -21,9 +18,9 @@ namespace Cloudents.Command.Command
 
         public long UserId { get; }
 
-        [CanBeNull]
-        public IEnumerable<string> Files { get; }
+        //[CanBeNull]
+        //public IEnumerable<string> Files { get; }
 
     }
-   
+
 }

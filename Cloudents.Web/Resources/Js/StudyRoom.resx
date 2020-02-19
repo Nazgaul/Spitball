@@ -118,10 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="alone_in_room" xml:space="preserve">
-    <value>Waiting for other party to join the room</value>
-  </data>
-  <data name="become_tutor" xml:space="preserve">
-    <value>BECOME A TUTOR</value>
+    <value>Waiting for other party to enter the Study Room</value>
   </data>
   <data name="boxs_bottom_add" xml:space="preserve">
     <value>To add files to the board, drag &amp;amp; drop here</value>
@@ -138,23 +135,29 @@
   <data name="created" xml:space="preserve">
     <value>Created on</value>
   </data>
-  <data name="enter_room" xml:space="preserve">
-    <value>Get into room</value>
-  </data>
   <data name="equation_btn" xml:space="preserve">
     <value>Add equation to the board</value>
   </data>
-  <data name="help_others" xml:space="preserve">
-    <value>Help others with what you know best</value>
+  <data name="not_browser" xml:space="preserve">
+    <value>Browser not supported</value>
+  </data>
+  <data name="not_screen" xml:space="preserve">
+    <value>There was an error sharing your screen</value>
+  </data>
+  <data name="premission_denied" xml:space="preserve">
+    <value>You need to update your settings to enable screen sharing - &lt;a style="color:black" href="{0}" target="_Blank"&gt;more info&lt;/a&gt;</value>
   </data>
   <data name="session_ended" xml:space="preserve">
     <value>Session ended</value>
   </data>
   <data name="student_entered_room" xml:space="preserve">
-    <value>The student entered the room</value>
+    <value>The student entered the Study Room</value>
   </data>
   <data name="tutor_entered_room" xml:space="preserve">
-    <value>The tutor entered the room</value>
+    <value>The tutor entered the Study Room</value>
+  </data>
+  <data name="video" xml:space="preserve">
+    <value>Video</value>
   </data>
   <data name="waiting_for_student_toaster" xml:space="preserve">
     <value>Waiting for student to join the session</value>

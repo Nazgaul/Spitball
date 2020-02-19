@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NHibernate;
+﻿using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Engine;
 using NHibernate.SqlCommand;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cloudents.Persistence
 {
@@ -23,7 +23,7 @@ namespace Cloudents.Persistence
 
             var sqlBuilder = new SqlStringBuilder(4 * columnNames.Length);
 
-            for (int i = 0; i < columnNames.Length; i++)
+            for (var i = 0; i < columnNames.Length; i++)
             {
                 if (i > 0)
                 {

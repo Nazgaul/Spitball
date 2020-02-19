@@ -120,11 +120,27 @@
   <data name="courses" xml:space="preserve">
     <value>9,575 קורסים</value>
   </data>
+  <data name="footer_h1" xml:space="preserve">
+    <value>שיעורים פרטיים אונליין: מצאו מורים פרטיים במגוון קורסים ומקצועות 
+לימוד</value>
+  </data>
+  <data name="footer_h1_course" xml:space="preserve">
+    <value>שיעורים פרטיים ב{1} אונליין: מצאו מורים פרטיים ב{2}</value>
+  </data>
+  <data name="footer_h2" xml:space="preserve">
+    <value>מצאו מורה פרטי מקצועי ואמין ממאגר ענק של מורים פרטיים שמעבירים שיעור פרטי אונליין במגוון נושאים אקדמאים וקורסים במערכת הלמידה המתקדמת של ספיטבול</value>
+  </data>
+  <data name="footer_h2_course" xml:space="preserve">
+    <value>מצאו מורה פרטי מקצועי ואמין ב{1} מתוך מאגר ענק של מורים פרטיים ב{2} שמעבירים שיעור פרטי אונליין במגוון נושאים אקדמאים וקורסים במערכת הלמידה המתקדמת של ספיטבול</value>
+  </data>
+  <data name="footer_h3" xml:space="preserve">
+    <value>מורים פרטיים מעולים שמחויבים להצלחה שלך</value>
+  </data>
+  <data name="footer_h3_course" xml:space="preserve">
+    <value>מורים פרטיים מעולים שמחויבים להצלחה שלך</value>
+  </data>
   <data name="footer_links_about" xml:space="preserve">
     <value>אודות ספיטבול</value>
-  </data>
-  <data name="footer_links_ambassadors" xml:space="preserve">
-    <value>שגרירים</value>
   </data>
   <data name="footer_links_blog" xml:space="preserve">
     <value>בלוג</value>
@@ -138,9 +154,6 @@
   <data name="footer_links_feedback" xml:space="preserve">
     <value>פידבק</value>
   </data>
-  <data name="footer_links_partners" xml:space="preserve">
-    <value>שותפויות</value>
-  </data>
   <data name="footer_links_pr" xml:space="preserve">
     <value>יחסי ציבור</value>
   </data>
@@ -151,13 +164,13 @@
     <value>תנאי שימוש</value>
   </data>
   <data name="header_find_tutors" xml:space="preserve">
-    <value>מצא מורים פרטיים עם ניסיון בלימוד הקורסים שלך אונליין</value>
+    <value>שיעור ראשון חינם - במימוש קופון: חינם1</value>
   </data>
   <data name="header_get_lesson" xml:space="preserve">
-    <value>קבל שיעור פרטי החל מ- ₪55/שעה</value>
+    <value>מורים פרטיים מעולים שמחויבים להצלחה שלך</value>
   </data>
-  <data name="rates" xml:space="preserve">
-    <value>95%</value>
+  <data name="header_get_lesson_subject" xml:space="preserve">
+    <value>מורים פרטיים מעולים ב{1} שמחויבים להצלחה שלך</value>
   </data>
   <data name="reviews" xml:space="preserve">
     <value>ביקורות</value>

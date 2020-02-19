@@ -117,31 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Testimonial1" xml:space="preserve">
-    <value>Love it all!!! Spitball's the best. It's the most helpful site out there.</value>
+  <data name="banner_content_access" xml:space="preserve">
+    <value>Access thousands of course specific study documents</value>
   </data>
-  <data name="Testimonial1Person" xml:space="preserve">
-    <value>Hannah Newman</value>
+  <data name="banner_content_choose" xml:space="preserve">
+    <value>Choose online courses to learn on your schedule</value>
   </data>
-  <data name="Testimonial1Title" xml:space="preserve">
-    <value>Arizona State University</value>
+  <data name="banner_content_find" xml:space="preserve">
+    <value>Find expert teachers ready to take you to the next level</value>
   </data>
-  <data name="Testimonial2" xml:space="preserve">
-    <value>What an amazing site! The setup is so user-friendly and there are tons of effective and up-to-date resources.</value>
+  <data name="banner_title" xml:space="preserve">
+    <value>The study tools you need to succeed anytime anywhere</value>
   </data>
-  <data name="Testimonial2Person" xml:space="preserve">
-    <value>Daniel Kaplan</value>
+  <data name="btn_earn" xml:space="preserve">
+    <value>Teach on Spitball</value>
   </data>
-  <data name="Testimonial2Title" xml:space="preserve">
-    <value>University of Washington</value>
+  <data name="cs_title" xml:space="preserve">
+    <value>Popular Categories</value>
   </data>
-  <data name="Testimonial3" xml:space="preserve">
-    <value>I found myself looking for a new way to communicate and study with my classmates. Spitball. It's genius!</value>
+  <data name="earn_subtitle" xml:space="preserve">
+    <value>Access to the tools you need to create and sell educational content and teach online</value>
   </data>
-  <data name="Testimonial3Person" xml:space="preserve">
-    <value>Ron Sawyer</value>
+  <data name="earn_title" xml:space="preserve">
+    <value>Earn by teaching what you know best</value>
   </data>
-  <data name="Testimonial3Title" xml:space="preserve">
-    <value>Sophomore at UC Davis</value>
+  <data name="hd_search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="hd_subtitle" xml:space="preserve">
+    <value>Access course specific study materials, talk to expert teachers or watch educational videos.</value>
+  </data>
+  <data name="hd_title" xml:space="preserve">
+    <value>Improve your grades with help throughout your studies</value>
+  </data>
+  <data name="is_title" xml:space="preserve">
+    <value>Students are Viewing</value>
+  </data>
+  <data name="tss_subtitle" xml:space="preserve">
+    <value>Testimonials</value>
+  </data>
+  <data name="tss_title" xml:space="preserve">
+    <value>What our students say</value>
+  </data>
+  <data name="ts_subtitle" xml:space="preserve">
+    <value>Find the perfect tutor and chat free of charge</value>
+  </data>
+  <data name="ts_title" xml:space="preserve">
+    <value>Popular Tutors</value>
+  </data>
+  <data name="hd_search_ph" xml:space="preserve">
+    <value>Try “Mathematics”</value>
+  </data>
+  <data name="hd_stats_docs" xml:space="preserve">
+    <value>Study resources</value>
+  </data>
+  <data name="hd_stats_students" xml:space="preserve">
+    <value>Students</value>
+  </data>
+  <data name="hd_stats_tutors" xml:space="preserve">
+    <value>Teachers</value>
+  </data>
+  <data name="hd_title_mobile" xml:space="preserve">
+    <value>Improve your grades</value>
   </data>
 </root>

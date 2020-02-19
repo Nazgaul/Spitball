@@ -12,5 +12,5 @@ namespace Cloudents.Core.DTOs
         public bool? IsPending { get; private set; }
         public bool? IsTeaching { get; private set; }
     }
-    
+
 }

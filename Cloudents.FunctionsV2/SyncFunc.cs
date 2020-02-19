@@ -1,17 +1,14 @@
 ﻿using Autofac;
 using Cloudents.FunctionsV2.Sync;
+using Cloudents.Query.Sync;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cloudents.Query.Query.Sync;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
-using Cloudents.Command;
-using Cloudents.Query;
-using Cloudents.Query.Chat;
-using Cloudents.Command.Command;
 
 namespace Cloudents.FunctionsV2
 {
@@ -25,7 +22,7 @@ namespace Cloudents.FunctionsV2
         private const string SetSyncStatusFunctionName = "SearchSyncSetProgress";
 
 
-        internal static async Task StartSearchSync(DurableOrchestrationClient starter,
+        internal static async Task StartSearchSync(IDurableOrchestrationClient starter,
             ILogger log, SyncType syncType)
 
         {
@@ -62,7 +59,7 @@ namespace Cloudents.FunctionsV2
 
         [FunctionName(SearchSyncName)]
         public static async Task SearchSync(
-            [OrchestrationTrigger] DurableOrchestrationContextBase context,
+            [OrchestrationTrigger] IDurableOrchestrationContext context,
             ILogger log)
         {
             var input = context.GetInput<SearchSyncInput>();

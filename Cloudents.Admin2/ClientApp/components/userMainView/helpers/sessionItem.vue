@@ -48,7 +48,7 @@
     },
         props: {
             session: {
-                type: Array,
+                // type: Array,
                 required: false
             },
             
@@ -61,7 +61,7 @@
 
 </script>
 
-<style  lang="scss">
+<style  lang="less">
     .item-wrap{
         .session-toolbar{
             max-width: 100%;

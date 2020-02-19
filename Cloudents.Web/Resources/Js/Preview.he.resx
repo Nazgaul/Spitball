@@ -126,28 +126,7 @@
   <data name="cancel" xml:space="preserve">
     <value>בטל</value>
   </data>
-  <data name="doc_placeholder_text" xml:space="preserve">
-    <value>תצוגה המקדימה תהיה זמינה בקרוב</value>
-  </data>
   <data name="itemActions_buy" xml:space="preserve">
     <value>קבל גישה</value>
-  </data>
-  <data name="itemActions_download" xml:space="preserve">
-    <value>הורד</value>
-  </data>
-  <data name="itemActions_title" xml:space="preserve">
-    <value>הדפס</value>
-  </data>
-  <data name="item_class" xml:space="preserve">
-    <value>קורס</value>
-  </data>
-  <data name="item_prof" xml:space="preserve">
-    <value>מרצה</value>
-  </data>
-  <data name="item_school" xml:space="preserve">
-    <value>מוסד לימודים</value>
-  </data>
-  <data name="price_equals_to" xml:space="preserve">
-    <value>וקבל גישה למסמך</value>
   </data>
 </root>

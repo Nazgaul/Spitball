@@ -1,6 +1,6 @@
-﻿using System;
-using Cloudents.Core.Enum;
+﻿using Cloudents.Core.Enum;
 using Cloudents.Core.Extension;
+using System;
 
 namespace Cloudents.Core.DTOs
 {
@@ -20,9 +20,10 @@ namespace Cloudents.Core.DTOs
                     _action = p;
                 }
             }
-        } 
+        }
 
-        public string Type {
+        public string Type
+        {
             get => _type.GetEnumLocalization();
             set
             {
@@ -36,9 +37,9 @@ namespace Cloudents.Core.DTOs
 
 
         //public string Action => ActionType.GetEnumLocalization();
-       //public string Type => TypeEnum.GetEnumLocalization();
+        //public string Type => TypeEnum.GetEnumLocalization();
 
-       
+
 
         public decimal Balance { get; set; }
     }

@@ -1,5 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core
 {
@@ -57,11 +57,12 @@ namespace Cloudents.Core
     public enum SignalREventAction
     {
         Logout,
-        MarkAsCorrect,
+        //MarkAsCorrect,
         Toaster,
         OnlineStatus,
         StartSession,
-        PaymentReceived
+        PaymentReceived,
+        EnterStudyRoom
     }
 
     public enum SignalRType

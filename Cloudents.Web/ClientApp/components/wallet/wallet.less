@@ -4,7 +4,11 @@
 .wallet-page {
   position: relative;
   max-width: @table-width;
-  margin: 0 auto;
+  // margin: 0 auto;
+  margin-left: 34px;
+  @media (max-width: @screen-sm) {
+    margin-right: 34px;
+  }
   @media (max-width: @screen-xs) {
     margin: 0;
     height: 100%;
@@ -54,6 +58,17 @@
         }
       }
     }
+    .v-slide-group__prev {
+      display: none !important;
+    }
+    .tabs_text {
+      text-transform: initial;
+      font-size: 16px;
+      font-weight: normal;
+      &.v-tab.v-tab--active {
+        font-weight: bold;
+      }
+    }
     .tabs-wrapper, v-tabs__wrapper {
       background-color: @color-main-purple;
       color: @color-white;
@@ -75,29 +90,31 @@
       }
 
     }
-    .v-tabs{
-      margin: 0;
+    // .v-tabs{
+    //   margin: 0;
 
-      .v-tabs__li {
-        margin-right: 16px;
-      }
-      .v-tabs__item {
-        color: @color-white !important;
-        font-size: 16px;
-        letter-spacing: -0.2px;
-        text-transform: none;
-        padding: 0 16px 8px 16px;
-        @media (max-width: @screen-xs) {
-          padding: 6px 12px;
-        }
-        &.v-tabs__item--active {
-          font-weight: bold;
-          letter-spacing: -0.3px;
-        }
-      }
+    //   .v-tabs {
+    //     margin-right: 16px;
+    //   }
+    //   .v-tabs {
+    //     color: @color-white !important;
+    //     font-size: 16px;
+    //     letter-spacing: -0.2px;
+    //     text-transform: none;
+    //     padding: 0 16px 8px 16px;
+    //     @media (max-width: @screen-xs) {
+    //       padding: 6px 12px;
+    //     }
+    //     &.v-tab--active {
+    //       font-weight: bold;
+    //       letter-spacing: -0.3px;
+    //       font-weight: 700;
+
+    //     }
+    //   }
 
 
-    }
+    // }
 
     .custom-table {
       width: 100%;
@@ -162,37 +179,41 @@
       max-height: 344px;
       text-transform: capitalize;
       overflow:auto;
+      .v-data-table-header {
+        background-color: #f3f3ff;
+      }
       .v-table__overflow{
         width: inherit;
         @media (max-width: @screen-xs) {
           width: inherit;
         }
       }
-      .v-table {
+      // .v-table {
         thead {
           background-color: #f3f3ff;
           tr {
             border: none;
             height: 48px;
-          }
-        }
-        th {
-          height: 48px;
-          &:focus {
-            outline: none;
-          }
-          i {
-            display: none !important;
-          }
-
-          .table-header {
+        
+          th {
+            height: 48px;
             font-size: 16px;
             line-height: 1.56;
             letter-spacing: -0.4px;
             color: @color-main-purple;
+            font-weight: normal;
+            &:last-child {
+              font-weight: bold;
+            }
+            &:focus {
+              outline: none;
+            }
+            i {
+              display: none !important;
+            }
           }
         }
-
+      }
         tbody {
           td {
             font-size: 16px;
@@ -200,6 +221,7 @@
             letter-spacing: -0.4px;
             color: #000000;
             white-space: pre;
+            
           }
           tr {
             border: none;
@@ -211,7 +233,7 @@
             }
           }
         }
-      }
+      // }
     }
 
     .bold, .Balance-header, .Value-header {
@@ -279,7 +301,7 @@
 
       .v-pagination {
         i.sbf {
-          font-size: 17px;
+          font-size: 17px !important;
           color: @color-main-purple;
           &.left {
             transform: scale(-1, 1);
@@ -352,8 +374,7 @@
     font-weight: bold;
     font-size: 20px;
     letter-spacing: -0.5px;
-    @media (max-width: @screen-xs) {
-    }
+   
     .btn-wrap {
       .responsive-property(width, @table-width * 0.4, null, 100%);
       text-align: right;

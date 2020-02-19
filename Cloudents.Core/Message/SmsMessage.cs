@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace Cloudents.Core.Message
 {
@@ -10,6 +11,7 @@ namespace Cloudents.Core.Message
             PhoneNumber = phoneNumber;
             Message = message;
             Type = type;
+            CultureInfo = CultureInfo.CurrentUICulture;
         }
 
 
@@ -24,6 +26,11 @@ namespace Cloudents.Core.Message
         public string Message { get; private set; }
 
         public MessageType Type { get; }
+
+        [DataMember]
+        public CultureInfo CultureInfo { get; private set; }
+
+
 
         public sealed class MessageType
         {

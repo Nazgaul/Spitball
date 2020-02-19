@@ -10,7 +10,7 @@ namespace Cloudents.Command.Command
             CultureInfo = cultureInfo;
         }
 
-        public long UserId { get;  }
+        public long UserId { get; }
 
         public Language CultureInfo { get; }
     }

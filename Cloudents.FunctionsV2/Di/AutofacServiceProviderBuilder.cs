@@ -2,9 +2,12 @@
 using Autofac.Extensions.DependencyInjection;
 using Cloudents.Core;
 using Cloudents.Core.Interfaces;
+using Cloudents.FunctionsV2.FileProcessor;
+using Cloudents.FunctionsV2.Services;
 using Cloudents.FunctionsV2.Sync;
 using Cloudents.FunctionsV2.System;
 using Cloudents.Infrastructure;
+using Cloudents.Infrastructure.Video;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,10 +46,14 @@ namespace Cloudents.FunctionsV2.Di
 
 
 
-            var keys = new ConfigurationKeys(
-                _configuration["SiteEndPoint"] ?? "https://www.spitball.co")
+            var keys = new ConfigurationKeys
             {
-                Db = new DbConnectionString(_configuration["ConnectionString"], _configuration["Redis"]),
+                SiteEndPoint =
+                {
+                    SpitballSite = _configuration["SiteEndPoint"] ?? "https://www.spitball.co",
+                    IndiaSite = _configuration["IndiaSiteEndPoint"] ?? "https://www.frymo.com"
+                },
+                Db = new DbConnectionString(_configuration["ConnectionString"], _configuration["Redis"], DbConnectionString.DataBaseIntegration.None),
                 Redis = _configuration["Redis"],
                 Search = new SearchServiceCredentials(
                     _configuration["SearchServiceName"],
@@ -66,28 +73,42 @@ namespace Cloudents.FunctionsV2.Di
             //            .Contains("Cloudents",
             //                StringComparison.OrdinalIgnoreCase))
             //    .Select(Assembly.Load).ToArray();
-
+            
 
             builder.Register(_ => keys).As<IConfigurationKeys>();
             builder.RegisterAssemblyModules(
-                Assembly.Load("Cloudents.Infrastructure.Storage"), //We need this because of event handler in question populate
                 Assembly.Load("Cloudents.Infrastructure"),
                 Assembly.Load("Cloudents.Persistence"));
+
+            builder.RegisterType<HostUriService>().AsSelf().AsImplementedInterfaces();
+            builder.RegisterType<DataProtectionService>().As<IDataProtectionService>();
 
             builder.RegisterType<RestClient>().As<IRestClient>()
                 .SingleInstance();
 
             builder.RegisterType<Logger>().As<ILogger>();
 
-
-            builder.RegisterType<QuestionDbToSearchSync>()
-                .Keyed<IDbToSearchSync>(SyncType.Question).SingleInstance();
             builder.RegisterType<UniversityDbToSearchSync>()
                 .Keyed<IDbToSearchSync>(SyncType.University).SingleInstance();
             builder.RegisterType<DocumentDbToSearchSync>()
                 .Keyed<IDbToSearchSync>(SyncType.Document).SingleInstance();
 
 
+            builder.RegisterType<FileProcessorFactory>().AsImplementedInterfaces();
+            builder.RegisterType<VideoProcessor>().AsSelf().As<IFileProcessor>()
+                .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
+                    FileTypesExtension.Video.Extensions));
+
+
+            builder.RegisterType<PowerPointProcessor>().AsSelf().As<IFileProcessor>()
+                .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
+                    FileTypesExtension.PowerPoint.Extensions));
+
+            builder.RegisterType<AudioProcessor>().AsSelf().As<IFileProcessor>()
+                .WithMetadata<AppenderMetadata>(m => m.For(am => am.AppenderName,
+                    FileTypesExtension.Music.Extensions));
+
+            builder.RegisterType<MediaServices>().SingleInstance().As<IVideoService>().WithParameter("isDevelop", keys.Search.IsDevelop);
 
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())

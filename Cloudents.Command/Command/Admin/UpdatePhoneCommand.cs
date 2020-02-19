@@ -1,5 +1,5 @@
 ﻿
-namespace Cloudents.Command.Command
+namespace Cloudents.Command.Command.Admin
 {
     public class UpdatePhoneCommand : ICommand
     {
@@ -8,7 +8,7 @@ namespace Cloudents.Command.Command
             UserId = userId;
             NewPhone = newPhone;
         }
-        public long UserId{ get; }
+        public long UserId { get; }
         public string NewPhone { get; }
     }
 }

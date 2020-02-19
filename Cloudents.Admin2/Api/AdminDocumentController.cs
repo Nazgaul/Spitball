@@ -1,18 +1,19 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Admin2.Models;
+﻿using Cloudents.Admin2.Models;
 using Cloudents.Command;
 using Cloudents.Command.Command.Admin;
 using Cloudents.Core.DTOs.Admin;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Storage;
 using Cloudents.Query;
-using Cloudents.Query.Query.Admin;
+using Cloudents.Query.Admin;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 
 namespace Cloudents.Admin2.Api
@@ -42,7 +43,7 @@ namespace Cloudents.Admin2.Api
             [FromServices] IBlobProvider blobProvider,
             CancellationToken token)
         {
-         
+
             var query = new PendingDocumentQuery(fromId, User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             var tasks = new Lazy<List<Task>>();
@@ -51,7 +52,7 @@ namespace Cloudents.Admin2.Api
             foreach (var document in retVal)
             {
                 id = document.Id;
-                var files = await  _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
+                var files = await _blobProvider.FilesInDirectoryAsync("preview-0", document.Id.ToString(), token);
                 var file = files.FirstOrDefault();
                 if (file != null)
                 {
@@ -64,8 +65,8 @@ namespace Cloudents.Admin2.Api
                 }
                 else
                 {
-                    
-                    var t =  _queueProvider.InsertBlobReprocessAsync(document.Id);
+
+                    var t = _queueProvider.InsertBlobReprocessAsync(document.Id);
                     tasks.Value.Add(t);
                 }
                 document.SiteLink = Url.RouteUrl("DocumentDownload", new { id = document.Id });
@@ -97,11 +98,23 @@ namespace Cloudents.Admin2.Api
             };
         }
 
-        [HttpDelete("{id}")]
-        [Authorize(/*Roles = Roles.Admin*/)]
-        public async Task<IActionResult> Delete(long id, CancellationToken token)
+        [HttpDelete]
+        [Authorize]
+        public async Task<IActionResult> Delete([FromQuery(Name = "id"), MaxLength(200)] IEnumerable<long> ids, CancellationToken token)
         {
-            var command = new DeleteDocumentCommand(id);
+            foreach (var id in ids)
+            {
+                var command = new DeleteDocumentCommand(id);
+                await _commandBus.DispatchAsync(command, token);
+            }
+            return Ok();
+        }
+
+        [HttpPost("unDelete")]
+        [Authorize]
+        public async Task<IActionResult> UnDelete([FromBody] UnDeleteDocumentRequest model, CancellationToken token)
+        {
+            var command = new UnDeleteDocumentCommand(model.Id);
             await _commandBus.DispatchAsync(command, token);
             return Ok();
         }
@@ -118,11 +131,11 @@ namespace Cloudents.Admin2.Api
         public async Task<IEnumerable<FlaggedDocumentDto>> FlagAsync
             ([FromServices] IBlobProvider blobProvider, CancellationToken token)
         {
-           
+
             var query = new FlaggedDocumentQuery(User.GetCountryClaim());
             var retVal = await _queryBus.QueryAsync(query, token);
             var tasks = new Lazy<List<Task>>();
-         
+
             foreach (var document in retVal)
             {
 
@@ -143,7 +156,7 @@ namespace Cloudents.Admin2.Api
                     tasks.Value.Add(t);
                 }
 
-              
+
             }
 
             if (tasks.IsValueCreated)
@@ -153,7 +166,7 @@ namespace Cloudents.Admin2.Api
 
             //return retVal.Where(w => w.Preview != null);
             return retVal;
-            
+
         }
 
 

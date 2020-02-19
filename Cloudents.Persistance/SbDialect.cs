@@ -2,12 +2,12 @@
 using NHibernate.Dialect;
 using NHibernate.Dialect.Function;
 using NHibernate.Hql.Ast;
-using NHibernate.Linq;
 using NHibernate.Linq.Functions;
 using NHibernate.Linq.Visitors;
 using System;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using Cloudents.Query.Stuff;
 
 namespace Cloudents.Persistence
 {
@@ -24,6 +24,7 @@ namespace Cloudents.Persistence
             RegisterFunction(RandomOrder, new StandardSQLFunction("NEWID", NHibernateUtil.Guid));
             //RegisterFunction("NEWID()", new StandardSQLFunction("NEWID()", NHibernateUtil.Guid));
 
+            CustomProjections.Register();
         }
 
 
@@ -46,10 +47,9 @@ namespace Cloudents.Persistence
         }
     }
 
-    public class MyLinqToHqlGeneratorsRegistry : DefaultLinqToHqlGeneratorsRegistry
+    public sealed class MyLinqToHqlGeneratorsRegistry : DefaultLinqToHqlGeneratorsRegistry
     {
         public MyLinqToHqlGeneratorsRegistry()
-            : base()
         {
             RegisterGenerator(NHibernate.Util.ReflectHelper.GetMethod(() => DialectExtensions.FullTextContains(null, null)),
                 new FullTextContainsGenerator());
@@ -68,12 +68,12 @@ namespace Cloudents.Persistence
             ReadOnlyCollection<System.Linq.Expressions.Expression> arguments,
             HqlTreeBuilder treeBuilder, IHqlExpressionVisitor visitor)
         {
-            HqlExpression[] args = new HqlExpression[2] {
+            var args = new[] {
                 visitor.Visit(arguments[0]).AsExpression(),
                 visitor.Visit(arguments[1]).AsExpression()
             };
             return treeBuilder.BooleanMethodCall("contains", args);
         }
     }
-  
+
 }

@@ -14,7 +14,7 @@ namespace Cloudents.Core.Models
 
         protected Address()
         {
-            
+
         }
 
         /// <summary>
