@@ -24,9 +24,8 @@ namespace Cloudents.FunctionsV2
             [Inject] IDapperRepository dapperRepository,
             ILogger log)
         {
-            using (var openConnection = dapperRepository.OpenConnection())
-            {
-                const string sql = @" update tr
+            using var openConnection = dapperRepository.OpenConnection();
+            const string sql = @" update tr
                     set Review = x.[text]
                     from sb.TutorReview tr
                 join
@@ -44,11 +43,11 @@ namespace Cloudents.FunctionsV2
                     ) x
                     on x.Id = tr.Id";
 
-                var result = await openConnection.ExecuteAsync(sql);
+            var result = await openConnection.ExecuteAsync(sql);
 
-                log.LogInformation($"update non IL amount: {result}");
+            log.LogInformation($"update non IL amount: {result}");
 
-                const string ilSQl = @"update tr
+            const string ilSQl = @"update tr
 set Review = x.[text]
 from sb.TutorReview tr
 join
@@ -66,9 +65,8 @@ where tri.Review is null
 ) x
 on x.Id = tr.Id";
 
-                result = await openConnection.ExecuteAsync(ilSQl);
-                log.LogInformation($"update IL amount: {result}");
-            }
+            result = await openConnection.ExecuteAsync(ilSQl);
+            log.LogInformation($"update IL amount: {result}");
         }
 
         [FunctionName("DeleteOldUserLocation")]

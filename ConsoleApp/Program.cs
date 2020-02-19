@@ -109,7 +109,7 @@ namespace ConsoleApp
 
             var builder = new ContainerBuilder();
 
-            var env = EnvironmentSettings.Dev;
+            var env = EnvironmentSettings.Prod;
 
 
             builder.Register(_ => GetSettings(env)).As<IConfigurationKeys>();
@@ -163,7 +163,7 @@ namespace ConsoleApp
            
             // await Convert();
             var queryBus = _container.Resolve<IQueryBus>();
-            var query = new UserAccountQuery(492178);
+            var query = new UserAccountQuery(182297);
             var user = await queryBus.QueryAsync(query, default);
             //await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
             //Console.WriteLine("add");
