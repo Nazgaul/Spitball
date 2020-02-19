@@ -138,7 +138,22 @@ namespace Cloudents.Core.DTOs
         public bool IsSold { get; set; }
         public bool HaveStudyRoom { get; set; }
         public bool HaveFollowers { get; set; }
-        public UserType? UserType { get; set; }
+        private UserType? _userType;
+        public UserType? UserType 
+        {
+            get
+            {
+                if (IsTutor is null && _userType == Enum.UserType.Teacher)
+                {
+                    return Enum.UserType.UniversityStudent;
+                }
+                return _userType;
+            }
+            set
+            {
+                _userType = value;
+            }
+        }
         public string Country { get; set; }
 
         public IEnumerable<CourseDto> Courses { get; set; }
