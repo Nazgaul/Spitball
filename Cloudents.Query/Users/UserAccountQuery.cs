@@ -80,6 +80,12 @@ namespace Cloudents.Query.Users
                     .Take(1)
                     .ToFuture();
 
+                var haveQuestionsFuture = _session.Query<Question>()
+                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
+                    .Select(s => s.Id)
+                    .Take(1)
+                    .ToFuture();
+
                 var haveDocsWithPriceFuture = _session.Query<Document>()
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.Price > 0)
                     .Select(s => s.Id)
@@ -153,7 +159,8 @@ namespace Cloudents.Query.Users
 
                 result.Courses = await coursesFuture.GetEnumerableAsync(token);
                 result.University = await universityFuture.GetValueAsync(token);
-                result.HaveDocs = (await haveDocsFuture.GetEnumerableAsync(token)).Any() ? true : false;
+                result.HaveContent = (await haveDocsFuture.GetEnumerableAsync(token)).Any()
+                                    || (await haveQuestionsFuture.GetEnumerableAsync(token)).Any() ? true : false;
 
                 result.HaveDocsWithPrice = (await haveDocsWithPriceFuture.GetEnumerableAsync(token)).Any() ? true : false;
 

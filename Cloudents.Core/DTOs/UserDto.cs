@@ -132,7 +132,7 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(User.PaymentExists), nameof(User.Country))]
         public bool NeedPayment { get; set; }
 
-        public bool HaveDocs { get; set; }
+        public bool HaveContent { get; set; }
         public bool HaveDocsWithPrice { get; set; }
         public bool IsPurchased { get; set; }
         public bool IsSold { get; set; }
