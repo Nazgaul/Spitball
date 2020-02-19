@@ -1,15 +1,15 @@
 ﻿using System;
+using System.Globalization;
+using System.Net.Mail;
+using System.Threading;
+using System.Threading.Tasks;
 using Cloudents.Core.Message.Email;
 using Cloudents.Query;
 using Cloudents.Query.Email;
 using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
-using System.Globalization;
-using System.Net.Mail;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Cloudents.FunctionsV2.System
+namespace Cloudents.FunctionsV2.Operations
 {
     public class RedeemTransactionMessageEmailOperation : ISystemOperation<RedeemTransactionMessage>
     {

@@ -1,11 +1,11 @@
-﻿using Cloudents.Command;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Command;
 using Cloudents.Command.Command;
 using Cloudents.Core.Message.System;
 using Microsoft.Azure.WebJobs;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Cloudents.FunctionsV2.System
+namespace Cloudents.FunctionsV2.Operations
 {
     public class UpdateDocumentNumberDownloadsOperation : ISystemOperation<UpdateDocumentNumberOfDownloads>
     {

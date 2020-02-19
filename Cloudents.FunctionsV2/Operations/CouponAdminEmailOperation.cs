@@ -1,11 +1,11 @@
-﻿using Cloudents.Core.Interfaces;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Cloudents.FunctionsV2.System
+namespace Cloudents.FunctionsV2.Operations
 {
     public class CouponAdminEmailOperation : ISystemOperation<CouponActionEmail>
     {

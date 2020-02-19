@@ -7,7 +7,7 @@ using Cloudents.Core.Message.Email;
 using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
 
-namespace Cloudents.FunctionsV2.System
+namespace Cloudents.FunctionsV2.Operations
 {
     public class StudyRoomSessionVideoEmailOperation : ISystemOperation<StudyRoomVideoMessage>
     {

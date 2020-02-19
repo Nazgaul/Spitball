@@ -22,18 +22,15 @@ namespace Cloudents.FunctionsV2
                 return;
             }
             log.LogInformation($"Processing {id}");
-            using (var sr = await myBlob.OpenReadAsync())
+            await using var sr = await myBlob.OpenReadAsync();
+            var result = await cognitiveService.DetectCenterFaceAsync(sr);
+            if (result is null)
             {
-                var result = await cognitiveService.DetectCenterFaceAsync(sr);
-                if (result is null)
-                {
-                    return;
-                }
-                myBlob.Metadata["face"] = $"{result.Value.X},{result.Value.Y}";
-                await myBlob.SetMetadataAsync();
-                log.LogInformation($"Finish Processing {id}");
+                return;
             }
-
+            myBlob.Metadata["face"] = $"{result.Value.X},{result.Value.Y}";
+            await myBlob.SetMetadataAsync();
+            log.LogInformation($"Finish Processing {id}");
         }
     }
 }
