@@ -9,13 +9,13 @@
             </v-list-item-content>
          </v-list-item>
       </template>
+       <sideMenuListItem :dashboardProps="settingProps" :item="myProfileItem"/>
+      <sideMenuListItem :dashboardProps="settingProps" :item="myUniversityItem"/>
+      <sideMenuListItem :dashboardProps="settingProps" :item="myCoursesItem"/>
       <template v-if="isTutor">
          <sideMenuListItem :dashboardProps="settingProps" :item="myCalendarItem"/>
          <sideMenuListItem :dashboardProps="settingProps" :item="testStudyRoomItem"/>
       </template>
-      <sideMenuListItem :dashboardProps="settingProps" :item="myUniversityItem"/>
-      <sideMenuListItem :dashboardProps="settingProps" :item="myCoursesItem"/>
-      <sideMenuListItem :dashboardProps="settingProps" :item="myProfileItem"/>
    </v-list-group>
 </template>
 
@@ -27,11 +27,11 @@ export default {
    components:{sideMenuListItem},
    data() {
       return {
+         myProfileItem:{name: this.$t('schoolBlock_profile'),route: routeNames.Profile, icon:'sbf-user',sel:'sd_profile'},
+         myUniversityItem:{name: this.$t('menuList_changeUniversity'),route: routeNames.EditUniversity, icon:'sbf-university',sel:'sd_studyroom'},
          myCoursesItem:{name: this.$t('schoolBlock_courses'),route: routeNames.EditCourse, icon:'sbf-classes-icon', sel:'sd_edit_course'},
          myCalendarItem:{name: this.$t('schoolBlock_calendar'),route: routeNames.MyCalendar, icon:'sbf-calendar', sel:'sd_calendar'},
          testStudyRoomItem:{name: this.$t('menuList_my_study_rooms'),route: routeNames.StudyRoom, icon:'sbf-pc',sel:'menu_row'},
-         myUniversityItem:{name: this.$t('menuList_changeUniversity'),route: routeNames.EditUniversity, icon:'sbf-university',sel:'sd_studyroom'},
-         myProfileItem:{name: this.$t('schoolBlock_profile'),route: routeNames.Profile, icon:'sbf-user',sel:'sd_profile'},
       }
    },
    props:{

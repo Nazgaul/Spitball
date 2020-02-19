@@ -60,7 +60,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(['Feeds_getItems','Feeds_getFilters','Feeds_getCurrentQuery']),
+        ...mapGetters(['accountUser','Feeds_getItems','Feeds_getFilters','Feeds_getCurrentQuery','getUserLoggedInStatus']),
         items(){
             return this.Feeds_getItems
         },
@@ -70,6 +70,13 @@ export default {
         showAnalyticStats() {
             let user = this.$store.getters.accountUser;
             return user && user.haveDocsWithPrice;
+        },
+        showRequestBox(){
+            if(this.getUserLoggedInStatus){
+                return this.accountUser?.userType !== 'Parent';
+            }else{
+                return true;
+            }
         }
     },
     watch: {

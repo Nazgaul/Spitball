@@ -14,6 +14,18 @@
          <sideMenuListItem :dashboardProps="dashboardProps" :item="overviewItem"/>
       </template>
 
+      <template v-if="showOverview">
+         <sideMenuListItem :dashboardProps="dashboardProps" :item="myQuestionsItem"/>
+      </template>
+
+      <template v-if="showMyContent">
+         <sideMenuListItem :dashboardProps="dashboardProps" :item="myContentItem"/>
+      </template>
+
+      <template v-if="showMyStudyRooms">
+         <sideMenuListItem :dashboardProps="dashboardProps" :item="myStudyRoomsItem"/>
+      </template>
+      
       <template v-if="showMySales">
          <sideMenuListItem :dashboardProps="dashboardProps" :item="mySalesItem"/>
       </template>
@@ -22,20 +34,8 @@
          <sideMenuListItem :dashboardProps="dashboardProps" :item="myFollowersItem"/>
       </template>
 
-      <template v-if="showMyContent">
-         <sideMenuListItem :dashboardProps="dashboardProps" :item="myContentItem"/>
-      </template>
-
-      <template v-if="showOverview">
-         <sideMenuListItem :dashboardProps="dashboardProps" :item="myQuestionsItem"/>
-      </template>
-
       <template v-if="showMyPurchases">
          <sideMenuListItem :dashboardProps="dashboardProps" :item="myPurchasesItem"/>
-      </template>
-
-      <template v-if="showMyStudyRooms">
-         <sideMenuListItem :dashboardProps="dashboardProps" :item="myStudyRoomsItem"/>
       </template>
 
    </v-list-group> 
