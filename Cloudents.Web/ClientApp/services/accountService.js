@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {User} from './Dto/user.js';
+import {Coupon} from './Dto/coupon.js';
 
 const accountInstance = axios.create({
     baseURL:'/api/account'
@@ -28,5 +29,9 @@ export default {
     async getAccountStats(days){
         let {data} = await accountInstance.get('/stats', {params: {days}})
         return data.map(stats => new User.Stats(stats))
+    },  
+    async getCoupons() {
+        let { data } = await accountInstance.get('/coupon');
+        return data.map(coupon => new Coupon.Default(coupon))
     }
 }
