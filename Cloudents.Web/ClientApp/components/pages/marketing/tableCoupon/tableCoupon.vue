@@ -1,21 +1,32 @@
 <template>
-    <v-row class="tableCoupon mt-4" dense>
+    <v-row class="tableCoupon mt-4 pa-4 pb-2 pb-sm-0" dense>
+        <v-col cols="12" class="pa-0">
+            <div>{{$t('tableCoupon_title')}}</div>
+        </v-col>
         <v-data-table
             :headers="headers"
             :items="coupons"
             sort-by
-            :item-key="'date'"
+            :loading="tableLoading"
+            :mobile-breakpoint="0"
             :footer-props="{
               showFirstLastPage: false,
-              firstIcon: '',
-              lastIcon: '',
               prevIcon: 'sbf-arrow-left-carousel',
               nextIcon: 'sbf-arrow-right-carousel',
-              itemsPerPageOptions: [5],
-              itemsPerPageText: 'dasdsa',
-              pageText: 'ddsad'
+              itemsPerPageText: $t('tableCoupon_rows_per_page'),
+              pageText: `{1} ${$t('tableCoupon_of')} {2}`,
+              itemsPerPageOptions: [5,10,15,[$t('marketing_all')]]
             }"
-            class="elevation-1 dataTable">
+            class="dataTable">
+
+            <template v-slot:item.createTime="{value}">
+                {{$d(new Date(value), 'tableDate')}}
+            </template>
+
+            <template v-slot:item.expiration="{value}">
+                {{$d(new Date(value), 'tableDate')}}
+            </template>
+
         </v-data-table>
     </v-row>
 </template>
@@ -27,6 +38,8 @@ import couponStore from '../../../../store/couponStore';
 export default {
     name: "tableCoupon",
     data: () => ({
+        tableLoading: false,
+        coupons: [],
         headers:[
             {
                 // text: this.$t('tableCoupon_code'),
@@ -40,7 +53,7 @@ export default {
                 text: 'tableCoupon_type',
                 align: 'left',
                 sortable: false,
-                value: 'tyoe',
+                value: 'couponType',
             },
             {
                 // text: this.$t('tableCoupon_value'),
@@ -54,32 +67,34 @@ export default {
                 text: 'tableCoupon_amount',
                 align: 'left',
                 sortable: false,
-                value: 'amount',
+                value: 'amountUsers',
             },
             {
                 // text: this.$t('tableCoupon_created'),
                 text: 'tableCoupon_created',
                 align: 'left',
                 sortable: false,
-                value: 'created',
+                value: 'createTime',
             },
             {
                 // text: this.$t('tableCoupon_expired'),
                 text: 'tableCoupon_expired',
                 align: 'left',
                 sortable: false,
-                value: 'expired',
+                value: 'expiration',
             },
         ],
-        coupons: [],
     }),
     methods: {
       getCoupons() {
         let self = this;
+        self.tableLoading = true;
         self.$store.dispatch('getUserCoupons').then(coupons => {
           self.coupons = coupons;
         }).catch(ex => {
           self.$appInsights.trackException({exception: new Error(ex)});
+        }).finally(() => {
+            self.tableLoading = false;
         })
       }
     },
@@ -88,7 +103,7 @@ export default {
     },
     created() {
       storeService.registerModule(this.$store, 'couponStore', couponStore);
-      this.getCoupons()
+      this.getCoupons();
     }
 }
 </script>
@@ -97,13 +112,41 @@ export default {
     @import '../../../../styles/mixin.less';
     @import '../../../../styles/colors.less';
     .tableCoupon  {
+        background: #fff;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+    
+        @media (max-width: @screen-xs) {
+            box-shadow: none;
+        }
         .dataTable {
             width: 100%;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-            border-radius: 8px;
+            .v-data-table-header {
+                th {
+                    font-weight: normal;
+                    color: @global-purple;
+                    font-size: 14px;
+                }
+            }
 
-            @media (max-width: @screen-xs) {
-                box-shadow: none;
+            tr {
+                color: @global-purple;
+            }
+
+            .v-data-footer {
+                .v-data-footer__select,
+                .v-data-footer__pagination {
+                    color: @global-purple;
+                    font-size: 14px;
+                    opacity: .6;
+                }
+                .v-data-footer__icons-before,
+                .v-data-footer__icons-after {
+                    i {
+                        font-size: 18px;
+                        color: @global-purple !important; //vuetify
+                    }
+                }
             }
         }
     }

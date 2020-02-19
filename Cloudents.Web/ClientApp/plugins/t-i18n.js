@@ -48,21 +48,33 @@ const dateTimeFormats = {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
+    tableDate: {
+      month: 'short', day: 'numeric'
+    }
   },
   'en-IL': {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
+    tableDate: {
+      month: 'short', day: 'numeric'
+    }
   },
   'he-IL': {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
+    tableDate: {
+      month: 'short', day: 'numeric'
+    }
   },
   'en-IN': {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
+    tableDate: {
+      month: 'short', day: 'numeric'
+    }
   }
 }
 

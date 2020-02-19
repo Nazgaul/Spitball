@@ -5,5 +5,6 @@ export const Coupon = {
         this.value = objInit.value;
         this.createTime = objInit.createTime;
         this.expiration = objInit.expiration;
+        this.amountUsers = objInit.amountUsers;
     }
 }
