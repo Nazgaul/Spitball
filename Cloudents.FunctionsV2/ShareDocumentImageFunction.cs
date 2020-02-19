@@ -18,7 +18,6 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
-using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -39,7 +38,7 @@ namespace Cloudents.FunctionsV2
             ILogger log,
             CancellationToken token)
         {
-            await ShareProfileImageFunction.InitData(directoryBlobs);
+            ShareProfileImageFunction.InitData(directoryBlobs);
             log.LogInformation("C# HTTP trigger function processed a request.");
             
             bool.TryParse(req.Query["rtl"].ToString(), out var isRtl);
@@ -59,11 +58,8 @@ namespace Cloudents.FunctionsV2
   
             var themeBackground = $"share-placeholder/{dbResult.Type.ToString("G").ToLowerInvariant()}-bg-theme-{themeIndex}.jpg";
 
-            var bgBlob = ShareProfileImageFunction.Blobs.SingleOrDefault(s => s.Name == themeBackground);
-            if (bgBlob is null)
-            {
-                bgBlob = ShareProfileImageFunction.Blobs.Single(s => s.Name == $"share-placeholder/{dbResult.Type.ToString("G").ToLowerInvariant()}-bg-theme-1.jpg");
-            }
+            var bgBlob = ShareProfileImageFunction.Blobs.SingleOrDefault(s => s.Name == themeBackground) ??
+                         ShareProfileImageFunction.Blobs.Single(s => s.Name == $"share-placeholder/{dbResult.Type.ToString("G").ToLowerInvariant()}-bg-theme-1.jpg");
 
             var uriBuilder = new UriBuilder(req.Scheme, req.Host.Host, req.Host.Port.GetValueOrDefault(443))
             {
@@ -83,8 +79,10 @@ namespace Cloudents.FunctionsV2
                 var logoPointX = 24;
                 if (isRtl)
                 {
+                    // ReSharper disable AccessToDisposedClosure mutation happens right await
                     logoPointX = context.GetCurrentSize().Width - 24 - logoImage.Width;
                 }
+                // ReSharper disable AccessToDisposedClosure mutation happens right await
                 context.DrawImage(logoImage, new Point(logoPointX, 24), GraphicsOptions.Default);
             });
             if (dbResult.Type == DocumentType.Document)
@@ -97,42 +95,10 @@ namespace Cloudents.FunctionsV2
                     anchorPosition = AnchorPositionMode.Top.ToString("G")
                 });
 
-                await using var documentPreviewStream = await client.GetStreamAsync(uriBuilder.Uri);
-                using var documentImage = Image.Load<Rgba32>(documentPreviewStream);
                 image.Mutate(context =>
                 {
-                    var font = ShareProfileImageFunction.FontCollection.CreateFont("assistant", 30, FontStyle.Regular);
-                    var nameToDraw =
-                        ShareProfileImageFunction.CropTextToFixToRectangle(font, dbResult.Name, new SizeF(860, 40f));
-                    context.DrawTextWithHebrew(
-                        new TextGraphicsOptions()
-                        {
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            WrapTextWidth = 860,
-                        },
-                        nameToDraw.text,
-                        font,
-                        Color.White,
-                        new PointF(170, 66));
-
-                    var fontCourse =
-                        ShareProfileImageFunction.FontCollection.CreateFont("assistant", 26, FontStyle.Regular);
-                    var courseToDraw =
-                        ShareProfileImageFunction.CropTextToFixToRectangle(font, dbResult.CourseName,
-                            new SizeF(860, 40f));
-                    context.DrawTextWithHebrew(
-                        new TextGraphicsOptions()
-                        {
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            WrapTextWidth = 860,
-                        },
-                        courseToDraw.text,
-                        fontCourse,
-                        Color.White,
-                        new PointF(170, 107));
-
-                    context.DrawImage(documentImage, new Point(170, 159), GraphicsOptions.Default);
-
+                    context.DrawText(dbResult.Name, 30, "#FFFFFF", new Size(860, 40), new Point(170, 66));
+                    context.DrawText(dbResult.CourseName, 26, "#ffffff", new Size(860, 40), new Point(170, 107));
                 });
             }
             else
@@ -148,8 +114,11 @@ namespace Cloudents.FunctionsV2
                 using var playerImage = await ShareProfileImageFunction.GetImageFromBlobAsync("video-player.png");
                 image.Mutate(context =>
                 {
+
+                    // ReSharper disable AccessToDisposedClosure mutation happens right await
                     context.DrawImage(documentImage, new Point(305, 62), GraphicsOptions.Default);
                     context.DrawImage(playerImage, new Point(520, 159), GraphicsOptions.Default);
+                    // ReSharper restore AccessToDisposedClosure
 
                 });
             }

@@ -1,56 +1,105 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using Cloudmersive.APIClient.NETCore.ImageRecognition.Api;
-using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
-using SixLabors.Primitives;
+using Image = SixLabors.ImageSharp.Image;
+using Size = SixLabors.Primitives.Size;
 
 namespace Cloudents.FunctionsV2.Services
 {
-    public class TextToImage : ITextToImage
+    //public class TextToImage : ITextToImage
+    //{
+    //    static TextToImage()
+    //    {
+    //        Cloudmersive.APIClient.NETCore.ImageRecognition.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
+    //    }
+
+
+    //    private readonly EditApi _apiInstance = new EditApi();
+
+    //    public async Task<Image> ConvertAsync(string text, Size rectangle)
+    //    {
+    //        var image = new Image<Rgba32>(rectangle.Width, rectangle.Height);
+    //        image.Mutate(c => c.BackgroundColor(Color.Aqua));
+    //        var ms = new MemoryStream();
+
+    //        image.SaveAsPng(ms);
+    //        var bytes = ms.ToArray();
+
+    //        var result = await _apiInstance.EditDrawTextAsync(
+    //            new DrawTextRequest(
+    //                BaseImageBytes: bytes,
+    //                TextToDraw: new List<DrawTextInstance>()
+    //                {
+    //                    new DrawTextInstance(
+    //                        text,
+    //                        FontFamilyName: "Georgia",
+    //                        FontSize:32,
+    //                        Color:"black",0,0,rectangle.Width,rectangle.Height
+    //                    )
+    //                }));
+
+    //        return Image.LoadPixelData<Rgba32>(result, rectangle.Width, rectangle.Height);
+    //    }
+
+    //}
+
+    public class TextToImageGdi : ITextToImage
     {
-        static TextToImage()
+        public Image Convert(string text,  int size, string hexRgb, Size rectangle)
         {
-            Cloudmersive.APIClient.NETCore.ImageRecognition.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
-        }
+            using var myBitmap = new Bitmap(rectangle.Width, rectangle.Height + 10);
 
+          
 
-        private readonly EditApi _apiInstance = new EditApi();
+            //pfcoll.AddFontFile(Server.MapPath("~/Fonts/" + fontName));
+            //FontFamily ff = pfcoll.Families[0];
 
-        public async Task<Image> ConvertAsync(string text, Size rectangle)
-        {
-            var image = new Image<Rgba32>(rectangle.Width, rectangle.Height);
-            image.Mutate(c => c.BackgroundColor(Color.Aqua));
-            var ms = new MemoryStream();
-            
-            image.SaveAsPng(ms);
-            var bytes = ms.ToArray();
-
-            var result = await _apiInstance.EditDrawTextAsync(
-                new DrawTextRequest(
-                    BaseImageBytes: bytes,
-                    TextToDraw: new List<DrawTextInstance>()
+            using (Graphics g = Graphics.FromImage(myBitmap))
+            {
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                g.TextRenderingHint = TextRenderingHint.AntiAlias;
+                var color = ColorTranslator.FromHtml(hexRgb);
+                var brush = new SolidBrush(color);
+                g.DrawString(text,
+                    new Font("Calibri", size, FontStyle.Regular, GraphicsUnit.Pixel),
+                    brush,
+                    new RectangleF(0, 0, rectangle.Width, rectangle.Height),
+                    new StringFormat()
                     {
-                        new DrawTextInstance(
-                            text,
-                            FontFamilyName: "Georgia",
-                            FontSize:32,
-                            Color:"black",0,0,rectangle.Width,rectangle.Height
-                        )
-                    }));
+                        Alignment = StringAlignment.Center,
+                        Trimming = StringTrimming.EllipsisWord,
 
-            return Image.LoadPixelData<Rgba32>(result, rectangle.Width, rectangle.Height);
+                    });
+                //g.DrawString("My Text very very nice",
+                //    new Font("Tahoma", 20),
+                //    Brushes.White,
+                //    new PointF(0, 0));
+            }
+
+            using var ms = new MemoryStream();
+            myBitmap.Save(ms, ImageFormat.Png);
+            var image = Image.Load(ms.ToArray());
+            for (int i = myBitmap.Width - 1; i >= 0; i--)
+            {
+                for (int j = myBitmap.Height - 1; j >= 0; j--)
+                {
+
+                }
+
+
+            }
+
+            return image;
+
+
+
         }
-
     }
 
     public interface ITextToImage
     {
-        Task<Image> ConvertAsync(string text, Size rectangle);
+        Image Convert(string text,  int size, string hexRgb, Size rectangle);
     }
 }

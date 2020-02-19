@@ -1,4 +1,10 @@
-﻿using Cloudents.Core.DTOs;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Core.DTOs;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
@@ -8,14 +14,8 @@ using Cloudents.Query.Email;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Cloudents.FunctionsV2.System
+namespace Cloudents.FunctionsV2.Operations
 {
     public class DocumentPurchasedEmailOperation : ISystemOperation<DocumentPurchasedMessage>
     {

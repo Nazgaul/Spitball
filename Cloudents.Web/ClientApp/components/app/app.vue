@@ -2,8 +2,8 @@
   <v-app>
     <router-view name="banner"></router-view>
     <router-view name="header"></router-view>
-    <router-view name="sideMenu" v-if="showSideMenu"></router-view>
-    <v-content class="site-content">
+    <router-view name="sideMenu" v-if="showSideMenu && !hideSideMenu"></router-view>
+    <v-content :class="['site-content',{'hidden-sideMenu':hideSideMenu}]">
         <chat v-if="visible"/>
         <router-view class="main-container"></router-view>
       
@@ -155,7 +155,16 @@ export default {
       "isFrymo",
       "getShowSchoolBlock",
       "getIsChatVisible",
+      'getUserLoggedInStatus'
     ]),
+    hideSideMenu(){
+      if(this.getUserLoggedInStatus && this.accountUser?.userType !== 'Parent'){
+        return false;
+      }else{
+        let routesNames = ['feed','document','question','profile']
+        return routesNames.some(route => this.$route.name === route)
+      }
+    },
     showSideMenu() {
       if (this.$vuetify.breakpoint.xsOnly) {
         return this.getShowSchoolBlock;

@@ -25,15 +25,16 @@
               <v-list-item-content><v-list-item-title class="subheading userMenu_titles">{{singleLang.title}}</v-list-item-title></v-list-item-content>
             </v-list-item>
           </template>
-
-          <v-list-item v-if="!isTutorList" :to="{name:'tutorLandingPage'}">
+        <template v-if="showFindTutors">
+          <v-list-item :to="{name:'tutorLandingPage'}">
             <v-list-item-action><v-icon class="userMenu_icons" v-html="'sbf-account-group'"></v-icon></v-list-item-action>
             <v-list-item-content>
               <v-list-item-title><span class="userMenu_titles" v-language:inner="'header_find_tutors'"></span></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-
-          <v-list-item v-if="!isFrymo" href="https://teach.spitball.co/" target="_blank">
+        </template>
+        <template v-if="showTeachOnSpitball">
+          <v-list-item href="https://teach.spitball.co/" target="_blank">
             <v-list-item-action>
               <v-icon v-html="'sbf-find'" class="userMenu_icons"/>
             </v-list-item-action>
@@ -41,13 +42,15 @@
               <v-list-item-title><span class="userMenu_titles" v-language:inner="'profile_become_title'"></span></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-
+        </template>
+        <template v-if="showTestStudyRoom">
           <v-list-item :to="{ name: 'tutoring'}">
             <v-list-item-action><v-icon class="userMenu_icons" v-html="'sbf-pc'"></v-icon></v-list-item-action>
             <v-list-item-content>
               <v-list-item-title><span class="userMenu_titles" v-language:inner="'menuList_my_study_rooms'"></span></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+        </template>
           
           <v-list-item v-for="link in satelliteLinks" :key="link.title" sel="menu_row">
             <v-list-item-action>
@@ -128,7 +131,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["accountUser",'isFrymo']),
+    ...mapGetters(["accountUser",'isFrymo','getUserLoggedInStatus']),
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -141,8 +144,34 @@ export default {
     showChangeLanguage() {
       return global.country === 'IL';
     },
-    isTutorList(){
-      return this.$route.name === 'tutorLandingPage'
+    showFindTutors(){
+      if(this.$route.name === 'tutorLandingPage'){
+        return false;
+      }else{
+        if(this.getUserLoggedInStatus){
+          return !this.accountUser.isTutor;
+        }else{
+          return true;
+        }
+      }
+    },
+    showTeachOnSpitball(){
+      if(this.isFrymo){
+        return false;
+      }else{
+        if(this.getUserLoggedInStatus){
+          return !this.accountUser.isTutor;
+        }else{
+          return true;
+        }
+      }
+    },
+    showTestStudyRoom(){
+      if(this.getUserLoggedInStatus){
+        return !this.accountUser.isTutor;
+      }else{
+        return true;
+      }
     }
   },
   methods: {           
