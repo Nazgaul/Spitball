@@ -1,11 +1,11 @@
 <template>
    <div class="shareContent">
       <span class="pr-1">{{$t('shareContent_title')}}</span> |
-      <facebookSVG class="option ml-3" @click="shareOnSocialMedia('facebook')"/>
-      <whatsappSVG class="option ml-5" @click="shareOnSocialMedia('whatsapp')"/>
-      <twitterSVG class="option ml-5" @click="shareOnSocialMedia('twitter')"/>
-      <emailSVG class="option ml-5" @click="shareOnSocialMedia('email')"/>
-      <linkSVG class="option ml-5" @click="shareOnSocialMedia('link')"/>
+      <facebookSVG style="width:9px" class="option ml-3" @click="shareOnSocialMedia('facebook')"/>
+      <whatsappSVG style="width:20px" class="option ml-7 ml-sm-6" @click="shareOnSocialMedia('whatsapp')"/>
+      <twitterSVG style="width:20px" class="option ml-5" @click="shareOnSocialMedia('twitter')"/>
+      <emailSVG style="width:21px" class="option ml-5" @click="shareOnSocialMedia('email')"/>
+      <linkSVG style="width:20px" class="option ml-5" @click="shareOnSocialMedia('link')"/>
    </div>
 </template>
 

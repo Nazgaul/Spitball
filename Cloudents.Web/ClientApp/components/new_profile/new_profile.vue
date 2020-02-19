@@ -3,7 +3,7 @@
         <profileDialogs/>
         <div class="profilePage_main profile-page-container">
             <profileUserBox/>
-            <shareContent  v-if="!$vuetify.breakpoint.lgAndUp"/>
+            <shareContent class="mb-2 mb-sm-3" v-if="!$vuetify.breakpoint.lgAndUp"/>
             <calendarTab v-if="showProfileCalendar" class="mb-6" :globalFunctions="globalFunctions"/>
             <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>
             <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>
