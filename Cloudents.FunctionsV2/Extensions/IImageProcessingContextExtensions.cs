@@ -55,7 +55,8 @@ namespace Cloudents.FunctionsV2.Extensions
 
             for (int i = x.Length - 1; i >= 0; i--)
             {
-                if (char.IsPunctuation(x[i]) || char.IsSeparator(x[i]))
+                
+                if (char.IsPunctuation(x[i]) || char.IsSeparator(x[i]) || char.IsSymbol(x[i]))
                 {
                     x = x.Slice(0, i);
 

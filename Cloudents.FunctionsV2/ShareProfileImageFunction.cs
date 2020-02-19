@@ -243,35 +243,35 @@ namespace Cloudents.FunctionsV2
 
         }
 
-        internal static (string text, SizeF size) CropTextToFixToRectangle(Font font, string text, SizeF rectangle, bool threeDots = false)
-        {
-            var spanOfText = new Span<char>(text.ReverseOnlyHebrew().ToCharArray());
-            var rendererOptions = new RendererOptions(font)
-            {
-                WrappingWidth = rectangle.Width,
-            };
-            SizeF textSize;
-            while (true)
-            {
-                textSize = TextMeasurer.Measure(spanOfText, rendererOptions);
-                if (textSize.Height < rectangle.Height)
-                {
-                    break;
-                }
+        //internal static (string text, SizeF size) CropTextToFixToRectangle(Font font, string text, SizeF rectangle, bool threeDots = false)
+        //{
+        //    var spanOfText = new Span<char>(text.ReverseOnlyHebrew().ToCharArray());
+        //    var rendererOptions = new RendererOptions(font)
+        //    {
+        //        WrappingWidth = rectangle.Width,
+        //    };
+        //    SizeF textSize;
+        //    while (true)
+        //    {
+        //        textSize = TextMeasurer.Measure(spanOfText, rendererOptions);
+        //        if (textSize.Height < rectangle.Height)
+        //        {
+        //            break;
+        //        }
 
-                if (threeDots)
-                {
-                    spanOfText = spanOfText.Slice(0, spanOfText.LastIndexOf(' ') + 3);
-                    spanOfText[^3..].Fill('.');
-                }
-                else
-                {
-                    spanOfText = spanOfText.Slice(0, spanOfText.LastIndexOf(' '));
-                }
-            }
+        //        if (threeDots)
+        //        {
+        //            spanOfText = spanOfText.Slice(0, spanOfText.LastIndexOf(' ') + 3);
+        //            spanOfText[^3..].Fill('.');
+        //        }
+        //        else
+        //        {
+        //            spanOfText = spanOfText.Slice(0, spanOfText.LastIndexOf(' '));
+        //        }
+        //    }
 
-            return (spanOfText.ToString(), textSize);
-        }
+        //    return (spanOfText.ToString(), textSize);
+        //}
 
         private static void DrawProfileImage(IImageProcessingContext context, Image<Rgba32> profileImage, bool isRtl)
         {
