@@ -128,14 +128,13 @@ case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @use
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
-join sb.University un on q.UniversityId = un.Id
 outer apply (
 select top 1 text, u.id, u.name, u.ImageName, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 ) as x
 ,cte
 where
- un.country = cte.country
+ u.country = cte.country
 and q.courseId = @course
 
 and q.State = 'Ok'
@@ -222,7 +221,7 @@ case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @use
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
-join sb.University un on q.UniversityId = un.Id
+left join sb.University un on q.UniversityId = un.Id
 outer apply (
 select  top 1 text,u.id,u.name,u.ImageName, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
@@ -232,7 +231,7 @@ where a.QuestionId = q.Id and state = 'Ok' order by a.created
 
 where
     q.Updated > GETUTCDATE() - 182
-and un.country = cte.country
+and un.country = cte.country or u.country = cte.country
 
 and q.State = 'Ok'
 and (q.CourseId in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
