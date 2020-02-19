@@ -152,35 +152,14 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-            var myBitmap = new System.Drawing.Bitmap(575,225);
-            using (Graphics g = Graphics.FromImage(myBitmap))
-            {
-              
-                var fontCollection = new PrivateFontCollection();
-                
-                var text = "בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים בקרוב תראו תוצאות וציונים שיעלו לכם חיוך על הפנים";
-                //g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                g.DrawString(text, 
-                    new Font("assistant SemiBold", 38),
-                    Brushes.Aqua,
-                    new RectangleF(0,0,myBitmap.Width,myBitmap.Height),
-                    new StringFormat()
-                    {
-                        Alignment = StringAlignment.Center,
-                        Trimming = StringTrimming.EllipsisCharacter
-                    });
-                //g.DrawString("My Text very very nice",
-                //    new Font("Tahoma", 20),
-                //    Brushes.White,
-                //    new PointF(0, 0));
-            }
+           
 
            // var sr = new MemoryStream();
             //myBitmap.Save(sr,ImageFormat.Jpeg);
             //File.WriteAllBytes(@"C:\Users\Ram\Download\blank.bmp",sr.ToArray());
 
             //myBitmap.S
-            myBitmap.Save(@"C:\Users\Ram\Downloads\blank2.jpg",ImageFormat.Jpeg);
+           
             // await Convert();
             //var searchWrite = _container.Resolve<ICommandBus>();
             //await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
