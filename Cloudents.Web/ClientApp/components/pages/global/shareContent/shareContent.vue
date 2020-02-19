@@ -52,7 +52,7 @@ export default {
 .shareContent{
    padding: 16px;
    min-width: 292px;
-   width: 292px;
+   width: 100%;
    height: 52px;
    border-radius: 8px;
    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
@@ -60,6 +60,11 @@ export default {
    color: #43425d;
    display: flex;
    align-items: center;
+   @media (max-width: @screen-xs) {
+      padding: 14px;
+      border-radius: 0;
+      box-shadow: none;
+   }
    .share-title{
       font-size: 14px;
    }
