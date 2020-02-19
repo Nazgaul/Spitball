@@ -62,7 +62,7 @@ namespace Cloudents.Query.Tutor
                         return true;
                     }
                     //if (busySlots.Count >0)
-                    if (freeSlot.Any(a => a.AvailabilitySlot.From < w.ToUniversalTime().TimeOfDay && w.ToUniversalTime().TimeOfDay < a.AvailabilitySlot.To))
+                    if (freeSlot.Any(a => a.AvailabilitySlot.From <= w.ToUniversalTime().TimeOfDay && w.ToUniversalTime().TimeOfDay < a.AvailabilitySlot.To))
                     {
 
                         // Im not busy busy
