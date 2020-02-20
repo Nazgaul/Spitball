@@ -26,24 +26,24 @@ export default {
         return {
             resource: {
                 box1: {
-                    title1: 'marketing_sharePost_title1',
-                    title2: 'marketing_sharePost_title2',
+                    title1: this.$t('marketing_sharePost_title1'),
+                    title2: this.$t('marketing_sharePost_title2'),
                     image: require('../images/sharePost.png'),
-                    buttonText: 'marketing_lets_go',
+                    buttonText: this.$t('marketing_lets_go'),
                     action: this.action
                 },
                 box2: {
-                    title1: 'marketing_createOffer_title1',
-                    title2: 'marketing_createOffer_title2',
+                    title1: this.$t('marketing_createOffer_title1'),
+                    title2: this.$t('marketing_createOffer_title2'),
                     image: require('../images/specialOffer.png'),
-                    buttonText: 'marketing_get_started',
+                    buttonText: this.$t('marketing_get_started'),
                     action: this.openDialog
                 },
                 box3: {
-                    title1: 'marketing_createVideo_title1',
-                    title2: 'marketing_createVideo_title2',
+                    title1: this.$t('marketing_createVideo_title1'),
+                    title2: this.$t('marketing_createVideo_title2'),
                     image: require('../images/createVideo.png'),
-                    buttonText: 'marketing_get_started',
+                    buttonText: this.$t('marketing_get_started'),
                     action: this.openIntercom
                 }
             }
