@@ -286,13 +286,13 @@ export default {
         max-width: 292px;
       }
       .date-input{
-        .v-label{
-          left: initial !important;
-          right: 14px !important;
-          @media (max-width: @screen-xs) {
-            right: 2px !important;
-          }
-        }
+        // .v-label{
+        //   left: initial !important;
+        //   right: 14px !important;
+        //   @media (max-width: @screen-xs) {
+        //     right: 2px !important;
+        //   }
+        // }
         input[type="text"] {
           padding: 8px 0 0 2px !important;
         }

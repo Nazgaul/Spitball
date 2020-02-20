@@ -20,9 +20,7 @@ namespace Cloudents.Query.Stuff
         public DeepTransformer(char complexChar = '.') :
             this(complexChar, Transformers.AliasToBean<TEntity>())
         {
-            _resultClassProperties = typeof(TEntity).GetProperties(BindingFlags.NonPublic
-                                                          | BindingFlags.Instance
-                                                          | BindingFlags.Public).ToDictionary(x=>x.Name,z=>z);
+          
                
         }
 
@@ -30,6 +28,9 @@ namespace Cloudents.Query.Stuff
         {
             _baseTransformer = transformer;
             _complexChar = complexChar;
+            _resultClassProperties = typeof(TEntity).GetProperties(BindingFlags.NonPublic
+                                                                   | BindingFlags.Instance
+                                                                   | BindingFlags.Public).ToDictionary(x => x.Name, z => z);
         }
 
         private Dictionary<string, object> _aliasToTupleMap;
