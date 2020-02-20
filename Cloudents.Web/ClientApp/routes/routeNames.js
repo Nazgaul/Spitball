@@ -50,5 +50,8 @@ export const Document = 'document';
 // Question:
 export const Question = 'question'
 
+// Home Page:
+export const HomePage = 'landingPage';
+
 // Tutor List:
-export const TutorList = 'tutorLandingPage'
+export const TutorList = 'tutorLandingPage';

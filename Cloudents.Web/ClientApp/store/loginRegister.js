@@ -163,7 +163,7 @@ const actions = {
     updateRegisterType(context, regType) {
         return registrationService.updateUserRegisterType({ userType: regType })
     },
-    googleSigning({dispatch,commit, state}) {
+    googleSigning({commit, state}) {
         if (window.Android) {
             Android.onLogin();
             return;
@@ -179,21 +179,7 @@ const actions = {
                 } else {
                     _analytics(['Login', 'Start Google']);
                     global.isAuth = true;
-                    
-                    dispatch('getUserAccountForRegister').then(({userType})=>{
-                        let pathObj = {
-                            name: routeNames.Feed,
-                            query:{}
-                        }
-
-                        if(userType === 'Parent'){
-                            pathObj.query.filter = 'Tutor'
-                        }
-                        if(userType === 'Teacher'){
-                            pathObj.name = routeNames.Dashboard;
-                        }
-                        state.toUrl === '/' ? router.push(pathObj) : router.push(state.toUrl)
-                    })
+                    router.push(state.toUrl)     
                 }
                 return Promise.reject();
             }, (error) => {
@@ -301,7 +287,7 @@ const actions = {
                 commit('setErrorMessages',{email: error.response.data["Email"] ? error.response.data["Email"][0] : ''});
             });
     },
-    logIn({dispatch, commit, state}, password) {
+    logIn({commit, state}, password) {
         let data = {
             email: state.email,
             password: password,
@@ -317,29 +303,7 @@ const actions = {
                         _analytics(['Login', 'Start']);
                         global.isAuth = true;
                         global.country = response.data.country;
-                        
-                        if(global.country) {
-                            dispatch('getUserAccountForRegister').then(({userType})=>{
-                                let pathObj = {
-                                    name: routeNames.Feed,
-                                    query:{}
-                                }
-                                if(userType === 'Parent'){
-                                    pathObj.query.filter = 'Tutor'
-                                }
-                                if(userType === 'Teacher'){
-                                    pathObj.name = routeNames.Dashboard;
-                                }
-                                state.toUrl === '/' ? router.push(pathObj) : router.push(state.toUrl)
-                            })
-                        } else {
-                            //TODO: what error resource should i need here??
-                            dispatch('updateToasterParams', {
-                                toasterText: LanguageService.getValueByKey("loginRegister_country_error"),
-                                showToaster: true,
-                                toasterType: 'error-toaster'
-                            });
-                        }
+                        router.push(state.toUrl);
                     },error =>{
                         commit('setErrorMessages',{email: error.response.data["Password"] ? error.response.data["Password"][0] : ''});
                     });
@@ -372,7 +336,7 @@ const actions = {
                 .then(() => {
                     global.isAuth = true;
                     _analytics(['Forgot Password', 'Updated password']);
-                    router.push({name: routeNames.Feed});
+                    router.push(state.toUrl);
                 }, (error) => {
                     commit('setErrorMessages',{
                         password: error.response.data["Password"] ? error.response.data["Password"][0] : '',
@@ -385,7 +349,8 @@ const actions = {
     },
     exit({commit}){
         commit('setResetState');
-        router.push({name: routeNames.Feed});
+        router.push(state.toUrl);
+        // router.push({name: routeNames.Feed});
     },
     updateStudentGrade({ commit }) {
         let grade = state.grade
