@@ -117,21 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="share_item_twitter" xml:space="preserve">
-    <value>I found great content for {cousename} check it out on Spitball {content_link}</value>
-  </data>
   <data name="share_profile_email_body" xml:space="preserve">
-    <value>Hey,
-I found a great teacher on Spitball check out {0}’s site {1}</value>
+    <value>הי,
+משתף איתך מורה פרטי. תסתכל על האתר שלו {1}</value>
   </data>
   <data name="share_profile_email_subject" xml:space="preserve">
-    <value>Check out {0} a great teacher I found on Spitball</value>
+    <value>המורה הפרטי {0} - מומלץ</value>
   </data>
   <data name="share_profile_twitter" xml:space="preserve">
-    <value>I found a great teacher on Spitball, check out {0}’s site {1}</value>
+    <value>מצאתי מורה מצויין {0} ב {1}</value>
   </data>
   <data name="share_profile_whatsapp" xml:space="preserve">
-    <value>Hey I found a great teacher on Spitball check out {0}’s site {1}</value>
+    <value>מצאתי מורה מצויין {0} ב {1}</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>Share</value>

@@ -15,36 +15,67 @@ import facebookSVG from './images/facebook.svg';
 import whatsappSVG from './images/whatsapp.svg';
 import twitterSVG from './images/twitter.svg';
 import linkSVG from './images/link.svg';
+import * as routeNames from '../../../../routes/routeNames.js';
 
 export default {
    name: 'shareContent',
    components:{facebookSVG,whatsappSVG,emailSVG,twitterSVG,linkSVG},
    methods: {
-      shareOnSocialMedia(socialMedia) {
-         let msg = {
-            url: window.location.href,
-            title:'bla bla title',
-            text: `bla bla text:`
+      shareOnSocialMedia(socialMediaName) {
+         if(this.$route.name === routeNames.Profile){
+            let teacherName = this.$store.getters.getProfile.user.name;
+            let urlLink = `${global.location.origin}/p/${this.$store.getters.getProfile.user.id}`;
+
+            let profileObj = {
+               link: urlLink,
+               twitter: this.$t('shareContent_share_profile_twitter',[teacherName,urlLink]),
+               whatsApp: this.$t('shareContent_share_profile_whatsapp',[teacherName,urlLink]),
+               email: {
+                  subject: this.$t('shareContent_share_profile_email_subject',[teacherName]),
+                  body: this.$t('shareContent_share_profile_email_body',[teacherName,urlLink]),
+               }
+            }
+            _share(profileObj);
+            return
          }
-         switch (socialMedia) {
-            case 'link':
-               // let self = this;
-               // this.$copyText(this.couponCode).then(() => {
-               //    self.snackbar = true;
-               // })
-               break;
-            case 'whatsApp':
-               global.open(`https://web.whatsapp.com/send?text=${msg.url}`, "_blank");
-               break;
-            case 'facebook':
-               global.open(`https://www.facebook.com/sharer.php?u=${encodeURIComponent(msg.url)}`, "_blank");
-               break;
-            case 'twitter':
-               global.open(`https://twitter.com/intent/tweet?url=${msg.url}&text=${msg.text}`, "_blank");
-               break;
-            case 'email':
-               global.open(`https://mail.google.com/mail/?view=cm&su=${msg.title}&body=${msg.text}`, "_blank");
-               break;
+         if(this.$route.name === routeNames.Document){
+            let urlLink = `${global.location.origin}/d/${this.$route.params.id}`;
+            let courseName = this.$route.params.courseName;
+            let itemType = this.$store.getters.getDocumentDetails.documentType;
+         this.$t('')
+            let itemObj = {
+               twitter: 'I found great content for {cousename} check it out on Spitball {content_link}',
+               whatsapp: 'I found great content for {cousename} check it out on Spitball {content_link}',
+               email: {
+                  subject: 'Think this will really help you with {coursename}',
+                  body: 
+                        `Hey, 
+                        I found a great {content_type} for {cousename} check it out on Spitball {content_link}`
+               }
+            }
+            _share(itemObj);
+            return
+         }
+         function _share(infoObject){
+            switch (socialMediaName) {
+               case 'link':
+                  this.$copyText(link).then(() => {
+                     debugger
+                  })
+                  break;
+               case 'email':
+                  global.open(`https://mail.google.com/mail/?view=cm&su=${infoObject[socialMediaName].subject}&body=${infoObject[socialMediaName].body}`, "_blank");
+                  break;
+               case 'facebook':
+                  global.open(`https://www.facebook.com/sharer.php?u=${encodeURIComponent(infoObject.link)}`, "_blank");
+                  break;
+               case 'twitter':
+                  global.open(`https://twitter.com/intent/tweet?url=${infoObject.link}&text=${infoObject[socialMediaName]}`, "_blank");
+                  break;
+               case 'whatsApp':
+                  global.open(`https://web.whatsapp.com/send?text=${infoObject.link}`, "_blank");
+                  break;
+            }
          }
       }
    },
