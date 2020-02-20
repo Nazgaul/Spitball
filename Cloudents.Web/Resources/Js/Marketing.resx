@@ -166,7 +166,7 @@
     <value>Expired</value>
   </data>
   <data name="tableCoupon_title" xml:space="preserve">
-    <value />
+    <value>Coupon history</value>
   </data>
   <data name="tableCoupon_type" xml:space="preserve">
     <value>Coupont Type</value>
