@@ -27,6 +27,12 @@ export default {
             text: `bla bla text:`
          }
          switch (socialMedia) {
+            case 'link':
+               // let self = this;
+               // this.$copyText(this.couponCode).then(() => {
+               //    self.snackbar = true;
+               // })
+               break;
             case 'whatsApp':
                global.open(`https://web.whatsapp.com/send?text=${msg.url}`, "_blank");
                break;
