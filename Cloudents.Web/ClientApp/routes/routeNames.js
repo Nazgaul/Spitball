@@ -31,3 +31,4 @@ export const Dashboard = 'dashboardTeacher';
 
 // Marketing:
 export const Marketing = 'marketing';
+export const MarketingPromote = 'promote';

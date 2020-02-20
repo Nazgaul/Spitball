@@ -1,26 +1,8 @@
 <template>
     <div id="marketing">
-
-        <marketingActions></marketingActions>
-        <marketingBlogs></marketingBlogs>
-        <tableCoupon></tableCoupon>
-
+        <router-view :name="$route.name"></router-view>
     </div>
 </template>
-
-<script>
-const marketingActions = () => import('./marketingActions/marketingActions.vue');
-const marketingBlogs = () => import('./marketingBlogs/marketingBlogs.vue');
-const tableCoupon = () => import('./tableCoupon/tableCoupon.vue');
-
-export default {
-    components: {
-        marketingActions,
-        marketingBlogs,
-        tableCoupon,
-    }
-}
-</script>
 
 <style lang="less">
 @import '../../../styles/mixin.less';
