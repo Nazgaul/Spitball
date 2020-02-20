@@ -60,6 +60,9 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(Document.User.ImageName))]
         public string Image { get; set; }
 
+        [EntityBind(nameof(Document.User.Country))]
+        public string Country { get; set; }
+
     }
 
     public class VoteDto

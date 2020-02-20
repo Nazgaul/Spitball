@@ -66,7 +66,7 @@ export const User = {
                 university: new School.University(objInit.university),
                 courses: objInit.courses.map((course) => new School.Course(course)),
                 haveDocsWithPrice: objInit.haveDocsWithPrice,
-                haveDocs: objInit.haveDocs,
+                haveContent: objInit.haveContent,
                 isPurchased: objInit.isPurchased,
                 isSold: objInit.isSold,
                 haveStudyRoom: objInit.haveStudyRoom,

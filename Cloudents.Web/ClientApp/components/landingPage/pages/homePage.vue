@@ -26,21 +26,6 @@ export default {
         testimonialsSection,
         earnSection
     },
-    beforeRouteEnter (to, from, next) {
-      let isLogoClicked = from.name !== null; 
-        let isLoggedIn = global.isAuth;
-        let query = location.search;
-        if(!!isLoggedIn){
-          let forceReload = '';
-          if(from.path === `/feed` && from.fullPath === '/feed'){
-            forceReload = '?reloaded='
-          }
-          let nextRout = isLogoClicked ? `/feed${forceReload}` : `/feed${query}`;
-          next(nextRout);
-        }else{
-            next();
-        }
-    }, 
 };
 </script>
 

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CreateOk" xml:space="preserve">
-    <value>המסמך שלך עלה! תוכל לצפות בו בקרוב</value>
+    <value>המסמך שלך עלה! תוכל לצפות בו בקרוב.</value>
   </data>
   <data name="files_file_upload" xml:space="preserve">
     <value>העלה קובץ</value>

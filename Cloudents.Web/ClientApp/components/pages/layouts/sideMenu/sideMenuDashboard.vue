@@ -76,7 +76,7 @@ export default {
          return this.accountUser?.haveFollowers;
       },
       showMyContent(){
-         return this.accountUser?.haveDocs;
+         return this.accountUser?.haveContent;
       },
       showMyPurchases(){
          return this.accountUser?.isPurchased;

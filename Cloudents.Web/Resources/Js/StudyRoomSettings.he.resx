@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="audio_indicator" xml:space="preserve">
-    <value>חיווי שמע</value>
+    <value>חיווי שמע:</value>
   </data>
   <data name="audio_input" xml:space="preserve">
     <value>מיקרופון:</value>
