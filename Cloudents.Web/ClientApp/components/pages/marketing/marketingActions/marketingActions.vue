@@ -1,5 +1,5 @@
 <template>
-    <v-row class="marketingActions pa-4 mb-4 text-center" dense>
+    <v-row class="marketingActions pa-4 mb-2 mb-sm-4 text-center" dense>
         <v-col class="pa-0 mb-6" cols="12">
             <div class="text text-left">{{$t('marketing_title')}}</div>
         </v-col>
@@ -62,6 +62,10 @@ export default {
         }
 
         .box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
             color: @global-purple;
             .text1 {
                 font-size: 16px;
