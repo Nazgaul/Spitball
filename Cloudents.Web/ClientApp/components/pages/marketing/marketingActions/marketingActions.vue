@@ -1,7 +1,8 @@
 <template>
     <v-row class="marketingActions pa-4 mb-2 mb-sm-4 text-center" dense>
-        <v-col class="pa-0 mb-6" cols="12">
+        <v-col class="pa-0 mb-6 d-flex justify-space-between" cols="12">
             <div class="text text-left">{{$t('marketing_title')}}</div>
+            <slot name="closeIcon"></slot>
         </v-col>
         
         <template>
@@ -32,11 +33,26 @@ import intercomService from "../../../../services/intercomService";
 
 export default {
     name: "marketingActions",
-      methods: {
+    props: {
+        resource: {
+            type: String,
+        }
+    },
+    computed: {
+        title() {
+            return this.setResource({
+                
+            })
+        }
+    },
+    methods: {
         openIntercom() {
             intercomService.showDialog();
-        },  
-  },
+        },
+        setResource(nameObj) {
+            return this.$t(nameObj[this.resource]);
+        }
+    },
 }
 </script>
 
