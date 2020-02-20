@@ -27,7 +27,7 @@
         .marketingbtn {
             text-transform: initial;
             font-weight: 600;
-            min-width: 120px;
+            min-width: 120px !important; //vuetify
             letter-spacing: normal;
             span {
                 margin-bottom: 2px;
