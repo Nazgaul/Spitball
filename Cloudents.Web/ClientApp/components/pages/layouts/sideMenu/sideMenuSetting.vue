@@ -44,6 +44,9 @@ export default {
       isTutor(){
          return this.accountUser?.isTutor
       }
-   }
+   },
+   mounted() {
+      this.myProfileItem.name = this.isTutor? this.$t('schoolBlock_my_site') : this.$t('schoolBlock_profile')
+   },
 }
 </script>

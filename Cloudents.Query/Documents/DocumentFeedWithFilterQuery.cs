@@ -45,6 +45,8 @@ namespace Cloudents.Query.Documents
                 _jsonSerializer = jsonSerializer;
             }
 
+            // If you chnage enything in the sql query tou need to take care to 
+            // QuestionFeedWithFliterQuery and FeedAggregateQuery as well
             public async Task<IEnumerable<DocumentFeedDto>> GetAsync(DocumentFeedWithFilterQuery query, CancellationToken token)
             {
                 const string sqlWithCourse = @"with cte as (
@@ -82,18 +84,22 @@ select 'd' as type
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration
 ,d.DocumentType as documentType for json path) as JsonArray
+,case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo
+,case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId
-,cte
+join cte on un.country = cte.country or u.country = cte.country
 where
-un.country = cte.country
 and d.State = 'Ok'
 and d.courseName = @course
 and COALESCE(d.DocumentType,'Document') = @documentType
 order by
-case when d.UniversityId = cte.UniversityId then 3 else 0 end  +
-cast(1 as float)/ISNULL(nullif(DATEDiff(minute, d.UpdateTime, GetUtcDATE()   ),0),1) desc
+case when R.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 0 else DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())*2 end +
+case when R.UniversityId = cte.UniversityId or R.UniversityId is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
+DATEDiff(hour, R.DateTime, GetUtcDATE()) +
+case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
+case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY;";
                 const string sqlWithoutCourse = @"
@@ -130,19 +136,23 @@ select 'd' as type
 ,(select count(1) from sb.[Transaction] where DocumentId = d.Id and [Action] = 'SoldDocument') as Purchased
 ,d.duration as Duration
 ,d.DocumentType as documentType for json path) as JsonArray
+,case when d.DocumentType = 'Video' then 1 else 0 end as IsVideo
+,case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
 join sb.University un on un.Id = d.UniversityId
-,cte
+join cte on un.country = cte.country or u.country = cte.country
 where
     d.UpdateTime > GETUTCDATE() - 182
-and un.country = cte.country
 and d.State = 'Ok'
 and COALESCE(d.DocumentType,'Document') = @documentType
+and (d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
 order by
-case when d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) then 4 else 0 end +
-case when d.UniversityId = cte.UniversityId then 3 else 0 end  +
-cast(1 as float)/ISNULL(nullif( DATEDIFF(minute, d.UpdateTime, GETUTCDATE()   ),0),1) desc
+case when R.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 0 else DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())*2 end +
+case when R.UniversityId = cte.UniversityId or R.UniversityId is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
+DATEDiff(hour, R.DateTime, GetUtcDATE()) +
+case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
+case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
 

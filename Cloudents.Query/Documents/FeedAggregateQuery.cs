@@ -49,7 +49,8 @@ namespace Cloudents.Query.Documents
                 _urlBuilder = urlBuilder;
             }
 
-
+            // If you chnage enything in the sql query tou need to take care to 
+            // QuestionFeedWithFliterQuery and DocumentFeedWithFilterQuery as well
             public async Task<IEnumerable<FeedDto>> GetAsync(FeedAggregateQuery query, CancellationToken token)
             {
                 const string sqlWithCourse = @"with cte as (
@@ -227,11 +228,10 @@ select  top 1 text,u.id,u.name,u.ImageName, a.Created from sb.Answer a join sb.[
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 
 ) as x
-,cte
+join cte on un.country = cte.country or u.country = cte.country
 
 where
     q.Updated > GETUTCDATE() - 182
-and un.country = cte.country or u.country = cte.country
 
 and q.State = 'Ok'
 and (q.CourseId in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
