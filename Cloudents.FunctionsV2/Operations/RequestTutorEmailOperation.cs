@@ -14,7 +14,7 @@ using Microsoft.Azure.WebJobs;
 using SendGrid.Helpers.Mail;
 using shortid;
 
-namespace Cloudents.FunctionsV2.System
+namespace Cloudents.FunctionsV2.Operations
 {
     public class RequestTutorEmailOperation : ISystemOperation<RequestTutorMessage>
     {

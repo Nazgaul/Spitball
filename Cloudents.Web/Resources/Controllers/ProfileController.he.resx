@@ -120,6 +120,9 @@
   <data name="Description" xml:space="preserve">
     <value>{0}</value>
   </data>
+  <data name="OgDescription" xml:space="preserve">
+    <value>נושאים:  {0}</value>
+  </data>
   <data name="TitleNoUniversity" xml:space="preserve">
     <value>מורה פרטי {0} | ספיטבול</value>
   </data>

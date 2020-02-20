@@ -155,7 +155,7 @@
     <value>Change</value>
   </data>
   <data name="my_study_rooms" xml:space="preserve">
-    <value>Test study room</value>
+    <value>Test Study Room</value>
   </data>
   <data name="balance" xml:space="preserve">
     <value>Your balance: {1} Pts</value>

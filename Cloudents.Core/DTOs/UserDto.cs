@@ -74,7 +74,7 @@ namespace Cloudents.Core.DTOs
         public string Currency => new RegionInfo(TutorCountry).ISOCurrencySymbol;
 
         [EntityBind(nameof(ReadTutor.Country))]
-        internal string TutorCountry { get; set; }
+        public string TutorCountry { get; set; }
 
         public decimal? DiscountPrice { get; set; }
 
@@ -132,13 +132,28 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(User.PaymentExists), nameof(User.Country))]
         public bool NeedPayment { get; set; }
 
-        public bool HaveDocs { get; set; }
+        public bool HaveContent { get; set; }
         public bool HaveDocsWithPrice { get; set; }
         public bool IsPurchased { get; set; }
         public bool IsSold { get; set; }
         public bool HaveStudyRoom { get; set; }
         public bool HaveFollowers { get; set; }
-        public UserType? UserType { get; set; }
+        private UserType? _userType;
+        public UserType? UserType 
+        {
+            get
+            {
+                if (IsTutor is null && _userType == Enum.UserType.Teacher)
+                {
+                    return Enum.UserType.UniversityStudent;
+                }
+                return _userType;
+            }
+            set
+            {
+                _userType = value;
+            }
+        }
         public string Country { get; set; }
 
         public IEnumerable<CourseDto> Courses { get; set; }
