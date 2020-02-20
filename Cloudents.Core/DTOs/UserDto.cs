@@ -74,7 +74,7 @@ namespace Cloudents.Core.DTOs
         public string Currency => new RegionInfo(TutorCountry).ISOCurrencySymbol;
 
         [EntityBind(nameof(ReadTutor.Country))]
-        internal string TutorCountry { get; set; }
+        public string TutorCountry { get; set; }
 
         public decimal? DiscountPrice { get; set; }
 
