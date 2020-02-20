@@ -1,19 +1,19 @@
 <template>
-    <v-row class="tableCoupon mt-4 pa-4 pb-2 pb-sm-0" dense>
+    <v-row class="tableCoupon mt-2 mt-sm-4 pa-4 pb-2 pb-sm-0" dense>
         <v-col cols="12" class="pa-0">
-            <div class="mainTitle">{{$t('tableCoupon_title')}}</div>
+            <div class="mainTitle mb-2">{{$t('tableCoupon_title')}}</div>
         </v-col>
         <v-data-table
             :headers="headers"
             :items="coupons"
             class="dataTable"
-            sort-by
             :loading="tableLoading"
             :mobile-breakpoint="0"
             :footer-props="{
-              showFirstLastPage: false,
-              prevIcon: 'sbf-arrow-left-carousel',
-              nextIcon: 'sbf-arrow-right-carousel',
+                showFirstLastPage: false,
+                prevIcon: 'sbf-arrow-left-carousel',
+                nextIcon: 'sbf-arrow-right-carousel',
+                itemsPerPageOptions: [5]
             }">
 
             <template v-slot:header.code="{header}">
@@ -33,8 +33,8 @@
             </template>
             <template v-slot:header.expiration="{header}">
                 {{$t(header.text)}}
-            </template>              
-                
+            </template>
+
             <template v-slot:item.createTime="{value}">
                 {{$d(new Date(value), 'tableDate')}}
             </template>
@@ -42,7 +42,6 @@
             <template v-slot:item.expiration="{value}">
                 {{$d(new Date(value), 'tableDate')}}
             </template>
-
         </v-data-table>
     </v-row>
 </template>
@@ -58,45 +57,33 @@ export default {
         coupons: [],
         headers:[
             {
-                // text: this.$t('tableCoupon_code'),
                 text: 'tableCoupon_code',
                 align: 'left',
-                sortable: false,
                 value: 'code',
             },
             {
-                // text: this.$t('tableCoupon_type'),
                 text: 'tableCoupon_type',
                 align: 'left',
-                sortable: false,
                 value: 'couponType',
             },
             {
-                // text: this.$t('tableCoupon_value'),
                 text: 'tableCoupon_value',
                 align: 'left',
-                sortable: false,
                 value: 'value',
             },
             {
-                // text: this.$t('tableCoupon_amount'),
                 text: 'tableCoupon_amount',
                 align: 'left',
-                sortable: false,
                 value: 'amountUsers',
             },
             {
-                // text: this.$t('tableCoupon_created'),
                 text: 'tableCoupon_created',
                 align: 'left',
-                sortable: false,
                 value: 'createTime',
             },
             {
-                // text: this.$t('tableCoupon_expired'),
                 text: 'tableCoupon_expired',
                 align: 'left',
-                sortable: false,
                 value: 'expiration',
             },
         ],
@@ -112,7 +99,7 @@ export default {
         }).finally(() => {
             self.tableLoading = false;
         })
-      },
+      }
     },
     beforeDestroy(){
       storeService.unregisterModule(this.$store, 'couponStore');
@@ -149,11 +136,6 @@ export default {
                     font-size: 14px;
                 }
             }
-
-            tr {
-                color: @global-purple;
-            }
-
             .v-data-footer {
                 .v-data-footer__select,
                 .v-data-footer__pagination {
