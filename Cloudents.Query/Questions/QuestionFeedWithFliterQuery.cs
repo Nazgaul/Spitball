@@ -76,7 +76,7 @@ q.Language as CultureInfo
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
-join sb.University un on q.UniversityId = un.Id
+left join sb.University un on q.UniversityId = un.Id
 outer apply (
 select top 1 text, u.id, u.name, u.image, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
@@ -87,9 +87,9 @@ where
 and q.courseId = @course
 and q.State = 'Ok'
 order by
-case when R.UniversityId = cte.UniversityId or R.UniversityId is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
-DATEDiff(hour, R.DateTime, GetUtcDATE()) +
-case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
+case when un.Id = cte.UniversityId or un.Id is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
+DATEDiff(hour, q.Updated, GetUtcDATE()) +
+case when case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
 
@@ -128,7 +128,7 @@ q.Language as CultureInfo
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
-join sb.University un on q.UniversityId = un.Id
+left join sb.University un on q.UniversityId = un.Id
 outer apply (
 select  top 1 text,u.id,u.name,u.image, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
@@ -140,10 +140,9 @@ where
 and q.State = 'Ok'
 and (q.CourseId in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
 order by
-case when R.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 0 else DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())*2 end +
-case when R.UniversityId = cte.UniversityId or R.UniversityId is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
-DATEDiff(hour, R.DateTime, GetUtcDATE()) +
-case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
+case when un.Id = cte.UniversityId or un.Id is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
+DATEDiff(hour, q.Updated, GetUtcDATE()) +
+case when case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
 
