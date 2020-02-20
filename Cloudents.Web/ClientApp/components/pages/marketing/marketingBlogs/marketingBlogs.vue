@@ -5,22 +5,20 @@
             <a class="seeAll" href="https://www.blog.spitball.co/blog-1/categories/english" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
         </v-col>
 
-        <v-col cols="6" class="leftSide  pa-0">
+        <v-col cols="12" sm="6" class="leftSide pa-0 mb-6 mb-sm-0">
             <div class="wrap">
-                <!-- <div>{{$t('marketing_blog_title1')}}</div>
-                <div>{{$t('marketing_blog_title2')}}</div> -->
-                <div class="text1 mb-2">Why Marketing Through Social Media is a Must </div>
-                <div class="text2">10 Reasons Why Marketing Through Social Media is a Must For Every Small Business</div>
+                <div class="text1 mb-2">{{$t('marketing_blog_text1')}}</div>
+                <div class="text2">{{$t('marketing_blog_text2')}}</div>
             </div>
         </v-col>
-        <v-col cols="6" class="d-flex rightSide pa-0">
-            <template v-if="!blogs.length">
-                <v-col class="tipsList d-flex pa-0" cols="6" v-for="(blog, index) in blogs" :key="index">
-                    <a class="tipsListBox" :href="blog.url" target="_blank">
-                        <div class="top">
+        <v-col cols="12" sm="6" class="d-flex rightSide pa-0">
+            <template v-if="blogs.length">
+                <v-col class="tipsList d-block pa-0" cols="12" sm="6" v-for="(blog, index) in blogs" :key="index">
+                    <a class="tipsListBox d-flex d-sm-block" :href="blog.url" target="_blank">
+                        <div class="top mr-2 mr-sm-0">
                             <img :src="blog.image" alt="image" width="200" height="100" />
                         </div>
-                        <div class="bottom">
+                        <div class="bottom d-flex">
                             <div class="text mb-3">{{blog.title}}</div>
                             <div class="nameDate d-flex justify-space-between">
                                 <div class="name text-truncate">{{blog.uploader}}</div>
@@ -32,7 +30,7 @@
             </template>
             
             <template v-else>
-                <v-col class="pa-0 skeletonLoader" cols="6" v-for="n in 2" :key="n">
+                <v-col class="py-0 skeletonLoader" cols="12" sm="6" v-for="n in 2" :key="n">
                     <v-skeleton-loader
                     class=""
                     height="200"
@@ -92,11 +90,13 @@ export default {
                 align-items: center;
                 justify-content: center;
                 height: 100%;
-                max-width: 300px;
                 width: 100%;
                 .text1 {
                     font-size: 22px;
                     font-weight: 600;
+                }
+                @media (max-width: @screen-xs) {
+                    align-items: baseline;
                 }
             }
         }
@@ -106,7 +106,11 @@ export default {
             }
             .tipsList {
                 .tipsListBox {
-                    width: 100%;
+                    @media (max-width: @screen-xs) {
+                        border-top: 1px solid #dddddd;
+                        padding-top: 12px;
+                        margin-left: 0 !important;
+                    }
                     .top {
                         display: flex;
                         img {
@@ -114,12 +118,21 @@ export default {
                         }
                     }
                     .bottom {
+                        width: 100%;
                         border: 1px solid #dddddd;
                         border-top: 0;
                         padding: 8px 10px;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        min-height: 82px;
+                        flex-shrink: 2;
+                        @media (max-width: @screen-xs) {
+                            padding: 0;
+                            min-height: unset;
+                        }
                         .text {
                             color: @global-purple;
-                            font-size: 13px;
+                            font-size: 14px;
                             font-weight: 600;
                             .giveMeEllipsis(2, 18);
                         }
@@ -134,19 +147,24 @@ export default {
                                 flex-shrink: 0;
                             }
                         }
+                        @media (max-width: @screen-xs) {
+                            border: none;
+                            flex-direction: column;
+                            justify-content: space-between;
+                        }
+                    }
+                }
+                @media (max-width: @screen-sm) {
+                    &:nth-child(2) {
+                        display: none !important;
                     }
                 }
             }
             &:nth-child(3) .tipsListBox:last-child {
                 margin-left: 16px;
             }
-            .skeletonLoader {
-                &:nth-child(1) {
-                    margin-right: 8px;
-                }
-                &:nth-child(2) {
-                    margin-left: 8px;
-                }
+            .skeletonLoader:last-child  {
+                padding-right: 0;
             }
         }
     }
