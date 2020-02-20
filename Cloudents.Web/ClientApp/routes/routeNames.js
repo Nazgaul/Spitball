@@ -35,8 +35,10 @@ export const MyContent = 'myContent';
 export const MyStudyRooms = 'myStudyRooms';
 export const MyCalendar = 'myCalendar';
 
-// Edit Course
+// Course:
 export const EditCourse = 'editCourse';
+export const AddCourse = 'addCourse';
+export const SetCourse = 'setCourse';
 
 // Edit University
 export const EditUniversity = 'addUniversity';
@@ -50,5 +52,8 @@ export const Document = 'document';
 // Question:
 export const Question = 'question'
 
+// Home Page:
+export const HomePage = 'landingPage';
+
 // Tutor List:
-export const TutorList = 'tutorLandingPage'
+export const TutorList = 'tutorLandingPage';

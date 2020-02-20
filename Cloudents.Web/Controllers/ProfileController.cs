@@ -1,4 +1,6 @@
-﻿using Cloudents.Core;
+﻿using System.Globalization;
+using System.Linq;
+using Cloudents.Core;
 using Cloudents.Core.Enum;
 using Cloudents.Query;
 using Cloudents.Query.Users;
@@ -8,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core.Entities;
 using Cloudents.Core.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -64,23 +67,30 @@ namespace Cloudents.Web.Controllers
                 Response.Headers.Add("X-Robots-Tag", "noindex");
                 return View("Index");
             }
-            //if (string.IsNullOrEmpty(retVal.UniversityName))
-            //{
-            //    localizerSuffix = "NoUniversity";
-
-            //}
+            
             ViewBag.title = _localizer["TitleNoUniversity", retVal.Name];
             ViewBag.metaDescription = _localizer["Description", retVal.Description];
             if (retVal.Image != null)
             {
-                ViewBag.ogImage = $"{retVal.Image}?width=1200&height=630";
-                //ViewBag.ogImage = _urlBuilder.BuildUserImageProfileShareEndpoint(retVal.Id, new
-                //{
-                //    width = 1200,
-                //    height = 630
-                //});
+                Country country = retVal.Tutor.TutorCountry;
+
+                //ViewBag.ogImage = $"{retVal.Image}?width=1200&height=630";
+                ViewBag.ogImage = _urlBuilder.BuildUserImageProfileShareEndpoint(retVal.Id, new
+                {
+                    width = 1200,
+                    height = 630,
+                    rtl = country.MainLanguage.Info.TextInfo.IsRightToLeft.ToString()
+                });
                 ViewBag.ogImageWidth = 1200;
                 ViewBag.ogImageHeight = 630;
+                ViewBag.ogTitle = retVal.Name;
+                if (retVal.Tutor.Subjects.Any())
+                {
+                    ViewBag.ogDescription =
+                        _localizer.WithCulture(country.MainLanguage)["OgDescription",
+                            string.Join(", ", retVal.Tutor.Subjects)];
+                }
+
             }
 
             //var jsonLd = new ProfilePage()

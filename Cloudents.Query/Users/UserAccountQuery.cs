@@ -80,6 +80,12 @@ namespace Cloudents.Query.Users
                     .Take(1)
                     .ToFuture();
 
+                var haveQuestionsFuture = _session.Query<Question>()
+                    .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok)
+                    .Select(s => s.Id)
+                    .Take(1)
+                    .ToFuture();
+
                 var haveDocsWithPriceFuture = _session.Query<Document>()
                     .Where(w => w.User.Id == query.Id && w.Status.State == ItemState.Ok && w.Price > 0)
                     .Select(s => s.Id)
@@ -150,23 +156,28 @@ namespace Cloudents.Query.Users
 
 
                 var result = await userFuture.GetValueAsync(token);
+                if (result is null)
+                {
+                    return null;
+                }
 
                 result.Courses = await coursesFuture.GetEnumerableAsync(token);
                 result.University = await universityFuture.GetValueAsync(token);
-                result.HaveDocs = (await haveDocsFuture.GetEnumerableAsync(token)).Any() ? true : false;
+                result.HaveContent = (await haveDocsFuture.GetEnumerableAsync(token)).Any()
+                                     || (await haveQuestionsFuture.GetEnumerableAsync(token)).Any();
 
-                result.HaveDocsWithPrice = (await haveDocsWithPriceFuture.GetEnumerableAsync(token)).Any() ? true : false;
+                result.HaveDocsWithPrice = (await haveDocsWithPriceFuture.GetEnumerableAsync(token)).Any();
 
                 result.IsPurchased = (await purchasedDocsFuture.GetEnumerableAsync(token)).Any()
-                                    || (await purchasedSessionsFuture.GetEnumerableAsync(token)).Any() ? true : false;
+                                     || (await purchasedSessionsFuture.GetEnumerableAsync(token)).Any();
 
-                result.HaveStudyRoom = (await haveStudyRoomFuture.GetEnumerableAsync(token)).Any() ? true : false;
+                result.HaveStudyRoom = (await haveStudyRoomFuture.GetEnumerableAsync(token)).Any();
 
                 result.IsSold = (await isSoldDocumentFuture.GetEnumerableAsync(token)).Any()
-                    || (await isSoldQuestionFuture.GetEnumerableAsync(token)).Any()
-                    || (await isSoldSessionFuture.GetEnumerableAsync(token)).Any() ? true : false;
+                                || (await isSoldQuestionFuture.GetEnumerableAsync(token)).Any()
+                                || (await isSoldSessionFuture.GetEnumerableAsync(token)).Any();
 
-                result.HaveFollowers = (await haveFollowersFuture.GetEnumerableAsync(token)).Any() ? true : false;
+                result.HaveFollowers = (await haveFollowersFuture.GetEnumerableAsync(token)).Any();
                 return result;
             }
         }

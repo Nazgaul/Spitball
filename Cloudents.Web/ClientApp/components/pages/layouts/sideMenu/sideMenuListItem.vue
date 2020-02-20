@@ -28,6 +28,9 @@ export default {
          if(pathName === 'myQuestions' && isMyQuestions){
             return true;
          }
+         if(pathName.toLowerCase().includes('course') && this.$route.path.includes('courses')){
+            return true;
+         }
          if(this.$route.name === pathName){
             return true;
          }
