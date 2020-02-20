@@ -136,7 +136,7 @@
     <value>על מנת לאפשר הקלטה של שיעורים מקוונים נא לפעול על פי הצעדים הבאים</value>
   </data>
   <data name="error_with_video_and_audio" xml:space="preserve">
-    <value>שנה את הגדרות הדפדפן</value>
+    <value>שנה את הגדרות הדפדפן.</value>
   </data>
   <data name="refresh" xml:space="preserve">
     <value>נא לרענן את הדף לאחר נתינת אישור.</value>

@@ -65,7 +65,7 @@ namespace ConsoleApp
                 case EnvironmentSettings.Dev:
                     return new ConfigurationKeys
                     {
-                        SiteEndPoint = { SpitballSite = "https://dev.spitball.co" },
+                        SiteEndPoint = { SpitballSite = "https://dev.spitball.co", FunctionSite = "https://spitball-dev-function.azureedge.net" },
                         Db = new DbConnectionString(ConfigurationManager.ConnectionStrings["ZBox"].ConnectionString,
                             ConfigurationManager.AppSettings["Redis"],
                             DbConnectionString.DataBaseIntegration.None),
@@ -163,8 +163,16 @@ namespace ConsoleApp
            
             // await Convert();
             var queryBus = _container.Resolve<IQueryBus>();
-            var query = new UserAccountQuery(182297);
-            var user = await queryBus.QueryAsync(query, default);
+            var query = new UserProfileQuery(638,638);
+            for (int i = 0; i < 50; i++)
+            {
+                var user = await queryBus.QueryAsync(query, default);
+            }
+            //var user = await queryBus.QueryAsync(query, default);
+            // user = await queryBus.QueryAsync(query, default);
+            // user = await queryBus.QueryAsync(query, default);
+            // user = await queryBus.QueryAsync(query, default);
+            // user = await queryBus.QueryAsync(query, default);
             //await searchWrite.DispatchAsync(new UserRemoveCourseCommand(638, "Statistics" ), default);
             //Console.WriteLine("add");
             //await searchWrite.DispatchAsync(new UserJoinCoursesCommand(new[] {"Statistics" }, 638),default);

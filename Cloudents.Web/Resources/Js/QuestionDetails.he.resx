@@ -136,7 +136,7 @@
     <value>תשובה זו הועתקה והודבקה, נא לרשום תשובה מקורית.</value>
   </data>
   <data name="error_minChar" xml:space="preserve">
-    <value>תשובה מקורית צריכה להיות לפחות 15 תווים</value>
+    <value>תשובה מקורית צריכה להיות לפחות 15 תווים.</value>
   </data>
   <data name="Know_the_answer" xml:space="preserve">
     <value>יודע את התשובה?</value>
