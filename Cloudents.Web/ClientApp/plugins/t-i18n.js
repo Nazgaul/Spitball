@@ -113,6 +113,7 @@ export function loadLanguageAsync() {
   }).then(({data}) => {
     i18n.mergeLocaleMessage(lang, data)
     loadedLanguages.push(lang)
+    return Promise.resolve(lang)
     //return lang;
   })
   // If the language hasn't been loaded yet

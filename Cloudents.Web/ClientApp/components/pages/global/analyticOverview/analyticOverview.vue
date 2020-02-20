@@ -27,14 +27,14 @@
               :key="index"
               :cols="isMobile ? 6 : 3"
               class="box pa-0 text-center">
-                <div class="boxWrap mb-0 mb-sm-2 ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
+                <router-link :to="{name: navigation[key]}" class="boxWrap d-block mb-0 mb-sm-2 ma-2 ma-sm-0 py-2 py-sm-0" :class="[isMobile ? 'fullBorder' : 'borderSide']">
                   <div class="type">{{ $t(`dashboardTeacher_${key}`) }}</div>
                   <div class="result my-0 my-sm-1">{{$n(Math.round(val), key === 'revenue' ? 'currency' : '')}}</div>
                   <div class="rate font-weight-bold">
                       <arrowDownIcon class="arrow" v-show="percentage(key)" :class="[showIcon(key) ? 'arrowDown' : 'arrowUp']" />
                       <bdi class="precent mr-1" :class="{'down': showIcon(key)}">{{percentage(key)}} <span v-show="percentage(key)">&#37;</span></bdi>
                   </div>
-                </div>
+                </router-link>
             </v-col>
         </template>
         <template v-else>
@@ -63,6 +63,12 @@ export default {
   data: () => ({
     selectedItem: {title: 'Last 7 days', value: 7, key: '7days'},
     results: [],
+    navigation: {
+      revenue: 'mySales',
+      sales: 'myContent',
+      views: 'myContent',
+      followers: 'myFollowers'
+    },
     items: [
       { title: 'Last 7 days', value: 7,  key: '7days' },
       { title: 'Last 30 Day', value: 30,  key: '30days' },

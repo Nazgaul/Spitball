@@ -58,7 +58,6 @@ export default {
                 closeCalendar: this.closeCalendar,
                 openBecomeTutor: this.openBecomeTutor,
                 goTutorList: this.goTutorList,
-                openUpload: this.openUpload,
                 getItems: this.getItems,
                 scrollTo: this.scrollToElementId,
             },
@@ -95,8 +94,6 @@ export default {
             'updateRequestDialog',
             'setActiveConversationObj',
             'openChatInterface',
-            'setReturnToUpload',
-            'updateDialogState',
             'updateProfileItemsByType',
 
 
@@ -166,21 +163,6 @@ export default {
         goTutorList(){
             this.$router.push({name:'tutorLandingPage'})
         },
-        openUpload() {
-            let schoolName = this.getSchoolName;
-            if (this.accountUser == null) {
-              this.updateLoginDialogState(true);
-            } else if (!schoolName.length) {
-              this.$router.push({ name: "addUniversity" });
-              this.setReturnToUpload(true);
-            } else if (!this.getSelectedClasses.length) {
-              this.$router.push({ name: "addCourse" });
-              this.setReturnToUpload(true);
-            } else if (schoolName.length > 0 && this.getSelectedClasses.length > 0) {
-              this.updateDialogState(true);
-              this.setReturnToUpload(false);
-            }
-        },
         getItems(type,params){
             let dataObj = {
                 id: this.id,
@@ -222,10 +204,7 @@ export default {
             "accountUser",
             'getCouponDialog',
             'getCouponError',
-            'getSchoolName',
-            'getSelectedClasses',
-            "getProfile",
-            'getBannerParams',]),
+            "getProfile"]),
         isShowCouponDialog(){
             if(this.getCouponDialog){
                 setTimeout(() => {
@@ -276,21 +255,6 @@ export default {
         showFindTutor(){
             return (!this.isMyProfile && !this.isTutor)
         },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         profileData() {
             if (!!this.getProfile) {
                 return this.getProfile;

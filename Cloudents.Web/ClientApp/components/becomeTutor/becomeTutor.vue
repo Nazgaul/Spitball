@@ -47,11 +47,8 @@
     import step_4 from './helpers/confirmationStep.vue'
     import step_5 from './helpers/finalStep.vue';
 
-    import dialogMixin from '../../mixins/dialogMixin'
-
     export default {
         name: "becomeTutor",
-        mixins: [dialogMixin],
         components: {step_1, step_2, step_3,step_4,step_5},
         data() {
             return {

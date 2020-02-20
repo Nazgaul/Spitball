@@ -28,3 +28,27 @@ export const Feed = 'feed';
 
 // Dashboard:
 export const Dashboard = 'dashboardTeacher';
+export const MySales = 'mySales';
+export const MyFollowers = 'myFollowers';
+export const MyPurchases = 'myPurchases';
+export const MyContent = 'myContent';
+export const MyStudyRooms = 'myStudyRooms';
+export const MyCalendar = 'myCalendar';
+
+// Edit Course
+export const EditCourse = 'editCourse';
+
+// Edit University
+export const EditUniversity = 'addUniversity';
+
+// Study Room:
+export const StudyRoom = 'tutoring';
+
+// Document:
+export const Document = 'document';
+
+// Question:
+export const Question = 'question'
+
+// Tutor List:
+export const TutorList = 'tutorLandingPage'

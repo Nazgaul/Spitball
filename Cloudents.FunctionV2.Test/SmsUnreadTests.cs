@@ -184,6 +184,7 @@ namespace Cloudents.FunctionsV2.Test
                 _mockUriBuilder.Object, _logger, default);
 
             var body = _mockedResultSms.Result.Single().Body;
+            CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = new CultureInfo(culture);
             var expectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor").InjectSingleValue("link", _shortUrl);
             body.Should().BeEquivalentTo(expectedResult);
             var emailExpectedResult = ResourceWrapper.GetString("unread_message_first_message_tutor_email").InjectSingleValue("link", _shortUrl);

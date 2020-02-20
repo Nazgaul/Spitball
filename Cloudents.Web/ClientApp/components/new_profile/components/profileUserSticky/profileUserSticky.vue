@@ -159,14 +159,10 @@ export default {
       },
    },
    methods: {
-      ...mapActions([
-         'updateLoginDialogState',
-         'updateTutorDialog']),
+      ...mapActions(['updateLoginDialogState']),
       reviewsPlaceHolder(reviews) {
          return reviews === 0 ? reviews.toString() : reviews;
       },
-
-
       openCalendar(){
          if(global.isAuth) {
             if(this.isMyProfile) {
@@ -177,7 +173,7 @@ export default {
          }
       },
       openBecomeTutor(){
-         this.updateTutorDialog(true)
+         this.$openDialog('becomeTutor')
       },
       goTutorList(){
          this.$router.push({name:'tutorLandingPage'})

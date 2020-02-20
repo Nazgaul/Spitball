@@ -19,9 +19,17 @@ import UserAvatar from './components/helpers/UserAvatar/UserAvatar.vue';
 import { Language } from "./services/language/langDirective";
 import utilitiesService from './services/utilities/utilitiesService';
 
-import '../ClientApp/myFont.font.js'; // Fonts
-import './utilities/prototypes'; // Vue Prototypes
-import './filters/filters'; // Filters
+// Fonts
+import '../ClientApp/myFont.font.js'; 
+
+// Vue Prototypes
+import './prototypes/prototypes.js'; 
+
+// Filters
+import './filters/filters';
+
+// Directives
+import { openDialog,closeDialog } from './directives/dialog.js';
 
 if(!window.IntersectionObserver){ // Intersection observer support
     import('intersection-observer');
@@ -77,6 +85,8 @@ Vue.use(VueAnalytics, {
 });
 
 Vue.directive('language', Language);
+Vue.directive('openDialog',openDialog);
+Vue.directive('closeDialog',closeDialog);
 
 global.isRtl = document.getElementsByTagName("html")[0].getAttribute("dir") === "rtl";
 global.isEdgeRtl = false;
@@ -89,16 +99,14 @@ if (document.documentMode || /Edge/.test(navigator.userAgent)) {
 router.beforeEach((to, from, next) => {
     store.dispatch('setRouteStack', to.name);
     store.dispatch('sendQueryToAnalytic', to);
-    store.dispatch('userStatus');
-
     let isLogged = store.getters.getUserLoggedInStatus2;
     
     if (!isLogged && to.meta && to.meta.requiresAuth) {
         next("/signin");
         return;
     }
-
-    loadLanguageAsync().then(() => {
+    let getAccountUser = store.dispatch('userStatus');
+    Promise.all([getAccountUser,loadLanguageAsync()]).then(() => {
        next();
     });
 });

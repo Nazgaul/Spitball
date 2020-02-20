@@ -8,6 +8,8 @@ export const User = {
     Default: function (objInit) {
         this.id = objInit.id || objInit.userId;
         this.name = objInit.name;
+        this.firstName = objInit.firstName;
+        this.lastName = objInit.lastName;
         this.image = objInit.image || '';
     },
     TutorDefault: function(objInit){
@@ -49,6 +51,8 @@ export const User = {
         )
     },
     Account: function(objInit){
+        objInit.courses = objInit.courses || [];
+        objInit.isTutor  = objInit.isTutor  ||'';
         return Object.assign(
             new User.Default(objInit),
             {
@@ -57,11 +61,16 @@ export const User = {
                 email: objInit.email,
                 currencySymbol: objInit.currencySymbol,
                 needPayment: objInit.needPayment,
-                isTutor: objInit.isTutor && objInit.isTutor.toLowerCase() === 'ok',
+                isTutor: objInit.isTutor.toLowerCase() === 'ok',
                 isTutorState: _createIsTutorState(objInit.isTutor),
                 university: new School.University(objInit.university),
                 courses: objInit.courses.map((course) => new School.Course(course)),
+                haveDocsWithPrice: objInit.haveDocsWithPrice,
                 haveDocs: objInit.haveDocs,
+                isPurchased: objInit.isPurchased,
+                isSold: objInit.isSold,
+                haveStudyRoom: objInit.haveStudyRoom,
+                haveFollowers: objInit.haveFollowers
             }
         )
     },

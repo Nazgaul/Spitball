@@ -5,7 +5,6 @@ using Cloudents.Core.Interfaces;
 using Cloudents.FunctionsV2.FileProcessor;
 using Cloudents.FunctionsV2.Services;
 using Cloudents.FunctionsV2.Sync;
-using Cloudents.FunctionsV2.System;
 using Cloudents.Infrastructure;
 using Cloudents.Infrastructure.Video;
 using Microsoft.AspNetCore.DataProtection;
@@ -15,6 +14,7 @@ using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using Cloudents.FunctionsV2.Operations;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 using ILogger = Cloudents.Core.Interfaces.ILogger;
 
@@ -109,7 +109,7 @@ namespace Cloudents.FunctionsV2.Di
                     FileTypesExtension.Music.Extensions));
 
             builder.RegisterType<MediaServices>().SingleInstance().As<IVideoService>().WithParameter("isDevelop", keys.Search.IsDevelop);
-
+            builder.Register(c => new TextToImageGdi()).As<ITextToImage>();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .AsClosedTypesOf(typeof(ISystemOperation<>));
