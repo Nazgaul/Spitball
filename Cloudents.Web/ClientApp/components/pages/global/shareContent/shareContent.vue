@@ -5,8 +5,9 @@
       <whatsappSVG style="width:20px" class="option ml-7 ml-sm-6" @click="shareOnSocialMedia('whatsApp')"/>
       <twitterSVG style="width:20px" class="option ml-5" @click="shareOnSocialMedia('twitter')"/>
       <emailSVG style="width:21px" class="option ml-5" @click="shareOnSocialMedia('email')"/>
+
       <v-tooltip v-model="showCopyToolTip" top transition="fade-transition">
-         <template v-slot:activator="{ on }">
+         <template v-slot:activator="{}">
             <linkSVG style="width:20px" class="option ml-5" @click="shareOnSocialMedia('link')"/>
          </template>
          <span>{{$t('shareContent_copy_tool')}}</span>
