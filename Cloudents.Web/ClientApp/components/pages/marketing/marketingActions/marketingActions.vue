@@ -9,19 +9,19 @@
                 <img class="mb-4 mt-sm-0" src="../images/sharePost.png" alt="">
                 <div class="text1 mb-1">{{$t('marketing_sharePost_title1')}}</div>
                 <div class="text2 mb-3">{{$t('marketing_sharePost_title2')}}</div>
-                <v-btn class="marketingbtn mb-4 mb-sm-0" color="#4c59ff" disabled outlined rounded>{{$t('dashboardTeacher_lets_go')}}</v-btn>
+                <v-btn class="marketingbtn mb-4 mb-sm-0" color="#4c59ff" disabled outlined rounded>{{$t('marketing_lets_go')}}</v-btn>
             </v-col>
             <v-col class="box pa-0" cols="12" sm="4">
                 <img class="mb-4 mt-4 mt-sm-0" src="../images/specialOffer.png" alt="">
                 <div class="text1 mb-1">{{$t('marketing_createOffer_title1')}}</div>
                 <div class="text2 mb-3">{{$t('marketing_createOffer_title2')}}</div>
-                <v-btn v-openDialog="'createCoupon'" class="marketingbtn mb-4 mb-sm-0" color="#4c59ff" outlined rounded>{{$t('dashboardTeacher_get_started')}}</v-btn>
+                <v-btn v-openDialog="'createCoupon'" class="marketingbtn mb-4 mb-sm-0" color="#4c59ff" outlined rounded>{{$t('marketing_get_started')}}</v-btn>
             </v-col>
             <v-col class="box pa-0" cols="12" sm="4">
                 <img class="mb-4 mt-4 mt-sm-0" src="../images/createVideo.png" alt="">
                 <div class="text1 mb-1">{{$t('marketing_createVideo_title1')}}</div>
                 <div class="text2 mb-3">{{$t('marketing_createVideo_title2')}}</div>
-                <v-btn class="marketingbtn" color="#4c59ff" outlined rounded @click="openIntercom">{{$t('dashboardTeacher_get_started')}}</v-btn>
+                <v-btn class="marketingbtn" color="#4c59ff" outlined rounded @click="openIntercom">{{$t('marketing_get_started')}}</v-btn>
             </v-col>
         </template>
     </v-row>

@@ -1,7 +1,7 @@
 <template>
     <v-row class="tableCoupon mt-2 mt-sm-4 pa-4 pb-2 pb-sm-0" dense>
         <v-col cols="12" class="pa-0">
-            <div class="mainTitle mb-2">{{$t('tableCoupon_title')}}</div>
+            <div class="mainTitle mb-2">{{$t('marketing_tableCoupon_title')}}</div>
         </v-col>
         <v-data-table
             :headers="headers"
@@ -57,32 +57,32 @@ export default {
         coupons: [],
         headers:[
             {
-                text: 'tableCoupon_code',
+                text: 'marketing_tableCoupon_code',
                 align: 'left',
                 value: 'code',
             },
             {
-                text: 'tableCoupon_type',
+                text: 'marketing_tableCoupon_type',
                 align: 'left',
                 value: 'couponType',
             },
             {
-                text: 'tableCoupon_value',
+                text: 'marketing_tableCoupon_value',
                 align: 'left',
                 value: 'value',
             },
             {
-                text: 'tableCoupon_amount',
+                text: 'marketing_tableCoupon_amount',
                 align: 'left',
                 value: 'amountUsers',
             },
             {
-                text: 'tableCoupon_created',
+                text: 'marketing_tableCoupon_created',
                 align: 'left',
                 value: 'createTime',
             },
             {
-                text: 'tableCoupon_expired',
+                text: 'marketing_tableCoupon_expired',
                 align: 'left',
                 value: 'expiration',
             },

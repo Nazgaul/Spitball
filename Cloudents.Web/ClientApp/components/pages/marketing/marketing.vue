@@ -2,7 +2,7 @@
     <div id="marketing">
 
         <marketingActions></marketingActions>
-        <spitballTips></spitballTips>
+        <marketingBlogs></marketingBlogs>
         <tableCoupon></tableCoupon>
 
     </div>
@@ -10,13 +10,13 @@
 
 <script>
 const marketingActions = () => import('./marketingActions/marketingActions.vue');
-const spitballTips = () => import('./marketingBlogs/marketingBlogs.vue');
+const marketingBlogs = () => import('./marketingBlogs/marketingBlogs.vue');
 const tableCoupon = () => import('./tableCoupon/tableCoupon.vue');
 
 export default {
     components: {
         marketingActions,
-        spitballTips,
+        marketingBlogs,
         tableCoupon,
     }
 }
