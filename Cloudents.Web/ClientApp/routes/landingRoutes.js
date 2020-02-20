@@ -20,7 +20,7 @@ export const landingRoutes = [
                     nextRoute = {name: routeNames.Dashboard};
                 }
                 if(store.getters.accountUser.userType === 'Parent'){
-                    nextRoute = {name: routeNames.Feed,query:{filter:'Tutor'}};
+                    nextRoute = {name: routeNames.TutorList};
                 }
                 next(nextRoute);
                 return;
