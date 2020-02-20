@@ -36,7 +36,7 @@ export default {
             case 'twitter':
                global.open(`https://twitter.com/intent/tweet?url=${msg.url}&text=${msg.text}`, "_blank");
                break;
-            case 'gmail':
+            case 'email':
                global.open(`https://mail.google.com/mail/?view=cm&su=${msg.title}&body=${msg.text}`, "_blank");
                break;
          }
