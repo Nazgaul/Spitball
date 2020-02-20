@@ -88,18 +88,17 @@ select 'd' as type
 ,case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
-join sb.University un on un.Id = d.UniversityId
+left join sb.University un on un.Id = d.UniversityId
 join cte on un.country = cte.country or u.country = cte.country
 where
-and d.State = 'Ok'
+d.State = 'Ok'
 and d.courseName = @course
 and COALESCE(d.DocumentType,'Document') = @documentType
 order by
-case when R.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 0 else DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())*2 end +
-case when R.UniversityId = cte.UniversityId or R.UniversityId is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
-DATEDiff(hour, R.DateTime, GetUtcDATE()) +
-case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
-case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
+case when un.Id = cte.UniversityId or un.Id is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
+DATEDiff(hour, d.UpdateTime, GetUtcDATE()) +
+case when case when d.DocumentType = 'Video' then 1 else 0 end = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
+case when case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY;";
                 const string sqlWithoutCourse = @"
@@ -140,7 +139,7 @@ select 'd' as type
 ,case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 from sb.document d
 join sb.[user] u on d.UserId = u.Id
-join sb.University un on un.Id = d.UniversityId
+left join sb.University un on un.Id = d.UniversityId
 join cte on un.country = cte.country or u.country = cte.country
 where
     d.UpdateTime > GETUTCDATE() - 182
@@ -148,11 +147,10 @@ and d.State = 'Ok'
 and COALESCE(d.DocumentType,'Document') = @documentType
 and (d.CourseName in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
 order by
-case when R.Course in (select courseId from sb.usersCourses where userid = cte.userid) then 0 else DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE())*2 end +
-case when R.UniversityId = cte.UniversityId or R.UniversityId is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
-DATEDiff(hour, R.DateTime, GetUtcDATE()) +
-case when r.IsVideo = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
-case when r.IsFollow = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
+case when un.Id = cte.UniversityId or un.Id is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
+DATEDiff(hour, d.UpdateTime, GetUtcDATE()) +
+case when case when d.DocumentType = 'Video' then 1 else 0 end = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end + 
+case when case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
 
