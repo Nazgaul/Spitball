@@ -13,7 +13,7 @@
         </v-col>
         <v-col cols="12" sm="6" class="d-flex rightSide pa-0">
             <template v-if="blogs.length">
-                <v-col class="tipsList d-flex pa-0" cols="12" sm="6" v-for="(blog, index) in blogs" :key="index">
+                <v-col class="tipsList d-flex d-sm-block pa-0" cols="12" sm="8" md="6" v-for="(blog, index) in blogs" :key="index">
                     <a class="tipsListBox d-flex d-sm-block" :href="blog.url" target="_blank">
                         <div class="top mr-2 mr-sm-0">
                             <img :src="blog.image" alt="image" width="200" height="100" />
@@ -101,6 +101,7 @@ export default {
             }
         }
         .rightSide {
+            justify-content: flex-end;
             &:not(:last-child) {
                 margin-right: 10px;
             }
@@ -165,6 +166,9 @@ export default {
             }
             .skeletonLoader:last-child  {
                 padding-right: 0;
+                @media (max-width: @screen-sm) {
+                    display: none;
+                }
             }
         }
     }
