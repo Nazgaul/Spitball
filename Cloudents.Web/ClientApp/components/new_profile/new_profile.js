@@ -204,7 +204,8 @@ export default {
             "accountUser",
             'getCouponDialog',
             'getCouponError',
-            "getProfile"]),
+            "getProfile",
+        'getBannerParams']),
         isShowCouponDialog(){
             if(this.getCouponDialog){
                 setTimeout(() => {
