@@ -43,6 +43,9 @@
                         </v-skeleton-loader>
                     </v-sheet>
                 </template>
+            <template v-if="$vuetify.breakpoint.mdAndDown">    
+                <shareContent class="mt-4"/>
+            </template>
             </div>
                     
             <mainItem :isLoad="isLoad" :document="document"></mainItem>
@@ -78,8 +81,10 @@
             </div>
             <mobileUnlockDownload :sticky="true" v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.sm" :document="document"></mobileUnlockDownload>
         </div>
-        
-        <whyUsDesktop v-if="$vuetify.breakpoint.lgAndUp" :document="document"></whyUsDesktop>
+        <div v-if="$vuetify.breakpoint.lgAndUp" :class="['sticky-item',{'sticky-item_bannerActive':getBannerParams}]">
+            <whyUsDesktop class="mb-2" :document="document"></whyUsDesktop>
+            <shareContent/>
+        </div>
         <mobileUnlockDownload v-if="$vuetify.breakpoint.xsOnly" :document="document"></mobileUnlockDownload>
         <unlockDialog :document="document"></unlockDialog>
         <v-snackbar
@@ -126,7 +131,7 @@ import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
 import whyUs from './components/whyUs/whyUs.vue';
 import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
 import unlockDialog from './components/dialog/unlockDialog.vue';
-
+import shareContent from '../global/shareContent/shareContent.vue';
 export default {
     name: 'itemPage',
     components: {
@@ -140,6 +145,7 @@ export default {
         mobileUnlockDownload,
         mainItem,
         unlockDialog,
+        shareContent
     },
     props: {
         id: {
@@ -160,7 +166,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(['accountUser', 'getDocumentDetails', 'getRelatedDocuments', 'getRouteStack', 'getPurchaseConfirmation', 'getShowItemToaster']),
+        ...mapGetters(['getBannerParams','accountUser', 'getDocumentDetails', 'getRelatedDocuments', 'getRouteStack', 'getPurchaseConfirmation', 'getShowItemToaster']),
 
         snackbar: {
             get() {
@@ -336,6 +342,14 @@ export default {
         
         &--noTutor {
             margin-bottom: 80px;
+        }
+        .sticky-item{
+            position: sticky;
+            height: fit-content;
+            top: 80px;
+            &.sticky-item_bannerActive{
+                top: 150px;
+            }
         }
         &__main {
             max-width: 720px;
