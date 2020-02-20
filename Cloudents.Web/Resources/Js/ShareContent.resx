@@ -117,8 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="copy_tool" xml:space="preserve">
+    <value>Link Copied</value>
+  </data>
+  <data name="share_item_email_body" xml:space="preserve">
+    <value>Hey, 
+I found a great {0} for {1} check it out on Spitball {2}</value>
+  </data>
+  <data name="share_item_email_subject" xml:space="preserve">
+    <value>Think this will really help you with {0}</value>
+  </data>
   <data name="share_item_twitter" xml:space="preserve">
-    <value>I found great content for {cousename} check it out on Spitball {content_link}</value>
+    <value>I found great content for {0} check it out on Spitball {1}</value>
+  </data>
+  <data name="share_item_whatsapp" xml:space="preserve">
+    <value>I found great content for {0} check it out on Spitball {1}</value>
   </data>
   <data name="share_profile_email_body" xml:space="preserve">
     <value>Hey,

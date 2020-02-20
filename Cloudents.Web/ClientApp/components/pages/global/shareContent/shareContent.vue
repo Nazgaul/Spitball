@@ -2,10 +2,15 @@
    <div class="shareContent">
       <span class="pr-1">{{$t('shareContent_title')}}</span> |
       <facebookSVG style="width:9px" class="option ml-3" @click="shareOnSocialMedia('facebook')"/>
-      <whatsappSVG style="width:20px" class="option ml-7 ml-sm-6" @click="shareOnSocialMedia('whatsapp')"/>
+      <whatsappSVG style="width:20px" class="option ml-7 ml-sm-6" @click="shareOnSocialMedia('whatsApp')"/>
       <twitterSVG style="width:20px" class="option ml-5" @click="shareOnSocialMedia('twitter')"/>
       <emailSVG style="width:21px" class="option ml-5" @click="shareOnSocialMedia('email')"/>
-      <linkSVG style="width:20px" class="option ml-5" @click="shareOnSocialMedia('link')"/>
+      <v-tooltip v-model="showCopyToolTip" top transition="fade-transition">
+         <template v-slot:activator="{ on }">
+            <linkSVG style="width:20px" class="option ml-5" @click="shareOnSocialMedia('link')"/>
+         </template>
+         <span>{{$t('shareContent_copy_tool')}}</span>
+         </v-tooltip>
    </div>
 </template>
 
@@ -19,9 +24,15 @@ import * as routeNames from '../../../../routes/routeNames.js';
 
 export default {
    name: 'shareContent',
+   data() {
+      return {
+         showCopyToolTip:false,
+      }
+   },
    components:{facebookSVG,whatsappSVG,emailSVG,twitterSVG,linkSVG},
    methods: {
       shareOnSocialMedia(socialMediaName) {
+         let self = this;
          if(this.$route.name === routeNames.Profile){
             let teacherName = this.$store.getters.getProfile.user.name;
             let urlLink = `${global.location.origin}/p/${this.$store.getters.getProfile.user.id}`;
@@ -42,15 +53,14 @@ export default {
             let urlLink = `${global.location.origin}/d/${this.$route.params.id}`;
             let courseName = this.$route.params.courseName;
             let itemType = this.$store.getters.getDocumentDetails.documentType;
-         this.$t('')
+             
             let itemObj = {
-               twitter: 'I found great content for {cousename} check it out on Spitball {content_link}',
-               whatsapp: 'I found great content for {cousename} check it out on Spitball {content_link}',
+               link: urlLink,
+               twitter: this.$t('shareContent_share_item_twitter',[courseName,urlLink]),
+               whatsApp: this.$t('shareContent_share_item_whatsapp',[courseName,urlLink]),
                email: {
-                  subject: 'Think this will really help you with {coursename}',
-                  body: 
-                        `Hey, 
-                        I found a great {content_type} for {cousename} check it out on Spitball {content_link}`
+                  subject: this.$t('shareContent_share_item_email_subject',[courseName]),
+                  body: this.$t('shareContent_share_item_email_body',[itemType,courseName,urlLink]),
                }
             }
             _share(itemObj);
@@ -59,21 +69,24 @@ export default {
          function _share(infoObject){
             switch (socialMediaName) {
                case 'link':
-                  this.$copyText(link).then(() => {
-                     debugger
+                  self.$copyText(infoObject.link).then(() => {
+                     self.showCopyToolTip = true;
+                     setTimeout(()=>{
+                        self.showCopyToolTip = false;
+                     },2000)
                   })
                   break;
                case 'email':
-                  global.open(`https://mail.google.com/mail/?view=cm&su=${infoObject[socialMediaName].subject}&body=${infoObject[socialMediaName].body}`, "_blank");
+                  window.location.href = `mailto:?subject=${encodeURIComponent(infoObject[socialMediaName].subject)}&body=${encodeURIComponent(infoObject[socialMediaName].body)}`
                   break;
                case 'facebook':
-                  global.open(`https://www.facebook.com/sharer.php?u=${encodeURIComponent(infoObject.link)}`, "_blank");
-                  break;
-               case 'twitter':
-                  global.open(`https://twitter.com/intent/tweet?url=${infoObject.link}&text=${infoObject[socialMediaName]}`, "_blank");
+                  global.open(`https://www.facebook.com/sharer.php?u=${infoObject.link}`, "_blank");
                   break;
                case 'whatsApp':
-                  global.open(`https://web.whatsapp.com/send?text=${infoObject.link}`, "_blank");
+                  global.open(`https://wa.me/?text=${encodeURIComponent(infoObject[socialMediaName])}`, "_blank");
+                  break;
+               case 'twitter':
+                  global.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(infoObject[socialMediaName])}`, "_blank");
                   break;
             }
          }

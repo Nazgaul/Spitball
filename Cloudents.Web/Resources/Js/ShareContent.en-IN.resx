@@ -117,37 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="copy_tool" xml:space="preserve">
-    <value>הקישור הועתק</value>
-  </data>
   <data name="share_item_email_body" xml:space="preserve">
-    <value>הי,
-מצאתי חומר לימודי טוב  לקורס -  {1} ב {2}</value>
+    <value>Hey, 
+I found a great {0} for {1} check it out on Frymo {2}</value>
   </data>
   <data name="share_item_email_subject" xml:space="preserve">
-    <value>חומר לימודי לקורס - {0}</value>
+    <value>Think this will really help you with {0}</value>
   </data>
   <data name="share_item_twitter" xml:space="preserve">
-    <value>מצאתי חומר לימודי טוב  לקורס -  {0} ב {1}</value>
+    <value>I found great content for {0} check it out on Frymo {1}</value>
   </data>
   <data name="share_item_whatsapp" xml:space="preserve">
-    <value>מצאתי חומר לימודי טוב  לקורס -  {0} ב {1}</value>
+    <value>I found great content for {0} check it out on Frymo {1}</value>
   </data>
   <data name="share_profile_email_body" xml:space="preserve">
-    <value>הי,
-משתף איתך מורה פרטי. תסתכל על האתר שלו
-{1}</value>
+    <value>Hey,
+I found a great teacher on Frymo check out {0}’s site {1}</value>
   </data>
   <data name="share_profile_email_subject" xml:space="preserve">
-    <value>המורה הפרטי {0} - מומלץ</value>
+    <value>Check out {0} a great teacher I found on Frymo</value>
   </data>
   <data name="share_profile_twitter" xml:space="preserve">
-    <value>מצאתי מורה מצויין {0} ב {1}</value>
+    <value>I found a great teacher on Frymo, check out {0}’s site {1}</value>
   </data>
   <data name="share_profile_whatsapp" xml:space="preserve">
-    <value>מצאתי מורה מצויין {0} ב {1}</value>
+    <value>Hey I found a great teacher on Frymo check out {0}’s site {1}</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>שתף</value>
+    <value>Share</value>
   </data>
 </root>
