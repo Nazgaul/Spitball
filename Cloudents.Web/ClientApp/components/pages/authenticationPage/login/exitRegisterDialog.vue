@@ -18,7 +18,7 @@ export default {
   methods: {
     exit() {
       this.$store.dispatch('exit')
-      this.$router.push({path: '/'}).catch(() => {})
+      // this.$router.push({path: '/'}).catch(() => {})
     }
   }
 }

@@ -38,6 +38,8 @@ namespace Cloudents.Query.Questions
                 _jsonSerializer = jsonSerializer;
             }
 
+            // If you chnage enything in the sql query tou need to take care to 
+            // FeedAggregateQuery and DocumentFeedWithFilterQuery as well
             public async Task<IEnumerable<QuestionFeedDto>> GetAsync(QuestionFeedWithFliterQuery query, CancellationToken token)
             {
                 const string sqlWithCourse = @"with cte as (
@@ -70,24 +72,24 @@ q.Language as CultureInfo
 ,u.Name as 'User.Name'
 ,u.Image as 'User.Image'
 ,'Question' as documentType for json path) JsonArray
-
+,case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
-join sb.University un on q.UniversityId = un.Id
+left join sb.University un on q.UniversityId = un.Id
 outer apply (
 select top 1 text, u.id, u.name, u.image, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 ) as x
-,cte
+join cte on un.country = cte.country or u.country = cte.country
 where
     q.Updated > GetUtcDATE() - 182
-and un.country = cte.country
 and q.courseId = @course
 and q.State = 'Ok'
 order by
-case when q.UniversityId = cte.UniversityId then 3 else 0 end  +
-cast(1 as float)/ISNULL(nullif(DATEDiff(minute, q.Updated, GetUtcDATE()   ),0),1) desc
+case when un.Id = cte.UniversityId or un.Id is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
+DATEDiff(hour, q.Updated, GetUtcDATE()) +
+case when case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
 
@@ -122,25 +124,25 @@ q.Language as CultureInfo
 ,u.Name as 'User.Name'
 ,u.Image as 'User.Image'
 ,'Question' as documentType for json path) JsonArray
-
+,case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end as IsFollow
 FROM sb.[Question] q
 join sb.[user] u
 	on q.UserId = u.Id
-join sb.University un on q.UniversityId = un.Id
+left join sb.University un on q.UniversityId = un.Id
 outer apply (
 select  top 1 text,u.id,u.name,u.image, a.Created from sb.Answer a join sb.[user] u on a.userid = u.id
 where a.QuestionId = q.Id and state = 'Ok' order by a.created
 
 ) as x
-,cte
-where
+join cte on un.country = cte.country or u.country = cte.country
+where 
     q.Updated > GETUTCDATE() - 182
-and un.country = cte.country
 and q.State = 'Ok'
+and (q.CourseId in (select courseId from sb.usersCourses where userid = cte.userid) or @userid <= 0)
 order by
-case when q.CourseId in (select courseId from sb.usersCourses where userid = cte.userid) then 4 else 0 end +
-case when q.UniversityId = cte.UniversityId then 3 else 0 end  +
-cast(1 as float)/ISNULL(nullif( DATEDIFF(minute, q.Updated, GETUTCDATE()   ),0),1) desc
+case when un.Id = cte.UniversityId or un.Id is null then 0 else  DATEDiff(hour, GetUtcDATE() - 180, GetUtcDATE()) end  +
+DATEDiff(hour, q.Updated, GetUtcDATE()) +
+case when case when (select UserId from sb.UsersRelationship ur where ur.FollowerId = @userId and u.Id = ur.UserId) = u.id then 1 else 0 end = 1 then 0 else DATEDiff(hour, GetUtcDATE() - 7, GetUtcDATE()) end
 OFFSET @page*@pageSize ROWS
 FETCH NEXT @pageSize ROWS ONLY";
 

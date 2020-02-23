@@ -13,12 +13,14 @@
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.Face" Version="2.5.0-preview.1" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.4.0" />
     <PackageReference Include="Cloudmersive.APIClient.NETCore.DocumentAndDataConvert" Version="1.8.9" />
+    <PackageReference Include="Cloudmersive.APIClient.NETCore.ImageRecognition" Version="1.7.3" />
+    
     <!--Do not remove this-->
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <!--<PackageReference Include="windowsazure.mediaservices.extensions" Version="4.2.0" />-->
     <PackageReference Include="Microsoft.Azure.Management.Media" Version="2.0.4" />
     <PackageReference Include="Microsoft.ML.Recommender" Version="0.17.0-preview" />
-    <PackageReference Include="System.ServiceModel.Syndication" Version="4.7.0" />
+
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Message.Email;
-using Cloudents.FunctionsV2.System;
 using Cloudents.Query;
 using Cloudents.Query.Email;
 using FluentAssertions;
@@ -12,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.FunctionsV2.Operations;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -66,6 +66,8 @@ namespace Cloudents.FunctionsV2.Test
             var operation = new RedeemTransactionMessageEmailOperation(_queryBusStub.Object);
             var msg = new RedeemTransactionMessage(Guid.Empty);
             await operation.DoOperationAsync(msg, _mock.Object, default);
+
+            CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = new CultureInfo("en-IN");
             var result = _mockedResult.Result.First();
             _outputHelper.WriteLine("The culture is {0}", CultureInfo.CurrentCulture);
             result.Personalizations[0].Tos[0].Email.Should().Be("support@frymo.com");

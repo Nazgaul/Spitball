@@ -1,19 +1,19 @@
-﻿using Cloudents.Command;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Cloudents.Command;
 using Cloudents.Command.Command;
+using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Message.Email;
 using Cloudents.FunctionsV2.Services;
 using Cloudents.Query;
-using Microsoft.Azure.WebJobs;
-using shortid;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Cloudents.Core.Extension;
-using SendGrid.Helpers.Mail;
 using Cloudents.Query.Email;
+using Microsoft.Azure.WebJobs;
+using SendGrid.Helpers.Mail;
+using shortid;
 
-namespace Cloudents.FunctionsV2.System
+namespace Cloudents.FunctionsV2.Operations
 {
     
     public class RequestTutorAdminEmailOperation : ISystemOperation<RequestTutorMessage>
