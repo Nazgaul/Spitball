@@ -40,6 +40,7 @@ namespace Cloudents.Persistence.Maps
             Map(e => e.Created).Insert().Not.Update();
             Map(x => x.ManualBoost).LazyLoad().Nullable();
             Map(e => e.IsShownHomePage);
+            HasMany(x => x.AdminUsers).Inverse().Cascade.AllDeleteOrphan();
             DynamicUpdate();
             OptimisticLock.Version();
             Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();

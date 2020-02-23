@@ -167,6 +167,20 @@ namespace Cloudents.Core.Entities
         public virtual IEnumerable<TutorHours> TutorHours => _tutorHours;
         public virtual bool IsShownHomePage { get; protected set; }
 
+
+        protected internal virtual ICollection<AdminTutor> AdminUsers { get; set; }
+
+        public virtual AdminTutor AdminUser
+        {
+            get => AdminUsers.SingleOrDefault();
+            set
+            {
+                AdminUsers.Clear();
+                AdminUsers.Add(value);
+            }
+        }
+
+
         public virtual void UpdateCalendar(IEnumerable<GoogleCalendar> calendars)
         {
 
