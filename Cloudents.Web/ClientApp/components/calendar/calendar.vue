@@ -233,14 +233,21 @@ export default {
           return (this.eventsMap[date] && this.eventsMap[date].find(e =>e.time === time))? '': time;
         },
         formatDateString(){
+          let year = this.selectedDate.slice(0,4);
+          let month = this.selectedDate.slice(5,7);
+          let day = this.selectedDate.slice(8,11);
           if(global.isRtl){
             let options = { weekday: 'long', month: 'short', day: 'numeric' };
-            let dateStr = new Date(this.selectedDate).toLocaleDateString(`${global.lang}-${global.country}`, options).split(' ')
-            let dayNumber = new Date(this.selectedDate).getDate()
+            let dateStr = new Date(year,month - 1,day,0,0,0,0).toLocaleDateString(`${global.lang}-${global.country}`, options).split(' ');
+            // let dateStr = new Date(this.selectedDate).toLocaleDateString(`${global.lang}-${global.country}`, options).split(' ')
+            let dayNumber = new Date(year,month - 1,day,0,0,0,0).getDate()
+            // let dayNumber = new Date(this.selectedDate).getDate()
             return `${dateStr[0]} ${dateStr[1]} ${dayNumber} ${dateStr[3]}`
           } else{
-            let dateStr = new Date(this.selectedDate).toDateString().split(' ');
-            let dayNumber = new Date(this.selectedDate).getDate()
+            let dateStr = new Date(year,month - 1,day,0,0,0,0).toDateString().split(' ');
+            // let dateStr = new Date(this.selectedDate).toDateString().split(' ');
+            let dayNumber = new Date(year,month - 1,day,0,0,0,0).getDate()
+            // let dayNumber = new Date(this.selectedDate).getDate()
             return `${dateStr[0]}, ${dateStr[1]} ${dayNumber}`
           }
         },
