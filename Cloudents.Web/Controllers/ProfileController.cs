@@ -86,7 +86,7 @@ namespace Cloudents.Web.Controllers
                 ViewBag.ogImageWidth = 1200;
                 ViewBag.ogImageHeight = 630;
                 ViewBag.ogTitle = retVal.Name;
-                if (retVal.Tutor.Subjects.Any())
+                if (retVal.Tutor?.Subjects?.Any() == true)
                 {
                     ViewBag.ogDescription =
                         _localizer.WithCulture(country.MainLanguage)["OgDescription",
