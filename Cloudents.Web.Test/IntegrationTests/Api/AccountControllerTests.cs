@@ -92,8 +92,8 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             var price = tutor["price"]?.Value<decimal>();
 
 
-            firstName.Should().Be("Skyler");
-            lastName.Should().Be("White");
+            firstName.Should().Be("Tester");
+            lastName.Should().Be("User");
             price.Should().Be(55M);
         }
 
