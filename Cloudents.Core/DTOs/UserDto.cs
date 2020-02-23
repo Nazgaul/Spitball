@@ -143,10 +143,10 @@ namespace Cloudents.Core.DTOs
         {
             get
             {
-                if (IsTutor is null && _userType == Enum.UserType.Teacher)
-                {
+
+                if (_userType == Enum.UserType.Teacher 
+                    && IsTutor.GetValueOrDefault(ItemState.Deleted) != ItemState.Ok)
                     return Enum.UserType.UniversityStudent;
-                }
                 return _userType;
             }
             set

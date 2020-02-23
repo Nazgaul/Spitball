@@ -31,7 +31,9 @@ namespace Cloudents.Web.Controllers
             _urlBuilder = urlBuilder;
         }
 
+
         [Route("profile/{id:long}")]
+        [Route("p/{id:long}")]
         public async Task<IActionResult> OldIndexAsync(long id, CancellationToken token)
         {
             //not really need it in here
