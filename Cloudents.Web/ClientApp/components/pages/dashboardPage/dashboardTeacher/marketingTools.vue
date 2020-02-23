@@ -19,8 +19,8 @@
           <div class="bottom">
               <div class="text1">{{$t('dashboardTeacher_create_coupon')}}</div>
               <div class="text2 mb-3">{{$t('dashboardTeacher_costume_coupon')}}</div>
-              <!-- <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboardTeacher_get_started')}}</v-btn> -->
-              <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboardTeacher_coming_soon')}}</v-btn>
+              <v-btn v-openDialog="'createCoupon'" class="marketingbtn" color="#4c59ff" outlined rounded v-text="$t('dashboardTeacher_get_started')"></v-btn>
+              <!-- <v-btn disabled class="marketingbtn" color="#4c59ff" outlined rounded>{{$t('dashboardTeacher_coming_soon')}}</v-btn> -->
           </div>
         </v-col>
     </v-row>

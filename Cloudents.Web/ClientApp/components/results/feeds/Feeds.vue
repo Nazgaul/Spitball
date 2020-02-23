@@ -1,8 +1,10 @@
 <template>
     <general-page :mdAndDown="$vuetify.breakpoint.mdAndDown" :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="$route.name">
         <div slot="main" class="feedWrap">
-            <coursesTab/>
-            <request-box class="request-box mb-0"/>
+            <template v-if="showRequestBox">
+                <coursesTab/>
+                <request-box class="request-box mb-0"/>
+            </template>
             <v-flex xs12 class="mt-3 analyticWrapper" v-if="showAnalyticStats">
                 <analyticOverview/>
             </v-flex>

@@ -1,4 +1,5 @@
 import accountService from '../services/accountService.js';
+import couponService from '../services/couponService.js'
 
 const state = {
     couponError: false,
@@ -40,6 +41,9 @@ const actions = {
     },
     updateCouponDialog({commit}, val) {
         commit('setCouponDialog', val);
+    },
+    createCoupon(context,paramObj){
+        return couponService.createCoupon(paramObj)
     }
 };
 

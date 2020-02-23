@@ -15,7 +15,7 @@ namespace Cloudents.Query.Tutor
             Id = id;
         }
 
-        public long Id { get;  }
+        private long Id { get;  }
 
 
         internal sealed class ShareProfileImageQueryHandler : IQueryHandler<ShareProfileImageQuery,ShareProfileImageDto>
@@ -34,12 +34,11 @@ namespace Cloudents.Query.Tutor
                     .Where(w => w.tutor.Id == query.Id)
                     .Select(s => new ShareProfileImageDto()
                     {
-                        CountryStr = s.tutor.Country,
                         Image = s.tutor.ImageName,
                         Name = s.tutor.Name,
                         Rate = s.tutor.Rate.GetValueOrDefault(),
                         Description = s.user.Description
-                    }).FirstOrDefaultAsync(token);
+                    }).SingleOrDefaultAsync(token);
             }
         }
     }

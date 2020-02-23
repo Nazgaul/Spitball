@@ -77,6 +77,7 @@ export default {
   }
   .tipsList {
     .tipsListBox {
+      width: 100%;
       .top {
         display: flex;
         img {

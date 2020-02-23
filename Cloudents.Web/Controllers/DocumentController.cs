@@ -20,6 +20,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Schema.NET;
+using Country = Cloudents.Core.Entities.Country;
 
 namespace Cloudents.Web.Controllers
 {
@@ -151,7 +152,7 @@ namespace Cloudents.Web.Controllers
             {
 
                 var url = Url.RouteUrl("ShortDocumentLink2",
-                    new { id = model.DuplicateId.Value}, "https");
+                    new { id = model.DuplicateId.Value }, "https");
 
                 Response.Headers.Add("Link", $"<{url}>; rel=\"canonical\"");
             }
@@ -176,13 +177,20 @@ namespace Cloudents.Web.Controllers
                 };
                 ViewBag.jsonLd = jsonLd;
             }
-
+            Country country = model.Document.User.Country;
             ViewBag.ogImage = new Uri(_urlBuilder.BuildDocumentThumbnailEndpoint(model.Document.Id, new
             {
                 width = 1200,
                 height = 630,
-                mode = "crop"
+                mode = "crop",
+                rtl = country.MainLanguage.Info.TextInfo.IsRightToLeft.ToString()
             }));
+            ViewBag.ogTitle = model.Document.Title;
+
+            ViewBag.ogDescription = 
+                _localizer.WithCulture(country.MainLanguage.Info)
+                ["OgDescription", model.Document.Course];
+
             ViewBag.ogImageWidth = 1200;
             ViewBag.ogImageHeight = 630;
 

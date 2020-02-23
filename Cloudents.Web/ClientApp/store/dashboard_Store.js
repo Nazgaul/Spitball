@@ -1,6 +1,6 @@
 import dashboardService from '../services/dashboardService.js';
 import walletService from '../services/walletService.js';
-import searchService from '../services/searchService';
+import accountService from '../services/accountService';
 
 const state = {
    salesItems: [],
@@ -116,7 +116,7 @@ const actions = {
       }
    },
    updateStudentsAnswersQuestion() {
-      return searchService.activateFunction.feed({filter: "Question"}).then((data) => {
+      return accountService.getQuestions().then((data) => {
          return data;
      }, (err) => {
          return Promise.reject(err);

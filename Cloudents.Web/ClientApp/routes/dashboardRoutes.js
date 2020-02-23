@@ -1,4 +1,5 @@
 import { staticComponents } from './routesUtils.js';
+import store from '../store';
 
 const dashboardPages = {
    default: () => import('../components/pages/dashboardPage/dashboardPage.vue'),
@@ -96,6 +97,14 @@ export const dashboardRoutes = [
         components: {
             default: () => import('../components/pages/dashboardPage/dashboardTeacher/dashboard.vue'),
             ...staticComponents(['banner', 'header', 'sideMenu'])
+        },
+        beforeEnter: (to, from, next) => {
+            if(store.getters.getUserLoggedInStatus && store.getters.accountUser.isTutor){
+                next()
+                return
+            }
+            // Redirect to root
+            next('/')
         },
         meta: {
             showMobileFooter: true,

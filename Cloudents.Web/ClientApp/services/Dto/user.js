@@ -8,6 +8,8 @@ export const User = {
     Default: function (objInit) {
         this.id = objInit.id || objInit.userId;
         this.name = objInit.name;
+        this.firstName = objInit.firstName;
+        this.lastName = objInit.lastName;
         this.image = objInit.image || '';
     },
     TutorDefault: function(objInit){
@@ -63,7 +65,12 @@ export const User = {
                 isTutorState: _createIsTutorState(objInit.isTutor),
                 university: new School.University(objInit.university),
                 courses: objInit.courses.map((course) => new School.Course(course)),
-                haveDocs: objInit.haveDocs,
+                haveDocsWithPrice: objInit.haveDocsWithPrice,
+                haveContent: objInit.haveContent,
+                isPurchased: objInit.isPurchased,
+                isSold: objInit.isSold,
+                haveStudyRoom: objInit.haveStudyRoom,
+                haveFollowers: objInit.haveFollowers
             }
         )
     },
