@@ -1,12 +1,6 @@
 <template>
-    <!-- <div id="marketing"> -->
-        <!-- <router-view :name="$route.name"></router-view> -->
-    <div id="marketing" class="fullWidth">
-
-        <marketingActions></marketingActions>
-        <marketingBlogs></marketingBlogs>
-        <tableCoupon></tableCoupon>
-
+    <div id="marketing">
+        <router-view :name="$route.name"></router-view>
     </div>
 </template>
 
