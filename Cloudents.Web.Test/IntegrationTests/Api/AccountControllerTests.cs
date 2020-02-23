@@ -15,10 +15,10 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
 
         private readonly object _settings = new
         {
-            firstName = "Skyler",
-            description = "Nice to meet you",
-            lastName = "White",
-            bio = "I have a lot of experience",
+            firstName = "Tester",
+            description = "I am a user for testing only",
+            lastName = "User",
+            bio = "Do not use this user for manual testing",
             price = 55
         };
 
