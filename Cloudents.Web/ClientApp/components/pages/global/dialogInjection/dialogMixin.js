@@ -25,7 +25,7 @@ export default {
                 becomeTutor: [],
                 upload: ["auth","courses"],
                 createCoupon: ["auth","tutor"],
-                payment:["auth"]
+                payment:["auth","notPayment"]
             }
         }
     },
@@ -57,6 +57,18 @@ export default {
         check_courses(){
             if(this.getSelectedClasses.length === 0){
                 this.$router.push({name: "addCourse"})
+                return 'break'
+            }
+        },
+        check_payment(){
+            if(!this.accountUser.needPayment){
+                this.component = 'payment';
+                // TODO: do something
+            }
+        },
+        check_notPayment(){
+            if(this.accountUser.needPayment){
+                // TODO: do something
                 return 'break'
             }
         }
