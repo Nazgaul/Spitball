@@ -61,3 +61,4 @@ export const TutorList = 'tutorLandingPage';
 // Marketing:
 export const Marketing = 'marketing';
 export const MarketingPromote = 'promote';
+export const MarketingPromoteStepper = 'promoteStepper';

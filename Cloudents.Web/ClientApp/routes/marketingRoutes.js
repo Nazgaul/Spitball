@@ -19,10 +19,19 @@ export const marketingRoutes = [
             },
             {
                 path: 'promote',
-                name: routeName.MarketingPromote,
                 components: {
-                    promote: () => import('../components/pages/marketing/marketingPromote/marketingPromote.vue'),
-                }
+                    promote: () => import('../components/pages/marketing/promote/promote.vue'),
+                },
+                children: [
+                    {
+                        path: '',
+                        name: routeName.MarketingPromote,
+                        components: {
+                            default: () => import('../components/pages/marketing/marketingActions/marketingActions.vue'),
+                            stepper: () => import('../components/pages/marketing/promote/promoteStteper.vue')
+                        }
+                    }
+                ]
             }
         ],
         meta: {
