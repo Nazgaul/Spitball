@@ -48,6 +48,15 @@ const dateTimeFormats = {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
+    justDay: {
+      weekday:'short'
+    },
+    calendarDesktop: {
+      weekday:'short'
+    },
+    calendarMobile: {
+      weekday:'narrow'
+    }
   },
   'en-IL': {
     short: {
@@ -58,6 +67,12 @@ const dateTimeFormats = {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
+    calendarDesktop: {
+      weekday:'short'
+    },
+    calendarMobile: {
+      weekday:'narrow'
+    }
   },
   'en-IN': {
     short: {
