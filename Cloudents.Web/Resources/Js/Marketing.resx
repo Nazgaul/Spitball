@@ -177,4 +177,11 @@
   <data name="title" xml:space="preserve">
     <value>Marketing Tools</value>
   </data>
+  <data name="tools_title1" xml:space="preserve">
+    <value>Use our Marketing Tools to
+Boost Your Business</value>
+  </data>
+  <data name="tools_title2" xml:space="preserve">
+    <value>Check out our marketing tools and skip the guesswork</value>
+  </data>
 </root>

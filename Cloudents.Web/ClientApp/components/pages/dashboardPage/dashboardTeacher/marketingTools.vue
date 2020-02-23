@@ -8,19 +8,17 @@
         <div class="mainBlogs d-flex-column d-sm-flex align-center">
             <div class="leftBlogs mr-2 pb-4">
                 <div class="titleWrap">
-                    <div class="title1">
-                        {{$t('marketing_title1')}}
+                    <div class="title1 mb-3">
+                        {{$t('marketing_tools_title1')}}
                     </div>
                     <div class="title2 mb-7">
-                        {{$t('marketing_title2')}}
+                        {{$t('marketing_tools_title2')}}
                     </div>
-                    <!-- TODO: switch when merge with marketing branch -->
-                    <!-- <v-btn :to="{name: routeNames.marketing}" class="btn" rounded outlined color="#4c59ff" width="120">{{$t('marketing_btn_lets_go')}}</v-btn> -->
-                    <v-btn :to="{name: 'marketing'}" class="btn" rounded outlined color="#4c59ff" width="120">{{$t('marketing_btn_lets_go')}}</v-btn>
+                    <v-btn :to="{name: 'marketing'}" class="btn" rounded outlined color="#4c59ff" width="120">{{$t('marketing_lets_go')}}</v-btn>
                 </div>
             </div>
 
-            <div class="rightBlogs d-flex-column d-sm-flex pa-0 mr-10">
+            <div class="rightBlogs d-flex-column d-sm-flex pa-0 mr-10 mt-4">
                 <img src="./images/marketing.png" alt="">
             </div>
 
@@ -63,11 +61,16 @@ export default {
       }
    }
   .mainBlogs {
-
+    
+    @media (max-width: @screen-xs) {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
     .leftBlogs {
       .titleWrap {
         max-width: 320px;
-        @media (max-width: 599px) {
+        @media (max-width: @screen-sm) {
           &:first-child {
             max-width: 100%;
           }
@@ -85,11 +88,17 @@ export default {
         }
         .btn {
           text-transform: initial;
+          font-weight: 600;
         }
       }
     }
     .rightBlogs {
       margin: 0 0 0 auto;
+
+        @media (max-width: @screen-xs) {
+          margin: 0 0 12px 0 !important;
+          order: -1;
+        }
     }
   }
 }
