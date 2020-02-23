@@ -2,7 +2,7 @@
     <v-row class="marketingBlogs pa-4" dense>
         <v-col cols="12" class="top pa-0 mb-4 d-flex justify-space-between">
             <div class="mainTitle">{{$t('marketing_blog_title')}}</div>
-            <a class="seeAll" href="https://www.blog.spitball.co/blog-1/categories/english" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
+            <a class="seeAll" href="https://www.blog.spitball.co/blog-1/categories/english" target="_blank">{{$t('marketing_see_all')}}</a>
         </v-col>
 
         <v-col cols="12" sm="6" class="leftSide pa-0 mb-6 mb-sm-0">
@@ -91,6 +91,7 @@ export default {
                 justify-content: center;
                 height: 100%;
                 width: 100%;
+                max-width: 300px; // zeplin
                 .text1 {
                     font-size: 22px;
                     font-weight: 600;
