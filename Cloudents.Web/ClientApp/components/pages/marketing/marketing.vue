@@ -1,5 +1,5 @@
 <template>
-    <div id="marketing">
+    <div id="marketing" class="fullWidth">
 
         <marketingActions></marketingActions>
         <marketingBlogs></marketingBlogs>
@@ -30,6 +30,9 @@ export default {
 
     @media (max-width: @screen-xs) {
         margin: 24px 0;
+    }
+    .fullWidth {
+        width: 100%;
     }
 }
 </style>

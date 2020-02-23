@@ -1,23 +1,23 @@
 <template>
-    <v-row class="marketingActions pa-4 mb-2 mb-sm-4 text-center" dense>
+    <v-row class="marketingActions fullWidth pa-4 mb-2 mb-sm-4 text-center ma-0" dense>
         <v-col class="pa-0 mb-6" cols="12">
             <div class="text text-left">{{$t('marketing_title')}}</div>
         </v-col>
         
         <template>
-            <v-col class="box pa-0 " cols="12" sm="4">
+            <v-col class="box" cols="12" sm="4">
                 <img class="mb-4 mt-sm-0" src="../images/sharePost.png" alt="">
                 <div class="text1 mb-1">{{$t('marketing_sharePost_title1')}}</div>
                 <div class="text2 mb-3">{{$t('marketing_sharePost_title2')}}</div>
                 <v-btn class="marketingbtn mb-4 mb-sm-0" color="#4c59ff" disabled outlined rounded>{{$t('marketing_lets_go')}}</v-btn>
             </v-col>
-            <v-col class="box pa-0" cols="12" sm="4">
+            <v-col class="box" cols="12" sm="4">
                 <img class="mb-4 mt-4 mt-sm-0" src="../images/specialOffer.png" alt="">
                 <div class="text1 mb-1">{{$t('marketing_createOffer_title1')}}</div>
                 <div class="text2 mb-3">{{$t('marketing_createOffer_title2')}}</div>
                 <v-btn v-openDialog="'createCoupon'" class="marketingbtn mb-4 mb-sm-0" color="#4c59ff" outlined rounded>{{$t('marketing_get_started')}}</v-btn>
             </v-col>
-            <v-col class="box pa-0" cols="12" sm="4">
+            <v-col class="box" cols="12" sm="4">
                 <img class="mb-4 mt-4 mt-sm-0" src="../images/createVideo.png" alt="">
                 <div class="text1 mb-1">{{$t('marketing_createVideo_title1')}}</div>
                 <div class="text2 mb-3">{{$t('marketing_createVideo_title2')}}</div>
@@ -67,6 +67,7 @@ export default {
             align-items: center;
             justify-content: space-between;
             color: @global-purple;
+            // padding: 0 8px !important;
             .text1 {
                 font-size: 16px;
                 font-weight: 600;

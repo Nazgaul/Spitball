@@ -1,45 +1,40 @@
 <template>
-    <v-row class="marketingBlogs pa-4" dense>
-        <v-col cols="12" class="top pa-0 mb-4 d-flex justify-space-between">
-            <div class="mainTitle">{{$t('marketing_blog_title')}}</div>
-            <a class="seeAll" href="https://www.blog.spitball.co/blog-1/categories/english" target="_blank">{{$t('marketing_see_all')}}</a>
-        </v-col>
+    <div class="spitballBlogs fullWidth">
 
-        <v-col cols="12" sm="6" class="leftSide pa-0 mb-6 mb-sm-0">
-            <div class="wrap">
-                <div class="text1 mb-2">{{$t('marketing_blog_text1')}}</div>
-                <div class="text2">{{$t('marketing_blog_text2')}}</div>
+        <div class="headerBlogs pa-0 mb-4 d-flex justify-space-between">
+          <div class="titleBlog">{{$t('dashboardTeacher_spitball_tips')}}</div>
+          <a class="seeAllBlog" href="https://www.blog.spitball.co/blog-1/categories/english" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
+        </div>
+
+        <div class="mainBlogs d-flex-column d-sm-flex  align-center">
+            <div class="leftBlogs mr-2">
+                <div class="titleWrap">
+                    <div class="title1 mb-3">
+                      Why Marketing Through Social Media is a Must
+                    </div>
+                    <div class="title2">
+                      10 Reasons Why Marketing Through Social Media is a Must For Every Small Business
+                    </div>
+                </div>
             </div>
-        </v-col>
-        <v-col cols="12" sm="6" class="d-flex rightSide pa-0">
-            <template v-if="blogs.length">
-                <v-col class="tipsList d-flex d-sm-block pa-0" cols="12" sm="8" md="6" v-for="(blog, index) in blogs" :key="index">
-                    <a class="tipsListBox d-flex d-sm-block" :href="blog.url" target="_blank">
-                        <div class="top mr-2 mr-sm-0">
-                            <img :src="blog.image" alt="image" width="200" height="100" />
+
+            <div class="rightBlogs d-flex-column d-sm-flex pa-0 mt-10 mt-sm-0">
+                <a class="linkBlog d-flex d-sm-block" :href="blog.url" target="_blank" v-for="(blog, index) in blogs" :key="index">
+                    <div class="top mr-2 mr-sm-0">
+                        <img :src="blog.image" alt="image" width="200" height="100" />
+                    </div>
+                    <div class="bottom">
+                        <div class="text mb-3">{{blog.title}}</div>
+                        <div class="nameDate d-flex justify-space-between">
+                            <div class="name text-truncate">{{blog.uploader}}</div>
+                            <div class="date">{{$d(new Date(blog.create), 'short')}}</div>
                         </div>
-                        <div class="bottom d-flex">
-                            <div class="text mb-3">{{blog.title}}</div>
-                            <div class="nameDate d-flex justify-space-between">
-                                <div class="name text-truncate">{{blog.uploader}}</div>
-                                <div class="date">{{$d(blog.date, 'short')}}</div>
-                            </div>
-                        </div>
-                    </a>
-                </v-col>
-            </template>
-            
-            <template v-else>
-                <v-col class="py-0 skeletonLoader" cols="12" sm="6" v-for="n in 2" :key="n">
-                    <v-skeleton-loader
-                    class=""
-                    height="200"
-                    type="image"
-                    ></v-skeleton-loader>
-                </v-col>
-            </template>
-        </v-col>
-    </v-row>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+    </div>
 </template>
 
 <script>
@@ -64,113 +59,121 @@ export default {
 </script>
 
 <style lang="less">
-    @import '../../../../styles/mixin.less';
-    .marketingBlogs {
-        background: white;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-        border-radius: 8px;
+@import '../../../../styles/mixin.less';
+@import '../../../../styles/colors.less';
+.spitballBlogs {
+  padding: 16px;
+  background: white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+
+  @media (max-width: @screen-xs) {
+    box-shadow: none;
+  }
+  .headerBlogs {
+      .titleBlog {
         color: @global-purple;
+        font-weight: 600;
+        font-size: 16px;
+      }
+      .seeAllBlog {
+        color: #4c59ff;
+        font-weight: 600;
+      }
+   }
+  .mainBlogs {
+
+    .leftBlogs {
+      .titleWrap {
+        max-width: 320px;
         @media (max-width: @screen-xs) {
-            box-shadow: none;
+          &:first-child {
+            max-width: 100%;
+          }
+        }
+        .title1 {
+           font-size: 22px;
+           font-weight: 600;
+           letter-spacing: normal;
+           color: @global-purple;
+        }
+        .title2 {
+            line-height: 1.6;
+        }
+      }
+    }
+    .rightBlogs {
+      margin: 0 0 0 auto;
+      .linkBlog {
+        width: 200px;
+        margin: 0 8px;
+        @media (max-width: @screen-xs) {
+          border-top: 1px solid #dddddd;
+          padding: 12px 0;
+          margin: 0;
+          width: 100%;
+        }
+        &:first-child {
+          margin-left: 0;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+        @media (max-width: @screen-sm) {
+          &:first-child {
+            display: none !important;
+          }
+        }
+        @media (max-width: @screen-xs) {
+          &:first-child {
+            display: flex !important;
+          }
+          &:last-child {
+            padding-bottom: 0;
+          }
         }
         .top {
-            .mainTitle {
-                font-size: 16px;
-                font-weight: 600;
+          display: flex;
+
+          @media (max-width: @screen-xs) {
+            img {
+              width: 100%;
+              height: 70px;
             }
-              .seeAll {
-                color: #4c59ff;
-                font-weight: 600;
-            }
+          }
         }
-        .leftSide {
-            .wrap {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                height: 100%;
+        .bottom {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #dddddd;
+            padding: 8px 10px;
+            font-size: 13px;
+            color: @global-purple;
+            @media (max-width: @screen-xs) {
                 width: 100%;
-                max-width: 300px; // zeplin
-                .text1 {
-                    font-size: 22px;
+                border: none;
+                padding: 0;
+            }
+            .text {
+                .giveMeEllipsis(2, 16);
+                min-height: 32px;
+                @media (max-width: @screen-xs) {
+                    font-size: 14px;
                     font-weight: 600;
                 }
-                @media (max-width: @screen-xs) {
-                    align-items: baseline;
-                }
+            }
+            .nameDate {
+              opacity: 0.6;
+              font-size: 12px;
+              .date {
+                  flex-shrink: 0;
+                  margin-left: 4px;
+              }
             }
         }
-        .rightSide {
-            justify-content: flex-end;
-            &:not(:last-child) {
-                margin-right: 10px;
-            }
-            .tipsList {
-                .tipsListBox {
-                    @media (max-width: @screen-xs) {
-                        border-top: 1px solid #dddddd;
-                        padding-top: 12px;
-                        margin-left: 0 !important;
-                    }
-                    .top {
-                        display: flex;
-                        img {
-                            width: 100%;
-                        }
-                    }
-                    .bottom {
-                        width: 100%;
-                        border: 1px solid #dddddd;
-                        border-top: 0;
-                        padding: 8px 10px;
-                        flex-direction: column;
-                        justify-content: space-between;
-                        min-height: 82px;
-                        flex-shrink: 2;
-                        @media (max-width: @screen-xs) {
-                            padding: 0;
-                            min-height: unset;
-                        }
-                        .text {
-                            color: @global-purple;
-                            font-size: 14px;
-                            font-weight: 600;
-                            .giveMeEllipsis(2, 18);
-                        }
-                        .nameDate {
-                            color: #a0a0a0;
-                            font-size: 12px;
-                            .name {
-                                color: @global-purple;
-                            }
-                            .date { 
-                                flex-grow: 0;
-                                flex-shrink: 0;
-                            }
-                        }
-                        @media (max-width: @screen-xs) {
-                            border: none;
-                            flex-direction: column;
-                            justify-content: space-between;
-                        }
-                    }
-                }
-                @media (max-width: @screen-sm) {
-                    &:nth-child(2) {
-                        display: none !important;
-                    }
-                }
-            }
-            &:nth-child(3) .tipsListBox:last-child {
-                margin-left: 16px;
-            }
-            .skeletonLoader:last-child  {
-                padding-right: 0;
-                @media (max-width: @screen-sm) {
-                    display: none;
-                }
-            }
-        }
+      }
     }
+  }
+}
 </style>
