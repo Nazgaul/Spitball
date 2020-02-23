@@ -103,7 +103,8 @@ export const dashboardRoutes = [
                 next()
                 return
             }
-            next(from)
+            // Redirect to root
+            next('/')
         },
         meta: {
             showMobileFooter: true,

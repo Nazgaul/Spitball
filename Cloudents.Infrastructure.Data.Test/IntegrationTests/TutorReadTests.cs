@@ -70,6 +70,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
 
         [Theory]
         [InlineData(159039)]
+        [InlineData(162107)]
         [InlineData(638)]
         public async Task TutorActionsQuery_Ok(long userId)
         {

@@ -50,6 +50,15 @@ const dateTimeFormats = {
     },
     tableDate: {
       month: 'short', day: 'numeric'
+    },
+    justDay: {
+      weekday:'short'
+    },
+    calendarDesktop: {
+      weekday:'short'
+    },
+    calendarMobile: {
+      weekday:'narrow'
     }
   },
   'en-IL': {
@@ -66,6 +75,12 @@ const dateTimeFormats = {
     },
     tableDate: {
       month: 'short', day: 'numeric'
+    },
+    calendarDesktop: {
+      weekday:'short'
+    },
+    calendarMobile: {
+      weekday:'narrow'
     }
   },
   'en-IN': {

@@ -178,7 +178,7 @@
     <value>Unable to connect to your video camera or microphone</value>
   </data>
   <data name="watch-middle" xml:space="preserve">
-    <value>Now, you can automatically record and view your online lessons, free of charge. your private lessons will be stored in your Spitball account. Where you can access them from any web browser.</value>
+    <value>Now, you can record and view your online lessons, free of charge. When the lesson is complete, click on the ‘stop’ recording button and the video will be downloaded to your computer.</value>
   </data>
   <data name="watch_actions_no" xml:space="preserve">
     <value>No, thank you</value>

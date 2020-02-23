@@ -28,6 +28,11 @@ export const Feed = 'feed';
 
 // Dashboard:
 export const Dashboard = 'dashboardTeacher';
+
+// Marketing:
+export const Marketing = 'marketing';
+export const MarketingPromote = 'promote';
+export const MarketingPromoteStepper = 'promoteStepper';
 export const MySales = 'mySales';
 export const MyFollowers = 'myFollowers';
 export const MyPurchases = 'myPurchases';
@@ -57,8 +62,3 @@ export const HomePage = 'landingPage';
 
 // Tutor List:
 export const TutorList = 'tutorLandingPage';
-
-// Marketing:
-export const Marketing = 'marketing';
-export const MarketingPromote = 'promote';
-export const MarketingPromoteStepper = 'promoteStepper';

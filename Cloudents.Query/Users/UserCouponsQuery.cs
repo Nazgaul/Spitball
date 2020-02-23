@@ -34,7 +34,7 @@ namespace Cloudents.Query.Users
                     {
                         Code = s.Code,
                         CouponType = s.CouponType,
-                        AmountOfUsers = s.AmountOfUsers,
+                        AmountOfUsers = _session.Query<UserCoupon>().Where(w => w.Coupon.Id == s.Id).Count(),
                         CreateTime = s.CreateTime,
                         Expiration = s.Expiration,
                         Value = s.Value

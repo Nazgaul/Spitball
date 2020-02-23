@@ -48,5 +48,39 @@ export default {
                 font-size: 16px;
             }
         }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            color: @global-purple;
+            // padding: 0 8px !important;
+            .text1 {
+                font-size: 16px;
+                font-weight: 600;
+                margin-bottom: 2px;
+            }
+            .text2 {
+                font-size: 12px;
+            }
+            .marketingbtn {
+                text-transform: initial;
+                font-weight: 600;
+                min-width: 120px;
+                letter-spacing: normal;
+                span {
+                    margin-bottom: 2px;
+                }
+            }
+            &:not(:last-child) {
+                border-right: 1px solid #dddddd;
+
+                @media (max-width: @screen-xs) {
+                    border-bottom: 1px solid #dddddd;
+                    border-right: none;
+                }
+            }
+        }
     }
 </style>

@@ -1,6 +1,12 @@
 <template>
-    <div id="marketing">
-        <router-view :name="$route.name"></router-view>
+    <!-- <div id="marketing"> -->
+        <!-- <router-view :name="$route.name"></router-view> -->
+    <div id="marketing" class="fullWidth">
+
+        <marketingActions></marketingActions>
+        <marketingBlogs></marketingBlogs>
+        <tableCoupon></tableCoupon>
+
     </div>
 </template>
 
@@ -12,6 +18,9 @@
 
     @media (max-width: @screen-xs) {
         margin: 24px 0;
+    }
+    .fullWidth {
+        width: 100%;
     }
 }
 </style>

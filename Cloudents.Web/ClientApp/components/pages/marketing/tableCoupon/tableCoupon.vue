@@ -1,5 +1,5 @@
 <template>
-    <v-row class="tableCoupon mt-2 mt-sm-4 pa-4 pb-2 pb-sm-0" dense>
+    <v-row class="tableCoupon fullWidth mt-2 mt-sm-4 pa-4 pb-2 pb-sm-0 ma-0">
         <v-col cols="12" class="pa-0">
             <div class="mainTitle mb-2">{{$t('marketing_tableCoupon_title')}}</div>
         </v-col>
@@ -25,7 +25,7 @@
             <template v-slot:header.value="{header}">
                 {{$t(header.text)}}
             </template>
-            <template v-slot:header.amountUsers="{header}">
+            <template v-slot:header.amountOfUsers="{header}">
                 {{$t(header.text)}}
             </template>
             <template v-slot:header.createTime="{header}">
@@ -74,7 +74,7 @@ export default {
             {
                 text: 'marketing_tableCoupon_amount',
                 align: 'left',
-                value: 'amountUsers',
+                value: 'amountOfUsers',
             },
             {
                 text: 'marketing_tableCoupon_created',
@@ -135,6 +135,10 @@ export default {
                     color: @global-purple;
                     font-size: 14px;
                 }
+
+            }
+            td {
+                font-size: 14px;
             }
             .v-data-footer {
                 .v-data-footer__select,
