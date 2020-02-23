@@ -17,6 +17,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cloudents.Core.Interfaces;
 using Cloudents.Query.Questions;
+using Microsoft.AspNetCore.SignalR;
+using Cloudents.Web.Hubs;
+using Cloudents.Core;
 
 namespace Cloudents.Web.Api
 {
@@ -47,7 +50,7 @@ namespace Cloudents.Web.Api
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> CreateQuestionAsync([FromBody]CreateQuestionRequest model,
-            //[FromServices] IHubContext<SbHub> hubContext,
+            [FromServices] IHubContext<SbHub> hubContext,
             CancellationToken token)
         {
          
@@ -71,13 +74,13 @@ namespace Cloudents.Web.Api
                 //throw;
             }
 
-            //await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
-            //{
-            //    new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
-            //        {
-            //            text = toasterMessage.Value
-            //        }
-            //    )}, token);
+            await hubContext.Clients.User(userId.ToString()).SendCoreAsync("Message", new object[]
+            {
+                new SignalRTransportType(SignalRType.System, SignalREventAction.Toaster, new
+                    {
+                        text = toasterMessage.Value
+                    }
+                )}, token);
             return Ok();
         }
 
