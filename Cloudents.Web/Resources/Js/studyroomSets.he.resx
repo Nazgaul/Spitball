@@ -178,7 +178,7 @@
     <value>לא ניתן להתחבר למצלמת הווידאו או למיקרופון שלך</value>
   </data>
   <data name="watch-middle" xml:space="preserve">
-    <value>כעת תוכלו להקליט ולצפות בשיעורים המקוונים שלכם חינם. עם סיום השיעור, יש ללחוץ על כפתור ,'סיום' ההקלטה ההקלטה תרד באופן אוטומטי לתיקיית הורדות במחשב שלכם.</value>
+    <value>כעת תוכלו להקליט ולצפות בשיעורים המקוונים שלכם חינם. עם סיום השיעור, יש ללחוץ על כפתור 'סיום', ההקלטה ההקלטה תרד באופן אוטומטי לתיקיית ההורדות במחשב שלכם.</value>
   </data>
   <data name="watch_actions_no" xml:space="preserve">
     <value>לא, תודה</value>
@@ -187,7 +187,7 @@
     <value>תנאי השימוש שלנו?</value>
   </data>
   <data name="watch_actions_txt" xml:space="preserve">
-    <value>האם אתם מסכימים להקליט את השיעורים שלכם ומסכימים ל</value>
+    <value>האם אתם מסכימים להקליט את השיעורים שלכם ומסכימים לכל</value>
   </data>
   <data name="watch_actions_yes" xml:space="preserve">
     <value>כן, אני מסכים/ה</value>
