@@ -206,6 +206,20 @@ export default {
             'getCouponError',
             "getProfile",
         'getBannerParams']),
+        shareContentParams(){
+            let urlLink = `${global.location.origin}/p/${this.$route.params.id}?t=${Date.now()}` ;
+            let userName = this.getProfile.user?.name;
+            let paramObJ = {
+                link: urlLink,
+                twitter: this.$t('shareContent_share_profile_twitter',[userName,urlLink]),
+                whatsApp: this.$t('shareContent_share_profile_whatsapp',[userName,urlLink]),
+                email: {
+                    subject: this.$t('shareContent_share_profile_email_subject',[userName]),
+                    body: this.$t('shareContent_share_profile_email_body',[userName,urlLink]),
+                }
+            }
+            return paramObJ
+        },
         isShowCouponDialog(){
             if(this.getCouponDialog){
                 setTimeout(() => {

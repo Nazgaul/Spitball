@@ -3,7 +3,10 @@
         <profileDialogs/>
         <div class="profilePage_main profile-page-container">
             <profileUserBox/>
-            <shareContent class="mb-2 mb-sm-3" v-if="!$vuetify.breakpoint.lgAndUp"/>
+            <shareContent :link="shareContentParams.link"
+              :twitter="shareContentParams.twitter"
+              :whatsApp="shareContentParams.whatsApp"
+              :email="shareContentParams.email"  class="mb-2 mb-sm-3" v-if="getProfile && !$vuetify.breakpoint.lgAndUp"/>
             <calendarTab v-if="showProfileCalendar" class="mb-6" :globalFunctions="globalFunctions"/>
             <profileBecomeTutor v-if="showBecomeTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>
             <profileFindTutor v-if="showFindTutor" class="mb-3 d-lg-none" :globalFunctions="globalFunctions"/>
@@ -15,7 +18,11 @@
         </div>
         <div :class="['profile-sticky',{'profileUserSticky_bannerActive':getBannerParams}]">
           <profileUserSticky class="mb-2" :globalFunctions="globalFunctions" v-if="$vuetify.breakpoint.lgAndUp && !isTutorPending"/>
-          <shareContent v-if="$vuetify.breakpoint.lgAndUp"/>
+          <shareContent 
+              :link="shareContentParams.link"
+              :twitter="shareContentParams.twitter"
+              :whatsApp="shareContentParams.whatsApp"
+              :email="shareContentParams.email" v-if="getProfile && $vuetify.breakpoint.lgAndUp"/>
         </div>
         <sb-dialog
             :onclosefn="closeCouponDialog"

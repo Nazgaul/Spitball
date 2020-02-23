@@ -21,7 +21,6 @@ import facebookSVG from './images/facebook.svg';
 import whatsappSVG from './images/whatsapp.svg';
 import twitterSVG from './images/twitter.svg';
 import linkSVG from './images/link.svg';
-import * as routeNames from '../../../../routes/routeNames.js';
 
 export default {
    name: 'shareContent',
@@ -30,67 +29,65 @@ export default {
          showCopyToolTip:false,
       }
    },
+   props:{
+      link:{
+         required: true,
+         type: String
+      },
+      twitter:{
+         required: true,
+         type: String
+      },
+      whatsApp:{
+         required: true,
+         type: String
+      },
+      email:{
+         required: true,
+         type: Object
+      },
+   },
    components:{facebookSVG,whatsappSVG,emailSVG,twitterSVG,linkSVG},
    methods: {
       shareOnSocialMedia(socialMediaName) {
+         let windowSizes = 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=583';
          let self = this;
-         if(this.$route.name === routeNames.Profile){
-            let teacherName = this.$store.getters.getProfile.user.name;
-            let urlLink = `${global.location.origin}/p/${this.$store.getters.getProfile.user.id}`;
-
-            let profileObj = {
-               link: urlLink,
-               twitter: this.$t('shareContent_share_profile_twitter',[teacherName,urlLink]),
-               whatsApp: this.$t('shareContent_share_profile_whatsapp',[teacherName,urlLink]),
-               email: {
-                  subject: this.$t('shareContent_share_profile_email_subject',[teacherName]),
-                  body: this.$t('shareContent_share_profile_email_body',[teacherName,urlLink]),
-               }
-            }
-            _share(profileObj);
-            return
+         switch (socialMediaName) {
+            case 'link':
+               self.$copyText(self.link).then(() => {
+                  self.showCopyToolTip = true;
+                  setTimeout(()=>{
+                     self.showCopyToolTip = false;
+                  },2000)
+               })
+               break;
+            case 'email':
+               window.location.href = `mailto:?subject=${encodeURIComponent(self.email.subject)}&body=${encodeURIComponent(self.email.body)}`
+               break;
+            case 'facebook':
+               global.open(`https://www.facebook.com/sharer.php?u=${self.link}`,'', windowSizes);
+               break;
+            case 'whatsApp':
+               global.open(`https://wa.me/?text=${encodeURIComponent(self.whatsApp)}`,'', windowSizes);
+               break;
+            case 'twitter':
+               global.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(self.twitter)}`, '', windowSizes)
+               break;
          }
-         if(this.$route.name === routeNames.Document){
-            let urlLink = `${global.location.origin}/d/${this.$route.params.id}`;
-            let courseName = this.$route.params.courseName;
-            let itemType = this.$store.getters.getDocumentDetails.documentType;
-             
-            let itemObj = {
-               link: urlLink,
-               twitter: this.$t('shareContent_share_item_twitter',[courseName,urlLink]),
-               whatsApp: this.$t('shareContent_share_item_whatsapp',[courseName,urlLink]),
-               email: {
-                  subject: this.$t('shareContent_share_item_email_subject',[courseName]),
-                  body: this.$t('shareContent_share_item_email_body',[itemType,courseName,urlLink]),
-               }
-            }
-            _share(itemObj);
-            return
-         }
-         function _share(infoObject){
-            switch (socialMediaName) {
-               case 'link':
-                  self.$copyText(infoObject.link).then(() => {
-                     self.showCopyToolTip = true;
-                     setTimeout(()=>{
-                        self.showCopyToolTip = false;
-                     },2000)
-                  })
-                  break;
-               case 'email':
-                  window.location.href = `mailto:?subject=${encodeURIComponent(infoObject[socialMediaName].subject)}&body=${encodeURIComponent(infoObject[socialMediaName].body)}`
-                  break;
-               case 'facebook':
-                  global.open(`https://www.facebook.com/sharer.php?u=${infoObject.link}`, "_blank");
-                  break;
-               case 'whatsApp':
-                  global.open(`https://wa.me/?text=${encodeURIComponent(infoObject[socialMediaName])}`, "_blank");
-                  break;
-               case 'twitter':
-                  global.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(infoObject[socialMediaName])}`, "_blank");
-                  break;
-            }
-         }
+      }
+   },
+   created() {
+      if(!this.link){
+         console.error('one or more params are missed in ShareContent: link')
+      }
+      if(!this.twitter){
+         console.error('one or more params are missed in ShareContent: twitter') 
+      }
+      if(!this.whatsApp){
+         console.error('one or more params are missed in ShareContent: whatsApp')
+      }
+      if(!this.email){
+         console.error('one or more params are missed in ShareContent: email')
       }
    },
 }
