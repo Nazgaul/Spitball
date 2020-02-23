@@ -476,9 +476,14 @@ display: flex;
     }
    }
 }
-
+    .theme--light{
+      .v-calendar-daily{
+        border: none !important;
+      }
+    }
 
   .v-calendar{
+
     .v-calendar-daily__head{
       pointer-events: none;
 
