@@ -43,6 +43,12 @@
                         </v-skeleton-loader>
                     </v-sheet>
                 </template>
+            <template v-if="$vuetify.breakpoint.mdAndDown && getDocumentDetails">    
+                <shareContent :link="shareContentParams.link"
+              :twitter="shareContentParams.twitter"
+              :whatsApp="shareContentParams.whatsApp"
+              :email="shareContentParams.email" class="mt-4"/>
+            </template>
             </div>
                     
             <mainItem :isLoad="isLoad" :document="document"></mainItem>
@@ -78,8 +84,13 @@
             </div>
             <mobileUnlockDownload :sticky="true" v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.sm" :document="document"></mobileUnlockDownload>
         </div>
-        
-        <whyUsDesktop v-if="$vuetify.breakpoint.lgAndUp" :document="document"></whyUsDesktop>
+        <div v-if="$vuetify.breakpoint.lgAndUp" :class="['sticky-item',{'sticky-item_bannerActive':getBannerParams}]">
+            <whyUsDesktop class="mb-2" :document="document"></whyUsDesktop>
+            <shareContent v-if="getDocumentDetails" :link="shareContentParams.link"
+              :twitter="shareContentParams.twitter"
+              :whatsApp="shareContentParams.whatsApp"
+              :email="shareContentParams.email"/>
+        </div>
         <mobileUnlockDownload v-if="$vuetify.breakpoint.xsOnly" :document="document"></mobileUnlockDownload>
         <unlockDialog :document="document"></unlockDialog>
         <v-snackbar
@@ -126,7 +137,7 @@ import whyUsDesktop from './components/whyUs/whyUsDesktop.vue';
 import whyUs from './components/whyUs/whyUs.vue';
 import mobileUnlockDownload from './components/mobileUnlockDownload/mobileUnlockDownload.vue';
 import unlockDialog from './components/dialog/unlockDialog.vue';
-
+import shareContent from '../global/shareContent/shareContent.vue';
 export default {
     name: 'itemPage',
     components: {
@@ -140,6 +151,7 @@ export default {
         mobileUnlockDownload,
         mainItem,
         unlockDialog,
+        shareContent
     },
     props: {
         id: {
@@ -160,8 +172,22 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(['accountUser', 'getDocumentDetails', 'getRelatedDocuments', 'getRouteStack', 'getPurchaseConfirmation', 'getShowItemToaster']),
-
+        ...mapGetters(['getBannerParams','accountUser', 'getDocumentDetails', 'getRelatedDocuments', 'getRouteStack', 'getPurchaseConfirmation', 'getShowItemToaster']),
+        shareContentParams(){
+            let urlLink = `${global.location.origin}/d/${this.$route.params.id}?t=${Date.now()}` ;
+            let itemType = this.getDocumentDetails.documentType;
+            let courseName = this.courseName;
+            let paramObJ = {
+                link: urlLink,
+                twitter: this.$t('shareContent_share_item_twitter',[courseName,urlLink]),
+                whatsApp: this.$t('shareContent_share_item_whatsapp',[courseName,urlLink]),
+                email: {
+                    subject: this.$t('shareContent_share_item_email_subject',[courseName]),
+                    body: this.$t('shareContent_share_item_email_body',[itemType,courseName,urlLink]),
+                }
+            }
+            return paramObJ
+        },
         snackbar: {
             get() {
                 return this.getShowItemToaster
@@ -336,6 +362,14 @@ export default {
         
         &--noTutor {
             margin-bottom: 80px;
+        }
+        .sticky-item{
+            position: sticky;
+            height: fit-content;
+            top: 80px;
+            &.sticky-item_bannerActive{
+                top: 150px;
+            }
         }
         &__main {
             max-width: 720px;

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -8,6 +8,7 @@ using Cloudents.Core;
 using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Binders;
 using Cloudents.FunctionsV2.Di;
+using Cloudents.FunctionsV2.Extensions;
 using Cloudents.Query;
 using Cloudents.Query.Tutor;
 using Microsoft.AspNetCore.Mvc;
@@ -16,52 +17,44 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
-using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
-using SixLabors.Shapes;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 namespace Cloudents.FunctionsV2
 {
+
     public static class ShareProfileImageFunction
     {
 
         private static readonly Dictionary<Star, byte[]> StarDictionary = new Dictionary<Star, byte[]>();
-        private static List<CloudBlockBlob> _blobs;
-        private static readonly FontCollection FontCollection = new FontCollection();
+        internal static List<CloudBlockBlob> Blobs;
 
+        private const int SquareProfileImageDimension = 245;
 
         [FunctionName("ShareProfileImageFunction")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "share/profile/{id:long}")] HttpRequest req, long id,
             [Blob("spitball/share-placeholder")] IEnumerable<CloudBlockBlob> directoryBlobs,
-
             [HttpClientFactory] HttpClient client,
             [Inject] IQueryBus queryBus,
             ILogger log,
             CancellationToken token)
         {
-            if (_blobs is null)
-            {
-                _blobs = directoryBlobs.ToList();
-
-                foreach (var fontBlob in _blobs.Where(w => w.Name.EndsWith(".ttf")))
-                {
-                    await using var fontStream = await fontBlob.OpenReadAsync();
-                    FontCollection.Install(fontStream);
-
-                }
-            }
+            InitData(directoryBlobs);
 
             log.LogInformation("C# HTTP trigger function processed a request.");
 
+            bool.TryParse(req.Query["rtl"].ToString(), out var isRtl);
+
+            int.TryParse(req.Query["width"].ToString(), out var width);
+            int.TryParse(req.Query["height"].ToString(), out var height);
             var query = new ShareProfileImageQuery(id);
             var dbResult = await queryBus.QueryAsync(query, token);
 
-            if (dbResult.Image is null)
+            if (dbResult?.Image is null)
             {
                 return new BadRequestResult();
             }
@@ -74,35 +67,28 @@ namespace Cloudents.FunctionsV2
                 }),
             }.AddQuery(new
             {
-                width = 245,
-                height = 245
+                width = SquareProfileImageDimension,
+                height = SquareProfileImageDimension
             });
 
             await using var profileImageStream = await client.GetStreamAsync(uriBuilder.Uri);
-            var bgBlob = $"share-placeholder/bg-profile-ltr.jpg";
-            var blob = _blobs.Single(s => s.Name == bgBlob);
+            var bgBlobName = $"share-placeholder/bg-profile-{(isRtl ? "rtl" : "ltr")}.jpg";
+            var bgBlob = Blobs.Single(s => s.Name == bgBlobName);
 
 
-            await using var bgBlobStream = await blob.OpenReadAsync();
+
+            await using var bgBlobStream = await bgBlob.OpenReadAsync();
             var image = Image.Load<Rgba32>(bgBlobStream);
 
             using var profileImage = Image.Load<Rgba32>(profileImageStream);
-            profileImage.Mutate(x => x.ApplyRoundedCorners(245f / 2));
+
 
 
             image.Mutate(context =>
             {
-                context.DrawImage(profileImage, new Point(148, 135), GraphicsOptions.Default);
-                context.DrawText(
-                    new TextGraphicsOptions()
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        WrapTextWidth = 330f,
-                    },
-                    dbResult.Name,
-                    FontCollection.CreateFont("open sans", 32, FontStyle.Regular),
-                    Color.White,
-                    new PointF(105f, 423));
+                // ReSharper disable once AccessToDisposedClosure mutation happen right await
+                DrawProfileImage(context, profileImage, isRtl);
+                DrawProfileName(context, dbResult.Name, isRtl);
             });
 
             for (var i = 1; i <= 5; i++)
@@ -124,132 +110,112 @@ namespace Cloudents.FunctionsV2
 
                 var starImage = Image.Load(byteArr);
 
-                //var z = i - 1;
-                const int marginBetweenState = 8;
-                const int stateWidth = 43;
-                var point = new Point(148 + (i - 1) * (stateWidth + marginBetweenState), 475);
-                image.Mutate(x => x.DrawImage(starImage, point, GraphicsOptions.Default));
+                var y = i;
+                image.Mutate(context =>
+                {
+
+                    const int marginBetweenState = 8;
+                    var pointX = 132 + (y - 1) * (starImage.Width + marginBetweenState);
+                    if (isRtl)
+                    {
+                        pointX = context.GetCurrentSize().Width - pointX - starImage.Width;
+                    }
+
+                    var point = new Point(pointX, 475);
+                    context.DrawImage(starImage, point, GraphicsOptions.Default);
+                });
             }
 
 
-            await using var quoteSr = await _blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
+            var descriptionImage = await BuildDescriptionImage(dbResult.Description);
+
+
+            var middleY = image.Height / 2 - descriptionImage.Height / 2;
+
+            image.Mutate(x =>
+            {
+                var pointX = 493;
+                if (isRtl)
+                {
+                    pointX = x.GetCurrentSize().Width - 493 - descriptionImage.Width;
+                }
+
+                x.DrawImage(descriptionImage, new Point(pointX, middleY), GraphicsOptions.Default);
+            });
+
+            if (width > 0 && height > 0)
+            {
+                image.Mutate(m => m.Resize(width, height));
+            }
+
+
+            //image.Mutate(x=>x.DrawImage());
+            return new ImageResult(image, TimeSpan.FromDays(365));
+
+        }
+
+        private static async Task<Image<Rgba32>> BuildDescriptionImage(string description)
+        {
+            await using var quoteSr = await Blobs.Single(w => w.Name == "share-placeholder/quote.png").OpenReadAsync();
 
             const int descriptionSize = 225;
             const int marginBetweenQuote = 28;
             var quoteImage = Image.Load(quoteSr);
 
             var descriptionImage = new Image<Rgba32>(675, descriptionSize + marginBetweenQuote + quoteImage.Height);
-            //dbResult.Description =
-            //    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
             descriptionImage.Mutate(context =>
             {
-                var description = new Span<char>(dbResult.Description.ToCharArray());
-                //ReadOnlySpan<char> description = dbResult.Description.Trim();
                 var size = context.GetCurrentSize();
                 var middle = size.Width / 2 - quoteImage.Width / 2;
                 context.DrawImage(quoteImage, new Point(middle, 0), GraphicsOptions.Default);
-                var font = FontCollection.CreateFont("Open Sans Semibold", 38, FontStyle.Bold);
+                var location = new Point(0, quoteImage.Height + marginBetweenQuote);
 
-                var rendererOptions = new RendererOptions(font)
-                {
-                    WrappingWidth = size.Width,
-                };
-                SizeF textSize;
-                while (true)
-                {
-                    textSize = TextMeasurer.Measure(description, rendererOptions);
-                    if (textSize.Height < descriptionSize)
-                    {
-                        break;
-                    }
-                    description = description.Slice(0, description.LastIndexOf(' ') + 3);
-                    description[^3..].Fill('.');
-                }
-
-                var location = new PointF(0, quoteImage.Height + marginBetweenQuote);
-                context.DrawText(new TextGraphicsOptions()
-                {
-                    WrapTextWidth = size.Width,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-
-                    // DpiY = 72*1.5f
-
-                }, description.ToString(), font, Color.FromHex("43425d"), location);
-
-                var endHeight = textSize.Height + location.Y;
-                if (endHeight < size.Height)
-                {
-                    context.Crop(size.Width, (int)endHeight);
-                }
+                context.DrawText(description, 38, "#43425d", new Size(size.Width, descriptionSize), location);
+                context.CropBottomEdge();
+                
             });
-
-
-            var middleY = image.Height / 2 - descriptionImage.Height / 2;
-
-            image.Mutate(x => x.DrawImage(descriptionImage, new Point(493, middleY), GraphicsOptions.Default));
-
-
-
-            //image.Mutate(x=>x.DrawImage());
-            return new ImageResult(image, TimeSpan.Zero);
-
+            return descriptionImage;
         }
 
-        public class ImageProperties
+        private static void DrawProfileName(IImageProcessingContext context, string name, bool isRtl)
         {
-            public ImageProperties(string backgroundImage)
+            const int nameMaxWidth = 330;
+            var pointX = 79;
+            if (isRtl)
             {
-                BackgroundImage = backgroundImage;
+                pointX = context.GetCurrentSize().Width - pointX - 330;
             }
-
-            public string BackgroundImage { get; set; }
+            context.DrawText(name, 32, "#fff", new Size(nameMaxWidth, 40), new Point(pointX,419));
         }
 
-        public static Dictionary<bool, ImageProperties> ImageDictionary2 = new Dictionary<bool, ImageProperties>()
+        internal static async Task<Image<Rgba32>> GetImageFromBlobAsync(string blobName)
         {
-            [true] = new ImageProperties("share-placeholder/bg-profile-rtl.jpg"),
-            [false] = new ImageProperties("share-placeholder/bg-profile-ltr.jpg")
-        };
+            var blobNameWithDirectory = $"share-placeholder/{blobName}";
+            var blob = Blobs.Single(s => s.Name == blobNameWithDirectory);
+            await using var stream = await blob.OpenReadAsync();
+            return Image.Load<Rgba32>(stream);
 
+        }
+        
 
-
-
-        // This method can be seen as an inline implementation of an `IImageProcessor`:
-        // (The combination of `IImageOperations.Apply()` + this could be replaced with an `IImageProcessor`)
-        private static IImageProcessingContext ApplyRoundedCorners(this IImageProcessingContext ctx, float cornerRadius)
+        private static void DrawProfileImage(IImageProcessingContext context, Image<Rgba32> profileImage, bool isRtl)
         {
-            Size size = ctx.GetCurrentSize();
-            IPathCollection corners = BuildCorners(size.Width, size.Height, cornerRadius);
-
-            var graphicOptions = new GraphicsOptions(true)
+            const int offsetOfImage = 135;
+            var pointX = offsetOfImage;
+            if (isRtl)
             {
-                AlphaCompositionMode = PixelAlphaCompositionMode.DestOut // enforces that any part of this shape that has color is punched out of the background
-            };
-            // mutating in here as we already have a cloned original
-            // use any color (not Transparent), so the corners will be clipped
-            return ctx.Fill(graphicOptions, Rgba32.LimeGreen, corners);
+                pointX = context.GetCurrentSize().Width - offsetOfImage - profileImage.Width;
+            }
+            profileImage.Mutate(x => x.ApplyRoundedCorners(SquareProfileImageDimension / 2f));
+            context.DrawImage(profileImage, new Point(pointX, 135), GraphicsOptions.Default);
         }
 
-        private static IPathCollection BuildCorners(int imageWidth, int imageHeight, float cornerRadius)
+        internal static void InitData(IEnumerable<CloudBlockBlob> directoryBlobs)
         {
-            // first create a square
-            var rect = new RectangularPolygon(-0.5f, -0.5f, cornerRadius, cornerRadius);
-
-            // then cut out of the square a circle so we are left with a corner
-            IPath cornerTopLeft = rect.Clip(new EllipsePolygon(cornerRadius - 0.5f, cornerRadius - 0.5f, cornerRadius));
-
-            // corner is now a corner shape positions top left
-            //lets make 3 more positioned correctly, we can do that by translating the original around the center of the image
-
-            float rightPos = imageWidth - cornerTopLeft.Bounds.Width + 1;
-            float bottomPos = imageHeight - cornerTopLeft.Bounds.Height + 1;
-
-            // move it across the width of the image - the width of the shape
-            IPath cornerTopRight = cornerTopLeft.RotateDegree(90).Translate(rightPos, 0);
-            IPath cornerBottomLeft = cornerTopLeft.RotateDegree(-90).Translate(0, bottomPos);
-            IPath cornerBottomRight = cornerTopLeft.RotateDegree(180).Translate(rightPos, bottomPos);
-
-            return new PathCollection(cornerTopLeft, cornerBottomLeft, cornerTopRight, cornerBottomRight);
+            if (Blobs is null)
+            {
+                Blobs = directoryBlobs.ToList();
+            }
         }
 
 
@@ -260,11 +226,7 @@ namespace Cloudents.FunctionsV2
                 return v;
             }
 
-            var blob = _blobs.Single(s => s.Name == star.BlobPath);
-            //using (var ms = new MemoryStream())
-            //{
-            //    blob.DownloadToStreamAsync(ms);
-            //}
+            var blob = Blobs.Single(s => s.Name == star.BlobPath);
             var bytes = new byte[blob.Properties.Length];
             await blob.DownloadToByteArrayAsync(bytes, 0);
 
@@ -286,9 +248,6 @@ namespace Cloudents.FunctionsV2
         public static readonly Star Full = new Star(1, "Full", "star-full.png");
         public static readonly Star Half = new Star(2, "Half", "star-half.png");
         public static readonly Star None = new Star(3, "Empty", "star-empty.png");
-        //None,
-        //Half,
-        //Full
 
     }
 }

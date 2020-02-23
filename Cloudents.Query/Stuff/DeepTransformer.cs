@@ -1,10 +1,12 @@
-﻿using Cloudents.Core.Extension;
+﻿using System;
+using Cloudents.Core.Extension;
 using NHibernate.Transform;
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using Cloudents.Core;
 
 namespace Cloudents.Query.Stuff
 {
@@ -13,76 +15,79 @@ namespace Cloudents.Query.Stuff
     {
         private readonly char _complexChar;
         private readonly IResultTransformer _baseTransformer;
-        public DeepTransformer(char complexChar = '.') : this(complexChar, Transformers.AliasToBean<TEntity>())
-        {
+        private readonly Dictionary<string, PropertyInfo> _resultClassProperties;
 
+        public DeepTransformer(char complexChar = '.') :
+            this(complexChar, Transformers.AliasToBean<TEntity>())
+        {
+          
+               
         }
 
         public DeepTransformer(char complexChar, IResultTransformer transformer)
         {
             _baseTransformer = transformer;
             _complexChar = complexChar;
+            _resultClassProperties = typeof(TEntity).GetProperties(BindingFlags.NonPublic
+                                                                   | BindingFlags.Instance
+                                                                   | BindingFlags.Public).ToDictionary(x => x.Name, z => z);
+        }
+
+        private Dictionary<string, object> _aliasToTupleMap;
+
+        private void MapProperties(object[] tuple, string[] aliases)
+        {
+            _aliasToTupleMap = new Dictionary<string, object>();
+
+            for (var i = 0; i < aliases.Length; i++)
+            {
+                var alias = aliases[i];
+                if (alias.Contains(_complexChar))
+                {
+                    _aliasToTupleMap.Add(alias, tuple[i]);
+                    aliases[i] = null;
+                }
+            }
         }
 
         // rows iterator
         public object TransformTuple(object[] tuple, string[] aliases)
         {
-            var list = new List<string>(aliases);
-
-            var propertyAliases = new List<string>(list);
-            var complexAliases = new List<string>();
-
-            for (var i = 0; i < list.Count; i++)
+            if (_aliasToTupleMap is null)
             {
-                var alias = list[i];
-                // Aliase with the '.' represents complex IPersistentEntity chain
-                if (alias.Contains(_complexChar))
-                {
-                    complexAliases.Add(alias);
-                    propertyAliases[i] = null;
-                }
+                MapProperties(tuple, aliases);
             }
 
             // be smart use what is already available
             // the standard properties string, valueTypes
-            var result = _baseTransformer.TransformTuple(tuple, propertyAliases.ToArray());
+            var result = _baseTransformer.TransformTuple(tuple, aliases);
 
-            TransformPersistentChain(tuple, complexAliases, result, list);
+            TransformPersistentChain(result);
 
             return result;
         }
 
         /// <summary>Iterates the Path Client.Address.City.Code </summary>
-        protected virtual void TransformPersistentChain(object[] tuple
-              , List<string> complexAliases, object result, List<string> list)
+        protected virtual void TransformPersistentChain(
+               object result)
         {
             if (!(result is TEntity entity))
             {
                 return;
             }
-            foreach (var aliase in complexAliases)
+            foreach (var keyValue in _aliasToTupleMap)
             {
-                // the value in a tuple by index of current Aliase
-                var index = list.IndexOf(aliase);
-                var value = tuple[index];
+                var value = keyValue.Value;
                 if (value == null)
                 {
                     continue;
                 }
-
+                var aliase = keyValue.Key;
                 // split the Path into separated parts
                 var parts = aliase.Split(_complexChar);
                 var name = parts[0];
 
-                var propertyInfo = entity.GetType()
-                    .GetProperty(name, BindingFlags.NonPublic
-                                       | BindingFlags.Instance
-                                       | BindingFlags.Public);
-
-                if (propertyInfo == null)
-                {
-                    throw new ArgumentNullException($"propery infor of type {entity.GetType().Name} - name {name}");
-                }
+                var propertyInfo = _resultClassProperties[name];
 
                 object currentObject = entity;
 
@@ -96,10 +101,12 @@ namespace Cloudents.Query.Stuff
                         instance = Activator.CreateInstance(propertyInfo.PropertyType);
                         propertyInfo.SetValue(currentObject, instance);
                     }
-
-                    propertyInfo = propertyInfo.PropertyType.GetProperty(name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-                    currentObject = instance;
+                    
                     current++;
+                    propertyInfo = propertyInfo.PropertyType.GetProperty(name,
+                        BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+                   
+                    currentObject = instance;
                 }
 
                 // even dynamic objects could be injected this way

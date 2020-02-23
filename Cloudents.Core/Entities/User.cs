@@ -185,6 +185,7 @@ namespace Cloudents.Core.Entities
 
             Tutor = new Tutor(bio, this, price);
             Description = description;
+            UserType2 = UserType.Teacher;
             ChangeName(firstName, lastName);
             foreach (var userCourse in UserCourses)
             {
@@ -206,7 +207,7 @@ namespace Cloudents.Core.Entities
         public virtual string FirstName { get; protected set; }
         public virtual string LastName { get; protected set; }
         public virtual string Description { get; set; }
-        public virtual Tutor Tutor { get; set; }
+        public virtual Tutor Tutor { get; protected set; }
 
         public virtual BuyerPayment BuyerPayment { get; protected set; }
 

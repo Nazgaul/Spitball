@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Message.Email;
-using Cloudents.FunctionsV2.System;
 using Cloudents.Query;
 using Cloudents.Query.Email;
 using FluentAssertions;
@@ -12,6 +11,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.FunctionsV2.Operations;
 using Xunit;
 using Xunit.Abstractions;
 

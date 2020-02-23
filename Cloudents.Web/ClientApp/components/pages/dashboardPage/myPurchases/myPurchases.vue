@@ -125,6 +125,7 @@ export default {
 
 <style lang="less">
 .myPurchases{
+   max-width: 1334px;
    .myPurchases_title{
       font-size: 22px;
       color: #43425d;
