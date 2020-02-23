@@ -5,6 +5,7 @@ const exitRegisterDialog = () => import('../../authenticationPage/login/exitRegi
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue');
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
 const login = () => import('../../authenticationPage/dialogs/loginToAnswer/login-answer.vue');
+const payment = () => import('./globalDialogs/payment/payment.vue');
 
 
 export default {
@@ -14,6 +15,7 @@ export default {
         upload,
         createCoupon,
         login,
+        payment
     },
     data() {
         return {
@@ -22,7 +24,8 @@ export default {
                 exitRegisterDialog: [],
                 becomeTutor: [],
                 upload: ["auth","courses"],
-                createCoupon: ["auth","tutor"]
+                createCoupon: ["auth","tutor"],
+                payment:[]
             }
         }
     },
