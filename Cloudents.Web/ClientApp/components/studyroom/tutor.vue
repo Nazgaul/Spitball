@@ -384,7 +384,6 @@ export default {
       "getEndDialog",
       "getBrowserSupportDialog",
       "accountUser",
-      "getShowPaymentDialog",
       "getStudyRoomData",
       "releaseFullVideoButton",
       "getActiveNavIndicator",
@@ -430,9 +429,6 @@ export default {
     },
     openStartSessionDialog(){
         return this.getTutorStartDialog
-    },
-    showPaymentDialog(){
-      return this.getShowPaymentDialog
     },
     isCodeEditorActive(){
       return this.activeItem === "code-editor"

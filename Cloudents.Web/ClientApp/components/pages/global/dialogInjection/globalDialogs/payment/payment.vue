@@ -31,7 +31,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-// ...mapActions(['updatePaymentDialogState']),
 export default {
     name: 'paymentDIalog',
     computed: {

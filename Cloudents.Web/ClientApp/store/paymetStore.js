@@ -1,8 +1,8 @@
 import walletService from '../services/walletService.js';
 import { LanguageService } from '../services/language/languageService';
+import { router } from '../main.js';
 
 const state = {
-    showPaymentDialog: false,
     paymentURL: '',
     tutorName: '',
     transactionId: null,
@@ -12,9 +12,6 @@ const state = {
 const mutations = {
     setTutorName(state, name) {
         state.tutorName = name;
-    },
-    setPaymentDialogState(state,val){
-        state.showPaymentDialog = val;
     },
     setPaymentURL(state,url){
         state.paymentURL = url;
@@ -30,7 +27,6 @@ const mutations = {
 const getters = {
     getTutorName: state => state.tutorName,
     getDictionaryTitle: state => state.dictionaryTitle,
-    getShowPaymeDialog: state => state.showPaymentDialog,
     getPaymentURL:state => state.paymentURL,
     getTransactionId: state => state.transactionId,
 };
@@ -65,8 +61,12 @@ const actions = {
             dispatch('updatePaymentDialogState',false);
         });
     },
-    updatePaymentDialogState({commit}, val){
-        commit('setPaymentDialogState', val);
+    updatePaymentDialogState(context, val){
+        if(val){
+            router.push({query:{...router.currentRoute.query,dialog:'payment'}})
+        }else{
+            router.push({query:{...router.currentRoute.query,dialog:undefined}})
+        }
     },
     updateDictionaryTitle({commit}, title) {
         commit('setDictionaryTitle', title);

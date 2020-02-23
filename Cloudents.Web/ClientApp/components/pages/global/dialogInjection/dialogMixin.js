@@ -25,7 +25,7 @@ export default {
                 becomeTutor: [],
                 upload: ["auth","courses"],
                 createCoupon: ["auth","tutor"],
-                payment:[]
+                payment:["auth"]
             }
         }
     },
@@ -58,6 +58,15 @@ export default {
             if(this.getSelectedClasses.length === 0){
                 this.$router.push({name: "addCourse"})
                 return 'break'
+            }
+        }
+    },
+    watch: {
+        '$route.query.dialog':function(val){
+            if(val === 'payment'){
+                setTimeout(function() {
+                    document.querySelector(".payme-popup").parentNode.style.zIndex = 999;
+                }, 1000);
             }
         }
     },
