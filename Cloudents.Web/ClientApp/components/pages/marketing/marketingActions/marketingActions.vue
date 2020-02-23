@@ -6,18 +6,18 @@
         </v-col>
         
         <template v-for="(data, index) in resource">
-            <actions :key="index" :data="data"></actions>
+            <actionBox :key="index" :data="data"></actionBox>
         </template>
     </v-row>
 </template>
 
 <script>
-import actions from './action.vue';
+import actionBox from './actionBox.vue';
 
 export default {
     name: "marketingActions",
     components: {
-        actions
+        actionBox
     },
     props: {
         resource: {
