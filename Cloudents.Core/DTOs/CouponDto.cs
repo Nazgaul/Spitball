@@ -13,7 +13,7 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(Coupon.Value))]
         public decimal Value { get; set; }
         [EntityBind(nameof(Coupon.AmountOfUsers))]
-        public int? AmountOfUsers { get; set; }
+        public int AmountOfUsers { get; set; }
         [EntityBind(nameof(Coupon.CreateTime))]
         public DateTime? CreateTime { get; set; }
         [EntityBind(nameof(Coupon.Expiration))]
