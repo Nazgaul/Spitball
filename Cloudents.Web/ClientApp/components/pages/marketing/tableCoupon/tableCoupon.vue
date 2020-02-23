@@ -25,7 +25,7 @@
             <template v-slot:header.value="{header}">
                 {{$t(header.text)}}
             </template>
-            <template v-slot:header.amountUsers="{header}">
+            <template v-slot:header.amountOfUsers="{header}">
                 {{$t(header.text)}}
             </template>
             <template v-slot:header.createTime="{header}">
@@ -74,7 +74,7 @@ export default {
             {
                 text: 'marketing_tableCoupon_amount',
                 align: 'left',
-                value: 'amountUsers',
+                value: 'amountOfUsers',
             },
             {
                 text: 'marketing_tableCoupon_created',
