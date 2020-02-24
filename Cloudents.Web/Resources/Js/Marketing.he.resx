@@ -153,17 +153,17 @@
   <data name="sharePost_title2" xml:space="preserve">
     <value>תבלטו מעל כולם בפייסבוק, אינסטגרם, ווטסאפ, אימייל ועוד</value>
   </data>
-  <data name="tableCoupon_amount" xml:space="preserve">
-    <value>Amount Users</value>
-  </data>
   <data name="tableCoupon_code" xml:space="preserve">
-    <value>Code</value>
+    <value>קוד קופון</value>
   </data>
   <data name="tableCoupon_created" xml:space="preserve">
-    <value>Created on</value>
+    <value>תאריך יצירה</value>
   </data>
   <data name="tableCoupon_expired" xml:space="preserve">
-    <value>Expired</value>
+    <value>תאריך תפוגה</value>
+  </data>
+  <data name="tableCoupon_noCoupons" xml:space="preserve">
+    <value>עדיין לא נוצרו קופונים</value>
   </data>
   <data name="tableCoupon_title" xml:space="preserve">
     <value>Coupon history</value>
@@ -172,7 +172,7 @@
     <value>Coupont Type</value>
   </data>
   <data name="tableCoupon_value" xml:space="preserve">
-    <value>Value</value>
+    <value>שווי</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>כלי שיווק</value>

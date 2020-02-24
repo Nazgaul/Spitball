@@ -165,6 +165,9 @@
   <data name="tableCoupon_expired" xml:space="preserve">
     <value>Expired</value>
   </data>
+  <data name="tableCoupon_noCoupons" xml:space="preserve">
+    <value>No coupons created yet</value>
+  </data>
   <data name="tableCoupon_title" xml:space="preserve">
     <value>Coupon history</value>
   </data>
