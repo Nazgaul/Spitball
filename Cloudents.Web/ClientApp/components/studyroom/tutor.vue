@@ -274,7 +274,6 @@ import endSessionConfirm from "./tutorHelpers/endSessionConfirm/endSessionConfir
 import browserSupport from "./tutorHelpers/browserSupport/browserSupport.vue";
 import insightService from '../../services/insightService.js';
 import studyRoomSettingsDialog from "./tutorHelpers/studyRoomSettingsDialog/studyRoomSettingsDialog.vue";
-import paymentDialog from './tutorHelpers/paymentDIalog/paymentDIalog.vue'
 import intercomSVG from './images/icon-1-2.svg'
 import studyRoomRecordingService from './studyRoomRecordingService.js';
 import errorWithAudioRecording from './tutorHelpers/errorWithAudioRecording/errorWithAudioRecording.vue';
@@ -318,7 +317,6 @@ export default {
     endSessionConfirm,
     browserSupport,
     studyRoomSettingsDialog,
-    paymentDialog,
     codeEditorTools,
     intercomSVG,
     errorWithAudioRecording,

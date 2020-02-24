@@ -104,7 +104,6 @@ const buyTokens = () => import("../dialogs/buyTokens/buyTokens.vue");
 const buyTokenFrymo = () => import("../dialogs/buyTokenFrymo/buyTokenFrymo.vue");
 const chat = () => import("../chat/chat.vue");
 const tutorRequest = () => import("../tutorRequestNEW/tutorRequest.vue");
-// const paymentDialog = () => import("../studyroom/tutorHelpers/paymentDIalog/paymentDIalog.vue"); TODO: remove it
 const referralDialog = () => import("../question/helpers/referralDialog/referral-dialog.vue");
 
 export default {
