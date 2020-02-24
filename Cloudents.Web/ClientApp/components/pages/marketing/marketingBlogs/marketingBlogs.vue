@@ -19,12 +19,12 @@
             </div>
 
             <div class="rightBlogs d-flex-column d-sm-flex pa-0 mt-6 mt-sm-0">
-                <div class="mb-3 d-block d-sm-none text-right">
+                <div class="mb-3 d-block text-right" v-if="$vuetify.breakpoint.xsOnly">
                   <a class="seeAllBlog text-right" href="https://www.blog.spitball.co/blog-1/categories/english" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
                 </div>
                 <a class="linkBlog d-flex d-sm-block" :href="blog.url" target="_blank" v-for="(blog, index) in blogs" :key="index">
                     <div class="top mr-2 mr-sm-0">
-                        <img :src="blog.image" alt="image" width="200" height="100" />
+                        <img :src="blog.image" alt="image" />
                     </div>
                     <div class="bottom">
                         <div class="text mb-3">{{blog.title}}</div>
@@ -138,11 +138,12 @@ export default {
         }
         .top {
           display: flex;
-
+          img {
+            width: 100%;
+          }
           @media (max-width: @screen-xs) {
             img {
-              width: 100%;
-              height: 70px;
+              width: 100px;
             }
           }
         }
