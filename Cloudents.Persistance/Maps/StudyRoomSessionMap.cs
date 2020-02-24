@@ -23,6 +23,10 @@ namespace Cloudents.Persistence.Maps
             HasMany(x => x.ParticipantDisconnections).Access.CamelCaseField(Prefix.Underscore)
                .KeyColumn("SessionId")
                .Inverse().Cascade.AllDeleteOrphan();
+            Map(x => x.PaymentApproved).Nullable();
+            Map(x => x.AdminDuration).Nullable();
+            Map(x => x.StudentPay).CustomSqlType("smallMoney").Nullable();
+            Map(x => x.SpitballPay).CustomSqlType("smallMoney").Nullable();
             Version(x => x.Version).CustomSqlType("timestamp").Generated.Always();
         }
     }
