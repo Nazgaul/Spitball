@@ -193,9 +193,12 @@ export default {
     },
     methods: {
         ...mapActions(['updateToasterParams','btnClicked','insertEvent','updateNeedPayment','requestPaymentURL']),
-        format(day){
-          let options = { weekday: this.isMobile? 'narrow':'short' };
-          return new Date(day.date).toLocaleDateString(this.calendarLocale, options);
+        format(dateFormat){
+          let date = new Date(dateFormat.year,dateFormat.month - 1,dateFormat.day,0,0,0);
+          //let options = { weekday: this.isMobile? 'narrow':'short'};
+          let v = this.isMobile? 'calendarMobile': 'calendarDesktop';
+          return this._i18n.d(date,v);
+          //return  date.toLocaleDateString('en-us', options);
         },
         insertNewEvent(){
           this.isLoading = true;
@@ -473,9 +476,14 @@ display: flex;
     }
    }
 }
-
+    .theme--light{
+      .v-calendar-daily{
+        border: none !important;
+      }
+    }
 
   .v-calendar{
+
     .v-calendar-daily__head{
       pointer-events: none;
 

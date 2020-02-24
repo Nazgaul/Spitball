@@ -140,7 +140,7 @@
             },
             firstName: {
                 get() {
-                    return this.$store.getters?.accountUser.firstName;
+                    return this.$store.getters.accountUser?.firstName || "";
                 },
                 set(firstName) {
                     this.saveFirstName(firstName);
@@ -148,7 +148,7 @@
             },
             lastName: {
                 get() {
-                    return this.$store.getters?.accountUser.lastName;
+                    return this.$store.getters.accountUser?.lastName || "";
                 },
                 set(lastName) {
                     this.saveLastName(lastName);
@@ -200,10 +200,10 @@
                 }
             },
             saveFirstName(name) {
-                this.firstname = name;
+                this.firstname = name || '';
             },
             saveLastName(name) {
-                this.lastname = name;
+                this.lastname = name || '';
             }
         },
     };
