@@ -129,17 +129,11 @@
   <data name="coming_soon" xml:space="preserve">
     <value>בקרוב</value>
   </data>
-  <data name="coupon_type_flat" xml:space="preserve">
-    <value>הנחה קבועה</value>
-  </data>
-  <data name="coupon_type_percentage" xml:space="preserve">
-    <value>הנחה כאחוז מהמחיר</value>
-  </data>
   <data name="createOffer_title1" xml:space="preserve">
     <value>צרו הטבות מיוחדות</value>
   </data>
   <data name="createOffer_title2" xml:space="preserve">
-    <value>צרו קופונים לקהל התלמידים שלך</value>
+    <value>צרו קופונים לקהל התלמידים שלכם</value>
   </data>
   <data name="createVideo_title1" xml:space="preserve">
     <value>צרו סרטי וידיאו מקצוענים</value>
@@ -178,7 +172,7 @@
     <value>עדיין לא נוצרו קופונים</value>
   </data>
   <data name="tableCoupon_title" xml:space="preserve">
-    <value>Coupon history</value>
+    <value>קופונים שנוצרו</value>
   </data>
   <data name="tableCoupon_type" xml:space="preserve">
     <value>סוג קופון</value>
