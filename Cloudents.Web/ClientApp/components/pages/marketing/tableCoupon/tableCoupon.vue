@@ -35,12 +35,17 @@
                 {{$t(header.text)}}
             </template>
 
+
             <template v-slot:item.createTime="{value}">
                 {{$d(new Date(value), 'tableDate')}}
             </template>
 
             <template v-slot:item.expiration="{value}">
                 {{$d(new Date(value), 'tableDate')}}
+            </template>
+
+            <template v-slot:no-data>
+                {{$t('marketing_tableCoupon_noCoupons')}}
             </template>
         </v-data-table>
     </v-row>
