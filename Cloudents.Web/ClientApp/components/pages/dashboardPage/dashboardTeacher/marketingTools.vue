@@ -1,25 +1,25 @@
 <template>
     <div class="marketingTools mb-2 mb-sm-4 pb-0">
 
-        <div class="headerTools pa-0 mb-8">
-            <div class="titleTools">{{$t('dashboardTeacher_spitball_tips')}}</div>
+        <div class="headerTools pa-0 mb-4 mb-sm-2">
+            <div class="titleTools">{{$t('marketing_title')}}</div>
         </div>
 
-        <div class="mainBlogs d-flex-column d-sm-flex align-center">
-            <div class="leftBlogs mr-2 pb-4">
+        <div class="mainBlogs d-flex-column d-sm-flex">
+            <div class="leftBlogs mr-sm-2 mr-0 pb-4 pb-sm-0 mb-sm-1 justify-space-around">
                 <div class="titleWrap">
-                    <div class="title1 mb-3">
+                    <div class="title1 mb-2">
                         {{$t('marketing_tools_title1')}}
                     </div>
-                    <div class="title2 mb-7">
+                    <div class="title2 mb-sm-0 mb-4">
                         {{$t('marketing_tools_title2')}}
                     </div>
-                    <v-btn :to="{name: 'marketing'}" class="btn" rounded outlined color="#4c59ff" width="120">{{$t('marketing_lets_go')}}</v-btn>
                 </div>
+                <v-btn :to="{name: 'marketing'}" class="btn" rounded outlined color="#4c59ff" width="120">{{$t('marketing_lets_go')}}</v-btn>
             </div>
 
-            <div class="rightBlogs d-flex-column d-sm-flex pa-0 mr-10 mt-4">
-                <img src="./images/marketing.png" alt="">
+            <div class="rightBlogs d-flex-column d-sm-flex pa-0 mr-md-8">
+                <img :src="marketingImage" alt="">
             </div>
 
         </div>
@@ -33,6 +33,11 @@ export default {
   data() {
     return {
       routeNames
+    }
+  },
+  computed: {
+    marketingImage() {
+      return this.$vuetify.breakpoint.xsOnly ? require('./images/marketingSmall.png') : require('./images/marketing.png');
     }
   }
 }
@@ -49,6 +54,7 @@ export default {
 
   @media (max-width: @screen-xs) {
     box-shadow: none;
+    border-radius: 0;
   }
   .headerTools {
       .titleTools {
@@ -68,28 +74,39 @@ export default {
       text-align: center;
     }
     .leftBlogs {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      @media (max-width: @screen-xs) {
+        display: block;
+      }
       .titleWrap {
-        max-width: 320px;
-        @media (max-width: @screen-sm) {
-          &:first-child {
-            max-width: 100%;
-          }
+        max-width: 360px;
+        @media (max-width: @screen-xs) {
+          max-width: 100%;
+          padding: 0 32px;
         }
         .title1 {
-           font-size: 22px;
+           font-size: 24px;
            font-weight: 600;
            letter-spacing: normal;
            color: #43425d;
+          @media (max-width: @screen-md) {
+            font-size: 22px;
+          }
+          @media (max-width: @screen-xs) {
+            font-size: 18px;
+          }
         }
         .title {
            font-weight: 600;
            letter-spacing: normal;
            color: #43425d;
         }
-        .btn {
-          text-transform: initial;
-          font-weight: 600;
-        }
+      }
+      .btn {
+        text-transform: initial;
+        font-weight: 600;
       }
     }
     .rightBlogs {

@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="blog_text1" xml:space="preserve">
-    <value>Why marketing through social media is a must</value>
+    <value>מדוע חובה לשווק דרך הרשתות החברתיות</value>
   </data>
   <data name="blog_text2" xml:space="preserve">
-    <value>10 Reasons Why Marketing Through Social Media is a Must For Every Small Business</value>
+    <value>10 סיבות מדוע שיווק דרך רשתות חברתיות היא ערובה להצלחה</value>
   </data>
   <data name="blog_title" xml:space="preserve">
-    <value>Tips from our blog</value>
+    <value>טיפים מהעורכים שלנו</value>
   </data>
   <data name="coming_soon" xml:space="preserve">
-    <value>Coming soon</value>
+    <value>בקרוב</value>
   </data>
   <data name="createOffer_title1" xml:space="preserve">
-    <value>Create special offers</value>
+    <value>צרו הטבות מיוחדות</value>
   </data>
   <data name="createOffer_title2" xml:space="preserve">
-    <value>Create custom coupons and promotions</value>
+    <value>צרו קופונים לקהל התלמידים שלך</value>
   </data>
   <data name="createVideo_title1" xml:space="preserve">
-    <value>Create a profesional video</value>
+    <value>צרו סרטי וידיאו מקצוענים</value>
   </data>
   <data name="createVideo_title2" xml:space="preserve">
-    <value>We'll help you make a great impression</value>
+    <value>אנחנו נעזור לך ליצור רושם גדול</value>
   </data>
   <data name="get_started" xml:space="preserve">
-    <value>Get started</value>
+    <value>התחל</value>
   </data>
   <data name="lets_go" xml:space="preserve">
     <value>Let’s go</value>
@@ -151,43 +151,42 @@
     <value>See all</value>
   </data>
   <data name="sharePost_title1" xml:space="preserve">
-    <value>Share a social post</value>
+    <value>צרו שיתוף לרשתות החברתיות</value>
   </data>
   <data name="sharePost_title2" xml:space="preserve">
-    <value>Stand out on Facebook &amp; Instagram</value>
+    <value>תבלטו מעל כולם בפייסבוק, אינסטגרם, ווטסאפ, אימייל ועוד</value>
   </data>
   <data name="tableCoupon_amount" xml:space="preserve">
-    <value>Amount of Users</value>
+    <value>כמות משתמשים</value>
   </data>
   <data name="tableCoupon_code" xml:space="preserve">
-    <value>Code</value>
+    <value>קוד קופון</value>
   </data>
   <data name="tableCoupon_created" xml:space="preserve">
-    <value>Created on</value>
+    <value>תאריך יצירה</value>
   </data>
   <data name="tableCoupon_expired" xml:space="preserve">
-    <value>Expired</value>
+    <value>תאריך תפוגה</value>
   </data>
   <data name="tableCoupon_noCoupons" xml:space="preserve">
-    <value>No coupons created yet</value>
+    <value>עדיין לא נוצרו קופונים</value>
   </data>
   <data name="tableCoupon_title" xml:space="preserve">
     <value>Coupon history</value>
   </data>
   <data name="tableCoupon_type" xml:space="preserve">
-    <value>Coupon Type</value>
+    <value>סוג קופון</value>
   </data>
   <data name="tableCoupon_value" xml:space="preserve">
-    <value>Value</value>
+    <value>שווי</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>Marketing Tools</value>
+    <value>כלי שיווק</value>
   </data>
   <data name="tools_title1" xml:space="preserve">
-    <value>Use our marketing tools to
-boost your business</value>
+    <value>כלי השיווק יעזרו לך לקדם את העסק שלך</value>
   </data>
   <data name="tools_title2" xml:space="preserve">
-    <value>Check out our marketing tools and skip the guesswork</value>
+    <value>התנסו בכלי השיווק שלנו כמו מקצוענים</value>
   </data>
 </root>

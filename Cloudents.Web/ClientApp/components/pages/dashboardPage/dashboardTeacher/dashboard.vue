@@ -79,6 +79,7 @@ export default {
       width: 100%;
       max-width: @sideBlock;
       .blockImage {
+        width: 100%;
         cursor: pointer;
       }
     }

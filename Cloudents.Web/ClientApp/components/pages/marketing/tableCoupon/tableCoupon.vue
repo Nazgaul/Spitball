@@ -35,12 +35,20 @@
                 {{$t(header.text)}}
             </template>
 
+
+            <template v-slot:item.couponType="{value}">
+                {{$t(value === 'Flat' ? 'marketing_coupon_type_flat' : 'marketing_coupon_type_percentage')}}
+            </template>
             <template v-slot:item.createTime="{value}">
                 {{$d(new Date(value), 'tableDate')}}
             </template>
 
             <template v-slot:item.expiration="{value}">
                 {{$d(new Date(value), 'tableDate')}}
+            </template>
+
+            <template v-slot:no-data>
+                {{$t('marketing_tableCoupon_noCoupons')}}
             </template>
         </v-data-table>
     </v-row>
@@ -121,6 +129,7 @@ export default {
     
         @media (max-width: @screen-xs) {
             box-shadow: none;
+            border-radius: 0;
         }
         .mainTitle {
             font-weight: 600;

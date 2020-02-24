@@ -3,25 +3,28 @@
 
         <div class="headerBlogs pa-0 mb-4 d-flex justify-space-between">
           <div class="titleBlog">{{$t('dashboardTeacher_spitball_tips')}}</div>
-          <a class="seeAllBlog" href="https://www.blog.spitball.co/blog-1/categories/english" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
+          <a  class="seeAllBlog d-sm-block d-none" href="https://www.blog.spitball.co/blog-1/categories/english" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
         </div>
 
-        <div class="mainBlogs d-flex-column d-sm-flex  align-center">
-            <div class="leftBlogs mr-2">
+        <div class="mainBlogs d-flex-column d-sm-flex">
+            <div class="leftBlogs pt-sm-5 pt-2 mr-2">
                 <div class="titleWrap">
-                    <div class="title1 mb-3">
-                      Why Marketing Through Social Media is a Must
+                    <div class="title1 mb-2">
+                      {{$t('marketing_blog_text1')}}
                     </div>
                     <div class="title2">
-                      10 Reasons Why Marketing Through Social Media is a Must For Every Small Business
+                      {{$t('marketing_blog_text2')}}
                     </div>
                 </div>
             </div>
 
-            <div class="rightBlogs d-flex-column d-sm-flex pa-0 mt-10 mt-sm-0">
+            <div class="rightBlogs d-flex-column d-sm-flex pa-0 mt-6 mt-sm-0">
+                <div class="mb-3 d-block text-right" v-if="$vuetify.breakpoint.xsOnly">
+                  <a class="seeAllBlog text-right" href="https://www.blog.spitball.co/blog-1/categories/english" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
+                </div>
                 <a class="linkBlog d-flex d-sm-block" :href="blog.url" target="_blank" v-for="(blog, index) in blogs" :key="index">
                     <div class="top mr-2 mr-sm-0">
-                        <img :src="blog.image" alt="image" width="200" height="100" />
+                        <img :src="blog.image" alt="image" />
                     </div>
                     <div class="bottom">
                         <div class="text mb-3">{{blog.title}}</div>
@@ -69,6 +72,7 @@ export default {
 
   @media (max-width: @screen-xs) {
     box-shadow: none;
+    border-radius: 0;
   }
   .headerBlogs {
       .titleBlog {
@@ -76,11 +80,11 @@ export default {
         font-weight: 600;
         font-size: 16px;
       }
-      .seeAllBlog {
-        color: #4c59ff;
-        font-weight: 600;
-      }
    }
+  .seeAllBlog {
+    color: #4c59ff;
+    font-weight: 600;
+  }
   .mainBlogs {
 
     .leftBlogs {
@@ -134,11 +138,12 @@ export default {
         }
         .top {
           display: flex;
-
+          img {
+            width: 100%;
+          }
           @media (max-width: @screen-xs) {
             img {
-              width: 100%;
-              height: 70px;
+              width: 100px;
             }
           }
         }
@@ -150,14 +155,15 @@ export default {
             padding: 8px 10px;
             font-size: 13px;
             color: @global-purple;
+            min-width: 0;
             @media (max-width: @screen-xs) {
                 width: 100%;
                 border: none;
                 padding: 0;
             }
             .text {
-                .giveMeEllipsis(2, 16);
-                min-height: 32px;
+                .giveMeEllipsis(2, 18);
+                min-height: 36px;
                 @media (max-width: @screen-xs) {
                     font-size: 14px;
                     font-weight: 600;

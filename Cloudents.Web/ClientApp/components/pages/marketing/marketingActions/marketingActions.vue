@@ -25,6 +25,20 @@ export default {
             required: true
         }
     },
+    computed: {
+        mdAndDown() {
+            return this.$vuetify.breakpoint.mdAndDown
+        },
+        shareImage() {
+          return this.mdAndDown ? require('../images/sharePostSmall.png') : require('../images/sharePost.png')
+        },
+        offersImage() {
+          return this.mdAndDown ? require('../images/specialOfferSmall.png') : require('../images/specialOffer.png')
+        },
+        createVideo() {
+          return this.mdAndDown ? require('../images/createVideoSmall.png') : require('../images/createVideo.png')
+        },
+    }
 }
 </script>
 
@@ -35,9 +49,11 @@ export default {
         background: white;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
         border-radius: 8px;
-
+        width: 100%;
+        margin: 0 auto;
         @media (max-width: @screen-xs) {
             box-shadow: none;
+            border-radius: 0;
         }
 
         .text {
@@ -55,11 +71,10 @@ export default {
             align-items: center;
             justify-content: space-between;
             color: @global-purple;
-            // padding: 0 8px !important;
             .text1 {
                 font-size: 16px;
                 font-weight: 600;
-                margin-bottom: 2px;
+                // margin-bottom: 2px;
             }
             .text2 {
                 font-size: 12px;

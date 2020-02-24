@@ -11,7 +11,7 @@
     margin: 24px 34px;
 
     @media (max-width: @screen-xs) {
-        margin: 24px 0;
+        margin: 8px 0;
     }
     .fullWidth {
         width: 100%;
