@@ -24,7 +24,7 @@
                 </div>
                 <a class="linkBlog d-flex d-sm-block" :href="blog.url" target="_blank" v-for="(blog, index) in blogs" :key="index">
                     <div class="top mr-2 mr-sm-0">
-                        <img :src="blog.image" alt="image" />
+                        <img :src="blog.image" alt="image" width="200" height="100" />
                     </div>
                     <div class="bottom">
                         <div class="text mb-3">{{blog.title}}</div>
@@ -144,6 +144,7 @@ export default {
           @media (max-width: @screen-xs) {
             img {
               width: 100px;
+              height: 80px;
             }
           }
         }
