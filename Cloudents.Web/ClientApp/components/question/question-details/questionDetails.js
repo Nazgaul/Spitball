@@ -43,7 +43,6 @@ export default {
             "resetQuestion",
             "removeDeletedAnswer",
             "updateToasterParams",
-            "updateLoginDialogState",
             'setQuestion'
         ]),
         ...mapGetters(["getQuestion"]),
@@ -126,7 +125,7 @@ export default {
             }
             else {
                 this.dialogType = '';
-                this.updateLoginDialogState(true);
+                this.$openDialog('login')
             }
         },
         goToAnswer(hash) {
@@ -173,7 +172,7 @@ export default {
             if (name === 'suggestions') {
                 this.showDialogSuggestQuestion = false;
             } else {
-                this.updateLoginDialogState(false);
+                this.$closeDialog()
             }
         });
 

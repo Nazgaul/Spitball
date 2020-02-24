@@ -120,7 +120,6 @@ export default {
             updateToasterParams: 'updateToasterParams',
             removeQuestionItemAction: 'removeQuestionItemAction',
             manualAnswerRemove: 'answerRemoved',
-            updateLoginDialogState: 'updateLoginDialogState'
         }),
         ...mapGetters(['accountUser']),
 

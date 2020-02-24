@@ -23,9 +23,11 @@ const getters = {
 const mutations = {
     resetState(state){
         state.document = {};
-        state.btnLoading = false;
+        state.itemsList = [];
+        state.btnLoading = false;    
         state.showPurchaseConfirmation = false;
         state.documentLoaded = false;
+        state.toaster = false;
     },
     setPurchaseConfirmation(state,val){
         state.showPurchaseConfirmation = val;
