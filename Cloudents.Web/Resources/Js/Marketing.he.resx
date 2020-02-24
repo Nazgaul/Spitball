@@ -153,6 +153,9 @@
   <data name="sharePost_title2" xml:space="preserve">
     <value>תבלטו מעל כולם בפייסבוק, אינסטגרם, ווטסאפ, אימייל ועוד</value>
   </data>
+  <data name="tableCoupon_amount" xml:space="preserve">
+    <value>כמות משתמשים</value>
+  </data>
   <data name="tableCoupon_code" xml:space="preserve">
     <value>קוד קופון</value>
   </data>
