@@ -45,9 +45,7 @@ const getters = {
         }
     },
     //TODO need to change this to accountretive
-    getUserLoggedInStatus: state => state.isUserLoggedIn,
-    getUserLoggedInStatus2: state=> state.isUserLoggedIn || global.isAuth,
-
+    getUserLoggedInStatus: state => state.isUserLoggedIn || global.isAuth,
     usersReffered: state => state.usersReferred,
     accountUser: (state) => {
         return state.user;
@@ -97,21 +95,20 @@ const actions = {
         analyticsService.sb_setUserId(userAccount.id);
         insightService.authenticate.set(userAccount.id);
         initSignalRService();
-        commit("changeLoginStatus", true);
+        dispatch('updateLoginStatus',true)
     },
-    userStatus({state,dispatch, commit}) {
+    userStatus({state,dispatch,getters}) {
         if(state.user !== null && state.user.hasOwnProperty('id')){
             return Promise.resolve()
         }
-        
-        if (global.isAuth) {
+        if (getters.getUserLoggedInStatus) {
            return accountService.getAccount().then((userAccount) => {
                 dispatch('updateAccountUser',userAccount);
                 return Promise.resolve(userAccount)
             }, () => {
                 //TODO what is that....
                 intercomeService.restrartService();
-                commit("changeLoginStatus", false);
+                dispatch('updateLoginStatus',false)
             });
         }
         else {
@@ -137,6 +134,9 @@ const actions = {
     },
     updateUserStats(context, lastDays) {
         return accountService.getAccountStats(lastDays)
+    },
+    updateLoginStatus({commit},val){
+        commit("changeLoginStatus", val);
     }
 };
 

@@ -39,28 +39,28 @@ export default {
   name: "requestActions",
   components: {uStudy, rTutor, aQuestion },
   computed: {
-    ...mapGetters(["accountUser", "getSelectedClasses",'getUserLoggedInStatus2']),
+    ...mapGetters(["accountUser", "getSelectedClasses",'getUserLoggedInStatus']),
     userImageUrl() {
-      if(this.getUserLoggedInStatus2 && this.accountUser.image.length > 1) {
+      if(this.getUserLoggedInStatus && this.accountUser.image.length > 1) {
         return `${this.accountUser.image}`;
       }
       return "";
     },
     previewName(){
-      if(this.getUserLoggedInStatus2){
+      if(this.getUserLoggedInStatus){
         return this.accountUser.name;
       }else{
         return ''
       }
     },
     userName() {
-      if(this.getUserLoggedInStatus2){
+      if(this.getUserLoggedInStatus){
           return `, ${this.accountUser.name}?`;
       }
       return '?';
     },
     userID() {
-      if(this.getUserLoggedInStatus2){
+      if(this.getUserLoggedInStatus){
         return this.accountUser.id;
       }
       return null;

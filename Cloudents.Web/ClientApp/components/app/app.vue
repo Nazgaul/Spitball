@@ -155,10 +155,10 @@ export default {
       "isFrymo",
       "getShowSchoolBlock",
       "getIsChatVisible",
-      'getUserLoggedInStatus2'
+      'getUserLoggedInStatus'
     ]),
     hideSideMenu(){
-      if(this.getUserLoggedInStatus2 && this.accountUser?.userType !== 'Parent'){
+      if(this.getUserLoggedInStatus && this.accountUser?.userType !== 'Parent'){
         return false;
       }else{
         let routesNames = ['feed','document','question','profile']

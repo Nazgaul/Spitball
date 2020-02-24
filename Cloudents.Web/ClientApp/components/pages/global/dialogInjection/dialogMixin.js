@@ -20,7 +20,7 @@ export default {
             dialogsPremissions: {
                 login: [],
                 exitRegisterDialog: [],
-                becomeTutor: [],
+                becomeTutor: ["auth"],
                 upload: ["auth","courses"],
                 createCoupon: ["auth","tutor"]
             }
@@ -28,7 +28,7 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'getUserLoggedInStatus2',
+            'getUserLoggedInStatus',
             'accountUser',
             'getSelectedClasses',
         ])
@@ -40,7 +40,7 @@ export default {
                 return this[dialogChekerName](dialogNameFromRoute);
         },
         check_auth(){
-            if(!this.getUserLoggedInStatus2){
+            if(!this.getUserLoggedInStatus){
                 this.component = 'login';
             }
         },

@@ -118,9 +118,9 @@ components: {searchCMP,menuList,logoComponent,findSVG,phoneNumberSlot,becomeTuto
         layoutClass: {}
     },
     computed: {
-        ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus2']),
+        ...mapGetters(['accountUser','getTotalUnread','getBannerParams','getUserLoggedInStatus']),
         loggedIn() {
-            return this.getUserLoggedInStatus2;
+            return this.getUserLoggedInStatus;
         },
         isTablet(){
             return this.$vuetify.breakpoint.smAndDown;

@@ -46,7 +46,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateLoginStatus','updateAccountUserToTutor','sendBecomeTutorData','updateTeachingClasses','updateToasterParams']),
+        ...mapActions(['updateAccountUserToTutor','sendBecomeTutorData','updateTeachingClasses','updateToasterParams']),
         goToPreviousStep() {
             this.$root.$emit('becomeTutorStep', 3);
         },
@@ -62,7 +62,6 @@ export default {
                     });
 
                     if(self.$route.name === routeNames.RegisterType){
-                        self.updateLoginStatus(true)
                         self.$router.push({name: routeNames.Feed,query:{filter:'Question'}})
                         self.updateAccountUserToTutor(true);
                     }else{

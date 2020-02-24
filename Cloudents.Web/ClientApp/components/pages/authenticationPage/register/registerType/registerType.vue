@@ -67,8 +67,11 @@ export default {
         showError: false
     }),
     methods: {
-        sendRegisterType(regType, route) {            
+        sendRegisterType(regType, route) { 
             this.$store.dispatch('updateRegisterType', regType).then(() => {
+                if(regType === 'Teacher'){
+                    this.$store.dispatch('updateLoginStatus',true)
+                }
                 this.showError = false
             }).catch(() => {
                 this.showError = true

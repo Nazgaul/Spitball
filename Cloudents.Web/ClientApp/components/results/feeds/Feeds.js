@@ -60,7 +60,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(['accountUser','Feeds_getItems','Feeds_getFilters','Feeds_getCurrentQuery','getUserLoggedInStatus2']),
+        ...mapGetters(['accountUser','Feeds_getItems','Feeds_getFilters','Feeds_getCurrentQuery','getUserLoggedInStatus']),
         items(){
             return this.Feeds_getItems
         },
@@ -72,7 +72,7 @@ export default {
             return user && user.haveDocsWithPrice;
         },
         showRequestBox(){
-            if(this.getUserLoggedInStatus2){
+            if(this.getUserLoggedInStatus){
                 return this.accountUser?.userType !== 'Parent';
             }else{
                 return true;

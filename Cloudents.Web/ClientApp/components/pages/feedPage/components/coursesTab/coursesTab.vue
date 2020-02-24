@@ -14,7 +14,7 @@ import {LanguageService} from "../../../../../services/language/languageService"
 export default {
     name: "verticals-tabs",
     computed: {
-      ...mapGetters(['getUserLoggedInStatus2','accountUser']),
+      ...mapGetters(['getUserLoggedInStatus','accountUser']),
         isMobile(){
             return this.$vuetify.breakpoint.mdAndDown
         },
@@ -29,7 +29,7 @@ export default {
         },
         showHamburger(){
           if(this.$vuetify.breakpoint.xsOnly){
-            if(this.getUserLoggedInStatus2 && this.accountUser?.userType !== 'Parent'){
+            if(this.getUserLoggedInStatus && this.accountUser?.userType !== 'Parent'){
               return true
             }else{
               return false;
