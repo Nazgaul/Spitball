@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="blog_text1" xml:space="preserve">
-    <value>Why Marketing Through Social Media is a Must</value>
+    <value>Why marketing through social media is a must</value>
   </data>
   <data name="blog_text2" xml:space="preserve">
     <value>10 Reasons Why Marketing Through Social Media is a Must For Every Small Business</value>
@@ -130,13 +130,13 @@
     <value>Create special offers</value>
   </data>
   <data name="createOffer_title2" xml:space="preserve">
-    <value>Create custom coupon for your audiance</value>
+    <value>Create custom coupons and promotions</value>
   </data>
   <data name="createVideo_title1" xml:space="preserve">
     <value>Create a profesional video</value>
   </data>
   <data name="createVideo_title2" xml:space="preserve">
-    <value>Create custom coupon for your audiance</value>
+    <value>We'll help you make a great impression</value>
   </data>
   <data name="get_started" xml:space="preserve">
     <value>Get started</value>
@@ -178,8 +178,8 @@
     <value>Marketing Tools</value>
   </data>
   <data name="tools_title1" xml:space="preserve">
-    <value>Use our Marketing Tools to
-Boost Your Business</value>
+    <value>Use our marketing tools to
+boost your business</value>
   </data>
   <data name="tools_title2" xml:space="preserve">
     <value>Check out our marketing tools and skip the guesswork</value>
