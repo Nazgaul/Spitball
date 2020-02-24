@@ -1,7 +1,9 @@
 <template>
     <div class="marketingPromote">
         <marketingActions #closeIcon :resource="resource" v-if="!startStep">
-            <v-icon color="#adadba" size="12">sbf-close</v-icon>
+            <router-link :to="{name: routeNames.Marketing}">
+                <v-icon color="#adadba" size="12">sbf-close</v-icon>
+            </router-link>
         </marketingActions>
 
         <router-view name="stepper" v-else :dataType="dataType"></router-view>
@@ -10,11 +12,13 @@
 
 <script>
 import marketingActions from '../marketingActions/marketingActions.vue';
+import * as routeNames from '../../../../routes/routeNames';
 
 export default {
     components: { marketingActions },
     data() {
         return {
+            routeNames,
             dataType: '',
             startStep: false,
             resource: {

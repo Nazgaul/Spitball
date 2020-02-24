@@ -11,7 +11,7 @@
             <v-divider></v-divider>
 
             <v-stepper-step class="stepStteper" :class="[step === 2 ? 'active' : 'noActive']" step="2">
-                {{$t('promote_choose')}} {{$t('promote__a_template')}}
+                {{$t('promote_choose')}} {{$t('promote_template')}}
             </v-stepper-step>
             <v-divider></v-divider>
 
@@ -22,7 +22,7 @@
 
         <div class="mobileLabels px-4 mt-n3 text-center d-md-none d-flex justify-space-between">
             <div class="label1 fontLabel"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
-            <div class="label2 fontLabel mr-4"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote__a_template')}}</div>
+            <div class="label2 fontLabel mr-4"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_template')}}</div>
             <div class="label3 fontLabel">{{$t('promote_publish')}}</div>
         </div>
 
