@@ -108,7 +108,7 @@ import secure from './images/secure.svg';
 import chatIcon from './images/chatIcon.svg';
 import calendarIcon from './images/calendarIcon.svg';
 
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 import userRating from '../../profileHelpers/profileBio/bioParts/userRating.vue';
 
@@ -159,7 +159,6 @@ export default {
       },
    },
    methods: {
-      ...mapActions(['updateLoginDialogState']),
       reviewsPlaceHolder(reviews) {
          return reviews === 0 ? reviews.toString() : reviews;
       },
@@ -169,7 +168,7 @@ export default {
                return
             }
          }else{
-            this.updateLoginDialogState(true);
+            this.$openDialog('login')
          }
       },
       openBecomeTutor(){

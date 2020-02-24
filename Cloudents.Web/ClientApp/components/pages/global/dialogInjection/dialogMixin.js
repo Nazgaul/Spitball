@@ -4,7 +4,7 @@ const becomeTutor = () => import('../../../becomeTutor/becomeTutor.vue');
 const exitRegisterDialog = () => import('../../authenticationPage/login/exitRegisterDialog.vue');
 const upload = () => import('../../../uploadFilesDialog/uploadMultipleFiles.vue');
 const createCoupon = () => import('../../dashboardPage/dashboardDialog/createCouponDialog.vue');
-const login = () => import('../../authenticationPage/dialogs/loginToAnswer/login-answer.vue');
+const login = () => import('./globalDialogs/login/login.vue');
 
 
 export default {
@@ -18,11 +18,11 @@ export default {
     data() {
         return {
             dialogsPremissions: {
-                login: [],
+                login: ["isNotAuth"],
                 exitRegisterDialog: [],
                 becomeTutor: [],
-                upload: ["auth","courses"],
-                createCoupon: ["auth","tutor"]
+                upload: ["isAuth","isCourses"],
+                createCoupon: ["isAuth","isTutor"]
             }
         }
     },
@@ -39,19 +39,27 @@ export default {
             // TODO make it Promise!!
                 return this[dialogChekerName](dialogNameFromRoute);
         },
-        check_auth(){
+        check_isAuth(){
             if(!this.getUserLoggedInStatus && !global.isAuth){
                 this.component = 'login';
             }
         },
-        check_tutor(){
+        check_isNotAuth(){
+            debugger
+            if(this.getUserLoggedInStatus && global.isAuth){
+                this.component = '';
+                this.$closeDialog()
+                return 'break'
+            }
+        },
+        check_isTutor(){
             if(!this.accountUser.isTutor){
                 this.component = '';
                 this.$closeDialog()
                 return 'break'
             } 
         },
-        check_courses(){
+        check_isCourses(){
             if(this.getSelectedClasses.length === 0){
                 this.$router.push({name: "addCourse"})
                 return 'break'

@@ -87,7 +87,6 @@ export default {
     methods: {
         ...mapActions([
             'updateCouponDialog',
-            'updateLoginDialogState',
             'updateCoupon',
             'updateCurrTutor',
             'setTutorRequestAnalyticsOpenedFrom',
@@ -107,14 +106,14 @@ export default {
         },
         openCoupon(){
             if(global.isAuth) {
-            if(this.accountUser) {          
+            if(this.accountUser) {      
                 if(this.$route.params.id != this.accountUser.id) {
                     this.updateCouponDialog(true)
                     analyticsService.sb_unitedEvent('Tutor_Engagement', 'Click_Redeem_Coupon', `${this.$route.path}`);
                 }
             }
             } else {
-            this.updateLoginDialogState(true);
+            this.$openDialog('login')
             }
         },
         applyCoupon() {
@@ -189,7 +188,7 @@ export default {
             if(!!this.accountUser) {
                 this.activeTab = 5;
             } else {
-                this.updateLoginDialogState(true);
+                this.$openDialog('login')
                 setTimeout(()=>{
                     document.getElementById(`tab-${this.activeTab}`).lastChild.click();
                 },200);
