@@ -60,12 +60,12 @@ export default {
                 return 'break'
             }
         },
-        check_payment(){
-            if(!this.accountUser.needPayment){
-                this.component = 'payment';
-                // TODO: do something
-            }
-        },
+        // check_payment(){
+        //     if(!this.accountUser.needPayment){
+        //         this.component = 'payment';
+        //         // TODO: do something
+        //     }
+        // },
         check_notPayment(){
             if(this.accountUser.needPayment){
                 // TODO: do something
