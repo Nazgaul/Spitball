@@ -129,6 +129,12 @@
   <data name="coming_soon" xml:space="preserve">
     <value>בקרוב</value>
   </data>
+  <data name="coupon_type_flat" xml:space="preserve">
+    <value>הנחה קבועה</value>
+  </data>
+  <data name="coupon_type_percentage" xml:space="preserve">
+    <value>הנחה כאחוז מהמחיר</value>
+  </data>
   <data name="createOffer_title1" xml:space="preserve">
     <value>צרו הטבות מיוחדות</value>
   </data>

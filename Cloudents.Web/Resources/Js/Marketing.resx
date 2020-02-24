@@ -129,6 +129,12 @@
   <data name="coming_soon" xml:space="preserve">
     <value>Coming soon</value>
   </data>
+  <data name="coupon_type_flat" xml:space="preserve">
+    <value>Flat discount</value>
+  </data>
+  <data name="coupon_type_percentage" xml:space="preserve">
+    <value>Percentage</value>
+  </data>
   <data name="createOffer_title1" xml:space="preserve">
     <value>Create special offers</value>
   </data>
