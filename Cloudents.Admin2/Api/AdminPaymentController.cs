@@ -74,7 +74,7 @@ namespace Cloudents.Admin2.Api
             try
             {
                 var command = new PaymentCommand(model.UserId, model.TutorId, model.StudentPay, model.SpitballPay,
-                    model.StudyRoomSessionId, payMeCredentials.BuyerKey);
+                    model.StudyRoomSessionId, payMeCredentials.BuyerKey, model.AdminDuration);
                 await _commandBus.DispatchAsync(command, token);
 
                 return Ok();

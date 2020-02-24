@@ -101,7 +101,7 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
 
-        [Theory]
+        [Theory(Skip ="Need to connect calendar")]
         [InlineData("api/tutor/calendar/list")]
         [InlineData("api/tutor/calendar/events?from=2019-11-18T05:48:47.649Z&to=2019-11-18T07:48:47.649Z&tutorid=159489")]
         public async Task GetAsync_Tutor_Calendar_OKAsync(string uri)

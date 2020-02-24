@@ -75,7 +75,8 @@
             </template>
             
             <template v-slot:interval="{date,time,past}">
-              <div :class="['my-event',past? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]">
+              <div :class="['my-event',checkDateCell(past,date)? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]">
+              <!-- <div :class="['my-event',past? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]"> -->
                 <button @click="addEvent($event, date,time)" v-html="cellTime(date,time)"></button> 
               </div>
           </template>
@@ -200,6 +201,27 @@ export default {
           return this._i18n.d(date,v);
           //return  date.toLocaleDateString('en-us', options);
         },
+        checkDateCell(past,date){
+          if(past) {
+            return true;
+          }else{
+            let lastDate = Object.keys(this.eventsMap).map((key)=>key)
+            lastDate = lastDate[lastDate.length-1]
+            let lastDateStemp = new Date(`${lastDate}`).getTime()
+
+            if(new Date(date).getTime() >= lastDateStemp){
+              // let lastHour = this.eventsMap[lastDate];
+              // lastHour = lastHour[lastHour.length - 1].time
+              // if(+time.slice(0,2) <= +lastHour.slice(0,2)){
+              return true;
+              // }else{
+                // return true;
+              // }
+            
+            }
+            return false;
+          }
+        },
         insertNewEvent(){
           this.isLoading = true;
           let paramObj = {
@@ -233,14 +255,21 @@ export default {
           return (this.eventsMap[date] && this.eventsMap[date].find(e =>e.time === time))? '': time;
         },
         formatDateString(){
+          let year = this.selectedDate.slice(0,4);
+          let month = this.selectedDate.slice(5,7);
+          let day = this.selectedDate.slice(8,11);
           if(global.isRtl){
             let options = { weekday: 'long', month: 'short', day: 'numeric' };
-            let dateStr = new Date(this.selectedDate).toLocaleDateString(`${global.lang}-${global.country}`, options).split(' ')
-            let dayNumber = new Date(this.selectedDate).getDate()
+            let dateStr = new Date(year,month - 1,day,0,0,0,0).toLocaleDateString(`${global.lang}-${global.country}`, options).split(' ');
+            // let dateStr = new Date(this.selectedDate).toLocaleDateString(`${global.lang}-${global.country}`, options).split(' ')
+            let dayNumber = new Date(year,month - 1,day,0,0,0,0).getDate()
+            // let dayNumber = new Date(this.selectedDate).getDate()
             return `${dateStr[0]} ${dateStr[1]} ${dayNumber} ${dateStr[3]}`
           } else{
-            let dateStr = new Date(this.selectedDate).toDateString().split(' ');
-            let dayNumber = new Date(this.selectedDate).getDate()
+            let dateStr = new Date(year,month - 1,day,0,0,0,0).toDateString().split(' ');
+            // let dateStr = new Date(this.selectedDate).toDateString().split(' ');
+            let dayNumber = new Date(year,month - 1,day,0,0,0,0).getDate()
+            // let dayNumber = new Date(this.selectedDate).getDate()
             return `${dateStr[0]}, ${dateStr[1]} ${dayNumber}`
           }
         },
