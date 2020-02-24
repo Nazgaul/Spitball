@@ -75,7 +75,7 @@
             </template>
             
             <template v-slot:interval="{date,time,past}">
-              <div :class="['my-event',checkDateCell(past,date,time)? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]">
+              <div :class="['my-event',checkDateCell(past,date)? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]">
               <!-- <div :class="['my-event',past? 'without-time-past':'without-time', {'cursor-none': isSelfTutor},{'selectedEvent': isSelected(date,time)}]"> -->
                 <button @click="addEvent($event, date,time)" v-html="cellTime(date,time)"></button> 
               </div>
@@ -201,7 +201,7 @@ export default {
           return this._i18n.d(date,v);
           //return  date.toLocaleDateString('en-us', options);
         },
-        checkDateCell(past,date,time){
+        checkDateCell(past,date){
           if(past) {
             return true;
           }else{
