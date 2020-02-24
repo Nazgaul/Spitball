@@ -10,10 +10,10 @@
             <div class="leftBlogs pt-sm-5 pt-2 mr-2">
                 <div class="titleWrap">
                     <div class="title1 mb-2">
-                      Why Marketing Through Social Media is a Must
+                      {{$t('marketing_blog_text1')}}
                     </div>
                     <div class="title2">
-                      10 Reasons Why Marketing Through Social Media is a Must For Every Small Business
+                      {{$t('marketing_blog_text2')}}
                     </div>
                 </div>
             </div>
