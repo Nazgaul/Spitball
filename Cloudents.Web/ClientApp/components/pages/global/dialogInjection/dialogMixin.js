@@ -45,7 +45,6 @@ export default {
             }
         },
         check_isNotAuth(){
-            debugger
             if(this.getUserLoggedInStatus && global.isAuth){
                 this.component = '';
                 this.$closeDialog()
