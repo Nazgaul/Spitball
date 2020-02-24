@@ -131,7 +131,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["accountUser",'isFrymo','getUserLoggedInStatus']),
+    ...mapGetters(["accountUser",'isFrymo','getUserLoggedInStatus2']),
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -148,7 +148,7 @@ export default {
       if(this.$route.name === 'tutorLandingPage'){
         return false;
       }else{
-        if(this.getUserLoggedInStatus){
+        if(this.getUserLoggedInStatus2){
           return !this.accountUser.isTutor;
         }else{
           return true;
@@ -159,7 +159,7 @@ export default {
       if(this.isFrymo){
         return false;
       }else{
-        if(this.getUserLoggedInStatus){
+        if(this.getUserLoggedInStatus2){
           return !this.accountUser.isTutor;
         }else{
           return true;
@@ -167,7 +167,7 @@ export default {
       }
     },
     showTestStudyRoom(){
-      if(this.getUserLoggedInStatus){
+      if(this.getUserLoggedInStatus2){
         return !this.accountUser.isTutor;
       }else{
         return true;

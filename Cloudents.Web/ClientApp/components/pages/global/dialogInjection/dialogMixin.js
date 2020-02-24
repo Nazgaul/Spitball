@@ -28,7 +28,7 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'getUserLoggedInStatus',
+            'getUserLoggedInStatus2',
             'accountUser',
             'getSelectedClasses',
         ])
@@ -40,7 +40,7 @@ export default {
                 return this[dialogChekerName](dialogNameFromRoute);
         },
         check_auth(){
-            if(!this.getUserLoggedInStatus && !global.isAuth){
+            if(!this.getUserLoggedInStatus2){
                 this.component = 'login';
             }
         },
