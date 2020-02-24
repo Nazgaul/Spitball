@@ -1,24 +1,24 @@
 <template>
     <div class="marketingTools mb-2 mb-sm-4 pb-0">
 
-        <div class="headerTools pa-0 mb-8">
-            <div class="titleTools">{{$t('dashboardTeacher_spitball_tips')}}</div>
+        <div class="headerTools pa-0 mb-6">
+            <div class="titleTools">{{$t('marketing_title')}}</div>
         </div>
 
         <div class="mainBlogs d-flex-column d-sm-flex align-center">
-            <div class="leftBlogs mr-2 pb-4">
+            <div class="leftBlogs mr-2 pb-4 pb-sm-0">
                 <div class="titleWrap">
                     <div class="title1 mb-3">
                         {{$t('marketing_tools_title1')}}
                     </div>
-                    <div class="title2 mb-7">
+                    <div class="title2 mb-7 mb-sm-12">
                         {{$t('marketing_tools_title2')}}
                     </div>
                     <v-btn :to="{name: 'marketing'}" class="btn" rounded outlined color="#4c59ff" width="120">{{$t('marketing_lets_go')}}</v-btn>
                 </div>
             </div>
 
-            <div class="rightBlogs d-flex-column d-sm-flex pa-0 mr-10 mt-4">
+            <div class="rightBlogs d-flex-column d-sm-flex pa-0 mr-md-10 mt-sm-12">
                 <img src="./images/marketing.png" alt="">
             </div>
 
@@ -69,14 +69,14 @@ export default {
     }
     .leftBlogs {
       .titleWrap {
-        max-width: 320px;
+        max-width: 360px;
         @media (max-width: @screen-sm) {
           &:first-child {
             max-width: 100%;
           }
         }
         .title1 {
-           font-size: 22px;
+           font-size: 24px;
            font-weight: 600;
            letter-spacing: normal;
            color: #43425d;

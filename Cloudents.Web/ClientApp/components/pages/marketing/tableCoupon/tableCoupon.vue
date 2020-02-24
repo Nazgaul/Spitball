@@ -126,6 +126,7 @@ export default {
     
         @media (max-width: @screen-xs) {
             box-shadow: none;
+            border-radius: 0;
         }
         .mainTitle {
             font-weight: 600;
