@@ -189,7 +189,6 @@
             ...mapActions(['getRefferedUsersNum']),
             requestDialogClose() {
                 this.isCopied = false;
-                // this.$root.$emit('closePopUp', this.popUpType);
                 if(this.onclosefn) this.onclosefn()
 
             },

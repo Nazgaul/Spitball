@@ -90,7 +90,7 @@ export default {
         }
     },
     watch:{
-        '$route'(){
+        '$route.params.id'(){
             //reset the document with the v-if, fixing issue that moving from video to document wont reset the video ELEMENT
             let self = this;
             this.isLoad = true;

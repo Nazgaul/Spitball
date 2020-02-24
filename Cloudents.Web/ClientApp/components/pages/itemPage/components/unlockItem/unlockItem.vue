@@ -55,12 +55,12 @@ export default {
       },
    },
    methods: {
-      ...mapActions(['updatePurchaseConfirmation','updateLoginDialogState']),
+      ...mapActions(['updatePurchaseConfirmation']),
       openPurchaseDialog(){
             if(!!this.accountUser) {
                 this.updatePurchaseConfirmation(true)
             } else {
-                this.updateLoginDialogState(true);
+               this.$openDialog('login')
             }
       }
    },
