@@ -6,7 +6,6 @@ const state = {
     paymentURL: '',
     tutorName: '',
     transactionId: null,
-    dictionaryTitle: '',
 };
 
 const mutations = {
@@ -19,14 +18,10 @@ const mutations = {
     setIdTransaction(state, id) {
         state.transactionId = id;
     },
-     setDictionaryTitle(state, val) {
-         state.dictionaryTitle = val;
-     }
 };
 
 const getters = {
     getTutorName: state => state.tutorName,
-    getDictionaryTitle: state => state.dictionaryTitle,
     getPaymentURL:state => state.paymentURL,
     getTransactionId: state => state.transactionId,
 };
@@ -48,7 +43,6 @@ const actions = {
     },
     requestPaymentURL({commit,dispatch}, paymeObj ){
         dispatch('updateTutorName', paymeObj.name);
-        dispatch('updateDictionaryTitle', paymeObj.title);
         walletService.getPaymeLink().then(({ data }) => {
             commit('setPaymentURL',data.link);
             dispatch('updatePaymentDialogState',true);
@@ -67,9 +61,6 @@ const actions = {
         }else{
             router.push({query:{...router.currentRoute.query,dialog:undefined}})
         }
-    },
-    updateDictionaryTitle({commit}, title) {
-        commit('setDictionaryTitle', title);
     },
     updateTutorName({commit}, name) {
         commit('setTutorName', name);

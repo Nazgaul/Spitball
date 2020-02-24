@@ -34,7 +34,7 @@ import { mapGetters } from 'vuex';
 export default {
     name: 'paymentDIalog',
     computed: {
-        ...mapGetters(['getPaymentURL', 'getTutorName', 'getDictionaryTitle']),
+        ...mapGetters(['getPaymentURL', 'getTutorName']),
         paymentUrl(){
             return this.getPaymentURL
         },
