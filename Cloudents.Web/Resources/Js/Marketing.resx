@@ -126,6 +126,9 @@
   <data name="blog_title" xml:space="preserve">
     <value>Tips from our blog</value>
   </data>
+  <data name="coming_soon" xml:space="preserve">
+    <value>Coming soon</value>
+  </data>
   <data name="createOffer_title1" xml:space="preserve">
     <value>Create special offers</value>
   </data>

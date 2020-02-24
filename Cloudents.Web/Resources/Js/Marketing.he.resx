@@ -126,6 +126,9 @@
   <data name="blog_title" xml:space="preserve">
     <value>טיפים מהעורכים שלנו</value>
   </data>
+  <data name="coming_soon" xml:space="preserve">
+    <value>בקרוב</value>
+  </data>
   <data name="createOffer_title1" xml:space="preserve">
     <value>צרו הטבות מיוחדות</value>
   </data>
@@ -139,7 +142,7 @@
     <value>אנחנו נעזור לך ליצור רושם גדול</value>
   </data>
   <data name="get_started" xml:space="preserve">
-    <value>Get started</value>
+    <value>התחל</value>
   </data>
   <data name="lets_go" xml:space="preserve">
     <value>Let’s go</value>
@@ -172,7 +175,7 @@
     <value>Coupon history</value>
   </data>
   <data name="tableCoupon_type" xml:space="preserve">
-    <value>Coupont Type</value>
+    <value>סוג קופון</value>
   </data>
   <data name="tableCoupon_value" xml:space="preserve">
     <value>שווי</value>
