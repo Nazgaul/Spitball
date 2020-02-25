@@ -52,7 +52,7 @@ export default {
     }
   },
   methods: {
-    useTemplate(template) {
+    useTemplate() {
       // this.selected = template.id
       // this.$emit('selectedTemplate', template);
 
