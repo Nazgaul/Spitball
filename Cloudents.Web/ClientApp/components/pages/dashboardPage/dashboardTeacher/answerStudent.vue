@@ -90,6 +90,10 @@ export default {
       }
       &:last-child .middle {
         border-bottom: none;
+        padding-bottom: 0 !important;
+      }
+      &:last-child{
+        padding-bottom: 0 !important;
       }
     }
   }
