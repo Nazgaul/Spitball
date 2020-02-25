@@ -1,26 +1,27 @@
 <template>
     <div class="promotePublish mx-auto pa-4">
-        <div class="wrap text-center" :key="template.id">
-            <img class="img" :src="template.imageLarge" alt="">
-            <div class="bottom">
-                <div class="shareIt text-left">Share it</div>
+        <div class="wrap text-center">
+            <v-skeleton-loader type="image" width="100%" v-if="loading"></v-skeleton-loader>
+            <img class="img" @load="onLoad" v-show="!loading" :src="$proccessImageUrl(`https://spitball-function-dev2.azurewebsites.net/api/share/document/50997?theme=${1}`, 420, 220)" alt="">
+            <div class="bottom mt-3">
+                <div class="shareIt text-left">{{$t('promote_shareIt')}}</div>
                 <div class="btnWrap">
-                    <v-btn small medium class="elevation-0 ma-2 ml-0" color="#305d98">
+                    <v-btn class="elevation-0 ma-2 ml-0" color="#305d98">
                         <facebookIcon />
                     </v-btn>
-                    <v-btn small class="elevation-0 ma-2" color="#2cb742">
+                    <v-btn class="elevation-0 ma-2" color="#2cb742">
                         <whatsappIcon />
                     </v-btn>
-                    <v-btn small class="elevation-0 ma-2" color="#45ceff">
+                    <v-btn class="elevation-0 ma-2" color="#45ceff">
                         <twitterIcon />
                     </v-btn>
-                    <v-btn small class="elevation-0 ma-2 mr-0" color="#878693">
+                    <v-btn class="elevation-0 ma-2 mr-0" color="#878693">
                         <emailIcon />
                     </v-btn>
                 </div>
                 <div class="copyBtn mt-3">
                     <div class="wrap">
-                        <input type="text" class="copy text-truncate" name="" :value="video.product" ref="copy">
+                        <input type="text" class="copy text-truncate" name="" :value="video.product" ref="copy" readonly>
                         <button type="button" class="buttonCopy px-5" @click="copyLink" name="button">Copy</button>
                     </div>
                 </div>
@@ -53,7 +54,7 @@ export default {
   },
   data() {
     return {
-      
+        loading: true
       }
   },
   methods: {
@@ -62,6 +63,9 @@ export default {
       copyText.select();
       copyText.setSelectionRange(0, 99999)
       document.execCommand("copy");
+    },
+    onLoad() {
+      this.loading = false
     }
   }
 }
@@ -82,7 +86,9 @@ export default {
   }
   .bottom {
     .shareIt {
-      font-size: 16px;
+        font-size: 16px;
+        font-weight: 600;
+        color: @global-purple;
     }
     .btnWrap {
       display: flex;

@@ -9,10 +9,9 @@
             </div>
             <div class="bottomWrap text-center">
                 <v-skeleton-loader type="image" width="422" v-if="loading"></v-skeleton-loader>
-
-                <img class="img" @load="onLoad" v-else :src="$proccessImageUrl('https://spitball-function-dev2.azurewebsites.net/api/share/document/50997?theme=1', 422, 220)" alt="">
+                <img class="img" @load="onLoad" v-show="!loading" :src="$proccessImageUrl('https://spitball-function-dev2.azurewebsites.net/api/share/document/50997?theme=1', 422, 220)" alt="">
                 <div class="btnWrap">
-                  <v-btn class="useBtn" @click="useTemplate(recommended)" height="34" rounded outlined color="#4c59ff">{{$t('promote_use_template')}}</v-btn>
+                  <v-btn class="useBtn" :disabled="loading" @click="useTemplate()" height="34" rounded outlined color="#4c59ff">{{$t('promote_use_template')}}</v-btn>
                 </div>
             </div>
         </div>
@@ -22,21 +21,13 @@
         <div class="bottom">
           <div v-for="n in 3" class="bottomWrap text-center" :key="n">
               <v-skeleton-loader type="image" width="292" v-if="loading"></v-skeleton-loader>
-              <img class="img" @load="onLoad" :src="$proccessImageUrl(`https://spitball-function-dev2.azurewebsites.net/api/share/document/50997?theme=${n+1}`, 292, 150)" alt="">
+              <img class="img" @load="onLoad" v-show="!loading" :src="$proccessImageUrl(`https://spitball-function-dev2.azurewebsites.net/api/share/document/50997?theme=${n+1}`, 292, 150)" alt="">
               <div class="btnWrap">
-                <v-btn class="useBtn" @click="useTemplate(template)" height="34" rounded outlined color="#4c59ff">
+                <v-btn class="useBtn" :disabled="loading" @click="useTemplate(template)" height="34" rounded outlined color="#4c59ff">
                     <span class="text-truncate">{{$t('promote_use_template')}}</span>
                 </v-btn>
               </div>
           </div>
-          <!-- <div v-for="template in resource" class="bottomWrap text-center" :key="template.id">
-              <img class="img" :src="" alt="">
-              <div class="btnWrap">
-                <v-btn class="useBtn" @click="useTemplate(template)" height="34" rounded outlined color="#4c59ff">
-                    <span class="text-truncate">{{$t('promote_use_template')}}</span>
-                </v-btn>
-              </div>
-          </div> -->
         </div>
 
     </div>
@@ -62,8 +53,11 @@ export default {
   },
   methods: {
     useTemplate(template) {
-      this.selected = template.id
-      this.$emit('selectedTemplate', template);
+      // this.selected = template.id
+      // this.$emit('selectedTemplate', template);
+
+      this.selected = this.video.id
+      this.$emit('selectedTemplate', this.video);
     },
     onLoad() {
       this.loading = false
@@ -91,12 +85,24 @@ export default {
         }
       }
     }
+    .bottomWrap {
+      width: 422px;
+      .img {
+        vertical-align: bottom;
+        @media (max-width: @screen-xs) {
+          width: 100%;
+        }
+      }
+    }
   }
+
   .centerTitle {
     color: @global-purple;
     font-size: 18px;
     margin-bottom: 14px;
+    font-weight: 600;
   }
+
   .bottom {
     display: grid;
     grid-template-columns: repeat(auto-fill, 292px);
@@ -104,17 +110,12 @@ export default {
     @media (max-width: @screen-xs) {
       grid-template-columns: repeat(auto-fill, 100%);
     }
-  }
-
-  .bottomWrap {
-    // min-width: 100%;
-    @media (max-width: @screen-xs) {
-      // width: 100%;
-    }
-    .img {
-      vertical-align: bottom;
-      @media (max-width: @screen-xs) {
-        width: 100%;
+    .bottomWrap {
+      .img {
+        vertical-align: bottom;
+        @media (max-width: @screen-xs) {
+          width: 100%;
+        }
       }
     }
   }
@@ -129,6 +130,10 @@ export default {
       text-transform: initial;
       font-weight: 600;
       letter-spacing: normal;
+
+      span {
+        margin-bottom: 2px;
+      }
     }
   }
 }
