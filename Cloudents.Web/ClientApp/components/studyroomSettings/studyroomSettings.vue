@@ -108,6 +108,14 @@ export default {
           this.openDialog(stepName);
       }else{
         if(stepName === "studyRoom"){
+          let roomProps = this.$store.getters.getStudyRoomData;
+          let isRoomNeedPayment = roomProps.needPayment;
+          let isStudent = !roomProps.isTutor
+
+          if(isRoomNeedPayment && isStudent){
+            let params = {title: 'payme_title', name: roomProps.tutorName}
+            this.$store.dispatch('requestPaymentURL', params);
+          }
           this.$router.push({name:'tutoring', params:{id:this.id}})
         }else{
           this.reOrderStepHistory(this.currentPageIndex+1);

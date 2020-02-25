@@ -31,6 +31,9 @@ import dashboard_Store from './dashboard_Store.js'
 import feed from './feedStore.js'
 import profile from './profile.js';
 
+import tutoringMain from './studyRoomStore/tutoringMain.js';
+import studyroomSettings_store from './studyRoomStore/studyroomSettings_store.js';
+import maor_studyRoomStore from './studyRoomStore/maor_studyRoomStore.js'
 
 
 // const onModuleAValueChange= (store) => {
@@ -97,6 +100,10 @@ const store = new Vuex.Store({
         banner_Store,
         dashboard_Store,
         profile,
+
+        tutoringMain,
+        studyroomSettings_store,
+        maor_studyRoomStore,
     },
    // plugins: [onModuleAValueChange]
 });

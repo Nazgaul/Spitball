@@ -46,6 +46,10 @@ export const EditUniversity = 'addUniversity';
 // Study Room:
 export const StudyRoom = 'tutoring';
 
+// Study Room Settings:
+export const StudyRoomSettings = 'roomSettings';
+
+
 // Document:
 export const Document = 'document';
 
@@ -57,3 +61,4 @@ export const HomePage = 'landingPage';
 
 // Tutor List:
 export const TutorList = 'tutorLandingPage';
+

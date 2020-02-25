@@ -207,13 +207,14 @@ const actions = {
         //update leaveReview store, to prevent leaving of multiple reviews
         dispatch('updateAllowReview',  val.allowReview);
         commit('setStudyRoomProps', val);
-        if(!val.isTutor && val.needPayment){
-            setTimeout(()=>{
-                console.warn('DEBUG: 7.1 store: !val.isTutor && val.needPayment')
 
-                videoStreamService.enterRoom();
-            }, 500);
-        }
+        // if(!val.isTutor && val.needPayment){
+        //     setTimeout(()=>{
+        //         console.warn('DEBUG: 7.1 store: !val.isTutor && val.needPayment')
+
+        //         videoStreamService.enterRoom();
+        //     }, 500);
+        // }
     },
     updateTestDialogState({commit}, val) {
         commit('setqualityDialogState', val);
@@ -451,6 +452,7 @@ const actions = {
             // dispatch("updateTutorStartDialog", true);
         }else{
             dispatch("updatePaymentDialogState", false);
+            dispatch('maor_goStudyRoom')
             dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
         }
     },
