@@ -27,7 +27,7 @@ export const marketingRoutes = [
                         path: '',
                         name: routeName.MarketingPromote,
                         components: {
-                            default: () => import('../components/pages/marketing/marketingActions/marketingActions.vue'),
+                            // default: () => import('../components/pages/marketing/marketingActions/marketingActions.vue'),
                             stepper: () => import('../components/pages/marketing/promote/promoteStteper.vue')
                         }
                     }

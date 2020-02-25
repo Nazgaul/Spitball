@@ -3,30 +3,35 @@
         <router-link :to="{name: routeNames.Marketing}" class="d-block text-right pa-2">
           <v-icon size="12" color="#adadba">sbf-close</v-icon>
         </router-link>
-        <v-alert type="error" v-show="error">
-            {{$t('promote_table_error')}}
-        </v-alert>
+
         <v-stepper-header class="elevation-0">
             <v-stepper-step class="stepStteper pl-8" :class="[step === 1 ? 'active' : 'noActive']" step="1">
+              {{$t('promote_choose')}} {{$t('promote_your_content')}}
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+
+            <v-stepper-step class="stepStteper pl-8" :class="[step === 2 ? 'active' : 'noActive']" step="2">
                 {{$t('promote_choose')}} {{$t('promote_your_content')}}
             </v-stepper-step>
 
             <v-divider></v-divider>
 
-            <v-stepper-step class="stepStteper" :class="[step === 2 ? 'active' : 'noActive']" step="2">
+            <v-stepper-step class="stepStteper" :class="[step === 3 ? 'active' : 'noActive']" step="3">
                 {{$t('promote_choose')}} {{$t('promote_template')}}
             </v-stepper-step>
             <v-divider></v-divider>
 
-            <v-stepper-step class="stepStteper pr-6" :class="[step === 3 ? 'active' : 'noActive']" step="3">
+            <v-stepper-step class="stepStteper pr-6" :class="[step === 4 ? 'active' : 'noActive']" step="4">
                 {{$t('promote_publish')}}
             </v-stepper-step>
         </v-stepper-header>
 
         <div class="mobileLabels px-4 mt-n3 text-center d-md-none d-flex justify-space-between">
             <div class="label1 fontLabel"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
-            <div class="label2 fontLabel mr-4"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_template')}}</div>
-            <div class="label3 fontLabel">{{$t('promote_publish')}}</div>
+            <div class="label2 fontLabel"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
+            <div class="label3 fontLabel mr-4"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_template')}}</div>
+            <div class="label4 fontLabel">{{$t('promote_publish')}}</div>
         </div>
 
         <v-stepper-items>
@@ -36,12 +41,16 @@
                   :template="template"
                   :video="video"
                   :dataType="dataType"
+                  :resource="resource"
                   @selectedTemplate="selectedTemplate"
                   @selectedVideo="selectedVideo"
                   ref="childComponent">
                 </component>
                 <div class="text-right">
-                  <v-btn class="white--text mt-10" width="120" v-if="step !== 2" @click="nextStep" color="#4452fc" rounded>{{$t('promote_btn_next')}}</v-btn>
+                  <v-alert type="error" v-show="error">
+                    {{$t('promote_table_error')}}
+                  </v-alert>
+                  <v-btn class="white--text mt-10" width="120" v-if="step !== 1 && step !== 3" @click="nextStep" color="#4452fc" rounded>{{$t('promote_btn_next')}}</v-btn>
                 </div>
             </v-stepper-content>
         </v-stepper-items>
@@ -51,37 +60,62 @@
 <script>
 import * as routeNames from '../../../../routes/routeNames';
 
+const marketingActions = () => import('../marketingActions/marketingActions.vue');
 const promoteTable = () => import('./promoteTable.vue');
 const promoteTemplate = () => import('./promoteTemplate.vue');
 const promotePublish = () => import('./promotePublish.vue');
 
 export default {
-  name: "",
   components: {
+    marketingActions,
     promoteTable,
     promoteTemplate,
     promotePublish
   },
   data() {
     return {
+      resource: {
+        box1: {
+            title1: this.$t('promote_sharePost_title1'),
+            title2: this.$t('promote_sharePost_title2'),
+            image: require('../images/promoteProfile.png'),
+            buttonText: this.$t('promote_lets_go'),
+            action: this.promoteProfile
+        },
+        box2: {
+            title1: this.$t('promote_createOffer_title1'),
+            title2: this.$t('promote_createOffer_title2'),
+            image: require('../images/promoteVideo.png'),
+            buttonText: this.$t('promote_lets_go'),
+            action: this.promoteVideos
+        },
+        box3: {
+            title1: this.$t('promote_createVideo_title1'),
+            title2: this.$t('promote_createVideo_title2'),
+            image: require('../images/promoteContent.png'),
+            buttonText: this.$t('promote_lets_go'),
+            action: this.promoteDocuments
+        }
+      },
       routeNames,
       dataType: '',
       step: 1,
       error: false,
       template: null,
       video: null,
-      stepComponent: 'promoteTable',
+      stepComponent: 'marketingActions',
       stepComponents: {
-        step1: 'promoteTable',
-        step2: 'promoteTemplate',
-        step3: 'promotePublish',
+        step1: 'marketingActions',
+        step2: 'promoteTable',
+        step3: 'promoteTemplate',
+        step4: 'promotePublish',
       }
     }
   },
   methods: {
     nextStep() {
       let ref = this.$refs.childComponent;
-      if(ref.selected) {
+      if(ref.selected || this.step === 1) {
         this.step += 1;
         this.stepComponent = this.stepComponents[`step${this.step}`]
         return;
@@ -91,13 +125,24 @@ export default {
     selectedVideo(video) {
       this.dataType = 'video';
       this.video = video;
-      this.error = false
+      this.error = false;
     },
     selectedTemplate(template) {
       this.template = template;
       this.dataType = 'document';
       this.nextStep()
-    }
+    },
+    promoteProfile() {
+      //
+    },
+    promoteVideos () {
+      this.dataType = 'videos';
+      this.nextStep()
+    },
+    promoteDocuments() {
+      this.dataType = 'documents';
+      this.nextStep()
+    },
   },
 }
 </script>
@@ -118,12 +163,12 @@ export default {
       padding: 24px 30px;
     }
     .v-stepper__step__step {
-      width: 30px;
-      height: 30px;
-      font-size: 16px;
+      width: 26px;
+      height: 26px;
+      font-size: 14px;
       background: linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
       background: -webkit-linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
-
+      padding-bottom: 2px;
     }
     .v-stepper__label {
       color: @global-purple !important;
