@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Models;
+using Cloudents.Core.Query;
 using Cloudents.Web.Binders;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,15 @@ namespace Cloudents.Web.Api
             [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
             CancellationToken token)
         {
-            return await _blogProvider.GetBlogAsync(profile.Country, token);
+            return await _blogProvider.GetBlogAsync(BlogQuery.Blog(profile.Country),  token);
+        }
+
+        [HttpGet("marketing")]
+        public async Task<IEnumerable<DashboardBlogDto>> GetMarketingAsync(
+            [ProfileModelBinder(ProfileServiceQuery.Country)] UserProfile profile,
+            CancellationToken token)
+        {
+            return await _blogProvider.GetBlogAsync(BlogQuery.Marketing(profile.Country), token);
         }
     }
 }

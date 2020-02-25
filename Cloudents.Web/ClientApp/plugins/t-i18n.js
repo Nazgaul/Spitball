@@ -48,6 +48,9 @@ const dateTimeFormats = {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
+    tableDate: {
+      month: 'short', day: 'numeric'
+    },
     justDay: {
       weekday:'short'
     },
@@ -62,10 +65,16 @@ const dateTimeFormats = {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
+    tableDate: {
+      month: 'short', day: 'numeric'
+    }
   },
   'he-IL': {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
+    },
+    tableDate: {
+      month: 'short', day: 'numeric'
     },
     calendarDesktop: {
       weekday:'short'
@@ -78,14 +87,16 @@ const dateTimeFormats = {
     short: {
       year: 'numeric', month: 'short', day: 'numeric'
     },
+    tableDate: {
+      month: 'short', day: 'numeric'
+    }
   }
 }
-
 
 export const i18n =  new VueI18n({
   locale:  lang,
   fallbackLocale: 'en',
-  messages : {},
+  messages:{},
   numberFormats,
   dateTimeFormats
   //messages: loadLocaleMessages()
