@@ -129,11 +129,17 @@
   <data name="coming_soon" xml:space="preserve">
     <value>בקרוב</value>
   </data>
+  <data name="coupon_type_flat" xml:space="preserve">
+    <value>הנחה קבועה</value>
+  </data>
+  <data name="coupon_type_percentage" xml:space="preserve">
+    <value>הנחה כאחוז מהמחיר</value>
+  </data>
   <data name="createOffer_title1" xml:space="preserve">
     <value>צרו הטבות מיוחדות</value>
   </data>
   <data name="createOffer_title2" xml:space="preserve">
-    <value>צרו קופונים לקהל התלמידים שלך</value>
+    <value>צרו קופונים לקהל התלמידים שלכם</value>
   </data>
   <data name="createVideo_title1" xml:space="preserve">
     <value>צרו סרטי וידיאו מקצוענים</value>
@@ -145,25 +151,25 @@
     <value>התחל</value>
   </data>
   <data name="lets_go" xml:space="preserve">
-    <value>Let’s go</value>
+    <value>בואו נתחיל</value>
   </data>
   <data name="see_all" xml:space="preserve">
-    <value>See all</value>
+    <value>ראו הכל</value>
   </data>
   <data name="sharePost_title1" xml:space="preserve">
     <value>צרו שיתוף לרשתות החברתיות</value>
   </data>
   <data name="sharePost_title2" xml:space="preserve">
-    <value>תבלטו מעל כולם בפייסבוק, אינסטגרם, ווטסאפ, אימייל ועוד</value>
+    <value>תבלטו מעל כולם בפייסבוק, אינסטגרם ועוד</value>
   </data>
   <data name="tableCoupon_amount" xml:space="preserve">
-    <value>כמות משתמשים</value>
+    <value>משתמשים</value>
   </data>
   <data name="tableCoupon_code" xml:space="preserve">
     <value>קוד קופון</value>
   </data>
   <data name="tableCoupon_created" xml:space="preserve">
-    <value>תאריך יצירה</value>
+    <value>תאריך</value>
   </data>
   <data name="tableCoupon_expired" xml:space="preserve">
     <value>תאריך תפוגה</value>
@@ -172,10 +178,10 @@
     <value>עדיין לא נוצרו קופונים</value>
   </data>
   <data name="tableCoupon_title" xml:space="preserve">
-    <value>Coupon history</value>
+    <value>קופונים שנוצרו</value>
   </data>
   <data name="tableCoupon_type" xml:space="preserve">
-    <value>סוג קופון</value>
+    <value>סוג</value>
   </data>
   <data name="tableCoupon_value" xml:space="preserve">
     <value>שווי</value>

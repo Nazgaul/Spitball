@@ -2,7 +2,7 @@
     <v-row class="spitballTips" dense>
         <v-col cols="12" class="pa-0 mb-4 d-flex justify-space-between">
             <div class="tipTitle">{{$t('dashboardTeacher_spitball_tips')}}</div>
-            <a class="seeAll" href="https://www.blog.spitball.co/blog-1/categories/english" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
+            <a class="seeAll" :href="blogsLink" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
         </v-col>
         <template v-if="tips.length">
             <v-col class="tipsList d-flex pa-0" cols="4" v-for="(tip, index) in tips" :key="index">
@@ -38,6 +38,11 @@ export default {
   data: () => ({
     tips: []
   }),
+  computed: {
+    blogsLink() {
+      return global.country === "IL" ? 'https://www.blog.spitball.co/blog/categories/hebrew' : 'https://www.blog.spitball.co/blog/categories/english';
+    }
+  },
   methods: {
     getSpitballBlogs() {
       let self = this;
@@ -91,6 +96,7 @@ export default {
         padding: 8px 10px;
         .text {
           color: @global-purple;
+          min-height: 36px;
           font-size: 13px;
           font-weight: 600;
           .giveMeEllipsis(2, 18);

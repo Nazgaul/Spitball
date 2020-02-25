@@ -48,6 +48,9 @@ export default {
       return user && user.isTutor;
     },
     showBanner() {
+      if(this.$store.getters.isFrymo) {
+        return './images/banner-in';
+      }
       return global.lang !== 'he' ? './images/group-16' : './images/banner-he';
     }
   },

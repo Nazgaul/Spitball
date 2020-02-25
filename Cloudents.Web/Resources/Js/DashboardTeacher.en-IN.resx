@@ -117,35 +117,47 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="blog_text1" xml:space="preserve">
-    <value>Why marketing through social media is a must</value>
+  <data name="30days" xml:space="preserve">
+    <value>Last 30 days</value>
   </data>
-  <data name="blog_text2" xml:space="preserve">
-    <value>10 Reasons Why Marketing Through Social Media is a Must For Every Small Business</value>
+  <data name="7days" xml:space="preserve">
+    <value>Last 7 days</value>
   </data>
-  <data name="blog_title" xml:space="preserve">
-    <value>Tips from our blog</value>
+  <data name="90days" xml:space="preserve">
+    <value>Last 90 days</value>
+  </data>
+  <data name="analytic_title" xml:space="preserve">
+    <value>Your Analytics Overview</value>
+  </data>
+  <data name="answer_title" xml:space="preserve">
+    <value>Answer student questions</value>
+  </data>
+  <data name="book_btn" xml:space="preserve">
+    <value>Book</value>
+  </data>
+  <data name="book_session" xml:space="preserve">
+    <value>Book an onbording session</value>
   </data>
   <data name="coming_soon" xml:space="preserve">
     <value>Coming soon</value>
   </data>
-  <data name="coupon_type_flat" xml:space="preserve">
-    <value>Flat discount</value>
+  <data name="connect_btn" xml:space="preserve">
+    <value>Connect</value>
   </data>
-  <data name="coupon_type_percentage" xml:space="preserve">
-    <value>Percentage</value>
+  <data name="connect_calendar" xml:space="preserve">
+    <value>Connect your calendar</value>
   </data>
-  <data name="createOffer_title1" xml:space="preserve">
-    <value>Create special offers</value>
+  <data name="costume_coupon" xml:space="preserve">
+    <value>Create your own custom coupon</value>
   </data>
-  <data name="createOffer_title2" xml:space="preserve">
-    <value>Create custom coupons and promotions</value>
+  <data name="create_coupon" xml:space="preserve">
+    <value>Create a coupon</value>
   </data>
-  <data name="createVideo_title1" xml:space="preserve">
-    <value>Create a profesional video</value>
+  <data name="earn_money" xml:space="preserve">
+    <value>Earn money by selling education content</value>
   </data>
-  <data name="createVideo_title2" xml:space="preserve">
-    <value>We'll help you make a great impression</value>
+  <data name="followers" xml:space="preserve">
+    <value>Followers</value>
   </data>
   <data name="get_started" xml:space="preserve">
     <value>Get started</value>
@@ -153,47 +165,46 @@
   <data name="lets_go" xml:space="preserve">
     <value>Let’s go</value>
   </data>
+  <data name="marketing_title" xml:space="preserve">
+    <value>Marketing Tools</value>
+  </data>
+  <data name="no_task" xml:space="preserve">
+    <value>You’re all cought up</value>
+  </data>
+  <data name="revenue" xml:space="preserve">
+    <value>Revenue</value>
+  </data>
+  <data name="sales" xml:space="preserve">
+    <value>Sales</value>
+  </data>
   <data name="see_all" xml:space="preserve">
     <value>See all</value>
   </data>
-  <data name="sharePost_title1" xml:space="preserve">
+  <data name="share_post" xml:space="preserve">
     <value>Share a social post</value>
   </data>
-  <data name="sharePost_title2" xml:space="preserve">
+  <data name="spitball_tips" xml:space="preserve">
+    <value>Tips from Frymo blog</value>
+  </data>
+  <data name="stand_out" xml:space="preserve">
     <value>Stand out on Facebook &amp; Instagram</value>
   </data>
-  <data name="tableCoupon_amount" xml:space="preserve">
-    <value>Users</value>
+  <data name="task_completed" xml:space="preserve">
+    <value>Task completed</value>
   </data>
-  <data name="tableCoupon_code" xml:space="preserve">
-    <value>Code</value>
+  <data name="upload" xml:space="preserve">
+    <value>Upload</value>
   </data>
-  <data name="tableCoupon_created" xml:space="preserve">
-    <value>Created</value>
+  <data name="upload_content" xml:space="preserve">
+    <value>Upload content</value>
   </data>
-  <data name="tableCoupon_expired" xml:space="preserve">
-    <value>Expired</value>
+  <data name="views" xml:space="preserve">
+    <value>Views</value>
   </data>
-  <data name="tableCoupon_noCoupons" xml:space="preserve">
-    <value>No coupons created yet</value>
+  <data name="works_btn" xml:space="preserve">
+    <value>Update</value>
   </data>
-  <data name="tableCoupon_title" xml:space="preserve">
-    <value>Coupon history</value>
-  </data>
-  <data name="tableCoupon_type" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="tableCoupon_value" xml:space="preserve">
-    <value>Value</value>
-  </data>
-  <data name="title" xml:space="preserve">
-    <value>Marketing Tools</value>
-  </data>
-  <data name="tools_title1" xml:space="preserve">
-    <value>Use our marketing tools to
-boost your business</value>
-  </data>
-  <data name="tools_title2" xml:space="preserve">
-    <value>Check out our marketing tools and skip the guesswork</value>
+  <data name="work_hours" xml:space="preserve">
+    <value>Set your work hours</value>
   </data>
 </root>
