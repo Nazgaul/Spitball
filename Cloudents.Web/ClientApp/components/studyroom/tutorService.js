@@ -46,7 +46,6 @@ const detachParticipantTracks = function (participant) {
 
 const printNetworkQuality = function (networkQualityLevel,networkQualityStats) {
     insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_networkQuality',networkQualityStats, networkQualityLevel);
-    store.dispatch('updateLocalParticipantsNetworkQuality', networkQualityLevel);
     console.log({
         1: '▃',
         2: '▃▄',
@@ -74,27 +73,14 @@ const connectToRoom = function (token, options) {
             insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioConnect', room, null);
             store.dispatch('updateRoomInstance', room);
             console.log('Successfully joined a Room: ', room);
-            store.dispatch('updateRoomLoading', false);
-            //update room status in store of chat to use for show/hide shareBtn
-            store.dispatch('updateRoomStatus', true);
             let localIdentity = room.localParticipant && room.localParticipant.identity ? room.localParticipant.identity : '';
             store.dispatch('updateUserIdentity', localIdentity);
-            store.dispatch('updateLocalStatus', false);
             //set local participant in store
             store.dispatch('updateLocalParticipant', room.localParticipant);
 
             // Print the initial Network Quality Level
-            // printNetworkQuality(store.getters['localParticipant'].networkQualityLevel);
-            let toasterParams = {};
-            if (store.getters['getStudyRoomData'].isTutor) {
-                console.warn('DEBUG: 28.1 tutorService: istutor')
-
-                toasterParams.text = LanguageService.getValueByKey('studyRoom_waiting_for_student_toaster');
-                toasterParams.timeout = 3600000;
-                store.dispatch('showRoomToasterMessage', toasterParams);
-            } else {
+            if (!store.getters['getStudyRoomData'].isTutor) {
                 console.warn('DEBUG: 28.2 tutorService: !istutor')
-
                 store.dispatch('hideRoomToasterMessage');
             }
 
@@ -117,27 +103,16 @@ const connectToRoom = function (token, options) {
                     }
                 }           
             
-            //  else if (store.getters['getTutorStartDialog']) {
-            //     store.dispatch('updateTutorStartDialog', false);
-            // }
             
             //event of network quality change
             store.getters['localParticipant'].on('networkQualityLevelChanged', printNetworkQuality);
             
             // Attach the Tracks of all the remote Participants.
             store.getters['activeRoom'].participants.forEach((participant) => {
-                
                 let previewContainer = document.getElementById('remoteTrack');
                 console.warn('DEBUG: 34 : tutorService attachParticipantTracks before ')
                 attachParticipantTracks(participant, previewContainer);
                 console.warn('DEBUG: 34 : tutorService attachParticipantTracks after ')
-
-                console.warn('DEBUG: 32 : tutorService updateRemoteStatus,false before ')
-
-                store.dispatch('updateRemoteStatus', false);
-                console.warn('DEBUG: 33 : tutorService updateRemoteStatus,false after ')
-
-
             });
             //disconnected room
             store.getters['activeRoom'].on('disconnected', (room, error) => {
@@ -174,17 +149,10 @@ const connectToRoom = function (token, options) {
                 }
                 //stop recording when disconnecting
                 studyRoomRecordingService.stopRecord();
-
-                let toasterParams = {
-                    text: LanguageService.getValueByKey('studyRoom_session_ended'),
-                    type: 'error-toaster'
-                };
-                store.dispatch('showRoomToasterMessage', toasterParams);
                 store.dispatch('updateEndDialog', false);
                 //detach all local tracks to prevent multiple added tracks
                 store.getters['activeRoom'].localParticipant.tracks.forEach(function (track) {
                     detachTracks([track]);
-                    // track.stop()
                 });
 
             });
@@ -196,15 +164,6 @@ const connectToRoom = function (token, options) {
                 console.log("ROOM - RECONNECTING");
             });
             
-            // //reconnected room
-            // store.getters['activeRoom'].on('reconnected', () => {
-            //     console.warn('DEBUG: 28.8 tutorService: reconnected room')
-
-            //     insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_tutorService_TwilioReconnected', null, null);
-            //     console.log("ROOM - RECONNECTED");
-            //     /* Update the application UI here */
-            // });
-
             // Attach the Participant's Media to a <div> element.
             store.getters['activeRoom'].on('participantConnected', participant => {
                 console.warn('DEBUG: 28.9 tutorService: Attach the Participant Media to a <div> element.')
@@ -215,12 +174,7 @@ const connectToRoom = function (token, options) {
                 console.warn('DEBUG: 36 : tutorService updateCurrentRoomState before ')
                 store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.active);
                 console.warn('DEBUG: 37 : tutorService updateCurrentRoomState after ')
-                
-                console.warn('DEBUG: 38 : tutorService (updateRemoteStatus, false) before ')
-
-                store.dispatch('updateRemoteStatus', false);
-                console.warn('DEBUG: 39 : tutorService (updateRemoteStatus, false) after ')
-
+        
                 if (store.getters['getStudyRoomData'].isTutor) {
                     console.warn('DEBUG: 40 : tutorService store.getters[getStudyRoomData].isTutor')
                     store.dispatch('hideRoomToasterMessage');
@@ -280,7 +234,6 @@ const connectToRoom = function (token, options) {
                         container: previewContainer
                     };
                     store.dispatch('updateRemoteTrack', updateObj);
-                    // attachTracks([track], previewContainer);
                 }
 
                 console.log('track attached', " added track: " + track.kind, track);
@@ -302,17 +255,7 @@ const connectToRoom = function (token, options) {
                 let localIdentity = store.getters['userIdentity'];
                 console.log("Participant '" + participant.identity + "' left the room");
 
-                if (participant.identity === localIdentity) {
-                    console.warn('DEBUG: 41.1 : tutorService participant.identity === localIdentity before')
-                    store.dispatch('updateLocalStatus', true);
-                    console.warn('DEBUG: 41.2 : tutorService participant.identity === localIdentity after')
-
-                } else {
-                    console.warn('DEBUG: 41.3 : tutorService participant.identity === localIdentity before')
-                    store.dispatch('updateRemoteStatus', true);
-                    console.warn('DEBUG: 41.4 : tutorService updateRemoteStatus,true after')
-                    // endTutoringSession(store.getters['getRoomId']);
-                    
+                if (participant.identity !== localIdentity) {
                     console.warn('DEBUG: 41.5 : tutorService setSesionClickedOnce,false before')
                     store.dispatch('setSesionClickedOnce', false);
                     console.warn('DEBUG: 41.6 : tutorService setSesionClickedOnce,false after')
@@ -327,10 +270,8 @@ const connectToRoom = function (token, options) {
                         store.dispatch('updateTutorStartDialog', true);
                         console.warn('DEBUG: 41.9.1 : tutorService updateTutorStartDialog,true after')
 
-                        // store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.ready);
                     } else {
                         store.dispatch("setStudentDialogState", store.state.tutoringMain.startSessionDialogStateEnum.disconnected);
-                        // store.dispatch('updateCurrentRoomState', store.state.tutoringMain.roomStateEnum.pending);
                     }
                 }
                 detachParticipantTracks(participant);
@@ -382,9 +323,6 @@ function RoomProps(objInit) {
     this.roomId = objInit.roomId || '';
 }
 
-const createRoomProps = function (objInit) {
-    return new RoomProps(objInit);
-};
 
 function DevicesObject(){
     this.hasAudio= false,
@@ -400,8 +338,6 @@ function createDevicesObj(){
 }
 
 const validateUserMedia = async function() {
-    // let self = this;
-    // let devices = await navigator.mediaDevices.enumerateDevices();
     let devicesObj = store.getters['getDevicesObj'];
     await navigator.mediaDevices.getUserMedia({ video: true }).then((y) => {
         console.log(y);
@@ -430,15 +366,9 @@ const validateUserMedia = async function() {
     });
 };
 
-function uploadRecording(formData, roomId){
-   return connectivityModule.http.post(`StudyRoom/${roomId}/Video`, formData);
-}
 
 function isRecordingSupported(){
-    // return true;
      return store.getters.getStudyRoomData ? !store.getters.getStudyRoomData.isTutor : true;
-    
-    // return ((navigator.userAgent.toLowerCase().indexOf('chrome') > -1) &&(navigator.vendor.toLowerCase().indexOf("google") > -1));
 }
 
 export default {
@@ -449,10 +379,8 @@ export default {
     connectToRoom,
     getRoomInformation,
     enterRoom,
-    createRoomProps,
     endTutoringSession,
     validateUserMedia,
     createDevicesObj,
-    uploadRecording,
     isRecordingSupported
 };

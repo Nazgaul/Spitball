@@ -258,7 +258,6 @@ import shareScreenBtn from "./tutorHelpers/shareScreenBtn.vue";
 import logoComponent from '../app/logo/logo.vue';
 import testIcon from "./images/eq-system.svg";
 import chatIcon from "../../font-icon/message-icon.svg";
-import networkLevel from "./tutorHelpers/networkLevel.vue";
 import noSupportTop from "./images/not_supported_top.svg";
 import noSupportBottom from "./images/not_supported_bottom.svg";
 import tutorService from "./tutorService";
@@ -306,7 +305,6 @@ export default {
     logoComponent,
     testIcon,
     chatIcon,
-    networkLevel,
     sbDialog,
     leaveReview,
     noSupportTop,
@@ -331,9 +329,6 @@ export default {
   data() {
     return {      
       activeNavItem: "white-board",
-      showSupportBrowser: false,
-      showQualityDialog: false,
-      showContent: false,
       navs: [
         {
           name: LanguageService.getValueByKey("tutor_nav_canvas"),
@@ -372,9 +367,6 @@ export default {
   computed: {
     ...mapGetters([
       "getStudyRoomSettingsDialog",
-      // "qualityDialog",
-      "localNetworkQuality",
-      "isRoomCreated",
       "getZoom",
       "getPanX",
       "getPanY",
@@ -388,8 +380,6 @@ export default {
       "getStudyRoomData",
       "releaseFullVideoButton",
       "getActiveNavIndicator",
-      "getRecorder",
-      "getRecorderStream",
       "getIsRecording",
       "getShowAudioRecordingError",
       "getVisitedSettingPage",
@@ -439,7 +429,6 @@ watch: {
     }
   }
 },
-
   methods: {
     ...mapActions([
       "setStudyRoomSettingsDialog",
@@ -449,7 +438,6 @@ watch: {
       "updateStudyRoomProps",
       "updateReviewDialog",
       "updateReview",
-      "submitReview",
       "updateTutorStartDialog",
       "updateStudentStartDialog",
       "closeChat",
@@ -457,9 +445,6 @@ watch: {
       "updateEndDialog",
       "setBrowserSupportDialog",
       "setRoomId",
-      "setVideoDevice",
-      "setAudioDevice",
-      "initLocalMediaTracks",
       "setShowAudioRecordingError",
       "hideRoomToasterMessage",
       "setShowUserConsentDialog",
@@ -478,7 +463,6 @@ watch: {
         }
       }
     },
-    // ...mapGetters(['getDevicesObj']),
     closeFullScreen(){
       if(!document.fullscreenElement || !document.webkitFullscreenElement || document.mozFullScreenElement){
        this.selectViewOption(this.enumViewOptions.videoChat)
@@ -514,12 +498,10 @@ watch: {
       };
       let normalizedData = JSON.stringify(transferDataObj);
       tutorService.dataTrack.send(normalizedData);
-      // {{singleNav.value}}
       console.log(this.activeItem);
     },
     changeSettingsDialogState(val) {
       this.setStudyRoomSettingsDialog(val);
-      // this.updateTestDialogState(val);
     },
     
     selectViewOption(param) {
@@ -578,52 +560,8 @@ watch: {
         self.lockChat();
       });
     },
-    // closeWin() {
-    //   global.close();
-    // },
     closeBrowserSupportDialog(){ 
       this.setBrowserSupportDialog(false);
-    },
-    async initDevicesToStore(){
-        let availableDevices = [];
-        if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-            console.log("enumerateDevices() not supported.");
-            return;
-        }
-
-        // List cameras and microphones.
-        let devices = await navigator.mediaDevices.enumerateDevices();
-        devices.forEach(function (device) {
-            console.log(device.kind + ": " + device.label +
-                " id = " + device.deviceId);
-            availableDevices.push(device.kind);
-        });
-        //create local track with custom names
-        let audioTrackName = `audio_${this.isTutor ? 'tutor' : 'student'}_${this.accountUser.id}`;
-        let videoTrackName = `video_${this.isTutor ? 'tutor' : 'student'}_${this.accountUser.id}`;
-        let audioSetObj = {
-            audio: availableDevices.includes('audioinput'),
-            name: audioTrackName
-        };
-        let videoSetObj = {
-            video: availableDevices.includes('videoinput'),
-            name: videoTrackName
-        };
-        let constraint = {
-            video: videoSetObj.video ? true : false, 
-            audio: audioSetObj.audio ? true : false
-        }
-        let ready = await navigator.mediaDevices.getUserMedia(constraint).then(() => {
-            let audioDevice = audioSetObj.audio ? audioSetObj : false;
-            let videoDevice = videoSetObj.video ? videoSetObj : false;
-            this.setVideoDevice(videoDevice);
-            this.setAudioDevice(audioDevice);
-            return true;
-        }, ()=>{
-          return false;
-        })
-
-        return ready;
     },
     resetItems(){
       let isExit = confirm(LanguageService.getValueByKey("login_are_you_sure_you_want_to_exit"),)
@@ -679,9 +617,7 @@ watch: {
     storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
-  async created() {
-    // let ready = this.initDevicesToStore();
-    
+  async created() {    
     if (!studyroomSettingsUtils.isBrowserSupport()) {
       this.$nextTick(()=>{
         this.setBrowserSupportDialog(true)
@@ -736,7 +672,6 @@ watch: {
           callback(output);
         });
       };
-      //MathJax.Message.Log()
     });
     console.log("ID Tutor!!", this.id);
     global.onbeforeunload = function() {     

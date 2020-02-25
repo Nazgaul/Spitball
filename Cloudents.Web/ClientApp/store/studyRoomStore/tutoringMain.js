@@ -4,18 +4,10 @@ import tutorService from '../../components/studyroom/tutorService';
 
 
 const state = {
-    isRoomFull: false,
     identity: '',
-    isRoom: false,
     roomId: '',
     currentActiveRoom: null,
     localParticipant: null,
-    localParticipantsNetworkQuality: null,
-    isLocalOffline: true,
-    isRemoteOffline: true,
-    isRoomLoading: false,
-    isFirepadLoadedOnce: false,
-    qualityDialogVisibility: false,
     browserSupportDialog: false,
     studyRoomData: null,
     roomStateEnum: {
@@ -33,7 +25,6 @@ const state = {
     tutorDialogState:'start',
     studentDialogState:'waiting',
     sessionStartClickedOnce: false,
-    sessionEndClicked: false,
     currentRoomState: "pending",
     jwtToken: null,
     studentStartDialog: false,
@@ -49,17 +40,9 @@ const state = {
     snapshotDialog: false,    
 };
 const getters = {
-    getIsRoomFull: state => state.isRoomFull,
     activeRoom: state => state.currentActiveRoom,
-    localOffline: state => state.isLocalOffline,
-    localNetworkQuality: state => state.localParticipantsNetworkQuality,
     localParticipant: state => state.localParticipant,
-    remoteOffline: state => state.isRemoteOffline,
     userIdentity: state => state.identity,
-    isRoomCreated: state => state.isRoom,
-    roomLoading: state => state.isRoomLoading,
-    firepadLoadedOnce: state => state.isFirepadLoadedOnce,
-    qualityDialog: state => state.qualityDialogVisibility,
     getCurrentRoomState: state => state.currentRoomState,
     getStudyRoomData: state => state.studyRoomData,
     getJwtToken: state => state.jwtToken,
@@ -68,7 +51,6 @@ const getters = {
     getTutorStartDialog: state => state.tutorStartDialog,
     getSessionStartClickedOnce: state => state.sessionStartClickedOnce,
     getEndDialog: state => state.endDialog,
-    getSessionEndClicked: state => state.sessionEndClicked,
     getBrowserSupportDialog: state => state.browserSupportDialog,
     getStudyRoomSettingsDialog: state => state.settingsDialogState,
     showDeviceValidationError: state => state.deviceValidationError,
@@ -83,17 +65,11 @@ const getters = {
 };
 
 const mutations = {
-    setIsRoomFull(state,val){
-        state.isRoomFull = val;
-    },
     setEndDialog(state, val) {
         state.endDialog = val;
     },
     updateSessionClickedOnce(state, val) {
         state.sessionStartClickedOnce = val;
-    },
-    updateSessionEndClicked(state, val) {
-        state.sessionEndClicked = val;
     },
     setStudentStartDialog(state, val) {
         state.studentStartDialog = val;
@@ -107,12 +83,6 @@ const mutations = {
     setlocalParticipantObj(state, val) {
         state.localParticipant = val;
     },
-    setNetworkQuality(state, val) {
-        state.localParticipantsNetworkQuality = val;
-    },
-    setRoomStatus(state, val) {
-        state.isRoom = val;
-    },
     setUserIdentity(state, val) {
         state.identity = val;
     },
@@ -123,21 +93,6 @@ const mutations = {
     },
     setRoomInstance(state, data) {
         state.currentActiveRoom = data;
-    },
-    setLocalStatus(state, val) {
-        state.isLocalOffline = val;
-    },
-    setRemoteStatus(state, val) {
-        state.isRemoteOffline = val;
-    },
-    setRoomLoading(state, val) {
-        state.isRoomLoading = val;
-    },
-    changeFirepadLoaded(state, val) {
-        state.isFirepadLoadedOnce = val;
-    },
-    setqualityDialogState(state, val) {
-        state.qualityDialogVisibility = val;
     },
     setCurrentRoomState(state, val) {
         if(!!state.roomStateEnum[val]) {
@@ -191,37 +146,13 @@ const actions = {
         console.warn('DEBUG: 5 store: setSesionClickedOnce VAL:',val)
         commit('updateSessionClickedOnce', val);
     },
-    setSesionEndClicked({commit}, val) {
-        console.warn('DEBUG: 6 store: setSesionEndClicked')
-        commit('updateSessionEndClicked', val);
-    },
-    setAvaliableDevicesStatus({commit}, val) {
-        commit('updateAvaliableDevices', val);
-    },
-    setAllowedDevicesStatus({commit}, val) {
-        commit('updateAllowedDevices', val);
-    },
     updateStudyRoomProps({dispatch,commit}, val) {
         console.warn('DEBUG: 7 store: updateStudyRoomProps')
         dispatch('updateAllowReview',  val.allowReview);
         commit('setStudyRoomProps', val);
     },
-    updateTestDialogState({commit}, val) {
-        commit('setqualityDialogState', val);
-    },
     updateLocalParticipant({commit}, val) {
         commit('setlocalParticipantObj', val);
-    },
-    updateLocalParticipantsNetworkQuality({commit}, val) {
-        commit('setNetworkQuality', val);
-    },
-    updateCodeLoadedOnce({commit}, val) {
-        commit('changeFirepadLoaded', val);
-    },
-    updateRoomLoading({commit}, val) {
-        console.warn('DEBUG: 8 store: updateRoomLoading')
-
-        commit('setRoomLoading', val);
     },
     leaveRoomIfJoined({commit}) {
         console.warn('DEBUG: 9 store: leaveRoomIfJoined')
@@ -230,19 +161,6 @@ const actions = {
     },
     updateRoomInstance({commit}, data) {
         commit('setRoomInstance', data);
-    },
-    updateLocalStatus({commit}, val) {
-        console.warn('DEBUG: 10 store: updateLocalStatus')
-        commit('setLocalStatus', val);
-    },
-    updateRemoteStatus({commit}, val) {
-        console.warn('DEBUG: 11 store: updateRemoteStatus, VAL:',val)
-
-        commit('setRemoteStatus', val);
-    },
-    updateRoomStatus({commit}, val) {
-        console.warn('DEBUG: 12 store: updateRoomStatus')
-        commit('setRoomStatus', val);
     },
     updateUserIdentity({commit}, val) {
         commit('setUserIdentity', val);
@@ -261,12 +179,10 @@ const actions = {
     },
     updateStudentStartDialog({commit}, val) {
         console.warn('DEBUG: 14 store: updateStudentStartDialog')
-
         commit('setStudentStartDialog', val);
     },
     updateTutorStartDialog({commit}, val) {
         console.warn('DEBUG: 15 store: updateTutorStartDialog, VAL:',val)
-
         commit('setTutorStartDialog', val);
     },
     signalR_UpdateState({commit, dispatch, state, getters}, notificationObj) {
@@ -274,33 +190,16 @@ const actions = {
 
         //TODO Update state according to the singnalR data
         let onlineCount = notificationObj.onlineCount;
-        // if(onlineCount === 2){
-        //     commit('setIsRoomFull',true);
-        // } else{
-        //     commit('setIsRoomFull',false);
-        // }
 
         let totalOnline = notificationObj.totalOnline;
         let jwtToken = notificationObj.jwtToken;
         let isTutor = state.studyRoomData.isTutor;
-        let toasterParams = {};
         if(jwtToken){
         console.warn('DEBUG: 16.1 store: if(jwtToken)')
             
             commit('setJwtToken', jwtToken);
             dispatch('updateCurrentRoomState', state.roomStateEnum.active);
             videoStreamService.createVideoSession();
-            if(isTutor){
-                console.warn('DEBUG: 16.2 store: if(isTutor)')
-
-                toasterParams.text = LanguageService.getValueByKey('studyRoom_student_entered_room');
-                dispatch('showRoomToasterMessage', toasterParams);
-            }else{
-                console.warn('DEBUG: 16.3 store: if(!isTutor)')
-
-                toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
-                dispatch('showRoomToasterMessage', toasterParams);
-            }
         }else{
             console.warn('DEBUG: 17 store: if(!jwtToken)')
 
@@ -309,10 +208,7 @@ const actions = {
 
                 if(onlineCount == totalOnline) {
                     console.warn('DEBUG: 17.2 store: onlineCount == totalOnline')
-
                     dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
-                    toasterParams.text = LanguageService.getValueByKey('studyRoom_student_entered_room');
-                    dispatch('showRoomToasterMessage', toasterParams);
                     //show tutor start session
                     if(!state.studyRoomData.needPayment){
                         console.warn('DEBUG: 17.3 store: !state.studyRoomData.needPayment')
@@ -331,10 +227,6 @@ const actions = {
                         dispatch("setTutorDialogState", state.startSessionDialogStateEnum.disconnected);
                     }
                     dispatch('updateTutorStartDialog', true);
-                    // dispatch("updateTutorStartDialog", false);
-                    toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
-                    toasterParams.timeout = 3600000;
-                    dispatch('showRoomToasterMessage', toasterParams);
                     dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
                 }
             } else {
@@ -346,9 +238,6 @@ const actions = {
                     console.warn('DEBUG: 17.9.1 store: !state.studyRoomData.needPayment')
                     dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
                 }
-                toasterParams.text = LanguageService.getValueByKey('studyRoom_waiting_for_tutor_toaster');
-                toasterParams.timeout = 3600000;
-                dispatch('showRoomToasterMessage', toasterParams);
             } else {
                 console.warn('DEBUG: 17.9.2 store: onlineCount !== totalOnline')
 
@@ -368,17 +257,9 @@ const actions = {
                     dispatch('updateStudentStartDialog', true);
                 }
                 dispatch("updateCurrentRoomState", state.roomStateEnum.pending);
-                toasterParams.text = LanguageService.getValueByKey('studyRoom_alone_in_room');
-                toasterParams.timeout = 3600000;
-                dispatch('showRoomToasterMessage', toasterParams);
-                //hide student start se3ssion
-                // dispatch("updateStudentStartDialog", false);
             }
         }
         }
-    },
-    showRoomToasterMessage() {
-        return;
     },
     hideRoomToasterMessage({dispatch}) {
         let toasterObj = {
@@ -441,7 +322,6 @@ const actions = {
     },
     setStudentDialogState({commit}, val){
         console.warn('DEBUG: 20 store: setStudentDialogState')
-
         commit('setStudentDialogState', val);
     },
     setSessionTimeStart({commit}){
@@ -452,7 +332,6 @@ const actions = {
     },
     setShowUserConsentDialog({commit}, val){
         console.warn('DEBUG: 21 store: setShowUserConsentDialog')
-
         commit('setShowUserConsentDialog', val);
     },
     setSnapshotDialog({commit}, val){

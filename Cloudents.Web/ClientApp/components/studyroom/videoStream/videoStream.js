@@ -47,9 +47,6 @@ export default {
     computed: {
         ...mapState(['tutoringMain']),
         ...mapGetters([
-            'localOffline',
-            'remoteOffline',
-            'roomLoading',
             'getStudyRoomData',
             'accountUser',
             'getLocalVideoTrack',
