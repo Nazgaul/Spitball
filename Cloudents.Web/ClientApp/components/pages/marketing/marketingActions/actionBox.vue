@@ -1,6 +1,6 @@
 <template functional>
     <v-col class="box pa-0" cols="12" sm="4">
-        <img class="mb-4 mt-sm-0" :src="props.data.image" alt="">
+        <img class="boxImage mb-4 mt-4 mt-sm-0" :src="props.data.image" alt="">
         <div class="text1 mb-1">{{props.data.title1}}</div>
         <div class="text2 mb-3">{{props.data.title2}}</div>
     <v-btn class="marketingbtn mb-4 mb-sm-0" color="#4c59ff" outlined rounded @click="props.data.action">{{props.data.buttonText}}</v-btn>
@@ -39,6 +39,11 @@
             @media (max-width: @screen-xs) {
                 border-bottom: 1px solid #dddddd;
                 border-right: none;
+            }
+        }
+        &:nth-child(2) {
+            .boxImage {
+                margin-top: 0 !important;
             }
         }
     }
