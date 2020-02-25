@@ -129,12 +129,6 @@
   <data name="coming_soon" xml:space="preserve">
     <value>Coming soon</value>
   </data>
-  <data name="coupon_type_flat" xml:space="preserve">
-    <value>Flat discount</value>
-  </data>
-  <data name="coupon_type_percentage" xml:space="preserve">
-    <value>Percentage</value>
-  </data>
   <data name="createOffer_title1" xml:space="preserve">
     <value>Create special offers</value>
   </data>
@@ -163,13 +157,13 @@
     <value>Stand out on Facebook &amp; Instagram</value>
   </data>
   <data name="tableCoupon_amount" xml:space="preserve">
-    <value>Amount of Users</value>
+    <value>Users</value>
   </data>
   <data name="tableCoupon_code" xml:space="preserve">
     <value>Code</value>
   </data>
   <data name="tableCoupon_created" xml:space="preserve">
-    <value>Created on</value>
+    <value>Created</value>
   </data>
   <data name="tableCoupon_expired" xml:space="preserve">
     <value>Expired</value>
@@ -181,7 +175,7 @@
     <value>Coupon history</value>
   </data>
   <data name="tableCoupon_type" xml:space="preserve">
-    <value>Coupon Type</value>
+    <value>Type</value>
   </data>
   <data name="tableCoupon_value" xml:space="preserve">
     <value>Value</value>

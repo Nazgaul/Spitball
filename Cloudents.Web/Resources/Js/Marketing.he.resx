@@ -157,13 +157,13 @@
     <value>תבלטו מעל כולם בפייסבוק, אינסטגרם, ווטסאפ, אימייל ועוד</value>
   </data>
   <data name="tableCoupon_amount" xml:space="preserve">
-    <value>כמות משתמשים</value>
+    <value>משתמשים</value>
   </data>
   <data name="tableCoupon_code" xml:space="preserve">
     <value>קוד קופון</value>
   </data>
   <data name="tableCoupon_created" xml:space="preserve">
-    <value>תאריך יצירה</value>
+    <value>תאריך</value>
   </data>
   <data name="tableCoupon_expired" xml:space="preserve">
     <value>תאריך תפוגה</value>
@@ -175,7 +175,7 @@
     <value>קופונים שנוצרו</value>
   </data>
   <data name="tableCoupon_type" xml:space="preserve">
-    <value>סוג קופון</value>
+    <value>סוג</value>
   </data>
   <data name="tableCoupon_value" xml:space="preserve">
     <value>שווי</value>
