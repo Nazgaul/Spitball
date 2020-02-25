@@ -418,13 +418,6 @@ export default {
     browserSupportDialog(){
       return this.getBrowserSupportDialog;
     },
-    needPayment() {
-      if(!this.isTutor){
-        return this.getStudyRoomData ? this.getStudyRoomData.needPayment : true;
-      }else{
-        return false
-      }
-    },
     isTutor() {
         return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
     },

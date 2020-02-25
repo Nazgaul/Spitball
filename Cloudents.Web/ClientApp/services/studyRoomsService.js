@@ -31,12 +31,8 @@ const createRoom = (userId)=>{
     };
     return connectivityModule.http.post("StudyRoom", params);
 };
-// const skipNeedPayment = (studyRoomId)=>{
-//     return connectivityModule.http.post("StudyRoom/NoCard", studyRoomId)
-// };
 
 export default {
-   // skipNeedPayment,
     getRooms,
     createRoom
 }

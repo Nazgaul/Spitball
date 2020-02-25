@@ -27,7 +27,6 @@ const state = {
     startSessionDialogStateEnum:{
         start: 'start',
         waiting: 'waiting',
-        needPayment: 'needPayment',
         disconnected: 'disconnected',
         finished: 'finished'
     },
@@ -204,17 +203,8 @@ const actions = {
     },
     updateStudyRoomProps({dispatch,commit}, val) {
         console.warn('DEBUG: 7 store: updateStudyRoomProps')
-        //update leaveReview store, to prevent leaving of multiple reviews
         dispatch('updateAllowReview',  val.allowReview);
         commit('setStudyRoomProps', val);
-
-        // if(!val.isTutor && val.needPayment){
-        //     setTimeout(()=>{
-        //         console.warn('DEBUG: 7.1 store: !val.isTutor && val.needPayment')
-
-        //         videoStreamService.enterRoom();
-        //     }, 500);
-        // }
     },
     updateTestDialogState({commit}, val) {
         commit('setqualityDialogState', val);
@@ -326,13 +316,7 @@ const actions = {
                     //show tutor start session
                     if(!state.studyRoomData.needPayment){
                         console.warn('DEBUG: 17.3 store: !state.studyRoomData.needPayment')
-
                         dispatch("setTutorDialogState", state.startSessionDialogStateEnum.start);
-                        // dispatch("updateTutorStartDialog", true);
-                    }else{
-                        console.warn('DEBUG: 17.4 store: state.studyRoomData.needPayment')
-
-                        dispatch("setTutorDialogState", state.startSessionDialogStateEnum.needPayment);
                     }
                 } else {
                     console.warn('DEBUG: 17.5 store: onlineCount !== totalOnline')
@@ -358,17 +342,9 @@ const actions = {
             // if is STUDENT
             if(onlineCount == totalOnline) {
                 console.warn('DEBUG: 17.9 store: onlineCount == totalOnline')
-
-                // toasterParams.text = LanguageService.getValueByKey('studyRoom_tutor_entered_room');
-                // dispatch('showRoomToasterMessage', toasterParams);
                 if(!state.studyRoomData.needPayment){
                     console.warn('DEBUG: 17.9.1 store: !state.studyRoomData.needPayment')
-
                     dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
-                }else{
-                    console.warn('DEBUG: 17.9.2 store: state.studyRoomData.needPayment')
-
-                    dispatch("setStudentDialogState", state.startSessionDialogStateEnum.needPayment);
                 }
                 toasterParams.text = LanguageService.getValueByKey('studyRoom_waiting_for_tutor_toaster');
                 toasterParams.timeout = 3600000;
@@ -378,21 +354,13 @@ const actions = {
 
                 if(!state.studyRoomData.needPayment){
                     console.warn('DEBUG: 17.9.3 store: !state.studyRoomData.needPayment')
-
-                    console.log(state.currentRoomState);
                     if(state.currentRoomState === state.roomStateEnum.pending){
                         console.warn('DEBUG: 17.9.4 store: state.currentRoomState === state.roomStateEnum.pending')
-
                         dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
                     }else{
                         console.warn('DEBUG: 17.9.5 store: state.currentRoomState !== state.roomStateEnum.pending')
-
                         dispatch("setStudentDialogState", state.startSessionDialogStateEnum.disconnected);
                     }
-                }else{
-                    console.warn('DEBUG: 17.9.6 store: state.studyRoomData.needPayment')
-
-                    dispatch("setStudentDialogState", state.startSessionDialogStateEnum.needPayment);
                 }
                 if(!getters.getReviewDialogState){
                     console.warn('DEBUG: 17.9.7 store: !getters.getReviewDialogState')
@@ -449,7 +417,6 @@ const actions = {
         let isTutor = state.studyRoomData.isTutor;
         if(isTutor) {
             dispatch("setTutorDialogState", state.startSessionDialogStateEnum.start);
-            // dispatch("updateTutorStartDialog", true);
         }else{
             dispatch("updatePaymentDialogState", false);
             dispatch('maor_goStudyRoom')

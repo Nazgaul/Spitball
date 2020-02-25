@@ -72,9 +72,6 @@ export default {
         isTutor() {
             return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
         },
-        needPayment() {
-            return this.getStudyRoomData ? this.getStudyRoomData.needPayment : false;
-        },
         accountUserID() {
             if (this.accountUser && this.accountUser.id) {
                 return this.accountUser.id;

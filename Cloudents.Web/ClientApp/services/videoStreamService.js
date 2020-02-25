@@ -18,35 +18,22 @@ import insightService from './insightService.js'
     console.warn('DEBUG: 23 videoStreamService: enterRoom')
 
        if (!store.getters['sessionStartClickedOnce']) {
-        // if (!!store.getters['accountUser'] && store.getters['getStudyRoomData'].needPayment && !store.getters['getStudyRoomData'].isTutor) {
-        //     store.dispatch('requestPaymentURL', {title: 'payme_title', name: store.getters.getStudyRoomData.tutorName});
-        //     return;
-        // }
         //leave this action here so that people that fills the 'pay me' wont get a loading button
         console.warn('DEBUG: 44 videoStreamService: setSesionClickedOnce,true before ')
-        
         store.dispatch('setSesionClickedOnce', true);
         console.warn('DEBUG: 44.1 videoStreamService: setSesionClickedOnce,true after ')
-
-            // store.dispatch('setSesionClickedOnce', true);
             if (store.getters['getStudyRoomData'].isTutor) {
                 console.warn('DEBUG: 44.2 videoStreamService: (store.getters[getStudyRoomData].isTutor) ')
-                
                 console.warn('DEBUG: 44.3 videoStreamService: updateCurrentRoomState before')
                 store.dispatch('updateCurrentRoomState', 'loading');
                 console.warn('DEBUG: 44.4 videoStreamService: updateCurrentRoomState after')
-
-                
                 console.warn('DEBUG: 44.5 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) before')
                 tutorService.enterRoom(store.getters['getRoomId']).then(() => {
                     console.warn('DEBUG: 44.6 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) then')
-
                     setTimeout(() => {
                         console.warn('DEBUG: 44.7 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) Settimeout')
-
                         this.createVideoSession();
                         console.warn('DEBUG: 44.8 videoStreamService: tutorService.enterRoom(store.getters[getRoomId]) Settimeout after')
-
                     }, 1000);
                 });
             } else {

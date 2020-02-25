@@ -1,22 +1,7 @@
 import store from '../store'
 import * as routeName from "./routeNames.js";
 
-
 export const studyRoomRoutes = [
-    // {
-    //     path: "/studyroomLobby/:id?",
-    //     name: "studyRoomLobby",
-    //     beforeEnter: (to, from, next) => {
-    //         // ...
-    //         debugger
-    //         next()
-    //     },
-    //     props: {
-    //         default: (route) => ({
-    //             id: route.params.id
-    //         })
-    //     }
-    // },
     {
         path: "/studyroomSettings/:id?",
         name: 'roomSettings',
@@ -45,27 +30,11 @@ export const studyRoomRoutes = [
                         store.dispatch('maor_updateStudyRoomInformation',to.params.id).then((roomProps)=>{
                             roomProps.isTutor = store.getters.accountUser.id == roomProps.tutorId;
                             store.dispatch('updateStudyRoomProps',roomProps);
-                            // next({name:routeName.StudyRoomSettings,params:{id:to.params.id,step:'fasd'}});
-
-                            // check if is StudentSide && is Student needPayment
-                            let isStudentNeedPayment = (!roomProps.isTutor && roomProps.needPayment);
-                            if(isStudentNeedPayment){
-                                next({name:routeName.StudyRoomSettings,params:{id:to.params.id}});
-                                return
-                            }
-                            next()
-                            return
+                            store.dispatch('maor_studyRoomMiddleWare',{to, from, next})
                         })
                     }
                 }else{
-                    // check if is StudentSide && is Student needPayment
-                    let isStudentNeedPayment = (!store.getters.getStudyRoomData.isTutor && store.getters.getStudyRoomData.needPayment);
-                    if(isStudentNeedPayment){
-                        next({name:routeName.StudyRoomSettings,params:{id:to.params.id}});
-                        return
-                    }
-                    next()    
-                    return            
+                    store.dispatch('maor_studyRoomMiddleWare',{to, from, next})   
                 }
             }else{
                 next()

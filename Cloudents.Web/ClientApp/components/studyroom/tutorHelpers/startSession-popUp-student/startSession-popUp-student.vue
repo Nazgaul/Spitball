@@ -78,9 +78,8 @@
             showButton(){
                 let statesToShow = [
                     this.tutoringMain.startSessionDialogStateEnum.start,
-                    this.tutoringMain.startSessionDialogStateEnum.waiting,
-                    this.tutoringMain.startSessionDialogStateEnum.needPayment
-                ]
+                    this.tutoringMain.startSessionDialogStateEnum.waiting
+                    ]
                 return statesToShow.indexOf(this.getStudentDialogState) > -1
             },
             roomStateText(){
@@ -88,8 +87,6 @@
                     return LanguageService.getValueByKey('tutor_stream_btn_start_session_student')
                 }else if(this.getStudentDialogState === this.tutoringMain.startSessionDialogStateEnum.waiting){
                     return LanguageService.getValueByKey('tutor_stream_btn_waiting_student')
-                }else if(this.getStudentDialogState === this.tutoringMain.startSessionDialogStateEnum.needPayment){
-                    return LanguageService.getValueByKey('tutor_stream_btn_needPayment_student')
                 }else if(this.getStudentDialogState === this.tutoringMain.startSessionDialogStateEnum.disconnected){
                     return LanguageService.getValueByKey('tutor_stream_btn_disconnected_student')
                 }else if(this.getStudentDialogState === this.tutoringMain.startSessionDialogStateEnum.finished){
@@ -99,7 +96,7 @@
                 }
             },
             buttonState() {
-                return this.getStudentDialogState !== this.tutoringMain.startSessionDialogStateEnum.start && this.getStudentDialogState !== this.tutoringMain.startSessionDialogStateEnum.needPayment
+                return this.getStudentDialogState !== this.tutoringMain.startSessionDialogStateEnum.start
             }
         },
         methods: {
