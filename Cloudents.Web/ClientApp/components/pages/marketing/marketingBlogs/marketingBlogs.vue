@@ -126,7 +126,7 @@ export default {
         @media (max-width: @screen-sm) {
           &:first-child {
             display: none !important;
-          }
+            }
         }
         @media (max-width: @screen-xs) {
           &:first-child {
@@ -163,6 +163,7 @@ export default {
                 padding: 0;
             }
             .text {
+                font-weight: 600;
                 .giveMeEllipsis(2, 18);
                 min-height: 36px;
                 @media (max-width: @screen-xs) {
