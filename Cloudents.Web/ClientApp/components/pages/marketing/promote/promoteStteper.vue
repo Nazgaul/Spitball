@@ -1,5 +1,5 @@
 <template>
-    <v-stepper class="stepperWrap elevation-0">
+    <v-stepper class="stepperWrap">
         <router-link :to="{name: routeNames.Marketing}" class="d-block text-right pa-2">
           <v-icon size="12" color="#adadba">sbf-close</v-icon>
         </router-link>
@@ -102,11 +102,19 @@ export default {
 }
 </script>
 <style lang="less">
+@import '../../../../styles/mixin.less';
+@import '../../../../styles/colors.less';
 .stepperWrap {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
 
+  @media (max-width: @screen-xs) {
+    box-shadow: none;
+    border-radius: 0;
+  }
   .stepStteper {
     padding: 24px 34px;
-    @media (max-width: 599px) {
+    @media (max-width: @screen-xs) {
       padding: 24px 30px;
     }
     .v-stepper__step__step {
@@ -118,7 +126,7 @@ export default {
 
     }
     .v-stepper__label {
-      color: #43425d !important;
+      color: @global-purple !important;
     }
     &.noActive {
       .v-stepper__step__step {
@@ -137,7 +145,7 @@ export default {
 
   }
   .mobileLabels {
-    color: #43425d !important; //vuetify
+    color: @global-purple !important; //vuetify
 
     .fontLabel {
       font-size: 12px;
