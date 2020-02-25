@@ -38,6 +38,10 @@ namespace Cloudents.Infrastructure.Storage
                 .As<IUserDirectoryBlobProvider>()
                 .Keyed<IBlobProvider>(StorageContainer.User);
 
+            builder.RegisterType<AdminDirectoryBlobProvider>()
+                .As<IAdminDirectoryBlobProvider>()
+                .Keyed<IBlobProvider>(StorageContainer.Admin);
+
 
             builder.RegisterType<QueueProvider>().AsImplementedInterfaces();
             builder.RegisterType<ServiceBusProvider>().As<IServiceBusProvider>();
