@@ -1,5 +1,8 @@
 <template>
     <v-stepper class="stepperWrap elevation-0">
+        <router-link :to="{name: routeNames.Marketing}" class="d-block text-right pa-2">
+          <v-icon size="12" color="#adadba">sbf-close</v-icon>
+        </router-link>
         <v-alert type="error" v-show="error">
             {{$t('promote_table_error')}}
         </v-alert>
@@ -46,6 +49,8 @@
    </v-stepper>
 </template>
 <script>
+import * as routeNames from '../../../../routes/routeNames';
+
 const promoteTable = () => import('./promoteTable.vue');
 const promoteTemplate = () => import('./promoteTemplate.vue');
 const promotePublish = () => import('./promotePublish.vue');
@@ -59,6 +64,7 @@ export default {
   },
   data() {
     return {
+      routeNames,
       dataType: '',
       step: 1,
       error: false,
