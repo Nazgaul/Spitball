@@ -27,6 +27,7 @@
             </v-stepper-step>
         </v-stepper-header>
 
+        <!-- Mobile stepper label -->
         <div class="mobileLabels px-4 mt-n3 text-center d-md-none d-flex justify-space-between">
             <div class="label1 fontLabel"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
             <div class="label2 fontLabel"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
@@ -181,10 +182,16 @@ export default {
         border: 1.5px solid #4452fc !important;
         font-weight: 600;
       }
+      .v-stepper__label {
+        text-shadow: none;
+      }
     }
     &.active {
       .v-stepper__step__step {
         padding-right: 1px;
+      }
+      .v-stepper__label {
+        text-shadow: 0px 0px 0px black;
       }
     }
 
