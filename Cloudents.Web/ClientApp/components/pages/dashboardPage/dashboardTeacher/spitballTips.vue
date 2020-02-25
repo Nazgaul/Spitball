@@ -96,6 +96,7 @@ export default {
         padding: 8px 10px;
         .text {
           color: @global-purple;
+          min-height: 36px;
           font-size: 13px;
           font-weight: 600;
           .giveMeEllipsis(2, 18);
