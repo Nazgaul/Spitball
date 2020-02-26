@@ -49,7 +49,12 @@
             </div>
             <feedSkeleton v-else v-for="n in 5" :key="n"/>
         </div>
-        <feedFaqBlock slot="rightSide" v-if="showAdBlock"/>
+        <template slot="rightSide">
+            <div :class="['feed-sticky',{'feed-sticky_bannerActive':getBannerParams}]">
+                <feedFaqBlock v-if="showAdBlock" class="mb-4"/>
+                <buyPointsLayout class="buyPointsFeed"/>
+            </div>
+        </template>
     </general-page>
 </template>
 
@@ -58,6 +63,50 @@
 <style lang="less">
 @import "../../../styles/mixin.less";
 
+.feed-sticky{
+    position: sticky;
+    height: fit-content;
+    top: 80px;
+    &.feed-sticky_bannerActive{
+        top: 150px;
+    }
+    .buyPointsFeed{
+        max-width: 304px;
+        .buyPointsLayout{
+            max-width: 100%;
+            @media (max-width: @screen-md-plus) {
+                max-width: 100%;
+                max-height: inherit;
+                padding: 10px; 
+                margin: inherit;
+            }
+            .buyPointsLayout_img{
+                @media (max-width: @screen-md-plus) {
+                    max-width: inherit;
+                    height: 90px;
+                }
+            }
+            .buyPointsLayout_action{
+                @media (max-width: @screen-md-plus) {
+                    margin-left: inherit;
+                    width: 100%;
+                }
+                .buyPointsLayout_title{
+                    @media (max-width: @screen-md-plus) {
+                        font-size: 16px;
+                    }
+                }
+                .buyPointsLayout_btn{
+                    @media (max-width: @screen-md-plus) {
+                        margin-top: 10px;
+                        min-width: inherit;
+                        max-width: inherit;
+                    }
+                }
+            }
+        }
+    }
+}
 .feedWrap {
     .results-section{
         .results-wrapper{
