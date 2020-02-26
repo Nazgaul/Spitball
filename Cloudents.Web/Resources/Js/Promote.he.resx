@@ -120,6 +120,9 @@
   <data name="btn_done" xml:space="preserve">
     <value>סיום</value>
   </data>
+  <data name="btn_next" xml:space="preserve">
+    <value>הבא</value>
+  </data>
   <data name="choose" xml:space="preserve">
     <value>בחרו</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="table_downloads" xml:space="preserve">
     <value>הורדות</value>
+  </data>
+  <data name="table_error" xml:space="preserve">
+    <value>בחר פריט</value>
   </data>
   <data name="table_likes" xml:space="preserve">
     <value>לייקים</value>

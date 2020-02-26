@@ -120,6 +120,9 @@
   <data name="btn_done" xml:space="preserve">
     <value>Done</value>
   </data>
+  <data name="btn_next" xml:space="preserve">
+    <value>Next</value>
+  </data>
   <data name="choose" xml:space="preserve">
     <value>Choose</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="table_downloads" xml:space="preserve">
     <value>Downloads</value>
+  </data>
+  <data name="table_error" xml:space="preserve">
+    <value>Select an item</value>
   </data>
   <data name="table_likes" xml:space="preserve">
     <value>Likes</value>
