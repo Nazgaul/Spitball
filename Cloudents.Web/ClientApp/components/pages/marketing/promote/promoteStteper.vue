@@ -134,6 +134,7 @@ export default {
     },
     promoteProfile() {
       this.step = 4;
+      this.document = null;
       this.dataType = 'profile';
       this.stepComponent = this.stepComponents[`step${this.step}`]
     },
@@ -146,9 +147,9 @@ export default {
       this.nextStep()
     },
     goStep(step) {
-      if(this.step < step) {
-        return
-      }
+      if(this.step < step) return
+      if(this.dataType === 'profile' && this.step === 4 && step !== 1) return;
+
       this.step = step;
       this.stepComponent = this.stepComponents[`step${this.step}`]
     }
