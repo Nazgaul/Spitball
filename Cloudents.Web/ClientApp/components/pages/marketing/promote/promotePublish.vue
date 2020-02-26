@@ -6,16 +6,16 @@
             <div class="bottom mt-3">
                 <div class="shareIt text-left">{{$t('promote_shareIt')}}</div>
                 <div class="btnWrap">
-                    <v-btn class="elevation-0 ma-2 ml-0" color="#305d98">
+                    <v-btn class="elevation-0 ma-2 ml-0" color="#305d98" @click="shareOnSocialMedia('facebook')">
                         <facebookIcon />
                     </v-btn>
-                    <v-btn class="elevation-0 ma-2" color="#2cb742">
+                    <v-btn class="elevation-0 ma-2" color="#2cb742" @click="shareOnSocialMedia('whatsApp')">
                         <whatsappIcon />
                     </v-btn>
-                    <v-btn class="elevation-0 ma-2" color="#45ceff">
+                    <v-btn class="elevation-0 ma-2" color="#45ceff" @click="shareOnSocialMedia('twitter')">
                         <twitterIcon />
                     </v-btn>
-                    <v-btn class="elevation-0 ma-2 mr-0" color="#878693">
+                    <v-btn class="elevation-0 ma-2 mr-0" color="#878693" @click="shareOnSocialMedia('email')">
                         <emailIcon />
                     </v-btn>
                 </div>
@@ -47,7 +47,7 @@ export default {
       type: Object,
       default: () => ({})
     },
-    video: {
+    document: {
       type: Object,
       default: () => ({})
     },
@@ -66,6 +66,8 @@ export default {
   },
   computed: {
     publishImage() {
+      console.log(this);
+      debugger
       let user = this.$store.getters.accountUser;
       let rtl = global.country === 'IL' ? 'True' : 'False';
       if(this.dataType === 'profile') {
@@ -80,6 +82,36 @@ export default {
       copyText.select();
       copyText.setSelectionRange(0, 99999)
       document.execCommand("copy");
+    },
+    shareOnSocialMedia(socialMediaName) {
+      let windowSizes = 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=583';
+      let user = this.$store.getters.accountUser;
+      let urlLink = `${global.location.origin}/p/${user.id}?t=${Date.now()}`;
+      let shareContent = this.shareContentParams(user.name, urlLink);
+      switch (socialMediaName) {
+        case 'email':
+          window.location.href = `mailto:?subject=${encodeURIComponent(shareContent.email.subject)}&body=${encodeURIComponent(shareContent.email.body)}`;
+          break;
+        case 'facebook':
+          global.open(`https://www.facebook.com/sharer.php?u=${urlLink}`,'', windowSizes);
+          break;
+        case 'whatsApp':
+          global.open(`https://wa.me/?text=${encodeURIComponent(shareContent.whatsApp)}`,'', windowSizes);
+          break;
+        case 'twitter':
+          global.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareContent.twitter)}`, '', windowSizes);
+          break;
+      }
+    },
+    shareContentParams(userName, urlLink){
+      return {
+        twitter: this.$t('shareContent_share_profile_twitter',[userName,urlLink]),
+        whatsApp: this.$t('shareContent_share_profile_whatsapp',[userName,urlLink]),
+        email: {
+            subject: this.$t('shareContent_share_profile_email_subject',[userName]),
+            body: this.$t('shareContent_share_profile_email_body',[userName,urlLink]),
+        }
+      }
     },
     onLoad() {
       this.loading = false

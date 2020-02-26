@@ -41,7 +41,7 @@ export default {
       type: Object,
       default: () => ({})
     },
-    video : {
+    document : {
       type: Object,
       default: () => ({})
     }
@@ -57,13 +57,13 @@ export default {
       return global.country === 'IL' ? 'True' : 'False';
     },
     documentId() {
-      return this.template?.id || this.video?.id
+      return this.document.id;
     }
   },
   methods: {
     useTemplate() {
-      this.selected = this.video.id
-      this.$emit('selectedTemplate', this.video);
+      this.selected = this.document.id
+      this.$emit('selectedTemplate', this.document);
     },
     onLoad() {
       this.loading = false

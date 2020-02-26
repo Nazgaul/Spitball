@@ -21,7 +21,7 @@
         <template v-slot:header.expiration="{header}">{{$t(header.text)}}</template>
 
         <template v-slot:item="props">
-            <tr @click="selectVideo(props)">
+            <tr @click="selectDocument(props)">
                 <td class="product pa-0">
                     <div class="wrap d-flex pa-2">
                         <v-radio-group class="mr-n2 mt-5" :value="props.item.id === selectedId ? `radio-${props.index}` : ''" columns>
@@ -80,7 +80,7 @@ export default {
     }
   },
   methods: {
-    selectVideo(props) {
+    selectDocument(props) {
       this.selected = `radio-${props.item.id}`;
       this.selectedId = props.item.id;
       this.$emit('selectedDocument', props.item);

@@ -42,7 +42,7 @@
                 <component
                   :is="stepComponent"
                   :template="template"
-                  :video="video"
+                  :document="document"
                   :dataType="dataType"
                   :resource="resource"
                   @selectedTemplate="selectedTemplate"
@@ -82,7 +82,7 @@ export default {
       step: 1,
       error: false,
       template: null,
-      video: null,
+      document: null,
       stepComponent: 'marketingActions',
       stepComponents: {
         step1: 'marketingActions',
@@ -120,13 +120,13 @@ export default {
       let ref = this.$refs.childComponent;
       if(ref.selected || this.step === 1) {
         this.step += 1;
-        this.stepComponent = this.stepComponents[`step${this.step}`]
+        this.stepComponent = this.stepComponents[`step${this.step}`];
         return;
       }
       this.error = true
     },
-    selectedDocument(video) {
-      this.video = video;
+    selectedDocument(document) {
+      this.document = document;
       this.error = false;
     },
     selectedTemplate(template) {
