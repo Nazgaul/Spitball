@@ -118,75 +118,75 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btn_done" xml:space="preserve">
-    <value>Done</value>
+    <value>סיום</value>
   </data>
   <data name="choose" xml:space="preserve">
-    <value>Choose</value>
+    <value>בחרו</value>
   </data>
   <data name="createOffer_title1" xml:space="preserve">
-    <value>Promote your movies</value>
+    <value>קדמו את אחד הסרטונים שלכם</value>
   </data>
   <data name="createOffer_title2" xml:space="preserve">
-    <value>Stand out on Facebook &amp; Instagram</value>
+    <value>תבלטו מעל כולם בפייסבוק, אינסטגרם ועוד</value>
   </data>
   <data name="createVideo_title1" xml:space="preserve">
-    <value>Promote your content</value>
+    <value>קדמו את אחד המסמכים שלכם</value>
   </data>
   <data name="createVideo_title2" xml:space="preserve">
-    <value>Stand out on Facebook &amp; Instagram</value>
+    <value>תבלטו מעל כולם בפייסבוק, אינסטגרם ועוד</value>
   </data>
   <data name="lets_go" xml:space="preserve">
-    <value>Let’s go</value>
+    <value>נתחיל</value>
   </data>
   <data name="publish" xml:space="preserve">
-    <value>Publish</value>
+    <value>פרסמו</value>
   </data>
   <data name="shareIt" xml:space="preserve">
-    <value>Share it</value>
+    <value>שתפו את זה</value>
   </data>
   <data name="sharePost_title1" xml:space="preserve">
-    <value>Promote your profile</value>
+    <value>קדמו את האתר שלכם</value>
   </data>
   <data name="sharePost_title2" xml:space="preserve">
-    <value>Stand out on Facebook &amp; Instagram</value>
+    <value>תבלטו מעל כולם בפייסבוק, אינסטגרם ועוד</value>
   </data>
   <data name="table_date" xml:space="preserve">
-    <value>Date</value>
+    <value>תאריך</value>
   </data>
   <data name="table_downloads" xml:space="preserve">
-    <value>Downloads</value>
+    <value>הורדות</value>
   </data>
   <data name="table_likes" xml:space="preserve">
-    <value>Likes</value>
+    <value>לייקים</value>
   </data>
   <data name="table_price" xml:space="preserve">
-    <value>Price</value>
+    <value>מחיר</value>
   </data>
   <data name="table_product" xml:space="preserve">
-    <value>Product</value>
+    <value>מוצר</value>
   </data>
   <data name="table_type" xml:space="preserve">
-    <value>Type</value>
+    <value>סוג</value>
   </data>
   <data name="table_views" xml:space="preserve">
-    <value>Views</value>
+    <value>צפיות</value>
   </data>
   <data name="template" xml:space="preserve">
-    <value>a template</value>
+    <value>תבנית</value>
   </data>
   <data name="template_title1" xml:space="preserve">
-    <value>Recommended template</value>
+    <value>תבנית מומלצת</value>
   </data>
   <data name="template_title2" xml:space="preserve">
-    <value>Choose a stunning template and custumize it to stand out on social media.</value>
+    <value>בחרו תבנית מדהימה שתציף אתכם מעל כולם.</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>Select what to promote</value>
+    <value>בחרו את מה לקדם</value>
   </data>
   <data name="use_template" xml:space="preserve">
-    <value>Use this template</value>
+    <value>השתמשו בתבנית</value>
   </data>
   <data name="your_content" xml:space="preserve">
-    <value>your content</value>
+    <value>את התוכן</value>
   </data>
 </root>
