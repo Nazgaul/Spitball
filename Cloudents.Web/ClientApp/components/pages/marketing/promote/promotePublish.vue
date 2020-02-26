@@ -3,6 +3,7 @@
         <div class="wrap text-center">
             <v-skeleton-loader type="image" width="100%" v-if="loading"></v-skeleton-loader>
             <img class="img" @load="onLoad" v-show="!loading" :src="publishImage" alt="">
+            <div class="shareIt text-left">{{$t('promote_shareIt')}}</div>
             <shareContent 
               :link="shareContentParams.link"
               :twitter="shareContentParams.twitter"
@@ -75,7 +76,7 @@ export default {
     urlLink() {
       let urlLink;
       if(this.document) {
-        urlLink = `${global.location.origin}/d/${this.user.id}?t=${Date.now()}&theme=${this.theme}`;
+        urlLink = `${global.location.origin}/d/${this.document.id}?t=${Date.now()}&theme=${this.theme}`;
       } else {
         urlLink = `${global.location.origin}/p/${this.user.id}?t=${Date.now()}`;
       }
@@ -152,47 +153,47 @@ export default {
       width: 100%;
     }
   }
-  .bottom {
-    .shareIt {
-        font-size: 16px;
-        font-weight: 600;
-        color: @global-purple;
-    }
-    .btnWrap {
-      display: flex;
-      justify-content: space-between;
-      button {
-        min-width: 90px !important;
-        flex: 1;
-        @media (max-width: @screen-xs) {
-          min-width: 46px !important;
-        }
-        svg {
-          width: 20px;
-        }
-      }
-    }
-    .copyBtn {
-      .wrap {
-        display: flex;
-        justify-content: flex-end;
-        border: solid 1px #dddddd;
-        border-radius: 8px;
-        height: 34px;
-        .copy {
-          flex-grow: 1;
-          width: 100%;
-          outline: none;
-          padding: 0 10px;
-          color: @global-purple;
-          opacity: 0.5
-        }
-        .buttonCopy {
-          outline: none;
-          background: rgba(189, 192, 209, 0.5);
-        }
-      }
-    }
+  .shareIt {
+      font-size: 16px;
+      font-weight: 600;
+      color: @global-purple;
   }
+  // .bottom {
+  //   .btnWrap {
+  //     display: flex;
+  //     justify-content: space-between;
+  //     button {
+  //       min-width: 90px !important;
+  //       flex: 1;
+  //       @media (max-width: @screen-xs) {
+  //         min-width: 46px !important;
+  //       }
+  //       svg {
+  //         width: 20px;
+  //       }
+  //     }
+  //   }
+  //   .copyBtn {
+  //     .wrap {
+  //       display: flex;
+  //       justify-content: flex-end;
+  //       border: solid 1px #dddddd;
+  //       border-radius: 8px;
+  //       height: 34px;
+  //       .copy {
+  //         flex-grow: 1;
+  //         width: 100%;
+  //         outline: none;
+  //         padding: 0 10px;
+  //         color: @global-purple;
+  //         opacity: 0.5
+  //       }
+  //       .buttonCopy {
+  //         outline: none;
+  //         background: rgba(189, 192, 209, 0.5);
+  //       }
+  //     }
+  //   }
+  // }
 }
 </style>
