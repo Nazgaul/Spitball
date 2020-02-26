@@ -50,21 +50,9 @@ namespace Cloudents.Web.Controllers
         }
 
         [Route("d/{id}", Name = "ShortDocumentLink2")]
-        public async Task<IActionResult> ShortUrl2Async(long id,
+        public async Task<IActionResult> ShortUrl2Async(long id, string theme,
             CancellationToken token)
         {
-            //if (string.IsNullOrEmpty(base62))
-            //{
-            //    return NotFound();
-            //}
-
-            ////if (!long.TryParse(base62, out var id))
-            ////{
-            //if (!Base62.TryParse(base62, out var id))
-            //{
-            //    return NotFound();
-            //}
-
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new DocumentById(id, userId);
             var model = await _queryBus.QueryAsync(query, token);
@@ -76,6 +64,7 @@ namespace Cloudents.Web.Controllers
             {
                 courseName = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Course),
                 id,
+                theme,
                 name = FriendlyUrlHelper.GetFriendlyTitle(model.Document.Title)
             });
             return t;
@@ -137,7 +126,7 @@ namespace Cloudents.Web.Controllers
         [Route("document/{courseName}/{name}/{id:long}",
              Name = SeoTypeString.Document)]
         [ActionName("Index"), SignInWithToken]
-        public async Task<IActionResult> IndexAsync(string courseName, string name, long id, CancellationToken token)
+        public async Task<IActionResult> IndexAsync([FromQuery]string theme, long id, CancellationToken token)
         {
             _userManager.TryGetLongUserId(User, out var userId);
             var query = new DocumentById(id, userId);
@@ -183,6 +172,7 @@ namespace Cloudents.Web.Controllers
                 width = 1200,
                 height = 630,
                 mode = "crop",
+                theme,
                 rtl = country.MainLanguage.Info.TextInfo.IsRightToLeft.ToString()
             }));
             ViewBag.ogTitle = model.Document.Title;
