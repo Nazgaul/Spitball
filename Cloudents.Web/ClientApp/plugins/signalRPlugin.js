@@ -1,6 +1,6 @@
 import signalRInit from '../services/signalR/init';
 import { SignalR } from '../services/Dto/signalR';
-import { signlaREvents } from '../services//signalR/signalREventHandler';
+import { signlaREvents } from '../services/signalR/signalREventHandler';
 
 export default ({hubPath}) => {
   return store => {
@@ -18,13 +18,18 @@ export default ({hubPath}) => {
       }
     });
 
+    // signalR Reconnecting
+    connection.onreconnecting(() => {
+      store.dispatch('setIsSignalRConnected', false);
+    });
+
     store.subscribe((mutation) => {
       switch(mutation.type) {
         case 'updateUser':
           if(connection.state === 'Disconnected') {
             connection.start().then(() => {
               store.dispatch('setIsSignalRConnected', true);  
-            })
+            });
           }
           break;
         case 'signalR_emit':
@@ -36,7 +41,7 @@ export default ({hubPath}) => {
           connection.stopConnection().then(() => { connection.start() });
           break;
         case 'signalR_disconnect':
-          // TODO: disconnect signalR
+
           break;
         default:
           return;
