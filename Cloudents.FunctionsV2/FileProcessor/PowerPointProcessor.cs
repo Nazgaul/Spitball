@@ -18,46 +18,67 @@ namespace Cloudents.FunctionsV2.FileProcessor
 {
     public class PowerPointProcessor : IFileProcessor
     {
+        private readonly ConvertDocumentApi _convertDocumentApi;
+        static PowerPointProcessor()
+        {
+            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "07af4ce1-40eb-4e97-84e0-c02b4974b190");
+            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000; //base on support
+        }
+
+        public PowerPointProcessor()
+        {
+            _convertDocumentApi = new ConvertDocumentApi();
+        }
+
+
         public async Task ProcessFileAsync(long id, CloudBlockBlob blob, IBinder binder, ILogger log, CancellationToken token)
         {
-            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.AddApiKey("Apikey", "86afd89a-207c-4e7a-9ffc-da23fcb9d5b7");
-            Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.Configuration.Default.Timeout = 300000; //base on support
+           
 
-            var apiInstance = new ConvertDocumentApi();
-
-            await using var sr = await blob.OpenReadAsync();
-            var text2 = await apiInstance.ConvertDocumentPptxToTxtAsync(sr);
-            sr.Seek(0, SeekOrigin.Begin);
-            var result = await apiInstance.ConvertDocumentAutodetectToPngArrayAsync(sr);
-            var directory = blob.Parent;
-
-
-            var text = text2.TextResult;
-            if (result.Successful == false)
+            try
             {
-                throw new ArgumentException($"ConvertDocumentAutodetectToPngArrayAsync return false in id {id}");
+                //var apiInstance = new ConvertDocumentApi();
+
+                await using var sr = await blob.OpenReadAsync();
+                var text2 = await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr);
+                sr.Seek(0, SeekOrigin.Begin);
+                var result = await _convertDocumentApi.ConvertDocumentAutodetectToPngArrayAsync(sr);
+                var directory = blob.Parent;
+
+
+                var text = text2.TextResult;
+                if (result.Successful == false)
+                {
+                    throw new ArgumentException($"ConvertDocumentAutodetectToPngArrayAsync return false in id {id}");
+                }
+
+                var imagesResult = result.PngResultPages;
+                //var imageUrls = imagesResult.Select(s => s.URL);
+
+                var pageCount = imagesResult.Count;
+
+                var textBlob = directory.GetBlockBlobReference("text.txt");
+                textBlob.Properties.ContentType = "text/plain";
+                text = StripUnwantedChars(text);
+                textBlob.Metadata["PageCount"] = pageCount.ToString();
+                await textBlob.UploadTextAsync(text ?? string.Empty);
+
+
+                var httpClient = await binder.BindAsync<HttpClient>(new HttpClientFactoryAttribute(), token);
+                foreach (var imageResult in imagesResult)
+                {
+                    var previewBlob = directory.GetBlockBlobReference($"preview-{imageResult.PageNumber - 1}.jpg");
+                    previewBlob.Properties.ContentType = "image/jpeg";
+                    await using var imageStream = await httpClient.GetStreamAsync(imageResult.URL);
+                    using var input = Image.Load<Rgba32>(imageStream);
+                    await using var blobWriteStream = await previewBlob.OpenWriteAsync();
+                    input.SaveAsJpeg(blobWriteStream);
+                }
             }
-            var imagesResult = result.PngResultPages;
-            //var imageUrls = imagesResult.Select(s => s.URL);
-
-            var pageCount = imagesResult.Count;
-
-            var textBlob = directory.GetBlockBlobReference("text.txt");
-            textBlob.Properties.ContentType = "text/plain";
-            text = StripUnwantedChars(text);
-            textBlob.Metadata["PageCount"] = pageCount.ToString();
-            await textBlob.UploadTextAsync(text ?? string.Empty);
-
-
-            var httpClient = await binder.BindAsync<HttpClient>(new HttpClientFactoryAttribute(), token);
-            foreach (var imageResult in imagesResult)
+            catch (Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.ApiException ex)
             {
-                var previewBlob = directory.GetBlockBlobReference($"preview-{imageResult.PageNumber - 1}.jpg");
-                previewBlob.Properties.ContentType = "image/jpeg";
-                await using var imageStream = await httpClient.GetStreamAsync(imageResult.URL);
-                using var input = Image.Load<Rgba32>(imageStream);
-                await using var blobWriteStream = await previewBlob.OpenWriteAsync();
-                input.SaveAsJpeg(blobWriteStream);
+                blob.Metadata["ErrorProcessCloudmersive"] = ex.Message;
+                await blob.SetMetadataAsync();
             }
         }
 
