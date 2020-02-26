@@ -94,11 +94,14 @@ namespace Cloudents.FunctionsV2
                     height = 471,
                     anchorPosition = AnchorPositionMode.Top.ToString("G")
                 });
+                await using var documentPreviewStream = await client.GetStreamAsync(uriBuilder.Uri);
+                using var documentImage = Image.Load<Rgba32>(documentPreviewStream);
 
                 image.Mutate(context =>
                 {
                     context.DrawText(dbResult.Name, 30, "#FFFFFF", new Size(860, 40), new Point(170, 66));
                     context.DrawText(dbResult.CourseName, 26, "#ffffff", new Size(860, 40), new Point(170, 107));
+                    context.DrawImage(documentImage, new Point(170, 159), GraphicsOptions.Default);
                 });
             }
             else
@@ -122,6 +125,7 @@ namespace Cloudents.FunctionsV2
 
                 });
             }
+           
 
             if (width > 0 && height > 0)
             {
