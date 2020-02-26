@@ -78,6 +78,7 @@ const mutations = {
         state.tutorStartDialog = val;
     },
     setStudyRoomProps(state, val) {
+        val.isTutor = this.getters.accountUser.id == val.tutorId;
         state.studyRoomData = val;
     },
     setlocalParticipantObj(state, val) {

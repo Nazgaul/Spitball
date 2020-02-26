@@ -15,7 +15,6 @@ const actions = {
          return dispatch('maor_studyRoomMiddleWare')
       }else{
          return maor_studyRoomService.getRoomInformation(roomId).then((roomProps)=>{
-            roomProps.isTutor = getters.accountUser.id == roomProps.tutorId;
             dispatch('updateStudyRoomProps',roomProps);
             return dispatch('maor_studyRoomMiddleWare')
          })
