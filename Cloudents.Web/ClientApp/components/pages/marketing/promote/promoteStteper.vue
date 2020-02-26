@@ -183,6 +183,7 @@ export default {
       color: @global-purple !important;
     }
     &.noActive {
+      cursor: pointer;
       .v-stepper__step__step {
         background: -webkit-linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
         -webkit-background-clip: text !important;
