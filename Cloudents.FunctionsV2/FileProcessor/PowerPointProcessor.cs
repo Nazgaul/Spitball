@@ -25,63 +25,39 @@ namespace Cloudents.FunctionsV2.FileProcessor
 
             var apiInstance = new ConvertDocumentApi();
 
-            using (var sr = await blob.OpenReadAsync())
+            await using var sr = await blob.OpenReadAsync();
+            var text2 = await apiInstance.ConvertDocumentPptxToTxtAsync(sr);
+            sr.Seek(0, SeekOrigin.Begin);
+            var result = await apiInstance.ConvertDocumentAutodetectToPngArrayAsync(sr);
+            var directory = blob.Parent;
+
+
+            var text = text2.TextResult;
+            if (result.Successful == false)
             {
-                //var pageCount2 = await apiInstance.ConvertDocumentAutodetectGetInfoAsync(sr);
-                //sr.Seek(0, SeekOrigin.Begin);
-                var text2 = await apiInstance.ConvertDocumentPptxToTxtAsync(sr);
-                sr.Seek(0, SeekOrigin.Begin);
+                throw new ArgumentException($"ConvertDocumentAutodetectToPngArrayAsync return false in id {id}");
+            }
+            var imagesResult = result.PngResultPages;
+            //var imageUrls = imagesResult.Select(s => s.URL);
 
-                var result = await apiInstance.ConvertDocumentAutodetectToPngArrayAsync(sr);
+            var pageCount = imagesResult.Count;
 
-                var directory = blob.Parent;
-
-
-                var text = text2.TextResult;
-                if (result.Successful == false)
-                {
-                    throw new ArgumentException($"ConvertDocumentAutodetectToPngArrayAsync return false in id {id}");
-                }
-                var imagesResult = result.PngResultPages;
-                //var imageUrls = imagesResult.Select(s => s.URL);
-
-                var pageCount = imagesResult.Count;
-
-                var textBlob = directory.GetBlockBlobReference("text.txt");
-                textBlob.Properties.ContentType = "text/plain";
-                text = StripUnwantedChars(text);
-                textBlob.Metadata["PageCount"] = pageCount.ToString();
-                await textBlob.UploadTextAsync(text ?? string.Empty);
+            var textBlob = directory.GetBlockBlobReference("text.txt");
+            textBlob.Properties.ContentType = "text/plain";
+            text = StripUnwantedChars(text);
+            textBlob.Metadata["PageCount"] = pageCount.ToString();
+            await textBlob.UploadTextAsync(text ?? string.Empty);
 
 
-                var httpClient = await binder.BindAsync<HttpClient>(new HttpClientFactoryAttribute(), token);
-                foreach (var imageResult in imagesResult)
-                {
-                    var previewBlob = directory.GetBlockBlobReference($"preview-{imageResult.PageNumber - 1}.jpg");
-                    previewBlob.Properties.ContentType = "image/jpeg";
-                    using (var imageStream = await httpClient.GetStreamAsync(imageResult.URL))
-                    using (var input = Image.Load<Rgba32>(imageStream))
-                    using (var blobWriteStream = await previewBlob.OpenWriteAsync())
-                    {
-
-                        input.SaveAsJpeg(blobWriteStream);
-                        // ResizeImage(input, imageSmall, ImageSize.Small, format);
-                    }
-                    //{
-
-                    //await previewBlob.UploadFromStreamAsync(imageStream);
-                    //}
-                }
-
-
-
-                //apiInstance.ConvertDocumentAutodetectGetInfo()
-                //var result = apiInstance.ConvertDocumentAutodetectToPngArray(inputFile);
-
-                // Word DOCX to PDF
-                //Object result = apiInstance.ConvertDocumentDocxToPdf(inputFile);
-
-
+            var httpClient = await binder.BindAsync<HttpClient>(new HttpClientFactoryAttribute(), token);
+            foreach (var imageResult in imagesResult)
+            {
+                var previewBlob = directory.GetBlockBlobReference($"preview-{imageResult.PageNumber - 1}.jpg");
+                previewBlob.Properties.ContentType = "image/jpeg";
+                await using var imageStream = await httpClient.GetStreamAsync(imageResult.URL);
+                using var input = Image.Load<Rgba32>(imageStream);
+                await using var blobWriteStream = await previewBlob.OpenWriteAsync();
+                input.SaveAsJpeg(blobWriteStream);
             }
         }
 
