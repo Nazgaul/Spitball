@@ -103,7 +103,7 @@ export default {
     selectVideo(props) {
       this.selected = `radio-${props.item.id}`;
       this.selectedId = props.item.id;
-      this.$emit('selectedVideo', props.item);
+      this.$emit('selectedDocument', props.item);
     },
     getDataTable() {
       this.$store.dispatch('getPromoteData').then(items => {

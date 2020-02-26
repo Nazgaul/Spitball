@@ -44,7 +44,7 @@
                   :dataType="dataType"
                   :resource="resource"
                   @selectedTemplate="selectedTemplate"
-                  @selectedVideo="selectedVideo"
+                  @selectedDocument="selectedDocument"
                   ref="childComponent">
                 </component>
                 <div class="text-right">
@@ -123,14 +123,12 @@ export default {
       }
       this.error = true
     },
-    selectedVideo(video) {
-      this.dataType = 'video';
+    selectedDocument(video) {
       this.video = video;
       this.error = false;
     },
     selectedTemplate(template) {
       this.template = template;
-      this.dataType = 'document';
       this.nextStep()
     },
     promoteProfile() {
