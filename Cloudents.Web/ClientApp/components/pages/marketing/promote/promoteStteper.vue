@@ -1,8 +1,10 @@
 <template>
     <v-stepper class="stepperWrap">
-        <router-link :to="{name: routeNames.Marketing}" class="d-block text-right pa-4 pb-0">
-          <v-icon size="12" color="#adadba">sbf-close</v-icon>
-        </router-link>
+        <div class="text-right pa-4 pb-0">
+          <router-link :to="{name: routeNames.Marketing}" class="">
+            <v-icon size="12" color="#adadba" class="">sbf-close</v-icon>
+          </router-link>
+        </div>
 
         <v-stepper-header class="elevation-0">
             <v-stepper-step class="stepStteper pl-8" :class="[step === 1 ? 'active' : 'noActive']" step="1">
@@ -75,29 +77,6 @@ export default {
   },
   data() {
     return {
-      resource: {
-        box1: {
-            title1: this.$t('promote_sharePost_title1'),
-            title2: this.$t('promote_sharePost_title2'),
-            image: require('../images/promoteProfile.png'),
-            buttonText: this.$t('promote_lets_go'),
-            action: this.promoteProfile
-        },
-        box2: {
-            title1: this.$t('promote_createOffer_title1'),
-            title2: this.$t('promote_createOffer_title2'),
-            image: require('../images/promoteVideo.png'),
-            buttonText: this.$t('promote_lets_go'),
-            action: this.promoteVideos
-        },
-        box3: {
-            title1: this.$t('promote_createVideo_title1'),
-            title2: this.$t('promote_createVideo_title2'),
-            image: require('../images/promoteContent.png'),
-            buttonText: this.$t('promote_lets_go'),
-            action: this.promoteDocuments
-        }
-      },
       routeNames,
       dataType: '',
       step: 1,
@@ -109,7 +88,30 @@ export default {
         step1: 'marketingActions',
         step2: 'promoteTable',
         step3: 'promoteTemplate',
-        step4: 'promotePublish',
+        step4: 'promotePublish'
+      },
+      resource: {
+        box1: {
+          title1: this.$t('promote_sharePost_title1'),
+          title2: this.$t('promote_sharePost_title2'),
+          image: require('../images/promoteProfile.png'),
+          buttonText: this.$t('promote_lets_go'),
+          action: this.promoteProfile
+        },
+        box2: {
+          title1: this.$t('promote_createOffer_title1'),
+          title2: this.$t('promote_createOffer_title2'),
+          image: require('../images/promoteVideo.png'),
+          buttonText: this.$t('promote_lets_go'),
+          action: this.promoteVideos
+        },
+        box3: {
+          title1: this.$t('promote_createVideo_title1'),
+          title2: this.$t('promote_createVideo_title2'),
+          image: require('../images/promoteContent.png'),
+          buttonText: this.$t('promote_lets_go'),
+          action: this.promoteDocuments
+        }
       }
     }
   },
