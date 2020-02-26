@@ -1,17 +1,27 @@
 <template>
-   <div class="shareContent">
-      <span class="pr-1">{{$t('shareContent_title')}}</span> |
-      <facebookSVG style="width:9px" class="option ml-3" @click="shareOnSocialMedia('facebook')"/>
-      <whatsappSVG style="width:20px" class="option ml-7 ml-sm-6" @click="shareOnSocialMedia('whatsApp')"/>
-      <twitterSVG style="width:20px" class="option ml-5" @click="shareOnSocialMedia('twitter')"/>
-      <emailSVG style="width:21px" class="option ml-5" @click="shareOnSocialMedia('email')"/>
+   <div class="shareContent" :class="{'btnWrap': from}">
+      <span class="pr-1" v-if="!from">{{$t('shareContent_title')}} |</span>
 
-      <v-tooltip v-model="showCopyToolTip" top transition="fade-transition">
+      <div class="d-flex align-center">
+         <facebookSVG style="width:9px" class="option facebook ml-3" @click="shareOnSocialMedia('facebook')"/>
+         <whatsappSVG style="width:20px" class="option whatsapp ml-7 ml-sm-6" @click="shareOnSocialMedia('whatsApp')"/>
+         <twitterSVG style="width:20px" class="option twitter ml-5" @click="shareOnSocialMedia('twitter')"/>
+         <emailSVG style="width:21px" class="option email ml-5" @click="shareOnSocialMedia('email')"/>
+      </div>
+
+      <div class="copyBtn mt-3" v-if="from">
+         <div class="wrap">
+            <input type="text" class="copy text-truncate" name="" :value="link" ref="copy" readonly>
+            <button type="button" class="buttonCopy px-5" @click="shareOnSocialMedia('link')" name="button">Copy</button>
+         </div>
+      </div>
+
+      <v-tooltip v-model="showCopyToolTip" top transition="fade-transition" v-else>
          <template v-slot:activator="{}">
-            <linkSVG style="width:20px" class="option ml-5" @click="shareOnSocialMedia('link')"/>
+            <linkSVG style="width:20px" class="option link ml-5" @click="shareOnSocialMedia('link')"/>
          </template>
          <span>{{$t('shareContent_copy_tool')}}</span>
-         </v-tooltip>
+      </v-tooltip>
    </div>
 </template>
 
@@ -30,6 +40,10 @@ export default {
       }
    },
    props:{
+      from: {
+         required: false,
+         type: Boolean
+      },
       link:{
          required: true,
          type: String
@@ -77,6 +91,7 @@ export default {
       }
    },
    created() {
+      debugger
       if(!this.link){
          console.error('one or more params are missed in ShareContent: link')
       }
@@ -117,5 +132,41 @@ export default {
    .option{
       cursor: pointer;
    }
+   &.btnWrap {
+      height: unset;
+      flex-wrap: wrap;
+      button {
+        min-width: 90px !important;
+        flex: 1;
+        @media (max-width: @screen-xs) {
+          min-width: 46px !important;
+        }
+        svg {
+          width: 20px;
+        }
+      }
+      .copyBtn {
+         width: 100%;
+         .wrap {
+            display: flex;
+            justify-content: flex-end;
+            border: solid 1px #dddddd;
+            border-radius: 8px;
+            height: 34px;
+            .copy {
+               flex-grow: 1;
+               width: 100%;
+               outline: none;
+               padding: 0 10px;
+               color: @global-purple;
+               opacity: 0.5
+            }
+            .buttonCopy {
+               outline: none;
+               background: rgba(189, 192, 209, 0.5);
+            }
+         }
+      }
+    }
 }
 </style>

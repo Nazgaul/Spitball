@@ -3,7 +3,14 @@
         <div class="wrap text-center">
             <v-skeleton-loader type="image" width="100%" v-if="loading"></v-skeleton-loader>
             <img class="img" @load="onLoad" v-show="!loading" :src="publishImage" alt="">
-            <div class="bottom mt-3">
+            <shareContent 
+              :link="shareContentParams.link"
+              :twitter="shareContentParams.twitter"
+              :whatsApp="shareContentParams.whatsApp"
+              :email="shareContentParams.email"
+              :from="true"
+            />
+            <!-- <div class="bottom mt-3">
                 <div class="shareIt text-left">{{$t('promote_shareIt')}}</div>
                 <div class="btnWrap">
                     <v-btn class="elevation-0 ma-2 ml-0" color="#305d98" @click="shareOnSocialMedia('facebook')">
@@ -25,22 +32,23 @@
                         <button type="button" class="buttonCopy px-5" @click="copyLink" name="button">Copy</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
 <script>
-import facebookIcon from './images/facebook.svg';
-import whatsappIcon from './images/whatsapp.svg';
-import twitterIcon from './images/twitter.svg';
-import emailIcon from './images/email.svg';
-
+// import facebookIcon from './images/facebook.svg';
+// import whatsappIcon from './images/whatsapp.svg';
+// import twitterIcon from './images/twitter.svg';
+// import emailIcon from './images/email.svg';
+import shareContent from '../../global/shareContent/shareContent.vue';
 export default {
   components: {
-    facebookIcon,
-    whatsappIcon,
-    twitterIcon,
-    emailIcon
+    shareContent,
+    // facebookIcon,
+    // whatsappIcon,
+    // twitterIcon,
+    // emailIcon
   },
   props: {
     template: {
@@ -65,16 +73,30 @@ export default {
       }
   },
   computed: {
+    shareContentParams(){
+      let user = this.$store.getters.accountUser;
+      let urlLink = `${global.location.origin}/p/${user.id}?t=${Date.now()}?theme={theme}`;
+      let paramsObj = {
+        link: urlLink,
+        twitter: this.$t('shareContent_share_profile_twitter',[user.name,urlLink]),
+        whatsApp: this.$t('shareContent_share_profile_whatsapp',[user.name,urlLink]),
+        email: {
+            subject: this.$t('shareContent_share_profile_email_subject',[user.name]),
+            body: this.$t('shareContent_share_profile_email_body',[user.name,urlLink]),
+        }
+      }
+      return paramsObj;
+    },
     publishImage() {
-      console.log(this);
-      debugger
       let user = this.$store.getters.accountUser;
       let rtl = global.country === 'IL' ? 'True' : 'False';
+      //TODO: global
+      console.log(window.functionApp);
       if(this.dataType === 'profile') {
         return `https://spitball-function-dev2.azurewebsites.net/api/share/profile/${user.id}?width=420&amp;height=220&amp;rtl=${rtl}`
       }
-      return `https://spitball-function-dev2.azurewebsites.net/api/share/document/50997?theme=${1}&width=420&amp;height=220&amp;rtl=${rtl}`
-    }
+      return `https://spitball-function-dev2.azurewebsites.net/api/share/document/${this.document.id}?theme=${1}&width=420&amp;height=220&amp;rtl=${rtl}`
+    },
   },
   methods: {
     copyLink() {
@@ -86,7 +108,8 @@ export default {
     shareOnSocialMedia(socialMediaName) {
       let windowSizes = 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=583';
       let user = this.$store.getters.accountUser;
-      let urlLink = `${global.location.origin}/p/${user.id}?t=${Date.now()}`;
+      //TODO add to the text next to the copy
+      let urlLink = `${global.location.origin}/p/${user.id}?t=${Date.now()}?theme={theme}`;
       let shareContent = this.shareContentParams(user.name, urlLink);
       switch (socialMediaName) {
         case 'email':
@@ -101,16 +124,6 @@ export default {
         case 'twitter':
           global.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareContent.twitter)}`, '', windowSizes);
           break;
-      }
-    },
-    shareContentParams(userName, urlLink){
-      return {
-        twitter: this.$t('shareContent_share_profile_twitter',[userName,urlLink]),
-        whatsApp: this.$t('shareContent_share_profile_whatsapp',[userName,urlLink]),
-        email: {
-            subject: this.$t('shareContent_share_profile_email_subject',[userName]),
-            body: this.$t('shareContent_share_profile_email_body',[userName,urlLink]),
-        }
       }
     },
     onLoad() {
