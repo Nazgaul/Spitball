@@ -106,11 +106,8 @@ export default {
       this.$emit('selectedVideo', props.item);
     },
     getDataTable() {
-      // let type = this.dataType; // video or document
       this.$store.dispatch('getPromoteData').then(items => {
-        //TODO: temprary filter videos
-        this.items = items.filter(item => item.type === 'Video')
-        // this.items = items;
+        this.items = items.filter(item => item.type === this.dataType)
       }).catch(ex => {
         this.$appInsights.trackException({exception: new Error(ex)});
       })

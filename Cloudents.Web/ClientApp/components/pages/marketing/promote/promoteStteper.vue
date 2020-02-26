@@ -139,11 +139,11 @@ export default {
       this.stepComponent = this.stepComponents[`step${this.step}`]
     },
     promoteVideos () {
-      this.dataType = 'videos';
+      this.dataType = 'Video';
       this.nextStep()
     },
     promoteDocuments() {
-      this.dataType = 'documents';
+      this.dataType = 'Document';
       this.nextStep()
     },
   },
