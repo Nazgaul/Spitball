@@ -119,6 +119,8 @@
             },
             //screen share start
             showScreen() {
+                this.$ga.event("tutoringRoom", 'screen share start');
+
                 let self = this;
                 insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_ShareScreenBtn_Click', {id: self.getStudyRoomData.roomId}, null);
                 videoService.getUserScreen().then(
@@ -178,6 +180,7 @@
                 );
             },
             stopSharing() {
+                this.$ga.event("tutoringRoom", 'screen stopSharing');
                 if(this.screenShareTrack){
                     this.screenShareTrack.stop();
                 }
