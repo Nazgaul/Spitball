@@ -18,10 +18,10 @@ namespace Cloudents.Admin2.Api
 {
     public class AdminUploadController : ControllerBase
     {
-        protected readonly IBlobProvider BlobProvider;
+        protected readonly IAdminDirectoryBlobProvider BlobProvider;
         private readonly ITempDataDictionaryFactory _tempDataDictionaryFactory;
         internal const double BlockSize = 3.5e+6;
-        public AdminUploadController(IBlobProvider blobProvider, ITempDataDictionaryFactory tempDataDictionaryFactory)
+        public AdminUploadController(IAdminDirectoryBlobProvider blobProvider, ITempDataDictionaryFactory tempDataDictionaryFactory)
         {
             BlobProvider = blobProvider;
             _tempDataDictionaryFactory = tempDataDictionaryFactory;
@@ -45,7 +45,6 @@ namespace Cloudents.Admin2.Api
 
             tempDataProvider.Put($"update-{model.SessionId}", tempData);
             return new UploadStartResponse();
-
         }
 
         [NonAction]
@@ -62,7 +61,7 @@ namespace Cloudents.Admin2.Api
             {
                 name = DateTimeOffset.UtcNow.ToUnixTimeSeconds() + name;
             }
-            return $"file-{sessionId}-{name.Replace("/", string.Empty)}";
+            return $"video-{sessionId}-{name.Replace("/", string.Empty)}";
         }
 
 

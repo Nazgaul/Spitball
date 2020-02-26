@@ -57,8 +57,6 @@ namespace Cloudents.Core.Storage
 
     public interface IAdminDirectoryBlobProvider : IBlobProvider
     {
-        Task<Uri> UploadImageAsync(string file,
-            Stream stream, string contentType, CancellationToken token = default);
     }
 
     public interface IChatDirectoryBlobProvider : IBlobProvider
