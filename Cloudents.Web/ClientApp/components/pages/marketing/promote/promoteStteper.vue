@@ -1,12 +1,12 @@
 <template>
     <v-stepper class="stepperWrap">
-        <router-link :to="{name: routeNames.Marketing}" class="d-block text-right pa-2">
+        <router-link :to="{name: routeNames.Marketing}" class="d-block text-right pa-4 pb-0">
           <v-icon size="12" color="#adadba">sbf-close</v-icon>
         </router-link>
 
         <v-stepper-header class="elevation-0">
             <v-stepper-step class="stepStteper pl-8" :class="[step === 1 ? 'active' : 'noActive']" step="1">
-              {{$t('promote_choose')}} {{$t('promote_your_content')}}
+                {{$t('promote_choose')}} {{$t('promote_your_content')}}
             </v-stepper-step>
 
             <v-divider></v-divider>
@@ -28,15 +28,15 @@
         </v-stepper-header>
 
         <!-- Mobile stepper label -->
-        <div class="mobileLabels px-4 mt-n3 text-center d-md-none d-flex justify-space-between">
+        <!-- <div class="mobileLabels px-4 mt-n3 text-center d-md-none d-flex justify-space-between">
             <div class="label1 fontLabel"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
             <div class="label2 fontLabel"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
             <div class="label3 fontLabel mr-4"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_template')}}</div>
             <div class="label4 fontLabel">{{$t('promote_publish')}}</div>
-        </div>
+        </div> -->
 
         <v-stepper-items>
-            <v-stepper-content class="pa-4" :step="step">
+            <v-stepper-content class="pa-4 pt-0" :step="step">
                 <component
                   :is="stepComponent"
                   :template="template"
@@ -134,7 +134,9 @@ export default {
       this.nextStep()
     },
     promoteProfile() {
-      //
+      this.step = 4;
+      this.dataType = 'profile';
+      this.stepComponent = this.stepComponents[`step${this.step}`]
     },
     promoteVideos () {
       this.dataType = 'videos';

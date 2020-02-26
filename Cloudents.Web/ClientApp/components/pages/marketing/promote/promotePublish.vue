@@ -2,7 +2,7 @@
     <div class="promotePublish mx-auto pa-4">
         <div class="wrap text-center">
             <v-skeleton-loader type="image" width="100%" v-if="loading"></v-skeleton-loader>
-            <img class="img" @load="onLoad" v-show="!loading" :src="$proccessImageUrl(`https://spitball-function-dev2.azurewebsites.net/api/share/document/50997?theme=${1}`, 420, 220)" alt="">
+            <img class="img" @load="onLoad" v-show="!loading" :src="publishImage" alt="">
             <div class="bottom mt-3">
                 <div class="shareIt text-left">{{$t('promote_shareIt')}}</div>
                 <div class="btnWrap">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="copyBtn mt-3">
                     <div class="wrap">
-                        <input type="text" class="copy text-truncate" name="" :value="video.product" ref="copy" readonly>
+                        <input type="text" class="copy text-truncate" name="" :value="''" ref="copy" readonly>
                         <button type="button" class="buttonCopy px-5" @click="copyLink" name="button">Copy</button>
                     </div>
                 </div>
@@ -50,12 +50,29 @@ export default {
     video: {
       type: Object,
       default: () => ({})
+    },
+    dataType: {
+      type: String,
+      default: ''
+    },
+    resource: {
+      required: false
     }
   },
   data() {
     return {
         loading: true
       }
+  },
+  computed: {
+    publishImage() {
+      let user = this.$store.getters.accountUser;
+      let rtl = global.country === 'IL' ? 'True' : 'False';
+      if(this.dataType === 'profile') {
+        return `https://spitball-function-dev2.azurewebsites.net/api/share/profile/${user.id}?width=420&amp;height=220&amp;rtl=${rtl}`
+      }
+      return `https://spitball-function-dev2.azurewebsites.net/api/share/document/50997?theme=${1}&width=420&amp;height=220&amp;rtl=${rtl}`
+    }
   },
   methods: {
     copyLink() {
