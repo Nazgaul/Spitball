@@ -7,9 +7,10 @@
                   <div class="text2">{{$t('promote_template_title2')}}</div>
                 </div>
             </div>
+
             <div class="bottomWrap text-center">
                 <v-skeleton-loader type="image" width="422" v-if="loading"></v-skeleton-loader>
-                <img class="img" @load="onLoad" v-show="!loading" :src="$proccessImageUrl('https://spitball-function-dev2.azurewebsites.net/api/share/document/50997?theme=1', 422, 220)" alt="">
+                <img class="img" @load="onLoad" v-show="!loading" :src="`https://spitball-function-dev2.azurewebsites.net/api/share/document/${documentId}?theme=1&width=422&amp;height=220&amp;rtl=${rtl}`" alt="">
                 <div class="btnWrap">
                   <v-btn class="useBtn" :disabled="loading" @click="useTemplate()" height="34" rounded outlined color="#4c59ff">{{$t('promote_use_template')}}</v-btn>
                 </div>
@@ -21,7 +22,7 @@
         <div class="bottom">
           <div v-for="n in 3" class="bottomWrap text-center" :key="n">
               <v-skeleton-loader type="image" width="292" v-if="loading"></v-skeleton-loader>
-              <img class="img" @load="onLoad" v-show="!loading" :src="$proccessImageUrl(`https://spitball-function-dev2.azurewebsites.net/api/share/document/50997?theme=${n+1}`, 292, 150)" alt="">
+              <img class="img" @load="onLoad" v-show="!loading" :src="`https://spitball-function-dev2.azurewebsites.net/api/share/document/${documentId}?theme=${n+1}&width=292&amp;height=150&amp;rtl=${rtl}`" alt="">
               <div class="btnWrap">
                 <v-btn class="useBtn" :disabled="loading" @click="useTemplate(template)" height="34" rounded outlined color="#4c59ff">
                     <span class="text-truncate">{{$t('promote_use_template')}}</span>
@@ -51,11 +52,16 @@ export default {
       loading: true,
     }
   },
+  computed: {
+    rtl() {
+      return global.country === 'IL' ? 'True' : 'False';
+    },
+    documentId() {
+      return this.template?.id || this.video?.id
+    }
+  },
   methods: {
     useTemplate() {
-      // this.selected = template.id
-      // this.$emit('selectedTemplate', template);
-
       this.selected = this.video.id
       this.$emit('selectedTemplate', this.video);
     },
