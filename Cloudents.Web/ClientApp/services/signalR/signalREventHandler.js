@@ -1,71 +1,11 @@
 import store from '../../store/index'
 
 export const signlaREvents = {
-    question: {
-        add: function(arrEventObj){
-            arrEventObj.forEach((questionToAdd)=>{
-                store.dispatch("addQuestionItemAction", questionToAdd);
-            });
-        },
-        delete: function(arrEventObj){
-            arrEventObj.forEach((questionToRemove)=>{
-                store.dispatch("removeQuestionItemAction", questionToRemove);
-            });
-        },
-        action: function(arrEventObj){
-            let questionActions = {
-                markascorrect: function(dataObj){
-                    //feed Object
-                    store.dispatch("updateQuestionCorrect", dataObj);
-                    //question Object
-                    store.dispatch("updateQuestionItemCorrect", dataObj);
-                }
-            };  
-            arrEventObj.forEach((action)=>{
-                if(!questionActions[action.type]){
-                    console.error(`Action type ${action.type} was not defined in Question questionActions`);
-                }
-                questionActions[action.type](action.data);
-            });
-        }
-        
-    },
-    answer:{
-        add: function(arrEventObj){
-            arrEventObj.forEach((addedAnswerObj)=>{
-                //question Object
-                store.dispatch("answerAdded", addedAnswerObj);
-
-                //update answers Number in the main feed
-                let actionObj = {
-                    questionId: addedAnswerObj.questionId,
-                    addCounter: true
-                };
-                store.dispatch('Feeds_updateCounter', actionObj);
-            });
-        },
-        delete: function(arrEventObj){
-            arrEventObj.forEach((removedAnswerObj)=>{
-                //question Object
-                store.dispatch("answerRemoved", removedAnswerObj);
-                
-                 //update answers Number in the main feed
-                 let actionObj = {
-                    questionId: removedAnswerObj.questionId,
-                    addCounter: false
-                };
-                 store.dispatch('Feeds_updateCounter', actionObj);
-            });
-        }
-    },
     user:{
         update:function(arrEventObj){
             arrEventObj.forEach((user)=>{
-                
-                    store.dispatch('signalR_SetBalance', user.balance);
-                
+                store.dispatch('signalR_SetBalance', user.balance);
             });
-
         },
         action: function(arrEventObj){
             let userActions = {
@@ -88,23 +28,6 @@ export const signlaREvents = {
                     return;
                 }
                 userActions[action.type](action.data);
-            });
-        },
-    },
-    notification: {
-        add: function(arrEventObj){
-            arrEventObj.forEach((notificationToAdd)=>{
-                store.dispatch("addNotificationItemAction", notificationToAdd);
-            });
-        },
-        delete: function(arrEventObj){
-            arrEventObj.forEach((notificationToRemove)=>{
-                store.dispatch("removeNotification", notificationToRemove);
-            });
-        },
-        update: function(arrEventObj){
-            arrEventObj.forEach((notificationToUpdate)=>{
-                store.dispatch("updateNotification", notificationToUpdate);
             });
         },
     },
@@ -138,18 +61,6 @@ export const signlaREvents = {
             });
 
 
-        }
-    },
-    chat: {
-        add: function(arrEventObj){
-            arrEventObj.forEach((chatMessageToAdd)=>{
-                store.dispatch("signalRAddMessage", chatMessageToAdd);
-            });
-        },
-        update: function(arrEventObj){
-            arrEventObj.forEach((conversationObj)=>{
-                store.dispatch("checkUnreadMessageFromSignalR", conversationObj);
-            });
         }
     },
     studyroom:{
