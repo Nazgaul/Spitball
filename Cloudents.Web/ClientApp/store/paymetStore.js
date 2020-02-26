@@ -4,15 +4,10 @@ import { LanguageService } from '../services/language/languageService';
 const state = {
     showPaymentDialog: false,
     paymentURL: '',
-    tutorName: '',
     transactionId: null,
-    dictionaryTitle: '',
 };
 
 const mutations = {
-    setTutorName(state, name) {
-        state.tutorName = name;
-    },
     setPaymentDialogState(state,val){
         state.showPaymentDialog = val;
     },
@@ -22,14 +17,9 @@ const mutations = {
     setIdTransaction(state, id) {
         state.transactionId = id;
     },
-     setDictionaryTitle(state, val) {
-         state.dictionaryTitle = val;
-     }
 };
 
 const getters = {
-    getTutorName: state => state.tutorName,
-    getDictionaryTitle: state => state.dictionaryTitle,
     getShowPaymeDialog: state => state.showPaymentDialog,
     getPaymentURL:state => state.paymentURL,
     getTransactionId: state => state.transactionId,
@@ -50,9 +40,7 @@ const actions = {
             global.localStorage.setItem("sb_transactionError", points);
         });
     },
-    requestPaymentURL({commit,dispatch}, paymeObj ){
-        dispatch('updateTutorName', paymeObj.name);
-        dispatch('updateDictionaryTitle', paymeObj.title);
+    requestPaymentURL({commit,dispatch}){
         walletService.getPaymeLink().then(({ data }) => {
             commit('setPaymentURL',data.link);
             dispatch('updatePaymentDialogState',true);
@@ -67,12 +55,6 @@ const actions = {
     },
     updatePaymentDialogState({commit}, val){
         commit('setPaymentDialogState', val);
-    },
-    updateDictionaryTitle({commit}, title) {
-        commit('setDictionaryTitle', title);
-    },
-    updateTutorName({commit}, name) {
-        commit('setTutorName', name);
     },
     updateIdTransaction({commit}, id) {
         commit('setIdTransaction', id);

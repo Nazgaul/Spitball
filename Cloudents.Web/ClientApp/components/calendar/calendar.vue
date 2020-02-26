@@ -291,7 +291,7 @@ export default {
           this.isLoading = false;
         },
         goPayment(){
-          this.requestPaymentURL({ title: 'payme_title', name: this.tutorName });
+          this.requestPaymentURL();
         },
         isSelected(date,time){
           if(date === this.selectedDate && time === this.selectedTime){

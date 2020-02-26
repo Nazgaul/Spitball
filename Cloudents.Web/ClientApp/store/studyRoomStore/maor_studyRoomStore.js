@@ -12,7 +12,7 @@ const getters = {
 const actions = {
    maor_updateStudyRoomInformation({getters,dispatch},roomId){
       if(getters.getStudyRoomData){
-         dispatch('maor_studyRoomMiddleWare')
+         return dispatch('maor_studyRoomMiddleWare')
       }else{
          return maor_studyRoomService.getRoomInformation(roomId).then((roomProps)=>{
             roomProps.isTutor = getters.accountUser.id == roomProps.tutorId;
@@ -28,8 +28,7 @@ const actions = {
    maor_studyRoomMiddleWare({getters,dispatch}){
       let isStudentNeedPayment = (!getters.getStudyRoomData.isTutor && getters.getStudyRoomData.needPayment);
       if(isStudentNeedPayment){
-         let params = {title: 'payme_title', name: getters.getStudyRoomData.tutorName}
-         dispatch('requestPaymentURL', params); 
+         dispatch('requestPaymentURL'); 
          return Promise.reject();
       }else{
          return Promise.resolve()
