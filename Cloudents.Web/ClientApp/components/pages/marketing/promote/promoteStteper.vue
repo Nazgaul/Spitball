@@ -30,18 +30,18 @@
         </v-stepper-header>
 
         <!-- Mobile stepper label -->
-        <!-- <div class="mobileLabels px-4 mt-n3 text-center d-md-none d-flex justify-space-between">
+        <div class="mobileLabels px-4 mt-n3 text-center d-none d-sm-flex d-md-none justify-space-between">
             <div class="label1 fontLabel"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
             <div class="label2 fontLabel"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
             <div class="label3 fontLabel mr-4"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_template')}}</div>
             <div class="label4 fontLabel">{{$t('promote_publish')}}</div>
-        </div> -->
+        </div>
 
         <v-stepper-items>
             <v-stepper-content class="pa-4 pt-0" :step="step">
                 <component
                   :is="stepComponent"
-                  :template="template"
+                  :theme="theme"
                   :document="document"
                   :dataType="dataType"
                   :resource="resource"
@@ -50,10 +50,9 @@
                   ref="childComponent">
                 </component>
                 <div class="text-right">
-                  <v-alert type="error" v-show="error">
-                    {{$t('promote_table_error')}}
-                  </v-alert>
-                  <v-btn class="white--text mt-10" width="120" v-if="step !== 1 && step !== 3" @click="nextStep" color="#4452fc" rounded>{{$t('promote_btn_next')}}</v-btn>
+                  <v-alert type="error" v-show="error">{{$t('promote_table_error')}}</v-alert>
+                  <v-btn class="white--text mt-10" width="120" v-if="step === 2" @click="nextStep" color="#4452fc" rounded>{{$t('promote_btn_next')}}</v-btn>
+                  <v-btn class="white--text mt-10" width="120" v-if="step == 4" @click="''" color="#4452fc" rounded>{{$t('promote_btn_done')}}</v-btn>
                 </div>
             </v-stepper-content>
         </v-stepper-items>
@@ -81,7 +80,7 @@ export default {
       dataType: '',
       step: 1,
       error: false,
-      template: null,
+      theme: 0,
       document: null,
       stepComponent: 'marketingActions',
       stepComponents: {
@@ -129,8 +128,8 @@ export default {
       this.document = document;
       this.error = false;
     },
-    selectedTemplate(template) {
-      this.template = template;
+    selectedTemplate(theme) {
+      this.theme = theme;
       this.nextStep()
     },
     promoteProfile() {

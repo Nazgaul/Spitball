@@ -3,7 +3,14 @@
         <div class="wrap text-center">
             <v-skeleton-loader type="image" width="100%" v-if="loading"></v-skeleton-loader>
             <img class="img" @load="onLoad" v-show="!loading" :src="publishImage" alt="">
-            <div class="bottom mt-3">
+            <shareContent 
+              :link="shareContentParams.link"
+              :twitter="shareContentParams.twitter"
+              :whatsApp="shareContentParams.whatsApp"
+              :email="shareContentParams.email"
+              :fromMarketing="true"
+            />
+            <!-- <div class="bottom mt-3">
                 <div class="shareIt text-left">{{$t('promote_shareIt')}}</div>
                 <div class="btnWrap">
                     <v-btn class="elevation-0 ma-2 ml-0" color="#305d98" @click="shareOnSocialMedia('facebook')">
@@ -25,27 +32,27 @@
                         <button type="button" class="buttonCopy px-5" @click="copyLink" name="button">Copy</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
 <script>
-import facebookIcon from './images/facebook.svg';
-import whatsappIcon from './images/whatsapp.svg';
-import twitterIcon from './images/twitter.svg';
-import emailIcon from './images/email.svg';
-
+// import facebookIcon from './images/facebook.svg';
+// import whatsappIcon from './images/whatsapp.svg';
+// import twitterIcon from './images/twitter.svg';
+// import emailIcon from './images/email.svg';
+import shareContent from '../../global/shareContent/shareContent.vue';
 export default {
   components: {
-    facebookIcon,
-    whatsappIcon,
-    twitterIcon,
-    emailIcon
+    shareContent,
+    // facebookIcon,
+    // whatsappIcon,
+    // twitterIcon,
+    // emailIcon
   },
   props: {
-    template: {
-      type: Object,
-      default: () => ({})
+    theme: {
+      type: Number,
     },
     document: {
       type: Object,
@@ -54,65 +61,77 @@ export default {
     dataType: {
       type: String,
       default: ''
-    },
-    resource: {
-      required: false
     }
   },
   data() {
     return {
-        loading: true
-      }
-  },
-  computed: {
-    publishImage() {
-      console.log(this);
-      debugger
-      let user = this.$store.getters.accountUser;
-      let rtl = global.country === 'IL' ? 'True' : 'False';
-      if(this.dataType === 'profile') {
-        return `https://spitball-function-dev2.azurewebsites.net/api/share/profile/${user.id}?width=420&amp;height=220&amp;rtl=${rtl}`
-      }
-      return `https://spitball-function-dev2.azurewebsites.net/api/share/document/50997?theme=${1}&width=420&amp;height=220&amp;rtl=${rtl}`
+      loading: true
     }
   },
-  methods: {
-    copyLink() {
-      const copyText = this.$refs.copy;
-      copyText.select();
-      copyText.setSelectionRange(0, 99999)
-      document.execCommand("copy");
+  computed: {
+    user() {
+      return this.$store.getters.accountUser;
     },
-    shareOnSocialMedia(socialMediaName) {
-      let windowSizes = 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=583';
-      let user = this.$store.getters.accountUser;
-      let urlLink = `${global.location.origin}/p/${user.id}?t=${Date.now()}`;
-      let shareContent = this.shareContentParams(user.name, urlLink);
-      switch (socialMediaName) {
-        case 'email':
-          window.location.href = `mailto:?subject=${encodeURIComponent(shareContent.email.subject)}&body=${encodeURIComponent(shareContent.email.body)}`;
-          break;
-        case 'facebook':
-          global.open(`https://www.facebook.com/sharer.php?u=${urlLink}`,'', windowSizes);
-          break;
-        case 'whatsApp':
-          global.open(`https://wa.me/?text=${encodeURIComponent(shareContent.whatsApp)}`,'', windowSizes);
-          break;
-        case 'twitter':
-          global.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareContent.twitter)}`, '', windowSizes);
-          break;
+    urlLink() {
+      let urlLink;
+      if(this.document) {
+        urlLink = `${global.location.origin}/d/${this.user.id}?t=${Date.now()}&theme=${this.theme}`;
+      } else {
+        urlLink = `${global.location.origin}/p/${this.user.id}?t=${Date.now()}`;
       }
+      return urlLink;
     },
-    shareContentParams(userName, urlLink){
+    shareContentParams(){
+      let urlLink = this.urlLink;
+      let user = this.user;
       return {
-        twitter: this.$t('shareContent_share_profile_twitter',[userName,urlLink]),
-        whatsApp: this.$t('shareContent_share_profile_whatsapp',[userName,urlLink]),
+        link: urlLink,
+        twitter: this.$t('shareContent_share_profile_twitter',[user.name,urlLink]),
+        whatsApp: this.$t('shareContent_share_profile_whatsapp',[user.name,urlLink]),
         email: {
-            subject: this.$t('shareContent_share_profile_email_subject',[userName]),
-            body: this.$t('shareContent_share_profile_email_body',[userName,urlLink]),
+          subject: this.$t('shareContent_share_profile_email_subject',[user.name]),
+          body: this.$t('shareContent_share_profile_email_body',[user.name,urlLink]),
         }
       }
     },
+    publishImage() {
+      let user = this.user;
+      let rtl = global.country === 'IL' ? true : false;
+      //TODO: move to store
+      if(this.dataType === 'profile') {
+        return `${window.functionApp}/api/share/profile/${user.id}?width=420&amp;height=220&amp;rtl=${rtl}`
+      }
+      return `${window.functionApp}/api/share/document/${this.document.id}?theme=${this.theme}&width=420&amp;height=220&amp;rtl=${rtl}`
+    },
+  },
+  methods: {
+    // copyLink() {
+    //   const copyText = this.$refs.copy;
+    //   copyText.select();
+    //   copyText.setSelectionRange(0, 99999)
+    //   document.execCommand("copy");
+    // },
+    // shareOnSocialMedia(socialMediaName) {
+    //   let windowSizes = 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=583';
+    //   let user = this.$store.getters.accountUser;
+    //   let urlLink = `${global.location.origin}/p/${user.id}?t=${Date.now()}?theme=${this.theme}`;
+    //   let shareContent = this.shareContentParams;
+    //   debugger
+    //   switch (socialMediaName) {
+    //     case 'email':
+    //       window.location.href = `mailto:?subject=${encodeURIComponent(shareContent.email.subject)}&body=${encodeURIComponent(shareContent.email.body)}`;
+    //       break;
+    //     case 'facebook':
+    //       global.open(`https://www.facebook.com/sharer.php?u=${urlLink}`,'', windowSizes);
+    //       break;
+    //     case 'whatsApp':
+    //       global.open(`https://wa.me/?text=${encodeURIComponent(shareContent.whatsApp)}`,'', windowSizes);
+    //       break;
+    //     case 'twitter':
+    //       global.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareContent.twitter)}`, '', windowSizes);
+    //       break;
+    //   }
+    // },
     onLoad() {
       this.loading = false
     }
