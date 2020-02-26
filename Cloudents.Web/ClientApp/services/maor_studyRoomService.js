@@ -15,5 +15,5 @@ export default {
 
       return await studyRoomInstance.post('',params)
    },
-// todo change in chat store
+// TODO: change in chat store
 }

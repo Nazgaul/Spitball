@@ -3,8 +3,8 @@ import * as routeName from "./routeNames.js";
 
 export const studyRoomRoutes = [
     {
-        path: "/studyroomSettings/:id?",
-        name: 'roomSettings',
+        path: `/${routeName.StudyRoomSettings.path}/:id?`, 
+        name: routeName.StudyRoomSettings.name,
         components: {
             default: () => import(`../components/studyroomSettings/studyroomSettings.vue`),
         },
@@ -18,26 +18,19 @@ export const studyRoomRoutes = [
         }
     },
     {
-        path: "/studyroom/:id?",
-        name: 'tutoring',
+        path: `/${routeName.StudyRoom.path}/:id?`,
+        name: routeName.StudyRoom.name,
         components: {
             default: () => import(`../components/studyroom/tutor.vue`),
         },
         beforeEnter: (to, from, next) => {
-            if(to.params.id){
-                if(!store.getters.getStudyRoomData){
-                    if(to.params.id){
-                        store.dispatch('maor_updateStudyRoomInformation',to.params.id).then((roomProps)=>{
-                            roomProps.isTutor = store.getters.accountUser.id == roomProps.tutorId;
-                            store.dispatch('updateStudyRoomProps',roomProps);
-                            store.dispatch('maor_studyRoomMiddleWare',{to, from, next})
-                        })
-                    }
-                }else{
-                    store.dispatch('maor_studyRoomMiddleWare',{to, from, next})   
-                }
-            }else{
+            if(!to.params.id){
                 next()
+                return;
+            }else{
+                store.dispatch('maor_updateStudyRoomInformation',to.params.id).then(()=>{
+                    next()
+                }).catch(()=>{})
             }
         },
         props: {

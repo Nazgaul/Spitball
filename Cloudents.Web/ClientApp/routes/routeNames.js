@@ -44,10 +44,17 @@ export const SetCourse = 'setCourse';
 export const EditUniversity = 'addUniversity';
 
 // Study Room:
-export const StudyRoom = 'tutoring';
+export const StudyRoom = {
+   name:'tutoring',
+   path:'studyroom'
+};
 
 // Study Room Settings:
-export const StudyRoomSettings = 'roomSettings';
+export const StudyRoomSettings = {
+   name: 'roomSettings',
+   path: 'studyroomSettings'
+}
+
 
 
 // Document:
