@@ -1,6 +1,6 @@
 <template>
-   <div class="shareContent" :class="{'btnWrap': from}">
-      <span class="pr-1" v-if="!from">{{$t('shareContent_title')}} |</span>
+   <div class="shareContent" :class="{'btnWrap': fromMarketing}">
+      <span class="pr-1" v-if="!fromMarketing">{{$t('shareContent_title')}} |</span>
 
       <div class="d-flex align-center">
          <facebookSVG style="width:9px" class="option facebook ml-3" @click="shareOnSocialMedia('facebook')"/>
@@ -9,7 +9,7 @@
          <emailSVG style="width:21px" class="option email ml-5" @click="shareOnSocialMedia('email')"/>
       </div>
 
-      <div class="copyBtn mt-3" v-if="from">
+      <div class="copyBtn mt-3" v-if="fromMarketing">
          <div class="wrap">
             <input type="text" class="copy text-truncate" name="" :value="link" ref="copy" readonly>
             <button type="button" class="buttonCopy px-5" @click="shareOnSocialMedia('link')" name="button">Copy</button>
@@ -40,7 +40,7 @@ export default {
       }
    },
    props:{
-      from: {
+      fromMarketing: {
          required: false,
          type: Boolean
       },
@@ -91,7 +91,6 @@ export default {
       }
    },
    created() {
-      debugger
       if(!this.link){
          console.error('one or more params are missed in ShareContent: link')
       }

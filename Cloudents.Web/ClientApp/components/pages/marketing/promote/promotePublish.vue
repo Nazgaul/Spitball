@@ -8,7 +8,7 @@
               :twitter="shareContentParams.twitter"
               :whatsApp="shareContentParams.whatsApp"
               :email="shareContentParams.email"
-              :from="true"
+              :fromMarketing="true"
             />
             <!-- <div class="bottom mt-3">
                 <div class="shareIt text-left">{{$t('promote_shareIt')}}</div>
@@ -51,9 +51,8 @@ export default {
     // emailIcon
   },
   props: {
-    template: {
-      type: Object,
-      default: () => ({})
+    theme: {
+      type: Number,
     },
     document: {
       type: Object,
@@ -62,70 +61,77 @@ export default {
     dataType: {
       type: String,
       default: ''
-    },
-    resource: {
-      required: false
     }
   },
   data() {
     return {
-        loading: true
-      }
+      loading: true
+    }
   },
   computed: {
+    user() {
+      return this.$store.getters.accountUser;
+    },
+    urlLink() {
+      let urlLink;
+      if(this.document) {
+        urlLink = `${global.location.origin}/d/${this.user.id}?t=${Date.now()}&theme=${this.theme}`;
+      } else {
+        urlLink = `${global.location.origin}/p/${this.user.id}?t=${Date.now()}`;
+      }
+      return urlLink;
+    },
     shareContentParams(){
-      let user = this.$store.getters.accountUser;
-      let urlLink = `${global.location.origin}/p/${user.id}?t=${Date.now()}?theme={theme}`;
-      let paramsObj = {
+      let urlLink = this.urlLink;
+      let user = this.user;
+      return {
         link: urlLink,
         twitter: this.$t('shareContent_share_profile_twitter',[user.name,urlLink]),
         whatsApp: this.$t('shareContent_share_profile_whatsapp',[user.name,urlLink]),
         email: {
-            subject: this.$t('shareContent_share_profile_email_subject',[user.name]),
-            body: this.$t('shareContent_share_profile_email_body',[user.name,urlLink]),
+          subject: this.$t('shareContent_share_profile_email_subject',[user.name]),
+          body: this.$t('shareContent_share_profile_email_body',[user.name,urlLink]),
         }
       }
-      return paramsObj;
     },
     publishImage() {
-      let user = this.$store.getters.accountUser;
-      let rtl = global.country === 'IL' ? 'True' : 'False';
-      //TODO: global
-      console.log(window.functionApp);
+      let user = this.user;
+      let rtl = global.country === 'IL' ? true : false;
+      //TODO: move to store
       if(this.dataType === 'profile') {
-        return `https://spitball-function-dev2.azurewebsites.net/api/share/profile/${user.id}?width=420&amp;height=220&amp;rtl=${rtl}`
+        return `${window.functionApp}/api/share/profile/${user.id}?width=420&amp;height=220&amp;rtl=${rtl}`
       }
-      return `https://spitball-function-dev2.azurewebsites.net/api/share/document/${this.document.id}?theme=${1}&width=420&amp;height=220&amp;rtl=${rtl}`
+      return `${window.functionApp}/api/share/document/${this.document.id}?theme=${this.theme}&width=420&amp;height=220&amp;rtl=${rtl}`
     },
   },
   methods: {
-    copyLink() {
-      const copyText = this.$refs.copy;
-      copyText.select();
-      copyText.setSelectionRange(0, 99999)
-      document.execCommand("copy");
-    },
-    shareOnSocialMedia(socialMediaName) {
-      let windowSizes = 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=583';
-      let user = this.$store.getters.accountUser;
-      //TODO add to the text next to the copy
-      let urlLink = `${global.location.origin}/p/${user.id}?t=${Date.now()}?theme={theme}`;
-      let shareContent = this.shareContentParams(user.name, urlLink);
-      switch (socialMediaName) {
-        case 'email':
-          window.location.href = `mailto:?subject=${encodeURIComponent(shareContent.email.subject)}&body=${encodeURIComponent(shareContent.email.body)}`;
-          break;
-        case 'facebook':
-          global.open(`https://www.facebook.com/sharer.php?u=${urlLink}`,'', windowSizes);
-          break;
-        case 'whatsApp':
-          global.open(`https://wa.me/?text=${encodeURIComponent(shareContent.whatsApp)}`,'', windowSizes);
-          break;
-        case 'twitter':
-          global.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareContent.twitter)}`, '', windowSizes);
-          break;
-      }
-    },
+    // copyLink() {
+    //   const copyText = this.$refs.copy;
+    //   copyText.select();
+    //   copyText.setSelectionRange(0, 99999)
+    //   document.execCommand("copy");
+    // },
+    // shareOnSocialMedia(socialMediaName) {
+    //   let windowSizes = 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=583';
+    //   let user = this.$store.getters.accountUser;
+    //   let urlLink = `${global.location.origin}/p/${user.id}?t=${Date.now()}?theme=${this.theme}`;
+    //   let shareContent = this.shareContentParams;
+    //   debugger
+    //   switch (socialMediaName) {
+    //     case 'email':
+    //       window.location.href = `mailto:?subject=${encodeURIComponent(shareContent.email.subject)}&body=${encodeURIComponent(shareContent.email.body)}`;
+    //       break;
+    //     case 'facebook':
+    //       global.open(`https://www.facebook.com/sharer.php?u=${urlLink}`,'', windowSizes);
+    //       break;
+    //     case 'whatsApp':
+    //       global.open(`https://wa.me/?text=${encodeURIComponent(shareContent.whatsApp)}`,'', windowSizes);
+    //       break;
+    //     case 'twitter':
+    //       global.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareContent.twitter)}`, '', windowSizes);
+    //       break;
+    //   }
+    // },
     onLoad() {
       this.loading = false
     }

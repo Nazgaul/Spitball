@@ -10,9 +10,9 @@
 
             <div class="bottomWrap text-center">
                 <v-skeleton-loader type="image" width="422" v-if="loading"></v-skeleton-loader>
-                <img class="img" @load="onLoad" v-show="!loading" :src="`https://spitball-function-dev2.azurewebsites.net/api/share/document/${documentId}?theme=1&width=422&amp;height=220&amp;rtl=${rtl}`" alt="">
+                <img class="img" @load="onLoad" v-show="!loading" :src="`${domain}/api/share/document/${documentId}?theme=1&width=422&amp;height=220&amp;rtl=${rtl}`" alt="">
                 <div class="btnWrap">
-                  <v-btn class="useBtn" :disabled="loading" @click="useTemplate()" height="34" rounded outlined color="#4c59ff">{{$t('promote_use_template')}}</v-btn>
+                  <v-btn class="useBtn" :disabled="loading" @click="useTemplate(1)" height="34" rounded outlined color="#4c59ff">{{$t('promote_use_template')}}</v-btn>
                 </div>
             </div>
         </div>
@@ -22,9 +22,9 @@
         <div class="bottom">
           <div v-for="n in 3" class="bottomWrap text-center" :key="n">
               <v-skeleton-loader type="image" width="292" v-if="loading"></v-skeleton-loader>
-              <img class="img" @load="onLoad" v-show="!loading" :src="`https://spitball-function-dev2.azurewebsites.net/api/share/document/${documentId}?theme=${n+1}&width=292&amp;height=150&amp;rtl=${rtl}`" alt="">
+              <img class="img" @load="onLoad" v-show="!loading" :src="`${domain}/api/share/document/${documentId}?theme=${n+1}&width=292&amp;height=150&amp;rtl=${rtl}`" alt="">
               <div class="btnWrap">
-                <v-btn class="useBtn" :disabled="loading" @click="useTemplate(template)" height="34" rounded outlined color="#4c59ff">
+                <v-btn class="useBtn" :disabled="loading" @click="useTemplate(n+1)" height="34" rounded outlined color="#4c59ff">
                     <span class="text-truncate">{{$t('promote_use_template')}}</span>
                 </v-btn>
               </div>
@@ -37,10 +37,6 @@
 export default {
   name: "promoteTemplate",
   props: {
-    template : {
-      type: Object,
-      default: () => ({})
-    },
     document : {
       type: Object,
       default: () => ({})
@@ -50,6 +46,7 @@ export default {
     return {
       selected: 0,
       loading: true,
+      domain: ''
     }
   },
   computed: {
@@ -61,13 +58,16 @@ export default {
     }
   },
   methods: {
-    useTemplate() {
-      this.selected = this.document.id
-      this.$emit('selectedTemplate', this.document);
+    useTemplate(templateNumber) {
+      this.selected = templateNumber
+      this.$emit('selectedTemplate', templateNumber);
     },
     onLoad() {
       this.loading = false
     }
+  },
+  created() {
+    this.domain = window.functionApp;
   }
 }
 </script>

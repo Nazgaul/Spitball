@@ -41,7 +41,7 @@
             <v-stepper-content class="pa-4 pt-0" :step="step">
                 <component
                   :is="stepComponent"
-                  :template="template"
+                  :theme="theme"
                   :document="document"
                   :dataType="dataType"
                   :resource="resource"
@@ -80,7 +80,7 @@ export default {
       dataType: '',
       step: 1,
       error: false,
-      template: null,
+      theme: 0,
       document: null,
       stepComponent: 'marketingActions',
       stepComponents: {
@@ -128,8 +128,8 @@ export default {
       this.document = document;
       this.error = false;
     },
-    selectedTemplate(template) {
-      this.template = template;
+    selectedTemplate(theme) {
+      this.theme = theme;
       this.nextStep()
     },
     promoteProfile() {
