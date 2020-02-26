@@ -7,24 +7,24 @@
         </div>
 
         <v-stepper-header class="elevation-0">
-            <v-stepper-step class="stepStteper pl-8" :class="[step === 1 ? 'active' : 'noActive']" step="1">
+            <v-stepper-step class="stepStteper pl-8" :class="[step === 1 ? 'active' : 'noActive']" step="1" @click="goStep(1)">
                 {{$t('promote_choose')}} {{$t('promote_your_content')}}
             </v-stepper-step>
 
             <v-divider></v-divider>
 
-            <v-stepper-step class="stepStteper pl-8" :class="[step === 2 ? 'active' : 'noActive']" step="2">
+            <v-stepper-step class="stepStteper pl-8" :class="[step === 2 ? 'active' : 'noActive']" step="2" @click="goStep(2)">
                 {{$t('promote_choose')}} {{$t('promote_your_content')}}
             </v-stepper-step>
 
             <v-divider></v-divider>
 
-            <v-stepper-step class="stepStteper" :class="[step === 3 ? 'active' : 'noActive']" step="3">
+            <v-stepper-step class="stepStteper" :class="[step === 3 ? 'active' : 'noActive']" step="3" @click="goStep(3)">
                 {{$t('promote_choose')}} {{$t('promote_template')}}
             </v-stepper-step>
             <v-divider></v-divider>
 
-            <v-stepper-step class="stepStteper pr-6" :class="[step === 4 ? 'active' : 'noActive']" step="4">
+            <v-stepper-step class="stepStteper pr-6" :class="[step === 4 ? 'active' : 'noActive']" step="4" @click="goStep(4)">
                 {{$t('promote_publish')}}
             </v-stepper-step>
         </v-stepper-header>
@@ -145,6 +145,13 @@ export default {
       this.dataType = 'Document';
       this.nextStep()
     },
+    goStep(step) {
+      if(this.step < step) {
+        return
+      }
+      this.step = step;
+      this.stepComponent = this.stepComponents[`step${this.step}`]
+    }
   },
 }
 </script>
