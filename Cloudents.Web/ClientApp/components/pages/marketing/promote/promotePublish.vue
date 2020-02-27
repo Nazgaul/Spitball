@@ -91,9 +91,10 @@ export default {
   max-width: 454px;
   border-radius: 8px;
   border: solid 1px #dddddd;
-  margin-top: 50px;
+  margin-top: 25px;
   @media (max-width: @screen-xs) {
     border: none;
+    margin-top: 10px;
   }
   .publishTitle {
     color: @global-purple;
