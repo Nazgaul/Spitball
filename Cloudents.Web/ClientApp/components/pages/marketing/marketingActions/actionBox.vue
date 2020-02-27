@@ -44,6 +44,9 @@
         &:nth-child(2) {
             padding-left: 0 !important;
             padding-right: 24px !important;
+            @media (max-width: @screen-xs) {
+                padding-right: 0 !important;
+            }
             .boxImage {
                 margin-top: 0 !important;
             }
@@ -51,6 +54,9 @@
         &:nth-child(4) {
             padding-right: 0 !important;
             padding-left: 25px !important;
+            @media (max-width: @screen-xs) {
+                padding-left: 0 !important;
+            }
         }
     }
 </style>
