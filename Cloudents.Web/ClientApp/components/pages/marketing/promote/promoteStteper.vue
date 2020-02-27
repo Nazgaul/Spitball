@@ -171,15 +171,16 @@ export default {
   .stepStteper {
   //  padding: 24px 34px;
 
-    @media (max-width: @screen-xs) {
-    //  padding: 24px 30px;
-    }
+    // @media (max-width: @screen-xs) {
+    // //  padding: 24px 30px;
+    // }
     .v-stepper__step__step {
     //  width: 28px;
      // height: 28px;
     //  font-size: 14px;
-      background: -webkit-linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
-      background: linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
+      
+
+
     //  display: inline-block;
      // text-align: center;
     //  padding-top: 3px;
@@ -190,11 +191,17 @@ export default {
     &.noActive {
       cursor: pointer;
       .v-stepper__step__step {
-        background: -webkit-linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
-        -webkit-background-clip: text !important;
-        -webkit-text-fill-color: transparent !important;
+       
+        //-webkit-background-clip: text !important;
+        //-webkit-text-fill-color: transparent !important;
+        background: transparent !important;
+       // background: linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
         border: 2px solid #4452fc !important;
+
+
+        //border-image-source: linear-gradient(53deg, #4452fc 27%, #3892e4 115%);
         font-weight: 600;
+        color: #4c59ff;
       //  padding-top: 1px;
       }
       .v-stepper__label {
@@ -202,6 +209,10 @@ export default {
       }
     }
     &.active {
+      .v-stepper__step__step {
+        background: -webkit-linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
+      background: linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
+      }
       .v-stepper__label {
         text-shadow: 0px 0px 0px black;
       }
