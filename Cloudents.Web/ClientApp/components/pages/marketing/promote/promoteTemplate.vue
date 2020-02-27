@@ -17,9 +17,9 @@
             </div>
         </div>
 
-        <div class="centerTitle">{{$t('promote_choose_template')}}</div>
 
         <div class="bottom">
+          <div class="centerTitle d-block d-sm-none">{{$t('promote_choose_template')}}</div>
           <div v-for="n in 3" class="bottomWrap text-center" :key="n">
               <v-skeleton-loader type="image" width="292" v-if="loading"></v-skeleton-loader>
               <img class="img" @load="onLoad" v-show="!loading" :src="`${domain}/api/share/document/${documentId}?theme=${n+1}&width=292&amp;height=150&amp;rtl=${rtl}`" alt="">
@@ -40,6 +40,9 @@ export default {
     document : {
       type: Object,
       default: () => ({})
+    },
+    resource: {
+      required: false
     }
   },
   data() {
@@ -105,7 +108,6 @@ export default {
   .centerTitle {
     color: @global-purple;
     font-size: 18px;
-    margin-bottom: 14px;
     font-weight: 600;
   }
 
@@ -113,8 +115,12 @@ export default {
     display: grid;
     grid-template-columns: repeat(auto-fill, 292px);
     grid-gap: 18px;
+    @media (max-width: @screen-sm) {
+      margin-top: 20px;
+    }
     @media (max-width: @screen-xs) {
       grid-template-columns: repeat(auto-fill, 100%);
+      margin-top: 0;
     }
     .bottomWrap {
       .img {

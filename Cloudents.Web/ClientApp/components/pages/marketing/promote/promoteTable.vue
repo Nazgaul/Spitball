@@ -4,6 +4,7 @@
       :items="items"
       single-select
       class="promoteTable"
+      :mobile-breakpoint="0"
       :footer-props="{
         showFirstLastPage: false,
         firstIcon: '',
@@ -12,6 +13,12 @@
         nextIcon: 'sbf-arrow-right-carousel',
         itemsPerPageOptions: [5]
       }">
+
+        <template v-slot:top>
+          <div class="tableTitle d-block d-sm-none">
+            {{$t('promote_choose')}} {{$t('promote_your_content')}}
+          </div>
+        </template>
 
         <template v-slot:header.code="{header}">{{$t(header.text)}}</template>
         <template v-slot:header.couponType="{header}">{{$t(header.text)}}</template>
@@ -41,7 +48,7 @@
                       </div>
                   </div>
                 </td>
-                <td class="insideBox"><div class="">{{props.item.type}}</div></td>
+                <td class="insideBox"><div class="">{{$t(dataType === 'Video' ? 'promote_table_video' : 'promote_table_document')}}</div></td>
                 <td class="insideBox"><div class="">{{props.item.likes}}</div></td>
                 <td class="insideBox"><div class="">{{props.item.views}}</div></td>
                 <td class="insideBox"><div class="">{{props.item.downloads}}</div></td>
@@ -61,6 +68,9 @@ export default {
     dataType: {
       type: String,
       default: ''
+    },
+    resource: {
+      required: false
     }
   },
   data() {
@@ -103,10 +113,19 @@ export default {
 }
 </script>
 <style lang="less">
-@import '../../../../styles/colors';
+@import '../../../../styles/colors.less';
+@import '../../../../styles/mixin.less';
 
 .promoteTable {
   color: @global-purple !important;
+  .tableTitle {
+    color: @global-purple;
+    font-weight: 600;
+    font-size: 20px;
+    @media (max-width: @screen-xs) {
+        font-size: 18px;
+    }
+  }
   .v-data-table-header {
     span {
       color: @global-purple !important;

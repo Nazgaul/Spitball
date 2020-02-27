@@ -1,9 +1,10 @@
 <template>
-    <div class="promotePublish mx-auto pa-4">
+    <div class="promotePublish mx-auto pa-sm-4">
+        <div class="d-block d-sm-none publishTitle mb-4">{{$t('promote_publish')}}</div>
         <div class="wrap text-center">
             <v-skeleton-loader type="image" width="100%" v-if="loading"></v-skeleton-loader>
             <img class="img" @load="onLoad" v-show="!loading" :src="publishImage" alt="">
-            <div class="shareIt text-left">{{$t('promote_shareIt')}}</div>
+            <div class="shareIt my-3 text-left">{{$t('promote_shareIt')}}</div>
             <shareContent 
               :link="shareContentParams.link"
               :twitter="shareContentParams.twitter"
@@ -11,46 +12,14 @@
               :email="shareContentParams.email"
               :fromMarketing="true"
             />
-            <!-- <div class="bottom mt-3">
-                <div class="shareIt text-left">{{$t('promote_shareIt')}}</div>
-                <div class="btnWrap">
-                    <v-btn class="elevation-0 ma-2 ml-0" color="#305d98" @click="shareOnSocialMedia('facebook')">
-                        <facebookIcon />
-                    </v-btn>
-                    <v-btn class="elevation-0 ma-2" color="#2cb742" @click="shareOnSocialMedia('whatsApp')">
-                        <whatsappIcon />
-                    </v-btn>
-                    <v-btn class="elevation-0 ma-2" color="#45ceff" @click="shareOnSocialMedia('twitter')">
-                        <twitterIcon />
-                    </v-btn>
-                    <v-btn class="elevation-0 ma-2 mr-0" color="#878693" @click="shareOnSocialMedia('email')">
-                        <emailIcon />
-                    </v-btn>
-                </div>
-                <div class="copyBtn mt-3">
-                    <div class="wrap">
-                        <input type="text" class="copy text-truncate" name="" :value="''" ref="copy" readonly>
-                        <button type="button" class="buttonCopy px-5" @click="copyLink" name="button">Copy</button>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </template>
 <script>
-// import facebookIcon from './images/facebook.svg';
-// import whatsappIcon from './images/whatsapp.svg';
-// import twitterIcon from './images/twitter.svg';
-// import emailIcon from './images/email.svg';
 import shareContent from '../../global/shareContent/shareContent.vue';
+
 export default {
-  components: {
-    shareContent,
-    // facebookIcon,
-    // whatsappIcon,
-    // twitterIcon,
-    // emailIcon
-  },
+  components: { shareContent },
   props: {
     theme: {
       type: Number,
@@ -62,6 +31,9 @@ export default {
     dataType: {
       type: String,
       default: ''
+    },
+    resource: {
+      required: false
     }
   },
   data() {
@@ -106,33 +78,6 @@ export default {
     },
   },
   methods: {
-    // copyLink() {
-    //   const copyText = this.$refs.copy;
-    //   copyText.select();
-    //   copyText.setSelectionRange(0, 99999)
-    //   document.execCommand("copy");
-    // },
-    // shareOnSocialMedia(socialMediaName) {
-    //   let windowSizes = 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=583';
-    //   let user = this.$store.getters.accountUser;
-    //   let urlLink = `${global.location.origin}/p/${user.id}?t=${Date.now()}?theme=${this.theme}`;
-    //   let shareContent = this.shareContentParams;
-    //   debugger
-    //   switch (socialMediaName) {
-    //     case 'email':
-    //       window.location.href = `mailto:?subject=${encodeURIComponent(shareContent.email.subject)}&body=${encodeURIComponent(shareContent.email.body)}`;
-    //       break;
-    //     case 'facebook':
-    //       global.open(`https://www.facebook.com/sharer.php?u=${urlLink}`,'', windowSizes);
-    //       break;
-    //     case 'whatsApp':
-    //       global.open(`https://wa.me/?text=${encodeURIComponent(shareContent.whatsApp)}`,'', windowSizes);
-    //       break;
-    //     case 'twitter':
-    //       global.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareContent.twitter)}`, '', windowSizes);
-    //       break;
-    //   }
-    // },
     onLoad() {
       this.loading = false
     }
@@ -147,6 +92,17 @@ export default {
   border-radius: 8px;
   border: solid 1px #dddddd;
 
+  @media (max-width: @screen-xs) {
+    border: none;
+  }
+  .publishTitle {
+    color: @global-purple;
+    font-weight: 600;
+    font-size: 20px;
+    @media (max-width: @screen-xs) {
+        font-size: 18px;
+    }
+  }
   .wrap {
     width: 100%;
     .img {
@@ -158,42 +114,5 @@ export default {
       font-weight: 600;
       color: @global-purple;
   }
-  // .bottom {
-  //   .btnWrap {
-  //     display: flex;
-  //     justify-content: space-between;
-  //     button {
-  //       min-width: 90px !important;
-  //       flex: 1;
-  //       @media (max-width: @screen-xs) {
-  //         min-width: 46px !important;
-  //       }
-  //       svg {
-  //         width: 20px;
-  //       }
-  //     }
-  //   }
-  //   .copyBtn {
-  //     .wrap {
-  //       display: flex;
-  //       justify-content: flex-end;
-  //       border: solid 1px #dddddd;
-  //       border-radius: 8px;
-  //       height: 34px;
-  //       .copy {
-  //         flex-grow: 1;
-  //         width: 100%;
-  //         outline: none;
-  //         padding: 0 10px;
-  //         color: @global-purple;
-  //         opacity: 0.5
-  //       }
-  //       .buttonCopy {
-  //         outline: none;
-  //         background: rgba(189, 192, 209, 0.5);
-  //       }
-  //     }
-  //   }
-  // }
 }
 </style>

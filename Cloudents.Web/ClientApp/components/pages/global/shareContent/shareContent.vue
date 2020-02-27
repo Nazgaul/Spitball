@@ -1,24 +1,31 @@
 <template>
-   <div class="shareContent" :class="{'btnWrap': fromMarketing}">
+   <div class="shareContent" :class="{'marketingBtn': fromMarketing}">
       <span class="pr-1" v-if="!fromMarketing">{{$t('shareContent_title')}} |</span>
 
-      <div class="d-flex align-center">
-         <facebookSVG style="width:9px" class="option facebook ml-3" @click="shareOnSocialMedia('facebook')"/>
-         <whatsappSVG style="width:20px" class="option whatsapp ml-7 ml-sm-6" @click="shareOnSocialMedia('whatsApp')"/>
-         <twitterSVG style="width:20px" class="option twitter ml-5" @click="shareOnSocialMedia('twitter')"/>
-         <emailSVG style="width:21px" class="option email ml-5" @click="shareOnSocialMedia('email')"/>
+      <div class="d-flex align-center btnWrapper">
+         <v-btn class="shareBtns" :icon="!fromMarketing" color="#305d98" :ripple="false"  @click="shareOnSocialMedia('facebook')">
+            <facebookSVG right style="width:9px" class="option facebook"/>
+         </v-btn>
+         <v-btn class="shareBtns" :icon="!fromMarketing" color="#2cb742" :ripple="false"  @click="shareOnSocialMedia('whatsApp')">
+            <whatsappSVG right style="width:20px" class="option whatsapp mr-2"/>
+         </v-btn>
+         <v-btn class="shareBtns" :icon="!fromMarketing" color="#45ceff" :ripple="false"  @click="shareOnSocialMedia('twitter')">
+            <twitterSVG right style="width:20px" class="option twitter mr-2"/>
+         </v-btn>
+         <v-btn class="shareBtns" :icon="!fromMarketing" color="#878693" :ripple="false"  @click="shareOnSocialMedia('email')">
+            <emailSVG right style="width:21px" class="option email mr-2"/>
+         </v-btn>
       </div>
 
-      <div class="copyBtn mt-3" v-if="fromMarketing">
-         <div class="wrap">
-            <input type="text" class="copy text-truncate" name="" :value="link" ref="copy" readonly>
-            <button type="button" class="buttonCopy px-5" @click="shareOnSocialMedia('link')" name="button">Copy</button>
-         </div>
-      </div>
-
-      <v-tooltip v-model="showCopyToolTip" top transition="fade-transition" v-else>
-         <template v-slot:activator="{}">
-            <linkSVG style="width:20px" class="option link ml-5" @click="shareOnSocialMedia('link')"/>
+      <v-tooltip v-model="showCopyToolTip" top transition="fade-transition">
+         <template v-slot:activator="{}" >
+            <div class="copyBtn mt-3" v-if="fromMarketing">
+               <div class="wrap">
+                  <input type="text" class="copy text-truncate" name="" :value="link" ref="copy" readonly>
+                  <button type="button" class="buttonCopy px-5" @click="shareOnSocialMedia('link')" name="button">{{$t('shareContent_copy')}}</button>
+               </div>
+            </div>
+            <linkSVG style="width:20px" class="option link ml-4" @click="shareOnSocialMedia('link')" v-else/>
          </template>
          <span>{{$t('shareContent_copy_tool')}}</span>
       </v-tooltip>
@@ -124,6 +131,7 @@ export default {
       padding: 14px;
       border-radius: 0;
       box-shadow: none;
+      min-width: 100%;
    }
    .share-title{
       font-size: 14px;
@@ -131,18 +139,45 @@ export default {
    .option{
       cursor: pointer;
    }
-   &.btnWrap {
+   .shareBtns {
+      &::before {
+         display: none;
+      }
+      .v-btn__content {
+         justify-content: center !important;
+      }
+   }
+   .btnWrapper {
+      .option {
+         fill: #6f6e82;
+         margin: 0 !important;
+      }
+   }
+   &.marketingBtn {
       height: unset;
       flex-wrap: wrap;
-      button {
-        min-width: 90px !important;
-        flex: 1;
-        @media (max-width: @screen-xs) {
-          min-width: 46px !important;
-        }
-        svg {
-          width: 20px;
-        }
+      box-shadow: none;
+      padding: 0 !important;
+      
+      .btnWrapper {
+         width: 100%;
+         .shareBtns {
+            margin: 0 10px;
+            flex: 1;
+            @media (max-width: @screen-xs) {
+               min-width: 46px;
+               margin: 0 5px;
+            }
+            .option {
+               fill: #ffffff;
+            }
+            &:first-child {
+               margin-left: 0;
+            }
+            &:last-child {
+               margin-right: 0;
+            }
+         }
       }
       .copyBtn {
          width: 100%;

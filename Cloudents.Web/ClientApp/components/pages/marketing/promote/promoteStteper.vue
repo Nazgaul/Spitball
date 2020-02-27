@@ -8,7 +8,7 @@
 
         <v-stepper-header class="elevation-0">
             <v-stepper-step class="stepStteper pl-8" :class="[step === 1 ? 'active' : 'noActive']" step="1" @click="goStep(1)">
-                {{$t('promote_choose')}} {{$t('promote_your_content')}}
+                {{$t('promote_title')}}
             </v-stepper-step>
 
             <v-divider></v-divider>
@@ -49,10 +49,10 @@
                   @selectedDocument="selectedDocument"
                   ref="childComponent">
                 </component>
-                <div class="text-right">
-                  <v-alert type="error" v-show="error">{{$t('promote_table_error')}}</v-alert>
+                <div class="text-sm-right text-center">
+                  <v-alert type="error" class="text-left mt-4 mb-0" v-show="error">{{$t('promote_table_error')}}</v-alert>
                   <v-btn class="white--text mt-10" width="120" v-if="step === 2" @click="nextStep" color="#4452fc" rounded>{{$t('promote_btn_next')}}</v-btn>
-                  <v-btn class="white--text mt-10" width="120" v-if="step == 4" @click="''" color="#4452fc" rounded>{{$t('promote_btn_done')}}</v-btn>
+                  <v-btn class="white--text mt-10" width="120" v-if="step == 4" :to="{name: routeNames.Marketing}" color="#4452fc" rounded>{{$t('promote_btn_done')}}</v-btn>
                 </div>
             </v-stepper-content>
         </v-stepper-items>
@@ -150,6 +150,7 @@ export default {
       if(this.step < step) return
       if(this.dataType === 'profile' && this.step === 4 && step !== 1) return;
 
+      this.error = false
       this.step = step;
       this.stepComponent = this.stepComponents[`step${this.step}`]
     }
@@ -169,6 +170,7 @@ export default {
   }
   .stepStteper {
     padding: 24px 34px;
+
     @media (max-width: @screen-xs) {
       padding: 24px 30px;
     }
@@ -179,6 +181,9 @@ export default {
       background: linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
       background: -webkit-linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
       padding-bottom: 2px;
+      display: inline-block;
+      text-align: center;
+      padding-top: 3px;
     }
     .v-stepper__label {
       color: @global-purple !important;
@@ -198,7 +203,7 @@ export default {
     }
     &.active {
       .v-stepper__step__step {
-        padding-right: 1px;
+        padding-top: 5px;
       }
       .v-stepper__label {
         text-shadow: 0px 0px 0px black;
