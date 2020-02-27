@@ -22,7 +22,7 @@
             <div class="copyBtn mt-3" v-if="fromMarketing">
                <div class="wrap">
                   <input type="text" class="copy text-truncate" name="" :value="link" ref="copy" readonly>
-                  <button type="button" class="buttonCopy px-5" @click="shareOnSocialMedia('link')" name="button">Copy</button>
+                  <button type="button" class="buttonCopy px-5" @click="shareOnSocialMedia('link')" name="button">{{$t('shareContent_copy')}}</button>
                </div>
             </div>
             <linkSVG style="width:20px" class="option link ml-4" @click="shareOnSocialMedia('link')" v-else/>
