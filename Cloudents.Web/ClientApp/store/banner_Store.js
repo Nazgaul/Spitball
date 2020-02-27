@@ -33,14 +33,11 @@ const actions = {
             params = params || {};
             if(params.id){
                 let localStorageList = JSON.parse(global.localStorage.getItem(BANNER_STORAGE_NAME));
-                if(!Array.isArray(localStorageList)){
-                    localStorageList = [];
-                    global.localStorage.setItem(BANNER_STORAGE_NAME,JSON.stringify(localStorageList));
-                }
-                if(Array.isArray(localStorageList) && localStorageList.includes(params.id)){
-                    commit('setBannerParams',null);
+                if(Array.isArray(localStorageList)){
+                    params = localStorageList.includes(params.id)? null : params;
+                    commit('setBannerParams', params)
                 }else{
-                    commit('setBannerParams',params);
+                    global.localStorage.removeItem(BANNER_STORAGE_NAME)
                 }
             }else{
                 commit('setBannerParams',null);
