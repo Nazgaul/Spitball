@@ -3,17 +3,17 @@
       <span class="pr-1" v-if="!fromMarketing">{{$t('shareContent_title')}} |</span>
 
       <div class="d-flex align-center btnWrapper">
-         <v-btn class="shareBtns" :icon="!fromMarketing" color="#305d98" :ripple="false">
-            <facebookSVG right style="width:9px" class="option facebook" @click="shareOnSocialMedia('facebook')"/>
+         <v-btn class="shareBtns" :icon="!fromMarketing" color="#305d98" :ripple="false"  @click="shareOnSocialMedia('facebook')">
+            <facebookSVG right style="width:9px" class="option facebook"/>
          </v-btn>
-         <v-btn class="shareBtns" :icon="!fromMarketing" color="#2cb742" :ripple="false">
-            <whatsappSVG right style="width:20px" class="option whatsapp mr-2" @click="shareOnSocialMedia('whatsApp')"/>
+         <v-btn class="shareBtns" :icon="!fromMarketing" color="#2cb742" :ripple="false"  @click="shareOnSocialMedia('whatsApp')">
+            <whatsappSVG right style="width:20px" class="option whatsapp mr-2"/>
          </v-btn>
-         <v-btn class="shareBtns" :icon="!fromMarketing" color="#45ceff" :ripple="false">
-            <twitterSVG right style="width:20px" class="option twitter mr-2" @click="shareOnSocialMedia('twitter')"/>
+         <v-btn class="shareBtns" :icon="!fromMarketing" color="#45ceff" :ripple="false"  @click="shareOnSocialMedia('twitter')">
+            <twitterSVG right style="width:20px" class="option twitter mr-2"/>
          </v-btn>
-         <v-btn class="shareBtns" :icon="!fromMarketing" color="#878693" :ripple="false">
-            <emailSVG right style="width:21px" class="option email mr-2" @click="shareOnSocialMedia('email')"/>
+         <v-btn class="shareBtns" :icon="!fromMarketing" color="#878693" :ripple="false"  @click="shareOnSocialMedia('email')">
+            <emailSVG right style="width:21px" class="option email mr-2"/>
          </v-btn>
       </div>
 
@@ -71,6 +71,7 @@ export default {
    components:{facebookSVG,whatsappSVG,emailSVG,twitterSVG,linkSVG},
    methods: {
       shareOnSocialMedia(socialMediaName) {
+         debugger
          let windowSizes = 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=583';
          let self = this;
          switch (socialMediaName) {
