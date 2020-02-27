@@ -7,7 +7,7 @@
     </v-col>
 </template>
 
-<style lang="less">
+<style lang="less" scoped >
     @import '../../../../styles/mixin.less';
     @import '../../../../styles/colors.less';
     .box {
