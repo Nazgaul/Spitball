@@ -91,6 +91,7 @@ export default {
         }
         .text2 {
           color: @global-purple;
+          line-height: 1.57;
         }
       }
     }
