@@ -1,6 +1,6 @@
 <template>
     <v-stepper class="stepperWrap">
-        <div class="text-right pa-4">
+        <div class="text-right pa-4 pb-0">
           <router-link :to="{name: routeNames.Marketing}" class="">
             <v-icon size="12" color="#adadba" class="">sbf-close</v-icon>
           </router-link>
@@ -175,8 +175,8 @@ export default {
       padding: 24px 30px;
     }
     .v-stepper__step__step {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       font-size: 14px;
       background: linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
       background: -webkit-linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
