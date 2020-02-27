@@ -1,6 +1,6 @@
 <template>
     <v-stepper class="stepperWrap">
-        <div class="text-right pa-4">
+        <div class="text-right pa-4 pb-0">
           <router-link :to="{name: routeNames.Marketing}" class="">
             <v-icon size="12" color="#adadba" class="">sbf-close</v-icon>
           </router-link>

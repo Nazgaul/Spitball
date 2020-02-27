@@ -43,12 +43,14 @@
         }
         &:nth-child(2) {
             padding-left: 0 !important;
+            padding-right: 24px !important;
             .boxImage {
                 margin-top: 0 !important;
             }
         }
         &:nth-child(4) {
             padding-right: 0 !important;
+            padding-left: 25px !important;
         }
     }
 </style>
