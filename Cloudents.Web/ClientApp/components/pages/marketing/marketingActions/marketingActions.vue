@@ -1,5 +1,5 @@
 <template>
-    <v-row class="marketingActions pa-0 text-center" :class="{'marketingPage pa-4 mb-2 mb-sm-4': $route.name === 'marketing'}" dense>
+    <v-row class="marketingActions pa-0 text-center dens" :class="{'marketingPage pa-4 mb-2 mb-sm-4': $route.name === routeNames.Marketing}">
         <v-col class="pa-0 mb-6 d-flex justify-space-between" cols="12">
             <div class="text text-left" v-if="$route.name === routeNames.Marketing">{{$t('marketing_title')}}</div>
             <div class="text text-left d-block d-sm-none" v-else>{{$t('promote_title')}}</div>

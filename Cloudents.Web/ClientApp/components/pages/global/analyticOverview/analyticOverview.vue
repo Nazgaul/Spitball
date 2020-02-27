@@ -1,5 +1,5 @@
 <template>
-    <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4 pb-2 pb-sm-0" dense>
+    <v-row class="analyticOverview mt-sm-0 mt-2 mb-2 mb-sm-4 pb-2 pb-sm-0">
         <v-col class="space pa-0 mb-2 mb-sm-0" cols="7">
             <div class="text">{{$t('dashboardTeacher_analytic_title')}}</div>
         </v-col>
@@ -42,7 +42,7 @@
               v-for="n in 4"
               :key="n"
               :cols="isMobile ? 6 : 3"
-              class="analyticLoader mb-2">
+              class="analyticLoader mb-5">
                 <v-skeleton-loader
                   class="mx-auto load "
                   height=""
