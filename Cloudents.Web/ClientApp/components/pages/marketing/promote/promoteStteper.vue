@@ -169,20 +169,20 @@ export default {
     border-radius: 0;
   }
   .stepStteper {
-    padding: 24px 34px;
+  //  padding: 24px 34px;
 
     @media (max-width: @screen-xs) {
-      padding: 24px 30px;
+    //  padding: 24px 30px;
     }
     .v-stepper__step__step {
-      width: 28px;
-      height: 28px;
-      font-size: 14px;
+    //  width: 28px;
+     // height: 28px;
+    //  font-size: 14px;
       background: linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
       background: -webkit-linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
-      display: inline-block;
-      text-align: center;
-      padding-top: 3px;
+    //  display: inline-block;
+     // text-align: center;
+    //  padding-top: 3px;
     }
     .v-stepper__label {
       color: @global-purple !important;
@@ -193,9 +193,9 @@ export default {
         background: -webkit-linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
         -webkit-background-clip: text !important;
         -webkit-text-fill-color: transparent !important;
-        border: 1.5px solid #4452fc !important;
+        border: 2px solid #4452fc !important;
         font-weight: 600;
-        padding-top: 1px;
+      //  padding-top: 1px;
       }
       .v-stepper__label {
         text-shadow: none;
