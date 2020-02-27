@@ -120,18 +120,6 @@
   <data name="college" xml:space="preserve">
     <value>מכללות או אוניברסיטאות</value>
   </data>
-  <data name="congrats_bottom" xml:space="preserve">
-    <value>קבל שיעורים פרטיים ממיטב המורים, מצא חומרי לימוד וקבל תשובות לשאלות על החומר</value>
-  </data>
-  <data name="congrats_btn" xml:space="preserve">
-    <value>קדימה, נתחיל</value>
-  </data>
-  <data name="congrats_subtitle" xml:space="preserve">
-    <value>מוכן להתחיל</value>
-  </data>
-  <data name="congrats_title" xml:space="preserve">
-    <value>מזל טוב!</value>
-  </data>
   <data name="countryCode" xml:space="preserve">
     <value>קוד מדינה</value>
   </data>
@@ -317,15 +305,6 @@
   </data>
   <data name="smsconfirm_input" xml:space="preserve">
     <value>קוד כניסה</value>
-  </data>
-  <data name="smsconfirm_phone_error" xml:space="preserve">
-    <value>המספר טלפון הזה מקושר לאימייל אחר</value>
-  </data>
-  <data name="smsconfirm_phone_error_invalid" xml:space="preserve">
-    <value>מספר טלפון שגוי</value>
-  </data>
-  <data name="smsconfirm_phone_error_tryagain" xml:space="preserve">
-    <value>נא לנסות שוב</value>
   </data>
   <data name="smsconfirm_subtitle" xml:space="preserve">
     <value>נשלח למספר הזה:</value>

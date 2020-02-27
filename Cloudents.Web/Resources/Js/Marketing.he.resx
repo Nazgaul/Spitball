@@ -123,9 +123,6 @@
   <data name="blog_text2" xml:space="preserve">
     <value>10 סיבות מדוע שיווק דרך רשתות חברתיות היא ערובה להצלחה</value>
   </data>
-  <data name="blog_title" xml:space="preserve">
-    <value>טיפים מהעורכים שלנו</value>
-  </data>
   <data name="coming_soon" xml:space="preserve">
     <value>בקרוב</value>
   </data>
@@ -152,9 +149,6 @@
   </data>
   <data name="lets_go" xml:space="preserve">
     <value>בואו נתחיל</value>
-  </data>
-  <data name="see_all" xml:space="preserve">
-    <value>ראו הכל</value>
   </data>
   <data name="sharePost_title1" xml:space="preserve">
     <value>צרו שיתוף לרשתות החברתיות</value>
