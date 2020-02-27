@@ -52,7 +52,7 @@
                 <div class="text-right">
                   <v-alert type="error" class="text-left" v-show="error">{{$t('promote_table_error')}}</v-alert>
                   <v-btn class="white--text mt-10" width="120" v-if="step === 2" @click="nextStep" color="#4452fc" rounded>{{$t('promote_btn_next')}}</v-btn>
-                  <v-btn class="white--text mt-10" width="120" v-if="step == 4" @click="''" color="#4452fc" rounded>{{$t('promote_btn_done')}}</v-btn>
+                  <v-btn class="white--text mt-10" width="120" v-if="step == 4" :to="{name: routeNames.Marketing}" color="#4452fc" rounded>{{$t('promote_btn_done')}}</v-btn>
                 </div>
             </v-stepper-content>
         </v-stepper-items>
