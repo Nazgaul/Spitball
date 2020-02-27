@@ -41,20 +41,17 @@ namespace Cloudents.FunctionsV2.FileProcessor
             var directory = blob.Parent;
             var textBlob = directory.GetBlockBlobReference("text.txt");
             textBlob.Properties.ContentType = "text/plain";
-            await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr).ContinueWith(taskResult =>
-            {
-                var text2 = taskResult.Result;
+            var text2 = await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr);
 
-                if (!text2.Successful.GetValueOrDefault())
-                {
-                    return textBlob.UploadTextAsync(string.Empty);
-                }
+            //if (!text2.Successful.GetValueOrDefault())
+            //{
+            //    //textBlob.UploadTextAsync(string.Empty);
+            //}
 
-                var text = text2.TextResult;
-                text = StripUnwantedChars(text);
+            var text = text2.TextResult;
+            text = StripUnwantedChars(text);
 
-                return textBlob.UploadTextAsync(text ?? string.Empty);
-            }, token);
+            await textBlob.UploadTextAsync(text ?? string.Empty);
             sr.Seek(0, SeekOrigin.Begin);
             var result = await _convertDocumentApi.ConvertDocumentAutodetectToPngArrayAsync(sr);
 
