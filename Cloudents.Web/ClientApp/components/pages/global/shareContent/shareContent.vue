@@ -3,7 +3,7 @@
       <span class="pr-1" v-if="!fromMarketing">{{$t('shareContent_title')}} |</span>
 
       <div class="d-flex align-center btnWrapper">
-         <v-btn class="shareBtns" :icon="!fromMarketing" depressed color="#305d98" :ripple="false"  @click="shareOnSocialMedia('facebook')">
+         <v-btn class="shar\eBtns" :icon="!fromMarketing" depressed color="#305d98" :ripple="false"  @click="shareOnSocialMedia('facebook')">
             <facebookSVG right style="width:9px" class="option facebook"/>
          </v-btn>
          <v-btn class="shareBtns" :icon="!fromMarketing" depressed color="#2cb742" :ripple="false"  @click="shareOnSocialMedia('whatsApp')">
