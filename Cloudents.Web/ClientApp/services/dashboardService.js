@@ -1,4 +1,5 @@
 import { connectivityModule } from "./connectivity.module";
+import { Blogs } from './Dto/blogs'
 
 function itemTypeChcker(type){
    if(type.toLowerCase() === 'document' || type.toLowerCase() === 'video'){
@@ -126,17 +127,11 @@ function createTutorActions({data}) {
    return new TutorActions(data);
 }
 
-function SpitballBlog(objInit) {
-   this.image = objInit.image
-   this.url = objInit.url
-   this.title = objInit.title
-   this.uploader = objInit.uploader
-   this.create = objInit.create
+function createBlogs({data}) {
+   return data.map(item => new Blogs.Default(item))
 }
 
-function createSpitballBlogs({data}) {
-   return data.map(item => new SpitballBlog(item))
-}
+
 
 function getSalesItems(){
    return connectivityModule.http.get('/Account/sales').then(createSalesItems).catch(ex => ex);
@@ -157,7 +152,10 @@ function getTutorActions(){
    return connectivityModule.http.get('/Account/tutorActions').then(createTutorActions).catch(ex => ex);
 }
 function getSpitballBlogs(){
-   return connectivityModule.http.get('/blog').then(createSpitballBlogs).catch(ex => ex);
+   return connectivityModule.http.get('/blog').then(createBlogs).catch(ex => ex);
+}
+function getMarketingBlogs() {
+   return connectivityModule.http.get('/blog/marketing').then(createBlogs).catch(ex => ex);
 }
 
 
@@ -168,5 +166,6 @@ export default {
    getStudyRoomItems,
    getFollowersItems,
    getTutorActions,
-   getSpitballBlogs
+   getSpitballBlogs,
+   getMarketingBlogs
 }

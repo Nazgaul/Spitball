@@ -16,7 +16,7 @@ import requestBox from '../../pages/feedPage/components/requestActions/requestAc
 import coursesTab from "../../pages/feedPage/components/coursesTab/coursesTab.vue";
 import generalPage from '../../helpers/generalPage.vue';
 const analyticOverview = () => import('../../pages/global/analyticOverview/analyticOverview.vue');
-
+import buyPointsLayout from '../../pages/dashboardPage/mySales/buyPointsLayout/buyPointsLayout.vue'
 // SVG
 import emptyState from "../svg/no-match-icon.svg";
 
@@ -37,7 +37,8 @@ export default {
         requestBox,
         coursesTab,
         generalPage,
-        analyticOverview
+        analyticOverview,
+        buyPointsLayout
     },
     data() {
         return {
@@ -60,7 +61,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(['accountUser','Feeds_getItems','Feeds_getFilters','Feeds_getCurrentQuery','getUserLoggedInStatus']),
+        ...mapGetters(['getBannerParams','accountUser','Feeds_getItems','Feeds_getFilters','Feeds_getCurrentQuery','getUserLoggedInStatus']),
         items(){
             return this.Feeds_getItems
         },

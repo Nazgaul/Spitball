@@ -1,7 +1,6 @@
 import accountService from "../services/accountService";
 import { dollarCalculate } from "./constants";
 import analyticsService from '../services/analytics.service';
-import initSignalRService from '../services/signalR/signalrEventService';
 import insightService from '../services/insightService';
 import { LanguageService } from '../services/language/languageService';
 import intercomeService from '../services/intercomService';
@@ -94,7 +93,6 @@ const actions = {
         dispatch("getAllConversations");
         analyticsService.sb_setUserId(userAccount.id);
         insightService.authenticate.set(userAccount.id);
-        initSignalRService();
         dispatch('updateLoginStatus',true)
     },
     userStatus({state,dispatch,getters}) {
