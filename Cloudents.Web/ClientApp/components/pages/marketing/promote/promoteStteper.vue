@@ -170,6 +170,7 @@ export default {
   }
   .stepStteper {
     padding: 24px 34px;
+
     @media (max-width: @screen-xs) {
       padding: 24px 30px;
     }
@@ -180,6 +181,9 @@ export default {
       background: linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
       background: -webkit-linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
       padding-bottom: 2px;
+      display: inline-block;
+      text-align: center;
+      padding-top: 3px;
     }
     .v-stepper__label {
       color: @global-purple !important;
@@ -199,7 +203,7 @@ export default {
     }
     &.active {
       .v-stepper__step__step {
-        padding-right: 1px;
+        padding-top: 5px;
       }
       .v-stepper__label {
         text-shadow: 0px 0px 0px black;
