@@ -150,6 +150,7 @@ export default {
       if(this.step < step) return
       if(this.dataType === 'profile' && this.step === 4 && step !== 1) return;
 
+      this.error = false
       this.step = step;
       this.stepComponent = this.stepComponents[`step${this.step}`]
     }
