@@ -159,6 +159,9 @@
   <data name="table_date" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="table_document" xml:space="preserve">
+    <value>Document</value>
+  </data>
   <data name="table_downloads" xml:space="preserve">
     <value>Downloads</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="table_type" xml:space="preserve">
     <value>Type</value>
+  </data>
+  <data name="table_video" xml:space="preserve">
+    <value>Video</value>
   </data>
   <data name="table_views" xml:space="preserve">
     <value>Views</value>
