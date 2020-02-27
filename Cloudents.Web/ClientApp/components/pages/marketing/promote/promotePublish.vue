@@ -72,9 +72,9 @@ export default {
       let rtl = global.country === 'IL' ? true : false;
       //TODO: move to store
       if(this.dataType === 'profile') {
-        return `${window.functionApp}/api/share/profile/${user.id}?width=420&amp;height=220&amp;rtl=${rtl}`
+        return `${window.functionApp}/api/share/profile/${user.id}?width=420&height=220&rtl=${rtl}`
       }
-      return `${window.functionApp}/api/share/document/${this.document.id}?theme=${this.theme}&width=420&amp;height=220&amp;rtl=${rtl}`
+      return `${window.functionApp}/api/share/document/${this.document.id}?theme=${this.theme}&width=420&height=220&rtl=${rtl}`
     },
   },
   methods: {
