@@ -143,7 +143,7 @@ namespace Cloudents.FunctionsV2
                 image.Mutate(m => m.Resize(width, height));
             }
 
-            return new ImageResult(image, TimeSpan.FromDays(365));
+            return new ImageResult(image, TimeSpan.FromDays(30));
         }
     }
 }

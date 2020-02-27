@@ -150,7 +150,7 @@ namespace Cloudents.FunctionsV2
 
 
             //image.Mutate(x=>x.DrawImage());
-            return new ImageResult(image, TimeSpan.FromDays(365));
+            return new ImageResult(image, TimeSpan.FromDays(30));
 
         }
 
