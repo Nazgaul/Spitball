@@ -33,53 +33,40 @@ namespace Cloudents.FunctionsV2.FileProcessor
 
         public async Task ProcessFileAsync(long id, CloudBlockBlob blob, IBinder binder, ILogger log, CancellationToken token)
         {
-           
+            await using var sr = await blob.OpenReadAsync();
+            var text2 = await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr);
+            sr.Seek(0, SeekOrigin.Begin);
+            var result = await _convertDocumentApi.ConvertDocumentAutodetectToPngArrayAsync(sr);
+            var directory = blob.Parent;
 
-            try
+
+            var text = text2.TextResult;
+            if (result.Successful == false)
             {
-                //var apiInstance = new ConvertDocumentApi();
-
-                await using var sr = await blob.OpenReadAsync();
-                var text2 = await _convertDocumentApi.ConvertDocumentPptxToTxtAsync(sr);
-                sr.Seek(0, SeekOrigin.Begin);
-                var result = await _convertDocumentApi.ConvertDocumentAutodetectToPngArrayAsync(sr);
-                var directory = blob.Parent;
-
-
-                var text = text2.TextResult;
-                if (result.Successful == false)
-                {
-                    throw new ArgumentException($"ConvertDocumentAutodetectToPngArrayAsync return false in id {id}");
-                }
-
-                var imagesResult = result.PngResultPages;
-                //var imageUrls = imagesResult.Select(s => s.URL);
-
-                var pageCount = imagesResult.Count;
-
-                var textBlob = directory.GetBlockBlobReference("text.txt");
-                textBlob.Properties.ContentType = "text/plain";
-                text = StripUnwantedChars(text);
-                textBlob.Metadata["PageCount"] = pageCount.ToString();
-                await textBlob.UploadTextAsync(text ?? string.Empty);
-
-
-                var httpClient = await binder.BindAsync<HttpClient>(new HttpClientFactoryAttribute(), token);
-                foreach (var imageResult in imagesResult)
-                {
-                    var previewBlob = directory.GetBlockBlobReference($"preview-{imageResult.PageNumber - 1}.jpg");
-                    previewBlob.Properties.ContentType = "image/jpeg";
-                    await using var imageStream = await httpClient.GetStreamAsync(imageResult.URL);
-                    using var input = Image.Load<Rgba32>(imageStream);
-                    await using var blobWriteStream = await previewBlob.OpenWriteAsync();
-                    input.SaveAsJpeg(blobWriteStream);
-                }
+                throw new ArgumentException($"ConvertDocumentAutodetectToPngArrayAsync return false in id {id}");
             }
-            catch (Cloudmersive.APIClient.NETCore.DocumentAndDataConvert.Client.ApiException ex)
+
+            var imagesResult = result.PngResultPages;
+            var pageCount = imagesResult.Count;
+
+            var textBlob = directory.GetBlockBlobReference("text.txt");
+            textBlob.Properties.ContentType = "text/plain";
+            text = StripUnwantedChars(text);
+            textBlob.Metadata["PageCount"] = pageCount.ToString();
+            await textBlob.UploadTextAsync(text ?? string.Empty);
+
+            var httpClient = await binder.BindAsync<HttpClient>(new HttpClientFactoryAttribute(), token);
+            var listOfTasks = imagesResult.Select(async imageResult =>
             {
-                blob.Metadata["ErrorProcessCloudmersive"] = ex.Message;
-                await blob.SetMetadataAsync();
-            }
+                var previewBlob = directory.GetBlockBlobReference($"preview-{imageResult.PageNumber - 1}.jpg");
+                previewBlob.Properties.ContentType = "image/jpeg";
+                await using var imageStream = await httpClient.GetStreamAsync(imageResult.URL);
+                using var input = Image.Load<Rgba32>(imageStream);
+                await using var blobWriteStream = await previewBlob.OpenWriteAsync();
+                input.SaveAsJpeg(blobWriteStream);
+            });
+            await Task.WhenAll(listOfTasks);
+
         }
 
 
