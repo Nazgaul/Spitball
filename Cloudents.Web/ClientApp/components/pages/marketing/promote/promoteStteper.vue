@@ -30,11 +30,11 @@
         </v-stepper-header>
 
         <!-- Mobile stepper label -->
-        <div class="mobileLabels px-4 mt-n3 text-center d-none d-sm-flex d-md-none justify-space-between">
-            <div class="label1 fontLabel"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
-            <div class="label2 fontLabel"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
-            <div class="label3 fontLabel mr-4"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_template')}}</div>
-            <div class="label4 fontLabel">{{$t('promote_publish')}}</div>
+        <div class="mobileLabels px-5 mt-n3 text-center d-none d-sm-flex d-md-none justify-space-between">
+            <div class="label1 fontLabel" :class="[step === 1 ? 'active' : 'noActive']"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
+            <div class="label2 fontLabel" :class="[step === 2 ? 'active' : 'noActive']"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_your_content')}}</div>
+            <div class="label3 fontLabel mr-4" :class="[step === 3 ? 'active' : 'noActive']"><div class="fontLabel">{{$t('promote_choose')}}</div>{{$t('promote_template')}}</div>
+            <div class="label4 fontLabel" :class="[step === 4 ? 'active' : 'noActive']">{{$t('promote_publish')}}</div>
         </div>
 
         <v-stepper-items>
@@ -214,6 +214,12 @@ export default {
   .mobileLabels {
     color: @global-purple !important; //vuetify
 
+      .noActive {
+        cursor: pointer;
+      }
+      .active {
+        text-shadow: 0px 0px 0px black;
+    }
     .fontLabel {
       font-size: 12px;
     }
