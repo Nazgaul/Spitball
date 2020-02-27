@@ -3,16 +3,16 @@
       <span class="pr-1" v-if="!fromMarketing">{{$t('shareContent_title')}} |</span>
 
       <div class="d-flex align-center btnWrapper">
-         <v-btn class="shareBtns" :icon="!fromMarketing" color="#305d98" :ripple="false"  @click="shareOnSocialMedia('facebook')">
+         <v-btn class="shareBtns" :icon="!fromMarketing" depressed color="#305d98" :ripple="false"  @click="shareOnSocialMedia('facebook')">
             <facebookSVG right style="width:9px" class="option facebook"/>
          </v-btn>
-         <v-btn class="shareBtns" :icon="!fromMarketing" color="#2cb742" :ripple="false"  @click="shareOnSocialMedia('whatsApp')">
+         <v-btn class="shareBtns" :icon="!fromMarketing" depressed color="#2cb742" :ripple="false"  @click="shareOnSocialMedia('whatsApp')">
             <whatsappSVG right style="width:20px" class="option whatsapp mr-2"/>
          </v-btn>
-         <v-btn class="shareBtns" :icon="!fromMarketing" color="#45ceff" :ripple="false"  @click="shareOnSocialMedia('twitter')">
+         <v-btn class="shareBtns" :icon="!fromMarketing" depressed color="#45ceff" :ripple="false"  @click="shareOnSocialMedia('twitter')">
             <twitterSVG right style="width:20px" class="option twitter mr-2"/>
          </v-btn>
-         <v-btn class="shareBtns" :icon="!fromMarketing" color="#878693" :ripple="false"  @click="shareOnSocialMedia('email')">
+         <v-btn class="shareBtns" :icon="!fromMarketing" depressed color="#878693" :ripple="false"  @click="shareOnSocialMedia('email')">
             <emailSVG right style="width:21px" class="option email mr-2"/>
          </v-btn>
       </div>
