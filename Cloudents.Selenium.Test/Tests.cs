@@ -177,6 +177,7 @@ namespace Cloudents.Selenium.Test
                         langValue.Should().Be(culture.Split('-')[0], "on link {0}", url);
                         var body = driver.FindElement(By.TagName("body"));
                         body.Text.Should().NotContain("###");
+                        body.Text.Should().NotContain("[Object Object]");
                     }
 
                     foreach (var site in SignedPaths.Union(GetProfileUrls()))
