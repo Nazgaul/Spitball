@@ -3,7 +3,7 @@
         <div class="top d-none d-md-flex align-center">
             <div class="topWrap">
                 <div class="textWrap mr-4">
-                  <div class="text1">{{$t('promote_template_title1')}}</div>
+                  <div class="text1 mb-1">{{$t('promote_template_title1')}}</div>
                   <div class="text2">{{$t('promote_template_title2')}}</div>
                 </div>
             </div>
@@ -79,7 +79,7 @@ export default {
 @import '../../../../styles/colors.less';
 .promoteTemplate {
   .top {
-    margin-bottom: 60px;
+    margin: 50px 0;
     .topWrap {
       flex-grow: 1;
       .textWrap {
@@ -116,7 +116,7 @@ export default {
     grid-template-columns: repeat(auto-fill, 292px);
     grid-gap: 18px;
     @media (max-width: @screen-sm) {
-      margin-top: 20px;
+      margin-top: 50px;
     }
     @media (max-width: @screen-xs) {
       grid-template-columns: repeat(auto-fill, 100%);

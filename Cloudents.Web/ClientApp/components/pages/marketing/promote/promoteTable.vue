@@ -118,6 +118,7 @@ export default {
 
 .promoteTable {
   color: @global-purple !important;
+  margin-top: 25px;
   .tableTitle {
     color: @global-purple;
     font-weight: 600;
@@ -161,7 +162,7 @@ export default {
     font-size: 14px;
     .v-data-footer__select,
     .v-data-footer__pagination {
-        color: @global-purple;
+        // color: @global-purple;
         font-size: 14px;
         opacity: .6;
     }
@@ -169,7 +170,7 @@ export default {
     .v-data-footer__icons-after {
         .sbf-arrow-right-carousel, .sbf-arrow-left-carousel {
             transform: none /*rtl:rotate(180deg)*/;
-            color: @global-purple !important; //vuetify
+            // color: @global-purple !important; //vuetify
             font-size: 14px;
         }
     }
