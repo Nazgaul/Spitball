@@ -178,8 +178,8 @@ export default {
     //  width: 28px;
      // height: 28px;
     //  font-size: 14px;
-      background: linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
       background: -webkit-linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
+      background: linear-gradient(53deg, #4452fc 27%, #3892e4 115%) !important;
     //  display: inline-block;
      // text-align: center;
     //  padding-top: 3px;
