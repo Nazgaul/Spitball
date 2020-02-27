@@ -30,7 +30,9 @@ export const studyRoomRoutes = [
             }else{
                 store.dispatch('maor_updateStudyRoomInformation',to.params.id).then(()=>{
                     next()
-                }).catch(()=>{})
+                }).catch((nextStepRoute)=>{
+                    next({...from,...nextStepRoute })
+                })
             }
         },
         props: {

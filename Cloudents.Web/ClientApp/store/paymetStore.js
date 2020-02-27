@@ -52,13 +52,6 @@ const actions = {
             });
         } 
     },
-    updatePaymentDialogState(context, val){
-        if(val){
-            router.push({query:{...router.currentRoute.query,dialog:'payment'}})
-        }else{
-            router.push({query:{...router.currentRoute.query,dialog:undefined}})
-        }
-    },
     updateIdTransaction({commit}, id) {
         commit('setIdTransaction', id);
     },
@@ -67,8 +60,8 @@ const actions = {
         if(!!isStudyRoom){
             dispatch('releasePaymeStatus_studyRoom');
         } else{
-            dispatch('updatePaymentDialogState',false);
             dispatch('updateNeedPayment',false);
+            router.push({query:{...router.currentRoute.query,dialog:undefined}})
         }
     },
     updatePaymentLink({commit},link){

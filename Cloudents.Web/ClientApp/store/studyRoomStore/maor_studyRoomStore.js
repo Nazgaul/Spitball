@@ -1,5 +1,14 @@
 import maor_studyRoomService from '../../services/maor_studyRoomService.js';
-import {router} from '../../main.js'
+import {router} from '../../main.js';
+
+function _checkPayment(context){
+   let isStudentNeedPayment = (!context.getters.getStudyRoomData.isTutor && context.getters.getStudyRoomData.needPayment);
+   if(isStudentNeedPayment){
+      let nextStepRoute = {query:{dialog:'payment'}}
+      return Promise.reject(nextStepRoute);
+   }
+}
+
 const state = {
    
 }
@@ -24,21 +33,8 @@ const actions = {
       let roomId = router.currentRoute.params.id || getters.getStudyRoomData.roomId;
       router.push({name:'tutoring',params:{id:roomId}})
    },
-   maor_studyRoomMiddleWare({getters,dispatch}){
-      let isStudentNeedPayment = (!getters.getStudyRoomData.isTutor && getters.getStudyRoomData.needPayment);
-      if(isStudentNeedPayment){
-         console.log(router)
-         debugger
-         // change it : go to root route
-         router.push({name: 'feed', query:{dialog:'payment'}})
-         // router.push({query:{dialog:'payment'}})
-         // https://localhost:53217/studyroom/2d052fbf-e2ad-4e61-ac0f-ab6c00d58919
-
-         // return dispatch('requestPaymentURL'); 
-         return Promise.reject();
-      }else{
-         return Promise.resolve()
-      }
+   maor_studyRoomMiddleWare(context){
+      return _checkPayment(context) || Promise.resolve();
    }
 }
 export default {

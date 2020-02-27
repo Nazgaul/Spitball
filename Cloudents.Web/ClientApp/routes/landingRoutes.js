@@ -22,7 +22,7 @@ export const landingRoutes = [
                 if(store.getters.accountUser.userType === 'Parent'){
                     nextRoute = {name: routeNames.TutorList};
                 }
-                next(nextRoute);
+                next({name: nextRoute.name,query: to.query});
                 return;
             }
             next();

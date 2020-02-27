@@ -1,7 +1,6 @@
 <template>
     <general-page :mdAndDown="$vuetify.breakpoint.mdAndDown" :breakPointSideBar="$vuetify.breakpoint.lgAndUp || $vuetify.breakpoint.mdOnly" :name="$route.name">
         <div slot="main" class="feedWrap">
-            <v-btn v-openDialog="'payment'" color="success">text</v-btn>
             <template v-if="showRequestBox">
                 <coursesTab/>
                 <request-box class="request-box mb-0"/>
