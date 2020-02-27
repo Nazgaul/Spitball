@@ -10,7 +10,7 @@
 
             <div class="bottomWrap text-center">
                 <v-skeleton-loader type="image" width="422" v-if="loading"></v-skeleton-loader>
-                <img class="img" @load="onLoad" v-show="!loading" width="422" height="220" :src="`${domain}/api/share/document/${documentId}?theme=1&width=422&amp;height=220&amp;rtl=${rtl}`" alt="">
+                <img class="img" @load="onLoad" v-show="!loading" width="422" height="220" :src="`${domain}/api/share/document/${documentId}?theme=1&width=422&height=220&rtl=${rtl}`" alt="">
                 <div class="btnWrap">
                   <v-btn class="useBtn" :disabled="loading" @click="useTemplate(1)" height="34" rounded outlined color="#4c59ff">{{$t('promote_use_template')}}</v-btn>
                 </div>
@@ -22,7 +22,7 @@
           <div class="centerTitle d-block d-sm-none">{{$t('promote_choose_template')}}</div>
           <div v-for="n in 3" class="bottomWrap text-center" :key="n">
               <v-skeleton-loader type="image" width="292" v-if="loading"></v-skeleton-loader>
-              <img class="img" @load="onLoad" v-show="!loading" width="292" height="150" :src="`${domain}/api/share/document/${documentId}?theme=${n+1}&width=292&amp;height=150&amp;rtl=${rtl}`" alt="">
+              <img class="img" @load="onLoad" v-show="!loading" width="292" height="150" :src="`${domain}/api/share/document/${documentId}?theme=${n+1}&width=292&height=150&rtl=${rtl}`" alt="">
               <div class="btnWrap">
                 <v-btn class="useBtn" :disabled="loading" @click="useTemplate(n+1)" height="34" rounded outlined color="#4c59ff">
                     <span class="text-truncate">{{$t('promote_use_template')}}</span>
