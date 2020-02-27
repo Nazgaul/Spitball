@@ -61,6 +61,9 @@ export default {
     dataType: {
       type: String,
       default: ''
+    },
+    resource: {
+      required: false
     }
   },
   data() {
