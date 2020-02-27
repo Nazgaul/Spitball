@@ -148,17 +148,21 @@ namespace Cloudents.Web.Controllers
 
             ViewBag.title = _localizer["Title", model.Document.Course, model.Document.Title];
             ViewBag.metaDescription = _localizer["Description", model.Document.Course];
+            Country country = model.Document.User.Country;
+
             if (model.Document.DocumentType == DocumentType.Video && !string.IsNullOrEmpty(model.Document.Snippet))
             {
                 var jsonLd = new VideoObject()
                 {
                     Description = model.Document.Snippet,
                     Name = model.Document.Title,
-                    ThumbnailUrl = new Uri(_urlBuilder.BuildDocumentThumbnailEndpoint(model.Document.Id, new
+                    ThumbnailUrl = new Uri(_urlBuilder.BuildDocumentImageShareEndpoint(model.Document.Id, new
                     {
                         width = 703,
                         height = 395,
-                        mode = "crop"
+                        mode = "crop",
+                        theme,
+                        rtl = country.MainLanguage.Info.TextInfo.IsRightToLeft.ToString()
                     })),
                     UploadDate = model.Document.DateTime,
                     Duration = model.Document.Duration,
@@ -166,8 +170,7 @@ namespace Cloudents.Web.Controllers
                 };
                 ViewBag.jsonLd = jsonLd;
             }
-            Country country = model.Document.User.Country;
-            ViewBag.ogImage = new Uri(_urlBuilder.BuildDocumentThumbnailEndpoint(model.Document.Id, new
+            ViewBag.ogImage = new Uri(_urlBuilder.BuildDocumentImageShareEndpoint(model.Document.Id, new
             {
                 width = 1200,
                 height = 630,
