@@ -71,7 +71,6 @@ export default {
    components:{facebookSVG,whatsappSVG,emailSVG,twitterSVG,linkSVG},
    methods: {
       shareOnSocialMedia(socialMediaName) {
-         debugger
          let windowSizes = 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=583';
          let self = this;
          switch (socialMediaName) {

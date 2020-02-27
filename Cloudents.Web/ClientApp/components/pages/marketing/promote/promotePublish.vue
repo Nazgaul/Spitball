@@ -1,9 +1,10 @@
 <template>
-    <div class="promotePublish mx-auto pa-4">
+    <div class="promotePublish mx-auto pa-sm-4">
+        <div class="d-block d-sm-none publishTitle mb-4">{{$t('promote_publish')}}</div>
         <div class="wrap text-center">
             <v-skeleton-loader type="image" width="100%" v-if="loading"></v-skeleton-loader>
             <img class="img" @load="onLoad" v-show="!loading" :src="publishImage" alt="">
-            <div class="shareIt text-left">{{$t('promote_shareIt')}}</div>
+            <div class="shareIt my-3 text-left">{{$t('promote_shareIt')}}</div>
             <shareContent 
               :link="shareContentParams.link"
               :twitter="shareContentParams.twitter"
@@ -30,6 +31,9 @@ export default {
     dataType: {
       type: String,
       default: ''
+    },
+    resource: {
+      required: false
     }
   },
   data() {
@@ -88,6 +92,17 @@ export default {
   border-radius: 8px;
   border: solid 1px #dddddd;
 
+  @media (max-width: @screen-xs) {
+    border: none;
+  }
+  .publishTitle {
+    color: @global-purple;
+    font-weight: 600;
+    font-size: 20px;
+    @media (max-width: @screen-xs) {
+        font-size: 18px;
+    }
+  }
   .wrap {
     width: 100%;
     .img {

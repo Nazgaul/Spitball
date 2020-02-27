@@ -1,8 +1,8 @@
 <template>
     <v-row class="marketingActions pa-0 text-center" :class="{'marketingPage pa-4 mb-2 mb-sm-4': $route.name === 'marketing'}" dense>
         <v-col class="pa-0 mb-6 d-flex justify-space-between" cols="12">
-            <div class="text text-left">{{$t($route.name === 'marketing' ? 'marketing_title' : '')}}</div>
-            <slot name="closeIcon"></slot>
+            <div class="text text-left" v-if="$route.name === routeNames.Marketing">{{$t('marketing_title')}}</div>
+            <div class="text text-left d-block d-sm-none" v-else>{{$t('promote_title')}}</div>
         </v-col>
         
         <template v-for="(data, index) in resource">
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import * as routeNames from '../../../../routes/routeNames'
 import actionBox from './actionBox.vue';
 
 export default {
@@ -23,6 +24,11 @@ export default {
         resource: {
             type: Object,
             required: true
+        }
+    },
+    data() {
+        return {
+            routeNames
         }
     },
     computed: {
@@ -63,7 +69,7 @@ export default {
             font-weight: 600;
             font-size: 20px;
             @media (max-width: @screen-xs) {
-                font-size: 16px;
+                font-size: 18px;
             }
         }
 

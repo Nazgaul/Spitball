@@ -8,7 +8,7 @@
 
         <v-stepper-header class="elevation-0">
             <v-stepper-step class="stepStteper pl-8" :class="[step === 1 ? 'active' : 'noActive']" step="1" @click="goStep(1)">
-                {{$t('promote_choose')}} {{$t('promote_your_content')}}
+                {{$t('promote_title')}}
             </v-stepper-step>
 
             <v-divider></v-divider>
@@ -49,8 +49,8 @@
                   @selectedDocument="selectedDocument"
                   ref="childComponent">
                 </component>
-                <div class="text-right">
-                  <v-alert type="error" class="text-left" v-show="error">{{$t('promote_table_error')}}</v-alert>
+                <div class="text-sm-right text-center">
+                  <v-alert type="error" class="text-left mt-4 mb-0" v-show="error">{{$t('promote_table_error')}}</v-alert>
                   <v-btn class="white--text mt-10" width="120" v-if="step === 2" @click="nextStep" color="#4452fc" rounded>{{$t('promote_btn_next')}}</v-btn>
                   <v-btn class="white--text mt-10" width="120" v-if="step == 4" :to="{name: routeNames.Marketing}" color="#4452fc" rounded>{{$t('promote_btn_done')}}</v-btn>
                 </div>
