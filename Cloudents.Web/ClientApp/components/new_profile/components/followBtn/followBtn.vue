@@ -16,13 +16,13 @@ export default {
   },
   components: { followSVG },
   computed: {
-    ...mapGetters(['getProfile'])
+    ...mapGetters(['getProfile','getUserLoggedInStatus'])
   },
   methods: {
     ...mapActions(['toggleProfileFollower','updateLoginDialogState']),
     followToggler(){
       
-      if(global.isAuth){
+      if(this.getUserLoggedInStatus){
         if(this.isLoading) return
         let self = this;
         this.isLoading = true;
