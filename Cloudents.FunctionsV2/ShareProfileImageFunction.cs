@@ -137,7 +137,7 @@ namespace Cloudents.FunctionsV2
                 var pointX = 493;
                 if (isRtl)
                 {
-                    pointX = x.GetCurrentSize().Width - 493 - descriptionImage.Width;
+                    pointX = x.GetCurrentSize().Width - pointX - descriptionImage.Width;
                 }
 
                 x.DrawImage(descriptionImage, new Point(pointX, middleY), GraphicsOptions.Default);

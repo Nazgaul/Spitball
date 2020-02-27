@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudents.Core;
+using Cloudents.Core.Attributes;
 using Cloudents.Core.DTOs.Tutors;
 using Cloudents.Core.Entities;
 using NHibernate;
@@ -27,6 +29,7 @@ namespace Cloudents.Query.Tutor
                 _statelessSession = statelessSession.StatelessSession;
             }
 
+            [Cache(TimeConst.Minute * 10, "share-production", false)]
             public async Task<ShareProfileImageDto> GetAsync(ShareProfileImageQuery query, CancellationToken token)
             {
                 return  await _statelessSession.Query<ReadTutor>()
