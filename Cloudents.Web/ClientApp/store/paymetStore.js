@@ -1,16 +1,13 @@
 import walletService from '../services/walletService.js';
 import { LanguageService } from '../services/language/languageService';
+import { router } from '../main.js';
 
 const state = {
-    showPaymentDialog: false,
-    paymentURL: '',
+    paymentURL: null,
     transactionId: null,
 };
 
 const mutations = {
-    setPaymentDialogState(state,val){
-        state.showPaymentDialog = val;
-    },
     setPaymentURL(state,url){
         state.paymentURL = url;
     },
@@ -20,41 +17,47 @@ const mutations = {
 };
 
 const getters = {
-    getShowPaymeDialog: state => state.showPaymentDialog,
     getPaymentURL:state => state.paymentURL,
     getTransactionId: state => state.transactionId,
 };
 
 const actions = {
-    buyToken({commit, dispatch}, points) {
+    buyToken({dispatch}, points) {
         walletService.buyTokens(points).then(({ data }) => {
-            commit('setPaymentURL',data.link);
-            dispatch('updatePaymentDialogState',true);
+            dispatch('updatePaymentLink',data.link)
+            router.push({query:{...router.currentRoute.query,dialog:'payment'}})
         }).catch(() => {
             dispatch('updateToasterParams', {
                 toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
                 showToaster: true,
                 toasterTimeout: 5000
             });
-            dispatch('updatePaymentDialogState',false);
             global.localStorage.setItem("sb_transactionError", points);
         });
     },
-    requestPaymentURL({commit,dispatch}){
-        walletService.getPaymeLink().then(({ data }) => {
-            commit('setPaymentURL',data.link);
-            dispatch('updatePaymentDialogState',true);
-        }).catch(() => {
-            dispatch('updateToasterParams', {
-                toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
-                showToaster: true,
-                toasterTimeout: 5000
+    requestPaymentURL({dispatch,getters}){
+        if(getters.getPaymentURL){
+            return Promise.resolve()
+        }else{
+            return walletService.getPaymeLink().then(({ data }) => {
+                dispatch('updatePaymentLink',data.link)
+                return Promise.resolve()
+            }).catch(() => {
+                dispatch('updateToasterParams', {
+                    toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
+                    showToaster: true,
+                    toasterTimeout: 5000
+                });
+                return Promise.reject()
             });
-            dispatch('updatePaymentDialogState',false);
-        });
+        } 
     },
-    updatePaymentDialogState({commit}, val){
-        commit('setPaymentDialogState', val);
+    updatePaymentDialogState(context, val){
+        if(val){
+            router.push({query:{...router.currentRoute.query,dialog:'payment'}})
+        }else{
+            router.push({query:{...router.currentRoute.query,dialog:undefined}})
+        }
     },
     updateIdTransaction({commit}, id) {
         commit('setIdTransaction', id);
@@ -67,6 +70,9 @@ const actions = {
             dispatch('updatePaymentDialogState',false);
             dispatch('updateNeedPayment',false);
         }
+    },
+    updatePaymentLink({commit},link){
+        commit('setPaymentURL',link);
     }
 };
 

@@ -27,7 +27,14 @@ const actions = {
    maor_studyRoomMiddleWare({getters,dispatch}){
       let isStudentNeedPayment = (!getters.getStudyRoomData.isTutor && getters.getStudyRoomData.needPayment);
       if(isStudentNeedPayment){
-         dispatch('requestPaymentURL'); 
+         console.log(router)
+         debugger
+         // change it : go to root route
+         router.push({name: 'feed', query:{dialog:'payment'}})
+         // router.push({query:{dialog:'payment'}})
+         // https://localhost:53217/studyroom/2d052fbf-e2ad-4e61-ac0f-ab6c00d58919
+
+         // return dispatch('requestPaymentURL'); 
          return Promise.reject();
       }else{
          return Promise.resolve()
