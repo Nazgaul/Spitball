@@ -118,60 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="copied" xml:space="preserve">
-    <value>הועתק</value>
+    <value>Copied</value>
   </data>
   <data name="copy" xml:space="preserve">
-    <value>העתקה ללוח</value>
+    <value>Copy</value>
   </data>
   <data name="copy_link" xml:space="preserve">
-    <value>העתקת קישור</value>
+    <value>Copy Link</value>
   </data>
   <data name="dialog_bottom_text" xml:space="preserve">
-    <value>ככל שתשיגו יותר חברים בספיטבול, ככה הציונים של כולם יהיו יותר טובים!</value>
-  </data>
-  <data name="dialog_bottom_text2" xml:space="preserve">
-    <value>מוגבל לחמש הזמנות</value>
+    <value>The more tutors there are, the more connections and referrals you’ll get.</value>
   </data>
   <data name="dialog_friends_joined" xml:space="preserve">
-    <value> חברים שהוזמנו הצטרפו</value>
+    <value> invited friends have joined</value>
   </data>
   <data name="dialog_subtitle" xml:space="preserve">
-    <value>תרוויחו 10 נקודות עבור כל אחד שיצטרף</value>
+    <value>Earn $10 for every teacher and 10% commission for a year</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
-    <value>הפיצו את השמועה ב- </value>
+    <value>Spread the word at </value>
   </data>
   <data name="get_document_text" xml:space="preserve">
-    <value>לחצו על הלינק הזה כדי להעיף מבט, אני בטוח/ה שזה יחסוך לכם זמן ויעזור לכם בלימודים!</value>
+    <value>Click this link to have a look, I am certain it will worth your while and help you in your studying!</value>
   </data>
   <data name="get_your_homework" xml:space="preserve">
-    <value>הצטרפו אלי לספיטבול, שם תמצאו את כל חומרי הלימוד וקבלו 50 ש"ח מתנה על השיעור הפרטי הראשון עם המורים הכי מומלצים:</value>
+    <value>Get your homework questions answered in minutes, and make money answering other students questions. Sign up using this link and start learning and earning today:</value>
   </data>
   <data name="get_your_homework_twitter" xml:space="preserve">
-    <value>הצטרפו אלי לספיטבול, שם תמצאו את כל חומרי הלימוד וקבלו 50 ש"ח מתנה על השיעור הפרטי הראשון עם המורים הכי מומלצים:</value>
+    <value>Get your homework questions answered in minutes, and make money answering other students questions. Sign up using this link and start learning and earning today:</value>
   </data>
   <data name="join_me" xml:space="preserve">
-    <value>הצטרפו אלי לספיטבול</value>
+    <value>Join me on Spitball</value>
   </data>
   <data name="ref_placeholder" xml:space="preserve">
-    <value>בחרו מסמך לשיתוף</value>
+    <value>Select Document to Share</value>
   </data>
   <data name="share_facebook" xml:space="preserve">
-    <value>שתפו</value>
+    <value>Share</value>
   </data>
   <data name="share_google" xml:space="preserve">
-    <value>אימייל</value>
+    <value>Email</value>
   </data>
   <data name="share_tweeter" xml:space="preserve">
-    <value>לצייץ</value>
+    <value>Tweet</value>
   </data>
   <data name="share_whatsup" xml:space="preserve">
-    <value>טקסט</value>
+    <value>Text</value>
   </data>
   <data name="spread" xml:space="preserve">
-    <value>הפיצו את השמועה</value>
+    <value>Text</value>
   </data>
   <data name="title_document" xml:space="preserve">
-    <value>הרגע העליתי חלק מהסיכומים האקדמיים שלי לספיטבול.</value>
+    <value>I just uploaded some of my academic notes to Spitball.</value>
   </data>
 </root>
