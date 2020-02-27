@@ -126,6 +126,9 @@
   <data name="choose" xml:space="preserve">
     <value>בחרו</value>
   </data>
+  <data name="choose_template" xml:space="preserve">
+    <value>בחרו תבנית</value>
+  </data>
   <data name="createOffer_title1" xml:space="preserve">
     <value>קדמו את אחד הסרטונים שלכם</value>
   </data>
