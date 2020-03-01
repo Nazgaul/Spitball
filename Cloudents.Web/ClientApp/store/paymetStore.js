@@ -1,5 +1,7 @@
 import walletService from '../services/walletService.js';
 import { LanguageService } from '../services/language/languageService';
+import * as dialogNames from '../components/pages/global/dialogInjection/dialogNames.js'
+
 import { router } from '../main.js';
 
 const state = {
@@ -25,7 +27,7 @@ const actions = {
     buyToken({dispatch}, points) {
         walletService.buyTokens(points).then(({ data }) => {
             dispatch('updatePaymentLink',data.link)
-            router.push({query:{...router.currentRoute.query,dialog:'payment'}})
+            router.push({query:{...router.currentRoute.query,dialog: dialogNames.Payment}})
         }).catch(() => {
             dispatch('updateToasterParams', {
                 toasterText: LanguageService.getValueByKey("buyTokens_failed_transaction"),
@@ -59,6 +61,7 @@ const actions = {
         let isStudyRoom = getters.getStudyRoomData;
         if(!!isStudyRoom){
             dispatch('releasePaymeStatus_studyRoom');
+            router.push({query:{...router.currentRoute.query,dialog:undefined}})
         } else{
             dispatch('updateNeedPayment',false);
             router.push({query:{...router.currentRoute.query,dialog:undefined}})

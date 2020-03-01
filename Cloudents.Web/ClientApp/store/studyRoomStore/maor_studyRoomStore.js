@@ -1,11 +1,12 @@
 import maor_studyRoomService from '../../services/maor_studyRoomService.js';
 import {router} from '../../main.js';
+import * as dialogNames from '../../components/pages/global/dialogInjection/dialogNames.js'
 
 function _checkPayment(context){
    let isStudentNeedPayment = (!context.getters.getStudyRoomData.isTutor && context.getters.getStudyRoomData.needPayment);
    if(isStudentNeedPayment){
       let roomId = router.currentRoute.params.id || context.getters.getStudyRoomData.roomId;
-      return Promise.reject({name:'tutoring',params:{id:roomId},query:{dialog:'payment'}})
+      return Promise.reject({name:'tutoring',params:{id:roomId},query:{dialog: dialogNames.Payment}})
    }
 }
 

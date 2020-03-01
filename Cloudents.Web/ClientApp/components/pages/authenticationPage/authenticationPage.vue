@@ -1,6 +1,6 @@
 <template>
   <div class="authenticationPage">
-    <router-link class="backButton" :to="{query: {dialog: 'exitRegisterDialog'}}">
+    <router-link class="backButton" :to="{query: {dialog: exitRegisterDialog}}">
       <close class="closeIcon" />
     </router-link>
 
@@ -20,7 +20,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-
+import * as dialogNames from '../global/dialogInjection/dialogNames.js'
 //STORE
 import storeService from "../../../services/store/storeService";
 import loginRegister from "../../../store/loginRegister";
@@ -30,9 +30,12 @@ const close = () => import("../../../font-icon/close.svg");
 
 export default {
   components: { logo, close },
-  data: () => ({
-    from: ""
-  }),
+  data() {
+    return {
+      from: "", 
+      exitRegisterDialog: dialogNames.ExitRegister
+    }
+  },
   computed: {
     ...mapGetters(["isFrymo"]),
     

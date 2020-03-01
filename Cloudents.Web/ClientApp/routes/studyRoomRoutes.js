@@ -24,11 +24,9 @@ export const studyRoomRoutes = [
             default: () => import(`../components/studyroom/tutor.vue`),
         },
         beforeEnter: (to, from, next) => {
-            if(!to.params.id){
-                next()
-                return;
-            }else{
-                store.dispatch('maor_updateStudyRoomInformation',to.params.id).then(()=>{
+            if(to.params.id){
+                store.dispatch('maor_updateStudyRoomInformation',to.params.id)
+                .then(()=>{
                     next()
                 }).catch((nextStepRoute)=>{
                     if(to.query.dialog){
@@ -37,6 +35,9 @@ export const studyRoomRoutes = [
                     }
                     next({...nextStepRoute })
                 })
+            }else{
+                next()
+                return; 
             }
         },
         props: {
