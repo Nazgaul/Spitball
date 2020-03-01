@@ -129,6 +129,9 @@
   <data name="dialog_bottom_text" xml:space="preserve">
     <value>The more tutors there are, the more connections and referrals you’ll get.</value>
   </data>
+  <data name="dialog_bottom_text2" xml:space="preserve">
+    <value> </value>
+  </data>
   <data name="dialog_friends_joined" xml:space="preserve">
     <value> invited friends have joined</value>
   </data>
