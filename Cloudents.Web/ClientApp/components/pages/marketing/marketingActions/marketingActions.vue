@@ -1,38 +1,36 @@
 <template>
-    <v-row class="marketingActions fullWidth pa-4 mb-2 mb-sm-4 text-center ma-0" dense>
-        <v-col class="pa-0 mb-6" cols="12">
-            <div class="text text-left">{{$t('marketing_title')}}</div>
+    <v-row class="marketingActions pa-0 text-center" :class="{'marketingPage pa-4 mb-2 mb-sm-4': $route.name === routeNames.Marketing}">
+        <v-col class="pa-0 mb-6 d-flex justify-space-between" cols="12">
+            <div class="text text-left" v-if="$route.name === routeNames.Marketing">{{$t('marketing_title')}}</div>
+            <div class="text text-left d-block d-sm-none" v-else>{{$t('promote_title')}}</div>
         </v-col>
         
-        <template>
-            <v-col class="box pa-0 px-sm-3" cols="12" sm="4">
-                <img class="mb-4 mt-sm-0" :src="shareImage" alt="">
-                <div class="text1 mb-sm-1">{{$t('marketing_sharePost_title1')}}</div>
-                <div class="text2 mb-3">{{$t('marketing_sharePost_title2')}}</div>
-                <v-btn class="marketingbtn mb-4 mb-sm-0" color="#4c59ff" disabled outlined rounded>{{$t('marketing_coming_soon')}}</v-btn>
-                <!-- <v-btn class="marketingbtn mb-4 mb-sm-0" color="#4c59ff" disabled outlined rounded>{{$t('marketing_lets_go')}}</v-btn> -->
-            </v-col>
-            <v-col class="box pa-0 px-sm-3" cols="12" sm="4">
-                <img class="mb-4 mt-4 mt-sm-0" :src="offersImage" alt="">
-                <div class="text1 mb-sm-1">{{$t('marketing_createOffer_title1')}}</div>
-                <div class="text2 mb-3">{{$t('marketing_createOffer_title2')}}</div>
-                <v-btn v-openDialog="'createCoupon'" class="marketingbtn mb-4 mb-sm-0" color="#4c59ff" outlined rounded>{{$t('marketing_get_started')}}</v-btn>
-            </v-col>
-            <v-col class="box pa-0 px-sm-3" cols="12" sm="4">
-                <img class="mb-4 mt-4 mt-sm-0" :src="createVideo" alt="">
-                <div class="text1 mb-sm-1">{{$t('marketing_createVideo_title1')}}</div>
-                <div class="text2 mb-3">{{$t('marketing_createVideo_title2')}}</div>
-                <v-btn class="marketingbtn" color="#4c59ff" outlined rounded @click="openIntercom">{{$t('marketing_get_started')}}</v-btn>
-            </v-col>
+        <template v-for="(data, index) in resource">
+            <actionBox :key="index" :data="data"></actionBox>
         </template>
     </v-row>
 </template>
 
 <script>
-import intercomService from "../../../../services/intercomService";
+import * as routeNames from '../../../../routes/routeNames'
+import actionBox from './actionBox.vue';
 
 export default {
     name: "marketingActions",
+    components: {
+        actionBox
+    },
+    props: {
+        resource: {
+            type: Object,
+            required: true
+        }
+    },
+    data() {
+        return {
+            routeNames
+        }
+    },
     computed: {
         mdAndDown() {
             return this.$vuetify.breakpoint.mdAndDown
@@ -46,12 +44,7 @@ export default {
         createVideo() {
           return this.mdAndDown ? require('../images/createVideoSmall.png') : require('../images/createVideo.png')
         },
-    },
-    methods: {
-        openIntercom() {
-            intercomService.showDialog();
-        },  
-    },
+    }
 }
 </script>
 
@@ -59,13 +52,16 @@ export default {
     @import '../../../../styles/mixin.less';
     @import '../../../../styles/colors.less';
     .marketingActions {
-        background: white;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-        border-radius: 8px;
-
-        @media (max-width: @screen-xs) {
-            box-shadow: none;
-            border-radius: 0;
+        width: 100%;
+        margin: 0 auto;
+        &.marketingPage {
+            background: white;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            @media (max-width: @screen-xs) {
+                box-shadow: none;
+                border-radius: 0;
+            }
         }
 
         .text {
@@ -73,7 +69,7 @@ export default {
             font-weight: 600;
             font-size: 20px;
             @media (max-width: @screen-xs) {
-                font-size: 16px;
+                font-size: 18px;
             }
         }
 

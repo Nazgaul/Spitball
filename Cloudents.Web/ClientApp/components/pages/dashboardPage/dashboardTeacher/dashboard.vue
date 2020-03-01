@@ -19,7 +19,7 @@
 <script>
 import intercomService from "../../../../services/intercomService";
 
-const analyticOverview = () => import('../../global/analyticOverview/analyticOverview.vue');
+const analyticOverview = () => import(/* webpackChunkName: "analyticsOverview" */'../../global/analyticOverview/analyticOverview.vue');
 const marketingTools = () => import('./marketingTools.vue');
 const uploadContent = () => import('./uploadContent.vue');
 const spitballTips = () => import('./spitballTips.vue');
@@ -82,6 +82,7 @@ export default {
       width: 100%;
       max-width: @sideBlock;
       .blockImage {
+        width: 100%;
         cursor: pointer;
       }
     }

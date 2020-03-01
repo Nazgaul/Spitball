@@ -117,40 +117,91 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="copy" xml:space="preserve">
-    <value>העתק</value>
+  <data name="btn_done" xml:space="preserve">
+    <value>Done</value>
   </data>
-  <data name="copy_tool" xml:space="preserve">
-    <value>הקישור הועתק</value>
+  <data name="btn_next" xml:space="preserve">
+    <value>Next</value>
   </data>
-  <data name="share_item_email_body" xml:space="preserve">
-    <value>הי,
-מצאתי חומר לימודי טוב  לקורס -  {1} ב {2}</value>
+  <data name="choose" xml:space="preserve">
+    <value>Choose</value>
   </data>
-  <data name="share_item_email_subject" xml:space="preserve">
-    <value>חומר לימודי לקורס - {0}</value>
+  <data name="choose_template" xml:space="preserve">
+    <value>Choose a template</value>
   </data>
-  <data name="share_item_twitter" xml:space="preserve">
-    <value>מצאתי חומר לימודי טוב  לקורס -  {0} ב {1}</value>
+  <data name="createOffer_title1" xml:space="preserve">
+    <value>Promote your movies</value>
   </data>
-  <data name="share_item_whatsapp" xml:space="preserve">
-    <value>מצאתי חומר לימודי טוב  לקורס -  {0} ב {1}</value>
+  <data name="createOffer_title2" xml:space="preserve">
+    <value>Stand out on Facebook &amp; Instagram</value>
   </data>
-  <data name="share_profile_email_body" xml:space="preserve">
-    <value>הי,
-משתף איתך מורה פרטי. תסתכל על האתר שלו
-{1}</value>
+  <data name="createVideo_title1" xml:space="preserve">
+    <value>Promote your content</value>
   </data>
-  <data name="share_profile_email_subject" xml:space="preserve">
-    <value>המורה הפרטי {0} - מומלץ</value>
+  <data name="createVideo_title2" xml:space="preserve">
+    <value>Stand out on Facebook &amp; Instagram</value>
   </data>
-  <data name="share_profile_twitter" xml:space="preserve">
-    <value>מצאתי מורה מצויין {0} ב {1}</value>
+  <data name="lets_go" xml:space="preserve">
+    <value>Let’s go</value>
   </data>
-  <data name="share_profile_whatsapp" xml:space="preserve">
-    <value>מצאתי מורה מצויין {0} ב {1}</value>
+  <data name="publish" xml:space="preserve">
+    <value>Publish</value>
+  </data>
+  <data name="shareIt" xml:space="preserve">
+    <value>Share it</value>
+  </data>
+  <data name="sharePost_title1" xml:space="preserve">
+    <value>Promote your profile</value>
+  </data>
+  <data name="sharePost_title2" xml:space="preserve">
+    <value>Stand out on Facebook &amp; Instagram</value>
+  </data>
+  <data name="table_date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="table_document" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="table_downloads" xml:space="preserve">
+    <value>Downloads</value>
+  </data>
+  <data name="table_error" xml:space="preserve">
+    <value>Select an item</value>
+  </data>
+  <data name="table_likes" xml:space="preserve">
+    <value>Likes</value>
+  </data>
+  <data name="table_price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="table_product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="table_type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="table_video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="table_views" xml:space="preserve">
+    <value>Views</value>
+  </data>
+  <data name="template" xml:space="preserve">
+    <value>a template</value>
+  </data>
+  <data name="template_title1" xml:space="preserve">
+    <value>Recommended template</value>
+  </data>
+  <data name="template_title2" xml:space="preserve">
+    <value>Choose a stunning template and custumize it to stand out on social media.</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>שיתוף</value>
+    <value>Select what to promote</value>
+  </data>
+  <data name="use_template" xml:space="preserve">
+    <value>Use this template</value>
+  </data>
+  <data name="your_content" xml:space="preserve">
+    <value>your content</value>
   </data>
 </root>

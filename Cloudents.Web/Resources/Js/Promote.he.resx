@@ -117,40 +117,91 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="copy" xml:space="preserve">
-    <value>העתק</value>
+  <data name="btn_done" xml:space="preserve">
+    <value>סיום</value>
   </data>
-  <data name="copy_tool" xml:space="preserve">
-    <value>הקישור הועתק</value>
+  <data name="btn_next" xml:space="preserve">
+    <value>הבא</value>
   </data>
-  <data name="share_item_email_body" xml:space="preserve">
-    <value>הי,
-מצאתי חומר לימודי טוב  לקורס -  {1} ב {2}</value>
+  <data name="choose" xml:space="preserve">
+    <value>בחרו</value>
   </data>
-  <data name="share_item_email_subject" xml:space="preserve">
-    <value>חומר לימודי לקורס - {0}</value>
+  <data name="choose_template" xml:space="preserve">
+    <value>בחרו תבנית</value>
   </data>
-  <data name="share_item_twitter" xml:space="preserve">
-    <value>מצאתי חומר לימודי טוב  לקורס -  {0} ב {1}</value>
+  <data name="createOffer_title1" xml:space="preserve">
+    <value>קדמו את אחד הסרטונים שלכם</value>
   </data>
-  <data name="share_item_whatsapp" xml:space="preserve">
-    <value>מצאתי חומר לימודי טוב  לקורס -  {0} ב {1}</value>
+  <data name="createOffer_title2" xml:space="preserve">
+    <value>תבלטו מעל כולם בפייסבוק, אינסטגרם ועוד</value>
   </data>
-  <data name="share_profile_email_body" xml:space="preserve">
-    <value>הי,
-משתף איתך מורה פרטי. תסתכל על האתר שלו
-{1}</value>
+  <data name="createVideo_title1" xml:space="preserve">
+    <value>קדמו את אחד המסמכים שלכם</value>
   </data>
-  <data name="share_profile_email_subject" xml:space="preserve">
-    <value>המורה הפרטי {0} - מומלץ</value>
+  <data name="createVideo_title2" xml:space="preserve">
+    <value>תבלטו מעל כולם בפייסבוק, אינסטגרם ועוד</value>
   </data>
-  <data name="share_profile_twitter" xml:space="preserve">
-    <value>מצאתי מורה מצויין {0} ב {1}</value>
+  <data name="lets_go" xml:space="preserve">
+    <value>נתחיל</value>
   </data>
-  <data name="share_profile_whatsapp" xml:space="preserve">
-    <value>מצאתי מורה מצויין {0} ב {1}</value>
+  <data name="publish" xml:space="preserve">
+    <value>פרסמו</value>
+  </data>
+  <data name="shareIt" xml:space="preserve">
+    <value>שתפו את זה</value>
+  </data>
+  <data name="sharePost_title1" xml:space="preserve">
+    <value>קדמו את האתר שלכם</value>
+  </data>
+  <data name="sharePost_title2" xml:space="preserve">
+    <value>תבלטו מעל כולם בפייסבוק, אינסטגרם ועוד</value>
+  </data>
+  <data name="table_date" xml:space="preserve">
+    <value>תאריך</value>
+  </data>
+  <data name="table_document" xml:space="preserve">
+    <value>מסמך</value>
+  </data>
+  <data name="table_downloads" xml:space="preserve">
+    <value>הורדות</value>
+  </data>
+  <data name="table_error" xml:space="preserve">
+    <value>בחר פריט</value>
+  </data>
+  <data name="table_likes" xml:space="preserve">
+    <value>לייקים</value>
+  </data>
+  <data name="table_price" xml:space="preserve">
+    <value>מחיר</value>
+  </data>
+  <data name="table_product" xml:space="preserve">
+    <value>מוצר</value>
+  </data>
+  <data name="table_type" xml:space="preserve">
+    <value>סוג</value>
+  </data>
+  <data name="table_video" xml:space="preserve">
+    <value>וידאו</value>
+  </data>
+  <data name="table_views" xml:space="preserve">
+    <value>צפיות</value>
+  </data>
+  <data name="template" xml:space="preserve">
+    <value>תבנית</value>
+  </data>
+  <data name="template_title1" xml:space="preserve">
+    <value>תבנית מומלצת</value>
+  </data>
+  <data name="template_title2" xml:space="preserve">
+    <value>בחרו תבנית מדהימה שתציף אתכם מעל כולם.</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>שיתוף</value>
+    <value>בחרו את מה לקדם</value>
+  </data>
+  <data name="use_template" xml:space="preserve">
+    <value>השתמשו בתבנית</value>
+  </data>
+  <data name="your_content" xml:space="preserve">
+    <value>את התוכן</value>
   </data>
 </root>

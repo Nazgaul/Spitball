@@ -31,6 +31,8 @@ export const Dashboard = 'dashboardTeacher';
 
 // Marketing:
 export const Marketing = 'marketing';
+export const MarketingPromote = 'promote';
+export const MarketingPromoteStepper = 'promoteStepper';
 export const MySales = 'mySales';
 export const MyFollowers = 'myFollowers';
 export const MyPurchases = 'myPurchases';
