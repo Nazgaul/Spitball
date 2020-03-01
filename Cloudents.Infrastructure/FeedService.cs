@@ -389,7 +389,7 @@ namespace Cloudents.Infrastructure
 
         public Task<IEnumerable<FeedDto>> GetFeedAsync(SearchFeedQuery query, CancellationToken token)
         {
-            throw new NotImplementedException("At the moment we not support this");
+            return Task.FromResult(Enumerable.Empty<FeedDto>());
         }
     }
 }
