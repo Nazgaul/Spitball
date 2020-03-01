@@ -118,7 +118,7 @@ namespace Cloudents.Core.Entities
         public virtual DateTime Created { get; protected set; }
         //protected internal  virtual ICollection<TutorReview> Reviews { get; protected set; }
 
-        public virtual DateTime ManualBoost { get; protected set; }
+        //public virtual DateTime ManualBoost { get; protected set; }
         public virtual byte[] Version { get; protected set; }
         public virtual void AddReview(string review, float rate, User user)
         {
@@ -137,25 +137,13 @@ namespace Cloudents.Core.Entities
             var newSet = new HashSet<TutorHours>(tutorHours.Select(s => new TutorHours(this, s)));
             _tutorHours.IntersectWith(newSet);
 
-            //newSet.ExceptWith(_tutorHours);
             foreach (var hours in newSet)
             {
                 _tutorHours.Add(hours);
             }
 
-            //_tutorHours.Add(new TutorHours(this, tutorHour.Day, tutorHour.From, tutorHour.To));
         }
 
-        //public virtual void DeleteTutorHours()
-        //{
-        //    //var itemToRemove = _tutorHours.Where(w => w.WeekDay == weekDay).FirstOrDefault();
-        //    //if (itemToRemove != null)
-        //    //{
-        //    //    _tutorHours.Remove(itemToRemove);
-        //    //}
-        //    _tutorHours.Clear();
-
-        //}
 
 
         // ReSharper disable once InconsistentNaming Need to have due to mapping
