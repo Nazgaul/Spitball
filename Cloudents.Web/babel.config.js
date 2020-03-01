@@ -7,7 +7,7 @@ module.exports = function (api) {
             ]
         ];
     const plugins = [ 
-        "syntax-dynamic-import",
+        "@babel/plugin-syntax-dynamic-import",
         "transform-object-rest-spread",
         "@babel/plugin-proposal-optional-chaining",
         [
