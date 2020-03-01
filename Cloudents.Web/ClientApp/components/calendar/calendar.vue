@@ -91,6 +91,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import {LanguageService} from '../../services/language/languageService.js'
 import Schedule from './images/schedule.svg'
+import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js'
 export default {
     components:{
       Schedule
@@ -291,7 +292,7 @@ export default {
           this.isLoading = false;
         },
         goPayment(){
-          this.$openDialog('payment')
+          this.$openDialog(dialogNames.Payment)
         },
         isSelected(date,time){
           if(date === this.selectedDate && time === this.selectedTime){
