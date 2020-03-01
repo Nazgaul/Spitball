@@ -1,5 +1,5 @@
 <template>
-    <v-row class="spitballTips" dense>
+    <v-row class="spitballTips">
         <v-col cols="12" class="pa-0 mb-4 d-flex justify-space-between">
             <div class="tipTitle">{{$t('dashboardTeacher_spitball_tips')}}</div>
             <a class="seeAll" :href="blogsLink" target="_blank">{{$t('dashboardTeacher_see_all')}}</a>
