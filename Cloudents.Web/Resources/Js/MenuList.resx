@@ -144,6 +144,10 @@
   <data name="referral_spitball" xml:space="preserve">
     <value>Refer a friend</value>
   </data>
+  <data name="changeCourse" xml:space="preserve">
+    <value>Courses</value>
+    <comment>Duplicate</comment>
+  </data>
   <data name="changeUniversity" xml:space="preserve">
     <value>School</value>
   </data>
@@ -158,6 +162,9 @@
   </data>
   <data name="greets" xml:space="preserve">
     <value>{1}</value>
+  </data>
+  <data name="points" xml:space="preserve">
+    <value>Get Points</value>
   </data>
   <data name="txt_out" xml:space="preserve">
     <value>Get access to thousands of online study materials and tutors</value>

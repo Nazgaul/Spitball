@@ -126,6 +126,9 @@
   <data name="Change" xml:space="preserve">
     <value>Change</value>
   </data>
+  <data name="changeCourse" xml:space="preserve">
+    <value>Courses</value>
+  </data>
   <data name="changeUniversity" xml:space="preserve">
     <value>School</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="my_study_rooms" xml:space="preserve">
     <value>Test study room</value>
+  </data>
+  <data name="points" xml:space="preserve">
+    <value>Get Points</value>
   </data>
   <data name="privacy_policy" xml:space="preserve">
     <value>Privacy Policy</value>

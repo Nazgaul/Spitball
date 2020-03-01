@@ -123,6 +123,9 @@
   <data name="aboutme" xml:space="preserve">
     <value>קצת עלי</value>
   </data>
+  <data name="Answers" xml:space="preserve">
+    <value>תשובות</value>
+  </data>
   <data name="become_title" xml:space="preserve">
     <value>למד בספיטבול</value>
   </data>
@@ -150,8 +153,14 @@
   <data name="btn_save_changes" xml:space="preserve">
     <value>שמור שינויים</value>
   </data>
+  <data name="calendar" xml:space="preserve">
+    <value>יומן פגישות</value>
+  </data>
   <data name="description_label" xml:space="preserve">
     <value>כותרת</value>
+  </data>
+  <data name="documents" xml:space="preserve">
+    <value>מסמכים שהועלו</value>
   </data>
   <data name="earn_btn" xml:space="preserve">
     <value>אני רוצה להרוויח כסף</value>
@@ -170,6 +179,24 @@
   </data>
   <data name="edit_user_profile_title" xml:space="preserve">
     <value>ערוך את הפרופיל שלך</value>
+  </data>
+  <data name="emptyState_answers_btnText" xml:space="preserve">
+    <value>ענה על שאלות</value>
+  </data>
+  <data name="emptyState_answers_text" xml:space="preserve">
+    <value>רוצה להרוויח קצת כסף? עזור לאחרים על ידי מענה על שאלות משיעורי הבית שלהם.</value>
+  </data>
+  <data name="emptyState_documents_btnText" xml:space="preserve">
+    <value>העלה מסמך</value>
+  </data>
+  <data name="emptyState_documents_text" xml:space="preserve">
+    <value>שתף את מסמכי הלימוד שלך</value>
+  </data>
+  <data name="emptyState_questions_btnText" xml:space="preserve">
+    <value>שאל שאלה</value>
+  </data>
+  <data name="emptyState_questions_text" xml:space="preserve">
+    <value>יש לך שאלה לגבי שיעורי הבית?</value>
   </data>
   <data name="empty_title" xml:space="preserve">
     <value>לא הועלו חומרי לימוד</value>
@@ -200,6 +227,12 @@
   </data>
   <data name="pricing" xml:space="preserve">
     <value>תמחור</value>
+  </data>
+  <data name="purchased_documents" xml:space="preserve">
+    <value>מסמכים שנרכשו</value>
+  </data>
+  <data name="Questions" xml:space="preserve">
+    <value>שאלות</value>
   </data>
   <data name="read_less" xml:space="preserve">
     <value>הסתר</value>

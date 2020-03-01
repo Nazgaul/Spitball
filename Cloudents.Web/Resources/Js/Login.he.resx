@@ -123,6 +123,12 @@
   <data name="call_code" xml:space="preserve">
     <value>תקבל שיחה בעוד רגע</value>
   </data>
+  <data name="continue" xml:space="preserve">
+    <value>המשך</value>
+  </data>
+  <data name="continue_registration" xml:space="preserve">
+    <value>המשך בהרשמה</value>
+  </data>
   <data name="email_sent" xml:space="preserve">
     <value>נשלח דוא"ל</value>
   </data>

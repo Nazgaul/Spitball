@@ -123,6 +123,9 @@
   <data name="blog_text2" xml:space="preserve">
     <value>10 Reasons Why Marketing Through Social Media is a Must For Every Small Business</value>
   </data>
+  <data name="blog_title" xml:space="preserve">
+    <value>Tips from our blog</value>
+  </data>
   <data name="coming_soon" xml:space="preserve">
     <value>Coming soon</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="lets_go" xml:space="preserve">
     <value>Let’s go</value>
+  </data>
+  <data name="see_all" xml:space="preserve">
+    <value>See all</value>
   </data>
   <data name="sharePost_title1" xml:space="preserve">
     <value>Share a social post</value>

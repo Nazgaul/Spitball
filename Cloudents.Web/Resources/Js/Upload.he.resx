@@ -120,6 +120,9 @@
   <data name="CreateOk" xml:space="preserve">
     <value>המסמך שלך עלה! תוכל לצפות בו בקרוב.</value>
   </data>
+  <data name="files_file_upload" xml:space="preserve">
+    <value>העלה קובץ</value>
+  </data>
   <data name="multiple_error_extension_title" xml:space="preserve">
     <value>סוג קובץ הזה לא נתמך</value>
   </data>

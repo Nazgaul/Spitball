@@ -117,70 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="add_your_courses" xml:space="preserve">
-    <value>מה אתה לומד?</value>
+  <data name="btn_student" xml:space="preserve">
+    <value>סטודנט</value>
   </data>
-  <data name="allCourses" xml:space="preserve">
-    <value>כל הקורסים</value>
+  <data name="btn_tutor" xml:space="preserve">
+    <value>מורה פרטי</value>
   </data>
-  <data name="all_courses" xml:space="preserve">
-    <value>כל הקורסים</value>
+  <data name="currently" xml:space="preserve">
+    <value>כיום אתה</value>
   </data>
-  <data name="calendar" xml:space="preserve">
-    <value>היומן שלי</value>
+  <data name="subtitle" xml:space="preserve">
+    <value>המקום בו סטודנטים לומדים מסטודנטים</value>
   </data>
-  <data name="courses" xml:space="preserve">
-    <value>ניהול קורסים</value>
-  </data>
-  <data name="dashboard" xml:space="preserve">
-    <value>כלי ניהול</value>
-  </data>
-  <data name="home" xml:space="preserve">
-    <value>ראשי</value>
-  </data>
-  <data name="lessons" xml:space="preserve">
-    <value>השיעורים שלי</value>
-  </data>
-  <data name="my" xml:space="preserve">
-    <value>הקורסים שלי</value>
-  </data>
-  <data name="my_content" xml:space="preserve">
-    <value>התוכן שלי</value>
-  </data>
-  <data name="my_followers" xml:space="preserve">
-    <value>העוקבים שלי</value>
-  </data>
-  <data name="my_Questions" xml:space="preserve">
-    <value>הזדמנויות</value>
-  </data>
-  <data name="my_sales" xml:space="preserve">
-    <value>המכירות שלי</value>
-  </data>
-  <data name="my_site" xml:space="preserve">
-    <value>האתר שלי</value>
-  </data>
-  <data name="my_study_rooms" xml:space="preserve">
-    <value>חדרי הלימוד שלי</value>
-  </data>
-  <data name="overview" xml:space="preserve">
-    <value>סקירה כללית</value>
-  </data>
-  <data name="posts" xml:space="preserve">
-    <value>ההודעות שלי</value>
-  </data>
-  <data name="profile" xml:space="preserve">
-    <value>הפרופיל שלי</value>
-  </data>
-  <data name="purchases" xml:space="preserve">
-    <value>הרכישות שלי</value>
-  </data>
-  <data name="settings" xml:space="preserve">
-    <value>הגדרות</value>
-  </data>
-  <data name="study" xml:space="preserve">
-    <value>חדרי הלימוד שלי</value>
-  </data>
-  <data name="wallet" xml:space="preserve">
-    <value>ארנק</value>
+  <data name="title" xml:space="preserve">
+    <value>ברוך הבא לספיטבול</value>
   </data>
 </root>

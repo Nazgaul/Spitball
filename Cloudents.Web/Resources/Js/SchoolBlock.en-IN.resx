@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="add_your_courses" xml:space="preserve">
+    <value>Add Your Courses</value>
+  </data>
   <data name="allCourses" xml:space="preserve">
     <value>All courses</value>
   </data>
@@ -129,11 +132,17 @@
   <data name="home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="lessons" xml:space="preserve">
+    <value>My Lessons</value>
+  </data>
   <data name="my" xml:space="preserve">
     <value>My courses</value>
   </data>
   <data name="my_study_rooms" xml:space="preserve">
     <value>My study rooms</value>
+  </data>
+  <data name="posts" xml:space="preserve">
+    <value>My Posts</value>
   </data>
   <data name="profile" xml:space="preserve">
     <value>Profile</value>
@@ -143,5 +152,8 @@
   </data>
   <data name="study" xml:space="preserve">
     <value>My Study rooms</value>
+  </data>
+  <data name="wallet" xml:space="preserve">
+    <value>Wallet</value>
   </data>
 </root>

@@ -120,6 +120,12 @@
   <data name="are_you_sure_you_want_to_exit" xml:space="preserve">
     <value>Are you sure you want to exit?</value>
   </data>
+  <data name="continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="continue_registration" xml:space="preserve">
+    <value>Continue with registration</value>
+  </data>
   <data name="email_sent" xml:space="preserve">
     <value>An email sent, check your email.</value>
   </data>

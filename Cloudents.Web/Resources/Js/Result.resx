@@ -126,8 +126,23 @@
   <data name="general_keywords" xml:space="preserve">
     <value>Look for something broader.</value>
   </data>
+  <data name="new_questions" xml:space="preserve">
+    <value>New questions</value>
+  </data>
   <data name="spelling" xml:space="preserve">
     <value>Check your spelling.</value>
+  </data>
+  <data name="suggestions" xml:space="preserve">
+    <value>Suggestions:</value>
+  </data>
+  <data name="suggestions_ask" xml:space="preserve">
+    <value>Have a question you need answered? Try us.</value>
+  </data>
+  <data name="suggestions_note" xml:space="preserve">
+    <value>Searching for study documents for your classes? Look no further.</value>
+  </data>
+  <data name="suggestions_tutor" xml:space="preserve">
+    <value>Still need help? Connect with a tutor and make sure you ace your class.</value>
   </data>
   <data name="get_help" xml:space="preserve">
     <value>Get Help</value>
