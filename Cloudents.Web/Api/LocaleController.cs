@@ -45,9 +45,9 @@ namespace Cloudents.Web.Api
 
                 var index = resourceStr.LastIndexOf('.') + 1;
                 var name = resourceStr.Remove(0, index);
-                foreach (var val in p)
+                foreach (var (key, value) in p)
                 {
-                    dic.Add($"{name.ToCamelCase()}_{val.Key}", val.Value);
+                    dic.Add($"{name.ToCamelCase()}_{key}", value);
                 }
             }
 
