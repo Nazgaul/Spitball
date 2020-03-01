@@ -31,9 +31,10 @@
 <meta property="og:title" content="@ViewBag.ogTitle" />
 <meta property="og:url" content="@Context.Request.GetEncodedUrl()" />
 <meta property="og:type" content="website" />
-<meta property="og:locale:alternate" content="@Language.Hebrew.Info.Name.Replace("-","_")" />
+
 <meta property="og:locale" content="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name.Replace("-","_")" />
-<meta property="og:locale:alternate" content="@Language.English.Info.Name.Replace("-","_")" />
+<meta property="og:locale:alternate" content="@Language.EnglishUsa.Info.Name.Replace("-","_")" />
+<meta property="og:locale:alternate" content="he_IL" />@*Using hard code since we don't have he-IL at the moment*@
 
 
 <meta name="twitter:card" content="summary_large_image">
