@@ -20,7 +20,7 @@ export default {
             dialogsPremissions: {
                 login: [],
                 exitRegisterDialog: [],
-                becomeTutor: [],
+                becomeTutor: ["auth"],
                 upload: ["auth","courses"],
                 createCoupon: ["auth","tutor"]
             }
@@ -40,7 +40,7 @@ export default {
                 return this[dialogChekerName](dialogNameFromRoute);
         },
         check_auth(){
-            if(!this.getUserLoggedInStatus && !global.isAuth){
+            if(!this.getUserLoggedInStatus){
                 this.component = 'login';
             }
         },

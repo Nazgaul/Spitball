@@ -163,15 +163,6 @@ export default {
       reviewsPlaceHolder(reviews) {
          return reviews === 0 ? reviews.toString() : reviews;
       },
-      openCalendar(){
-         if(global.isAuth) {
-            if(this.isMyProfile) {
-               return
-            }
-         }else{
-            this.updateLoginDialogState(true);
-         }
-      },
       openBecomeTutor(){
          this.$openDialog('becomeTutor')
       },

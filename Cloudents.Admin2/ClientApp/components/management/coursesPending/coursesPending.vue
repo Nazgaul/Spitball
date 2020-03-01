@@ -252,7 +252,12 @@
                     this.newCourseList.splice(index, 1);
                 },
                     (error) => {
-                        this.$toaster.error(`Error can't Delete`);
+                        if(error.response.data == `constraint Violation`) {
+                            this.$toaster.error(`This course has document/question to it. Need to merge it with another course`);
+                        }
+                        else {
+                            this.$toaster.error(`Error can't Delete`);
+                        }
                     }
                 )
             },
