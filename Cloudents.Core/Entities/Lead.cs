@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Cloudents.Core.Event;
@@ -10,7 +9,7 @@ namespace Cloudents.Core.Entities
     public class Lead : Entity<Guid>
     {
         public Lead(string course, string text, string referer,
-            [CanBeNull] User user, Tutor tutor, string utmSource)
+            User? user, Tutor tutor, string utmSource)
         {
             Course = course;
             Text = text;
@@ -28,14 +27,12 @@ namespace Cloudents.Core.Entities
         {
         }
 
-        [CanBeNull]
-        public virtual User User { get; protected set; }
+        public virtual User? User { get; protected set; }
         public virtual string Course { get; protected set; }
 
         public virtual string Text { get; protected set; }
         public virtual string Referer { get; protected set; }
-        [CanBeNull]
-        public virtual Tutor Tutor { get; protected set; }
+        public virtual Tutor? Tutor { get; protected set; }
 
         public virtual string UtmSource { get; protected set; }
 

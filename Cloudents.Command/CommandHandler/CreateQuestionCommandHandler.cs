@@ -2,13 +2,11 @@
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
 using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Cloudents.Command.CommandHandler
 {
-    [UsedImplicitly]
     public class CreateQuestionCommandHandler : ICommandHandler<CreateQuestionCommand>
     {
         private readonly IQuestionRepository _questionRepository;

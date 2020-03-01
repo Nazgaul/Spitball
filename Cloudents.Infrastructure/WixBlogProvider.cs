@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using Cloudents.Core.DTOs;
-using Cloudents.Core.Entities;
 using Cloudents.Core.Extension;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Query;

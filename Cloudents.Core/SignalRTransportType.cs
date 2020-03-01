@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace Cloudents.Core
 {
@@ -38,10 +37,10 @@ namespace Cloudents.Core
 
 
 
-        public SignalRType Type { [UsedImplicitly] get; }
-        public SignalRAction Action { [UsedImplicitly] get; set; }
+        public SignalRType Type {  get; }
+        public SignalRAction Action {  get; set; }
 
-        public object[] Data { [UsedImplicitly] get; }
+        public object[] Data {  get; }
     }
 
 

@@ -1,11 +1,9 @@
 ﻿using Autofac;
 using Cloudents.Core.Interfaces;
 using Cloudents.Core.Storage;
-using JetBrains.Annotations;
 
 namespace Cloudents.Infrastructure.Storage
 {
-    [UsedImplicitly]
     public class ModuleStorage : Module
     {
         protected override void Load(ContainerBuilder builder)
