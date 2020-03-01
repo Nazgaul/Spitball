@@ -31,7 +31,11 @@ export const studyRoomRoutes = [
                 store.dispatch('maor_updateStudyRoomInformation',to.params.id).then(()=>{
                     next()
                 }).catch((nextStepRoute)=>{
-                    next({...from,...nextStepRoute })
+                    if(to.query.dialog){
+                        next();
+                        return
+                    }
+                    next({...nextStepRoute })
                 })
             }
         },

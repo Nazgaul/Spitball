@@ -300,7 +300,6 @@ const actions = {
         if(isTutor) {
             dispatch("setTutorDialogState", state.startSessionDialogStateEnum.start);
         }else{
-            dispatch('maor_goStudyRoom')
             dispatch("setStudentDialogState", state.startSessionDialogStateEnum.waiting);
         }
     },

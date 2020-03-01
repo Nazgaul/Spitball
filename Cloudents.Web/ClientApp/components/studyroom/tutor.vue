@@ -383,6 +383,13 @@ export default {
       "getShowUserConsentDialog",
       "getSnapshotDialog"
     ]),
+    isNeedPayment(){
+      if(this.getStudyRoomData){
+        return this.getStudyRoomData.needPayment;
+      }else{
+        return null
+      }
+    },
     activeItem() {
       return this.activeNavItem;
     },
@@ -417,6 +424,18 @@ export default {
   },
 
 watch: {
+  isNeedPayment:{
+    immediate:true,
+    handler(newVal){
+      if(!newVal){
+        if(!!this.id){
+          this.$closeDialog()
+            this.setRoomId(this.id);
+            this.setStudyRoom(this.id);
+          }
+      }
+    }
+  },
   getStudyRoomData(val){
     if(!!val){
       this.initStartSession();
@@ -637,8 +656,6 @@ watch: {
     this.userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
     if(!!this.id){
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null)
-      this.setRoomId(this.id);
-      this.setStudyRoom(this.id);
     }
     this.$loadScript(
       "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG"
