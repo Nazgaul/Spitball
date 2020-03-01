@@ -77,7 +77,6 @@ namespace ConsoleApp
                         Redis = ConfigurationManager.AppSettings["Redis"],
                         Storage = ConfigurationManager.AppSettings["StorageConnectionString"],
                         LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                        BlockChainNetwork = "http://localhost:8545",
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
                     };
                 case EnvironmentSettings.Prod:
@@ -94,7 +93,6 @@ namespace ConsoleApp
                         Redis = ConfigurationManager.AppSettings["Redis"],
                         Storage = ConfigurationManager.AppSettings["StorageConnectionStringProd"],
                         LocalStorageData = new LocalStorageData(AppDomain.CurrentDomain.BaseDirectory, 200),
-                        BlockChainNetwork = "http://localhost:8545",
                         ServiceBus = ConfigurationManager.AppSettings["ServiceBus"],
                     };
                 default:
