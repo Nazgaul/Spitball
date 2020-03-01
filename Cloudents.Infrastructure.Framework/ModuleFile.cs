@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using Cloudents.Core;
 using System.Diagnostics.CodeAnalysis;
+using Cloudents.Core;
 
 namespace Cloudents.Infrastructure.Framework
 {

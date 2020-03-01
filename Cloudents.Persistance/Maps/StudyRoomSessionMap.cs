@@ -1,10 +1,8 @@
 ﻿using Cloudents.Core.Entities;
 using FluentNHibernate.Mapping;
-using JetBrains.Annotations;
 
 namespace Cloudents.Persistence.Maps
 {
-    [UsedImplicitly]
     public class StudyRoomSessionMap : ClassMap<StudyRoomSession>
     {
         public StudyRoomSessionMap()

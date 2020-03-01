@@ -1,7 +1,6 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using NHibernate;
 using NHibernate.Criterion;
 using System.Threading;
@@ -9,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Persistence.Repositories
 {
-    [UsedImplicitly]
     public class TransactionRepository : NHibernateRepository<Transaction>, ITransactionRepository
     {
         public TransactionRepository(ISession session) : base(session)

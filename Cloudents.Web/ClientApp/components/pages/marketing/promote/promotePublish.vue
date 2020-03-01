@@ -10,13 +10,13 @@
               :twitter="shareContentParams.twitter"
               :whatsApp="shareContentParams.whatsApp"
               :email="shareContentParams.email"
-              :fromMarketing="true"
+              :large="true"
             />
         </div>
     </div>
 </template>
 <script>
-import shareContent from '../../global/shareContent/shareContent.vue';
+const shareContent = () => import(/* webpackChunkName: "shareContent" */'../../global/shareContent/shareContent.vue');
 
 export default {
   components: { shareContent },

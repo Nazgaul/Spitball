@@ -1,11 +1,9 @@
 ﻿using Cloudents.Core.Entities;
 using Cloudents.Core.Enum;
 using FluentNHibernate.Mapping;
-using JetBrains.Annotations;
 
 namespace Cloudents.Persistence.Maps
 {
-    [UsedImplicitly]
     public class UserMap : SubclassMap<User>
     {
         public UserMap()
