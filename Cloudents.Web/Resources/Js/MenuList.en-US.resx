@@ -117,67 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="copied" xml:space="preserve">
-    <value>Copied</value>
+  <data name="about_spitball" xml:space="preserve">
+    <value>About Spitball</value>
   </data>
-  <data name="copy" xml:space="preserve">
-    <value>Copy</value>
+  <data name="feedback" xml:space="preserve">
+    <value>Feedback</value>
   </data>
-  <data name="copy_link" xml:space="preserve">
-    <value>Copy Link</value>
+  <data name="help" xml:space="preserve">
+    <value>Help</value>
   </data>
-  <data name="dialog_bottom_text" xml:space="preserve">
-    <value>The more classmates you get on Spitball, the better everyone’s grades will be!</value>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
   </data>
-  <data name="dialog_bottom_text2" xml:space="preserve">
-    <value>Limited to 5 referrals</value>
+  <data name="logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
-  <data name="dialog_friends_joined" xml:space="preserve">
-    <value> invited friends have joined</value>
+  <data name="privacy_policy" xml:space="preserve">
+    <value>Privacy Policy</value>
   </data>
-  <data name="dialog_subtitle" xml:space="preserve">
-    <value>Earn 10 points for each one that joins</value>
+  <data name="Sign_up" xml:space="preserve">
+    <value>Sign up</value>
   </data>
-  <data name="dialog_title_invite" xml:space="preserve">
-    <value>Spread the word at </value>
+  <data name="terms_of_service" xml:space="preserve">
+    <value>Terms of Service</value>
   </data>
-  <data name="get_document_text" xml:space="preserve">
-    <value>Click this link to have a look, I am certain it will worth your while and help you in your studying!</value>
+  <data name="referral_spitball" xml:space="preserve">
+    <value>Refer a teacher</value>
   </data>
-  <data name="get_your_homework" xml:space="preserve">
-    <value>Get your homework questions answered in minutes, and make money answering other students questions. Sign up using this link and start learning and earning today:</value>
+  <data name="changeCourse" xml:space="preserve">
+    <value>Courses</value>
+    <comment>Duplicate</comment>
   </data>
-  <data name="get_your_homework_twitter" xml:space="preserve">
-    <value>Get your homework questions answered in minutes, and make money answering other students questions. Sign up using this link and start learning and earning today:</value>
+  <data name="changeUniversity" xml:space="preserve">
+    <value>School</value>
   </data>
-  <data name="join_me" xml:space="preserve">
-    <value>Join me on Spitball</value>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
   </data>
-  <data name="ref_placeholder" xml:space="preserve">
-    <value>Select Document to Share</value>
+  <data name="my_study_rooms" xml:space="preserve">
+    <value>Test Study Room</value>
   </data>
-  <data name="share_facebook" xml:space="preserve">
-    <value>Share</value>
+  <data name="balance" xml:space="preserve">
+    <value>Your balance: {1} Pts</value>
   </data>
-  <data name="share_google" xml:space="preserve">
-    <value>Email</value>
+  <data name="greets" xml:space="preserve">
+    <value>{1}</value>
   </data>
-  <data name="share_tweeter" xml:space="preserve">
-    <value>Tweet</value>
+  <data name="points" xml:space="preserve">
+    <value>Get Points</value>
   </data>
-  <data name="share_whatsup" xml:space="preserve">
-    <value>Text</value>
-  </data>
-  <data name="spread" xml:space="preserve">
-    <value>Spread the Word</value>
-  </data>
-  <data name="terms_link_text" xml:space="preserve">
-    <value></value>
-  </data>
-  <data name="terms_link" xml:space="preserve">
-    <value></value>
-  </data>
-  <data name="title_document" xml:space="preserve">
-    <value>I just uploaded some of my academic notes to Spitball.</value>
+  <data name="txt_out" xml:space="preserve">
+    <value>Get access to thousands of online study materials and tutors</value>
   </data>
 </root>

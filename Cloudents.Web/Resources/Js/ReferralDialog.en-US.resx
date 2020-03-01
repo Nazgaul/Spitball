@@ -127,16 +127,17 @@
     <value>Copy Link</value>
   </data>
   <data name="dialog_bottom_text" xml:space="preserve">
-    <value>The more classmates you get on Spitball, the better everyone’s grades will be!</value>
+    <value>The more tutors there are, the more connections and referrals you’ll get.</value>
   </data>
   <data name="dialog_bottom_text2" xml:space="preserve">
-    <value>Limited to 5 referrals</value>
+    <value> </value>
   </data>
   <data name="dialog_friends_joined" xml:space="preserve">
     <value> invited friends have joined</value>
   </data>
   <data name="dialog_subtitle" xml:space="preserve">
-    <value>Earn 10 points for each one that joins</value>
+    <value>Earn $10 for every teacher
+ and 10% commission for a year</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
     <value>Spread the word at </value>
@@ -171,11 +172,11 @@
   <data name="spread" xml:space="preserve">
     <value>Spread the Word</value>
   </data>
-  <data name="terms_link_text" xml:space="preserve">
-    <value></value>
-  </data>
   <data name="terms_link" xml:space="preserve">
-    <value></value>
+    <value> https://help.spitball.co/en/article/teacher-referral-program-for-the-us   </value>
+  </data>
+  <data name="terms_link_text" xml:space="preserve">
+    <value>Referral program terms</value>
   </data>
   <data name="title_document" xml:space="preserve">
     <value>I just uploaded some of my academic notes to Spitball.</value>

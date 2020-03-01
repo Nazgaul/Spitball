@@ -10,7 +10,7 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void InitTutor_CountryIL_NullPrice_RaiseException()
         {
-            var user = new User("some email", "firstName", "lastName", Language.EnglishIsrael,"IL");
+            var user = new User("some email", "firstName", "lastName", Language.English,"IL");
 
 
             Assert.Throws<ArgumentException>(() => new Tutor("Some bio", user, null));
@@ -20,7 +20,7 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void InitTutor_CountryIL_Price_NoSubside()
         {
-            var user = new User("some email", "firstName", "lastName", Language.EnglishIsrael,"IL");
+            var user = new User("some email", "firstName", "lastName", Language.English, "IL");
 
             var price = 50M;
 
@@ -33,7 +33,7 @@ namespace Cloudents.Core.Test.Entities
         [Fact]
         public void InitTutor_CountryIN_Price_NoSubside()
         {
-            var user = new User("some email", "firstName", "lastName", Language.EnglishIsrael,"IL");
+            var user = new User("some email", "firstName", "lastName", Language.English, "IL");
             var price = 50M;
             user.ChangeCountry("IN");
             var tutor = new Tutor("Some bio", user, price);
