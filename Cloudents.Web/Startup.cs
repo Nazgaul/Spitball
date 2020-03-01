@@ -338,21 +338,7 @@ namespace Cloudents.Web
 
             app.UseResponseCaching();
 
-            app.UseRequestLocalization(o =>
-            {
-                o.DefaultRequestCulture = new RequestCulture(Language.English);
-                o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList();// SupportedCultures;
-
-                o.RequestCultureProviders.Clear();
-                o.RequestCultureProviders.Add(new FrymoCultureProvider());
-                o.RequestCultureProviders.Add(new QueryStringRequestCultureProvider());
-                o.RequestCultureProviders.Add(new FacebookQueryStringRequestCultureProvider());
-                o.RequestCultureProviders.Add(new CookieRequestCultureProvider());
-                o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
-                o.RequestCultureProviders.Add(new CountryCultureProvider());
-                o.RequestCultureProviders.Add(new AcceptLanguageHeaderRequestCultureProvider());
-
-            });
+           
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
@@ -382,6 +368,22 @@ namespace Cloudents.Web
             //});
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseRequestLocalization(o =>
+            {
+                o.DefaultRequestCulture = new RequestCulture(Language.English);
+                o.SupportedUICultures = o.SupportedCultures = Language.SystemSupportLanguage().Select(s => (CultureInfo)s).ToList();// SupportedCultures;
+
+                o.RequestCultureProviders.Clear();
+                o.RequestCultureProviders.Add(new FrymoCultureProvider());
+                o.RequestCultureProviders.Add(new QueryStringRequestCultureProvider());
+                o.RequestCultureProviders.Add(new FacebookQueryStringRequestCultureProvider());
+                o.RequestCultureProviders.Add(new CookieRequestCultureProvider());
+                o.RequestCultureProviders.Add(new AuthorizedUserCultureProvider());
+                o.RequestCultureProviders.Add(new CountryCultureProvider());
+                o.RequestCultureProviders.Add(new AcceptLanguageHeaderRequestCultureProvider());
+
+            });
 
             //if (UseAzureSignalR)
             //{
