@@ -34,14 +34,14 @@ namespace Cloudents.Web.Api
             foreach (var rawResourceLocation in resources.Where(w => regex.Match(w).Success)) // w.Contains("Cloudents.Web.Resources.Js")))
             {
                 var resourceStr = rawResourceLocation.Substring(0, rawResourceLocation.LastIndexOf('.'));
-                var resource = new ResourceManager(resourceStr, assembly);
+                var resourceManager = new ResourceManager(resourceStr, assembly);
 
-                var resourceSet = resource.GetResourceSet(CultureInfo.InvariantCulture, true, true);
+                var resourceSet = resourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, true);
 
 
                 var p = resourceSet.Cast<DictionaryEntry>()
                     .ToDictionary(x => x.Key.ToString(),
-                        x => resource.GetString(x.Key.ToString()));
+                        x => resourceManager.GetString(x.Key.ToString()));
 
                 var index = resourceStr.LastIndexOf('.') + 1;
                 var name = resourceStr.Remove(0, index);

@@ -136,7 +136,8 @@
     <value> invited friends have joined</value>
   </data>
   <data name="dialog_subtitle" xml:space="preserve">
-    <value>Earn $10 for every teacher and 10% commission for a year</value>
+    <value>Earn $10 for every teacher
+ and 10% commission for a year</value>
   </data>
   <data name="dialog_title_invite" xml:space="preserve">
     <value>Spread the word at </value>
