@@ -11,7 +11,7 @@ namespace Cloudents.Core.Interfaces
 {
     public interface IRestClient
     {
-        Task<string?> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token);
+       // Task<string?> GetAsync(Uri url, NameValueCollection queryString, CancellationToken token);
 
         //[ItemCanBeNull]
         //Task<string> GetAsync(Uri url, NameValueCollection queryString,

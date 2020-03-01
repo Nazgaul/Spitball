@@ -34,7 +34,7 @@ namespace Cloudents.Infrastructure.Storage
             _client = storageProvider.GetBlobClient();
             _cloudContainer = _client.GetContainerReference(container.Name.ToLowerInvariant());
             _container = container;
-            _blobDirectory = _cloudContainer.GetDirectoryReference(container.RelativePath ?? string.Empty);
+            _blobDirectory = _cloudContainer.GetDirectoryReference(container.RelativePath);
         }
 
 

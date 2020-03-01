@@ -610,7 +610,7 @@ namespace Cloudents.Infrastructure.Data.Test.IntegrationTests
         public async Task TutorStatsQuery_Ok(long userId, int days)
         {
             var query = new UserStatsQuery(userId, days);
-            var result = await fixture.QueryBus.QueryAsync(query, default);
+            var result = (await fixture.QueryBus.QueryAsync(query, default)).ToList();
             result.Should().NotBeNull();
             result.Count().Should().Be(2);
         }

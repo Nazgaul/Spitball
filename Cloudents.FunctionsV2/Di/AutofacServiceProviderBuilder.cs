@@ -109,7 +109,7 @@ namespace Cloudents.FunctionsV2.Di
                     FileTypesExtension.Music.Extensions));
 
             builder.RegisterType<MediaServices>().SingleInstance().As<IVideoService>().WithParameter("isDevelop", keys.Search.IsDevelop);
-            builder.Register(c => new TextToImageGdi()).As<ITextToImage>();
+          //  builder.Register(c => new TextToImageGdi()).As<ITextToImage>();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .AsClosedTypesOf(typeof(ISystemOperation<>));

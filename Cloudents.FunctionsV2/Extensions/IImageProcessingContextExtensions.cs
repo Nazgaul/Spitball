@@ -1,26 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
-using System.Text;
-using Cloudents.Core;
-using Cloudents.Core.Extension;
 using Cloudents.FunctionsV2.Services;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Shapes;
-using Color = SixLabors.ImageSharp.Color;
-using Font = SixLabors.Fonts.Font;
-using FontStyle = SixLabors.Fonts.FontStyle;
 using Image = SixLabors.ImageSharp.Image;
-using PointF = SixLabors.Primitives.PointF;
-using RectangleF = SixLabors.Primitives.RectangleF;
 using Size = SixLabors.Primitives.Size;
-using SolidBrush = SixLabors.ImageSharp.Processing.SolidBrush;
 
 namespace Cloudents.FunctionsV2.Extensions
 {
@@ -82,9 +72,9 @@ namespace Cloudents.FunctionsV2.Extensions
 
                 var brush = new System.Drawing.SolidBrush(colorToWorkWith);
                 g.DrawString(textToDraw,
-                    new System.Drawing.Font("Calibri", fontSize, System.Drawing.FontStyle.Regular, GraphicsUnit.Pixel),
+                    new Font("Calibri", fontSize, FontStyle.Regular, GraphicsUnit.Pixel),
                     brush,
-                    new System.Drawing.RectangleF(0, 0, size.Width, size.Height),
+                    new RectangleF(0, 0, size.Width, size.Height),
                     new StringFormat()
                     {
                         Alignment = StringAlignment.Center,

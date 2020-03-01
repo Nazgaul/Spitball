@@ -4,7 +4,6 @@ using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Processing.Processors;
-using SixLabors.Primitives;
 
 namespace Cloudents.FunctionsV2.Services
 {

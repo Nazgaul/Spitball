@@ -55,9 +55,9 @@ namespace Cloudents.Web.Test.IntegrationTests.Api
             }
             var response = await _client.GetAsync($"api/feed?page={page}");
             response.EnsureSuccessStatusCode();
-            var content = await response.Content.ReadAsStringAsync();
-            dynamic json = JsonConvert.DeserializeObject(content);
-            IEnumerable<dynamic> t = json.result;
+           // var content = await response.Content.ReadAsStringAsync();
+            //dynamic json = JsonConvert.DeserializeObject(content);
+           // IEnumerable<dynamic> t = json.result;
             //var t = JsonConvert.DeserializeObject<IEnumerable<dynamic>>(content);
 
             //var ids = t.Where(w => w.type == "Document").Select(s=>(long)s.id);

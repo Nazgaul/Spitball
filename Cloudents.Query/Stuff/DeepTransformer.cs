@@ -3,10 +3,8 @@ using Cloudents.Core.Extension;
 using NHibernate.Transform;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using Cloudents.Core;
 
 namespace Cloudents.Query.Stuff
 {

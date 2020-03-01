@@ -3,7 +3,6 @@ using Cloudents.Core.Entities;
 using NHibernate;
 using NHibernate.Linq;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,7 +15,8 @@ namespace Cloudents.Query.Tutor
         { 
             UserId = userId;
         }
-        public long UserId { get; }
+
+        private long UserId { get; }
 
         internal sealed class TutorActionsQueryHandler : IQueryHandler<TutorActionsQuery, TutorActionsDto>
         {
@@ -64,9 +64,9 @@ namespace Cloudents.Query.Tutor
                     .Take(1)
                     .FutureValue<Guid?>();
 
-                var calendarShared = (await calendarFuture.GetValueAsync(token)) != null ? true : false;
-                var haveHours = (await hoursFuture.GetValueAsync(token)) != null ? true : false;
-                var bookedSession = (await bookedSessionFuture.GetValueAsync(token)) != null ? true : false;
+                var calendarShared = await calendarFuture.GetValueAsync(token) != null;
+                var haveHours = await hoursFuture.GetValueAsync(token) != null;
+                var bookedSession = await bookedSessionFuture.GetValueAsync(token) != null;
 
                 var res = new TutorActionsDto()
                 {

@@ -36,7 +36,7 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(User.ImageName))]
         public string Name { get; set; }
         [EntityBind(nameof(User.ImageName))]
-        public string Image { get; set; }
+        public string? Image { get; set; }
         public string UniversityName { get; set; }
         [EntityBind(nameof(User.Description))]
         public string Description { get; set; }
@@ -45,7 +45,7 @@ namespace Cloudents.Core.DTOs
         [EntityBind(nameof(GoogleTokens))]
         public bool CalendarShared { get; set; }
         [EntityBind(nameof(User.Tutor))]
-        public UserTutorProfileDto Tutor { get; set; }
+        public UserTutorProfileDto? Tutor { get; set; }
 
         [EntityBind(nameof(User.FirstName))]
         public string FirstName { get; set; }
@@ -57,7 +57,7 @@ namespace Cloudents.Core.DTOs
 
         public bool IsFollowing { get; set; }
 
-        public IEnumerable<string> Courses { get; set; }
+        public IEnumerable<string>? Courses { get; set; }
 
         //If the user is a tutor and then delete then the first name and the last name stays
         public bool ShouldSerializeTutor()

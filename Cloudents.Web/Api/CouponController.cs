@@ -2,7 +2,6 @@
 using Cloudents.Command.Command;
 using Cloudents.Core.Entities;
 using Cloudents.Core.Exceptions;
-using Cloudents.Query;
 using Cloudents.Web.Extensions;
 using Cloudents.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -21,13 +20,11 @@ namespace Cloudents.Web.Api
     public class CouponController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
-        private readonly IQueryBus _queryBus;
         private readonly UserManager<User> _userManager;
 
-        public CouponController(ICommandBus commandBus, IQueryBus queryBus, UserManager<User> userManager)
+        public CouponController(ICommandBus commandBus,  UserManager<User> userManager)
         {
             _commandBus = commandBus;
-            _queryBus = queryBus;
             _userManager = userManager;
         }
 
