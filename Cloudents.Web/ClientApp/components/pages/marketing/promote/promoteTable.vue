@@ -42,7 +42,7 @@
                           {{props.item.name}}
                         </div>
                         <div class="course text-truncate">
-                          <span>{{$t('promote_table_course')}}:</span>
+                          <span>{{$t('dashboardPage_course')}}</span>
                           <span>{{props.item.course}}</span>
                         </div>
                       </div>
