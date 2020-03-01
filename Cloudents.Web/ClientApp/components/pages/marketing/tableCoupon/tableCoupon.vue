@@ -48,6 +48,10 @@
             <template v-slot:no-data>
                 {{$t('marketing_tableCoupon_noCoupons')}}
             </template>
+
+            <template v-slot:no-data>
+                {{$t('marketing_tableCoupon_noCoupons')}}
+            </template>
         </v-data-table>
     </v-row>
 </template>

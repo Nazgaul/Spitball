@@ -117,40 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="copy" xml:space="preserve">
-    <value>העתק</value>
+  <data name="about_spitball" xml:space="preserve">
+    <value>About Spitball</value>
   </data>
-  <data name="copy_tool" xml:space="preserve">
-    <value>הקישור הועתק</value>
+  <data name="feedback" xml:space="preserve">
+    <value>Feedback</value>
   </data>
-  <data name="share_item_email_body" xml:space="preserve">
-    <value>הי,
-מצאתי חומר לימודי טוב  לקורס -  {1} ב {2}</value>
+  <data name="help" xml:space="preserve">
+    <value>Help</value>
   </data>
-  <data name="share_item_email_subject" xml:space="preserve">
-    <value>חומר לימודי לקורס - {0}</value>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
   </data>
-  <data name="share_item_twitter" xml:space="preserve">
-    <value>מצאתי חומר לימודי טוב  לקורס -  {0} ב {1}</value>
+  <data name="logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
-  <data name="share_item_whatsapp" xml:space="preserve">
-    <value>מצאתי חומר לימודי טוב  לקורס -  {0} ב {1}</value>
+  <data name="privacy_policy" xml:space="preserve">
+    <value>Privacy Policy</value>
   </data>
-  <data name="share_profile_email_body" xml:space="preserve">
-    <value>הי,
-משתף איתך מורה פרטי. תסתכל על האתר שלו
-{1}</value>
+  <data name="Sign_up" xml:space="preserve">
+    <value>Sign up</value>
   </data>
-  <data name="share_profile_email_subject" xml:space="preserve">
-    <value>המורה הפרטי {0} - מומלץ</value>
+  <data name="terms_of_service" xml:space="preserve">
+    <value>Terms of Service</value>
   </data>
-  <data name="share_profile_twitter" xml:space="preserve">
-    <value>מצאתי מורה מצויין {0} ב {1}</value>
+  <data name="referral_spitball" xml:space="preserve">
+    <value>Refer a teacher</value>
   </data>
-  <data name="share_profile_whatsapp" xml:space="preserve">
-    <value>מצאתי מורה מצויין {0} ב {1}</value>
+  <data name="changeCourse" xml:space="preserve">
+    <value>Courses</value>
+    <comment>Duplicate</comment>
   </data>
-  <data name="title" xml:space="preserve">
-    <value>שיתוף</value>
+  <data name="changeUniversity" xml:space="preserve">
+    <value>School</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="my_study_rooms" xml:space="preserve">
+    <value>Test Study Room</value>
+  </data>
+  <data name="balance" xml:space="preserve">
+    <value>Your balance: {1} Pts</value>
+  </data>
+  <data name="greets" xml:space="preserve">
+    <value>{1}</value>
+  </data>
+  <data name="points" xml:space="preserve">
+    <value>Get Points</value>
+  </data>
+  <data name="txt_out" xml:space="preserve">
+    <value>Get access to thousands of online study materials and tutors</value>
   </data>
 </root>

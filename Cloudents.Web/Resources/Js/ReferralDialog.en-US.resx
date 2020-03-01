@@ -117,40 +117,68 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="copied" xml:space="preserve">
+    <value>Copied</value>
+  </data>
   <data name="copy" xml:space="preserve">
-    <value>העתק</value>
+    <value>Copy</value>
   </data>
-  <data name="copy_tool" xml:space="preserve">
-    <value>הקישור הועתק</value>
+  <data name="copy_link" xml:space="preserve">
+    <value>Copy Link</value>
   </data>
-  <data name="share_item_email_body" xml:space="preserve">
-    <value>הי,
-מצאתי חומר לימודי טוב  לקורס -  {1} ב {2}</value>
+  <data name="dialog_bottom_text" xml:space="preserve">
+    <value>The more tutors there are, the more connections and referrals you’ll get.</value>
   </data>
-  <data name="share_item_email_subject" xml:space="preserve">
-    <value>חומר לימודי לקורס - {0}</value>
+  <data name="dialog_bottom_text2" xml:space="preserve">
+    <value> </value>
   </data>
-  <data name="share_item_twitter" xml:space="preserve">
-    <value>מצאתי חומר לימודי טוב  לקורס -  {0} ב {1}</value>
+  <data name="dialog_friends_joined" xml:space="preserve">
+    <value> invited friends have joined</value>
   </data>
-  <data name="share_item_whatsapp" xml:space="preserve">
-    <value>מצאתי חומר לימודי טוב  לקורס -  {0} ב {1}</value>
+  <data name="dialog_subtitle" xml:space="preserve">
+    <value>Earn $10 for every teacher
+ and 10% commission for a year</value>
   </data>
-  <data name="share_profile_email_body" xml:space="preserve">
-    <value>הי,
-משתף איתך מורה פרטי. תסתכל על האתר שלו
-{1}</value>
+  <data name="dialog_title_invite" xml:space="preserve">
+    <value>Spread the word at </value>
   </data>
-  <data name="share_profile_email_subject" xml:space="preserve">
-    <value>המורה הפרטי {0} - מומלץ</value>
+  <data name="get_document_text" xml:space="preserve">
+    <value>Click this link to have a look, I am certain it will worth your while and help you in your studying!</value>
   </data>
-  <data name="share_profile_twitter" xml:space="preserve">
-    <value>מצאתי מורה מצויין {0} ב {1}</value>
+  <data name="get_your_homework" xml:space="preserve">
+    <value>Get your homework questions answered in minutes, and make money answering other students questions. Sign up using this link and start learning and earning today:</value>
   </data>
-  <data name="share_profile_whatsapp" xml:space="preserve">
-    <value>מצאתי מורה מצויין {0} ב {1}</value>
+  <data name="get_your_homework_twitter" xml:space="preserve">
+    <value>Get your homework questions answered in minutes, and make money answering other students questions. Sign up using this link and start learning and earning today:</value>
   </data>
-  <data name="title" xml:space="preserve">
-    <value>שיתוף</value>
+  <data name="join_me" xml:space="preserve">
+    <value>Join me on Spitball</value>
+  </data>
+  <data name="ref_placeholder" xml:space="preserve">
+    <value>Select Document to Share</value>
+  </data>
+  <data name="share_facebook" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="share_google" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="share_tweeter" xml:space="preserve">
+    <value>Tweet</value>
+  </data>
+  <data name="share_whatsup" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="spread" xml:space="preserve">
+    <value>Spread the Word</value>
+  </data>
+  <data name="terms_link" xml:space="preserve">
+    <value> https://help.spitball.co/en/article/teacher-referral-program-for-the-us   </value>
+  </data>
+  <data name="terms_link_text" xml:space="preserve">
+    <value>Referral program terms</value>
+  </data>
+  <data name="title_document" xml:space="preserve">
+    <value>I just uploaded some of my academic notes to Spitball.</value>
   </data>
 </root>

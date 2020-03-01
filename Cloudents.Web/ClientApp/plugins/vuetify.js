@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Vuetify, { VBtn, VImg, VAvatar, VDialog, VLayout,VFlex, VIcon } from 'vuetify/lib';
+import Vuetify, { VBtn, VImg, VAvatar,VContainer, VDialog, VLayout, VFlex, VIcon, VRow, VCol } from 'vuetify/lib';
 import { Touch } from 'vuetify/lib/directives'
 
 
@@ -7,7 +7,7 @@ Vue.use(Vuetify, {
   directives: {
     Touch
   },
-  components: { VBtn, VImg, VAvatar, VDialog, VLayout, VIcon,VFlex }
+  components: { VBtn, VImg, VAvatar, VDialog, VLayout, VIcon,VFlex,VRow,VCol,VContainer }
 });
 
 import he from '../../node_modules/vuetify/src/locale/he.ts';

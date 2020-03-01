@@ -153,21 +153,16 @@ namespace ConsoleApp
 
         private static async Task RamMethod()
         {
-           
 
-           // var sr = new MemoryStream();
+
+            // var sr = new MemoryStream();
             //myBitmap.Save(sr,ImageFormat.Jpeg);
             //File.WriteAllBytes(@"C:\Users\Ram\Download\blank.bmp",sr.ToArray());
 
             //myBitmap.S
-           
+
             // await Convert();
-            var queryBus = _container.Resolve<IQueryBus>();
-            var query = new UserProfileQuery(638,638);
-            for (int i = 0; i < 50; i++)
-            {
-                var user = await queryBus.QueryAsync(query, default);
-            }
+            await ReduPreviewProcessingAsync();
             //var user = await queryBus.QueryAsync(query, default);
             // user = await queryBus.QueryAsync(query, default);
             // user = await queryBus.QueryAsync(query, default);
@@ -390,6 +385,17 @@ Select id from sb.tutor t where t.State = 'Ok'").ListAsync();
 
                     var fileItem = (CloudBlockBlob)blobs.First(a => a.Uri.AbsoluteUri.Contains("file-"));
                     var extension = Path.GetExtension(fileItem.Name);
+
+                    var blurFiles = blobs.Where(a => a.Uri.AbsoluteUri.Contains("blur-")).ToList();
+
+                    if (blurFiles.Count > 0)
+                    {
+                        foreach (var listBlobItem in blurFiles)
+                        {
+                            var blobToDelete = (CloudBlockBlob)listBlobItem;
+                            await blobToDelete.DeleteAsync();
+                        }
+                    }
 
                     if (!FileTypesExtension.PowerPoint.Extensions.Contains(extension, StringComparer.OrdinalIgnoreCase))
                     {

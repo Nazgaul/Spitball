@@ -195,6 +195,9 @@ namespace Cloudents.FunctionsV2
                     }
 
                 }
+
+                originalBlob.Metadata["ErrorProcessCloudmersive"] = ex.Message;
+                await originalBlob.SetMetadataAsync();
             }
             catch (Exception ex)
             {

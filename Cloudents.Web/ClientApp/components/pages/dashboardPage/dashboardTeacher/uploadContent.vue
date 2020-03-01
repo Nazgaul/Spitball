@@ -1,5 +1,5 @@
 <template>
-    <v-row class="uploadContent mb-2 mb-sm-4" dense>
+    <v-row class="uploadContent mb-2 mb-sm-4">
         <v-col class="text-center uploadCol pa-0">
             <img src="./images/upload.png" class="mb-3 uploadIcon" alt="">
             <div class="text1">{{$t('dashboardTeacher_upload_content')}}</div>
