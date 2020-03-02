@@ -427,18 +427,30 @@ watch: {
   isNeedPayment:{
     immediate:true,
     handler(newVal){
-      if(!newVal){
-        if(!!this.id){
-          this.$closeDialog()
-            this.setRoomId(this.id);
+      if(this.id && newVal !== null){     
+        if(this.getStudyRoomData.isTutor){
+          this.setStudyRoom(this.id);
+        }else{
+          if(!this.getStudyRoomData.needPayment){
+            if(this.$route.query.dialog){
+              this.$closeDialog()
+            }
             this.setStudyRoom(this.id);
+          }else{
+            this.$openDialog('payment')
           }
+        }
       }
     }
   },
   getStudyRoomData(val){
     if(!!val){
-      this.initStartSession();
+      if(!val.isTutor && !val.needPayment){
+        this.initStartSession();
+      }
+      if(val.isTutor){
+        this.initStartSession();
+      }
     }
   }
 },
@@ -547,31 +559,48 @@ watch: {
         video.msRequestFullscreen();
       }
     },
-    async setStudyRoom(id) {
+    setStudyRoom(id) {
+      this.setRoomId(id);
+      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_RoomProps', this.getStudyRoomData, null)
+      initSignalRService(`studyRoomHub?studyRoomId=${id}`);
+      setTimeout(()=>{this.initStartSession();})
+      
       let self = this;
-      let _roomProps = this.getStudyRoomData;
-      if(_roomProps){
-        initSignalRService(`studyRoomHub?studyRoomId=${id}`);
-        setTimeout(()=>{
-          this.initStartSession();
-        })
-        
-      }else{
-        await tutorService.getRoomInformation(id).then((RoomProps) => {
-          _roomProps = RoomProps;
-          insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_RoomProps', _roomProps, null)
-          initSignalRService(`studyRoomHub?studyRoomId=${id}`);
-          this.updateStudyRoomProps(_roomProps);
-        }, err => {
-          insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
-        });
-      }
-      self.getChatById(_roomProps.conversationId).then(({ data }) => {
+      this.getChatById(this.getStudyRoomData.conversationId).then(({ data }) => {
         insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
         let currentConversationObj = chatService.createActiveConversationObj(data);
         self.setActiveConversationObj(currentConversationObj);
         self.lockChat();
       });
+
+
+
+
+
+      // let self = this;
+      // let _roomProps = this.getStudyRoomData;
+      // if(_roomProps){
+      //   initSignalRService(`studyRoomHub?studyRoomId=${id}`);
+      //   setTimeout(()=>{
+      //     this.initStartSession();
+      //   })
+        
+      // }else{
+      //   await tutorService.getRoomInformation(id).then((RoomProps) => {
+      //     _roomProps = RoomProps;
+      //     insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_RoomProps', _roomProps, null)
+      //     initSignalRService(`studyRoomHub?studyRoomId=${id}`);
+      //     this.updateStudyRoomProps(_roomProps);
+      //   }, err => {
+      //     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
+      //   });
+      // }
+      // self.getChatById(_roomProps.conversationId).then(({ data }) => {
+      //   insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
+      //   let currentConversationObj = chatService.createActiveConversationObj(data);
+      //   self.setActiveConversationObj(currentConversationObj);
+      //   self.lockChat();
+      // });
     },
     closeBrowserSupportDialog(){ 
       this.setBrowserSupportDialog(false);
@@ -630,7 +659,18 @@ watch: {
     storeService.registerModule(this.$store,'tutoringCanvas',tutoringCanvas);
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
-  async created() {    
+  async created() {
+    this.userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
+    if(this.id){
+      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null)
+      
+      this.$store.dispatch('maor_updateStudyRoomInformation',this.id).catch((err)=>{
+          if(err?.response){
+            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
+            this.$router.push('/')
+          }
+        })
+    }
     if (!studyroomSettingsUtils.isBrowserSupport()) {
       this.$nextTick(()=>{
         this.setBrowserSupportDialog(true)
@@ -651,12 +691,6 @@ watch: {
     //this line will init the tracks to show local medias
     studyroomSettingsUtils.validateMedia();
 
-
-
-    this.userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
-    if(!!this.id){
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null)
-    }
     this.$loadScript(
       "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG"
     ).then(() => {

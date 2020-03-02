@@ -6,7 +6,9 @@ const studyRoomInstance = axios.create({
 
 export default {
    async getRoomInformation(roomId){ 
-      let {data} = await studyRoomInstance.get(`${roomId}`)
+      let {data} = await studyRoomInstance.get(`${roomId}`).catch((err)=>{
+         return Promise.reject(err)
+      })
       data.roomId = roomId;
       return new StudyRoom.RoomProps(data)
    },
