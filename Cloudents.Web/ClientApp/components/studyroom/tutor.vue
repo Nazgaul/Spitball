@@ -262,7 +262,6 @@ import noSupportTop from "./images/not_supported_top.svg";
 import noSupportBottom from "./images/not_supported_bottom.svg";
 import tutorService from "./tutorService";
 import chatService from "../../services/chatService";
-import { LanguageService } from "../../services/language/languageService";
 import sbDialog from "../wrappers/sb-dialog/sb-dialog.vue";
 import leaveReview from "./tutorHelpers/leaveReview/leaveReview.vue";
 import startSessionTutor from "./tutorHelpers/startSession-popUp-tutor/startSession-popUp-Tutor.vue";
@@ -330,17 +329,17 @@ export default {
       activeNavItem: "white-board",
       navs: [
         {
-          name: LanguageService.getValueByKey("tutor_nav_canvas"),
+          name: this.$t("tutor_nav_canvas"),
           value: "white-board",
           icon: "sbf-canvas"
         },
         {
-          name: LanguageService.getValueByKey("tutor_nav_code"),
+          name: this.$t("tutor_nav_code"),
           value: "code-editor",
           icon: "sbf-code-editor"
         },
         {
-          name: LanguageService.getValueByKey("tutor_nav_text"),
+          name: this.$t("tutor_nav_text"),
           value: "shared-document",
           icon: "sbf-text-icon"
         }
@@ -610,7 +609,7 @@ watch: {
       this.setBrowserSupportDialog(false);
     },
     resetItems(){
-      let isExit = confirm(LanguageService.getValueByKey("login_are_you_sure_you_want_to_exit"),)
+      let isExit = confirm(this.$t("login_are_you_sure_you_want_to_exit"),)
       if(isExit){
         this.$router.push('/');
       }
@@ -664,8 +663,7 @@ watch: {
     storeService.registerModule(this.$store,'codeEditor_store',codeEditor_store);
   },
   async created() {
-    this.userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
-
+    this.userId = this.accountUser?.id || 'GUEST';
     if (!studyroomSettingsUtils.isBrowserSupport()) {
       this.$nextTick(()=>{
         this.setBrowserSupportDialog(true)
@@ -699,7 +697,6 @@ watch: {
     //this line will init the tracks to show local medias
     studyroomSettingsUtils.validateMedia();
 
-    console.log("ID Tutor!!", this.id);
     global.onbeforeunload = function() {     
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_beforeUnloadTriggered', {'roomId': this.id, 'userId': this.userId}, null)
       return "Are you sure you want to close the window?";

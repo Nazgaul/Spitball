@@ -1,7 +1,6 @@
 
 import Twilio, { LocalDataTrack } from 'twilio-video';
 import { connectivityModule } from '../../services/connectivity.module';
-import { LanguageService } from '../../services/language/languageService';
 import store from '../../store/index.js';
 import whiteBoardService from "./whiteboard/whiteBoardService";
 import insightService from '../../services/insightService';
