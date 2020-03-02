@@ -293,6 +293,7 @@ import roomRecording_store from '../../store/studyRoomStore/roomRecording_store.
 import studyroomSettings_store from '../../store/studyRoomStore/studyroomSettings_store';
 
 import studyroomSettingsUtils from '../studyroomSettings/studyroomSettingsUtils';
+import * as dialogNames from '../pages/global/dialogInjection/dialogNames.js';
 
 export default {
   components: {
@@ -427,19 +428,8 @@ watch: {
   isNeedPayment:{
     immediate:true,
     handler(newVal){
-      if(this.id && newVal !== null){     
-        if(this.getStudyRoomData.isTutor){
-          this.setStudyRoom(this.id);
-        }else{
-          if(!this.getStudyRoomData.needPayment){
-            if(this.$route.query.dialog){
-              this.$closeDialog()
-            }
-            this.setStudyRoom(this.id);
-          }else{
-            this.$openDialog('payment')
-          }
-        }
+      if(this.id && newVal !== null){
+        this.handleNeedPayment(newVal)
       }
     }
   },
@@ -476,6 +466,48 @@ watch: {
       "setSnapshotDialog",
       "stopTracks"
     ]),
+    handleNeedPayment(newVal){
+      if(this.getStudyRoomData.isTutor){
+        this.setStudyRoom(this.id);
+      }else{
+        if(newVal){
+          this.$openDialog(dialogNames.Payment)
+        }else{
+          if(this.$route.query.dialog === dialogNames.Payment){
+            this.$closeDialog()
+          }
+          this.setStudyRoom(this.id);
+        }
+      }
+    },
+    initMathjax(){
+      this.$loadScript("https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG")
+        .then(() => {
+          MathJax.Hub.Config({
+            showMathMenu: false,
+            SVG: {
+              useGlobalCache: false,
+              useFontCache: false
+            }
+          });
+          MathJax.AuthorInit = function(texstring, callback) {
+            var input = texstring;
+            var wrapper = document.createElement("div");
+            wrapper.innerHTML = input;
+            var output = { svg: "" };
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, wrapper]);
+            MathJax.Hub.Queue(function() {
+              var mjOut = wrapper.getElementsByTagName("svg")[0];
+              if (!mjOut) {
+                return null;
+              }
+              mjOut.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+              output.svg = mjOut.outerHTML;
+              callback(output);
+            });
+          };
+        });
+    },
     initStartSession(){
         console.warn('DEBUG: 29 store: initStartSession')
 
@@ -564,6 +596,7 @@ watch: {
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_RoomProps', this.getStudyRoomData, null)
       initSignalRService(`studyRoomHub?studyRoomId=${id}`);
       setTimeout(()=>{this.initStartSession();})
+      this.initMathjax()
       
       let self = this;
       this.getChatById(this.getStudyRoomData.conversationId).then(({ data }) => {
@@ -572,35 +605,6 @@ watch: {
         self.setActiveConversationObj(currentConversationObj);
         self.lockChat();
       });
-
-
-
-
-
-      // let self = this;
-      // let _roomProps = this.getStudyRoomData;
-      // if(_roomProps){
-      //   initSignalRService(`studyRoomHub?studyRoomId=${id}`);
-      //   setTimeout(()=>{
-      //     this.initStartSession();
-      //   })
-        
-      // }else{
-      //   await tutorService.getRoomInformation(id).then((RoomProps) => {
-      //     _roomProps = RoomProps;
-      //     insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_RoomProps', _roomProps, null)
-      //     initSignalRService(`studyRoomHub?studyRoomId=${id}`);
-      //     this.updateStudyRoomProps(_roomProps);
-      //   }, err => {
-      //     insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
-      //   });
-      // }
-      // self.getChatById(_roomProps.conversationId).then(({ data }) => {
-      //   insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_ChatById', data, null)
-      //   let currentConversationObj = chatService.createActiveConversationObj(data);
-      //   self.setActiveConversationObj(currentConversationObj);
-      //   self.lockChat();
-      // });
     },
     closeBrowserSupportDialog(){ 
       this.setBrowserSupportDialog(false);
@@ -661,16 +665,7 @@ watch: {
   },
   async created() {
     this.userId = !!this.accountUser ? this.accountUser.id : 'GUEST';
-    if(this.id){
-      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null)
-      
-      this.$store.dispatch('maor_updateStudyRoomInformation',this.id).catch((err)=>{
-          if(err?.response){
-            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
-            this.$router.push('/')
-          }
-        })
-    }
+
     if (!studyroomSettingsUtils.isBrowserSupport()) {
       this.$nextTick(()=>{
         this.setBrowserSupportDialog(true)
@@ -679,6 +674,19 @@ watch: {
       })
       return;
     }
+
+    if(this.id){
+      insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_Enter', {'roomId': this.id, 'userId': this.userId}, null) 
+      this.$store.dispatch('maor_updateStudyRoomInformation',this.id).catch((err)=>{
+          if(err?.response){
+            insightService.track.event(insightService.EVENT_TYPES.ERROR, 'StudyRoom_main_RoomProps', err, null)
+            this.$router.push('/')
+          }
+        })
+    }else{
+      this.initMathjax()
+    }
+
     
     // in case refresh was made in studyRoom page, make sure to init local media tracks. (to be able to share video/audio)
 
@@ -691,33 +699,6 @@ watch: {
     //this line will init the tracks to show local medias
     studyroomSettingsUtils.validateMedia();
 
-    this.$loadScript(
-      "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG"
-    ).then(() => {
-      MathJax.Hub.Config({
-        showMathMenu: false,
-        SVG: {
-          useGlobalCache: false,
-          useFontCache: false
-        }
-      });
-      MathJax.AuthorInit = function(texstring, callback) {
-        var input = texstring;
-        var wrapper = document.createElement("div");
-        wrapper.innerHTML = input;
-        var output = { svg: "" };
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub, wrapper]);
-        MathJax.Hub.Queue(function() {
-          var mjOut = wrapper.getElementsByTagName("svg")[0];
-          if (!mjOut) {
-            return null;
-          }
-          mjOut.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-          output.svg = mjOut.outerHTML;
-          callback(output);
-        });
-      };
-    });
     console.log("ID Tutor!!", this.id);
     global.onbeforeunload = function() {     
       insightService.track.event(insightService.EVENT_TYPES.LOG, 'StudyRoom_main_beforeUnloadTriggered', {'roomId': this.id, 'userId': this.userId}, null)
