@@ -28,7 +28,6 @@
 <script>
     import {mapGetters, mapActions} from 'vuex';
     import stopIcon from '../../images/stop-icon.svg';
-    import tutorService from "../../tutorService";
     export default {
         name: "endSessionConfirm",
         components: {stopIcon},
@@ -56,18 +55,18 @@
             }
         },
         methods: {
-            ...mapActions(['updateStudentStartDialog', 'updateEndDialog']),
+            ...mapActions(['updateEndDialog']),
             closeDialog() {
                 this.updateEndDialog(false)
             },
             endSession(){
                 let self = this;
-                tutorService.endTutoringSession(self.getRoomId)
-                            .then(() => {
-                                self.closeDialog();
-                            }, (error) => {
-                                console.log('error', error);
-                            });
+                this.$store.dispatch('maor_endTutoringSession',this.getRoomId)
+                    .then(() => {
+                        self.closeDialog();
+                    }, (error) => {
+                        console.log('error', error);
+                    });
             }
         },
     };

@@ -53,6 +53,7 @@ import storeService from '../../services/store/storeService';
 import tutoringMain from '../../store/studyRoomStore/tutoringMain.js';
 import studyroomSettings_store from '../../store/studyRoomStore/studyroomSettings_store.js';
 import intercomSettings from '../../services/intercomService';
+import maor_studyRoomService from '../../services/maor_studyRoomService';
 
 
 export default {
@@ -135,7 +136,7 @@ export default {
       this.goStep(event.state)
     }; 
     if(!!this.id){
-      await tutorService.getRoomInformation(this.id).then((RoomProps) => {
+      await maor_studyRoomService.getRoomInformation(this.id).then((RoomProps) => {
         this.updateStudyRoomProps(RoomProps)
       })
     }

@@ -9,9 +9,6 @@ import analyticsService from '../../services/analytics.service';
 import studyRoomRecordingService from './studyRoomRecordingService';
 
 const dataTrack = new LocalDataTrack();
-const uploadCanvasImage = function (formData) {
-    return connectivityModule.http.post("StudyRoom/upload", formData);
-};
 // Attach the Tracks to the DOM.
 const attachTracks = function (tracks, container) {
     tracks.forEach((track) => {
@@ -281,13 +278,7 @@ const connectToRoom = function (token, options) {
 
             });
 };
-
-const getRoomInformation = function (roomId) {
-    return connectivityModule.http.get(`StudyRoom/${roomId}`).then(({data})=>{
-        data.roomId = roomId;
-        return new RoomProps(data);
-    });
-};
+// TODO: move to maor_studyroom service
 
 const enterRoom = function (roomId) {
     
@@ -298,30 +289,6 @@ const enterRoom = function (roomId) {
             return true;
         });
 };
-const endTutoringSession = function (roomId) {
-    return connectivityModule.http.post(`StudyRoom/${roomId}/end`)
-        .then(() => {
-            console.warn('DEBUG: 29 tutorService: endTutoringSession')
-
-            return true;
-        });
-};
-
-function RoomProps(objInit) {
-    this.allowReview = true;
-    this.conversationId = objInit.conversationId || '';
-    this.needPayment = objInit.needPayment;
-    this.onlineDocument = objInit.onlineDocument || '';
-    this.studentId = objInit.studentId || null;
-    this.studentImage = objInit.studentImage || null;
-    this.studentName = objInit.studentName || null;
-    this.tutorId = objInit.tutorId || null;
-    this.tutorImage = objInit.tutorImage || null;
-    this.tutorName = objInit.tutorName || null;
-    this.isTutor = store.getters['accountUser'].id == objInit.tutorId;
-    this.roomId = objInit.roomId || '';
-}
-
 
 function DevicesObject(){
     this.hasAudio= false,
@@ -371,14 +338,12 @@ function isRecordingSupported(){
 }
 
 export default {
+    attachTracks, // remove from here cuz no one using outside this service.
+
     dataTrack,
-    attachTracks,
     detachTracks,
-    uploadCanvasImage,
     connectToRoom,
-    getRoomInformation,
     enterRoom,
-    endTutoringSession,
     validateUserMedia,
     createDevicesObj,
     isRecordingSupported

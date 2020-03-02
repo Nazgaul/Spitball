@@ -100,7 +100,7 @@
             }
         },
         methods: {
-            ...mapActions(['updateStudentStartDialog', 'setSesionClickedOnce']),
+            ...mapActions(['setSesionClickedOnce']),
             joinSession() {
                 videoStreamService.enterRoom();
             },

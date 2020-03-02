@@ -102,7 +102,7 @@
             }
         },
         methods: {
-            ...mapActions(['updateTutorStartDialog', 'setSesionClickedOnce']),
+            ...mapActions(['setSesionClickedOnce']),
             startSession(){
                 videoStreamService.enterRoom();
             },

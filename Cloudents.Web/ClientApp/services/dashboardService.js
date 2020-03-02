@@ -147,6 +147,7 @@ function getContentItems(){
 function getPurchasesItems(){
    return connectivityModule.http.get('/Account/purchases').then(createPurchasesItems).catch(ex => ex);
 }
+// TODO: move to maor_studyroom service
 function getStudyRoomItems(){
    return connectivityModule.http.get('StudyRoom').then(createStudyRoomItems).catch(ex => ex);
 }

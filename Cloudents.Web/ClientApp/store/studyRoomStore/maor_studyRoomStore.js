@@ -29,6 +29,9 @@ const actions = {
    },
    maor_studyRoomMiddleWare(context){
       return _checkPayment(context) || Promise.resolve();
+   },
+   maor_endTutoringSession(context,roomId){
+      return maor_studyRoomService.endTutoringSession(roomId);
    }
 }
 export default {

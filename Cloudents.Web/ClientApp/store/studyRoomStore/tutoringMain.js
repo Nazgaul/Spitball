@@ -281,7 +281,6 @@ const actions = {
             setTimeout(()=>{
                 dispatch("updateCurrentRoomState", state.roomStateEnum.ready);
                 dispatch("setStudentDialogState", state.startSessionDialogStateEnum.start);
-                // dispatch("updateStudentStartDialog", true);
                 dispatch('hideRoomToasterMessage');
             }, 3000);
         }else{

@@ -409,9 +409,6 @@ export default {
     isMobile() {
       return this.$vuetify.breakpoint.xsOnly;
     },
-    browserSupportDialog(){
-      return this.getBrowserSupportDialog;
-    },
     isTutor() {
         return this.getStudyRoomData ? this.getStudyRoomData.isTutor : false;
     },
@@ -449,7 +446,6 @@ watch: {
       "setActiveConversationObj",
       "getChatById",
       "lockChat",
-      "updateStudyRoomProps",
       "updateReviewDialog",
       "updateReview",
       "updateTutorStartDialog",

@@ -12,10 +12,10 @@ export default {
       data.roomId = roomId;
       return new StudyRoom.RoomProps(data)
    },
-   async createStudyRoom(userId){ 
-      let params = {userId};
-
-      return await studyRoomInstance.post('',params)
+   async endTutoringSession(roomId){ 
+      return await studyRoomInstance.post(`${roomId}/end`)
    },
-// TODO: change in chat store
+   async uploadCanvasImage(formData){ 
+      return await studyRoomInstance.post("upload",formData)
+   },
 }

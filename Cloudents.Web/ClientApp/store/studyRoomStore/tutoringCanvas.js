@@ -1,4 +1,4 @@
-import tutorService from '../../components/studyroom/tutorService'
+import maor_studyRoomService from '../../services/maor_studyRoomService.js'
 import {LanguageService} from '../../services/language/languageService'
 import whiteBoardService from '../../components/studyroom/whiteboard/whiteBoardService'
 
@@ -202,7 +202,7 @@ const actions = {
     },
 
     uploadImage(context, data){
-        return tutorService.uploadCanvasImage(data).then((response)=>{
+        return maor_studyRoomService.uploadCanvasImage(data).then((response)=>{
             return response.data.link;
         });
     },
