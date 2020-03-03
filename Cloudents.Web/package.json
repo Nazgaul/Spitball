@@ -77,7 +77,7 @@
     "vue-upload-component": "2.8.20",
     "vuetify": "^2.2.15",
     "vuetify-loader": "^1.4.3",
-    "vuex": "^3.0.1",
+    "vuex": "^3.1.2",
     "webfonts-loader": "5.0.0",
     "webpack": "4.39.1",
     "webpack-bundle-analyzer": "^3.5.1",
