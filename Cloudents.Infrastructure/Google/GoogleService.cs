@@ -25,6 +25,7 @@ using GoogleMeasurementProtocol;
 using GoogleMeasurementProtocol.Parameters.User;
 using Document = Google.Apis.Docs.v1.Data.Document;
 using User = Cloudents.Core.Entities.User;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Cloudents.Infrastructure.Google
 {
@@ -38,12 +39,13 @@ namespace Cloudents.Infrastructure.Google
         private const string PrimaryGoogleCalendarId = "primary";
         private readonly ILifetimeScope _container;
         private GoogleAnalyticsRequestFactory _factory;
-
+        private readonly JwtSecurityTokenHandler _tokenHandler;
 
         public GoogleService(ILifetimeScope container)
         {
             _container = container;
             _factory = new GoogleAnalyticsRequestFactory("UA-100723645-2");
+            _tokenHandler = new JwtSecurityTokenHandler();
         }
 
 
@@ -279,7 +281,7 @@ namespace Cloudents.Infrastructure.Google
         }
 
 
-        public async Task BookCalendarEventAsync(User tutor, User student,
+        public async Task BookCalendarEventAsync(User tutor, User student, string tutorToken,
              DateTime from, DateTime to,
             CancellationToken cancellationToken)
         {
@@ -292,13 +294,19 @@ namespace Cloudents.Infrastructure.Google
                 HttpClientInitializer = cred
             }))
             {
-                var attendees = new[] { tutor, student }.Select(s => new EventAttendee()
+               var t = _tokenHandler.ReadJwtToken(tutorToken).Payload.Where(w => w.Key == "email").SingleOrDefault();
+
+                var attendees = new List<EventAttendee>()
                 {
-                    Email = s.Email
-
-                }).ToList();
-
-
+                    new EventAttendee()
+                    {
+                        Email = t.Value.ToString()
+                    },
+                    new EventAttendee()
+                    {
+                        Email = student.Email
+                    }
+                };
                 var event2 = service.Events.Insert(new Event()
                 {
                     Attendees = attendees,
