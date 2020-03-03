@@ -1,13 +1,11 @@
 ﻿using Cloudents.Core.Interfaces;
 using Cloudents.Search.Document;
-using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using System.Collections.Generic;
 
 namespace Cloudents.Search.University
 {
-    [UsedImplicitly]
     public class UniversitySearchWrite : SearchServiceWrite<Entities.University>
     {
         public const string IndexName = "universities5";

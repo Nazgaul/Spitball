@@ -1,6 +1,5 @@
 ﻿using Cloudents.Core.DTOs;
 using Cloudents.Core.Interfaces;
-using JetBrains.Annotations;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using System;
@@ -11,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace Cloudents.Search.University
 {
-    [UsedImplicitly]
     public class UniversitySearch : IUniversitySearch
     {
         private readonly ISearchIndexClient _client;
@@ -31,7 +29,7 @@ namespace Cloudents.Search.University
             _client = client.GetClient(UniversitySearchWrite.IndexName);
         }
 
-        public async Task<UniversitySearchDto> SearchAsync(string term, int page, [CanBeNull] string country,
+        public async Task<UniversitySearchDto> SearchAsync(string term, int page,  string? country,
             CancellationToken token)
         {
             string CountryFilter(string country1)
