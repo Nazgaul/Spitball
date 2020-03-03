@@ -93,7 +93,7 @@
     "@microsoft/signalr": "^3.1.2",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "cssnano": "^4.1.10",
-    "fingerprintjs2": "^2.0.6",
+    "fingerprintjs2": "^2.1.0",
     "intersection-observer": "^0.7.0",
     "myscript": "^4.3.0",
     "timeago.js": "^4.0.0-beta.1",
